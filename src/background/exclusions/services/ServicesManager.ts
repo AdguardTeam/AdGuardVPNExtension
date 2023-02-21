@@ -14,7 +14,7 @@ export interface IndexedServicesInterface {
 
 interface ServiceManagerInterface {
     init: () => Promise<void>;
-    getServices: () => ServicesInterface;
+    getServices: () => Promise<ServicesInterface>;
 }
 
 export class ServicesManager implements ServiceManagerInterface {
@@ -46,8 +46,8 @@ export class ServicesManager implements ServiceManagerInterface {
     /**
      * Returns services data
      */
-    getServices() {
-        this.updateServices();
+    async getServices() {
+        await this.updateServices();
         return this.services ?? {};
     }
 
@@ -81,7 +81,7 @@ export class ServicesManager implements ServiceManagerInterface {
      */
     public static getServicesIndex(services: ServicesInterface): IndexedServicesInterface {
         return Object.values(services).reduce((acc: IndexedServicesInterface, service) => {
-            service.domains.forEach((domain) => {
+            service.domains?.forEach((domain) => {
                 acc[domain] = service.serviceId;
             });
 

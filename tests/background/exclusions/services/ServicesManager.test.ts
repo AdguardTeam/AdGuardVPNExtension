@@ -19,7 +19,7 @@ jest.mock('../../../../src/background/browserApi', () => {
 });
 
 const nanoidMock = nanoid as jest.MockedFunction<() => string>;
-nanoidMock.mockImplementation(() => 'zzzzzzzzz');
+nanoidMock.mockImplementation(() => 'random_id');
 
 const SERVICES_DATA = {
     aliexpress: {
