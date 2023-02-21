@@ -22,6 +22,7 @@ export const ExtraOptions = observer(() => {
     const {
         isRateVisible,
         isCurrentTabExcluded,
+        canBeExcluded,
     } = settingsStore;
 
     const openSettings = async (): Promise<void> => {
@@ -58,6 +59,15 @@ export const ExtraOptions = observer(() => {
         popupActions.openTab(COMPARE_PAGE);
     };
 
+    const renderOption = (key: string, handler: () => void) => {
+        return (
+            <Option
+                text={reactTranslator.getMessage(key)}
+                handler={handler}
+            />
+        );
+    };
+
     return (
         <Modal
             isOpen={uiStore.isOpenOptionsModal}
@@ -66,43 +76,23 @@ export const ExtraOptions = observer(() => {
             className="extra-options"
             overlayClassName="modal__overlay extra-options__overlay"
         >
-            {!isCurrentTabExcluded
-                ? (
-                    <Option
-                        handler={addToExclusions}
-                        text={reactTranslator.getMessage('popup_settings_disable_vpn')}
-                    />
-                )
-                : (
-                    <Option
-                        handler={removeFromExclusions}
-                        text={reactTranslator.getMessage('popup_settings_enable_vpn')}
-                    />
-                )}
-            <Option
-                handler={handleOtherProductsClick}
-                text={reactTranslator.getMessage('popup_settings_other_products')}
-            />
-            <Option
-                handler={openSettings}
-                text={reactTranslator.getMessage('popup_settings_open_settings')}
-            />
-            <Option
-                handler={openComparePage}
-                text={reactTranslator.getMessage('popup_compare_button')}
-            />
+            {canBeExcluded && !isCurrentTabExcluded
+                && renderOption('popup_settings_disable_vpn', addToExclusions)}
+
+            {canBeExcluded && isCurrentTabExcluded
+                && renderOption('popup_settings_enable_vpn', removeFromExclusions)}
+
+            {renderOption('popup_settings_other_products', handleOtherProductsClick)}
+
+            {renderOption('popup_settings_open_settings', openSettings)}
+
+            {renderOption('popup_compare_button', openComparePage)}
+
             {isRateVisible
                 ? <RatePopup />
-                : (
-                    <Option
-                        handler={handleFeedback}
-                        text={reactTranslator.getMessage('popup_settings_feedback')}
-                    />
-                )}
-            <Option
-                handler={signOut}
-                text={reactTranslator.getMessage('popup_settings_sign_out')}
-            />
+                : renderOption('popup_settings_feedback', handleFeedback)}
+
+            {renderOption('popup_settings_sign_out', signOut)}
         </Modal>
     );
 });
