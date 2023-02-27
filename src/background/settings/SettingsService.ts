@@ -1,7 +1,7 @@
 import throttle from 'lodash/throttle';
 
 import { log } from '../../lib/logger';
-import { SETTINGS_IDS } from '../../lib/constants';
+import { AppearanceTheme, SETTINGS_IDS } from '../../lib/constants';
 import { browserApi } from '../browserApi';
 import { servicesManager } from '../exclusions/services/ServicesManager';
 import {
@@ -15,6 +15,9 @@ import { THEME_STORAGE_KEY } from '../../common/useAppearanceTheme';
 
 const SCHEME_VERSION = '12';
 const THROTTLE_TIMEOUT = 100;
+
+const OLD_DARK_THEME_NAME = 'DARK';
+const OLD_LIGHT_THEME_NAME = 'LIGHT';
 
 type Settings = {
     [key: string]: any;
@@ -222,11 +225,24 @@ export class SettingsService {
     };
 
     migrateFrom11to12 = async (oldSettings: Settings) => {
+        // update SETTINGS_IDS.APPEARANCE_THEME setting
+        // after converting APPEARANCE_THEMES object to enum
+        const currentThemeObject: { THEME_STORAGE_KEY: string } = await browserApi.storage.get(THEME_STORAGE_KEY);
+        let currentTheme = currentThemeObject?.THEME_STORAGE_KEY;
+
+        if (currentTheme === OLD_DARK_THEME_NAME) {
+            currentTheme = AppearanceTheme.Dark;
+        } else if (currentTheme === OLD_LIGHT_THEME_NAME) {
+            currentTheme = AppearanceTheme.Light;
+        } else {
+            currentTheme = AppearanceTheme.System;
+        }
+
         return {
             ...oldSettings,
             VERSION: '12',
             [SETTINGS_IDS.QUICK_CONNECT]: this.defaults[SETTINGS_IDS.QUICK_CONNECT],
-            [SETTINGS_IDS.APPEARANCE_THEME]: this.defaults[SETTINGS_IDS.APPEARANCE_THEME],
+            [SETTINGS_IDS.APPEARANCE_THEME]: currentTheme,
         };
     };
 
