@@ -225,10 +225,9 @@ export class SettingsService {
     };
 
     migrateFrom11to12 = async (oldSettings: Settings) => {
-        // update SETTINGS_IDS.APPEARANCE_THEME setting
+        // update SETTINGS_IDS.APPEARANCE_THEME setting value
         // after converting APPEARANCE_THEMES object to enum
-        const currentThemeObject: { THEME_STORAGE_KEY: string } = await browserApi.storage.get(THEME_STORAGE_KEY);
-        let currentTheme = currentThemeObject?.THEME_STORAGE_KEY;
+        let currentTheme = oldSettings[SETTINGS_IDS.APPEARANCE_THEME];
 
         if (currentTheme === OLD_DARK_THEME_NAME) {
             currentTheme = AppearanceTheme.Dark;
