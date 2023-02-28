@@ -314,7 +314,9 @@ export class FallbackApi {
     };
 
     getBkpAuthApiUrl = async (country: string) => {
-        const hostname = `${country.toLowerCase()}.${BKP_AUTH_HOSTNAME_PART}`;
+        const prefix = await this.getApiHostnamePrefix();
+        // we use prefix for auth api hostname to recognize free, premium and not authenticated users
+        const hostname = `${country.toLowerCase()}.${prefix}.${BKP_AUTH_HOSTNAME_PART}`;
 
         const bkpAuthUrl = await this.getBkpUrl(hostname);
         if (bkpAuthUrl === EMPTY_BKP_URL) {
