@@ -195,3 +195,5 @@ export const enum SubscriptionType {
 export const fetchConfig = {
     adapter: fetchAdapter,
 };
+
+export const VPN_TOKEN_KEY = 'credentials.token';

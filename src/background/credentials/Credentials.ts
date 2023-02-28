@@ -5,11 +5,11 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
-import { SubscriptionType } from '../../lib/constants';
-import { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
-import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
-import { StorageInterface } from '../browserApi/storage';
-import { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
+import { SubscriptionType, VPN_TOKEN_KEY } from '../../lib/constants';
+import type { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
+import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
+import type { StorageInterface } from '../browserApi/storage';
+import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
 
 export interface VpnTokenData {
     token: string;
@@ -72,8 +72,6 @@ export interface CredentialsInterface {
 }
 
 export class Credentials implements CredentialsInterface {
-    VPN_TOKEN_KEY = 'credentials.token';
-
     APP_ID_KEY = 'credentials.app.id';
 
     VPN_CREDENTIALS_KEY = 'credentials.vpn';
@@ -117,7 +115,7 @@ export class Credentials implements CredentialsInterface {
         if (this.vpnToken) {
             return this.vpnToken;
         }
-        this.vpnToken = await this.storage.get(this.VPN_TOKEN_KEY);
+        this.vpnToken = await this.storage.get(VPN_TOKEN_KEY);
         return this.vpnToken || null;
     }
 
@@ -127,7 +125,7 @@ export class Credentials implements CredentialsInterface {
      */
     async persistVpnToken(token: VpnTokenData | null): Promise<void> {
         this.vpnToken = token;
-        await this.storage.set(this.VPN_TOKEN_KEY, token);
+        await this.storage.set(VPN_TOKEN_KEY, token);
 
         // notify popup that premium token state could have been changed
         // this is necessary when we check permissions after limit exceeded error

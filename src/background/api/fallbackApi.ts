@@ -6,10 +6,13 @@ import {
     VPN_API_URL,
     STAGE_ENV,
     WHOAMI_URL,
+    AUTH_ACCESS_TOKEN_KEY,
 } from '../config';
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
-import { fetchConfig } from '../../lib/constants';
+import { fetchConfig, VPN_TOKEN_KEY } from '../../lib/constants';
+import type { AuthAccessToken } from './apiTypes';
+import type { VpnTokenData } from '../credentials/Credentials';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
@@ -34,6 +37,10 @@ const EMPTY_BKP_URL = 'none';
 const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
 
 const REQUEST_TIMEOUT_MS = 3 * 1000;
+
+const NOT_AUTHENTICATED_USER_PREFIX = 'anon';
+const FREE_USER_PREFIX = 'free';
+const PREMIUM_USER_PREFIX = 'pro';
 
 type CountryInfo = {
     country: string;
@@ -281,8 +288,24 @@ export class FallbackApi {
         return bkpUrl;
     };
 
+    getApiHostnamePrefix = async () => {
+        const accessTokenData: AuthAccessToken = await browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
+        if (!accessTokenData || !accessTokenData.accessToken) {
+            return NOT_AUTHENTICATED_USER_PREFIX;
+        }
+
+        const vpnToken: VpnTokenData = await browserApi.storage.get(VPN_TOKEN_KEY);
+        if (vpnToken?.licenseKey) {
+            return PREMIUM_USER_PREFIX;
+        }
+
+        return FREE_USER_PREFIX;
+    };
+
     getBkpVpnApiUrl = async (country: string) => {
-        const hostname = `${country.toLowerCase()}.${BKP_API_HOSTNAME_PART}`;
+        const prefix = await this.getApiHostnamePrefix();
+        // we use prefix for api hostname to recognize free, premium and not authenticated users
+        const hostname = `${country.toLowerCase()}.${prefix}.${BKP_API_HOSTNAME_PART}`;
         const bkpApiUrl = await this.getBkpUrl(hostname);
         if (bkpApiUrl === EMPTY_BKP_URL) {
             return this.defaultVpnApiUrl;
