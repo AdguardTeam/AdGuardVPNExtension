@@ -723,7 +723,7 @@
         "message": "Не удаётся подключиться к серверу"
     },
     "popup_server_error_popup_info": {
-        "message": "Мы уже работаем рад этим, но можете дать нам знать, что ждёте — на всякий случай."
+        "message": "Мы уже работаем над этим, но можете дать нам знать, что ждёте — на всякий случай."
     },
     "popup_server_error_popup_action": {
         "message": "Поторопить"
@@ -784,7 +784,7 @@
         "message": "Исключения сайтов и приложений"
     },
     "popup_onboarding_sites_apps_exclusions_info": {
-        "message": "С исключениями можно легко указать сайты или приложения, с которыми AdGuard VPN будет работать"
+        "message": "С Исключениями легко настроить, где AdGuard VPN будет работать, а где нет"
     },
     "popup_onboarding_no_logging_policy": {
         "message": "Не собираем данные"

@@ -644,6 +644,9 @@
     "endpoints_search": {
         "message": "Konum ara"
     },
+    "endpoints_not_found": {
+        "message": "Konum bulunamadı"
+    },
     "popup_traffic_limit_reached": {
         "message": "Aylık veri sınırına ulaşıldı"
     },
