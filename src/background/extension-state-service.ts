@@ -1,3 +1,7 @@
+/**
+ * This module is for storing the extension state in session storage
+ * in order to quickly restore the state after the service worker wakes up
+ */
 import { browserApi } from './browserApi';
 
 import type { FallbackInfo } from './api/fallbackApi';
@@ -5,7 +9,7 @@ import type { ProxyConfigInterface } from './proxy/proxy';
 import type { VpnTokenData } from './credentials/Credentials';
 import type { CredentialsDataInterface } from './providers/vpnProvider';
 
-const EXTENSION_STATE_KEY = 'extensionState';
+const EXTENSION_STATE_KEY = 'AdgVpnExtStateKey';
 
 export type CredentialsBackup = {
     vpnToken?: VpnTokenData,
@@ -14,17 +18,24 @@ export type CredentialsBackup = {
 };
 
 export type ExtensionState = {
-    fallbackInfo: FallbackInfo;
-    proxyConfig: ProxyConfigInterface;
-    credentialsBackup: CredentialsBackup;
+    fallbackInfo?: FallbackInfo;
+    proxyConfig?: ProxyConfigInterface;
+    credentialsBackup?: CredentialsBackup;
 };
 
 const getState = async (): Promise<ExtensionState> => {
-    return await browserApi.storage.get(EXTENSION_STATE_KEY) || {};
+    if (browserApi.runtime.isManifestVersion2()) {
+        return {};
+    }
+    const stateObject = await chrome.storage.session.get(EXTENSION_STATE_KEY);
+    return stateObject[EXTENSION_STATE_KEY] || {};
 };
 
-const setState = async (value: ExtensionState) => {
-    return browserApi.storage.set(EXTENSION_STATE_KEY, value);
+const setState = async (value: ExtensionState): Promise<void> => {
+    if (browserApi.runtime.isManifestVersion2()) {
+        return;
+    }
+    await chrome.storage.session.set({ [EXTENSION_STATE_KEY]: value });
 };
 
 const updateFallbackInfo = async (value: FallbackInfo) => {

@@ -70,8 +70,10 @@ if (!browserApi.runtime.isManifestVersion2()) {
 (async () => {
     log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
-        const extensionStateBackup = await extensionState.getState();
-        const { fallbackInfo, proxyConfig, credentialsBackup } = extensionStateBackup ?? {};
+        const currentState = await extensionState.getState();
+        console.log('%%%%%%%%%%% Extension state:');
+        console.log(currentState);
+        const { fallbackInfo, proxyConfig, credentialsBackup } = currentState;
 
         if (browserApi.runtime.isManifestVersion2()) {
             messaging.init(); // messaging is on the top, for popup be able to communicate with back
