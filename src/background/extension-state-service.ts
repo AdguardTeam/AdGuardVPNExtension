@@ -25,7 +25,8 @@ export type ExtensionState = {
 
 const getState = async (): Promise<ExtensionState> => {
     if (browserApi.runtime.isManifestVersion2()) {
-        return {};
+        const stateString = sessionStorage.getItem(EXTENSION_STATE_KEY) || '{}';
+        return JSON.parse(stateString);
     }
     const stateObject = await chrome.storage.session.get(EXTENSION_STATE_KEY);
     return stateObject[EXTENSION_STATE_KEY] || {};
@@ -33,9 +34,16 @@ const getState = async (): Promise<ExtensionState> => {
 
 const setState = async (value: ExtensionState): Promise<void> => {
     if (browserApi.runtime.isManifestVersion2()) {
+        const stateString = JSON.stringify(value);
+        sessionStorage.setItem(EXTENSION_STATE_KEY, stateString);
         return;
     }
     await chrome.storage.session.set({ [EXTENSION_STATE_KEY]: value });
+};
+
+const getFallbackInfo = async (): Promise<FallbackInfo | null> => {
+    const state = await getState();
+    return state.fallbackInfo || null;
 };
 
 const updateFallbackInfo = async (value: FallbackInfo) => {
@@ -88,6 +96,7 @@ const updateCurrentUsername = async (value: string) => {
 
 export const extensionState = {
     getState,
+    getFallbackInfo,
     updateFallbackInfo,
     updateProxyConfig,
     updateVpnToken,

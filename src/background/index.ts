@@ -71,8 +71,6 @@ if (!browserApi.runtime.isManifestVersion2()) {
     log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
         const currentState = await extensionState.getState();
-        console.log('%%%%%%%%%%% Extension state:');
-        console.log(currentState);
         const { fallbackInfo, proxyConfig, credentialsBackup } = currentState;
 
         if (browserApi.runtime.isManifestVersion2()) {

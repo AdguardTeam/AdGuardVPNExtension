@@ -50,29 +50,18 @@ export type FallbackInfo = {
 
 export class FallbackApi {
     /**
+     * Default fallback info, it may be used if doh returns none result
      * We keep all fallback info in one object, because it's easier to work with
      * Also, vpnApiUrl and authApiUrl always are updated in pairs
      */
-    fallbackInfo: FallbackInfo;
-
-    /**
-     * Here we save default apn api url, it may be used if doh returns none result
-     */
-    defaultVpnApiUrl: string;
-
-    /**
-     * Here we save default auth api url, it may be used if doh returns none result
-     */
-    defaultAuthApiUrl: string;
+    defaultFallbackInfo: FallbackInfo;
 
     /**
      * Default urls we set already expired,
      * so we need to check bkp url immediately when bkp url is required
      */
     constructor(vpnApiUrl: string, authApiUrl: string) {
-        this.defaultVpnApiUrl = vpnApiUrl;
-        this.defaultAuthApiUrl = authApiUrl;
-        this.fallbackInfo = {
+        this.defaultFallbackInfo = {
             vpnApiUrl,
             authApiUrl,
             countryInfo: DEFAULT_COUNTRY_INFO,
@@ -82,14 +71,14 @@ export class FallbackApi {
 
     public async init(fallbackInfo?: FallbackInfo): Promise<void> {
         if (fallbackInfo) {
-            this.fallbackInfo = fallbackInfo;
-        } else {
-            await this.updateFallbackInfo();
+            await this.setFallbackInfo(fallbackInfo);
+            return;
         }
+        await this.updateFallbackInfo();
     }
 
     private async setFallbackInfo(value: FallbackInfo): Promise<void> {
-        this.fallbackInfo = value;
+        // save fallback info to the extension state
         await extensionState.updateFallbackInfo(value);
     }
 
@@ -102,9 +91,10 @@ export class FallbackApi {
         const localStorageBkp = await this.getLocalStorageBkp();
 
         if (!countryInfo.bkp && !localStorageBkp) {
+            const fallbackInfo = await extensionState.getFallbackInfo() || this.defaultFallbackInfo;
             // if bkp is disabled, we use previous fallback info, only update expiration time
             await this.setFallbackInfo({
-                ...this.fallbackInfo,
+                ...fallbackInfo,
                 expiresInMs: Date.now() + DEFAULT_CACHE_EXPIRE_TIME_MS,
             });
             return;
@@ -126,11 +116,16 @@ export class FallbackApi {
     }
 
     private async getFallbackInfo(): Promise<FallbackInfo> {
-        if (FallbackApi.needsUpdate(this.fallbackInfo)) {
+        const fallbackInfo = await extensionState.getFallbackInfo();
+        if (fallbackInfo && FallbackApi.needsUpdate(fallbackInfo)) {
             await this.updateFallbackInfo();
+            const updatedFallbackInfo = await extensionState.getFallbackInfo();
+            if (updatedFallbackInfo) {
+                return updatedFallbackInfo;
+            }
         }
 
-        return this.fallbackInfo;
+        return fallbackInfo || this.defaultFallbackInfo;
     }
 
     public getVpnApiUrl = async (): Promise<string> => {
@@ -290,7 +285,7 @@ export class FallbackApi {
         const hostname = `${country.toLowerCase()}.${BKP_API_HOSTNAME_PART}`;
         const bkpApiUrl = await this.getBkpUrl(hostname);
         if (bkpApiUrl === EMPTY_BKP_URL) {
-            return this.defaultVpnApiUrl;
+            return this.defaultFallbackInfo.vpnApiUrl;
         }
         return bkpApiUrl;
     };
@@ -300,7 +295,7 @@ export class FallbackApi {
 
         const bkpAuthUrl = await this.getBkpUrl(hostname);
         if (bkpAuthUrl === EMPTY_BKP_URL) {
-            return this.defaultAuthApiUrl;
+            return this.defaultFallbackInfo.authApiUrl;
         }
 
         return bkpAuthUrl;
