@@ -5,11 +5,12 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
-import { SubscriptionType, VPN_TOKEN_KEY } from '../../lib/constants';
+import { SubscriptionType } from '../../lib/constants';
 import type { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
 import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
+import { credentialsService } from './credentialsService';
 
 export interface VpnTokenData {
     token: string;
@@ -115,7 +116,7 @@ export class Credentials implements CredentialsInterface {
         if (this.vpnToken) {
             return this.vpnToken;
         }
-        this.vpnToken = await this.storage.get(VPN_TOKEN_KEY);
+        this.vpnToken = await credentialsService.getVpnTokenFromStorage();
         return this.vpnToken || null;
     }
 
@@ -125,11 +126,11 @@ export class Credentials implements CredentialsInterface {
      */
     async persistVpnToken(token: VpnTokenData | null): Promise<void> {
         this.vpnToken = token;
-        await this.storage.set(VPN_TOKEN_KEY, token);
+        await credentialsService.setVpnTokenToStorage(token);
 
         // notify popup that premium token state could have been changed
         // this is necessary when we check permissions after limit exceeded error
-        const isPremiumToken = !!token?.licenseKey;
+        const isPremiumToken = await credentialsService.isPremiumUser();
         notifier.notifyListeners(
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
             isPremiumToken,
