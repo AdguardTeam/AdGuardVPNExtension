@@ -9,6 +9,12 @@ interface SendMessageParameters {
     };
 }
 
+export interface Runtime {
+    sendMessage(...args: [SendMessageParameters]): Promise<void>;
+    getManifest(): Manifest.WebExtensionManifest;
+    isManifestVersion2(): boolean;
+}
+
 /**
  * This function moved into separate api file, in order to hide unhandled promise errors
  * @param args
@@ -29,7 +35,7 @@ const getManifest = (): Manifest.WebExtensionManifest => {
 
 const isManifestVersion2 = () => getManifest().manifest_version === MANIFEST_VERSION_2;
 
-export const runtime = {
+export const runtime: Runtime = {
     sendMessage,
     getManifest,
     isManifestVersion2,

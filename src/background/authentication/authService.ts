@@ -1,4 +1,4 @@
-import { browserApi } from '../browserApi';
+import { BrowserApi, browserApi } from '../browserApi';
 import { AUTH_ACCESS_TOKEN_KEY } from '../config';
 import type { AuthAccessToken } from '../api/apiTypes';
 
@@ -13,17 +13,23 @@ interface AuthServiceInterface {
  * This service stores and manages auth token data in browser storage
  * and verifies whether a user is authenticated
  */
-class AuthService implements AuthServiceInterface {
+export class AuthService implements AuthServiceInterface {
+    browserApi: BrowserApi;
+
+    constructor(providedBrowserApi?: BrowserApi) {
+        this.browserApi = providedBrowserApi || browserApi;
+    }
+
     getAccessTokenData = async (): Promise <AuthAccessToken> => {
-        return browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
+        return this.browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
     };
 
     saveAccessTokenData = async (accessToken: AuthAccessToken): Promise <void> => {
-        await browserApi.storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
+        await this.browserApi.storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
     };
 
     removeAccessTokenData = async (): Promise <void> => {
-        await browserApi.storage.remove(AUTH_ACCESS_TOKEN_KEY);
+        await this.browserApi.storage.remove(AUTH_ACCESS_TOKEN_KEY);
     };
 
     /**
