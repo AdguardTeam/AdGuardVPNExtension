@@ -29,8 +29,6 @@ jest.mock('../../../src/background/browserApi', () => {
     };
 });
 
-// const browserApi = {};
-
 const msToSec = (ms: number) => {
     return Math.floor(ms / 1000);
 };

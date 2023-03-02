@@ -2,21 +2,33 @@ import { browserApi } from '../browserApi';
 import { VPN_TOKEN_KEY } from '../../lib/constants';
 import type { VpnTokenData } from './Credentials';
 
-const getVpnTokenFromStorage = async (): Promise<VpnTokenData> => {
-    return browserApi.storage.get(VPN_TOKEN_KEY);
-};
+interface CredentialsServiceInterface {
+    getVpnTokenFromStorage(): Promise<VpnTokenData>;
+    setVpnTokenToStorage(tokenData: VpnTokenData | null): Promise<void>;
+    isPremiumUser(): Promise<boolean>;
+}
 
-const setVpnTokenToStorage = async (tokenData: VpnTokenData | null): Promise<void> => {
-    await browserApi.storage.set(VPN_TOKEN_KEY, tokenData);
-};
+/**
+ * This service stores and manages VPN token data in browser storage
+ * and verifies whether a user has premium status
+ */
+class CredentialsService implements CredentialsServiceInterface {
+    getVpnTokenFromStorage = async (): Promise<VpnTokenData> => {
+        return browserApi.storage.get(VPN_TOKEN_KEY);
+    };
 
-const isPremiumUser = async () => {
-    const vpnToken = await getVpnTokenFromStorage();
-    return !!vpnToken?.licenseKey;
-};
+    setVpnTokenToStorage = async (tokenData: VpnTokenData | null): Promise<void> => {
+        await browserApi.storage.set(VPN_TOKEN_KEY, tokenData);
+    };
 
-export const credentialsService = {
-    getVpnTokenFromStorage,
-    setVpnTokenToStorage,
-    isPremiumUser,
-};
+    /**
+     * User is considered premium
+     * if an licenseKey is present in the vpn token data
+     */
+    isPremiumUser = async (): Promise<boolean> => {
+        const vpnToken = await this.getVpnTokenFromStorage();
+        return !!vpnToken?.licenseKey;
+    };
+}
+
+export const credentialsService = new CredentialsService();

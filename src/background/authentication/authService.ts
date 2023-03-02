@@ -2,26 +2,38 @@ import { browserApi } from '../browserApi';
 import { AUTH_ACCESS_TOKEN_KEY } from '../config';
 import type { AuthAccessToken } from '../api/apiTypes';
 
-const getAccessTokenData = async (): Promise <AuthAccessToken> => {
-    return browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
-};
+interface AuthServiceInterface {
+    getAccessTokenData(): Promise <AuthAccessToken>;
+    saveAccessTokenData(accessToken: AuthAccessToken): Promise <void>;
+    removeAccessTokenData(): Promise <void>;
+    isAuthenticated(): Promise<boolean>;
+}
 
-const saveAccessTokenData = async (accessToken: AuthAccessToken): Promise <void> => {
-    await browserApi.storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
-};
+/**
+ * This service stores and manages auth token data in browser storage
+ * and verifies whether a user is authenticated
+ */
+class AuthService implements AuthServiceInterface {
+    getAccessTokenData = async (): Promise <AuthAccessToken> => {
+        return browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
+    };
 
-const removeAccessTokenData = async (): Promise <void> => {
-    await browserApi.storage.remove(AUTH_ACCESS_TOKEN_KEY);
-};
+    saveAccessTokenData = async (accessToken: AuthAccessToken): Promise <void> => {
+        await browserApi.storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
+    };
 
-const isAuthenticated = async (): Promise<boolean> => {
-    const accessTokenData = await getAccessTokenData();
-    return !!accessTokenData?.accessToken;
-};
+    removeAccessTokenData = async (): Promise <void> => {
+        await browserApi.storage.remove(AUTH_ACCESS_TOKEN_KEY);
+    };
 
-export const authService = {
-    getAccessTokenData,
-    saveAccessTokenData,
-    removeAccessTokenData,
-    isAuthenticated,
-};
+    /**
+     * User is considered authenticated
+     * if an accessToken is present in the access token data
+     */
+    isAuthenticated = async (): Promise<boolean> => {
+        const accessTokenData = await this.getAccessTokenData();
+        return !!accessTokenData?.accessToken;
+    };
+}
+
+export const authService = new AuthService();
