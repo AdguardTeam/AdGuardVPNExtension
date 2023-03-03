@@ -723,7 +723,7 @@
         "message": "Can’t connect to server"
     },
     "popup_server_error_popup_info": {
-        "message": "We’re already trying to fix it, but you can send us an extra alert — just in case."
+        "message": "Most probably, the VPN was blocked in your country or there was a technical glitch. We’re already trying to fix it, but you can send us an extra alert — just in case"
     },
     "popup_server_error_popup_action": {
         "message": "Nudge AdGuard team"
