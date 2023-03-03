@@ -1,5 +1,4 @@
 import { BrowserApi, browserApi } from '../browserApi';
-import { AUTH_ACCESS_TOKEN_KEY } from '../config';
 import type { AuthAccessToken } from '../api/apiTypes';
 
 interface AuthServiceInterface {
@@ -16,20 +15,27 @@ interface AuthServiceInterface {
 export class AuthService implements AuthServiceInterface {
     browserApi: BrowserApi;
 
+    accessTokenData: AuthAccessToken | null;
+
+    private AUTH_ACCESS_TOKEN_KEY = 'auth.access.token';
+
     constructor(providedBrowserApi?: BrowserApi) {
         this.browserApi = providedBrowserApi || browserApi;
     }
 
     getAccessTokenData = async (): Promise <AuthAccessToken> => {
-        return this.browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
+        return this.accessTokenData
+            || await this.browserApi.storage.get(this.AUTH_ACCESS_TOKEN_KEY);
     };
 
     saveAccessTokenData = async (accessToken: AuthAccessToken): Promise <void> => {
-        await this.browserApi.storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
+        this.accessTokenData = accessToken;
+        await this.browserApi.storage.set(this.AUTH_ACCESS_TOKEN_KEY, accessToken);
     };
 
     removeAccessTokenData = async (): Promise <void> => {
-        await this.browserApi.storage.remove(AUTH_ACCESS_TOKEN_KEY);
+        this.accessTokenData = null;
+        await this.browserApi.storage.remove(this.AUTH_ACCESS_TOKEN_KEY);
     };
 
     /**

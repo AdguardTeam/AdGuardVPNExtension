@@ -142,7 +142,6 @@ describe('Credentials', () => {
         afterEach(() => {
             jest.clearAllMocks();
         });
-        const CREDENTIALS_KEY = 'credentials.token';
 
         it('returns nothing if there is no token in the storage', async () => {
             // @ts-ignore
@@ -182,16 +181,19 @@ describe('Credentials', () => {
                 },
             };
 
+            const getVpnTokenFromStorageMock = jest.fn();
+            credentialsService.getVpnTokenFromStorage = getVpnTokenFromStorageMock;
+            getVpnTokenFromStorageMock.mockReturnValue(expectedVpnToken);
+
             // @ts-ignore
             const credentials = new Credentials({ browserApi });
 
             let vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(browserApi.storage.get).toBeCalledTimes(1);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
             vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(browserApi.storage.get).toBeCalledTimes(1);
-            expect(browserApi.storage.get).toBeCalledWith(CREDENTIALS_KEY);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
         });
     });
 });

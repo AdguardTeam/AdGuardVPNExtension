@@ -1,5 +1,4 @@
 import { BrowserApi, browserApi } from '../browserApi';
-import { VPN_TOKEN_KEY } from '../../lib/constants';
 import type { VpnTokenData } from './Credentials';
 
 interface CredentialsServiceInterface {
@@ -15,16 +14,22 @@ interface CredentialsServiceInterface {
 export class CredentialsService implements CredentialsServiceInterface {
     browserApi: BrowserApi;
 
+    vpnTokenData: VpnTokenData | null;
+
+    private VPN_TOKEN_KEY = 'credentials.token';
+
     constructor(providedBrowserApi?: BrowserApi) {
         this.browserApi = providedBrowserApi || browserApi;
     }
 
     getVpnTokenFromStorage = async (): Promise<VpnTokenData> => {
-        return this.browserApi.storage.get(VPN_TOKEN_KEY);
+        return this.vpnTokenData
+            || this.browserApi.storage.get(this.VPN_TOKEN_KEY);
     };
 
     setVpnTokenToStorage = async (tokenData: VpnTokenData | null): Promise<void> => {
-        await this.browserApi.storage.set(VPN_TOKEN_KEY, tokenData);
+        this.vpnTokenData = tokenData;
+        await this.browserApi.storage.set(this.VPN_TOKEN_KEY, tokenData);
     };
 
     /**

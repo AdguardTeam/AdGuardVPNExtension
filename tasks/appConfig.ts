@@ -82,7 +82,6 @@ const COMMON = {
     PASSWORD_RECOVERY_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=recovery_password&from=popup&app=vpn_extension`,
     EDIT_ACCOUNT_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=account_settings&from=options_screen&app=vpn_extension`,
     // API
-    AUTH_ACCESS_TOKEN_KEY: 'auth.access.token',
     AUTH_CLIENT_ID: 'adguard-vpn-extension',
     // Uninstall page
     UNINSTALL_PAGE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_uninstal_ext&from=background_page&app=vpn_extension`,
