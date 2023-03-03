@@ -2,7 +2,7 @@ import { BrowserApi, browserApi } from '../browserApi';
 import type { VpnTokenData } from './Credentials';
 
 interface CredentialsServiceInterface {
-    getVpnTokenFromStorage(): Promise<VpnTokenData>;
+    getVpnTokenFromStorage(): Promise<VpnTokenData | null>;
     setVpnTokenToStorage(tokenData: VpnTokenData | null): Promise<void>;
     isPremiumUser(): Promise<boolean>;
 }
@@ -22,9 +22,12 @@ export class CredentialsService implements CredentialsServiceInterface {
         this.browserApi = providedBrowserApi || browserApi;
     }
 
-    getVpnTokenFromStorage = async (): Promise<VpnTokenData> => {
-        return this.vpnTokenData
-            || this.browserApi.storage.get(this.VPN_TOKEN_KEY);
+    getVpnTokenFromStorage = async (): Promise<VpnTokenData | null> => {
+        if (this.vpnTokenData) {
+            return this.vpnTokenData;
+        }
+        this.vpnTokenData = await this.browserApi.storage.get(this.VPN_TOKEN_KEY);
+        return this.vpnTokenData || null;
     };
 
     setVpnTokenToStorage = async (tokenData: VpnTokenData | null): Promise<void> => {
