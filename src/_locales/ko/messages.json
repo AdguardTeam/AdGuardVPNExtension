@@ -723,7 +723,7 @@
         "message": "서버에 연결할 수 없음"
     },
     "popup_server_error_popup_info": {
-        "message": "이미 문제를 해결하기 위해 노력하고 있지만, 만일을 대비해 추가로 경고를 보내실 수 있습니다."
+        "message": "아마도 해당 국가에서 VPN이 차단되었거나 기술적 결함이 있었을 가능성이 높습니다. 이미 문제를 해결하기 위해 노력하고 있지만, 만일을 대비해 추가로 경고를 보내실 수 있습니다."
     },
     "popup_server_error_popup_action": {
         "message": "AdGuard 팀에게 주의 주기"

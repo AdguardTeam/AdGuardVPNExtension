@@ -722,9 +722,6 @@
     "popup_server_error_popup_title": {
         "message": "Не вдається під'єднатися до сервера"
     },
-    "popup_server_error_popup_info": {
-        "message": "Ми вже намагаємося це виправити, але ви додатково можете сповістити нас про всяк випадок."
-    },
     "popup_server_error_popup_action": {
         "message": "Повідомити команду AdGuard"
     },

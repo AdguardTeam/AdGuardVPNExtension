@@ -698,9 +698,6 @@
     "popup_server_error_popup_title": {
         "message": "Nemožno sa pripojiť k serveru"
     },
-    "popup_server_error_popup_info": {
-        "message": "Už sa to snažíme napraviť, ale pre každý prípad nám môžete poslať ďalšie upozornenie."
-    },
     "popup_server_error_popup_action": {
         "message": "Tím Nudge AdGuard"
     },

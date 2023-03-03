@@ -722,9 +722,6 @@
     "popup_server_error_popup_title": {
         "message": "Kan ikke oprette forbindelse til server"
     },
-    "popup_server_error_popup_info": {
-        "message": "Udbedring er allerede i gang, men der kan indsendes en ekstra advarsel — for en sikkerheds skyld."
-    },
     "popup_server_error_popup_action": {
         "message": "Puf til AdGuard-teamet"
     },

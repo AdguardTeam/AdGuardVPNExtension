@@ -723,7 +723,7 @@
         "message": "Verbindung zum Server konnte nicht hergestellt werden"
     },
     "popup_server_error_popup_info": {
-        "message": "Wir versuchen bereits, das Problem zu beheben. Aber Sie können uns eine zusätzliche Meldung schicken — nur für den Fall."
+        "message": "Wahrscheinlich wurde das VPN in Ihrem Land gesperrt oder es gab eine technische Störung. Wir versuchen bereits, das Problem zu beheben, aber Sie können uns eine zusätzliche Benachrichtigung senden — nur für den Fall"
     },
     "popup_server_error_popup_action": {
         "message": "AdGuard-Team anstupsen"

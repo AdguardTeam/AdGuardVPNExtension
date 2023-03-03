@@ -719,11 +719,11 @@
     "popup_server_error_popup_title": {
         "message": "Sunucuya bağlanılamıyor"
     },
-    "popup_server_error_popup_info": {
-        "message": "Zaten düzeltmeye çalışıyoruz, ancak her ihtimale karşı bize fazladan bir uyarı gönderebilirsiniz."
-    },
     "popup_server_error_popup_cancel": {
         "message": "İptal"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Üzerinde çalışılıyor"
     },
     "popup_server_error_popup_thankyou_message": {
         "message": "Bize bildirdiğiniz için teşekkür ederiz!"
@@ -818,6 +818,10 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Ücretsiz devam et"
+    },
+    "popup_free_traffic_info": {
+        "message": "Bu ay <span>%value% %unit%</span> kaldı",
+        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Bu istisna listesi nasıl kullanılır?"

@@ -722,9 +722,6 @@
     "popup_server_error_popup_title": {
         "message": "Kan geen verbinding maken met server"
     },
-    "popup_server_error_popup_info": {
-        "message": "We proberen het al op te lossen, maar je kunt ons een extra waarschuwing sturen - voor het geval dat."
-    },
     "popup_server_error_popup_action": {
         "message": "Nudge AdGuard-team"
     },

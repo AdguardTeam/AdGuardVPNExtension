@@ -722,9 +722,6 @@
     "popup_server_error_popup_title": {
         "message": "Palvelimeen ei saada yhteyttä"
     },
-    "popup_server_error_popup_info": {
-        "message": "Olemme jo korjaamassa sitä, mutta voit lähettää meille ylimääräisen hälytyksen — varmuuden vuoksi."
-    },
     "popup_server_error_popup_action": {
         "message": "Tönäise AdGuardin tiimiä"
     },
