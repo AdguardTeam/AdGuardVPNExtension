@@ -723,7 +723,7 @@
         "message": "无法连接到服务器"
     },
     "popup_server_error_popup_info": {
-        "message": "VPN在您所在的地区很可能受限，或者发生了技术故障。我们已经在尝试修复错误。以防万一，您也可以向我们发送一个额外的提醒。"
+        "message": "VPN 在您所在的地区很可能受限，或者发生了技术故障。我们已经在尝试修复错误。"
     },
     "popup_server_error_popup_action": {
         "message": "催 AdGuard 团队解决问题"

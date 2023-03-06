@@ -719,6 +719,9 @@
     "popup_server_error_popup_title": {
         "message": "Sunucuya bağlanılamıyor"
     },
+    "popup_server_error_popup_info": {
+        "message": "Büyük olasılıkla, VPN ülkenizde engellendi veya teknik bir aksaklık oldu. Zaten düzeltmeye çalışıyoruz"
+    },
     "popup_server_error_popup_cancel": {
         "message": "İptal"
     },

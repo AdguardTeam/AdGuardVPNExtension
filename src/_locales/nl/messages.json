@@ -722,6 +722,9 @@
     "popup_server_error_popup_title": {
         "message": "Kan geen verbinding maken met server"
     },
+    "popup_server_error_popup_info": {
+        "message": "Waarschijnlijk is de VPN in uw land geblokkeerd of was er een technische storing. We proberen het al op te lossen"
+    },
     "popup_server_error_popup_action": {
         "message": "Nudge AdGuard-team"
     },

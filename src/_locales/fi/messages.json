@@ -722,6 +722,9 @@
     "popup_server_error_popup_title": {
         "message": "Palvelimeen ei saada yhteyttä"
     },
+    "popup_server_error_popup_info": {
+        "message": "Todennäköisesti VPN on estetty maassasi tai kyseessä on tekninen häiriö. Yritämme jo korjata sen"
+    },
     "popup_server_error_popup_action": {
         "message": "Tönäise AdGuardin tiimiä"
     },

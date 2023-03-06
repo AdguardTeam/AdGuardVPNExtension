@@ -698,6 +698,9 @@
     "popup_server_error_popup_title": {
         "message": "Nemožno sa pripojiť k serveru"
     },
+    "popup_server_error_popup_info": {
+        "message": "Pravdepodobne bola VPN vo vašej krajine zablokovaná alebo došlo k technickej poruche. Už sa to snažíme napraviť"
+    },
     "popup_server_error_popup_action": {
         "message": "Tím Nudge AdGuard"
     },

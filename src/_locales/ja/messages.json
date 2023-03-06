@@ -723,7 +723,7 @@
         "message": "サーバーに接続できません"
     },
     "popup_server_error_popup_info": {
-        "message": "おそらく、VPNはあなたの国でブロックされたか、技術的な不具合がありました。すでに対処しておりますが、念のため、追加で開発者に通知することができます。"
+        "message": "おそらく、VPNはあなたの国でブロックされたか、技術的な不具合がありました。すでに対処しております。"
     },
     "popup_server_error_popup_action": {
         "message": "AdGuardチームに通知する"

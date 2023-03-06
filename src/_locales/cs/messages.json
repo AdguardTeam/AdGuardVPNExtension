@@ -723,7 +723,7 @@
         "message": "Nelze se připojit k serveru"
     },
     "popup_server_error_popup_info": {
-        "message": "S největší pravděpodobností byla VPN ve vaší zemi zablokována nebo došlo k technické závadě. Už se to snažíme napravit, ale můžete nám poslat další upozornění — pro jistotu"
+        "message": "Nejspíš byla VPN ve vaší zemi zablokována nebo došlo k technické závadě. Už se to snažíme napravit"
     },
     "popup_server_error_popup_action": {
         "message": "Popostrčit AdGuard tým"
