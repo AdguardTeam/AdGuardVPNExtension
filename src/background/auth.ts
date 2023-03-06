@@ -273,6 +273,7 @@ class Auth implements AuthInterface {
             return this.accessTokenData.accessToken;
         }
 
+        // if no access token, then try to get it from storage
         const accessTokenData = await authService.getAccessTokenData();
 
         if (accessTokenData?.accessToken) {
@@ -295,11 +296,12 @@ class Auth implements AuthInterface {
     }
 
     async init(): Promise<void> {
-        const isAuthenticated = await authService.isAuthenticated();
-        if (!isAuthenticated) {
+        const accessTokenData = await authService.getAccessTokenData();
+        if (!accessTokenData?.accessToken) {
             return;
         }
-        this.accessTokenData = await authService.getAccessTokenData();
+
+        this.accessTokenData = accessTokenData;
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
         log.info('Authentication module is ready');
     }
