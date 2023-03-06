@@ -6,8 +6,9 @@ export const websocketFactory = (() => {
     /**
      * Creates new websocket and closes the old one if found
      * @param url
+     * @param protocolHeader
      */
-    const createWebsocket = (url: string): WebSocket => {
+    const createWebsocket = (url: string, protocolHeader?: string): WebSocket => {
         if (!url) {
             throw new Error('Url expected to be provided');
         }
@@ -21,7 +22,7 @@ export const websocketFactory = (() => {
             }
         }
 
-        ws = new WebSocket(url);
+        ws = new WebSocket(url, protocolHeader);
         ws.binaryType = 'arraybuffer';
 
         return ws;
