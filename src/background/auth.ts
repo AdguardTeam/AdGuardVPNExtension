@@ -273,11 +273,11 @@ class Auth implements AuthInterface {
             return this.accessTokenData.accessToken;
         }
 
-        // if no access token, then try to get it from storage
-        const isAuthenticated = await authService.isAuthenticated();
-        if (isAuthenticated) {
-            this.accessTokenData = await authService.getAccessTokenData();
-            return this.accessTokenData!.accessToken;
+        const accessTokenData = await authService.getAccessTokenData();
+
+        if (accessTokenData?.accessToken) {
+            this.accessTokenData = accessTokenData;
+            return this.accessTokenData.accessToken;
         }
 
         // if no access token found
