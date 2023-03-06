@@ -201,9 +201,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
             hash: this.credentialsHash,
         });
 
-        const websocketHeader = 'Upgrade';
-
-        this.ws = websocketFactory.createWebsocket(websocketUrl, websocketHeader);
+        this.ws = websocketFactory.createWebsocket(websocketUrl);
 
         this.ws.addEventListener('close', this.handleWebsocketClose);
         this.ws.addEventListener('error', this.handleWebsocketError);
