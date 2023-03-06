@@ -32,7 +32,34 @@ const notAuthenticatedUserData: AuthAccessToken = {
 // @ts-ignore
 const authService = new AuthService(browserApiImplementation);
 
+jest.spyOn(authService.browserApi.storage, 'set');
+jest.spyOn(authService.browserApi.storage, 'get');
+
 describe('Auth Service', () => {
+    afterEach(async () => {
+        await authService.removeAccessTokenData();
+    });
+
+    it('Test accessTokenData caching', async () => {
+        let accessTokenData = await authService.getAccessTokenData();
+        expect(accessTokenData).toBeNull();
+        expect(authService.browserApi.storage.get).toBeCalledTimes(1);
+
+        accessTokenData = await authService.getAccessTokenData();
+        expect(accessTokenData).toBeNull();
+        // storage.get was called one more time because there was no cached value
+        expect(authService.browserApi.storage.get).toBeCalledTimes(2);
+
+        await authService.saveAccessTokenData(authenticatedUserData);
+        expect(authService.browserApi.storage.set).toBeCalledTimes(1);
+
+        accessTokenData = await authService.getAccessTokenData();
+        expect(accessTokenData).toBeDefined();
+        expect(accessTokenData).toBe(authenticatedUserData);
+        // storage.get wasn't called one more time because the cached value was returned
+        expect(authService.browserApi.storage.get).toBeCalledTimes(2);
+    });
+
     it('Check user is authenticated', async () => {
         await authService.saveAccessTokenData(authenticatedUserData);
         let isAuthenticated = await authService.isAuthenticated();

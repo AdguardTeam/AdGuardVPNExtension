@@ -40,7 +40,30 @@ const freeVpnTokenData: VpnTokenData = {
 // @ts-ignore
 const credentialsService = new CredentialsService(browserApiImplementation);
 
+jest.spyOn(credentialsService.browserApi.storage, 'set');
+jest.spyOn(credentialsService.browserApi.storage, 'get');
+
 describe('Credentials Service', () => {
+    it('Test vpnTokenData caching', async () => {
+        let vpnTokenData = await credentialsService.getVpnTokenFromStorage();
+        expect(vpnTokenData).toBeNull();
+        expect(credentialsService.browserApi.storage.get).toBeCalledTimes(1);
+
+        vpnTokenData = await credentialsService.getVpnTokenFromStorage();
+        expect(vpnTokenData).toBeNull();
+        // storage.get was called one more time because there was no cached value
+        expect(credentialsService.browserApi.storage.get).toBeCalledTimes(2);
+
+        await credentialsService.setVpnTokenToStorage(premiumVpnTokenData);
+        expect(credentialsService.browserApi.storage.set).toBeCalledTimes(1);
+
+        vpnTokenData = await credentialsService.getVpnTokenFromStorage();
+        expect(vpnTokenData).toBeDefined();
+        expect(vpnTokenData).toBe(premiumVpnTokenData);
+        // storage.get wasn't called one more time because the cached value was returned
+        expect(credentialsService.browserApi.storage.get).toBeCalledTimes(2);
+    });
+
     it('Check user is premium', async () => {
         await credentialsService.setVpnTokenToStorage(premiumVpnTokenData);
         let isPremiumUser = await credentialsService.isPremiumUser();

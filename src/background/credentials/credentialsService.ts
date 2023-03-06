@@ -26,8 +26,8 @@ export class CredentialsService implements CredentialsServiceInterface {
         if (this.vpnTokenData) {
             return this.vpnTokenData;
         }
-        this.vpnTokenData = await this.browserApi.storage.get(this.VPN_TOKEN_KEY);
-        return this.vpnTokenData || null;
+        this.vpnTokenData = await this.browserApi.storage.get(this.VPN_TOKEN_KEY) || null;
+        return this.vpnTokenData;
     };
 
     setVpnTokenToStorage = async (tokenData: VpnTokenData | null): Promise<void> => {

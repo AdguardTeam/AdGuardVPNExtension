@@ -27,8 +27,8 @@ export class AuthService implements AuthServiceInterface {
         if (this.accessTokenData) {
             return this.accessTokenData;
         }
-        this.accessTokenData = await this.browserApi.storage.get(this.AUTH_ACCESS_TOKEN_KEY);
-        return this.accessTokenData || null;
+        this.accessTokenData = await this.browserApi.storage.get(this.AUTH_ACCESS_TOKEN_KEY) || null;
+        return this.accessTokenData;
     };
 
     saveAccessTokenData = async (accessToken: AuthAccessToken): Promise <void> => {
