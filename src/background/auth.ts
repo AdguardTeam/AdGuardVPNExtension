@@ -2,14 +2,10 @@ import qs from 'qs';
 import { nanoid } from 'nanoid';
 
 import { authProvider } from './providers/authProvider';
-import { browserApi } from './browserApi';
 import { tabs } from './tabs';
 import { proxy } from './proxy';
 import { notifications } from './notifications';
-import {
-    AUTH_ACCESS_TOKEN_KEY,
-    AUTH_CLIENT_ID,
-} from './config';
+import { AUTH_CLIENT_ID } from './config';
 import { log } from '../lib/logger';
 import { notifier } from '../lib/notifier';
 import { translator } from '../common/translator';
@@ -19,6 +15,7 @@ import { settings } from './settings';
 import { SocialAuthProvider } from '../lib/constants';
 import { flagsStorage } from './flagsStorage';
 import { AuthAccessToken, AuthCredentials } from './api/apiTypes';
+import { authService } from './authentication/authService';
 
 export interface AuthInterface {
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
@@ -257,13 +254,13 @@ class Auth implements AuthInterface {
 
     async setAccessToken(accessToken: AuthAccessToken): Promise<void> {
         this.accessTokenData = accessToken;
-        await browserApi.storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
+        await authService.saveAccessTokenData(accessToken);
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
     }
 
     async removeAccessToken(): Promise<void> {
         this.accessTokenData = null;
-        await browserApi.storage.remove(AUTH_ACCESS_TOKEN_KEY);
+        await authService.removeAccessTokenData();
     }
 
     /**
@@ -277,10 +274,11 @@ class Auth implements AuthInterface {
         }
 
         // if no access token, then try to get it from storage
-        const accessTokenData = await browserApi.storage.get<AuthAccessToken>(AUTH_ACCESS_TOKEN_KEY);
-        if (accessTokenData && accessTokenData.accessToken) {
+        const accessTokenData = await authService.getAccessTokenData();
+
+        if (accessTokenData?.accessToken) {
             this.accessTokenData = accessTokenData;
-            return accessTokenData.accessToken;
+            return this.accessTokenData.accessToken;
         }
 
         // if no access token found
@@ -298,10 +296,11 @@ class Auth implements AuthInterface {
     }
 
     async init(): Promise<void> {
-        const accessTokenData = await browserApi.storage.get<AuthAccessToken>(AUTH_ACCESS_TOKEN_KEY);
-        if (!accessTokenData || !accessTokenData.accessToken) {
+        const accessTokenData = await authService.getAccessTokenData();
+        if (!accessTokenData?.accessToken) {
             return;
         }
+
         this.accessTokenData = accessTokenData;
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
         log.info('Authentication module is ready');
