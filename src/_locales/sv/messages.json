@@ -497,8 +497,14 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Lämna feedback"
     },
+    "popup_server_error_popup_title": {
+        "message": "Kan inte ansluta till server"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Avbryt"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Tack för att du berättar för oss!"
     },
     "popup_server_error_popup_close": {
         "message": "Stäng"

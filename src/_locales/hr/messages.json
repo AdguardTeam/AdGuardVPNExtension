@@ -692,6 +692,9 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Idi u Chrome trgovinu"
     },
+    "popup_server_error_popup_info": {
+        "message": "Najvjerojatnije je VPN bio blokiran u vašoj zemlji ili je došlo do tehničke greške. Već ga pokušavamo popraviti"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Poništi"
     },

@@ -692,8 +692,23 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Mergeți la Chrome Web Store"
     },
+    "popup_server_error_popup_title": {
+        "message": "Nu se poate conecta la server"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Cel mai probabil, VPN-ul a fost blocat în țara dvs. sau a existat o defecțiune tehnică. Încercăm deja să o rezolvăm"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Încurajați echipa AdGuard"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Anulare"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Lucrez la asta"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Vă mulțumim că ne-ați anunțat!"
     },
     "popup_server_error_popup_close": {
         "message": "Închideți"

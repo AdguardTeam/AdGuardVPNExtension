@@ -692,8 +692,23 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Truy cập Cửa hàng Chrome"
     },
+    "popup_server_error_popup_title": {
+        "message": "Không thể kết nối tới máy chủ"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Rất có thể, VPN đã bị chặn ở quốc gia của bạn hoặc đã xảy ra trục trặc kỹ thuật. Chúng tôi đã cố gắng sửa nó"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Thúc đẩy nhóm AdGuard"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Huỷ"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Đang xử lý"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Cảm ơn vì đã cho chúng tôi biết!"
     },
     "popup_server_error_popup_close": {
         "message": "Đóng"
