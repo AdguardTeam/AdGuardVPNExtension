@@ -453,7 +453,7 @@
         "message": "「接続する」をクリックしたときに選択されるVPNロケーション"
     },
     "settings_quick_connect_last_used": {
-        "message": "最後に使用したロケーション"
+        "message": "最後に接続したロケーション"
     },
     "settings_quick_connect_fastest": {
         "message": "一番速いロケーション"
@@ -723,7 +723,7 @@
         "message": "サーバーに接続できません"
     },
     "popup_server_error_popup_info": {
-        "message": "すでに対処中すが、念のため追加の通知を送っていただくことも可能です。"
+        "message": "おそらく、VPNはあなたの国でブロックされたか、技術的な不具合がありました。すでに対処しております。"
     },
     "popup_server_error_popup_action": {
         "message": "AdGuardチームに通知する"

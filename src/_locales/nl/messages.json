@@ -605,6 +605,9 @@
     "popup_settings_enable_vpn_short": {
         "message": "Inschakelen"
     },
+    "popup_settings_disable_vpn": {
+        "message": "VPN uitschakelen voor deze website"
+    },
     "popup_settings_enable_vpn": {
         "message": "VPN inschakelen voor deze website"
     },
@@ -643,6 +646,9 @@
     },
     "endpoints_search": {
         "message": "Locatie zoeken"
+    },
+    "endpoints_not_found": {
+        "message": "Locaties niet gevonden"
     },
     "popup_traffic_limit_reached": {
         "message": "Maandelijkse datalimiet bereikt"
@@ -717,7 +723,7 @@
         "message": "Kan geen verbinding maken met server"
     },
     "popup_server_error_popup_info": {
-        "message": "We proberen het al op te lossen, maar je kunt ons een extra waarschuwing sturen - voor het geval dat."
+        "message": "Waarschijnlijk is de VPN in uw land geblokkeerd of was er een technische storing. We proberen het al op te lossen"
     },
     "popup_server_error_popup_action": {
         "message": "Nudge AdGuard-team"
@@ -821,6 +827,10 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Doorgaan zonder kosten"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> nog over deze maand",
+        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Hoe deze lijst met uitsluitingen gebruiken?"
