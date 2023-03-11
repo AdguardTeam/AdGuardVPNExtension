@@ -1,9 +1,8 @@
 import { nanoid } from 'nanoid';
 
 import pacGenerator from './pacGenerator';
-import { AccessCredentials, ProxyConfigInterface } from '../proxy';
-import { PROXY_AUTH_CREDENTIALS_KEY, PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
-import { browserApi } from '../../browserApi';
+import { ProxyConfigInterface } from '../proxy';
+import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 
 /**
  * Returns proxy config
@@ -53,38 +52,27 @@ const convertToChromeConfig = (
 
 let globalProxyConfig: ProxyConfigInterface | null = null;
 
-type CallbackType = (response: chrome.webRequest.BlockingResponse) => void;
-
 /**
  * Handles onAuthRequired events
  * @param details - webrequest details
  * @param callback
  */
-const onAuthRequiredHandler = async (
-    details: chrome.webRequest.WebAuthenticationChallengeDetails,
-    callback?: CallbackType,
-) => {
+const onAuthRequiredHandler = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
     const { challenger } = details;
 
     if (challenger && challenger.host !== globalProxyConfig?.host) {
-        return;
+        return {};
     }
 
-    if (globalProxyConfig?.credentials && callback) {
-        callback({ authCredentials: globalProxyConfig.credentials });
-        return;
+    if (globalProxyConfig?.credentials) {
+        return { authCredentials: globalProxyConfig.credentials };
     }
 
-    if (callback) {
-        // if there is no credentials in globalProxyConfig or there is no globalProxyConfig,
-        // we use persisted auth credentials for authorisation
-        const backupCredentials: AccessCredentials = await browserApi.storage.get(PROXY_AUTH_CREDENTIALS_KEY);
-        callback({ authCredentials: backupCredentials });
-    }
+    return {};
 };
 
 const addOnAuthRequiredListener = () => {
-    chrome.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['asyncBlocking']);
+    chrome.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
 };
 
 const removeOnAuthRequiredListener = () => {

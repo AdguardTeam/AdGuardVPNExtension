@@ -10,7 +10,7 @@ import {
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { fetchConfig } from '../../lib/constants';
-import { extensionState } from '../extension-state-service';
+import { extensionState } from '../ExtensionState';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
@@ -69,16 +69,13 @@ export class FallbackApi {
         };
     }
 
-    public async init(fallbackInfo?: FallbackInfo): Promise<void> {
-        if (fallbackInfo) {
-            await this.setFallbackInfo(fallbackInfo);
-            return;
+    public async init(): Promise<void> {
+        if (!extensionState.fallbackInfo) {
+            await this.updateFallbackInfo();
         }
-        await this.updateFallbackInfo();
     }
 
     private async setFallbackInfo(value: FallbackInfo): Promise<void> {
-        // save fallback info to the extension state
         await extensionState.updateFallbackInfo(value);
     }
 
@@ -91,7 +88,7 @@ export class FallbackApi {
         const localStorageBkp = await this.getLocalStorageBkp();
 
         if (!countryInfo.bkp && !localStorageBkp) {
-            const fallbackInfo = await extensionState.getFallbackInfo() || this.defaultFallbackInfo;
+            const fallbackInfo = await extensionState.fallbackInfo || this.defaultFallbackInfo;
             // if bkp is disabled, we use previous fallback info, only update expiration time
             await this.setFallbackInfo({
                 ...fallbackInfo,
@@ -116,10 +113,10 @@ export class FallbackApi {
     }
 
     private async getFallbackInfo(): Promise<FallbackInfo> {
-        const fallbackInfo = await extensionState.getFallbackInfo();
+        const fallbackInfo = await extensionState.fallbackInfo;
         if (fallbackInfo && FallbackApi.needsUpdate(fallbackInfo)) {
             await this.updateFallbackInfo();
-            const updatedFallbackInfo = await extensionState.getFallbackInfo();
+            const updatedFallbackInfo = await extensionState.fallbackInfo;
             if (updatedFallbackInfo) {
                 return updatedFallbackInfo;
             }

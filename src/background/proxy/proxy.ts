@@ -7,19 +7,17 @@ import proxyApi from './abstractProxyApi';
 import { log } from '../../lib/logger';
 import { browserApi } from '../browserApi';
 import { notifier } from '../../lib/notifier';
-import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL, PROXY_AUTH_CREDENTIALS_KEY } from './proxyConsts';
+import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import { LocationInterface } from '../endpoints/Location';
 import { EndpointInterface } from '../endpoints/Endpoint';
-import { extensionState } from '../extension-state-service';
+import { extensionState } from '../ExtensionState';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
-const DEFAULTS = {
-    currentEndpoint: null,
-    currentHost: '',
-};
+const PROXY_CONFIG_PORT = 443;
+const PROXY_CONFIG_SCHEME = 'https';
 
 export interface AccessCredentials {
     username: string,
@@ -64,52 +62,25 @@ export interface ExtensionProxyInterface {
 }
 
 class ExtensionProxy implements ExtensionProxyInterface {
-    isActive: boolean;
-
-    bypassList: string[];
-
-    endpointsTldExclusions: string[];
-
-    currentEndpoint: EndpointInterface | null;
-
-    currentHost: string;
-
-    currentConfig: ProxyConfigInterface;
-
-    inverted: boolean;
-
-    credentials: AccessCredentials;
-
-    constructor() {
-        this.isActive = false;
-        this.bypassList = [];
-        this.endpointsTldExclusions = [];
-        this.currentEndpoint = DEFAULTS.currentEndpoint;
-        this.currentHost = DEFAULTS.currentHost;
-    }
-
-    async init(proxyConfig?: ProxyConfigInterface): Promise<void> {
-        await proxyApi.proxyClear();
-
-        if (proxyConfig) {
-            this.currentConfig = proxyConfig;
-        } else {
-            this.currentConfig = await this.getConfig();
+    async init(): Promise<void> {
+        if (!extensionState.proxyState.currentConfig) {
+            await this.updateConfig();
         }
     }
 
     async turnOn(): Promise<void> {
         const { canControlProxy, cause } = await this.canControlProxy();
+        const { currentConfig } = extensionState.proxyState;
 
         if (!canControlProxy) {
             throw new Error(`Can't set proxy due to: ${cause}`);
         }
 
         try {
-            await proxyApi.proxySet(this.currentConfig);
-            this.isActive = true;
+            await proxyApi.proxySet(currentConfig);
+            await extensionState.setIsProxyActive(true);
         } catch (e) {
-            throw new Error(`Failed to turn on proxy with config: ${JSON.stringify(this.currentConfig)} because of error, ${e.message}`);
+            throw new Error(`Failed to turn on proxy with config: ${JSON.stringify(currentConfig)} because of error, ${e.message}`);
         }
 
         log.info('Proxy turned on');
@@ -121,7 +92,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
         if (!canControlProxy) {
             // set state to turned off
-            this.isActive = false;
+            await extensionState.setIsProxyActive(false);
             proxyApi.onProxyError.removeListener(ExtensionProxy.errorHandler);
             log.info(`Proxy cant be controlled due to: ${cause}`);
             log.info('Set state to turned off');
@@ -129,7 +100,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
         try {
             await proxyApi.proxyClear();
-            this.isActive = false;
+            await extensionState.setIsProxyActive(false);
         } catch (e) {
             log.error(`Failed to turn off proxy due to error: ${e.message}`);
         }
@@ -155,56 +126,49 @@ class ExtensionProxy implements ExtensionProxyInterface {
     }
 
     async getConfig(): Promise<ProxyConfigInterface> {
+        const { proxyState } = extensionState;
+        const bypassList = proxyState.bypassList || [];
+        const inverted = proxyState.inverted || false;
+        const currentHost = proxyState.currentHost || '';
+        const endpointsTldExclusions = proxyState.endpointsTldExclusions || [];
+        const credentials = proxyState.credentials!;
+
         return {
-            bypassList: this.getBypassList(),
+            bypassList,
             defaultExclusions: [
                 ...DEFAULT_EXCLUSIONS,
-                ...this.getEndpointsTldExclusions(),
-                ...await fallbackApi.getApiUrlsExclusions(),
+                ...endpointsTldExclusions,
+                ...await fallbackApi.getApiUrlsExclusions(), // FIXME: persist
             ],
             nonRoutableCidrNets: NON_ROUTABLE_CIDR_NETS,
-            host: this.currentHost,
-            port: 443,
-            scheme: 'https',
-            inverted: this.inverted,
-            credentials: this.credentials,
+            host: currentHost,
+            port: PROXY_CONFIG_PORT,
+            scheme: PROXY_CONFIG_SCHEME,
+            inverted,
+            credentials,
         };
     }
 
     async updateConfig(): Promise<void> {
-        this.currentConfig = await this.getConfig();
-        await extensionState.updateProxyConfig(this.currentConfig);
+        const currentConfig = await this.getConfig();
+        await extensionState.updateProxyConfig(currentConfig);
     }
 
     async applyConfig(): Promise<void> {
         await this.updateConfig();
-        if (this.isActive) {
-            await proxyApi.proxySet(this.currentConfig);
+        if (extensionState.proxyState.isActive) {
+            await proxyApi.proxySet(extensionState.proxyState.currentConfig);
         }
     }
 
-    getEndpointsTldExclusions = () => {
-        if (this.endpointsTldExclusions) {
-            return [...this.endpointsTldExclusions];
-        }
-        return [];
-    };
-
     setEndpointsTldExclusions = async (endpointsTldExclusions: string[] = []): Promise<void> => {
-        this.endpointsTldExclusions = endpointsTldExclusions;
+        await extensionState.updateEndpointsTldExclusions(endpointsTldExclusions);
         await this.applyConfig();
     };
 
-    getBypassList(): string[] {
-        if (this.bypassList) {
-            return [...this.bypassList];
-        }
-        return [];
-    }
-
     setBypassList = async (exclusions: string[] = [], inverted = false): Promise<void> => {
-        this.bypassList = exclusions;
-        this.inverted = inverted;
+        await extensionState.updateBypassList(exclusions);
+        await extensionState.updateInverted(inverted);
         await this.applyConfig();
     };
 
@@ -212,7 +176,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         if (!domainName) {
             return;
         }
-        this.currentHost = domainName;
+        await extensionState.updateCurrentHost(domainName);
         await this.applyConfig();
     };
 
@@ -224,10 +188,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
             throw new Error('current endpoint is empty');
         }
         const { domainName } = endpoint;
-        this.credentials = credentials;
-        // persist auth credentials to use them in onAuthRequiredHandler on browser restart
-        // https://github.com/AdguardTeam/AdGuardVPNExtension/issues/73
-        await browserApi.storage.set(PROXY_AUTH_CREDENTIALS_KEY, credentials);
+        await extensionState.updateProxyCredentials(credentials);
         await this.setHost(domainName);
         return { domainName };
     };
@@ -244,8 +205,8 @@ class ExtensionProxy implements ExtensionProxyInterface {
         endpoint: EndpointInterface,
         location: LocationInterface,
     ): Promise<{ domainName: string }> => {
-        this.currentEndpoint = endpoint;
-        const { domainName } = this.currentEndpoint;
+        await extensionState.updateCurrentEndpoint(endpoint);
+        const { domainName } = endpoint;
         await this.setHost(domainName);
         await browserApi.storage.set(CURRENT_ENDPOINT_KEY, endpoint);
         // notify popup
@@ -254,17 +215,18 @@ class ExtensionProxy implements ExtensionProxyInterface {
     };
 
     getCurrentEndpoint = async (): Promise<EndpointInterface | null> => {
-        if (!this.currentEndpoint) {
-            this.currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY);
+        let { currentEndpoint } = extensionState.proxyState;
+        if (!currentEndpoint) {
+            currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY);
         }
-        return this.currentEndpoint ? this.currentEndpoint : null;
+        return currentEndpoint || null;
     };
 
     resetSettings = async (): Promise<void> => {
         await this.turnOff();
         await browserApi.storage.remove(CURRENT_ENDPOINT_KEY);
-        this.currentHost = DEFAULTS.currentHost;
-        this.currentEndpoint = DEFAULTS.currentEndpoint;
+        await extensionState.resetCurrentHost();
+        await extensionState.resetCurrentEndpoint();
     };
 }
 

@@ -10,8 +10,7 @@ import type { CredentialsDataInterface, VpnProviderInterface } from '../provider
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
 import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
-import type { CredentialsBackup } from '../extension-state-service';
-import { extensionState } from '../extension-state-service';
+import { CredentialsBackup, extensionState } from '../ExtensionState';
 
 export interface VpnTokenData {
     token: string;
@@ -525,7 +524,8 @@ export class Credentials implements CredentialsInterface {
         this.currentUsername = null;
     }
 
-    async init(credentialsBackup?: CredentialsBackup): Promise<void> {
+    async init(): Promise<void> {
+        const { credentialsBackup } = extensionState;
         try {
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
