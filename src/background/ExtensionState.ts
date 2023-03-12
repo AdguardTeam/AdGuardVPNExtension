@@ -147,6 +147,7 @@ class ExtensionState {
         await this.updateStateInStorage();
     };
 
+    // FIXME: refactor
     updateVpnToken = async (value: VpnTokenData) => {
         const state = await this.getState();
         if (state.credentialsBackup) {
@@ -159,6 +160,7 @@ class ExtensionState {
         await this.setState(state);
     };
 
+    // FIXME: refactor
     updateVpnCredentials = async (value: CredentialsDataInterface) => {
         const state = await this.getState();
         if (state.credentialsBackup) {
@@ -171,6 +173,7 @@ class ExtensionState {
         await this.setState(state);
     };
 
+    // FIXME: refactor
     updateCurrentUsername = async (value: string) => {
         const state = await this.getState();
         if (state.credentialsBackup) {
