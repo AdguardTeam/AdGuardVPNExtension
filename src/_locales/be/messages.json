@@ -692,11 +692,23 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Перайдзіце ў краму Chrome"
     },
+    "popup_server_error_popup_title": {
+        "message": "Немагчыма падключыцца да сервера"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Хутчэй за ўсё, VPN быў заблакаваны ў вашай краіне або адбыўся тэхнічны збой. Мы ўжо спрабуем гэта выправіць"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Скасаванне"
     },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Працуем над гэтым"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Дзякуй, што паведамілі нам!"
+    },
     "popup_server_error_popup_close": {
-        "message": "Зачыніць"
+        "message": "Закрыць"
     },
     "options_title": {
         "message": "Налады AdGuard VPN"
@@ -889,7 +901,7 @@
         "message": "Дзякуй за праверку!"
     },
     "confirm_email_close_button": {
-        "message": "Зачыніць"
+        "message": "Закрыць"
     },
     "confirm_email_resend_link_button": {
         "message": "Паўторна адправіць спасылку"

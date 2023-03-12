@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Úspěšně ověřeno! Můžete otevřít AdGuard VPN a začít ji používat."
     },
+    "control_error_title": {
+        "message": "Konflikt s rozšířením"
+    },
     "control_error_description": {
         "message": "Vypadá to, že jiné rozšíření prohlížeče se pokouší ovládat vaše připojení. Vypněte prosím ostatní rozšíření v prohlížeči."
     },
@@ -601,6 +604,12 @@
     },
     "popup_settings_enable_vpn_short": {
         "message": "Zapnout"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Vypnout VPN pro tento web"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Zapnout VPN pro tento web"
     },
     "popup_settings_other_products": {
         "message": "Další produkty"
@@ -637,6 +646,9 @@
     },
     "endpoints_search": {
         "message": "Hledat umístění"
+    },
+    "endpoints_not_found": {
+        "message": "Umístění nenalezena"
     },
     "popup_traffic_limit_reached": {
         "message": "Měsíční datový limit je dosažen"
@@ -677,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Zanechat zpětnou vazbu"
     },
+    "popup_compare_button": {
+        "message": "Proč je aplikace lepší"
+    },
     "popup_rate_modal_title": {
         "message": "Jak úžasná je AdGuard VPN?"
     },
@@ -708,7 +723,7 @@
         "message": "Nelze se připojit k serveru"
     },
     "popup_server_error_popup_info": {
-        "message": "Už se to snažíme opravit, ale můžete nám poslat další upozornění — pro jistotu."
+        "message": "Nejspíš byla VPN ve vaší zemi zablokována nebo došlo k technické závadě. Už se to snažíme napravit"
     },
     "popup_server_error_popup_action": {
         "message": "Popostrčit AdGuard tým"
@@ -812,6 +827,10 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Pokračovat bezplatně"
+    },
+    "popup_free_traffic_info": {
+        "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
+        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Jak používat tento seznam výjimek?"

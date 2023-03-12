@@ -55,7 +55,6 @@ let globalProxyConfig: ProxyConfigInterface | null = null;
 /**
  * Handles onAuthRequired events
  * @param details - webrequest details
- * @param callback
  */
 const onAuthRequiredHandler = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
     const { challenger } = details;

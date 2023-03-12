@@ -605,6 +605,12 @@
     "popup_settings_enable_vpn_short": {
         "message": "Käytä sivustolla"
     },
+    "popup_settings_disable_vpn": {
+        "message": "Älä käytä VPN:ää tällä sivustolla"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Käytä VPN:ää tällä sivustolla"
+    },
     "popup_settings_other_products": {
         "message": "Muita tuotteita"
     },
@@ -717,7 +723,7 @@
         "message": "Palvelimeen ei saada yhteyttä"
     },
     "popup_server_error_popup_info": {
-        "message": "Olemme jo korjaamassa sitä, mutta voit lähettää meille ylimääräisen hälytyksen — varmuuden vuoksi."
+        "message": "Todennäköisesti VPN on estetty maassasi tai kyseessä on tekninen häiriö. Yritämme jo korjata sen"
     },
     "popup_server_error_popup_action": {
         "message": "Tönäise AdGuardin tiimiä"

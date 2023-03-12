@@ -11,6 +11,7 @@ import type { PermissionsErrorInterface } from '../permissionsChecker/permission
 import type { StorageInterface } from '../browserApi/storage';
 import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
 import { CredentialsBackup, extensionState } from '../ExtensionState';
+import { credentialsService } from './credentialsService';
 
 export interface VpnTokenData {
     token: string;
@@ -73,8 +74,6 @@ export interface CredentialsInterface {
 }
 
 export class Credentials implements CredentialsInterface {
-    VPN_TOKEN_KEY = 'credentials.token';
-
     APP_ID_KEY = 'credentials.app.id';
 
     VPN_CREDENTIALS_KEY = 'credentials.vpn';
@@ -118,7 +117,7 @@ export class Credentials implements CredentialsInterface {
         if (this.vpnToken) {
             return this.vpnToken;
         }
-        this.vpnToken = await this.storage.get(this.VPN_TOKEN_KEY);
+        this.vpnToken = await credentialsService.getVpnTokenFromStorage();
         return this.vpnToken || null;
     }
 
@@ -128,11 +127,11 @@ export class Credentials implements CredentialsInterface {
      */
     async persistVpnToken(token: VpnTokenData | null): Promise<void> {
         this.vpnToken = token;
-        await this.storage.set(this.VPN_TOKEN_KEY, token);
+        await credentialsService.setVpnTokenToStorage(token);
 
         // notify popup that premium token state could have been changed
         // this is necessary when we check permissions after limit exceeded error
-        const isPremiumToken = !!token?.licenseKey;
+        const isPremiumToken = await credentialsService.isPremiumUser();
         notifier.notifyListeners(
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
             isPremiumToken,

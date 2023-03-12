@@ -90,6 +90,8 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
         try {
             const headers = new Headers();
             headers.append('Cache-Control', 'no-cache');
+            // add special header to recognize ping requests
+            headers.append('X-Ping', '1');
             const request = new Request(
                 requestUrlWithRandomParams,
                 {
@@ -135,7 +137,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
  */
 export const measurePingToEndpointViaFetch = async (domainName: string): Promise<number | null> => {
     const FETCH_TIMEOUT_MS = 3000;
-    const requestUrl = `https://ping.${domainName}/`;
+    const requestUrl = `https://${domainName}/`;
 
     let ping = null;
     const POLLS_NUMBER = 3;
