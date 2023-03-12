@@ -13,12 +13,12 @@ import { locationsService } from '../../../src/background/endpoints/locationsSer
 import { proxy } from '../../../src/background/proxy';
 import { VpnTokenData } from '../../../src/background/credentials/Credentials';
 import { EndpointInterface } from '../../../src/background/endpoints/Endpoint';
+import { extensionState } from '../../../src/background/ExtensionState';
 
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
 jest.mock('../../../src/lib/notifier');
 jest.mock('../../../src/background/notifications');
-jest.mock('../../../src/background/browserApi');
 jest.mock('../../../src/background/providers/vpnProvider');
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/api/fallbackApi');
@@ -38,8 +38,35 @@ jest.mock('../../../src/background/api/fallbackApi', () => {
     };
 });
 
+jest.mock('../../../src/background/browserApi', () => {
+    const storage: { [key: string]: any } = {
+        set: jest.fn(async (key: string, data: any): Promise<void> => {
+            storage[key] = data;
+        }),
+        get: jest.fn(async (key: string): Promise<string> => {
+            return storage[key];
+        }),
+        remove: jest.fn(async (key: string): Promise<boolean> => {
+            return delete storage[key];
+        }),
+    };
+    const runtime = {
+        // TODO: test mv3 after official switch to mv3
+        isManifestVersion2: () => true,
+    };
+
+    return {
+        __esModule: true,
+        browserApi: {
+            storage,
+            runtime,
+        },
+    };
+});
+
 describe('Endpoints', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
+        await extensionState.init();
         jest.clearAllMocks();
     });
 
