@@ -19,7 +19,7 @@
         "crx:release": "export BUILD_ENV=release; yarn release chrome && ts-node tasks/crx.ts",
         "xpi:release": "export BUILD_ENV=release; yarn release firefox && ts-node tasks/xpi.ts",
         "artifacts:beta": "yarn crx:beta",
-        "artifacts:release": "yarn crx:release",
+        "artifacts:release": "yarn crx:release && yarn xpi:release",
         "resources": "ts-node tasks/resources"
     },
     "husky": {
