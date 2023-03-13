@@ -67,9 +67,9 @@ static.adguardvpn.com:
           - name: build.txt
           - name: chrome.crx
           - name: update.xml
-          # temporary disable xpi
+          # temporary disable xpi and update.json
           # - name: firefox.xpi
-          - name: update.json
+          # - name: update.json
     - script:
         interpreter: SHELL
         scripts:
@@ -112,9 +112,9 @@ GitHub:
           - name: build.txt
           - name: chrome.crx
           - name: update.xml
-          # temporary disable xpi
+          # temporary disable xpi and update.json
           # - name: firefox.xpi
-          - name: update.json
+          # - name: update.json
     - script:
         interpreter: SHELL
         scripts:

@@ -106,17 +106,17 @@ Build:
       pattern: update.xml
       shared: true
       required: true
-      # temporary disable xpi
+      # temporary disable xpi and update.json
       # - name: firefox.xpi
       # location: build/beta
       # pattern: firefox.xpi
       # shared: true
       # required: true
-    - name: update.json
-      location: build/beta
-      pattern: update.json
-      shared: true
-      required: true
+      # - name: update.json
+      # location: build/beta
+      # pattern: update.json
+      # shared: true
+      # required: true
     - name: source.zip
       location: build/beta
       pattern: source.zip
