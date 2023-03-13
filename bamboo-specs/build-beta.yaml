@@ -58,7 +58,8 @@ Build:
             # build with prod API endpoints edge.zip, chrome.zip, firefox.zip, opera.zip
             yarn beta
 
-            # build artifacts chrome.crx, firefox.xpi
+            # build artifacts chrome.crx
+            # firefox.xpi - temporary disabled
             yarn artifacts:beta
 
             # build source code for uploading to amo
@@ -105,11 +106,12 @@ Build:
       pattern: update.xml
       shared: true
       required: true
-    - name: firefox.xpi
-      location: build/beta
-      pattern: firefox.xpi
-      shared: true
-      required: true
+      # temporary disable xpi
+      # - name: firefox.xpi
+      # location: build/beta
+      # pattern: firefox.xpi
+      # shared: true
+      # required: true
     - name: update.json
       location: build/beta
       pattern: update.json
