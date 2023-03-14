@@ -7,6 +7,7 @@ import { browserApi } from '../../browserApi';
 import { log } from '../../../lib/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
 import { fetchConfig } from '../../../lib/constants';
+import { extensionState } from '../../extensionState';
 
 export interface IndexedServicesInterface {
     [id: string]: string
@@ -21,8 +22,6 @@ export class ServicesManager implements ServiceManagerInterface {
     private services: ServicesInterface | null = null;
 
     private servicesIndex: IndexedServicesInterface | null = null;
-
-    private lastUpdateTimeMs: number | null = null;
 
     // Update once in 24 hours
     private UPDATE_TIMEOUT_MS = 1000 * 60 * 60 * 24;
@@ -122,8 +121,9 @@ export class ServicesManager implements ServiceManagerInterface {
      * Updates services
      */
     async updateServices() {
-        const shouldUpdate = this.lastUpdateTimeMs === null
-            || (Date.now() - this.lastUpdateTimeMs) > this.UPDATE_TIMEOUT_MS;
+        const { lastUpdateTimeMs } = extensionState.currentState.exclusionsServicesState;
+        const shouldUpdate = lastUpdateTimeMs === null
+            || (Date.now() - lastUpdateTimeMs) > this.UPDATE_TIMEOUT_MS;
 
         if (!shouldUpdate) {
             return;
@@ -133,7 +133,7 @@ export class ServicesManager implements ServiceManagerInterface {
             const services = await this.getServicesFromServer();
             await this.saveServicesInStorage(services);
             this.setServices(services);
-            this.lastUpdateTimeMs = Date.now();
+            await extensionState.updateLastUpdateTimeMs(Date.now());
             log.info('Services data updated successfully');
         } catch (e) {
             log.error(new Error(`Was unable to get services due to: ${e.message}`));

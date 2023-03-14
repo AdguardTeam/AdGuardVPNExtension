@@ -10,7 +10,7 @@ import type { CredentialsDataInterface, VpnProviderInterface } from '../provider
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
 import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
-import { CredentialsBackup, extensionState } from '../ExtensionState';
+import { extensionState } from '../extensionState';
 import { credentialsService } from './credentialsService';
 
 export interface VpnTokenData {
@@ -70,7 +70,7 @@ export interface CredentialsInterface {
     nextBillDate(): Promise<number | null>;
     getUsername(): Promise<string | null>;
     trackInstallation(): Promise<void>;
-    init(credentialsBkp: CredentialsBackup): Promise<void>;
+    init(): Promise<void>;
 }
 
 export class Credentials implements CredentialsInterface {
@@ -524,7 +524,7 @@ export class Credentials implements CredentialsInterface {
     }
 
     async init(): Promise<void> {
-        const { credentialsBackup } = extensionState;
+        const { credentialsState } = extensionState.currentState;
         try {
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
@@ -533,7 +533,7 @@ export class Credentials implements CredentialsInterface {
 
             await this.trackInstallation();
 
-            const { vpnToken, vpnCredentials, currentUsername } = credentialsBackup ?? {};
+            const { vpnToken, vpnCredentials, currentUsername } = credentialsState ?? {};
 
             const forceRemote = true;
 

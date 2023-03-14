@@ -10,7 +10,7 @@ import {
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { fetchConfig } from '../../lib/constants';
-import { extensionState } from '../ExtensionState';
+import { extensionState } from '../extensionState';
 import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
 
@@ -78,7 +78,7 @@ export class FallbackApi {
     }
 
     public async init(): Promise<void> {
-        if (!extensionState.fallbackInfo) {
+        if (!extensionState.currentState.fallbackInfo) {
             await this.updateFallbackInfo();
         }
     }
@@ -96,7 +96,7 @@ export class FallbackApi {
         const localStorageBkp = await this.getLocalStorageBkp();
 
         if (!countryInfo.bkp && !localStorageBkp) {
-            const fallbackInfo = await extensionState.fallbackInfo || this.defaultFallbackInfo;
+            const fallbackInfo = await extensionState.currentState.fallbackInfo || this.defaultFallbackInfo;
             // if bkp is disabled, we use previous fallback info, only update expiration time
             await this.setFallbackInfo({
                 ...fallbackInfo,
@@ -121,10 +121,10 @@ export class FallbackApi {
     }
 
     private async getFallbackInfo(): Promise<FallbackInfo> {
-        const fallbackInfo = await extensionState.fallbackInfo;
+        const { fallbackInfo } = extensionState.currentState;
         if (fallbackInfo && FallbackApi.needsUpdate(fallbackInfo)) {
             await this.updateFallbackInfo();
-            const updatedFallbackInfo = await extensionState.fallbackInfo;
+            const updatedFallbackInfo = extensionState.currentState.fallbackInfo;
             if (updatedFallbackInfo) {
                 return updatedFallbackInfo;
             }

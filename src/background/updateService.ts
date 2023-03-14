@@ -1,4 +1,5 @@
 import { browserApi } from './browserApi';
+import { extensionState } from './extensionState';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
@@ -11,22 +12,26 @@ interface UpdateServiceInterface {
 }
 
 class UpdateService implements UpdateServiceInterface {
-    prevVersion: string;
-
-    currentVersion: string;
-
     isFirstRun: boolean;
 
     isUpdate: boolean;
 
     init = async (): Promise<void> => {
-        this.prevVersion = await this.getAppVersionFromStorage();
-        this.currentVersion = await this.getAppVersionFromManifest();
+        let { prevVersion } = extensionState.currentState.updateServiceState;
+        if (!prevVersion) {
+            prevVersion = await this.getAppVersionFromStorage();
+            await extensionState.updatePrevVersion(prevVersion);
+        }
 
-        this.isFirstRun = (this.currentVersion !== this.prevVersion && !this.prevVersion);
-        this.isUpdate = !!(this.currentVersion !== this.prevVersion && this.prevVersion);
+        let { currentVersion } = extensionState.currentState.updateServiceState;
+        if (!currentVersion) {
+            currentVersion = await this.getAppVersionFromManifest();
+            await extensionState.updateCurrentVersion(currentVersion);
+            await this.setAppVersionInStorage(currentVersion);
+        }
 
-        await this.setAppVersionInStorage(this.currentVersion);
+        this.isFirstRun = (currentVersion !== prevVersion && !prevVersion);
+        this.isUpdate = !!(currentVersion !== prevVersion && prevVersion);
     };
 
     getAppVersionFromStorage = async (): Promise<string> => {
@@ -38,6 +43,7 @@ class UpdateService implements UpdateServiceInterface {
     };
 
     setAppVersionInStorage = async (appVersion: string): Promise<void> => {
+        await extensionState.updatePrevVersion(appVersion);
         return browserApi.storage.set(APP_VERSION_KEY, appVersion);
     };
 

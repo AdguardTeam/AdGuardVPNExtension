@@ -1,24 +1,29 @@
 /**
- * This module is for storing the extension state in session storage
- * in order to quickly restore the state after the service worker wakes up
+ * This service is for managing the extension state.
+ * The state is stored in session storage in order to
+ * quickly restore it after the service worker wakes up.
  */
 import { browserApi } from './browserApi';
-
 import type { FallbackInfo } from './api/fallbackApi';
 import type { ProxyConfigInterface, AccessCredentials } from './proxy/proxy';
 import type { VpnTokenData } from './credentials/Credentials';
 import type { CredentialsDataInterface } from './providers/vpnProvider';
 import type { EndpointInterface } from './endpoints/Endpoint';
+import type { FlagsStorageData } from './flagsStorage';
 
 const EXTENSION_STATE_KEY = 'AdgVpnExtStateKey';
 
-export type CredentialsBackup = {
-    vpnToken?: VpnTokenData,
-    vpnCredentials?: CredentialsDataInterface,
-    currentUsername?: string | null,
+export type CredentialsState = {
+    vpnToken?: VpnTokenData;
+    vpnCredentials?: CredentialsDataInterface;
+    currentUsername?: string | null;
 };
 
-type ProxyStateType = {
+type ExclusionsServicesState = {
+    lastUpdateTimeMs: number | null;
+};
+
+type ProxyState = {
     isActive?: boolean;
     bypassList?: string[];
     endpointsTldExclusions?: string[];
@@ -31,8 +36,16 @@ type ProxyStateType = {
 
 export type ExtensionStateData = {
     fallbackInfo?: FallbackInfo;
-    proxyState: ProxyStateType;
-    credentialsBackup?: CredentialsBackup;
+    proxyState: ProxyState;
+    credentialsState: CredentialsState;
+    exclusionsServicesState: ExclusionsServicesState;
+    updateServiceState: UpdateServiceState;
+    flagsStorageState?: FlagsStorageData;
+};
+
+type UpdateServiceState = {
+    prevVersion?: string;
+    currentVersion?: string;
 };
 
 const PROXY_DEFAULTS = {
@@ -52,21 +65,19 @@ const defaultProxyState = {
 };
 
 class ExtensionState {
-    // FIXME: add getters and remove public for properties
-    public fallbackInfo?: FallbackInfo;
+    private fallbackInfo?: FallbackInfo;
 
-    public proxyState: ProxyStateType;
+    private proxyState: ProxyState;
 
-    public credentialsBackup?: CredentialsBackup;
+    private credentialsState: CredentialsState;
 
-    init = async () => {
-        const state = await this.getState();
-        this.fallbackInfo = state.fallbackInfo;
-        this.proxyState = state.proxyState || defaultProxyState;
-        this.credentialsBackup = state.credentialsBackup;
-    };
+    private exclusionsServicesState: ExclusionsServicesState;
 
-    getState = async (): Promise<ExtensionStateData> => {
+    private updateServiceState: UpdateServiceState;
+
+    private flagsStorageState?: FlagsStorageData;
+
+    private getState = async (): Promise<ExtensionStateData> => {
         if (browserApi.runtime.isManifestVersion2()) {
             const stateString = sessionStorage.getItem(EXTENSION_STATE_KEY) || '{}';
             return JSON.parse(stateString);
@@ -75,7 +86,7 @@ class ExtensionState {
         return stateObject[EXTENSION_STATE_KEY] || {};
     };
 
-    setState = async (value: ExtensionStateData): Promise<void> => {
+    private setState = async (value: ExtensionStateData): Promise<void> => {
         if (browserApi.runtime.isManifestVersion2()) {
             const stateString = JSON.stringify(value);
             sessionStorage.setItem(EXTENSION_STATE_KEY, stateString);
@@ -84,12 +95,29 @@ class ExtensionState {
         await chrome.storage.session.set({ [EXTENSION_STATE_KEY]: value });
     };
 
-    updateStateInStorage = async (): Promise<void> => {
-        const currentState = {
+    init = async () => {
+        const state = await this.getState();
+        this.fallbackInfo = state.fallbackInfo;
+        this.proxyState = state.proxyState || defaultProxyState;
+        this.credentialsState = state.credentialsState || {};
+        this.exclusionsServicesState = state.exclusionsServicesState || {};
+        this.updateServiceState = state.updateServiceState || {};
+        this.flagsStorageState = state.flagsStorageState;
+    };
+
+    get currentState(): ExtensionStateData {
+        return {
             fallbackInfo: this.fallbackInfo,
             proxyState: this.proxyState,
+            credentialsState: this.credentialsState,
+            exclusionsServicesState: this.exclusionsServicesState,
+            updateServiceState: this.updateServiceState,
+            flagsStorageState: this.flagsStorageState,
         };
-        await this.setState(currentState);
+    }
+
+    updateStateInStorage = async (): Promise<void> => {
+        await this.setState(this.currentState);
     };
 
     updateFallbackInfo = async (value: FallbackInfo): Promise<void> => {
@@ -147,43 +175,39 @@ class ExtensionState {
         await this.updateStateInStorage();
     };
 
-    // FIXME: refactor
     updateVpnToken = async (value: VpnTokenData) => {
-        const state = await this.getState();
-        if (state.credentialsBackup) {
-            state.credentialsBackup.vpnToken = value;
-        } else {
-            state.credentialsBackup = {
-                vpnToken: value,
-            };
-        }
-        await this.setState(state);
+        this.credentialsState.vpnToken = value;
+        await this.updateStateInStorage();
     };
 
-    // FIXME: refactor
     updateVpnCredentials = async (value: CredentialsDataInterface) => {
-        const state = await this.getState();
-        if (state.credentialsBackup) {
-            state.credentialsBackup.vpnCredentials = value;
-        } else {
-            state.credentialsBackup = {
-                vpnCredentials: value,
-            };
-        }
-        await this.setState(state);
+        this.credentialsState.vpnCredentials = value;
+        await this.updateStateInStorage();
     };
 
-    // FIXME: refactor
     updateCurrentUsername = async (value: string) => {
-        const state = await this.getState();
-        if (state.credentialsBackup) {
-            state.credentialsBackup.currentUsername = value;
-        } else {
-            state.credentialsBackup = {
-                currentUsername: value,
-            };
-        }
-        await this.setState(state);
+        this.credentialsState.currentUsername = value;
+        await this.updateStateInStorage();
+    };
+
+    updateLastUpdateTimeMs = async (value: number) => {
+        this.exclusionsServicesState.lastUpdateTimeMs = value;
+        await this.updateStateInStorage();
+    };
+
+    updatePrevVersion = async (value: string) => {
+        this.updateServiceState.prevVersion = value;
+        await this.updateStateInStorage();
+    };
+
+    updateCurrentVersion = async (value: string) => {
+        this.updateServiceState.currentVersion = value;
+        await this.updateStateInStorage();
+    };
+
+    updateFlagsStorageState = async (value: FlagsStorageData) => {
+        this.flagsStorageState = value;
+        await this.updateStateInStorage();
     };
 }
 

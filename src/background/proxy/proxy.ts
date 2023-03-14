@@ -12,7 +12,7 @@ import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import { LocationInterface } from '../endpoints/Location';
 import { EndpointInterface } from '../endpoints/Endpoint';
-import { extensionState } from '../ExtensionState';
+import { extensionState } from '../extensionState';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -63,14 +63,14 @@ export interface ExtensionProxyInterface {
 
 class ExtensionProxy implements ExtensionProxyInterface {
     async init(): Promise<void> {
-        if (!extensionState.proxyState.currentConfig) {
+        if (!extensionState.currentState.proxyState.currentConfig) {
             await this.updateConfig();
         }
     }
 
     async turnOn(): Promise<void> {
         const { canControlProxy, cause } = await this.canControlProxy();
-        const { currentConfig } = extensionState.proxyState;
+        const { currentConfig } = extensionState.currentState.proxyState;
 
         if (!canControlProxy) {
             throw new Error(`Can't set proxy due to: ${cause}`);
@@ -126,7 +126,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
     }
 
     async getConfig(): Promise<ProxyConfigInterface> {
-        const { proxyState } = extensionState;
+        const { proxyState } = extensionState.currentState;
         const bypassList = proxyState.bypassList || [];
         const inverted = proxyState.inverted || false;
         const currentHost = proxyState.currentHost || '';
@@ -156,8 +156,9 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
     async applyConfig(): Promise<void> {
         await this.updateConfig();
-        if (extensionState.proxyState.isActive) {
-            await proxyApi.proxySet(extensionState.proxyState.currentConfig);
+        const { proxyState } = extensionState.currentState;
+        if (proxyState.isActive) {
+            await proxyApi.proxySet(proxyState.currentConfig);
         }
     }
 
@@ -215,7 +216,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
     };
 
     getCurrentEndpoint = async (): Promise<EndpointInterface | null> => {
-        let { currentEndpoint } = extensionState.proxyState;
+        let { currentEndpoint } = extensionState.currentState.proxyState;
         if (!currentEndpoint) {
             currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY);
         }

@@ -1,7 +1,7 @@
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
 import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
-import { extensionState } from '../../../src/background/ExtensionState';
+import { extensionState } from '../../../src/background/extensionState';
 
 jest.mock('../../../src/background/browserApi', () => {
     const storage: { [key: string]: any } = {
