@@ -66,6 +66,11 @@ const defaultProxyState = {
     currentHost: PROXY_DEFAULTS.currentHost,
 };
 
+const enum StorageKey {
+    FallbackInfo = 'fallbackInfo',
+    ProxyState = 'proxyState',
+}
+
 class SessionStorage {
     private state: ExtensionStateData;
 
@@ -74,7 +79,7 @@ class SessionStorage {
      *
      * @returns ExtensionStateData - extension state data
      */
-    private getState = async (): Promise<ExtensionStateData> => {
+    private getStateFromStorage = async (): Promise<ExtensionStateData> => {
         if (browserApi.runtime.isManifestVersion2()) {
             const stateString = sessionStorage.getItem(EXTENSION_STATE_KEY) || '{}';
             return JSON.parse(stateString);
@@ -83,13 +88,22 @@ class SessionStorage {
         return stateObject[EXTENSION_STATE_KEY] || {};
     };
 
-    private setState = (value: ExtensionStateData): void => {
-        if (browserApi.runtime.isManifestVersion2()) {
-            const stateString = JSON.stringify(value);
-            sessionStorage.setItem(EXTENSION_STATE_KEY, stateString);
-            return;
-        }
-        chrome.storage.session.set({ [EXTENSION_STATE_KEY]: value }, () => {});
+    getState = (key: StorageKey): any => {
+        return this.state[key];
+    };
+
+    // setState = (value: ExtensionStateData): void => {
+    //     if (browserApi.runtime.isManifestVersion2()) {
+    //         const stateString = JSON.stringify(value);
+    //         sessionStorage.setItem(EXTENSION_STATE_KEY, stateString);
+    //         return;
+    //     }
+    //     chrome.storage.session.set({ [EXTENSION_STATE_KEY]: value }, () => {});
+    // };
+
+    setState = (key: StorageKey, value: any): void => {
+        this.state[key] = value;
+        chrome.storage.session.set({ [key]: value }, () => {});
     };
 
     private updateStateInStorage = (): void => {
@@ -97,7 +111,7 @@ class SessionStorage {
     };
 
     public init = async () => {
-        this.state = await this.getState() || {};
+        this.state = await this.getStateFromStorage() || {};
 
         // validation FIXME: refactor
         this.state.proxyState = this.state.proxyState || defaultProxyState;

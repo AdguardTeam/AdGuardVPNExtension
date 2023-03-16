@@ -73,11 +73,13 @@ class ExtensionProxy implements ExtensionProxyInterface {
     }
 
     set isActive(isActive: boolean) {
-        session.updateState({
-            proxyState: {
-                isActive,
-            },
-        });
+        // session.updateState({
+        //     proxyState: {
+        //         isActive,
+        //     },
+        // });
+
+        
     }
 
     get currentConfig() {
