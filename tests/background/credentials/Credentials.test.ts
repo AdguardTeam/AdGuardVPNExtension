@@ -3,6 +3,7 @@ import { CredentialsDataInterface } from '../../../src/background/providers/vpnP
 import { SubscriptionType } from '../../../src/lib/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
+import { session } from '../../../src/background/sessionStorage';
 
 jest.mock('../../../src/lib/logger');
 
@@ -34,6 +35,9 @@ const msToSec = (ms: number) => {
 };
 
 describe('Credentials', () => {
+    beforeEach(async () => {
+        await session.init();
+    });
     describe('validates credentials', () => {
         // @ts-ignore
         const credentials = new Credentials({ browserApi });
@@ -190,10 +194,10 @@ describe('Credentials', () => {
 
             let vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(0);
             vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(0);
         });
     });
 });

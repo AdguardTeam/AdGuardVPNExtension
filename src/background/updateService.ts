@@ -1,5 +1,5 @@
 import { browserApi } from './browserApi';
-import { extensionState } from './extensionState';
+import { session } from './sessionStorage';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
@@ -17,16 +17,16 @@ class UpdateService implements UpdateServiceInterface {
     isUpdate: boolean;
 
     init = async (): Promise<void> => {
-        let { prevVersion } = extensionState.currentState.updateServiceState;
+        let { prevVersion } = session.currentState.updateServiceState;
         if (!prevVersion) {
             prevVersion = await this.getAppVersionFromStorage();
-            await extensionState.updatePrevVersion(prevVersion);
+            await session.updatePrevVersion(prevVersion);
         }
 
-        let { currentVersion } = extensionState.currentState.updateServiceState;
+        let { currentVersion } = session.currentState.updateServiceState;
         if (!currentVersion) {
             currentVersion = await this.getAppVersionFromManifest();
-            await extensionState.updateCurrentVersion(currentVersion);
+            await session.updateCurrentVersion(currentVersion);
             await this.setAppVersionInStorage(currentVersion);
         }
 
@@ -43,7 +43,7 @@ class UpdateService implements UpdateServiceInterface {
     };
 
     setAppVersionInStorage = async (appVersion: string): Promise<void> => {
-        await extensionState.updatePrevVersion(appVersion);
+        await session.updatePrevVersion(appVersion);
         return browserApi.storage.set(APP_VERSION_KEY, appVersion);
     };
 

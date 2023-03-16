@@ -10,7 +10,7 @@ import type { CredentialsDataInterface, VpnProviderInterface } from '../provider
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
 import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
-import { extensionState } from '../extensionState';
+import { session } from '../sessionStorage';
 import { credentialsService } from './credentialsService';
 
 export interface VpnTokenData {
@@ -88,13 +88,7 @@ export class Credentials implements CredentialsInterface {
 
     auth: AuthInterface;
 
-    vpnToken: VpnTokenData | null;
-
-    vpnCredentials: CredentialsDataInterface | null;
-
     appId: string;
-
-    currentUsername: string | null;
 
     constructor({
         browserApi,
@@ -108,6 +102,42 @@ export class Credentials implements CredentialsInterface {
         this.permissionsError = permissionsError;
         this.proxy = proxy;
         this.auth = auth;
+    }
+
+    get vpnToken() {
+        return <VpnTokenData | null>session.currentState.credentialsState.vpnToken;
+    }
+
+    set vpnToken(vpnToken: VpnTokenData | null) {
+        session.updateState({
+            credentialsState: {
+                vpnToken,
+            },
+        });
+    }
+
+    get vpnCredentials() {
+        return <CredentialsDataInterface | null>session.currentState.credentialsState.vpnCredentials;
+    }
+
+    set vpnCredentials(vpnCredentials: CredentialsDataInterface | null) {
+        session.updateState({
+            credentialsState: {
+                vpnCredentials,
+            },
+        });
+    }
+
+    get currentUsername() {
+        return <string | null>session.currentState.credentialsState.currentUsername;
+    }
+
+    set currentUsername(currentUsername: string | null) {
+        session.updateState({
+            credentialsState: {
+                currentUsername,
+            },
+        });
     }
 
     /**
@@ -224,7 +254,7 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
-        await extensionState.updateVpnToken(vpnToken);
+        this.vpnToken = vpnToken;
         return vpnToken;
     }
 
@@ -251,7 +281,7 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
-        await extensionState.updateVpnCredentials(vpnCredentials);
+        this.vpnCredentials = vpnCredentials;
         return vpnCredentials;
     }
 
@@ -420,7 +450,7 @@ export class Credentials implements CredentialsInterface {
     async fetchUsername() {
         const accessToken = await this.auth.getAccessToken();
         const username = await accountProvider.getAccountInfo(accessToken);
-        await extensionState.updateCurrentUsername(username);
+        this.currentUsername = username;
 
         return username;
     }
@@ -524,7 +554,6 @@ export class Credentials implements CredentialsInterface {
     }
 
     async init(): Promise<void> {
-        const { credentialsState } = extensionState.currentState;
         try {
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
@@ -533,15 +562,13 @@ export class Credentials implements CredentialsInterface {
 
             await this.trackInstallation();
 
-            const { vpnToken, vpnCredentials, currentUsername } = credentialsState ?? {};
-
             const forceRemote = true;
 
-            // On extension initialisation use credentials backup.
+            // Use persisted state on extension initialisation.
             // If it's not available, get data remotely
-            this.vpnToken = vpnToken || await this.gainValidVpnToken(forceRemote);
-            this.vpnCredentials = vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
-            this.currentUsername = currentUsername || await this.fetchUsername();
+            this.vpnToken = this.vpnToken || await this.gainValidVpnToken(forceRemote);
+            this.vpnCredentials = this.vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
+            this.currentUsername = this.currentUsername || await this.fetchUsername();
         } catch (e) {
             log.debug('Unable to init credentials module, due to error:', e.message);
         }

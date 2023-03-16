@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 
 import { servicesManager } from '../../../../src/background/exclusions/services/ServicesManager';
 import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
-import { extensionState } from '../../../../src/background/extensionState';
+import { session } from '../../../../src/background/sessionStorage';
 
 jest.mock('../../../../src/background/providers/vpnProvider');
 jest.mock('../../../../src/lib/logger');
@@ -71,7 +71,7 @@ saveServicesInStorageMock.mockReturnValue({});
 
 describe('ServicesManager tests', () => {
     beforeEach(async () => {
-        await extensionState.init();
+        await session.init();
     });
 
     // FIXME: fix test

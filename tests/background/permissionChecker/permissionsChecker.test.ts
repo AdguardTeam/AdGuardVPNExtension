@@ -6,6 +6,7 @@ import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
 } from '../../../src/background/permissionsChecker/PermissionsChecker';
+import { session } from '../../../src/background/sessionStorage';
 
 const TEST_PERIOD_SEC = 60 * 60 * 5; // 5 hours
 
@@ -40,7 +41,32 @@ const VPN_TOKEN_DATA = {
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
-jest.mock('../../../src/background/browserApi');
+
+jest.mock('../../../src/background/browserApi', () => {
+    const storage: { [key: string]: any } = {
+        set: jest.fn(async (key: string, data: any): Promise<void> => {
+            storage[key] = data;
+        }),
+        get: jest.fn(async (key: string): Promise<string> => {
+            return storage[key];
+        }),
+        remove: jest.fn(async (key: string): Promise<boolean> => {
+            return delete storage[key];
+        }),
+    };
+    const runtime = {
+        // TODO: test mv3 after official switch to mv3
+        isManifestVersion2: () => true,
+    };
+
+    return {
+        __esModule: true,
+        browserApi: {
+            storage,
+            runtime,
+        },
+    };
+});
 
 // testing timers for MV2
 // TODO: change timers implementation on official switch to MV3 and find out how to move time for Alarm API
@@ -65,6 +91,10 @@ jest.spyOn(permissionsChecker.credentials, 'gainValidVpnToken').mockResolvedValu
 jest.useFakeTimers();
 
 describe('PermissionsChecker tests', () => {
+    beforeEach(async () => {
+        await session.init();
+    });
+
     afterEach(() => {
         jest.clearAllTimers();
         jest.clearAllMocks();

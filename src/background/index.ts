@@ -26,7 +26,7 @@ import { logStorage } from '../lib/log-storage';
 import { fallbackApi } from './api/fallbackApi';
 import { flagsStorage } from './flagsStorage';
 import { browserApi } from './browserApi';
-import { extensionState } from './extensionState';
+import { session } from './sessionStorage';
 
 import './rateModal';
 import './networkConnectionObserver';
@@ -71,7 +71,7 @@ if (!browserApi.runtime.isManifestVersion2()) {
     log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
         const initStartDate = Number(new Date());
-        await extensionState.init();
+        await session.init();
 
         if (browserApi.runtime.isManifestVersion2()) {
             messaging.init(); // messaging is on the top, for popup be able to communicate with back

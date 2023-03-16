@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { authProvider } from '../../../src/background/providers/authProvider';
+import { session } from '../../../src/background/sessionStorage';
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
@@ -16,7 +17,37 @@ const emptyCredentials = {
     appId: '',
 };
 
+jest.mock('../../../src/background/browserApi', () => {
+    const storage: { [key: string]: any } = {
+        set: jest.fn(async (key: string, data: any): Promise<void> => {
+            storage[key] = data;
+        }),
+        get: jest.fn(async (key: string): Promise<string> => {
+            return storage[key];
+        }),
+        remove: jest.fn(async (key: string): Promise<boolean> => {
+            return delete storage[key];
+        }),
+    };
+    const runtime = {
+        // TODO: test mv3 after official switch to mv3
+        isManifestVersion2: () => true,
+    };
+
+    return {
+        __esModule: true,
+        browserApi: {
+            storage,
+            runtime,
+        },
+    };
+});
+
 describe('authProvider', () => {
+    beforeEach(async () => {
+        await session.init();
+    });
+
     afterAll(() => {
         jest.clearAllMocks();
     });

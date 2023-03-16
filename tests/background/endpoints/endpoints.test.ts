@@ -13,7 +13,7 @@ import { locationsService } from '../../../src/background/endpoints/locationsSer
 import { proxy } from '../../../src/background/proxy';
 import { VpnTokenData } from '../../../src/background/credentials/Credentials';
 import { EndpointInterface } from '../../../src/background/endpoints/Endpoint';
-import { extensionState } from '../../../src/background/extensionState';
+import { session } from '../../../src/background/sessionStorage';
 
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
@@ -66,7 +66,7 @@ jest.mock('../../../src/background/browserApi', () => {
 
 describe('Endpoints', () => {
     beforeEach(async () => {
-        await extensionState.init();
+        await session.init();
         jest.clearAllMocks();
     });
 

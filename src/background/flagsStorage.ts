@@ -2,7 +2,7 @@ import { browserApi } from './browserApi';
 import { FLAGS_FIELDS } from '../lib/constants';
 import { log } from '../lib/logger';
 import { updateService } from './updateService';
-import { extensionState } from './extensionState';
+import { session } from './sessionStorage';
 
 export type FlagsStorageData = {
     [key: string]: string | boolean;
@@ -42,7 +42,7 @@ class FlagsStorage implements FlagsStorageInterface {
         }
         flagsStorageData[key] = value;
         await browserApi.storage.set(FLAGS_STORAGE_KEY, flagsStorageData);
-        await extensionState.updateFlagsStorageState(flagsStorageData);
+        await session.updateFlagsStorageState(flagsStorageData);
     };
 
     /**
@@ -56,7 +56,7 @@ class FlagsStorage implements FlagsStorageInterface {
      * Returns object with all flags values { flag_key: value }
      */
     getFlagsStorageData = async (): Promise<FlagsStorageData> => {
-        return extensionState.currentState.flagsStorageState
+        return session.currentState.flagsStorageState
             || await browserApi.storage.get(FLAGS_STORAGE_KEY);
     };
 
@@ -93,9 +93,9 @@ class FlagsStorage implements FlagsStorageInterface {
     };
 
     init = async (): Promise<void> => {
-        if (!extensionState.currentState.flagsStorageState) {
+        if (!session.currentState.flagsStorageState) {
             await this.setDefaults();
-            await extensionState.updateFlagsStorageState(DEFAULTS);
+            await session.updateFlagsStorageState(DEFAULTS);
         }
     };
 }

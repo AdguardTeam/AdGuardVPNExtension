@@ -10,7 +10,7 @@ import {
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { fetchConfig } from '../../lib/constants';
-import { extensionState } from '../extensionState';
+import { session } from '../sessionStorage';
 import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
 
@@ -77,14 +77,18 @@ export class FallbackApi {
         };
     }
 
-    public async init(): Promise<void> {
-        if (!extensionState.currentState.fallbackInfo) {
-            await this.updateFallbackInfo();
-        }
+    private get fallbackInfo(): FallbackInfo {
+        return <FallbackInfo>session.currentState.fallbackInfo;
     }
 
-    private async setFallbackInfo(value: FallbackInfo): Promise<void> {
-        await extensionState.updateFallbackInfo(value);
+    private set fallbackInfo(value: FallbackInfo) {
+        session.updateState({ fallbackInfo: value });
+    }
+
+    public async init(): Promise<void> {
+        if (!this.fallbackInfo) {
+            await this.updateFallbackInfo();
+        }
     }
 
     private static needsUpdate(fallbackInfo: FallbackInfo): boolean {
@@ -96,12 +100,12 @@ export class FallbackApi {
         const localStorageBkp = await this.getLocalStorageBkp();
 
         if (!countryInfo.bkp && !localStorageBkp) {
-            const fallbackInfo = await extensionState.currentState.fallbackInfo || this.defaultFallbackInfo;
+            const fallbackInfo = this.fallbackInfo || this.defaultFallbackInfo;
             // if bkp is disabled, we use previous fallback info, only update expiration time
-            await this.setFallbackInfo({
+            this.fallbackInfo = {
                 ...fallbackInfo,
                 expiresInMs: Date.now() + DEFAULT_CACHE_EXPIRE_TIME_MS,
-            });
+            };
             return;
         }
 
@@ -111,26 +115,24 @@ export class FallbackApi {
         ]);
 
         if (bkpVpnApiUrl && bkpAuthApiUrl) {
-            await this.setFallbackInfo({
+            this.fallbackInfo = {
                 vpnApiUrl: bkpVpnApiUrl,
                 authApiUrl: bkpAuthApiUrl,
                 countryInfo,
                 expiresInMs: Date.now() + DEFAULT_CACHE_EXPIRE_TIME_MS,
-            });
+            };
         }
     }
 
     private async getFallbackInfo(): Promise<FallbackInfo> {
-        const { fallbackInfo } = extensionState.currentState;
-        if (fallbackInfo && FallbackApi.needsUpdate(fallbackInfo)) {
+        if (this.fallbackInfo && FallbackApi.needsUpdate(this.fallbackInfo)) {
             await this.updateFallbackInfo();
-            const updatedFallbackInfo = extensionState.currentState.fallbackInfo;
-            if (updatedFallbackInfo) {
-                return updatedFallbackInfo;
+            if (this.fallbackInfo) {
+                return this.fallbackInfo;
             }
         }
 
-        return fallbackInfo || this.defaultFallbackInfo;
+        return this.fallbackInfo || this.defaultFallbackInfo;
     }
 
     public getVpnApiUrl = async (): Promise<string> => {

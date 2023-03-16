@@ -7,7 +7,7 @@ import {
     DEFAULT_CACHE_EXPIRE_TIME_MS,
 } from '../../../src/background/api/fallbackApi';
 import { WHOAMI_URL } from '../../../src/background/config';
-import { extensionState } from '../../../src/background/extensionState';
+import { session } from '../../../src/background/sessionStorage';
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
@@ -42,12 +42,12 @@ jest.useFakeTimers('modern');
 
 describe('FallbackApi', () => {
     beforeEach(async () => {
-        await extensionState.init();
+        await session.init();
     });
 
     afterEach(async () => {
         // @ts-ignore
-        await extensionState.setState({});
+        await session.setState({});
         jest.clearAllMocks();
     });
 
