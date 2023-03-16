@@ -3,10 +3,9 @@ import { FLAGS_FIELDS } from '../lib/constants';
 import { log } from '../lib/logger';
 import { updateService } from './updateService';
 import { session } from './sessionStorage';
+import { FlagsStorageData } from './flagsStorageData';
 
-export type FlagsStorageData = {
-    [key: string]: string | boolean;
-};
+const FLAGS_STORAGE_KEY = 'flags.storage';
 
 interface FlagsStorageInterface {
     set(key: string, value: string | boolean): Promise<void>;
@@ -17,15 +16,6 @@ interface FlagsStorageInterface {
     onDeauthenticate(): Promise<void>;
     init(): Promise<void>
 }
-
-const FLAGS_STORAGE_KEY = 'flags.storage';
-
-const DEFAULTS = {
-    // onboarding should be displayed for new users and on first run (AG-10009)
-    [FLAGS_FIELDS.SHOW_ONBOARDING]: true,
-    // upgrade screen should be displayed for non-premium users after onboarding screen
-    [FLAGS_FIELDS.SHOW_UPGRADE_SCREEN]: true,
-};
 
 /**
  * Manages flags data in storage

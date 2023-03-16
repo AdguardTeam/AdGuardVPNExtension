@@ -13,6 +13,7 @@ import { fetchConfig } from '../../lib/constants';
 import { session } from '../sessionStorage';
 import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
+import { type FallbackInfo, type CountryInfo } from './fallbackInfo';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
@@ -43,18 +44,6 @@ const enum Prefix {
     FreeUser = 'free',
     PremiumUser = 'pro',
 }
-
-type CountryInfo = {
-    country: string;
-    bkp: boolean;
-};
-
-export type FallbackInfo = {
-    vpnApiUrl: string;
-    authApiUrl: string;
-    countryInfo: CountryInfo;
-    expiresInMs: number;
-};
 
 export class FallbackApi {
     /**

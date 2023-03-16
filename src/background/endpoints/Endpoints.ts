@@ -19,7 +19,7 @@ import { credentials } from '../credentials';
 import { locationsService, isMeasuringPingInProgress } from './locationsService';
 // eslint-disable-next-line import/no-cycle
 import { isVPNConnected, isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
-import { EndpointInterface } from './Endpoint';
+import { EndpointInterface } from './schema';
 import { LocationInterface } from './Location';
 import { VpnTokenData } from '../credentials/Credentials';
 import { settings } from '../settings';

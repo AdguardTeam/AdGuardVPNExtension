@@ -11,34 +11,18 @@ import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import { LocationInterface } from '../endpoints/Location';
-import { EndpointInterface } from '../endpoints/Endpoint';
-import { PROXY_DEFAULTS, session } from '../sessionStorage';
+import { type EndpointInterface } from '../endpoints/schema';
+import { session } from '../sessionStorage';
+import {
+    type ProxyConfigInterface,
+    type CanControlProxy,
+    PROXY_DEFAULTS,
+} from './schema';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
 const PROXY_CONFIG_PORT = 443;
 const PROXY_CONFIG_SCHEME = 'https';
-
-export interface AccessCredentials {
-    username: string,
-    password: string,
-}
-
-export interface CanControlProxy {
-    canControlProxy: boolean;
-    cause?: string;
-}
-
-export interface ProxyConfigInterface {
-    bypassList: string[];
-    defaultExclusions: string[];
-    nonRoutableCidrNets: string[];
-    host: string;
-    port: number;
-    scheme: string;
-    inverted: boolean;
-    credentials: AccessCredentials,
-}
 
 export interface ExtensionProxyInterface {
     init(proxyConfig: ProxyConfigInterface): Promise<void>;

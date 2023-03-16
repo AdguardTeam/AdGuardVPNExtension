@@ -3,15 +3,15 @@
  * The state is stored in session storage in order to
  * quickly restore it after the service worker wakes up.
  */
-import _ from 'lodash';
+import zod from 'zod';
 
 import { browserApi } from './browserApi';
-import type { FallbackInfo } from './api/fallbackApi';
-import type { ProxyConfigInterface, AccessCredentials } from './proxy/proxy';
+import { fallbackInfoScheme } from './api/fallbackInfo';
+import { proxyStateScheme, PROXY_DEFAULTS } from './proxy/schema';
+import { flagsStorageDataScheme, FLAG_STORAGE_DEFAULTS } from './flagsStorageData';
 import type { VpnTokenData } from './credentials/Credentials';
 import type { CredentialsDataInterface } from './providers/vpnProvider';
-import type { EndpointInterface } from './endpoints/Endpoint';
-import type { FlagsStorageData } from './flagsStorage';
+import { log } from '../lib/logger';
 
 export type CredentialsState = {
     vpnToken?: VpnTokenData;
@@ -19,136 +19,112 @@ export type CredentialsState = {
     currentUsername?: string | null;
 };
 
-type ExclusionsServicesState = {
-    lastUpdateTimeMs: number | null;
-};
+// TODO: move to modules
 
-type ProxyState = {
-    isActive?: boolean;
-    bypassList?: string[];
-    endpointsTldExclusions?: string[];
-    currentEndpoint?: EndpointInterface | null;
-    currentHost?: string;
-    currentConfig?: ProxyConfigInterface;
-    inverted?: boolean;
-    credentials?: AccessCredentials;
-};
+const credentialsStateScheme = zod.object({
+    vpnToken: zod.any().optional(),
+    vpnCredentials: zod.any().optional(),
+    currentUsername: zod.string().or(zod.null()).optional(),
+}).strict();
 
-type UpdateServiceState = {
-    prevVersion?: string;
-    currentVersion?: string;
-};
+const exclusionsServicesScheme = zod.object({
+    lastUpdateTimeMs: zod.number().or(zod.null()),
+}).strict();
 
-export type ExtensionStateData = {
-    fallbackInfo?: FallbackInfo;
-    proxyState: ProxyState;
-    credentialsState: CredentialsState;
-    exclusionsServicesState: ExclusionsServicesState;
-    updateServiceState: UpdateServiceState;
-    flagsStorageState?: FlagsStorageData;
+// type ExclusionsServicesState = zod.infer<typeof exclusionsServicesScheme>;
+
+const updateServiceStateScheme = zod.object({
+    prevVersion: zod.string().optional(),
+    currentVersion: zod.string().optional(),
+}).strict();
+
+// type UpdateServiceState = zod.infer<typeof updateServiceStateScheme>;
+
+export const enum StorageKey {
+    FallbackInfo = 'fallbackInfo',
+    ProxyState = 'proxyState',
+    ExclusionsServicesState = 'exclusionsServicesState',
+    UpdateServiceState = 'updateServiceState',
+    FlagsStorageState = 'flagsStorageState',
+    CredentialsState = 'credentialsState',
+}
+
+export const storageDataScheme = zod.object({
+    [StorageKey.FallbackInfo]: fallbackInfoScheme.or(zod.null()),
+    [StorageKey.ProxyState]: proxyStateScheme,
+    [StorageKey.ExclusionsServicesState]: exclusionsServicesScheme,
+    [StorageKey.UpdateServiceState]: updateServiceStateScheme,
+    [StorageKey.FlagsStorageState]: flagsStorageDataScheme.optional(),
+    [StorageKey.CredentialsState]: credentialsStateScheme,
+});
+
+export type StorageData = zod.infer<typeof storageDataScheme>;
+
+export const DEFAULT_STORAGE_DATA: StorageData = {
+    [StorageKey.ProxyState]: PROXY_DEFAULTS,
+    [StorageKey.FallbackInfo]: null,
+    [StorageKey.FlagsStorageState]: FLAG_STORAGE_DEFAULTS,
+    [StorageKey.CredentialsState]: {},
+    [StorageKey.UpdateServiceState]: {},
+    [StorageKey.ExclusionsServicesState]: {
+        lastUpdateTimeMs: null,
+    },
 };
 
 const EXTENSION_STATE_KEY = 'AdgVpnExtStateKey';
 
-export const PROXY_DEFAULTS = {
-    isActive: false,
-    bypassList: [],
-    endpointsTldExclusions: [],
-    currentEndpoint: null,
-    currentHost: '',
-};
-
-const defaultProxyState = {
-    isActive: PROXY_DEFAULTS.isActive,
-    bypassList: PROXY_DEFAULTS.bypassList,
-    endpointsTldExclusions: PROXY_DEFAULTS.endpointsTldExclusions,
-    currentEndpoint: PROXY_DEFAULTS.currentEndpoint,
-    currentHost: PROXY_DEFAULTS.currentHost,
-};
-
-const enum StorageKey {
-    FallbackInfo = 'fallbackInfo',
-    ProxyState = 'proxyState',
-}
-
 class SessionStorage {
-    private state: ExtensionStateData;
+    private state: StorageData;
 
-    /**
-     * Returns extension state from storage
-     *
-     * @returns ExtensionStateData - extension state data
-     */
-    private getStateFromStorage = async (): Promise<ExtensionStateData> => {
-        if (browserApi.runtime.isManifestVersion2()) {
-            const stateString = sessionStorage.getItem(EXTENSION_STATE_KEY) || '{}';
-            return JSON.parse(stateString);
-        }
-        const stateObject = await chrome.storage.session.get(EXTENSION_STATE_KEY);
-        return stateObject[EXTENSION_STATE_KEY] || {};
-    };
-
-    getState = (key: StorageKey): any => {
+    public get = (key: StorageKey): any => {
         return this.state[key];
     };
 
-    // setState = (value: ExtensionStateData): void => {
-    //     if (browserApi.runtime.isManifestVersion2()) {
-    //         const stateString = JSON.stringify(value);
-    //         sessionStorage.setItem(EXTENSION_STATE_KEY, stateString);
-    //         return;
-    //     }
-    //     chrome.storage.session.set({ [EXTENSION_STATE_KEY]: value }, () => {});
-    // };
-
-    setState = (key: StorageKey, value: any): void => {
+    public set = (key: StorageKey, value: any): void => {
         this.state[key] = value;
-        chrome.storage.session.set({ [key]: value }, () => {});
-    };
-
-    private updateStateInStorage = (): void => {
-        this.setState(this.state);
+        // TODO: maybe await
+        chrome.storage.session.set({ [key]: value });
     };
 
     public init = async () => {
-        this.state = await this.getStateFromStorage() || {};
+        try {
+            const data = await SessionStorage.getData();
 
-        // validation FIXME: refactor
-        this.state.proxyState = this.state.proxyState || defaultProxyState;
-        this.state.credentialsState = this.state.credentialsState || {};
-        this.state.exclusionsServicesState = this.state.exclusionsServicesState || {};
-        this.state.updateServiceState = this.state.updateServiceState || {};
+            if (data) {
+                this.state = storageDataScheme.parse(data);
+                return;
+            }
+
+            // init default state
+            this.state = { ...DEFAULT_STORAGE_DATA };
+            await SessionStorage.setData(this.state);
+            return;
+        } catch (e) {
+            log.error(e);
+        }
     };
 
-    public get currentState(): ExtensionStateData {
-        return this.state;
+    private static async getData(): Promise<unknown> {
+        if (browserApi.runtime.isManifestVersion2()) {
+            const data = sessionStorage.getItem(EXTENSION_STATE_KEY);
+
+            if (!data) {
+                return null;
+            }
+
+            return JSON.parse(data);
+        }
+
+        return chrome.storage.session.get(null);
     }
 
-    // FIXME: fix naming and remove any
-    public updateState = (stateUpdate: any) => {
-        this.state = _.merge(this.state, stateUpdate);
-        this.updateStateInStorage();
-    };
+    private static async setData(data: StorageData): Promise<void> {
+        if (browserApi.runtime.isManifestVersion2()) {
+            return sessionStorage.setItem(EXTENSION_STATE_KEY, JSON.stringify(data));
+        }
 
-    public updateLastUpdateTimeMs = (value: number): void => {
-        this.state.exclusionsServicesState.lastUpdateTimeMs = value;
-        this.updateStateInStorage();
-    };
-
-    public updatePrevVersion = (value: string): void => {
-        this.state.updateServiceState.prevVersion = value;
-        this.updateStateInStorage();
-    };
-
-    public updateCurrentVersion = (value: string): void => {
-        this.state.updateServiceState.currentVersion = value;
-        this.updateStateInStorage();
-    };
-
-    public updateFlagsStorageState = (value: FlagsStorageData): void => {
-        this.state.flagsStorageState = value;
-        this.updateStateInStorage();
-    };
+        return chrome.storage.session.set(data);
+    }
 }
 
 export const session = new SessionStorage();
