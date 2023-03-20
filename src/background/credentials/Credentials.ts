@@ -77,8 +77,6 @@ export class Credentials implements CredentialsInterface {
 
     auth: AuthInterface;
 
-    appId: string;
-
     constructor({
         browserApi,
         vpnProvider,
@@ -120,6 +118,16 @@ export class Credentials implements CredentialsInterface {
     set currentUsername(currentUsername: string | null) {
         const credentialsState = sessionState.getItem(StorageKey.CredentialsState);
         credentialsState.currentUsername = currentUsername;
+        sessionState.setItem(StorageKey.ProxyState, credentialsState);
+    }
+
+    get appId() {
+        return sessionState.getItem(StorageKey.CredentialsState).appId;
+    }
+
+    set appId(appId: string) {
+        const credentialsState = sessionState.getItem(StorageKey.CredentialsState);
+        credentialsState.appId = appId;
         sessionState.setItem(StorageKey.ProxyState, credentialsState);
     }
 

@@ -29,7 +29,7 @@ class SessionStorage {
 
     public init = async () => {
         try {
-            const data = <StorageData | {}> await SessionStorage.getData();
+            const data = <StorageData> await SessionStorage.getData();
 
             if (data && Object.keys(data).length) {
                 this.state = storageDataScheme.parse({
