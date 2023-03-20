@@ -3,7 +3,7 @@ import { CredentialsDataInterface } from '../../../src/background/providers/vpnP
 import { SubscriptionType } from '../../../src/lib/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
-import { session } from '../../../src/background/sessionStorage';
+import { sessionState } from '../../../src/background/sessionStorage';
 
 jest.mock('../../../src/lib/logger');
 
@@ -34,9 +34,25 @@ const msToSec = (ms: number) => {
     return Math.floor(ms / 1000);
 };
 
+const session: { [key: string]: any } = {
+    set: jest.fn(async (key: string, data: any): Promise<void> => {
+        session[key] = data;
+    }),
+    get: jest.fn(async (key: string): Promise<string> => {
+        return session[key];
+    }),
+};
+
+global.chrome = {
+    storage: {
+        // @ts-ignore
+        session,
+    },
+};
+
 describe('Credentials', () => {
     beforeEach(async () => {
-        await session.init();
+        await sessionState.init();
     });
     describe('validates credentials', () => {
         // @ts-ignore
@@ -194,10 +210,10 @@ describe('Credentials', () => {
 
             let vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(0);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
             vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(0);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
         });
     });
 });

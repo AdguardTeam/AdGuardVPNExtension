@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 
 import { servicesManager } from '../../../../src/background/exclusions/services/ServicesManager';
 import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
-import { session } from '../../../../src/background/sessionStorage';
+import { sessionState } from '../../../../src/background/sessionStorage';
 
 jest.mock('../../../../src/background/providers/vpnProvider');
 jest.mock('../../../../src/lib/logger');
@@ -69,9 +69,25 @@ const saveServicesInStorageMock = jest.fn();
 servicesManager.saveServicesInStorage = saveServicesInStorageMock;
 saveServicesInStorageMock.mockReturnValue({});
 
+const session: { [key: string]: any } = {
+    set: jest.fn(async (key: string, data: any): Promise<void> => {
+        session[key] = data;
+    }),
+    get: jest.fn(async (key: string): Promise<string> => {
+        return session[key];
+    }),
+};
+
+global.chrome = {
+    storage: {
+        // @ts-ignore
+        session,
+    },
+};
+
 describe('ServicesManager tests', () => {
     beforeEach(async () => {
-        await session.init();
+        await sessionState.init();
     });
 
     // FIXME: fix test

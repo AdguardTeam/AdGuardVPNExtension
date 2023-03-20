@@ -1,4 +1,5 @@
-import { Endpoint, EndpointInterface } from './Endpoint';
+import { Endpoint } from './Endpoint';
+import { EndpointInterface } from './schema';
 
 export interface LocationData {
     id: string;

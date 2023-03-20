@@ -12,8 +12,8 @@ import { connectivityService } from '../../../src/background/connectivity/connec
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import { proxy } from '../../../src/background/proxy';
 import { VpnTokenData } from '../../../src/background/credentials/Credentials';
-import { EndpointInterface } from '../../../src/background/endpoints/Endpoint';
-import { session } from '../../../src/background/sessionStorage';
+import { EndpointInterface } from '../../../src/background/endpoints/schema';
+import { sessionState } from '../../../src/background/sessionStorage';
 
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
@@ -64,9 +64,25 @@ jest.mock('../../../src/background/browserApi', () => {
     };
 });
 
+const session: { [key: string]: any } = {
+    set: jest.fn(async (key: string, data: any): Promise<void> => {
+        session[key] = data;
+    }),
+    get: jest.fn(async (key: string): Promise<string> => {
+        return session[key];
+    }),
+};
+
+global.chrome = {
+    storage: {
+        // @ts-ignore
+        session,
+    },
+};
+
 describe('Endpoints', () => {
     beforeEach(async () => {
-        await session.init();
+        await sessionState.init();
         jest.clearAllMocks();
     });
 

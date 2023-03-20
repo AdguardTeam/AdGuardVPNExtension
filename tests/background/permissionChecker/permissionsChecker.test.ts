@@ -6,7 +6,7 @@ import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
 } from '../../../src/background/permissionsChecker/PermissionsChecker';
-import { session } from '../../../src/background/sessionStorage';
+import { sessionState } from '../../../src/background/sessionStorage';
 
 const TEST_PERIOD_SEC = 60 * 60 * 5; // 5 hours
 
@@ -68,6 +68,22 @@ jest.mock('../../../src/background/browserApi', () => {
     };
 });
 
+const session: { [key: string]: any } = {
+    set: jest.fn(async (key: string, data: any): Promise<void> => {
+        session[key] = data;
+    }),
+    get: jest.fn(async (key: string): Promise<string> => {
+        return session[key];
+    }),
+};
+
+global.chrome = {
+    storage: {
+        // @ts-ignore
+        session,
+    },
+};
+
 // testing timers for MV2
 // TODO: change timers implementation on official switch to MV3 and find out how to move time for Alarm API
 jest.mock('../../../src/background/timers', () => {
@@ -92,7 +108,7 @@ jest.useFakeTimers();
 
 describe('PermissionsChecker tests', () => {
     beforeEach(async () => {
-        await session.init();
+        await sessionState.init();
     });
 
     afterEach(() => {

@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 
 import pacGenerator from './pacGenerator';
-import { ProxyConfigInterface } from '../proxy';
+import { ProxyConfigInterface } from '../schema';
 import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 
 /**

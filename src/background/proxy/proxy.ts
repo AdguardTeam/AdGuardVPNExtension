@@ -11,11 +11,12 @@ import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import { LocationInterface } from '../endpoints/Location';
-import { type EndpointInterface } from '../endpoints/schema';
-import { session } from '../sessionStorage';
+import { EndpointInterface } from '../endpoints/schema';
+import { sessionState, StorageKey } from '../sessionStorage';
 import {
-    type ProxyConfigInterface,
-    type CanControlProxy,
+    ProxyConfigInterface,
+    CanControlProxy,
+    AccessCredentials,
     PROXY_DEFAULTS,
 } from './schema';
 
@@ -53,101 +54,83 @@ class ExtensionProxy implements ExtensionProxyInterface {
     }
 
     get isActive() {
-        return <boolean>session.currentState.proxyState.isActive;
+        return sessionState.getItem(StorageKey.ProxyState).isActive;
     }
 
     set isActive(isActive: boolean) {
-        // session.updateState({
-        //     proxyState: {
-        //         isActive,
-        //     },
-        // });
-
-        
+        const proxyState = sessionState.getItem(StorageKey.ProxyState);
+        proxyState.isActive = isActive;
+        sessionState.setItem(StorageKey.ProxyState, proxyState);
     }
 
     get currentConfig() {
-        return <ProxyConfigInterface>session.currentState.proxyState.currentConfig;
+        return sessionState.getItem(StorageKey.ProxyState).currentConfig;
     }
 
     set currentConfig(currentConfig: ProxyConfigInterface) {
-        session.updateState({
-            proxyState: {
-                currentConfig,
-            },
-        });
+        const proxyState = sessionState.getItem(StorageKey.ProxyState);
+        proxyState.currentConfig = currentConfig;
+        sessionState.setItem(StorageKey.ProxyState, proxyState);
     }
 
     get bypassList() {
-        return <string[]>session.currentState.proxyState.bypassList;
+        return sessionState.getItem(StorageKey.ProxyState).bypassList;
     }
 
     set bypassList(bypassList: string[]) {
-        session.updateState({
-            proxyState: {
-                bypassList,
-            },
-        });
+        const proxyState = sessionState.getItem(StorageKey.ProxyState);
+        proxyState.bypassList = bypassList;
+        sessionState.setItem(StorageKey.ProxyState, proxyState);
     }
 
     get inverted() {
-        return <boolean>session.currentState.proxyState.inverted;
+        return sessionState.getItem(StorageKey.ProxyState).inverted;
     }
 
     set inverted(inverted: boolean) {
-        session.updateState({
-            proxyState: {
-                inverted,
-            },
-        });
+        const proxyState = sessionState.getItem(StorageKey.ProxyState);
+        proxyState.inverted = inverted;
+        sessionState.setItem(StorageKey.ProxyState, proxyState);
     }
 
     get endpointsTldExclusions() {
-        return <string[]>session.currentState.proxyState.endpointsTldExclusions;
+        return sessionState.getItem(StorageKey.ProxyState).endpointsTldExclusions;
     }
 
     set endpointsTldExclusions(endpointsTldExclusions: string[]) {
-        session.updateState({
-            proxyState: {
-                endpointsTldExclusions,
-            },
-        });
+        const proxyState = sessionState.getItem(StorageKey.ProxyState);
+        proxyState.endpointsTldExclusions = endpointsTldExclusions;
+        sessionState.setItem(StorageKey.ProxyState, proxyState);
     }
 
     get currentEndpoint() {
-        return <EndpointInterface | null>session.currentState.proxyState.currentEndpoint;
+        return sessionState.getItem(StorageKey.ProxyState).currentEndpoint;
     }
 
     set currentEndpoint(currentEndpoint: EndpointInterface | null) {
-        session.updateState({
-            proxyState: {
-                currentEndpoint,
-            },
-        });
+        const proxyState = sessionState.getItem(StorageKey.ProxyState);
+        proxyState.currentEndpoint = currentEndpoint;
+        sessionState.setItem(StorageKey.ProxyState, proxyState);
     }
 
     get currentHost() {
-        return <string>session.currentState.proxyState.currentHost;
+        return sessionState.getItem(StorageKey.ProxyState).currentHost;
     }
 
     set currentHost(currentHost: string) {
-        session.updateState({
-            proxyState: {
-                currentHost,
-            },
-        });
+        const proxyState = sessionState.getItem(StorageKey.ProxyState);
+        proxyState.currentHost = currentHost;
+        sessionState.setItem(StorageKey.ProxyState, proxyState);
     }
 
     get credentials() {
-        return <AccessCredentials>session.currentState.proxyState.credentials;
+        return sessionState.getItem(StorageKey.ProxyState).credentials;
     }
 
     set credentials(credentials: AccessCredentials) {
-        session.updateState({
-            proxyState: {
-                credentials,
-            },
-        });
+        const proxyState = sessionState.getItem(StorageKey.ProxyState);
+        proxyState.credentials = credentials;
+        sessionState.setItem(StorageKey.ProxyState, proxyState);
     }
 
     async turnOn(): Promise<void> {

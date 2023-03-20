@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { authProvider } from '../../../src/background/providers/authProvider';
-import { session } from '../../../src/background/sessionStorage';
+import { sessionState } from '../../../src/background/sessionStorage';
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
@@ -43,9 +43,25 @@ jest.mock('../../../src/background/browserApi', () => {
     };
 });
 
+const session: { [key: string]: any } = {
+    set: jest.fn(async (key: string, data: any): Promise<void> => {
+        session[key] = data;
+    }),
+    get: jest.fn(async (key: string): Promise<string> => {
+        return session[key];
+    }),
+};
+
+global.chrome = {
+    storage: {
+        // @ts-ignore
+        session,
+    },
+};
+
 describe('authProvider', () => {
     beforeEach(async () => {
-        await session.init();
+        await sessionState.init();
     });
 
     afterAll(() => {

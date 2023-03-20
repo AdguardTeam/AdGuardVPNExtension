@@ -17,7 +17,7 @@ import { connectivity } from './index';
 import { connectivityService, setDesktopVpnEnabled } from './connectivityService/connectivityFSM';
 import { AccessCredentialsData } from '../credentials/Credentials';
 import { LocationInterface } from '../endpoints/Location';
-import { EndpointInterface } from '../endpoints/Endpoint';
+import { EndpointInterface } from '../endpoints/schema';
 import { VpnConnectionStatus } from '../api/vpnApi';
 
 /**

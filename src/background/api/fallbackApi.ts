@@ -10,10 +10,10 @@ import {
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { fetchConfig } from '../../lib/constants';
-import { session } from '../sessionStorage';
+import { sessionState, StorageKey } from '../sessionStorage';
 import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
-import { type FallbackInfo, type CountryInfo } from './fallbackInfo';
+import type { CountryInfo, FallbackInfo } from './fallbackInfo';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
@@ -67,11 +67,11 @@ export class FallbackApi {
     }
 
     private get fallbackInfo(): FallbackInfo {
-        return <FallbackInfo>session.currentState.fallbackInfo;
+        return sessionState.getItem(StorageKey.FallbackInfo);
     }
 
     private set fallbackInfo(value: FallbackInfo) {
-        session.updateState({ fallbackInfo: value });
+        sessionState.setItem(StorageKey.FallbackInfo, value);
     }
 
     public async init(): Promise<void> {

@@ -1,7 +1,7 @@
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
 import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
-import { session } from '../../../src/background/sessionStorage';
+import { sessionState } from '../../../src/background/sessionStorage';
 
 jest.mock('../../../src/background/browserApi', () => {
     const storage: { [key: string]: any } = {
@@ -101,9 +101,25 @@ getIndexedServicesMock.mockReturnValue({
     'aliexpress.ru': 'aliexpress',
 });
 
+const session: { [key: string]: any } = {
+    set: jest.fn(async (key: string, data: any): Promise<void> => {
+        session[key] = data;
+    }),
+    get: jest.fn(async (key: string): Promise<string> => {
+        return session[key];
+    }),
+};
+
+global.chrome = {
+    storage: {
+        // @ts-ignore
+        session,
+    },
+};
+
 describe('ExclusionsService', () => {
     beforeEach(async () => {
-        await session.init();
+        await sessionState.init();
     });
 
     afterEach(() => {

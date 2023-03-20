@@ -7,7 +7,7 @@ import {
     DEFAULT_CACHE_EXPIRE_TIME_MS,
 } from '../../../src/background/api/fallbackApi';
 import { WHOAMI_URL } from '../../../src/background/config';
-import { session } from '../../../src/background/sessionStorage';
+import { sessionState } from '../../../src/background/sessionStorage';
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
@@ -38,16 +38,30 @@ jest.mock('../../../src/background/browserApi', () => {
     };
 });
 
+const session: { [key: string]: any } = {
+    set: jest.fn(async (key: string, data: any): Promise<void> => {
+        session[key] = data;
+    }),
+    get: jest.fn(async (key: string): Promise<string> => {
+        return session[key];
+    }),
+};
+
+global.chrome = {
+    storage: {
+        // @ts-ignore
+        session,
+    },
+};
+
 jest.useFakeTimers('modern');
 
 describe('FallbackApi', () => {
     beforeEach(async () => {
-        await session.init();
+        await sessionState.init();
     });
 
     afterEach(async () => {
-        // @ts-ignore
-        await session.setState({});
         jest.clearAllMocks();
     });
 

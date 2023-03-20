@@ -33,8 +33,8 @@ export const proxyStateScheme = zod.object({
     isActive: zod.boolean().optional(),
     bypassList: zod.string().array().optional(),
     endpointsTldExclusions: zod.string().array().optional(),
-    currentEndpoint: endpointInterfaceScheme.optional().or(zod.null()),
-    currentHost: zod.string().optional(),
+    currentEndpoint: endpointInterfaceScheme.or(zod.null()),
+    currentHost: zod.string(),
     currentConfig: proxyConfigInterfaceScheme.optional(),
     // FIXME: check if is optional
     inverted: zod.boolean().optional(),

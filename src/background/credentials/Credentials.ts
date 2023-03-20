@@ -9,8 +9,9 @@ import type { SubscriptionType } from '../../lib/constants';
 import type { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
-import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
-import { session } from '../sessionStorage';
+import type { ExtensionProxyInterface } from '../proxy/proxy';
+import type { AccessCredentials } from '../proxy/schema';
+import { sessionState, StorageKey } from '../sessionStorage';
 import { credentialsService } from './credentialsService';
 
 export interface VpnTokenData {
@@ -105,39 +106,33 @@ export class Credentials implements CredentialsInterface {
     }
 
     get vpnToken() {
-        return <VpnTokenData | null>session.currentState.credentialsState.vpnToken;
+        return sessionState.getItem(StorageKey.CredentialsState).vpnToken;
     }
 
     set vpnToken(vpnToken: VpnTokenData | null) {
-        session.updateState({
-            credentialsState: {
-                vpnToken,
-            },
-        });
+        const credentialsState = sessionState.getItem(StorageKey.CredentialsState);
+        credentialsState.vpnToken = vpnToken;
+        sessionState.setItem(StorageKey.ProxyState, credentialsState);
     }
 
     get vpnCredentials() {
-        return <CredentialsDataInterface | null>session.currentState.credentialsState.vpnCredentials;
+        return sessionState.getItem(StorageKey.CredentialsState).vpnCredentials;
     }
 
     set vpnCredentials(vpnCredentials: CredentialsDataInterface | null) {
-        session.updateState({
-            credentialsState: {
-                vpnCredentials,
-            },
-        });
+        const credentialsState = sessionState.getItem(StorageKey.CredentialsState);
+        credentialsState.vpnCredentials = vpnCredentials;
+        sessionState.setItem(StorageKey.ProxyState, credentialsState);
     }
 
     get currentUsername() {
-        return <string | null>session.currentState.credentialsState.currentUsername;
+        return sessionState.getItem(StorageKey.CredentialsState).currentUsername;
     }
 
     set currentUsername(currentUsername: string | null) {
-        session.updateState({
-            credentialsState: {
-                currentUsername,
-            },
-        });
+        const credentialsState = sessionState.getItem(StorageKey.CredentialsState);
+        credentialsState.currentUsername = currentUsername;
+        sessionState.setItem(StorageKey.ProxyState, credentialsState);
     }
 
     /**

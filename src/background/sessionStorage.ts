@@ -76,11 +76,11 @@ const EXTENSION_STATE_KEY = 'AdgVpnExtStateKey';
 class SessionStorage {
     private state: StorageData;
 
-    public get = (key: StorageKey): any => {
+    public getItem = (key: StorageKey): any => {
         return this.state[key];
     };
 
-    public set = (key: StorageKey, value: any): void => {
+    public setItem = (key: StorageKey, value: any): void => {
         this.state[key] = value;
         // TODO: maybe await
         chrome.storage.session.set({ [key]: value });
@@ -88,10 +88,13 @@ class SessionStorage {
 
     public init = async () => {
         try {
-            const data = await SessionStorage.getData();
+            const data = <StorageData | {}> await SessionStorage.getData();
 
-            if (data) {
-                this.state = storageDataScheme.parse(data);
+            if (data && Object.keys(data).length) {
+                this.state = storageDataScheme.parse({
+                    ...DEFAULT_STORAGE_DATA,
+                    ...data,
+                });
                 return;
             }
 
@@ -127,4 +130,4 @@ class SessionStorage {
     }
 }
 
-export const session = new SessionStorage();
+export const sessionState = new SessionStorage();

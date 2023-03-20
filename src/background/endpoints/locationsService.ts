@@ -8,7 +8,7 @@ import { Location, LocationInterface, LocationData } from './Location';
 import { SETTINGS_IDS } from '../../lib/constants';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
-import { EndpointInterface } from './Endpoint';
+import { EndpointInterface } from './schema';
 
 export interface PingData {
     ping: number | null;
