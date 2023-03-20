@@ -1,5 +1,5 @@
 import { BrowserApi, browserApi } from '../browserApi';
-import type { VpnTokenData } from './Credentials';
+import type { VpnTokenData } from '../schema';
 
 interface CredentialsServiceInterface {
     getVpnTokenFromStorage(): Promise<VpnTokenData | null>;

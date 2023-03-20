@@ -7,7 +7,8 @@ import { browserApi } from '../../browserApi';
 import { log } from '../../../lib/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
 import { fetchConfig } from '../../../lib/constants';
-import { sessionState, StorageKey } from '../../sessionStorage';
+import { sessionState } from '../../sessionStorage';
+import { StorageKey } from '../../schema';
 
 export interface IndexedServicesInterface {
     [id: string]: string

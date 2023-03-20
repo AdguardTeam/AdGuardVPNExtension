@@ -2,8 +2,9 @@ import { browserApi } from './browserApi';
 import { FLAGS_FIELDS } from '../lib/constants';
 import { log } from '../lib/logger';
 import { updateService } from './updateService';
-import { sessionState, StorageKey } from './sessionStorage';
+import { sessionState } from './sessionStorage';
 import { FlagsStorageData, FLAG_STORAGE_DEFAULTS } from './flagsStorageData';
+import { StorageKey } from './schema';
 
 const FLAGS_STORAGE_KEY = 'flags.storage';
 

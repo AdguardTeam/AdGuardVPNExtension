@@ -4,8 +4,7 @@ import * as pingHelpers from '../../../src/background/connectivity/pingHelpers';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
-import { EndpointInterface } from '../../../src/background/endpoints/schema';
-import { VpnTokenData } from '../../../src/background/credentials/Credentials';
+import type { VpnTokenData, EndpointInterface } from '../../../src/background/schema';
 
 jest.mock('../../../src/background/connectivity/pingHelpers');
 jest.mock('../../../src/lib/logger'); // hides redundant log messages during test run

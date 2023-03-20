@@ -5,25 +5,13 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
-import type { SubscriptionType } from '../../lib/constants';
 import type { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
 import type { ExtensionProxyInterface } from '../proxy/proxy';
-import type { AccessCredentials } from '../proxy/schema';
-import { sessionState, StorageKey } from '../sessionStorage';
+import { AccessCredentials, VpnTokenData, StorageKey } from '../schema';
+import { sessionState } from '../sessionStorage';
 import { credentialsService } from './credentialsService';
-
-export interface VpnTokenData {
-    token: string;
-    licenseStatus: string;
-    timeExpiresSec: number;
-    licenseKey: string;
-    vpnSubscription: {
-        next_bill_date_iso: string,
-        duration_v2: SubscriptionType,
-    };
-}
 
 export interface AccessCredentialsData {
     credentialsHash: string,

@@ -11,8 +11,7 @@ import { LocationWithPing, LocationWithPingInterface } from '../../../src/backgr
 import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import { proxy } from '../../../src/background/proxy';
-import { VpnTokenData } from '../../../src/background/credentials/Credentials';
-import { EndpointInterface } from '../../../src/background/endpoints/schema';
+import type { VpnTokenData, EndpointInterface } from '../../../src/background/schema';
 import { sessionState } from '../../../src/background/sessionStorage';
 
 jest.mock('../../../src/background/settings');

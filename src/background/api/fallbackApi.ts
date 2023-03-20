@@ -10,10 +10,10 @@ import {
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { fetchConfig } from '../../lib/constants';
-import { sessionState, StorageKey } from '../sessionStorage';
+import { sessionState } from '../sessionStorage';
 import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
-import type { CountryInfo, FallbackInfo } from './fallbackInfo';
+import { CountryInfo, FallbackInfo, StorageKey } from '../schema';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 

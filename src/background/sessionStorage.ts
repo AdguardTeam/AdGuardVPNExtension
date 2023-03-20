@@ -3,73 +3,14 @@
  * The state is stored in session storage in order to
  * quickly restore it after the service worker wakes up.
  */
-import zod from 'zod';
-
 import { browserApi } from './browserApi';
-import { fallbackInfoScheme } from './api/fallbackInfo';
-import { proxyStateScheme, PROXY_DEFAULTS } from './proxy/schema';
-import { flagsStorageDataScheme, FLAG_STORAGE_DEFAULTS } from './flagsStorageData';
-import type { VpnTokenData } from './credentials/Credentials';
-import type { CredentialsDataInterface } from './providers/vpnProvider';
 import { log } from '../lib/logger';
-
-export type CredentialsState = {
-    vpnToken?: VpnTokenData;
-    vpnCredentials?: CredentialsDataInterface;
-    currentUsername?: string | null;
-};
-
-// TODO: move to modules
-
-const credentialsStateScheme = zod.object({
-    vpnToken: zod.any().optional(),
-    vpnCredentials: zod.any().optional(),
-    currentUsername: zod.string().or(zod.null()).optional(),
-}).strict();
-
-const exclusionsServicesScheme = zod.object({
-    lastUpdateTimeMs: zod.number().or(zod.null()),
-}).strict();
-
-// type ExclusionsServicesState = zod.infer<typeof exclusionsServicesScheme>;
-
-const updateServiceStateScheme = zod.object({
-    prevVersion: zod.string().optional(),
-    currentVersion: zod.string().optional(),
-}).strict();
-
-// type UpdateServiceState = zod.infer<typeof updateServiceStateScheme>;
-
-export const enum StorageKey {
-    FallbackInfo = 'fallbackInfo',
-    ProxyState = 'proxyState',
-    ExclusionsServicesState = 'exclusionsServicesState',
-    UpdateServiceState = 'updateServiceState',
-    FlagsStorageState = 'flagsStorageState',
-    CredentialsState = 'credentialsState',
-}
-
-export const storageDataScheme = zod.object({
-    [StorageKey.FallbackInfo]: fallbackInfoScheme.or(zod.null()),
-    [StorageKey.ProxyState]: proxyStateScheme,
-    [StorageKey.ExclusionsServicesState]: exclusionsServicesScheme,
-    [StorageKey.UpdateServiceState]: updateServiceStateScheme,
-    [StorageKey.FlagsStorageState]: flagsStorageDataScheme.optional(),
-    [StorageKey.CredentialsState]: credentialsStateScheme,
-});
-
-export type StorageData = zod.infer<typeof storageDataScheme>;
-
-export const DEFAULT_STORAGE_DATA: StorageData = {
-    [StorageKey.ProxyState]: PROXY_DEFAULTS,
-    [StorageKey.FallbackInfo]: null,
-    [StorageKey.FlagsStorageState]: FLAG_STORAGE_DEFAULTS,
-    [StorageKey.CredentialsState]: {},
-    [StorageKey.UpdateServiceState]: {},
-    [StorageKey.ExclusionsServicesState]: {
-        lastUpdateTimeMs: null,
-    },
-};
+import {
+    StorageKey,
+    storageDataScheme,
+    StorageData,
+    DEFAULT_STORAGE_DATA,
+} from './schema';
 
 const EXTENSION_STATE_KEY = 'AdgVpnExtStateKey';
 

@@ -1,4 +1,4 @@
-import type { EndpointInterface } from './schema';
+import type { EndpointInterface } from '../schema';
 
 /**
  * Class representing endpoint structure

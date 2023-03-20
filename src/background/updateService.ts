@@ -1,5 +1,6 @@
 import { browserApi } from './browserApi';
-import { sessionState, StorageKey } from './sessionStorage';
+import { sessionState } from './sessionStorage';
+import { StorageKey } from './schema';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 

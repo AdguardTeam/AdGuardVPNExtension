@@ -23,7 +23,7 @@ import { NonRoutableServiceInterface } from '../routability/NonRoutableService';
 import { VpnExtensionInfoInterface } from '../providers/vpnProvider';
 import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
-import { CanControlProxy } from '../proxy/schema';
+import { CanControlProxy } from '../schema';
 
 interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;

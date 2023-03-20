@@ -1,4 +1,5 @@
-import { Credentials, VpnTokenData } from '../../../src/background/credentials/Credentials';
+import { Credentials } from '../../../src/background/credentials/Credentials';
+import { VpnTokenData } from '../../../src/background/schema';
 import { CredentialsDataInterface } from '../../../src/background/providers/vpnProvider';
 import { SubscriptionType } from '../../../src/lib/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';

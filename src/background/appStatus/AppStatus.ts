@@ -1,5 +1,5 @@
 import { ExtensionProxyInterface } from '../proxy/proxy';
-import { CanControlProxy } from '../proxy/schema';
+import { CanControlProxy } from '../schema';
 import { SettingsInterface } from '../settings/settings';
 
 export class AppStatus {

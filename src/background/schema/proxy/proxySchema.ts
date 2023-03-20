@@ -1,6 +1,6 @@
 import zod from 'zod';
 
-import { endpointInterfaceScheme } from '../endpoints/schema';
+import { endpointInterfaceScheme } from '../endpoints';
 
 export const accessCredentialsScheme = zod.object({
     username: zod.string(),
