@@ -5,6 +5,7 @@ import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
 import type { VpnTokenData, EndpointInterface } from '../../../src/background/schema';
+import { sessionState } from '../../../src/background/sessionStorage';
 
 jest.mock('../../../src/background/connectivity/pingHelpers');
 jest.mock('../../../src/lib/logger'); // hides redundant log messages during test run
@@ -12,7 +13,26 @@ jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/browserApi');
 jest.mock('../../../src/background/providers/vpnProvider');
 
+const session: { [key: string]: any } = {
+    set: jest.fn(async (key: string, data: any): Promise<void> => {
+        session[key] = data;
+    }),
+    get: jest.fn(async (key: string): Promise<string> => {
+        return session[key];
+    }),
+};
+
+global.chrome = {
+    storage: {
+        // @ts-ignore
+        session,
+    },
+};
+
 describe('location service', () => {
+    beforeEach(async () => {
+        await sessionState.init();
+    });
     it('by default it tries to connect to previously selected endpoint', async () => {
         const firstEndpoint = {
             id: 'gc-gb-lhr-01-1r06zxq6.adguard.io',
