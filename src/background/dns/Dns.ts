@@ -1,7 +1,8 @@
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from './dnsConstants';
 import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
-import { DnsServerData } from '../../common/components/constants';
+import { StorageKey, DnsServerData } from '../schema';
+import { sessionState } from '../sessionStorage';
 
 interface DnsInterface {
     init(): void;
@@ -14,22 +15,50 @@ interface DnsInterface {
 }
 
 export class Dns implements DnsInterface {
-    selectedDnsServer: string;
+    private get selectedDnsServer(): string {
+        return sessionState.getItem(StorageKey.DnsState).selectedDnsServer;
+    }
 
-    customDnsServers: DnsServerData[];
+    private set selectedDnsServer(selectedDnsServer: string) {
+        const dnsState = sessionState.getItem(StorageKey.DnsState);
+        dnsState.selectedDnsServer = selectedDnsServer;
+        sessionState.setItem(StorageKey.DnsState, dnsState);
+    }
+
+    private get customDnsServers(): DnsServerData[] {
+        return sessionState.getItem(StorageKey.DnsState).customDnsServers;
+    }
+
+    private set customDnsServers(customDnsServers: DnsServerData[]) {
+        const dnsState = sessionState.getItem(StorageKey.DnsState);
+        dnsState.customDnsServers = customDnsServers;
+        sessionState.setItem(StorageKey.DnsState, dnsState);
+    }
 
     // backup data for customDnsServers
     // if user deleted custom dns server and canceled the operation, it will be used to restore data
-    backupDnsServersData: DnsServerData[];
+    private get backupDnsServersData(): DnsServerData[] {
+        return sessionState.getItem(StorageKey.DnsState).backupDnsServersData;
+    }
+
+    private set backupDnsServersData(backupDnsServersData: DnsServerData[]) {
+        const dnsState = sessionState.getItem(StorageKey.DnsState);
+        dnsState.backupDnsServersData = backupDnsServersData;
+        sessionState.setItem(StorageKey.DnsState, dnsState);
+    }
 
     init = (): void => {
-        this.customDnsServers = settings.getCustomDnsServers();
-        const selectedDnsServer = settings.getSelectedDnsServer();
-        if (!selectedDnsServer) {
-            this.setDnsServer(DEFAULT_DNS_SERVER.id);
-            return;
+        if (!this.customDnsServers) {
+            this.customDnsServers = settings.getCustomDnsServers();
         }
-        this.setDnsServer(selectedDnsServer);
+        if (!this.selectedDnsServer) {
+            this.selectedDnsServer = settings.getSelectedDnsServer();
+            if (!this.selectedDnsServer) {
+                this.setDnsServer(DEFAULT_DNS_SERVER.id);
+                return;
+            }
+        }
+        this.setDnsServer(this.selectedDnsServer);
     };
 
     /**

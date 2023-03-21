@@ -1,5 +1,5 @@
 import { AuthService } from '../../../src/background/authentication/authService';
-import type { AuthAccessToken } from '../../../src/background/api/apiTypes';
+import type { AuthAccessToken } from '../../../src/background/schema';
 
 const storageImplementation: { [key: string]: unknown } = {};
 

@@ -22,10 +22,3 @@ export const UNLIMITED_FEATURES = [
         info: translator.getMessage('popup_upgrade_screen_connect_devices_desc'),
     },
 ];
-
-export interface DnsServerData {
-    id: string;
-    title: string;
-    address: string;
-    desc?: string;
-}

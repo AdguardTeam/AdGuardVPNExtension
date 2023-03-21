@@ -1,5 +1,5 @@
 import { BrowserApi, browserApi } from '../browserApi';
-import type { AuthAccessToken } from '../api/apiTypes';
+import type { AuthAccessToken } from '../schema';
 
 interface AuthServiceInterface {
     getAccessTokenData(): Promise <AuthAccessToken | null>;

@@ -6,6 +6,8 @@ import { exclusionsServicesScheme } from '../exclusionsServices';
 import { updateServiceStateScheme } from '../updateService';
 import { FLAG_STORAGE_DEFAULTS, flagsStorageDataScheme } from '../../flagsStorageData';
 import { credentialsStateScheme } from '../credentials';
+import { authStateScheme } from '../auth';
+import { dnsStateScheme } from '../dns';
 
 export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
@@ -14,6 +16,8 @@ export const enum StorageKey {
     UpdateServiceState = 'updateServiceState',
     FlagsStorageState = 'flagsStorageState',
     CredentialsState = 'credentialsState',
+    AuthState = 'authState',
+    DnsState = 'dnsState',
 }
 
 export const storageDataScheme = zod.object({
@@ -23,6 +27,8 @@ export const storageDataScheme = zod.object({
     [StorageKey.UpdateServiceState]: updateServiceStateScheme,
     [StorageKey.FlagsStorageState]: flagsStorageDataScheme.optional(),
     [StorageKey.CredentialsState]: credentialsStateScheme,
+    [StorageKey.AuthState]: authStateScheme,
+    [StorageKey.DnsState]: dnsStateScheme.optional(),
 });
 
 export type StorageData = zod.infer<typeof storageDataScheme>;
@@ -35,5 +41,14 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.UpdateServiceState]: {},
     [StorageKey.ExclusionsServicesState]: {
         lastUpdateTimeMs: null,
+    },
+    [StorageKey.AuthState]: {
+        socialAuthState: null,
+        accessTokenData: null,
+    },
+    [StorageKey.DnsState]: {
+        customDnsServers: [],
+        backupDnsServersData: [],
+        selectedDnsServer: null,
     },
 };

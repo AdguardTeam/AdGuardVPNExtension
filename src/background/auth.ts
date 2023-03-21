@@ -14,8 +14,11 @@ import { fallbackApi } from './api/fallbackApi';
 import { settings } from './settings';
 import { SocialAuthProvider } from '../lib/constants';
 import { flagsStorage } from './flagsStorage';
-import { AuthAccessToken, AuthCredentials } from './api/apiTypes';
+import type { AuthCredentials } from './api/apiTypes';
+import type { AuthAccessToken } from './schema';
 import { authService } from './authentication/authService';
+import { StorageKey } from './schema';
+import { sessionState } from './sessionStorage';
 
 export interface AuthInterface {
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
@@ -37,9 +40,25 @@ export interface AuthInterface {
 }
 
 class Auth implements AuthInterface {
-    socialAuthState: string | null = null;
+    private get socialAuthState(): string | null {
+        return sessionState.getItem(StorageKey.AuthState).socialAuthState;
+    }
 
-    accessTokenData: AuthAccessToken | null = null;
+    private set socialAuthState(socialAuthState: string | null) {
+        const authState = sessionState.getItem(StorageKey.AuthState);
+        authState.socialAuthState = socialAuthState;
+        sessionState.setItem(StorageKey.AuthState, authState);
+    }
+
+    private get accessTokenData(): AuthAccessToken | null {
+        return sessionState.getItem(StorageKey.AuthState).accessTokenData;
+    }
+
+    private set accessTokenData(accessTokenData: AuthAccessToken | null) {
+        const authState = sessionState.getItem(StorageKey.AuthState);
+        authState.accessTokenData = accessTokenData;
+        sessionState.setItem(StorageKey.AuthState, authState);
+    }
 
     async authenticate(credentials: AuthCredentials): Promise<{ status: string }> {
         // turn off proxy to be sure it is not enabled before authentication
