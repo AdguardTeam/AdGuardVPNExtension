@@ -6,3 +6,11 @@ export const dnsStateScheme = zod.object({
     customDnsServers: dnsServerDataScheme.array(),
     backupDnsServersData: dnsServerDataScheme.array(),
 });
+
+export type DnsState = zod.infer<typeof dnsStateScheme>;
+
+export const DNS_STATE_DEFAULTS: DnsState = {
+    customDnsServers: [],
+    backupDnsServersData: [],
+    selectedDnsServer: null,
+};

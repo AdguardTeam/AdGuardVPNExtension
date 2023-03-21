@@ -5,6 +5,8 @@ import sortBy from 'lodash/sortBy';
 import { log } from '../../lib/logger';
 import { browserApi } from '../browserApi';
 import { proxy } from './index';
+import { StorageKey } from '../schema';
+import { sessionState } from '../sessionStorage';
 
 /**
  * This module manages exclusions for endpoints
@@ -29,9 +31,16 @@ class EndpointsTldExclusions {
 
     /**
      * Endpoints top level domain exclusions list
-     * @type {string[]}
      */
-    endpointsTldExclusionsList: string[] = [];
+    private get endpointsTldExclusionsList(): string[] {
+        return sessionState.getItem(StorageKey.EndpointsTldExclusions).endpointsTldExclusionsList;
+    }
+
+    private set endpointsTldExclusionsList(endpointsTldExclusionsList: string[]) {
+        const endpointsTldExclusionsState = sessionState.getItem(StorageKey.EndpointsTldExclusions);
+        endpointsTldExclusionsState.endpointsTldExclusionsList = endpointsTldExclusionsList;
+        sessionState.setItem(StorageKey.EndpointsTldExclusions, endpointsTldExclusionsState);
+    }
 
     /**
      * Updates storage in a throttled way
@@ -100,6 +109,4 @@ class EndpointsTldExclusions {
     };
 }
 
-const endpointsTldExclusions = new EndpointsTldExclusions();
-
-export { endpointsTldExclusions };
+export const endpointsTldExclusions = new EndpointsTldExclusions();

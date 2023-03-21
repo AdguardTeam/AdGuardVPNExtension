@@ -2,12 +2,13 @@ import zod from 'zod';
 
 import { fallbackInfoScheme } from '../fallbackApi';
 import { PROXY_DEFAULTS, proxyStateScheme } from '../proxy';
-import { exclusionsServicesScheme } from '../exclusionsServices';
+import { EXCLUSIONS_SERVICES_STATE_DEFAULTS, exclusionsServicesScheme } from '../exclusions';
 import { updateServiceStateScheme } from '../updateService';
 import { FLAG_STORAGE_DEFAULTS, flagsStorageDataScheme } from '../../flagsStorageData';
 import { credentialsStateScheme } from '../credentials';
-import { authStateScheme } from '../auth';
-import { dnsStateScheme } from '../dns';
+import { AUTH_STATE_DEFAULTS, authStateScheme } from '../auth';
+import { DNS_STATE_DEFAULTS, dnsStateScheme } from '../dns';
+import { ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS, endpointsTldExclusionsScheme } from '../proxy/endpointsTldExclusions';
 
 export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
@@ -18,6 +19,7 @@ export const enum StorageKey {
     CredentialsState = 'credentialsState',
     AuthState = 'authState',
     DnsState = 'dnsState',
+    EndpointsTldExclusions = 'endpointsTldExclusions',
 }
 
 export const storageDataScheme = zod.object({
@@ -25,10 +27,11 @@ export const storageDataScheme = zod.object({
     [StorageKey.ProxyState]: proxyStateScheme,
     [StorageKey.ExclusionsServicesState]: exclusionsServicesScheme,
     [StorageKey.UpdateServiceState]: updateServiceStateScheme,
-    [StorageKey.FlagsStorageState]: flagsStorageDataScheme.optional(),
+    [StorageKey.FlagsStorageState]: flagsStorageDataScheme,
     [StorageKey.CredentialsState]: credentialsStateScheme,
     [StorageKey.AuthState]: authStateScheme,
-    [StorageKey.DnsState]: dnsStateScheme.optional(),
+    [StorageKey.DnsState]: dnsStateScheme,
+    [StorageKey.EndpointsTldExclusions]: endpointsTldExclusionsScheme,
 });
 
 export type StorageData = zod.infer<typeof storageDataScheme>;
@@ -39,16 +42,8 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.FlagsStorageState]: FLAG_STORAGE_DEFAULTS,
     [StorageKey.CredentialsState]: {},
     [StorageKey.UpdateServiceState]: {},
-    [StorageKey.ExclusionsServicesState]: {
-        lastUpdateTimeMs: null,
-    },
-    [StorageKey.AuthState]: {
-        socialAuthState: null,
-        accessTokenData: null,
-    },
-    [StorageKey.DnsState]: {
-        customDnsServers: [],
-        backupDnsServersData: [],
-        selectedDnsServer: null,
-    },
+    [StorageKey.ExclusionsServicesState]: EXCLUSIONS_SERVICES_STATE_DEFAULTS,
+    [StorageKey.AuthState]: AUTH_STATE_DEFAULTS,
+    [StorageKey.DnsState]: DNS_STATE_DEFAULTS,
+    [StorageKey.EndpointsTldExclusions]: ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS,
 };

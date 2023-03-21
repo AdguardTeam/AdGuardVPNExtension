@@ -5,3 +5,7 @@ export const exclusionsServicesScheme = zod.object({
 }).strict();
 
 export type ExclusionsServicesState = zod.infer<typeof exclusionsServicesScheme>;
+
+export const EXCLUSIONS_SERVICES_STATE_DEFAULTS: ExclusionsServicesState = {
+    lastUpdateTimeMs: null,
+};
