@@ -17,7 +17,7 @@ const EXTENSION_STATE_KEY = 'AdgVpnExtStateKey';
 class SessionStorage {
     private state: StorageData;
 
-    public getItem = (key: StorageKey): any => {
+    public getItem = (key: StorageKey): unknown => {
         return this.state[key];
     };
 
