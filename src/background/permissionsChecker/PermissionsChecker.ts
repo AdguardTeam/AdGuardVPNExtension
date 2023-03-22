@@ -7,6 +7,8 @@ import { PermissionsErrorInterface, ErrorData } from './permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { vpnProvider } from '../providers/vpnProvider';
 import { timers } from '../timers';
+import { sessionState } from '../sessionStorage';
+import { StorageKey } from '../schema';
 
 interface PermissionsCheckerParameters {
     credentials: CredentialsInterface;
@@ -29,15 +31,39 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
 
     credentials: CredentialsInterface;
 
-    credentialsCheckTimerId: number | null = null;
-
-    vpnInfoCheckTimerId: number | null = null;
-
-    expiredCredentialsCheckTimeoutId: number | null = null;
-
     constructor({ credentials, permissionsError }: PermissionsCheckerParameters) {
         this.credentials = credentials;
         this.permissionsError = permissionsError;
+    }
+
+    get credentialsCheckTimerId(): number | null {
+        return sessionState.getItem(StorageKey.PermissionsChecker).credentialsCheckTimerId;
+    }
+
+    set credentialsCheckTimerId(credentialsCheckTimerId: number | null) {
+        const permissionsCheckerState = sessionState.getItem(StorageKey.PermissionsChecker);
+        permissionsCheckerState.credentialsCheckTimerId = credentialsCheckTimerId;
+        sessionState.setItem(StorageKey.PermissionsChecker, permissionsCheckerState);
+    }
+
+    get vpnInfoCheckTimerId(): number | null {
+        return sessionState.getItem(StorageKey.PermissionsChecker).vpnInfoCheckTimerId;
+    }
+
+    set vpnInfoCheckTimerId(vpnInfoCheckTimerId: number | null) {
+        const permissionsCheckerState = sessionState.getItem(StorageKey.PermissionsChecker);
+        permissionsCheckerState.vpnInfoCheckTimerId = vpnInfoCheckTimerId;
+        sessionState.setItem(StorageKey.PermissionsChecker, permissionsCheckerState);
+    }
+
+    get expiredCredentialsCheckTimeoutId(): number | null {
+        return sessionState.getItem(StorageKey.PermissionsChecker).expiredCredentialsCheckTimeoutId;
+    }
+
+    set expiredCredentialsCheckTimeoutId(expiredCredentialsCheckTimeoutId: number | null) {
+        const permissionsCheckerState = sessionState.getItem(StorageKey.PermissionsChecker);
+        permissionsCheckerState.expiredCredentialsCheckTimeoutId = expiredCredentialsCheckTimeoutId;
+        sessionState.setItem(StorageKey.PermissionsChecker, permissionsCheckerState);
     }
 
     updatePermissionsErrorHandler = async (error: ErrorData): Promise<void> => {

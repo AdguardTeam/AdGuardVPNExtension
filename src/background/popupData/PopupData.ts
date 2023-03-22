@@ -20,7 +20,7 @@ import { PermissionsCheckerInterface } from '../permissionsChecker/PermissionsCh
 import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { NonRoutableServiceInterface } from '../routability/NonRoutableService';
-import { VpnExtensionInfoInterface } from '../providers/vpnProvider';
+import type { VpnExtensionInfoInterface } from '../schema';
 import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../schema';

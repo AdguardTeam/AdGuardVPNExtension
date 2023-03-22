@@ -1,17 +1,13 @@
 import { endpoints } from '../../../src/background/endpoints';
 import { settings } from '../../../src/background/settings';
-import {
-    CredentialsDataInterface,
-    VpnExtensionInfoInterface,
-    vpnProvider,
-} from '../../../src/background/providers/vpnProvider';
+import { CredentialsDataInterface, vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { credentials } from '../../../src/background/credentials';
 import { Location, LocationData, LocationInterface } from '../../../src/background/endpoints/Location';
 import { LocationWithPing, LocationWithPingInterface } from '../../../src/background/endpoints/LocationWithPing';
 import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import { proxy } from '../../../src/background/proxy';
-import type { VpnTokenData, EndpointInterface } from '../../../src/background/schema';
+import type { VpnTokenData, EndpointInterface, VpnExtensionInfoInterface } from '../../../src/background/schema';
 import { sessionState } from '../../../src/background/sessionStorage';
 
 jest.mock('../../../src/background/settings');

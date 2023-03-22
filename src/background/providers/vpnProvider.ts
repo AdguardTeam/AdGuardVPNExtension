@@ -6,6 +6,7 @@ import { log } from '../../lib/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
 import { LocationApiData, EndpointApiData } from '../api/vpnApi';
 import { Service } from '../exclusions/services/Service';
+import { VpnExtensionInfoInterface } from '../schema';
 
 const DEFAULT_LOCALE = 'en';
 
@@ -23,20 +24,20 @@ interface NameInterface {
     name: string;
 }
 
-export interface VpnExtensionInfoInterface {
-    bandwidthFreeMbits: number;
-    premiumPromoPage: string;
-    premiumPromoEnabled: boolean;
-    refreshTokens: boolean;
-    vpnFailurePage: string;
-    usedDownloadedBytes: number;
-    usedUploadedBytes: number;
-    maxDownloadedBytes: number;
-    maxUploadedBytes: number;
-    renewalTrafficDate: string;
-    maxDevicesCount: number;
-    emailConfirmationRequired: boolean;
-}
+// export interface VpnExtensionInfoInterface {
+//     bandwidthFreeMbits: number;
+//     premiumPromoPage: string;
+//     premiumPromoEnabled: boolean;
+//     refreshTokens: boolean;
+//     vpnFailurePage: string;
+//     usedDownloadedBytes: number;
+//     usedUploadedBytes: number;
+//     maxDownloadedBytes: number;
+//     maxUploadedBytes: number;
+//     renewalTrafficDate: string;
+//     maxDevicesCount: number;
+//     emailConfirmationRequired: boolean;
+// }
 
 interface CurrentLocationData {
     ip: string;
