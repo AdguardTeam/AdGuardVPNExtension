@@ -44,8 +44,8 @@ const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
 const RUSSIAN_LOCALE = 'ru';
 
-const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=xmas_promo_23_vpn&from=popup&app=vpn_extension`;
-const RUSSIAN_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=xmas_promo_23_vpn_ru&from=popup&app=vpn_extension`;
+const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=easter_promo_23_vpn&from=popup&app=vpn_extension`;
+const RUSSIAN_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=easter_promo_23_vpn_ru&from=popup&app=vpn_extension`;
 
 const normalizeLanguage = (locale: string): string | null => {
     if (!locale) {
@@ -58,181 +58,181 @@ const normalizeLanguage = (locale: string): string | null => {
 const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
 const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
 
-const xmasPromo23Notification = {
-    id: 'xmasPromo23',
+const easterPromo23Notification = {
+    id: 'easterPromo23',
     locales: {
         en: {
-            title: 'Ho-ho-holiday sale!',
+            title: 'Easter promo',
             btn: 'Get 80% off',
         },
         ru: {
-            title: 'Новогодние скидки',
-            btn: 'Вжух! И -75%',
-        },
-        ja: {
-            title: 'AdGuard Christmas SALE',
-            btn: '80%OFF割引をGETする',
+            title: 'Весенняя акция',
+            btn: 'Скидка 75%',
         },
         ko: {
-            title: '크리스마스 세일',
-            btn: '80% 할인',
+            title: '부활절 세일',
+            btn: '85% 할인',
         },
         es: {
-            title: 'Promo navideña',
-            btn: 'Descuento de 80%',
+            title: 'Promo de Pascua',
+            btn: 'Gana un 80% de descuento',
         },
         de: {
-            title: 'AdGuards Weihnachtsangebot',
+            title: 'Oster-Sale',
             btn: '80% Rabatt',
         },
         pt_pt: {
-            title: 'Promo de Natal',
-            btn: 'Desconto de 80%',
+            title: 'Promo de Páscoa',
+            btn: '80% de desconto',
         },
         pt_br: {
-            title: 'Promo de Natal',
-            btn: 'Desconto de 80%',
+            title: 'Promo de Páscoa',
+            btn: '80% de desconto',
         },
         zh_tw: {
-            title: 'AdGuard 聖誕折扣',
-            btn: '低至2折',
+            title: '暖春巨惠',
+            btn: '享2折',
         },
         zh_cn: {
-            title: 'AdGuard 圣诞优惠',
-            btn: '低至2折',
+            title: '暖春特惠',
+            btn: '享2折',
         },
         fr: {
-            title: 'Promo de Noël chez AdGuard',
-            btn: '80% de remise',
+            title: 'Promo Pâques',
+            btn: 'Obtenez 80% de remise',
         },
         it: {
-            title: 'Promo di Natale ad AdGuard',
-            btn: '80% di sconto',
+            title: 'Offerta Pascua',
+            btn: 'Ottieni 80% di sconto',
         },
         uk: {
-            title: 'Новорічний розпродаж',
+            title: 'Весняна акція',
             btn: 'Знижка 80%',
         },
         ar: {
-            title: 'تخفيضات العام الجديد',
-            btn: 'خصم 80٪',
+            title: 'تعزيز الربيع',
+            btn: '80٪ خصم',
         },
         be: {
-            title: 'Навагоднія скідкі',
-            btn: '80% зніжка',
+            title: 'Вясновая акцыя',
+            btn: 'Зніжка 80%',
         },
         bg: {
-            title: 'Новогодишни отстъпки',
+            title: 'Пролетна промоция',
             btn: '80% отстъпка',
         },
         ca: {
-            title: 'Venda de Cap d\'Any',
+            title: 'Promoció de Pasqua',
             btn: '80% de descompte',
         },
         cs: {
-            title: 'Novoroční výprodej',
+            title: 'Velikonoční promo akce',
             btn: '80% sleva',
         },
         da: {
-            title: 'Nytårsudsalg',
+            title: 'Påske kampagne',
             btn: '80% rabat',
         },
         el: {
-            title: 'Εκπτώσεις Πρωτοχρονιάς',
+            title: 'ανοιξιάτικη προώθηση',
             btn: '80% έκπτωση',
         },
+        es_419: {
+            title: 'Promoción de pascua',
+            btn: '80% de descuento',
+        },
         fa: {
-            title: 'فروش سال نو',
-            btn: '80٪ تخفیف',
+            title: 'تبلیغات بهار',
+            btn: '80 درصد تخفیف',
         },
         fi: {
-            title: 'Uudenvuoden alennus',
-            btn: '80% alennus',
+            title: 'Pääsiäispromo',
+            btn: '80 % alennus',
         },
         he: {
-            title: 'מבצע לשנה החדשה',
+            title: 'קידום אביב',
             btn: '80% הנחה',
         },
         hr: {
-            title: 'Novogodišnji popusti',
+            title: 'Uskršnja promocija',
             btn: '80% popusta',
         },
         hu: {
-            title: 'Újévi akció',
+            title: 'Tavaszi akció',
             btn: '80% kedvezmény',
         },
         hy: {
-            title: 'Ամանորյա զեղչեր',
+            title: 'գարնանային ակցիա',
             btn: '80% զեղչ',
         },
         id: {
-            title: 'Obral Tahun Baru',
+            title: 'Promosi musim semi',
             btn: 'Diskon 80%',
         },
         lt: {
-            title: 'Naujųjų metų nuolaidos',
+            title: 'Velykų akcija',
             btn: '80% nuolaida',
         },
         ms: {
-            title: 'Jualan Tahun Baru',
+            title: 'Promosi musim bunga',
             btn: 'Diskaun 80%',
         },
         nb: {
-            title: 'Nyttårs salg',
+            title: 'Påskekampanje',
             btn: '80% rabatt',
         },
         nl: {
-            title: 'Nieuwjaarsuitverkoop',
+            title: 'Pasen promo',
             btn: '80% korting',
         },
         pl: {
-            title: 'Zniżki noworoczne',
+            title: 'Promocja wielkanocna',
             btn: '80% zniżki',
         },
         ro: {
-            title: 'Vânzarea de Anul Nou',
+            title: 'Promoție de primăvară',
             btn: '80% reducere',
         },
         sk: {
-            title: 'Novoročný výpredaj',
+            title: 'Veľkonočné promo',
             btn: '80% zľava',
         },
         sl: {
-            title: 'Novoletni popusti',
+            title: 'Velikonočni promo',
             btn: '80% popust',
         },
         sr: {
-            title: 'Novogodišnji popusti',
-            btn: '80% popusta',
+            title: 'Prolećna promocija',
+            btn: 'Popust 80%',
         },
         sv: {
-            title: 'Nyårsrabatter',
-            btn: '80% rabatt',
+            title: 'Påsk kampanj',
+            btn: '80 % rabatt',
         },
         tr: {
-            title: 'Yılbaşı indirimleri',
+            title: 'Bahar promosyonu',
             btn: '%80 indirim',
         },
         vi: {
-            title: 'Giảm giá năm mới',
+            title: 'Khuyến mãi mùa xuân',
             btn: 'Giảm giá 80%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
     url: promoLink,
-    from: '22 December 2022 15:00:00',
-    to: '02 January 2023 23:59:00',
+    from: '06 April 2023 12:00:00',
+    to: '12 April 2023 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(xmasPromo23Notification, 'icons', () => ({
+        return lazyGet(easterPromo23Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/xmas23-on-19.png'),
-                38: getUrl('assets/images/icons/xmas23-on-38.png'),
+                19: getUrl('assets/images/icons/easter2023-on-19.png'),
+                38: getUrl('assets/images/icons/easter2023-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/xmas23-off-19.png'),
-                38: getUrl('assets/images/icons/xmas23-off-38.png'),
+                19: getUrl('assets/images/icons/easter2023-off-19.png'),
+                38: getUrl('assets/images/icons/easter2023-off-38.png'),
             },
         }));
     },
@@ -255,7 +255,7 @@ const xmasPromo23Notification = {
  */
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    xmasPromo23: xmasPromo23Notification,
+    easterPromo23: easterPromo23Notification,
 };
 
 /**
