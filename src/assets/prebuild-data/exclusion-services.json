@@ -1075,7 +1075,6 @@
             "bytecdn.cn",
             "byted.org",
             "bytedanceapi.com",
-            "byteoversea.com",
             "byteoversea.net",
             "ibytedtos.com",
             "isnssdk.com",
@@ -1324,7 +1323,9 @@
             "yandex.net",
             "yandex.ru",
             "yandex.ua",
-            "yastatic.net"
+            "yastatic.net",
+            "yandex.by",
+            "ya.ru"
         ]
     },
     "youtube": {

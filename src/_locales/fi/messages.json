@@ -129,7 +129,7 @@
         "message": "Ilmainen tili"
     },
     "account_unlimited": {
-        "message": "Rajaton tilaus"
+        "message": "Unlimited-tilaus"
     },
     "account_monthly_paid": {
         "message": "Kuukausittain maksettava tilaus"
@@ -153,7 +153,7 @@
         "message": "Kirjaudu ulos"
     },
     "account_unlimited_title": {
-        "message": "Hanki Rajaton-versio!"
+        "message": "Hanki Unlimited-tilaus!"
     },
     "rate_description": {
         "message": "Hei, olemme AdGuardin tiimi ja meille on erittäin tärkeää, että kerrot meille mielipiteesi tuotteesta. Arvioi se, kiitos."
@@ -799,13 +799,13 @@
         "message": "Rajaton VPN"
     },
     "popup_upgrade_screen_unlimited_data": {
-        "message": "Rajaton tiedonsiirto"
+        "message": "Rajattomasti tiedonsiirtoa"
     },
     "popup_upgrade_screen_unlimited_data_desc": {
         "message": "Ainoa rajoitus on se, ettei tietojasi jaeta koskaan. Surffaa sydämesi kyllyydestä!"
     },
     "popup_upgrade_screen_unlimited_speed": {
-        "message": "Rajaton nopeus"
+        "message": "Rajattomasti nopeutta"
     },
     "popup_upgrade_screen_unlimited_speed_desc": {
         "message": "Ei nopeusrajoituksia. Ota palveluntarjoajastasi kaikki irti!"
@@ -869,7 +869,7 @@
         "message": "Poikkeuksia lisätty: %count%"
     },
     "options_exclusions_remove_all_success": {
-        "message": "Nykyisen käyttötilan kaikki poikkeukset on poistettu."
+        "message": "Kaikki nykyisen tilan poikkeukset poistettiin."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Poikkeustiedostolla tulee olla joku seuraavista tiedostopäätteistä: %extensions%"
@@ -881,7 +881,7 @@
         "message": "Olet saavuttanut yhteyksien enimmäismäärän: %maxDevicesAllowed%."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Lisätäksesi laitteita, harkitse AdGuard VPN Rajaton -tilausta."
+        "message": "Lisätäksesi laitteita, harkitse rajatonta AdGuard VPN Unlimited -tilausta."
     },
     "popup_connections_limit_description_end_premium": {
         "message": "Lisätäksesi laitteen, katkaise AdGuard VPN joltakin laitteeltasi."

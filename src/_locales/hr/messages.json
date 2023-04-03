@@ -692,11 +692,17 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Idi u Chrome trgovinu"
     },
+    "popup_server_error_popup_title": {
+        "message": "Povezivanje s poslužiteljem nije moguće"
+    },
     "popup_server_error_popup_info": {
         "message": "Najvjerojatnije je VPN bio blokiran u vašoj zemlji ili je došlo do tehničke greške. Već ga pokušavamo popraviti"
     },
     "popup_server_error_popup_cancel": {
         "message": "Poništi"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Radimo na tome"
     },
     "popup_server_error_popup_close": {
         "message": "Zatvori"
