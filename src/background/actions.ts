@@ -14,6 +14,8 @@ import { browserAction } from './browserAction';
 type SetIconDetailsType = browser.Action.SetIconDetailsType;
 type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
 
+const OPTIONS_PAGE_PATH = '/options.html';
+
 /**
  * Opens options tab with anchor if provided
  */
@@ -52,12 +54,10 @@ const openOptionsPage = async (anchorName: string | null = null): Promise<void> 
         }
     } else {
         await browser.runtime.openOptionsPage();
-        const { id, url } = await tabs.getCurrent();
+        const optionsTab = await tabs.getCurrent();
+        const { id } = optionsTab;
         if (anchorName && id) {
-            await tabs.update(id, `${url}#${anchorName}`);
-            if (url?.includes(browser.runtime.id)) {
-                await tabs.reload(id);
-            }
+            await tabs.update(id, `${OPTIONS_PAGE_PATH}#${anchorName}`);
         }
     }
 };
