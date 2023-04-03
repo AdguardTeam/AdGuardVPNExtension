@@ -2,8 +2,9 @@ import { nanoid } from 'nanoid';
 
 import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
-import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsTypes';
 import { getETld, getHostname } from '../../../common/url-utils';
+import { sessionState } from '../../sessionStorage';
+import { ExclusionInterface, IndexedExclusionsInterface, StorageKey } from '../../schema';
 
 interface UpdateHandler {
     (): Promise<void>;
@@ -16,10 +17,6 @@ export interface AddExclusionArgs {
 }
 
 export class ExclusionsHandler {
-    exclusions: ExclusionInterface[];
-
-    exclusionsIndex: IndexedExclusionsInterface;
-
     updateHandler: UpdateHandler;
 
     public mode: ExclusionsMode;
@@ -33,6 +30,26 @@ export class ExclusionsHandler {
         this.exclusions = exclusions;
         this.exclusionsIndex = ExclusionsHandler.buildExclusionsIndex(exclusions);
         this.mode = mode;
+    }
+
+    get exclusions(): ExclusionInterface[] {
+        return sessionState.getItem(StorageKey.ExclusionsState).exclusions.currentHandler.exclusions;
+    }
+
+    set exclusions(exclusions: ExclusionInterface[]) {
+        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
+        exclusionsState.exclusions.currentHandler.exclusions = exclusions;
+        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+    }
+
+    get exclusionsIndex(): IndexedExclusionsInterface {
+        return sessionState.getItem(StorageKey.ExclusionsState).exclusions.currentHandler.exclusionsIndex;
+    }
+
+    set exclusionsIndex(exclusionsIndex: IndexedExclusionsInterface) {
+        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
+        exclusionsState.exclusions.currentHandler.exclusionsIndex = exclusionsIndex;
+        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
     }
 
     async onUpdate() {

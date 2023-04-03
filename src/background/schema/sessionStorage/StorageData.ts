@@ -2,7 +2,7 @@ import zod from 'zod';
 
 import { fallbackInfoScheme } from '../fallbackApi';
 import { PROXY_DEFAULTS, proxyStateScheme } from '../proxy';
-import { EXCLUSIONS_SERVICES_STATE_DEFAULTS, exclusionsServicesScheme } from '../exclusions';
+import { EXCLUSIONS_STATE_DEFAULTS, exclusionsStateScheme } from '../exclusions';
 import { updateServiceStateScheme } from '../updateService';
 import { FLAG_STORAGE_DEFAULTS, flagsStorageDataScheme } from '../../flagsStorageData';
 import { credentialsStateScheme } from '../credentials';
@@ -15,7 +15,7 @@ import { endpointsStateScheme } from '../endpoints';
 export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
     ProxyState = 'proxyState',
-    ExclusionsServicesState = 'exclusionsServicesState',
+    ExclusionsState = 'exclusionsState',
     UpdateServiceState = 'updateServiceState',
     FlagsStorageState = 'flagsStorageState',
     CredentialsState = 'credentialsState',
@@ -29,7 +29,7 @@ export const enum StorageKey {
 export const storageDataScheme = zod.object({
     [StorageKey.FallbackInfo]: fallbackInfoScheme.or(zod.null()),
     [StorageKey.ProxyState]: proxyStateScheme,
-    [StorageKey.ExclusionsServicesState]: exclusionsServicesScheme,
+    [StorageKey.ExclusionsState]: exclusionsStateScheme,
     [StorageKey.UpdateServiceState]: updateServiceStateScheme,
     [StorageKey.FlagsStorageState]: flagsStorageDataScheme,
     [StorageKey.CredentialsState]: credentialsStateScheme,
@@ -48,7 +48,7 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.FlagsStorageState]: FLAG_STORAGE_DEFAULTS,
     [StorageKey.CredentialsState]: {},
     [StorageKey.UpdateServiceState]: {},
-    [StorageKey.ExclusionsServicesState]: EXCLUSIONS_SERVICES_STATE_DEFAULTS,
+    [StorageKey.ExclusionsState]: EXCLUSIONS_STATE_DEFAULTS,
     [StorageKey.AuthState]: AUTH_STATE_DEFAULTS,
     [StorageKey.DnsState]: DNS_STATE_DEFAULTS,
     [StorageKey.EndpointsTldExclusions]: ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS,

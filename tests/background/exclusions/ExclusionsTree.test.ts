@@ -2,7 +2,7 @@ import { ExclusionsHandler } from '../../../src/background/exclusions/exclusions
 import { ServicesManager } from '../../../src/background/exclusions/services/ServicesManager';
 import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTree';
 import { ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
-import { ExclusionInterface } from '../../../src/background/exclusions/exclusions/exclusionsTypes';
+import type { ExclusionInterface } from '../../../src/background/schema';
 
 jest.mock('../../../src/lib/logger.ts');
 

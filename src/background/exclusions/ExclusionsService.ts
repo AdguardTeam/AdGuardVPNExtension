@@ -14,7 +14,7 @@ import {
     ServiceDto,
 } from '../../common/exclusionsConstants';
 import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
-import { ExclusionInterface } from './exclusions/exclusionsTypes';
+import type { ExclusionInterface } from '../schema';
 import {
     getETld,
     getHostname,
