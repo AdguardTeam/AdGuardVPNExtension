@@ -2,9 +2,6 @@
     "name": {
         "message": "AdGuard VPN — الخصوصية و الحماية"
     },
-    "description": {
-        "message": "من مبتكري برامج حظرالإعلانات الشهيرTopnotch VPNيجعل الإنترنت مفتوحًا ويجعل بياناتك آمنة"
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -503,9 +500,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "تمكين على هذه الصفحة"
     },
-    "popup_settings_disable_vpn": {
-        "message": "تعطيل VPN  في هذا الموقع"
-    },
     "popup_settings_other_products": {
         "message": "منتجات اخرى"
     },
@@ -539,11 +533,11 @@
     "endpoints_search": {
         "message": "البحث عن الموقع"
     },
-    "endpoints_not_found": {
-        "message": "لم يتم العثور على الموقع"
-    },
     "popup_traffic_limit_reached": {
         "message": "تم الوصول إلى حد البيانات الشهرية"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "سرعة محدودة"
     },
     "premium_upgrade": {
         "message": "ترقيه"
@@ -598,6 +592,12 @@
     },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "اترك ملاحظاتك"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "إلغاء"
+    },
+    "popup_server_error_popup_close": {
+        "message": "إغلاق"
     },
     "options_title": {
         "message": "AdGuard VPN خيارات"
@@ -665,10 +665,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "استمر مجانًا"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> المتبقية هذا الشهر",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "إلغاء"
@@ -744,5 +740,8 @@
     },
     "confirm_email_close_button": {
         "message": "إغلاق"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

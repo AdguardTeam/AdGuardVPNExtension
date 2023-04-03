@@ -18,9 +18,12 @@
     "locales_data_filename": "messages.json",
     "required_locales": [
         "de",
-        "es",
         "fr",
         "it",
+        "es",
+        "pt_BR",
+        "pt_PT",
+        "ko",
         "ja",
         "ru",
         "zh_CN",

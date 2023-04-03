@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — ilmainen ja turvallinen välityspalvelin"
     },
     "description": {
-        "message": "Surffaile Internetissä nopeasti ja turvallisesti AdGuard VPN:llä. Suojaa yksityisyyttäsi ja pysy nimettömänä yksityisella VPN-välityspalvelimellamme."
+        "message": "Surffaa Internetissä nopeasti ja turvallisesti AdGuard VPN:n avulla. Suojaa yksityisyyttäsi ja pysy nimettömänä yksityisellä VPN-välityspalvelimellamme."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -36,7 +36,7 @@
         "message": "Vaaditaan kaksivaiheinen todennus (2FA)"
     },
     "authentication_error_2fa_invalid": {
-        "message": "Virheellinen todennuskoodi"
+        "message": "Virheellinen vahvistuskoodi"
     },
     "authentication_error_account_disabled": {
         "message": "Tili on poistettu käytöstä"
@@ -216,13 +216,13 @@
         "message": "Kirjaudutaan tunnuksella <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
-        "message": "Kaksivaiheinen tunnistautuminen"
+        "message": "Kaksivaiheinen todennus"
     },
     "auth_header_2fa": {
-        "message": "Syötä todennuskoodi"
+        "message": "Syötä vahvistuskoodi"
     },
     "auth_placeholder_2fa": {
-        "message": "Todennuskoodi"
+        "message": "Vahvistuskoodi"
     },
     "official_website": {
         "message": "Virallinen sivusto"
@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Todennus onnistui! Voit avata AdGuard VPN:n ja aloittaa sen käytön."
     },
+    "control_error_title": {
+        "message": "Laajennusristiriita"
+    },
     "control_error_description": {
         "message": "Näyttää siltä, että joku muu selainlaajennus pyrkii hallitsemaan yhteyttäsi. Poista se selaimestasi käytöstä."
     },
@@ -603,7 +606,10 @@
         "message": "Käytä sivustolla"
     },
     "popup_settings_disable_vpn": {
-        "message": "Poista VPN käytöstä tällä sivustolla"
+        "message": "Älä käytä VPN:ää tällä sivustolla"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Käytä VPN:ää tällä sivustolla"
     },
     "popup_settings_other_products": {
         "message": "Muita tuotteita"
@@ -642,10 +648,13 @@
         "message": "Etsi sijainneista"
     },
     "endpoints_not_found": {
-        "message": "Sijaintia ei löytynyt"
+        "message": "Sijainteja ei löytynyt"
     },
     "popup_traffic_limit_reached": {
         "message": "Kuukausittainen tiedonsiirtorajoitus on saavutettu"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Rajoitettu nopeus"
     },
     "premium_upgrade": {
         "message": "Päivitä"
@@ -680,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Lähetä palautetta"
     },
+    "popup_compare_button": {
+        "message": "Miksi sovellus on parempi"
+    },
     "popup_rate_modal_title": {
         "message": "Miten mahtava AdGuard VPN on?"
     },
@@ -711,7 +723,7 @@
         "message": "Palvelimeen ei saada yhteyttä"
     },
     "popup_server_error_popup_info": {
-        "message": "Olemme jo korjaamassa sitä, mutta voit lähettää meille ylimääräisen hälytyksen — varmuuden vuoksi."
+        "message": "Todennäköisesti VPN on estetty maassasi tai kyseessä on tekninen häiriö. Yritämme jo korjata sen"
     },
     "popup_server_error_popup_action": {
         "message": "Tönäise AdGuardin tiimiä"

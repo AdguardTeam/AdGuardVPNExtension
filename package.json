@@ -1,6 +1,6 @@
 {
     "name": "adguard-vpn",
-    "version": "1.3.57",
+    "version": "1.4.16",
     "description": "AdGuard VPN",
     "author": "adguard@adguard.com",
     "license": "LGPL-3.0",
@@ -15,10 +15,10 @@
         "compile-proto": "./tasks/compile-protobuf.sh",
         "increment": "yarn version --patch --no-git-tag-version",
         "crx:beta": "export BUILD_ENV=beta; yarn beta chrome && ts-node tasks/crx.ts",
-        "xpi:beta": "export BUILD_ENV=beta; yarn beta firefox && node tasks/xpi.js",
-        "crx:release": "export BUILD_ENV=release; yarn release chrome && node tasks/crx.ts",
-        "xpi:release": "export BUILD_ENV=release; yarn release firefox && ts-node tasks/xpi.js",
-        "artifacts:beta": "yarn crx:beta && yarn xpi:beta",
+        "xpi:beta": "export BUILD_ENV=beta; yarn beta firefox && ts-node tasks/xpi.ts",
+        "crx:release": "export BUILD_ENV=release; yarn release chrome && ts-node tasks/crx.ts",
+        "xpi:release": "export BUILD_ENV=release; yarn release firefox && ts-node tasks/xpi.ts",
+        "artifacts:beta": "yarn crx:beta",
         "artifacts:release": "yarn crx:release && yarn xpi:release",
         "resources": "ts-node tasks/resources"
     },

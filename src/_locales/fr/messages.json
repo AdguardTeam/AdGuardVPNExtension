@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Authentification réussie ! Vous pouvez lancer AdGuard VPN et commencer à l'utiliser."
     },
+    "control_error_title": {
+        "message": "Conflit d'extensions"
+    },
     "control_error_description": {
         "message": "Il semble qu'une autre extension du navigateur essaie de contrôler votre connexion. Veuillez désactiver l'autre extension dans votre navigateur."
     },
@@ -604,6 +607,9 @@
     },
     "popup_settings_disable_vpn": {
         "message": "Désactiver le VPN sur ce site"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Activer le VPN sur ce site"
     },
     "popup_settings_other_products": {
         "message": "Autres produits"
@@ -642,10 +648,13 @@
         "message": "Rechercher une localisation"
     },
     "endpoints_not_found": {
-        "message": "Localisation introuvable"
+        "message": "Localisations introuvables"
     },
     "popup_traffic_limit_reached": {
         "message": "La limite mensuelle de données est atteinte"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Vitesse limitée"
     },
     "premium_upgrade": {
         "message": "Mise à niveau"
@@ -680,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Envoyer un commentaire"
     },
+    "popup_compare_button": {
+        "message": "Pourquoi l'app est meilleure"
+    },
     "popup_rate_modal_title": {
         "message": "À quel point AdGuard VPN est-il génial ?"
     },
@@ -711,7 +723,7 @@
         "message": "Impossible de se connecter au serveur"
     },
     "popup_server_error_popup_info": {
-        "message": "Nous essayons déjà de résoudre ce problème, mais vous pouvez nous envoyer une alerte supplémentaire, au cas où."
+        "message": "Il semble que le VPN a été bloqué dans votre pays ou un problème est survenu. Nous faisons tout pour résoudre cela"
     },
     "popup_server_error_popup_action": {
         "message": "Alertez l'équipe d'AdGuard"

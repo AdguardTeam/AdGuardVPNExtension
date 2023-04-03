@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Başarıyla doğrulandı! AdGuard VPN'i açabilir ve kullanmaya başlayabilirsiniz."
     },
+    "control_error_title": {
+        "message": "Uzantı çakışması"
+    },
     "control_error_description": {
         "message": "Başka bir Tarayıcı uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
     },
@@ -602,8 +605,8 @@
     "popup_settings_enable_vpn_short": {
         "message": "Etkinleştir"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Bu sitede VPN'i devre dışı bırak"
+    "popup_settings_enable_vpn": {
+        "message": "Bu site için VPN'i etkinleştir"
     },
     "popup_settings_other_products": {
         "message": "Diğer ürünler"
@@ -647,6 +650,9 @@
     "popup_traffic_limit_reached": {
         "message": "Aylık veri sınırına ulaşıldı"
     },
+    "popup_traffic_limited_speed": {
+        "message": "Sınırlı hız"
+    },
     "premium_upgrade": {
         "message": "Yükselt"
     },
@@ -680,6 +686,9 @@
     "popup_feedback_button": {
         "message": "Geri bildirimde bulun"
     },
+    "popup_compare_button": {
+        "message": "Uygulama neden daha iyi"
+    },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN ne kadar harika?"
     },
@@ -711,10 +720,13 @@
         "message": "Sunucuya bağlanılamıyor"
     },
     "popup_server_error_popup_info": {
-        "message": "Zaten düzeltmeye çalışıyoruz, ancak her ihtimale karşı bize fazladan bir uyarı gönderebilirsiniz."
+        "message": "Büyük olasılıkla, VPN ülkenizde engellendi veya teknik bir aksaklık oldu. Zaten düzeltmeye çalışıyoruz"
     },
     "popup_server_error_popup_cancel": {
         "message": "İptal"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Üzerinde çalışılıyor"
     },
     "popup_server_error_popup_thankyou_message": {
         "message": "Bize bildirdiğiniz için teşekkür ederiz!"

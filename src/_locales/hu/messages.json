@@ -590,9 +590,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Engedélyezés itt"
     },
-    "popup_settings_disable_vpn": {
-        "message": "VPN letiltása ezen a webhelyen"
-    },
     "popup_settings_other_products": {
         "message": "További termékek"
     },
@@ -629,11 +626,11 @@
     "endpoints_search": {
         "message": "Helyszín keresése"
     },
-    "endpoints_not_found": {
-        "message": "Nem található helyszín"
-    },
     "popup_traffic_limit_reached": {
         "message": "Elérte a havi adatkorlátot"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Sebesség korlátozása"
     },
     "premium_upgrade": {
         "message": "Frissítés"
@@ -788,10 +785,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Folytatás az ingyenes verzióval"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> maradt ebben a hónapban",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Hogyan kell használni a kizárások listáját?"

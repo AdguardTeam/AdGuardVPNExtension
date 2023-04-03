@@ -590,9 +590,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Bật trong web này"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Tắt VPN trên trang web này"
-    },
     "popup_settings_other_products": {
         "message": "Các sản phẩm khác"
     },
@@ -629,11 +626,11 @@
     "endpoints_search": {
         "message": "Tìm vị trí"
     },
-    "endpoints_not_found": {
-        "message": "Không tìm thấy máy chủ"
-    },
     "popup_traffic_limit_reached": {
         "message": "Đã đạt đến giới hạn dữ liệu hàng tháng. Cần thêm?"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Tốc độ có giới hạn"
     },
     "premium_upgrade": {
         "message": "Nâng cấp"
@@ -695,8 +692,23 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Truy cập Cửa hàng Chrome"
     },
+    "popup_server_error_popup_title": {
+        "message": "Không thể kết nối tới máy chủ"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Rất có thể, VPN đã bị chặn ở quốc gia của bạn hoặc đã xảy ra trục trặc kỹ thuật. Chúng tôi đã cố gắng sửa nó"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Thúc đẩy nhóm AdGuard"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Huỷ"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Đang xử lý"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Cảm ơn vì đã cho chúng tôi biết!"
     },
     "popup_server_error_popup_close": {
         "message": "Đóng"
@@ -788,10 +800,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Tiếp tục miễn phí"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value%%unit%</span> còn lại trong tháng này",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Làm thế nào để sử dụng danh sách loại trừ này?"

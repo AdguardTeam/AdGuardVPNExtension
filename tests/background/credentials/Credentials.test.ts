@@ -1,8 +1,12 @@
-import { Credentials, CredentialsParameters, VpnTokenData } from '../../../src/background/credentials/Credentials';
+import { Credentials, VpnTokenData } from '../../../src/background/credentials/Credentials';
 import { CredentialsDataInterface } from '../../../src/background/providers/vpnProvider';
 import { SubscriptionType } from '../../../src/lib/constants';
+import { credentialsService } from '../../../src/background/credentials/credentialsService';
+import { browserApi } from '../../../src/background/browserApi';
 
 jest.mock('../../../src/lib/logger');
+
+const storageImplementation: { [key: string]: any } = {};
 jest.mock('../../../src/background/browserApi', () => {
     return {
         browserApi: {
@@ -10,11 +14,20 @@ jest.mock('../../../src/background/browserApi', () => {
                 // TODO: test mv3 after official switch to mv3
                 isManifestVersion2: () => true,
             },
+            storage: {
+                set: jest.fn((key, data) => {
+                    storageImplementation[key] = data;
+                }),
+                get: jest.fn((key) => {
+                    return storageImplementation[key];
+                }),
+                remove: jest.fn((key) => {
+                    return delete storageImplementation[key];
+                }),
+            },
         },
     };
 });
-
-const browserApi = {};
 
 const msToSec = (ms: number) => {
     return Math.floor(ms / 1000);
@@ -22,7 +35,8 @@ const msToSec = (ms: number) => {
 
 describe('Credentials', () => {
     describe('validates credentials', () => {
-        const credentials = new Credentials({ browserApi } as CredentialsParameters);
+        // @ts-ignore
+        const credentials = new Credentials({ browserApi });
 
         it('returns false if empty or undefined credentials are provided', () => {
             expect(credentials.areCredentialsValid(null)).toBeFalsy();
@@ -64,7 +78,8 @@ describe('Credentials', () => {
     });
 
     describe('validates vpn token', () => {
-        const credentials = new Credentials({ browserApi } as CredentialsParameters);
+        // @ts-ignore
+        const credentials = new Credentials({ browserApi });
         it('returns false if no token provided', () => {
             expect(credentials.isTokenValid(null)).toBeFalsy();
         });
@@ -124,20 +139,16 @@ describe('Credentials', () => {
     });
 
     describe('get vpn local', () => {
-        const CREDENTIALS_KEY = 'credentials.token';
-        const buildBrowserApi = (vpnToken: VpnTokenData) => {
-            return {
-                // @ts-ignore
-                storage: {
-                    get: jest.fn(async (key) => {
-                        if (key === CREDENTIALS_KEY) {
-                            return vpnToken;
-                        }
-                        return undefined;
-                    }),
-                },
-            };
-        };
+        afterEach(() => {
+            jest.clearAllMocks();
+        });
+
+        it('returns nothing if there is no token in the storage', async () => {
+            // @ts-ignore
+            const credentials = new Credentials({ browserApi });
+            const vpnToken = await credentials.getVpnTokenLocal();
+            expect(vpnToken).toEqual(null);
+        });
 
         it('retrieves token from storage if token is not defined', async () => {
             const expectedVpnToken = {
@@ -145,23 +156,17 @@ describe('Credentials', () => {
                 licenseStatus: 'VALID',
                 timeExpiresSec: 4728282135,
                 licenseKey: '',
-                vpnSubscription: {},
+                vpnSubscription: {
+                    next_bill_date_iso: '20240101',
+                    duration_v2: SubscriptionType.Yearly,
+                },
             };
 
-            const browserApi = buildBrowserApi(expectedVpnToken as VpnTokenData);
+            await credentialsService.setVpnTokenToStorage(expectedVpnToken);
             // @ts-ignore
             const credentials = new Credentials({ browserApi });
             const vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-        });
-
-        it('returns nothing if there is no token in the storage', async () => {
-            // @ts-ignore
-            const browserApi = buildBrowserApi();
-            // @ts-ignore
-            const credentials = new Credentials({ browserApi });
-            const vpnToken = await credentials.getVpnTokenLocal();
-            expect(vpnToken).toEqual(null);
         });
 
         it('caches vpn token in memory', async () => {
@@ -170,19 +175,25 @@ describe('Credentials', () => {
                 licenseStatus: 'VALID',
                 timeExpiresSec: 4728282135,
                 licenseKey: '',
-                vpnSubscription: {},
+                vpnSubscription: {
+                    next_bill_date_iso: '20240101',
+                    duration_v2: SubscriptionType.Yearly,
+                },
             };
-            const browserApi = buildBrowserApi(expectedVpnToken as VpnTokenData);
+
+            const getVpnTokenFromStorageMock = jest.fn();
+            credentialsService.getVpnTokenFromStorage = getVpnTokenFromStorageMock;
+            getVpnTokenFromStorageMock.mockReturnValue(expectedVpnToken);
+
             // @ts-ignore
             const credentials = new Credentials({ browserApi });
 
             let vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(browserApi.storage.get).toBeCalledTimes(1);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
             vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(browserApi.storage.get).toBeCalledTimes(1);
-            expect(browserApi.storage.get).toBeCalledWith(CREDENTIALS_KEY);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
         });
     });
 });

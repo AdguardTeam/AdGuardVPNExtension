@@ -19,7 +19,6 @@ export const {
     AUTH_API_URL,
     PASSWORD_RECOVERY_URL,
     EDIT_ACCOUNT_URL,
-    AUTH_ACCESS_TOKEN_KEY,
     AUTH_CLIENT_ID,
     POPUP_STORE_URL,
     POPUP_FEEDBACK_URL,
@@ -42,4 +41,5 @@ export const {
     BUILD_ENV,
     STAGE_ENV,
     WHOAMI_URL,
+    COMPARE_PAGE,
 } = CONFIG;

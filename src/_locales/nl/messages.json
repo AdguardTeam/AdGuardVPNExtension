@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Succesvol geauthenticeerd! Je kunt AdGuard VPN openen en gaan gebruiken."
     },
+    "control_error_title": {
+        "message": "Uitbreidingsconflict"
+    },
     "control_error_description": {
         "message": "Het lijkt erop dat een andere browseruitbreiding je verbinding probeert te beheren. Schakel de andere uitbreiding in je browser uit."
     },
@@ -603,7 +606,10 @@
         "message": "Inschakelen"
     },
     "popup_settings_disable_vpn": {
-        "message": "VPN uitschakelen op deze website"
+        "message": "VPN uitschakelen voor deze website"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "VPN inschakelen voor deze website"
     },
     "popup_settings_other_products": {
         "message": "Andere Producten"
@@ -642,10 +648,13 @@
         "message": "Locatie zoeken"
     },
     "endpoints_not_found": {
-        "message": "Locatie niet gevonden"
+        "message": "Locaties niet gevonden"
     },
     "popup_traffic_limit_reached": {
         "message": "Maandelijkse datalimiet bereikt"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Beperkte snelheid"
     },
     "premium_upgrade": {
         "message": "Upgraden"
@@ -680,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Feedback geven"
     },
+    "popup_compare_button": {
+        "message": "Waarom de app beter is"
+    },
     "popup_rate_modal_title": {
         "message": "Hoe geweldig is AdGuard VPN?"
     },
@@ -711,7 +723,7 @@
         "message": "Kan geen verbinding maken met server"
     },
     "popup_server_error_popup_info": {
-        "message": "We proberen het al op te lossen, maar je kunt ons een extra waarschuwing sturen - voor het geval dat."
+        "message": "Waarschijnlijk is de VPN in uw land geblokkeerd of was er een technische storing. We proberen het al op te lossen"
     },
     "popup_server_error_popup_action": {
         "message": "Nudge AdGuard-team"

@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Ви успішно авторизувались! Можете відкрити AdGuard VPN та під'єднатись."
     },
+    "control_error_title": {
+        "message": "Конфлікт розширення"
+    },
     "control_error_description": {
         "message": "Схоже, що якесь інше браузерне розширення намагається контролювати з'єднання. Вимкніть його, будь ласка."
     },
@@ -603,7 +606,10 @@
         "message": "Увімкнути"
     },
     "popup_settings_disable_vpn": {
-        "message": "Вимкнути VPN на цьому сайті"
+        "message": "Вимкнути VPN для цього сайту"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Увімкнути VPN для цього сайту"
     },
     "popup_settings_other_products": {
         "message": "Інші продукти"
@@ -647,6 +653,9 @@
     "popup_traffic_limit_reached": {
         "message": "Вичерпано місячний ліміт трафіку"
     },
+    "popup_traffic_limited_speed": {
+        "message": "Обмежена швидкість"
+    },
     "premium_upgrade": {
         "message": "Придбати"
     },
@@ -680,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Поділитись"
     },
+    "popup_compare_button": {
+        "message": "Чому програма краща"
+    },
     "popup_rate_modal_title": {
         "message": "Вам подобається AdGuard VPN?"
     },
@@ -711,7 +723,7 @@
         "message": "Не вдається під'єднатися до сервера"
     },
     "popup_server_error_popup_info": {
-        "message": "Ми вже намагаємося це виправити, але ви додатково можете сповістити нас про всяк випадок."
+        "message": "Швидше за все, VPN заблокували у вашій країні або стався технічний збій. Ми вже намагаємося це виправити"
     },
     "popup_server_error_popup_action": {
         "message": "Повідомити команду AdGuard"
