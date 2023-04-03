@@ -590,9 +590,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Omogući"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Onemogući VPN na ovoj stranici"
-    },
     "popup_settings_other_products": {
         "message": "Ostali proizvodi"
     },
@@ -629,11 +626,11 @@
     "endpoints_search": {
         "message": "Pretraži lokaciju"
     },
-    "endpoints_not_found": {
-        "message": "Lokacija nije pronađena"
-    },
     "popup_traffic_limit_reached": {
         "message": "Mjesečno ograničenje podatka je dosegnuto. Trebate li više?"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Ograničena brzina"
     },
     "premium_upgrade": {
         "message": "Nadogradi"
@@ -694,6 +691,9 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Idi u Chrome trgovinu"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Najvjerojatnije je VPN bio blokiran u vašoj zemlji ili je došlo do tehničke greške. Već ga pokušavamo popraviti"
     },
     "popup_server_error_popup_cancel": {
         "message": "Poništi"
@@ -788,10 +788,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Nastavite besplatno"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> preostalo ovaj mjesec",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Kako koristiti ovaj popis iznimaka?"

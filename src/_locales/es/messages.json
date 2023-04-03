@@ -450,7 +450,7 @@
         "message": "Conexión rápida"
     },
     "settings_quick_connect_subtitle": {
-        "message": "Ubicación de VPN seleccionada al hacer clic en Conectar"
+        "message": "Ubicación VPN seleccionada al hacer clic en Conectar"
     },
     "settings_quick_connect_last_used": {
         "message": "Última ubicación utilizada"
@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "¡Autenticado correctamente! Puedes abrir AdGuard VPN y comenzar a usarlo."
     },
+    "control_error_title": {
+        "message": "Conflicto de extensiones"
+    },
     "control_error_description": {
         "message": "Parece que otra extensión está intentando controlar tu conexión. Deshabilita la otra extensión de tu navegador."
     },
@@ -604,6 +607,9 @@
     },
     "popup_settings_disable_vpn": {
         "message": "Deshabilitar VPN en este sitio web"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Habilitar VPN en este sitio web"
     },
     "popup_settings_other_products": {
         "message": "Otros productos"
@@ -642,10 +648,13 @@
         "message": "Buscar ubicación"
     },
     "endpoints_not_found": {
-        "message": "Ubicación no encontrada"
+        "message": "Ubicaciones no encontradas"
     },
     "popup_traffic_limit_reached": {
         "message": "Se alcanzó el límite de datos mensual"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Velocidad limitada"
     },
     "premium_upgrade": {
         "message": "Mejorar"
@@ -680,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Dejar comentario"
     },
+    "popup_compare_button": {
+        "message": "Por qué la aplicación es mejor"
+    },
     "popup_rate_modal_title": {
         "message": "¿Qué tan increíble es AdGuard VPN?"
     },
@@ -711,16 +723,16 @@
         "message": "No se puede conectar al servidor"
     },
     "popup_server_error_popup_info": {
-        "message": "Ya estamos tratando de solucionarlo, pero puedes enviarnos una alerta adicional, por si acaso."
+        "message": "Es probable que la VPN haya sido bloqueada en tu país o haya un problema técnico. Ya estamos tratando de arreglarlo"
     },
     "popup_server_error_popup_action": {
-        "message": "Dar un toque al equipo de AdGuard"
+        "message": "Alentar al equipo de AdGuard"
     },
     "popup_server_error_popup_cancel": {
         "message": "Cancelar"
     },
     "popup_server_error_popup_thankyou_title": {
-        "message": "Trabajando en solucionarlo"
+        "message": "Trabajando en ello"
     },
     "popup_server_error_popup_thankyou_message": {
         "message": "¡Gracias por informarnos!"
@@ -817,7 +829,7 @@
         "message": "Continuar gratis"
     },
     "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> restante este mes",
+        "message": "<span>%value% %unit%</span> restantes este mes",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {

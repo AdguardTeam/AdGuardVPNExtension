@@ -197,7 +197,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         }
 
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, {
-            host: `hello.${this.domainName}`,
+            host: this.domainName,
             hash: this.credentialsHash,
         });
 

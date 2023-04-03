@@ -575,6 +575,9 @@
     "authentication_successful_notification": {
         "message": "Úspešne overené! Môžete otvoriť AdGuard VPN a začať ju používať."
     },
+    "control_error_title": {
+        "message": "Konflikt rozšírenia"
+    },
     "control_error_description": {
         "message": "Vyzerá to, že sa vaše pripojenie snaží ovládať iné rozšírenie prehliadača. Zakážte prosím iné rozšírenie v prehliadači."
     },
@@ -584,8 +587,8 @@
     "popup_settings_enable_vpn_short": {
         "message": "Zapnúť"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Vypnúť VPN na tejto stránke"
+    "popup_settings_enable_vpn": {
+        "message": "Zapnúť VPN pre tento web"
     },
     "popup_settings_other_products": {
         "message": "Iné produkty"
@@ -597,7 +600,7 @@
         "message": "Nastavenia"
     },
     "popup_settings_sign_out": {
-        "message": "Odhlásiť sa"
+        "message": "Odhlásenie"
     },
     "context_menu_enable_vpn": {
         "message": "Zapnúť VPN na tejto stránke"
@@ -623,11 +626,11 @@
     "endpoints_search": {
         "message": "Hľadať krajinu"
     },
-    "endpoints_not_found": {
-        "message": "Lokalita sa nenašla"
-    },
     "popup_traffic_limit_reached": {
         "message": "Dosiahnutý mesačný dátový limit"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Obmedzená rýchlosť"
     },
     "premium_upgrade": {
         "message": "Upgradovať"
@@ -662,6 +665,9 @@
     "popup_feedback_button": {
         "message": "Zanechajte spätnú väzbu"
     },
+    "popup_compare_button": {
+        "message": "Prečo je aplikácia lepšia"
+    },
     "popup_rate_modal_title": {
         "message": "Ako úžasná je AdGuard VPN?"
     },
@@ -693,7 +699,7 @@
         "message": "Nemožno sa pripojiť k serveru"
     },
     "popup_server_error_popup_info": {
-        "message": "Už sa to snažíme napraviť, ale pre každý prípad nám môžete poslať ďalšie upozornenie."
+        "message": "Pravdepodobne bola VPN vo vašej krajine zablokovaná alebo došlo k technickej poruche. Už sa to snažíme napraviť"
     },
     "popup_server_error_popup_action": {
         "message": "Tím Nudge AdGuard"
@@ -779,10 +785,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Pokračovať bezplatne"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> zostáva do konca mesiaca",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Importovať výnimky do:"

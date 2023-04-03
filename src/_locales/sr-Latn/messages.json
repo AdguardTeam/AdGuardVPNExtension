@@ -590,9 +590,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Uključi"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Isključi VPn na ovom sajtu"
-    },
     "popup_settings_other_products": {
         "message": "Drugi proizvodi"
     },
@@ -626,11 +623,11 @@
     "endpoints_search": {
         "message": "Pretraži lokaciju"
     },
-    "endpoints_not_found": {
-        "message": "Lokacija nije pronađena"
-    },
     "popup_traffic_limit_reached": {
         "message": "Dostignuta mesečna granica podataka"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Ograničena brzina"
     },
     "premium_upgrade": {
         "message": "Nadogradi"
@@ -785,10 +782,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Nastavi besplatno"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> preostalo ovog meseca",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Kako koristiti ovu listu izuzetaka?"

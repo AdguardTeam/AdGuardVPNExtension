@@ -453,7 +453,7 @@
         "message": "「接続する」をクリックしたときに選択されるVPNロケーション"
     },
     "settings_quick_connect_last_used": {
-        "message": "最後に使用したロケーション"
+        "message": "最後に接続したロケーション"
     },
     "settings_quick_connect_fastest": {
         "message": "一番速いロケーション"
@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "認証完了！AdGuard VPNを開き、利用を開始することができます。"
     },
+    "control_error_title": {
+        "message": "拡張機能コンフリクト"
+    },
     "control_error_description": {
         "message": "別のChrome拡張機能があなたの接続を制御しようとしているようです。その拡張機能を無効にしてください。"
     },
@@ -603,7 +606,10 @@
         "message": "このページで有効にする"
     },
     "popup_settings_disable_vpn": {
-        "message": "このサイトでVPNを無効にする"
+        "message": "このサイトに対してVPNを無効にする"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "このサイトに対してVPNを有効にする"
     },
     "popup_settings_other_products": {
         "message": "他のAdGuard製品"
@@ -642,10 +648,13 @@
         "message": "ロケーションを検索"
     },
     "endpoints_not_found": {
-        "message": "該当するロケーションが見つかりません。"
+        "message": "ロケーションが見つかりません"
     },
     "popup_traffic_limit_reached": {
         "message": "月間無料通信量の上限に達しました。"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "速度制限あり"
     },
     "premium_upgrade": {
         "message": "アップグレード"
@@ -680,6 +689,9 @@
     "popup_feedback_button": {
         "message": "ご提案・問題を送信"
     },
+    "popup_compare_button": {
+        "message": "アプリ版が優れている理由"
+    },
     "popup_rate_modal_title": {
         "message": "AdGuard VPNに満足されていますか？"
     },
@@ -711,7 +723,7 @@
         "message": "サーバーに接続できません"
     },
     "popup_server_error_popup_info": {
-        "message": "すでに対処中すが、念のため追加の通知を送っていただくことも可能です。"
+        "message": "おそらく、VPNはあなたの国でブロックされたか、技術的な不具合がありました。すでに対処しております。"
     },
     "popup_server_error_popup_action": {
         "message": "AdGuardチームに通知する"

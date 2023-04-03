@@ -317,9 +317,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Skru"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Skru av VPN på dette nettstedet"
-    },
     "popup_settings_other_products": {
         "message": "Andre produkter"
     },
@@ -328,9 +325,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Innstillinger"
-    },
-    "popup_settings_sign_out": {
-        "message": "Logg av"
     },
     "context_menu_enable_vpn": {
         "message": "Skru på VPN på dette nettstedet"
@@ -352,9 +346,6 @@
     },
     "endpoints_search": {
         "message": "Søk etter sted"
-    },
-    "endpoints_not_found": {
-        "message": "Stedet ble ikke funnet"
     },
     "premium_upgrade": {
         "message": "Oppgrader"
@@ -439,10 +430,6 @@
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Oppgrader"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> gjenstår denne måneden",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Avbryt"

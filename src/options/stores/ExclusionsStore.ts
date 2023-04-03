@@ -197,9 +197,11 @@ export class ExclusionsStore {
     };
 
     @action setCurrentMode = async (mode: ExclusionsMode) => {
-        this.currentMode = mode;
         await messenger.setExclusionsMode(mode);
         await this.updateExclusionsData();
+        runInAction(() => {
+            this.currentMode = mode;
+        });
     };
 
     @action openAddExclusionModal = () => {

@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Autenticazione riuscita! Puoi aprire AdGuard VPN e iniziare a utilizzarla."
     },
+    "control_error_title": {
+        "message": "Conflitto di estensione"
+    },
     "control_error_description": {
         "message": "Sembra che un'altra estensione di browser stia cercando di controllare la connessione. Si prega di disabilitare l'altra estensione nel browser."
     },
@@ -604,6 +607,9 @@
     },
     "popup_settings_disable_vpn": {
         "message": "Disattiva VPN su questo sito web"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Attiva VPN su questo sito"
     },
     "popup_settings_other_products": {
         "message": "Altri prodotti"
@@ -642,10 +648,13 @@
         "message": "Cerca località"
     },
     "endpoints_not_found": {
-        "message": "Località non trovata"
+        "message": "Località non trovate"
     },
     "popup_traffic_limit_reached": {
         "message": "Limite dati mensile raggiunto"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Velocità ridotta"
     },
     "premium_upgrade": {
         "message": "Incrementa"
@@ -680,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Lascia feedback"
     },
+    "popup_compare_button": {
+        "message": "Perché l'app è migliore"
+    },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN e fantastico, vero?"
     },
@@ -711,7 +723,7 @@
         "message": "Impossibile connettersi al server"
     },
     "popup_server_error_popup_info": {
-        "message": "Stiamo già cercando di risolvere il problema, ma potete inviarci un'ulteriore segnalazione, per sicurezza."
+        "message": "Forse la VPN è stata bloccata nel tuo paese o si è verificato un problema tecnico. Stiamo cercando di risolverlo"
     },
     "popup_server_error_popup_action": {
         "message": "Dare una spinta al team AdGuard"

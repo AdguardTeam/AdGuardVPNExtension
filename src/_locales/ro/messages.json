@@ -590,9 +590,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Activați"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Dezactivați VPN pe acest site"
-    },
     "popup_settings_other_products": {
         "message": "Alte produse"
     },
@@ -603,7 +600,7 @@
         "message": "Setări"
     },
     "popup_settings_sign_out": {
-        "message": "Deconectare"
+        "message": "Deconectați-vă"
     },
     "context_menu_enable_vpn": {
         "message": "Activați VPN pe acest site"
@@ -629,11 +626,11 @@
     "endpoints_search": {
         "message": "Căutare locație"
     },
-    "endpoints_not_found": {
-        "message": "Locația nu a fost găsită"
-    },
     "popup_traffic_limit_reached": {
         "message": "Limita lunară de date a fost atinsă"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Viteză limitată"
     },
     "premium_upgrade": {
         "message": "Actualizați"
@@ -695,8 +692,23 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Mergeți la Chrome Web Store"
     },
+    "popup_server_error_popup_title": {
+        "message": "Nu se poate conecta la server"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Cel mai probabil, VPN-ul a fost blocat în țara dvs. sau a existat o defecțiune tehnică. Încercăm deja să o rezolvăm"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Încurajați echipa AdGuard"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Anulare"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Lucrez la asta"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Vă mulțumim că ne-ați anunțat!"
     },
     "popup_server_error_popup_close": {
         "message": "Închideți"
@@ -788,10 +800,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Continuați gratuit"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> rămași luna aceasta",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Cum se utilizează această listă de excluderi?"

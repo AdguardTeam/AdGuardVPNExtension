@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Autenticado com sucesso! Tu podes abrir o AdGuard VPN e começar a usá-lo."
     },
+    "control_error_title": {
+        "message": "Conflito entre extensões"
+    },
     "control_error_description": {
         "message": "Parece que noutra extensão do navegador está a tentar controlar a sua conexão. Desative a outra extensão no seu navegador."
     },
@@ -604,6 +607,9 @@
     },
     "popup_settings_disable_vpn": {
         "message": "Desativar VPN neste sítio"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Habilitar VPN para este sítio web"
     },
     "popup_settings_other_products": {
         "message": "Noutros produtos"
@@ -647,6 +653,9 @@
     "popup_traffic_limit_reached": {
         "message": "Limite mensal de dados atingido"
     },
+    "popup_traffic_limited_speed": {
+        "message": "Limite de velocidad"
+    },
     "premium_upgrade": {
         "message": "Melhorar"
     },
@@ -680,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Deixar feedback"
     },
+    "popup_compare_button": {
+        "message": "Por que o aplicativo é melhor"
+    },
     "popup_rate_modal_title": {
         "message": "Quão incrível é o AdGuard VPN?"
     },
@@ -711,7 +723,7 @@
         "message": "Não foi possível conectar-se ao servidor"
     },
     "popup_server_error_popup_info": {
-        "message": "Já estamos a tentar consertá-lo, mas pode enviar-nos um alerta extra, só por precaução."
+        "message": "Provavelmente, a VPN foi bloqueada em seu país ou houve uma falha técnica. Já estamos tentando solucionar isso"
     },
     "popup_server_error_popup_action": {
         "message": "Dar um toque à equipe AdGuard"
@@ -817,7 +829,7 @@
         "message": "Continue de graça"
     },
     "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> restante este mês",
+        "message": "<span>%value% %unit%</span> restantes este mês",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
