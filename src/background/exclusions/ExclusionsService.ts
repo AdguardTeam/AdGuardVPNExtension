@@ -14,7 +14,7 @@ import {
     ServiceDto,
 } from '../../common/exclusionsConstants';
 import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
-import type { ExclusionInterface } from '../schema';
+import { ExclusionInterface, StorageKey } from '../schema';
 import {
     getETld,
     getHostname,
@@ -22,6 +22,7 @@ import {
     isWildcard,
 } from '../../common/url-utils';
 import { notifier } from '../../lib/notifier';
+import { sessionState } from '../sessionStorage';
 
 interface ToggleServicesResult {
     added: number,
@@ -34,7 +35,15 @@ export class ExclusionsService {
     /**
      * Here we keep previous exclusions state in order to make possible undo action
      */
-    previousExclusions: null | AllExclusions;
+    get previousExclusions() {
+        return sessionState.getItem(StorageKey.ExclusionsState).previousExclusions;
+    }
+
+    set previousExclusions(previousExclusions: AllExclusions | null) {
+        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
+        exclusionsState.previousExclusions = previousExclusions;
+        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+    }
 
     async init() {
         await exclusionsManager.init();

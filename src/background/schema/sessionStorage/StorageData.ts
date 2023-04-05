@@ -2,7 +2,16 @@ import zod from 'zod';
 
 import { fallbackInfoScheme } from '../fallbackApi';
 import { PROXY_DEFAULTS, proxyStateScheme } from '../proxy';
-import { EXCLUSIONS_STATE_DEFAULTS, exclusionsStateScheme } from '../exclusions';
+import {
+    exclusionsServicesManagerScheme,
+    exclusionsHandlerStateScheme,
+    exclusionsManagerStateScheme,
+    exclusionsStateScheme,
+    EXCLUSIONS_MANAGER_STATE_DEFAULTS,
+    SERVICES_DEFAULTS,
+    EXCLUSIONS_HANDLER_STATE_DEFAULTS,
+    EXCLUSIONS_STATE_DEFAULTS,
+} from '../exclusions';
 import { updateServiceStateScheme } from '../updateService';
 import { FLAG_STORAGE_DEFAULTS, flagsStorageDataScheme } from '../../flagsStorageData';
 import { credentialsStateScheme } from '../credentials';
@@ -16,6 +25,9 @@ export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
     ProxyState = 'proxyState',
     ExclusionsState = 'exclusionsState',
+    ExclusionsManagerState = 'exclusionsManagerState',
+    ExclusionsHandlerState = 'exclusionsHandlerState',
+    ExclusionsServicesManagerState = 'exclusionsServicesManagerState',
     UpdateServiceState = 'updateServiceState',
     FlagsStorageState = 'flagsStorageState',
     CredentialsState = 'credentialsState',
@@ -30,6 +42,9 @@ export const storageDataScheme = zod.object({
     [StorageKey.FallbackInfo]: fallbackInfoScheme.or(zod.null()),
     [StorageKey.ProxyState]: proxyStateScheme,
     [StorageKey.ExclusionsState]: exclusionsStateScheme,
+    [StorageKey.ExclusionsManagerState]: exclusionsManagerStateScheme,
+    [StorageKey.ExclusionsHandlerState]: exclusionsHandlerStateScheme,
+    [StorageKey.ExclusionsServicesManagerState]: exclusionsServicesManagerScheme,
     [StorageKey.UpdateServiceState]: updateServiceStateScheme,
     [StorageKey.FlagsStorageState]: flagsStorageDataScheme,
     [StorageKey.CredentialsState]: credentialsStateScheme,
@@ -49,6 +64,9 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.CredentialsState]: {},
     [StorageKey.UpdateServiceState]: {},
     [StorageKey.ExclusionsState]: EXCLUSIONS_STATE_DEFAULTS,
+    [StorageKey.ExclusionsManagerState]: EXCLUSIONS_MANAGER_STATE_DEFAULTS,
+    [StorageKey.ExclusionsHandlerState]: EXCLUSIONS_HANDLER_STATE_DEFAULTS,
+    [StorageKey.ExclusionsServicesManagerState]: SERVICES_DEFAULTS,
     [StorageKey.AuthState]: AUTH_STATE_DEFAULTS,
     [StorageKey.DnsState]: DNS_STATE_DEFAULTS,
     [StorageKey.EndpointsTldExclusions]: ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS,

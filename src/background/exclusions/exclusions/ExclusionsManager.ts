@@ -20,33 +20,33 @@ export class ExclusionsManager {
     regularModeHandler: ExclusionsHandler;
 
     get exclusions(): PersistedExclusions {
-        return sessionState.getItem(StorageKey.ExclusionsState).exclusions.exclusions;
+        return sessionState.getItem(StorageKey.ExclusionsManagerState).exclusions;
     }
 
     set exclusions(exclusions: PersistedExclusions) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
-        exclusionsState.exclusions.exclusions = exclusions;
-        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsManagerState);
+        exclusionsState.exclusions = exclusions;
+        sessionState.setItem(StorageKey.ExclusionsManagerState, exclusionsState);
     }
 
     get inverted(): boolean {
-        return sessionState.getItem(StorageKey.ExclusionsState).exclusions.inverted;
+        return sessionState.getItem(StorageKey.ExclusionsManagerState).inverted;
     }
 
     set inverted(inverted: boolean) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
-        exclusionsState.exclusions.inverted = inverted;
-        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsManagerState);
+        exclusionsState.inverted = inverted;
+        sessionState.setItem(StorageKey.ExclusionsManagerState, exclusionsState);
     }
 
     get currentHandler(): ExclusionsHandler {
-        return sessionState.getItem(StorageKey.ExclusionsState).exclusions.currentHandler;
+        return sessionState.getItem(StorageKey.ExclusionsManagerState).currentHandler;
     }
 
     set currentHandler(currentHandler: ExclusionsHandler) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
-        exclusionsState.exclusions.currentHandler = currentHandler;
-        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsManagerState);
+        exclusionsState.currentHandler = currentHandler;
+        sessionState.setItem(StorageKey.ExclusionsManagerState, exclusionsState);
     }
 
     init = async () => {

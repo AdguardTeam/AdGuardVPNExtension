@@ -10,13 +10,13 @@ const servicesIndexScheme = zod.record(zod.string(), zod.string());
 
 export type ServicesIndexType = zod.infer<typeof servicesIndexScheme>;
 
-export const exclusionsServicesScheme = zod.object({
+export const exclusionsServicesManagerScheme = zod.object({
     lastUpdateTimeMs: zod.number().or(zod.null()),
     services: servicesScheme.or(zod.null()),
     servicesIndex: servicesIndexScheme,
 }).strict();
 
-type ServicesManagerType = zod.infer<typeof exclusionsServicesScheme>;
+type ServicesManagerType = zod.infer<typeof exclusionsServicesManagerScheme>;
 
 export const SERVICES_DEFAULTS: ServicesManagerType = {
     lastUpdateTimeMs: null,

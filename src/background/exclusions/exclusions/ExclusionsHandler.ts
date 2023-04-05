@@ -33,23 +33,23 @@ export class ExclusionsHandler {
     }
 
     get exclusions(): ExclusionInterface[] {
-        return sessionState.getItem(StorageKey.ExclusionsState).exclusions.currentHandler.exclusions;
+        return sessionState.getItem(StorageKey.ExclusionsHandlerState).exclusions;
     }
 
     set exclusions(exclusions: ExclusionInterface[]) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
-        exclusionsState.exclusions.currentHandler.exclusions = exclusions;
-        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+        const exclusionsHandlerState = sessionState.getItem(StorageKey.ExclusionsHandlerState);
+        exclusionsHandlerState.exclusions = exclusions;
+        sessionState.setItem(StorageKey.ExclusionsHandlerState, exclusionsHandlerState);
     }
 
     get exclusionsIndex(): IndexedExclusionsInterface {
-        return sessionState.getItem(StorageKey.ExclusionsState).exclusions.currentHandler.exclusionsIndex;
+        return sessionState.getItem(StorageKey.ExclusionsHandlerState).exclusionsIndex;
     }
 
     set exclusionsIndex(exclusionsIndex: IndexedExclusionsInterface) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
-        exclusionsState.exclusions.currentHandler.exclusionsIndex = exclusionsIndex;
-        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+        const exclusionsHandlerState = sessionState.getItem(StorageKey.ExclusionsHandlerState);
+        exclusionsHandlerState.exclusionsIndex = exclusionsIndex;
+        sessionState.setItem(StorageKey.ExclusionsHandlerState, exclusionsHandlerState);
     }
 
     async onUpdate() {

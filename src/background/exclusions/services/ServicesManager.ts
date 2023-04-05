@@ -23,33 +23,33 @@ export class ServicesManager implements ServiceManagerInterface {
     private EXCLUSION_SERVICES_STORAGE_KEY = 'exclusions_services';
 
     get services() {
-        return sessionState.getItem(StorageKey.ExclusionsState).services.services;
+        return sessionState.getItem(StorageKey.ExclusionsServicesManagerState).services;
     }
 
     set services(services: ServicesInterface | null) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
-        exclusionsState.services.services = services;
-        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+        const exclusionsServicesState = sessionState.getItem(StorageKey.ExclusionsServicesManagerState);
+        exclusionsServicesState.services = services;
+        sessionState.setItem(StorageKey.ExclusionsServicesManagerState, exclusionsServicesState);
     }
 
     get servicesIndex(): ServicesIndexType {
-        return sessionState.getItem(StorageKey.ExclusionsState).services.servicesIndex;
+        return sessionState.getItem(StorageKey.ExclusionsServicesManagerState).servicesIndex;
     }
 
     set servicesIndex(servicesIndex: ServicesIndexType) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
-        exclusionsState.services.servicesIndex = servicesIndex;
-        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+        const exclusionsServicesState = sessionState.getItem(StorageKey.ExclusionsServicesManagerState);
+        exclusionsServicesState.servicesIndex = servicesIndex;
+        sessionState.setItem(StorageKey.ExclusionsServicesManagerState, exclusionsServicesState);
     }
 
     get lastUpdateTimeMs(): number {
-        return sessionState.getItem(StorageKey.ExclusionsState).services.lastUpdateTimeMs;
+        return sessionState.getItem(StorageKey.ExclusionsServicesManagerState).lastUpdateTimeMs;
     }
 
     set lastUpdateTimeMs(lastUpdateTimeMs: number) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
-        exclusionsState.services.lastUpdateTimeMs = lastUpdateTimeMs;
-        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+        const exclusionsServicesState = sessionState.getItem(StorageKey.ExclusionsServicesManagerState);
+        exclusionsServicesState.lastUpdateTimeMs = lastUpdateTimeMs;
+        sessionState.setItem(StorageKey.ExclusionsServicesManagerState, exclusionsServicesState);
     }
 
     public init = async () => {
