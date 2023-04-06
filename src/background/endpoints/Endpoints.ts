@@ -61,8 +61,6 @@ export interface EndpointsInterface {
  * Endpoints manages endpoints, vpn, current location information.
  */
 class Endpoints implements EndpointsInterface {
-    // vpnInfo?: VpnExtensionInfoInterface;
-
     constructor() {
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
@@ -74,7 +72,7 @@ class Endpoints implements EndpointsInterface {
         return sessionState.getItem(StorageKey.Endpoints).vpnInfo;
     }
 
-    private set vpnInfo(vpnInfo: VpnExtensionInfoInterface | undefined) {
+    private set vpnInfo(vpnInfo: VpnExtensionInfoInterface | null) {
         const endpointsState = sessionState.getItem(StorageKey.Endpoints);
         endpointsState.vpnInfo = vpnInfo;
         sessionState.setItem(StorageKey.Endpoints, endpointsState);
@@ -463,8 +461,7 @@ class Endpoints implements EndpointsInterface {
     };
 
     clearVpnInfo(): void {
-        // FIXME: replace with null
-        this.vpnInfo = undefined;
+        this.vpnInfo = null;
     }
 
     init(): void {
