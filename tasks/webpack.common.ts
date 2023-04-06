@@ -116,7 +116,8 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             // Define environment for choosing appropriate api urls
             new webpack.DefinePlugin({
                 __APP_CONFIG__: JSON.stringify(genAppConfig(
-                    browser,
+                    // api urls are same for Chrome mv2 and mv3 versions
+                    browser === Browser.ChromeMV3 ? Browser.Chrome : browser,
                     process.env.STAGE_ENV,
                     process.env.BUILD_ENV,
                 )),
@@ -125,13 +126,22 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 if (browser === Browser.Firefox) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
-                } else if (browser === Browser.Chrome
+                } else if (browser.startsWith(Browser.Chrome)
                     || browser === Browser.Edge
                     || browser === Browser.Opera) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
                 } else {
                     throw new Error(`There is no proxy api for browser: ${browser}`);
+                }
+            })),
+            new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\/stateStorage\.abstract/, ((resource: any) => {
+                if (browser === Browser.ChromeMV3) {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/stateStorage\/stateStorage\.abstract/, './stateStorage/mv3');
+                } else {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/stateStorage\/stateStorage\.abstract/, './stateStorage/mv2');
                 }
             })),
             new CleanWebpackPlugin(cleanOptions),
@@ -160,7 +170,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                                 updateLocales,
                                 process.env.BUILD_ENV,
                                 ' for Chrome',
-                                browser === Browser.Chrome && path.includes(EN_MESSAGES_PATH),
+                                browser.startsWith(Browser.Chrome) && path.includes(EN_MESSAGES_PATH),
                             );
                         },
                     },

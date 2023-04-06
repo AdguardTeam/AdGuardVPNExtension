@@ -3,23 +3,23 @@
  * The state is stored in session storage in order to
  * quickly restore it after the service worker wakes up.
  */
-import { log } from '../../lib/logger';
+import { log } from '../../../lib/logger';
 import {
     StorageKey,
     storageDataScheme,
     StorageData,
     DEFAULT_STORAGE_DATA,
-} from '../schema';
-import { StateStorage } from './stateStorage.abstract';
+} from '../../schema';
+import { StateStorageInterface } from '../stateStorage.abstract';
 
-export class StateStorageMV3 implements StateStorage {
+class StateStorage implements StateStorageInterface {
     private isInit = false;
 
     private state: StorageData;
 
     public getItem = (key: StorageKey): any => {
         if (!this.isInit) {
-            throw StateStorageMV3.createNotInitializedError();
+            throw StateStorage.createNotInitializedError();
         }
 
         return this.state[key];
@@ -27,7 +27,7 @@ export class StateStorageMV3 implements StateStorage {
 
     public setItem = (key: StorageKey, value: any): void => {
         if (!this.isInit) {
-            throw StateStorageMV3.createNotInitializedError();
+            throw StateStorage.createNotInitializedError();
         }
 
         this.state[key] = value;
@@ -60,3 +60,5 @@ export class StateStorageMV3 implements StateStorage {
         return new Error('StateStorage is not initialized. Call init() method first.');
     }
 }
+
+export const sessionState = new StateStorage();

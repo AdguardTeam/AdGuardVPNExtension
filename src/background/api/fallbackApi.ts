@@ -67,6 +67,8 @@ export class FallbackApi {
     }
 
     private get fallbackInfo(): FallbackInfo {
+        const zz = sessionState;
+        debugger
         return sessionState.getItem(StorageKey.FallbackInfo);
     }
 
