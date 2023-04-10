@@ -1,9 +1,15 @@
 import { Credentials } from '../../../src/background/credentials/Credentials';
-import { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
 import { SubscriptionType } from '../../../src/lib/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
-import { sessionState } from '../../../src/background/sessionStorage';
+import { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('../../../src/lib/logger');
 
@@ -54,6 +60,7 @@ describe('Credentials', () => {
     beforeEach(async () => {
         await sessionState.init();
     });
+
     describe('validates credentials', () => {
         // @ts-ignore - partly implementation
         const credentials = new Credentials({ browserApi });
@@ -166,6 +173,8 @@ describe('Credentials', () => {
         it('returns nothing if there is no token in the storage', async () => {
             // @ts-ignore - partly implementation
             const credentials = new Credentials({ browserApi });
+            await credentials.init();
+
             const vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(null);
         });
@@ -185,6 +194,7 @@ describe('Credentials', () => {
             await credentialsService.setVpnTokenToStorage(expectedVpnToken);
             // @ts-ignore - partly implementation
             const credentials = new Credentials({ browserApi });
+            await credentials.init();
             const vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
         });
@@ -207,13 +217,14 @@ describe('Credentials', () => {
 
             // @ts-ignore - partly implementation
             const credentials = new Credentials({ browserApi });
+            await credentials.init();
 
             let vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(0);
             vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(0);
         });
     });
 });

@@ -5,7 +5,13 @@ import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
 import type { VpnTokenData, EndpointInterface } from '../../../src/background/schema';
-import { sessionState } from '../../../src/background/sessionStorage';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('../../../src/background/connectivity/pingHelpers');
 jest.mock('../../../src/lib/logger'); // hides redundant log messages during test run
@@ -147,6 +153,7 @@ describe('location service', () => {
             }],
         }];
 
+        await credentials.init();
         jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
         const getLocationsDataMock = vpnProvider.getLocationsData as jest.MockedFunction<() => any>;
         getLocationsDataMock.mockImplementation(() => testLocationData1);

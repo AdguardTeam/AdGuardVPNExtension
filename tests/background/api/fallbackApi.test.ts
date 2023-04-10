@@ -8,9 +8,12 @@ import {
 } from '../../../src/background/api/fallbackApi';
 import { WHOAMI_URL } from '../../../src/background/config';
 // TODO: test mv3 after official switch to mv3
-import { sessionState as mockSessionState } from '../../../src/background/stateStorage/mv2';
+import { sessionState } from '../../../src/background/stateStorage/mv2';
 
-jest.mock('../../../src/background/sessionStorage', () => mockSessionState);
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
@@ -61,7 +64,7 @@ jest.useFakeTimers('modern');
 
 describe('FallbackApi', () => {
     beforeEach(async () => {
-        await mockSessionState.init();
+        await sessionState.init();
     });
 
     afterEach(async () => {

@@ -6,7 +6,14 @@ import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
 } from '../../../src/background/permissionsChecker/PermissionsChecker';
-import { sessionState } from '../../../src/background/sessionStorage';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+import { credentials } from '../../../src/background/credentials';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 const TEST_PERIOD_SEC = 60 * 60 * 5; // 5 hours
 
@@ -117,6 +124,7 @@ describe('PermissionsChecker tests', () => {
     });
 
     it('Check permissions every 24 hours', () => {
+        credentials.init();
         permissionsChecker.credentials.vpnCredentials = getCredentialsData(99999999);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
@@ -145,6 +153,7 @@ describe('PermissionsChecker tests', () => {
     });
 
     it('Check permissions in half an hour before credentials expired', () => {
+        credentials.init();
         permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_SEC);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
@@ -156,6 +165,7 @@ describe('PermissionsChecker tests', () => {
     });
 
     it('Check permissions in half an hour before ACTUAL credentials expired', () => {
+        credentials.init();
         permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_SEC);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);

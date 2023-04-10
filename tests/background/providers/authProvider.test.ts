@@ -1,7 +1,13 @@
 import axios from 'axios';
 
 import { authProvider } from '../../../src/background/providers/authProvider';
-import { sessionState } from '../../../src/background/sessionStorage';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');

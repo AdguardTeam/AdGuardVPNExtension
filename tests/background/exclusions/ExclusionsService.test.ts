@@ -1,7 +1,14 @@
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
 import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
-import { sessionState } from '../../../src/background/sessionStorage';
+import { proxy } from '../../../src/background/proxy';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('../../../src/background/browserApi', () => {
     const storage: { [key: string]: any } = {
@@ -120,6 +127,7 @@ global.chrome = {
 describe('ExclusionsService', () => {
     beforeEach(async () => {
         await sessionState.init();
+        await proxy.init();
     });
 
     afterEach(() => {
