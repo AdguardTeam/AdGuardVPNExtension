@@ -17,7 +17,7 @@ interface PermissionsCheckerParameters {
 
 export interface PermissionsCheckerInterface {
     checkPermissions(): Promise<void>;
-    init(): Promise<void>;
+    init(): void;
 }
 
 export const UPDATE_CREDENTIALS_INTERVAL_MS = 1000 * 60 * 60 * 12; // 12 hours
@@ -203,7 +203,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
         this.stopChecker();
     };
 
-    init = async (): Promise<void> => {
+    init = (): void => {
         this.state = sessionState.getItem(StorageKey.PermissionsChecker);
 
         notifier.addSpecifiedListener(
