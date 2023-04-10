@@ -2,9 +2,6 @@ import zod from 'zod';
 
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { exclusionScheme } from './exclusion';
-import {
-    exclusionsHandlerStateScheme,
-} from './exclusionsHandler';
 
 export const persistedExclusionsScheme = zod.object({
     [ExclusionsMode.Regular]: exclusionScheme.array(),
@@ -23,7 +20,7 @@ const PERSISTED_EXCLUSIONS_DEFAULTS: PersistedExclusions = {
 export const exclusionsManagerStateScheme = zod.object({
     exclusions: persistedExclusionsScheme,
     inverted: zod.boolean(),
-    currentHandler: exclusionsHandlerStateScheme.optional(),
+    currentHandler: zod.any().optional(),
 }).strict();
 
 export type ExclusionsManagerState = zod.infer<typeof exclusionsManagerStateScheme>;

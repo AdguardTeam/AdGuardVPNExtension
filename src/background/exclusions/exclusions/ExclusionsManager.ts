@@ -34,20 +34,20 @@ export class ExclusionsManager {
         this.saveExclusionsManagerState();
     }
 
-    private get inverted(): boolean {
+    get inverted(): boolean {
         return this.state.inverted;
     }
 
-    private set inverted(inverted: boolean) {
+    set inverted(inverted: boolean) {
         this.state.inverted = inverted;
         this.saveExclusionsManagerState();
     }
 
-    private get currentHandler(): ExclusionsHandler | undefined {
+    get currentHandler(): ExclusionsHandler {
         return this.state.currentHandler;
     }
 
-    private set currentHandler(currentHandler: ExclusionsHandler | undefined) {
+    set currentHandler(currentHandler: ExclusionsHandler) {
         this.state.currentHandler = currentHandler;
         this.saveExclusionsManagerState();
     }

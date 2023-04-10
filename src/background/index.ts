@@ -83,7 +83,7 @@ if (!browserApi.runtime.isManifestVersion2()) {
         await openThankYouPage();
         await flagsStorage.init();
         await credentials.init();
-        permissionsChecker.init(); // should be initiated before auth module
+        await permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
         await settings.init();
         await exclusions.init();

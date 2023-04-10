@@ -44,11 +44,11 @@ export class ExclusionsHandler {
         sessionState.setItem(StorageKey.ExclusionsHandlerState, this.state);
     };
 
-    private get exclusions(): ExclusionInterface[] {
+    get exclusions(): ExclusionInterface[] {
         return this.state.exclusions;
     }
 
-    private set exclusions(exclusions: ExclusionInterface[]) {
+    set exclusions(exclusions: ExclusionInterface[]) {
         this.state.exclusions = exclusions;
         this.saveExclusionsHandlerState();
     }
