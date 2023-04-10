@@ -17,7 +17,7 @@ import { flagsStorage } from './flagsStorage';
 import type { AuthCredentials } from './api/apiTypes';
 import type { AuthAccessToken } from './schema';
 import { authService } from './authentication/authService';
-import { StorageKey } from './schema';
+import { AuthState, StorageKey } from './schema';
 import { sessionState } from './sessionStorage';
 
 export interface AuthInterface {
@@ -40,24 +40,28 @@ export interface AuthInterface {
 }
 
 class Auth implements AuthInterface {
+    state: AuthState;
+
+    private saveAuthState = () => {
+        sessionState.setItem(StorageKey.AuthState, this.state);
+    };
+
     private get socialAuthState(): string | null {
-        return sessionState.getItem(StorageKey.AuthState).socialAuthState;
+        return this.state.socialAuthState;
     }
 
     private set socialAuthState(socialAuthState: string | null) {
-        const authState = sessionState.getItem(StorageKey.AuthState);
-        authState.socialAuthState = socialAuthState;
-        sessionState.setItem(StorageKey.AuthState, authState);
+        this.state.socialAuthState = socialAuthState;
+        this.saveAuthState();
     }
 
     private get accessTokenData(): AuthAccessToken | null {
-        return sessionState.getItem(StorageKey.AuthState).accessTokenData;
+        return this.state.accessTokenData;
     }
 
     private set accessTokenData(accessTokenData: AuthAccessToken | null) {
-        const authState = sessionState.getItem(StorageKey.AuthState);
-        authState.accessTokenData = accessTokenData;
-        sessionState.setItem(StorageKey.AuthState, authState);
+        this.state.accessTokenData = accessTokenData;
+        this.saveAuthState();
     }
 
     async authenticate(credentials: AuthCredentials): Promise<{ status: string }> {
@@ -315,6 +319,7 @@ class Auth implements AuthInterface {
     }
 
     async init(): Promise<void> {
+        this.state = sessionState.getItem(StorageKey.AuthState);
         const accessTokenData = await authService.getAccessTokenData();
         if (!accessTokenData?.accessToken) {
             return;

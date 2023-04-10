@@ -1,6 +1,6 @@
 import { browserApi } from './browserApi';
 import { sessionState } from './sessionStorage';
-import { StorageKey } from './schema';
+import { StorageKey, UpdateServiceState } from './schema';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
@@ -13,31 +13,33 @@ interface UpdateServiceInterface {
 }
 
 class UpdateService implements UpdateServiceInterface {
+    state: UpdateServiceState;
+
     isFirstRun: boolean;
 
     isUpdate: boolean;
 
-    get prevVersion() {
-        return sessionState.getItem(StorageKey.UpdateServiceState).prevVersion;
+    private get prevVersion() {
+        return this.state.prevVersion;
     }
 
-    set prevVersion(prevVersion: string) {
-        const updateServiceState = sessionState.getItem(StorageKey.UpdateServiceState);
-        updateServiceState.prevVersion = prevVersion;
-        sessionState.setItem(StorageKey.ProxyState, updateServiceState);
+    private set prevVersion(prevVersion: string | undefined) {
+        this.state.prevVersion = prevVersion;
+        sessionState.setItem(StorageKey.UpdateServiceState, this.state);
     }
 
-    get currentVersion() {
-        return sessionState.getItem(StorageKey.UpdateServiceState).currentVersion;
+    private get currentVersion() {
+        return this.state.currentVersion;
     }
 
-    set currentVersion(currentVersion: string) {
-        const updateServiceState = sessionState.getItem(StorageKey.UpdateServiceState);
-        updateServiceState.currentVersion = currentVersion;
-        sessionState.setItem(StorageKey.ProxyState, updateServiceState);
+    private set currentVersion(currentVersion: string | undefined) {
+        this.state.currentVersion = currentVersion;
+        sessionState.setItem(StorageKey.UpdateServiceState, this.state);
     }
 
     init = async (): Promise<void> => {
+        this.state = sessionState.getItem(StorageKey.UpdateServiceState);
+
         if (!this.prevVersion) {
             this.prevVersion = await this.getAppVersionFromStorage();
         }

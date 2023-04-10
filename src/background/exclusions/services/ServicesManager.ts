@@ -8,7 +8,12 @@ import { log } from '../../../lib/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
 import { fetchConfig } from '../../../lib/constants';
 import { sessionState } from '../../sessionStorage';
-import { ServicesInterface, ServicesIndexType, StorageKey } from '../../schema';
+import {
+    StorageKey,
+    ServicesInterface,
+    ServicesIndexType,
+    ServicesManagerState,
+} from '../../schema';
 
 interface ServiceManagerInterface {
     init: () => Promise<void>;
@@ -22,37 +27,11 @@ export class ServicesManager implements ServiceManagerInterface {
     // Key constant for storage
     private EXCLUSION_SERVICES_STORAGE_KEY = 'exclusions_services';
 
-    get services() {
-        return sessionState.getItem(StorageKey.ExclusionsServicesManagerState).services;
-    }
-
-    set services(services: ServicesInterface | null) {
-        const exclusionsServicesState = sessionState.getItem(StorageKey.ExclusionsServicesManagerState);
-        exclusionsServicesState.services = services;
-        sessionState.setItem(StorageKey.ExclusionsServicesManagerState, exclusionsServicesState);
-    }
-
-    get servicesIndex(): ServicesIndexType {
-        return sessionState.getItem(StorageKey.ExclusionsServicesManagerState).servicesIndex;
-    }
-
-    set servicesIndex(servicesIndex: ServicesIndexType) {
-        const exclusionsServicesState = sessionState.getItem(StorageKey.ExclusionsServicesManagerState);
-        exclusionsServicesState.servicesIndex = servicesIndex;
-        sessionState.setItem(StorageKey.ExclusionsServicesManagerState, exclusionsServicesState);
-    }
-
-    get lastUpdateTimeMs(): number {
-        return sessionState.getItem(StorageKey.ExclusionsServicesManagerState).lastUpdateTimeMs;
-    }
-
-    set lastUpdateTimeMs(lastUpdateTimeMs: number) {
-        const exclusionsServicesState = sessionState.getItem(StorageKey.ExclusionsServicesManagerState);
-        exclusionsServicesState.lastUpdateTimeMs = lastUpdateTimeMs;
-        sessionState.setItem(StorageKey.ExclusionsServicesManagerState, exclusionsServicesState);
-    }
+    state: ServicesManagerState;
 
     public init = async () => {
+        this.state = sessionState.getItem(StorageKey.ExclusionsServicesManagerState);
+
         const services = await this.getServicesFromStorage();
         if (services) {
             this.setServices(services);
@@ -64,6 +43,37 @@ export class ServicesManager implements ServiceManagerInterface {
             this.setServices(this.services);
         }
     };
+
+    private saveServicesManagerState = () => {
+        sessionState.setItem(StorageKey.ExclusionsServicesManagerState, this.state);
+    };
+
+    private get services() {
+        return this.state.services;
+    }
+
+    private set services(services: ServicesInterface | null) {
+        this.state.services = services;
+        this.saveServicesManagerState();
+    }
+
+    private get servicesIndex(): ServicesIndexType {
+        return this.state.servicesIndex;
+    }
+
+    private set servicesIndex(servicesIndex: ServicesIndexType) {
+        this.state.servicesIndex = servicesIndex;
+        this.saveServicesManagerState();
+    }
+
+    private get lastUpdateTimeMs(): number | null {
+        return this.state.lastUpdateTimeMs;
+    }
+
+    private set lastUpdateTimeMs(lastUpdateTimeMs: number | null) {
+        this.state.lastUpdateTimeMs = lastUpdateTimeMs;
+        this.saveServicesManagerState();
+    }
 
     /**
      * Returns services data

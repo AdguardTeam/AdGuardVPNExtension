@@ -7,6 +7,7 @@ import { browserApi } from '../browserApi';
 import { proxy } from './index';
 import { StorageKey } from '../schema';
 import { sessionState } from '../sessionStorage';
+import { EndpointsTldExclusionsState } from '../schema/proxy/endpointsTldExclusions';
 
 /**
  * This module manages exclusions for endpoints
@@ -16,6 +17,8 @@ import { sessionState } from '../sessionStorage';
  * In this module tld means tld + 1 (e.g. for "endpoint.adguard.io" tld would be "adguard.io" )
  */
 class EndpointsTldExclusions {
+    state: EndpointsTldExclusionsState;
+
     /**
      * !!!IMPORTANT!!! do not change this key without migration
      * Storage key used to keep exclusions in the storage
@@ -33,13 +36,12 @@ class EndpointsTldExclusions {
      * Endpoints top level domain exclusions list
      */
     private get endpointsTldExclusionsList(): string[] {
-        return sessionState.getItem(StorageKey.EndpointsTldExclusions).endpointsTldExclusionsList;
+        return this.state.endpointsTldExclusionsList;
     }
 
     private set endpointsTldExclusionsList(endpointsTldExclusionsList: string[]) {
-        const endpointsTldExclusionsState = sessionState.getItem(StorageKey.EndpointsTldExclusions);
-        endpointsTldExclusionsState.endpointsTldExclusionsList = endpointsTldExclusionsList;
-        sessionState.setItem(StorageKey.EndpointsTldExclusions, endpointsTldExclusionsState);
+        this.state.endpointsTldExclusionsList = endpointsTldExclusionsList;
+        sessionState.setItem(StorageKey.EndpointsTldExclusions, this.state);
     }
 
     /**
@@ -97,6 +99,7 @@ class EndpointsTldExclusions {
 
     init = async () => {
         try {
+            this.state = sessionState.getItem(StorageKey.EndpointsTldExclusions);
             const storedList = await browserApi.storage.get<string[]>(this.STORAGE_KEY);
             if (storedList) {
                 this.endpointsTldExclusionsList = storedList;

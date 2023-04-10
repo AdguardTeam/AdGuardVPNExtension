@@ -17,6 +17,7 @@ import {
     ProxyConfigInterface,
     CanControlProxy,
     AccessCredentials,
+    ProxyState,
     PROXY_DEFAULTS,
     StorageKey,
 } from '../schema';
@@ -48,90 +49,90 @@ export interface ExtensionProxyInterface {
 }
 
 class ExtensionProxy implements ExtensionProxyInterface {
+    state: ProxyState;
+
     async init(): Promise<void> {
+        this.state = sessionState.getItem(StorageKey.ProxyState);
+
         if (!this.currentConfig) {
             await this.updateConfig();
         }
     }
 
-    get isActive() {
-        return sessionState.getItem(StorageKey.ProxyState).isActive;
+    private saveProxyState = () => {
+        sessionState.setItem(StorageKey.ProxyState, this.state);
+    };
+
+    private get isActive() {
+        return this.state.isActive;
     }
 
-    set isActive(isActive: boolean) {
-        const proxyState = sessionState.getItem(StorageKey.ProxyState);
-        proxyState.isActive = isActive;
-        sessionState.setItem(StorageKey.ProxyState, proxyState);
+    private set isActive(isActive: boolean) {
+        this.state.isActive = isActive;
+        this.saveProxyState();
     }
 
-    get currentConfig() {
-        return sessionState.getItem(StorageKey.ProxyState).currentConfig;
+    private get currentConfig() {
+        return this.state.currentConfig;
     }
 
-    set currentConfig(currentConfig: ProxyConfigInterface) {
-        const proxyState = sessionState.getItem(StorageKey.ProxyState);
-        proxyState.currentConfig = currentConfig;
-        sessionState.setItem(StorageKey.ProxyState, proxyState);
+    private set currentConfig(currentConfig: ProxyConfigInterface | undefined) {
+        this.state.currentConfig = currentConfig;
+        this.saveProxyState();
     }
 
-    get bypassList() {
-        return sessionState.getItem(StorageKey.ProxyState).bypassList;
+    private get bypassList() {
+        return this.state.bypassList;
     }
 
-    set bypassList(bypassList: string[]) {
-        const proxyState = sessionState.getItem(StorageKey.ProxyState);
-        proxyState.bypassList = bypassList;
-        sessionState.setItem(StorageKey.ProxyState, proxyState);
+    private set bypassList(bypassList: string[]) {
+        this.state.bypassList = bypassList;
+        this.saveProxyState();
     }
 
-    get inverted() {
-        return sessionState.getItem(StorageKey.ProxyState).inverted;
+    private get inverted() {
+        return this.state.inverted;
     }
 
-    set inverted(inverted: boolean) {
-        const proxyState = sessionState.getItem(StorageKey.ProxyState);
-        proxyState.inverted = inverted;
-        sessionState.setItem(StorageKey.ProxyState, proxyState);
+    private set inverted(inverted: boolean | undefined) {
+        this.state.inverted = inverted;
+        this.saveProxyState();
     }
 
-    get endpointsTldExclusions() {
-        return sessionState.getItem(StorageKey.ProxyState).endpointsTldExclusions;
+    private get endpointsTldExclusions() {
+        return this.state.endpointsTldExclusions;
     }
 
-    set endpointsTldExclusions(endpointsTldExclusions: string[]) {
-        const proxyState = sessionState.getItem(StorageKey.ProxyState);
-        proxyState.endpointsTldExclusions = endpointsTldExclusions;
-        sessionState.setItem(StorageKey.ProxyState, proxyState);
+    private set endpointsTldExclusions(endpointsTldExclusions: string[]) {
+        this.state.endpointsTldExclusions = endpointsTldExclusions;
+        this.saveProxyState();
     }
 
-    get currentEndpoint() {
-        return sessionState.getItem(StorageKey.ProxyState).currentEndpoint;
+    private get currentEndpoint() {
+        return this.state.currentEndpoint;
     }
 
-    set currentEndpoint(currentEndpoint: EndpointInterface | null) {
-        const proxyState = sessionState.getItem(StorageKey.ProxyState);
-        proxyState.currentEndpoint = currentEndpoint;
-        sessionState.setItem(StorageKey.ProxyState, proxyState);
+    private set currentEndpoint(currentEndpoint: EndpointInterface | null) {
+        this.state.currentEndpoint = currentEndpoint;
+        this.saveProxyState();
     }
 
-    get currentHost() {
-        return sessionState.getItem(StorageKey.ProxyState).currentHost;
+    private get currentHost() {
+        return this.state.currentHost;
     }
 
-    set currentHost(currentHost: string) {
-        const proxyState = sessionState.getItem(StorageKey.ProxyState);
-        proxyState.currentHost = currentHost;
-        sessionState.setItem(StorageKey.ProxyState, proxyState);
+    private set currentHost(currentHost: string) {
+        this.state.currentHost = currentHost;
+        this.saveProxyState();
     }
 
-    get credentials() {
-        return sessionState.getItem(StorageKey.ProxyState).credentials;
+    private get credentials() {
+        return this.state.credentials;
     }
 
-    set credentials(credentials: AccessCredentials) {
-        const proxyState = sessionState.getItem(StorageKey.ProxyState);
-        proxyState.credentials = credentials;
-        sessionState.setItem(StorageKey.ProxyState, proxyState);
+    private set credentials(credentials: AccessCredentials) {
+        this.state.credentials = credentials;
+        this.saveProxyState();
     }
 
     async turnOn(): Promise<void> {

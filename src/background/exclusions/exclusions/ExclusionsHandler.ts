@@ -4,7 +4,12 @@ import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConsta
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 import { getETld, getHostname } from '../../../common/url-utils';
 import { sessionState } from '../../sessionStorage';
-import { ExclusionInterface, IndexedExclusionsInterface, StorageKey } from '../../schema';
+import {
+    ExclusionInterface,
+    ExclusionsHandlerState,
+    IndexedExclusionsInterface,
+    StorageKey,
+} from '../../schema';
 
 interface UpdateHandler {
     (): Promise<void>;
@@ -17,6 +22,8 @@ export interface AddExclusionArgs {
 }
 
 export class ExclusionsHandler {
+    state: ExclusionsHandlerState;
+
     updateHandler: UpdateHandler;
 
     public mode: ExclusionsMode;
@@ -26,30 +33,33 @@ export class ExclusionsHandler {
         exclusions: ExclusionInterface[],
         mode: ExclusionsMode,
     ) {
+        this.state = sessionState.getItem(StorageKey.ExclusionsHandlerState);
         this.updateHandler = updateHandler;
         this.exclusions = exclusions;
         this.exclusionsIndex = ExclusionsHandler.buildExclusionsIndex(exclusions);
         this.mode = mode;
     }
 
-    get exclusions(): ExclusionInterface[] {
-        return sessionState.getItem(StorageKey.ExclusionsHandlerState).exclusions;
+    saveExclusionsHandlerState = () => {
+        sessionState.setItem(StorageKey.ExclusionsHandlerState, this.state);
+    };
+
+    private get exclusions(): ExclusionInterface[] {
+        return this.state.exclusions;
     }
 
-    set exclusions(exclusions: ExclusionInterface[]) {
-        const exclusionsHandlerState = sessionState.getItem(StorageKey.ExclusionsHandlerState);
-        exclusionsHandlerState.exclusions = exclusions;
-        sessionState.setItem(StorageKey.ExclusionsHandlerState, exclusionsHandlerState);
+    private set exclusions(exclusions: ExclusionInterface[]) {
+        this.state.exclusions = exclusions;
+        this.saveExclusionsHandlerState();
     }
 
-    get exclusionsIndex(): IndexedExclusionsInterface {
-        return sessionState.getItem(StorageKey.ExclusionsHandlerState).exclusionsIndex;
+    private get exclusionsIndex(): IndexedExclusionsInterface {
+        return this.state.exclusionsIndex;
     }
 
-    set exclusionsIndex(exclusionsIndex: IndexedExclusionsInterface) {
-        const exclusionsHandlerState = sessionState.getItem(StorageKey.ExclusionsHandlerState);
-        exclusionsHandlerState.exclusionsIndex = exclusionsIndex;
-        sessionState.setItem(StorageKey.ExclusionsHandlerState, exclusionsHandlerState);
+    private set exclusionsIndex(exclusionsIndex: IndexedExclusionsInterface) {
+        this.state.exclusionsIndex = exclusionsIndex;
+        this.saveExclusionsHandlerState();
     }
 
     async onUpdate() {

@@ -8,13 +8,9 @@ import {
 } from '../../../src/background/api/fallbackApi';
 import { WHOAMI_URL } from '../../../src/background/config';
 // TODO: test mv3 after official switch to mv3
-import { StateStorage } from '../../../src/background/stateStorage/mv2';
+import { sessionState as mockSessionState } from '../../../src/background/stateStorage/mv2';
 
-const mockSessionState = new StateStorage();
-
-jest.mock('../../../src/background/sessionStorage', () => {
-    return { sessionState: () => mockSessionState };
-});
+jest.mock('../../../src/background/sessionStorage', () => mockSessionState);
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');

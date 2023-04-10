@@ -6,7 +6,7 @@ export const exclusionsStateScheme = zod.object({
     previousExclusions: persistedExclusionsScheme.or(zod.null()), // FIXME: Omit inverted exclusions
 }).strict();
 
-type ExclusionsState = zod.infer<typeof exclusionsStateScheme>;
+export type ExclusionsState = zod.infer<typeof exclusionsStateScheme>;
 
 export const EXCLUSIONS_STATE_DEFAULTS: ExclusionsState = {
     previousExclusions: null,

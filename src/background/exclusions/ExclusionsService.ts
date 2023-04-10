@@ -14,7 +14,7 @@ import {
     ServiceDto,
 } from '../../common/exclusionsConstants';
 import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
-import { ExclusionInterface, StorageKey } from '../schema';
+import { ExclusionInterface, ExclusionsState, StorageKey } from '../schema';
 import {
     getETld,
     getHostname,
@@ -30,22 +30,26 @@ interface ToggleServicesResult {
 }
 
 export class ExclusionsService {
+    state: ExclusionsState;
+
     exclusionsTree = new ExclusionsTree();
 
     /**
      * Here we keep previous exclusions state in order to make possible undo action
      */
-    get previousExclusions() {
-        return sessionState.getItem(StorageKey.ExclusionsState).previousExclusions;
+    private get previousExclusions() {
+        return this.state.previousExclusions;
     }
 
-    set previousExclusions(previousExclusions: AllExclusions | null) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsState);
-        exclusionsState.previousExclusions = previousExclusions;
-        sessionState.setItem(StorageKey.ExclusionsState, exclusionsState);
+    private set previousExclusions(previousExclusions: AllExclusions | null) {
+        // @ts-ignore FIXME: remove ignore
+        this.state.previousExclusions = previousExclusions;
+        sessionState.setItem(StorageKey.ExclusionsState, this.state);
     }
 
     async init() {
+        this.state = sessionState.getItem(StorageKey.ExclusionsState);
+
         await exclusionsManager.init();
         await servicesManager.init();
 

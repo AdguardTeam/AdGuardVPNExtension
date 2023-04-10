@@ -9,7 +9,12 @@ import type { CredentialsDataInterface, VpnProviderInterface } from '../provider
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
 import type { ExtensionProxyInterface } from '../proxy/proxy';
-import { AccessCredentials, VpnTokenData, StorageKey } from '../schema';
+import {
+    AccessCredentials,
+    VpnTokenData,
+    CredentialsState,
+    StorageKey,
+} from '../schema';
 import { sessionState } from '../sessionStorage';
 import { credentialsService } from './credentialsService';
 
@@ -63,6 +68,8 @@ export interface CredentialsInterface {
 }
 
 export class Credentials implements CredentialsInterface {
+    state: CredentialsState;
+
     APP_ID_KEY = 'credentials.app.id';
 
     VPN_CREDENTIALS_KEY = 'credentials.vpn';
@@ -91,44 +98,44 @@ export class Credentials implements CredentialsInterface {
         this.auth = auth;
     }
 
+    saveCredentialsState = () => {
+        sessionState.setItem(StorageKey.CredentialsState, this.state);
+    };
+
     get vpnToken() {
-        return sessionState.getItem(StorageKey.CredentialsState).vpnToken;
+        return this.state.vpnToken;
     }
 
     set vpnToken(vpnToken: VpnTokenData | null) {
-        const credentialsState = sessionState.getItem(StorageKey.CredentialsState);
-        credentialsState.vpnToken = vpnToken;
-        sessionState.setItem(StorageKey.ProxyState, credentialsState);
+        this.state.vpnToken = vpnToken;
+        this.saveCredentialsState();
     }
 
     get vpnCredentials() {
-        return sessionState.getItem(StorageKey.CredentialsState).vpnCredentials;
+        return this.state.vpnCredentials;
     }
 
     set vpnCredentials(vpnCredentials: CredentialsDataInterface | null) {
-        const credentialsState = sessionState.getItem(StorageKey.CredentialsState);
-        credentialsState.vpnCredentials = vpnCredentials;
-        sessionState.setItem(StorageKey.ProxyState, credentialsState);
+        this.state.vpnCredentials = vpnCredentials;
+        this.saveCredentialsState();
     }
 
     get currentUsername() {
-        return sessionState.getItem(StorageKey.CredentialsState).currentUsername;
+        return this.state.currentUsername;
     }
 
     set currentUsername(currentUsername: string | null) {
-        const credentialsState = sessionState.getItem(StorageKey.CredentialsState);
-        credentialsState.currentUsername = currentUsername;
-        sessionState.setItem(StorageKey.ProxyState, credentialsState);
+        this.state.currentUsername = currentUsername;
+        this.saveCredentialsState();
     }
 
     get appId() {
-        return sessionState.getItem(StorageKey.CredentialsState).appId;
+        return this.state.appId;
     }
 
-    set appId(appId: string) {
-        const credentialsState = sessionState.getItem(StorageKey.CredentialsState);
-        credentialsState.appId = appId;
-        sessionState.setItem(StorageKey.ProxyState, credentialsState);
+    set appId(appId: string | null) {
+        this.state.appId = appId;
+        this.saveCredentialsState();
     }
 
     /**
@@ -546,6 +553,8 @@ export class Credentials implements CredentialsInterface {
 
     async init(): Promise<void> {
         try {
+            this.state = sessionState.getItem(StorageKey.CredentialsState);
+
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
                 this.handleUserDeauthentication.bind(this),

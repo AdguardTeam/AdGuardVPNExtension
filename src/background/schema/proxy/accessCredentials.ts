@@ -6,3 +6,8 @@ export const accessCredentialsScheme = zod.object({
 }).strict();
 
 export type AccessCredentials = zod.infer<typeof accessCredentialsScheme>;
+
+export const ACCESS_CREDENTIALS_DEFAULTS: AccessCredentials = {
+    username: '',
+    password: '',
+};

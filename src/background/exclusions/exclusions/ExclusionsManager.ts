@@ -8,48 +8,53 @@ import {
     StorageKey,
     PersistedExclusions,
     ExclusionInterface,
-    IndexedExclusionsInterface,
+    IndexedExclusionsInterface, ExclusionsManagerState,
 } from '../../schema';
 import { sessionState } from '../../sessionStorage';
 
 export type AllExclusions = Omit<PersistedExclusions, 'inverted'>;
 
 export class ExclusionsManager {
+    state: ExclusionsManagerState;
+
     selectiveModeHandler: ExclusionsHandler;
 
     regularModeHandler: ExclusionsHandler;
 
-    get exclusions(): PersistedExclusions {
-        return sessionState.getItem(StorageKey.ExclusionsManagerState).exclusions;
+    saveExclusionsManagerState = () => {
+        sessionState.setItem(StorageKey.ExclusionsManagerState, this.state);
+    };
+
+    private get exclusions(): PersistedExclusions {
+        return this.state.exclusions;
     }
 
-    set exclusions(exclusions: PersistedExclusions) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsManagerState);
-        exclusionsState.exclusions = exclusions;
-        sessionState.setItem(StorageKey.ExclusionsManagerState, exclusionsState);
+    private set exclusions(exclusions: PersistedExclusions) {
+        this.state.exclusions = exclusions;
+        this.saveExclusionsManagerState();
     }
 
-    get inverted(): boolean {
-        return sessionState.getItem(StorageKey.ExclusionsManagerState).inverted;
+    private get inverted(): boolean {
+        return this.state.inverted;
     }
 
-    set inverted(inverted: boolean) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsManagerState);
-        exclusionsState.inverted = inverted;
-        sessionState.setItem(StorageKey.ExclusionsManagerState, exclusionsState);
+    private set inverted(inverted: boolean) {
+        this.state.inverted = inverted;
+        this.saveExclusionsManagerState();
     }
 
-    get currentHandler(): ExclusionsHandler {
-        return sessionState.getItem(StorageKey.ExclusionsManagerState).currentHandler;
+    private get currentHandler(): ExclusionsHandler | undefined {
+        return this.state.currentHandler;
     }
 
-    set currentHandler(currentHandler: ExclusionsHandler) {
-        const exclusionsState = sessionState.getItem(StorageKey.ExclusionsManagerState);
-        exclusionsState.currentHandler = currentHandler;
-        sessionState.setItem(StorageKey.ExclusionsManagerState, exclusionsState);
+    private set currentHandler(currentHandler: ExclusionsHandler | undefined) {
+        this.state.currentHandler = currentHandler;
+        this.saveExclusionsManagerState();
     }
 
     init = async () => {
+        this.state = sessionState.getItem(StorageKey.ExclusionsManagerState);
+
         this.exclusions = settings.getExclusions();
 
         const regular = this.exclusions[ExclusionsMode.Regular] ?? [];

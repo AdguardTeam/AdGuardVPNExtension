@@ -14,12 +14,12 @@ import {
 } from '../exclusions';
 import { updateServiceStateScheme } from '../updateService';
 import { FLAG_STORAGE_DEFAULTS, flagsStorageDataScheme } from '../../flagsStorageData';
-import { credentialsStateScheme } from '../credentials';
+import { CREDENTIALS_STATE_DEFAULTS, credentialsStateScheme } from '../credentials';
 import { AUTH_STATE_DEFAULTS, authStateScheme } from '../auth';
 import { DNS_STATE_DEFAULTS, dnsStateScheme } from '../dns';
 import { ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS, endpointsTldExclusionsScheme } from '../proxy/endpointsTldExclusions';
 import { PERMISSIONS_CHECKER_DEFAULTS, permissionsCheckerStateScheme } from '../permissionsChecker';
-import { endpointsStateScheme } from '../endpoints';
+import { ENDPOINTS_STATE_DEFAULTS, endpointsStateScheme } from '../endpoints';
 
 export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
@@ -61,7 +61,7 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.ProxyState]: PROXY_DEFAULTS,
     [StorageKey.FallbackInfo]: null,
     [StorageKey.FlagsStorageState]: FLAG_STORAGE_DEFAULTS,
-    [StorageKey.CredentialsState]: {},
+    [StorageKey.CredentialsState]: CREDENTIALS_STATE_DEFAULTS,
     [StorageKey.UpdateServiceState]: {},
     [StorageKey.ExclusionsState]: EXCLUSIONS_STATE_DEFAULTS,
     [StorageKey.ExclusionsManagerState]: EXCLUSIONS_MANAGER_STATE_DEFAULTS,
@@ -71,5 +71,5 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.DnsState]: DNS_STATE_DEFAULTS,
     [StorageKey.EndpointsTldExclusions]: ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS,
     [StorageKey.PermissionsChecker]: PERMISSIONS_CHECKER_DEFAULTS,
-    [StorageKey.Endpoints]: {},
+    [StorageKey.Endpoints]: ENDPOINTS_STATE_DEFAULTS,
 };

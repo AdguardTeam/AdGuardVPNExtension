@@ -23,7 +23,7 @@ import type { EndpointInterface, VpnTokenData, VpnExtensionInfoInterface } from 
 import type { LocationInterface } from './Location';
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../lib/constants';
-import { StorageKey } from '../schema';
+import { EndpointsState, StorageKey } from '../schema';
 import { sessionState } from '../sessionStorage';
 
 /**
@@ -61,6 +61,8 @@ export interface EndpointsInterface {
  * Endpoints manages endpoints, vpn, current location information.
  */
 class Endpoints implements EndpointsInterface {
+    state: EndpointsState;
+
     constructor() {
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
@@ -68,14 +70,13 @@ class Endpoints implements EndpointsInterface {
         );
     }
 
-    private get vpnInfo(): VpnExtensionInfoInterface {
-        return sessionState.getItem(StorageKey.Endpoints).vpnInfo;
+    private get vpnInfo(): VpnExtensionInfoInterface | null {
+        return this.state.vpnInfo;
     }
 
     private set vpnInfo(vpnInfo: VpnExtensionInfoInterface | null) {
-        const endpointsState = sessionState.getItem(StorageKey.Endpoints);
-        endpointsState.vpnInfo = vpnInfo;
-        sessionState.setItem(StorageKey.Endpoints, endpointsState);
+        this.state.vpnInfo = vpnInfo;
+        sessionState.setItem(StorageKey.Endpoints, this.state);
     }
 
     /**
@@ -465,6 +466,7 @@ class Endpoints implements EndpointsInterface {
     }
 
     init(): void {
+        this.state = sessionState.getItem(StorageKey.Endpoints);
         // Clear vpn info on deauthentication in order to set correct vpn info after next login
         notifier.addSpecifiedListener(
             notifier.types.USER_DEAUTHENTICATED,

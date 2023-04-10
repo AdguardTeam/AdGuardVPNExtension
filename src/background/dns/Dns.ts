@@ -1,7 +1,7 @@
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from './dnsConstants';
 import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
-import { StorageKey, DnsServerData } from '../schema';
+import { StorageKey, DnsServerData, DnsState } from '../schema';
 import { sessionState } from '../sessionStorage';
 
 interface DnsInterface {
@@ -15,14 +15,19 @@ interface DnsInterface {
 }
 
 export class Dns implements DnsInterface {
-    private get selectedDnsServer(): string {
-        return sessionState.getItem(StorageKey.DnsState).selectedDnsServer;
+    state: DnsState;
+
+    private saveDnsState = () => {
+        sessionState.setItem(StorageKey.ProxyState, this.state);
+    };
+
+    private get selectedDnsServer(): string | null {
+        return this.state.selectedDnsServer;
     }
 
-    private set selectedDnsServer(selectedDnsServer: string) {
-        const dnsState = sessionState.getItem(StorageKey.DnsState);
-        dnsState.selectedDnsServer = selectedDnsServer;
-        sessionState.setItem(StorageKey.DnsState, dnsState);
+    private set selectedDnsServer(selectedDnsServer: string | null) {
+        this.state.selectedDnsServer = selectedDnsServer;
+        this.saveDnsState();
     }
 
     private get customDnsServers(): DnsServerData[] {
@@ -30,24 +35,24 @@ export class Dns implements DnsInterface {
     }
 
     private set customDnsServers(customDnsServers: DnsServerData[]) {
-        const dnsState = sessionState.getItem(StorageKey.DnsState);
-        dnsState.customDnsServers = customDnsServers;
-        sessionState.setItem(StorageKey.DnsState, dnsState);
+        this.state.customDnsServers = customDnsServers;
+        this.saveDnsState();
     }
 
     // backup data for customDnsServers
     // if user deleted custom dns server and canceled the operation, it will be used to restore data
     private get backupDnsServersData(): DnsServerData[] {
-        return sessionState.getItem(StorageKey.DnsState).backupDnsServersData;
+        return this.state.backupDnsServersData;
     }
 
     private set backupDnsServersData(backupDnsServersData: DnsServerData[]) {
-        const dnsState = sessionState.getItem(StorageKey.DnsState);
-        dnsState.backupDnsServersData = backupDnsServersData;
-        sessionState.setItem(StorageKey.DnsState, dnsState);
+        this.state.backupDnsServersData = backupDnsServersData;
+        this.saveDnsState();
     }
 
     init = (): void => {
+        this.state = sessionState.getItem(StorageKey.DnsState);
+
         if (!this.customDnsServers) {
             this.customDnsServers = settings.getCustomDnsServers();
         }

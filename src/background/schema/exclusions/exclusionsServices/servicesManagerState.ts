@@ -16,9 +16,9 @@ export const exclusionsServicesManagerScheme = zod.object({
     servicesIndex: servicesIndexScheme,
 }).strict();
 
-type ServicesManagerType = zod.infer<typeof exclusionsServicesManagerScheme>;
+export type ServicesManagerState = zod.infer<typeof exclusionsServicesManagerScheme>;
 
-export const SERVICES_DEFAULTS: ServicesManagerType = {
+export const SERVICES_DEFAULTS: ServicesManagerState = {
     lastUpdateTimeMs: null,
     services: null,
     servicesIndex: {},

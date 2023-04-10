@@ -8,7 +8,7 @@ import { CredentialsInterface } from '../credentials/Credentials';
 import { vpnProvider } from '../providers/vpnProvider';
 import { timers } from '../timers';
 import { sessionState } from '../sessionStorage';
-import { StorageKey } from '../schema';
+import { PermissionsCheckerState, StorageKey } from '../schema';
 
 interface PermissionsCheckerParameters {
     credentials: CredentialsInterface;
@@ -27,6 +27,8 @@ export const UPDATE_VPN_INFO_INTERVAL_MINUTES = 60; // 1 hour
 const EXPIRE_CHECK_TIME_SEC = 60 * 30; // 30 min
 
 export class PermissionsChecker implements PermissionsCheckerInterface {
+    state: PermissionsCheckerState;
+
     permissionsError: PermissionsErrorInterface;
 
     credentials: CredentialsInterface;
@@ -36,34 +38,35 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
         this.permissionsError = permissionsError;
     }
 
-    get credentialsCheckTimerId(): number | null {
-        return sessionState.getItem(StorageKey.PermissionsChecker).credentialsCheckTimerId;
+    private savePermissionsCheckerState = () => {
+        sessionState.setItem(StorageKey.ProxyState, this.state);
+    };
+
+    private get credentialsCheckTimerId(): number | null {
+        return this.state.credentialsCheckTimerId;
     }
 
-    set credentialsCheckTimerId(credentialsCheckTimerId: number | null) {
-        const permissionsCheckerState = sessionState.getItem(StorageKey.PermissionsChecker);
-        permissionsCheckerState.credentialsCheckTimerId = credentialsCheckTimerId;
-        sessionState.setItem(StorageKey.PermissionsChecker, permissionsCheckerState);
+    private set credentialsCheckTimerId(credentialsCheckTimerId: number | null) {
+        this.state.credentialsCheckTimerId = credentialsCheckTimerId;
+        this.savePermissionsCheckerState();
     }
 
-    get vpnInfoCheckTimerId(): number | null {
-        return sessionState.getItem(StorageKey.PermissionsChecker).vpnInfoCheckTimerId;
+    private get vpnInfoCheckTimerId(): number | null {
+        return this.state.vpnInfoCheckTimerId;
     }
 
-    set vpnInfoCheckTimerId(vpnInfoCheckTimerId: number | null) {
-        const permissionsCheckerState = sessionState.getItem(StorageKey.PermissionsChecker);
-        permissionsCheckerState.vpnInfoCheckTimerId = vpnInfoCheckTimerId;
-        sessionState.setItem(StorageKey.PermissionsChecker, permissionsCheckerState);
+    private set vpnInfoCheckTimerId(vpnInfoCheckTimerId: number | null) {
+        this.state.vpnInfoCheckTimerId = vpnInfoCheckTimerId;
+        this.savePermissionsCheckerState();
     }
 
-    get expiredCredentialsCheckTimeoutId(): number | null {
-        return sessionState.getItem(StorageKey.PermissionsChecker).expiredCredentialsCheckTimeoutId;
+    private get expiredCredentialsCheckTimeoutId(): number | null {
+        return this.state.expiredCredentialsCheckTimeoutId;
     }
 
-    set expiredCredentialsCheckTimeoutId(expiredCredentialsCheckTimeoutId: number | null) {
-        const permissionsCheckerState = sessionState.getItem(StorageKey.PermissionsChecker);
-        permissionsCheckerState.expiredCredentialsCheckTimeoutId = expiredCredentialsCheckTimeoutId;
-        sessionState.setItem(StorageKey.PermissionsChecker, permissionsCheckerState);
+    private set expiredCredentialsCheckTimeoutId(expiredCredentialsCheckTimeoutId: number | null) {
+        this.state.expiredCredentialsCheckTimeoutId = expiredCredentialsCheckTimeoutId;
+        this.savePermissionsCheckerState();
     }
 
     updatePermissionsErrorHandler = async (error: ErrorData): Promise<void> => {
@@ -201,6 +204,8 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     };
 
     init = (): void => {
+        this.state = sessionState.getItem(StorageKey.PermissionsChecker);
+
         notifier.addSpecifiedListener(
             notifier.types.USER_AUTHENTICATED,
             this.handleUserAuthentication,

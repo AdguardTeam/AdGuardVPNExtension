@@ -26,9 +26,9 @@ export const exclusionsManagerStateScheme = zod.object({
     currentHandler: exclusionsHandlerStateScheme.optional(),
 }).strict();
 
-type ExclusionsState = zod.infer<typeof exclusionsManagerStateScheme>;
+export type ExclusionsManagerState = zod.infer<typeof exclusionsManagerStateScheme>;
 
-export const EXCLUSIONS_MANAGER_STATE_DEFAULTS: ExclusionsState = {
+export const EXCLUSIONS_MANAGER_STATE_DEFAULTS: ExclusionsManagerState = {
     exclusions: PERSISTED_EXCLUSIONS_DEFAULTS,
     inverted: PERSISTED_EXCLUSIONS_DEFAULTS.inverted,
 };
