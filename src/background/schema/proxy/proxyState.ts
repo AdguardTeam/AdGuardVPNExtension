@@ -11,8 +11,7 @@ export const proxyStateScheme = zod.object({
     currentEndpoint: endpointInterfaceScheme.or(zod.null()),
     currentHost: zod.string(),
     currentConfig: proxyConfigInterfaceScheme.optional(),
-    // FIXME: check if is optional
-    inverted: zod.boolean().optional(),
+    inverted: zod.boolean(),
     credentials: accessCredentialsScheme,
 });
 
@@ -24,5 +23,6 @@ export const PROXY_DEFAULTS: ProxyState = {
     endpointsTldExclusions: [],
     currentEndpoint: null,
     currentHost: '',
+    inverted: false,
     credentials: ACCESS_CREDENTIALS_DEFAULTS,
 };

@@ -54,7 +54,7 @@ const session: { [key: string]: any } = {
 
 global.chrome = {
     storage: {
-        // @ts-ignore
+        // @ts-ignore - partly implementation
         session,
     },
 };
@@ -76,7 +76,7 @@ describe('authProvider', () => {
     };
 
     it('makes requests to the server', async () => {
-        // @ts-ignore
+        // @ts-ignore - mock axios response
         axios.mockResolvedValue({
             status: 200,
             data: {
@@ -93,7 +93,7 @@ describe('authProvider', () => {
     });
 
     it('handles network errors', async () => {
-        // @ts-ignore
+        // @ts-ignore - mock axios response
         axios.mockRejectedValue(new Error('Network Error'));
 
         const expectedError = new Error(JSON.stringify({ error: 'authentication_error_default' }));
@@ -102,7 +102,7 @@ describe('authProvider', () => {
     });
 
     it('handles errors sent from server', async () => {
-        // @ts-ignore
+        // @ts-ignore - mock axios response
         axios.mockRejectedValue({
             status: 401,
             response: {

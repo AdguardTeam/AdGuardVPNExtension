@@ -17,7 +17,7 @@ const buildSettings = (proxyEnabled: boolean): SettingsInterface => {
         isProxyEnabled: () => {
             return proxyEnabled;
         },
-        // @ts-ignore
+        // @ts-ignore - mock async method with jest.fn
         disableProxy: jest.fn(() => {
         }),
     };

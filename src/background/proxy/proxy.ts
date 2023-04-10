@@ -94,7 +94,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         return this.state.inverted;
     }
 
-    private set inverted(inverted: boolean | undefined) {
+    private set inverted(inverted: boolean) {
         this.state.inverted = inverted;
         this.saveProxyState();
     }

@@ -1,10 +1,9 @@
 import type { StorageKey } from '../schema';
 
-// FIXME: switch from any to unknown type
 export interface StateStorageInterface {
-    getItem(key: StorageKey): any;
+    getItem<T>(key: StorageKey): T;
 
-    setItem(key: StorageKey, value: any): void;
+    setItem<T>(key: StorageKey, value: T): void;
 
     init(): Promise<void>;
 }

@@ -5,18 +5,13 @@ import { vpnApi } from '../api';
 import { log } from '../../lib/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
 import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
-import type { VpnExtensionInfoInterface, ServicesInterface } from '../schema';
+import type {
+    VpnExtensionInfoInterface,
+    ServicesInterface,
+    CredentialsDataInterface,
+} from '../schema';
 
 const DEFAULT_LOCALE = 'en';
-
-export interface CredentialsDataInterface {
-    licenseStatus: string;
-    result: {
-        credentials: string;
-        expiresInSec: number;
-    },
-    timeExpiresSec: number;
-}
 
 interface NameInterface {
     locale: string;

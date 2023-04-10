@@ -42,7 +42,6 @@ export class ExclusionsService {
     }
 
     private set previousExclusions(previousExclusions: AllExclusions | null) {
-        // @ts-ignore FIXME: remove ignore
         this.state.previousExclusions = previousExclusions;
         sessionState.setItem(StorageKey.ExclusionsState, this.state);
     }

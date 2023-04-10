@@ -14,8 +14,8 @@ export class StateStorage implements StateStorageInterface {
      *
      * @param {StorageKey} key - The key to look up in the storage data object.
      */
-    public getItem(key: StorageKey): any {
-        return this.state[key];
+    public getItem<T>(key: StorageKey): T {
+        return <T> this.state[key];
     }
 
     /**
@@ -25,8 +25,8 @@ export class StateStorage implements StateStorageInterface {
      * @param {*} value - The value to set.
      * @returns {void}
      */
-    public setItem(key: StorageKey, value: any): void {
-        this.state[key] = value;
+    public setItem<T>(key: StorageKey, value: T): void {
+        (<T> this.state[key]) = value;
     }
 
     /**

@@ -7,7 +7,6 @@ import { rootStore } from '../../../../../stores';
 import { PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
 import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
 
-// @ts-ignore
 import s from './service-category.module.pcss';
 
 export interface ServiceCategoryProps {

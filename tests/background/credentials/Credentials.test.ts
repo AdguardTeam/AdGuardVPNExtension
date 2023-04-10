@@ -1,6 +1,5 @@
 import { Credentials } from '../../../src/background/credentials/Credentials';
-import { VpnTokenData } from '../../../src/background/schema';
-import { CredentialsDataInterface } from '../../../src/background/providers/vpnProvider';
+import { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
 import { SubscriptionType } from '../../../src/lib/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
@@ -46,7 +45,7 @@ const session: { [key: string]: any } = {
 
 global.chrome = {
     storage: {
-        // @ts-ignore
+        // @ts-ignore - partly implementation
         session,
     },
 };
@@ -56,7 +55,7 @@ describe('Credentials', () => {
         await sessionState.init();
     });
     describe('validates credentials', () => {
-        // @ts-ignore
+        // @ts-ignore - partly implementation
         const credentials = new Credentials({ browserApi });
 
         it('returns false if empty or undefined credentials are provided', () => {
@@ -99,7 +98,7 @@ describe('Credentials', () => {
     });
 
     describe('validates vpn token', () => {
-        // @ts-ignore
+        // @ts-ignore - partly implementation
         const credentials = new Credentials({ browserApi });
         it('returns false if no token provided', () => {
             expect(credentials.isTokenValid(null)).toBeFalsy();
@@ -165,7 +164,7 @@ describe('Credentials', () => {
         });
 
         it('returns nothing if there is no token in the storage', async () => {
-            // @ts-ignore
+            // @ts-ignore - partly implementation
             const credentials = new Credentials({ browserApi });
             const vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(null);
@@ -184,7 +183,7 @@ describe('Credentials', () => {
             };
 
             await credentialsService.setVpnTokenToStorage(expectedVpnToken);
-            // @ts-ignore
+            // @ts-ignore - partly implementation
             const credentials = new Credentials({ browserApi });
             const vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
@@ -206,7 +205,7 @@ describe('Credentials', () => {
             credentialsService.getVpnTokenFromStorage = getVpnTokenFromStorageMock;
             getVpnTokenFromStorageMock.mockReturnValue(expectedVpnToken);
 
-            // @ts-ignore
+            // @ts-ignore - partly implementation
             const credentials = new Credentials({ browserApi });
 
             let vpnToken = await credentials.getVpnTokenLocal();

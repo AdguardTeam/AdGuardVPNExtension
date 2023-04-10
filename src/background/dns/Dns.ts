@@ -31,7 +31,7 @@ export class Dns implements DnsInterface {
     }
 
     private get customDnsServers(): DnsServerData[] {
-        return sessionState.getItem(StorageKey.DnsState).customDnsServers;
+        return this.state.customDnsServers;
     }
 
     private set customDnsServers(customDnsServers: DnsServerData[]) {

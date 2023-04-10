@@ -37,7 +37,7 @@ const freeVpnTokenData: VpnTokenData = {
     },
 };
 
-// @ts-ignore
+// @ts-ignore - partly implementation
 const credentialsService = new CredentialsService(browserApiImplementation);
 
 jest.spyOn(credentialsService.browserApi.storage, 'set');

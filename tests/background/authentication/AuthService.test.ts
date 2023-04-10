@@ -29,7 +29,7 @@ const notAuthenticatedUserData: AuthAccessToken = {
     tokenType: 'bearer',
 };
 
-// @ts-ignore
+// @ts-ignore - partly implementation
 const authService = new AuthService(browserApiImplementation);
 
 jest.spyOn(authService.browserApi.storage, 'set');

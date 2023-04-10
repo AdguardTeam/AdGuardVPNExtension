@@ -52,7 +52,7 @@ const session: { [key: string]: any } = {
 
 global.chrome = {
     storage: {
-        // @ts-ignore
+        // @ts-ignore - partly implementation
         session,
     },
 };

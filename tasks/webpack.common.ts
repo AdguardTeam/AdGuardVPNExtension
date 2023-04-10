@@ -116,8 +116,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             // Define environment for choosing appropriate api urls
             new webpack.DefinePlugin({
                 __APP_CONFIG__: JSON.stringify(genAppConfig(
-                    // api urls are same for Chrome mv2 and mv3 versions
-                    browser === Browser.ChromeMV3 ? Browser.Chrome : browser,
+                    browser,
                     process.env.STAGE_ENV,
                     process.env.BUILD_ENV,
                 )),
@@ -126,7 +125,8 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 if (browser === Browser.Firefox) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
-                } else if (browser.startsWith(Browser.Chrome)
+                } else if (browser === Browser.Chrome
+                    || browser === Browser.ChromeMV3
                     || browser === Browser.Edge
                     || browser === Browser.Opera) {
                     // eslint-disable-next-line no-param-reassign
@@ -170,7 +170,8 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                                 updateLocales,
                                 process.env.BUILD_ENV,
                                 ' for Chrome',
-                                browser.startsWith(Browser.Chrome) && path.includes(EN_MESSAGES_PATH),
+                                (browser === Browser.Chrome || browser === Browser.ChromeMV3)
+                                    && path.includes(EN_MESSAGES_PATH),
                             );
                         },
                     },

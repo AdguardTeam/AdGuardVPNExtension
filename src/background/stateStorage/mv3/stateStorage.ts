@@ -26,12 +26,12 @@ class StateStorage implements StateStorageInterface {
      * @returns {*} The value associated with the key.
      * @throws {Error} If the storage has not been initialized.
      */
-    public getItem = (key: StorageKey): any => {
+    public getItem = <T>(key: StorageKey): T => {
         if (!this.isInit) {
             throw StateStorage.createNotInitializedError();
         }
 
-        return this.state[key];
+        return <T> this.state[key];
     };
 
     /**
@@ -42,12 +42,12 @@ class StateStorage implements StateStorageInterface {
      * @returns {void}
      * @throws {Error} If the storage has not been initialized.
      */
-    public setItem = (key: StorageKey, value: any): void => {
+    public setItem = <T>(key: StorageKey, value: T): void => {
         if (!this.isInit) {
             throw StateStorage.createNotInitializedError();
         }
 
-        this.state[key] = value;
+        (<T> this.state[key]) = value;
 
         chrome.storage.session
             .set({ [key]: value })

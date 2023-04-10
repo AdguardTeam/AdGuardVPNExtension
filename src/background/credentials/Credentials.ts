@@ -5,7 +5,7 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
-import type { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
+import type { VpnProviderInterface } from '../providers/vpnProvider';
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
 import type { ExtensionProxyInterface } from '../proxy/proxy';
@@ -13,6 +13,7 @@ import {
     AccessCredentials,
     VpnTokenData,
     CredentialsState,
+    CredentialsDataInterface,
     StorageKey,
 } from '../schema';
 import { sessionState } from '../sessionStorage';

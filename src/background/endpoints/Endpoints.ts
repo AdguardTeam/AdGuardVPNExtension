@@ -9,7 +9,7 @@ import { getLocationWithLowestPing, sleep } from '../../lib/helpers';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import { notifier } from '../../lib/notifier';
 import { proxy } from '../proxy';
-import { vpnProvider, CredentialsDataInterface } from '../providers/vpnProvider';
+import { vpnProvider } from '../providers/vpnProvider';
 import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 
@@ -19,7 +19,12 @@ import { credentials } from '../credentials';
 import { locationsService, isMeasuringPingInProgress } from './locationsService';
 // eslint-disable-next-line import/no-cycle
 import { isVPNConnected, isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
-import type { EndpointInterface, VpnTokenData, VpnExtensionInfoInterface } from '../schema';
+import type {
+    EndpointInterface,
+    VpnTokenData,
+    VpnExtensionInfoInterface,
+    CredentialsDataInterface,
+} from '../schema';
 import type { LocationInterface } from './Location';
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../lib/constants';

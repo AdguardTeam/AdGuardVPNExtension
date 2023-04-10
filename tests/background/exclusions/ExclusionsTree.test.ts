@@ -206,7 +206,7 @@ describe('ExclusionsTree', () => {
         }
 
         const average = total / runs;
-        // @ts-ignore
+        // @ts-ignore - used flatMap to get services domains
         const domains = Object.values(services).flatMap((service) => service.domains);
         // eslint-disable-next-line no-console
         console.log(`
