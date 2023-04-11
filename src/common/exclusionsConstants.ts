@@ -1,3 +1,5 @@
+import type { ServiceCategory } from '../background/schema';
+
 // Extracted in the separate file because these entities are also used in the options page
 
 export enum ExclusionsMode {
@@ -36,20 +38,6 @@ export interface ExclusionDtoInterface {
 export interface ExclusionsData {
     exclusions: ExclusionDtoInterface;
     currentMode: ExclusionsMode;
-}
-
-export interface ServiceCategory {
-    id: string,
-    name: string,
-}
-
-export interface ServiceInterface {
-    serviceId: string;
-    serviceName: string;
-    iconUrl: string;
-    modifiedTime: string;
-    categories: ServiceCategory[];
-    domains: string[];
 }
 
 export interface ServiceDto {

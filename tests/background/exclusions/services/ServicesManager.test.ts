@@ -2,7 +2,14 @@ import { nanoid } from 'nanoid';
 
 import { servicesManager } from '../../../../src/background/exclusions/services/ServicesManager';
 import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
-import { extensionState } from '../../../../src/background/extensionState';
+import { session } from '../../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('../../../../src/background/providers/vpnProvider');
 jest.mock('../../../../src/lib/logger');
@@ -69,31 +76,38 @@ const saveServicesInStorageMock = jest.fn();
 servicesManager.saveServicesInStorage = saveServicesInStorageMock;
 saveServicesInStorageMock.mockReturnValue({});
 
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
+
 describe('ServicesManager tests', () => {
     beforeEach(async () => {
-        await extensionState.init();
+        await sessionState.init();
     });
 
-    // FIXME: fix test
-    // it('test initialization', async () => {
-    //     await servicesManager.init();
-    //     const servicesData = await servicesManager.getServices();
-    //
-    //     expect(Object.values(servicesData)).toHaveLength(4);
-    //     expect(JSON.stringify(servicesData.aliexpress))
-    //         .toStrictEqual(JSON.stringify(SERVICES_DATA.aliexpress));
-    //     expect(servicesData.amazon.serviceId).toEqual('amazon');
-    //     expect(servicesData.amazon.categories[0].id).toEqual('SHOP');
-    //     expect(servicesData.amazon.categories[0].name).toEqual('Shopping');
-    //     expect(servicesData.amazon.domains).toHaveLength(27);
-    //     expect(servicesData.amazon.domains[0]).toEqual('a2z.com');
-    //     expect(servicesData.atlassian.serviceId).toEqual('atlassian');
-    //     expect(servicesData.atlassian.domains).toHaveLength(3);
-    //     expect(servicesData.baidu.serviceId).toEqual('baidu');
-    //     expect(servicesData.baidu.domains).toHaveLength(11);
-    // });
+    it('test initialization', async () => {
+        await servicesManager.init();
+        const servicesData = await servicesManager.getServices();
+
+        expect(Object.values(servicesData)).toHaveLength(4);
+        expect(JSON.stringify(servicesData.aliexpress))
+            .toStrictEqual(JSON.stringify(SERVICES_DATA.aliexpress));
+        expect(servicesData.amazon.serviceId).toEqual('amazon');
+        expect(servicesData.amazon.categories[0].id).toEqual('SHOP');
+        expect(servicesData.amazon.categories[0].name).toEqual('Shopping');
+        expect(servicesData.amazon.domains).toHaveLength(27);
+        expect(servicesData.amazon.domains[0]).toEqual('a2z.com');
+        expect(servicesData.atlassian.serviceId).toEqual('atlassian');
+        expect(servicesData.atlassian.domains).toHaveLength(3);
+        expect(servicesData.baidu.serviceId).toEqual('baidu');
+        expect(servicesData.baidu.domains).toHaveLength(11);
+    });
 
     it('test setServices and getService', async () => {
+        await servicesManager.init();
         const servicesData = await servicesManager.getServicesFromServer();
         servicesManager.setServices(servicesData);
 

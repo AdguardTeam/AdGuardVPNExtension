@@ -21,7 +21,7 @@ const openOptionsPage = async (anchorName: string | null = null): Promise<void> 
     if (browserApi.runtime.isManifestVersion2()) {
         const manifest = browser.runtime.getManifest();
         // options_page in Chrome manifest, options_ui in Firefox manifest
-        // @ts-ignore
+        // @ts-ignore (options_page property doesn't exist in polyfill)
         let optionsUrl = manifest.options_page || manifest.options_ui?.page;
 
         if (!optionsUrl.includes('://')) {

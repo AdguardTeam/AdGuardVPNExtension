@@ -4,38 +4,18 @@ import JSZip from 'jszip';
 import { vpnApi } from '../api';
 import { log } from '../../lib/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
-import { LocationApiData, EndpointApiData } from '../api/vpnApi';
-import { Service } from '../exclusions/services/Service';
+import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
+import type {
+    VpnExtensionInfoInterface,
+    ServicesInterface,
+    CredentialsDataInterface,
+} from '../schema';
 
 const DEFAULT_LOCALE = 'en';
-
-export interface CredentialsDataInterface {
-    licenseStatus: string;
-    result: {
-        credentials: string;
-        expiresInSec: number;
-    },
-    timeExpiresSec: number;
-}
 
 interface NameInterface {
     locale: string;
     name: string;
-}
-
-export interface VpnExtensionInfoInterface {
-    bandwidthFreeMbits: number;
-    premiumPromoPage: string;
-    premiumPromoEnabled: boolean;
-    refreshTokens: boolean;
-    vpnFailurePage: string;
-    usedDownloadedBytes: number;
-    usedUploadedBytes: number;
-    maxDownloadedBytes: number;
-    maxUploadedBytes: number;
-    renewalTrafficDate: string;
-    maxDevicesCount: number;
-    emailConfirmationRequired: boolean;
 }
 
 interface CurrentLocationData {
@@ -79,10 +59,6 @@ export interface RequestSupportParameters {
     message: string;
     version: string;
     appLogs?: string;
-}
-
-export interface ServicesInterface {
-    [serviceId: string]: Service,
 }
 
 export interface VpnProviderInterface {

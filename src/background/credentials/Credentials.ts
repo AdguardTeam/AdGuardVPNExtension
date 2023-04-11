@@ -5,24 +5,19 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
-import type { SubscriptionType } from '../../lib/constants';
-import type { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
+import type { VpnProviderInterface } from '../providers/vpnProvider';
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
-import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
-import { extensionState } from '../extensionState';
+import type { ExtensionProxyInterface } from '../proxy/proxy';
+import {
+    AccessCredentials,
+    VpnTokenData,
+    CredentialsState,
+    CredentialsDataInterface,
+    StorageKey,
+} from '../schema';
+import { sessionState } from '../sessionStorage';
 import { credentialsService } from './credentialsService';
-
-export interface VpnTokenData {
-    token: string;
-    licenseStatus: string;
-    timeExpiresSec: number;
-    licenseKey: string;
-    vpnSubscription: {
-        next_bill_date_iso: string,
-        duration_v2: SubscriptionType,
-    };
-}
 
 export interface AccessCredentialsData {
     credentialsHash: string,
@@ -74,6 +69,8 @@ export interface CredentialsInterface {
 }
 
 export class Credentials implements CredentialsInterface {
+    state: CredentialsState;
+
     APP_ID_KEY = 'credentials.app.id';
 
     VPN_CREDENTIALS_KEY = 'credentials.vpn';
@@ -88,14 +85,6 @@ export class Credentials implements CredentialsInterface {
 
     auth: AuthInterface;
 
-    vpnToken: VpnTokenData | null;
-
-    vpnCredentials: CredentialsDataInterface | null;
-
-    appId: string;
-
-    currentUsername: string | null;
-
     constructor({
         browserApi,
         vpnProvider,
@@ -108,6 +97,46 @@ export class Credentials implements CredentialsInterface {
         this.permissionsError = permissionsError;
         this.proxy = proxy;
         this.auth = auth;
+    }
+
+    saveCredentialsState = () => {
+        sessionState.setItem(StorageKey.CredentialsState, this.state);
+    };
+
+    get vpnToken() {
+        return this.state.vpnToken;
+    }
+
+    set vpnToken(vpnToken: VpnTokenData | null) {
+        this.state.vpnToken = vpnToken;
+        this.saveCredentialsState();
+    }
+
+    get vpnCredentials() {
+        return this.state.vpnCredentials;
+    }
+
+    set vpnCredentials(vpnCredentials: CredentialsDataInterface | null) {
+        this.state.vpnCredentials = vpnCredentials;
+        this.saveCredentialsState();
+    }
+
+    get currentUsername() {
+        return this.state.currentUsername;
+    }
+
+    set currentUsername(currentUsername: string | null) {
+        this.state.currentUsername = currentUsername;
+        this.saveCredentialsState();
+    }
+
+    get appId() {
+        return this.state.appId;
+    }
+
+    set appId(appId: string | null) {
+        this.state.appId = appId;
+        this.saveCredentialsState();
     }
 
     /**
@@ -224,7 +253,7 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
-        await extensionState.updateVpnToken(vpnToken);
+        this.vpnToken = vpnToken;
         return vpnToken;
     }
 
@@ -251,7 +280,7 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
-        await extensionState.updateVpnCredentials(vpnCredentials);
+        this.vpnCredentials = vpnCredentials;
         return vpnCredentials;
     }
 
@@ -420,7 +449,7 @@ export class Credentials implements CredentialsInterface {
     async fetchUsername() {
         const accessToken = await this.auth.getAccessToken();
         const username = await accountProvider.getAccountInfo(accessToken);
-        await extensionState.updateCurrentUsername(username);
+        this.currentUsername = username;
 
         return username;
     }
@@ -524,8 +553,9 @@ export class Credentials implements CredentialsInterface {
     }
 
     async init(): Promise<void> {
-        const { credentialsState } = extensionState.currentState;
         try {
+            this.state = sessionState.getItem(StorageKey.CredentialsState);
+
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
                 this.handleUserDeauthentication.bind(this),
@@ -533,15 +563,13 @@ export class Credentials implements CredentialsInterface {
 
             await this.trackInstallation();
 
-            const { vpnToken, vpnCredentials, currentUsername } = credentialsState ?? {};
-
             const forceRemote = true;
 
-            // On extension initialisation use credentials backup.
+            // Use persisted state on extension initialisation.
             // If it's not available, get data remotely
-            this.vpnToken = vpnToken || await this.gainValidVpnToken(forceRemote);
-            this.vpnCredentials = vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
-            this.currentUsername = currentUsername || await this.fetchUsername();
+            this.vpnToken = this.vpnToken || await this.gainValidVpnToken(forceRemote);
+            this.vpnCredentials = this.vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
+            this.currentUsername = this.currentUsername || await this.fetchUsername();
         } catch (e) {
             log.debug('Unable to init credentials module, due to error:', e.message);
         }

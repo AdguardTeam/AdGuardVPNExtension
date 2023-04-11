@@ -5,7 +5,7 @@ type TestStorage = {
     [key: string]: unknown;
 };
 
-// @ts-ignore
+// @ts-ignore - partly implementation
 const storage: Storage = (() => {
     const storage: TestStorage = {};
     return {

@@ -9,7 +9,7 @@ import { getLocationWithLowestPing, sleep } from '../../lib/helpers';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import { notifier } from '../../lib/notifier';
 import { proxy } from '../proxy';
-import { vpnProvider, VpnExtensionInfoInterface, CredentialsDataInterface } from '../providers/vpnProvider';
+import { vpnProvider } from '../providers/vpnProvider';
 import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 
@@ -19,11 +19,17 @@ import { credentials } from '../credentials';
 import { locationsService, isMeasuringPingInProgress } from './locationsService';
 // eslint-disable-next-line import/no-cycle
 import { isVPNConnected, isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
-import { EndpointInterface } from './Endpoint';
-import { LocationInterface } from './Location';
-import { VpnTokenData } from '../credentials/Credentials';
+import type {
+    EndpointInterface,
+    VpnTokenData,
+    VpnExtensionInfoInterface,
+    CredentialsDataInterface,
+} from '../schema';
+import type { LocationInterface } from './Location';
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../lib/constants';
+import { EndpointsState, StorageKey } from '../schema';
+import { sessionState } from '../sessionStorage';
 
 /**
  * Endpoint properties
@@ -60,13 +66,22 @@ export interface EndpointsInterface {
  * Endpoints manages endpoints, vpn, current location information.
  */
 class Endpoints implements EndpointsInterface {
-    vpnInfo?: VpnExtensionInfoInterface;
+    state: EndpointsState;
 
     constructor() {
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
             this.refreshData,
         );
+    }
+
+    private get vpnInfo(): VpnExtensionInfoInterface | null {
+        return this.state.vpnInfo;
+    }
+
+    private set vpnInfo(vpnInfo: VpnExtensionInfoInterface | null) {
+        this.state.vpnInfo = vpnInfo;
+        sessionState.setItem(StorageKey.Endpoints, this.state);
     }
 
     /**
@@ -452,10 +467,11 @@ class Endpoints implements EndpointsInterface {
     };
 
     clearVpnInfo(): void {
-        delete this.vpnInfo;
+        this.vpnInfo = null;
     }
 
     init(): void {
+        this.state = sessionState.getItem(StorageKey.Endpoints);
         // Clear vpn info on deauthentication in order to set correct vpn info after next login
         notifier.addSpecifiedListener(
             notifier.types.USER_DEAUTHENTICATED,

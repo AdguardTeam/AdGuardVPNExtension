@@ -2,16 +2,18 @@ import browser from 'webextension-polyfill';
 import axios from 'axios';
 
 import { Service } from './Service';
-import { vpnProvider, ServicesInterface } from '../../providers/vpnProvider';
+import { vpnProvider } from '../../providers/vpnProvider';
 import { browserApi } from '../../browserApi';
 import { log } from '../../../lib/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
 import { fetchConfig } from '../../../lib/constants';
-import { extensionState } from '../../extensionState';
-
-export interface IndexedServicesInterface {
-    [id: string]: string
-}
+import { sessionState } from '../../sessionStorage';
+import {
+    StorageKey,
+    ServicesInterface,
+    ServicesIndexType,
+    ServicesManagerState,
+} from '../../schema';
 
 interface ServiceManagerInterface {
     init: () => Promise<void>;
@@ -19,17 +21,17 @@ interface ServiceManagerInterface {
 }
 
 export class ServicesManager implements ServiceManagerInterface {
-    private services: ServicesInterface | null = null;
-
-    private servicesIndex: IndexedServicesInterface | null = null;
-
     // Update once in 24 hours
     private UPDATE_TIMEOUT_MS = 1000 * 60 * 60 * 24;
 
     // Key constant for storage
     private EXCLUSION_SERVICES_STORAGE_KEY = 'exclusions_services';
 
+    state: ServicesManagerState;
+
     public init = async () => {
+        this.state = sessionState.getItem(StorageKey.ExclusionsServicesManagerState);
+
         const services = await this.getServicesFromStorage();
         if (services) {
             this.setServices(services);
@@ -41,6 +43,37 @@ export class ServicesManager implements ServiceManagerInterface {
             this.setServices(this.services);
         }
     };
+
+    private saveServicesManagerState = () => {
+        sessionState.setItem(StorageKey.ExclusionsServicesManagerState, this.state);
+    };
+
+    private get services() {
+        return this.state.services;
+    }
+
+    private set services(services: ServicesInterface | null) {
+        this.state.services = services;
+        this.saveServicesManagerState();
+    }
+
+    private get servicesIndex(): ServicesIndexType {
+        return this.state.servicesIndex;
+    }
+
+    private set servicesIndex(servicesIndex: ServicesIndexType) {
+        this.state.servicesIndex = servicesIndex;
+        this.saveServicesManagerState();
+    }
+
+    private get lastUpdateTimeMs(): number | null {
+        return this.state.lastUpdateTimeMs;
+    }
+
+    private set lastUpdateTimeMs(lastUpdateTimeMs: number | null) {
+        this.state.lastUpdateTimeMs = lastUpdateTimeMs;
+        this.saveServicesManagerState();
+    }
 
     /**
      * Returns services data
@@ -70,16 +103,16 @@ export class ServicesManager implements ServiceManagerInterface {
     /**
      * Returns services index
      */
-    getIndexedServices(): IndexedServicesInterface {
-        return this.servicesIndex ?? {};
+    getIndexedServices(): ServicesIndexType {
+        return this.servicesIndex;
     }
 
     /**
      * Returns map with services index by domain
      * @param services
      */
-    public static getServicesIndex(services: ServicesInterface): IndexedServicesInterface {
-        return Object.values(services).reduce((acc: IndexedServicesInterface, service) => {
+    public static getServicesIndex(services: ServicesInterface): ServicesIndexType {
+        return Object.values(services).reduce((acc: ServicesIndexType, service) => {
             service.domains?.forEach((domain) => {
                 acc[domain] = service.serviceId;
             });
@@ -121,9 +154,8 @@ export class ServicesManager implements ServiceManagerInterface {
      * Updates services
      */
     async updateServices() {
-        const { lastUpdateTimeMs } = extensionState.currentState.exclusionsServicesState;
-        const shouldUpdate = lastUpdateTimeMs === null
-            || (Date.now() - lastUpdateTimeMs) > this.UPDATE_TIMEOUT_MS;
+        const shouldUpdate = this.lastUpdateTimeMs === null
+            || (Date.now() - this.lastUpdateTimeMs) > this.UPDATE_TIMEOUT_MS;
 
         if (!shouldUpdate) {
             return;
@@ -133,7 +165,7 @@ export class ServicesManager implements ServiceManagerInterface {
             const services = await this.getServicesFromServer();
             await this.saveServicesInStorage(services);
             this.setServices(services);
-            await extensionState.updateLastUpdateTimeMs(Date.now());
+            this.lastUpdateTimeMs = Date.now();
             log.info('Services data updated successfully');
         } catch (e) {
             log.error(new Error(`Was unable to get services due to: ${e.message}`));

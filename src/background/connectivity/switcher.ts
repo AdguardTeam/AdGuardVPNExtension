@@ -15,10 +15,10 @@ import { endpoints } from '../endpoints';
 import { connectivity } from './index';
 // eslint-disable-next-line import/no-cycle
 import { connectivityService, setDesktopVpnEnabled } from './connectivityService/connectivityFSM';
-import { AccessCredentialsData } from '../credentials/Credentials';
-import { LocationInterface } from '../endpoints/Location';
-import { EndpointInterface } from '../endpoints/Endpoint';
-import { VpnConnectionStatus } from '../api/vpnApi';
+import type { AccessCredentialsData } from '../credentials/Credentials';
+import type { LocationInterface } from '../endpoints/Location';
+import type { EndpointInterface } from '../schema';
+import type { VpnConnectionStatus } from '../api/vpnApi';
 
 /**
  * Turns on proxy after doing preparing steps

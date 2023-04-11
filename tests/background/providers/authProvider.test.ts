@@ -1,6 +1,14 @@
 import axios from 'axios';
 
 import { authProvider } from '../../../src/background/providers/authProvider';
+import { session } from '../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
@@ -16,7 +24,23 @@ const emptyCredentials = {
     appId: '',
 };
 
+jest.mock('../../../src/background/browserApi', () => {
+    // eslint-disable-next-line global-require
+    return require('../../__mocks__/browserApiMock');
+});
+
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
+
 describe('authProvider', () => {
+    beforeEach(async () => {
+        await sessionState.init();
+    });
+
     afterAll(() => {
         jest.clearAllMocks();
     });
@@ -29,7 +53,7 @@ describe('authProvider', () => {
     };
 
     it('makes requests to the server', async () => {
-        // @ts-ignore
+        // @ts-ignore - mock axios response
         axios.mockResolvedValue({
             status: 200,
             data: {
@@ -46,7 +70,7 @@ describe('authProvider', () => {
     });
 
     it('handles network errors', async () => {
-        // @ts-ignore
+        // @ts-ignore - mock axios response
         axios.mockRejectedValue(new Error('Network Error'));
 
         const expectedError = new Error(JSON.stringify({ error: 'authentication_error_default' }));
@@ -55,7 +79,7 @@ describe('authProvider', () => {
     });
 
     it('handles errors sent from server', async () => {
-        // @ts-ignore
+        // @ts-ignore - mock axios response
         axios.mockRejectedValue({
             status: 401,
             response: {

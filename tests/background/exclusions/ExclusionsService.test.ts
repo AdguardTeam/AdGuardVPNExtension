@@ -1,32 +1,19 @@
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
 import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
-import { extensionState } from '../../../src/background/extensionState';
+import { proxy } from '../../../src/background/proxy';
+import { session } from '../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('../../../src/background/browserApi', () => {
-    const storage: { [key: string]: any } = {
-        set: jest.fn(async (key: string, data: any): Promise<void> => {
-            storage[key] = data;
-        }),
-        get: jest.fn(async (key: string): Promise<string> => {
-            return storage[key];
-        }),
-        remove: jest.fn(async (key: string): Promise<boolean> => {
-            return delete storage[key];
-        }),
-    };
-    const runtime = {
-        // TODO: test mv3 after official switch to mv3
-        isManifestVersion2: () => true,
-    };
-
-    return {
-        __esModule: true,
-        browserApi: {
-            storage,
-            runtime,
-        },
-    };
+    // eslint-disable-next-line global-require
+    return require('../../__mocks__/browserApiMock');
 });
 
 jest.mock('../../../src/lib/logger.ts');
@@ -101,9 +88,17 @@ getIndexedServicesMock.mockReturnValue({
     'aliexpress.ru': 'aliexpress',
 });
 
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
+
 describe('ExclusionsService', () => {
     beforeEach(async () => {
-        await extensionState.init();
+        await sessionState.init();
+        await proxy.init();
     });
 
     afterEach(() => {

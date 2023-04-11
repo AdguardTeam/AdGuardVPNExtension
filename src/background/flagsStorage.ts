@@ -2,11 +2,11 @@ import { browserApi } from './browserApi';
 import { FLAGS_FIELDS } from '../lib/constants';
 import { log } from '../lib/logger';
 import { updateService } from './updateService';
-import { extensionState } from './extensionState';
+import { sessionState } from './sessionStorage';
+import { FlagsStorageData, FLAG_STORAGE_DEFAULTS } from './flagsStorageData';
+import { StorageKey } from './schema';
 
-export type FlagsStorageData = {
-    [key: string]: string | boolean;
-};
+const FLAGS_STORAGE_KEY = 'flags.storage';
 
 interface FlagsStorageInterface {
     set(key: string, value: string | boolean): Promise<void>;
@@ -18,46 +18,43 @@ interface FlagsStorageInterface {
     init(): Promise<void>
 }
 
-const FLAGS_STORAGE_KEY = 'flags.storage';
-
-const DEFAULTS = {
-    // onboarding should be displayed for new users and on first run (AG-10009)
-    [FLAGS_FIELDS.SHOW_ONBOARDING]: true,
-    // upgrade screen should be displayed for non-premium users after onboarding screen
-    [FLAGS_FIELDS.SHOW_UPGRADE_SCREEN]: true,
-};
-
 /**
  * Manages flags data in storage
  */
 class FlagsStorage implements FlagsStorageInterface {
+    get flagsStorageData() {
+        return sessionState.getItem(StorageKey.FlagsStorageState);
+    }
+
+    set flagsStorageData(value: FlagsStorageData) {
+        sessionState.setItem(StorageKey.FlagsStorageState, value);
+    }
+
     /**
      * Sets value to flags storage for provided key
      */
     set = async (key: string, value: string | boolean): Promise<void> => {
-        const flagsStorageData = await browserApi.storage.get<FlagsStorageData>(FLAGS_STORAGE_KEY);
-        if (!flagsStorageData) {
+        this.flagsStorageData = await browserApi.storage.get(FLAGS_STORAGE_KEY);
+        if (!this.flagsStorageData) {
             log.error('Unable to get flags data from storage');
             return;
         }
-        flagsStorageData[key] = value;
-        await browserApi.storage.set(FLAGS_STORAGE_KEY, flagsStorageData);
-        await extensionState.updateFlagsStorageState(flagsStorageData);
+        this.flagsStorageData[key] = value;
+        await browserApi.storage.set(FLAGS_STORAGE_KEY, this.flagsStorageData);
     };
 
     /**
      * Sets default values for flags to storage
      */
     setDefaults = async (): Promise<void> => {
-        await browserApi.storage.set(FLAGS_STORAGE_KEY, DEFAULTS);
+        await browserApi.storage.set(FLAGS_STORAGE_KEY, FLAG_STORAGE_DEFAULTS);
     };
 
     /**
      * Returns object with all flags values { flag_key: value }
      */
     getFlagsStorageData = async (): Promise<FlagsStorageData> => {
-        return extensionState.currentState.flagsStorageState
-            || await browserApi.storage.get(FLAGS_STORAGE_KEY);
+        return this.flagsStorageData || await browserApi.storage.get(FLAGS_STORAGE_KEY);
     };
 
     /**
@@ -93,9 +90,9 @@ class FlagsStorage implements FlagsStorageInterface {
     };
 
     init = async (): Promise<void> => {
-        if (!extensionState.currentState.flagsStorageState) {
+        if (!this.flagsStorageData) {
             await this.setDefaults();
-            await extensionState.updateFlagsStorageState(DEFAULTS);
+            this.flagsStorageData = FLAG_STORAGE_DEFAULTS;
         }
     };
 }
