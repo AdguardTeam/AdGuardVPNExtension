@@ -3,6 +3,7 @@ import { SubscriptionType } from '../../../src/lib/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
 import { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
+import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
 import { sessionState } from '../../../src/background/stateStorage/mv2';
 
@@ -40,15 +41,6 @@ const msToSec = (ms: number) => {
     return Math.floor(ms / 1000);
 };
 
-const session: { [key: string]: any } = {
-    set: jest.fn(async (key: string, data: any): Promise<void> => {
-        session[key] = data;
-    }),
-    get: jest.fn(async (key: string): Promise<string> => {
-        return session[key];
-    }),
-};
-
 global.chrome = {
     storage: {
         // @ts-ignore - partly implementation
@@ -59,6 +51,10 @@ global.chrome = {
 describe('Credentials', () => {
     beforeEach(async () => {
         await sessionState.init();
+    });
+
+    afterEach(async () => {
+        jest.clearAllMocks();
     });
 
     describe('validates credentials', () => {

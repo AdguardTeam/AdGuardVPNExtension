@@ -5,6 +5,7 @@ import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
 import type { VpnTokenData, EndpointInterface } from '../../../src/background/schema';
+import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
 import { sessionState } from '../../../src/background/stateStorage/mv2';
 
@@ -18,15 +19,6 @@ jest.mock('../../../src/lib/logger'); // hides redundant log messages during tes
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/browserApi');
 jest.mock('../../../src/background/providers/vpnProvider');
-
-const session: { [key: string]: any } = {
-    set: jest.fn(async (key: string, data: any): Promise<void> => {
-        session[key] = data;
-    }),
-    get: jest.fn(async (key: string): Promise<string> => {
-        return session[key];
-    }),
-};
 
 global.chrome = {
     storage: {

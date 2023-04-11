@@ -3,6 +3,7 @@ import { ServicesManager } from '../../../src/background/exclusions/services/Ser
 import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTree';
 import { ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import type { ExclusionInterface } from '../../../src/background/schema';
+import { ServicesInterface } from '../../../src/background/schema';
 
 jest.mock('../../../src/lib/logger.ts');
 
@@ -185,7 +186,7 @@ describe('ExclusionsTree', () => {
         const indexedExclusions = ExclusionsHandler.buildExclusionsIndex(exclusions);
 
         // eslint-disable-next-line global-require
-        const services = require('./services.json');
+        const services: ServicesInterface = require('./services.json');
 
         const indexedServices = ServicesManager.getServicesIndex(services);
 
@@ -206,7 +207,6 @@ describe('ExclusionsTree', () => {
         }
 
         const average = total / runs;
-        // @ts-ignore - used flatMap to get services domains
         const domains = Object.values(services).flatMap((service) => service.domains);
         // eslint-disable-next-line no-console
         console.log(`

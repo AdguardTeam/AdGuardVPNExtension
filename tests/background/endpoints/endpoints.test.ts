@@ -14,6 +14,7 @@ import type {
     VpnExtensionInfoInterface,
     CredentialsDataInterface,
 } from '../../../src/background/schema';
+import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
 import { sessionState } from '../../../src/background/stateStorage/mv2';
 
@@ -46,39 +47,9 @@ jest.mock('../../../src/background/api/fallbackApi', () => {
 });
 
 jest.mock('../../../src/background/browserApi', () => {
-    const storage: { [key: string]: any } = {
-        set: jest.fn(async (key: string, data: any): Promise<void> => {
-            storage[key] = data;
-        }),
-        get: jest.fn(async (key: string): Promise<string> => {
-            return storage[key];
-        }),
-        remove: jest.fn(async (key: string): Promise<boolean> => {
-            return delete storage[key];
-        }),
-    };
-    const runtime = {
-        // TODO: test mv3 after official switch to mv3
-        isManifestVersion2: () => true,
-    };
-
-    return {
-        __esModule: true,
-        browserApi: {
-            storage,
-            runtime,
-        },
-    };
+    // eslint-disable-next-line global-require
+    return require('../../__mocks__/browserApiMock');
 });
-
-const session: { [key: string]: any } = {
-    set: jest.fn(async (key: string, data: any): Promise<void> => {
-        session[key] = data;
-    }),
-    get: jest.fn(async (key: string): Promise<string> => {
-        return session[key];
-    }),
-};
 
 global.chrome = {
     storage: {
