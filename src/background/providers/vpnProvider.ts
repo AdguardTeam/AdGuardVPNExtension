@@ -4,7 +4,7 @@ import JSZip from 'jszip';
 import { vpnApi } from '../api';
 import { log } from '../../lib/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
-import { LocationApiData, EndpointApiData } from '../api/vpnApi';
+import type { EndpointApiData, LocationApiData, ReportData } from '../api/vpnApi';
 import { Service } from '../exclusions/services/Service';
 
 const DEFAULT_LOCALE = 'en';
@@ -316,7 +316,7 @@ const postExtensionInstalled = async (appId: string): Promise<{ social_providers
     return vpnApi.postExtensionInstalled(appId);
 };
 
-const prepareLogs = async (appLogs: string) => {
+const prepareLogs = async (appLogs: string): Promise<Blob> => {
     const LOGS_FILENAME = 'logs.txt';
 
     const zip = new JSZip();
@@ -334,24 +334,22 @@ const requestSupport = async ({
     appLogs,
 }: RequestSupportParameters): Promise<{ status: string, error: string | null }> => {
     const BUG_REPORT_SUBJECT = '[VPN Browser extension] Bug report';
-    const LOGS_ZIP_FILENAME = 'logs.zip';
 
-    const formData = new FormData();
-
-    formData.append('app_id', appId);
-    formData.append('token', token);
-    formData.append('email', email);
-    formData.append('message', message);
-    formData.append('version', version);
-    formData.append('subject', BUG_REPORT_SUBJECT);
+    const reportData: ReportData = {
+        app_id: appId,
+        token,
+        email,
+        message,
+        version,
+        subject: BUG_REPORT_SUBJECT,
+    };
 
     if (appLogs) {
-        const preparedAppLogs = await prepareLogs(appLogs);
-        formData.append('app_logs', preparedAppLogs, LOGS_ZIP_FILENAME);
+        reportData.app_logs = await prepareLogs(appLogs);
     }
 
     try {
-        await vpnApi.requestSupport(formData);
+        await vpnApi.requestSupport(reportData);
         return { status: 'ok', error: null };
     } catch (e) {
         log.error(e);
