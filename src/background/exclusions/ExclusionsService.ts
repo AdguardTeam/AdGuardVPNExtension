@@ -256,7 +256,7 @@ export class ExclusionsService {
                 );
             }
 
-            await this.updateTree();
+            this.updateTree();
             return addedExclusionsCount;
         }
 
@@ -531,7 +531,7 @@ export class ExclusionsService {
      * Returns regular exclusions for export
      */
     getRegularExclusions() {
-        const exclusions = exclusionsManager.regular.getExclusions();
+        const { exclusions } = exclusionsManager.regular;
         return this.prepareExclusionsForExport(exclusions);
     }
 
@@ -539,7 +539,7 @@ export class ExclusionsService {
      * Returns selective exclusions for export
      */
     getSelectiveExclusions() {
-        const exclusions = exclusionsManager.selective.getExclusions();
+        const { exclusions } = exclusionsManager.selective;
         return this.prepareExclusionsForExport(exclusions);
     }
 

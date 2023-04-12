@@ -89,7 +89,7 @@ export class ExclusionsManager {
     handleExclusionsUpdate = async () => {
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
-        const enabledExclusionsList = this.currentHandler.getExclusions()
+        const enabledExclusionsList = this.currentHandler.exclusions
             .filter(({ state }) => state === ExclusionState.Enabled)
             .map(({ hostname }) => hostname);
 
@@ -142,7 +142,7 @@ export class ExclusionsManager {
      * Returns exclusions for current mode
      */
     getExclusions(): ExclusionInterface[] {
-        return this.currentHandler.getExclusions();
+        return this.currentHandler.exclusions;
     }
 
     /**
@@ -150,8 +150,8 @@ export class ExclusionsManager {
      */
     getAllExclusions(): AllExclusions {
         return {
-            regular: [...this.regular.getExclusions()],
-            selective: [...this.selective.getExclusions()],
+            regular: [...this.regular.exclusions],
+            selective: [...this.selective.exclusions],
         };
     }
 

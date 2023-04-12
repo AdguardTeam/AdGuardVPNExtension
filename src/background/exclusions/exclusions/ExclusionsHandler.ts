@@ -3,13 +3,7 @@ import { nanoid } from 'nanoid';
 import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 import { getETld, getHostname } from '../../../common/url-utils';
-import { sessionState } from '../../sessionStorage';
-import {
-    ExclusionInterface,
-    ExclusionsHandlerState,
-    IndexedExclusionsInterface,
-    StorageKey,
-} from '../../schema';
+import type { ExclusionInterface, IndexedExclusionsInterface } from '../../schema';
 
 interface UpdateHandler {
     (): Promise<void>;
@@ -22,7 +16,9 @@ export interface AddExclusionArgs {
 }
 
 export class ExclusionsHandler {
-    state: ExclusionsHandlerState;
+    exclusions: ExclusionInterface[];
+
+    exclusionsIndex: IndexedExclusionsInterface;
 
     updateHandler: UpdateHandler;
 
@@ -33,42 +29,15 @@ export class ExclusionsHandler {
         exclusions: ExclusionInterface[],
         mode: ExclusionsMode,
     ) {
-        this.state = sessionState.getItem(StorageKey.ExclusionsHandlerState);
         this.updateHandler = updateHandler;
         this.exclusions = exclusions;
         this.exclusionsIndex = ExclusionsHandler.buildExclusionsIndex(exclusions);
         this.mode = mode;
     }
 
-    saveExclusionsHandlerState = () => {
-        sessionState.setItem(StorageKey.ExclusionsHandlerState, this.state);
-    };
-
-    get exclusions(): ExclusionInterface[] {
-        return this.state.exclusions;
-    }
-
-    set exclusions(exclusions: ExclusionInterface[]) {
-        this.state.exclusions = exclusions;
-        this.saveExclusionsHandlerState();
-    }
-
-    private get exclusionsIndex(): IndexedExclusionsInterface {
-        return this.state.exclusionsIndex;
-    }
-
-    private set exclusionsIndex(exclusionsIndex: IndexedExclusionsInterface) {
-        this.state.exclusionsIndex = exclusionsIndex;
-        this.saveExclusionsHandlerState();
-    }
-
     async onUpdate() {
         this.exclusionsIndex = ExclusionsHandler.buildExclusionsIndex(this.exclusions);
         await this.updateHandler();
-    }
-
-    getExclusions(): ExclusionInterface[] {
-        return this.exclusions;
     }
 
     async setExclusions(exclusions: ExclusionInterface[]) {

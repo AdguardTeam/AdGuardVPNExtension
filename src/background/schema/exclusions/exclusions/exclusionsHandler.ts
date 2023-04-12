@@ -11,8 +11,3 @@ export const exclusionsHandlerStateScheme = zod.object({
 }).strict();
 
 export type ExclusionsHandlerState = zod.infer<typeof exclusionsHandlerStateScheme>;
-
-export const EXCLUSIONS_HANDLER_STATE_DEFAULTS: ExclusionsHandlerState = {
-    exclusions: [],
-    exclusionsIndex: {},
-};
