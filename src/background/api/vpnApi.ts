@@ -110,23 +110,13 @@ interface ExclusionServiceDomainsData extends AxiosResponse {
     }];
 }
 
-export type ReportData = {
-    app_id: string;
-    token: string;
-    email: string;
-    message: string;
-    version: string;
-    subject: string;
-    app_logs?: Blob;
-};
-
 interface VpnApiInterface {
     getLocations(appId: string, vpnToken: string): Promise<LocationsData>;
     getVpnCredentials(appId: string, vpnToken: string): Promise<VpnCredentials>;
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>;
     postExtensionInstalled(appId: string): Promise<PostExtensionInstalledData>;
-    requestSupport(data: ReportData): Promise<AxiosResponse>;
+    requestSupport(data: FormData): Promise<Response>;
     getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>;
     getExclusionsServices(): Promise<ExclusionsServicesData>;
     getExclusionServiceDomains(servicesIds: string[]): Promise<ExclusionServiceDomainsData>;
@@ -212,14 +202,14 @@ class VpnApi extends Api implements VpnApiInterface {
 
     SUPPORT_REQUEST: RequestProps = { path: 'v1/support', method: 'POST' };
 
-    requestSupport = (reportData: ReportData): Promise<AxiosResponse> => {
+    requestSupport = (data: FormData): Promise<Response> => {
         const { path, method } = this.SUPPORT_REQUEST;
 
         const config = {
-            data: qs.stringify(reportData),
+            body: data,
         };
 
-        return this.makeRequest(path, config, method);
+        return this.makeFetchRequest(path, config, method);
     };
 
     GET_DESKTOP_VPN_CONNECTION_STATUS: RequestProps = { path: 'v1/vpn_connected', method: 'GET' };

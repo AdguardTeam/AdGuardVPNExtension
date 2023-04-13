@@ -14,7 +14,7 @@ interface ConfigInterface {
         service_id?: string | null;
     };
     data?: string | FormData;
-    body?: string;
+    body?: string | FormData;
     headers?: {
         Authorization: string,
     };
@@ -45,8 +45,10 @@ export class Api implements ApiInterface {
         return this.baseUrlStr;
     }
 
+    private getRequestUrl = async (path: string): Promise<string> => `https://${await this.getBaseUrl()}/${path}`;
+
     async makeRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
-        const url = `https://${await this.getBaseUrl()}/${path}`;
+        const url = await this.getRequestUrl(path);
         const axiosConfig: AxiosRequestConfig = {
             url,
             method,
@@ -58,6 +60,28 @@ export class Api implements ApiInterface {
         try {
             const response = await axios(axiosConfig);
             return response.data;
+        } catch (e) {
+            if (e.response) {
+                throw new CustomError(e.response.status, JSON.stringify(e.response.data));
+            }
+            // if there is no response from backend and network is online,
+            // notify about server error
+            if (navigator.onLine) {
+                notifier.notifyListeners(notifier.types.SERVER_ERROR);
+            }
+            throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${e.message || JSON.stringify(e)}`);
+        }
+    }
+
+    async makeFetchRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
+        const url = await this.getRequestUrl(path);
+        const fetchConfig: RequestInit = {
+            method,
+            ...config,
+        };
+
+        try {
+            return await fetch(url, fetchConfig);
         } catch (e) {
             if (e.response) {
                 throw new CustomError(e.response.status, JSON.stringify(e.response.data));
