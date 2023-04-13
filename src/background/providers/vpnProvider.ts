@@ -321,7 +321,13 @@ const prepareLogs = async (appLogs: string): Promise<Blob> => {
 
     const zip = new JSZip();
     zip.file(LOGS_FILENAME, appLogs);
-    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const zipBlob = await zip.generateAsync({
+        type: 'blob',
+        compression: 'DEFLATE',
+        compressionOptions: {
+            level: 9,
+        },
+    });
     return zipBlob;
 };
 
