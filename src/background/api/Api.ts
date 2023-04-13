@@ -47,6 +47,15 @@ export class Api implements ApiInterface {
 
     private getRequestUrl = async (path: string): Promise<string> => `https://${await this.getBaseUrl()}/${path}`;
 
+    /**
+     * A method that makes an asynchronous Axios request to the specified path with the given configuration.
+     *
+     * @param {string} path - The path to which the request will be made.
+     * @param {ConfigInterface} config - The configuration object for the request.
+     * @param {Method} [method='POST'] - The HTTP method for the request. Default is 'POST'.
+     * @returns {Promise<any>} A Promise that resolves to the response data from the server.
+     * @throws {CustomError} A custom error object with the status code and error message if the request fails.
+     */
     async makeRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
         const url = await this.getRequestUrl(path);
         const axiosConfig: AxiosRequestConfig = {
@@ -73,6 +82,16 @@ export class Api implements ApiInterface {
         }
     }
 
+    /**
+     * A method that makes an asynchronous fetch request to the specified path with the given configuration.
+     *
+     * @param {string} path - The path to which the fetch request will be made.
+     * @param {ConfigInterface} config - The configuration object for the fetch request.
+     * @param {Method} [method='POST'] - The HTTP method for the fetch request. Default is 'POST'.
+     * @returns {Promise<Response>} A Promise that resolves to a Response object
+     * representing the response to the fetch request.
+     * @throws {CustomError} A custom error object with the status code and error message if the fetch request fails.
+     */
     async makeFetchRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
         const url = await this.getRequestUrl(path);
         const fetchConfig: RequestInit = {
