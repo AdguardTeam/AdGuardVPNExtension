@@ -34,7 +34,6 @@ class FlagsStorage implements FlagsStorageInterface {
      * Sets value to flags storage for provided key
      */
     set = async (key: string, value: string | boolean): Promise<void> => {
-        this.flagsStorageData = await browserApi.storage.get(FLAGS_STORAGE_KEY);
         if (!this.flagsStorageData) {
             log.error('Unable to get flags data from storage');
             return;

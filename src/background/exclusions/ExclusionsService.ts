@@ -52,7 +52,7 @@ export class ExclusionsService {
         await exclusionsManager.init();
         await servicesManager.init();
 
-        await this.updateTree();
+        this.updateTree();
 
         notifier.addSpecifiedListener(
             notifier.types.NON_ROUTABLE_DOMAIN_ADDED,
@@ -86,7 +86,7 @@ export class ExclusionsService {
     async setMode(mode: ExclusionsMode, shouldNotifyOptionsPage?: boolean) {
         await exclusionsManager.setCurrentMode(mode);
 
-        await this.updateTree();
+        this.updateTree();
 
         // shouldNotifyOptionsPage flag is used to notify options page to update exclusions data,
         // if exclusion mode was changed from context menu
@@ -98,11 +98,11 @@ export class ExclusionsService {
     /**
      * Updates exclusions tree
      */
-    async updateTree() {
+    updateTree() {
         this.exclusionsTree.generateTree({
             exclusions: exclusionsManager.getExclusions(),
             indexedExclusions: exclusionsManager.getIndexedExclusions(),
-            services: await servicesManager.getServices(),
+            services: servicesManager.getServices(),
             indexedServices: servicesManager.getIndexedServices(),
         });
     }
@@ -217,7 +217,7 @@ export class ExclusionsService {
         const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
         if (existingExclusion) {
             await exclusionsManager.current.enableExclusion(existingExclusion.id);
-            await this.updateTree();
+            this.updateTree();
             return 0;
         }
 
@@ -263,7 +263,7 @@ export class ExclusionsService {
         // if provided url is IP-address, adds ip exclusion
         if (isIP(hostname)) {
             await exclusionsManager.current.addUrlToExclusions(hostname);
-            await this.updateTree();
+            this.updateTree();
             return 1;
         }
 
@@ -275,7 +275,7 @@ export class ExclusionsService {
 
         if (exclusionsManager.current.hasETld(eTld)) {
             await exclusionsManager.current.addExclusions([{ value: hostname }]);
-            await this.updateTree();
+            this.updateTree();
             return 1;
         }
 
@@ -289,7 +289,7 @@ export class ExclusionsService {
                     { value: eTld, enabled: false },
                     { value: subdomainHostname, enabled: true },
                 ]);
-                await this.updateTree();
+                this.updateTree();
                 return 2;
             }
 
@@ -300,7 +300,7 @@ export class ExclusionsService {
                 { value: wildcardHostname, enabled: false },
                 { value: subdomainHostname, enabled: true },
             ]);
-            await this.updateTree();
+            this.updateTree();
             return 3;
         }
 
@@ -309,7 +309,7 @@ export class ExclusionsService {
             { value: hostname },
             { value: wildcardHostname },
         ]);
-        await this.updateTree();
+        this.updateTree();
         return 2;
     }
 
@@ -337,7 +337,7 @@ export class ExclusionsService {
 
         await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards);
 
-        await this.updateTree();
+        this.updateTree();
         return servicesDomainsWithWildcards.length;
     }
 
@@ -366,7 +366,7 @@ export class ExclusionsService {
 
         await exclusionsManager.current.removeExclusions(exclusionsToRemove);
 
-        await this.updateTree();
+        this.updateTree();
 
         return exclusionsToRemove.length;
     }
@@ -389,7 +389,7 @@ export class ExclusionsService {
 
         await exclusionsManager.current.setExclusionsState(exclusionsToToggle, state);
 
-        await this.updateTree();
+        this.updateTree();
     }
 
     /**
@@ -399,7 +399,7 @@ export class ExclusionsService {
         this.savePreviousExclusions();
         await exclusionsManager.current.clearExclusionsData();
 
-        await this.updateTree();
+        this.updateTree();
     }
 
     /**
@@ -440,7 +440,7 @@ export class ExclusionsService {
     async disableVpnByUrl(url: string) {
         if (this.isInverted()) {
             await exclusionsManager.current.disableExclusionByUrl(url);
-            await this.updateTree();
+            this.updateTree();
         } else {
             await this.addUrlToExclusions(url);
         }
@@ -456,7 +456,7 @@ export class ExclusionsService {
             await this.addUrlToExclusions(url);
         } else {
             await exclusionsManager.current.disableExclusionByUrl(url);
-            await this.updateTree();
+            this.updateTree();
         }
         notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
     }
@@ -509,7 +509,7 @@ export class ExclusionsService {
 
         await exclusionsManager.current.addExclusions(exclusionsToAdd);
 
-        await this.updateTree();
+        this.updateTree();
     }
 
     /**
@@ -557,7 +557,7 @@ export class ExclusionsService {
 
         const addedCount = await exclusionsManager.regular.addExclusions(exclusionsWithState);
 
-        await this.updateTree();
+        this.updateTree();
 
         return addedCount;
     }
@@ -573,7 +573,7 @@ export class ExclusionsService {
         const exclusionsWithState = this.supplementExclusions(exclusions);
         const addedCount = await exclusionsManager.selective.addExclusions(exclusionsWithState);
 
-        await this.updateTree();
+        this.updateTree();
 
         return addedCount;
     }
@@ -597,7 +597,7 @@ export class ExclusionsService {
             selectiveExclusionsWithState,
         );
 
-        await this.updateTree();
+        this.updateTree();
         return addedRegularCount + addedSelectiveCount;
     }
 
@@ -614,7 +614,7 @@ export class ExclusionsService {
     async restoreExclusions() {
         if (this.previousExclusions) {
             await exclusionsManager.setAllExclusions(this.previousExclusions);
-            await this.updateTree();
+            this.updateTree();
         }
 
         this.previousExclusions = null;
