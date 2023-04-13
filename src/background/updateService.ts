@@ -46,11 +46,12 @@ class UpdateService implements UpdateServiceInterface {
 
         if (!this.currentVersion) {
             this.currentVersion = await this.getAppVersionFromManifest();
-            await this.setAppVersionInStorage(this.currentVersion);
         }
 
         this.isFirstRun = (this.currentVersion !== this.prevVersion && !this.prevVersion);
         this.isUpdate = !!(this.currentVersion !== this.prevVersion && this.prevVersion);
+
+        await this.setAppVersionInStorage(this.currentVersion);
     };
 
     getAppVersionFromStorage = async (): Promise<string> => {

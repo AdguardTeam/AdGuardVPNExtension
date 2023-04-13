@@ -17,7 +17,7 @@ import {
 
 interface ServiceManagerInterface {
     init: () => Promise<void>;
-    getServices: () => ServicesInterface;
+    getServices: () => Promise<ServicesInterface>;
 }
 
 export class ServicesManager implements ServiceManagerInterface {
@@ -48,11 +48,11 @@ export class ServicesManager implements ServiceManagerInterface {
         sessionState.setItem(StorageKey.ExclusionsServicesManagerState, this.state);
     };
 
-    private get services() {
+    get services() {
         return this.state.services;
     }
 
-    private set services(services: ServicesInterface | null) {
+    set services(services: ServicesInterface | null) {
         this.state.services = services;
         this.saveServicesManagerState();
     }
@@ -78,8 +78,8 @@ export class ServicesManager implements ServiceManagerInterface {
     /**
      * Returns services data
      */
-    getServices() {
-        this.updateServices();
+    async getServices() {
+        await this.updateServices();
         return this.services ?? {};
     }
 
