@@ -82,6 +82,7 @@ if (!browserApi.runtime.isManifestVersion2()) {
         await updateService.init();
         await openThankYouPage();
         await flagsStorage.init();
+        await auth.initState(); // auth state should be initiated before credentials init
         await credentials.init();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();

@@ -318,8 +318,11 @@ class Auth implements AuthInterface {
         throw new Error('No access token, user is not authenticated');
     }
 
-    async init(): Promise<void> {
+    async initState(): Promise<void> {
         this.state = sessionState.getItem(StorageKey.AuthState);
+    }
+
+    async init(): Promise<void> {
         const accessTokenData = await authService.getAccessTokenData();
         if (!accessTokenData?.accessToken) {
             return;
