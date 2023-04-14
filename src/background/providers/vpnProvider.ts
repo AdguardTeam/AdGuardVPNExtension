@@ -4,7 +4,7 @@ import JSZip from 'jszip';
 import { vpnApi } from '../api';
 import { log } from '../../lib/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
-import { LocationApiData, EndpointApiData } from '../api/vpnApi';
+import type { EndpointApiData, LocationApiData } from '../api/vpnApi';
 import { Service } from '../exclusions/services/Service';
 
 const DEFAULT_LOCALE = 'en';
@@ -316,12 +316,18 @@ const postExtensionInstalled = async (appId: string): Promise<{ social_providers
     return vpnApi.postExtensionInstalled(appId);
 };
 
-const prepareLogs = async (appLogs: string) => {
+const prepareLogs = async (appLogs: string): Promise<Blob> => {
     const LOGS_FILENAME = 'logs.txt';
 
     const zip = new JSZip();
     zip.file(LOGS_FILENAME, appLogs);
-    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const zipBlob = await zip.generateAsync({
+        type: 'blob',
+        compression: 'DEFLATE',
+        compressionOptions: {
+            level: 9,
+        },
+    });
     return zipBlob;
 };
 

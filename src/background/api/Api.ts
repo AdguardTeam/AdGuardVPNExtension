@@ -14,7 +14,7 @@ interface ConfigInterface {
         service_id?: string | null;
     };
     data?: string | FormData;
-    body?: string;
+    body?: string | FormData;
     headers?: {
         Authorization: string,
     };
@@ -45,8 +45,19 @@ export class Api implements ApiInterface {
         return this.baseUrlStr;
     }
 
+    private getRequestUrl = async (path: string): Promise<string> => `https://${await this.getBaseUrl()}/${path}`;
+
+    /**
+     * A method that makes an asynchronous Axios request to the specified path with the given configuration.
+     *
+     * @param {string} path - The path to which the request will be made.
+     * @param {ConfigInterface} config - The configuration object for the request.
+     * @param {Method} [method='POST'] - The HTTP method for the request. Default is 'POST'.
+     * @returns {Promise<any>} A Promise that resolves to the response data from the server.
+     * @throws {CustomError} A custom error object with the status code and error message if the request fails.
+     */
     async makeRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
-        const url = `https://${await this.getBaseUrl()}/${path}`;
+        const url = await this.getRequestUrl(path);
         const axiosConfig: AxiosRequestConfig = {
             url,
             method,
@@ -58,6 +69,38 @@ export class Api implements ApiInterface {
         try {
             const response = await axios(axiosConfig);
             return response.data;
+        } catch (e) {
+            if (e.response) {
+                throw new CustomError(e.response.status, JSON.stringify(e.response.data));
+            }
+            // if there is no response from backend and network is online,
+            // notify about server error
+            if (navigator.onLine) {
+                notifier.notifyListeners(notifier.types.SERVER_ERROR);
+            }
+            throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${e.message || JSON.stringify(e)}`);
+        }
+    }
+
+    /**
+     * A method that makes an asynchronous fetch request to the specified path with the given configuration.
+     *
+     * @param {string} path - The path to which the fetch request will be made.
+     * @param {ConfigInterface} config - The configuration object for the fetch request.
+     * @param {Method} [method='POST'] - The HTTP method for the fetch request. Default is 'POST'.
+     * @returns {Promise<Response>} A Promise that resolves to a Response object
+     * representing the response to the fetch request.
+     * @throws {CustomError} A custom error object with the status code and error message if the fetch request fails.
+     */
+    async makeFetchRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
+        const url = await this.getRequestUrl(path);
+        const fetchConfig: RequestInit = {
+            method,
+            ...config,
+        };
+
+        try {
+            return await fetch(url, fetchConfig);
         } catch (e) {
             if (e.response) {
                 throw new CustomError(e.response.status, JSON.stringify(e.response.data));
