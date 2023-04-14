@@ -17,7 +17,7 @@ import {
 
 interface ServiceManagerInterface {
     init: () => Promise<void>;
-    getServices: () => Promise<ServicesInterface>;
+    getServices: () => ServicesInterface;
 }
 
 export class ServicesManager implements ServiceManagerInterface {
@@ -78,8 +78,8 @@ export class ServicesManager implements ServiceManagerInterface {
     /**
      * Returns services data
      */
-    async getServices() {
-        await this.updateServices();
+    getServices() {
+        this.updateServices();
         return this.services ?? {};
     }
 
@@ -160,6 +160,8 @@ export class ServicesManager implements ServiceManagerInterface {
         if (!shouldUpdate) {
             return;
         }
+        
+        debugger
 
         try {
             const services = await this.getServicesFromServer();

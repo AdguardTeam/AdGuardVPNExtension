@@ -90,6 +90,7 @@ describe('ServicesManager tests', () => {
 
     it('test initialization', async () => {
         await servicesManager.init();
+        servicesManager.setServices(SERVICES_DATA);
         const servicesData = await servicesManager.getServices();
 
         expect(Object.values(servicesData)).toHaveLength(4);

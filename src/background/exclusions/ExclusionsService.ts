@@ -102,7 +102,6 @@ export class ExclusionsService {
         this.exclusionsTree.generateTree({
             exclusions: exclusionsManager.getExclusions(),
             indexedExclusions: exclusionsManager.getIndexedExclusions(),
-            // @ts-ignore
             services: servicesManager.getServices(),
             indexedServices: servicesManager.getIndexedServices(),
         });
