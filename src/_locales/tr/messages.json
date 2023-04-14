@@ -605,6 +605,9 @@
     "popup_settings_enable_vpn_short": {
         "message": "Etkinleştir"
     },
+    "popup_settings_disable_vpn": {
+        "message": "Bu sitede VPN'i devre dışı bırak"
+    },
     "popup_settings_enable_vpn": {
         "message": "Bu site için VPN'i etkinleştir"
     },
@@ -721,6 +724,9 @@
     },
     "popup_server_error_popup_info": {
         "message": "Büyük olasılıkla, VPN ülkenizde engellendi veya teknik bir aksaklık oldu. Zaten düzeltmeye çalışıyoruz"
+    },
+    "popup_server_error_popup_action": {
+        "message": "AdGuard ekibini dürt"
     },
     "popup_server_error_popup_cancel": {
         "message": "İptal"

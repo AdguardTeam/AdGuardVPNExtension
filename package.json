@@ -1,6 +1,6 @@
 {
     "name": "adguard-vpn",
-    "version": "1.4.12",
+    "version": "1.4.21",
     "description": "AdGuard VPN",
     "author": "adguard@adguard.com",
     "license": "LGPL-3.0",
@@ -18,7 +18,7 @@
         "xpi:beta": "export BUILD_ENV=beta; yarn beta firefox && ts-node tasks/xpi.ts",
         "crx:release": "export BUILD_ENV=release; yarn release chrome && ts-node tasks/crx.ts",
         "xpi:release": "export BUILD_ENV=release; yarn release firefox && ts-node tasks/xpi.ts",
-        "artifacts:beta": "yarn crx:beta && yarn xpi:beta",
+        "artifacts:beta": "yarn crx:beta",
         "artifacts:release": "yarn crx:release && yarn xpi:release",
         "resources": "ts-node tasks/resources"
     },

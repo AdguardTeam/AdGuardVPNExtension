@@ -623,6 +623,9 @@
     "endpoints_search": {
         "message": "Pretraži lokaciju"
     },
+    "endpoints_not_found": {
+        "message": "Lokacija nije pronađena"
+    },
     "popup_traffic_limit_reached": {
         "message": "Dostignuta mesečna granica podataka"
     },

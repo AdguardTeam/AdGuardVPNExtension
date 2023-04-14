@@ -116,7 +116,7 @@ interface VpnApiInterface {
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>;
     postExtensionInstalled(appId: string): Promise<PostExtensionInstalledData>;
-    requestSupport(data: FormData): Promise<AxiosResponse>;
+    requestSupport(data: FormData): Promise<Response>;
     getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>;
     getExclusionsServices(): Promise<ExclusionsServicesData>;
     getExclusionServiceDomains(servicesIds: string[]): Promise<ExclusionServiceDomainsData>;
@@ -202,14 +202,14 @@ class VpnApi extends Api implements VpnApiInterface {
 
     SUPPORT_REQUEST: RequestProps = { path: 'v1/support', method: 'POST' };
 
-    requestSupport = (data: FormData): Promise<AxiosResponse> => {
+    requestSupport = (data: FormData): Promise<Response> => {
         const { path, method } = this.SUPPORT_REQUEST;
 
         const config = {
-            data,
+            body: data,
         };
 
-        return this.makeRequest(path, config, method);
+        return this.makeFetchRequest(path, config, method);
     };
 
     GET_DESKTOP_VPN_CONNECTION_STATUS: RequestProps = { path: 'v1/vpn_connected', method: 'GET' };

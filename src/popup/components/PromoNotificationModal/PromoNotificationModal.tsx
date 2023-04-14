@@ -46,25 +46,25 @@ const PromoNotificationModal = observer(() => {
             isOpen={showModal}
             shouldCloseOnOverlayClick={false}
             onRequestClose={onCloseHandler}
-            className="holiday-notify__wrap"
-            overlayClassName="holiday-notify"
+            className="notify__wrap"
+            overlayClassName="notify"
         >
-            <div className="holiday-notify__promo">
+            <div className="notify__promo">
                 <div
-                    className="holiday-notify__close"
+                    className="notify__close"
                     onClick={onCloseHandler}
                 >
                     <svg className="icon icon--button">
-                        <use xlinkHref="#cross_white" />
+                        <use xlinkHref="#cross_gray" />
                     </svg>
                 </div>
-                <div className="holiday-notify__content">
-                    <div className="holiday-notify__title">
+                <div className="notify__content">
+                    <div className="notify__title">
                         {title}
                     </div>
                     {btn && (
                         <div
-                            className="holiday-notify__btn"
+                            className="notify__btn"
                             onClick={btnClickHandler}
                         >
                             {btn}

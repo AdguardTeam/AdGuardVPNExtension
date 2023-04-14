@@ -626,6 +626,9 @@
     "endpoints_search": {
         "message": "Helyszín keresése"
     },
+    "endpoints_not_found": {
+        "message": "Nem található helyszín"
+    },
     "popup_traffic_limit_reached": {
         "message": "Elérte a havi adatkorlátot"
     },

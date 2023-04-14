@@ -110,9 +110,9 @@ export const Icons = () => (
             <path d="M6.42857 17.5714L17.6043 6.39563" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
 
-        <svg id="cross_white" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M6.42857 6.79596L17.6043 18.6103" stroke="#F3F3F3" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="M6.42871 18.5755L17.6045 6.76111" stroke="#F3F3F3" strokeWidth="1.5" strokeLinecap="round" />
+        <svg id="cross_gray" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M6.42857 6.79596L17.6043 18.6103" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M6.42871 18.5755L17.6045 6.76111" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
 
         <symbol id="checked" viewBox="0 0 24 24" fill="#74a352">

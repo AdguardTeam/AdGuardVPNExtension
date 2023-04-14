@@ -605,6 +605,9 @@
     "popup_settings_enable_vpn_short": {
         "message": "Omogoči"
     },
+    "popup_settings_disable_vpn": {
+        "message": "Onemogoči VPN za to spletno stran"
+    },
     "popup_settings_enable_vpn": {
         "message": "Omogoči VPN za to spletno stran"
     },
@@ -643,6 +646,9 @@
     },
     "endpoints_search": {
         "message": "Poišči lokacijo"
+    },
+    "endpoints_not_found": {
+        "message": "Lokacije niso bile najdene"
     },
     "popup_traffic_limit_reached": {
         "message": "Mesečna omejitev podatkov je dosežena"
@@ -713,8 +719,23 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Pojdi v trgovino z razširitvami"
     },
+    "popup_server_error_popup_title": {
+        "message": "Ni mogoče vzpostaviti povezave s strežnikom"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Najverjetneje je bil VPN onemogočen v vaši državi ali pa je prišlo do tehnične napake. To že poskušamo popraviti"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Dregni ekipo AdGuard"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Prekliči"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Delamo na tem"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Hvala, ker ste nam sporočili!"
     },
     "popup_server_error_popup_close": {
         "message": "Zapri"
@@ -806,6 +827,10 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Nadaljujte brezplačno"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> preostalo ta mesec",
+        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Kako uporabljati ta seznam izključitev?"

@@ -86,6 +86,9 @@
     "account_version": {
         "message": "Versjon"
     },
+    "account_free": {
+        "message": "Gratiskonto"
+    },
     "rate_description": {
         "message": "Heisann, vi er et team fra AdGuard og det er veldig viktig for oss å vite om din mening om vårt produkt. Vennligst gi det en vurdering."
     },
@@ -116,6 +119,9 @@
     "auth_sign_in_provider_adguard_label": {
         "message": "E-post"
     },
+    "auth_sign_in_provider_adguard": {
+        "message": "Fortsett med E-post"
+    },
     "auth_sign_in_provider_apple": {
         "message": "Fortsett med Apple"
     },
@@ -145,6 +151,9 @@
     },
     "settings_title": {
         "message": "Innstillinger"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Bekreft E-postadressen din"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Gå til Produkter"
@@ -311,6 +320,9 @@
     "global_error_try_again": {
         "message": "Prøv på nytt"
     },
+    "authentication_successful_notification": {
+        "message": "Autentiseringen var vellykket! Du kan åpne AdGuard VPN og skru på tunnelen."
+    },
     "control_error_disable": {
         "message": "Skru den av"
     },
@@ -334,6 +346,9 @@
     },
     "endpoints_countries": {
         "message": "Steder"
+    },
+    "endpoints_location_virtual": {
+        "message": "Virtuell"
     },
     "endpoints_fastest": {
         "message": "Raskest"
@@ -448,6 +463,9 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "OK"
+    },
+    "confirm_email_title": {
+        "message": "Bekreft E-postadressen din"
     },
     "confirm_email_close_button": {
         "message": "Lukk"

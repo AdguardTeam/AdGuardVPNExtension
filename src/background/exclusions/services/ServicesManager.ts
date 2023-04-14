@@ -160,8 +160,6 @@ export class ServicesManager implements ServiceManagerInterface {
         if (!shouldUpdate) {
             return;
         }
-        
-        debugger
 
         try {
             const services = await this.getServicesFromServer();
