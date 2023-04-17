@@ -172,7 +172,7 @@ export class PopupData {
 
     async getPopupDataRetry(url: string, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY): Promise<PopupDataRetry> {
         const backoffIndex = 1.5;
-        let data!: PopupDataInterface;
+        let data: PopupDataInterface;
 
         try {
             data = await this.getPopupData(url);
