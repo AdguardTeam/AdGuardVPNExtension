@@ -178,20 +178,24 @@ export class PopupData {
             data = await this.getPopupData(url);
         } catch (e) {
             log.error(e);
+            await sleep(retryDelay);
+            log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
+            return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
 
         this.retryCounter += 1;
 
-        if (!data?.isAuthenticated || (<PopupDataInterface>data).permissionsError) {
+        // user is not authenticated
+        if ((!data?.isAuthenticated && data.policyAgreement !== undefined)
+            || (<PopupDataInterface>data).permissionsError) {
             this.retryCounter = 0;
             return { ...data, hasRequiredData: true };
         }
 
-        const { vpnInfo, locations, selectedLocation } = <PopupDataInterface>data;
-
         let hasRequiredData = true;
 
-        if (!vpnInfo || isEmpty(locations) || !selectedLocation) {
+        // check for required data
+        if (!data?.vpnInfo || isEmpty(data?.locations) || !data?.selectedLocation) {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
                 if (data?.isProxyEnabled) {
