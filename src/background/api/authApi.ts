@@ -36,11 +36,10 @@ class AuthApi extends Api {
             data['2fa_token'] = twoFactor;
         }
 
-        const config = {
-            data: qs.stringify(data),
-        };
+        const params = new URLSearchParams(data);
+        const requestPath = `${path}?${params}`;
 
-        return this.makeRequest(path, config, method);
+        return this.makeFetchRequest(requestPath, method);
     }
 
     REGISTER_USER: RequestProps = { path: 'api/2.0/registration', method: 'POST' };
@@ -67,24 +66,24 @@ class AuthApi extends Api {
             source: 'VPN_APPLICATION',
         };
 
-        const config = {
-            data: qs.stringify(data),
-        };
+        // @ts-ignore - boolean as string
+        const params = new URLSearchParams(data);
+        const requestPath = `${path}?${params}`;
 
-        return this.makeRequest(path, config, method);
+        return this.makeFetchRequest(requestPath, method);
     }
 
     USER_LOOKUP: RequestProps = { path: 'api/1.0/user_lookup', method: 'POST' };
 
     userLookup(email: string, appId: string) {
         const { path, method } = this.USER_LOOKUP;
-        const config = {
-            data: qs.stringify({
-                email,
-                request_id: appId,
-            }),
-        };
-        return this.makeRequest(path, config, method);
+
+        const params = new URLSearchParams({
+            email,
+            request_id: appId,
+        });
+        const requestPath = `${path}?${params}`;
+        return this.makeFetchRequest(requestPath, method);
     }
 }
 

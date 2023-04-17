@@ -92,7 +92,7 @@ export class Api implements ApiInterface {
      * representing the response to the fetch request.
      * @throws {CustomError} A custom error object with the status code and error message if the fetch request fails.
      */
-    async makeFetchRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
+    async makeFetchRequest(path: string, method: Method = 'POST', config: ConfigInterface = {}) {
         const url = await this.getRequestUrl(path);
         const fetchConfig: RequestInit = {
             method,
@@ -100,7 +100,8 @@ export class Api implements ApiInterface {
         };
 
         try {
-            return await fetch(url, fetchConfig);
+            const response = await fetch(url, fetchConfig);
+            return await response.json();
         } catch (e) {
             if (e.response) {
                 throw new CustomError(e.response.status, JSON.stringify(e.response.data));

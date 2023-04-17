@@ -59,7 +59,8 @@ class AccountApi extends Api implements AccountApiInterface {
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };
-        return this.makeRequest(path, config, method);
+
+        return this.makeFetchRequest(path, method, config);
     }
 
     GET_ACCOUNT_INFO: RequestProps = { path: 'account/info', method: 'GET' };
@@ -69,7 +70,7 @@ class AccountApi extends Api implements AccountApiInterface {
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };
-        return this.makeRequest(path, config, method);
+        return this.makeFetchRequest(path, method, config);
     }
 
     RESEND_CONFIRM_REGISTRATION_LINK: RequestProps = { path: 'account/resend_confirm_registration_email', method: 'POST' };
@@ -79,7 +80,7 @@ class AccountApi extends Api implements AccountApiInterface {
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };
-        return this.makeRequest(path, config, method);
+        return this.makeFetchRequest(path, method, config);
     };
 
     GET_AVAILABLE_BONUSES: RequestProps = { path: 'vpn/bonuses', method: 'GET' };
@@ -89,7 +90,7 @@ class AccountApi extends Api implements AccountApiInterface {
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };
-        return this.makeRequest(path, config, method);
+        return this.makeFetchRequest(path, method, config);
     };
 }
 
