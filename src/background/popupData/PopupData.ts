@@ -179,6 +179,7 @@ export class PopupData {
         } catch (e) {
             log.error(e);
             await sleep(retryDelay);
+            this.retryCounter += 1;
             log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
             return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
@@ -186,8 +187,8 @@ export class PopupData {
         this.retryCounter += 1;
 
         // user is not authenticated
-        if ((!data?.isAuthenticated && data.policyAgreement !== undefined)
-            || (<PopupDataInterface>data).permissionsError) {
+        if ((!data.isAuthenticated && data.policyAgreement !== undefined)
+            || data.permissionsError) {
             this.retryCounter = 0;
             return { ...data, hasRequiredData: true };
         }
