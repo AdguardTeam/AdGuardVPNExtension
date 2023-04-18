@@ -1,5 +1,3 @@
-import qs from 'qs';
-
 import { Api } from './Api';
 import { AUTH_CLIENT_ID } from '../config';
 import { fallbackApi } from './fallbackApi';
@@ -39,7 +37,7 @@ class AuthApi extends Api {
         const params = new URLSearchParams(data);
         const requestPath = `${path}?${params}`;
 
-        return this.makeFetchRequest(requestPath, method);
+        return this.makeRequest(requestPath, method);
     }
 
     REGISTER_USER: RequestProps = { path: 'api/2.0/registration', method: 'POST' };
@@ -70,7 +68,7 @@ class AuthApi extends Api {
         const params = new URLSearchParams(data);
         const requestPath = `${path}?${params}`;
 
-        return this.makeFetchRequest(requestPath, method);
+        return this.makeRequest(requestPath, method);
     }
 
     USER_LOOKUP: RequestProps = { path: 'api/1.0/user_lookup', method: 'POST' };
@@ -83,7 +81,7 @@ class AuthApi extends Api {
             request_id: appId,
         });
         const requestPath = `${path}?${params}`;
-        return this.makeFetchRequest(requestPath, method);
+        return this.makeRequest(requestPath, method);
     }
 }
 

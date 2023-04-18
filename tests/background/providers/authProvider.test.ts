@@ -1,8 +1,5 @@
-import axios from 'axios';
-
 import { authProvider } from '../../../src/background/providers/authProvider';
 
-jest.mock('axios');
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/browserApi');
 
@@ -29,16 +26,16 @@ describe('authProvider', () => {
     };
 
     it('makes requests to the server', async () => {
-        // @ts-ignore
-        axios.mockResolvedValue({
-            status: 200,
-            data: {
+        // @ts-ignore - mock fetch manually
+        global.fetch = jest.fn(() => Promise.resolve({
+            json: () => Promise.resolve({
+                status: 200,
                 access_token: sampleToken.accessToken,
                 expires_in: sampleToken.expiresIn,
                 scope: sampleToken.scope,
                 token_type: sampleToken.tokenType,
-            },
-        });
+            }),
+        }));
 
         const response = await authProvider.getAccessToken(emptyCredentials);
 
@@ -46,8 +43,7 @@ describe('authProvider', () => {
     });
 
     it('handles network errors', async () => {
-        // @ts-ignore
-        axios.mockRejectedValue(new Error('Network Error'));
+        global.fetch = jest.fn(() => Promise.reject(new Error('Network Error')));
 
         const expectedError = new Error(JSON.stringify({ error: 'authentication_error_default' }));
 
@@ -55,17 +51,20 @@ describe('authProvider', () => {
     });
 
     it('handles errors sent from server', async () => {
-        // @ts-ignore
-        axios.mockRejectedValue({
-            status: 401,
-            response: {
-                data: {
-                    error: 'unauthorized',
-                    error_code: 'bad_credentials',
-                    error_description: 'Sorry, unrecognized username or password',
+        // @ts-ignore - mock fetch manually
+        global.fetch = jest.fn(() => Promise.resolve({
+            // eslint-disable-next-line prefer-promise-reject-errors
+            json: () => Promise.reject({
+                status: 401,
+                response: {
+                    data: {
+                        error: 'unauthorized',
+                        error_code: 'bad_credentials',
+                        error_description: 'Sorry, unrecognized username or password',
+                    },
                 },
-            },
-        });
+            }),
+        }));
 
         const expectedError = new Error(JSON.stringify({ error: 'authentication_error_wrong_credentials' }));
 

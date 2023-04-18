@@ -1,5 +1,4 @@
 import browser from 'webextension-polyfill';
-import { AxiosResponse } from 'axios';
 
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
@@ -7,7 +6,7 @@ import { RequestProps } from './apiTypes';
 
 const API_PREFIX = '/api';
 
-interface VpnCredentials extends AxiosResponse {
+interface VpnCredentials {
     license_status: string;
     time_expires_sec: number;
     result: {
@@ -16,7 +15,7 @@ interface VpnCredentials extends AxiosResponse {
     };
 }
 
-export interface VpnExtensionInfo extends AxiosResponse {
+export interface VpnExtensionInfo {
     bandwidth_free_mbits: number;
     premium_promo_page: string;
     premium_promo_enabled: boolean;
@@ -55,11 +54,11 @@ export interface LocationApiData {
     virtual: boolean;
 }
 
-interface LocationsData extends AxiosResponse {
+interface LocationsData {
     locations: LocationApiData[];
 }
 
-interface CurrentLocationData extends AxiosResponse {
+interface CurrentLocationData {
     ip: string;
     country_code: string;
     country: {
@@ -80,15 +79,15 @@ interface CurrentLocationData extends AxiosResponse {
     };
 }
 
-interface PostExtensionInstalledData extends AxiosResponse {
+interface PostExtensionInstalledData {
     social_providers: string[];
 }
 
-export interface VpnConnectionStatus extends AxiosResponse {
+export interface VpnConnectionStatus {
     connected: boolean;
 }
 
-interface ExclusionsServicesData extends AxiosResponse {
+interface ExclusionsServicesData {
     services: [{
         service_id: string,
         service_name: string,
@@ -102,7 +101,7 @@ interface ExclusionsServicesData extends AxiosResponse {
     }];
 }
 
-interface ExclusionServiceDomainsData extends AxiosResponse {
+interface ExclusionServiceDomainsData {
     services: [{
         service_id: string,
         domains: string[],
@@ -137,7 +136,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const requestPath = `${path}?${params}`;
 
-        return this.makeFetchRequest(requestPath, method);
+        return this.makeRequest(requestPath, method);
     };
 
     GET_VPN_CREDENTIALS: RequestProps = { path: 'v1/proxy_credentials', method: 'POST' };
@@ -156,14 +155,14 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const requestPath = `${path}?${params}`;
 
-        return this.makeFetchRequest(requestPath, method);
+        return this.makeRequest(requestPath, method);
     };
 
     GET_CURRENT_LOCATION: RequestProps = { path: 'v1/geo_location', method: 'GET' };
 
     getCurrentLocation = (): Promise<CurrentLocationData> => {
         const { path, method } = this.GET_CURRENT_LOCATION;
-        return this.makeFetchRequest(path, method);
+        return this.makeRequest(path, method);
     };
 
     VPN_EXTENSION_INFO: RequestProps = { path: 'v1/info/extension', method: 'GET' };
@@ -181,7 +180,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const requestPath = `${path}?${params}`;
 
-        return this.makeFetchRequest(requestPath, method);
+        return this.makeRequest(requestPath, method);
     };
 
     TRACK_EXTENSION_INSTALL: RequestProps = { path: 'v1/init/extension', method: 'POST' };
@@ -199,7 +198,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const requestPath = `${path}?${params}`;
 
-        return this.makeFetchRequest(requestPath, method);
+        return this.makeRequest(requestPath, method);
     };
 
     SUPPORT_REQUEST: RequestProps = { path: 'v1/support', method: 'POST' };
@@ -211,14 +210,14 @@ class VpnApi extends Api implements VpnApiInterface {
             body: data,
         };
 
-        return this.makeFetchRequest(path, method, config);
+        return this.makeRequest(path, method, config);
     };
 
     GET_DESKTOP_VPN_CONNECTION_STATUS: RequestProps = { path: 'v1/vpn_connected', method: 'GET' };
 
     getDesktopVpnConnectionStatus = (): Promise<VpnConnectionStatus> => {
         const { path, method } = this.GET_DESKTOP_VPN_CONNECTION_STATUS;
-        return this.makeFetchRequest(path, method);
+        return this.makeRequest(path, method);
     };
 
     EXCLUSION_SERVICES: RequestProps = { path: 'v2/exclusion_services', method: 'GET' };
@@ -233,7 +232,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const requestPath = `${path}?${params}`;
 
-        return this.makeFetchRequest(requestPath, method);
+        return this.makeRequest(requestPath, method);
     };
 
     EXCLUSION_SERVICE_DOMAINS: RequestProps = { path: 'v1/exclusion_services/domains', method: 'GET' };
@@ -249,7 +248,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const requestPath = `${path}?${params}`;
 
-        return this.makeFetchRequest(requestPath, method);
+        return this.makeRequest(requestPath, method);
     };
 }
 

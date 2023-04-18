@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import {
     FallbackApi,
     GOOGLE_DOH_URL,
@@ -8,7 +6,6 @@ import {
 } from '../../../src/background/api/fallbackApi';
 import { WHOAMI_URL } from '../../../src/background/config';
 
-jest.mock('axios');
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/browserApi');
 
@@ -16,9 +13,12 @@ jest.useFakeTimers('modern');
 
 describe('FallbackApi', () => {
     it('returns default api urls if requests to cloudflare and google fail', async () => {
-        (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValue({
-            status: 400,
-        });
+        // eslint-disable-next-line prefer-promise-reject-errors
+        global.fetch = jest.fn(() => Promise.reject({
+            json: () => {
+                return { status: 400 };
+            },
+        }));
 
         const DEFAULT_VPN_API_URL = 'vpn_api.com';
         const DEFAULT_AUTH_API_URL = 'auth_api.com';
@@ -32,9 +32,9 @@ describe('FallbackApi', () => {
         expect(vpnApiUrl).toBe(DEFAULT_VPN_API_URL);
         expect(authApiUrl).toBe(DEFAULT_AUTH_API_URL);
 
-        expect(axios.get).toBeCalledWith(`https://${WHOAMI_URL}`, expect.anything());
-        expect(axios.get).toBeCalledWith(`https://${GOOGLE_DOH_URL}`, expect.anything());
-        expect(axios.get).toBeCalledWith(`https://${CLOUDFLARE_DOH_URL}`, expect.anything());
+        expect(fetch).toBeCalledWith(`https://${WHOAMI_URL}`, expect.anything());
+        expect(fetch).toBeCalledWith(expect.stringContaining(`https://${GOOGLE_DOH_URL}`), expect.anything());
+        expect(fetch).toBeCalledWith(expect.stringContaining(`https://${CLOUDFLARE_DOH_URL}`), expect.anything());
     });
 
     it('refreshes api url from backend if timestamp is expired, ', async () => {

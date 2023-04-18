@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { browserApi } from '../browserApi';
 
 import {
@@ -9,7 +8,6 @@ import {
 } from '../config';
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
-import { fetchConfig } from '../../lib/constants';
 import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
 
@@ -184,15 +182,26 @@ export class FallbackApi {
         return !!localStorageBkp;
     };
 
+    private async makeRequest(url: string, config: RequestInit = {}) {
+        const controller = new AbortController();
+        const { signal } = controller;
+        const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+        const fetchConfig: RequestInit = {
+            method: 'GET',
+            signal,
+            ...config,
+        };
+
+        const response = await fetch(url, fetchConfig);
+        clearTimeout(timeoutId);
+        return response.json();
+    }
+
     private getCountryInfo = async (): Promise<CountryInfo> => {
         try {
-            const { data: { country, bkp } } = await axios.get(
-                `https://${WHOAMI_URL}`,
-                {
-                    timeout: REQUEST_TIMEOUT_MS,
-                    ...fetchConfig,
-                },
-            );
+            const data = await this.makeRequest(`https://${WHOAMI_URL}`);
+            const { country, bkp } = data;
             return { country, bkp };
         } catch (e) {
             log.error(e);
@@ -201,18 +210,19 @@ export class FallbackApi {
     };
 
     private getBkpUrlByGoogleDoh = async (name: string): Promise<string> => {
-        const { data } = await axios.get(`https://${GOOGLE_DOH_URL}`, {
+        const config = {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
             },
-            params: {
-                name,
-                type: 'TXT',
-            },
-            timeout: REQUEST_TIMEOUT_MS,
-            ...fetchConfig,
+        };
+
+        const params = new URLSearchParams({
+            name,
+            type: 'TXT',
         });
+
+        const data = await this.makeRequest(`https://${GOOGLE_DOH_URL}?${params}`, config);
 
         const { Answer: [{ data: bkpUrl }] } = data;
 
@@ -224,19 +234,20 @@ export class FallbackApi {
     };
 
     private getBkpUrlByCloudFlareDoh = async (name: string): Promise<string> => {
-        const { data } = await axios.get(`https://${CLOUDFLARE_DOH_URL}`, {
+        const config = {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
                 accept: 'application/dns-json',
             },
-            params: {
-                name,
-                type: 'TXT',
-            },
-            timeout: REQUEST_TIMEOUT_MS,
-            ...fetchConfig,
+        };
+
+        const params = new URLSearchParams({
+            name,
+            type: 'TXT',
         });
+
+        const data = await this.makeRequest(`https://${CLOUDFLARE_DOH_URL}?${params}`, config);
 
         const { Answer: [{ data: bkpUrl }] } = data;
 
@@ -248,19 +259,20 @@ export class FallbackApi {
     };
 
     private getBkpUrlByAliDnsDoh = async (name: string): Promise<string> => {
-        const { data } = await axios.get(`https://${ALIDNS_DOH_URL}`, {
+        const config = {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
                 accept: 'application/dns-json',
             },
-            params: {
-                name,
-                type: 'TXT',
-            },
-            timeout: REQUEST_TIMEOUT_MS,
-            ...fetchConfig,
+        };
+
+        const params = new URLSearchParams({
+            name,
+            type: 'TXT',
         });
+
+        const { data } = await this.makeRequest(`https://${ALIDNS_DOH_URL}?${params}`, config);
 
         const { Answer: [{ data: bkpUrl }] } = data;
 
