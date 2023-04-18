@@ -2,7 +2,7 @@
 
 name: 🐞 Bug report
 description: Create a bug report to help us improve AdGuard VPN Browser Extension.
-labels: []
+labels: [bug]
 body:
   - type: markdown
     attributes:
