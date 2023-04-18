@@ -23,6 +23,7 @@ import { log } from '../../../../lib/logger';
 import { messenger } from '../../../../lib/messenger';
 import { SelectListModal } from './SelectListModal/SelectListModal';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
+import { ESC_KEY_NAME } from '../../../stores/consts';
 
 import './actions.pcss';
 
@@ -213,9 +214,20 @@ export const Actions = observer(() => {
         setIsMoreActionsMenuOpen(false);
     };
 
+    const escKeyHandler = (e: KeyboardEvent) => {
+        if (e.key === ESC_KEY_NAME) {
+            closeMoreActionsMenu();
+            window.removeEventListener('click', closeMoreActionsMenu);
+        }
+    };
+
     useEffect(() => {
-        window.addEventListener('click', closeMoreActionsMenu);
-        return () => window.removeEventListener('click', closeMoreActionsMenu);
+        window.addEventListener('click', closeMoreActionsMenu, { once: true });
+        window.addEventListener('keydown', escKeyHandler, { once: true });
+        return () => {
+            window.removeEventListener('click', closeMoreActionsMenu);
+            window.removeEventListener('keydown', escKeyHandler);
+        };
     });
 
     const moreActionsListClassnames = classnames('actions__more-actions-list', {

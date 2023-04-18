@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ESC_KEY_NAME } from '../../../stores/consts';
 
 import './select.pcss';
 
@@ -22,22 +23,26 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
     const [value, setValue] = useState(currentValue);
     const [hidden, setHidden] = useState(true);
 
+    const outsideClickHandler = () => {
+        setHidden(true);
+    };
+
+    const escKeyHandler = (e: KeyboardEvent) => {
+        if (e.key === ESC_KEY_NAME) {
+            setHidden(true);
+            document.removeEventListener('click', outsideClickHandler);
+        }
+    };
+
     useEffect(() => {
         setValue(currentValue);
     });
 
-    const closeOnClick = (): void => {
-        document.addEventListener(
-            'click',
-            () => { setHidden(true); },
-            { once: true },
-        );
-    };
-
     const handleSelectClick = (): void => {
         if (hidden) {
             setHidden(false);
-            closeOnClick();
+            document.addEventListener('click', outsideClickHandler, { once: true });
+            document.addEventListener('keydown', escKeyHandler, { once: true });
         }
     };
 
