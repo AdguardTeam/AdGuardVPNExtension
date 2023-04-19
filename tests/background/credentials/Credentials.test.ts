@@ -1,8 +1,16 @@
-import { Credentials, VpnTokenData } from '../../../src/background/credentials/Credentials';
-import { CredentialsDataInterface } from '../../../src/background/providers/vpnProvider';
+import { Credentials } from '../../../src/background/credentials/Credentials';
 import { SubscriptionType } from '../../../src/lib/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
+import { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
+import { session } from '../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('../../../src/lib/logger');
 
@@ -33,9 +41,24 @@ const msToSec = (ms: number) => {
     return Math.floor(ms / 1000);
 };
 
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
+
 describe('Credentials', () => {
+    beforeEach(async () => {
+        await sessionState.init();
+    });
+
+    afterEach(async () => {
+        jest.clearAllMocks();
+    });
+
     describe('validates credentials', () => {
-        // @ts-ignore
+        // @ts-ignore - partly implementation
         const credentials = new Credentials({ browserApi });
 
         it('returns false if empty or undefined credentials are provided', () => {
@@ -78,7 +101,7 @@ describe('Credentials', () => {
     });
 
     describe('validates vpn token', () => {
-        // @ts-ignore
+        // @ts-ignore - partly implementation
         const credentials = new Credentials({ browserApi });
         it('returns false if no token provided', () => {
             expect(credentials.isTokenValid(null)).toBeFalsy();
@@ -144,8 +167,10 @@ describe('Credentials', () => {
         });
 
         it('returns nothing if there is no token in the storage', async () => {
-            // @ts-ignore
+            // @ts-ignore - partly implementation
             const credentials = new Credentials({ browserApi });
+            await credentials.init();
+
             const vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(null);
         });
@@ -163,8 +188,9 @@ describe('Credentials', () => {
             };
 
             await credentialsService.setVpnTokenToStorage(expectedVpnToken);
-            // @ts-ignore
+            // @ts-ignore - partly implementation
             const credentials = new Credentials({ browserApi });
+            await credentials.init();
             const vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
         });
@@ -185,15 +211,16 @@ describe('Credentials', () => {
             credentialsService.getVpnTokenFromStorage = getVpnTokenFromStorageMock;
             getVpnTokenFromStorageMock.mockReturnValue(expectedVpnToken);
 
-            // @ts-ignore
+            // @ts-ignore - partly implementation
             const credentials = new Credentials({ browserApi });
+            await credentials.init();
 
             let vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(0);
             vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
-            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(1);
+            expect(credentialsService.getVpnTokenFromStorage).toBeCalledTimes(0);
         });
     });
 });

@@ -126,12 +126,22 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
                 } else if (browser === Browser.Chrome
+                    || browser === Browser.ChromeMV3
                     || browser === Browser.Edge
                     || browser === Browser.Opera) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
                 } else {
                     throw new Error(`There is no proxy api for browser: ${browser}`);
+                }
+            })),
+            new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\/stateStorage\.abstract/, ((resource: any) => {
+                if (browser === Browser.ChromeMV3) {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/stateStorage\/stateStorage\.abstract/, './stateStorage/mv3');
+                } else {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/stateStorage\/stateStorage\.abstract/, './stateStorage/mv2');
                 }
             })),
             new CleanWebpackPlugin(cleanOptions),
@@ -160,7 +170,8 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                                 updateLocales,
                                 process.env.BUILD_ENV,
                                 ' for Chrome',
-                                browser === Browser.Chrome && path.includes(EN_MESSAGES_PATH),
+                                (browser === Browser.Chrome || browser === Browser.ChromeMV3)
+                                    && path.includes(EN_MESSAGES_PATH),
                             );
                         },
                     },

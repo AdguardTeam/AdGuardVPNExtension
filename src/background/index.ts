@@ -1,3 +1,4 @@
+import { sessionState } from './sessionStorage';
 import { actions } from './actions';
 import { appStatus } from './appStatus';
 import { auth } from './auth';
@@ -69,14 +70,19 @@ if (!browserApi.runtime.isManifestVersion2()) {
 (async () => {
     log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
+        const initStartDate = Number(new Date());
+        await sessionState.init();
+        await proxy.init();
+
         if (browserApi.runtime.isManifestVersion2()) {
             messaging.init(); // messaging is on the top, for popup be able to communicate with back
         }
+
         await fallbackApi.init();
-        await proxy.init();
         await updateService.init();
         await openThankYouPage();
         await flagsStorage.init();
+        await auth.initState(); // auth state should be initiated before credentials init
         await credentials.init();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
@@ -90,7 +96,8 @@ if (!browserApi.runtime.isManifestVersion2()) {
             contextMenu.init();
         }
         browserActionIcon.init();
-        log.info('Extension loaded all necessary modules');
+        const initDoneDate = Number(new Date());
+        log.info(`Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
     } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);
     }

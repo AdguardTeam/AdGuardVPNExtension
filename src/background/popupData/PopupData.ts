@@ -20,10 +20,10 @@ import { PermissionsCheckerInterface } from '../permissionsChecker/PermissionsCh
 import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { NonRoutableServiceInterface } from '../routability/NonRoutableService';
-import { VpnExtensionInfoInterface } from '../providers/vpnProvider';
+import type { VpnExtensionInfoInterface } from '../schema';
 import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
-import { CanControlProxy } from '../proxy/proxy';
+import { CanControlProxy } from '../schema';
 
 interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;
@@ -172,26 +172,31 @@ export class PopupData {
 
     async getPopupDataRetry(url: string, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY): Promise<PopupDataRetry> {
         const backoffIndex = 1.5;
-        let data!: PopupDataInterface;
+        let data: PopupDataInterface;
 
         try {
             data = await this.getPopupData(url);
         } catch (e) {
             log.error(e);
+            await sleep(retryDelay);
+            this.retryCounter += 1;
+            log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
+            return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
 
         this.retryCounter += 1;
 
-        if (!data?.isAuthenticated || (<PopupDataInterface>data).permissionsError) {
+        // user is not authenticated
+        if ((!data.isAuthenticated && data.policyAgreement !== undefined)
+            || data.permissionsError) {
             this.retryCounter = 0;
             return { ...data, hasRequiredData: true };
         }
 
-        const { vpnInfo, locations, selectedLocation } = <PopupDataInterface>data;
-
         let hasRequiredData = true;
 
-        if (!vpnInfo || isEmpty(locations) || !selectedLocation) {
+        // check for required data
+        if (!data?.vpnInfo || isEmpty(data?.locations) || !data?.selectedLocation) {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
                 if (data?.isProxyEnabled) {

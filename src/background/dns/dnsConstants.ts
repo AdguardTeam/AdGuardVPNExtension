@@ -1,4 +1,4 @@
-import { DnsServerData } from '../../common/components/constants';
+import type { DnsServerData } from '../schema';
 
 /**
  * IMPORTANT

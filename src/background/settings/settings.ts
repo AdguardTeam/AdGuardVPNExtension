@@ -13,8 +13,7 @@ import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
 import { webrtc } from '../browserApi/webrtc';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { Event } from '../connectivity/connectivityService/connectivityConstants';
-import { DnsServerData } from '../../common/components/constants';
-import { PersistedExclusions } from '../exclusions/exclusions/ExclusionsManager';
+import type { DnsServerData, PersistedExclusions } from '../schema';
 
 export interface SettingsInterface {
     init(): Promise<void>;

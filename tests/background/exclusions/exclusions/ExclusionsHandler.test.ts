@@ -1,6 +1,6 @@
 import { ExclusionsHandler } from '../../../../src/background/exclusions/exclusions/ExclusionsHandler';
 import { ExclusionState } from '../../../../src/common/exclusionsConstants';
-import { ExclusionInterface } from '../../../../src/background/exclusions/exclusions/exclusionsTypes';
+import type { ExclusionInterface } from '../../../../src/background/schema';
 
 describe('ExclusionsHandler', () => {
     describe('buildExclusionsIndex', () => {

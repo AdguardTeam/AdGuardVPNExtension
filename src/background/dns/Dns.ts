@@ -1,7 +1,8 @@
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from './dnsConstants';
 import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
-import { DnsServerData } from '../../common/components/constants';
+import { StorageKey, DnsServerData, DnsState } from '../schema';
+import { sessionState } from '../sessionStorage';
 
 interface DnsInterface {
     init(): void;
@@ -14,22 +15,55 @@ interface DnsInterface {
 }
 
 export class Dns implements DnsInterface {
-    selectedDnsServer: string;
+    state: DnsState;
 
-    customDnsServers: DnsServerData[];
+    private saveDnsState = () => {
+        sessionState.setItem(StorageKey.ProxyState, this.state);
+    };
+
+    private get selectedDnsServer(): string | null {
+        return this.state.selectedDnsServer;
+    }
+
+    private set selectedDnsServer(selectedDnsServer: string | null) {
+        this.state.selectedDnsServer = selectedDnsServer;
+        this.saveDnsState();
+    }
+
+    private get customDnsServers(): DnsServerData[] {
+        return this.state.customDnsServers;
+    }
+
+    private set customDnsServers(customDnsServers: DnsServerData[]) {
+        this.state.customDnsServers = customDnsServers;
+        this.saveDnsState();
+    }
 
     // backup data for customDnsServers
     // if user deleted custom dns server and canceled the operation, it will be used to restore data
-    backupDnsServersData: DnsServerData[];
+    private get backupDnsServersData(): DnsServerData[] {
+        return this.state.backupDnsServersData;
+    }
+
+    private set backupDnsServersData(backupDnsServersData: DnsServerData[]) {
+        this.state.backupDnsServersData = backupDnsServersData;
+        this.saveDnsState();
+    }
 
     init = (): void => {
-        this.customDnsServers = settings.getCustomDnsServers();
-        const selectedDnsServer = settings.getSelectedDnsServer();
-        if (!selectedDnsServer) {
-            this.setDnsServer(DEFAULT_DNS_SERVER.id);
-            return;
+        this.state = sessionState.getItem(StorageKey.DnsState);
+
+        if (!this.customDnsServers) {
+            this.customDnsServers = settings.getCustomDnsServers();
         }
-        this.setDnsServer(selectedDnsServer);
+        if (!this.selectedDnsServer) {
+            this.selectedDnsServer = settings.getSelectedDnsServer();
+            if (!this.selectedDnsServer) {
+                this.setDnsServer(DEFAULT_DNS_SERVER.id);
+                return;
+            }
+        }
+        this.setDnsServer(this.selectedDnsServer);
     };
 
     /**

@@ -11,10 +11,7 @@ type CreateFileData = {
 };
 
 const createTxtFile = (content: BlobPart, filename: string): File => {
-    const file = new Blob([content], { type: 'text/plain' });
-    // @ts-ignore
-    file.name = filename;
-    return file as File;
+    return new File([content], filename, { type: 'text/plain' });
 };
 
 const createZipFile = async (files: CreateFileData[]): Promise<File> => {
@@ -25,6 +22,7 @@ const createZipFile = async (files: CreateFileData[]): Promise<File> => {
     });
 
     const file = await zip.generateAsync({ type: 'blob' });
+    // TODO: remove ts-ignore
     // @ts-ignore
     file.name = 'exclusions.zip';
     return file as File;

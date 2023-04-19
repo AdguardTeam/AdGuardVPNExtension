@@ -1,5 +1,5 @@
 import { AuthService } from '../../../src/background/authentication/authService';
-import type { AuthAccessToken } from '../../../src/background/api/apiTypes';
+import type { AuthAccessToken } from '../../../src/background/schema';
 
 const storageImplementation: { [key: string]: unknown } = {};
 
@@ -29,7 +29,7 @@ const notAuthenticatedUserData: AuthAccessToken = {
     tokenType: 'bearer',
 };
 
-// @ts-ignore
+// @ts-ignore - partly implementation
 const authService = new AuthService(browserApiImplementation);
 
 jest.spyOn(authService.browserApi.storage, 'set');

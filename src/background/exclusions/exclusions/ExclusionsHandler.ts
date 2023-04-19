@@ -2,8 +2,8 @@ import { nanoid } from 'nanoid';
 
 import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
-import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsTypes';
 import { getETld, getHostname } from '../../../common/url-utils';
+import type { ExclusionInterface, IndexedExclusionsInterface } from '../../schema';
 
 interface UpdateHandler {
     (): Promise<void>;
@@ -38,10 +38,6 @@ export class ExclusionsHandler {
     async onUpdate() {
         this.exclusionsIndex = ExclusionsHandler.buildExclusionsIndex(this.exclusions);
         await this.updateHandler();
-    }
-
-    getExclusions(): ExclusionInterface[] {
-        return this.exclusions;
     }
 
     async setExclusions(exclusions: ExclusionInterface[]) {

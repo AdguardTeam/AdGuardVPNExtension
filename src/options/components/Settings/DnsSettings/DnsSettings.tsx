@@ -7,7 +7,7 @@ import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { CustomDnsServerModal } from './CustomDnsServerModal';
-import { DnsServerData } from '../../../../common/components/constants';
+import type { DnsServerData } from '../../../../background/schema';
 
 import './dns-settings.pcss';
 
