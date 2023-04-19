@@ -228,7 +228,7 @@ export const Actions = observer(() => {
             window.removeEventListener('click', closeMoreActionsMenu);
             window.removeEventListener('keydown', escKeyHandler);
         };
-    });
+    }, [isMoreActionsMenuOpen]);
 
     const moreActionsListClassnames = classnames('actions__more-actions-list', {
         visible: isMoreActionsMenuOpen,

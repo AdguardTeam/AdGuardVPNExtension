@@ -46,6 +46,12 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
         }
     };
 
+    useEffect(() => {
+        if (hidden) {
+            document.removeEventListener('keydown', escKeyHandler);
+        }
+    }, [hidden]);
+
     const handleOptionClick = (id: T): void => {
         setValue(id);
         optionChange(id);
