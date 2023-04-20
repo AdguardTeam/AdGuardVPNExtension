@@ -2,16 +2,11 @@ import { browserApi } from './browserApi';
 import { notifier } from '../lib/notifier';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 
-// FIXME: fix debug value
-const HINT_POPUP_COUNTDOWN_KEY = 'hint.popup.countdown.test8';
+const HINT_POPUP_COUNTDOWN_KEY = 'hint.popup.countdown';
 
-// FIXME: remove debug value
-// const HINT_POPUP_DELAY = 1000 * 60 * 60; // 1 hour
-const HINT_POPUP_DELAY = 1000 * 3; // 3 sec
+const HINT_POPUP_DELAY = 1000 * 60 * 60; // 1 hour
 
-// FIXME: remove debug value
-// const POPUP_OPENED_COUNT_TO_SHOW_HINT = 4;
-const POPUP_OPENED_COUNT_TO_SHOW_HINT = 1;
+const POPUP_OPENED_COUNT_TO_SHOW_HINT = 4;
 
 interface HintPopupInterface {
     shouldShowHintPopup: () => Promise<boolean>;
