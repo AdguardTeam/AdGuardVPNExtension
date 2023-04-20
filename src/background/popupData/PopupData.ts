@@ -24,6 +24,8 @@ import type { VpnExtensionInfoInterface } from '../schema';
 import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../schema';
+import { hintPopup } from '../hintPopup';
+import { popupOpenedCounter } from './popupOpenedCounter';
 
 interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;
@@ -59,6 +61,7 @@ interface PopupDataInterface {
     isVpnEnabledByUrl?: boolean;
     shouldShowRateModal?: boolean;
     username?: string | null;
+    shouldShowHintPopup?: boolean;
 }
 
 interface PopupDataRetry extends PopupDataInterface {
@@ -75,6 +78,8 @@ export class PopupData {
     private endpoints: EndpointsInterface;
 
     private credentials: CredentialsInterface;
+
+    private popupOpenedCount: number = 0;
 
     constructor({
         permissionsChecker,
@@ -131,6 +136,7 @@ export class PopupData {
         const isVpnEnabledByUrl = exclusions.isVpnEnabledByUrl(url);
         const shouldShowRateModal = await rateModal.shouldShowRateModal();
         const username = await credentials.getUsername();
+        const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -163,6 +169,7 @@ export class PopupData {
             isVpnEnabledByUrl,
             shouldShowRateModal,
             username,
+            shouldShowHintPopup,
         };
     };
 
@@ -212,6 +219,7 @@ export class PopupData {
         }
 
         this.retryCounter = 0;
+        popupOpenedCounter.increase();
         return { ...data, hasRequiredData };
     }
 }

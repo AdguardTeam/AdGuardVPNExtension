@@ -317,6 +317,11 @@ class Messenger {
         return this.sendMessage(type, { withDelay });
     }
 
+    async setHintPopupViewed() {
+        const type = MessageType.SET_HINT_POPUP_VIEWED;
+        return this.sendMessage(type);
+    }
+
     async openTab(url: string) {
         const type = MessageType.OPEN_TAB;
         return this.sendMessage(type, { url });

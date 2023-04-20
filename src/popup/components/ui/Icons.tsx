@@ -9,6 +9,10 @@ export const Icons = () => (
             <path d="M7 1L0.999999 7L7 13" fill="none" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </symbol>
 
+        <svg id="right-arrow" width="8" height="14" viewBox="0 0 8 14" fill="none">
+            <path d="M1 13L7 7L1 1" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
         <symbol id="options" viewBox="0 0 24 24">
             <g fill="currentColor" transform="translate(10 6)">
                 <circle cx="1.5" cy="1.5" r="1.5" />

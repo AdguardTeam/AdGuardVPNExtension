@@ -102,6 +102,8 @@ export class AuthStore {
 
     @observable userEmail = '';
 
+    @observable showHintPopup = false;
+
     STEPS = AUTH_STEPS;
 
     rootStore: RootStore;
@@ -484,5 +486,16 @@ export class AuthStore {
 
     @action resendConfirmRegistrationLink = async () => {
         await messenger.resendConfirmRegistrationLink(true);
+    };
+
+    @action setShowHintPopup = (value: boolean) => {
+        this.showHintPopup = value;
+    };
+
+    @action closeHintPopup = async () => {
+        await messenger.setHintPopupViewed();
+        runInAction(() => {
+            this.showHintPopup = false;
+        });
     };
 }
