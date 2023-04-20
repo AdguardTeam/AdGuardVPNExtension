@@ -59,14 +59,10 @@ class StateStorage implements StateStorageInterface {
     /**
      * Initializes the storage by loading the data from the session storage,
      * or creating a new storage with the default data if none exists.
-     *
-     * @async
-     * @returns {Promise<void>}
-     * @throws {Error} If an error occurs during the initialization process.
      */
-    public init = async () => {
+    public init = async (): Promise<void> => {
         try {
-            const res = storageDataScheme.safeParse(chrome.storage.session.get(null));
+            const res = storageDataScheme.safeParse(await chrome.storage.session.get(null));
 
             if (res.success) {
                 this.state = res.data;
