@@ -1,6 +1,7 @@
 import { AppStatus } from '../../../src/background/appStatus/AppStatus';
 import { LEVELS_OF_CONTROL } from '../../../src/background/proxy/proxyConsts';
-import { CanControlProxy, ExtensionProxyInterface } from '../../../src/background/proxy/proxy';
+import { ExtensionProxyInterface } from '../../../src/background/proxy/proxy';
+import { CanControlProxy } from '../../../src/background/schema';
 import { SettingsInterface } from '../../../src/background/settings/settings';
 
 const buildProxy = (response: CanControlProxy): { canControlProxy: () => Promise<CanControlProxy> } => {
@@ -16,7 +17,7 @@ const buildSettings = (proxyEnabled: boolean): SettingsInterface => {
         isProxyEnabled: () => {
             return proxyEnabled;
         },
-        // @ts-ignore
+        // @ts-ignore - mock async method with jest.fn
         disableProxy: jest.fn(() => {
         }),
     };

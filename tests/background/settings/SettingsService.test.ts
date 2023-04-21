@@ -47,7 +47,7 @@ describe('SettingsService', () => {
         };
 
         beforeEach(() => {
-            // @ts-ignore
+            // @ts-ignore - partly implementation
             settingsService = new SettingsService(storage, defaults);
         });
 
@@ -93,7 +93,7 @@ describe('SettingsService', () => {
 
     describe('updates values', () => {
         beforeEach(() => {
-            // @ts-ignore
+            // @ts-ignore - partly implementation
             settingsService = new SettingsService(storage, defaults);
             settingsService.init();
         });

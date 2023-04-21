@@ -1,11 +1,10 @@
 import { nanoid } from 'nanoid';
 import { isIP } from 'is-ip';
 
-import { ExclusionInterface } from './exclusions/exclusionsTypes';
 import { getETld, getSubdomain, isWildcard } from '../../common/url-utils';
 import { log } from '../../lib/logger';
 import { ExclusionState } from '../../common/exclusionsConstants';
-import { ServicesInterface } from '../providers/vpnProvider';
+import type { ServicesInterface, ExclusionInterface } from '../schema';
 
 interface ExclusionGroup {
     [key: string]: ExclusionInterface;

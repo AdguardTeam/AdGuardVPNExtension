@@ -182,7 +182,7 @@ export const animationSourcesMap: AnimationSourcesMap = {
     },
 };
 
-export const enum SubscriptionType {
+export enum SubscriptionType {
     Monthly = 'MONTHLY',
     Yearly = 'YEARLY',
     TwoYears = 'TWO_YEARS',

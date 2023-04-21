@@ -12,7 +12,6 @@ declare global {
     }
 }
 
-// @ts-ignore
 global.chrome = chrome;
 
 export {};

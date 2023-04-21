@@ -6,6 +6,15 @@ import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
 } from '../../../src/background/permissionsChecker/PermissionsChecker';
+import { session } from '../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+import { credentials } from '../../../src/background/credentials';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 const TEST_PERIOD_SEC = 60 * 60 * 5; // 5 hours
 
@@ -40,7 +49,18 @@ const VPN_TOKEN_DATA = {
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
-jest.mock('../../../src/background/browserApi');
+
+jest.mock('../../../src/background/browserApi', () => {
+    // eslint-disable-next-line global-require
+    return require('../../__mocks__/browserApiMock');
+});
+
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
 
 // testing timers for MV2
 // TODO: change timers implementation on official switch to MV3 and find out how to move time for Alarm API
@@ -65,12 +85,17 @@ jest.spyOn(permissionsChecker.credentials, 'gainValidVpnToken').mockResolvedValu
 jest.useFakeTimers();
 
 describe('PermissionsChecker tests', () => {
+    beforeEach(async () => {
+        await sessionState.init();
+    });
+
     afterEach(() => {
         jest.clearAllTimers();
         jest.clearAllMocks();
     });
 
     it('Check permissions every 24 hours', () => {
+        credentials.init();
         permissionsChecker.credentials.vpnCredentials = getCredentialsData(99999999);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
@@ -99,6 +124,7 @@ describe('PermissionsChecker tests', () => {
     });
 
     it('Check permissions in half an hour before credentials expired', () => {
+        credentials.init();
         permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_SEC);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
@@ -110,6 +136,7 @@ describe('PermissionsChecker tests', () => {
     });
 
     it('Check permissions in half an hour before ACTUAL credentials expired', () => {
+        credentials.init();
         permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_SEC);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);

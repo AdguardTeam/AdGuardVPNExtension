@@ -1,24 +1,32 @@
 import { endpoints } from '../../../src/background/endpoints';
 import { settings } from '../../../src/background/settings';
-import {
-    CredentialsDataInterface,
-    VpnExtensionInfoInterface,
-    vpnProvider,
-} from '../../../src/background/providers/vpnProvider';
+import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { credentials } from '../../../src/background/credentials';
 import { Location, LocationData, LocationInterface } from '../../../src/background/endpoints/Location';
 import { LocationWithPing, LocationWithPingInterface } from '../../../src/background/endpoints/LocationWithPing';
 import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import { proxy } from '../../../src/background/proxy';
-import { VpnTokenData } from '../../../src/background/credentials/Credentials';
-import { EndpointInterface } from '../../../src/background/endpoints/Endpoint';
+import { endpointsTldExclusions } from '../../../src/background/proxy/endpointsTldExclusions';
+import type {
+    VpnTokenData,
+    EndpointInterface,
+    VpnExtensionInfoInterface,
+    CredentialsDataInterface,
+} from '../../../src/background/schema';
+import { session } from '../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
 jest.mock('../../../src/lib/notifier');
 jest.mock('../../../src/background/notifications');
-jest.mock('../../../src/background/browserApi');
 jest.mock('../../../src/background/providers/vpnProvider');
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/api/fallbackApi');
@@ -38,13 +46,27 @@ jest.mock('../../../src/background/api/fallbackApi', () => {
     };
 });
 
+jest.mock('../../../src/background/browserApi', () => {
+    // eslint-disable-next-line global-require
+    return require('../../__mocks__/browserApiMock');
+});
+
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
+
 describe('Endpoints', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
+        await sessionState.init();
+        await endpointsTldExclusions.init();
         jest.clearAllMocks();
     });
 
     it('getEndpoints returns empty list on init', async () => {
-        const endpointsList = await endpoints.getLocations();
+        const endpointsList = endpoints.getLocations();
         expect(endpointsList.length).toBe(0);
     });
 
@@ -110,9 +132,12 @@ describe('Endpoints', () => {
 
         jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
         jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue(locations);
+        jest.spyOn(credentials, 'getAppId').mockResolvedValue('test_app_id');
         jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'token' } as VpnTokenData);
         jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
 
+        await proxy.init();
+        await endpoints.init();
         const vpnInfo = await endpoints.getVpnInfo();
 
         expect(vpnInfo).toEqual(expectedVpnInfo);
@@ -139,7 +164,8 @@ describe('Endpoints', () => {
         jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue([]);
         jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
         jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'vpn_token' } as VpnTokenData);
-        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
+        jest.spyOn(credentials, 'gainValidVpnCredentials')
+            .mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
 
         await endpoints.getVpnInfoRemotely();
         expect(credentials.gainValidVpnToken).toBeCalledTimes(3);
@@ -315,9 +341,10 @@ describe('Endpoints', () => {
         jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
 
         it('refreshes tokens and doesnt disable proxy', async () => {
+            await credentials.init();
             await endpoints.refreshData();
-            expect(credentials.gainValidVpnToken).toBeCalledTimes(2);
-            expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
+            expect(credentials.gainValidVpnToken).toBeCalledTimes(3);
+            expect(credentials.gainValidVpnCredentials).toBeCalledTimes(2);
             expect(settings.disableProxy).toBeCalledTimes(0);
             expect(connectivityService.send).toBeCalledTimes(0);
         });
@@ -381,6 +408,7 @@ describe('Endpoints', () => {
             jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
             jest.spyOn(endpoints, 'reconnectEndpoint');
 
+            await proxy.init();
             await endpoints.updateLocations();
             expect(endpoints.reconnectEndpoint).toBeCalledTimes(0);
         });
@@ -426,7 +454,9 @@ describe('Endpoints', () => {
             jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
             jest.spyOn(proxy, 'applyConfig');
 
+            await endpoints.init();
             await endpoints.updateLocations();
+            await proxy.init();
 
             const { defaultExclusions } = await proxy.getConfig();
 
