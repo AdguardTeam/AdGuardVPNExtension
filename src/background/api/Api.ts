@@ -70,6 +70,9 @@ export class Api implements ApiInterface {
 
         try {
             const response = await fetch(url, fetchConfig);
+            if (config.body instanceof FormData) {
+                return response;
+            }
             return await response.json();
         } catch (e) {
             if (e.response) {
