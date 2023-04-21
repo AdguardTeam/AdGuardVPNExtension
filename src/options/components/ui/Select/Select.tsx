@@ -23,38 +23,46 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
     const [value, setValue] = useState(currentValue);
     const [hidden, setHidden] = useState(true);
 
-    const outsideClickHandler = () => {
-        setHidden(true);
+    const ref = useRef<HTMLDivElement>(null);
+
+    const closeSelectListHook = (
+        ref: React.RefObject<HTMLDivElement>,
+        handler: (event: MouseEvent | KeyboardEvent) => void,
+    ) => {
+        useEffect(
+            () => {
+                const listener = (event: MouseEvent | KeyboardEvent) => {
+                    if ((event instanceof KeyboardEvent && event.key === ESC_KEY_NAME)
+                        || (ref.current && !ref.current.contains(event.target as Node))) {
+                        handler(event);
+                    }
+                };
+                document.addEventListener('click', listener);
+                document.addEventListener('keydown', listener);
+                return () => {
+                    document.removeEventListener('click', listener);
+                    document.removeEventListener('keydown', listener);
+                };
+            },
+            [ref, handler],
+        );
     };
 
-    const escKeyHandler = (e: KeyboardEvent) => {
-        if (e.key === ESC_KEY_NAME) {
-            setHidden(true);
-            document.removeEventListener('click', outsideClickHandler);
-        }
-    };
+    closeSelectListHook(ref, () => setHidden(true));
 
     useEffect(() => {
         setValue(currentValue);
     });
 
-    const handleSelectClick = (): void => {
-        if (hidden) {
-            setHidden(false);
-            document.addEventListener('click', outsideClickHandler, { once: true });
-            document.addEventListener('keydown', escKeyHandler, { once: true });
-        }
+    const handleSelectClick = (event: React.MouseEvent): void => {
+        event.stopPropagation();
+        setHidden(!hidden);
     };
-
-    useEffect(() => {
-        if (hidden) {
-            document.removeEventListener('keydown', escKeyHandler);
-        }
-    }, [hidden]);
 
     const handleOptionClick = (id: T): void => {
         setValue(id);
         optionChange(id);
+        setHidden(true);
     };
 
     const isActiveOption = (id: T) => ((id === value) ? ' active' : '');
@@ -73,7 +81,7 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
     };
 
     return (
-        <div className="selector">
+        <div className="selector" ref={ref}>
             <div
                 className="selector__value"
                 onClick={handleSelectClick}

@@ -84,6 +84,8 @@ export const Actions = observer(() => {
     const [isSelectListModalOpen, setSelectListModalState] = useState(false);
     const [fileContent, setFileContent] = useState('');
 
+    const ref = useRef<HTMLDivElement>(null);
+
     const closeSelectListModal = () => {
         setSelectListModalState(false);
         setFileContent('');
@@ -210,25 +212,30 @@ export const Actions = observer(() => {
         }
     };
 
-    const closeMoreActionsMenu = () => {
-        setIsMoreActionsMenuOpen(false);
+    const closeActionsMenuHook = (
+        ref: React.RefObject<HTMLDivElement>,
+        handler: (event: MouseEvent | KeyboardEvent) => void,
+    ) => {
+        useEffect(
+            () => {
+                const listener = (event: MouseEvent | KeyboardEvent) => {
+                    if ((event instanceof KeyboardEvent && event.key === ESC_KEY_NAME)
+                        || (ref.current && !ref.current.contains(event.target as Node))) {
+                        handler(event);
+                    }
+                };
+                document.addEventListener('click', listener);
+                document.addEventListener('keydown', listener);
+                return () => {
+                    document.removeEventListener('click', listener);
+                    document.removeEventListener('keydown', listener);
+                };
+            },
+            [ref, handler],
+        );
     };
 
-    const escKeyHandler = (e: KeyboardEvent) => {
-        if (e.key === ESC_KEY_NAME) {
-            closeMoreActionsMenu();
-            window.removeEventListener('click', closeMoreActionsMenu);
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener('click', closeMoreActionsMenu, { once: true });
-        window.addEventListener('keydown', escKeyHandler, { once: true });
-        return () => {
-            window.removeEventListener('click', closeMoreActionsMenu);
-            window.removeEventListener('keydown', escKeyHandler);
-        };
-    }, [isMoreActionsMenuOpen]);
+    closeActionsMenuHook(ref, () => setIsMoreActionsMenuOpen(false));
 
     const moreActionsListClassnames = classnames('actions__more-actions-list', {
         visible: isMoreActionsMenuOpen,
@@ -244,7 +251,10 @@ export const Actions = observer(() => {
 
     return (
         <>
-            <div className="actions">
+            <div
+                className="actions"
+                ref={ref}
+            >
                 <button
                     type="button"
                     className="actions__button selector__value"
