@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { Api } from './Api';
+import { Api, ConfigInterface } from './Api';
 import { fallbackApi } from './fallbackApi';
 import { RequestProps } from './apiTypes';
 
@@ -128,15 +128,15 @@ class VpnApi extends Api implements VpnApiInterface {
         const { path, method } = this.GET_LOCATIONS;
         const language = browser.i18n.getUILanguage();
 
-        const params = new URLSearchParams({
-            app_id: appId,
-            token: vpnToken,
-            language,
-        });
+        const config: ConfigInterface = {
+            params: {
+                app_id: appId,
+                token: vpnToken,
+                language,
+            },
+        };
 
-        const requestPath = `${path}?${params}`;
-
-        return this.makeRequest(requestPath, method);
+        return this.makeRequest(path, method, config);
     };
 
     GET_VPN_CREDENTIALS: RequestProps = { path: 'v1/proxy_credentials', method: 'POST' };
@@ -146,16 +146,16 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const language = browser.i18n.getUILanguage();
 
-        const params = new URLSearchParams({
-            app_id: appId,
-            token: vpnToken,
-            language,
-            system_language: language,
-        });
+        const config: ConfigInterface = {
+            params: {
+                app_id: appId,
+                token: vpnToken,
+                language,
+                system_language: language,
+            },
+        };
 
-        const requestPath = `${path}?${params}`;
-
-        return this.makeRequest(requestPath, method);
+        return this.makeRequest(path, method, config);
     };
 
     GET_CURRENT_LOCATION: RequestProps = { path: 'v1/geo_location', method: 'GET' };
@@ -173,14 +173,14 @@ class VpnApi extends Api implements VpnApiInterface {
     ): Promise<VpnExtensionInfo> => {
         const { path, method } = this.VPN_EXTENSION_INFO;
 
-        const params = new URLSearchParams({
-            app_id: appId,
-            token: vpnToken,
-        });
+        const config: ConfigInterface = {
+            params: {
+                app_id: appId,
+                token: vpnToken,
+            },
+        };
 
-        const requestPath = `${path}?${params}`;
-
-        return this.makeRequest(requestPath, method);
+        return this.makeRequest(path, method, config);
     };
 
     TRACK_EXTENSION_INSTALL: RequestProps = { path: 'v1/init/extension', method: 'POST' };
@@ -190,15 +190,15 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const language = browser.i18n.getUILanguage();
 
-        const params = new URLSearchParams({
-            app_id: appId,
-            language,
-            system_language: language,
-        });
+        const config: ConfigInterface = {
+            params: {
+                app_id: appId,
+                language,
+                system_language: language,
+            },
+        };
 
-        const requestPath = `${path}?${params}`;
-
-        return this.makeRequest(requestPath, method);
+        return this.makeRequest(path, method, config);
     };
 
     SUPPORT_REQUEST: RequestProps = { path: 'v1/support', method: 'POST' };
@@ -226,13 +226,13 @@ class VpnApi extends Api implements VpnApiInterface {
         const { path, method } = this.EXCLUSION_SERVICES;
         const language = browser.i18n.getUILanguage();
 
-        const params = new URLSearchParams({
-            locale: language,
-        });
+        const config: ConfigInterface = {
+            params: {
+                locale: language,
+            },
+        };
 
-        const requestPath = `${path}?${params}`;
-
-        return this.makeRequest(requestPath, method);
+        return this.makeRequest(path, method, config);
     };
 
     EXCLUSION_SERVICE_DOMAINS: RequestProps = { path: 'v1/exclusion_services/domains', method: 'GET' };
@@ -242,13 +242,13 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const servicesIdsParam = servicesIds.length > 0 ? servicesIds.join(',') : '';
 
-        const params = new URLSearchParams({
-            service_id: servicesIdsParam,
-        });
+        const config: ConfigInterface = {
+            params: {
+                service_id: servicesIdsParam,
+            },
+        };
 
-        const requestPath = `${path}?${params}`;
-
-        return this.makeRequest(requestPath, method);
+        return this.makeRequest(path, method, config);
     };
 }
 

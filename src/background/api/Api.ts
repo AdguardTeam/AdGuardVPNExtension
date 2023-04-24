@@ -4,14 +4,10 @@ import { notifier } from '../../lib/notifier';
 
 const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
-interface ConfigInterface {
+export interface ConfigInterface {
     params?: {
-        app_id?: string;
-        token?: string;
-        locale?: string;
-        service_id?: string | null;
+        [key: string]: string;
     };
-    data?: string | FormData;
     body?: string | FormData;
     headers?: {
         Authorization: string,
@@ -56,7 +52,15 @@ export class Api implements ApiInterface {
      * @throws {CustomError} A custom error object with the status code and error message if the fetch request fails.
      */
     async makeRequest(path: string, method: string = 'POST', config: ConfigInterface = {}) {
-        const url = await this.getRequestUrl(path);
+        let requestUrl = await this.getRequestUrl(path);
+
+        if (config.params) {
+            const url = new URL(requestUrl);
+            Object.entries(config.params).forEach(([key, value]) => {
+                url.searchParams.append(key, value);
+            });
+            requestUrl = url.toString();
+        }
 
         const controller = new AbortController();
         const { signal } = controller;
@@ -65,11 +69,20 @@ export class Api implements ApiInterface {
         const fetchConfig: RequestInit = {
             method,
             signal,
-            ...config,
         };
 
+        const { body, headers } = config;
+
+        if (body) {
+            fetchConfig.body = body;
+        }
+
+        if (headers) {
+            fetchConfig.headers = headers;
+        }
+
         try {
-            const response = await fetch(url, fetchConfig);
+            const response = await fetch(requestUrl, fetchConfig);
             if (config.body instanceof FormData) {
                 return response;
             }
@@ -83,7 +96,7 @@ export class Api implements ApiInterface {
             if (navigator.onLine) {
                 notifier.notifyListeners(notifier.types.SERVER_ERROR);
             }
-            throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${e.message || JSON.stringify(e)}`);
+            throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${requestUrl} | ${e.message || JSON.stringify(e)}`);
         } finally {
             clearTimeout(timeoutId);
         }

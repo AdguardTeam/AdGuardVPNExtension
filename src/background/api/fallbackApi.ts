@@ -37,6 +37,10 @@ const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
 
 const REQUEST_TIMEOUT_MS = 3 * 1000;
 
+type RequestParams = {
+    [key: string]: string,
+};
+
 const enum Prefix {
     NotAuthenticatedUser = 'anon',
     FreeUser = 'free',
@@ -170,10 +174,20 @@ export class FallbackApi {
         return !!localStorageBkp;
     };
 
-    private async makeRequest(url: string, config: RequestInit = {}) {
+    private async makeRequest(path: string, config: RequestInit = {}, params?: RequestParams) {
         const controller = new AbortController();
         const { signal } = controller;
         const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+        let requestUrl = path;
+
+        if (params) {
+            const url = new URL(path);
+            Object.entries(params).forEach(([key, value]) => {
+                url.searchParams.append(key, value);
+            });
+            requestUrl = url.toString();
+        }
 
         const fetchConfig: RequestInit = {
             method: 'GET',
@@ -181,7 +195,7 @@ export class FallbackApi {
             ...config,
         };
 
-        const response = await fetch(url, fetchConfig);
+        const response = await fetch(requestUrl, fetchConfig);
         clearTimeout(timeoutId);
         return response.json();
     }
@@ -205,12 +219,12 @@ export class FallbackApi {
             },
         };
 
-        const params = new URLSearchParams({
+        const params = {
             name,
             type: 'TXT',
-        });
+        };
 
-        const data = await this.makeRequest(`https://${GOOGLE_DOH_URL}?${params}`, config);
+        const data = await this.makeRequest(`https://${GOOGLE_DOH_URL}`, config, params);
 
         const { Answer: [{ data: bkpUrl }] } = data;
 
@@ -230,12 +244,12 @@ export class FallbackApi {
             },
         };
 
-        const params = new URLSearchParams({
+        const params = {
             name,
             type: 'TXT',
-        });
+        };
 
-        const data = await this.makeRequest(`https://${CLOUDFLARE_DOH_URL}?${params}`, config);
+        const data = await this.makeRequest(`https://${CLOUDFLARE_DOH_URL}`, config, params);
 
         const { Answer: [{ data: bkpUrl }] } = data;
 
@@ -255,12 +269,12 @@ export class FallbackApi {
             },
         };
 
-        const params = new URLSearchParams({
+        const params = {
             name,
             type: 'TXT',
-        });
+        };
 
-        const { data } = await this.makeRequest(`https://${ALIDNS_DOH_URL}?${params}`, config);
+        const { data } = await this.makeRequest(`https://${ALIDNS_DOH_URL}`, config, params);
 
         const { Answer: [{ data: bkpUrl }] } = data;
 

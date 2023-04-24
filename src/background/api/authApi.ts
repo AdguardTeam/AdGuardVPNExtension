@@ -1,7 +1,7 @@
-import { Api } from './Api';
+import { Api, ConfigInterface } from './Api';
 import { AUTH_CLIENT_ID } from '../config';
 import { fallbackApi } from './fallbackApi';
-import { AuthCredentials, RequestProps } from './apiTypes';
+import type { AuthCredentials, RequestProps } from './apiTypes';
 
 // Documentation
 // projects/ADGUARD/repos/adguard-auth-service/browse/oauth.md
@@ -34,10 +34,11 @@ class AuthApi extends Api {
             data['2fa_token'] = twoFactor;
         }
 
-        const params = new URLSearchParams(data);
-        const requestPath = `${path}?${params}`;
+        const config: ConfigInterface = {
+            params: data,
+        };
 
-        return this.makeRequest(requestPath, method);
+        return this.makeRequest(path, method, config);
     }
 
     REGISTER_USER: RequestProps = { path: 'api/2.0/registration', method: 'POST' };
@@ -57,18 +58,18 @@ class AuthApi extends Api {
         const data = {
             email: username,
             password,
-            marketingConsent: !!marketingConsent,
+            marketingConsent: marketingConsent.toString(),
             locale,
             clientId,
             applicationId: appId,
             source: 'VPN_APPLICATION',
         };
 
-        // @ts-ignore - boolean as string
-        const params = new URLSearchParams(data);
-        const requestPath = `${path}?${params}`;
+        const config: ConfigInterface = {
+            params: data,
+        };
 
-        return this.makeRequest(requestPath, method);
+        return this.makeRequest(path, method, config);
     }
 
     USER_LOOKUP: RequestProps = { path: 'api/1.0/user_lookup', method: 'POST' };
@@ -76,12 +77,13 @@ class AuthApi extends Api {
     userLookup(email: string, appId: string) {
         const { path, method } = this.USER_LOOKUP;
 
-        const params = new URLSearchParams({
-            email,
-            request_id: appId,
-        });
-        const requestPath = `${path}?${params}`;
-        return this.makeRequest(requestPath, method);
+        const config: ConfigInterface = {
+            params: {
+                email,
+                request_id: appId,
+            },
+        };
+        return this.makeRequest(path, method, config);
     }
 }
 
