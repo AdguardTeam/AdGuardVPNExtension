@@ -23,7 +23,7 @@ import { log } from '../../../../lib/logger';
 import { messenger } from '../../../../lib/messenger';
 import { SelectListModal } from './SelectListModal/SelectListModal';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
-import { outsideClickHook } from '../../ui/outsideClickHook';
+import { useOutsideClick } from '../../ui/useOutsideClick';
 
 import './actions.pcss';
 
@@ -86,7 +86,7 @@ export const Actions = observer(() => {
 
     const ref = useRef<HTMLDivElement>(null);
 
-    outsideClickHook(ref, () => setIsMoreActionsMenuOpen(false));
+    useOutsideClick(ref, () => setIsMoreActionsMenuOpen(false));
 
     const closeSelectListModal = () => {
         setSelectListModalState(false);

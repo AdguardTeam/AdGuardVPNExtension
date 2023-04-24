@@ -8,7 +8,7 @@ export const ESC_KEY_NAME = 'Escape';
  * @param ref
  * @param handler
  */
-export const outsideClickHook = (
+export const useOutsideClick = (
     ref: React.RefObject<HTMLDivElement>,
     handler: (event: MouseEvent | KeyboardEvent) => void,
 ) => {

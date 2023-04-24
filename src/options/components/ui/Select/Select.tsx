@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { outsideClickHook } from '../outsideClickHook';
+import { useOutsideClick } from '../useOutsideClick';
 
 import './select.pcss';
 
@@ -25,7 +25,7 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
 
     const ref = useRef<HTMLDivElement>(null);
 
-    outsideClickHook(ref, () => setHidden(true));
+    useOutsideClick(ref, () => setHidden(true));
 
     useEffect(() => {
         setValue(currentValue);
