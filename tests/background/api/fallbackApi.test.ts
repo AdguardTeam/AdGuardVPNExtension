@@ -8,6 +8,7 @@ import { WHOAMI_URL } from '../../../src/background/config';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
 import { sessionState } from '../../../src/background/stateStorage/mv2';
+import { fetchRejectMock } from '../../__mocks__/fetchMock';
 
 jest.mock('../../../src/background/sessionStorage', () => {
     // eslint-disable-next-line global-require
@@ -40,12 +41,7 @@ describe('FallbackApi', () => {
     });
 
     it('returns default api urls if requests to cloudflare and google fail', async () => {
-        // eslint-disable-next-line prefer-promise-reject-errors
-        global.fetch = jest.fn(() => Promise.reject({
-            json: () => {
-                return { status: 400 };
-            },
-        }));
+        fetchRejectMock({ status: 400 });
 
         const DEFAULT_VPN_API_URL = 'vpn_api.com';
         const DEFAULT_AUTH_API_URL = 'auth_api.com';
