@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ESC_KEY_NAME } from '../../../stores/consts';
+import { outsideClickHook } from '../outsideClickHook';
 
 import './select.pcss';
 
@@ -25,30 +25,7 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
 
     const ref = useRef<HTMLDivElement>(null);
 
-    const closeSelectListHook = (
-        ref: React.RefObject<HTMLDivElement>,
-        handler: (event: MouseEvent | KeyboardEvent) => void,
-    ) => {
-        useEffect(
-            () => {
-                const listener = (event: MouseEvent | KeyboardEvent) => {
-                    if ((event instanceof KeyboardEvent && event.key === ESC_KEY_NAME)
-                        || (ref.current && !ref.current.contains(event.target as Node))) {
-                        handler(event);
-                    }
-                };
-                document.addEventListener('click', listener);
-                document.addEventListener('keydown', listener);
-                return () => {
-                    document.removeEventListener('click', listener);
-                    document.removeEventListener('keydown', listener);
-                };
-            },
-            [ref, handler],
-        );
-    };
-
-    closeSelectListHook(ref, () => setHidden(true));
+    outsideClickHook(ref, () => setHidden(true));
 
     useEffect(() => {
         setValue(currentValue);

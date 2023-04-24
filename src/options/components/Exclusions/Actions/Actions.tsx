@@ -23,7 +23,7 @@ import { log } from '../../../../lib/logger';
 import { messenger } from '../../../../lib/messenger';
 import { SelectListModal } from './SelectListModal/SelectListModal';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
-import { ESC_KEY_NAME } from '../../../stores/consts';
+import { outsideClickHook } from '../../ui/outsideClickHook';
 
 import './actions.pcss';
 
@@ -85,6 +85,8 @@ export const Actions = observer(() => {
     const [fileContent, setFileContent] = useState('');
 
     const ref = useRef<HTMLDivElement>(null);
+
+    outsideClickHook(ref, () => setIsMoreActionsMenuOpen(false));
 
     const closeSelectListModal = () => {
         setSelectListModalState(false);
@@ -211,31 +213,6 @@ export const Actions = observer(() => {
             exclusionsStore.setImportingExclusions(false);
         }
     };
-
-    const closeActionsMenuHook = (
-        ref: React.RefObject<HTMLDivElement>,
-        handler: (event: MouseEvent | KeyboardEvent) => void,
-    ) => {
-        useEffect(
-            () => {
-                const listener = (event: MouseEvent | KeyboardEvent) => {
-                    if ((event instanceof KeyboardEvent && event.key === ESC_KEY_NAME)
-                        || (ref.current && !ref.current.contains(event.target as Node))) {
-                        handler(event);
-                    }
-                };
-                document.addEventListener('click', listener);
-                document.addEventListener('keydown', listener);
-                return () => {
-                    document.removeEventListener('click', listener);
-                    document.removeEventListener('keydown', listener);
-                };
-            },
-            [ref, handler],
-        );
-    };
-
-    closeActionsMenuHook(ref, () => setIsMoreActionsMenuOpen(false));
 
     const moreActionsListClassnames = classnames('actions__more-actions-list', {
         visible: isMoreActionsMenuOpen,
