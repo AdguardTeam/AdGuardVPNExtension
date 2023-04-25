@@ -357,13 +357,13 @@ export class Credentials implements CredentialsInterface {
         return lodashGet(newCred, path) === lodashGet(oldCred, path);
     };
 
-    getVpnCredentialsLocal = async (): Promise<CredentialsDataInterface> => {
+    getVpnCredentialsLocal = async (): Promise<CredentialsDataInterface | null> => {
         if (this.vpnCredentials) {
             return this.vpnCredentials;
         }
-        const vpnCredentials = await this.storage.get<CredentialsDataInterface>(this.VPN_CREDENTIALS_KEY);
-        this.vpnCredentials = vpnCredentials;
-        return vpnCredentials;
+
+        this.vpnCredentials = await this.storage.get<CredentialsDataInterface>(this.VPN_CREDENTIALS_KEY) || null;
+        return this.vpnCredentials;
     };
 
     async gainVpnCredentials(

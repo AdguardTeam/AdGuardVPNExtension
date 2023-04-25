@@ -274,9 +274,9 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
     getCurrentEndpoint = async (): Promise<EndpointInterface | null> => {
         if (!this.currentEndpoint) {
-            this.currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY);
+            this.currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY) || null;
         }
-        return this.currentEndpoint || null;
+        return this.currentEndpoint;
     };
 
     resetSettings = async (): Promise<void> => {

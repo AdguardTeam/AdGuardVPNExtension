@@ -3,7 +3,6 @@ import React, {
     useContext,
     useState,
     useRef,
-    useEffect,
 } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';

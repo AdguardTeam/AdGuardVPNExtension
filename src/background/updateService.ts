@@ -6,7 +6,7 @@ const APP_VERSION_KEY = 'update.service.app.version';
 
 interface UpdateServiceInterface {
     init(): Promise<void>;
-    getAppVersionFromStorage(): Promise<string>;
+    getAppVersionFromStorage(): Promise<string | undefined>;
     getAppVersionFromManifest(): Promise<string>;
     setAppVersionInStorage(appVersion: string): Promise<void>;
     setIsFirstRunFalse(): void;
@@ -54,7 +54,7 @@ class UpdateService implements UpdateServiceInterface {
         await this.setAppVersionInStorage(this.currentVersion);
     };
 
-    getAppVersionFromStorage = async (): Promise<string> => {
+    getAppVersionFromStorage = async (): Promise<string | undefined> => {
         return browserApi.storage.get(APP_VERSION_KEY);
     };
 

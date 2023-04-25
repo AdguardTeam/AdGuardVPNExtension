@@ -2,7 +2,7 @@ import Browser from 'webextension-polyfill';
 
 export interface StorageInterface {
     set: <T>(key: string, data: T) => Promise<void>;
-    get: <T>(key: string) => Promise<T>;
+    get: <T>(key: string) => Promise<T | undefined>;
     remove: (key: string) => Promise<void>;
 }
 
@@ -17,7 +17,7 @@ export class Storage implements StorageInterface {
         await this.vault.set({ [key]: data });
     }
 
-    async get<T>(key: string): Promise<T> {
+    async get<T>(key: string): Promise<T | undefined> {
         const value = await this.vault.get([key]);
         return value[key];
     }
