@@ -37,7 +37,8 @@ const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!a
 export const getCommonConfig = (browser: string): webpack.Configuration => {
     return {
         mode: IS_DEV ? 'development' : 'production',
-        devtool: false,
+        // we don't use eval source maps because of CSP in MV3
+        devtool: IS_DEV ? 'inline-source-map' : false,
         optimization: {
             minimize: false,
         },

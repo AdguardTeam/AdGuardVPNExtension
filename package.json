@@ -1,6 +1,6 @@
 {
     "name": "adguard-vpn",
-    "version": "1.4.25",
+    "version": "1.4.31",
     "description": "AdGuard VPN",
     "author": "adguard@adguard.com",
     "license": "LGPL-3.0",
@@ -8,7 +8,8 @@
         "dev": "BUILD_ENV=dev ts-node tasks/bundle.ts",
         "beta": "BUILD_ENV=beta ts-node tasks/bundle.ts",
         "release": "BUILD_ENV=release ts-node tasks/bundle.ts",
-        "lint": "eslint . --ext .js,.jsx,.ts,.tsx; tsc --project tsconfig.eslint.json --noEmit ",
+        "check-types": "tsc --project tsconfig.eslint.json --noEmit",
+        "lint": "eslint . --ext .js,.jsx,.ts,.tsx && yarn check-types",
         "test": "jest",
         "test:watch": "jest --watch",
         "locales": "babel-node tasks/translations",
