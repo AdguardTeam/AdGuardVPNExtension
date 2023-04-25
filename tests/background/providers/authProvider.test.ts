@@ -2,7 +2,7 @@ import { authProvider } from '../../../src/background/providers/authProvider';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
 import { sessionState } from '../../../src/background/stateStorage/mv2';
-import { fetchResolveMock } from '../../__mocks__/fetchMock';
+import { fetchResolveMock, fetchRejectMock } from '../../__mocks__/fetchMock';
 
 jest.mock('../../../src/background/sessionStorage', () => {
     // eslint-disable-next-line global-require
@@ -65,7 +65,7 @@ describe('authProvider', () => {
     });
 
     it('handles network errors', async () => {
-        global.fetch = jest.fn(() => Promise.reject(new Error('Network Error')));
+        fetchRejectMock();
 
         const expectedError = new Error(JSON.stringify({ error: 'authentication_error_default' }));
 
@@ -73,17 +73,12 @@ describe('authProvider', () => {
     });
 
     it('handles errors sent from server', async () => {
-        // eslint-disable-next-line prefer-promise-reject-errors
-        fetchResolveMock(Promise.reject({
+        fetchResolveMock({
             status: 401,
-            response: {
-                data: {
-                    error: 'unauthorized',
-                    error_code: 'bad_credentials',
-                    error_description: 'Sorry, unrecognized username or password',
-                },
-            },
-        }));
+            error: 'unauthorized',
+            error_code: 'bad_credentials',
+            error_description: 'Sorry, unrecognized username or password',
+        });
 
         const expectedError = new Error(JSON.stringify({ error: 'authentication_error_wrong_credentials' }));
 

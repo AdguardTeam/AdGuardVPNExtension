@@ -3,16 +3,10 @@ type ReturnData = {
 };
 
 /**
- * Mocks fetch function to return a rejected Promise with the provided JSON data.
- * @param data
+ * Mocks fetch function to return a rejected Promise.
  */
-export const fetchRejectMock = (data: ReturnData | Promise<ReturnData>) => {
-    // eslint-disable-next-line prefer-promise-reject-errors
-    global.fetch = jest.fn(() => Promise.reject({
-        json: () => {
-            return data;
-        },
-    }));
+export const fetchRejectMock = () => {
+    global.fetch = jest.fn(() => Promise.reject());
 };
 
 /**

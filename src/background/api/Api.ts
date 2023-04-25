@@ -88,9 +88,6 @@ export class Api implements ApiInterface {
             }
             return await response.json();
         } catch (e) {
-            if (e.response) {
-                throw new CustomError(e.response.status, JSON.stringify(e.response.data));
-            }
             // if there is no response from backend and network is online,
             // notify about server error
             if (navigator.onLine) {

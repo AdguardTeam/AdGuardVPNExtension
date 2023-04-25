@@ -50,25 +50,19 @@ const getAccessToken = async (credentials: AuthCredentials): Promise<AuthAccessT
     try {
         accessTokenData = await authApi.getAccessToken(credentials);
     } catch (e) {
-        const errorStatusCode = e.status;
-        let errorMessage;
+        throw new Error(JSON.stringify({ error: errorsMap.default }));
+    }
 
-        try {
-            errorMessage = JSON.parse(e.message);
-        } catch (e) {
-            // if was unable to parse error message, e.g. network is disabled
-            throw new Error(JSON.stringify({ error: errorsMap.default }));
-        }
+    const { error, error_code: errorCode } = accessTokenData;
 
-        const { error_code: errorCode }: { error_code: keyof typeof errorsMap } = errorMessage;
-
+    if (error) {
         if (errorCode === '2fa_required') {
             throw new Error(JSON.stringify({ status: errorCode }));
         }
 
-        const error = errorsMap[errorCode] || errorsMap[errorStatusCode] || errorsMap.default;
+        const errorType = errorsMap[errorCode] || errorsMap.default;
 
-        throw new Error(JSON.stringify({ error }));
+        throw new Error(JSON.stringify({ error: errorType }));
     }
 
     return accessTokenModel.fromRemoteToLocal(accessTokenData);
@@ -94,22 +88,20 @@ const register = async (credentials: AuthCredentials) => {
     try {
         accessTokenData = await authApi.register(credentials);
     } catch (e) {
-        let errorMessage;
-        try {
-            errorMessage = JSON.parse(e.message);
-        } catch (e) {
-            // if was unable to parse error message, e.g. network is disabled
-            throw new Error(JSON.stringify({ error: errorsMap.default }));
-        }
+        throw new Error(JSON.stringify({ error: errorsMap.default }));
+    }
 
-        const {
-            error_code: errorCode,
-            field,
-        }: {
-            error_code: keyof typeof errorsMap,
-            field: keyof typeof fieldsMap
-        } = errorMessage;
+    const {
+        error,
+        error_code: errorCode,
+        field,
+    }: {
+        error: string,
+        error_code: keyof typeof errorsMap,
+        field: keyof typeof fieldsMap
+    } = accessTokenData;
 
+    if (error) {
         const extensionField = fieldsMap[field] || field;
         const error = errorsMap[errorCode] || errorsMap.default;
         throw new Error(JSON.stringify({ error, field: extensionField }));

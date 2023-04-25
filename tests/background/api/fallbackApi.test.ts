@@ -41,7 +41,7 @@ describe('FallbackApi', () => {
     });
 
     it('returns default api urls if requests to cloudflare and google fail', async () => {
-        fetchRejectMock({ status: 400 });
+        fetchRejectMock();
 
         const DEFAULT_VPN_API_URL = 'vpn_api.com';
         const DEFAULT_AUTH_API_URL = 'auth_api.com';

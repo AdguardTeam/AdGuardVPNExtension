@@ -251,25 +251,8 @@ const getVpnCredentials = async (
     try {
         responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
     } catch (e) {
-        if (e.status === 400) {
-            let errorMessageData;
-
-            // if unable to parse message throw error as is
-            try {
-                errorMessageData = JSON.parse(e.message);
-            } catch (parseError) {
-                throw e;
-            }
-
-            // if license status is limit exceeded we do not throw error
-            if (errorMessageData?.license_status === 'LIMIT_EXCEEDED') {
-                responseData = errorMessageData;
-            } else {
-                throw e;
-            }
-        } else {
-            throw e;
-        }
+        log.error(e.message);
+        throw e;
     }
 
     const {
