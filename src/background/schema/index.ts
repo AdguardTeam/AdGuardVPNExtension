@@ -8,3 +8,4 @@ export * from './sessionStorage';
 export * from './auth';
 export * from './dns';
 export * from './permissionsChecker';
+export * from './popupData';

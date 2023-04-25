@@ -79,8 +79,6 @@ export class PopupData {
 
     private credentials: CredentialsInterface;
 
-    private popupOpenedCount: number = 0;
-
     constructor({
         permissionsChecker,
         permissionsError,
@@ -219,7 +217,7 @@ export class PopupData {
         }
 
         this.retryCounter = 0;
-        popupOpenedCounter.increase();
+        popupOpenedCounter.increment();
         return { ...data, hasRequiredData };
     }
 }
