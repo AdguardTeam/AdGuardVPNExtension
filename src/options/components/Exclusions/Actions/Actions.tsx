@@ -23,6 +23,7 @@ import { log } from '../../../../lib/logger';
 import { messenger } from '../../../../lib/messenger';
 import { SelectListModal } from './SelectListModal/SelectListModal';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
+import { useOutsideClick } from '../../ui/useOutsideClick';
 
 import './actions.pcss';
 
@@ -82,6 +83,10 @@ export const Actions = observer(() => {
 
     const [isSelectListModalOpen, setSelectListModalState] = useState(false);
     const [fileContent, setFileContent] = useState('');
+
+    const ref = useRef<HTMLDivElement>(null);
+
+    useOutsideClick(ref, () => setIsMoreActionsMenuOpen(false));
 
     const closeSelectListModal = () => {
         setSelectListModalState(false);
@@ -209,15 +214,6 @@ export const Actions = observer(() => {
         }
     };
 
-    const closeMoreActionsMenu = () => {
-        setIsMoreActionsMenuOpen(false);
-    };
-
-    useEffect(() => {
-        window.addEventListener('click', closeMoreActionsMenu);
-        return () => window.removeEventListener('click', closeMoreActionsMenu);
-    });
-
     const moreActionsListClassnames = classnames('actions__more-actions-list', {
         visible: isMoreActionsMenuOpen,
     });
@@ -232,7 +228,10 @@ export const Actions = observer(() => {
 
     return (
         <>
-            <div className="actions">
+            <div
+                className="actions"
+                ref={ref}
+            >
                 <button
                     type="button"
                     className="actions__button selector__value"
