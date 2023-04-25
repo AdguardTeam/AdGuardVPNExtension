@@ -10,7 +10,7 @@ import {
 } from '../exclusions/exclusions-helpers';
 import { ExclusionState } from '../../common/exclusionsConstants';
 import { StorageInterface } from '../browserApi/storage';
-import { ExclusionInterface } from '../exclusions/exclusions/exclusionsTypes';
+import { ExclusionInterface } from '../schema';
 import { THEME_STORAGE_KEY } from '../../common/useAppearanceTheme';
 
 const SCHEME_VERSION = '12';

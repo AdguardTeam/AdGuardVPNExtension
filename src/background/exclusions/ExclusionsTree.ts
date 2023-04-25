@@ -2,11 +2,14 @@
 import { isIP } from 'is-ip';
 
 import { ExclusionDtoInterface, ExclusionsType } from '../../common/exclusionsConstants';
-import { IndexedServicesInterface } from './services/ServicesManager';
-import { ServicesInterface } from '../providers/vpnProvider';
 import { ExclusionNode } from './ExclusionNode';
-import { ExclusionInterface, IndexedExclusionsInterface } from './exclusions/exclusionsTypes';
 import { getETld } from '../../common/url-utils';
+import type {
+    ServicesIndexType,
+    ServicesInterface,
+    ExclusionInterface,
+    IndexedExclusionsInterface,
+} from '../schema';
 
 type ExclusionsNodesIndex = Map<string, ExclusionNode>;
 
@@ -27,7 +30,7 @@ export class ExclusionsTree {
         exclusions: ExclusionInterface[];
         indexedExclusions: IndexedExclusionsInterface;
         services: ServicesInterface;
-        indexedServices: IndexedServicesInterface;
+        indexedServices: ServicesIndexType;
     }) {
         this.exclusionsNodesIndex = new Map();
         this.exclusionsTree = new ExclusionNode({ id: 'root', hostname: 'root' });

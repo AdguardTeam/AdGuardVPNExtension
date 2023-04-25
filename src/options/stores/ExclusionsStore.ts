@@ -15,12 +15,12 @@ import {
     ExclusionsMode,
     ExclusionState,
     ExclusionsType,
-    ServiceCategory,
     ServiceDto,
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 import type { RootStore } from './RootStore';
+import type { ServiceCategory } from '../../background/schema';
 
 export interface PreparedServiceCategory extends ServiceCategory {
     services: string[]

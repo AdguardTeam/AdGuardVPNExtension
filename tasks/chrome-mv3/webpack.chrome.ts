@@ -22,7 +22,7 @@ if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'chrome-mv3-prod.zip';
 }
 
-const commonConfig = getCommonConfig(Browser.Chrome);
+const commonConfig = getCommonConfig(Browser.ChromeMV3);
 
 const plugins = [
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {

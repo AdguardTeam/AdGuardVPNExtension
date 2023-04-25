@@ -5,8 +5,7 @@ import {
     complementedExclusionsWithServices,
     complementExclusions,
 } from '../../../src/background/exclusions/exclusions-helpers';
-import { ExclusionInterface } from '../../../src/background/exclusions/exclusions/exclusionsTypes';
-import { ServicesInterface } from '../../../src/background/providers/vpnProvider';
+import type { ExclusionInterface, ServicesInterface } from '../../../src/background/schema';
 
 jest.mock('../../../src/lib/logger.ts');
 

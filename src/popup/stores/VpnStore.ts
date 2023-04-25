@@ -122,6 +122,7 @@ export class VpnStore {
                 const escapedSearchValue = this.searchValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const regex = new RegExp(escapedSearchValue, 'ig');
                 return (location.cityName && location.cityName.match(regex))
+                || (location.countryCode && location.countryCode.match(regex))
                 || (location.countryName && location.countryName.match(regex));
             })
             .sort((a, b) => {
