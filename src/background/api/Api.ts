@@ -45,7 +45,7 @@ export class Api implements ApiInterface {
         return this.baseUrlStr;
     }
 
-    private getRequestUrl = async (path: string): Promise<string> => `https://${await this.getBaseUrl()}/${path}`;
+    public getRequestUrl = async (path: string): Promise<string> => `https://${await this.getBaseUrl()}/${path}`;
 
     /**
      * A method that makes an asynchronous Axios request to the specified path with the given configuration.
@@ -58,6 +58,7 @@ export class Api implements ApiInterface {
      */
     async makeRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
         const url = await this.getRequestUrl(path);
+        debugger
         const axiosConfig: AxiosRequestConfig = {
             url,
             method,
@@ -81,6 +82,44 @@ export class Api implements ApiInterface {
             throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${e.message || JSON.stringify(e)}`);
         }
     }
+
+    // /**
+    //  * A method that makes an asynchronous Fetch request to the specified path with the given configuration.
+    //  *
+    //  * @param {string} path - The path to which the request will be made.
+    //  * @param {ConfigInterface} config - The configuration object for the request.
+    //  * @param {Method} [method='POST'] - The HTTP method for the request. Default is 'POST'.
+    //  * @returns {Promise<any>} A Promise that resolves to the response data from the server.
+    //  * @throws {CustomError} A custom error object with the status code and error message if the request fails.
+    //  */
+    // makeRequest = async (path: string, config: ConfigInterface, method = 'POST') => {
+    //     const url = await this.getRequestUrl(path);
+    //     const fetchConfig = {
+    //         method,
+    //         ...config,
+    //     };
+    //
+    //     try {
+    //         const response = await fetch(url, fetchConfig);
+    //         if (!response?.ok) {
+    //             const errorData = await response.json();
+    //             throw new CustomError(response.status.toString(), JSON.stringify(errorData));
+    //         }
+    //
+    //         return await response.json();
+    //     } catch (e) {
+    //         if (e instanceof CustomError) {
+    //             throw e;
+    //         }
+    //
+    //         // if there is no response from backend and network is online,
+    //         // notify about server error
+    //         if (navigator.onLine) {
+    //             notifier.notifyListeners(notifier.types.SERVER_ERROR);
+    //         }
+    //         throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${e.message || JSON.stringify(e)}`);
+    //     }
+    // };
 
     /**
      * A method that makes an asynchronous fetch request to the specified path with the given configuration.
