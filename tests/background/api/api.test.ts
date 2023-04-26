@@ -10,23 +10,34 @@ describe('Api tests', () => {
     beforeEach(() => server.reset());
 
     it('Test make request', async () => {
+        const BAD_REQUEST_400 = '/bad_request_400';
+        const GOOD_REQUEST_200 = '/good_request_200';
         server
-            .get('/')
-            // Look ma, plain Jest API!
+            .get(GOOD_REQUEST_200)
             .mockImplementationOnce((ctx) => {
                 ctx.status = 200;
+                ctx.body = 'response OK';
             });
 
-        const api = new Api(server.getURL().toString());
-
-        const getRequestUrlMock = jest.spyOn(api as Api, 'getRequestUrl');
-        getRequestUrlMock.mockResolvedValue(server.getURL().toString());
+        server
+            .get(BAD_REQUEST_400)
+            .mockImplementationOnce((ctx) => {
+                ctx.status = 400;
+            });
 
         // Since we did not passed any port into server constructor, server was started at random free port
-        const url = server.getURL();
+        const serverOrigin = server.getURL().origin;
+        // path argument is stubbes as getRequestUrl going to be mocked each time
+        const api = new Api('');
 
-        const res1 = await api.makeRequest('', {}, 'GET');
-        expect(res1.status).toBe(200);
-        expect(await api.getRequestUrl('')).toBe('/');
+        const getRequestUrlMock = jest.spyOn(api, 'getRequestUrl');
+        getRequestUrlMock.mockResolvedValue(serverOrigin);
+        expect(await api.getRequestUrl('')).toBe(serverOrigin);
+
+        getRequestUrlMock.mockResolvedValue(new URL(GOOD_REQUEST_200, serverOrigin).href);
+        const data = await api.makeRequest(GOOD_REQUEST_200, {}, 'GET');
+        expect(data).toBe('response OK');
+
+        // expect(await api.makeRequest(BAD_REQUEST_400, {}, 'GET')).rejects.toThrow();
     });
 });

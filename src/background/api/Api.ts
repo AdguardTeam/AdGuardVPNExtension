@@ -56,9 +56,9 @@ export class Api implements ApiInterface {
      * @returns {Promise<any>} A Promise that resolves to the response data from the server.
      * @throws {CustomError} A custom error object with the status code and error message if the request fails.
      */
-    async makeRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
+    async makeRequest(path: string, config: ConfigInterface, method: Method = 'POST'): Promise<any> {
         const url = await this.getRequestUrl(path);
-        debugger
+
         const axiosConfig: AxiosRequestConfig = {
             url,
             method,
