@@ -63,13 +63,14 @@ export const GlobalControl = observer(() => {
             buttonState = buttonStates.disconnect;
             break;
         }
-        case (settingsStore.isConnectingIdle
-            || settingsStore.isConnectingRetrying): {
+        case (settingsStore.isConnectingIdle):
+        case (settingsStore.isConnectingRetrying): {
             buttonState = buttonStates.connecting;
             break;
         }
-        case (settingsStore.isDisconnectedIdle
-            || settingsStore.isDisconnectedRetrying): {
+        case (settingsStore.isIdle):
+        case (settingsStore.isDisconnectedIdle):
+        case (settingsStore.isDisconnectedRetrying): {
             buttonState = buttonStates.connect;
             break;
         }

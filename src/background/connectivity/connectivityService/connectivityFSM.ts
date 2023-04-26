@@ -150,13 +150,21 @@ const connectivityFSM = createMachine({
         desktopVpnEnabled: false,
 
     },
-    initial: State.DisconnectedIdle,
+    initial: State.Idle,
     states: {
+        [State.Idle]: {
+            on: {
+                [Event.ConnectBtnPressed]: State.ConnectingIdle,
+                [Event.ExtensionLaunched]: State.ConnectingIdle,
+                [Event.DesktopVpnEnabled]: {
+                    actions: ['setDesktopVpnEnabled'],
+                },
+            },
+        },
         [State.DisconnectedIdle]: {
             entry: ['turnOffProxy'],
             on: {
                 [Event.ConnectBtnPressed]: State.ConnectingIdle,
-                [Event.ExtensionLaunched]: State.ConnectingIdle,
                 [Event.DesktopVpnEnabled]: {
                     actions: ['setDesktopVpnEnabled'],
                 },
