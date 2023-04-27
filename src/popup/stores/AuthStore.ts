@@ -490,7 +490,10 @@ export class AuthStore {
 
     @computed
     get shouldShowHintPopup() {
-        return this.showHintPopup && !this.showRateModal;
+        return this.showHintPopup
+            && !this.showRateModal
+            && !this.showConfirmRateModal
+            && !this.showConfirmEmailModal;
     }
 
     @action setShowHintPopup = (value: boolean) => {
