@@ -12,6 +12,7 @@ import {
     LocationInterface,
     EndpointInterface,
     LocationsServiceState,
+    PingsCacheInterface,
     StorageKey,
 } from '../schema';
 import { sessionState } from '../sessionStorage';
@@ -30,10 +31,6 @@ interface IncomingPingData {
     lastMeasurementTime?: number;
     endpoint?: EndpointInterface | null;
     isMeasuring?: boolean;
-}
-
-export interface PingsCacheInterface {
-    [id: string]: PingData;
 }
 
 interface LocationsServiceInterface {
@@ -60,12 +57,6 @@ class LocationsService implements LocationsServiceInterface {
 
     PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
-    pingsCache: PingsCacheInterface = {};
-
-    // locations: LocationInterface[] = [];
-
-    // selectedLocation: LocationInterface | null = null;
-
     public init() {
         this.state = sessionState.getItem(StorageKey.LocationsService);
     }
@@ -73,6 +64,15 @@ class LocationsService implements LocationsServiceInterface {
     private saveLocationsServiceState = () => {
         sessionState.setItem(StorageKey.LocationsService, this.state);
     };
+
+    private get pingsCache(): PingsCacheInterface {
+        return this.state.pingsCache;
+    }
+
+    private set pingsCache(pingsCache: PingsCacheInterface) {
+        this.state.pingsCache = pingsCache;
+        this.saveLocationsServiceState();
+    }
 
     private get locations(): LocationInterface[] {
         return this.state.locations;
