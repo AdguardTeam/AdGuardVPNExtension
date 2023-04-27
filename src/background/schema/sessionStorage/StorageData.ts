@@ -18,6 +18,7 @@ import { DNS_STATE_DEFAULTS, dnsStateScheme } from '../dns';
 import { ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS, endpointsTldExclusionsScheme } from '../proxy/endpointsTldExclusions';
 import { PERMISSIONS_CHECKER_DEFAULTS, permissionsCheckerStateScheme } from '../permissionsChecker';
 import { ENDPOINTS_STATE_DEFAULTS, endpointsStateScheme } from '../endpoints';
+import { LOCATIONS_SERVICE_STATE_DEFAULTS, locationsServiceStateScheme } from '../endpoints/locationsService';
 
 export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
@@ -33,6 +34,7 @@ export const enum StorageKey {
     EndpointsTldExclusions = 'endpointsTldExclusions',
     PermissionsChecker = 'permissionsChecker',
     Endpoints = 'endpoints',
+    LocationsService = 'locationsService',
 }
 
 export const storageDataScheme = zod.object({
@@ -49,6 +51,7 @@ export const storageDataScheme = zod.object({
     [StorageKey.EndpointsTldExclusions]: endpointsTldExclusionsScheme,
     [StorageKey.PermissionsChecker]: permissionsCheckerStateScheme,
     [StorageKey.Endpoints]: endpointsStateScheme,
+    [StorageKey.LocationsService]: locationsServiceStateScheme,
 });
 
 export type StorageData = zod.infer<typeof storageDataScheme>;
@@ -67,4 +70,5 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.EndpointsTldExclusions]: ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS,
     [StorageKey.PermissionsChecker]: PERMISSIONS_CHECKER_DEFAULTS,
     [StorageKey.Endpoints]: ENDPOINTS_STATE_DEFAULTS,
+    [StorageKey.LocationsService]: LOCATIONS_SERVICE_STATE_DEFAULTS,
 };

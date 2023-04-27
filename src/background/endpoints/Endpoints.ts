@@ -16,7 +16,7 @@ import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 // eslint-disable-next-line import/no-cycle
 import { connectivity } from '../connectivity';
 import { credentials } from '../credentials';
-import { locationsService, isMeasuringPingInProgress } from './locationsService';
+import { locationsService } from './locationsService';
 // eslint-disable-next-line import/no-cycle
 import { isVPNConnected, isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
 import type {
@@ -403,7 +403,7 @@ class Endpoints implements EndpointsInterface {
         const PINGS_WAIT_TIMEOUT_MS = 1000;
 
         // not ready yet to determine default location
-        if (!pingsCalculated && isMeasuringPingInProgress()) {
+        if (!pingsCalculated && locationsService.isMeasuringPingInProgress()) {
             await sleep(PINGS_WAIT_TIMEOUT_MS);
         }
 
