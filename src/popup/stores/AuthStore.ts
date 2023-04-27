@@ -488,6 +488,11 @@ export class AuthStore {
         await messenger.resendConfirmRegistrationLink(true);
     };
 
+    @computed
+    get shouldShowHintPopup() {
+        return this.showHintPopup && !this.showRateModal;
+    }
+
     @action setShowHintPopup = (value: boolean) => {
         this.showHintPopup = value;
     };

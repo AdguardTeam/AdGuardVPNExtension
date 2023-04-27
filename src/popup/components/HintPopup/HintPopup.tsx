@@ -10,7 +10,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 export const HintPopup = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const { showHintPopup } = authStore;
+    const { shouldShowHintPopup } = authStore;
 
     const closePopup = async () => {
         await authStore.closeHintPopup();
@@ -18,7 +18,7 @@ export const HintPopup = observer(() => {
 
     return (
         <Modal
-            isOpen={showHintPopup}
+            isOpen={shouldShowHintPopup}
             className="modal hint-popup"
             shouldCloseOnOverlayClick
             overlayClassName="modal__overlay modal__overlay--dark"

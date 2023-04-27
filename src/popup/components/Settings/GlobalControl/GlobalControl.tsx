@@ -16,7 +16,7 @@ type ButtonStates = {
 export const GlobalControl = observer(() => {
     const { settingsStore, authStore } = useContext(rootStore);
 
-    const { showHintPopup } = authStore;
+    const { shouldShowHintPopup } = authStore;
 
     const connectHandler = async (): Promise<void> => {
         await settingsStore.setProxyState(true);
@@ -31,7 +31,7 @@ export const GlobalControl = observer(() => {
     };
 
     const exclusionButtonClasses = classnames('button button--inline settings__exclusion-btn', {
-        'button--on-top': showHintPopup,
+        'button--on-top': shouldShowHintPopup,
     });
 
     const renderExclusionButton = () => {
