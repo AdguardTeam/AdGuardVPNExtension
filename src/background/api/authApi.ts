@@ -54,7 +54,7 @@ class AuthApi extends Api {
         const params = {
             email: username,
             password,
-            marketingConsent: marketingConsent.toString(),
+            marketingConsent: (!!marketingConsent).toString(),
             locale,
             clientId,
             applicationId: appId,
