@@ -723,7 +723,7 @@
         "message": "Не вдається під'єднатися до сервера"
     },
     "popup_server_error_popup_info": {
-        "message": "Швидше за все, VPN заблокували у вашій країні або стався технічний збій. Ми вже намагаємося це виправити"
+        "message": "Найімовірніше, VPN заблоковано у вашій країні або стався технічний збій. Ми вже намагаємося це виправити"
     },
     "popup_server_error_popup_action": {
         "message": "Повідомити команду AdGuard"
@@ -831,6 +831,12 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> залишилось цього місяця",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_hint_popup_content": {
+        "message": "До речі, за бажанням ви можете відключити VPN для цього сайту"
+    },
+    "popup_hint_popup_button": {
+        "message": "Зрозуміло"
     },
     "options_exclusions_import_select_title": {
         "message": "Як використовувати цей список виключень?"

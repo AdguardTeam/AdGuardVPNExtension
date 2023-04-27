@@ -832,6 +832,9 @@
         "message": "<span>%value% %unit%</span> preostalo ta mesec",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_hint_popup_button": {
+        "message": "Razumem"
+    },
     "options_exclusions_import_select_title": {
         "message": "Kako uporabljati ta seznam izključitev?"
     },
