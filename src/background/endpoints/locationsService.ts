@@ -2,15 +2,19 @@ import isEmpty from 'lodash/isEmpty';
 import { log } from '../../lib/logger';
 import { measurePingWithinLimits } from '../connectivity/pingHelpers';
 import { notifier } from '../../lib/notifier';
-import { LocationWithPing, LocationWithPingInterface } from './LocationWithPing';
+import { LocationWithPing } from './LocationWithPing';
 import { vpnProvider } from '../providers/vpnProvider';
-import { Location, LocationInterface, LocationData } from './Location';
+import { Location } from './Location';
 import { SETTINGS_IDS } from '../../lib/constants';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
-import { EndpointInterface, StorageKey } from '../schema';
+import {
+    LocationInterface,
+    EndpointInterface,
+    LocationsServiceState,
+    StorageKey,
+} from '../schema';
 import { sessionState } from '../stateStorage/stateStorage.abstract';
-import type { LocationsServiceState } from '../schema/endpoints/locationsService';
 
 export interface PingData {
     ping: number | null;
@@ -62,8 +66,12 @@ class LocationsService implements LocationsServiceInterface {
 
     // selectedLocation: LocationInterface | null = null;
 
+    public init() {
+        this.state = sessionState.getItem(StorageKey.ProxyState);
+    }
+
     private saveLocationsServiceState = () => {
-        sessionState.setItem(StorageKey.ProxyState, this.state);
+        sessionState.setItem(StorageKey.LocationsService, this.state);
     };
 
     private get locations(): LocationInterface[] {
@@ -75,11 +83,11 @@ class LocationsService implements LocationsServiceInterface {
         this.saveLocationsServiceState();
     }
 
-    private get selectedLocation(): LocationInterface[] {
+    private get selectedLocation(): LocationInterface | null {
         return this.state.selectedLocation;
     }
 
-    private set selectedLocation(selectedLocation: LocationInterface) {
+    private set selectedLocation(selectedLocation: LocationInterface | null) {
         this.state.selectedLocation = selectedLocation;
         this.saveLocationsServiceState();
     }
@@ -145,7 +153,7 @@ class LocationsService implements LocationsServiceInterface {
                 this.setLocationAvailableState(location, cachedPingData.available);
             }
             // after setting ping to location, it's type turns from LocationInterface to LocationWithPing
-            return new LocationWithPing(<LocationWithPingInterface>location);
+            return new LocationWithPing(location);
         });
     };
 
@@ -364,7 +372,7 @@ class LocationsService implements LocationsServiceInterface {
     getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => {
         const locationsData = await vpnProvider.getLocationsData(appId, vpnToken);
 
-        const locations = locationsData.map((locationData: LocationData) => {
+        const locations = locationsData.map((locationData: LocationInterface) => {
             return new Location(locationData);
         });
 

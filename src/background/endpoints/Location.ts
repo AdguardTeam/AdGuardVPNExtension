@@ -1,28 +1,7 @@
 import { Endpoint } from './Endpoint';
-import { EndpointInterface } from '../schema';
+import type { EndpointInterface, LocationData, LocationInterface } from '../schema';
 
-export interface LocationData {
-    id: string;
-    countryName: string;
-    cityName: string;
-    countryCode: string;
-    endpoints: EndpointInterface[];
-    coordinates: [
-        longitude: number,
-        latitude: number,
-    ];
-    premiumOnly: boolean;
-    pingBonus: number;
-    virtual: boolean;
-}
-
-export interface LocationInterface extends LocationData {
-    available: boolean;
-    ping: number | null;
-    endpoint: EndpointInterface | null;
-}
-
-export interface LocationWithPingInterface extends LocationInterface {
+export interface LocationWithPingInterface extends LocationData {
     ping: number;
 }
 
@@ -54,7 +33,7 @@ export class Location implements LocationInterface {
 
     endpoint: EndpointInterface | null;
 
-    constructor(locationData: LocationData) {
+    constructor(locationData: LocationInterface) {
         this.id = locationData.id;
         this.countryName = locationData.countryName;
         this.cityName = locationData.cityName;

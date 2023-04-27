@@ -25,10 +25,9 @@ import type {
     VpnExtensionInfoInterface,
     CredentialsDataInterface,
 } from '../schema';
-import type { LocationInterface } from './Location';
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../lib/constants';
-import { EndpointsState, StorageKey } from '../schema';
+import { EndpointsState, LocationInterface, StorageKey } from '../schema';
 import { sessionState } from '../sessionStorage';
 
 /**
@@ -377,7 +376,7 @@ class Endpoints implements EndpointsInterface {
             || (doesUserPreferFastestLocation && isVPNDisabled);
 
         if (!shouldSelectFasterLocation) {
-            return new LocationWithPing(<LocationWithPing>selectedLocation);
+            return new LocationWithPing(selectedLocation);
         }
 
         const locations = locationsService.getLocations();

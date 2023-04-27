@@ -1,9 +1,9 @@
 import zod from 'zod';
-import { locationInterfaceScheme } from './location';
+import { locationScheme } from './location';
 
 export const locationsServiceStateScheme = zod.object({
-    locations: locationInterfaceScheme.array(),
-    selectedLocation: locationInterfaceScheme.or(zod.null()),
+    locations: locationScheme.array(),
+    selectedLocation: locationScheme.or(zod.null()),
 });
 
 export type LocationsServiceState = zod.infer<typeof locationsServiceStateScheme>;

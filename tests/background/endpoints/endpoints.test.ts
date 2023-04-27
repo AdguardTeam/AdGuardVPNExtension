@@ -2,8 +2,8 @@ import { endpoints } from '../../../src/background/endpoints';
 import { settings } from '../../../src/background/settings';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { credentials } from '../../../src/background/credentials';
-import { Location, LocationData, LocationInterface } from '../../../src/background/endpoints/Location';
-import { LocationWithPing, LocationWithPingInterface } from '../../../src/background/endpoints/LocationWithPing';
+import { Location } from '../../../src/background/endpoints/Location';
+import { LocationWithPing } from '../../../src/background/endpoints/LocationWithPing';
 import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import { proxy } from '../../../src/background/proxy';
@@ -13,6 +13,7 @@ import type {
     EndpointInterface,
     VpnExtensionInfoInterface,
     CredentialsDataInterface,
+    LocationInterface,
 } from '../../../src/background/schema';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
@@ -145,7 +146,7 @@ describe('Endpoints', () => {
         const endpointsList = endpoints.getLocations();
         expect(endpointsList)
             .toEqual(locations.map((location) => {
-                return new LocationWithPing(new Location(location) as LocationWithPingInterface);
+                return new LocationWithPing(new Location(location));
             }));
     });
 
@@ -175,7 +176,7 @@ describe('Endpoints', () => {
     });
 
     describe('returns closest endpoint', () => {
-        const rawLocations: LocationData[] = [
+        const rawLocations: LocationInterface[] = [
             {
                 id: 'VVNfTmV3IFlvcms=',
                 cityName: 'New York',
@@ -194,7 +195,7 @@ describe('Endpoints', () => {
                         publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
                     },
                 ],
-            } as LocationData,
+            } as LocationInterface,
             {
                 id: 'SlBfVG9reW8=',
                 cityName: 'Tokyo',
@@ -220,7 +221,7 @@ describe('Endpoints', () => {
                         publicKey: 'Km7jSE/TBdD81IEXc+FrNAUjgz24BNQ8t1bQiz5w7GU=',
                     },
                 ],
-            } as LocationData,
+            } as LocationInterface,
             {
                 id: 'VVNfTWlhbWk=',
                 cityName: 'Miami',
@@ -239,7 +240,7 @@ describe('Endpoints', () => {
                         publicKey: 'ivhrodHsK9ZDd6f7HU3VaywrwN61W5DOjRjpyBZa6RM=',
                     },
                 ],
-            } as LocationData,
+            } as LocationInterface,
         ];
 
         it('returns closest location when city name is the same', () => {
@@ -261,15 +262,15 @@ describe('Endpoints', () => {
                         publicKey: 'ivhrodHsK9ZDd6f7HU3VaywrwN61W5DOjRjpyBZa6RM=',
                     },
                 ],
-            } as LocationData;
+            } as LocationInterface;
 
             const targetLocation = new Location(targetRawLocation);
             const locations = rawLocations.map((rawLocation) => new Location(rawLocation));
 
             const closestLocation = endpoints.getClosestLocation(locations, targetLocation);
 
-            expect(new LocationWithPing(closestLocation as LocationWithPingInterface))
-                .toEqual(new LocationWithPing(targetLocation as LocationWithPingInterface));
+            expect(new LocationWithPing(closestLocation))
+                .toEqual(new LocationWithPing(targetLocation));
         });
 
         it('returns closest endpoint when endpoints do not have same location', () => {
@@ -291,7 +292,7 @@ describe('Endpoints', () => {
                         publicKey: '63cR1XNVgkP3Xp0iSE/dm18tGDj4BMcl6xHWDni77A0=',
                     },
                 ],
-            } as LocationData;
+            } as LocationInterface;
 
             const locations = rawLocations.map((rawLocation) => {
                 const location = new Location(rawLocation);
@@ -326,12 +327,12 @@ describe('Endpoints', () => {
                         publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
                     },
                 ],
-            } as LocationData);
+            } as LocationInterface);
 
             expectedLocation.ping = 50;
 
-            expect(new LocationWithPing(closestLocation as LocationWithPingInterface))
-                .toEqual(new LocationWithPing(expectedLocation as LocationWithPingInterface));
+            expect(new LocationWithPing(closestLocation))
+                .toEqual(new LocationWithPing(expectedLocation));
         });
     });
 

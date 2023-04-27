@@ -1,9 +1,11 @@
+import { LocationInterface } from '../schema';
+
 export interface LocationWithPingInterface {
     id: string;
     cityName: string;
     countryName: string;
     countryCode: string;
-    ping: number;
+    ping: number | null;
     available: boolean;
     premiumOnly: boolean;
     virtual: boolean;
@@ -21,7 +23,7 @@ export class LocationWithPing implements LocationWithPingInterface {
 
     countryCode: string;
 
-    ping: number;
+    ping: number | null;
 
     available: boolean;
 
@@ -29,7 +31,7 @@ export class LocationWithPing implements LocationWithPingInterface {
 
     virtual: boolean;
 
-    constructor(location: LocationWithPingInterface) {
+    constructor(location: LocationInterface) {
         this.id = location.id;
         this.cityName = location.cityName;
         this.countryName = location.countryName;

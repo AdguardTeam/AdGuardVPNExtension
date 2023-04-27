@@ -1,5 +1,5 @@
 import { locationsService } from '../../../src/background/endpoints/locationsService';
-import { Location, LocationData } from '../../../src/background/endpoints/Location';
+import { Location } from '../../../src/background/endpoints/Location';
 import * as pingHelpers from '../../../src/background/connectivity/pingHelpers';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
@@ -56,6 +56,11 @@ describe('location service', () => {
             premiumOnly: false,
             coordinates: [-0.11, 51.5],
             endpoints: [firstEndpoint, secondEndpoint],
+            pingBonus: 100,
+            virtual: false,
+            available: true,
+            ping: null,
+            endpoint: null,
         };
 
         let disabledDomains: string[] = [];
@@ -80,7 +85,7 @@ describe('location service', () => {
                 return 50;
             });
 
-        const location = new Location(locationData as LocationData);
+        const location = new Location(locationData);
         const firstSearchResult = await locationsService.getEndpointByLocation(location);
         expect(firstSearchResult).toEqual(firstEndpoint);
         expect(location.available).toBeTruthy();

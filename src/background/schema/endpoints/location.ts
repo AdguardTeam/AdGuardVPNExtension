@@ -1,10 +1,10 @@
 import zod from 'zod';
 import { endpointInterfaceScheme } from './endpointInterface';
 
-const coordinatesScheme = zod.object({
-    longitude: zod.number(),
-    latitude: zod.number(),
-});
+// const coordinatesScheme = zod.object({
+//     longitude: zod.number(),
+//     latitude: zod.number(),
+// });
 
 export const locationDataScheme = zod.object({
     id: zod.string(),
@@ -12,7 +12,9 @@ export const locationDataScheme = zod.object({
     cityName: zod.string(),
     countryCode: zod.string(),
     endpoints: endpointInterfaceScheme.array(),
-    coordinates: coordinatesScheme.array(),
+    // coordinates: zod.array(coordinatesScheme),
+    // FIXME: remove any
+    coordinates: zod.any(),
     premiumOnly: zod.boolean(),
     pingBonus: zod.number(),
     virtual: zod.boolean(),
@@ -26,6 +28,6 @@ export const locationInterfaceScheme = zod.object({
     endpoint: endpointInterfaceScheme.or(zod.null()),
 });
 
-const locationScheme = locationDataScheme.merge(locationInterfaceScheme);
+export const locationScheme = locationDataScheme.merge(locationInterfaceScheme);
 
 export type LocationInterface = zod.infer<typeof locationScheme>;

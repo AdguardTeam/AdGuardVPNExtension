@@ -8,7 +8,7 @@ import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
 import type {
     VpnExtensionInfoInterface,
     ServicesInterface,
-    CredentialsDataInterface,
+    CredentialsDataInterface, LocationInterface,
 } from '../schema';
 
 const DEFAULT_LOCALE = 'en';
@@ -29,21 +29,6 @@ interface CurrentLocationData {
     ],
 }
 
-export interface LocationProviderData {
-    id: string;
-    cityName: string;
-    countryName: string;
-    countryCode: string;
-    coordinates: [
-        longitude: number,
-        latitude: number,
-    ],
-    premiumOnly: boolean;
-    pingBonus: number;
-    endpoints: EndpointProviderData[];
-    virtual: boolean;
-}
-
 export interface EndpointProviderData {
     id: string;
     ipv4Address: string;
@@ -62,7 +47,7 @@ export interface RequestSupportParameters {
 }
 
 export interface VpnProviderInterface {
-    getLocationsData(appId: string, vpnToken: string): Promise<LocationProviderData[]>;
+    getLocationsData(appId: string, vpnToken: string): Promise<LocationInterface[]>;
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnCredentials(
         appId: string,
@@ -92,7 +77,7 @@ export interface VpnProviderInterface {
 const getLocationsData = async (
     appId: string,
     vpnToken: string,
-): Promise<LocationProviderData[]> => {
+): Promise<LocationInterface[]> => {
     const locationsData = await vpnApi.getLocations(appId, vpnToken);
 
     const { locations = [] } = locationsData;
@@ -114,7 +99,7 @@ const getLocationsData = async (
         };
     };
 
-    const prepareLocationData = (location: LocationApiData): LocationProviderData => {
+    const prepareLocationData = (location: LocationApiData): LocationInterface => {
         const {
             city_name: cityName,
             country_code: countryCode,
@@ -128,7 +113,7 @@ const getLocationsData = async (
             virtual,
         } = location;
 
-        return {
+        return <LocationInterface> {
             id,
             cityName,
             countryCode,

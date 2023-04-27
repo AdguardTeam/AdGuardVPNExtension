@@ -163,6 +163,8 @@ export class VpnStore {
         const sortedLocations = locations
             .map(this.enrichWithStateData)
             .filter((location) => location.ping)
+            // TODO: remove ts-ignore
+            // @ts-ignore
             .sort((a, b) => a.ping - b.ping)
             .map((location) => {
                 if (this.selectedLocation && this.selectedLocation.id === location.id) {
