@@ -1,20 +1,13 @@
 import zod from 'zod';
 import { endpointInterfaceScheme } from './endpointInterface';
 
-// const coordinatesScheme = zod.object({
-//     longitude: zod.number(),
-//     latitude: zod.number(),
-// });
-
 export const locationDataScheme = zod.object({
     id: zod.string(),
     countryName: zod.string(),
     cityName: zod.string(),
     countryCode: zod.string(),
     endpoints: endpointInterfaceScheme.array(),
-    // coordinates: zod.array(coordinatesScheme),
-    // FIXME: remove any
-    coordinates: zod.any(),
+    coordinates: zod.tuple([zod.number(), zod.number()]),
     premiumOnly: zod.boolean(),
     pingBonus: zod.number(),
     virtual: zod.boolean(),

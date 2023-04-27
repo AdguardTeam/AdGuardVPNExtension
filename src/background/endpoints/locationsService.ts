@@ -14,7 +14,7 @@ import {
     LocationsServiceState,
     StorageKey,
 } from '../schema';
-import { sessionState } from '../stateStorage/stateStorage.abstract';
+import { sessionState } from '../sessionStorage';
 
 export interface PingData {
     ping: number | null;
@@ -67,7 +67,7 @@ class LocationsService implements LocationsServiceInterface {
     // selectedLocation: LocationInterface | null = null;
 
     public init() {
-        this.state = sessionState.getItem(StorageKey.ProxyState);
+        this.state = sessionState.getItem(StorageKey.LocationsService);
     }
 
     private saveLocationsServiceState = () => {

@@ -64,6 +64,7 @@ describe('Endpoints', () => {
         await sessionState.init();
         await endpointsTldExclusions.init();
         jest.clearAllMocks();
+        locationsService.init();
     });
 
     it('getEndpoints returns empty list on init', async () => {

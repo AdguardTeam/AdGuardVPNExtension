@@ -33,7 +33,7 @@ export class Location implements LocationInterface {
 
     endpoint: EndpointInterface | null;
 
-    constructor(locationData: LocationInterface) {
+    constructor(locationData: LocationData) {
         this.id = locationData.id;
         this.countryName = locationData.countryName;
         this.cityName = locationData.cityName;
