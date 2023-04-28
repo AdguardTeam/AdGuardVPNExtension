@@ -786,6 +786,9 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Nastavi besplatno"
     },
+    "popup_hint_popup_button": {
+        "message": "Shvatam"
+    },
     "options_exclusions_import_select_title": {
         "message": "Kako koristiti ovu listu izuzetaka?"
     },

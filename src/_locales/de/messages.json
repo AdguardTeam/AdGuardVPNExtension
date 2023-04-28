@@ -832,6 +832,12 @@
         "message": "Noch <span>%value% %unit%</span> in diesem Monat verfügbar",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_hint_popup_content": {
+        "message": "Übrigens, Sie können VPN für diese Website deaktivieren, wenn Sie möchten"
+    },
+    "popup_hint_popup_button": {
+        "message": "Verstanden"
+    },
     "options_exclusions_import_select_title": {
         "message": "Wie kann diese Liste der Ausschlüsse verwendet werden?"
     },

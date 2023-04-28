@@ -83,6 +83,11 @@ export enum State {
      * In this state WS is disconnected and waiting for user to press connect button or
      * extension applies enabled state saved in storage after browser or extension restart
      */
+    Idle = 'idle',
+
+    /**
+     * In this state WS is disconnected and waiting for user to press connect button
+     */
     DisconnectedIdle = 'disconnectedIdle',
 
     /**

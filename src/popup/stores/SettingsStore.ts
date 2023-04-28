@@ -249,6 +249,11 @@ export class SettingsStore {
     }
 
     @computed
+    get isIdle(): boolean {
+        return this.connectivityState.value === State.Idle;
+    }
+
+    @computed
     get isConnected(): boolean {
         return this.connectivityState.value === State.Connected;
     }
