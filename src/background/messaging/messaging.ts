@@ -26,6 +26,7 @@ import { flagsStorage } from '../flagsStorage';
 import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
+import { hintPopup } from '../hintPopup';
 
 interface Message {
     type: MessageType,
@@ -389,6 +390,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.GET_APP_VERSION: {
             return appStatus.version;
+        }
+        case MessageType.SET_HINT_POPUP_VIEWED: {
+            await hintPopup.setViewed();
+            break;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

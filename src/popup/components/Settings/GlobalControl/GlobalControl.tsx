@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
@@ -13,7 +14,9 @@ type ButtonStates = {
 };
 
 export const GlobalControl = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, authStore } = useContext(rootStore);
+
+    const { shouldShowHintPopup } = authStore;
 
     const connectHandler = async (): Promise<void> => {
         await settingsStore.setProxyState(true);
@@ -24,15 +27,20 @@ export const GlobalControl = observer(() => {
     };
 
     const disableVpnForCurrentSite = async (): Promise<void> => {
+        await authStore.closeHintPopup();
         await settingsStore.disableVpnOnCurrentTab();
     };
+
+    const exclusionButtonClasses = classnames('button button--inline settings__exclusion-btn', {
+        'button--on-top': shouldShowHintPopup,
+    });
 
     const renderExclusionButton = () => {
         return (
             <button
                 onClick={disableVpnForCurrentSite}
                 type="button"
-                className="button button--inline settings__exclusion-btn"
+                className={exclusionButtonClasses}
             >
                 {reactTranslator.getMessage('popup_settings_disable_vpn')}
             </button>

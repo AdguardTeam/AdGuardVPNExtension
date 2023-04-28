@@ -51,6 +51,7 @@ export class GlobalStore {
                 isVpnEnabledByUrl,
                 shouldShowRateModal,
                 username,
+                shouldShowHintPopup,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -77,6 +78,7 @@ export class GlobalStore {
             authStore.setUserEmail(username);
             authStore.setShouldShowRateModal(shouldShowRateModal);
             authStore.setShowConfirmEmail(!!vpnInfo?.emailConfirmationRequired);
+            authStore.setShowHintPopup(shouldShowHintPopup);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);
