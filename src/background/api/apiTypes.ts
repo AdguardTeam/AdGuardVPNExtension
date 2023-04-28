@@ -4,7 +4,7 @@ export type AuthCredentials = {
     username: string;
     password: string;
     twoFactor: string;
-    marketingConsent: boolean;
+    marketingConsent: boolean | null;
     locale: string;
     clientId: string;
     appId: string;

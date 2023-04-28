@@ -1,4 +1,3 @@
-import qs from 'qs';
 import browser from 'webextension-polyfill';
 import { AxiosResponse } from 'axios';
 
@@ -146,18 +145,14 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const language = browser.i18n.getUILanguage();
 
-        const data = {
+        const params = {
             app_id: appId,
             token: vpnToken,
             language,
             system_language: language,
         };
 
-        const config = {
-            data: qs.stringify(data),
-        };
-
-        return this.makeRequest(path, config, method);
+        return this.makeRequest(path, { params }, method);
     };
 
     GET_CURRENT_LOCATION: RequestProps = { path: 'v1/geo_location', method: 'GET' };
@@ -189,15 +184,13 @@ class VpnApi extends Api implements VpnApiInterface {
 
         const language = browser.i18n.getUILanguage();
 
-        const config = {
-            data: qs.stringify({
-                app_id: appId,
-                language,
-                system_language: language,
-            }),
+        const params = {
+            app_id: appId,
+            language,
+            system_language: language,
         };
 
-        return this.makeRequest(path, config, method);
+        return this.makeRequest(path, { params }, method);
     };
 
     SUPPORT_REQUEST: RequestProps = { path: 'v1/support', method: 'POST' };
@@ -209,7 +202,7 @@ class VpnApi extends Api implements VpnApiInterface {
             body: data,
         };
 
-        return this.makeFetchRequest(path, config, method);
+        return this.makeRequest(path, config, method);
     };
 
     GET_DESKTOP_VPN_CONNECTION_STATUS: RequestProps = { path: 'v1/vpn_connected', method: 'GET' };
@@ -237,7 +230,7 @@ class VpnApi extends Api implements VpnApiInterface {
     getExclusionServiceDomains = (servicesIds: string[]): Promise<ExclusionServiceDomainsData> => {
         const { path, method } = this.EXCLUSION_SERVICE_DOMAINS;
 
-        const servicesIdsParam = servicesIds.length > 0 ? servicesIds.join(',') : null;
+        const servicesIdsParam = servicesIds.length > 0 ? servicesIds.join(',') : '';
 
         const params = {
             service_id: servicesIdsParam,
