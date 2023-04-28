@@ -27,6 +27,7 @@ export const GlobalControl = observer(() => {
     };
 
     const disableVpnForCurrentSite = async (): Promise<void> => {
+        await authStore.closeHintPopup();
         await settingsStore.disableVpnOnCurrentTab();
     };
 
