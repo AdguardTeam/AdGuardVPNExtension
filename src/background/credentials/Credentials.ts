@@ -18,6 +18,7 @@ import {
 } from '../schema';
 import { sessionState } from '../sessionStorage';
 import { credentialsService } from './credentialsService';
+import { auth } from '../auth';
 
 export interface AccessCredentialsData {
     credentialsHash: string,
@@ -565,11 +566,15 @@ export class Credentials implements CredentialsInterface {
 
             const forceRemote = true;
 
-            // Use persisted state on extension initialisation.
-            // If it's not available, get data remotely
-            this.vpnToken = this.vpnToken || await this.gainValidVpnToken(forceRemote);
-            this.vpnCredentials = this.vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
-            this.currentUsername = this.currentUsername || await this.fetchUsername();
+            const isUserAuthenticated = await auth.isAuthenticated(false);
+
+            if (isUserAuthenticated) {
+                // Use persisted state on extension initialisation.
+                // If it's not available, get data remotely
+                this.vpnToken = this.vpnToken || await this.gainValidVpnToken(forceRemote);
+                this.vpnCredentials = this.vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
+                this.currentUsername = this.currentUsername || await this.fetchUsername();
+            }
         } catch (e) {
             log.debug('Unable to init credentials module, due to error:', e.message);
         }
