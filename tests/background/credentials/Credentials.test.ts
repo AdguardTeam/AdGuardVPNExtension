@@ -12,6 +12,12 @@ jest.mock('../../../src/background/sessionStorage', () => {
     return require('../../../src/background/stateStorage/mv2');
 });
 
+jest.mock('../../../src/background/auth', () => {
+    return {
+        isAuthenticated: () => true,
+    };
+});
+
 jest.mock('../../../src/lib/logger');
 
 const storageImplementation: { [key: string]: any } = {};

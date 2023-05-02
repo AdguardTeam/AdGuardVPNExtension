@@ -345,8 +345,8 @@ describe('Endpoints', () => {
         it('refreshes tokens and doesnt disable proxy', async () => {
             await credentials.init();
             await endpoints.refreshData();
-            expect(credentials.gainValidVpnToken).toBeCalledTimes(3);
-            expect(credentials.gainValidVpnCredentials).toBeCalledTimes(2);
+            expect(credentials.gainValidVpnToken).toBeCalledTimes(2);
+            expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
             expect(settings.disableProxy).toBeCalledTimes(0);
             expect(connectivityService.send).toBeCalledTimes(0);
         });
