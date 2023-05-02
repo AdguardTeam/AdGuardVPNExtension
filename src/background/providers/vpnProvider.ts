@@ -8,7 +8,8 @@ import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
 import type {
     VpnExtensionInfoInterface,
     ServicesInterface,
-    CredentialsDataInterface, LocationInterface,
+    CredentialsDataInterface,
+    LocationInterface,
 } from '../schema';
 
 const DEFAULT_LOCALE = 'en';
@@ -113,7 +114,7 @@ const getLocationsData = async (
             virtual,
         } = location;
 
-        return <LocationInterface> {
+        return {
             id,
             cityName,
             countryCode,

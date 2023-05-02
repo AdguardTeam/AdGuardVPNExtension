@@ -5,8 +5,8 @@ export interface LocationWithPingInterface {
     cityName: string;
     countryName: string;
     countryCode: string;
-    ping: number | null;
-    available: boolean;
+    ping?: number | null;
+    available?: boolean;
     premiumOnly: boolean;
     virtual: boolean;
 }
@@ -23,9 +23,9 @@ export class LocationWithPing implements LocationWithPingInterface {
 
     countryCode: string;
 
-    ping: number | null;
+    ping?: number | null;
 
-    available: boolean;
+    available?: boolean;
 
     premiumOnly: boolean;
 

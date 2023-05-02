@@ -54,7 +54,7 @@ export const getLocationWithLowestPing = (locations: LocationInterface[]): Locat
         const adjustedPingB = locationB.ping - locationB.pingBonus;
         return adjustedPingA - adjustedPingB;
     });
-    return <LocationInterface> sortedByPing[0];
+    return sortedByPing[0];
 };
 
 /**
