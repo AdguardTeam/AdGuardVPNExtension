@@ -69,11 +69,6 @@ class LocationsService implements LocationsServiceInterface {
         return this.state.pingsCache;
     }
 
-    private set pingsCache(pingsCache: PingsCacheInterface) {
-        this.state.pingsCache = pingsCache;
-        this.saveLocationsServiceState();
-    }
-
     private get locations(): LocationInterface[] {
         return this.state.locations;
     }
@@ -171,6 +166,9 @@ class LocationsService implements LocationsServiceInterface {
                 ...newData,
             };
         }
+
+        this.state.pingsCache = this.pingsCache;
+        this.saveLocationsServiceState();
     };
 
     /**

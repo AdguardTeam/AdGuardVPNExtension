@@ -476,8 +476,10 @@ class Endpoints implements EndpointsInterface {
             notifier.types.USER_DEAUTHENTICATED,
             this.clearVpnInfo.bind(this),
         );
-        // start getting vpn info and endpoints
-        this.getVpnInfo();
+        if (!this.vpnInfo) {
+            // start getting vpn info and endpoints
+            this.getVpnInfo();
+        }
     }
 }
 
