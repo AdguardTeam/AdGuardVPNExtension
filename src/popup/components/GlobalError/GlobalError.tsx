@@ -8,7 +8,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import './global-error.pcss';
 
 export const GlobalError = observer(() => {
-    const { settingsStore, authStore } = useContext(rootStore);
+    const { settingsStore } = useContext(rootStore);
 
     const ERROR_TYPES = {
         PERMISSION: 'permission',
@@ -22,9 +22,7 @@ export const GlobalError = observer(() => {
     };
 
     const handleTryAgain = async (): Promise<void> => {
-        if (authStore.authenticated) {
-            await settingsStore.checkPermissions();
-        }
+        await settingsStore.checkPermissions();
     };
 
     const handleLearnMore = async (): Promise<void> => {

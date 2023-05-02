@@ -9,6 +9,7 @@ import { vpnProvider } from '../providers/vpnProvider';
 import { timers } from '../timers';
 import { sessionState } from '../sessionStorage';
 import { PermissionsCheckerState, StorageKey } from '../schema';
+import { auth } from '../auth';
 
 interface PermissionsCheckerParameters {
     credentials: CredentialsInterface;
@@ -108,6 +109,11 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     };
 
     checkPermissions = async (): Promise<void> => {
+        const isUserAuthenticated = await auth.isAuthenticated(false);
+        // don't check permissions for not authenticated users
+        if (!isUserAuthenticated) {
+            return;
+        }
         try {
             // Use local fallback if there are some network problems or
             // if backend service is redeployed
