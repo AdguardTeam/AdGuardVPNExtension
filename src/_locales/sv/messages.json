@@ -260,6 +260,9 @@
     "settings_dns_edit_custom_server": {
         "message": "Redigera anpassad DNS-server"
     },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Läs mer</a> om DNS-servrar"
+    },
     "settings_dns_add_custom_server_name": {
         "message": "Servernamn"
     },

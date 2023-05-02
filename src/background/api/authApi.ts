@@ -1,5 +1,3 @@
-import qs from 'qs';
-
 import { Api } from './Api';
 import { AUTH_CLIENT_ID } from '../config';
 import { fallbackApi } from './fallbackApi';
@@ -24,7 +22,7 @@ class AuthApi extends Api {
             '2fa_token'?: string;
         };
 
-        const data: Data = {
+        const params: Data = {
             username,
             password,
             scope: 'trust',
@@ -33,14 +31,10 @@ class AuthApi extends Api {
         };
 
         if (twoFactor) {
-            data['2fa_token'] = twoFactor;
+            params['2fa_token'] = twoFactor;
         }
 
-        const config = {
-            data: qs.stringify(data),
-        };
-
-        return this.makeRequest(path, config, method);
+        return this.makeRequest(path, { params }, method);
     }
 
     REGISTER_USER: RequestProps = { path: 'api/2.0/registration', method: 'POST' };
@@ -57,34 +51,28 @@ class AuthApi extends Api {
 
         const { path, method } = this.REGISTER_USER;
 
-        const data = {
+        const params = {
             email: username,
             password,
-            marketingConsent: !!marketingConsent,
+            marketingConsent: (!!marketingConsent).toString(),
             locale,
             clientId,
             applicationId: appId,
             source: 'VPN_APPLICATION',
         };
 
-        const config = {
-            data: qs.stringify(data),
-        };
-
-        return this.makeRequest(path, config, method);
+        return this.makeRequest(path, { params }, method);
     }
 
     USER_LOOKUP: RequestProps = { path: 'api/1.0/user_lookup', method: 'POST' };
 
     userLookup(email: string, appId: string) {
         const { path, method } = this.USER_LOOKUP;
-        const config = {
-            data: qs.stringify({
-                email,
-                request_id: appId,
-            }),
+        const params = {
+            email,
+            request_id: appId,
         };
-        return this.makeRequest(path, config, method);
+        return this.makeRequest(path, { params }, method);
     }
 }
 

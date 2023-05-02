@@ -19,6 +19,7 @@ import { ENDPOINTS_TLD_EXCLUSIONS_DEFAULTS, endpointsTldExclusionsScheme } from 
 import { PERMISSIONS_CHECKER_DEFAULTS, permissionsCheckerStateScheme } from '../permissionsChecker';
 import { ENDPOINTS_STATE_DEFAULTS, endpointsStateScheme } from '../endpoints';
 import { LOCATIONS_SERVICE_STATE_DEFAULTS, locationsServiceStateScheme } from '../endpoints/locationsService';
+import { POPUP_OPENED_COUNTER_DEFAULTS, popupOpenedCounterStateScheme } from '../popupData';
 
 export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
@@ -35,6 +36,7 @@ export const enum StorageKey {
     PermissionsChecker = 'permissionsChecker',
     Endpoints = 'endpoints',
     LocationsService = 'locationsService',
+    PopupOpenedCounter = 'popupOpenedCounter',
 }
 
 export const storageDataScheme = zod.object({
@@ -52,6 +54,7 @@ export const storageDataScheme = zod.object({
     [StorageKey.PermissionsChecker]: permissionsCheckerStateScheme,
     [StorageKey.Endpoints]: endpointsStateScheme,
     [StorageKey.LocationsService]: locationsServiceStateScheme,
+    [StorageKey.PopupOpenedCounter]: popupOpenedCounterStateScheme,
 });
 
 export type StorageData = zod.infer<typeof storageDataScheme>;
@@ -71,4 +74,5 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.PermissionsChecker]: PERMISSIONS_CHECKER_DEFAULTS,
     [StorageKey.Endpoints]: ENDPOINTS_STATE_DEFAULTS,
     [StorageKey.LocationsService]: LOCATIONS_SERVICE_STATE_DEFAULTS,
+    [StorageKey.PopupOpenedCounter]: POPUP_OPENED_COUNTER_DEFAULTS,
 };

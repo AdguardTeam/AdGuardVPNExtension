@@ -501,7 +501,7 @@
         "message": "Вручную"
     },
     "settings_exclusion_add_manually_add": {
-        "message": "Добавить вручную"
+        "message": "Добавить"
     },
     "settings_exclusions_add_invalid_domain": {
         "message": "«%url%» — некорректный домен. Вы хотите добавить его в список?"
@@ -831,6 +831,12 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> осталось в этом месяце",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_hint_popup_content": {
+        "message": "VPN можно отключить для конкретного сайта — на остальных он продолжит работать"
+    },
+    "popup_hint_popup_button": {
+        "message": "Хорошо"
     },
     "options_exclusions_import_select_title": {
         "message": "Как использовать этот список исключений?"

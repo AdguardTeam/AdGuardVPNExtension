@@ -27,6 +27,7 @@ import { logStorage } from '../lib/log-storage';
 import { fallbackApi } from './api/fallbackApi';
 import { flagsStorage } from './flagsStorage';
 import { browserApi } from './browserApi';
+import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 import { locationsService } from './endpoints/locationsService';
 
 import './rateModal';
@@ -98,6 +99,7 @@ if (!browserApi.runtime.isManifestVersion2()) {
             contextMenu.init();
         }
         browserActionIcon.init();
+        popupOpenedCounter.init();
         const initDoneDate = Number(new Date());
         log.info(`Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
     } catch (e) {

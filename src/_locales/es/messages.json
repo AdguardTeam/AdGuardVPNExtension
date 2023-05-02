@@ -832,6 +832,12 @@
         "message": "<span>%value% %unit%</span> restantes este mes",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_hint_popup_content": {
+        "message": "Por cierto, puede desactivar VPN para este sitio si lo desea"
+    },
+    "popup_hint_popup_button": {
+        "message": "Entiendo"
+    },
     "options_exclusions_import_select_title": {
         "message": "¿Cómo utilizar esta lista de exclusiones?"
     },
