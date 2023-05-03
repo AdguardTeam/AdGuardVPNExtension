@@ -114,7 +114,7 @@ const getLocationsData = async (
             virtual,
         } = location;
 
-        return <LocationInterface> {
+        return {
             id,
             cityName,
             countryCode,
