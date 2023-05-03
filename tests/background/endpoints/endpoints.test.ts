@@ -14,6 +14,7 @@ import type {
     VpnExtensionInfoInterface,
     CredentialsDataInterface,
     LocationInterface,
+    LocationData,
 } from '../../../src/background/schema';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
@@ -177,7 +178,7 @@ describe('Endpoints', () => {
     });
 
     describe('returns closest endpoint', () => {
-        const rawLocations: LocationInterface[] = [
+        const rawLocations: LocationData[] = [
             {
                 id: 'VVNfTmV3IFlvcms=',
                 cityName: 'New York',
@@ -196,7 +197,10 @@ describe('Endpoints', () => {
                         publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
                     },
                 ],
-            } as LocationInterface,
+                premiumOnly: false,
+                pingBonus: 0,
+                virtual: false,
+            },
             {
                 id: 'SlBfVG9reW8=',
                 cityName: 'Tokyo',
@@ -222,7 +226,10 @@ describe('Endpoints', () => {
                         publicKey: 'Km7jSE/TBdD81IEXc+FrNAUjgz24BNQ8t1bQiz5w7GU=',
                     },
                 ],
-            } as LocationInterface,
+                premiumOnly: false,
+                pingBonus: 0,
+                virtual: false,
+            },
             {
                 id: 'VVNfTWlhbWk=',
                 cityName: 'Miami',
@@ -241,11 +248,14 @@ describe('Endpoints', () => {
                         publicKey: 'ivhrodHsK9ZDd6f7HU3VaywrwN61W5DOjRjpyBZa6RM=',
                     },
                 ],
-            } as LocationInterface,
+                premiumOnly: false,
+                pingBonus: 0,
+                virtual: false,
+            },
         ];
 
         it('returns closest location when city name is the same', () => {
-            const targetRawLocation = {
+            const targetRawLocation: LocationData = {
                 id: 'VVNfTWlhbWk=',
                 cityName: 'Miami',
                 countryCode: 'US',
@@ -263,7 +273,10 @@ describe('Endpoints', () => {
                         publicKey: 'ivhrodHsK9ZDd6f7HU3VaywrwN61W5DOjRjpyBZa6RM=',
                     },
                 ],
-            } as LocationInterface;
+                premiumOnly: false,
+                pingBonus: 0,
+                virtual: false,
+            };
 
             const targetLocation = new Location(targetRawLocation);
             const locations = rawLocations.map((rawLocation) => new Location(rawLocation));
@@ -275,7 +288,7 @@ describe('Endpoints', () => {
         });
 
         it('returns closest endpoint when endpoints do not have same location', () => {
-            const targetRawLocation = {
+            const targetRawLocation: LocationData = {
                 id: 'VVNfU2lsaWNvbiBWYWxsZXk=',
                 cityName: 'Silicon Valley',
                 countryCode: 'US',
@@ -293,7 +306,10 @@ describe('Endpoints', () => {
                         publicKey: '63cR1XNVgkP3Xp0iSE/dm18tGDj4BMcl6xHWDni77A0=',
                     },
                 ],
-            } as LocationInterface;
+                premiumOnly: false,
+                pingBonus: 0,
+                virtual: false,
+            };
 
             const locations = rawLocations.map((rawLocation) => {
                 const location = new Location(rawLocation);
@@ -328,7 +344,10 @@ describe('Endpoints', () => {
                         publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
                     },
                 ],
-            } as LocationInterface);
+                premiumOnly: false,
+                pingBonus: 0,
+                virtual: false,
+            });
 
             expectedLocation.ping = 50;
 
