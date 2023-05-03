@@ -3,7 +3,7 @@ import {
     formatBytes,
     getLocationWithLowestPing,
 } from '../../src/lib/helpers';
-import { LocationInterface } from '../../src/background/endpoints/Location';
+import { LocationInterface } from '../../src/background/schema';
 
 describe('lazyGet callback', () => {
     const expectedColor = 'blue';

@@ -16,7 +16,7 @@ import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 // eslint-disable-next-line import/no-cycle
 import { connectivity } from '../connectivity';
 import { credentials } from '../credentials';
-import { locationsService, isMeasuringPingInProgress } from './locationsService';
+import { locationsService } from './locationsService';
 // eslint-disable-next-line import/no-cycle
 import { isVPNConnected, isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
 import type {
@@ -25,10 +25,9 @@ import type {
     VpnExtensionInfoInterface,
     CredentialsDataInterface,
 } from '../schema';
-import type { LocationInterface } from './Location';
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../lib/constants';
-import { EndpointsState, StorageKey } from '../schema';
+import { EndpointsState, LocationInterface, StorageKey } from '../schema';
 import { sessionState } from '../sessionStorage';
 
 /**
@@ -377,7 +376,7 @@ class Endpoints implements EndpointsInterface {
             || (doesUserPreferFastestLocation && isVPNDisabled);
 
         if (!shouldSelectFasterLocation) {
-            return new LocationWithPing(<LocationWithPing>selectedLocation);
+            return new LocationWithPing(selectedLocation);
         }
 
         const locations = locationsService.getLocations();
@@ -403,7 +402,7 @@ class Endpoints implements EndpointsInterface {
         const PINGS_WAIT_TIMEOUT_MS = 1000;
 
         // not ready yet to determine default location
-        if (!pingsCalculated && isMeasuringPingInProgress()) {
+        if (!pingsCalculated && locationsService.isMeasuringPingInProgress()) {
             await sleep(PINGS_WAIT_TIMEOUT_MS);
         }
 
@@ -477,8 +476,10 @@ class Endpoints implements EndpointsInterface {
             notifier.types.USER_DEAUTHENTICATED,
             this.clearVpnInfo.bind(this),
         );
-        // start getting vpn info and endpoints
-        this.getVpnInfo();
+        if (!this.vpnInfo) {
+            // start getting vpn info and endpoints
+            this.getVpnInfo();
+        }
     }
 }
 

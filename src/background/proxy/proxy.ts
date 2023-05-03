@@ -10,8 +10,7 @@ import { notifier } from '../../lib/notifier';
 import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
-import type { LocationInterface } from '../endpoints/Location';
-import type { EndpointInterface } from '../schema';
+import type { EndpointInterface, LocationInterface } from '../schema';
 import { sessionState } from '../sessionStorage';
 import {
     ProxyConfigInterface,

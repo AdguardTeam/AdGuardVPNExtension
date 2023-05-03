@@ -28,6 +28,7 @@ import { fallbackApi } from './api/fallbackApi';
 import { flagsStorage } from './flagsStorage';
 import { browserApi } from './browserApi';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
+import { locationsService } from './endpoints/locationsService';
 
 import './rateModal';
 import './networkConnectionObserver';
@@ -87,6 +88,7 @@ if (!browserApi.runtime.isManifestVersion2()) {
         await credentials.init();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
+        await locationsService.init();
         await settings.init();
         await exclusions.init();
         await endpointsTldExclusions.init();

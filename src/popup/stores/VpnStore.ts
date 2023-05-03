@@ -163,7 +163,7 @@ export class VpnStore {
         const sortedLocations = locations
             .map(this.enrichWithStateData)
             .filter((location) => location.ping)
-            .sort((a, b) => a.ping - b.ping)
+            .sort((a, b) => Number(a.ping) - Number(b.ping))
             .map((location) => {
                 if (this.selectedLocation && this.selectedLocation.id === location.id) {
                     return { ...location, selected: true };
@@ -259,7 +259,7 @@ export class VpnStore {
     }
 
     @computed
-    get selectedLocationPing(): number | null {
+    get selectedLocationPing(): number | null | undefined {
         if (!this.locations) {
             return null;
         }
@@ -274,7 +274,7 @@ export class VpnStore {
             return this.selectedLocation?.ping;
         }
 
-        let ping: number | null = currentLocation?.ping;
+        let ping: number | null | undefined = currentLocation?.ping;
         // update with fresh values from pings storage
         if (this.pings[selectedLocationId]) {
             ping = this.pings[selectedLocationId].ping;
