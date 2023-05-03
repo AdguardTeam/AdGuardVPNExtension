@@ -14,9 +14,15 @@ class Mv3Timers implements TimersInterface {
         return parseInt(id, 10);
     }
 
+    /**
+     * Converts milliseconds to minutes
+     * @param time
+     */
+    convertMsToMin = (time: number): number => time / (1000 * 60);
+
     setTimeout = (callback: () => void, timeout: number): number => {
         const timerId = this.generateId();
-        alarmApi.createAlarm(`${timerId}`, timeout);
+        alarmApi.createAlarm(`${timerId}`, this.convertMsToMin(timeout));
         alarmApi.onAlarmFires(`${timerId}`, callback);
         return timerId;
     };
@@ -27,7 +33,7 @@ class Mv3Timers implements TimersInterface {
 
     setInterval = (callback: () => void, interval: number): number => {
         const timerId = this.generateId();
-        alarmApi.createPeriodicAlarm(`${timerId}`, interval);
+        alarmApi.createPeriodicAlarm(`${timerId}`, this.convertMsToMin(interval));
         alarmApi.onAlarmFires(`${timerId}`, callback);
         return timerId;
     };
