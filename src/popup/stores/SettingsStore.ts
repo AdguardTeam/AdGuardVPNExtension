@@ -27,7 +27,7 @@ type StateType = {
 };
 
 export class SettingsStore {
-    @observable canControlProxy: boolean = false;
+    @observable canControlProxy: boolean = true;
 
     @observable isCurrentTabExcluded: boolean;
 
