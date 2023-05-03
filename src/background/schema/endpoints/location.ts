@@ -16,9 +16,9 @@ export const locationDataScheme = zod.object({
 export type LocationData = zod.infer<typeof locationDataScheme>;
 
 export const locationInterfaceScheme = zod.object({
-    available: zod.boolean(),
-    ping: zod.number().or(zod.null()),
-    endpoint: endpointInterfaceScheme.or(zod.null()),
+    available: zod.boolean().optional(),
+    ping: zod.number().or(zod.null()).optional(),
+    endpoint: endpointInterfaceScheme.or(zod.null()).optional(),
 });
 
 export const locationScheme = locationDataScheme.merge(locationInterfaceScheme);
