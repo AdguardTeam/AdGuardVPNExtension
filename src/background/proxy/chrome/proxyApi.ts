@@ -126,11 +126,9 @@ async function triggerOnAuthRequired() {
  * @param config - proxy config
  */
 const proxySet = async (config: ProxyConfigInterface): Promise<void> => {
-    removeOnAuthRequiredListener();
     const chromeConfig = convertToChromeConfig(config);
     await promisifiedSetProxy(chromeConfig);
     globalProxyConfig = config;
-    addOnAuthRequiredListener();
     await triggerOnAuthRequired();
 };
 
@@ -159,6 +157,8 @@ const proxyApi = {
     proxyGet,
     proxyClear,
     onProxyError,
+    addOnAuthRequiredListener,
+    removeOnAuthRequiredListener,
 };
 
 export default proxyApi;

@@ -29,6 +29,8 @@ import { flagsStorage } from './flagsStorage';
 import { browserApi } from './browserApi';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 import { locationsService } from './endpoints/locationsService';
+import proxyApi from './proxy/chrome/proxyApi';
+import { Prefs, BROWSER_NAMES } from './prefs';
 
 import './rateModal';
 import './networkConnectionObserver';
@@ -67,6 +69,12 @@ if (!browserApi.runtime.isManifestVersion2()) {
     // because popup should be able to wake up the service worker
     messaging.init();
     contextMenu.init();
+
+    // FIXME: add listener for all required browsers (edge, opera, etc.)
+    if (Prefs.browser === BROWSER_NAMES.CHROME) {
+        proxyApi.removeOnAuthRequiredListener();
+        proxyApi.addOnAuthRequiredListener();
+    }
 }
 
 (async () => {
