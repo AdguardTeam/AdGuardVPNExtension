@@ -69,12 +69,12 @@ if (!browserApi.runtime.isManifestVersion2()) {
     // because popup should be able to wake up the service worker
     messaging.init();
     contextMenu.init();
+}
 
-    // FIXME: add listener for all required browsers (edge, opera, etc.)
-    if (Prefs.browser === BROWSER_NAMES.CHROME) {
-        proxyApi.removeOnAuthRequiredListener();
-        proxyApi.addOnAuthRequiredListener();
-    }
+// FIXME: add listener for all required browsers (edge, opera, etc.)
+if (Prefs.browser === BROWSER_NAMES.CHROME) {
+    proxyApi.removeOnAuthRequiredListener();
+    proxyApi.addOnAuthRequiredListener();
 }
 
 (async () => {
