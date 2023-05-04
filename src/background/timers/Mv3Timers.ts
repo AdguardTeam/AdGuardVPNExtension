@@ -2,6 +2,9 @@ import { customAlphabet } from 'nanoid';
 
 import { alarmApi } from './alarmApi';
 import { TimersInterface } from './AbstractTimers';
+import { log } from '../../lib/logger';
+
+const MINIMAL_INTERVAL_MIN = 1;
 
 /**
  * Implements timers interface via Alarm API to be used in MV3.
@@ -45,12 +48,20 @@ class Mv3Timers implements TimersInterface {
 
     /**
      * setInterval implementation
+     * note, that in Alarm API interval cannot be less than 1 minute (60000 ms)
+     * https://developer.chrome.com/docs/extensions/reference/alarms/#method-create
      * @param callback
      * @param interval in ms
      */
     setInterval = (callback: () => void, interval: number): number => {
         const timerId = this.generateId();
-        alarmApi.createPeriodicAlarm(`${timerId}`, this.convertMsToMin(interval));
+
+        const intervalMinutes = this.convertMsToMin(interval);
+        if (intervalMinutes < MINIMAL_INTERVAL_MIN) {
+            throw new Error('The interval can\'t be less than 1 minute');
+        }
+
+        alarmApi.createPeriodicAlarm(`${timerId}`, intervalMinutes);
         alarmApi.onAlarmFires(`${timerId}`, callback);
         return timerId;
     };
