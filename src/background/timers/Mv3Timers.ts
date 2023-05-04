@@ -22,9 +22,21 @@ class Mv3Timers implements TimersInterface {
 
     /**
      * Converts milliseconds to minutes
-     * @param time
+     * @param timeMs
      */
-    convertMsToMin = (time: number): number => time / (1000 * 60);
+    convertMsToMin = (timeMs: number): number => {
+        let timeMin = timeMs / (1000 * 60);
+
+        // Interval cannot be less than 1 minute in Alarm API.
+        // https://developer.chrome.com/docs/extensions/reference/alarms/#method-create
+        // So if converted time is less than 1 minute, we round it to the 1
+        if (timeMin < MINIMAL_INTERVAL_MIN) {
+            log.warn('Alarm API interval can\'t be less than 1 minute, so it was rounded to 1');
+            timeMin = MINIMAL_INTERVAL_MIN;
+        }
+
+        return timeMin;
+    };
 
     /**
      * setTimeout implementation
@@ -48,20 +60,12 @@ class Mv3Timers implements TimersInterface {
 
     /**
      * setInterval implementation
-     * note, that in Alarm API interval cannot be less than 1 minute (60000 ms)
-     * https://developer.chrome.com/docs/extensions/reference/alarms/#method-create
      * @param callback
      * @param interval in ms
      */
     setInterval = (callback: () => void, interval: number): number => {
         const timerId = this.generateId();
-
-        const intervalMinutes = this.convertMsToMin(interval);
-        if (intervalMinutes < MINIMAL_INTERVAL_MIN) {
-            throw new Error('The interval can\'t be less than 1 minute');
-        }
-
-        alarmApi.createPeriodicAlarm(`${timerId}`, intervalMinutes);
+        alarmApi.createPeriodicAlarm(`${timerId}`, this.convertMsToMin(interval));
         alarmApi.onAlarmFires(`${timerId}`, callback);
         return timerId;
     };
