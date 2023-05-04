@@ -23,7 +23,7 @@ export class LocationWithPing implements LocationWithPingInterface {
 
     countryCode: string;
 
-    ping: number | null;
+    ping?: number | null;
 
     available?: boolean;
 
@@ -36,7 +36,7 @@ export class LocationWithPing implements LocationWithPingInterface {
         this.cityName = location.cityName;
         this.countryName = location.countryName;
         this.countryCode = location.countryCode;
-        this.ping = location.ping || null;
+        this.ping = location.ping;
         this.available = location.available;
         this.premiumOnly = location.premiumOnly;
         this.virtual = location.virtual;
