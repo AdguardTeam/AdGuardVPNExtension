@@ -259,7 +259,7 @@ export class VpnStore {
     }
 
     @computed
-    get selectedLocationPing(): number | null | undefined {
+    get selectedLocationPing(): number | null {
         if (!this.locations) {
             return null;
         }
@@ -271,10 +271,10 @@ export class VpnStore {
 
         // return selected location ping if it's missing from locations list (AG-3184)
         if (!currentLocation) {
-            return this.selectedLocation?.ping;
+            return this.selectedLocation?.ping || null;
         }
 
-        let ping: number | null | undefined = currentLocation?.ping;
+        let ping: number | null = currentLocation?.ping || null;
         // update with fresh values from pings storage
         if (this.pings[selectedLocationId]) {
             ping = this.pings[selectedLocationId].ping;
