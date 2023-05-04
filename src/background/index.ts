@@ -35,6 +35,7 @@ import { Prefs, BROWSER_NAMES } from './prefs';
 import './rateModal';
 import './networkConnectionObserver';
 import './uninstall';
+import { notifier } from '../lib/notifier';
 
 declare global {
     module globalThis {
@@ -73,8 +74,10 @@ if (!browserApi.runtime.isManifestVersion2()) {
 
 // FIXME: add listener for all required browsers (edge, opera, etc.)
 if (Prefs.browser === BROWSER_NAMES.CHROME) {
-    proxyApi.removeOnAuthRequiredListener();
-    proxyApi.addOnAuthRequiredListener();
+    notifier.addSpecifiedListener(
+        notifier.types.PROXY_SETTINGS_UPDATED,
+        () => proxyApi.addOnAuthRequiredListener(),
+    );
 }
 
 (async () => {

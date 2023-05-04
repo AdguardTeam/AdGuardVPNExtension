@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import pacGenerator from './pacGenerator';
 import { ProxyConfigInterface } from '../../schema';
 import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
+import { notifier } from '../../../lib/notifier';
 
 /**
  * Returns proxy config
@@ -126,9 +127,11 @@ async function triggerOnAuthRequired() {
  * @param config - proxy config
  */
 const proxySet = async (config: ProxyConfigInterface): Promise<void> => {
+    removeOnAuthRequiredListener();
     const chromeConfig = convertToChromeConfig(config);
     await promisifiedSetProxy(chromeConfig);
     globalProxyConfig = config;
+    notifier.notifyListeners(notifier.types.PROXY_SETTINGS_UPDATED);
     await triggerOnAuthRequired();
 };
 
@@ -158,7 +161,6 @@ const proxyApi = {
     proxyClear,
     onProxyError,
     addOnAuthRequiredListener,
-    removeOnAuthRequiredListener,
 };
 
 export default proxyApi;
