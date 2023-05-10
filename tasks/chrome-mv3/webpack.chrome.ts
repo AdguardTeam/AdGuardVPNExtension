@@ -40,16 +40,6 @@ const plugins = [
                 to: 'manifest.json',
                 transform: (content: Buffer) => updateManifest(content, chromeManifestDiff),
             },
-            {
-                context: 'src',
-                from: './offscreen/offscreen.js',
-                to: 'offscreen.js',
-            },
-            {
-                context: 'src',
-                from: './offscreen/offscreen.html',
-                to: 'offscreen.html',
-            },
         ],
     }),
     new ZipWebpackPlugin({
