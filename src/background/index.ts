@@ -29,10 +29,10 @@ import { flagsStorage } from './flagsStorage';
 import { browserApi } from './browserApi';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 import { locationsService } from './endpoints/locationsService';
-import { networkConnectionObserver } from './networkConnectionObserver';
 
 import './rateModal';
 import './uninstall';
+import './networkConnectionObserver';
 
 declare global {
     module globalThis {
@@ -67,7 +67,6 @@ if (!browserApi.runtime.isManifestVersion2()) {
     // because popup should be able to wake up the service worker
     messaging.init();
     contextMenu.init();
-    networkConnectionObserver.init();
 }
 
 (async () => {

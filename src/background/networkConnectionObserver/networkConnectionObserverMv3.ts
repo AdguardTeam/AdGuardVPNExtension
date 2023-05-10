@@ -1,10 +1,7 @@
-import browser from 'webextension-polyfill';
-
 import { log } from '../../lib/logger';
 import { permissionsChecker } from '../permissionsChecker';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { Event } from '../connectivity/connectivityService/connectivityConstants';
-import { offscreenService, OffscreenMessages } from '../offscreenService';
 
 /**
  * Module observes network state
@@ -13,24 +10,36 @@ import { offscreenService, OffscreenMessages } from '../offscreenService';
  * 2. Sends event to connectivity service FSM, to try to reconnect
  */
 export class NetworkConnectionObserver {
+    private CHECK_ONLINE_INTERVAL_MS = 500;
+
+    private isOnline: boolean;
+
     constructor() {
-        browser.runtime.onMessage.addListener(this.handleMessages);
+        this.isOnline = navigator.onLine;
+        this.startCheckIsOnline();
     }
 
-    async init() {
-        await offscreenService.createOffscreenDocument();
+    private startCheckIsOnline() {
+        setInterval(() => {
+            this.setIsOnline(navigator.onLine);
+        }, this.CHECK_ONLINE_INTERVAL_MS);
     }
 
-    handleMessages = async (message: any) => {
-        if (message.type === OffscreenMessages.NetworkOnline) {
-            log.debug('Browser switched to online mode');
-
-            // always when connection is online we should check permissions
-            await permissionsChecker.checkPermissions();
-
-            // send event to WS connectivity service
-            connectivityService.send(Event.NetworkOnline);
+    private setIsOnline(isOnline: boolean) {
+        if (isOnline && !this.isOnline) {
+            this.onlineHandler();
         }
+        this.isOnline = isOnline;
+    }
+
+    private onlineHandler = async () => {
+        log.debug('Browser switched to online mode');
+
+        // always when connection is online we should check permissions
+        await permissionsChecker.checkPermissions();
+
+        // send event to WS connectivity service
+        connectivityService.send(Event.NetworkOnline);
     };
 }
 
