@@ -29,12 +29,26 @@ const plugins = [
         // eslint-disable-next-line no-param-reassign
         resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
     })),
+    new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv3');
+    })),
     new CopyWebpackPlugin({
         patterns: [
             {
                 from: path.resolve(__dirname, '../manifest.common.json'),
                 to: 'manifest.json',
                 transform: (content: Buffer) => updateManifest(content, chromeManifestDiff),
+            },
+            {
+                context: 'src',
+                from: './offscreen/offscreen.js',
+                to: 'offscreen.js',
+            },
+            {
+                context: 'src',
+                from: './offscreen/offscreen.html',
+                to: 'offscreen.html',
             },
         ],
     }),

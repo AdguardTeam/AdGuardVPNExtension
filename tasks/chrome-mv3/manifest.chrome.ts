@@ -20,6 +20,7 @@ export const chromeManifestDiff = {
     permissions: [
         'alarms',
         'webRequestAuthProvider',
+        'offscreen',
     ],
     host_permissions: [
         '<all_urls>',
