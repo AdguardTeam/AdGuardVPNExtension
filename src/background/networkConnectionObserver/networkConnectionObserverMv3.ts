@@ -3,6 +3,11 @@ import { permissionsChecker } from '../permissionsChecker';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { Event } from '../connectivity/connectivityService/connectivityConstants';
 
+// TODO: fix NetworkConnectionObserver implementation:
+//  listen for the online event, when it will be fixed in mv3,
+//  instead of using setInterval to check navigator.onLine
+//  https://bugs.chromium.org/p/chromium/issues/detail?id=1442046#c7
+
 /**
  * Module observes network state
  * When network connection becomes online it (module)
