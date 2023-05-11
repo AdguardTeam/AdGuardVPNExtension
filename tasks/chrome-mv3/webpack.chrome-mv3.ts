@@ -6,7 +6,7 @@ import ZipWebpackPlugin from 'zip-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
-import { chromeManifestDiff } from './manifest.chrome';
+import { chromeManifestDiff } from './manifest.chrome-mv3';
 import {
     STAGE_ENV,
     IS_DEV,

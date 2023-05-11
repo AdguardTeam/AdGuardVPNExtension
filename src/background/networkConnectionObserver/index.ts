@@ -1,3 +1,7 @@
+// !IMPORTANT!
+// './networkConnectionObserverAbstract' will be replaced during webpack compilation
+// with NormalModuleReplacementPlugin to proper browser implementation
+// from './networkConnectionObserverMv2' or './networkConnectionObserverMv3'
 import { NetworkConnectionObserver } from './networkConnectionObserverAbstract';
 import { log } from '../../lib/logger';
 import { permissionsChecker } from '../permissionsChecker';
