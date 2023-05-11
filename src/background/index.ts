@@ -33,7 +33,6 @@ import { locationsService } from './endpoints/locationsService';
 import './rateModal';
 import './networkConnectionObserver';
 import './uninstall';
-// import './wakeupService';
 
 declare global {
     module globalThis {
