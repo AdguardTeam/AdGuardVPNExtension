@@ -33,6 +33,7 @@ import { locationsService } from './endpoints/locationsService';
 import './rateModal';
 import './networkConnectionObserver';
 import './uninstall';
+// import './wakeupService';
 
 declare global {
     module globalThis {
@@ -67,6 +68,8 @@ if (!browserApi.runtime.isManifestVersion2()) {
     // because popup should be able to wake up the service worker
     messaging.init();
     contextMenu.init();
+    // eslint-disable-next-line global-require
+    require('./wakeupService');
 }
 
 (async () => {

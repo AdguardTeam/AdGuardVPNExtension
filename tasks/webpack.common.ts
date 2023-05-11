@@ -21,6 +21,7 @@ const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
+const SW_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/swWaker.js');
 const THANKYOU_PAGE_AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/thankYouPageAuth.js');
 const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'options/preloadTheme.ts');
 const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
@@ -47,6 +48,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             options: OPTIONS_PATH,
             popup: POPUP_PATH,
             auth: AUTH_SCRIPT,
+            swWaker: SW_SCRIPT,
             thankYouPageAuth: THANKYOU_PAGE_AUTH_SCRIPT,
             preloadTheme: PRELOAD_THEME_SCRIPT,
             export: EXPORT_PATH,
