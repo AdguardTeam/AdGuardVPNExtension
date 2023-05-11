@@ -24,12 +24,18 @@ export class NetworkConnectionObserver {
         this.startCheckIsOnline();
     }
 
+    /**
+     * Starts checking if the network connection is online at a specified time interval.
+     */
     private startCheckIsOnline() {
         setInterval(() => {
             this.setIsOnline(navigator.onLine);
         }, this.CHECK_ONLINE_INTERVAL_MS);
     }
 
+    /**
+     * Calls handler if network connection become online and sets isOnline value.
+     */
     private setIsOnline(isOnline: boolean) {
         if (isOnline && !this.isOnline) {
             this.onlineHandler();
@@ -37,6 +43,11 @@ export class NetworkConnectionObserver {
         this.isOnline = isOnline;
     }
 
+    /**
+     * Handles the event when the browser switches to online mode:
+     * checks permissions and sends event to connectivity service FSM,
+     * to try to reconnect
+     */
     private onlineHandler = async () => {
         log.debug('Browser switched to online mode');
 
