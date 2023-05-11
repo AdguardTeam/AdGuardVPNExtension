@@ -1,25 +1,20 @@
-import { log } from '../../lib/logger';
-import { permissionsChecker } from '../permissionsChecker';
-import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
-import { Event } from '../connectivity/connectivityService/connectivityConstants';
-
 // TODO: fix NetworkConnectionObserver implementation:
 //  listen for the online event, when it will be fixed in mv3,
 //  instead of using setInterval to check navigator.onLine
 //  https://bugs.chromium.org/p/chromium/issues/detail?id=1442046#c7
 
 /**
- * Module observes network state
- * When network connection becomes online it (module)
- * 1. Checks permissions
- * 2. Sends event to connectivity service FSM, to try to reconnect
+ * Class observes network state
  */
 export class NetworkConnectionObserver {
-    private CHECK_ONLINE_INTERVAL_MS = 500;
+    private readonly CHECK_ONLINE_INTERVAL_MS = 500;
+
+    private readonly onlineHandler: () => Promise<void>;
 
     private isOnline: boolean;
 
-    constructor() {
+    constructor(callback: () => Promise<void>) {
+        this.onlineHandler = callback;
         this.isOnline = navigator.onLine;
         this.startCheckIsOnline();
     }
@@ -34,7 +29,7 @@ export class NetworkConnectionObserver {
     }
 
     /**
-     * Calls handler if network connection become online and sets isOnline value.
+     * Calls handler if network connection becomes online and sets isOnline value.
      */
     private setIsOnline(isOnline: boolean) {
         if (isOnline && !this.isOnline) {
@@ -42,21 +37,4 @@ export class NetworkConnectionObserver {
         }
         this.isOnline = isOnline;
     }
-
-    /**
-     * Handles the event when the browser switches to online mode:
-     * checks permissions and sends event to connectivity service FSM,
-     * to try to reconnect
-     */
-    private onlineHandler = async () => {
-        log.debug('Browser switched to online mode');
-
-        // always when connection is online we should check permissions
-        await permissionsChecker.checkPermissions();
-
-        // send event to WS connectivity service
-        connectivityService.send(Event.NetworkOnline);
-    };
 }
-
-export const networkConnectionObserver = new NetworkConnectionObserver();
