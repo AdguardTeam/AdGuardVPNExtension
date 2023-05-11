@@ -27,7 +27,7 @@ export const chromeManifestDiff = {
     content_scripts: [
         {
             matches: ['<all_urls>'],
-            js: ['swWaker.js'],
+            js: ['serviceWorkerWakeUp.js'],
             run_at: 'document_start',
         },
     ],

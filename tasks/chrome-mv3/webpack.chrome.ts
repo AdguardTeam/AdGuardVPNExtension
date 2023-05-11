@@ -10,6 +10,7 @@ import { chromeManifestDiff } from './manifest.chrome';
 import {
     STAGE_ENV,
     IS_DEV,
+    SRC_PATH,
     StageEnv,
     Browser,
 } from '../consts';
@@ -18,11 +19,16 @@ const CHROME_PATH = 'chrome-mv3';
 
 let zipFilename = 'chrome-mv3.zip';
 
+const SERVICE_WORKER_WAKEUP_SCRIPT = path.resolve(__dirname, '..', SRC_PATH, 'content-scripts/serviceWorkerWakeUp.js');
+
 if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'chrome-mv3-prod.zip';
 }
 
 const commonConfig = getCommonConfig(Browser.ChromeMV3);
+
+// @ts-ignore
+commonConfig.entry.serviceWorkerWakeUp = SERVICE_WORKER_WAKEUP_SCRIPT;
 
 const plugins = [
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
