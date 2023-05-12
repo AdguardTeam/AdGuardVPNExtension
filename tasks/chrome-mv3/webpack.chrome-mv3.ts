@@ -6,7 +6,7 @@ import ZipWebpackPlugin from 'zip-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
-import { chromeManifestDiff } from './manifest.chrome';
+import { chromeManifestDiff } from './manifest.chrome-mv3';
 import {
     STAGE_ENV,
     IS_DEV,
@@ -28,6 +28,10 @@ const plugins = [
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
         resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
+    })),
+    new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv3');
     })),
     new CopyWebpackPlugin({
         patterns: [

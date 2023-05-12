@@ -31,8 +31,8 @@ import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 import { locationsService } from './endpoints/locationsService';
 
 import './rateModal';
-import './networkConnectionObserver';
 import './uninstall';
+import './networkConnectionObserver';
 
 declare global {
     module globalThis {
