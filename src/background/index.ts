@@ -29,6 +29,7 @@ import { flagsStorage } from './flagsStorage';
 import { browserApi } from './browserApi';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 import { locationsService } from './endpoints/locationsService';
+import { wakeupService } from './wakeupService';
 
 import './rateModal';
 import './uninstall';
@@ -67,6 +68,7 @@ if (!browserApi.runtime.isManifestVersion2()) {
     // because popup should be able to wake up the service worker
     messaging.init();
     contextMenu.init();
+    wakeupService.init();
 }
 
 (async () => {

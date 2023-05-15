@@ -24,4 +24,11 @@ export const chromeManifestDiff = {
     host_permissions: [
         '<all_urls>',
     ],
+    content_scripts: [
+        {
+            matches: ['<all_urls>'],
+            js: ['serviceWorkerWakeUp.js'],
+            run_at: 'document_start',
+        },
+    ],
 };
