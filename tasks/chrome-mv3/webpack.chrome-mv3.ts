@@ -1,4 +1,4 @@
-import webpack, { Plugin } from 'webpack';
+import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -30,7 +30,7 @@ const commonConfig = getCommonConfig(Browser.ChromeMV3);
 // @ts-ignore
 commonConfig.entry.serviceWorkerWakeUp = SERVICE_WORKER_WAKEUP_SCRIPT;
 
-const plugins = [
+const plugins: webpack.WebpackPluginInstance[] = [
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
         resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
@@ -51,8 +51,8 @@ const plugins = [
     new ZipWebpackPlugin({
         path: '../',
         filename: zipFilename,
-    }),
-] as unknown as Plugin[];
+    }) as unknown as webpack.WebpackPluginInstance,
+];
 
 const outputPath = commonConfig.output?.path;
 

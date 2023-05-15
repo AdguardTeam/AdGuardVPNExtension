@@ -42,6 +42,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
         optimization: {
             minimize: false,
         },
+        cache: true,
         entry: {
             background: BACKGROUND_PATH,
             options: OPTIONS_PATH,
@@ -56,7 +57,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             filename: '[name].js',
         },
         resolve: {
-            extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
+            extensions: ['.*', '.js', '.jsx', '.ts', '.tsx'],
         },
 
         module: {
@@ -80,7 +81,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 {
                     test: /\.(ts|js)x?$/,
                     exclude: /node_modules/,
-                    use: ['cache-loader', { loader: 'babel-loader', options: { babelrc: true } }],
+                    use: [{ loader: 'babel-loader', options: { babelrc: true } }],
                 },
                 {
                     test: /\.(css|pcss)$/,
@@ -92,7 +93,6 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                             options: {
                                 importLoaders: 1,
                                 modules: {
-                                    compileType: 'module',
                                     mode: 'local',
                                     auto: true,
                                     exportGlobals: false,
@@ -107,9 +107,10 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 },
                 {
                     test: /\.(woff|woff2|eot|ttf|otf)$/,
-                    use: [
-                        { loader: 'file-loader', options: { outputPath: 'assets' } },
-                    ],
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'assets/[name][ext]',
+                    },
                 },
             ],
         },

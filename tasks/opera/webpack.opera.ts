@@ -1,4 +1,4 @@
-import webpack, { Plugin } from 'webpack';
+import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -28,7 +28,7 @@ if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
 
 const commonConfig = getCommonConfig(Browser.Opera);
 
-const plugins = [
+const plugins: webpack.WebpackPluginInstance[] = [
     // TODO: on move to MV3 inject Mv3Timers
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
@@ -56,8 +56,8 @@ const plugins = [
     new ZipWebpackPlugin({
         path: '../',
         filename: zipFilename,
-    }),
-] as unknown as Plugin[];
+    }) as unknown as webpack.WebpackPluginInstance,
+];
 
 const outputPath = commonConfig.output?.path;
 
