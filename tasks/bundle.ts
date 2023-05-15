@@ -4,7 +4,7 @@ import webpack from 'webpack';
 
 import { bundleRunner } from './bundle-runner';
 import { chromeConfig } from './chrome/webpack.chrome';
-import { chromeConfigMV3 } from './chrome-mv3/webpack.chrome';
+import { chromeConfigMV3 } from './chrome-mv3/webpack.chrome-mv3';
 import { firefoxConfig } from './firefox/webpack.firefox';
 import { operaConfig } from './opera/webpack.opera';
 import { edgeConfig } from './edge/webpack.edge';
