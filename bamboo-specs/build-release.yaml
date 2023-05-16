@@ -73,7 +73,7 @@ Build:
       required: true
     - name: chrome-mv3.zip
       location: build/release
-      pattern: chrome.zip
+      pattern: chrome-mv3.zip
       shared: true
       required: true
     - name: opera.zip
