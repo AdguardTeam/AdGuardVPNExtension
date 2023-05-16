@@ -4,7 +4,7 @@ import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { credentials } from '../../../src/background/credentials';
 import { Location } from '../../../src/background/endpoints/Location';
 import { LocationWithPing } from '../../../src/background/endpoints/LocationWithPing';
-import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
+import { connectivityService } from '../../../src/background/connectivity/connectivityService';
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import { proxy } from '../../../src/background/proxy';
 import { endpointsTldExclusions } from '../../../src/background/proxy/endpointsTldExclusions';
@@ -26,7 +26,7 @@ jest.mock('../../../src/background/sessionStorage', () => {
 });
 
 jest.mock('../../../src/background/settings');
-jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
+jest.mock('../../../src/background/connectivity/connectivityService');
 jest.mock('../../../src/lib/notifier');
 jest.mock('../../../src/background/notifications');
 jest.mock('../../../src/background/providers/vpnProvider');

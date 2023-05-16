@@ -21,7 +21,7 @@ import { tabs } from '../tabs';
 import { RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
 import accountProvider from '../providers/accountProvider';
 import { logStorage } from '../../lib/log-storage';
-import { setDesktopVpnEnabled } from '../connectivity/connectivityService/connectivityFSM';
+import { connectivityService } from '../connectivity/connectivityService';
 import { flagsStorage } from '../flagsStorage';
 import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
@@ -344,7 +344,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.SET_DESKTOP_VPN_ENABLED: {
             const { status } = data;
-            setDesktopVpnEnabled(status);
+            connectivityService.setDesktopVpnEnabled(status);
             break;
         }
         case MessageType.OPEN_PREMIUM_PROMO_PAGE: {

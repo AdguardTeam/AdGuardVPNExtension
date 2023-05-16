@@ -8,7 +8,7 @@ import { PreparedTab, tabs } from './tabs';
 import { isHttp } from '../lib/string-utils';
 import { auth } from './auth';
 import { locationsService } from './endpoints/locationsService';
-import { isVPNConnected } from './connectivity/connectivityService/connectivityFSM';
+import { connectivityService } from './connectivity/connectivityService';
 import { log } from '../lib/logger';
 
 class BrowserActionIcon {
@@ -39,7 +39,7 @@ class BrowserActionIcon {
             return;
         }
 
-        if (!isVPNConnected()) {
+        if (!connectivityService.isVPNConnected()) {
             await actions.setIconDisabled(id);
             await actions.clearBadgeText(id);
             return;

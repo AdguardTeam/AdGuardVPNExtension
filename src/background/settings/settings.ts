@@ -11,8 +11,7 @@ import {
 import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
 import { webrtc } from '../browserApi/webrtc';
-import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
-import { Event } from '../connectivity/connectivityService/connectivityConstants';
+import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
 import type { DnsServerData, PersistedExclusions } from '../schema';
 
 export interface SettingsInterface {
@@ -98,7 +97,7 @@ const disableProxy = async (force?: boolean): Promise<void> => {
         return;
     }
 
-    connectivityService.send(Event.DisconnectBtnPressed);
+    connectivityService.send(ConnectivityEventType.DisconnectBtnPressed);
 };
 
 const enableProxy = async (force?: boolean): Promise<void> => {
@@ -108,7 +107,7 @@ const enableProxy = async (force?: boolean): Promise<void> => {
         return;
     }
 
-    connectivityService.send(Event.ConnectBtnPressed);
+    connectivityService.send(ConnectivityEventType.ConnectBtnPressed);
 };
 
 /**
@@ -135,7 +134,7 @@ const applySettings = (): void => {
 
     // Connect proxy
     if (proxyEnabled) {
-        connectivityService.send(Event.ExtensionLaunched);
+        connectivityService.send(ConnectivityEventType.ExtensionLaunched);
     }
 
     log.info('Settings were applied');

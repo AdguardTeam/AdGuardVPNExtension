@@ -48,7 +48,7 @@ const VPN_TOKEN_DATA = {
 
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/settings');
-jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
+jest.mock('../../../src/background/connectivity/connectivityService');
 
 jest.mock('../../../src/background/browserApi', () => {
     // eslint-disable-next-line global-require

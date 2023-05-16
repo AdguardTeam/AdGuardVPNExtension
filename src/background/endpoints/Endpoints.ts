@@ -17,8 +17,7 @@ import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 import { connectivity } from '../connectivity';
 import { credentials } from '../credentials';
 import { locationsService } from './locationsService';
-// eslint-disable-next-line import/no-cycle
-import { isVPNConnected, isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
+import { connectivityService } from '../connectivity/connectivityService';
 import type {
     EndpointInterface,
     VpnTokenData,
@@ -65,13 +64,10 @@ export interface EndpointsInterface {
  * Endpoints manages endpoints, vpn, current location information.
  */
 class Endpoints implements EndpointsInterface {
-    state: EndpointsState;
+    #state: EndpointsState | undefined;
 
-    constructor() {
-        notifier.addSpecifiedListener(
-            notifier.types.SHOULD_REFRESH_TOKENS,
-            this.refreshData,
-        );
+    private get isInit(): boolean {
+        return typeof this.#state !== 'undefined';
     }
 
     private get vpnInfo(): VpnExtensionInfoInterface | null {
@@ -81,6 +77,23 @@ class Endpoints implements EndpointsInterface {
     private set vpnInfo(vpnInfo: VpnExtensionInfoInterface | null) {
         this.state.vpnInfo = vpnInfo;
         sessionState.setItem(StorageKey.Endpoints, this.state);
+    }
+
+    public get state(): EndpointsState {
+        if (!this.#state) {
+            throw new Error('Endpoints API is not initialized');
+        }
+
+        return this.#state;
+    }
+
+    public set state(value: EndpointsState) {
+        this.#state = value;
+    }
+
+    constructor() {
+        this.refreshData = this.refreshData.bind(this);
+        this.clearVpnInfo = this.clearVpnInfo.bind(this);
     }
 
     /**
@@ -126,7 +139,7 @@ class Endpoints implements EndpointsInterface {
     async updateSelectedLocation(): Promise<void> {
         const updatedLocation = locationsService.updateSelectedLocation();
         // reconnect to endpoint if selected location was updated
-        if (isVPNConnected() && updatedLocation?.endpoint) {
+        if (connectivityService.isVPNConnected() && updatedLocation?.endpoint) {
             await this.reconnectEndpoint(updatedLocation.endpoint, updatedLocation);
         }
     }
@@ -332,10 +345,15 @@ class Endpoints implements EndpointsInterface {
     };
 
     /**
-     * Returns vpn info cached value and launches remote vpn info getting
+     * Returns vpn info cached value and launches remote vpn info getting.
+     *
+     * Note: If the mv3 sw is woken up by a popup click,
+     * this method can be called before the service is initialized.
      */
     getVpnInfo = async (): Promise<VpnExtensionInfoInterface | null> => {
-        if (this.vpnInfo) {
+        // We check isInit first, because the vpnInfo getter
+        // will throw an error if the service is not initialized.
+        if (this.isInit && this.vpnInfo) {
             // no await here in order to return cached vpnInfo
             // and launch function with promise execution
             this.getVpnInfoRemotely().catch((e) => {
@@ -344,7 +362,8 @@ class Endpoints implements EndpointsInterface {
             return this.vpnInfo;
         }
 
-        let vpnInfo;
+        let vpnInfo: VpnExtensionInfoInterface | null | undefined;
+
         try {
             vpnInfo = await this.getVpnInfoRemotely();
         } catch (e) {
@@ -367,7 +386,7 @@ class Endpoints implements EndpointsInterface {
 
     getSelectedLocation = async (): Promise<LocationWithPing | null> => {
         const selectedLocation = await locationsService.getSelectedLocation();
-        const isVPNDisabled = isVPNDisconnectedIdle();
+        const isVPNDisabled = connectivityService.isVPNDisconnectedIdle();
         const doesUserPreferFastestLocation = settings.getQuickConnectSetting() === QuickConnectSetting.FastestLocation;
 
         // If there is no selected location or user prefers the fastest location and vpn is disabled
@@ -471,11 +490,18 @@ class Endpoints implements EndpointsInterface {
 
     init(): void {
         this.state = sessionState.getItem(StorageKey.Endpoints);
+
+        notifier.addSpecifiedListener(
+            notifier.types.SHOULD_REFRESH_TOKENS,
+            this.refreshData,
+        );
+
         // Clear vpn info on deauthentication in order to set correct vpn info after next login
         notifier.addSpecifiedListener(
             notifier.types.USER_DEAUTHENTICATED,
-            this.clearVpnInfo.bind(this),
+            this.clearVpnInfo,
         );
+
         if (!this.vpnInfo) {
             // start getting vpn info and endpoints
             this.getVpnInfo();

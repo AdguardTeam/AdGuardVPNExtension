@@ -1,3 +1,4 @@
+import { connectivityService } from '../../../src/background/connectivity/connectivityService';
 import { Location } from '../../../src/background/endpoints/Location';
 import * as pingHelpers from '../../../src/background/connectivity/pingHelpers';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
@@ -30,6 +31,7 @@ global.chrome = {
 describe('location service', () => {
     beforeEach(async () => {
         await sessionState.init();
+        connectivityService.start();
         locationsService.init();
     });
     it('by default it tries to connect to previously selected endpoint', async () => {
