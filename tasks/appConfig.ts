@@ -95,7 +95,7 @@ export const genAppConfig = (browserType: string, stageEnv?: string, buildingEnv
         throw new Error('No building environment was provided');
     }
     // api urls are same for the Chrome mv2 and mv3 versions,
-    const browser = browserType === Browser.ChromeMV3 ? Browser.Chrome : browserType;
+    const browser = browserType === Browser.ChromeMV2 ? Browser.Chrome : browserType;
 
     const urlsMapByBrowser = URLS_MAP[buildingEnv] || URLS_MAP[Env.Release];
     const browserConf = urlsMapByBrowser[browser];

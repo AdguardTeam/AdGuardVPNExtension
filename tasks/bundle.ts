@@ -4,7 +4,7 @@ import webpack from 'webpack';
 
 import { bundleRunner } from './bundle-runner';
 import { chromeConfig } from './chrome/webpack.chrome';
-import { chromeConfigMV3 } from './chrome-mv3/webpack.chrome-mv3';
+import { chromeConfigMV2 } from './chrome-mv2/webpack.chrome-mv2';
 import { firefoxConfig } from './firefox/webpack.firefox';
 import { operaConfig } from './opera/webpack.opera';
 import { edgeConfig } from './edge/webpack.edge';
@@ -21,7 +21,7 @@ const createBundle = async (config: webpack.Configuration, watch: boolean): Prom
 
 const buildAllBrowsers = async (): Promise<void> => {
     await createBundle(chromeConfig, program.watch);
-    await createBundle(chromeConfigMV3, program.watch);
+    await createBundle(chromeConfigMV2, program.watch);
     await createBundle(firefoxConfig, program.watch);
     await createBundle(operaConfig, program.watch);
     await createBundle(edgeConfig, program.watch);
@@ -32,16 +32,16 @@ program
 
 program
     .command(Browser.Chrome)
-    .description('Builds extension for chrome browser with manifest version 2')
+    .description('Builds extension for chrome browser with manifest version 3')
     .action(() => {
         createBundle(chromeConfig, program.watch);
     });
 
 program
-    .command(Browser.ChromeMV3)
-    .description('Builds extension for chrome browser with manifest version 3')
+    .command(Browser.ChromeMV2)
+    .description('Builds extension for chrome browser with manifest version 2')
     .action(() => {
-        createBundle(chromeConfigMV3, program.watch);
+        createBundle(chromeConfigMV2, program.watch);
     });
 
 program

@@ -17,8 +17,6 @@ const {
     CHROME_UPDATE_CRX,
     CHROME_UPDATER_FILENAME,
     CRX_NAME,
-    CRX_MV3_NAME,
-    MV3,
 } = require('./consts');
 const { updateManifest } = require('./helpers');
 const packageJson = require('../package.json');
@@ -61,9 +59,8 @@ const createXml = async (crx: any) => {
     log(chalk.greenBright(`${CHROME_UPDATER_FILENAME} saved to ${WRITE_PATH}\n`));
 };
 
-const generateChromeFiles = async (isMV3: boolean) => {
-    const loadPath = path.resolve(WRITE_PATH, isMV3 ? Browser.ChromeMV3 : Browser.Chrome);
-    const crxName = isMV3 ? CRX_MV3_NAME : CRX_NAME;
+const generateChromeFiles = async () => {
+    const loadPath = path.resolve(WRITE_PATH, Browser.Chrome);
     const manifestPath = path.resolve(loadPath, MANIFEST_NAME);
 
     try {
@@ -82,7 +79,7 @@ const generateChromeFiles = async (isMV3: boolean) => {
         await fs.writeFile(manifestPath, updatedManifest);
 
         const loadedFile = await crx.load(loadPath);
-        await createCrx(loadedFile, crxName);
+        await createCrx(loadedFile, CRX_NAME);
         await createXml(crx);
 
         // Delete from the chrome manifest `update_url` property
@@ -97,18 +94,10 @@ const generateChromeFiles = async (isMV3: boolean) => {
     }
 };
 
-let isMV3 = false;
-
 program
-    .command(MV3)
-    .action(() => {
-        isMV3 = true;
-    });
-
-program
-    .description('By default builds for manifest version 2')
+    .description('Builds for manifest version 3')
     .action(() => {});
 
 program.parse(process.argv);
 
-generateChromeFiles(isMV3);
+generateChromeFiles();
