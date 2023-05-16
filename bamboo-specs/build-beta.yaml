@@ -108,7 +108,7 @@ Build:
       required: true
     - name: chrome-mv3.crx
       location: build/beta
-      pattern: chrome.crx
+      pattern: chrome-mv3.crx
       shared: true
       required: true
     - name: update.xml
