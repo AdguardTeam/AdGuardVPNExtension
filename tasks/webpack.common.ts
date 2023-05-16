@@ -128,7 +128,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
                 } else if (browser === Browser.Chrome
-                    || browser === Browser.ChromeMV3
+                    || browser === Browser.ChromeMV2
                     || browser === Browser.Edge
                     || browser === Browser.Opera) {
                     // eslint-disable-next-line no-param-reassign
@@ -138,7 +138,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 }
             })),
             new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\/stateStorage\.abstract/, ((resource: any) => {
-                if (browser === Browser.ChromeMV3) {
+                if (browser === Browser.Chrome) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/stateStorage\/stateStorage\.abstract/, './stateStorage/mv3');
                 } else {
@@ -172,7 +172,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                                 updateLocales,
                                 process.env.BUILD_ENV,
                                 ' for Chrome',
-                                (browser === Browser.Chrome || browser === Browser.ChromeMV3)
+                                (browser === Browser.Chrome || browser === Browser.ChromeMV2)
                                     && path.includes(EN_MESSAGES_PATH),
                             );
                         },

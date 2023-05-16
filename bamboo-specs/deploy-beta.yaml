@@ -20,12 +20,10 @@ Chrome WebStore:
         artifacts:
           - name: edge.zip
           - name: chrome.zip
-          - name: chrome-mv3.zip
           - name: opera.zip
           - name: firefox.zip
           - name: build.txt
           - name: chrome.crx
-          - name: chrome-mv3.crx
           - name: update.xml
     - script:
         interpreter: SHELL
@@ -64,12 +62,10 @@ static.adguardvpn.com:
         artifacts:
           - name: edge.zip
           - name: chrome.zip
-          - name: chrome-mv3.zip
           - name: opera.zip
           - name: firefox.zip
           - name: build.txt
           - name: chrome.crx
-          - name: chrome-mv3.crx
           - name: update.xml
           # temporary disable xpi and update.json
           # - name: firefox.xpi
@@ -111,12 +107,10 @@ GitHub:
         artifacts:
           - name: edge.zip
           - name: chrome.zip
-          - name: chrome-mv3.zip
           - name: opera.zip
           - name: firefox.zip
           - name: build.txt
           - name: chrome.crx
-          - name: chrome-mv3.crx
           - name: update.xml
           # temporary disable xpi and update.json
           # - name: firefox.xpi

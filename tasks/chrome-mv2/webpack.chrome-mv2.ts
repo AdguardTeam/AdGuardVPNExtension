@@ -3,41 +3,39 @@ import { merge } from 'webpack-merge';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
-import { chromeManifestDiff } from './manifest.chrome-mv3';
+import { chromeManifestDiff } from './manifest.chrome-mv2';
 import {
     STAGE_ENV,
     IS_DEV,
-    SRC_PATH,
     StageEnv,
     Browser,
+    SRC_PATH,
 } from '../consts';
 
-const CHROME_PATH = 'chrome-mv3';
+const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
-let zipFilename = 'chrome-mv3.zip';
+const CHROME_PATH = 'chrome-mv2';
 
-const SERVICE_WORKER_WAKEUP_SCRIPT = path.resolve(__dirname, '..', SRC_PATH, 'content-scripts/serviceWorkerWakeUp.js');
+let zipFilename = 'chrome-mv2.zip';
 
 if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
-    zipFilename = 'chrome-mv3-prod.zip';
+    zipFilename = 'chrome-mv2-prod.zip';
 }
 
-const commonConfig = getCommonConfig(Browser.ChromeMV3);
-
-// @ts-ignore
-commonConfig.entry.serviceWorkerWakeUp = SERVICE_WORKER_WAKEUP_SCRIPT;
+const commonConfig = getCommonConfig(Browser.ChromeMV2);
 
 const plugins: webpack.WebpackPluginInstance[] = [
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
     })),
     new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv3');
+        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv2');
     })),
     new CopyWebpackPlugin({
         patterns: [
@@ -47,6 +45,12 @@ const plugins: webpack.WebpackPluginInstance[] = [
                 transform: (content: Buffer) => updateManifest(content, chromeManifestDiff),
             },
         ],
+    }),
+    new HtmlWebpackPlugin({
+        template: path.join(BACKGROUND_PATH, 'index.html'),
+        filename: 'background.html',
+        chunks: ['background'],
+        cache: false,
     }),
     new ZipWebpackPlugin({
         path: '../',
@@ -67,4 +71,4 @@ const chromeDiffConfig = {
     plugins,
 };
 
-export const chromeConfigMV3 = merge(commonConfig, chromeDiffConfig);
+export const chromeConfigMV2 = merge(commonConfig, chromeDiffConfig);
