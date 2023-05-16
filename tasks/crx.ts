@@ -61,7 +61,7 @@ const createXml = async (crx: any) => {
     log(chalk.greenBright(`${CHROME_UPDATER_FILENAME} saved to ${WRITE_PATH}\n`));
 };
 
-const generateChromeFiles = async (isMV3: boolean) => {
+const generateChromeFiles = async (isMV3: boolean = false) => {
     const loadPath = path.resolve(WRITE_PATH, isMV3 ? Browser.ChromeMV3 : Browser.Chrome);
     const crxName = isMV3 ? CRX_MV3_NAME : CRX_NAME;
     const manifestPath = path.resolve(loadPath, MANIFEST_NAME);
@@ -97,7 +97,7 @@ const generateChromeFiles = async (isMV3: boolean) => {
     }
 };
 
-let isMV3 = false;
+let isMV3 = true;
 
 program
     .command(MV3)
@@ -111,4 +111,8 @@ program
 
 program.parse(process.argv);
 
+// generate for mv2 by default
+generateChromeFiles();
+
+// generate for mv3
 generateChromeFiles(isMV3);

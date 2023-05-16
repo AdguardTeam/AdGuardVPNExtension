@@ -86,6 +86,11 @@ Build:
       pattern: chrome.zip
       shared: true
       required: true
+    - name: chrome-mv3.zip
+      location: build/beta
+      pattern: chrome-mv3.zip
+      shared: true
+      required: true
     - name: opera.zip
       location: build/beta
       pattern: opera.zip
@@ -97,6 +102,11 @@ Build:
       shared: true
       required: true
     - name: chrome.crx
+      location: build/beta
+      pattern: chrome.crx
+      shared: true
+      required: true
+    - name: chrome-mv3.crx
       location: build/beta
       pattern: chrome.crx
       shared: true
