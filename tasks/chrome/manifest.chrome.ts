@@ -1,5 +1,4 @@
 export const chromeManifestDiff = {
-    name: '__MSG_name__ MV3',
     manifest_version: 3,
     minimum_chrome_version: '66.0',
     options_page: 'options.html',
