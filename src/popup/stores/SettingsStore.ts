@@ -16,7 +16,7 @@ import {
     AnimationState,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
-import { State } from '../../background/connectivity/connectivityService/connectivityConstants';
+import { ConnectivityStateType } from '../../background/schema';
 import { getHostname, getProtocol } from '../../common/url-utils';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { PromoNotificationData } from '../../background/promoNotifications';
@@ -250,32 +250,32 @@ export class SettingsStore {
 
     @computed
     get isIdle(): boolean {
-        return this.connectivityState.value === State.Idle;
+        return this.connectivityState.value === ConnectivityStateType.Idle;
     }
 
     @computed
     get isConnected(): boolean {
-        return this.connectivityState.value === State.Connected;
+        return this.connectivityState.value === ConnectivityStateType.Connected;
     }
 
     @computed
     get isDisconnectedIdle(): boolean {
-        return this.connectivityState.value === State.DisconnectedIdle;
+        return this.connectivityState.value === ConnectivityStateType.DisconnectedIdle;
     }
 
     @computed
     get isConnectingIdle(): boolean {
-        return this.connectivityState.value === State.ConnectingIdle;
+        return this.connectivityState.value === ConnectivityStateType.ConnectingIdle;
     }
 
     @computed
     get isDisconnectedRetrying(): boolean {
-        return this.connectivityState.value === State.DisconnectedRetrying;
+        return this.connectivityState.value === ConnectivityStateType.DisconnectedRetrying;
     }
 
     @computed
     get isConnectingRetrying(): boolean {
-        return this.connectivityState.value === State.ConnectingRetrying;
+        return this.connectivityState.value === ConnectivityStateType.ConnectingRetrying;
     }
 
     @action setDesktopVpnEnabled = (status: boolean): void => {
@@ -344,15 +344,15 @@ export class SettingsStore {
     };
 
     @action updateAnimationState = (state: StateType): void => {
-        if (state.value === State.Connected) {
+        if (state.value === ConnectivityStateType.Connected) {
             animationService.send(AnimationEvent.VpnConnected);
             return;
         }
-        if (state.value === State.DisconnectedIdle) {
+        if (state.value === ConnectivityStateType.DisconnectedIdle) {
             animationService.send(AnimationEvent.VpnDisconnected);
             return;
         }
-        if (state.value === State.DisconnectedRetrying) {
+        if (state.value === ConnectivityStateType.DisconnectedRetrying) {
             animationService.send(AnimationEvent.VpnDisconnectedRetrying);
         }
     };

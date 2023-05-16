@@ -8,10 +8,12 @@ import { log } from '../../../lib/logger';
 import { dns } from '../../dns';
 import { sendPingMessage } from '../pingHelpers';
 import { webrtc } from '../../browserApi/webrtc';
-import { Event, MIN_CONNECTION_DURATION_MS } from '../connectivityService/connectivityConstants';
 import { sleepIfNecessary } from '../../../lib/helpers';
-// eslint-disable-next-line import/no-cycle
-import { connectivityService } from '../connectivityService/connectivityFSM';
+import {
+    connectivityService,
+    ConnectivityEventType,
+    MIN_CONNECTION_DURATION_MS,
+} from '../connectivityService';
 // eslint-disable-next-line import/no-cycle
 import { credentials } from '../../credentials';
 import { notifications } from '../../notifications';
@@ -126,7 +128,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         webrtc.unblockWebRTC();
 
         await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
-        connectivityService.send(Event.WsClose);
+        connectivityService.send(ConnectivityEventType.WsClose);
     };
 
     handleWebsocketOpen = async (): Promise<void> => {
@@ -142,7 +144,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         if (!averagePing) {
             log.error('Was unable to send ping message');
             await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
-            connectivityService.send(Event.ConnectionFail);
+            connectivityService.send(ConnectivityEventType.ConnectionFail);
             return;
         }
 
@@ -154,13 +156,13 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         } catch (e) {
             // we can't connect to the proxy because other extensions are controlling it
             // stop trying to connect
-            connectivityService.send(Event.ProxyConnectionError);
+            connectivityService.send(ConnectivityEventType.ProxyConnectionError);
             log.error('Error occurred on proxy turn on:', e.message);
             return;
         }
         webrtc.blockWebRTC();
         await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
-        connectivityService.send(Event.ConnectionSuccess);
+        connectivityService.send(ConnectivityEventType.ConnectionSuccess);
     };
 
     /**
@@ -177,7 +179,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         await proxy.turnOff();
         webrtc.unblockWebRTC();
         await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
-        connectivityService.send(Event.WsError);
+        connectivityService.send(ConnectivityEventType.WsError);
     };
 
     isWebsocketConnectionOpen = (): boolean => {
@@ -298,7 +300,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         }
         if (code === ErrorCode.TooManyDevicesConnected) {
             notifier.notifyListeners(notifier.types.TOO_MANY_DEVICES_CONNECTED, payload);
-            connectivityService.send(Event.TooManyDevicesConnected);
+            connectivityService.send(ConnectivityEventType.TooManyDevicesConnected);
         }
         if (code === ErrorCode.TrafficLimitReached) {
             await notifications.create({

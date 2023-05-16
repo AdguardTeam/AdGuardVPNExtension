@@ -9,3 +9,4 @@ export * from './auth';
 export * from './dns';
 export * from './permissionsChecker';
 export * from './popupData';
+export * from './connectivity';

@@ -5,8 +5,7 @@
 import { NetworkConnectionObserver } from './networkConnectionObserverAbstract';
 import { log } from '../../lib/logger';
 import { permissionsChecker } from '../permissionsChecker';
-import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
-import { Event } from '../connectivity/connectivityService/connectivityConstants';
+import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
 
 /**
  * Handler when network connection becomes online.
@@ -20,7 +19,7 @@ const onlineHandler = async (): Promise<void> => {
     await permissionsChecker.checkPermissions();
 
     // send event to WS connectivity service
-    connectivityService.send(Event.NetworkOnline);
+    connectivityService.send(ConnectivityEventType.NetworkOnline);
 };
 
 export const networkConnectionObserver = new NetworkConnectionObserver(onlineHandler);

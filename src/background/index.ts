@@ -30,6 +30,7 @@ import { browserApi } from './browserApi';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 import { locationsService } from './endpoints/locationsService';
 import { wakeupService } from './wakeupService';
+import { connectivityService } from './connectivity/connectivityService';
 
 import './rateModal';
 import './uninstall';
@@ -76,6 +77,7 @@ if (!browserApi.runtime.isManifestVersion2()) {
     try {
         const initStartDate = Number(new Date());
         await sessionState.init();
+        connectivityService.start();
         await proxy.init();
 
         if (browserApi.runtime.isManifestVersion2()) {

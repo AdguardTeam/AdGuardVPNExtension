@@ -20,6 +20,7 @@ import { PERMISSIONS_CHECKER_DEFAULTS, permissionsCheckerStateScheme } from '../
 import { ENDPOINTS_STATE_DEFAULTS, endpointsStateScheme } from '../endpoints';
 import { LOCATIONS_SERVICE_STATE_DEFAULTS, locationsServiceStateScheme } from '../endpoints/locationsService';
 import { POPUP_OPENED_COUNTER_DEFAULTS, popupOpenedCounterStateScheme } from '../popupData';
+import { CONNECTIVITY_DATA_DEFAULTS, connectivityDataScheme } from '../connectivity/data';
 
 export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
@@ -37,6 +38,7 @@ export const enum StorageKey {
     Endpoints = 'endpoints',
     LocationsService = 'locationsService',
     PopupOpenedCounter = 'popupOpenedCounter',
+    ConnectivityData = 'connectivityData',
 }
 
 export const storageDataScheme = zod.object({
@@ -55,6 +57,7 @@ export const storageDataScheme = zod.object({
     [StorageKey.Endpoints]: endpointsStateScheme,
     [StorageKey.LocationsService]: locationsServiceStateScheme,
     [StorageKey.PopupOpenedCounter]: popupOpenedCounterStateScheme,
+    [StorageKey.ConnectivityData]: connectivityDataScheme,
 });
 
 export type StorageData = zod.infer<typeof storageDataScheme>;
@@ -75,4 +78,5 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.Endpoints]: ENDPOINTS_STATE_DEFAULTS,
     [StorageKey.LocationsService]: LOCATIONS_SERVICE_STATE_DEFAULTS,
     [StorageKey.PopupOpenedCounter]: POPUP_OPENED_COUNTER_DEFAULTS,
+    [StorageKey.ConnectivityData]: CONNECTIVITY_DATA_DEFAULTS,
 };

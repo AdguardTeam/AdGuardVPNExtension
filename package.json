@@ -105,7 +105,7 @@
         "style-loader": "^2.0.0",
         "tmp-promise": "^3.0.2",
         "ts-node": "^10.4.0",
-        "typescript": "^4.5.4",
+        "typescript": "^5.0.4",
         "web-ext": "^6.6.0",
         "webpack": "^5.82.1",
         "webpack-cli": "^5.1.1",
@@ -139,7 +139,7 @@
         "react-transition-group": "^4.4.1",
         "tldts": "^5.6.59",
         "webextension-polyfill": "^0.9.0",
-        "xstate": "^4.13.0",
+        "xstate": "^4.37.2",
         "zod": "^3.21.4"
     }
 }

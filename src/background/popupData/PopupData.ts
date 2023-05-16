@@ -2,8 +2,7 @@ import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
 
 import { log } from '../../lib/logger';
-import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
-import { State as ConnectivityState } from '../connectivity/connectivityService/connectivityConstants';
+import { connectivityService } from '../connectivity/connectivityService';
 import { PromoNotificationData, promoNotifications } from '../promoNotifications';
 import { auth } from '../auth';
 import { settings } from '../settings';
@@ -20,7 +19,7 @@ import { PermissionsCheckerInterface } from '../permissionsChecker/PermissionsCh
 import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { NonRoutableServiceInterface } from '../routability/NonRoutableService';
-import type { VpnExtensionInfoInterface } from '../schema';
+import type { VpnExtensionInfoInterface, ConnectivityStateType } from '../schema';
 import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../schema';
@@ -50,7 +49,7 @@ interface PopupDataInterface {
     isRoutable?: boolean;
     isPremiumToken?: boolean;
     connectivityState?: {
-        value: ConnectivityState,
+        value: ConnectivityStateType,
     };
     promoNotification?: PromoNotificationData | null;
     desktopVpnEnabled?: boolean;
@@ -126,7 +125,7 @@ export class PopupData {
         const canControlProxy = await appStatus.canControlProxy();
         const isProxyEnabled = settings.isProxyEnabled();
         const isPremiumToken = await this.credentials.isPremiumToken();
-        const connectivityState = { value: <ConnectivityState>connectivityService.state.value };
+        const connectivityState = { value: <ConnectivityStateType>connectivityService.state.value };
         const desktopVpnEnabled = await this.getDesktopEnabled();
         const promoNotification = await promoNotifications.getCurrentNotification();
         const { isFirstRun } = updateService;
