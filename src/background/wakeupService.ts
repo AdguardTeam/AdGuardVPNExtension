@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-const WAKEUP_PERIOD_MS = 1000 * 60; // 1 min
+const WAKEUP_PERIOD_MS = 1000 * 60 * 4.5; // 4 min 30 sec
 const SERVICE_WORKER_WAKEUP = 'serviceWorkerWakeUp';
 
 interface CustomPortType extends browser.Runtime.Port {
