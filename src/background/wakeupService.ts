@@ -1,5 +1,9 @@
 import browser from 'webextension-polyfill';
 
+// The service worker terminates if a single request,
+// such as an event or API call, takes longer than 5 minutes to process.
+// https://developer.chrome.com/blog/longer-esw-lifetimes/#whats-changed
+// So we decide to wakeup service worker every 4.5 min
 const WAKEUP_PERIOD_MS = 1000 * 60 * 4.5; // 4 min 30 sec
 const SERVICE_WORKER_WAKEUP = 'serviceWorkerWakeUp';
 
