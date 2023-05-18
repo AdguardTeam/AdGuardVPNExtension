@@ -27,6 +27,7 @@ import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
+import { SERVICE_WORKER_WAKEUP } from '../wakeupService';
 
 interface Message {
     type: MessageType,
@@ -408,6 +409,11 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
  * Causing issues like AG-2074
  */
 const longLivedMessageHandler = (port: Runtime.Port) => {
+    // don't handle messages from serviceWorkerWakeUp content script
+    if (port.name === SERVICE_WORKER_WAKEUP) {
+        return;
+    }
+
     let listenerId: string;
 
     log.debug(`Connecting to the port "${port.name}"`);

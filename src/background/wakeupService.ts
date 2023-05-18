@@ -5,7 +5,8 @@ import browser from 'webextension-polyfill';
 // https://developer.chrome.com/blog/longer-esw-lifetimes/#whats-changed
 // So we decide to wakeup service worker every 4.5 min
 const WAKEUP_PERIOD_MS = 1000 * 60 * 4.5; // 4 min 30 sec
-const SERVICE_WORKER_WAKEUP = 'serviceWorkerWakeUp';
+
+export const SERVICE_WORKER_WAKEUP = 'serviceWorkerWakeUp';
 
 interface CustomPortType extends browser.Runtime.Port {
     timer?: number;
