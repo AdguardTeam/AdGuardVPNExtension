@@ -63,7 +63,7 @@ export class ConnectivityService {
 
         this.interpreter.start(state);
 
-        log.debug({ currentState: this.state.value });
+        log.debug(`Current state: ${this.state.value}`);
 
         this.interpreter.subscribe(this.handleStateChange);
 
@@ -82,10 +82,10 @@ export class ConnectivityService {
      * @param state New state of connectivity FSM.
      */
     private handleStateChange(state: ConnectivityFsmState) {
-        log.debug(state.event);
+        log.debug(`Event type: ${state.event.type}`);
 
         if (state.changed) {
-            log.debug({ currentState: state.value });
+            log.debug(`Current state: ${state.value}`);
             notifier.notifyListeners(notifier.types.CONNECTIVITY_STATE_CHANGED, { value: state.value });
             sessionState.setItem<ConnectivityData>(StorageKey.ConnectivityData, {
                 context: state.context,
