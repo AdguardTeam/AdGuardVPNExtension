@@ -327,6 +327,7 @@ const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
         timeoutId = timers.setTimeout(() => {
             setNotificationViewed(false);
         }, NOTIFICATION_DELAY);
+        return;
     }
 
     if (currentNotification) {
