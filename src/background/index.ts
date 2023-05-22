@@ -29,7 +29,6 @@ import { flagsStorage } from './flagsStorage';
 import { browserApi } from './browserApi';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 import { locationsService } from './endpoints/locationsService';
-import { wakeupService } from './wakeupService';
 import { connectivityService } from './connectivity/connectivityService';
 
 import './rateModal';
@@ -65,11 +64,11 @@ global.adguard = {
 };
 
 if (!browserApi.runtime.isManifestVersion2()) {
-    // messaging and context menu inits are on the top-level
+    // messaging, context menu and tabs inits are on the top-level
     // because popup should be able to wake up the service worker
     messaging.init();
     contextMenu.init();
-    wakeupService.init();
+    tabs.init();
 }
 
 (async () => {
@@ -82,6 +81,7 @@ if (!browserApi.runtime.isManifestVersion2()) {
 
         if (browserApi.runtime.isManifestVersion2()) {
             messaging.init(); // messaging is on the top, for popup be able to communicate with back
+            tabs.init();
         }
 
         await fallbackApi.init();
