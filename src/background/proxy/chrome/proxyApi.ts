@@ -1,9 +1,14 @@
 import { nanoid } from 'nanoid';
 
 import pacGenerator from './pacGenerator';
-import { ProxyConfigInterface } from '../../schema';
+import { AccessCredentials, ProxyConfigInterface } from '../../schema';
 import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 import { browserApi } from '../../browserApi';
+import { proxy } from '../proxy';
+
+type AuthHandler = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
+    authCredentials?: AccessCredentials,
+};
 
 /**
  * Returns proxy config
@@ -71,8 +76,12 @@ const onAuthRequiredHandler = (details: chrome.webRequest.WebAuthenticationChall
     return {};
 };
 
-const addOnAuthRequiredListener = () => {
-    chrome.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
+const onAuthRequiredHandlerForActiveProxy = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
+    return proxy.isActive ? onAuthRequiredHandler(details) : {};
+};
+
+const addOnAuthRequiredListener = (handler: AuthHandler) => {
+    chrome.webRequest.onAuthRequired.addListener(handler, { urls: ['<all_urls>'] }, ['blocking']);
 };
 
 const removeOnAuthRequiredListener = () => {
@@ -131,8 +140,9 @@ const proxySet = async (config: ProxyConfigInterface): Promise<void> => {
     const chromeConfig = convertToChromeConfig(config);
     await promisifiedSetProxy(chromeConfig);
     globalProxyConfig = config;
+    // Register onAuthRequired listener for MV2 to handle proxy authorization
     if (browserApi.runtime.isManifestVersion2()) {
-        addOnAuthRequiredListener();
+        addOnAuthRequiredListener(onAuthRequiredHandler);
     }
     await triggerOnAuthRequired();
 };
@@ -157,12 +167,20 @@ const onProxyError = (() => {
     };
 })();
 
+/**
+ * Registers onAuthRequired listener for MV3 on top level to wake up the service worker
+ * and handles authorization for active proxy only
+ */
+const init = () => {
+    addOnAuthRequiredListener(onAuthRequiredHandlerForActiveProxy);
+};
+
 const proxyApi = {
     proxySet,
     proxyGet,
     proxyClear,
     onProxyError,
-    onAuthRequiredHandler,
+    init,
 };
 
 export default proxyApi;

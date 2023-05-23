@@ -30,8 +30,7 @@ import { browserApi } from './browserApi';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 import { locationsService } from './endpoints/locationsService';
 import { connectivityService } from './connectivity/connectivityService';
-import chromeProxyApi from './proxy/chrome/proxyApi';
-import { Prefs, BROWSER_NAMES } from './prefs';
+import proxyApi from './proxy/abstractProxyApi';
 
 import './rateModal';
 import './uninstall';
@@ -71,15 +70,9 @@ if (!browserApi.runtime.isManifestVersion2()) {
     messaging.init();
     contextMenu.init();
     tabs.init();
-
     // register onAuthRequired listener on the top level
     // to handle authorization for active proxy
-    if (Prefs.browser !== BROWSER_NAMES.FIREFOX) {
-        chrome.webRequest.onAuthRequired.addListener((details) => {
-            return proxy.isActive ? chromeProxyApi.onAuthRequiredHandler(details) : null;
-        }, { urls: ['<all_urls>'] }, ['blocking']);
-    }
-    tabs.init();
+    proxyApi.init();
 }
 
 (async () => {
