@@ -79,6 +79,7 @@ if (!browserApi.runtime.isManifestVersion2()) {
             return proxy.isActive ? chromeProxyApi.onAuthRequiredHandler(details) : null;
         }, { urls: ['<all_urls>'] }, ['blocking']);
     }
+    tabs.init();
 }
 
 (async () => {
