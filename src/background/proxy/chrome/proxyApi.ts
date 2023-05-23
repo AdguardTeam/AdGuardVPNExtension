@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import pacGenerator from './pacGenerator';
 import { ProxyConfigInterface } from '../../schema';
 import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
+import { browserApi } from '../../browserApi';
 
 /**
  * Returns proxy config
@@ -130,7 +131,9 @@ const proxySet = async (config: ProxyConfigInterface): Promise<void> => {
     const chromeConfig = convertToChromeConfig(config);
     await promisifiedSetProxy(chromeConfig);
     globalProxyConfig = config;
-    addOnAuthRequiredListener();
+    if (browserApi.runtime.isManifestVersion2()) {
+        addOnAuthRequiredListener();
+    }
     await triggerOnAuthRequired();
 };
 
@@ -159,6 +162,7 @@ const proxyApi = {
     proxyGet,
     proxyClear,
     onProxyError,
+    onAuthRequiredHandler,
 };
 
 export default proxyApi;
