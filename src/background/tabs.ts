@@ -10,6 +10,7 @@ export type PreparedTab = {
 };
 
 interface TabsInterface {
+    init(): void;
     getCurrent(): Promise<browser.Tabs.Tab>;
     getActive(): Promise<PreparedTab[]>;
     openRecovery(): Promise<browser.Tabs.Tab>;
@@ -22,7 +23,7 @@ interface TabsInterface {
 }
 
 class Tabs implements TabsInterface {
-    constructor() {
+    init(): void {
         browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
             if (changeInfo.status === 'complete' || changeInfo.status === 'loading') {
                 if (tab && tab.active) {
