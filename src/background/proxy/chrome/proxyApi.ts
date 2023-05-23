@@ -76,10 +76,18 @@ const onAuthRequiredHandler = (details: chrome.webRequest.WebAuthenticationChall
     return {};
 };
 
+/**
+ * Handles onAuthRequired events only if proxy is active
+ * @param details
+ */
 const onAuthRequiredHandlerForActiveProxy = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
     return proxy.isActive ? onAuthRequiredHandler(details) : {};
 };
 
+/**
+ * Adds listener for the onAuthRequired event
+ * @param handler
+ */
 const addOnAuthRequiredListener = (handler: AuthHandler) => {
     chrome.webRequest.onAuthRequired.addListener(handler, { urls: ['<all_urls>'] }, ['blocking']);
 };
@@ -171,7 +179,7 @@ const onProxyError = (() => {
  * Registers onAuthRequired listener for MV3 on top level to wake up the service worker
  * and handles authorization for active proxy only
  */
-const init = () => {
+const init = (): void => {
     addOnAuthRequiredListener(onAuthRequiredHandlerForActiveProxy);
 };
 

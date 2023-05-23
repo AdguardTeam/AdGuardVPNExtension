@@ -1,3 +1,10 @@
+/**
+ * This module provides initialisation for modules, common for MV2 and MV3,
+ * divided in two parts:
+ * 1. First raw of modules with synchronous initialisations, to be called on top level
+ * of service worker in MV3 and background page in MV2.
+ * 2. Second raw of modules with asynchronous initialisations contains all other required modules.
+ */
 import { sessionState } from '../sessionStorage';
 import { actions } from '../actions';
 import { appStatus } from '../appStatus';
@@ -34,6 +41,11 @@ import '../rateModal';
 import '../uninstall';
 import '../networkConnectionObserver';
 
+interface InitInterface {
+    syncInitModules(): void;
+    asyncInitModules(): Promise<void>
+}
+
 declare global {
     module globalThis {
         // eslint-disable-next-line no-var,vars-on-top
@@ -41,7 +53,13 @@ declare global {
     }
 }
 
-const syncInitModules = () => {
+/**
+ * Initiates modules synchronously and
+ * adds adguard variables to the global scope.
+ * This method must be invoked on the top level
+ * of service worker in MV3 and background page in MV2
+ */
+const syncInitModules = (): void => {
     global.adguard = {
         settings,
         actions,
@@ -70,7 +88,10 @@ const syncInitModules = () => {
     tabs.init();
 };
 
-const asyncInitModules = async () => {
+/**
+ * Initiates raw of required modules
+ */
+const asyncInitModules = async (): Promise<void> => {
     log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
         const initStartDate = Number(new Date());
@@ -101,7 +122,7 @@ const asyncInitModules = async () => {
     }
 };
 
-export const init = {
+export const init: InitInterface = {
     syncInitModules,
     asyncInitModules,
 };
