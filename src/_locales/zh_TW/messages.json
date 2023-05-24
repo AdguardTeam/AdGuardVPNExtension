@@ -832,6 +832,12 @@
         "message": "本月剩餘 <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_hint_popup_content": {
+        "message": "如果需要，使用者可以在此網站上禁用 VPN"
+    },
+    "popup_hint_popup_button": {
+        "message": "知道了"
+    },
     "options_exclusions_import_select_title": {
         "message": "如何使用例外清單？"
     },

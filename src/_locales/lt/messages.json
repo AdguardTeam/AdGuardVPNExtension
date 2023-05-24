@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN - privatumas ir saugumas"
+    },
+    "description": {
+        "message": "Naudokite AdGuard VPN, kad naršytumėte internete greitai, saugiai ir patikimai. Apsaugokite savo privatumą ir išlikite anonimiški naudodamiesi mūsų privačiu VPN tarpiniu serveriu."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -8,11 +14,23 @@
     "registration_error_not_valid": {
         "message": "Ši reikšmė neteisinga"
     },
+    "registration_error_unique_constraint": {
+        "message": "Ši reikšmė jau naudojama"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Neteisingas prieigos raktas"
+    },
     "authentication_error_account_disabled": {
         "message": "Paskyra yra išjungta"
     },
+    "authentication_error_account_locked": {
+        "message": "Paskyra užblokuota 15 minučių"
+    },
     "authentication_error_wrong_credentials": {
         "message": "Neteisingas slaptažodis"
+    },
+    "authentication_error_default": {
+        "message": "Įvyko klaida. Pabandykite dar kartą vėliau"
     },
     "about_title": {
         "message": "Apie"
@@ -35,14 +53,23 @@
     "account_title": {
         "message": "Paskyra"
     },
+    "account_edit": {
+        "message": "Redaguoti"
+    },
     "account_version": {
         "message": "Versija"
     },
     "rate_hide": {
         "message": "Paslėpti"
     },
+    "auth_confirm": {
+        "message": "Patvirtinti"
+    },
     "auth_password": {
         "message": "Slaptažodis"
+    },
+    "auth_your_password": {
+        "message": "Įveskite slaptažodį"
     },
     "auth_password_confirm": {
         "message": "Patvirtinti slaptažodį"
@@ -50,8 +77,29 @@
     "auth_recover": {
         "message": "Pamiršote slaptažodį?"
     },
+    "auth_sign_up": {
+        "message": "Užsiregistruoti"
+    },
+    "auth_sign_up_button": {
+        "message": "Užsiregistruoti"
+    },
+    "auth_sign_in": {
+        "message": "Prisijungti"
+    },
+    "auth_sign_in_button": {
+        "message": "Prisijungti"
+    },
+    "auth_header_2fa": {
+        "message": "Įveskite autentifikacijos kodą"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Autorizacijos kodas"
+    },
     "eula": {
         "message": "Licencijos sutartis"
+    },
+    "privacy_policy": {
+        "message": "Privatumo Politika"
     },
     "settings_title": {
         "message": "Nustatymai"
@@ -61,6 +109,18 @@
     },
     "settings_free_gbs_go_back": {
         "message": "Grįžti"
+    },
+    "settings_rate_us": {
+        "message": "Įvertinkite mus"
+    },
+    "settings_webrtc_label": {
+        "message": "Blokuoti WebRTC"
+    },
+    "context_menu_selective_mode": {
+        "message": "Pasirinktinis režimas"
+    },
+    "context_menu_export_logs": {
+        "message": "Eksportuoti ataskaitą"
     },
     "settings_dns_label": {
         "message": "DNS serveris"
@@ -84,10 +144,13 @@
         "message": "Išsaugoti"
     },
     "settings_dns_selector_default_title": {
-        "message": "Pagal nutylėjimą"
+        "message": "Numatytosios vertės"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS nefiltruojantis"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS Šeimos apsauga"
@@ -125,6 +188,15 @@
     "settings_theme_system": {
         "message": "Sisteminis"
     },
+    "settings_theme_dark": {
+        "message": "Tamsi"
+    },
+    "settings_theme_light": {
+        "message": "Šviesi"
+    },
+    "settings_exclusion_add": {
+        "message": "PRIDĖTI"
+    },
     "settings_exclusion_add_website": {
         "message": "Pridėti svetainę"
     },
@@ -161,6 +233,15 @@
     "settings_exclusion_title": {
         "message": "Išimtys"
     },
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Kur yra VPN"
+    },
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN yra <span>visur</span>, išskyrus toliau nurodytas svetaines"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Pasirinktinis režimas"
+    },
     "settings_exclusion_import_button": {
         "message": "Importas"
     },
@@ -169,6 +250,9 @@
     },
     "global_error_try_again": {
         "message": "Pabandyti iš naujo"
+    },
+    "control_error_disable": {
+        "message": "Išjungti"
     },
     "popup_settings_feedback": {
         "message": "Grįžtamasis ryšys"
@@ -205,6 +289,10 @@
     },
     "popup_upgrade_screen_connect_devices": {
         "message": "Iki 5 įrenginių"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> likę šiam mėnesiui",
+        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Atšaukti"

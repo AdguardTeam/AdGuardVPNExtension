@@ -723,7 +723,7 @@
         "message": "Kan geen verbinding maken met server"
     },
     "popup_server_error_popup_info": {
-        "message": "Waarschijnlijk is de VPN in uw land geblokkeerd of was er een technische storing. We proberen het al op te lossen"
+        "message": "Waarschijnlijk is de VPN in jouw land geblokkeerd of er was een technische storing. We proberen het al op te lossen"
     },
     "popup_server_error_popup_action": {
         "message": "Nudge AdGuard-team"
@@ -831,6 +831,12 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> nog over deze maand",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_hint_popup_content": {
+        "message": "Overigens kun je desgewenst VPN voor deze site uitschakelen"
+    },
+    "popup_hint_popup_button": {
+        "message": "Begrepen"
     },
     "options_exclusions_import_select_title": {
         "message": "Hoe deze lijst met uitsluitingen gebruiken?"

@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Sekretess & Säkerhet"
     },
     "description": {
-        "message": "Gör Internet öppet och dina data säkra. Topnotch VPN från skaparna av den berömda annonsblockeraren."
+        "message": "Använd AdGuard VPN för att surfa snabbt, säkert och tryggt på internet. Skydda din integritet och förbli anonym med vår privata VPN-proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -183,7 +183,7 @@
         "message": "Fortsätt med Facebook"
     },
     "auth_header_sing_in_notice": {
-        "message": "Du har redan ett konto <span>%username%</span>"
+        "message": "Loggar in som <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Tvåfaktorautentisering"
@@ -260,11 +260,17 @@
     "settings_dns_edit_custom_server": {
         "message": "Redigera anpassad DNS-server"
     },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Läs mer</a> om DNS-servrar"
+    },
     "settings_dns_add_custom_server_name": {
         "message": "Servernamn"
     },
     "settings_dns_add_custom_server_name_placeholder": {
         "message": "Servernamn"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS-serveradress"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Spara och välj"

@@ -329,6 +329,9 @@
     "popup_settings_enable_vpn_short": {
         "message": "Skru"
     },
+    "popup_settings_disable_vpn": {
+        "message": "Skru av VPN på dette nettstedet"
+    },
     "popup_settings_other_products": {
         "message": "Andre produkter"
     },
@@ -445,6 +448,9 @@
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Oppgrader"
+    },
+    "popup_hint_popup_button": {
+        "message": "Skjønner"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Avbryt"
