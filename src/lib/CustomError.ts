@@ -1,7 +1,7 @@
 export class CustomError extends Error {
-    private status: string;
+    private status: string | number;
 
-    constructor(status: string, ...params: any) {
+    constructor(status: string | number, ...params: any) {
         super(...params);
         // Maintains proper stack trace for where our error was thrown (only available on V8)
         if (Error.captureStackTrace) {

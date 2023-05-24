@@ -832,6 +832,12 @@
         "message": "今月の残りデータ量: <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_hint_popup_content": {
+        "message": "ちなみに、このサイトに対してVPNを無効にすることも可能です。"
+    },
+    "popup_hint_popup_button": {
+        "message": "OK"
+    },
     "options_exclusions_import_select_title": {
         "message": "この対象外リストの使い方は？"
     },

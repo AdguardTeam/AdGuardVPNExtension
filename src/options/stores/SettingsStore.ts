@@ -20,7 +20,7 @@ import { messenger } from '../../lib/messenger';
 import { RequestStatus } from './consts';
 import { log } from '../../lib/logger';
 import { setQueryParameter } from '../../common/url-utils';
-import { DnsServerData } from '../../common/components/constants';
+import type { DnsServerData } from '../../background/schema';
 import type { RootStore } from './RootStore';
 
 interface OptionsData {

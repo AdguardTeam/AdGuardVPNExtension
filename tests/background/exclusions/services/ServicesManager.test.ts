@@ -2,6 +2,14 @@ import { nanoid } from 'nanoid';
 
 import { servicesManager } from '../../../../src/background/exclusions/services/ServicesManager';
 import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
+import { session } from '../../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('../../../../src/background/providers/vpnProvider');
 jest.mock('../../../../src/lib/logger');
@@ -19,7 +27,7 @@ jest.mock('../../../../src/background/browserApi', () => {
 });
 
 const nanoidMock = nanoid as jest.MockedFunction<() => string>;
-nanoidMock.mockImplementation(() => 'zzzzzzzzz');
+nanoidMock.mockImplementation(() => 'random_id');
 
 const SERVICES_DATA = {
     aliexpress: {
@@ -68,9 +76,21 @@ const saveServicesInStorageMock = jest.fn();
 servicesManager.saveServicesInStorage = saveServicesInStorageMock;
 saveServicesInStorageMock.mockReturnValue({});
 
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
+
 describe('ServicesManager tests', () => {
+    beforeEach(async () => {
+        await sessionState.init();
+    });
+
     it('test initialization', async () => {
         await servicesManager.init();
+        servicesManager.setServices(SERVICES_DATA);
         const servicesData = await servicesManager.getServices();
 
         expect(Object.values(servicesData)).toHaveLength(4);
@@ -88,6 +108,7 @@ describe('ServicesManager tests', () => {
     });
 
     it('test setServices and getService', async () => {
+        await servicesManager.init();
         const servicesData = await servicesManager.getServicesFromServer();
         servicesManager.setServices(servicesData);
 

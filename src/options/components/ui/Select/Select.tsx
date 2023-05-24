@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useOutsideClick } from '../useOutsideClick';
 
 import './select.pcss';
 
@@ -22,28 +23,23 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
     const [value, setValue] = useState(currentValue);
     const [hidden, setHidden] = useState(true);
 
+    const ref = useRef<HTMLDivElement>(null);
+
+    useOutsideClick(ref, () => setHidden(true));
+
     useEffect(() => {
         setValue(currentValue);
     });
 
-    const closeOnClick = (): void => {
-        document.addEventListener(
-            'click',
-            () => { setHidden(true); },
-            { once: true },
-        );
-    };
-
-    const handleSelectClick = (): void => {
-        if (hidden) {
-            setHidden(false);
-            closeOnClick();
-        }
+    const handleSelectClick = (event: React.MouseEvent): void => {
+        event.stopPropagation();
+        setHidden(!hidden);
     };
 
     const handleOptionClick = (id: T): void => {
         setValue(id);
         optionChange(id);
+        setHidden(true);
     };
 
     const isActiveOption = (id: T) => ((id === value) ? ' active' : '');
@@ -62,7 +58,7 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
     };
 
     return (
-        <div className="selector">
+        <div className="selector" ref={ref}>
             <div
                 className="selector__value"
                 onClick={handleSelectClick}

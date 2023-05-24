@@ -786,6 +786,12 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Pokračovať bezplatne"
     },
+    "popup_hint_popup_content": {
+        "message": "Mimochodom, ak chcete, môžete pre túto stránku vypnúť VPN"
+    },
+    "popup_hint_popup_button": {
+        "message": "Rozumiem"
+    },
     "options_exclusions_import_select_title": {
         "message": "Importovať výnimky do:"
     },

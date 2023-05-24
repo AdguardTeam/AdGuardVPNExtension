@@ -1,5 +1,5 @@
 const NodeEnvironment = require('jest-environment-jsdom');
-// @ts-ignore
+// @ts-ignore - redeclare fetch
 const fetch = require('node-fetch');
 
 /**
@@ -18,7 +18,7 @@ class CustomEnvironment extends NodeEnvironment {
         this.global.__APP_CONFIG__ = {};
         // Fixes errors with fetch
         this.global.fetch = fetch;
-        // @ts-ignore
+        // @ts-ignore - redeclared fetch
         this.global.Request = fetch.Request;
     }
 }

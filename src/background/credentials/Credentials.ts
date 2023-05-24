@@ -5,23 +5,20 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
-import { SubscriptionType } from '../../lib/constants';
-import type { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
+import type { VpnProviderInterface } from '../providers/vpnProvider';
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
-import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
+import type { ExtensionProxyInterface } from '../proxy/proxy';
+import {
+    AccessCredentials,
+    VpnTokenData,
+    CredentialsState,
+    CredentialsDataInterface,
+    StorageKey,
+} from '../schema';
+import { sessionState } from '../sessionStorage';
 import { credentialsService } from './credentialsService';
-
-export interface VpnTokenData {
-    token: string;
-    licenseStatus: string;
-    timeExpiresSec: number;
-    licenseKey: string;
-    vpnSubscription: {
-        next_bill_date_iso: string,
-        duration_v2: SubscriptionType,
-    };
-}
+import { auth } from '../auth';
 
 export interface AccessCredentialsData {
     credentialsHash: string,
@@ -73,6 +70,8 @@ export interface CredentialsInterface {
 }
 
 export class Credentials implements CredentialsInterface {
+    state: CredentialsState;
+
     APP_ID_KEY = 'credentials.app.id';
 
     VPN_CREDENTIALS_KEY = 'credentials.vpn';
@@ -87,14 +86,6 @@ export class Credentials implements CredentialsInterface {
 
     auth: AuthInterface;
 
-    vpnToken: VpnTokenData | null;
-
-    vpnCredentials: CredentialsDataInterface | null;
-
-    appId: string;
-
-    currentUsername: string | null;
-
     constructor({
         browserApi,
         vpnProvider,
@@ -107,6 +98,46 @@ export class Credentials implements CredentialsInterface {
         this.permissionsError = permissionsError;
         this.proxy = proxy;
         this.auth = auth;
+    }
+
+    saveCredentialsState = () => {
+        sessionState.setItem(StorageKey.CredentialsState, this.state);
+    };
+
+    get vpnToken() {
+        return this.state.vpnToken;
+    }
+
+    set vpnToken(vpnToken: VpnTokenData | null) {
+        this.state.vpnToken = vpnToken;
+        this.saveCredentialsState();
+    }
+
+    get vpnCredentials() {
+        return this.state.vpnCredentials;
+    }
+
+    set vpnCredentials(vpnCredentials: CredentialsDataInterface | null) {
+        this.state.vpnCredentials = vpnCredentials;
+        this.saveCredentialsState();
+    }
+
+    get currentUsername() {
+        return this.state.currentUsername;
+    }
+
+    set currentUsername(currentUsername: string | null) {
+        this.state.currentUsername = currentUsername;
+        this.saveCredentialsState();
+    }
+
+    get appId() {
+        return this.state.appId;
+    }
+
+    set appId(appId: string | null) {
+        this.state.appId = appId;
+        this.saveCredentialsState();
     }
 
     /**
@@ -223,6 +254,7 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
+        this.vpnToken = vpnToken;
         return vpnToken;
     }
 
@@ -249,6 +281,7 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
+        this.vpnCredentials = vpnCredentials;
         return vpnCredentials;
     }
 
@@ -325,13 +358,13 @@ export class Credentials implements CredentialsInterface {
         return lodashGet(newCred, path) === lodashGet(oldCred, path);
     };
 
-    getVpnCredentialsLocal = async (): Promise<CredentialsDataInterface> => {
+    getVpnCredentialsLocal = async (): Promise<CredentialsDataInterface | null> => {
         if (this.vpnCredentials) {
             return this.vpnCredentials;
         }
-        const vpnCredentials = await this.storage.get<CredentialsDataInterface>(this.VPN_CREDENTIALS_KEY);
-        this.vpnCredentials = vpnCredentials;
-        return vpnCredentials;
+
+        this.vpnCredentials = await this.storage.get<CredentialsDataInterface>(this.VPN_CREDENTIALS_KEY) || null;
+        return this.vpnCredentials;
     };
 
     async gainVpnCredentials(
@@ -416,7 +449,10 @@ export class Credentials implements CredentialsInterface {
 
     async fetchUsername() {
         const accessToken = await this.auth.getAccessToken();
-        return accountProvider.getAccountInfo(accessToken);
+        const username = await accountProvider.getAccountInfo(accessToken);
+        this.currentUsername = username;
+
+        return username;
     }
 
     /**
@@ -519,18 +555,26 @@ export class Credentials implements CredentialsInterface {
 
     async init(): Promise<void> {
         try {
+            this.state = sessionState.getItem(StorageKey.CredentialsState);
+
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
                 this.handleUserDeauthentication.bind(this),
             );
 
             await this.trackInstallation();
-            // On extension initialisation use local fallback if was unable to get data remotely
-            // it might be useful on browser restart
+
             const forceRemote = true;
-            this.vpnToken = await this.gainValidVpnToken(forceRemote);
-            this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
-            this.currentUsername = await this.fetchUsername();
+
+            const isUserAuthenticated = await auth.isAuthenticated(false);
+
+            if (isUserAuthenticated) {
+                // Use persisted state on extension initialisation.
+                // If it's not available, get data remotely
+                this.vpnToken = this.vpnToken || await this.gainValidVpnToken(forceRemote);
+                this.vpnCredentials = this.vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
+                this.currentUsername = this.currentUsername || await this.fetchUsername();
+            }
         } catch (e) {
             log.debug('Unable to init credentials module, due to error:', e.message);
         }

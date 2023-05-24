@@ -1,9 +1,8 @@
-import webpack, { Plugin } from 'webpack';
+import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
@@ -13,10 +12,7 @@ import {
     IS_DEV,
     StageEnv,
     Browser,
-    SRC_PATH,
 } from '../consts';
-
-const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
 const CHROME_PATH = 'chrome';
 
@@ -28,10 +24,14 @@ if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
 
 const commonConfig = getCommonConfig(Browser.Chrome);
 
-const plugins = [
+const plugins: webpack.WebpackPluginInstance[] = [
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
+    })),
+    new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv3');
     })),
     new CopyWebpackPlugin({
         patterns: [
@@ -42,17 +42,11 @@ const plugins = [
             },
         ],
     }),
-    new HtmlWebpackPlugin({
-        template: path.join(BACKGROUND_PATH, 'index.html'),
-        filename: 'background.html',
-        chunks: ['background'],
-        cache: false,
-    }),
     new ZipWebpackPlugin({
         path: '../',
         filename: zipFilename,
-    }),
-] as unknown as Plugin[];
+    }) as unknown as webpack.WebpackPluginInstance,
+];
 
 const outputPath = commonConfig.output?.path;
 

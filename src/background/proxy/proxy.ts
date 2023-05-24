@@ -10,39 +10,24 @@ import { notifier } from '../../lib/notifier';
 import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
-import { LocationInterface } from '../endpoints/Location';
-import { EndpointInterface } from '../endpoints/Endpoint';
+import type { EndpointInterface, LocationInterface } from '../schema';
+import { sessionState } from '../sessionStorage';
+import {
+    ProxyConfigInterface,
+    CanControlProxy,
+    AccessCredentials,
+    ProxyState,
+    PROXY_DEFAULTS,
+    StorageKey,
+} from '../schema';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
-const DEFAULTS = {
-    currentEndpoint: null,
-    currentHost: '',
-};
-
-export interface AccessCredentials {
-    username: string,
-    password: string,
-}
-
-export interface CanControlProxy {
-    canControlProxy: boolean;
-    cause?: string;
-}
-
-export interface ProxyConfigInterface {
-    bypassList: string[];
-    defaultExclusions: string[];
-    nonRoutableCidrNets: string[];
-    host: string;
-    port: number;
-    scheme: string;
-    inverted: boolean;
-    credentials: AccessCredentials,
-}
+const PROXY_CONFIG_PORT = 443;
+const PROXY_CONFIG_SCHEME = 'https';
 
 export interface ExtensionProxyInterface {
-    init(): Promise<void>;
+    init(proxyConfig: ProxyConfigInterface): Promise<void>;
     turnOn(): Promise<void>;
     turnOff(): Promise<void>;
     canControlProxy(): Promise<CanControlProxy>
@@ -63,32 +48,90 @@ export interface ExtensionProxyInterface {
 }
 
 class ExtensionProxy implements ExtensionProxyInterface {
-    isActive: boolean;
-
-    bypassList: string[];
-
-    endpointsTldExclusions: string[];
-
-    currentEndpoint: EndpointInterface | null;
-
-    currentHost: string;
-
-    currentConfig: ProxyConfigInterface;
-
-    inverted: boolean;
-
-    credentials: AccessCredentials;
-
-    constructor() {
-        this.isActive = false;
-        this.bypassList = [];
-        this.endpointsTldExclusions = [];
-        this.currentEndpoint = DEFAULTS.currentEndpoint;
-        this.currentHost = DEFAULTS.currentHost;
-    }
+    state: ProxyState;
 
     async init(): Promise<void> {
-        this.currentConfig = await this.getConfig();
+        this.state = sessionState.getItem(StorageKey.ProxyState);
+
+        if (!this.currentConfig) {
+            await this.updateConfig();
+        }
+    }
+
+    private saveProxyState = () => {
+        sessionState.setItem(StorageKey.ProxyState, this.state);
+    };
+
+    private get isActive() {
+        return this.state.isActive;
+    }
+
+    private set isActive(isActive: boolean) {
+        this.state.isActive = isActive;
+        this.saveProxyState();
+    }
+
+    private get currentConfig() {
+        return this.state.currentConfig;
+    }
+
+    private set currentConfig(currentConfig: ProxyConfigInterface | undefined) {
+        this.state.currentConfig = currentConfig;
+        this.saveProxyState();
+    }
+
+    private get bypassList() {
+        return this.state.bypassList;
+    }
+
+    private set bypassList(bypassList: string[]) {
+        this.state.bypassList = bypassList;
+        this.saveProxyState();
+    }
+
+    private get inverted() {
+        return this.state.inverted;
+    }
+
+    private set inverted(inverted: boolean) {
+        this.state.inverted = inverted;
+        this.saveProxyState();
+    }
+
+    private get endpointsTldExclusions() {
+        return this.state.endpointsTldExclusions;
+    }
+
+    private set endpointsTldExclusions(endpointsTldExclusions: string[]) {
+        this.state.endpointsTldExclusions = endpointsTldExclusions;
+        this.saveProxyState();
+    }
+
+    private get currentEndpoint() {
+        return this.state.currentEndpoint;
+    }
+
+    private set currentEndpoint(currentEndpoint: EndpointInterface | null) {
+        this.state.currentEndpoint = currentEndpoint;
+        this.saveProxyState();
+    }
+
+    private get currentHost() {
+        return this.state.currentHost;
+    }
+
+    private set currentHost(currentHost: string) {
+        this.state.currentHost = currentHost;
+        this.saveProxyState();
+    }
+
+    private get credentials() {
+        return this.state.credentials;
+    }
+
+    private set credentials(credentials: AccessCredentials) {
+        this.state.credentials = credentials;
+        this.saveProxyState();
     }
 
     async turnOn(): Promise<void> {
@@ -149,17 +192,17 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
     async getConfig(): Promise<ProxyConfigInterface> {
         return {
-            bypassList: this.getBypassList(),
+            bypassList: this.bypassList || [],
             defaultExclusions: [
                 ...DEFAULT_EXCLUSIONS,
-                ...this.getEndpointsTldExclusions(),
+                ...this.endpointsTldExclusions || PROXY_DEFAULTS.endpointsTldExclusions,
                 ...await fallbackApi.getApiUrlsExclusions(),
             ],
             nonRoutableCidrNets: NON_ROUTABLE_CIDR_NETS,
-            host: this.currentHost,
-            port: 443,
-            scheme: 'https',
-            inverted: this.inverted,
+            host: this.currentHost || PROXY_DEFAULTS.currentHost,
+            port: PROXY_CONFIG_PORT,
+            scheme: PROXY_CONFIG_SCHEME,
+            inverted: this.inverted || false,
             credentials: this.credentials,
         };
     }
@@ -175,24 +218,10 @@ class ExtensionProxy implements ExtensionProxyInterface {
         }
     }
 
-    getEndpointsTldExclusions = () => {
-        if (this.endpointsTldExclusions) {
-            return [...this.endpointsTldExclusions];
-        }
-        return [];
-    };
-
     setEndpointsTldExclusions = async (endpointsTldExclusions: string[] = []): Promise<void> => {
         this.endpointsTldExclusions = endpointsTldExclusions;
         await this.applyConfig();
     };
-
-    getBypassList(): string[] {
-        if (this.bypassList) {
-            return [...this.bypassList];
-        }
-        return [];
-    }
 
     setBypassList = async (exclusions: string[] = [], inverted = false): Promise<void> => {
         this.bypassList = exclusions;
@@ -234,7 +263,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         location: LocationInterface,
     ): Promise<{ domainName: string }> => {
         this.currentEndpoint = endpoint;
-        const { domainName } = this.currentEndpoint;
+        const { domainName } = endpoint;
         await this.setHost(domainName);
         await browserApi.storage.set(CURRENT_ENDPOINT_KEY, endpoint);
         // notify popup
@@ -244,16 +273,16 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
     getCurrentEndpoint = async (): Promise<EndpointInterface | null> => {
         if (!this.currentEndpoint) {
-            this.currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY);
+            this.currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY) || null;
         }
-        return this.currentEndpoint ? this.currentEndpoint : null;
+        return this.currentEndpoint;
     };
 
     resetSettings = async (): Promise<void> => {
         await this.turnOff();
         await browserApi.storage.remove(CURRENT_ENDPOINT_KEY);
-        this.currentHost = DEFAULTS.currentHost;
-        this.currentEndpoint = DEFAULTS.currentEndpoint;
+        this.currentHost = PROXY_DEFAULTS.currentHost;
+        this.currentEndpoint = PROXY_DEFAULTS.currentEndpoint;
     };
 }
 

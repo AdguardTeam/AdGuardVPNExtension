@@ -7,14 +7,41 @@ import {
     DEFAULT_CACHE_EXPIRE_TIME_MS,
 } from '../../../src/background/api/fallbackApi';
 import { WHOAMI_URL } from '../../../src/background/config';
+import { session } from '../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
-jest.mock('../../../src/background/browserApi');
+
+jest.mock('../../../src/background/browserApi', () => {
+    // eslint-disable-next-line global-require
+    return require('../../__mocks__/browserApiMock');
+});
+
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
 
 jest.useFakeTimers('modern');
 
 describe('FallbackApi', () => {
+    beforeEach(async () => {
+        await sessionState.init();
+    });
+
+    afterEach(async () => {
+        jest.clearAllMocks();
+    });
+
     it('returns default api urls if requests to cloudflare and google fail', async () => {
         (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValue({
             status: 400,
@@ -48,8 +75,10 @@ describe('FallbackApi', () => {
         const fallbackApi = new FallbackApi(DEFAULT_VPN_API_URL, DEFAULT_AUTH_API_URL);
 
         // mock network request functions
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpVpnApiUrl').mockResolvedValue(REMOTE_VPN_API_URL);
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpAuthApiUrl').mockResolvedValue(REMOTE_AUTH_API_URL);
+        const getBkpVpnApiUrlMock = jest.spyOn(fallbackApi, 'getBkpVpnApiUrl');
+        getBkpVpnApiUrlMock.mockResolvedValue(REMOTE_VPN_API_URL);
+        const getBkpAuthApiUrlMock = jest.spyOn(fallbackApi, 'getBkpAuthApiUrl');
+        getBkpAuthApiUrlMock.mockResolvedValue(REMOTE_AUTH_API_URL);
 
         // init with network requests
         await fallbackApi.init();
@@ -78,8 +107,8 @@ describe('FallbackApi', () => {
         REMOTE_AUTH_API_URL = 'remote_auth_api.io';
 
         // mock network requests with new values
-        jest.spyOn(fallbackApi, 'getBkpVpnApiUrl').mockResolvedValue(REMOTE_VPN_API_URL);
-        jest.spyOn(fallbackApi, 'getBkpAuthApiUrl').mockResolvedValue(REMOTE_AUTH_API_URL);
+        getBkpVpnApiUrlMock.mockResolvedValue(REMOTE_VPN_API_URL);
+        getBkpAuthApiUrlMock.mockResolvedValue(REMOTE_AUTH_API_URL);
 
         vpnApiUrl = await fallbackApi.getVpnApiUrl();
         authApiUrl = await fallbackApi.getAuthApiUrl();

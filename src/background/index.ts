@@ -1,3 +1,4 @@
+import { sessionState } from './sessionStorage';
 import { actions } from './actions';
 import { appStatus } from './appStatus';
 import { auth } from './auth';
@@ -26,10 +27,13 @@ import { logStorage } from '../lib/log-storage';
 import { fallbackApi } from './api/fallbackApi';
 import { flagsStorage } from './flagsStorage';
 import { browserApi } from './browserApi';
+import { popupOpenedCounter } from './popupData/popupOpenedCounter';
+import { locationsService } from './endpoints/locationsService';
+import { connectivityService } from './connectivity/connectivityService';
 
 import './rateModal';
-import './networkConnectionObserver';
 import './uninstall';
+import './networkConnectionObserver';
 
 declare global {
     module globalThis {
@@ -60,26 +64,35 @@ global.adguard = {
 };
 
 if (!browserApi.runtime.isManifestVersion2()) {
-    // messaging and context menu inits are on the top-level
+    // messaging, context menu and tabs inits are on the top-level
     // because popup should be able to wake up the service worker
     messaging.init();
     contextMenu.init();
+    tabs.init();
 }
 
 (async () => {
     log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
+        const initStartDate = Number(new Date());
+        await sessionState.init();
+        connectivityService.start();
+        await proxy.init();
+
         if (browserApi.runtime.isManifestVersion2()) {
             messaging.init(); // messaging is on the top, for popup be able to communicate with back
+            tabs.init();
         }
+
         await fallbackApi.init();
-        await proxy.init();
         await updateService.init();
         await openThankYouPage();
         await flagsStorage.init();
+        await auth.initState(); // auth state should be initiated before credentials init
         await credentials.init();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
+        await locationsService.init();
         await settings.init();
         await exclusions.init();
         await endpointsTldExclusions.init();
@@ -90,7 +103,9 @@ if (!browserApi.runtime.isManifestVersion2()) {
             contextMenu.init();
         }
         browserActionIcon.init();
-        log.info('Extension loaded all necessary modules');
+        popupOpenedCounter.init();
+        const initDoneDate = Number(new Date());
+        log.info(`Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
     } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);
     }

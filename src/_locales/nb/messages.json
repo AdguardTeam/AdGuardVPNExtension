@@ -446,6 +446,9 @@
     "popup_upgrade_screen_upgrade_button": {
         "message": "Oppgrader"
     },
+    "popup_hint_popup_button": {
+        "message": "Skjønner"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "Avbryt"
     },

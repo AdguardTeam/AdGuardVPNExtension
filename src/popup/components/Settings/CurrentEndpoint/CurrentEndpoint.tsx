@@ -65,13 +65,18 @@ export const CurrentEndpoint = observer(() => {
                     </div>
                 </div>
             </div>
-            <div className="endpoint__ping">
-                {renderPing()}
-                {settingsStore.hasLimitExceededError && (
-                    <div className="endpoint__limited-speed">
-                        {reactTranslator.getMessage('popup_traffic_limited_speed')}
-                    </div>
-                )}
+            <div className="endpoint__ping-container">
+                <div className="endpoint__ping">
+                    {renderPing()}
+                    {settingsStore.hasLimitExceededError && (
+                        <div className="endpoint__limited-speed">
+                            {reactTranslator.getMessage('popup_traffic_limited_speed')}
+                        </div>
+                    )}
+                </div>
+                <svg className="icon icon--arrow">
+                    <use xlinkHref="#right-arrow" />
+                </svg>
             </div>
         </div>
     );

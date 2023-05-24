@@ -1,7 +1,8 @@
 import { authApi } from '../api';
 import { translator } from '../../common/translator';
 import { FORWARDER_DOMAIN } from '../config';
-import { AuthAccessToken, AuthCredentials } from '../api/apiTypes';
+import type { AuthCredentials } from '../api/apiTypes';
+import type { AuthAccessToken } from '../schema';
 
 interface RemoteAccessTokenInterface {
     access_token: string;

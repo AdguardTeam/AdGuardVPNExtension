@@ -1,4 +1,4 @@
-import webpack, { Plugin } from 'webpack';
+import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -28,11 +28,15 @@ if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
 
 const commonConfig = getCommonConfig(Browser.Firefox);
 
-const plugins = [
+const plugins: webpack.WebpackPluginInstance[] = [
     // TODO: on move to MV3 inject Mv3Timers
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
         resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
+    })),
+    new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv2');
     })),
     new CopyWebpackPlugin({
         patterns: [
@@ -52,8 +56,8 @@ const plugins = [
     new ZipWebpackPlugin({
         path: '../',
         filename: zipFilename,
-    }),
-] as unknown as Plugin[];
+    }) as unknown as webpack.WebpackPluginInstance,
+];
 
 const outputPath = commonConfig.output?.path;
 

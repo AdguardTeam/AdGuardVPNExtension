@@ -5,7 +5,7 @@ import { MessageType, SocialAuthProvider, ExclusionsContentMap } from './constan
 import { log } from './logger';
 import { ExclusionsData, ExclusionsMode, ServiceDto } from '../common/exclusionsConstants';
 import { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
-import { DnsServerData } from '../common/components/constants';
+import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { Message } from '../popup/components/App/App';
 import { NotifierType } from './notifier';
@@ -315,6 +315,11 @@ class Messenger {
     async setNotificationViewed(withDelay: boolean) {
         const type = MessageType.SET_NOTIFICATION_VIEWED;
         return this.sendMessage(type, { withDelay });
+    }
+
+    async setHintPopupViewed() {
+        const type = MessageType.SET_HINT_POPUP_VIEWED;
+        return this.sendMessage(type);
     }
 
     async openTab(url: string) {

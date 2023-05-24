@@ -1,10 +1,5 @@
-export interface EndpointInterface {
-    id: string;
-    ipv4Address: string;
-    ipv6Address: string;
-    domainName: string;
-    publicKey: string;
-}
+import type { EndpointInterface } from '../schema';
+
 /**
  * Class representing endpoint structure
  */

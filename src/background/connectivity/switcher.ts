@@ -1,5 +1,4 @@
 import { proxy } from '../proxy';
-import { Event, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
 import { log } from '../../lib/logger';
 import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
 import { FORCE_CANCELLED } from '../../lib/constants';
@@ -13,12 +12,14 @@ import { locationsService } from '../endpoints/locationsService';
 import { endpoints } from '../endpoints';
 // eslint-disable-next-line import/no-cycle
 import { connectivity } from './index';
-// eslint-disable-next-line import/no-cycle
-import { connectivityService, setDesktopVpnEnabled } from './connectivityService/connectivityFSM';
-import { AccessCredentialsData } from '../credentials/Credentials';
-import { LocationInterface } from '../endpoints/Location';
-import { EndpointInterface } from '../endpoints/Endpoint';
-import { VpnConnectionStatus } from '../api/vpnApi';
+import {
+    connectivityService,
+    ConnectivityEventType,
+    MIN_CONNECTION_DURATION_MS,
+} from './connectivityService';
+import type { AccessCredentialsData } from '../credentials/Credentials';
+import type { EndpointInterface, LocationInterface } from '../schema';
+import type { VpnConnectionStatus } from '../api/vpnApi';
 
 /**
  * Turns on proxy after doing preparing steps
@@ -35,7 +36,7 @@ function* turnOnProxy(forcePrevEndpoint = false) {
         const desktopVpnConnection: VpnConnectionStatus = yield vpnApi.getDesktopVpnConnectionStatus();
 
         if (desktopVpnConnection?.connected) {
-            setDesktopVpnEnabled(true);
+            connectivityService.setDesktopVpnEnabled(true);
             return;
         }
 
@@ -66,7 +67,7 @@ function* turnOnProxy(forcePrevEndpoint = false) {
     } catch (e) {
         log.debug(e.message);
         yield sleepIfNecessary(entryTime, MIN_CONNECTION_DURATION_MS);
-        connectivityService.send(Event.ConnectionFail);
+        connectivityService.send(ConnectivityEventType.ConnectionFail);
     }
 }
 

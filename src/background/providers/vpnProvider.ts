@@ -4,38 +4,19 @@ import JSZip from 'jszip';
 import { vpnApi } from '../api';
 import { log } from '../../lib/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
-import { LocationApiData, EndpointApiData } from '../api/vpnApi';
-import { Service } from '../exclusions/services/Service';
+import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
+import type {
+    VpnExtensionInfoInterface,
+    ServicesInterface,
+    CredentialsDataInterface,
+    LocationInterface,
+} from '../schema';
 
 const DEFAULT_LOCALE = 'en';
-
-export interface CredentialsDataInterface {
-    licenseStatus: string;
-    result: {
-        credentials: string;
-        expiresInSec: number;
-    },
-    timeExpiresSec: number;
-}
 
 interface NameInterface {
     locale: string;
     name: string;
-}
-
-export interface VpnExtensionInfoInterface {
-    bandwidthFreeMbits: number;
-    premiumPromoPage: string;
-    premiumPromoEnabled: boolean;
-    refreshTokens: boolean;
-    vpnFailurePage: string;
-    usedDownloadedBytes: number;
-    usedUploadedBytes: number;
-    maxDownloadedBytes: number;
-    maxUploadedBytes: number;
-    renewalTrafficDate: string;
-    maxDevicesCount: number;
-    emailConfirmationRequired: boolean;
 }
 
 interface CurrentLocationData {
@@ -47,21 +28,6 @@ interface CurrentLocationData {
         longitude: number,
         latitude: number,
     ],
-}
-
-export interface LocationProviderData {
-    id: string;
-    cityName: string;
-    countryName: string;
-    countryCode: string;
-    coordinates: [
-        longitude: number,
-        latitude: number,
-    ],
-    premiumOnly: boolean;
-    pingBonus: number;
-    endpoints: EndpointProviderData[];
-    virtual: boolean;
 }
 
 export interface EndpointProviderData {
@@ -81,12 +47,8 @@ export interface RequestSupportParameters {
     appLogs?: string;
 }
 
-export interface ServicesInterface {
-    [serviceId: string]: Service,
-}
-
 export interface VpnProviderInterface {
-    getLocationsData(appId: string, vpnToken: string): Promise<LocationProviderData[]>;
+    getLocationsData(appId: string, vpnToken: string): Promise<LocationInterface[]>;
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnCredentials(
         appId: string,
@@ -116,7 +78,7 @@ export interface VpnProviderInterface {
 const getLocationsData = async (
     appId: string,
     vpnToken: string,
-): Promise<LocationProviderData[]> => {
+): Promise<LocationInterface[]> => {
     const locationsData = await vpnApi.getLocations(appId, vpnToken);
 
     const { locations = [] } = locationsData;
@@ -138,7 +100,7 @@ const getLocationsData = async (
         };
     };
 
-    const prepareLocationData = (location: LocationApiData): LocationProviderData => {
+    const prepareLocationData = (location: LocationApiData): LocationInterface => {
         const {
             city_name: cityName,
             country_code: countryCode,
@@ -316,12 +278,18 @@ const postExtensionInstalled = async (appId: string): Promise<{ social_providers
     return vpnApi.postExtensionInstalled(appId);
 };
 
-const prepareLogs = async (appLogs: string) => {
+const prepareLogs = async (appLogs: string): Promise<Blob> => {
     const LOGS_FILENAME = 'logs.txt';
 
     const zip = new JSZip();
     zip.file(LOGS_FILENAME, appLogs);
-    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const zipBlob = await zip.generateAsync({
+        type: 'blob',
+        compression: 'DEFLATE',
+        compressionOptions: {
+            level: 9,
+        },
+    });
     return zipBlob;
 };
 

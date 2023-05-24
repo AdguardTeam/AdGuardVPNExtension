@@ -2,15 +2,18 @@ import browser from 'webextension-polyfill';
 import axios from 'axios';
 
 import { Service } from './Service';
-import { vpnProvider, ServicesInterface } from '../../providers/vpnProvider';
+import { vpnProvider } from '../../providers/vpnProvider';
 import { browserApi } from '../../browserApi';
 import { log } from '../../../lib/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
 import { fetchConfig } from '../../../lib/constants';
-
-export interface IndexedServicesInterface {
-    [id: string]: string
-}
+import { sessionState } from '../../sessionStorage';
+import {
+    StorageKey,
+    ServicesInterface,
+    ServicesIndexType,
+    ServicesManagerState,
+} from '../../schema';
 
 interface ServiceManagerInterface {
     init: () => Promise<void>;
@@ -18,28 +21,59 @@ interface ServiceManagerInterface {
 }
 
 export class ServicesManager implements ServiceManagerInterface {
-    private services: ServicesInterface | null = null;
-
-    private servicesIndex: IndexedServicesInterface | null = null;
-
-    private lastUpdateTimeMs: number | null = null;
-
     // Update once in 24 hours
     private UPDATE_TIMEOUT_MS = 1000 * 60 * 60 * 24;
 
     // Key constant for storage
     private EXCLUSION_SERVICES_STORAGE_KEY = 'exclusions_services';
 
-    public init = async () => {
-        await this.updateServices();
+    state: ServicesManagerState;
 
-        if (!this.services) {
-            const services = await this.getServicesFromStorage();
-            if (services) {
-                this.setServices(services);
-            }
+    public init = async () => {
+        this.state = sessionState.getItem(StorageKey.ExclusionsServicesManagerState);
+
+        const services = await this.getServicesFromStorage();
+        if (services) {
+            this.setServices(services);
+            return;
+        }
+
+        await this.updateServices();
+        if (this.services) {
+            this.setServices(this.services);
         }
     };
+
+    private saveServicesManagerState = () => {
+        sessionState.setItem(StorageKey.ExclusionsServicesManagerState, this.state);
+    };
+
+    get services() {
+        return this.state.services;
+    }
+
+    set services(services: ServicesInterface | null) {
+        this.state.services = services;
+        this.saveServicesManagerState();
+    }
+
+    private get servicesIndex(): ServicesIndexType {
+        return this.state.servicesIndex;
+    }
+
+    private set servicesIndex(servicesIndex: ServicesIndexType) {
+        this.state.servicesIndex = servicesIndex;
+        this.saveServicesManagerState();
+    }
+
+    private get lastUpdateTimeMs(): number | null {
+        return this.state.lastUpdateTimeMs;
+    }
+
+    private set lastUpdateTimeMs(lastUpdateTimeMs: number | null) {
+        this.state.lastUpdateTimeMs = lastUpdateTimeMs;
+        this.saveServicesManagerState();
+    }
 
     /**
      * Returns services data
@@ -69,17 +103,17 @@ export class ServicesManager implements ServiceManagerInterface {
     /**
      * Returns services index
      */
-    getIndexedServices(): IndexedServicesInterface {
-        return this.servicesIndex ?? {};
+    getIndexedServices(): ServicesIndexType {
+        return this.servicesIndex;
     }
 
     /**
      * Returns map with services index by domain
      * @param services
      */
-    public static getServicesIndex(services: ServicesInterface): IndexedServicesInterface {
-        return Object.values(services).reduce((acc: IndexedServicesInterface, service) => {
-            service.domains.forEach((domain) => {
+    public static getServicesIndex(services: ServicesInterface): ServicesIndexType {
+        return Object.values(services).reduce((acc: ServicesIndexType, service) => {
+            service.domains?.forEach((domain) => {
                 acc[domain] = service.serviceId;
             });
 
@@ -197,12 +231,12 @@ export class ServicesManager implements ServiceManagerInterface {
     /**
      * Returns services data from storage
      */
-    async getServicesFromStorage(): Promise<ServicesInterface> {
+    async getServicesFromStorage(): Promise<ServicesInterface | null> {
         const services = await browserApi.storage.get<ServicesInterface>(
             this.EXCLUSION_SERVICES_STORAGE_KEY,
         );
 
-        return services ?? null;
+        return services || null;
     }
 }
 

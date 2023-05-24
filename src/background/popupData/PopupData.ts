@@ -2,8 +2,7 @@ import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
 
 import { log } from '../../lib/logger';
-import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
-import { State as ConnectivityState } from '../connectivity/connectivityService/connectivityConstants';
+import { connectivityService } from '../connectivity/connectivityService';
 import { PromoNotificationData, promoNotifications } from '../promoNotifications';
 import { auth } from '../auth';
 import { settings } from '../settings';
@@ -20,10 +19,12 @@ import { PermissionsCheckerInterface } from '../permissionsChecker/PermissionsCh
 import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { NonRoutableServiceInterface } from '../routability/NonRoutableService';
-import { VpnExtensionInfoInterface } from '../providers/vpnProvider';
+import type { VpnExtensionInfoInterface, ConnectivityStateType } from '../schema';
 import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
-import { CanControlProxy } from '../proxy/proxy';
+import { CanControlProxy } from '../schema';
+import { hintPopup } from '../hintPopup';
+import { popupOpenedCounter } from './popupOpenedCounter';
 
 interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;
@@ -48,7 +49,7 @@ interface PopupDataInterface {
     isRoutable?: boolean;
     isPremiumToken?: boolean;
     connectivityState?: {
-        value: ConnectivityState,
+        value: ConnectivityStateType,
     };
     promoNotification?: PromoNotificationData | null;
     desktopVpnEnabled?: boolean;
@@ -59,6 +60,7 @@ interface PopupDataInterface {
     isVpnEnabledByUrl?: boolean;
     shouldShowRateModal?: boolean;
     username?: string | null;
+    shouldShowHintPopup?: boolean;
 }
 
 interface PopupDataRetry extends PopupDataInterface {
@@ -123,7 +125,7 @@ export class PopupData {
         const canControlProxy = await appStatus.canControlProxy();
         const isProxyEnabled = settings.isProxyEnabled();
         const isPremiumToken = await this.credentials.isPremiumToken();
-        const connectivityState = { value: <ConnectivityState>connectivityService.state.value };
+        const connectivityState = { value: <ConnectivityStateType>connectivityService.state.value };
         const desktopVpnEnabled = await this.getDesktopEnabled();
         const promoNotification = await promoNotifications.getCurrentNotification();
         const { isFirstRun } = updateService;
@@ -131,6 +133,7 @@ export class PopupData {
         const isVpnEnabledByUrl = exclusions.isVpnEnabledByUrl(url);
         const shouldShowRateModal = await rateModal.shouldShowRateModal();
         const username = await credentials.getUsername();
+        const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -163,6 +166,7 @@ export class PopupData {
             isVpnEnabledByUrl,
             shouldShowRateModal,
             username,
+            shouldShowHintPopup,
         };
     };
 
@@ -172,26 +176,31 @@ export class PopupData {
 
     async getPopupDataRetry(url: string, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY): Promise<PopupDataRetry> {
         const backoffIndex = 1.5;
-        let data!: PopupDataInterface;
+        let data: PopupDataInterface;
 
         try {
             data = await this.getPopupData(url);
         } catch (e) {
             log.error(e);
+            await sleep(retryDelay);
+            this.retryCounter += 1;
+            log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
+            return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
 
         this.retryCounter += 1;
 
-        if (!data?.isAuthenticated || (<PopupDataInterface>data).permissionsError) {
+        // user is not authenticated
+        if ((!data.isAuthenticated && data.policyAgreement !== undefined)
+            || data.permissionsError) {
             this.retryCounter = 0;
             return { ...data, hasRequiredData: true };
         }
 
-        const { vpnInfo, locations, selectedLocation } = <PopupDataInterface>data;
-
         let hasRequiredData = true;
 
-        if (!vpnInfo || isEmpty(locations) || !selectedLocation) {
+        // check for required data
+        if (!data?.vpnInfo || isEmpty(data?.locations) || !data?.selectedLocation) {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
                 if (data?.isProxyEnabled) {
@@ -207,6 +216,7 @@ export class PopupData {
         }
 
         this.retryCounter = 0;
+        popupOpenedCounter.increment();
         return { ...data, hasRequiredData };
     }
 }

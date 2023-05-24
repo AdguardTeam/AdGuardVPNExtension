@@ -1,5 +1,5 @@
 import { CredentialsService } from '../../../src/background/credentials/credentialsService';
-import type { VpnTokenData } from '../../../src/background/credentials/Credentials';
+import type { VpnTokenData } from '../../../src/background/schema';
 import { SubscriptionType } from '../../../src/lib/constants';
 
 const storageImplementation: { [key: string]: unknown } = {};
@@ -37,7 +37,7 @@ const freeVpnTokenData: VpnTokenData = {
     },
 };
 
-// @ts-ignore
+// @ts-ignore - partly implementation
 const credentialsService = new CredentialsService(browserApiImplementation);
 
 jest.spyOn(credentialsService.browserApi.storage, 'set');

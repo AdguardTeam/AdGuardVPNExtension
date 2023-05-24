@@ -832,6 +832,12 @@
         "message": "월간 사용량 <span>%value% %unit%</span> 남음",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_hint_popup_content": {
+        "message": "이 사이트에 대해 VPN을 비활성화할 수 있습니다."
+    },
+    "popup_hint_popup_button": {
+        "message": "확인"
+    },
     "options_exclusions_import_select_title": {
         "message": "예외 목록을 사용하는 방법"
     },

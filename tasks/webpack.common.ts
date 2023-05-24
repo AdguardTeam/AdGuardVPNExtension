@@ -37,10 +37,12 @@ const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!a
 export const getCommonConfig = (browser: string): webpack.Configuration => {
     return {
         mode: IS_DEV ? 'development' : 'production',
-        devtool: false,
+        // we don't use eval source maps because of CSP in MV3
+        devtool: IS_DEV ? 'inline-source-map' : false,
         optimization: {
             minimize: false,
         },
+        cache: true,
         entry: {
             background: BACKGROUND_PATH,
             options: OPTIONS_PATH,
@@ -55,7 +57,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             filename: '[name].js',
         },
         resolve: {
-            extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
+            extensions: ['.*', '.js', '.jsx', '.ts', '.tsx'],
         },
 
         module: {
@@ -79,7 +81,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 {
                     test: /\.(ts|js)x?$/,
                     exclude: /node_modules/,
-                    use: ['cache-loader', { loader: 'babel-loader', options: { babelrc: true } }],
+                    use: [{ loader: 'babel-loader', options: { babelrc: true } }],
                 },
                 {
                     test: /\.(css|pcss)$/,
@@ -91,7 +93,6 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                             options: {
                                 importLoaders: 1,
                                 modules: {
-                                    compileType: 'module',
                                     mode: 'local',
                                     auto: true,
                                     exportGlobals: false,
@@ -106,9 +107,10 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 },
                 {
                     test: /\.(woff|woff2|eot|ttf|otf)$/,
-                    use: [
-                        { loader: 'file-loader', options: { outputPath: 'assets' } },
-                    ],
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'assets/[name][ext]',
+                    },
                 },
             ],
         },
@@ -126,12 +128,22 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
                 } else if (browser === Browser.Chrome
+                    || browser === Browser.ChromeMV2
                     || browser === Browser.Edge
                     || browser === Browser.Opera) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
                 } else {
                     throw new Error(`There is no proxy api for browser: ${browser}`);
+                }
+            })),
+            new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\/stateStorage\.abstract/, ((resource: any) => {
+                if (browser === Browser.Chrome) {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/stateStorage\/stateStorage\.abstract/, './stateStorage/mv3');
+                } else {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/stateStorage\/stateStorage\.abstract/, './stateStorage/mv2');
                 }
             })),
             new CleanWebpackPlugin(cleanOptions),
@@ -160,7 +172,8 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                                 updateLocales,
                                 process.env.BUILD_ENV,
                                 ' for Chrome',
-                                browser === Browser.Chrome && path.includes(EN_MESSAGES_PATH),
+                                (browser === Browser.Chrome || browser === Browser.ChromeMV2)
+                                    && path.includes(EN_MESSAGES_PATH),
                             );
                         },
                     },

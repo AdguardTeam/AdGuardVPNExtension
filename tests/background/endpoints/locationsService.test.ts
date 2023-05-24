@@ -1,11 +1,19 @@
-import { locationsService } from '../../../src/background/endpoints/locationsService';
-import { Location, LocationData } from '../../../src/background/endpoints/Location';
+import { connectivityService } from '../../../src/background/connectivity/connectivityService';
+import { Location } from '../../../src/background/endpoints/Location';
 import * as pingHelpers from '../../../src/background/connectivity/pingHelpers';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
-import { EndpointInterface } from '../../../src/background/endpoints/Endpoint';
-import { VpnTokenData } from '../../../src/background/credentials/Credentials';
+import type { VpnTokenData, EndpointInterface, LocationData } from '../../../src/background/schema';
+import { locationsService } from '../../../src/background/endpoints/locationsService';
+import { session } from '../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { sessionState } from '../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../src/background/sessionStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('../../../src/background/connectivity/pingHelpers');
 jest.mock('../../../src/lib/logger'); // hides redundant log messages during test run
@@ -13,7 +21,19 @@ jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/browserApi');
 jest.mock('../../../src/background/providers/vpnProvider');
 
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
+
 describe('location service', () => {
+    beforeEach(async () => {
+        await sessionState.init();
+        connectivityService.start();
+        locationsService.init();
+    });
     it('by default it tries to connect to previously selected endpoint', async () => {
         const firstEndpoint = {
             id: 'gc-gb-lhr-01-1r06zxq6.adguard.io',
@@ -31,7 +51,7 @@ describe('location service', () => {
             publicKey: 'F20OfogJ+ThcHqBXiFPBvPtFlTiPW9kkW+86WF+CtlI=',
         };
 
-        const locationData = {
+        const locationData: LocationData = {
             id: 'Z2JfbG9uZG9u',
             cityName: 'London',
             countryCode: 'GB',
@@ -39,6 +59,8 @@ describe('location service', () => {
             premiumOnly: false,
             coordinates: [-0.11, 51.5],
             endpoints: [firstEndpoint, secondEndpoint],
+            pingBonus: 100,
+            virtual: false,
         };
 
         let disabledDomains: string[] = [];
@@ -63,7 +85,7 @@ describe('location service', () => {
                 return 50;
             });
 
-        const location = new Location(locationData as LocationData);
+        const location = new Location(locationData);
         const firstSearchResult = await locationsService.getEndpointByLocation(location);
         expect(firstSearchResult).toEqual(firstEndpoint);
         expect(location.available).toBeTruthy();
@@ -128,6 +150,7 @@ describe('location service', () => {
             }],
         }];
 
+        await credentials.init();
         jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
         const getLocationsDataMock = vpnProvider.getLocationsData as jest.MockedFunction<() => any>;
         getLocationsDataMock.mockImplementation(() => testLocationData1);

@@ -122,6 +122,7 @@ export class VpnStore {
                 const escapedSearchValue = this.searchValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const regex = new RegExp(escapedSearchValue, 'ig');
                 return (location.cityName && location.cityName.match(regex))
+                || (location.countryCode && location.countryCode.match(regex))
                 || (location.countryName && location.countryName.match(regex));
             })
             .sort((a, b) => {
@@ -162,7 +163,7 @@ export class VpnStore {
         const sortedLocations = locations
             .map(this.enrichWithStateData)
             .filter((location) => location.ping)
-            .sort((a, b) => a.ping - b.ping)
+            .sort((a, b) => Number(a.ping) - Number(b.ping))
             .map((location) => {
                 if (this.selectedLocation && this.selectedLocation.id === location.id) {
                     return { ...location, selected: true };
@@ -270,10 +271,10 @@ export class VpnStore {
 
         // return selected location ping if it's missing from locations list (AG-3184)
         if (!currentLocation) {
-            return this.selectedLocation?.ping;
+            return this.selectedLocation?.ping || null;
         }
 
-        let ping: number | null = currentLocation?.ping;
+        let ping: number | null = currentLocation?.ping || null;
         // update with fresh values from pings storage
         if (this.pings[selectedLocationId]) {
             ping = this.pings[selectedLocationId].ping;
