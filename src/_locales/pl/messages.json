@@ -201,7 +201,7 @@
         "message": "E-mail"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Kontynuuj przez email"
+        "message": "Kontynuuj przez e-mail"
     },
     "auth_sign_in_provider_apple": {
         "message": "Kontynuuj z Apple"
@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Jasny"
     },
+    "settings_quick_connect_title": {
+        "message": "Szybkie łączenie"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Lokalizacja VPN wybrana po kliknięciu Połącz"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Ostatnio używana lokalizacja"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Najszybsza lokalizacja"
+    },
     "settings_exclusion_add": {
         "message": "Dodaj"
     },
@@ -581,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Pomyślnie uwierzytelniono! Możesz otworzyć AdGuard VPN i zacząć go używać."
     },
+    "control_error_title": {
+        "message": "Konflikt rozszerzeń"
+    },
     "control_error_description": {
         "message": "Wygląda na to, że inne rozszerzenie Chrome próbuje kontrolować twoje połączenie. Wyłącz inne rozszerzenie w przeglądarce."
     },
@@ -589,6 +604,12 @@
     },
     "popup_settings_enable_vpn_short": {
         "message": "Włącz"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Wyłącz VPN na tej stronie"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Włącz VPN na tej stronie"
     },
     "popup_settings_other_products": {
         "message": "Inne produkty"
@@ -625,6 +646,9 @@
     },
     "endpoints_search": {
         "message": "Wyszukaj lokalizację"
+    },
+    "endpoints_not_found": {
+        "message": "Nie znaleziono lokalizacji"
     },
     "popup_traffic_limit_reached": {
         "message": "Miesięczny limit danych przekroczony. Potrzebujesz więcej?"
@@ -665,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Zostaw opinię"
     },
+    "popup_compare_button": {
+        "message": "Dlaczego aplikacja jest lepsza"
+    },
     "popup_rate_modal_title": {
         "message": "Jak niesamowity jest AdGuard VPN?"
     },
@@ -692,8 +719,23 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Przejdź do Chrome Store"
     },
+    "popup_server_error_popup_title": {
+        "message": "Nie można połączyć się z serwerem"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Najprawdopodobniej VPN został zablokowany w Twoim kraju lub wystąpiła usterka techniczna. Już próbujemy to naprawić"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Powiadom zespół AdGuard"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Anuluj"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Pracujemy nad tym"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Dziękujemy za poinformowanie nas o tym!"
     },
     "popup_server_error_popup_close": {
         "message": "Zamknij"
@@ -785,6 +827,16 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Kontynuuj za darmo"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> pozostało w tym miesiącu",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_hint_popup_content": {
+        "message": "Swoją drogą, możesz wyłączyć VPN dla tej witryny, jeśli chcesz"
+    },
+    "popup_hint_popup_button": {
+        "message": "Rozumiem"
     },
     "options_exclusions_import_select_title": {
         "message": "Importuj wykluczenia do:"
