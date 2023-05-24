@@ -42,11 +42,6 @@ export interface PromoNotificationData {
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const RUSSIAN_LOCALE = 'ru';
-
-const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=easter_promo_23_vpn&from=popup&app=vpn_extension`;
-const RUSSIAN_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=easter_promo_23_vpn_ru&from=popup&app=vpn_extension`;
-
 const normalizeLanguage = (locale: string): string | null => {
     if (!locale) {
         return null;
@@ -55,184 +50,187 @@ const normalizeLanguage = (locale: string): string | null => {
     return locale.toLowerCase().replace('-', '_');
 };
 
-const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
-const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
+const promoLink = `https://${FORWARDER_DOMAIN}/forward.html?action=birthday_14_promo_vpn&from=popup&app=vpn_extension`;
 
-const easterPromo23Notification = {
-    id: 'easterPromo23',
+const birthday14Notification = {
+    id: 'birthday14Promo',
     locales: {
         en: {
-            title: 'Easter promo',
-            btn: 'Get 80% off',
+            title: 'What does AI say?',
+            btn: 'Guess',
         },
         ru: {
-            title: 'Весенняя акция',
-            btn: 'Скидка 75%',
+            title: 'Пойми ИИ',
+            btn: 'Играть',
         },
         ko: {
-            title: '부활절 세일',
-            btn: '85% 할인',
+            title: '인공지능은 뭐라고 말하나요?',
+            btn: '게임 시작',
         },
         es: {
-            title: 'Promo de Pascua',
-            btn: 'Gana un 80% de descuento',
+            title: 'Quiz: piensa como una IA',
+            btn: 'Comenzar',
         },
         de: {
-            title: 'Oster-Sale',
-            btn: '80% Rabatt',
+            title: 'Was sagt KI?',
+            btn: 'Spielen',
         },
         pt_pt: {
-            title: 'Promo de Páscoa',
-            btn: '80% de desconto',
+            title: 'Quiz: pensa como uma IA',
+            btn: 'Começar',
         },
         pt_br: {
-            title: 'Promo de Páscoa',
-            btn: '80% de desconto',
+            title: 'Quiz: pense como uma IA',
+            btn: 'Começar',
         },
         zh_tw: {
-            title: '暖春巨惠',
-            btn: '享2折',
+            title: '成為一個“更懂” AI 的人',
+            btn: '進行遊戲！',
         },
         zh_cn: {
-            title: '暖春特惠',
-            btn: '享2折',
+            title: '成为一个“更懂” AI 的人',
+            btn: '玩儿游戏！',
+        },
+        ja: {
+            title: 'AI（人工知能）を 理解してみよう',
+            btn: '玩儿游戏！',
         },
         fr: {
-            title: 'Promo Pâques',
-            btn: 'Obtenez 80% de remise',
+            title: 'L\'IA dit quoi?',
+            btn: 'Devinez!',
         },
         it: {
-            title: 'Offerta Pascua',
-            btn: 'Ottieni 80% di sconto',
+            title: 'Cosa dice l\'IA?',
+            btn: 'Indovinarlo',
         },
         uk: {
-            title: 'Весняна акція',
-            btn: 'Знижка 80%',
+            title: 'Що говорить штучний інтелект?',
+            btn: 'Грати',
         },
         ar: {
-            title: 'تعزيز الربيع',
-            btn: '80٪ خصم',
+            title: 'ماذا يقول الذكاء الاصطناعي؟',
+            btn: 'لعب',
         },
         be: {
-            title: 'Вясновая акцыя',
-            btn: 'Зніжка 80%',
+            title: 'Што кажа штучны інтэлект?',
+            btn: 'Гуляць',
         },
         bg: {
-            title: 'Пролетна промоция',
-            btn: '80% отстъпка',
+            title: 'Какво казва ИИ?',
+            btn: 'Играя',
         },
         ca: {
-            title: 'Promoció de Pasqua',
-            btn: '80% de descompte',
+            title: 'Què diu la IA?',
+            btn: 'Jugar',
         },
         cs: {
-            title: 'Velikonoční promo akce',
-            btn: '80% sleva',
+            title: 'Co říká umělá inteligence?',
+            btn: 'Přehrát',
         },
         da: {
-            title: 'Påske kampagne',
-            btn: '80% rabat',
+            title: 'Hvad siger den kunstige intelligens?',
+            btn: 'Spil',
         },
         el: {
-            title: 'ανοιξιάτικη προώθηση',
-            btn: '80% έκπτωση',
+            title: 'Τι λέει η Τεχνητή Νοημοσύνη;',
+            btn: 'Παίζω',
         },
         es_419: {
-            title: 'Promoción de pascua',
-            btn: '80% de descuento',
+            title: 'Quiz: piensa como una IA',
+            btn: 'Comenzar',
         },
         fa: {
-            title: 'تبلیغات بهار',
-            btn: '80 درصد تخفیف',
+            title: 'هوش مصنوعی چه می گوید؟',
+            btn: 'بازی',
         },
         fi: {
-            title: 'Pääsiäispromo',
-            btn: '80 % alennus',
+            title: 'Mitä tekoäly sanoo?',
+            btn: 'Leikkiä',
         },
         he: {
-            title: 'קידום אביב',
-            btn: '80% הנחה',
+            title: '?מה אומרת בינה מלאכותית',
+            btn: 'משחק',
         },
         hr: {
-            title: 'Uskršnja promocija',
-            btn: '80% popusta',
+            title: 'Što kaže umjetna inteligencija?',
+            btn: 'Igrati',
         },
         hu: {
-            title: 'Tavaszi akció',
-            btn: '80% kedvezmény',
+            title: 'Mit mond az MI?',
+            btn: 'Játszik',
         },
         hy: {
-            title: 'գարնանային ակցիա',
-            btn: '80% զեղչ',
+            title: 'Ի՞նչ է ասում ԱԻ-ն:',
+            btn: 'Խաղալ',
         },
         id: {
-            title: 'Promosi musim semi',
-            btn: 'Diskon 80%',
+            title: 'Apa yang dikatakan AI?',
+            btn: 'Bermain',
         },
         lt: {
-            title: 'Velykų akcija',
-            btn: '80% nuolaida',
+            title: 'Ką sako dirbtinis intelektas?',
+            btn: 'Žaisti',
         },
         ms: {
-            title: 'Promosi musim bunga',
-            btn: 'Diskaun 80%',
+            title: 'Apa kata Kecerdasan Buatan?',
+            btn: 'Bermain',
         },
         nb: {
-            title: 'Påskekampanje',
-            btn: '80% rabatt',
+            title: 'Hva sier kunstig intelligens?',
+            btn: 'Skuespill',
         },
         nl: {
-            title: 'Pasen promo',
-            btn: '80% korting',
+            title: 'Wat zegt KI?',
+            btn: 'Spelen',
         },
         pl: {
-            title: 'Promocja wielkanocna',
-            btn: '80% zniżki',
+            title: 'Co mówi sztuczna inteligencja?',
+            btn: 'Grać',
         },
         ro: {
-            title: 'Promoție de primăvară',
-            btn: '80% reducere',
+            title: 'Ce spune inteligența artificială?',
+            btn: 'Juca',
         },
         sk: {
-            title: 'Veľkonočné promo',
-            btn: '80% zľava',
+            title: 'Čo hovorí umelá inteligencia?',
+            btn: 'Hrať',
         },
         sl: {
-            title: 'Velikonočni promo',
-            btn: '80% popust',
+            title: 'Kaj pravi umetna inteligenca?',
+            btn: 'Igrati',
         },
         sr: {
-            title: 'Prolećna promocija',
-            btn: 'Popust 80%',
+            title: 'Šta kaže veštačka inteligencija?',
+            btn: 'Igra',
         },
         sv: {
-            title: 'Påsk kampanj',
-            btn: '80 % rabatt',
+            title: 'Vad säger artificiell intelligens?',
+            btn: 'Leka',
         },
         tr: {
-            title: 'Bahar promosyonu',
-            btn: '%80 indirim',
+            title: 'Yapay zeka ne diyor?',
+            btn: 'Oyun',
         },
         vi: {
-            title: 'Khuyến mãi mùa xuân',
-            btn: 'Giảm giá 80%',
+            title: 'AI nói gì?',
+            btn: 'Chơi',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
     url: promoLink,
-    from: '06 April 2023 12:00:00',
-    to: '12 April 2023 23:59:00',
+    from: '01 June 2023 12:00:00',
+    to: '07 June 2023 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(easterPromo23Notification, 'icons', () => ({
+        return lazyGet(birthday14Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/easter2023-on-19.png'),
-                38: getUrl('assets/images/icons/easter2023-on-38.png'),
+                19: getUrl('assets/images/icons/birthday14-on-19.png'),
+                38: getUrl('assets/images/icons/birthday14-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/easter2023-off-19.png'),
-                38: getUrl('assets/images/icons/easter2023-off-38.png'),
+                19: getUrl('assets/images/icons/birthday14-off-19.png'),
+                38: getUrl('assets/images/icons/birthday14-off-38.png'),
             },
         }));
     },
@@ -255,7 +253,7 @@ const easterPromo23Notification = {
  */
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    easterPromo23: easterPromo23Notification,
+    birthday14Promo: birthday14Notification,
 };
 
 /**
@@ -333,6 +331,7 @@ const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
         timeoutId = timers.setTimeout(() => {
             setNotificationViewed(false);
         }, NOTIFICATION_DELAY);
+        return;
     }
 
     if (currentNotification) {
