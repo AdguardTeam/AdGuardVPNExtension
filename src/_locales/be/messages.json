@@ -798,6 +798,9 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Працягнуць дарма"
     },
+    "popup_hint_popup_button": {
+        "message": "Зразумела"
+    },
     "options_exclusions_import_select_title": {
         "message": "Як выкарыстоўваць гэты спіс выключэнняў?"
     },
