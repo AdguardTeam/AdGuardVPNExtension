@@ -28,7 +28,17 @@ if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
 
 const commonConfig = getCommonConfig(Browser.Firefox);
 
+if (commonConfig.resolve) {
+    commonConfig.resolve.fallback = {
+        buffer: require.resolve('buffer'),
+    };
+}
+
 const plugins: webpack.WebpackPluginInstance[] = [
+    new webpack.ProvidePlugin({
+        process: 'process/browser',
+        Buffer: ['buffer', 'Buffer'],
+    }),
     // TODO: on move to MV3 inject initMv3
     new webpack.NormalModuleReplacementPlugin(/\.\/init\/initAbstract/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign

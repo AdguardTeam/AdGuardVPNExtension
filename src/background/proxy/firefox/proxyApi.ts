@@ -1,5 +1,4 @@
 import browser, { Proxy } from 'webextension-polyfill';
-import { Buffer } from 'buffer';
 
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 import { IPV4_REGEX } from '../../routability/constants';
