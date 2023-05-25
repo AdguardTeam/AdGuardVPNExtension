@@ -156,11 +156,17 @@ const proxyClear = () => {
     browser.proxy.onRequest.removeListener(proxyHandler);
 };
 
+/**
+ * MV3 for firefox browser is not implemented yet so there is nothing to init
+ */
+const init = (): void => {};
+
 const proxyApi = {
     proxySet,
     proxyGet,
     proxyClear,
     onProxyError,
+    init,
 };
 
 export default proxyApi;
