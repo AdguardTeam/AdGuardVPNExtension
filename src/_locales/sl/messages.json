@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN – brezplačen in varen VPN"
+        "message": "AdGuard VPN – brezplačen in varen namestniški strežnik"
     },
     "description": {
         "message": "Uporabite AdGuard VPN za hitro, varno in varno brskanje po internetu. Zaščitite svojo zasebnost in ostanite anonimni z našim zasebnim namestniškim VPN strežnikom."
@@ -831,6 +831,9 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo ta mesec",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_hint_popup_content": {
+        "message": "Mimogrede, lahko onemogočite VPN za to spletno stran, če želite"
     },
     "popup_hint_popup_button": {
         "message": "Razumem"

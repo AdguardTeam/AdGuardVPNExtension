@@ -832,6 +832,9 @@
         "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_hint_popup_content": {
+        "message": "Mimochodem, pokud si přejete, můžete VPN pro tento web zakázat"
+    },
     "popup_hint_popup_button": {
         "message": "Rozumím"
     },

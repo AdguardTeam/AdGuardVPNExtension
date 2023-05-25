@@ -832,6 +832,9 @@
         "message": "Bu ay <span>%value% %unit%</span> kaldı",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_hint_popup_content": {
+        "message": "Bu arada, isterseniz bu site için VPN'i devre dışı bırakabilirsiniz"
+    },
     "popup_hint_popup_button": {
         "message": "Anladım"
     },

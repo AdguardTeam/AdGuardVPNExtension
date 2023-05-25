@@ -723,7 +723,7 @@
         "message": "No se puede conectar al servidor"
     },
     "popup_server_error_popup_info": {
-        "message": "Es probable que la VPN haya sido bloqueada en tu país o haya un problema técnico. Ya estamos tratando de arreglarlo"
+        "message": "Probablemente la VPN haya sido bloqueada en tu país o haya un problema técnico. Estamos tratando de arreglarlo"
     },
     "popup_server_error_popup_action": {
         "message": "Alentar al equipo de AdGuard"

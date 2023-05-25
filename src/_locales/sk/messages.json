@@ -554,8 +554,23 @@
     "settings_exclusion_title": {
         "message": "Výnimky"
     },
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Kde je zapnutá sieť VPN"
+    },
+    "settings_exclusion_general_title": {
+        "message": "Všade okrem vylúčených webových stránok"
+    },
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN je na <span>všade</span> okrem nižšie uvedených webových stránok"
+    },
     "settings_exclusion_selective_title": {
         "message": "Len na vybraných webových stránkach"
+    },
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN je na <span>selektívne</span>: iba pre nižšie uvedené webové stránky"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Ak ponecháte tento zoznam prázdny, vypnete VPN pre všetky webové stránky"
     },
     "settings_exclusion_import_button": {
         "message": "Import"
@@ -698,9 +713,6 @@
     "popup_server_error_popup_title": {
         "message": "Nemožno sa pripojiť k serveru"
     },
-    "popup_server_error_popup_info": {
-        "message": "Pravdepodobne bola VPN vo vašej krajine zablokovaná alebo došlo k technickej poruche. Už sa to snažíme napraviť"
-    },
     "popup_server_error_popup_action": {
         "message": "Tím Nudge AdGuard"
     },
@@ -749,6 +761,18 @@
     },
     "popup_newsletter_no_subscribe": {
         "message": "Nie, ďakujem"
+    },
+    "popup_onboarding_unique_protocol_info": {
+        "message": "Protokol AdGuard VPN pracuje rýchlo a robí Vašu sieť VPN nenápadnou"
+    },
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Vylúčenia webových stránok a aplikácií"
+    },
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Vylúčenia Vám pomôžu rýchlo určiť stránky alebo aplikácie, ktoré majú byť chránené pomocou AdGuard VPN"
+    },
+    "popup_onboarding_no_logging_policy": {
+        "message": "Politika nevytvárania denníkov"
     },
     "popup_onboarding_next": {
         "message": "Ďalej"

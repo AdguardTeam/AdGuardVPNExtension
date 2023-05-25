@@ -723,7 +723,7 @@
         "message": "Kan ikke oprette forbindelse til server"
     },
     "popup_server_error_popup_info": {
-        "message": "Sandsynligvis blev VPN'en blokeret i dit land, eller der var en teknisk fejl. Vi forsøger allerede at løse det"
+        "message": "Sandsynligvis blokeres VPN i det pågældende land, eller en teknisk fejl opstod. Vi forsøger allerede at løse det"
     },
     "popup_server_error_popup_action": {
         "message": "Puf til AdGuard-teamet"
@@ -831,6 +831,9 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> tilbage denne måned",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_hint_popup_content": {
+        "message": "VPN kan deaktiveres for dette websted, om ønsket"
     },
     "popup_hint_popup_button": {
         "message": "Forstået"
