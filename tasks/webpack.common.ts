@@ -123,16 +123,20 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     process.env.BUILD_ENV,
                 )),
             }),
-            new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource: any) => {
+            new webpack.NormalModuleReplacementPlugin(/\.\/(proxy\/)?abstractProxyApi/, ((resource: any) => {
                 if (browser === Browser.Firefox) {
                     // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
+                    resource.request = resource.request
+                        .replace(/\.\/abstractProxyApi/, './firefox/proxyApi')
+                        .replace(/\.\/proxy\/abstractProxyApi/, './proxy/firefox/proxyApi');
                 } else if (browser === Browser.Chrome
                     || browser === Browser.ChromeMV2
                     || browser === Browser.Edge
                     || browser === Browser.Opera) {
                     // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
+                    resource.request = resource.request
+                        .replace(/\.\/abstractProxyApi/, './chrome/proxyApi')
+                        .replace(/\.\/proxy\/abstractProxyApi/, './proxy/chrome/proxyApi');
                 } else {
                     throw new Error(`There is no proxy api for browser: ${browser}`);
                 }

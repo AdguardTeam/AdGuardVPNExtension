@@ -18,6 +18,7 @@ const abstractProxyApi = (() => {
             addListener: errorFunction,
             removeListener: errorFunction,
         },
+        init: errorFunction,
     };
 })();
 

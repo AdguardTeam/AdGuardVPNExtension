@@ -62,11 +62,11 @@ class ExtensionProxy implements ExtensionProxyInterface {
         sessionState.setItem(StorageKey.ProxyState, this.state);
     };
 
-    private get isActive() {
+    public get isActive() {
         return this.state.isActive;
     }
 
-    private set isActive(isActive: boolean) {
+    public set isActive(isActive: boolean) {
         this.state.isActive = isActive;
         this.saveProxyState();
     }

@@ -1,8 +1,14 @@
 import { nanoid } from 'nanoid';
 
 import pacGenerator from './pacGenerator';
-import { ProxyConfigInterface } from '../../schema';
+import { AccessCredentials, ProxyConfigInterface } from '../../schema';
 import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
+import { browserApi } from '../../browserApi';
+import { proxy } from '../proxy';
+
+type AuthHandler = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
+    authCredentials?: AccessCredentials,
+};
 
 /**
  * Returns proxy config
@@ -70,8 +76,20 @@ const onAuthRequiredHandler = (details: chrome.webRequest.WebAuthenticationChall
     return {};
 };
 
-const addOnAuthRequiredListener = () => {
-    chrome.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
+/**
+ * Handles onAuthRequired events only if proxy is active
+ * @param details
+ */
+const onAuthRequiredHandlerForActiveProxy = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
+    return proxy.isActive ? onAuthRequiredHandler(details) : {};
+};
+
+/**
+ * Adds listener for the onAuthRequired event
+ * @param handler
+ */
+const addOnAuthRequiredListener = (handler: AuthHandler) => {
+    chrome.webRequest.onAuthRequired.addListener(handler, { urls: ['<all_urls>'] }, ['blocking']);
 };
 
 const removeOnAuthRequiredListener = () => {
@@ -130,7 +148,10 @@ const proxySet = async (config: ProxyConfigInterface): Promise<void> => {
     const chromeConfig = convertToChromeConfig(config);
     await promisifiedSetProxy(chromeConfig);
     globalProxyConfig = config;
-    addOnAuthRequiredListener();
+    // Register onAuthRequired listener for MV2 to handle proxy authorization
+    if (browserApi.runtime.isManifestVersion2()) {
+        addOnAuthRequiredListener(onAuthRequiredHandler);
+    }
     await triggerOnAuthRequired();
 };
 
@@ -154,11 +175,20 @@ const onProxyError = (() => {
     };
 })();
 
+/**
+ * Registers onAuthRequired listener for MV3 on top level to wake up the service worker
+ * and handles authorization for active proxy only
+ */
+const init = (): void => {
+    addOnAuthRequiredListener(onAuthRequiredHandlerForActiveProxy);
+};
+
 const proxyApi = {
     proxySet,
     proxyGet,
     proxyClear,
     onProxyError,
+    init,
 };
 
 export default proxyApi;
