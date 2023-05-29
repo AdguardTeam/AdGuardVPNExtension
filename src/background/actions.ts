@@ -8,7 +8,6 @@ import { settings } from './settings';
 import { UPGRADE_LICENSE_URL } from './config';
 import { promoNotifications } from './promoNotifications';
 import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
-import { browserApi } from './browserApi';
 import { browserAction } from './browserAction';
 
 type SetIconDetailsType = browser.Action.SetIconDetailsType;
@@ -17,48 +16,57 @@ type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
 const OPTIONS_PAGE_PATH = '/options.html';
 
 /**
+ * Opens options page in Firefox with anchor if provided.
+ * There is a bug with browser.runtime.openOptionsPage() method in Firefox
+ * similar to https://bugs.chromium.org/p/chromium/issues/detail?id=1369940,
+ * so we use temporary solution to open а single options page in Firefox.
+ */
+const openOptionsPageFirefox = async (anchorName: string | null) => {
+    const manifest = browser.runtime.getManifest();
+    let optionsUrl = manifest.options_ui!.page;
+
+    if (!optionsUrl.includes('://')) {
+        optionsUrl = browser.runtime.getURL(optionsUrl);
+    }
+
+    const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+    const anchor = anchorName ? `#${anchorName}` : '';
+    const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
+
+    const view = browser.extension.getViews()
+        .find((wnd) => wnd.location.href.startsWith(optionsUrl));
+    if (view) {
+        await new Promise<void>((resolve) => {
+            view.chrome.tabs.getCurrent(async (tab) => {
+                if (!tab?.id) {
+                    return;
+                }
+                await tabs.update(tab?.id, targetUrl);
+                resolve();
+            });
+        });
+    } else {
+        await browser.tabs.create({ url: targetUrl });
+    }
+};
+
+/**
  * Opens options tab with anchor if provided
  */
 const openOptionsPage = async (anchorName: string | null = null): Promise<void> => {
-    if (browserApi.runtime.isManifestVersion2()) {
-        const manifest = browser.runtime.getManifest();
-        // options_page in Chrome manifest, options_ui in Firefox manifest
-        // @ts-ignore (options_page property doesn't exist in polyfill)
-        let optionsUrl = manifest.options_page || manifest.options_ui?.page;
+    // we use temporary solution for Firefox because of a bug
+    // with browser.runtime.openOptionsPage() method
+    // TODO: remove when bug will be fixed
+    if (Prefs.isFirefox()) {
+        await openOptionsPageFirefox(anchorName);
+        return;
+    }
 
-        if (!optionsUrl.includes('://')) {
-            optionsUrl = browser.runtime.getURL(optionsUrl);
-        }
-
-        const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
-        const anchor = anchorName ? `#${anchorName}` : '';
-        const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
-
-        // there is the bug with chrome.runtime.openOptionsPage() method
-        // https://bugs.chromium.org/p/chromium/issues/detail?id=1369940
-        // we use temporary solution to open а single options page
-        const view = browser.extension.getViews()
-            .find((wnd) => wnd.location.href.startsWith(optionsUrl));
-        if (view) {
-            await new Promise<void>((resolve) => {
-                view.chrome.tabs.getCurrent(async (tab) => {
-                    if (!tab?.id) {
-                        return;
-                    }
-                    await tabs.update(tab?.id, targetUrl);
-                    resolve();
-                });
-            });
-        } else {
-            await browser.tabs.create({ url: targetUrl });
-        }
-    } else {
-        await browser.runtime.openOptionsPage();
-        const optionsTab = await tabs.getCurrent();
-        const { id } = optionsTab;
-        if (anchorName && id) {
-            await tabs.update(id, `${OPTIONS_PAGE_PATH}#${anchorName}`);
-        }
+    await browser.runtime.openOptionsPage();
+    const optionsTab = await tabs.getCurrent();
+    const { id } = optionsTab;
+    if (anchorName && id) {
+        await tabs.update(id, `${OPTIONS_PAGE_PATH}#${anchorName}`);
     }
 };
 
