@@ -312,6 +312,37 @@ describe('ExclusionsService', () => {
         expect(exclusions.children[0].children[0].state).toEqual(ExclusionState.Disabled);
     });
 
+    it('disableVpnByUrl and enableVpnByUrl test for subdomains', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+
+        await exclusionsService.addUrlToExclusions('example.org');
+
+        await exclusionsService.enableVpnByUrl('test.example.org');
+        const exclusions = exclusionsService.getExclusions();
+        expect(exclusions.children[0].hostname).toEqual('example.org');
+        expect(exclusions.children[0].state).toEqual(ExclusionState.PartlyEnabled);
+        expect(exclusions.children[0].children).toHaveLength(3);
+        expect(exclusions.children[0].children[0].hostname).toEqual('example.org');
+        expect(exclusions.children[0].children[0].state).toEqual(ExclusionState.Enabled);
+        expect(exclusions.children[0].children[1].hostname).toEqual('*.example.org');
+        expect(exclusions.children[0].children[1].state).toEqual(ExclusionState.Disabled);
+        expect(exclusions.children[0].children[2].hostname).toEqual('test.example.org');
+        expect(exclusions.children[0].children[2].state).toEqual(ExclusionState.Disabled);
+
+        await exclusionsService.disableVpnByUrl('test.example.org');
+        const updatedExclusions = exclusionsService.getExclusions();
+        expect(updatedExclusions.children[0].hostname).toEqual('example.org');
+        expect(updatedExclusions.children[0].state).toEqual(ExclusionState.PartlyEnabled);
+        expect(updatedExclusions.children[0].children).toHaveLength(3);
+        expect(updatedExclusions.children[0].children[0].hostname).toEqual('example.org');
+        expect(updatedExclusions.children[0].children[0].state).toEqual(ExclusionState.Enabled);
+        expect(updatedExclusions.children[0].children[1].hostname).toEqual('*.example.org');
+        expect(updatedExclusions.children[0].children[1].state).toEqual(ExclusionState.Disabled);
+        expect(updatedExclusions.children[0].children[2].hostname).toEqual('test.example.org');
+        expect(updatedExclusions.children[0].children[2].state).toEqual(ExclusionState.Enabled);
+    });
+
     it('should remove group if main domain has been removed', async () => {
         const exclusionsService = new ExclusionsService();
         await exclusionsService.init();
