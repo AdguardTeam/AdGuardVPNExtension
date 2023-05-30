@@ -212,38 +212,20 @@ export class ExclusionsHandler {
         const subdomain = getSubdomain(hostname, eTld);
 
         if (subdomain.length) {
-            // add new subdomain exclusion
-            await this.addUrlToExclusions(hostname);
-
-            // disable new subdomain exclusion
             const subdomainExclusion = this.getExclusionByHostname(hostname);
+            // disable existing subdomain exclusion
             if (subdomainExclusion) {
                 await this.disableExclusionState(subdomainExclusion);
+                return;
             }
 
+            // if there is no existing subdomain exclusion,
             // disable wildcard exclusion
             const wildcardExclusion = this.getExclusionByHostname(`*.${eTld}`);
             if (wildcardExclusion) {
                 await this.disableExclusionState(wildcardExclusion);
             }
         }
-
-        // const exclusionsIdsToDisable = [];
-        //
-        // if (subdomain.length) {
-        //     // add new subdomain exclusion
-        //     await this.addUrlToExclusions(hostname);
-        //     const subdomainExclusion = this.getExclusionByHostname(hostname);
-        //     if (subdomainExclusion) {
-        //         exclusionsIdsToDisable.push(subdomainExclusion.id);
-        //     }
-        //     const wildcardExclusion = this.getExclusionByHostname(`*.${eTld}`);
-        //     if (wildcardExclusion) {
-        //         exclusionsIdsToDisable.push(wildcardExclusion.id);
-        //     }
-        //
-        //     await this.setExclusionsState(exclusionsIdsToDisable, ExclusionState.Disabled);
-        // }
     }
 
     /**
