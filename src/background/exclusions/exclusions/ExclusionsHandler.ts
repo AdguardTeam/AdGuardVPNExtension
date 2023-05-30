@@ -227,6 +227,23 @@ export class ExclusionsHandler {
                 await this.disableExclusionState(wildcardExclusion);
             }
         }
+
+        // const exclusionsIdsToDisable = [];
+        //
+        // if (subdomain.length) {
+        //     // add new subdomain exclusion
+        //     await this.addUrlToExclusions(hostname);
+        //     const subdomainExclusion = this.getExclusionByHostname(hostname);
+        //     if (subdomainExclusion) {
+        //         exclusionsIdsToDisable.push(subdomainExclusion.id);
+        //     }
+        //     const wildcardExclusion = this.getExclusionByHostname(`*.${eTld}`);
+        //     if (wildcardExclusion) {
+        //         exclusionsIdsToDisable.push(wildcardExclusion.id);
+        //     }
+        //
+        //     await this.setExclusionsState(exclusionsIdsToDisable, ExclusionState.Disabled);
+        // }
     }
 
     /**
