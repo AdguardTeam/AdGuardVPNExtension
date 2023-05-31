@@ -33,6 +33,8 @@ export class SettingsStore {
 
     @observable currentTabHostname: string;
 
+    @observable currentTabUrl: string;
+
     @observable isRoutable: boolean = true;
 
     @observable globalError: Error | null;
@@ -110,7 +112,7 @@ export class SettingsStore {
 
     @action disableVpnOnCurrentTab = async (): Promise<void> => {
         try {
-            await messenger.disableVpnByUrl(this.currentTabHostname);
+            await messenger.disableVpnByUrl(this.currentTabUrl);
             this.setIsExcluded(true);
             // play disconnection animation,
             // if user connected to any location and added website to exclusions
@@ -124,7 +126,7 @@ export class SettingsStore {
 
     @action enableVpnOnCurrentTab = async (): Promise<void> => {
         try {
-            await messenger.enableVpnByUrl(this.currentTabHostname);
+            await messenger.enableVpnByUrl(this.currentTabUrl);
             this.setIsExcluded(false);
             // play connection animation,
             // if user connected to any location and removed website from exclusions
@@ -150,7 +152,8 @@ export class SettingsStore {
             runInAction(() => {
                 const hostname = getHostname(url);
                 const protocol = getProtocol(url);
-                if (hostname) {
+                if (url && hostname) {
+                    this.currentTabUrl = url;
                     this.currentTabHostname = hostname;
                 }
 
