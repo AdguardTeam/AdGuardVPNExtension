@@ -23,6 +23,8 @@ export const isTopLevel = (hostname: string) => {
     return parsed?.publicSuffix === hostname;
 };
 
+export const hasWww = (url: string) => url.match(/^(https?:\/\/)?www\./);
+
 /**
  * Here eTLD has many meanings:
  * - for regular hostnames returns eTLD + 1

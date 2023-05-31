@@ -2,7 +2,12 @@ import { nanoid } from 'nanoid';
 
 import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
-import { getETld, getHostname, getSubdomain } from '../../../common/url-utils';
+import {
+    getETld,
+    getHostname,
+    getSubdomain,
+    hasWww,
+} from '../../../common/url-utils';
 import type { ExclusionInterface, IndexedExclusionsInterface } from '../../schema';
 
 interface UpdateHandler {
@@ -198,14 +203,31 @@ export class ExclusionsHandler {
             return;
         }
 
-        const hostnameExclusion = this.getExclusionByHostname(hostname);
-        if (hostnameExclusion) {
-            await this.disableExclusionState(hostnameExclusion);
+        const eTld = getETld(url);
+        if (!eTld) {
             return;
         }
 
-        const eTld = getETld(url);
-        if (!eTld) {
+        // disable eTld exclusion and wildcard exclusion
+        // for eTld exclusions with www (https://www.example.org)
+        if (hasWww(url) && hostname === eTld) {
+            const exclusionsIds: string[] = [];
+            const eTldExclusion = this.getExclusionByHostname(eTld);
+            if (eTldExclusion) {
+                exclusionsIds.push(eTldExclusion.id);
+            }
+            const wildcardExclusion = this.getExclusionByHostname(`*.${eTld}`);
+            if (wildcardExclusion && wildcardExclusion.state === ExclusionState.Enabled) {
+                exclusionsIds.push(wildcardExclusion.id);
+            }
+
+            await this.setExclusionsState(exclusionsIds, ExclusionState.Disabled);
+            return;
+        }
+
+        const hostnameExclusion = this.getExclusionByHostname(hostname);
+        if (hostnameExclusion) {
+            await this.disableExclusionState(hostnameExclusion);
             return;
         }
 
