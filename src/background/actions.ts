@@ -19,7 +19,7 @@ const OPTIONS_PAGE_PATH = '/options.html';
  * Opens options page in Firefox with anchor if provided.
  * There is a bug with browser.runtime.openOptionsPage() method in Firefox
  * similar to https://bugs.chromium.org/p/chromium/issues/detail?id=1369940,
- * so we use temporary solution to open а single options page in Firefox.
+ * so we use a temporary solution to open а single options page in Firefox.
  */
 const openOptionsPageFirefox = async (anchorName: string | null) => {
     const manifest = browser.runtime.getManifest();
