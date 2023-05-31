@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 
 import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
-import { getETld, getHostname } from '../../../common/url-utils';
+import { getETld, getHostname, getSubdomain } from '../../../common/url-utils';
 import type { ExclusionInterface, IndexedExclusionsInterface } from '../../schema';
 
 interface UpdateHandler {
@@ -166,7 +166,7 @@ export class ExclusionsHandler {
     async setExclusionsState(
         ids: string[],
         state: Exclude<ExclusionState, ExclusionState.PartlyEnabled>,
-    ) {
+    ): Promise<void> {
         this.exclusions = this.exclusions.map((ex) => {
             if (ids.includes(ex.id)) {
                 return {
@@ -181,22 +181,51 @@ export class ExclusionsHandler {
     }
 
     /**
+     * Disables state for provided exclusion
+     * @param exclusion
+     */
+    async disableExclusionState(exclusion: ExclusionInterface): Promise<void> {
+        await this.setExclusionsState([exclusion.id], ExclusionState.Disabled);
+    }
+
+    /**
      * Disables exclusion by url
      * @param url
      */
-    async disableExclusionByUrl(url: string) {
+    async disableExclusionByUrl(url: string): Promise<void> {
         const hostname = getHostname(url);
         if (!hostname) {
             return;
         }
 
-        const exclusion = this.getExclusionByHostname(hostname);
-        if (!exclusion) {
+        const hostnameExclusion = this.getExclusionByHostname(hostname);
+        if (hostnameExclusion) {
+            await this.disableExclusionState(hostnameExclusion);
             return;
         }
 
-        await this.setExclusionsState([exclusion.id], ExclusionState.Disabled);
-        await this.onUpdate();
+        const eTld = getETld(url);
+        if (!eTld) {
+            return;
+        }
+
+        const subdomain = getSubdomain(hostname, eTld);
+
+        if (subdomain.length) {
+            const subdomainExclusion = this.getExclusionByHostname(hostname);
+            // disable existing subdomain exclusion
+            if (subdomainExclusion) {
+                await this.disableExclusionState(subdomainExclusion);
+                return;
+            }
+
+            // if there is no existing subdomain exclusion,
+            // disable wildcard exclusion
+            const wildcardExclusion = this.getExclusionByHostname(`*.${eTld}`);
+            if (wildcardExclusion) {
+                await this.disableExclusionState(wildcardExclusion);
+            }
+        }
     }
 
     /**
