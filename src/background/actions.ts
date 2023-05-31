@@ -23,6 +23,7 @@ const OPTIONS_PAGE_PATH = '/options.html';
  */
 const openOptionsPageFirefox = async (anchorName: string | null) => {
     const manifest = browser.runtime.getManifest();
+    // options page url set in options_ui.page in manifest.firefox.ts
     let optionsUrl = manifest.options_ui!.page;
 
     if (!optionsUrl.includes('://')) {
@@ -33,20 +34,16 @@ const openOptionsPageFirefox = async (anchorName: string | null) => {
     const anchor = anchorName ? `#${anchorName}` : '';
     const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
 
-    const view = browser.extension.getViews()
-        .find((wnd) => wnd.location.href.startsWith(optionsUrl));
-    if (view) {
-        await new Promise<void>((resolve) => {
-            view.chrome.tabs.getCurrent(async (tab) => {
-                if (!tab?.id) {
-                    return;
-                }
-                await tabs.update(tab?.id, targetUrl);
-                resolve();
-            });
-        });
-    } else {
-        await browser.tabs.create({ url: targetUrl });
+    const optionsTabs = await browser.tabs.query({ url: targetUrl });
+
+    if (!optionsTabs.length) {
+        await tabs.openTab(targetUrl);
+    }
+
+    const { windowId, id: tabId } = optionsTabs[0];
+    await browser.tabs.update(tabId, { url: targetUrl, active: true });
+    if (windowId) {
+        await browser.windows.update(windowId, { focused: true });
     }
 };
 
