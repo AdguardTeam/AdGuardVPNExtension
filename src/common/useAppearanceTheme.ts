@@ -2,7 +2,7 @@ import throttle from 'lodash/throttle';
 import { useLayoutEffect } from 'react';
 import { browserApi } from '../background/browserApi';
 
-import { AppearanceTheme } from '../lib/constants';
+import { APPEARANCE_THEME_DEFAULT, AppearanceTheme } from '../lib/constants';
 
 export const THEME_STORAGE_KEY = 'appearance_theme';
 
@@ -23,7 +23,7 @@ export const useAppearanceTheme = (appearanceTheme: string | null) => {
         };
 
         (async () => {
-            if (!theme) {
+            if (!theme || theme === APPEARANCE_THEME_DEFAULT) {
                 const themeBkp = await getThemeFromLocalStorage();
                 if (typeof themeBkp === 'string') {
                     theme = themeBkp;

@@ -9,6 +9,9 @@ import { log } from '../../lib/logger';
 import { tabs } from '../../background/tabs';
 import { messenger } from '../../lib/messenger';
 import type { RootStore } from './RootStore';
+import { browserApi } from '../../background/browserApi';
+import { SETTINGS_IDS, SETTINGS_KEY } from '../../lib/constants';
+import type { Settings } from '../../background/settings/SettingsService';
 
 export class GlobalStore {
     @observable initStatus = RequestStatus.Pending;
@@ -104,8 +107,19 @@ export class GlobalStore {
 
     @action
     async init(): Promise<void> {
+        // set appearance theme from browser storage
+        // to open popup with proper theme for sure
+        await this.setAppearanceThemeFromStorage();
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
     }
+
+    @action setAppearanceThemeFromStorage = async (): Promise<void> => {
+        const settings = <Settings> await browserApi.storage.get(SETTINGS_KEY);
+        const appearanceTheme = settings[SETTINGS_IDS.APPEARANCE_THEME];
+
+        const { rootStore: { settingsStore } } = this;
+        settingsStore.setAppearanceTheme(appearanceTheme);
+    };
 
     @action
     setInitStatus(status: RequestStatus): void {

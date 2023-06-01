@@ -1,7 +1,7 @@
 import throttle from 'lodash/throttle';
 
 import { log } from '../../lib/logger';
-import { AppearanceTheme, SETTINGS_IDS } from '../../lib/constants';
+import { AppearanceTheme, SETTINGS_IDS, SETTINGS_KEY } from '../../lib/constants';
 import { browserApi } from '../browserApi';
 import { servicesManager } from '../exclusions/services/ServicesManager';
 import {
@@ -19,7 +19,8 @@ const THROTTLE_TIMEOUT = 100;
 const OLD_DARK_THEME_NAME = 'DARK';
 const OLD_LIGHT_THEME_NAME = 'LIGHT';
 
-type Settings = {
+// TODO: add Settings type to schemas and remove any
+export type Settings = {
     [key: string]: any;
 };
 
@@ -45,14 +46,12 @@ export class SettingsService {
         this.defaults = defaults;
     }
 
-    SETTINGS_KEY = 'settings.service.key';
-
     async init(): Promise<void> {
         let settings;
         try {
-            settings = await this.storage.get<Settings>(this.SETTINGS_KEY);
+            settings = await this.storage.get<Settings>(SETTINGS_KEY);
         } catch (e) {
-            log.error(`Was unable to get ${this.SETTINGS_KEY} from storage, due to: `, e.message);
+            log.error(`Was unable to get ${SETTINGS_KEY} from storage, due to: `, e.message);
         }
         if (!settings) {
             this.settings = {
@@ -313,7 +312,7 @@ export class SettingsService {
     }
 
     persist = throttle(async (settings = this.settings) => {
-        await this.storage.set(this.SETTINGS_KEY, settings);
+        await this.storage.set(SETTINGS_KEY, settings);
     }, THROTTLE_TIMEOUT, { leading: false });
 
     setSetting(key: string, value: any): void {
@@ -331,6 +330,6 @@ export class SettingsService {
 
     async clearSettings(): Promise<void> {
         this.settings = {};
-        await this.storage.remove(this.SETTINGS_KEY);
+        await this.storage.remove(SETTINGS_KEY);
     }
 }

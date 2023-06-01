@@ -315,6 +315,10 @@ export class SettingsStore {
         });
     };
 
+    @action setAppearanceTheme = (value: AppearanceTheme) => {
+        this.appearanceTheme = value;
+    };
+
     @action setIsExcluded = (value: boolean): void => {
         this.isCurrentTabExcluded = value;
     };
