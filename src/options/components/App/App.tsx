@@ -24,7 +24,6 @@ import { Exclusions } from '../Exclusions';
 
 import '../../styles/main.pcss';
 import './app.pcss';
-import { browserApi } from '../../../background/browserApi';
 
 Modal.setAppElement('#root');
 
