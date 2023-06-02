@@ -123,16 +123,14 @@ export const App = observer(() => {
     };
 
     useEffect(() => {
-        if (!browserApi.runtime.isManifestVersion2()) {
-            // listen for the message after service worker wakes up to update events listeners
-            chrome.runtime.onMessage.addListener(async (message: any) => {
-                const { type } = message;
-                if (type === MessageType.UPDATE_LISTENERS) {
-                    await removeListenerCallback();
-                    await createEventListener();
-                }
-            });
-        }
+        // listen for the message after service worker wakes up to update events listeners
+        // this listener will work only for MV3
+        chrome.runtime.onMessage.addListener(async (message: any) => {
+            const { type } = message;
+            if (type === MessageType.UPDATE_LISTENERS) {
+                await createEventListener();
+            }
+        });
 
         (async () => {
             await globalStore.init();
