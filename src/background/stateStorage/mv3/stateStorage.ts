@@ -1,3 +1,5 @@
+import browser from 'webextension-polyfill';
+
 import { log } from '../../../lib/logger';
 import {
     StorageKey,
@@ -6,6 +8,7 @@ import {
     DEFAULT_STORAGE_DATA,
 } from '../../schema';
 import { StateStorageInterface } from '../stateStorage.abstract';
+import { MessageType } from '../../../lib/constants';
 
 /**
  * A class provides methods for storing and retrieving data in the browser's session storage.
@@ -57,6 +60,15 @@ class StateStorage implements StateStorageInterface {
     };
 
     /**
+     * Sends message to the options page to update event listeners
+     */
+    wakeUpOptionsPage = () => {
+        browser.runtime.sendMessage({ type: MessageType.UPDATE_LISTENERS })
+            // ignore error of there is no options page
+            .catch(() => {});
+    };
+
+    /**
      * Initializes the storage by loading the data from the session storage,
      * or creating a new storage with the default data if none exists.
      */
@@ -66,6 +78,8 @@ class StateStorage implements StateStorageInterface {
 
             if (res.success) {
                 this.state = res.data;
+                // after service worker wakes up we have to update events listeners on options page
+                this.wakeUpOptionsPage();
             } else {
                 this.state = { ...DEFAULT_STORAGE_DATA };
                 await chrome.storage.session.set(this.state);

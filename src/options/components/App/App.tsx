@@ -16,6 +16,7 @@ import { Preloader } from '../Preloader';
 import Icons from '../ui/Icons';
 import { messenger } from '../../../lib/messenger';
 import { notifier } from '../../../lib/notifier';
+import { MessageType } from '../../../lib/constants';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
@@ -23,6 +24,7 @@ import { Exclusions } from '../Exclusions';
 
 import '../../styles/main.pcss';
 import './app.pcss';
+import { browserApi } from '../../../background/browserApi';
 
 Modal.setAppElement('#root');
 
@@ -74,52 +76,67 @@ export const App = observer(() => {
 
     const { isPremiumToken } = settingsStore;
 
+    let removeListenerCallback = () => {};
+
+    const createEventListener = async () => {
+        const events = [
+            notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
+            notifier.types.EXCLUSIONS_DATA_UPDATED,
+            notifier.types.USER_AUTHENTICATED,
+            notifier.types.USER_DEAUTHENTICATED,
+        ];
+
+        // Subscribe to notification from background page with this method
+        // If use runtime.onMessage, then we can intercept messages from popup
+        // to the message handler on background page
+        removeListenerCallback = await messenger.createEventListener(
+            events,
+            async (message) => {
+                const { type } = message;
+
+                switch (type) {
+                    case notifier.types.AUTHENTICATE_SOCIAL_SUCCESS: {
+                        authStore.setIsAuthenticated(true);
+                        break;
+                    }
+                    case notifier.types.EXCLUSIONS_DATA_UPDATED: {
+                        await exclusionsStore.updateExclusionsData();
+                        break;
+                    }
+                    case notifier.types.USER_AUTHENTICATED: {
+                        await globalStore.getOptionsData();
+                        await settingsStore.updateCurrentUsername();
+                        break;
+                    }
+                    case notifier.types.USER_DEAUTHENTICATED: {
+                        authStore.setIsAuthenticated(false);
+                        await settingsStore.updateCurrentUsername();
+                        break;
+                    }
+                    default: {
+                        log.debug('Undefined message type:', type);
+                        break;
+                    }
+                }
+            },
+        );
+    };
+
     useEffect(() => {
-        let removeListenerCallback = () => {};
+        if (!browserApi.runtime.isManifestVersion2()) {
+            // listen for the message after service worker wakes up to update events listeners
+            chrome.runtime.onMessage.addListener(async (message: any) => {
+                const { type } = message;
+                if (type === MessageType.UPDATE_LISTENERS) {
+                    await removeListenerCallback();
+                    await createEventListener();
+                }
+            });
+        }
+
         (async () => {
             await globalStore.init();
-
-            const events = [
-                notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
-                notifier.types.EXCLUSIONS_DATA_UPDATED,
-                notifier.types.USER_AUTHENTICATED,
-                notifier.types.USER_DEAUTHENTICATED,
-            ];
-
-            // Subscribe to notification from background page with this method
-            // If use runtime.onMessage, then we can intercept messages from popup
-            // to the message handler on background page
-            removeListenerCallback = await messenger.createEventListener(
-                events,
-                async (message) => {
-                    const { type } = message;
-
-                    switch (type) {
-                        case notifier.types.AUTHENTICATE_SOCIAL_SUCCESS: {
-                            authStore.setIsAuthenticated(true);
-                            break;
-                        }
-                        case notifier.types.EXCLUSIONS_DATA_UPDATED: {
-                            await exclusionsStore.updateExclusionsData();
-                            break;
-                        }
-                        case notifier.types.USER_AUTHENTICATED: {
-                            await globalStore.getOptionsData();
-                            await settingsStore.updateCurrentUsername();
-                            break;
-                        }
-                        case notifier.types.USER_DEAUTHENTICATED: {
-                            authStore.setIsAuthenticated(false);
-                            await settingsStore.updateCurrentUsername();
-                            break;
-                        }
-                        default: {
-                            log.debug('Undefined message type:', type);
-                            break;
-                        }
-                    }
-                },
-            );
+            await createEventListener();
         })();
 
         return () => {
