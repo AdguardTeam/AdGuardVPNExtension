@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 
 import { App } from './components/App';
+import { EventsListener } from './components/EventsListener';
 import { translator } from '../common/translator';
 
 document.title = translator.getMessage('options_title');
@@ -12,6 +13,7 @@ document.title = translator.getMessage('options_title');
     ReactDOM.render(
         <Provider>
             <App />
+            <EventsListener />
         </Provider>,
         document.getElementById('root'),
     );
