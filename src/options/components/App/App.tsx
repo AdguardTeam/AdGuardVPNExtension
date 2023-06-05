@@ -121,17 +121,23 @@ export const App = observer(() => {
         );
     };
 
+    /**
+     * Handles message from service worker
+     * @param message
+     */
+    const messageHandler = async (message: any) => {
+        const { type } = message;
+        if (type === MessageType.UPDATE_LISTENERS) {
+            await createEventListener();
+        }
+    };
+
     useEffect(() => {
         // @ts-ignore
         const browserApi = chrome || browser;
         // listen for the message after service worker wakes up to update events listeners
         // this listener will work only for MV3
-        browserApi.runtime.onMessage.addListener(async (message: any) => {
-            const { type } = message;
-            if (type === MessageType.UPDATE_LISTENERS) {
-                await createEventListener();
-            }
-        });
+        browserApi.runtime.onMessage.addListener(messageHandler);
 
         (async () => {
             await globalStore.init();
@@ -140,6 +146,7 @@ export const App = observer(() => {
 
         return () => {
             removeListenerCallback();
+            browserApi.runtime.onMessage.removeListener(messageHandler);
         };
     }, []);
 
