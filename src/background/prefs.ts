@@ -1,6 +1,5 @@
 import { getUrl } from './browserApi/runtime';
 import { lazyGet } from '../lib/helpers';
-import { BrowserName } from '../lib/constants';
 
 const ICONS_PATH = 'assets/images/icons';
 
@@ -12,6 +11,15 @@ interface PrefsInterface {
     };
     browser: string;
     isFirefox(): boolean;
+}
+
+enum BrowserName {
+    Chrome = 'Chrome',
+    Firefox = 'Firefox',
+    Opera = 'Opera',
+    Edge = 'Edge',
+    EdgeChromium = 'EdgeChromium',
+    YaBrowser = 'YaBrowser',
 }
 
 export const Prefs: PrefsInterface = {

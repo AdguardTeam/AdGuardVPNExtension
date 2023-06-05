@@ -16,7 +16,7 @@ import { Preloader } from '../Preloader';
 import Icons from '../ui/Icons';
 import { messenger } from '../../../lib/messenger';
 import { notifier } from '../../../lib/notifier';
-import { BrowserName, MessageType } from '../../../lib/constants';
+import { MessageType } from '../../../lib/constants';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
@@ -122,16 +122,16 @@ export const App = observer(() => {
     };
 
     useEffect(() => {
-        if (settingsStore.currentBrowser && settingsStore.currentBrowser !== BrowserName.Firefox) {
-            // listen for the message after service worker wakes up to update events listeners
-            // this listener will work only for MV3
-            chrome.runtime.onMessage.addListener(async (message: any) => {
-                const { type } = message;
-                if (type === MessageType.UPDATE_LISTENERS) {
-                    await createEventListener();
-                }
-            });
-        }
+        // @ts-ignore
+        const browserApi = chrome || browser;
+        // listen for the message after service worker wakes up to update events listeners
+        // this listener will work only for MV3
+        browserApi.runtime.onMessage.addListener(async (message: any) => {
+            const { type } = message;
+            if (type === MessageType.UPDATE_LISTENERS) {
+                await createEventListener();
+            }
+        });
 
         (async () => {
             await globalStore.init();

@@ -198,12 +198,3 @@ export enum SubscriptionType {
 export const fetchConfig = {
     adapter: fetchAdapter,
 };
-
-export enum BrowserName {
-    Chrome = 'Chrome',
-    Firefox = 'Firefox',
-    Opera = 'Opera',
-    Edge = 'Edge',
-    EdgeChromium = 'EdgeChromium',
-    YaBrowser = 'YaBrowser',
-}

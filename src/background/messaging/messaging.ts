@@ -27,7 +27,6 @@ import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
-import { Prefs } from '../prefs';
 
 interface Message {
     type: MessageType,
@@ -55,7 +54,6 @@ const getOptionsData = async () => {
     const maxDevicesCount = vpnInfo?.maxDevicesCount;
     const customDnsServers = settings.getCustomDnsServers();
     const quickConnectSetting = settings.getQuickConnectSetting();
-    const currentBrowser = Prefs.browser;
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
@@ -94,7 +92,6 @@ const getOptionsData = async () => {
         subscriptionType,
         customDnsServers,
         quickConnectSetting,
-        currentBrowser,
     };
 };
 
