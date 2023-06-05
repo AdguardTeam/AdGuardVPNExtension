@@ -1,16 +1,8 @@
 import { getUrl } from './browserApi/runtime';
 import { lazyGet } from '../lib/helpers';
+import { BrowserName } from '../lib/constants';
 
 const ICONS_PATH = 'assets/images/icons';
-
-export const BROWSER_NAMES = {
-    CHROME: 'Chrome',
-    FIREFOX: 'Firefox',
-    OPERA: 'Opera',
-    EDGE: 'Edge',
-    EDGE_CHROMIUM: 'EdgeChromium',
-    YA_BROWSER: 'YaBrowser',
-};
 
 interface PrefsInterface {
     ICONS: {
@@ -44,7 +36,7 @@ export const Prefs: PrefsInterface = {
     },
 
     isFirefox(): boolean {
-        return this.browser === BROWSER_NAMES.FIREFOX;
+        return this.browser === BrowserName.Firefox;
     },
 
     get browser(): string {
@@ -53,18 +45,18 @@ export const Prefs: PrefsInterface = {
             let { userAgent } = navigator;
             userAgent = userAgent.toLowerCase();
             if (userAgent.indexOf('yabrowser') >= 0) {
-                browser = BROWSER_NAMES.YA_BROWSER;
+                browser = BrowserName.YaBrowser;
             } else if (userAgent.indexOf('edge') >= 0) {
-                browser = BROWSER_NAMES.EDGE;
+                browser = BrowserName.Edge;
             } else if (userAgent.indexOf('edg') >= 0) {
-                browser = BROWSER_NAMES.EDGE_CHROMIUM;
+                browser = BrowserName.EdgeChromium;
             } else if (userAgent.indexOf('opera') >= 0
                 || userAgent.indexOf('opr') >= 0) {
-                browser = BROWSER_NAMES.OPERA;
+                browser = BrowserName.Opera;
             } else if (userAgent.indexOf('firefox') >= 0) {
-                browser = BROWSER_NAMES.FIREFOX;
+                browser = BrowserName.Firefox;
             } else {
-                browser = BROWSER_NAMES.CHROME;
+                browser = BrowserName.Chrome;
             }
             return browser;
         });

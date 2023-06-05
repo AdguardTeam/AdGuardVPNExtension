@@ -14,6 +14,7 @@ import {
     SubscriptionType,
     QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
+    BrowserName,
 } from '../../lib/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
@@ -38,6 +39,7 @@ interface OptionsData {
     subscriptionType: SubscriptionType;
     customDnsServers: DnsServerData[];
     quickConnectSetting: QuickConnectSetting;
+    currentBrowser: BrowserName;
 }
 
 export class SettingsStore {
@@ -92,6 +94,8 @@ export class SettingsStore {
     @observable showDnsSettings = false;
 
     @observable quickConnect = QUICK_CONNECT_SETTING_DEFAULT;
+
+    @observable currentBrowser: BrowserName;
 
     rootStore: RootStore;
 
@@ -181,6 +185,7 @@ export class SettingsStore {
         this.subscriptionType = data.subscriptionType;
         this.customDnsServers = data.customDnsServers;
         this.quickConnect = data.quickConnectSetting;
+        this.currentBrowser = data.currentBrowser;
     };
 
     @action updateCurrentUsername = async (): Promise<void> => {
