@@ -71,17 +71,17 @@ export const EventsListener = () => {
         }
     };
 
-    // @ts-ignore
-    const browserApi = chrome || browser;
-    // listen for the message after service worker wakes up to update events listeners
-    // this listener will work only for MV3
-    browserApi.runtime.onMessage.addListener(messageHandler);
-
-    (async () => {
-        await createEventListener();
-    })();
-
     useEffect(() => {
+        // @ts-ignore
+        const browserApi = chrome || browser;
+        // listen for the message after service worker wakes up to update events listeners
+        // this listener will work only for MV3
+        browserApi.runtime.onMessage.addListener(messageHandler);
+
+        (async () => {
+            await createEventListener();
+        })();
+
         return () => {
             removeListenerCallback();
             browserApi.runtime.onMessage.removeListener(messageHandler);
