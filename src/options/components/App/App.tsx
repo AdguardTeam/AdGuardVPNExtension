@@ -62,15 +62,13 @@ const getContent = (
 };
 
 export const App = observer(() => {
-    const context = useContext(rootStore);
-
     const {
         authStore,
         settingsStore,
         globalStore,
-    } = context;
+    } = useContext(rootStore);
 
-    useMessageHandler(context);
+    useMessageHandler();
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 

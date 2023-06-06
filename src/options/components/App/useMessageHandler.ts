@@ -1,13 +1,14 @@
 import browser from 'webextension-polyfill';
-import { useEffect, useRef } from 'react';
+import {
+    useContext,
+    useEffect,
+    useRef,
+} from 'react';
 import { notifier } from '../../../lib/notifier';
 import { messenger } from '../../../lib/messenger';
 import { MessageType } from '../../../lib/constants';
 import { log } from '../../../lib/logger';
-import { AuthStore } from '../../stores/AuthStore';
-import { SettingsStore } from '../../stores/SettingsStore';
-import { GlobalStore } from '../../stores/GlobalStore';
-import { ExclusionsStore } from '../../stores/ExclusionsStore';
+import { rootStore } from '../../stores';
 
 const NOTIFIER_EVENTS = [
     notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
@@ -16,19 +17,14 @@ const NOTIFIER_EVENTS = [
     notifier.types.USER_DEAUTHENTICATED,
 ];
 
-type MessageHandlerParams = {
-    authStore: AuthStore,
-    settingsStore: SettingsStore,
-    globalStore: GlobalStore,
-    exclusionsStore: ExclusionsStore,
-};
+export const useMessageHandler = () => {
+    const {
+        authStore,
+        settingsStore,
+        globalStore,
+        exclusionsStore,
+    } = useContext(rootStore);
 
-export const useMessageHandler = ({
-    authStore,
-    settingsStore,
-    globalStore,
-    exclusionsStore,
-}: MessageHandlerParams) => {
     const reloadingRef = useRef<boolean>(false);
     const callbackRef = useRef<(() => Promise<void>) | null>(null);
 
