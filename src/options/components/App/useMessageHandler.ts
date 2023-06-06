@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill';
 import {
     useContext,
     useEffect,
@@ -9,6 +8,10 @@ import { messenger } from '../../../lib/messenger';
 import { MessageType } from '../../../lib/constants';
 import { log } from '../../../lib/logger';
 import { rootStore } from '../../stores';
+
+declare namespace browser {
+    const runtime: typeof chrome.runtime;
+}
 
 const NOTIFIER_EVENTS = [
     notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
@@ -83,14 +86,15 @@ export const useMessageHandler = () => {
             callbackRef.current = await createMessageListener();
         })();
 
-        browser.runtime.onMessage.addListener(handleBrowserMessage);
+        const browserApi = chrome || browser;
+        browserApi.runtime.onMessage.addListener(handleBrowserMessage);
 
         return () => {
             if (callbackRef.current) {
                 callbackRef.current();
             }
 
-            browser.runtime.onMessage.removeListener(handleBrowserMessage);
+            browserApi.runtime.onMessage.removeListener(handleBrowserMessage);
         };
     }, []);
 };
