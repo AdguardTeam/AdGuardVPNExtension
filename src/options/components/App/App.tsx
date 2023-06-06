@@ -1,4 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, {
+    useContext,
+    useEffect,
+} from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
@@ -17,6 +20,7 @@ import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { Exclusions } from '../Exclusions';
+import { useMessageHandler } from './useMessageHandler';
 
 import '../../styles/main.pcss';
 import './app.pcss';
@@ -58,11 +62,15 @@ const getContent = (
 };
 
 export const App = observer(() => {
+    const context = useContext(rootStore);
+
     const {
         authStore,
         settingsStore,
         globalStore,
-    } = useContext(rootStore);
+    } = context;
+
+    useMessageHandler(context);
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
