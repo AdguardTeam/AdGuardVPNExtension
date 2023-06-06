@@ -46,9 +46,11 @@ class Messenger {
             }
         };
 
+        const browserApi = chrome || browser;
+
         const onUnload = async () => {
             if (listenerId) {
-                browser.runtime.onMessage.removeListener(messageHandler);
+                browserApi.runtime.onMessage.removeListener(messageHandler);
                 window.removeEventListener('beforeunload', onUnload);
                 window.removeEventListener('unload', onUnload);
 
@@ -57,7 +59,7 @@ class Messenger {
             }
         };
 
-        browser.runtime.onMessage.addListener(messageHandler);
+        browserApi.runtime.onMessage.addListener(messageHandler);
         window.addEventListener('beforeunload', onUnload);
         window.addEventListener('unload', onUnload);
 
