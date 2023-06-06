@@ -3,12 +3,13 @@ import {
     useEffect,
     useRef,
 } from 'react';
+
 import { notifier } from '../../../lib/notifier';
 import { messenger } from '../../../lib/messenger';
 import { MessageType } from '../../../lib/constants';
 import { log } from '../../../lib/logger';
 import { rootStore } from '../../stores';
-import { browserApi } from '../../../lib/browserApi';
+import { Prefs } from '../../../common/prefs';
 
 const NOTIFIER_EVENTS = [
     notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
@@ -83,14 +84,22 @@ export const useMessageHandler = () => {
             callbackRef.current = await createMessageListener();
         })();
 
-        browserApi.runtime.onMessage.addListener(handleBrowserMessage);
+        // don't need to add listeners in Firefox mv2,
+        // because options page listeners have to be updated in mv3 only
+        // TODO: resolve for Firefox mv3
+        if (!Prefs.isFirefox()) {
+            chrome.runtime.onMessage.addListener(handleBrowserMessage);
+        }
 
         return () => {
             if (callbackRef.current) {
                 callbackRef.current();
             }
 
-            browserApi.runtime.onMessage.removeListener(handleBrowserMessage);
+            // TODO: resolve for Firefox mv3
+            if (!Prefs.isFirefox()) {
+                chrome.runtime.onMessage.removeListener(handleBrowserMessage);
+            }
         };
     }, []);
 };

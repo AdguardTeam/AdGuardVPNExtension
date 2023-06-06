@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 import { translator } from '../common/translator';
-import { Prefs } from './prefs';
+import { Prefs } from '../common/prefs';
 
 const DEFAULT_IMAGE_PATH = Prefs.ICONS.ENABLED['128'];
 const DEFAULT_TITLE = translator.getMessage('short_name');

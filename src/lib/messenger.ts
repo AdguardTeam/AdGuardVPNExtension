@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
 import { MessageType, SocialAuthProvider, ExclusionsContentMap } from './constants';
@@ -8,7 +9,6 @@ import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { Message } from '../popup/components/App/App';
 import { NotifierType } from './notifier';
-import { browserApi } from './browserApi';
 
 class Messenger {
     async sendMessage<T>(type: string, data?: T) {
@@ -17,7 +17,7 @@ class Messenger {
             log.debug('Request data:', data);
         }
 
-        const response = await browserApi.runtime.sendMessage({ type, data });
+        const response = await browser.runtime.sendMessage({ type, data });
 
         if (response) {
             log.debug(`Response type: "${type}"`);
@@ -48,7 +48,7 @@ class Messenger {
 
         const onUnload = async () => {
             if (listenerId) {
-                browserApi.runtime.onMessage.removeListener(messageHandler);
+                browser.runtime.onMessage.removeListener(messageHandler);
                 window.removeEventListener('beforeunload', onUnload);
                 window.removeEventListener('unload', onUnload);
 
@@ -57,7 +57,7 @@ class Messenger {
             }
         };
 
-        browserApi.runtime.onMessage.addListener(messageHandler);
+        browser.runtime.onMessage.addListener(messageHandler);
         window.addEventListener('beforeunload', onUnload);
         window.addEventListener('unload', onUnload);
 
@@ -74,7 +74,7 @@ class Messenger {
             callback(...args);
         };
 
-        const port = browserApi.runtime.connect({ name: `popup_${nanoid()}` });
+        const port = browser.runtime.connect({ name: `popup_${nanoid()}` });
         port.postMessage({ type: MessageType.ADD_LONG_LIVED_CONNECTION, data: { events } });
 
         port.onMessage.addListener((message) => {
@@ -85,8 +85,8 @@ class Messenger {
         });
 
         port.onDisconnect.addListener(() => {
-            if (browserApi.runtime.lastError) {
-                log.debug(browserApi.runtime.lastError.message);
+            if (browser.runtime.lastError) {
+                log.debug(browser.runtime.lastError.message);
             }
         });
 

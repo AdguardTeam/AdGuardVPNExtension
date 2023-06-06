@@ -2,7 +2,7 @@ import browser from 'webextension-polyfill';
 
 import { tabs } from './tabs';
 import { credentials } from './credentials';
-import { Prefs } from './prefs';
+import { Prefs } from '../common/prefs';
 import { log } from '../lib/logger';
 import { settings } from './settings';
 import { UPGRADE_LICENSE_URL } from './config';
