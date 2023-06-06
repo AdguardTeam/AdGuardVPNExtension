@@ -8,10 +8,7 @@ import { messenger } from '../../../lib/messenger';
 import { MessageType } from '../../../lib/constants';
 import { log } from '../../../lib/logger';
 import { rootStore } from '../../stores';
-
-declare namespace browser {
-    const runtime: typeof chrome.runtime;
-}
+import { browserApi } from '../../../lib/browserApi';
 
 const NOTIFIER_EVENTS = [
     notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
@@ -86,7 +83,6 @@ export const useMessageHandler = () => {
             callbackRef.current = await createMessageListener();
         })();
 
-        const browserApi = chrome || browser;
         browserApi.runtime.onMessage.addListener(handleBrowserMessage);
 
         return () => {

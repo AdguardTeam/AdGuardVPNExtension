@@ -9,6 +9,7 @@ import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { Message } from '../popup/components/App/App';
 import { NotifierType } from './notifier';
+import { browserApi } from './browserApi';
 
 class Messenger {
     async sendMessage<T>(type: string, data?: T) {
@@ -17,7 +18,7 @@ class Messenger {
             log.debug('Request data:', data);
         }
 
-        const response = await browser.runtime.sendMessage({ type, data });
+        const response = await browserApi.runtime.sendMessage({ type, data });
 
         if (response) {
             log.debug(`Response type: "${type}"`);
@@ -45,8 +46,6 @@ class Messenger {
                 eventListener({ type, data });
             }
         };
-
-        const browserApi = chrome || browser;
 
         const onUnload = async () => {
             if (listenerId) {
@@ -76,7 +75,7 @@ class Messenger {
             callback(...args);
         };
 
-        const port = browser.runtime.connect({ name: `popup_${nanoid()}` });
+        const port = browserApi.runtime.connect({ name: `popup_${nanoid()}` });
         port.postMessage({ type: MessageType.ADD_LONG_LIVED_CONNECTION, data: { events } });
 
         port.onMessage.addListener((message) => {
@@ -87,8 +86,8 @@ class Messenger {
         });
 
         port.onDisconnect.addListener(() => {
-            if (browser.runtime.lastError) {
-                log.debug(browser.runtime.lastError.message);
+            if (browserApi.runtime.lastError) {
+                log.debug(browserApi.runtime.lastError.message);
             }
         });
 
