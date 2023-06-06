@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
 import { MessageType, SocialAuthProvider, ExclusionsContentMap } from './constants';
