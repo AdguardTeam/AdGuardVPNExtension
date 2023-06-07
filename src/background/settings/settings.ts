@@ -6,6 +6,7 @@ import {
     SETTINGS_IDS,
     QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
+    APPEARANCE_THEME_DEFAULT,
 } from '../../lib/constants';
 import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
@@ -42,6 +43,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
     [SETTINGS_IDS.POLICY_AGREEMENT]: false,
     [SETTINGS_IDS.HELP_US_IMPROVE]: false,
+    [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
     [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [],
     [SETTINGS_IDS.QUICK_CONNECT]: QUICK_CONNECT_SETTING_DEFAULT,
 };
