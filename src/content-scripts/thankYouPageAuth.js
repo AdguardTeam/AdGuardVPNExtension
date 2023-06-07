@@ -7,7 +7,7 @@ const CREDENTIALS_KEY = 'adg_auth_credentials';
 const TOKEN_TYPE = 'bearer';
 
 (async () => {
-    const credentialsString = sessionStorage.getItem('adg_auth_credentials');
+    const credentialsString = sessionStorage.getItem(CREDENTIALS_KEY);
     if (!credentialsString) {
         return;
     }
