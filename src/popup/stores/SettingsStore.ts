@@ -361,7 +361,8 @@ export class SettingsStore {
                 animationService.send(AnimationEvent.VpnDisconnected);
                 break;
             }
-            default: animationService.send(AnimationEvent.VpnDisconnected);
+            default:
+                animationService.send(AnimationEvent.VpnDisconnected);
         }
     };
 
