@@ -19,9 +19,12 @@ export class GlobalStore {
     }
 
     @action
-    async getOptionsData(): Promise<void> {
+    async getOptionsData(reloading = false): Promise<void> {
         const { rootStore: { settingsStore, authStore, exclusionsStore } } = this;
-        this.setInitStatus(RequestStatus.Pending);
+
+        if (!reloading) {
+            this.setInitStatus(RequestStatus.Pending);
+        }
 
         try {
             const optionsData = await messenger.getOptionsData();
@@ -37,7 +40,6 @@ export class GlobalStore {
             log.error(e.message);
             this.setInitStatus(RequestStatus.Error);
         }
-        this.setInitStatus(RequestStatus.Error);
     }
 
     @action

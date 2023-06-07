@@ -210,8 +210,15 @@ const getVpnExtensionInfo = async (
         max_uploaded_bytes: maxUploadedBytes,
         renewal_traffic_date: renewalTrafficDate,
         max_devices_count: maxDevicesCount,
-        email_confirmation_required: emailConfirmationRequired,
+        // Temporary disable email confirmation
+        // TODO: enable when backend will be ready
+        // email_confirmation_required: emailConfirmationRequired,
     } = info;
+
+    // Temporary hardcode emailConfirmationRequired to false
+    // to don't show email confirmation modal
+    // TODO: remove hardcode and handle email_confirmation_required from backend
+    const emailConfirmationRequired = false;
 
     return {
         bandwidthFreeMbits,

@@ -43,6 +43,8 @@ module.exports = {
         '@typescript-eslint/no-shadow': 0,
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
         'import/no-extraneous-dependencies': 0,
+        // TODO: remove rule
+        'import/no-cycle': 0,
         indent: ['error', 4, { SwitchCase: 1 }],
         'react/jsx-indent': 'off',
         'react/jsx-indent-props': 'off',

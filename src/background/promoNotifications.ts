@@ -6,7 +6,7 @@ import browser from 'webextension-polyfill';
 import { lazyGet } from '../lib/helpers';
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
-import { Prefs } from './prefs';
+import { Prefs } from '../common/prefs';
 import { notifier } from '../lib/notifier';
 import { FORWARDER_DOMAIN } from './config';
 import { timers } from './timers';
