@@ -344,16 +344,21 @@ export class SettingsStore {
     };
 
     @action updateAnimationState = (state: StateType): void => {
-        if (state.value === ConnectivityStateType.Connected) {
-            animationService.send(AnimationEvent.VpnConnected);
-            return;
-        }
-        if (state.value === ConnectivityStateType.DisconnectedIdle) {
-            animationService.send(AnimationEvent.VpnDisconnected);
-            return;
-        }
-        if (state.value === ConnectivityStateType.DisconnectedRetrying) {
-            animationService.send(AnimationEvent.VpnDisconnectedRetrying);
+        switch (state.value) {
+            case ConnectivityStateType.Connected: {
+                animationService.send(AnimationEvent.VpnConnected);
+                break;
+            }
+            case ConnectivityStateType.DisconnectedIdle: {
+                animationService.send(AnimationEvent.VpnDisconnected);
+                break;
+            }
+            case ConnectivityStateType.DisconnectedRetrying: {
+                animationService.send(AnimationEvent.VpnDisconnectedRetrying);
+                break;
+            }
+            default:
+                animationService.send(AnimationEvent.VpnDisconnected);
         }
     };
 
