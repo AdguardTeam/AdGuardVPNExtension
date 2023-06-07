@@ -357,10 +357,6 @@ export class SettingsStore {
                 animationService.send(AnimationEvent.VpnDisconnectedRetrying);
                 break;
             }
-            case ConnectivityStateType.Idle: {
-                animationService.send(AnimationEvent.VpnDisconnected);
-                break;
-            }
             default:
                 animationService.send(AnimationEvent.VpnDisconnected);
         }
