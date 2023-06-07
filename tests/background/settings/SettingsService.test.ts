@@ -1,6 +1,5 @@
 import { SettingsService } from '../../../src/background/settings/SettingsService';
 import { sleep } from '../../../src/lib/helpers';
-import { SETTINGS_KEY } from '../../../src/lib/constants';
 
 const SCHEME_VERSION = '12';
 
@@ -64,7 +63,7 @@ describe('SettingsService', () => {
         });
 
         it('inits correctly with values from storage', async () => {
-            storage.set(SETTINGS_KEY, expectedSettings);
+            storage.set(settingsService.SETTINGS_KEY, expectedSettings);
             await settingsService.init();
             const settings = settingsService.getSettings();
             expect(settings.VERSION)
@@ -77,7 +76,7 @@ describe('SettingsService', () => {
 
         it('inits correctly if versions do not match', async () => {
             const unmatchedVersion = parseInt(SCHEME_VERSION, 10) + 1;
-            storage.set(SETTINGS_KEY, {
+            storage.set(settingsService.SETTINGS_KEY, {
                 ...expectedSettings,
                 VERSION: unmatchedVersion,
             });
@@ -120,13 +119,13 @@ describe('SettingsService', () => {
             expect(settings[showPromoKey])
                 .toBeTruthy();
 
-            let storageValue = storage.get(SETTINGS_KEY);
+            let storageValue = storage.get(settingsService.SETTINGS_KEY);
             expect(storageValue)
                 .toBe(undefined);
 
             const throttleSaveTimeoutOfSettingsService = 100;
             await sleep(throttleSaveTimeoutOfSettingsService + 10);
-            storageValue = storage.get(SETTINGS_KEY);
+            storageValue = storage.get(settingsService.SETTINGS_KEY);
 
             expect(storageValue[enabledKey])
                 .toBe(true);

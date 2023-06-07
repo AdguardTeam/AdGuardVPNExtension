@@ -4,7 +4,6 @@ import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
 import {
     SETTINGS_IDS,
-    APPEARANCE_THEME_DEFAULT,
     QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
 } from '../../lib/constants';
@@ -43,7 +42,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
     [SETTINGS_IDS.POLICY_AGREEMENT]: false,
     [SETTINGS_IDS.HELP_US_IMPROVE]: false,
-    [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
+    // [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
     [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [],
     [SETTINGS_IDS.QUICK_CONNECT]: QUICK_CONNECT_SETTING_DEFAULT,
 };

@@ -177,7 +177,7 @@ export class SettingsStore {
         this.contextMenusEnabled = data.contextMenusEnabled;
         this.helpUsImprove = data.helpUsImprove;
         this.dnsServer = data.dnsServer;
-        this.appearanceTheme = data.appearanceTheme;
+        this.appearanceTheme = data.appearanceTheme || APPEARANCE_THEME_DEFAULT;
         this.subscriptionType = data.subscriptionType;
         this.customDnsServers = data.customDnsServers;
         this.quickConnect = data.quickConnectSetting;

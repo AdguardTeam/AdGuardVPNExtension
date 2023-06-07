@@ -10,7 +10,6 @@ import { log } from '../../lib/logger';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 import {
     SETTINGS_IDS,
-    APPEARANCE_THEME_DEFAULT,
     AppearanceTheme,
     AnimationEvent,
     AnimationState,
@@ -21,6 +20,7 @@ import { getHostname, getProtocol } from '../../common/url-utils';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { PromoNotificationData } from '../../background/promoNotifications';
 import type { RootStore } from './RootStore';
+import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
 
 type StateType = {
     value: string,
@@ -55,7 +55,7 @@ export class SettingsStore {
 
     @observable promoNotification: PromoNotificationData | null = null;
 
-    @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
+    @observable appearanceTheme: AppearanceTheme;
 
     @observable darkThemeMediaQuery: MediaQueryList;
 
@@ -309,9 +309,15 @@ export class SettingsStore {
     };
 
     @action getAppearanceTheme = async (): Promise<void> => {
-        const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+        let appearanceTheme = <AppearanceTheme>getThemeFromLocalStorage();
+        if (appearanceTheme) {
+            this.setAppearanceTheme(appearanceTheme);
+            return;
+        }
+
+        appearanceTheme = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
         runInAction(() => {
-            this.appearanceTheme = value;
+            this.appearanceTheme = appearanceTheme;
         });
     };
 

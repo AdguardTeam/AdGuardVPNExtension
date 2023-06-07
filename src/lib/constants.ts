@@ -21,8 +21,6 @@ export const SETTINGS_IDS = {
     QUICK_CONNECT: 'quick.connect',
 };
 
-export const SETTINGS_KEY = 'settings.service.key';
-
 export const enum AppearanceTheme {
     System = 'System',
     Dark = 'Dark',
