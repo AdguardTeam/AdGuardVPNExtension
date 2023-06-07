@@ -107,6 +107,8 @@ export enum MessageType {
 
     GET_LOGS = 'get.logs',
     GET_APP_VERSION = 'get.app.version',
+
+    UPDATE_LISTENERS = 'update.listeners',
 }
 
 export const ERROR_STATUSES = {

@@ -6,6 +6,7 @@ import {
     DEFAULT_STORAGE_DATA,
 } from '../../schema';
 import { StateStorageInterface } from '../stateStorage.abstract';
+import { wakeUpOptionsPage } from '../helper';
 
 /**
  * A class provides methods for storing and retrieving data in the browser's session storage.
@@ -71,6 +72,7 @@ class StateStorage implements StateStorageInterface {
                 await chrome.storage.session.set(this.state);
             }
 
+            wakeUpOptionsPage();
             this.isInit = true;
         } catch (e) {
             log.error(e);

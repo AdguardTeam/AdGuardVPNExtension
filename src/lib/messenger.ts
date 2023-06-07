@@ -37,25 +37,27 @@ class Messenger {
             callback(...args);
         };
 
-        let listenerId: string | null;
-        const type = MessageType.ADD_EVENT_LISTENER;
-        listenerId = await this.sendMessage(type, { events });
+        let listenerId = await this.sendMessage(MessageType.ADD_EVENT_LISTENER, { events });
 
-        browser.runtime.onMessage.addListener((message) => {
+        const messageHandler = (message: any) => {
             if (message.type === MessageType.NOTIFY_LISTENERS) {
                 const [type, data] = message.data;
                 eventListener({ type, data });
             }
-        });
+        };
 
         const onUnload = async () => {
             if (listenerId) {
-                const type = MessageType.REMOVE_EVENT_LISTENER;
-                await this.sendMessage(type, { listenerId });
+                browser.runtime.onMessage.removeListener(messageHandler);
+                window.removeEventListener('beforeunload', onUnload);
+                window.removeEventListener('unload', onUnload);
+
+                await this.sendMessage(MessageType.REMOVE_EVENT_LISTENER, { listenerId });
                 listenerId = null;
             }
         };
 
+        browser.runtime.onMessage.addListener(messageHandler);
         window.addEventListener('beforeunload', onUnload);
         window.addEventListener('unload', onUnload);
 
