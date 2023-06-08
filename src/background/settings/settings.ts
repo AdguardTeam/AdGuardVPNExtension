@@ -4,9 +4,9 @@ import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
 import {
     SETTINGS_IDS,
-    APPEARANCE_THEME_DEFAULT,
     QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
+    APPEARANCE_THEME_DEFAULT,
 } from '../../lib/constants';
 import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';

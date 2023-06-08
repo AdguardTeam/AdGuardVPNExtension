@@ -71,8 +71,8 @@ export const App = observer(() => {
     const { premiumPromoEnabled, isPremiumToken } = vpnStore;
 
     useEffect(() => {
-        settingsStore.getAppearanceTheme();
         (async () => {
+            await settingsStore.getAppearanceTheme();
             await globalStore.init();
         })();
 
