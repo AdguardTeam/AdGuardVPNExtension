@@ -19,7 +19,8 @@ const THROTTLE_TIMEOUT = 100;
 const OLD_DARK_THEME_NAME = 'DARK';
 const OLD_LIGHT_THEME_NAME = 'LIGHT';
 
-type Settings = {
+// TODO: add Settings type to schemas and remove any
+export type Settings = {
     [key: string]: any;
 };
 
