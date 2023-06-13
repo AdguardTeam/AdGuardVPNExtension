@@ -1,6 +1,6 @@
 export const chromeManifestDiff = {
     manifest_version: 3,
-    minimum_chrome_version: '66.0',
+    minimum_chrome_version: '88.0',
     options_page: 'options.html',
     background: {
         service_worker: 'background.js',
