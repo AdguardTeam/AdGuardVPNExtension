@@ -29,7 +29,9 @@ export const BackgroundAnimation = observer(() => {
 
     let animationSources = animationSourcesMap[systemTheme];
 
-    if (appearanceTheme && appearanceTheme !== AppearanceTheme.System) {
+    if (appearanceTheme
+        && (appearanceTheme === AppearanceTheme.Light
+            || appearanceTheme === AppearanceTheme.Dark)) {
         animationSources = animationSourcesMap[appearanceTheme];
     }
 
