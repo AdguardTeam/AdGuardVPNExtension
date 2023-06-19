@@ -13,13 +13,13 @@ export const websocketFactory = (() => {
         }
 
         // Close previously opened websocket
-        if (ws) {
-            try {
-                ws.close();
-            } catch (e) {
-                log.debug(e);
-            }
-        }
+        // if (ws) {
+        //     try {
+        //         ws.close();
+        //     } catch (e) {
+        //         log.debug(e);
+        //     }
+        // }
 
         ws = new WebSocket(url);
         ws.binaryType = 'arraybuffer';
