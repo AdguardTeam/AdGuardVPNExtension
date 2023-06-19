@@ -135,16 +135,19 @@ export const Actions = observer(() => {
     };
 
     const onExportExclusionsClick = async () => {
+        setIsMoreActionsMenuOpen(false);
         await exportExclusions();
     };
 
     const onImportExclusionsClick = () => {
+        setIsMoreActionsMenuOpen(false);
         if (importEl.current) {
             importEl.current.click();
         }
     };
 
     const onRemoveAllClick = async () => {
+        setIsMoreActionsMenuOpen(false);
         await exclusionsStore.openRemoveAllModal();
     };
 
