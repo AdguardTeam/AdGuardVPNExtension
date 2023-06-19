@@ -1,5 +1,7 @@
 const WebSocket = require('ws');
 
+const { log } = console;
+
 const portNum = 8080;
 
 const wss = new WebSocket.Server({ port: portNum });
@@ -7,13 +9,13 @@ const wss = new WebSocket.Server({ port: portNum });
 let wsConnectCount = 0;
 
 wss.on('connection', (ws) => {
-    console.log('WS connected');
+    log('WS connected');
 
     ws.on('close', () => {
         wsConnectCount += 1;
-        console.log('WS disconnected');
-        console.log(`Connection count: ${wsConnectCount}`);
+        log('WS disconnected');
+        log(`Connection count: ${wsConnectCount}`);
     });
 });
 
-console.log(`WebSocket server started on port ${portNum}`);
+log(`WebSocket server started on port ${portNum}`);
