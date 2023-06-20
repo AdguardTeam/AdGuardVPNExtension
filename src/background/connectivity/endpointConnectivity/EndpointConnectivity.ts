@@ -211,8 +211,6 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         this.ws.addEventListener('error', this.handleWebsocketError);
         this.ws.addEventListener('open', this.handleWebsocketOpen);
 
-        this.testWS = websocketFactory.createWebsocket('ws://localhost:8080');
-
         this.connectionTimeoutId = setTimeout(() => {
             log.debug(`WS did not connected in ${this.CONNECTION_TIMEOUT_MS}, closing it`);
             this.ws.close();
@@ -229,10 +227,6 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
             this.ws.removeEventListener('error', this.handleWebsocketError);
             this.ws.removeEventListener('open', this.handleWebsocketOpen);
             this.ws.close();
-        }
-
-        if (this.testWS) {
-            this.testWS.close();
         }
 
         // disconnect proxy and turn off webrtc
