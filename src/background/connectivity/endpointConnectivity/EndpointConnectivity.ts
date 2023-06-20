@@ -56,8 +56,6 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
 
     private vpnToken: string;
 
-    private testWS: WebSocket;
-
     private ws: WebSocket;
 
     private entryTime: number;
