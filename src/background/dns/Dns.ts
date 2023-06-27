@@ -2,7 +2,7 @@ import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from './dnsConstants';
 import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
 import { StorageKey, DnsServerData, DnsState } from '../schema';
-import { sessionState } from '../sessionStorage';
+import { stateStorage } from '../stateStorage';
 
 interface DnsInterface {
     init(): void;
@@ -18,7 +18,7 @@ export class Dns implements DnsInterface {
     state: DnsState;
 
     private saveDnsState = () => {
-        sessionState.setItem(StorageKey.ProxyState, this.state);
+        stateStorage.setItem(StorageKey.ProxyState, this.state);
     };
 
     private get selectedDnsServer(): string | null {
@@ -51,7 +51,7 @@ export class Dns implements DnsInterface {
     }
 
     init = (): void => {
-        this.state = sessionState.getItem(StorageKey.DnsState);
+        this.state = stateStorage.getItem(StorageKey.DnsState);
 
         if (!this.customDnsServers) {
             this.customDnsServers = settings.getCustomDnsServers();

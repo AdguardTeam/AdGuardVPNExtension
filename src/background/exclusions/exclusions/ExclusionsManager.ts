@@ -10,7 +10,7 @@ import {
     ExclusionInterface,
     IndexedExclusionsInterface, ExclusionsManagerState,
 } from '../../schema';
-import { sessionState } from '../../sessionStorage';
+import { stateStorage } from '../../stateStorage';
 
 export type AllExclusions = Omit<PersistedExclusions, 'inverted'>;
 
@@ -22,7 +22,7 @@ export class ExclusionsManager {
     regularModeHandler: ExclusionsHandler;
 
     saveExclusionsManagerState = () => {
-        sessionState.setItem(StorageKey.ExclusionsManagerState, this.state);
+        stateStorage.setItem(StorageKey.ExclusionsManagerState, this.state);
     };
 
     private get exclusions(): PersistedExclusions {
@@ -53,7 +53,7 @@ export class ExclusionsManager {
     }
 
     init = async () => {
-        this.state = sessionState.getItem(StorageKey.ExclusionsManagerState);
+        this.state = stateStorage.getItem(StorageKey.ExclusionsManagerState);
 
         this.exclusions = settings.getExclusions();
 

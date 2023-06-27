@@ -2,7 +2,7 @@
 // export './abstractProxyApi' is replaced during webpack compilation
 // with NormalModuleReplacementPlugin to proper browser implementation
 // from './firefox/proxyApi' or ./chrome/proxyApi
-import proxyApi from './abstractProxyApi';
+import { proxyApi } from './abstractProxyApi';
 
 import { log } from '../../lib/logger';
 import { browserApi } from '../browserApi';
@@ -11,7 +11,7 @@ import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import type { EndpointInterface, LocationInterface } from '../schema';
-import { sessionState } from '../sessionStorage';
+import { stateStorage } from '../stateStorage';
 import {
     ProxyConfigInterface,
     CanControlProxy,
@@ -51,7 +51,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
     state: ProxyState;
 
     async init(): Promise<void> {
-        this.state = sessionState.getItem(StorageKey.ProxyState);
+        this.state = stateStorage.getItem(StorageKey.ProxyState);
 
         if (!this.currentConfig) {
             await this.updateConfig();
@@ -59,7 +59,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
     }
 
     private saveProxyState = () => {
-        sessionState.setItem(StorageKey.ProxyState, this.state);
+        stateStorage.setItem(StorageKey.ProxyState, this.state);
     };
 
     public get isActive() {

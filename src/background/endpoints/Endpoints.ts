@@ -27,7 +27,7 @@ import type {
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../lib/constants';
 import { EndpointsState, LocationInterface, StorageKey } from '../schema';
-import { sessionState } from '../sessionStorage';
+import { stateStorage } from '../stateStorage';
 
 /**
  * Endpoint properties
@@ -76,7 +76,7 @@ class Endpoints implements EndpointsInterface {
 
     private set vpnInfo(vpnInfo: VpnExtensionInfoInterface | null) {
         this.state.vpnInfo = vpnInfo;
-        sessionState.setItem(StorageKey.Endpoints, this.state);
+        stateStorage.setItem(StorageKey.Endpoints, this.state);
     }
 
     public get state(): EndpointsState {
@@ -489,7 +489,7 @@ class Endpoints implements EndpointsInterface {
     }
 
     init(): void {
-        this.state = sessionState.getItem(StorageKey.Endpoints);
+        this.state = stateStorage.getItem(StorageKey.Endpoints);
 
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,

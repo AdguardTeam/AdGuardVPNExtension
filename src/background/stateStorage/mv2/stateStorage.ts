@@ -6,8 +6,10 @@ import { StateStorageInterface } from '../stateStorage.abstract';
  *
  * @implements {StateStorageInterface}
  */
-export class StateStorage implements StateStorageInterface {
+class StateStorage implements StateStorageInterface {
     private state: StorageData;
+
+    private initPromise: Promise<void>;
 
     /**
      * Retrieves the value associated with the specified key from the storage data object.
@@ -36,8 +38,16 @@ export class StateStorage implements StateStorageInterface {
      */
     public init(): Promise<void> {
         this.state = { ...DEFAULT_STORAGE_DATA };
-        return Promise.resolve();
+        this.initPromise = Promise.resolve();
+        return this.initPromise;
+    }
+
+    /**
+     * Returns init promise, which resolves when the storage data object has been initialized.
+     */
+    public async waitInit(): Promise<void> {
+        return this.initPromise;
     }
 }
 
-export const sessionState = new StateStorage();
+export const stateStorage = new StateStorage();

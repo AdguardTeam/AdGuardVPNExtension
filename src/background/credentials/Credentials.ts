@@ -16,7 +16,7 @@ import {
     CredentialsDataInterface,
     StorageKey,
 } from '../schema';
-import { sessionState } from '../sessionStorage';
+import { stateStorage } from '../stateStorage';
 import { credentialsService } from './credentialsService';
 import { auth } from '../auth';
 
@@ -101,7 +101,7 @@ export class Credentials implements CredentialsInterface {
     }
 
     saveCredentialsState = () => {
-        sessionState.setItem(StorageKey.CredentialsState, this.state);
+        stateStorage.setItem(StorageKey.CredentialsState, this.state);
     };
 
     get vpnToken() {
@@ -555,7 +555,7 @@ export class Credentials implements CredentialsInterface {
 
     async init(): Promise<void> {
         try {
-            this.state = sessionState.getItem(StorageKey.CredentialsState);
+            this.state = stateStorage.getItem(StorageKey.CredentialsState);
 
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,

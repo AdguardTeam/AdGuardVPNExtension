@@ -1,11 +1,11 @@
 /**
- * This module provides initialisation for modules, common for MV2 and MV3,
+ * This module provides initialization for modules, common for MV2 and MV3,
  * divided in two parts:
- * 1. First raw of modules with synchronous initialisations, to be called on top level
+ * 1. First raw of modules with synchronous initializations, to be called on top level
  * of service worker in MV3 and background page in MV2.
- * 2. Second raw of modules with asynchronous initialisations contains all other required modules.
+ * 2. Second raw of modules with asynchronous initializations contains all other required modules.
  */
-import { sessionState } from '../sessionStorage';
+import { stateStorage } from '../stateStorage';
 import { actions } from '../actions';
 import { appStatus } from '../appStatus';
 import { auth } from '../auth';
@@ -36,15 +36,11 @@ import { flagsStorage } from '../flagsStorage';
 import { popupOpenedCounter } from '../popupData/popupOpenedCounter';
 import { locationsService } from '../endpoints/locationsService';
 import { connectivityService } from '../connectivity/connectivityService';
+import { proxyApi } from '../proxy/abstractProxyApi';
 
 import '../rateModal';
 import '../uninstall';
 import '../networkConnectionObserver';
-
-interface InitInterface {
-    syncInitModules(): void;
-    asyncInitModules(): Promise<void>
-}
 
 declare global {
     module globalThis {
@@ -60,7 +56,11 @@ declare global {
  * of service worker in MV3 and background page in MV2
  */
 const syncInitModules = (): void => {
+    if (!global.adguard) {
+        global.adguard = {};
+    }
     global.adguard = {
+        ...global.adguard,
         settings,
         actions,
         proxy,
@@ -81,6 +81,10 @@ const syncInitModules = (): void => {
         logStorage,
     };
 
+    // register onAuthRequired listener on the top level
+    // to handle authorization for active proxy
+    proxyApi.init();
+
     // messaging, context menu and tabs inits are on the top-level
     // because popup should be able to wake up the service worker in MV3
     messaging.init();
@@ -94,8 +98,8 @@ const syncInitModules = (): void => {
 const asyncInitModules = async (): Promise<void> => {
     log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
-        const initStartDate = Number(new Date());
-        await sessionState.init();
+        const initStartDate = Date.now();
+        await stateStorage.init();
         connectivityService.start();
         await proxy.init();
         await fallbackApi.init();
@@ -115,14 +119,14 @@ const asyncInitModules = async (): Promise<void> => {
         await nonRoutable.init();
         browserActionIcon.init();
         popupOpenedCounter.init();
-        const initDoneDate = Number(new Date());
+        const initDoneDate = Date.now();
         log.info(`Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
     } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);
     }
 };
 
-export const init: InitInterface = {
-    syncInitModules,
-    asyncInitModules,
+export const main = () => {
+    syncInitModules();
+    asyncInitModules();
 };

@@ -20,6 +20,8 @@ class StateStorage implements StateStorageInterface {
 
     private state: StorageData;
 
+    private initPromise: Promise<void>;
+
     /**
      * Gets the value for the specified key from the session storage.
      *
@@ -61,7 +63,7 @@ class StateStorage implements StateStorageInterface {
      * Initializes the storage by loading the data from the session storage,
      * or creating a new storage with the default data if none exists.
      */
-    public init = async (): Promise<void> => {
+    private innerInit = async (): Promise<void> => {
         try {
             const res = storageDataScheme.safeParse(await chrome.storage.session.get(null));
 
@@ -72,11 +74,20 @@ class StateStorage implements StateStorageInterface {
                 await chrome.storage.session.set(this.state);
             }
 
+            // TODO remove this hack to the upper level, because storage should not know about options page
             wakeUpOptionsPage();
             this.isInit = true;
         } catch (e) {
             log.error(e);
         }
+    };
+
+    /**
+     * Returns init promise, which resolves when the storage data object has been initialized.
+     */
+    public init = async (): Promise<void> => {
+        this.initPromise = this.innerInit();
+        return this.initPromise;
     };
 
     /**
@@ -89,6 +100,13 @@ class StateStorage implements StateStorageInterface {
     private static createNotInitializedError(): Error {
         return new Error('StateStorage is not initialized. Call init() method first.');
     }
+
+    /**
+     * Returns init promise, which resolves when the storage data object has been initialized.
+     */
+    public async waitInit(): Promise<void> {
+        return this.initPromise;
+    }
 }
 
-export const sessionState = new StateStorage();
+export const stateStorage = new StateStorage();
