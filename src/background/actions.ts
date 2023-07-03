@@ -38,6 +38,7 @@ const openOptionsPageFirefox = async (anchorName: string | null) => {
 
     if (!optionsTabs.length) {
         await tabs.openTab(targetUrl);
+        return;
     }
 
     const { windowId, id: tabId } = optionsTabs[0];
