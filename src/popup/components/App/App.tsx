@@ -31,7 +31,7 @@ import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
-import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
+import { ConfirmEmail } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { HintPopup } from '../HintPopup';
 
@@ -62,7 +62,7 @@ export const App = observer(() => {
         showLimitExceededScreen,
     } = settingsStore;
 
-    const { authenticated } = authStore;
+    const { authenticated, showConfirmEmailScreen } = authStore;
 
     const { initStatus } = globalStore;
 
@@ -182,6 +182,12 @@ export const App = observer(() => {
         );
     }
 
+    if (showConfirmEmailScreen) {
+        return (
+            <ConfirmEmail />
+        );
+    }
+
     if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
         const showMenuButton = authenticated && canControlProxy;
         return (
@@ -244,7 +250,6 @@ export const App = observer(() => {
                 ? <ExclusionsScreen />
                 : (
                     <>
-                        <ConfirmEmailNotice />
                         <Settings />
                         <div className="footer">
                             {premiumPromoEnabled ? (
@@ -257,7 +262,6 @@ export const App = observer(() => {
                     </>
                 )}
             <Icons />
-            <ConfirmEmailModal />
             <ReviewPopup />
             <ServerErrorPopup />
             {!isCurrentTabExcluded && canBeExcluded

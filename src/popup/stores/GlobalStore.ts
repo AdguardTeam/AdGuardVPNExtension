@@ -52,6 +52,7 @@ export class GlobalStore {
                 shouldShowRateModal,
                 username,
                 shouldShowHintPopup,
+                resendLinkCountDown,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -77,7 +78,7 @@ export class GlobalStore {
             authStore.setIsFirstRun(isFirstRun);
             authStore.setUserEmail(username);
             authStore.setShouldShowRateModal(shouldShowRateModal);
-            authStore.setShowConfirmEmail(!!vpnInfo?.emailConfirmationRequired);
+            authStore.showConfirmEmail(!!vpnInfo?.emailConfirmationRequired, resendLinkCountDown);
             authStore.setShowHintPopup(shouldShowHintPopup);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setConnectivityState(connectivityState);

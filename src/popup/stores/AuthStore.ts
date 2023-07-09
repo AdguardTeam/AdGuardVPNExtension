@@ -57,6 +57,7 @@ const DEFAULTS = {
     signInCheck: false,
     showOnboarding: true,
     showUpgradeScreen: true,
+    confirmEmailCountDown: 30,
 };
 
 export class AuthStore {
@@ -96,11 +97,15 @@ export class AuthStore {
 
     @observable rating = 0;
 
-    @observable showConfirmEmailModal = false;
-
-    @observable showConfirmEmailNotice = false;
+    @observable showConfirmEmailScreen = false;
 
     @observable userEmail = '';
+
+    @observable confirmEmailError = false;
+
+    @observable confirmEmailTimer?: ReturnType<typeof setInterval>;
+
+    @observable confirmEmailCountDown = DEFAULTS.confirmEmailCountDown;
 
     @observable showHintPopup = false;
 
@@ -471,13 +476,27 @@ export class AuthStore {
         this.showRateModal = value;
     };
 
-    @action setShowConfirmEmail = (value: boolean) => {
-        this.showConfirmEmailModal = value;
-        this.showConfirmEmailNotice = value;
+    @action showConfirmEmail = (value: boolean, countDown: number) => {
+        this.showConfirmEmailScreen = value;
+        this.setConfirmEmailCountDown(countDown);
+        if (countDown) {
+            this.startCountDown();
+        }
     };
 
-    @action setShowConfirmEmailModal = (value: boolean) => {
-        this.showConfirmEmailModal = value;
+    @action setConfirmEmailCountDown(value: number) {
+        this.confirmEmailCountDown = value;
+    }
+
+    @action startCountDown = () => {
+        this.confirmEmailTimer = setInterval(() => {
+            runInAction(() => {
+                this.confirmEmailCountDown -= 1;
+                if (this.confirmEmailCountDown === 0) {
+                    clearInterval(this.confirmEmailTimer);
+                }
+            });
+        }, 1000);
     };
 
     @action setUserEmail = (value: string) => {
@@ -485,6 +504,8 @@ export class AuthStore {
     };
 
     @action resendConfirmRegistrationLink = async () => {
+        this.setConfirmEmailCountDown(DEFAULTS.confirmEmailCountDown);
+        this.startCountDown();
         await messenger.resendConfirmRegistrationLink(true);
     };
 
@@ -493,7 +514,7 @@ export class AuthStore {
         return this.showHintPopup
             && !this.showRateModal
             && !this.showConfirmRateModal
-            && !this.showConfirmEmailModal;
+            && !this.showConfirmEmailScreen;
     }
 
     @action setShowHintPopup = (value: boolean) => {
@@ -505,5 +526,9 @@ export class AuthStore {
         runInAction(() => {
             this.showHintPopup = false;
         });
+    };
+
+    @action sendEmailConfirmCode = async (code: string) => {
+        await messenger.sendConfirmEmailCode(code);
     };
 }

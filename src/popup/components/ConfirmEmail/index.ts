@@ -1,2 +1,1 @@
-export { ConfirmEmailModal } from './ConfirmEmailModal';
-export { ConfirmEmailNotice } from './ConfirmEmailNotice';
+export { ConfirmEmail } from './ConfirmEmail';

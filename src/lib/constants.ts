@@ -102,6 +102,7 @@ export enum MessageType {
     EDIT_CUSTOM_DNS_SERVER = 'edit.custom.dns.server',
     REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
     RESEND_CONFIRM_REGISTRATION_LINK = 'resend.confirm.registration.link',
+    SEND_CONFIRM_EMAIL_CODE = 'send.confirm.email.code',
     RESTORE_CUSTOM_DNS_SERVERS_DATA = 'restore.custom.dns.servers.data',
     SET_HINT_POPUP_VIEWED = 'set.hint.popup.viewed',
 

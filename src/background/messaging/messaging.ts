@@ -27,6 +27,7 @@ import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
+import { emailService } from '../emailService/emailSevice';
 
 interface Message {
     type: MessageType,
@@ -379,8 +380,13 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.RESEND_CONFIRM_REGISTRATION_LINK: {
             const { displayNotification } = data;
+            emailService.restartCountDown();
             const accessToken = await auth.getAccessToken();
             return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
+        }
+        case MessageType.SEND_CONFIRM_EMAIL_CODE: {
+            // TODO: send confirm code (for the moment there is no backend api request for this)
+            return null;
         }
         case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
             return dns.restoreCustomDnsServersData();

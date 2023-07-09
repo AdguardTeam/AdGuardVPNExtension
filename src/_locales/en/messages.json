@@ -932,7 +932,7 @@
         "message": "Confirm your email"
     },
     "confirm_email_info": {
-        "message": "To get free VPN traffic, please confirm your email address. We’ve sent a confirmation link to"
+        "message": "We’ve sent a confirmation code to %email%"
     },
     "confirm_email_done_title": {
         "message": "Email address confirmed"
@@ -943,8 +943,11 @@
     "confirm_email_close_button": {
         "message": "Close"
     },
+    "confirm_email_resend_link_button_disabled": {
+        "message": "Send another code (%count%)"
+    },
     "confirm_email_resend_link_button": {
-        "message": "Resend link"
+        "message": "Send another code"
     },
     "resend_confirm_registration_link_notification": {
         "message": "Confirmation link resent"

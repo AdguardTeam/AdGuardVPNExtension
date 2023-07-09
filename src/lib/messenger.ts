@@ -404,6 +404,11 @@ class Messenger {
         return this.sendMessage(type, { displayNotification });
     }
 
+    sendConfirmEmailCode(code: string) {
+        const type = MessageType.SEND_CONFIRM_EMAIL_CODE;
+        return this.sendMessage(type, { code });
+    }
+
     /**
      * Returns logs from the background page
      */

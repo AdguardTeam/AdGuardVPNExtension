@@ -218,7 +218,7 @@ const getVpnExtensionInfo = async (
     // Temporary hardcode emailConfirmationRequired to false
     // to don't show email confirmation modal
     // TODO: remove hardcode and handle email_confirmation_required from backend
-    const emailConfirmationRequired = false;
+    const emailConfirmationRequired = true;
 
     return {
         bandwidthFreeMbits,

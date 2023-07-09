@@ -25,6 +25,7 @@ import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../schema';
 import { hintPopup } from '../hintPopup';
 import { popupOpenedCounter } from './popupOpenedCounter';
+import { emailService } from '../emailService/emailSevice';
 
 interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;
@@ -61,6 +62,7 @@ interface PopupDataInterface {
     shouldShowRateModal?: boolean;
     username?: string | null;
     shouldShowHintPopup?: boolean;
+    resendLinkCountDown?: number;
 }
 
 interface PopupDataRetry extends PopupDataInterface {
@@ -135,6 +137,14 @@ export class PopupData {
         const username = await credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
 
+        // if got flag to request email confirmation,
+        // have to start countdown for resend confirmation link
+        if (vpnInfo?.emailConfirmationRequired) {
+            emailService.startCountDown();
+        }
+
+        const { resendLinkCountDown } = emailService;
+
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
             throttledPermissionsChecker();
@@ -167,6 +177,7 @@ export class PopupData {
             shouldShowRateModal,
             username,
             shouldShowHintPopup,
+            resendLinkCountDown,
         };
     };
 
