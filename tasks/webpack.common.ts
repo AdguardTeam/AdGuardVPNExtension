@@ -141,13 +141,13 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     throw new Error(`There is no proxy api for browser: ${browser}`);
                 }
             })),
-            new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\/stateStorage\.abstract/, ((resource: any) => {
+            new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\.abstract/, ((resource: any) => {
                 if (browser === Browser.Chrome) {
                     // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/stateStorage\/stateStorage\.abstract/, './stateStorage/mv3');
+                    resource.request = resource.request.replace(/\.\/stateStorage\.abstract/, './mv3');
                 } else {
                     // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/stateStorage\/stateStorage\.abstract/, './stateStorage/mv2');
+                    resource.request = resource.request.replace(/\.\/stateStorage\.abstract/, './mv2');
                 }
             })),
             new CleanWebpackPlugin(cleanOptions),

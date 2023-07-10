@@ -7,7 +7,7 @@ import { PermissionsErrorInterface, ErrorData } from './permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { vpnProvider } from '../providers/vpnProvider';
 import { timers } from '../timers';
-import { sessionState } from '../sessionStorage';
+import { stateStorage } from '../stateStorage';
 import { PermissionsCheckerState, StorageKey } from '../schema';
 import { auth } from '../auth';
 
@@ -38,7 +38,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     }
 
     private savePermissionsCheckerState = () => {
-        sessionState.setItem(StorageKey.ProxyState, this.state);
+        stateStorage.setItem(StorageKey.ProxyState, this.state);
     };
 
     private get credentialsCheckTimerId(): number | null {
@@ -208,7 +208,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     };
 
     init = (): void => {
-        this.state = sessionState.getItem(StorageKey.PermissionsChecker);
+        this.state = stateStorage.getItem(StorageKey.PermissionsChecker);
 
         notifier.addSpecifiedListener(
             notifier.types.USER_AUTHENTICATED,

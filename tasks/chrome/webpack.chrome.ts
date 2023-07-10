@@ -25,11 +25,6 @@ if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
 const commonConfig = getCommonConfig(Browser.Chrome);
 
 const plugins: webpack.WebpackPluginInstance[] = [
-    new webpack.NormalModuleReplacementPlugin(/\.\/init\/initAbstract/, ((resource: any) => {
-        // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request
-            .replace(/\.\/init\/initAbstract/, './init/initMV3');
-    })),
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
         resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');

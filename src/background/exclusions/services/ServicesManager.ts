@@ -7,7 +7,7 @@ import { browserApi } from '../../browserApi';
 import { log } from '../../../lib/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
 import { fetchConfig } from '../../../lib/constants';
-import { sessionState } from '../../sessionStorage';
+import { stateStorage } from '../../stateStorage';
 import {
     StorageKey,
     ServicesInterface,
@@ -30,7 +30,7 @@ export class ServicesManager implements ServiceManagerInterface {
     state: ServicesManagerState;
 
     public init = async () => {
-        this.state = sessionState.getItem(StorageKey.ExclusionsServicesManagerState);
+        this.state = stateStorage.getItem(StorageKey.ExclusionsServicesManagerState);
 
         const services = await this.getServicesFromStorage();
         if (services) {
@@ -45,7 +45,7 @@ export class ServicesManager implements ServiceManagerInterface {
     };
 
     private saveServicesManagerState = () => {
-        sessionState.setItem(StorageKey.ExclusionsServicesManagerState, this.state);
+        stateStorage.setItem(StorageKey.ExclusionsServicesManagerState, this.state);
     };
 
     get services() {

@@ -39,12 +39,6 @@ const plugins: webpack.WebpackPluginInstance[] = [
         process: 'process/browser',
         Buffer: ['buffer', 'Buffer'],
     }),
-    // TODO: on move to MV3 inject initMv3
-    new webpack.NormalModuleReplacementPlugin(/\.\/init\/initAbstract/, ((resource: any) => {
-        // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request
-            .replace(/\.\/init\/initAbstract/, './init/initMV2');
-    })),
     // TODO: on move to MV3 inject Mv3Timers
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign

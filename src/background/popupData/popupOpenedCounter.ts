@@ -1,4 +1,4 @@
-import { sessionState } from '../stateStorage/stateStorage.abstract';
+import { stateStorage } from '../stateStorage';
 import { PopupOpenedCounterState, StorageKey } from '../schema';
 
 interface PopupOpenedCounterInterface {
@@ -18,7 +18,7 @@ class PopupOpenedCounter implements PopupOpenedCounterInterface {
 
     private set count(value: number) {
         this.state.count = value;
-        sessionState.setItem(StorageKey.PopupOpenedCounter, this.state);
+        stateStorage.setItem(StorageKey.PopupOpenedCounter, this.state);
     }
 
     /**
@@ -29,7 +29,7 @@ class PopupOpenedCounter implements PopupOpenedCounterInterface {
     }
 
     public init(): void {
-        this.state = sessionState.getItem(StorageKey.PopupOpenedCounter);
+        this.state = stateStorage.getItem(StorageKey.PopupOpenedCounter);
     }
 }
 

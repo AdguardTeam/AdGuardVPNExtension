@@ -18,7 +18,7 @@ import type { AuthCredentials } from './api/apiTypes';
 import type { AuthAccessToken } from './schema';
 import { authService } from './authentication/authService';
 import { AuthState, StorageKey } from './schema';
-import { sessionState } from './sessionStorage';
+import { stateStorage } from './stateStorage';
 
 export interface AuthInterface {
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
@@ -43,7 +43,7 @@ class Auth implements AuthInterface {
     state: AuthState;
 
     private saveAuthState = () => {
-        sessionState.setItem(StorageKey.AuthState, this.state);
+        stateStorage.setItem(StorageKey.AuthState, this.state);
     };
 
     private get socialAuthState(): string | null {
@@ -319,7 +319,7 @@ class Auth implements AuthInterface {
     }
 
     async initState(): Promise<void> {
-        this.state = sessionState.getItem(StorageKey.AuthState);
+        this.state = stateStorage.getItem(StorageKey.AuthState);
     }
 
     async init(): Promise<void> {

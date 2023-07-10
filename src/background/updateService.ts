@@ -1,5 +1,5 @@
 import { browserApi } from './browserApi';
-import { sessionState } from './sessionStorage';
+import { stateStorage } from './stateStorage';
 import { StorageKey, UpdateServiceState } from './schema';
 
 const APP_VERSION_KEY = 'update.service.app.version';
@@ -25,7 +25,7 @@ class UpdateService implements UpdateServiceInterface {
 
     private set prevVersion(prevVersion: string | undefined) {
         this.state.prevVersion = prevVersion;
-        sessionState.setItem(StorageKey.UpdateServiceState, this.state);
+        stateStorage.setItem(StorageKey.UpdateServiceState, this.state);
     }
 
     private get currentVersion() {
@@ -34,11 +34,11 @@ class UpdateService implements UpdateServiceInterface {
 
     private set currentVersion(currentVersion: string | undefined) {
         this.state.currentVersion = currentVersion;
-        sessionState.setItem(StorageKey.UpdateServiceState, this.state);
+        stateStorage.setItem(StorageKey.UpdateServiceState, this.state);
     }
 
     init = async (): Promise<void> => {
-        this.state = sessionState.getItem(StorageKey.UpdateServiceState);
+        this.state = stateStorage.getItem(StorageKey.UpdateServiceState);
 
         if (!this.prevVersion) {
             this.prevVersion = await this.getAppVersionFromStorage();

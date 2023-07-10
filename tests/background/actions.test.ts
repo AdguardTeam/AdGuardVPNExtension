@@ -1,9 +1,9 @@
 import { actions } from '../../src/background/actions';
 import { credentials } from '../../src/background/credentials';
 // TODO: test mv3 after official switch to mv3
-import { sessionState } from '../../src/background/stateStorage/mv2';
+import { stateStorage } from '../../src/background/stateStorage/mv2';
 
-jest.mock('../../src/background/sessionStorage', () => {
+jest.mock('../../src/background/stateStorage', () => {
     // eslint-disable-next-line global-require
     return require('../../src/background/stateStorage/mv2');
 });
@@ -19,7 +19,7 @@ jest.mock('../../src/background/config', () => {
 
 describe('Actions tests', () => {
     beforeEach(async () => {
-        await sessionState.init();
+        await stateStorage.init();
     });
 
     it('Get premium promo page url', async () => {

@@ -10,7 +10,7 @@ import {
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { fetchConfig } from '../../lib/constants';
-import { sessionState } from '../sessionStorage';
+import { stateStorage } from '../stateStorage';
 import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
 import { CountryInfo, FallbackInfo, StorageKey } from '../schema';
@@ -67,11 +67,11 @@ export class FallbackApi {
     }
 
     private get fallbackInfo(): FallbackInfo {
-        return sessionState.getItem(StorageKey.FallbackInfo);
+        return stateStorage.getItem(StorageKey.FallbackInfo);
     }
 
     private set fallbackInfo(value: FallbackInfo) {
-        sessionState.setItem(StorageKey.FallbackInfo, value);
+        stateStorage.setItem(StorageKey.FallbackInfo, value);
     }
 
     public async init(): Promise<void> {

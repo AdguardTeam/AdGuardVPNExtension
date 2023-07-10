@@ -2,7 +2,7 @@ import type { EventData } from 'xstate';
 
 import { notifier } from '../../../lib/notifier';
 import { log } from '../../../lib/logger';
-import { sessionState } from '../../sessionStorage';
+import { stateStorage } from '../../stateStorage';
 import {
     StorageKey,
     ConnectivityData,
@@ -52,10 +52,10 @@ export class ConnectivityService {
     }
 
     /**
-     * Creates and starts new {@link interpreter} with state and context from {@link sessionState}.
+     * Creates and starts new {@link interpreter} with state and context from {@link stateStorage}.
      */
     public start() {
-        const { context, state } = sessionState.getItem<ConnectivityData>(StorageKey.ConnectivityData);
+        const { context, state } = stateStorage.getItem<ConnectivityData>(StorageKey.ConnectivityData);
 
         const fsm = createConnectivityMachine(context);
 
@@ -77,7 +77,7 @@ export class ConnectivityService {
     }
 
     /**
-     * Notifies listeners and updates {@link sessionState} on FSM state change.
+     * Notifies listeners and updates {@link stateStorage} on FSM state change.
      *
      * @param state New state of connectivity FSM.
      */
@@ -87,7 +87,7 @@ export class ConnectivityService {
         if (state.changed) {
             log.debug(`Current state: ${state.value}`);
             notifier.notifyListeners(notifier.types.CONNECTIVITY_STATE_CHANGED, { value: state.value });
-            sessionState.setItem<ConnectivityData>(StorageKey.ConnectivityData, {
+            stateStorage.setItem<ConnectivityData>(StorageKey.ConnectivityData, {
                 context: state.context,
                 state: state.value as ConnectivityStateType,
             });
