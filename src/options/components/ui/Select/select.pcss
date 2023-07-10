@@ -8,12 +8,12 @@
         background-position: 100% center;
         background-repeat: no-repeat;
         cursor: pointer;
+        border: none;
 
         &-title {
             color: var(--gray-base);
             font-size: 1.6rem;
             white-space: nowrap;
-            width: 230px;
             overflow: hidden;
             text-overflow: ellipsis;
             text-align: right;
@@ -57,9 +57,11 @@
     }
 
     &__option-item {
-        list-style: none;
+        width: 100%;
+        display: flex;
         padding: 16px 25px;
         cursor: pointer;
+        border: none;
         transition: var(--t3) background-color;
         background-color: var(--white);
 
