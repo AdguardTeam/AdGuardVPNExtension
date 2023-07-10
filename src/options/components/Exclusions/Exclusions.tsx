@@ -32,12 +32,16 @@ export const Exclusions = observer(() => {
     const modeInfoParams = {
         span: (chunks: string) => {
             return (
-                <span className="exclusions__mode--link" onClick={openModeSelectorModal}>
+                <button
+                    type="button"
+                    className="exclusions__mode--link"
+                    onClick={openModeSelectorModal}
+                >
                     {chunks}
                     <svg className="icon icon--pencil">
                         <use xlinkHref="#pencil" />
                     </svg>
-                </span>
+                </button>
             );
         },
     };
