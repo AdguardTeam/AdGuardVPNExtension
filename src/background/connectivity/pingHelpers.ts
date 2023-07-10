@@ -148,7 +148,7 @@ export const measurePingToEndpointViaFetch = async (domainName: string): Promise
             // eslint-disable-next-line no-await-in-loop
             await fetchWithTimeout(requestUrl, FETCH_TIMEOUT_MS);
             const fetchPing = Date.now() - start;
-            // don't handle negative values for fetchPing, which could be caused by an overflow
+            // don't handle negative values for fetchPing
             // https://github.com/AdguardTeam/AdGuardVPNExtension/issues/106
             if (fetchPing >= 0 && (!ping || fetchPing < ping)) {
                 ping = fetchPing;
