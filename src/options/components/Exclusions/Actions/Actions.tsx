@@ -78,7 +78,7 @@ export const Actions = observer(() => {
     const [isMoreActionsMenuOpen, setIsMoreActionsMenuOpen] = useState(false);
 
     const importEl = useRef<HTMLInputElement>(null);
-    const moreActionsMenu = useRef<HTMLUListElement>(null);
+    const moreActionsMenu = useRef<HTMLDivElement>(null);
 
     const [isSelectListModalOpen, setSelectListModalState] = useState(false);
     const [fileContent, setFileContent] = useState('');
@@ -241,27 +241,32 @@ export const Actions = observer(() => {
                 >
                     {reactTranslator.getMessage('settings_exclusion_actions')}
                 </button>
-                <ul
+                <div
                     className={moreActionsListClassnames}
                     ref={moreActionsMenu}
                     tabIndex={-1}
                 >
-                    <li
+                    <button
+                        type="button"
                         className={exportClassnames}
                         onClick={onExportExclusionsClick}
                     >
                         {reactTranslator.getMessage('settings_exclusions_action_export')}
-                    </li>
-                    <li onClick={onImportExclusionsClick}>
+                    </button>
+                    <button
+                        type="button"
+                        onClick={onImportExclusionsClick}
+                    >
                         {reactTranslator.getMessage('settings_exclusions_action_import')}
-                    </li>
-                    <li
+                    </button>
+                    <button
+                        type="button"
                         className={removeAllClassnames}
                         onClick={onRemoveAllClick}
                     >
                         {reactTranslator.getMessage('settings_exclusions_action_remove_all')}
-                    </li>
-                </ul>
+                    </button>
+                </div>
                 <input
                     type="file"
                     accept=".txt, .zip"

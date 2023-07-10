@@ -40,7 +40,8 @@ export const ModeSelectorModal = observer(() => {
         });
 
         return (
-            <div
+            <button
+                type="button"
                 className="radio"
                 onClick={() => setMode(exclusionsType)}
             >
@@ -52,7 +53,7 @@ export const ModeSelectorModal = observer(() => {
                         {titles[exclusionsType]}
                     </div>
                 </div>
-            </div>
+            </button>
         );
     };
 

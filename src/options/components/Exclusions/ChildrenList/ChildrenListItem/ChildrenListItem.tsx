@@ -67,7 +67,8 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
 
     const renderServiceExclusionItem = () => {
         return (
-            <div
+            <button
+                type="button"
                 className="children-list-item__service-hostname"
                 onClick={showGroupSettings(exclusion.id)}
             >
@@ -75,7 +76,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
                 <svg className="icon children-list-item__arrow">
                     <use xlinkHref="#arrow" />
                 </svg>
-            </div>
+            </button>
         );
     };
 
