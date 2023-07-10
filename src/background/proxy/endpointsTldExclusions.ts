@@ -6,7 +6,7 @@ import { log } from '../../lib/logger';
 import { browserApi } from '../browserApi';
 import { proxy } from './index';
 import { StorageKey } from '../schema';
-import { sessionState } from '../sessionStorage';
+import { stateStorage } from '../stateStorage';
 import { EndpointsTldExclusionsState } from '../schema/proxy/endpointsTldExclusions';
 
 /**
@@ -41,7 +41,7 @@ class EndpointsTldExclusions {
 
     private set endpointsTldExclusionsList(endpointsTldExclusionsList: string[]) {
         this.state.endpointsTldExclusionsList = endpointsTldExclusionsList;
-        sessionState.setItem(StorageKey.EndpointsTldExclusions, this.state);
+        stateStorage.setItem(StorageKey.EndpointsTldExclusions, this.state);
     }
 
     /**
@@ -99,7 +99,7 @@ class EndpointsTldExclusions {
 
     init = async () => {
         try {
-            this.state = sessionState.getItem(StorageKey.EndpointsTldExclusions);
+            this.state = stateStorage.getItem(StorageKey.EndpointsTldExclusions);
             const storedList = await browserApi.storage.get<string[]>(this.STORAGE_KEY);
             if (storedList) {
                 this.endpointsTldExclusionsList = storedList;

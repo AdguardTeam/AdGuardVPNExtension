@@ -1,10 +1,10 @@
 import { authProvider } from '../../../src/background/providers/authProvider';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
-import { sessionState } from '../../../src/background/stateStorage/mv2';
+import { stateStorage } from '../../../src/background/stateStorage/mv2';
 import { fetchResolveMock, fetchRejectMock } from '../../__mocks__/fetchMock';
 
-jest.mock('../../../src/background/sessionStorage', () => {
+jest.mock('../../../src/background/stateStorage', () => {
     // eslint-disable-next-line global-require
     return require('../../../src/background/stateStorage/mv2');
 });
@@ -36,7 +36,7 @@ global.chrome = {
 
 describe('authProvider', () => {
     beforeEach(async () => {
-        await sessionState.init();
+        await stateStorage.init();
     });
 
     afterAll(() => {

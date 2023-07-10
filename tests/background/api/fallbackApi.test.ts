@@ -9,9 +9,9 @@ import {
 import { WHOAMI_URL } from '../../../src/background/config';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
-import { sessionState } from '../../../src/background/stateStorage/mv2';
+import { stateStorage } from '../../../src/background/stateStorage/mv2';
 
-jest.mock('../../../src/background/sessionStorage', () => {
+jest.mock('../../../src/background/stateStorage', () => {
     // eslint-disable-next-line global-require
     return require('../../../src/background/stateStorage/mv2');
 });
@@ -35,7 +35,7 @@ jest.useFakeTimers('modern');
 
 describe('FallbackApi', () => {
     beforeEach(async () => {
-        await sessionState.init();
+        await stateStorage.init();
     });
 
     afterEach(async () => {

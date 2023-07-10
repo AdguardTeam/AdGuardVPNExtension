@@ -1,1 +1,1 @@
-export * from './stateStorage';
+export { stateStorage } from './stateStorage';

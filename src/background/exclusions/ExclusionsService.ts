@@ -22,7 +22,7 @@ import {
     isWildcard,
 } from '../../common/url-utils';
 import { notifier } from '../../lib/notifier';
-import { sessionState } from '../sessionStorage';
+import { stateStorage } from '../stateStorage';
 
 interface ToggleServicesResult {
     added: number,
@@ -43,11 +43,11 @@ export class ExclusionsService {
 
     private set previousExclusions(previousExclusions: AllExclusions | null) {
         this.state.previousExclusions = previousExclusions;
-        sessionState.setItem(StorageKey.ExclusionsState, this.state);
+        stateStorage.setItem(StorageKey.ExclusionsState, this.state);
     }
 
     async init() {
-        this.state = sessionState.getItem(StorageKey.ExclusionsState);
+        this.state = stateStorage.getItem(StorageKey.ExclusionsState);
 
         await exclusionsManager.init();
         await servicesManager.init();

@@ -4,9 +4,9 @@ import { servicesManager } from '../../../../src/background/exclusions/services/
 import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
 import { session } from '../../../__mocks__';
 // TODO: test mv3 after official switch to mv3
-import { sessionState } from '../../../../src/background/stateStorage/mv2';
+import { stateStorage } from '../../../../src/background/stateStorage/mv2';
 
-jest.mock('../../../../src/background/sessionStorage', () => {
+jest.mock('../../../../src/background/stateStorage', () => {
     // eslint-disable-next-line global-require
     return require('../../../../src/background/stateStorage/mv2');
 });
@@ -85,7 +85,7 @@ global.chrome = {
 
 describe('ServicesManager tests', () => {
     beforeEach(async () => {
-        await sessionState.init();
+        await stateStorage.init();
     });
 
     it('test initialization', async () => {

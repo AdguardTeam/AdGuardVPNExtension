@@ -15,7 +15,7 @@ import {
     PingsCacheInterface,
     StorageKey,
 } from '../schema';
-import { sessionState } from '../sessionStorage';
+import { stateStorage } from '../stateStorage';
 
 export interface PingData {
     ping: number | null;
@@ -58,11 +58,11 @@ class LocationsService implements LocationsServiceInterface {
     PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
     public init() {
-        this.state = sessionState.getItem(StorageKey.LocationsService);
+        this.state = stateStorage.getItem(StorageKey.LocationsService);
     }
 
     private saveLocationsServiceState = () => {
-        sessionState.setItem(StorageKey.LocationsService, this.state);
+        stateStorage.setItem(StorageKey.LocationsService, this.state);
     };
 
     private get pingsCache(): PingsCacheInterface {

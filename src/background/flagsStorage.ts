@@ -2,7 +2,7 @@ import { browserApi } from './browserApi';
 import { FLAGS_FIELDS } from '../lib/constants';
 import { log } from '../lib/logger';
 import { updateService } from './updateService';
-import { sessionState } from './sessionStorage';
+import { stateStorage } from './stateStorage';
 import { FlagsStorageData, FLAG_STORAGE_DEFAULTS } from './flagsStorageData';
 import { StorageKey } from './schema';
 
@@ -23,11 +23,11 @@ interface FlagsStorageInterface {
  */
 class FlagsStorage implements FlagsStorageInterface {
     get flagsStorageData() {
-        return sessionState.getItem(StorageKey.FlagsStorageState);
+        return stateStorage.getItem(StorageKey.FlagsStorageState);
     }
 
     set flagsStorageData(value: FlagsStorageData) {
-        sessionState.setItem(StorageKey.FlagsStorageState, value);
+        stateStorage.setItem(StorageKey.FlagsStorageState, value);
     }
 
     /**

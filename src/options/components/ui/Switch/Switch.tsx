@@ -32,7 +32,8 @@ export const Switch = ({
                     </div>
                 )}
             </div>
-            <div
+            <button
+                type="button"
                 className={togglerClass}
                 onClick={handleToggle}
             />

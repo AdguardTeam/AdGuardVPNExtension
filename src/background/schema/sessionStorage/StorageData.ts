@@ -1,7 +1,7 @@
 import zod from 'zod';
 
 import { fallbackInfoScheme } from '../fallbackApi';
-import { PROXY_DEFAULTS, proxyStateScheme } from '../proxy';
+import { PROXY_DEFAULTS, proxyConfigInterfaceScheme, proxyStateScheme } from '../proxy';
 import {
     exclusionsServicesManagerScheme,
     exclusionsManagerStateScheme,
@@ -39,6 +39,7 @@ export const enum StorageKey {
     LocationsService = 'locationsService',
     PopupOpenedCounter = 'popupOpenedCounter',
     ConnectivityData = 'connectivityData',
+    GlobalProxyConfig = 'globalProxyConfig',
 }
 
 export const storageDataScheme = zod.object({
@@ -58,6 +59,7 @@ export const storageDataScheme = zod.object({
     [StorageKey.LocationsService]: locationsServiceStateScheme,
     [StorageKey.PopupOpenedCounter]: popupOpenedCounterStateScheme,
     [StorageKey.ConnectivityData]: connectivityDataScheme,
+    [StorageKey.GlobalProxyConfig]: proxyConfigInterfaceScheme.or(zod.null()),
 });
 
 export type StorageData = zod.infer<typeof storageDataScheme>;
@@ -79,4 +81,5 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.LocationsService]: LOCATIONS_SERVICE_STATE_DEFAULTS,
     [StorageKey.PopupOpenedCounter]: POPUP_OPENED_COUNTER_DEFAULTS,
     [StorageKey.ConnectivityData]: CONNECTIVITY_DATA_DEFAULTS,
+    [StorageKey.GlobalProxyConfig]: null,
 };
