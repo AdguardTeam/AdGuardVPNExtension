@@ -293,6 +293,7 @@ export const BugReporter = observer(() => {
                     </div>
                     <button
                         type="submit"
+                        tabIndex={0}
                         disabled={isButtonDisabled}
                         className="button button--medium button--primary bug-report__action"
                     >
