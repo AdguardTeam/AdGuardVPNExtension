@@ -4,7 +4,10 @@ import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 
 const HINT_POPUP_COUNTDOWN_KEY = 'hint.popup.countdown';
 
+const TEST_KEY = 'adguard.test.mode';
+
 const HINT_POPUP_DELAY = 1000 * 60 * 60; // 1 hour
+const HINT_POPUP_TEST_DELAY = 1000 * 60; // 1 min
 
 const POPUP_OPENED_COUNT_TO_SHOW_HINT = 4;
 
@@ -45,7 +48,7 @@ class HintPopup implements HintPopupInterface {
         const loginTime = await this.getLoginTime();
 
         if (loginTime === null) {
-            // null mens that hint popup has been shown already
+            // null means that hint popup has been shown already
             return;
         }
 
@@ -66,10 +69,14 @@ class HintPopup implements HintPopupInterface {
      * Checks the conditions to show hint popup:
      * 1. 1 hour passed since login time
      * 2. user had opened popup 4 times
+     * If testing flag is present in localstorage, 1-hour delay decreased to 1 minute
      */
     public shouldShowHintPopup = async (): Promise<boolean> => {
+        const isTesting = await browserApi.storage.get(TEST_KEY);
+        const hintPopupDelay = isTesting ? HINT_POPUP_TEST_DELAY : HINT_POPUP_DELAY;
+
         const loginTime = await this.getLoginTime();
-        return !!(loginTime && (loginTime + HINT_POPUP_DELAY <= Date.now()))
+        return !!(loginTime && (loginTime + hintPopupDelay <= Date.now()))
             // add 1 to popupOpenedNum because shouldShowHintPopup called for next popup opening
             && popupOpenedCounter.count + 1 >= POPUP_OPENED_COUNT_TO_SHOW_HINT;
     };
