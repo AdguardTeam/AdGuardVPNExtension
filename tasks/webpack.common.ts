@@ -22,6 +22,7 @@ const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
 const THANKYOU_PAGE_AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/thankYouPageAuth.js');
+const APPLY_DNS_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/applyDns.js');
 const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'options/preloadTheme.ts');
 const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
 
@@ -49,6 +50,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             popup: POPUP_PATH,
             auth: AUTH_SCRIPT,
             thankYouPageAuth: THANKYOU_PAGE_AUTH_SCRIPT,
+            applyDns: APPLY_DNS_SCRIPT,
             preloadTheme: PRELOAD_THEME_SCRIPT,
             export: EXPORT_PATH,
         },
