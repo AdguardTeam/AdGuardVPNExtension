@@ -1,13 +1,15 @@
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
+import { MessageType, SETTINGS_IDS } from '../lib/constants';
+
 (() => {
     if (!(document instanceof HTMLDocument)) {
         return;
     }
 
     const getSubscriptionParams = (urlParams) => {
-        let title = null;
+        let name = null;
         let address = null;
 
         for (let i = 0; i < urlParams.length; i += 1) {
@@ -17,8 +19,8 @@ import { nanoid } from 'nanoid';
                 continue;
             }
             switch (parts[0]) {
-                case 'title':
-                    title = decodeURIComponent(parts[1]);
+                case 'name':
+                    name = decodeURIComponent(parts[1]);
                     break;
                 case 'address':
                     address = decodeURIComponent(parts[1]);
@@ -29,38 +31,24 @@ import { nanoid } from 'nanoid';
         }
 
         return {
-            title,
+            name,
             address,
         };
     };
 
     const onLinkClicked = async (e) => {
-        debugger
         if (e.button === 2) {
             // ignore right-click
             return;
         }
 
-        let { target } = e;
-        while (target) {
-            if (target instanceof HTMLAnchorElement) {
-                break;
-            }
-            target = target.parentNode;
-        }
+        const { target } = e;
 
-        if (!target) {
+        if (!target
+            || target.tagName.toLowerCase() !== 'a'
+            || target.protocol !== 'adguardvpnext:') {
             return;
         }
-
-        // FIXME: register handler for protocol
-        if (target.protocol === 'adguardvpnext:') {
-            if (target.host !== 'add_dns_server') {
-                return;
-            }
-        }
-
-        debugger
 
         e.preventDefault();
         e.stopPropagation();
@@ -75,27 +63,33 @@ import { nanoid } from 'nanoid';
         }
 
         const subParams = getSubscriptionParams(urlParams);
-        const url = subParams.address.trim();
+        const address = subParams.address.trim();
+
         // FIXME: validate dns address
 
-        const title = (subParams.title || url).trim();
+        const title = (subParams.name || address).trim();
 
-        if (!url) {
+        if (!address) {
             return;
         }
 
         const id = nanoid();
 
+        const dnsServerData = {
+            id,
+            address,
+            title,
+        };
+
         await browser.runtime.sendMessage({
-            type: 'add.custom.dns.server',
-            dnsServerData: {
-                id,
-                url,
-                title,
-            },
+            type: MessageType.ADD_CUSTOM_DNS_SERVER,
+            data: { dnsServerData },
         });
 
-        // FIXME: add notification
+        await browser.runtime.sendMessage({
+            type: MessageType.SET_SETTING_VALUE,
+            data: { settingId: SETTINGS_IDS.SELECTED_DNS_SERVER, value: id },
+        });
     };
 
     document.addEventListener('click', onLinkClicked);
