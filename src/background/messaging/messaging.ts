@@ -368,11 +368,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return exclusions.restoreExclusions();
         }
         case MessageType.ADD_CUSTOM_DNS_SERVER: {
-            return dns.addCustomDnsServer(data.dnsServerData);
+            return dns.addCustomDnsServer(data.dnsServerData, data.notify);
         }
         case MessageType.EDIT_CUSTOM_DNS_SERVER: {
-            dns.editCustomDnsServer(data.dnsServerData);
-            return settings.getCustomDnsServers();
+            return dns.editCustomDnsServer(data.dnsServerData);
         }
         case MessageType.REMOVE_CUSTOM_DNS_SERVER: {
             return dns.removeCustomDnsServer(data.dnsServerId);

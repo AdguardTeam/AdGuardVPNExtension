@@ -1,16 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
-import { isIP } from 'is-ip';
 import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
 import { ADGUARD_DNS_KB_LINK } from '../../../../background/config';
-
-const DOH_PREFIX = 'https://';
-const DOT_PREFIX = 'tls://';
+import { DnsOperationResult } from '../../../../lib/constants';
 
 enum ModalType {
     AddDnsServer = 'addDnsServer',
@@ -23,7 +20,7 @@ const DNS_SERVER_ERROR = {
 };
 
 export const CustomDnsServerModal = observer(() => {
-    const { settingsStore, notificationsStore } = useContext(rootStore);
+    const { settingsStore } = useContext(rootStore);
 
     const [dnsServerName, setDnsServerName] = useState('');
     const [dnsServerAddress, setDnsServerAddress] = useState('');
@@ -55,62 +52,34 @@ export const CustomDnsServerModal = observer(() => {
         settingsStore.closeCustomDnsModalOpen();
     };
 
-    const validateDnsAddress = (address: string): string | null => {
-        // check existing custom dns addresses
-        if (settingsStore.customDnsServers.some((server) => server.address === dnsServerAddress)) {
-            return DNS_SERVER_ERROR.DUPLICATE;
-        }
-        // for the moment only plain dns and tls supported
-        if (address.startsWith(DOH_PREFIX) || !address.includes('.')) {
-            return DNS_SERVER_ERROR.INVALID;
-        }
-        return null;
-    };
-
-    const handleDnsAddress = (address: string) => {
-        if (isIP(address) || address.startsWith(DOT_PREFIX)) {
-            return address;
-        }
-        return `${DOT_PREFIX}${address}`;
-    };
-
     const addDnsServer = async (): Promise<void> => {
-        const dnsServerAddressError = validateDnsAddress(dnsServerAddress);
-        if (dnsServerAddressError) {
-            setDnsServerAddressError(dnsServerAddressError);
-            return;
+        const result = await settingsStore.addCustomDnsServer(dnsServerName, dnsServerAddress);
+
+        switch (result) {
+            case DnsOperationResult.Invalid:
+                setDnsServerAddressError(DNS_SERVER_ERROR.INVALID);
+                break;
+            case DnsOperationResult.Duplicate:
+                setDnsServerAddressError(DNS_SERVER_ERROR.DUPLICATE);
+                break;
+            default:
+                closeModal();
         }
-        const dnsAddressToAdd = handleDnsAddress(dnsServerAddress);
-        const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, dnsAddressToAdd);
-        notificationsStore.notifySuccess(
-            reactTranslator.getMessage('settings_dns_add_custom_server_notification_success'),
-            {
-                action: reactTranslator.getMessage('settings_exclusions_undo'),
-                handler: () => settingsStore.removeCustomDnsServer(dnsServer.id),
-            },
-        );
-        closeModal();
     };
 
     const editDnsServer = async (): Promise<void> => {
-        if (!settingsStore.dnsServerToEdit) {
-            return;
-        }
-        const { address } = settingsStore.dnsServerToEdit;
+        const result = await settingsStore.editCustomDnsServer(dnsServerName, dnsServerAddress);
 
-        // `address` is dns address before editing,
-        // `dnsServerAddress` is the state of dns address form.
-        // if dns address was edited, it has to be verified.
-        if (address !== dnsServerAddress) {
-            const dnsServerAddressError = validateDnsAddress(dnsServerAddress);
-            if (dnsServerAddressError) {
-                setDnsServerAddressError(dnsServerAddressError);
-                return;
-            }
+        switch (result) {
+            case DnsOperationResult.Invalid:
+                setDnsServerAddressError(DNS_SERVER_ERROR.INVALID);
+                break;
+            case DnsOperationResult.Duplicate:
+                setDnsServerAddressError(DNS_SERVER_ERROR.DUPLICATE);
+                break;
+            default:
+                closeModal();
         }
-        const editedDnsAddress = handleDnsAddress(dnsServerAddress);
-        await settingsStore.editCustomDnsServer(dnsServerName, editedDnsAddress);
-        closeModal();
     };
 
     const modalType = settingsStore.dnsServerToEdit

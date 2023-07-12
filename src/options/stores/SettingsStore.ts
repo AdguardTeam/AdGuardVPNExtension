@@ -14,6 +14,7 @@ import {
     SubscriptionType,
     QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
+    DnsOperationResult,
 } from '../../lib/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
@@ -22,6 +23,7 @@ import { log } from '../../lib/logger';
 import { setQueryParameter } from '../../common/url-utils';
 import type { DnsServerData } from '../../background/schema';
 import type { RootStore } from './RootStore';
+import { reactTranslator } from '../../common/reactTranslator';
 
 interface OptionsData {
     appVersion: string;
@@ -225,35 +227,51 @@ export class SettingsStore {
     @action addCustomDnsServer = async (
         dnsServerName: string,
         dnsServerAddress: string,
-    ): Promise<DnsServerData> => {
+    ): Promise<DnsOperationResult> => {
         log.info(`Adding DNS server: ${dnsServerName} with address: ${dnsServerAddress}`);
         const dnsServer = {
             id: nanoid(),
             title: dnsServerName,
             address: dnsServerAddress,
         };
-        this.customDnsServers.push(dnsServer);
-        await messenger.addCustomDnsServer(dnsServer);
-        await this.setDnsServer(dnsServer.id);
-        return dnsServer;
+
+        const result: DnsOperationResult = await messenger.addCustomDnsServer(dnsServer);
+
+        if (result === DnsOperationResult.Success) {
+            runInAction(() => {
+                this.customDnsServers.push(dnsServer);
+            });
+            await this.setDnsServer(dnsServer.id);
+
+            this.rootStore.notificationsStore.notifySuccess(
+                reactTranslator.getMessage('settings_dns_add_custom_server_notification_success'),
+                {
+                    action: reactTranslator.getMessage('settings_exclusions_undo'),
+                    handler: () => this.removeCustomDnsServer(dnsServer.id),
+                },
+            );
+        }
+
+        return result;
     };
 
     @action editCustomDnsServer = async (
         dnsServerName: string,
         dnsServerAddress: string,
-    ): Promise<void> => {
-        if (!this.dnsServerToEdit) {
-            return;
-        }
-
-        const editedDnsServers = await messenger.editCustomDnsServer({
-            id: this.dnsServerToEdit.id,
+    ): Promise<DnsOperationResult> => {
+        const result = await messenger.editCustomDnsServer({
+            id: this.dnsServerToEdit!.id,
             title: dnsServerName,
             address: dnsServerAddress,
         });
 
-        this.setCustomDnsServers(editedDnsServers);
-        this.setDnsServerToEdit(null);
+        if (result === DnsOperationResult.Success) {
+            const editedDnsServers = await messenger.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
+            this.setCustomDnsServers(editedDnsServers);
+            this.setDnsServerToEdit(null);
+        }
+
+        return result;
     };
 
     @action removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {

@@ -83,7 +83,7 @@ import { MessageType, SETTINGS_IDS } from '../lib/constants';
 
         await browser.runtime.sendMessage({
             type: MessageType.ADD_CUSTOM_DNS_SERVER,
-            data: { dnsServerData },
+            data: { dnsServerData, notify: true },
         });
 
         await browser.runtime.sendMessage({

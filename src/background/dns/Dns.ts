@@ -1,18 +1,26 @@
+import { isIP } from 'is-ip';
+
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from './dnsConstants';
 import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
-import { StorageKey, DnsServerData, DnsState } from '../schema';
+import { DnsServerData, DnsState, StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
+import { DnsOperationResult } from '../../lib/constants';
+import { notifications } from '../notifications';
+import { translator } from '../../common/translator';
 
 interface DnsInterface {
     init(): void;
     getCurrentDnsServerAddress(): string;
     setDnsServer(dnsServerId: string): void;
-    addCustomDnsServer(dnsServerData: DnsServerData): void;
-    editCustomDnsServer(dnsServerData: DnsServerData): void;
+    addCustomDnsServer(dnsServerData: DnsServerData): DnsOperationResult;
+    editCustomDnsServer(dnsServerData: DnsServerData): DnsOperationResult;
     removeCustomDnsServer(dnsServerId: string): void;
     restoreCustomDnsServersData(): DnsServerData[];
 }
+
+const DOH_PREFIX = 'https://';
+const DOT_PREFIX = 'tls://';
 
 export class Dns implements DnsInterface {
     state: DnsState;
@@ -93,31 +101,80 @@ export class Dns implements DnsInterface {
         notifier.notifyListeners(notifier.types.DNS_SERVER_SET, this.getCurrentDnsServerAddress());
     };
 
+    validateDnsAddress = (dnsServerData: DnsServerData) => {
+        // for the moment only plain dns and tls supported
+        if (dnsServerData.address.startsWith(DOH_PREFIX) || !dnsServerData.address.includes('.')) {
+            return DnsOperationResult.Invalid;
+        }
+
+        const dnsAddressToAdd = isIP(dnsServerData.address) || dnsServerData.address.startsWith(DOT_PREFIX)
+            ? dnsServerData.address
+            : `${DOT_PREFIX}${dnsServerData.address}`;
+
+        // check existing custom dns addresses
+        if (this.customDnsServers.some((server) => server.address === dnsAddressToAdd)) {
+            return DnsOperationResult.Duplicate;
+        }
+
+        return null;
+    };
+
     /**
      * Adds custom dns server
      * @param dnsServerData
+     * @param notify
      */
-    addCustomDnsServer = (dnsServerData: DnsServerData): void => {
+    addCustomDnsServer = (dnsServerData: DnsServerData, notify: boolean = false): DnsOperationResult => {
+        const error = this.validateDnsAddress(dnsServerData);
+        if (error) {
+            if (notify) {
+                const errorMessageKey = error === DnsOperationResult.Invalid
+                    ? 'settings_dns_add_custom_server_invalid_address'
+                    : 'settings_dns_add_custom_server_duplicate_address';
+                notifications.create({ message: translator.getMessage(errorMessageKey) });
+            }
+            return error;
+        }
+
         this.customDnsServers.push(dnsServerData);
         settings.setCustomDnsServers(this.customDnsServers);
+
+        if (notify) {
+            notifications.create({ message: translator.getMessage('settings_dns_add_custom_server_notification_success') });
+        }
+
+        return DnsOperationResult.Success;
     };
 
     /**
      * Edit custom dns server
-     * @param dnsServerData
+     * @param dnsServerNewData
      */
-    editCustomDnsServer = (dnsServerData: DnsServerData): void => {
+    editCustomDnsServer = (dnsServerNewData: DnsServerData): DnsOperationResult => {
+        const dnsServerPreviousData = this.customDnsServers
+            .find((server) => server.id === dnsServerNewData.id);
+
+        // if dns address was edited, it has to be verified
+        if (dnsServerNewData.address !== dnsServerPreviousData?.address) {
+            const error = this.validateDnsAddress(dnsServerNewData);
+            if (error) {
+                return error;
+            }
+        }
+
         this.customDnsServers = this.customDnsServers.map((server) => {
-            if (server.id === dnsServerData.id) {
+            if (server.id === dnsServerNewData.id) {
                 return {
                     id: server.id,
-                    title: dnsServerData.title,
-                    address: dnsServerData.address,
+                    title: dnsServerNewData.title,
+                    address: dnsServerNewData.address,
                 };
             }
             return server;
         });
         settings.setCustomDnsServers(this.customDnsServers);
+
+        return DnsOperationResult.Success;
     };
 
     /**

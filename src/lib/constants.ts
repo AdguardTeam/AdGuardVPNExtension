@@ -198,3 +198,9 @@ export enum SubscriptionType {
 export const fetchConfig = {
     adapter: fetchAdapter,
 };
+
+export enum DnsOperationResult {
+    Invalid = 'invalid',
+    Duplicate = 'duplicate',
+    Success = 'success',
+}
