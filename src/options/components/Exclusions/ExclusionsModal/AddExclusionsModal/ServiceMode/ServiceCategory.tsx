@@ -53,12 +53,16 @@ export const ServiceCategory = observer(({
 
     return (
         <div className={categoryClassname}>
-            <div className="category__title" onClick={handleClickOnCategory}>
+            <button
+                type="button"
+                className="category__title"
+                onClick={handleClickOnCategory}
+            >
                 <svg className="icon icon--button category__title__arrow">
                     <use xlinkHref="#arrow" />
                 </svg>
                 {category.name}
-            </div>
+            </button>
             <div className={categoryServicesClassname}>
                 {
                     filteredServices.map((service) => {

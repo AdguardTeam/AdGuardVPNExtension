@@ -15,7 +15,11 @@ export const DnsMenuItem = observer(() => {
 
     return (
         <div className="settings__group">
-            <div className="settings__item settings__item--dns-server" onClick={handleClick}>
+            <button
+                className="settings__item settings__item--dns-server"
+                onClick={handleClick}
+                type="button"
+            >
                 <div className="settings__item-content">
                     <div className="settings__item-title">
                         {reactTranslator.getMessage('settings_dns_label')}
@@ -27,7 +31,7 @@ export const DnsMenuItem = observer(() => {
                         <use xlinkHref="#arrow" />
                     </svg>
                 </div>
-            </div>
+            </button>
         </div>
     );
 });
