@@ -107,12 +107,8 @@ export class Dns implements DnsInterface {
             return DnsOperationResult.Invalid;
         }
 
-        const dnsAddressToAdd = isIP(dnsServerData.address) || dnsServerData.address.startsWith(DOT_PREFIX)
-            ? dnsServerData.address
-            : `${DOT_PREFIX}${dnsServerData.address}`;
-
         // check existing custom dns addresses
-        if (this.customDnsServers.some((server) => server.address === dnsAddressToAdd)) {
+        if (this.customDnsServers.some((server) => server.address.includes(dnsServerData.address))) {
             return DnsOperationResult.Duplicate;
         }
 
@@ -136,7 +132,15 @@ export class Dns implements DnsInterface {
             return error;
         }
 
-        this.customDnsServers.push(dnsServerData);
+        const resolvedDnsAddress = isIP(dnsServerData.address) || dnsServerData.address.startsWith(DOT_PREFIX)
+            ? dnsServerData.address
+            : `${DOT_PREFIX}${dnsServerData.address}`;
+
+        this.customDnsServers.push({
+            id: dnsServerData.id,
+            address: resolvedDnsAddress,
+            title: dnsServerData.title,
+        });
         settings.setCustomDnsServers(this.customDnsServers);
 
         if (notify) {

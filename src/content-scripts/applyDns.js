@@ -1,7 +1,11 @@
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
-import { MessageType, SETTINGS_IDS } from '../lib/constants';
+import {
+    DnsOperationResult,
+    MessageType,
+    SETTINGS_IDS,
+} from '../lib/constants';
 
 (() => {
     if (!(document instanceof HTMLDocument)) {
@@ -81,15 +85,17 @@ import { MessageType, SETTINGS_IDS } from '../lib/constants';
             title,
         };
 
-        await browser.runtime.sendMessage({
+        const result = await browser.runtime.sendMessage({
             type: MessageType.ADD_CUSTOM_DNS_SERVER,
             data: { dnsServerData, notify: true },
         });
 
-        await browser.runtime.sendMessage({
-            type: MessageType.SET_SETTING_VALUE,
-            data: { settingId: SETTINGS_IDS.SELECTED_DNS_SERVER, value: id },
-        });
+        if (result === DnsOperationResult.Success) {
+            await browser.runtime.sendMessage({
+                type: MessageType.SET_SETTING_VALUE,
+                data: { settingId: SETTINGS_IDS.SELECTED_DNS_SERVER, value: id },
+            });
+        }
     };
 
     document.addEventListener('click', onLinkClicked);
