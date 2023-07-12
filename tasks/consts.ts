@@ -62,13 +62,13 @@ export const CERTIFICATE_PATHS = {
 export const deployPath = process.env.BUILD_ENV || Env.Dev;
 
 // Update manifest URL for the Chrome extension
-export const CHROME_UPDATE_URL = `https://static.adguardvpn.com/extensions/adguardvpn/${deployPath}/${CHROME_UPDATER_FILENAME}`;
+export const CHROME_UPDATE_URL = `https://static.adtidy.net/extensions/adguardvpn/${deployPath}/${CHROME_UPDATER_FILENAME}`;
 
 // Update manifest URL for the Firefox add-on
-export const FIREFOX_UPDATE_URL = `https://static.adguardvpn.com/extensions/adguardvpn/${deployPath}/${FIREFOX_UPDATER_FILENAME}`;
+export const FIREFOX_UPDATE_URL = `https://static.adtidy.net/extensions/adguardvpn/${deployPath}/${FIREFOX_UPDATER_FILENAME}`;
 
 // Path to the Chrome CRX (that we'll add to the update manifest)
-export const CHROME_UPDATE_CRX = `https://static.adguardvpn.com/extensions/adguardvpn/${deployPath}/${CRX_NAME}`;
+export const CHROME_UPDATE_CRX = `https://static.adtidy.net/extensions/adguardvpn/${deployPath}/${CRX_NAME}`;
 
 // Path to the Firefox XPI (that we'll add to the update manifest)
-export const FIREFOX_UPDATE_XPI = `https://static.adguardvpn.com/extensions/adguardvpn/${deployPath}/${XPI_NAME}`;
+export const FIREFOX_UPDATE_XPI = `https://static.adtidy.net/extensions/adguardvpn/${deployPath}/${XPI_NAME}`;
