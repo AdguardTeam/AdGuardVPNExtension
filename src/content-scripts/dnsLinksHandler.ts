@@ -7,12 +7,19 @@ import {
     SETTINGS_IDS,
 } from '../lib/constants';
 
+type SubscriptionParams = {
+    name: string | null;
+    address: string | null;
+};
+
+const DNS_LINK_PROTOCOL = 'adguardvpnext:';
+
 (() => {
-    if (!(document instanceof HTMLDocument)) {
+    if (!(document instanceof Document)) {
         return;
     }
 
-    const getSubscriptionParams = (urlParams) => {
+    const getSubscriptionParams = (urlParams: string[]): SubscriptionParams => {
         let name = null;
         let address = null;
 
@@ -40,22 +47,23 @@ import {
         };
     };
 
-    const onLinkClicked = async (e) => {
-        if (e.button === 2) {
+    const onLinkClicked = async (event: MouseEvent): Promise<void> => {
+        if (event.button === 2) {
             // ignore right-click
             return;
         }
 
-        const { target } = e;
+        // @ts-ignore
+        const { target }: HTMLAnchorElement | null = event;
 
         if (!target
             || target.tagName.toLowerCase() !== 'a'
-            || target.protocol !== 'adguardvpnext:') {
+            || target.protocol !== DNS_LINK_PROTOCOL) {
             return;
         }
 
-        e.preventDefault();
-        e.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
 
         let urlParams;
         if (target.search) {
@@ -67,11 +75,9 @@ import {
         }
 
         const subParams = getSubscriptionParams(urlParams);
-        const address = subParams.address.trim();
+        const address = subParams.address?.trim();
 
-        // FIXME: validate dns address
-
-        const title = (subParams.name || address).trim();
+        const title = (subParams.name || address)?.trim();
 
         if (!address) {
             return;

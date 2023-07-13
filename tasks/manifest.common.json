@@ -22,7 +22,7 @@
         },
         {
             "matches": ["<all_urls>"],
-            "js": ["applyDns.js"],
+            "js": ["dnsLinksHandler.js"],
             "run_at": "document_start"
         }
     ],

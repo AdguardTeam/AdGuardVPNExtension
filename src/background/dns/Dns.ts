@@ -124,10 +124,10 @@ export class Dns implements DnsInterface {
         const error = this.validateDnsAddress(dnsServerData);
         if (error) {
             if (notify) {
-                const errorMessageKey = error === DnsOperationResult.Invalid
-                    ? 'settings_dns_add_custom_server_invalid_address'
-                    : 'settings_dns_add_custom_server_duplicate_address';
-                notifications.create({ message: translator.getMessage(errorMessageKey) });
+                const errorMessage = error === DnsOperationResult.Invalid
+                    ? translator.getMessage('settings_dns_add_custom_server_invalid_address')
+                    : translator.getMessage('settings_dns_add_custom_server_duplicate_address');
+                notifications.create({ message: errorMessage });
             }
             return error;
         }
