@@ -224,6 +224,15 @@ export class SettingsStore {
         this.customDnsServers = dnsServersData;
     };
 
+    @action updateCustomServersData = async () => {
+        const editedDnsServers = await messenger.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
+        this.setCustomDnsServers(editedDnsServers);
+        const selectedDns = await messenger.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
+        runInAction(() => {
+            this.dnsServer = selectedDns;
+        });
+    };
+
     @action addCustomDnsServer = async (
         dnsServerName: string,
         dnsServerAddress: string,
@@ -266,8 +275,7 @@ export class SettingsStore {
         });
 
         if (result === DnsOperationResult.Success) {
-            const editedDnsServers = await messenger.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
-            this.setCustomDnsServers(editedDnsServers);
+            await this.updateCustomServersData();
             this.setDnsServerToEdit(null);
         }
 

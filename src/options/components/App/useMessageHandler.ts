@@ -16,6 +16,7 @@ const NOTIFIER_EVENTS = [
     notifier.types.EXCLUSIONS_DATA_UPDATED,
     notifier.types.USER_AUTHENTICATED,
     notifier.types.USER_DEAUTHENTICATED,
+    notifier.types.DNS_SERVER_SET,
 ];
 
 export const useMessageHandler = () => {
@@ -49,6 +50,10 @@ export const useMessageHandler = () => {
             case notifier.types.USER_DEAUTHENTICATED: {
                 authStore.setIsAuthenticated(false);
                 await settingsStore.updateCurrentUsername();
+                break;
+            }
+            case notifier.types.DNS_SERVER_SET: {
+                await settingsStore.updateCustomServersData();
                 break;
             }
             default: {
