@@ -19,6 +19,7 @@ import {
 import { stateStorage } from '../stateStorage';
 import { credentialsService } from './credentialsService';
 import { auth } from '../auth';
+import { appStatus } from '../appStatus';
 
 export interface AccessCredentialsData {
     credentialsHash: string,
@@ -295,7 +296,10 @@ export class Credentials implements CredentialsInterface {
         if (!vpnToken) {
             return null;
         }
-        const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token);
+
+        const { version } = appStatus;
+
+        const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token, version);
 
         if (!this.areCredentialsValid(vpnCredentials)) {
             return null;
@@ -537,8 +541,11 @@ export class Credentials implements CredentialsInterface {
             if (tracked) {
                 return;
             }
+
             const appId = await this.getAppId();
-            await this.vpnProvider.postExtensionInstalled(appId);
+            const { version } = appStatus;
+
+            await this.vpnProvider.postExtensionInstalled(appId, version);
             await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
             log.info('Installation successfully tracked');
         } catch (e) {
