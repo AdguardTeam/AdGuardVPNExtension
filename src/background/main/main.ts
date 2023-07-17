@@ -128,7 +128,7 @@ const asyncInitModules = async (): Promise<void> => {
     }
 };
 
-export const main = async () => {
+export const main = () => {
     syncInitModules();
-    await asyncInitModules();
+    asyncInitModules();
 };
