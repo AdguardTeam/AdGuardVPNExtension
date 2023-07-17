@@ -5,6 +5,8 @@
  * of service worker in MV3 and background page in MV2.
  * 2. Second raw of modules with asynchronous initializations contains all other required modules.
  */
+import browser from 'webextension-polyfill';
+
 import { stateStorage } from '../stateStorage';
 import { actions } from '../actions';
 import { appStatus } from '../appStatus';
@@ -134,7 +136,7 @@ const asyncInitModules = async (): Promise<void> => {
 const triggerOnAuthRequiredEvent = async () => {
     const HIDDEN_WINDOW_LIFE_MS = 3000;
     try {
-        const hiddenWindow = await chrome.windows.create({
+        const hiddenWindow = await browser.windows.create({
             focused: false,
             state: 'minimized',
         });
