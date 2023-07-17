@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import browser from 'webextension-polyfill';
 
 import pacGenerator from './pacGenerator';
 import { ProxyConfigInterface, StorageKey } from '../../schema';
@@ -137,11 +138,23 @@ class ProxyApi implements ProxyApiInterface {
      * When this bug is fixed, this method can be removed.
      */
     private static triggerOnAuthRequired = async () => {
+        const HIDDEN_WINDOW_LIFE_MS = 2000;
         try {
+            // open hidden window to trigger onAuthRequired
+            const hiddenWindow = await browser.windows.create({
+                focused: false,
+                state: 'minimized',
+            });
+            await new Promise((resolve) => {
+                setTimeout(resolve, HIDDEN_WINDOW_LIFE_MS);
+            });
+            // close hidden window
+            await browser.windows.remove(hiddenWindow.id!);
+
             // After setting proxy, we need to send a random request. Otherwise, PAC-script can be cached
             await fetch(`http://${nanoid()}.${PAC_SCRIPT_CHECK_URL}`, { cache: 'no-cache' });
-        } catch (e) {
-            // ignore
+        } catch (ex) {
+            log.error(`Error while using the workaround to force onAuthRequired: ${ex}`);
         }
     };
 

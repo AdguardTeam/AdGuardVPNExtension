@@ -5,8 +5,6 @@
  * of service worker in MV3 and background page in MV2.
  * 2. Second raw of modules with asynchronous initializations contains all other required modules.
  */
-import browser from 'webextension-polyfill';
-
 import { stateStorage } from '../stateStorage';
 import { actions } from '../actions';
 import { appStatus } from '../appStatus';
@@ -130,27 +128,7 @@ const asyncInitModules = async (): Promise<void> => {
     }
 };
 
-/**
- * Creates hidden window for 3 sec to trigger onAuthRequired event
- */
-const triggerOnAuthRequiredEvent = async () => {
-    const HIDDEN_WINDOW_LIFE_MS = 3000;
-    try {
-        const hiddenWindow = await browser.windows.create({
-            focused: false,
-            state: 'minimized',
-        });
-        await new Promise((resolve) => {
-            setTimeout(resolve, HIDDEN_WINDOW_LIFE_MS);
-        });
-        await chrome.windows.remove(hiddenWindow.id!);
-    } catch (ex) {
-        log.error(`Error while using the workaround to force onAuthRequired: ${ex}`);
-    }
-};
-
 export const main = async () => {
-    await triggerOnAuthRequiredEvent();
     syncInitModules();
     await asyncInitModules();
 };
