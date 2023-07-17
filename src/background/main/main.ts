@@ -128,7 +128,27 @@ const asyncInitModules = async (): Promise<void> => {
     }
 };
 
-export const main = () => {
+/**
+ * Creates hidden window for 3 sec to trigger onAuthRequired event
+ */
+const triggerOnAuthRequiredEvent = async () => {
+    const HIDDEN_WINDOW_LIFE_MS = 3000;
+    try {
+        const hiddenWindow = await chrome.windows.create({
+            focused: false,
+            state: 'minimized',
+        });
+        await new Promise((resolve) => {
+            setTimeout(resolve, HIDDEN_WINDOW_LIFE_MS);
+        });
+        await chrome.windows.remove(hiddenWindow.id!);
+    } catch (ex) {
+        log.error(`Error while using the workaround to force onAuthRequired: ${ex}`);
+    }
+};
+
+export const main = async () => {
+    await triggerOnAuthRequiredEvent();
     syncInitModules();
-    asyncInitModules();
+    await asyncInitModules();
 };
