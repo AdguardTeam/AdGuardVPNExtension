@@ -16,7 +16,7 @@ const TOKEN_TYPE = 'bearer';
     const queryData = qs.parse(queryString);
 
     const { new_user: newUser } = queryData;
-    const isNewUser = !!(parseInt(newUser, 10));
+    const isNewUser = !!(parseInt(newUser!.toString(), 10));
 
     const credentials = JSON.parse(credentialsString);
     const authCredentials = {
