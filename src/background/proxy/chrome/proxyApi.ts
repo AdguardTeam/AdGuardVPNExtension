@@ -1,9 +1,7 @@
-import { nanoid } from 'nanoid';
 import browser from 'webextension-polyfill';
 
 import pacGenerator from './pacGenerator';
 import { ProxyConfigInterface, StorageKey } from '../../schema';
-import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 import { promisifiedClearProxy, promisifiedGetProxy, promisifiedSetProxy } from './proxySettingsUtils';
 import { stateStorage } from '../../stateStorage';
 import { log } from '../../../lib/logger';
@@ -130,12 +128,10 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
-     * As onAuthRequired event is not working reliably, this method sends a random request to
-     * PAC_SCRIPT_CHECK_URL, which should be intercepted by proxy endpoint and return empty
-     * response with status 200.
-     * For example, there is a known bug in Chrome: https://bugs.chromium.org/p/chromium/issues/detail?id=1009243
-     * when onAuthRequired is not triggered when request is sent from service worker.
-     * When this bug is fixed, this method can be removed.
+     * onAuthRequired events doesn't fire for requests sent from the background service worker in MV3
+     * https://bugs.chromium.org/p/chromium/issues/detail?id=1464898
+     * It causes the annoying proxy auth form window.
+     * As a temporary solution we open hidden blank window for 2 seconds to get rid of proxy auth form.
      */
     private static triggerOnAuthRequired = async () => {
         const HIDDEN_WINDOW_LIFE_MS = 2000;
@@ -150,9 +146,6 @@ class ProxyApi implements ProxyApiInterface {
             });
             // close hidden window
             await browser.windows.remove(hiddenWindow.id!);
-
-            // After setting proxy, we need to send a random request. Otherwise, PAC-script can be cached
-            await fetch(`http://${nanoid()}.${PAC_SCRIPT_CHECK_URL}`, { cache: 'no-cache' });
         } catch (ex) {
             log.error(`Error while using the workaround to force onAuthRequired: ${ex}`);
         }
