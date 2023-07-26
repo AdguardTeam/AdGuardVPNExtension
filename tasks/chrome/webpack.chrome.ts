@@ -33,6 +33,10 @@ const plugins: webpack.WebpackPluginInstance[] = [
         // eslint-disable-next-line no-param-reassign
         resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv3');
     })),
+    new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyAuthTrigger/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request.replace(/\.\/abstractProxyAuthTrigger/, './mv3');
+    })),
     new CopyWebpackPlugin({
         patterns: [
             {
