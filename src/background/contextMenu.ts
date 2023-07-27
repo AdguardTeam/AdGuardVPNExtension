@@ -11,6 +11,7 @@ import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
 import { ExclusionsMode } from '../common/exclusionsConstants';
 import { actions } from './actions';
+import { browserApi } from './browserApi';
 
 type ContextType = browser.Menus.ContextType;
 type CreateCreatePropertiesType = browser.Menus.CreateCreatePropertiesType;
@@ -203,10 +204,19 @@ const addBrowserActionItems = async (): Promise<void> => {
 
     try {
         await removeContextMenuItem(id);
+
+        const contexts: ContextType[] = [];
+        // cant use together since they conflict in the firefox
+        if (browserApi.runtime.isManifestVersion2()) {
+            contexts.push('browser_action'); // context for mv2
+        } else {
+            contexts.push('action'); // context for mv3
+        }
+
         await browser.contextMenus.create({
             id,
             title,
-            contexts: ['browser_action'],
+            contexts,
         }, () => {
             if (browser.runtime.lastError) {
                 log.debug(browser.runtime.lastError.message);
