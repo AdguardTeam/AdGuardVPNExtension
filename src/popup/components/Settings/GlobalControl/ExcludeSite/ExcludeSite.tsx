@@ -12,17 +12,23 @@ import './exclude-site.pcss';
 export const ExcludeSite = observer(() => {
     const { authStore, settingsStore } = useContext(rootStore);
 
-    const { shouldShowHintPopup } = authStore;
+    const { shouldShowHintPopup, showHintPopup } = authStore;
 
     const outsideClickRef = useRef<HTMLDivElement>(null);
 
     useOutsideClick(outsideClickRef, async (): Promise<void> => {
-        await authStore.closeHintPopup();
+        // If hint popup is opened - close hint and marked hint as viewed on any
+        // outside click.
+        if (showHintPopup) {
+            await authStore.closeHintPopup();
+        }
     });
 
     const disableVpnForCurrentSite = async (): Promise<void> => {
-        await authStore.closeHintPopup();
         await settingsStore.disableVpnOnCurrentTab();
+        // If a user has excluded a site once - we don't need to show
+        // the hint, and we mark the hint as viewed.
+        await authStore.closeHintPopup();
     };
 
     const exclusionButtonClasses = classnames(
