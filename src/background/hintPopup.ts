@@ -4,7 +4,7 @@ import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 
 const HINT_POPUP_COUNTDOWN_KEY = 'hint.popup.countdown';
 
-const HINT_POPUP_DELAY = 1000 * 60 * 60; // 1 hour
+const HINT_POPUP_DELAY = 1000 * 60 * 5; // 5 min
 
 const POPUP_OPENED_COUNT_TO_SHOW_HINT = 4;
 
