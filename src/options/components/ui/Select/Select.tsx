@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useOutsideClick } from '../useOutsideClick';
+import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
 
 import './select.pcss';
 

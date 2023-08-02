@@ -33,7 +33,6 @@ import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
-import { HintPopup } from '../HintPopup';
 
 export interface Message {
     type: NotifierType,
@@ -260,8 +259,6 @@ export const App = observer(() => {
             <ConfirmEmailModal />
             <ReviewPopup />
             <ServerErrorPopup />
-            {!isCurrentTabExcluded && canBeExcluded
-                && <HintPopup />}
         </>
     );
 });

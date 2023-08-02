@@ -490,10 +490,15 @@ export class AuthStore {
 
     @computed
     get shouldShowHintPopup() {
+        // Here we exclude the possibility of a modal window overlapping the hint.
+        // TODO: It should be done with correct z-index (AG-24339)
         return this.showHintPopup
             && !this.showRateModal
             && !this.showConfirmRateModal
-            && !this.showConfirmEmailModal;
+            && !this.showConfirmEmailModal
+            && !this.rootStore.settingsStore.showServerErrorPopup
+            && !this.rootStore.settingsStore.showNotificationModal
+            && !this.rootStore.vpnStore.tooManyDevicesConnected;
     }
 
     @action setShowHintPopup = (value: boolean) => {

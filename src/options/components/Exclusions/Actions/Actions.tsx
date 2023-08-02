@@ -22,7 +22,7 @@ import { log } from '../../../../lib/logger';
 import { messenger } from '../../../../lib/messenger';
 import { SelectListModal } from './SelectListModal/SelectListModal';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
-import { useOutsideClick } from '../../ui/useOutsideClick';
+import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
 
 import './actions.pcss';
 

@@ -383,4 +383,19 @@ export class SettingsStore {
     @action closeServerErrorPopup = (): void => {
         this.showServerErrorPopup = false;
     };
+
+    @computed
+    get showNotificationModal() {
+        if (!this.promoNotification) {
+            return false;
+        }
+
+        const { url, text } = this.promoNotification;
+
+        if (!url || !text) {
+            return false;
+        }
+
+        return true;
+    }
 }

@@ -17,9 +17,9 @@ const PromoNotificationModal = observer(() => {
         messenger.setNotificationViewed(true);
     }, []);
 
-    const { promoNotification } = settingsStore;
+    const { promoNotification, showNotificationModal } = settingsStore;
 
-    if (!promoNotification) {
+    if (!showNotificationModal || !promoNotification) {
         return null;
     }
 

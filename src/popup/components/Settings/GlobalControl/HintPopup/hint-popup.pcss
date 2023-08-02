@@ -5,26 +5,32 @@
     padding: 15px;
     background-color: var(--white);
     text-align: left;
-    position: relative;
+    position: absolute;
     left: 0;
-    top: 284px;
+    right: 0;
+    top: 0;
+    transform: translateY(-100%);
+    z-index: var(--exclude-site-hint-overlay-z-index);
 
     &:after {
         content: "▼";
         color: var(--white);
-        z-index: 2;
         display: block;
         position: absolute;
         bottom: -17px;
         right: 47%;
         font-size: 23px;
     }
-    
+
     &__content {
         font-size: 14px;
     }
-    
+
     &__button {
         margin-top: 15px;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
