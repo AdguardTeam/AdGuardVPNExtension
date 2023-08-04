@@ -2,7 +2,6 @@ import {
     LogStorage,
     LOGS_STORAGE_KEY,
     LogStorageInterface,
-    SAVE_STORAGE_LOGS_TIMEOUT,
 } from '../../src/lib/log-storage';
 import { browserApi } from '../../src/background/browserApi';
 
@@ -22,31 +21,21 @@ describe('LogStorage', () => {
     it('Stores log in memory', async () => {
         logStorage.addLog('test1');
         expect(await logStorage.getLogsString()).toBe('"test1"');
-        expect(logStorage.size).toBe(new Blob(['"test1"']).size);
+        expect(await browserApi.storage.get(LOGS_STORAGE_KEY)).toEqual(['"test1"']);
 
         logStorage.addLog('test2');
         expect(logStorage.logs).toEqual(['"test2"']);
         expect(await logStorage.getLogsString()).toBe('"test1"\n"test2"');
-        expect(logStorage.size).toBe(
-            new Blob(['"test1"']).size
-            + new Blob(['"test2"']).size,
-        );
 
         logStorage.addLog('test3');
         expect(logStorage.logs).toEqual(['"test2"', '"test3"']);
         expect(await logStorage.getLogsString()).toBe('"test1"\n"test2"\n"test3"');
-        expect(logStorage.size).toBe(
-            new Blob(['"test1"']).size
-            + new Blob(['"test2"']).size
-            + new Blob(['"test3"']).size,
-        );
     });
 
     it('Converts objects to strings', async () => {
         const obj = { test: 'test' };
         logStorage.addLog(obj);
         expect(await logStorage.getLogsString()).toBe(JSON.stringify(obj));
-        expect(logStorage.size).toBe(new Blob([JSON.stringify(obj)]).size);
     });
 
     it('Adds multiple logs', async () => {
@@ -54,25 +43,23 @@ describe('LogStorage', () => {
         const str2 = 'test2';
         logStorage.addLog(str1, str2);
         expect(await logStorage.getLogsString()).toBe(`"${str1}" "${str2}"`);
-        expect(logStorage.size).toBe(new Blob([`"${str1}" "${str2}"`]).size);
     });
 
-    it('Does not get over max bytes limit', async (done) => {
-        jest.setTimeout(10000);
-        const str = 'testtest'; // 8Bytes
-        expect(new Blob([str]).size).toBe(8);
+    it('Does not get over max size limit', (done) => {
+        const str = 'testtest';
 
-        const logStorageMaxSizeBytes = 2 ** 10; // 1KB -> 1024Bytes
+        const logStorageMaxElements = 10;
 
-        const logStorage = new LogStorage(logStorageMaxSizeBytes);
-        // we add 8 bytes 256 times = 256 * 8 -> 2KB
-        for (let i = 0; i < 256; i += 1) {
+        const logStorage = new LogStorage(logStorageMaxElements, 1);
+
+        for (let i = 0; i < 50; i += 1) {
             logStorage.addLog(str);
         }
 
-        setTimeout(() => {
-            expect(logStorage.size).toBeLessThanOrEqual(logStorageMaxSizeBytes);
+        setTimeout(async () => {
+            const savedValue = await browserApi.storage.get(LOGS_STORAGE_KEY) as string[];
+            expect(savedValue.length).toEqual(10);
             done();
-        }, SAVE_STORAGE_LOGS_TIMEOUT);
+        }, 100);
     });
 });

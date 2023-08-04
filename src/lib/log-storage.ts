@@ -2,35 +2,63 @@ import throttle from 'lodash/throttle';
 
 import { browserApi } from '../background/browserApi';
 
-const MAX_LOG_SIZE_BYTES = 2 ** 20; // 1MB
+export const MAX_LOGS_SIZE_ELEMENTS = 1000;
 export const LOGS_STORAGE_KEY = 'logs.storage.key';
-export const SAVE_STORAGE_LOGS_TIMEOUT = 5 * 1000; // 5 sec
+export const SAVE_STORAGE_LOGS_TIMEOUT_MS = 5 * 1000; // 5 sec
 
 export interface LogStorageInterface {
-    maxLogSizeBytes: number;
-    logSizeBytes: number;
+    maxLogSizeElements: number;
     logs: string[];
     addLog(...logStrings: string[] | { [key: string]: string }[]): void;
     getLogsString(): Promise<string>;
-    size: number;
 }
 
+/**
+ * Class representing a log storage system.
+ * @implements {LogStorageInterface}
+ */
 export class LogStorage implements LogStorageInterface {
-    constructor(maxLogSizeBytes = MAX_LOG_SIZE_BYTES) {
-        this.maxLogSizeBytes = maxLogSizeBytes;
+    /**
+     * Creates a new LogStorage instance.
+     * @param [maxLogSizeElements=MAX_LOGS_SIZE_ELEMENTS] Maximum number of log elements.
+     * @param [saveStorageLogsTimeoutMs=SAVE_STORAGE_LOGS_TIMEOUT_MS] Timeout for saving logs to storage in
+     *  milliseconds.
+     */
+    constructor(
+        maxLogSizeElements = MAX_LOGS_SIZE_ELEMENTS,
+        saveStorageLogsTimeoutMs = SAVE_STORAGE_LOGS_TIMEOUT_MS,
+    ) {
+        this.maxLogSizeElements = maxLogSizeElements;
+        this.saveStorageLogsTimeoutMs = saveStorageLogsTimeoutMs;
     }
 
-    maxLogSizeBytes: number;
+    /**
+     * Maximum number of log elements.
+     */
+    maxLogSizeElements: number;
 
-    logSizeBytes: number = 0;
+    /**
+     * Timeout for saving logs to storage in milliseconds.
+     */
+    saveStorageLogsTimeoutMs: number;
 
+    /**
+     * Array of log strings.
+     */
     logs: string[] = [];
 
+    /**
+     * Throttled function to save logs to storage.
+     */
     throttledLogsSaver = throttle(
         this.saveLogsToStorage,
-        SAVE_STORAGE_LOGS_TIMEOUT,
+        SAVE_STORAGE_LOGS_TIMEOUT_MS,
     );
 
+    /**
+     * Saves logs to storage
+     * @param logStrings
+     */
     addLog = (...logStrings: string[]): void => {
         const logString = logStrings.map((arg) => {
             try {
@@ -39,19 +67,16 @@ export class LogStorage implements LogStorageInterface {
                 return arg;
             }
         }).join(' ');
-        const logSize = new Blob([logString]).size;
-        this.logSizeBytes += logSize;
         this.logs.push(logString);
         this.throttledLogsSaver();
     };
 
+    /**
+     * Returns logs as a string
+     */
     async getLogsString(): Promise<string> {
         const logs = await this.getLogs();
         return logs.join('\n');
-    }
-
-    get size(): number {
-        return this.logSizeBytes;
     }
 
     /**
@@ -66,16 +91,12 @@ export class LogStorage implements LogStorageInterface {
         return storageLogs.concat(this.logs);
     }
 
+    /**
+     * Limits log size to maxLogSizeElements
+     * @param logs
+     */
     limitLogSize = (logs: string[]): string[] => {
-        while (this.logSizeBytes > this.maxLogSizeBytes) {
-            const headLog = logs.shift();
-            if (!headLog) {
-                return [];
-            }
-            const headLogSize = new Blob([headLog]).size;
-            this.logSizeBytes -= headLogSize;
-        }
-        return logs;
+        return logs.slice(-this.maxLogSizeElements);
     };
 
     /**
@@ -89,4 +110,4 @@ export class LogStorage implements LogStorageInterface {
     }
 }
 
-export const logStorage = new LogStorage(MAX_LOG_SIZE_BYTES);
+export const logStorage = new LogStorage(MAX_LOGS_SIZE_ELEMENTS);
