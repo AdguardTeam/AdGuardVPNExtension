@@ -10,9 +10,9 @@ export const authAccessTokenScheme = zod.object({
 /**
  * Auth access token example:
  * {
- *  "access_token":"9f8duv8dfv",
- *  "token_type":"bearer",
- *  "expires_in":2627940,
+ *  "accessToken":"9f8duv8dfv",
+ *  "tokenType":"bearer",
+ *  "expiresIn":2627940,
  *  "scope":"trust"
  * }
  */
