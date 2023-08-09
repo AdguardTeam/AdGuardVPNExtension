@@ -16,12 +16,12 @@ type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
 const OPTIONS_PAGE_PATH = '/options.html';
 
 /**
- * Opens options page in Firefox with anchor if provided.
+ * Opens options page in Firefox with queryString if provided.
  * There is a bug with browser.runtime.openOptionsPage() method in Firefox
  * similar to https://bugs.chromium.org/p/chromium/issues/detail?id=1369940,
  * so we use a temporary solution to open а single options page in Firefox.
  */
-const openOptionsPageFirefox = async (anchorName: string | null) => {
+const openOptionsPageFirefox = async (queryString: string = '') => {
     const manifest = browser.runtime.getManifest();
     // options page url set in options_ui.page in manifest.firefox.ts
     let optionsUrl = manifest.options_ui!.page;
@@ -30,14 +30,12 @@ const openOptionsPageFirefox = async (anchorName: string | null) => {
         optionsUrl = browser.runtime.getURL(optionsUrl);
     }
 
-    const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
-    const anchor = anchorName ? `#${anchorName}` : '';
-    const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
-
-    const optionsTabs = await browser.tabs.query({ url: targetUrl });
+    const targetUrl = `${optionsUrl}${queryString}`;
+    const optionsTabs = await browser.tabs.query({ url: optionsUrl });
 
     if (!optionsTabs.length) {
         await tabs.openTab(targetUrl);
+        return;
     }
 
     const { windowId, id: tabId } = optionsTabs[0];
@@ -47,23 +45,61 @@ const openOptionsPageFirefox = async (anchorName: string | null) => {
     }
 };
 
+interface OpenOptionsPageParams {
+    anchorName?: string;
+    queryParams?: { [key: string]: string };
+}
+
+/**
+ * Builds query string from params object
+ * @param params
+ */
+export const buildQueryString = (params: OpenOptionsPageParams): string => {
+    const {
+        anchorName = '',
+        queryParams = {},
+    } = params;
+
+    // Convert queryParams object to query string
+    const queryParamsStr = new URLSearchParams(queryParams).toString();
+    const queryString = queryParamsStr ? `?${queryParamsStr}` : '';
+
+    if (anchorName === '') {
+        return queryString;
+    }
+
+    return `${queryString}#${anchorName}`;
+};
+
 /**
  * Opens options tab with anchor if provided
  */
-const openOptionsPage = async (anchorName: string | null = null): Promise<void> => {
-    // we use temporary solution for Firefox because of a bug
-    // with browser.runtime.openOptionsPage() method
+const openOptionsPage = async (
+    params: OpenOptionsPageParams = {},
+): Promise<void> => {
+    const { anchorName, queryParams } = params;
+
+    const queryString = buildQueryString({
+        anchorName,
+        queryParams: {
+            ...queryParams,
+            [THEME_URL_PARAMETER]: settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME),
+        },
+    });
+
+    // We use temporary solution for Firefox because of a bug with browser.runtime.openOptionsPage() method
     // TODO: remove when bug will be fixed
     if (Prefs.isFirefox()) {
-        await openOptionsPageFirefox(anchorName);
+        await openOptionsPageFirefox(queryString);
         return;
     }
 
     await browser.runtime.openOptionsPage();
     const optionsTab = await tabs.getCurrent();
     const { id } = optionsTab;
-    if (anchorName && id) {
-        await tabs.update(id, `${OPTIONS_PAGE_PATH}#${anchorName}`);
+    const newOptionsStr = `${OPTIONS_PAGE_PATH}${queryString}`;
+    if (id) {
+        await tabs.update(id, newOptionsStr);
     }
 };
 
@@ -184,7 +220,7 @@ const openPremiumPromoPage = async () => {
  * Opens Options page on Referral Program section
  */
 const openFreeGbsPage = async () => {
-    await openOptionsPage(FREE_GBS_ANCHOR);
+    await openOptionsPage({ anchorName: FREE_GBS_ANCHOR });
 };
 
 const openExportLogsPage = async () => {

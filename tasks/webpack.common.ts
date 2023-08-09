@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+// TODO remove @ts-ignore
 // @ts-ignore
 import CreateFileWebpack from 'create-file-webpack';
 
@@ -20,8 +21,9 @@ const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = requir
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
-const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
-const THANKYOU_PAGE_AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/thankYouPageAuth.js');
+const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.ts');
+const THANKYOU_PAGE_AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/thankYouPageAuth.ts');
+const CUSTOM_DNS_LINKS_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/custom-dns-links.ts');
 const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'options/preloadTheme.ts');
 const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
 
@@ -49,6 +51,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             popup: POPUP_PATH,
             auth: AUTH_SCRIPT,
             thankYouPageAuth: THANKYOU_PAGE_AUTH_SCRIPT,
+            'custom-dns-links': CUSTOM_DNS_LINKS_SCRIPT,
             preloadTheme: PRELOAD_THEME_SCRIPT,
             export: EXPORT_PATH,
         },

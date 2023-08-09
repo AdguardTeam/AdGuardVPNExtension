@@ -59,7 +59,7 @@ const SERVICE_DATA = {
         id: 'SHOP',
         name: 'Shopping',
     },
-    iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
+    iconUrl: 'https://test.example.com/icon?domain=aliexpress.com',
     serviceId: 'aliexpress',
     serviceName: 'Aliexpress',
     modifiedTime: '2021-09-14T10:23:00+0000',

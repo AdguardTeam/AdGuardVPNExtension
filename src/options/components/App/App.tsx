@@ -21,6 +21,7 @@ import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { Exclusions } from '../Exclusions';
 import { useMessageHandler } from './useMessageHandler';
+import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
 
 import '../../styles/main.pcss';
 import './app.pcss';
@@ -71,6 +72,8 @@ export const App = observer(() => {
     useMessageHandler();
 
     useAppearanceTheme(settingsStore.appearanceTheme);
+
+    useCustomDnsFromQuery(settingsStore.handleCustomDnsData);
 
     const { status } = globalStore;
 

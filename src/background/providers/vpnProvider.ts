@@ -53,8 +53,9 @@ export interface VpnProviderInterface {
     getVpnCredentials(
         appId: string,
         vpnToken: string,
+        version: string,
     ): Promise<CredentialsDataInterface>;
-    postExtensionInstalled(appId: string): Promise<{ social_providers: string[] }>;
+    postExtensionInstalled(appId: string, version: string): Promise<{ social_providers: string[] }>;
     getVpnExtensionInfo(
         appId: string,
         vpnToken: string,
@@ -239,10 +240,11 @@ const getVpnExtensionInfo = async (
 const getVpnCredentials = async (
     appId: string,
     vpnToken: string,
+    version: string,
 ): Promise<CredentialsDataInterface> => {
     let responseData;
     try {
-        responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
+        responseData = await vpnApi.getVpnCredentials(appId, vpnToken, version);
     } catch (e) {
         if (e.status === 400) {
             let errorMessageData;
@@ -281,8 +283,8 @@ const getVpnCredentials = async (
     };
 };
 
-const postExtensionInstalled = async (appId: string): Promise<{ social_providers: string[] }> => {
-    return vpnApi.postExtensionInstalled(appId);
+const postExtensionInstalled = async (appId: string, version: string): Promise<{ social_providers: string[] }> => {
+    return vpnApi.postExtensionInstalled(appId, version);
 };
 
 const prepareLogs = async (appLogs: string): Promise<Blob> => {

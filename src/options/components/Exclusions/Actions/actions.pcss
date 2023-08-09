@@ -8,11 +8,7 @@
         font-size: 16px;
         border: none;
         background-size: 10px;
-        padding: 0 25px 0 0;
-
-        &:focus {
-            outline: none;
-        }
+        padding: 5px 25px 5px 5px;
     }
 
     &__more-actions-list {
@@ -31,10 +27,15 @@
             visibility: visible;
         }
 
-        & li {
+        & button {
             padding: 15px 35px 15px 25px;
             cursor: pointer;
             white-space: nowrap;
+            background: none;
+            border: none;
+            font-size: inherit;
+            width: 100%;
+            display: flex;
 
             &:hover {
                 background: var(--grayF7);

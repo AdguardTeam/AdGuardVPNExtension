@@ -14,7 +14,7 @@ import './dns-settings.pcss';
 export const DnsSettings = observer(() => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
 
-    const handleDnsSelect = async (event: React.MouseEvent<HTMLDivElement>): Promise<void> => {
+    const handleDnsSelect = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         const dnsServerId = event.currentTarget.id;
         await settingsStore.setDnsServer(dnsServerId);
     };
@@ -24,7 +24,7 @@ export const DnsSettings = observer(() => {
     };
 
     const openAddDnsServerModal = () => {
-        settingsStore.openCustomDnsModalOpen();
+        settingsStore.openCustomDnsModal();
     };
 
     const removeDnsServer = (
@@ -48,7 +48,7 @@ export const DnsSettings = observer(() => {
     ): void => {
         event.stopPropagation();
         settingsStore.setDnsServerToEdit(server);
-        settingsStore.openCustomDnsModalOpen();
+        settingsStore.openCustomDnsModal();
     };
 
     const renderRadioButton = (dnsServerId: string) => {
@@ -104,7 +104,8 @@ export const DnsSettings = observer(() => {
         const isCustom = !desc;
 
         return (
-            <div
+            <button
+                type="button"
                 key={id}
                 id={id}
                 className="dns-settings__item"
@@ -116,7 +117,7 @@ export const DnsSettings = observer(() => {
                     <div className="settings__item-desc">{isCustom ? address : desc}</div>
                 </div>
                 {isCustom && renderActions(dnsServerData)}
-            </div>
+            </button>
         );
     };
 

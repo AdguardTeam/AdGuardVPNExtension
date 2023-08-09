@@ -27,6 +27,7 @@ import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
+import { CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
 
 interface Message {
     type: MessageType,
@@ -369,6 +370,18 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.ADD_CUSTOM_DNS_SERVER: {
             return dns.addCustomDnsServer(data.dnsServerData);
+        }
+        case MessageType.HANDLE_CUSTOM_DNS_LINK: {
+            await actions.openOptionsPage(
+                {
+                    anchorName: CUSTOM_DNS_ANCHOR_NAME,
+                    queryParams: {
+                        name: data.name,
+                        address: data.address,
+                    },
+                },
+            );
+            return null;
         }
         case MessageType.EDIT_CUSTOM_DNS_SERVER: {
             dns.editCustomDnsServer(data.dnsServerData);

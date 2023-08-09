@@ -37,6 +37,7 @@ import { popupOpenedCounter } from '../popupData/popupOpenedCounter';
 import { locationsService } from '../endpoints/locationsService';
 import { connectivityService } from '../connectivity/connectivityService';
 import { proxyApi } from '../proxy/abstractProxyApi';
+import { wakeUpOptionsPage } from '../stateStorage/helper';
 
 import '../rateModal';
 import '../uninstall';
@@ -119,6 +120,7 @@ const asyncInitModules = async (): Promise<void> => {
         await nonRoutable.init();
         browserActionIcon.init();
         popupOpenedCounter.init();
+        await wakeUpOptionsPage();
         const initDoneDate = Date.now();
         log.info(`Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
     } catch (e) {

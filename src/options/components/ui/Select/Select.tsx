@@ -44,7 +44,7 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
 
     const isActiveOption = (id: T) => ((id === value) ? ' active' : '');
 
-    const optionsList: React.RefObject<HTMLUListElement> = useRef(null);
+    const optionsList: React.RefObject<HTMLDivElement> = useRef(null);
 
     useEffect(() => {
         if (optionsList.current) {
@@ -58,30 +58,33 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
     };
 
     return (
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         <div className="selector" ref={ref}>
-            <div
+            <button
                 className="selector__value"
                 onClick={handleSelectClick}
+                type="button"
             >
                 <div className="selector__value-title">{getTitle(value)}</div>
-            </div>
-            <ul
+            </button>
+            <div
                 className="selector__options-list"
                 hidden={hidden}
                 ref={optionsList}
             >
                 {options.map(({ id, title, desc }) => (
-                    <li
+                    <button
                         key={id}
                         className={`selector__option-item${isActiveOption(id)}`}
                         onClick={() => handleOptionClick(id)}
+                        type="button"
                     >
                         <div className="selector__option-item-title">{title}</div>
                         {desc && (
                             <div className="selector__option-item-desc">{desc}</div>)}
-                    </li>
+                    </button>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

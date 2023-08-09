@@ -1,4 +1,4 @@
-import { actions } from '../../src/background/actions';
+import { actions, buildQueryString } from '../../src/background/actions';
 import { credentials } from '../../src/background/credentials';
 // TODO: test mv3 after official switch to mv3
 import { stateStorage } from '../../src/background/stateStorage/mv2';
@@ -40,5 +40,43 @@ describe('Actions tests', () => {
         const url = await actions.getPremiumPromoPageUrl();
         getUsernameMock.mockClear();
         expect(url).toEqual(expectedUrl);
+    });
+});
+
+describe('buildQueryString', () => {
+    it('should return an empty string if params are not provided', () => {
+        const result = buildQueryString({});
+        expect(result).toBe('');
+    });
+
+    it('should return only the query string if no anchorName is provided', () => {
+        const params = {
+            queryParams: {
+                key1: 'value1',
+                key2: 'value2',
+            },
+        };
+        const result = buildQueryString(params);
+        expect(result).toBe('?key1=value1&key2=value2');
+    });
+
+    it('should return only the anchor if no queryParams are provided', () => {
+        const params = {
+            anchorName: 'testAnchor',
+        };
+        const result = buildQueryString(params);
+        expect(result).toBe('#testAnchor');
+    });
+
+    it('should return the combined query string and anchor if both are provided', () => {
+        const params = {
+            anchorName: 'testAnchor',
+            queryParams: {
+                key1: 'value1',
+                key2: 'value2',
+            },
+        };
+        const result = buildQueryString(params);
+        expect(result).toBe('?key1=value1&key2=value2#testAnchor');
     });
 });

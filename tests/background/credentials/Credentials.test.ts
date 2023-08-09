@@ -18,6 +18,12 @@ jest.mock('../../../src/background/auth', () => {
     };
 });
 
+jest.mock('../../../src/background/appStatus', () => {
+    return {
+        version: () => '2.0.16',
+    };
+});
+
 jest.mock('../../../src/lib/logger');
 
 const storageImplementation: { [key: string]: any } = {};

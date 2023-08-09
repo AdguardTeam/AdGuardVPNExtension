@@ -75,7 +75,8 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                 state={exclusion.state}
                 toggleHandler={toggleState}
             />
-            <div
+            <button
+                type="button"
                 className={listIndexTitleClasses(exclusion.children.length > 0)}
                 onClick={followToChildren(exclusion)}
             >
@@ -92,7 +93,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                 <svg className="icon list-item__arrow">
                     <use xlinkHref="#arrow" />
                 </svg>
-            </div>
+            </button>
             <button
                 type="button"
                 className="list-item__remove-button"
