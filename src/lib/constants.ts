@@ -19,6 +19,7 @@ export const SETTINGS_IDS = {
     APPEARANCE_THEME: 'appearance.theme',
     CUSTOM_DNS_SERVERS: 'custom.dns.servers',
     QUICK_CONNECT: 'quick.connect',
+    DEBUG_MODE_ENABLED: 'debug.mode.enabled',
 };
 
 export const enum AppearanceTheme {

@@ -1,13 +1,11 @@
 import throttle from 'lodash/throttle';
 
-import { browserApi } from '../background/browserApi';
+import { logStorageManager } from './LogStorageManager';
 
 export const MAX_LOGS_SIZE_ELEMENTS = 1000;
-export const LOGS_STORAGE_KEY = 'logs.storage.key';
 export const SAVE_STORAGE_LOGS_TIMEOUT_MS = 5 * 1000; // 5 sec
 
 export interface LogStorageInterface {
-    maxLogSizeElements: number;
     logs: string[];
     addLog(...logStrings: string[] | { [key: string]: string }[]): void;
     getLogsString(): Promise<string>;
@@ -35,22 +33,22 @@ export class LogStorage implements LogStorageInterface {
     /**
      * Maximum number of log elements.
      */
-    maxLogSizeElements: number;
+    private maxLogSizeElements: number;
 
     /**
      * Timeout for saving logs to storage in milliseconds.
      */
-    saveStorageLogsTimeoutMs: number;
+    private saveStorageLogsTimeoutMs: number;
 
     /**
      * Array of log strings.
      */
-    logs: string[] = [];
+    public logs: string[] = [];
 
     /**
      * Throttled function to save logs to storage.
      */
-    throttledLogsSaver = throttle(
+    private throttledLogsSaver = throttle(
         this.saveLogsToStorage,
         SAVE_STORAGE_LOGS_TIMEOUT_MS,
     );
@@ -59,7 +57,7 @@ export class LogStorage implements LogStorageInterface {
      * Saves logs to storage
      * @param logStrings
      */
-    addLog = (...logStrings: string[]): void => {
+    public addLog = (...logStrings: string[]): void => {
         const logString = logStrings.map((arg) => {
             try {
                 return JSON.stringify(arg);
@@ -74,7 +72,7 @@ export class LogStorage implements LogStorageInterface {
     /**
      * Returns logs as a string
      */
-    async getLogsString(): Promise<string> {
+    public async getLogsString(): Promise<string> {
         const logs = await this.getLogs();
         return logs.join('\n');
     }
@@ -82,8 +80,9 @@ export class LogStorage implements LogStorageInterface {
     /**
      * Returns logs from storage merged with current logs
      */
-    async getLogs(): Promise<string[]> {
-        const storageLogs = await browserApi.storage.get<string[]>(LOGS_STORAGE_KEY);
+    private async getLogs(): Promise<string[]> {
+        const storage = logStorageManager.getStorage();
+        const storageLogs = await storage.get();
         if (!storageLogs) {
             return this.logs;
         }
@@ -95,18 +94,19 @@ export class LogStorage implements LogStorageInterface {
      * Limits log size to maxLogSizeElements
      * @param logs
      */
-    limitLogSize = (logs: string[]): string[] => {
+    private limitLogSize = (logs: string[]): string[] => {
         return logs.slice(-this.maxLogSizeElements);
     };
 
     /**
      * Saves all logs to storage and clears current log
      */
-    async saveLogsToStorage(): Promise<void> {
+    private async saveLogsToStorage(): Promise<void> {
         let logs = await this.getLogs();
         this.logs = [];
         logs = this.limitLogSize(logs);
-        await browserApi.storage.set(LOGS_STORAGE_KEY, logs);
+        const storage = logStorageManager.getStorage();
+        await storage.set(logs);
     }
 }
 

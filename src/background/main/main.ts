@@ -38,6 +38,7 @@ import { locationsService } from '../endpoints/locationsService';
 import { connectivityService } from '../connectivity/connectivityService';
 import { proxyApi } from '../proxy/abstractProxyApi';
 import { wakeUpOptionsPage } from '../stateStorage/helper';
+import { logStorageManager } from '../../lib/log-storage/LogStorageManager';
 
 import '../rateModal';
 import '../uninstall';
@@ -113,6 +114,10 @@ const asyncInitModules = async (): Promise<void> => {
         await auth.init();
         await locationsService.init();
         await settings.init();
+        // the updateBrowserActionItems method is called after settings.init() because it uses settings
+        await contextMenu.updateBrowserActionItems();
+        // the checkAndSwitchStorage is called after settings.init() because it uses settings
+        await logStorageManager.checkAndSwitchStorage(settings.isDebugModeEnabled());
         await exclusions.init();
         await endpointsTldExclusions.init();
         settings.applySettings(); // we have to apply settings when credentials are ready

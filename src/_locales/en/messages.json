@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Export logs"
     },
+    "context_menu_debug_level": {
+        "message": "Debug level-logging"
+    },
     "settings_dns_label": {
         "message": "DNS server"
     },

@@ -34,7 +34,7 @@ class StateStorage implements StateStorageInterface {
     /**
      * Initializes the storage data object with the default data.
      *
-     * @returns {Promise<void>} A promise that resolves when the storage data object has been initialized.
+     * @returns A promise that resolves when the storage data object has been initialized.
      */
     public init(): Promise<void> {
         this.state = { ...DEFAULT_STORAGE_DATA };

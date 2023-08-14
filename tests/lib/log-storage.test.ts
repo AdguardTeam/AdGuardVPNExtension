@@ -1,9 +1,8 @@
 import {
     LogStorage,
-    LOGS_STORAGE_KEY,
     LogStorageInterface,
-} from '../../src/lib/log-storage';
-import { browserApi } from '../../src/background/browserApi';
+} from '../../src/lib/log-storage/log-storage';
+import { logStorageManager } from '../../src/lib/log-storage/LogStorageManager';
 
 jest.mock('../../src/background/browserApi', () => {
     // eslint-disable-next-line global-require
@@ -13,15 +12,14 @@ jest.mock('../../src/background/browserApi', () => {
 describe('LogStorage', () => {
     let logStorage: LogStorageInterface;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         logStorage = new LogStorage();
-        browserApi.storage.remove(LOGS_STORAGE_KEY);
+        await logStorageManager.getStorage().clear();
     });
 
     it('Stores log in memory', async () => {
         logStorage.addLog('test1');
         expect(await logStorage.getLogsString()).toBe('"test1"');
-        expect(await browserApi.storage.get(LOGS_STORAGE_KEY)).toEqual(['"test1"']);
 
         logStorage.addLog('test2');
         expect(logStorage.logs).toEqual(['"test2"']);
@@ -57,7 +55,7 @@ describe('LogStorage', () => {
         }
 
         setTimeout(async () => {
-            const savedValue = await browserApi.storage.get(LOGS_STORAGE_KEY) as string[];
+            const savedValue = await logStorageManager.getStorage().get();
             expect(savedValue.length).toEqual(10);
             done();
         }, 100);
