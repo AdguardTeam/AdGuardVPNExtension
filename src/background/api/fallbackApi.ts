@@ -1,4 +1,6 @@
 import axios from 'axios';
+import _ from 'lodash';
+
 import { browserApi } from '../browserApi';
 
 import {
@@ -202,10 +204,10 @@ export class FallbackApi {
             ...fetchConfig,
         });
 
-        const { Answer: [{ data: bkpUrl }] } = data;
+        const bkpUrl = _.get(data, 'Answer[0].data');
 
         if (!FallbackApi.isString(bkpUrl)) {
-            throw new Error('Invalid bkp url from google doh');
+            throw new Error(`Invalid bkp url from google doh for ${name}`);
         }
 
         return bkpUrl;
@@ -226,10 +228,10 @@ export class FallbackApi {
             ...fetchConfig,
         });
 
-        const { Answer: [{ data: bkpUrl }] } = data;
+        const bkpUrl = _.get(data, 'Answer[0].data');
 
         if (!FallbackApi.isString(bkpUrl)) {
-            throw new Error('Invalid bkp url from cloudflare doh');
+            throw new Error(`Invalid bkp url from cloudflare doh for ${name}`);
         }
 
         return bkpUrl;
@@ -250,13 +252,28 @@ export class FallbackApi {
             ...fetchConfig,
         });
 
-        const { Answer: [{ data: bkpUrl }] } = data;
+        const bkpUrl = _.get(data, 'Answer[0].data');
 
         if (!FallbackApi.isString(bkpUrl)) {
-            throw new Error('Invalid bkp url from alidns doh');
+            throw new Error(`Invalid bkp url from alidns doh for ${name}`);
         }
 
         return bkpUrl;
+    };
+
+    /**
+     * Logs errors in the function and re-throws them to ensure that Promise.any receives them
+     * @param fn Function to call
+     * @throws Error
+     */
+    private logErrors = async (fn: () => Promise<string>): Promise<string> => {
+        try {
+            const res = await fn();
+            return res;
+        } catch (error) {
+            log.error(`Error in function ${fn.name}:`, error);
+            throw error; // Re-throwing the error to ensure that Promise.any receives it
+        }
     };
 
     private getBkpUrl = async (hostname: string): Promise<null | string> => {
@@ -264,9 +281,9 @@ export class FallbackApi {
 
         try {
             bkpUrl = await Promise.any([
-                this.getBkpUrlByGoogleDoh(hostname),
-                this.getBkpUrlByCloudFlareDoh(hostname),
-                this.getBkpUrlByAliDnsDoh(hostname),
+                this.logErrors(() => this.getBkpUrlByGoogleDoh(hostname)),
+                this.logErrors(() => this.getBkpUrlByCloudFlareDoh(hostname)),
+                this.logErrors(() => this.getBkpUrlByAliDnsDoh(hostname)),
             ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
         } catch (e) {

@@ -20,6 +20,7 @@ interface TabsInterface {
     reload(tabId: number): Promise<void>;
     getTabByUrl(url: string): Promise<browser.Tabs.Tab | undefined>;
     update(tabId: number, url: string): Promise<void>;
+    redirectCurrentTab(url: string): Promise<void>;
 }
 
 class Tabs implements TabsInterface {
@@ -115,6 +116,15 @@ class Tabs implements TabsInterface {
         } catch (e) {
             log.error(e.message);
         }
+    }
+
+    /**
+     * Redirects current tab to the given url.
+     * @param url
+     */
+    async redirectCurrentTab(url: string): Promise<void> {
+        const tab = await this.getCurrent();
+        await this.update(tab.id!, url);
     }
 }
 

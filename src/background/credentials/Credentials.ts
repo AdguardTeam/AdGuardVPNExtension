@@ -18,18 +18,13 @@ import {
 } from '../schema';
 import { stateStorage } from '../stateStorage';
 import { credentialsService } from './credentialsService';
-import { auth } from '../auth';
+import { auth, type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
 
 export interface AccessCredentialsData {
     credentialsHash: string,
     credentials: AccessCredentials,
     token: string,
-}
-
-interface AuthInterface {
-    getAccessToken: () => Promise<string>;
-    deauthenticate: () => void;
 }
 
 export interface CredentialsParameters {

@@ -1,32 +1,34 @@
 import qs from 'qs';
 import { nanoid } from 'nanoid';
 
-import { authProvider } from './providers/authProvider';
-import { tabs } from './tabs';
-import { proxy } from './proxy';
-import { notifications } from './notifications';
-import { AUTH_CLIENT_ID } from './config';
-import { log } from '../lib/logger';
-import { notifier } from '../lib/notifier';
-import { translator } from '../common/translator';
-import { fallbackApi } from './api/fallbackApi';
+import { authProvider } from '../providers/authProvider';
+import { tabs } from '../tabs';
+import { proxy } from '../proxy';
+import { notifications } from '../notifications';
+import { AUTH_CLIENT_ID } from '../config';
+import { log } from '../../lib/logger';
+import { notifier } from '../../lib/notifier';
+import { translator } from '../../common/translator';
+import { fallbackApi } from '../api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
-import { settings } from './settings';
-import { SocialAuthProvider } from '../lib/constants';
-import { flagsStorage } from './flagsStorage';
-import type { AuthCredentials } from './api/apiTypes';
-import type { AuthAccessToken } from './schema';
-import { authService } from './authentication/authService';
-import { AuthState, StorageKey } from './schema';
-import { stateStorage } from './stateStorage';
+import { settings } from '../settings';
+import { SocialAuthProvider } from '../../lib/constants';
+import { flagsStorage } from '../flagsStorage';
+import type { AuthCredentials } from '../api/apiTypes';
+import type { AuthAccessToken } from '../schema';
+import { authService } from '../authentication/authService';
+import { AuthState, StorageKey } from '../schema';
+import { stateStorage } from '../stateStorage';
+import { SocialAuthData } from './socialAuthSchema';
+import { ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema';
 
 export interface AuthInterface {
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
     isAuthenticated(turnOffProxy?: boolean): Promise<string | boolean>;
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
     getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string>;
-    authenticateSocial(queryString: string, tabId: number): Promise<void>;
-    authenticateThankYouPage(credentials: AuthAccessToken, isNewUser: boolean): Promise<void>;
+    authenticateSocial(authData: SocialAuthData, tabId: number): Promise<void>;
+    authenticateThankYouPage(rawData: unknown): Promise<void>;
     deauthenticate(): Promise<void>;
     register(
         credentials: AuthCredentials,
@@ -35,7 +37,7 @@ export interface AuthInterface {
         email: string,
         appId: string,
     ): Promise<{ canRegister: string } | { error: string }>;
-    getAccessToken(turnOffProxy: boolean): Promise<string>;
+    getAccessToken(turnOffProxy?: boolean): Promise<string>;
     init(): Promise<void>;
 }
 
@@ -148,64 +150,90 @@ class Auth implements AuthInterface {
         return `https://${await fallbackApi.getAuthBaseUrl()}?${qs.stringify(params)}`;
     }
 
-    async authenticateSocial(queryString: string, tabId: number): Promise<void> {
+    /**
+     * Authenticates a user using social auth data.
+     *
+     * @async
+     * @param authData - Object containing the social authentication data.
+     * @param tabId - The ID of the browser tab to close after successful authentication.
+     */
+    async authenticateSocial(authData: SocialAuthData, tabId: number): Promise<void> {
         const isAuthenticated = await this.isAuthenticated();
         if (isAuthenticated) {
             return;
         }
 
-        const data = qs.parse(queryString);
         const {
-            access_token: accessToken,
-            expires_in: expiresIn,
-            token_type: tokenType,
             state,
-        } = data;
+            accessToken,
+            tokenType,
+            expiresIn,
+        } = authData;
 
-        if (typeof accessToken !== 'string'
-        || typeof expiresIn !== 'string'
-        || typeof tokenType !== 'string') {
-            throw new Error('Unable to get auth credentials, user is not authenticated');
+        const isStateMatching = state && state === this.socialAuthState;
+        if (!isStateMatching) {
+            log.error('Social auth state is not equal to the state received from the server');
+            return;
         }
 
-        if (state && state === this.socialAuthState) {
-            await this.setAccessToken({
-                accessToken,
-                expiresIn: Number(expiresIn),
-                tokenType,
-            });
-            await tabs.closeTab(tabId);
-            this.socialAuthState = null;
-        }
+        await this.setAccessToken({
+            accessToken,
+            expiresIn,
+            tokenType,
+        });
+        await tabs.closeTab(tabId);
+        this.socialAuthState = null;
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
+
         await flagsStorage.onAuthenticateSocial();
         await notifications.create({ message: translator.getMessage('authentication_successful_notification') });
     }
 
     /**
      * Authenticate user after registration on thank you page
-     * @param credentials
-     * @param isNewUser
+     * @param rawData
      */
     async authenticateThankYouPage(
-        credentials: AuthAccessToken,
-        isNewUser: boolean,
+        rawData: unknown,
     ): Promise<void> {
-        const isAuthenticated = await this.isAuthenticated();
-        if (isAuthenticated) {
+        let data: ThankYouPageData;
+        try {
+            data = thankYouPageSchema.parse(rawData);
+        } catch (e) {
+            log.error(`Unable to authenticate user, invalid params received from the page: ${JSON.stringify(rawData)}`);
             return;
         }
 
+        const {
+            token,
+            newUser,
+            redirectUrl,
+        } = data;
+
+        const isAuthenticated = await this.isAuthenticated();
+        if (isAuthenticated) {
+            await tabs.redirectCurrentTab(redirectUrl);
+            return;
+        }
+
+        const credentials: AuthAccessToken = {
+            accessToken: token,
+            expiresIn: 60 * 60 * 24 * 30, //  30 days in seconds
+            tokenType: 'Bearer',
+        };
+
         await this.setAccessToken(credentials);
 
-        if (isNewUser) {
+        if (newUser) {
             await flagsStorage.onRegister();
         } else {
             await flagsStorage.onAuthenticate();
         }
+
         await notifications.create({ message: translator.getMessage('authentication_successful_notification') });
+        await tabs.redirectCurrentTab(redirectUrl);
     }
 
     async deauthenticate(): Promise<void> {

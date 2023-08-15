@@ -132,12 +132,11 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                 return undefined;
             }
 
-            const { queryString } = message.data;
-            return auth.authenticateSocial(queryString, id);
+            return auth.authenticateSocial(message.data, id);
         }
         case MessageType.AUTHENTICATE_THANKYOU_PAGE: {
-            const { authCredentials, isNewUser } = message.data;
-            return auth.authenticateThankYouPage(authCredentials, isNewUser);
+            const { token, redirectUrl, newUser } = message.data;
+            return auth.authenticateThankYouPage({ token, redirectUrl, newUser });
         }
         case MessageType.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;

@@ -6,7 +6,7 @@ import { actions } from './actions';
 import { exclusions } from './exclusions';
 import { PreparedTab, tabs } from './tabs';
 import { isHttp } from '../lib/string-utils';
-import { auth } from './auth';
+import { auth } from './auth/auth';
 import { locationsService } from './endpoints/locationsService';
 import { connectivityService } from './connectivity/connectivityService';
 import { log } from '../lib/logger';
