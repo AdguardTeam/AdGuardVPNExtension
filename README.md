@@ -158,9 +158,11 @@ For a full list of all `npm` packages in use, please take a look at [package.jso
 
 <a id='minimum-supported-browser-versions'></a>
 ## Minimum supported browser versions
-| Browser                 	| Version 	|
-|-------------------------	|:-------:	|
-| Chromium Based Browsers 	|    66   	|
-| Firefox                 	|    91.1   	|
+
+| Browser                 	   | Version |
+|-----------------------------|:-------:|
+| Chromium Based Browsers MV3 |   109   |
+| Chromium Based Browsers MV2 |   66    |
+| Firefox                 	   |  91.1   |
 
 
