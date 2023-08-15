@@ -5,19 +5,19 @@ import { TimersInterface } from './AbstractTimers';
  */
 class Mv2Timers implements TimersInterface {
     setTimeout = (callback: () => void, timeout: number): number => {
-        return window.setTimeout(callback, timeout);
+        return setTimeout(callback, timeout) as any; // TODO setup tsconfig to fix types
     };
 
     clearTimeout = (timerId: number): void => {
-        window.clearTimeout(timerId);
+        clearTimeout(timerId);
     };
 
     setInterval = (callback: () => void, interval: number): number => {
-        return window.setInterval(callback, interval);
+        return setInterval(callback, interval) as any; // TODO setup tsconfig to fix types
     };
 
     clearInterval = (intervalId: number): void => {
-        window.clearInterval(intervalId);
+        clearInterval(intervalId);
     };
 }
 

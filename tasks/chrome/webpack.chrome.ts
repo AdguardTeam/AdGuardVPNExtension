@@ -37,8 +37,11 @@ const plugins: webpack.WebpackPluginInstance[] = [
         cache: false,
     }),
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
+        // TODO remove this replacement when MV3 will fix alarms bug,
+        //  https://github.com/AdguardTeam/AdGuardVPNExtension/issues/116
+        //  https://bugs.chromium.org/p/chromium/issues/detail?id=1472759
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
     })),
     new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign

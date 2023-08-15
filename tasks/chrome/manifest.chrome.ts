@@ -17,7 +17,6 @@ export const chromeManifestDiff = {
         extension_pages: 'script-src \'self\'; object-src \'self\'',
     },
     permissions: [
-        'alarms',
         'webRequestAuthProvider',
         'offscreen',
     ],

@@ -9,7 +9,6 @@ import { browserApi } from './browserApi';
 import { Prefs } from '../common/prefs';
 import { notifier } from '../lib/notifier';
 import { FORWARDER_DOMAIN } from './config';
-import { timers } from './timers';
 
 interface PromoNotificationInterface {
     getCurrentNotification(): Promise<PromoNotificationData | null>;
@@ -329,10 +328,10 @@ let timeoutId: number;
  */
 const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
     if (withDelay) {
-        timers.clearTimeout(timeoutId);
-        timeoutId = timers.setTimeout(() => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
             setNotificationViewed(false);
-        }, NOTIFICATION_DELAY);
+        }, NOTIFICATION_DELAY) as any; // TODO setup tsconfig to fix types
     }
 
     if (currentNotification) {
