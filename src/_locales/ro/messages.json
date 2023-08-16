@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Export jurnale"
     },
+    "context_menu_debug_level": {
+        "message": "Jurnalizare detaliată"
+    },
     "settings_dns_label": {
         "message": "Server DNS"
     },
@@ -800,6 +803,9 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Continuați gratuit"
+    },
+    "popup_hint_popup_button": {
+        "message": "Am înțeles."
     },
     "options_exclusions_import_select_title": {
         "message": "Cum se utilizează această listă de excluderi?"

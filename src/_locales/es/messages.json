@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Exportar registros"
     },
+    "context_menu_debug_level": {
+        "message": "Registro de depuración"
+    },
     "settings_dns_label": {
         "message": "Servidor DNS"
     },

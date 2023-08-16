@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Naplók exportálása"
     },
+    "context_menu_debug_level": {
+        "message": "Hibakeresési naplózás"
+    },
     "settings_dns_label": {
         "message": "DNS szerver"
     },
@@ -694,6 +697,9 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Ugrás a kiegészítők áruházába"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Valószínűleg a VPN blokkolva volt az Ön országában, vagy technikai hiba lépett fel. Már próbáljuk megjavítani"
     },
     "popup_server_error_popup_cancel": {
         "message": "Mégsem"

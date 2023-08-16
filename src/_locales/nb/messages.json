@@ -116,6 +116,12 @@
     "auth_sign_up_button": {
         "message": "Bli med"
     },
+    "auth_sign_in": {
+        "message": "Logg på"
+    },
+    "auth_sign_in_button": {
+        "message": "LOGG INN"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-post"
     },
@@ -265,6 +271,9 @@
     },
     "settings_theme_light": {
         "message": "Lyst"
+    },
+    "settings_exclusion_add": {
+        "message": "LEGG TIL"
     },
     "settings_exclusion_add_website": {
         "message": "Legg til et nettsted"

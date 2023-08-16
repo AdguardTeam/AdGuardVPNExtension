@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Exporter les journaux"
     },
+    "context_menu_debug_level": {
+        "message": "Journalisation du débogage"
+    },
     "settings_dns_label": {
         "message": "Serveur DNS"
     },
@@ -453,7 +456,7 @@
         "message": "Emplacement du VPN sélectionné lorsque vous cliquez sur Connecter"
     },
     "settings_quick_connect_last_used": {
-        "message": "Dernier emplacement utilisé"
+        "message": "Dernière localisation utilisée"
     },
     "settings_quick_connect_fastest": {
         "message": "Connexion ultra-rapide"
@@ -462,7 +465,7 @@
         "message": "Ajouter"
     },
     "settings_exclusion_add_website": {
-        "message": "Ajouter un site web"
+        "message": "Ajouter un site Web"
     },
     "settings_exclusion_actions": {
         "message": "Actions"

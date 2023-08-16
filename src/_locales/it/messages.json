@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Esporta registri"
     },
+    "context_menu_debug_level": {
+        "message": "Registrazione di debug"
+    },
     "settings_dns_label": {
         "message": "Server DNS"
     },
@@ -462,7 +465,7 @@
         "message": "Aggiungi"
     },
     "settings_exclusion_add_website": {
-        "message": "Aggiungi sito web"
+        "message": "Aggiungi un sito web"
     },
     "settings_exclusion_actions": {
         "message": "Azioni"

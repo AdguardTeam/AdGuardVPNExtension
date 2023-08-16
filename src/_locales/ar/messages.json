@@ -593,6 +593,9 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "اترك ملاحظاتك"
     },
+    "popup_server_error_popup_info": {
+        "message": "على الأرجح ، تم حظر VPN في بلدك أو كان هناك خلل فني. نحن نحاول بالفعل إصلاحه"
+    },
     "popup_server_error_popup_cancel": {
         "message": "إلغاء"
     },
@@ -665,6 +668,9 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "استمر مجانًا"
+    },
+    "popup_hint_popup_button": {
+        "message": "فهمت ذلك"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "إلغاء"

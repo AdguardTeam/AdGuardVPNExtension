@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Logboeken exporteren"
     },
+    "context_menu_debug_level": {
+        "message": "Logboekregistratie van foutopsporing"
+    },
     "settings_dns_label": {
         "message": "DNS-server"
     },
@@ -555,7 +558,7 @@
         "message": "Weet je zeker dat je door wilt gaan? De volledige lijst met uitsluitingen wordt verwijderd."
     },
     "settings_exclusion_title": {
-        "message": "Uitzonderingen"
+        "message": "Uitsluitingen"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Waar VPN is ingeschakeld"

@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Exportovat protokoly"
     },
+    "context_menu_debug_level": {
+        "message": "Záznamy úrovně ladění"
+    },
     "settings_dns_label": {
         "message": "DNS server"
     },

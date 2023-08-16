@@ -104,8 +104,23 @@
     "auth_sign_up_button": {
         "message": "Daftar"
     },
+    "auth_sign_in_button": {
+        "message": "Masuk"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "Email"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Lanjutkan dengan AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Lanjutkan dengan Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Lanjutkan dengan Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Lanjutkan dengan Facebook"
     },
     "auth_header_2fa_subtitle": {
         "message": "Otentikasi dua faktor"
@@ -244,6 +259,9 @@
     },
     "settings_theme_light": {
         "message": "Terang"
+    },
+    "settings_exclusion_add": {
+        "message": "Tambah"
     },
     "settings_exclusion_add_website": {
         "message": "Tambah situs"

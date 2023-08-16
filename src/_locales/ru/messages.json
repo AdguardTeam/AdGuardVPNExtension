@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Экспортировать логи"
     },
+    "context_menu_debug_level": {
+        "message": "Подробное логирование"
+    },
     "settings_dns_label": {
         "message": "DNS-сервер"
     },
@@ -462,7 +465,7 @@
         "message": "Добавить"
     },
     "settings_exclusion_add_website": {
-        "message": "Добавить сайт"
+        "message": "Добавить веб-сайт"
     },
     "settings_exclusion_actions": {
         "message": "Действия"

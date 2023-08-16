@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Izvozi dnevnike"
     },
+    "context_menu_debug_level": {
+        "message": "Beleženje odpravljanja napak"
+    },
     "settings_dns_label": {
         "message": "Strežnik DNS"
     },

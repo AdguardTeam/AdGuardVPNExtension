@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Izvoz zapisa"
     },
+    "context_menu_debug_level": {
+        "message": "Zapisivanje pogrešaka"
+    },
     "settings_dns_label": {
         "message": "DNS poslužitelj"
     },
@@ -695,6 +698,9 @@
     "popup_server_error_popup_title": {
         "message": "Povezivanje s poslužiteljem nije moguće"
     },
+    "popup_server_error_popup_info": {
+        "message": "Najvjerojatnije je VPN bio blokiran u vašoj zemlji ili je došlo do tehničke greške. Već ga pokušavamo popraviti"
+    },
     "popup_server_error_popup_action": {
         "message": "Potaknite AdGuard tim"
     },
@@ -797,6 +803,9 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Nastavite besplatno"
+    },
+    "popup_hint_popup_button": {
+        "message": "U redu"
     },
     "options_exclusions_import_select_title": {
         "message": "Kako koristiti ovaj popis iznimaka?"

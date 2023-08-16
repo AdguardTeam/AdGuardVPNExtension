@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Exportar registo"
     },
+    "context_menu_debug_level": {
+        "message": "Registo de depuração"
+    },
     "settings_dns_label": {
         "message": "Servidor DNS"
     },
@@ -723,7 +726,7 @@
         "message": "Não foi possível conectar-se ao servidor"
     },
     "popup_server_error_popup_info": {
-        "message": "É provável que a VPN tenha sido bloqueada no seu país ou houve uma falha técnica. Já estamos a tentar resolver"
+        "message": "É provável que a VPN tenha sido bloqueada em seu país ou houve uma falha técnica. Já estamos a tentar resolver"
     },
     "popup_server_error_popup_action": {
         "message": "Dar um toque à equipe AdGuard"

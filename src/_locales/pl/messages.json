@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — szybki vpn & bezpieczne prywatne proxy"
+        "message": "AdGuard VPN — darmowy i bezpieczny pośrednik"
     },
     "description": {
-        "message": "Użyj AdGuard VPN, aby surfować po Internecie szybko, bezpiecznie i pewnie. Chroń swoją prywatność i pozostań anonimowy z naszym prywatnym vpn proxy."
+        "message": "Użyj AdGuard VPN, aby surfować po Internecie szybko, bezpiecznie i pewnie. Chroń swoją prywatność i pozostań anonimowy(a) dzięki naszemu prywatnemu pośrednikowi VPN."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -177,7 +177,7 @@
         "message": "Potwierdź hasło"
     },
     "auth_recover": {
-        "message": "Zapomniałeś hasła?"
+        "message": "Zapomniano hasła?"
     },
     "auth_sign_up": {
         "message": "Zapisz się"
@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Eksportuj logi"
     },
+    "context_menu_debug_level": {
+        "message": "Szczegółowe rejestrowanie"
+    },
     "settings_dns_label": {
         "message": "Serwer DNS"
     },
@@ -462,7 +465,7 @@
         "message": "Dodaj"
     },
     "settings_exclusion_add_website": {
-        "message": "Dodaj stronę internetową"
+        "message": "Dodaj stronę"
     },
     "settings_exclusion_actions": {
         "message": "Akcje"
@@ -669,7 +672,7 @@
         "message": "Połącz"
     },
     "settings_vpn_enabled": {
-        "message": "Połączony"
+        "message": "Połączono"
     },
     "settings_vpn_disabled": {
         "message": "Rozłączony"
@@ -678,7 +681,7 @@
         "message": "Szybkość jest zmniejszona"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Osiągnąłeś limit darmowych danych, i AdGuard VPN działa wolno."
+        "message": "Osiągnięto limit darmowych danych, i AdGuard VPN działa wolno."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Zwiększ prędkość"
@@ -911,7 +914,7 @@
         "message": "Ok"
     },
     "options_signedout_page_title": {
-        "message": "Wylogowałeś się z AdGuard VPN"
+        "message": "Wylogowano z AdGuard VPN"
     },
     "options_signedout_page_description": {
         "message": "Uwaga: nie jesteś podłączony do VPN i Twój ruch nie jest chroniony! Aby kontynuować prywatne surfowanie, kliknij ikonę AdGuard VPN i zaloguj się ponownie."

@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Günlükleri dışa aktar"
     },
+    "context_menu_debug_level": {
+        "message": "Hata ayıklama günlüğü"
+    },
     "settings_dns_label": {
         "message": "DNS sunucusu"
     },
@@ -408,7 +411,7 @@
         "message": "AdGuard DNS Family Protection"
     },
     "settings_dns_selector_adguard_family_desc": {
-        "message": "AdGuard DNS + Güvenli Arama ve yetişkin içerik engelleme"
+        "message": "AdGuard DNS + SafeSearch ve yetişkinlere yönelik içerik engelleme"
     },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"

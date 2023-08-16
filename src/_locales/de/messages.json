@@ -335,11 +335,14 @@
     "context_menu_export_logs": {
         "message": "Protokolle exportieren"
     },
+    "context_menu_debug_level": {
+        "message": "Debug-Protokollierung"
+    },
     "settings_dns_label": {
         "message": "DNS-Server"
     },
     "settings_dns_popular_servers": {
-        "message": "Beliebte DNS-Anbieter"
+        "message": "Beliebte DNS-Server"
     },
     "settings_dns_custom_servers": {
         "message": "Benutzerdefinierte DNS-Server"
@@ -723,7 +726,7 @@
         "message": "Verbindung zum Server konnte nicht hergestellt werden"
     },
     "popup_server_error_popup_info": {
-        "message": "Vermutlich wurde das VPN in Ihrem Land gesperrt oder es gab eine technische Störung. Wir versuchen, dies zu beheben"
+        "message": "Das VPN wurde wohl in Ihrem Land gesperrt oder es gab eine technische Störung. Wir versuchen schon, dies zu beheben"
     },
     "popup_server_error_popup_action": {
         "message": "AdGuard-Team anstupsen"

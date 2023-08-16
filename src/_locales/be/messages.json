@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Экспартаваць логі"
     },
+    "context_menu_debug_level": {
+        "message": "Падрабязнае лагаванне"
+    },
     "settings_dns_label": {
         "message": "Абраны DNS-сервер"
     },

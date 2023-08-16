@@ -228,7 +228,7 @@
         "message": "官方的網站"
     },
     "eula": {
-        "message": "終端用戶授權協定"
+        "message": "終端使用者授權合約"
     },
     "privacy_policy": {
         "message": "隱私政策"
@@ -334,6 +334,9 @@
     },
     "context_menu_export_logs": {
         "message": "匯出記錄"
+    },
+    "context_menu_debug_level": {
+        "message": "偵錯記錄"
     },
     "settings_dns_label": {
         "message": "DNS 伺服器"
@@ -753,7 +756,7 @@
         "message": "對此網站，VPN 被禁用"
     },
     "popup_auth_policy_agreement": {
-        "message": "我已閱讀並同意 AdGuard 的<eula>終端用戶授權協定</eula>及<privacy>隱私政策</privacy>",
+        "message": "我已閱讀並同意 AdGuard 的<eula>終端使用者授權合約</eula>及<privacy>隱私政策</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {

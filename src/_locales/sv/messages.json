@@ -143,6 +143,9 @@
     "auth_password": {
         "message": "Lösenord"
     },
+    "auth_your_password": {
+        "message": "Ditt lösenord"
+    },
     "auth_password_confirm": {
         "message": "Bekräfta lösenord"
     },
@@ -168,7 +171,7 @@
         "message": "Logga in eller skapa ett konto"
     },
     "auth_sign_in_provider_adguard_label": {
-        "message": "Mejl"
+        "message": "E-postadress"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Fortsätt med AdGuard"
@@ -186,7 +189,7 @@
         "message": "Loggar in som <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
-        "message": "Tvåfaktorautentisering"
+        "message": "Tvåfaktorsautentisering"
     },
     "auth_header_2fa": {
         "message": "Ange autentiseringskod"
@@ -445,6 +448,9 @@
     },
     "endpoints_countries": {
         "message": "Platser"
+    },
+    "endpoints_location_virtual": {
+        "message": "Virtuell"
     },
     "endpoints_fastest": {
         "message": "Snabbast"

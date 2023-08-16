@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Експортувати журнали"
     },
+    "context_menu_debug_level": {
+        "message": "Детальне журналювання"
+    },
     "settings_dns_label": {
         "message": "DNS-сервер"
     },

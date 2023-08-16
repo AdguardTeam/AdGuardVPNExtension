@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Xuất nhật ký"
     },
+    "context_menu_debug_level": {
+        "message": "Ghi nhật ký gỡ lỗi"
+    },
     "settings_dns_label": {
         "message": "Máy chủ DNS"
     },
@@ -800,6 +803,9 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Tiếp tục miễn phí"
+    },
+    "popup_hint_popup_button": {
+        "message": "Đã nhận được"
     },
     "options_exclusions_import_select_title": {
         "message": "Làm thế nào để sử dụng danh sách loại trừ này?"

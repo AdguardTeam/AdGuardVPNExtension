@@ -1,4 +1,7 @@
 {
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
     "authentication_error_account_disabled": {
         "message": "حساب غیرفعال شده است"
     },
@@ -44,6 +47,9 @@
     "rate_hide": {
         "message": "پنهان کن"
     },
+    "auth_confirm": {
+        "message": "تایید"
+    },
     "auth_password": {
         "message": "رمزعبور"
     },
@@ -53,8 +59,23 @@
     "auth_recover": {
         "message": "رمزعبور را فراموش کرده اید؟"
     },
+    "auth_sign_in_button": {
+        "message": "ورود"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "ایمیل"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "با حساب AdGuard خود پیش روید"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "با حساب اپل پیش روید"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "با حساب گوگل پیش روید"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "با حساب فیسبوک پیش روید"
     },
     "eula": {
         "message": "تواقنامه نهایی با کاربر"
@@ -76,6 +97,9 @@
     },
     "context_menu_export_logs": {
         "message": "خروجیگیری وقایع"
+    },
+    "context_menu_debug_level": {
+        "message": "ثبت اشکالزدایی"
     },
     "settings_dns_label": {
         "message": "سرور DNS"
@@ -161,6 +185,12 @@
     "settings_theme_system": {
         "message": "سیستم"
     },
+    "settings_theme_dark": {
+        "message": "پوسته تیره"
+    },
+    "settings_theme_light": {
+        "message": "پوسته روشن"
+    },
     "settings_exclusion_add": {
         "message": "افزودن"
     },
@@ -175,6 +205,9 @@
     },
     "settings_exclusion_modal_save": {
         "message": "ذخیره"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "بازگرداندن به پیش فرض"
     },
     "settings_exclusion_reset_button": {
         "message": "ريست"
@@ -230,6 +263,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "ادامه"
     },
+    "popup_newsletter_no_subscribe": {
+        "message": "خیر،ممنونم"
+    },
     "popup_onboarding_next": {
         "message": "بعدي"
     },
@@ -253,9 +289,6 @@
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"
-    },
-    "short_name": {
-        "message": "AdGuard VPN"
     },
     "description": {
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."

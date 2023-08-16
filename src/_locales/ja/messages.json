@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "ログをエクスポートする"
     },
+    "context_menu_debug_level": {
+        "message": "デバッグログ"
+    },
     "settings_dns_label": {
         "message": "DNSサーバー"
     },
@@ -462,7 +465,7 @@
         "message": "ウェブサイトを追加する"
     },
     "settings_exclusion_add_website": {
-        "message": "ウェブサイトを追加する"
+        "message": "ウェブサイトの追加"
     },
     "settings_exclusion_actions": {
         "message": "操作"

@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "로그 내보내기"
     },
+    "context_menu_debug_level": {
+        "message": "디버그 로깅"
+    },
     "settings_dns_label": {
         "message": "DNS 서버"
     },
@@ -462,7 +465,7 @@
         "message": "추가"
     },
     "settings_exclusion_add_website": {
-        "message": "웹 사이트 추가"
+        "message": "웹사이트 추가"
     },
     "settings_exclusion_actions": {
         "message": "가능한 동작"

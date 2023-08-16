@@ -36,7 +36,7 @@
         "message": "Vaaditaan kaksivaiheinen todennus (2FA)"
     },
     "authentication_error_2fa_invalid": {
-        "message": "Virheellinen vahvistuskoodi"
+        "message": "Virheellinen todennuskoodi"
     },
     "authentication_error_account_disabled": {
         "message": "Tili on poistettu käytöstä"
@@ -156,7 +156,7 @@
         "message": "Hanki Unlimited-tilaus!"
     },
     "rate_description": {
-        "message": "Hei, olemme AdGuardin tiimi ja meille on erittäin tärkeää, että kerrot meille mielipiteesi tuotteesta. Arvioi se, kiitos."
+        "message": "Hei! Olemme AdGuardin tiimi ja meille on erittäin tärkeää kuulla mielipiteesi tuotteesta ja toivoisimme, että arvioisit sen."
     },
     "rate_hide": {
         "message": "Piilota"
@@ -219,10 +219,10 @@
         "message": "Kaksivaiheinen todennus"
     },
     "auth_header_2fa": {
-        "message": "Syötä vahvistuskoodi"
+        "message": "Syötä todennuskoodi"
     },
     "auth_placeholder_2fa": {
-        "message": "Vahvistuskoodi"
+        "message": "Todennuskoodi"
     },
     "official_website": {
         "message": "Virallinen sivusto"
@@ -267,10 +267,10 @@
         "message": "Vahvista sähköpostiosoitteesi"
     },
     "settings_free_gbs_get_GB": {
-        "message": "Hanki %num% gigatavua"
+        "message": "Hanki %num% Gt"
     },
     "settings_free_gbs_task_complete": {
-        "message": "Ansaitsit %num% gigatavua"
+        "message": "Ansaitsit %num% Gt"
     },
     "settings_free_gbs_confirm_email_info": {
         "message": "Paina rekisteröitymisen yhteydessä vastaanottamasi sähköpostiviestin vahvistuslinkkiä, saadaksesi %your_gb% Gt ilmaista VPN-tiedonsiirtoa. Jos et löydä viestiä, paina alla olevaa painiketta."
@@ -297,10 +297,10 @@
         "message": "Kutsu kavereita"
     },
     "settings_free_gbs_invite_friend_get_GB": {
-        "message": "Hanki jopa %num% gigatavua"
+        "message": "Ansaitse jopa %num% Gt"
     },
     "settings_free_gbs_invite_friend_complete": {
-        "message": "Ansaitsit %num% gigatavua"
+        "message": "Ansaitsit %num% Gt"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
         "message": "Kiitos kaikkien kutsujesi käytöstä!"
@@ -324,7 +324,7 @@
         "message": "Auta meitä parantamaan"
     },
     "settings_help_us_improve_description": {
-        "message": "Salli AdGuard VPN:n kerätä nimettömiä virheraportteja sekä teknisiä ja käyttötietoja."
+        "message": "Salli AdGuard VPN:n kerätä nimettömiä virheraportteja ja teknisiä tietoja sen käytöstä."
     },
     "context_menu_selective_mode": {
         "message": "Valikoiva tila"
@@ -483,10 +483,10 @@
         "message": "kaikki aliverkkotunnukset"
     },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN ei ole käytössä merkityillä verkko- ja aliverkkotunnuksilla"
+        "message": "AdGuard VPN ei toimi valituilla verkko- ja aliverkkotunnuksilla."
     },
     "settings_exclusion_group_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN on käytössä merkityillä verkko- ja aliverkkotunnuksilla"
+        "message": "AdGuard VPN toimii valituilla verkko- ja aliverkkotunnuksilla."
     },
     "settings_exclusion_domain_name": {
         "message": "Verkkotunnus:"
@@ -558,19 +558,19 @@
         "message": "Poikkeukset"
     },
     "settings_exclusion_change_mode_modal_title": {
-        "message": "Missä VPN-yhteyttä käytetään"
+        "message": "Missä VPN on käytössä"
     },
     "settings_exclusion_general_title": {
         "message": "Kaikkialla paitsi poikkeuksiin lisätyillä verkkosivustoilla"
     },
     "settings_exclusion_general_mode_info": {
-        "message": "VPN on käytössä <span>kaikkialla</span> paitsi alla olevilla verkkosivustoilla."
+        "message": "VPN toimii alla listattuja verkkosivustoja lukuun ottamatta <span>kaikkialla</span>."
     },
     "settings_exclusion_selective_title": {
-        "message": "Vain valituilla verkkosivustoilla"
+        "message": "Vain valituilla sivustoilla"
     },
     "settings_exclusion_selective_mode_info": {
-        "message": "VPN on käytössä <span>valikoivasti</span> vain alla olevilla verkkosivustoilla."
+        "message": "VPN toimii <span>valikoivasti</span> vain alla listatuilla verkkosivustoilla."
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Jos tämä lista on tyhjä, ei VPN-yhteyttä käytetä millään verkkosivustoilla."
@@ -845,10 +845,10 @@
         "message": "Tuodon listauksen verkkosivustot lisätään olemassa oleviin poikkeuksiin"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Haluan, ettei VPN-yhteyttä käytetä näillä verkkosivustoilla"
+        "message": "Haluan, ettei VPN toimi näillä verkkosivustoilla"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Haluan, että VPN-yhteyttä käytetään näillä verkkosivustoilla"
+        "message": "Haluan, että VPN toimii näillä verkkosivustoilla"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Peruuta"
@@ -863,7 +863,7 @@
         "message": "Kaikki tavallisen tilan poikkeukset poistetaan."
     },
     "options_exclusions_delete_selective_description": {
-        "message": "Kaikki valikoivan tilan poikkeukset poistetaan."
+        "message": "Kaikki Valikoivan tilan poikkeukset poistetaan."
     },
     "options_exclusions_import_successful": {
         "message": "Poikkeuksia tuotiin: %count%"

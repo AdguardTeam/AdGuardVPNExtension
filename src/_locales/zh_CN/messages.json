@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "导出日志"
     },
+    "context_menu_debug_level": {
+        "message": "调试日志"
+    },
     "settings_dns_label": {
         "message": "DNS 服务器"
     },

@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Eksportér logger"
     },
+    "context_menu_debug_level": {
+        "message": "Fejlretningsniveaulogning"
+    },
     "settings_dns_label": {
         "message": "DNS-server"
     },
