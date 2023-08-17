@@ -14,7 +14,13 @@ import './dns-settings.pcss';
 export const DnsSettings = observer(() => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
 
-    const handleDnsSelect = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
+    const handleDnsSelect = async (
+        event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
+    ): Promise<void> => {
+        // To prevent multiple handles of one click from radio-button and
+        // from parent div container.
+        event.stopPropagation();
+
         const dnsServerId = event.currentTarget.id;
         await settingsStore.setDnsServer(dnsServerId);
     };
@@ -28,7 +34,7 @@ export const DnsSettings = observer(() => {
     };
 
     const removeDnsServer = (
-        event: React.MouseEvent<HTMLButtonElement>,
+        event: React.MouseEvent,
         dnsServerId: string,
     ): void => {
         event.stopPropagation();
@@ -43,9 +49,10 @@ export const DnsSettings = observer(() => {
     };
 
     const openEditDnsServerModal = (
-        event: React.MouseEvent<HTMLButtonElement>,
+        event: React.MouseEvent,
         server: DnsServerData,
     ): void => {
+        // To not trigger parent dns-button selector.
         event.stopPropagation();
         settingsStore.setDnsServerToEdit(server);
         settingsStore.openCustomDnsModal();
@@ -57,10 +64,19 @@ export const DnsSettings = observer(() => {
             '#bullet_on': enabled,
             '#bullet_off': !enabled,
         });
+        // TODO: Dirty hack to support a11y, should use native <input type="radio">.
         return (
-            <svg className="radio__icon">
-                <use xlinkHref={xlinkHref} />
-            </svg>
+            <button
+                type="button"
+                id={dnsServerId}
+                name={dnsServerId}
+                onClick={handleDnsSelect}
+                className="radio__container"
+            >
+                <svg className="radio__icon">
+                    <use xlinkHref={xlinkHref} />
+                </svg>
+            </button>
         );
     };
 
@@ -104,10 +120,9 @@ export const DnsSettings = observer(() => {
         const isCustom = !desc;
 
         return (
-            <button
-                type="button"
-                key={id}
+            <div
                 id={id}
+                key={id}
                 className="dns-settings__item"
                 onClick={handleDnsSelect}
             >
@@ -117,7 +132,7 @@ export const DnsSettings = observer(() => {
                     <div className="settings__item-desc">{isCustom ? address : desc}</div>
                 </div>
                 {isCustom && renderActions(dnsServerData)}
-            </button>
+            </div>
         );
     };
 

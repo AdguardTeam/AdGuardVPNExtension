@@ -7,6 +7,21 @@
     padding: 0;
     background: none;
 
+    /* TODO: Delete this hack (needs to to support a11y) */
+    &__container {
+        width: 24px;
+        height: 24px;
+        margin: 0;
+        padding: 0;
+        border: none;
+        background: transparent;
+        margin: 0 15px 0 0;
+
+        .radio__icon {
+            margin: 0;
+        }
+    }
+
     &__icon {
         flex-shrink: 0;
         width: 24px;
