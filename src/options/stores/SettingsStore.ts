@@ -10,7 +10,6 @@ import {
     SETTINGS_IDS,
     AppearanceTheme,
     APPEARANCE_THEME_DEFAULT,
-    THEME_URL_PARAMETER,
     SubscriptionType,
     QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
@@ -19,7 +18,6 @@ import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dn
 import { messenger } from '../../lib/messenger';
 import { RequestStatus } from './consts';
 import { log } from '../../lib/logger';
-import { setQueryParameter } from '../../common/url-utils';
 import type { DnsServerData } from '../../background/schema';
 import type { RootStore } from './RootStore';
 import { CustomDnsData } from '../hooks/useQueryStringData';
@@ -138,7 +136,6 @@ export class SettingsStore {
     };
 
     @action setAppearanceTheme = async (value: AppearanceTheme): Promise<void> => {
-        setQueryParameter(THEME_URL_PARAMETER, value);
         await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
         runInAction(() => {
             this.appearanceTheme = value;
