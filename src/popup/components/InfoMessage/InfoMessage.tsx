@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import { rootStore } from '../../stores';
-import { formatBytes } from '../../../lib/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { TrafficInfo } from './TrafficInfo';
+import { rootStore } from '../../stores';
 
 import './info-message.pcss';
 
@@ -23,7 +23,6 @@ export const InfoMessage = observer(() => {
 
     const {
         premiumPromoEnabled,
-        remainingTraffic,
         trafficUsingProgress,
         isPremiumToken,
     } = vpnStore;
@@ -50,21 +49,11 @@ export const InfoMessage = observer(() => {
         { 'info-message--active': settingsStore.isConnected },
     );
 
-    const formattedRemainingTraffic = formatBytes(remainingTraffic);
-
     return (
         <div className={infoMessagesClass}>
             <div className="info-message__text-wr">
                 <div className="info-message__text">
-                    {
-                        settingsStore.hasLimitExceededError
-                            ? (<span>{reactTranslator.getMessage('popup_traffic_limit_reached')}</span>)
-                            : reactTranslator.getMessage('popup_free_traffic_info', {
-                                value: formattedRemainingTraffic.value,
-                                unit: formattedRemainingTraffic.unit,
-                                span: (chunks: string) => (<span className={`info-message__value ${getInfoColor()}`}>{chunks}</span>),
-                            })
-                    }
+                    <TrafficInfo />
                 </div>
                 <a
                     type="button"

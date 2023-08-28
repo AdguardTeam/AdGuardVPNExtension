@@ -19,7 +19,8 @@ import { PermissionsCheckerInterface } from '../permissionsChecker/PermissionsCh
 import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { NonRoutableServiceInterface } from '../routability/NonRoutableService';
-import type { VpnExtensionInfoInterface, ConnectivityStateType } from '../schema';
+import type { ConnectivityStateType } from '../schema';
+import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../schema';

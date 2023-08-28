@@ -219,11 +219,8 @@ export class SettingsStore {
         let maxDownloadedBytes = 0;
         let usedDownloadedBytes = 0;
 
-        if (vpnStore.vpnInfo.maxDownloadedBytes) {
+        if (vpnStore.vpnInfo?.maxDownloadedBytes && vpnStore.vpnInfo?.usedDownloadedBytes) {
             maxDownloadedBytes = vpnStore.vpnInfo.maxDownloadedBytes;
-        }
-
-        if (vpnStore.vpnInfo.usedDownloadedBytes) {
             usedDownloadedBytes = vpnStore.vpnInfo.usedDownloadedBytes;
         }
 

@@ -21,9 +21,9 @@ import { connectivityService } from '../connectivity/connectivityService';
 import type {
     EndpointInterface,
     VpnTokenData,
-    VpnExtensionInfoInterface,
     CredentialsDataInterface,
 } from '../schema';
+import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../lib/constants';
 import { EndpointsState, LocationInterface, StorageKey } from '../schema';

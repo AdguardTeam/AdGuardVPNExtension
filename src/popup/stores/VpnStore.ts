@@ -12,16 +12,9 @@ import { animationService } from '../components/Settings/BackgroundAnimation/ani
 import { AnimationEvent } from '../../lib/constants';
 import { LocationWithPing } from '../../background/endpoints/LocationWithPing';
 import { PingData } from '../../background/endpoints/locationsService';
+import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import type { RootStore } from './RootStore';
-
-type VpnInfo = {
-    bandwidthFreeMbits: number | null,
-    premiumPromoEnabled: boolean | null,
-    premiumPromoPage: string | null,
-    maxDownloadedBytes: number | null,
-    usedDownloadedBytes: number | null,
-    usedUploadedBytes: number | null,
-};
+import { daysToRenewal } from '../../common/utils/date';
 
 interface Pings {
     [key: string]: PingData,
@@ -50,14 +43,7 @@ export class VpnStore {
 
     @observable searchValue = '';
 
-    @observable vpnInfo: VpnInfo = {
-        bandwidthFreeMbits: null,
-        premiumPromoEnabled: null,
-        premiumPromoPage: null,
-        maxDownloadedBytes: null,
-        usedDownloadedBytes: null,
-        usedUploadedBytes: null,
-    };
+    @observable vpnInfo: VpnExtensionInfoInterface | null = null;
 
     @observable tooManyDevicesConnected = false;
 
@@ -200,7 +186,7 @@ export class VpnStore {
         return this.selectedLocation?.cityName;
     }
 
-    @action setVpnInfo = (vpnInfo: VpnInfo): void => {
+    @action setVpnInfo = (vpnInfo: VpnExtensionInfoInterface): void => {
         if (!vpnInfo) {
             return;
         }
@@ -209,35 +195,54 @@ export class VpnStore {
 
     @computed
     get bandwidthFreeMbits(): number | null {
+        if (!this.vpnInfo || !this.vpnInfo.bandwidthFreeMbits) {
+            return null;
+        }
         return this.vpnInfo.bandwidthFreeMbits;
     }
 
     @computed
     get premiumPromoEnabled(): boolean | null {
+        if (!this.vpnInfo?.premiumPromoEnabled) {
+            return null;
+        }
         return this.vpnInfo.premiumPromoEnabled;
     }
 
     @computed
     get premiumPromoPage(): string | null {
+        if (!this.vpnInfo?.premiumPromoPage) {
+            return null;
+        }
         return this.vpnInfo.premiumPromoPage;
     }
 
     @computed
     get remainingTraffic(): number {
-        if (this.vpnInfo.maxDownloadedBytes !== null && this.vpnInfo.usedDownloadedBytes !== null) {
-            return this.vpnInfo.maxDownloadedBytes - this.vpnInfo.usedDownloadedBytes;
+        if (this.vpnInfo?.maxDownloadedBytes === undefined || this.vpnInfo?.usedDownloadedBytes === undefined) {
+            return 0;
         }
-        return 0;
+
+        return this.vpnInfo.maxDownloadedBytes - this.vpnInfo.usedDownloadedBytes;
+    }
+
+    @computed
+    get daysToTrafficRenewal(): number {
+        if (!this.vpnInfo?.renewalTrafficDate) {
+            return 0;
+        }
+        return daysToRenewal(new Date(), this.vpnInfo.renewalTrafficDate);
     }
 
     @computed
     get trafficUsingProgress(): number {
         const HUNDRED_PERCENT = 100;
-        const { maxDownloadedBytes } = this.vpnInfo;
-        if (maxDownloadedBytes) {
-            return Math.floor((this.remainingTraffic / maxDownloadedBytes) * HUNDRED_PERCENT);
+
+        if (!this.vpnInfo?.maxDownloadedBytes) {
+            return HUNDRED_PERCENT;
         }
-        return HUNDRED_PERCENT;
+
+        return Math.floor((this.remainingTraffic / this.vpnInfo.maxDownloadedBytes) * HUNDRED_PERCENT);
     }
 
     @computed

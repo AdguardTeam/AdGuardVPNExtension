@@ -11,11 +11,11 @@ import { endpointsTldExclusions } from '../../../src/background/proxy/endpointsT
 import type {
     VpnTokenData,
     EndpointInterface,
-    VpnExtensionInfoInterface,
     CredentialsDataInterface,
     LocationInterface,
     LocationData,
 } from '../../../src/background/schema';
+import type { VpnExtensionInfoInterface } from '../../../src/common/schema/endpoints/vpnInfo';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
 import { stateStorage } from '../../../src/background/stateStorage/mv2';

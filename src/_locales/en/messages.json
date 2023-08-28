@@ -835,6 +835,14 @@
         "message": "<span>%value% %unit%</span> left this month",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% left",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Traffic renews today | Traffic renews in %days% day | Traffic renews in %days% days",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "By the way, you can disable VPN for this site if you wish"
     },
