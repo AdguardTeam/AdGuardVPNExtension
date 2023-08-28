@@ -74,6 +74,9 @@
     "account_version": {
         "message": "Versi"
     },
+    "account_sign_out": {
+        "message": "Keluar"
+    },
     "rate_description": {
         "message": "Hai, kami adalah tim dari AdGuard dan ini sangat penting bagi kami mengetahui opini Anda tentang produk kami. Silahkan beri nilai."
     },
@@ -145,6 +148,12 @@
     },
     "settings_referral_invited_friends": {
         "message": "Teman yang diundang %count%/%limit%"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Konfirmasi email Anda"
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Kirim ulang tautan"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Ke Produk"
@@ -347,6 +356,9 @@
     "popup_settings_open_settings": {
         "message": "Pengaturan"
     },
+    "popup_settings_sign_out": {
+        "message": "Keluar"
+    },
     "context_menu_enable_vpn": {
         "message": "Aktifkan VPN pada situs ini"
     },
@@ -416,6 +428,9 @@
     "popup_server_error_popup_cancel": {
         "message": "Batal"
     },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Terima kasih telah memberi tau kami!"
+    },
     "popup_server_error_popup_close": {
         "message": "Tutup"
     },
@@ -443,17 +458,35 @@
     "popup_newsletter_no_subscribe": {
         "message": "Tidak, terima kasih"
     },
+    "popup_onboarding_unique_protocol": {
+        "message": "Protokol VPN Unik"
+    },
     "popup_onboarding_next": {
         "message": "Lanjut"
     },
     "popup_upgrade_screen_title": {
         "message": "VPN tanpa batas"
     },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Batasnya hanyalah data Anda tidak akan pernah dibagikan. Menjelajahlah sesuai keinginan Anda!"
+    },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Kecepatan tanpa batas"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Tidak ada batas kecepatan. Gunakan penyedia layanan Anda sepuasnya!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Semua lokasi"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 kontinan dan lusinan negara. Pilih kotanya dan jelajahi internet dengan aman!"
+    },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Hingga 5 perangkat"
+    },
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Hubungkan semua gadget Anda ke AdGuard VPN secara bersamaan — atau lindungi seluruh keluarga!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Tingkatkan"
@@ -476,8 +509,14 @@
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"
     },
+    "confirm_email_title": {
+        "message": "Konfirmasi email Anda"
+    },
     "confirm_email_close_button": {
         "message": "Tutup"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Kirim ulang tautan"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

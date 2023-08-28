@@ -835,6 +835,14 @@
         "message": "今月の残りデータ量: <span>%value%%unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_left": {
+        "message": "無料通信量残り%value%%unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "通信量は本日更新されます | 通信量は後%days%日で更新されます",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "必要に応じて、このサイトに対してVPNを無効にすることも可能です。"
     },

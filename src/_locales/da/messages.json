@@ -835,6 +835,14 @@
         "message": "<span>%value% %unit%</span> tilbage denne måned",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% tilbage",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Trafikkvoten fornys i dag | Trafikkvoten fornys om %days% dag | Trafikkvoten fornys om %days% dage",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "VPN kan deaktiveres for dette websted, om ønsket"
     },

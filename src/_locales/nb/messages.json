@@ -293,6 +293,9 @@
     "settings_exclusion_modal_save": {
         "message": "Lagre"
     },
+    "settings_exclusion_reset_to_default": {
+        "message": "Tilbakestill til standardene"
+    },
     "settings_exclusion_reset_button": {
         "message": "Tilbakestill"
     },

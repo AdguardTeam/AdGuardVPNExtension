@@ -835,6 +835,14 @@
         "message": "<span>%value% %unit%</span> осталось в этом месяце",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_left": {
+        "message": "Осталось %value% %unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Трафик обновится сегодня | Трафик обновится через %days% день | Трафик обновится через %days% дня | Трафик обновится через %count% дней",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "VPN можно отключить для конкретного сайта — на остальных он продолжит работать"
     },

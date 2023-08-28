@@ -629,6 +629,9 @@
     "endpoints_search": {
         "message": "Căutare locație"
     },
+    "endpoints_not_found": {
+        "message": "Locația nu a fost găsită"
+    },
     "popup_traffic_limit_reached": {
         "message": "Limita lunară de date a fost atinsă"
     },

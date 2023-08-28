@@ -835,6 +835,14 @@
         "message": "<span>%value% %unit%</span> nog over deze maand",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% over",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Verkeer wordt vandaag vernieuwd | Verkeer wordt vernieuwd in %days% dag | Verkeer wordt vernieuwd in %days% dagen",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "Overigens kun je desgewenst VPN voor deze site uitschakelen"
     },

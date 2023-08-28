@@ -835,6 +835,14 @@
         "message": "<span>%value% %unit%</span> залишилось цього місяця",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% залишилося",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Трафік поновлюється сьогодні | Трафік поновлюється через %days% день | Трафік поновлюється через %days% дні | Трафік поновлюється через %days% днів",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "До речі, за бажанням ви можете відключити VPN для цього сайту"
     },

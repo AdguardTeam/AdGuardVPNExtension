@@ -701,8 +701,17 @@
     "popup_server_error_popup_info": {
         "message": "Valószínűleg a VPN blokkolva volt az Ön országában, vagy technikai hiba lépett fel. Már próbáljuk megjavítani"
     },
+    "popup_server_error_popup_action": {
+        "message": "Értesítse az AdGuard csapatát"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Mégsem"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Dolgozunk rajta"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Köszönjük, hogy tudatta velünk!"
     },
     "popup_server_error_popup_close": {
         "message": "Bezárás"
@@ -794,6 +803,9 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Folytatás az ingyenes verzióval"
+    },
+    "popup_hint_popup_button": {
+        "message": "Rendben"
     },
     "options_exclusions_import_select_title": {
         "message": "Hogyan kell használni a kizárások listáját?"

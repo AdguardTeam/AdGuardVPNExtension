@@ -644,6 +644,9 @@
     "endpoints_search": {
         "message": "Hľadať krajinu"
     },
+    "endpoints_not_found": {
+        "message": "Lokalita sa nenašla"
+    },
     "popup_traffic_limit_reached": {
         "message": "Dosiahnutý mesačný dátový limit"
     },
@@ -767,6 +770,9 @@
     },
     "popup_newsletter_no_subscribe": {
         "message": "Nie, ďakujem"
+    },
+    "popup_onboarding_unique_protocol": {
+        "message": "Unikátny protokol VPN"
     },
     "popup_onboarding_unique_protocol_info": {
         "message": "Protokol AdGuard VPN pracuje rýchlo a robí Vašu sieť VPN nenápadnou"

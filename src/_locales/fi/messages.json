@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Vie lokitiedot"
     },
+    "context_menu_debug_level": {
+        "message": "Vianselvityksen lokikirjaus"
+    },
     "settings_dns_label": {
         "message": "DNS-palvelin"
     },
@@ -564,7 +567,7 @@
         "message": "Kaikkialla paitsi poikkeuksiin lisätyillä verkkosivustoilla"
     },
     "settings_exclusion_general_mode_info": {
-        "message": "VPN toimii alla listattuja verkkosivustoja lukuun ottamatta <span>kaikkialla</span>."
+        "message": "VPN toimii <span>kaikkialla</span> paitsi alla listatuilla verkkosivustoilla."
     },
     "settings_exclusion_selective_title": {
         "message": "Vain valituilla sivustoilla"
@@ -672,7 +675,7 @@
         "message": "Yhdistetty"
     },
     "settings_vpn_disabled": {
-        "message": "Ei yhteyttä"
+        "message": "Ei yhdistetty"
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Nopeutta on alennettu"
@@ -744,7 +747,7 @@
         "message": "AdGuard VPN -asetukset"
     },
     "offline_title": {
-        "message": "Ei yhteyttä"
+        "message": "Ei yhdistetty"
     },
     "popup_site_status_unaccessible": {
         "message": "sijaitsee paikallisessa lähiverkossa eikä siten ole tavoitettavissa VPN-yhteyden välityksellä"
@@ -831,6 +834,14 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> jäljellä tässä kuussa",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% jäljellä",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Tietoliikenne uudistuu tänään | Tietoliikenne uudistuu %days% päivän kuluttua | Tietoliikenne uudistuu %days% päivän kuluttua",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "Voit muuten halutessasi poistaa VPN-yhteyden käytöstä tällä sivustolla"

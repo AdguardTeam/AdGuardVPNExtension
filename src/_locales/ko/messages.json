@@ -835,6 +835,14 @@
         "message": "월간 사용량 <span>%value% %unit%</span> 남음",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_left": {
+        "message": "%value%%unit% 남음",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "오늘 사용량이 초기화됩니다 | %days%일 후 사용량이 초기화됩니다",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "이 사이트에 대해 VPN을 비활성화할 수 있습니다."
     },

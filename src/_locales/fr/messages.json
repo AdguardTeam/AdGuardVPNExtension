@@ -225,7 +225,7 @@
         "message": "Code d’authentification"
     },
     "official_website": {
-        "message": "Site Web officiel"
+        "message": "Site web officiel"
     },
     "eula": {
         "message": "CLUF"
@@ -405,7 +405,7 @@
         "message": "AdGuard DNS sans filtrage"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "DNS sécurisé sans journalisation des activités (ne filtre pas les annonces et les pisteurs)"
+        "message": "DNS sécurisé sans journalisation des activités (ne filtre pas les publicités et les pisteurs)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS Protection familiale"
@@ -834,6 +834,14 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> restant ce mois-ci",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "Il reste %value% %unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Le trafic se renouvelle aujourd'hui | Le trafic se renouvelle dans %days% jour | Le trafic se renouvelle dans %days% jours",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "Par ailleurs, vous pouvez désactiver le VPN pour ce site si vous le souhaitez"

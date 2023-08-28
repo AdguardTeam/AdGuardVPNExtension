@@ -835,6 +835,14 @@
         "message": "Noch <span>%value% %unit%</span> in diesem Monat verfügbar",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% übrig",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Traffic wird heute erneuert | Traffic wird in %days% Tag erneuert | Traffic wird in %days% Tagen erneuert",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "Übrigens, Sie können VPN für diese Website deaktivieren, wenn Sie möchten"
     },

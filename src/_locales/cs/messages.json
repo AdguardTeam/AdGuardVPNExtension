@@ -835,6 +835,14 @@
         "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_left": {
+        "message": "Zbývá %value% %unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Provoz se obnoví dnes | Provoz se obnoví za %days% den | Provoz se obnoví za %days% dny | Provoz se obnoví za %count% dní",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "Mimochodem, pokud si přejete, můžete VPN pro tento web zakázat"
     },

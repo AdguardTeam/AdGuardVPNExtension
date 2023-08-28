@@ -701,6 +701,9 @@
     "popup_server_error_popup_info": {
         "message": "Хутчэй за ўсё, VPN быў заблакаваны ў вашай краіне або адбыўся тэхнічны збой. Мы ўжо спрабуем гэта выправіць"
     },
+    "popup_server_error_popup_action": {
+        "message": "Падштурхніце каманду AdGuard"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Скасаванне"
     },
