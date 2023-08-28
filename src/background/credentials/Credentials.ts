@@ -20,6 +20,7 @@ import { stateStorage } from '../stateStorage';
 import { credentialsService } from './credentialsService';
 import { auth, type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
+import { abTestManager } from '../abTestManager';
 
 export interface AccessCredentialsData {
     credentialsHash: string,
@@ -540,7 +541,10 @@ export class Credentials implements CredentialsInterface {
             const appId = await this.getAppId();
             const { version } = appStatus;
 
-            await this.vpnProvider.postExtensionInstalled(appId, version);
+            const experiments = abTestManager.getExperiments();
+            const response = await this.vpnProvider.trackExtensionInstallation(appId, version, experiments);
+            await abTestManager.setVersions(response.experiments);
+
             await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
             log.info('Installation successfully tracked');
         } catch (e) {

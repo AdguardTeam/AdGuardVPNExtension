@@ -80,10 +80,6 @@ interface CurrentLocationData extends AxiosResponse {
     };
 }
 
-interface PostExtensionInstalledData extends AxiosResponse {
-    social_providers: string[];
-}
-
 export interface VpnConnectionStatus extends AxiosResponse {
     connected: boolean;
 }
@@ -114,7 +110,7 @@ interface VpnApiInterface {
     getVpnCredentials(appId: string, vpnToken: string, version: string): Promise<VpnCredentials>;
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>;
-    postExtensionInstalled(appId: string, version: string): Promise<PostExtensionInstalledData>;
+    trackExtensionInstallation(appId: string, version: string, experiments: string): Promise<unknown>;
     requestSupport(data: FormData): Promise<Response>;
     getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>;
     getExclusionsServices(): Promise<ExclusionsServicesData>;
@@ -180,7 +176,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     TRACK_EXTENSION_INSTALL: RequestProps = { path: 'v1/init/extension', method: 'POST' };
 
-    postExtensionInstalled = (appId: string, version: string): Promise<PostExtensionInstalledData> => {
+    trackExtensionInstallation = (appId: string, version: string, experiments: string): Promise<unknown> => {
         const { path, method } = this.TRACK_EXTENSION_INSTALL;
 
         const language = browser.i18n.getUILanguage();
@@ -190,6 +186,7 @@ class VpnApi extends Api implements VpnApiInterface {
             version,
             language,
             system_language: language,
+            experiments,
         };
 
         return this.makeRequest(path, { params }, method);

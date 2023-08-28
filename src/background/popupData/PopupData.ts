@@ -25,6 +25,7 @@ import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../schema';
 import { hintPopup } from '../hintPopup';
 import { popupOpenedCounter } from './popupOpenedCounter';
+import { abTestManager } from '../abTestManager';
 
 interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;
@@ -44,6 +45,7 @@ interface PopupDataInterface {
     selectedLocation?: LocationWithPing | null;
     isAuthenticated: string | boolean;
     policyAgreement: boolean;
+    showScreenshotFlow: boolean;
     canControlProxy?: CanControlProxy;
     isProxyEnabled?: boolean;
     isRoutable?: boolean;
@@ -104,11 +106,13 @@ export class PopupData {
     getPopupData = async (url: string): Promise<PopupDataInterface> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
+        const showScreenshotFlow = await abTestManager.isShowScreenshotFlow();
 
         if (!isAuthenticated) {
             return {
                 isAuthenticated,
                 policyAgreement,
+                showScreenshotFlow,
             };
         }
 
@@ -167,6 +171,7 @@ export class PopupData {
             shouldShowRateModal,
             username,
             shouldShowHintPopup,
+            showScreenshotFlow,
         };
     };
 

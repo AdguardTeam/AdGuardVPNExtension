@@ -11,6 +11,7 @@ import type {
     CredentialsDataInterface,
     LocationInterface,
 } from '../schema';
+import { TrackInstallResponse, trackInstallResponseSchema } from '../schema/credentials/trackInstallResponse';
 
 const DEFAULT_LOCALE = 'en';
 
@@ -55,7 +56,7 @@ export interface VpnProviderInterface {
         vpnToken: string,
         version: string,
     ): Promise<CredentialsDataInterface>;
-    postExtensionInstalled(appId: string, version: string): Promise<{ social_providers: string[] }>;
+    trackExtensionInstallation(appId: string, version: string, experiments: string): Promise<TrackInstallResponse>;
     getVpnExtensionInfo(
         appId: string,
         vpnToken: string,
@@ -283,8 +284,26 @@ const getVpnCredentials = async (
     };
 };
 
-const postExtensionInstalled = async (appId: string, version: string): Promise<{ social_providers: string[] }> => {
-    return vpnApi.postExtensionInstalled(appId, version);
+/**
+ * Tracks vpn extensions install
+ * @param appId
+ * @param version
+ * @param experiments
+ */
+const trackExtensionInstallation = async (
+    appId: string,
+    version: string,
+    experiments: string,
+): Promise<TrackInstallResponse> => {
+    const rawResponse = await vpnApi.trackExtensionInstallation(appId, version, experiments);
+    let response;
+    try {
+        response = trackInstallResponseSchema.parse(rawResponse);
+    } catch (e) {
+        log.error('Error while parsing track install response', e);
+        response = {};
+    }
+    return response;
 };
 
 const prepareLogs = async (appLogs: string): Promise<Blob> => {
@@ -360,7 +379,7 @@ export const vpnProvider: VpnProviderInterface = {
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,
-    postExtensionInstalled,
+    trackExtensionInstallation,
     getLocationsData,
     requestSupport,
     getExclusionsServices,

@@ -52,12 +52,14 @@ export class GlobalStore {
                 shouldShowRateModal,
                 username,
                 shouldShowHintPopup,
+                showScreenshotFlow,
             } = popupData;
 
             if (!isAuthenticated) {
                 authStore.setIsAuthenticated(isAuthenticated);
                 await authStore.handleInitPolicyAgreement(policyAgreement);
                 await authStore.getAuthCacheFromBackground();
+                await authStore.setShowScreenshotFlow(showScreenshotFlow);
                 this.setInitStatus(RequestStatus.Done);
                 return;
             }
