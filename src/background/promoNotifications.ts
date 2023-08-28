@@ -41,10 +41,7 @@ export interface PromoNotificationData {
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const RUSSIAN_LOCALE = 'ru';
-
-const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=easter_promo_23_vpn&from=popup&app=vpn_extension`;
-const RUSSIAN_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=easter_promo_23_vpn_ru&from=popup&app=vpn_extension`;
+const PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=back_to_school_23_vpn&from=popup&app=vpn_extension`;
 
 const normalizeLanguage = (locale: string): string | null => {
     if (!locale) {
@@ -54,184 +51,185 @@ const normalizeLanguage = (locale: string): string | null => {
     return locale.toLowerCase().replace('-', '_');
 };
 
-const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
-const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
-
-const easterPromo23Notification = {
-    id: 'easterPromo23',
+const backToSchoolPromo23Notification = {
+    id: 'backToSchool23',
     locales: {
         en: {
-            title: 'Easter promo',
-            btn: 'Get 80% off',
+            title: 'Back to school: Quiz and prize',
+            btn: 'Test yourself',
         },
         ru: {
-            title: 'Весенняя акция',
-            btn: 'Скидка 75%',
-        },
-        ko: {
-            title: '부활절 세일',
-            btn: '85% 할인',
+            title: 'Снова в школу: квиз и приз',
+            btn: 'Пройти',
         },
         es: {
-            title: 'Promo de Pascua',
-            btn: 'Gana un 80% de descuento',
+            title: 'Vuelta al cole: quiz y recompensa',
+            btn: 'Hacer el quiz',
         },
         de: {
-            title: 'Oster-Sale',
-            btn: '80% Rabatt',
-        },
-        pt_pt: {
-            title: 'Promo de Páscoa',
-            btn: '80% de desconto',
-        },
-        pt_br: {
-            title: 'Promo de Páscoa',
-            btn: '80% de desconto',
-        },
-        zh_tw: {
-            title: '暖春巨惠',
-            btn: '享2折',
-        },
-        zh_cn: {
-            title: '暖春特惠',
-            btn: '享2折',
+            title: 'Back to School: Quiz und Preis',
+            btn: 'Quiz los',
         },
         fr: {
-            title: 'Promo Pâques',
-            btn: 'Obtenez 80% de remise',
+            title: 'La rentrée avec AdGuard : Quiz et cadeaux',
+            btn: 'Passez le Quiz',
         },
         it: {
-            title: 'Offerta Pascua',
-            btn: 'Ottieni 80% di sconto',
+            title: 'A Scuola con AdGuard: un quiz e un regalo',
+            btn: 'Supera il Quiz',
+        },
+        ko: {
+            title: '백 투 스쿨: 퀴즈 및 할인',
+            btn: '퀴즈게임 시작',
+        },
+        ja: {
+            title: 'Back to School セールとクイズ',
+            btn: 'クイズに挑戦！',
+        },
+        zh_cn: {
+            title: '开学特惠：小测验大惊喜',
+            btn: '测试自己',
+        },
+        zh_tw: {
+            title: '開學特惠：小測驗大驚喜',
+            btn: '測試自己',
         },
         uk: {
-            title: 'Весняна акція',
-            btn: 'Знижка 80%',
+            title: 'Знову до школи: іспит і приз',
+            btn: 'Скласти',
+        },
+        pt_br: {
+            title: 'Volta às aulas: quiz e prêmio',
+            btn: 'Fazer o quiz',
+        },
+        pt_pt: {
+            title: 'Volta às aulas: quiz e prémio',
+            btn: 'Fazer o quiz',
         },
         ar: {
-            title: 'تعزيز الربيع',
-            btn: '80٪ خصم',
+            title: 'العودة إلى المدرسة: مسابقة وجائزة',
+            btn: 'حل الاختبار',
         },
         be: {
-            title: 'Вясновая акцыя',
-            btn: 'Зніжка 80%',
+            title: 'Зноў у школу: віктарына і прызы',
+            btn: 'Прайсці',
         },
         bg: {
-            title: 'Пролетна промоция',
-            btn: '80% отстъпка',
+            title: 'Отново в училище: тест и награда',
+            btn: 'Преминете',
         },
         ca: {
-            title: 'Promoció de Pasqua',
-            btn: '80% de descompte',
+            title: "Tornada a l'escola: qüestionari i premi",
+            btn: 'Passar',
         },
         cs: {
-            title: 'Velikonoční promo akce',
-            btn: '80% sleva',
+            title: 'Zpátky do školy: kvíz a cena',
+            btn: 'Projít',
         },
         da: {
-            title: 'Påske kampagne',
-            btn: '80% rabat',
+            title: 'Tilbage til skolen: quiz og præmie',
+            btn: 'Test deg selv',
         },
         el: {
-            title: 'ανοιξιάτικη προώθηση',
-            btn: '80% έκπτωση',
+            title: 'Επιστροφή στο σχολείο',
+            btn: 'Περάστε',
         },
         es_419: {
-            title: 'Promoción de pascua',
-            btn: '80% de descuento',
+            title: 'Vuelta al cole: quiz y recompensa',
+            btn: 'Hacer el quiz',
         },
         fa: {
-            title: 'تبلیغات بهار',
-            btn: '80 درصد تخفیف',
+            title: 'بازگشت به مدرسه: مسابقه و جایزه',
+            btn: 'امتحان را پاس کنید',
         },
         fi: {
-            title: 'Pääsiäispromo',
-            btn: '80 % alennus',
+            title: 'Takaisin kouluun: tietokilpailu ja palkinto',
+            btn: 'Läpäise',
         },
         he: {
-            title: 'קידום אביב',
-            btn: '80% הנחה',
+            title: 'חזרה לבית הספר: חידון ופרס',
+            btn: 'לעבור',
         },
         hr: {
-            title: 'Uskršnja promocija',
-            btn: '80% popusta',
+            title: 'Povratak u školu: kviz i nagrada',
+            btn: 'Provjerite se',
         },
         hu: {
-            title: 'Tavaszi akció',
-            btn: '80% kedvezmény',
+            title: 'Vissza az iskolába: egy kvíz és egy díj',
+            btn: 'Teszteld magad',
         },
         hy: {
-            title: 'գարնանային ակցիա',
-            btn: '80% զեղչ',
+            title: 'Վերադառնալ դպրոց',
+            btn: 'Ստուգեք ինքներդ',
         },
         id: {
-            title: 'Promosi musim semi',
-            btn: 'Diskon 80%',
+            title: 'Kembali ke Sekolah: kuis dan Hadiah',
+            btn: 'Uji dirimu',
         },
         lt: {
-            title: 'Velykų akcija',
-            btn: '80% nuolaida',
+            title: 'Atgal į mokyklą: viktorina ir prizas',
+            btn: 'Išbandyk save',
         },
         ms: {
-            title: 'Promosi musim bunga',
-            btn: 'Diskaun 80%',
+            title: 'Kembali ke Sekolah: kuiz dan Hadiah',
+            btn: 'Uji diri sendiri',
         },
         nb: {
-            title: 'Påskekampanje',
-            btn: '80% rabatt',
+            title: 'Tilbake til skolen: quiz og premie',
+            btn: 'Test deg selv',
         },
         nl: {
-            title: 'Pasen promo',
-            btn: '80% korting',
+            title: 'Terug naar school: quiz en prijs',
+            btn: 'Test jezelf',
         },
         pl: {
-            title: 'Promocja wielkanocna',
-            btn: '80% zniżki',
+            title: 'Powrót do szkoły: quiz i nagroda',
+            btn: 'Sprawdź się',
         },
         ro: {
-            title: 'Promoție de primăvară',
-            btn: '80% reducere',
+            title: 'Înapoi la școală: test și premiu',
+            btn: 'Testați-vă',
         },
         sk: {
-            title: 'Veľkonočné promo',
-            btn: '80% zľava',
+            title: 'Späť do školy: kvíz a cena',
+            btn: 'Otestujte sa',
         },
         sl: {
-            title: 'Velikonočni promo',
-            btn: '80% popust',
+            title: 'Nazaj v šolo: kviz in nagrada',
+            btn: 'Preizkusite se',
         },
-        sr: {
-            title: 'Prolećna promocija',
-            btn: 'Popust 80%',
+        'sr-Latn': {
+            title: 'Povratak u školu: kviz i nagrada',
+            btn: 'Proverite sami',
         },
         sv: {
-            title: 'Påsk kampanj',
-            btn: '80 % rabatt',
+            title: 'Tillbaka till skolan: quiz och pris',
+            btn: 'Testa dig själv',
         },
         tr: {
-            title: 'Bahar promosyonu',
-            btn: '%80 indirim',
+            title: 'Okula Dönüş: Sınav ve Ödül',
+            btn: 'Kendinizi test edin',
         },
         vi: {
-            title: 'Khuyến mãi mùa xuân',
-            btn: 'Giảm giá 80%',
+            title: 'Back to School: câu đố và giải thưởng',
+            btn: 'Tự kiểm tra',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    url: promoLink,
-    from: '06 April 2023 12:00:00',
-    to: '12 April 2023 23:59:00',
+    url: PROMO_LINK,
+    from: '28 August 2023 12:00:00',
+    to: '3 September 2023 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(easterPromo23Notification, 'icons', () => ({
+        return lazyGet(backToSchoolPromo23Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/easter2023-on-19.png'),
-                38: getUrl('assets/images/icons/easter2023-on-38.png'),
+                19: getUrl('assets/images/icons/bts2023-on-19.png'),
+                38: getUrl('assets/images/icons/bts2023-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/easter2023-off-19.png'),
-                38: getUrl('assets/images/icons/easter2023-off-38.png'),
+                19: getUrl('assets/images/icons/bts2023-off-19.png'),
+                38: getUrl('assets/images/icons/bts2023-off-38.png'),
             },
         }));
     },
@@ -254,7 +252,7 @@ const easterPromo23Notification = {
  */
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    easterPromo23: easterPromo23Notification,
+    backToSchoolPromo23: backToSchoolPromo23Notification,
 };
 
 /**
