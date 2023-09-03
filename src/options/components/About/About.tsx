@@ -1,6 +1,14 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import { WEBSITE_URL, EULA_URL, PRIVACY_URL } from '../../../background/config';
+import {
+    WEBSITE_URL,
+    EULA_URL,
+    PRIVACY_URL,
+    VERSION_HISTORY_URL,
+    DISCUSS_URL,
+    ACKNOWLEDGMENTS_URL,
+    GITHUB_URL,
+} from '../../../background/config';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { reactTranslator } from '../../../common/reactTranslator';
@@ -47,6 +55,38 @@ export const About = observer(() => {
                         className="about__link"
                     >
                         {reactTranslator.getMessage('privacy_policy')}
+                    </a>
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={VERSION_HISTORY_URL}
+                        className="about__link"
+                    >
+                        {reactTranslator.getMessage('version_history')}
+                    </a>
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={DISCUSS_URL}
+                        className="about__link"
+                    >
+                        {reactTranslator.getMessage('discuss')}
+                    </a>
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={ACKNOWLEDGMENTS_URL}
+                        className="about__link"
+                    >
+                        {reactTranslator.getMessage('acknowledgements')}
+                    </a>
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={GITHUB_URL}
+                        className="about__link"
+                    >
+                        {reactTranslator.getMessage('github')}
                     </a>
                 </nav>
             </div>

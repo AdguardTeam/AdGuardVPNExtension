@@ -233,6 +233,18 @@
     "privacy_policy": {
         "message": "Privacy Policy"
     },
+    "version_history": {
+        "message": "Version history"
+    },
+    "discuss": {
+        "message": "Discuss"
+    },
+    "acknowledgements": {
+        "message": "Acknowledgements"
+    },
+    "github": {
+        "message": "GitHub"
+    },
     "settings_title": {
         "message": "Settings"
     },
