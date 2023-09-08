@@ -38,10 +38,10 @@
             display: flex;
 
             &:hover {
-                background: var(--grayF7);
+                background-color: var(--grayF3);
 
                 @media (prefers-color-scheme: dark) {
-                    background-color: #4d4d4d;
+                    background-color: var(--grayD8);
                 }
             }
         }
@@ -54,9 +54,9 @@
 
 .light-mode {
     .actions {
-        &__more-actions-list li {
+        &__more-actions-list button {
             &:hover {
-                background-color: #f3f3f3;
+                background-color: var(--grayF3);
             }
         }
     }
@@ -64,9 +64,9 @@
 
 .dark-mode {
     .actions {
-        &__more-actions-list li {
+        &__more-actions-list button {
             &:hover {
-                background-color: #4d4d4d;
+                background-color: var(--grayD8);
             }
         }
     }
