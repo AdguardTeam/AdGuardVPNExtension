@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "This value is already used"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Passwords don't match"
-    },
     "registration_error_default": {
         "message": "An error happened, try again later"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Settings"
     },
-    "options_menu_free_traffic": {
-        "message": "Free VPN traffic"
-    },
     "referral_get_free_traffic": {
         "message": "Get free GBs!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Custom DNS server deleted"
-    },
-    "settings_dns_desc": {
-        "message": "Domain Name System (DNS) is the internet's equivalent of a phone book. It maintains a directory of domain names and translates them to Internet Protocol (IP) addresses."
     },
     "settings_dns_selector_default_title": {
         "message": "Default"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "Settings"
     },
-    "popup_settings_sign_out": {
-        "message": "Log out"
-    },
     "context_menu_enable_vpn": {
         "message": "Enable VPN on this website"
     },
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Continue for free"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> left this month",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "%value% %unit% left",
         "description": "Respect spaces between text, tags and placeholders"
@@ -863,18 +847,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Cancel"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Delete"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Remove exclusions"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "All exclusions from the Regular mode will be deleted."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "All exclusions from the Selective mode will be deleted."
     },
     "options_exclusions_import_successful": {
         "message": "Imported exclusions: %count%"
