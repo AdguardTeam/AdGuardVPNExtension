@@ -48,11 +48,19 @@ body:
     validations:
       required: true
   - type: textarea
+    id: how_it_looks
+    attributes:
+      label: Actual Behavior
+      description:
+      placeholder: A clear and concise description of what happened.
+    validations:
+      required: false
+  - type: textarea
     id: how_it_should_be
     attributes:
       label: Expected Behavior
       description:
-      placeholder: A clear and concise description of what you expected to happen.
+      placeholder: A clear description of what you expected to happen.
     validations:
       required: false
   - type: textarea
