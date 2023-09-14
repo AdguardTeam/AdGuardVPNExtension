@@ -1,10 +1,12 @@
-export interface LocationWithPingParameters {
+import { LocationInterface } from '../schema';
+
+export interface LocationWithPingInterface {
     id: string;
     cityName: string;
     countryName: string;
     countryCode: string;
-    ping: number;
-    available: boolean;
+    ping?: number | null;
+    available?: boolean;
     premiumOnly: boolean;
     virtual: boolean;
 }
@@ -12,7 +14,7 @@ export interface LocationWithPingParameters {
 /**
  * Helper class used to extract minimal set of information for UI
  */
-export class LocationWithPing {
+export class LocationWithPing implements LocationWithPingInterface {
     id: string;
 
     cityName: string;
@@ -21,15 +23,15 @@ export class LocationWithPing {
 
     countryCode: string;
 
-    ping: number;
+    ping?: number | null;
 
-    available: boolean;
+    available?: boolean;
 
     premiumOnly: boolean;
 
     virtual: boolean;
 
-    constructor(location: LocationWithPingParameters) {
+    constructor(location: LocationInterface) {
         this.id = location.id;
         this.cityName = location.cityName;
         this.countryName = location.countryName;

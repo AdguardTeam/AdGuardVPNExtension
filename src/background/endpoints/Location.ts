@@ -1,27 +1,11 @@
-import { Endpoint, EndpointInterface } from './Endpoint';
+import { Endpoint } from './Endpoint';
+import type { EndpointInterface, LocationData, LocationInterface } from '../schema';
 
-export interface LocationData {
-    id: string;
-    countryName: string;
-    cityName: string;
-    countryCode: string;
-    endpoints: EndpointInterface[];
-    coordinates: [
-        longitude: number,
-        latitude: number,
-    ];
-    premiumOnly: boolean;
-    pingBonus: number;
-    virtual: boolean;
+export interface LocationWithPingInterface extends LocationData {
+    ping: number;
 }
 
-export interface LocationInterface extends LocationData {
-    available: boolean;
-    ping: number | null;
-    endpoint: EndpointInterface | null;
-}
-
-export class Location {
+export class Location implements LocationInterface {
     id: string;
 
     countryName: string;

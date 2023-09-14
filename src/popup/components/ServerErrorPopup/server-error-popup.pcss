@@ -1,0 +1,46 @@
+.server-error-modal {
+    padding-top: 38px;
+    text-align: center;
+
+    &--dialog {
+        height: 560px;
+        top: 20px;
+    }
+
+    &--thankyou {
+        height: 435px;
+        top: 70px;
+    }
+
+    &__image {
+        width: 100%;
+        margin-bottom: 15px;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        &--dialog {
+            height: 159px;
+            background-image: url(../../../../src/assets/images/server-error-ninja.svg);
+            background-size: 232px;
+        }
+
+        &--thankyou {
+            height: 195px;
+            background-image: url(../../../../src/assets/images/thankyou-ninja.svg);
+            background-size: 154px;
+        }
+    }
+
+    &__info {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 400;
+        padding: 0 15px;
+        margin-bottom: 30px;
+    }
+
+    &__button {
+        margin-bottom: 18px;
+        padding: 12px 20px;
+    }
+}

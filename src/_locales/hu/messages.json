@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Naplók exportálása"
     },
+    "context_menu_debug_level": {
+        "message": "Hibakeresési naplózás"
+    },
     "settings_dns_label": {
         "message": "DNS szerver"
     },
@@ -590,9 +593,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Engedélyezés itt"
     },
-    "popup_settings_disable_vpn": {
-        "message": "VPN letiltása ezen a webhelyen"
-    },
     "popup_settings_other_products": {
         "message": "További termékek"
     },
@@ -634,6 +634,9 @@
     },
     "popup_traffic_limit_reached": {
         "message": "Elérte a havi adatkorlátot"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Sebesség korlátozása"
     },
     "premium_upgrade": {
         "message": "Frissítés"
@@ -694,6 +697,24 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Ugrás a kiegészítők áruházába"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Valószínűleg a VPN blokkolva volt az Ön országában, vagy technikai hiba lépett fel. Már próbáljuk megjavítani"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Értesítse az AdGuard csapatát"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Mégsem"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Dolgozunk rajta"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Köszönjük, hogy tudatta velünk!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Bezárás"
     },
     "options_title": {
         "message": "AdGuard VPN Beállítások"
@@ -783,9 +804,8 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Folytatás az ingyenes verzióval"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> maradt ebben a hónapban",
-        "description": "Respect spaces between text, tags and placeholders"
+    "popup_hint_popup_button": {
+        "message": "Rendben"
     },
     "options_exclusions_import_select_title": {
         "message": "Hogyan kell használni a kizárások listáját?"

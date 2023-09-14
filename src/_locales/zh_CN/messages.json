@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "导出日志"
     },
+    "context_menu_debug_level": {
+        "message": "调试日志"
+    },
     "settings_dns_label": {
         "message": "DNS 服务器"
     },
@@ -446,6 +449,18 @@
     "settings_theme_light": {
         "message": "亮色主题"
     },
+    "settings_quick_connect_title": {
+        "message": "快速连接"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "当您点击「连接」后选择的 VPN 位置"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "最后连接的位置"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "最快的位置"
+    },
     "settings_exclusion_add": {
         "message": "添加"
     },
@@ -453,7 +468,7 @@
         "message": "添加网站"
     },
     "settings_exclusion_actions": {
-        "message": "活跃状态"
+        "message": "操作"
     },
     "settings_exclusion_add_subdomain": {
         "message": "添加子域名"
@@ -581,6 +596,9 @@
     "authentication_successful_notification": {
         "message": "验证成功！您可以开始使用 AdGuard VPN。"
     },
+    "control_error_title": {
+        "message": "扩展冲突"
+    },
     "control_error_description": {
         "message": "似乎是另外一个浏览器扩展正在控制您的连接。请禁用安装在您的浏览器里的其他扩展。"
     },
@@ -591,7 +609,10 @@
         "message": "在此网站上启用"
     },
     "popup_settings_disable_vpn": {
-        "message": "在此网站上禁用 VPN"
+        "message": "为此网站禁用 VPN"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "为此网站开启 VPN"
     },
     "popup_settings_other_products": {
         "message": "其它产品"
@@ -635,6 +656,9 @@
     "popup_traffic_limit_reached": {
         "message": "已达到每月流量限制"
     },
+    "popup_traffic_limited_speed": {
+        "message": "速度受限"
+    },
     "premium_upgrade": {
         "message": "升级"
     },
@@ -668,6 +692,9 @@
     "popup_feedback_button": {
         "message": "留下反馈"
     },
+    "popup_compare_button": {
+        "message": "为什么应用程序更好"
+    },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN 有多棒？"
     },
@@ -694,6 +721,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "转到插件商店"
+    },
+    "popup_server_error_popup_title": {
+        "message": "无法连接到服务器"
+    },
+    "popup_server_error_popup_info": {
+        "message": "VPN 在您所在的地区很可能受限，或者发生了技术故障。我们已经在尝试修复错误。"
+    },
+    "popup_server_error_popup_action": {
+        "message": "催 AdGuard 团队解决问题"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "取消"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "现在正在修复"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "感谢您让我们知道！"
+    },
+    "popup_server_error_popup_close": {
+        "message": "关闭"
     },
     "options_title": {
         "message": "AdGuard VPN 选项"
@@ -786,6 +834,20 @@
     "popup_free_traffic_info": {
         "message": "本月剩余<span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "剩余的免费流量：%value%%unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "流量将在今天更新 | 流量将在 %days% 天内更新",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "用户可以根据自己需求在此网站上禁用 VPN"
+    },
+    "popup_hint_popup_button": {
+        "message": "知道了"
     },
     "options_exclusions_import_select_title": {
         "message": "如何使用此排除项列表？"

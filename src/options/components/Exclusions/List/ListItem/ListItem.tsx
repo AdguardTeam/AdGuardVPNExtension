@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 
-import { ExclusionsTypes, ExclusionDtoInterface, ICON_FOR_DOMAIN } from '../../../../../common/exclusionsConstants';
+import { ExclusionsType, ExclusionDtoInterface, ICON_FOR_DOMAIN } from '../../../../../common/exclusionsConstants';
 import { StateCheckbox } from '../../StateCheckbox';
 import { rootStore } from '../../../../stores';
 import { SearchHighlighter } from '../../Search/SearchHighlighter';
@@ -46,7 +46,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
     });
 
     useEffect(() => {
-        if (icon.current && exclusion.type === ExclusionsTypes.Service && exclusion.iconUrl) {
+        if (icon.current && exclusion.type === ExclusionsType.Service && exclusion.iconUrl) {
             icon.current.onerror = () => {
                 if (icon.current) {
                     icon.current.src = './assets/images/ip-icon.svg';
@@ -55,7 +55,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
             icon.current.src = exclusion.iconUrl;
         }
 
-        if (exclusion.type === ExclusionsTypes.Group) {
+        if (exclusion.type === ExclusionsType.Group) {
             const preloadedIcon = new Image();
             preloadedIcon.src = `${ICON_FOR_DOMAIN}${exclusion.hostname}`;
             preloadedIcon.onload = () => {
@@ -75,7 +75,8 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                 state={exclusion.state}
                 toggleHandler={toggleState}
             />
-            <div
+            <button
+                type="button"
                 className={listIndexTitleClasses(exclusion.children.length > 0)}
                 onClick={followToChildren(exclusion)}
             >
@@ -92,7 +93,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                 <svg className="icon list-item__arrow">
                     <use xlinkHref="#arrow" />
                 </svg>
-            </div>
+            </button>
             <button
                 type="button"
                 className="list-item__remove-button"

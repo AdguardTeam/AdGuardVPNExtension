@@ -2,7 +2,7 @@
     "aliexpress": {
         "serviceId": "aliexpress",
         "serviceName": "Aliexpress",
-        "iconUrl": "https://icons.adguard.org/icon?domain=aliexpress.com",
+        "iconUrl": "https://test.example.com/icon?domain=aliexpress.com",
         "categories": [
             {
                 "id": "SHOP",
@@ -18,7 +18,7 @@
     "amazon": {
         "serviceId": "amazon",
         "serviceName": "Amazon",
-        "iconUrl": "https://icons.adguard.org/icon?domain=amazon.com",
+        "iconUrl": "https://test.example.com/icon?domain=amazon.com",
         "categories": [
             {
                 "id": "SHOP",
@@ -59,7 +59,7 @@
     "atlassian": {
         "serviceId": "atlassian",
         "serviceName": "Atlassian",
-        "iconUrl": "https://icons.adguard.org/icon?domain=atlassian.com",
+        "iconUrl": "https://test.example.com/icon?domain=atlassian.com",
         "categories": [
             {
                 "id": "WORK",
@@ -76,7 +76,7 @@
     "baidu": {
         "serviceId": "baidu",
         "serviceName": "Baidu",
-        "iconUrl": "https://icons.adguard.org/icon?domain=baidu.com",
+        "iconUrl": "https://test.example.com/icon?domain=baidu.com",
         "categories": [
             {
                 "id": "SEARCH",
@@ -101,7 +101,7 @@
     "bing": {
         "serviceId": "bing",
         "serviceName": "Bing",
-        "iconUrl": "https://icons.adguard.org/icon?domain=bing.com",
+        "iconUrl": "https://test.example.com/icon?domain=bing.com",
         "categories": [
             {
                 "id": "SEARCH",
@@ -125,7 +125,7 @@
     "craigslist": {
         "serviceId": "craigslist",
         "serviceName": "Craigslist",
-        "iconUrl": "https://icons.adguard.org/icon?domain=craigslist.com",
+        "iconUrl": "https://test.example.com/icon?domain=craigslist.com",
         "categories": [
             {
                 "id": "SHOP",
@@ -141,7 +141,7 @@
     "deezer": {
         "serviceId": "deezer",
         "serviceName": "Deezer",
-        "iconUrl": "https://icons.adguard.org/icon?domain=deezer.com",
+        "iconUrl": "https://test.example.com/icon?domain=deezer.com",
         "categories": [
             {
                 "id": "MUSIC",
@@ -157,7 +157,7 @@
     "discord": {
         "serviceId": "discord",
         "serviceName": "Discord",
-        "iconUrl": "https://icons.adguard.org/icon?domain=discord.com",
+        "iconUrl": "https://test.example.com/icon?domain=discord.com",
         "categories": [
             {
                 "id": "MESSENGERS",
@@ -177,7 +177,7 @@
     "disneyplus": {
         "serviceId": "disneyplus",
         "serviceName": "Disney Plus",
-        "iconUrl": "https://icons.adguard.org/icon?domain=disneyplus.com",
+        "iconUrl": "https://test.example.com/icon?domain=disneyplus.com",
         "categories": [
             {
                 "id": "VIDEO",
@@ -195,7 +195,7 @@
     "duckduckgo": {
         "serviceId": "duckduckgo",
         "serviceName": "DuckDuckGo",
-        "iconUrl": "https://icons.adguard.org/icon?domain=duckduckgo.com",
+        "iconUrl": "https://test.example.com/icon?domain=duckduckgo.com",
         "categories": [
             {
                 "id": "SEARCH",
@@ -210,7 +210,7 @@
     "ebay": {
         "serviceId": "ebay",
         "serviceName": "Ebay",
-        "iconUrl": "https://icons.adguard.org/icon?domain=ebay.com",
+        "iconUrl": "https://test.example.com/icon?domain=ebay.com",
         "categories": [
             {
                 "id": "SHOP",
@@ -240,7 +240,7 @@
     "epicgames": {
         "serviceId": "epicgames",
         "serviceName": "Epic Games",
-        "iconUrl": "https://icons.adguard.org/icon?domain=epicgames.com",
+        "iconUrl": "https://test.example.com/icon?domain=epicgames.com",
         "categories": [
             {
                 "id": "GAMES",
@@ -258,7 +258,7 @@
     "etsy": {
         "serviceId": "etsy",
         "serviceName": "Etsy",
-        "iconUrl": "https://icons.adguard.org/icon?domain=etsy.com",
+        "iconUrl": "https://test.example.com/icon?domain=etsy.com",
         "categories": [
             {
                 "id": "SHOP",
@@ -275,7 +275,7 @@
     "facebook": {
         "serviceId": "facebook",
         "serviceName": "Facebook",
-        "iconUrl": "https://icons.adguard.org/icon?domain=facebook.com",
+        "iconUrl": "https://test.example.com/icon?domain=facebook.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -302,7 +302,7 @@
     "flickr": {
         "serviceId": "flickr",
         "serviceName": "Flickr",
-        "iconUrl": "https://icons.adguard.org/icon?domain=flickr.com",
+        "iconUrl": "https://test.example.com/icon?domain=flickr.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -319,7 +319,7 @@
     "github": {
         "serviceId": "github",
         "serviceName": "GitHub",
-        "iconUrl": "https://icons.adguard.org/icon?domain=github.com",
+        "iconUrl": "https://test.example.com/icon?domain=github.com",
         "categories": [
             {
                 "id": "WORK",
@@ -339,7 +339,7 @@
     "gitlab": {
         "serviceId": "gitlab",
         "serviceName": "GitLab",
-        "iconUrl": "https://icons.adguard.org/icon?domain=gitlab.com",
+        "iconUrl": "https://test.example.com/icon?domain=gitlab.com",
         "categories": [
             {
                 "id": "WORK",
@@ -357,7 +357,7 @@
     "gog": {
         "serviceId": "gog",
         "serviceName": "GOG",
-        "iconUrl": "https://icons.adguard.org/icon?domain=gog.com",
+        "iconUrl": "https://test.example.com/icon?domain=gog.com",
         "categories": [
             {
                 "id": "GAMES",
@@ -375,7 +375,7 @@
     "google": {
         "serviceId": "google",
         "serviceName": "Google",
-        "iconUrl": "https://icons.adguard.org/icon?domain=google.com",
+        "iconUrl": "https://test.example.com/icon?domain=google.com",
         "categories": [
             {
                 "id": "SEARCH",
@@ -598,7 +598,7 @@
     "hbo": {
         "serviceId": "hbo",
         "serviceName": "HBO",
-        "iconUrl": "https://icons.adguard.org/icon?domain=hbo.com",
+        "iconUrl": "https://test.example.com/icon?domain=hbo.com",
         "categories": [
             {
                 "id": "VIDEO",
@@ -621,7 +621,7 @@
     "hulu": {
         "serviceId": "hulu",
         "serviceName": "Hulu",
-        "iconUrl": "https://icons.adguard.org/icon?domain=hulu.com",
+        "iconUrl": "https://test.example.com/icon?domain=hulu.com",
         "categories": [
             {
                 "id": "VIDEO",
@@ -641,7 +641,7 @@
     "instagram": {
         "serviceId": "instagram",
         "serviceName": "Instagram",
-        "iconUrl": "https://icons.adguard.org/icon?domain=instagram.com",
+        "iconUrl": "https://test.example.com/icon?domain=instagram.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -657,7 +657,7 @@
     "kakao": {
         "serviceId": "kakao",
         "serviceName": "Kakao Talk",
-        "iconUrl": "https://icons.adguard.org/icon?domain=kakao.com",
+        "iconUrl": "https://test.example.com/icon?domain=kakao.com",
         "categories": [
             {
                 "id": "MESSENGERS",
@@ -673,7 +673,7 @@
     "kik": {
         "serviceId": "kik",
         "serviceName": "Kik",
-        "iconUrl": "https://icons.adguard.org/icon?domain=kik.com",
+        "iconUrl": "https://test.example.com/icon?domain=kik.com",
         "categories": [
             {
                 "id": "MESSENGERS",
@@ -688,7 +688,7 @@
     "last": {
         "serviceId": "last",
         "serviceName": "Last.fm",
-        "iconUrl": "https://icons.adguard.org/icon?domain=last.fm",
+        "iconUrl": "https://test.example.com/icon?domain=last.fm",
         "categories": [
             {
                 "id": "MUSIC",
@@ -703,7 +703,7 @@
     "linkedin": {
         "serviceId": "linkedin",
         "serviceName": "LinkedIn",
-        "iconUrl": "https://icons.adguard.org/icon?domain=linkedin.com",
+        "iconUrl": "https://test.example.com/icon?domain=linkedin.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -721,7 +721,7 @@
     "messenger": {
         "serviceId": "messenger",
         "serviceName": "Facebook Messenger",
-        "iconUrl": "https://icons.adguard.org/icon?domain=messenger.com",
+        "iconUrl": "https://test.example.com/icon?domain=messenger.com",
         "categories": [
             {
                 "id": "MESSENGERS",
@@ -738,7 +738,7 @@
     "netflix": {
         "serviceId": "netflix",
         "serviceName": "Netflix",
-        "iconUrl": "https://icons.adguard.org/icon?domain=netflix.com",
+        "iconUrl": "https://test.example.com/icon?domain=netflix.com",
         "categories": [
             {
                 "id": "VIDEO",
@@ -759,7 +759,7 @@
     "office": {
         "serviceId": "office",
         "serviceName": "Microsoft Office",
-        "iconUrl": "https://icons.adguard.org/icon?domain=office.com",
+        "iconUrl": "https://test.example.com/icon?domain=office.com",
         "categories": [
             {
                 "id": "WORK",
@@ -791,7 +791,7 @@
     "origin": {
         "serviceId": "origin",
         "serviceName": "Origin",
-        "iconUrl": "https://icons.adguard.org/icon?domain=origin.com",
+        "iconUrl": "https://test.example.com/icon?domain=origin.com",
         "categories": [
             {
                 "id": "GAMES",
@@ -806,7 +806,7 @@
     "pandora": {
         "serviceId": "pandora",
         "serviceName": "Pandora",
-        "iconUrl": "https://icons.adguard.org/icon?domain=pandora.com",
+        "iconUrl": "https://test.example.com/icon?domain=pandora.com",
         "categories": [
             {
                 "id": "MUSIC",
@@ -823,7 +823,7 @@
     "pinterest": {
         "serviceId": "pinterest",
         "serviceName": "Pinterest",
-        "iconUrl": "https://icons.adguard.org/icon?domain=pinterest.com",
+        "iconUrl": "https://test.example.com/icon?domain=pinterest.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -853,7 +853,7 @@
     "playstation": {
         "serviceId": "playstation",
         "serviceName": "Playstation",
-        "iconUrl": "https://icons.adguard.org/icon?domain=playstation.com",
+        "iconUrl": "https://test.example.com/icon?domain=playstation.com",
         "categories": [
             {
                 "id": "GAMES",
@@ -870,7 +870,7 @@
     "reddit": {
         "serviceId": "reddit",
         "serviceName": "Reddit",
-        "iconUrl": "https://icons.adguard.org/icon?domain=reddit.com",
+        "iconUrl": "https://test.example.com/icon?domain=reddit.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -891,7 +891,7 @@
     "rockstargames": {
         "serviceId": "rockstargames",
         "serviceName": "Rockstar Games",
-        "iconUrl": "https://icons.adguard.org/icon?domain=rockstargames.com",
+        "iconUrl": "https://test.example.com/icon?domain=rockstargames.com",
         "categories": [
             {
                 "id": "GAMES",
@@ -906,7 +906,7 @@
     "signal": {
         "serviceId": "signal",
         "serviceName": "Signal",
-        "iconUrl": "https://icons.adguard.org/icon?domain=signal.org",
+        "iconUrl": "https://test.example.com/icon?domain=signal.org",
         "categories": [
             {
                 "id": "MESSENGERS",
@@ -922,7 +922,7 @@
     "skype": {
         "serviceId": "skype",
         "serviceName": "Skype",
-        "iconUrl": "https://icons.adguard.org/icon?domain=skype.com",
+        "iconUrl": "https://test.example.com/icon?domain=skype.com",
         "categories": [
             {
                 "id": "WORK",
@@ -942,7 +942,7 @@
     "slack": {
         "serviceId": "slack",
         "serviceName": "Slack",
-        "iconUrl": "https://icons.adguard.org/icon?domain=slack.com",
+        "iconUrl": "https://test.example.com/icon?domain=slack.com",
         "categories": [
             {
                 "id": "WORK",
@@ -964,7 +964,7 @@
     "snapchat": {
         "serviceId": "snapchat",
         "serviceName": "Snapchat",
-        "iconUrl": "https://icons.adguard.org/icon?domain=snapchat.com",
+        "iconUrl": "https://test.example.com/icon?domain=snapchat.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -990,7 +990,7 @@
     "soundcloud": {
         "serviceId": "soundcloud",
         "serviceName": "SoundCloud",
-        "iconUrl": "https://icons.adguard.org/icon?domain=soundcloud.com",
+        "iconUrl": "https://test.example.com/icon?domain=soundcloud.com",
         "categories": [
             {
                 "id": "MUSIC",
@@ -1006,7 +1006,7 @@
     "spotify": {
         "serviceId": "spotify",
         "serviceName": "Spotify",
-        "iconUrl": "https://icons.adguard.org/icon?domain=spotify.com",
+        "iconUrl": "https://test.example.com/icon?domain=spotify.com",
         "categories": [
             {
                 "id": "MUSIC",
@@ -1026,7 +1026,7 @@
     "steampowered": {
         "serviceId": "steampowered",
         "serviceName": "Steam",
-        "iconUrl": "https://icons.adguard.org/icon?domain=steampowered.com",
+        "iconUrl": "https://test.example.com/icon?domain=steampowered.com",
         "categories": [
             {
                 "id": "GAMES",
@@ -1046,7 +1046,7 @@
     "telegram": {
         "serviceId": "telegram",
         "serviceName": "Telegram",
-        "iconUrl": "https://icons.adguard.org/icon?domain=telegram.org",
+        "iconUrl": "https://test.example.com/icon?domain=telegram.org",
         "categories": [
             {
                 "id": "MESSENGERS",
@@ -1063,7 +1063,7 @@
     "tiktok": {
         "serviceId": "tiktok",
         "serviceName": "Tiktok",
-        "iconUrl": "https://icons.adguard.org/icon?domain=tiktok.com",
+        "iconUrl": "https://test.example.com/icon?domain=tiktok.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -1097,7 +1097,7 @@
     "tinder": {
         "serviceId": "tinder",
         "serviceName": "Tinder",
-        "iconUrl": "https://icons.adguard.org/icon?domain=tinder.com",
+        "iconUrl": "https://test.example.com/icon?domain=tinder.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -1114,7 +1114,7 @@
     "tumblr": {
         "serviceId": "tumblr",
         "serviceName": "Tumblr",
-        "iconUrl": "https://icons.adguard.org/icon?domain=tumblr.com",
+        "iconUrl": "https://test.example.com/icon?domain=tumblr.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -1129,7 +1129,7 @@
     "twitch": {
         "serviceId": "twitch",
         "serviceName": "Twitch",
-        "iconUrl": "https://icons.adguard.org/icon?domain=twitch.com",
+        "iconUrl": "https://test.example.com/icon?domain=twitch.com",
         "categories": [
             {
                 "id": "GAMES",
@@ -1150,7 +1150,7 @@
     "twitter": {
         "serviceId": "twitter",
         "serviceName": "Twitter",
-        "iconUrl": "https://icons.adguard.org/icon?domain=twitter.com",
+        "iconUrl": "https://test.example.com/icon?domain=twitter.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -1169,7 +1169,7 @@
     "ubisoft": {
         "serviceId": "ubisoft",
         "serviceName": "Ubisoft",
-        "iconUrl": "https://icons.adguard.org/icon?domain=ubisoft.com",
+        "iconUrl": "https://test.example.com/icon?domain=ubisoft.com",
         "categories": [
             {
                 "id": "GAMES",
@@ -1187,7 +1187,7 @@
     "vimeo": {
         "serviceId": "vimeo",
         "serviceName": "Vimeo",
-        "iconUrl": "https://icons.adguard.org/icon?domain=vimeo.com",
+        "iconUrl": "https://test.example.com/icon?domain=vimeo.com",
         "categories": [
             {
                 "id": "VIDEO",
@@ -1203,7 +1203,7 @@
     "vk": {
         "serviceId": "vk",
         "serviceName": "VK",
-        "iconUrl": "https://icons.adguard.org/icon?domain=vk.com",
+        "iconUrl": "https://test.example.com/icon?domain=vk.com",
         "categories": [
             {
                 "id": "SOCIAL_NETWORKS",
@@ -1221,7 +1221,7 @@
     "wechat": {
         "serviceId": "wechat",
         "serviceName": "WeChat",
-        "iconUrl": "https://icons.adguard.org/icon?domain=wechat.com",
+        "iconUrl": "https://test.example.com/icon?domain=wechat.com",
         "categories": [
             {
                 "id": "MESSENGERS",
@@ -1236,7 +1236,7 @@
     "whatsapp": {
         "serviceId": "whatsapp",
         "serviceName": "WhatsApp",
-        "iconUrl": "https://icons.adguard.org/icon?domain=whatsapp.com",
+        "iconUrl": "https://test.example.com/icon?domain=whatsapp.com",
         "categories": [
             {
                 "id": "MESSENGERS",
@@ -1252,7 +1252,7 @@
     "xbox": {
         "serviceId": "xbox",
         "serviceName": "Xbox",
-        "iconUrl": "https://icons.adguard.org/icon?domain=xbox.com",
+        "iconUrl": "https://test.example.com/icon?domain=xbox.com",
         "categories": [
             {
                 "id": "GAMES",
@@ -1272,7 +1272,7 @@
     "yahoo": {
         "serviceId": "yahoo",
         "serviceName": "Yahoo",
-        "iconUrl": "https://icons.adguard.org/icon?domain=yahoo.com",
+        "iconUrl": "https://test.example.com/icon?domain=yahoo.com",
         "categories": [
             {
                 "id": "SEARCH",
@@ -1310,7 +1310,7 @@
     "yandex": {
         "serviceId": "yandex",
         "serviceName": "Yandex",
-        "iconUrl": "https://icons.adguard.org/icon?domain=yandex.com",
+        "iconUrl": "https://test.example.com/icon?domain=yandex.com",
         "categories": [
             {
                 "id": "SEARCH",
@@ -1331,7 +1331,7 @@
     "youtube": {
         "serviceId": "youtube",
         "serviceName": "YouTube",
-        "iconUrl": "https://icons.adguard.org/icon?domain=youtube.com",
+        "iconUrl": "https://test.example.com/icon?domain=youtube.com",
         "categories": [
             {
                 "id": "VIDEO",
@@ -1351,7 +1351,7 @@
     "zoom": {
         "serviceId": "zoom",
         "serviceName": "Zoom",
-        "iconUrl": "https://icons.adguard.org/icon?domain=zoom.com",
+        "iconUrl": "https://test.example.com/icon?domain=zoom.com",
         "categories": [
             {
                 "id": "WORK",

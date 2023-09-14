@@ -309,7 +309,7 @@
         "message": "Назад"
     },
     "settings_rate_us": {
-        "message": "Оценить приложение"
+        "message": "Как вам AdGuard VPN?"
     },
     "settings_webrtc_label": {
         "message": "Блокировать WebRTC"
@@ -334,6 +334,9 @@
     },
     "context_menu_export_logs": {
         "message": "Экспортировать логи"
+    },
+    "context_menu_debug_level": {
+        "message": "Подробное логирование"
     },
     "settings_dns_label": {
         "message": "DNS-сервер"
@@ -446,11 +449,23 @@
     "settings_theme_light": {
         "message": "Светлая"
     },
+    "settings_quick_connect_title": {
+        "message": "Локация по кнопке «Подключить»"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "К чему подключаться автоматически?"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Последняя использованная"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Самая быстрая"
+    },
     "settings_exclusion_add": {
         "message": "Добавить"
     },
     "settings_exclusion_add_website": {
-        "message": "Добавить сайт"
+        "message": "Добавить веб-сайт"
     },
     "settings_exclusion_actions": {
         "message": "Действия"
@@ -489,7 +504,7 @@
         "message": "Вручную"
     },
     "settings_exclusion_add_manually_add": {
-        "message": "Добавить вручную"
+        "message": "Добавить"
     },
     "settings_exclusions_add_invalid_domain": {
         "message": "«%url%» — некорректный домен. Вы хотите добавить его в список?"
@@ -581,6 +596,9 @@
     "authentication_successful_notification": {
         "message": "Вы вошли в аккаунт. Можно начинать пользоваться AdGuard VPN."
     },
+    "control_error_title": {
+        "message": "Конфликт расширений"
+    },
     "control_error_description": {
         "message": "Похоже, что ещё одно расширение пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в браузере."
     },
@@ -592,6 +610,9 @@
     },
     "popup_settings_disable_vpn": {
         "message": "Не использовать VPN на этом сайте"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Включить VPN на этом сайте"
     },
     "popup_settings_other_products": {
         "message": "Другие продукты"
@@ -630,10 +651,13 @@
         "message": "Поиск локации"
     },
     "endpoints_not_found": {
-        "message": "Локация не найдена"
+        "message": "Ничего не нашлось"
     },
     "popup_traffic_limit_reached": {
         "message": "Лимит трафика в этом месяце исчерпан"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Ограниченная скорость"
     },
     "premium_upgrade": {
         "message": "Улучшить"
@@ -668,6 +692,9 @@
     "popup_feedback_button": {
         "message": "Оставить отзыв"
     },
+    "popup_compare_button": {
+        "message": "Почему с приложением удобнее"
+    },
     "popup_rate_modal_title": {
         "message": "Как вам AdGuard VPN?"
     },
@@ -694,6 +721,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Перейти в магазин"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Не удаётся подключиться к серверу"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Скорее всего, VPN был заблокирован в вашей стране или произошёл технический сбой. Уже работаем над этим"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Поторопить"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Отмена"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Торопимся"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Спасибо, что сообщили!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Закрыть"
     },
     "options_title": {
         "message": "Опции AdGuard VPN"
@@ -736,10 +784,10 @@
         "message": "Благодаря протоколу AdGuard VPN работает быстро, а трафик трудно отследить"
     },
     "popup_onboarding_sites_apps_exclusions": {
-        "message": "Исключения сайтов и приложений"
+        "message": "Исключения сайтов и приложений"
     },
     "popup_onboarding_sites_apps_exclusions_info": {
-        "message": "С исключениями можно легко указать сайты или приложения, с которыми AdGuard VPN будет работать"
+        "message": "С Исключениями легко настроить, где AdGuard VPN будет работать, а где нет"
     },
     "popup_onboarding_no_logging_policy": {
         "message": "Не собираем данные"
@@ -784,8 +832,22 @@
         "message": "Продолжить бесплатно"
     },
     "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> осталось в этом месяце",
+        "message": "<span>%value% %unit%</span> осталось в этом месяце",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "Осталось %value% %unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Трафик обновится сегодня | Трафик обновится через %days% день | Трафик обновится через %days% дня | Трафик обновится через %count% дней",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "VPN можно отключить для конкретного сайта — на остальных он продолжит работать"
+    },
+    "popup_hint_popup_button": {
+        "message": "Хорошо"
     },
     "options_exclusions_import_select_title": {
         "message": "Как использовать этот список исключений?"

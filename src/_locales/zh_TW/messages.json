@@ -228,7 +228,7 @@
         "message": "官方的網站"
     },
     "eula": {
-        "message": "終端用戶授權協定"
+        "message": "終端使用者授權合約"
     },
     "privacy_policy": {
         "message": "隱私政策"
@@ -334,6 +334,9 @@
     },
     "context_menu_export_logs": {
         "message": "匯出記錄"
+    },
+    "context_menu_debug_level": {
+        "message": "偵錯記錄"
     },
     "settings_dns_label": {
         "message": "DNS 伺服器"
@@ -445,6 +448,18 @@
     },
     "settings_theme_light": {
         "message": "淺色"
+    },
+    "settings_quick_connect_title": {
+        "message": "快速連線"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "當您點擊「連線」後選擇的 VPN 位置"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "最後連線的位置"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "最快的位置"
     },
     "settings_exclusion_add": {
         "message": "新增"
@@ -581,6 +596,9 @@
     "authentication_successful_notification": {
         "message": "驗證成功！您可開啟 AdGuard VPN 並開始使用它。"
     },
+    "control_error_title": {
+        "message": "延伸功能衝突"
+    },
     "control_error_description": {
         "message": "看似另一款瀏覽器擴充功能正在嘗試控制您的連線。請在您的瀏覽器中禁用其它的擴充功能。"
     },
@@ -591,7 +609,10 @@
         "message": "對此網站啟用"
     },
     "popup_settings_disable_vpn": {
-        "message": "對此網站禁用 VPN"
+        "message": "為此網站禁用 VPN"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "為此網站啟用 VPN"
     },
     "popup_settings_other_products": {
         "message": "其它的產品"
@@ -630,10 +651,13 @@
         "message": "搜尋位置"
     },
     "endpoints_not_found": {
-        "message": "位置未被找到"
+        "message": "找不到位置"
     },
     "popup_traffic_limit_reached": {
         "message": "已達到每月的流量限制"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "有限速"
     },
     "premium_upgrade": {
         "message": "升級"
@@ -668,6 +692,9 @@
     "popup_feedback_button": {
         "message": "留下回饋意見"
     },
+    "popup_compare_button": {
+        "message": "為什麼應用程式更好"
+    },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN 有多棒？"
     },
@@ -695,6 +722,27 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "前往擴充功能商店"
     },
+    "popup_server_error_popup_title": {
+        "message": "無法連線到伺服器"
+    },
+    "popup_server_error_popup_info": {
+        "message": "VPN 在您所在的地區很可能受限，或者發生了技術性故障。我們已經在嘗試修復錯誤。"
+    },
+    "popup_server_error_popup_action": {
+        "message": "催 AdGuard 團隊解決問題"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "取消"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "現在正在修復"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "感謝您讓我們知道！"
+    },
+    "popup_server_error_popup_close": {
+        "message": "關閉"
+    },
     "options_title": {
         "message": "AdGuard VPN 選項"
     },
@@ -708,7 +756,7 @@
         "message": "對此網站，VPN 被禁用"
     },
     "popup_auth_policy_agreement": {
-        "message": "我已閱讀並同意 AdGuard 的<eula>終端用戶授權協定</eula>及<privacy>隱私政策</privacy>",
+        "message": "我已閱讀並同意 AdGuard 的<eula>終端使用者授權合約</eula>及<privacy>隱私政策</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
@@ -786,6 +834,20 @@
     "popup_free_traffic_info": {
         "message": "本月剩餘 <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "剩餘數據流量：%value%%unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "流量今日更新 | 流量在 %days% 天後更新",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "如果需要，使用者可以在此網站上禁用 VPN"
+    },
+    "popup_hint_popup_button": {
+        "message": "知道了"
     },
     "options_exclusions_import_select_title": {
         "message": "如何使用例外清單？"

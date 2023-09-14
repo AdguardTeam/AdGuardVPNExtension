@@ -1,10 +1,20 @@
-import permissionsChecker from '../../../src/background/permissionsChecker';
+import { permissionsChecker } from '../../../src/background/permissionsChecker';
 import { notifier } from '../../../src/lib/notifier';
 import { SubscriptionType } from '../../../src/lib/constants';
+
 import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
 } from '../../../src/background/permissionsChecker/PermissionsChecker';
+import { session } from '../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { stateStorage } from '../../../src/background/stateStorage/mv2';
+import { credentials } from '../../../src/background/credentials';
+
+jest.mock('../../../src/background/stateStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
 const TEST_PERIOD_SEC = 60 * 60 * 5; // 5 hours
 
@@ -38,7 +48,32 @@ const VPN_TOKEN_DATA = {
 
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/settings');
-jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
+jest.mock('../../../src/background/connectivity/connectivityService');
+
+jest.mock('../../../src/background/browserApi', () => {
+    // eslint-disable-next-line global-require
+    return require('../../__mocks__/browserApiMock');
+});
+
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
+
+// testing timers for MV2
+// TODO: change timers implementation on official switch to MV3 and find out how to move time for Alarm API
+jest.mock('../../../src/background/timers', () => {
+    return {
+        timers: {
+            setTimeout: (callback: () => void, timeout: number) => setTimeout(callback, timeout),
+            clearTimeout: (timerId: number): void => clearTimeout(timerId),
+            setInterval: (callback: () => void, interval: number) => setInterval(callback, interval),
+            clearInterval: (intervalId: number): void => clearInterval(intervalId),
+        },
+    };
+});
 
 jest.spyOn(permissionsChecker, 'startChecker');
 jest.spyOn(permissionsChecker, 'checkPermissions');
@@ -50,12 +85,17 @@ jest.spyOn(permissionsChecker.credentials, 'gainValidVpnToken').mockResolvedValu
 jest.useFakeTimers();
 
 describe('PermissionsChecker tests', () => {
+    beforeEach(async () => {
+        await stateStorage.init();
+    });
+
     afterEach(() => {
         jest.clearAllTimers();
         jest.clearAllMocks();
     });
 
     it('Check permissions every 24 hours', () => {
+        credentials.init();
         permissionsChecker.credentials.vpnCredentials = getCredentialsData(99999999);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
@@ -84,6 +124,7 @@ describe('PermissionsChecker tests', () => {
     });
 
     it('Check permissions in half an hour before credentials expired', () => {
+        credentials.init();
         permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_SEC);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
@@ -95,6 +136,7 @@ describe('PermissionsChecker tests', () => {
     });
 
     it('Check permissions in half an hour before ACTUAL credentials expired', () => {
+        credentials.init();
         permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_SEC);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);

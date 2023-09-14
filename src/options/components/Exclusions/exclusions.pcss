@@ -3,14 +3,18 @@
         position: relative;
 
         &--info {
-            max-width: 400px;
+            max-width: 430px;
         }
 
         &--link {
             color: var(--green700);
             font-weight: bold;
+            font-size: 1.6rem;
             text-decoration: underline;
             cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
 
             &:hover {
                 filter: brightness(.8);
@@ -140,11 +144,15 @@
         padding-right: 15px;
 
         &--dns-server {
+            width: 100%;
             cursor: pointer;
+            border: none;
             padding: 16px;
             margin: -12px 0 0 -16px;
+            background: none;
             transition: var(--t3) background-color;
             border-radius: 8px;
+            text-align: left;
 
             &:hover {
                 background-color: var(--grayF3);
@@ -164,16 +172,23 @@
         color: var(--gray-base);
     }
 
+    &__item-subtitle {
+        margin: 5px 20px 0 0;
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+        color: var(--gray88);
+    }
+
     &__item-content {
         max-width: 420px;
     }
 
     &__item-desc {
-        margin: 5px 20px 0 0;
+        display: flex;
+        margin-top: 4px;
         font-size: 1.4rem;
         line-height: 1.6rem;
         color: var(--gray88);
-        max-width: 450px;
         overflow: hidden;
         text-overflow: ellipsis;
     }

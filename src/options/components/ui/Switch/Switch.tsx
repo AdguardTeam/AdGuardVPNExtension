@@ -7,7 +7,7 @@ interface SwitchProps {
     title: string | React.ReactNode;
     desc?: string | React.ReactNode;
     checked: boolean;
-    handleToggle: any;
+    handleToggle: () => void;
 }
 
 export const Switch = ({
@@ -32,7 +32,8 @@ export const Switch = ({
                     </div>
                 )}
             </div>
-            <div
+            <button
+                type="button"
                 className={togglerClass}
                 onClick={handleToggle}
             />

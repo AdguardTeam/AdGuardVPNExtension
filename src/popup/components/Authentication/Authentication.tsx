@@ -5,9 +5,10 @@ import { rootStore } from '../../stores';
 import { SignInForm } from './SignInForm';
 import { Authorization } from './Authorization';
 import { RegistrationForm } from './RegistrationForm';
-import TwoFactorForm from './TwoFactorForm';
+import { TwoFactorForm } from './TwoFactorForm';
 import { BackButton } from './BackButton';
 import { PolicyAgreement } from './PolicyAgreement';
+import { ScreenShot } from './ScreenShot';
 
 import './auth.pcss';
 
@@ -29,6 +30,9 @@ export const Authentication = observer(() => {
         switch (step) {
             case authStore.STEPS.REGISTRATION: {
                 return <RegistrationForm />;
+            }
+            case authStore.STEPS.SCREENSHOT: {
+                return <ScreenShot />;
             }
             case authStore.STEPS.TWO_FACTOR: {
                 return <TwoFactorForm />;

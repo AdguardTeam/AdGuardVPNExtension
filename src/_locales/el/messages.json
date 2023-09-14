@@ -291,7 +291,7 @@
         "message": "Φωτεινό"
     },
     "settings_exclusion_add_website": {
-        "message": "Προσθήκη ενός ιστότοπου"
+        "message": "Προσθήκη ιστοσελίδας"
     },
     "settings_exclusion_actions": {
         "message": "Ενέργειες"
@@ -350,9 +350,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Ενεργοποίηση"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Απενεργοποίηση VPN σε αυτόν τον ιστότοπο"
-    },
     "popup_settings_other_products": {
         "message": "Άλλα προϊόντα"
     },
@@ -361,9 +358,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Ρυθμίσεις"
-    },
-    "popup_settings_sign_out": {
-        "message": "Αποσύνδεση"
     },
     "context_menu_enable_vpn": {
         "message": "Ενεργοποίηση VPN σε αυτόν τον ιστότοπο"
@@ -385,9 +379,6 @@
     },
     "endpoints_search": {
         "message": "Αναζήτηση τοποθεσίας"
-    },
-    "endpoints_not_found": {
-        "message": "Ο διακομιστής δεν βρέθηκε"
     },
     "premium_upgrade": {
         "message": "Αναβάθμιση"
@@ -437,6 +428,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Αφήστε τα σχόλιά σας"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Ακύρωση"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Κλείσιμο"
+    },
     "options_title": {
         "message": "Επιλογές AdGuard VPN"
     },
@@ -481,10 +478,6 @@
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Αναβάθμιση"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value%%unit%</span> απομένουν αυτόν τον μήνα",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Ακύρωση"
@@ -547,6 +540,6 @@
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

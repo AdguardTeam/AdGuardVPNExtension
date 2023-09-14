@@ -7,13 +7,15 @@ import {
 } from 'mobx';
 import isNil from 'lodash/isNil';
 
-import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 import { messenger } from '../../lib/messenger';
 import { SETTINGS_IDS, FLAGS_FIELDS, SocialAuthProvider } from '../../lib/constants';
 import { translator } from '../../common/translator';
+import type { RootStore } from './RootStore';
 
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
+    SCREENSHOT: 'screenshot',
     AUTHORIZATION: 'authorization',
     CHECK_EMAIL: 'checkEmail',
     SIGN_IN: 'signIn',
@@ -21,7 +23,7 @@ const AUTH_STEPS = {
     TWO_FACTOR: 'twoFactor',
 };
 
-enum CredentialsKeys {
+enum CredentialsKey {
     Username = 'username',
     Password = 'password',
     ConfirmPassword = 'confirmPassword',
@@ -30,20 +32,20 @@ enum CredentialsKeys {
 }
 
 interface CredentialsInterface {
-    [CredentialsKeys.Username]: string;
-    [CredentialsKeys.Password]: string;
-    [CredentialsKeys.ConfirmPassword]: string;
-    [CredentialsKeys.TwoFactor]: string;
-    [CredentialsKeys.MarketingConsent]: boolean | string;
+    [CredentialsKey.Username]: string;
+    [CredentialsKey.Password]: string;
+    [CredentialsKey.ConfirmPassword]: string;
+    [CredentialsKey.TwoFactor]: string;
+    [CredentialsKey.MarketingConsent]: boolean | string;
 }
 
 const DEFAULTS = {
     credentials: {
-        [CredentialsKeys.Username]: '',
-        [CredentialsKeys.Password]: '',
-        [CredentialsKeys.ConfirmPassword]: '',
-        [CredentialsKeys.TwoFactor]: '',
-        [CredentialsKeys.MarketingConsent]: '',
+        [CredentialsKey.Username]: '',
+        [CredentialsKey.Password]: '',
+        [CredentialsKey.ConfirmPassword]: '',
+        [CredentialsKey.TwoFactor]: '',
+        [CredentialsKey.MarketingConsent]: '',
     },
     authenticated: false,
     need2fa: false,
@@ -75,7 +77,7 @@ export class AuthStore {
 
     @observable helpUsImprove = DEFAULTS.helpUsImprove;
 
-    @observable requestProcessState = REQUEST_STATUSES.DONE;
+    @observable requestProcessState = RequestStatus.Done;
 
     @observable signInCheck = DEFAULTS.signInCheck;
 
@@ -101,11 +103,15 @@ export class AuthStore {
 
     @observable userEmail = '';
 
+    @observable showHintPopup = false;
+
+    @observable showScreenshotFlow = false;
+
     STEPS = AUTH_STEPS;
 
-    rootStore: any;
+    rootStore: RootStore;
 
-    constructor(rootStore: any) {
+    constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 
@@ -124,10 +130,10 @@ export class AuthStore {
 
     @action onCredentialsChange = async (field: string, value: string) => {
         await this.resetError();
-        const key = <CredentialsKeys>field;
+        const key = <CredentialsKey>field;
 
         runInAction(() => {
-            this.credentials[key as keyof CredentialsInterface] = value;
+            this.credentials[key] = value;
         });
         await messenger.updateAuthCache(field, value);
     };
@@ -235,12 +241,12 @@ export class AuthStore {
     }
 
     @action authenticate = async () => {
-        this.requestProcessState = REQUEST_STATUSES.PENDING;
+        this.requestProcessState = RequestStatus.Pending;
         const response = await messenger.authenticateUser(toJS(this.credentials));
 
         if (response.error) {
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.ERROR;
+                this.requestProcessState = RequestStatus.Error;
             });
             await this.setError(response.error);
             return;
@@ -251,7 +257,7 @@ export class AuthStore {
             await messenger.checkPermissions();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.DONE;
+                this.requestProcessState = RequestStatus.Done;
                 this.authenticated = true;
                 this.need2fa = false;
                 this.credentials = DEFAULTS.credentials;
@@ -261,7 +267,7 @@ export class AuthStore {
 
         if (response.status === '2fa_required') {
             runInAction(async () => {
-                this.requestProcessState = REQUEST_STATUSES.DONE;
+                this.requestProcessState = RequestStatus.Done;
                 this.need2fa = true;
                 await this.switchStep(this.STEPS.TWO_FACTOR);
             });
@@ -269,13 +275,13 @@ export class AuthStore {
     };
 
     @action checkEmail = async () => {
-        this.requestProcessState = REQUEST_STATUSES.PENDING;
+        this.requestProcessState = RequestStatus.Pending;
 
         const response = await messenger.checkEmail(this.credentials.username);
 
         if (response.error) {
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.ERROR;
+                this.requestProcessState = RequestStatus.Error;
             });
             await this.setError(response.error);
             return;
@@ -288,7 +294,7 @@ export class AuthStore {
         }
 
         runInAction(() => {
-            this.requestProcessState = REQUEST_STATUSES.DONE;
+            this.requestProcessState = RequestStatus.Done;
         });
     };
 
@@ -297,11 +303,11 @@ export class AuthStore {
             await this.setError(translator.getMessage('registration_error_confirm_password'));
             return;
         }
-        this.requestProcessState = REQUEST_STATUSES.PENDING;
+        this.requestProcessState = RequestStatus.Pending;
         const response = await messenger.registerUser(toJS(this.credentials));
         if (response.error) {
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.ERROR;
+                this.requestProcessState = RequestStatus.Error;
                 this.field = response.field;
                 if (response.field === 'username') {
                     this.switchStep(this.STEPS.CHECK_EMAIL, false);
@@ -315,7 +321,7 @@ export class AuthStore {
             await messenger.clearAuthCache();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.DONE;
+                this.requestProcessState = RequestStatus.Done;
                 this.authenticated = true;
                 this.credentials = DEFAULTS.credentials;
             });
@@ -323,7 +329,7 @@ export class AuthStore {
     };
 
     @action isAuthenticated = async () => {
-        this.requestProcessState = REQUEST_STATUSES.PENDING;
+        this.requestProcessState = RequestStatus.Pending;
         const result = await messenger.isAuthenticated();
         if (result) {
             runInAction(() => {
@@ -331,12 +337,16 @@ export class AuthStore {
             });
         }
         runInAction(() => {
-            this.requestProcessState = REQUEST_STATUSES.DONE;
+            this.requestProcessState = RequestStatus.Done;
         });
     };
 
     @action setIsAuthenticated = (value: boolean) => {
         this.authenticated = value;
+    };
+
+    @action setShowScreenshotFlow = (value: boolean) => {
+        this.showScreenshotFlow = value;
     };
 
     @action deauthenticate = async () => {
@@ -362,6 +372,15 @@ export class AuthStore {
     };
 
     @action showAuthorizationScreen = async () => {
+        await this.switchStep(this.STEPS.AUTHORIZATION);
+    };
+
+    @action showScreenShotScreen = async () => {
+        await this.switchStep(this.STEPS.SCREENSHOT);
+    };
+
+    @action handleScreenshotClick = async () => {
+        // TODO: collect statistic
         await this.switchStep(this.STEPS.AUTHORIZATION);
     };
 
@@ -415,6 +434,12 @@ export class AuthStore {
     @action onPolicyAgreementReceived = async () => {
         await messenger.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, this.policyAgreement);
         await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
+
+        if (this.showScreenshotFlow) {
+            await this.showScreenShotScreen();
+            return;
+        }
+
         await this.showAuthorizationScreen();
     };
 
@@ -483,5 +508,29 @@ export class AuthStore {
 
     @action resendConfirmRegistrationLink = async () => {
         await messenger.resendConfirmRegistrationLink(true);
+    };
+
+    @computed
+    get shouldShowHintPopup() {
+        // Here we exclude the possibility of a modal window overlapping the hint.
+        // TODO: It should be done with correct z-index (AG-24339)
+        return this.showHintPopup
+            && !this.showRateModal
+            && !this.showConfirmRateModal
+            && !this.showConfirmEmailModal
+            && !this.rootStore.settingsStore.showServerErrorPopup
+            && !this.rootStore.settingsStore.showNotificationModal
+            && !this.rootStore.vpnStore.tooManyDevicesConnected;
+    }
+
+    @action setShowHintPopup = (value: boolean) => {
+        this.showHintPopup = value;
+    };
+
+    @action closeHintPopup = async () => {
+        await messenger.setHintPopupViewed();
+        runInAction(() => {
+            this.showHintPopup = false;
+        });
     };
 }

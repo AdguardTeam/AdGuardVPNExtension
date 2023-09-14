@@ -15,7 +15,7 @@ environment-permissions:
         permissions:
           - view
           - deploy
-  - static.adguardvpn.com:
+  - static.adtidy.net:
       - groups:
           - extensions-developers
         permissions:

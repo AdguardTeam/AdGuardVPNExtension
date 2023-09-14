@@ -1,3 +1,7 @@
+// TODO: use internal axios fetch adapter after they release it instead of @vespaiach/axios-fetch-adapter
+// https://github.com/axios/axios/pull/5146
+import fetchAdapter from '@vespaiach/axios-fetch-adapter';
+
 export const SETTINGS_IDS = {
     PROXY_ENABLED: 'proxy.enabled',
     RATE_SHOW: 'rate.show',
@@ -14,17 +18,26 @@ export const SETTINGS_IDS = {
     HELP_US_IMPROVE: 'help.us.improve',
     APPEARANCE_THEME: 'appearance.theme',
     CUSTOM_DNS_SERVERS: 'custom.dns.servers',
+    QUICK_CONNECT: 'quick.connect',
+    DEBUG_MODE_ENABLED: 'debug.mode.enabled',
 };
 
-export const APPEARANCE_THEMES = {
-    SYSTEM: 'SYSTEM',
-    DARK: 'DARK',
-    LIGHT: 'LIGHT',
-};
+export const enum AppearanceTheme {
+    System = 'System',
+    Dark = 'Dark',
+    Light = 'Light',
+}
+
+export const enum QuickConnectSetting {
+    LastUsedLocation = 'lastUsedLocation',
+    FastestLocation = 'fastestLocation',
+}
+
+export const QUICK_CONNECT_SETTING_DEFAULT = QuickConnectSetting.LastUsedLocation;
 
 export const THEME_URL_PARAMETER = 'theme';
 
-export const APPEARANCE_THEME_DEFAULT = APPEARANCE_THEMES.SYSTEM;
+export const APPEARANCE_THEME_DEFAULT = AppearanceTheme.System;
 
 export enum MessageType {
     ADD_EVENT_LISTENER = 'add.event.listener',
@@ -81,19 +94,22 @@ export enum MessageType {
     GET_GENERAL_EXCLUSIONS = 'get.general.exclusions',
     GET_SELECTIVE_EXCLUSIONS = 'get.selective.exclusions',
     OPEN_FREE_GBS_PAGE = 'open.free.gbs.page',
-    GET_REFERRAL_DATA = 'get.referral.data',
     GET_BONUSES_DATA = 'get.bonuses.data',
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     SET_RATE_MODAL_VIEWED = 'set.rate.modal.viewed',
+    HANDLE_CUSTOM_DNS_LINK = 'handle.custom.dns.link',
     ADD_CUSTOM_DNS_SERVER = 'add.custom.dns.server',
     EDIT_CUSTOM_DNS_SERVER = 'edit.custom.dns.server',
     REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
     RESEND_CONFIRM_REGISTRATION_LINK = 'resend.confirm.registration.link',
     RESTORE_CUSTOM_DNS_SERVERS_DATA = 'restore.custom.dns.servers.data',
+    SET_HINT_POPUP_VIEWED = 'set.hint.popup.viewed',
 
     GET_LOGS = 'get.logs',
     GET_APP_VERSION = 'get.app.version',
+
+    UPDATE_LISTENERS = 'update.listeners',
 }
 
 export const ERROR_STATUSES = {
@@ -121,7 +137,7 @@ export const FLAGS_FIELDS = {
 
 export const FREE_GBS_ANCHOR = 'free-gbs';
 
-export enum AnimationState {
+export const enum AnimationState {
     // Initial state
     VpnDisabledIdle = 'vpnDisabledIdle',
     VpnEnabled = 'vpnEnabled',
@@ -132,18 +148,29 @@ export enum AnimationState {
     VpnSwitchingLocation = 'vpnSwitchingLocation',
 }
 
-export enum AnimationEvent {
+export const enum AnimationEvent {
     VpnConnected = 'vpnConnected',
     VpnDisconnected = 'vpnDisconnected',
     AnimationEnded = 'animationEnded',
     LocationSelected = 'locationSelected',
     VpnDisconnectedRetrying = 'vpnDisconnectedRetrying',
+    ExclusionScreenDisplayed = 'exclusionScreenDisplayed',
 }
 
 const MOTION_FOLDER_PATH = '../../../assets/motion/';
 
-export const animationSourcesMap = {
-    [APPEARANCE_THEMES.LIGHT]: {
+type AnimationSourcesMap = {
+    [key: string]: {
+        [key: string]: string;
+    }
+};
+
+export type ExclusionsContentMap = {
+    [key: string]: string[];
+};
+
+export const animationSourcesMap: AnimationSourcesMap = {
+    [AppearanceTheme.Light]: {
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-light.webm`,
         // Added this state for the case when switching location
         [AnimationState.VpnSwitchingLocation]: '',
@@ -152,7 +179,7 @@ export const animationSourcesMap = {
         [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
         [AnimationState.VpnDisconnecting]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
     },
-    [APPEARANCE_THEMES.DARK]: {
+    [AppearanceTheme.Dark]: {
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-dark.webm`,
         // Added this state for the case when switching location
         [AnimationState.VpnSwitchingLocation]: '',
@@ -168,3 +195,7 @@ export enum SubscriptionType {
     Yearly = 'YEARLY',
     TwoYears = 'TWO_YEARS',
 }
+
+export const fetchConfig = {
+    adapter: fetchAdapter,
+};

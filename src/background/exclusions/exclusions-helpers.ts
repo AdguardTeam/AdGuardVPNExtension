@@ -1,11 +1,10 @@
 import { nanoid } from 'nanoid';
 import { isIP } from 'is-ip';
 
-import { ExclusionInterface } from './exclusions/exclusionsTypes';
 import { getETld, getSubdomain, isWildcard } from '../../common/url-utils';
 import { log } from '../../lib/logger';
 import { ExclusionState } from '../../common/exclusionsConstants';
-import { ServicesInterface } from '../providers/vpnProvider';
+import type { ServicesInterface, ExclusionInterface } from '../schema';
 
 interface ExclusionGroup {
     [key: string]: ExclusionInterface;
@@ -13,6 +12,10 @@ interface ExclusionGroup {
 
 interface IndexedExclusionsMap {
     [key: string]: ExclusionGroup;
+}
+
+interface ServicesIndex {
+    [domain: string]: string;
 }
 
 const generateExclusions = (exclusion: ExclusionInterface): ExclusionInterface[] => {
@@ -77,7 +80,7 @@ const complementExclusionsGroup = (
  * if founds subdomain exclusion, adds disabled wildcard and eTLD exclusions
  */
 export const complementExclusions = (exclusions: ExclusionInterface[]) => {
-    const complementedExclusions = exclusions.reduce((acc, exclusion) => {
+    const complementedExclusions = exclusions.reduce((acc: IndexedExclusionsMap, exclusion) => {
         const eTld = getETld(exclusion.hostname);
 
         if (!eTld) {
@@ -94,19 +97,19 @@ export const complementExclusions = (exclusions: ExclusionInterface[]) => {
         }
 
         return acc;
-    }, {} as IndexedExclusionsMap);
+    }, {});
 
     return Object.values(complementedExclusions).flatMap((group) => Object.values(group));
 };
 
-const createServicesIndex = (services: ServicesInterface) => {
-    return Object.values(services).reduce((acc, service) => {
+const createServicesIndex = (services: ServicesInterface): ServicesIndex => {
+    return Object.values(services).reduce((acc: ServicesIndex, service) => {
         service.domains.forEach((domain) => {
             acc[domain] = service.serviceId;
         });
 
         return acc;
-    }, {} as { [domain: string]: string });
+    }, {});
 };
 
 const generateExclusionsFromDomains = (domains: string[]): ExclusionInterface[] => {
@@ -176,7 +179,7 @@ export const complementedExclusionsWithServices = (
 ) => {
     const servicesIndex = createServicesIndex(services);
 
-    const complementedExclusions = exclusions.reduce((acc, exclusion) => {
+    const complementedExclusions = exclusions.reduce((acc: IndexedExclusionsMap, exclusion) => {
         const eTld = getETld(exclusion.hostname);
 
         if (!eTld) {
@@ -199,7 +202,7 @@ export const complementedExclusionsWithServices = (
         }
 
         return acc;
-    }, {} as IndexedExclusionsMap);
+    }, {});
 
     return Object.values(complementedExclusions).flatMap((group) => Object.values(group));
 };

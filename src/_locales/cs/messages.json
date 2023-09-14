@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Exportovat protokoly"
     },
+    "context_menu_debug_level": {
+        "message": "Záznamy úrovně ladění"
+    },
     "settings_dns_label": {
         "message": "DNS server"
     },
@@ -445,6 +448,18 @@
     },
     "settings_theme_light": {
         "message": "Světlý"
+    },
+    "settings_quick_connect_title": {
+        "message": "Rychlé připojení"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Umístění VPN vybrané po kliknutí na tlačítko Připojit"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Naposledy použité umístění"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Nejrychlejší umístění"
     },
     "settings_exclusion_add": {
         "message": "Přidat"
@@ -581,6 +596,9 @@
     "authentication_successful_notification": {
         "message": "Úspěšně ověřeno! Můžete otevřít AdGuard VPN a začít ji používat."
     },
+    "control_error_title": {
+        "message": "Konflikt s rozšířením"
+    },
     "control_error_description": {
         "message": "Vypadá to, že jiné rozšíření prohlížeče se pokouší ovládat vaše připojení. Vypněte prosím ostatní rozšíření v prohlížeči."
     },
@@ -591,7 +609,10 @@
         "message": "Zapnout"
     },
     "popup_settings_disable_vpn": {
-        "message": "Vypnout VPN na této stránce"
+        "message": "Vypnout VPN pro tento web"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Zapnout VPN pro tento web"
     },
     "popup_settings_other_products": {
         "message": "Další produkty"
@@ -630,10 +651,13 @@
         "message": "Hledat umístění"
     },
     "endpoints_not_found": {
-        "message": "Umístění nenalezeno"
+        "message": "Umístění nenalezena"
     },
     "popup_traffic_limit_reached": {
         "message": "Měsíční datový limit je dosažen"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Omezená rychlost"
     },
     "premium_upgrade": {
         "message": "Upgradovat"
@@ -668,6 +692,9 @@
     "popup_feedback_button": {
         "message": "Zanechat zpětnou vazbu"
     },
+    "popup_compare_button": {
+        "message": "Proč je aplikace lepší"
+    },
     "popup_rate_modal_title": {
         "message": "Jak úžasná je AdGuard VPN?"
     },
@@ -694,6 +721,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Přejděte do obchodu s rozšířeními"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Nelze se připojit k serveru"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Nejspíš byla VPN ve vaší zemi zablokována nebo došlo k technické závadě. Už se to snažíme napravit"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Popostrčit AdGuard tým"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Zrušit"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Děláme na tom"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Děkujeme, že jste nám dali vědět!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Zavřít"
     },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
@@ -786,6 +834,20 @@
     "popup_free_traffic_info": {
         "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "Zbývá %value% %unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Provoz se obnoví dnes | Provoz se obnoví za %days% den | Provoz se obnoví za %days% dny | Provoz se obnoví za %count% dní",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "Mimochodem, pokud si přejete, můžete VPN pro tento web zakázat"
+    },
+    "popup_hint_popup_button": {
+        "message": "Rozumím"
     },
     "options_exclusions_import_select_title": {
         "message": "Jak používat tento seznam výjimek?"

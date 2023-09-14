@@ -2,18 +2,37 @@ import { nanoid } from 'nanoid';
 
 import { servicesManager } from '../../../../src/background/exclusions/services/ServicesManager';
 import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
+import { session } from '../../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { stateStorage } from '../../../../src/background/stateStorage/mv2';
+
+jest.mock('../../../../src/background/stateStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../../src/background/stateStorage/mv2');
+});
 
 jest.mock('../../../../src/background/providers/vpnProvider');
 jest.mock('../../../../src/lib/logger');
 jest.mock('nanoid');
 
+jest.mock('../../../../src/background/browserApi', () => {
+    return {
+        browserApi: {
+            runtime: {
+                // TODO: test mv3 after official switch to mv3
+                isManifestVersion2: () => true,
+            },
+        },
+    };
+});
+
 const nanoidMock = nanoid as jest.MockedFunction<() => string>;
-nanoidMock.mockImplementation(() => 'zzzzzzzzz');
+nanoidMock.mockImplementation(() => 'random_id');
 
 const SERVICES_DATA = {
     aliexpress: {
         categories: [{ id: 'SHOP', name: 'Shopping' }],
-        iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
+        iconUrl: 'https://test.example.com/icon?domain=aliexpress.com',
         modifiedTime: '2021-09-14T10:23:00+0000',
         domains: ['aliexpress.com', 'aliexpress.ru'],
         serviceId: 'aliexpress',
@@ -21,7 +40,7 @@ const SERVICES_DATA = {
     },
     amazon: {
         categories: [{ id: 'SHOP', name: 'Shopping' }],
-        iconUrl: 'https://icons.adguard.org/icon?domain=amazon.com',
+        iconUrl: 'https://test.example.com/icon?domain=amazon.com',
         modifiedTime: '2021-09-14T10:23:00+0000',
         domains: ['a2z.com', 'amazon-corp.com', 'amazon.ca', 'amazon.co.jp', 'amazon.co.uk', 'amazon.com', 'amazon.com.au', 'amazon.com.mx', 'amazon.de', 'amazon.es', 'amazon.eu', 'amazon.fr', 'amazon.in', 'amazon.it', 'amazon.nl', 'amazon.sa', 'amazonbrowserapp.co.uk', 'amazonbrowserapp.es', 'amazoncognito.com', 'amazoncrl.com', 'amazonpay.com', 'amazonpay.in', 'amazontrust.com', 'associates-amazon.com', 'images-amazon.com', 'media-amazon.com', 'ssl-images-amazon.com'],
         serviceId: 'amazon',
@@ -29,7 +48,7 @@ const SERVICES_DATA = {
     },
     atlassian: {
         categories: [{ id: 'WORK', name: 'Work communication tools' }],
-        iconUrl: 'https://icons.adguard.org/icon?domain=atlassian.com',
+        iconUrl: 'https://test.example.com/icon?domain=atlassian.com',
         modifiedTime: '2021-09-14T10:23:00+0000',
         domains: ['atlassian.com', 'atlassian.net', 'bitbucket.org'],
         serviceId: 'atlassian',
@@ -37,7 +56,7 @@ const SERVICES_DATA = {
     },
     baidu: {
         categories: [{ id: 'SEARCH', name: 'Search engines' }],
-        iconUrl: 'https://icons.adguard.org/icon?domain=baidu.com',
+        iconUrl: 'https://test.example.com/icon?domain=baidu.com',
         modifiedTime: '2021-09-14T10:23:00+0000',
         domains: ['baidu.com', 'baiducontent.com', 'baidupcs.com', 'baidustatic.com', 'bcebos.com', 'bdimg.com', 'bdstatic.com', 'gshifen.com', 'popin.cc', 'shifen.com', 'wshifen.com'],
         serviceId: 'baidu',
@@ -57,9 +76,21 @@ const saveServicesInStorageMock = jest.fn();
 servicesManager.saveServicesInStorage = saveServicesInStorageMock;
 saveServicesInStorageMock.mockReturnValue({});
 
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
+
 describe('ServicesManager tests', () => {
+    beforeEach(async () => {
+        await stateStorage.init();
+    });
+
     it('test initialization', async () => {
         await servicesManager.init();
+        servicesManager.setServices(SERVICES_DATA);
         const servicesData = await servicesManager.getServices();
 
         expect(Object.values(servicesData)).toHaveLength(4);
@@ -77,6 +108,7 @@ describe('ServicesManager tests', () => {
     });
 
     it('test setServices and getService', async () => {
+        await servicesManager.init();
         const servicesData = await servicesManager.getServicesFromServer();
         servicesManager.setServices(servicesData);
 

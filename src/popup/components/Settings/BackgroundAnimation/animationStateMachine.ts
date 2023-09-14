@@ -23,6 +23,7 @@ const animationStateMachine = createMachine({
             on: {
                 [AnimationEvent.VpnDisconnected]: AnimationState.VpnDisconnecting,
                 [AnimationEvent.LocationSelected]: AnimationState.VpnSwitchingLocation,
+                [AnimationEvent.ExclusionScreenDisplayed]: AnimationState.VpnDisabled,
             },
         },
         [AnimationState.VpnDisconnecting]: {

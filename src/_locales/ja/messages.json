@@ -330,10 +330,13 @@
         "message": "指定モード"
     },
     "context_menu_general_mode": {
-        "message": "レギュラーモード"
+        "message": "一般モード"
     },
     "context_menu_export_logs": {
         "message": "ログをエクスポートする"
+    },
+    "context_menu_debug_level": {
+        "message": "デバッグログ"
     },
     "settings_dns_label": {
         "message": "DNSサーバー"
@@ -446,11 +449,23 @@
     "settings_theme_light": {
         "message": "ライト"
     },
+    "settings_quick_connect_title": {
+        "message": "クイック接続"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "「接続する」をクリックしたときに選択されるVPNロケーション"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "最後に接続したロケーション"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "一番速いロケーション"
+    },
     "settings_exclusion_add": {
         "message": "ウェブサイトを追加する"
     },
     "settings_exclusion_add_website": {
-        "message": "ウェブサイトを追加する"
+        "message": "ウェブサイトの追加"
     },
     "settings_exclusion_actions": {
         "message": "操作"
@@ -581,6 +596,9 @@
     "authentication_successful_notification": {
         "message": "認証完了！AdGuard VPNを開き、利用を開始することができます。"
     },
+    "control_error_title": {
+        "message": "拡張機能コンフリクト"
+    },
     "control_error_description": {
         "message": "別のChrome拡張機能があなたの接続を制御しようとしているようです。その拡張機能を無効にしてください。"
     },
@@ -591,7 +609,10 @@
         "message": "このページで有効にする"
     },
     "popup_settings_disable_vpn": {
-        "message": "このサイトでVPNを無効にする"
+        "message": "このサイトに対してVPNを無効にする"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "このサイトに対してVPNを有効にする"
     },
     "popup_settings_other_products": {
         "message": "他のAdGuard製品"
@@ -630,10 +651,13 @@
         "message": "ロケーションを検索"
     },
     "endpoints_not_found": {
-        "message": "該当するロケーションが見つかりません。"
+        "message": "ロケーションが見つかりません"
     },
     "popup_traffic_limit_reached": {
         "message": "月間無料通信量の上限に達しました。"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "速度制限あり"
     },
     "premium_upgrade": {
         "message": "アップグレード"
@@ -668,6 +692,9 @@
     "popup_feedback_button": {
         "message": "ご提案・問題を送信"
     },
+    "popup_compare_button": {
+        "message": "アプリ版が優れている理由"
+    },
     "popup_rate_modal_title": {
         "message": "AdGuard VPNに満足されていますか？"
     },
@@ -694,6 +721,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "拡張機能ストアへ移動する"
+    },
+    "popup_server_error_popup_title": {
+        "message": "サーバーに接続できません"
+    },
+    "popup_server_error_popup_info": {
+        "message": "おそらく、VPNはあなたの国でブロックされたか、技術的な不具合がありました。すでに対処しております。"
+    },
+    "popup_server_error_popup_action": {
+        "message": "AdGuardチームに通知する"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "キャンセル"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "取り組んでまいります。"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "お知らせいただきありがとうございます。"
+    },
+    "popup_server_error_popup_close": {
+        "message": "閉じる"
     },
     "options_title": {
         "message": "AdGuard VPNオプション"
@@ -784,8 +832,22 @@
         "message": "無料版で続ける"
     },
     "popup_free_traffic_info": {
-        "message": "今月の残りデータ量: <span>%value% %unit%</span>",
+        "message": "今月の残りデータ量: <span>%value%%unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "無料通信量残り%value%%unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "通信量は本日更新されます | 通信量は後%days%日で更新されます",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "必要に応じて、このサイトに対してVPNを無効にすることも可能です。"
+    },
+    "popup_hint_popup_button": {
+        "message": "OK"
     },
     "options_exclusions_import_select_title": {
         "message": "この対象外リストの使い方は？"
@@ -809,7 +871,7 @@
         "message": "除外リストを削除"
     },
     "options_exclusions_delete_regular_description": {
-        "message": "レギュラーモードの除外項目がすべて削除されます"
+        "message": "一般モードの除外項目がすべて削除されます"
     },
     "options_exclusions_delete_selective_description": {
         "message": "指定モードの除外項目がすべて削除されます"

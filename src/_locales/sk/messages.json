@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Exportovať denníky"
     },
+    "context_menu_debug_level": {
+        "message": "Protokolovanie ladenia"
+    },
     "settings_dns_label": {
         "message": "DNS server"
     },
@@ -443,11 +446,23 @@
     "settings_theme_light": {
         "message": "Svetlá"
     },
+    "settings_quick_connect_title": {
+        "message": "Rýchle pripojenie"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Lokalita VPN vybratá po kliknutí na tlačidlo Pripojiť"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Naposledy použitá lokalita"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Najrýchlejšia lokalita"
+    },
     "settings_exclusion_add": {
         "message": "Pridať"
     },
     "settings_exclusion_add_website": {
-        "message": "Pridať webovú stránku"
+        "message": "Pridať výnimku"
     },
     "settings_exclusion_actions": {
         "message": "Akcie"
@@ -468,10 +483,10 @@
         "message": "všetky subdomény"
     },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN je vypnutá pre kontrolované domény a subdomény"
+        "message": "AdGuard VPN je vypnutá pre začiarknuté domény a subdomény"
     },
     "settings_exclusion_group_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN je zapnutá pre kontrolované domény a subdomény"
+        "message": "AdGuard VPN je zapnutá pre začiarknuté domény a subdomény"
     },
     "settings_exclusion_domain_name": {
         "message": "Meno domény:"
@@ -542,8 +557,23 @@
     "settings_exclusion_title": {
         "message": "Výnimky"
     },
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Kde je zapnutá sieť VPN"
+    },
+    "settings_exclusion_general_title": {
+        "message": "Všade okrem vylúčených webových stránok"
+    },
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN je na <span>všade</span> okrem nižšie uvedených webových stránok"
+    },
     "settings_exclusion_selective_title": {
         "message": "Len na vybraných webových stránkach"
+    },
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN je na <span>selektívne</span>: iba pre nižšie uvedené webové stránky"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Ak ponecháte tento zoznam prázdny, vypnete VPN pre všetky webové stránky"
     },
     "settings_exclusion_import_button": {
         "message": "Import"
@@ -563,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Úspešne overené! Môžete otvoriť AdGuard VPN a začať ju používať."
     },
+    "control_error_title": {
+        "message": "Konflikt rozšírenia"
+    },
     "control_error_description": {
         "message": "Vyzerá to, že sa vaše pripojenie snaží ovládať iné rozšírenie prehliadača. Zakážte prosím iné rozšírenie v prehliadači."
     },
@@ -572,8 +605,8 @@
     "popup_settings_enable_vpn_short": {
         "message": "Zapnúť"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Vypnúť VPN na tejto stránke"
+    "popup_settings_enable_vpn": {
+        "message": "Zapnúť VPN pre tento web"
     },
     "popup_settings_other_products": {
         "message": "Iné produkty"
@@ -585,7 +618,7 @@
         "message": "Nastavenia"
     },
     "popup_settings_sign_out": {
-        "message": "Odhlásiť sa"
+        "message": "Odhlásenie"
     },
     "context_menu_enable_vpn": {
         "message": "Zapnúť VPN na tejto stránke"
@@ -616,6 +649,9 @@
     },
     "popup_traffic_limit_reached": {
         "message": "Dosiahnutý mesačný dátový limit"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Obmedzená rýchlosť"
     },
     "premium_upgrade": {
         "message": "Upgradovať"
@@ -650,6 +686,9 @@
     "popup_feedback_button": {
         "message": "Zanechajte spätnú väzbu"
     },
+    "popup_compare_button": {
+        "message": "Prečo je aplikácia lepšia"
+    },
     "popup_rate_modal_title": {
         "message": "Ako úžasná je AdGuard VPN?"
     },
@@ -676,6 +715,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Prejsť do obchodu s rozšíreniami"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Nemožno sa pripojiť k serveru"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Pravdepodobne bola VPN vo vašej krajine zablokovaná alebo došlo k technickej poruche. Už sa to snažíme napraviť"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Tím Nudge AdGuard"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Zrušiť"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Pracujeme na tom"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Ďakujeme, že ste nám dali vedieť!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Ukončiť"
     },
     "options_title": {
         "message": "Predvoľby AdGuard VPN"
@@ -710,6 +770,24 @@
     },
     "popup_newsletter_no_subscribe": {
         "message": "Nie, ďakujem"
+    },
+    "popup_onboarding_unique_protocol": {
+        "message": "Unikátny protokol VPN"
+    },
+    "popup_onboarding_unique_protocol_info": {
+        "message": "Protokol AdGuard VPN pracuje rýchlo a robí Vašu sieť VPN nenápadnou"
+    },
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Vylúčenia webových stránok a aplikácií"
+    },
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Vylúčenia Vám pomôžu rýchlo určiť stránky alebo aplikácie, ktoré majú byť chránené pomocou AdGuard VPN"
+    },
+    "popup_onboarding_no_logging_policy": {
+        "message": "Politika nevytvárania denníkov"
+    },
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN vás robí anonymným. Nikdy nezhromažďuje ani nezdieľa Vaše údaje s tretími stranami"
     },
     "popup_onboarding_next": {
         "message": "Ďalej"
@@ -747,12 +825,17 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Pokračovať bezplatne"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> zostáva do konca mesiaca",
-        "description": "Respect spaces between text, tags and placeholders"
+    "popup_hint_popup_content": {
+        "message": "Mimochodom, ak chcete, môžete pre túto stránku vypnúť VPN"
+    },
+    "popup_hint_popup_button": {
+        "message": "Rozumiem"
     },
     "options_exclusions_import_select_title": {
         "message": "Importovať výnimky do:"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Webové stránky z importovaného zoznamu sa pridajú k existujúcim výnimkám"
     },
     "options_exclusions_import_select_regular": {
         "message": "Chcem, aby bola VPN pre tieto webové stránky vypnutá"
@@ -824,7 +907,7 @@
         "message": "Odhlásili ste sa z AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Upozornenie: nie ste pripojení k sieti VPN a vaša prevádzka nie je chránená! Ak chcete pokračovať v súkromnom surfovaní, kliknite na ikonu AdGuard VPN a znovu sa prihláste."
+        "message": "Upozornenie: nie ste pripojení k sieti VPN a Vaša komunikácia nie je chránená! Ak chcete pokračovať v súkromnom surfovaní, kliknite na ikonu AdGuard VPN a znovu sa prihláste."
     },
     "notification_data_limit_reached_title": {
         "message": "Dosiahnutý mesačný dátový limit"

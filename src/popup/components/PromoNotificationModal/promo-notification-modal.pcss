@@ -18,7 +18,7 @@
     }
 }
 
-.holiday-notify {
+.notify {
     position: fixed;
     left: 0;
     right: 0;
@@ -31,10 +31,12 @@
 
     &__promo {
         width: 100%;
-        height: 148px;
+        height: 194px;
+        background-color: #E6F6FF;
         background-size: cover;
         background-repeat: no-repeat;
-        background-image: url(../../../assets/images/xmas-promo-23.svg);
+        background-image: url('../../../assets/images/back-to-school-2023.svg');
+        box-shadow: 4px 4px 12px 0px #00000026;
     }
 
     &__close {
@@ -46,11 +48,8 @@
 
     &__content {
         height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 0 20px;
+        padding: 32px 24px 32px 80px;
+        text-align: center;
     }
 
     &__title {
@@ -58,22 +57,28 @@
         font-family: var(--font-stack-second);
         white-space: pre-wrap;
         font-weight: 700;
-        line-height: 24px;
-        font-size: 22px;
+        line-height: 29px;
+        font-size: 24px;
         color: #fff;
+        letter-spacing: 0px;
+        max-width: 200px;
+        word-break: keep-all;
     }
 
     &__btn {
+        display: inline-block;
         cursor: pointer;
-        color: #0d4513;
-        font-weight: 500;
+        color: #000;
+        font-weight: 400;
         font-size: 16px;
-        line-height: 36px;
+        line-height: 24px;
         background-color: #fff;
-        padding: 0 32px;
-        min-width: 128px;
-        border: 0;
-        border-radius: 40px;
-        margin-top: 16px;
+        padding: 12px 24px;
+        min-width: 168px;
+        border: none;
+        border-radius: 8px;
+        margin-top: 8px;
+        letter-spacing: 0px;
+        text-align: center;
     }
 }

@@ -3,7 +3,6 @@ import React, {
     useContext,
     useState,
     useRef,
-    useEffect,
 } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
@@ -15,15 +14,17 @@ import FileSaver from 'file-saver';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { RemoveAllModal } from './RemoveAllModal';
-import { ExclusionDataTypes, ExclusionsImportData, readExclusionsFile } from './fileHelpers';
+import { ExclusionDataType, ExclusionsImportData, readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../lib/string-utils';
+import { ExclusionsContentMap } from '../../../../lib/constants';
 import { log } from '../../../../lib/logger';
 import { messenger } from '../../../../lib/messenger';
 import { SelectListModal } from './SelectListModal/SelectListModal';
+import { ExclusionsMode } from '../../../../common/exclusionsConstants';
+import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
 
 import './actions.pcss';
-import { ExclusionsModes } from '../../../../common/exclusionsConstants';
 
 const prepareExclusionsAfterImport = (exclusionsString: string) => {
     return exclusionsString
@@ -77,10 +78,14 @@ export const Actions = observer(() => {
     const [isMoreActionsMenuOpen, setIsMoreActionsMenuOpen] = useState(false);
 
     const importEl = useRef<HTMLInputElement>(null);
-    const moreActionsMenu = useRef<HTMLUListElement>(null);
+    const moreActionsMenu = useRef<HTMLDivElement>(null);
 
     const [isSelectListModalOpen, setSelectListModalState] = useState(false);
     const [fileContent, setFileContent] = useState('');
+
+    const ref = useRef<HTMLDivElement>(null);
+
+    useOutsideClick(ref, () => setIsMoreActionsMenuOpen(false));
 
     const closeSelectListModal = () => {
         setSelectListModalState(false);
@@ -130,16 +135,19 @@ export const Actions = observer(() => {
     };
 
     const onExportExclusionsClick = async () => {
+        setIsMoreActionsMenuOpen(false);
         await exportExclusions();
     };
 
     const onImportExclusionsClick = () => {
+        setIsMoreActionsMenuOpen(false);
         if (importEl.current) {
             importEl.current.click();
         }
     };
 
     const onRemoveAllClick = async () => {
+        setIsMoreActionsMenuOpen(false);
         await exclusionsStore.openRemoveAllModal();
     };
 
@@ -149,25 +157,25 @@ export const Actions = observer(() => {
     };
 
     const handleExclusionsData = async (exclusionsData: ExclusionsImportData[]) => {
-        const txtExclusionsData = exclusionsData.find((d) => d.type === ExclusionDataTypes.Txt);
+        const txtExclusionsData = exclusionsData.find((d) => d.type === ExclusionDataType.Txt);
 
         if (txtExclusionsData) {
             return handleTxtExclusionsData(txtExclusionsData.content);
         }
 
-        const exclusionsContentMap = {
-            [ExclusionsModes.Regular]: [] as string[],
-            [ExclusionsModes.Selective]: [] as string[],
+        const exclusionsContentMap: ExclusionsContentMap = {
+            [ExclusionsMode.Regular]: [],
+            [ExclusionsMode.Selective]: [],
         };
 
         for (let i = 0; i < exclusionsData.length; i += 1) {
             const { type, content } = exclusionsData[i];
-            if (type === ExclusionDataTypes.General) {
+            if (type === ExclusionDataType.General) {
                 // eslint-disable-next-line max-len
-                exclusionsContentMap[ExclusionsModes.Regular] = prepareExclusionsAfterImport(content);
-            } else if (type === ExclusionDataTypes.Selective) {
+                exclusionsContentMap[ExclusionsMode.Regular] = prepareExclusionsAfterImport(content);
+            } else if (type === ExclusionDataType.Selective) {
                 // eslint-disable-next-line max-len
-                exclusionsContentMap[ExclusionsModes.Selective] = prepareExclusionsAfterImport(content);
+                exclusionsContentMap[ExclusionsMode.Selective] = prepareExclusionsAfterImport(content);
             }
         }
 
@@ -202,20 +210,11 @@ export const Actions = observer(() => {
                 await exclusionsStore.updateExclusionsData();
             }
             exclusionsStore.setImportingExclusions(false);
-        } catch (e: any) {
+        } catch (e) {
             notificationsStore.notifyError(e.message);
             exclusionsStore.setImportingExclusions(false);
         }
     };
-
-    const closeMoreActionsMenu = () => {
-        setIsMoreActionsMenuOpen(false);
-    };
-
-    useEffect(() => {
-        window.addEventListener('click', closeMoreActionsMenu);
-        return () => window.removeEventListener('click', closeMoreActionsMenu);
-    });
 
     const moreActionsListClassnames = classnames('actions__more-actions-list', {
         visible: isMoreActionsMenuOpen,
@@ -231,7 +230,10 @@ export const Actions = observer(() => {
 
     return (
         <>
-            <div className="actions">
+            <div
+                className="actions"
+                ref={ref}
+            >
                 <button
                     type="button"
                     className="actions__button selector__value"
@@ -239,27 +241,32 @@ export const Actions = observer(() => {
                 >
                     {reactTranslator.getMessage('settings_exclusion_actions')}
                 </button>
-                <ul
+                <div
                     className={moreActionsListClassnames}
                     ref={moreActionsMenu}
                     tabIndex={-1}
                 >
-                    <li
+                    <button
+                        type="button"
                         className={exportClassnames}
                         onClick={onExportExclusionsClick}
                     >
                         {reactTranslator.getMessage('settings_exclusions_action_export')}
-                    </li>
-                    <li onClick={onImportExclusionsClick}>
+                    </button>
+                    <button
+                        type="button"
+                        onClick={onImportExclusionsClick}
+                    >
                         {reactTranslator.getMessage('settings_exclusions_action_import')}
-                    </li>
-                    <li
+                    </button>
+                    <button
+                        type="button"
                         className={removeAllClassnames}
                         onClick={onRemoveAllClick}
                     >
                         {reactTranslator.getMessage('settings_exclusions_action_remove_all')}
-                    </li>
-                </ul>
+                    </button>
+                </div>
                 <input
                     type="file"
                     accept=".txt, .zip"

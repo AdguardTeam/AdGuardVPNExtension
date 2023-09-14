@@ -1,8 +1,14 @@
 import browser from 'webextension-polyfill';
-import runtime from './runtime';
-import Storage from './storage';
 
-export const browserApi = {
+import { Runtime, runtime } from './runtime';
+import { Storage } from './storage';
+
+export type BrowserApi = {
+    runtime: Runtime;
+    storage: Storage;
+};
+
+export const browserApi: BrowserApi = {
     runtime,
     storage: new Storage(browser),
 };

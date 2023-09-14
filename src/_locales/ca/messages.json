@@ -32,6 +32,9 @@
     "settings_dns_add_custom_server_address": {
         "message": "Adreça del servidor DNS"
     },
+    "settings_exclusion_add_website": {
+        "message": "Afegiu un lloc web"
+    },
     "settings_exclusion_domain_name": {
         "message": "Nom de domini:"
     },
@@ -60,6 +63,6 @@
         "message": "AdGuard VPN"
     },
     "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

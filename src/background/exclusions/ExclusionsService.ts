@@ -8,13 +8,13 @@ import { ExclusionsTree } from './ExclusionsTree';
 import { ExclusionNode } from './ExclusionNode';
 import {
     ExclusionDtoInterface,
-    ExclusionsModes,
+    ExclusionsMode,
     ExclusionState,
-    ExclusionsTypes,
+    ExclusionsType,
     ServiceDto,
 } from '../../common/exclusionsConstants';
 import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
-import { ExclusionInterface } from './exclusions/exclusionsTypes';
+import { ExclusionInterface, ExclusionsState, StorageKey } from '../schema';
 import {
     getETld,
     getHostname,
@@ -22,6 +22,7 @@ import {
     isWildcard,
 } from '../../common/url-utils';
 import { notifier } from '../../lib/notifier';
+import { stateStorage } from '../stateStorage';
 
 interface ToggleServicesResult {
     added: number,
@@ -29,14 +30,25 @@ interface ToggleServicesResult {
 }
 
 export class ExclusionsService {
+    state: ExclusionsState;
+
     exclusionsTree = new ExclusionsTree();
 
     /**
      * Here we keep previous exclusions state in order to make possible undo action
      */
-    previousExclusions: null | AllExclusions;
+    private get previousExclusions() {
+        return this.state.previousExclusions;
+    }
+
+    private set previousExclusions(previousExclusions: AllExclusions | null) {
+        this.state.previousExclusions = previousExclusions;
+        stateStorage.setItem(StorageKey.ExclusionsState, this.state);
+    }
 
     async init() {
+        this.state = stateStorage.getItem(StorageKey.ExclusionsState);
+
         await exclusionsManager.init();
         await servicesManager.init();
 
@@ -45,7 +57,7 @@ export class ExclusionsService {
         notifier.addSpecifiedListener(
             notifier.types.NON_ROUTABLE_DOMAIN_ADDED,
             (payload: string) => {
-                if (this.getMode() === ExclusionsModes.Regular) {
+                if (this.getMode() === ExclusionsMode.Regular) {
                     this.addUrlToExclusions(payload);
                 }
             },
@@ -62,7 +74,7 @@ export class ExclusionsService {
     /**
      * Returns current exclusions mode
      */
-    getMode(): ExclusionsModes {
+    getMode(): ExclusionsMode {
         return exclusionsManager.current.mode;
     }
 
@@ -71,7 +83,7 @@ export class ExclusionsService {
      * @param mode
      * @param shouldNotifyOptionsPage
      */
-    async setMode(mode: ExclusionsModes, shouldNotifyOptionsPage?: boolean) {
+    async setMode(mode: ExclusionsMode, shouldNotifyOptionsPage?: boolean) {
         await exclusionsManager.setCurrentMode(mode);
 
         this.updateTree();
@@ -348,7 +360,7 @@ export class ExclusionsService {
         const exclusionNode = this.exclusionsTree.getExclusionNode(id);
         const parentNode = this.exclusionsTree.getParentExclusionNode(id);
 
-        if (parentNode?.type === ExclusionsTypes.Group && this.isBasicExclusion(exclusionNode)) {
+        if (parentNode?.type === ExclusionsType.Group && this.isBasicExclusion(exclusionNode)) {
             exclusionsToRemove = this.exclusionsTree.getPathExclusions(parentNode.id);
         }
 
@@ -519,7 +531,7 @@ export class ExclusionsService {
      * Returns regular exclusions for export
      */
     getRegularExclusions() {
-        const exclusions = exclusionsManager.regular.getExclusions();
+        const { exclusions } = exclusionsManager.regular;
         return this.prepareExclusionsForExport(exclusions);
     }
 
@@ -527,7 +539,7 @@ export class ExclusionsService {
      * Returns selective exclusions for export
      */
     getSelectiveExclusions() {
-        const exclusions = exclusionsManager.selective.getExclusions();
+        const { exclusions } = exclusionsManager.selective;
         return this.prepareExclusionsForExport(exclusions);
     }
 
@@ -567,16 +579,16 @@ export class ExclusionsService {
     }
 
     async addExclusionsMap(exclusionsMap: {
-        [ExclusionsModes.Selective]: string[],
-        [ExclusionsModes.Regular]: string[],
+        [ExclusionsMode.Selective]: string[],
+        [ExclusionsMode.Regular]: string[],
     }) {
         this.savePreviousExclusions();
 
         const regularExclusionsWithState = this.supplementExclusions(
-            exclusionsMap[ExclusionsModes.Regular],
+            exclusionsMap[ExclusionsMode.Regular],
         );
         const selectiveExclusionsWithState = this.supplementExclusions(
-            exclusionsMap[ExclusionsModes.Selective],
+            exclusionsMap[ExclusionsMode.Selective],
         );
         const addedRegularCount = await exclusionsManager.regular.addExclusions(
             regularExclusionsWithState,

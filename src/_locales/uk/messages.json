@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Експортувати журнали"
     },
+    "context_menu_debug_level": {
+        "message": "Детальне журналювання"
+    },
     "settings_dns_label": {
         "message": "DNS-сервер"
     },
@@ -445,6 +448,18 @@
     },
     "settings_theme_light": {
         "message": "Світла"
+    },
+    "settings_quick_connect_title": {
+        "message": "Швидке під'єднання"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Яке місцезнаходження вибирати під час натискання «Під'єднатися»"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Останнє використовуване"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Найшвидше"
     },
     "settings_exclusion_add": {
         "message": "Додати"
@@ -581,6 +596,9 @@
     "authentication_successful_notification": {
         "message": "Ви успішно авторизувались! Можете відкрити AdGuard VPN та під'єднатись."
     },
+    "control_error_title": {
+        "message": "Конфлікт розширення"
+    },
     "control_error_description": {
         "message": "Схоже, що якесь інше браузерне розширення намагається контролювати з'єднання. Вимкніть його, будь ласка."
     },
@@ -591,7 +609,10 @@
         "message": "Увімкнути"
     },
     "popup_settings_disable_vpn": {
-        "message": "Вимкнути VPN на цьому сайті"
+        "message": "Вимкнути VPN для цього сайту"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Увімкнути VPN для цього сайту"
     },
     "popup_settings_other_products": {
         "message": "Інші продукти"
@@ -635,6 +656,9 @@
     "popup_traffic_limit_reached": {
         "message": "Вичерпано місячний ліміт трафіку"
     },
+    "popup_traffic_limited_speed": {
+        "message": "Обмежена швидкість"
+    },
     "premium_upgrade": {
         "message": "Придбати"
     },
@@ -668,6 +692,9 @@
     "popup_feedback_button": {
         "message": "Поділитись"
     },
+    "popup_compare_button": {
+        "message": "Чому програма краща"
+    },
     "popup_rate_modal_title": {
         "message": "Вам подобається AdGuard VPN?"
     },
@@ -694,6 +721,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Перейти до Вебмагазину браузера"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Не вдається під'єднатися до сервера"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Найімовірніше, VPN заблоковано у вашій країні або стався технічний збій. Ми вже намагаємося це виправити"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Повідомити команду AdGuard"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Скасувати"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Працюємо над цим"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Дякуємо, що повідомили нам!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Закрити"
     },
     "options_title": {
         "message": "AdGuard VPN Параметри"
@@ -786,6 +834,20 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> залишилось цього місяця",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% залишилося",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Трафік поновлюється сьогодні | Трафік поновлюється через %days% день | Трафік поновлюється через %days% дні | Трафік поновлюється через %days% днів",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "До речі, за бажанням ви можете відключити VPN для цього сайту"
+    },
+    "popup_hint_popup_button": {
+        "message": "Зрозуміло"
     },
     "options_exclusions_import_select_title": {
         "message": "Як використовувати цей список виключень?"

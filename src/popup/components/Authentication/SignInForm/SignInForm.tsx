@@ -5,7 +5,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 import { popupActions } from '../../../actions/popupActions';
 import { rootStore } from '../../../stores';
-import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
+import { RequestStatus, InputType } from '../../../stores/consts';
 import PasswordField from '../PasswordField';
 import { Submit } from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
@@ -30,7 +30,7 @@ export const SignInForm = observer(() => {
     const [inputType, setInputType] = useState('password');
 
     const handleInputTypeChange = () => {
-        setInputType(inputType === INPUT_TYPES.PASSWORD ? INPUT_TYPES.TEXT : INPUT_TYPES.PASSWORD);
+        setInputType(inputType === InputType.Password ? InputType.Text : InputType.Password);
     };
 
     const formClassName = classnames(
@@ -39,7 +39,7 @@ export const SignInForm = observer(() => {
         { 'form--error': authStore.error },
     );
 
-    const icon = inputType === INPUT_TYPES.PASSWORD ? '#closed_eye' : '#open_eye';
+    const icon = inputType === InputType.Password ? '#closed_eye' : '#open_eye';
 
     return (
         <form
@@ -84,7 +84,7 @@ export const SignInForm = observer(() => {
             <div className="form__btn-wrap">
                 <Submit
                     text={reactTranslator.getMessage('auth_sign_in_button')}
-                    processing={requestProcessState === REQUEST_STATUSES.PENDING}
+                    processing={requestProcessState === RequestStatus.Pending}
                     disabled={!password}
                 />
             </div>

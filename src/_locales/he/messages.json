@@ -2,9 +2,6 @@
     "name": {
         "message": "AdGuard VPN — ייפוי כוח חינמי ומאובטח"
     },
-    "description": {
-        "message": "השתמש ב־AdGuard VPN כדי לגלוש באינטרנט באופן מהיר, בטוח, ומאובטח. הגן על הפרטיות שלך והישאר אלמוני עם ייפוי כוח VPN הפרטי שלנו."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -488,9 +485,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "אפשר באתר זה"
     },
-    "popup_settings_disable_vpn": {
-        "message": "השבת VPN באתר זה"
-    },
     "popup_settings_other_products": {
         "message": "מוצרים אחרים"
     },
@@ -524,11 +518,11 @@
     "endpoints_search": {
         "message": "חפש מיקום"
     },
-    "endpoints_not_found": {
-        "message": "מיקום לא נמצא"
-    },
     "popup_traffic_limit_reached": {
         "message": "מגבלת נתונים חודשית הושגה"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "מהירות מוגבלת"
     },
     "premium_upgrade": {
         "message": "שדרג"
@@ -583,6 +577,12 @@
     },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "השאר משוב"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "בטל"
+    },
+    "popup_server_error_popup_close": {
+        "message": "סגור"
     },
     "options_title": {
         "message": "אפשרויות AdGuard VPN"
@@ -650,10 +650,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "המשך בחינם"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> נותרו החודש",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "בטל"
@@ -735,5 +731,8 @@
     },
     "confirm_email_close_button": {
         "message": "סגור"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

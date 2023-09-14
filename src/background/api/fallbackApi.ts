@@ -1,4 +1,7 @@
 import axios from 'axios';
+import _ from 'lodash';
+
+import { browserApi } from '../browserApi';
 
 import {
     AUTH_API_URL,
@@ -8,6 +11,11 @@ import {
 } from '../config';
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
+import { fetchConfig } from '../../lib/constants';
+import { stateStorage } from '../stateStorage';
+import { authService } from '../authentication/authService';
+import { credentialsService } from '../credentials/credentialsService';
+import { CountryInfo, FallbackInfo, StorageKey } from '../schema';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
@@ -33,57 +41,45 @@ const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
 
 const REQUEST_TIMEOUT_MS = 3 * 1000;
 
-type CountryInfo = {
-    country: string;
-    bkp: boolean;
-};
-
-type FallbackInfo = {
-    vpnApiUrl: string;
-    authApiUrl: string;
-    countryInfo: CountryInfo;
-    expiresInMs: number;
-};
+const enum Prefix {
+    NotAuthenticatedUser = 'anon',
+    FreeUser = 'free',
+    PremiumUser = 'pro',
+}
 
 export class FallbackApi {
     /**
+     * Default fallback info, it may be used if doh returns none result
      * We keep all fallback info in one object, because it's easier to work with
      * Also, vpnApiUrl and authApiUrl always are updated in pairs
      */
-    fallbackInfo: FallbackInfo;
-
-    /**
-     * Here we save default apn api url, it may be used if doh returns none result
-     */
-    defaultVpnApiUrl: string;
-
-    /**
-     * Here we save default auth api url, it may be used if doh returns none result
-     */
-    defaultAuthApiUrl: string;
+    defaultFallbackInfo: FallbackInfo;
 
     /**
      * Default urls we set already expired,
      * so we need to check bkp url immediately when bkp url is required
      */
     constructor(vpnApiUrl: string, authApiUrl: string) {
-        this.defaultVpnApiUrl = vpnApiUrl;
-        this.defaultAuthApiUrl = authApiUrl;
-
-        this.setFallbackInfo({
+        this.defaultFallbackInfo = {
             vpnApiUrl,
             authApiUrl,
             countryInfo: DEFAULT_COUNTRY_INFO,
             expiresInMs: Date.now() - 1,
-        });
+        };
+    }
+
+    private get fallbackInfo(): FallbackInfo {
+        return stateStorage.getItem(StorageKey.FallbackInfo);
+    }
+
+    private set fallbackInfo(value: FallbackInfo) {
+        stateStorage.setItem(StorageKey.FallbackInfo, value);
     }
 
     public async init(): Promise<void> {
-        await this.updateFallbackInfo();
-    }
-
-    private setFallbackInfo(fallbackInfo: FallbackInfo) {
-        this.fallbackInfo = fallbackInfo;
+        if (!this.fallbackInfo) {
+            await this.updateFallbackInfo();
+        }
     }
 
     private static needsUpdate(fallbackInfo: FallbackInfo): boolean {
@@ -92,14 +88,15 @@ export class FallbackApi {
 
     private async updateFallbackInfo() {
         const countryInfo = await this.getCountryInfo();
-        const localStorageBkp = this.getLocalStorageBkp();
+        const localStorageBkp = await this.getLocalStorageBkp();
 
         if (!countryInfo.bkp && !localStorageBkp) {
+            const fallbackInfo = this.fallbackInfo || this.defaultFallbackInfo;
             // if bkp is disabled, we use previous fallback info, only update expiration time
-            this.setFallbackInfo({
-                ...this.fallbackInfo,
+            this.fallbackInfo = {
+                ...fallbackInfo,
                 expiresInMs: Date.now() + DEFAULT_CACHE_EXPIRE_TIME_MS,
-            });
+            };
             return;
         }
 
@@ -109,21 +106,24 @@ export class FallbackApi {
         ]);
 
         if (bkpVpnApiUrl && bkpAuthApiUrl) {
-            this.setFallbackInfo({
+            this.fallbackInfo = {
                 vpnApiUrl: bkpVpnApiUrl,
                 authApiUrl: bkpAuthApiUrl,
                 countryInfo,
                 expiresInMs: Date.now() + DEFAULT_CACHE_EXPIRE_TIME_MS,
-            });
+            };
         }
     }
 
     private async getFallbackInfo(): Promise<FallbackInfo> {
-        if (FallbackApi.needsUpdate(this.fallbackInfo)) {
+        if (this.fallbackInfo && FallbackApi.needsUpdate(this.fallbackInfo)) {
             await this.updateFallbackInfo();
+            if (this.fallbackInfo) {
+                return this.fallbackInfo;
+            }
         }
 
-        return this.fallbackInfo;
+        return this.fallbackInfo || this.defaultFallbackInfo;
     }
 
     public getVpnApiUrl = async (): Promise<string> => {
@@ -165,8 +165,8 @@ export class FallbackApi {
     /**
      * Gets bkp flag value from local storage, used for testing purposes
      */
-    private getLocalStorageBkp = (): boolean => {
-        const storedBkp = localStorage.getItem(BKP_KEY);
+    private getLocalStorageBkp = async (): Promise<boolean> => {
+        const storedBkp = await browserApi.storage.get(BKP_KEY);
         let localStorageBkp = Number.parseInt(String(storedBkp), 10);
 
         localStorageBkp = Number.isNaN(localStorageBkp) ? 0 : localStorageBkp;
@@ -178,7 +178,10 @@ export class FallbackApi {
         try {
             const { data: { country, bkp } } = await axios.get(
                 `https://${WHOAMI_URL}`,
-                { timeout: REQUEST_TIMEOUT_MS },
+                {
+                    timeout: REQUEST_TIMEOUT_MS,
+                    ...fetchConfig,
+                },
             );
             return { country, bkp };
         } catch (e) {
@@ -198,12 +201,13 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
+            ...fetchConfig,
         });
 
-        const { Answer: [{ data: bkpUrl }] } = data;
+        const bkpUrl = _.get(data, 'Answer[0].data');
 
         if (!FallbackApi.isString(bkpUrl)) {
-            throw new Error('Invalid bkp url from google doh');
+            throw new Error(`Invalid bkp url from google doh for ${name}`);
         }
 
         return bkpUrl;
@@ -221,12 +225,13 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
+            ...fetchConfig,
         });
 
-        const { Answer: [{ data: bkpUrl }] } = data;
+        const bkpUrl = _.get(data, 'Answer[0].data');
 
         if (!FallbackApi.isString(bkpUrl)) {
-            throw new Error('Invalid bkp url from cloudflare doh');
+            throw new Error(`Invalid bkp url from cloudflare doh for ${name}`);
         }
 
         return bkpUrl;
@@ -244,15 +249,31 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
+            ...fetchConfig,
         });
 
-        const { Answer: [{ data: bkpUrl }] } = data;
+        const bkpUrl = _.get(data, 'Answer[0].data');
 
         if (!FallbackApi.isString(bkpUrl)) {
-            throw new Error('Invalid bkp url from alidns doh');
+            throw new Error(`Invalid bkp url from alidns doh for ${name}`);
         }
 
         return bkpUrl;
+    };
+
+    /**
+     * Logs errors in the function and re-throws them to ensure that Promise.any receives them
+     * @param fn Function to call
+     * @throws Error
+     */
+    private logErrors = async (fn: () => Promise<string>): Promise<string> => {
+        try {
+            const res = await fn();
+            return res;
+        } catch (error) {
+            log.error(`Error in function ${fn.name}:`, error);
+            throw error; // Re-throwing the error to ensure that Promise.any receives it
+        }
     };
 
     private getBkpUrl = async (hostname: string): Promise<null | string> => {
@@ -260,9 +281,9 @@ export class FallbackApi {
 
         try {
             bkpUrl = await Promise.any([
-                this.getBkpUrlByGoogleDoh(hostname),
-                this.getBkpUrlByCloudFlareDoh(hostname),
-                this.getBkpUrlByAliDnsDoh(hostname),
+                this.logErrors(() => this.getBkpUrlByGoogleDoh(hostname)),
+                this.logErrors(() => this.getBkpUrlByCloudFlareDoh(hostname)),
+                this.logErrors(() => this.getBkpUrlByAliDnsDoh(hostname)),
             ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
         } catch (e) {
@@ -273,21 +294,39 @@ export class FallbackApi {
         return bkpUrl;
     };
 
+    getApiHostnamePrefix = async () => {
+        const isAuthenticated = await authService.isAuthenticated();
+        if (!isAuthenticated) {
+            return Prefix.NotAuthenticatedUser;
+        }
+
+        const isPremiumUser = await credentialsService.isPremiumUser();
+        if (isPremiumUser) {
+            return Prefix.PremiumUser;
+        }
+
+        return Prefix.FreeUser;
+    };
+
     getBkpVpnApiUrl = async (country: string) => {
-        const hostname = `${country.toLowerCase()}.${BKP_API_HOSTNAME_PART}`;
+        const prefix = await this.getApiHostnamePrefix();
+        // we use prefix for api hostname to recognize free, premium and not authenticated users
+        const hostname = `${country.toLowerCase()}.${prefix}.${BKP_API_HOSTNAME_PART}`;
         const bkpApiUrl = await this.getBkpUrl(hostname);
         if (bkpApiUrl === EMPTY_BKP_URL) {
-            return this.defaultVpnApiUrl;
+            return this.defaultFallbackInfo.vpnApiUrl;
         }
         return bkpApiUrl;
     };
 
     getBkpAuthApiUrl = async (country: string) => {
-        const hostname = `${country.toLowerCase()}.${BKP_AUTH_HOSTNAME_PART}`;
+        const prefix = await this.getApiHostnamePrefix();
+        // we use prefix for auth api hostname to recognize free, premium and not authenticated users
+        const hostname = `${country.toLowerCase()}.${prefix}.${BKP_AUTH_HOSTNAME_PART}`;
 
         const bkpAuthUrl = await this.getBkpUrl(hostname);
         if (bkpAuthUrl === EMPTY_BKP_URL) {
-            return this.defaultAuthApiUrl;
+            return this.defaultFallbackInfo.authApiUrl;
         }
 
         return bkpAuthUrl;

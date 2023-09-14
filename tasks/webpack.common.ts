@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+// TODO remove @ts-ignore
 // @ts-ignore
 import CreateFileWebpack from 'create-file-webpack';
 
@@ -12,7 +13,7 @@ import {
     IS_DEV,
     BUILD_ENV,
     BUILD_PATH,
-    BROWSERS,
+    Browser,
 } from './consts';
 
 const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = require('./helpers');
@@ -20,8 +21,8 @@ const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = requir
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
-const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
-const THANKYOU_PAGE_AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/thankYouPageAuth.js');
+const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.ts');
+const CUSTOM_DNS_LINKS_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/custom-dns-links.ts');
 const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'options/preloadTheme.ts');
 const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
 
@@ -37,16 +38,18 @@ const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!a
 export const getCommonConfig = (browser: string): webpack.Configuration => {
     return {
         mode: IS_DEV ? 'development' : 'production',
-        devtool: IS_DEV ? 'eval-source-map' : false,
+        // we don't use eval source maps because of CSP in MV3
+        devtool: IS_DEV ? 'inline-source-map' : false,
         optimization: {
             minimize: false,
         },
+        cache: true,
         entry: {
             background: BACKGROUND_PATH,
             options: OPTIONS_PATH,
             popup: POPUP_PATH,
             auth: AUTH_SCRIPT,
-            thankYouPageAuth: THANKYOU_PAGE_AUTH_SCRIPT,
+            'custom-dns-links': CUSTOM_DNS_LINKS_SCRIPT,
             preloadTheme: PRELOAD_THEME_SCRIPT,
             export: EXPORT_PATH,
         },
@@ -55,7 +58,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             filename: '[name].js',
         },
         resolve: {
-            extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
+            extensions: ['.*', '.js', '.jsx', '.ts', '.tsx'],
         },
 
         module: {
@@ -79,7 +82,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 {
                     test: /\.(ts|js)x?$/,
                     exclude: /node_modules/,
-                    use: ['cache-loader', { loader: 'babel-loader', options: { babelrc: true } }],
+                    use: [{ loader: 'babel-loader', options: { babelrc: true } }],
                 },
                 {
                     test: /\.(css|pcss)$/,
@@ -91,7 +94,6 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                             options: {
                                 importLoaders: 1,
                                 modules: {
-                                    compileType: 'module',
                                     mode: 'local',
                                     auto: true,
                                     exportGlobals: false,
@@ -106,9 +108,10 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 },
                 {
                     test: /\.(woff|woff2|eot|ttf|otf)$/,
-                    use: [
-                        { loader: 'file-loader', options: { outputPath: 'assets' } },
-                    ],
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'assets/[name][ext]',
+                    },
                 },
             ],
         },
@@ -121,17 +124,31 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     process.env.BUILD_ENV,
                 )),
             }),
-            new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource: any) => {
-                if (browser === BROWSERS.FIREFOX) {
+            new webpack.NormalModuleReplacementPlugin(/\.\/(proxy\/)?abstractProxyApi/, ((resource: any) => {
+                if (browser === Browser.Firefox) {
                     // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
-                } else if (browser === BROWSERS.CHROME
-                    || browser === BROWSERS.EDGE
-                    || browser === BROWSERS.OPERA) {
+                    resource.request = resource.request
+                        .replace(/\.\/abstractProxyApi/, './firefox/proxyApi')
+                        .replace(/\.\/proxy\/abstractProxyApi/, './proxy/firefox/proxyApi');
+                } else if (browser === Browser.Chrome
+                    || browser === Browser.ChromeMV2
+                    || browser === Browser.Edge
+                    || browser === Browser.Opera) {
                     // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
+                    resource.request = resource.request
+                        .replace(/\.\/abstractProxyApi/, './chrome/proxyApi')
+                        .replace(/\.\/proxy\/abstractProxyApi/, './proxy/chrome/proxyApi');
                 } else {
                     throw new Error(`There is no proxy api for browser: ${browser}`);
+                }
+            })),
+            new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\.abstract/, ((resource: any) => {
+                if (browser === Browser.Chrome) {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/stateStorage\.abstract/, './mv3');
+                } else {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/stateStorage\.abstract/, './mv2');
                 }
             })),
             new CleanWebpackPlugin(cleanOptions),
@@ -160,17 +177,12 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                                 updateLocales,
                                 process.env.BUILD_ENV,
                                 ' for Chrome',
-                                browser === BROWSERS.CHROME && path.includes(EN_MESSAGES_PATH),
+                                (browser === Browser.Chrome || browser === Browser.ChromeMV2)
+                                    && path.includes(EN_MESSAGES_PATH),
                             );
                         },
                     },
                 ],
-            }),
-            new HtmlWebpackPlugin({
-                template: path.join(BACKGROUND_PATH, 'index.html'),
-                filename: 'background.html',
-                chunks: ['background'],
-                cache: false,
             }),
             new HtmlWebpackPlugin({
                 template: path.join(OPTIONS_PATH, 'index.html'),

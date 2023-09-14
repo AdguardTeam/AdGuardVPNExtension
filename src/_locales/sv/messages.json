@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Sekretess & Säkerhet"
     },
     "description": {
-        "message": "Gör Internet öppet och dina data säkra. Topnotch VPN från skaparna av den berömda annonsblockeraren."
+        "message": "Använd AdGuard VPN för att surfa snabbt, säkert och tryggt på internet. Skydda din integritet och förbli anonym med vår privata VPN-proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -143,6 +143,9 @@
     "auth_password": {
         "message": "Lösenord"
     },
+    "auth_your_password": {
+        "message": "Ditt lösenord"
+    },
     "auth_password_confirm": {
         "message": "Bekräfta lösenord"
     },
@@ -164,8 +167,11 @@
     "auth_sign_in_button": {
         "message": "Logga in"
     },
+    "auth_title": {
+        "message": "Logga in eller skapa ett konto"
+    },
     "auth_sign_in_provider_adguard_label": {
-        "message": "Mejl"
+        "message": "E-postadress"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Fortsätt med AdGuard"
@@ -180,10 +186,10 @@
         "message": "Fortsätt med Facebook"
     },
     "auth_header_sing_in_notice": {
-        "message": "Du har redan ett konto <span>%username%</span>"
+        "message": "Loggar in som <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
-        "message": "Tvåfaktorautentisering"
+        "message": "Tvåfaktorsautentisering"
     },
     "auth_header_2fa": {
         "message": "Ange autentiseringskod"
@@ -243,7 +249,7 @@
         "message": "Exportera loggar"
     },
     "settings_dns_label": {
-        "message": "DNS server"
+        "message": "DNS-server"
     },
     "settings_dns_popular_servers": {
         "message": "Populära DNS-servrar"
@@ -257,11 +263,17 @@
     "settings_dns_edit_custom_server": {
         "message": "Redigera anpassad DNS-server"
     },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Läs mer</a> om DNS-servrar"
+    },
     "settings_dns_add_custom_server_name": {
         "message": "Servernamn"
     },
     "settings_dns_add_custom_server_name_placeholder": {
         "message": "Servernamn"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS-serveradress"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Spara och välj"
@@ -274,6 +286,9 @@
     },
     "settings_dns_selector_default_title": {
         "message": "Standard"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Använder DNS-servrar som tillhandahålls av AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -416,9 +431,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Aktivera"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Inaktivera VPN på denna webbplats"
-    },
     "popup_settings_other_products": {
         "message": "Andra produkter"
     },
@@ -440,6 +452,9 @@
     "endpoints_countries": {
         "message": "Platser"
     },
+    "endpoints_location_virtual": {
+        "message": "Virtuell"
+    },
     "endpoints_fastest": {
         "message": "Snabbast"
     },
@@ -454,6 +469,9 @@
     },
     "endpoints_not_found": {
         "message": "Plats hittades inte"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Begränsad hastighet"
     },
     "premium_upgrade": {
         "message": "Uppgradera"
@@ -497,6 +515,18 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Lämna feedback"
     },
+    "popup_server_error_popup_title": {
+        "message": "Kan inte ansluta till server"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Avbryt"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Tack för att du berättar för oss!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Stäng"
+    },
     "options_title": {
         "message": "AdGuard VPN Alternativ"
     },
@@ -510,7 +540,7 @@
         "message": "VPN är inaktiverat på denna webbplats"
     },
     "popup_auth_policy_agreement": {
-        "message": "Acceptera <eula>EULA</eula> och <privacy>Integritetspolicy</privacy>",
+        "message": "Jag har läst och godkänner AdGuards <eula>EULA</eula> och <privacy>Integritetspolicy</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
@@ -531,6 +561,9 @@
     "popup_newsletter_no_subscribe": {
         "message": "Nej, tack"
     },
+    "popup_onboarding_unique_protocol": {
+        "message": "Unikt VPN-protokoll"
+    },
     "popup_onboarding_next": {
         "message": "Nästa"
     },
@@ -539,6 +572,9 @@
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Obegränsad data"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Den enda begränsningen är att din data aldrig delas. Surfa så mycket du vill!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Obegränsad hastighet"
@@ -555,12 +591,12 @@
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uppgradera"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> återstående denna månad",
-        "description": "Respect spaces between text, tags and placeholders"
+    "popup_free_traffic_info_days_left": {
+        "message": "Trafiken förnyas idag | Trafiken förnyas om %days% dag | Trafiken förnyas om %days% dagar",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "options_exclusions_import_select_title": {
-        "message": "Hur använder man denna lista över undantag?"
+        "message": "Hur använder man denna lista med undantag?"
     },
     "options_exclusions_import_select_regular": {
         "message": "Jag vill att VPN ska vara avstängt för dessa webbplatser"

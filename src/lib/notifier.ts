@@ -1,4 +1,4 @@
-enum NotifierType {
+export enum NotifierType {
     SETTING_UPDATED = 'event.update.setting.value',
     NON_ROUTABLE_DOMAIN_FOUND = 'event.found.non.routable.domain',
     TOO_MANY_DEVICES_CONNECTED = 'event.too.many.devices.connected',
@@ -27,9 +27,11 @@ enum NotifierType {
 
     // Connectivity context
     CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED = 'event.connectivity.desktop.vpn.status.changed',
+
+    SERVER_ERROR = 'server.error',
 }
 
-type NotifierTypeMap = {
+export type NotifierTypeMap = {
     [key in keyof typeof NotifierType]: NotifierType
 };
 
@@ -74,13 +76,12 @@ export class Notifier {
     }
 
     /**
-     * Subscribes listener to the specified events
+     * Subscribes listener to the specified events and returns index of the listener
      *
-     * @param {string|string[]} events - List of event types listener will be notified of
-     * @param {function} listener - Listener object
-     * @returns {number} Index of the listener
+     * @param events - List of event types listener will be notified of
+     * @param listener - Listener object
      */
-    addSpecifiedListener(events: string | string[], listener: ListenerHandler) {
+    addSpecifiedListener(events: string | string[], listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
             throw new Error('Illegal listener');
         }
@@ -95,12 +96,10 @@ export class Notifier {
     }
 
     /**
-     * Subscribe specified listener to all events
-     *
-     * @param {function} listener Listener
-     * @returns {number} Index of the listener
+     * Subscribes specified listener to all events and returns index of the listener
+     * @param listener Listener
      */
-    addListener(listener: ListenerHandler) {
+    addListener(listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
             throw new Error('Illegal listener');
         }
@@ -121,7 +120,7 @@ export class Notifier {
     /**
      * Notifies listeners about the events passed as arguments of this function.
      */
-    notifyListeners(event: NotifierType, ...args: any) {
+    notifyListeners(event: NotifierType, ...args: unknown[]) {
         if (!event || !(event in this.events)) {
             throw new Error(`Illegal event: ${event}`);
         }

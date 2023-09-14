@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Экспартаваць логі"
     },
+    "context_menu_debug_level": {
+        "message": "Падрабязнае лагаванне"
+    },
     "settings_dns_label": {
         "message": "Абраны DNS-сервер"
     },
@@ -590,9 +593,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Уключыць"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Адключыць VPN на гэтым сайце"
-    },
     "popup_settings_other_products": {
         "message": "Іншыя прадукты"
     },
@@ -629,11 +629,11 @@
     "endpoints_search": {
         "message": "Пошук месціва"
     },
-    "endpoints_not_found": {
-        "message": "Сервер не знойдзены"
-    },
     "popup_traffic_limit_reached": {
         "message": "Дасягнуты месячны ліміт дадзеных"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Абмежаваная хуткасць"
     },
     "premium_upgrade": {
         "message": "Палепшыць"
@@ -694,6 +694,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Перайдзіце ў краму Chrome"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Немагчыма падключыцца да сервера"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Хутчэй за ўсё, VPN быў заблакаваны ў вашай краіне або адбыўся тэхнічны збой. Мы ўжо спрабуем гэта выправіць"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Падштурхніце каманду AdGuard"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Скасаванне"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Працуем над гэтым"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Дзякуй, што паведамілі нам!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Закрыць"
     },
     "options_title": {
         "message": "Налады AdGuard VPN"
@@ -783,9 +804,8 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Працягнуць дарма"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> засталося ў гэтым месяцы",
-        "description": "Respect spaces between text, tags and placeholders"
+    "popup_hint_popup_button": {
+        "message": "Зразумела"
     },
     "options_exclusions_import_select_title": {
         "message": "Як выкарыстоўваць гэты спіс выключэнняў?"
@@ -890,7 +910,7 @@
         "message": "Дзякуй за праверку!"
     },
     "confirm_email_close_button": {
-        "message": "Зачыніць"
+        "message": "Закрыць"
     },
     "confirm_email_resend_link_button": {
         "message": "Паўторна адправіць спасылку"

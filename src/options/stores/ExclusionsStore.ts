@@ -12,14 +12,15 @@ import { getDomain } from 'tldts';
 import {
     ExclusionDtoInterface,
     ExclusionsData,
-    ExclusionsModes,
+    ExclusionsMode,
     ExclusionState,
-    ExclusionsTypes,
-    ServiceCategory,
+    ExclusionsType,
     ServiceDto,
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
+import type { RootStore } from './RootStore';
+import type { ServiceCategory } from '../../background/schema';
 
 export interface PreparedServiceCategory extends ServiceCategory {
     services: string[]
@@ -34,11 +35,11 @@ interface PreparedServices {
 }
 
 export enum AddExclusionMode {
-    SERVICE = 'SERVICE',
-    MANUAL = 'MANUAL',
+    Service = 'Service',
+    Manual = 'Manual',
 }
 
-const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.MANUAL;
+const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.Manual;
 
 const findExclusionById = (
     exclusionsTree: ExclusionDtoInterface,
@@ -79,7 +80,7 @@ const convertExclusionsValuesToUnicode = (exclusionsTree: ExclusionDtoInterface)
 export class ExclusionsStore {
     @observable exclusionsTree: ExclusionDtoInterface;
 
-    @observable currentMode = ExclusionsModes.Regular;
+    @observable currentMode = ExclusionsMode.Regular;
 
     @observable servicesData: ServiceDto[] = [];
 
@@ -114,6 +115,12 @@ export class ExclusionsStore {
     @observable importingExclusions: boolean = false;
 
     @observable isAllExclusionsListsEmpty: boolean;
+
+    rootStore: RootStore;
+
+    constructor(rootStore: RootStore) {
+        this.rootStore = rootStore;
+    }
 
     /**
      * Temp list used to keep state of services to be enabled or disabled
@@ -189,10 +196,12 @@ export class ExclusionsStore {
         this.setConfirmAddModalOpen(true);
     };
 
-    @action setCurrentMode = async (mode: ExclusionsModes) => {
-        this.currentMode = mode;
+    @action setCurrentMode = async (mode: ExclusionsMode) => {
         await messenger.setExclusionsMode(mode);
         await this.updateExclusionsData();
+        runInAction(() => {
+            this.currentMode = mode;
+        });
     };
 
     @action openAddExclusionModal = () => {
@@ -204,7 +213,7 @@ export class ExclusionsStore {
         this.setServicesSearchValue('');
         this.servicesToToggle = [];
         this.unfoldedServiceCategories = [];
-        this.setAddExclusionMode(AddExclusionMode.MANUAL);
+        this.setAddExclusionMode(AddExclusionMode.Manual);
     };
 
     @action setAddExclusionMode = (mode: AddExclusionMode) => {
@@ -229,7 +238,7 @@ export class ExclusionsStore {
 
     @computed
     get preparedServicesData() {
-        const categories = this.servicesData.reduce((acc, serviceData) => {
+        const categories = this.servicesData.reduce((acc: PreparedServiceCategories, serviceData) => {
             const { categories, serviceId } = serviceData;
 
             categories.forEach((category) => {
@@ -245,13 +254,13 @@ export class ExclusionsStore {
                 }
             });
             return acc;
-        }, {} as PreparedServiceCategories);
+        }, {});
 
-        const services = this.servicesData.reduce((acc, serviceData) => {
+        const services = this.servicesData.reduce((acc: PreparedServices, serviceData) => {
             const { serviceId } = serviceData;
             acc[serviceId] = serviceData;
             return acc;
-        }, {} as PreparedServices);
+        }, {});
 
         return {
             categories,
@@ -383,7 +392,7 @@ export class ExclusionsStore {
     };
 
     getParentExclusion(exclusion: ExclusionDtoInterface): ExclusionDtoInterface | undefined {
-        if (exclusion.type === ExclusionsTypes.Service) {
+        if (exclusion.type === ExclusionsType.Service) {
             return undefined;
         }
 
@@ -439,7 +448,7 @@ export class ExclusionsStore {
             return null;
         }
 
-        if (selectedExclusion.type === ExclusionsTypes.Group) {
+        if (selectedExclusion.type === ExclusionsType.Group) {
             return selectedExclusion.children
                 .sort((a, b) => {
                     return a.hostname === selectedExclusion.hostname

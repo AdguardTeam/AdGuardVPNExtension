@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Izvoz zapisa"
     },
+    "context_menu_debug_level": {
+        "message": "Zapisivanje pogrešaka"
+    },
     "settings_dns_label": {
         "message": "DNS poslužitelj"
     },
@@ -590,9 +593,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Omogući"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Onemogući VPN na ovoj stranici"
-    },
     "popup_settings_other_products": {
         "message": "Ostali proizvodi"
     },
@@ -634,6 +634,9 @@
     },
     "popup_traffic_limit_reached": {
         "message": "Mjesečno ograničenje podatka je dosegnuto. Trebate li više?"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Ograničena brzina"
     },
     "premium_upgrade": {
         "message": "Nadogradi"
@@ -694,6 +697,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Idi u Chrome trgovinu"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Povezivanje s poslužiteljem nije moguće"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Najvjerojatnije je VPN bio blokiran u vašoj zemlji ili je došlo do tehničke greške. Već ga pokušavamo popraviti"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Potaknite AdGuard tim"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Poništi"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Radimo na tome"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Hvala Vam što ste nas obavijestili!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Zatvori"
     },
     "options_title": {
         "message": "AdGuard VPN opcije"
@@ -783,9 +807,8 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Nastavite besplatno"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> preostalo ovaj mjesec",
-        "description": "Respect spaces between text, tags and placeholders"
+    "popup_hint_popup_button": {
+        "message": "U redu"
     },
     "options_exclusions_import_select_title": {
         "message": "Kako koristiti ovaj popis iznimaka?"

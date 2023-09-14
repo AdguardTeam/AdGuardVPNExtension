@@ -1,8 +1,9 @@
-import { Plugin } from 'webpack';
+import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
@@ -10,21 +11,43 @@ import { firefoxManifestDiff } from './manifest.firefox';
 import {
     STAGE_ENV,
     IS_DEV,
-    STAGE_ENVS,
-    BROWSERS,
+    StageEnv,
+    Browser,
+    SRC_PATH,
 } from '../consts';
 
 const FIREFOX_PATH = 'firefox';
 
 let zipFilename = 'firefox.zip';
 
-if (IS_DEV && STAGE_ENV === STAGE_ENVS.PROD) {
+const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
+
+if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'firefox-prod.zip';
 }
 
-const commonConfig = getCommonConfig(BROWSERS.FIREFOX);
+const commonConfig = getCommonConfig(Browser.Firefox);
 
-const plugins = [
+if (commonConfig.resolve) {
+    commonConfig.resolve.fallback = {
+        buffer: require.resolve('buffer'),
+    };
+}
+
+const plugins: webpack.WebpackPluginInstance[] = [
+    new webpack.ProvidePlugin({
+        process: 'process/browser',
+        Buffer: ['buffer', 'Buffer'],
+    }),
+    // TODO: on move to MV3 inject Mv3Timers
+    new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
+    })),
+    new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv2');
+    })),
     new CopyWebpackPlugin({
         patterns: [
             {
@@ -34,11 +57,17 @@ const plugins = [
             },
         ],
     }),
+    new HtmlWebpackPlugin({
+        template: path.join(BACKGROUND_PATH, 'index.html'),
+        filename: 'background.html',
+        chunks: ['background'],
+        cache: false,
+    }),
     new ZipWebpackPlugin({
         path: '../',
         filename: zipFilename,
-    }),
-] as unknown as Plugin[];
+    }) as unknown as webpack.WebpackPluginInstance,
+];
 
 const outputPath = commonConfig.output?.path;
 

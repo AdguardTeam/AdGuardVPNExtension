@@ -1,12 +1,15 @@
 /* eslint-disable no-continue */
 import { isIP } from 'is-ip';
 
-import { ExclusionDtoInterface, ExclusionsTypes } from '../../common/exclusionsConstants';
-import { IndexedServicesInterface } from './services/ServicesManager';
-import { ServicesInterface } from '../providers/vpnProvider';
+import { ExclusionDtoInterface, ExclusionsType } from '../../common/exclusionsConstants';
 import { ExclusionNode } from './ExclusionNode';
-import { ExclusionInterface, IndexedExclusionsInterface } from './exclusions/exclusionsTypes';
 import { getETld } from '../../common/url-utils';
+import type {
+    ServicesIndexType,
+    ServicesInterface,
+    ExclusionInterface,
+    IndexedExclusionsInterface,
+} from '../schema';
 
 type ExclusionsNodesIndex = Map<string, ExclusionNode>;
 
@@ -27,7 +30,7 @@ export class ExclusionsTree {
         exclusions: ExclusionInterface[];
         indexedExclusions: IndexedExclusionsInterface;
         services: ServicesInterface;
-        indexedServices: IndexedServicesInterface;
+        indexedServices: ServicesIndexType;
     }) {
         this.exclusionsNodesIndex = new Map();
         this.exclusionsTree = new ExclusionNode({ id: 'root', hostname: 'root' });
@@ -56,7 +59,7 @@ export class ExclusionsTree {
                     ?? new ExclusionNode({
                         id: service.serviceId,
                         hostname: service.serviceName,
-                        type: ExclusionsTypes.Service,
+                        type: ExclusionsType.Service,
                         meta: {
                             domains: service.domains,
                             iconUrl: service.iconUrl,
@@ -67,7 +70,7 @@ export class ExclusionsTree {
                     ?? new ExclusionNode({
                         id: hostnameTld,
                         hostname: hostnameTld,
-                        type: ExclusionsTypes.Group,
+                        type: ExclusionsType.Group,
                     });
 
                 this.addChild(groupNode, exclusionNode);
@@ -82,7 +85,7 @@ export class ExclusionsTree {
                     ?? new ExclusionNode({
                         id: hostnameTld,
                         hostname: hostnameTld,
-                        type: ExclusionsTypes.Group,
+                        type: ExclusionsType.Group,
                     });
 
                 this.addChild(groupNode, exclusionNode);

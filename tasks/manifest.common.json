@@ -1,5 +1,4 @@
 {
-    "manifest_version": 2,
     "name": "__MSG_name__",
     "short_name": "__MSG_short_name__",
     "author": "Adguard Software Ltd",
@@ -10,18 +9,6 @@
         "16": "assets/images/icons/enabled-16.png",
         "128": "assets/images/icons/enabled-128.png"
     },
-    "browser_action": {
-        "default_icon": {
-            "19": "assets/images/icons/disabled-19.png",
-            "38": "assets/images/icons/disabled-38.png"
-        },
-        "default_title": "__MSG_name__",
-        "default_popup": "popup.html"
-    },
-    "background": {
-        "page": "background.html",
-        "persistent": true
-    },
     "content_scripts": [
         {
             "matches":["https://*/oauth.html?adguard-vpn=1*"],
@@ -29,13 +16,12 @@
             "run_at":"document_start"
         },
         {
-            "matches": ["https://*/*/thankyou-auth.html?new_user=*"],
-            "js": ["thankYouPageAuth.js"],
+            "matches": ["<all_urls>"],
+            "js": ["custom-dns-links.js"],
             "run_at": "document_start"
         }
     ],
     "permissions": [
-        "<all_urls>",
         "contextMenus",
         "management",
         "notifications",
@@ -43,7 +29,6 @@
         "proxy",
         "storage",
         "unlimitedStorage",
-        "webRequest",
-        "webRequestBlocking"
+        "webRequest"
     ]
 }

@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Eksportér logger"
     },
+    "context_menu_debug_level": {
+        "message": "Fejlretningsniveaulogning"
+    },
     "settings_dns_label": {
         "message": "DNS-server"
     },
@@ -445,6 +448,18 @@
     },
     "settings_theme_light": {
         "message": "Lyst"
+    },
+    "settings_quick_connect_title": {
+        "message": "Hurtig tilslutning"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN-placering vælges, når der klikkes på Forbind"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Senest brugte placering"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Hurtigste placeringer"
     },
     "settings_exclusion_add": {
         "message": "Tilføj"
@@ -581,6 +596,9 @@
     "authentication_successful_notification": {
         "message": "Godkendt! Du kan åbne AdGuard VPN og begynde at bruge den."
     },
+    "control_error_title": {
+        "message": "Udvidelseskonflikt"
+    },
     "control_error_description": {
         "message": "Det ser ud til, at en anden browserudvidelse forsøger at kontrollere forbindelsen. Deaktivér den pågældende udvidelse i browseren."
     },
@@ -592,6 +610,9 @@
     },
     "popup_settings_disable_vpn": {
         "message": "Deaktivér VPN på dette websted"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Aktivér VPN på dette websted"
     },
     "popup_settings_other_products": {
         "message": "Andre produkter"
@@ -630,10 +651,13 @@
         "message": "Søg placering"
     },
     "endpoints_not_found": {
-        "message": "Placering ikke fundet"
+        "message": "Placeringer ikke fundet"
     },
     "popup_traffic_limit_reached": {
         "message": "Månedlig datakvote opbrugt"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Begrænset hastighed"
     },
     "premium_upgrade": {
         "message": "Opgradere"
@@ -668,6 +692,9 @@
     "popup_feedback_button": {
         "message": "Giv feedback"
     },
+    "popup_compare_button": {
+        "message": "Hvorfor appen er bedre"
+    },
     "popup_rate_modal_title": {
         "message": "Hvor fantastisk er AdGuard VPN?"
     },
@@ -694,6 +721,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Gå til Extension Store"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Kan ikke oprette forbindelse til server"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Sandsynligvis blokeres VPN i det pågældende land, eller en teknisk fejl opstod. Vi forsøger allerede at løse det"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Puf til AdGuard-teamet"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Afbryd"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Arbejder på det"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Tak for at fortælle os det!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Luk"
     },
     "options_title": {
         "message": "AdGuard VPN Indstillinger"
@@ -786,6 +834,20 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> tilbage denne måned",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% tilbage",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Trafikkvoten fornys i dag | Trafikkvoten fornys om %days% dag | Trafikkvoten fornys om %days% dage",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "VPN kan deaktiveres for dette websted, om ønsket"
+    },
+    "popup_hint_popup_button": {
+        "message": "Forstået"
     },
     "options_exclusions_import_select_title": {
         "message": "Hvordan bruges denne undtagelsesliste?"

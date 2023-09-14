@@ -13,7 +13,7 @@ const EXCLUSIONS_FILES_MARKERS = {
     TXT: '.txt',
 };
 
-export enum ExclusionDataTypes {
+export enum ExclusionDataType {
     /**
      * @deprecated in the favor of general
      */
@@ -24,7 +24,7 @@ export enum ExclusionDataTypes {
 }
 
 export interface ExclusionsImportData {
-    type: ExclusionDataTypes,
+    type: ExclusionDataType,
     content: string,
 }
 
@@ -33,7 +33,7 @@ const readFile = (file: Blob): Promise<string> => {
         const reader = new FileReader();
 
         reader.onload = () => {
-            resolve(reader.result as string);
+            resolve(<string>reader.result);
         };
 
         reader.onerror = reject;
@@ -92,7 +92,7 @@ const readZipFile = async (
         // https://stuk.github.io/jszip/documentation/api_zipobject/async.html
         const generalExclusionsString = await generalExclusionsFile.async('text');
         resultExclusions.push({
-            type: ExclusionDataTypes.General,
+            type: ExclusionDataType.General,
             content: generalExclusionsString,
         });
     }
@@ -101,7 +101,7 @@ const readZipFile = async (
         // https://stuk.github.io/jszip/documentation/api_zipobject/async.html
         const generalExclusionsString = await regularExclusionsFile.async('text');
         resultExclusions.push({
-            type: ExclusionDataTypes.General,
+            type: ExclusionDataType.General,
             content: generalExclusionsString,
         });
     }
@@ -110,7 +110,7 @@ const readZipFile = async (
         // https://stuk.github.io/jszip/documentation/api_zipobject/async.html
         const selectiveExclusionsString = await selectiveExclusionsFile.async('text');
         resultExclusions.push({
-            type: ExclusionDataTypes.Selective,
+            type: ExclusionDataType.Selective,
             content: selectiveExclusionsString,
         });
     }
@@ -125,21 +125,21 @@ export const readExclusionsFile = async (
     switch (true) {
         case (fileName.endsWith(`.${EXCLUSIONS_FILES_MARKERS.GENERAL}`)
             || fileName === EXCLUSIONS_FILES_MARKERS.GENERAL): {
-            return [{ type: ExclusionDataTypes.General, content: await readFile(file) }];
+            return [{ type: ExclusionDataType.General, content: await readFile(file) }];
         }
         case (fileName.endsWith(`.${EXCLUSIONS_FILES_MARKERS.REGULAR}`)
             || fileName === EXCLUSIONS_FILES_MARKERS.REGULAR): {
-            return [{ type: ExclusionDataTypes.General, content: await readFile(file) }];
+            return [{ type: ExclusionDataType.General, content: await readFile(file) }];
         }
         case (fileName.endsWith(`.${EXCLUSIONS_FILES_MARKERS.SELECTIVE}`)
             || fileName === EXCLUSIONS_FILES_MARKERS.SELECTIVE): {
-            return [{ type: ExclusionDataTypes.Selective, content: await readFile(file) }];
+            return [{ type: ExclusionDataType.Selective, content: await readFile(file) }];
         }
         case (fileName.endsWith(EXCLUSIONS_FILES_MARKERS.ZIP)): {
             return readZipFile(file);
         }
         case (fileName.endsWith(EXCLUSIONS_FILES_MARKERS.TXT)): {
-            return [{ type: ExclusionDataTypes.Txt, content: await readFile(file) }];
+            return [{ type: ExclusionDataType.Txt, content: await readFile(file) }];
         }
         default: {
             const errorMessage = translator.getMessage(

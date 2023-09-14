@@ -4,38 +4,20 @@ import JSZip from 'jszip';
 import { vpnApi } from '../api';
 import { log } from '../../lib/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
-import { LocationApiData, EndpointApiData } from '../api/vpnApi';
-import { Service } from '../exclusions/services/Service';
+import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
+import type {
+    ServicesInterface,
+    CredentialsDataInterface,
+    LocationInterface,
+} from '../schema';
+import { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
+import { TrackInstallResponse, trackInstallResponseSchema } from '../schema/credentials/trackInstallResponse';
 
 const DEFAULT_LOCALE = 'en';
-
-export interface CredentialsDataInterface {
-    licenseStatus: string;
-    result: {
-        credentials: string;
-        expiresInSec: number;
-    },
-    timeExpiresSec: number;
-}
 
 interface NameInterface {
     locale: string;
     name: string;
-}
-
-export interface VpnExtensionInfoInterface {
-    bandwidthFreeMbits: number;
-    premiumPromoPage: string;
-    premiumPromoEnabled: boolean;
-    refreshTokens: boolean;
-    vpnFailurePage: string;
-    usedDownloadedBytes: number;
-    usedUploadedBytes: number;
-    maxDownloadedBytes: number;
-    maxUploadedBytes: number;
-    renewalTrafficDate: string;
-    maxDevicesCount: number;
-    emailConfirmationRequired: boolean;
 }
 
 interface CurrentLocationData {
@@ -49,21 +31,6 @@ interface CurrentLocationData {
     ],
 }
 
-interface LocationProviderData {
-    id: string;
-    cityName: string | null;
-    countryName: string | null;
-    countryCode: string;
-    coordinates: [
-        longitude: number,
-        latitude: number,
-    ],
-    premiumOnly: boolean;
-    pingBonus: number;
-    endpoints: EndpointProviderData[];
-    virtual: boolean;
-}
-
 export interface EndpointProviderData {
     id: string;
     ipv4Address: string;
@@ -72,27 +39,24 @@ export interface EndpointProviderData {
     publicKey: string;
 }
 
-interface RequestSupportParameters {
+export interface RequestSupportParameters {
     appId: string;
     token: string;
     email: string;
     message: string;
     version: string;
-    appLogs: string;
-}
-
-export interface ServicesInterface {
-    [serviceId: string]: Service,
+    appLogs?: string;
 }
 
 export interface VpnProviderInterface {
-    getLocationsData(appId: string, vpnToken: string): Promise<LocationProviderData[]>;
+    getLocationsData(appId: string, vpnToken: string): Promise<LocationInterface[]>;
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnCredentials(
         appId: string,
         vpnToken: string,
+        version: string,
     ): Promise<CredentialsDataInterface>;
-    postExtensionInstalled(appId: string): Promise<{ social_providers: string[] }>;
+    trackExtensionInstallation(appId: string, version: string, experiments: string): Promise<TrackInstallResponse>;
     getVpnExtensionInfo(
         appId: string,
         vpnToken: string,
@@ -104,7 +68,7 @@ export interface VpnProviderInterface {
         message,
         version,
         appLogs,
-    }: RequestSupportParameters): Promise<{ status: string, error: any }>;
+    }: RequestSupportParameters): Promise<{ status: string, error: string | null }>;
     getExclusionsServices(): Promise<ServicesInterface>;
 }
 
@@ -112,12 +76,11 @@ export interface VpnProviderInterface {
  * Prepares locations data
  * @param appId
  * @param vpnToken
- * @returns {Promise<*>}
  */
 const getLocationsData = async (
     appId: string,
     vpnToken: string,
-): Promise<LocationProviderData[]> => {
+): Promise<LocationInterface[]> => {
     const locationsData = await vpnApi.getLocations(appId, vpnToken);
 
     const { locations = [] } = locationsData;
@@ -139,7 +102,7 @@ const getLocationsData = async (
         };
     };
 
-    const prepareLocationData = (location: LocationApiData): LocationProviderData => {
+    const prepareLocationData = (location: LocationApiData): LocationInterface => {
         const {
             city_name: cityName,
             country_code: countryCode,
@@ -249,8 +212,15 @@ const getVpnExtensionInfo = async (
         max_uploaded_bytes: maxUploadedBytes,
         renewal_traffic_date: renewalTrafficDate,
         max_devices_count: maxDevicesCount,
-        email_confirmation_required: emailConfirmationRequired,
+        // Temporary disable email confirmation
+        // TODO: enable when backend will be ready
+        // email_confirmation_required: emailConfirmationRequired,
     } = info;
+
+    // Temporary hardcode emailConfirmationRequired to false
+    // to don't show email confirmation modal
+    // TODO: remove hardcode and handle email_confirmation_required from backend
+    const emailConfirmationRequired = false;
 
     return {
         bandwidthFreeMbits,
@@ -271,11 +241,12 @@ const getVpnExtensionInfo = async (
 const getVpnCredentials = async (
     appId: string,
     vpnToken: string,
+    version: string,
 ): Promise<CredentialsDataInterface> => {
     let responseData;
     try {
-        responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
-    } catch (e: any) {
+        responseData = await vpnApi.getVpnCredentials(appId, vpnToken, version);
+    } catch (e) {
         if (e.status === 400) {
             let errorMessageData;
 
@@ -313,16 +284,40 @@ const getVpnCredentials = async (
     };
 };
 
-const postExtensionInstalled = async (appId: string): Promise<{ social_providers: string[] }> => {
-    return vpnApi.postExtensionInstalled(appId);
+/**
+ * Tracks vpn extensions install
+ * @param appId
+ * @param version
+ * @param experiments
+ */
+const trackExtensionInstallation = async (
+    appId: string,
+    version: string,
+    experiments: string,
+): Promise<TrackInstallResponse> => {
+    const rawResponse = await vpnApi.trackExtensionInstallation(appId, version, experiments);
+    let response;
+    try {
+        response = trackInstallResponseSchema.parse(rawResponse);
+    } catch (e) {
+        log.error('Error while parsing track install response', e);
+        response = {};
+    }
+    return response;
 };
 
-const prepareLogs = async (appLogs: string) => {
+const prepareLogs = async (appLogs: string): Promise<Blob> => {
     const LOGS_FILENAME = 'logs.txt';
 
     const zip = new JSZip();
     zip.file(LOGS_FILENAME, appLogs);
-    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const zipBlob = await zip.generateAsync({
+        type: 'blob',
+        compression: 'DEFLATE',
+        compressionOptions: {
+            level: 9,
+        },
+    });
     return zipBlob;
 };
 
@@ -333,7 +328,7 @@ const requestSupport = async ({
     message,
     version,
     appLogs,
-}: RequestSupportParameters): Promise<{ status: string, error: any }> => {
+}: RequestSupportParameters): Promise<{ status: string, error: string | null }> => {
     const BUG_REPORT_SUBJECT = '[VPN Browser extension] Bug report';
     const LOGS_ZIP_FILENAME = 'logs.zip';
 
@@ -354,7 +349,7 @@ const requestSupport = async ({
     try {
         await vpnApi.requestSupport(formData);
         return { status: 'ok', error: null };
-    } catch (e: any) {
+    } catch (e) {
         log.error(e);
         return {
             status: e.status,
@@ -384,7 +379,7 @@ export const vpnProvider: VpnProviderInterface = {
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,
-    postExtensionInstalled,
+    trackExtensionInstallation,
     getLocationsData,
     requestSupport,
     getExclusionsServices,

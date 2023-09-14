@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN – brezplačen in varen VPN"
+        "message": "AdGuard VPN – brezplačen in varen namestniški strežnik"
     },
     "description": {
         "message": "Uporabite AdGuard VPN za hitro, varno in varno brskanje po internetu. Zaščitite svojo zasebnost in ostanite anonimni z našim zasebnim namestniškim VPN strežnikom."
@@ -335,6 +335,9 @@
     "context_menu_export_logs": {
         "message": "Izvozi dnevnike"
     },
+    "context_menu_debug_level": {
+        "message": "Beleženje odpravljanja napak"
+    },
     "settings_dns_label": {
         "message": "Strežnik DNS"
     },
@@ -445,6 +448,18 @@
     },
     "settings_theme_light": {
         "message": "Svetla"
+    },
+    "settings_quick_connect_title": {
+        "message": "Hitro poveži"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Lokacija VPN izbrana, ko kliknete Poveži"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Zadnja uporabljena lokacija"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Najhitrejša lokacija"
     },
     "settings_exclusion_add": {
         "message": "Dodaj"
@@ -581,6 +596,9 @@
     "authentication_successful_notification": {
         "message": "Uspešno preverjena! Lahko odprete AdGuard VPN in ga začnete uporabljati."
     },
+    "control_error_title": {
+        "message": "Spor razširitve"
+    },
     "control_error_description": {
         "message": "Zdi se, da poskuša druga razširitev brskalnika nadzorovati vašo povezavo. Prosimo, onemogočite drugo razširitev v brskalniku."
     },
@@ -591,7 +609,10 @@
         "message": "Omogoči"
     },
     "popup_settings_disable_vpn": {
-        "message": "Onemogoči VPN na tej spletni strani"
+        "message": "Onemogoči VPN za to spletno stran"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Omogoči VPN za to spletno stran"
     },
     "popup_settings_other_products": {
         "message": "Drugi izdelki"
@@ -630,10 +651,13 @@
         "message": "Poišči lokacijo"
     },
     "endpoints_not_found": {
-        "message": "Lokacija ni bila najdena"
+        "message": "Lokacije niso bile najdene"
     },
     "popup_traffic_limit_reached": {
         "message": "Mesečna omejitev podatkov je dosežena"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Omejena hitrost"
     },
     "premium_upgrade": {
         "message": "Nadgradi"
@@ -668,6 +692,9 @@
     "popup_feedback_button": {
         "message": "Pošlji povratne informacije"
     },
+    "popup_compare_button": {
+        "message": "Zakaj je aplikacija boljša"
+    },
     "popup_rate_modal_title": {
         "message": "Kako osupljiv je AdGuard VPN?"
     },
@@ -694,6 +721,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Pojdi v trgovino z razširitvami"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Ni mogoče vzpostaviti povezave s strežnikom"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Najverjetneje je bil VPN onemogočen v vaši državi ali pa je prišlo do tehnične napake. To že poskušamo popraviti"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Dregni ekipo AdGuard"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Prekliči"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Delamo na tem"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Hvala, ker ste nam sporočili!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Zapri"
     },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
@@ -784,8 +832,14 @@
         "message": "Nadaljujte brezplačno"
     },
     "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> preostalo za ta mesec",
+        "message": "<span>%value% %unit%</span> preostalo ta mesec",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_hint_popup_content": {
+        "message": "Mimogrede, lahko onemogočite VPN za to spletno stran, če želite"
+    },
+    "popup_hint_popup_button": {
+        "message": "Razumem"
     },
     "options_exclusions_import_select_title": {
         "message": "Kako uporabljati ta seznam izključitev?"

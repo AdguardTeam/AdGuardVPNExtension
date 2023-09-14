@@ -1,4 +1,4 @@
-import { ServiceCategory, ServiceInterface } from '../../../common/exclusionsConstants';
+import type { ServiceCategory, ServiceInterface } from '../../schema';
 
 export class Service implements ServiceInterface {
     serviceId: string;

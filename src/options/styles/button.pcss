@@ -1,8 +1,12 @@
+button,
+.button {
+    font-family: var(--font-stack);
+}
+
 .button {
     display: inline-block;
     vertical-align: middle;
     padding: 0;
-    font-family: var(--font-stack);
     font-size: 16px;
     line-height: 24px;
     text-align: center;
@@ -15,7 +19,6 @@
 
     &:focus {
         box-shadow: 0 0 2px 1px var(--shadow);
-        outline: none;
     }
 
     &:disabled {
@@ -187,10 +190,6 @@
     transition: var(--t3) color;
     cursor: pointer;
 
-    &:focus {
-        outline: none;
-    }
-
     &:hover {
         color: var(--green900);
     }
@@ -202,7 +201,6 @@
     background: transparent;
     transform: rotate(180deg);
     padding: 12px 8px 5px 16px;
-    outline: none;
 
     &:hover {
         filter: brightness(.7);

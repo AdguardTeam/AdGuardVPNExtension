@@ -1,55 +1,78 @@
-import { ExclusionsModes, ExclusionState } from '../../../common/exclusionsConstants';
+import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
 import { ExclusionsHandler } from './ExclusionsHandler';
 import { notifier } from '../../../lib/notifier';
 import { log } from '../../../lib/logger';
 import { settings } from '../../settings';
 import { proxy } from '../../proxy';
-import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsTypes';
-
-interface PersistedExclusions {
-    [ExclusionsModes.Regular]: ExclusionInterface[];
-    [ExclusionsModes.Selective]: ExclusionInterface[];
-    inverted: boolean;
-}
+import {
+    StorageKey,
+    PersistedExclusions,
+    ExclusionInterface,
+    IndexedExclusionsInterface, ExclusionsManagerState,
+} from '../../schema';
+import { stateStorage } from '../../stateStorage';
 
 export type AllExclusions = Omit<PersistedExclusions, 'inverted'>;
 
-const DefaultExclusions: PersistedExclusions = {
-    [ExclusionsModes.Regular]: [],
-    [ExclusionsModes.Selective]: [],
-    inverted: false,
-};
-
 export class ExclusionsManager {
-    exclusions: PersistedExclusions = DefaultExclusions;
-
-    inverted: boolean = DefaultExclusions.inverted;
+    state: ExclusionsManagerState;
 
     selectiveModeHandler: ExclusionsHandler;
 
     regularModeHandler: ExclusionsHandler;
 
-    currentHandler: ExclusionsHandler;
+    saveExclusionsManagerState = () => {
+        stateStorage.setItem(StorageKey.ExclusionsManagerState, this.state);
+    };
+
+    private get exclusions(): PersistedExclusions {
+        return this.state.exclusions;
+    }
+
+    private set exclusions(exclusions: PersistedExclusions) {
+        this.state.exclusions = exclusions;
+        this.saveExclusionsManagerState();
+    }
+
+    get inverted(): boolean {
+        return this.state.inverted;
+    }
+
+    set inverted(inverted: boolean) {
+        this.state.inverted = inverted;
+        this.saveExclusionsManagerState();
+    }
+
+    get currentHandler(): ExclusionsHandler {
+        return this.state.currentHandler;
+    }
+
+    set currentHandler(currentHandler: ExclusionsHandler) {
+        this.state.currentHandler = currentHandler;
+        this.saveExclusionsManagerState();
+    }
 
     init = async () => {
-        this.exclusions = settings.getExclusions() as PersistedExclusions;
+        this.state = stateStorage.getItem(StorageKey.ExclusionsManagerState);
 
-        const regular = this.exclusions[ExclusionsModes.Regular] ?? [];
+        this.exclusions = settings.getExclusions();
 
-        const selective = this.exclusions[ExclusionsModes.Selective] ?? [];
+        const regular = this.exclusions[ExclusionsMode.Regular] ?? [];
+
+        const selective = this.exclusions[ExclusionsMode.Selective] ?? [];
 
         this.inverted = this.exclusions.inverted ?? false;
 
         this.selectiveModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             selective,
-            ExclusionsModes.Selective,
+            ExclusionsMode.Selective,
         );
 
         this.regularModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             regular,
-            ExclusionsModes.Regular,
+            ExclusionsMode.Regular,
         );
 
         this.currentHandler = this.inverted ? this.selectiveModeHandler : this.regularModeHandler;
@@ -66,7 +89,7 @@ export class ExclusionsManager {
     handleExclusionsUpdate = async () => {
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
-        const enabledExclusionsList = this.currentHandler.getExclusions()
+        const enabledExclusionsList = this.currentHandler.exclusions
             .filter(({ state }) => state === ExclusionState.Enabled)
             .map(({ hostname }) => hostname);
 
@@ -74,8 +97,8 @@ export class ExclusionsManager {
 
         const exclusionsRepository = {
             inverted: this.inverted,
-            [ExclusionsModes.Selective]: this.selective.exclusions,
-            [ExclusionsModes.Regular]: this.regular.exclusions,
+            [ExclusionsMode.Selective]: this.selective.exclusions,
+            [ExclusionsMode.Regular]: this.regular.exclusions,
         };
 
         settings.setExclusions(exclusionsRepository);
@@ -97,14 +120,14 @@ export class ExclusionsManager {
      * Sets current exclusion mode
      * @param mode
      */
-    async setCurrentMode(mode: ExclusionsModes) {
+    async setCurrentMode(mode: ExclusionsMode) {
         switch (mode) {
-            case ExclusionsModes.Selective: {
+            case ExclusionsMode.Selective: {
                 this.currentHandler = this.selectiveModeHandler;
                 this.inverted = true;
                 break;
             }
-            case ExclusionsModes.Regular: {
+            case ExclusionsMode.Regular: {
                 this.currentHandler = this.regularModeHandler;
                 this.inverted = false;
                 break;
@@ -119,7 +142,7 @@ export class ExclusionsManager {
      * Returns exclusions for current mode
      */
     getExclusions(): ExclusionInterface[] {
-        return this.currentHandler.getExclusions();
+        return this.currentHandler.exclusions;
     }
 
     /**
@@ -127,8 +150,8 @@ export class ExclusionsManager {
      */
     getAllExclusions(): AllExclusions {
         return {
-            regular: [...this.regular.getExclusions()],
-            selective: [...this.selective.getExclusions()],
+            regular: [...this.regular.exclusions],
+            selective: [...this.selective.exclusions],
         };
     }
 

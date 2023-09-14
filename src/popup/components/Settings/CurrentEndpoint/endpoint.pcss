@@ -1,9 +1,8 @@
 .endpoint {
-    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: auto;
+    justify-content: space-between;
     padding: 14px 20px;
     color: var(--gray-base);
     cursor: pointer;
@@ -15,8 +14,21 @@
         background: #0f0f18;
     }
 
-    .ping {
-        font-weight: 700;
+    &__ping {
+        font-weight: 400;
+        text-align: right;
+
+        & .ping--connected {
+            font-weight: 700;
+        }
+    }
+
+    &__ping-container {
+        display: flex;
+
+        .icon--arrow {
+            margin-left: 16px;
+        }
     }
 
     &:hover {
@@ -27,20 +39,45 @@
         }
     }
 
+    &__flag {
+        width: 16px;
+        height: 16px;
+        margin: 5px 15px 0 0;
+        box-shadow: 0 0 0 1px var(--gray-base);
+        background-color: white;
+        background-position: center;
+        border-radius: 50%;
+
+        &--active {
+            box-shadow: 0 0 0 1px var(--white), 0 0 0 3px var(--gray-base);
+        }
+    }
+
     &__title {
         position: relative;
-        font-size: 2rem;
-        font-weight: 700;
+        font-size: 16px;
+        font-weight: 400;
         line-height: 24px;
+
+        &--connected {
+            font-weight: 700;
+        }
+    }
+
+    &__info {
+        display: flex;
+
     }
 
     &__desc {
-        font-size: 1.4rem;
+        font-size: 14px;
         max-width: 170px;
+        color: var(--gray88);
     }
 
-    &__country {
-        margin-right: 15px;
+    &__limited-speed {
+        font-size: 14px;
+        color: var(--gray88);
     }
 }
 

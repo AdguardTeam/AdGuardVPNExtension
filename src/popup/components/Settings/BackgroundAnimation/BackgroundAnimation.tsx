@@ -4,16 +4,12 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import {
     AnimationState,
-    APPEARANCE_THEMES,
+    AppearanceTheme,
     animationSourcesMap,
 } from '../../../../lib/constants';
 import { animationService } from './animationStateMachine';
 
-interface BackgroundAnimationProps {
-    exclusionsScreen?: boolean;
-}
-
-export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAnimationProps) => {
+export const BackgroundAnimation = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
@@ -24,7 +20,8 @@ export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAni
 
     useEffect(() => {
         animationService.onTransition((state) => {
-            settingsStore.setAnimationState(state.value);
+            // new state value on transition is string, but it's actually AnimationState
+            settingsStore.setAnimationState(state.value as AnimationState);
         });
     });
 
@@ -32,15 +29,13 @@ export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAni
 
     let animationSources = animationSourcesMap[systemTheme];
 
-    if (appearanceTheme && appearanceTheme !== APPEARANCE_THEMES.SYSTEM) {
+    if (appearanceTheme
+        && (appearanceTheme === AppearanceTheme.Light
+            || appearanceTheme === AppearanceTheme.Dark)) {
         animationSources = animationSourcesMap[appearanceTheme];
     }
 
-    let sourceUrl = animationSources[animationState as AnimationState];
-
-    if (exclusionsScreen) {
-        sourceUrl = animationSources[AnimationState.VpnDisabled];
-    }
+    const sourceUrl = animationSources[animationState];
 
     const loop = animationState === AnimationState.VpnEnabled
         || animationState === AnimationState.VpnDisabled;

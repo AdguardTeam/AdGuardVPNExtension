@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — ücretsiz ve güvenli proxy"
     },
     "description": {
-        "message": "İnternette hızlı, güvenli ve güvenilir bir şekilde gezinmek için AdGuard VPN kullanın. Özel vpn proxy'mizle gizliliğinizi koruyun ve anonim kalın."
+        "message": "İnternette hızlı, güvenli ve güvenilir bir şekilde gezinmek için AdGuard VPN kullanın. Özel VPN proxy'mizle gizliliğinizi koruyun ve anonim kalın."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -309,13 +309,13 @@
         "message": "Geri dön"
     },
     "settings_rate_us": {
-        "message": "Bizi değerlendirin"
+        "message": "Bizi derecelendirin"
     },
     "settings_webrtc_label": {
         "message": "WebRTC'i engelle"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü taraf bir sitenin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
+        "message": "WebRTC çoğu internet tarayıcısında, üçüncü taraf bir sitenin gerçek IP adresinizi tespit etmesine ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
     },
     "settings_context_menus_title": {
         "message": "Tarayıcının sağ tık menüsüne AdGuard VPN öğesini ekle"
@@ -334,6 +334,9 @@
     },
     "context_menu_export_logs": {
         "message": "Günlükleri dışa aktar"
+    },
+    "context_menu_debug_level": {
+        "message": "Hata ayıklama günlüğü"
     },
     "settings_dns_label": {
         "message": "DNS sunucusu"
@@ -408,7 +411,7 @@
         "message": "AdGuard DNS Family Protection"
     },
     "settings_dns_selector_adguard_family_desc": {
-        "message": "AdGuard DNS + Güvenli Arama ve yetişkin içerik engelleme"
+        "message": "AdGuard DNS + SafeSearch ve yetişkinlere yönelik içerik engelleme"
     },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"
@@ -445,6 +448,18 @@
     },
     "settings_theme_light": {
         "message": "Açık"
+    },
+    "settings_quick_connect_title": {
+        "message": "Hızlı bağlantı"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Bağlan'a tıkladığınızda seçilen VPN konumu"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Son kullanılan konum"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "En hızlı konum"
     },
     "settings_exclusion_add": {
         "message": "Ekle"
@@ -581,6 +596,9 @@
     "authentication_successful_notification": {
         "message": "Başarıyla doğrulandı! AdGuard VPN'i açabilir ve kullanmaya başlayabilirsiniz."
     },
+    "control_error_title": {
+        "message": "Uzantı çakışması"
+    },
     "control_error_description": {
         "message": "Başka bir Tarayıcı uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
     },
@@ -593,11 +611,14 @@
     "popup_settings_disable_vpn": {
         "message": "Bu sitede VPN'i devre dışı bırak"
     },
+    "popup_settings_enable_vpn": {
+        "message": "Bu site için VPN'i etkinleştir"
+    },
     "popup_settings_other_products": {
         "message": "Diğer ürünler"
     },
     "popup_settings_feedback": {
-        "message": "Geri Bildirim"
+        "message": "Geri bildirim"
     },
     "popup_settings_open_settings": {
         "message": "Ayarlar"
@@ -635,6 +656,9 @@
     "popup_traffic_limit_reached": {
         "message": "Aylık veri sınırına ulaşıldı"
     },
+    "popup_traffic_limited_speed": {
+        "message": "Sınırlı hız"
+    },
     "premium_upgrade": {
         "message": "Yükselt"
     },
@@ -660,7 +684,7 @@
         "message": "Ücretsiz veri sınırına ulaştınız, ve AdGuard VPN yavaş çalışıyor."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Hızı artırın"
+        "message": "Hızı artır"
     },
     "popup_feedback_title": {
         "message": "Geri bildiriminizi duymak isteriz"
@@ -668,11 +692,14 @@
     "popup_feedback_button": {
         "message": "Geri bildirimde bulun"
     },
+    "popup_compare_button": {
+        "message": "Uygulama neden daha iyi"
+    },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN ne kadar harika?"
     },
     "popup_rate_modal_subtitle": {
-        "message": "Lütfen bizi değerlendirin"
+        "message": "Lütfen bizi derecelendirin"
     },
     "popup_rate_modal_send_button": {
         "message": "Gönder"
@@ -690,10 +717,31 @@
         "message": "Geri bildirimde bulun"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Vay! Bizi Uzantı Store'da da değerlendirebilir misiniz?"
+        "message": "Vay! Bizi Uzantı Store'da da derecelendirebilir misiniz?"
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Uzantı Mağazası'na Git"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Sunucuya bağlanılamıyor"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Büyük olasılıkla, VPN ülkenizde engellendi veya teknik bir aksaklık oldu. Zaten düzeltmeye çalışıyoruz"
+    },
+    "popup_server_error_popup_action": {
+        "message": "AdGuard ekibini dürt"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "İptal"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Üzerinde çalışılıyor"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Bize bildirdiğiniz için teşekkür ederiz!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Kapat"
     },
     "options_title": {
         "message": "AdGuard VPN Ayarları"
@@ -733,7 +781,7 @@
         "message": "Benzersiz VPN protokolü"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "AdGuard VPN protokolü hızlı çalışır ve VPN trafiğinizi görünmez kılar"
+        "message": "AdGuard VPN protokolü hızlı çalışır ve VPN trafiğinizi farkedilmez hâle getirir"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Siteler ve uygulamalar istisnaları"
@@ -786,6 +834,20 @@
     "popup_free_traffic_info": {
         "message": "Bu ay <span>%value% %unit%</span> kaldı",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% kaldı",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Veri bugün yenileniyor | Veri %days% gün içinde yenileniyor | Veri %days% gün içinde yenileniyor",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "Bu arada, isterseniz bu site için VPN'i devre dışı bırakabilirsiniz"
+    },
+    "popup_hint_popup_button": {
+        "message": "Anladım"
     },
     "options_exclusions_import_select_title": {
         "message": "Bu istisna listesi nasıl kullanılır?"

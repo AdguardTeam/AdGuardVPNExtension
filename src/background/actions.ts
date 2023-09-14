@@ -1,72 +1,125 @@
 import browser from 'webextension-polyfill';
 
 import { tabs } from './tabs';
-// TODO convert to TS
-import credentials from './credentials';
-import { Prefs } from './prefs';
+import { credentials } from './credentials';
+import { Prefs } from '../common/prefs';
 import { log } from '../lib/logger';
 import { settings } from './settings';
 import { UPGRADE_LICENSE_URL } from './config';
 import { promoNotifications } from './promoNotifications';
 import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
+import { browserAction } from './browserAction';
 
 type SetIconDetailsType = browser.Action.SetIconDetailsType;
 type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
 
+const OPTIONS_PAGE_PATH = '/options.html';
+
 /**
- * Opens options tab with anchor if provided
- * @param {string | null} anchorName
- * @return {Promise<void>}
+ * Opens options page in Firefox with queryString if provided.
+ * There is a bug with browser.runtime.openOptionsPage() method in Firefox
+ * similar to https://bugs.chromium.org/p/chromium/issues/detail?id=1369940,
+ * so we use a temporary solution to open а single options page in Firefox.
  */
-const openOptionsPage = async (anchorName: string | null = null): Promise<void> => {
+const openOptionsPageFirefox = async (queryString: string = '') => {
     const manifest = browser.runtime.getManifest();
-    // TODO find way to remove ts-ignore
-    // @ts-ignore
-    let optionsUrl = manifest.options_ui?.page || manifest.options_page;
+    // options page url set in options_ui.page in manifest.firefox.ts
+    let optionsUrl = manifest.options_ui!.page;
+
     if (!optionsUrl.includes('://')) {
         optionsUrl = browser.runtime.getURL(optionsUrl);
     }
 
-    const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
-    const anchor = anchorName ? `#${anchorName}` : '';
-    const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
+    const targetUrl = `${optionsUrl}${queryString}`;
+    const optionsTabs = await browser.tabs.query({ url: optionsUrl });
 
-    // there is the bug with chrome.runtime.openOptionsPage() method
-    // https://bugs.chromium.org/p/chromium/issues/detail?id=1369940
-    // we use temporary solution to open а single options page
-    const view = browser.extension.getViews()
-        .find((wnd) => wnd.location.href.startsWith(optionsUrl));
-    if (view) {
-        await new Promise<void>((resolve) => {
-            view.chrome.tabs.getCurrent(async (tab) => {
-                if (tab) {
-                    await browser.tabs.update(tab.id, { active: true, url: targetUrl });
-                    resolve();
-                }
-            });
-        });
-    } else {
-        await browser.tabs.create({ url: targetUrl });
+    if (!optionsTabs.length) {
+        await tabs.openTab(targetUrl);
+        return;
+    }
+
+    const { windowId, id: tabId } = optionsTabs[0];
+    await browser.tabs.update(tabId, { url: targetUrl, active: true });
+    if (windowId) {
+        await browser.windows.update(windowId, { focused: true });
     }
 };
 
-const setIcon = async (details: SetIconDetailsType) => {
+interface OpenOptionsPageParams {
+    anchorName?: string;
+    queryParams?: { [key: string]: string };
+}
+
+/**
+ * Builds query string from params object
+ * @param params
+ */
+export const buildQueryString = (params: OpenOptionsPageParams): string => {
+    const {
+        anchorName = '',
+        queryParams = {},
+    } = params;
+
+    // Convert queryParams object to query string
+    const queryParamsStr = new URLSearchParams(queryParams).toString();
+    const queryString = queryParamsStr ? `?${queryParamsStr}` : '';
+
+    if (anchorName === '') {
+        return queryString;
+    }
+
+    return `${queryString}#${anchorName}`;
+};
+
+/**
+ * Opens options tab with anchor if provided
+ */
+const openOptionsPage = async (
+    params: OpenOptionsPageParams = {},
+): Promise<void> => {
+    const { anchorName, queryParams } = params;
+
+    const queryString = buildQueryString({
+        anchorName,
+        queryParams: {
+            ...queryParams,
+            [THEME_URL_PARAMETER]: settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME),
+        },
+    });
+
+    // We use temporary solution for Firefox because of a bug with browser.runtime.openOptionsPage() method
+    // TODO: remove when bug will be fixed
+    if (Prefs.isFirefox()) {
+        await openOptionsPageFirefox(queryString);
+        return;
+    }
+
+    await browser.runtime.openOptionsPage();
+    const optionsTab = await tabs.getCurrent();
+    const { id } = optionsTab;
+    const newOptionsStr = `${OPTIONS_PAGE_PATH}${queryString}`;
+    if (id) {
+        await tabs.update(id, newOptionsStr);
+    }
+};
+
+const setIcon = async (details: SetIconDetailsType): Promise<void> => {
     try {
-        await browser.browserAction.setIcon(details);
-    } catch (e: any) {
+        await browserAction.setIcon(details);
+    } catch (e) {
         log.debug(e.message);
     }
 };
 
 const BADGE_COLOR = '#74a352';
 
-const setBadge = async (details: SetBadgeDetailsType) => {
+const setBadge = async (details: SetBadgeDetailsType): Promise<void> => {
     try {
-        await browser.browserAction.setBadgeText(details);
+        await browserAction.setBadgeText(details);
         const { tabId } = details;
 
-        await browser.browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
-    } catch (e: any) {
+        await browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
+    } catch (e) {
         log.debug(e.message);
     }
 };
@@ -76,15 +129,12 @@ const setBadge = async (details: SetBadgeDetailsType) => {
  * 1. for general browser action
  * 2. for tab browser action if tabId is provided
  * @param tabId
- * @returns {Promise<void>}
  */
-const setIconEnabled = async (tabId: number) => {
+const setIconEnabled = async (tabId: number): Promise<void> => {
     const details: SetIconDetailsType = { path: Prefs.ICONS.ENABLED };
     const promoNotification = await promoNotifications.getCurrentNotification();
 
     if (promoNotification) {
-        // TODO fix after promo notifications converted to TS
-        // @ts-ignore
         details.path = promoNotification.icons.ENABLED;
     }
 
@@ -99,17 +149,14 @@ const setIconEnabled = async (tabId: number) => {
  * Sets browser cation icon disabled. In order to remove blinking we set icon twice:
  * 1. for general browser action
  * 2. for tab browser action if tabId is provided
- * @param {number|null} tabId
- * @returns {Promise<void>}
+ * @param tabId
  */
-const setIconDisabled = async (tabId: number) => {
+const setIconDisabled = async (tabId: number): Promise<void> => {
     const details: SetIconDetailsType = { path: Prefs.ICONS.DISABLED };
 
     const promoNotification = await promoNotifications.getCurrentNotification();
 
     if (promoNotification) {
-        // TODO fix after promo notifications converted to TS
-        // @ts-ignore
         details.path = promoNotification.icons.DISABLED;
     }
 
@@ -123,9 +170,8 @@ const setIconDisabled = async (tabId: number) => {
 /**
  * Sets browser action icon when traffic is off
  * @param tabId
- * @returns {Promise<void>}
  */
-const setIconTrafficOff = async (tabId: number) => {
+const setIconTrafficOff = async (tabId: number): Promise<void> => {
     const details: SetIconDetailsType = { path: Prefs.ICONS.TRAFFIC_OFF };
     await setIcon(details);
     if (tabId) {
@@ -134,7 +180,7 @@ const setIconTrafficOff = async (tabId: number) => {
     }
 };
 
-const setBadgeText = async (tabId: number, text: string) => {
+const setBadgeText = async (text: string, tabId?: number) => {
     const details: SetBadgeDetailsType = { text };
 
     await setBadge(details);
@@ -156,9 +202,8 @@ const clearBadgeText = async (tabId: number) => {
 
 /**
  * Generates Premium Promo Page url with user email in parameter (if authenticated)
- * @returns {string}
  */
-const getPremiumPromoPageUrl = async () => {
+const getPremiumPromoPageUrl = async (): Promise<string> => {
     const username = await credentials.getUsername();
     return `${UPGRADE_LICENSE_URL}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
 };
@@ -175,13 +220,15 @@ const openPremiumPromoPage = async () => {
  * Opens Options page on Referral Program section
  */
 const openFreeGbsPage = async () => {
-    await openOptionsPage(FREE_GBS_ANCHOR);
+    await openOptionsPage({ anchorName: FREE_GBS_ANCHOR });
 };
 
 const openExportLogsPage = async () => {
     const url = browser.runtime.getURL('export.html');
     const currentTab = await tabs.getCurrent();
     const exportTab = await tabs.openTab(url);
+
+    const CLOSE_EXPORT_TAB_TIMEOUT = 300;
 
     // this is a workaround for closing export tab and opening previous tab
     setTimeout(() => {
@@ -192,7 +239,7 @@ const openExportLogsPage = async () => {
         if (currentTab?.id) {
             browser.tabs.update(currentTab.id, { active: true });
         }
-    }, 300);
+    }, CLOSE_EXPORT_TAB_TIMEOUT);
 };
 
 export const actions = {

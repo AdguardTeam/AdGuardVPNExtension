@@ -6,8 +6,8 @@
  * const tags = { host: example.org }
  * console.log(renderTemplate(template, tags)); -> outputs: "https://example.org/path"
  *
- * @param {string} template
- * @param {object} tags
+ * @param template
+ * @param tags
  */
 export const renderTemplate = (template: string, tags: { [key: string]: string }): string => {
     return Object.entries(tags).reduce((acc, [key, value]) => {
@@ -19,7 +19,6 @@ export const renderTemplate = (template: string, tags: { [key: string]: string }
 /**
  * Converts string into Uint8Array
  * @param str
- * @returns {!Uint8Array}
  */
 export const stringToUint8Array = (str: string): Uint8Array => {
     return new TextEncoder().encode(str);
@@ -40,8 +39,8 @@ export const areHostnamesEqual = (hostnameA: string, hostnameB: string): boolean
 /**
  * Checks is wildcard pattern matches with url
  * IMPORTANT - note that regexp asserts position at the end of the string
- * @param {string} url - hostname or url
- * @param {string} pattern
+ * @param url - hostname or url
+ * @param pattern
  */
 export const shExpMatch = (url: string, pattern: string): boolean => {
     let regexpStr = pattern.replace(/\./g, '\\.');
@@ -52,7 +51,7 @@ export const shExpMatch = (url: string, pattern: string): boolean => {
 
 /**
  * Checks if string is valid url with http: or https: protocol
- * @param {string} str
+ * @param str
  */
 export const isHttp = (str: string): boolean => {
     let url;
@@ -77,7 +76,6 @@ export const isValidExclusion = (exclusion: string): boolean => {
 /**
  * Clears string from wrapping quotes
  * @param str
- * @returns {*}
  */
 export const clearFromWrappingQuotes = (str: string): string => {
     return str.replace(/^"|"$/g, '');

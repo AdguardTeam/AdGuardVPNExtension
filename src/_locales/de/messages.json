@@ -330,16 +330,19 @@
         "message": "Selektiver Modus"
     },
     "context_menu_general_mode": {
-        "message": "Allgemeiner Modus"
+        "message": "Standardmodus"
     },
     "context_menu_export_logs": {
         "message": "Protokolle exportieren"
+    },
+    "context_menu_debug_level": {
+        "message": "Debug-Protokollierung"
     },
     "settings_dns_label": {
         "message": "DNS-Server"
     },
     "settings_dns_popular_servers": {
-        "message": "Beliebte DNS-Anbieter"
+        "message": "Beliebte DNS-Server"
     },
     "settings_dns_custom_servers": {
         "message": "Benutzerdefinierte DNS-Server"
@@ -445,6 +448,18 @@
     },
     "settings_theme_light": {
         "message": "Hell"
+    },
+    "settings_quick_connect_title": {
+        "message": "Schnellverbindung"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN-Standort, der ausgewählt wird, wenn Sie auf „Verbinden“ klicken"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Zuletzt genutzter Standort"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Schnellster Standort"
     },
     "settings_exclusion_add": {
         "message": "Hinzufügen"
@@ -581,6 +596,9 @@
     "authentication_successful_notification": {
         "message": "Erfolgreich authentifiziert! Sie können AdGuard VPN jetzt öffnen und sofort verwenden."
     },
+    "control_error_title": {
+        "message": "Konflikt mit der Erweiterung"
+    },
     "control_error_description": {
         "message": "Es sieht so aus, als ob eine andere Chrome-Erweiterung versucht, Ihre Verbindung zu kontrollieren. Bitte deaktivieren Sie die andere Erweiterung in Ihrem Browser."
     },
@@ -591,7 +609,10 @@
         "message": "Aktivieren"
     },
     "popup_settings_disable_vpn": {
-        "message": "VPN auf dieser Website deaktivieren"
+        "message": "VPN für diese Website deaktivieren"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "VPN für diese Website aktivieren"
     },
     "popup_settings_other_products": {
         "message": "Weitere Produkte"
@@ -630,10 +651,13 @@
         "message": "Standort suchen"
     },
     "endpoints_not_found": {
-        "message": "Standort nicht gefunden"
+        "message": "Standorte nicht gefunden"
     },
     "popup_traffic_limit_reached": {
         "message": "Monatliches Datenlimit erreicht"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Begrenzte Geschwindigkeit"
     },
     "premium_upgrade": {
         "message": "Erweitern"
@@ -668,6 +692,9 @@
     "popup_feedback_button": {
         "message": "Feedback senden"
     },
+    "popup_compare_button": {
+        "message": "Warum die App besser ist"
+    },
     "popup_rate_modal_title": {
         "message": "Wie toll ist AdGuard VPN?"
     },
@@ -694,6 +721,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Erweiterungen-Store aufrufen"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Verbindung zum Server konnte nicht hergestellt werden"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Das VPN wurde wohl in Ihrem Land gesperrt oder es gab eine technische Störung. Wir versuchen schon, dies zu beheben"
+    },
+    "popup_server_error_popup_action": {
+        "message": "AdGuard-Team anstupsen"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Abbrechen"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Wir arbeiten daran"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Danke, dass Sie uns das mitgeteilt haben!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Schließen"
     },
     "options_title": {
         "message": "AdGuard VPN Einstellungen"
@@ -786,6 +834,20 @@
     "popup_free_traffic_info": {
         "message": "Noch <span>%value% %unit%</span> in diesem Monat verfügbar",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% übrig",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Traffic wird heute erneuert | Traffic wird in %days% Tag erneuert | Traffic wird in %days% Tagen erneuert",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "Übrigens, Sie können VPN für diese Website deaktivieren, wenn Sie möchten"
+    },
+    "popup_hint_popup_button": {
+        "message": "Verstanden"
     },
     "options_exclusions_import_select_title": {
         "message": "Wie kann diese Liste der Ausschlüsse verwendet werden?"

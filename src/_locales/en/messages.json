@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -25,9 +25,6 @@
     },
     "registration_error_unique_constraint": {
         "message": "This value is already used"
-    },
-    "registration_error_front_unique_validation": {
-        "message": "Passwords don't match"
     },
     "registration_error_default": {
         "message": "An error happened, try again later"
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Settings"
     },
-    "options_menu_free_traffic": {
-        "message": "Free VPN traffic"
-    },
     "referral_get_free_traffic": {
         "message": "Get free GBs!"
     },
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Export logs"
     },
+    "context_menu_debug_level": {
+        "message": "Debug logging"
+    },
     "settings_dns_label": {
         "message": "DNS server"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Custom DNS server deleted"
-    },
-    "settings_dns_desc": {
-        "message": "Domain Name System (DNS) is the internet's equivalent of a phone book. It maintains a directory of domain names and translates them to Internet Protocol (IP) addresses."
     },
     "settings_dns_selector_default_title": {
         "message": "Default"
@@ -445,6 +439,18 @@
     },
     "settings_theme_light": {
         "message": "Light"
+    },
+    "settings_quick_connect_title": {
+        "message": "Quick connect"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN location selected when you click Connect"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Last used location"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Fastest location"
     },
     "settings_exclusion_add": {
         "message": "Add"
@@ -581,6 +587,9 @@
     "authentication_successful_notification": {
         "message": "Successfully authenticated! You can open AdGuard VPN and start using it."
     },
+    "control_error_title": {
+        "message": "Extension conflict"
+    },
     "control_error_description": {
         "message": "It looks like another browser extension is trying to control your connection. Please disable the other extension in your browser."
     },
@@ -591,7 +600,10 @@
         "message": "Enable on this site"
     },
     "popup_settings_disable_vpn": {
-        "message": "Disable VPN on this website"
+        "message": "Disable VPN for this website"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Enable VPN for this website"
     },
     "popup_settings_other_products": {
         "message": "Other products"
@@ -601,9 +613,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Settings"
-    },
-    "popup_settings_sign_out": {
-        "message": "Sign out"
     },
     "context_menu_enable_vpn": {
         "message": "Enable VPN on this website"
@@ -630,10 +639,13 @@
         "message": "Search location"
     },
     "endpoints_not_found": {
-        "message": "Location not found"
+        "message": "Locations not found"
     },
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Limited speed"
     },
     "premium_upgrade": {
         "message": "Upgrade"
@@ -668,6 +680,9 @@
     "popup_feedback_button": {
         "message": "Leave feedback"
     },
+    "popup_compare_button": {
+        "message": "Why the app is better"
+    },
     "popup_rate_modal_title": {
         "message": "How awesome is AdGuard VPN?"
     },
@@ -694,6 +709,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Go to the Extension Store"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Can’t connect to server"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Most likely, the VPN was blocked in your country or there was a technical glitch. We’re already trying to fix it"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Nudge AdGuard team"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Cancel"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Working on it"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Thanks for letting us know!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Close"
     },
     "options_title": {
         "message": "AdGuard VPN Options"
@@ -783,9 +819,19 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Continue for free"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> remaining this month",
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% left",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Traffic renews today | Traffic renews in %days% day | Traffic renews in %days% days",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "By the way, you can disable VPN for this site if you wish"
+    },
+    "popup_hint_popup_button": {
+        "message": "Got it"
     },
     "options_exclusions_import_select_title": {
         "message": "How to use this list of exclusions?"
@@ -801,18 +847,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Cancel"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Delete"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Remove exclusions"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "All exclusions from the Regular mode will be deleted."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "All exclusions from the Selective mode will be deleted."
     },
     "options_exclusions_import_successful": {
         "message": "Imported exclusions: %count%"

@@ -86,6 +86,9 @@
     "account_version": {
         "message": "Versjon"
     },
+    "account_free": {
+        "message": "Gratiskonto"
+    },
     "rate_description": {
         "message": "Heisann, vi er et team fra AdGuard og det er veldig viktig for oss å vite om din mening om vårt produkt. Vennligst gi det en vurdering."
     },
@@ -113,8 +116,17 @@
     "auth_sign_up_button": {
         "message": "Bli med"
     },
+    "auth_sign_in": {
+        "message": "Logg på"
+    },
+    "auth_sign_in_button": {
+        "message": "LOGG INN"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-post"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Fortsett med E-post"
     },
     "auth_sign_in_provider_apple": {
         "message": "Fortsett med Apple"
@@ -145,6 +157,9 @@
     },
     "settings_title": {
         "message": "Innstillinger"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Bekreft E-postadressen din"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Gå til Produkter"
@@ -257,6 +272,9 @@
     "settings_theme_light": {
         "message": "Lyst"
     },
+    "settings_exclusion_add": {
+        "message": "LEGG TIL"
+    },
     "settings_exclusion_add_website": {
         "message": "Legg til et nettsted"
     },
@@ -274,6 +292,9 @@
     },
     "settings_exclusion_modal_save": {
         "message": "Lagre"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Tilbakestill til standardene"
     },
     "settings_exclusion_reset_button": {
         "message": "Tilbakestill"
@@ -311,6 +332,9 @@
     "global_error_try_again": {
         "message": "Prøv på nytt"
     },
+    "authentication_successful_notification": {
+        "message": "Autentiseringen var vellykket! Du kan åpne AdGuard VPN og skru på tunnelen."
+    },
     "control_error_disable": {
         "message": "Skru den av"
     },
@@ -329,9 +353,6 @@
     "popup_settings_open_settings": {
         "message": "Innstillinger"
     },
-    "popup_settings_sign_out": {
-        "message": "Logg av"
-    },
     "context_menu_enable_vpn": {
         "message": "Skru på VPN på dette nettstedet"
     },
@@ -340,6 +361,9 @@
     },
     "endpoints_countries": {
         "message": "Steder"
+    },
+    "endpoints_location_virtual": {
+        "message": "Virtuell"
     },
     "endpoints_fastest": {
         "message": "Raskest"
@@ -352,9 +376,6 @@
     },
     "endpoints_search": {
         "message": "Søk etter sted"
-    },
-    "endpoints_not_found": {
-        "message": "Stedet ble ikke funnet"
     },
     "premium_upgrade": {
         "message": "Oppgrader"
@@ -398,6 +419,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Gi tilbakemelding"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Avbryt"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Lukk"
+    },
     "options_title": {
         "message": "AdGuard VPN-innstillinger"
     },
@@ -434,9 +461,8 @@
     "popup_upgrade_screen_upgrade_button": {
         "message": "Oppgrader"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> gjenstår denne måneden",
-        "description": "Respect spaces between text, tags and placeholders"
+    "popup_hint_popup_button": {
+        "message": "Skjønner"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Avbryt"
@@ -456,6 +482,9 @@
     "popup_desktop_vpn_enabled_button": {
         "message": "OK"
     },
+    "confirm_email_title": {
+        "message": "Bekreft E-postadressen din"
+    },
     "confirm_email_close_button": {
         "message": "Lukk"
     },
@@ -463,6 +492,6 @@
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

@@ -1,32 +1,33 @@
 import browser, { Runtime } from 'webextension-polyfill';
 
 import { MessageType, SETTINGS_IDS } from '../../lib/constants';
-import auth from '../auth';
-import popupData from '../popupData';
+import { auth } from '../auth';
+import { popupData } from '../popupData';
 import { endpoints } from '../endpoints';
 import { actions } from '../actions';
-import credentials from '../credentials';
-import authCache from '../authentication/authCache';
-import appStatus from '../appStatus';
+import { credentials } from '../credentials';
+import { authCache } from '../authentication';
+import { appStatus } from '../appStatus';
 import { settings } from '../settings';
 import { exclusions } from '../exclusions';
-import management from '../management';
-import permissionsError from '../permissionsChecker/permissionsError';
-import permissionsChecker from '../permissionsChecker';
+import { management } from '../management';
+import { permissionsError } from '../permissionsChecker/permissionsError';
+import { permissionsChecker } from '../permissionsChecker';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
 import { locationsService } from '../endpoints/locationsService';
 import { promoNotifications } from '../promoNotifications';
 import { tabs } from '../tabs';
-import { vpnProvider } from '../providers/vpnProvider';
+import { RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
 import accountProvider from '../providers/accountProvider';
 import { logStorage } from '../../lib/log-storage';
-import { setDesktopVpnEnabled } from '../connectivity/connectivityService/connectivityFSM';
+import { connectivityService } from '../connectivity/connectivityService';
 import { flagsStorage } from '../flagsStorage';
-import { ExclusionsData, ServiceDto } from '../../common/exclusionsConstants';
+import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
-import { StartSocialAuthData, UserLookupData } from './messagingTypes';
+import { hintPopup } from '../hintPopup';
+import { CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
 
 interface Message {
     type: MessageType,
@@ -53,6 +54,7 @@ const getOptionsData = async () => {
     const vpnInfo = await endpoints.getVpnInfo();
     const maxDevicesCount = vpnInfo?.maxDevicesCount;
     const customDnsServers = settings.getCustomDnsServers();
+    const quickConnectSetting = settings.getQuickConnectSetting();
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
@@ -90,6 +92,7 @@ const getOptionsData = async () => {
         maxDevicesCount,
         subscriptionType,
         customDnsServers,
+        quickConnectSetting,
     };
 };
 
@@ -109,7 +112,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                         if (sender.tab?.id) {
                             await browser.tabs.sendMessage(sender.tab.id, { type, data });
                         }
-                    } catch (e: any) {
+                    } catch (e) {
                         log.error(e.message);
                     }
                 }
@@ -129,12 +132,11 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                 return undefined;
             }
 
-            const { queryString } = message.data;
-            return auth.authenticateSocial(queryString, id);
+            return auth.authenticateSocial(message.data, id);
         }
         case MessageType.AUTHENTICATE_THANKYOU_PAGE: {
-            const { authCredentials, isNewUser } = message.data;
-            return auth.authenticateThankYouPage(authCredentials, isNewUser);
+            const { token, redirectUrl, newUser } = message.data;
+            return auth.authenticateThankYouPage({ token, redirectUrl, newUser });
         }
         case MessageType.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
@@ -197,7 +199,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { url } = data;
             try {
                 return await exclusions.addUrlToExclusions(url);
-            } catch (e: any) {
+            } catch (e) {
                 throw new Error(e.message);
             }
         }
@@ -229,7 +231,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return exclusions.clearExclusionsData();
         }
         case MessageType.CHECK_EMAIL: {
-            const { email } = data as UserLookupData;
+            const { email } = data;
             const appId = await credentials.getAppId();
             return auth.userLookup(email, appId);
         }
@@ -245,7 +247,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return auth.isAuthenticated();
         }
         case MessageType.START_SOCIAL_AUTH: {
-            const { provider, marketingConsent } = data as StartSocialAuthData;
+            const { provider, marketingConsent } = data;
             return auth.startSocialAuth(provider, marketingConsent);
         }
         case MessageType.CLEAR_PERMISSIONS_ERROR: {
@@ -265,10 +267,6 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                 services: exclusions.getServices(),
                 isAllExclusionsListsEmpty: !(exclusions.getRegularExclusions().length
                     || exclusions.getSelectiveExclusions().length),
-            } as {
-                exclusionsData: ExclusionsData,
-                services: ServiceDto[],
-                isAllExclusionsListsEmpty: boolean,
             };
         }
         case MessageType.SET_EXCLUSIONS_MODE: {
@@ -325,7 +323,12 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             }
             const { version } = appStatus;
 
-            const reportData: any = {
+            if (!token) {
+                log.error('Was unable to get token');
+                break;
+            }
+
+            const reportData: RequestSupportParameters = {
                 appId,
                 token,
                 email,
@@ -341,7 +344,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.SET_DESKTOP_VPN_ENABLED: {
             const { status } = data;
-            setDesktopVpnEnabled(status);
+            connectivityService.setDesktopVpnEnabled(status);
             break;
         }
         case MessageType.OPEN_PREMIUM_PROMO_PAGE: {
@@ -367,6 +370,18 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.ADD_CUSTOM_DNS_SERVER: {
             return dns.addCustomDnsServer(data.dnsServerData);
         }
+        case MessageType.HANDLE_CUSTOM_DNS_LINK: {
+            await actions.openOptionsPage(
+                {
+                    anchorName: CUSTOM_DNS_ANCHOR_NAME,
+                    queryParams: {
+                        name: data.name,
+                        address: data.address,
+                    },
+                },
+            );
+            return null;
+        }
         case MessageType.EDIT_CUSTOM_DNS_SERVER: {
             dns.editCustomDnsServer(data.dnsServerData);
             return settings.getCustomDnsServers();
@@ -387,6 +402,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.GET_APP_VERSION: {
             return appStatus.version;
+        }
+        case MessageType.SET_HINT_POPUP_VIEWED: {
+            await hintPopup.setViewed();
+            break;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
@@ -412,7 +431,7 @@ const longLivedMessageHandler = (port: Runtime.Port) => {
                 const type = MessageType.NOTIFY_LISTENERS;
                 try {
                     port.postMessage({ type, data });
-                } catch (e: any) {
+                } catch (e) {
                     log.error(e.message);
                 }
             });

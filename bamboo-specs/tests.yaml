@@ -65,6 +65,11 @@ Test:
       pattern: chrome.zip
       shared: true
       required: true
+    - name: chrome-mv2.zip
+      location: build/dev
+      pattern: chrome-mv2.zip
+      shared: true
+      required: true
     - name: opera.zip
       location: build/dev
       pattern: opera.zip

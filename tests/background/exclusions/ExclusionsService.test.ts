@@ -1,10 +1,22 @@
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
-import { ExclusionsModes, ExclusionState, ExclusionsTypes } from '../../../src/common/exclusionsConstants';
+import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
+import { proxy } from '../../../src/background/proxy';
+import { session } from '../../__mocks__';
+// TODO: test mv3 after official switch to mv3
+import { stateStorage } from '../../../src/background/stateStorage/mv2';
 
-jest.mock('../../../src/background/browserApi');
+jest.mock('../../../src/background/stateStorage', () => {
+    // eslint-disable-next-line global-require
+    return require('../../../src/background/stateStorage/mv2');
+});
 
-jest.mock('../../../src/lib/logger.js');
+jest.mock('../../../src/background/browserApi', () => {
+    // eslint-disable-next-line global-require
+    return require('../../__mocks__/browserApiMock');
+});
+
+jest.mock('../../../src/lib/logger.ts');
 
 jest.mock('../../../src/background/settings', () => {
     return {
@@ -47,7 +59,7 @@ const SERVICE_DATA = {
         id: 'SHOP',
         name: 'Shopping',
     },
-    iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
+    iconUrl: 'https://test.example.com/icon?domain=aliexpress.com',
     serviceId: 'aliexpress',
     serviceName: 'Aliexpress',
     modifiedTime: '2021-09-14T10:23:00+0000',
@@ -76,7 +88,19 @@ getIndexedServicesMock.mockReturnValue({
     'aliexpress.ru': 'aliexpress',
 });
 
+global.chrome = {
+    storage: {
+        // @ts-ignore - partly implementation
+        session,
+    },
+};
+
 describe('ExclusionsService', () => {
+    beforeEach(async () => {
+        await stateStorage.init();
+        await proxy.init();
+    });
+
     afterEach(() => {
         jest.clearAllMocks();
     });
@@ -198,7 +222,7 @@ describe('ExclusionsService', () => {
     it('punycode test', async () => {
         const exclusionsService = new ExclusionsService();
         await exclusionsService.init();
-        await exclusionsService.setMode(ExclusionsModes.Regular);
+        await exclusionsService.setMode(ExclusionsMode.Regular);
         expect(exclusionsService.getMode()).toBeTruthy();
 
         await exclusionsService.addUrlToExclusions('https://сайт.рф/');
@@ -220,7 +244,7 @@ describe('ExclusionsService', () => {
 
         // the only added domain group should be enabled and rest are disabled
         expect(exclusions.children).toHaveLength(1);
-        expect(exclusions.children[0].type).toEqual(ExclusionsTypes.Service);
+        expect(exclusions.children[0].type).toEqual(ExclusionsType.Service);
         expect(exclusions.children[0].id).toEqual('aliexpress');
         expect(exclusions.children[0].state).toEqual(ExclusionState.PartlyEnabled);
         expect(exclusions.children[0].children).toHaveLength(2);
@@ -252,7 +276,7 @@ describe('ExclusionsService', () => {
         exclusions = exclusionsService.getExclusions();
 
         expect(exclusions.children).toHaveLength(1);
-        expect(exclusions.children[0].type).toEqual(ExclusionsTypes.Service);
+        expect(exclusions.children[0].type).toEqual(ExclusionsType.Service);
         expect(exclusions.children[0].id).toEqual('aliexpress');
         expect(exclusions.children[0].state).toEqual(ExclusionState.Enabled);
         expect(exclusions.children[0].children).toHaveLength(2);
@@ -286,6 +310,45 @@ describe('ExclusionsService', () => {
         expect(exclusions.children[0].state).toEqual(ExclusionState.PartlyEnabled);
         expect(exclusions.children[0].children[0].hostname).toEqual('example.org');
         expect(exclusions.children[0].children[0].state).toEqual(ExclusionState.Disabled);
+    });
+
+    it('disableVpnByUrl and enableVpnByUrl test for subdomains', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+
+        await exclusionsService.addUrlToExclusions('example.org');
+
+        await exclusionsService.enableVpnByUrl('test.example.org');
+        let exclusions = exclusionsService.getExclusions();
+        expect(exclusions.children[0].hostname).toEqual('example.org');
+        expect(exclusions.children[0].state).toEqual(ExclusionState.PartlyEnabled);
+        expect(exclusions.children[0].children).toHaveLength(2);
+        expect(exclusions.children[0].children[0].hostname).toEqual('example.org');
+        expect(exclusions.children[0].children[0].state).toEqual(ExclusionState.Enabled);
+        expect(exclusions.children[0].children[1].hostname).toEqual('*.example.org');
+        expect(exclusions.children[0].children[1].state).toEqual(ExclusionState.Disabled);
+
+        await exclusionsService.disableVpnByUrl('test.example.org');
+        exclusions = exclusionsService.getExclusions();
+        expect(exclusions.children[0].hostname).toEqual('example.org');
+        expect(exclusions.children[0].state).toEqual(ExclusionState.PartlyEnabled);
+        expect(exclusions.children[0].children).toHaveLength(3);
+        expect(exclusions.children[0].children[0].hostname).toEqual('example.org');
+        expect(exclusions.children[0].children[0].state).toEqual(ExclusionState.Enabled);
+        expect(exclusions.children[0].children[1].hostname).toEqual('*.example.org');
+        expect(exclusions.children[0].children[1].state).toEqual(ExclusionState.Disabled);
+        expect(exclusions.children[0].children[2].hostname).toEqual('test.example.org');
+        expect(exclusions.children[0].children[2].state).toEqual(ExclusionState.Enabled);
+
+        await exclusionsService.enableVpnByUrl('test.example.org');
+        exclusions = exclusionsService.getExclusions();
+        expect(exclusions.children[0].children).toHaveLength(3);
+        expect(exclusions.children[0].children[0].hostname).toEqual('example.org');
+        expect(exclusions.children[0].children[0].state).toEqual(ExclusionState.Enabled);
+        expect(exclusions.children[0].children[1].hostname).toEqual('*.example.org');
+        expect(exclusions.children[0].children[1].state).toEqual(ExclusionState.Disabled);
+        expect(exclusions.children[0].children[2].hostname).toEqual('test.example.org');
+        expect(exclusions.children[0].children[2].state).toEqual(ExclusionState.Disabled);
     });
 
     it('should remove group if main domain has been removed', async () => {
@@ -329,7 +392,7 @@ describe('ExclusionsService', () => {
 
         expect(exclusions.children).toHaveLength(1);
         expect(exclusions.children[0].hostname).toEqual('example.org');
-        expect(exclusions.children[0].type).toEqual(ExclusionsTypes.Group);
+        expect(exclusions.children[0].type).toEqual(ExclusionsType.Group);
         expect(exclusions.children[0].children[1].hostname).toEqual('*.example.org');
 
         const allSubdomainsExclusionId = exclusions.children[0].children[1].id;
@@ -338,7 +401,7 @@ describe('ExclusionsService', () => {
 
         expect(exclusions.children).toHaveLength(1);
         expect(exclusions.children[0].hostname).toEqual('example.org');
-        expect(exclusions.children[0].type).toEqual(ExclusionsTypes.Group);
+        expect(exclusions.children[0].type).toEqual(ExclusionsType.Group);
         expect(exclusions.children[0].children).toHaveLength(1);
         expect(exclusions.children[0].children[0].hostname).toEqual('example.org');
     });
@@ -350,7 +413,7 @@ describe('ExclusionsService', () => {
         const exclusions = exclusionsService.getExclusions();
 
         expect(exclusions.children).toHaveLength(1);
-        expect(exclusions.children[0].type).toEqual(ExclusionsTypes.Exclusion);
+        expect(exclusions.children[0].type).toEqual(ExclusionsType.Exclusion);
         expect(exclusions.children[0].hostname).toEqual('192.168.11.1');
     });
 

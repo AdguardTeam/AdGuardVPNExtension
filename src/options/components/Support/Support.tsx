@@ -6,12 +6,12 @@ import { messenger } from '../../../lib/messenger';
 import { FEEDBACK_URL, FAQ_URL } from '../../../background/config';
 import { Title } from '../ui/Title';
 import { BugReporter } from './BugReporter';
-import { reactTranslator } from '../../../common/reactTranslator';
+import { translator } from '../../../common/translator';
 
 import './support.pcss';
 
 interface SupportItems {
-    title: ReactNode;
+    title: string;
     description: ReactNode;
     iconXlink: string;
     clickHandler: () => void;
@@ -31,18 +31,18 @@ export const Support = observer(() => {
 
     const supportItemsData: SupportItems[] = [
         {
-            title: reactTranslator.getMessage('options_support_faq_title'),
-            description: reactTranslator.getMessage('options_support_faq_description'),
+            title: translator.getMessage('options_support_faq_title'),
+            description: translator.getMessage('options_support_faq_description'),
             iconXlink: '#question',
             clickHandler: createOpenUrlHandler(FAQ_URL),
         }, {
-            title: reactTranslator.getMessage('options_support_report_title'),
-            description: reactTranslator.getMessage('options_support_report_description'),
+            title: translator.getMessage('options_support_report_title'),
+            description: translator.getMessage('options_support_report_description'),
             iconXlink: '#bug',
             clickHandler: handleReportClick,
         }, {
-            title: reactTranslator.getMessage('options_support_feedback_title'),
-            description: reactTranslator.getMessage('options_support_feedback_description'),
+            title: translator.getMessage('options_support_feedback_title'),
+            description: translator.getMessage('options_support_feedback_description'),
             iconXlink: '#send-feedback',
             clickHandler: createOpenUrlHandler(FEEDBACK_URL),
         },
@@ -55,7 +55,12 @@ export const Support = observer(() => {
         clickHandler,
     }: SupportItems) => {
         return (
-            <li key={title as string} className="support-item" onClick={clickHandler}>
+            <button
+                type="button"
+                key={title}
+                className="support-item"
+                onClick={clickHandler}
+            >
                 <div className="support-item__area">
                     <svg className="icon icon--support">
                         <use xlinkHref={iconXlink} />
@@ -68,7 +73,7 @@ export const Support = observer(() => {
                 <svg className="icon icon--button">
                     <use xlinkHref="#arrow" />
                 </svg>
-            </li>
+            </button>
         );
     };
 
@@ -80,10 +85,10 @@ export const Support = observer(() => {
 
     return (
         <>
-            <Title title={reactTranslator.getMessage('options_support_title')} />
-            <ul className="support-items">
+            <Title title={translator.getMessage('options_support_title')} />
+            <div className="support-items">
                 {supportItemsData.map(renderSupportItem)}
-            </ul>
+            </div>
         </>
     );
 });

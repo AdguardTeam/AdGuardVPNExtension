@@ -6,7 +6,7 @@ deployment:
 release-naming: ${bamboo.inject.version}-beta
 environments:
   - Chrome WebStore
-  - static.adguardvpn.com
+  - static.adtidy.net
   - GitHub
 Chrome WebStore:
   triggers: []
@@ -50,7 +50,7 @@ Chrome WebStore:
             name: Deploy webhook
             url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
 
-static.adguardvpn.com:
+static.adtidy.net:
   triggers: []
   tasks:
     - clean
@@ -67,8 +67,9 @@ static.adguardvpn.com:
           - name: build.txt
           - name: chrome.crx
           - name: update.xml
-          - name: firefox.xpi
-          - name: update.json
+          # temporary disable xpi and update.json
+          # - name: firefox.xpi
+          # - name: update.json
     - script:
         interpreter: SHELL
         scripts:
@@ -111,8 +112,9 @@ GitHub:
           - name: build.txt
           - name: chrome.crx
           - name: update.xml
-          - name: firefox.xpi
-          - name: update.json
+          # temporary disable xpi and update.json
+          # - name: firefox.xpi
+          # - name: update.json
     - script:
         interpreter: SHELL
         scripts:

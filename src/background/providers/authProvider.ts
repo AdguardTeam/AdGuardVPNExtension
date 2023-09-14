@@ -1,7 +1,8 @@
 import { authApi } from '../api';
 import { translator } from '../../common/translator';
 import { FORWARDER_DOMAIN } from '../config';
-import { AuthAccessToken, AuthCredentials } from '../api/apiTypes';
+import type { AuthCredentials } from '../api/apiTypes';
+import type { AuthAccessToken } from '../schema';
 
 interface RemoteAccessTokenInterface {
     access_token: string;
@@ -9,6 +10,10 @@ interface RemoteAccessTokenInterface {
     scope: string;
     token_type: string;
 }
+
+type ErrorsMap = {
+    [key: string]: string;
+};
 
 const accessTokenModel = {
     fromRemoteToLocal: (remoteAccessToken: RemoteAccessTokenInterface): AuthAccessToken => {
@@ -32,7 +37,7 @@ const getAccessToken = async (credentials: AuthCredentials): Promise<AuthAccessT
     const TOO_MANY_REQUESTS_CODE = 429;
     let accessTokenData;
 
-    const errorsMap = {
+    const errorsMap: ErrorsMap = {
         '2fa_required': translator.getMessage('authentication_error_2fa_required'),
         '2fa_invalid': translator.getMessage('authentication_error_2fa_invalid'),
         account_disabled: translator.getMessage('authentication_error_account_disabled'),
@@ -44,8 +49,8 @@ const getAccessToken = async (credentials: AuthCredentials): Promise<AuthAccessT
 
     try {
         accessTokenData = await authApi.getAccessToken(credentials);
-    } catch (e: any) {
-        const errorStatusCode = e.status as keyof typeof errorsMap;
+    } catch (e) {
+        const errorStatusCode = e.status;
         let errorMessage;
 
         try {
@@ -88,7 +93,7 @@ const register = async (credentials: AuthCredentials) => {
     let accessTokenData;
     try {
         accessTokenData = await authApi.register(credentials);
-    } catch (e: any) {
+    } catch (e) {
         let errorMessage;
         try {
             errorMessage = JSON.parse(e.message);

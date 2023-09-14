@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-syntax */
-import { ExclusionState, ExclusionsTypes } from '../../common/exclusionsConstants';
+import { ExclusionState, ExclusionsType } from '../../common/exclusionsConstants';
 import { ExclusionDto } from './ExclusionDto';
 
 type ExclusionNodeMap = Map<string, ExclusionNode>;
@@ -11,7 +11,7 @@ interface ExclusionNodeProps {
 
     state?: ExclusionState;
 
-    type?: ExclusionsTypes;
+    type?: ExclusionsType;
 
     meta?: {
         domains: string[],
@@ -63,7 +63,7 @@ export class ExclusionNode {
 
     state: ExclusionState;
 
-    type: ExclusionsTypes;
+    type: ExclusionsType;
 
     children: ExclusionNodeMap = new Map<string, ExclusionNode>();
 
@@ -77,7 +77,7 @@ export class ExclusionNode {
     constructor({
         id,
         hostname,
-        type = ExclusionsTypes.Exclusion,
+        type = ExclusionsType.Exclusion,
         state = ExclusionState.Enabled,
         meta,
     }: ExclusionNodeProps) {
@@ -114,7 +114,7 @@ export class ExclusionNode {
         const allEnabled = effectiveExclusions
             .every((exclusionNode) => exclusionNode.state === ExclusionState.Enabled);
 
-        if (this.type === ExclusionsTypes.Service) {
+        if (this.type === ExclusionsType.Service) {
             const childrenAmount = children.length;
 
             if (allEnabled && this.meta?.domains.length !== childrenAmount) {
