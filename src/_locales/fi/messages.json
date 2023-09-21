@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Tämä arvo on jo käytössä"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Salasanat eivät täsmää"
-    },
     "registration_error_default": {
         "message": "Tapahtui virhe. Yritä myöhemmin uudelleen."
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Asetukset"
     },
-    "options_menu_free_traffic": {
-        "message": "Ilmaista VPN-tiedonsiirtoa"
-    },
     "referral_get_free_traffic": {
         "message": "Ansaitse ilmaisia gigatavuja!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Oma DNS-palvelin poistettiin"
-    },
-    "settings_dns_desc": {
-        "message": "Verkkotunnusjärjestelmä (DNS) on Internetin vastine puhelinluettelolle. Se sisältää hakemiston verkkotunnuksista ja muuttaa ne IP-osoitteiksi."
     },
     "settings_dns_selector_default_title": {
         "message": "Oletus"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "Asetukset"
     },
-    "popup_settings_sign_out": {
-        "message": "Kirjaudu ulos"
-    },
     "context_menu_enable_vpn": {
         "message": "Ota VPN käyttöön tällä sivustolla"
     },
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Jatka ilmaista käyttöä"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> jäljellä tässä kuussa",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "%value% %unit% jäljellä",
         "description": "Respect spaces between text, tags and placeholders"
@@ -848,6 +832,21 @@
     },
     "popup_hint_popup_button": {
         "message": "Selvä"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Etkö saa yhteyttä?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Työpöytäversio on vakaampi"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Jos yhteyden muodostuksessa on ongelmia suosittelemme työpöytäversion käyttöä — se toimisujuvammin."
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Hanki työpöytäversio"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Myöhemmin"
     },
     "options_exclusions_import_select_title": {
         "message": "Miten tätä poikkeuslistaa käytetään?"
@@ -863,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Peruuta"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Poista"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Poikkeuksien poisto"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Kaikki tavallisen tilan poikkeukset poistetaan."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Kaikki Valikoivan tilan poikkeukset poistetaan."
     },
     "options_exclusions_import_successful": {
         "message": "Poikkeuksia tuotiin: %count%"

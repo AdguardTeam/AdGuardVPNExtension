@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Это значение уже используется"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Пароли не совпадают"
-    },
     "registration_error_default": {
         "message": "Произошла ошибка. Попробуйте позже"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Настройки"
     },
-    "options_menu_free_traffic": {
-        "message": "Бесплатный VPN-трафик"
-    },
     "referral_get_free_traffic": {
         "message": "Получите бесплатные ГБ!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Пользовательский DNS-сервер удалён"
-    },
-    "settings_dns_desc": {
-        "message": "Система доменных имен (DNS) – это эквивалент телефонной книги в интернете. Эта система ведёт регистр доменных имён и переводит их в IP-адреса."
     },
     "settings_dns_selector_default_title": {
         "message": "По умолчанию"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "Настройки"
     },
-    "popup_settings_sign_out": {
-        "message": "Выйти"
-    },
     "context_menu_enable_vpn": {
         "message": "Включить VPN на этом сайте"
     },
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Продолжить бесплатно"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> осталось в этом месяце",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "Осталось %value% %unit%",
         "description": "Respect spaces between text, tags and placeholders"
@@ -848,6 +832,21 @@
     },
     "popup_hint_popup_button": {
         "message": "Хорошо"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Не получается подключиться?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Приложение работает стабильнее"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Если у вас проблемы с подключением, советуем перейти на десктопную версию: она стабильнее"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Скачать приложение"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Позже"
     },
     "options_exclusions_import_select_title": {
         "message": "Как использовать этот список исключений?"
@@ -863,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Отмена"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Удалить"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Удалить исключения"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Все исключения из Обычного режима будут удалены."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Все исключения из Выборочного режима будут удалены."
     },
     "options_exclusions_import_successful": {
         "message": "Импортированные исключения: %count%"

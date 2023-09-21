@@ -33,6 +33,7 @@ import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
+import { VpnBlockedError } from '../VpnBlockedError';
 
 export interface Message {
     type: NotifierType,
@@ -59,6 +60,7 @@ export const App = observer(() => {
         isCurrentTabExcluded,
         canBeExcluded,
         showLimitExceededScreen,
+        isVpnBlocked,
     } = settingsStore;
 
     const { authenticated } = authStore;
@@ -231,6 +233,7 @@ export const App = observer(() => {
             <PromoNotificationModal />
             {isOpenOptionsModal && <ExtraOptions />}
             <Header showMenuButton={authenticated} />
+            {isVpnBlocked && <VpnBlockedError />}
             <CSSTransition
                 in={isOpenEndpointsSearch}
                 timeout={300}

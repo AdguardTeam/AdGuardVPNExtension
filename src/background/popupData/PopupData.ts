@@ -13,7 +13,6 @@ import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
 import { exclusions } from '../exclusions';
 import { rateModal } from '../rateModal';
-import { credentials } from '../credentials';
 import { EndpointsInterface } from '../endpoints/Endpoints';
 import { PermissionsCheckerInterface } from '../permissionsChecker/PermissionsChecker';
 import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
@@ -27,6 +26,11 @@ import { CanControlProxy } from '../schema';
 import { hintPopup } from '../hintPopup';
 import { popupOpenedCounter } from './popupOpenedCounter';
 import { abTestManager } from '../abTestManager';
+
+/**
+ * Show a warning if there are more than 30% of unavailable locations.
+ */
+const UNAVAILABLE_LOCATIONS_THRESHOLD_PERCENTAGE = 30;
 
 interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;
@@ -64,11 +68,28 @@ interface PopupDataInterface {
     shouldShowRateModal?: boolean;
     username?: string | null;
     shouldShowHintPopup?: boolean;
+
+    /**
+     * Flag that shows that all locations are not available. AG-25941.
+     */
+    isVpnBlocked?: boolean;
 }
 
 interface PopupDataRetry extends PopupDataInterface {
     hasRequiredData: boolean;
 }
+
+/**
+ * Calculates percentage of unavailable locations.
+ *
+ * @param locations List of all locations.
+ *
+ * @returns Percentage of unavailable locations.
+ */
+const getUnavailableLocationsPercentage = (locations: LocationWithPing[]) => {
+    const unavailableLocations = locations.filter((location) => !location.available);
+    return (unavailableLocations.length / locations.length) * 100;
+};
 
 export class PopupData {
     private permissionsChecker: PermissionsCheckerInterface;
@@ -137,7 +158,7 @@ export class PopupData {
         const flagsStorageData = await flagsStorage.getFlagsStorageData();
         const isVpnEnabledByUrl = exclusions.isVpnEnabledByUrl(url);
         const shouldShowRateModal = await rateModal.shouldShowRateModal();
-        const username = await credentials.getUsername();
+        const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
 
         // If error check permissions when popup is opened, ignoring multiple retries
@@ -149,6 +170,10 @@ export class PopupData {
             message: error.message,
             status: error.status,
         } : null;
+
+        const isVpnBlocked = typeof locations === 'undefined'
+            || locations.length === 0
+            || getUnavailableLocationsPercentage(locations) >= UNAVAILABLE_LOCATIONS_THRESHOLD_PERCENTAGE;
 
         return {
             // Firefox can't message to the popup error instance,
@@ -173,6 +198,7 @@ export class PopupData {
             username,
             shouldShowHintPopup,
             showScreenshotFlow,
+            isVpnBlocked,
         };
     };
 

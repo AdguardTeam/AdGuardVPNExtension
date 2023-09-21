@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "이미 사용 중인 값입니다"
     },
-    "registration_error_front_unique_validation": {
-        "message": "입력한 비밀번호가 서로 일치하지 않습니다."
-    },
     "registration_error_default": {
         "message": "오류가 발생했습니다, 다시 시도해주세요"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "설정"
     },
-    "options_menu_free_traffic": {
-        "message": "무료 VPN 트래픽"
-    },
     "referral_get_free_traffic": {
         "message": "무료 GB를 받으세요!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "사용자 정의 DNS 서버가 제거됨"
-    },
-    "settings_dns_desc": {
-        "message": "도메인 네임 시스템(DNS) 서버는 인터넷의 전화번호부 같은 역할을 합니다. DNS는 도메인 이름들의 목록을 유지관리하고, 이를 인터넷 프로토콜(IP) 주소로 변환해줍니다."
     },
     "settings_dns_selector_default_title": {
         "message": "기본"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "설정"
     },
-    "popup_settings_sign_out": {
-        "message": "로그아웃"
-    },
     "context_menu_enable_vpn": {
         "message": "이 웹 사이트에서 VPN 활성화"
     },
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "무료로 계속하기"
     },
-    "popup_free_traffic_info": {
-        "message": "월간 사용량 <span>%value% %unit%</span> 남음",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "%value%%unit% 남음",
         "description": "Respect spaces between text, tags and placeholders"
@@ -848,6 +832,21 @@
     },
     "popup_hint_popup_button": {
         "message": "확인"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "연결할 수 없나요?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "데스크톱 버전이 더 안정적입니다"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "연결에 문제가 있다면 데스크톱 버전으로 전환하는 것을 권장합니다. 데스크톱 버전이 더 잘 작동합니다."
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "데스크톱 버전 받기"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "나중에"
     },
     "options_exclusions_import_select_title": {
         "message": "예외 목록을 사용하는 방법"
@@ -863,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "취소"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "삭제"
-    },
-    "options_exclusions_delete_title": {
-        "message": "예외 제거"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "일반 모드로 적용한 모든 예외가 삭제됩니다."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "선별 모드로 적용한 모든 예외가 삭제됩니다."
     },
     "options_exclusions_import_successful": {
         "message": "가져온 예외 항목: %count%개"

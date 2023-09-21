@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Ta wartość jest już użyta"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Hasła się nie zgadzają"
-    },
     "registration_error_default": {
         "message": "Wystąpił błąd, spróbuj ponownie później"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Ustawienia"
     },
-    "options_menu_free_traffic": {
-        "message": "Darmowy ruch VPN"
-    },
     "referral_get_free_traffic": {
         "message": "Zdobądź darmowe GB!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Usunięto niestandardowy serwer DNS"
-    },
-    "settings_dns_desc": {
-        "message": "Serwery DNS (Domain Name System) są internetowymi odpowiednikami książki telefonicznej. Zawierają one nazwy domen i tłumaczą je na adresy IP (Internet Protocol)."
     },
     "settings_dns_selector_default_title": {
         "message": "Domyślny"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "Ustawienia"
     },
-    "popup_settings_sign_out": {
-        "message": "Wyloguj się"
-    },
     "context_menu_enable_vpn": {
         "message": "Włącz VPN na tej stronie"
     },
@@ -831,15 +819,26 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Kontynuuj za darmo"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> pozostało w tym miesiącu",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_hint_popup_content": {
         "message": "Swoją drogą, możesz wyłączyć VPN dla tej witryny, jeśli chcesz"
     },
     "popup_hint_popup_button": {
         "message": "Rozumiem"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Nie możesz się połączyć?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Aplikacja działa stabilniej"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Jeśli masz problemy z połączeniem, zalecamy przejście na wersję komputerową – działa ona płynniej"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Pobierz aplikację"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Później"
     },
     "options_exclusions_import_select_title": {
         "message": "Importuj wykluczenia do:"
@@ -855,18 +854,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Anuluj"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Usuń"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Usuń wykluczenia"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Wszystkie wykluczenia z Trybu zwykłego zostaną usunięte."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Wszystkie wykluczenia z Trybu selektywnego zostaną usunięte."
     },
     "options_exclusions_import_successful": {
         "message": "Zaimportowanych wykluczeń: %count%"

@@ -88,6 +88,8 @@ const COMMON = {
     // AdGuard DNS Knowledge Base
     ADGUARD_DNS_KB_LINK: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_dns_kb&from=options_screen&app=vpn_extension`,
     COMPARE_PAGE: `https://${FORWARDER_DOMAIN}/forward.html?action=compare&from=popup&app=vpn_extension`,
+    // AG-25941
+    VPN_BLOCKED_GET_APP_LINK: `https://${FORWARDER_DOMAIN}/forward.html?action=vpn_blocked_get_app&from=popup&app=vpn_extension`,
 };
 
 export const genAppConfig = (browserType: string, stageEnv?: string, buildingEnv?: string) => {

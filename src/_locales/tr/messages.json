@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Bu değer zaten kullanılıyor"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Parolalar uyuşmuyor"
-    },
     "registration_error_default": {
         "message": "Hata oluştu, daha sonra tekrar deneyiniz"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Ayarlar"
     },
-    "options_menu_free_traffic": {
-        "message": "Ücretsiz VPN verisi"
-    },
     "referral_get_free_traffic": {
         "message": "Ücretsiz GB'lar edinin!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Özel DNS sunucusu silindi"
-    },
-    "settings_dns_desc": {
-        "message": "Alan Adı Sistemi (DNS) internetin bir telefon rehberine eşdeğeridir. Alan adı adlarının bir dizinini korur ve bunları İnternet Protokolü (IP) adreslerine çevirir."
     },
     "settings_dns_selector_default_title": {
         "message": "Varsayılan"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "Ayarlar"
     },
-    "popup_settings_sign_out": {
-        "message": "Çıkış yap"
-    },
     "context_menu_enable_vpn": {
         "message": "Bu sitede VPN'i etkinleştir"
     },
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Ücretsiz devam et"
     },
-    "popup_free_traffic_info": {
-        "message": "Bu ay <span>%value% %unit%</span> kaldı",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "%value% %unit% kaldı",
         "description": "Respect spaces between text, tags and placeholders"
@@ -848,6 +832,21 @@
     },
     "popup_hint_popup_button": {
         "message": "Anladım"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Bağlanamıyor musunuz?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Masaüstü sürümü daha kararlı"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Bağlantı sorunları yaşıyorsanız, masaüstü sürümüne geçmenizi öneririz — daha sorunsuz çalışır"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Masaüstü sürümünü edin"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Daha sonra"
     },
     "options_exclusions_import_select_title": {
         "message": "Bu istisna listesi nasıl kullanılır?"
@@ -863,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "İptal"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Sil"
-    },
-    "options_exclusions_delete_title": {
-        "message": "İstisnaları kaldır"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Normal moddan tüm istisnalar silinecektir."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Seçici moddan tüm istisnalar silinecektir."
     },
     "options_exclusions_import_successful": {
         "message": "İçe aktarılan istisnalar: %count%"

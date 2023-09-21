@@ -53,6 +53,7 @@ export class GlobalStore {
                 username,
                 shouldShowHintPopup,
                 showScreenshotFlow,
+                isVpnBlocked,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -84,6 +85,7 @@ export class GlobalStore {
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);
+            settingsStore.setIsVpnBlocked(isVpnBlocked);
             settingsStore.setPromoNotification(promoNotification);
             settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
             vpnStore.setVpnInfo(vpnInfo);

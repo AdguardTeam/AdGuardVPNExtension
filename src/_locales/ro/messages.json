@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Valoarea este deja folosită"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Parolele nu se potrivesc"
-    },
     "registration_error_default": {
         "message": "A apărut o eroare, reîncercați mai târziu"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Setări"
     },
-    "options_menu_free_traffic": {
-        "message": "Trafic VPN gratuit"
-    },
     "referral_get_free_traffic": {
         "message": "Obțineți GB gratuit!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Serverul DNS personalizat șters"
-    },
-    "settings_dns_desc": {
-        "message": "Sistemul de Nume de Domeniu (DNS) este echivalentul Internet al unei cărți de telefon. El menține un director de nume de domenii și le traduce în adrese IP (Protocol Internet)."
     },
     "settings_dns_selector_default_title": {
         "message": "Implicit"
@@ -602,9 +593,6 @@
     "popup_settings_open_settings": {
         "message": "Setări"
     },
-    "popup_settings_sign_out": {
-        "message": "Deconectați-vă"
-    },
     "context_menu_enable_vpn": {
         "message": "Activați VPN pe acest site"
     },
@@ -810,6 +798,21 @@
     "popup_hint_popup_button": {
         "message": "Am înțeles."
     },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Nu vă puteți conecta?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Versiunea desktop este mai stabilă"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Dacă întâmpinați probleme de conexiune, vă recomandăm să treceți la versiunea desktop — funcționează mai bine"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Descărcați aplicația"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Mai târziu"
+    },
     "options_exclusions_import_select_title": {
         "message": "Cum se utilizează această listă de excluderi?"
     },
@@ -824,18 +827,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Anulare"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Șterge"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Eliminați excluderile"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Toate excluderile din modul Normal vor fi șterse."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Toate excluderile din modul Selectiv vor fi șterse."
     },
     "options_exclusions_import_successful": {
         "message": "Excluderi importate: %count%"

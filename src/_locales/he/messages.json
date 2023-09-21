@@ -23,9 +23,6 @@
     "registration_error_unique_constraint": {
         "message": "ערך זה נמצא כבר בשימוש"
     },
-    "registration_error_front_unique_validation": {
-        "message": "הסיסמאות אינן תואמות"
-    },
     "registration_error_default": {
         "message": "שגיאה התרחשה, נסה שוב מאוחר יותר"
     },
@@ -233,9 +230,6 @@
     "settings_title": {
         "message": "הגדרות"
     },
-    "options_menu_free_traffic": {
-        "message": "תעבורת VPN חינמית"
-    },
     "settings_referral_invited_friends": {
         "message": "חברים מוזמנים %count%/%limit%"
     },
@@ -301,9 +295,6 @@
     },
     "settings_dns_add_custom_server_save": {
         "message": "שמור"
-    },
-    "settings_dns_desc": {
-        "message": "מערכת שמות תחום (DNS) היא שוות הערך של האינטרנט לספר טלפונים. היא מתחזקת תיקייה של שמות תחום ומתרגמת אותם אל כתובות פרוטוקול אינטרנט (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "ברירת מחדל"
@@ -494,9 +485,6 @@
     "popup_settings_open_settings": {
         "message": "הגדרות"
     },
-    "popup_settings_sign_out": {
-        "message": "צא"
-    },
     "context_menu_enable_vpn": {
         "message": "אפשר VPN באתר זה"
     },
@@ -651,20 +639,11 @@
     "popup_upgrade_screen_continue_free": {
         "message": "המשך בחינם"
     },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "מאוחר יותר"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "בטל"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "מחק"
-    },
-    "options_exclusions_delete_title": {
-        "message": "הסר החרגות"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "כל ההחרגות מהמצב הרגיל יימחקו."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "כל ההחרגות מהמצב הבררני יימחקו."
     },
     "options_exclusions_import_successful": {
         "message": "החרגות מיובאות: %count%"

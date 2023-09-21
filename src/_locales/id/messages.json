@@ -188,11 +188,17 @@
     "settings_dns_label": {
         "message": "Server DNS"
     },
+    "settings_dns_popular_servers": {
+        "message": "Penyedia DNS populer:"
+    },
     "settings_dns_custom_servers": {
         "message": "Server DNS buatan"
     },
     "settings_dns_add_custom_server": {
         "message": "Tambah server DNS buatan"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Sunting server DNS kustom"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Nama server"
@@ -209,11 +215,11 @@
     "settings_dns_add_custom_server_save": {
         "message": "Simpan"
     },
-    "settings_dns_desc": {
-        "message": "Server Sistem Nama Domain (DNS) adalah setara dengan buku telepon di internet. Mereka memelihara direktori nama domain dan menerjemahkan ke alamat Internet Protocol (IP)."
-    },
     "settings_dns_selector_default_title": {
         "message": "Standar"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Secara otomatis pakai server DNS standar saat terkoneksi ke VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -320,6 +326,12 @@
     "settings_exclusion_connection_problem": {
         "message": "Masalah koneksi"
     },
+    "settings_exclusions_action_export": {
+        "message": "Ekspor pengecualian"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Impor pengecualian"
+    },
     "settings_exclusions_action_remove_all": {
         "message": "Buang semua"
     },
@@ -356,9 +368,6 @@
     "popup_settings_open_settings": {
         "message": "Pengaturan"
     },
-    "popup_settings_sign_out": {
-        "message": "Keluar"
-    },
     "context_menu_enable_vpn": {
         "message": "Aktifkan VPN pada situs ini"
     },
@@ -379,6 +388,12 @@
     },
     "endpoints_search": {
         "message": "Cari lokasi"
+    },
+    "endpoints_not_found": {
+        "message": "Lokasi tidak ditemukan"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Kecepatan dibatasi"
     },
     "premium_upgrade": {
         "message": "Tingkatkan"
@@ -467,6 +482,9 @@
     "popup_upgrade_screen_title": {
         "message": "VPN tanpa batas"
     },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Data tidak terbatas"
+    },
     "popup_upgrade_screen_unlimited_data_desc": {
         "message": "Batasnya hanyalah data Anda tidak akan pernah dibagikan. Menjelajahlah sesuai keinginan Anda!"
     },
@@ -491,11 +509,23 @@
     "popup_upgrade_screen_upgrade_button": {
         "message": "Tingkatkan"
     },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Tidak ada koneksi?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Versi desktop lebih stabil"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Jika Anda mengalami masalah koneksi, kami sarankan untuk beralih ke versi desktop — versi ini beroperasi lebih lancar"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Dapatkan versi desktop"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Nanti"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "Batal"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Hapus"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Berlangganan"

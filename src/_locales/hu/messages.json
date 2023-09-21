@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Ez az érték már használatban van"
     },
-    "registration_error_front_unique_validation": {
-        "message": "A jelszavak nem egyeznek"
-    },
     "registration_error_default": {
         "message": "Valamilyen hiba történt, próbálja újból később"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Beállítások"
     },
-    "options_menu_free_traffic": {
-        "message": "Ingyenes VPN forgalom"
-    },
     "referral_get_free_traffic": {
         "message": "Szerezz ingyenes GB-okat!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Egyéni DNS szerver törölve"
-    },
-    "settings_dns_desc": {
-        "message": "A Domain Name System (DNS) kiszolgálók kvázi az internet telefonkönyvei. Fenntartják a domain nevek könyvtárát, és lefordítják azokat Internet Protocol (IP) címekre."
     },
     "settings_dns_selector_default_title": {
         "message": "Alapértelmezett"
@@ -602,9 +593,6 @@
     "popup_settings_open_settings": {
         "message": "Beállítások"
     },
-    "popup_settings_sign_out": {
-        "message": "Kijelentkezés"
-    },
     "context_menu_enable_vpn": {
         "message": "VPN engedélyezése ezen a webhelyen"
     },
@@ -807,6 +795,21 @@
     "popup_hint_popup_button": {
         "message": "Rendben"
     },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Nincs kapcsolat?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Az asztali verzió stabilabb"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Ha csatlakozási problémái vannak, javasoljuk, hogy váltson az asztali verzióra – az zökkenőmentesebben működik"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Szerezd meg az asztali verziót"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Később"
+    },
     "options_exclusions_import_select_title": {
         "message": "Hogyan kell használni a kizárások listáját?"
     },
@@ -821,18 +824,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Mégsem"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Törlés"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Kivételek eltávolítása"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "A Szokásos mód összes kivétele törlődni fog."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "A Szelektív mód összes kivétele törlődni fog."
     },
     "options_exclusions_import_successful": {
         "message": "Importált kizárások: %count%"

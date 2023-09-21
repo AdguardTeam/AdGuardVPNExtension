@@ -87,7 +87,6 @@ const BROWSER_ACTION_ITEMS: ContextMenuItems = {
     },
     debug_level: {
         id: 'debug_level',
-        // FIXME add message
         title: translator.getMessage('context_menu_debug_level'),
         action: async () => {
             await settings.setSetting(

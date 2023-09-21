@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Tato hodnota je již použita"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Hesla se neshodují"
-    },
     "registration_error_default": {
         "message": "Došlo k chybě, zkuste to znovu později"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Nastavení"
     },
-    "options_menu_free_traffic": {
-        "message": "Datový provoz VPN zdarma"
-    },
     "referral_get_free_traffic": {
         "message": "Získejte GB zdarma!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Vlastní DNS server byl smazán"
-    },
-    "settings_dns_desc": {
-        "message": "Domain Name Servers (DNS) jsou internetový ekvivalent telefonních seznamů. Udržují adresář doménových jmen a překládají je na adresy internetového protokolu (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "Výchozí"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "Nastavení"
     },
-    "popup_settings_sign_out": {
-        "message": "Odhlásit se"
-    },
     "context_menu_enable_vpn": {
         "message": "Zapnout VPN na této stránce"
     },
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Pokračovat bezplatně"
     },
-    "popup_free_traffic_info": {
-        "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "Zbývá %value% %unit%",
         "description": "Respect spaces between text, tags and placeholders"
@@ -848,6 +832,21 @@
     },
     "popup_hint_popup_button": {
         "message": "Rozumím"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Nelze se připojit?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Aplikace funguje stabilněji"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Pokud máte problémy s připojením, doporučujeme přejít na desktopovou verzi: je stabilnější"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Stáhnout aplikaci"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Později"
     },
     "options_exclusions_import_select_title": {
         "message": "Jak používat tento seznam výjimek?"
@@ -863,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Zrušit"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Vymazat"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Odstranit výjimky"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Z Obvyklého režimu budou vymazány všechny výjimky."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Ze Selektivního režimu budou vymazány všechny výjimky."
     },
     "options_exclusions_import_successful": {
         "message": "Importované výjimky: %count%"

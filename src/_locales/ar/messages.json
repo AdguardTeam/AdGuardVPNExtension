@@ -23,9 +23,6 @@
     "registration_error_unique_constraint": {
         "message": "هذه القيمة مستخدمة بالفعل"
     },
-    "registration_error_front_unique_validation": {
-        "message": "كلمات المرور غير متطابقة"
-    },
     "registration_error_default": {
         "message": "حدث خطأ، حاول مرة أخرى لاحقاً"
     },
@@ -233,9 +230,6 @@
     "settings_title": {
         "message": "الإعدادات"
     },
-    "options_menu_free_traffic": {
-        "message": "حركة مرور VPN مجانية"
-    },
     "settings_referral_invited_friends": {
         "message": "%count%%limit% أصدقاء مدعوون"
     },
@@ -313,9 +307,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "تم حذف خادم DNS المخصص"
-    },
-    "settings_dns_desc": {
-        "message": "نطاق اسم المجال (DNS) هو المكافئ على الإنترنت لدفتر الهاتف. يحتفظ بدليل لأسماء النطاقات ويترجمها إلى عناوين بروتوكول الإنترنت (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "افتراضي"
@@ -509,9 +500,6 @@
     "popup_settings_open_settings": {
         "message": "الإعدادات"
     },
-    "popup_settings_sign_out": {
-        "message": "تسجيل خروج"
-    },
     "context_menu_enable_vpn": {
         "message": "تفعيل VPN  في هذا الموقع"
     },
@@ -600,7 +588,7 @@
         "message": "إلغاء"
     },
     "popup_server_error_popup_close": {
-        "message": "إغلاق"
+        "message": "اغلاق"
     },
     "options_title": {
         "message": "AdGuard VPN خيارات"
@@ -672,20 +660,11 @@
     "popup_hint_popup_button": {
         "message": "فهمت ذلك"
     },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "لاحقاً"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "إلغاء"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "حذف"
-    },
-    "options_exclusions_delete_title": {
-        "message": "إزالة الاستثناءات"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "سيتم حذف كافة الاستثناءات من الوضع العادي."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "سيتم حذف جميع الاستثناءات من الوضع الانتقائي."
     },
     "options_exclusions_import_successful": {
         "message": "الاستثناءات المستورده: %count%"
@@ -745,7 +724,7 @@
         "message": "تم تقليل سرعة اتصال VPN."
     },
     "confirm_email_close_button": {
-        "message": "إغلاق"
+        "message": "اغلاق"
     },
     "description": {
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."

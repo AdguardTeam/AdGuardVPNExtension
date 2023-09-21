@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Deze waarde is al in gebruik"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Wachtwoorden komen niet overeen"
-    },
     "registration_error_default": {
         "message": "Er is een fout opgetreden, probeer het later opnieuw"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Instellingen"
     },
-    "options_menu_free_traffic": {
-        "message": "Gratis VPN-dataverkeer"
-    },
     "referral_get_free_traffic": {
         "message": "Gratis GB's verkrijgen!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Aangepaste DNS-server verwijderd"
-    },
-    "settings_dns_desc": {
-        "message": "Domein Naam Servers (DNS) zijn het internet-equivalent van een telefoonboek. Ze houden een adresboek bij van domeinnamen en vertalen die in Internet Protocol (IP) adressen."
     },
     "settings_dns_selector_default_title": {
         "message": "Standaard"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "Instellingen"
     },
-    "popup_settings_sign_out": {
-        "message": "Afmelden"
-    },
     "context_menu_enable_vpn": {
         "message": "VPN Inschakelen op deze website"
     },
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Doorgaan zonder kosten"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> nog over deze maand",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "%value% %unit% over",
         "description": "Respect spaces between text, tags and placeholders"
@@ -848,6 +832,18 @@
     },
     "popup_hint_popup_button": {
         "message": "Begrepen"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Geen verbinding?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "De desktopversie is stabieler"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Desktopversie downloaden"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Later"
     },
     "options_exclusions_import_select_title": {
         "message": "Hoe deze lijst met uitsluitingen gebruiken?"
@@ -863,18 +859,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Annuleren"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Verwijderen"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Uitsluitingen verwijderen"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Alle uitsluitingen van de standaard modus worden verwijderd."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Alle uitsluitingen van de selectieve modus worden verwijderd."
     },
     "options_exclusions_import_successful": {
         "message": "Geïmporteerde uitzonderingen: %count%"

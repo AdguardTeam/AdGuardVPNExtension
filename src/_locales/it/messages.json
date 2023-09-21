@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Questo valore è già utilizzato"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Password non corrispondenti"
-    },
     "registration_error_default": {
         "message": "Si è verificato un errore, riprova più tardi"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Impostazioni"
     },
-    "options_menu_free_traffic": {
-        "message": "Traffico VPN gratuito"
-    },
     "referral_get_free_traffic": {
         "message": "Ottieni GB gratuiti!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "I server DNS personalizzati sono stati rimossi"
-    },
-    "settings_dns_desc": {
-        "message": "Il DNS (Domain Name System) è l'equivalente telematico di una rubrica. Mantiene un percorso di nomi di dominio e li traduce in indirizzi IP (Internet Protocol)."
     },
     "settings_dns_selector_default_title": {
         "message": "Predefinito"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "Impostazioni"
     },
-    "popup_settings_sign_out": {
-        "message": "Disconnetti"
-    },
     "context_menu_enable_vpn": {
         "message": "Attiva VPN su questo sito web"
     },
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Continua gratuitamente"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> rimanenti questo mese",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "%value% %unit% rimasto",
         "description": "Respect spaces between text, tags and placeholders"
@@ -848,6 +832,21 @@
     },
     "popup_hint_popup_button": {
         "message": "Capito"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Nessuna connessione?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "La versione desktop è più stabile"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Se riscontri problemi di connessione, ti consigliamo di passare alla versione desktop: funziona in modo più fluido"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Scaricare"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Più tardi"
     },
     "options_exclusions_import_select_title": {
         "message": "Come utilizzare questo elenco di esclusioni?"
@@ -863,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Annulla"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Elimina"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Rimuovi esclusioni"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Tutte le esclusioni dalla modalità Regolare verranno eliminate."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Tutte le esclusioni dalla modalità Selettiva verranno eliminate."
     },
     "options_exclusions_import_successful": {
         "message": "Esclusioni importate: %count%"

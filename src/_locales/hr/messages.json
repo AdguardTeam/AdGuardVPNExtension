@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Ova vrijednost se već koristi"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Lozinke se ne podudaraju"
-    },
     "registration_error_default": {
         "message": "Došlo je do pogreške, pokušajte kasnije"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Postavke"
     },
-    "options_menu_free_traffic": {
-        "message": "Besplatan VPN promet"
-    },
     "referral_get_free_traffic": {
         "message": "Dobijte besplatne GB!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Prilagođeni DNS poslužitelj je uklonjen"
-    },
-    "settings_dns_desc": {
-        "message": "Domain Name Server (DNS) poslužitelji su internetski ekvivalent telefonskom imeniku. Oni održavaju direktorij naziva domena i prevode ih u Internet Protocol (IP) adrese."
     },
     "settings_dns_selector_default_title": {
         "message": "Zadano"
@@ -602,9 +593,6 @@
     "popup_settings_open_settings": {
         "message": "Postavke"
     },
-    "popup_settings_sign_out": {
-        "message": "Odjava"
-    },
     "context_menu_enable_vpn": {
         "message": "Omogući VPN na ovoj stranici"
     },
@@ -810,6 +798,21 @@
     "popup_hint_popup_button": {
         "message": "U redu"
     },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Ne možete se povezati?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Aplikacija radi stabilnije"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Ako imate problema s vezom, preporučujemo da se prebacite na desktop verziju — radi lakše"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Preuzmite aplikaciju"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Kasnije"
+    },
     "options_exclusions_import_select_title": {
         "message": "Kako koristiti ovaj popis iznimaka?"
     },
@@ -824,18 +827,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Poništi"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Ukloni"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Uklanjanje iznimki"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Sve iznimke iz redovnog načina rada bit će izbrisane."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Sve iznimke iz selektivnog načina rada bit će izbrisane."
     },
     "options_exclusions_import_successful": {
         "message": "Uvezene iznimke: %count%"

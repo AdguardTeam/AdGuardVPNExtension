@@ -136,5 +136,12 @@ export const Icons = () => (
             <path d="M4 6L10.2 10.65C11.2667 11.45 12.7333 11.45 13.8 10.65L20 6" stroke="#74A352" strokeWidth="1.5" />
             <circle cx="19.5" cy="5.5" r="2.5" fill="#D7283A" />
         </svg>
+
+        <svg id="warning" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle id="Oval" cx="9" cy="9" r="9" transform="matrix(1 0 0 -1 3 21)" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path id="Line" d="M12 8V14" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path id="Path 14 Copy" d="M11.997 16.4045C12.009 16.4025 11.997 16.5955 11.997 16.5955" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
     </svg>
 );

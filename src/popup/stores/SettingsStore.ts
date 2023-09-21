@@ -65,6 +65,8 @@ export class SettingsStore {
 
     @observable showServerErrorPopup: boolean = false;
 
+    @observable isVpnBlocked: boolean = false;
+
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -395,4 +397,12 @@ export class SettingsStore {
 
         return true;
     }
+
+    @action setIsVpnBlocked = (value: boolean): void => {
+        this.isVpnBlocked = value;
+    };
+
+    @action closeVpnBlockedWarning = (): void => {
+        this.isVpnBlocked = false;
+    };
 }

@@ -212,9 +212,6 @@
     "settings_dns_add_custom_server_save": {
         "message": "Lagre"
     },
-    "settings_dns_desc": {
-        "message": "Domain Name System (DNS) er internettets svar på en telefonkatalog. Den vedlikeholder et arkiv over domenenavn og oversetter dem til Internet Protocol (IP)-adresser."
-    },
     "settings_dns_selector_default_title": {
         "message": "Standardmodus"
     },
@@ -464,14 +461,23 @@
     "popup_hint_popup_button": {
         "message": "Skjønner"
     },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Kan du ikke koble til?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Desktop-versjonen er mer stabil"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Hvis du har tilkoblingsproblemer, anbefaler vi at du bytter til skrivebordsversjonen – den fungerer jevnere"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Få desktop versjon"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Senere"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "Avbryt"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Slett"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Fjern unntak"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Abonner"

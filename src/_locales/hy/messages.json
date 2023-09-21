@@ -116,9 +116,6 @@
     "options_exclusions_delete_cancel_button": {
         "message": "Չեղարկել"
     },
-    "options_exclusions_delete_approve_button": {
-        "message": "Ջնջել"
-    },
     "popup_desktop_vpn_enabled_button": {
         "message": "Լավ"
     },

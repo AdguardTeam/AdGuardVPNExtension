@@ -46,7 +46,7 @@ export const CurrentEndpoint = observer(() => {
             return <Ping ping={selectedLocationPing} />;
         }
 
-        return <div className="ping">-</div>;
+        return <div className="ping">—</div>;
     };
 
     return (

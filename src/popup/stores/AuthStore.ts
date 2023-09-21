@@ -519,6 +519,7 @@ export class AuthStore {
             && !this.showConfirmRateModal
             && !this.showConfirmEmailModal
             && !this.rootStore.settingsStore.showServerErrorPopup
+            && !this.rootStore.settingsStore.isVpnBlocked
             && !this.rootStore.settingsStore.showNotificationModal
             && !this.rootStore.vpnStore.tooManyDevicesConnected;
     }

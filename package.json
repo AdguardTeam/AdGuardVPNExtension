@@ -9,7 +9,7 @@
         "beta": "BUILD_ENV=beta ts-node tasks/bundle.ts",
         "release": "BUILD_ENV=release ts-node tasks/bundle.ts",
         "check-types": "tsc --project tsconfig.eslint.json --noEmit",
-        "lint": "eslint . --ext .js,.jsx,.ts,.tsx && yarn check-types",
+        "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx && yarn check-types",
         "test": "jest",
         "test:watch": "jest --watch",
         "locales": "babel-node tasks/translations",

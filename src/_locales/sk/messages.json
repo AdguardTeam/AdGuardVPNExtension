@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Táto hodnota sa už používa"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Heslá sa nezhodujú"
-    },
     "registration_error_default": {
         "message": "Vyskytla sa chyba, skúste zopakovať neskôr"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Nastavenia"
     },
-    "options_menu_free_traffic": {
-        "message": "Bezplatná VPN komunikácia"
-    },
     "referral_get_free_traffic": {
         "message": "Získajte bezplatné GB!"
     },
@@ -365,6 +359,9 @@
     "settings_dns_add_custom_server_address": {
         "message": "Adresa DNS servera"
     },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP adresa servera alebo názov TLS domény"
+    },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Neplatná adresa DNS servera"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Vlastný DNS server bol odstránený"
-    },
-    "settings_dns_desc": {
-        "message": "Domain Name System (DNS) je internetový ekvivalent telefónneho zoznamu. Spravuje adresár doménových mien a prekladá ich na adresy internetového protokolu (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "Predvolené"
@@ -605,6 +599,9 @@
     "popup_settings_enable_vpn_short": {
         "message": "Zapnúť"
     },
+    "popup_settings_disable_vpn": {
+        "message": "Vypnúť VPN na tejto stránke"
+    },
     "popup_settings_enable_vpn": {
         "message": "Zapnúť VPN pre tento web"
     },
@@ -616,9 +613,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Nastavenia"
-    },
-    "popup_settings_sign_out": {
-        "message": "Odhlásenie"
     },
     "context_menu_enable_vpn": {
         "message": "Zapnúť VPN na tejto stránke"
@@ -735,7 +729,7 @@
         "message": "Ďakujeme, že ste nám dali vedieť!"
     },
     "popup_server_error_popup_close": {
-        "message": "Ukončiť"
+        "message": "Zavrieť"
     },
     "options_title": {
         "message": "Predvoľby AdGuard VPN"
@@ -825,11 +819,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Pokračovať bezplatne"
     },
+    "popup_free_traffic_info_left": {
+        "message": "Zostáva %value% %unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Komunikácia bude dnes obnovená | Komunikácia sa obnoví o %days% deň | Komunikácia sa obnoví o %days% dni | Komunikácia sa obnoví o %count% dní",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "Mimochodom, ak chcete, môžete pre túto stránku vypnúť VPN"
     },
     "popup_hint_popup_button": {
         "message": "Rozumiem"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Nemôžete sa pripojiť?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Aplikácia funguje stabilnejšie"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Ak máte problémy s pripojením, odporúčame vám prejsť na verziu pre stolné počítače – funguje plynulejšie"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Stiahnite si aplikáciu"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Neskôr"
     },
     "options_exclusions_import_select_title": {
         "message": "Importovať výnimky do:"
@@ -845,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Zrušiť"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Vymazať"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Odstrániť výnimky"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Všetky výnimky zo Štandardného režimu budú odstránené."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Všetky výnimky z Výberového režimu budú odstránené."
     },
     "options_exclusions_import_successful": {
         "message": "Importované výnimky: %count%"
@@ -934,7 +939,7 @@
         "message": "Ďakujeme za overenie!"
     },
     "confirm_email_close_button": {
-        "message": "Ukončiť"
+        "message": "Zavrieť"
     },
     "confirm_email_resend_link_button": {
         "message": "Znovu poslať odkaz"

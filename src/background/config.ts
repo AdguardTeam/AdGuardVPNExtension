@@ -42,4 +42,5 @@ export const {
     STAGE_ENV,
     WHOAMI_URL,
     COMPARE_PAGE,
+    VPN_BLOCKED_GET_APP_LINK,
 } = CONFIG;

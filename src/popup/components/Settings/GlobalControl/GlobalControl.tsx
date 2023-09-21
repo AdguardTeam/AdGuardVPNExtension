@@ -14,7 +14,7 @@ type ButtonStates = {
 };
 
 export const GlobalControl = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, uiStore } = useContext(rootStore);
 
     const connectHandler = async (): Promise<void> => {
         await settingsStore.setProxyState(true);
@@ -62,6 +62,19 @@ export const GlobalControl = observer(() => {
         default: {
             buttonState = buttonStates.connect;
             break;
+        }
+    }
+
+    // check if the warning should be shown. AG-25941
+    if (settingsStore.isVpnBlocked) {
+        // no need for the warning if a user is connected successfully
+        if (settingsStore.isConnected) {
+            // close only the notice if it was shown
+            uiStore.closeVpnBlockedErrorNotice();
+            // but do not close the details with problem description
+        } else {
+            // the warning should be shown again if it was closed manually and a user is trying to connect
+            uiStore.openVpnBlockedErrorNotice();
         }
     }
 

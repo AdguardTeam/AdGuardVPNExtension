@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "このメールアドレスは既に使用されています。"
     },
-    "registration_error_front_unique_validation": {
-        "message": "パスワードとパスワード確認が一致していません"
-    },
     "registration_error_default": {
         "message": "エラーが発生してしまいました。後ほどもう一度お試しください。"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "設定"
     },
-    "options_menu_free_traffic": {
-        "message": "無料データ量"
-    },
     "referral_get_free_traffic": {
         "message": "無料GBをGET！"
     },
@@ -386,9 +380,6 @@
     "settings_dns_delete_custom_server_notification": {
         "message": "カスタムDNSサーバーは削除されました。"
     },
-    "settings_dns_desc": {
-        "message": "ドメインネームシステム（DNS）とは、インターネットにおける電話帳のようなものです。DNSはドメイン名のディレクトリを維持しつつ、ドメイン名をインターネットプロトコル（IP）アドレスに変換します。"
-    },
     "settings_dns_selector_default_title": {
         "message": "デフォルト"
     },
@@ -510,7 +501,7 @@
         "message": "\"%url%\"は有効なドメインではありません。リストに追加しますか？"
     },
     "settings_exclusion_modal_cancel": {
-        "message": "キャンセル"
+        "message": "キャンセル "
     },
     "settings_exclusion_modal_remove": {
         "message": "削除"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "設定"
     },
-    "popup_settings_sign_out": {
-        "message": "ログアウト"
-    },
     "context_menu_enable_vpn": {
         "message": "このサイトでVPNを有効にする"
     },
@@ -705,7 +693,7 @@
         "message": "送信"
     },
     "popup_rate_modal_cancel_button": {
-        "message": "キャンセル"
+        "message": "キャンセル "
     },
     "popup_confirm_rate_modal_feedback_title": {
         "message": "AdGuard VPNの改善に協力する"
@@ -732,7 +720,7 @@
         "message": "AdGuardチームに通知する"
     },
     "popup_server_error_popup_cancel": {
-        "message": "キャンセル"
+        "message": "キャンセル "
     },
     "popup_server_error_popup_thankyou_title": {
         "message": "取り組んでまいります。"
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "無料版で続ける"
     },
-    "popup_free_traffic_info": {
-        "message": "今月の残りデータ量: <span>%value%%unit%</span>",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "無料通信量残り%value%%unit%",
         "description": "Respect spaces between text, tags and placeholders"
@@ -848,6 +832,21 @@
     },
     "popup_hint_popup_button": {
         "message": "OK"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "接続できないですか？"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "デスクトップ版ならより安定しています"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "接続によく問題がある場合は、デスクトップ版のご使用をお勧めします。"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "デスクトップ版を入手"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "後で"
     },
     "options_exclusions_import_select_title": {
         "message": "この対象外リストの使い方は？"
@@ -863,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "キャンセル"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "削除する"
-    },
-    "options_exclusions_delete_title": {
-        "message": "除外リストを削除"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "一般モードの除外項目がすべて削除されます"
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "指定モードの除外項目がすべて削除されます"
     },
     "options_exclusions_import_successful": {
         "message": "インポート完了した除外項目数: %count%"

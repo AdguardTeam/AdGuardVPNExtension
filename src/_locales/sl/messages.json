@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Ta vrednost je že uporabljena"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Gesli se ne ujemata"
-    },
     "registration_error_default": {
         "message": "Prišlo je do napake, poskusite pozneje znova"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Nastavitve"
     },
-    "options_menu_free_traffic": {
-        "message": "Brezplačen promet VPN"
-    },
     "referral_get_free_traffic": {
         "message": "Pridobite brezplačne GB!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Strežnik DNS po meri je bil izbrisan"
-    },
-    "settings_dns_desc": {
-        "message": "Domain Name System (DNS) so internetni ekvivalent spletnega telefonskega imenika. Vodijo imenik domenskih imen in jih prevajajo v naslove internetnega protokola (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "Privzeto"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "Nastavitve"
     },
-    "popup_settings_sign_out": {
-        "message": "Odjava"
-    },
     "context_menu_enable_vpn": {
         "message": "Omogoči VPN na tej spletni strani"
     },
@@ -831,15 +819,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Nadaljujte brezplačno"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> preostalo ta mesec",
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% ostalo",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Promet je danes obnovljen | Promet se obnovi čez %days% dan | Promet se obnovi čez %days% dni",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "Mimogrede, lahko onemogočite VPN za to spletno stran, če želite"
     },
     "popup_hint_popup_button": {
         "message": "Razumem"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Ne morete vzpostaviti povezave?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Aplikacija deluje bolj stabilno"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Če imate težave s povezavo, priporočamo, da preklopite na namizno različico — deluje bolj gladko"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Pridobite namizno različico"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Kasneje"
     },
     "options_exclusions_import_select_title": {
         "message": "Kako uporabljati ta seznam izključitev?"
@@ -855,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Prekliči"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Izbriši"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Odstrani izjeme"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Vse izjeme iz običajnega načina bodo izbrisane."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Vse izjeme iz izbirnega načina bodo izbrisane."
     },
     "options_exclusions_import_successful": {
         "message": "Uvoženo izjem: %count%"

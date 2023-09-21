@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "此值已在使用中"
     },
-    "registration_error_front_unique_validation": {
-        "message": "密码不匹配"
-    },
     "registration_error_default": {
         "message": "发生错误，请稍后再试"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "设置"
     },
-    "options_menu_free_traffic": {
-        "message": "免费 VPN 流量"
-    },
     "referral_get_free_traffic": {
         "message": "获取免费流量！"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "自定义 DNS 服务器已删除"
-    },
-    "settings_dns_desc": {
-        "message": "域名系统（DNS）是互联网上的“电话簿”。它保护域名目录并将其转换为互联网协议（IP）地址。"
     },
     "settings_dns_selector_default_title": {
         "message": "默认"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "设置"
     },
-    "popup_settings_sign_out": {
-        "message": "退出"
-    },
     "context_menu_enable_vpn": {
         "message": "在此网站上开启 VPN"
     },
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "继续使用免费版"
     },
-    "popup_free_traffic_info": {
-        "message": "本月剩余<span>%value% %unit%</span>",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "剩余的免费流量：%value%%unit%",
         "description": "Respect spaces between text, tags and placeholders"
@@ -848,6 +832,21 @@
     },
     "popup_hint_popup_button": {
         "message": "知道了"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "无法连接？"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "桌面版更稳定"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "如果有用户遇到连接问题，我们建议切换到桌面版本，它运行更流畅"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "获取桌面版"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "下次"
     },
     "options_exclusions_import_select_title": {
         "message": "如何使用此排除项列表？"
@@ -863,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "取消"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "删除"
-    },
-    "options_exclusions_delete_title": {
-        "message": "删除排除项"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "所有常规模式的排除项都将会被删除。"
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "所有选择模式的排除项都将会被删除。"
     },
     "options_exclusions_import_successful": {
         "message": "已导入的排除项：%count%"

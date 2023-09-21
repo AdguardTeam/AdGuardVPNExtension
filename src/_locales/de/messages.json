@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Dieser Wert wird bereits verwendet"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Passwörter stimmen nicht überein"
-    },
     "registration_error_default": {
         "message": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Einstellungen"
     },
-    "options_menu_free_traffic": {
-        "message": "Kostenlose VPN-Datenmenge"
-    },
     "referral_get_free_traffic": {
         "message": "Holen Sie sich kostenlosen VPN-Traffic!"
     },
@@ -385,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Benutzerdefinierter DNS-Server entfernt"
-    },
-    "settings_dns_desc": {
-        "message": "Das „Domain Name System“ (DNS) ist das Äquivalent des Internets zu einem Telefonbuch. Es führt ein Verzeichnis von Domain-Namen und übersetzt sie in Internet-Protokoll-Adressen (IP-Adressen)."
     },
     "settings_dns_selector_default_title": {
         "message": "Standard"
@@ -623,9 +614,6 @@
     "popup_settings_open_settings": {
         "message": "Einstellungen"
     },
-    "popup_settings_sign_out": {
-        "message": "Abmelden"
-    },
     "context_menu_enable_vpn": {
         "message": "VPN auf dieser Website aktivieren"
     },
@@ -831,10 +819,6 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Kostenlose Version nutzen"
     },
-    "popup_free_traffic_info": {
-        "message": "Noch <span>%value% %unit%</span> in diesem Monat verfügbar",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "popup_free_traffic_info_left": {
         "message": "%value% %unit% übrig",
         "description": "Respect spaces between text, tags and placeholders"
@@ -848,6 +832,21 @@
     },
     "popup_hint_popup_button": {
         "message": "Verstanden"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Keine Verbindung?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Die Desktop-Version ist stabiler"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Wenn Sie Probleme mit der Verbindung haben, empfehlen wir Ihnen, zur Desktop-Version zu wechseln — sie funktioniert reibungsloser"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Desktop-Version herunterladen"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Später"
     },
     "options_exclusions_import_select_title": {
         "message": "Wie kann diese Liste der Ausschlüsse verwendet werden?"
@@ -863,18 +862,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Abbrechen"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Löschen"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Ausschlüsse entfernen"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Alle Ausschlüsse des Standardmodus werden gelöscht."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Alle Ausschlüsse des Selektiven Modus werden gelöscht."
     },
     "options_exclusions_import_successful": {
         "message": "%count% Ausschlüsse wurden importiert"
