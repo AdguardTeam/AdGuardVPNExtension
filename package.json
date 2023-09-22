@@ -114,7 +114,7 @@
         "zip-webpack-plugin": "^4.0.1"
     },
     "dependencies": {
-        "@adguard/translate": "^0.2.1",
+        "@adguard/translate": "^0.3.2",
         "@babel/runtime": "^7.12.0",
         "@xstate/react": "^2.0.1",
         "buffer": "^6.0.3",

@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adguard/translate@^0.2.1":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@adguard/translate/-/translate-0.2.6.tgz#47a04c0fe9c4a23de5f84124313a1bf2aa986677"
-  integrity sha512-0i351ZZ9AcAm2Jy5lxbvXUGAX82QmEU9NiIu4s0k4J0hvC3tWR1m9yypgqgpR8ig67Fj/+i4deXfKL8jDRiM8g==
+"@adguard/translate@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@adguard/translate/-/translate-0.3.2.tgz#63a204332505a2a419f39ec2c99d2b6636a0d577"
+  integrity sha512-CLv6MZZPbOEocvNNcKdkDOh/Ue+51jZUiYVClbSDRT7ctXzVL4eqLsUrUtJheQKIDQuBaaboSG9G7IvumLNcWQ==
 
 "@adobe/css-tools@^4.0.1":
   version "4.2.0"

@@ -29,7 +29,7 @@ export const CurrentEndpoint = observer(() => {
         uiStore.openEndpointsSearch();
     };
 
-    const titleClass = classnames('endpoint__title', { 'endpoint__title--connected': isConnected });
+    const titleClass = classnames('endpoint__location-name', 'endpoint__title', { 'endpoint__title--connected': isConnected });
 
     const flagClass = classnames('endpoint__flag', { 'endpoint__flag--active': isConnected });
 
@@ -56,17 +56,17 @@ export const CurrentEndpoint = observer(() => {
         >
             <div className="endpoint__info">
                 <div className={flagClass} style={getFlagIconStyle(countryCodeToDisplay)} />
-                <div>
+                <div className="endpoint__location-container">
                     <div className={titleClass}>
                         {countryNameToDisplay}
                     </div>
-                    <div className="endpoint__desc">
+                    <div className="endpoint__location-name endpoint__desc">
                         {cityNameToDisplay}
                     </div>
                 </div>
             </div>
             <div className="endpoint__ping-container">
-                <div className="endpoint__ping">
+                <div>
                     {renderPing()}
                     {settingsStore.hasLimitExceededError && (
                         <div className="endpoint__limited-speed">
