@@ -824,7 +824,7 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "popup_free_traffic_info_days_left": {
-        "message": "Promet je danes obnovljen | Promet se obnovi čez %days% dan | Promet se obnovi čez %days% dni",
+        "message": "Promet je danes obnovljen | Promet se obnovi čez %days% dan | Promet se obnovi čez %days% dni | Promet se obnovi čez %days% dni | Promet se obnovi čez %days% dni",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {

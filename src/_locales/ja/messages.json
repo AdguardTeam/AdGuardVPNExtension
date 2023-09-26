@@ -237,7 +237,7 @@
         "message": "無料GBをGET！"
     },
     "settings_referral_info": {
-        "message": "お友だちをAdGuard VPN部に招待して、無料月間通信量を増やしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされ、さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。"
+        "message": "お友だちをAdGuard VPN部に招待して、無料月間通信量を増やしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされます（最大%total_gb%まで）。さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。"
     },
     "settings_referral_invited_friends": {
         "message": "招待済みお友だち数: %count%/%limit%"

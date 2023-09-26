@@ -669,7 +669,7 @@
         "message": "Brzina veze je smanjena"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Potrošili ste brze gigabajte :( <br/> Samo su oni spori preostali"
+        "message": "Ponestalo vam je besplatnog saobraćaja i Adguard VPN je sada spor."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Povećaj brzinu"

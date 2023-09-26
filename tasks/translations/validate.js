@@ -66,14 +66,28 @@ const printCriticalResults = (criticals) => {
 };
 
 /**
- * Validates that localized string correspond by structure to base locale string
+ * Validates that localized string correspond by structure to base locale string.
+ *
+ * @param {string} baseKey Key of the base locale string.
+ * @param {object} baseLocaleTranslations Translations of the base locale.
+ * @param {string} locale Locale to validate.
+ * @param {object} localeTranslations Translations of the locale to validate.
+ *
+ * @returns {object} Validation result if error occurred, otherwise undefined.
  */
-const validateMessage = (baseKey, baseLocaleTranslations, localeTranslations) => {
+const validateMessage = (baseKey, baseLocaleTranslations, locale, localeTranslations) => {
     const baseMessageValue = baseLocaleTranslations[baseKey].message;
     const localeMessageValue = localeTranslations[baseKey].message;
     let validation;
     try {
-        validator.isTranslationValid(baseMessageValue, localeMessageValue);
+        if (!validator.isTranslationValid(
+            baseMessageValue,
+            localeMessageValue,
+            // locale should be lowercase, e.g. 'pt_br', not 'pt_BR'
+            locale.toLowerCase(),
+        )) {
+            throw new Error('Invalid translation');
+        }
     } catch (error) {
         validation = { key: baseKey, error };
     }
@@ -115,6 +129,7 @@ export const checkTranslations = async (locales, flags) => {
                 const validationError = validateMessage(
                     baseKey,
                     baseLocaleTranslations,
+                    locale,
                     localeTranslations,
                 );
                 if (validationError) {

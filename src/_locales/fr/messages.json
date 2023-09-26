@@ -222,7 +222,7 @@
         "message": "Code d’authentification"
     },
     "official_website": {
-        "message": "Site web officiel"
+        "message": "Site Web officiel"
     },
     "eula": {
         "message": "CLUF"
@@ -345,7 +345,7 @@
         "message": "Ajouter un serveur DNS de l’utilisateur"
     },
     "settings_dns_edit_custom_server": {
-        "message": "Modifier le serveur DNS personnalisé"
+        "message": "Éditer le serveur DNS personnalisé"
     },
     "settings_dns_add_custom_server_info": {
         "message": "<a>En savoir plus</a> sur les serveurs DNS"
@@ -390,13 +390,13 @@
         "message": "AdGuard DNS"
     },
     "settings_dns_selector_adguard_desc": {
-        "message": "Supprime les publicités et les pisteurs de votre appareil"
+        "message": "Supprime les publicités et traqueurs de votre appareil"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
         "message": "AdGuard DNS sans filtrage"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "DNS sécurisé sans journalisation des activités (ne filtre pas les publicités et les pisteurs)"
+        "message": "DNS sécurisé sans journalisation des activités (ne filtre pas les publicités et traqueurs)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS Protection familiale"

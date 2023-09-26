@@ -819,6 +819,14 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Kontynuuj za darmo"
     },
+    "popup_free_traffic_info_left": {
+        "message": "Zostało %value% %unit%",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Ruch odnawia się dzisiaj | Ruch odnawia się za %days% dzień | Ruch odnawia się za %days% dni | Ruch odnawia się za %days% dni",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "Swoją drogą, możesz wyłączyć VPN dla tej witryny, jeśli chcesz"
     },

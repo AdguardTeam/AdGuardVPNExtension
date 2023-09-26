@@ -824,7 +824,7 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "popup_free_traffic_info_days_left": {
-        "message": "Трафик обновится сегодня | Трафик обновится через %days% день | Трафик обновится через %days% дня | Трафик обновится через %count% дней",
+        "message": "Трафик обновится сегодня | Трафик обновится через %days% день | Трафик обновится через %days% дня | Трафик обновится через %days% дней",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
