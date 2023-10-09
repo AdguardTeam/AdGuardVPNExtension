@@ -128,8 +128,8 @@ export const DnsSettings = observer(() => {
             >
                 {renderRadioButton(id)}
                 <div>
-                    <div className="settings__item-title">{title}</div>
-                    <div className="settings__item-desc">{isCustom ? address : desc}</div>
+                    <div className="dns-settings__item-title">{title}</div>
+                    <div className="dns-settings__item-desc">{isCustom ? address : desc}</div>
                 </div>
                 {isCustom && renderActions(dnsServerData)}
             </div>
@@ -149,13 +149,13 @@ export const DnsSettings = observer(() => {
             <div>
                 {renderDnsServer(DEFAULT_DNS_SERVER)}
             </div>
-            <div>
+            <div className="dns-settings__items-group">
                 <div className="dns-settings__label">
                     {reactTranslator.getMessage('settings_dns_popular_servers')}
                 </div>
                 {POPULAR_DNS_SERVERS.map(renderDnsServer)}
             </div>
-            <div>
+            <div className="dns-settings__items-group">
                 <div className="dns-settings__label">
                     {reactTranslator.getMessage('settings_dns_custom_servers')}
                 </div>
@@ -170,7 +170,9 @@ export const DnsSettings = observer(() => {
                     <svg className="icon icon--button">
                         <use xlinkHref="#plus" />
                     </svg>
-                    {reactTranslator.getMessage('settings_dns_add_custom_server')}
+                    <div className="dns-settings__add-button__label">
+                        {reactTranslator.getMessage('settings_dns_add_custom_server')}
+                    </div>
                 </button>
             </div>
             <CustomDnsServerModal />
