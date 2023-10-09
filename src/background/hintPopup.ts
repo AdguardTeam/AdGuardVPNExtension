@@ -1,5 +1,7 @@
 import { browserApi } from './browserApi';
 import { notifier } from '../lib/notifier';
+import { ExclusionsMode } from '../common/exclusionsConstants';
+import { exclusions } from './exclusions';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 
 const HINT_POPUP_COUNTDOWN_KEY = 'hint.popup.countdown';
@@ -67,11 +69,21 @@ class HintPopup implements HintPopupInterface {
 
     /**
      * Checks the conditions to show hint popup:
-     * 1. 1 hour passed since login time
-     * 2. user had opened popup 4 times
-     * If testing flag is present in localstorage, 1-hour delay decreased to 1 minute
+     * 1. exclusions mode is regular
+     * 2. 1 hour passed since login time
+     * 3. user had opened popup 4 times
+     *
+     * If testing flag is present in localStorage, 1-hour delay decreased to 1 minute.
+     * To do so, open devtools in the extension popup and execute in console:
+     * `await chrome.storage.local.set({'hint.popup.countdown': new Date(Date.now() - 1000 * 60 * 60 * 1).getTime()})`,
+     * after that close and open the popup again.
      */
     public shouldShowHintPopup = async (): Promise<boolean> => {
+        // do not show the hint popup for the selective mode. AG-24991
+        if (exclusions.getMode() === ExclusionsMode.Selective) {
+            return false;
+        }
+
         const isTesting = await browserApi.storage.get(TEST_KEY);
         const hintPopupDelay = isTesting ? HINT_POPUP_TEST_DELAY : HINT_POPUP_DELAY;
 
