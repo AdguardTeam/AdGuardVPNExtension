@@ -93,7 +93,9 @@ export const Exclusions = observer(() => {
                     <svg className="icon icon--button">
                         <use xlinkHref="#plus" />
                     </svg>
-                    {reactTranslator.getMessage('settings_exclusion_add_website')}
+                    <div className="exclusions__add-website__label">
+                        {reactTranslator.getMessage('settings_exclusion_add_website')}
+                    </div>
                 </button>
                 <List />
                 <AddExclusionModal />

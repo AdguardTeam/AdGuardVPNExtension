@@ -2,19 +2,15 @@
     position: relative;
     display: flex;
     align-items: flex-start;
-    padding: 10px 0 10px 30px;
-    border-radius: 5px;
+    padding: 8px 0 8px 16px;
+    border-radius: 4px;
     min-width: 500px;
 
-    &:first-child {
-        padding-left: 15px;
-    }
-
-    &.service-exclusion {
-        padding: 10px 0 10px 15px;
+    &__domains-details {
+        padding: 8px 0 8px 32px;
 
         &:first-child {
-            padding-left: 15px;
+            padding-left: 16px;
         }
     }
 
@@ -28,6 +24,7 @@
 
     &__group-hostname {
         font-size: 16px;
+        line-height: 19px;
         color: var(--gray-base);
         cursor: default;
         word-break: break-all;
@@ -35,37 +32,43 @@
 
         &__status {
             font-size: 14px;
+            line-height: 16px;
             color: var(--gray88);
-            padding-left: 2px;
+            padding-left: 1px;
+            margin-top: 8px;
         }
     }
 
     &__service-hostname {
         font-size: 16px;
+        line-height: 19px;
+        font-weight: 400;
         color: var(--gray-base);
         width: 85%;
         cursor: pointer;
         background: none;
         border: none;
         display: flex;
-        padding: 4px 0;
+        padding-left: 4px;
     }
 
     &__arrow {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         position: absolute;
-        top: 14px;
-        right: 55px;
+        top: 10px;
+        right: 48px;
     }
 
     &__remove-button {
         position: absolute;
-        right: 10px;
+        right: 16px;
         border: none;
         background: none;
         cursor: pointer;
         visibility: hidden;
+        padding: 0;
+        max-height: 24px;
 
         &:hover {
             filter: brightness(.7);

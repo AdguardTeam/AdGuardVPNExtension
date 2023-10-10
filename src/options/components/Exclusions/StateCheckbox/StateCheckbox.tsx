@@ -7,6 +7,7 @@ import './statecheckbox.pcss';
 interface StateCheckboxProps {
     state: ExclusionState,
     toggleHandler: () => void,
+    extraClassName?: string,
 }
 
 const getStateIcon = (state: ExclusionState) => {
@@ -22,10 +23,14 @@ const getStateIcon = (state: ExclusionState) => {
 export const StateCheckbox = ({
     state,
     toggleHandler,
+    extraClassName,
 }: StateCheckboxProps) => {
+    const btnClassNames = extraClassName
+        ? `state-checkbox ${extraClassName}`
+        : 'state-checkbox';
     return (
         <button
-            className="state-checkbox"
+            className={btnClassNames}
             type="button"
             onClick={toggleHandler}
         >

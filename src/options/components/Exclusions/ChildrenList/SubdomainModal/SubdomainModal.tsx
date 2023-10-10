@@ -64,7 +64,10 @@ export const SubdomainModal = observer(() => {
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                     />
-                    <div className="subdomain-modal__hostname">
+                    <div
+                        className="subdomain-modal__hostname"
+                        title={exclusionsStore.selectedExclusion?.hostname}
+                    >
                         {exclusionsStore.selectedExclusion?.hostname}
                     </div>
                 </label>

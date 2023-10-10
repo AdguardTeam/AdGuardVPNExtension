@@ -16,12 +16,12 @@ const Icons = () => (
             <path fillRule="evenodd" clipRule="evenodd" d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2ZM1 7C0.447715 7 0 6.55228 0 6C0 5.44772 0.447715 5 1 5C1.55228 5 2 5.44772 2 6C2 6.55228 1.55228 7 1 7ZM0 11C0 11.5523 0.447715 12 1 12C1.55228 12 2 11.5523 2 11C2 10.4477 1.55228 10 1 10C0.447715 10 0 10.4477 0 11Z" fill="#4D4D4D" />
         </svg>
 
-        <svg id="basket" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path fillRule="evenodd" clipRule="evenodd" d="M7 9H17L16.2367 19.0755C16.1972 19.597 15.7625 20 15.2396 20H8.76044C8.23746 20 7.80281 19.597 7.7633 19.0755L7 9Z" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M6 6.5H18" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M14 6V4L10 4V6" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M13.5 12V17V12Z" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M10.5 12V17V12Z" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg id="basket" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M7 9H17L16.2367 19.0755C16.1972 19.597 15.7625 20 15.2396 20H8.76044C8.23746 20 7.80281 19.597 7.7633 19.0755L7 9Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 6.5H18" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M14 6V4L10 4V6" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M13.5 12V17V12Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M10.5 12V17V12Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
         <svg id="edit" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,17 +31,17 @@ const Icons = () => (
             <path d="M16.7886 9.01046L13.9602 6.18203" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
-        <svg id="disabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path fillRule="evenodd" clipRule="evenodd" d="M19 1H1V19H19V1Z" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg id="disabled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M21 3H3V21H21V3Z" stroke="#7F7F7F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
-        <svg id="enabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path fillRule="evenodd" clipRule="evenodd" d="M20 20V0H0V20H20ZM15.5691 7.4885C15.8389 7.1742 15.8028 6.7007 15.4885 6.43091C15.1742 6.16112 14.7007 6.1972 14.4309 6.5115L8.95457 12.8913L5.53551 9.40443C5.24551 9.10867 4.77066 9.10401 4.4749 9.39401C4.17915 9.68401 4.17448 10.1589 4.46449 10.4546L9.02803 15.1087L15.5691 7.4885Z" fill="#74A352" />
+        <svg id="enabled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M22 22V2H2V22H22ZM17.5691 9.4885C17.8389 9.1742 17.8028 8.7007 17.4885 8.43091C17.1742 8.16112 16.7007 8.1972 16.4309 8.5115L10.9546 14.8913L7.53551 11.4044C7.24551 11.1087 6.77066 11.104 6.4749 11.394C6.17915 11.684 6.17448 12.1589 6.46449 12.4546L11.028 17.1087L17.5691 9.4885Z" fill="#74A352" />
         </svg>
 
-        <svg id="partly-enabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path fillRule="evenodd" clipRule="evenodd" d="M19 1H1V19H19V1Z" stroke="#74A352" strokeWidth="1.5" />
-            <rect x="7.5" y="7.5" width="5" height="5" stroke="#74A352" strokeWidth="5" />
+        <svg id="partly-enabled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M21 3H3V21H21V3Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <rect x="9.5" y="9.5" width="5" height="5" stroke="#74A352" strokeWidth="5" strokeLinejoin="miter" />
         </svg>
 
         <symbol id="social_facebook" viewBox="0 0 112.196 112.196" fill="currentColor">
@@ -105,6 +105,10 @@ const Icons = () => (
         <symbol id="arrow" viewBox="0 0 24 24">
             <path d="M9 18L15 12L9 6" fill="none" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </symbol>
+
+        <svg id="small-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.9307 15.9645L14.9999 12.0349L11.0703 7.9657" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
 
         <symbol id="back-arrow" viewBox="0 0 24 24">
             <path fill="none" fillRule="evenodd" stroke="#888" strokeLinecap="round" strokeWidth="1.5" d="M15 18l-6-6 6-6" />

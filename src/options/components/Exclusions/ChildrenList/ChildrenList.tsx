@@ -64,7 +64,9 @@ export const ChildrenList = observer(() => {
                 <svg className="icon icon--button">
                     <use xlinkHref="#plus" />
                 </svg>
-                {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
+                <div className="children-list__add-subdomain__text">
+                    {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
+                </div>
             </button>
         );
     };
