@@ -110,6 +110,7 @@ button,
     &--icon {
         font-size: 1.2rem;
         border-radius: 3px;
+        border: none;
 
         &:hover {
             background-color: transparent;
@@ -161,7 +162,12 @@ button,
     }
 
     &--notification {
-        color: var(--gray-base);
+        color: var(--green700);
+        border: none;
+
+        &:focus {
+            box-shadow: none;
+        }
     }
 }
 

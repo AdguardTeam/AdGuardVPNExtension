@@ -166,6 +166,12 @@ const Icons = () => (
             <path d="M11.1925 6.00694L9.30687 4.12132" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
+        <svg id="warning" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="9" cy="9" r="9" transform="matrix(1 0 0 -1 3 21)" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 8V14" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M11.997 16.4045C12.009 16.4025 11.997 16.5955 11.997 16.5955" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
     </svg>
 );
 

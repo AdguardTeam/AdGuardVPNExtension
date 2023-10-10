@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { rootStore } from '../../../../stores';
 import { Notification } from '../../../../stores/NotificationsStore/Notification';
 
-const NOTIFICATION_CLEAR_TIMEOUT_MS = 5000;
+const NOTIFICATION_CLEAR_TIMEOUT_MS = 5 * 1000;
 
 interface NotificationProps {
     notification: Notification,
@@ -27,13 +27,14 @@ export const NotificationUi = ({ notification }: NotificationProps) => {
         notificationsStore.removeNotification(notification.id);
     };
 
+    const isErrorNotification = notification.isError();
+
     const notificationClassnames = cn('notification', {
-        danger: notification.isError(),
+        danger: isErrorNotification,
         success: notification.isSuccess(),
     });
 
-    let button;
-
+    let actionButton;
     if (notification.action) {
         const { action } = notification;
 
@@ -42,35 +43,51 @@ export const NotificationUi = ({ notification }: NotificationProps) => {
             handleCloseNotification();
         };
 
-        button = (
-            <button
-                type="button"
-                className="button button--notification notification__button"
-                onClick={handleAction}
-            >
-                {action.action}
-            </button>
-        );
-    } else {
-        button = (
-            <button
-                type="button"
-                className="button"
-                onClick={handleCloseNotification}
-            >
-                <svg className="icon icon--button icon--cross">
-                    <use xlinkHref="#cross" />
-                </svg>
-            </button>
+        actionButton = (
+            <div className="notification__action">
+                <button
+                    type="button"
+                    className="button button--notification notification__message"
+                    onClick={handleAction}
+                >
+                    {action.action}
+                </button>
+            </div>
         );
     }
 
+    const closeButton = (
+        <button
+            type="button"
+            className="button button--icon"
+            onClick={handleCloseNotification}
+        >
+            <svg className="icon icon--button icon--cross">
+                <use xlinkHref="#cross" />
+            </svg>
+        </button>
+    );
+
+    const titleIcon = isErrorNotification
+        ? (
+            <svg className="icon icon--button icon--warning">
+                <use xlinkHref="#warning" />
+            </svg>
+        )
+        : null;
+
     return (
         <div className={notificationClassnames}>
-            <div className="notification__message">
-                {notification.message}
+            <div className="notification__result">
+                <div className="notification__message">
+                    {titleIcon}
+                    <div className="notification__message--title">
+                        {notification.message}
+                    </div>
+                </div>
+                {closeButton}
             </div>
-            {button}
+            {actionButton}
         </div>
     );
 };

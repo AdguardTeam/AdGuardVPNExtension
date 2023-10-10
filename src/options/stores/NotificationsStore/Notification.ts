@@ -19,11 +19,11 @@ export class Notification {
         this.action = action;
     }
 
-    isError() {
+    isError(): boolean {
         throw new Error('Not defined yet');
     }
 
-    isSuccess() {
+    isSuccess(): boolean {
         throw new Error('Not defined yet');
     }
 }
