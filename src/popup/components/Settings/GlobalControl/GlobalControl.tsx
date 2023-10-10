@@ -31,8 +31,9 @@ export const GlobalControl = observer(() => {
             handler: disconnectHandler,
         },
         connecting: {
-            className: 'button--background-white button--disabled',
+            className: 'button--background-white',
             message: reactTranslator.getMessage('settings_disconnect'),
+            handler: disconnectHandler,
         },
         connect: {
             className: 'button--green',
