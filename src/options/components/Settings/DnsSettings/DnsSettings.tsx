@@ -139,12 +139,15 @@ export const DnsSettings = observer(() => {
     return (
         <div className="dns-settings">
             <div className="dns-settings__title">
-                <button className="dns-settings__back" type="button" onClick={goBackHandler}>
+                <button className="back-button" type="button" onClick={goBackHandler}>
                     <svg className="icon icon--button">
                         <use xlinkHref="#back-arrow" />
                     </svg>
                 </button>
-                <Title title={reactTranslator.getMessage('settings_dns_label')} />
+                <Title
+                    title={reactTranslator.getMessage('settings_dns_label')}
+                    onClick={goBackHandler}
+                />
             </div>
             <div>
                 {renderDnsServer(DEFAULT_DNS_SERVER)}

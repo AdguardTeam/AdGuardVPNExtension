@@ -174,12 +174,17 @@ export const BugReporter = observer(() => {
 
     const bugReportTitle = (
         <div className="bug-report__title">
-            <button className="bug-report__back" type="button" onClick={closeHandler}>
+            <button className="back-button" type="button" onClick={closeHandler}>
                 <svg className="icon icon--button">
-                    <use xlinkHref="#arrow" />
+                    <use xlinkHref="#back-arrow" />
                 </svg>
             </button>
-            {reactTranslator.getMessage('options_report_bug_title')}
+            <div>
+                <Title
+                    title={reactTranslator.getMessage('options_report_bug_title')}
+                    onClick={closeHandler}
+                />
+            </div>
         </div>
     );
 
@@ -193,7 +198,7 @@ export const BugReporter = observer(() => {
 
         return (
             <>
-                <Title title={bugReportTitle} />
+                {bugReportTitle}
 
                 <div className="bug-report">
                     <div className="bug-report__done">
