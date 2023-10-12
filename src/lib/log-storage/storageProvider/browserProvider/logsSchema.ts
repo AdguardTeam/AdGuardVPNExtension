@@ -1,6 +1,6 @@
 import zod from 'zod';
 
-export const logsValidator = zod.array(zod.string());
+export const logsValidator = zod.array(zod.string()).default([]);
 
 /**
  * Describes logs format
