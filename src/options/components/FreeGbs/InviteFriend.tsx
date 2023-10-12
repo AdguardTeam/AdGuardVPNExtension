@@ -35,7 +35,7 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
         }
         case invitesCount >= maxInvitesCount: {
             return (
-                <div>
+                <div className="free-gbs__content">
                     <button
                         className="free-gbs__back-button"
                         type="button"
@@ -67,7 +67,7 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
         }
         default: {
             return (
-                <div>
+                <div className="free-gbs__content">
                     <button
                         className="free-gbs__back-button"
                         type="button"

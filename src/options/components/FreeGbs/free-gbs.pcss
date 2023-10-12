@@ -2,6 +2,7 @@
     &__item {
         display: flex;
         padding: 16px;
+        margin-left: 16px;
         border-radius: 8px;
         width: calc(100% + 32px);
         transform: translateX(-16px);
@@ -27,20 +28,26 @@
 
         &--status {
             font-size: 14px;
-            line-height: 25px;
+            line-height: 18px;
             color: var(--gray88);
         }
 
         &--check-mark {
             position: relative;
             top: -10px;
-            margin-right: 17px;
+            margin-right: 16px;
         }
 
         &--arrow {
             position: absolute;
             right: 20px;
             top: 15px;
+        }
+    }
+
+    &__content {
+        & .content__title {
+            margin: 0 0 8px 0;
         }
     }
 
