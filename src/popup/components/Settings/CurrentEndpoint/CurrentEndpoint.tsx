@@ -24,7 +24,7 @@ export const CurrentEndpoint = observer(() => {
 
     const { isConnected } = settingsStore;
 
-    const clickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         uiStore.openEndpointsSearch();
     };
@@ -50,7 +50,8 @@ export const CurrentEndpoint = observer(() => {
     };
 
     return (
-        <div
+        <button
+            type="button"
             className="endpoint"
             onClick={clickHandler}
         >
@@ -78,6 +79,6 @@ export const CurrentEndpoint = observer(() => {
                     <use xlinkHref="#right-arrow" />
                 </svg>
             </div>
-        </div>
+        </button>
     );
 });

@@ -28,7 +28,7 @@ export const Icons = () => (
             </g>
         </symbol>
 
-        <symbol id="bar" viewBox="0 0 520 520" width="20">
+        <symbol id="bar" viewBox="0 0 520 520" width="20" height="20">
             <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zM492 76H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zM492 396H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z" data-original="#000000" data-old_color="#000000" fill="currentColor" />
         </symbol>
 

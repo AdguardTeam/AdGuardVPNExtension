@@ -56,18 +56,20 @@ export const Slider = (props: SliderProps) => {
             <div className="slider__slide">
                 {arrows && (
                     <>
-                        <div
+                        <button
+                            type="button"
                             className="slider__arrow slider__arrow--left"
                             onClick={prevSlideHandler}
                         >
                             <Icon icon="arrow" className="slider__arrow-pic" />
-                        </div>
-                        <div
+                        </button>
+                        <button
+                            type="button"
                             className="slider__arrow slider__arrow--right"
                             onClick={nextSlideHandler}
                         >
                             <Icon icon="arrow" className="slider__arrow-pic" />
-                        </div>
+                        </button>
                     </>
                 )}
                 <img

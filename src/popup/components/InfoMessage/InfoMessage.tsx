@@ -16,7 +16,7 @@ const TRAFFIC_PERCENT = {
 export const InfoMessage = observer(() => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
-    const upgradeClickHandler = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const upgradeClickHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         await vpnStore.openPremiumPromoPage();
     };
@@ -55,13 +55,13 @@ export const InfoMessage = observer(() => {
                 <div className="info-message__text">
                     <TrafficInfo />
                 </div>
-                <a
+                <button
                     type="button"
                     className="button button--medium button--red info-message__btn"
                     onClick={upgradeClickHandler}
                 >
                     {reactTranslator.getMessage('premium_upgrade')}
-                </a>
+                </button>
             </div>
             <div className="info-message__progress">
                 <div

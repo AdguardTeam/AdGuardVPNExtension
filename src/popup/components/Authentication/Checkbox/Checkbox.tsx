@@ -23,24 +23,35 @@ export const Checkbox = ({
         onChange(e.currentTarget.checked);
     };
 
+    const onButtonPressed = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (e.key === 'Enter') {
+            onChange(!checked);
+        }
+    };
+
     return (
         <label
             htmlFor={id}
             className="checkbox"
         >
-            <div className="checkbox__marker">
+            <button
+                type="button"
+                className="checkbox__button"
+                onKeyDown={onButtonPressed}
+            >
                 <input
                     id={id}
                     type="checkbox"
                     checked={checked}
                     className="checkbox__input"
                     onChange={onChangeHandler}
+                    tabIndex={-1}
                 />
                 <Icon
                     icon={checked ? 'checked' : 'unchecked'}
                     className="checkbox__icon"
                 />
-            </div>
+            </button>
             <div
                 className={cn(
                     'checkbox__label',

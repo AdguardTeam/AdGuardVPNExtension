@@ -13,17 +13,17 @@ const HELP_US_IMPROVE_ID = 'help_us_improve';
 export const PolicyAgreement = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const handlePrivacyClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
+    const handlePrivacyClick = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         await popupActions.openTab(PRIVACY_URL);
     };
 
-    const handleEulaClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
+    const handleEulaClick = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         await popupActions.openTab(EULA_URL);
     };
 
-    const handleAnonymousDataLinkClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
+    const handleAnonymousDataLinkClick = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         await popupActions.openTab(PRIVACY_URL);
     };
@@ -50,20 +50,22 @@ export const PolicyAgreement = observer(() => {
                     onChange={onPolicyAgreementChange}
                     label={reactTranslator.getMessage('popup_auth_policy_agreement', {
                         eula: (chunks: string) => (
-                            <a
+                            <button
+                                type="button"
                                 onClick={handleEulaClick}
                                 className="button button--link-green"
                             >
                                 {chunks}
-                            </a>
+                            </button>
                         ),
                         privacy: (chunks: string) => (
-                            <a
+                            <button
+                                type="button"
                                 onClick={handlePrivacyClick}
                                 className="button button--link-green"
                             >
                                 {chunks}
-                            </a>
+                            </button>
                         ),
                     })}
                 />
@@ -75,12 +77,13 @@ export const PolicyAgreement = observer(() => {
                     onChange={onHelpUsImproveChanged}
                     label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
                         link: (chunks: string) => (
-                            <a
+                            <button
+                                type="button"
                                 onClick={handleAnonymousDataLinkClick}
                                 className="button button--link-green"
                             >
                                 {chunks}
-                            </a>
+                            </button>
                         ),
                     })}
                 />

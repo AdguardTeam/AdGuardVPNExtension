@@ -31,6 +31,7 @@ export const VpnBlockedNotice = observer(() => {
             <button
                 type="button"
                 className="vpn-blocked-notice__warning-icon"
+                tabIndex={-1}
             >
                 <svg className="icon icon--button icon--warning">
                     <use xlinkHref="#warning" />
