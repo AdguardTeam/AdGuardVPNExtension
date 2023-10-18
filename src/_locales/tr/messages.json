@@ -192,7 +192,7 @@
         "message": "Giriş yap"
     },
     "auth_title": {
-        "message": "Giriş yapın veya bir hesap oluşturun"
+        "message": "Giriş yap veya bir hesap oluştur"
     },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-posta"
@@ -330,7 +330,7 @@
         "message": "Günlükleri dışa aktar"
     },
     "context_menu_debug_level": {
-        "message": "Hata ayıklama günlüğü"
+        "message": "Hata ayıklama günlük kaydı"
     },
     "settings_dns_label": {
         "message": "DNS sunucusu"
@@ -730,6 +730,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "Kapat"
+    },
+    "popup_host_permission_error_title": {
+        "message": "Sitelere izin ver"
+    },
+    "popup_host_permission_error_info": {
+        "message": "AdGuard VPN'i kullanmak için, sitelerdeki verilerinize erişmesine izin verin. Bu verileri saklamıyoruz veya kimseyle paylaşmıyoruz. <privacy>Gizlilik politikası</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "İzin ver"
     },
     "options_title": {
         "message": "AdGuard VPN Ayarları"

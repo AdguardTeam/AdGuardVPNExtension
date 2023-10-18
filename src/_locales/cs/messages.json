@@ -513,7 +513,7 @@
         "message": "Obnovit do výchozího nastavení"
     },
     "settings_exclusion_reset_button": {
-        "message": "Reset"
+        "message": "Resetovat"
     },
     "settings_exclusions_undo": {
         "message": "Zpět"
@@ -540,7 +540,7 @@
         "message": "Importovat výjimky"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Odebrat vše"
+        "message": "Odstranit vše"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Odstranit všechny výjimky"
@@ -730,6 +730,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "Zavřít"
+    },
+    "popup_host_permission_error_title": {
+        "message": "Povolit přístup k webovým stránkám"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Chcete-li používat AdGuard VPN, povolte aplikaci přístup k údajům na webových stránkách. Tyto údaje neukládáme ani je s nikým nesdílíme. <privacy>Zásady ochrany osobních údajů</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Povolit"
     },
     "options_title": {
         "message": "Možnosti AdGuard VPN"

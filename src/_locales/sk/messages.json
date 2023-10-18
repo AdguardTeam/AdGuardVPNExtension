@@ -513,7 +513,7 @@
         "message": "Obnoviť predvolené nastavenia"
     },
     "settings_exclusion_reset_button": {
-        "message": "Obnoviť"
+        "message": "Odhlásiť"
     },
     "settings_exclusions_undo": {
         "message": "Vrátiť"
@@ -730,6 +730,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Zavrieť"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Povoliť"
     },
     "options_title": {
         "message": "Predvoľby AdGuard VPN"

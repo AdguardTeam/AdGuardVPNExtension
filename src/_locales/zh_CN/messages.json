@@ -717,7 +717,7 @@
         "message": "VPN 在您所在的地区很可能受限，或者发生了技术故障。我们已经在尝试修复错误。"
     },
     "popup_server_error_popup_action": {
-        "message": "催 AdGuard 团队解决问题"
+        "message": "催 AdGuard 团队"
     },
     "popup_server_error_popup_cancel": {
         "message": "取消"
@@ -730,6 +730,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "关闭"
+    },
+    "popup_host_permission_error_title": {
+        "message": "允许访问网站"
+    },
+    "popup_host_permission_error_info": {
+        "message": "要使用 AdGuard VPN，请允许它访问您在网站上的数据。我们不会存储或与任何人共享这些数据。 <privacy>隐私政策</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "允许"
     },
     "options_title": {
         "message": "AdGuard VPN 选项"

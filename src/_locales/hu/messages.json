@@ -336,7 +336,7 @@
         "message": "DNS szerver"
     },
     "settings_dns_popular_servers": {
-        "message": "Népszerű DNS szolgáltatók"
+        "message": "Népszerű DNS szerverek"
     },
     "settings_dns_custom_servers": {
         "message": "Egyéni DNS szerverek"
@@ -528,7 +528,7 @@
         "message": "Kivételek importálása"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Összes eltávolítása"
+        "message": "Mind eltávolítása"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Összes kivétel törlése"
@@ -666,7 +666,7 @@
         "message": "Kérjük, értékeljen minket"
     },
     "popup_rate_modal_send_button": {
-        "message": "Küldés"
+        "message": "Elküldeni"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Mégsem"
@@ -703,6 +703,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Bezárás"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Engedélyezés"
     },
     "options_title": {
         "message": "AdGuard VPN Beállítások"

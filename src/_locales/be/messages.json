@@ -707,6 +707,9 @@
     "popup_server_error_popup_close": {
         "message": "Закрыць"
     },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Дазволіць"
+    },
     "options_title": {
         "message": "Налады AdGuard VPN"
     },

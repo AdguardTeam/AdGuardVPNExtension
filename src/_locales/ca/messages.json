@@ -14,6 +14,9 @@
     "options_bug_report_send_button": {
         "message": "Envia"
     },
+    "eula": {
+        "message": "EULA"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Vés als productes"
     },
@@ -32,11 +35,17 @@
     "settings_dns_add_custom_server_address": {
         "message": "Adreça del servidor DNS"
     },
+    "settings_theme_system": {
+        "message": "Per defecte del sistema"
+    },
     "settings_exclusion_add_website": {
         "message": "Afegiu un lloc web"
     },
     "settings_exclusion_domain_name": {
         "message": "Nom de domini:"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Elimina-ho tot"
     },
     "settings_exclusion_import_button": {
         "message": "Importeu"

@@ -336,7 +336,7 @@
         "message": "Servidor DNS"
     },
     "settings_dns_popular_servers": {
-        "message": "Proveedores DNS populares"
+        "message": "Servidores DNS populares"
     },
     "settings_dns_custom_servers": {
         "message": "Servidores DNS personalizados"
@@ -730,6 +730,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "Cerrar"
+    },
+    "popup_host_permission_error_title": {
+        "message": "Permitir el acceso a sitios web"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Para utilizar AdGuard VPN, permite acceder a tus datos en sitios web. No almacenamos estos datos ni los compartimos con nadie. <privacy>Política de privacidad</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Permitir"
     },
     "options_title": {
         "message": "Opciones de AdGuard VPN"

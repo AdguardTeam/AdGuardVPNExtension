@@ -731,6 +731,15 @@
     "popup_server_error_popup_close": {
         "message": "Закрити"
     },
+    "popup_host_permission_error_title": {
+        "message": "Надайте доступ до вебсайтів"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Щоб використовувати AdGuard VPN, надайте йому доступ до всіх вебсайтів. Ми не зберігаємо ці дані та не передаємо їх нікому. <privacy>Політика конфіденційності</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Дозволити"
+    },
     "options_title": {
         "message": "AdGuard VPN Параметри"
     },
@@ -824,7 +833,7 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "popup_free_traffic_info_days_left": {
-        "message": "Трафік поновлюється сьогодні | Трафік поновлюється через %days% день | Трафік поновлюється через %days% дні | Трафік поновлюється через %days% днів",
+        "message": "Трафік поновлюється сьогодні | Трафік поновиться через %days% день | Трафік поновиться через %days% дні | Трафік поновиться через %days% днів",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
@@ -849,7 +858,7 @@
         "message": "Пізніше"
     },
     "options_exclusions_import_select_title": {
-        "message": "Як використовувати цей список виключень?"
+        "message": "Як використовувати цей список винятків?"
     },
     "options_exclusions_import_select_subtitle": {
         "message": "Вебсайти з імпортованого списку буде додано до наявних винятків"

@@ -513,7 +513,7 @@
         "message": "Вернуть настройки по умолчанию"
     },
     "settings_exclusion_reset_button": {
-        "message": "Сброс"
+        "message": "Сбросить"
     },
     "settings_exclusions_undo": {
         "message": "Отменить"
@@ -730,6 +730,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "Закрыть"
+    },
+    "popup_host_permission_error_title": {
+        "message": "Разрешите доступ к сайтам"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Чтобы использовать AdGuard VPN, разрешите доступ к данным на сайтах. Мы не храним эти данные и никому их не передаём. <privacy>Политика конфиденциальности</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Разрешить"
     },
     "options_title": {
         "message": "Опции AdGuard VPN"

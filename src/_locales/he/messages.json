@@ -269,6 +269,9 @@
     "settings_dns_label": {
         "message": "שרת DNS"
     },
+    "settings_dns_popular_servers": {
+        "message": "שרתי DNS פופולריים"
+    },
     "settings_dns_custom_servers": {
         "message": "שרתי DNS מותאמים אישית"
     },
@@ -441,7 +444,7 @@
         "message": "ייבא החרגות"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "הסר הכול"
+        "message": "הסר הכל"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "הסר את כל ההחרגות"
@@ -551,9 +554,6 @@
     "popup_rate_modal_subtitle": {
         "message": "אנא דרג אותנו"
     },
-    "popup_rate_modal_send_button": {
-        "message": "שלח"
-    },
     "popup_rate_modal_cancel_button": {
         "message": "בטל"
     },
@@ -571,6 +571,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "סגור"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "התר"
     },
     "options_title": {
         "message": "אפשרויות AdGuard VPN"

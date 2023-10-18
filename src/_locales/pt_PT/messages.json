@@ -540,7 +540,7 @@
         "message": "Importar exclusões"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Apagar todos"
+        "message": "Apagar tudo"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Remover todas as exclusões"
@@ -730,6 +730,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "Fechar"
+    },
+    "popup_host_permission_error_title": {
+        "message": "Permitir acesso a sítios"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Para usar o AdGuard VPN, permita que ele acesse os seus dados em sítios. Não armazenamos esses dados nem os compartilhamos com ninguém. <privacy>Política de privacidade</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Permitir"
     },
     "options_title": {
         "message": "Opções do AdGuard VPN"

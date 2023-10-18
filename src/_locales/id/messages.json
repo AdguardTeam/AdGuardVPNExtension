@@ -188,9 +188,6 @@
     "settings_dns_label": {
         "message": "Server DNS"
     },
-    "settings_dns_popular_servers": {
-        "message": "Penyedia DNS populer:"
-    },
     "settings_dns_custom_servers": {
         "message": "Server DNS buatan"
     },
@@ -315,7 +312,7 @@
         "message": "Setel ulang ke default"
     },
     "settings_exclusion_reset_button": {
-        "message": "Reset"
+        "message": "Atur ulang"
     },
     "settings_exclusions_undo": {
         "message": "Urungkan"
@@ -333,7 +330,7 @@
         "message": "Impor pengecualian"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Buang semua"
+        "message": "Hapus semua"
     },
     "settings_exclusion_title": {
         "message": "Pengecualian"
@@ -428,9 +425,6 @@
     "popup_rate_modal_subtitle": {
         "message": "Silahkan nilai kami"
     },
-    "popup_rate_modal_send_button": {
-        "message": "Kirim"
-    },
     "popup_rate_modal_cancel_button": {
         "message": "Batal"
     },
@@ -448,6 +442,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Tutup"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Ijinkan"
     },
     "options_title": {
         "message": "Opsi AdGuard VPN"
@@ -531,7 +528,7 @@
         "message": "Berlangganan"
     },
     "popup_connections_limit_description_cta_button_premium": {
-        "message": "Pelajari lebih"
+        "message": "Pelajari lainnya"
     },
     "popup_connections_limit_title": {
         "message": "Batas koneksi tercapai"

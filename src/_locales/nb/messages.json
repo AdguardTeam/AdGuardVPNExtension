@@ -404,9 +404,6 @@
     "popup_rate_modal_subtitle": {
         "message": "Vennligst vurder oss"
     },
-    "popup_rate_modal_send_button": {
-        "message": "Send"
-    },
     "popup_rate_modal_cancel_button": {
         "message": "Avbryt"
     },
@@ -421,6 +418,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Lukk"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Tillat"
     },
     "options_title": {
         "message": "AdGuard VPN-innstillinger"

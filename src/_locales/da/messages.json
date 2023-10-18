@@ -731,6 +731,15 @@
     "popup_server_error_popup_close": {
         "message": "Luk"
     },
+    "popup_host_permission_error_title": {
+        "message": "Tillad adgang til websteder"
+    },
+    "popup_host_permission_error_info": {
+        "message": "For brug af AdGuard VPN, skal den tildeles adgang til brugerens data på websteder. Vi hverken gemmer eller deler disse data med nogen. <privacy>Privatlivspolitik</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Tillad"
+    },
     "options_title": {
         "message": "AdGuard VPN Indstillinger"
     },

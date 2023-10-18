@@ -93,7 +93,7 @@
         "message": "با حساب فیسبوک پیش روید"
     },
     "eula": {
-        "message": "تواقنامه نهایی با کاربر"
+        "message": "توافقنامه نهایی با کاربر"
     },
     "privacy_policy": {
         "message": "سیاست حریم خصوصی"
@@ -198,7 +198,7 @@
         "message": "پوسته"
     },
     "settings_theme_system": {
-        "message": "سیستم"
+        "message": "پیش فرض سیستم"
     },
     "settings_theme_dark": {
         "message": "پوسته تیره"
@@ -277,9 +277,6 @@
     },
     "settings_vpn_connecting": {
         "message": "درحال اتصال..."
-    },
-    "popup_rate_modal_send_button": {
-        "message": "ارسال"
     },
     "popup_rate_modal_cancel_button": {
         "message": "لغو"

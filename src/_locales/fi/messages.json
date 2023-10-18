@@ -153,7 +153,7 @@
         "message": "Hanki Unlimited-tilaus!"
     },
     "rate_description": {
-        "message": "Hei! Olemme AdGuardin tiimi ja meille on erittäin tärkeää kuulla mielipiteesi tuotteesta ja toivoisimme, että arvioisit sen."
+        "message": "Hei. Olemme AdGuard VPN:n tiimi ja kuulisimme erittäin mielellämme mielipiteesi tuotteestamme."
     },
     "rate_hide": {
         "message": "Piilota"
@@ -384,49 +384,49 @@
         "message": "Oletus"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Käytä AdGuard VPN:n DNS-palvelimia"
+        "message": "Käytä AdGuard VPN:n DNS-palvelimia."
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
     },
     "settings_dns_selector_adguard_desc": {
-        "message": "Suodattaa mainokset, serantapalvelut ja suojaa haittaohjelmilta"
+        "message": "Estää mainoksia, seurantoja ja suojaa laitetta haittaohjelmilta."
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
         "message": "AdGuard DNS Ei-suodattava"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "Turvallinen DNS-palvelu ilman toimintohistoriaa (ei suodata mainoksia tai seurantapalveluita)"
+        "message": "Turvallinen DNS-palvelu ilman toimintalokeja (ei estä mainoksia eikä seurantoja)."
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS Perhesuojaus"
     },
     "settings_dns_selector_adguard_family_desc": {
-        "message": "AdGuard DNS + Turvallinen haku ja aikuisille tarkoitetun sisällön suodatus"
+        "message": "AdGuard DNS + Turvallinen haku ja aikuisille tarkoitetun sisällönesto."
     },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"
     },
     "settings_dns_selector_google_desc": {
-        "message": "Googlen ilmainen DNS-palvelu"
+        "message": "Googlen ilmainen DNS-palvelu."
     },
     "settings_dns_selector_cloudflare_title": {
         "message": "Cloudflare DNS"
     },
     "settings_dns_selector_cloudflare_desc": {
-        "message": "Cloudflaren ilmainen DNS-palvelu"
+        "message": "Cloudflaren ilmainen DNS-palvelu."
     },
     "settings_dns_selector_cisco_title": {
         "message": "Cisco OpenDNS"
     },
     "settings_dns_selector_cisco_desc": {
-        "message": "Ciscon OpenDNS-palvelu, joka suodattaa haittaohjelmia"
+        "message": "DNS-palvelu, joka suojaa laitettasi haittaohjelmilta."
     },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"
     },
     "settings_dns_selector_quad9_desc": {
-        "message": "Ilmainen DNS-palvelu tietojenkalastelu- ja vakoiluohjelmien suodatuksella"
+        "message": "Ilmainen DNS-palvelu tietojenkalastelun ja vakoiluohjelmien suodatuksella."
     },
     "settings_theme_label": {
         "message": "Teema"
@@ -576,7 +576,7 @@
         "message": "Tapahtui virhe"
     },
     "global_error_description": {
-        "message": "Ota meihin yhteyttä, jos ongelma jatkuu"
+        "message": "Ota meihin yhteyttä, jos ongelma jatkuu."
     },
     "global_error_learn_more": {
         "message": "Lue lisää"
@@ -591,7 +591,7 @@
         "message": "Laajennusristiriita"
     },
     "control_error_description": {
-        "message": "Näyttää siltä, että joku muu selainlaajennus pyrkii hallitsemaan yhteyttäsi. Poista se selaimestasi käytöstä."
+        "message": "Näyttää siltä, että jokin muu selainlaajennus pyrkii hallitsemaan yhteyttäsi. Poista se käytöstä selaimestasi."
     },
     "control_error_disable": {
         "message": "Poista käytöstä"
@@ -606,7 +606,7 @@
         "message": "Käytä VPN:ää tällä sivustolla"
     },
     "popup_settings_other_products": {
-        "message": "Muita tuotteita"
+        "message": "Muut tuotteet"
     },
     "popup_settings_feedback": {
         "message": "Palaute"
@@ -731,6 +731,15 @@
     "popup_server_error_popup_close": {
         "message": "Sulje"
     },
+    "popup_host_permission_error_title": {
+        "message": "Salli pääsy verkkosivustoille"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Jos haluat käyttää AdGuard VPN:ää, myönnä sille oikeus käyttää tietojasi verkkosivustoilla. Näitä tietoja ei tallenneta, eikä jaeta kenellekään. <privacy>Tietosuojakäytäntö</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Salli"
+    },
     "options_title": {
         "message": "AdGuard VPN -asetukset"
     },
@@ -805,7 +814,7 @@
         "message": "Kaikki sijainnit"
     },
     "popup_upgrade_screen_all_locations_desc": {
-        "message": "Kuusi mannerta ja kymmeniä maita. Valitse kaupunki ja surffaa netissä turvallisesti!"
+        "message": "Kuusi maanosaa ja kymmeniä maita. Valitse kaupunki ja surffaa netissä turvallisesti!"
     },
     "popup_upgrade_screen_connect_devices": {
         "message": "Viidelle laitteelle"
@@ -828,7 +837,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "Voit muuten halutessasi poistaa VPN-yhteyden käytöstä tällä sivustolla"
+        "message": "Tarvittaessa voit poistaa VPN-yhteyden käytöstä tällä sivustolla."
     },
     "popup_hint_popup_button": {
         "message": "Selvä"
@@ -840,7 +849,7 @@
         "message": "Työpöytäversio on vakaampi"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "Jos yhteyden muodostuksessa on ongelmia suosittelemme työpöytäversion käyttöä — se toimisujuvammin."
+        "message": "Jos yhteyden muodostuksessa on ongelmia suosittelemme työpöytäsovelluksen käyttöä — se toimii sujuvammin."
     },
     "popup_vpn_blocked_error_details_get_app_button": {
         "message": "Hanki työpöytäversio"
@@ -888,7 +897,7 @@
         "message": "Lisätäksesi laitteita, harkitse rajatonta AdGuard VPN Unlimited -tilausta."
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Lisätäksesi laitteen, katkaise AdGuard VPN joltakin laitteeltasi."
+        "message": "Lisätäksesi laitteen, poista AdGuard VPN käytöstä joltakin muulta laitteeltasi."
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Tilaa"
@@ -903,7 +912,7 @@
         "message": "AdGuard VPN on jo yhdistetty"
     },
     "popup_desktop_vpn_enabled_description": {
-        "message": "AdGuard VPN on käytössä työpöytäsovelluksessa, joten selainlaajennus on poistettu käytöstä"
+        "message": "AdGuard VPN -työpöytäsovellus on jo yhdistetty, joten selainlaajennus on poistettu automaattisesti käytöstä."
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"

@@ -731,6 +731,15 @@
     "popup_server_error_popup_close": {
         "message": "Close"
     },
+    "popup_host_permission_error_title": {
+        "message": "Allow access to websites"
+    },
+    "popup_host_permission_error_info": {
+        "message": "To use AdGuard VPN, allow it to access your data on websites. We don't store this data or share it with anyone. <privacy>Privacy policy</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Allow"
+    },
     "options_title": {
         "message": "AdGuard VPN Options"
     },

@@ -731,6 +731,15 @@
     "popup_server_error_popup_close": {
         "message": "Sluiten"
     },
+    "popup_host_permission_error_title": {
+        "message": "Toegang tot websites toestaan"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Om AdGuard VPN te gebruiken, moet je het toegang geven tot jouw gegevens op websites. We slaan deze gegevens niet op en delen deze met niemand. <privacy>Privacybeleid</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Toestaan"
+    },
     "options_title": {
         "message": "AdGuard VPN Opties"
     },
@@ -838,6 +847,9 @@
     },
     "popup_vpn_blocked_error_details_title": {
         "message": "De desktopversie is stabieler"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Als je verbindingsproblemen hebt, raden we aan over te schakelen op de desktopversie — die werkt soepeler"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
         "message": "Desktopversie downloaden"

@@ -704,6 +704,9 @@
     "popup_server_error_popup_close": {
         "message": "Đóng"
     },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Cho phép"
+    },
     "options_title": {
         "message": "Tùy chọn AdGuard VPN"
     },

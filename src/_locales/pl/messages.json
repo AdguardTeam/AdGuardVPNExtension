@@ -540,7 +540,7 @@
         "message": "Importuj wykluczenia"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Usuń wszystkie"
+        "message": "Usuń wszystko"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Usuń wszystkie wykluczenia"
@@ -690,7 +690,7 @@
         "message": "Oceń nas"
     },
     "popup_rate_modal_send_button": {
-        "message": "Wyślij"
+        "message": "Wysłać"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Anuluj"
@@ -730,6 +730,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Zamknij"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Pozwól"
     },
     "options_title": {
         "message": "Ustawienia AdGuard VPN"

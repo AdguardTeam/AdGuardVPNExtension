@@ -410,9 +410,6 @@
     "popup_rate_modal_subtitle": {
         "message": "Παρακαλούμε αξιολογήστε μας"
     },
-    "popup_rate_modal_send_button": {
-        "message": "Αποστολή"
-    },
     "popup_rate_modal_cancel_button": {
         "message": "Άκυρο"
     },
@@ -427,6 +424,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Κλείσιμο"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Επιτρέπεται"
     },
     "options_title": {
         "message": "Επιλογές AdGuard VPN"

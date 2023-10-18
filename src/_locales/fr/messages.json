@@ -369,7 +369,7 @@
         "message": "Serveur DNS déjà ajouté"
     },
     "settings_dns_add_custom_server_save_and_select": {
-        "message": "Sauvegarder et sélectionner"
+        "message": "Enregistrer et sélectionner"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Sauvegarder"
@@ -540,7 +540,7 @@
         "message": "Importer les exclusions"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Tou supprimer"
+        "message": "Supprimer tout"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Supprimer toutes les exclusions"
@@ -730,6 +730,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "Fermer"
+    },
+    "popup_host_permission_error_title": {
+        "message": "Autorisez l'accès aux sites web"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Pour utiliser AdGuard VPN, autorisez-le à accéder à vos données sur les sites web. Nous ne stockons pas ces données et ne les partageons avec personne. <privacy>Politique de confidentialité</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Autoriser"
     },
     "options_title": {
         "message": "Options AdGuard VPN"

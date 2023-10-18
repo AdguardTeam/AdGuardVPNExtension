@@ -717,7 +717,7 @@
         "message": "VPN 在您所在的地區很可能受限，或者發生了技術性故障。我們已經在嘗試修復錯誤。"
     },
     "popup_server_error_popup_action": {
-        "message": "催 AdGuard 團隊解決問題"
+        "message": "催 AdGuard 團隊"
     },
     "popup_server_error_popup_cancel": {
         "message": "取消"
@@ -730,6 +730,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "關閉"
+    },
+    "popup_host_permission_error_title": {
+        "message": "允許網站存取權限"
+    },
+    "popup_host_permission_error_info": {
+        "message": "為了順利使用 AdGuard VPN，您需要授予它存取您在各網站上的資料權限。請放心，我們不會保存或與任何第三方分享您的資料。請參閱<privacy>隱私政策</privacy>以了解更多。"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "允許"
     },
     "options_title": {
         "message": "AdGuard VPN 選項"

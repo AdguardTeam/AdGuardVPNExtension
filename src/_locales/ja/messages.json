@@ -336,7 +336,7 @@
         "message": "DNSサーバー"
     },
     "settings_dns_popular_servers": {
-        "message": "人気なDNSサーバー"
+        "message": "人気DNSサーバー"
     },
     "settings_dns_custom_servers": {
         "message": "カスタムDNSサーバー"
@@ -369,7 +369,7 @@
         "message": "このDNSサーバーはすでに追加されています"
     },
     "settings_dns_add_custom_server_save_and_select": {
-        "message": "保存して選択"
+        "message": "保存して選択する"
     },
     "settings_dns_add_custom_server_save": {
         "message": "保存"
@@ -513,7 +513,7 @@
         "message": "デフォルトにリセット"
     },
     "settings_exclusion_reset_button": {
-        "message": "リセット"
+        "message": "初期化"
     },
     "settings_exclusions_undo": {
         "message": "元に戻す"
@@ -540,7 +540,7 @@
         "message": "除外リストをインポート"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "全て削除"
+        "message": "すべて削除"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "すべての除外項目を削除する"
@@ -690,7 +690,7 @@
         "message": "ご評価いただければ幸いです"
     },
     "popup_rate_modal_send_button": {
-        "message": "送信"
+        "message": "送信する"
     },
     "popup_rate_modal_cancel_button": {
         "message": "キャンセル "
@@ -717,7 +717,7 @@
         "message": "おそらく、VPNはあなたの国でブロックされたか、技術的な不具合がありました。すでに対処しております。"
     },
     "popup_server_error_popup_action": {
-        "message": "AdGuardチームに通知する"
+        "message": "AdGuardチームに通知"
     },
     "popup_server_error_popup_cancel": {
         "message": "キャンセル "
@@ -730,6 +730,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "閉じる"
+    },
+    "popup_host_permission_error_title": {
+        "message": "ウェブサイトへのアクセスを許可してください"
+    },
+    "popup_host_permission_error_info": {
+        "message": "AdGuard VPN を使用するには、ウェブサイト上のデータへのアクセスを許可してください。このデータを保存したり、誰かと共有したりすることは一切ありません。 <privacy>プライバシーポリシー</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "許可する"
     },
     "options_title": {
         "message": "AdGuard VPNオプション"

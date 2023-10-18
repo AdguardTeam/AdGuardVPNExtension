@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — Sekretess & Säkerhet"
+        "message": "AdGuard VPN - gratis och säker proxy"
     },
     "description": {
         "message": "Använd AdGuard VPN för att surfa snabbt, säkert och tryggt på internet. Skydda din integritet och förbli anonym med vår privata VPN-proxy."
@@ -390,7 +390,7 @@
         "message": "Importera undantag"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Ta bort alla"
+        "message": "Ta bort allt"
     },
     "settings_exclusion_title": {
         "message": "Exkluderingar"
@@ -514,6 +514,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Avsluta"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Tillåt"
     },
     "options_title": {
         "message": "AdGuard VPN Alternativ"

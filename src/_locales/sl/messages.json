@@ -731,6 +731,15 @@
     "popup_server_error_popup_close": {
         "message": "Zapri"
     },
+    "popup_host_permission_error_title": {
+        "message": "Dovoli dostop do spletnih strani"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Za uporabo AdGuard VPN, mu dovolite dostop do vaših podatkov na spletnih straneh. Teh podatkov ne shranjujemo in jih ne delimo z nikomer. <privacy>Politika zasebnosti</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Dovoli"
+    },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
     },

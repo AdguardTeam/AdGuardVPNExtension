@@ -336,7 +336,7 @@
         "message": "DNS 서버"
     },
     "settings_dns_popular_servers": {
-        "message": "유명 DNS 제공자:"
+        "message": "널리 사용되는 DNS 서버"
     },
     "settings_dns_custom_servers": {
         "message": "사용자 정의 DNS 서버"
@@ -369,7 +369,7 @@
         "message": "DNS 서버가 이미 추가되었습니다"
     },
     "settings_dns_add_custom_server_save_and_select": {
-        "message": "선택하고 저장"
+        "message": "저장하고 선택"
     },
     "settings_dns_add_custom_server_save": {
         "message": "저장"
@@ -730,6 +730,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "닫기"
+    },
+    "popup_host_permission_error_title": {
+        "message": "웹사이트 접근을 허용하세요"
+    },
+    "popup_host_permission_error_info": {
+        "message": "AdGuard VPN을 사용하려면 웹사이트의 데이터에 접근할 수 있도록 허용해야 합니다. 저희는 이 데이터를 저장하거나 누구와도 공유하지 않습니다. <privacy>개인정보취급방침</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "허용"
     },
     "options_title": {
         "message": "AdGuard VPN 옵션"

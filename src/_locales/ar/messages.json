@@ -269,9 +269,6 @@
     "settings_dns_label": {
         "message": "خادم DNS"
     },
-    "settings_dns_popular_servers": {
-        "message": "موفرو DNS الشائعة:"
-    },
     "settings_dns_custom_servers": {
         "message": "خوادم DNS مخصصة"
     },
@@ -326,32 +323,17 @@
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS خدمة حماية الاسرة"
     },
-    "settings_dns_selector_adguard_family_desc": {
-        "message": "البحث الآمن وحظر محتوى البالغين + AdGuard DNS"
-    },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"
-    },
-    "settings_dns_selector_google_desc": {
-        "message": "خدمة DNSالبديلة المجانية من غوغل"
     },
     "settings_dns_selector_cloudflare_title": {
         "message": "Cloudflare DNS"
     },
-    "settings_dns_selector_cloudflare_desc": {
-        "message": "خدمة DNS مجانية من كلاود فلير"
-    },
     "settings_dns_selector_cisco_title": {
         "message": "Cisco OpenDNS"
     },
-    "settings_dns_selector_cisco_desc": {
-        "message": "خادمDNS الذي يحمي جهازك من البرامج الضارة"
-    },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"
-    },
-    "settings_dns_selector_quad9_desc": {
-        "message": "خدمة DNS بديلة مجانية مع الحماية من الخداع وبرامج التجسس"
     },
     "settings_theme_label": {
         "message": "النسق"
@@ -453,7 +435,7 @@
         "message": "استيراد الاستثناءات"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "حذف الكل"
+        "message": "ازالة الكل"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "قم بإزالة كافة الاستثناءات"
@@ -566,9 +548,6 @@
     "popup_rate_modal_subtitle": {
         "message": "الرجاء تقييمنا"
     },
-    "popup_rate_modal_send_button": {
-        "message": "إرسال"
-    },
     "popup_rate_modal_cancel_button": {
         "message": "إلغاء"
     },
@@ -589,6 +568,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "اغلاق"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "السماح"
     },
     "options_title": {
         "message": "AdGuard VPN خيارات"
@@ -697,7 +679,7 @@
         "message": "اشتراك"
     },
     "popup_connections_limit_description_cta_button_premium": {
-        "message": "التعرف على المزيد"
+        "message": "تعلّم المزيد"
     },
     "popup_connections_limit_title": {
         "message": "تم الوصول إلى حد الاتصالات"

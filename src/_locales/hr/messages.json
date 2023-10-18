@@ -336,7 +336,7 @@
         "message": "DNS poslužitelj"
     },
     "settings_dns_popular_servers": {
-        "message": "Popularni DNS poslužitelji"
+        "message": "Popularni DNS serveri"
     },
     "settings_dns_custom_servers": {
         "message": "Prilagođeni DNS poslužitelji"
@@ -439,6 +439,18 @@
     },
     "settings_theme_light": {
         "message": "Svijetla"
+    },
+    "settings_quick_connect_title": {
+        "message": "Brzo povezivanje"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Lokacija VPN-a odabrana kada kliknete Poveži"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Zadnja korištena lokacija"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Najbrža lokacija"
     },
     "settings_exclusion_add": {
         "message": "Dodaj web stranicu"
@@ -575,6 +587,9 @@
     "authentication_successful_notification": {
         "message": "Uspješno provjerena autentičnost! Možete otvoriti AdGuard VPN i početi ga koristiti."
     },
+    "control_error_title": {
+        "message": "Sukob proširenja"
+    },
     "control_error_description": {
         "message": "Izgleda da još jedno proširenje Chromea pokušava kontrolirati vašu vezu. Onemogućite drugo proširenje u vašem pregledniku."
     },
@@ -583,6 +598,12 @@
     },
     "popup_settings_enable_vpn_short": {
         "message": "Omogući"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Onemogući VPN na ovoj stranici"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Omogući VPN za ovo web mjesto"
     },
     "popup_settings_other_products": {
         "message": "Ostali proizvodi"
@@ -659,6 +680,9 @@
     "popup_feedback_button": {
         "message": "Ostavite povratnu informaciju"
     },
+    "popup_compare_button": {
+        "message": "Zašto je aplikacija bolja"
+    },
     "popup_rate_modal_title": {
         "message": "Kako je divan AdGuard VPN?"
     },
@@ -666,7 +690,7 @@
         "message": "Molimo, ocijenite nas"
     },
     "popup_rate_modal_send_button": {
-        "message": "Pošalji"
+        "message": "Poslati"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Poništi"
@@ -706,6 +730,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Zatvori"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Dopusti"
     },
     "options_title": {
         "message": "AdGuard VPN opcije"
@@ -794,6 +821,17 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Nastavite besplatno"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% preostalo",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Promet se obnavlja danas | Promet se obnavlja za %days% dan | Promet se obnavlja za %days% dana | Promet se obnavlja za %days% dana",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "Usput, možete onemogućiti VPN za ovu stranicu ako želite"
     },
     "popup_hint_popup_button": {
         "message": "U redu"
