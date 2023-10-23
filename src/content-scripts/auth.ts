@@ -17,7 +17,7 @@ function getParsedSocialAuth(): SocialAuthData | null {
     try {
         return socialAuthSchema.parse(data);
     } catch (e) {
-        log.error('Failed to parse social auth data', e, queryString);
+        log.debug('Failed to parse social auth data', e, queryString);
         return null;
     }
 }
