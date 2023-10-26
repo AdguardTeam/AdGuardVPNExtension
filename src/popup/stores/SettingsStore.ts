@@ -20,6 +20,7 @@ import { getHostname, getProtocol } from '../../common/url-utils';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { PromoNotificationData } from '../../background/promoNotifications';
 import type { RootStore } from './RootStore';
+import { Prefs } from '../../common/prefs';
 import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
 
 type StateType = {
@@ -66,6 +67,8 @@ export class SettingsStore {
     @observable showServerErrorPopup: boolean = false;
 
     @observable isVpnBlocked: boolean = false;
+
+    @observable hasDesktopAppForOs: boolean = false;
 
     rootStore: RootStore;
 
@@ -405,4 +408,14 @@ export class SettingsStore {
     @action closeVpnBlockedWarning = (): void => {
         this.isVpnBlocked = false;
     };
+
+    /**
+     * Checks whether the desktop AdGuard VPN apps are supported for the current OS.
+     * Sets the result to {@link hasDesktopAppForOs}.
+     */
+    @action async setHasDesktopAppForOs(): Promise<void> {
+        const isWindows = await Prefs.isWindows();
+        const isMacOS = await Prefs.isMacOS();
+        this.hasDesktopAppForOs = isWindows || isMacOS;
+    }
 }

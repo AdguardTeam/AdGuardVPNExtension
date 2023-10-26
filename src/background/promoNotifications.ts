@@ -371,7 +371,7 @@ const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
  */
 const getCurrentNotification = async (): Promise<PromoNotificationData | null> => {
     // Do not display notification on Firefox
-    if (Prefs.browser === 'Firefox') {
+    if (Prefs.isFirefox()) {
         return null;
     }
 

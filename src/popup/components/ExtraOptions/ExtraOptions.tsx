@@ -19,6 +19,7 @@ export const ExtraOptions = observer(() => {
         isRateVisible,
         isCurrentTabExcluded,
         canBeExcluded,
+        hasDesktopAppForOs,
     } = settingsStore;
 
     const openSettings = async (): Promise<void> => {
@@ -76,7 +77,8 @@ export const ExtraOptions = observer(() => {
 
             {renderOption('popup_settings_open_settings', openSettings)}
 
-            {renderOption('popup_compare_button', openComparePage, 'extra-options__item--compare')}
+            {hasDesktopAppForOs
+                && renderOption('popup_compare_button', openComparePage, 'extra-options__item--compare')}
 
             {isRateVisible
                 ? <RatePopup />

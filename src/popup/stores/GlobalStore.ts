@@ -4,11 +4,11 @@ import {
     observable,
 } from 'mobx';
 
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 import { log } from '../../lib/logger';
 import { tabs } from '../../background/tabs';
 import { messenger } from '../../lib/messenger';
 import type { RootStore } from './RootStore';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 
 export class GlobalStore {
     @observable initStatus = RequestStatus.Pending;
@@ -17,6 +17,16 @@ export class GlobalStore {
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
+    }
+
+    /**
+     * Checks whether the desktop AdGuard VPN apps are supported for the current OS.
+     * Sets the result to the settings store.
+     */
+    @action
+    async getDesktopAppData(): Promise<void> {
+        const { rootStore: { settingsStore } } = this;
+        settingsStore.setHasDesktopAppForOs();
     }
 
     @action
@@ -99,6 +109,7 @@ export class GlobalStore {
             await settingsStore.getExclusionsInverted();
             await settingsStore.getCurrentTabHostname();
             settingsStore.setIsExcluded(!isVpnEnabledByUrl);
+
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
             log.error(e.message);
@@ -109,6 +120,7 @@ export class GlobalStore {
     @action
     async init(): Promise<void> {
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
+        await this.getDesktopAppData();
     }
 
     @action

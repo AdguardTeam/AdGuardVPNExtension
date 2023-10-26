@@ -1,8 +1,13 @@
 import { log } from '../lib/logger';
+import { runtime } from './browserApi/runtime';
 
 // global data
 // @ts-ignore
 const CONFIG = __APP_CONFIG__;
+
+runtime.getPlatformOs().then((res) => {
+    log.debug(`Current os: '${res}'`);
+});
 
 log.debug(`Current browser: "${CONFIG.BROWSER}"`);
 log.debug(`Current build env: "${CONFIG.BUILD_ENV}"`);
