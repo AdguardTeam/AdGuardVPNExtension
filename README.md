@@ -21,7 +21,7 @@
 
 
 <p align="center">
-<image src="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_disconnected.png" width="250" style="border: 1px solid black;"> <image src="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_connected.png" width="250" style="border: 1px solid black;">
+<image src="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_ext_disconnected.png" width="250" style="border: 1px solid black;"> <image src="https://cdn.adguard.com/public/Adguard/screenshots/extension/adguardvpn_ext_connected.png" width="250" style="border: 1px solid black;">
 </p>
 
 AdGuard VPN serves to protect your online privacy, encrypt your connection, hide your IP address and websites you visit from anyone (including your ISP). Cutting-edge technologies and multiple customization options will help conceal your location and ensure anonymous browsing on the web.
