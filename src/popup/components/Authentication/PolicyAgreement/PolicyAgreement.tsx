@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { reactTranslator } from '../../../../common/reactTranslator';
 import { popupActions } from '../../../actions/popupActions';
+import { reactTranslator } from '../../../../common/reactTranslator';
 import { EULA_URL, PRIVACY_URL } from '../../../../background/config';
 import { rootStore } from '../../../stores';
 import { Checkbox } from '../Checkbox';
@@ -13,17 +13,17 @@ const HELP_US_IMPROVE_ID = 'help_us_improve';
 export const PolicyAgreement = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const handlePrivacyClick = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
+    const handlePrivacyClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
         await popupActions.openTab(PRIVACY_URL);
     };
 
-    const handleEulaClick = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
+    const handleEulaClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
         await popupActions.openTab(EULA_URL);
     };
 
-    const handleAnonymousDataLinkClick = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
+    const handleAnonymousDataLinkClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
         await popupActions.openTab(PRIVACY_URL);
     };
@@ -50,22 +50,26 @@ export const PolicyAgreement = observer(() => {
                     onChange={onPolicyAgreementChange}
                     label={reactTranslator.getMessage('popup_auth_policy_agreement', {
                         eula: (chunks: string) => (
-                            <button
-                                type="button"
+                            <a
+                                href={EULA_URL}
                                 onClick={handleEulaClick}
                                 className="button button--link-green"
+                                target="_blank"
+                                rel="noreferrer"
                             >
                                 {chunks}
-                            </button>
+                            </a>
                         ),
                         privacy: (chunks: string) => (
-                            <button
-                                type="button"
+                            <a
+                                href={PRIVACY_URL}
                                 onClick={handlePrivacyClick}
                                 className="button button--link-green"
+                                target="_blank"
+                                rel="noreferrer"
                             >
                                 {chunks}
-                            </button>
+                            </a>
                         ),
                     })}
                 />
@@ -77,13 +81,15 @@ export const PolicyAgreement = observer(() => {
                     onChange={onHelpUsImproveChanged}
                     label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
                         link: (chunks: string) => (
-                            <button
-                                type="button"
+                            <a
+                                href={PRIVACY_URL}
                                 onClick={handleAnonymousDataLinkClick}
                                 className="button button--link-green"
+                                target="_blank"
+                                rel="noreferrer"
                             >
                                 {chunks}
-                            </button>
+                            </a>
                         ),
                     })}
                 />
