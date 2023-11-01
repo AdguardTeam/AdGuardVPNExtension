@@ -8,12 +8,19 @@ import { log } from '../lib/logger';
 /**
  * Check if the current URL contains a valid social auth query string after '#'.
  *
- * @returns {object|null} - Parsed social auth parameters if valid, null otherwise.
+ * @returns Parsed social auth parameters if valid,
+ * or `null` if the data is not valid or there is no hash in the URL (AG account login).
  */
 function getParsedSocialAuth(): SocialAuthData | null {
     const queryString = window.location.href.split('#')[1];
-    const data = qs.parse(queryString);
 
+    // if user logins on website with the AdGuard account,
+    // href does not contain any hash related to social auth
+    if (typeof queryString === 'undefined') {
+        return null;
+    }
+
+    const data = qs.parse(queryString);
     try {
         return socialAuthSchema.parse(data);
     } catch (e) {
