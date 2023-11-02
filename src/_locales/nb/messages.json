@@ -452,9 +452,6 @@
     "popup_upgrade_screen_all_locations": {
         "message": "Alle posisjoner"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Opptil 5 enheter"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Oppgrader"
     },

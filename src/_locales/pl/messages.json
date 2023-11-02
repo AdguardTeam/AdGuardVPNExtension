@@ -810,9 +810,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontynentów i kilkadziesiąt krajów. Wybierz miasto i surfuj bezpiecznie po sieci!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Do 5 urządzeń"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Połącz wszystkie urządzenia do AdGuard VPN w tym samym czasie — lub zabezpiecz całą rodzinę!"
     },

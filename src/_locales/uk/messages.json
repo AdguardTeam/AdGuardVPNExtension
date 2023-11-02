@@ -162,7 +162,7 @@
         "message": "Підтвердити"
     },
     "auth_email": {
-        "message": "Електронна адреса"
+        "message": "Адреса електронної пошти"
     },
     "auth_password": {
         "message": "Пароль"
@@ -817,7 +817,7 @@
         "message": "6 континентів та десятки країн. Вибирайте місто та безпечно користуйтесь інтернетом!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "До п'яти пристроїв"
+        "message": "До %potential_num% пристроїв"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Під'єднайте усі свої пристрої до AdGuard VPN одночасно — захистіть всю родину!"
@@ -837,7 +837,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "До речі, за бажанням ви можете відключити VPN для цього сайту"
+        "message": "До речі, ви можете вимкнути VPN для цього сайту"
     },
     "popup_hint_popup_button": {
         "message": "Зрозуміло"

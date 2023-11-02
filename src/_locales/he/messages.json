@@ -630,9 +630,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 יבשות ועשרות מדינות. בחר עיר וגלוש ברשת באופן בטוח!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "עד 5 מכשירים"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "חבר את כל החפיצים שלך אל AdGuard VPN באותו הזמן — או הגן על המשפחה כולה!"
     },

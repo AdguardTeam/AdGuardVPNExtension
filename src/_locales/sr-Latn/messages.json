@@ -810,9 +810,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinenata i mnogo zemalja. Izaberite grad i surfujte internetom sigurno!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Do 5 uređaja"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Povežite sve gadžete sa AdGuard VPN-om u isto vreme – ili zaštitite celu porodicu!"
     },

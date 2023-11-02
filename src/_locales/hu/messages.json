@@ -783,9 +783,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinens és több tucat ország. Válasszon várost és böngésszen biztonságosan a neten!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Akár 5 eszközre"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Csatlakoztassa az összes készülékét egyszerre az AdGuard VPN-hez — vagy védje meg az egész családot!"
     },

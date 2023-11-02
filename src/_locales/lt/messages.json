@@ -287,9 +287,6 @@
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neribotas duomenų kiekis"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Iki 5 įrenginių"
-    },
     "options_exclusions_delete_cancel_button": {
         "message": "Atšaukti"
     },

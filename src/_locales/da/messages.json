@@ -817,10 +817,10 @@
         "message": "6 kontinenter og snesevis af lande. Vælg en by og surf sikkert på nettet!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Op til 5 enheder"
+        "message": "Op til %potential_num% enheder"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "Forbind alle dine gadgets til AdGuard VPN på samme tid — eller beskyt hele familien!"
+        "message": "Forbind alle gadgets til AdGuard VPN på samme tid — eller beskyt hele familien!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Opgradere"

@@ -817,10 +817,10 @@
         "message": "6 continentes y decenas de países. ¡Elige una ciudad y navega por Internet con seguridad!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Hasta 5 dispositivos"
+        "message": "Hasta %potential_num% dispositivos"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "¡Conecta todos tus gadgets a AdGuard VPN al mismo tiempo, o protege a toda la familia!"
+        "message": "Conecta todos tus dispositivos a AdGuard VPN al mismo tiempo. ¡O protege a toda tu familia!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Mejorar"

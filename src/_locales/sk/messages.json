@@ -810,11 +810,8 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinentov a desiatky krajín. Vyberte si mesto a bezpečne surfujte na internete!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Až do 5 zariadení"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "Pripojte všetky svoje gadgety k AdGuard VPN súčasne – alebo chráňte celú rodinu!"
+        "message": "Pripojte všetky svoje zariadenia k AdGuard VPN súčasne - alebo chráňte celú rodinu!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Aktualizácia"

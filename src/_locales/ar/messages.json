@@ -627,12 +627,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 قارات وعشرات الدول. اختر مدينة وتصفح الإنترنت بأمان!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "ما يصل إلى 5 أجهزة"
-    },
-    "popup_upgrade_screen_connect_devices_desc": {
-        "message": "قم بتوصيل جميع أدواتك ب AdGuard VPN في نفس الوقت - أو قم بحماية جميع أفراد الأسرة!"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "ترقيه"
     },

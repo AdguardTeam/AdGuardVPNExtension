@@ -817,10 +817,10 @@
         "message": "Scegli una città e naviga in Rete in sicurezza!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Fino a 5 dispositivi"
+        "message": "Fino a %potential_num% dispositivi"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "Collegare tutti i sui dispositivi ad AdGuard VPN allo stesso tempo, o proteggere l'intera famiglia!"
+        "message": "Collegare tutti i sui dispositivi ad AdGuard VPN allo stesso tempo, o proteggere l\\'intera famiglia!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Aggiorna"

@@ -817,10 +817,10 @@
         "message": "6 continenten en tientallen landen. Kies een plaats en surf veilig op internet!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Maximaal 5 apparaten"
+        "message": "Tot %potential_num% apparaten"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "Verbind al je gadgets tegelijkertijd met AdGuard VPN - of bescherm het hele gezin!"
+        "message": "Verbind al jouw gadgets tegelijkertijd met AdGuard VPN - of bescherm het hele gezin!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Upgraden"

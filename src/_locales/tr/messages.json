@@ -817,10 +817,10 @@
         "message": "6 kıta ve onlarca ülke. Bir şehir seçin ve internette güvenli bir şekilde gezinin!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "5 cihaza kadar"
+        "message": "%potential_num% cihaza kadar"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "Tüm cihazlarınızı aynı anda AdGuard VPN'e bağlayın — veya tüm aileyi koruyun!"
+        "message": "Tüm cihazlarınızı aynı anda AdGuard VPN'e bağlayın — veya tüm ailenizi koruyun!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Yükselt"

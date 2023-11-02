@@ -817,7 +817,7 @@
         "message": "六个大洲及海量国家与地区。选择一座城市并开始安全浏览！"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "最多五台设备"
+        "message": "高达 %potential_num% 台设备"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "将自己的所有设备同时连接到 AdGuard VPN，或者保护全家的隐私安全！"

@@ -817,7 +817,7 @@
         "message": "6 celin in več deset držav. Izberite mesto in varno deskanje po spletu!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Do 5 naprav"
+        "message": "Do %potential_num% naprav"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Povežite vse svoje pripomočke z AdGuard VPN hkrati — ali zaščitite celotno družino!"

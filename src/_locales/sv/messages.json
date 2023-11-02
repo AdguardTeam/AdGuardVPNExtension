@@ -576,8 +576,8 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinenter och dussintals länder. Välj en stad och surfa säkert på nätet!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Upp till 5 enheter"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Anslut alla dina prylar till AdGuard VPN samtidigt — eller skydda hela familjen!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uppgradera"

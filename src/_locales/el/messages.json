@@ -467,9 +467,6 @@
     "popup_upgrade_screen_all_locations": {
         "message": "Όλες οι τοποθεσίες"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Έως 5 συσκευές"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Αναβάθμιση"
     },

@@ -497,12 +497,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinan dan lusinan negara. Pilih kotanya dan jelajahi internet dengan aman!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Hingga 5 perangkat"
-    },
-    "popup_upgrade_screen_connect_devices_desc": {
-        "message": "Hubungkan semua gadget Anda ke AdGuard VPN secara bersamaan — atau lindungi seluruh keluarga!"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Tingkatkan"
     },

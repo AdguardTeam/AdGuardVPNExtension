@@ -744,7 +744,7 @@
         "message": "Опции AdGuard VPN"
     },
     "offline_title": {
-        "message": "Оффлайн"
+        "message": "Офлайн"
     },
     "popup_site_status_unaccessible": {
         "message": "находится в вашей локальной сети и недоступен через VPN"
@@ -817,7 +817,7 @@
         "message": "6 континентов и десятки стран. Выберите город и пользуйтесь интернетом безопасно!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "До 5 устройств"
+        "message": "До %potential_num% устройств"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Подключите все свои устройства к AdGuard VPN — или защитите всю семью!"

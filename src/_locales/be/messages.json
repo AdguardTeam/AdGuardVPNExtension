@@ -786,9 +786,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 кантынентаў і дзясяткі краін. Абярыце горад і карыстайцеся інтэрнэтам бяспечна!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Да 5 прылад"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Падключыце ўсе свае гаджэты да AdGuard VPN адначасова — або абароніце ўсю сям'ю!"
     },

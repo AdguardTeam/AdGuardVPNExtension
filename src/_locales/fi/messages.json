@@ -817,7 +817,7 @@
         "message": "Kuusi maanosaa ja kymmeniä maita. Valitse kaupunki ja surffaa netissä turvallisesti!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Viidelle laitteelle"
+        "message": "%potential_num% laitteelle"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Yhdistä kaikki laitteesi AdGuard VPN:ään samanaikaisesti — tai suojaa koko perhe!"

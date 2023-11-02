@@ -817,10 +817,10 @@
         "message": "六大洲及許多國家。選擇一座城市並安全地瀏覽網路！"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "高達 5 台裝置"
+        "message": "高達 %potential_num% 台裝置"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "將自己的所有裝置同時連線到 AdGuard VPN，或者保護全家的隱私安全！"
+        "message": "將所有裝置同時連線到 AdGuard VPN，或者保護家庭的網路安全！"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "升級"

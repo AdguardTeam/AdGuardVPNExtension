@@ -817,7 +817,7 @@
         "message": "6 kontinentů a desítky zemí. Vyberte si město a bezpečně surfujte po síti!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Až pro 5 zařízení"
+        "message": "Až pro %potential_num% zařízení"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Připojte všechna svá zařízení k AdGuard VPN najednou — nebo chraňte celou rodinu!"
