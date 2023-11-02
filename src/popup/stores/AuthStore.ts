@@ -520,6 +520,7 @@ export class AuthStore {
             && !this.showConfirmEmailModal
             && !this.rootStore.settingsStore.showServerErrorPopup
             && !this.rootStore.settingsStore.isVpnBlocked
+            && !this.rootStore.settingsStore.isHostPermissionsGranted
             && !this.rootStore.settingsStore.showNotificationModal
             && !this.rootStore.vpnStore.tooManyDevicesConnected;
     }

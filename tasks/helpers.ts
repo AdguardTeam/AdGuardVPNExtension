@@ -1,10 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import _ from 'lodash';
 
-import {
-    ENV_MAP,
-    Env,
-} from './consts';
+import { Env, BUILD_ENV_MAP } from './consts';
 
 const pJson = require('../package.json');
 
@@ -56,7 +53,7 @@ export const modifyExtensionName = (
 };
 
 export const getOutputPathByEnv = (env = Env.Dev): string => {
-    const envData = ENV_MAP[env];
+    const envData = BUILD_ENV_MAP[env];
     if (!envData) {
         throw new Error(`Wrong environment: ${env}`);
     }
@@ -66,7 +63,7 @@ export const getOutputPathByEnv = (env = Env.Dev): string => {
 export const updateLocalesMSGName = (content: Buffer, env: string): string => {
     // Chrome Web Store allows only 45 symbol long names
     const NAME_MAX_LENGTH = 45;
-    const envData = ENV_MAP[env];
+    const envData = BUILD_ENV_MAP[env];
 
     if (!envData) {
         throw new Error(`Wrong environment: ${env}`);

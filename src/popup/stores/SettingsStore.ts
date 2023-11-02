@@ -68,6 +68,8 @@ export class SettingsStore {
 
     @observable isVpnBlocked: boolean = false;
 
+    @observable isHostPermissionsGranted: boolean = false;
+
     @observable hasDesktopAppForOs: boolean = false;
 
     rootStore: RootStore;
@@ -407,6 +409,10 @@ export class SettingsStore {
 
     @action closeVpnBlockedWarning = (): void => {
         this.isVpnBlocked = false;
+    };
+
+    @action setHostPermissionsError = (value: boolean): void => {
+        this.isHostPermissionsGranted = value;
     };
 
     /**

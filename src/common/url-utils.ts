@@ -1,6 +1,8 @@
 import { getDomain, parse } from 'tldts';
 import { isIP } from 'is-ip';
 
+// TODO: move this file to common/utils directory
+
 const HTTPS_PROTOCOL = 'https://';
 
 /**

@@ -14,7 +14,7 @@ export const chromeManifestDiff = {
         default_popup: 'popup.html',
     },
     content_security_policy: {
-        extension_pages: 'script-src \'self\'; object-src \'self\'',
+        extension_pages: "script-src 'self'; object-src 'self'",
     },
     permissions: [
         'webRequestAuthProvider',

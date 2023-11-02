@@ -34,6 +34,7 @@ import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
+import { HostPermissionsError } from '../HostPermissionsError';
 
 export interface Message {
     type: NotifierType,
@@ -61,6 +62,7 @@ export const App = observer(() => {
         canBeExcluded,
         showLimitExceededScreen,
         isVpnBlocked,
+        isHostPermissionsGranted,
     } = settingsStore;
 
     const { authenticated } = authStore;
@@ -171,6 +173,13 @@ export const App = observer(() => {
         && settingsStore.checkPermissionsState !== RequestStatus.Pending
         && globalStore.status === RequestStatus.Pending) {
         return null;
+    }
+
+    // show browser permission error after user is authenticated
+    if (!isHostPermissionsGranted && authenticated) {
+        return (
+            <HostPermissionsError />
+        );
     }
 
     if (!authenticated && !hasGlobalError) {

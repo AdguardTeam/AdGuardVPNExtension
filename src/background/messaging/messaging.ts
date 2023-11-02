@@ -64,7 +64,14 @@ const getOptionsData = async () => {
     const isAllExclusionsListsEmpty = !(exclusions.getRegularExclusions().length
         || exclusions.getSelectiveExclusions().length);
 
-    const servicesData = exclusions.getServices();
+    let servicesData = exclusions.getServices();
+    if (servicesData.length === 0) {
+        // services may not be up-to-date on very first option page opening in firefox mv3
+        // if their loading was blocked before due to default absence of host permissions (<all_urls>).
+        // so if it happens, they should be updated forcedly
+        await exclusions.forceUpdateServices();
+        servicesData = exclusions.getServices();
+    }
 
     const isAuthenticated = await auth.isAuthenticated();
     const isPremiumToken = await credentials.isPremiumToken();

@@ -6,6 +6,7 @@ import { bundleRunner } from './bundle-runner';
 import { chromeConfig } from './chrome/webpack.chrome';
 import { chromeConfigMV2 } from './chrome-mv2/webpack.chrome-mv2';
 import { firefoxConfig } from './firefox/webpack.firefox';
+import { firefoxConfigMV3 } from './firefox-mv3/webpack.firefox';
 import { operaConfig } from './opera/webpack.opera';
 import { edgeConfig } from './edge/webpack.edge';
 import { Browser } from './consts';
@@ -23,6 +24,7 @@ const buildAllBrowsers = async (): Promise<void> => {
     await createBundle(chromeConfig, program.watch);
     await createBundle(chromeConfigMV2, program.watch);
     await createBundle(firefoxConfig, program.watch);
+    await createBundle(firefoxConfigMV3, program.watch);
     await createBundle(operaConfig, program.watch);
     await createBundle(edgeConfig, program.watch);
 };
@@ -46,9 +48,16 @@ program
 
 program
     .command(Browser.Firefox)
-    .description('Builds extension for firefox browser')
+    .description('Builds extension for firefox browser with manifest version 2')
     .action(() => {
         createBundle(firefoxConfig, program.watch);
+    });
+
+program
+    .command(Browser.FirefoxMV3)
+    .description('Builds extension for firefox browser with manifest version 3')
+    .action(() => {
+        createBundle(firefoxConfigMV3, program.watch);
     });
 
 program

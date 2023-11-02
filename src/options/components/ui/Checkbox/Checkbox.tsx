@@ -3,34 +3,28 @@ import React, { useState } from 'react';
 import './checkbox.pcss';
 
 type CheckboxProps = {
-    children: React.ReactNode,
+    label: React.ReactNode,
     id: string,
     value: boolean,
 };
 
-export const Checkbox = ({ children, id, value }: CheckboxProps) => {
+export const Checkbox = ({ label, id, value }: CheckboxProps) => {
     const [checkedValue, setCheckedValue] = useState(value);
     return (
-        <label
-            htmlFor={id}
-            className="checkbox"
-        >
+        <div className="checkbox">
             <input
                 id={id}
                 type="checkbox"
                 checked={checkedValue}
                 className="checkbox__in"
+                onChange={() => setCheckedValue(!checkedValue)}
             />
-            <button
-                type="button"
-                onClick={() => setCheckedValue(!checkedValue)}
-                className="checkbox__custom"
+            <label
+                htmlFor={id}
+                className="checkbox__label"
             >
-                <svg className="icon icon--button checkbox__icon">
-                    <use xlinkHref="#check" />
-                </svg>
-            </button>
-            {children}
-        </label>
+                {label}
+            </label>
+        </div>
     );
 };

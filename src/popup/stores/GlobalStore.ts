@@ -64,16 +64,22 @@ export class GlobalStore {
                 shouldShowHintPopup,
                 showScreenshotFlow,
                 isVpnBlocked,
+                isHostPermissionsGranted,
             } = popupData;
 
+            authStore.setIsAuthenticated(isAuthenticated);
+
             if (!isAuthenticated) {
-                authStore.setIsAuthenticated(isAuthenticated);
                 await authStore.handleInitPolicyAgreement(policyAgreement);
                 await authStore.getAuthCacheFromBackground();
                 await authStore.setShowScreenshotFlow(showScreenshotFlow);
                 this.setInitStatus(RequestStatus.Done);
                 return;
             }
+
+            // set host permissions flag as soon as possible just after the authentication
+            // because it is critical for the VPN to work
+            settingsStore.setHostPermissionsError(isHostPermissionsGranted);
 
             if (permissionsError) {
                 settingsStore.setGlobalError(permissionsError);

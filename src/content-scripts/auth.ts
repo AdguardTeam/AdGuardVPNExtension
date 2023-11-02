@@ -2,6 +2,7 @@ import browser from 'webextension-polyfill';
 import qs from 'qs';
 
 import { type SocialAuthData, socialAuthSchema } from '../background/auth/socialAuthSchema';
+import { thankYouPageAuthHandler } from '../common/utils/auth';
 import { MessageType } from '../lib/constants';
 import { log } from '../lib/logger';
 
@@ -55,6 +56,8 @@ function isAbsolutePath(url: string) {
 /**
  * Handles the operations to be performed once the document is ready.
  * Extracts token, newUser, and redirectUrl attributes, and sends them in a message.
+ *
+ * IMPORTANT: The validation of the data is performed on the background page during authenticateThankYouPage().
  */
 function documentReadyHandler() {
     const node = document.querySelector('#data');
@@ -67,12 +70,7 @@ function documentReadyHandler() {
         redirectUrl = baseUrl + redirectUrl;
     }
 
-    browser.runtime.sendMessage({
-        type: MessageType.AUTHENTICATE_THANKYOU_PAGE,
-        data: { token, redirectUrl, newUser },
-    }).catch((err) => {
-        log.error('Failed to send message:', err);
-    });
+    thankYouPageAuthHandler({ token, redirectUrl, newUser });
 }
 
 /**

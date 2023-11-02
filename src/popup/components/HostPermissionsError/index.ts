@@ -1,0 +1,1 @@
+export { HostPermissionsError } from './HostPermissionsError';

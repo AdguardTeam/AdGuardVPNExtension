@@ -108,6 +108,13 @@ export class ExclusionsService {
     }
 
     /**
+     * Updates services.
+     */
+    async forceUpdateServices() {
+        await servicesManager.updateServices();
+    }
+
+    /**
      * Returns services with state
      */
     getServices(): ServiceDto[] {

@@ -7,7 +7,7 @@ import { Manifest } from 'webextension-polyfill';
 
 import {
     Browser,
-    ENV_MAP,
+    BUILD_ENV_MAP,
     FIREFOX_UPDATE_XPI,
     BUILD_PATH,
     MANIFEST_NAME,
@@ -19,7 +19,7 @@ import packageJson from '../package.json';
 
 const { log, error } = console;
 
-const { outputPath } = ENV_MAP[process.env.BUILD_ENV as string];
+const { outputPath } = BUILD_ENV_MAP[process.env.BUILD_ENV as string];
 
 const buildDir = path.resolve(__dirname, BUILD_PATH, outputPath);
 const fileDir = path.resolve(buildDir, FIREFOX_UPDATER_FILENAME);

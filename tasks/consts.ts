@@ -11,10 +11,13 @@ export enum Env {
     Release = 'release',
 }
 
+// TODO: make firefox -> firefox-mv2 and firefox-mv3 -> firefox (similar to chromes)
+// IMPORTANT: do not forget to change filenames of the artifacts
 export enum Browser {
     Chrome = 'chrome',
     ChromeMV2 = 'chrome-mv2',
     Firefox = 'firefox',
+    FirefoxMV3 = 'firefox-mv3',
     Edge = 'edge',
     Opera = 'opera',
 }
@@ -32,10 +35,16 @@ type EnvMap = {
     },
 };
 
-export const ENV_MAP: EnvMap = {
+export const BUILD_ENV_MAP: EnvMap = {
     [Env.Dev]: { outputPath: 'dev', name: 'Dev' },
     [Env.Beta]: { outputPath: 'beta', name: 'Beta' },
     [Env.Release]: { outputPath: 'release', name: '' },
+};
+
+export const GECKO_ID_ENV_MAP = {
+    [Env.Dev]: 'adguard-vpn-dev@adguard.com',
+    [Env.Beta]: 'adguard-vpn-beta@adguard.com',
+    [Env.Release]: 'adguard-vpn@adguard.com',
 };
 
 export const { BUILD_ENV, STAGE_ENV } = process.env;

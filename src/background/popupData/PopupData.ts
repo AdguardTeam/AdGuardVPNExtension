@@ -1,6 +1,7 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
 
+import { Permissions } from '../../lib/permissions';
 import { log } from '../../lib/logger';
 import { connectivityService } from '../connectivity/connectivityService';
 import { PromoNotificationData, promoNotifications } from '../promoNotifications';
@@ -68,6 +69,7 @@ interface PopupDataInterface {
     shouldShowRateModal?: boolean;
     username?: string | null;
     shouldShowHintPopup?: boolean;
+    isHostPermissionsGranted: boolean;
 
     /**
      * Flag that shows that all locations are not available. AG-25941.
@@ -129,12 +131,14 @@ export class PopupData {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
         const showScreenshotFlow = await abTestManager.isShowScreenshotFlow();
+        const isHostPermissionsGranted = await Permissions.hasNeededHostPermissions();
 
         if (!isAuthenticated) {
             return {
                 isAuthenticated,
                 policyAgreement,
                 showScreenshotFlow,
+                isHostPermissionsGranted,
             };
         }
 
@@ -199,6 +203,7 @@ export class PopupData {
             shouldShowHintPopup,
             showScreenshotFlow,
             isVpnBlocked,
+            isHostPermissionsGranted,
         };
     };
 

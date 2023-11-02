@@ -292,9 +292,8 @@ export const BugReporter = observer(() => {
                         <Checkbox
                             id={FormField.IncludeLog}
                             value={formState[FormField.IncludeLog]}
-                        >
-                            {reactTranslator.getMessage('options_bug_report_include_log_label')}
-                        </Checkbox>
+                            label={reactTranslator.getMessage('options_bug_report_include_log_label')}
+                        />
                     </div>
                     <button
                         type="submit"

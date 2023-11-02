@@ -16,16 +16,16 @@ import {
     SRC_PATH,
 } from '../consts';
 
-const FIREFOX_PATH = 'firefox';
+const FIREFOX_PATH = 'firefox-mv3';
 
-let zipFilename = 'firefox.zip';
+let zipFilename = 'firefox-mv3.zip';
 
 const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
 const CUSTOM_PROTOCOL_HANDLER_PATH = path.resolve(__dirname, '..', SRC_PATH, 'custom-protocol-handler');
 
 if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
-    zipFilename = 'firefox-prod.zip';
+    zipFilename = 'firefox-mv3-prod.zip';
 }
 
 const commonConfig = getCommonConfig(Browser.Firefox);
@@ -41,14 +41,18 @@ const plugins: webpack.WebpackPluginInstance[] = [
         process: 'process/browser',
         Buffer: ['buffer', 'Buffer'],
     }),
-    // TODO: on move to MV3 inject Mv3Timers
+    new webpack.NormalModuleReplacementPlugin(/\.\/init\/initAbstract/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request
+            .replace(/\.\/init\/initAbstract/, './init/initMV3');
+    })),
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
     })),
     new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv2');
+        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv3');
     })),
     new CopyWebpackPlugin({
         patterns: [
@@ -90,4 +94,4 @@ const firefoxDiffConfig = {
     plugins,
 };
 
-export const firefoxConfig = merge(commonConfig, firefoxDiffConfig);
+export const firefoxConfigMV3 = merge(commonConfig, firefoxDiffConfig);
