@@ -30,6 +30,9 @@ export const RatePopup = observer(() => {
         }
 
         handleHideRate();
+
+        // close popup after click on rate star
+        window.close();
     };
 
     if (!isRateVisible) {

@@ -19,6 +19,8 @@ export const InfoMessage = observer(() => {
     const upgradeClickHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         await vpnStore.openPremiumPromoPage();
+        // close popup after click on upgrade button
+        window.close();
     };
 
     const {

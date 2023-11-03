@@ -1,17 +1,15 @@
 const { BUILD_ENV, GECKO_ID_ENV_MAP } = require('../consts');
 
 export const firefoxManifestDiff = {
-    manifest_version: 3,
-    action: {
+    manifest_version: 2,
+    minimum_chrome_version: '66.0',
+    browser_action: {
         default_icon: {
             19: 'assets/images/icons/disabled-19.png',
             38: 'assets/images/icons/disabled-38.png',
         },
         default_title: '__MSG_name__',
         default_popup: 'popup.html',
-    },
-    content_security_policy: {
-        extension_pages: "script-src 'self'; object-src 'self'",
     },
     browser_specific_settings: {
         gecko: {
@@ -21,17 +19,16 @@ export const firefoxManifestDiff = {
     },
     background: {
         page: 'background.html',
+        persistent: true,
     },
     options_ui: {
         page: 'options.html',
         open_in_tab: true,
     },
     permissions: [
-        'tabs',
-        'alarms',
-    ],
-    host_permissions: [
         '<all_urls>',
+        'tabs',
+        'webRequestBlocking',
     ],
     protocol_handlers: [
         {

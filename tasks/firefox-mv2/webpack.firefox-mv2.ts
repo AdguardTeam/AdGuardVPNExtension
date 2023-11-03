@@ -7,7 +7,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
-import { firefoxManifestDiff } from './manifest.firefox';
+import { firefoxManifestDiff } from './manifest.firefox-mv2';
 import {
     STAGE_ENV,
     IS_DEV,
@@ -16,19 +16,19 @@ import {
     SRC_PATH,
 } from '../consts';
 
-const FIREFOX_PATH = 'firefox-mv3';
+const FIREFOX_PATH = 'firefox-mv2';
 
-let zipFilename = 'firefox-mv3.zip';
+let zipFilename = 'firefox-mv2.zip';
 
 const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
 const CUSTOM_PROTOCOL_HANDLER_PATH = path.resolve(__dirname, '..', SRC_PATH, 'custom-protocol-handler');
 
 if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
-    zipFilename = 'firefox-mv3-prod.zip';
+    zipFilename = 'firefox-mv2-prod.zip';
 }
 
-const commonConfig = getCommonConfig(Browser.Firefox);
+const commonConfig = getCommonConfig(Browser.FirefoxMV2);
 
 if (commonConfig.resolve) {
     commonConfig.resolve.fallback = {
@@ -41,18 +41,13 @@ const plugins: webpack.WebpackPluginInstance[] = [
         process: 'process/browser',
         Buffer: ['buffer', 'Buffer'],
     }),
-    new webpack.NormalModuleReplacementPlugin(/\.\/init\/initAbstract/, ((resource: any) => {
-        // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request
-            .replace(/\.\/init\/initAbstract/, './init/initMV3');
-    })),
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
     })),
     new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv3');
+        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv2');
     })),
     new CopyWebpackPlugin({
         patterns: [
@@ -94,4 +89,4 @@ const firefoxDiffConfig = {
     plugins,
 };
 
-export const firefoxConfigMV3 = merge(commonConfig, firefoxDiffConfig);
+export const firefoxConfigMV2 = merge(commonConfig, firefoxDiffConfig);

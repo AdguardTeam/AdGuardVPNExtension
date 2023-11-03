@@ -80,9 +80,9 @@ Test:
       pattern: firefox.zip
       shared: true
       required: true
-    - name: firefox-mv3.zip
+    - name: firefox-mv2.zip
       location: build/dev
-      pattern: firefox-mv3.zip
+      pattern: firefox-mv2.zip
       shared: true
       required: true
     - name: build.txt
@@ -110,9 +110,9 @@ Test:
       pattern: firefox-prod.zip
       shared: true
       required: true
-    - name: firefox-mv3-prod.zip
+    - name: firefox-mv2-prod.zip
       location: build/dev
-      pattern: firefox-mv3-prod.zip
+      pattern: firefox-mv2-prod.zip
       shared: true
       required: true
   requirements:

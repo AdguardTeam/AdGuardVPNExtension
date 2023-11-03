@@ -127,7 +127,8 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 )),
             }),
             new webpack.NormalModuleReplacementPlugin(/\.\/(proxy\/)?abstractProxyApi/, ((resource: any) => {
-                if (browser === Browser.Firefox) {
+                if (browser === Browser.Firefox
+                    || browser === Browser.FirefoxMV2) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request
                         .replace(/\.\/abstractProxyApi/, './firefox/proxyApi')

@@ -11,13 +11,11 @@ export enum Env {
     Release = 'release',
 }
 
-// TODO: make firefox -> firefox-mv2 and firefox-mv3 -> firefox (similar to chromes)
-// IMPORTANT: do not forget to change filenames of the artifacts
 export enum Browser {
     Chrome = 'chrome',
     ChromeMV2 = 'chrome-mv2',
+    FirefoxMV2 = 'firefox-mv2',
     Firefox = 'firefox',
-    FirefoxMV3 = 'firefox-mv3',
     Edge = 'edge',
     Opera = 'opera',
 }
