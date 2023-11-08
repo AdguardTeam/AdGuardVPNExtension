@@ -63,6 +63,7 @@ export const App = observer(() => {
         showLimitExceededScreen,
         isVpnBlocked,
         isHostPermissionsGranted,
+        hasDesktopAppForOs,
     } = settingsStore;
 
     const { authenticated } = authStore;
@@ -242,7 +243,12 @@ export const App = observer(() => {
             <PromoNotificationModal />
             {isOpenOptionsModal && <ExtraOptions />}
             <Header showMenuButton={authenticated} />
-            {isVpnBlocked && <VpnBlockedError />}
+            {
+                isVpnBlocked
+                // do not show the warning for users on linux AG-27487
+                && hasDesktopAppForOs
+                && <VpnBlockedError />
+            }
             <CSSTransition
                 in={isOpenEndpointsSearch}
                 timeout={300}

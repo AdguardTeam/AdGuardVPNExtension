@@ -13,11 +13,9 @@ import './vpn-blocked-details.pcss';
  * Component for displaying connection error details.
  */
 export const VpnBlockedDetails = observer(() => {
-    const { uiStore, settingsStore } = useContext(rootStore);
+    const { uiStore } = useContext(rootStore);
 
     const { isShownVpnBlockedErrorDetails } = uiStore;
-
-    const { hasDesktopAppForOs } = settingsStore;
 
     const openDownloadPage = () => {
         popupActions.openTab(VPN_BLOCKED_GET_APP_LINK);
@@ -57,15 +55,13 @@ export const VpnBlockedDetails = observer(() => {
                 {reactTranslator.getMessage('popup_vpn_blocked_error_details_description')}
             </div>
 
-            {hasDesktopAppForOs && (
-                <button
-                    type="button"
-                    className="button button--medium button--medium--wide button--green vpn-blocked-details__button"
-                    onClick={openDownloadPage}
-                >
-                    {reactTranslator.getMessage('popup_vpn_blocked_error_details_get_app_button')}
-                </button>
-            )}
+            <button
+                type="button"
+                className="button button--medium button--medium--wide button--green vpn-blocked-details__button"
+                onClick={openDownloadPage}
+            >
+                {reactTranslator.getMessage('popup_vpn_blocked_error_details_get_app_button')}
+            </button>
             <button
                 type="button"
                 className="button button--medium button--medium--wide button--outline-secondary vpn-blocked-details__button"

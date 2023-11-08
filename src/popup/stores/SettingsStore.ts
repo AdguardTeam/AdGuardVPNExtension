@@ -422,6 +422,8 @@ export class SettingsStore {
     @action async setHasDesktopAppForOs(): Promise<void> {
         const isWindows = await Prefs.isWindows();
         const isMacOS = await Prefs.isMacOS();
-        this.hasDesktopAppForOs = isWindows || isMacOS;
+        runInAction(() => {
+            this.hasDesktopAppForOs = isWindows || isMacOS;
+        });
     }
 }
