@@ -520,7 +520,9 @@ export class AuthStore {
             && !this.showConfirmEmailModal
             && !this.rootStore.settingsStore.showServerErrorPopup
             && !this.rootStore.settingsStore.isVpnBlocked
-            && !this.rootStore.settingsStore.isHostPermissionsGranted
+            // host permissions should be granted to show the hint popup;
+            // no `!` is used because of its semantics
+            && this.rootStore.settingsStore.isHostPermissionsGranted
             && !this.rootStore.settingsStore.showNotificationModal
             && !this.rootStore.vpnStore.tooManyDevicesConnected;
     }
