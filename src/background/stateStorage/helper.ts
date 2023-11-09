@@ -5,7 +5,7 @@ import { MessageType } from '../../lib/constants';
 /**
  * Sends the message to the option's page to update event listeners
  */
-export const wakeUpOptionsPage = async () => {
+export const updateOptionsPageListeners = async () => {
     try {
         await browser.runtime.sendMessage({ type: MessageType.UPDATE_LISTENERS });
     } catch (e) {

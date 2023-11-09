@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import browser, { Runtime } from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
 import { MessageType, SocialAuthProvider, ExclusionsContentMap } from './constants';
@@ -39,10 +39,18 @@ class Messenger {
 
         let listenerId = await this.sendMessage(MessageType.ADD_EVENT_LISTENER, { events });
 
+        const onUpdateListeners = async () => {
+            const response = await this.sendMessage(MessageType.ADD_EVENT_LISTENER, { events });
+            listenerId = response.listenerId;
+        };
+
         const messageHandler = (message: any) => {
             if (message.type === MessageType.NOTIFY_LISTENERS) {
                 const [type, data] = message.data;
                 eventListener({ type, data });
+            }
+            if (message.type === MessageType.UPDATE_LISTENERS) {
+                onUpdateListeners();
             }
         };
 
@@ -74,24 +82,38 @@ class Messenger {
             callback(...args);
         };
 
-        const port = browser.runtime.connect({ name: `popup_${nanoid()}` });
-        port.postMessage({ type: MessageType.ADD_LONG_LIVED_CONNECTION, data: { events } });
+        let port: Runtime.Port;
+        let forceDisconnected = false;
 
-        port.onMessage.addListener((message) => {
-            if (message.type === MessageType.NOTIFY_LISTENERS) {
-                const [type, data] = message.data;
-                eventListener({ type, data });
+        const connect = () => {
+            port = browser.runtime.connect({ name: `popup_${nanoid()}` });
+            port.postMessage({ type: MessageType.ADD_LONG_LIVED_CONNECTION, data: { events } });
+
+            port.onMessage.addListener((message) => {
+                if (message.type === MessageType.NOTIFY_LISTENERS) {
+                    const [type, data] = message.data;
+                    eventListener({ type, data });
+                }
+            });
+
+            port.onDisconnect.addListener(() => {
+                if (browser.runtime.lastError) {
+                    log.debug(browser.runtime.lastError.message);
+                }
+                // we try to connect again if the background page was terminated
+                if (!forceDisconnected) {
+                    connect();
+                }
+            });
+        };
+
+        connect();
+
+        const onUnload = () => {
+            if (port) {
+                forceDisconnected = true;
+                port.disconnect();
             }
-        });
-
-        port.onDisconnect.addListener(() => {
-            if (browser.runtime.lastError) {
-                log.debug(browser.runtime.lastError.message);
-            }
-        });
-
-        const onUnload = async () => {
-            port.disconnect();
         };
 
         window.addEventListener('beforeunload', onUnload);
