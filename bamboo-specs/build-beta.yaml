@@ -52,7 +52,6 @@ Build:
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-            export WHOAMI_URL="${bamboo.prodVpnWhoamiUrl}"
             export CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}"
 
             # build with prod API endpoints edge.zip, chrome.zip, firefox.zip, opera.zip

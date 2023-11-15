@@ -6,7 +6,6 @@ import {
     CLOUDFLARE_DOH_URL,
     DEFAULT_CACHE_EXPIRE_TIME_MS,
 } from '../../../src/background/api/fallbackApi';
-import { WHOAMI_URL } from '../../../src/background/config';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
 import { stateStorage } from '../../../src/background/stateStorage/mv2';
@@ -59,7 +58,6 @@ describe('FallbackApi', () => {
         expect(vpnApiUrl).toBe(DEFAULT_VPN_API_URL);
         expect(authApiUrl).toBe(DEFAULT_AUTH_API_URL);
 
-        expect(axios.get).toBeCalledWith(`https://${WHOAMI_URL}`, expect.anything());
         expect(axios.get).toBeCalledWith(`https://${GOOGLE_DOH_URL}`, expect.anything());
         expect(axios.get).toBeCalledWith(`https://${CLOUDFLARE_DOH_URL}`, expect.anything());
     });
@@ -236,30 +234,5 @@ describe('FallbackApi', () => {
 
         expect(vpnApiUrl).toBe(REMOTE_VPN_API_URL);
         expect(authApiUrl).toBe(REMOTE_AUTH_API_URL);
-    });
-
-    it('doesnt sends redundant requests to country info url', async () => {
-        const DEFAULT_VPN_API_URL = 'vpn_api.com';
-        const DEFAULT_AUTH_API_URL = 'auth_api.com';
-
-        const fallbackApi = new FallbackApi(DEFAULT_VPN_API_URL, DEFAULT_AUTH_API_URL);
-        jest.spyOn(fallbackApi as any, 'getCountryInfo').mockResolvedValue({ country: 'none', bkp: false });
-
-        await fallbackApi.init();
-
-        const vpnApiUrl = await fallbackApi.getVpnApiUrl();
-        const authApiUrl = await fallbackApi.getAuthApiUrl();
-
-        expect(vpnApiUrl).toBe(DEFAULT_VPN_API_URL);
-        expect(authApiUrl).toBe(DEFAULT_AUTH_API_URL);
-
-        expect((fallbackApi as any).getCountryInfo).toHaveBeenCalledTimes(1);
-
-        jest.advanceTimersByTime(DEFAULT_CACHE_EXPIRE_TIME_MS + 100);
-
-        await fallbackApi.getVpnApiUrl();
-        await fallbackApi.getAuthApiUrl();
-
-        expect((fallbackApi as any).getCountryInfo).toHaveBeenCalledTimes(2);
     });
 });

@@ -58,7 +58,6 @@ const URLS_MAP: UrlsMap = {
 const STAGE_CONF = {
     VPN_API_URL: process.env.VPN_API_URL,
     AUTH_API_URL: process.env.AUTH_API_URL,
-    WHOAMI_URL: process.env.WHOAMI_URL,
 };
 
 const COMMON = {

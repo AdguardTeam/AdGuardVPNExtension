@@ -44,7 +44,6 @@ Build:
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-            export WHOAMI_URL="${bamboo.prodVpnWhoamiUrl}"
             yarn release
 
             # build source code for uploading to amo
