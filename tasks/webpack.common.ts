@@ -11,6 +11,7 @@ import { genAppConfig } from './appConfig';
 import {
     SRC_PATH,
     IS_DEV,
+    IS_BETA,
     BUILD_ENV,
     BUILD_PATH,
     Browser,
@@ -32,6 +33,12 @@ const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
 const EN_MESSAGES_PATH = '/en/messages.json';
 
 const packageJson = require('../package.json');
+
+const BUILD_TXT_FILENAME = 'build.txt';
+const BUILD_TXT_CONTENT = IS_BETA
+    // required for proper github tag preparing. AG-27644
+    ? `version=${packageJson.version}-beta`
+    : `version=${packageJson.version}`;
 
 // this options needed to exclude clean static files in the watch mode
 const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!assets/**/*'] } : {};
@@ -207,8 +214,8 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             }),
             new CreateFileWebpack({
                 path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),
-                fileName: 'build.txt',
-                content: `version=${packageJson.version}`,
+                fileName: BUILD_TXT_FILENAME,
+                content: BUILD_TXT_CONTENT,
             }),
         ],
     };

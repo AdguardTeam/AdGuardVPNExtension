@@ -73,7 +73,7 @@ Build:
         plugin-key: com.atlassian.bamboo.plugins.vcs:task.vcs.tagging
         configuration:
           selectedRepository: defaultRepository
-          tagName: v${bamboo.inject.version}-beta
+          tagName: v${bamboo.inject.version}
   artifacts:
     - name: edge.zip
       location: build/beta

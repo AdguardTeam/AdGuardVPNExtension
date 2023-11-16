@@ -49,6 +49,8 @@ export const { BUILD_ENV, STAGE_ENV } = process.env;
 
 export const IS_DEV = BUILD_ENV ? BUILD_ENV === Env.Dev : true;
 
+export const IS_BETA = BUILD_ENV ? BUILD_ENV === Env.Beta : false;
+
 // Build output path
 export const BUILD_PATH = '../build';
 export const CRX_NAME = 'chrome.crx';
