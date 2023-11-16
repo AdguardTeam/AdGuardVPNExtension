@@ -47,9 +47,13 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'halloween_23_vpn';
+const RU_LOCALE = 'ru';
 
-const PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
+const TDS_PROMO_ACTION = 'black_friday_23_vpn';
+const TDS_PROMO_ACTION_RU = 'black_friday_23_vpn_ru';
+
+const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
+const RU_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
 const normalizeLanguage = (locale: string): string | null => {
     if (!locale) {
@@ -59,222 +63,200 @@ const normalizeLanguage = (locale: string): string | null => {
     return locale.toLowerCase().replace('-', '_');
 };
 
-const HALLOWEEN_23_ID = 'halloween23';
+const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
+// possible return values of getUILanguage(): 'ru' or 'ru-RU' which is 'ru_ru' after normalization
+const promoLink = currentLocale?.startsWith(RU_LOCALE)
+    ? RU_PROMO_LINK
+    : COMMON_PROMO_LINK;
 
-const halloween23PromoNotification = {
-    id: HALLOWEEN_23_ID,
+const BLACK_FRIDAY_23_ID = 'blackFriday23';
+
+const blackFriday23Notification = {
+    id: BLACK_FRIDAY_23_ID,
     locales: {
         en: {
-            title: 'Fact or fiction?',
-            btn: 'Investigate',
+            title: 'Greatest sale of the year',
+            btn: 'Get 85% off',
         },
         ru: {
-            title: 'Верю не верю',
-            btn: 'Давайте проверим',
-        },
-        es: {
-            title: '¿Realidad o ficción?',
-            btn: '¡Adivinar!',
-        },
-        de: {
-            title: 'Falsch oder wahr?',
-            btn: 'Kommen Sie klar',
-        },
-        fr: {
-            title: 'Fait ou fiction ?',
-            btn: 'Examinons',
-        },
-        it: {
-            title: 'Fatto o finzione?',
-            btn: 'Esaminiamo',
-        },
-        ko: {
-            title: '사실일까, 괴담일까?',
-            btn: '퀴즈 시작',
+            title: 'Самая большая скидка года',
+            btn: '−80% на AdGuard VPN',
         },
         ja: {
-            title: '事実か怪談か？',
-            btn: 'クイズに挑戦する',
+            title: 'BLACK FRIDAY: 今年最安セール',
+            btn: '85%OFF割引をGET',
+        },
+        ko: {
+            title: '올해의 가장 큰 세일',
+            btn: '85% 할인',
         },
         zh_cn: {
-            title: '万圣节答题小游戏',
-            btn: '开始玩儿',
+            title: '年度最大SALE',
+            btn: '85%OFF',
         },
         zh_tw: {
-            title: '萬聖節答題小遊戲',
-            btn: '開始玩',
+            title: '年末最大折扣',
+            btn: '85%OFF',
         },
-        uk: {
-            title: 'Факт чи вигадка?',
-            btn: 'Вгадай!',
+        fr: {
+            title: "La grande promo de l'année",
+            btn: 'Obtenez -85%',
+        },
+        it: {
+            title: "La vendita maggiore dell'anno",
+            btn: 'Ottieni -85%',
+        },
+        de: {
+            title: 'Die besten Deals des Jahres',
+            btn: '85% Rabatt',
+        },
+        es: {
+            title: 'La mejor oferta del año',
+            btn: 'Obtener 85% off',
         },
         pt_br: {
-            title: 'Realidade ou ficção?',
-            btn: 'Adivinhar',
+            title: 'A melhor oferta do ano',
+            btn: 'Obter 85% off',
         },
         pt_pt: {
-            title: 'Realidade ou ficção?',
-            btn: 'Adivinhar',
+            title: 'A melhor oferta do ano',
+            btn: 'Obter 85% off',
+        },
+        uk: {
+            title: 'Найбільший розпродаж року',
+            btn: 'Знижка 85%',
         },
         ar: {
-            title: 'حقيقة أم خيال؟',
-            btn: '!يخمن',
+            title: 'أعظم بيع لهذا العام',
+            btn: '٪85 احصل على خصم',
         },
         be: {
-            title: 'Факт ці выдумка?',
-            btn: 'Адгадайце!',
+            title: 'Самы вялікі распродаж года',
+            btn: 'Зніжка 85%',
         },
         bg: {
-            title: 'Факт или измислица?',
-            btn: 'Познайте!',
+            title: 'Най-голямата разпродажба на годината',
+            btn: '85% отстъпка',
         },
         ca: {
-            title: 'Realitat o ficció?',
-            btn: 'Endevina!',
+            title: "La venda més gran de l'any",
+            btn: '85% de descompte',
         },
         cs: {
-            title: 'Pravda nebo fikce?',
-            btn: 'Tipni si!',
+            title: 'Největší výprodej roku',
+            btn: '85% sleva',
         },
         da: {
-            title: 'Fakta eller fiktion?',
-            btn: 'Gætte!',
+            title: 'Årets største salg',
+            btn: '85% rabat',
         },
         el: {
-            title: 'Σωστό ή λάθος?',
-            btn: 'Εικασία!',
+            title: 'Η μεγαλύτερη πώληση της χρονιάς',
+            btn: '85% έκπτωση',
         },
         es_419: {
-            title: '¿Realidad o ficción?',
-            btn: '¡Adivinar!',
+            title: 'La mayor venta del año',
+            btn: '85% de descuento',
         },
         fa: {
-            title: 'واقعیت یا تخیل؟',
-            btn: '!حدس بزن',
+            title: 'بزرگترین فروش سال',
+            btn: '٪تخفیف 85',
         },
         fi: {
-            title: 'Totta vai tarua?',
-            btn: 'Arvaus!',
+            title: 'Vuoden suurin myynti',
+            btn: '85% alennus',
         },
         he: {
-            title: '?עובדה או בדיה',
-            btn: '!לְנַחֵשׁ',
+            title: 'המכירה הגדולה של השנה',
+            btn: '85% הנחה',
         },
         hr: {
-            title: 'Činjenica ili fikcija?',
-            btn: 'Pogodite!',
+            title: 'Najveća rasprodaja godine',
+            btn: '85% popusta',
         },
         hu: {
-            title: 'Tény vagy fikció?',
-            btn: 'Találd ki!',
+            title: 'Az év legnagyobb eladása',
+            btn: '85% kedvezmény',
         },
         hy: {
-            title: 'Փաստ, թե հորինված.',
-            btn: 'Գուշակիր',
+            title: 'Տարվա ամենամեծ վաճառքը',
+            btn: '85% զեղչ',
         },
         id: {
-            title: 'Fakta atau Fiksi?',
-            btn: 'Tebakan!',
+            title: 'Penjualan terbesar tahun ini',
+            btn: 'Diskon 85%',
         },
         lt: {
-            title: 'Faktas ar fikcija?',
-            btn: 'Atspėk!',
+            title: 'Didžiausias metų išpardavimas',
+            btn: '85% nuolaida',
         },
         ms: {
-            title: 'Fakta atau fiksyen?',
-            btn: 'Teka!',
+            title: 'Jualan terhebat pada tahun ini',
+            btn: 'Diskaun 85%',
         },
         nb: {
-            title: 'Fakta eller fiksjon?',
-            btn: 'Gjett!',
+            title: 'Årets største salg',
+            btn: '85% rabatt',
         },
         nl: {
-            title: 'Feit of Fictie?',
-            btn: 'Gok!',
+            title: 'Grootste uitverkoop van het jaar',
+            btn: '85% korting',
         },
         pl: {
-            title: 'Fakt czy fikcja?',
-            btn: 'Zgadywać!',
+            title: 'Największa wyprzedaż roku',
+            btn: '85% zniżki',
         },
         ro: {
-            title: 'Realitate sau fictiune?',
-            btn: 'Ghici!',
+            title: 'Cea mai mare vânzare a anului',
+            btn: '85% reducere',
         },
         sk: {
-            title: 'Skutočnosť alebo fikcia?',
-            btn: 'Hádaj!',
+            title: 'Najväčší predaj roka',
+            btn: '85% zľava',
         },
         sl: {
-            title: 'Dejstvo ali fikcija?',
-            btn: 'Ugani!',
+            title: 'Največja prodaja leta',
+            btn: '85% popust',
         },
         'sr-Latn': {
-            title: 'Tačno ili netačno?',
-            btn: 'Izgleda!',
+            title: 'Najveća prodaja godine',
+            btn: '85% popusta',
         },
         sv: {
-            title: 'Fakta eller påhitt?',
-            btn: 'Gissa!',
+            title: 'Årets bästa rea',
+            btn: '85% rabatt',
         },
         tr: {
-            title: 'Gerçek mi kurgu mu?',
-            btn: 'Tahmin etmek!',
+            title: 'Yılın en büyük satışı',
+            btn: '%85 indirim',
         },
         vi: {
-            title: 'Sự thật hay hư cấu?',
-            btn: 'Đoán!',
-        },
-        hi: {
-            title: 'तथ्य या कल्पना?',
-            btn: 'अनुमान लगाना!',
-        },
-        et: {
-            title: 'Fakt või väljamõeldis?',
-            btn: 'Arva ära!',
-        },
-        th: {
-            title: 'เรื่องจริงหรือนิยาย?',
-            btn: 'เดา!',
+            title: 'Khuyến mại lớn nhất trong năm',
+            btn: 'Giảm giá 85%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    url: PROMO_LINK,
-    from: '25 October 2023 12:00:00',
-    to: '1 November 2023 23:59:00',
+    url: promoLink,
+    from: '22 November 2023 12:00:00',
+    to: '29 November 2023 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(halloween23PromoNotification, 'icons', () => ({
+        return lazyGet(blackFriday23Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/halloween23-on-19.png'),
-                38: getUrl('assets/images/icons/halloween23-on-38.png'),
+                19: getUrl('assets/images/icons/blackfriday23-on-19.png'),
+                38: getUrl('assets/images/icons/blackfriday23-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/halloween23-off-19.png'),
-                38: getUrl('assets/images/icons/halloween23-off-38.png'),
+                19: getUrl('assets/images/icons/blackfriday23-off-19.png'),
+                38: getUrl('assets/images/icons/blackfriday23-off-38.png'),
             },
         }));
     },
 };
 
-/**
- * @typedef Notification
- * @type object
- * @property {string} id
- * @property {object} locales
- * @property {string} url
- * @property {string} text
- * @property {string} from
- * @property {string} to
- * @property {string} bgColor;
- * @property {string} textColor;
- * @property {string} badgeBgColor;
- * @property {string} badgeText;
- * @property {string} type;
- */
-
 const notifications: { [key: string]: PromoNotificationData } = {
-    [HALLOWEEN_23_ID]: halloween23PromoNotification,
+    [BLACK_FRIDAY_23_ID]: blackFriday23Notification,
 };
 
 /**
