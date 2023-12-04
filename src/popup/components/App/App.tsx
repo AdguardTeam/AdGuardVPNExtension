@@ -29,12 +29,12 @@ import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
-import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
+import { Skeleton } from '../Skeleton';
 
 export interface Message {
     type: NotifierType,
@@ -69,6 +69,9 @@ export const App = observer(() => {
     const { authenticated } = authStore;
 
     const { initStatus } = globalStore;
+
+    // FIXME: remove
+    // const initStatus = RequestStatus.Pending
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
@@ -164,9 +167,7 @@ export const App = observer(() => {
     // show dots-loader while data is loading
     if (initStatus === RequestStatus.Pending) {
         return (
-            <div className="data-loader">
-                <DotsLoader />
-            </div>
+            <Skeleton />
         );
     }
 

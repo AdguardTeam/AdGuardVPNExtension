@@ -1,0 +1,39 @@
+.skeleton {
+
+    &__endpoint {
+        display: flex;
+        flex-direction: row;
+        padding: 16px;
+        height: 75px;
+        color: var(--gray-base);
+        border: 0;
+        border-top: 1px solid var(--grayd8);
+        background-color: var(--white);
+
+        &--container {
+            margin-left: 12px;
+            width: 252px;
+        }
+
+        &--empty {
+            background-color: var(--grayf7);
+            border-radius: 12px;
+
+            &-flag {
+                height: 24px;
+                width: 24px;
+            }
+
+            &-title {
+                height: 24px;
+                width: 100%;
+            }
+
+            &-desc {
+                height: 18px;
+                width: 140px;
+                margin-top: 4px;
+            }
+        }
+    }
+}
