@@ -164,7 +164,11 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
-    // show dots-loader while data is loading
+    // show skeleton while data is loading.
+    // it is more reliable to show a separate skeleton component
+    // instead of changing different components basing on the initStatus
+    // because it would be more difficult to check all components and make sure
+    // that they do not require any data fetching
     if (initStatus === RequestStatus.Pending) {
         return (
             <Skeleton />
