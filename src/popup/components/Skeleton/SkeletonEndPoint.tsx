@@ -9,5 +9,5 @@ export const SkeletonEndpoint = () => {
                 <div className="skeleton__endpoint--empty skeleton__endpoint--empty-desc" />
             </div>
         </div>
-    )
-}
+    );
+};
