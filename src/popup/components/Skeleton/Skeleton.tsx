@@ -2,6 +2,7 @@ import React from 'react';
 
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Icons } from '../ui/Icons';
+import { BackgroundAnimation } from '../Settings/BackgroundAnimation';
 
 import { SkeletonHeader } from './SkeletonHeader';
 import { SkeletonEndpoint } from './SkeletonEndpoint';
@@ -17,7 +18,7 @@ export const Skeleton = () => {
                 <SkeletonHeader />
 
                 <div className="settings settings__skeleton">
-                    <div className="settings__skeleton--background" />
+                    <BackgroundAnimation />
                     <div className="settings__main">
                         <div className="status status--skeleton">
                             {reactTranslator.getMessage('popup_skeleton_status')}

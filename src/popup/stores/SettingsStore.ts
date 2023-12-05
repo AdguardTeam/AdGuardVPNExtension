@@ -60,7 +60,7 @@ export class SettingsStore {
 
     @observable darkThemeMediaQuery: MediaQueryList;
 
-    @observable systemTheme: AppearanceTheme;
+    @observable systemTheme: AppearanceTheme = this.getSystemTheme();
 
     @observable animationState: AnimationState = <AnimationState>animationService.initialState.value;
 
@@ -342,6 +342,12 @@ export class SettingsStore {
             ? AppearanceTheme.Dark
             : AppearanceTheme.Light;
     };
+
+    @action getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? AppearanceTheme.Dark
+            : AppearanceTheme.Light;
+    }
 
     @action trackSystemTheme = (): void => {
         this.updateDarkThemeMediaQuery();
