@@ -16,16 +16,32 @@
         }
 
         &--empty {
-            background-color: var(--grayf7);
+            height: 24px;
             border-radius: 12px;
 
+            background: linear-gradient(
+                90deg,
+                var(--grayf7) 8%,
+                var(--graydd) 18%,
+                var(--grayf7) 33%
+            );
+            background-size: 800px 100px;
+            animation: loading 2s infinite ease-out;
+
+            @keyframes loading {
+                0% {
+                    background-position: -468px 0;
+                }
+                100% {
+                    background-position: 468px 0;
+                }
+            }
+
             &-flag {
-                height: 24px;
                 width: 24px;
             }
 
             &-title {
-                height: 24px;
                 width: 100%;
             }
 

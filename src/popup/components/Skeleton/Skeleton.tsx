@@ -4,6 +4,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { Icons } from '../ui/Icons';
 
 import { SkeletonHeader } from './SkeletonHeader';
+import { SkeletonEndpoint } from './SkeletonEndpoint';
 
 import '../Settings/GlobalControl/ExcludeSite/exclude-site.pcss';
 import '../Settings/settings.pcss';
@@ -18,7 +19,7 @@ export const Skeleton = () => {
                 <div className="settings settings__skeleton">
                     <div className="settings__skeleton--background" />
                     <div className="settings__main">
-                        <div className="status">
+                        <div className="status status--skeleton">
                             {reactTranslator.getMessage('popup_skeleton_status')}
                         </div>
 
@@ -41,13 +42,8 @@ export const Skeleton = () => {
                         </div>
                     </div>
                 </div>
-                <div className="skeleton__endpoint">
-                    <div className="skeleton__endpoint--empty skeleton__endpoint--empty-flag" />
-                    <div className="skeleton__endpoint--container">
-                        <div className="skeleton__endpoint--empty skeleton__endpoint--empty-title" />
-                        <div className="skeleton__endpoint--empty skeleton__endpoint--empty-desc" />
-                    </div>
-                </div>
+
+                <SkeletonEndpoint />
             </div>
             <Icons />
         </>
