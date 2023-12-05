@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const SkeletonEndPoint = () => {
+export const SkeletonEndpoint = () => {
     return (
         <div className="skeleton__endpoint">
             <div className="skeleton__endpoint--empty skeleton__endpoint--empty-flag" />

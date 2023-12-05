@@ -6,7 +6,7 @@ import { Icons } from '../ui/Icons';
 import { BackgroundAnimation } from '../Settings/BackgroundAnimation';
 
 import { SkeletonHeader } from './SkeletonHeader';
-import { SkeletonEndpoint } from './SkeletonEndpoint';
+import { SkeletonEndpoint } from './SkeletonTest';
 
 import '../Settings/GlobalControl/ExcludeSite/exclude-site.pcss';
 import '../Settings/settings.pcss';
