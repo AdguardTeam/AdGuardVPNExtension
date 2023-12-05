@@ -37,19 +37,17 @@ export const Skeleton = () => {
                             {reactTranslator.getMessage('settings_connect')}
                         </button>
 
-                        {settingsStore.canBeExcluded
-                            && (
-                                <div className="exclude-site-wrapper">
-                                    <button
-                                        type="button"
-                                        tabIndex={-1}
-                                        className="button settings__exclusion-btn settings__exclusion-btn--inactive"
-                                    >
-                                        {reactTranslator.getMessage('popup_settings_disable_vpn')}
-                                    </button>
-                                </div>
-                            )
-                        }
+                        {settingsStore.canBeExcluded && (
+                            <div className="exclude-site-wrapper">
+                                <button
+                                    type="button"
+                                    tabIndex={-1}
+                                    className="button settings__exclusion-btn settings__exclusion-btn--inactive"
+                                >
+                                    {reactTranslator.getMessage('popup_settings_disable_vpn')}
+                                </button>
+                            </div>
+                        )}
 
                     </div>
                 </div>
