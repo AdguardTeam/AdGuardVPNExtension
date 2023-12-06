@@ -1,5 +1,4 @@
 import throttle from 'lodash/throttle';
-import isEmpty from 'lodash/isEmpty';
 
 import { Permissions } from '../../lib/permissions';
 import { log } from '../../lib/logger';
@@ -236,8 +235,10 @@ export class PopupData {
 
         let hasRequiredData = true;
 
-        // check for required data
-        if (!data?.vpnInfo || isEmpty(data?.locations) || !data?.selectedLocation) {
+        // check for required data.
+        // NOTE: empty locations array case is handled separately due to AG-28164
+        if (!data?.vpnInfo
+            || !data?.selectedLocation) {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
                 if (data?.isProxyEnabled) {

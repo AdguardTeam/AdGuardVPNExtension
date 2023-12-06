@@ -149,6 +149,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { url, numberOfTries } = data;
             return popupData.getPopupDataRetry(url, numberOfTries);
         }
+        case MessageType.FORCE_UPDATE_LOCATIONS: {
+            const locations = await endpoints.getLocationsFromServer();
+            return locations;
+        }
         case MessageType.GET_OPTIONS_DATA: {
             return getOptionsData();
         }

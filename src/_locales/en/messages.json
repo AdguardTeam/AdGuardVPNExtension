@@ -599,6 +599,12 @@
     "popup_skeleton_status": {
         "message": "Searching locations..."
     },
+    "popup_no_locations_title": {
+        "message": "Locations not found"
+    },
+    "popup_no_locations_button": {
+        "message": "Search again"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Enable on this site"
     },

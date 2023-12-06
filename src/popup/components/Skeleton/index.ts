@@ -1,1 +1,2 @@
-export { Skeleton } from './Skeleton';
+export { SkeletonLoading } from './SkeletonLoading';
+export { SkeletonNoLocations } from './SkeletonNoLocations';

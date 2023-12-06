@@ -34,7 +34,7 @@ import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
-import { Skeleton } from '../Skeleton';
+import { SkeletonLoading, SkeletonNoLocations } from '../Skeleton';
 
 export interface Message {
     type: NotifierType,
@@ -70,12 +70,9 @@ export const App = observer(() => {
 
     const { initStatus } = globalStore;
 
-    // FIXME: remove
-    // const initStatus = RequestStatus.Pending
-
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
-    const { premiumPromoEnabled, isPremiumToken } = vpnStore;
+    const { premiumPromoEnabled, isPremiumToken, filteredLocations } = vpnStore;
 
     useEffect(() => {
         (async () => {
@@ -171,7 +168,14 @@ export const App = observer(() => {
     // that they do not require any data fetching
     if (initStatus === RequestStatus.Pending) {
         return (
-            <Skeleton />
+            <SkeletonLoading />
+        );
+    }
+
+    // warn user if no were fetch and allow to re-ping them. AG-28164
+    if (filteredLocations.length === 0) {
+        return (
+            <SkeletonNoLocations />
         );
     }
 

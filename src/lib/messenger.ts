@@ -127,6 +127,11 @@ class Messenger {
         return this.sendMessage(type, { url, numberOfTries });
     }
 
+    async forceUpdateLocations() {
+        const type = MessageType.FORCE_UPDATE_LOCATIONS;
+        return this.sendMessage(type);
+    }
+
     async getOptionsData() {
         const type = MessageType.GET_OPTIONS_DATA;
         return this.sendMessage(type);

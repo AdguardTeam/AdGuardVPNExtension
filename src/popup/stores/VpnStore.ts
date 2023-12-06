@@ -299,4 +299,9 @@ export class VpnStore {
     @action setMaxDevicesAllowed = (maxDevicesAllowed: number): void => {
         this.maxDevicesAllowed = maxDevicesAllowed;
     };
+
+    @action forceUpdateLocations = async (): Promise<void> => {
+        const locations = await messenger.forceUpdateLocations();
+        this.setLocations(locations);
+    };
 }

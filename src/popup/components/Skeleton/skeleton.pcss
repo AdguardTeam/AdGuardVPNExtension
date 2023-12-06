@@ -21,9 +21,9 @@
 
             background: linear-gradient(
                 90deg,
-                var(--grayf7) 8%,
-                var(--graydd) 18%,
-                var(--grayf7) 33%
+                var(--graye4) 8%,
+                var(--grayf6) 18%,
+                var(--graye4) 33%
             );
             background-size: 800px 100px;
             animation: loading 2s infinite ease-out;
@@ -50,6 +50,54 @@
                 width: 140px;
                 margin-top: 4px;
             }
+        }
+    }
+
+    &__no-locations {
+        position: relative;
+        height: calc(100% - var(--header-height));
+        display: flex;
+        flex-direction: column;
+        color: var(--gray-base);
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 64px;
+        }
+
+        &__background {
+            width: 100%;
+            height: calc(100% + var(--header-height));
+            position: absolute;
+            z-index: -1;
+            top: calc(var(--header-height) * -1);
+            left: 0;
+            background-image: url('../../../assets/images/clouds.svg');
+
+            @media (prefers-color-scheme: dark) {
+                background-image: url('../../../assets/images/space.svg');
+            }
+        }
+
+        &__img {
+            width: 100%;
+            max-width: 225px;
+            height: 215px;
+            margin: 0 auto 24px;
+            background-image: url(../../../../src/assets/images/not-found.svg);
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        &__btn {
+            width: 200px;
+            background-color: #fff;
+            color: #3d3d3d;
+            border: 1px solid #3d3d3d;
         }
     }
 }
