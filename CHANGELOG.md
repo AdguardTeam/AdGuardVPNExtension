@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Separate popup warning for no location with ability to re-fetch locations.
+
+
+## [2.1.5] - 2023-11-21
+
 ### Removed
 
 - WHOAMI requests
@@ -24,5 +31,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Logs sending during bug report [#149](https://github.com/AdguardTeam/AdGuardVPNExtension/issues/149)
 
 
-[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.1.1...HEAD
+[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.1.5...HEAD
+[2.1.5]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.1.1...2.1.5
 [2.1.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.0.65...v2.1.1
