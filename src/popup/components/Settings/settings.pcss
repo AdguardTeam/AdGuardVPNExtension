@@ -92,21 +92,8 @@
     }
 
     &__skeleton {
+        /* FIXME: add comment why 522 */
         height: calc(522px - var(--header-height));
-
-        &--background {
-            width: 100%;
-            height: calc(100% + var(--header-height));
-            position: absolute;
-            z-index: -1;
-            top: calc(var(--header-height) * -1);
-            left: 0;
-            background-image: url('../../../assets/images/main-off-light.svg');
-
-            @media (prefers-color-scheme: dark) {
-                background-image: url('../../../assets/images/main-off-dark.svg');
-            }
-        }
     }
 
 }

@@ -46,7 +46,6 @@ export const SkeletonLoading = () => {
                             </button>
                         </div>
                     )}
-
                 </div>
             </div>
             <SkeletonEndpoint />
