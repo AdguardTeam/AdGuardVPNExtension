@@ -34,7 +34,7 @@ import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
-import { SkeletonLoading, SkeletonNoLocations } from '../Skeleton';
+import { SkeletonLoading, SkeletonNoLocations } from '../SkeletonLoading';
 
 export interface Message {
     type: NotifierType,
@@ -68,7 +68,9 @@ export const App = observer(() => {
 
     const { authenticated } = authStore;
 
-    const { initStatus } = globalStore;
+    // const { initStatus } = globalStore;
+
+    const initStatus = RequestStatus.Pending;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
