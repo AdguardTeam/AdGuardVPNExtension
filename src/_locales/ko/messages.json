@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "비활성화"
     },
+    "popup_skeleton_status": {
+        "message": "위치 검색 중..."
+    },
+    "popup_no_locations_title": {
+        "message": "위치를 찾을 수 없음"
+    },
+    "popup_no_locations_button": {
+        "message": "다시 검색"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "이 사이트에서 활성화"
     },

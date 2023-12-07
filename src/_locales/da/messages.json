@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "Deaktivér den"
     },
+    "popup_skeleton_status": {
+        "message": "Søg efter en lokation..."
+    },
+    "popup_no_locations_title": {
+        "message": "Lokationer ikke fundet"
+    },
+    "popup_no_locations_button": {
+        "message": "Søg igen"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Aktivér"
     },
@@ -639,7 +648,7 @@
         "message": "Søg placering"
     },
     "endpoints_not_found": {
-        "message": "Placeringer ikke fundet"
+        "message": "Lokationer ikke fundet"
     },
     "popup_traffic_limit_reached": {
         "message": "Månedlig datakvote opbrugt"

@@ -419,6 +419,15 @@
     "control_error_disable": {
         "message": "Inaktivera det"
     },
+    "popup_skeleton_status": {
+        "message": "Söker efter platser..."
+    },
+    "popup_no_locations_title": {
+        "message": "Platser hittades inte"
+    },
+    "popup_no_locations_button": {
+        "message": "Sök igen"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Aktivera"
     },
@@ -513,7 +522,7 @@
         "message": "Tack för att du berättar för oss!"
     },
     "popup_server_error_popup_close": {
-        "message": "Avsluta"
+        "message": "Stäng"
     },
     "popup_host_permission_error_btn_allow": {
         "message": "Tillåt"
@@ -659,6 +668,6 @@
         "message": "Bekräfta din e-postadress"
     },
     "confirm_email_close_button": {
-        "message": "Avsluta"
+        "message": "Stäng"
     }
 }

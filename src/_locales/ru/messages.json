@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "Отключить"
     },
+    "popup_skeleton_status": {
+        "message": "Поиск локаций..."
+    },
+    "popup_no_locations_title": {
+        "message": "Ничего не нашлось"
+    },
+    "popup_no_locations_button": {
+        "message": "Искать снова"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Включить"
     },
@@ -660,10 +669,10 @@
         "message": "Подключить"
     },
     "settings_vpn_enabled": {
-        "message": "Подключено"
+        "message": "Подключён"
     },
     "settings_vpn_disabled": {
-        "message": "Отключено"
+        "message": "Отключён"
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Скорость снижена"

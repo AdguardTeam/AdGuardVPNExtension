@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "Wyłącz"
     },
+    "popup_skeleton_status": {
+        "message": "Wyszukiwanie lokalizacji..."
+    },
+    "popup_no_locations_title": {
+        "message": "Nie znaleziono lokalizacji"
+    },
+    "popup_no_locations_button": {
+        "message": "Wyszukaj ponownie"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Włącz"
     },
@@ -731,6 +740,12 @@
     "popup_server_error_popup_close": {
         "message": "Zamknij"
     },
+    "popup_host_permission_error_title": {
+        "message": "Zezwalaj na dostęp do stron internetowych"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Aby korzystać z AdGuard VPN, zezwól mu na dostęp do Twoich danych na stronach internetowych. Nie przechowujemy tych danych ani nie udostępniamy ich nikomu. <privacy>Polityka prywatności</privacy>"
+    },
     "popup_host_permission_error_btn_allow": {
         "message": "Pozwól"
     },
@@ -809,6 +824,9 @@
     },
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontynentów i kilkadziesiąt krajów. Wybierz miasto i surfuj bezpiecznie po sieci!"
+    },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Do %potential_num% urządzeń"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Połącz wszystkie urządzenia do AdGuard VPN w tym samym czasie — lub zabezpiecz całą rodzinę!"

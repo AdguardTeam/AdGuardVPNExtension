@@ -444,7 +444,7 @@
         "message": "Hızlı bağlantı"
     },
     "settings_quick_connect_subtitle": {
-        "message": "Bağlan'a tıkladığınızda seçilen VPN konumu"
+        "message": "Bağlan öğesine tıkladığınızda seçilen VPN konumu"
     },
     "settings_quick_connect_last_used": {
         "message": "Son kullanılan konum"
@@ -595,6 +595,15 @@
     },
     "control_error_disable": {
         "message": "Devre dışı bırak"
+    },
+    "popup_skeleton_status": {
+        "message": "Konumlar aranıyor..."
+    },
+    "popup_no_locations_title": {
+        "message": "Konum bulunamadı"
+    },
+    "popup_no_locations_button": {
+        "message": "Tekrar ara"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Etkinleştir"

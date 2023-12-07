@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "Poista käytöstä"
     },
+    "popup_skeleton_status": {
+        "message": "Etsitään sijainteja..."
+    },
+    "popup_no_locations_title": {
+        "message": "Sijainteja ei löytynyt"
+    },
+    "popup_no_locations_button": {
+        "message": "Etsi uudestaan"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Käytä sivustolla"
     },

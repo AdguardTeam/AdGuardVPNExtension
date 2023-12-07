@@ -581,6 +581,15 @@
     "control_error_disable": {
         "message": "Dezactivați-l"
     },
+    "popup_skeleton_status": {
+        "message": "Căutarea locațiilor..."
+    },
+    "popup_no_locations_title": {
+        "message": "Locația nu a fost găsită"
+    },
+    "popup_no_locations_button": {
+        "message": "Căutați din nou"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Activați"
     },

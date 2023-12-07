@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "禁用"
     },
+    "popup_skeleton_status": {
+        "message": "正在搜索位置..."
+    },
+    "popup_no_locations_title": {
+        "message": "未找到位置"
+    },
+    "popup_no_locations_button": {
+        "message": "再次搜索"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "在此网站上启用"
     },

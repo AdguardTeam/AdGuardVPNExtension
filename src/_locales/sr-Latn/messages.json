@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "Isključi to"
     },
+    "popup_skeleton_status": {
+        "message": "Pretraživanje lokacija..."
+    },
+    "popup_no_locations_title": {
+        "message": "Lokacija nije pronađena"
+    },
+    "popup_no_locations_button": {
+        "message": "Pretraži ponovo"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Uključi"
     },

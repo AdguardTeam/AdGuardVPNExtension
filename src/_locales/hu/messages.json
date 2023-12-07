@@ -581,6 +581,15 @@
     "control_error_disable": {
         "message": "Letiltás"
     },
+    "popup_skeleton_status": {
+        "message": "Helyek keresése..."
+    },
+    "popup_no_locations_title": {
+        "message": "Nem található helyszín"
+    },
+    "popup_no_locations_button": {
+        "message": "Újrakeresés"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Engedélyezés itt"
     },

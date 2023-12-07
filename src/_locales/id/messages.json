@@ -353,6 +353,15 @@
     "control_error_disable": {
         "message": "Nonaktifkan"
     },
+    "popup_skeleton_status": {
+        "message": "Mencari lokasi..."
+    },
+    "popup_no_locations_title": {
+        "message": "Lokasi tidak ditemukan"
+    },
+    "popup_no_locations_button": {
+        "message": "Cari lagi"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Aktifkan"
     },

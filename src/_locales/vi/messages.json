@@ -581,6 +581,12 @@
     "control_error_disable": {
         "message": "Vô hiệu hóa nó"
     },
+    "popup_skeleton_status": {
+        "message": "Tìm kiếm địa điểm..."
+    },
+    "popup_no_locations_button": {
+        "message": "Tìm kiếm lại"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Bật trong web này"
     },
