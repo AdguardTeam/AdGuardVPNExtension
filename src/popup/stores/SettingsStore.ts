@@ -343,7 +343,7 @@ export class SettingsStore {
             : AppearanceTheme.Light;
     };
 
-    @action getSystemTheme() {
+    getSystemTheme() {
         return window.matchMedia('(prefers-color-scheme: dark)').matches
             ? AppearanceTheme.Dark
             : AppearanceTheme.Light;
