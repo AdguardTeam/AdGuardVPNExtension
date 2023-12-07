@@ -5,7 +5,7 @@ import { MessageType, SocialAuthProvider, ExclusionsContentMap } from './constan
 import { log } from './logger';
 import { ExclusionsData, ExclusionsMode, ServiceDto } from '../common/exclusionsConstants';
 import { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
-import type { DnsServerData, LocationInterface } from '../background/schema';
+import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { Message } from '../popup/components/App/App';
 import { NotifierType } from './notifier';
@@ -133,7 +133,7 @@ class Messenger {
      * @returns Returns a promise that resolves to an array of locations
      * or null if locations update failed.
      */
-    async forceUpdateLocations(): Promise<LocationInterface[] | null> {
+    async forceUpdateLocations(): Promise<any> {
         const type = MessageType.FORCE_UPDATE_LOCATIONS;
         return this.sendMessage(type);
     }

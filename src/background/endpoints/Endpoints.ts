@@ -28,6 +28,7 @@ import { settings } from '../settings';
 import { QuickConnectSetting } from '../../lib/constants';
 import { EndpointsState, LocationInterface, StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
+import { Location } from './Location';
 
 /**
  * Endpoint properties
@@ -147,7 +148,7 @@ class Endpoints implements EndpointsInterface {
     /**
      * Gets endpoints remotely and updates them if there were no errors
      */
-    getLocationsFromServer = async (): Promise<LocationInterface[] | null> => {
+    getLocationsFromServer = async (): Promise<Location[] | null> => {
         let vpnToken;
 
         try {
