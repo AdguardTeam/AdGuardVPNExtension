@@ -149,8 +149,7 @@ export class PopupData {
         const error = this.permissionsError.getError();
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = await this.endpoints.getVpnInfo();
-        // const locations = this.endpoints.getLocations();
-        let locations = this.endpoints.getLocations();
+        const locations = this.endpoints.getLocations();
         const selectedLocation = await this.endpoints.getSelectedLocation();
         const canControlProxy = await appStatus.canControlProxy();
         const isProxyEnabled = settings.isProxyEnabled();
@@ -178,16 +177,6 @@ export class PopupData {
         const isVpnBlocked = typeof locations === 'undefined'
             || locations.length === 0
             || getUnavailableLocationsPercentage(locations) >= UNAVAILABLE_LOCATIONS_THRESHOLD_PERCENTAGE;
-
-        let testCounter = 1;
-
-        if (testCounter % 4 !== 0) {
-            locations = [];
-            setTimeout(() => {
-                testCounter += 1;
-            }, 4000);
-        }
-
 
         return {
             // Firefox can't message to the popup error instance,
