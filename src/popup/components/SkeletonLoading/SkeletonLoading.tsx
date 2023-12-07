@@ -5,12 +5,11 @@ import { rootStore } from '../../stores';
 import { Icons } from '../ui/Icons';
 import { BackgroundAnimation } from '../Settings/BackgroundAnimation';
 
-import { SkeletonHeader } from './SkeletonHeader';
-import { SkeletonEndpoint } from './SkeletonEndpoint';
+import { SkeletonHeader } from '../ui/SkeletonHeader';
+import { SkeletonFooter } from '../ui/SkeletonFooter';
 
 import '../Settings/GlobalControl/ExcludeSite/exclude-site.pcss';
 import '../Settings/settings.pcss';
-import './skeleton.pcss';
 
 export const SkeletonLoading = () => {
     const { settingsStore } = useContext(rootStore);
@@ -48,7 +47,7 @@ export const SkeletonLoading = () => {
                     )}
                 </div>
             </div>
-            <SkeletonEndpoint />
+            <SkeletonFooter />
             <Icons />
         </>
     );

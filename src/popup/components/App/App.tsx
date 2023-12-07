@@ -34,7 +34,8 @@ import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
-import { SkeletonLoading, SkeletonNoLocations } from '../SkeletonLoading';
+import { SkeletonLoading } from '../SkeletonLoading';
+import { NoLocationsError } from '../NoLocationsError';
 
 export interface Message {
     type: NotifierType,
@@ -68,9 +69,7 @@ export const App = observer(() => {
 
     const { authenticated } = authStore;
 
-    // const { initStatus } = globalStore;
-
-    const initStatus = RequestStatus.Pending;
+    const { initStatus } = globalStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
@@ -177,7 +176,7 @@ export const App = observer(() => {
     // warn user if no were fetch and allow to re-ping them. AG-28164
     if (filteredLocations.length === 0) {
         return (
-            <SkeletonNoLocations />
+            <NoLocationsError />
         );
     }
 

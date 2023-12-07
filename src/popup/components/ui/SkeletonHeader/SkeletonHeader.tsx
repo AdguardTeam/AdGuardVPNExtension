@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../Header/header.pcss';
+import '../../Header/header.pcss';
 
 export const SkeletonHeader = () => {
     return (

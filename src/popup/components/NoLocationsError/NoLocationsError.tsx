@@ -3,15 +3,12 @@ import React, { useContext } from 'react';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { rootStore } from '../../stores';
 import { Icons } from '../ui/Icons';
+import { SkeletonHeader } from '../ui/SkeletonHeader';
+import { SkeletonFooter } from '../ui/SkeletonFooter';
 
-import { SkeletonHeader } from './SkeletonHeader';
-import { SkeletonEndpoint } from './SkeletonEndpoint';
+import './no-locations-error.pcss';
 
-import '../Settings/GlobalControl/ExcludeSite/exclude-site.pcss';
-import '../Settings/settings.pcss';
-import './skeleton.pcss';
-
-export const SkeletonNoLocations = () => {
+export const NoLocationsError = () => {
     const { vpnStore } = useContext(rootStore);
 
     const handleSearchAgain = async (): Promise<void> => {
@@ -21,23 +18,23 @@ export const SkeletonNoLocations = () => {
     return (
         <>
             <SkeletonHeader />
-            <div className="skeleton__no-locations">
-                <div className="skeleton__no-locations__background" />
-                <div className="skeleton__no-locations__content">
-                    <div className="skeleton__no-locations__img" />
-                    <div className="status status--skeleton__no-locations">
+            <div className="no-locations-error">
+                <div className="no-locations-error__background" />
+                <div className="no-locations-error__content">
+                    <div className="no-locations-error__img" />
+                    <div className="status status--no-locations-error">
                         {reactTranslator.getMessage('popup_no_locations_title')}
                     </div>
                     <button
                         type="button"
-                        className="button button--medium skeleton__no-locations__btn"
+                        className="button button--medium no-locations-error__btn"
                         onClick={handleSearchAgain}
                     >
                         {reactTranslator.getMessage('popup_no_locations_button')}
                     </button>
                 </div>
             </div>
-            <SkeletonEndpoint />
+            <SkeletonFooter />
             <Icons />
         </>
     );

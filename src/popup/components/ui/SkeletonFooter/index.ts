@@ -1,0 +1,1 @@
+export { SkeletonFooter } from './SkeletonFooter';
