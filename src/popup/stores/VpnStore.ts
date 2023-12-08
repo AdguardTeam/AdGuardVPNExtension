@@ -77,7 +77,7 @@ export class VpnStore {
         });
 
         if (!selectedLocation) {
-            throw new Error(`No endpoint with id: "${id}" found`);
+            throw new Error(`No endpoint with id: '${id}' found`);
         }
 
         await messenger.setCurrentLocation(toJS(selectedLocation), true);
@@ -305,7 +305,41 @@ export class VpnStore {
      * and updates locations list in store.
      */
     forceUpdateLocations = async (): Promise<void> => {
-        const locations = await messenger.forceUpdateLocations();
+        const locations: LocationData[] = [
+            {
+                available: true,
+                cityName: 'Taipei',
+                countryCode: 'TW',
+                countryName: 'Taiwan',
+                id: 'dHdfdGFpcGVp',
+                ping: 200,
+                premiumOnly: false,
+                virtual: false,
+                selected: false,
+            },
+            {
+                available: true,
+                cityName: 'Istanbul',
+                countryCode: 'TR',
+                countryName: 'Turkey',
+                id: 'dHJfaXN0YW5idWw=',
+                ping: 55,
+                premiumOnly: false,
+                virtual: false,
+                selected: false,
+            },
+            {
+                available: true,
+                cityName: 'Dublin',
+                countryCode: 'IE',
+                countryName: 'Ireland',
+                id: 'aWVfZHVibGlu',
+                ping: 90,
+                premiumOnly: false,
+                virtual: false,
+                selected: false,
+            },
+        ];
         this.setLocations(locations);
     };
 }

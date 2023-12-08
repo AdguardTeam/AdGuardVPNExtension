@@ -1,9 +1,9 @@
-import isEmpty from 'lodash/isEmpty';
-import { log } from '../../lib/logger';
+// import isEmpty from 'lodash/isEmpty';
+// import { log } from '../../lib/logger';
 import { measurePingWithinLimits } from '../connectivity/pingHelpers';
 import { notifier } from '../../lib/notifier';
 import { LocationWithPing } from './LocationWithPing';
-import { vpnProvider } from '../providers/vpnProvider';
+// import { vpnProvider } from '../providers/vpnProvider';
 import { Location } from './Location';
 import { SETTINGS_IDS } from '../../lib/constants';
 // eslint-disable-next-line import/no-cycle
@@ -367,22 +367,24 @@ class LocationsService implements LocationsServiceInterface {
      * @param appId
      * @param vpnToken
      */
-    getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => {
-        const locationsData = await vpnProvider.getLocationsData(appId, vpnToken);
+    getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => { // eslint-disable-line @typescript-eslint/no-unused-vars, max-len
+        // const locationsData = await vpnProvider.getLocationsData(appId, vpnToken);
 
-        const locations = locationsData.map((locationData: LocationInterface) => {
-            return new Location(locationData);
-        });
+        // const locations = locationsData.map((locationData: LocationInterface) => {
+        //     return new Location(locationData);
+        // });
 
-        // During endpoint deployments, api can return empty list of locations
-        // thus we continue to use locations from memory
-        if (!isEmpty(locations)) {
-            this.setLocations(locations);
-        } else {
-            log.debug('Api returned empty list of locations', locations);
-        }
+        // // During endpoint deployments, api can return empty list of locations
+        // // thus we continue to use locations from memory
+        // if (!isEmpty(locations)) {
+        //     this.setLocations(locations);
+        // } else {
+        //     log.debug('Api returned empty list of locations', locations);
+        // }
 
-        return locations;
+        // return locations;
+
+        return [];
     };
 
     /**
