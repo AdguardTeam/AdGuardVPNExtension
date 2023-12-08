@@ -164,6 +164,25 @@ class Endpoints implements EndpointsInterface {
         return locations;
     };
 
+    /**
+     * Gets endpoints remotely and updates them if there were no errors
+     */
+    getTestLocationsFromServer = async (): Promise<Location[] | null> => {
+        let vpnToken;
+
+        try {
+            vpnToken = await credentials.gainValidVpnToken();
+        } catch (e) {
+            log.debug('Unable to get endpoints token because: ', e.message);
+            return null;
+        }
+
+        const appId = await credentials.getAppId();
+        const locations = await locationsService.getTestLocationsFromServer(appId, vpnToken.token);
+        await this.updateSelectedLocation();
+        return locations;
+    };
+
     vpnTokenChanged = (oldVpnToken: VpnTokenData, newVpnToken: VpnTokenData): boolean => {
         if (!oldVpnToken || !newVpnToken) {
             return false;
@@ -243,7 +262,7 @@ class Endpoints implements EndpointsInterface {
      * @param shouldReconnect
      */
     updateLocations = async (shouldReconnect = false): Promise<void> => {
-        const locations = await this.getLocationsFromServer();
+        const locations = await this.getTestLocationsFromServer();
 
         if (!locations || isEmpty(locations)) {
             return;
