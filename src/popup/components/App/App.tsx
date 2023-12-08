@@ -173,13 +173,6 @@ export const App = observer(() => {
         );
     }
 
-    // warn user if no were fetch and allow to re-ping them. AG-28164
-    if (filteredLocations.length === 0) {
-        return (
-            <NoLocationsError />
-        );
-    }
-
     if (authStore.requestProcessState !== RequestStatus.Pending
         && settingsStore.checkPermissionsState !== RequestStatus.Pending
         && globalStore.status === RequestStatus.Pending) {
@@ -190,6 +183,13 @@ export const App = observer(() => {
     if (!isHostPermissionsGranted && authenticated) {
         return (
             <HostPermissionsError />
+        );
+    }
+
+    // warn authenticated users if no locations were fetch. AG-28164
+    if (authenticated && filteredLocations.length === 0) {
+        return (
+            <NoLocationsError />
         );
     }
 
