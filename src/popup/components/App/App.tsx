@@ -73,7 +73,12 @@ export const App = observer(() => {
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
-    const { premiumPromoEnabled, isPremiumToken, filteredLocations } = vpnStore;
+    const {
+        premiumPromoEnabled,
+        isPremiumToken,
+        filteredLocations,
+        showSearchResults,
+    } = vpnStore;
 
     useEffect(() => {
         (async () => {
@@ -187,7 +192,9 @@ export const App = observer(() => {
     }
 
     // warn authenticated users if no locations were fetch. AG-28164
-    if (authenticated && filteredLocations.length === 0) {
+    if (authenticated
+        && !showSearchResults
+        && filteredLocations.length === 0) {
         return (
             <NoLocationsError />
         );
