@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import { reactTranslator } from '../../../common/reactTranslator';
+import { isLocationsNumberAcceptable } from '../../../common/is-locations-number-acceptable';
 import { rootStore } from '../../stores';
 import { Icons } from '../ui/Icons';
 import { SkeletonHeader } from '../ui/SkeletonHeader';
@@ -9,10 +10,12 @@ import { SkeletonFooter } from '../ui/SkeletonFooter';
 import './no-locations-error.pcss';
 
 export const NoLocationsError = () => {
-    const { vpnStore } = useContext(rootStore);
+    const { vpnStore, settingsStore } = useContext(rootStore);
 
     const handleSearchAgain = async (): Promise<void> => {
-        await vpnStore.forceUpdateLocations();
+        const locations = await vpnStore.forceUpdateLocations();
+        await vpnStore.setLocations(locations);
+        settingsStore.setIsVpnBlocked(isLocationsNumberAcceptable(locations));
     };
 
     return (

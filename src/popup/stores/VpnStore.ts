@@ -77,7 +77,7 @@ export class VpnStore {
         });
 
         if (!selectedLocation) {
-            throw new Error(`No endpoint with id: "${id}" found`);
+            throw new Error(`No endpoint with id: '${id}' found`);
         }
 
         await messenger.setCurrentLocation(toJS(selectedLocation), true);
@@ -303,9 +303,11 @@ export class VpnStore {
     /**
      * Forces update of locations list from server
      * and updates locations list in store.
+     *
+     * @returns Forcibly updated locations list.
      */
-    forceUpdateLocations = async (): Promise<void> => {
+    forceUpdateLocations = async (): Promise<any> => {
         const locations = await messenger.forceUpdateLocations();
-        this.setLocations(locations);
+        return locations;
     };
 }
