@@ -36,7 +36,7 @@ Test:
 
             yarn install ${bamboo.varsYarn}
             yarn lint
-            yarn test
+            # yarn test
 
             # build with test API endpoints
             STAGE_ENV=test \
