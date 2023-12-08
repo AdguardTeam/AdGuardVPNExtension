@@ -303,9 +303,11 @@ export class VpnStore {
     /**
      * Forces update of locations list from server
      * and updates locations list in store.
+     *
+     * @returns Forcibly updated locations list.
      */
-    forceUpdateLocations = async (): Promise<void> => {
+    forceUpdateLocations = async (): Promise<any> => {
         const locations = await messenger.forceUpdateLocations();
-        this.setLocations(locations);
+        return locations;
     };
 }

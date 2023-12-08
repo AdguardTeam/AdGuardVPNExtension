@@ -20,17 +20,13 @@ import { CredentialsInterface } from '../credentials/Credentials';
 import { NonRoutableServiceInterface } from '../routability/NonRoutableService';
 import type { ConnectivityStateType } from '../schema';
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
+import { isLocationsNumberAcceptable } from '../../common/is-locations-number-acceptable';
 import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../schema';
 import { hintPopup } from '../hintPopup';
 import { popupOpenedCounter } from './popupOpenedCounter';
 import { abTestManager } from '../abTestManager';
-
-/**
- * Show a warning if there are more than 30% of unavailable locations.
- */
-const UNAVAILABLE_LOCATIONS_THRESHOLD_PERCENTAGE = 30;
 
 interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;
@@ -79,18 +75,6 @@ interface PopupDataInterface {
 interface PopupDataRetry extends PopupDataInterface {
     hasRequiredData: boolean;
 }
-
-/**
- * Calculates percentage of unavailable locations.
- *
- * @param locations List of all locations.
- *
- * @returns Percentage of unavailable locations.
- */
-const getUnavailableLocationsPercentage = (locations: LocationWithPing[]) => {
-    const unavailableLocations = locations.filter((location) => !location.available);
-    return (unavailableLocations.length / locations.length) * 100;
-};
 
 export class PopupData {
     private permissionsChecker: PermissionsCheckerInterface;
@@ -174,9 +158,7 @@ export class PopupData {
             status: error.status,
         } : null;
 
-        const isVpnBlocked = typeof locations === 'undefined'
-            || locations.length === 0
-            || getUnavailableLocationsPercentage(locations) >= UNAVAILABLE_LOCATIONS_THRESHOLD_PERCENTAGE;
+        const isVpnBlocked = isLocationsNumberAcceptable(locations);
 
         return {
             // Firefox can't message to the popup error instance,
