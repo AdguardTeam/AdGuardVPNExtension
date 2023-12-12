@@ -29,6 +29,7 @@ import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
+import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
@@ -173,9 +174,14 @@ export const App = observer(() => {
     // because it would be more difficult to check all components and make sure
     // that they do not require any data fetching
     if (initStatus === RequestStatus.Pending) {
-        return (
-            <SkeletonLoading />
-        );
+        return authStore.authenticated
+            ? <SkeletonLoading />
+            // show dots loader until the user is authenticated
+            : (
+                <div className="data-loader">
+                    <DotsLoader />
+                </div>
+            );
     }
 
     if (authStore.requestProcessState !== RequestStatus.Pending
