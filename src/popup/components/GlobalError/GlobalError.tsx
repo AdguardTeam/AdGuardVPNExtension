@@ -4,11 +4,12 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { isLocationsNumberAcceptable } from '../../../common/is-locations-number-acceptable';
 
 import './global-error.pcss';
 
 export const GlobalError = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, vpnStore } = useContext(rootStore);
 
     const ERROR_TYPES = {
         PERMISSION: 'permission',
@@ -23,6 +24,10 @@ export const GlobalError = observer(() => {
 
     const handleTryAgain = async (): Promise<void> => {
         await settingsStore.checkPermissions();
+        // forcibly update locations on try again
+        const locations = await vpnStore.forceUpdateLocations();
+        await vpnStore.setLocations(locations);
+        settingsStore.setIsVpnBlocked(isLocationsNumberAcceptable(locations));
     };
 
     const handleLearnMore = async (): Promise<void> => {
