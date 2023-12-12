@@ -150,7 +150,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return popupData.getPopupDataRetry(url, numberOfTries);
         }
         case MessageType.FORCE_UPDATE_LOCATIONS: {
-            return endpoints.getLocationsFromServer();
+            const locations = await endpoints.getLocationsFromServer();
+            // set selected location after the locations are updated
+            await endpoints.getSelectedLocation();
+            return locations;
         }
         case MessageType.GET_OPTIONS_DATA: {
             return getOptionsData();
