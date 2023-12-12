@@ -193,6 +193,7 @@ export const App = observer(() => {
 
     // warn authenticated users if no locations were fetch. AG-28164
     if (authenticated
+        && !hasGlobalError
         && !showSearchResults
         && filteredLocations.length === 0) {
         return (
