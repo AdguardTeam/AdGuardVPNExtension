@@ -225,7 +225,7 @@
         "message": "官方的網站"
     },
     "eula": {
-        "message": "終端使用者授權合約"
+        "message": "終端用戶授權協定"
     },
     "privacy_policy": {
         "message": "隱私政策"
@@ -595,6 +595,15 @@
     },
     "control_error_disable": {
         "message": "禁用它"
+    },
+    "popup_skeleton_status": {
+        "message": "正在搜尋位置…"
+    },
+    "popup_no_locations_title": {
+        "message": "找不到位置"
+    },
+    "popup_no_locations_button": {
+        "message": "重新搜尋"
     },
     "popup_settings_enable_vpn_short": {
         "message": "對此網站啟用"

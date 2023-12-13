@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "Вимкнути"
     },
+    "popup_skeleton_status": {
+        "message": "Пошук місцезнаходжень..."
+    },
+    "popup_no_locations_title": {
+        "message": "Місцезнаходження не знайдено"
+    },
+    "popup_no_locations_button": {
+        "message": "Шукати знову"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Увімкнути"
     },

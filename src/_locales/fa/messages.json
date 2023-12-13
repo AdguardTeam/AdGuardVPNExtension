@@ -260,6 +260,12 @@
     "global_error_try_again": {
         "message": "امتحان دوباره"
     },
+    "popup_skeleton_status": {
+        "message": "جستجوی مکان‌ها..."
+    },
+    "popup_no_locations_button": {
+        "message": "جستجو دوباره"
+    },
     "popup_settings_feedback": {
         "message": "دیدگاه"
     },

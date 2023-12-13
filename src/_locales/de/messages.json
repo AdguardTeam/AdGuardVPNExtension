@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "Deaktivieren"
     },
+    "popup_skeleton_status": {
+        "message": "Nach Standorten wird gesucht …"
+    },
+    "popup_no_locations_title": {
+        "message": "Keine Standorte gefunden"
+    },
+    "popup_no_locations_button": {
+        "message": "Erneut suchen"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Aktivieren"
     },

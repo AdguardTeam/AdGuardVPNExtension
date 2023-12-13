@@ -67,7 +67,7 @@ export class Permissions {
     static async hasNeededHostPermissions(): Promise<boolean> {
         const areAllHostPermissionsGranted = await Permissions.hasHostPermissions(Permissions.NEEDED_HOST_ORIGINS);
         const logMessage = areAllHostPermissionsGranted
-            ? 'Host permissions for <all_urls> are granted'
+            ? 'Host permissions for <all_urls> are OK'
             : 'Host permissions for <all_urls> are not granted';
         log.info(logMessage);
         return areAllHostPermissionsGranted;

@@ -27,7 +27,7 @@
 
     &__canvas {
         width: 320px;
-        height: 598px;
+        height: var(--popup-height);
         position: absolute;
         top: calc(var(--header-height) * -1);
         left: 0;
@@ -79,10 +79,20 @@
     }
 
     &__exclusion-btn {
-        margin-top: 14px;
+        margin-top: 17px;
         font-size: 1.4rem;
         /* Same value for both themes */
         color: #F3F3F3;
         padding: 7px 14px;
+
+        &--inactive {
+            cursor: default;
+            margin-top: 24px;
+        }
     }
+
+    &__skeleton {
+        height: calc(var(--popup-height) - var(--header-height) - var(--current-endpoint-total-height));
+    }
+
 }

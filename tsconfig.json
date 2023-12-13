@@ -30,5 +30,12 @@
     "strict": true,
     // TODO: remove useUnknownInCatchVariables from config
     "useUnknownInCatchVariables": false
-  }
+  },
+  "include": [
+    "src/",
+    "test/"
+  ],
+  "exclude": [
+    "src/**/*.js"
+  ]
 }

@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "Vypnúť"
     },
+    "popup_skeleton_status": {
+        "message": "Vyhľadávanie lokalít..."
+    },
+    "popup_no_locations_title": {
+        "message": "Lokality sa nenašli"
+    },
+    "popup_no_locations_button": {
+        "message": "Hľadať znova"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Zapnúť"
     },
@@ -731,6 +740,12 @@
     "popup_server_error_popup_close": {
         "message": "Zavrieť"
     },
+    "popup_host_permission_error_title": {
+        "message": "Povoliť prístup na webové stránky"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Ak chcete používať AdGuard VPN, povoľte jej prístup k Vašim údajom na webových stránkach. Tieto údaje neukladáme ani ich s nikým nezdieľame. <privacy>Zásady ochrany osobných údajov</privacy>"
+    },
     "popup_host_permission_error_btn_allow": {
         "message": "Povoliť"
     },
@@ -809,6 +824,9 @@
     },
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinentov a desiatky krajín. Vyberte si mesto a bezpečne surfujte na internete!"
+    },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Až %potential_num% zariadení"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Pripojte všetky svoje zariadenia k AdGuard VPN súčasne - alebo chráňte celú rodinu!"

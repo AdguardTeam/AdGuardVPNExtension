@@ -581,6 +581,15 @@
     "control_error_disable": {
         "message": "Адключыць"
     },
+    "popup_skeleton_status": {
+        "message": "Пошук месцаў..."
+    },
+    "popup_no_locations_title": {
+        "message": "Сервер не знойдзены"
+    },
+    "popup_no_locations_button": {
+        "message": "Шукайце зноў"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Уключыць"
     },

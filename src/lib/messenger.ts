@@ -127,6 +127,17 @@ class Messenger {
         return this.sendMessage(type, { url, numberOfTries });
     }
 
+    /**
+     * Sends a message to the background page to update locations from the server.
+     *
+     * @returns Returns a promise that resolves to an array of locations
+     * or null if locations update failed.
+     */
+    async forceUpdateLocations(): Promise<any> {
+        const type = MessageType.FORCE_UPDATE_LOCATIONS;
+        return this.sendMessage(type);
+    }
+
     async getOptionsData() {
         const type = MessageType.GET_OPTIONS_DATA;
         return this.sendMessage(type);

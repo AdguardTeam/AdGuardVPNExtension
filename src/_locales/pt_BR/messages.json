@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "Desativar"
     },
+    "popup_skeleton_status": {
+        "message": "Pesquisando localização..."
+    },
+    "popup_no_locations_title": {
+        "message": "Localizações não encontradas"
+    },
+    "popup_no_locations_button": {
+        "message": "Pesquisar novamente"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Ativar neste site"
     },

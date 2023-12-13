@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "無効にする"
     },
+    "popup_skeleton_status": {
+        "message": "ロケーションを検索中..."
+    },
+    "popup_no_locations_title": {
+        "message": "ロケーションが見つかりません"
+    },
+    "popup_no_locations_button": {
+        "message": "もう一度検索する"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "このページで有効にする"
     },

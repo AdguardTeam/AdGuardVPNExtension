@@ -93,7 +93,6 @@ class Switcher {
 
     turnOn(forcePrevEndpoint?: boolean) {
         if (this.cancel) {
-            // debugger;
             this.cancel(FORCE_CANCELLED);
         }
         const { promise, cancel } = runWithCancel(turnOnProxy, forcePrevEndpoint);
@@ -104,7 +103,6 @@ class Switcher {
 
     turnOff() {
         if (this.cancel) {
-            // debugger;
             this.cancel(FORCE_CANCELLED);
         }
         const { promise, cancel } = runWithCancel(turnOffProxy);

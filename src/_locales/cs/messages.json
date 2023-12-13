@@ -596,6 +596,15 @@
     "control_error_disable": {
         "message": "Vypnout"
     },
+    "popup_skeleton_status": {
+        "message": "Hledání umístění..."
+    },
+    "popup_no_locations_title": {
+        "message": "Umístění nenalezena"
+    },
+    "popup_no_locations_button": {
+        "message": "Znovu hledat"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Zapnout"
     },
