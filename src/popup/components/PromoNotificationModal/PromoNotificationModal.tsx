@@ -55,7 +55,7 @@ const PromoNotificationModal = observer(() => {
                     onClick={onCloseHandler}
                 >
                     <svg className="icon icon--button">
-                        <use xlinkHref="#cross-gray" />
+                        <use xlinkHref="#cross-white" />
                     </svg>
                 </div>
                 <div className="notify__content">
