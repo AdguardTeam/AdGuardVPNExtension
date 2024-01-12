@@ -65,7 +65,7 @@ interface PopupDataInterface {
     shouldShowRateModal?: boolean;
     username?: string | null;
     shouldShowHintPopup?: boolean;
-    resendLinkCountDown?: number;
+    resendLinkCountDown?: number | null;
     isHostPermissionsGranted: boolean;
 
     /**
@@ -192,7 +192,6 @@ export class PopupData {
             shouldShowRateModal,
             username,
             shouldShowHintPopup,
-            // FIXME: type
             resendLinkCountDown,
             showScreenshotFlow,
             isVpnBlocked,
