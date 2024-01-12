@@ -90,7 +90,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     /**
      * Request credentials in half an hour before expired
      */
-    planCredentialsCheckBeforeExpired = async (): Promise<void> => {
+    planCredentialsCheckBeforeExpired = (): void => {
         if (!this.credentials.vpnCredentials) {
             return;
         }
@@ -99,10 +99,10 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
             if (this.expiredCredentialsCheckTimeoutId) {
                 timers.clearTimeout(this.expiredCredentialsCheckTimeoutId);
             }
+            const nextTimeoutMs = (this.credentials.vpnCredentials.result.expiresInSec - EXPIRE_CHECK_TIME_SEC) * 1000;
             this.expiredCredentialsCheckTimeoutId = timers.setTimeout(async () => {
                 await this.checkPermissions();
-                // eslint-disable-next-line max-len
-            }, (this.credentials.vpnCredentials.result.expiresInSec - EXPIRE_CHECK_TIME_SEC) * 1000);
+            }, nextTimeoutMs);
         }
     };
 

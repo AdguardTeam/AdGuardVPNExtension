@@ -31,10 +31,14 @@ export const ServerErrorPopup = observer(() => {
         ThankYouScreen = 'thankYouScreen',
     }
 
-    const [state, setState] = useState(ServerErrorPopupState.DialogScreen);
+    const initialPopupState = ServerErrorPopupState.DialogScreen;
+    const [state, setState] = useState(initialPopupState);
 
     const closeModal = () => {
         closeServerErrorPopup();
+        // reset to initial server error popup state, otherwise it will be shown again if server error
+        // occurs AG-23009
+        setState(initialPopupState);
     };
 
     const serverErrorPopupData: ServerErrorPopupData = {
@@ -51,7 +55,9 @@ export const ServerErrorPopup = observer(() => {
             info: reactTranslator.getMessage('popup_server_error_popup_thankyou_message'),
             button: {
                 text: reactTranslator.getMessage('popup_server_error_popup_close'),
-                action: closeModal,
+                action: () => {
+                    closeModal();
+                },
             },
         },
     };

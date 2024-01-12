@@ -33,7 +33,10 @@ import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmail } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
-import { HintPopup } from '../HintPopup';
+import { VpnBlockedError } from '../VpnBlockedError';
+import { HostPermissionsError } from '../HostPermissionsError';
+import { SkeletonLoading } from '../SkeletonLoading';
+import { NoLocationsError } from '../NoLocationsError';
 
 export interface Message {
     type: NotifierType,
@@ -60,6 +63,9 @@ export const App = observer(() => {
         isCurrentTabExcluded,
         canBeExcluded,
         showLimitExceededScreen,
+        isVpnBlocked,
+        isHostPermissionsGranted,
+        hasDesktopAppForOs,
     } = settingsStore;
 
     const { authenticated, showConfirmEmailScreen } = authStore;
@@ -68,7 +74,12 @@ export const App = observer(() => {
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
-    const { premiumPromoEnabled, isPremiumToken } = vpnStore;
+    const {
+        premiumPromoEnabled,
+        isPremiumToken,
+        filteredLocations,
+        showSearchResults,
+    } = vpnStore;
 
     useEffect(() => {
         (async () => {
@@ -157,19 +168,44 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
-    // show dots-loader while data is loading
+    // show skeleton while data is loading.
+    // it is more reliable to show a separate skeleton component
+    // instead of changing different components based on the initStatus
+    // because it would be more difficult to check all components and make sure
+    // that they do not require any data fetching
     if (initStatus === RequestStatus.Pending) {
-        return (
-            <div className="data-loader">
-                <DotsLoader />
-            </div>
-        );
+        return authStore.authenticated
+            && !authStore.renderOnboarding
+            ? <SkeletonLoading />
+            // show dots loader until the user is authenticated
+            : (
+                <div className="data-loader">
+                    <DotsLoader />
+                </div>
+            );
     }
 
     if (authStore.requestProcessState !== RequestStatus.Pending
         && settingsStore.checkPermissionsState !== RequestStatus.Pending
         && globalStore.status === RequestStatus.Pending) {
         return null;
+    }
+
+    // show browser permission error after user is authenticated
+    if (!isHostPermissionsGranted && authenticated) {
+        return (
+            <HostPermissionsError />
+        );
+    }
+
+    // warn authenticated users if no locations were fetch. AG-28164
+    if (authenticated
+        && !hasGlobalError
+        && !showSearchResults
+        && filteredLocations.length === 0) {
+        return (
+            <NoLocationsError />
+        );
     }
 
     if (!authenticated && !hasGlobalError) {
@@ -238,6 +274,12 @@ export const App = observer(() => {
             <PromoNotificationModal />
             {isOpenOptionsModal && <ExtraOptions />}
             <Header showMenuButton={authenticated} />
+            {
+                isVpnBlocked
+                // do not show the warning for users on linux AG-27487
+                && hasDesktopAppForOs
+                && <VpnBlockedError />
+            }
             <CSSTransition
                 in={isOpenEndpointsSearch}
                 timeout={300}
@@ -264,8 +306,6 @@ export const App = observer(() => {
             <Icons />
             <ReviewPopup />
             <ServerErrorPopup />
-            {!isCurrentTabExcluded && canBeExcluded
-                && <HintPopup />}
         </>
     );
 });

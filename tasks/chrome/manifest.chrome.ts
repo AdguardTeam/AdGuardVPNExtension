@@ -1,6 +1,6 @@
 export const chromeManifestDiff = {
     manifest_version: 3,
-    minimum_chrome_version: '88.0',
+    minimum_chrome_version: '109.0',
     options_page: 'options.html',
     background: {
         service_worker: 'background.js',
@@ -14,11 +14,11 @@ export const chromeManifestDiff = {
         default_popup: 'popup.html',
     },
     content_security_policy: {
-        extension_pages: 'script-src \'self\'; object-src \'self\'',
+        extension_pages: "script-src 'self'; object-src 'self'",
     },
     permissions: [
-        'alarms',
         'webRequestAuthProvider',
+        'offscreen',
     ],
     host_permissions: [
         '<all_urls>',

@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Это значение уже используется"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Пароли не совпадают"
-    },
     "registration_error_default": {
         "message": "Произошла ошибка. Попробуйте позже"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Настройки"
     },
-    "options_menu_free_traffic": {
-        "message": "Бесплатный VPN-трафик"
-    },
     "referral_get_free_traffic": {
         "message": "Получите бесплатные ГБ!"
     },
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Экспортировать логи"
     },
+    "context_menu_debug_level": {
+        "message": "Подробное логирование"
+    },
     "settings_dns_label": {
         "message": "DNS-сервер"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Пользовательский DNS-сервер удалён"
-    },
-    "settings_dns_desc": {
-        "message": "Система доменных имен (DNS) – это эквивалент телефонной книги в интернете. Эта система ведёт регистр доменных имён и переводит их в IP-адреса."
     },
     "settings_dns_selector_default_title": {
         "message": "По умолчанию"
@@ -462,7 +456,7 @@
         "message": "Добавить"
     },
     "settings_exclusion_add_website": {
-        "message": "Добавить сайт"
+        "message": "Добавить веб-сайт"
     },
     "settings_exclusion_actions": {
         "message": "Действия"
@@ -519,7 +513,7 @@
         "message": "Вернуть настройки по умолчанию"
     },
     "settings_exclusion_reset_button": {
-        "message": "Сброс"
+        "message": "Сбросить"
     },
     "settings_exclusions_undo": {
         "message": "Отменить"
@@ -602,6 +596,15 @@
     "control_error_disable": {
         "message": "Отключить"
     },
+    "popup_skeleton_status": {
+        "message": "Поиск локаций..."
+    },
+    "popup_no_locations_title": {
+        "message": "Ничего не нашлось"
+    },
+    "popup_no_locations_button": {
+        "message": "Искать снова"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Включить"
     },
@@ -619,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Настройки"
-    },
-    "popup_settings_sign_out": {
-        "message": "Выйти"
     },
     "context_menu_enable_vpn": {
         "message": "Включить VPN на этом сайте"
@@ -669,10 +669,10 @@
         "message": "Подключить"
     },
     "settings_vpn_enabled": {
-        "message": "Подключено"
+        "message": "Подключён"
     },
     "settings_vpn_disabled": {
-        "message": "Отключено"
+        "message": "Отключён"
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Скорость снижена"
@@ -740,11 +740,20 @@
     "popup_server_error_popup_close": {
         "message": "Закрыть"
     },
+    "popup_host_permission_error_title": {
+        "message": "Разрешите доступ к сайтам"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Чтобы использовать AdGuard VPN, разрешите доступ к данным на сайтах. Мы не храним эти данные и никому их не передаём. <privacy>Политика конфиденциальности</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Разрешить"
+    },
     "options_title": {
         "message": "Опции AdGuard VPN"
     },
     "offline_title": {
-        "message": "Оффлайн"
+        "message": "Офлайн"
     },
     "popup_site_status_unaccessible": {
         "message": "находится в вашей локальной сети и недоступен через VPN"
@@ -817,7 +826,7 @@
         "message": "6 континентов и десятки стран. Выберите город и пользуйтесь интернетом безопасно!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "До 5 устройств"
+        "message": "До %potential_num% устройств"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Подключите все свои устройства к AdGuard VPN — или защитите всю семью!"
@@ -828,15 +837,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Продолжить бесплатно"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> осталось в этом месяце",
+    "popup_free_traffic_info_left": {
+        "message": "Осталось %value% %unit%",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Трафик обновится сегодня | Трафик обновится через %days% день | Трафик обновится через %days% дня | Трафик обновится через %days% дней",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "VPN можно отключить для конкретного сайта — на остальных он продолжит работать"
     },
     "popup_hint_popup_button": {
         "message": "Хорошо"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Не получается подключиться?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Приложение работает стабильнее"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Если у вас проблемы с подключением, советуем перейти на десктопную версию: она стабильнее"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Скачать приложение"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Позже"
     },
     "options_exclusions_import_select_title": {
         "message": "Как использовать этот список исключений?"
@@ -852,18 +880,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Отмена"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Удалить"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Удалить исключения"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Все исключения из Обычного режима будут удалены."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Все исключения из Выборочного режима будут удалены."
     },
     "options_exclusions_import_successful": {
         "message": "Импортированные исключения: %count%"

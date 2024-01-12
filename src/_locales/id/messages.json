@@ -74,6 +74,9 @@
     "account_version": {
         "message": "Versi"
     },
+    "account_sign_out": {
+        "message": "Keluar"
+    },
     "rate_description": {
         "message": "Hai, kami adalah tim dari AdGuard dan ini sangat penting bagi kami mengetahui opini Anda tentang produk kami. Silahkan beri nilai."
     },
@@ -104,8 +107,23 @@
     "auth_sign_up_button": {
         "message": "Daftar"
     },
+    "auth_sign_in_button": {
+        "message": "Masuk"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "Email"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Lanjutkan dengan AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Lanjutkan dengan Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Lanjutkan dengan Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Lanjutkan dengan Facebook"
     },
     "auth_header_2fa_subtitle": {
         "message": "Otentikasi dua faktor"
@@ -130,6 +148,12 @@
     },
     "settings_referral_invited_friends": {
         "message": "Teman yang diundang %count%/%limit%"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Konfirmasi email Anda"
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Kirim ulang tautan"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Ke Produk"
@@ -170,6 +194,9 @@
     "settings_dns_add_custom_server": {
         "message": "Tambah server DNS buatan"
     },
+    "settings_dns_edit_custom_server": {
+        "message": "Sunting server DNS kustom"
+    },
     "settings_dns_add_custom_server_name": {
         "message": "Nama server"
     },
@@ -185,11 +212,11 @@
     "settings_dns_add_custom_server_save": {
         "message": "Simpan"
     },
-    "settings_dns_desc": {
-        "message": "Server Sistem Nama Domain (DNS) adalah setara dengan buku telepon di internet. Mereka memelihara direktori nama domain dan menerjemahkan ke alamat Internet Protocol (IP)."
-    },
     "settings_dns_selector_default_title": {
         "message": "Standar"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Secara otomatis pakai server DNS standar saat terkoneksi ke VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -245,6 +272,9 @@
     "settings_theme_light": {
         "message": "Terang"
     },
+    "settings_exclusion_add": {
+        "message": "Tambah"
+    },
     "settings_exclusion_add_website": {
         "message": "Tambah situs"
     },
@@ -282,7 +312,7 @@
         "message": "Setel ulang ke default"
     },
     "settings_exclusion_reset_button": {
-        "message": "Reset"
+        "message": "Atur ulang"
     },
     "settings_exclusions_undo": {
         "message": "Urungkan"
@@ -293,8 +323,14 @@
     "settings_exclusion_connection_problem": {
         "message": "Masalah koneksi"
     },
+    "settings_exclusions_action_export": {
+        "message": "Ekspor pengecualian"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Impor pengecualian"
+    },
     "settings_exclusions_action_remove_all": {
-        "message": "Buang semua"
+        "message": "Hapus semua"
     },
     "settings_exclusion_title": {
         "message": "Pengecualian"
@@ -316,6 +352,15 @@
     },
     "control_error_disable": {
         "message": "Nonaktifkan"
+    },
+    "popup_skeleton_status": {
+        "message": "Mencari lokasi..."
+    },
+    "popup_no_locations_title": {
+        "message": "Lokasi tidak ditemukan"
+    },
+    "popup_no_locations_button": {
+        "message": "Cari lagi"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Aktifkan"
@@ -350,6 +395,12 @@
     "endpoints_search": {
         "message": "Cari lokasi"
     },
+    "endpoints_not_found": {
+        "message": "Lokasi tidak ditemukan"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Kecepatan dibatasi"
+    },
     "premium_upgrade": {
         "message": "Tingkatkan"
     },
@@ -383,9 +434,6 @@
     "popup_rate_modal_subtitle": {
         "message": "Silahkan nilai kami"
     },
-    "popup_rate_modal_send_button": {
-        "message": "Kirim"
-    },
     "popup_rate_modal_cancel_button": {
         "message": "Batal"
     },
@@ -398,8 +446,14 @@
     "popup_server_error_popup_cancel": {
         "message": "Batal"
     },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Terima kasih telah memberi tau kami!"
+    },
     "popup_server_error_popup_close": {
         "message": "Tutup"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Ijinkan"
     },
     "options_title": {
         "message": "Opsi AdGuard VPN"
@@ -425,32 +479,59 @@
     "popup_newsletter_no_subscribe": {
         "message": "Tidak, terima kasih"
     },
+    "popup_onboarding_unique_protocol": {
+        "message": "Protokol VPN Unik"
+    },
     "popup_onboarding_next": {
         "message": "Lanjut"
     },
     "popup_upgrade_screen_title": {
         "message": "VPN tanpa batas"
     },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Data tidak terbatas"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Batasnya hanyalah data Anda tidak akan pernah dibagikan. Menjelajahlah sesuai keinginan Anda!"
+    },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Kecepatan tanpa batas"
+    },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Tidak ada batas kecepatan. Gunakan penyedia layanan Anda sepuasnya!"
     },
     "popup_upgrade_screen_all_locations": {
         "message": "Semua lokasi"
     },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 kontinan dan lusinan negara. Pilih kotanya dan jelajahi internet dengan aman!"
+    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Tingkatkan"
     },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Tidak ada koneksi?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Versi desktop lebih stabil"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Jika Anda mengalami masalah koneksi, kami sarankan untuk beralih ke versi desktop — versi ini beroperasi lebih lancar"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Dapatkan versi desktop"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Nanti"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "Batal"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Hapus"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Berlangganan"
     },
     "popup_connections_limit_description_cta_button_premium": {
-        "message": "Pelajari lebih"
+        "message": "Pelajari lainnya"
     },
     "popup_connections_limit_title": {
         "message": "Batas koneksi tercapai"
@@ -458,8 +539,14 @@
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"
     },
+    "confirm_email_title": {
+        "message": "Konfirmasi email Anda"
+    },
     "confirm_email_close_button": {
         "message": "Tutup"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Kirim ulang tautan"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

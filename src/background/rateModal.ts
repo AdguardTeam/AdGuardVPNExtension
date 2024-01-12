@@ -1,5 +1,7 @@
 import { browserApi } from './browserApi';
 import { notifier } from '../lib/notifier';
+import { settings } from './settings';
+import { SETTINGS_IDS } from '../lib/constants';
 
 const OPEN_RATE_MODAL_COUNTDOWN_KEY = 'open.rate.modal.countdown';
 
@@ -63,6 +65,11 @@ class RateModal implements RateModalInterface {
      * Checks if 30 min passed since login time
      */
     shouldShowRateModal = async (): Promise<boolean> => {
+        const shouldRateShowSetting = await settings.getSetting(SETTINGS_IDS.RATE_SHOW);
+        if (!shouldRateShowSetting) {
+            return false;
+        }
+
         const loginTime = await this.getLoginTime();
         return !!(loginTime && (loginTime + RATE_MODAL_DELAY <= Date.now()));
     };

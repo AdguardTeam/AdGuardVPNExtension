@@ -80,10 +80,6 @@ interface CurrentLocationData extends AxiosResponse {
     };
 }
 
-interface PostExtensionInstalledData extends AxiosResponse {
-    social_providers: string[];
-}
-
 export interface VpnConnectionStatus extends AxiosResponse {
     connected: boolean;
 }
@@ -111,10 +107,10 @@ interface ExclusionServiceDomainsData extends AxiosResponse {
 
 interface VpnApiInterface {
     getLocations(appId: string, vpnToken: string): Promise<LocationsData>;
-    getVpnCredentials(appId: string, vpnToken: string): Promise<VpnCredentials>;
+    getVpnCredentials(appId: string, vpnToken: string, version: string): Promise<VpnCredentials>;
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>;
-    postExtensionInstalled(appId: string): Promise<PostExtensionInstalledData>;
+    trackExtensionInstallation(appId: string, version: string, experiments: string): Promise<unknown>;
     requestSupport(data: FormData): Promise<Response>;
     getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>;
     getExclusionsServices(): Promise<ExclusionsServicesData>;
@@ -140,7 +136,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     GET_VPN_CREDENTIALS: RequestProps = { path: 'v1/proxy_credentials', method: 'POST' };
 
-    getVpnCredentials = (appId: string, vpnToken: string): Promise<VpnCredentials> => {
+    getVpnCredentials = (appId: string, vpnToken: string, version: string): Promise<VpnCredentials> => {
         const { path, method } = this.GET_VPN_CREDENTIALS;
 
         const language = browser.i18n.getUILanguage();
@@ -148,6 +144,7 @@ class VpnApi extends Api implements VpnApiInterface {
         const params = {
             app_id: appId,
             token: vpnToken,
+            version,
             language,
             system_language: language,
         };
@@ -179,15 +176,17 @@ class VpnApi extends Api implements VpnApiInterface {
 
     TRACK_EXTENSION_INSTALL: RequestProps = { path: 'v1/init/extension', method: 'POST' };
 
-    postExtensionInstalled = (appId: string): Promise<PostExtensionInstalledData> => {
+    trackExtensionInstallation = (appId: string, version: string, experiments: string): Promise<unknown> => {
         const { path, method } = this.TRACK_EXTENSION_INSTALL;
 
         const language = browser.i18n.getUILanguage();
 
         const params = {
             app_id: appId,
+            version,
             language,
             system_language: language,
+            experiments,
         };
 
         return this.makeRequest(path, { params }, method);

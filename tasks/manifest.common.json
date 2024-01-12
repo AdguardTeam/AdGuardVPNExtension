@@ -16,8 +16,8 @@
             "run_at":"document_start"
         },
         {
-            "matches": ["https://*/*/other-products.html?*new_user=*"],
-            "js": ["thankYouPageAuth.js"],
+            "matches": ["<all_urls>"],
+            "js": ["custom-dns-links.js"],
             "run_at": "document_start"
         }
     ],

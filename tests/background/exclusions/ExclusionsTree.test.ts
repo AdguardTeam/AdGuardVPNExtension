@@ -89,7 +89,7 @@ describe('ExclusionsTree', () => {
             aliexpress: {
                 serviceId: 'aliexpress',
                 serviceName: 'Aliexpress',
-                iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
+                iconUrl: 'https://test.example.com/icon?domain=aliexpress.com',
                 modifiedTime: '2021-09-14T10:23:00+0000',
                 categories: [
                     {
@@ -123,7 +123,7 @@ describe('ExclusionsTree', () => {
                 hostname: 'Aliexpress',
                 state: ExclusionState.Enabled,
                 type: ExclusionsType.Service,
-                iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
+                iconUrl: 'https://test.example.com/icon?domain=aliexpress.com',
                 parentId: 'root',
                 children: [{
                     id: 'aliexpress.com',

@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "このメールアドレスは既に使用されています。"
     },
-    "registration_error_front_unique_validation": {
-        "message": "パスワードとパスワード確認が一致していません"
-    },
     "registration_error_default": {
         "message": "エラーが発生してしまいました。後ほどもう一度お試しください。"
     },
@@ -236,14 +233,11 @@
     "settings_title": {
         "message": "設定"
     },
-    "options_menu_free_traffic": {
-        "message": "無料データ量"
-    },
     "referral_get_free_traffic": {
         "message": "無料GBをGET！"
     },
     "settings_referral_info": {
-        "message": "お友だちをAdGuard VPN部に招待して、無料月間通信量を増やしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされ、さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。"
+        "message": "お友だちをAdGuard VPN部に招待して、無料月間通信量を増やしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされます（最大%total_gb%まで）。さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。"
     },
     "settings_referral_invited_friends": {
         "message": "招待済みお友だち数: %count%/%limit%"
@@ -335,11 +329,14 @@
     "context_menu_export_logs": {
         "message": "ログをエクスポートする"
     },
+    "context_menu_debug_level": {
+        "message": "デバッグログ"
+    },
     "settings_dns_label": {
         "message": "DNSサーバー"
     },
     "settings_dns_popular_servers": {
-        "message": "人気なDNSサーバー"
+        "message": "人気DNSサーバー"
     },
     "settings_dns_custom_servers": {
         "message": "カスタムDNSサーバー"
@@ -372,7 +369,7 @@
         "message": "このDNSサーバーはすでに追加されています"
     },
     "settings_dns_add_custom_server_save_and_select": {
-        "message": "保存して選択"
+        "message": "保存して選択する"
     },
     "settings_dns_add_custom_server_save": {
         "message": "保存"
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "カスタムDNSサーバーは削除されました。"
-    },
-    "settings_dns_desc": {
-        "message": "ドメインネームシステム（DNS）とは、インターネットにおける電話帳のようなものです。DNSはドメイン名のディレクトリを維持しつつ、ドメイン名をインターネットプロトコル（IP）アドレスに変換します。"
     },
     "settings_dns_selector_default_title": {
         "message": "デフォルト"
@@ -462,7 +456,7 @@
         "message": "ウェブサイトを追加する"
     },
     "settings_exclusion_add_website": {
-        "message": "ウェブサイトを追加する"
+        "message": "ウェブサイトの追加"
     },
     "settings_exclusion_actions": {
         "message": "操作"
@@ -507,7 +501,7 @@
         "message": "\"%url%\"は有効なドメインではありません。リストに追加しますか？"
     },
     "settings_exclusion_modal_cancel": {
-        "message": "キャンセル"
+        "message": "キャンセル "
     },
     "settings_exclusion_modal_remove": {
         "message": "削除"
@@ -519,7 +513,7 @@
         "message": "デフォルトにリセット"
     },
     "settings_exclusion_reset_button": {
-        "message": "リセット"
+        "message": "初期化"
     },
     "settings_exclusions_undo": {
         "message": "元に戻す"
@@ -546,7 +540,7 @@
         "message": "除外リストをインポート"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "全て削除"
+        "message": "すべて削除"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "すべての除外項目を削除する"
@@ -602,6 +596,15 @@
     "control_error_disable": {
         "message": "無効にする"
     },
+    "popup_skeleton_status": {
+        "message": "ロケーションを検索中..."
+    },
+    "popup_no_locations_title": {
+        "message": "ロケーションが見つかりません"
+    },
+    "popup_no_locations_button": {
+        "message": "もう一度検索する"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "このページで有効にする"
     },
@@ -619,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "設定"
-    },
-    "popup_settings_sign_out": {
-        "message": "ログアウト"
     },
     "context_menu_enable_vpn": {
         "message": "このサイトでVPNを有効にする"
@@ -699,10 +699,10 @@
         "message": "ご評価いただければ幸いです"
     },
     "popup_rate_modal_send_button": {
-        "message": "送信"
+        "message": "送信する"
     },
     "popup_rate_modal_cancel_button": {
-        "message": "キャンセル"
+        "message": "キャンセル "
     },
     "popup_confirm_rate_modal_feedback_title": {
         "message": "AdGuard VPNの改善に協力する"
@@ -726,10 +726,10 @@
         "message": "おそらく、VPNはあなたの国でブロックされたか、技術的な不具合がありました。すでに対処しております。"
     },
     "popup_server_error_popup_action": {
-        "message": "AdGuardチームに通知する"
+        "message": "AdGuardチームに通知"
     },
     "popup_server_error_popup_cancel": {
-        "message": "キャンセル"
+        "message": "キャンセル "
     },
     "popup_server_error_popup_thankyou_title": {
         "message": "取り組んでまいります。"
@@ -739,6 +739,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "閉じる"
+    },
+    "popup_host_permission_error_title": {
+        "message": "ウェブサイトへのアクセスを許可してください"
+    },
+    "popup_host_permission_error_info": {
+        "message": "AdGuard VPN を使用するには、ウェブサイト上のデータへのアクセスを許可してください。このデータを保存したり、誰かと共有したりすることは一切ありません。 <privacy>プライバシーポリシー</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "許可する"
     },
     "options_title": {
         "message": "AdGuard VPNオプション"
@@ -817,10 +826,10 @@
         "message": "6つの大陸、数十の国。接続したい都市を選択して、安全にネットをお楽しみください。また、海外出張・旅行中で日本と同じネット環境も再現可能。"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "同時接則可能デバイス 5台"
+        "message": "最大%potential_num%台の端末を同時接続可能"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "AdGuard VPNに自分の端末、家庭の端末、お友達の端末を接続し、すべて保護！"
+        "message": "AdGuard VPN に自分の端末やご家族の端末、お友達の端末を接続し、全部保護！"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "アップグレード"
@@ -828,15 +837,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "無料版で続ける"
     },
-    "popup_free_traffic_info": {
-        "message": "今月の残りデータ量: <span>%value%%unit%</span>",
+    "popup_free_traffic_info_left": {
+        "message": "無料通信量残り%value%%unit%",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "通信量は本日更新されます | 通信量は後%days%日で更新されます",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "必要に応じて、このサイトに対してVPNを無効にすることも可能です。"
     },
     "popup_hint_popup_button": {
         "message": "OK"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "接続できないですか？"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "デスクトップ版ならより安定しています"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "接続によく問題がある場合は、デスクトップ版のご使用をお勧めします。"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "デスクトップ版を入手"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "後で"
     },
     "options_exclusions_import_select_title": {
         "message": "この対象外リストの使い方は？"
@@ -852,18 +880,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "キャンセル"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "削除する"
-    },
-    "options_exclusions_delete_title": {
-        "message": "除外リストを削除"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "一般モードの除外項目がすべて削除されます"
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "指定モードの除外項目がすべて削除されます"
     },
     "options_exclusions_import_successful": {
         "message": "インポート完了した除外項目数: %count%"

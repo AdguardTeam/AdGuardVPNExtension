@@ -174,12 +174,17 @@ export const BugReporter = observer(() => {
 
     const bugReportTitle = (
         <div className="bug-report__title">
-            <button className="bug-report__back" type="button" onClick={closeHandler}>
+            <button className="back-button" type="button" onClick={closeHandler}>
                 <svg className="icon icon--button">
-                    <use xlinkHref="#arrow" />
+                    <use xlinkHref="#back-arrow" />
                 </svg>
             </button>
-            {reactTranslator.getMessage('options_report_bug_title')}
+            <div>
+                <Title
+                    title={reactTranslator.getMessage('options_report_bug_title')}
+                    onClick={closeHandler}
+                />
+            </div>
         </div>
     );
 
@@ -193,7 +198,7 @@ export const BugReporter = observer(() => {
 
         return (
             <>
-                <Title title={bugReportTitle} />
+                {bugReportTitle}
 
                 <div className="bug-report">
                     <div className="bug-report__done">
@@ -287,12 +292,12 @@ export const BugReporter = observer(() => {
                         <Checkbox
                             id={FormField.IncludeLog}
                             value={formState[FormField.IncludeLog]}
-                        >
-                            {reactTranslator.getMessage('options_bug_report_include_log_label')}
-                        </Checkbox>
+                            label={reactTranslator.getMessage('options_bug_report_include_log_label')}
+                        />
                     </div>
                     <button
                         type="submit"
+                        tabIndex={0}
                         disabled={isButtonDisabled}
                         className="button button--medium button--primary bug-report__action"
                     >

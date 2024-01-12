@@ -25,8 +25,13 @@ const DNS_SERVER_ERROR = {
 export const CustomDnsServerModal = observer(() => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
 
-    const [dnsServerName, setDnsServerName] = useState('');
-    const [dnsServerAddress, setDnsServerAddress] = useState('');
+    const {
+        dnsServerName,
+        dnsServerAddress,
+        setDnsServerName,
+        setDnsServerAddress,
+    } = settingsStore;
+
     const [dnsServerAddressError, setDnsServerAddressError] = useState<string | null>(null);
 
     const handleAddressChange = (value: string) => {
@@ -43,7 +48,7 @@ export const CustomDnsServerModal = observer(() => {
 
     const clearInputs = (): void => {
         setDnsServerName('');
-        clearDnsServerAddress();
+        setDnsServerAddress('');
     };
 
     const closeModal = (): void => {
@@ -52,12 +57,13 @@ export const CustomDnsServerModal = observer(() => {
             settingsStore.setDnsServerToEdit(null);
         }
         setDnsServerAddressError(null);
-        settingsStore.closeCustomDnsModalOpen();
+        settingsStore.closeCustomDnsModal();
     };
 
     const validateDnsAddress = (address: string): string | null => {
         // check existing custom dns addresses
-        if (settingsStore.customDnsServers.some((server) => server.address === dnsServerAddress)) {
+
+        if (settingsStore.customDnsServers.some((server) => server.address === address)) {
             return DNS_SERVER_ERROR.DUPLICATE;
         }
         // for the moment only plain dns and tls supported

@@ -6,3 +6,4 @@ build
 /coverage
 /private
 .env
+.eslintcache

@@ -1,13 +1,11 @@
-import { nanoid } from 'nanoid';
-
 import pacGenerator from './pacGenerator';
 import { ProxyConfigInterface, StorageKey } from '../../schema';
-import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 import { promisifiedClearProxy, promisifiedGetProxy, promisifiedSetProxy } from './proxySettingsUtils';
 import { stateStorage } from '../../stateStorage';
 import { log } from '../../../lib/logger';
 import { ProxyApiInterface } from '../abstractProxyApi';
 import { browserApi } from '../../browserApi';
+import { proxyAuthTrigger } from './proxyAuthTrigger';
 
 interface ProxyErrorCallback {
     (details: chrome.proxy.ErrorDetails): void;
@@ -129,20 +127,29 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
-     * As onAuthRequired event is not working reliably, this method sends a random request to
-     * PAC_SCRIPT_CHECK_URL, which should be intercepted by proxy endpoint and return empty
-     * response with status 200.
-     * For example, there is a known bug in Chrome: https://bugs.chromium.org/p/chromium/issues/detail?id=1009243
-     * when onAuthRequired is not triggered when request is sent from service worker.
-     * When this bug is fixed, this method can be removed.
+     * Checks if we need to trigger onAuthRequired event, we added this check because the trigger for mv3 looks awfully,
+     * and we want to do it as less as possible
+     * @param oldConfig
+     * @param newConfig
      */
-    private static triggerOnAuthRequired = async () => {
-        try {
-            // After setting proxy, we need to send a random request. Otherwise, PAC-script can be cached
-            await fetch(`http://${nanoid()}.${PAC_SCRIPT_CHECK_URL}`, { cache: 'no-cache' });
-        } catch (e) {
-            // ignore
+    shouldApplyProxyAuthTrigger = (
+        oldConfig: ProxyConfigInterface | null,
+        newConfig: ProxyConfigInterface | null,
+    ): boolean => {
+        // if the new config is null, then there is no need to trigger onAuthRequired
+        if (!newConfig) {
+            return false;
         }
+
+        // if the old config is null, then we need to trigger onAuthRequired
+        if (!oldConfig) {
+            return true;
+        }
+
+        // if the host, username or password changed, then we need to trigger onAuthRequired
+        return oldConfig.host !== newConfig.host
+            || oldConfig.credentials.password !== newConfig.credentials.password
+            || oldConfig.credentials.username !== newConfig.credentials.username;
     };
 
     /**
@@ -154,8 +161,11 @@ class ProxyApi implements ProxyApiInterface {
     public proxySet = async (config: ProxyConfigInterface): Promise<void> => {
         const chromeConfig = ProxyApi.convertToChromeConfig(config);
         await promisifiedSetProxy(chromeConfig);
+        if (this.shouldApplyProxyAuthTrigger(this.globalProxyConfig, config)) {
+            // we do not wait for the promise to resolve because we don't want to block the main thread
+            proxyAuthTrigger.run();
+        }
         this.globalProxyConfig = config;
-        await ProxyApi.triggerOnAuthRequired();
     };
 
     /**

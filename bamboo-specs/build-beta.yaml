@@ -5,7 +5,7 @@ plan:
   key: AVBSPECS
   name: vpn-extension - build beta
 variables:
-  dockerNode: adguard/node-ssh:16.17--1
+  dockerNode: adguard/node-ssh:18.13--1
 
 stages:
   - Build:
@@ -52,7 +52,6 @@ Build:
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-            export WHOAMI_URL="${bamboo.prodVpnWhoamiUrl}"
             export CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}"
 
             # build with prod API endpoints edge.zip, chrome.zip, firefox.zip, opera.zip
@@ -74,7 +73,7 @@ Build:
         plugin-key: com.atlassian.bamboo.plugins.vcs:task.vcs.tagging
         configuration:
           selectedRepository: defaultRepository
-          tagName: v${bamboo.inject.version}-beta
+          tagName: v${bamboo.inject.version}
   artifacts:
     - name: edge.zip
       location: build/beta

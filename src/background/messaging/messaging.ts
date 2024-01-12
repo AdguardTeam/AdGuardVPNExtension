@@ -28,6 +28,7 @@ import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
 import { emailService } from '../emailService/emailSevice';
+import { CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
 
 interface Message {
     type: MessageType,
@@ -64,7 +65,14 @@ const getOptionsData = async () => {
     const isAllExclusionsListsEmpty = !(exclusions.getRegularExclusions().length
         || exclusions.getSelectiveExclusions().length);
 
-    const servicesData = exclusions.getServices();
+    let servicesData = exclusions.getServices();
+    if (servicesData.length === 0) {
+        // services may not be up-to-date on very first option page opening in firefox mv3
+        // if their loading was blocked before due to default absence of host permissions (<all_urls>).
+        // so if it happens, they should be updated forcedly
+        await exclusions.forceUpdateServices();
+        servicesData = exclusions.getServices();
+    }
 
     const isAuthenticated = await auth.isAuthenticated();
     const isPremiumToken = await credentials.isPremiumToken();
@@ -132,16 +140,21 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                 return undefined;
             }
 
-            const { queryString } = message.data;
-            return auth.authenticateSocial(queryString, id);
+            return auth.authenticateSocial(message.data, id);
         }
         case MessageType.AUTHENTICATE_THANKYOU_PAGE: {
-            const { authCredentials, isNewUser } = message.data;
-            return auth.authenticateThankYouPage(authCredentials, isNewUser);
+            const { token, redirectUrl, newUser } = message.data;
+            return auth.authenticateThankYouPage({ token, redirectUrl, newUser });
         }
         case MessageType.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
             return popupData.getPopupDataRetry(url, numberOfTries);
+        }
+        case MessageType.FORCE_UPDATE_LOCATIONS: {
+            const locations = await endpoints.getLocationsFromServer();
+            // set selected location after the locations are updated
+            await endpoints.getSelectedLocation();
+            return locations;
         }
         case MessageType.GET_OPTIONS_DATA: {
             return getOptionsData();
@@ -370,6 +383,18 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.ADD_CUSTOM_DNS_SERVER: {
             return dns.addCustomDnsServer(data.dnsServerData);
+        }
+        case MessageType.HANDLE_CUSTOM_DNS_LINK: {
+            await actions.openOptionsPage(
+                {
+                    anchorName: CUSTOM_DNS_ANCHOR_NAME,
+                    queryParams: {
+                        name: data.name,
+                        address: data.address,
+                    },
+                },
+            );
+            return null;
         }
         case MessageType.EDIT_CUSTOM_DNS_SERVER: {
             dns.editCustomDnsServer(data.dnsServerData);

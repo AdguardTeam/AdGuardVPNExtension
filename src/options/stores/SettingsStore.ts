@@ -10,7 +10,6 @@ import {
     SETTINGS_IDS,
     AppearanceTheme,
     APPEARANCE_THEME_DEFAULT,
-    THEME_URL_PARAMETER,
     SubscriptionType,
     QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
@@ -19,9 +18,9 @@ import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dn
 import { messenger } from '../../lib/messenger';
 import { RequestStatus } from './consts';
 import { log } from '../../lib/logger';
-import { setQueryParameter } from '../../common/url-utils';
 import type { DnsServerData } from '../../background/schema';
 import type { RootStore } from './RootStore';
+import { CustomDnsData } from '../hooks/useQueryStringData';
 
 interface OptionsData {
     appVersion: string;
@@ -65,7 +64,7 @@ export class SettingsStore {
 
     @observable isCustomDnsModalOpen = false;
 
-    @observable customDnsServers: DnsServerData[];
+    @observable customDnsServers: DnsServerData[] = [];
 
     @observable nextBillDate: number;
 
@@ -92,6 +91,10 @@ export class SettingsStore {
     @observable showDnsSettings = false;
 
     @observable quickConnect = QUICK_CONNECT_SETTING_DEFAULT;
+
+    @observable dnsServerName = '';
+
+    @observable dnsServerAddress = '';
 
     rootStore: RootStore;
 
@@ -133,7 +136,6 @@ export class SettingsStore {
     };
 
     @action setAppearanceTheme = async (value: AppearanceTheme): Promise<void> => {
-        setQueryParameter(THEME_URL_PARAMETER, value);
         await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
         runInAction(() => {
             this.appearanceTheme = value;
@@ -275,12 +277,22 @@ export class SettingsStore {
         this.dnsServerToEdit = value;
     };
 
-    @action openCustomDnsModalOpen = (): void => {
+    @action openCustomDnsModal = (): void => {
         this.isCustomDnsModalOpen = true;
     };
 
-    @action closeCustomDnsModalOpen = (): void => {
+    @action closeCustomDnsModal = (): void => {
         this.isCustomDnsModalOpen = false;
+    };
+
+    /**
+     * Handles custom dns data send after user clicked to the custom url
+     */
+    @action handleCustomDnsData = ({ name, address }: CustomDnsData): void => {
+        this.setShowDnsSettings(true);
+        this.openCustomDnsModal();
+        this.setDnsServerName(name);
+        this.setDnsServerAddress(address);
     };
 
     @computed get currentDnsServerName(): string | null {
@@ -334,4 +346,12 @@ export class SettingsStore {
     @computed get addDeviceQuestCompleted() {
         return !this.multiplatformBonus.available;
     }
+
+    @action setDnsServerName = (name: string) => {
+        this.dnsServerName = name;
+    };
+
+    @action setDnsServerAddress = (address: string) => {
+        this.dnsServerAddress = address;
+    };
 }

@@ -14,7 +14,13 @@ import './dns-settings.pcss';
 export const DnsSettings = observer(() => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
 
-    const handleDnsSelect = async (event: React.MouseEvent<HTMLDivElement>): Promise<void> => {
+    const handleDnsSelect = async (
+        event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
+    ): Promise<void> => {
+        // To prevent multiple handles of one click from radio-button and
+        // from parent div container.
+        event.stopPropagation();
+
         const dnsServerId = event.currentTarget.id;
         await settingsStore.setDnsServer(dnsServerId);
     };
@@ -24,11 +30,11 @@ export const DnsSettings = observer(() => {
     };
 
     const openAddDnsServerModal = () => {
-        settingsStore.openCustomDnsModalOpen();
+        settingsStore.openCustomDnsModal();
     };
 
     const removeDnsServer = (
-        event: React.MouseEvent<HTMLButtonElement>,
+        event: React.MouseEvent,
         dnsServerId: string,
     ): void => {
         event.stopPropagation();
@@ -43,12 +49,13 @@ export const DnsSettings = observer(() => {
     };
 
     const openEditDnsServerModal = (
-        event: React.MouseEvent<HTMLButtonElement>,
+        event: React.MouseEvent,
         server: DnsServerData,
     ): void => {
+        // To not trigger parent dns-button selector.
         event.stopPropagation();
         settingsStore.setDnsServerToEdit(server);
-        settingsStore.openCustomDnsModalOpen();
+        settingsStore.openCustomDnsModal();
     };
 
     const renderRadioButton = (dnsServerId: string) => {
@@ -57,10 +64,19 @@ export const DnsSettings = observer(() => {
             '#bullet_on': enabled,
             '#bullet_off': !enabled,
         });
+        // TODO: Dirty hack to support a11y, should use native <input type="radio">.
         return (
-            <svg className="radio__icon">
-                <use xlinkHref={xlinkHref} />
-            </svg>
+            <button
+                type="button"
+                id={dnsServerId}
+                name={dnsServerId}
+                onClick={handleDnsSelect}
+                className="radio__container"
+            >
+                <svg className="radio__icon">
+                    <use xlinkHref={xlinkHref} />
+                </svg>
+            </button>
         );
     };
 
@@ -105,15 +121,15 @@ export const DnsSettings = observer(() => {
 
         return (
             <div
-                key={id}
                 id={id}
+                key={id}
                 className="dns-settings__item"
                 onClick={handleDnsSelect}
             >
                 {renderRadioButton(id)}
                 <div>
-                    <div className="settings__item-title">{title}</div>
-                    <div className="settings__item-desc">{isCustom ? address : desc}</div>
+                    <div className="dns-settings__item-title">{title}</div>
+                    <div className="dns-settings__item-desc">{isCustom ? address : desc}</div>
                 </div>
                 {isCustom && renderActions(dnsServerData)}
             </div>
@@ -123,23 +139,26 @@ export const DnsSettings = observer(() => {
     return (
         <div className="dns-settings">
             <div className="dns-settings__title">
-                <button className="dns-settings__back" type="button" onClick={goBackHandler}>
+                <button className="back-button" type="button" onClick={goBackHandler}>
                     <svg className="icon icon--button">
                         <use xlinkHref="#back-arrow" />
                     </svg>
                 </button>
-                <Title title={reactTranslator.getMessage('settings_dns_label')} />
+                <Title
+                    title={reactTranslator.getMessage('settings_dns_label')}
+                    onClick={goBackHandler}
+                />
             </div>
             <div>
                 {renderDnsServer(DEFAULT_DNS_SERVER)}
             </div>
-            <div>
+            <div className="dns-settings__items-group">
                 <div className="dns-settings__label">
                     {reactTranslator.getMessage('settings_dns_popular_servers')}
                 </div>
                 {POPULAR_DNS_SERVERS.map(renderDnsServer)}
             </div>
-            <div>
+            <div className="dns-settings__items-group">
                 <div className="dns-settings__label">
                     {reactTranslator.getMessage('settings_dns_custom_servers')}
                 </div>
@@ -154,7 +173,9 @@ export const DnsSettings = observer(() => {
                     <svg className="icon icon--button">
                         <use xlinkHref="#plus" />
                     </svg>
-                    {reactTranslator.getMessage('settings_dns_add_custom_server')}
+                    <div className="dns-settings__add-button__label">
+                        {reactTranslator.getMessage('settings_dns_add_custom_server')}
+                    </div>
                 </button>
             </div>
             <CustomDnsServerModal />

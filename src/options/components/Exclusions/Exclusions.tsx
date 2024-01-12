@@ -32,12 +32,16 @@ export const Exclusions = observer(() => {
     const modeInfoParams = {
         span: (chunks: string) => {
             return (
-                <span className="exclusions__mode--link" onClick={openModeSelectorModal}>
+                <button
+                    type="button"
+                    className="exclusions__mode--link"
+                    onClick={openModeSelectorModal}
+                >
                     {chunks}
                     <svg className="icon icon--pencil">
                         <use xlinkHref="#pencil" />
                     </svg>
-                </span>
+                </button>
             );
         },
     };
@@ -89,7 +93,9 @@ export const Exclusions = observer(() => {
                     <svg className="icon icon--button">
                         <use xlinkHref="#plus" />
                     </svg>
-                    {reactTranslator.getMessage('settings_exclusion_add_website')}
+                    <div className="exclusions__add-website__label">
+                        {reactTranslator.getMessage('settings_exclusion_add_website')}
+                    </div>
                 </button>
                 <List />
                 <AddExclusionModal />

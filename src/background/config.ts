@@ -1,8 +1,13 @@
 import { log } from '../lib/logger';
+import { runtime } from './browserApi/runtime';
 
 // global data
 // @ts-ignore
 const CONFIG = __APP_CONFIG__;
+
+runtime.getPlatformOs().then((res) => {
+    log.debug(`Current os: '${res}'`);
+});
 
 log.debug(`Current browser: "${CONFIG.BROWSER}"`);
 log.debug(`Current build env: "${CONFIG.BUILD_ENV}"`);
@@ -34,12 +39,13 @@ export const {
     FORWARDER_DOMAIN,
     SUGGEST_FEATURE,
     THANK_YOU_PAGE_URL,
+    FIREFOX_THANK_YOU_PAGE_URL,
     UNINSTALL_PAGE_URL,
     FEEDBACK_URL,
     FAQ_URL,
     BROWSER,
     BUILD_ENV,
     STAGE_ENV,
-    WHOAMI_URL,
     COMPARE_PAGE,
+    VPN_BLOCKED_GET_APP_LINK,
 } = CONFIG;

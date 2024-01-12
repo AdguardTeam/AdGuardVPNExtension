@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { reactTranslator } from '../../../../common/reactTranslator';
 import { popupActions } from '../../../actions/popupActions';
+import { reactTranslator } from '../../../../common/reactTranslator';
 import { EULA_URL, PRIVACY_URL } from '../../../../background/config';
 import { rootStore } from '../../../stores';
 import { Checkbox } from '../Checkbox';
@@ -51,16 +51,22 @@ export const PolicyAgreement = observer(() => {
                     label={reactTranslator.getMessage('popup_auth_policy_agreement', {
                         eula: (chunks: string) => (
                             <a
+                                href={EULA_URL}
                                 onClick={handleEulaClick}
                                 className="button button--link-green"
+                                target="_blank"
+                                rel="noreferrer"
                             >
                                 {chunks}
                             </a>
                         ),
                         privacy: (chunks: string) => (
                             <a
+                                href={PRIVACY_URL}
                                 onClick={handlePrivacyClick}
                                 className="button button--link-green"
+                                target="_blank"
+                                rel="noreferrer"
                             >
                                 {chunks}
                             </a>
@@ -76,8 +82,11 @@ export const PolicyAgreement = observer(() => {
                     label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
                         link: (chunks: string) => (
                             <a
+                                href={PRIVACY_URL}
                                 onClick={handleAnonymousDataLinkClick}
                                 className="button button--link-green"
+                                target="_blank"
+                                rel="noreferrer"
                             >
                                 {chunks}
                             </a>

@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Denne værdi benyttes allerede"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Adgangskoder matcher ikke"
-    },
     "registration_error_default": {
         "message": "Der opstod en fejl, prøv igen senere"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Indstillinger"
     },
-    "options_menu_free_traffic": {
-        "message": "Gratis VPN-trafik"
-    },
     "referral_get_free_traffic": {
         "message": "Få gratis GB!"
     },
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Eksportér logger"
     },
+    "context_menu_debug_level": {
+        "message": "Fejlretningsniveaulogning"
+    },
     "settings_dns_label": {
         "message": "DNS-server"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Tilpasset DNS-server slettet"
-    },
-    "settings_dns_desc": {
-        "message": "Domæne Navn System (DNS) servere er Internettets svar på en telefonbog. De opretholder et bibliotek med domænenavne og oversætter dem til Internet Protokol (IP) adresser."
     },
     "settings_dns_selector_default_title": {
         "message": "Standard"
@@ -602,6 +596,15 @@
     "control_error_disable": {
         "message": "Deaktivér den"
     },
+    "popup_skeleton_status": {
+        "message": "Søg efter en lokation..."
+    },
+    "popup_no_locations_title": {
+        "message": "Lokationer ikke fundet"
+    },
+    "popup_no_locations_button": {
+        "message": "Søg igen"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Aktivér"
     },
@@ -619,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Indstillinger"
-    },
-    "popup_settings_sign_out": {
-        "message": "Log ud"
     },
     "context_menu_enable_vpn": {
         "message": "Aktivere VPN på dette websted"
@@ -648,7 +648,7 @@
         "message": "Søg placering"
     },
     "endpoints_not_found": {
-        "message": "Placeringer ikke fundet"
+        "message": "Lokationer ikke fundet"
     },
     "popup_traffic_limit_reached": {
         "message": "Månedlig datakvote opbrugt"
@@ -740,6 +740,15 @@
     "popup_server_error_popup_close": {
         "message": "Luk"
     },
+    "popup_host_permission_error_title": {
+        "message": "Tillad adgang til websteder"
+    },
+    "popup_host_permission_error_info": {
+        "message": "For brug af AdGuard VPN, skal den tildeles adgang til brugerens data på websteder. Vi hverken gemmer eller deler disse data med nogen. <privacy>Privatlivspolitik</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Tillad"
+    },
     "options_title": {
         "message": "AdGuard VPN Indstillinger"
     },
@@ -817,10 +826,10 @@
         "message": "6 kontinenter og snesevis af lande. Vælg en by og surf sikkert på nettet!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Op til 5 enheder"
+        "message": "Op til %potential_num% enheder"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "Forbind alle dine gadgets til AdGuard VPN på samme tid — eller beskyt hele familien!"
+        "message": "Forbind alle gadgets til AdGuard VPN på samme tid — eller beskyt hele familien!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Opgradere"
@@ -828,15 +837,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Fortsæt gratis"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> tilbage denne måned",
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% tilbage",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Trafikkvoten fornys i dag | Trafikkvoten fornys om %days% dag | Trafikkvoten fornys om %days% dage",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "VPN kan deaktiveres for dette websted, om ønsket"
     },
     "popup_hint_popup_button": {
         "message": "Forstået"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Ingen forbindelse?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Desktopversionen er mere stabil"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Hvis du har problemer med forbindelsen, anbefaler vi at skifte til desktopversionen — den fungerer mere glidende"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Hent desktopversion"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Senere"
     },
     "options_exclusions_import_select_title": {
         "message": "Hvordan bruges denne undtagelsesliste?"
@@ -852,18 +880,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Afbryd"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Slet"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Fjern udtagelser"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Alle undtagelser i tilstanden Almindelig slettes."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Alle undtagelser i tilstanden Selektiv slettes."
     },
     "options_exclusions_import_successful": {
         "message": "Importerede undtagelser: %count%"

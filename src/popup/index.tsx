@@ -1,14 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'mobx-react';
 
 import './styles/main.pcss';
 
 import { App } from './components/App';
 
-ReactDOM.render(
+const rootNode = document.getElementById('root')!;
+const root = createRoot(rootNode);
+
+root.render(
     <Provider>
         <App />
     </Provider>,
-    document.getElementById('root'),
 );

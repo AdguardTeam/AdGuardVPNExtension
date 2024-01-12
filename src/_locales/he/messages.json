@@ -23,9 +23,6 @@
     "registration_error_unique_constraint": {
         "message": "ערך זה נמצא כבר בשימוש"
     },
-    "registration_error_front_unique_validation": {
-        "message": "הסיסמאות אינן תואמות"
-    },
     "registration_error_default": {
         "message": "שגיאה התרחשה, נסה שוב מאוחר יותר"
     },
@@ -233,9 +230,6 @@
     "settings_title": {
         "message": "הגדרות"
     },
-    "options_menu_free_traffic": {
-        "message": "תעבורת VPN חינמית"
-    },
     "settings_referral_invited_friends": {
         "message": "חברים מוזמנים %count%/%limit%"
     },
@@ -275,6 +269,9 @@
     "settings_dns_label": {
         "message": "שרת DNS"
     },
+    "settings_dns_popular_servers": {
+        "message": "שרתי DNS פופולריים"
+    },
     "settings_dns_custom_servers": {
         "message": "שרתי DNS מותאמים אישית"
     },
@@ -301,9 +298,6 @@
     },
     "settings_dns_add_custom_server_save": {
         "message": "שמור"
-    },
-    "settings_dns_desc": {
-        "message": "מערכת שמות תחום (DNS) היא שוות הערך של האינטרנט לספר טלפונים. היא מתחזקת תיקייה של שמות תחום ומתרגמת אותם אל כתובות פרוטוקול אינטרנט (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "ברירת מחדל"
@@ -450,7 +444,7 @@
         "message": "ייבא החרגות"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "הסר הכול"
+        "message": "הסר הכל"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "הסר את כל ההחרגות"
@@ -493,9 +487,6 @@
     },
     "popup_settings_open_settings": {
         "message": "הגדרות"
-    },
-    "popup_settings_sign_out": {
-        "message": "צא"
     },
     "context_menu_enable_vpn": {
         "message": "אפשר VPN באתר זה"
@@ -563,9 +554,6 @@
     "popup_rate_modal_subtitle": {
         "message": "אנא דרג אותנו"
     },
-    "popup_rate_modal_send_button": {
-        "message": "שלח"
-    },
     "popup_rate_modal_cancel_button": {
         "message": "בטל"
     },
@@ -583,6 +571,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "סגור"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "התר"
     },
     "options_title": {
         "message": "אפשרויות AdGuard VPN"
@@ -639,9 +630,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 יבשות ועשרות מדינות. בחר עיר וגלוש ברשת באופן בטוח!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "עד 5 מכשירים"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "חבר את כל החפיצים שלך אל AdGuard VPN באותו הזמן — או הגן על המשפחה כולה!"
     },
@@ -651,20 +639,11 @@
     "popup_upgrade_screen_continue_free": {
         "message": "המשך בחינם"
     },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "מאוחר יותר"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "בטל"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "מחק"
-    },
-    "options_exclusions_delete_title": {
-        "message": "הסר החרגות"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "כל ההחרגות מהמצב הרגיל יימחקו."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "כל ההחרגות מהמצב הבררני יימחקו."
     },
     "options_exclusions_import_successful": {
         "message": "החרגות מיובאות: %count%"

@@ -11,6 +11,8 @@ import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
 import { ExclusionsMode } from '../common/exclusionsConstants';
 import { actions } from './actions';
+import { browserApi } from './browserApi';
+import { SETTINGS_IDS } from '../lib/constants';
 
 type ContextType = browser.Menus.ContextType;
 type CreateCreatePropertiesType = browser.Menus.CreateCreatePropertiesType;
@@ -25,6 +27,7 @@ interface ContextMenuItems {
 
 interface ContextMenuInterface {
     init(): void;
+    updateBrowserActionItems(): Promise<void>;
 }
 
 // All contexts except "browser_action", "page_action" and "launcher"
@@ -82,20 +85,32 @@ const BROWSER_ACTION_ITEMS: ContextMenuItems = {
             }
         },
     },
+    debug_level: {
+        id: 'debug_level',
+        title: translator.getMessage('context_menu_debug_level'),
+        action: async () => {
+            await settings.setSetting(
+                SETTINGS_IDS.DEBUG_MODE_ENABLED,
+                !settings.getSetting(SETTINGS_IDS.DEBUG_MODE_ENABLED),
+            );
+        },
+        type: 'checkbox',
+        checked: true,
+    },
 };
 
 const contextMenuClickHandler = (
     info: browser.Menus.OnClickData,
     tab: browser.Tabs.Tab | undefined,
 ): void => {
-    const contextMenu = CONTEXT_MENU_ITEMS[info?.menuItemId]
+    const contextMenuItem = CONTEXT_MENU_ITEMS[info?.menuItemId]
         || BROWSER_ACTION_ITEMS[info?.menuItemId];
 
-    if (!contextMenu || !contextMenu.action) {
+    if (!contextMenuItem || !contextMenuItem.action) {
         return;
     }
 
-    contextMenu.action(tab);
+    contextMenuItem.action(tab);
 };
 
 const removeContextMenuItem = async (id?: string) => {
@@ -193,25 +208,77 @@ const updateContextMenu = async (tab: { url?: string }): Promise<void> => {
 };
 
 /**
- * Adds browser action items
+ * Browser action contexts depending on the manifest version.
+ * We calculate it once and use it in the future
  */
-const addBrowserActionItems = async (): Promise<void> => {
-    const {
-        id,
-        title,
-    } = BROWSER_ACTION_ITEMS.export_logs;
+const browserActionContexts = ((): ContextType[] => {
+    const contexts: ContextType[] = [];
+
+    // cant use together since they conflict in the firefox
+    if (browserApi.runtime.isManifestVersion2()) {
+        contexts.push('browser_action'); // context for mv2
+    } else {
+        contexts.push('action'); // context for mv3
+    }
+
+    return contexts;
+})();
+
+/**
+ * Adds context menu items to the browser action item
+ * @param item
+ */
+const addBrowserActionItem = async (item: ContextMenuItem): Promise<void> => {
+    const props: browser.Menus.CreateCreatePropertiesType = {
+        id: item.id,
+        title: item.title,
+        checked: item.checked,
+        type: item.type,
+        contexts: browserActionContexts,
+    };
 
     try {
-        await removeContextMenuItem(id);
-        await browser.contextMenus.create({
-            id,
-            title,
-            contexts: ['browser_action'],
-        }, () => {
+        await browser.contextMenus.create(props, () => {
             if (browser.runtime.lastError) {
                 log.debug(browser.runtime.lastError.message);
             }
         });
+    } catch (e) {
+        log.debug(`Error while adding browser action item with id: ${item.id} to context menu, ${e}`);
+    }
+};
+
+/**
+ * Retrieves the list of browser action items.
+ *
+ * The 'debug_level' item's checked status is determined by the current debug mode setting.
+ *
+ * @returns An array of browser action items.
+ */
+const getBrowserActionItems = (): ContextMenuItem[] => {
+    const result: ContextMenuItem[] = [];
+    result.push(BROWSER_ACTION_ITEMS.export_logs);
+
+    const debugLevelItem = BROWSER_ACTION_ITEMS.debug_level;
+    debugLevelItem.checked = settings.isDebugModeEnabled();
+    result.push(debugLevelItem);
+
+    return result;
+};
+
+/**
+ * Updates browser action items
+ */
+const updateBrowserActionItems = async (): Promise<void> => {
+    try {
+        await Promise.all(Object.values(BROWSER_ACTION_ITEMS).map((item) => {
+            return removeContextMenuItem(item.id);
+        }));
+
+        const browserActionItems = getBrowserActionItems();
+        await Promise.all(browserActionItems.map((item) => {
+            return addBrowserActionItem(item);
+        }));
     } catch (e) {
         log.debug(e);
     }
@@ -221,7 +288,7 @@ const init = (): void => {
     const throttleTimeoutMs = 100;
     const throttledUpdater = throttle(updateContextMenu, throttleTimeoutMs);
 
-    addBrowserActionItems();
+    updateBrowserActionItems();
 
     browser.contextMenus.onClicked.addListener(contextMenuClickHandler);
 
@@ -237,4 +304,7 @@ const init = (): void => {
 
 export const contextMenu: ContextMenuInterface = {
     init,
+    // exported externally because it depends on the settings, we should update this setting after settings module
+    // initiates
+    updateBrowserActionItems,
 };

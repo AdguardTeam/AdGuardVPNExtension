@@ -1,29 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './checkbox.pcss';
 
 type CheckboxProps = {
-    children: React.ReactNode,
+    label: React.ReactNode,
     id: string,
     value: boolean,
 };
 
-export const Checkbox = ({ children, id, value }: CheckboxProps) => (
-    <label
-        htmlFor={id}
-        className="checkbox"
-    >
-        <input
-            id={id}
-            type="checkbox"
-            defaultChecked={value}
-            className="checkbox__in"
-        />
-        <div className="checkbox__custom">
-            <svg className="icon icon--button checkbox__icon">
-                <use xlinkHref="#check" />
-            </svg>
+export const Checkbox = ({ label, id, value }: CheckboxProps) => {
+    const [checkedValue, setCheckedValue] = useState(value);
+    return (
+        <div className="checkbox">
+            <input
+                id={id}
+                type="checkbox"
+                checked={checkedValue}
+                className="checkbox__in"
+                onChange={() => setCheckedValue(!checkedValue)}
+            />
+            <label
+                htmlFor={id}
+                className="checkbox__label"
+            >
+                {label}
+            </label>
         </div>
-        {children}
-    </label>
-);
+    );
+};

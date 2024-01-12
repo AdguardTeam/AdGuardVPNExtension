@@ -55,7 +55,12 @@ export const Support = observer(() => {
         clickHandler,
     }: SupportItems) => {
         return (
-            <li key={title} className="support-item" onClick={clickHandler}>
+            <button
+                type="button"
+                key={title}
+                className="support-item"
+                onClick={clickHandler}
+            >
                 <div className="support-item__area">
                     <svg className="icon icon--support">
                         <use xlinkHref={iconXlink} />
@@ -68,7 +73,7 @@ export const Support = observer(() => {
                 <svg className="icon icon--button">
                     <use xlinkHref="#arrow" />
                 </svg>
-            </li>
+            </button>
         );
     };
 
@@ -81,9 +86,9 @@ export const Support = observer(() => {
     return (
         <>
             <Title title={translator.getMessage('options_support_title')} />
-            <ul className="support-items">
+            <div className="support-items">
                 {supportItemsData.map(renderSupportItem)}
-            </ul>
+            </div>
         </>
     );
 });

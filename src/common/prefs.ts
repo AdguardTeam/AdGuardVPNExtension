@@ -1,4 +1,6 @@
-import { getUrl } from '../background/browserApi/runtime';
+import { Runtime } from 'webextension-polyfill';
+
+import { getUrl, runtime } from '../background/browserApi/runtime';
 import { lazyGet } from '../lib/helpers';
 
 const ICONS_PATH = 'assets/images/icons';
@@ -10,7 +12,41 @@ interface PrefsInterface {
         },
     };
     browser: string;
+    os?: Runtime.PlatformOs;
+
+    /**
+     * Returns the current OS.
+     *
+     * Uses native {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getPlatformInfo | runtime.getPlatformInfo()}.
+     */
+    getOS(): Promise<Runtime.PlatformOs>;
+
+    /**
+     * Checks whether the current browser is Firefox.
+     *
+     * @returns True if the current browser is Firefox, false otherwise.
+     */
     isFirefox(): boolean;
+
+    /**
+     * Checks whether the current OS is Windows.
+     *
+     * Uses native {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getPlatformInfo | runtime.getPlatformInfo()}
+     * to determine the OS.
+     *
+     * @returns Promise that will be fulfilled with `true` if the current OS is Windows, `false` otherwise.
+     */
+    isWindows(): Promise<boolean>;
+
+    /**
+     * Checks whether the current OS is MacOS.
+     *
+     * Uses native {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getPlatformInfo | runtime.getPlatformInfo()}
+     * to determine the OS.
+     *
+     * @returns Promise that will be fulfilled with `true` if the current OS is MacOS, `false` otherwise.
+     */
+    isMacOS(): Promise<boolean>;
 }
 
 enum BrowserName {
@@ -20,6 +56,11 @@ enum BrowserName {
     Edge = 'Edge',
     EdgeChromium = 'EdgeChromium',
     YaBrowser = 'YaBrowser',
+}
+
+enum SystemName {
+    MacOS = 'mac',
+    Windows = 'win',
 }
 
 export const Prefs: PrefsInterface = {
@@ -68,5 +109,22 @@ export const Prefs: PrefsInterface = {
             }
             return browser;
         });
+    },
+
+    async getOS(): Promise<Runtime.PlatformOs> {
+        if (!this.os) {
+            this.os = await runtime.getPlatformOs();
+        }
+        return this.os;
+    },
+
+    async isWindows(): Promise<boolean> {
+        const os = await this.getOS();
+        return os === SystemName.Windows;
+    },
+
+    async isMacOS(): Promise<boolean> {
+        const os = await this.getOS();
+        return os === SystemName.MacOS;
     },
 };

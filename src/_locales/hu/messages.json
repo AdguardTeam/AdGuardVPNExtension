@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Ez az érték már használatban van"
     },
-    "registration_error_front_unique_validation": {
-        "message": "A jelszavak nem egyeznek"
-    },
     "registration_error_default": {
         "message": "Valamilyen hiba történt, próbálja újból később"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Beállítások"
     },
-    "options_menu_free_traffic": {
-        "message": "Ingyenes VPN forgalom"
-    },
     "referral_get_free_traffic": {
         "message": "Szerezz ingyenes GB-okat!"
     },
@@ -335,11 +329,14 @@
     "context_menu_export_logs": {
         "message": "Naplók exportálása"
     },
+    "context_menu_debug_level": {
+        "message": "Hibakeresési naplózás"
+    },
     "settings_dns_label": {
         "message": "DNS szerver"
     },
     "settings_dns_popular_servers": {
-        "message": "Népszerű DNS szolgáltatók"
+        "message": "Népszerű DNS szerverek"
     },
     "settings_dns_custom_servers": {
         "message": "Egyéni DNS szerverek"
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Egyéni DNS szerver törölve"
-    },
-    "settings_dns_desc": {
-        "message": "A Domain Name System (DNS) kiszolgálók kvázi az internet telefonkönyvei. Fenntartják a domain nevek könyvtárát, és lefordítják azokat Internet Protocol (IP) címekre."
     },
     "settings_dns_selector_default_title": {
         "message": "Alapértelmezett"
@@ -534,7 +528,7 @@
         "message": "Kivételek importálása"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Összes eltávolítása"
+        "message": "Mind eltávolítása"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Összes kivétel törlése"
@@ -587,6 +581,15 @@
     "control_error_disable": {
         "message": "Letiltás"
     },
+    "popup_skeleton_status": {
+        "message": "Helyek keresése..."
+    },
+    "popup_no_locations_title": {
+        "message": "Nem található helyszín"
+    },
+    "popup_no_locations_button": {
+        "message": "Újrakeresés"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Engedélyezés itt"
     },
@@ -598,9 +601,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Beállítások"
-    },
-    "popup_settings_sign_out": {
-        "message": "Kijelentkezés"
     },
     "context_menu_enable_vpn": {
         "message": "VPN engedélyezése ezen a webhelyen"
@@ -675,7 +675,7 @@
         "message": "Kérjük, értékeljen minket"
     },
     "popup_rate_modal_send_button": {
-        "message": "Küldés"
+        "message": "Elküldeni"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Mégsem"
@@ -695,11 +695,26 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Ugrás a kiegészítők áruházába"
     },
+    "popup_server_error_popup_info": {
+        "message": "Valószínűleg a VPN blokkolva volt az Ön országában, vagy technikai hiba lépett fel. Már próbáljuk megjavítani"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Értesítse az AdGuard csapatát"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Mégsem"
     },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Dolgozunk rajta"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Köszönjük, hogy tudatta velünk!"
+    },
     "popup_server_error_popup_close": {
         "message": "Bezárás"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Engedélyezés"
     },
     "options_title": {
         "message": "AdGuard VPN Beállítások"
@@ -777,9 +792,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinens és több tucat ország. Válasszon várost és böngésszen biztonságosan a neten!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Akár 5 eszközre"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Csatlakoztassa az összes készülékét egyszerre az AdGuard VPN-hez — vagy védje meg az egész családot!"
     },
@@ -788,6 +800,24 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Folytatás az ingyenes verzióval"
+    },
+    "popup_hint_popup_button": {
+        "message": "Rendben"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Nincs kapcsolat?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Az asztali verzió stabilabb"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Ha csatlakozási problémái vannak, javasoljuk, hogy váltson az asztali verzióra – az zökkenőmentesebben működik"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Szerezd meg az asztali verziót"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Később"
     },
     "options_exclusions_import_select_title": {
         "message": "Hogyan kell használni a kizárások listáját?"
@@ -803,18 +833,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Mégsem"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Törlés"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Kivételek eltávolítása"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "A Szokásos mód összes kivétele törlődni fog."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "A Szelektív mód összes kivétele törlődni fog."
     },
     "options_exclusions_import_successful": {
         "message": "Importált kizárások: %count%"

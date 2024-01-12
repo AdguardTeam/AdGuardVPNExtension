@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Tato hodnota je již použita"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Hesla se neshodují"
-    },
     "registration_error_default": {
         "message": "Došlo k chybě, zkuste to znovu později"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Nastavení"
     },
-    "options_menu_free_traffic": {
-        "message": "Datový provoz VPN zdarma"
-    },
     "referral_get_free_traffic": {
         "message": "Získejte GB zdarma!"
     },
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Exportovat protokoly"
     },
+    "context_menu_debug_level": {
+        "message": "Záznamy úrovně ladění"
+    },
     "settings_dns_label": {
         "message": "DNS server"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Vlastní DNS server byl smazán"
-    },
-    "settings_dns_desc": {
-        "message": "Domain Name Servers (DNS) jsou internetový ekvivalent telefonních seznamů. Udržují adresář doménových jmen a překládají je na adresy internetového protokolu (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "Výchozí"
@@ -519,7 +513,7 @@
         "message": "Obnovit do výchozího nastavení"
     },
     "settings_exclusion_reset_button": {
-        "message": "Reset"
+        "message": "Resetovat"
     },
     "settings_exclusions_undo": {
         "message": "Zpět"
@@ -546,7 +540,7 @@
         "message": "Importovat výjimky"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Odebrat vše"
+        "message": "Odstranit vše"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Odstranit všechny výjimky"
@@ -602,6 +596,15 @@
     "control_error_disable": {
         "message": "Vypnout"
     },
+    "popup_skeleton_status": {
+        "message": "Hledání umístění..."
+    },
+    "popup_no_locations_title": {
+        "message": "Umístění nenalezena"
+    },
+    "popup_no_locations_button": {
+        "message": "Znovu hledat"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Zapnout"
     },
@@ -619,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Nastavení"
-    },
-    "popup_settings_sign_out": {
-        "message": "Odhlásit se"
     },
     "context_menu_enable_vpn": {
         "message": "Zapnout VPN na této stránce"
@@ -740,6 +740,15 @@
     "popup_server_error_popup_close": {
         "message": "Zavřít"
     },
+    "popup_host_permission_error_title": {
+        "message": "Povolit přístup k webovým stránkám"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Chcete-li používat AdGuard VPN, povolte aplikaci přístup k údajům na webových stránkách. Tyto údaje neukládáme ani je s nikým nesdílíme. <privacy>Zásady ochrany osobních údajů</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Povolit"
+    },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
     },
@@ -817,7 +826,7 @@
         "message": "6 kontinentů a desítky zemí. Vyberte si město a bezpečně surfujte po síti!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Až pro 5 zařízení"
+        "message": "Až pro %potential_num% zařízení"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Připojte všechna svá zařízení k AdGuard VPN najednou — nebo chraňte celou rodinu!"
@@ -828,15 +837,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Pokračovat bezplatně"
     },
-    "popup_free_traffic_info": {
-        "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
+    "popup_free_traffic_info_left": {
+        "message": "Zbývá %value% %unit%",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Provoz se obnoví dnes | Provoz se obnoví za %days% den | Provoz se obnoví za %days% dny | Provoz se obnoví za %days% dní",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "Mimochodem, pokud si přejete, můžete VPN pro tento web zakázat"
     },
     "popup_hint_popup_button": {
         "message": "Rozumím"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Nelze se připojit?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Aplikace funguje stabilněji"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Pokud máte problémy s připojením, doporučujeme přejít na desktopovou verzi: je stabilnější"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Stáhnout aplikaci"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Později"
     },
     "options_exclusions_import_select_title": {
         "message": "Jak používat tento seznam výjimek?"
@@ -852,18 +880,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Zrušit"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Vymazat"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Odstranit výjimky"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Z Obvyklého režimu budou vymazány všechny výjimky."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Ze Selektivního režimu budou vymazány všechny výjimky."
     },
     "options_exclusions_import_successful": {
         "message": "Importované výjimky: %count%"

@@ -1,7 +1,7 @@
 .list-item {
     display: flex;
     align-items: center;
-    padding: 0 0 0 20px;
+    padding: 0 0 0 16px;
     border-radius: 5px;
     list-style: none;
     position: relative;
@@ -11,9 +11,12 @@
         align-items: center;
         width: 85%;
         min-width: 450px;
-        padding: 10px 50px 10px 0;
+        padding: 8px 50px 8px 0;
         word-break: break-all;
         cursor: pointer;
+        font-size: 1.6rem;
+        border: none;
+        background: none;
 
         &.ip-title {
             cursor: default;
@@ -31,16 +34,18 @@
     }
 
     &__arrow {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         position: absolute;
-        right: 55px;
+        right: 48px;
     }
 
     &__remove-button {
         position: absolute;
-        right: 10px;
+        right: 16px;
         border: none;
+        max-height: 24px;
+        padding: 0;
         background: none;
         cursor: pointer;
         visibility: hidden;

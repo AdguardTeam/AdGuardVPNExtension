@@ -9,7 +9,6 @@ import { browserApi } from './browserApi';
 import { Prefs } from '../common/prefs';
 import { notifier } from '../lib/notifier';
 import { FORWARDER_DOMAIN } from './config';
-import { timers } from './timers';
 
 interface PromoNotificationInterface {
     getCurrentNotification(): Promise<PromoNotificationData | null>;
@@ -39,13 +38,22 @@ export interface PromoNotificationData {
     }
 }
 
+const CHECK_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
+
+const MIN_PERIOD_MS = 30 * 60 * 1000; // 30 minutes
+
+const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
+
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const RUSSIAN_LOCALE = 'ru';
+const RU_LOCALE = 'ru';
 
-const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=easter_promo_23_vpn&from=popup&app=vpn_extension`;
-const RUSSIAN_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=easter_promo_23_vpn_ru&from=popup&app=vpn_extension`;
+const TDS_PROMO_ACTION = 'christmas_23_vpn';
+const TDS_PROMO_ACTION_RU = 'christmas_23_vpn_ru';
+
+const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
+const RU_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
 const normalizeLanguage = (locale: string): string | null => {
     if (!locale) {
@@ -56,206 +64,204 @@ const normalizeLanguage = (locale: string): string | null => {
 };
 
 const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
-const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
+const isRuLocale = currentLocale?.startsWith(RU_LOCALE);
+// possible return values of getUILanguage(): 'ru' or 'ru-RU' which is 'ru_ru' after normalization
+const promoLink = isRuLocale
+    ? RU_PROMO_LINK
+    : COMMON_PROMO_LINK;
 
-const easterPromo23Notification = {
-    id: 'easterPromo23',
+const CHRISTMAS_23_ID = 'christmas23';
+
+const christmas23Notification = {
+    id: CHRISTMAS_23_ID,
     locales: {
         en: {
-            title: 'Easter promo',
+            title: 'Christmas promo',
             btn: 'Get 80% off',
         },
         ru: {
-            title: 'Весенняя акция',
+            title: 'Новогодняя акция',
             btn: 'Скидка 75%',
         },
+        ja: {
+            title: 'AdGuard Christmas SALE',
+            btn: '80%OFF割引をGET',
+        },
         ko: {
-            title: '부활절 세일',
-            btn: '85% 할인',
-        },
-        es: {
-            title: 'Promo de Pascua',
-            btn: 'Gana un 80% de descuento',
-        },
-        de: {
-            title: 'Oster-Sale',
-            btn: '80% Rabatt',
-        },
-        pt_pt: {
-            title: 'Promo de Páscoa',
-            btn: '80% de desconto',
-        },
-        pt_br: {
-            title: 'Promo de Páscoa',
-            btn: '80% de desconto',
-        },
-        zh_tw: {
-            title: '暖春巨惠',
-            btn: '享2折',
+            title: '크리스마스  프로모션',
+            btn: '80% 할인',
         },
         zh_cn: {
-            title: '暖春特惠',
-            btn: '享2折',
+            title: 'AdGuard Christmas SALE',
+            btn: '低至2折',
+        },
+        zh_tw: {
+            title: 'AdGuard Christmas SALE',
+            btn: '低至2折',
         },
         fr: {
-            title: 'Promo Pâques',
-            btn: 'Obtenez 80% de remise',
+            title: 'Promo Noël chez AdGuard VPN',
+            btn: '80% de remise',
         },
         it: {
-            title: 'Offerta Pascua',
-            btn: 'Ottieni 80% di sconto',
+            title: 'Promo di Natale ad AdGuard VPN',
+            btn: '80% di sconto',
+        },
+        de: {
+            title: 'Weihnachtspromo',
+            btn: '80% Rabatt',
+        },
+        es: {
+            title: 'Promo navideña',
+            btn: '80% de descuento',
+        },
+        pt_br: {
+            title: 'Promo de Natal',
+            btn: '80% de desconto',
+        },
+        pt_pt: {
+            title: 'Promo de Natal',
+            btn: '80% de desconto',
         },
         uk: {
-            title: 'Весняна акція',
+            title: 'Різдвяна акція',
             btn: 'Знижка 80%',
         },
         ar: {
-            title: 'تعزيز الربيع',
-            btn: '80٪ خصم',
+            title: 'تخفيضات العام الجديد',
+            btn: '٪خصم 80',
         },
         be: {
-            title: 'Вясновая акцыя',
-            btn: 'Зніжка 80%',
+            title: 'Навагоднія скідкі',
+            btn: '80% зніжка',
         },
         bg: {
-            title: 'Пролетна промоция',
+            title: 'Новогодишни отстъпки',
             btn: '80% отстъпка',
         },
         ca: {
-            title: 'Promoció de Pasqua',
+            title: 'Venda de Cap d\'Any',
             btn: '80% de descompte',
         },
         cs: {
-            title: 'Velikonoční promo akce',
+            title: 'Novoroční výprodej',
             btn: '80% sleva',
         },
         da: {
-            title: 'Påske kampagne',
+            title: 'Nytårsudsalg',
             btn: '80% rabat',
         },
         el: {
-            title: 'ανοιξιάτικη προώθηση',
+            title: 'Εκπτώσεις Πρωτοχρονιάς',
             btn: '80% έκπτωση',
         },
         es_419: {
-            title: 'Promoción de pascua',
+            title: 'Promo navideña',
             btn: '80% de descuento',
         },
         fa: {
-            title: 'تبلیغات بهار',
-            btn: '80 درصد تخفیف',
+            title: 'فروش سال نو',
+            btn: '٪80 خاموش',
         },
         fi: {
-            title: 'Pääsiäispromo',
-            btn: '80 % alennus',
+            title: 'Uudenvuoden alennus',
+            btn: '80% alennus',
         },
         he: {
-            title: 'קידום אביב',
+            title: 'מבצע לשנה החדשה',
             btn: '80% הנחה',
         },
         hr: {
-            title: 'Uskršnja promocija',
+            title: 'Otvoren',
             btn: '80% popusta',
         },
         hu: {
-            title: 'Tavaszi akció',
+            title: 'Újévi akció',
             btn: '80% kedvezmény',
         },
         hy: {
-            title: 'գարնանային ակցիա',
+            title: 'Ամանորյա զեղչեր',
             btn: '80% զեղչ',
         },
         id: {
-            title: 'Promosi musim semi',
+            title: 'Obral Tahun Baru',
             btn: 'Diskon 80%',
         },
         lt: {
-            title: 'Velykų akcija',
+            title: 'Naujųjų metų nuolaidos',
             btn: '80% nuolaida',
         },
         ms: {
-            title: 'Promosi musim bunga',
+            title: 'Jualan Tahun Baru',
             btn: 'Diskaun 80%',
         },
         nb: {
-            title: 'Påskekampanje',
+            title: 'Nyttårs salg',
             btn: '80% rabatt',
         },
         nl: {
-            title: 'Pasen promo',
+            title: 'Kerst promo',
             btn: '80% korting',
         },
         pl: {
-            title: 'Promocja wielkanocna',
+            title: 'Zniżki noworoczne',
             btn: '80% zniżki',
         },
         ro: {
-            title: 'Promoție de primăvară',
+            title: 'Vânzarea de Anul Nou',
             btn: '80% reducere',
         },
         sk: {
-            title: 'Veľkonočné promo',
+            title: 'Novoročný výpredaj',
             btn: '80% zľava',
         },
         sl: {
-            title: 'Velikonočni promo',
+            title: 'Novoletni popusti',
             btn: '80% popust',
         },
-        sr: {
-            title: 'Prolećna promocija',
-            btn: 'Popust 80%',
+        'sr-Latn': {
+            title: 'Novogodišnji popusti',
+            btn: '80% popusta',
         },
         sv: {
-            title: 'Påsk kampanj',
-            btn: '80 % rabatt',
+            title: 'Nyårsrabatter',
+            btn: '80% rabatt',
         },
         tr: {
-            title: 'Bahar promosyonu',
+            title: 'Yılbaşı indirimleri',
             btn: '%80 indirim',
         },
         vi: {
-            title: 'Khuyến mãi mùa xuân',
+            title: 'Giảm giá năm mới',
             btn: 'Giảm giá 80%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
     url: promoLink,
-    from: '06 April 2023 12:00:00',
-    to: '12 April 2023 23:59:00',
+    from: '22 December 2023 12:00:00',
+    to: '1 January 2024 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(easterPromo23Notification, 'icons', () => ({
+        return lazyGet(christmas23Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/easter2023-on-19.png'),
-                38: getUrl('assets/images/icons/easter2023-on-38.png'),
+                19: getUrl('assets/images/icons/christmas23-on-19.png'),
+                38: getUrl('assets/images/icons/christmas23-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/easter2023-off-19.png'),
-                38: getUrl('assets/images/icons/easter2023-off-38.png'),
+                19: getUrl('assets/images/icons/christmas23-off-19.png'),
+                38: getUrl('assets/images/icons/christmas23-off-38.png'),
             },
         }));
     },
 };
 
-/**
- * @typedef Notification
- * @type object
- * @property {string} id
- * @property {object} locales
- * @property {string} url
- * @property {string} text
- * @property {string} from
- * @property {string} to
- * @property {string} bgColor;
- * @property {string} textColor;
- * @property {string} badgeBgColor;
- * @property {string} badgeText;
- * @property {string} type;
- */
+if (isRuLocale) {
+    christmas23Notification.to = '8 January 2024 23:59:00';
+}
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    easterPromo23: easterPromo23Notification,
+    [CHRISTMAS_23_ID]: christmas23Notification,
 };
 
 /**
@@ -318,9 +324,6 @@ initNotifications();
 
 let currentNotification: PromoNotificationData | null;
 let notificationCheckTime: number;
-const checkTimeoutMs = 10 * 60 * 1000; // 10 minutes
-const minPeriod = 30 * 60 * 1000; // 30 minutes
-const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
 let timeoutId: number;
 
 /**
@@ -329,10 +332,12 @@ let timeoutId: number;
  */
 const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
     if (withDelay) {
-        timers.clearTimeout(timeoutId);
-        timeoutId = timers.setTimeout(() => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
             setNotificationViewed(false);
-        }, NOTIFICATION_DELAY);
+        }, NOTIFICATION_DELAY_MS) as any; // TODO setup tsconfig to fix types
+        // do not continue if `withDelay` is true, otherwise it may set a notification as viewed
+        return;
     }
 
     if (currentNotification) {
@@ -353,21 +358,21 @@ const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
  */
 const getCurrentNotification = async (): Promise<PromoNotificationData | null> => {
     // Do not display notification on Firefox
-    if (Prefs.browser === 'Firefox') {
+    if (Prefs.isFirefox()) {
         return null;
     }
 
     const currentTime = new Date().getTime();
 
     const timeSinceLastNotification = currentTime - (await getLastNotificationTime());
-    if (timeSinceLastNotification < minPeriod) {
+    if (timeSinceLastNotification < MIN_PERIOD_MS) {
         // Just a check to not show the notification too often
         return null;
     }
 
     // Check not often than once in 10 minutes
     const timeSinceLastCheck = currentTime - notificationCheckTime;
-    if (notificationCheckTime > 0 && timeSinceLastCheck <= checkTimeoutMs) {
+    if (notificationCheckTime > 0 && timeSinceLastCheck <= CHECK_TIMEOUT_MS) {
         return currentNotification;
     }
 

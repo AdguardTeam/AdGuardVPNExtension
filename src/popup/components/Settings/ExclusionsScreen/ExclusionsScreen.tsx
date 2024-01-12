@@ -24,12 +24,9 @@ export const ExclusionsScreen = observer(() => {
         await settingsStore.disableVpnOnCurrentTab();
     };
 
-    const buttonsInfo = {
-        add: addToExclusions,
-        remove: removeFromExclusions,
-    };
-
-    const button = settingsStore.isCurrentTabExcluded ? buttonsInfo.remove : buttonsInfo.add;
+    const onBtnClick = settingsStore.isCurrentTabExcluded
+        ? removeFromExclusions
+        : addToExclusions;
 
     return (
         <div className="settings">
@@ -38,7 +35,7 @@ export const ExclusionsScreen = observer(() => {
             <div className="settings__main">
                 <Status />
                 <button
-                    onClick={button}
+                    onClick={onBtnClick}
                     type="button"
                     className="button button--medium button--green"
                 >

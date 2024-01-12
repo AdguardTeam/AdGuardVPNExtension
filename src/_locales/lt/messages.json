@@ -261,10 +261,7 @@
         "message": "Nustatymai"
     },
     "settings_disconnect": {
-        "message": "Atsijungti"
-    },
-    "popup_rate_modal_send_button": {
-        "message": "Siųsti"
+        "message": "Išjungti"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Atšaukti"
@@ -274,6 +271,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Uždaryti"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Leisti"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Tęsti"
@@ -287,18 +287,8 @@
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neribotas duomenų kiekis"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Iki 5 įrenginių"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> likę šiam mėnesiui",
-        "description": "Respect spaces between text, tags and placeholders"
-    },
     "options_exclusions_delete_cancel_button": {
         "message": "Atšaukti"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Ištrinti"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Sužinoti daugiau"

@@ -13,28 +13,18 @@ import { RatePopup } from '../RatePopup';
 import './extra-options.pcss';
 
 export const ExtraOptions = observer(() => {
-    const {
-        uiStore,
-        settingsStore,
-        authStore,
-    } = useContext(rootStore);
+    const { uiStore, settingsStore } = useContext(rootStore);
 
     const {
         isRateVisible,
         isCurrentTabExcluded,
         canBeExcluded,
+        hasDesktopAppForOs,
     } = settingsStore;
 
     const openSettings = async (): Promise<void> => {
         await messenger.openOptionsPage();
         window.close();
-    };
-
-    const signOut = async (): Promise<void> => {
-        await authStore.deauthenticate();
-        await settingsStore.setProxyState(false);
-        await settingsStore.clearPermissionError();
-        uiStore.closeOptionsModal();
     };
 
     const handleFeedback = async (): Promise<void> => {
@@ -59,11 +49,12 @@ export const ExtraOptions = observer(() => {
         popupActions.openTab(COMPARE_PAGE);
     };
 
-    const renderOption = (key: string, handler: () => void) => {
+    const renderOption = (key: string, handler: () => void, className: string | null = null) => {
         return (
             <Option
                 text={reactTranslator.getMessage(key)}
                 handler={handler}
+                addClassName={className}
             />
         );
     };
@@ -86,13 +77,12 @@ export const ExtraOptions = observer(() => {
 
             {renderOption('popup_settings_open_settings', openSettings)}
 
-            {renderOption('popup_compare_button', openComparePage)}
+            {hasDesktopAppForOs
+                && renderOption('popup_compare_button', openComparePage, 'extra-options__item--compare')}
 
             {isRateVisible
                 ? <RatePopup />
                 : renderOption('popup_settings_feedback', handleFeedback)}
-
-            {renderOption('popup_settings_sign_out', signOut)}
         </Modal>
     );
 });

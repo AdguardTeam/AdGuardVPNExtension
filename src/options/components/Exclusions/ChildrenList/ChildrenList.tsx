@@ -64,7 +64,9 @@ export const ChildrenList = observer(() => {
                 <svg className="icon icon--button">
                     <use xlinkHref="#plus" />
                 </svg>
-                {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
+                <div className="children-list__add-subdomain__text">
+                    {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
+                </div>
             </button>
         );
     };
@@ -79,9 +81,9 @@ export const ChildrenList = observer(() => {
     return (
         <>
             <div className="children-list__title">
-                <button className="children-list__back-button back-button" type="button" onClick={goBackHandler}>
+                <button className="back-button" type="button" onClick={goBackHandler}>
                     <svg className="icon icon--button">
-                        <use xlinkHref="#arrow" />
+                        <use xlinkHref="#back-arrow" />
                     </svg>
                 </button>
                 <div>

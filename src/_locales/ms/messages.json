@@ -8,9 +8,6 @@
     "options_report_bug_title": {
         "message": "Laporkan pepijat"
     },
-    "account_title": {
-        "message": "akaun"
-    },
     "auth_sign_in_provider_apple": {
         "message": "Teruskan dengan Apple"
     },
@@ -41,14 +38,14 @@
     "settings_dns_selector_cloudflare_desc": {
         "message": "Percuma servis DNS oleh Cloudfare"
     },
+    "settings_theme_system": {
+        "message": "Lalai sistem"
+    },
     "settings_exclusion_domain_name": {
         "message": "Nama domain:"
     },
     "settings_exclusion_reset_button": {
         "message": "Tetapkan semula"
-    },
-    "settings_exclusions_action_remove_all": {
-        "message": "Buang semua"
     },
     "settings_exclusion_import_button": {
         "message": "Import"
@@ -61,9 +58,6 @@
     },
     "settings_disconnect": {
         "message": "sambungan terputus"
-    },
-    "popup_rate_modal_send_button": {
-        "message": "Hantar"
     },
     "popup_newsletter_subscribe": {
         "message": "Langgan"

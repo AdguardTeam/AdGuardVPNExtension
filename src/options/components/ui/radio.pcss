@@ -1,20 +1,38 @@
 .radio {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     cursor: pointer;
-    margin-bottom: 30px;
+    margin-bottom: 16px;
+    border: none;
+    padding: 0;
+    background: none;
+
+    /* TODO: Delete this hack (needs to to support a11y) */
+    &__container {
+        width: 24px;
+        height: 24px;
+        margin: 0;
+        padding: 0;
+        border: none;
+        background: transparent;
+        margin: 0 16px 0 0;
+
+        .radio__icon {
+            margin: 0;
+        }
+    }
 
     &__icon {
         flex-shrink: 0;
         width: 24px;
         height: 24px;
-        margin: 0 15px 0 0;
+        margin: 0 16px 0 0;
         color: var(--green700);
     }
 
     &__title {
-        margin-bottom: 7px;
         font-size: 16px;
+        line-height: 19px;
     }
 
     &__description {

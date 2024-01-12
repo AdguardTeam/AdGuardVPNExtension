@@ -15,6 +15,7 @@ import type { RootStore } from './RootStore';
 
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
+    SCREENSHOT: 'screenshot',
     AUTHORIZATION: 'authorization',
     CHECK_EMAIL: 'checkEmail',
     SIGN_IN: 'signIn',
@@ -108,6 +109,8 @@ export class AuthStore {
     @observable confirmEmailCountDown = DEFAULTS.confirmEmailCountDown;
 
     @observable showHintPopup = false;
+
+    @observable showScreenshotFlow = false;
 
     STEPS = AUTH_STEPS;
 
@@ -347,6 +350,10 @@ export class AuthStore {
         this.authenticated = value;
     };
 
+    @action setShowScreenshotFlow = (value: boolean) => {
+        this.showScreenshotFlow = value;
+    };
+
     @action deauthenticate = async () => {
         this.setDefaults();
         await messenger.deauthenticateUser();
@@ -370,6 +377,15 @@ export class AuthStore {
     };
 
     @action showAuthorizationScreen = async () => {
+        await this.switchStep(this.STEPS.AUTHORIZATION);
+    };
+
+    @action showScreenShotScreen = async () => {
+        await this.switchStep(this.STEPS.SCREENSHOT);
+    };
+
+    @action handleScreenshotClick = async () => {
+        // TODO: collect statistic
         await this.switchStep(this.STEPS.AUTHORIZATION);
     };
 
@@ -423,6 +439,12 @@ export class AuthStore {
     @action onPolicyAgreementReceived = async () => {
         await messenger.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, this.policyAgreement);
         await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
+
+        if (this.showScreenshotFlow) {
+            await this.showScreenShotScreen();
+            return;
+        }
+
         await this.showAuthorizationScreen();
     };
 
@@ -511,10 +533,19 @@ export class AuthStore {
 
     @computed
     get shouldShowHintPopup() {
+        // Here we exclude the possibility of a modal window overlapping the hint.
+        // TODO: It should be done with correct z-index (AG-24339)
         return this.showHintPopup
             && !this.showRateModal
             && !this.showConfirmRateModal
-            && !this.showConfirmEmailScreen;
+            && !this.showConfirmEmailScreen
+            && !this.rootStore.settingsStore.showServerErrorPopup
+            && !this.rootStore.settingsStore.isVpnBlocked
+            // host permissions should be granted to show the hint popup;
+            // no `!` is used because of its semantics
+            && this.rootStore.settingsStore.isHostPermissionsGranted
+            && !this.rootStore.settingsStore.showNotificationModal
+            && !this.rootStore.vpnStore.tooManyDevicesConnected;
     }
 
     @action setShowHintPopup = (value: boolean) => {

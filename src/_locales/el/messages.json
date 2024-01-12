@@ -14,9 +14,6 @@
     "registration_error_unique_constraint": {
         "message": "Αυτή η τιμή χρησιμοποιείται ήδη"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Ο κωδικός πρόσβασης και ο κωδικός επιβεβαίωσης δεν ταιριάζουν"
-    },
     "registration_error_default": {
         "message": "Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά αργότερα"
     },
@@ -230,9 +227,6 @@
     "settings_dns_add_custom_server_save": {
         "message": "Αποθήκευση"
     },
-    "settings_dns_desc": {
-        "message": "Το Domain Name System (DNS) είναι το αντίστοιχο του τηλεφωνικού καταλόγου για το Διαδίκτυο. Διατηρεί έναν κατάλογο ονομάτων τομέων και τους μεταφράζει σε διευθύνσεις Internet Protocol (IP)."
-    },
     "settings_dns_selector_default_title": {
         "message": "Προεπιλογή"
     },
@@ -291,7 +285,7 @@
         "message": "Φωτεινό"
     },
     "settings_exclusion_add_website": {
-        "message": "Προσθήκη ενός ιστότοπου"
+        "message": "Προσθήκη ιστοσελίδας"
     },
     "settings_exclusion_actions": {
         "message": "Ενέργειες"
@@ -300,7 +294,7 @@
         "message": "Όνομα τομέα:"
     },
     "settings_exclusion_modal_cancel": {
-        "message": "Ακύρωση"
+        "message": "Άκυρο"
     },
     "settings_exclusion_modal_remove": {
         "message": "Αφαίρεση"
@@ -416,11 +410,8 @@
     "popup_rate_modal_subtitle": {
         "message": "Παρακαλούμε αξιολογήστε μας"
     },
-    "popup_rate_modal_send_button": {
-        "message": "Αποστολή"
-    },
     "popup_rate_modal_cancel_button": {
-        "message": "Ακύρωση"
+        "message": "Άκυρο"
     },
     "popup_confirm_rate_modal_feedback_title": {
         "message": "Βοηθήστε μας να βελτιωθούμε"
@@ -429,10 +420,13 @@
         "message": "Αφήστε τα σχόλιά σας"
     },
     "popup_server_error_popup_cancel": {
-        "message": "Ακύρωση"
+        "message": "Άκυρο"
     },
     "popup_server_error_popup_close": {
         "message": "Κλείσιμο"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Επιτρέπεται"
     },
     "options_title": {
         "message": "Επιλογές AdGuard VPN"
@@ -473,26 +467,11 @@
     "popup_upgrade_screen_all_locations": {
         "message": "Όλες οι τοποθεσίες"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Έως 5 συσκευές"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Αναβάθμιση"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Ακύρωση"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Διαγραφή"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Αφαίρεση εξαιρέσεων"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Όλες οι εξαιρέσεις από την Κανονική λειτουργία θα διαγραφούν."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Όλες οι εξαιρέσεις από την Επιλεκτική λειτουργία θα διαγραφούν."
     },
     "options_exclusions_import_successful": {
         "message": "Εισαγόμενες εξαιρέσεις: %count%"

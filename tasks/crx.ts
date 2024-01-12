@@ -12,7 +12,7 @@ const {
     MANIFEST_NAME,
     Browser,
     BUILD_PATH,
-    ENV_MAP,
+    BUILD_ENV_MAP,
     CERTIFICATE_PATHS,
     CHROME_UPDATE_CRX,
     CHROME_UPDATER_FILENAME,
@@ -22,7 +22,7 @@ const { updateManifest } = require('./helpers');
 const packageJson = require('../package.json');
 
 const { BUILD_ENV } = process.env;
-const { outputPath } = ENV_MAP[BUILD_ENV as string];
+const { outputPath } = BUILD_ENV_MAP[BUILD_ENV as string];
 
 const WRITE_PATH = path.resolve(__dirname, BUILD_PATH, outputPath);
 

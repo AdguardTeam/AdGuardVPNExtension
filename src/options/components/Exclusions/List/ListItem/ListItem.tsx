@@ -74,8 +74,10 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
             <StateCheckbox
                 state={exclusion.state}
                 toggleHandler={toggleState}
+                extraClassName="state-checkbox__list-item"
             />
-            <div
+            <button
+                type="button"
                 className={listIndexTitleClasses(exclusion.children.length > 0)}
                 onClick={followToChildren(exclusion)}
             >
@@ -90,9 +92,9 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                     search={exclusionsStore.exclusionsSearchValue}
                 />
                 <svg className="icon list-item__arrow">
-                    <use xlinkHref="#arrow" />
+                    <use xlinkHref="#small-arrow" />
                 </svg>
-            </div>
+            </button>
             <button
                 type="button"
                 className="list-item__remove-button"

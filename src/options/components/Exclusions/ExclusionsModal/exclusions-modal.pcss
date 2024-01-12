@@ -1,18 +1,25 @@
 .modal {
     &__title {
         letter-spacing: 0;
-        margin: 10px 0 10px;
         font-size: 32px;
         font-weight: 600;
         line-height: 40px;
     }
 
     &__mode-selectors {
-        margin: 14px 0 24px;
+        margin: 24px 0;
     }
 
     &__mode {
         height: 320px;
+    }
+
+    & .content__title {
+        margin: 0 8px 8px 0;
+    }
+
+    & .content__subtitle {
+        margin: 0 0 24px 0;
     }
 }
 
@@ -20,9 +27,10 @@
     color: var(--gray-base);
     border: none;
     background: none;
-    padding: 10px 20px;
-    border-radius: 3px;
+    padding: 8px 16px;
+    border-radius: 4px;
     font-size: 16px;
+    line-height: 19px;
     cursor: pointer;
 
     &.enabled {

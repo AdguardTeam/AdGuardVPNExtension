@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — szybki vpn & bezpieczne prywatne proxy"
+        "message": "AdGuard VPN — darmowy i bezpieczny pośrednik"
     },
     "description": {
-        "message": "Użyj AdGuard VPN, aby surfować po Internecie szybko, bezpiecznie i pewnie. Chroń swoją prywatność i pozostań anonimowy z naszym prywatnym vpn proxy."
+        "message": "Użyj AdGuard VPN, aby surfować po Internecie szybko, bezpiecznie i pewnie. Chroń swoją prywatność i pozostań anonimowy(a) dzięki naszemu prywatnemu pośrednikowi VPN."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -25,9 +25,6 @@
     },
     "registration_error_unique_constraint": {
         "message": "Ta wartość jest już użyta"
-    },
-    "registration_error_front_unique_validation": {
-        "message": "Hasła się nie zgadzają"
     },
     "registration_error_default": {
         "message": "Wystąpił błąd, spróbuj ponownie później"
@@ -177,7 +174,7 @@
         "message": "Potwierdź hasło"
     },
     "auth_recover": {
-        "message": "Zapomniałeś hasła?"
+        "message": "Zapomniano hasła?"
     },
     "auth_sign_up": {
         "message": "Zapisz się"
@@ -235,9 +232,6 @@
     },
     "settings_title": {
         "message": "Ustawienia"
-    },
-    "options_menu_free_traffic": {
-        "message": "Darmowy ruch VPN"
     },
     "referral_get_free_traffic": {
         "message": "Zdobądź darmowe GB!"
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Eksportuj logi"
     },
+    "context_menu_debug_level": {
+        "message": "Szczegółowe rejestrowanie"
+    },
     "settings_dns_label": {
         "message": "Serwer DNS"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Usunięto niestandardowy serwer DNS"
-    },
-    "settings_dns_desc": {
-        "message": "Serwery DNS (Domain Name System) są internetowymi odpowiednikami książki telefonicznej. Zawierają one nazwy domen i tłumaczą je na adresy IP (Internet Protocol)."
     },
     "settings_dns_selector_default_title": {
         "message": "Domyślny"
@@ -462,7 +456,7 @@
         "message": "Dodaj"
     },
     "settings_exclusion_add_website": {
-        "message": "Dodaj stronę internetową"
+        "message": "Dodaj stronę"
     },
     "settings_exclusion_actions": {
         "message": "Akcje"
@@ -546,7 +540,7 @@
         "message": "Importuj wykluczenia"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Usuń wszystkie"
+        "message": "Usuń wszystko"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Usuń wszystkie wykluczenia"
@@ -602,6 +596,15 @@
     "control_error_disable": {
         "message": "Wyłącz"
     },
+    "popup_skeleton_status": {
+        "message": "Wyszukiwanie lokalizacji..."
+    },
+    "popup_no_locations_title": {
+        "message": "Nie znaleziono lokalizacji"
+    },
+    "popup_no_locations_button": {
+        "message": "Wyszukaj ponownie"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Włącz"
     },
@@ -619,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Ustawienia"
-    },
-    "popup_settings_sign_out": {
-        "message": "Wyloguj się"
     },
     "context_menu_enable_vpn": {
         "message": "Włącz VPN na tej stronie"
@@ -669,7 +669,7 @@
         "message": "Połącz"
     },
     "settings_vpn_enabled": {
-        "message": "Połączony"
+        "message": "Połączono"
     },
     "settings_vpn_disabled": {
         "message": "Rozłączony"
@@ -678,7 +678,7 @@
         "message": "Szybkość jest zmniejszona"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Osiągnąłeś limit darmowych danych, i AdGuard VPN działa wolno."
+        "message": "Osiągnięto limit darmowych danych, i AdGuard VPN działa wolno."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Zwiększ prędkość"
@@ -699,7 +699,7 @@
         "message": "Oceń nas"
     },
     "popup_rate_modal_send_button": {
-        "message": "Wyślij"
+        "message": "Wysłać"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Anuluj"
@@ -739,6 +739,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "Zamknij"
+    },
+    "popup_host_permission_error_title": {
+        "message": "Zezwalaj na dostęp do stron internetowych"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Aby korzystać z AdGuard VPN, zezwól mu na dostęp do Twoich danych na stronach internetowych. Nie przechowujemy tych danych ani nie udostępniamy ich nikomu. <privacy>Polityka prywatności</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Pozwól"
     },
     "options_title": {
         "message": "Ustawienia AdGuard VPN"
@@ -817,7 +826,7 @@
         "message": "6 kontynentów i kilkadziesiąt krajów. Wybierz miasto i surfuj bezpiecznie po sieci!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Do 5 urządzeń"
+        "message": "Do %potential_num% urządzeń"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Połącz wszystkie urządzenia do AdGuard VPN w tym samym czasie — lub zabezpiecz całą rodzinę!"
@@ -828,15 +837,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Kontynuuj za darmo"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> pozostało w tym miesiącu",
+    "popup_free_traffic_info_left": {
+        "message": "Zostało %value% %unit%",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Ruch odnawia się dzisiaj | Ruch odnawia się za %days% dzień | Ruch odnawia się za %days% dni | Ruch odnawia się za %days% dni",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "Swoją drogą, możesz wyłączyć VPN dla tej witryny, jeśli chcesz"
     },
     "popup_hint_popup_button": {
         "message": "Rozumiem"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Nie możesz się połączyć?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Aplikacja działa stabilniej"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Jeśli masz problemy z połączeniem, zalecamy przejście na wersję komputerową – działa ona płynniej"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Pobierz aplikację"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Później"
     },
     "options_exclusions_import_select_title": {
         "message": "Importuj wykluczenia do:"
@@ -852,18 +880,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Anuluj"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Usuń"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Usuń wykluczenia"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Wszystkie wykluczenia z Trybu zwykłego zostaną usunięte."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Wszystkie wykluczenia z Trybu selektywnego zostaną usunięte."
     },
     "options_exclusions_import_successful": {
         "message": "Zaimportowanych wykluczeń: %count%"
@@ -911,7 +927,7 @@
         "message": "Ok"
     },
     "options_signedout_page_title": {
-        "message": "Wylogowałeś się z AdGuard VPN"
+        "message": "Wylogowano z AdGuard VPN"
     },
     "options_signedout_page_description": {
         "message": "Uwaga: nie jesteś podłączony do VPN i Twój ruch nie jest chroniony! Aby kontynuować prywatne surfowanie, kliknij ikonę AdGuard VPN i zaloguj się ponownie."

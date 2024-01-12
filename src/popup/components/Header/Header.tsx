@@ -61,7 +61,7 @@ export const Header = observer(({ showMenuButton }: { showMenuButton: boolean })
                     tabIndex={tabIndex}
                     onClick={handleOpenModal}
                 >
-                    <svg className="icon icon--button">
+                    <svg className="icon icon--button icon--popup-menu">
                         <use xlinkHref="#bar" />
                     </svg>
                 </button>

@@ -22,11 +22,11 @@ export interface SettingsInterface {
     enableProxy(force?: boolean): Promise<void>;
     isProxyEnabled(): boolean;
     SETTINGS_IDS: { [key: string]: boolean | string };
-    settingsService: SettingsService;
     applySettings(): void;
     getExclusions (): PersistedExclusions;
     setExclusions(exclusions: PersistedExclusions): void;
     isContextMenuEnabled(): boolean;
+    isDebugModeEnabled(): boolean;
     getCustomDnsServers(): DnsServerData[];
     setCustomDnsServers(dnsServersData: DnsServerData[]): void;
     getSelectedDnsServer(): string;
@@ -38,7 +38,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.RATE_SHOW]: true,
     [SETTINGS_IDS.PREMIUM_FEATURES_SHOW]: true,
     [SETTINGS_IDS.EXCLUSIONS]: {},
-    [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
+    [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: false,
     [SETTINGS_IDS.SELECTED_DNS_SERVER]: DEFAULT_DNS_SERVER.id,
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
     [SETTINGS_IDS.POLICY_AGREEMENT]: false,
@@ -46,6 +46,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
     [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [],
     [SETTINGS_IDS.QUICK_CONNECT]: QUICK_CONNECT_SETTING_DEFAULT,
+    [SETTINGS_IDS.DEBUG_MODE_ENABLED]: false,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -84,9 +85,9 @@ const setSetting = async (id: string, value: boolean | string, force?: boolean):
         }
     }
 
-    notifier.notifyListeners(notifier.types.SETTING_UPDATED, id, value);
     settingsService.setSetting(id, value);
     log.debug(`Setting with id: "${id}" was set to:`, value);
+    notifier.notifyListeners(notifier.types.SETTING_UPDATED, id, value);
     return true;
 };
 
@@ -172,6 +173,10 @@ const getQuickConnectSetting = (): QuickConnectSetting => {
     return settingsService.getSetting(SETTINGS_IDS.QUICK_CONNECT);
 };
 
+const isDebugModeEnabled = (): boolean => {
+    return settingsService.getSetting(SETTINGS_IDS.DEBUG_MODE_ENABLED);
+};
+
 const init = async (): Promise<void> => {
     await settingsService.init();
     dns.init();
@@ -186,7 +191,6 @@ export const settings: SettingsInterface = {
     enableProxy,
     isProxyEnabled,
     SETTINGS_IDS,
-    settingsService,
     applySettings,
     getExclusions,
     setExclusions,
@@ -195,4 +199,5 @@ export const settings: SettingsInterface = {
     setCustomDnsServers,
     getSelectedDnsServer,
     getQuickConnectSetting,
+    isDebugModeEnabled,
 };

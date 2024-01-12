@@ -3,6 +3,7 @@ import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
 import { StorageKey, DnsServerData, DnsState } from '../schema';
 import { stateStorage } from '../stateStorage';
+import { log } from '../../lib/logger';
 
 interface DnsInterface {
     init(): void;
@@ -18,7 +19,7 @@ export class Dns implements DnsInterface {
     state: DnsState;
 
     private saveDnsState = () => {
-        stateStorage.setItem(StorageKey.ProxyState, this.state);
+        stateStorage.setItem(StorageKey.DnsState, this.state);
     };
 
     private get selectedDnsServer(): string | null {
@@ -53,9 +54,10 @@ export class Dns implements DnsInterface {
     init = (): void => {
         this.state = stateStorage.getItem(StorageKey.DnsState);
 
-        if (!this.customDnsServers) {
+        if (this.customDnsServers.length === 0) {
             this.customDnsServers = settings.getCustomDnsServers();
         }
+
         if (!this.selectedDnsServer) {
             this.selectedDnsServer = settings.getSelectedDnsServer();
             if (!this.selectedDnsServer) {
@@ -63,6 +65,7 @@ export class Dns implements DnsInterface {
                 return;
             }
         }
+
         this.setDnsServer(this.selectedDnsServer);
     };
 
@@ -70,14 +73,20 @@ export class Dns implements DnsInterface {
      * Returns address of current dns server
      */
     getCurrentDnsServerAddress = (): string => {
+        log.info(`Getting selected dns server address for id: "${this.selectedDnsServer}"`);
+
         const currentDnsServerData = [
             DEFAULT_DNS_SERVER,
             ...POPULAR_DNS_SERVERS,
             ...this.customDnsServers,
         ].find((server) => server.id === this.selectedDnsServer);
+
         if (currentDnsServerData?.address) {
+            log.info(`Found address: "${currentDnsServerData.address}"`);
             return currentDnsServerData.address;
         }
+
+        log.info('Address not found, using empty string for default dns server');
         return DEFAULT_DNS_SERVER.address;
     };
 

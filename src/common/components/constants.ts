@@ -1,5 +1,10 @@
 import { translator } from '../translator';
 
+/**
+ * Number of devices available in the unlimited plan.
+ */
+const POTENTIAL_DEVICE_NUM = 10;
+
 export const UNLIMITED_FEATURES = [
     {
         image: 'unlimited.svg',
@@ -18,7 +23,9 @@ export const UNLIMITED_FEATURES = [
     },
     {
         image: 'connect-devices.svg',
-        title: translator.getMessage('popup_upgrade_screen_connect_devices'),
+        title: translator.getMessage('popup_upgrade_screen_connect_devices', {
+            potential_num: POTENTIAL_DEVICE_NUM,
+        }),
         info: translator.getMessage('popup_upgrade_screen_connect_devices_desc'),
     },
 ];

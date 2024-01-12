@@ -5,12 +5,12 @@ plan:
   key: AVINCRSPECS
   name: vpn-extension - increment version
 variables:
-  dockerNode: node:15.14.0-buster-slim
+  dockerNode: adguard/node-ssh:18.13--1
 
 stages:
   - Increment:
-      manual: 'false'
-      final: 'false'
+      manual: false
+      final: false
       jobs:
         - Increment
 
@@ -24,7 +24,7 @@ Increment:
       ${system.YARN_DIR}: "${bamboo.cacheYarn}"
   tasks:
     - checkout:
-        force-clean-build: 'true'
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
@@ -44,12 +44,12 @@ Increment:
           commitMessage: 'skipci: Automatic increment build number'
           selectedRepository: defaultRepository
   requirements:
-    - adg-docker: 'true'
+    - adg-docker: true
 
 branches:
   create: manually
   delete: never
-  link-to-jira: 'true'
+  link-to-jira: true
 
 notifications: []
 labels: []

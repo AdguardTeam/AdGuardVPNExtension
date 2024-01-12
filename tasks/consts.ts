@@ -14,6 +14,7 @@ export enum Env {
 export enum Browser {
     Chrome = 'chrome',
     ChromeMV2 = 'chrome-mv2',
+    FirefoxMV2 = 'firefox-mv2',
     Firefox = 'firefox',
     Edge = 'edge',
     Opera = 'opera',
@@ -32,15 +33,23 @@ type EnvMap = {
     },
 };
 
-export const ENV_MAP: EnvMap = {
+export const BUILD_ENV_MAP: EnvMap = {
     [Env.Dev]: { outputPath: 'dev', name: 'Dev' },
     [Env.Beta]: { outputPath: 'beta', name: 'Beta' },
     [Env.Release]: { outputPath: 'release', name: '' },
 };
 
+export const GECKO_ID_ENV_MAP = {
+    [Env.Dev]: 'adguard-vpn-dev@adguard.com',
+    [Env.Beta]: 'adguard-vpn-beta@adguard.com',
+    [Env.Release]: 'adguard-vpn@adguard.com',
+};
+
 export const { BUILD_ENV, STAGE_ENV } = process.env;
 
 export const IS_DEV = BUILD_ENV ? BUILD_ENV === Env.Dev : true;
+
+export const IS_BETA = BUILD_ENV ? BUILD_ENV === Env.Beta : false;
 
 // Build output path
 export const BUILD_PATH = '../build';
@@ -62,13 +71,13 @@ export const CERTIFICATE_PATHS = {
 export const deployPath = process.env.BUILD_ENV || Env.Dev;
 
 // Update manifest URL for the Chrome extension
-export const CHROME_UPDATE_URL = `https://static.adguardvpn.com/extensions/adguardvpn/${deployPath}/${CHROME_UPDATER_FILENAME}`;
+export const CHROME_UPDATE_URL = `https://static.adtidy.net/extensions/adguardvpn/${deployPath}/${CHROME_UPDATER_FILENAME}`;
 
 // Update manifest URL for the Firefox add-on
-export const FIREFOX_UPDATE_URL = `https://static.adguardvpn.com/extensions/adguardvpn/${deployPath}/${FIREFOX_UPDATER_FILENAME}`;
+export const FIREFOX_UPDATE_URL = `https://static.adtidy.net/extensions/adguardvpn/${deployPath}/${FIREFOX_UPDATER_FILENAME}`;
 
 // Path to the Chrome CRX (that we'll add to the update manifest)
-export const CHROME_UPDATE_CRX = `https://static.adguardvpn.com/extensions/adguardvpn/${deployPath}/${CRX_NAME}`;
+export const CHROME_UPDATE_CRX = `https://static.adtidy.net/extensions/adguardvpn/${deployPath}/${CRX_NAME}`;
 
 // Path to the Firefox XPI (that we'll add to the update manifest)
-export const FIREFOX_UPDATE_XPI = `https://static.adguardvpn.com/extensions/adguardvpn/${deployPath}/${XPI_NAME}`;
+export const FIREFOX_UPDATE_XPI = `https://static.adtidy.net/extensions/adguardvpn/${deployPath}/${XPI_NAME}`;

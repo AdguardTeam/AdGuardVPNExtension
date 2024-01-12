@@ -18,17 +18,14 @@ import {
 } from '../schema';
 import { stateStorage } from '../stateStorage';
 import { credentialsService } from './credentialsService';
-import { auth } from '../auth';
+import { auth, type AuthInterface } from '../auth';
+import { appStatus } from '../appStatus';
+import { abTestManager } from '../abTestManager';
 
 export interface AccessCredentialsData {
     credentialsHash: string,
     credentials: AccessCredentials,
     token: string,
-}
-
-interface AuthInterface {
-    getAccessToken: () => Promise<string>;
-    deauthenticate: () => void;
 }
 
 export interface CredentialsParameters {
@@ -295,7 +292,10 @@ export class Credentials implements CredentialsInterface {
         if (!vpnToken) {
             return null;
         }
-        const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token);
+
+        const { version } = appStatus;
+
+        const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token, version);
 
         if (!this.areCredentialsValid(vpnCredentials)) {
             return null;
@@ -537,8 +537,14 @@ export class Credentials implements CredentialsInterface {
             if (tracked) {
                 return;
             }
+
             const appId = await this.getAppId();
-            await this.vpnProvider.postExtensionInstalled(appId);
+            const { version } = appStatus;
+
+            const experiments = abTestManager.getExperiments();
+            const response = await this.vpnProvider.trackExtensionInstallation(appId, version, experiments);
+            await abTestManager.setVersions(response.experiments);
+
             await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
             log.info('Installation successfully tracked');
         } catch (e) {

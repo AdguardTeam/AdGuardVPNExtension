@@ -37,6 +37,8 @@ import { popupOpenedCounter } from '../popupData/popupOpenedCounter';
 import { locationsService } from '../endpoints/locationsService';
 import { connectivityService } from '../connectivity/connectivityService';
 import { proxyApi } from '../proxy/abstractProxyApi';
+import { updateOptionsPageListeners } from '../stateStorage/helper';
+import { logStorageManager } from '../../lib/log-storage/LogStorageManager';
 
 import '../rateModal';
 import '../uninstall';
@@ -112,6 +114,10 @@ const asyncInitModules = async (): Promise<void> => {
         await auth.init();
         await locationsService.init();
         await settings.init();
+        // the updateBrowserActionItems method is called after settings.init() because it uses settings
+        await contextMenu.updateBrowserActionItems();
+        // the checkAndSwitchStorage is called after settings.init() because it uses settings
+        await logStorageManager.checkAndSwitchStorage(settings.isDebugModeEnabled());
         await exclusions.init();
         await endpointsTldExclusions.init();
         settings.applySettings(); // we have to apply settings when credentials are ready
@@ -119,6 +125,7 @@ const asyncInitModules = async (): Promise<void> => {
         await nonRoutable.init();
         browserActionIcon.init();
         popupOpenedCounter.init();
+        await updateOptionsPageListeners();
         const initDoneDate = Date.now();
         log.info(`Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
     } catch (e) {

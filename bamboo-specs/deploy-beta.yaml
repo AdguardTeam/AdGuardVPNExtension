@@ -3,10 +3,10 @@ version: 2
 deployment:
   name: vpn-extension - deploy beta
   source-plan: ADGEXT-AVBSPECS
-release-naming: ${bamboo.inject.version}-beta
+release-naming: ${bamboo.inject.version}
 environments:
   - Chrome WebStore
-  - static.adguardvpn.com
+  - static.adtidy.net
   - GitHub
 Chrome WebStore:
   triggers: []
@@ -50,7 +50,7 @@ Chrome WebStore:
             name: Deploy webhook
             url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
 
-static.adguardvpn.com:
+static.adtidy.net:
   triggers: []
   tasks:
     - clean

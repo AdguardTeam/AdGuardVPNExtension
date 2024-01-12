@@ -450,6 +450,8 @@ export class ExclusionsStore {
 
         if (selectedExclusion.type === ExclusionsType.Group) {
             return selectedExclusion.children
+                // slice() is needed to suppress the mobx warning about observableArray.sort()
+                .slice()
                 .sort((a, b) => {
                     return a.hostname === selectedExclusion.hostname
                         || (a.hostname === `*.${selectedExclusion.hostname}`
@@ -457,7 +459,7 @@ export class ExclusionsStore {
                 });
         }
 
-        return selectedExclusion.children.sort((a, b) => {
+        return selectedExclusion.children.slice().sort((a, b) => {
             return a.hostname > b.hostname ? 1 : -1;
         });
     }

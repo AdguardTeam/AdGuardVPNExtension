@@ -3,14 +3,19 @@
         position: relative;
 
         &--info {
-            max-width: 400px;
+            max-width: 430px;
+            margin-left: 16px;
         }
 
         &--link {
             color: var(--green700);
             font-weight: bold;
+            font-size: 1.6rem;
             text-decoration: underline;
             cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
 
             &:hover {
                 filter: brightness(.8);
@@ -19,24 +24,25 @@
 
         &--warning {
             color: var(--orange);
-            margin-top: 10px;
+            margin: 8px 0 0 16px;
         }
     }
 
     &__search {
-        margin: 30px 0 16px;
+        margin: 38px 0 16px;
         min-width: 470px;
-        width: calc(100% + 15px);
-        transform: translateX(-15px);
+        width: 100%;
     }
 
     &__add-website {
-        margin: 10px 0 10px 12px;
-        position: relative;
-        font-size: 17px;
+        font-size: 16px;
+        line-height: 24px;
+        padding: 8px 0;
+        margin: 16px 0 0 16px;
+        display: flex;
 
-        & .icon--button {
-            margin: 0 10px 4px 0;
+        &__label {
+            margin-left: 12px;
         }
     }
 }
@@ -140,11 +146,15 @@
         padding-right: 15px;
 
         &--dns-server {
+            width: calc(100% + 16px);
             cursor: pointer;
+            border: none;
             padding: 16px;
             margin: -12px 0 0 -16px;
+            background: none;
             transition: var(--t3) background-color;
             border-radius: 8px;
+            text-align: left;
 
             &:hover {
                 background-color: var(--grayF3);
@@ -176,11 +186,11 @@
     }
 
     &__item-desc {
-        margin: 5px 20px 0 0;
+        display: flex;
+        margin-top: 4px;
         font-size: 1.4rem;
         line-height: 1.6rem;
         color: var(--gray88);
-        max-width: 450px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -195,7 +205,7 @@
 }
 
 .modal {
-    width: 500px;
+    width: 560px;
     max-height: 535px;
     overflow-y: auto;
     background: var(--white-strong);

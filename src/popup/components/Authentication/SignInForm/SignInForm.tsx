@@ -89,13 +89,15 @@ export const SignInForm = observer(() => {
                 />
             </div>
 
-            <button
-                type="button"
-                className="button button--inline form__link form__link--recover"
-                onClick={popupActions.openRecovery}
-            >
-                {reactTranslator.getMessage('auth_recover')}
-            </button>
+            <div>
+                <button
+                    type="button"
+                    className="button button--inline form__link form__link--recover"
+                    onClick={popupActions.openRecovery}
+                >
+                    {reactTranslator.getMessage('auth_recover')}
+                </button>
+            </div>
         </form>
     );
 });

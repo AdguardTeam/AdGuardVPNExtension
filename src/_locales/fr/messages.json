@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Cette valeur est déjà utilisée"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Les mots de passe ne sont pas identiques"
-    },
     "registration_error_default": {
         "message": "Une erreur s’est produite, réessayez plus tard"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Paramètres"
     },
-    "options_menu_free_traffic": {
-        "message": "Trafic VPN gratuit"
-    },
     "referral_get_free_traffic": {
         "message": "Obtenez des Go gratuits !"
     },
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Exporter les journaux"
     },
+    "context_menu_debug_level": {
+        "message": "Journalisation du débogage"
+    },
     "settings_dns_label": {
         "message": "Serveur DNS"
     },
@@ -348,7 +345,7 @@
         "message": "Ajouter un serveur DNS de l’utilisateur"
     },
     "settings_dns_edit_custom_server": {
-        "message": "Modifier le serveur DNS personnalisé"
+        "message": "Éditer le serveur DNS personnalisé"
     },
     "settings_dns_add_custom_server_info": {
         "message": "<a>En savoir plus</a> sur les serveurs DNS"
@@ -372,7 +369,7 @@
         "message": "Serveur DNS déjà ajouté"
     },
     "settings_dns_add_custom_server_save_and_select": {
-        "message": "Sauvegarder et sélectionner"
+        "message": "Enregistrer et sélectionner"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Sauvegarder"
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Le serveur DNS personnalisé a été supprimé"
-    },
-    "settings_dns_desc": {
-        "message": "Les serveurs Domain Name System (DNS) sont les équivalents pour Internet des annuaires téléphoniques. Ils maintiennent un répertoire des noms de domaines et les traduisent en adresses IP."
     },
     "settings_dns_selector_default_title": {
         "message": "Par défaut"
@@ -396,13 +390,13 @@
         "message": "AdGuard DNS"
     },
     "settings_dns_selector_adguard_desc": {
-        "message": "Supprime les publicités et les pisteurs de votre appareil"
+        "message": "Supprime les publicités et traqueurs de votre appareil"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
         "message": "AdGuard DNS sans filtrage"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "DNS sécurisé sans journalisation des activités (ne filtre pas les annonces et les pisteurs)"
+        "message": "DNS sécurisé sans journalisation des activités (ne filtre pas les publicités et traqueurs)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS Protection familiale"
@@ -453,7 +447,7 @@
         "message": "Emplacement du VPN sélectionné lorsque vous cliquez sur Connecter"
     },
     "settings_quick_connect_last_used": {
-        "message": "Dernier emplacement utilisé"
+        "message": "Dernière localisation utilisée"
     },
     "settings_quick_connect_fastest": {
         "message": "Connexion ultra-rapide"
@@ -462,7 +456,7 @@
         "message": "Ajouter"
     },
     "settings_exclusion_add_website": {
-        "message": "Ajouter un site web"
+        "message": "Ajouter un site Web"
     },
     "settings_exclusion_actions": {
         "message": "Actions"
@@ -546,7 +540,7 @@
         "message": "Importer les exclusions"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Tou supprimer"
+        "message": "Supprimer tout"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Supprimer toutes les exclusions"
@@ -602,6 +596,15 @@
     "control_error_disable": {
         "message": "Désactiver"
     },
+    "popup_skeleton_status": {
+        "message": "Recherche d’emplacements..."
+    },
+    "popup_no_locations_title": {
+        "message": "Localisations introuvables"
+    },
+    "popup_no_locations_button": {
+        "message": "Rechercher à nouveau"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Activer"
     },
@@ -619,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Paramètres"
-    },
-    "popup_settings_sign_out": {
-        "message": "Déconnexion"
     },
     "context_menu_enable_vpn": {
         "message": "Activer le VPN sur ce site"
@@ -740,6 +740,15 @@
     "popup_server_error_popup_close": {
         "message": "Fermer"
     },
+    "popup_host_permission_error_title": {
+        "message": "Autorisez l'accès aux sites web"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Pour utiliser AdGuard VPN, autorisez-le à accéder à vos données sur les sites web. Nous ne stockons pas ces données et ne les partageons avec personne. <privacy>Politique de confidentialité</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Autoriser"
+    },
     "options_title": {
         "message": "Options AdGuard VPN"
     },
@@ -817,7 +826,7 @@
         "message": "6 continents et des dizaines de pays. Choisissez une ville et surfez sur le Net en toute sécurité !"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Jusqu'à 5 appareils"
+        "message": "Jusqu'à %potential_num% appareils"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Connectez tous vos dispositifs à AdGuard VPN en même temps — ou protégez toute la famille !"
@@ -828,15 +837,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Continuer gratuitement"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> restant ce mois-ci",
+    "popup_free_traffic_info_left": {
+        "message": "Il reste %value% %unit%",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Le trafic se renouvelle aujourd'hui | Le trafic se renouvelle dans %days% jour | Le trafic se renouvelle dans %days% jours",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "Par ailleurs, vous pouvez désactiver le VPN pour ce site si vous le souhaitez"
     },
     "popup_hint_popup_button": {
         "message": "OK"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Pas de connexion?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "La version de bureau est plus stable"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Si vous rencontrez des problèmes de connexion, nous vous recommandons de passer à la version de bureau : elle fonctionne plus facilement"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Télécharger"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Plus tard"
     },
     "options_exclusions_import_select_title": {
         "message": "Comment utiliser cette liste d'exclusions ?"
@@ -852,18 +880,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Annuler"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Supprimer"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Supprimer les exclusions"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Toutes les exclusions du Mode régulier seront supprimées."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Toutes les exclusions du Mode sélectif seront supprimées."
     },
     "options_exclusions_import_successful": {
         "message": "Exclusions importées : %count%"

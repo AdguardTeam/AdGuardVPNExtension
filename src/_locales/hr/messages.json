@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Ova vrijednost se već koristi"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Lozinke se ne podudaraju"
-    },
     "registration_error_default": {
         "message": "Došlo je do pogreške, pokušajte kasnije"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Postavke"
     },
-    "options_menu_free_traffic": {
-        "message": "Besplatan VPN promet"
-    },
     "referral_get_free_traffic": {
         "message": "Dobijte besplatne GB!"
     },
@@ -335,11 +329,14 @@
     "context_menu_export_logs": {
         "message": "Izvoz zapisa"
     },
+    "context_menu_debug_level": {
+        "message": "Zapisivanje pogrešaka"
+    },
     "settings_dns_label": {
         "message": "DNS poslužitelj"
     },
     "settings_dns_popular_servers": {
-        "message": "Popularni DNS poslužitelji"
+        "message": "Popularni DNS serveri"
     },
     "settings_dns_custom_servers": {
         "message": "Prilagođeni DNS poslužitelji"
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Prilagođeni DNS poslužitelj je uklonjen"
-    },
-    "settings_dns_desc": {
-        "message": "Domain Name Server (DNS) poslužitelji su internetski ekvivalent telefonskom imeniku. Oni održavaju direktorij naziva domena i prevode ih u Internet Protocol (IP) adrese."
     },
     "settings_dns_selector_default_title": {
         "message": "Zadano"
@@ -445,6 +439,18 @@
     },
     "settings_theme_light": {
         "message": "Svijetla"
+    },
+    "settings_quick_connect_title": {
+        "message": "Brzo povezivanje"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Lokacija VPN-a odabrana kada kliknete Poveži"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Zadnja korištena lokacija"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Najbrža lokacija"
     },
     "settings_exclusion_add": {
         "message": "Dodaj web stranicu"
@@ -581,14 +587,32 @@
     "authentication_successful_notification": {
         "message": "Uspješno provjerena autentičnost! Možete otvoriti AdGuard VPN i početi ga koristiti."
     },
+    "control_error_title": {
+        "message": "Sukob proširenja"
+    },
     "control_error_description": {
         "message": "Izgleda da još jedno proširenje Chromea pokušava kontrolirati vašu vezu. Onemogućite drugo proširenje u vašem pregledniku."
     },
     "control_error_disable": {
         "message": "Onemogući"
     },
+    "popup_skeleton_status": {
+        "message": "Traženje lokacija..."
+    },
+    "popup_no_locations_title": {
+        "message": "Lokacija nije pronađena"
+    },
+    "popup_no_locations_button": {
+        "message": "Ponovno pretraži"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Omogući"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Onemogući VPN na ovoj stranici"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Omogući VPN za ovo web mjesto"
     },
     "popup_settings_other_products": {
         "message": "Ostali proizvodi"
@@ -598,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Postavke"
-    },
-    "popup_settings_sign_out": {
-        "message": "Odjava"
     },
     "context_menu_enable_vpn": {
         "message": "Omogući VPN na ovoj stranici"
@@ -625,6 +646,9 @@
     },
     "endpoints_search": {
         "message": "Pretraži lokaciju"
+    },
+    "endpoints_not_found": {
+        "message": "Lokacija nije pronađena"
     },
     "popup_traffic_limit_reached": {
         "message": "Mjesečno ograničenje podatka je dosegnuto. Trebate li više?"
@@ -665,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Ostavite povratnu informaciju"
     },
+    "popup_compare_button": {
+        "message": "Zašto je aplikacija bolja"
+    },
     "popup_rate_modal_title": {
         "message": "Kako je divan AdGuard VPN?"
     },
@@ -672,7 +699,7 @@
         "message": "Molimo, ocijenite nas"
     },
     "popup_rate_modal_send_button": {
-        "message": "Pošalji"
+        "message": "Poslati"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Poništi"
@@ -695,6 +722,9 @@
     "popup_server_error_popup_title": {
         "message": "Povezivanje s poslužiteljem nije moguće"
     },
+    "popup_server_error_popup_info": {
+        "message": "Najvjerojatnije je VPN bio blokiran u vašoj zemlji ili je došlo do tehničke greške. Već ga pokušavamo popraviti"
+    },
     "popup_server_error_popup_action": {
         "message": "Potaknite AdGuard tim"
     },
@@ -709,6 +739,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Zatvori"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Dopusti"
     },
     "options_title": {
         "message": "AdGuard VPN opcije"
@@ -786,9 +819,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinenata i puno država. Izaberite jednu državu i surfajte internetom!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Do 5 uređaja"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Spojite sve vaše gadgete na AdGuard VPN istovremeno — ili zaštitite cijelu obitelj!"
     },
@@ -797,6 +827,35 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Nastavite besplatno"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% preostalo",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Promet se obnavlja danas | Promet se obnavlja za %days% dan | Promet se obnavlja za %days% dana | Promet se obnavlja za %days% dana",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "Usput, možete onemogućiti VPN za ovu stranicu ako želite"
+    },
+    "popup_hint_popup_button": {
+        "message": "U redu"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Ne možete se povezati?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Aplikacija radi stabilnije"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Ako imate problema s vezom, preporučujemo da se prebacite na desktop verziju — radi lakše"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Preuzmite aplikaciju"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Kasnije"
     },
     "options_exclusions_import_select_title": {
         "message": "Kako koristiti ovaj popis iznimaka?"
@@ -812,18 +871,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Poništi"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Ukloni"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Uklanjanje iznimki"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Sve iznimke iz redovnog načina rada bit će izbrisane."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Sve iznimke iz selektivnog načina rada bit će izbrisane."
     },
     "options_exclusions_import_successful": {
         "message": "Uvezene iznimke: %count%"

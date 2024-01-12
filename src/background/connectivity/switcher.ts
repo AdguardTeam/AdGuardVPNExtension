@@ -3,6 +3,7 @@ import { log } from '../../lib/logger';
 import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
 import { FORCE_CANCELLED } from '../../lib/constants';
 import { vpnApi } from '../api';
+import { updateService } from '../updateService';
 
 // eslint-disable-next-line import/no-cycle
 import { credentials } from '../credentials';
@@ -33,7 +34,15 @@ import type { VpnConnectionStatus } from '../api/vpnApi';
 function* turnOnProxy(forcePrevEndpoint = false) {
     const entryTime = Date.now();
     try {
-        const desktopVpnConnection: VpnConnectionStatus = yield vpnApi.getDesktopVpnConnectionStatus();
+        let desktopVpnConnection: VpnConnectionStatus | null = null;
+
+        // it may happen that new api domain (which is used
+        // for sending 'v1/vpn_connected' request in vpnApi.getDesktopVpnConnectionStatus())
+        // is not included into proxy's `defaultExclusions` yet and it causes a false-positive vpn desktop connection.
+        // so there is no need to check vpn desktop connection status for extension update. AG-27831
+        if (!updateService.isUpdate) {
+            desktopVpnConnection = yield vpnApi.getDesktopVpnConnectionStatus();
+        }
 
         if (desktopVpnConnection?.connected) {
             connectivityService.setDesktopVpnEnabled(true);

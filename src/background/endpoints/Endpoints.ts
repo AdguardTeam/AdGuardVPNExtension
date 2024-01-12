@@ -21,13 +21,14 @@ import { connectivityService } from '../connectivity/connectivityService';
 import type {
     EndpointInterface,
     VpnTokenData,
-    VpnExtensionInfoInterface,
     CredentialsDataInterface,
 } from '../schema';
+import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../lib/constants';
 import { EndpointsState, LocationInterface, StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
+import { Location } from './Location';
 
 /**
  * Endpoint properties
@@ -147,7 +148,7 @@ class Endpoints implements EndpointsInterface {
     /**
      * Gets endpoints remotely and updates them if there were no errors
      */
-    getLocationsFromServer = async (): Promise<LocationInterface[] | null> => {
+    getLocationsFromServer = async (): Promise<Location[] | null> => {
         let vpnToken;
 
         try {
@@ -386,7 +387,7 @@ class Endpoints implements EndpointsInterface {
 
     getSelectedLocation = async (): Promise<LocationWithPing | null> => {
         const selectedLocation = await locationsService.getSelectedLocation();
-        const isVPNDisabled = connectivityService.isVPNDisconnectedIdle();
+        const isVPNDisabled = connectivityService.isVPNDisconnectedIdle() || connectivityService.isVPNIdle();
         const doesUserPreferFastestLocation = settings.getQuickConnectSetting() === QuickConnectSetting.FastestLocation;
 
         // If there is no selected location or user prefers the fastest location and vpn is disabled

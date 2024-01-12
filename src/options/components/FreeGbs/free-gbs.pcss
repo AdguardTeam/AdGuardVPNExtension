@@ -2,6 +2,7 @@
     &__item {
         display: flex;
         padding: 16px;
+        margin-left: 16px;
         border-radius: 8px;
         width: calc(100% + 32px);
         transform: translateX(-16px);
@@ -9,6 +10,10 @@
         cursor: pointer;
         transition: var(--t3) background-color;
         text-decoration: none;
+        background: none;
+        border: none;
+        font-weight: 500;
+        text-align: left;
 
         &:hover {
             background-color: var(--grayF3);
@@ -23,20 +28,26 @@
 
         &--status {
             font-size: 14px;
-            line-height: 25px;
+            line-height: 18px;
             color: var(--gray88);
         }
 
         &--check-mark {
             position: relative;
             top: -10px;
-            margin-right: 17px;
+            margin-right: 16px;
         }
 
         &--arrow {
             position: absolute;
             right: 20px;
             top: 15px;
+        }
+    }
+
+    &__content {
+        & .content__title {
+            margin: 0 0 8px 0;
         }
     }
 

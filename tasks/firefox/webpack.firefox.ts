@@ -22,6 +22,8 @@ let zipFilename = 'firefox.zip';
 
 const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
+const CUSTOM_PROTOCOL_HANDLER_PATH = path.resolve(__dirname, '..', SRC_PATH, 'custom-protocol-handler');
+
 if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'firefox-prod.zip';
 }
@@ -39,14 +41,18 @@ const plugins: webpack.WebpackPluginInstance[] = [
         process: 'process/browser',
         Buffer: ['buffer', 'Buffer'],
     }),
-    // TODO: on move to MV3 inject Mv3Timers
+    new webpack.NormalModuleReplacementPlugin(/\.\/init\/initAbstract/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request
+            .replace(/\.\/init\/initAbstract/, './init/initMV3');
+    })),
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
     })),
     new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv2');
+        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv3');
     })),
     new CopyWebpackPlugin({
         patterns: [
@@ -61,6 +67,12 @@ const plugins: webpack.WebpackPluginInstance[] = [
         template: path.join(BACKGROUND_PATH, 'index.html'),
         filename: 'background.html',
         chunks: ['background'],
+        cache: false,
+    }),
+    new HtmlWebpackPlugin({
+        template: path.join(CUSTOM_PROTOCOL_HANDLER_PATH, 'index.html'),
+        filename: 'custom-protocol-handler.html',
+        chunks: ['custom-protocol-handler'],
         cache: false,
     }),
     new ZipWebpackPlugin({

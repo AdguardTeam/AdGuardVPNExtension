@@ -1,6 +1,6 @@
 import throttle from 'lodash/throttle';
-import isEmpty from 'lodash/isEmpty';
 
+import { Permissions } from '../../lib/permissions';
 import { log } from '../../lib/logger';
 import { connectivityService } from '../connectivity/connectivityService';
 import { PromoNotificationData, promoNotifications } from '../promoNotifications';
@@ -13,19 +13,21 @@ import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
 import { exclusions } from '../exclusions';
 import { rateModal } from '../rateModal';
-import { credentials } from '../credentials';
 import { EndpointsInterface } from '../endpoints/Endpoints';
 import { PermissionsCheckerInterface } from '../permissionsChecker/PermissionsChecker';
 import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { NonRoutableServiceInterface } from '../routability/NonRoutableService';
-import type { VpnExtensionInfoInterface, ConnectivityStateType } from '../schema';
+import type { ConnectivityStateType } from '../schema';
+import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
+import { isLocationsNumberAcceptable } from '../../common/is-locations-number-acceptable';
 import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../schema';
 import { hintPopup } from '../hintPopup';
 import { popupOpenedCounter } from './popupOpenedCounter';
 import { emailService } from '../emailService/emailSevice';
+import { abTestManager } from '../abTestManager';
 
 interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;
@@ -45,6 +47,7 @@ interface PopupDataInterface {
     selectedLocation?: LocationWithPing | null;
     isAuthenticated: string | boolean;
     policyAgreement: boolean;
+    showScreenshotFlow: boolean;
     canControlProxy?: CanControlProxy;
     isProxyEnabled?: boolean;
     isRoutable?: boolean;
@@ -63,6 +66,12 @@ interface PopupDataInterface {
     username?: string | null;
     shouldShowHintPopup?: boolean;
     resendLinkCountDown?: number;
+    isHostPermissionsGranted: boolean;
+
+    /**
+     * Flag that shows that all locations are not available. AG-25941.
+     */
+    isVpnBlocked?: boolean;
 }
 
 interface PopupDataRetry extends PopupDataInterface {
@@ -106,11 +115,15 @@ export class PopupData {
     getPopupData = async (url: string): Promise<PopupDataInterface> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
+        const showScreenshotFlow = await abTestManager.isShowScreenshotFlow();
+        const isHostPermissionsGranted = await Permissions.hasNeededHostPermissions();
 
         if (!isAuthenticated) {
             return {
                 isAuthenticated,
                 policyAgreement,
+                showScreenshotFlow,
+                isHostPermissionsGranted,
             };
         }
 
@@ -134,7 +147,7 @@ export class PopupData {
         const flagsStorageData = await flagsStorage.getFlagsStorageData();
         const isVpnEnabledByUrl = exclusions.isVpnEnabledByUrl(url);
         const shouldShowRateModal = await rateModal.shouldShowRateModal();
-        const username = await credentials.getUsername();
+        const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
 
         // if got flag to request email confirmation,
@@ -154,6 +167,8 @@ export class PopupData {
             message: error.message,
             status: error.status,
         } : null;
+
+        const isVpnBlocked = isLocationsNumberAcceptable(locations);
 
         return {
             // Firefox can't message to the popup error instance,
@@ -177,7 +192,11 @@ export class PopupData {
             shouldShowRateModal,
             username,
             shouldShowHintPopup,
+            // FIXME: type
             resendLinkCountDown,
+            showScreenshotFlow,
+            isVpnBlocked,
+            isHostPermissionsGranted,
         };
     };
 
@@ -210,8 +229,10 @@ export class PopupData {
 
         let hasRequiredData = true;
 
-        // check for required data
-        if (!data?.vpnInfo || isEmpty(data?.locations) || !data?.selectedLocation) {
+        // check for required data.
+        // NOTE: empty locations array case is handled separately due to AG-28164
+        if (!data?.vpnInfo
+            || !data?.selectedLocation) {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
                 if (data?.isProxyEnabled) {

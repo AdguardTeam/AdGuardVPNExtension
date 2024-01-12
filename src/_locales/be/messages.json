@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Гэта значэнне ўжо выкарыстоўваецца"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Паролі не супадаюць"
-    },
     "registration_error_default": {
         "message": "Адбылася памылка, паспрабуйце пазней"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Налады"
     },
-    "options_menu_free_traffic": {
-        "message": "Бясплатны трафік VPN"
-    },
     "referral_get_free_traffic": {
         "message": "Атрымаць дармовы трафік!"
     },
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Экспартаваць логі"
     },
+    "context_menu_debug_level": {
+        "message": "Падрабязнае лагаванне"
+    },
     "settings_dns_label": {
         "message": "Абраны DNS-сервер"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Карыстальніцкі сервер DNS выдалены"
-    },
-    "settings_dns_desc": {
-        "message": "DNS-сервера (Domain Name Servers) - гэта адрасная кніга Інтэрнэту. Яны ўтрымваюць усе назвы даменаў, і ўмеюць іх трансляваць іх у рэальныя IP-адрасы."
     },
     "settings_dns_selector_default_title": {
         "message": "Прадвызначаны"
@@ -495,7 +489,7 @@
         "message": "\"%url%\" не з'яўляецца сапраўдным даменам. Вы хочаце дадаць яго ў спіс?"
     },
     "settings_exclusion_modal_cancel": {
-        "message": "Скасаванне"
+        "message": "Скасаваць"
     },
     "settings_exclusion_modal_remove": {
         "message": "Выдаліць"
@@ -587,6 +581,15 @@
     "control_error_disable": {
         "message": "Адключыць"
     },
+    "popup_skeleton_status": {
+        "message": "Пошук месцаў..."
+    },
+    "popup_no_locations_title": {
+        "message": "Сервер не знойдзены"
+    },
+    "popup_no_locations_button": {
+        "message": "Шукайце зноў"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Уключыць"
     },
@@ -598,9 +601,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Налады"
-    },
-    "popup_settings_sign_out": {
-        "message": "Выйсці"
     },
     "context_menu_enable_vpn": {
         "message": "Уключыць VPN на гэтым сайце"
@@ -625,6 +625,9 @@
     },
     "endpoints_search": {
         "message": "Пошук месціва"
+    },
+    "endpoints_not_found": {
+        "message": "Сервер не знойдзены"
     },
     "popup_traffic_limit_reached": {
         "message": "Дасягнуты месячны ліміт дадзеных"
@@ -675,7 +678,7 @@
         "message": "Адправіць"
     },
     "popup_rate_modal_cancel_button": {
-        "message": "Скасаванне"
+        "message": "Скасаваць"
     },
     "popup_confirm_rate_modal_feedback_title": {
         "message": "Дапамажыце нам стаць лепш"
@@ -698,8 +701,11 @@
     "popup_server_error_popup_info": {
         "message": "Хутчэй за ўсё, VPN быў заблакаваны ў вашай краіне або адбыўся тэхнічны збой. Мы ўжо спрабуем гэта выправіць"
     },
+    "popup_server_error_popup_action": {
+        "message": "Падштурхніце каманду AdGuard"
+    },
     "popup_server_error_popup_cancel": {
-        "message": "Скасаванне"
+        "message": "Скасаваць"
     },
     "popup_server_error_popup_thankyou_title": {
         "message": "Працуем над гэтым"
@@ -709,6 +715,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Закрыць"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Дазволіць"
     },
     "options_title": {
         "message": "Налады AdGuard VPN"
@@ -786,9 +795,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 кантынентаў і дзясяткі краін. Абярыце горад і карыстайцеся інтэрнэтам бяспечна!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Да 5 прылад"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Падключыце ўсе свае гаджэты да AdGuard VPN адначасова — або абароніце ўсю сям'ю!"
     },
@@ -800,6 +806,21 @@
     },
     "popup_hint_popup_button": {
         "message": "Зразумела"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Немагчыма падключыцца?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Дадатак працуе стабільней"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Калі ў вас праблемы з падлучэннем, раім перайсці на дэсктопную версію: яна стабільней"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Спампаваць дадатак"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Пазней"
     },
     "options_exclusions_import_select_title": {
         "message": "Як выкарыстоўваць гэты спіс выключэнняў?"
@@ -815,18 +836,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Скасаваць"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Выдаліць"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Выдаліць выняткі"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Усе выняткі са Звычайнага рэжыму будуць выдалены."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Усе выняткі з Выбарковага рэжыму будуць выдалены."
     },
     "options_exclusions_import_successful": {
         "message": "Імпартаваныя выняткі: %count%"

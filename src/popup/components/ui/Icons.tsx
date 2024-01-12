@@ -28,7 +28,7 @@ export const Icons = () => (
             </g>
         </symbol>
 
-        <symbol id="bar" viewBox="0 0 520 520" width="20">
+        <symbol id="bar" viewBox="0 0 520 520" width="20" height="20">
             <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zM492 76H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zM492 396H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z" data-original="#000000" data-old_color="#000000" fill="currentColor" />
         </symbol>
 
@@ -114,10 +114,13 @@ export const Icons = () => (
             <path d="M6.42857 17.5714L17.6043 6.39563" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
 
-        <svg id="cross_gray" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M6.42857 6.79596L17.6043 18.6103" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="M6.42871 18.5755L17.6045 6.76111" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
+        <symbol id="cross-gray" width="24" height="24">
+            <path stroke="#888" d="M6.429 6.796 17.604 18.61M6.429 18.576 17.605 6.76" />
+        </symbol>
+
+        <symbol id="cross-white" width="24" height="24">
+            <path stroke="#f3f3f3" strokeLinecap="round" strokeWidth="1.5" d="m6.429 6.429 11.175 11.175M6.429 17.571 17.605 6.396" />
+        </symbol>
 
         <symbol id="checked" viewBox="0 0 24 24" fill="#74a352">
             <path d="m22 2v20h-20v-20zm-4.5114987 6.43090736c-.3143011-.26979185-.7878021-.23370989-1.0575939.08059129l-5.4763417 6.37980985-3.41905258-3.4868822c-.29000246-.2957557-.76485329-.3004196-1.06060902-.0104172-.29575573.2900025-.30041967.7648533-.01041722 1.060609l4.56353872 4.6540734 6.541067-7.62019015c.2697919-.31430119.2337099-.78780215-.0805913-1.05759399z" />
@@ -136,5 +139,12 @@ export const Icons = () => (
             <path d="M4 6L10.2 10.65C11.2667 11.45 12.7333 11.45 13.8 10.65L20 6" stroke="#74A352" strokeWidth="1.5" />
             <circle cx="19.5" cy="5.5" r="2.5" fill="#D7283A" />
         </svg>
+
+        <svg id="warning" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle id="Oval" cx="9" cy="9" r="9" transform="matrix(1 0 0 -1 3 21)" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path id="Line" d="M12 8V14" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path id="Path 14 Copy" d="M11.997 16.4045C12.009 16.4025 11.997 16.5955 11.997 16.5955" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
     </svg>
 );

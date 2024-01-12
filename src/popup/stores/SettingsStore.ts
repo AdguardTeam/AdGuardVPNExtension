@@ -20,6 +20,7 @@ import { getHostname, getProtocol } from '../../common/url-utils';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { PromoNotificationData } from '../../background/promoNotifications';
 import type { RootStore } from './RootStore';
+import { Prefs } from '../../common/prefs';
 import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
 
 type StateType = {
@@ -59,11 +60,17 @@ export class SettingsStore {
 
     @observable darkThemeMediaQuery: MediaQueryList;
 
-    @observable systemTheme: AppearanceTheme;
+    @observable systemTheme: AppearanceTheme = this.getSystemTheme();
 
     @observable animationState: AnimationState = <AnimationState>animationService.initialState.value;
 
     @observable showServerErrorPopup: boolean = false;
+
+    @observable isVpnBlocked: boolean = false;
+
+    @observable isHostPermissionsGranted: boolean = false;
+
+    @observable hasDesktopAppForOs: boolean = false;
 
     rootStore: RootStore;
 
@@ -219,11 +226,8 @@ export class SettingsStore {
         let maxDownloadedBytes = 0;
         let usedDownloadedBytes = 0;
 
-        if (vpnStore.vpnInfo.maxDownloadedBytes) {
+        if (vpnStore.vpnInfo?.maxDownloadedBytes && vpnStore.vpnInfo?.usedDownloadedBytes) {
             maxDownloadedBytes = vpnStore.vpnInfo.maxDownloadedBytes;
-        }
-
-        if (vpnStore.vpnInfo.usedDownloadedBytes) {
             usedDownloadedBytes = vpnStore.vpnInfo.usedDownloadedBytes;
         }
 
@@ -339,6 +343,12 @@ export class SettingsStore {
             : AppearanceTheme.Light;
     };
 
+    getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? AppearanceTheme.Dark
+            : AppearanceTheme.Light;
+    }
+
     @action trackSystemTheme = (): void => {
         this.updateDarkThemeMediaQuery();
         this.updateSystemTheme();
@@ -383,4 +393,43 @@ export class SettingsStore {
     @action closeServerErrorPopup = (): void => {
         this.showServerErrorPopup = false;
     };
+
+    @computed
+    get showNotificationModal() {
+        if (!this.promoNotification) {
+            return false;
+        }
+
+        const { url, text } = this.promoNotification;
+
+        if (!url || !text) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @action setIsVpnBlocked = (value: boolean): void => {
+        this.isVpnBlocked = value;
+    };
+
+    @action closeVpnBlockedWarning = (): void => {
+        this.isVpnBlocked = false;
+    };
+
+    @action setHostPermissionsError = (value: boolean): void => {
+        this.isHostPermissionsGranted = value;
+    };
+
+    /**
+     * Checks whether the desktop AdGuard VPN apps are supported for the current OS.
+     * Sets the result to {@link hasDesktopAppForOs}.
+     */
+    @action async setHasDesktopAppForOs(): Promise<void> {
+        const isWindows = await Prefs.isWindows();
+        const isMacOS = await Prefs.isMacOS();
+        runInAction(() => {
+            this.hasDesktopAppForOs = isWindows || isMacOS;
+        });
+    }
 }

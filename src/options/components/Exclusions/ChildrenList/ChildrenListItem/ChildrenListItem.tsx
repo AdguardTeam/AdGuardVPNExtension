@@ -56,7 +56,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
     const wildcardExclusion = `*.${selectedExclusion?.hostname}`;
 
     const exclusionClassNames = (hostname: string) => classnames('children-list-item', {
-        'service-exclusion': selectedExclusion?.type === ExclusionsType.Service,
+        'children-list-item__domains-details': selectedExclusion?.type === ExclusionsType.Group,
         useless: hostname !== selectedExclusion?.hostname
             && !hostname.startsWith(wildcardExclusion)
             && selectedExclusion?.children.some((exclusion) => {
@@ -67,15 +67,16 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
 
     const renderServiceExclusionItem = () => {
         return (
-            <div
+            <button
+                type="button"
                 className="children-list-item__service-hostname"
                 onClick={showGroupSettings(exclusion.id)}
             >
                 {exclusion.hostname}
                 <svg className="icon children-list-item__arrow">
-                    <use xlinkHref="#arrow" />
+                    <use xlinkHref="#small-arrow" />
                 </svg>
-            </div>
+            </button>
         );
     };
 

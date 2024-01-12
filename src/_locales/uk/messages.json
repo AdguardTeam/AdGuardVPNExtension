@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Це значення вже використовується"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Паролі не збігаються"
-    },
     "registration_error_default": {
         "message": "Сталася помилка, спробуйте пізніше"
     },
@@ -165,7 +162,7 @@
         "message": "Підтвердити"
     },
     "auth_email": {
-        "message": "Електронна адреса"
+        "message": "Адреса електронної пошти"
     },
     "auth_password": {
         "message": "Пароль"
@@ -235,9 +232,6 @@
     },
     "settings_title": {
         "message": "Налаштування"
-    },
-    "options_menu_free_traffic": {
-        "message": "Безплатний VPN-трафік"
     },
     "referral_get_free_traffic": {
         "message": "Отримайте безплатний VPN-трафік!"
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Експортувати журнали"
     },
+    "context_menu_debug_level": {
+        "message": "Детальне журналювання"
+    },
     "settings_dns_label": {
         "message": "DNS-сервер"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Власний DNS-сервер видалено"
-    },
-    "settings_dns_desc": {
-        "message": "Система доменних імен (DNS) — це адресна книга інтернету. Вона містить каталог доменних імен та перетворює їх у реальні IP-адреси."
     },
     "settings_dns_selector_default_title": {
         "message": "Усталений"
@@ -602,6 +596,15 @@
     "control_error_disable": {
         "message": "Вимкнути"
     },
+    "popup_skeleton_status": {
+        "message": "Пошук місцезнаходжень..."
+    },
+    "popup_no_locations_title": {
+        "message": "Місцезнаходження не знайдено"
+    },
+    "popup_no_locations_button": {
+        "message": "Шукати знову"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Увімкнути"
     },
@@ -619,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Налаштування"
-    },
-    "popup_settings_sign_out": {
-        "message": "Вийти"
     },
     "context_menu_enable_vpn": {
         "message": "Увімкнути VPN на цьому сайті"
@@ -740,6 +740,15 @@
     "popup_server_error_popup_close": {
         "message": "Закрити"
     },
+    "popup_host_permission_error_title": {
+        "message": "Надайте доступ до вебсайтів"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Щоб використовувати AdGuard VPN, надайте йому доступ до всіх вебсайтів. Ми не зберігаємо ці дані та не передаємо їх нікому. <privacy>Політика конфіденційності</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Дозволити"
+    },
     "options_title": {
         "message": "AdGuard VPN Параметри"
     },
@@ -817,7 +826,7 @@
         "message": "6 континентів та десятки країн. Вибирайте місто та безпечно користуйтесь інтернетом!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "До п'яти пристроїв"
+        "message": "До %potential_num% пристроїв"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Під'єднайте усі свої пристрої до AdGuard VPN одночасно — захистіть всю родину!"
@@ -828,18 +837,37 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Продовжити безплатно"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> залишилось цього місяця",
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% залишилося",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_days_left": {
+        "message": "Трафік поновлюється сьогодні | Трафік поновиться через %days% день | Трафік поновиться через %days% дні | Трафік поновиться через %days% днів",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
-        "message": "До речі, за бажанням ви можете відключити VPN для цього сайту"
+        "message": "До речі, ви можете вимкнути VPN для цього сайту"
     },
     "popup_hint_popup_button": {
         "message": "Зрозуміло"
     },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Немає з'єднання?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Програма працює стабільніше"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Якщо у вас виникають проблеми з під'єднанням, рекомендуємо перейти на десктопну версію — вона працює стабільніше"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Отримати десктопну версію"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Пізніше"
+    },
     "options_exclusions_import_select_title": {
-        "message": "Як використовувати цей список виключень?"
+        "message": "Як використовувати цей список винятків?"
     },
     "options_exclusions_import_select_subtitle": {
         "message": "Вебсайти з імпортованого списку буде додано до наявних винятків"
@@ -852,18 +880,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Скасувати"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Видалити"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Видалення винятків"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Усі винятки для Звичайного режиму буде видалено."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Усі винятки для Вибіркового режиму буде видалено."
     },
     "options_exclusions_import_successful": {
         "message": "Імпортовано винятків: %count%"

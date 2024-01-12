@@ -6,11 +6,12 @@ import { log } from '../../lib/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
 import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
 import type {
-    VpnExtensionInfoInterface,
     ServicesInterface,
     CredentialsDataInterface,
     LocationInterface,
 } from '../schema';
+import { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
+import { TrackInstallResponse, trackInstallResponseSchema } from '../schema/credentials/trackInstallResponse';
 
 const DEFAULT_LOCALE = 'en';
 
@@ -53,8 +54,9 @@ export interface VpnProviderInterface {
     getVpnCredentials(
         appId: string,
         vpnToken: string,
+        version: string,
     ): Promise<CredentialsDataInterface>;
-    postExtensionInstalled(appId: string): Promise<{ social_providers: string[] }>;
+    trackExtensionInstallation(appId: string, version: string, experiments: string): Promise<TrackInstallResponse>;
     getVpnExtensionInfo(
         appId: string,
         vpnToken: string,
@@ -239,10 +241,11 @@ const getVpnExtensionInfo = async (
 const getVpnCredentials = async (
     appId: string,
     vpnToken: string,
+    version: string,
 ): Promise<CredentialsDataInterface> => {
     let responseData;
     try {
-        responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
+        responseData = await vpnApi.getVpnCredentials(appId, vpnToken, version);
     } catch (e) {
         if (e.status === 400) {
             let errorMessageData;
@@ -281,8 +284,26 @@ const getVpnCredentials = async (
     };
 };
 
-const postExtensionInstalled = async (appId: string): Promise<{ social_providers: string[] }> => {
-    return vpnApi.postExtensionInstalled(appId);
+/**
+ * Tracks vpn extensions install
+ * @param appId
+ * @param version
+ * @param experiments
+ */
+const trackExtensionInstallation = async (
+    appId: string,
+    version: string,
+    experiments: string,
+): Promise<TrackInstallResponse> => {
+    const rawResponse = await vpnApi.trackExtensionInstallation(appId, version, experiments);
+    let response;
+    try {
+        response = trackInstallResponseSchema.parse(rawResponse);
+    } catch (e) {
+        log.error('Error while parsing track install response', e);
+        response = {};
+    }
+    return response;
 };
 
 const prepareLogs = async (appLogs: string): Promise<Blob> => {
@@ -358,7 +379,7 @@ export const vpnProvider: VpnProviderInterface = {
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,
-    postExtensionInstalled,
+    trackExtensionInstallation,
     getLocationsData,
     requestSupport,
     getExclusionsServices,

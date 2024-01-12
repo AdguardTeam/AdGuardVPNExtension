@@ -50,7 +50,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
     };
 
     return (
-        <>
+        <div className="free-gbs__content">
             <button
                 className="free-gbs__back-button"
                 type="button"
@@ -62,6 +62,6 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
             </button>
             <div className="free-gbs__picture free-gbs__confirm-email-pic" />
             {getContent()}
-        </>
+        </div>
     );
 });

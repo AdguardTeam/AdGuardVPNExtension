@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "此數值已被使用"
     },
-    "registration_error_front_unique_validation": {
-        "message": "密碼不相符"
-    },
     "registration_error_default": {
         "message": "錯誤已發生，稍後再試"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "設定"
     },
-    "options_menu_free_traffic": {
-        "message": "免費 VPN 流量"
-    },
     "referral_get_free_traffic": {
         "message": "取得免費的流量！"
     },
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "匯出記錄"
     },
+    "context_menu_debug_level": {
+        "message": "偵錯記錄"
+    },
     "settings_dns_label": {
         "message": "DNS 伺服器"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "自訂 DNS 伺服器已刪除"
-    },
-    "settings_dns_desc": {
-        "message": "網域名稱系統（DNS）是電話簿的網際網路相等物。它維護一個域名目錄並轉化它們為網際網路協定（IP）位址。"
     },
     "settings_dns_selector_default_title": {
         "message": "預設"
@@ -602,6 +596,15 @@
     "control_error_disable": {
         "message": "禁用它"
     },
+    "popup_skeleton_status": {
+        "message": "正在搜尋位置…"
+    },
+    "popup_no_locations_title": {
+        "message": "找不到位置"
+    },
+    "popup_no_locations_button": {
+        "message": "重新搜尋"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "對此網站啟用"
     },
@@ -619,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "設定"
-    },
-    "popup_settings_sign_out": {
-        "message": "登出"
     },
     "context_menu_enable_vpn": {
         "message": "對此網站啟用 VPN"
@@ -726,7 +726,7 @@
         "message": "VPN 在您所在的地區很可能受限，或者發生了技術性故障。我們已經在嘗試修復錯誤。"
     },
     "popup_server_error_popup_action": {
-        "message": "催 AdGuard 團隊解決問題"
+        "message": "催 AdGuard 團隊"
     },
     "popup_server_error_popup_cancel": {
         "message": "取消"
@@ -739,6 +739,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "關閉"
+    },
+    "popup_host_permission_error_title": {
+        "message": "允許網站存取權限"
+    },
+    "popup_host_permission_error_info": {
+        "message": "為了順利使用 AdGuard VPN，您需要授予它存取您在各網站上的資料權限。請放心，我們不會保存或與任何第三方分享您的資料。請參閱<privacy>隱私政策</privacy>以了解更多。"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "允許"
     },
     "options_title": {
         "message": "AdGuard VPN 選項"
@@ -753,7 +762,7 @@
         "message": "對此網站，VPN 被禁用"
     },
     "popup_auth_policy_agreement": {
-        "message": "我已閱讀並同意 AdGuard 的<eula>終端用戶授權協定</eula>及<privacy>隱私政策</privacy>",
+        "message": "我已閱讀並同意 AdGuard 的<eula>終端使用者授權合約</eula>及<privacy>隱私政策</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
@@ -817,10 +826,10 @@
         "message": "六大洲及許多國家。選擇一座城市並安全地瀏覽網路！"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "高達 5 台裝置"
+        "message": "高達 %potential_num% 台裝置"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "將自己的所有裝置同時連線到 AdGuard VPN，或者保護全家的隱私安全！"
+        "message": "將所有裝置同時連線到 AdGuard VPN，或者保護家庭的網路安全！"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "升級"
@@ -828,15 +837,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "以免費繼續"
     },
-    "popup_free_traffic_info": {
-        "message": "本月剩餘 <span>%value% %unit%</span>",
+    "popup_free_traffic_info_left": {
+        "message": "剩餘數據流量：%value%%unit%",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "流量今日更新 | 流量在 %days% 天後更新",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "如果需要，使用者可以在此網站上禁用 VPN"
     },
     "popup_hint_popup_button": {
         "message": "知道了"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "連線失敗？"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "桌面版更為穩定"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "如果您遇到連線問題，我們建議切換到桌面版本 — 運作更為順暢"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "取得桌面版本"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "下次"
     },
     "options_exclusions_import_select_title": {
         "message": "如何使用例外清單？"
@@ -852,18 +880,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "取消"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "刪除"
-    },
-    "options_exclusions_delete_title": {
-        "message": "移除例外"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "所有來自常規模式的例外將被刪除。"
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "所有來自選擇性模式的例外將被刪除。"
     },
     "options_exclusions_import_successful": {
         "message": "已匯入的例外：%count%"

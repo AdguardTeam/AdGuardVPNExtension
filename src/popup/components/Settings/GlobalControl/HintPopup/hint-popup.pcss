@@ -1,0 +1,36 @@
+.hint-popup {
+    width: 220px;
+    border-radius: 8px;
+    margin: auto;
+    padding: 15px;
+    background-color: var(--white);
+    text-align: left;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    transform: translateY(-100%);
+    z-index: var(--exclude-site-hint-overlay-z-index);
+
+    &:after {
+        content: "▼";
+        color: var(--white);
+        display: block;
+        position: absolute;
+        bottom: -17px;
+        right: 47%;
+        font-size: 23px;
+    }
+
+    &__content {
+        font-size: 14px;
+    }
+
+    &__button {
+        margin-top: 15px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

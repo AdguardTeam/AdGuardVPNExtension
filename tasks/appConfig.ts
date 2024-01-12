@@ -58,7 +58,6 @@ const URLS_MAP: UrlsMap = {
 const STAGE_CONF = {
     VPN_API_URL: process.env.VPN_API_URL,
     AUTH_API_URL: process.env.AUTH_API_URL,
-    WHOAMI_URL: process.env.WHOAMI_URL,
 };
 
 const COMMON = {
@@ -79,6 +78,7 @@ const COMMON = {
     FAQ_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=faq&from=options_screen&app=vpn_extension`,
     SUGGEST_FEATURE: `https://${FORWARDER_DOMAIN}/forward.html?action=suggest_feature&from=options_screen&app=vpn_extension`,
     THANK_YOU_PAGE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=thank_you_v2&from=background_page&app=vpn_extension`,
+    FIREFOX_THANK_YOU_PAGE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=thank_you_v2_firefox&from=background_page&app=vpn_extension`,
     PASSWORD_RECOVERY_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=recovery_password&from=popup&app=vpn_extension`,
     EDIT_ACCOUNT_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=account_settings&from=options_screen&app=vpn_extension`,
     // API
@@ -88,14 +88,23 @@ const COMMON = {
     // AdGuard DNS Knowledge Base
     ADGUARD_DNS_KB_LINK: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_dns_kb&from=options_screen&app=vpn_extension`,
     COMPARE_PAGE: `https://${FORWARDER_DOMAIN}/forward.html?action=compare&from=popup&app=vpn_extension`,
+    // AG-25941
+    VPN_BLOCKED_GET_APP_LINK: `https://${FORWARDER_DOMAIN}/forward.html?action=vpn_blocked_get_app&from=popup&app=vpn_extension`,
 };
 
 export const genAppConfig = (browserType: string, stageEnv?: string, buildingEnv?: string) => {
     if (!buildingEnv) {
         throw new Error('No building environment was provided');
     }
-    // api urls are same for the Chrome mv2 and mv3 versions,
-    const browser = browserType === Browser.ChromeMV2 ? Browser.Chrome : browserType;
+
+    let browser = browserType;
+    if (browserType === Browser.ChromeMV2) {
+        // api urls are same for the Chrome mv2 and mv3 versions
+        browser = Browser.Chrome;
+    } else if (browserType === Browser.FirefoxMV2) {
+        // api urls are same for the Firefox mv2 and mv3 versions
+        browser = Browser.Firefox;
+    }
 
     const urlsMapByBrowser = URLS_MAP[buildingEnv] || URLS_MAP[Env.Release];
     const browserConf = urlsMapByBrowser[browser];

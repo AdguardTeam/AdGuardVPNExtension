@@ -19,6 +19,7 @@ export const SETTINGS_IDS = {
     APPEARANCE_THEME: 'appearance.theme',
     CUSTOM_DNS_SERVERS: 'custom.dns.servers',
     QUICK_CONNECT: 'quick.connect',
+    DEBUG_MODE_ENABLED: 'debug.mode.enabled',
 };
 
 export const enum AppearanceTheme {
@@ -47,6 +48,7 @@ export enum MessageType {
     AUTHENTICATE_SOCIAL = 'authenticate.social',
     AUTHENTICATE_THANKYOU_PAGE = 'authenticate.thankyou.page',
     GET_POPUP_DATA = 'get.popup.data',
+    FORCE_UPDATE_LOCATIONS = 'force.update.locations',
     GET_OPTIONS_DATA = 'get.options.data',
     GET_VPN_FAILURE_PAGE = 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE = 'open.options.page',
@@ -93,11 +95,11 @@ export enum MessageType {
     GET_GENERAL_EXCLUSIONS = 'get.general.exclusions',
     GET_SELECTIVE_EXCLUSIONS = 'get.selective.exclusions',
     OPEN_FREE_GBS_PAGE = 'open.free.gbs.page',
-    GET_REFERRAL_DATA = 'get.referral.data',
     GET_BONUSES_DATA = 'get.bonuses.data',
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     SET_RATE_MODAL_VIEWED = 'set.rate.modal.viewed',
+    HANDLE_CUSTOM_DNS_LINK = 'handle.custom.dns.link',
     ADD_CUSTOM_DNS_SERVER = 'add.custom.dns.server',
     EDIT_CUSTOM_DNS_SERVER = 'edit.custom.dns.server',
     REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',

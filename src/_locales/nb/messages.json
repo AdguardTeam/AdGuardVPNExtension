@@ -116,6 +116,12 @@
     "auth_sign_up_button": {
         "message": "Bli med"
     },
+    "auth_sign_in": {
+        "message": "Logg på"
+    },
+    "auth_sign_in_button": {
+        "message": "LOGG INN"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-post"
     },
@@ -206,9 +212,6 @@
     "settings_dns_add_custom_server_save": {
         "message": "Lagre"
     },
-    "settings_dns_desc": {
-        "message": "Domain Name System (DNS) er internettets svar på en telefonkatalog. Den vedlikeholder et arkiv over domenenavn og oversetter dem til Internet Protocol (IP)-adresser."
-    },
     "settings_dns_selector_default_title": {
         "message": "Standardmodus"
     },
@@ -266,6 +269,9 @@
     "settings_theme_light": {
         "message": "Lyst"
     },
+    "settings_exclusion_add": {
+        "message": "LEGG TIL"
+    },
     "settings_exclusion_add_website": {
         "message": "Legg til et nettsted"
     },
@@ -283,6 +289,9 @@
     },
     "settings_exclusion_modal_save": {
         "message": "Lagre"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Tilbakestill til standardene"
     },
     "settings_exclusion_reset_button": {
         "message": "Tilbakestill"
@@ -395,9 +404,6 @@
     "popup_rate_modal_subtitle": {
         "message": "Vennligst vurder oss"
     },
-    "popup_rate_modal_send_button": {
-        "message": "Send"
-    },
     "popup_rate_modal_cancel_button": {
         "message": "Avbryt"
     },
@@ -412,6 +418,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Lukk"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Tillat"
     },
     "options_title": {
         "message": "AdGuard VPN-innstillinger"
@@ -443,23 +452,29 @@
     "popup_upgrade_screen_all_locations": {
         "message": "Alle posisjoner"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Opptil 5 enheter"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Oppgrader"
     },
     "popup_hint_popup_button": {
         "message": "Skjønner"
     },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Kan du ikke koble til?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Desktop-versjonen er mer stabil"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Hvis du har tilkoblingsproblemer, anbefaler vi at du bytter til skrivebordsversjonen – den fungerer jevnere"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Få desktop versjon"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Senere"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "Avbryt"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Slett"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Fjern unntak"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Abonner"

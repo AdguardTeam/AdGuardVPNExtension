@@ -1,10 +1,13 @@
+button,
+.button {
+    font-family: var(--font-stack);
+}
+
 .button {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    font-family: var(--font-stack);
     border: 1px solid transparent;
-    outline: none;
     background-color: transparent;
     border-radius: 8px;
 
@@ -85,6 +88,15 @@
         &:hover {
             background-color: var(--green900);
         }
+
+        &--inactive {
+            cursor: default;
+            background-color: var(--green-inactive);
+
+            &:hover {
+                background-color: var(--green-inactive);
+            }
+        }
     }
 
     &--orange {
@@ -108,6 +120,7 @@
         color: var(--green700);
         border: 0;
         appearance: none;
+        border-radius: 0;
     }
 
     &--green-gradient {
@@ -176,11 +189,5 @@
             background: none;
             color: var(--grayb8);
         }
-    }
-
-    &--on-top {
-        position: relative;
-        z-index: 9999;
-        border: 1px solid #8d8d8d;
     }
 }

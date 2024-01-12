@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Este valor já foi utilizado"
     },
-    "registration_error_front_unique_validation": {
-        "message": "As palavras-passe não coincidem"
-    },
     "registration_error_default": {
         "message": "Ocorreu um erro, tente novamente mais tarde"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Definições"
     },
-    "options_menu_free_traffic": {
-        "message": "Tráfego de VPN grátis"
-    },
     "referral_get_free_traffic": {
         "message": "Obtenha GBs grátis!"
     },
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Exportar registo"
     },
+    "context_menu_debug_level": {
+        "message": "Registo de depuração"
+    },
     "settings_dns_label": {
         "message": "Servidor DNS"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Servidor DNS personalizado excluído"
-    },
-    "settings_dns_desc": {
-        "message": "O sistema de nome de domínio (DNS) é o equivalente da Internet a uma lista telefônica. Ele mantém um diretório de nomes de domínio e os traduz para endereços IP (Internet Protocol)."
     },
     "settings_dns_selector_default_title": {
         "message": "Predefinido"
@@ -546,7 +540,7 @@
         "message": "Importar exclusões"
     },
     "settings_exclusions_action_remove_all": {
-        "message": "Apagar todos"
+        "message": "Apagar tudo"
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Remover todas as exclusões"
@@ -602,6 +596,15 @@
     "control_error_disable": {
         "message": "Desativar"
     },
+    "popup_skeleton_status": {
+        "message": "A pesquisar localização..."
+    },
+    "popup_no_locations_title": {
+        "message": "Localização não encontrada"
+    },
+    "popup_no_locations_button": {
+        "message": "Pesquisar novamente"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Ativar neste sítio"
     },
@@ -619,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Definições"
-    },
-    "popup_settings_sign_out": {
-        "message": "Encerrar sessão"
     },
     "context_menu_enable_vpn": {
         "message": "Ativar VPN neste sítio"
@@ -723,7 +723,7 @@
         "message": "Não foi possível conectar-se ao servidor"
     },
     "popup_server_error_popup_info": {
-        "message": "É provável que a VPN tenha sido bloqueada no seu país ou houve uma falha técnica. Já estamos a tentar resolver"
+        "message": "É provável que a VPN tenha sido bloqueada em seu país ou houve uma falha técnica. Já estamos a tentar resolver"
     },
     "popup_server_error_popup_action": {
         "message": "Dar um toque à equipe AdGuard"
@@ -739,6 +739,15 @@
     },
     "popup_server_error_popup_close": {
         "message": "Fechar"
+    },
+    "popup_host_permission_error_title": {
+        "message": "Permitir acesso a sítios"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Para usar o AdGuard VPN, permita que ele acesse os seus dados em sítios. Não armazenamos esses dados nem os compartilhamos com ninguém. <privacy>Política de privacidade</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Permitir"
     },
     "options_title": {
         "message": "Opções do AdGuard VPN"
@@ -817,10 +826,10 @@
         "message": "6 continentes e dezenas de países. Escolha uma cidade e navegue na Internet com segurança!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Até 5 dispositivos"
+        "message": "Até %potential_num% dispositivos"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "Conecte todos os seus gadgets no AdGuard VPN ao mesmo tempo, ou proteja a sua família inteira!"
+        "message": "Ligue todos os seus gadgets ao AdGuard VPN ao mesmo tempo ou proteja toda a família!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Atualização"
@@ -828,15 +837,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Continue de graça"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> restantes este mês",
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% restantes",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "O tráfego será renovado hoje | O tráfego será renovado em %days% dia | O tráfego será renovado em %days% dias",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "A propósito, você pode desativar a VPN para este site, se desejar"
     },
     "popup_hint_popup_button": {
         "message": "Entendi"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Não consegue ligar-se?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "A versão para computador é mais estável"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Se tiver problemas de ligação, recomendamos que mude para a versão para computador. Ela funciona melhor"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Obter versão para computador"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Depois"
     },
     "options_exclusions_import_select_title": {
         "message": "Como usar esta lista de exclusões?"
@@ -852,18 +880,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Cancelar"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Apagar"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Remover exclusões"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Todas as exclusões do modo normal serão apagadas."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Todas as exclusões do modo seletivo serão apagadas."
     },
     "options_exclusions_import_successful": {
         "message": "Exclusões importadas: %count%"

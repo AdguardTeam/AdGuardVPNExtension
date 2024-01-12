@@ -37,7 +37,11 @@ enum ErrorCode {
 }
 
 export class EndpointConnectivity implements EndpointConnectivityInterface {
-    PING_SEND_INTERVAL_MS = 1000 * 60;
+    /**
+     * We send pings once every 25 seconds to increase the lifetime of the service worker.
+     * https://developer.chrome.com/docs/extensions/mv3/tut_websockets/
+     */
+    PING_SEND_INTERVAL_MS = 1000 * 25;
 
     /**
      * If WS didn't connect in this time, stop connection

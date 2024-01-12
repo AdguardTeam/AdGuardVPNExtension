@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Deze waarde is al in gebruik"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Wachtwoorden komen niet overeen"
-    },
     "registration_error_default": {
         "message": "Er is een fout opgetreden, probeer het later opnieuw"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Instellingen"
     },
-    "options_menu_free_traffic": {
-        "message": "Gratis VPN-dataverkeer"
-    },
     "referral_get_free_traffic": {
         "message": "Gratis GB's verkrijgen!"
     },
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Logboeken exporteren"
     },
+    "context_menu_debug_level": {
+        "message": "Logboekregistratie van foutopsporing"
+    },
     "settings_dns_label": {
         "message": "DNS-server"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Aangepaste DNS-server verwijderd"
-    },
-    "settings_dns_desc": {
-        "message": "Domein Naam Servers (DNS) zijn het internet-equivalent van een telefoonboek. Ze houden een adresboek bij van domeinnamen en vertalen die in Internet Protocol (IP) adressen."
     },
     "settings_dns_selector_default_title": {
         "message": "Standaard"
@@ -555,7 +549,7 @@
         "message": "Weet je zeker dat je door wilt gaan? De volledige lijst met uitsluitingen wordt verwijderd."
     },
     "settings_exclusion_title": {
-        "message": "Uitzonderingen"
+        "message": "Uitsluitingen"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Waar VPN is ingeschakeld"
@@ -602,6 +596,15 @@
     "control_error_disable": {
         "message": "Uitschakelen"
     },
+    "popup_skeleton_status": {
+        "message": "Locaties zoeken..."
+    },
+    "popup_no_locations_title": {
+        "message": "Locaties niet gevonden"
+    },
+    "popup_no_locations_button": {
+        "message": "Opnieuw zoeken"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Inschakelen"
     },
@@ -619,9 +622,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Instellingen"
-    },
-    "popup_settings_sign_out": {
-        "message": "Afmelden"
     },
     "context_menu_enable_vpn": {
         "message": "VPN Inschakelen op deze website"
@@ -740,6 +740,15 @@
     "popup_server_error_popup_close": {
         "message": "Sluiten"
     },
+    "popup_host_permission_error_title": {
+        "message": "Toegang tot websites toestaan"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Om AdGuard VPN te gebruiken, moet je het toegang geven tot jouw gegevens op websites. We slaan deze gegevens niet op en delen deze met niemand. <privacy>Privacybeleid</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Toestaan"
+    },
     "options_title": {
         "message": "AdGuard VPN Opties"
     },
@@ -817,10 +826,10 @@
         "message": "6 continenten en tientallen landen. Kies een plaats en surf veilig op internet!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "Maximaal 5 apparaten"
+        "message": "Tot %potential_num% apparaten"
     },
     "popup_upgrade_screen_connect_devices_desc": {
-        "message": "Verbind al je gadgets tegelijkertijd met AdGuard VPN - of bescherm het hele gezin!"
+        "message": "Verbind al jouw gadgets tegelijkertijd met AdGuard VPN - of bescherm het hele gezin!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Upgraden"
@@ -828,15 +837,34 @@
     "popup_upgrade_screen_continue_free": {
         "message": "Doorgaan zonder kosten"
     },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> nog over deze maand",
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% over",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Verkeer wordt vandaag vernieuwd | Verkeer wordt vernieuwd in %days% dag | Verkeer wordt vernieuwd in %days% dagen",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "Overigens kun je desgewenst VPN voor deze site uitschakelen"
     },
     "popup_hint_popup_button": {
         "message": "Begrepen"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Geen verbinding?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "De desktopversie is stabieler"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Als je verbindingsproblemen hebt, raden we aan over te schakelen op de desktopversie — die werkt soepeler"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Desktopversie downloaden"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Later"
     },
     "options_exclusions_import_select_title": {
         "message": "Hoe deze lijst met uitsluitingen gebruiken?"
@@ -852,18 +880,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Annuleren"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Verwijderen"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Uitsluitingen verwijderen"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Alle uitsluitingen van de standaard modus worden verwijderd."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Alle uitsluitingen van de selectieve modus worden verwijderd."
     },
     "options_exclusions_import_successful": {
         "message": "Geïmporteerde uitzonderingen: %count%"

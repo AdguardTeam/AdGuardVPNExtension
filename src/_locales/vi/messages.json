@@ -26,9 +26,6 @@
     "registration_error_unique_constraint": {
         "message": "Giá trị này đã được sử dụng"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Mật khẩu và xác nhận mật khẩu không khớp"
-    },
     "registration_error_default": {
         "message": "Đã xảy ra lỗi, hãy thử lại sau"
     },
@@ -236,9 +233,6 @@
     "settings_title": {
         "message": "Cài đặt"
     },
-    "options_menu_free_traffic": {
-        "message": "Lưu lượng VPN miễn phí"
-    },
     "referral_get_free_traffic": {
         "message": "Nhận GB miễn phí!"
     },
@@ -335,6 +329,9 @@
     "context_menu_export_logs": {
         "message": "Xuất nhật ký"
     },
+    "context_menu_debug_level": {
+        "message": "Ghi nhật ký gỡ lỗi"
+    },
     "settings_dns_label": {
         "message": "Máy chủ DNS"
     },
@@ -382,9 +379,6 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Đã xoá máy chủ DNS tuỳ chỉnh"
-    },
-    "settings_dns_desc": {
-        "message": "Hệ thống tên miền (DNS) được xem là danh bạ của internet. Chúng duy trì danh mục tên miền và chuyển chúng sang địa chỉ giao thức Internet (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "Mặc định"
@@ -587,6 +581,12 @@
     "control_error_disable": {
         "message": "Vô hiệu hóa nó"
     },
+    "popup_skeleton_status": {
+        "message": "Tìm kiếm địa điểm..."
+    },
+    "popup_no_locations_button": {
+        "message": "Tìm kiếm lại"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Bật trong web này"
     },
@@ -598,9 +598,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Cài đặt"
-    },
-    "popup_settings_sign_out": {
-        "message": "Đăng xuất"
     },
     "context_menu_enable_vpn": {
         "message": "Bật VPN trên trang web này"
@@ -713,6 +710,9 @@
     "popup_server_error_popup_close": {
         "message": "Đóng"
     },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Cho phép"
+    },
     "options_title": {
         "message": "Tùy chọn AdGuard VPN"
     },
@@ -789,9 +789,6 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 châu lục và hàng chục quốc gia khác nhau. Lựa chọn một thành phố và lướt Web một cách an toàn!"
     },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Lên đến 5 thiết bị"
-    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Kết nối mọi thiết bị của bạn đến AdGuard VPN cùng lúc — hoặc bảo vệ cả gia đình!"
     },
@@ -800,6 +797,24 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Tiếp tục miễn phí"
+    },
+    "popup_hint_popup_button": {
+        "message": "Đã nhận được"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Không thể kết nối?"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Phiên bản máy tính để bàn ổn định hơn"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Nếu bạn gặp sự cố kết nối, chúng tôi khuyên bạn nên chuyển sang phiên bản dành cho máy tính để bàn — phiên bản này hoạt động trơn tru hơn"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Nhận phiên bản máy tính để bàn"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Sau đó"
     },
     "options_exclusions_import_select_title": {
         "message": "Làm thế nào để sử dụng danh sách loại trừ này?"
@@ -815,18 +830,6 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Hủy"
-    },
-    "options_exclusions_delete_approve_button": {
-        "message": "Xóa"
-    },
-    "options_exclusions_delete_title": {
-        "message": "Xoá bỏ phần đã chọn"
-    },
-    "options_exclusions_delete_regular_description": {
-        "message": "Tất cả lựa chọn trong chế độ thông thường sẽ bị xoá."
-    },
-    "options_exclusions_delete_selective_description": {
-        "message": "Tất cả các mục trong chế độ chọn lọc sẽ bị xoá."
     },
     "options_exclusions_import_successful": {
         "message": "Loại trừ đã nhập: %count%"

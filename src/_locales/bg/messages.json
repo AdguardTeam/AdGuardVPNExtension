@@ -125,9 +125,6 @@
     "options_exclusions_delete_cancel_button": {
         "message": "Отказ"
     },
-    "options_exclusions_delete_approve_button": {
-        "message": "Изтрий"
-    },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Научи повече"
     },

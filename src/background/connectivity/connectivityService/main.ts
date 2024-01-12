@@ -130,6 +130,15 @@ export class ConnectivityService {
     }
 
     /**
+     * Checks if VPN in Idle state.
+     *
+     * @returns True if VPN is in Idle state, false otherwise.
+     */
+    public isVPNIdle(): boolean {
+        return this.state.matches(ConnectivityStateType.Idle);
+    }
+
+    /**
      * Sets desktop VPN enabled status.
      * @param data {@link ConnectivityEventType.DesktopVpnEnabled} event payload.
      */

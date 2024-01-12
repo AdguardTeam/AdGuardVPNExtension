@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+// TODO remove @ts-ignore
 // @ts-ignore
 import CreateFileWebpack from 'create-file-webpack';
 
@@ -10,6 +11,7 @@ import { genAppConfig } from './appConfig';
 import {
     SRC_PATH,
     IS_DEV,
+    IS_BETA,
     BUILD_ENV,
     BUILD_PATH,
     Browser,
@@ -20,9 +22,10 @@ const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = requir
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
-const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
-const THANKYOU_PAGE_AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/thankYouPageAuth.js');
+const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.ts');
+const CUSTOM_DNS_LINKS_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/custom-dns-links.ts');
 const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'options/preloadTheme.ts');
+const AUTH_FIREFOX_SCRIPT = path.resolve(__dirname, SRC_PATH, 'custom-protocol-handler/authFirefox.ts');
 const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
 
 const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
@@ -30,6 +33,12 @@ const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
 const EN_MESSAGES_PATH = '/en/messages.json';
 
 const packageJson = require('../package.json');
+
+const BUILD_TXT_FILENAME = 'build.txt';
+const BUILD_TXT_CONTENT = IS_BETA
+    // required for proper github tag preparing. AG-27644
+    ? `version=${packageJson.version}-beta`
+    : `version=${packageJson.version}`;
 
 // this options needed to exclude clean static files in the watch mode
 const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!assets/**/*'] } : {};
@@ -48,8 +57,9 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             options: OPTIONS_PATH,
             popup: POPUP_PATH,
             auth: AUTH_SCRIPT,
-            thankYouPageAuth: THANKYOU_PAGE_AUTH_SCRIPT,
+            'custom-dns-links': CUSTOM_DNS_LINKS_SCRIPT,
             preloadTheme: PRELOAD_THEME_SCRIPT,
+            authFirefox: AUTH_FIREFOX_SCRIPT,
             export: EXPORT_PATH,
         },
         output: {
@@ -124,7 +134,8 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 )),
             }),
             new webpack.NormalModuleReplacementPlugin(/\.\/(proxy\/)?abstractProxyApi/, ((resource: any) => {
-                if (browser === Browser.Firefox) {
+                if (browser === Browser.Firefox
+                    || browser === Browser.FirefoxMV2) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request
                         .replace(/\.\/abstractProxyApi/, './firefox/proxyApi')
@@ -203,8 +214,8 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             }),
             new CreateFileWebpack({
                 path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),
-                fileName: 'build.txt',
-                content: `version=${packageJson.version}`,
+                fileName: BUILD_TXT_FILENAME,
+                content: BUILD_TXT_CONTENT,
             }),
         ],
     };

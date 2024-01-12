@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import { rootStore } from '../../stores';
-import { formatBytes } from '../../../lib/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { TrafficInfo } from './TrafficInfo';
+import { rootStore } from '../../stores';
 
 import './info-message.pcss';
 
@@ -16,14 +16,15 @@ const TRAFFIC_PERCENT = {
 export const InfoMessage = observer(() => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
-    const upgradeClickHandler = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const upgradeClickHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         await vpnStore.openPremiumPromoPage();
+        // close popup after click on upgrade button
+        window.close();
     };
 
     const {
         premiumPromoEnabled,
-        remainingTraffic,
         trafficUsingProgress,
         isPremiumToken,
     } = vpnStore;
@@ -50,29 +51,19 @@ export const InfoMessage = observer(() => {
         { 'info-message--active': settingsStore.isConnected },
     );
 
-    const formattedRemainingTraffic = formatBytes(remainingTraffic);
-
     return (
         <div className={infoMessagesClass}>
             <div className="info-message__text-wr">
                 <div className="info-message__text">
-                    {
-                        settingsStore.hasLimitExceededError
-                            ? (<span>{reactTranslator.getMessage('popup_traffic_limit_reached')}</span>)
-                            : reactTranslator.getMessage('popup_free_traffic_info', {
-                                value: formattedRemainingTraffic.value,
-                                unit: formattedRemainingTraffic.unit,
-                                span: (chunks: string) => (<span className={`info-message__value ${getInfoColor()}`}>{chunks}</span>),
-                            })
-                    }
+                    <TrafficInfo />
                 </div>
-                <a
+                <button
                     type="button"
                     className="button button--medium button--red info-message__btn"
                     onClick={upgradeClickHandler}
                 >
                     {reactTranslator.getMessage('premium_upgrade')}
-                </a>
+                </button>
             </div>
             <div className="info-message__progress">
                 <div

@@ -17,9 +17,9 @@ const PromoNotificationModal = observer(() => {
         messenger.setNotificationViewed(true);
     }, []);
 
-    const { promoNotification } = settingsStore;
+    const { promoNotification, showNotificationModal } = settingsStore;
 
-    if (!promoNotification) {
+    if (!showNotificationModal || !promoNotification) {
         return null;
     }
 
@@ -55,7 +55,7 @@ const PromoNotificationModal = observer(() => {
                     onClick={onCloseHandler}
                 >
                     <svg className="icon icon--button">
-                        <use xlinkHref="#cross_gray" />
+                        <use xlinkHref="#cross-white" />
                     </svg>
                 </div>
                 <div className="notify__content">
