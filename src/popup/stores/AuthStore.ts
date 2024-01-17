@@ -115,11 +115,11 @@ export class AuthStore {
 
     @observable rating = 0;
 
-    @observable userEmail = '';
-
     @observable confirmEmailTimer?: ReturnType<typeof setInterval>;
 
     @observable resendCodeCountDown = DEFAULTS.resendCodeCountDown;
+
+    @observable userEmail = '';
 
     @observable showHintPopup = false;
 
