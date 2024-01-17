@@ -5,7 +5,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 import { popupActions } from '../../../actions/popupActions';
 import { rootStore } from '../../../stores';
-import { RequestStatus, InputType } from '../../../stores/consts';
+import { RequestStatus, InputType } from '../../../stores/constants';
 import PasswordField from '../PasswordField';
 import { Submit } from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
@@ -55,7 +55,10 @@ export const SignInForm = observer(() => {
                         reactTranslator.getMessage('auth_header_sing_in_notice', {
                             username: authStore.credentials.username,
                             span: (chunks: string) => (
-                                <span className="form__credentials">
+                                <span
+                                    className="form__credentials"
+                                    title={chunks}
+                                >
                                     {chunks}
                                 </span>
                             ),

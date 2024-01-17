@@ -11,6 +11,8 @@ interface InputFieldParameters {
     placeholder?: string;
     label?: string;
     disabled?: boolean;
+    title?: string;
+    autocomplete?: string;
 }
 
 export const InputField = ({
@@ -23,6 +25,8 @@ export const InputField = ({
     placeholder = '',
     label = '',
     disabled = false,
+    title = '',
+    autocomplete,
 }: InputFieldParameters) => {
     const inputClassName = classnames(
         `form__input ${className}`,
@@ -42,10 +46,12 @@ export const InputField = ({
                     type={type}
                     onChange={inputChangeHandler}
                     defaultValue={value}
+                    title={title}
                     placeholder={placeholder}
                     // eslint-disable-next-line jsx-a11y/no-autofocus
                     autoFocus
                     disabled={disabled}
+                    autoComplete={autocomplete}
                 />
             </label>
         </div>

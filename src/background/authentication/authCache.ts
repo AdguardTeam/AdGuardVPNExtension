@@ -21,6 +21,7 @@ const AuthCache = (): AuthCacheInterface => {
         helpUsImprove: null,
         marketingConsent: null,
         authError: null,
+        code: '',
     };
 
     let authCache = { ...DEFAULTS };

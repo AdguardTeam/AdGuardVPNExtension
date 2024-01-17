@@ -26,7 +26,6 @@ import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../schema';
 import { hintPopup } from '../hintPopup';
 import { popupOpenedCounter } from './popupOpenedCounter';
-import { emailService } from '../emailService/emailSevice';
 import { abTestManager } from '../abTestManager';
 
 interface PopupDataProps {
@@ -65,7 +64,6 @@ interface PopupDataInterface {
     shouldShowRateModal?: boolean;
     username?: string | null;
     shouldShowHintPopup?: boolean;
-    resendLinkCountDown?: number | null;
     isHostPermissionsGranted: boolean;
 
     /**
@@ -150,14 +148,6 @@ export class PopupData {
         const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
 
-        // if got flag to request email confirmation,
-        // have to start countdown for resend confirmation link
-        if (vpnInfo?.emailConfirmationRequired) {
-            emailService.startCountDown();
-        }
-
-        const { resendLinkCountDown } = emailService;
-
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
             throttledPermissionsChecker();
@@ -192,7 +182,6 @@ export class PopupData {
             shouldShowRateModal,
             username,
             shouldShowHintPopup,
-            resendLinkCountDown,
             showScreenshotFlow,
             isVpnBlocked,
             isHostPermissionsGranted,

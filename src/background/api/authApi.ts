@@ -1,5 +1,6 @@
 import { Api } from './Api';
 import { AUTH_CLIENT_ID } from '../config';
+import { appStatus } from '../appStatus';
 import { fallbackApi } from './fallbackApi';
 import { AuthCredentials, RequestProps } from './apiTypes';
 
@@ -10,7 +11,12 @@ class AuthApi extends Api {
     GET_TOKEN: RequestProps = { path: 'oauth/token', method: 'POST' };
 
     getAccessToken(credentials: AuthCredentials) {
-        const { username, password, twoFactor } = credentials;
+        const {
+            username,
+            password,
+            twoFactor,
+            code,
+        } = credentials;
         const { path, method } = this.GET_TOKEN;
 
         type Data = {
@@ -19,7 +25,9 @@ class AuthApi extends Api {
             scope: string;
             grant_type: string;
             client_id: string;
+            app_version: string;
             '2fa_token'?: string;
+            code?: string;
         };
 
         const params: Data = {
@@ -28,10 +36,15 @@ class AuthApi extends Api {
             scope: 'trust',
             grant_type: 'password_2fa',
             client_id: AUTH_CLIENT_ID,
+            app_version: appStatus.version,
         };
 
         if (twoFactor) {
             params['2fa_token'] = twoFactor;
+        }
+
+        if (code) {
+            params.code = code;
         }
 
         return this.makeRequest(path, { params }, method);
@@ -72,6 +85,18 @@ class AuthApi extends Api {
             email,
             request_id: appId,
         };
+        return this.makeRequest(path, { params }, method);
+    }
+
+    RESEND_CONFIRMATION_CODE: RequestProps = { path: 'api/2.0/resend_confirmation_code', method: 'POST' };
+
+    resendCode(authId: string) {
+        const { path, method } = this.RESEND_CONFIRMATION_CODE;
+
+        const params = {
+            auth_id: authId,
+        };
+
         return this.makeRequest(path, { params }, method);
     }
 }

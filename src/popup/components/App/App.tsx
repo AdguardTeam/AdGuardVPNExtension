@@ -19,7 +19,7 @@ import { CurrentEndpoint } from '../Settings/CurrentEndpoint';
 import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 
 import { rootStore } from '../../stores';
-import { RequestStatus } from '../../stores/consts';
+import { RequestStatus } from '../../stores/constants';
 import { log } from '../../../lib/logger';
 import { messenger } from '../../../lib/messenger';
 import { notifier, NotifierType } from '../../../lib/notifier';
@@ -31,7 +31,6 @@ import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
-import { ConfirmEmail } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
@@ -68,7 +67,7 @@ export const App = observer(() => {
         hasDesktopAppForOs,
     } = settingsStore;
 
-    const { authenticated, showConfirmEmailScreen } = authStore;
+    const { authenticated } = authStore;
 
     const { initStatus } = globalStore;
 
@@ -215,12 +214,6 @@ export const App = observer(() => {
                 <Icons />
                 <ServerErrorPopup />
             </>
-        );
-    }
-
-    if (showConfirmEmailScreen) {
-        return (
-            <ConfirmEmail />
         );
     }
 

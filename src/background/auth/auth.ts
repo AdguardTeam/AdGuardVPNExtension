@@ -37,6 +37,7 @@ export interface AuthInterface {
         email: string,
         appId: string,
     ): Promise<{ canRegister: string } | { error: string }>;
+    resendEmailConfirmationCode(authId: string): Promise<void>;
     getAccessToken(turnOffProxy?: boolean): Promise<string>;
     init(): Promise<void>;
 }
@@ -263,8 +264,8 @@ class Auth implements AuthInterface {
                 clientId: AUTH_CLIENT_ID,
             });
         } catch (e) {
-            const { error, field } = JSON.parse(e.message);
-            return { error, field };
+            const { error, field, status } = JSON.parse(e.message);
+            return { error, field, status };
         }
 
         if (accessToken) {
@@ -301,6 +302,22 @@ class Auth implements AuthInterface {
             };
         }
         return response;
+    }
+
+    /**
+     * Uses {@link authProvider} to request a new email confirmation code.
+     *
+     * @param authId Auth id received from the server previously.
+     */
+    async resendEmailConfirmationCode(authId: string | null): Promise<void> {
+        try {
+            if (!authId) {
+                throw new Error('No authId');
+            }
+            await authProvider.resendEmailConfirmationCode(authId);
+        } catch (e) {
+            log.error(e.message);
+        }
     }
 
     async setAccessToken(accessToken: AuthAccessToken): Promise<void> {

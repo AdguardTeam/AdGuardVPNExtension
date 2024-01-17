@@ -7,7 +7,7 @@ import {
 
 import { tabs } from '../../background/tabs';
 import { log } from '../../lib/logger';
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
 import {
     SETTINGS_IDS,
     AppearanceTheme,

@@ -5,9 +5,24 @@ import { rootStore } from '../../stores';
 export const BackButton = () => {
     const { authStore } = useContext(rootStore);
 
+    const { prevSteps } = authStore;
+
     const handleBackClick = async () => {
         await authStore.resetPasswords();
-        await authStore.showAuthorizationScreen();
+        await authStore.resetCode();
+
+        if (prevSteps.length === 0) {
+            await authStore.showAuthorizationScreen();
+        }
+
+        const prevStep = prevSteps.pop();
+        if (!prevStep) {
+            await authStore.showAuthorizationScreen();
+            return;
+        }
+
+        authStore.resetRequestProcessionState();
+        authStore.switchStep(prevStep);
     };
 
     return (

@@ -8,7 +8,7 @@ import { log } from '../../lib/logger';
 import { tabs } from '../../background/tabs';
 import { messenger } from '../../lib/messenger';
 import type { RootStore } from './RootStore';
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
 
 export class GlobalStore {
     @observable initStatus = RequestStatus.Pending;
@@ -60,9 +60,7 @@ export class GlobalStore {
                 flagsStorageData,
                 isVpnEnabledByUrl,
                 shouldShowRateModal,
-                username,
                 shouldShowHintPopup,
-                resendLinkCountDown,
                 showScreenshotFlow,
                 isVpnBlocked,
                 isHostPermissionsGranted,
@@ -95,9 +93,7 @@ export class GlobalStore {
 
             authStore.setFlagsStorageData(flagsStorageData);
             authStore.setIsFirstRun(isFirstRun);
-            authStore.setUserEmail(username);
             authStore.setShouldShowRateModal(shouldShowRateModal);
-            authStore.showConfirmEmail(!!vpnInfo?.emailConfirmationRequired, resendLinkCountDown);
             authStore.setShowHintPopup(shouldShowHintPopup);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setConnectivityState(connectivityState);
@@ -128,6 +124,7 @@ export class GlobalStore {
     async init(): Promise<void> {
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         await this.getDesktopAppData();
+        await this.rootStore.authStore.getResendCodeCountDownAndStart();
     }
 
     @action

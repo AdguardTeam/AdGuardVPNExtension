@@ -3,6 +3,11 @@
     flex-direction: column;
     text-align: center;
 
+    &--login,
+    &--confirm-email {
+        padding-top: 16px;
+    }
+
     &--error {
         & .form__input {
             border-color: var(--red);
@@ -27,9 +32,9 @@
         display: block;
         font-size: 14px;
         text-align: left;
-        line-height: 16px;
+        line-height: 18px;
         color: var(--gray88);
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
     &__item {
@@ -45,7 +50,7 @@
 
     &__inputs {
         position: relative;
-        margin: 15px 0 0;
+        margin: 24px 0 0;
         text-align: center;
     }
 
@@ -62,6 +67,8 @@
         box-shadow: none;
         background-color: var(--grayf3);
         caret-color: var(--gray-base);
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &--password {
             padding: 16px 42px 16px 16px;
@@ -127,7 +134,7 @@
     &__btn-wrap {
         height: 50px;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 24px;
 
         &--register {
             margin-bottom: 65px;
@@ -200,18 +207,24 @@
     }
 
     &__subtitle {
-        font-size: 2.2rem;
+        font-size: 24px;
         font-weight: 700;
+        line-height: 30px;
         margin: 0 0 15px;
     }
 
     &__info {
-        min-height: 44px;
-        margin-bottom: 10px;
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 24px;
     }
 
     &__credentials {
+        display: block;
         font-weight: 500;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__show-password {

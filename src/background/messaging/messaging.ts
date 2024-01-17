@@ -27,7 +27,7 @@ import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
-import { emailService } from '../emailService/emailSevice';
+import { emailConfirmationService } from '../emailConfirmationService';
 import { CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
 
 interface Message {
@@ -185,6 +185,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.AUTHENTICATE_USER: {
             const { credentials } = data;
+            emailConfirmationService.restartCountDown();
             return auth.authenticate(credentials);
         }
         case MessageType.UPDATE_AUTH_CACHE: {
@@ -255,6 +256,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.REGISTER_USER: {
             const appId = await credentials.getAppId();
+            emailConfirmationService.restartCountDown();
             return auth.register({ ...data.credentials, appId });
         }
         case MessageType.IS_AUTHENTICATED: {
@@ -405,13 +407,25 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.RESEND_CONFIRM_REGISTRATION_LINK: {
             const { displayNotification } = data;
-            emailService.restartCountDown();
             const accessToken = await auth.getAccessToken();
             return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
         }
-        case MessageType.SEND_CONFIRM_EMAIL_CODE: {
-            // TODO: send confirm code (for the moment there is no backend api request for this)
-            return null;
+        case MessageType.SET_EMAIL_CONFIRMATION_AUTH_ID: {
+            const { authId } = data;
+            emailConfirmationService.setAuthId(authId);
+            break;
+        }
+        case MessageType.RESEND_EMAIL_CONFIRMATION_CODE: {
+            emailConfirmationService.restartCountDown();
+            await auth.resendEmailConfirmationCode(emailConfirmationService.authId);
+            break;
+        }
+        case MessageType.GET_RESEND_CODE_COUNT_DOWN: {
+            return emailConfirmationService.resendCodeCountDown;
+        }
+        case MessageType.START_RESEND_CODE_COUNT_DOWN: {
+            emailConfirmationService.startCountDown();
+            break;
         }
         case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
             return dns.restoreCustomDnsServersData();
