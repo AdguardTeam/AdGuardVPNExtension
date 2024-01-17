@@ -948,7 +948,7 @@
         "message": "Confirm your email"
     },
     "confirm_email_info": {
-        "message": "We’ve sent a confirmation code to %email%"
+        "message": "We’ve sent a confirmation code to <span>%email%</span>"
     },
     "confirm_email_done_title": {
         "message": "Email address confirmed"
@@ -958,6 +958,15 @@
     },
     "confirm_email_close_button": {
         "message": "Close"
+    },
+    "confirm_email_code_label": {
+        "message": "Confirmation code"
+    },
+    "confirm_email_code_placeholder": {
+        "message": "Contains numbers and letters"
+    },
+    "confirm_email_code_invalid": {
+        "message": "Please check the code — it looks incorrect"
     },
     "confirm_email_resend_link_button_disabled": {
         "message": "Send another code (%count%)"
