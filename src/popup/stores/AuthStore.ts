@@ -167,6 +167,7 @@ export class AuthStore {
             helpUsImprove,
             marketingConsent,
             authError,
+            code,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
@@ -175,6 +176,7 @@ export class AuthStore {
                 password,
                 confirmPassword,
                 marketingConsent,
+                code,
             };
             if (step) {
                 this.step = step;
