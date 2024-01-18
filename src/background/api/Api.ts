@@ -4,6 +4,8 @@ import { notifier } from '../../lib/notifier';
 
 const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
+const HTTP_RESPONSE_STATUS_OK = 200;
+
 interface ConfigInterface {
     params?: {
         [key: string]: string;
@@ -92,7 +94,17 @@ export class Api implements ApiInterface {
                 return response;
             }
 
-            const responseData = await response.json();
+            let responseData = {};
+            try {
+                responseData = await response.json();
+            } catch (e) {
+                // server response may be empty,
+                // e.g. 'api/2.0/resend_confirmation_code' response is 200 but may be empty,
+                // that's why response.json() can throw an error
+                if (response.status !== HTTP_RESPONSE_STATUS_OK) {
+                    throw new CustomError(response.status, JSON.stringify(e));
+                }
+            }
             return responseData;
         } catch (e) {
             if (e instanceof CustomError) {
