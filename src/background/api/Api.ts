@@ -94,7 +94,7 @@ export class Api implements ApiInterface {
                 return response;
             }
 
-            let responseData = {};
+            let responseData;
             try {
                 responseData = await response.json();
             } catch (e) {
