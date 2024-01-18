@@ -98,8 +98,8 @@ export const ConfirmEmail = observer(() => {
             >
                 {
                     resendCodeCountDown
-                        ? translator.getMessage('confirm_email_resend_link_button_disabled', { count: resendCodeCountDown })
-                        : translator.getMessage('confirm_email_resend_link_button')
+                        ? translator.getMessage('confirm_email_resend_code_button_disabled', { count: resendCodeCountDown })
+                        : translator.getMessage('confirm_email_resend_code_button')
                 }
             </button>
         </form>

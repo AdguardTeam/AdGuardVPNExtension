@@ -585,8 +585,7 @@ export class AuthStore {
      *
      * @param value Number of seconds to set.
      */
-    @action
-    setResendCodeCountDown(value: number): void {
+    @action setResendCodeCountDown(value: number): void {
         this.resendCodeCountDown = value;
     }
 
@@ -642,10 +641,6 @@ export class AuthStore {
         this.setResendCodeCountDown(DEFAULTS.resendCodeCountDown);
         this.startCountDown();
         await messenger.resendEmailConfirmationCode();
-    };
-
-    @action setUserEmail = (value: string) => {
-        this.userEmail = value;
     };
 
     @computed
