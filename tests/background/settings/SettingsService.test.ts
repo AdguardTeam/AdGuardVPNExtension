@@ -16,6 +16,8 @@ jest.mock('../../../src/background/browserApi', () => {
     };
 });
 
+jest.mock('../../../src/background/settings');
+
 const storage = (() => {
     const settingsStorage: { [key: string]: any } = {};
     return {
