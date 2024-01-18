@@ -29,10 +29,11 @@ class EmailConfirmationService {
             this.countDown = this.COUNTDOWN_START;
             this.timer = setInterval(() => {
                 runInAction(() => {
-                    this.countDown! -= 1;
                     if (this.countDown === 0) {
                         clearInterval(this.timer);
+                        return;
                     }
+                    this.countDown! -= 1;
                 });
             }, 1000);
         }
