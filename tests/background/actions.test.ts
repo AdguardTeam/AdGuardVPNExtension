@@ -2,7 +2,7 @@ import { actions, buildQueryString } from '../../src/background/actions';
 import { credentials } from '../../src/background/credentials';
 // TODO: test mv3 after official switch to mv3
 import { stateStorage } from '../../src/background/stateStorage/mv2';
-
+debugger;
 jest.mock('../../src/background/stateStorage', () => {
     // eslint-disable-next-line global-require
     return require('../../src/background/stateStorage/mv2');
@@ -16,6 +16,7 @@ jest.mock('../../src/background/config', () => {
         UPGRADE_LICENSE_URL: 'https://adguard-vpn.com/license.html?action=upgrade_license',
     };
 });
+jest.mock('../../src/background/settings');
 
 describe('Actions tests', () => {
     beforeEach(async () => {
