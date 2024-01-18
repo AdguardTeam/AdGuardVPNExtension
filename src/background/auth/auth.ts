@@ -270,7 +270,12 @@ class Auth implements AuthInterface {
                 status,
                 authId,
             } = JSON.parse(e.message);
-            return { error, field, status, authId };
+            return {
+                error,
+                field,
+                status,
+                authId,
+            };
         }
 
         if (accessToken) {
