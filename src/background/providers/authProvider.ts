@@ -132,13 +132,16 @@ const register = async (credentials: AuthCredentials) => {
         const {
             error_code: errorCode,
             field,
+            auth_id: authId,
         }: {
             error_code: keyof typeof errorsMap,
             field: keyof typeof fieldsMap
+            auth_id: string,
         } = errorData;
 
         if (errorCode === REQUIRED_EMAIL_CONFIRMATION_CODE) {
-            throw new Error(JSON.stringify({ status: errorCode }));
+            // authId is required to request another code
+            throw new Error(JSON.stringify({ status: errorCode, authId }));
         }
 
         const extensionField = fieldsMap[field] || field;

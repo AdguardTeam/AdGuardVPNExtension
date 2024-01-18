@@ -385,6 +385,17 @@ export class AuthStore {
         }
 
         if (response.status === REQUIRED_EMAIL_CONFIRMATION_CODE) {
+            if (!response.authId) {
+                runInAction(() => {
+                    this.requestProcessState = RequestStatus.Error;
+                });
+                await this.setError('No authId in response');
+                return;
+            }
+
+            this.getResendCodeCountDown();
+            await messenger.setEmailConfirmationAuthId(response.authId);
+
             runInAction(async () => {
                 this.requestProcessState = RequestStatus.Done;
                 await this.switchStep(this.STEPS.CONFIRM_EMAIL);

@@ -254,7 +254,7 @@ class Auth implements AuthInterface {
 
     async register(
         credentials: AuthCredentials,
-    ): Promise<{ status: string } | { error: string, field?: string }> {
+    ): Promise<{ status: string } | { error: string, field?: string, status?: string, authId?: string }> {
         const locale = navigator.language;
         let accessToken;
         try {
@@ -264,8 +264,13 @@ class Auth implements AuthInterface {
                 clientId: AUTH_CLIENT_ID,
             });
         } catch (e) {
-            const { error, field, status } = JSON.parse(e.message);
-            return { error, field, status };
+            const {
+                error,
+                field,
+                status,
+                authId,
+            } = JSON.parse(e.message);
+            return { error, field, status, authId };
         }
 
         if (accessToken) {
