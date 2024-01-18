@@ -968,10 +968,10 @@
     "confirm_email_code_invalid": {
         "message": "Please check the code — it looks incorrect"
     },
-    "confirm_email_resend_link_button_disabled": {
+    "confirm_email_resend_code_button_disabled": {
         "message": "Send another code (%count%)"
     },
-    "confirm_email_resend_link_button": {
+    "confirm_email_resend_code_button": {
         "message": "Send another code"
     },
     "resend_confirm_registration_link_notification": {
