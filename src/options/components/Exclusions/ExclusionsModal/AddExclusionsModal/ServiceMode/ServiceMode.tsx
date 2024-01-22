@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { ServicesList } from './ServicesList';
 import { rootStore } from '../../../../../stores';
 import { ServicesSearch } from '../../../Search/ServicesSearch';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
+
+import { ServicesList } from './ServicesList';
 
 import './service-mode.pcss';
 

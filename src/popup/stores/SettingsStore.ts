@@ -7,7 +7,6 @@ import {
 
 import { tabs } from '../../background/tabs';
 import { log } from '../../lib/logger';
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 import {
     SETTINGS_IDS,
     AppearanceTheme,
@@ -19,9 +18,11 @@ import { ConnectivityStateType } from '../../background/schema';
 import { getHostname, getProtocol } from '../../common/url-utils';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { PromoNotificationData } from '../../background/promoNotifications';
-import type { RootStore } from './RootStore';
 import { Prefs } from '../../common/prefs';
 import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
+
+import type { RootStore } from './RootStore';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 
 type StateType = {
     value: string,

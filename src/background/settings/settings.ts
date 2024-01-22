@@ -1,4 +1,3 @@
-import { SettingsService } from './SettingsService';
 import { browserApi } from '../browserApi';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
@@ -13,6 +12,8 @@ import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
 import { webrtc } from '../browserApi/webrtc';
 import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
 import type { DnsServerData, PersistedExclusions } from '../schema';
+
+import { SettingsService } from './SettingsService';
 
 export interface SettingsInterface {
     init(): Promise<void>;

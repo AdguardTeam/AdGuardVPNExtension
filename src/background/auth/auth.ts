@@ -19,6 +19,7 @@ import type { AuthAccessToken } from '../schema';
 import { authService } from '../authentication/authService';
 import { AuthState, StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
+
 import { SocialAuthData } from './socialAuthSchema';
 import { ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema';
 

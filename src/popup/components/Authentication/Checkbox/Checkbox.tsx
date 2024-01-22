@@ -1,7 +1,9 @@
 import React from 'react';
+
 import cn from 'classnames';
 
 import { Icon } from '../../ui/Icon';
+
 import './checkbox.pcss';
 
 type CheckboxProps = {

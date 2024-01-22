@@ -2,7 +2,6 @@
 import { isIP } from 'is-ip';
 
 import { ExclusionDtoInterface, ExclusionsType } from '../../common/exclusionsConstants';
-import { ExclusionNode } from './ExclusionNode';
 import { getETld } from '../../common/url-utils';
 import type {
     ServicesIndexType,
@@ -10,6 +9,8 @@ import type {
     ExclusionInterface,
     IndexedExclusionsInterface,
 } from '../schema';
+
+import { ExclusionNode } from './ExclusionNode';
 
 type ExclusionsNodesIndex = Map<string, ExclusionNode>;
 

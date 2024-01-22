@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+
 import { WEBSITE_URL, EULA_URL, PRIVACY_URL } from '../../../background/config';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';

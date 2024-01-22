@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
+
 import { VpnBlockedNotice } from './VpnBlockedNotice';
 import { VpnBlockedDetails } from './VpnBlockedDetails';
 

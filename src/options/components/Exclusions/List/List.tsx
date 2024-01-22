@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { ListItem } from './ListItem';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { ExclusionDtoInterface } from '../../../../common/exclusionsConstants';
 import { Loader } from '../Loader';
+
+import { ListItem } from './ListItem';
 
 export const List = observer(() => {
     const { exclusionsStore } = useContext(rootStore);

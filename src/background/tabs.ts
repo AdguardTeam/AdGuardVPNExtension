@@ -1,8 +1,9 @@
 import browser from 'webextension-polyfill';
 
-import { PASSWORD_RECOVERY_URL } from './config';
 import { notifier } from '../lib/notifier';
 import { log } from '../lib/logger';
+
+import { PASSWORD_RECOVERY_URL } from './config';
 
 export type PreparedTab = {
     id?: number,

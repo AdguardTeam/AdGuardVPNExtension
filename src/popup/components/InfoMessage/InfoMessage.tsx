@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+
 import classnames from 'classnames';
 
 import { reactTranslator } from '../../../common/reactTranslator';
-import { TrafficInfo } from './TrafficInfo';
 import { rootStore } from '../../stores';
+
+import { TrafficInfo } from './TrafficInfo';
 
 import './info-message.pcss';
 

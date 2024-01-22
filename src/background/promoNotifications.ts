@@ -4,10 +4,11 @@
 import browser from 'webextension-polyfill';
 
 import { lazyGet } from '../lib/helpers';
-import { getUrl } from './browserApi/runtime';
-import { browserApi } from './browserApi';
 import { Prefs } from '../common/prefs';
 import { notifier } from '../lib/notifier';
+
+import { getUrl } from './browserApi/runtime';
+import { browserApi } from './browserApi';
 import { FORWARDER_DOMAIN } from './config';
 
 interface PromoNotificationInterface {

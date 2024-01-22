@@ -5,8 +5,9 @@ import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { EDIT_ACCOUNT_URL } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { Features } from './Features/Features';
 import { SubscriptionType } from '../../../lib/constants';
+
+import { Features } from './Features/Features';
 
 import './account.pcss';
 

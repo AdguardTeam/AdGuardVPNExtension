@@ -1,8 +1,9 @@
 import { customAlphabet } from 'nanoid';
 
+import { log } from '../../lib/logger';
+
 import { alarmApi } from './alarmApi';
 import { TimersInterface } from './AbstractTimers';
-import { log } from '../../lib/logger';
 
 const MINIMAL_INTERVAL_MIN = 1;
 

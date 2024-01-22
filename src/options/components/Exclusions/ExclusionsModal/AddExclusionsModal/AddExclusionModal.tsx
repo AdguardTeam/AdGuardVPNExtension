@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+
 import classnames from 'classnames';
 
 import { ExclusionsModal } from '../ExclusionsModal';
 import { rootStore } from '../../../../stores';
 import { AddExclusionMode } from '../../../../stores/ExclusionsStore';
+import { reactTranslator } from '../../../../../common/reactTranslator';
+
 import { ServiceMode } from './ServiceMode/ServiceMode';
 import { ManualMode } from './ManualMode/ManualMode';
-import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import '../exclusions-modal.pcss';
 

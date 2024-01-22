@@ -1,5 +1,4 @@
 import { accountApi } from '../api';
-
 import { FORWARDER_DOMAIN } from '../config';
 import { notifications } from '../notifications';
 import { translator } from '../../common/translator';

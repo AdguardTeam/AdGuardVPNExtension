@@ -5,12 +5,13 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { translator } from '../../../common/translator';
-import { InviteFriend } from './InviteFriend';
-import { ConfirmEmail } from './ConfirmEmail';
-import { AddDevice } from './AddDevice';
 import { Title } from '../ui/Title';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
+
+import { InviteFriend } from './InviteFriend';
+import { ConfirmEmail } from './ConfirmEmail';
+import { AddDevice } from './AddDevice';
 
 import './free-gbs.pcss';
 

@@ -1,10 +1,9 @@
 import isEmpty from 'lodash/isEmpty';
+
 import { log } from '../../lib/logger';
 import { measurePingWithinLimits } from '../connectivity/pingHelpers';
 import { notifier } from '../../lib/notifier';
-import { LocationWithPing } from './LocationWithPing';
 import { vpnProvider } from '../providers/vpnProvider';
-import { Location } from './Location';
 import { SETTINGS_IDS } from '../../lib/constants';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
@@ -16,6 +15,9 @@ import {
     StorageKey,
 } from '../schema';
 import { stateStorage } from '../stateStorage';
+
+import { Location } from './Location';
+import { LocationWithPing } from './LocationWithPing';
 
 export interface PingData {
     ping: number | null;

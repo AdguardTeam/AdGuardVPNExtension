@@ -1,9 +1,10 @@
 import { nanoid } from 'nanoid';
 
-import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 import { stringToUint8Array } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { sleep } from '../../lib/helpers';
+
+import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 
 /**
  * Prepares ping message before sending to the endpoint via websocket

@@ -1,9 +1,12 @@
-// @ts-ignore there are no types for web-ext
-import webExt from 'web-ext';
 import path from 'path';
 import { promises as fs } from 'fs';
+
+// @ts-ignore there are no types for web-ext
+import webExt from 'web-ext';
 import chalk from 'chalk';
 import { Manifest } from 'webextension-polyfill';
+
+import packageJson from '../package.json';
 
 import {
     Browser,
@@ -15,7 +18,6 @@ import {
     XPI_NAME,
     FIREFOX_UPDATE_URL,
 } from './consts';
-import packageJson from '../package.json';
 
 const { log, error } = console;
 

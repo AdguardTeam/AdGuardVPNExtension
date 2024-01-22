@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../../stores';
-import { ServiceCategory } from './ServiceCategory';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
+
+import { ServiceCategory } from './ServiceCategory';
 
 export const ServicesList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);

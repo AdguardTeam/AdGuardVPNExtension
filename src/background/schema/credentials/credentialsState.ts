@@ -1,4 +1,5 @@
 import zod from 'zod';
+
 import { vpnTokenDataScheme } from './vpnTokenData';
 
 export const vpnCredentialsScheme = zod.object({

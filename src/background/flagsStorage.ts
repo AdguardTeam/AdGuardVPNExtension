@@ -1,6 +1,7 @@
-import { browserApi } from './browserApi';
 import { FLAGS_FIELDS } from '../lib/constants';
 import { log } from '../lib/logger';
+
+import { browserApi } from './browserApi';
 import { updateService } from './updateService';
 import { stateStorage } from './stateStorage';
 import { FlagsStorageData, FLAG_STORAGE_DEFAULTS } from './flagsStorageData';

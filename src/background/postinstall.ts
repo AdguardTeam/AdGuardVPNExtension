@@ -1,4 +1,5 @@
 import { Prefs } from '../common/prefs';
+
 import { tabs } from './tabs';
 import { THANK_YOU_PAGE_URL, FIREFOX_THANK_YOU_PAGE_URL } from './config';
 import { updateService } from './updateService';

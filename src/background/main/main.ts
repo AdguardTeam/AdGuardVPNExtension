@@ -39,7 +39,6 @@ import { connectivityService } from '../connectivity/connectivityService';
 import { proxyApi } from '../proxy/abstractProxyApi';
 import { updateOptionsPageListeners } from '../stateStorage/helper';
 import { logStorageManager } from '../../lib/log-storage/LogStorageManager';
-
 import '../rateModal';
 import '../uninstall';
 import '../networkConnectionObserver';

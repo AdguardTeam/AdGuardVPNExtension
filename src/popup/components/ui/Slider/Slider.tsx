@@ -1,11 +1,13 @@
 import React from 'react';
+
 import cn from 'classnames';
+
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { DotsIndicator } from '../DotsIndicator';
 import { CloseButton } from '../CloseButton';
+import { Icon } from '../Icon';
 
 import './slider.pcss';
-import { Icon } from '../Icon';
 
 type SlideData = {
     image: string,

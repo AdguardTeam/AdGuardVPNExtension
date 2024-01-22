@@ -1,11 +1,14 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+
 // @ts-ignore
 import Crx from 'crx';
 import chalk from 'chalk';
 import { program } from 'commander';
 
 const { log, error } = console;
+
+const packageJson = require('../package.json');
 
 const {
     CHROME_UPDATE_URL,
@@ -19,7 +22,6 @@ const {
     CRX_NAME,
 } = require('./consts');
 const { updateManifest } = require('./helpers');
-const packageJson = require('../package.json');
 
 const { BUILD_ENV } = process.env;
 const { outputPath } = BUILD_ENV_MAP[BUILD_ENV as string];

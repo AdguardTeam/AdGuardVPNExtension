@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-
 import ReactHtmlParser from 'react-html-parser';
+
 import { rootStore } from '../../../stores';
 import { RequestStatus } from '../../../stores/consts';
-
 import { Submit } from '../Submit';
 import { InputField } from '../InputField';
 import { translator } from '../../../../common/translator';

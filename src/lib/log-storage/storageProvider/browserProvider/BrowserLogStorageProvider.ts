@@ -5,6 +5,7 @@
 
 import { browserApi } from '../../../../background/browserApi';
 import type { LogStorageProvider } from '../LogStorageProvider';
+
 import { Logs, logsValidator } from './logsSchema';
 
 /**

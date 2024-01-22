@@ -1,4 +1,5 @@
 import { MockServer } from 'jest-mock-server';
+
 import { Api } from '../../../src/background/api/Api';
 
 const REQUEST_PATH = '/test-request';

@@ -1,5 +1,6 @@
-import { nanoid } from 'nanoid';
 import { ReactNode } from 'react';
+
+import { nanoid } from 'nanoid';
 
 export interface Action {
     action: ReactNode | string,

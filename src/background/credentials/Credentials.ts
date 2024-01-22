@@ -17,10 +17,11 @@ import {
     StorageKey,
 } from '../schema';
 import { stateStorage } from '../stateStorage';
-import { credentialsService } from './credentialsService';
 import { auth, type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
 import { abTestManager } from '../abTestManager';
+
+import { credentialsService } from './credentialsService';
 
 export interface AccessCredentialsData {
     credentialsHash: string,

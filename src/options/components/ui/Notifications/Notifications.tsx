@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
+
 import { NotificationUi } from './NotificationUi';
 
 import './notifications.pcss';

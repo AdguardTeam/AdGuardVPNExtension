@@ -1,7 +1,8 @@
-import { browserApi } from './browserApi';
 import { notifier } from '../lib/notifier';
-import { settings } from './settings';
 import { SETTINGS_IDS } from '../lib/constants';
+
+import { browserApi } from './browserApi';
+import { settings } from './settings';
 
 const OPEN_RATE_MODAL_COUNTDOWN_KEY = 'open.rate.modal.countdown';
 

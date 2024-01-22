@@ -1,13 +1,13 @@
+import path from 'path';
+
 import webpack from 'webpack';
 import { merge } from 'webpack-merge';
-import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
-import { operaManifestDiff } from './manifest.opera';
 import {
     STAGE_ENV,
     IS_DEV,
@@ -15,6 +15,8 @@ import {
     Browser,
     SRC_PATH,
 } from '../consts';
+
+import { operaManifestDiff } from './manifest.opera';
 
 const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 

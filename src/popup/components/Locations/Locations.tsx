@@ -2,11 +2,12 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
+import { reactTranslator } from '../../../common/reactTranslator';
+import { LocationData } from '../../stores/VpnStore';
+
 import { Location } from './Location';
 import { Search } from './Search';
 import { Skeleton } from './Skeleton';
-import { reactTranslator } from '../../../common/reactTranslator';
-import { LocationData } from '../../stores/VpnStore';
 
 import './endpoints.pcss';
 

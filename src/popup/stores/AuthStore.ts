@@ -7,10 +7,11 @@ import {
 } from 'mobx';
 import isNil from 'lodash/isNil';
 
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 import { messenger } from '../../lib/messenger';
 import { SETTINGS_IDS, FLAGS_FIELDS, SocialAuthProvider } from '../../lib/constants';
 import { translator } from '../../common/translator';
+
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 import type { RootStore } from './RootStore';
 
 const AUTH_STEPS = {

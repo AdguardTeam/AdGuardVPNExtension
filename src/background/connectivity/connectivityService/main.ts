@@ -8,6 +8,7 @@ import {
     ConnectivityData,
     ConnectivityStateType,
 } from '../../schema';
+
 import {
     createConnectivityMachine,
     ConnectivityEventType,

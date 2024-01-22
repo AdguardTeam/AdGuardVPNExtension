@@ -1,7 +1,6 @@
 import { permissionsChecker } from '../../../src/background/permissionsChecker';
 import { notifier } from '../../../src/lib/notifier';
 import { SubscriptionType } from '../../../src/lib/constants';
-
 import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,

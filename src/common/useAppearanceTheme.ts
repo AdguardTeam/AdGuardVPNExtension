@@ -1,5 +1,6 @@
-import throttle from 'lodash/throttle';
 import { useLayoutEffect } from 'react';
+
+import throttle from 'lodash/throttle';
 
 import { AppearanceTheme } from '../lib/constants';
 

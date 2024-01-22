@@ -2,9 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 
-import { Rate } from './Rate';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { rootStore } from '../../stores';
+
+import { Rate } from './Rate';
 
 import './sidebar.pcss';
 

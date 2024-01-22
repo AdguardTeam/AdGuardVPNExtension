@@ -1,7 +1,6 @@
 import browser from 'webextension-polyfill';
 import axios from 'axios';
 
-import { Service } from './Service';
 import { vpnProvider } from '../../providers/vpnProvider';
 import { browserApi } from '../../browserApi';
 import { log } from '../../../lib/logger';
@@ -14,6 +13,8 @@ import {
     ServicesIndexType,
     ServicesManagerState,
 } from '../../schema';
+
+import { Service } from './Service';
 
 interface ServiceManagerInterface {
     init: () => Promise<void>;

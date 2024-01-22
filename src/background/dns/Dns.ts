@@ -1,9 +1,10 @@
-import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from './dnsConstants';
 import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
 import { StorageKey, DnsServerData, DnsState } from '../schema';
 import { stateStorage } from '../stateStorage';
 import { log } from '../../lib/logger';
+
+import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from './dnsConstants';
 
 interface DnsInterface {
     init(): void;

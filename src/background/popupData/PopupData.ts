@@ -25,8 +25,9 @@ import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../schema';
 import { hintPopup } from '../hintPopup';
-import { popupOpenedCounter } from './popupOpenedCounter';
 import { abTestManager } from '../abTestManager';
+
+import { popupOpenedCounter } from './popupOpenedCounter';
 
 interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;

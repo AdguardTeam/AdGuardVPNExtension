@@ -1,5 +1,4 @@
 import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
-import { ExclusionsHandler } from './ExclusionsHandler';
 import { notifier } from '../../../lib/notifier';
 import { log } from '../../../lib/logger';
 import { settings } from '../../settings';
@@ -11,6 +10,8 @@ import {
     IndexedExclusionsInterface, ExclusionsManagerState,
 } from '../../schema';
 import { stateStorage } from '../../stateStorage';
+
+import { ExclusionsHandler } from './ExclusionsHandler';
 
 export type AllExclusions = Omit<PersistedExclusions, 'inverted'>;
 

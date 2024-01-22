@@ -1,7 +1,8 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
+
+import axios, { AxiosRequestConfig } from 'axios';
+import dotenv from 'dotenv';
 
 import {
     ExclusionServices,

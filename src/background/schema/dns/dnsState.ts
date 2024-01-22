@@ -1,4 +1,5 @@
 import zod from 'zod';
+
 import { dnsServerDataScheme } from './dnsServerData';
 
 export const dnsStateScheme = zod.object({

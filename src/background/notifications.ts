@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
+
 import { translator } from '../common/translator';
 import { Prefs } from '../common/prefs';
 

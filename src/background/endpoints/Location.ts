@@ -1,5 +1,6 @@
-import { Endpoint } from './Endpoint';
 import type { EndpointInterface, LocationData, LocationInterface } from '../schema';
+
+import { Endpoint } from './Endpoint';
 
 export interface LocationWithPingInterface extends LocationData {
     ping: number;

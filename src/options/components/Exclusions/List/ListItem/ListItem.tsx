@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
+
 import cn from 'classnames';
 
 import { ExclusionsType, ExclusionDtoInterface, ICON_FOR_DOMAIN } from '../../../../../common/exclusionsConstants';

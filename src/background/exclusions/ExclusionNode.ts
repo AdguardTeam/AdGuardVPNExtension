@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import { ExclusionState, ExclusionsType } from '../../common/exclusionsConstants';
+
 import { ExclusionDto } from './ExclusionDto';
 
 type ExclusionNodeMap = Map<string, ExclusionNode>;

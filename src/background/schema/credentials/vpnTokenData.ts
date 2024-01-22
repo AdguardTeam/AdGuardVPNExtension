@@ -1,4 +1,5 @@
 import zod from 'zod';
+
 import { SubscriptionType } from '../../../lib/constants';
 
 const vpnSubscriptionScheme = zod.object({

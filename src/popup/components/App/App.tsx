@@ -17,7 +17,6 @@ import { PromoNotificationModal } from '../PromoNotificationModal';
 import { Icons } from '../ui/Icons';
 import { CurrentEndpoint } from '../Settings/CurrentEndpoint';
 import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
-
 import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/consts';
 import { log } from '../../../lib/logger';

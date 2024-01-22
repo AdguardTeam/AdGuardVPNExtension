@@ -1,13 +1,13 @@
+import path from 'path';
+
 import webpack from 'webpack';
 import { merge } from 'webpack-merge';
-import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
-import { chromeManifestDiff } from './manifest.chrome';
 import {
     STAGE_ENV,
     SRC_PATH,
@@ -15,6 +15,8 @@ import {
     StageEnv,
     Browser,
 } from '../consts';
+
+import { chromeManifestDiff } from './manifest.chrome';
 
 const CHROME_PATH = 'chrome';
 

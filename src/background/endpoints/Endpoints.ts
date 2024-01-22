@@ -10,13 +10,10 @@ import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import { notifier } from '../../lib/notifier';
 import { proxy } from '../proxy';
 import { vpnProvider } from '../providers/vpnProvider';
-import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
-
 // eslint-disable-next-line import/no-cycle
 import { connectivity } from '../connectivity';
 import { credentials } from '../credentials';
-import { locationsService } from './locationsService';
 import { connectivityService } from '../connectivity/connectivityService';
 import type {
     EndpointInterface,
@@ -28,6 +25,9 @@ import { settings } from '../settings';
 import { QuickConnectSetting } from '../../lib/constants';
 import { EndpointsState, LocationInterface, StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
+
+import { locationsService } from './locationsService';
+import { LocationWithPing } from './LocationWithPing';
 import { Location } from './Location';
 
 /**

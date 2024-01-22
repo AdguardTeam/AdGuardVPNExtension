@@ -3,6 +3,10 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
+import { translator } from '../../../common/translator';
+import { ExclusionsMode } from '../../../common/exclusionsConstants';
+import { reactTranslator } from '../../../common/reactTranslator';
+
 import { ModeSelectorModal } from './ModeSelectorModal';
 import { Actions } from './Actions';
 import { List } from './List';
@@ -10,9 +14,6 @@ import { AddExclusionModal } from './ExclusionsModal/AddExclusionsModal';
 import { ConfirmAddModal } from './ExclusionsModal/ConfirmAddModal';
 import { ChildrenList } from './ChildrenList';
 import { ExclusionsSearch } from './Search/ExclusionsSearch';
-import { translator } from '../../../common/translator';
-import { ExclusionsMode } from '../../../common/exclusionsConstants';
-import { reactTranslator } from '../../../common/reactTranslator';
 
 import './exclusions.pcss';
 

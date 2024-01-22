@@ -1,13 +1,14 @@
 import browser from 'webextension-polyfill';
 
-import { tabs } from './tabs';
-import { credentials } from './credentials';
 import { Prefs } from '../common/prefs';
 import { log } from '../lib/logger';
+import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
+
+import { tabs } from './tabs';
+import { credentials } from './credentials';
 import { settings } from './settings';
 import { UPGRADE_LICENSE_URL } from './config';
 import { promoNotifications } from './promoNotifications';
-import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
 import { browserAction } from './browserAction';
 
 type SetIconDetailsType = browser.Action.SetIconDetailsType;

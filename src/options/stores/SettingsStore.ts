@@ -16,11 +16,12 @@ import {
 } from '../../lib/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
-import { RequestStatus } from './consts';
 import { log } from '../../lib/logger';
 import type { DnsServerData } from '../../background/schema';
-import type { RootStore } from './RootStore';
 import { CustomDnsData } from '../hooks/useQueryStringData';
+
+import type { RootStore } from './RootStore';
+import { RequestStatus } from './consts';
 
 interface OptionsData {
     appVersion: string;

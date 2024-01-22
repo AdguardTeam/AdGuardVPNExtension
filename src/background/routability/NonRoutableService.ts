@@ -6,10 +6,11 @@ import { isIP } from 'is-ip';
 
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
-import { NON_ROUTABLE_CIDR_NETS } from './constants';
 import { tabs } from '../tabs';
 import { getHostname } from '../../common/url-utils';
 import type { Storage } from '../browserApi/storage';
+
+import { NON_ROUTABLE_CIDR_NETS } from './constants';
 
 export interface NonRoutableServiceInterface {
     init(): Promise<void>;

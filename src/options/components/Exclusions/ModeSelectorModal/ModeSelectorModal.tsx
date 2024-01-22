@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
+
 import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';

@@ -1,11 +1,8 @@
-import identity from 'lodash/identity';
 import punycode from 'punycode';
+
+import identity from 'lodash/identity';
 import { isIP } from 'is-ip';
 
-import { AllExclusions, exclusionsManager } from './exclusions/ExclusionsManager';
-import { servicesManager } from './services/ServicesManager';
-import { ExclusionsTree } from './ExclusionsTree';
-import { ExclusionNode } from './ExclusionNode';
 import {
     ExclusionDtoInterface,
     ExclusionsMode,
@@ -13,7 +10,6 @@ import {
     ExclusionsType,
     ServiceDto,
 } from '../../common/exclusionsConstants';
-import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
 import { ExclusionInterface, ExclusionsState, StorageKey } from '../schema';
 import {
     getETld,
@@ -23,6 +19,12 @@ import {
 } from '../../common/url-utils';
 import { notifier } from '../../lib/notifier';
 import { stateStorage } from '../stateStorage';
+
+import { AllExclusions, exclusionsManager } from './exclusions/ExclusionsManager';
+import { servicesManager } from './services/ServicesManager';
+import { ExclusionsTree } from './ExclusionsTree';
+import { ExclusionNode } from './ExclusionNode';
+import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
 
 interface ToggleServicesResult {
     added: number,

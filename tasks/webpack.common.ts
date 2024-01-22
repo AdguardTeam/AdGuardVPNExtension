@@ -1,4 +1,5 @@
 import path from 'path';
+
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -17,6 +18,8 @@ import {
     Browser,
 } from './consts';
 
+const packageJson = require('../package.json');
+
 const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = require('./helpers');
 
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
@@ -31,8 +34,6 @@ const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
 const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
 
 const EN_MESSAGES_PATH = '/en/messages.json';
-
-const packageJson = require('../package.json');
 
 const BUILD_TXT_FILENAME = 'build.txt';
 const BUILD_TXT_CONTENT = IS_BETA

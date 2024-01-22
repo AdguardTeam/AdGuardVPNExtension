@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+
 import classnames from 'classnames';
 
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../../../background/dns/dnsConstants';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { CustomDnsServerModal } from './CustomDnsServerModal';
 import type { DnsServerData } from '../../../../background/schema';
+
+import { CustomDnsServerModal } from './CustomDnsServerModal';
 
 import './dns-settings.pcss';
 

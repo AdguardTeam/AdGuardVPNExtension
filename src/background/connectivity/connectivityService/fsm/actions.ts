@@ -3,6 +3,7 @@ import { assign } from 'xstate';
 import { log } from '../../../../lib/logger';
 import { CONNECTIVITY_CONTEXT_DEFAULTS, ConnectivityContext } from '../../../schema/connectivity';
 import { switcher } from '../../switcher';
+
 import { ConnectivityEvent, ConnectivityEventType } from './events';
 
 /**

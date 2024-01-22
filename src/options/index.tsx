@@ -1,9 +1,11 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
 import { Provider } from 'mobx-react';
 
-import { App } from './components/App';
+import { createRoot } from 'react-dom/client';
+
 import { translator } from '../common/translator';
+
+import { App } from './components/App';
 
 document.title = translator.getMessage('options_title');
 

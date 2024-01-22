@@ -7,6 +7,7 @@ import {
 import { log } from '../../lib/logger';
 import { tabs } from '../../background/tabs';
 import { messenger } from '../../lib/messenger';
+
 import type { RootStore } from './RootStore';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 

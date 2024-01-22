@@ -1,11 +1,11 @@
 /* eslint-disable no-await-in-loop */
 import fs from 'fs';
 import path from 'path';
-import axios from 'axios';
 import querystring from 'querystring';
 
-import { cliLog } from './helpers';
+import axios from 'axios';
 
+import { cliLog } from './helpers';
 import {
     PROJECT_ID,
     API_URL,

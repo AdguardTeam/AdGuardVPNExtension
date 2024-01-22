@@ -4,23 +4,24 @@ import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
 import { FORCE_CANCELLED } from '../../lib/constants';
 import { vpnApi } from '../api';
 import { updateService } from '../updateService';
-
 // eslint-disable-next-line import/no-cycle
 import { credentials } from '../credentials';
 // eslint-disable-next-line import/no-cycle
 import { locationsService } from '../endpoints/locationsService';
 // eslint-disable-next-line import/no-cycle
 import { endpoints } from '../endpoints';
-// eslint-disable-next-line import/no-cycle
-import { connectivity } from './index';
+import type { AccessCredentialsData } from '../credentials/Credentials';
+import type { EndpointInterface, LocationInterface } from '../schema';
+import type { VpnConnectionStatus } from '../api/vpnApi';
+
 import {
     connectivityService,
     ConnectivityEventType,
     MIN_CONNECTION_DURATION_MS,
 } from './connectivityService';
-import type { AccessCredentialsData } from '../credentials/Credentials';
-import type { EndpointInterface, LocationInterface } from '../schema';
-import type { VpnConnectionStatus } from '../api/vpnApi';
+
+// eslint-disable-next-line import/no-cycle
+import { connectivity } from './index';
 
 /**
  * Turns on proxy after doing preparing steps

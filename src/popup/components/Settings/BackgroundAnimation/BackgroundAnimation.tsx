@@ -7,6 +7,7 @@ import {
     AppearanceTheme,
     animationSourcesMap,
 } from '../../../../lib/constants';
+
 import { animationService } from './animationStateMachine';
 
 export const BackgroundAnimation = observer(() => {

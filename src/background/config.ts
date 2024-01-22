@@ -1,4 +1,5 @@
 import { log } from '../lib/logger';
+
 import { runtime } from './browserApi/runtime';
 
 // global data

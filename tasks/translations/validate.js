@@ -1,8 +1,8 @@
 import _ from 'lodash';
+
 import { validator } from '@adguard/translate';
 
 import { cliLog, readMessagesByLocale, writeMessagesByLocale } from './helpers';
-
 import {
     BASE_LOCALE,
     LANGUAGES,

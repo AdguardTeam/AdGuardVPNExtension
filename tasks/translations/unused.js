@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 import { cliLog, readMessagesByLocale } from './helpers';
-
 import {
     BASE_LOCALE,
     SRC_RELATIVE_PATH,

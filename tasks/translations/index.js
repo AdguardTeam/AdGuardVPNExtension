@@ -5,9 +5,7 @@ import { downloadAndSave } from './download';
 import { uploadBaseLocale } from './upload';
 import { addRequiredFields, checkTranslations } from './validate';
 import { checkUnusedMessages } from './unused';
-
 import { cliLog } from './helpers';
-
 import { LANGUAGES } from './locales-constants';
 
 const LOCALES = Object.keys(LANGUAGES); // locales to be downloaded

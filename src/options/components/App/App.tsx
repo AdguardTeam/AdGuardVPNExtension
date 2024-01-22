@@ -20,8 +20,9 @@ import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { Exclusions } from '../Exclusions';
-import { useMessageHandler } from './useMessageHandler';
 import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
+
+import { useMessageHandler } from './useMessageHandler';
 
 import '../../styles/main.pcss';
 import './app.pcss';

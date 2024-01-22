@@ -1,10 +1,11 @@
-import pacGenerator from './pacGenerator';
 import { ProxyConfigInterface, StorageKey } from '../../schema';
-import { promisifiedClearProxy, promisifiedGetProxy, promisifiedSetProxy } from './proxySettingsUtils';
 import { stateStorage } from '../../stateStorage';
 import { log } from '../../../lib/logger';
 import { ProxyApiInterface } from '../abstractProxyApi';
 import { browserApi } from '../../browserApi';
+
+import { promisifiedClearProxy, promisifiedGetProxy, promisifiedSetProxy } from './proxySettingsUtils';
+import pacGenerator from './pacGenerator';
 import { proxyAuthTrigger } from './proxyAuthTrigger';
 
 interface ProxyErrorCallback {

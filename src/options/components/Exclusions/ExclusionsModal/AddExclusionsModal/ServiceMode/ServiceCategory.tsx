@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+
 import cn from 'classnames';
 
-import { ServiceRow } from './ServiceRow';
 import { rootStore } from '../../../../../stores';
 import { PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
 import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
+
+import { ServiceRow } from './ServiceRow';
 
 import s from './service-category.module.pcss';
 

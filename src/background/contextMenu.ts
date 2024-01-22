@@ -3,16 +3,17 @@ import throttle from 'lodash/throttle';
 import { defaults } from 'lodash';
 
 import { notifier } from '../lib/notifier';
-import { exclusions } from './exclusions';
-import { tabs } from './tabs';
 import { translator } from '../common/translator';
-import { settings } from './settings';
 import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
 import { ExclusionsMode } from '../common/exclusionsConstants';
+import { SETTINGS_IDS } from '../lib/constants';
+
+import { exclusions } from './exclusions';
+import { tabs } from './tabs';
+import { settings } from './settings';
 import { actions } from './actions';
 import { browserApi } from './browserApi';
-import { SETTINGS_IDS } from '../lib/constants';
 
 type ContextType = browser.Menus.ContextType;
 type CreateCreatePropertiesType = browser.Menus.CreateCreatePropertiesType;

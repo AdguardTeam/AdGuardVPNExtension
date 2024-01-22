@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { observer } from 'mobx-react';
+
 import { useMachine } from '@xstate/react';
 import identity from 'lodash/identity';
 import classnames from 'classnames';
@@ -11,6 +12,7 @@ import { messenger } from '../../../../lib/messenger';
 import { addMinDurationTime } from '../../../../lib/helpers';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
+
 import { RequestEvent, RequestState, requestMachine } from './requestMachine';
 
 import './bug-report.pcss';

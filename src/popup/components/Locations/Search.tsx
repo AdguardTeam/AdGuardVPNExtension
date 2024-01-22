@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import React from 'react';
+
 import classnames from 'classnames';
 
 import { translator } from '../../../common/translator';

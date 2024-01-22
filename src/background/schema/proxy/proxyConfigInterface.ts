@@ -1,4 +1,5 @@
 import zod from 'zod';
+
 import { accessCredentialsScheme } from './accessCredentials';
 
 export const proxyConfigInterfaceScheme = zod.object({

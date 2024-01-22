@@ -4,8 +4,9 @@ import {
     runInAction,
 } from 'mobx';
 
-import type { RootStore } from './RootStore';
 import { messenger } from '../../lib/messenger';
+
+import type { RootStore } from './RootStore';
 import { RequestStatus } from './consts';
 
 export class AuthStore {

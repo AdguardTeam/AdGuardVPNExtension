@@ -1,6 +1,7 @@
-import { browserApi } from './browserApi';
 import { notifier } from '../lib/notifier';
 import { ExclusionsMode } from '../common/exclusionsConstants';
+
+import { browserApi } from './browserApi';
 import { exclusions } from './exclusions';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
 

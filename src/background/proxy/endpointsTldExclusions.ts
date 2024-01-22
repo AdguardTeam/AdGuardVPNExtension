@@ -4,10 +4,11 @@ import sortBy from 'lodash/sortBy';
 
 import { log } from '../../lib/logger';
 import { browserApi } from '../browserApi';
-import { proxy } from './index';
 import { StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
 import { EndpointsTldExclusionsState } from '../schema/proxy/endpointsTldExclusions';
+
+import { proxy } from './index';
 
 /**
  * This module manages exclusions for endpoints

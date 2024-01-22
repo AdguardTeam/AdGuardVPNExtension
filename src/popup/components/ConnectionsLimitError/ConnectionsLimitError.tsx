@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import { CSSTransition } from 'react-transition-group';
+
 import isNil from 'lodash/isNil';
 
 import { log } from '../../../lib/logger';

@@ -4,8 +4,9 @@ import React, {
     useState,
     useRef,
 } from 'react';
-import classnames from 'classnames';
 import { observer } from 'mobx-react';
+
+import classnames from 'classnames';
 import identity from 'lodash/identity';
 import format from 'date-fns/format';
 import JSZip from 'jszip';
@@ -13,16 +14,17 @@ import FileSaver from 'file-saver';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { RemoveAllModal } from './RemoveAllModal';
-import { ExclusionDataType, ExclusionsImportData, readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../lib/string-utils';
 import { ExclusionsContentMap } from '../../../../lib/constants';
 import { log } from '../../../../lib/logger';
 import { messenger } from '../../../../lib/messenger';
-import { SelectListModal } from './SelectListModal/SelectListModal';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
+
+import { SelectListModal } from './SelectListModal/SelectListModal';
+import { ExclusionDataType, ExclusionsImportData, readExclusionsFile } from './fileHelpers';
+import { RemoveAllModal } from './RemoveAllModal';
 
 import './actions.pcss';
 

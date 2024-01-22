@@ -1,6 +1,7 @@
 import { createMachine, interpret } from 'xstate';
 
 import { ConnectivityContext, ConnectivityStateType } from '../../../schema/connectivity';
+
 import { ConnectivityEvent, ConnectivityEventType } from './events';
 import { connectivityDelays, ConnectivityDelayType } from './delays';
 import { connectivityActions, ConnectivityActionType } from './actions';

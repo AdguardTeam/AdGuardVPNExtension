@@ -1,6 +1,7 @@
+import { SubscriptionType } from '../../lib/constants';
+
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
-import { SubscriptionType } from '../../lib/constants';
 import { RequestProps } from './apiTypes';
 
 interface TokensInterface {

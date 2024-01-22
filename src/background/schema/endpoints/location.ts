@@ -1,4 +1,5 @@
 import zod from 'zod';
+
 import { endpointInterfaceScheme } from './endpointInterface';
 
 export const locationDataScheme = zod.object({

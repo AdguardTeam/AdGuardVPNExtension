@@ -6,9 +6,10 @@ import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL, COMPARE_PAGE } from '../../../background/config';
 import { messenger } from '../../../lib/messenger';
-import { Option } from './Option';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { RatePopup } from '../RatePopup';
+
+import { Option } from './Option';
 
 import './extra-options.pcss';
 

@@ -1,5 +1,6 @@
-import { NonRoutableService } from './NonRoutableService';
 import { browserApi } from '../browserApi';
+
+import { NonRoutableService } from './NonRoutableService';
 
 const nonRoutableService = new NonRoutableService(browserApi.storage);
 

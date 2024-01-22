@@ -3,9 +3,10 @@ import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { PATH_TO_RATING_IMAGES, RATING_IMAGES_MAP } from './constants';
 import { POPUP_STORE_URL, FEEDBACK_URL } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
+
+import { PATH_TO_RATING_IMAGES, RATING_IMAGES_MAP } from './constants';
 
 import './rate-modal.pcss';
 

@@ -1,5 +1,6 @@
-import { Api } from './Api';
 import { AUTH_CLIENT_ID } from '../config';
+
+import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
 import { AuthCredentials, RequestProps } from './apiTypes';
 

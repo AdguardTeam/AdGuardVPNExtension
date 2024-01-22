@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
+
 import classnames from 'classnames';
 
 import { rootStore } from '../../stores';
-import { PATH_TO_RATING_IMAGES, RATING_IMAGES_MAP } from './constants';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Icon } from '../ui/Icon';
+
+import { PATH_TO_RATING_IMAGES, RATING_IMAGES_MAP } from './constants';
 
 import './rate-modal.pcss';
 

@@ -3,13 +3,14 @@ import { ERROR_STATUSES } from '../../lib/constants';
 import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
 import { endpointConnectivity } from '../connectivity/endpointConnectivity';
-import { PermissionsErrorInterface, ErrorData } from './permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { vpnProvider } from '../providers/vpnProvider';
 import { timers } from '../timers';
 import { stateStorage } from '../stateStorage';
 import { PermissionsCheckerState, StorageKey } from '../schema';
 import { auth } from '../auth';
+
+import { PermissionsErrorInterface, ErrorData } from './permissionsError';
 
 interface PermissionsCheckerParameters {
     credentials: CredentialsInterface;

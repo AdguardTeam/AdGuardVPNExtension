@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from 'react';
-import classnames from 'classnames';
 import { observer } from 'mobx-react';
+
+import classnames from 'classnames';
 
 import { rootStore } from '../../../../stores';
 import { useOutsideClick } from '../../../../../common/components/ui/useOutsideClick';

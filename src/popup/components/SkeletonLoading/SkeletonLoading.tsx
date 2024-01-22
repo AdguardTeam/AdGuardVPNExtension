@@ -4,7 +4,6 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { rootStore } from '../../stores';
 import { Icons } from '../ui/Icons';
 import { BackgroundAnimation } from '../Settings/BackgroundAnimation';
-
 import { SkeletonHeader } from '../ui/SkeletonHeader';
 import { SkeletonFooter } from '../ui/SkeletonFooter';
 

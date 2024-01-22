@@ -1,3 +1,5 @@
+import punycode from 'punycode';
+
 import {
     action,
     computed,
@@ -5,7 +7,6 @@ import {
     runInAction,
     toJS,
 } from 'mobx';
-import punycode from 'punycode';
 import { isIP } from 'is-ip';
 import { getDomain } from 'tldts';
 
@@ -19,8 +20,9 @@ import {
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
-import type { RootStore } from './RootStore';
 import type { ServiceCategory } from '../../background/schema';
+
+import type { RootStore } from './RootStore';
 
 export interface PreparedServiceCategory extends ServiceCategory {
     services: string[]

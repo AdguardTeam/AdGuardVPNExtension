@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill';
+
 import { notifications } from '../../src/background/notifications';
 
 jest.mock('webextension-polyfill', () => {

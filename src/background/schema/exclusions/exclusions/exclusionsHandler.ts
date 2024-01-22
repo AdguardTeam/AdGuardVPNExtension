@@ -1,4 +1,5 @@
 import zod from 'zod';
+
 import { exclusionScheme } from './exclusion';
 
 const exclusionsIndexScheme = zod.record(zod.string(), zod.string().array());

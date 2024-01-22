@@ -1,5 +1,4 @@
 import type { DnsServerData } from '../schema';
-
 /**
  * IMPORTANT
  * Do not import inside this file other dependencies,

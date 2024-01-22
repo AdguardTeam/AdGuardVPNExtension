@@ -4,9 +4,10 @@ import {
     observable,
 } from 'mobx';
 
-import { RequestStatus } from './consts';
 import { log } from '../../lib/logger';
 import { messenger } from '../../lib/messenger';
+
+import { RequestStatus } from './consts';
 import type { RootStore } from './RootStore';
 
 export class GlobalStore {

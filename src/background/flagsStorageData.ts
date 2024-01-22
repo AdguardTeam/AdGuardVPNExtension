@@ -1,4 +1,5 @@
 import zod from 'zod';
+
 import { FLAGS_FIELDS } from '../lib/constants';
 
 export const flagsStorageDataScheme = zod.record(zod.string().or(zod.boolean()));

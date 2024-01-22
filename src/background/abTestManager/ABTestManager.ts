@@ -5,6 +5,7 @@ import {
 } from '../schema/credentials/trackInstallResponse';
 import { browserApi } from '../browserApi';
 import { log } from '../../lib/logger';
+
 import { AG21492_SHOW_SCREENSHOT_FLOW_VERSION_ID } from './constants';
 
 /**

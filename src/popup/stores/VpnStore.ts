@@ -13,8 +13,9 @@ import { AnimationEvent } from '../../lib/constants';
 import { LocationWithPing } from '../../background/endpoints/LocationWithPing';
 import { PingData } from '../../background/endpoints/locationsService';
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
-import type { RootStore } from './RootStore';
 import { daysToRenewal } from '../../common/utils/date';
+
+import type { RootStore } from './RootStore';
 
 interface Pings {
     [key: string]: PingData,

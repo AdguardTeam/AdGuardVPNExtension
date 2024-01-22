@@ -5,8 +5,9 @@ import { rootStore } from '../../stores';
 import { messenger } from '../../../lib/messenger';
 import { FEEDBACK_URL, FAQ_URL } from '../../../background/config';
 import { Title } from '../ui/Title';
-import { BugReporter } from './BugReporter';
 import { translator } from '../../../common/translator';
+
+import { BugReporter } from './BugReporter';
 
 import './support.pcss';
 
