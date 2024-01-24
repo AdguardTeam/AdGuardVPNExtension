@@ -55,7 +55,6 @@ export const App = observer(() => {
     } = useContext(rootStore);
 
     const {
-        desktopVpnEnabled,
         canControlProxy,
         hasGlobalError,
         hasLimitExceededError,
@@ -129,10 +128,6 @@ export const App = observer(() => {
                     vpnStore.setMaxDevicesAllowed(data);
                     break;
                 }
-                case notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED: {
-                    settingsStore.setDesktopVpnEnabled(data);
-                    break;
-                }
                 case notifier.types.SERVER_ERROR: {
                     settingsStore.openServerErrorPopup();
                     break;
@@ -153,7 +148,6 @@ export const App = observer(() => {
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
             notifier.types.CONNECTIVITY_STATE_CHANGED,
             notifier.types.TOO_MANY_DEVICES_CONNECTED,
-            notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED,
             notifier.types.SERVER_ERROR,
         ];
 
@@ -217,7 +211,7 @@ export const App = observer(() => {
         );
     }
 
-    if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
+    if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy) {
         const showMenuButton = authenticated && canControlProxy;
         return (
             <>

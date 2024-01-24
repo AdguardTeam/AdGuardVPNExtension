@@ -47,8 +47,6 @@ export class SettingsStore {
 
     @observable connectivityState: StateType;
 
-    @observable desktopVpnEnabled: boolean;
-
     @observable isRateVisible: boolean;
 
     @observable freeUserClickedPremiumLocation: boolean = false;
@@ -282,14 +280,6 @@ export class SettingsStore {
     get isConnectingRetrying(): boolean {
         return this.connectivityState.value === ConnectivityStateType.ConnectingRetrying;
     }
-
-    @action setDesktopVpnEnabled = (status: boolean): void => {
-        this.desktopVpnEnabled = status;
-    };
-
-    @action setBackgroundDesktopVpnEnabled = (status: boolean): void => {
-        messenger.setDesktopVpnEnabled(status);
-    };
 
     @action checkRateStatus = async (): Promise<void> => {
         const value = await messenger.getSetting(SETTINGS_IDS.RATE_SHOW);

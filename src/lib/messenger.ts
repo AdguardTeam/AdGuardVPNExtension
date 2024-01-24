@@ -368,11 +368,6 @@ class Messenger {
         return this.sendMessage(type, { email, message, includeLog });
     }
 
-    async setDesktopVpnEnabled(status: boolean) {
-        const type = MessageType.SET_DESKTOP_VPN_ENABLED;
-        return this.sendMessage(type, { status });
-    }
-
     async openPremiumPromoPage() {
         const type = MessageType.OPEN_PREMIUM_PROMO_PAGE;
         return this.sendMessage(type);

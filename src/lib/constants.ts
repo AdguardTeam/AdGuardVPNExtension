@@ -87,7 +87,6 @@ export enum MessageType {
     SET_NOTIFICATION_VIEWED = 'set.notification.viewed',
     OPEN_TAB = 'open.tab.action',
     REPORT_BUG = 'post.report.bug',
-    SET_DESKTOP_VPN_ENABLED = 'set.desktop.vpn.enabled',
     OPEN_PREMIUM_PROMO_PAGE = 'open.premium.promo.page',
     ADD_REGULAR_EXCLUSIONS = 'add.regular.exclusions',
     ADD_SELECTIVE_EXCLUSIONS = 'add.selective.exclusions',

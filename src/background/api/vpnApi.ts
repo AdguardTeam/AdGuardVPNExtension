@@ -80,10 +80,6 @@ interface CurrentLocationData extends AxiosResponse {
     };
 }
 
-export interface VpnConnectionStatus extends AxiosResponse {
-    connected: boolean;
-}
-
 interface ExclusionsServicesData extends AxiosResponse {
     services: [{
         service_id: string,
@@ -112,7 +108,6 @@ interface VpnApiInterface {
     getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>;
     trackExtensionInstallation(appId: string, version: string, experiments: string): Promise<unknown>;
     requestSupport(data: FormData): Promise<Response>;
-    getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>;
     getExclusionsServices(): Promise<ExclusionsServicesData>;
     getExclusionServiceDomains(servicesIds: string[]): Promise<ExclusionServiceDomainsData>;
 }
@@ -202,13 +197,6 @@ class VpnApi extends Api implements VpnApiInterface {
         };
 
         return this.makeRequest(path, config, method);
-    };
-
-    GET_DESKTOP_VPN_CONNECTION_STATUS: RequestProps = { path: 'v1/vpn_connected', method: 'GET' };
-
-    getDesktopVpnConnectionStatus = (): Promise<VpnConnectionStatus> => {
-        const { path, method } = this.GET_DESKTOP_VPN_CONNECTION_STATUS;
-        return this.makeRequest(path, {}, method);
     };
 
     EXCLUSION_SERVICES: RequestProps = { path: 'v2/exclusion_services', method: 'GET' };

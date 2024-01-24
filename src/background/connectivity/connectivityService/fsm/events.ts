@@ -67,11 +67,6 @@ export enum ConnectivityEventType {
      * Fires when too many devices are connected and we should disable connection.
      */
     TooManyDevicesConnected = 'tooManyDevicesConnected',
-
-    /**
-     * Fires when vpn enabled in desktop app.
-     */
-    DesktopVpnEnabled = 'desktopVpnEnabled',
 }
 
 /**
@@ -152,14 +147,6 @@ export type TooManyDevicesConnectedEvent = {
 };
 
 /**
- * {@link ConnectivityEventType.DesktopVpnEnabled} event object for connectivity FSM.
- */
-export type DesktopVpnEnabledEvent = {
-    type: ConnectivityEventType.DesktopVpnEnabled;
-    data: boolean,
-};
-
-/**
  * Union type for all possible events for connectivity FSM.
  */
 export type ConnectivityEvent =
@@ -173,5 +160,4 @@ export type ConnectivityEvent =
     | NetworkOnlineEvent
     | NetworkOfflineEvent
     | ProxyConnectionErrorEvent
-    | TooManyDevicesConnectedEvent
-    | DesktopVpnEnabledEvent;
+    | TooManyDevicesConnectedEvent;

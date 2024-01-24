@@ -25,9 +25,6 @@ export enum NotifierType {
     // Connectivity state
     CONNECTIVITY_STATE_CHANGED = 'event.connectivity.state.changed',
 
-    // Connectivity context
-    CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED = 'event.connectivity.desktop.vpn.status.changed',
-
     SERVER_ERROR = 'server.error',
 }
 

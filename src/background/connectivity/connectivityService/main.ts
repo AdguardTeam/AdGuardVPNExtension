@@ -93,13 +93,6 @@ export class ConnectivityService {
                 state: state.value as ConnectivityStateType,
             });
         }
-
-        if (state.event.type === ConnectivityEventType.DesktopVpnEnabled) {
-            notifier.notifyListeners(
-                notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED,
-                state.event.data,
-            );
-        }
     }
 
     /**
@@ -137,14 +130,6 @@ export class ConnectivityService {
      */
     public isVPNIdle(): boolean {
         return this.state.matches(ConnectivityStateType.Idle);
-    }
-
-    /**
-     * Sets desktop VPN enabled status.
-     * @param data {@link ConnectivityEventType.DesktopVpnEnabled} event payload.
-     */
-    public setDesktopVpnEnabled(data: boolean) {
-        this.send(ConnectivityEventType.DesktopVpnEnabled, { data });
     }
 }
 

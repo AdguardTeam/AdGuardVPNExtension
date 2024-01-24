@@ -8,7 +8,6 @@ import { auth } from '../auth';
 import { settings } from '../settings';
 import { SETTINGS_IDS } from '../../lib/constants';
 import { sleep } from '../../lib/helpers';
-import { vpnApi } from '../api';
 import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
 import { exclusions } from '../exclusions';
@@ -56,7 +55,6 @@ interface PopupDataInterface {
         value: ConnectivityStateType,
     };
     promoNotification?: PromoNotificationData | null;
-    desktopVpnEnabled?: boolean;
     isFirstRun?: boolean;
     flagsStorageData?: {
         [key: string]: string | boolean;
@@ -102,15 +100,6 @@ export class PopupData {
         this.credentials = credentials;
     }
 
-    async getDesktopEnabled() {
-        let { desktopVpnEnabled } = connectivityService.state.context;
-        if (desktopVpnEnabled) {
-            const desktopVpnConnection = await vpnApi.getDesktopVpnConnectionStatus();
-            desktopVpnEnabled = !!desktopVpnConnection.connected;
-        }
-        return desktopVpnEnabled;
-    }
-
     getPopupData = async (url: string): Promise<PopupDataInterface> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
@@ -140,7 +129,6 @@ export class PopupData {
         const isProxyEnabled = settings.isProxyEnabled();
         const isPremiumToken = await this.credentials.isPremiumToken();
         const connectivityState = { value: <ConnectivityStateType>connectivityService.state.value };
-        const desktopVpnEnabled = await this.getDesktopEnabled();
         const promoNotification = await promoNotifications.getCurrentNotification();
         const { isFirstRun } = updateService;
         const flagsStorageData = await flagsStorage.getFlagsStorageData();
@@ -176,7 +164,6 @@ export class PopupData {
             isPremiumToken,
             connectivityState,
             promoNotification,
-            desktopVpnEnabled,
             isFirstRun,
             flagsStorageData,
             isVpnEnabledByUrl,

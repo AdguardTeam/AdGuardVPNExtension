@@ -21,7 +21,6 @@ import { tabs } from '../tabs';
 import { RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
 import accountProvider from '../providers/accountProvider';
 import { logStorage } from '../../lib/log-storage';
-import { connectivityService } from '../connectivity/connectivityService';
 import { flagsStorage } from '../flagsStorage';
 import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
@@ -354,11 +353,6 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             }
 
             return vpnProvider.requestSupport(reportData);
-        }
-        case MessageType.SET_DESKTOP_VPN_ENABLED: {
-            const { status } = data;
-            connectivityService.setDesktopVpnEnabled(status);
-            break;
         }
         case MessageType.OPEN_PREMIUM_PROMO_PAGE: {
             return actions.openPremiumPromoPage();

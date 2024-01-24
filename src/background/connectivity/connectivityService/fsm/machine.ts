@@ -29,18 +29,12 @@ export function createConnectivityMachine(context: ConnectivityContext) {
                 on: {
                     [ConnectivityEventType.ConnectBtnPressed]: ConnectivityStateType.ConnectingIdle,
                     [ConnectivityEventType.ExtensionLaunched]: ConnectivityStateType.ConnectingIdle,
-                    [ConnectivityEventType.DesktopVpnEnabled]: {
-                        actions: [ConnectivityActionType.SetDesktopVpnEnabled],
-                    },
                 },
             },
             [ConnectivityStateType.DisconnectedIdle]: {
                 entry: [ConnectivityActionType.TurnOffProxy],
                 on: {
                     [ConnectivityEventType.ConnectBtnPressed]: ConnectivityStateType.ConnectingIdle,
-                    [ConnectivityEventType.DesktopVpnEnabled]: {
-                        actions: [ConnectivityActionType.SetDesktopVpnEnabled],
-                    },
                 },
             },
             [ConnectivityStateType.DisconnectedRetrying]: {
@@ -53,11 +47,6 @@ export function createConnectivityMachine(context: ConnectivityContext) {
                     [ConnectivityEventType.DisconnectBtnPressed]: ConnectivityStateType.DisconnectedIdle,
                     // this event fires when user has too many devises connected
                     [ConnectivityEventType.TooManyDevicesConnected]: ConnectivityStateType.DisconnectedIdle,
-                    // if vpn enabled in desktop app
-                    [ConnectivityEventType.DesktopVpnEnabled]: {
-                        target: ConnectivityStateType.DisconnectedIdle,
-                        actions: [ConnectivityActionType.SetDesktopVpnEnabled],
-                    },
                 },
                 after: {
                     [ConnectivityDelayType.RetryDelay]: ConnectivityStateType.ConnectingRetrying,
@@ -76,11 +65,6 @@ export function createConnectivityMachine(context: ConnectivityContext) {
                     [ConnectivityEventType.DisconnectBtnPressed]: ConnectivityStateType.DisconnectedIdle,
                     // if user has too many devises connected
                     [ConnectivityEventType.TooManyDevicesConnected]: ConnectivityStateType.DisconnectedIdle,
-                    // if vpn enabled in desktop app
-                    [ConnectivityEventType.DesktopVpnEnabled]: {
-                        target: ConnectivityStateType.DisconnectedIdle,
-                        actions: [ConnectivityActionType.SetDesktopVpnEnabled],
-                    },
                 },
             },
             [ConnectivityStateType.ConnectingRetrying]: {
@@ -99,11 +83,6 @@ export function createConnectivityMachine(context: ConnectivityContext) {
                     [ConnectivityEventType.DisconnectBtnPressed]: ConnectivityStateType.DisconnectedIdle,
                     // this event fires when user has too many devises connected
                     [ConnectivityEventType.TooManyDevicesConnected]: ConnectivityStateType.DisconnectedIdle,
-                    // if vpn enabled in desktop app
-                    [ConnectivityEventType.DesktopVpnEnabled]: {
-                        target: ConnectivityStateType.DisconnectedIdle,
-                        actions: [ConnectivityActionType.SetDesktopVpnEnabled],
-                    },
                 },
             },
             [ConnectivityStateType.Connected]: {
@@ -114,11 +93,6 @@ export function createConnectivityMachine(context: ConnectivityContext) {
                     [ConnectivityEventType.DisconnectBtnPressed]: ConnectivityStateType.DisconnectedIdle,
                     // this event fires when user has too many devises connected
                     [ConnectivityEventType.TooManyDevicesConnected]: ConnectivityStateType.DisconnectedIdle,
-                    // if vpn enabled in desktop app
-                    [ConnectivityEventType.DesktopVpnEnabled]: {
-                        target: ConnectivityStateType.DisconnectedIdle,
-                        actions: [ConnectivityActionType.SetDesktopVpnEnabled],
-                    },
                 },
             },
         },

@@ -4,7 +4,7 @@ import { log } from '../../../../lib/logger';
 import { CONNECTIVITY_CONTEXT_DEFAULTS, ConnectivityContext } from '../../../schema/connectivity';
 import { switcher } from '../../switcher';
 
-import { ConnectivityEvent, ConnectivityEventType } from './events';
+import { ConnectivityEvent } from './events';
 
 /**
  * Possible actions of connectivity finite state machine.
@@ -13,7 +13,6 @@ export enum ConnectivityActionType {
     TurnOnProxy = 'turnOnProxy',
     TurnOffProxy = 'turnOffProxy',
     RetryConnection = 'retryConnection',
-    SetDesktopVpnEnabled = 'setDesktopVpnEnabled',
     SetTimeSinceLastRetryWithRefreshMs = 'setTimeSinceLastRetryWithRefreshMs',
     IncrementRetryCount = 'incrementRetryCount',
     IncrementDelay = 'incrementDelay',
@@ -87,19 +86,6 @@ const setTimeSinceLastRetryWithRefreshMs = assign<ConnectivityContext, Connectiv
 });
 
 /**
- * Sets desktopVpnEnabled flag.
- */
-const setDesktopVpnEnabled = assign<ConnectivityContext, ConnectivityEvent>({
-    desktopVpnEnabled: (_context, event) => {
-        if (event.type !== ConnectivityEventType.DesktopVpnEnabled) {
-            return false;
-        }
-
-        return event.data;
-    },
-});
-
-/**
  * Increments count of connection retries and time passed since first retry.
  */
 const incrementRetryCount = assign<ConnectivityContext, ConnectivityEvent>({
@@ -138,7 +124,6 @@ export const connectivityActions = {
     [ConnectivityActionType.TurnOnProxy]: turnOnProxy,
     [ConnectivityActionType.TurnOffProxy]: turnOffProxy,
     [ConnectivityActionType.RetryConnection]: retryConnection,
-    [ConnectivityActionType.SetDesktopVpnEnabled]: setDesktopVpnEnabled,
     [ConnectivityActionType.SetTimeSinceLastRetryWithRefreshMs]: setTimeSinceLastRetryWithRefreshMs,
     [ConnectivityActionType.IncrementRetryCount]: incrementRetryCount,
     [ConnectivityActionType.IncrementDelay]: incrementDelay,

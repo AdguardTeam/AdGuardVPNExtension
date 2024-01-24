@@ -20,10 +20,6 @@ export const connectivityContextScheme = zod.object({
      * Flag used to reconnect to another endpoint of current location
      */
     retriedConnectToOtherEndpoint: zod.boolean(),
-    /**
-     * Flag used to keep actual desktop vpn connection status
-     */
-    desktopVpnEnabled: zod.boolean(),
 }).strict();
 
 /**
@@ -39,5 +35,4 @@ export const CONNECTIVITY_CONTEXT_DEFAULTS: ConnectivityContext = {
     timeSinceLastRetryWithRefreshMs: 0,
     currentReconnectionDelayMs: 1000,
     retriedConnectToOtherEndpoint: false,
-    desktopVpnEnabled: false,
 };

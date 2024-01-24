@@ -14,7 +14,6 @@ export const GlobalError = observer(() => {
     const ERROR_TYPES = {
         PERMISSION: 'permission',
         CONTROL: 'control',
-        DESKTOP_VPN_ENABLED: 'desktop_vpn_enabled',
     };
 
     const ICON_TYPES = {
@@ -39,13 +38,8 @@ export const GlobalError = observer(() => {
         await settingsStore.disableOtherProxyExtensions();
     };
 
-    const handleDisableDesktopVpnEnabled = (e: React.MouseEvent<HTMLButtonElement>): void => {
-        e.preventDefault();
-        settingsStore.setBackgroundDesktopVpnEnabled(false);
-    };
-
     let errorType = ERROR_TYPES.PERMISSION;
-    let descriptionClassName = 'global-error__description';
+    const descriptionClassName = 'global-error__description';
 
     if (settingsStore.hasGlobalError) {
         errorType = ERROR_TYPES.PERMISSION;
@@ -53,11 +47,6 @@ export const GlobalError = observer(() => {
 
     if (!settingsStore.canControlProxy) {
         errorType = ERROR_TYPES.CONTROL;
-    }
-
-    if (settingsStore.desktopVpnEnabled) {
-        errorType = ERROR_TYPES.DESKTOP_VPN_ENABLED;
-        descriptionClassName = 'global-error__description global-error__description--desktop-enabled';
     }
 
     const errorsMap = {
@@ -90,19 +79,6 @@ export const GlobalError = observer(() => {
                     handler: handleTryAgain,
                     className: 'button button--medium button--link global-error__button',
                     text: reactTranslator.getMessage('global_error_try_again'),
-                },
-            ],
-        },
-        [ERROR_TYPES.DESKTOP_VPN_ENABLED]: {
-            title: reactTranslator.getMessage('popup_desktop_vpn_enabled_title'),
-            description: reactTranslator.getMessage('popup_desktop_vpn_enabled_description'),
-            icon: ICON_TYPES.ERROR,
-            buttons: [
-                {
-                    id: 1,
-                    handler: handleDisableDesktopVpnEnabled,
-                    className: 'button button--medium button--green global-error__button',
-                    text: reactTranslator.getMessage('popup_desktop_vpn_enabled_button'),
                 },
             ],
         },

@@ -56,7 +56,6 @@ export class GlobalStore {
                 connectivityState,
                 promoNotification,
                 policyAgreement,
-                desktopVpnEnabled,
                 isFirstRun,
                 flagsStorageData,
                 isVpnEnabledByUrl,
@@ -104,7 +103,6 @@ export class GlobalStore {
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setIsVpnBlocked(isVpnBlocked);
             settingsStore.setPromoNotification(promoNotification);
-            settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setLocations(locations);
             vpnStore.setSelectedLocation(selectedLocation);
