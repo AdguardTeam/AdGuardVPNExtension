@@ -20,7 +20,7 @@ export const RatePopup = observer(() => {
         await hideRate();
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
 
         if (value && parseInt(value, 10) >= 4) {
@@ -29,7 +29,9 @@ export const RatePopup = observer(() => {
             window.open(FEEDBACK_URL, '_blank');
         }
 
-        handleHideRate();
+        // wait until the message is sent to the background
+        // https://github.com/AdguardTeam/AdGuardVPNExtension/issues/150
+        await handleHideRate();
 
         // close popup after click on rate star
         window.close();
