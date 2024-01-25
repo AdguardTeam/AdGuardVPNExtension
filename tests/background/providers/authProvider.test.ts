@@ -80,7 +80,10 @@ describe('authProvider', () => {
             error_description: 'Sorry, unrecognized username or password',
         }, false);
 
-        const expectedError = new Error(JSON.stringify({ error: 'authentication_error_wrong_credentials' }));
+        const expectedError = new Error(JSON.stringify({
+            error: 'authentication_error_wrong_credentials',
+            status: 'bad_credentials',
+        }));
 
         await expect(authProvider.getAccessToken(emptyCredentials)).rejects.toThrow(expectedError);
     });

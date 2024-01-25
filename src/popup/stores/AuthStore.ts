@@ -10,8 +10,14 @@ import isNil from 'lodash/isNil';
 import { messenger } from '../../lib/messenger';
 import { SETTINGS_IDS, FLAGS_FIELDS, SocialAuthProvider } from '../../lib/constants';
 import { translator } from '../../common/translator';
+import {
+    BAD_CREDENTIALS_CODE,
+    REQUIRED_2FA_CODE,
+    REQUIRED_EMAIL_CONFIRMATION_CODE,
+    RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC,
+} from '../../common/constants';
 
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
 
 const AUTH_STEPS = {
@@ -22,6 +28,7 @@ const AUTH_STEPS = {
     SIGN_IN: 'signIn',
     REGISTRATION: 'registration',
     TWO_FACTOR: 'twoFactor',
+    CONFIRM_EMAIL: 'confirmEmail',
 };
 
 enum CredentialsKey {
@@ -30,6 +37,7 @@ enum CredentialsKey {
     ConfirmPassword = 'confirmPassword',
     TwoFactor = 'twoFactor',
     MarketingConsent = 'marketingConsent',
+    Code = 'code',
 }
 
 interface CredentialsInterface {
@@ -38,6 +46,7 @@ interface CredentialsInterface {
     [CredentialsKey.ConfirmPassword]: string;
     [CredentialsKey.TwoFactor]: string;
     [CredentialsKey.MarketingConsent]: boolean | string;
+    [CredentialsKey.Code]: string;
 }
 
 const DEFAULTS = {
@@ -47,18 +56,21 @@ const DEFAULTS = {
         [CredentialsKey.ConfirmPassword]: '',
         [CredentialsKey.TwoFactor]: '',
         [CredentialsKey.MarketingConsent]: '',
+        [CredentialsKey.Code]: '',
     },
     authenticated: false,
     need2fa: false,
     error: null,
     field: '',
     step: AUTH_STEPS.AUTHORIZATION,
+    prevSteps: [],
     agreement: true,
     policyAgreement: false,
     helpUsImprove: false,
     signInCheck: false,
     showOnboarding: true,
     showUpgradeScreen: true,
+    resendCodeCountdown: RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC,
 };
 
 export class AuthStore {
@@ -73,6 +85,11 @@ export class AuthStore {
     @observable field = DEFAULTS.field;
 
     @observable step = DEFAULTS.step;
+
+    /**
+     * Needed for BackButton to navigate properly.
+     */
+    @observable prevSteps: string[] = DEFAULTS.prevSteps;
 
     @observable policyAgreement = DEFAULTS.policyAgreement;
 
@@ -98,9 +115,9 @@ export class AuthStore {
 
     @observable rating = 0;
 
-    @observable showConfirmEmailModal = false;
+    @observable confirmEmailTimer?: ReturnType<typeof setInterval>;
 
-    @observable showConfirmEmailNotice = false;
+    @observable resendCodeCountdown = DEFAULTS.resendCodeCountdown;
 
     @observable userEmail = '';
 
@@ -150,6 +167,7 @@ export class AuthStore {
             helpUsImprove,
             marketingConsent,
             authError,
+            code,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
@@ -158,6 +176,7 @@ export class AuthStore {
                 password,
                 confirmPassword,
                 marketingConsent,
+                code,
             };
             if (step) {
                 this.step = step;
@@ -246,6 +265,16 @@ export class AuthStore {
         const response = await messenger.authenticateUser(toJS(this.credentials));
 
         if (response.error) {
+            // user may enter a wrong password but during email confirmation
+            // the password is to be checked after the valid code is entered.
+            // so 'bad_credentials' may appear on email confirmation step
+            // and it should be handled properly
+            if (response.status === BAD_CREDENTIALS_CODE
+                && this.step === this.STEPS.CONFIRM_EMAIL) {
+                // redirect user to password step
+                this.switchStep(this.STEPS.SIGN_IN, false);
+            }
+
             runInAction(() => {
                 this.requestProcessState = RequestStatus.Error;
             });
@@ -266,11 +295,32 @@ export class AuthStore {
             return;
         }
 
-        if (response.status === '2fa_required') {
+        if (response.status === REQUIRED_2FA_CODE) {
             runInAction(async () => {
                 this.requestProcessState = RequestStatus.Done;
                 this.need2fa = true;
+                this.prevSteps.push(this.step);
                 await this.switchStep(this.STEPS.TWO_FACTOR);
+            });
+        }
+
+        // handle email confirmation requirement
+        if (response.status === REQUIRED_EMAIL_CONFIRMATION_CODE) {
+            if (response.error && !response.authId) {
+                runInAction(() => {
+                    this.requestProcessState = RequestStatus.Error;
+                });
+                await this.setError(response.error);
+                return;
+            }
+
+            this.getResendCodeCountdownAndStart();
+            await messenger.setEmailConfirmationAuthId(response.authId);
+
+            runInAction(async () => {
+                this.requestProcessState = RequestStatus.Done;
+                this.prevSteps.push(this.step);
+                await this.switchStep(this.STEPS.CONFIRM_EMAIL);
             });
         }
     };
@@ -288,6 +338,9 @@ export class AuthStore {
             return;
         }
 
+        // before switching step save the current one to be able to return to it back
+        this.prevSteps.push(this.step);
+
         if (response.canRegister) {
             await this.switchStep(this.STEPS.REGISTRATION);
         } else {
@@ -304,8 +357,10 @@ export class AuthStore {
             await this.setError(translator.getMessage('registration_error_confirm_password'));
             return;
         }
+
         this.requestProcessState = RequestStatus.Pending;
         const response = await messenger.registerUser(toJS(this.credentials));
+
         if (response.error) {
             runInAction(() => {
                 this.requestProcessState = RequestStatus.Error;
@@ -318,6 +373,7 @@ export class AuthStore {
             await this.setError(response.error);
             return;
         }
+
         if (response.status === 'ok') {
             await messenger.clearAuthCache();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
@@ -325,6 +381,24 @@ export class AuthStore {
                 this.requestProcessState = RequestStatus.Done;
                 this.authenticated = true;
                 this.credentials = DEFAULTS.credentials;
+            });
+        }
+
+        if (response.status === REQUIRED_EMAIL_CONFIRMATION_CODE) {
+            if (response.error && !response.authId) {
+                runInAction(() => {
+                    this.requestProcessState = RequestStatus.Error;
+                });
+                await this.setError(response.error);
+                return;
+            }
+
+            this.getResendCodeCountdownAndStart();
+            await messenger.setEmailConfirmationAuthId(response.authId);
+
+            runInAction(async () => {
+                this.requestProcessState = RequestStatus.Done;
+                await this.switchStep(this.STEPS.CONFIRM_EMAIL);
             });
         }
     };
@@ -374,6 +448,7 @@ export class AuthStore {
 
     @action showAuthorizationScreen = async () => {
         await this.switchStep(this.STEPS.AUTHORIZATION);
+        this.requestProcessState = RequestStatus.Done;
     };
 
     @action showScreenShotScreen = async () => {
@@ -386,14 +461,25 @@ export class AuthStore {
     };
 
     @action resetPasswords = async () => {
-        await messenger.updateAuthCache('password', DEFAULTS.credentials.password);
-        await messenger.updateAuthCache('confirmPassword', DEFAULTS.credentials.confirmPassword);
-        await messenger.updateAuthCache('twoFactor', DEFAULTS.credentials.twoFactor);
+        await messenger.updateAuthCache(CredentialsKey.Password, DEFAULTS.credentials.password);
+        await messenger.updateAuthCache(CredentialsKey.ConfirmPassword, DEFAULTS.credentials.confirmPassword);
+        await messenger.updateAuthCache(CredentialsKey.TwoFactor, DEFAULTS.credentials.twoFactor);
         runInAction(() => {
             this.credentials.password = DEFAULTS.credentials.password;
             this.credentials.confirmPassword = DEFAULTS.credentials.confirmPassword;
             this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
         });
+    };
+
+    @action resetCode = async () => {
+        await messenger.updateAuthCache(CredentialsKey.Code, DEFAULTS.credentials.code);
+        runInAction(() => {
+            this.credentials.code = DEFAULTS.credentials.code;
+        });
+    };
+
+    @action resetRequestProcessionState = () => {
+        this.requestProcessState = RequestStatus.Done;
     };
 
     @action openSignInCheck = async () => {
@@ -494,21 +580,69 @@ export class AuthStore {
         this.showRateModal = value;
     };
 
-    @action setShowConfirmEmail = (value: boolean) => {
-        this.showConfirmEmailModal = value;
-        this.showConfirmEmailNotice = value;
+    /**
+     * Sets the store's value {@link resendCodeCountdown} to the passed value.
+     *
+     * @param value Number of seconds to set.
+     */
+    @action setResendCodeCountdown(value: number): void {
+        this.resendCodeCountdown = value;
+    }
+
+    /**
+     * Gets count down timer value for email confirmation code resend via messenger,
+     * and sets it to the store's value {@link resendCodeCountdown}.
+     */
+    @action
+    async getResendCodeCountdown(): Promise<void> {
+        let countdown;
+        try {
+            countdown = await messenger.getResendCodeCountdown();
+        } catch (e) {
+            countdown = 0;
+        }
+        this.setResendCodeCountdown(countdown);
+    }
+
+    /**
+     * Starts count down timer based on store's value {@link resendCodeCountdown}.
+     */
+    @action startCountdown = () => {
+        this.confirmEmailTimer = setInterval(() => {
+            runInAction(() => {
+                if (this.resendCodeCountdown === 0) {
+                    clearInterval(this.confirmEmailTimer);
+                    return;
+                }
+                this.resendCodeCountdown -= 1;
+            });
+        }, 1000);
     };
 
-    @action setShowConfirmEmailModal = (value: boolean) => {
-        this.showConfirmEmailModal = value;
-    };
+    /**
+     * Gets count down timer value for email confirmation code resend from the background,
+     * and starts count down timer based on it.
+     *
+     * Needed for the case when the popup is reopened and the timer was running in the background.
+     */
+    @action
+    async getResendCodeCountdownAndStart(): Promise<void> {
+        await this.getResendCodeCountdown();
+        if (this.resendCodeCountdown > 0
+            // if the timer is already running, don't start it again
+            && !this.confirmEmailTimer) {
+            this.startCountdown();
+        }
+    }
 
-    @action setUserEmail = (value: string) => {
-        this.userEmail = value;
-    };
-
-    @action resendConfirmRegistrationLink = async () => {
-        await messenger.resendConfirmRegistrationLink(true);
+    /**
+     * Resets count down timer, starts it again, and sends a message to the background
+     * to request a new email confirmation code.
+     */
+    @action resendEmailConfirmationCode = async () => {
+        this.setResendCodeCountdown(DEFAULTS.resendCodeCountdown);
+        this.startCountdown();
+        await messenger.resendEmailConfirmationCode();
     };
 
     @computed
@@ -518,7 +652,6 @@ export class AuthStore {
         return this.showHintPopup
             && !this.showRateModal
             && !this.showConfirmRateModal
-            && !this.showConfirmEmailModal
             && !this.rootStore.settingsStore.showServerErrorPopup
             && !this.rootStore.settingsStore.isVpnBlocked
             // host permissions should be granted to show the hint popup;

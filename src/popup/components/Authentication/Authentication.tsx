@@ -10,6 +10,7 @@ import { TwoFactorForm } from './TwoFactorForm';
 import { BackButton } from './BackButton';
 import { PolicyAgreement } from './PolicyAgreement';
 import { ScreenShot } from './ScreenShot';
+import { ConfirmEmail } from './ConfirmEmail';
 
 import './auth.pcss';
 
@@ -23,6 +24,7 @@ export const Authentication = observer(() => {
             signIn: <BackButton />,
             registration: <BackButton />,
             twoFactor: <BackButton />,
+            confirmEmail: <BackButton />,
         };
         return titleMaps[step] || titleMaps.authorization;
     };
@@ -46,6 +48,9 @@ export const Authentication = observer(() => {
             }
             case authStore.STEPS.POLICY_AGREEMENT: {
                 return <PolicyAgreement />;
+            }
+            case authStore.STEPS.CONFIRM_EMAIL: {
+                return <ConfirmEmail />;
             }
             default: {
                 return <Authorization />;

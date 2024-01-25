@@ -18,7 +18,7 @@ import { Icons } from '../ui/Icons';
 import { CurrentEndpoint } from '../Settings/CurrentEndpoint';
 import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 import { rootStore } from '../../stores';
-import { RequestStatus } from '../../stores/consts';
+import { RequestStatus } from '../../stores/constants';
 import { log } from '../../../lib/logger';
 import { messenger } from '../../../lib/messenger';
 import { notifier, NotifierType } from '../../../lib/notifier';
@@ -30,7 +30,6 @@ import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
-import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
@@ -279,7 +278,6 @@ export const App = observer(() => {
                 ? <ExclusionsScreen />
                 : (
                     <>
-                        <ConfirmEmailNotice />
                         <Settings />
                         <div className="footer">
                             {premiumPromoEnabled ? (
@@ -292,7 +290,6 @@ export const App = observer(() => {
                     </>
                 )}
             <Icons />
-            <ConfirmEmailModal />
             <ReviewPopup />
             <ServerErrorPopup />
         </>

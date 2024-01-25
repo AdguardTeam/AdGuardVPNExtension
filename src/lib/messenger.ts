@@ -434,6 +434,35 @@ class Messenger {
     }
 
     /**
+     * Sends a message to the background page to store an authId for email confirmation.
+     * It is needed for another code request.
+     *
+     * @param authId AuthId for email confirmation.
+     */
+    setEmailConfirmationAuthId(authId: string) {
+        const type = MessageType.SET_EMAIL_CONFIRMATION_AUTH_ID;
+        return this.sendMessage(type, { authId });
+    }
+
+    /**
+     * Sends a message to the background page to ask for a new email confirmation code.
+     */
+    resendEmailConfirmationCode() {
+        const type = MessageType.RESEND_EMAIL_CONFIRMATION_CODE;
+        return this.sendMessage(type);
+    }
+
+    /**
+     * Sends a message to the background page to get the resend code count down.
+     *
+     * @returns Number of seconds left before the user can request a new code.
+     */
+    async getResendCodeCountdown() {
+        const type = MessageType.GET_RESEND_CODE_COUNTDOWN;
+        return this.sendMessage(type);
+    }
+
+    /**
      * Returns logs from the background page
      */
     getLogs() {

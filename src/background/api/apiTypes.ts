@@ -8,6 +8,11 @@ export type AuthCredentials = {
     locale: string;
     clientId: string;
     appId: string;
+
+    /**
+     * Optional email confirmation code.
+     */
+    code?: string;
 };
 
 export type RequestProps = {

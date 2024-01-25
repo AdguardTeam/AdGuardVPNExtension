@@ -8,6 +8,7 @@ import { notifications } from '../notifications';
 import { AUTH_CLIENT_ID } from '../config';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
+import { SUPPORT_EMAIL } from '../../common/constants';
 import { translator } from '../../common/translator';
 import { fallbackApi } from '../api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
@@ -38,6 +39,7 @@ export interface AuthInterface {
         email: string,
         appId: string,
     ): Promise<{ canRegister: string } | { error: string }>;
+    resendEmailConfirmationCode(authId: string): Promise<void>;
     getAccessToken(turnOffProxy?: boolean): Promise<string>;
     init(): Promise<void>;
 }
@@ -254,7 +256,7 @@ class Auth implements AuthInterface {
 
     async register(
         credentials: AuthCredentials,
-    ): Promise<{ status: string } | { error: string, field?: string }> {
+    ): Promise<{ status: string } | { error: string, field?: string, status?: string, authId?: string }> {
         const locale = navigator.language;
         let accessToken;
         try {
@@ -264,8 +266,18 @@ class Auth implements AuthInterface {
                 clientId: AUTH_CLIENT_ID,
             });
         } catch (e) {
-            const { error, field } = JSON.parse(e.message);
-            return { error, field };
+            const {
+                error,
+                field,
+                status,
+                authId,
+            } = JSON.parse(e.message);
+            return {
+                error,
+                field,
+                status,
+                authId,
+            };
         }
 
         if (accessToken) {
@@ -276,7 +288,8 @@ class Auth implements AuthInterface {
 
         return {
             error: translator.getMessage('global_error_message', {
-                a: (chunks: string) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
+                support_email: SUPPORT_EMAIL,
+                a: (chunks: string) => `<a href="mailto:${SUPPORT_EMAIL}" target="_blank">${chunks}</a>`,
             }),
         };
     }
@@ -297,11 +310,21 @@ class Auth implements AuthInterface {
             log.error(e.message);
             return {
                 error: translator.getMessage('global_error_message', {
-                    a: (chunks: string) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
+                    support_email: SUPPORT_EMAIL,
+                    a: (chunks: string) => `<a href="mailto:${SUPPORT_EMAIL}" target="_blank">${chunks}</a>`,
                 }),
             };
         }
         return response;
+    }
+
+    /**
+     * Uses {@link authProvider} to request a new email confirmation code.
+     *
+     * @param authId Auth id received from the server previously.
+     */
+    async resendEmailConfirmationCode(authId: string): Promise<void> {
+        await authProvider.resendEmailConfirmationCode(authId);
     }
 
     async setAccessToken(accessToken: AuthAccessToken): Promise<void> {

@@ -22,7 +22,7 @@ import { Prefs } from '../../common/prefs';
 import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
 
 import type { RootStore } from './RootStore';
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
 
 type StateType = {
     value: string,

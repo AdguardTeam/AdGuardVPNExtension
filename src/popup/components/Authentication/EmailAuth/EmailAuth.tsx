@@ -5,7 +5,7 @@ import ReactHtmlParser from 'react-html-parser';
 import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
-import { RequestStatus } from '../../../stores/consts';
+import { RequestStatus } from '../../../stores/constants';
 import { Submit } from '../Submit';
 import { InputField } from '../InputField';
 import { translator } from '../../../../common/translator';
@@ -45,22 +45,20 @@ export const EmailAuth = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
-                <div className="form__group">
-                    <InputField
-                        id="username"
-                        type="email"
-                        value={username}
-                        placeholder={translator.getMessage('auth_email')}
-                        inputChangeHandler={inputChangeHandler}
-                        error={authStore.error}
-                        label={translator.getMessage('auth_sign_in_provider_adguard_label')}
-                    />
-                    {authStore.error && (
-                        <div className="form__error">
-                            {ReactHtmlParser(authStore.error)}
-                        </div>
-                    )}
-                </div>
+                <InputField
+                    id="username"
+                    type="email"
+                    value={username}
+                    placeholder={translator.getMessage('auth_email')}
+                    inputChangeHandler={inputChangeHandler}
+                    error={authStore.error}
+                    label={translator.getMessage('auth_sign_in_provider_adguard_label')}
+                />
+                {authStore.error && (
+                    <div className="form__error">
+                        {ReactHtmlParser(authStore.error)}
+                    </div>
+                )}
             </div>
 
             {getSubmitButton()}
