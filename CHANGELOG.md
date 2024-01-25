@@ -8,9 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Popup menu rating start hiding if clicked [#150](https://github.com/AdguardTeam/AdGuardVPNExtension/issues/150)
+
+
+## [2.1.7] - 2023-12-21
+
 ### Added
 
-- Separate popup warning for no location with ability to re-fetch locations.
+- Separate popup warning for no location with ability to re-fetch locations
 
 
 ## [2.1.5] - 2023-11-21
@@ -31,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Logs sending during bug report [#149](https://github.com/AdguardTeam/AdGuardVPNExtension/issues/149)
 
 
-[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.1.5...HEAD
-[2.1.5]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.1.1...2.1.5
+[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.1.7...HEAD
+[2.1.7]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.1.5...v2.1.7
+[2.1.5]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.1.1...v2.1.5
 [2.1.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.0.65...v2.1.1
