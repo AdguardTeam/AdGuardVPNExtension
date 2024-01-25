@@ -20,16 +20,16 @@ export const Rate = observer(() => {
         await hideRate();
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
         const { value } = e.target;
+
+        await handleHideRate();
 
         if (value && parseInt(value, 10) >= 4) {
             window.open(OPTIONS_STORE_URL, '_blank');
         } else {
             window.open(FEEDBACK_URL, '_blank');
         }
-
-        handleHideRate();
     };
 
     if (!isRateVisible) {
