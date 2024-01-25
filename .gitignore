@@ -7,3 +7,4 @@ build
 /private
 .env
 .eslintcache
+tsconfig.eslint.tsbuildinfo

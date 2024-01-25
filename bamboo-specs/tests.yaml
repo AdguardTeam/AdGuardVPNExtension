@@ -31,10 +31,19 @@ Test:
           - |-
             set -e
             set -x
+
             # Fix mixed logs
             exec 2>&1
 
-            yarn install ${bamboo.varsYarn}
+            # Exclude '--ignore-optional' from yarn arguments
+            # This is needed for installing swc core optional dependencies properly
+            # as swc is used by 'yarn test'
+            originalYarnArgs="$bamboo_varsYarn"
+            modifiedYarnArgs=$(echo "$originalYarnArgs" | sed 's/--ignore-optional//g')
+
+            # Install common dependencies
+            yarn install ${modifiedYarnArgs}
+
             yarn lint
             yarn test
 
