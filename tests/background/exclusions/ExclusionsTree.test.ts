@@ -6,6 +6,7 @@ import type { ExclusionInterface } from '../../../src/background/schema';
 import { ServicesInterface } from '../../../src/background/schema';
 
 jest.mock('../../../src/lib/logger.ts');
+jest.mock('../../../src/background/providers/vpnProvider.ts');
 
 jest.mock('../../../src/background/browserApi', () => {
     return {

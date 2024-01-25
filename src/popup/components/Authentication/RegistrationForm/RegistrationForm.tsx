@@ -5,7 +5,7 @@ import ReactHtmlParser from 'react-html-parser';
 import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
-import { RequestStatus, InputType } from '../../../stores/consts';
+import { RequestStatus, InputType } from '../../../stores/constants';
 import PasswordField from '../PasswordField';
 import { Submit } from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
@@ -71,6 +71,7 @@ export const RegistrationForm = observer(() => {
                     id="username"
                     type="email"
                     value={authStore.credentials.username}
+                    title={authStore.credentials.username}
                     label={translator.getMessage('auth_sign_in_provider_adguard_label')}
                     className="form__input__email-disabled"
                     disabled

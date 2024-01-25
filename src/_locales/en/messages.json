@@ -51,7 +51,7 @@
         "message": "An error occurred, try again later"
     },
     "global_error_message": {
-        "message": "An error occurred, please contact us via <a>support@adguard-vpn.com</a>"
+        "message": "An error occurred, please contact us via <a>%support_email%</a>"
     },
     "about_title": {
         "message": "About"
@@ -939,7 +939,7 @@
         "message": "Confirm your email"
     },
     "confirm_email_info": {
-        "message": "To get free VPN traffic, please confirm your email address. We’ve sent a confirmation link to"
+        "message": "We’ve sent a confirmation code to <span>%email%</span>"
     },
     "confirm_email_done_title": {
         "message": "Email address confirmed"
@@ -947,11 +947,26 @@
     "confirm_email_done_info": {
         "message": "Thanks for verifying it!"
     },
-    "confirm_email_close_button": {
-        "message": "Close"
+    "confirm_email_code_label": {
+        "message": "Confirmation code"
     },
-    "confirm_email_resend_link_button": {
-        "message": "Resend link"
+    "confirm_email_code_placeholder": {
+        "message": "Contains numbers and letters"
+    },
+    "confirm_email_code_invalid": {
+        "message": "Please check the code — it looks incorrect"
+    },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Send another code (%count%)"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "Send another code"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Failed to log you in. Please try again or contact us via <a>%support_email%</a>"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Failed to sign you up. Please try again or contact us via <a>%support_email%</a>"
     },
     "resend_confirm_registration_link_notification": {
         "message": "Confirmation link resent"

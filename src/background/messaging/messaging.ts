@@ -26,6 +26,7 @@ import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
+import { emailConfirmationService } from '../emailConfirmationService';
 import { CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
 
 interface Message {
@@ -183,6 +184,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.AUTHENTICATE_USER: {
             const { credentials } = data;
+            emailConfirmationService.restartCountdown(credentials.username);
             return auth.authenticate(credentials);
         }
         case MessageType.UPDATE_AUTH_CACHE: {
@@ -253,6 +255,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.REGISTER_USER: {
             const appId = await credentials.getAppId();
+            emailConfirmationService.restartCountdown(data.credentials.username);
             return auth.register({ ...data.credentials, appId });
         }
         case MessageType.IS_AUTHENTICATED: {
@@ -400,6 +403,27 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { displayNotification } = data;
             const accessToken = await auth.getAccessToken();
             return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
+        }
+        case MessageType.SET_EMAIL_CONFIRMATION_AUTH_ID: {
+            const { authId } = data;
+            emailConfirmationService.setAuthId(authId);
+            break;
+        }
+        case MessageType.RESEND_EMAIL_CONFIRMATION_CODE: {
+            emailConfirmationService.restartCountdown();
+
+            const { authId } = emailConfirmationService;
+            if (!authId) {
+                log.error('Value authId was not set in the emailConfirmationService');
+                break;
+            }
+
+            await auth.resendEmailConfirmationCode(authId);
+            break;
+        }
+        case MessageType.GET_RESEND_CODE_COUNTDOWN: {
+            const countdown = await emailConfirmationService.getCodeCountdown();
+            return countdown;
         }
         case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
             return dns.restoreCustomDnsServersData();

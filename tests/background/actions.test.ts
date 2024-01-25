@@ -16,6 +16,7 @@ jest.mock('../../src/background/config', () => {
         UPGRADE_LICENSE_URL: 'https://adguard-vpn.com/license.html?action=upgrade_license',
     };
 });
+jest.mock('../../src/background/settings');
 
 describe('Actions tests', () => {
     beforeEach(async () => {
