@@ -123,6 +123,13 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                         filename: 'assets/[name][ext]',
                     },
                 },
+                {
+                    test: /\.(svg)$/,
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'assets/images/[name][ext]',
+                    },
+                },
             ],
         },
         plugins: [
