@@ -8,7 +8,7 @@ import {
 } from '../config';
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
-import { fetchConfig } from '../../lib/constants';
+import { fetchConfig } from '../../lib/fetch-config';
 import { getErrorMessage } from '../../common/utils/error';
 import { stateStorage } from '../stateStorage';
 import { authService } from '../authentication/authService';

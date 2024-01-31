@@ -5,7 +5,7 @@ import { vpnProvider } from '../../providers/vpnProvider';
 import { browserApi } from '../../browserApi';
 import { log } from '../../../lib/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
-import { fetchConfig } from '../../../lib/constants';
+import { fetchConfig } from '../../../lib/fetch-config';
 import { stateStorage } from '../../stateStorage';
 import {
     StorageKey,
