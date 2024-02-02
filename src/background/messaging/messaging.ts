@@ -19,7 +19,7 @@ import { locationsService } from '../endpoints/locationsService';
 import { promoNotifications } from '../promoNotifications';
 import { tabs } from '../tabs';
 import { RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
-import accountProvider from '../providers/accountProvider';
+import { accountProvider } from '../providers/accountProvider';
 import { logStorage } from '../../lib/log-storage';
 import { flagsStorage } from '../flagsStorage';
 import { ExclusionsData } from '../../common/exclusionsConstants';
@@ -28,6 +28,7 @@ import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
 import { emailConfirmationService } from '../emailConfirmationService';
 import { CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
+import { limitedOfferService } from '../limitedOfferService';
 
 interface Message {
     type: MessageType,
@@ -148,6 +149,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
             return popupData.getPopupDataRetry(url, numberOfTries);
+        }
+        case MessageType.GET_LIMITED_OFFER_DATA: {
+            return limitedOfferService.getLimitedOfferData();
         }
         case MessageType.FORCE_UPDATE_LOCATIONS: {
             const locations = await endpoints.getLocationsFromServer();

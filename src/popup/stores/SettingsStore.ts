@@ -17,7 +17,8 @@ import { messenger } from '../../lib/messenger';
 import { ConnectivityStateType } from '../../background/schema';
 import { getHostname, getProtocol } from '../../common/url-utils';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
-import { PromoNotificationData } from '../../background/promoNotifications';
+import { type LimitedOfferData } from '../../background/limitedOfferService';
+import { type PromoNotificationData } from '../../background/promoNotifications';
 import { Prefs } from '../../common/prefs';
 import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
 
@@ -68,6 +69,10 @@ export class SettingsStore {
     @observable isVpnBlocked: boolean = false;
 
     @observable isHostPermissionsGranted: boolean = false;
+
+    @observable limitedOfferData: LimitedOfferData | null = null;
+
+    @observable limitedOfferTimer?: ReturnType<typeof setInterval>;
 
     @observable hasDesktopAppForOs: boolean = false;
 
@@ -404,12 +409,43 @@ export class SettingsStore {
         this.isVpnBlocked = value;
     };
 
-    @action closeVpnBlockedWarning = (): void => {
-        this.isVpnBlocked = false;
-    };
-
     @action setHostPermissionsError = (value: boolean): void => {
         this.isHostPermissionsGranted = value;
+    };
+
+    /**
+     * Sets value to {@link limitedOfferData} and starts countdown timer if value is not null.
+     */
+    @action setLimitedOfferData = (value: LimitedOfferData | null): void => {
+        this.limitedOfferData = value;
+        if (value) {
+            this.startCountdown();
+        }
+    };
+
+    /**
+     * Checks whether the limited offer should be displayed.
+     */
+    @computed
+    get isLimitedOfferActive(): boolean {
+        return !!this.limitedOfferData;
+    }
+
+    /**
+     * Starts countdown timer based on store's value {@link limitedOfferData.timeLeftMs}.
+     */
+    @action startCountdown = () => {
+        this.limitedOfferTimer = setInterval(() => {
+            runInAction(() => {
+                if (this.limitedOfferData?.timeLeftMs === 0) {
+                    clearInterval(this.limitedOfferTimer);
+                    return;
+                }
+                if (this.limitedOfferData) {
+                    this.limitedOfferData.timeLeftMs -= 1000;
+                }
+            });
+        }, 1000);
     };
 
     /**

@@ -5,6 +5,7 @@ import browser from 'webextension-polyfill';
 
 import { lazyGet } from '../lib/helpers';
 import { Prefs } from '../common/prefs';
+import { isRuLocale, normalizeLanguage } from '../common/promo-utils';
 import { notifier } from '../lib/notifier';
 
 import { getUrl } from './browserApi/runtime';
@@ -48,24 +49,12 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const RU_LOCALE = 'ru';
-
 const TDS_PROMO_ACTION = 'christmas_23_vpn';
 const TDS_PROMO_ACTION_RU = 'christmas_23_vpn_ru';
 
 const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
 const RU_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
-const normalizeLanguage = (locale: string): string | null => {
-    if (!locale) {
-        return null;
-    }
-
-    return locale.toLowerCase().replace('-', '_');
-};
-
-const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
-const isRuLocale = currentLocale?.startsWith(RU_LOCALE);
 // possible return values of getUILanguage(): 'ru' or 'ru-RU' which is 'ru_ru' after normalization
 const promoLink = isRuLocale
     ? RU_PROMO_LINK

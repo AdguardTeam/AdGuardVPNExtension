@@ -17,6 +17,18 @@ interface VpnTokenData {
     };
 }
 
+export type AccountInfoData = {
+    /**
+     * Current user's username.
+     */
+    username: string,
+
+    /**
+     * Current user's registration time in ISO format.
+     */
+    registrationTimeISO: string,
+};
+
 interface BonusesData {
     confirmBonus: {
         available: boolean,
@@ -66,9 +78,23 @@ const getVpnToken = async (accessToken: string): Promise<VpnTokenData | null> =>
     };
 };
 
-const getAccountInfo = async (accessToken: string): Promise<string> => {
-    const { email } = await accountApi.getAccountInfo(accessToken);
-    return email;
+/**
+ * Uses account api to fetch account info.
+ *
+ * @param accessToken Access token.
+ *
+ * @returns Account info: username and registration time in ISO format.
+ */
+const getAccountInfo = async (accessToken: string): Promise<AccountInfoData> => {
+    const {
+        email: username,
+        time_added_iso: registrationTime,
+    } = await accountApi.getAccountInfo(accessToken);
+
+    return {
+        username,
+        registrationTimeISO: registrationTime,
+    };
 };
 
 const resendConfirmRegistrationLink = async (
@@ -102,7 +128,7 @@ const getAvailableBonuses = async (accessToken: string): Promise<BonusesData> =>
     };
 };
 
-export default {
+export const accountProvider = {
     getVpnToken,
     getAccountInfo,
     getAvailableBonuses,

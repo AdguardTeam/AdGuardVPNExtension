@@ -17,6 +17,7 @@ export const credentialsStateScheme = zod.object({
     vpnToken: vpnTokenDataScheme.or(zod.null()),
     vpnCredentials: vpnCredentialsScheme.or(zod.null()),
     currentUsername: zod.string().or(zod.null()),
+    currentUserRegistrationTime: zod.string().or(zod.null()),
     appId: zod.string().or(zod.null()),
 }).strict();
 
@@ -26,5 +27,6 @@ export const CREDENTIALS_STATE_DEFAULTS = {
     vpnToken: null,
     vpnCredentials: null,
     currentUsername: null,
+    currentUserRegistrationTime: null,
     appId: null,
 };

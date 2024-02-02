@@ -4,17 +4,17 @@ import { RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC } from '../../common/constants
 /**
  * Service for email confirmation.
  *
- * It is used to store confirmation authId and resend code count down.
+ * It is used to store confirmation authId and resend code countdown.
  */
 class EmailConfirmationService {
     browserApi: BrowserApi;
 
     /**
-     * Email for which count down is started.
+     * Email for which countdown is started.
      *
-     * Needed to check if resend code count down should be restarted on popup navigation,
+     * Needed to check if resend code countdown should be restarted on popup navigation,
      * i.e. if user's email should be confirmed but user navigates back and changes the password —
-     * count down should not be restarted in this case.
+     * countdown should not be restarted in this case.
      */
     private email: string | null;
 
@@ -27,7 +27,7 @@ class EmailConfirmationService {
     private COUNTDOWN_START_KEY = 'resend.code.countdown.start.time';
 
     /**
-     * Timestamp in milliseconds on which count down was started last time.
+     * Timestamp in milliseconds on which countdown was started last time.
      */
     private countdownStartMs: number | null;
 
@@ -37,12 +37,12 @@ class EmailConfirmationService {
     }
 
     /**
-     * Returns resend code count down start timestamp in MILLISECONDS.
+     * Returns resend code countdown start timestamp in MILLISECONDS.
      *
      * If there is no value for {@link countdownStartMs}, it will be fetched from storage.
      *
-     * @returns Timestamp in milliseconds on which count down was started last time
-     * or null if count down was not started.
+     * @returns Timestamp in milliseconds on which countdown was started last time
+     * or null if countdown was not started.
      */
     getResentCodeCountdownStartFromStorage = async (): Promise<number | null> => {
         if (this.countdownStartMs) {
@@ -53,9 +53,9 @@ class EmailConfirmationService {
     };
 
     /**
-     * Sets resend code count down start timestamp in MILLISECONDS in storage.
+     * Sets resend code countdown start timestamp in MILLISECONDS in storage.
      *
-     * @param countdownStart Timestamp in milliseconds on which count down was started last time.
+     * @param countdownStart Timestamp in milliseconds on which countdown was started last time.
      */
     setResentCodeCountdownStartToStorage = async (countdownStart: number | null): Promise<void> => {
         this.countdownStartMs = countdownStart;
@@ -63,17 +63,17 @@ class EmailConfirmationService {
     };
 
     /**
-     * Resets count down and starts it again if the timer has not been started yet.
+     * Resets countdown and starts it again if the timer has not been started yet.
      *
-     * @param email User email for which count down should be restarted.
-     * If provided and is the same as previous, count down is not restarted.
-     * If not provided, count down is restarted anyway.
+     * @param email User email for which countdown should be restarted.
+     * If provided and is the same as previous, countdown is not restarted.
+     * If not provided, countdown is restarted anyway.
      */
     public restartCountdown(email?: string): void {
         // if email is provided, check if it is the same as previous
         if (typeof email !== 'undefined') {
             if (this.email === email) {
-                // do not restart count down if email is the same
+                // do not restart countdown if email is the same
                 return;
             }
             // update email value
@@ -86,7 +86,7 @@ class EmailConfirmationService {
     /**
      * Returns number of SECONDS left until user can request another code.
      *
-     * @returns Number of seconds left or null if count down was not started or already finished.
+     * @returns Number of seconds left or null if countdown was not started or already finished.
      */
     public async getCodeCountdown(): Promise<number | null> {
         const countdownStartMs = await this.getResentCodeCountdownStartFromStorage();

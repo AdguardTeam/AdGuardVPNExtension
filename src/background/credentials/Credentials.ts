@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import md5 from 'crypto-js/md5';
 import lodashGet from 'lodash/get';
 
-import accountProvider from '../providers/accountProvider';
+import { type AccountInfoData, accountProvider } from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
 import type { VpnProviderInterface } from '../providers/vpnProvider';
@@ -63,6 +63,8 @@ export interface CredentialsInterface {
     isPremiumToken(): Promise<boolean>;
     nextBillDate(): Promise<number | null>;
     getUsername(): Promise<string | null>;
+    getUserRegistrationTimeISO(): Promise<string | null>;
+    getUsernameAndRegistrationTimeISO(): Promise<AccountInfoData>;
     trackInstallation(): Promise<void>;
     init(): Promise<void>;
 }
@@ -120,12 +122,33 @@ export class Credentials implements CredentialsInterface {
         this.saveCredentialsState();
     }
 
+    /**
+     * Returns current username.
+     */
     get currentUsername() {
         return this.state.currentUsername;
     }
 
+    /**
+     * Sets current username.
+     */
     set currentUsername(currentUsername: string | null) {
         this.state.currentUsername = currentUsername;
+        this.saveCredentialsState();
+    }
+
+    /**
+     * Returns current user registration time in ISO format
+     */
+    get currentUserRegistrationTime() {
+        return this.state.currentUserRegistrationTime;
+    }
+
+    /**
+     * Sets current user registration time in ISO format
+     */
+    set currentUserRegistrationTime(registrationTime: string | null) {
+        this.state.currentUserRegistrationTime = registrationTime;
         this.saveCredentialsState();
     }
 
@@ -448,16 +471,24 @@ export class Credentials implements CredentialsInterface {
         return this.appId;
     };
 
-    async fetchUsername() {
+    /**
+     * Fetches current user info.
+     *
+     * @return Account info: username and registration time in ISO format.
+     */
+    async fetchUserInfo(): Promise<AccountInfoData> {
         const accessToken = await this.auth.getAccessToken();
-        const username = await accountProvider.getAccountInfo(accessToken);
+        const { username, registrationTimeISO: registrationTime } = await accountProvider.getAccountInfo(accessToken);
         this.currentUsername = username;
+        this.currentUserRegistrationTime = registrationTime;
 
-        return username;
+        return { username, registrationTimeISO: registrationTime };
     }
 
     /**
-     * Checks if token has license key, then this token is considered premium
+     * Checks if current user's token has license key, then it is considered as premium.
+     *
+     * @returns Returns promise that resolves to true if token is premium and false otherwise.
      */
     isPremiumToken = async (): Promise<boolean> => {
         let vpnToken;
@@ -519,12 +550,65 @@ export class Credentials implements CredentialsInterface {
         }
 
         try {
-            this.currentUsername = await this.fetchUsername();
+            const { username } = await this.fetchUserInfo();
+            this.currentUsername = username;
         } catch (e) {
             log.debug(e);
         }
 
         return this.currentUsername;
+    }
+
+    /**
+     * Returns user registration time.
+     *
+     * @returns Returns registration time **in ISO format** or null if it's not available.
+     */
+    async getUserRegistrationTimeISO(): Promise<string | null> {
+        if (this.currentUserRegistrationTime) {
+            return this.currentUserRegistrationTime;
+        }
+
+        try {
+            const { registrationTimeISO: registrationTime } = await this.fetchUserInfo();
+            this.currentUserRegistrationTime = registrationTime;
+        } catch (e) {
+            log.debug(e);
+        }
+
+        return this.currentUserRegistrationTime;
+    }
+
+    /**
+     * Returns user info data.
+     *
+     * @returns Returns username and registration time **in ISO format**.
+     * @throws Throws error if it's not possible to get username and registration time.
+     */
+    async getUsernameAndRegistrationTimeISO(): Promise<AccountInfoData> {
+        if (this.currentUsername && this.currentUserRegistrationTime) {
+            return {
+                username: this.currentUsername,
+                registrationTimeISO: this.currentUserRegistrationTime,
+            };
+        }
+
+        try {
+            const { username, registrationTimeISO: registrationTime } = await this.fetchUserInfo();
+            this.currentUsername = username;
+            this.currentUserRegistrationTime = registrationTime;
+        } catch (e) {
+            log.debug(e);
+        }
+
+        if (!this.currentUsername || !this.currentUserRegistrationTime) {
+            throw new Error('Unable to get username and registration time');
+        }
+
+        return {
+            username: this.currentUsername,
+            registrationTimeISO: this.currentUserRegistrationTime,
+        };
     }
 
     /**
@@ -576,11 +660,15 @@ export class Credentials implements CredentialsInterface {
             const isUserAuthenticated = await auth.isAuthenticated(false);
 
             if (isUserAuthenticated) {
-                // Use persisted state on extension initialisation.
+                // Use persisted state on extension initialization.
                 // If it's not available, get data remotely
                 this.vpnToken = this.vpnToken || await this.gainValidVpnToken(forceRemote);
                 this.vpnCredentials = this.vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
-                this.currentUsername = this.currentUsername || await this.fetchUsername();
+
+                this.currentUsername = this.currentUsername || await this.getUsername();
+
+                this.currentUserRegistrationTime = this.currentUserRegistrationTime
+                    || await this.getUserRegistrationTimeISO();
             }
         } catch (e) {
             log.debug('Unable to init credentials module, due to error:', e.message);

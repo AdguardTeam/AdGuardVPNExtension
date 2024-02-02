@@ -25,6 +25,20 @@ export class UiStore {
      */
     @observable isShownVpnBlockedErrorDetails: boolean = false;
 
+    /**
+     * Flag for the notice with timer for the limited offer for free accounts.
+     *
+     * Init value is `true`.
+     */
+    @observable shouldShowLimitedOfferNotice: boolean = true;
+
+    /**
+     * Flag for the details modal for the limited offer.
+     *
+     * Init value is `false`.
+     */
+    @observable shouldShowLimitedOfferDetails: boolean = false;
+
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -72,5 +86,36 @@ export class UiStore {
 
     @action closeVpnBlockedErrorDetails = (): void => {
         this.isShownVpnBlockedErrorDetails = false;
+    };
+
+    /**
+     * Opens the notice with timer for the limited offer.
+     */
+    @action openLimitedOfferNotice = (): void => {
+        this.shouldShowLimitedOfferNotice = true;
+    };
+
+    /**
+     * Closes the notice with timer for the limited offer.
+     */
+    @action closeLimitedOfferNotice = (): void => {
+        this.shouldShowLimitedOfferNotice = false;
+    };
+
+    /**
+     * Opens the details modal for the limited offer.
+     */
+    @action openLimitedOfferDetails = (): void => {
+        // hide the notice
+        this.shouldShowLimitedOfferNotice = false;
+        // show the details
+        this.shouldShowLimitedOfferDetails = true;
+    };
+
+    /**
+     * Closes the details modal for the limited offer.
+     */
+    @action closeLimitedOfferDetails = (): void => {
+        this.shouldShowLimitedOfferDetails = false;
     };
 }

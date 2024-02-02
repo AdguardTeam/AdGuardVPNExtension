@@ -1,14 +1,15 @@
 import browser, { Runtime } from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
-import { ExclusionsData, ExclusionsMode, ServiceDto } from '../common/exclusionsConstants';
-import { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
+import { type ExclusionsData, ExclusionsMode, type ServiceDto } from '../common/exclusionsConstants';
+import type { LimitedOfferData } from '../background/limitedOfferService';
+import type { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { Message } from '../popup/components/App/App';
 
 import { log } from './logger';
-import { MessageType, SocialAuthProvider, ExclusionsContentMap } from './constants';
+import { MessageType, SocialAuthProvider, type ExclusionsContentMap } from './constants';
 import { NotifierType } from './notifier';
 
 class Messenger {
@@ -126,6 +127,16 @@ class Messenger {
     async getPopupData(url: string | null, numberOfTries: number) {
         const type = MessageType.GET_POPUP_DATA;
         return this.sendMessage(type, { url, numberOfTries });
+    }
+
+    /**
+     * Sends a message to the background page to get limited data offer for the user.
+     *
+     * @returns Returns a promise that resolves to an object with the limited offer data or null.
+     */
+    async getLimitedOfferData(): Promise<LimitedOfferData | null> {
+        const type = MessageType.GET_LIMITED_OFFER_DATA;
+        return this.sendMessage(type);
     }
 
     /**
@@ -453,7 +464,7 @@ class Messenger {
     }
 
     /**
-     * Sends a message to the background page to get the resend code count down.
+     * Sends a message to the background page to get the resend code countdown.
      *
      * @returns Number of seconds left before the user can request a new code.
      */

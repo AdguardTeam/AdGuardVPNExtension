@@ -21,6 +21,8 @@ jest.mock('../../src/common/translator', () => {
     };
 });
 
+jest.mock('../../src/background/browserApi/storage');
+
 describe('notification', () => {
     it('creates notification', async () => {
         const expectedMsg = 'test message';

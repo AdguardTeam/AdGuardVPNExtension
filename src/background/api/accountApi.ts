@@ -48,7 +48,21 @@ interface BonusesData {
 
 interface AccountApiInterface {
     getVpnToken(accessToken: string): Promise<VpnTokenData>;
+
+    /**
+     * Fetches account info by access token via request to `account/info`.
+     *
+     * @param accessToken Access token.
+     *
+     * @returns Account info: email and time added (registration time) in ISO format.
+     */
     getAccountInfo(accessToken: string): Promise<AccountInfo>;
+
+    /**
+     * Sends request to resend confirm registration link via `account/resend_confirm_registration_email`.
+     *
+     * @param accessToken Access token.
+     */
     resendConfirmRegistrationLink(accessToken: string): Promise<void>;
 }
 

@@ -3,6 +3,8 @@ import { nanoid } from 'nanoid';
 
 import { translator } from '../common/translator';
 import { Prefs } from '../common/prefs';
+import { getErrorMessage } from '../common/utils/error';
+import { log } from '../lib/logger';
 
 const DEFAULT_IMAGE_PATH = Prefs.ICONS.ENABLED['128'];
 const DEFAULT_TITLE = translator.getMessage('short_name');
@@ -23,7 +25,12 @@ class Notifications implements NotificationsInterface {
             title: options.title || DEFAULT_TITLE,
             message: options.message,
         };
-        await browser.notifications.create(nanoid(), notificationOptions);
+
+        try {
+            await browser.notifications.create(nanoid(), notificationOptions);
+        } catch (error) {
+            log.error(getErrorMessage(error));
+        }
     };
 }
 

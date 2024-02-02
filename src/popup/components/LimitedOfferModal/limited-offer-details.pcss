@@ -1,0 +1,87 @@
+.limited-offer-details {
+
+    &__content {
+        overflow-y: scroll;
+        /* 100% - footer height */
+        height: calc(100% - 72px);
+        scrollbar-width: thin;
+        overflow-x: hidden;
+    }
+
+    &__footer {
+        height: 72px;
+        bottom: 0;
+        background-color: var(--white);
+        box-shadow: 0 -4px 8px 0 var(--shadow-0-1);
+    }
+
+    &__image {
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 276px;
+        background-image: url(../../../../src/assets/images/temp-promo-offer.svg);
+    }
+
+    &__close-icon {
+        position: relative;
+        top: 12px;
+        left: calc((var(--popup-width) / 2) - 24px);
+    }
+
+    &__header {
+        padding-bottom: 8px;
+    }
+
+    &__time-left {
+        color: var(--magenta);
+    }
+
+    &__title {
+
+        span {
+            color: var(--blue-light);
+        }
+    }
+
+    &__features {
+
+        &-item {
+            display: flex;
+            text-align: left;
+            padding: 16px;
+            border-bottom: 1px solid var(--grayd2);
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        &-image {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        &-title {
+            line-height: 25px;
+            color: var(--gray-3d);
+        }
+
+        &-desc {
+            font-size: 14px;
+            line-height: 18px;
+            color: var(--gray-5b);
+        }
+    }
+
+    &__button {
+        height: 56px;
+        min-width: 288px;
+        font-size: 16px;
+        line-height: 21px;
+        margin: 8px 16px;
+        padding: 16px;
+    }
+}

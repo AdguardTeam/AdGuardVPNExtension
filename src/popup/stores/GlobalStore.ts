@@ -91,6 +91,13 @@ export class GlobalStore {
                 settingsStore.setGlobalError(null);
             }
 
+            // retrieve limited offer data after user is authenticated
+            // and there is not other errors
+            let limitedOfferData = null;
+            if (!isPremiumToken) {
+                limitedOfferData = await messenger.getLimitedOfferData();
+            }
+
             authStore.setFlagsStorageData(flagsStorageData);
             authStore.setIsFirstRun(isFirstRun);
             authStore.setShouldShowRateModal(shouldShowRateModal);
@@ -99,6 +106,7 @@ export class GlobalStore {
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setIsVpnBlocked(isVpnBlocked);
+            settingsStore.setLimitedOfferData(limitedOfferData);
             settingsStore.setPromoNotification(promoNotification);
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setLocations(locations);

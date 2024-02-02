@@ -44,6 +44,7 @@ export enum MessageType {
     AUTHENTICATE_SOCIAL = 'authenticate.social',
     AUTHENTICATE_THANKYOU_PAGE = 'authenticate.thankyou.page',
     GET_POPUP_DATA = 'get.popup.data',
+    GET_LIMITED_OFFER_DATA = 'get.limited.offer.data',
     FORCE_UPDATE_LOCATIONS = 'force.update.locations',
     GET_OPTIONS_DATA = 'get.options.data',
     GET_VPN_FAILURE_PAGE = 'get.vpn.failure.page',

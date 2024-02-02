@@ -61,7 +61,7 @@ export const InfoMessage = observer(() => {
                 </div>
                 <button
                     type="button"
-                    className="button button--medium button--red info-message__btn"
+                    className="button button--medium button--red button--info-message info-message__btn"
                     onClick={upgradeClickHandler}
                 >
                     {reactTranslator.getMessage('premium_upgrade')}

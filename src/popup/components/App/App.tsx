@@ -35,6 +35,7 @@ import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
 import { SkeletonLoading } from '../SkeletonLoading';
 import { NoLocationsError } from '../NoLocationsError';
+import { LimitedOfferModal } from '../LimitedOfferModal/LimitedOfferModal';
 
 export interface Message {
     type: NotifierType,
@@ -63,6 +64,7 @@ export const App = observer(() => {
         isVpnBlocked,
         isHostPermissionsGranted,
         hasDesktopAppForOs,
+        isLimitedOfferActive,
     } = settingsStore;
 
     const { authenticated } = authStore;
@@ -264,7 +266,13 @@ export const App = observer(() => {
                 isVpnBlocked
                 // do not show the warning for users on linux AG-27487
                 && hasDesktopAppForOs
+                // do not show the warning if there is a limited offer active
+                && !isLimitedOfferActive
                 && <VpnBlockedError />
+            }
+            {
+                isLimitedOfferActive
+                && <LimitedOfferModal />
             }
             <CSSTransition
                 in={isOpenEndpointsSearch}

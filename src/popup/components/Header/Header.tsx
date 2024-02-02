@@ -12,7 +12,7 @@ import './header.pcss';
 export const Header = observer(({ showMenuButton }: { showMenuButton: boolean }) => {
     const { uiStore, vpnStore, settingsStore } = useContext(rootStore);
     const { isPremiumToken } = vpnStore;
-    const { hasGlobalError } = settingsStore;
+    const { hasGlobalError, isLimitedOfferActive } = settingsStore;
 
     const handleOpenModal = () => {
         uiStore.openOptionsModal();
@@ -30,12 +30,22 @@ export const Header = observer(({ showMenuButton }: { showMenuButton: boolean })
 
     const tabIndex = 0;
 
+    /**
+     * Gift button should be shown if:
+     * 1. User is not premium;
+     * 1. There is no active limited offer (with timer);
+     * 1. There is no global error.
+     */
+    const shouldShowGiftBtn = !isPremiumToken
+        && !isLimitedOfferActive
+        && !hasGlobalError;
+
     return (
         <div className={headerClass}>
             <div className="header__logo">
                 <div className="logo" />
             </div>
-            {!isPremiumToken && !hasGlobalError && (
+            {shouldShowGiftBtn && (
                 <div className="header__referral">
                     <button
                         className="button header__referral__button"

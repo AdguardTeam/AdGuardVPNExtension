@@ -590,7 +590,7 @@ export class AuthStore {
     }
 
     /**
-     * Gets count down timer value for email confirmation code resend via messenger,
+     * Gets countdown timer value for email confirmation code resend via messenger,
      * and sets it to the store's value {@link resendCodeCountdown}.
      */
     @action
@@ -605,7 +605,7 @@ export class AuthStore {
     }
 
     /**
-     * Starts count down timer based on store's value {@link resendCodeCountdown}.
+     * Starts countdown timer based on store's value {@link resendCodeCountdown}.
      */
     @action startCountdown = () => {
         this.confirmEmailTimer = setInterval(() => {
@@ -620,8 +620,8 @@ export class AuthStore {
     };
 
     /**
-     * Gets count down timer value for email confirmation code resend from the background,
-     * and starts count down timer based on it.
+     * Gets countdown timer value for email confirmation code resend from the background,
+     * and starts countdown timer based on it.
      *
      * Needed for the case when the popup is reopened and the timer was running in the background.
      */
@@ -636,7 +636,7 @@ export class AuthStore {
     }
 
     /**
-     * Resets count down timer, starts it again, and sends a message to the background
+     * Resets countdown timer, starts it again, and sends a message to the background
      * to request a new email confirmation code.
      */
     @action resendEmailConfirmationCode = async () => {
@@ -657,6 +657,7 @@ export class AuthStore {
             // host permissions should be granted to show the hint popup;
             // no `!` is used because of its semantics
             && this.rootStore.settingsStore.isHostPermissionsGranted
+            && this.rootStore.settingsStore.isLimitedOfferActive
             && !this.rootStore.settingsStore.showNotificationModal
             && !this.rootStore.vpnStore.tooManyDevicesConnected;
     }

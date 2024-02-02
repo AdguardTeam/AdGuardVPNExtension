@@ -1,0 +1,34 @@
+.limited-offer-notice {
+    position: absolute;
+    cursor: pointer;
+    top: 56px;
+    left: 20px;
+    height: 40px;
+    padding: 0;
+    background-color: var(--popup-notice-background);
+    color: var(--gray-base);
+    font-size: 14px;
+    line-height: 18px;
+    align-items: center;
+    display: flex;
+    border: none;
+    border-radius: 4px;
+    z-index: var(--header-z-index);
+
+    &__icon {
+        margin: 8px;
+    }
+
+    &__info {
+        margin-right: 8px;
+        color: var(--gray-base);
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 600;
+    }
+
+    &__timer {
+        color: var(--pink-red);
+        font-weight: 400;
+    }
+}
