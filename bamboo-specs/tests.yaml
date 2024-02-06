@@ -41,7 +41,7 @@ Test:
             originalYarnArgs="$bamboo_varsYarn"
             modifiedYarnArgs=$(echo "$originalYarnArgs" | sed 's/--ignore-optional//g')
 
-            # Install common dependencies
+            # Install dependencies
             yarn install ${modifiedYarnArgs}
 
             yarn lint
