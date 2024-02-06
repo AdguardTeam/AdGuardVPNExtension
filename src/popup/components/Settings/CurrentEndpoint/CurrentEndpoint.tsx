@@ -30,7 +30,7 @@ export const CurrentEndpoint = observer(() => {
         uiStore.openEndpointsSearch();
     };
 
-    const titleClass = classnames('endpoint__location-name', 'endpoint__title', { 'endpoint__title--connected': isConnected });
+    const titleClass = classnames('endpoint__location-name', 'endpoint__title', { 'endpoint__title--selected': isConnected });
 
     const flagClass = classnames('endpoint__flag', { 'endpoint__flag--active': isConnected });
 
@@ -44,42 +44,49 @@ export const CurrentEndpoint = observer(() => {
 
     const renderPing = () => {
         if (selectedLocationPing) {
-            return <Ping ping={selectedLocationPing} />;
+            return (
+                <Ping
+                    ping={selectedLocationPing}
+                    selected={settingsStore.isConnected}
+                />
+            );
         }
 
         return <div className="ping">—</div>;
     };
 
     return (
-        <button
-            type="button"
-            className="endpoint"
-            onClick={clickHandler}
-        >
-            <div className="endpoint__info">
-                <div className={flagClass} style={getFlagIconStyle(countryCodeToDisplay)} />
-                <div className="endpoint__location-container">
-                    <div className={titleClass}>
-                        {countryNameToDisplay}
-                    </div>
-                    <div className="endpoint__location-name endpoint__desc">
-                        {cityNameToDisplay}
-                    </div>
-                </div>
-            </div>
-            <div className="endpoint__ping-container">
-                <div>
-                    {renderPing()}
-                    {settingsStore.hasLimitExceededError && (
-                        <div className="endpoint__limited-speed">
-                            {reactTranslator.getMessage('popup_traffic_limited_speed')}
+        <div className="endpoint__current">
+            <button
+                type="button"
+                className="endpoint"
+                onClick={clickHandler}
+            >
+                <div className="endpoint__info">
+                    <div className={flagClass} style={getFlagIconStyle(countryCodeToDisplay)} />
+                    <div className="endpoint__location-container">
+                        <div className={titleClass}>
+                            {countryNameToDisplay}
                         </div>
-                    )}
+                        <div className="endpoint__location-name endpoint__desc">
+                            {cityNameToDisplay}
+                        </div>
+                    </div>
                 </div>
-                <svg className="icon icon--arrow">
-                    <use xlinkHref="#right-arrow" />
-                </svg>
-            </div>
-        </button>
+                <div className="endpoint__ping-container">
+                    <div>
+                        {renderPing()}
+                        {settingsStore.hasLimitExceededError && (
+                            <div className="endpoint__limited-speed">
+                                {reactTranslator.getMessage('popup_traffic_limited_speed')}
+                            </div>
+                        )}
+                    </div>
+                    <svg className="icon icon--arrow">
+                        <use xlinkHref="#right-arrow" />
+                    </svg>
+                </div>
+            </button>
+        </div>
     );
 });

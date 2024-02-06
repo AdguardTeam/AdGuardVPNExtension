@@ -868,21 +868,21 @@
     },
     "limited_offer_notification_title": {
         "message": "%discount%%% rabat på AdGuard VPN",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
         "message": "6-timers lyntilbud. Få mere at vide i din AdGuard VPN-udvidelse"
     },
     "popup_limited_offer_notice": {
         "message": "%discount%%% rabat: <span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "Tid tilbage: %time_left%"
     },
     "popup_limited_offer_details_title": {
         "message": "| AdGuard VPN Ubegrænset i %count% år med <span>%discount%%% rabat</span> | AdGuard VPN Ubegrænset i %count% år med <span>%discount%%% rabat</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Snup tilbuddet"

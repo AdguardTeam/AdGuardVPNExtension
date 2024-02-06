@@ -5,9 +5,10 @@ import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { LocationData } from '../../stores/VpnStore';
 
+import { FastestSkeleton } from './FastestSkeleton';
 import { Location } from './Location';
 import { Search } from './Search';
-import { Skeleton } from './Skeleton';
+import { Reload } from './Reload';
 
 import './endpoints.pcss';
 
@@ -93,7 +94,7 @@ export const Locations = observer(() => {
     };
 
     const {
-        fastestLocations,
+        fastestLocationsToDisplay,
         showSearchResults,
     } = vpnStore;
 
@@ -110,6 +111,7 @@ export const Locations = observer(() => {
                         <use xlinkHref="#back" />
                     </svg>
                 </button>
+                <Reload />
             </div>
             <Search
                 value={vpnStore.searchValue}
@@ -122,10 +124,10 @@ export const Locations = observer(() => {
                         <div className="endpoints__title">
                             {reactTranslator.getMessage('endpoints_fastest')}
                         </div>
-                        {fastestLocations.length > 0 ? (
-                            renderLocations(fastestLocations)
+                        {fastestLocationsToDisplay.length > 0 ? (
+                            renderLocations(fastestLocationsToDisplay)
                         ) : (
-                            <Skeleton />
+                            <FastestSkeleton />
                         )}
                     </div>
                 )}

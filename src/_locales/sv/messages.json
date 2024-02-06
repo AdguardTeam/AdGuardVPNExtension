@@ -612,11 +612,11 @@
     },
     "limited_offer_notification_title": {
         "message": "%discount%%% rabatt på AdGuard VPN",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_notice": {
         "message": "%discount%%% rabatt: <span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "Tid kvar: %time_left%"

@@ -1,22 +1,23 @@
-.dots-loader {
+.ping-dots-loader {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 30px;
+    height: 24px;
+    width: 24px;
 
     &__dot {
         position: relative;
         display: inline-block;
         vertical-align: middle;
-        height: 6px;
-        width: 6px;
+        height: 3px;
+        width: 3px;
         background-color: var(--green76);
         border-radius: 50%;
         animation: dotty infinite forwards 1.4s cubic-bezier(0.59, 0.01, 0.39, 0.99);
 
         &:first-child {
-            left: -8px;
+            left: -4px;
         }
 
         &:nth-child(2) {
@@ -25,7 +26,7 @@
 
         &:last-child {
             animation-delay: 0.5s;
-            right: -8px;
+            right: -4px;
         }
     }
 }

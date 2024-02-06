@@ -868,21 +868,21 @@
     },
     "limited_offer_notification_title": {
         "message": "AdGuard VPN %discount%%% 할인",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
         "message": "6시간 한정 플래시 세일. AdGuard VPN 확장 프로그램에서 자세히 알아보기"
     },
     "popup_limited_offer_notice": {
         "message": "%discount%%% 할인: <span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "남은 시간: %time_left%"
     },
     "popup_limited_offer_details_title": {
         "message": "| %count%년 동안 AdGuard VPN 무제한 버전을 <span>%discount%%% 할인</span>된 가격으로 이용해 보세요.",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "할인 받기"

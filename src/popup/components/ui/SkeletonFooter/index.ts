@@ -1,1 +1,0 @@
-export { SkeletonFooter } from './SkeletonFooter';

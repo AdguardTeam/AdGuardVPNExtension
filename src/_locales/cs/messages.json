@@ -868,21 +868,21 @@
     },
     "limited_offer_notification_title": {
         "message": "%discount%%% sleva na AdGuard VPN",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
         "message": "Blesková nabídka pouze 6h. Další informace najdete v rozšíření AdGuard VPN"
     },
     "popup_limited_offer_notice": {
         "message": "%discount%%% sleva: <span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "Zbývající čas: %time_left%"
     },
     "popup_limited_offer_details_title": {
         "message": "| AdGuard VPN Unlimited na %count% rok se slevou <span>%discount%%%</span> | AdGuard VPN Unlimited na %count% roky se slevou <span>%discount%%%</span> | AdGuard VPN Unlimited na %count% let se slevou <span>%discount%%%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Využít nabídku"

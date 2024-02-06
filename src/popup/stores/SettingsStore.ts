@@ -23,7 +23,11 @@ import { Prefs } from '../../common/prefs';
 import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
 
 import type { RootStore } from './RootStore';
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
+import {
+    MAX_GET_POPUP_DATA_ATTEMPTS,
+    RECALCULATE_PINGS_BTN_INACTIVITY_DELAY_MS,
+    RequestStatus,
+} from './constants';
 
 type StateType = {
     value: string,
@@ -75,6 +79,8 @@ export class SettingsStore {
     @observable limitedOfferTimer?: ReturnType<typeof setInterval>;
 
     @observable hasDesktopAppForOs: boolean = false;
+
+    @observable arePingsRecalculating: boolean = false;
 
     rootStore: RootStore;
 
@@ -458,5 +464,34 @@ export class SettingsStore {
         runInAction(() => {
             this.hasDesktopAppForOs = isWindows || isMacOS;
         });
+    }
+
+    /**
+     * Sets the {@link arePingsRecalculating} to the specified value.
+     *
+     * @param value Value to set.
+     */
+    @action setArePingsRecalculating(value: boolean): void {
+        this.arePingsRecalculating = value;
+    }
+
+    /**
+     * Sets the {@link arePingsRecalculating} to true,
+     * and re-calculates the pings for all locations.
+     *
+     * After the pings are re-calculated, sets the {@link arePingsRecalculating} to false.
+     */
+    @action async recalculatePings(): Promise<void> {
+        this.setArePingsRecalculating(true);
+        // set the fastest locations to the cached value to avoid showing the skeleton
+        this.rootStore.vpnStore.setCachedFastestLocations();
+
+        await messenger.recalculatePings();
+
+        setTimeout(() => {
+            this.setArePingsRecalculating(false);
+            // reset the fastest locations to display the actual locations
+            this.rootStore.vpnStore.resetCachedFastestLocations();
+        }, RECALCULATE_PINGS_BTN_INACTIVITY_DELAY_MS);
     }
 }

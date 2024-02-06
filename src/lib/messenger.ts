@@ -488,6 +488,11 @@ class Messenger {
         const type = MessageType.GET_APP_VERSION;
         return this.sendMessage(type);
     }
+
+    recalculatePings() {
+        const type = MessageType.RECALCULATE_PINGS;
+        return this.sendMessage(type);
+    }
 }
 
 export const messenger = new Messenger();

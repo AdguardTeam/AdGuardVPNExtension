@@ -110,6 +110,8 @@ export enum MessageType {
     GET_APP_VERSION = 'get.app.version',
 
     UPDATE_LISTENERS = 'update.listeners',
+
+    RECALCULATE_PINGS = 'recalculate.pings',
 }
 
 export const ERROR_STATUSES = {

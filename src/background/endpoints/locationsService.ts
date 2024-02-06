@@ -246,9 +246,10 @@ class LocationsService implements LocationsServiceInterface {
 
     /**
      * Determines ping for location and saves it in the pings cache
-     * @param location
+     * @param location location to measure ping for
+     * @param force boolean flag to measure ping without checking pings ttl
      */
-    measurePing = async (location: LocationInterface): Promise<void> => {
+    measurePing = async (location: LocationInterface, force: boolean): Promise<void> => {
         const { id } = location;
 
         // Do not begin pings measurement while it is measuring yet
@@ -263,11 +264,12 @@ class LocationsService implements LocationsServiceInterface {
 
         const hasPing = !!this.pingsCache[id]?.ping;
 
-        if (isFresh && hasPing) {
+        if (isFresh && hasPing && !force) {
             return;
         }
 
         this.updatePingsCache(location.id, { isMeasuring: true });
+
         const { ping, endpoint } = await this.getEndpointAndPing(location);
 
         this.setLocationPing(location, ping);
@@ -292,24 +294,47 @@ class LocationsService implements LocationsServiceInterface {
     };
 
     /**
+     * Removes pings from the cache and locations.
+     *
+     * Needed for "Refresh pings" button in the "Locations" screen in popup.
+     */
+    prunePings = (): void => {
+        this.locations.forEach((location) => {
+            this.updatePingsCache(location.id, { ping: null });
+            // eslint-disable-next-line no-param-reassign
+            location.ping = null;
+        });
+        const locations = this.getLocationsWithPing();
+        notifier.notifyListeners(
+            notifier.types.LOCATIONS_UPDATED,
+            locations,
+        );
+    };
+
+    /**
      * Flag used to control when it is possible to start pings measurement again
-     * @type {boolean}
      */
     isMeasuring = false;
 
     /**
-     * Measure pings for all locations
+     * Measures pings for all locations.
+     *
+     * @param force Flag indicating that pings should be measured without checking ttl
      */
-    measurePings = (): void => {
+    measurePings = (force = false): void => {
         if (this.isMeasuring) {
             return;
         }
 
         this.isMeasuring = true;
 
+        if (force) {
+            this.prunePings();
+        }
+
         (async () => {
             await Promise.all(this.locations.map((location) => {
-                return this.measurePing(location);
+                return this.measurePing(location, force);
             }));
             this.isMeasuring = false;
         })();

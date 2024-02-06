@@ -5,7 +5,7 @@ import { rootStore } from '../../stores';
 import { Icons } from '../ui/Icons';
 import { BackgroundAnimation } from '../Settings/BackgroundAnimation';
 import { SkeletonHeader } from '../ui/SkeletonHeader';
-import { SkeletonFooter } from '../ui/SkeletonFooter';
+import { SkeletonEndpoint } from '../ui/SkeletonEndpoint';
 
 import '../Settings/GlobalControl/ExcludeSite/exclude-site.pcss';
 import '../Settings/settings.pcss';
@@ -46,7 +46,7 @@ export const SkeletonLoading = () => {
                     )}
                 </div>
             </div>
-            <SkeletonFooter />
+            <SkeletonEndpoint />
             <Icons />
         </>
     );

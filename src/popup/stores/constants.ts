@@ -10,3 +10,5 @@ export enum InputType {
     Text = 'text',
     Password = 'password',
 }
+
+export const RECALCULATE_PINGS_BTN_INACTIVITY_DELAY_MS = 2000;

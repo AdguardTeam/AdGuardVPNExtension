@@ -97,6 +97,11 @@ export const Icons = () => (
             </g>
         </symbol>
 
+        <symbol id="reload" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 25">
+            <path d="M6 7.5c3.6-5.2 13.5-3.5 14 5V14M18 17.5c-3.6 5.2-13.5 3.5-14-5v-1" stroke="#67B279" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="m22 12.5-2 2-2-2M2 12.5l2-2 2 2" stroke="#67B279" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </symbol>
+
         <symbol id="closed_eye" viewBox="0 0 24 24">
             <path d="M4 10C4 10 8 14.772 12 14.772C16 14.772 20 10 20 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             <path d="M12 15V17" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

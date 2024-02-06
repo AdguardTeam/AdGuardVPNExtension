@@ -868,21 +868,21 @@
     },
     "limited_offer_notification_title": {
         "message": "AdGuard VPN %discount%%%OFF",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
         "message": "限時搶購僅限 6 小時。在 AdGuard VPN 擴充功能中了解更多資訊"
     },
     "popup_limited_offer_notice": {
         "message": "%discount%%%OFF：<span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "剩餘時間：%time_left%"
     },
     "popup_limited_offer_details_title": {
         "message": "| AdGuard VPN 無限版 %count% 年訂閱 <span>%discount%%%OFF</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "取得折扣"

@@ -1,0 +1,1 @@
+export { SkeletonEndpoint } from './SkeletonEndpoint';

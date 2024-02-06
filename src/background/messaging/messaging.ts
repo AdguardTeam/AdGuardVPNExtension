@@ -442,6 +442,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             await hintPopup.setViewed();
             break;
         }
+        case MessageType.RECALCULATE_PINGS: {
+            locationsService.measurePings(true);
+            break;
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

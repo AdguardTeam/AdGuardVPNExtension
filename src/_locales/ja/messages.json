@@ -868,21 +868,21 @@
     },
     "limited_offer_notification_title": {
         "message": "AdGuard VPN %discount%%OFF",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
         "message": "6時間限定のタイムセール！詳しくはお使いの AdGuard VPN 拡張機能でご覧ください。"
     },
     "popup_limited_offer_notice": {
         "message": "%discount%%%OFF　残り時間: <span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "有効期限まで: %time_left%"
     },
     "popup_limited_offer_details_title": {
         "message": "| AdGuard VPN 無制限版の%count%年プランが<span>%discount%%%OFF</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "割引をもらう"

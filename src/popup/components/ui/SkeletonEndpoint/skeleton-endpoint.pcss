@@ -1,11 +1,10 @@
-.skeleton-footer {
+.skeleton-endpoint {
     display: flex;
     flex-direction: row;
     padding: 16px;
     min-height: var(--current-endpoint-min-height);
     color: var(--gray-base);
     border: 0;
-    border-top: var(--current-endpoint-border-top-width) solid var(--grayd8);
     background-color: var(--white);
 
     &__container {
@@ -14,7 +13,6 @@
     }
 
     &__empty {
-        height: 24px;
         border-radius: 12px;
 
         background: linear-gradient(
@@ -36,10 +34,12 @@
         }
 
         &-flag {
+            height: 24px;
             width: 24px;
         }
 
         &-title {
+            height: 21px;
             width: 100%;
         }
 

@@ -858,21 +858,21 @@
     },
     "limited_offer_notification_title": {
         "message": "Зніжка %discount%%% на AdGuard VPN",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
         "message": "Хуткая зніжка: толькі 6 гадзін. Падрабязнасці ў пашырэнні AdGuard VPN"
     },
     "popup_limited_offer_notice": {
         "message": "Зніжка %discount%%%: <span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "Засталося: %time_left%"
     },
     "popup_limited_offer_details_title": {
         "message": "| AdGuard VPN Unlimited на %count% год cа зніжкай <span>%discount%%%</span> | AdGuard VPN Unlimited на %count% года cа зніжкай <span>%discount%%%</span> | AdGuard VPN Unlimited на %count% гадоў cа зніжкай <span>%discount%%%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Атрымаць скідку"

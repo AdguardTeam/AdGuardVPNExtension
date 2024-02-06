@@ -4,9 +4,10 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { reactTranslator } from '../../../common/reactTranslator';
-import { Ping } from '../Ping';
 import { rootStore } from '../../stores';
-import { LocationData } from '../../stores/VpnStore';
+import { type LocationData } from '../../stores/VpnStore';
+import { Ping } from '../Ping';
+import { PingDotsLoader } from '../PingDotsLoader';
 
 type LocationProps = {
     location: LocationData,
@@ -39,19 +40,30 @@ export const Location = observer(({ location, handleClick }: LocationProps) => {
         }
     };
 
-    const renderLocationIcon = (selected: boolean, countryCode: string) => {
+    const endpointItemClass = classnames(
+        'endpoint',
+        'endpoints__item',
+        { 'endpoint--active': selected },
+        { 'endpoints__item--offline': !available },
+    );
+
+    const flagClass = classnames(
+        'endpoint__flag',
+        { 'endpoint__flag--active': selected },
+    );
+
+    const titleClass = classnames(
+        'endpoint__location-name',
+        'endpoint__title',
+        { 'endpoint__title--selected': selected },
+    );
+
+    const renderLocationIcon = (countryCode: string) => {
         if (!locationFitsPremiumToken) {
             return (
-                <div className="lock">
-                    <span className="lock__icon" />
-                </div>
+                <div className="endpoints__lock-icon" />
             );
         }
-
-        const flagClass = classnames(
-            'flag flag--small',
-            { 'flag--active': selected },
-        );
 
         const getFlagIconStyle = (countryCode: string) => {
             if (!countryCode) {
@@ -62,19 +74,33 @@ export const Location = observer(({ location, handleClick }: LocationProps) => {
         };
 
         return (
-            <div className={flagClass}>
-                <span className="flag__icon" style={getFlagIconStyle(countryCode)} />
+            <div className={flagClass} style={getFlagIconStyle(countryCode)} />
+        );
+    };
+
+    const renderCityName = () => {
+        if (!virtual) {
+            return cityName;
+        }
+
+        return `${cityName} (${reactTranslator.getMessage('endpoints_location_virtual')})`;
+    };
+
+    const renderPingDotsLoader = () => {
+        return (
+            <div className="ping">
+                <span className="endpoints__ping-dots-loader">
+                    <PingDotsLoader />
+                </span>
             </div>
         );
     };
 
-    const locationClassName = classnames(
-        'endpoints__item',
-        { 'endpoints__item--selected': selected },
-        { 'endpoints__item--offline': !available },
-    );
+    const renderLocationPing = () => {
+        if (settingsStore.arePingsRecalculating) {
+            return renderPingDotsLoader();
+        }
 
-    const renderPings = () => {
         if (!available) {
             return (
                 <div className="ping">
@@ -84,39 +110,34 @@ export const Location = observer(({ location, handleClick }: LocationProps) => {
         }
 
         if (ping) {
-            return <Ping ping={ping} />;
+            return <Ping ping={ping} selected={selected} />;
         }
 
-        return (
-            <div className="ping">
-                <span className="endpoints__dots">
-                    <span className="endpoints__dot">.</span>
-                    <span className="endpoints__dot">.</span>
-                    <span className="endpoints__dot">.</span>
-                </span>
-            </div>
-        );
+        return renderPingDotsLoader();
     };
 
     return (
         <button
             type="button"
-            className={locationClassName}
+            className={endpointItemClass}
             onClick={handleLocationClick}
         >
-            <div className="endpoints__icon">
-                {renderLocationIcon(selected, countryCode)}
-            </div>
-            <div className="endpoints__name">
-                <div className="endpoints__country">
-                    {countryName}
+            <div className="endpoint__info">
+                {renderLocationIcon(countryCode)}
+                <div className="endpoint__location-container endpoint__location-container--wide">
+                    <div className={titleClass}>
+                        {countryName}
+                    </div>
+                    <div className="endpoint__location-name endpoint__desc">
+                        {renderCityName()}
+                    </div>
                 </div>
-                <div className="endpoints__city">
-                    {cityName}
-                    {virtual && ` (${reactTranslator.getMessage('endpoints_location_virtual')})`}
-                </div>
             </div>
-            {renderPings()}
+
+            <div className="endpoint__ping-container">
+                {renderLocationPing()}
+            </div>
+
         </button>
     );
 });

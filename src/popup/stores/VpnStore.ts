@@ -36,7 +36,18 @@ export class VpnStore {
         this.rootStore = rootStore;
     }
 
+    /**
+     * List of all locations.
+     */
     @observable locations: LocationData[] = [];
+
+    /**
+     * List of so-called cached fastest locations — actually the list of previously calculated fastest locations.
+     * but with pruned ping values to display them while pings are recalculating.
+     *
+     * Needed to avoid skeleton displaying instead of the fastest locations list.
+     */
+    @observable cachedFastestLocations: LocationData[] = [];
 
     @observable pings: Pings = {};
 
@@ -63,6 +74,7 @@ export class VpnStore {
         }
 
         this.locations = locations;
+        this.pings = {};
     };
 
     @action updateLocationState = (state: LocationState): void => {
@@ -143,10 +155,32 @@ export class VpnStore {
         return location;
     };
 
-    @computed
-    get fastestLocations(): LocationData[] {
+    /**
+     * Calculated the fastest of all locations, prunes their pings,
+     * and sets a new list to {@link cachedFastestLocations}.
+     */
+    @action setCachedFastestLocations = (): void => {
+        this.cachedFastestLocations = this.calculateFastestLocations(this.locations).map((location) => {
+            return { ...location, ping: null };
+        });
+    };
+
+    /**
+     * Sets the value of {@link cachedFastestLocations} to empty array.
+     */
+    @action resetCachedFastestLocations = (): void => {
+        this.cachedFastestLocations = [];
+    };
+
+    /**
+     * Calculates the fastest location based on passed `locations` list.
+     *
+     * @param locations List of locations to calculate the fastest from.
+     *
+     * @returns List of 3 fastest locations.
+     */
+    calculateFastestLocations = (locations: LocationData[]): LocationData[] => {
         const FASTEST_LOCATIONS_COUNT = 3;
-        const locations = this.locations || [];
         const sortedLocations = locations
             .map(this.enrichWithStateData)
             .filter((location) => location.ping)
@@ -167,6 +201,26 @@ export class VpnStore {
             return sortedLocations.slice(0, FASTEST_LOCATIONS_COUNT);
         }
         return [];
+    };
+
+    /**
+     * Returns the list of fastest locations to display.
+     *
+     * If pings are recalculating, returns the list of cached fastest locations if they were calculated before.
+     * Otherwise, calculates the fastest locations based on {@link locations} list.
+     *
+     * @returns List of fastest locations to display.
+     */
+    @computed
+    get fastestLocationsToDisplay(): LocationData[] {
+        const locations = this.locations || [];
+
+        if (this.rootStore.settingsStore.arePingsRecalculating
+            && this.cachedFastestLocations.length > 0) {
+            return this.cachedFastestLocations;
+        }
+
+        return this.calculateFastestLocations(locations);
     }
 
     @computed

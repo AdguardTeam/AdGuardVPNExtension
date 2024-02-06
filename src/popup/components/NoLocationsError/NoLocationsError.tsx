@@ -5,7 +5,7 @@ import { isLocationsNumberAcceptable } from '../../../common/is-locations-number
 import { rootStore } from '../../stores';
 import { Icons } from '../ui/Icons';
 import { SkeletonHeader } from '../ui/SkeletonHeader';
-import { SkeletonFooter } from '../ui/SkeletonFooter';
+import { SkeletonEndpoint } from '../ui/SkeletonEndpoint';
 
 import './no-locations-error.pcss';
 
@@ -37,7 +37,7 @@ export const NoLocationsError = () => {
                     </button>
                 </div>
             </div>
-            <SkeletonFooter />
+            <SkeletonEndpoint />
             <Icons />
         </>
     );

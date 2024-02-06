@@ -868,21 +868,21 @@
     },
     "limited_offer_notification_title": {
         "message": "%discount%%% off AdGuard VPN",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
         "message": "Flash offer 6h only. Learn more in your AdGuard VPN extension"
     },
     "popup_limited_offer_notice": {
         "message": "%discount%%% off: <span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "Time left: %time_left%"
     },
     "popup_limited_offer_details_title": {
         "message": "| AdGuard VPN Unlimited for %count% year at <span>%discount%%% off</span> | AdGuard VPN Unlimited for %count% years at <span>%discount%%% off</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Grab the deal"

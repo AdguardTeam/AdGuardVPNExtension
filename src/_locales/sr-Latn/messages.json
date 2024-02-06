@@ -868,21 +868,21 @@
     },
     "limited_offer_notification_title": {
         "message": "%discount%%% popusta na AdGuard VPN",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
         "message": "Brzi popust: samo 6 sati. Detalji u AdGuard VPN proširenju"
     },
     "popup_limited_offer_notice": {
         "message": "%discount%%% popusta: <span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "Ostalo je vreme: %time_left%"
     },
     "popup_limited_offer_details_title": {
         "message": "| AdGuard VPN Unlimited na %count% godinu <span>sa %discount%%% popusta</span> | AdGuard VPN Unlimited na %count% godine <span>sa %discount%%% popusta</span> | AdGuard VPN Unlimited na %count% godina <span>sa %discount%%% popusta</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Zgrabi nagodbu"

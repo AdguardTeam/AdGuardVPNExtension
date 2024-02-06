@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add location pings reload button to the popup [#156](https://github.com/AdguardTeam/AdGuardVPNExtension/issues/156)
+
 ### Fixed
 
 - Popup menu rating start hiding if clicked [#150](https://github.com/AdguardTeam/AdGuardVPNExtension/issues/150)

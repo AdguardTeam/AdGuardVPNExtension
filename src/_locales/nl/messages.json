@@ -868,21 +868,21 @@
     },
     "limited_offer_notification_title": {
         "message": "%discount%%% korting op AdGuard VPN",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
         "message": "Flash-aanbieding duurt slechts 6 uur. Meer informatie in je AdGuard VPN-uitbreiding"
     },
     "popup_limited_offer_notice": {
         "message": "%discount%%% korting: <span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "Resterende tijd: %time_left%"
     },
     "popup_limited_offer_details_title": {
         "message": "| AdGuard VPN Onbeperkt voor%count% jaar met <span>%discount%%% korting</span> | AdGuard VPN Onbeperkt voor%count% jaar met <span>%discount%%% korting</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Pak de deal"

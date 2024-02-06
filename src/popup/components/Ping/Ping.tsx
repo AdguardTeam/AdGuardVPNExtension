@@ -1,22 +1,25 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
 
-import { rootStore } from '../../stores';
-
 import './ping.pcss';
 
 type PingProps = {
+    /**
+     * Ping number in milliseconds.
+     */
     ping: number;
+
+    /**
+     * Flag to indicate it is a ping for connected endpoint.
+     */
+    selected?: boolean;
 };
 
 const PING_WITH_WARNING = 150;
 
-export const Ping = observer(({ ping }: PingProps) => {
-    const { settingsStore } = useContext(rootStore);
-    const { isConnected } = settingsStore;
-
+export const Ping = observer(({ ping, selected }: PingProps) => {
     if (!ping) {
         return null;
     }
@@ -26,7 +29,7 @@ export const Ping = observer(({ ping }: PingProps) => {
         {
             'ping--warning': ping >= PING_WITH_WARNING,
             'ping--success': ping < PING_WITH_WARNING,
-            'ping--connected': isConnected,
+            'ping--selected': selected,
         },
     );
 

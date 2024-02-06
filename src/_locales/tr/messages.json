@@ -868,14 +868,14 @@
     },
     "limited_offer_notification_title": {
         "message": "AdGuard VPN'de %%%discount% indirim",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
         "message": "Flaş teklif yalnızca 6 saattir. AdGuard VPN uzantınızda daha fazla bilgi edinin"
     },
     "popup_limited_offer_notice": {
         "message": "%%%discount% indirim: <span>%time_left%</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "Kalan süre: %time_left%"
