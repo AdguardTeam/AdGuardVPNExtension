@@ -35,9 +35,6 @@
     "authentication_error_default": {
         "message": "Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά αργότερα"
     },
-    "global_error_message": {
-        "message": "Παρουσιάστηκε σφάλμα, επικοινωνήστε μαζί μας μέσω του <a>support@adguard-vpn.com</a>"
-    },
     "about_title": {
         "message": "Σχετικά με"
     },
@@ -500,20 +497,8 @@
     "popup_connections_limit_title": {
         "message": "Συμπληρώθηκε το όριο συνδέσεων"
     },
-    "popup_desktop_vpn_enabled_title": {
-        "message": "Το AdGuard VPN είναι ήδη συνδεδεμένο"
-    },
-    "popup_desktop_vpn_enabled_description": {
-        "message": "Το AdGuard VPN είναι ενεργοποιημένο στην εφαρμογή για υπολογιστές, οπότε η επέκταση απενεργοποιήθηκε αυτόματα"
-    },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "Εντάξει"
-    },
     "options_signedout_page_title": {
         "message": "Έχετε αποσυνδεθεί από το AdGuard VPN"
-    },
-    "confirm_email_close_button": {
-        "message": "Κλείσιμο"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

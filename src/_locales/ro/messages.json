@@ -51,7 +51,7 @@
         "message": "A apărut o eroare, reîncercați mai târziu"
     },
     "global_error_message": {
-        "message": "A survenit o eroare, vă rugăm să ne contactați la <a>support@adguard-vpn.com</a>"
+        "message": "A survenit o eroare, vă rugăm să ne contactați la <a>%support_email%</a>"
     },
     "about_title": {
         "message": "Despre"
@@ -440,6 +440,18 @@
     "settings_theme_light": {
         "message": "Luminoasă"
     },
+    "settings_quick_connect_title": {
+        "message": "Conectare rapidă"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Locația VPN se selecteaza atunci când faceți clic pe Conectare"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Ultima locație utilizată"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Cea mai rapidă locație"
+    },
     "settings_exclusion_add": {
         "message": "Adaugă"
     },
@@ -575,6 +587,9 @@
     "authentication_successful_notification": {
         "message": "Autentificat cu succes! Puteți deschide AdGuard VPN și puteți începe să-l utilizați."
     },
+    "control_error_title": {
+        "message": "Conflict de extensie"
+    },
     "control_error_description": {
         "message": "Se pare că o altă extensie Chrome încearcă să vă controleze conexiunea. Dezactivați cealaltă extensie din browserul dumneavoastră."
     },
@@ -592,6 +607,12 @@
     },
     "popup_settings_enable_vpn_short": {
         "message": "Activați"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Dezactivați VPN pe acest site"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Activați VPN pentru acest site"
     },
     "popup_settings_other_products": {
         "message": "Alte produse"
@@ -668,6 +689,9 @@
     "popup_feedback_button": {
         "message": "Lasă-ți un feedback"
     },
+    "popup_compare_button": {
+        "message": "De ce este mai bună aplicația"
+    },
     "popup_rate_modal_title": {
         "message": "Cât de grozav este AdGuard VPN?"
     },
@@ -715,6 +739,12 @@
     },
     "popup_server_error_popup_close": {
         "message": "Închideți"
+    },
+    "popup_host_permission_error_title": {
+        "message": "Permiteți accesul la site-uri web"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Pentru a utiliza AdGuard VPN, permiteți-i să vă acceseze datele de pe site-urile web. Noi nu stocăm aceste date și nu le împărtășim cu nimeni. <privacy>Politica de confidențialitate</privacy>"
     },
     "popup_host_permission_error_btn_allow": {
         "message": "Permite"
@@ -795,6 +825,9 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 continente și zeci de țări. Alegeți un oraș și navigați pe net în siguranță!"
     },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Până la %potential_num% dispozitive"
+    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Conectați-vă toate gadgeturile la AdGuard VPN în același timp — sau protejați întreaga familie!"
     },
@@ -803,6 +836,17 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Continuați gratuit"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% rămas",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Traficul se reînnoiește astăzi | Traficul se reînnoiește în %days% zi | Traficul se reînnoiește în %days% zile | Traficul se reînnoiește în %days% de zile",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "Apropo, dacă doriți, puteți dezactiva VPN-ul pentru acest site"
     },
     "popup_hint_popup_button": {
         "message": "Am înțeles."
@@ -821,6 +865,27 @@
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Mai târziu"
+    },
+    "limited_offer_notification_title": {
+        "message": "–%discount%%% la AdGuard VPN",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "limited_offer_notification_desc": {
+        "message": "Reducere rapidă: doar 6 ore. Detalii în extensia AdGuard VPN"
+    },
+    "popup_limited_offer_notice": {
+        "message": "%discount%%% reducere: <span>%time_left%</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_time_left": {
+        "message": "Timp rămas: %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN nelimitat pentru %count% an <span>cu %discount%%% reducere</span> | AdGuard VPN nelimitat pentru %count% ani <span>cu %discount%%% reducere</span> | AdGuard VPN nelimitat pentru %count% ani <span>cu %discount%%% reducere</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_btn": {
+        "message": "Apuca afacere"
     },
     "options_exclusions_import_select_title": {
         "message": "Cum se utilizează această listă de excluderi?"
@@ -873,15 +938,6 @@
     "popup_connections_limit_title": {
         "message": "Limita de conexiuni a fost atinsă"
     },
-    "popup_desktop_vpn_enabled_title": {
-        "message": "AdGuard VPN este deja conectat"
-    },
-    "popup_desktop_vpn_enabled_description": {
-        "message": "AdGuard VPN este activat în aplicația desktop, de aceea extensia a fost dezactivată automat"
-    },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "Ok"
-    },
     "options_signedout_page_title": {
         "message": "V-ați deconectat de la AdGuard VPN"
     },
@@ -904,7 +960,7 @@
         "message": "Confirmați-vă e-mailul"
     },
     "confirm_email_info": {
-        "message": "Pentru a obține trafic VPN gratuit, confirmați-vă e-mailul. Un link de confirmare a fost trimis la"
+        "message": "V-am trimis un cod de confirmare la <span>%email%</span>"
     },
     "confirm_email_done_title": {
         "message": "Adresa de e-mail confirmată"
@@ -912,11 +968,26 @@
     "confirm_email_done_info": {
         "message": "Mulțumim pentru verificare!"
     },
-    "confirm_email_close_button": {
-        "message": "Închideți"
+    "confirm_email_code_label": {
+        "message": "Cod de confirmare"
     },
-    "confirm_email_resend_link_button": {
-        "message": "Trimiteți din nou linkul"
+    "confirm_email_code_placeholder": {
+        "message": "Conține cifre și litere"
+    },
+    "confirm_email_code_invalid": {
+        "message": "Vă rugăm să verificați codul: pare incorect"
+    },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Trimiteți un alt cod (%count%)"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "Trimiteți un alt cod"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Nu v-am putut conecta. Vă rugăm să încercați din nou sau contactați-ne prin <a>%support_email%</a>"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Nu v-am înscris. Vă rugăm să încercați din nou sau contactați-ne prin <a>%support_email%</a>"
     },
     "resend_confirm_registration_link_notification": {
         "message": "Link de confirmare trimis din nou"

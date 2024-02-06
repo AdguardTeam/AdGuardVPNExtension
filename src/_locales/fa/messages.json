@@ -332,6 +332,9 @@
     "popup_vpn_blocked_error_details_later_button": {
         "message": "بعد"
     },
+    "popup_limited_offer_details_btn": {
+        "message": "گرفتن این معامله"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "لغو"
     },
@@ -341,11 +344,8 @@
     "popup_connections_limit_description_cta_button_premium": {
         "message": "بیشتر بدانید"
     },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "تأیید"
-    },
-    "confirm_email_close_button": {
-        "message": "بستن"
+    "confirm_email_code_placeholder": {
+        "message": "شامل اعداد و حروف است"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

@@ -116,12 +116,6 @@
     "options_exclusions_delete_cancel_button": {
         "message": "Չեղարկել"
     },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "Լավ"
-    },
-    "confirm_email_close_button": {
-        "message": "Փակել"
-    },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"
     },

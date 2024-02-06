@@ -84,7 +84,8 @@ const validateMessage = (baseKey, baseLocaleTranslations, locale, localeTranslat
             baseMessageValue,
             localeMessageValue,
             // locale should be lowercase, e.g. 'pt_br', not 'pt_BR'
-            locale.toLowerCase(),
+            // and with underscore, not dash, e.g. 'sr_latn', not 'sr-latn'
+            locale.toLowerCase().replace('-', '_'),
         )) {
             throw new Error('Invalid translation');
         }

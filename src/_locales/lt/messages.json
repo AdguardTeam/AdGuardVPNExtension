@@ -292,11 +292,5 @@
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Sužinoti daugiau"
-    },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "Ok"
-    },
-    "confirm_email_close_button": {
-        "message": "Uždaryti"
     }
 }

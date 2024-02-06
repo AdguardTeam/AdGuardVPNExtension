@@ -482,14 +482,11 @@
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Lær mer"
     },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "OK"
-    },
     "confirm_email_title": {
         "message": "Bekreft E-postadressen din"
     },
-    "confirm_email_close_button": {
-        "message": "Lukk"
+    "confirm_email_code_placeholder": {
+        "message": "Vanligvis 10 tegn"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN - Quyền riêng tư & Bảo mật"
+        "message": "AdGuard VPN — Quyền riêng tư & Bảo mật"
     },
     "description": {
         "message": "Làm cho Internet mở và dữ liệu của bạn an toàn. VPN tốt nhất từ những người tạo ra trình chặn quảng cáo nổi tiếng."
@@ -51,7 +51,7 @@
         "message": "Đã xảy ra lỗi, hãy thử lại sau"
     },
     "global_error_message": {
-        "message": "Đã xảy ra lỗi, vui lòng liên hệ với chúng tôi qua <a>support@adguard-vpn.com</a>"
+        "message": "Đã xảy ra lỗi, vui lòng liên hệ với chúng tôi qua <a>%support_email%</a>"
     },
     "about_title": {
         "message": "Thông tin"
@@ -440,6 +440,18 @@
     "settings_theme_light": {
         "message": "Chế độ Sáng"
     },
+    "settings_quick_connect_title": {
+        "message": "Kết nối nhanh"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Địa điểm VPN được chọn khi bạn bấm \"Kết nối\""
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Vị trí được sử dụng gần đây nhất"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Địa điểm nhanh nhất"
+    },
     "settings_exclusion_add": {
         "message": "Thêm trang web"
     },
@@ -575,6 +587,9 @@
     "authentication_successful_notification": {
         "message": "Đã xác thực thành công! Bạn có thể mở AdGuard VPN và bắt đầu sử dụng nó."
     },
+    "control_error_title": {
+        "message": "Xung đột tiện ích mở rộng"
+    },
     "control_error_description": {
         "message": "Có vẻ như một tiện ích mở rộng khác của Chrome đang cố gắng kiểm soát kết nối của bạn. Vui lòng tắt tiện ích mở rộng khác trong trình duyệt của bạn."
     },
@@ -584,11 +599,20 @@
     "popup_skeleton_status": {
         "message": "Tìm kiếm địa điểm..."
     },
+    "popup_no_locations_title": {
+        "message": "Không tìm thấy vị trí"
+    },
     "popup_no_locations_button": {
         "message": "Tìm kiếm lại"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Bật trong web này"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Vô hiệu hoá VPN trên trang này"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Kích hoạt VPN trên trang này"
     },
     "popup_settings_other_products": {
         "message": "Các sản phẩm khác"
@@ -622,6 +646,9 @@
     },
     "endpoints_search": {
         "message": "Tìm vị trí"
+    },
+    "endpoints_not_found": {
+        "message": "Không tìm thấy vị trí"
     },
     "popup_traffic_limit_reached": {
         "message": "Đã đạt đến giới hạn dữ liệu hàng tháng. Cần thêm?"
@@ -661,6 +688,9 @@
     },
     "popup_feedback_button": {
         "message": "Để lại phản hồi"
+    },
+    "popup_compare_button": {
+        "message": "Tại sao ứng dụng tốt hơn"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN tuyệt vời như thế nào?"
@@ -709,6 +739,12 @@
     },
     "popup_server_error_popup_close": {
         "message": "Đóng"
+    },
+    "popup_host_permission_error_title": {
+        "message": "Cho phép truy cập vào các trang web"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Để sử dụng AdGuard VPN, hãy cho phép nó truy cập dữ liệu của bạn trên các trang web. Chúng tôi không lưu trữ dữ liệu này hoặc chia sẻ nó với bất kỳ ai. <privacy>Chính sách bảo mật</privacy>"
     },
     "popup_host_permission_error_btn_allow": {
         "message": "Cho phép"
@@ -789,6 +825,9 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 châu lục và hàng chục quốc gia khác nhau. Lựa chọn một thành phố và lướt Web một cách an toàn!"
     },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Lên đến %potential_num% thiết bị"
+    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Kết nối mọi thiết bị của bạn đến AdGuard VPN cùng lúc — hoặc bảo vệ cả gia đình!"
     },
@@ -797,6 +836,17 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Tiếp tục miễn phí"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% còn lại",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Gia hạn lưu lượng hôm nay | Gia hạn lưu lượng trong %days% ngày",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "Nhân tiện, bạn có thể tắt VPN cho trang web này nếu muốn"
     },
     "popup_hint_popup_button": {
         "message": "Đã nhận được"
@@ -815,6 +865,27 @@
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Sau đó"
+    },
+    "limited_offer_notification_title": {
+        "message": "%discount%%% giảm giá AdGuard VPN",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "limited_offer_notification_desc": {
+        "message": "Flash ưu đãi chỉ 6 giờ. Tìm hiểu thêm trong tiện ích mở rộng AdGuard VPN của bạn"
+    },
+    "popup_limited_offer_notice": {
+        "message": "%discount%%% giảm: <span>%time_left%</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_time_left": {
+        "message": "Thời gian còn lại: %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN Unlimited giới hạn cho %count% năm tại <span>%discount%%% giảm</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_btn": {
+        "message": "Lấy thỏa thuận"
     },
     "options_exclusions_import_select_title": {
         "message": "Làm thế nào để sử dụng danh sách loại trừ này?"
@@ -867,15 +938,6 @@
     "popup_connections_limit_title": {
         "message": "Đã đạt đến giới hạn kết nối"
     },
-    "popup_desktop_vpn_enabled_title": {
-        "message": "AdGuard VPN đã ngắt kết nối"
-    },
-    "popup_desktop_vpn_enabled_description": {
-        "message": "AdGuard VPN đã được bật trên ứng dụng desktop nên tiện ứng mở rộng đã được tắt tự động"
-    },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "Ok"
-    },
     "options_signedout_page_title": {
         "message": "Bạn đã đăng xuất khỏi AdGuard VPN"
     },
@@ -898,7 +960,7 @@
         "message": "Xác nhận email của bạn"
     },
     "confirm_email_info": {
-        "message": "Để nhận được lưu lượng truy cập VPN miễn phí, vui lòng xác nhận địa chỉ email của bạn. Chúng tôi đã gửi một liên kết xác nhận tới"
+        "message": "Chúng tôi đã gửi mã xác nhận tới <span>%email%</span>"
     },
     "confirm_email_done_title": {
         "message": "Địa chỉ email đã được xác nhận"
@@ -906,11 +968,26 @@
     "confirm_email_done_info": {
         "message": "Cảm ơn bạn đã xác minh nó!"
     },
-    "confirm_email_close_button": {
-        "message": "Đóng"
+    "confirm_email_code_label": {
+        "message": "Mã xác nhận"
     },
-    "confirm_email_resend_link_button": {
-        "message": "Gửi lại liên kết"
+    "confirm_email_code_placeholder": {
+        "message": "Chứa số và chữ cái"
+    },
+    "confirm_email_code_invalid": {
+        "message": "Vui lòng kiểm tra mã: có vẻ không chính xác"
+    },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Gửi mã khác (%count%)"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "Gửi mã khác"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Không thể đăng nhập cho bạn. Vui lòng thử lại hoặc liên hệ với chúng tôi qua <a>%support_email%</a>"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Không thể đăng ký cho bạn. Vui lòng thử lại hoặc liên hệ với chúng tôi qua <a>%support_email%</a>"
     },
     "resend_confirm_registration_link_notification": {
         "message": "Liên kết xác nhận được gửi lại"

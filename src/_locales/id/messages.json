@@ -54,10 +54,13 @@
         "message": "Laporkan masalah"
     },
     "options_bug_report_email_label": {
-        "message": "Email"
+        "message": "E-mail"
     },
     "options_bug_report_include_log_label": {
         "message": "Lampirkan laporan diagnostik ke dalam pesan"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Alamat e-mail salah"
     },
     "options_bug_report_send_button": {
         "message": "Kirim"
@@ -110,8 +113,11 @@
     "auth_sign_in_button": {
         "message": "Masuk"
     },
+    "auth_title": {
+        "message": "Masuk atau buat akun"
+    },
     "auth_sign_in_provider_adguard_label": {
-        "message": "Email"
+        "message": "E-mail"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Lanjutkan dengan AdGuard"
@@ -124,6 +130,9 @@
     },
     "auth_sign_in_provider_facebook": {
         "message": "Lanjutkan dengan Facebook"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Masuk sebagai <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Otentikasi dua faktor"
@@ -149,11 +158,20 @@
     "settings_referral_invited_friends": {
         "message": "Teman yang diundang %count%/%limit%"
     },
+    "settings_free_gbs": {
+        "message": "GB gratis"
+    },
     "settings_free_gbs_confirm_email_title": {
         "message": "Konfirmasi email Anda"
     },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Klik tautan konfirmasi e-mail yang kami kirimkan kepada Anda saat mendaftar dan dapatkan VPN gratis sebesar %your_gb% GB. Jika Anda tidak dapat menemukan e-mail kami, klik tombol di bawah ini."
+    },
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Kirim ulang tautan"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Pasang AdGuard VPN di satu perangkat lagi, masuk ke akun AdGuard Anda di perangkat tersebut, dan dapatkan %your_gb% GB"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Ke Produk"
@@ -171,7 +189,7 @@
         "message": "WebRTC adalah program khusus di sebagian besar peramban Internet yang memungkinkan situs web pihak ketiga mendeteksi alamat IP asli dan memakainya untuk mengidentifikasi Anda"
     },
     "settings_context_menus_title": {
-        "message": "Tambah item AdGuard VPN ke konteks menu browser"
+        "message": "Tambahkan item AdGuard VPN ke menu konteks peramban"
     },
     "settings_help_us_improve_title": {
         "message": "Bantu kami meningkatkan"
@@ -183,16 +201,19 @@
         "message": "Protokol VPN AdGuard"
     },
     "context_menu_export_logs": {
-        "message": "Ekspor log"
+        "message": "Ekspor catatan"
     },
     "settings_dns_label": {
         "message": "Server DNS"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Server DNS populer"
     },
     "settings_dns_custom_servers": {
         "message": "Server DNS buatan"
     },
     "settings_dns_add_custom_server": {
-        "message": "Tambah server DNS buatan"
+        "message": "Tambahkan server DNS kustom"
     },
     "settings_dns_edit_custom_server": {
         "message": "Sunting server DNS kustom"
@@ -273,10 +294,10 @@
         "message": "Terang"
     },
     "settings_exclusion_add": {
-        "message": "Tambah"
+        "message": "Tambahkan"
     },
     "settings_exclusion_add_website": {
-        "message": "Tambah situs"
+        "message": "Tambahkan situs web"
     },
     "settings_exclusion_actions": {
         "message": "Aksi"
@@ -303,7 +324,7 @@
         "message": "Batal"
     },
     "settings_exclusion_modal_remove": {
-        "message": "Buang"
+        "message": "Hapus"
     },
     "settings_exclusion_modal_save": {
         "message": "Simpan"
@@ -316,6 +337,9 @@
     },
     "settings_exclusions_undo": {
         "message": "Urungkan"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Setel ulang pengaturan standar untuk %hostname%? Ini akan mengembalikan domain yang hilang dan mengatur semua tanda centang menjadi aktif."
     },
     "settings_exclusion_placeholder_search": {
         "message": "Cari"
@@ -345,10 +369,13 @@
         "message": "Silahlan hubungi kamı jika Anda terus melihat pesan ini"
     },
     "global_error_learn_more": {
-        "message": "Pelajari lainnya"
+        "message": "Pelajari lebih lanjut"
     },
     "global_error_try_again": {
         "message": "Coba lagi"
+    },
+    "control_error_description": {
+        "message": "Sepertinya ada ekstensi peramban lain yang mencoba mengontrol koneksi Anda. Nonaktifkan ekstensi lain di peramban Anda."
     },
     "control_error_disable": {
         "message": "Nonaktifkan"
@@ -443,6 +470,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Umpan balik"
     },
+    "popup_server_error_popup_title": {
+        "message": "Tidak dapat terhubung ke server"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Dorongan tim AdGuard"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Batal"
     },
@@ -451,6 +484,9 @@
     },
     "popup_server_error_popup_close": {
         "message": "Tutup"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Untuk menggunakan AdGuard VPN, izinkan VPN untuk mengakses data Anda di situs web. Kami tidak menyimpan data ini atau membagikannya pada siapa pun. <privacy>Kebijakan privasi</privacy>"
     },
     "popup_host_permission_error_btn_allow": {
         "message": "Ijinkan"
@@ -483,7 +519,7 @@
         "message": "Protokol VPN Unik"
     },
     "popup_onboarding_next": {
-        "message": "Lanjut"
+        "message": "Selanjutnya"
     },
     "popup_upgrade_screen_title": {
         "message": "VPN tanpa batas"
@@ -506,8 +542,14 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinan dan lusinan negara. Pilih kotanya dan jelajahi internet dengan aman!"
     },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Sampai %potential_num% perangkat"
+    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Tingkatkan"
+    },
+    "popup_hint_popup_button": {
+        "message": "Mengerti"
     },
     "popup_vpn_blocked_error_notice": {
         "message": "Tidak ada koneksi?"
@@ -524,6 +566,9 @@
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Nanti"
     },
+    "popup_limited_offer_details_btn": {
+        "message": "Dapatkan penawarannya"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "Batal"
     },
@@ -531,22 +576,40 @@
         "message": "Berlangganan"
     },
     "popup_connections_limit_description_cta_button_premium": {
-        "message": "Pelajari lainnya"
+        "message": "Pelajari lebih lanjut"
     },
     "popup_connections_limit_title": {
         "message": "Batas koneksi tercapai"
     },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "Ok"
-    },
     "confirm_email_title": {
         "message": "Konfirmasi email Anda"
     },
-    "confirm_email_close_button": {
-        "message": "Tutup"
+    "confirm_email_done_title": {
+        "message": "Alamat e-mail dikonfirmasi"
     },
-    "confirm_email_resend_link_button": {
-        "message": "Kirim ulang tautan"
+    "confirm_email_code_label": {
+        "message": "Kode konfirmasi"
+    },
+    "confirm_email_code_placeholder": {
+        "message": "Berisi angka dan huruf"
+    },
+    "confirm_email_code_invalid": {
+        "message": "Silakan periksa kodenya — sepertinya salah"
+    },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Kirim kode lain (%count%)"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "Kirim kode lain"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Gagal memasukkan Anda. Silakan coba lagi atau hubungi kami melalui <a>%support_email%</a>"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Gagal mendaftarkan Anda. Silakan coba lagi atau hubungi kami melalui <a>%support_email%</a>"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Tautan konfirmasi telah dikirim ke alamat e-mail Anda"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

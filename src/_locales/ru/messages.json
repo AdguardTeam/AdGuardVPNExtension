@@ -51,7 +51,7 @@
         "message": "Произошла ошибка. Попробуйте позже"
     },
     "global_error_message": {
-        "message": "Произошла ошибка, пожалуйста, свяжитесь с нами по адресу <a>support@adguard-vpn.com</a>."
+        "message": "Произошла ошибка. Пожалуйста, напишите нам на <a>%support_email%</a>"
     },
     "about_title": {
         "message": "О программе"
@@ -866,6 +866,27 @@
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Позже"
     },
+    "limited_offer_notification_title": {
+        "message": "−%discount%%% на AdGuard VPN",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "limited_offer_notification_desc": {
+        "message": "Быстрая скидка: только 6 часов. Подробности в расширении AdGuard VPN"
+    },
+    "popup_limited_offer_notice": {
+        "message": "Скидка %discount%%%: <span>%time_left%</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_time_left": {
+        "message": "Осталось %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN Unlimited на %count% год <span>со скидкой %discount%%%</span> | AdGuard VPN Unlimited на %count% года <span>со скидкой %discount%%%</span> | AdGuard VPN Unlimited на %count% лет <span>со скидкой %discount%%%</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_btn": {
+        "message": "Забрать скидку"
+    },
     "options_exclusions_import_select_title": {
         "message": "Как использовать этот список исключений?"
     },
@@ -917,15 +938,6 @@
     "popup_connections_limit_title": {
         "message": "Достигнут лимит подключений"
     },
-    "popup_desktop_vpn_enabled_title": {
-        "message": "Вы уже подключены к AdGuard VPN"
-    },
-    "popup_desktop_vpn_enabled_description": {
-        "message": "Отключили расширение: AdGuard VPN уже включён в десктопном приложении"
-    },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "Ок"
-    },
     "options_signedout_page_title": {
         "message": "Вы вышли из AdGuard VPN"
     },
@@ -948,7 +960,7 @@
         "message": "Подтвердите почту"
     },
     "confirm_email_info": {
-        "message": "Чтобы получить бесплатный трафик, подтвердите адрес почты. Отправили вам ссылку для подтверждения на"
+        "message": "Отправили код подтверждения на <span>%email%</span>"
     },
     "confirm_email_done_title": {
         "message": "Вы подтвердили почту"
@@ -956,11 +968,26 @@
     "confirm_email_done_info": {
         "message": "Спасибо!"
     },
-    "confirm_email_close_button": {
-        "message": "Закрыть"
+    "confirm_email_code_label": {
+        "message": "Код подтверждения"
     },
-    "confirm_email_resend_link_button": {
-        "message": "Отправить ссылку ещё раз"
+    "confirm_email_code_placeholder": {
+        "message": "Буквы и цифры"
+    },
+    "confirm_email_code_invalid": {
+        "message": "Проверьте ещё раз: код выглядит неправильным"
+    },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Отправить другой код (%count%)"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "Отправить другой код"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Не удалось войти. Попробуйте ещё раз или напишите в поддержку на <a>%support_email%</a>"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Не удалось вас зарегистрировать. Попробуйте ещё раз или напишите в поддержку на <a>%support_email%</a>"
     },
     "resend_confirm_registration_link_notification": {
         "message": "Отправили ссылку повторно"

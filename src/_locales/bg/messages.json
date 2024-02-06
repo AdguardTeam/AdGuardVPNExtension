@@ -128,12 +128,6 @@
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Научи повече"
     },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "Добре"
-    },
-    "confirm_email_close_button": {
-        "message": "Затвори"
-    },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"
     },

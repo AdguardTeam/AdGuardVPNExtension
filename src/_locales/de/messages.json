@@ -51,7 +51,7 @@
         "message": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
     },
     "global_error_message": {
-        "message": "Fehler aufgetreten, bitte kontaktieren Sie uns über <a>support@adguard-vpn.com</a>"
+        "message": "Fehler aufgetreten. Bitte kontaktieren Sie uns über <a>%support_email%</a>"
     },
     "about_title": {
         "message": "Über"
@@ -429,7 +429,7 @@
         "message": "Kostenloser alternativer DNS-Service mit Schutz vor Phishing und Spyware"
     },
     "settings_theme_label": {
-        "message": "Farbschema"
+        "message": "Design"
     },
     "settings_theme_system": {
         "message": "Systemvorgaben"
@@ -866,6 +866,27 @@
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Später"
     },
+    "limited_offer_notification_title": {
+        "message": "%discount%%% auf AdGuard VPN",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "limited_offer_notification_desc": {
+        "message": "Blitzangebot nur für 6 Std. Details in der AdGuard VPN Erweiterung"
+    },
+    "popup_limited_offer_notice": {
+        "message": "%discount%%% Rabatt: <span>%time_left%</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_time_left": {
+        "message": "Gültig für: %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN Unlimited für %count% Jahr mit <span>%discount%%% Rabatt</span> | AdGuard VPN Unlimited für %count% Jahre mit <span>%discount%%% Rabatt</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_btn": {
+        "message": "Schnappen"
+    },
     "options_exclusions_import_select_title": {
         "message": "Wie kann diese Liste der Ausschlüsse verwendet werden?"
     },
@@ -917,15 +938,6 @@
     "popup_connections_limit_title": {
         "message": "Max. Anzahl Verbindungen erreicht"
     },
-    "popup_desktop_vpn_enabled_title": {
-        "message": "AdGuard VPN ist bereits verbunden"
-    },
-    "popup_desktop_vpn_enabled_description": {
-        "message": "AdGuard VPN ist in der Desktop-Anwendung aktiviert, daher wurde die Erweiterung automatisch deaktiviert"
-    },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "OK"
-    },
     "options_signedout_page_title": {
         "message": "Sie haben sich bei AdGuard VPN abgemeldet"
     },
@@ -948,7 +960,7 @@
         "message": "E-Mail-Adresse bestätigen"
     },
     "confirm_email_info": {
-        "message": "Um kostenlosen VPN-Traffic zu erhalten, bestätigen Sie bitte Ihre E-Mail Adresse. Wir haben einen Bestätigungslink gesendet an"
+        "message": "Wir haben einen Bestätigungscode an <span>%email%</span>gesendet"
     },
     "confirm_email_done_title": {
         "message": "E-Mail-Adresse bestätigt"
@@ -956,11 +968,26 @@
     "confirm_email_done_info": {
         "message": "Danke für die Bestätigung!"
     },
-    "confirm_email_close_button": {
-        "message": "Schließen"
+    "confirm_email_code_label": {
+        "message": "Bestätigungscode"
     },
-    "confirm_email_resend_link_button": {
-        "message": "Link erneut senden"
+    "confirm_email_code_placeholder": {
+        "message": "Enthält Zahlen und Buchstaben"
+    },
+    "confirm_email_code_invalid": {
+        "message": "Bitte überprüfen Sie den Code: Er sieht nicht korrekt aus"
+    },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Anderen Code senden (%count%)"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "Anderen Code senden"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut oder kontaktieren Sie <a>%support_email%</a>"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut oder kontaktieren Sie <a>%support_email%</a>"
     },
     "resend_confirm_registration_link_notification": {
         "message": "Bestätigungslink erneut gesendet"

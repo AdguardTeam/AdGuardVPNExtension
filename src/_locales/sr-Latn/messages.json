@@ -51,7 +51,7 @@
         "message": "Dogodila se greška. pokušajte ponovo kasnije"
     },
     "global_error_message": {
-        "message": "Dogodila se greška. Kontaktirajte nas preko <a>support@adguard-vpn.com</a>"
+        "message": "Dogodila se greška. Kontaktirajte nas na <a>%support_email%</a>"
     },
     "about_title": {
         "message": "O programu"
@@ -740,6 +740,12 @@
     "popup_server_error_popup_close": {
         "message": "Zatvori"
     },
+    "popup_host_permission_error_title": {
+        "message": "Dozvoli pristup Veb lokacijama"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Da biste koristili AdGuard VPN, dozvolite mu da pristupi vašim podacima na Veb lokacijama. Mi ne čuvamo ove podatke niti ih delimo ni sa kim. <privacy>Politika privatnosti</privacy>"
+    },
     "popup_host_permission_error_btn_allow": {
         "message": "Dozvoli"
     },
@@ -819,6 +825,9 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinenata i mnogo zemalja. Izaberite grad i surfujte internetom sigurno!"
     },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Do %potential_num% uređaja"
+    },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Povežite sve gadžete sa AdGuard VPN-om u isto vreme – ili zaštitite celu porodicu!"
     },
@@ -827,6 +836,14 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Nastavi besplatno"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value%%unit% preostalo",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "Saobraćaj se obnavlja danas | Saobraćaj se obnavlja u %days% dan | Saobraćaj se obnavlja u %days% dani | Saobraćaj se obnavlja u %days% dana",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "Uzgred, možete onemogućiti VPN za ovaj sajt ako želite"
@@ -848,6 +865,27 @@
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Kasnije"
+    },
+    "limited_offer_notification_title": {
+        "message": "%discount%%% popusta na AdGuard VPN",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "limited_offer_notification_desc": {
+        "message": "Brzi popust: samo 6 sati. Detalji u AdGuard VPN proširenju"
+    },
+    "popup_limited_offer_notice": {
+        "message": "%discount%%% popusta: <span>%time_left%</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_time_left": {
+        "message": "Ostalo je vreme: %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN Unlimited na %count% godinu <span>sa %discount%%% popusta</span> | AdGuard VPN Unlimited na %count% godine <span>sa %discount%%% popusta</span> | AdGuard VPN Unlimited na %count% godina <span>sa %discount%%% popusta</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_btn": {
+        "message": "Zgrabi nagodbu"
     },
     "options_exclusions_import_select_title": {
         "message": "Kako koristiti ovu listu izuzetaka?"
@@ -900,15 +938,6 @@
     "popup_connections_limit_title": {
         "message": "Dosegnuto je ograničenje povezivanja"
     },
-    "popup_desktop_vpn_enabled_title": {
-        "message": "AdGuard VPN je već povezan"
-    },
-    "popup_desktop_vpn_enabled_description": {
-        "message": "AdGuard VPN je uključen u aplikaciji radne površine pa je proširenje automatski isključeno"
-    },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "U redu"
-    },
     "options_signedout_page_title": {
         "message": "Odjavili ste se iz AdGuard VPN-a"
     },
@@ -931,7 +960,7 @@
         "message": "Potvrdite vašu e-adresu"
     },
     "confirm_email_info": {
-        "message": "Da biste dobili besplatan VPN saobraćaj, potvrdite svoju email adresu. Poslali smo potvrdu linka na"
+        "message": "Poslali smo šifru za potvrdu na <span>%email%</span>"
     },
     "confirm_email_done_title": {
         "message": "E-adresa je potvrđena"
@@ -939,11 +968,26 @@
     "confirm_email_done_info": {
         "message": "Hvala što ste potvrdili!"
     },
-    "confirm_email_close_button": {
-        "message": "Zatvori"
+    "confirm_email_code_label": {
+        "message": "Šifra potvrde"
     },
-    "confirm_email_resend_link_button": {
-        "message": "Ponovo pošalji vezu"
+    "confirm_email_code_placeholder": {
+        "message": "Sadrži brojeve i slova"
+    },
+    "confirm_email_code_invalid": {
+        "message": "Proverite šifru — izgleda netačno"
+    },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Poslati drugu šifru (%count%)"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "Pošaljite drugu šifru"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Prijavljivanje nije uspelo. Pokušajte ponovo ili se obratite podršci na <a>%support_email%</a>"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Registracija nije uspela. Pokušajte ponovo ili nas kontaktirajte na <a>%support_email%</a>"
     },
     "resend_confirm_registration_link_notification": {
         "message": "Veza za potvrdu je ponovo poslata"

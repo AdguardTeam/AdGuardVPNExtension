@@ -51,7 +51,7 @@
         "message": "錯誤已發生，稍後再試"
     },
     "global_error_message": {
-        "message": "錯誤已發生，請經由 <a>support@adguard-vpn.com</a> 與我們聯繫"
+        "message": "發生錯誤，請經由 <a>%support_email%</a> 與我們聯繫"
     },
     "about_title": {
         "message": "關於"
@@ -866,6 +866,27 @@
     "popup_vpn_blocked_error_details_later_button": {
         "message": "下次"
     },
+    "limited_offer_notification_title": {
+        "message": "AdGuard VPN %discount%%%OFF",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "limited_offer_notification_desc": {
+        "message": "限時搶購僅限 6 小時。在 AdGuard VPN 擴充功能中了解更多資訊"
+    },
+    "popup_limited_offer_notice": {
+        "message": "%discount%%%OFF：<span>%time_left%</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_time_left": {
+        "message": "剩餘時間：%time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN 無限版 %count% 年訂閱 <span>%discount%%%OFF</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should ne escaped with another percent sign"
+    },
+    "popup_limited_offer_details_btn": {
+        "message": "取得折扣"
+    },
     "options_exclusions_import_select_title": {
         "message": "如何使用例外清單？"
     },
@@ -917,15 +938,6 @@
     "popup_connections_limit_title": {
         "message": "已達到連線限制"
     },
-    "popup_desktop_vpn_enabled_title": {
-        "message": "AdGuard VPN 已被連線"
-    },
-    "popup_desktop_vpn_enabled_description": {
-        "message": "由於 AdGuard VPN 已在桌面應用程式被啟用，所以瀏覽器擴充功能自動被禁用"
-    },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "確定"
-    },
     "options_signedout_page_title": {
         "message": "您已登出 AdGuard VPN"
     },
@@ -948,7 +960,7 @@
         "message": "確認您的電子郵件"
     },
     "confirm_email_info": {
-        "message": "想取得免費的 VPN 流量，請確認您的電子郵件地址。我們已將確認連結發送至"
+        "message": "我們已將確認碼發送至 <span>%email%</span>"
     },
     "confirm_email_done_title": {
         "message": "電子郵件地址已確認"
@@ -956,11 +968,26 @@
     "confirm_email_done_info": {
         "message": "感謝您的驗證！"
     },
-    "confirm_email_close_button": {
-        "message": "關閉"
+    "confirm_email_code_label": {
+        "message": "確認碼"
     },
-    "confirm_email_resend_link_button": {
-        "message": "重新傳送連結"
+    "confirm_email_code_placeholder": {
+        "message": "包含數字和字母"
+    },
+    "confirm_email_code_invalid": {
+        "message": "確認碼輸入不正確，請重試"
+    },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "傳送另一個確認碼（%count%）"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "傳送另一個確認碼"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "登入失敗。請再試一次，或通過 <a>%support_email%</a> 聯絡支援部門"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "註冊失敗。請再試一次，或通過 <a>%support_email%</a> 聯絡支援部門"
     },
     "resend_confirm_registration_link_notification": {
         "message": "確認連結重新傳送成功"

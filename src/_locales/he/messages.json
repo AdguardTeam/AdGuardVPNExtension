@@ -47,9 +47,6 @@
     "authentication_error_default": {
         "message": "שגיאה התרחשה, נסה שוב מאוחר יותר"
     },
-    "global_error_message": {
-        "message": "שגיאה התרחשה, אנא צור איתנו קשר דרך <a>support@adguard-vpn.com</a>"
-    },
     "about_title": {
         "message": "אודות"
     },
@@ -681,15 +678,6 @@
     "popup_connections_limit_title": {
         "message": "מגבלת חיבורים הושגה"
     },
-    "popup_desktop_vpn_enabled_title": {
-        "message": "AdGuard VPN מחובר כבר"
-    },
-    "popup_desktop_vpn_enabled_description": {
-        "message": "AdGuard VPN מאופשר ביישום שולחן העבודה אז ההרחבה הושבתה באופן אוטומטי"
-    },
-    "popup_desktop_vpn_enabled_button": {
-        "message": "בסדר"
-    },
     "options_signedout_page_title": {
         "message": "יצאת מן AdGuard VPN"
     },
@@ -708,8 +696,8 @@
     "notification_data_left_description": {
         "message": "מהירות חיבור ה־VPN תואט בקרוב."
     },
-    "confirm_email_close_button": {
-        "message": "סגור"
+    "confirm_email_code_placeholder": {
+        "message": "מכיל מספרים ואותיות"
     },
     "description": {
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
