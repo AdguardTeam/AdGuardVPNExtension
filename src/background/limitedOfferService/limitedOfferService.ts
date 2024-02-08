@@ -80,6 +80,13 @@ class LimitedOfferService {
     private LIMITED_OFFER_DELAY_AFTER_REGISTRATION_MS = ONE_DAY_MS * 3;
 
     /**
+     * Timestamp in milliseconds for `Feb 07 2024 00:00:00 GMT+0000` —
+     * minimum registration time for limited offer availability
+     * as it should be shown only to new users.
+     */
+    private LIMITED_OFFER_REGISTRATION_TIME_MIN_MS = 1707264000000;
+
+    /**
      * Time of limited offer availability in milliseconds.
      */
     private LIMITED_OFFER_DURATION_MS = ONE_HOUR_MS * 6;
@@ -216,7 +223,9 @@ class LimitedOfferService {
     /**
      * Returns limited offer data for the current user.
      *
-     * Limited offer should be shown if the current user was registered more than 72 hours (3 days) ago.
+     * Limited offer should be shown:
+     * 1. if the current user was registered more than 72 hours (3 days) ago.
+     * 1. if the user is "new" — registered after {@link LIMITED_OFFER_REGISTRATION_TIME_MIN_MS}.
      *
      * @returns Limited offer data or null if limited offer should not be shown.
      */
@@ -227,6 +236,11 @@ class LimitedOfferService {
         const shouldShowNotification = await this.shouldShowNotification(username);
 
         const registrationTimeMs = new Date(registrationTimeISO).getTime();
+
+        // do not show the limited offer if user has registered before specified date
+        if (registrationTimeMs < this.LIMITED_OFFER_REGISTRATION_TIME_MIN_MS) {
+            return null;
+        }
 
         // do not show the limited offer if user has registered less than 3 days ago
         if (Date.now() - registrationTimeMs < this.LIMITED_OFFER_DELAY_AFTER_REGISTRATION_MS) {
