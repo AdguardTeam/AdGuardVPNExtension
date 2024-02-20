@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 
-import { rootStore } from '../../../stores';
-import { Status } from '../Status';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { AnimationEvent } from '../../../constants';
+import { rootStore } from '../../../stores';
 import { SiteInfo } from '../SiteInfo';
+import { Status } from '../Status';
 import { BackgroundAnimation } from '../BackgroundAnimation';
 import { animationService } from '../BackgroundAnimation/animationStateMachine';
-import { AnimationEvent } from '../../../../lib/constants';
 
 export const ExclusionsScreen = observer(() => {
     const { settingsStore } = useContext(rootStore);

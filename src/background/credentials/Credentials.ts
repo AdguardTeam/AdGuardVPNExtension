@@ -3,8 +3,8 @@ import md5 from 'crypto-js/md5';
 import lodashGet from 'lodash/get';
 
 import { type AccountInfoData, accountProvider } from '../providers/accountProvider';
-import { log } from '../../lib/logger';
-import { notifier } from '../../lib/notifier';
+import { log } from '../../common/logger';
+import { notifier } from '../../common/notifier';
 import type { VpnProviderInterface } from '../providers/vpnProvider';
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';

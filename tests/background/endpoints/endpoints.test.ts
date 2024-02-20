@@ -27,10 +27,10 @@ jest.mock('../../../src/background/stateStorage', () => {
 
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService');
-jest.mock('../../../src/lib/notifier');
+jest.mock('../../../src/common/notifier');
 jest.mock('../../../src/background/notifications');
 jest.mock('../../../src/background/providers/vpnProvider');
-jest.mock('../../../src/lib/logger');
+jest.mock('../../../src/common/logger');
 jest.mock('../../../src/background/api/fallbackApi');
 
 jest.mock('../../../src/background/endpoints/locationsService', () => ({

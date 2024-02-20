@@ -7,14 +7,16 @@ import {
 } from 'mobx';
 import isNil from 'lodash/isNil';
 
-import { messenger } from '../../lib/messenger';
-import { SETTINGS_IDS, FLAGS_FIELDS, SocialAuthProvider } from '../../lib/constants';
+import { messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
 import {
     BAD_CREDENTIALS_CODE,
     REQUIRED_2FA_CODE,
     REQUIRED_EMAIL_CONFIRMATION_CODE,
     RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC,
+    SETTINGS_IDS,
+    FLAGS_FIELDS,
+    SocialAuthProvider,
 } from '../../common/constants';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';

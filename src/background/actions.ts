@@ -1,8 +1,8 @@
 import browser from 'webextension-polyfill';
 
 import { Prefs } from '../common/prefs';
-import { log } from '../lib/logger';
-import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
+import { log } from '../common/logger';
+import { SETTINGS_IDS, THEME_URL_PARAMETER } from '../common/constants';
 
 import { tabs } from './tabs';
 import { credentials } from './credentials';
@@ -15,6 +15,8 @@ type SetIconDetailsType = browser.Action.SetIconDetailsType;
 type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
 
 const OPTIONS_PAGE_PATH = '/options.html';
+
+const FREE_GBS_ANCHOR = 'free-gbs';
 
 /**
  * Opens options page in Firefox with queryString if provided.

@@ -2,11 +2,8 @@ import React, { useContext, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import {
-    AnimationState,
-    AppearanceTheme,
-    animationSourcesMap,
-} from '../../../../lib/constants';
+import { AppearanceTheme } from '../../../../common/constants';
+import { AnimationState, animationSourcesMap } from '../../../constants';
 
 import { animationService } from './animationStateMachine';
 

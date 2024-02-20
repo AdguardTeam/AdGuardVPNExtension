@@ -3,9 +3,9 @@ import axios from 'axios';
 
 import { vpnProvider } from '../../providers/vpnProvider';
 import { browserApi } from '../../browserApi';
-import { log } from '../../../lib/logger';
+import { log } from '../../../common/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
-import { fetchConfig } from '../../../lib/fetch-config';
+import { fetchConfig } from '../../../common/fetch-config';
 import { stateStorage } from '../../stateStorage';
 import {
     StorageKey,

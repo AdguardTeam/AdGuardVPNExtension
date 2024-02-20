@@ -1,19 +1,19 @@
 import qs from 'qs';
 import { nanoid } from 'nanoid';
 
+import { SocialAuthProvider } from '../../common/constants';
+import { log } from '../../common/logger';
+import { notifier } from '../../common/notifier';
+import { translator } from '../../common/translator';
 import { authProvider } from '../providers/authProvider';
 import { tabs } from '../tabs';
 import { proxy } from '../proxy';
 import { notifications } from '../notifications';
 import { AUTH_CLIENT_ID } from '../config';
-import { log } from '../../lib/logger';
-import { notifier } from '../../lib/notifier';
-import { SUPPORT_EMAIL } from '../../common/constants';
-import { translator } from '../../common/translator';
+import { SUPPORT_EMAIL } from '../constants';
 import { fallbackApi } from '../api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
-import { SocialAuthProvider } from '../../lib/constants';
 import { flagsStorage } from '../flagsStorage';
 import type { AuthCredentials } from '../api/apiTypes';
 import type { AuthAccessToken } from '../schema';

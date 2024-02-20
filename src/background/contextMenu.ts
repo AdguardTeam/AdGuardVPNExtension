@@ -2,12 +2,12 @@ import browser from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
 import { defaults } from 'lodash';
 
-import { notifier } from '../lib/notifier';
+import { notifier } from '../common/notifier';
 import { translator } from '../common/translator';
-import { isHttp } from '../lib/string-utils';
-import { log } from '../lib/logger';
+import { isHttp } from '../common/utils/string';
+import { log } from '../common/logger';
 import { ExclusionsMode } from '../common/exclusionsConstants';
-import { SETTINGS_IDS } from '../lib/constants';
+import { SETTINGS_IDS } from '../common/constants';
 
 import { exclusions } from './exclusions';
 import { tabs } from './tabs';

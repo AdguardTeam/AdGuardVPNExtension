@@ -5,7 +5,7 @@ import {
     ONE_MINUTE_MS,
     ONE_HOUR_MS,
     ONE_DAY_MS,
-} from './constants';
+} from '../constants';
 
 const RU_LOCALE = 'ru';
 

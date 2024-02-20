@@ -2,7 +2,7 @@ import {
     lazyGet,
     formatBytes,
     getLocationWithLowestPing,
-} from '../../src/lib/helpers';
+} from '../../src/common/helpers';
 import { LocationInterface } from '../../src/background/schema';
 
 describe('lazyGet callback', () => {

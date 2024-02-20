@@ -1,6 +1,6 @@
 import { permissionsChecker } from '../../../src/background/permissionsChecker';
-import { notifier } from '../../../src/lib/notifier';
-import { SubscriptionType } from '../../../src/lib/constants';
+import { notifier } from '../../../src/common/notifier';
+import { SubscriptionType } from '../../../src/common/constants';
 import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
@@ -45,7 +45,7 @@ const VPN_TOKEN_DATA = {
     },
 };
 
-jest.mock('../../../src/lib/logger');
+jest.mock('../../../src/common/logger');
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService');
 

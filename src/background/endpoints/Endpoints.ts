@@ -4,10 +4,10 @@ import isEmpty from 'lodash/isEmpty';
 import qs from 'qs';
 import { getDomain } from 'tldts';
 
-import { log } from '../../lib/logger';
-import { getLocationWithLowestPing, sleep } from '../../lib/helpers';
+import { log } from '../../common/logger';
+import { getLocationWithLowestPing, sleep } from '../../common/helpers';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
-import { notifier } from '../../lib/notifier';
+import { notifier } from '../../common/notifier';
 import { proxy } from '../proxy';
 import { vpnProvider } from '../providers/vpnProvider';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
@@ -22,7 +22,7 @@ import type {
 } from '../schema';
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { settings } from '../settings';
-import { QuickConnectSetting } from '../../lib/constants';
+import { QuickConnectSetting } from '../../common/constants';
 import { EndpointsState, LocationInterface, StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
 

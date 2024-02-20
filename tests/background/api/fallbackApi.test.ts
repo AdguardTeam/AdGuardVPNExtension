@@ -16,7 +16,7 @@ jest.mock('../../../src/background/stateStorage', () => {
 });
 
 jest.mock('axios');
-jest.mock('../../../src/lib/logger');
+jest.mock('../../../src/common/logger');
 
 jest.mock('../../../src/background/browserApi', () => {
     // eslint-disable-next-line global-require

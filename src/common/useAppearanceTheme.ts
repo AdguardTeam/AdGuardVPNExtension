@@ -2,7 +2,7 @@ import { useLayoutEffect } from 'react';
 
 import throttle from 'lodash/throttle';
 
-import { AppearanceTheme } from '../lib/constants';
+import { AppearanceTheme } from './constants';
 
 export const THEME_STORAGE_KEY = 'appearance_theme';
 

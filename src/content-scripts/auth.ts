@@ -3,8 +3,8 @@ import qs from 'qs';
 
 import { type SocialAuthData, socialAuthSchema } from '../background/auth/socialAuthSchema';
 import { thankYouPageAuthHandler } from '../common/utils/auth';
-import { MessageType } from '../lib/constants';
-import { log } from '../lib/logger';
+import { MessageType } from '../common/constants';
+import { log } from '../common/logger';
 
 /**
  * Check if the current URL contains a valid social auth query string after '#'.

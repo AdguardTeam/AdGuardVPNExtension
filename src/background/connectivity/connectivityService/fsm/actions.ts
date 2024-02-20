@@ -1,6 +1,6 @@
 import { assign } from 'xstate';
 
-import { log } from '../../../../lib/logger';
+import { log } from '../../../../common/logger';
 import { CONNECTIVITY_CONTEXT_DEFAULTS, ConnectivityContext } from '../../../schema/connectivity';
 import { switcher } from '../../switcher';
 

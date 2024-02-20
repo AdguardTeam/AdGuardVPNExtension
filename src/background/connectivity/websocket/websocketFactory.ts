@@ -1,4 +1,4 @@
-import { log } from '../../../lib/logger';
+import { log } from '../../../common/logger';
 
 export const websocketFactory = (() => {
     let ws: WebSocket;

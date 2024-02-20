@@ -1,7 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { getErrorMessage } from '../common/utils/error';
-
+import { getErrorMessage } from './utils/error';
 import { log } from './logger';
 
 /**

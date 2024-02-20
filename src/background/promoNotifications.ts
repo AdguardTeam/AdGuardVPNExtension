@@ -3,10 +3,10 @@
  */
 import browser from 'webextension-polyfill';
 
-import { lazyGet } from '../lib/helpers';
+import { lazyGet } from '../common/helpers';
 import { Prefs } from '../common/prefs';
-import { isRuLocale, normalizeLanguage } from '../common/promo-utils';
-import { notifier } from '../lib/notifier';
+import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
+import { notifier } from '../common/notifier';
 
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';

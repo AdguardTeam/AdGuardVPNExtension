@@ -1,7 +1,7 @@
-import { isRuLocale } from '../../common/promo-utils';
+import { isRuLocale } from '../../common/utils/promo';
 import { translator } from '../../common/translator';
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
-import { log } from '../../lib/logger';
+import { log } from '../../common/logger';
 import { BrowserApi, browserApi } from '../browserApi';
 import { FORWARDER_DOMAIN } from '../config';
 import { credentials } from '../credentials';

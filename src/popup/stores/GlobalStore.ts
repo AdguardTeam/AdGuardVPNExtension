@@ -4,9 +4,9 @@ import {
     observable,
 } from 'mobx';
 
-import { log } from '../../lib/logger';
+import { log } from '../../common/logger';
 import { tabs } from '../../background/tabs';
-import { messenger } from '../../lib/messenger';
+import { messenger } from '../../common/messenger';
 
 import type { RootStore } from './RootStore';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';

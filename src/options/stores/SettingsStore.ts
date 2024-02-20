@@ -13,10 +13,10 @@ import {
     SubscriptionType,
     QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
-} from '../../lib/constants';
+} from '../../common/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
-import { messenger } from '../../lib/messenger';
-import { log } from '../../lib/logger';
+import { messenger } from '../../common/messenger';
+import { log } from '../../common/logger';
 import type { DnsServerData } from '../../background/schema';
 import { CustomDnsData } from '../hooks/useQueryStringData';
 

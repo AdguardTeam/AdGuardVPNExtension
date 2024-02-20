@@ -1,4 +1,4 @@
-import { SubscriptionType } from '../../lib/constants';
+import { SubscriptionType } from '../../common/constants';
 
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';

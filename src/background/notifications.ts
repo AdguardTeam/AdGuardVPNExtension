@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import { translator } from '../common/translator';
 import { Prefs } from '../common/prefs';
 import { getErrorMessage } from '../common/utils/error';
-import { log } from '../lib/logger';
+import { log } from '../common/logger';
 
 const DEFAULT_IMAGE_PATH = Prefs.ICONS.ENABLED['128'];
 const DEFAULT_TITLE = translator.getMessage('short_name');

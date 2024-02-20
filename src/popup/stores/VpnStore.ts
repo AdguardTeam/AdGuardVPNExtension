@@ -6,14 +6,14 @@ import {
     toJS,
 } from 'mobx';
 
-import { messenger } from '../../lib/messenger';
+import { messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
-import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
-import { AnimationEvent } from '../../lib/constants';
 import { LocationWithPing } from '../../background/endpoints/LocationWithPing';
 import { PingData } from '../../background/endpoints/locationsService';
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { daysToRenewal } from '../../common/utils/date';
+import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
+import { AnimationEvent } from '../constants';
 
 import type { RootStore } from './RootStore';
 

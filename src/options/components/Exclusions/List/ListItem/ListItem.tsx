@@ -3,13 +3,15 @@ import { observer } from 'mobx-react';
 
 import cn from 'classnames';
 
-import { ExclusionsType, ExclusionDtoInterface, ICON_FOR_DOMAIN } from '../../../../../common/exclusionsConstants';
+import { ExclusionsType, ExclusionDtoInterface } from '../../../../../common/exclusionsConstants';
 import { StateCheckbox } from '../../StateCheckbox';
 import { rootStore } from '../../../../stores';
 import { SearchHighlighter } from '../../Search/SearchHighlighter';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './list-item.pcss';
+
+const ICON_FOR_DOMAIN = 'https://icons.adguardvpn.com/icon?domain=';
 
 interface ListItemProps {
     exclusion: ExclusionDtoInterface;

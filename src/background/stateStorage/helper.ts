@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { MessageType } from '../../lib/constants';
+import { MessageType } from '../../common/constants';
 
 /**
  * Sends the message to the option's page to update event listeners

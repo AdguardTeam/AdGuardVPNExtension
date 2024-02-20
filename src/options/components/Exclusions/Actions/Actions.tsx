@@ -15,10 +15,10 @@ import FileSaver from 'file-saver';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
-import { isValidExclusion } from '../../../../lib/string-utils';
-import { ExclusionsContentMap } from '../../../../lib/constants';
-import { log } from '../../../../lib/logger';
-import { messenger } from '../../../../lib/messenger';
+import { isValidExclusion } from '../../../../common/utils/string';
+import { ExclusionsContentMap } from '../../../../common/constants';
+import { log } from '../../../../common/logger';
+import { messenger } from '../../../../common/messenger';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
 

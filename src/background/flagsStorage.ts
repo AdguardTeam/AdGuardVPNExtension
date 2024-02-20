@@ -1,5 +1,5 @@
-import { FLAGS_FIELDS } from '../lib/constants';
-import { log } from '../lib/logger';
+import { FLAGS_FIELDS } from '../common/constants';
+import { log } from '../common/logger';
 
 import { browserApi } from './browserApi';
 import { updateService } from './updateService';

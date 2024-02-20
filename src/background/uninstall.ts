@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { log } from '../lib/logger';
+import { log } from '../common/logger';
 
 import { UNINSTALL_PAGE_URL } from './config';
 

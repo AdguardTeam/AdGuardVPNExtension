@@ -1,7 +1,7 @@
 import throttle from 'lodash/throttle';
 
-import { log } from '../../lib/logger';
-import { AppearanceTheme, SETTINGS_IDS } from '../../lib/constants';
+import { log } from '../../common/logger';
+import { AppearanceTheme, SETTINGS_IDS } from '../../common/constants';
 import { browserApi } from '../browserApi';
 import { servicesManager } from '../exclusions/services/ServicesManager';
 import {

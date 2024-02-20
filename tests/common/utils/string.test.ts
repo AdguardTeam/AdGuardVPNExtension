@@ -1,4 +1,4 @@
-import { renderTemplate, isHttp, isValidExclusion } from '../../src/lib/string-utils';
+import { renderTemplate, isHttp, isValidExclusion } from '../../../src/common/utils/string';
 
 describe('index.proxy.setBypassList', () => {
     it('should NOT be called before initialization', () => {

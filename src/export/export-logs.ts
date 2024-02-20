@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 
-import { messenger } from '../lib/messenger';
-import { log } from '../lib/logger';
-import { MessageType } from '../lib/constants';
+import { messenger } from '../common/messenger';
+import { log } from '../common/logger';
+import { MessageType } from '../common/constants';
 
 enum FileExtension {
     Txt = 'txt',

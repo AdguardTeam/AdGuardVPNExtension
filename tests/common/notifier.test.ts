@@ -1,4 +1,4 @@
-import { Notifier, NotifierType, NotifierTypeMap } from '../../src/lib/notifier';
+import { Notifier, NotifierType, NotifierTypeMap } from '../../src/common/notifier';
 
 type ChangingType = {
     first: any,

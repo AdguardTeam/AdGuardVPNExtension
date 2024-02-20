@@ -2,7 +2,7 @@
 import { isIP } from 'is-ip';
 
 import { ExclusionDtoInterface, ExclusionsType } from '../../common/exclusionsConstants';
-import { getETld } from '../../common/url-utils';
+import { getETld } from '../../common/utils/url';
 import type {
     ServicesIndexType,
     ServicesInterface,

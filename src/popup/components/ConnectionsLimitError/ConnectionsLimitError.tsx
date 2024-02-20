@@ -4,9 +4,9 @@ import { CSSTransition } from 'react-transition-group';
 
 import isNil from 'lodash/isNil';
 
-import { log } from '../../../lib/logger';
+import { log } from '../../../common/logger';
 import { rootStore } from '../../stores';
-import { messenger } from '../../../lib/messenger';
+import { messenger } from '../../../common/messenger';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { FORWARDER_DOMAIN } from '../../../background/config';
 

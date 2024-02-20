@@ -1,6 +1,6 @@
 import { ProxyConfigInterface, StorageKey } from '../../schema';
 import { stateStorage } from '../../stateStorage';
-import { log } from '../../../lib/logger';
+import { log } from '../../../common/logger';
 import { ProxyApiInterface } from '../abstractProxyApi';
 import { browserApi } from '../../browserApi';
 

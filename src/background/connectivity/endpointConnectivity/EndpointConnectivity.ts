@@ -1,14 +1,14 @@
 import { WsConnectivityMsg, WsSettingsMsg } from '../protobufCompiled';
 import { websocketFactory } from '../websocket';
 import { WS_API_URL_TEMPLATE } from '../../config';
-import { renderTemplate } from '../../../lib/string-utils';
-import { notifier } from '../../../lib/notifier';
+import { renderTemplate } from '../../../common/utils/string';
+import { notifier } from '../../../common/notifier';
 import { proxy } from '../../proxy';
-import { log } from '../../../lib/logger';
+import { log } from '../../../common/logger';
 import { dns } from '../../dns';
 import { sendPingMessage } from '../pingHelpers';
 import { webrtc } from '../../browserApi/webrtc';
-import { sleepIfNecessary } from '../../../lib/helpers';
+import { sleepIfNecessary } from '../../../common/helpers';
 import {
     connectivityService,
     ConnectivityEventType,

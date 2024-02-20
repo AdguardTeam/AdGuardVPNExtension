@@ -2,7 +2,7 @@ import { accountApi } from '../api';
 import { FORWARDER_DOMAIN } from '../config';
 import { notifications } from '../notifications';
 import { translator } from '../../common/translator';
-import { SubscriptionType } from '../../lib/constants';
+import { SubscriptionType } from '../../common/constants';
 
 interface VpnTokenData {
     token: string;

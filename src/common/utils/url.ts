@@ -1,15 +1,13 @@
 import { getDomain, parse } from 'tldts';
 import { isIP } from 'is-ip';
 
-// TODO: move this file to common/utils directory
-
 const HTTPS_PROTOCOL = 'https://';
 
 /**
  * Removes wildcard mark from the beginning of hostname
  * @param hostname
  */
-export const cleanHostname = (hostname: string) => {
+const cleanHostname = (hostname: string) => {
     const hostnameWithoutWildcard = hostname.replace(/^\*./, '');
     return hostnameWithoutWildcard;
 };

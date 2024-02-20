@@ -4,7 +4,7 @@ import {
     runInAction,
 } from 'mobx';
 
-import { messenger } from '../../lib/messenger';
+import { messenger } from '../../common/messenger';
 
 import type { RootStore } from './RootStore';
 import { RequestStatus } from './consts';

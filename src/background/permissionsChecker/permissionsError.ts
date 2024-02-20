@@ -1,4 +1,4 @@
-import { notifier } from '../../lib/notifier';
+import { notifier } from '../../common/notifier';
 
 export interface ErrorData extends Error {
     status?: string;

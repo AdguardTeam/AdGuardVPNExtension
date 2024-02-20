@@ -1,9 +1,9 @@
 import browser from 'webextension-polyfill';
 
-import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
+import { areHostnamesEqual, shExpMatch } from '../../../common/utils/string';
 import { IPV4_REGEX } from '../../routability/constants';
 import { convertCidrToNet, isInNet } from '../../routability/utils';
-import { getHostname } from '../../../common/url-utils';
+import { getHostname } from '../../../common/utils/url';
 import type { AccessCredentials, ProxyConfigInterface } from '../../schema';
 import { ProxyApiInterface, ProxyErrorCallback } from '../abstractProxyApi';
 

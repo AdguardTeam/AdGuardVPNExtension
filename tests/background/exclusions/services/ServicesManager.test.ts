@@ -12,7 +12,7 @@ jest.mock('../../../../src/background/stateStorage', () => {
 });
 
 jest.mock('../../../../src/background/providers/vpnProvider');
-jest.mock('../../../../src/lib/logger');
+jest.mock('../../../../src/common/logger');
 jest.mock('nanoid');
 
 jest.mock('../../../../src/background/browserApi', () => {

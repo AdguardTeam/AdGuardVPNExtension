@@ -5,7 +5,7 @@ import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { ExclusionsMode, ExclusionsType } from '../../../../common/exclusionsConstants';
-import { isTopLevel } from '../../../../common/url-utils';
+import { isTopLevel } from '../../../../common/utils/url';
 
 import { ChildrenListItem } from './ChildrenListItem';
 import { SubdomainModal } from './SubdomainModal';

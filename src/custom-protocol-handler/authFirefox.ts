@@ -2,7 +2,7 @@ import qs from 'qs';
 
 import { Prefs } from '../common/prefs';
 import { thankYouPageAuthHandler } from '../common/utils/auth';
-import { log } from '../lib/logger';
+import { log } from '../common/logger';
 
 const QUERY_STRING_START = '?';
 

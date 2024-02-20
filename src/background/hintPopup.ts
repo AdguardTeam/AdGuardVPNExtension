@@ -1,4 +1,4 @@
-import { notifier } from '../lib/notifier';
+import { notifier } from '../common/notifier';
 import { ExclusionsMode } from '../common/exclusionsConstants';
 
 import { browserApi } from './browserApi';

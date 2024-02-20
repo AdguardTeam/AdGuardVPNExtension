@@ -4,10 +4,10 @@ import ipaddr, { IPv4 } from 'ipaddr.js';
 import browser from 'webextension-polyfill';
 import { isIP } from 'is-ip';
 
-import { log } from '../../lib/logger';
-import { notifier } from '../../lib/notifier';
+import { log } from '../../common/logger';
+import { notifier } from '../../common/notifier';
 import { tabs } from '../tabs';
-import { getHostname } from '../../common/url-utils';
+import { getHostname } from '../../common/utils/url';
 import type { Storage } from '../browserApi/storage';
 
 import { NON_ROUTABLE_CIDR_NETS } from './constants';

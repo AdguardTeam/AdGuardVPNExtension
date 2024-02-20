@@ -1,6 +1,6 @@
 import zod from 'zod';
 
-import { SubscriptionType } from '../../../lib/constants';
+import { SubscriptionType } from '../../../common/constants';
 
 const vpnSubscriptionScheme = zod.object({
     next_bill_date_iso: zod.string(),

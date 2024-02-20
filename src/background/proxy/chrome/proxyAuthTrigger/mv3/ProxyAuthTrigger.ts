@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 
 import { PAC_SCRIPT_CHECK_URL } from '../../../proxyConsts';
-import { log } from '../../../../../lib/logger';
+import { log } from '../../../../../common/logger';
 
 const createOffScreenDocument = (() => {
     let creating: Promise<void> | null; // A global promise to avoid concurrency issues

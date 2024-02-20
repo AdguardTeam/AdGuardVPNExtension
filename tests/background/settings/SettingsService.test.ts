@@ -1,9 +1,9 @@
 import { SettingsService } from '../../../src/background/settings/SettingsService';
-import { sleep } from '../../../src/lib/helpers';
+import { sleep } from '../../../src/common/helpers';
 
 const SCHEME_VERSION = '12';
 
-jest.mock('../../../src/lib/logger');
+jest.mock('../../../src/common/logger');
 
 jest.mock('../../../src/background/browserApi', () => {
     return {

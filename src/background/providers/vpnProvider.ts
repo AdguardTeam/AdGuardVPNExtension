@@ -2,7 +2,7 @@ import browser from 'webextension-polyfill';
 import JSZip from 'jszip';
 
 import { vpnApi } from '../api';
-import { log } from '../../lib/logger';
+import { log } from '../../common/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
 import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
 import type {

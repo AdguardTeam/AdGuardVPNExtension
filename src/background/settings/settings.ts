@@ -1,12 +1,12 @@
 import { browserApi } from '../browserApi';
-import { log } from '../../lib/logger';
-import { notifier } from '../../lib/notifier';
+import { log } from '../../common/logger';
+import { notifier } from '../../common/notifier';
 import {
     SETTINGS_IDS,
     QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
     APPEARANCE_THEME_DEFAULT,
-} from '../../lib/constants';
+} from '../../common/constants';
 import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
 import { webrtc } from '../browserApi/webrtc';

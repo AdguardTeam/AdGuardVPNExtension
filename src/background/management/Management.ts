@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { log } from '../../lib/logger';
+import { log } from '../../common/logger';
 
 class Management {
     PROXY_PERMISSION = 'proxy';

@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 
-import { stringToUint8Array } from '../../lib/string-utils';
-import { log } from '../../lib/logger';
-import { sleep } from '../../lib/helpers';
+import { stringToUint8Array } from '../../common/utils/string';
+import { log } from '../../common/logger';
+import { sleep } from '../../common/helpers';
 
 import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 

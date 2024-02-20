@@ -1,6 +1,10 @@
 import browser, { Runtime } from 'webextension-polyfill';
 
-import { MessageType, SETTINGS_IDS } from '../../lib/constants';
+import { MessageType, SETTINGS_IDS, CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
+import { ExclusionsData } from '../../common/exclusionsConstants';
+import { logStorage } from '../../common/log-storage';
+import { log } from '../../common/logger';
+import { notifier } from '../../common/notifier';
 import { auth } from '../auth';
 import { popupData } from '../popupData';
 import { endpoints } from '../endpoints';
@@ -13,21 +17,16 @@ import { exclusions } from '../exclusions';
 import { management } from '../management';
 import { permissionsError } from '../permissionsChecker/permissionsError';
 import { permissionsChecker } from '../permissionsChecker';
-import { log } from '../../lib/logger';
-import { notifier } from '../../lib/notifier';
 import { locationsService } from '../endpoints/locationsService';
 import { promoNotifications } from '../promoNotifications';
 import { tabs } from '../tabs';
 import { RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
 import { accountProvider } from '../providers/accountProvider';
-import { logStorage } from '../../lib/log-storage';
 import { flagsStorage } from '../flagsStorage';
-import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
 import { emailConfirmationService } from '../emailConfirmationService';
-import { CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
 import { limitedOfferService } from '../limitedOfferService';
 
 interface Message {

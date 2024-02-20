@@ -4,10 +4,10 @@ import {
     useRef,
 } from 'react';
 
-import { notifier } from '../../../lib/notifier';
-import { messenger } from '../../../lib/messenger';
-import { MessageType } from '../../../lib/constants';
-import { log } from '../../../lib/logger';
+import { notifier } from '../../../common/notifier';
+import { messenger } from '../../../common/messenger';
+import { MessageType } from '../../../common/constants';
+import { log } from '../../../common/logger';
 import { rootStore } from '../../stores';
 import { Prefs } from '../../../common/prefs';
 

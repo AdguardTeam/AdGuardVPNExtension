@@ -6,21 +6,17 @@ import {
 } from 'mobx';
 
 import { tabs } from '../../background/tabs';
-import { log } from '../../lib/logger';
-import {
-    SETTINGS_IDS,
-    AppearanceTheme,
-    AnimationEvent,
-    AnimationState,
-} from '../../lib/constants';
-import { messenger } from '../../lib/messenger';
+import { log } from '../../common/logger';
+import { SETTINGS_IDS, AppearanceTheme } from '../../common/constants';
+import { messenger } from '../../common/messenger';
 import { ConnectivityStateType } from '../../background/schema';
-import { getHostname, getProtocol } from '../../common/url-utils';
+import { getHostname, getProtocol } from '../../common/utils/url';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { type LimitedOfferData } from '../../background/limitedOfferService';
 import { type PromoNotificationData } from '../../background/promoNotifications';
 import { Prefs } from '../../common/prefs';
 import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
+import { AnimationEvent, AnimationState } from '../constants';
 
 import type { RootStore } from './RootStore';
 import {

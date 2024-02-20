@@ -16,8 +16,8 @@ import {
     getHostname,
     getSubdomain,
     isWildcard,
-} from '../../common/url-utils';
-import { notifier } from '../../lib/notifier';
+} from '../../common/utils/url';
+import { notifier } from '../../common/notifier';
 import { stateStorage } from '../stateStorage';
 
 import { AllExclusions, exclusionsManager } from './exclusions/ExclusionsManager';

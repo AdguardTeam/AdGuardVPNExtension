@@ -4,8 +4,8 @@ import {
     observable,
 } from 'mobx';
 
-import { log } from '../../lib/logger';
-import { messenger } from '../../lib/messenger';
+import { log } from '../../common/logger';
+import { messenger } from '../../common/messenger';
 
 import { RequestStatus } from './consts';
 import type { RootStore } from './RootStore';

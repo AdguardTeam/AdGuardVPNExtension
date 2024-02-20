@@ -19,6 +19,7 @@ export const lazyGet = (obj: any, prop: string, func: () => any) => {
     return value;
 };
 
+// TODO: looks like not used, consider removing
 /**
  * Normalizes exclusions url
  * 1. trims it

@@ -1,5 +1,5 @@
 import { tabs } from '../../../background/tabs';
-import { messenger } from '../../../lib/messenger';
+import { messenger } from '../../../common/messenger';
 
 class PopupActions {
     openRecovery = async (): Promise<void> => {

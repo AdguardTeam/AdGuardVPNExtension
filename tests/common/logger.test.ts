@@ -1,4 +1,4 @@
-import { getLocalTimeString } from '../../src/lib/logger';
+import { getLocalTimeString } from '../../src/common/logger';
 
 describe('Logger tests', () => {
     afterAll(() => {

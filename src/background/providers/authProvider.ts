@@ -2,11 +2,11 @@ import {
     BAD_CREDENTIALS_CODE,
     REQUIRED_2FA_CODE,
     REQUIRED_EMAIL_CONFIRMATION_CODE,
-    SUPPORT_EMAIL,
 } from '../../common/constants';
 import { authApi } from '../api';
 import { translator } from '../../common/translator';
 import { FORWARDER_DOMAIN } from '../config';
+import { SUPPORT_EMAIL } from '../constants';
 import type { AuthCredentials } from '../api/apiTypes';
 import type { AuthAccessToken } from '../schema';
 

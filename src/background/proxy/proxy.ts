@@ -3,9 +3,9 @@
 // with NormalModuleReplacementPlugin to proper browser implementation
 // from './firefox/proxyApi' or ./chrome/proxyApi
 
-import { log } from '../../lib/logger';
+import { log } from '../../common/logger';
 import { browserApi } from '../browserApi';
-import { notifier } from '../../lib/notifier';
+import { notifier } from '../../common/notifier';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import type { EndpointInterface, LocationInterface } from '../schema';

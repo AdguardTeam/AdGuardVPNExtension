@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import { Permissions } from '../../../lib/permissions';
+import { Permissions } from '../../../common/permissions';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { PRIVACY_URL } from '../../../background/config';
 import { rootStore } from '../../stores';

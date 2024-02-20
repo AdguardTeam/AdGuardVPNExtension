@@ -7,7 +7,7 @@ import {
 } from '../../../src/background/exclusions/exclusions-helpers';
 import type { ExclusionInterface, ServicesInterface } from '../../../src/background/schema';
 
-jest.mock('../../../src/lib/logger.ts');
+jest.mock('../../../src/common/logger.ts');
 
 const ignoreId = (exclusions: ExclusionInterface[]) => {
     return exclusions.map((ex) => ({ hostname: ex.hostname, state: ex.state }));

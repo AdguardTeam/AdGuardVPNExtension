@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 
-import { log } from '../../lib/logger';
-import { MessageType } from '../../lib/constants';
+import { log } from '../logger';
+import { MessageType } from '../constants';
 
 /**
  * Handle the website authentication logic.

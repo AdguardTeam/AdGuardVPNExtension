@@ -1,5 +1,5 @@
-import { MessageType } from '../lib/constants';
-import { log } from '../lib/logger';
+import { MessageType } from '../common/constants';
+import { log } from '../common/logger';
 
 const CUSTOM_PROTOCOL = 'adguardvpnext:';
 const LINK_TAG_NAME = 'a';

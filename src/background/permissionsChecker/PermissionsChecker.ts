@@ -1,8 +1,8 @@
-import { log } from '../../lib/logger';
-import { ERROR_STATUSES } from '../../lib/constants';
-import { notifier } from '../../lib/notifier';
+import { log } from '../../common/logger';
+import { notifier } from '../../common/notifier';
 import { settings } from '../settings';
 import { endpointConnectivity } from '../connectivity/endpointConnectivity';
+import { ERROR_STATUSES } from '../constants';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { vpnProvider } from '../providers/vpnProvider';
 import { timers } from '../timers';

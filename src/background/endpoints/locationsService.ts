@@ -1,10 +1,10 @@
 import isEmpty from 'lodash/isEmpty';
 
-import { log } from '../../lib/logger';
+import { log } from '../../common/logger';
 import { measurePingWithinLimits } from '../connectivity/pingHelpers';
-import { notifier } from '../../lib/notifier';
+import { notifier } from '../../common/notifier';
 import { vpnProvider } from '../providers/vpnProvider';
-import { SETTINGS_IDS } from '../../lib/constants';
+import { SETTINGS_IDS } from '../../common/constants';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
 import {

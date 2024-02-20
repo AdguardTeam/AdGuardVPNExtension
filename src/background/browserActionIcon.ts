@@ -1,9 +1,9 @@
 import browser from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
 
-import { notifier } from '../lib/notifier';
-import { isHttp } from '../lib/string-utils';
-import { log } from '../lib/logger';
+import { notifier } from '../common/notifier';
+import { isHttp } from '../common/utils/string';
+import { log } from '../common/logger';
 
 import { actions } from './actions';
 import { exclusions } from './exclusions';

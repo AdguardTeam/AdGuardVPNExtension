@@ -1,7 +1,8 @@
 import { Runtime } from 'webextension-polyfill';
 
 import { getUrl, runtime } from '../background/browserApi/runtime';
-import { lazyGet } from '../lib/helpers';
+
+import { lazyGet } from './helpers';
 
 const ICONS_PATH = 'assets/images/icons';
 

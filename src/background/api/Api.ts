@@ -1,6 +1,7 @@
-import { ERROR_STATUSES } from '../../lib/constants';
-import { CustomError } from '../../lib/CustomError';
-import { notifier } from '../../lib/notifier';
+import { notifier } from '../../common/notifier';
+import { ERROR_STATUSES } from '../constants';
+
+import { CustomError } from './CustomError';
 
 const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 

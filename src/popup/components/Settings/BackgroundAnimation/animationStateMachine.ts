@@ -1,6 +1,6 @@
 import { createMachine, interpret } from 'xstate';
 
-import { AnimationState, AnimationEvent } from '../../../../lib/constants';
+import { AnimationEvent, AnimationState } from '../../../constants';
 
 const animationStateMachine = createMachine({
     id: 'animationStateMachine',

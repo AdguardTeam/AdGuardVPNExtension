@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import React, { useContext } from 'react';
 
 import { reactTranslator } from '../../../common/reactTranslator';
-import { formatBytes } from '../../../lib/helpers';
+import { formatBytes } from '../../../common/helpers';
 import { rootStore } from '../../stores';
 
 /**

@@ -1,8 +1,8 @@
 import {
     LogStorage,
     LogStorageInterface,
-} from '../../src/lib/log-storage/log-storage';
-import { logStorageManager } from '../../src/lib/log-storage/LogStorageManager';
+} from '../../src/common/log-storage/log-storage';
+import { logStorageManager } from '../../src/common/log-storage/LogStorageManager';
 
 jest.mock('../../src/background/browserApi', () => {
     // eslint-disable-next-line global-require

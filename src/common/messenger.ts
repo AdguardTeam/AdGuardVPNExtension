@@ -1,13 +1,13 @@
 import browser, { Runtime } from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
-import { type ExclusionsData, ExclusionsMode, type ServiceDto } from '../common/exclusionsConstants';
 import type { LimitedOfferData } from '../background/limitedOfferService';
 import type { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { Message } from '../popup/components/App/App';
 
+import { type ExclusionsData, ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
 import { MessageType, SocialAuthProvider, type ExclusionsContentMap } from './constants';
 import { NotifierType } from './notifier';

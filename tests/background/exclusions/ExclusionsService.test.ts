@@ -16,7 +16,7 @@ jest.mock('../../../src/background/browserApi', () => {
     return require('../../__mocks__/browserApiMock');
 });
 
-jest.mock('../../../src/lib/logger.ts');
+jest.mock('../../../src/common/logger.ts');
 
 jest.mock('../../../src/background/settings', () => {
     return {

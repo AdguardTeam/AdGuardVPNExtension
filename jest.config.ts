@@ -4,7 +4,7 @@ module.exports = {
     collectCoverage: true,
     collectCoverageFrom: [
         '**/src/background/**/*.{js,jsx}',
-        '**/src/lib/**/*.{js,jsx}',
+        '**/src/common/**/*.{js,jsx}',
         '!**/node_modules/**',
     ],
     setupFiles: ['<rootDir>/tests/__setups__/chrome.ts'],

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { QuickConnectSetting } from '../../../../lib/constants';
+import { QuickConnectSetting } from '../../../../common/constants';
 import { rootStore } from '../../../stores';
 import { Select } from '../../ui/Select';
 import { reactTranslator } from '../../../../common/reactTranslator';

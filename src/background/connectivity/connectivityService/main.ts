@@ -1,7 +1,7 @@
 import type { EventData } from 'xstate';
 
-import { notifier } from '../../../lib/notifier';
-import { log } from '../../../lib/logger';
+import { notifier } from '../../../common/notifier';
+import { log } from '../../../common/logger';
 import { stateStorage } from '../../stateStorage';
 import {
     StorageKey,

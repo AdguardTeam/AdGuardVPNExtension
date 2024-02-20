@@ -9,7 +9,7 @@ jest.mock('../../../src/background/stateStorage', () => {
     return require('../../../src/background/stateStorage/mv2');
 });
 
-jest.mock('../../../src/lib/logger');
+jest.mock('../../../src/common/logger');
 jest.mock('../../../src/background/browserApi');
 
 const emptyCredentials = {

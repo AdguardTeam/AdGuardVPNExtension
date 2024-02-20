@@ -1,5 +1,5 @@
-import { notifier } from '../lib/notifier';
-import { SETTINGS_IDS } from '../lib/constants';
+import { notifier } from '../common/notifier';
+import { SETTINGS_IDS } from '../common/constants';
 
 import { browserApi } from './browserApi';
 import { settings } from './settings';

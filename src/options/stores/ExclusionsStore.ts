@@ -18,7 +18,7 @@ import {
     ExclusionsType,
     ServiceDto,
 } from '../../common/exclusionsConstants';
-import { messenger } from '../../lib/messenger';
+import { messenger } from '../../common/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 import type { ServiceCategory } from '../../background/schema';
 

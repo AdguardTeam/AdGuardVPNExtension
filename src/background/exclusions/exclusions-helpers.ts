@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 import { isIP } from 'is-ip';
 
-import { getETld, getSubdomain, isWildcard } from '../../common/url-utils';
-import { log } from '../../lib/logger';
+import { getETld, getSubdomain, isWildcard } from '../../common/utils/url';
+import { log } from '../../common/logger';
 import { ExclusionState } from '../../common/exclusionsConstants';
 import type { ServicesInterface, ExclusionInterface } from '../schema';
 

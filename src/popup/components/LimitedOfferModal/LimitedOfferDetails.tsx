@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
 import { UNLIMITED_FEATURES } from '../../../common/components/constants';
-import { timestampMsToTimeString } from '../../../common/promo-utils';
+import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { popupActions } from '../../actions/popupActions';
 import { rootStore } from '../../stores';

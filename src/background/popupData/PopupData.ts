@@ -1,13 +1,13 @@
 import throttle from 'lodash/throttle';
 
-import { Permissions } from '../../lib/permissions';
-import { log } from '../../lib/logger';
+import { Permissions } from '../../common/permissions';
+import { log } from '../../common/logger';
 import { connectivityService } from '../connectivity/connectivityService';
 import { PromoNotificationData, promoNotifications } from '../promoNotifications';
 import { auth } from '../auth';
 import { settings } from '../settings';
-import { SETTINGS_IDS } from '../../lib/constants';
-import { sleep } from '../../lib/helpers';
+import { SETTINGS_IDS } from '../../common/constants';
+import { sleep } from '../../common/helpers';
 import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
 import { exclusions } from '../exclusions';

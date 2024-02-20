@@ -1,6 +1,6 @@
 import { customAlphabet } from 'nanoid';
 
-import { log } from '../../lib/logger';
+import { log } from '../../common/logger';
 
 import { alarmApi } from './alarmApi';
 import { TimersInterface } from './AbstractTimers';

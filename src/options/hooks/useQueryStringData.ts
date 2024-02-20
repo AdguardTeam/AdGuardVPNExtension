@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
-import { log } from '../../lib/logger';
+import { log } from '../../common/logger';
 
 /**
  * Interface describing the return value of useCustomDnsFromQuery hook.

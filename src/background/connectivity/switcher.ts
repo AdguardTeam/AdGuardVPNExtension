@@ -1,7 +1,6 @@
 import { proxy } from '../proxy';
-import { log } from '../../lib/logger';
-import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
-import { FORCE_CANCELLED } from '../../lib/constants';
+import { log } from '../../common/logger';
+import { runWithCancel, sleepIfNecessary } from '../../common/helpers';
 // eslint-disable-next-line import/no-cycle
 import { credentials } from '../credentials';
 // eslint-disable-next-line import/no-cycle
@@ -19,6 +18,9 @@ import {
 
 // eslint-disable-next-line import/no-cycle
 import { connectivity } from './index';
+
+// Error text thrown when connection is canceled by user. See issue - AG-2291
+const FORCE_CANCELLED = 'Connection was cancelled by user';
 
 /**
  * Turns on proxy after doing preparing steps

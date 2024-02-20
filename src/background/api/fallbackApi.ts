@@ -6,9 +6,9 @@ import {
     VPN_API_URL,
     STAGE_ENV,
 } from '../config';
-import { clearFromWrappingQuotes } from '../../lib/string-utils';
-import { log } from '../../lib/logger';
-import { fetchConfig } from '../../lib/fetch-config';
+import { clearFromWrappingQuotes } from '../../common/utils/string';
+import { log } from '../../common/logger';
+import { fetchConfig } from '../../common/fetch-config';
 import { getErrorMessage } from '../../common/utils/error';
 import { stateStorage } from '../stateStorage';
 import { authService } from '../authentication/authService';

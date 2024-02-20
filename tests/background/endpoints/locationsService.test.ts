@@ -16,7 +16,7 @@ jest.mock('../../../src/background/stateStorage', () => {
 });
 
 jest.mock('../../../src/background/connectivity/pingHelpers');
-jest.mock('../../../src/lib/logger'); // hides redundant log messages during test run
+jest.mock('../../../src/common/logger'); // hides redundant log messages during test run
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/browserApi');
 jest.mock('../../../src/background/providers/vpnProvider');

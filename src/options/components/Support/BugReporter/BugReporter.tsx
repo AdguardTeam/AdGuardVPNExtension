@@ -8,8 +8,8 @@ import classnames from 'classnames';
 import { Title } from '../../ui/Title';
 import { Checkbox } from '../../ui/Checkbox';
 import { rootStore } from '../../../stores';
-import { messenger } from '../../../../lib/messenger';
-import { addMinDurationTime } from '../../../../lib/helpers';
+import { messenger } from '../../../../common/messenger';
+import { addMinDurationTime } from '../../../../common/helpers';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
 

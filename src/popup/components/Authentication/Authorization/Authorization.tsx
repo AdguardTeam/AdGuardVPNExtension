@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { SocialAuthProvider } from '../../../../lib/constants';
+import { SocialAuthProvider } from '../../../../common/constants';
 import { EmailAuth } from '../EmailAuth';
 import { Icon } from '../../ui/Icon';
 

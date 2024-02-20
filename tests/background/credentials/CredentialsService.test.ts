@@ -1,6 +1,6 @@
 import { CredentialsService } from '../../../src/background/credentials/credentialsService';
 import type { VpnTokenData } from '../../../src/background/schema';
-import { SubscriptionType } from '../../../src/lib/constants';
+import { SubscriptionType } from '../../../src/common/constants';
 
 const storageImplementation: { [key: string]: unknown } = {};
 

@@ -1,5 +1,5 @@
 import { Credentials } from '../../../src/background/credentials/Credentials';
-import { SubscriptionType } from '../../../src/lib/constants';
+import { SubscriptionType } from '../../../src/common/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
 import { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
@@ -24,7 +24,7 @@ jest.mock('../../../src/background/appStatus', () => {
     };
 });
 
-jest.mock('../../../src/lib/logger');
+jest.mock('../../../src/common/logger');
 
 const storageImplementation: { [key: string]: any } = {};
 jest.mock('../../../src/background/browserApi', () => {

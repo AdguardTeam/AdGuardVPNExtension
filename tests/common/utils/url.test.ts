@@ -1,4 +1,4 @@
-import { getETld, getHostname, getProtocol } from '../../src/common/url-utils';
+import { getETld, getHostname, getProtocol } from '../../../src/common/utils/url';
 
 describe('getETld', () => {
     it('returns eTld + 1 in the simple cases', () => {

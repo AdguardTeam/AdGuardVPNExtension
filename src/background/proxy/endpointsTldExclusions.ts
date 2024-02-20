@@ -2,7 +2,7 @@ import throttle from 'lodash/throttle';
 import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
 
-import { log } from '../../lib/logger';
+import { log } from '../../common/logger';
 import { browserApi } from '../browserApi';
 import { StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';

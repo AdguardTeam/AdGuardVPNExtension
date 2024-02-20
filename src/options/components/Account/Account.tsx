@@ -5,7 +5,7 @@ import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { EDIT_ACCOUNT_URL } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { SubscriptionType } from '../../../lib/constants';
+import { SubscriptionType } from '../../../common/constants';
 
 import { Features } from './Features/Features';
 

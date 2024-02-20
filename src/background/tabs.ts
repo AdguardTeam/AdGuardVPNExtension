@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 
-import { notifier } from '../lib/notifier';
-import { log } from '../lib/logger';
+import { notifier } from '../common/notifier';
+import { log } from '../common/logger';
 
 import { PASSWORD_RECOVERY_URL } from './config';
 

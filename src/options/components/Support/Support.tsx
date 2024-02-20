@@ -2,7 +2,7 @@ import React, { ReactNode, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { messenger } from '../../../lib/messenger';
+import { messenger } from '../../../common/messenger';
 import { FEEDBACK_URL, FAQ_URL } from '../../../background/config';
 import { Title } from '../ui/Title';
 import { translator } from '../../../common/translator';

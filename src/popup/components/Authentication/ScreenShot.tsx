@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { AppearanceTheme } from '../../../lib/constants';
+import { AppearanceTheme } from '../../../common/constants';
 
 export const ScreenShot = observer(() => {
     const { authStore, settingsStore } = useContext(rootStore);
