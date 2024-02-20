@@ -6,7 +6,7 @@
     font-weight: 400;
     align-items: center;
     justify-content: space-between;
-    min-height: var(--current-endpoint-min-height);
+    min-height: 75px;
     padding: 16px;
     width: 100%;
     color: var(--gray-base);
@@ -52,7 +52,15 @@
     }
 
     &:hover {
-        background-color: var(--endpoint-gray-background) !important;
+        background-color: var(--endpoint-gray-background);
+    }
+
+    &__skeleton {
+
+        &:hover {
+            cursor: default;
+            background-color: var(--white);
+        }
     }
 
     &__flag {

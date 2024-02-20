@@ -4,7 +4,7 @@ import './skeleton-endpoint.pcss';
 
 export const SkeletonEndpoint = () => {
     return (
-        <div className="skeleton-endpoint">
+        <div className="endpoint endpoint__skeleton">
             <div className="skeleton-endpoint__empty skeleton-endpoint__empty-flag" />
             <div className="skeleton-endpoint__container">
                 <div className="skeleton-endpoint__empty skeleton-endpoint__empty-title" />

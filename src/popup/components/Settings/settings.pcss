@@ -92,7 +92,8 @@
     }
 
     &__skeleton {
-        height: calc(var(--popup-height) - var(--header-height) - var(--current-endpoint-total-height));
+        /* 76px is a sum of enpoint height (75px) + border (1px) */
+        height: calc(var(--popup-height) - var(--header-height) - 76px);
     }
 
 }

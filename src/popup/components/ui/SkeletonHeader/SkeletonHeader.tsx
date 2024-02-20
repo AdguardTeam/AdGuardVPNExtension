@@ -9,7 +9,7 @@ export const SkeletonHeader = () => {
                 <div className="logo" />
             </div>
             <button
-                className="button header__setting header__setting--inactive"
+                className="button button__disabled header__setting header__setting--inactive"
                 type="button"
                 tabIndex={-1}
             >
