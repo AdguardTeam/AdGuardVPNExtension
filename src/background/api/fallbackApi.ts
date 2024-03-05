@@ -1,6 +1,7 @@
 import axios from 'axios';
 import _ from 'lodash';
 
+import pJSON from '../../../package.json';
 import {
     AUTH_API_URL,
     VPN_API_URL,
@@ -43,6 +44,7 @@ const enum UserType {
 
 const WHOAMI_VERSION = 'v1';
 const APPLICATION_TYPE = 'at-ext';
+const APPLICATION_VERSION_PREFIX = 'av';
 
 export class FallbackApi {
     /**
@@ -249,8 +251,25 @@ export class FallbackApi {
         return bkpUrl;
     };
 
+    /**
+     * Returns base prefix for api hostname in format: `<whoami_version>.<application_type>.<application_version>`
+     * where:
+     * - `whoami_version` - version of whoami service {@link WHOAMI_VERSION}
+     * - `application_type` - type of application {@link APPLICATION_TYPE}
+     * - `application_version` - version of application (from package.json)
+     *   in format `av-<major>-<minor>-<patch>`.
+     *
+     * For more details — AG-30618.
+     *
+     * @returns Prefix for api hostname.
+     */
+    private getBasePrefix = (): string => {
+        const applicationVersion = `${APPLICATION_VERSION_PREFIX}${pJSON.version.replaceAll('.', '-')}`;
+        return `${WHOAMI_VERSION}.${APPLICATION_TYPE}.${applicationVersion}`;
+    };
+
     getApiHostnamePrefix = async () => {
-        const basePrefix = `${WHOAMI_VERSION}.${APPLICATION_TYPE}`;
+        const basePrefix = this.getBasePrefix();
 
         const isAuthenticated = await authService.isAuthenticated();
         if (!isAuthenticated) {
