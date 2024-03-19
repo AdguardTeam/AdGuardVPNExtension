@@ -23,11 +23,15 @@ const PromoNotificationModal = observer(() => {
         return null;
     }
 
-    const { url, text } = promoNotification;
+    const { url, text, bgImage } = promoNotification;
 
-    if (!url || !text) {
+    if (!url || !text || !bgImage) {
         return null;
     }
+
+    const promoStyle = {
+        backgroundImage: `url(${bgImage})`,
+    };
 
     const { btn, title } = text;
 
@@ -49,13 +53,16 @@ const PromoNotificationModal = observer(() => {
             className="notify__wrap"
             overlayClassName="notify"
         >
-            <div className="notify__promo">
+            <div
+                className="notify__promo"
+                style={promoStyle}
+            >
                 <div
                     className="notify__close"
                     onClick={onCloseHandler}
                 >
                     <svg className="icon icon--button">
-                        <use xlinkHref="#cross-white" />
+                        <use xlinkHref="#cross-gray" />
                     </svg>
                 </div>
                 <div className="notify__content">

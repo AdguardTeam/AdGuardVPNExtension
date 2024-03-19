@@ -3,7 +3,6 @@
  */
 import browser from 'webextension-polyfill';
 
-import { lazyGet } from '../common/helpers';
 import { Prefs } from '../common/prefs';
 import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
@@ -17,14 +16,17 @@ interface PromoNotificationInterface {
     setNotificationViewed(withDelay: boolean): Promise<void>;
 }
 
+/**
+ * Notification text record for localizations.
+ */
+type NotificationTextRecord = {
+    title: string,
+    btn: string,
+};
+
 export interface PromoNotificationData {
     id: string;
-    locales: {
-        [key: string]: {
-            title: string,
-            btn: string,
-        }
-    }
+    locales: Record<string, NotificationTextRecord>
     text: null | {
         title: string,
         btn: string,
@@ -33,6 +35,13 @@ export interface PromoNotificationData {
     from: string;
     to: string;
     type: string;
+
+    /**
+     * Path to the background image for the promo.
+     * May be needed for different promos for different locales at the same time.
+     */
+    bgImage: string,
+
     icons: {
         [key: string]: {
             [key: number]: string,
@@ -49,8 +58,8 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'christmas_23_vpn';
-const TDS_PROMO_ACTION_RU = 'christmas_23_vpn_ru';
+const TDS_PROMO_ACTION = 'easter_24_vpn';
+const TDS_PROMO_ACTION_RU = 'easter_24_vpn_ru';
 
 const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
 const RU_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
@@ -60,198 +69,248 @@ const promoLink = isRuLocale
     ? RU_PROMO_LINK
     : COMMON_PROMO_LINK;
 
-const CHRISTMAS_23_ID = 'christmas23';
+/**
+ * List of locales for the Spring promo, not the Easter one. AG-31141.
+ */
+const SPRING_PROMO_LOCALES = [
+    'ru',
+    'uk',
+    'ar',
+    'be',
+    'bg',
+    'el',
+    'sr',
+    'hy',
+    'fa',
+    'he',
+    'ms',
+    'id',
+    'tr',
+    'vi',
+    'zh_cn',
+    'zh_tw',
+];
 
-const christmas23Notification = {
-    id: CHRISTMAS_23_ID,
+const EASTER_24_ID = 'easter24';
+
+let easter24Notification: PromoNotificationData = {
+    id: EASTER_24_ID,
     locales: {
         en: {
-            title: 'Christmas promo',
+            title: 'Easter promo',
             btn: 'Get 80% off',
         },
-        ru: {
-            title: 'Новогодняя акция',
-            btn: 'Скидка 75%',
-        },
-        ja: {
-            title: 'AdGuard Christmas SALE',
-            btn: '80%OFF割引をGET',
-        },
+        // there is no promo for Japanese
+        // ja: {},
         ko: {
-            title: '크리스마스  프로모션',
+            title: '부활절 세일',
             btn: '80% 할인',
         },
-        zh_cn: {
-            title: 'AdGuard Christmas SALE',
-            btn: '低至2折',
-        },
-        zh_tw: {
-            title: 'AdGuard Christmas SALE',
-            btn: '低至2折',
-        },
         fr: {
-            title: 'Promo Noël chez AdGuard VPN',
-            btn: '80% de remise',
+            title: 'Promo de Pâques',
+            btn: '80% de remise ici',
         },
         it: {
-            title: 'Promo di Natale ad AdGuard VPN',
-            btn: '80% di sconto',
+            title: 'Offerta di Pascua',
+            btn: '80% di sconto qui',
         },
         de: {
-            title: 'Weihnachtspromo',
+            title: 'Oster-Sale',
             btn: '80% Rabatt',
         },
         es: {
-            title: 'Promo navideña',
-            btn: '80% de descuento',
+            title: 'Promo de Pascua',
+            btn: 'Obtén un 80% OFF',
         },
         pt_br: {
-            title: 'Promo de Natal',
-            btn: '80% de desconto',
+            title: 'Promo de Páscoa',
+            btn: 'Obtenha 80% OFF',
         },
         pt_pt: {
-            title: 'Promo de Natal',
-            btn: '80% de desconto',
-        },
-        uk: {
-            title: 'Різдвяна акція',
-            btn: 'Знижка 80%',
-        },
-        ar: {
-            title: 'تخفيضات العام الجديد',
-            btn: '٪خصم 80',
-        },
-        be: {
-            title: 'Навагоднія скідкі',
-            btn: '80% зніжка',
-        },
-        bg: {
-            title: 'Новогодишни отстъпки',
-            btn: '80% отстъпка',
+            title: 'Promo de Páscoa',
+            btn: 'Obtenha 80% OFF',
         },
         ca: {
-            title: 'Venda de Cap d\'Any',
+            title: 'Promoció de Pasqua',
             btn: '80% de descompte',
         },
         cs: {
-            title: 'Novoroční výprodej',
+            title: 'Velikonoční promo akce',
             btn: '80% sleva',
         },
         da: {
-            title: 'Nytårsudsalg',
+            title: 'Påske kampagne',
             btn: '80% rabat',
         },
-        el: {
-            title: 'Εκπτώσεις Πρωτοχρονιάς',
-            btn: '80% έκπτωση',
-        },
         es_419: {
-            title: 'Promo navideña',
+            title: 'Promoción de pascua',
             btn: '80% de descuento',
         },
-        fa: {
-            title: 'فروش سال نو',
-            btn: '٪80 خاموش',
-        },
         fi: {
-            title: 'Uudenvuoden alennus',
-            btn: '80% alennus',
-        },
-        he: {
-            title: 'מבצע לשנה החדשה',
-            btn: '80% הנחה',
+            title: 'Pääsiäispromo',
+            btn: '80 % alennus',
         },
         hr: {
-            title: 'Otvoren',
+            title: 'Uskršnja promocija',
             btn: '80% popusta',
         },
         hu: {
-            title: 'Újévi akció',
+            title: 'Húsvéti promóció',
             btn: '80% kedvezmény',
         },
-        hy: {
-            title: 'Ամանորյա զեղչեր',
-            btn: '80% զեղչ',
-        },
-        id: {
-            title: 'Obral Tahun Baru',
-            btn: 'Diskon 80%',
-        },
         lt: {
-            title: 'Naujųjų metų nuolaidos',
+            title: 'Velykų akcija',
             btn: '80% nuolaida',
         },
-        ms: {
-            title: 'Jualan Tahun Baru',
-            btn: 'Diskaun 80%',
-        },
         nb: {
-            title: 'Nyttårs salg',
+            title: 'Påskekampanje',
             btn: '80% rabatt',
         },
         nl: {
-            title: 'Kerst promo',
+            title: 'Pasen promo',
             btn: '80% korting',
         },
         pl: {
-            title: 'Zniżki noworoczne',
+            title: 'Promocja wielkanocna',
             btn: '80% zniżki',
         },
         ro: {
-            title: 'Vânzarea de Anul Nou',
+            title: 'Promoție de primăvară',
             btn: '80% reducere',
         },
         sk: {
-            title: 'Novoročný výpredaj',
+            title: 'Veľkonočné promo',
             btn: '80% zľava',
         },
         sl: {
-            title: 'Novoletni popusti',
+            title: 'Velikonočni promo',
             btn: '80% popust',
         },
-        'sr-Latn': {
-            title: 'Novogodišnji popusti',
-            btn: '80% popusta',
-        },
         sv: {
-            title: 'Nyårsrabatter',
-            btn: '80% rabatt',
-        },
-        tr: {
-            title: 'Yılbaşı indirimleri',
-            btn: '%80 indirim',
-        },
-        vi: {
-            title: 'Giảm giá năm mới',
-            btn: 'Giảm giá 80%',
+            title: 'Påsk kampanj',
+            btn: '80 % rabatt',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
     url: promoLink,
-    from: '22 December 2023 12:00:00',
-    to: '1 January 2024 23:59:00',
+    from: '28 March 2024 12:00:00',
+    to: '3 April 2024 23:59:00',
     type: 'animated',
-    get icons() {
-        return lazyGet(christmas23Notification, 'icons', () => ({
-            ENABLED: {
-                19: getUrl('assets/images/icons/christmas23-on-19.png'),
-                38: getUrl('assets/images/icons/christmas23-on-38.png'),
-            },
-            DISABLED: {
-                19: getUrl('assets/images/icons/christmas23-off-19.png'),
-                38: getUrl('assets/images/icons/christmas23-off-38.png'),
-            },
-        }));
+    // TODO: use lazyGet() if promo should not be different for different locales,
+    // otherwise it will not work on variable re-assignment
+    bgImage: getUrl('assets/images/easter24.svg'),
+    icons: {
+        ENABLED: {
+            19: getUrl('assets/images/icons/easter24-on-19.png'),
+            38: getUrl('assets/images/icons/easter24-on-38.png'),
+        },
+        DISABLED: {
+            19: getUrl('assets/images/icons/easter24-off-19.png'),
+            38: getUrl('assets/images/icons/easter24-off-38.png'),
+        },
     },
 };
 
-if (isRuLocale) {
-    christmas23Notification.to = '8 January 2024 23:59:00';
+/**
+ * Diff data for the Spring promo.
+ */
+const spring24NotificationUpdateDiff = {
+    locales: {
+        ar: {
+            title: 'ترويج الربيع',
+            btn: '٪80 خصم',
+        },
+        be: {
+            title: 'Вясновая акцыя',
+            btn: 'Зніжка 80%',
+        },
+        bg: {
+            title: 'Пролетна промоция',
+            btn: '80% отстъпка',
+        },
+        el: {
+            title: 'Ανοιξιάτικη προώθηση',
+            btn: '80% έκπτωση',
+        },
+        fa: {
+            title: 'تبلیغات بهار',
+            btn: '80 درصد تخفیف',
+        },
+        he: {
+            title: 'קידום אביב',
+            btn: '80% הנחה',
+        },
+        hy: {
+            title: 'Գարնանային ակցիա',
+            btn: '80% զեղչ',
+        },
+        id: {
+            title: 'Promosi musim semi',
+            btn: 'Diskon 80%',
+        },
+        ms: {
+            title: 'Promosi musim bunga',
+            btn: '80% diskaun',
+        },
+        ru: {
+            title: 'Весенняя акция',
+            btn: 'Скидка 75%',
+        },
+        'sr-Latn': {
+            title: 'Prolećna promocija',
+            btn: 'Popust 80%',
+        },
+        tr: {
+            title: 'Bahar promosyonu',
+            btn: '%80 indirim',
+        },
+        uk: {
+            title: 'Весняна акція',
+            btn: 'Знижка 80%',
+        },
+        vi: {
+            title: 'Khuyến mãi mùa xuân',
+            btn: 'Giảm giá 80%',
+        },
+        zh_cn: {
+            title: '暖春特惠',
+            btn: '享2折',
+        },
+        zh_tw: {
+            title: '暖春優惠',
+            btn: '享2折',
+        },
+    },
+    bgImage: getUrl('assets/images/spring24.svg'),
+    icons: {
+        ENABLED: {
+            19: getUrl('assets/images/icons/spring24-on-19.png'),
+            38: getUrl('assets/images/icons/spring24-on-38.png'),
+        },
+        DISABLED: {
+            19: getUrl('assets/images/icons/spring24-off-19.png'),
+            38: getUrl('assets/images/icons/spring24-off-38.png'),
+        },
+    },
+};
+
+// possible values of browser lang: 'zh-TW' which is 'zh_tw' after normalization
+const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
+
+const shouldShowSpring24Promo = currentLocale
+    && SPRING_PROMO_LOCALES.some((locale) => currentLocale.startsWith(locale));
+
+if (shouldShowSpring24Promo) {
+    easter24Notification = {
+        ...easter24Notification,
+        // update the notification data with the Spring promo data
+        ...spring24NotificationUpdateDiff,
+    };
 }
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [CHRISTMAS_23_ID]: christmas23Notification,
+    [EASTER_24_ID]: easter24Notification,
 };
 
 /**
@@ -268,16 +327,45 @@ const getLastNotificationTime = async (): Promise<number> => {
 };
 
 /**
+ * Handles Spanish locale codes:
+ * - for non-Spanish locales, returns the same code;
+ * - for Latin American Spanish, e.g. 'es_mx', returns 'es_419';
+ * - for Spain Spanish, e.g. 'es_es', returns 'es'.
+ *
+ * @param normalizedLocale Normalized locale code.
+ *
+ * @returns Normalized locale code.
+ */
+const handleSpanishLocale = (normalizedLocale: string): string => {
+    const GENERAL_SPANISH_NORMALIZED_CODE = 'es';
+    const SPAIN_SPANISH_NORMALIZED_CODE = 'es_es';
+    const LATIN_AMERICAN_SPANISH_NORMALIZED_CODE = 'es_419';
+
+    if (!normalizedLocale.startsWith(GENERAL_SPANISH_NORMALIZED_CODE)) {
+        return normalizedLocale;
+    }
+
+    if (normalizedLocale === GENERAL_SPANISH_NORMALIZED_CODE
+        || normalizedLocale === SPAIN_SPANISH_NORMALIZED_CODE) {
+        return GENERAL_SPANISH_NORMALIZED_CODE;
+    }
+
+    return LATIN_AMERICAN_SPANISH_NORMALIZED_CODE;
+};
+
+/**
  * Scans notification locales and returns the one matching navigator.language
  * @param notification notification object
  * returns matching text or null
  */
-const getNotificationText = (notification: PromoNotificationData): { title: string, btn: string } | null => {
-    const language = normalizeLanguage(browser.i18n.getUILanguage());
+const getNotificationText = (notification: PromoNotificationData): NotificationTextRecord | null => {
+    let language = normalizeLanguage(browser.i18n.getUILanguage());
 
     if (!language) {
         return null;
     }
+
+    language = handleSpanishLocale(language);
 
     const languageCode = language.split('_')[0];
     if (!languageCode) {
