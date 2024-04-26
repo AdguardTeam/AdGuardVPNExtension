@@ -149,7 +149,7 @@ export const CustomDnsServerModal = observer(() => {
     const ipAddressInputClasses = classnames(
         'input__in',
         'input__in--content',
-        'input__in--clear',
+        { 'input__in--clear': !dnsServerAddressError },
         { 'dns-settings__modal--input--error': dnsServerAddressError },
     );
 

@@ -61,7 +61,7 @@ export const ModeSelectorModal = observer(() => {
     return (
         <Modal
             isOpen={exclusionsStore.modeSelectorModalOpen}
-            className="modal select-mode-confirm"
+            className="modal modal-exclusions select-mode-confirm"
             overlayClassName="overlay overlay--fullscreen"
             onRequestClose={closeModal}
         >
