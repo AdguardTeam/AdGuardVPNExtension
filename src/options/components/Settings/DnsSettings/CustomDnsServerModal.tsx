@@ -169,7 +169,7 @@ export const CustomDnsServerModal = observer(() => {
                     <use xlinkHref="#cross" />
                 </svg>
             </button>
-            <div className="dns-settings__modal--title">{modalData[modalType].modalTitle}</div>
+            <div className="modal__title">{modalData[modalType].modalTitle}</div>
             <div className="dns-settings__modal--content">
                 {!settingsStore.dnsServerToEdit && (
                     <div className="form__item">

@@ -7,7 +7,6 @@ import classnames from 'classnames';
 import { rootStore } from '../../../stores';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { Title } from '../../ui/Title';
 
 import '../../ui/radio.pcss';
 
@@ -74,9 +73,9 @@ export const ModeSelectorModal = observer(() => {
                     <use xlinkHref="#cross" />
                 </svg>
             </button>
-            <Title
-                title={reactTranslator.getMessage('settings_exclusion_change_mode_modal_title')}
-            />
+            <div className="modal__title">
+                {reactTranslator.getMessage('settings_exclusion_change_mode_modal_title')}
+            </div>
             <div className="settings__group">
                 {renderRadioButton(ExclusionsMode.Regular)}
                 {renderRadioButton(ExclusionsMode.Selective)}
