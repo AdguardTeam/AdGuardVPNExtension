@@ -141,10 +141,13 @@
         "message": "Get subscription"
     },
     "account_max_devices_count": {
-        "message": "Up to %num% simultaneous devices"
+        "message": "Up to <b>%num%</b> devices simultaneously"
     },
-    "account_next_charge": {
-        "message": "Next billing date %date%"
+    "account_valid_until": {
+        "message": "Valid until <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "Logged in as <b>%username%</b>"
     },
     "account_sign_out": {
         "message": "Log out"

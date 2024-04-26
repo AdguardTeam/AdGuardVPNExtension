@@ -20,8 +20,8 @@ export const Account = observer(() => {
         premiumFeatures,
         hidePremiumFeatures,
         openPremiumPromoPage,
-        nextBillDate,
         subscriptionType,
+        subscriptionTimeExpiresIso,
     } = settingsStore;
 
     const { maxDevicesCount } = authStore;
@@ -38,18 +38,18 @@ export const Account = observer(() => {
         await openPremiumPromoPage();
     };
 
-    let billDate;
+    let expiresDate;
 
-    if (nextBillDate) {
-        const dateObj = new Date(nextBillDate);
+    if (subscriptionTimeExpiresIso) {
+        const dateObj = new Date(subscriptionTimeExpiresIso);
 
         const formatOptions: Intl.DateTimeFormatOptions = {
             year: 'numeric',
-            month: 'numeric',
+            month: 'short',
             day: 'numeric',
         };
 
-        billDate = dateObj.toLocaleDateString('default', formatOptions);
+        expiresDate = dateObj.toLocaleDateString('default', formatOptions);
     }
 
     const subscriptionsMap = {
@@ -75,23 +75,43 @@ export const Account = observer(() => {
             <Title title={reactTranslator.getMessage('account_title')} />
             <div className="account">
                 <div className="account__info">
-                    <div className="account__name">
-                        {currentUsername}
-                    </div>
-                    <div className="account__desc">
+                    <div className="account__info-item">
                         {getAccountType()}
                     </div>
-
-                    {billDate && (
-                        <div className="account__bill-date">
-                            {reactTranslator.getMessage('account_next_charge', { date: billDate })}
+                    {expiresDate && (
+                        <div className="account__info-item">
+                            {reactTranslator.getMessage('account_valid_until', {
+                                date: expiresDate,
+                                b: (chunks: any) => (
+                                    <span className="account__info-item--bold">
+                                        {chunks}
+                                    </span>
+                                ),
+                            })}
                         </div>
                     )}
                     {maxDevicesCount !== undefined && (
-                        <div className="account__max-devices">
-                            {reactTranslator.getMessage('account_max_devices_count', { num: maxDevicesCount })}
+                        <div className="account__info-item">
+                            {reactTranslator.getMessage('account_max_devices_count', {
+                                num: maxDevicesCount,
+                                b: (chunks: any) => (
+                                    <span className="account__info-item--bold">
+                                        {chunks}
+                                    </span>
+                                ),
+                            })}
                         </div>
                     )}
+                    <div className="account__info-item">
+                        {reactTranslator.getMessage('account_logged_in_as', {
+                            username: currentUsername,
+                            b: (chunks: any) => (
+                                <span className="account__info-item--bold">
+                                    {chunks}
+                                </span>
+                            ),
+                        })}
+                    </div>
                 </div>
                 <div className="account__actions">
                     <a

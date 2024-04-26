@@ -19,6 +19,7 @@ const premiumVpnTokenData: VpnTokenData = {
     token: '1234509876',
     licenseStatus: 'VALID',
     timeExpiresSec: 123457890,
+    timeExpiresIso: new Date(Date.now()).toISOString(),
     licenseKey: 'qwerty-12345-qwerty-12345',
     vpnSubscription: {
         next_bill_date_iso: '20240101',
@@ -30,6 +31,7 @@ const freeVpnTokenData: VpnTokenData = {
     token: '6789012345',
     licenseStatus: 'VALID',
     timeExpiresSec: 123457890,
+    timeExpiresIso: new Date(Date.now()).toISOString(),
     licenseKey: '',
     vpnSubscription: {
         next_bill_date_iso: '20240101',
