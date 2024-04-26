@@ -71,8 +71,11 @@ export const Locations = observer(() => {
 
         if (emptySearchResults) {
             return (
-                <div className="endpoints__title endpoints__title--not-found">
-                    {reactTranslator.getMessage('endpoints_not_found')}
+                <div className="endpoints__not-found">
+                    <div className="endpoints__not-found--icon" />
+                    <div className="endpoints__title endpoints__not-found--title">
+                        {reactTranslator.getMessage('endpoints_not_found')}
+                    </div>
                 </div>
             );
         }
