@@ -2,8 +2,9 @@ import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { POPUP_STORE_URL, FEEDBACK_URL } from '../../../background/config';
+import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { getForwarderUrl } from '../../../common/helpers';
 
 import './rate.pcss';
 
@@ -14,6 +15,7 @@ export const RatePopup = observer(() => {
     const {
         hideRate,
         isRateVisible,
+        forwarderDomain,
     } = settingsStore;
 
     const handleHideRate = async () => {
@@ -29,9 +31,9 @@ export const RatePopup = observer(() => {
         await handleHideRate();
 
         if (value && parseInt(value, 10) >= 4) {
-            window.open(POPUP_STORE_URL, '_blank');
+            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OPTIONS_STORE), '_blank');
         } else {
-            window.open(FEEDBACK_URL, '_blank');
+            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
         }
 
         // close popup after click on rate star

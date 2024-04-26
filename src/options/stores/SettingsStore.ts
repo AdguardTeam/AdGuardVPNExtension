@@ -26,6 +26,7 @@ import { RequestStatus } from './consts';
 interface OptionsData {
     appVersion: string;
     username: string;
+    forwarderDomain: string;
     nextBillDate: number;
     isRateVisible: boolean;
     isPremiumFeaturesShow: boolean;
@@ -50,6 +51,8 @@ export class SettingsStore {
     @observable appVersion: string;
 
     @observable currentUsername: string;
+
+    @observable forwarderDomain: string;
 
     @observable webRTCEnabled = false;
 
@@ -173,6 +176,7 @@ export class SettingsStore {
     @action setOptionsData = (data: OptionsData): void => {
         this.appVersion = data.appVersion;
         this.currentUsername = data.username;
+        this.forwarderDomain = data.forwarderDomain;
         this.nextBillDate = data.nextBillDate;
         this.isRateVisible = data.isRateVisible;
         this.premiumFeatures = data.isPremiumFeaturesShow;

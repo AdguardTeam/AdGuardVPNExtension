@@ -12,6 +12,7 @@ import { actions } from '../actions';
 import { credentials } from '../credentials';
 import { authCache } from '../authentication';
 import { appStatus } from '../appStatus';
+import { forwarder } from '../forwarder';
 import { settings } from '../settings';
 import { exclusions } from '../exclusions';
 import { management } from '../management';
@@ -80,9 +81,12 @@ const getOptionsData = async () => {
     // AG-644 set current endpoint in order to avoid bug in permissions checker
     await endpoints.getSelectedLocation();
 
+    const forwarderDomain = await forwarder.updateAndGetDomain();
+
     return {
         appVersion,
         username,
+        forwarderDomain,
         nextBillDate,
         isRateVisible,
         isPremiumFeaturesShow,

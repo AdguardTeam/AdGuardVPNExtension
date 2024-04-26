@@ -3,8 +3,6 @@ import browser from 'webextension-polyfill';
 import { notifier } from '../common/notifier';
 import { log } from '../common/logger';
 
-import { PASSWORD_RECOVERY_URL } from './config';
-
 export type PreparedTab = {
     id?: number,
     url?: string,
@@ -14,7 +12,6 @@ interface TabsInterface {
     init(): void;
     getCurrent(): Promise<browser.Tabs.Tab>;
     getActive(): Promise<PreparedTab[]>;
-    openRecovery(): Promise<browser.Tabs.Tab>;
     openTab(url: string): Promise<browser.Tabs.Tab>;
     closeTab(tabsIds: number[] | number): Promise<void>;
     openSocialAuthTab(authUrl: string): Promise<void>;
@@ -76,10 +73,6 @@ class Tabs implements TabsInterface {
     async getActive(): Promise<PreparedTab[]> {
         const tabs = await browser.tabs.query({ active: true });
         return tabs.map(this.prepareTab);
-    }
-
-    async openRecovery(): Promise<browser.Tabs.Tab> {
-        return browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
     }
 
     async openTab(url: string): Promise<browser.Tabs.Tab> {

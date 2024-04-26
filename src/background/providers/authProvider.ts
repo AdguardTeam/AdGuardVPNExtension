@@ -3,9 +3,11 @@ import {
     REQUIRED_2FA_CODE,
     REQUIRED_EMAIL_CONFIRMATION_CODE,
 } from '../../common/constants';
+import { getForwarderUrl } from '../../common/helpers';
 import { authApi } from '../api';
+import { forwarder } from '../forwarder';
 import { translator } from '../../common/translator';
-import { FORWARDER_DOMAIN } from '../config';
+import { FORWARDER_URL_QUERIES } from '../config';
 import { SUPPORT_EMAIL } from '../constants';
 import type { AuthCredentials } from '../api/apiTypes';
 import type { AuthAccessToken } from '../schema';
@@ -114,12 +116,15 @@ const register = async (credentials: AuthCredentials) => {
         email: 'username',
     };
 
+    const forwarderDomain = await forwarder.updateAndGetDomain();
+    const compromisedPasswordUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PASSWORD_COMPROMISED);
+
     const errorsMap = {
         'validation.not_empty': translator.getMessage('registration_error_not_empty'),
         'validation.not_valid': translator.getMessage('registration_error_not_valid'),
         'validation.min_length': translator.getMessage('registration_error_min_length'),
         'validation.compromised.password': translator.getMessage('registration_error_compromised_password', {
-            a: (chunks: string[]) => (`<a href="https://${FORWARDER_DOMAIN}/forward.html?action=haveibeenpwned&from=popup&app=vpn_extension" target="_blank" class="link">${chunks}</a>`),
+            a: (chunks: string[]) => (`<a href="${compromisedPasswordUrl}" target="_blank" class="link">${chunks}</a>`),
         }),
         'validation.unique_constraint': translator.getMessage('registration_error_unique_constraint'),
         // the value is not shown to users, so it is not translated

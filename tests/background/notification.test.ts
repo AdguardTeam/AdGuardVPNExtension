@@ -22,6 +22,7 @@ jest.mock('../../src/common/translator', () => {
 });
 
 jest.mock('../../src/background/browserApi/storage');
+jest.mock('../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
 
 describe('notification', () => {
     it('creates notification', async () => {

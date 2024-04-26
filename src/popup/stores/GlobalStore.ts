@@ -48,6 +48,7 @@ export class GlobalStore {
                 locations,
                 selectedLocation,
                 permissionsError,
+                forwarderDomain,
                 isAuthenticated,
                 canControlProxy,
                 isRoutable,
@@ -65,6 +66,8 @@ export class GlobalStore {
                 isVpnBlocked,
                 isHostPermissionsGranted,
             } = popupData;
+
+            settingsStore.setForwarderDomain(forwarderDomain);
 
             authStore.setIsAuthenticated(isAuthenticated);
 

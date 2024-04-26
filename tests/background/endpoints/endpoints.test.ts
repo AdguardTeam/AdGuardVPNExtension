@@ -25,6 +25,8 @@ jest.mock('../../../src/background/stateStorage', () => {
     return require('../../../src/background/stateStorage/mv2');
 });
 
+jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
+
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService');
 jest.mock('../../../src/common/notifier');

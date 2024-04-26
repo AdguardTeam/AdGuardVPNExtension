@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - @adguard/logger library for logging
 
+### Changed
+
+- Backend API domain is used for forwarder urls.
+
+[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.2.14...HEAD
+
 
 ## [2.2.14] - 2024-03-15
 

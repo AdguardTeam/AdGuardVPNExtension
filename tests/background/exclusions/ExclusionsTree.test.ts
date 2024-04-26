@@ -5,6 +5,8 @@ import { ExclusionState, ExclusionsType } from '../../../src/common/exclusionsCo
 import type { ExclusionInterface } from '../../../src/background/schema';
 import { ServicesInterface } from '../../../src/background/schema';
 
+jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
+
 jest.mock('../../../src/common/logger.ts');
 jest.mock('../../../src/background/providers/vpnProvider.ts');
 

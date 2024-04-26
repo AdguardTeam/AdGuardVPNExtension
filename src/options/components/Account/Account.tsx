@@ -3,7 +3,8 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
-import { EDIT_ACCOUNT_URL } from '../../../background/config';
+import { FORWARDER_URL_QUERIES } from '../../../background/config';
+import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { SubscriptionType } from '../../../common/constants';
 
@@ -22,7 +23,10 @@ export const Account = observer(() => {
         openPremiumPromoPage,
         nextBillDate,
         subscriptionType,
+        forwarderDomain,
     } = settingsStore;
+
+    const editAccountUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.EDIT_ACCOUNT);
 
     const { maxDevicesCount } = authStore;
 
@@ -95,7 +99,7 @@ export const Account = observer(() => {
                 </div>
                 <div className="account__actions">
                     <a
-                        href={EDIT_ACCOUNT_URL}
+                        href={editAccountUrl}
                         className="button button--medium button--outline-gray account__action"
                         target="_blank"
                         rel="noopener noreferrer"

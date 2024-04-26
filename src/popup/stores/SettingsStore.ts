@@ -78,6 +78,8 @@ export class SettingsStore {
 
     @observable arePingsRecalculating: boolean = false;
 
+    @observable forwarderDomain: string;
+
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -489,5 +491,14 @@ export class SettingsStore {
             // reset the fastest locations to display the actual locations
             this.rootStore.vpnStore.resetCachedFastestLocations();
         }, RECALCULATE_PINGS_BTN_INACTIVITY_DELAY_MS);
+    }
+
+    /**
+     * Sets the forwarder domain to the specified value.
+     *
+     * @param value Value to set.
+     */
+    @action setForwarderDomain(value: string): void {
+        this.forwarderDomain = value;
     }
 }

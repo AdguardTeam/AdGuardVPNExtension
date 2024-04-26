@@ -3,8 +3,9 @@ import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { POPUP_STORE_URL, FEEDBACK_URL } from '../../../background/config';
+import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { getForwarderUrl } from '../../../common/helpers';
 
 import { PATH_TO_RATING_IMAGES, RATING_IMAGES_MAP } from './constants';
 
@@ -25,8 +26,9 @@ const storeRatingContent = {
 };
 
 export const ConfirmRateModal = observer(() => {
-    const { authStore } = useContext(rootStore);
+    const { authStore, settingsStore } = useContext(rootStore);
     const { rating, showConfirmRateModal } = authStore;
+    const { forwarderDomain } = settingsStore;
 
     const content = rating > BAD_RATING_LIMIT ? storeRatingContent : feedbackContent;
 
@@ -36,9 +38,9 @@ export const ConfirmRateModal = observer(() => {
 
     const handleConfirm = () => {
         if (rating > BAD_RATING_LIMIT) {
-            window.open(POPUP_STORE_URL, '_blank');
+            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_STORE), '_blank');
         } else {
-            window.open(FEEDBACK_URL, '_blank');
+            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
         }
         closeModal();
     };

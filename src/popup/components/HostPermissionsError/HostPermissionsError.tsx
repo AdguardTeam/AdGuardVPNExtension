@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
+import { getForwarderUrl } from '../../../common/helpers';
 import { Permissions } from '../../../common/permissions';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { PRIVACY_URL } from '../../../background/config';
+import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 
@@ -19,7 +20,7 @@ import './host-permissions-error.pcss';
 export const HostPermissionsError = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const { isHostPermissionsGranted } = settingsStore;
+    const { isHostPermissionsGranted, forwarderDomain } = settingsStore;
 
     const handleAllow = () => {
         // the method is async but we don't need to wait for it
@@ -30,7 +31,7 @@ export const HostPermissionsError = observer(() => {
 
     const handlePrivacyClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
-        await popupActions.openTab(PRIVACY_URL);
+        await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY));
     };
 
     const hostPermissionsInfo = reactTranslator.getMessage(

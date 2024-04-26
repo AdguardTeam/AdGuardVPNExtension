@@ -3,11 +3,13 @@ import browser from 'webextension-polyfill';
 import { Prefs } from '../common/prefs';
 import { log } from '../common/logger';
 import { SETTINGS_IDS, THEME_URL_PARAMETER } from '../common/constants';
+import { getForwarderUrl } from '../common/helpers';
 
 import { tabs } from './tabs';
 import { credentials } from './credentials';
+import { forwarder } from './forwarder';
 import { settings } from './settings';
-import { UPGRADE_LICENSE_URL } from './config';
+import { FORWARDER_URL_QUERIES } from './config';
 import { promoNotifications } from './promoNotifications';
 import { browserAction } from './browserAction';
 
@@ -208,7 +210,9 @@ const clearBadgeText = async (tabId: number) => {
  */
 const getPremiumPromoPageUrl = async (): Promise<string> => {
     const username = await credentials.getUsername();
-    return `${UPGRADE_LICENSE_URL}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
+    const forwarderDomain = await forwarder.updateAndGetDomain();
+    const upgradeLicenseUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.UPGRADE_LICENSE);
+    return `${upgradeLicenseUrl}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
 };
 
 /**

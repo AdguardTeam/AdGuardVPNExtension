@@ -3,6 +3,8 @@ import { sleep } from '../../../src/common/helpers';
 
 const SCHEME_VERSION = '12';
 
+jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
+
 jest.mock('../../../src/common/logger');
 
 jest.mock('../../../src/background/browserApi', () => {

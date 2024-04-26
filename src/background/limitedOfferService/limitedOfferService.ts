@@ -1,10 +1,11 @@
+import { getForwarderUrl } from '../../common/helpers';
 import { isRuLocale } from '../../common/utils/promo';
 import { translator } from '../../common/translator';
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { BrowserApi, browserApi } from '../browserApi';
-import { FORWARDER_DOMAIN } from '../config';
 import { credentials } from '../credentials';
+import { forwarder } from '../forwarder';
 import { notifications } from '../notifications';
 import { stateStorage } from '../stateStorage';
 import { StorageKey } from '../schema';
@@ -64,12 +65,6 @@ class LimitedOfferService {
     private TDS_LIMITED_OFFER_ACTION = 'limited_offer';
 
     private TDS_LIMITED_OFFER_ACTION_RU = 'limited_offer_ru';
-
-    // eslint-disable-next-line max-len
-    private LIMITED_OFFER_URL = `https://${FORWARDER_DOMAIN}/forward.html?action=${this.TDS_LIMITED_OFFER_ACTION}&from=popup&app=vpn_extension`;
-
-    // eslint-disable-next-line max-len
-    private LIMITED_OFFER_URL_RU = `https://${FORWARDER_DOMAIN}/forward.html?action=${this.TDS_LIMITED_OFFER_ACTION_RU}&from=popup&app=vpn_extension`;
 
     private COUNTDOWN_DATA_KEY = 'limited.offer.countdown.data';
 
@@ -254,26 +249,36 @@ class LimitedOfferService {
             return null;
         }
 
+        const forwarderDomain = await forwarder.updateAndGetDomain();
+
         if (isRuLocale) {
             if (shouldShowNotification) {
                 await this.createNotification(this.LIMITED_OFFER_DISCOUNT_RU_PERCENT);
             }
+
             return {
                 timeLeftMs,
                 years: this.LIMITED_OFFER_YEARS_RU,
                 discount: this.LIMITED_OFFER_DISCOUNT_RU_PERCENT,
-                url: this.LIMITED_OFFER_URL_RU,
+                url: getForwarderUrl(
+                    forwarderDomain,
+                    `action=${this.TDS_LIMITED_OFFER_ACTION_RU}&from=popup&app=vpn_extension`,
+                ),
             };
         }
 
         if (shouldShowNotification) {
             await this.createNotification(this.LIMITED_OFFER_DISCOUNT_PERCENT);
         }
+
         return {
             timeLeftMs,
             years: this.LIMITED_OFFER_YEARS,
             discount: this.LIMITED_OFFER_DISCOUNT_PERCENT,
-            url: this.LIMITED_OFFER_URL,
+            url: getForwarderUrl(
+                forwarderDomain,
+                `action=${this.TDS_LIMITED_OFFER_ACTION}&from=popup&app=vpn_extension`,
+            ),
         };
     }
 }

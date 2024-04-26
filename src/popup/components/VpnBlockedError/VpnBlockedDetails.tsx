@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import { VPN_BLOCKED_GET_APP_LINK } from '../../../background/config';
+import { FORWARDER_URL_QUERIES } from '../../../background/config';
+import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { popupActions } from '../../actions/popupActions';
 import { rootStore } from '../../stores';
@@ -13,12 +14,14 @@ import './vpn-blocked-details.pcss';
  * Component for displaying connection error details.
  */
 export const VpnBlockedDetails = observer(() => {
-    const { uiStore } = useContext(rootStore);
+    const { uiStore, settingsStore } = useContext(rootStore);
 
     const { isShownVpnBlockedErrorDetails } = uiStore;
 
+    const { forwarderDomain } = settingsStore;
+
     const openDownloadPage = () => {
-        popupActions.openTab(VPN_BLOCKED_GET_APP_LINK);
+        popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.VPN_BLOCKED_GET_APP));
     };
 
     /**

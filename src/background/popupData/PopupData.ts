@@ -11,6 +11,7 @@ import { sleep } from '../../common/helpers';
 import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
 import { exclusions } from '../exclusions';
+import { forwarder } from '../forwarder';
 import { rateModal } from '../rateModal';
 import { EndpointsInterface } from '../endpoints/Endpoints';
 import { PermissionsCheckerInterface } from '../permissionsChecker/PermissionsChecker';
@@ -44,6 +45,7 @@ interface PopupDataInterface {
     vpnInfo?: VpnExtensionInfoInterface | null;
     locations?: LocationWithPing[];
     selectedLocation?: LocationWithPing | null;
+    forwarderDomain: string;
     isAuthenticated: string | boolean;
     policyAgreement: boolean;
     showScreenshotFlow: boolean;
@@ -105,9 +107,11 @@ export class PopupData {
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
         const showScreenshotFlow = await abTestManager.isShowScreenshotFlow();
         const isHostPermissionsGranted = await Permissions.hasNeededHostPermissions();
+        const forwarderDomain = await forwarder.updateAndGetDomain();
 
         if (!isAuthenticated) {
             return {
+                forwarderDomain,
                 isAuthenticated,
                 policyAgreement,
                 showScreenshotFlow,
@@ -156,6 +160,7 @@ export class PopupData {
             vpnInfo,
             locations,
             selectedLocation,
+            forwarderDomain,
             isAuthenticated,
             policyAgreement,
             canControlProxy,

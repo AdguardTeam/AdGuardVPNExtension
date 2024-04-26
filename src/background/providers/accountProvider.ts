@@ -1,5 +1,6 @@
+import { getForwarderUrl } from '../../common/helpers';
 import { accountApi } from '../api';
-import { FORWARDER_DOMAIN } from '../config';
+import { forwarder } from '../forwarder';
 import { notifications } from '../notifications';
 import { translator } from '../../common/translator';
 import { SubscriptionType } from '../../common/constants';
@@ -115,7 +116,12 @@ const getAvailableBonuses = async (accessToken: string): Promise<BonusesData> =>
     } = bonusesData;
 
     const inviteId = bonusesData.invites_bonuses.invite_id;
-    const inviteUrl = `https://${FORWARDER_DOMAIN}/forward.html?action=referral_link&app=vpn_extension&invite_id=${inviteId}`;
+
+    const forwarderDomain = await forwarder.updateAndGetDomain();
+    const inviteUrl = getForwarderUrl(
+        forwarderDomain,
+        `action=referral_link&app=vpn_extension&invite_id=${inviteId}`,
+    );
 
     return {
         confirmBonus,

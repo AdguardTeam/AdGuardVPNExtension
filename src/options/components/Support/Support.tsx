@@ -2,8 +2,9 @@ import React, { ReactNode, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
+import { getForwarderUrl } from '../../../common/helpers';
 import { messenger } from '../../../common/messenger';
-import { FEEDBACK_URL, FAQ_URL } from '../../../background/config';
+import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { Title } from '../ui/Title';
 import { translator } from '../../../common/translator';
 
@@ -20,7 +21,7 @@ interface SupportItems {
 
 export const Support = observer(() => {
     const { settingsStore } = useContext(rootStore);
-    const { showBugReporter, setShowBugReporter } = settingsStore;
+    const { showBugReporter, setShowBugReporter, forwarderDomain } = settingsStore;
 
     const createOpenUrlHandler = (url: string) => async (): Promise<void> => {
         await messenger.openTab(url);
@@ -35,7 +36,7 @@ export const Support = observer(() => {
             title: translator.getMessage('options_support_faq_title'),
             description: translator.getMessage('options_support_faq_description'),
             iconXlink: '#question',
-            clickHandler: createOpenUrlHandler(FAQ_URL),
+            clickHandler: createOpenUrlHandler(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FAQ)),
         }, {
             title: translator.getMessage('options_support_report_title'),
             description: translator.getMessage('options_support_report_description'),
@@ -45,7 +46,7 @@ export const Support = observer(() => {
             title: translator.getMessage('options_support_feedback_title'),
             description: translator.getMessage('options_support_feedback_description'),
             iconXlink: '#send-feedback',
-            clickHandler: createOpenUrlHandler(FEEDBACK_URL),
+            clickHandler: createOpenUrlHandler(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK)),
         },
     ];
 
