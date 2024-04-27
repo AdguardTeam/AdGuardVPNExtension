@@ -1,7 +1,8 @@
 import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { OPTIONS_STORE_URL, FEEDBACK_URL } from '../../../../background/config';
+import { FORWARDER_URL_QUERIES } from '../../../../background/config';
+import { getForwarderUrl } from '../../../../common/helpers';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
@@ -14,6 +15,7 @@ export const Rate = observer(() => {
     const {
         hideRate,
         isRateVisible,
+        forwarderDomain,
     } = settingsStore;
 
     const handleHideRate = async (): Promise<void> => {
@@ -26,9 +28,9 @@ export const Rate = observer(() => {
         await handleHideRate();
 
         if (value && parseInt(value, 10) >= 4) {
-            window.open(OPTIONS_STORE_URL, '_blank');
+            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OPTIONS_STORE), '_blank');
         } else {
-            window.open(FEEDBACK_URL, '_blank');
+            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
         }
     };
 

@@ -180,3 +180,15 @@ export const runWithCancel = (fn: (...args: any) => any, ...args: any):
 
     return { promise, cancel };
 };
+
+/**
+ * Generates forwarder URL with the given query.
+ *
+ * @param forwarderDomain Forwarder domain.
+ * @param query Query string with parameters.
+ *
+ * @returns URL with the forwarder domain and query.
+ */
+export const getForwarderUrl = (forwarderDomain: string, query: string): string => {
+    return `https://${forwarderDomain}/forward.html?${query}`;
+};

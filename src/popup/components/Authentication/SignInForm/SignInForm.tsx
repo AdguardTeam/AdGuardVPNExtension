@@ -9,11 +9,22 @@ import { rootStore } from '../../../stores';
 import { RequestStatus, InputType } from '../../../stores/constants';
 import PasswordField from '../PasswordField';
 import { Submit } from '../Submit';
+import { FORWARDER_URL_QUERIES } from '../../../../background/config';
+import { getForwarderUrl } from '../../../../common/helpers';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
 
 export const SignInForm = observer(() => {
-    const { authStore } = useContext(rootStore);
+    const { authStore, settingsStore } = useContext(rootStore);
+
+    const { forwarderDomain } = settingsStore;
+
+    const recoveryUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PASSWORD_RECOVERY);
+
+    const handleRecoveryClick = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
+        e.preventDefault();
+        await popupActions.openTab(recoveryUrl);
+    };
 
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -97,7 +108,7 @@ export const SignInForm = observer(() => {
                 <button
                     type="button"
                     className="button button--inline form__link form__link--recover"
-                    onClick={popupActions.openRecovery}
+                    onClick={handleRecoveryClick}
                 >
                     {reactTranslator.getMessage('auth_recover')}
                 </button>

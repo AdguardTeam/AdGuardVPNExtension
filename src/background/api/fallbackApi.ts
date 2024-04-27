@@ -6,6 +6,7 @@ import {
     AUTH_API_URL,
     VPN_API_URL,
     STAGE_ENV,
+    FORWARDER_DOMAIN,
 } from '../config';
 import { clearFromWrappingQuotes } from '../../common/utils/string';
 import { log } from '../../common/logger';
@@ -15,8 +16,6 @@ import { stateStorage } from '../stateStorage';
 import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
 import { FallbackInfo, StorageKey } from '../schema';
-
-export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
 // DNS over https api
 const GOOGLE_DOH_HOSTNAME = 'dns.google';
@@ -55,13 +54,19 @@ export class FallbackApi {
     defaultFallbackInfo: FallbackInfo;
 
     /**
+     * Fallback info cache expiration time in milliseconds.
+     */
+    static DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
+
+    /**
      * Default urls we set already expired,
      * so we need to check bkp url immediately when bkp url is required
      */
-    constructor(vpnApiUrl: string, authApiUrl: string) {
+    constructor(vpnApiUrl: string, authApiUrl: string, forwarderApiUrl: string) {
         this.defaultFallbackInfo = {
             vpnApiUrl,
             authApiUrl,
+            forwarderApiUrl,
             expiresInMs: Date.now() - 1,
         };
     }
@@ -84,7 +89,11 @@ export class FallbackApi {
         return fallbackInfo.expiresInMs < Date.now();
     }
 
-    private async updateFallbackInfo() {
+    /**
+     * Updates the fallback info.
+     * If backup urls are not received, the default fallback info is set.
+     */
+    private async updateFallbackInfo(): Promise<void> {
         const [bkpVpnApiUrl, bkpAuthApiUrl] = await Promise.all([
             this.getBkpVpnApiUrl(),
             this.getBkpAuthApiUrl(),
@@ -94,8 +103,13 @@ export class FallbackApi {
             this.fallbackInfo = {
                 vpnApiUrl: bkpVpnApiUrl,
                 authApiUrl: bkpAuthApiUrl,
-                expiresInMs: Date.now() + DEFAULT_CACHE_EXPIRE_TIME_MS,
+                // use received vpn api url as forwarder api url
+                forwarderApiUrl: bkpVpnApiUrl,
+                expiresInMs: Date.now() + FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS,
             };
+        } else if (!this.fallbackInfo) {
+            // set default fallback info if bkp urls are not received and fallback info is not set
+            this.fallbackInfo = this.defaultFallbackInfo;
         }
     }
 
@@ -113,6 +127,21 @@ export class FallbackApi {
     public getVpnApiUrl = async (): Promise<string> => {
         const fallbackInfo = await this.getFallbackInfo();
         return fallbackInfo.vpnApiUrl;
+    };
+
+    /**
+     * Returns fallback forwarder API URL. AG-32237.
+     *
+     * Received VPN API URL is used as a fallback forwarder API URL,
+     * but if the default VPN API URL is received, the default forwarder API URL should be returned.
+     *
+     * @returns Forwarder API URL.
+     */
+    public getForwarderApiUrl = async (): Promise<string> => {
+        const { forwarderApiUrl } = await this.getFallbackInfo();
+        return forwarderApiUrl === this.defaultFallbackInfo.vpnApiUrl
+            ? this.defaultFallbackInfo.forwarderApiUrl
+            : forwarderApiUrl;
     };
 
     public getAuthApiUrl = async (): Promise<string> => {
@@ -284,7 +313,14 @@ export class FallbackApi {
         return `${basePrefix}.${UserType.Free}`;
     };
 
-    getBkpVpnApiUrl = async () => {
+    /**
+     * Fetches and returns backup VPN API URL.
+     *
+     * @returns Backup VPN API URL if fetched successfully and not an empty string;
+     * if fetched url is an empty string, returns default fallback VPN API URL;
+     * OR null if fetching failed.
+     */
+    getBkpVpnApiUrl = async (): Promise<string | null> => {
         const prefix = await this.getApiHostnamePrefix();
         // we use prefix for api hostname to recognize free, premium and not authenticated users
         const hostname = `${prefix}.${BKP_API_HOSTNAME_PART}`;
@@ -313,4 +349,4 @@ export class FallbackApi {
     }
 }
 
-export const fallbackApi = new FallbackApi(VPN_API_URL, AUTH_API_URL);
+export const fallbackApi = new FallbackApi(VPN_API_URL, AUTH_API_URL, FORWARDER_DOMAIN);

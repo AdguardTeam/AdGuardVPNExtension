@@ -5,8 +5,7 @@ import qs from 'qs';
 import { getDomain } from 'tldts';
 
 import { log } from '../../common/logger';
-import { getLocationWithLowestPing, sleep } from '../../common/helpers';
-import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
+import { getForwarderUrl, getLocationWithLowestPing, sleep } from '../../common/helpers';
 import { notifier } from '../../common/notifier';
 import { proxy } from '../proxy';
 import { vpnProvider } from '../providers/vpnProvider';
@@ -23,6 +22,8 @@ import type {
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../common/constants';
+import { forwarder } from '../forwarder';
+import { FORWARDER_URL_QUERIES } from '../config';
 import { EndpointsState, LocationInterface, StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
 
@@ -449,6 +450,8 @@ class Endpoints implements EndpointsInterface {
 
         const appId = await credentials.getAppId();
 
+        const forwarderDomain = await forwarder.updateAndGetDomain();
+
         // if no endpoints info, then get endpoints failure url with empty token
         let appendToQueryString = false;
         if (!this.vpnInfo) {
@@ -459,7 +462,7 @@ class Endpoints implements EndpointsInterface {
                 this.vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, token);
             } catch (e) {
                 this.vpnInfo = {
-                    vpnFailurePage: POPUP_DEFAULT_SUPPORT_URL,
+                    vpnFailurePage: getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_DEFAULT_SUPPORT),
                     bandwidthFreeMbits: 0,
                     premiumPromoPage: '',
                     premiumPromoEnabled: false,

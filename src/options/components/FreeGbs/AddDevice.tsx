@@ -3,13 +3,16 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
+import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
-import { OTHER_PRODUCTS_URL } from '../../../background/config';
+import { FORWARDER_URL_QUERIES } from '../../../background/config';
 
 export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore } = useContext(rootStore);
-    const { multiplatformBonus } = settingsStore;
+    const { multiplatformBonus, forwarderDomain } = settingsStore;
+
+    const otherProductsUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS);
 
     const getContent = () => {
         if (multiplatformBonus.available) {
@@ -26,7 +29,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
                     />
                     <a
                         className="button button--large button--primary"
-                        href={OTHER_PRODUCTS_URL}
+                        href={otherProductsUrl}
                         target="_blank"
                         rel="noreferrer"
                     >

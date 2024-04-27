@@ -15,6 +15,8 @@ jest.mock('../../../src/background/stateStorage', () => {
     return require('../../../src/background/stateStorage/mv2');
 });
 
+jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
+
 const TEST_PERIOD_SEC = 60 * 60 * 5; // 5 hours
 
 const getCredentialsData = (expiresInSec: number) => {

@@ -1,6 +1,6 @@
 import { proxy } from '../proxy';
 import { log } from '../../common/logger';
-import { runWithCancel, sleepIfNecessary } from '../../common/helpers';
+import { sleepIfNecessary } from '../../common/helpers';
 // eslint-disable-next-line import/no-cycle
 import { credentials } from '../credentials';
 // eslint-disable-next-line import/no-cycle
@@ -9,6 +9,7 @@ import { locationsService } from '../endpoints/locationsService';
 import { endpoints } from '../endpoints';
 import type { AccessCredentialsData } from '../credentials/Credentials';
 import type { EndpointInterface, LocationInterface } from '../schema';
+import { runWithCancel } from '../helpers';
 
 import {
     connectivityService,

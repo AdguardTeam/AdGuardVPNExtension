@@ -6,9 +6,10 @@ import { isIP } from 'is-ip';
 import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
+import { getForwarderUrl } from '../../../../common/helpers';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
-import { ADGUARD_DNS_KB_LINK } from '../../../../background/config';
+import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 
 const DOH_PREFIX = 'https://';
 const DOT_PREFIX = 'tls://';
@@ -27,11 +28,14 @@ export const CustomDnsServerModal = observer(() => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
 
     const {
+        forwarderDomain,
         dnsServerName,
         dnsServerAddress,
         setDnsServerName,
         setDnsServerAddress,
     } = settingsStore;
+
+    const adguardDnsKbUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.ADGUARD_DNS_KB);
 
     const [dnsServerAddressError, setDnsServerAddressError] = useState<string | null>(null);
 
@@ -175,7 +179,18 @@ export const CustomDnsServerModal = observer(() => {
                     <div className="form__item">
                         {
                             reactTranslator.getMessage('settings_dns_add_custom_server_info', {
-                                a: (chunks: string) => (<a href={ADGUARD_DNS_KB_LINK} target="_blank" rel="noreferrer" className="dns-settings__modal--link">{chunks}</a>),
+                                a: (chunks: string) => {
+                                    return (
+                                        <a
+                                            href={adguardDnsKbUrl}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="dns-settings__modal--link"
+                                        >
+                                            {chunks}
+                                        </a>
+                                    );
+                                },
                             })
                         }
                     </div>

@@ -39,8 +39,8 @@ import { connectivityService } from '../connectivity/connectivityService';
 import { proxyApi } from '../proxy/abstractProxyApi';
 import { updateOptionsPageListeners } from '../stateStorage/helper';
 import { logStorageManager } from '../../common/log-storage/LogStorageManager';
+import { setUninstallUrl } from '../uninstall';
 import '../rateModal';
-import '../uninstall';
 import '../networkConnectionObserver';
 
 declare global {
@@ -125,6 +125,8 @@ const asyncInitModules = async (): Promise<void> => {
         browserActionIcon.init();
         popupOpenedCounter.init();
         await updateOptionsPageListeners();
+        // set uninstall url for the extension at the end
+        await setUninstallUrl();
         const initDoneDate = Date.now();
         log.info(`Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
     } catch (e) {

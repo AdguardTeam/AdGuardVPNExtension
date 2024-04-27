@@ -4,8 +4,9 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
-import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL, COMPARE_PAGE } from '../../../background/config';
+import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { messenger } from '../../../common/messenger';
+import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { RatePopup } from '../RatePopup';
 
@@ -21,6 +22,7 @@ export const ExtraOptions = observer(() => {
         isCurrentTabExcluded,
         canBeExcluded,
         hasDesktopAppForOs,
+        forwarderDomain,
     } = settingsStore;
 
     const openSettings = async (): Promise<void> => {
@@ -29,11 +31,11 @@ export const ExtraOptions = observer(() => {
     };
 
     const handleFeedback = async (): Promise<void> => {
-        await popupActions.openTab(POPUP_FEEDBACK_URL);
+        await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_FEEDBACK));
     };
 
     const handleOtherProductsClick = async (): Promise<void> => {
-        await popupActions.openTab(OTHER_PRODUCTS_URL);
+        await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS));
     };
 
     const removeFromExclusions = async (): Promise<void> => {
@@ -47,7 +49,7 @@ export const ExtraOptions = observer(() => {
     };
 
     const openComparePage = () => {
-        popupActions.openTab(COMPARE_PAGE);
+        popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.COMPARE_PAGE));
     };
 
     const renderOption = (key: string, handler: () => void, className: string | null = null) => {

@@ -3,13 +3,14 @@
  */
 import browser from 'webextension-polyfill';
 
+import { getForwarderUrl } from '../common/helpers';
 import { Prefs } from '../common/prefs';
 import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
 
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
-import { FORWARDER_DOMAIN } from './config';
+import { forwarder } from './forwarder';
 
 interface PromoNotificationInterface {
     getCurrentNotification(): Promise<PromoNotificationData | null>;
@@ -31,7 +32,21 @@ export interface PromoNotificationData {
         title: string,
         btn: string,
     };
-    url: string;
+
+    /**
+     * URL for the promo.
+     *
+     * **Should be generated and set** during {@link getCurrentNotification}.
+     */
+    url?: string;
+
+    /**
+     * Query string for the promo URL.
+     *
+     * Should be used for the promo URL update.
+     */
+    urlQuery: string;
+
     from: string;
     to: string;
     type: string;
@@ -61,13 +76,13 @@ const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 const TDS_PROMO_ACTION = 'easter_24_vpn';
 const TDS_PROMO_ACTION_RU = 'easter_24_vpn_ru';
 
-const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
-const RU_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
+const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
+const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
 // possible return values of getUILanguage(): 'ru' or 'ru-RU' which is 'ru_ru' after normalization
-const promoLink = isRuLocale
-    ? RU_PROMO_LINK
-    : COMMON_PROMO_LINK;
+const promoUrlQuery = isRuLocale
+    ? RU_PROMO_URL_QUERY
+    : COMMON_PROMO_URL_QUERY;
 
 /**
  * List of locales for the Spring promo, not the Easter one. AG-31141.
@@ -193,7 +208,7 @@ let easter24Notification: PromoNotificationData = {
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    url: promoLink,
+    urlQuery: promoUrlQuery,
     from: '28 March 2024 12:00:00',
     to: '3 April 2024 23:59:00',
     type: 'animated',
@@ -460,9 +475,15 @@ const getCurrentNotification = async (): Promise<PromoNotificationData | null> =
     const notificationsKeys = Object.keys(notifications);
     const viewedNotifications = (await browserApi.storage.get<string[]>(VIEWED_NOTIFICATIONS)) || [];
 
+    const forwarderDomain = await forwarder.updateAndGetDomain();
+
     for (let i = 0; i < notificationsKeys.length; i += 1) {
         const notificationKey = notificationsKeys[i];
         const notification = notifications[notificationKey];
+
+        // set the promo url
+        notification.url = getForwarderUrl(forwarderDomain, notification.urlQuery);
+
         const from = new Date(notification.from).getTime();
         const to = new Date(notification.to).getTime();
         if (from < currentTime

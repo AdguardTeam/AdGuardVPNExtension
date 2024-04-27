@@ -1,3 +1,4 @@
+// TODO: rename file to constants.ts
 export enum RequestStatus {
     Done = 'done',
     Pending = 'pending',

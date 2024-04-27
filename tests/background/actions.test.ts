@@ -2,6 +2,7 @@ import { actions, buildQueryString } from '../../src/background/actions';
 import { credentials } from '../../src/background/credentials';
 // TODO: test mv3 after official switch to mv3
 import { stateStorage } from '../../src/background/stateStorage/mv2';
+import { forwarder } from '../../src/background/forwarder';
 
 jest.mock('../../src/background/stateStorage', () => {
     // eslint-disable-next-line global-require
@@ -13,7 +14,9 @@ jest.mock('../../src/background/credentials');
 jest.mock('../../src/background/config', () => {
     return {
         // url example for test
-        UPGRADE_LICENSE_URL: 'https://adguard-vpn.com/license.html?action=upgrade_license',
+        FORWARDER_URL_QUERIES: {
+            UPGRADE_LICENSE: 'action=upgrade_license',
+        },
     };
 });
 jest.mock('../../src/background/settings');
@@ -21,13 +24,15 @@ jest.mock('../../src/background/settings');
 describe('Actions tests', () => {
     beforeEach(async () => {
         await stateStorage.init();
+        jest.spyOn(forwarder, 'updateAndGetDomain')
+            .mockResolvedValue('adguard-vpn.com');
     });
 
     it('Get premium promo page url', async () => {
         const getUsernameMock = credentials.getUsername as jest.MockedFunction<() => any>;
         getUsernameMock.mockImplementation(() => 'test@mail.com');
 
-        const expectedUrl = 'https://adguard-vpn.com/license.html?action=upgrade_license&email=test%40mail.com';
+        const expectedUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=test%40mail.com';
         const url = await actions.getPremiumPromoPageUrl();
         getUsernameMock.mockClear();
         expect(url).toEqual(expectedUrl);
@@ -37,7 +42,7 @@ describe('Actions tests', () => {
         const getUsernameMock = credentials.getUsername as jest.MockedFunction<() => any>;
         getUsernameMock.mockImplementation(() => 'tester+000@test.com');
 
-        const expectedUrl = 'https://adguard-vpn.com/license.html?action=upgrade_license&email=tester%2B000%40test.com';
+        const expectedUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=tester%2B000%40test.com';
         const url = await actions.getPremiumPromoPageUrl();
         getUsernameMock.mockClear();
         expect(url).toEqual(expectedUrl);
