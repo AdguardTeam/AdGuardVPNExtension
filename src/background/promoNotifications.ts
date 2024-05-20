@@ -5,7 +5,7 @@ import browser from 'webextension-polyfill';
 
 import { getForwarderUrl } from '../common/helpers';
 import { Prefs } from '../common/prefs';
-import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
+import { normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
 
 import { getUrl } from './browserApi/runtime';
@@ -73,259 +73,199 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'easter_24_vpn';
-const TDS_PROMO_ACTION_RU = 'easter_24_vpn_ru';
+const TDS_PROMO_ACTION = 'birthday_24_vpn';
 
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
-const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
-// possible return values of getUILanguage(): 'ru' or 'ru-RU' which is 'ru_ru' after normalization
-const promoUrlQuery = isRuLocale
-    ? RU_PROMO_URL_QUERY
-    : COMMON_PROMO_URL_QUERY;
+const BIRTHDAY_24_ID = 'birthday24';
 
-/**
- * List of locales for the Spring promo, not the Easter one. AG-31141.
- */
-const SPRING_PROMO_LOCALES = [
-    'ru',
-    'uk',
-    'ar',
-    'be',
-    'bg',
-    'el',
-    'sr',
-    'hy',
-    'fa',
-    'he',
-    'ms',
-    'id',
-    'tr',
-    'vi',
-    'zh_cn',
-    'zh_tw',
-];
-
-const EASTER_24_ID = 'easter24';
-
-let easter24Notification: PromoNotificationData = {
-    id: EASTER_24_ID,
+const birthday24Notification: PromoNotificationData = {
+    id: BIRTHDAY_24_ID,
     locales: {
         en: {
-            title: 'Easter promo',
-            btn: 'Get 80% off',
-        },
-        // there is no promo for Japanese
-        // ja: {},
-        ko: {
-            title: '부활절 세일',
-            btn: '80% 할인',
+            title: 'Would you fit in AdGuard?',
+            btn: 'Find out',
         },
         fr: {
-            title: 'Promo de Pâques',
-            btn: '80% de remise ici',
+            title: 'Qui seriez-vous chez AdGuard ?',
+            btn: 'Découvrez-le',
         },
         it: {
-            title: 'Offerta di Pascua',
-            btn: '80% di sconto qui',
+            title: 'Chi sarai ad AdGuard ?',
+            btn: 'Scoprirlo',
         },
         de: {
-            title: 'Oster-Sale',
-            btn: '80% Rabatt',
+            title: 'Wer wären Sie bei AdGuard?',
+            btn: 'Herausfinden',
+        },
+        ru: {
+            title: 'Кем бы вы были в AdGuard?',
+            btn: 'Узнать',
         },
         es: {
-            title: 'Promo de Pascua',
-            btn: 'Obtén un 80% OFF',
-        },
-        pt_br: {
-            title: 'Promo de Páscoa',
-            btn: 'Obtenha 80% OFF',
-        },
-        pt_pt: {
-            title: 'Promo de Páscoa',
-            btn: 'Obtenha 80% OFF',
-        },
-        ca: {
-            title: 'Promoció de Pasqua',
-            btn: '80% de descompte',
-        },
-        cs: {
-            title: 'Velikonoční promo akce',
-            btn: '80% sleva',
-        },
-        da: {
-            title: 'Påske kampagne',
-            btn: '80% rabat',
+            title: '¿Quién eres en AdGuard?',
+            btn: 'Descubrirlo',
         },
         es_419: {
-            title: 'Promoción de pascua',
-            btn: '80% de descuento',
+            title: '¿Quién eres en AdGuard?',
+            btn: 'Descubrirlo',
         },
-        fi: {
-            title: 'Pääsiäispromo',
-            btn: '80 % alennus',
+        pt_pt: {
+            title: 'Quem seria no AdGuard?',
+            btn: 'Descobrir',
         },
-        hr: {
-            title: 'Uskršnja promocija',
-            btn: '80% popusta',
+        pt_br: {
+            title: 'Quem é você no AdGuard?',
+            btn: 'Descobrir',
         },
-        hu: {
-            title: 'Húsvéti promóció',
-            btn: '80% kedvezmény',
+        zh_cn: {
+            title: '如果你在 AdGuard 工作',
+            btn: '你的岗位会是...',
         },
-        lt: {
-            title: 'Velykų akcija',
-            btn: '80% nuolaida',
+        zh_tw: {
+            title: '如果您在 AdGuard 工作',
+            btn: '您的崗位會是...',
         },
-        nb: {
-            title: 'Påskekampanje',
-            btn: '80% rabatt',
+        ja: {
+            title: 'あなたが AdGuard メンバーだったら？',
+            btn: 'おもしろアンケート',
         },
-        nl: {
-            title: 'Pasen promo',
-            btn: '80% korting',
+        ko: {
+            title: '여러분이 AdGuard 직원이라면?',
+            btn: '테스트 시작',
+        },
+        uk: {
+            title: 'Ким би ви були в AdGuard?',
+            btn: 'Дізнатися',
+        },
+        ar: {
+            title: '؟AdGuard من كنت ستكون في ',
+            btn: 'اكتشاف',
+        },
+        be: {
+            title: 'Кім бы вы былі ў AdGuard?',
+            btn: 'Даведацца',
+        },
+        id: {
+            title: 'Siapa yang akan Anda jadi di AdGuard?',
+            btn: 'Mengetahui',
         },
         pl: {
-            title: 'Promocja wielkanocna',
-            btn: '80% zniżki',
+            title: 'Kim byłbyś w AdGuard?',
+            btn: 'Dowiedzieć się',
+        },
+        tr: {
+            title: "AdGuard'da kim olurdunuz?",
+            btn: 'Öğrenmek',
+        },
+        vi: {
+            title: 'Bạn sẽ là ai trong AdGuard?',
+            btn: 'Tìm hiểu',
+        },
+        bg: {
+            title: 'Кой бихте били в AdGuard?',
+            btn: 'Разбера',
+        },
+        ca: {
+            title: 'Qui seríeu a AdGuard?',
+            btn: 'Esbrinar',
+        },
+        cs: {
+            title: 'Kým byste byli v AdGuard?',
+            btn: 'Zjistit',
+        },
+        da: {
+            title: 'Hvem ville du være i AdGuard?',
+            btn: 'Finde ud af',
+        },
+        el: {
+            title: 'Ποιος θα ήσασταν στο AdGuard;',
+            btn: 'Μάθω',
+        },
+        fa: {
+            title: 'چه نقشی داشته‌اید؟ AdGuard شما در ',
+            btn: 'فهمیدن',
+        },
+        fi: {
+            title: 'Kuka olisit AdGuardissa?',
+            btn: 'Selvittää',
+        },
+        he: {
+            title: '?AdGuardמי היית ב',
+            btn: 'לגלות',
+        },
+        hr: {
+            title: 'Tko bi bio u AdGuardu?',
+            btn: 'Saznati',
+        },
+        hu: {
+            title: 'Ki lennél az AdGuardban?',
+            btn: 'Megtudni',
+        },
+        hy: {
+            title: 'Ով կլինեիք AdGuard-ում՞',
+            btn: 'Պարզել',
+        },
+        lt: {
+            title: 'Kuo būtumėte AdGuard?',
+            btn: 'Sužinoti',
+        },
+        ms: {
+            title: 'Siapa anda akan jadi di AdGuard?',
+            btn: 'Ketahui',
+        },
+        no: {
+            title: 'Hvem ville du vært i AdGuard?',
+            btn: 'Finne ut',
+        },
+        nl: {
+            title: 'Wie zou je zijn bij AdGuard?',
+            btn: 'Uitvinden',
         },
         ro: {
-            title: 'Promoție de primăvară',
-            btn: '80% reducere',
+            title: 'Cine ai fi în AdGuard?',
+            btn: 'Afla',
         },
         sk: {
-            title: 'Veľkonočné promo',
-            btn: '80% zľava',
+            title: 'Kým by ste boli v AdGuard?',
+            btn: 'Zistiť',
         },
         sl: {
-            title: 'Velikonočni promo',
-            btn: '80% popust',
+            title: 'Kdo bi bil v AdGuard?',
+            btn: 'Izvedeti',
+        },
+        'sr-Latn': {
+            title: 'Ko bi ste bili u AdGuard?',
+            btn: 'Saznati',
         },
         sv: {
-            title: 'Påsk kampanj',
-            btn: '80 % rabatt',
+            title: 'Vem skulle du vara i AdGuard?',
+            btn: 'Ta reda på',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    urlQuery: promoUrlQuery,
-    from: '28 March 2024 12:00:00',
-    to: '3 April 2024 23:59:00',
+    urlQuery: COMMON_PROMO_URL_QUERY,
+    from: '30 May 2024 12:00:00',
+    to: '5 June 2024 23:59:00',
     type: 'animated',
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
-    bgImage: getUrl('assets/images/easter24.svg'),
+    bgImage: getUrl('assets/images/birthday24.svg'),
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/easter24-on-19.png'),
-            38: getUrl('assets/images/icons/easter24-on-38.png'),
+            19: getUrl('assets/images/icons/birthday24-on-19.png'),
+            38: getUrl('assets/images/icons/birthday24-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/easter24-off-19.png'),
-            38: getUrl('assets/images/icons/easter24-off-38.png'),
+            19: getUrl('assets/images/icons/birthday24-off-19.png'),
+            38: getUrl('assets/images/icons/birthday24-off-38.png'),
         },
     },
 };
-
-/**
- * Diff data for the Spring promo.
- */
-const spring24NotificationUpdateDiff = {
-    locales: {
-        ar: {
-            title: 'ترويج الربيع',
-            btn: '٪80 خصم',
-        },
-        be: {
-            title: 'Вясновая акцыя',
-            btn: 'Зніжка 80%',
-        },
-        bg: {
-            title: 'Пролетна промоция',
-            btn: '80% отстъпка',
-        },
-        el: {
-            title: 'Ανοιξιάτικη προώθηση',
-            btn: '80% έκπτωση',
-        },
-        fa: {
-            title: 'تبلیغات بهار',
-            btn: '80 درصد تخفیف',
-        },
-        he: {
-            title: 'קידום אביב',
-            btn: '80% הנחה',
-        },
-        hy: {
-            title: 'Գարնանային ակցիա',
-            btn: '80% զեղչ',
-        },
-        id: {
-            title: 'Promosi musim semi',
-            btn: 'Diskon 80%',
-        },
-        ms: {
-            title: 'Promosi musim bunga',
-            btn: '80% diskaun',
-        },
-        ru: {
-            title: 'Весенняя акция',
-            btn: 'Скидка 75%',
-        },
-        'sr-Latn': {
-            title: 'Prolećna promocija',
-            btn: 'Popust 80%',
-        },
-        tr: {
-            title: 'Bahar promosyonu',
-            btn: '%80 indirim',
-        },
-        uk: {
-            title: 'Весняна акція',
-            btn: 'Знижка 80%',
-        },
-        vi: {
-            title: 'Khuyến mãi mùa xuân',
-            btn: 'Giảm giá 80%',
-        },
-        zh_cn: {
-            title: '暖春特惠',
-            btn: '享2折',
-        },
-        zh_tw: {
-            title: '暖春優惠',
-            btn: '享2折',
-        },
-    },
-    bgImage: getUrl('assets/images/spring24.svg'),
-    icons: {
-        ENABLED: {
-            19: getUrl('assets/images/icons/spring24-on-19.png'),
-            38: getUrl('assets/images/icons/spring24-on-38.png'),
-        },
-        DISABLED: {
-            19: getUrl('assets/images/icons/spring24-off-19.png'),
-            38: getUrl('assets/images/icons/spring24-off-38.png'),
-        },
-    },
-};
-
-// possible values of browser lang: 'zh-TW' which is 'zh_tw' after normalization
-const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
-
-const shouldShowSpring24Promo = currentLocale
-    && SPRING_PROMO_LOCALES.some((locale) => currentLocale.startsWith(locale));
-
-if (shouldShowSpring24Promo) {
-    easter24Notification = {
-        ...easter24Notification,
-        // update the notification data with the Spring promo data
-        ...spring24NotificationUpdateDiff,
-    };
-}
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [EASTER_24_ID]: easter24Notification,
+    [BIRTHDAY_24_ID]: birthday24Notification,
 };
 
 /**
