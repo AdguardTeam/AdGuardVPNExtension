@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adguard/logger@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@adguard/logger/-/logger-1.0.0.tgz#7c8aa12014d88ea4b9edc61fcbc861a48a0fd093"
-  integrity sha512-x78seQdIMqbhEAIUhtahKvPtZrlMurHIwKvaAo48if+LezPzVejjcX5bdxaNSzmoZGjMjODVjn3B/M/QfKkvjw==
+"@adguard/logger@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@adguard/logger/-/logger-1.0.1.tgz#7a767dfa7c182cb504f2f278419fecb8122ec0dc"
+  integrity sha512-g1Uv0ett0cby5EuXHNe9QIJKip4YRrhQcCi2Fm/d01rMA4v1oFbqk3JgvzS8iwKuhTjk7CCaKaTscvGgKQ+dcQ==
 
 "@adguard/translate@^1.0.2":
   version "1.0.2"
