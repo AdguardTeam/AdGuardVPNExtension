@@ -218,6 +218,13 @@ export const App = observer(() => {
             <>
                 {isOpenOptionsModal && <ExtraOptions />}
                 <Header showMenuButton={showMenuButton} />
+                {
+                    // do not show the warning for users on linux AG-27487
+                    hasDesktopAppForOs
+                    // do not show the warning if there is a limited offer active
+                    && !isLimitedOfferActive
+                    && <VpnBlockedError />
+                }
                 <Icons />
                 <GlobalError />
                 <ServerErrorPopup />
