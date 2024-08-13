@@ -3,7 +3,8 @@
         "message": "AdGuard VPN — snelle & veilige proxy"
     },
     "description": {
-        "message": "AdGuard VPN gebruiken om snel, veilig en beveiligd op internet te surfen. Je privacy beschermen en anoniem blijven met onze privé-VPN-proxy."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "AdGuard VPN gebruiken om snel en veilig op internet te surfen. Je privacy beschermen en anoniem blijven met onze privé-VPN-proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -778,7 +779,7 @@
         "message": "Mij e-mails sturen met speciale aanbiedingen en AdGuard-nieuws"
     },
     "popup_newsletter_subscribe": {
-        "message": "Abonneren"
+        "message": "Abonneer"
     },
     "popup_newsletter_no_subscribe": {
         "message": "Nee, bedankt"

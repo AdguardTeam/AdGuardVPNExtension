@@ -236,12 +236,6 @@
     "settings_exclusion_placeholder_search": {
         "message": "جستجو"
     },
-    "settings_exclusions_action_export": {
-        "message": "خروجی استثائات"
-    },
-    "settings_exclusions_action_import": {
-        "message": "وارد کردن استثنائات"
-    },
     "settings_exclusions_action_remove_all": {
         "message": "حذف همه"
     },
@@ -297,7 +291,7 @@
         "message": "ادامه"
     },
     "popup_newsletter_subscribe": {
-        "message": "دریافت اشتراک"
+        "message": "اشتراک"
     },
     "popup_newsletter_no_subscribe": {
         "message": "خیر،ممنونم"
@@ -339,7 +333,7 @@
         "message": "لغو"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "دریافت اشتراک"
+        "message": "اشتراک"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "بیشتر بدانید"
@@ -351,6 +345,7 @@
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

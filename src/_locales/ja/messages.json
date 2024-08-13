@@ -3,6 +3,7 @@
         "message": "AdGuard VPN — 公共Wi-Fiでもネットが安全になるVPN"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "オンラインで個人情報プライバシーを守るAdGuard VPNを使って、高速かつ安全なインターネットをお楽しみください。"
     },
     "short_name": {
@@ -534,10 +535,10 @@
         "message": "接続トラブル"
     },
     "settings_exclusions_action_export": {
-        "message": "除外リストをエクスポート"
+        "message": "対象外項目をエクスポート"
     },
     "settings_exclusions_action_import": {
-        "message": "除外リストをインポート"
+        "message": "対象外項目をインポート"
     },
     "settings_exclusions_action_remove_all": {
         "message": "すべて削除"
@@ -778,7 +779,7 @@
         "message": "AdGuardニュース・製品情報やお得情報のメールを受け取る"
     },
     "popup_newsletter_subscribe": {
-        "message": "無料お試しスタート"
+        "message": "サブスクライブする"
     },
     "popup_newsletter_no_subscribe": {
         "message": "いいえ、結構"

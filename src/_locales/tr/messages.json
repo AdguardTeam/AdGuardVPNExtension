@@ -3,7 +3,8 @@
         "message": "AdGuard VPN — ücretsiz ve güvenli proxy"
     },
     "description": {
-        "message": "İnternette hızlı, güvenli ve güvenilir bir şekilde gezinmek için AdGuard VPN kullanın. Özel VPN proxy'mizle gizliliğinizi koruyun ve anonim kalın."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Hızlı, güvenli ve güvenilir internet için AdGuard VPN kullanın. Özel VPN proxy'mizle gizliliğinizi koruyun ve anonim kalın."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -84,7 +85,7 @@
         "message": "E-posta"
     },
     "options_bug_report_include_log_label": {
-        "message": "Tanılama raporunu mesaja dahil et"
+        "message": "Tanılama raporunu mesaja dâhil et"
     },
     "options_bug_report_email_invalid": {
         "message": "Yanlış e-posta adresi"
@@ -186,7 +187,7 @@
         "message": "Kaydol"
     },
     "auth_sign_in": {
-        "message": "Parolanızı girin"
+        "message": "Parolanı gir"
     },
     "auth_sign_in_button": {
         "message": "Giriş yap"
@@ -564,7 +565,7 @@
         "message": "Yalnızca seçili sitelerde"
     },
     "settings_exclusion_selective_mode_info": {
-        "message": "VPN <span>seçici olarak</span> açık: yalnızca aşağıdaki siteler için"
+        "message": "VPN, <span>seçici olarak</span> açık: yalnızca aşağıdaki siteler için"
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Bu listeyi boş bırakmak tüm siteler için VPN'i devre dışı bırakır"
@@ -879,6 +880,10 @@
     },
     "popup_limited_offer_details_time_left": {
         "message": "Kalan süre: %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN Unlimited %count% yıl için <span>%%%discount% indirim</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Teklifi kabul et"

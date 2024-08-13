@@ -3,6 +3,7 @@
         "message": "AdGuard VPN — 快速 & 安全的代理"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "使用 AdGuard VPN 以快速地、可靠地、安全地於網際網路上瀏覽。用我們私人的 vpn 代理保護您的隱私並保持匿名。"
     },
     "short_name": {

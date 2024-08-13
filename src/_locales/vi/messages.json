@@ -3,6 +3,7 @@
         "message": "AdGuard VPN — Quyền riêng tư & Bảo mật"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Làm cho Internet mở và dữ liệu của bạn an toàn. VPN tốt nhất từ những người tạo ra trình chặn quảng cáo nổi tiếng."
     },
     "short_name": {
@@ -778,7 +779,7 @@
         "message": "Gửi cho tôi email với các ưu đãi đặc biệt và tin tức từ AdGuard"
     },
     "popup_newsletter_subscribe": {
-        "message": "Đăng ký"
+        "message": "Đăng kí"
     },
     "popup_newsletter_no_subscribe": {
         "message": "Không, cảm ơn"

@@ -3,7 +3,8 @@
         "message": "AdGuard VPN — darmowy i bezpieczny pośrednik"
     },
     "description": {
-        "message": "Użyj AdGuard VPN, aby surfować po Internecie szybko, bezpiecznie i pewnie. Chroń swoją prywatność i pozostań anonimowy(a) dzięki naszemu prywatnemu pośrednikowi VPN."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Użyj AdGuard VPN, aby surfować po Internecie szybko i bezpiecznie. Chroń swoją prywatność dzięki naszemu prywatnemu serwerowi VPN."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -150,7 +151,7 @@
         "message": "Wyloguj się"
     },
     "account_unlimited_title": {
-        "message": "Pobierz wersję bez ograniczeń!"
+        "message": "Zdobądź wersję Unlimited!"
     },
     "rate_description": {
         "message": "Hej, jako zespół AdGuard zależy nam na Twojej opinii o naszym produkcie. Prosimy, podziel się swoim zdaniem i oceń go."
@@ -924,7 +925,7 @@
         "message": "Osiągnięto maksymalną liczbę połączeń: %maxDevicesAllowed%."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Aby dodać więcej urządzeń, rozważ subskrypcję Nielimitowany AdGuard VPN."
+        "message": "Aby dodać więcej urządzeń, rozważ subskrypcję AdGuard VPN Unlimited."
     },
     "popup_connections_limit_description_end_premium": {
         "message": "Aby dodać kolejne urządzenie, wyłącz AdGuard VPN na dowolnym ze swoich gadżetów."

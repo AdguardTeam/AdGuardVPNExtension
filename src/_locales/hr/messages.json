@@ -3,6 +3,7 @@
         "message": "AdGuard VPN — besplatni & sigurni proxy"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Internet čini otvorenim, a vaše podatke sigurnima. Vrhunski VPN od stvaralaca poznatog blokera oglasa."
     },
     "short_name": {

@@ -3,7 +3,8 @@
         "message": "AdGuard VPN — vpn rapid și proxy privat sigur"
     },
     "description": {
-        "message": "Utilizați AdGuard VPN pentru o navigare rapidă, sigură și securizată pe internet. Protejați-vă intimitatea și rămâneți anonim cu proxy-ul nostru VPN privat."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Utilizați AdGuard VPN pentru o navigare rapidă și sigură. Protejați-vă intimitatea și rămâneți anonim cu proxy-ul nostru VPN."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -778,7 +779,7 @@
         "message": "Trimiteți-mi e-mailuri cu oferte speciale și știri AdGuard"
     },
     "popup_newsletter_subscribe": {
-        "message": "Abonați-vă"
+        "message": "Abonează-te"
     },
     "popup_newsletter_no_subscribe": {
         "message": "Nu, mulțumesc"

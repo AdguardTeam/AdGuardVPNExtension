@@ -3,7 +3,8 @@
         "message": "AdGuard VPN - gratis och säker proxy"
     },
     "description": {
-        "message": "Använd AdGuard VPN för att surfa snabbt, säkert och tryggt på internet. Skydda din integritet och förbli anonym med vår privata VPN-proxy."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Använd AdGuard VPN för att surfa snabbt och säkert på internet. Skydda din integritet och förbli anonym med vår privata VPN-proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -118,6 +119,12 @@
     },
     "account_free": {
         "message": "Gratis konto"
+    },
+    "account_get_subscription": {
+        "message": "Skaffa prenumeration"
+    },
+    "account_next_charge": {
+        "message": "Nästa faktureringsdatum: %date%"
     },
     "account_sign_out": {
         "message": "Logga ut"
@@ -266,6 +273,9 @@
     "settings_dns_add_custom_server_address": {
         "message": "DNS-serveradress"
     },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Ogiltig DNS-serveradress"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Spara och välj"
     },
@@ -344,8 +354,17 @@
     "settings_exclusion_add_subdomain": {
         "message": "Lägg till en underdomän"
     },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN är avstängd för de i kryssade domänerna och underdomänerna"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN är aktiverat för de i kryssade domänerna och underdomänerna"
+    },
     "settings_exclusion_domain_name": {
         "message": "Domännamn:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Från listan"
     },
     "settings_exclusion_add_manually": {
         "message": "Manuellt"
@@ -381,7 +400,7 @@
         "message": "Anslutningsproblem"
     },
     "settings_exclusions_action_export": {
-        "message": "Exportuteslutningar"
+        "message": "Exportera undantag"
     },
     "settings_exclusions_action_import": {
         "message": "Importera undantag"
@@ -392,8 +411,17 @@
     "settings_exclusion_title": {
         "message": "Exkluderingar"
     },
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Var VPN är på"
+    },
+    "settings_exclusion_general_title": {
+        "message": "Överallt utom för uteslutna webbplatser"
+    },
     "settings_exclusion_selective_title": {
         "message": "Endast på utvalda webbplatser"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Om listan lämnas tom inaktiveras VPN för alla webbplatser"
     },
     "settings_exclusion_import_button": {
         "message": "Importera"
@@ -500,6 +528,9 @@
     "popup_feedback_button": {
         "message": "Lämna feedback"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Betygsätt oss gärna"
+    },
     "popup_rate_modal_send_button": {
         "message": "Skicka"
     },
@@ -512,8 +543,14 @@
     "popup_server_error_popup_title": {
         "message": "Kan inte ansluta till server"
     },
+    "popup_server_error_popup_action": {
+        "message": "Knuffa till AdGuard-teamet"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Avbryt"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Jobbar på det"
     },
     "popup_server_error_popup_thankyou_message": {
         "message": "Tack för att du berättar för oss!"

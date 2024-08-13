@@ -11,13 +11,22 @@ import {
     THRESHOLD_PERCENTAGE,
 } from './locales-constants';
 
-const LOCALES = Object.keys(LANGUAGES); // locales to be downloaded
+/**
+ * Locales to be downloaded.
+ */
+const LOCALES = Object.keys(LANGUAGES);
+
+/**
+ * Marker for text max length in description.
+ */
+const TEXT_MAX_LENGTH_MARKER = 'TEXT MAX LENGTH:';
 
 /**
  * @typedef Result
  * @property {string} locale
  * @property {string} level % of translated
  * @property {Array} untranslatedStrings
+ * @property {Array} invalidTranslations
  */
 
 /**
@@ -66,6 +75,42 @@ const printCriticalResults = (criticals) => {
 };
 
 /**
+ * Validates the length of the translated string
+ * against the `TEXT MAX LENGTH:` marker in the base description.
+ *
+ * @param {string} baseDescriptionValue Base description value.
+ * @param {string} localeMessageValue Translated message value.
+ *
+ * @returns {string | null} Error message if the length is invalid, otherwise null.
+ */
+const validateTranslatedLength = (baseDescriptionValue, localeMessageValue) => {
+    if (!baseDescriptionValue) {
+        return null;
+    }
+
+    if (!baseDescriptionValue.includes(TEXT_MAX_LENGTH_MARKER)) {
+        return null;
+    }
+
+    const markerIndex = baseDescriptionValue.indexOf(TEXT_MAX_LENGTH_MARKER);
+    if (markerIndex === -1) {
+        return null;
+    }
+
+    const lengthStr = baseDescriptionValue.slice(markerIndex + TEXT_MAX_LENGTH_MARKER.length).trim();
+    const maxLength = Number(lengthStr);
+    if (Number.isNaN(maxLength)) {
+        return `Invalid max length value: ${lengthStr}`;
+    }
+
+    if (maxLength && localeMessageValue.length > maxLength) {
+        return `Text length is more than allowed ${maxLength} characters, actual: ${localeMessageValue.length}`;
+    }
+
+    return null;
+};
+
+/**
  * Validates that localized string correspond by structure to base locale string.
  *
  * @param {string} baseKey Key of the base locale string.
@@ -77,7 +122,17 @@ const printCriticalResults = (criticals) => {
  */
 const validateMessage = (baseKey, baseLocaleTranslations, locale, localeTranslations) => {
     const baseMessageValue = baseLocaleTranslations[baseKey].message;
+    const baseDescriptionValue = baseLocaleTranslations[baseKey].description;
     const localeMessageValue = localeTranslations[baseKey].message;
+
+    const lengthValidationError = validateTranslatedLength(baseDescriptionValue, localeMessageValue);
+    if (lengthValidationError) {
+        return {
+            key: baseKey,
+            error: lengthValidationError,
+        };
+    }
+
     let validation;
     try {
         if (!validator.isTranslationValid(

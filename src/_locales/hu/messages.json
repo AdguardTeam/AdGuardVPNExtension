@@ -3,6 +3,7 @@
         "message": "AdGuard VPN — ingyenes és biztonságos proxy"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Az AdGuard VPN-nel gyorsan és biztonságosan böngészet. Védje magánéletét és maradjon névtelen a privát vpn proxynk segítségével."
     },
     "short_name": {
@@ -778,7 +779,7 @@
         "message": "Emailek fogadása a különleges ajánlatokról és az AdGuard híreiről"
     },
     "popup_newsletter_subscribe": {
-        "message": "Előfizetés"
+        "message": "Feliratkozás"
     },
     "popup_newsletter_no_subscribe": {
         "message": "Nem, köszönöm"

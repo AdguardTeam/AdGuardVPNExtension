@@ -68,6 +68,12 @@
     "settings_theme_label": {
         "message": "Тема"
     },
+    "settings_theme_dark": {
+        "message": "Тъмна тема"
+    },
+    "settings_theme_light": {
+        "message": "Светла тема"
+    },
     "settings_exclusion_actions": {
         "message": "Действия"
     },
@@ -119,11 +125,17 @@
     "popup_server_error_popup_close": {
         "message": "Затвори"
     },
+    "popup_newsletter_subscribe": {
+        "message": "Абонирай се"
+    },
     "popup_onboarding_next": {
         "message": "Следващ"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Отказ"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Абонирай се"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Научи повече"
@@ -135,6 +147,7 @@
         "message": "AdGuard VPN"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

@@ -444,7 +444,7 @@
         "message": "Στείλτε μου emails με ειδικές προσφορές και ειδήσεις AdGuard"
     },
     "popup_newsletter_subscribe": {
-        "message": "ΕΝΑΡΞΗ ΔΟΚΙΜΗΣ"
+        "message": "Εγγραφή"
     },
     "popup_newsletter_no_subscribe": {
         "message": "Όχι, ευχαριστώ"
@@ -504,6 +504,7 @@
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

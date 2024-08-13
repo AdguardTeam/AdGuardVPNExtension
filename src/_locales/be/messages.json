@@ -3,7 +3,8 @@
         "message": "AdGuard VPN — бясплатны і бяспечны проксі"
     },
     "description": {
-        "message": "Выкарыстоўвайце AdGuard VPN для хуткага, бяспечнага і бяспечнага прагляду Інтэрнэту. Абараніце вашу канфідэнцыяльнасць і заставайцеся ананімнымі з дапамогай нашага прыватнага vpn-проксі."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Выкарыстоўвайце AdGuard VPN для хуткага і бяспечнага прагляду Інтэрнэту. Заставайцеся ананімнымі з дапамогай прыватнага VPN-проксі."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -772,7 +773,7 @@
         "message": "Дасылаць мне адмысловыя прапановы і навіны AdGuard"
     },
     "popup_newsletter_subscribe": {
-        "message": "ПАЧАЦЬ ПРОБНЫ ПЕРЫЯД"
+        "message": "Падпісаццца"
     },
     "popup_newsletter_no_subscribe": {
         "message": "Не, дзякуй"

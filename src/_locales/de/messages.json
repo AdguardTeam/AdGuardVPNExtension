@@ -3,7 +3,8 @@
         "message": "AdGuard VPN — Schneller VPN und anonymer Proxy"
     },
     "description": {
-        "message": "Surfen Sie anonym mit AdGuard VPN. Verbinden Sie sich schnell zu jedem Standort und verbergen Sie Ihre IP mit unserem VPN-Proxy."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Nutzen Sie AdGuard VPN, um schnell und sicher im Internet zu surfen. Schützen Sie Ihre Privatsphäre mit unserem privaten VPN-Proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -639,7 +640,7 @@
         "message": "Schnellste"
     },
     "endpoints_all": {
-        "message": "Alle Endpunkte"
+        "message": "Alle Standorte"
     },
     "endpoints_search_results": {
         "message": "Suchergebnis"
@@ -663,7 +664,7 @@
         "message": "Trennen"
     },
     "settings_vpn_connecting": {
-        "message": "Verbindung wird hergestellt …"
+        "message": "Wird verbunden..."
     },
     "settings_connect": {
         "message": "Verbinden"
@@ -808,7 +809,7 @@
         "message": "Unbegrenztes VPN"
     },
     "popup_upgrade_screen_unlimited_data": {
-        "message": "Unbegrenzte Daten"
+        "message": "Unbegrenzter Traffic"
     },
     "popup_upgrade_screen_unlimited_data_desc": {
         "message": "Die einzige Einschränkung ist, dass Ihre Daten niemals weitergegeben werden. Surfen Sie nach Lust und Laune!"
@@ -820,7 +821,7 @@
         "message": "Keine Geschwindigkeitseinschränkungen. Holen Sie das Beste aus Ihrem Internetanschluss heraus!"
     },
     "popup_upgrade_screen_all_locations": {
-        "message": "Alle Standorten"
+        "message": "Alle Standorte"
     },
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 Kontinente und Dutzende Länder. Wählen Sie eine Stadt und surfen Sie sicher im Netz!"
