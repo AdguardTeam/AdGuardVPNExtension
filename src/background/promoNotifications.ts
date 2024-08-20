@@ -5,7 +5,7 @@ import browser from 'webextension-polyfill';
 
 import { getForwarderUrl } from '../common/helpers';
 import { Prefs } from '../common/prefs';
-import { normalizeLanguage } from '../common/utils/promo';
+import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
 
 import { getUrl } from './browserApi/runtime';
@@ -73,199 +73,209 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'birthday_24_vpn';
+const TDS_PROMO_ACTION = 'back_to_school_24_vpn';
+const TDS_PROMO_ACTION_RU = 'back_to_school_24_vpn_ru';
 
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
+const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
-const BIRTHDAY_24_ID = 'birthday24';
+const promoUrlQuery = isRuLocale
+    ? RU_PROMO_URL_QUERY
+    : COMMON_PROMO_URL_QUERY;
 
-const birthday24Notification: PromoNotificationData = {
-    id: BIRTHDAY_24_ID,
+const BACK_TO_SCHOOL_24_ID = 'backToSchool24';
+
+const backToSchool24Notification: PromoNotificationData = {
+    id: BACK_TO_SCHOOL_24_ID,
     locales: {
         en: {
-            title: 'Would you fit in AdGuard?',
-            btn: 'Find out',
-        },
-        fr: {
-            title: 'Qui seriez-vous chez AdGuard ?',
-            btn: 'Découvrez-le',
-        },
-        it: {
-            title: 'Chi sarai ad AdGuard ?',
-            btn: 'Scoprirlo',
-        },
-        de: {
-            title: 'Wer wären Sie bei AdGuard?',
-            btn: 'Herausfinden',
+            title: 'Back to School promo',
+            btn: 'Get 80% off',
         },
         ru: {
-            title: 'Кем бы вы были в AdGuard?',
-            btn: 'Узнать',
-        },
-        es: {
-            title: '¿Quién eres en AdGuard?',
-            btn: 'Descubrirlo',
-        },
-        es_419: {
-            title: '¿Quién eres en AdGuard?',
-            btn: 'Descubrirlo',
-        },
-        pt_pt: {
-            title: 'Quem seria no AdGuard?',
-            btn: 'Descobrir',
-        },
-        pt_br: {
-            title: 'Quem é você no AdGuard?',
-            btn: 'Descobrir',
-        },
-        zh_cn: {
-            title: '如果你在 AdGuard 工作',
-            btn: '你的岗位会是...',
-        },
-        zh_tw: {
-            title: '如果您在 AdGuard 工作',
-            btn: '您的崗位會是...',
-        },
-        ja: {
-            title: 'あなたが AdGuard メンバーだったら？',
-            btn: 'おもしろアンケート',
+            title: 'Снова в школу',
+            btn: 'Скидка 75%',
         },
         ko: {
-            title: '여러분이 AdGuard 직원이라면?',
-            btn: '테스트 시작',
+            title: '백투스쿨 세일',
+            btn: '80% 할인',
+        },
+        ja: {
+            title: 'Back to School セール',
+            btn: '80%OFF割引をGET',
+        },
+        zh_cn: {
+            title: '返校 SALE',
+            btn: '低至2折',
+        },
+        zh_tw: {
+            title: '返校 SALE',
+            btn: '低至2折',
+        },
+        fr: {
+            title: 'La Rentrée avec AdGuard',
+            btn: 'Obtenez –80%',
+        },
+        it: {
+            title: 'A Scuola con AdGuard',
+            btn: 'Ottieni –80%',
+        },
+        de: {
+            title: 'Back to School Promo',
+            btn: '80% Rabatt',
+        },
+        es: {
+            title: 'Promo de vuelta al cole',
+            btn: 'Obtén 80% OFF',
+        },
+        pt_br: {
+            title: 'Promo de volta às aulas',
+            btn: 'Obtenha 80% OFF',
+        },
+        pt_pt: {
+            title: 'Promo de volta às aulas',
+            btn: 'Obtenha 80% OFF',
         },
         uk: {
-            title: 'Ким би ви були в AdGuard?',
-            btn: 'Дізнатися',
+            title: 'Знову до школи',
+            btn: 'Знижка 80%',
         },
         ar: {
-            title: '؟AdGuard من كنت ستكون في ',
-            btn: 'اكتشاف',
+            title: 'عرض العودة إلى المدرسة',
+            btn: '٪خصم 80',
         },
         be: {
-            title: 'Кім бы вы былі ў AdGuard?',
-            btn: 'Даведацца',
-        },
-        id: {
-            title: 'Siapa yang akan Anda jadi di AdGuard?',
-            btn: 'Mengetahui',
-        },
-        pl: {
-            title: 'Kim byłbyś w AdGuard?',
-            btn: 'Dowiedzieć się',
-        },
-        tr: {
-            title: "AdGuard'da kim olurdunuz?",
-            btn: 'Öğrenmek',
-        },
-        vi: {
-            title: 'Bạn sẽ là ai trong AdGuard?',
-            btn: 'Tìm hiểu',
+            title: 'Зноў у школу',
+            btn: 'Зніжка 80%',
         },
         bg: {
-            title: 'Кой бихте били в AdGuard?',
-            btn: 'Разбера',
+            title: 'Обратно на училище: промоция',
+            btn: 'Отстъпка 80%',
         },
         ca: {
-            title: 'Qui seríeu a AdGuard?',
-            btn: 'Esbrinar',
+            title: "Tornada a l'escola",
+            btn: 'Descompte del 80%',
         },
         cs: {
-            title: 'Kým byste byli v AdGuard?',
-            btn: 'Zjistit',
+            title: 'Zpátky do školy: Akce',
+            btn: 'Sleva 80%',
         },
         da: {
-            title: 'Hvem ville du være i AdGuard?',
-            btn: 'Finde ud af',
+            title: 'Tilbage til skole promo',
+            btn: '80% rabat',
         },
         el: {
-            title: 'Ποιος θα ήσασταν στο AdGuard;',
-            btn: 'Μάθω',
+            title: 'Επιστροφή στα σχολεία',
+            btn: 'Έκπτωση 80%',
+        },
+        es_419: {
+            title: 'Vuelta al cole',
+            btn: 'Obtén 80% OFF',
         },
         fa: {
-            title: 'چه نقشی داشته‌اید؟ AdGuard شما در ',
-            btn: 'فهمیدن',
+            title: 'تبلیغات بازگشت به مدرسه',
+            btn: '٪تخفیف 80',
         },
         fi: {
-            title: 'Kuka olisit AdGuardissa?',
-            btn: 'Selvittää',
+            title: 'Takaisin kouluun -kampanja',
+            btn: '80% alennus',
         },
         he: {
-            title: '?AdGuardמי היית ב',
-            btn: 'לגלות',
+            title: 'מבצע חזרה לבית הספר',
+            btn: 'הנחה של 80%',
         },
         hr: {
-            title: 'Tko bi bio u AdGuardu?',
-            btn: 'Saznati',
+            title: 'Povratak u školu: Promo',
+            btn: '80% kedvezmény',
         },
         hu: {
-            title: 'Ki lennél az AdGuardban?',
-            btn: 'Megtudni',
+            title: 'Vissza az iskolába promóció',
+            btn: '80% kedvezmény',
         },
         hy: {
-            title: 'Ով կլինեիք AdGuard-ում՞',
-            btn: 'Պարզել',
+            title: 'Վերադառնալ դպրոց',
+            btn: '80% զեղչ',
+        },
+        id: {
+            title: 'Promo Kembali ke Sekolah',
+            btn: 'Diskon 80%',
         },
         lt: {
-            title: 'Kuo būtumėte AdGuard?',
-            btn: 'Sužinoti',
+            title: 'Atgal į mokyklą: akcija',
+            btn: '80% nuolaida',
+        },
+        mk: {
+            title: 'Назад на училиште: Промоција',
+            btn: 'Попуст од 80%',
         },
         ms: {
-            title: 'Siapa anda akan jadi di AdGuard?',
-            btn: 'Ketahui',
+            title: 'Promosi Kembali ke Sekolah',
+            btn: 'Diskaun 80%',
         },
-        no: {
-            title: 'Hvem ville du vært i AdGuard?',
-            btn: 'Finne ut',
+        nb: {
+            title: 'Tilbake til skolen',
+            btn: '80% rabatt',
         },
         nl: {
-            title: 'Wie zou je zijn bij AdGuard?',
-            btn: 'Uitvinden',
+            title: 'Terug naar school promotie',
+            btn: '80% korting',
+        },
+        pl: {
+            title: 'Powrót do szkoły: Promocja',
+            btn: 'Zniżka 80%',
         },
         ro: {
-            title: 'Cine ai fi în AdGuard?',
-            btn: 'Afla',
+            title: 'Înapoi la școală: Promoția',
+            btn: 'Reducere de 80%',
         },
         sk: {
-            title: 'Kým by ste boli v AdGuard?',
-            btn: 'Zistiť',
+            title: 'Späť do školy: Promo akcia',
+            btn: 'Zľava 80%',
         },
         sl: {
-            title: 'Kdo bi bil v AdGuard?',
-            btn: 'Izvedeti',
+            title: 'Nazaj v šolo: Promocija',
+            btn: '80% popust',
         },
         'sr-Latn': {
-            title: 'Ko bi ste bili u AdGuard?',
-            btn: 'Saznati',
+            title: 'Povratak u školu: Promocija',
+            btn: '80% popust',
         },
         sv: {
-            title: 'Vem skulle du vara i AdGuard?',
-            btn: 'Ta reda på',
+            title: 'Tillbaka till skolan',
+            btn: '80% rabatt',
+        },
+        tr: {
+            title: 'Okula Dönüş kampanyası',
+            btn: '%80 indirim',
+        },
+        vi: {
+            title: 'Back to School: Khuyến mãi',
+            btn: 'Giảm giá 80%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    urlQuery: COMMON_PROMO_URL_QUERY,
-    from: '30 May 2024 12:00:00',
-    to: '5 June 2024 23:59:00',
+    urlQuery: promoUrlQuery,
+    from: '26 August 2024 12:00:00',
+    to: '1 September 2024 23:59:00',
     type: 'animated',
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
-    bgImage: getUrl('assets/images/birthday24.svg'),
+    bgImage: getUrl('assets/images/bts24.svg'),
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/birthday24-on-19.png'),
-            38: getUrl('assets/images/icons/birthday24-on-38.png'),
+            19: getUrl('assets/images/icons/bts24-on-19.png'),
+            38: getUrl('assets/images/icons/bts24-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/birthday24-off-19.png'),
-            38: getUrl('assets/images/icons/birthday24-off-38.png'),
+            19: getUrl('assets/images/icons/bts24-off-19.png'),
+            38: getUrl('assets/images/icons/bts24-off-38.png'),
         },
     },
 };
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [BIRTHDAY_24_ID]: birthday24Notification,
+    [BACK_TO_SCHOOL_24_ID]: backToSchool24Notification,
 };
 
 /**
