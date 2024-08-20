@@ -17,6 +17,9 @@
     "auth_sign_in_provider_facebook": {
         "message": "Teruskan dengan Facebook"
     },
+    "settings_free_gbs_go_back": {
+        "message": "Pulang"
+    },
     "settings_dns_label": {
         "message": "Pelayan DNS"
     },
@@ -35,6 +38,9 @@
     "settings_dns_add_custom_server_address": {
         "message": "Alamat pelayan DNS"
     },
+    "settings_dns_add_custom_server_save": {
+        "message": "Simpan"
+    },
     "settings_dns_selector_cloudflare_desc": {
         "message": "Percuma servis DNS oleh Cloudfare"
     },
@@ -44,8 +50,17 @@
     "settings_exclusion_domain_name": {
         "message": "Nama domain:"
     },
+    "settings_exclusion_modal_remove": {
+        "message": "Buang"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Simpan"
+    },
     "settings_exclusion_reset_button": {
         "message": "Tetapkan semula"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Carian"
     },
     "settings_exclusion_import_button": {
         "message": "Import"
@@ -53,11 +68,23 @@
     "global_error_learn_more": {
         "message": "Ketahui lebih lanjut"
     },
+    "global_error_try_again": {
+        "message": "Cuba lagi"
+    },
     "popup_settings_feedback": {
         "message": "Maklumbalas"
     },
     "settings_disconnect": {
         "message": "sambungan terputus"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Tutup"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Langgan"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Langgan"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Ketahui lebih lanjut"
