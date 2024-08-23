@@ -3,7 +3,8 @@
         "message": "AdGuard VPN — ilmainen ja turvallinen välityspalvelin"
     },
     "description": {
-        "message": "Surffaa Internetissä nopeasti ja turvallisesti AdGuard VPN:n avulla. Suojaa yksityisyyttäsi ja pysy nimettömänä yksityisellä VPN-välityspalvelimellamme."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Surffaa nopeasti ja turvallisesti AdGuard VPN:llä. Suojaa yksityisyytesi ja pysy nimettömänä VPN-välityspalvelimellamme."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -396,7 +397,7 @@
         "message": "AdGuard DNS Ei-suodattava"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "Turvallinen DNS-palvelu ilman toimintalokeja (ei estä mainoksia eikä seurantoja)."
+        "message": "Suojattu DNS-palvelu ilman toimintalokeja (ei estä mainoksia eikä seurantoja)."
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS Perhesuojaus"
@@ -867,21 +868,21 @@
         "message": "Myöhemmin"
     },
     "limited_offer_notification_title": {
-        "message": "%discount%%% alennus AdGuard VPN: stä",
+        "message": "%discount% %% alennus AdGuard VPN:stä",
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
-        "message": "Salama-tarjous vain 6h. Lue lisää AdGuard VPN -laajennuksesta"
+        "message": "Vain 6 tunnin salamatarjous. Lue lisää AdGuard VPN -laajennuksesta"
     },
     "popup_limited_offer_notice": {
-        "message": "%discount%%% alennus: <span>%time_left%</span>",
+        "message": "%discount% %% alennus: <span>%time_left%</span>",
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_time_left": {
         "message": "Aikaa jäljellä: %time_left%"
     },
     "popup_limited_offer_details_title": {
-        "message": "| AdGuard VPN Unlimited for%count% vuosi klo <span>%discount%%% alennus</span> | AdGuard VPN Unlimited for%count% vuotta klo <span>%discount%%% alennus</span>",
+        "message": "| AdGuard VPN Unlimited %count% vuodeksi <span>%discount% %% alennuksella</span> | AdGuard VPN Unlimited %count% vuodeksi <span>%discount% %% alennuksella</span>",
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {

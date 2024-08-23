@@ -3,7 +3,8 @@
         "message": "AdGuard VPN - privatumas ir saugumas"
     },
     "description": {
-        "message": "Naudokite AdGuard VPN, kad naršytumėte internete greitai, saugiai ir patikimai. Apsaugokite savo privatumą ir išlikite anonimiški naudodamiesi mūsų privačiu VPN tarpiniu serveriu."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Naudokite AdGuard VPN, kad greitai ir patikimai naršytumėte internete, išlikdami anonimiški su mūsų privačiu VPN."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -278,6 +279,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Tęsti"
     },
+    "popup_newsletter_subscribe": {
+        "message": "Užsiprenumeruoti"
+    },
     "popup_newsletter_no_subscribe": {
         "message": "Ne, ačiū"
     },
@@ -289,6 +293,9 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Atšaukti"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Užsiprenumeruoti"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Sužinoti daugiau"

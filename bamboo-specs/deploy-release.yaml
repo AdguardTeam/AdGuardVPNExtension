@@ -49,7 +49,7 @@ Addons Mozilla:
       recipients:
         - webhook:
             name: Deploy webhook
-            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds
 
 Chrome WebStore:
   triggers: []
@@ -86,7 +86,7 @@ Chrome WebStore:
       recipients:
         - webhook:
             name: Deploy webhook
-            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds
 
 Edge Addons:
   triggers: []
@@ -123,7 +123,7 @@ Edge Addons:
       recipients:
         - webhook:
             name: Deploy webhook
-            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds
 
 GitHub:
   triggers: []
@@ -162,4 +162,4 @@ GitHub:
       recipients:
         - webhook:
             name: Deploy webhook
-            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds

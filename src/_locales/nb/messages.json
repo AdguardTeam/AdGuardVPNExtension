@@ -8,6 +8,9 @@
     "registration_error_not_valid": {
         "message": "Denne verdien er ugyldig"
     },
+    "registration_error_confirm_password": {
+        "message": "Passordene samsvarer ikke"
+    },
     "registration_error_unique_constraint": {
         "message": "Denne verdien er allerede brukt"
     },
@@ -158,8 +161,14 @@
     "settings_title": {
         "message": "Innstillinger"
     },
+    "settings_free_gbs": {
+        "message": "Gratis GB-er"
+    },
     "settings_free_gbs_confirm_email_title": {
         "message": "Bekreft E-postadressen din"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Legg til en annen enhet"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Gå til Produkter"
@@ -278,6 +287,12 @@
     "settings_exclusion_actions": {
         "message": "Handlinger"
     },
+    "settings_exclusion_status_subdomain": {
+        "message": "underdomene"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "alle underdomener"
+    },
     "settings_exclusion_domain_name": {
         "message": "Domenenavn:"
     },
@@ -301,6 +316,9 @@
     },
     "settings_exclusion_placeholder_search": {
         "message": "Søk"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Tilkoblingsproblem"
     },
     "settings_exclusions_action_export": {
         "message": "Eksporter unntak"
@@ -334,6 +352,9 @@
     },
     "control_error_disable": {
         "message": "Skru den av"
+    },
+    "popup_no_locations_button": {
+        "message": "Søk på nytt"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Skru"
@@ -401,6 +422,9 @@
     "popup_feedback_button": {
         "message": "Gi tilbakemelding"
     },
+    "popup_compare_button": {
+        "message": "Hvorfor appen er bedre"
+    },
     "popup_rate_modal_subtitle": {
         "message": "Vennligst vurder oss"
     },
@@ -433,6 +457,9 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Fortsett"
+    },
+    "popup_newsletter_title": {
+        "message": "AdGuards nyhetsbrev"
     },
     "popup_newsletter_subscribe": {
         "message": "Abonner"
@@ -482,16 +509,29 @@
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Lær mer"
     },
+    "notification_data_left_mb": {
+        "message": "Det er %num% MB igjen."
+    },
     "confirm_email_title": {
         "message": "Bekreft E-postadressen din"
     },
+    "confirm_email_done_title": {
+        "message": "E-postadressen er bekreftet"
+    },
+    "confirm_email_code_label": {
+        "message": "Bekreftelseskode"
+    },
     "confirm_email_code_placeholder": {
         "message": "Vanligvis 10 tegn"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "Send en annen kode"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

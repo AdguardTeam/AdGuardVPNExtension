@@ -42,16 +42,16 @@
         "message": "Tanya Jawab"
     },
     "options_support_report_title": {
-        "message": "Laporkan masalah"
+        "message": "Laporkan bug"
     },
     "options_support_feedback_title": {
-        "message": "Umpan balik"
+        "message": "Beri masukan"
     },
     "options_support_feedback_description": {
         "message": "Kirimkan permintaan fitur dan saran"
     },
     "options_report_bug_title": {
-        "message": "Laporkan masalah"
+        "message": "Laporkan bug"
     },
     "options_bug_report_email_label": {
         "message": "E-mail"
@@ -77,11 +77,14 @@
     "account_version": {
         "message": "Versi"
     },
+    "account_get_subscription": {
+        "message": "Langganan sekarang"
+    },
     "account_sign_out": {
         "message": "Keluar"
     },
     "rate_description": {
-        "message": "Hai, kami adalah tim dari AdGuard dan ini sangat penting bagi kami mengetahui opini Anda tentang produk kami. Silahkan beri nilai."
+        "message": "Hai, kami adalah tim dari AdGuard dan ini sangat penting bagi kami mengetahui opini Anda tentang produk kami. Silakan beri nilai."
     },
     "rate_hide": {
         "message": "Sembunyikan"
@@ -174,7 +177,7 @@
         "message": "Pasang AdGuard VPN di satu perangkat lagi, masuk ke akun AdGuard Anda di perangkat tersebut, dan dapatkan %your_gb% GB"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Ke Produk"
+        "message": "Buka Produk"
     },
     "settings_free_gbs_go_back": {
         "message": "Kembali"
@@ -216,7 +219,7 @@
         "message": "Tambahkan server DNS kustom"
     },
     "settings_dns_edit_custom_server": {
-        "message": "Sunting server DNS kustom"
+        "message": "Edit server DNS kustom"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Nama server"
@@ -225,7 +228,10 @@
         "message": "Nama server"
     },
     "settings_dns_add_custom_server_address": {
-        "message": "Alamat DNS server"
+        "message": "Alamat server DNS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Alamat server DNS tidak valid"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Simpan dan pilih"
@@ -320,6 +326,9 @@
     "settings_exclusion_add_manually": {
         "message": "Secara manual"
     },
+    "settings_exclusion_add_manually_add": {
+        "message": "Tambahkan secara manual"
+    },
     "settings_exclusion_modal_cancel": {
         "message": "Batal"
     },
@@ -344,6 +353,9 @@
     "settings_exclusion_placeholder_search": {
         "message": "Cari"
     },
+    "settings_exclusion_nothing_found": {
+        "message": "Tidak menemukan hasil"
+    },
     "settings_exclusion_connection_problem": {
         "message": "Masalah koneksi"
     },
@@ -358,6 +370,18 @@
     },
     "settings_exclusion_title": {
         "message": "Pengecualian"
+    },
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Dimana VPN aktif"
+    },
+    "settings_exclusion_general_title": {
+        "message": "Di mana saja kecuali untuk situs web yang dikecualikan"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Mode selektif"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Mengosongkan daftar ini akan menonaktifkan VPN untuk semua situs web"
     },
     "settings_exclusion_import_button": {
         "message": "Impor"
@@ -396,7 +420,7 @@
         "message": "Produk lain"
     },
     "popup_settings_feedback": {
-        "message": "Umpan balik"
+        "message": "Masukan"
     },
     "popup_settings_open_settings": {
         "message": "Pengaturan"
@@ -453,13 +477,16 @@
         "message": "Naikan kecepatan"
     },
     "popup_feedback_title": {
-        "message": "Kami ingin mendengar tanggapan Anda"
+        "message": "Kami ingin mendengar masukan Anda"
     },
     "popup_feedback_button": {
-        "message": "Umpan balik"
+        "message": "Beri masukan"
     },
     "popup_rate_modal_subtitle": {
         "message": "Silahkan nilai kami"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Kirim laporan"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Batal"
@@ -468,16 +495,22 @@
         "message": "Bantu kami meningkatkan"
     },
     "popup_confirm_rate_modal_leave_feedback_button": {
-        "message": "Umpan balik"
+        "message": "Beri masukan"
     },
     "popup_server_error_popup_title": {
         "message": "Tidak dapat terhubung ke server"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Kemungkinan besar, VPN diblokir di negara Anda atau ada kesalahan teknis. Kami sudah mencoba memperbaikinya"
     },
     "popup_server_error_popup_action": {
         "message": "Dorongan tim AdGuard"
     },
     "popup_server_error_popup_cancel": {
         "message": "Batal"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Sedang mengerjakannya"
     },
     "popup_server_error_popup_thankyou_message": {
         "message": "Terima kasih telah memberi tau kami!"
@@ -572,6 +605,9 @@
     "options_exclusions_delete_cancel_button": {
         "message": "Batal"
     },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Arsip zip: \"%filename%\" tidak berisi berkas dengan ekstensi: %extensions%"
+    },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Berlangganan"
     },
@@ -615,6 +651,7 @@
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

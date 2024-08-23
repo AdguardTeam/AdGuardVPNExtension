@@ -3,7 +3,8 @@
         "message": "AdGuard VPN – brezplačen in varen namestniški strežnik"
     },
     "description": {
-        "message": "Uporabite AdGuard VPN za hitro, varno in varno brskanje po internetu. Zaščitite svojo zasebnost in ostanite anonimni z našim zasebnim namestniškim VPN strežnikom."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Uporabite AdGuard VPN za hitro in varno brskanje. Zaščitite svojo zasebnost z našim zasebnim VPN strežnikom."
     },
     "short_name": {
         "message": "AdGuard VPN"

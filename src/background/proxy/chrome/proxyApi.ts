@@ -86,14 +86,24 @@ class ProxyApi implements ProxyApiInterface {
         // Wait for session storage after service worker awoken.
         // This is needed because onAuthRequiredHandler is called before the extension is fully loaded between service
         // worker restarts
-        await stateStorage.waitInit();
+        try {
+            await stateStorage.waitInit();
+        } catch (e) {
+            log.error('Error on waiting for state storage to init', e);
+        }
 
         // This may happen after browser restart, when the extension is not fully loaded yet
         if (!this.globalProxyConfig) {
             log.info('[onAuthRequiredHandler] globalProxyConfig is not set, wait for the last saved config from storage');
-            const lastSavedConfig: ProxyConfigInterface | null = await browserApi.storage.get(
-                this.PROXY_CONFIG_STORAGE_KEY,
-            ) || null;
+            let lastSavedConfig: ProxyConfigInterface | null = null;
+            try {
+                lastSavedConfig = await browserApi.storage.get(
+                    this.PROXY_CONFIG_STORAGE_KEY,
+                ) || null;
+            } catch (e) {
+                log.error('Error on getting last saved config from storage', e);
+            }
+
             log.info('[onAuthRequiredHandler] last saved config from storage:', lastSavedConfig);
             this.globalProxyConfig = lastSavedConfig;
         }

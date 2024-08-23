@@ -73,259 +73,209 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'easter_24_vpn';
-const TDS_PROMO_ACTION_RU = 'easter_24_vpn_ru';
+const TDS_PROMO_ACTION = 'back_to_school_24_vpn';
+const TDS_PROMO_ACTION_RU = 'back_to_school_24_vpn_ru';
 
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
 const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
-// possible return values of getUILanguage(): 'ru' or 'ru-RU' which is 'ru_ru' after normalization
 const promoUrlQuery = isRuLocale
     ? RU_PROMO_URL_QUERY
     : COMMON_PROMO_URL_QUERY;
 
-/**
- * List of locales for the Spring promo, not the Easter one. AG-31141.
- */
-const SPRING_PROMO_LOCALES = [
-    'ru',
-    'uk',
-    'ar',
-    'be',
-    'bg',
-    'el',
-    'sr',
-    'hy',
-    'fa',
-    'he',
-    'ms',
-    'id',
-    'tr',
-    'vi',
-    'zh_cn',
-    'zh_tw',
-];
+const BACK_TO_SCHOOL_24_ID = 'backToSchool24';
 
-const EASTER_24_ID = 'easter24';
-
-let easter24Notification: PromoNotificationData = {
-    id: EASTER_24_ID,
+const backToSchool24Notification: PromoNotificationData = {
+    id: BACK_TO_SCHOOL_24_ID,
     locales: {
         en: {
-            title: 'Easter promo',
+            title: 'Back to School promo',
             btn: 'Get 80% off',
         },
-        // there is no promo for Japanese
-        // ja: {},
+        ru: {
+            title: 'Снова в школу',
+            btn: 'Скидка 75%',
+        },
         ko: {
-            title: '부활절 세일',
+            title: '백투스쿨 세일',
             btn: '80% 할인',
         },
+        ja: {
+            title: 'Back to School セール',
+            btn: '80%OFF割引をGET',
+        },
+        zh_cn: {
+            title: '返校 SALE',
+            btn: '低至2折',
+        },
+        zh_tw: {
+            title: '返校 SALE',
+            btn: '低至2折',
+        },
         fr: {
-            title: 'Promo de Pâques',
-            btn: '80% de remise ici',
+            title: 'La Rentrée avec AdGuard',
+            btn: 'Obtenez –80%',
         },
         it: {
-            title: 'Offerta di Pascua',
-            btn: '80% di sconto qui',
+            title: 'A Scuola con AdGuard',
+            btn: 'Ottieni –80%',
         },
         de: {
-            title: 'Oster-Sale',
+            title: 'Back to School Promo',
             btn: '80% Rabatt',
         },
         es: {
-            title: 'Promo de Pascua',
-            btn: 'Obtén un 80% OFF',
+            title: 'Promo de vuelta al cole',
+            btn: 'Obtén 80% OFF',
         },
         pt_br: {
-            title: 'Promo de Páscoa',
+            title: 'Promo de volta às aulas',
             btn: 'Obtenha 80% OFF',
         },
         pt_pt: {
-            title: 'Promo de Páscoa',
+            title: 'Promo de volta às aulas',
             btn: 'Obtenha 80% OFF',
         },
+        uk: {
+            title: 'Знову до школи',
+            btn: 'Знижка 80%',
+        },
+        ar: {
+            title: 'عرض العودة إلى المدرسة',
+            btn: '٪خصم 80',
+        },
+        be: {
+            title: 'Зноў у школу',
+            btn: 'Зніжка 80%',
+        },
+        bg: {
+            title: 'Обратно на училище: промоция',
+            btn: 'Отстъпка 80%',
+        },
         ca: {
-            title: 'Promoció de Pasqua',
-            btn: '80% de descompte',
+            title: "Tornada a l'escola",
+            btn: 'Descompte del 80%',
         },
         cs: {
-            title: 'Velikonoční promo akce',
-            btn: '80% sleva',
+            title: 'Zpátky do školy: Akce',
+            btn: 'Sleva 80%',
         },
         da: {
-            title: 'Påske kampagne',
+            title: 'Tilbage til skole promo',
             btn: '80% rabat',
         },
+        el: {
+            title: 'Επιστροφή στα σχολεία',
+            btn: 'Έκπτωση 80%',
+        },
         es_419: {
-            title: 'Promoción de pascua',
-            btn: '80% de descuento',
+            title: 'Vuelta al cole',
+            btn: 'Obtén 80% OFF',
+        },
+        fa: {
+            title: 'تبلیغات بازگشت به مدرسه',
+            btn: '٪تخفیف 80',
         },
         fi: {
-            title: 'Pääsiäispromo',
-            btn: '80 % alennus',
+            title: 'Takaisin kouluun -kampanja',
+            btn: '80% alennus',
+        },
+        he: {
+            title: 'מבצע חזרה לבית הספר',
+            btn: 'הנחה של 80%',
         },
         hr: {
-            title: 'Uskršnja promocija',
-            btn: '80% popusta',
-        },
-        hu: {
-            title: 'Húsvéti promóció',
+            title: 'Povratak u školu: Promo',
             btn: '80% kedvezmény',
         },
+        hu: {
+            title: 'Vissza az iskolába promóció',
+            btn: '80% kedvezmény',
+        },
+        hy: {
+            title: 'Վերադառնալ դպրոց',
+            btn: '80% զեղչ',
+        },
+        id: {
+            title: 'Promo Kembali ke Sekolah',
+            btn: 'Diskon 80%',
+        },
         lt: {
-            title: 'Velykų akcija',
+            title: 'Atgal į mokyklą: akcija',
             btn: '80% nuolaida',
         },
+        mk: {
+            title: 'Назад на училиште: Промоција',
+            btn: 'Попуст од 80%',
+        },
+        ms: {
+            title: 'Promosi Kembali ke Sekolah',
+            btn: 'Diskaun 80%',
+        },
         nb: {
-            title: 'Påskekampanje',
+            title: 'Tilbake til skolen',
             btn: '80% rabatt',
         },
         nl: {
-            title: 'Pasen promo',
+            title: 'Terug naar school promotie',
             btn: '80% korting',
         },
         pl: {
-            title: 'Promocja wielkanocna',
-            btn: '80% zniżki',
+            title: 'Powrót do szkoły: Promocja',
+            btn: 'Zniżka 80%',
         },
         ro: {
-            title: 'Promoție de primăvară',
-            btn: '80% reducere',
+            title: 'Înapoi la școală: Promoția',
+            btn: 'Reducere de 80%',
         },
         sk: {
-            title: 'Veľkonočné promo',
-            btn: '80% zľava',
+            title: 'Späť do školy: Promo akcia',
+            btn: 'Zľava 80%',
         },
         sl: {
-            title: 'Velikonočni promo',
+            title: 'Nazaj v šolo: Promocija',
+            btn: '80% popust',
+        },
+        'sr-Latn': {
+            title: 'Povratak u školu: Promocija',
             btn: '80% popust',
         },
         sv: {
-            title: 'Påsk kampanj',
-            btn: '80 % rabatt',
+            title: 'Tillbaka till skolan',
+            btn: '80% rabatt',
+        },
+        tr: {
+            title: 'Okula Dönüş kampanyası',
+            btn: '%80 indirim',
+        },
+        vi: {
+            title: 'Back to School: Khuyến mãi',
+            btn: 'Giảm giá 80%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
     urlQuery: promoUrlQuery,
-    from: '28 March 2024 12:00:00',
-    to: '3 April 2024 23:59:00',
+    from: '26 August 2024 12:00:00',
+    to: '1 September 2024 23:59:00',
     type: 'animated',
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
-    bgImage: getUrl('assets/images/easter24.svg'),
+    bgImage: getUrl('assets/images/bts24.svg'),
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/easter24-on-19.png'),
-            38: getUrl('assets/images/icons/easter24-on-38.png'),
+            19: getUrl('assets/images/icons/bts24-on-19.png'),
+            38: getUrl('assets/images/icons/bts24-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/easter24-off-19.png'),
-            38: getUrl('assets/images/icons/easter24-off-38.png'),
+            19: getUrl('assets/images/icons/bts24-off-19.png'),
+            38: getUrl('assets/images/icons/bts24-off-38.png'),
         },
     },
 };
-
-/**
- * Diff data for the Spring promo.
- */
-const spring24NotificationUpdateDiff = {
-    locales: {
-        ar: {
-            title: 'ترويج الربيع',
-            btn: '٪80 خصم',
-        },
-        be: {
-            title: 'Вясновая акцыя',
-            btn: 'Зніжка 80%',
-        },
-        bg: {
-            title: 'Пролетна промоция',
-            btn: '80% отстъпка',
-        },
-        el: {
-            title: 'Ανοιξιάτικη προώθηση',
-            btn: '80% έκπτωση',
-        },
-        fa: {
-            title: 'تبلیغات بهار',
-            btn: '80 درصد تخفیف',
-        },
-        he: {
-            title: 'קידום אביב',
-            btn: '80% הנחה',
-        },
-        hy: {
-            title: 'Գարնանային ակցիա',
-            btn: '80% զեղչ',
-        },
-        id: {
-            title: 'Promosi musim semi',
-            btn: 'Diskon 80%',
-        },
-        ms: {
-            title: 'Promosi musim bunga',
-            btn: '80% diskaun',
-        },
-        ru: {
-            title: 'Весенняя акция',
-            btn: 'Скидка 75%',
-        },
-        'sr-Latn': {
-            title: 'Prolećna promocija',
-            btn: 'Popust 80%',
-        },
-        tr: {
-            title: 'Bahar promosyonu',
-            btn: '%80 indirim',
-        },
-        uk: {
-            title: 'Весняна акція',
-            btn: 'Знижка 80%',
-        },
-        vi: {
-            title: 'Khuyến mãi mùa xuân',
-            btn: 'Giảm giá 80%',
-        },
-        zh_cn: {
-            title: '暖春特惠',
-            btn: '享2折',
-        },
-        zh_tw: {
-            title: '暖春優惠',
-            btn: '享2折',
-        },
-    },
-    bgImage: getUrl('assets/images/spring24.svg'),
-    icons: {
-        ENABLED: {
-            19: getUrl('assets/images/icons/spring24-on-19.png'),
-            38: getUrl('assets/images/icons/spring24-on-38.png'),
-        },
-        DISABLED: {
-            19: getUrl('assets/images/icons/spring24-off-19.png'),
-            38: getUrl('assets/images/icons/spring24-off-38.png'),
-        },
-    },
-};
-
-// possible values of browser lang: 'zh-TW' which is 'zh_tw' after normalization
-const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
-
-const shouldShowSpring24Promo = currentLocale
-    && SPRING_PROMO_LOCALES.some((locale) => currentLocale.startsWith(locale));
-
-if (shouldShowSpring24Promo) {
-    easter24Notification = {
-        ...easter24Notification,
-        // update the notification data with the Spring promo data
-        ...spring24NotificationUpdateDiff,
-    };
-}
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [EASTER_24_ID]: easter24Notification,
+    [BACK_TO_SCHOOL_24_ID]: backToSchool24Notification,
 };
 
 /**

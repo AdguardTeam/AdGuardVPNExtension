@@ -3,7 +3,8 @@
         "message": "AdGuard VPN: proxy gratuito e seguro"
     },
     "description": {
-        "message": "Use o AdGuard VPN para navegar na Internet de forma rápida, segura e protegida. Proteja sua privacidade e permaneça anônimo com nosso proxy de VPN privada."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Utilize o AdGuard VPN para uma Internet rápida e segura. Proteja sua privacidade e anonimato com nosso proxy de VPN privada."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -778,7 +779,7 @@
         "message": "Envie-me e-mails com ofertas especiais e novidades do AdGuard"
     },
     "popup_newsletter_subscribe": {
-        "message": "Assinar"
+        "message": "Inscrever-se"
     },
     "popup_newsletter_no_subscribe": {
         "message": "Não, obrigado"

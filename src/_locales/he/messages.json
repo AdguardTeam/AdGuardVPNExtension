@@ -700,6 +700,7 @@
         "message": "מכיל מספרים ואותיות"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

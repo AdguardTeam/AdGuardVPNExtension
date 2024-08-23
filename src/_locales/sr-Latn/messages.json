@@ -3,6 +3,7 @@
         "message": "AdGuard VPN — privatnost i bezbednost"
     },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Čini internet otvorenim a vaše podatke sigurnim. Odličan VPn od kreatora čuvenog blokatora reklama."
     },
     "short_name": {

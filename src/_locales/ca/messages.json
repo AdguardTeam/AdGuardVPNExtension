@@ -1,4 +1,10 @@
 {
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "options_support_title": {
+        "message": "Assistència tècnica"
+    },
     "options_support_faq_title": {
         "message": "PMF"
     },
@@ -14,14 +20,41 @@
     "options_bug_report_send_button": {
         "message": "Envia"
     },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Descriu el problema aquí..."
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Missatge"
+    },
+    "account_version": {
+        "message": "Versió"
+    },
+    "auth_confirm": {
+        "message": "Confirmar"
+    },
+    "auth_password": {
+        "message": "Contrasenya"
+    },
+    "auth_recover": {
+        "message": "Has oblidat la contrasenya?"
+    },
+    "auth_sign_in_button": {
+        "message": "Iniciar Sessió"
+    },
     "eula": {
         "message": "EULA"
+    },
+    "settings_title": {
+        "message": "Configuració"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Vés als productes"
     },
     "settings_dns_label": {
         "message": "Servidor DNS"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Servidors DNS populars"
     },
     "settings_dns_add_custom_server": {
         "message": "Afegeix un servidor DNS personalitzat"
@@ -35,43 +68,89 @@
     "settings_dns_add_custom_server_address": {
         "message": "Adreça del servidor DNS"
     },
+    "settings_dns_selector_default_title": {
+        "message": "Per defecte"
+    },
     "settings_theme_system": {
         "message": "Per defecte del sistema"
+    },
+    "settings_exclusion_add": {
+        "message": "Afegir"
     },
     "settings_exclusion_add_website": {
         "message": "Afegiu un lloc web"
     },
+    "settings_exclusion_actions": {
+        "message": "Accions"
+    },
     "settings_exclusion_domain_name": {
         "message": "Nom de domini:"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Buscar"
     },
     "settings_exclusions_action_remove_all": {
         "message": "Elimina-ho tot"
     },
+    "settings_exclusion_title": {
+        "message": "Exclusions"
+    },
     "settings_exclusion_import_button": {
         "message": "Importeu"
+    },
+    "global_error_learn_more": {
+        "message": "Més informació"
     },
     "global_error_try_again": {
         "message": "Intenta-ho de nou"
     },
+    "popup_skeleton_status": {
+        "message": "Cercant ubicacions..."
+    },
+    "popup_no_locations_title": {
+        "message": "No s'han trobat ubicacions"
+    },
+    "popup_no_locations_button": {
+        "message": "Cercar de nou"
+    },
+    "popup_settings_feedback": {
+        "message": "Suggeriments"
+    },
+    "popup_settings_open_settings": {
+        "message": "Configuració"
+    },
+    "settings_disconnect": {
+        "message": "Desconnectar"
+    },
     "settings_vpn_connecting": {
         "message": "Connectant..."
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "La velocitat es redueix"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Has arribat al límit de dades gratuïtes, i AdGuard VPN funciona lentament."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Augmenta la velocitat"
     },
+    "popup_server_error_popup_close": {
+        "message": "Tancar"
+    },
     "popup_newsletter_subscribe": {
-        "message": "Subscriu-te"
+        "message": "Subscriure"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Subscriu-te"
+        "message": "Subscriure"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Més informació"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"
     },
-    "short_name": {
-        "message": "AdGuard VPN"
-    },
     "description": {
+        "description": "TEXT MAX LENGTH: 132",
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

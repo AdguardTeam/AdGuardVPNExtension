@@ -3,7 +3,8 @@
         "message": "AdGuard VPN — gratis og sikker proxy"
     },
     "description": {
-        "message": "Brug AdGuard VPN til at surfe på Internet hurtigt, trygt og sikkert. Beskyt fortroligheden og forbliv anonym med vores private VPN-proxy."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Brug AdGuard VPN til at surfe på Internet hurtigt og sikkert. Beskyt fortroligheden og forbliv anonym med vores private VPN-proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -534,7 +535,7 @@
         "message": "Forbindelsesproblem"
     },
     "settings_exclusions_action_export": {
-        "message": "Eksmportér undtagelser"
+        "message": "Eksportér undtagelser"
     },
     "settings_exclusions_action_import": {
         "message": "Importér undtagelser"

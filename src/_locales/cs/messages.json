@@ -3,7 +3,8 @@
         "message": "AdGuard VPN — bezplatný a bezpečný proxy server"
     },
     "description": {
-        "message": "Pomocí AdGuard VPN můžete surfovat na internetu rychle, bezpečně a spolehlivě. Chraňte své soukromí a zůstaňte v anonymitě s naším soukromým proxy serverem VPN."
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Pomocí AdGuard VPN můžete surfovat na internetu rychle a spolehlivě. Chraňte své soukromí s naším soukromým proxy serverem VPN."
     },
     "short_name": {
         "message": "AdGuard VPN"

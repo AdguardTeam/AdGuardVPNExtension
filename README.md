@@ -17,6 +17,15 @@
     <a href="https://twitter.com/AdGuard">Twitter</a> |
     <a href="https://t.me/adguard_en">Telegram</a>
     <br /><br />
+    <a href="https://github.com/AdguardTeam/AdGuardVPNExtension/releases">
+        <img src="https://img.shields.io/github/release/AdguardTeam/AdGuardVPNExtension/all.svg" alt="Latest release">
+    </a>
+    <a href="https://agrd.io/vpn_chrome_extension">
+        <img src="https://img.shields.io/chrome-web-store/v/hhdobjgopfphlmjbmnpglhfcgppchgje?labelColor=red" alt="Latest release">
+    </a>
+    <a href="https://agrd.io/vpn_firefox_extension">
+        <img src="https://img.shields.io/amo/v/adguard-vpn?labelColor=orange" alt="Latest release">
+    </a>
 </p>
 
 
