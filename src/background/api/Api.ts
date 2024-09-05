@@ -14,7 +14,8 @@ interface ConfigInterface {
     data?: string | FormData;
     body?: string | FormData;
     headers?: {
-        Authorization: string,
+        Authorization?: string,
+        'Content-Type'?: string,
     };
 }
 

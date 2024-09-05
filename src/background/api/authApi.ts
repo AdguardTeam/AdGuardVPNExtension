@@ -48,7 +48,11 @@ class AuthApi extends Api {
             params.code = code;
         }
 
-        return this.makeRequest(path, { params }, method);
+        const body = new URLSearchParams(params).toString();
+
+        const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+
+        return this.makeRequest(path, { body, headers }, method);
     }
 
     REGISTER_USER: RequestProps = { path: 'api/2.0/registration', method: 'POST' };
