@@ -266,12 +266,12 @@ const halloween24Notification: PromoNotificationData = {
     bgImage: getUrl('assets/images/halloween24.svg'),
     icons: {
         ENABLED: {
-            '19': getUrl('assets/images/icons/halloween24-on-19.png'),
-            '38': getUrl('assets/images/icons/halloween24-on-38.png'),
+            19: getUrl('assets/images/icons/halloween24-on-19.png'),
+            38: getUrl('assets/images/icons/halloween24-on-38.png'),
         },
         DISABLED: {
-            '19': getUrl('assets/images/icons/halloween24-off-19.png'),
-            '38': getUrl('assets/images/icons/halloween24-off-38.png'),
+            19: getUrl('assets/images/icons/halloween24-off-19.png'),
+            38: getUrl('assets/images/icons/halloween24-off-38.png'),
         },
     },
 };
