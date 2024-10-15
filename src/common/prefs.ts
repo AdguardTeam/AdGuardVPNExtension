@@ -6,12 +6,36 @@ import { lazyGet } from './helpers';
 
 const ICONS_PATH = 'assets/images/icons';
 
+/**
+ * Icon data for different sizes.
+ */
+type IconData = {
+    /**
+     * 19x19 icon size.
+     */
+    '19': string;
+
+    /**
+     * 38x38 icon size.
+     */
+    '38': string;
+
+    /**
+     * 128x128 icon size.
+     */
+    '128'?: string;
+};
+
+/**
+ * Icon variants for different states.
+ */
+export type IconVariants = {
+    [key: string]: IconData,
+};
+
+
 interface PrefsInterface {
-    ICONS: {
-        [key: string]: {
-            [key: number]: string,
-        },
-    };
+    ICONS: IconVariants;
     browser: string;
     os?: Runtime.PlatformOs;
 
@@ -68,19 +92,19 @@ export const Prefs: PrefsInterface = {
     get ICONS() {
         return lazyGet(Prefs, 'ICONS', () => ({
             ENABLED: {
-                19: getUrl(`${ICONS_PATH}/enabled-19.png`),
-                38: getUrl(`${ICONS_PATH}/enabled-38.png`),
-                128: getUrl(`${ICONS_PATH}/enabled-128.png`),
+                '19': getUrl(`${ICONS_PATH}/enabled-19.png`),
+                '38': getUrl(`${ICONS_PATH}/enabled-38.png`),
+                '128': getUrl(`${ICONS_PATH}/enabled-128.png`),
             },
             DISABLED: {
-                19: getUrl(`${ICONS_PATH}/disabled-19.png`),
-                38: getUrl(`${ICONS_PATH}/disabled-38.png`),
-                128: getUrl(`${ICONS_PATH}/disabled-128.png`),
+                '19': getUrl(`${ICONS_PATH}/disabled-19.png`),
+                '38': getUrl(`${ICONS_PATH}/disabled-38.png`),
+                '128': getUrl(`${ICONS_PATH}/disabled-128.png`),
             },
             TRAFFIC_OFF: {
-                19: getUrl(`${ICONS_PATH}/traffic-off-19.png`),
-                38: getUrl(`${ICONS_PATH}/traffic-off-38.png`),
-                128: getUrl(`${ICONS_PATH}/traffic-off-128.png`),
+                '19': getUrl(`${ICONS_PATH}/traffic-off-19.png`),
+                '38': getUrl(`${ICONS_PATH}/traffic-off-38.png`),
+                '128': getUrl(`${ICONS_PATH}/traffic-off-128.png`),
             },
         }));
     },
