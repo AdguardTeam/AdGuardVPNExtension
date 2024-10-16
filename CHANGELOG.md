@@ -9,44 +9,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated @adguard/logger to v1.1.1.
+- Updated [@adguard/logger] to `v1.1.1`.
 
-## [2.2.27]
+## [2.2.27] - 2024-08-27
 
 ### Added
 
 - Macedonian language support [#184].
 
 [2.2.27]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.2.24...v2.2.27
-[#184] https://github.com/AdguardTeam/AdGuardVPNExtension/issues/184
-
+[#184]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/184
 
 ## [2.2.24] - 2024-08-06
 
 ### Changed
 
-- Updated @adguard/logger to v1.0.1.
+- Updated [@adguard/logger] to `v1.0.1`.
 
 ### Fixed
 
 - Bug with logging `null` values [#176].
 
-[2.2.27]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.2.20...v2.2.24
+[2.2.24]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.2.20...v2.2.24
 [#176]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/176
-
 
 ## [2.2.17] - 2024-05-02
 
 ### Added
 
-- @adguard/logger library for logging
+- [@adguard/logger] `v1.0.0` library for logging.
 
 ### Changed
 
 - Backend API domain is used for forwarder urls.
 
 [2.2.17]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.2.14...v2.2.17
-
 
 ## [2.2.14] - 2024-03-15
 
@@ -56,7 +53,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [2.2.14]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.2.9...v2.2.14
 [#166]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/166
-
 
 ## [2.2.9] - 2024-02-14
 
@@ -72,7 +68,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#156]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/156
 [#150]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/150
 
-
 ## [2.1.7] - 2023-12-21
 
 ### Added
@@ -80,7 +75,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Separate popup warning for no location with ability to re-fetch locations.
 
 [2.1.7]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.1.5...v2.1.7
-
 
 ## [2.1.5] - 2023-11-21
 
@@ -90,7 +84,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [2.1.5]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.1.1...v2.1.5
 
-
 ## [2.1.1] - 2023-11-15
 
 ### Added
@@ -99,6 +92,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Logs sending during bug report [#149](https://github.com/AdguardTeam/AdGuardVPNExtension/issues/149).
+- Logs sending during bug report [#149].
 
 [2.1.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.0.65...v2.1.1
+[#149]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/149
+
+[@adguard/logger]: https://github.com/AdguardTeam/tsurlfilter/blob/master/packages/logger/CHANGELOG.md
