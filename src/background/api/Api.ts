@@ -88,7 +88,16 @@ export class Api implements ApiInterface {
         try {
             const response = await fetch(requestUrl, fetchConfig);
             if (!response.ok) {
-                const errorData = await response.json();
+                let errorData;
+                try {
+                    errorData = await response.json();
+                } catch (e) {
+                    // server error response may be empty
+                    // e.g. on auth protected routes
+                    // it may send 401 with empty body
+                    // and response.json() can throw an error
+                    throw new CustomError(response.status, JSON.stringify(e));
+                }
                 throw new CustomError(response.status, JSON.stringify(errorData));
             }
 
