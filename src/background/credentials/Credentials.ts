@@ -20,6 +20,7 @@ import { stateStorage } from '../stateStorage';
 import { auth, type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
 import { abTestManager } from '../abTestManager';
+import { ERROR_STATUSES } from '../constants';
 
 import { credentialsService } from './credentialsService';
 
@@ -197,7 +198,7 @@ export class Credentials implements CredentialsInterface {
         try {
             vpnToken = await accountProvider.getVpnToken(accessToken);
         } catch (e) {
-            if (e.status === 401) {
+            if (e.status === ERROR_STATUSES.UNAUTHORIZED) {
                 log.debug('Access token expired');
                 // deauthenticate user
                 await this.auth.deauthenticate();
@@ -477,12 +478,24 @@ export class Credentials implements CredentialsInterface {
      * @return Account info: username and registration time in ISO format.
      */
     async fetchUserInfo(): Promise<AccountInfoData> {
-        const accessToken = await this.auth.getAccessToken();
-        const { username, registrationTimeISO: registrationTime } = await accountProvider.getAccountInfo(accessToken);
-        this.currentUsername = username;
-        this.currentUserRegistrationTime = registrationTime;
+        try {
+            const accessToken = await this.auth.getAccessToken();
+            const accountInfo = await accountProvider.getAccountInfo(accessToken);
 
-        return { username, registrationTimeISO: registrationTime };
+            this.currentUsername = accountInfo.username;
+            this.currentUserRegistrationTime = accountInfo.registrationTimeISO;
+
+            return accountInfo;
+        } catch (e) {
+            if (e?.status === ERROR_STATUSES.UNAUTHORIZED) {
+                log.debug('Auth denied, token is not valid');
+                // deauthenticate user
+                await this.auth.deauthenticate();
+                // clear vpnToken
+                this.persistVpnToken(null);
+            }
+            throw e;
+        }
     }
 
     /**
@@ -642,6 +655,7 @@ export class Credentials implements CredentialsInterface {
         this.vpnCredentials = null;
         await this.storage.set(this.VPN_CREDENTIALS_KEY, null);
         this.currentUsername = null;
+        this.currentUserRegistrationTime = null;
     }
 
     async init(): Promise<void> {
