@@ -51,7 +51,7 @@ body:
         3.
     validations:
       required: true
-      
+
   - type: textarea
     id: how_it_should_be
     attributes:
@@ -59,7 +59,7 @@ body:
       placeholder: A clear and concise description of what you expected to happen.
     validations:
       required: false
-      
+
   - type: textarea
     id: how_it_is
     attributes:
@@ -67,7 +67,7 @@ body:
       placeholder: A clear description of what happened instead.
     validations:
       required: true
-      
+
   - type: textarea
     id: screens
     attributes:
@@ -85,7 +85,7 @@ body:
           </details>
     validations:
       required: false
-      
+
   - type: textarea
     id: additional
     attributes:

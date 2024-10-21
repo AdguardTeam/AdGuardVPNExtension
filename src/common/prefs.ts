@@ -6,12 +6,35 @@ import { lazyGet } from './helpers';
 
 const ICONS_PATH = 'assets/images/icons';
 
+/**
+ * Icon data for different sizes.
+ */
+type IconData = {
+    /**
+     * 19x19 icon size.
+     */
+    19: string;
+
+    /**
+     * 38x38 icon size.
+     */
+    38: string;
+
+    /**
+     * 128x128 icon size.
+     */
+    128?: string;
+};
+
+/**
+ * Icon variants for different states.
+ */
+export type IconVariants = {
+    [key: string]: IconData,
+};
+
 interface PrefsInterface {
-    ICONS: {
-        [key: string]: {
-            [key: number]: string,
-        },
-    };
+    ICONS: IconVariants;
     browser: string;
     os?: Runtime.PlatformOs;
 

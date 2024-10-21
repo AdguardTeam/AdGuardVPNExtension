@@ -4,8 +4,8 @@
 import browser from 'webextension-polyfill';
 
 import { getForwarderUrl } from '../common/helpers';
-import { Prefs } from '../common/prefs';
-import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
+import { type IconVariants, Prefs } from '../common/prefs';
+import { normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
 
 import { getUrl } from './browserApi/runtime';
@@ -57,11 +57,7 @@ export interface PromoNotificationData {
      */
     bgImage: string,
 
-    icons: {
-        [key: string]: {
-            [key: number]: string,
-        }
-    }
+    icons: IconVariants,
 }
 
 const CHECK_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
@@ -73,209 +69,215 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'back_to_school_24_vpn';
-const TDS_PROMO_ACTION_RU = 'back_to_school_24_vpn_ru';
+const TDS_PROMO_ACTION = 'halloween_24_vpn';
 
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
-const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
-const promoUrlQuery = isRuLocale
-    ? RU_PROMO_URL_QUERY
-    : COMMON_PROMO_URL_QUERY;
+const HALLOWEEN_24_ID = 'halloween24';
 
-const BACK_TO_SCHOOL_24_ID = 'backToSchool24';
-
-const backToSchool24Notification: PromoNotificationData = {
-    id: BACK_TO_SCHOOL_24_ID,
+const halloween24Notification: PromoNotificationData = {
+    id: HALLOWEEN_24_ID,
     locales: {
         en: {
-            title: 'Back to School promo',
-            btn: 'Get 80% off',
-        },
-        ru: {
-            title: 'Снова в школу',
-            btn: 'Скидка 75%',
-        },
-        ko: {
-            title: '백투스쿨 세일',
-            btn: '80% 할인',
-        },
-        ja: {
-            title: 'Back to School セール',
-            btn: '80%OFF割引をGET',
-        },
-        zh_cn: {
-            title: '返校 SALE',
-            btn: '低至2折',
-        },
-        zh_tw: {
-            title: '返校 SALE',
-            btn: '低至2折',
+            title: 'The Web is full of dangers',
+            btn: 'Get rid of them',
         },
         fr: {
-            title: 'La Rentrée avec AdGuard',
-            btn: 'Obtenez –80%',
+            title: 'Le Web est plein de périls',
+            btn: 'Èliminons-les',
         },
         it: {
-            title: 'A Scuola con AdGuard',
-            btn: 'Ottieni –80%',
+            title: "L'Internet è pieno di pericoli",
+            btn: 'Togliamoli',
         },
         de: {
-            title: 'Back to School Promo',
-            btn: '80% Rabatt',
+            title: 'Cybermonster bedrohen das Web!',
+            btn: 'Das muss aufhören',
+        },
+        ru: {
+            title: 'Кибернежить нападает!',
+            btn: 'Сразиться',
         },
         es: {
-            title: 'Promo de vuelta al cole',
-            btn: 'Obtén 80% OFF',
-        },
-        pt_br: {
-            title: 'Promo de volta às aulas',
-            btn: 'Obtenha 80% OFF',
-        },
-        pt_pt: {
-            title: 'Promo de volta às aulas',
-            btn: 'Obtenha 80% OFF',
-        },
-        uk: {
-            title: 'Знову до школи',
-            btn: 'Знижка 80%',
-        },
-        ar: {
-            title: 'عرض العودة إلى المدرسة',
-            btn: '٪خصم 80',
-        },
-        be: {
-            title: 'Зноў у школу',
-            btn: 'Зніжка 80%',
-        },
-        bg: {
-            title: 'Обратно на училище: промоция',
-            btn: 'Отстъпка 80%',
-        },
-        ca: {
-            title: "Tornada a l'escola",
-            btn: 'Descompte del 80%',
-        },
-        cs: {
-            title: 'Zpátky do školy: Akce',
-            btn: 'Sleva 80%',
-        },
-        da: {
-            title: 'Tilbage til skole promo',
-            btn: '80% rabat',
-        },
-        el: {
-            title: 'Επιστροφή στα σχολεία',
-            btn: 'Έκπτωση 80%',
+            title: 'El internet está lleno de peligros',
+            btn: 'Terminarlos',
         },
         es_419: {
-            title: 'Vuelta al cole',
-            btn: 'Obtén 80% OFF',
+            title: 'El internet está lleno de peligros',
+            btn: 'Terminarlos',
+        },
+        pt_pt: {
+            title: 'A internet está cheia de monstros',
+            btn: 'Acabar com eles',
+        },
+        pt_br: {
+            title: 'A internet está cheia de monstros',
+            btn: 'Acabar com eles',
+        },
+        zh_cn: {
+            title: '网络威胁无处不在',
+            btn: '立即消除它们',
+        },
+        zh_tw: {
+            title: '網路威脅無處不在',
+            btn: '立即消除它們',
+        },
+        ja: {
+            title: 'AdGuardで怪物を 倒すゲーム',
+            btn: 'プレイしてみる',
+        },
+        ko: {
+            title: '사이버 몬스터와 싸워보세요!',
+            btn: '퀴즈 시작',
+        },
+        uk: {
+            title: 'Інтернет повен небезпек',
+            btn: 'Позбудьтесь їх',
+        },
+        ar: {
+            title: '!الإنترنت في خطر',
+            btn: 'ساعد',
+        },
+        be: {
+            title: 'Інтэрнэт поўны небяспек',
+            btn: 'Пазбаўцеся іх',
+        },
+        bg: {
+            title: 'Интернетът е в опасност!',
+            btn: 'Помогнете',
+        },
+        ca: {
+            title: 'Internet està en perill!',
+            btn: 'Ajuda',
+        },
+        cs: {
+            title: 'Web je plný nebezpečí',
+            btn: 'Zbavte se jich',
+        },
+        da: {
+            title: 'Internettet er fuld af farer',
+            btn: 'Slip af med dem',
+        },
+        el: {
+            title: 'Το διαδίκτυο κινδυνεύει!',
+            btn: 'Βοήθεια',
         },
         fa: {
-            title: 'تبلیغات بازگشت به مدرسه',
-            btn: '٪تخفیف 80',
+            title: '!هیولاها به اینترنت حمله کردند',
+            btn: 'مبارزه کنید',
         },
         fi: {
-            title: 'Takaisin kouluun -kampanja',
-            btn: '80% alennus',
+            title: 'Hirviöt hyökkäsivät internetiin!',
+            btn: 'Taistele',
         },
         he: {
-            title: 'מבצע חזרה לבית הספר',
-            btn: 'הנחה של 80%',
+            title: '!המפלצות תקפו את האינטרנט',
+            btn: 'להילחם',
         },
         hr: {
-            title: 'Povratak u školu: Promo',
-            btn: '80% kedvezmény',
+            title: 'Internet je pun opasnosti',
+            btn: 'Riješite ih se',
         },
         hu: {
-            title: 'Vissza az iskolába promóció',
-            btn: '80% kedvezmény',
+            title: 'Az internet veszélyben van!',
+            btn: 'Segíts',
         },
         hy: {
-            title: 'Վերադառնալ դպրոց',
-            btn: '80% զեղչ',
+            title: 'Ինտերնետը վտանգի մեջ է',
+            btn: 'Օգնեք',
         },
         id: {
-            title: 'Promo Kembali ke Sekolah',
-            btn: 'Diskon 80%',
+            title: 'Monster menyerang internet!',
+            btn: 'Bertarung',
         },
         lt: {
-            title: 'Atgal į mokyklą: akcija',
-            btn: '80% nuolaida',
-        },
-        mk: {
-            title: 'Назад на училиште: Промоција',
-            btn: 'Попуст од 80%',
+            title: 'Monstrai užpuolė internetą!',
+            btn: 'Kovoti',
         },
         ms: {
-            title: 'Promosi Kembali ke Sekolah',
-            btn: 'Diskaun 80%',
+            title: 'Raksasa menyerang internet!',
+            btn: 'Lawan',
         },
         nb: {
-            title: 'Tilbake til skolen',
-            btn: '80% rabatt',
+            title: 'Internett er full av farer',
+            btn: 'Bli kvitt dem',
         },
         nl: {
-            title: 'Terug naar school promotie',
-            btn: '80% korting',
+            title: 'Cybermonsters vallen aan!',
+            btn: 'Vechten',
         },
         pl: {
-            title: 'Powrót do szkoły: Promocja',
-            btn: 'Zniżka 80%',
+            title: 'Potwory zaatakowały internet!',
+            btn: 'Walczyć',
         },
         ro: {
-            title: 'Înapoi la școală: Promoția',
-            btn: 'Reducere de 80%',
+            title: 'Monștrii au atacat internetul!',
+            btn: 'Luptă',
         },
         sk: {
-            title: 'Späť do školy: Promo akcia',
-            btn: 'Zľava 80%',
+            title: 'Monštrá zaútočili na internet!',
+            btn: 'Bojovať',
         },
         sl: {
-            title: 'Nazaj v šolo: Promocija',
-            btn: '80% popust',
+            title: 'Splet je poln nevarnosti',
+            btn: 'Znebite se jih',
         },
         'sr-Latn': {
-            title: 'Povratak u školu: Promocija',
-            btn: '80% popust',
+            title: 'Monstrumi su napali internet!',
+            btn: 'Bori se',
         },
         sv: {
-            title: 'Tillbaka till skolan',
-            btn: '80% rabatt',
+            title: 'Monstren attackerar internet!',
+            btn: 'Kämpa',
         },
         tr: {
-            title: 'Okula Dönüş kampanyası',
-            btn: '%80 indirim',
+            title: 'Canavarlar internete saldırdı!',
+            btn: 'Savaş',
         },
         vi: {
-            title: 'Back to School: Khuyến mãi',
-            btn: 'Giảm giá 80%',
+            title: 'Quái vật đã tấn công internet!',
+            btn: 'Chiến đấu',
+        },
+        hi: {
+            title: 'राक्षसों ने इंटरनेट पर हमला किया!',
+            btn: 'लड़ो',
+        },
+        et: {
+            title: 'Veeb on täis ohte',
+            btn: 'Vabane neist',
+        },
+        th: {
+            title: 'สัตว์ประหลาดโจมตีอินเทอร์เน็ต!',
+            btn: 'ต่อสู้',
+        },
+        mk: {
+            title: 'Интернетот е во опасност!',
+            btn: 'Помош',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    urlQuery: promoUrlQuery,
-    from: '26 August 2024 12:00:00',
-    to: '1 September 2024 23:59:00',
+    urlQuery: COMMON_PROMO_URL_QUERY,
+    from: '25 October 2024 12:00:00',
+    to: '31 October 2024 23:59:00',
     type: 'animated',
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
-    bgImage: getUrl('assets/images/bts24.svg'),
+    bgImage: getUrl('assets/images/halloween24.svg'),
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/bts24-on-19.png'),
-            38: getUrl('assets/images/icons/bts24-on-38.png'),
+            19: getUrl('assets/images/icons/halloween24-on-19.png'),
+            38: getUrl('assets/images/icons/halloween24-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/bts24-off-19.png'),
-            38: getUrl('assets/images/icons/bts24-off-38.png'),
+            19: getUrl('assets/images/icons/halloween24-off-19.png'),
+            38: getUrl('assets/images/icons/halloween24-off-38.png'),
         },
     },
 };
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [BACK_TO_SCHOOL_24_ID]: backToSchool24Notification,
+    [HALLOWEEN_24_ID]: halloween24Notification,
 };
 
 /**
