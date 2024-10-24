@@ -2,7 +2,7 @@ import React, {
     useContext,
     useEffect,
     useState,
-    FormEvent,
+    type FormEvent,
 } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
