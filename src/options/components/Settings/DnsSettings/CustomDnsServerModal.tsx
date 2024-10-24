@@ -1,5 +1,8 @@
 import React, {
-    useContext, useEffect, useState, FormEvent,
+    useContext,
+    useEffect,
+    useState,
+    FormEvent,
 } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
