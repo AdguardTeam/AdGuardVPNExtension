@@ -1,4 +1,5 @@
-import browser, { Manifest, Runtime } from 'webextension-polyfill';
+import type { Manifest, Runtime } from 'webextension-polyfill';
+import browser from 'webextension-polyfill';
 
 const MANIFEST_VERSION_2 = 2;
 

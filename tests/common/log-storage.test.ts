@@ -1,4 +1,5 @@
-import { LogStorage, LogStorageInterface } from '../../src/common/log-storage/log-storage';
+import type { LogStorageInterface } from '../../src/common/log-storage/log-storage';
+import { LogStorage } from '../../src/common/log-storage/log-storage';
 import { logStorageManager } from '../../src/common/log-storage/LogStorageManager';
 
 jest.mock('../../src/background/browserApi', () => {

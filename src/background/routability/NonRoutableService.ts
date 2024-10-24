@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import throttle from 'lodash/throttle';
-import ipaddr, { IPv4 } from 'ipaddr.js';
+import type { IPv4 } from 'ipaddr.js';
+import ipaddr from 'ipaddr.js';
 import browser from 'webextension-polyfill';
 import { isIP } from 'is-ip';
 

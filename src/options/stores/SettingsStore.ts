@@ -6,19 +6,13 @@ import {
 } from 'mobx';
 import { nanoid } from 'nanoid';
 
-import {
-    SETTINGS_IDS,
-    AppearanceTheme,
-    APPEARANCE_THEME_DEFAULT,
-    SubscriptionType,
-    QuickConnectSetting,
-    QUICK_CONNECT_SETTING_DEFAULT,
-} from '../../common/constants';
+import type { AppearanceTheme, SubscriptionType, QuickConnectSetting } from '../../common/constants';
+import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, QUICK_CONNECT_SETTING_DEFAULT } from '../../common/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../common/messenger';
 import { log } from '../../common/logger';
 import type { DnsServerData } from '../../background/schema';
-import { CustomDnsData } from '../hooks/useQueryStringData';
+import type { CustomDnsData } from '../hooks/useQueryStringData';
 
 import type { RootStore } from './RootStore';
 import { RequestStatus } from './consts';

@@ -10,14 +10,8 @@ import {
 import { isIP } from 'is-ip';
 import { getDomain } from 'tldts';
 
-import {
-    ExclusionDtoInterface,
-    ExclusionsData,
-    ExclusionsMode,
-    ExclusionState,
-    ExclusionsType,
-    ServiceDto,
-} from '../../common/exclusionsConstants';
+import type { ExclusionDtoInterface, ExclusionsData, ServiceDto } from '../../common/exclusionsConstants';
+import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../common/exclusionsConstants';
 import { messenger } from '../../common/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 import type { ServiceCategory } from '../../background/schema';

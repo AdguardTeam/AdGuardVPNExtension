@@ -1,5 +1,5 @@
 import { lazyGet, formatBytes, getLocationWithLowestPing } from '../../src/common/helpers';
-import { LocationInterface } from '../../src/background/schema';
+import type { LocationInterface } from '../../src/background/schema';
 
 describe('lazyGet callback', () => {
     const expectedColor = 'blue';

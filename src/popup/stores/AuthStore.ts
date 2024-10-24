@@ -9,6 +9,7 @@ import isNil from 'lodash/isNil';
 
 import { messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
+import type { SocialAuthProvider } from '../../common/constants';
 import {
     BAD_CREDENTIALS_CODE,
     REQUIRED_2FA_CODE,
@@ -16,7 +17,6 @@ import {
     RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC,
     SETTINGS_IDS,
     FLAGS_FIELDS,
-    SocialAuthProvider,
 } from '../../common/constants';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';

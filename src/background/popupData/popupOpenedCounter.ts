@@ -1,5 +1,6 @@
 import { stateStorage } from '../stateStorage';
-import { PopupOpenedCounterState, StorageKey } from '../schema';
+import type { PopupOpenedCounterState } from '../schema';
+import { StorageKey } from '../schema';
 
 interface PopupOpenedCounterInterface {
     init(): void;

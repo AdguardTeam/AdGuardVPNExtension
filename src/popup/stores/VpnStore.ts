@@ -8,8 +8,8 @@ import {
 
 import { messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
-import { LocationWithPing } from '../../background/endpoints/LocationWithPing';
-import { PingData } from '../../background/endpoints/locationsService';
+import type { LocationWithPing } from '../../background/endpoints/LocationWithPing';
+import type { PingData } from '../../background/endpoints/locationsService';
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { daysToRenewal } from '../../common/utils/date';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';

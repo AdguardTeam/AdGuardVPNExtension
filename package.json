@@ -9,7 +9,7 @@
         "beta": "BUILD_ENV=beta ts-node tasks/bundle.ts",
         "release": "BUILD_ENV=release ts-node tasks/bundle.ts",
         "check-types": "tsc --project tsconfig.eslint.json --noEmit",
-        "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx && yarn check-types",
+        "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx --fix && yarn check-types",
         "prepare": "husky install",
         "test": "jest",
         "test:watch": "jest --watch",

@@ -1,11 +1,7 @@
 import { log } from '../../../common/logger';
-import {
-    StorageKey,
-    storageDataScheme,
-    StorageData,
-    DEFAULT_STORAGE_DATA,
-} from '../../schema';
-import { StateStorageInterface } from '../stateStorage.abstract';
+import type { StorageKey, StorageData } from '../../schema';
+import { storageDataScheme, DEFAULT_STORAGE_DATA } from '../../schema';
+import type { StateStorageInterface } from '../stateStorage.abstract';
 
 /**
  * A class provides methods for storing and retrieving data in the browser's session storage.

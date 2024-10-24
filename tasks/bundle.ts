@@ -1,6 +1,6 @@
 /* eslint-disable no-console,no-restricted-syntax,no-await-in-loop */
 import { program } from 'commander';
-import webpack from 'webpack';
+import type webpack from 'webpack';
 
 import { bundleRunner } from './bundle-runner';
 import { chromeConfig } from './chrome/webpack.chrome';

@@ -16,13 +16,14 @@ import { fallbackApi } from '../api/fallbackApi';
 import { settings } from '../settings';
 import { flagsStorage } from '../flagsStorage';
 import type { AuthCredentials } from '../api/apiTypes';
-import type { AuthAccessToken } from '../schema';
+import type { AuthAccessToken, AuthState } from '../schema';
 import { authService } from '../authentication/authService';
-import { AuthState, StorageKey } from '../schema';
+import { StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
 
-import { SocialAuthData } from './socialAuthSchema';
-import { ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema';
+import type { SocialAuthData } from './socialAuthSchema';
+import type { ThankYouPageData } from './thankYouPageSchema';
+import { thankYouPageSchema } from './thankYouPageSchema';
 
 export interface AuthInterface {
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;

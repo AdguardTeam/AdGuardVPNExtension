@@ -1,4 +1,5 @@
-import { BrowserApi, browserApi } from '../browserApi';
+import type { BrowserApi } from '../browserApi';
+import { browserApi } from '../browserApi';
 import type { AuthAccessToken } from '../schema';
 
 interface AuthServiceInterface {

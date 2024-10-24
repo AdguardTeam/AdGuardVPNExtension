@@ -5,7 +5,8 @@ import classnames from 'classnames';
 
 import { rootStore } from '../../../../stores';
 import { StateCheckbox } from '../../StateCheckbox';
-import { ExclusionDtoInterface, ExclusionState, ExclusionsType } from '../../../../../common/exclusionsConstants';
+import type { ExclusionDtoInterface } from '../../../../../common/exclusionsConstants';
+import { ExclusionState, ExclusionsType } from '../../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './children-list-item.pcss';

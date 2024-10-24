@@ -3,7 +3,8 @@ import { observer } from 'mobx-react';
 
 import cn from 'classnames';
 
-import { ExclusionsType, ExclusionDtoInterface } from '../../../../../common/exclusionsConstants';
+import type { ExclusionDtoInterface } from '../../../../../common/exclusionsConstants';
+import { ExclusionsType } from '../../../../../common/exclusionsConstants';
 import { StateCheckbox } from '../../StateCheckbox';
 import { rootStore } from '../../../../stores';
 import { SearchHighlighter } from '../../Search/SearchHighlighter';

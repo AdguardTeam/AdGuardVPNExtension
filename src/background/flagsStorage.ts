@@ -4,7 +4,8 @@ import { log } from '../common/logger';
 import { browserApi } from './browserApi';
 import { updateService } from './updateService';
 import { stateStorage } from './stateStorage';
-import { FlagsStorageData, FLAG_STORAGE_DEFAULTS } from './flagsStorageData';
+import type { FlagsStorageData } from './flagsStorageData';
+import { FLAG_STORAGE_DEFAULTS } from './flagsStorageData';
 import { StorageKey } from './schema';
 
 const FLAGS_STORAGE_KEY = 'flags.storage';

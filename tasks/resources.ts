@@ -1,14 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 
-import axios, { AxiosRequestConfig } from 'axios';
+import type { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import dotenv from 'dotenv';
 
-import {
-    ExclusionServices,
-    processExclusionServices,
-    processExclusionServicesDomains,
-} from '../src/common/data-processors';
+import type { ExclusionServices } from '../src/common/data-processors';
+import { processExclusionServices, processExclusionServicesDomains } from '../src/common/data-processors';
 
 dotenv.config();
 

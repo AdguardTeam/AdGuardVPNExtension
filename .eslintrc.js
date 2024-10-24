@@ -93,6 +93,7 @@ module.exports = {
         'react/jsx-indent': 'off',
         'react/jsx-indent-props': 'off',
         '@typescript-eslint/indent': ['error', 4],
+        '@typescript-eslint/consistent-type-imports': 'error',
         'no-underscore-dangle': 'off',
         'react/destructuring-assignment': [
             'error',

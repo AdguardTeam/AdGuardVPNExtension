@@ -3,13 +3,13 @@ import { notifier } from '../../../common/notifier';
 import { log } from '../../../common/logger';
 import { settings } from '../../settings';
 import { proxy } from '../../proxy';
-import {
-    StorageKey,
+import type {
     PersistedExclusions,
     ExclusionInterface,
     IndexedExclusionsInterface,
     ExclusionsManagerState,
 } from '../../schema';
+import { StorageKey } from '../../schema';
 import { stateStorage } from '../../stateStorage';
 
 import { ExclusionsHandler } from './ExclusionsHandler';

@@ -1,6 +1,7 @@
 import { browserApi } from './browserApi';
 import { stateStorage } from './stateStorage';
-import { StorageKey, UpdateServiceState } from './schema';
+import type { UpdateServiceState } from './schema';
+import { StorageKey } from './schema';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 

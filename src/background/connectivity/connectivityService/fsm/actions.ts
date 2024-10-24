@@ -1,10 +1,11 @@
 import { assign } from 'xstate';
 
 import { log } from '../../../../common/logger';
-import { CONNECTIVITY_CONTEXT_DEFAULTS, ConnectivityContext } from '../../../schema/connectivity';
+import type { ConnectivityContext } from '../../../schema/connectivity';
+import { CONNECTIVITY_CONTEXT_DEFAULTS } from '../../../schema/connectivity';
 import { switcher } from '../../switcher';
 
-import { ConnectivityEvent } from './events';
+import type { ConnectivityEvent } from './events';
 
 /**
  * Possible actions of connectivity finite state machine.

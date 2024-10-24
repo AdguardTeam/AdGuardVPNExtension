@@ -3,7 +3,8 @@ import type { EventData } from 'xstate';
 import { notifier } from '../../../common/notifier';
 import { log } from '../../../common/logger';
 import { stateStorage } from '../../stateStorage';
-import { StorageKey, ConnectivityData, ConnectivityStateType } from '../../schema';
+import type { ConnectivityData } from '../../schema';
+import { StorageKey, ConnectivityStateType } from '../../schema';
 
 import { createConnectivityMachine, ConnectivityEventType, createConnectivityInterpreter } from './fsm';
 

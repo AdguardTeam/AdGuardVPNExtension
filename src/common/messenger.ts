@@ -1,4 +1,5 @@
-import browser, { Runtime } from 'webextension-polyfill';
+import type { Runtime } from 'webextension-polyfill';
+import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
 import type { LimitedOfferData } from '../background/limitedOfferService';
@@ -7,10 +8,11 @@ import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { Message } from '../popup/components/App/App';
 
-import { type ExclusionsData, ExclusionsMode, type ServiceDto } from './exclusionsConstants';
+import type { ExclusionsMode, ExclusionsData, ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
-import { MessageType, SocialAuthProvider, type ExclusionsContentMap } from './constants';
-import { NotifierType } from './notifier';
+import { MessageType } from './constants';
+import type { SocialAuthProvider, ExclusionsContentMap } from './constants';
+import type { NotifierType } from './notifier';
 
 class Messenger {
     async sendMessage<T>(type: string, data?: T) {

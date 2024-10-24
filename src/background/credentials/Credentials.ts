@@ -9,13 +9,13 @@ import type { VpnProviderInterface } from '../providers/vpnProvider';
 import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import type { StorageInterface } from '../browserApi/storage';
 import type { ExtensionProxyInterface } from '../proxy/proxy';
-import {
+import type {
     AccessCredentials,
     VpnTokenData,
     CredentialsState,
     CredentialsDataInterface,
-    StorageKey,
 } from '../schema';
+import { StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
 import { auth, type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
