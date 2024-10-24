@@ -4,10 +4,7 @@ import { log } from '../../common/logger';
 import { AppearanceTheme, SETTINGS_IDS } from '../../common/constants';
 import { browserApi } from '../browserApi';
 import { servicesManager } from '../exclusions/services/ServicesManager';
-import {
-    complementedExclusionsWithServices,
-    complementExclusions,
-} from '../exclusions/exclusions-helpers';
+import { complementedExclusionsWithServices, complementExclusions } from '../exclusions/exclusions-helpers';
 import { ExclusionState } from '../../common/exclusionsConstants';
 import { StorageInterface } from '../browserApi/storage';
 import { ExclusionInterface } from '../schema';

@@ -1,8 +1,4 @@
-import {
-    ExperimentsResponse,
-    VersionsResponse,
-    versionsSchema,
-} from '../schema/credentials/trackInstallResponse';
+import { ExperimentsResponse, VersionsResponse, versionsSchema } from '../schema/credentials/trackInstallResponse';
 import { browserApi } from '../browserApi';
 import { log } from '../../common/logger';
 

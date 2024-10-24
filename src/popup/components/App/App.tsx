@@ -1,7 +1,4 @@
-import React, {
-    useContext,
-    useEffect,
-} from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';

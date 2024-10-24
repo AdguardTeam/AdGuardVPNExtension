@@ -4,10 +4,7 @@ import path from 'path';
 
 import chalk from 'chalk';
 
-import {
-    LOCALES_ABSOLUTE_PATH,
-    LOCALE_DATA_FILENAME,
-} from './locales-constants';
+import { LOCALES_ABSOLUTE_PATH, LOCALE_DATA_FILENAME } from './locales-constants';
 
 export const cliLog = {
     info: (str) => {

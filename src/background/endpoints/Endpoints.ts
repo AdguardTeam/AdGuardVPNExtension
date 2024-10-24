@@ -14,11 +14,7 @@ import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 import { connectivity } from '../connectivity';
 import { credentials } from '../credentials';
 import { connectivityService } from '../connectivity/connectivityService';
-import type {
-    EndpointInterface,
-    VpnTokenData,
-    CredentialsDataInterface,
-} from '../schema';
+import type { EndpointInterface, VpnTokenData, CredentialsDataInterface } from '../schema';
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../common/constants';

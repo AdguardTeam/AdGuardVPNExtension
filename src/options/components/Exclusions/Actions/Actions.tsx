@@ -1,9 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import React, {
-    useContext,
-    useState,
-    useRef,
-} from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { observer } from 'mobx-react';
 
 import classnames from 'classnames';

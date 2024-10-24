@@ -7,7 +7,8 @@ import {
     StorageKey,
     PersistedExclusions,
     ExclusionInterface,
-    IndexedExclusionsInterface, ExclusionsManagerState,
+    IndexedExclusionsInterface,
+    ExclusionsManagerState,
 } from '../../schema';
 import { stateStorage } from '../../stateStorage';
 

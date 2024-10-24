@@ -1,8 +1,4 @@
-import {
-    useContext,
-    useEffect,
-    useRef,
-} from 'react';
+import { useContext, useEffect, useRef } from 'react';
 
 import { notifier } from '../../../common/notifier';
 import { messenger } from '../../../common/messenger';

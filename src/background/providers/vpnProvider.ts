@@ -5,11 +5,7 @@ import { vpnApi } from '../api';
 import { log } from '../../common/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
 import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
-import type {
-    ServicesInterface,
-    CredentialsDataInterface,
-    LocationInterface,
-} from '../schema';
+import type { ServicesInterface, CredentialsDataInterface, LocationInterface } from '../schema';
 import { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { TrackInstallResponse, trackInstallResponseSchema } from '../schema/credentials/trackInstallResponse';
 
