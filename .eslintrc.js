@@ -14,6 +14,7 @@ module.exports = {
     plugins: [
         'react',
         'import',
+        'import-newlines',
     ],
     env: {
         browser: true,
@@ -124,6 +125,7 @@ module.exports = {
         'import/prefer-default-export': 'off',
         'arrow-body-style': 'off',
         'react/display-name': 'off',
+        'import-newlines/enforce': ['error', { items: 3, 'max-len': 120 }],
         'import/extensions': [
             'error',
             'ignorePackages',
