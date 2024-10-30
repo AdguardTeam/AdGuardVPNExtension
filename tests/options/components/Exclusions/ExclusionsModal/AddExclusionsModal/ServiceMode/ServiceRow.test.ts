@@ -1,7 +1,7 @@
 import {
     canAddService,
 } from '../../../../../../../src/options/components/Exclusions/ExclusionsModal/AddExclusionsModal/ServiceMode/ServiceRow';
-import { ExclusionState, ServiceDto } from '../../../../../../../src/common/exclusionsConstants';
+import { ExclusionState, type ServiceDto } from '../../../../../../../src/common/exclusionsConstants';
 
 const generateService = (props: Partial<ServiceDto>): ServiceDto => {
     const mockedService: ServiceDto = {

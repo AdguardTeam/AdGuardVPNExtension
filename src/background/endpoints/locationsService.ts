@@ -8,10 +8,10 @@ import { SETTINGS_IDS } from '../../common/constants';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
 import {
-    LocationInterface,
-    EndpointInterface,
-    LocationsServiceState,
-    PingsCacheInterface,
+    type LocationInterface,
+    type EndpointInterface,
+    type LocationsServiceState,
+    type PingsCacheInterface,
     StorageKey,
 } from '../schema';
 import { stateStorage } from '../stateStorage';

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import cn from 'classnames';
 
 import { rootStore } from '../../../../../stores';
-import { PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
+import { type PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
 import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
 
 import { ServiceRow } from './ServiceRow';

@@ -1,4 +1,4 @@
-import { LocationWithPing } from 'background/endpoints/LocationWithPing';
+import { type LocationWithPing } from 'background/endpoints/LocationWithPing';
 
 /**
  * Show a warning if there are more than 30% of unavailable locations.

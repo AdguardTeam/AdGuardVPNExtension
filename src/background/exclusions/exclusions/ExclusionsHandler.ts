@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
+import { type ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
 import { areHostnamesEqual, shExpMatch } from '../../../common/utils/string';
 import { getETld, getHostname, getSubdomain } from '../../../common/utils/url';
 import type { ExclusionInterface, IndexedExclusionsInterface } from '../../schema';

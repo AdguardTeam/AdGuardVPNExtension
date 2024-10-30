@@ -1,8 +1,4 @@
-import {
-    BAD_CREDENTIALS_CODE,
-    REQUIRED_2FA_CODE,
-    REQUIRED_EMAIL_CONFIRMATION_CODE,
-} from '../../common/constants';
+import { BAD_CREDENTIALS_CODE, REQUIRED_2FA_CODE, REQUIRED_EMAIL_CONFIRMATION_CODE } from '../../common/constants';
 import { getForwarderUrl } from '../../common/helpers';
 import { authApi } from '../api';
 import { forwarder } from '../forwarder';

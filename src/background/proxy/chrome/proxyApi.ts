@@ -1,7 +1,7 @@
-import { ProxyConfigInterface, StorageKey } from '../../schema';
+import { type ProxyConfigInterface, StorageKey } from '../../schema';
 import { stateStorage } from '../../stateStorage';
 import { log } from '../../../common/logger';
-import { ProxyApiInterface } from '../abstractProxyApi';
+import { type ProxyApiInterface } from '../abstractProxyApi';
 import { browserApi } from '../../browserApi';
 
 import { promisifiedClearProxy, promisifiedGetProxy, promisifiedSetProxy } from './proxySettingsUtils';

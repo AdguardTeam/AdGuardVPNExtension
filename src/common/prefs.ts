@@ -1,4 +1,4 @@
-import { Runtime } from 'webextension-polyfill';
+import type { Runtime } from 'webextension-polyfill';
 
 import { getUrl, runtime } from '../background/browserApi/runtime';
 

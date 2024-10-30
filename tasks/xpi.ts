@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 // @ts-ignore there are no types for web-ext
 import webExt from 'web-ext';
 import chalk from 'chalk';
-import { Manifest } from 'webextension-polyfill';
+import { type Manifest } from 'webextension-polyfill';
 
 import packageJson from '../package.json';
 

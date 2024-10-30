@@ -10,10 +10,10 @@ import type { PermissionsErrorInterface } from '../permissionsChecker/permission
 import type { StorageInterface } from '../browserApi/storage';
 import type { ExtensionProxyInterface } from '../proxy/proxy';
 import {
-    AccessCredentials,
-    VpnTokenData,
-    CredentialsState,
-    CredentialsDataInterface,
+    type AccessCredentials,
+    type VpnTokenData,
+    type CredentialsState,
+    type CredentialsDataInterface,
     StorageKey,
 } from '../schema';
 import { stateStorage } from '../stateStorage';

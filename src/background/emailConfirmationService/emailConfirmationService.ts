@@ -1,4 +1,4 @@
-import { BrowserApi, browserApi } from '../browserApi';
+import { type BrowserApi, browserApi } from '../browserApi';
 import { RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC } from '../../common/constants';
 
 /**

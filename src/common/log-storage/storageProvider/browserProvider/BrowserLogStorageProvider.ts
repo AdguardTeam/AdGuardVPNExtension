@@ -6,7 +6,7 @@
 import { browserApi } from '../../../../background/browserApi';
 import type { LogStorageProvider } from '../LogStorageProvider';
 
-import { Logs, logsValidator } from './logsSchema';
+import { type Logs, logsValidator } from './logsSchema';
 
 /**
  * The key used to store logs in the browser's storage.

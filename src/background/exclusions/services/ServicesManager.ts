@@ -4,17 +4,17 @@ import axios from 'axios';
 import { vpnProvider } from '../../providers/vpnProvider';
 import { browserApi } from '../../browserApi';
 import { log } from '../../../common/logger';
-import { ServiceDto } from '../../../common/exclusionsConstants';
+import { type ServiceDto } from '../../../common/exclusionsConstants';
 import { fetchConfig } from '../../../common/fetch-config';
 import { stateStorage } from '../../stateStorage';
 import {
     StorageKey,
-    ServicesInterface,
-    ServicesIndexType,
-    ServicesManagerState,
+    type ServicesInterface,
+    type ServicesIndexType,
+    type ServicesManagerState,
 } from '../../schema';
 
-import { Service } from './Service';
+import { type Service } from './Service';
 
 interface ServiceManagerInterface {
     init: () => Promise<void>;

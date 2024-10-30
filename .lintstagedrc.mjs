@@ -1,3 +1,5 @@
 export default {
-    '*.{ts,tsx,js,jsx}': (fileNames) => `eslint --cache ${fileNames}`,
-}
+    "*.{ts,tsx,js,jsx}": (filenames) => [
+        `eslint --cache ${filenames.join(' ')}`,
+    ],
+};

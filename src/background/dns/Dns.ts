@@ -1,6 +1,6 @@
 import { notifier } from '../../common/notifier';
 import { settings } from '../settings';
-import { StorageKey, DnsServerData, DnsState } from '../schema';
+import { StorageKey, type DnsServerData, type DnsState } from '../schema';
 import { stateStorage } from '../stateStorage';
 import { log } from '../../common/logger';
 

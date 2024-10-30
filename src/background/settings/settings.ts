@@ -3,7 +3,7 @@ import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
 import {
     SETTINGS_IDS,
-    QuickConnectSetting,
+    type QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
     APPEARANCE_THEME_DEFAULT,
 } from '../../common/constants';

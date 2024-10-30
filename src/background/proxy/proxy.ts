@@ -8,16 +8,17 @@ import { browserApi } from '../browserApi';
 import { notifier } from '../../common/notifier';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
-import type { EndpointInterface, LocationInterface } from '../schema';
-import { stateStorage } from '../stateStorage';
 import {
-    ProxyConfigInterface,
-    CanControlProxy,
-    AccessCredentials,
-    ProxyState,
-    PROXY_DEFAULTS,
+    type EndpointInterface,
+    type LocationInterface,
+    type ProxyConfigInterface,
+    type CanControlProxy,
+    type AccessCredentials,
+    type ProxyState,
     StorageKey,
+    PROXY_DEFAULTS,
 } from '../schema';
+import { stateStorage } from '../stateStorage';
 
 import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { proxyApi } from './abstractProxyApi';

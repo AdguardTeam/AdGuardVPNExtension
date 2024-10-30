@@ -1,7 +1,7 @@
-import browser, { Runtime } from 'webextension-polyfill';
+import browser, { type Runtime } from 'webextension-polyfill';
 
 import { MessageType, SETTINGS_IDS, CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
-import { ExclusionsData } from '../../common/exclusionsConstants';
+import { type ExclusionsData } from '../../common/exclusionsConstants';
 import { logStorage } from '../../common/log-storage';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
@@ -21,7 +21,7 @@ import { permissionsChecker } from '../permissionsChecker';
 import { locationsService } from '../endpoints/locationsService';
 import { promoNotifications } from '../promoNotifications';
 import { tabs } from '../tabs';
-import { RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
+import { type RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
 import { accountProvider } from '../providers/accountProvider';
 import { flagsStorage } from '../flagsStorage';
 import { rateModal } from '../rateModal';

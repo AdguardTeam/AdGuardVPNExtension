@@ -1,7 +1,7 @@
 import { notifier } from '../notifier';
 import { SETTINGS_IDS } from '../constants';
 
-import { LogStorageProvider } from './storageProvider/LogStorageProvider';
+import { type LogStorageProvider } from './storageProvider/LogStorageProvider';
 import { BrowserLogStorageProvider } from './storageProvider/browserProvider';
 import { MemoryLogStorageProvider } from './storageProvider/memoryProvider';
 

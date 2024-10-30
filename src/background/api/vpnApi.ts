@@ -1,9 +1,9 @@
 import browser from 'webextension-polyfill';
-import { AxiosResponse } from 'axios';
+import { type AxiosResponse } from 'axios';
 
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
-import { RequestProps } from './apiTypes';
+import { type RequestProps } from './apiTypes';
 
 const API_PREFIX = '/api';
 

@@ -1,6 +1,6 @@
-import { ExtensionProxyInterface } from '../proxy/proxy';
-import { CanControlProxy } from '../schema';
-import { SettingsInterface } from '../settings/settings';
+import { type ExtensionProxyInterface } from '../proxy/proxy';
+import { type CanControlProxy } from '../schema';
+import { type SettingsInterface } from '../settings/settings';
 
 export class AppStatus {
     appVersion: string;

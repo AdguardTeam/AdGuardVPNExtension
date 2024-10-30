@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-import {
-    FallbackApi,
-    GOOGLE_DOH_URL,
-    CLOUDFLARE_DOH_URL,
-} from '../../../src/background/api/fallbackApi';
+import { FallbackApi, GOOGLE_DOH_URL, CLOUDFLARE_DOH_URL } from '../../../src/background/api/fallbackApi';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
 import { stateStorage } from '../../../src/background/stateStorage/mv2';

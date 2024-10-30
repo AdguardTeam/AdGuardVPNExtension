@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { LocationData } from '../../stores/VpnStore';
+import { type LocationData } from '../../stores/VpnStore';
 
 import { FastestSkeleton } from './FastestSkeleton';
 import { Location } from './Location';

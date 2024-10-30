@@ -3,7 +3,7 @@ import { customAlphabet } from 'nanoid';
 import { log } from '../../common/logger';
 
 import { alarmApi } from './alarmApi';
-import { TimersInterface } from './AbstractTimers';
+import { type TimersInterface } from './AbstractTimers';
 
 const MINIMAL_INTERVAL_MIN = 1;
 

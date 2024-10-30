@@ -1,4 +1,4 @@
-import { Method } from 'axios';
+import { type Method } from 'axios';
 
 export type AuthCredentials = {
     username: string;

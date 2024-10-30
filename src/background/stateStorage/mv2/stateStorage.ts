@@ -1,5 +1,5 @@
-import { DEFAULT_STORAGE_DATA, StorageData, StorageKey } from '../../schema';
-import { StateStorageInterface } from '../stateStorage.abstract';
+import { DEFAULT_STORAGE_DATA, type StorageData, type StorageKey } from '../../schema';
+import { type StateStorageInterface } from '../stateStorage.abstract';
 
 /**
  * A class provides methods for storing and retrieving data in the storage data object.

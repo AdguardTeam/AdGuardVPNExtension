@@ -1,6 +1,6 @@
 import {
-    ExperimentsResponse,
-    VersionsResponse,
+    type ExperimentsResponse,
+    type VersionsResponse,
     versionsSchema,
 } from '../schema/credentials/trackInstallResponse';
 import { browserApi } from '../browserApi';

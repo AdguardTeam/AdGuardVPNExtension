@@ -1,8 +1,8 @@
 import { AppStatus } from '../../../src/background/appStatus/AppStatus';
 import { LEVELS_OF_CONTROL } from '../../../src/background/proxy/proxyConsts';
-import { ExtensionProxyInterface } from '../../../src/background/proxy/proxy';
-import { CanControlProxy } from '../../../src/background/schema';
-import { SettingsInterface } from '../../../src/background/settings/settings';
+import type { ExtensionProxyInterface } from '../../../src/background/proxy/proxy';
+import type { CanControlProxy } from '../../../src/background/schema';
+import type { SettingsInterface } from '../../../src/background/settings/settings';
 
 const buildProxy = (response: CanControlProxy): { canControlProxy: () => Promise<CanControlProxy> } => {
     return {

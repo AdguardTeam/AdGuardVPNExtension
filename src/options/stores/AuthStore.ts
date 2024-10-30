@@ -1,8 +1,4 @@
-import {
-    action,
-    observable,
-    runInAction,
-} from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 
 import { messenger } from '../../common/messenger';
 

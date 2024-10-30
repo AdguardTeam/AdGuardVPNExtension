@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { ExclusionDtoInterface } from '../../../../common/exclusionsConstants';
+import { type ExclusionDtoInterface } from '../../../../common/exclusionsConstants';
 import { Loader } from '../Loader';
 
 import { ListItem } from './ListItem';

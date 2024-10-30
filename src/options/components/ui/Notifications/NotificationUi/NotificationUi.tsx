@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import cn from 'classnames';
 
 import { rootStore } from '../../../../stores';
-import { Notification } from '../../../../stores/NotificationsStore/Notification';
+import type { Notification } from '../../../../stores/NotificationsStore/Notification';
 
 const NOTIFICATION_CLEAR_TIMEOUT_MS = 5 * 1000;
 

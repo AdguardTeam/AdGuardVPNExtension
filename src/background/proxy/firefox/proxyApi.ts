@@ -5,7 +5,7 @@ import { IPV4_REGEX } from '../../routability/constants';
 import { convertCidrToNet, isInNet } from '../../routability/utils';
 import { getHostname } from '../../../common/utils/url';
 import type { AccessCredentials, ProxyConfigInterface } from '../../schema';
-import { ProxyApiInterface, ProxyErrorCallback } from '../abstractProxyApi';
+import type { ProxyApiInterface, ProxyErrorCallback } from '../abstractProxyApi';
 
 /**
  * Defines the ConnectionType enum.

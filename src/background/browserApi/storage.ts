@@ -1,4 +1,4 @@
-import Browser from 'webextension-polyfill';
+import type Browser from 'webextension-polyfill';
 
 export interface StorageInterface {
     set: <T>(key: string, data: T) => Promise<void>;

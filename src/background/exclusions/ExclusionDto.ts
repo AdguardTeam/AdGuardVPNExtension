@@ -1,4 +1,4 @@
-import { ExclusionDtoInterface, ExclusionState, ExclusionsType } from '../../common/exclusionsConstants';
+import { type ExclusionDtoInterface, type ExclusionState, type ExclusionsType } from '../../common/exclusionsConstants';
 
 interface ExclusionDtoProps {
     id: string;

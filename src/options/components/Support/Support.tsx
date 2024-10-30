@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { type ReactNode, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';

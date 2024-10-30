@@ -14,6 +14,7 @@ module.exports = {
     plugins: [
         'react',
         'import',
+        'import-newlines',
     ],
     env: {
         browser: true,
@@ -84,6 +85,13 @@ module.exports = {
         }],
         'no-shadow': 0,
         '@typescript-eslint/no-shadow': 0,
+        '@typescript-eslint/consistent-type-imports': [
+            'error',
+            {
+                prefer: 'type-imports',
+                fixStyle: 'inline-type-imports',
+            },
+        ],
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
         'import/no-extraneous-dependencies': 0,
         // TODO: remove rule
@@ -124,6 +132,7 @@ module.exports = {
         'import/prefer-default-export': 'off',
         'arrow-body-style': 'off',
         'react/display-name': 'off',
+        'import-newlines/enforce': ['error', { items: 3, 'max-len': 120 }],
         'import/extensions': [
             'error',
             'ignorePackages',

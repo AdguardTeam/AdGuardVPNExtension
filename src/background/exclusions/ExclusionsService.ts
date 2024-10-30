@@ -4,13 +4,13 @@ import identity from 'lodash/identity';
 import { isIP } from 'is-ip';
 
 import {
-    ExclusionDtoInterface,
+    type ExclusionDtoInterface,
     ExclusionsMode,
     ExclusionState,
     ExclusionsType,
-    ServiceDto,
+    type ServiceDto,
 } from '../../common/exclusionsConstants';
-import { ExclusionInterface, ExclusionsState, StorageKey } from '../schema';
+import { type ExclusionInterface, type ExclusionsState, StorageKey } from '../schema';
 import {
     getETld,
     getHostname,
@@ -20,11 +20,11 @@ import {
 import { notifier } from '../../common/notifier';
 import { stateStorage } from '../stateStorage';
 
-import { AllExclusions, exclusionsManager } from './exclusions/ExclusionsManager';
+import { type AllExclusions, exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
-import { ExclusionNode } from './ExclusionNode';
-import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
+import { type ExclusionNode } from './ExclusionNode';
+import { type AddExclusionArgs } from './exclusions/ExclusionsHandler';
 
 interface ToggleServicesResult {
     added: number,

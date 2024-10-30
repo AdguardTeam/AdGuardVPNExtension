@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { type AxiosRequestConfig } from 'axios';
 import dotenv from 'dotenv';
 
 import {
-    ExclusionServices,
+    type ExclusionServices,
     processExclusionServices,
     processExclusionServicesDomains,
 } from '../src/common/data-processors';

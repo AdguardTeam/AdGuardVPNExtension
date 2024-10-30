@@ -2,7 +2,7 @@ import { Credentials } from '../../../src/background/credentials/Credentials';
 import { SubscriptionType } from '../../../src/common/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
-import { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
+import type { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
 import { stateStorage } from '../../../src/background/stateStorage/mv2';

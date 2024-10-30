@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { observable, action } from 'mobx';
 
@@ -6,7 +6,7 @@ import type { RootStore } from '../RootStore';
 
 import { SuccessNotification } from './SuccessNotification';
 import { ErrorNotification } from './ErrorNotification';
-import { Action, Notification } from './Notification';
+import { type Action, type Notification } from './Notification';
 
 export class NotificationsStore {
     private rootStore: RootStore;

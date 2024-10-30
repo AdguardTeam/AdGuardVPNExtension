@@ -3,7 +3,7 @@ import { appStatus } from '../appStatus';
 
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
-import { AuthCredentials, RequestProps } from './apiTypes';
+import { type AuthCredentials, type RequestProps } from './apiTypes';
 
 // Documentation
 // projects/ADGUARD/repos/adguard-auth-service/browse/oauth.md

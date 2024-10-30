@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, type RefObject } from 'react';
 
 export const ESC_KEY_NAME = 'Escape';
 
@@ -9,7 +9,7 @@ export const ESC_KEY_NAME = 'Escape';
  * @param handler
  */
 export const useOutsideClick = (
-    ref: React.RefObject<HTMLDivElement>,
+    ref: RefObject<HTMLDivElement>,
     handler: (event: MouseEvent | KeyboardEvent) => void,
 ) => {
     useEffect(

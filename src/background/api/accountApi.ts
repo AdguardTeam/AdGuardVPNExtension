@@ -1,8 +1,8 @@
-import { SubscriptionType } from '../../common/constants';
+import { type SubscriptionType } from '../../common/constants';
 
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
-import { RequestProps } from './apiTypes';
+import { type RequestProps } from './apiTypes';
 
 interface TokensInterface {
     token: string;

@@ -1,4 +1,4 @@
-import { ConnectivityContext } from '../../../schema/connectivity';
+import { type ConnectivityContext } from '../../../schema/connectivity';
 
 /**
  * Possible delays for connectivity finite state machine.

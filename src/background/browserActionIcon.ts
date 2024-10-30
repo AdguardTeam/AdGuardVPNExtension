@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import type browser from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
 
 import { notifier } from '../common/notifier';
@@ -7,7 +7,7 @@ import { log } from '../common/logger';
 
 import { actions } from './actions';
 import { exclusions } from './exclusions';
-import { PreparedTab, tabs } from './tabs';
+import { type PreparedTab, tabs } from './tabs';
 import { auth } from './auth/auth';
 import { locationsService } from './endpoints/locationsService';
 import { connectivityService } from './connectivity/connectivityService';

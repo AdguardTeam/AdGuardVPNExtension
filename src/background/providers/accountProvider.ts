@@ -3,7 +3,7 @@ import { accountApi } from '../api';
 import { forwarder } from '../forwarder';
 import { notifications } from '../notifications';
 import { translator } from '../../common/translator';
-import { SubscriptionType } from '../../common/constants';
+import { type SubscriptionType } from '../../common/constants';
 
 interface VpnTokenData {
     token: string;

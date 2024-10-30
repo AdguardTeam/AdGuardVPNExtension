@@ -1,7 +1,7 @@
 /* eslint-disable no-continue */
 import { isIP } from 'is-ip';
 
-import { ExclusionDtoInterface, ExclusionsType } from '../../common/exclusionsConstants';
+import { type ExclusionDtoInterface, ExclusionsType } from '../../common/exclusionsConstants';
 import { getETld } from '../../common/utils/url';
 import type {
     ServicesIndexType,

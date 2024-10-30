@@ -16,14 +16,10 @@ import { type LimitedOfferData } from '../../background/limitedOfferService';
 import { type PromoNotificationData } from '../../background/promoNotifications';
 import { Prefs } from '../../common/prefs';
 import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
-import { AnimationEvent, AnimationState } from '../constants';
+import { AnimationEvent, type AnimationState } from '../constants';
 
 import type { RootStore } from './RootStore';
-import {
-    MAX_GET_POPUP_DATA_ATTEMPTS,
-    RECALCULATE_PINGS_BTN_INACTIVITY_DELAY_MS,
-    RequestStatus,
-} from './constants';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RECALCULATE_PINGS_BTN_INACTIVITY_DELAY_MS, RequestStatus } from './constants';
 
 type StateType = {
     value: string,

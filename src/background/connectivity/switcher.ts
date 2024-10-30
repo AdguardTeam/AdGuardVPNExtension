@@ -11,11 +11,7 @@ import type { AccessCredentialsData } from '../credentials/Credentials';
 import type { EndpointInterface, LocationInterface } from '../schema';
 import { runWithCancel } from '../helpers';
 
-import {
-    connectivityService,
-    ConnectivityEventType,
-    MIN_CONNECTION_DURATION_MS,
-} from './connectivityService';
+import { connectivityService, ConnectivityEventType, MIN_CONNECTION_DURATION_MS } from './connectivityService';
 
 // eslint-disable-next-line import/no-cycle
 import { connectivity } from './index';

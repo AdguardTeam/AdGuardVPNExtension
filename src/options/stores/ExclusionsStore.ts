@@ -11,12 +11,12 @@ import { isIP } from 'is-ip';
 import { getDomain } from 'tldts';
 
 import {
-    ExclusionDtoInterface,
-    ExclusionsData,
+    type ExclusionDtoInterface,
+    type ExclusionsData,
     ExclusionsMode,
     ExclusionState,
     ExclusionsType,
-    ServiceDto,
+    type ServiceDto,
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../common/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';

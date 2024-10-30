@@ -3,7 +3,7 @@
  * Provides an implementation of the LogStorageProvider interface for storing logs in memory.
  */
 
-import { LogStorageProvider } from '../LogStorageProvider';
+import { type LogStorageProvider } from '../LogStorageProvider';
 
 /**
  * Implements the LogStorageProvider interface to provide mechanisms for storing,

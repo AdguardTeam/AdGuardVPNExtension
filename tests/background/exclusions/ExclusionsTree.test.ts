@@ -2,8 +2,7 @@ import { ExclusionsHandler } from '../../../src/background/exclusions/exclusions
 import { ServicesManager } from '../../../src/background/exclusions/services/ServicesManager';
 import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTree';
 import { ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
-import type { ExclusionInterface } from '../../../src/background/schema';
-import { ServicesInterface } from '../../../src/background/schema';
+import type { ExclusionInterface, ServicesInterface } from '../../../src/background/schema';
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
 

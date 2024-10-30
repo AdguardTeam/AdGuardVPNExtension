@@ -1,9 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import React, {
-    useContext,
-    useState,
-    useRef,
-} from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
@@ -16,14 +12,14 @@ import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../common/utils/string';
-import { ExclusionsContentMap } from '../../../../common/constants';
+import { type ExclusionsContentMap } from '../../../../common/constants';
 import { log } from '../../../../common/logger';
 import { messenger } from '../../../../common/messenger';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
 
 import { SelectListModal } from './SelectListModal/SelectListModal';
-import { ExclusionDataType, ExclusionsImportData, readExclusionsFile } from './fileHelpers';
+import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
 import { RemoveAllModal } from './RemoveAllModal';
 
 import './actions.pcss';

@@ -1,8 +1,4 @@
-import {
-    action,
-    computed,
-    observable,
-} from 'mobx';
+import { action, computed, observable } from 'mobx';
 
 import { log } from '../../common/logger';
 import { messenger } from '../../common/messenger';

@@ -6,7 +6,7 @@ import { log } from '../../common/logger';
 import { browserApi } from '../browserApi';
 import { StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
-import { EndpointsTldExclusionsState } from '../schema/proxy/endpointsTldExclusions';
+import { type EndpointsTldExclusionsState } from '../schema/proxy/endpointsTldExclusions';
 
 import { proxy } from './index';
 

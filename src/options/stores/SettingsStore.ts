@@ -8,17 +8,17 @@ import { nanoid } from 'nanoid';
 
 import {
     SETTINGS_IDS,
-    AppearanceTheme,
+    type AppearanceTheme,
     APPEARANCE_THEME_DEFAULT,
-    SubscriptionType,
-    QuickConnectSetting,
+    type SubscriptionType,
+    type QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
 } from '../../common/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../common/messenger';
 import { log } from '../../common/logger';
 import type { DnsServerData } from '../../background/schema';
-import { CustomDnsData } from '../hooks/useQueryStringData';
+import { type CustomDnsData } from '../hooks/useQueryStringData';
 
 import type { RootStore } from './RootStore';
 import { RequestStatus } from './consts';

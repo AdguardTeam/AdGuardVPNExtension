@@ -3,7 +3,7 @@ import { isRuLocale } from '../../common/utils/promo';
 import { translator } from '../../common/translator';
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
 import { log } from '../../common/logger';
-import { BrowserApi, browserApi } from '../browserApi';
+import { type BrowserApi, browserApi } from '../browserApi';
 import { credentials } from '../credentials';
 import { forwarder } from '../forwarder';
 import { notifications } from '../notifications';

@@ -16,7 +16,7 @@ import {
     RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC,
     SETTINGS_IDS,
     FLAGS_FIELDS,
-    SocialAuthProvider,
+    type SocialAuthProvider,
 } from '../../common/constants';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';

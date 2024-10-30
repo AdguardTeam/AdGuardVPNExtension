@@ -1,4 +1,4 @@
-import { TimersInterface } from './AbstractTimers';
+import { type TimersInterface } from './AbstractTimers';
 
 /**
  * Implements timers interface for MV2.

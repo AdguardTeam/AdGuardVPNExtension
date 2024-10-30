@@ -5,9 +5,10 @@ import { settings } from '../../settings';
 import { proxy } from '../../proxy';
 import {
     StorageKey,
-    PersistedExclusions,
-    ExclusionInterface,
-    IndexedExclusionsInterface, ExclusionsManagerState,
+    type PersistedExclusions,
+    type ExclusionInterface,
+    type IndexedExclusionsInterface,
+    type ExclusionsManagerState,
 } from '../../schema';
 import { stateStorage } from '../../stateStorage';
 

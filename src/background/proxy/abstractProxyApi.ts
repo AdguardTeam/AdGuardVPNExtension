@@ -1,6 +1,7 @@
-import browser, { Proxy } from 'webextension-polyfill';
+import type browser from 'webextension-polyfill';
+import { type Proxy } from 'webextension-polyfill';
 
-import { ProxyConfigInterface } from '../schema';
+import { type ProxyConfigInterface } from '../schema';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorFunction = (arg?: unknown) => {

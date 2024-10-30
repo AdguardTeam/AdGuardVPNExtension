@@ -1,7 +1,4 @@
-import React, {
-    useContext,
-    useEffect,
-} from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';
@@ -21,7 +18,7 @@ import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/constants';
 import { log } from '../../../common/logger';
 import { messenger } from '../../../common/messenger';
-import { notifier, NotifierType } from '../../../common/notifier';
+import { notifier, type NotifierType } from '../../../common/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';

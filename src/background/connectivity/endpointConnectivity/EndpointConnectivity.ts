@@ -9,11 +9,7 @@ import { dns } from '../../dns';
 import { sendPingMessage } from '../pingHelpers';
 import { webrtc } from '../../browserApi/webrtc';
 import { sleepIfNecessary } from '../../../common/helpers';
-import {
-    connectivityService,
-    ConnectivityEventType,
-    MIN_CONNECTION_DURATION_MS,
-} from '../connectivityService';
+import { connectivityService, ConnectivityEventType, MIN_CONNECTION_DURATION_MS } from '../connectivityService';
 // eslint-disable-next-line import/no-cycle
 import { credentials } from '../../credentials';
 import { notifications } from '../../notifications';

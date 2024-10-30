@@ -14,22 +14,24 @@ import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 import { connectivity } from '../connectivity';
 import { credentials } from '../credentials';
 import { connectivityService } from '../connectivity/connectivityService';
-import type {
-    EndpointInterface,
-    VpnTokenData,
-    CredentialsDataInterface,
+import {
+    type EndpointInterface,
+    type VpnTokenData,
+    type CredentialsDataInterface,
+    type EndpointsState,
+    type LocationInterface,
+    StorageKey,
 } from '../schema';
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { settings } from '../settings';
 import { QuickConnectSetting } from '../../common/constants';
 import { forwarder } from '../forwarder';
 import { FORWARDER_URL_QUERIES } from '../config';
-import { EndpointsState, LocationInterface, StorageKey } from '../schema';
 import { stateStorage } from '../stateStorage';
 
 import { locationsService } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
-import { Location } from './Location';
+import { type Location } from './Location';
 
 /**
  * Endpoint properties
