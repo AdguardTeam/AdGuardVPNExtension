@@ -324,7 +324,7 @@ export class VpnStore {
             return null;
         }
 
-        const selectedLocationId = this.selectedLocation.id;
+        const selectedLocationId = this.selectedLocation?.id;
         const currentLocation = this.locations.find((location) => {
             return location.id === selectedLocationId;
         });

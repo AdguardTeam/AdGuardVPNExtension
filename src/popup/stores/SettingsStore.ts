@@ -42,7 +42,7 @@ export class SettingsStore {
 
     @observable checkPermissionsState = RequestStatus.Done;
 
-    @observable connectivityState: StateType;
+    @observable connectivityState: StateType = { value: ConnectivityStateType.Idle };
 
     @observable isRateVisible: boolean;
 

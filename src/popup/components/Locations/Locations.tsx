@@ -16,13 +16,13 @@ export const Locations = observer(() => {
     const { vpnStore, uiStore, settingsStore } = useContext(rootStore);
 
     const handleLocationSelect = async (id: string) => {
-        const prevId = vpnStore.selectedLocation.id;
+        const prevId = vpnStore.selectedLocation?.id;
         await vpnStore.selectLocation(id);
         uiStore.closeEndpointsSearch();
 
         if ((settingsStore.isConnected
             || settingsStore.isConnectingRetrying
-            || settingsStore.isConnectingIdle) && prevId !== vpnStore.selectedLocation.id) {
+            || settingsStore.isConnectingIdle) && prevId !== vpnStore.selectedLocation?.id) {
             await settingsStore.reconnectProxy();
             return;
         }
