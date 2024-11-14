@@ -139,7 +139,6 @@
     &__scroll {
         max-height: 406px;
         overflow-y: auto;
-        scrollbar-color: var(--gray88) white;
         scrollbar-width: thin;
 
         &::-webkit-scrollbar {
@@ -161,13 +160,27 @@
         font-size: 20px;
         line-height: 24px;
         font-weight: 700;
+    }
 
-        &--not-found {
+    &__not-found {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 360px;
+
+        &--icon {
+            width: 64px;
+            height: 64px;
+            background-image: url("../../../assets/images/no-search-result.svg");
+        }
+
+        &--title {
             font-size: 16px;
+            line-height: 21px;
             font-weight: 400;
             text-align: center;
-            line-height: 3.2rem;
-            padding-top: 150px;
+            color: var(--gray7f);
         }
     }
 

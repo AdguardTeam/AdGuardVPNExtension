@@ -9,6 +9,7 @@ interface VpnTokenData {
     token: string;
     licenseStatus: string;
     timeExpiresSec: number;
+    timeExpiresIso: string;
     licenseKey: string;
     vpnSubscription: {
         status: string;
@@ -66,6 +67,7 @@ const getVpnToken = async (accessToken: string): Promise<VpnTokenData | null> =>
         token,
         license_status: licenseStatus,
         time_expires_sec: timeExpiresSec,
+        time_expires_iso: timeExpiresIso,
         license_key: licenseKey,
         vpn_subscription: vpnSubscription,
     } = vpnToken;
@@ -74,6 +76,7 @@ const getVpnToken = async (accessToken: string): Promise<VpnTokenData | null> =>
         token,
         licenseStatus,
         timeExpiresSec,
+        timeExpiresIso,
         licenseKey,
         vpnSubscription,
     };

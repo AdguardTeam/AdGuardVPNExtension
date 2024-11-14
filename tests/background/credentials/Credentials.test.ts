@@ -154,6 +154,7 @@ describe('Credentials', () => {
                 licenseStatus: 'VALID',
                 licenseKey: '',
                 timeExpiresSec: 0,
+                timeExpiresIso: '1970-09-26T18:53:44+0000',
                 vpnSubscription: {
                     next_bill_date_iso: '',
                     duration_v2: SubscriptionType.Monthly,
@@ -166,6 +167,7 @@ describe('Credentials', () => {
                 token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
                 licenseStatus: 'VALID',
                 timeExpiresSec: msToSec(Date.now()) - 1,
+                timeExpiresIso: '1970-09-26T18:53:44+0000',
                 licenseKey: '',
                 vpnSubscription: {
                     next_bill_date_iso: '',
@@ -194,6 +196,7 @@ describe('Credentials', () => {
                 token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
                 licenseStatus: 'VALID',
                 timeExpiresSec: 4728282135,
+                timeExpiresIso: '1970-09-26T18:53:44+0000',
                 licenseKey: '',
                 vpnSubscription: {
                     next_bill_date_iso: '20240101',
@@ -214,6 +217,7 @@ describe('Credentials', () => {
                 token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
                 licenseStatus: 'VALID',
                 timeExpiresSec: 4728282135,
+                timeExpiresIso: '1970-09-26T18:53:44+0000',
                 licenseKey: '',
                 vpnSubscription: {
                     next_bill_date_iso: '20240101',

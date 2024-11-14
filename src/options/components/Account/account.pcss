@@ -5,21 +5,22 @@
     line-height: 18px;
 
     &__info {
-        padding: 16px 0;
-    }
+        padding-top: 8px;
 
-    &__name {
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 600;
-    }
+        &-item {
+            font-size: 16px;
+            line-height: 21px;
+            font-weight: 400;
+            margin-bottom: 16px;
 
-    &__desc {
-        margin: 3px 0 15px;
-    }
+            &:last-child {
+                margin-bottom: 0;
+            }
 
-    &__bill-date {
-        margin-bottom: 5px;
+            &--bold {
+                font-weight: 600;
+            }
+        }
     }
 
     &__actions {
@@ -28,7 +29,7 @@
     }
 
     &__action {
-        margin-right: 24px;
+        margin-right: 16px;
 
         &:last-child {
             margin-right: 0;

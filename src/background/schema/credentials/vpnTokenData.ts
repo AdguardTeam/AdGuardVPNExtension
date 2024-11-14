@@ -11,6 +11,7 @@ export const vpnTokenDataScheme = zod.object({
     token: zod.string(),
     licenseStatus: zod.string(),
     timeExpiresSec: zod.number(),
+    timeExpiresIso: zod.string(),
     licenseKey: zod.string(),
     vpnSubscription: vpnSubscriptionScheme.or(zod.null()),
 });

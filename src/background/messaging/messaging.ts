@@ -44,7 +44,6 @@ const eventListeners: EventListeners = {};
 const getOptionsData = async () => {
     const appVersion = appStatus.version;
     const username = await credentials.getUsername();
-    const nextBillDate = await credentials.nextBillDate();
     const isRateVisible = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
     const isPremiumFeaturesShow = settings.getSetting(SETTINGS_IDS.PREMIUM_FEATURES_SHOW);
     const webRTCEnabled = settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
@@ -77,6 +76,7 @@ const getOptionsData = async () => {
     const isAuthenticated = await auth.isAuthenticated();
     const isPremiumToken = await credentials.isPremiumToken();
     const subscriptionType = credentials.getSubscriptionType();
+    const subscriptionTimeExpiresIso = await credentials.getTimeExpiresIso();
 
     // AG-644 set current endpoint in order to avoid bug in permissions checker
     await endpoints.getSelectedLocation();
@@ -87,7 +87,6 @@ const getOptionsData = async () => {
         appVersion,
         username,
         forwarderDomain,
-        nextBillDate,
         isRateVisible,
         isPremiumFeaturesShow,
         webRTCEnabled,
@@ -102,6 +101,7 @@ const getOptionsData = async () => {
         isAllExclusionsListsEmpty,
         maxDevicesCount,
         subscriptionType,
+        subscriptionTimeExpiresIso,
         customDnsServers,
         quickConnectSetting,
     };

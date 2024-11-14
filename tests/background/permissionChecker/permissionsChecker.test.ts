@@ -23,6 +23,7 @@ const getCredentialsData = (expiresInSec: number) => {
     return {
         licenseStatus: 'VALID',
         timeExpiresSec: 9999561439,
+        timeExpiresIso: new Date(Date.now()).toISOString(),
         result: {
             credentials: 'testtestetst',
             expiresInSec,
@@ -39,6 +40,7 @@ const VPN_TOKEN_DATA = {
     token: 'test_token',
     licenseStatus: 'VALID',
     timeExpiresSec: 23223224,
+    timeExpiresIso: '1970-09-26T18:53:44+0000',
     licenseKey: 'test_key',
     subscription: false,
     vpnSubscription: {

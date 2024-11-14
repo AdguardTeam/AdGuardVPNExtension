@@ -27,7 +27,6 @@ interface OptionsData {
     appVersion: string;
     username: string;
     forwarderDomain: string;
-    nextBillDate: number;
     isRateVisible: boolean;
     isPremiumFeaturesShow: boolean;
     webRTCEnabled: boolean;
@@ -37,6 +36,7 @@ interface OptionsData {
     appearanceTheme: AppearanceTheme;
     isPremiumToken: boolean;
     subscriptionType: SubscriptionType;
+    subscriptionTimeExpiresIso: string | null;
     customDnsServers: DnsServerData[];
     quickConnectSetting: QuickConnectSetting;
 }
@@ -70,8 +70,6 @@ export class SettingsStore {
 
     @observable customDnsServers: DnsServerData[] = [];
 
-    @observable nextBillDate: number;
-
     @observable invitesBonuses = {
         inviteUrl: '',
         invitesCount: 0,
@@ -89,6 +87,8 @@ export class SettingsStore {
     @observable bonusesDataRequestStatus: string;
 
     @observable subscriptionType: SubscriptionType | null = null;
+
+    @observable subscriptionTimeExpiresIso: string | null = null;
 
     @observable showBugReporter = false;
 
@@ -177,7 +177,6 @@ export class SettingsStore {
         this.appVersion = data.appVersion;
         this.currentUsername = data.username;
         this.forwarderDomain = data.forwarderDomain;
-        this.nextBillDate = data.nextBillDate;
         this.isRateVisible = data.isRateVisible;
         this.premiumFeatures = data.isPremiumFeaturesShow;
         this.webRTCEnabled = data.webRTCEnabled;
@@ -186,6 +185,7 @@ export class SettingsStore {
         this.dnsServer = data.dnsServer;
         this.appearanceTheme = data.appearanceTheme;
         this.subscriptionType = data.subscriptionType;
+        this.subscriptionTimeExpiresIso = data.subscriptionTimeExpiresIso;
         this.customDnsServers = data.customDnsServers;
         this.quickConnect = data.quickConnectSetting;
     };

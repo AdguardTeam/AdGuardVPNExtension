@@ -28,6 +28,10 @@
         }
     }
 
+    &__wrapper {
+        padding-left: 16px;
+    }
+
     &__search {
         margin: 38px 0 16px;
         min-width: 470px;
@@ -37,8 +41,9 @@
     &__add-website {
         font-size: 16px;
         line-height: 24px;
+        font-weight: 600;
         padding: 8px 0;
-        margin: 16px 0 0 16px;
+        margin: 16px 0 0 0;
         display: flex;
 
         &__label {
@@ -205,7 +210,6 @@
 }
 
 .modal {
-    width: 560px;
     max-height: 535px;
     overflow-y: auto;
     background: var(--white-strong);
@@ -213,11 +217,15 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 40px;
+    padding: 32px;
     display: flex;
     flex-direction: column;
     outline: none;
-    border-radius: 4px;
+    border-radius: 8px;
+
+    &-exclusions {
+        width: 600px;
+    }
 
     &--big {
         width: 600px;
@@ -225,8 +233,8 @@
 
     &__close-icon {
         position: fixed;
-        right: 20px;
-        top: 20px;
+        right: 14px;
+        top: 14px;
     }
 
     &__icon {
@@ -280,11 +288,6 @@
 
     &.select-mode {
         height: 400px;
-
-        & .modal__title {
-            font-size: 29px;
-            margin: 10px 0 15px;
-        }
 
         & .modal__button {
             width: 200px;

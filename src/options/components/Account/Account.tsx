@@ -6,6 +6,7 @@ import { Title } from '../ui/Title';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { translator } from '../../../common/translator';
 import { SubscriptionType } from '../../../common/constants';
 
 import { Features } from './Features/Features';
@@ -21,8 +22,8 @@ export const Account = observer(() => {
         premiumFeatures,
         hidePremiumFeatures,
         openPremiumPromoPage,
-        nextBillDate,
         subscriptionType,
+        subscriptionTimeExpiresIso,
         forwarderDomain,
     } = settingsStore;
 
@@ -42,76 +43,96 @@ export const Account = observer(() => {
         await openPremiumPromoPage();
     };
 
-    let billDate;
+    let expiresDate;
 
-    if (nextBillDate) {
-        const dateObj = new Date(nextBillDate);
+    if (subscriptionTimeExpiresIso) {
+        const dateObj = new Date(subscriptionTimeExpiresIso);
 
         const formatOptions: Intl.DateTimeFormatOptions = {
             year: 'numeric',
-            month: 'numeric',
+            month: 'short',
             day: 'numeric',
         };
 
-        billDate = dateObj.toLocaleDateString('default', formatOptions);
+        expiresDate = dateObj.toLocaleDateString('default', formatOptions);
     }
 
     const subscriptionsMap = {
-        [SubscriptionType.Monthly]: reactTranslator.getMessage('account_monthly_paid'),
-        [SubscriptionType.Yearly]: reactTranslator.getMessage('account_yearly_paid'),
-        [SubscriptionType.TwoYears]: reactTranslator.getMessage('account_two_year_paid'),
+        [SubscriptionType.Monthly]: translator.getMessage('account_monthly_paid'),
+        [SubscriptionType.Yearly]: translator.getMessage('account_yearly_paid'),
+        [SubscriptionType.TwoYears]: translator.getMessage('account_two_year_paid'),
     };
 
     const getAccountType = (): ReactNode => {
         if (!isPremiumToken) {
-            return reactTranslator.getMessage('account_free');
+            return translator.getMessage('account_free');
         }
 
         if (subscriptionType) {
             return subscriptionsMap[subscriptionType];
         }
 
-        return reactTranslator.getMessage('account_unlimited');
+        return translator.getMessage('account_unlimited');
     };
 
     return (
         <>
-            <Title title={reactTranslator.getMessage('account_title')} />
+            <Title title={translator.getMessage('account_title')} />
             <div className="account">
                 <div className="account__info">
-                    <div className="account__name">
-                        {currentUsername}
-                    </div>
-                    <div className="account__desc">
+                    <div className="account__info-item">
                         {getAccountType()}
                     </div>
-
-                    {billDate && (
-                        <div className="account__bill-date">
-                            {reactTranslator.getMessage('account_next_charge', { date: billDate })}
+                    {expiresDate && (
+                        <div className="account__info-item">
+                            {reactTranslator.getMessage('account_valid_until', {
+                                date: expiresDate,
+                                b: (chunks: any) => (
+                                    <span className="account__info-item--bold">
+                                        {chunks}
+                                    </span>
+                                ),
+                            })}
                         </div>
                     )}
                     {maxDevicesCount !== undefined && (
-                        <div className="account__max-devices">
-                            {reactTranslator.getMessage('account_max_devices_count', { num: maxDevicesCount })}
+                        <div className="account__info-item">
+                            {reactTranslator.getMessage('account_max_devices_count', {
+                                num: maxDevicesCount,
+                                b: (chunks: any) => (
+                                    <span className="account__info-item--bold">
+                                        {chunks}
+                                    </span>
+                                ),
+                            })}
                         </div>
                     )}
+                    <div className="account__info-item">
+                        {reactTranslator.getMessage('account_logged_in_as', {
+                            username: currentUsername,
+                            b: (chunks: any) => (
+                                <span className="account__info-item--bold">
+                                    {chunks}
+                                </span>
+                            ),
+                        })}
+                    </div>
                 </div>
                 <div className="account__actions">
                     <a
                         href={editAccountUrl}
-                        className="button button--medium button--outline-gray account__action"
+                        className="button button--large button--outline-gray account__action"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        {reactTranslator.getMessage('account_edit')}
+                        {translator.getMessage('account_edit')}
                     </a>
                     <button
                         type="button"
-                        className="button button--medium button--outline-red account__action"
+                        className="button button--large button--outline-red account__action"
                         onClick={signOut}
                     >
-                        {reactTranslator.getMessage('account_sign_out')}
+                        {translator.getMessage('account_sign_out')}
                     </button>
                 </div>
                 {(!isPremiumToken && premiumFeatures) && (
@@ -120,17 +141,17 @@ export const Account = observer(() => {
                         <div className="account__actions">
                             <button
                                 type="button"
-                                className="button button--medium button--primary account__action"
+                                className="button button--large button--primary account__action"
                                 onClick={upgrade}
                             >
-                                {reactTranslator.getMessage('account_get_subscription')}
+                                {translator.getMessage('account_get_subscription')}
                             </button>
                             <button
                                 type="button"
-                                className="button button--medium button--outline-gray account__action"
+                                className="button button--large button--outline-gray account__action"
                                 onClick={hideFeatures}
                             >
-                                {reactTranslator.getMessage('rate_hide')}
+                                {translator.getMessage('rate_hide')}
                             </button>
                         </div>
                     </div>

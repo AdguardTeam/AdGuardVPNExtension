@@ -6,8 +6,7 @@ import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
-import { reactTranslator } from '../../../../common/reactTranslator';
-import { Title } from '../../ui/Title';
+import { translator } from '../../../../common/translator';
 
 import '../../ui/radio.pcss';
 
@@ -27,8 +26,8 @@ export const ModeSelectorModal = observer(() => {
     };
 
     const titles = {
-        [ExclusionsMode.Regular]: reactTranslator.getMessage('settings_exclusion_general_title'),
-        [ExclusionsMode.Selective]: reactTranslator.getMessage('settings_exclusion_selective_title'),
+        [ExclusionsMode.Regular]: translator.getMessage('settings_exclusion_general_title'),
+        [ExclusionsMode.Selective]: translator.getMessage('settings_exclusion_selective_title'),
     };
 
     const renderRadioButton = (exclusionsType: ExclusionsMode) => {
@@ -61,7 +60,7 @@ export const ModeSelectorModal = observer(() => {
     return (
         <Modal
             isOpen={exclusionsStore.modeSelectorModalOpen}
-            className="modal select-mode-confirm"
+            className="modal modal-exclusions select-mode-confirm"
             overlayClassName="overlay overlay--fullscreen"
             onRequestClose={closeModal}
         >
@@ -74,9 +73,9 @@ export const ModeSelectorModal = observer(() => {
                     <use xlinkHref="#cross" />
                 </svg>
             </button>
-            <Title
-                title={reactTranslator.getMessage('settings_exclusion_change_mode_modal_title')}
-            />
+            <div className="modal__title">
+                {translator.getMessage('settings_exclusion_change_mode_modal_title')}
+            </div>
             <div className="settings__group">
                 {renderRadioButton(ExclusionsMode.Regular)}
                 {renderRadioButton(ExclusionsMode.Selective)}
@@ -87,14 +86,14 @@ export const ModeSelectorModal = observer(() => {
                     className="button button--large button--outline-secondary"
                     onClick={closeModal}
                 >
-                    {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
+                    {translator.getMessage('settings_exclusion_modal_cancel')}
                 </button>
                 <button
                     type="button"
                     className="button button--large button--primary"
                     onClick={handleSaveMode}
                 >
-                    {reactTranslator.getMessage('settings_exclusion_modal_save')}
+                    {translator.getMessage('settings_exclusion_modal_save')}
                 </button>
             </div>
         </Modal>

@@ -158,7 +158,7 @@ export const CustomDnsServerModal = observer(() => {
     const ipAddressInputClasses = classnames(
         'input__in',
         'input__in--content',
-        'input__in--clear',
+        { 'input__in--clear': !dnsServerAddressError },
         { 'dns-settings__modal--input--error': dnsServerAddressError },
     );
 
@@ -184,7 +184,7 @@ export const CustomDnsServerModal = observer(() => {
                         <use xlinkHref="#cross" />
                     </svg>
                 </button>
-                <div className="dns-settings__modal--title">{modalData[modalType].modalTitle}</div>
+                <div className="modal__title">{modalData[modalType].modalTitle}</div>
                 <div className="dns-settings__modal--content">
                     {!settingsStore.dnsServerToEdit && (
                         <div className="form__item">

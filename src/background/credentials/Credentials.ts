@@ -62,7 +62,7 @@ export interface CredentialsInterface {
     ): boolean;
     getAppId(): Promise<string>;
     isPremiumToken(): Promise<boolean>;
-    nextBillDate(): Promise<number | null>;
+    getTimeExpiresIso(): Promise<string | null>;
     getUsername(): Promise<string | null>;
     getUserRegistrationTimeISO(): Promise<string | null>;
     getUsernameAndRegistrationTimeISO(): Promise<AccountInfoData>;
@@ -526,9 +526,11 @@ export class Credentials implements CredentialsInterface {
     };
 
     /**
-     * Returns next bill date in the numeric representation (ms)
+     * Returns subscription expiration time in ISO format.
+     *
+     * @returns Subscription expiration time in ISO format or null if it is not available.
      */
-    nextBillDate = async (): Promise<number | null> => {
+    getTimeExpiresIso = async (): Promise<string | null> => {
         let vpnToken;
         try {
             vpnToken = await this.gainValidVpnToken();
@@ -540,21 +542,13 @@ export class Credentials implements CredentialsInterface {
             return null;
         }
 
-        const { next_bill_date_iso: nextBillDateIso } = vpnToken.vpnSubscription || {};
+        const { timeExpiresIso } = vpnToken;
 
-        if (!nextBillDateIso) {
+        if (!timeExpiresIso) {
             return null;
         }
 
-        let time;
-        try {
-            time = new Date(nextBillDateIso);
-        } catch (e) {
-            log.debug('Was unable to parse time from:', nextBillDateIso, e);
-            return null;
-        }
-
-        return time.getTime();
+        return timeExpiresIso;
     };
 
     async getUsername(): Promise<string | null> {

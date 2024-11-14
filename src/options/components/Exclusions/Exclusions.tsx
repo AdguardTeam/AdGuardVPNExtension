@@ -82,7 +82,7 @@ export const Exclusions = observer(() => {
                 {renderSelectiveModeWarning()}
                 <Actions />
             </div>
-            <div>
+            <div className="exclusions__wrapper">
                 <div className="exclusions__search">
                     <ExclusionsSearch />
                 </div>

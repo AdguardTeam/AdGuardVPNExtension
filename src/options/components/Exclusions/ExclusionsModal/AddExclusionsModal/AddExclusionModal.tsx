@@ -60,18 +60,18 @@ export const AddExclusionModal = observer(() => {
         >
             <div className="modal__mode-selectors">
                 <button
-                    onClick={onManualModeClick}
-                    type="button"
-                    className={ModeSelectButtons.manual.classname}
-                >
-                    {reactTranslator.getMessage('settings_exclusion_add_manually')}
-                </button>
-                <button
                     onClick={onServiceModeClick}
                     type="button"
                     className={ModeSelectButtons.service.classname}
                 >
                     {reactTranslator.getMessage('settings_exclusion_add_from_list')}
+                </button>
+                <button
+                    onClick={onManualModeClick}
+                    type="button"
+                    className={ModeSelectButtons.manual.classname}
+                >
+                    {reactTranslator.getMessage('settings_exclusion_add_manually')}
                 </button>
             </div>
             <div className="modal__mode">
