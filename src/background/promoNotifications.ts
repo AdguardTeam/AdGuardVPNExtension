@@ -5,7 +5,7 @@ import browser from 'webextension-polyfill';
 
 import { getForwarderUrl } from '../common/helpers';
 import { type IconVariants, Prefs } from '../common/prefs';
-import { normalizeLanguage } from '../common/utils/promo';
+import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
 
 import { getUrl } from './browserApi/runtime';
@@ -69,215 +69,209 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'halloween_24_vpn';
+const TDS_PROMO_ACTION = 'black_friday_24_vpn';
+const TDS_PROMO_ACTION_RU = 'black_friday_24_vpn_ru';
 
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
+const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
-const HALLOWEEN_24_ID = 'halloween24';
+const urlQuery = isRuLocale
+    ? RU_PROMO_URL_QUERY
+    : COMMON_PROMO_URL_QUERY;
 
-const halloween24Notification: PromoNotificationData = {
-    id: HALLOWEEN_24_ID,
+const BLACK_FRIDAY_24_ID = 'blackFriday24';
+
+const blackFriday24Notification = {
+    id: BLACK_FRIDAY_24_ID,
     locales: {
         en: {
-            title: 'The Web is full of dangers',
-            btn: 'Get rid of them',
+            title: 'Greatest sale of the year',
+            btn: 'Get 85% off',
         },
         fr: {
-            title: 'Le Web est plein de périls',
-            btn: 'Èliminons-les',
+            title: "La grande promo de l'année",
+            btn: 'Obtenez -85%',
         },
         it: {
-            title: "L'Internet è pieno di pericoli",
-            btn: 'Togliamoli',
+            title: "La vendita maggiore dell'anno",
+            btn: 'Ottieni -85%',
         },
         de: {
-            title: 'Cybermonster bedrohen das Web!',
-            btn: 'Das muss aufhören',
+            title: 'Die besten Deals des Jahres',
+            btn: '85% Rabatt',
         },
         ru: {
-            title: 'Кибернежить нападает!',
-            btn: 'Сразиться',
+            title: 'Самая большая скидка года',
+            btn: '−80% на AdGuard VPN',
         },
         es: {
-            title: 'El internet está lleno de peligros',
-            btn: 'Terminarlos',
+            title: 'La mejor oferta del año',
+            btn: 'Obtener 85% off',
         },
         es_419: {
-            title: 'El internet está lleno de peligros',
-            btn: 'Terminarlos',
+            title: 'La mayor venta del año',
+            btn: '85% de descuento',
         },
         pt_pt: {
-            title: 'A internet está cheia de monstros',
-            btn: 'Acabar com eles',
+            title: 'A melhor oferta do ano',
+            btn: 'Obter 85% off',
         },
         pt_br: {
-            title: 'A internet está cheia de monstros',
-            btn: 'Acabar com eles',
+            title: 'A melhor oferta do ano',
+            btn: 'Obter 85% off',
         },
         zh_cn: {
-            title: '网络威胁无处不在',
-            btn: '立即消除它们',
+            title: '年度最大SALE',
+            btn: '85%OFF',
         },
         zh_tw: {
-            title: '網路威脅無處不在',
-            btn: '立即消除它們',
+            title: '年末最大折扣',
+            btn: '85%OFF',
         },
         ja: {
-            title: 'AdGuardで怪物を 倒すゲーム',
-            btn: 'プレイしてみる',
+            title: 'BLACK FRIDAY: 今年最安セール',
+            btn: '85%OFF割引をGET',
         },
         ko: {
-            title: '사이버 몬스터와 싸워보세요!',
-            btn: '퀴즈 시작',
+            title: '올해의 가장 큰 세일',
+            btn: '85% 할인',
         },
         uk: {
-            title: 'Інтернет повен небезпек',
-            btn: 'Позбудьтесь їх',
+            title: 'Найбільший розпродаж року',
+            btn: 'Знижка 85%',
         },
         ar: {
-            title: '!الإنترنت في خطر',
-            btn: 'ساعد',
+            title: 'أعظم بيع لهذا العام',
+            btn: '٪85 احصل على خصم',
         },
         be: {
-            title: 'Інтэрнэт поўны небяспек',
-            btn: 'Пазбаўцеся іх',
+            title: 'Самы вялікі распродаж года',
+            btn: 'Зніжка 85%',
         },
         bg: {
-            title: 'Интернетът е в опасност!',
-            btn: 'Помогнете',
+            title: 'Най-голямата разпродажба на годината',
+            btn: '85% отстъпка',
         },
         ca: {
-            title: 'Internet està en perill!',
-            btn: 'Ajuda',
+            title: "La venda més gran de l'any",
+            btn: '85% de descompte',
         },
         cs: {
-            title: 'Web je plný nebezpečí',
-            btn: 'Zbavte se jich',
+            title: 'Největší výprodej roku',
+            btn: '85% sleva',
         },
         da: {
-            title: 'Internettet er fuld af farer',
-            btn: 'Slip af med dem',
+            title: 'Årets største salg',
+            btn: '85% rabat',
         },
         el: {
-            title: 'Το διαδίκτυο κινδυνεύει!',
-            btn: 'Βοήθεια',
+            title: 'Η μεγαλύτερη πώληση της χρονιάς',
+            btn: '85% έκπτωση',
         },
         fa: {
-            title: '!هیولاها به اینترنت حمله کردند',
-            btn: 'مبارزه کنید',
+            title: 'بزرگترین فروش سال',
+            btn: 'تخفیف ٪85',
         },
         fi: {
-            title: 'Hirviöt hyökkäsivät internetiin!',
-            btn: 'Taistele',
+            title: 'Vuoden suurin myynti',
+            btn: '85% alennus',
         },
         he: {
-            title: '!המפלצות תקפו את האינטרנט',
-            btn: 'להילחם',
+            title: 'המכירה הגדולה של השנה',
+            btn: '85% הנחה',
         },
         hr: {
-            title: 'Internet je pun opasnosti',
-            btn: 'Riješite ih se',
+            title: 'Najveća rasprodaja godine',
+            btn: '85% popusta',
         },
         hu: {
-            title: 'Az internet veszélyben van!',
-            btn: 'Segíts',
+            title: 'Az év legnagyobb eladása',
+            btn: '85% kedvezmény',
         },
         hy: {
-            title: 'Ինտերնետը վտանգի մեջ է',
-            btn: 'Օգնեք',
+            title: 'Տարվա ամենամեծ վաճառքը',
+            btn: '85% զեղչ',
         },
         id: {
-            title: 'Monster menyerang internet!',
-            btn: 'Bertarung',
+            title: 'Penjualan terbesar tahun ini',
+            btn: 'Diskon 85%',
         },
         lt: {
-            title: 'Monstrai užpuolė internetą!',
-            btn: 'Kovoti',
+            title: 'Didžiausias metų išpardavimas',
+            btn: '85% nuolaida',
         },
         ms: {
-            title: 'Raksasa menyerang internet!',
-            btn: 'Lawan',
+            title: 'Jualan terhebat pada tahun ini',
+            btn: 'Diskaun 85%',
         },
         nb: {
-            title: 'Internett er full av farer',
-            btn: 'Bli kvitt dem',
+            title: 'Årets største salg',
+            btn: '85% rabatt',
         },
         nl: {
-            title: 'Cybermonsters vallen aan!',
-            btn: 'Vechten',
+            title: 'Grootste uitverkoop van het jaar',
+            btn: '85% korting',
         },
         pl: {
-            title: 'Potwory zaatakowały internet!',
-            btn: 'Walczyć',
+            title: 'Największa wyprzedaż roku',
+            btn: '85% zniżki',
         },
         ro: {
-            title: 'Monștrii au atacat internetul!',
-            btn: 'Luptă',
+            title: 'Cea mai mare vânzare a anului',
+            btn: '85% reducere',
         },
         sk: {
-            title: 'Monštrá zaútočili na internet!',
-            btn: 'Bojovať',
+            title: 'Najväčší predaj roka',
+            btn: '85% zľava',
         },
         sl: {
-            title: 'Splet je poln nevarnosti',
-            btn: 'Znebite se jih',
+            title: 'Največja prodaja leta',
+            btn: '85% popust',
         },
         'sr-Latn': {
-            title: 'Monstrumi su napali internet!',
-            btn: 'Bori se',
+            title: 'Najveća prodaja godine',
+            btn: '85% popusta',
         },
         sv: {
-            title: 'Monstren attackerar internet!',
-            btn: 'Kämpa',
+            title: 'Årets bästa rea',
+            btn: '85% rabatt',
         },
         tr: {
-            title: 'Canavarlar internete saldırdı!',
-            btn: 'Savaş',
+            title: 'Yılın en büyük satışı',
+            btn: '%85 indirim',
         },
         vi: {
-            title: 'Quái vật đã tấn công internet!',
-            btn: 'Chiến đấu',
-        },
-        hi: {
-            title: 'राक्षसों ने इंटरनेट पर हमला किया!',
-            btn: 'लड़ो',
-        },
-        et: {
-            title: 'Veeb on täis ohte',
-            btn: 'Vabane neist',
-        },
-        th: {
-            title: 'สัตว์ประหลาดโจมตีอินเทอร์เน็ต!',
-            btn: 'ต่อสู้',
+            title: 'Khuyến mại lớn nhất trong năm',
+            btn: 'Giảm giá 85%',
         },
         mk: {
-            title: 'Интернетот е во опасност!',
-            btn: 'Помош',
+            title: 'Најголемиот попуст на годината',
+            btn: '−85% на AdGuard VPN',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    urlQuery: COMMON_PROMO_URL_QUERY,
-    from: '25 October 2024 12:00:00',
-    to: '31 October 2024 23:59:00',
+    urlQuery,
+    from: '25 November 2024 12:00:00',
+    to: '6 December 2024 23:59:00',
     type: 'animated',
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
-    bgImage: getUrl('assets/images/halloween24.svg'),
+    bgImage: getUrl('assets/images/blackfriday24.svg'),
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/halloween24-on-19.png'),
-            38: getUrl('assets/images/icons/halloween24-on-38.png'),
+            19: getUrl('assets/images/icons/blackfriday24-on-19.png'),
+            38: getUrl('assets/images/icons/blackfriday24-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/halloween24-off-19.png'),
-            38: getUrl('assets/images/icons/halloween24-off-38.png'),
+            19: getUrl('assets/images/icons/blackfriday24-off-19.png'),
+            38: getUrl('assets/images/icons/blackfriday24-off-38.png'),
         },
     },
 };
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [HALLOWEEN_24_ID]: halloween24Notification,
+    [BLACK_FRIDAY_24_ID]: blackFriday24Notification,
 };
 
 /**
