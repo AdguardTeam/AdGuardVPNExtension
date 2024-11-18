@@ -1,28 +1,28 @@
 {
     "name": {
-        "message": "AdGuard VPN — مجّاني & proxy آمن"
+        "message": "AdGuard VPN - بروكسي مجاني وآمن"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
-        "message": "استخدم AdGuard VPN لتصفح الإنترنت بسرعة وأمان. احمِ خصوصيتك وابقَ مجهول الهُوِيَّة مع وكيل VPN الخاص بنا."
+        "message": "استخدم AdGuard VPN لتصفح الإنترنت بسرعة وأمان. قم بحماية خصوصيتك وحافظ على هويتك المجهولة باستخدام وكيل VPN."
     },
     "short_name": {
         "message": "AdGuard VPN"
     },
     "registration_error_not_empty": {
-        "message": "يجب ألا تكون فارغة"
+        "message": "لا يمكن أن تكون فارغة"
     },
     "registration_error_not_valid": {
         "message": "هذه القيمة غير صالحة"
     },
     "registration_error_min_length": {
-        "message": "يجب أن تتكون كلمة المرور على 8 أحرف في الأقل"
+        "message": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"
     },
     "registration_error_confirm_password": {
         "message": "كلمات المرور غير متطابقة"
     },
     "registration_error_compromised_password": {
-        "message": "تم العثور على كلمة المرور التي أدخلتها في ملف <a>قاعدة بيانات عامة</a> من كلمات المرور المخترقة. يرجى المحاولة مرة أخرى."
+        "message": "تم العثور على كلمة المرور التي أدخلتها في <a>قاعدة البيانات العامة</a> لكلمات المرور المخترقة. يحب اختيار واحدة اخرى."
     },
     "registration_error_unique_constraint": {
         "message": "هذه القيمة مستخدمة بالفعل"
@@ -31,7 +31,7 @@
         "message": "حدث خطأ، حاول مرة أخرى لاحقاً"
     },
     "authentication_error_2fa_required": {
-        "message": "مطلوب 2FA"
+        "message": "مطلوب التحقق بخطوتين (2FA)"
     },
     "authentication_error_2fa_invalid": {
         "message": "رمز غير صالح"
@@ -40,25 +40,25 @@
         "message": "تم تعطيل الحساب"
     },
     "authentication_error_account_locked": {
-        "message": "تم إغلاق الحساب لمدة 15 دقيقة"
+        "message": "الحساب مغلق لمدة 15 دقيقة"
     },
     "authentication_error_wrong_credentials": {
-        "message": "كلمة المرور غير صحيحة"
+        "message": "كلمة مرور خاطئة"
     },
     "authentication_too_many_requests": {
-        "message": "تلقينا الكثير من الطلبات من عنوان IP الخاص بك. يرجى المحاولة مرة أخرى لاحقا."
+        "message": "تلقينا الكثير من الطلبات من عنوان IP الخاص بك. يرجى المحاولة مرة أخرى لاحقاً."
     },
     "authentication_error_default": {
         "message": "حدث خطأ، حاول مرة أخرى لاحقاً"
     },
     "global_error_message": {
-        "message": "حدث خطأ، يرجى الاتصال بنا عبر <a>%support_email%</a>"
+        "message": "حدث خطأ، رجاءً اتصل بنا من خلال <a>%support_email%</a>"
     },
     "about_title": {
-        "message": "نَبْذَة عن"
+        "message": "حول"
     },
     "options_support_title": {
-        "message": "المساعدة"
+        "message": "الدعم"
     },
     "options_support_faq_title": {
         "message": "الأسئلة الشائعة"
@@ -76,7 +76,7 @@
         "message": "اترك ملاحظاتك"
     },
     "options_support_feedback_description": {
-        "message": "إرسال طلبات الميزات والاقتراحات"
+        "message": "ارسل طلب بالمميزات والاقتراحات"
     },
     "options_report_bug_title": {
         "message": "الإبلاغ عن خطأ"
@@ -88,7 +88,7 @@
         "message": "تضمين تقرير التشخيص في الرسالة"
     },
     "options_bug_report_email_invalid": {
-        "message": "عنوان بريد إلكتروني غير صحيح"
+        "message": "عنوان البريد الإلكتروني غير صحيح"
     },
     "options_bug_report_textarea_invalid": {
         "message": "هذا الحقل إلزامي"
@@ -130,13 +130,13 @@
         "message": "اشتراك غير محدود"
     },
     "account_monthly_paid": {
-        "message": "اشتراك شهري مدفوع الأجر"
+        "message": "اشتراك شهري مدفوع"
     },
     "account_yearly_paid": {
-        "message": "اشتراك سنوي مدفوع الأجر"
+        "message": "اشتراك سنوي مدفوع"
     },
     "account_two_year_paid": {
-        "message": "اشتراك مدفوع الأجر لمدة عامين"
+        "message": "اشتراك مدفوع لمدة عامين"
     },
     "account_get_subscription": {
         "message": "الحصول على اشتراك"
@@ -151,10 +151,10 @@
         "message": "تسجيل خروج"
     },
     "account_unlimited_title": {
-        "message": "احصل على النسخة غير المحدودة!"
+        "message": "احصل على إصدار غير محدود!"
     },
     "rate_description": {
-        "message": "مرحبًا، نحن فريق من AdGuard ومن المهم جدًا لنا معرفة رأيك في منتجنا. يرجى تقييمه."
+        "message": "مرحبًا، نحن فريق من AdGuard ومن المهم لنا معرفة ما مدى رضاك عن هذا المنتج. ندعوك لتقيمنا."
     },
     "rate_hide": {
         "message": "إخفاء"
@@ -169,7 +169,7 @@
         "message": "كلمة المرور"
     },
     "auth_your_password": {
-        "message": "كلمة المرور الخاصة بك"
+        "message": "كلمة مرورك"
     },
     "auth_password_confirm": {
         "message": "تأكيد كلمة المرور"
@@ -181,7 +181,7 @@
         "message": "إنشاء حساب"
     },
     "auth_sign_up_info": {
-        "message": "إنشاء حساب AdGuard الخاص بك"
+        "message": "أنشأ حسابك في AdGuard"
     },
     "auth_sign_up_button": {
         "message": "إنشاء حساب"
@@ -199,28 +199,28 @@
         "message": "البريد الإلكتروني"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "المتابعة باستخدام البريد الإلكتروني"
+        "message": "تسجيل الدخول بواسطة البريد الإلكتروني"
     },
     "auth_sign_in_provider_apple": {
-        "message": "المتابعة مع Apple"
+        "message": "تسجيل الدخول بواسطة ابل"
     },
     "auth_sign_in_provider_google": {
-        "message": "المتابعة مع Google"
+        "message": "تسجيل الدخول بواسطة جوجل"
     },
     "auth_sign_in_provider_facebook": {
-        "message": "المتابعة مع Facebook"
+        "message": "تسجيل الدخول بواسطة الفيسبوك"
     },
     "auth_header_sing_in_notice": {
         "message": "تسجيل الدخول باسم <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
-        "message": "المصادقة الثنائية"
+        "message": "التحقيق بخطوتين"
     },
     "auth_header_2fa": {
-        "message": "أدخل رمز المصادقة"
+        "message": "أدخل رمز التحقق"
     },
     "auth_placeholder_2fa": {
-        "message": "رمز المصادقة"
+        "message": "رمز التحقق"
     },
     "official_website": {
         "message": "الموقع الرسمي"
@@ -235,13 +235,13 @@
         "message": "الإعدادات"
     },
     "referral_get_free_traffic": {
-        "message": "احصل على غيغابايت مجانية!"
+        "message": "احصل على جيجا مجانية!"
     },
     "settings_referral_info": {
-        "message": "احصل على %your_gb% غيغابايت من حركة مرور VPN مجانية لمدة شهر لكل صديق يقوم بالتسجيل بواسطة دعوتك، حتى %total_gb% غيغابايت في المجموع. يحصل صديقك أيضًا على %friend_gb% جيجابايت إضافية مجانًا."
+        "message": "احصل على %your_gb% جيجا من حركة المرور VPN المجانية لمدة شهر لكل صديق قام بتسجل من خلال دعوتك، حتى %total_gb% جيجا إجمالاً. يحصل صديقك أيضًا على %friend_gb% جيجا إضافية مجانًا."
     },
     "settings_referral_invited_friends": {
-        "message": "%count%%limit% أصدقاء مدعوون"
+        "message": "الأصدقاء المدعوون %count%/%limit%"
     },
     "settings_referral_invite_link": {
         "message": "رابط الدعوة"
@@ -253,7 +253,7 @@
         "message": "تم نسخ رابط الدعوة إلى الحافظة"
     },
     "settings_free_gbs": {
-        "message": "غيغابايت مجانية"
+        "message": "جيجابايت مجانية"
     },
     "settings_free_gbs_subtitle": {
         "message": "أكمل المهام للحصول على حركة مرور VPN مجانية!"
@@ -262,10 +262,10 @@
         "message": "تأكيد البريد الإلكتروني"
     },
     "settings_free_gbs_get_GB": {
-        "message": "احصل على %num% غيغابايت"
+        "message": "احصل على %num% جيجا"
     },
     "settings_free_gbs_task_complete": {
-        "message": "لقد حصلت على %num% غيغابايت"
+        "message": "لقد حصلت على %num% جيجا"
     },
     "settings_free_gbs_confirm_email_info": {
         "message": "انقر على رابط تأكيد البريد الإلكتروني الذي أرسلناه إليك عند التسجيل واحصل على %your_gb% جيجابايت من حركة مرور VPN المجانية. إذا لم تتمكن من العثور على بريدنا الإلكتروني، فانقر على الزر أدناه."
@@ -286,16 +286,16 @@
         "message": "تهانينا على تثبيت AdGuard VPN على أجهزة متعددة. ابق آمنًا!"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "الانتقال إلى المنتجات"
+        "message": "انتقل إلى المنتجات"
     },
     "settings_free_gbs_invite_friend": {
         "message": "دعوة صديق"
     },
     "settings_free_gbs_invite_friend_get_GB": {
-        "message": "احصل على ما يصل إلى %num% غيغابايت"
+        "message": "احصل على ما يصل إلى %num% جيجابايت"
     },
     "settings_free_gbs_invite_friend_complete": {
-        "message": "لقد حصلت على %num% غيغابايت"
+        "message": "لقد حصلت على %num% جيجابايت"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
         "message": "شكراً لاستخدامك جميع دعواتك!"
@@ -304,22 +304,22 @@
         "message": "الرجوع للخلف"
     },
     "settings_rate_us": {
-        "message": "قيّمنا"
+        "message": "قيمنا"
     },
     "settings_webrtc_label": {
         "message": "حظر WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC هو برنامج خاص في معظم متصفحات الإنترنت يمكن أن يسمح لموقع ويب تابع لجهة خارجية باكتشاف عنوان IP الحقيقي الخاص بك واستخدامه لتحديد هويتك"
+        "message": "WebRTC هو برنامج خاص متواجد في معظم متصفحات الإنترنت يمكن أن يسمح لموقع ويب التابع لجهة خارجية باكتشاف عنوانك على الأنترنت IP واستخدامه لتحديد هويتك"
     },
     "settings_context_menus_title": {
         "message": "أضف عنصر AdGuard VPN إلى قائمة سياق المتصفح"
     },
     "settings_help_us_improve_title": {
-        "message": "ساعدنا لنتحسن"
+        "message": "ساعدنا لنتحسن المنتج"
     },
     "settings_help_us_improve_description": {
-        "message": "اسمح لـ AdGuard VPN بجمع تقارير الأعطال والبيانات الفنية والتفاعلية. هذا مجهول."
+        "message": "السمح لـ AdGuard VPN بجمع تقارير الأعطال والبيانات الفنية والتفاعلية بشكل مجهول."
     },
     "context_menu_selective_mode": {
         "message": "الوضع الانتقائي"
@@ -331,7 +331,7 @@
         "message": "تصدير السجل"
     },
     "context_menu_debug_level": {
-        "message": "تسجيل التصحيح"
+        "message": "تسجيل الأخطاء التصحيحية"
     },
     "settings_dns_label": {
         "message": "خادم DNS"
@@ -364,10 +364,10 @@
         "message": "عنوان IP للخادم أو اسم مجال TLS"
     },
     "settings_dns_add_custom_server_invalid_address": {
-        "message": "تعذر عنوان الخادم DNS"
+        "message": "عنوان خادم DNS غير صالح"
     },
     "settings_dns_add_custom_server_duplicate_address": {
-        "message": "تمت إضافة خادم DNS بالفعل"
+        "message": "خادم DNS مضاف بالفعل"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "حفظ وتحديد"
@@ -391,25 +391,25 @@
         "message": "AdGuard DNS"
     },
     "settings_dns_selector_adguard_desc": {
-        "message": "يزيل الإعلانات والمتتبعون من جهازك"
+        "message": "يقوم بحظر الإعانات وأدوات التتبع من جهازك"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "عدم تصفية AdGuard DNS"
+        "message": "AdGuard DNS بدون تصفية"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "DNS آمن بدون تسجيل نشاط (لا يقوم بتصفية الإعلانات والمتتبعين)"
+        "message": "DNS آمن بدون تسجيل لأي نشاط (لا يقوم بحظر الإعلانات وأدوات التتبع)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS حماية العائلة"
+        "message": "AdGuard DNS بخاصية حماية العائلة"
     },
     "settings_dns_selector_adguard_family_desc": {
-        "message": "AdGuard DNS + البحث الآمن وحظر محتوى البالغين"
+        "message": "AdGuard DNS + خاصية البحث الآمن مع حظر محتوى البالغين"
     },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"
     },
     "settings_dns_selector_google_desc": {
-        "message": "خدمة DNS بديلة مجانية من جوجل"
+        "message": "خدمة DNS بديلة ومجانية من جوجل"
     },
     "settings_dns_selector_cloudflare_title": {
         "message": "Cloudflare DNS"
@@ -427,13 +427,13 @@
         "message": "Quad9"
     },
     "settings_dns_selector_quad9_desc": {
-        "message": "خدمة DNS بديلة مجانية مع الحماية من الاحتيال وبرامج التجسس"
+        "message": "خدمة DNS بديلة ومجانية مع حماية من التصيد الاحتيالي وبرامج التجسس"
     },
     "settings_theme_label": {
         "message": "المظهر"
     },
     "settings_theme_system": {
-        "message": "النظام الافتراضي"
+        "message": "استخدام مظهر النظام"
     },
     "settings_theme_dark": {
         "message": "داكن"
@@ -442,16 +442,16 @@
         "message": "فاتح"
     },
     "settings_quick_connect_title": {
-        "message": "الاتصال السريع"
+        "message": "اتصال سريع"
     },
     "settings_quick_connect_subtitle": {
-        "message": "تم تحديد موقع VPN عند النقر فوق اتصال"
+        "message": "يتم تحديد موقع الـ VPN عند النقر فوق اتصال"
     },
     "settings_quick_connect_last_used": {
         "message": "آخر موقع تم استخدامه"
     },
     "settings_quick_connect_fastest": {
-        "message": "أسرع موقع"
+        "message": "أسرع المواقع"
     },
     "settings_exclusion_add": {
         "message": "إضافة"
@@ -499,7 +499,7 @@
         "message": "أضف يدوياً"
     },
     "settings_exclusions_add_invalid_domain": {
-        "message": "\"%url%\" ليس نطاقاً صالحًا. هل تريد إضافته إلى القائمة؟"
+        "message": "\"%url%\" ليس نطاقًا صالحًا. هل تريد إضافته إلى القائمة؟"
     },
     "settings_exclusion_modal_cancel": {
         "message": "إلغاء"
@@ -511,7 +511,7 @@
         "message": "حفظ"
     },
     "settings_exclusion_reset_to_default": {
-        "message": "إعادة تعيين إلى الافتراضي"
+        "message": "إعادة التعيين إلى الوضع الافتراضي"
     },
     "settings_exclusion_reset_button": {
         "message": "إعادة ضبط"
@@ -520,7 +520,7 @@
         "message": "التراجع"
     },
     "settings_exclusion_reset_service_confirmation_message": {
-        "message": "هل تريد إعادة تعيين الإعدادات الافتراضية لـ%hostname%؟ سيؤدي هذا إلى استعادة أي نطاقات مفقودة وجعل جميع علامات الاختيار محددة."
+        "message": "إعادة تعيين الإعدادات الافتراضية لـ %hostname%؟ سيؤدي هذا إلى استعادة أي نطاقات مفقودة وتعيين جميع علامات الاختيار على وضع التشغيل."
     },
     "settings_exclusion_search_website": {
         "message": "البحث في الموقع"
@@ -544,7 +544,7 @@
         "message": "إزالة الكل"
     },
     "settings_exclusions_remove_all_exclusions": {
-        "message": "قم بإزالة كافة الاستثناءات"
+        "message": "إزالة جميع الاستثناءات"
     },
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "هل أنت متأكد أنك تريد الاستمرار؟ ستتم إزالة قائمة الاستثناءات بأكملها."
@@ -553,7 +553,7 @@
         "message": "الاستثناءات"
     },
     "settings_exclusion_change_mode_modal_title": {
-        "message": "حيث يتم تشغيل VPN"
+        "message": "مكان تشغيل VPN"
     },
     "settings_exclusion_general_title": {
         "message": "في كل مكان باستثناء المواقع الإلكترونية المستثناة"
@@ -562,7 +562,7 @@
         "message": "VPN قيد التشغيل <span>في كل مكان</span> باستثناء مواقع الويب أدناه"
     },
     "settings_exclusion_selective_title": {
-        "message": "فقط على مواقع مختارة"
+        "message": "على مواقع إلكترونية مختارة فقط"
     },
     "settings_exclusion_selective_mode_info": {
         "message": "يتم تشغيل VPN <span>بشكل انتقائي</span>: للمواقع الإلكترونية التالية فقط"
@@ -577,7 +577,7 @@
         "message": "حدث خطأ"
     },
     "global_error_description": {
-        "message": "يرجى الاتصال بنا إذا كنت لا تزال ترى هذه الرسالة"
+        "message": "يرجى الاتصال بنا إذا استمر ظهور هذه الرسالة"
     },
     "global_error_learn_more": {
         "message": "اعرف المزيد"
@@ -586,46 +586,46 @@
         "message": "حاول مرة أخرى"
     },
     "authentication_successful_notification": {
-        "message": "تمت المصادقة عليه بنجاح! يمكنك فتح AdGuard VPN والبدء في استخدامه."
+        "message": "تمت المصادقة بنجاح! يمكنك فتح AdGuard VPN والبدء في استخدامه."
     },
     "control_error_title": {
-        "message": "تعارض الإضافة"
+        "message": "تعارض في ملحقات المتصفح"
     },
     "control_error_description": {
         "message": "يبدو أن هناك امتداد متصفح آخر يحاول التحكم في اتصالك. يرجى تعطيل الامتداد الآخر في متصفحك."
     },
     "control_error_disable": {
-        "message": "قم بتعطيله"
+        "message": "تعطيل"
     },
     "popup_skeleton_status": {
-        "message": "البحث عن الموقع..."
+        "message": "جاري البحث عن المواقع..."
     },
     "popup_no_locations_title": {
-        "message": "المواقع غير موجودة"
+        "message": "لم يتم العثور على المواقع"
     },
     "popup_no_locations_button": {
-        "message": "ابحث مرة أخرى"
+        "message": "البحث مرة أخرى"
     },
     "popup_settings_enable_vpn_short": {
         "message": "تمكين لهذا الموقع"
     },
     "popup_settings_disable_vpn": {
-        "message": "تعطيل VPN لهذا الموقع الإلكتروني"
+        "message": "تعطيل VPN على هذا الموقع"
     },
     "popup_settings_enable_vpn": {
-        "message": "تمكين VPN لهذا الموقع الإلكتروني"
+        "message": "تشغيل VPN على هذا الموقع"
     },
     "popup_settings_other_products": {
         "message": "منتجات اخرى"
     },
     "popup_settings_feedback": {
-        "message": "ملاحظاتكم"
+        "message": "أرسال ملاحظاتك"
     },
     "popup_settings_open_settings": {
         "message": "الإعدادات"
     },
     "context_menu_enable_vpn": {
-        "message": "تمكين VPN على هذا الموقع الإلكتروني"
+        "message": "تشغيل VPN على هذا الموقع الإلكتروني"
     },
     "context_menu_disable_vpn": {
         "message": "تعطيل VPN على هذا الموقع الإلكتروني"
@@ -640,25 +640,25 @@
         "message": "الأسرع"
     },
     "endpoints_all": {
-        "message": "كافة المواقع"
+        "message": "جميع المواقع"
     },
     "endpoints_search_results": {
-        "message": "نتيجة البحث"
+        "message": "نتائج البحث"
     },
     "endpoints_search": {
-        "message": "موقع البحث"
+        "message": "مواقع البحث"
     },
     "endpoints_not_found": {
-        "message": "المواقع غير موجودة"
+        "message": "لم يتم العثور على المواقع"
     },
     "popup_traffic_limit_reached": {
-        "message": "تم الوصول إلى حد البيانات الشهرية"
+        "message": "تم الوصول إلى الحد الأقصى للبيانات الشهرية"
     },
     "popup_traffic_limited_speed": {
         "message": "سرعة محدودة"
     },
     "premium_upgrade": {
-        "message": "ترقيه"
+        "message": "الترقية"
     },
     "settings_disconnect": {
         "message": "قطع الاتصال"
@@ -679,7 +679,7 @@
         "message": "تم تخفيض السرعة"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "لقد وصلت إلى حد البيانات المجانية ، ويعمل AdGuard VPN ببطء."
+        "message": "لقد وصلت إلى حد الأقصى من البيانات المجانية، اصبح AdGuard VPN يعمل ببطء."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "تعزيز السرعة"
@@ -694,7 +694,7 @@
         "message": "لماذا التطبيق أفضل"
     },
     "popup_rate_modal_title": {
-        "message": "ما مدى روعة AdGuard VPN؟"
+        "message": "ما مدى رضاك عن AdGuard VPN؟"
     },
     "popup_rate_modal_subtitle": {
         "message": "يرجى تقييمنا"
@@ -706,28 +706,28 @@
         "message": "إلغاء"
     },
     "popup_confirm_rate_modal_feedback_title": {
-        "message": "ساعدنا لنتحسن"
+        "message": "ساعدنا في تحسين"
     },
     "popup_confirm_rate_modal_feedback_subtitle": {
         "message": "أخبرنا ما الخطأ الذي حدث"
     },
     "popup_confirm_rate_modal_leave_feedback_button": {
-        "message": "اترك ملاحظاتك"
+        "message": "أرسل ملاحظاتك"
     },
     "popup_confirm_rate_modal_rate_title": {
         "message": "رائع! هل يمكنك تقييمنا أيضًا في متجر الملحقات؟"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "انتقل إلى متجر الإضافة"
+        "message": "انتقل إلى متجر الملحقات"
     },
     "popup_server_error_popup_title": {
-        "message": "يتعذر الاتصال بالخادم"
+        "message": "لا يمكن الاتصال بالخادم"
     },
     "popup_server_error_popup_info": {
-        "message": "على الأرجح ، تم حظر VPN في بلدك أو كان هناك خلل فني. نحن نحاول بالفعل إصلاحه"
+        "message": "نعتقد أنه تم حظر الـ VPN في بلدك أو كان هناك خلل فني. نحن نحاول بالفعل إصلاحه"
     },
     "popup_server_error_popup_action": {
-        "message": "Nudge AdGuard team"
+        "message": "فريق Nudge AdGuard"
     },
     "popup_server_error_popup_cancel": {
         "message": "إلغاء"
@@ -751,7 +751,7 @@
         "message": "السماح"
     },
     "options_title": {
-        "message": "AdGuard VPN خيارات"
+        "message": "إعدادات AdGuard VPN"
     },
     "offline_title": {
         "message": "غير متصل بالإنترنت"
@@ -760,23 +760,23 @@
         "message": "موجود في شبكتك المحلية ولا يمكن الوصول إليه عبر VPN"
     },
     "popup_site_status_vpn_disabled": {
-        "message": "على هذا الموقع VPN تم تعطيل"
+        "message": "تم تعطيل VPN على هذا الموقع"
     },
     "popup_auth_policy_agreement": {
-        "message": "لقد قرأت ووافقت على سياسة الخصوصية <eula>EULA</eula> و <privacy>الخاصة بـ AdGuard</privacy>",
+        "message": "لقد قرأت ووافقت على <eula>اتفاقية ترخيص المستخدم النهائي</eula> <privacy>وسياسة الخصوصية</privacy> الخاصة ب AdGuard",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "أسمح لـ AdGuard بجمع <link>بيانات مجهولة تمامًا</link> حول استخدام التطبيق لجعل AdGuard VPN أفضل"
+        "message": "أسمح لـ AdGuard بجمع <link>بيانات مجهولة المصدر بدقة</link> عن استخدام التطبيق لجعل AdGuard VPN أفضل"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "استمرار"
     },
     "popup_newsletter_title": {
-        "message": "النشرة الإخبارية ل AdGuard"
+        "message": "النشرة الإخبارية لـ AdGuard"
     },
     "popup_newsletter_info": {
-        "message": "أرسل لي رسائل بريد إلكتروني تحتوي على عروض خاصة وأخبار AdGuard"
+        "message": "إرسال رسائل بريد إلكتروني تحتوي على عروض خاصة وأخبار AdGuard"
     },
     "popup_newsletter_subscribe": {
         "message": "اشتراك"
@@ -788,7 +788,7 @@
         "message": "بروتوكول VPN فريد"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "يعمل بروتوكول AdGuard VPN بسرعة ويجعل حركة مرور VPN الخاصة بك غير واضحة"
+        "message": "يعمل بروتوكول AdGuard VPN بسرعة ويجعل حركة مرور VPN الخاصة بك غير ملحوظة"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "استثناءات المواقع والتطبيقات"
@@ -800,7 +800,7 @@
         "message": "سياسة عدم الاحتفاظ بالسجلات"
     },
     "popup_onboarding_no_logging_policy_info": {
-        "message": "يجعلك AdGuard VPN مجهول الهُوِيَّة. لا يجمع بياناتك أو يشاركها مع جهات خارجية أبدًا"
+        "message": "AdGuard VPN يجعلك مجهول الهوية. لا يجمع بياناتك أو يشاركها مع أطراف ثالثة"
     },
     "popup_onboarding_next": {
         "message": "التالي"
@@ -812,7 +812,7 @@
         "message": "بيانات غير محدودة"
     },
     "popup_upgrade_screen_unlimited_data_desc": {
-        "message": "الجميل هو عدم مشاركة بياناتك أبدًا. تصفح المحتوى الذي يحبه قلبك!"
+        "message": "الحد الوحيد هو أن بياناتك لن تتم مشاركتها مطلقًا. تصفح كما يحلو لك!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "سرعة غير محدودة"
@@ -833,7 +833,7 @@
         "message": "قم بتوصيل جميع أجهزتك بشبكة AdGuard VPN في نفس الوقت - أو قم بحماية جميع أفراد العائلة!"
     },
     "popup_upgrade_screen_upgrade_button": {
-        "message": "ترقيه"
+        "message": "الترقية"
     },
     "popup_upgrade_screen_continue_free": {
         "message": "المتابعة مجانًا"
@@ -864,7 +864,7 @@
         "message": "لاحقاً"
     },
     "limited_offer_notification_title": {
-        "message": "%discount%%% خَصْم على AdGuard VPN",
+        "message": "%discount%خصم %% على AdGuard VPN",
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
@@ -887,10 +887,10 @@
         "message": "ستتم إضافة مواقع الويب من القائمة المستوردة إلى الاستثناءات الحالية"
     },
     "options_exclusions_import_select_regular": {
-        "message": "أريد إيقاف تشغيل VPN لهذه المواقع الإلكترونية"
+        "message": "أريد إيقاف تشغيل VPN لهذه المواقع"
     },
     "options_exclusions_import_select_selective": {
-        "message": "أريد تشغيل VPN لهذه المواقع الإلكترونية"
+        "message": "أريد تشغيل VPN لهذه المواقع"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "إلغاء"
@@ -917,37 +917,37 @@
         "message": "لقد وصلت إلى الحد الأقصى لعدد الاتصالات: %maxDevicesAllowed%."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "لإضافة المزيد من الأجهزة ، ضع في اعتبارك الاشتراك في Unlimited AdGuard VPN."
+        "message": "لإضافة المزيد من الأجهزة، فكر في الاشتراك في خدمة AdGuard VPN غير المحدودة."
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "لإضافة جهاز آخر ، قم بتعطيل AdGuard VPN على أي من أدواتك."
+        "message": "لإضافة جهاز آخر، قم بتعطيل AdGuard VPN على أي من أجهزتك."
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "اشتراك"
+        "message": "اشترا"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "اعرف المزيد"
     },
     "popup_connections_limit_title": {
-        "message": "تم الوصول إلى حد الاتصالات"
+        "message": "تم الوصول إلى الحد الأقصى للاتصالات"
     },
     "options_signedout_page_title": {
         "message": "لقد قمت بتسجيل الخروج من AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "يرجى ملاحظة: أنت غير متصل بشبكة VPN وحركة المرور الخاصة بك غير محمية! لمتابعة التصفح بشكل خاص ، انقر فوق رمز AdGuard VPN وقم بتسجيل الدخول مرة أخرى."
+        "message": "يرجى ملاحظة: أنت غير متصل بشبكة VPN ولا يتم حماية بياناتك! لمواصلة التصفح بخصوصية، انقر فوق أيقونة AdGuard VPN وقم بتسجيل الدخول مرة أخرى."
     },
     "notification_data_limit_reached_title": {
-        "message": "تم الوصول إلى حد البيانات الشهري"
+        "message": "تم الوصول إلى الحد الأقصى من البيانات الشهرية"
     },
     "notification_data_limit_reached_description": {
         "message": "تم تقليل سرعة اتصال VPN."
     },
     "notification_data_left_mb": {
-        "message": "يتبقى %num% ميغابايت."
+        "message": "بقي %num% ميجا"
     },
     "notification_data_left_description": {
-        "message": "سيتم تخفيض سرعة اتصال VPN قريباً."
+        "message": "سيتم تقليل سرعة اتصال VPN قريباً."
     },
     "confirm_email_title": {
         "message": "تأكيد بريدك الإلكتروني"
@@ -980,7 +980,7 @@
         "message": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى أو الاتصال بنا عبر <a>%support_email%</a>"
     },
     "confirm_email_no_auth_id_error_on_register": {
-        "message": "فشل تسجيلك. يرجى المحاولة مرة أخرى أو اتصل بنا عبر <a>%support_email%</a>"
+        "message": "فشل تسجيل اشتراكك. يرجى المحاولة مرة أخرى أو الاتصال بنا عبر <a>%support_email%</a>"
     },
     "resend_confirm_registration_link_notification": {
         "message": "تم إعادة إرسال رابط التأكيد"

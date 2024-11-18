@@ -340,10 +340,10 @@
         "message": "Populaire DNS-servers"
     },
     "settings_dns_custom_servers": {
-        "message": "Gebruiker DNS-servers"
+        "message": "Aangepaste DNS-servers"
     },
     "settings_dns_add_custom_server": {
-        "message": "Gebruiker DNS-server toevoegen"
+        "message": "Aangepaste DNS-server toevoegen"
     },
     "settings_dns_edit_custom_server": {
         "message": "Aangepaste DNS-server bewerken"
