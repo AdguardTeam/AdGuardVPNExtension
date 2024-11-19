@@ -185,7 +185,7 @@ const blackFriday24Notification = {
             btn: '85% popusta',
         },
         hu: {
-            title: 'Az év legnagyobb eladása',
+            title: 'Az év legnagyobb leárazása',
             btn: '85% kedvezmény',
         },
         hy: {
