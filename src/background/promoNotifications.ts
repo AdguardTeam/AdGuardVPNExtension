@@ -170,7 +170,7 @@ const blackFriday24Notification = {
         },
         fa: {
             title: 'بزرگترین فروش سال',
-            btn: 'تخفیف ٪85',
+            btn: '٪85 تخفیف',
         },
         fi: {
             title: 'Vuoden suurin myynti',
