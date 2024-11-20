@@ -49,7 +49,8 @@ export const Sidebar = observer(() => {
                 </div>
                 <nav className="sidebar__nav" onClick={settingsStore.closeSubComponents}>
                     <SidebarLink to="/">
-                        {reactTranslator.getMessage('settings_title')}
+                        {/* FIXME: Translation */}
+                        General
                     </SidebarLink>
                     <SidebarLink to="/exclusions">
                         {reactTranslator.getMessage('settings_exclusion_title')}
