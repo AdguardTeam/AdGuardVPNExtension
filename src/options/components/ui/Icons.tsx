@@ -5,6 +5,12 @@ import './icon.pcss';
 
 const Icons = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="hidden">
+        <svg id="sidebar-burger" width="40" height="48" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 24H28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 19H28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 29H28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+
         <svg id="basket" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path clipRule="evenodd" d="M7 9h10l-.763 10.076a1 1 0 0 1-.997.924H8.76a1 1 0 0 1-.997-.924L7 9Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M6 6.5h12M14 6V4h-4v2" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
