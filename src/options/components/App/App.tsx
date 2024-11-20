@@ -36,17 +36,19 @@ const getContent = (
             <div className="wrapper">
                 <Sidebar />
                 <div className="content">
-                    <Switch>
-                        <Route path="/" exact component={Settings} />
-                        <Route path="/exclusions" exact component={Exclusions} />
-                        <Route path="/account" component={Account} />
-                        <Route path="/about" component={About} />
-                        <Route path="/support" component={Support} />
-                        {!isPremiumToken && (
-                            <Route path="/free-gbs" component={FreeGbs} />
-                        )}
-                        <Route component={Settings} />
-                    </Switch>
+                    <div className="content__wrapper">
+                        <Switch>
+                            <Route path="/" exact component={Settings} />
+                            <Route path="/exclusions" exact component={Exclusions} />
+                            <Route path="/account" component={Account} />
+                            <Route path="/about" component={About} />
+                            <Route path="/support" component={Support} />
+                            {!isPremiumToken && (
+                                <Route path="/free-gbs" component={FreeGbs} />
+                            )}
+                            <Route component={Settings} />
+                        </Switch>
+                    </div>
                 </div>
             </div>
         );
