@@ -1,4 +1,25 @@
 :root {
+    /* New variables */
+    /* Base colors */
+    --gray-0: #FFFFFF;
+    --gray-10: #F6F6F6;
+    --gray-20: #E4E4E4;
+    --gray-30: #D2D2D2;
+    --gray-70: #5B5B5B;
+    --gray-80: #3D3D3D;
+    --gray-90: #1F1F1F;
+    --red-50: #BF4829;
+
+    /* Dynamic colors */
+    --text-main-text-main-default: var(--gray-80);
+    --text-description-description-default: var(--gray-70);
+    --fills-backgrounds-page-background-default: var(--gray-0);
+    --fills-backgrounds-page-background-additional-default: var(--gray-10);
+    --fills-backgrounds-page-background-additional-hovered: var(--gray-20);
+    --stroke-icons-error-icon-default: var(--red-50);
+    --stroke-dividers-item-divider-default: var(--gray-30);
+
+    /* Old variables */
     --font-stack: "Roboto Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Arial, sans-serif;
     --container-width: 960px;
     --content-width: 732px;
@@ -33,6 +54,17 @@
     --orange: #d58500;
 
     @media (prefers-color-scheme: dark) {
+        /* New variables */
+        /* Dynamic colors */
+        --text-main-text-main-default: var(--gray-20);
+        --text-description-description-default: var(--gray-30);
+        --fills-backgrounds-page-background-default: var(--gray-90);
+        --fills-backgrounds-page-background-additional-default: var(--gray-80);
+        --fills-backgrounds-page-background-additional-hovered: var(--gray-70);
+        --stroke-icons-error-icon-default: var(--red-50);
+        --stroke-dividers-item-divider-default: var(--gray-70);
+
+        /* Old variables */
         --white: #131313;
         --white-strong: #000;
         --white-fog: rgba(0, 0, 0, 0.7);
@@ -52,6 +84,17 @@
 }
 
 .dark-mode {
+    /* New variables */
+    /* Dynamic colors */
+    --text-main-text-main-default: var(--gray-20);
+    --text-description-description-default: var(--gray-30);
+    --fills-backgrounds-page-background-default: var(--gray-90);
+    --fills-backgrounds-page-background-additional-default: var(--gray-80);
+    --fills-backgrounds-page-background-additional-hovered: var(--gray-70);
+    --stroke-icons-error-icon-default: var(--red-50);
+    --stroke-dividers-item-divider-default: var(--gray-70);
+
+    /* Old variables */
     --white: #131313;
     --white-strong: #000;
     --white-fog: rgba(0, 0, 0, 0.7);
@@ -70,6 +113,17 @@
 }
 
 .light-mode {
+    /* New variables */
+    /* Dynamic colors */
+    --text-main-text-main-default: var(--gray-80);
+    --text-description-description-default: var(--gray-70);
+    --fills-backgrounds-page-background-default: var(--gray-0);
+    --fills-backgrounds-page-background-additional-default: var(--gray-10);
+    --fills-backgrounds-page-background-additional-hovered: var(--gray-20);
+    --stroke-icons-error-icon-default: var(--red-50);
+    --stroke-dividers-item-divider-default: var(--gray-30);
+
+    /* Old variables */
     --white: #ffffff;
     --white-strong: #fff;
     --white-fog: rgba(255, 255, 255, 0.7);
