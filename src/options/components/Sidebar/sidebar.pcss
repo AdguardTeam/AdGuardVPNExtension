@@ -1,71 +1,143 @@
 .sidebar {
-    top: 0;
-    max-height: 100vh;
-    overflow: auto;
-    scrollbar-width: thin;
-    position: sticky;
-    display: flex;
-    border-right: 1px solid var(--border-color);
-    background-color: var(--white);
-    width: var(--sidebar-width);
-    padding: 40px 0;
-    flex-direction: column;
     flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    /* Dynamic viewport height, if not supported fallbacks to vh */
+    height: 100dvh;
 
-    @media (prefers-color-scheme: dark) {
-        border-right: 1px solid transparent;
+    @media (max-width: 872px) {
+        z-index: 2;
+        height: auto;
+    }
+
+    &__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        display: none;
+        background-color: var(--fills-backgrounds-dialog-background-default);
+        opacity: 0;
+        pointer-events: none;
+        transition: var(--t3) opacity;
+
+        .sidebar--active & {
+            pointer-events: auto;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 872px) {
+            display: block;
+        }
+    }
+
+    &__menu {
+        display: none;
+        padding: 0 8px;
+        background-color: var(--fills-backgrounds-page-background-default);
+        box-shadow: var(--small-light-shadow-br);
+
+        @media (max-width: 872px) {
+            display: block;
+        }
+
+        &-btn {
+            padding: 12px 8px;
+            background-color: transparent;
+            cursor: pointer;
+            border: none;
+            outline: none;
+
+            &-icon {
+                font-size: 0;
+                width: 24px;
+                height: 24px;
+                color: var(--stroke-icons-gray-icons-default);
+            }
+        }
+    }
+
+    &__content {
+        width: 240px;
+        height: 100%;
+        padding: 24px 0;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--fills-backgrounds-page-background-additional-default);
+        /* FIXME: Scroll on mobile devices */
+        overflow-y: auto;
+        scrollbar-width: thin;
+
+        @media (max-width: 872px) {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 85%;
+            max-width: 300px;
+            transform: translateX(-100%);
+            transition: var(--t3) transform;
+
+            .sidebar--active & {
+                transform: translateX(0);
+            }
+        }
     }
 
     &__logo {
-        margin: 0 0 33px 40px;
         flex-shrink: 0;
+        padding: 16px 32px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        .logo {
+            flex-shrink: 0;
+        }
     }
 
     &__nav {
+        flex: 1 0 auto;
         display: flex;
-        width: 100%;
         flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 40px;
-    }
-
-    &__link {
         width: 100%;
-        position: relative;
-        padding: 10px 27px 10px 40px;
-        text-decoration: none;
-        color: var(--gray-base);
-        transition: var(--t3) color, var(--t3) background-color;
 
-        &:hover,
-        &:focus {
-            color: var(--green700);
+        &-link {
+            position: relative;
+            width: 100%;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-decoration: none;
+            color: var(--text-main-text-main-default);
+            font-size: 16px;
+            line-height: 1.3;
+            background-color: transparent;
+            font-weight: 400;
+            transition: var(--t3) background-color;
+            cursor: pointer;
+
+            &:hover,
+            &:active {
+                background-color: var(--fills-backgrounds-page-background-additional-hovered);
+            }
+
+            &.sidebar__nav-link--active {
+                font-weight: 600;
+                background-color: var(--fills-backgrounds-page-background-default);
+                cursor: default;
+            }
+
+            &-bullet {
+                font-size: 8px;
+                width: 1em;
+                height: 1em;
+                border-radius: 1em;
+                background-color: var(--stroke-icons-error-icon-default);
+                margin-left: 1em;
+            }
         }
-
-        &--active {
-            color: var(--green700);
-            background-color: var(--green300);
-        }
-
-        &--mark {
-            width: 7px;
-            height: 7px;
-            border-radius: 8px;
-            background-color: var(--redDark);
-            margin: 9px 0 0 8px;
-            position: absolute;
-        }
-    }
-}
-
-.light-mode {
-    .sidebar {
-        border-right: 1px solid var(--border-color);
-    }
-}
-
-.dark-mode {
-    .sidebar {
-        border-right: 1px solid transparent;
     }
 }
