@@ -7,7 +7,7 @@ import { useOnClickOutside } from '../../../hooks/useOnOutsideClick';
 
 import './select.pcss';
 
-export interface SelectOptionItem<T> {
+interface SelectOptionItem<T> {
     value: T;
     title: string | React.ReactNode;
 }
