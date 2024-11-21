@@ -22,6 +22,11 @@ export const Sidebar = observer(() => {
     } = settingsStore;
     const [isActive, setIsActive] = useState(false);
 
+    const closeAll = () => {
+        settingsStore.closeSubComponents();
+        setIsActive(false);
+    };
+
     useEffect(() => {
         (async () => {
             // request bonuses data on opening this screen to display actual information to user
@@ -47,7 +52,7 @@ export const Sidebar = observer(() => {
                 <div className="sidebar__logo">
                     <div className="logo" />
                 </div>
-                <nav className="sidebar__nav" onClick={settingsStore.closeSubComponents}>
+                <nav className="sidebar__nav" onClick={closeAll}>
                     <SidebarLink to="/">
                         {/* FIXME: Translation */}
                         General
