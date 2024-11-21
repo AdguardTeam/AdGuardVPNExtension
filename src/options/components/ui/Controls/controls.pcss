@@ -5,6 +5,17 @@
     column-gap: 16px;
     padding: 16px;
 
+    &--hoverable {
+        cursor: pointer;
+        background-color: transparent;
+        transition: var(--t3) background-color;
+        border-radius: 8px;
+
+        &:hover, &:active {
+            background-color: var(--fills-backgrounds-page-background-hovered);
+        }
+    }
+
     &__action {
         flex-shrink: 0;
     }
