@@ -69,7 +69,7 @@ export const Icons = () => (
             strokeLinejoin="round"
             xmlns="http://www.w3.org/2000/svg"
         >
-            <g fill="none" fill-rule="evenodd">
+            <g fill="none" fillRule="evenodd">
                 <path d="m5 12 6 6 8-9" />
             </g>
         </symbol>

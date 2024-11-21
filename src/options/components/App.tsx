@@ -14,7 +14,7 @@ import { Preloader } from './Preloader';
 import { Sidebar } from './Sidebar';
 import { General } from './views/General';
 
-import '../../styles/main.pcss';
+import '../styles/main.pcss';
 import './app.pcss';
 
 Modal.setAppElement('#root');
