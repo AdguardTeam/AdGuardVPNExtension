@@ -1,94 +1,94 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
-import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
-import { useOutsideFocus } from '../../../../common/components/ui/useOutsideFocus';
+import classNames from 'classnames';
+
+import { Icon } from '../Icon';
+import { useOnClickOutside } from '../../../hooks/useOnOutsideClick';
 
 import './select.pcss';
 
-type SelectProps<T> = {
-    currentValue: T,
-    options: {
-        id: T,
-        title: React.ReactNode | string,
-        desc?: React.ReactNode | string,
-    }[],
-    optionChange: (id: T) => void,
-};
+export interface SelectOptionItem<T> {
+    value: T;
+    title: string | React.ReactNode;
+}
 
-export const Select = <T extends string>(props: SelectProps<T>) => {
-    const {
-        currentValue,
-        options,
-        optionChange,
-    } = props;
+interface SelectOptionProps<T> extends SelectOptionItem<T> {
+    active?: boolean;
+    onClick: (value: T) => void;
+}
 
-    const [value, setValue] = useState(currentValue);
-    const [hidden, setHidden] = useState(true);
-
-    const ref = useRef<HTMLDivElement>(null);
-
-    useOutsideClick(ref, () => setHidden(true));
-
-    useOutsideFocus(ref, () => setHidden(true));
-
-    useEffect(() => {
-        setValue(currentValue);
-    });
-
-    const handleSelectClick = (event: React.MouseEvent): void => {
-        event.stopPropagation();
-        setHidden(!hidden);
-    };
-
-    const handleOptionClick = (id: T): void => {
-        setValue(id);
-        optionChange(id);
-        setHidden(true);
-    };
-
-    const isActiveOption = (id: T) => ((id === value) ? ' active' : '');
-
-    const optionsList: React.RefObject<HTMLDivElement> = useRef(null);
-
-    useEffect(() => {
-        if (optionsList.current) {
-            optionsList.current.scrollTop = 0;
-        }
-    });
-
-    const getTitle = (value: T) => {
-        const option = options.find((op) => op.id === value);
-        return option?.title;
+function SelectOption<T extends string>({
+    value,
+    title,
+    active,
+    onClick,
+}: SelectOptionProps<T>) {
+    const handleClick = () => {
+        onClick(value);
     };
 
     return (
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        <div className="selector" ref={ref}>
+        <button
+            className={classNames('select__item', active && 'select__item--active')}
+            type="button"
+            onClick={handleClick}
+        >
+            {title}
+            <Icon name="tick" className="select__item-icon" />
+        </button>
+    );
+}
+
+export interface SelectProps<T> {
+    value: T;
+    options: SelectOptionItem<T>[];
+    onChange: (value: T) => void;
+    active?: boolean;
+    onActiveChange?: (value: boolean | ((oldValue: boolean) => boolean)) => void;
+}
+
+export function Select<T extends string>({
+    value,
+    options,
+    onChange,
+    active: outsideActive,
+    onActiveChange,
+}: SelectProps<T>) {
+    const ref = useRef<HTMLDivElement>(null);
+    const [localActive, setLocalActive] = useState(false);
+    const active = outsideActive !== undefined ? outsideActive : localActive;
+    const setActive = onActiveChange !== undefined ? onActiveChange : setLocalActive;
+    const disable = () => setActive(false);
+
+    const activeItem = options.find((option) => option.value === value);
+    const handleChange = (value: T) => {
+        disable();
+        onChange(value);
+    };
+
+    useOnClickOutside(ref, disable);
+
+    return (
+        <div ref={ref} className={classNames('select', active && 'select--active')}>
             <button
-                className="selector__value"
-                onClick={handleSelectClick}
+                className="select__btn"
                 type="button"
+                onClick={() => setActive((current) => !current)}
             >
-                <div className="selector__value-title">{getTitle(value)}</div>
+                {activeItem?.title}
+                <Icon name="arrow-down" className="select__btn-icon" />
             </button>
-            <div
-                className="selector__options-list"
-                hidden={hidden}
-                ref={optionsList}
-            >
-                {options.map(({ id, title, desc }) => (
-                    <button
-                        key={id}
-                        className={`selector__option-item${isActiveOption(id)}`}
-                        onClick={() => handleOptionClick(id)}
-                        type="button"
-                    >
-                        <div className="selector__option-item-title">{title}</div>
-                        {desc && (
-                            <div className="selector__option-item-desc">{desc}</div>)}
-                    </button>
+            <div className="select__list">
+                {options.map((option) => (
+                    <SelectOption
+                        key={option.value}
+                        value={option.value}
+                        title={option.title}
+                        active={option.value === value}
+                        onClick={handleChange}
+                    />
                 ))}
             </div>
         </div>
     );
-};
+}

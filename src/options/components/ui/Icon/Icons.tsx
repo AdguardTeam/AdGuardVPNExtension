@@ -51,13 +51,27 @@ export const Icons = () => (
             id="arrow-down"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#7F7F7F"
+            stroke="currentColor"
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
             xmlns="http://www.w3.org/2000/svg"
         >
             <path d="M6 10L12 16L18 10" />
+        </symbol>
+
+        <symbol
+            id="tick"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <g fill="none" fill-rule="evenodd">
+                <path d="m5 12 6 6 8-9" />
+            </g>
         </symbol>
 
         {/* OLD ICONS, FIXME: Check usage */}
