@@ -6,7 +6,7 @@ import { reactTranslator } from '../../../../../common/reactTranslator';
 import { Controls } from '../../../ui/Controls';
 import { Icon } from '../../../ui/Icon';
 
-export const DnsServerButton = observer(() => {
+export const DnsSettingsButton = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const { currentDnsServerName } = settingsStore;
 
@@ -29,7 +29,7 @@ export const DnsServerButton = observer(() => {
                     {currentDnsServerName}
                 </>
             )}
-            action={<Icon name="arrow-down" className="dns-server__btn-icon" />}
+            action={<Icon name="arrow-down" className="dns-settings__btn-icon" />}
             onClick={handleClick}
         />
     );
