@@ -9,9 +9,9 @@ import { AppearanceTheme } from './AppearanceTheme';
 import { ContextMenus } from './ContextMenus';
 import { HelpUsImprove } from './HelpUsImprove';
 import { WebRTC } from './WebRTC';
-import { DnsServerButton, DnsServerSettings } from './DnsServer';
+import { DnsSettingsButton, DnsSettings } from './DnsSettings';
 
-import './DnsServer/dns-server.pcss';
+import './DnsSettings/dns-settings.pcss';
 
 export const General = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -19,7 +19,7 @@ export const General = observer(() => {
 
     if (showDnsSettings) {
         return (
-            <DnsServerSettings />
+            <DnsSettings />
         );
     }
 
@@ -32,7 +32,7 @@ export const General = observer(() => {
             <ContextMenus />
             <HelpUsImprove />
             <WebRTC />
-            <DnsServerButton />
+            <DnsSettingsButton />
         </>
     );
 });
