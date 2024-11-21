@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 
 import { RequestStatus } from '../../stores/consts';
 import { rootStore } from '../../stores';
+import { Icons } from '../ui/Icon';
 import { Sidebar } from '../Sidebar';
 import { Settings } from '../Settings';
 import { FreeGbs } from '../FreeGbs';
@@ -12,7 +13,6 @@ import { Account } from '../Account';
 import { About } from '../About';
 import { SignedOut } from '../SignedOut';
 import { Preloader } from '../Preloader';
-import Icons from '../ui/Icons';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';

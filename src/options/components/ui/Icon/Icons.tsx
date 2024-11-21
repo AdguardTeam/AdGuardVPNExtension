@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
 
-import './icon.pcss';
+import './icons.pcss';
 
-const Icons = () => (
+export const Icons = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="hidden">
         <svg id="basket" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path clipRule="evenodd" d="M7 9h10l-.763 10.076a1 1 0 0 1-.997.924H8.76a1 1 0 0 1-.997-.924L7 9Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -141,5 +141,3 @@ const Icons = () => (
         </svg>
     </svg>
 );
-
-export default Icons;
