@@ -54,19 +54,23 @@ export function Select<T extends string>({
     active: outsideActive,
     onActiveChange,
 }: SelectProps<T>) {
+    const activeItem = options.find((option) => option.value === value);
+
     const ref = useRef<HTMLDivElement>(null);
     const [localActive, setLocalActive] = useState(false);
     const active = outsideActive !== undefined ? outsideActive : localActive;
-    const setActive = onActiveChange !== undefined ? onActiveChange : setLocalActive;
-    const disable = () => setActive(false);
+    const setActive = (value: boolean | ((oldValue: boolean) => boolean)) => {
+        if (!onActiveChange) {
+            setLocalActive(value);
+        }
+    };
 
-    const activeItem = options.find((option) => option.value === value);
     const handleChange = (value: T) => {
-        disable();
+        setActive(false);
         onChange(value);
     };
 
-    useOnClickOutside(ref, disable);
+    useOnClickOutside(ref, () => setActive(false));
 
     return (
         <div ref={ref} className={classNames('select', active && 'select--active')}>
