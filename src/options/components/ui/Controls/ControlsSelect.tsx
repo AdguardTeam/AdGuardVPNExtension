@@ -39,6 +39,7 @@ export function ControlsSelect<T extends string>({
                     onActiveChange={setActive}
                 />
             )}
+            active={active}
             onClick={() => setActive((current) => !current)}
             onOutsideClick={() => setActive(false)}
         />

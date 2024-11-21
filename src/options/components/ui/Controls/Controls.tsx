@@ -10,6 +10,7 @@ export interface ControlsProps {
     title: string | React.ReactNode;
     description?: string | React.ReactNode;
     action?: React.ReactNode;
+    active?: boolean;
     onClick?: () => void;
     onOutsideClick?: () => void;
 }
@@ -20,6 +21,7 @@ export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
             title,
             description,
             action,
+            active,
             onClick,
             onOutsideClick,
         } = props;
@@ -38,7 +40,11 @@ export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
         return (
             <div
                 ref={ref}
-                className={classNames('controls', !!onClick && 'controls--hoverable')}
+                className={classNames(
+                    'controls',
+                    !!onClick && 'controls--hoverable',
+                    active && 'controls--active',
+                )}
                 onClick={onClick}
             >
                 <div className="controls__content">

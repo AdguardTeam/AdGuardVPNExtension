@@ -5,15 +5,18 @@
     column-gap: 16px;
     padding: 16px;
 
-    &--hoverable {
+    &--hoverable,
+    &--active {
         cursor: pointer;
         background-color: transparent;
         transition: var(--t3) background-color;
         border-radius: 8px;
+    }
 
-        &:hover, &:active {
-            background-color: var(--fills-backgrounds-page-background-hovered);
-        }
+    &--hoverable:hover,
+    &--hoverable:active,
+    &--active {
+        background-color: var(--fills-backgrounds-page-background-hovered);
     }
 
     &__action {
