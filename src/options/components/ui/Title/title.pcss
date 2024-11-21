@@ -1,10 +1,37 @@
 .title {
     padding: 16px;
 
+    &--hoverable {
+        cursor: pointer;
+        background-color: transparent;
+        transition: var(--t3) background-color;
+        border-radius: 8px;
+
+        &:hover,
+        &:active {
+            background-color: var(--fills-backgrounds-page-background-hovered);
+        }
+    }
+
     &__text {
         color: var(--text-main-text-main-default);
         font-size: 24px;
         font-weight: 700;
         line-height: 1.2;
+
+        &-start {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            column-gap: 16px;
+
+            &-icon {
+                font-size: 0;
+                width: 24px;
+                height: 24px;
+                color: var(--stroke-icons-gray-icons-default);
+                transform: rotate(90deg);
+            }
+        }
     }
 }
