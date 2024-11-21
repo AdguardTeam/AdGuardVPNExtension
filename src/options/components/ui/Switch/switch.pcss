@@ -1,0 +1,51 @@
+.switch {
+    --background: var(--fills-switch-dns-adg-switch-off-default);
+    --background-hovered: var(--fills-switch-dns-adg-switch-off-hovered);
+
+    padding: 2px 0;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &--active {
+        --background: var(--fills-switch-dns-adg-switch-on-default);
+        --background-hovered: var(--fills-switch-dns-adg-switch-on-hovered);
+    }
+
+    &:hover,
+    &:active,
+    .controls:hover &,
+    .controls:active & {
+        .switch__wrapper {
+            background-color: var(--background-hovered);
+        }
+    }
+
+    &__wrapper {
+        position: relative;
+        display: block;
+        width: 40px;
+        height: 20px;
+        background-color: var(--background);
+        border-radius: 99px;
+        transition: var(--t3) background-color;
+    }
+
+    &__knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        display: block;
+        width: 16px;
+        height: 16px;
+        border-radius: 99px;
+        background-color: var(--fills-switch-dns-adg-switch-knob-default);
+        transition: var(--t3) transform;
+        transform: translateX(0);
+
+        .switch--active & {
+            transform: translateX(20px);
+        }
+    }
+}
