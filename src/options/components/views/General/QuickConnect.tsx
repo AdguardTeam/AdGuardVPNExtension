@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { QuickConnectSetting } from '../../../common/constants';
-import { rootStore } from '../../stores';
-import { reactTranslator } from '../../../common/reactTranslator';
-import { ControlsSelect } from '../ui/Controls';
+import { QuickConnectSetting } from '../../../../common/constants';
+import { rootStore } from '../../../stores';
+import { reactTranslator } from '../../../../common/reactTranslator';
+import { ControlsSelect } from '../../ui/Controls';
 
 export const QuickConnect = observer(() => {
     const { settingsStore } = useContext(rootStore);

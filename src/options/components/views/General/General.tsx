@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { rootStore } from '../../stores';
-import { Title } from '../ui/Title';
+import { rootStore } from '../../../stores';
+import { Title } from '../../ui/Title';
 
 import { QuickConnect } from './QuickConnect';
 import { AppearanceTheme } from './AppearanceTheme';

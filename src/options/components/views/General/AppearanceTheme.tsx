@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react';
 import React, { useContext } from 'react';
 
-import { AppearanceTheme as AppearanceThemeEnum } from '../../../common/constants';
-import { rootStore } from '../../stores';
-import { reactTranslator } from '../../../common/reactTranslator';
-import { ControlsSelect } from '../ui/Controls';
+import { AppearanceTheme as AppearanceThemeEnum } from '../../../../common/constants';
+import { rootStore } from '../../../stores';
+import { reactTranslator } from '../../../../common/reactTranslator';
+import { ControlsSelect } from '../../ui/Controls';
 
 export const AppearanceTheme = observer(() => {
     const { settingsStore } = useContext(rootStore);
