@@ -30,6 +30,8 @@ export const Icons = () => (
             <rect x="9.5" y="9.5" width="5" height="5" stroke="#74A352" strokeWidth="5" strokeLinejoin="miter" />
         </svg>
 
+        {/* NEW ICONS */}
+
         <symbol
             id="sidebar-burger"
             viewBox="0 0 24 24"
@@ -44,6 +46,21 @@ export const Icons = () => (
             <path d="M4 7H20" />
             <path d="M4 17H20" />
         </symbol>
+
+        <symbol
+            id="arrow-down"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#7F7F7F"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M6 10L12 16L18 10" />
+        </symbol>
+
+        {/* OLD ICONS, FIXME: Check usage */}
 
         <symbol id="plus" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
             <path d="M4 12H20" />
