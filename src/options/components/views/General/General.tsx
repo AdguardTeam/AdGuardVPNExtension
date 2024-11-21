@@ -6,6 +6,12 @@ import { Title } from '../../ui/Title';
 
 import { QuickConnect } from './QuickConnect';
 import { AppearanceTheme } from './AppearanceTheme';
+import { ContextMenus } from './ContextMenus';
+import { HelpUsImprove } from './HelpUsImprove';
+import { WebRTC } from './WebRTC';
+import { DnsServerButton, DnsServerSettings } from './DnsServer';
+
+import './DnsServer/dns-server.pcss';
 
 export const General = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -13,7 +19,7 @@ export const General = observer(() => {
 
     if (showDnsSettings) {
         return (
-            <>DNS Settings</>
+            <DnsServerSettings />
         );
     }
 
@@ -23,6 +29,10 @@ export const General = observer(() => {
             <Title title="General" />
             <QuickConnect />
             <AppearanceTheme />
+            <ContextMenus />
+            <HelpUsImprove />
+            <WebRTC />
+            <DnsServerButton />
         </>
     );
 });
