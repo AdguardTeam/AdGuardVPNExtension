@@ -3,23 +3,16 @@ import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
 
-import { RequestStatus } from '../../stores/consts';
-import { rootStore } from '../../stores';
-import { Icons } from '../ui/Icon';
-import { Sidebar } from '../Sidebar';
-import { Settings } from '../Settings';
-import { FreeGbs } from '../FreeGbs';
-import { Account } from '../Account';
-import { About } from '../About';
-import { SignedOut } from '../SignedOut';
-import { Preloader } from '../Preloader';
-import { Support } from '../Support';
-import { Notifications } from '../ui/Notifications';
-import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
-import { Exclusions } from '../Exclusions';
-import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
+import { RequestStatus } from '../stores/consts';
+import { rootStore } from '../stores';
+import { useAppearanceTheme } from '../../common/useAppearanceTheme';
+import { useCustomDnsFromQuery } from '../hooks/useQueryStringData';
+import { useMessageHandler } from '../hooks/useMessageHandler';
 
-import { useMessageHandler } from './useMessageHandler';
+import { Icons } from './ui/Icon';
+import { Preloader } from './Preloader';
+import { Sidebar } from './Sidebar';
+import { General } from './General';
 
 import '../../styles/main.pcss';
 import './app.pcss';
@@ -38,15 +31,15 @@ const getContent = (
                 <div className="content">
                     <div className="content__wrapper">
                         <Switch>
-                            <Route path="/" exact component={Settings} />
-                            <Route path="/exclusions" exact component={Exclusions} />
+                            <Route path="/" exact component={General} />
+                            {/* <Route path="/exclusions" exact component={Exclusions} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
                             <Route path="/support" component={Support} />
                             {!isPremiumToken && (
                                 <Route path="/free-gbs" component={FreeGbs} />
-                            )}
-                            <Route component={Settings} />
+                            )} */}
+                            <Route component={General} />
                         </Switch>
                     </div>
                 </div>
@@ -57,7 +50,7 @@ const getContent = (
     return (
         <>
             {requestProcessState === RequestStatus.Pending && <Preloader />}
-            <SignedOut />
+            {/* FIXME: <SignedOut /> */}
         </>
     );
 };
@@ -95,7 +88,7 @@ export const App = observer(() => {
     return (
         <HashRouter hashType="noslash">
             {getContent(authenticated, requestProcessState, isPremiumToken)}
-            <Notifications />
+            {/* FIXME: <Notifications /> */}
             <Icons />
         </HashRouter>
     );

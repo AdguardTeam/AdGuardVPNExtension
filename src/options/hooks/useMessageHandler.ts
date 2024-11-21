@@ -1,11 +1,11 @@
 import { useContext, useEffect, useRef } from 'react';
 
-import { notifier } from '../../../common/notifier';
-import { messenger } from '../../../common/messenger';
-import { MessageType } from '../../../common/constants';
-import { log } from '../../../common/logger';
-import { rootStore } from '../../stores';
-import { Prefs } from '../../../common/prefs';
+import { notifier } from '../../common/notifier';
+import { messenger } from '../../common/messenger';
+import { MessageType } from '../../common/constants';
+import { log } from '../../common/logger';
+import { rootStore } from '../stores';
+import { Prefs } from '../../common/prefs';
 
 const NOTIFIER_EVENTS = [
     notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
