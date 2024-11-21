@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
 import classNames from 'classnames';
 
@@ -14,34 +14,39 @@ export interface ControlsProps {
     onOutsideClick?: () => void;
 }
 
-export function Controls({
-    title,
-    description,
-    action,
-    onClick,
-    onOutsideClick,
-}: ControlsProps) {
-    const ref = useRef<HTMLDivElement>(null);
+export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
+    (props, forwardedRef) => {
+        const {
+            title,
+            description,
+            action,
+            onClick,
+            onOutsideClick,
+        } = props;
 
-    const handleOutsideClick = () => {
-        if (onOutsideClick) {
-            onOutsideClick();
-        }
-    };
+        const ref = useRef<HTMLDivElement>(null);
 
-    useOnClickOutside(ref, handleOutsideClick);
+        const handleOutsideClick = () => {
+            if (onOutsideClick) {
+                onOutsideClick();
+            }
+        };
 
-    return (
-        <div
-            ref={ref}
-            className={classNames('controls', !!onClick && 'controls--hoverable')}
-            onClick={onClick}
-        >
-            <div className="controls__content">
-                <div className="controls__title">{title}</div>
-                <div className="controls__description">{description}</div>
+        useOnClickOutside(ref, handleOutsideClick);
+        useImperativeHandle(forwardedRef, () => ref.current!);
+
+        return (
+            <div
+                ref={ref}
+                className={classNames('controls', !!onClick && 'controls--hoverable')}
+                onClick={onClick}
+            >
+                <div className="controls__content">
+                    <div className="controls__title">{title}</div>
+                    <div className="controls__description">{description}</div>
+                </div>
+                <div className="controls__action">{action}</div>
             </div>
-            <div className="controls__action">{action}</div>
-        </div>
-    );
-}
+        );
+    },
+);

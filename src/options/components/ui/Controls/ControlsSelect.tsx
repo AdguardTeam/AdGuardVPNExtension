@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { Select, type SelectProps } from '../Select';
+import { useElementRect } from '../../../hooks/useElementRect';
 
 import { Controls, type ControlsProps } from './Controls';
 
@@ -19,10 +20,14 @@ export function ControlsSelect<T extends string>({
     options,
     onChange,
 }: ControlsSelectProps<T>) {
+    const ref = useRef<HTMLDivElement>(null);
     const [active, setActive] = useState(false);
+
+    useElementRect(ref, 'controls');
 
     return (
         <Controls
+            ref={ref}
             title={title}
             description={description}
             action={(
