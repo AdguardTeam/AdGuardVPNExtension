@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import { reactTranslator } from '../../../../common/reactTranslator';
 import { ControlsSwitch } from '../../ui/Controls';
 
 export const HelpUsImprove = observer(() => {
@@ -16,8 +15,8 @@ export const HelpUsImprove = observer(() => {
     // FIXME: Translation
     return (
         <ControlsSwitch
-            title={reactTranslator.getMessage('settings_help_us_improve_title')}
-            description={reactTranslator.getMessage('settings_help_us_improve_description')}
+            title="Send anonymous crash reports"
+            description="Notify AdGuard VPN developers if something goes wrong"
             value={helpUsImprove}
             onToggle={handleToggle}
         />

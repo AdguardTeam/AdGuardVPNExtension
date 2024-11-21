@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import { reactTranslator } from '../../../../common/reactTranslator';
 import { ControlsSwitch } from '../../ui/Controls';
 
 export const ContextMenus = observer(() => {
@@ -16,7 +15,8 @@ export const ContextMenus = observer(() => {
     // FIXME: Translation
     return (
         <ControlsSwitch
-            title={reactTranslator.getMessage('settings_context_menus_title')}
+            title="Display AdGuard VPN in the browser context menu"
+            description="Manage VPN exclusions for a specific website"
             value={contextMenusEnabled}
             onToggle={handleToggle}
         />

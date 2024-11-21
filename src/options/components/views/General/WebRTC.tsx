@@ -17,7 +17,7 @@ export const WebRTC = observer(() => {
     return (
         <ControlsSwitch
             title={reactTranslator.getMessage('settings_webrtc_label')}
-            description={reactTranslator.getMessage('settings_webrtc_desc')}
+            description="Block WebRTC, a known vulnerability that can leak your real IP address even if you use a proxy or VPN"
             value={webRTCEnabled}
             onToggle={handleToggle}
         />
