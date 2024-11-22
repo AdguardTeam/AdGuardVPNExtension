@@ -18,7 +18,7 @@ export interface ModalProps extends PropsWithChildren {
     title: string | React.ReactNode;
     description?: string | React.ReactNode;
     open: boolean;
-    onOpenChange: (open: boolean) => void;
+    onClose: () => void;
 }
 
 export function Modal({
@@ -26,15 +26,11 @@ export function Modal({
     description,
     open,
     children,
-    onOpenChange,
+    onClose,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
-    const closeModal = () => {
-        onOpenChange(false);
-    };
-
-    useOnClickOutside(ref, closeModal);
+    useOnClickOutside(ref, onClose);
 
     useEffect(() => {
         setBodyLockedState(open);
@@ -56,7 +52,7 @@ export function Modal({
                     <button
                         type="button"
                         className="modal__close-btn"
-                        onClick={closeModal}
+                        onClick={onClose}
                     >
                         <Icon name="cross" className="modal__close-btn-icon" />
                     </button>

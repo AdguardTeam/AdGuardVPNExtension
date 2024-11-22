@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import Modal from 'react-modal';
 
 import { RequestStatus } from '../stores/consts';
 import { rootStore } from '../stores';
@@ -16,8 +15,6 @@ import { General } from './views/General';
 
 import '../styles/main.pcss';
 import './app.pcss';
-
-Modal.setAppElement('#root');
 
 const getContent = (
     authenticated: boolean,
