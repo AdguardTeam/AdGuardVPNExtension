@@ -2,7 +2,7 @@ import React, { useEffect, useRef, type PropsWithChildren } from 'react';
 
 import { useOnClickOutside } from '../../../hooks/useOnOutsideClick';
 import { ReactPortal } from '../ReactPortal';
-import { Icon } from '../Icon';
+import { IconButton } from '../Icon';
 
 import './modal.pcss';
 
@@ -49,13 +49,11 @@ export function Modal({
             <div className="modal">
                 <div className="modal__overlay" />
                 <div ref={ref} className="modal__content">
-                    <button
-                        type="button"
+                    <IconButton
+                        name="cross"
                         className="modal__close-btn"
                         onClick={onClose}
-                    >
-                        <Icon name="cross" className="modal__close-btn-icon" />
-                    </button>
+                    />
                     <div className="modal__title">{title}</div>
                     {description && (
                         <div className="modal__description">{description}</div>

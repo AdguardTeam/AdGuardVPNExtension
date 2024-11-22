@@ -1,3 +1,28 @@
+.icon-button {
+    --hover-color: var(--text-main-text-main-default);
+
+    flex-shrink: 0;
+    color: var(--stroke-icons-gray-icons-default);
+    transition: var(--t3) color;
+
+    &--success {
+        --hover-color: var(--text-links-link-default);
+    }
+
+    &--error {
+        --hover-color: var(--text-links-error-link-default);
+    }
+
+    &:hover,
+    &:active {
+        color: var(--hover-color);
+    }
+
+    .icon {
+        color: currentColor;
+    }
+}
+
 .icon {
     display: inline-block;
     vertical-align: middle;

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import { reactTranslator } from '../../../common/reactTranslator';
 import { rootStore } from '../../stores';
-import { Icon } from '../ui/Icon';
+import { IconButton } from '../ui/Icon';
 
 import { Rate } from './Rate';
 import { SidebarLink } from './SidebarLink';
@@ -40,13 +40,11 @@ export const Sidebar = observer(() => {
         <div className={classNames('sidebar', isActive && 'sidebar--active')}>
             <div className="sidebar__overlay" onClick={() => setIsActive(false)} />
             <div className="sidebar__menu">
-                <button
+                <IconButton
+                    name="sidebar-burger"
                     className="sidebar__menu-btn"
-                    type="button"
                     onClick={() => setIsActive(true)}
-                >
-                    <Icon className="sidebar__menu-btn-icon" name="sidebar-burger" />
-                </button>
+                />
             </div>
             <div className="sidebar__content">
                 <div className="sidebar__logo">

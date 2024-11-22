@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import classNames from 'classnames';
 
 import { type Notification } from '../../stores/NotificationsStore/Notification';
-import { Icon } from '../ui/Icon';
+import { IconButton } from '../ui/Icon';
 
 const NOTIFICATION_CLEAR_TIMEOUT_MS = 5 * 1000; // 5s
 
@@ -52,13 +52,7 @@ export function NotificationItem({ value, onClose }: NotificationItemProps) {
                     </button>
                 )}
             </div>
-            <button
-                className="notifications__item-close-btn"
-                type="button"
-                onClick={emitClose}
-            >
-                <Icon name="cross" className="notifications__item-close-btn-icon" />
-            </button>
+            <IconButton name="cross" onClick={emitClose} />
         </div>
     );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { Icon } from '../Icon';
+import { IconButton } from '../Icon';
 
 import './input.pcss';
 
@@ -62,14 +62,12 @@ export function Input({
                     required={required}
                 />
                 {value && (
-                    <button
-                        className="input__clear-btn"
-                        type="button"
-                        tabIndex={-1}
+                    <IconButton
+                        name="cross"
                         onClick={clearValue}
-                    >
-                        <Icon name="cross" className="input__clear-btn-icon" />
-                    </button>
+                        tabIndex={-1}
+                        className="input__clear-btn"
+                    />
                 )}
             </div>
             {!!error && (

@@ -1,33 +1,23 @@
 import React from 'react';
 
-import classNames from 'classnames';
-
 import { type DnsServerData } from '../../../../../background/schema';
 import { Radio } from '../../../ui/Radio';
-import { Icon } from '../../../ui/Icon';
+import { IconButton, type IconButtonProps } from '../../../ui/Icon';
 
 interface ModifyButtonProps {
     icon: string;
+    variant?: IconButtonProps['variant'];
     onClick: () => void;
 }
 
-function ModifyButton({ icon, onClick }: ModifyButtonProps) {
+function ModifyButton({ icon, variant, onClick }: ModifyButtonProps) {
     const handleClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         onClick();
     };
 
     return (
-        <button
-            className={classNames(
-                'dns-settings__custom-btn',
-                `dns-settings__custom-btn--${icon}`,
-            )}
-            type="button"
-            onClick={handleClick}
-        >
-            <Icon name={icon} className="dns-settings__custom-btn-icon" />
-        </button>
+        <IconButton name={icon} variant={variant} onClick={handleClick} />
     );
 }
 
@@ -65,8 +55,16 @@ export function DnsSettingsServer({
                 onSelect={onSelect}
                 action={(
                     <div className="dns-settings__custom-actions">
-                        <ModifyButton icon="edit" onClick={() => restProps.onEdit(value)} />
-                        <ModifyButton icon="basket" onClick={() => restProps.onDelete(value.id)} />
+                        <ModifyButton
+                            icon="edit"
+                            variant="success"
+                            onClick={() => restProps.onEdit(value)}
+                        />
+                        <ModifyButton
+                            icon="basket"
+                            variant="error"
+                            onClick={() => restProps.onDelete(value.id)}
+                        />
                     </div>
                 )}
             />
