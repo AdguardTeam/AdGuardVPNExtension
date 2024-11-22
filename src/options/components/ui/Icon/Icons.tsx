@@ -74,8 +74,6 @@ export const Icons = () => (
             </g>
         </symbol>
 
-        {/* OLD ICONS, FIXME: Check usage */}
-
         <symbol id="plus" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
             <path d="M4 12H20" />
             <path d="M12 4L12 20" />
@@ -84,6 +82,8 @@ export const Icons = () => (
         <symbol id="cross" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
             <path d="M6.42857143 6.42857143L17.604347 17.604347M6.42857143 17.5714286L17.604347 6.39565302" />
         </symbol>
+
+        {/* OLD ICONS, FIXME: Check usage */}
 
         <symbol id="bullet_on" viewBox="0 0 24 24">
             <g fill="none" fillRule="evenodd" transform="translate(2 2)">
