@@ -62,7 +62,12 @@ export function Input({
                     required={required}
                 />
                 {value && (
-                    <button className="input__clear-btn" type="button" onClick={clearValue}>
+                    <button
+                        className="input__clear-btn"
+                        type="button"
+                        tabIndex={-1}
+                        onClick={clearValue}
+                    >
                         <Icon name="cross" className="input__clear-btn-icon" />
                     </button>
                 )}

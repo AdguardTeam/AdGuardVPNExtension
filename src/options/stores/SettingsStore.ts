@@ -279,6 +279,10 @@ export class SettingsStore {
     };
 
     @action setDnsServerToEdit = (value: DnsServerData | null): void => {
+        if (value) {
+            this.dnsServerName = value.title;
+            this.dnsServerAddress = value.address;
+        }
         this.dnsServerToEdit = value;
     };
 

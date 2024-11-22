@@ -13,7 +13,7 @@ import { DnsSettingsServerModalAdd } from './DnsSettingsServerModalAdd';
 import { DnsSettingsServerModalEdit } from './DnsSettingsServerModalEdit';
 
 export const DnsSettings = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, notificationsStore } = useContext(rootStore);
 
     const handleGoBack = () => {
         settingsStore.setShowDnsSettings(false);
@@ -21,6 +21,22 @@ export const DnsSettings = observer(() => {
 
     const handleSelect = (dnsServerId: string) => {
         settingsStore.setDnsServer(dnsServerId);
+    };
+
+    const handleEdit = (dnsServer: DnsServerData) => {
+        settingsStore.setDnsServerToEdit(dnsServer);
+        settingsStore.openCustomDnsModal();
+    };
+
+    const handleDelete = (dnsServerId: string) => {
+        settingsStore.removeCustomDnsServer(dnsServerId);
+        notificationsStore.notifySuccess(
+            reactTranslator.getMessage('settings_dns_delete_custom_server_notification'),
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: () => settingsStore.restoreCustomDnsServersData(),
+            },
+        );
     };
 
     const handleOpenModal = () => {
@@ -42,6 +58,8 @@ export const DnsSettings = observer(() => {
             value={dnsServer}
             active={dnsServer.id === settingsStore.dnsServer}
             onSelect={handleSelect}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
             custom
         />
     );

@@ -5,18 +5,6 @@ import './icons.pcss';
 
 export const Icons = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="hidden">
-        <svg id="basket" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path clipRule="evenodd" d="M7 9h10l-.763 10.076a1 1 0 0 1-.997.924H8.76a1 1 0 0 1-.997-.924L7 9Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M6 6.5h12M14 6V4h-4v2" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path clipRule="evenodd" d="M13.5 12v5-5ZM10.5 12v5-5Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-
-        <svg id="edit" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 20.5h15.983" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path clipRule="evenodd" d="m10.778 16.435-4.242-4.243 7.07-7.07a3 3 0 0 1 4.243 0v0a3 3 0 0 1 0 4.242l-7.07 7.071ZM5.121 17.85l1.415-5.658 4.242 4.243-5.657 1.414Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M16.789 9.01 13.96 6.182" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-
         <svg id="disabled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" clipRule="evenodd" d="M21 3H3V21H21V3Z" stroke="#7F7F7F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -81,6 +69,36 @@ export const Icons = () => (
 
         <symbol id="cross" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
             <path d="M6.42857143 6.42857143L17.604347 17.604347M6.42857143 17.5714286L17.604347 6.39565302" />
+        </symbol>
+
+        <symbol
+            id="basket"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M7 9h10l-.763 10.076a1 1 0 0 1-.997.924H8.76a1 1 0 0 1-.997-.924L7 9Z" clipRule="evenodd" />
+            <path d="M6 6.5h12M14 6V4h-4v2" />
+            <path d="M13.5 12v5-5ZM10.5 12v5-5Z" clipRule="evenodd" />
+        </symbol>
+
+        <symbol
+            id="edit"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M4 20.5h15.983" />
+            <path clipRule="evenodd" d="m10.778 16.435-4.242-4.243 7.07-7.07a3 3 0 0 1 4.243 0v0a3 3 0 0 1 0 4.242l-7.07 7.071ZM5.121 17.85l1.415-5.658 4.242 4.243-5.657 1.414Z" />
+            <path d="M16.789 9.01 13.96 6.182" />
         </symbol>
 
         {/* OLD ICONS, FIXME: Check usage */}
