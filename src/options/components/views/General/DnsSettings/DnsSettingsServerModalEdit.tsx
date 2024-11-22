@@ -29,7 +29,7 @@ export const DnsSettingsServerModalEdit = observer(() => {
         // `address` is dns address before editing,
         // `dnsServerAddress` is the state of dns address form.
         // if dns address was edited, it has to be verified.
-        if (oldDnsServerName !== dnsServerAddress) {
+        if (oldDnsServerAddress !== dnsServerAddress) {
             const dnsServerAddressError = validateDnsServerAddress(customDnsServers, dnsServerAddress);
             if (dnsServerAddressError) {
                 return dnsServerAddressError;
