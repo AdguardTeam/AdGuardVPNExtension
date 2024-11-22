@@ -7,5 +7,20 @@
     &__actions {
         display: flex;
         column-gap: 16px;
+
+        .button {
+            min-width: 200px;
+        }
+
+        @media (max-width: 600px) {
+            flex-direction: column;
+            column-gap: 0;
+            row-gap: 16px;
+
+            .button {
+                min-width: auto;
+                width: 100%;
+            }
+        }
     }
 }

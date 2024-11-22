@@ -1,5 +1,9 @@
 :root {
-    /* New variables */
+    --font-stack: "Roboto Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Arial, sans-serif;
+    --t3: 0.3s ease;
+    --small-light-shadow-br: 4px 4px 8px 0px rgba(0, 0, 0, 0.10);
+    --big-light-shadow-br: 8px 8px 24px 0px rgba(0, 0, 0, 0.10);
+
     /* Base colors */
     --gray-0: #FFFFFF;
     --gray-10: #F6F6F6;
@@ -17,10 +21,8 @@
     --product-primary-50: #74A352;
     --product-primary-50-10: rgb(116, 163, 82, 0.1); /* 10% */
     --product-primary-60: #5B9F6C;
-
-    /* Shadows */
-    --small-light-shadow-br: 4px 4px 8px 0px rgba(0, 0, 0, 0.10);
-    --big-light-shadow-br: 8px 8px 24px 0px rgba(0, 0, 0, 0.10);
+    --product-primary-60-10: rgba(91, 159, 108, 0.1); /* 10% */
+    --product-primary-70: #4E8C5D;
 
     /* Dynamic colors */
     --text-main-text-main-default: var(--gray-80);
@@ -29,12 +31,15 @@
     --text-links-error-link-default: var(--red-50);
     --text-labels-labels-default: var(--gray-70);
     --text-labels-labels-disabled: var(--gray-50);
+    --text-buttons-main-button-default: var(--gray-0);
+    --text-buttons-outline-button-default: var(--text-main-text-main-default);
+    --text-buttons-ghost-button-default: var(--text-links-link-default);
     --fills-backgrounds-page-background-default: var(--gray-0);
     --fills-backgrounds-page-background-hovered: var(--gray-10);
+    --fills-backgrounds-page-background-pressed: var(--gray-20);
     --fills-backgrounds-page-background-additional-default: var(--gray-10);
     --fills-backgrounds-page-background-additional-hovered: var(--gray-20);
     --fills-backgrounds-dialog-background-default: var(--gray-100);
-    --fills-backgrounds-button-background-ghost: var(--product-primary-50-10);
     --fills-menus-dropdown-menu-background-default: var(--gray-0);
     --fills-menus-dropdown-menu-background-hovered: var(--gray-10);
     --fills-switch-dns-adg-switch-knob-default: var(--gray-0);
@@ -43,177 +48,74 @@
     --fills-switch-dns-adg-switch-on-hovered: var(--product-primary-60);
     --fills-switch-dns-adg-switch-off-hovered: var(--gray-50);
     --fills-inputs-input-background-default: var(--gray-10);
+    --fills-buttons-main-button-default: var(--product-primary-50);
+    --fills-buttons-main-button-hovered: var(--product-primary-60);
+    --fills-buttons-main-button-pressed: var(--product-primary-70);
+    --fills-buttons-outline-button-default: var(--fills-backgrounds-page-background-default);
+    --fills-buttons-outline-button-hovered: var(--fills-backgrounds-page-background-hovered);
+    --fills-buttons-outline-button-pressed: var(--fills-backgrounds-page-background-pressed);
+    --fills-buttons-ghost-button-default: transparent;
+    --fills-buttons-ghost-button-hovered: var(--product-primary-50-10);
+    --fills-buttons-ghost-button-pressed: var(--product-primary-60-10);
     --stroke-icons-gray-icons-default: var(--gray-60);
     --stroke-icons-error-icon-default: var(--red-50);
     --stroke-icons-product-icon-default: var(--product-primary-50);
     --stroke-dividers-item-divider-default: var(--gray-30);
 
-    /* Old variables */
-    --font-stack: "Roboto Flex", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Arial, sans-serif;
-    --border-color: #d8d8d8;
-    --shadow: rgba(0, 0, 0, 0.1);
-    --overlay: rgba(0, 0, 0, 0.5);
-    --brand-primary: #79b07e;
-    --brand-secondary: #4a8b5a;
-    --brand-danger: #f56f23;
-    --gray-base: #4d4d4d;
-    --text-main: var(--gray-base);
-    --green300: rgba(116, 163, 82, 0.05);
-    --green700: #74a352;
-    --green900: #568040;
-    --gray88: #888888;
-    --grayF2: #f2f2f2;
-    --grayF3: #f3f3f3;
-    --grayF6: #f6f6f6;
-    --grayF7: #f7f7f7;
-    --grayD8: #d8d8d8;
-    --grayd2: #d2d2d2;
-    --gray97: #979797;
-    --graya4: #a4a4a4;
-    --red: #df3812;
-    --redDark: #bf4829;
-    --pink: #ff7b7b;
-    --t3: 0.3s ease;
-    --white: #ffffff;
-    --white-strong: #fff;
-    --white-fog: rgba(255, 255, 255, 0.7);
-    --orange: #d58500;
-
     @media (prefers-color-scheme: dark) {
-        /* New variables */
-        /* Dynamic colors */
         --text-main-text-main-default: var(--gray-20);
         --text-description-description-default: var(--gray-30);
-        --text-links-link-default: var(--product-primary-50);
-        --text-links-error-link-default: var(--red-50);
         --text-labels-labels-default: var(--gray-30);
-        --text-labels-labels-disabled: var(--gray-50);
         --fills-backgrounds-page-background-default: var(--gray-90);
         --fills-backgrounds-page-background-hovered: var(--gray-80);
+        --fills-backgrounds-page-background-pressed: var(--gray-70);
         --fills-backgrounds-page-background-additional-default: var(--gray-80);
         --fills-backgrounds-page-background-additional-hovered: var(--gray-70);
-        --fills-backgrounds-dialog-background-default: var(--gray-100);
-        --fills-backgrounds-button-background-ghost: var(--product-primary-50-10);
         --fills-menus-dropdown-menu-background-default: var(--gray-80);
         --fills-menus-dropdown-menu-background-hovered: var(--gray-70);
-        --fills-switch-dns-adg-switch-knob-default: var(--gray-0);
         --fills-switch-dns-adg-switch-on-default: var(--product-primary-40);
         --fills-switch-dns-adg-switch-off-default: var(--gray-70);
-        --fills-switch-dns-adg-switch-on-hovered: var(--product-primary-60);
         --fills-switch-dns-adg-switch-off-hovered: var(--gray-60);
         --fills-inputs-input-background-default: var(--gray-80);
         --stroke-icons-gray-icons-default: var(--gray-40);
-        --stroke-icons-error-icon-default: var(--red-50);
-        --stroke-icons-product-icon-default: var(--product-primary-50);
         --stroke-dividers-item-divider-default: var(--gray-70);
-
-        /* Old variables */
-        --white: #131313;
-        --white-strong: #000;
-        --white-fog: rgba(0, 0, 0, 0.7);
-        --gray-base: #d8d8d8;
-        --text-main: #e4e4e4;
-        --grayF2: #222222;
-        --grayF3: #131313;
-        --grayF6: #3d3d3d;
-        --border-color: #4d4d4d;
-        --brand-primary: #74A352;
-        --green700: #568040;
-        --green900: #3e5c2e;
-        --grayD8: #4d4d4d;
-        --grayd2: #5b5b5b;
-        --overlay: rgba(51, 51, 51, 0.5);
     }
 }
 
 .dark-mode {
-    /* New variables */
-    /* Dynamic colors */
     --text-main-text-main-default: var(--gray-20);
     --text-description-description-default: var(--gray-30);
-    --text-links-link-default: var(--product-primary-50);
-    --text-links-error-link-default: var(--red-50);
     --text-labels-labels-default: var(--gray-30);
-    --text-labels-labels-disabled: var(--gray-50);
     --fills-backgrounds-page-background-default: var(--gray-90);
     --fills-backgrounds-page-background-hovered: var(--gray-80);
+    --fills-backgrounds-page-background-pressed: var(--gray-70);
     --fills-backgrounds-page-background-additional-default: var(--gray-80);
     --fills-backgrounds-page-background-additional-hovered: var(--gray-70);
-    --fills-backgrounds-dialog-background-default: var(--gray-100);
-    --fills-backgrounds-button-background-ghost: var(--product-primary-50-10);
     --fills-menus-dropdown-menu-background-default: var(--gray-80);
     --fills-menus-dropdown-menu-background-hovered: var(--gray-70);
-    --fills-switch-dns-adg-switch-knob-default: var(--gray-0);
     --fills-switch-dns-adg-switch-on-default: var(--product-primary-40);
     --fills-switch-dns-adg-switch-off-default: var(--gray-70);
-    --fills-switch-dns-adg-switch-on-hovered: var(--product-primary-60);
     --fills-switch-dns-adg-switch-off-hovered: var(--gray-60);
     --fills-inputs-input-background-default: var(--gray-80);
     --stroke-icons-gray-icons-default: var(--gray-40);
-    --stroke-icons-error-icon-default: var(--red-50);
-    --stroke-icons-product-icon-default: var(--product-primary-50);
     --stroke-dividers-item-divider-default: var(--gray-70);
-
-    /* Old variables */
-    --white: #131313;
-    --white-strong: #000;
-    --white-fog: rgba(0, 0, 0, 0.7);
-    --gray-base: #d8d8d8;
-    --text-main: #e4e4e4;
-    --grayF2: #222222;
-    --grayF3: #131313;
-    --grayF6: #3d3d3d;
-    --border-color: #4d4d4d;
-    --brand-primary: #74A352;
-    --green700: #568040;
-    --green900: #3e5c2e;
-    --grayD8: #4d4d4d;
-    --grayd2: #5b5b5b;
-    --overlay: rgba(51, 51, 51, 0.5);
 }
 
 .light-mode {
-    /* New variables */
-    /* Dynamic colors */
     --text-main-text-main-default: var(--gray-80);
     --text-description-description-default: var(--gray-70);
-    --text-links-link-default: var(--product-primary-50);
-    --text-links-error-link-default: var(--red-50);
     --text-labels-labels-default: var(--gray-70);
-    --text-labels-labels-disabled: var(--gray-50);
     --fills-backgrounds-page-background-default: var(--gray-0);
     --fills-backgrounds-page-background-hovered: var(--gray-10);
+    --fills-backgrounds-page-background-pressed: var(--gray-20);
     --fills-backgrounds-page-background-additional-default: var(--gray-10);
     --fills-backgrounds-page-background-additional-hovered: var(--gray-20);
-    --fills-backgrounds-dialog-background-default: var(--gray-100);
-    --fills-backgrounds-button-background-ghost: var(--product-primary-50-10);
     --fills-menus-dropdown-menu-background-default: var(--gray-0);
     --fills-menus-dropdown-menu-background-hovered: var(--gray-10);
-    --fills-switch-dns-adg-switch-knob-default: var(--gray-0);
     --fills-switch-dns-adg-switch-on-default: var(--product-primary-50);
     --fills-switch-dns-adg-switch-off-default: var(--gray-40);
-    --fills-switch-dns-adg-switch-on-hovered: var(--product-primary-60);
     --fills-switch-dns-adg-switch-off-hovered: var(--gray-50);
     --fills-inputs-input-background-default: var(--gray-10);
     --stroke-icons-gray-icons-default: var(--gray-60);
-    --stroke-icons-error-icon-default: var(--red-50);
-    --stroke-icons-product-icon-default: var(--product-primary-50);
     --stroke-dividers-item-divider-default: var(--gray-30);
-
-    /* Old variables */
-    --white: #ffffff;
-    --white-strong: #fff;
-    --white-fog: rgba(255, 255, 255, 0.7);
-    --gray-base: #4d4d4d;
-    --text-main: var(--gray-base);
-    --grayF2: #f2f2f2;
-    --grayF3: #f3f3f3;
-    --grayF6: #f6f6f6;
-    --border-color: #d8d8d8;
-    --brand-primary: #79b07e;
-    --grayD8: #d8d8d8;
-    --grayd2: #d2d2d2;
-    --overlay: rgba(0, 0, 0, 0.5);
-    --green700: #74A352;
-    --green900: #568040;
 }
