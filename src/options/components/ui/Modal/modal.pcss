@@ -33,6 +33,10 @@
         border-radius: 8px;
         background: var(--fills-backgrounds-page-background-default);
         box-shadow: var(--big-light-shadow-br);
+
+        @media (max-width: 872px) {
+            padding: 24px 16px;
+        }
     }
 
     &__title {
@@ -42,6 +46,11 @@
         font-weight: 700;
         line-height: 1.2;
         padding-right: 24px;
+
+        @media (max-width: 872px) {
+            font-size: 24px;
+            padding-right: 64px;
+        }
     }
 
     &__description {
@@ -52,6 +61,10 @@
         a {
             color: var(--text-links-link-default, #74A352);
             text-decoration-line: underline;
+        }
+
+        @media (max-width: 872px) {
+            padding-right: 40px;
         }
     }
 
