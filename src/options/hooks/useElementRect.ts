@@ -7,7 +7,12 @@ export interface ElementRect {
     y: number
 }
 
-export function useElementRect(ref: RefObject<HTMLElement>, key?: string) {
+export function useElementRect(
+    ref: RefObject<HTMLElement>,
+    key?: string,
+    attach: boolean = true,
+    attachOnBody: boolean = false,
+) {
     const [rect, setRect] = useState<ElementRect>({
         width: 0,
         height: 0,
@@ -51,10 +56,13 @@ export function useElementRect(ref: RefObject<HTMLElement>, key?: string) {
     }, [ref]);
 
     useEffect(() => {
-        if (!key || !ref.current) {
+        if (!key || !ref.current || !attach) {
             return;
         }
-        const element = ref.current;
+        let element = ref.current;
+        if (attachOnBody) {
+            element = document.body;
+        }
 
         element.style.setProperty(`--${key}-width`, `${rect.width}px`);
         element.style.setProperty(`--${key}-height`, `${rect.height}px`);
@@ -68,7 +76,7 @@ export function useElementRect(ref: RefObject<HTMLElement>, key?: string) {
             element.style.removeProperty(`--${key}-x`);
             element.style.removeProperty(`--${key}-y`);
         };
-    }, [key, rect]);
+    }, [key, rect, attach, attachOnBody]);
 
     return rect;
 }

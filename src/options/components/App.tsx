@@ -8,6 +8,7 @@ import { useAppearanceTheme } from '../../common/useAppearanceTheme';
 import { useCustomDnsFromQuery } from '../hooks/useQueryStringData';
 import { useMessageHandler } from '../hooks/useMessageHandler';
 
+import { Notifications } from './Notifications';
 import { Icons } from './ui/Icon';
 import { Preloader } from './Preloader';
 import { Sidebar } from './Sidebar';
@@ -29,13 +30,13 @@ const getContent = (
                     <div className="content__wrapper">
                         <Switch>
                             <Route path="/" exact component={General} />
-                            {/* <Route path="/exclusions" exact component={Exclusions} />
-                            <Route path="/account" component={Account} />
-                            <Route path="/about" component={About} />
-                            <Route path="/support" component={Support} />
+                            <Route path="/exclusions" exact component={() => <>Exclusions</>} />
+                            <Route path="/account" component={() => <>Account</>} />
+                            <Route path="/about" component={() => <>About</>} />
+                            <Route path="/support" component={() => <>Support</>} />
                             {!isPremiumToken && (
-                                <Route path="/free-gbs" component={FreeGbs} />
-                            )} */}
+                                <Route path="/free-gbs" component={() => <>FreeGbs</>} />
+                            )}
                             <Route component={General} />
                         </Switch>
                     </div>
@@ -85,7 +86,7 @@ export const App = observer(() => {
     return (
         <HashRouter hashType="noslash">
             {getContent(authenticated, requestProcessState, isPremiumToken)}
-            {/* FIXME: <Notifications /> */}
+            <Notifications />
             <Icons />
         </HashRouter>
     );
