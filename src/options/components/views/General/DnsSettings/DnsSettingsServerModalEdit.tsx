@@ -8,7 +8,7 @@ import { DnsSettingsServerModal } from './DnsSettingsServerModal';
 import { normalizeDnsServerAddress, validateDnsServerAddress } from './validate';
 
 export const DnsSettingsServerModalEdit = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, notificationsStore } = useContext(rootStore);
     const {
         isCustomDnsModalOpen,
         customDnsServers,
@@ -20,27 +20,31 @@ export const DnsSettingsServerModalEdit = observer(() => {
         if (!dnsServerToEdit) {
             return null;
         }
-        const { address } = dnsServerToEdit;
+        const {
+            id,
+            title: oldDnsServerName,
+            address: oldDnsServerAddress,
+        } = dnsServerToEdit;
 
         // `address` is dns address before editing,
         // `dnsServerAddress` is the state of dns address form.
         // if dns address was edited, it has to be verified.
-        if (address !== dnsServerAddress) {
+        if (oldDnsServerName !== dnsServerAddress) {
             const dnsServerAddressError = validateDnsServerAddress(customDnsServers, dnsServerAddress);
             if (dnsServerAddressError) {
                 return dnsServerAddressError;
             }
         }
         const normalizedDnsServerAddress = normalizeDnsServerAddress(dnsServerAddress);
-        await editCustomDnsServer(dnsServerName, normalizedDnsServerAddress);
-        // FIXME: Add undo ability and translation
-        // notificationsStore.notifySuccess(
-        //     'Custom DNS server added',
-        //     {
-        //         action: reactTranslator.getMessage('settings_exclusions_undo'),
-        //         handler: () => removeCustomDnsServer(dnsServer.id),
-        //     },
-        // );
+        await editCustomDnsServer(id, dnsServerName, normalizedDnsServerAddress);
+        notificationsStore.notifySuccess(
+            // FIXME: Translation
+            'Custom DNS server edited',
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: () => editCustomDnsServer(id, oldDnsServerName, oldDnsServerAddress),
+            },
+        );
 
         return null;
     };

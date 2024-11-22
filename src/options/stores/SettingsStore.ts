@@ -246,21 +246,21 @@ export class SettingsStore {
     };
 
     @action editCustomDnsServer = async (
+        dnsServerId: string,
         dnsServerName: string,
         dnsServerAddress: string,
     ): Promise<void> => {
-        if (!this.dnsServerToEdit) {
-            return;
-        }
-
         const editedDnsServers = await messenger.editCustomDnsServer({
-            id: this.dnsServerToEdit.id,
+            id: dnsServerId,
             title: dnsServerName,
             address: dnsServerAddress,
         });
 
         this.setCustomDnsServers(editedDnsServers);
-        this.setDnsServerToEdit(null);
+
+        if (this.dnsServerToEdit) {
+            this.setDnsServerToEdit(null);
+        }
     };
 
     @action removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {

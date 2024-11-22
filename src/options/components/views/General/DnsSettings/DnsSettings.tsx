@@ -23,12 +23,12 @@ export const DnsSettings = observer(() => {
         settingsStore.setDnsServer(dnsServerId);
     };
 
-    const handleEdit = (dnsServer: DnsServerData) => {
+    const handleEditClick = (dnsServer: DnsServerData) => {
         settingsStore.setDnsServerToEdit(dnsServer);
         settingsStore.openCustomDnsModal();
     };
 
-    const handleDelete = (dnsServerId: string) => {
+    const handleDeleteClick = (dnsServerId: string) => {
         settingsStore.removeCustomDnsServer(dnsServerId);
         notificationsStore.notifySuccess(
             reactTranslator.getMessage('settings_dns_delete_custom_server_notification'),
@@ -58,8 +58,8 @@ export const DnsSettings = observer(() => {
             value={dnsServer}
             active={dnsServer.id === settingsStore.dnsServer}
             onSelect={handleSelect}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
+            onEdit={handleEditClick}
+            onDelete={handleDeleteClick}
             custom
         />
     );
