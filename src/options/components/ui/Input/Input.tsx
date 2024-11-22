@@ -2,6 +2,8 @@ import React from 'react';
 
 import classNames from 'classnames';
 
+import { Icon } from '../Icon';
+
 import './input.pcss';
 
 export interface InputProps {
@@ -27,6 +29,10 @@ export function Input({
     onChange,
     error,
 }: InputProps) {
+    const clearValue = () => {
+        onChange('');
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         onChange(value);
@@ -35,21 +41,32 @@ export function Input({
     return (
         <label
             htmlFor={id}
-            className={classNames('input', !!error && 'input--error')}
+            className={classNames(
+                'input',
+                !!error && 'input--error',
+                !!value && 'input--has-value',
+            )}
         >
             <div className="input__label">
                 {label}
             </div>
-            <input
-                id={id}
-                name={name}
-                type={type}
-                placeholder={placeholder}
-                className="input__native"
-                value={value}
-                onChange={handleChange}
-                required={required}
-            />
+            <div className="input__wrapper">
+                <input
+                    id={id}
+                    name={name}
+                    type={type}
+                    placeholder={placeholder}
+                    className="input__native"
+                    value={value}
+                    onChange={handleChange}
+                    required={required}
+                />
+                {value && (
+                    <button className="input__clear-btn" type="button" onClick={clearValue}>
+                        <Icon name="cross" className="input__clear-btn-icon" />
+                    </button>
+                )}
+            </div>
             {!!error && (
                 <div className="input__error">{error}</div>
             )}
