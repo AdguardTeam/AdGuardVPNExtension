@@ -6,9 +6,9 @@ import { reactTranslator } from '../../../../../common/reactTranslator';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../../../../background/dns/dnsConstants';
 import { type DnsServerData } from '../../../../../background/schema';
 import { Title } from '../../../ui/Title';
-import { Button } from '../../../ui/Button';
 
 import { DnsSettingsServer } from './DnsSettingsServer';
+import { DnsSettingsServerAddModal } from './DnsSettingsServerAddModal';
 
 export const DnsSettings = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -19,10 +19,6 @@ export const DnsSettings = observer(() => {
 
     const handleSelect = (dnsServerId: string) => {
         settingsStore.setDnsServer(dnsServerId);
-    };
-
-    const handleOpenModal = () => {
-        settingsStore.openCustomDnsModal();
     };
 
     const renderDnsServer = (dnsServer: DnsServerData) => (
@@ -71,13 +67,7 @@ export const DnsSettings = observer(() => {
             {settingsStore.customDnsServers.map(renderCustomDnsServer)}
 
             {/* ADD CUSTOM SERVER */}
-            <Button
-                beforeIconName="plus"
-                onClick={handleOpenModal}
-            >
-                {reactTranslator.getMessage('settings_dns_add_custom_server')}
-            </Button>
-            {/* FIXME: Add "Add custom server" modal */}
+            <DnsSettingsServerAddModal />
         </>
     );
 });
