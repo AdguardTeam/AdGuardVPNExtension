@@ -9,6 +9,7 @@ import './button.pcss';
 export interface ButtonProps extends PropsWithChildren {
     type?: 'button' | 'submit' | 'reset';
     variant?: 'default' | 'ghost' | 'outline';
+    size?: 'medium' | 'large';
     beforeIconName?: string;
     className?: string;
     disabled?: boolean;
@@ -18,6 +19,7 @@ export interface ButtonProps extends PropsWithChildren {
 export function Button({
     type = 'button',
     variant = 'default',
+    size = 'medium',
     beforeIconName,
     className,
     children,
@@ -26,7 +28,12 @@ export function Button({
 }: ButtonProps) {
     return (
         <button
-            className={classNames('button', `button--${variant}`, className)}
+            className={classNames(
+                'button',
+                `button--${variant}`,
+                `button--${size}`,
+                className,
+            )}
             // eslint-disable-next-line react/button-has-type
             type={type}
             onClick={onClick}

@@ -24,12 +24,21 @@ button {
         pointer-events: none;
     }
 
+    &--medium {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 16px;
+    }
+
+    &--large {
+        font-size: 18px;
+        padding: 16px 24px;
+    }
+
     &--default,
     &--outline {
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 18px;
-        padding: 16px 24px;
     }
 
     &--default {
@@ -69,9 +78,6 @@ button {
         justify-content: flex-start;
         column-gap: 12px;
         text-align: left;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 16px;
 
         color: var(--text-buttons-ghost-button-default);
         background-color: var(--fills-buttons-ghost-button-default);

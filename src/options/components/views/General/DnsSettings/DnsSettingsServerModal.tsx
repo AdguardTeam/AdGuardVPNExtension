@@ -92,10 +92,10 @@ export const DnsSettingsServerModal = observer(({
                     required
                 />
                 <div className="form__actions">
-                    <Button type="submit">
+                    <Button type="submit" size="large">
                         {submitBtnTitle}
                     </Button>
-                    <Button variant="outline" type="reset">
+                    <Button variant="outline" type="reset" size="large">
                         {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
                     </Button>
                 </div>
