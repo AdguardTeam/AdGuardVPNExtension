@@ -2,11 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { IconButton } from '../Icon';
-
-import './input.pcss';
-
-export interface InputBaseProps {
+export interface TextAreaProps {
     id: string;
     name: string;
     label: string | React.ReactNode;
@@ -17,26 +13,17 @@ export interface InputBaseProps {
     onChange: (value: string) => void;
 }
 
-export interface InputProps extends InputBaseProps {
-    type?: 'text' | 'email';
-}
-
-export function Input({
+export function TextArea({
     id,
     name,
-    type = 'text',
     label,
     placeholder,
     value,
     required,
     onChange,
     error,
-}: InputProps) {
-    const clearValue = () => {
-        onChange('');
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+}: TextAreaProps) {
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = e.target;
         onChange(value);
     };
@@ -44,34 +31,22 @@ export function Input({
     return (
         <label
             htmlFor={id}
-            className={classNames(
-                'input',
-                !!error && 'input--error',
-                !!value && 'input--has-value',
-            )}
+            className={classNames('input', !!error && 'input--error')}
         >
             <div className="input__label">
                 {label}
             </div>
             <div className="input__wrapper">
-                <input
+                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                <textarea
                     id={id}
                     name={name}
-                    type={type}
                     placeholder={placeholder}
                     className="input__native"
                     value={value}
                     onChange={handleChange}
                     required={required}
                 />
-                {value && (
-                    <IconButton
-                        name="cross"
-                        onClick={clearValue}
-                        tabIndex={-1}
-                        className="input__clear-btn"
-                    />
-                )}
             </div>
             {!!error && (
                 <div className="input__error">{error}</div>
