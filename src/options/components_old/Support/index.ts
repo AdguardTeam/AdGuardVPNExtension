@@ -1,1 +1,0 @@
-export { Support } from './Support';

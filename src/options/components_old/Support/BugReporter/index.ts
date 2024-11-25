@@ -1,1 +1,0 @@
-export { BugReporter } from './BugReporter';
