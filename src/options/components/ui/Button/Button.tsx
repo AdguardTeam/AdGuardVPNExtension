@@ -11,6 +11,7 @@ export interface ButtonProps extends PropsWithChildren {
     variant?: 'default' | 'ghost' | 'outline';
     beforeIconName?: string;
     className?: string;
+    disabled?: boolean;
     onClick?: () => void;
 }
 
@@ -20,6 +21,7 @@ export function Button({
     beforeIconName,
     className,
     children,
+    disabled,
     onClick,
 }: ButtonProps) {
     return (
@@ -28,6 +30,7 @@ export function Button({
             // eslint-disable-next-line react/button-has-type
             type={type}
             onClick={onClick}
+            disabled={disabled}
         >
             {beforeIconName && (
                 <Icon name={beforeIconName} className="button__icon" />
