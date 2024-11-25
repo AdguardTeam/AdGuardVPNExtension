@@ -14,6 +14,7 @@ import { Preloader } from './Preloader';
 import { Sidebar } from './Sidebar';
 import { General } from './views/General';
 import { About } from './views/About';
+import { Support } from './views/Support';
 
 import '../styles/main.pcss';
 import './app.pcss';
@@ -34,7 +35,7 @@ const getContent = (
                             <Route path="/exclusions" exact component={() => <>Exclusions</>} />
                             <Route path="/account" component={() => <>Account</>} />
                             <Route path="/about" component={About} />
-                            <Route path="/support" component={() => <>Support</>} />
+                            <Route path="/support" component={Support} />
                             {!isPremiumToken && (
                                 <Route path="/free-gbs" component={() => <>FreeGbs</>} />
                             )}
