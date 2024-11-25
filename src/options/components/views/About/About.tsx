@@ -41,7 +41,6 @@ export const About = observer(() => {
             </div>
             <Button
                 variant="ghost"
-                type="button"
                 className="about__update-btn"
                 onClick={handleCheckUpdates}
             >

@@ -6,7 +6,6 @@
 
     @media (max-width: 872px) {
         flex-direction: column;
-        min-height: auto;
     }
 }
 
@@ -21,9 +20,23 @@
         padding: 32px 0;
     }
 
+    .centered-view & {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
     &__wrapper {
         width: 100%;
         max-width: 630px;
         padding-bottom: calc(var(--notifications-height) + 32px);
+
+        .centered-view & {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     }
 }
