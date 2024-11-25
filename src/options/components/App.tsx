@@ -13,6 +13,7 @@ import { Icons } from './ui/Icon';
 import { Preloader } from './Preloader';
 import { Sidebar } from './Sidebar';
 import { General } from './views/General';
+import { Account, AccountSignedOut } from './views/Account';
 import { About } from './views/About';
 import { Support } from './views/Support';
 
@@ -33,7 +34,7 @@ const getContent = (
                         <Switch>
                             <Route path="/" exact component={General} />
                             <Route path="/exclusions" exact component={() => <>Exclusions</>} />
-                            <Route path="/account" component={() => <>Account</>} />
+                            <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
                             <Route path="/support" component={Support} />
                             {!isPremiumToken && (
@@ -50,7 +51,7 @@ const getContent = (
     return (
         <>
             {requestProcessState === RequestStatus.Pending && <Preloader />}
-            {/* FIXME: <SignedOut /> */}
+            <AccountSignedOut />
         </>
     );
 };

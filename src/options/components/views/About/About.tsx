@@ -60,7 +60,7 @@ export const About = observer(() => {
                 href={websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="button button--ghost about__link"
+                className="button button--medium button--ghost about__link"
             >
                 {reactTranslator.getMessage('official_website')}
             </a>
@@ -68,7 +68,7 @@ export const About = observer(() => {
                 href={eulaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="button button--ghost about__link"
+                className="button button--medium button--ghost about__link"
             >
                 {reactTranslator.getMessage('eula')}
             </a>
@@ -76,7 +76,7 @@ export const About = observer(() => {
                 href={privacyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="button button--ghost about__link"
+                className="button button--medium button--ghost about__link"
             >
                 {reactTranslator.getMessage('privacy_policy')}
             </a>
