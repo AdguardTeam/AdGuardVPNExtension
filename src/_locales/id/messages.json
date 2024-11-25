@@ -221,6 +221,9 @@
     "settings_dns_edit_custom_server": {
         "message": "Edit server DNS kustom"
     },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Baca lebih lanjut</a> tentang server DNS"
+    },
     "settings_dns_add_custom_server_name": {
         "message": "Nama server"
     },

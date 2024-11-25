@@ -478,10 +478,10 @@
         "message": "tüm alt alan adları"
     },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN, seçilen alan adları ve alt alan adları için kapalı"
+        "message": "AdGuard VPN, seçili alan adları ve alt alan adları için kapalı"
     },
     "settings_exclusion_group_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN seçilen alan adları ve alt alan adları için açık"
+        "message": "AdGuard VPN, seçili alan adları ve alt alan adları için açık"
     },
     "settings_exclusion_domain_name": {
         "message": "Alan adı:"
