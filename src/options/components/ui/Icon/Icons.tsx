@@ -5,21 +5,6 @@ import './icons.pcss';
 
 export const Icons = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="hidden">
-        <svg id="disabled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M21 3H3V21H21V3Z" stroke="#7F7F7F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-
-        <svg id="enabled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M22 22V2H2V22H22ZM17.5691 9.4885C17.8389 9.1742 17.8028 8.7007 17.4885 8.43091C17.1742 8.16112 16.7007 8.1972 16.4309 8.5115L10.9546 14.8913L7.53551 11.4044C7.24551 11.1087 6.77066 11.104 6.4749 11.394C6.17915 11.684 6.17448 12.1589 6.46449 12.4546L11.028 17.1087L17.5691 9.4885Z" fill="#74A352" />
-        </svg>
-
-        <svg id="partly-enabled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M21 3H3V21H21V3Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <rect x="9.5" y="9.5" width="5" height="5" stroke="#74A352" strokeWidth="5" strokeLinejoin="miter" />
-        </svg>
-
-        {/* NEW ICONS */}
-
         <symbol
             id="sidebar-burger"
             viewBox="0 0 24 24"
@@ -119,6 +104,46 @@ export const Icons = () => (
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 12H7l-3 8 17-8L4 4l3 8z" />
             </g>
         </symbol>
+
+        <svg
+            id="checkbox-disabled"
+            viewBox="0 0 24 24"
+            fill="none"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M21 3H3V21H21V3Z" />
+        </svg>
+
+        <svg
+            id="checkbox-enabled"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M22 22V2H2V22H22ZM17.5691 9.4885C17.8389 9.1742 17.8028 8.7007 17.4885 8.43091C17.1742 8.16112 16.7007 8.1972 16.4309 8.5115L10.9546 14.8913L7.53551 11.4044C7.24551 11.1087 6.77066 11.104 6.4749 11.394C6.17915 11.684 6.17448 12.1589 6.46449 12.4546L11.028 17.1087L17.5691 9.4885Z" />
+        </svg>
+
+        <svg
+            id="checkbox-partly-enabled"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path fillRule="evenodd" clipRule="evenodd" d="M21 3H3V21H21V3Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <rect x="9.5" y="9.5" width="5" height="5" stroke="currentColor" strokeWidth="5" strokeLinejoin="miter" />
+        </svg>
 
         {/* OLD ICONS, FIXME: Check usage */}
 

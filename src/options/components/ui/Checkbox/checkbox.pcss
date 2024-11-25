@@ -1,0 +1,35 @@
+.checkbox {
+    text-align: left;
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        column-gap: 16px;
+    }
+
+    &__box {
+        flex-shrink: 0;
+
+        &-icon {
+            .checkbox--active & {
+                color: var(--stroke-icons-product-icon-default);
+            }
+        }
+    }
+
+    &__title {
+        flex: 1 1 auto;
+        color: var(--text-main-text-main-default);
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    &__description {
+        margin-top: 4px;
+        padding-left: 40px;
+        color: var(--text-description-description-default);
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
