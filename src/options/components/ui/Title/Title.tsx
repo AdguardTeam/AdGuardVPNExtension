@@ -8,6 +8,7 @@ import './title.pcss';
 
 export interface TitleProps {
     title: React.ReactNode | string;
+    description?: React.ReactNode | string;
     size?: 'medium' | 'large';
     style?: React.CSSProperties;
     onClick?: () => void;
@@ -15,6 +16,7 @@ export interface TitleProps {
 
 export function Title({
     title,
+    description,
     size = 'large',
     style,
     onClick,
@@ -37,6 +39,11 @@ export function Title({
                     {title}
                 </div>
             </div>
+            {description && (
+                <div className="title__description">
+                    {description}
+                </div>
+            )}
         </div>
     );
 }

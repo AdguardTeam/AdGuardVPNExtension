@@ -10,6 +10,7 @@ export interface ButtonProps extends PropsWithChildren {
     type?: 'button' | 'submit' | 'reset';
     variant?: 'default' | 'ghost' | 'outline';
     size?: 'medium' | 'large';
+    color?: 'default' | 'red';
     beforeIconName?: string;
     className?: string;
     disabled?: boolean;
@@ -20,6 +21,7 @@ export function Button({
     type = 'button',
     variant = 'default',
     size = 'medium',
+    color = 'default',
     beforeIconName,
     className,
     children,
@@ -32,6 +34,7 @@ export function Button({
                 'button',
                 `button--${variant}`,
                 `button--${size}`,
+                `button--${color}`,
                 className,
             )}
             // eslint-disable-next-line react/button-has-type

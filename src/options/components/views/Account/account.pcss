@@ -1,4 +1,61 @@
 .account {
+    &__info {
+        & + & {
+            margin-top: 24px;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        margin-top: 24px;
+        padding: 0 16px;
+        row-gap: 16px;
+    }
+
+    &__action {
+        text-decoration: none;
+        text-align: center;
+        max-width: 260px;
+
+        @media (max-width: 500px) {
+            max-width: none;
+        }
+    }
+
+    &__features {
+        padding-top: 48px;
+
+        &-list {
+            padding: 0 16px;
+        }
+
+        &-item {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        &-image {
+            width: 56px;
+            height: 56px;
+            margin-right: 24px;
+            flex-shrink: 0;
+        }
+
+        &-title {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        &-desc {
+            color: var(--gray88);
+            font-size: 14px;
+            line-height: 18px;
+        }
+    }
+
     &__signed-out {
         z-index: 999;
         position: fixed;
@@ -56,7 +113,7 @@
         &-btn {
             min-width: 260px;
 
-            @media (max-width: 400px) {
+            @media (max-width: 500px) {
                 width: 100%;
                 min-width: auto;
             }
