@@ -16,6 +16,7 @@ import { General } from './views/General';
 import { Account, AccountSignedOut } from './views/Account';
 import { About } from './views/About';
 import { Support } from './views/Support';
+import { FreeGbs } from './views/FreeGbs';
 
 import '../styles/main.pcss';
 import './app.pcss';
@@ -38,7 +39,7 @@ const getContent = (
                             <Route path="/about" component={About} />
                             <Route path="/support" component={Support} />
                             {!isPremiumToken && (
-                                <Route path="/free-gbs" component={() => <>FreeGbs</>} />
+                                <Route path="/free-gbs" component={FreeGbs} />
                             )}
                             <Route component={General} />
                         </Switch>

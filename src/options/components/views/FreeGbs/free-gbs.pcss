@@ -1,0 +1,16 @@
+.free-gbs {
+    &__button {
+        &-check-icon {
+            color: var(--stroke-icons-gray-icons-default);
+            transition: var(--t3) color;
+
+            .free-gbs__button--completed & {
+                color: var(--stroke-icons-product-icon-default);
+            }
+        }
+
+        &-arrow-icon {
+            transform: rotate(-90deg);
+        }
+    }
+}

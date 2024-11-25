@@ -34,7 +34,7 @@ export function Button({
                 'button',
                 `button--${variant}`,
                 `button--${size}`,
-                `button--${color}`,
+                `button--color-${color}`,
                 className,
             )}
             // eslint-disable-next-line react/button-has-type

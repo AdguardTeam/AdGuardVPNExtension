@@ -7,14 +7,15 @@ import { IconButton } from '../Icon';
 import './input.pcss';
 
 export interface InputBaseProps {
-    id: string;
-    name: string;
+    id?: string;
+    name?: string;
     label: string | React.ReactNode;
-    placeholder: string;
+    placeholder?: string;
     required?: boolean;
     value: string;
+    readOnly?: boolean;
     error?: string | React.ReactNode | null;
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
 }
 
 export interface InputProps extends InputBaseProps {
@@ -27,18 +28,23 @@ export function Input({
     type = 'text',
     label,
     placeholder,
-    value,
     required,
-    onChange,
+    value,
+    readOnly,
     error,
+    onChange,
 }: InputProps) {
     const clearValue = () => {
-        onChange('');
+        if (onChange) {
+            onChange('');
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        onChange(value);
+        if (onChange) {
+            onChange(value);
+        }
     };
 
     return (
@@ -47,7 +53,7 @@ export function Input({
             className={classNames(
                 'input',
                 !!error && 'input--error',
-                !!value && 'input--has-value',
+                !!value && !readOnly && 'input--has-value',
             )}
         >
             <div className="input__label">
@@ -63,8 +69,9 @@ export function Input({
                     value={value}
                     onChange={handleChange}
                     required={required}
+                    readOnly={readOnly}
                 />
-                {value && (
+                {value && !readOnly && (
                     <IconButton
                         name="cross"
                         onClick={clearValue}
