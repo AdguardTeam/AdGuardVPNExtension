@@ -110,7 +110,7 @@ export const sleepIfNecessary = async (entryTimeMs: number, minDurationMs: numbe
  * @param minDurationMs
  */
 export const addMinDurationTime = (fn: (...args: any) => any, minDurationMs: number) => {
-    return async (...args: string[]) => {
+    return async (...args: any[]) => {
         const start = Date.now();
 
         try {

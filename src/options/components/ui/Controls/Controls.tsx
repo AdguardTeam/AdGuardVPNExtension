@@ -9,6 +9,7 @@ import './controls.pcss';
 export interface ControlsProps {
     title: string | React.ReactNode;
     description?: string | React.ReactNode;
+    beforeAction?: React.ReactNode;
     action?: React.ReactNode;
     active?: boolean;
     onClick?: () => void;
@@ -20,6 +21,7 @@ export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
         const {
             title,
             description,
+            beforeAction,
             action,
             active,
             onClick,
@@ -47,6 +49,7 @@ export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
                 )}
                 onClick={onClick}
             >
+                <div className="controls__before-action">{beforeAction}</div>
                 <div className="controls__content">
                     <div className="controls__title">{title}</div>
                     <div className="controls__description">{description}</div>

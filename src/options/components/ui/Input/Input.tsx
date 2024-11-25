@@ -9,7 +9,7 @@ import './input.pcss';
 export interface InputProps {
     id: string;
     name: string;
-    type?: 'text';
+    type?: 'text' | 'email';
     label: string | React.ReactNode;
     placeholder: string;
     required?: boolean;

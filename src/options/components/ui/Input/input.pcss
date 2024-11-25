@@ -21,7 +21,7 @@
         border-radius: 8px;
         background: var(--fills-inputs-input-background-default);
         color: var(--text-main-text-main-default);
-        border: 1px solid var(--fills-inputs-input-background-default);
+        border: 1px solid var(--stroke-inputs-inactive-input-stroke-default);
         outline: none;
         transition: var(--t3) border-color;
         text-overflow: ellipsis;
@@ -33,6 +33,10 @@
 
         &::placeholder {
             color: var(--text-labels-labels-disabled);
+        }
+
+        &:focus {
+            border-color: var(--stroke-inputs-inactive-input-stroke-focus);
         }
 
         .input--error & {
