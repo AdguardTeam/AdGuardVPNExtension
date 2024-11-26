@@ -10,6 +10,7 @@ export interface RadioProps<T> {
     title: string | React.ReactNode;
     description?: string | React.ReactNode;
     action?: string | React.ReactNode;
+    variant?: 'default' | 'thin';
     onSelect: (value: T) => void;
 }
 
@@ -19,6 +20,7 @@ export function Radio<T extends string>({
     title,
     description,
     action,
+    variant = 'default',
     onSelect,
 }: RadioProps<T>) {
     const handleClick = () => {
@@ -27,7 +29,11 @@ export function Radio<T extends string>({
 
     return (
         <button
-            className={classNames('radio', active && 'radio--active')}
+            className={classNames(
+                'radio',
+                active && 'radio--active',
+                `radio--${variant}`,
+            )}
             type="button"
             onClick={handleClick}
         >
