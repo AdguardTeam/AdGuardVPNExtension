@@ -30,14 +30,15 @@ export const ActionsRemoveAllModal = observer(() => {
         <Modal
             title={reactTranslator.getMessage('settings_exclusions_remove_all_exclusions')}
             description="Do you want to remove the entire list of exclusions?"
+            descriptionClassName="exclusions__modal-description"
             open={exclusionsStore.removeAllModalOpen}
             onClose={handleCloseModal}
         >
             <div className="exclusions__modal-actions">
-                <Button variant="outline" size="large" onClick={handleCloseModal}>
+                <Button variant="outline" onClick={handleCloseModal}>
                     {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
                 </Button>
-                <Button size="large" color="red" onClick={handleRemoveAll}>
+                <Button color="red" onClick={handleRemoveAll}>
                     {reactTranslator.getMessage('settings_exclusion_modal_remove')}
                 </Button>
             </div>

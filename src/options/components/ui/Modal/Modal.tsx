@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, type PropsWithChildren } from 'react';
 
+import classNames from 'classnames';
+
 import { useOnClickOutside } from '../../../hooks/useOnOutsideClick';
 import { ReactPortal } from '../ReactPortal';
 import { IconButton } from '../Icon';
@@ -17,6 +19,7 @@ const setBodyLockedState = (locked: boolean) => {
 export interface ModalProps extends PropsWithChildren {
     title: string | React.ReactNode;
     description?: string | React.ReactNode;
+    descriptionClassName?: string;
     open: boolean;
     onClose: () => void;
 }
@@ -24,6 +27,7 @@ export interface ModalProps extends PropsWithChildren {
 export function Modal({
     title,
     description,
+    descriptionClassName,
     open,
     children,
     onClose,
@@ -56,7 +60,9 @@ export function Modal({
                     />
                     <div className="modal__title">{title}</div>
                     {description && (
-                        <div className="modal__description">{description}</div>
+                        <div className={classNames('modal__description', descriptionClassName)}>
+                            {description}
+                        </div>
                     )}
                     <div className="modal__wrapper">{children}</div>
                 </div>
