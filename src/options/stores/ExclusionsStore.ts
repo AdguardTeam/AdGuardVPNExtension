@@ -41,7 +41,7 @@ export enum AddExclusionMode {
     Manual = 'Manual',
 }
 
-const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.Manual;
+const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.Service;
 
 const findExclusionById = (
     exclusionsTree: ExclusionDtoInterface,
@@ -215,7 +215,7 @@ export class ExclusionsStore {
         this.setServicesSearchValue('');
         this.servicesToToggle = [];
         this.unfoldedServiceCategories = [];
-        this.setAddExclusionMode(AddExclusionMode.Manual);
+        this.setAddExclusionMode(DEFAULT_ADD_EXCLUSION_MODE);
     };
 
     @action setAddExclusionMode = (mode: AddExclusionMode) => {

@@ -1,0 +1,22 @@
+.add-exclusion {
+    &__tabs {
+        display: flex;
+        column-gap: 8px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin: 16px 0 24px;
+
+        &-item {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.5;
+            transition: var(--t3) color, var(--t3) background-color;
+
+            &--active {
+                color: var(--gray-0);
+                background: var(--gray-80);
+            }
+        }
+    }
+}

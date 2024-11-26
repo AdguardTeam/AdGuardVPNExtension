@@ -12,7 +12,18 @@
             column-gap: 24px;
 
             .button {
-                flex: 1 1 auto;
+                flex: 1 1 50%;
+            }
+
+            @media (max-width: 600px) {
+                flex-direction: column-reverse;
+                column-gap: 0;
+                row-gap: 16px;
+
+                .button {
+                    min-width: auto;
+                    width: 100%;
+                }
             }
         }
     }
