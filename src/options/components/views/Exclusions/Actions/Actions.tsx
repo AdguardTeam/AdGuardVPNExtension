@@ -8,7 +8,6 @@ import { type ExclusionsContentMap } from '../../../../../common/constants';
 import { messenger } from '../../../../../common/messenger';
 import { ExclusionsMode } from '../../../../../common/exclusionsConstants';
 
-import { ActionsMenu } from './ActionsMenu';
 import {
     exportExclusions,
     handleGeneralExclusionsString,
@@ -16,7 +15,9 @@ import {
     prepareExclusionsAfterImport,
 } from './utils';
 import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
+import { ActionsMenu } from './ActionsMenu';
 import { ActionsSelectModal } from './ActionsSelectModal';
+import { ActionsRemoveAllModal } from './ActionsRemoveAllModal';
 
 export const Actions = observer(() => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
@@ -170,6 +171,7 @@ export const Actions = observer(() => {
                 onRegularClick={handleRegularClick}
                 onSelectiveClick={handleSelectiveClick}
             />
+            <ActionsRemoveAllModal />
         </>
     );
 });
