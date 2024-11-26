@@ -55,6 +55,18 @@ button {
         &:active {
             --bg-color: var(--fills-buttons-main-button-pressed);
         }
+
+        &.button--color-red {
+            --bg-color: var(--red-50);
+
+            &:hover {
+                --bg-color: var(--red-60);
+            }
+
+            &:active {
+                --bg-color: var(--red-70);
+            }
+        }
     }
 
     &--outline {
@@ -72,6 +84,14 @@ button {
 
         &.button--color-red {
             color: var(--red-50);
+
+            &:hover {
+                background-color: var(--red-50-5);
+            }
+
+            &:active {
+                background-color: var(--red-50-10);
+            }
         }
     }
 
