@@ -21,6 +21,7 @@ export interface ModalProps extends PropsWithChildren {
     description?: string | React.ReactNode;
     descriptionClassName?: string;
     open: boolean;
+    variant?: 'default' | 'thin';
     onClose: () => void;
 }
 
@@ -29,6 +30,7 @@ export function Modal({
     description,
     descriptionClassName,
     open,
+    variant = 'default',
     children,
     onClose,
 }: ModalProps) {
@@ -50,7 +52,7 @@ export function Modal({
 
     return (
         <ReactPortal>
-            <div className="modal">
+            <div className={classNames('modal', `modal--${variant}`)}>
                 <div className="modal__overlay" />
                 <div ref={ref} className="modal__content">
                     <IconButton

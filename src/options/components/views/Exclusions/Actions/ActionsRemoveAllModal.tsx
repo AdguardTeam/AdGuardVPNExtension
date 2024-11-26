@@ -32,6 +32,7 @@ export const ActionsRemoveAllModal = observer(() => {
             description="Do you want to remove the entire list of exclusions?"
             descriptionClassName="exclusions__modal-description"
             open={exclusionsStore.removeAllModalOpen}
+            variant="thin"
             onClose={handleCloseModal}
         >
             <div className="exclusions__modal-actions">

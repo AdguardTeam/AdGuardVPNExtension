@@ -26,13 +26,20 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        width: 720px;
         max-width: 90%;
         max-height: 80%;
         padding: 32px;
         border-radius: 8px;
         background: var(--fills-backgrounds-page-background-default);
         box-shadow: var(--big-light-shadow-br);
+
+        .modal--default & {
+            width: 720px;
+        }
+
+        .modal--thin & {
+            width: 600px;
+        }
 
         @media (max-width: 872px) {
             padding: 24px 16px;
