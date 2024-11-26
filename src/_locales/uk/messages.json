@@ -364,7 +364,7 @@
         "message": "IP-адреса або TLS-домен сервера"
     },
     "settings_dns_add_custom_server_invalid_address": {
-        "message": "Неправильна адреса DNS-сервера"
+        "message": "Недійсна адреса DNS-сервера"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-сервер уже додано"
@@ -466,7 +466,7 @@
         "message": "Додати піддомен"
     },
     "settings_exclusion_invalid_subdomain": {
-        "message": "Неправильний піддомен"
+        "message": "Недійсний піддомен"
     },
     "settings_exclusion_status_domain": {
         "message": "домен"
@@ -499,7 +499,7 @@
         "message": "Додати вручну"
     },
     "settings_exclusions_add_invalid_domain": {
-        "message": "«%url%» — це неправильний домен. Дійсно хочете додати його до списку?"
+        "message": "«%url%» — це не дійсний домен. Дійсно хочете додати його до списку?"
     },
     "settings_exclusion_modal_cancel": {
         "message": "Скасувати"

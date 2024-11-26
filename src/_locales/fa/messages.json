@@ -8,9 +8,6 @@
     "registration_error_confirm_password": {
         "message": "گذرواژه ها مطابقت ندارند"
     },
-    "authentication_error_account_disabled": {
-        "message": "حساب غیرفعال شده است"
-    },
     "authentication_error_wrong_credentials": {
         "message": "رمزعبور اشتباه است"
     },

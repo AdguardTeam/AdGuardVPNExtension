@@ -128,6 +128,9 @@
     "auth_sign_up_button": {
         "message": "Εγγραφή"
     },
+    "auth_sign_in": {
+        "message": "Σύνδεση"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "Email"
     },

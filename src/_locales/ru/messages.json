@@ -655,7 +655,7 @@
         "message": "Лимит трафика в этом месяце исчерпан"
     },
     "popup_traffic_limited_speed": {
-        "message": "Ограниченная скорость"
+        "message": "Скорость ограничена"
     },
     "premium_upgrade": {
         "message": "Улучшить"

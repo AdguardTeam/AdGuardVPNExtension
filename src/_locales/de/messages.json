@@ -673,7 +673,7 @@
         "message": "Mit VPN verbunden"
     },
     "settings_vpn_disabled": {
-        "message": "VPN ist deaktiviert"
+        "message": "Getrennt"
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Geschwindigkeit wird reduziert"

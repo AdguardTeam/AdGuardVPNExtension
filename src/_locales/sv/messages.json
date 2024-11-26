@@ -175,7 +175,7 @@
         "message": "E-postadress"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Fortsätt med AdGuard"
+        "message": "Fortsätt med e-postadress"
     },
     "auth_sign_in_provider_apple": {
         "message": "Fortsätt med Apple"
@@ -536,6 +536,9 @@
     },
     "popup_rate_modal_cancel_button": {
         "message": "Avbryt"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Hjälp oss att förbättras"
     },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Lämna feedback"
