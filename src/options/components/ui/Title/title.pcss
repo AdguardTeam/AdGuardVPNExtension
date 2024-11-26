@@ -18,6 +18,13 @@
         font-weight: 700;
         line-height: 1.2;
 
+        &, &-start {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            column-gap: 16px;
+        }
+
         .title--large & {
             font-size: 24px;
         }
@@ -27,15 +34,16 @@
         }
 
         &-start {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            column-gap: 16px;
+            flex: 1 1 auto;
 
             &-icon {
                 transform: rotate(90deg);
             }
         }
+    }
+
+    &__action {
+        flex-shrink: 0;
     }
 
     &__description {

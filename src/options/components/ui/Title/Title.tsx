@@ -9,6 +9,7 @@ import './title.pcss';
 export interface TitleProps {
     title: React.ReactNode | string;
     description?: React.ReactNode | string;
+    action?: React.ReactNode;
     size?: 'medium' | 'large';
     style?: React.CSSProperties;
     onClick?: () => void;
@@ -17,6 +18,7 @@ export interface TitleProps {
 export function Title({
     title,
     description,
+    action,
     size = 'large',
     style,
     onClick,
@@ -38,6 +40,9 @@ export function Title({
                     {isBackTitle && <Icon name="arrow-down" className="title__text-start-icon" />}
                     {title}
                 </div>
+                {action && (
+                    <div className="title__action">{action}</div>
+                )}
             </div>
             {description && (
                 <div className="title__description">

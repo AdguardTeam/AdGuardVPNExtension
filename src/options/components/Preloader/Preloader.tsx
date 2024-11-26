@@ -7,6 +7,8 @@ import { RequestStatus } from '../../stores/consts';
 
 import './preloader.pcss';
 
+// FIXME: Update
+
 export const Preloader = observer(() => {
     const { authStore, globalStore } = useContext(rootStore);
 

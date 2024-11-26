@@ -13,6 +13,7 @@ import { Icons } from './ui/Icon';
 import { Preloader } from './Preloader';
 import { Sidebar } from './Sidebar';
 import { General } from './views/General';
+import { Exclusions } from './views/Exclusions';
 import { Account, AccountSignedOut } from './views/Account';
 import { About } from './views/About';
 import { Support } from './views/Support';
@@ -34,7 +35,7 @@ const getContent = (
                     <div className="content__wrapper">
                         <Switch>
                             <Route path="/" exact component={General} />
-                            <Route path="/exclusions" exact component={() => <>Exclusions</>} />
+                            <Route path="/exclusions" exact component={Exclusions} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
                             <Route path="/support" component={Support} />

@@ -10,6 +10,7 @@ import './select.pcss';
 interface SelectOptionItem<T> {
     value: T;
     title: string | React.ReactNode;
+    skip?: boolean;
 }
 
 interface SelectOptionProps<T> extends SelectOptionItem<T> {
@@ -21,11 +22,16 @@ function SelectOption<T extends string>({
     value,
     title,
     active,
+    skip,
     onClick,
 }: SelectOptionProps<T>) {
     const handleClick = () => {
         onClick(value);
     };
+
+    if (skip) {
+        return null;
+    }
 
     return (
         <button
@@ -45,6 +51,7 @@ export interface SelectProps<T> {
     onChange: (value: T) => void;
     active?: boolean;
     onActiveChange?: (value: boolean | ((oldValue: boolean) => boolean)) => void;
+    variant?: 'default' | 'dimmed';
 }
 
 export function Select<T extends string>({
@@ -53,6 +60,7 @@ export function Select<T extends string>({
     onChange,
     active: outsideActive,
     onActiveChange,
+    variant = 'default',
 }: SelectProps<T>) {
     const activeItem = options.find((option) => option.value === value);
 
@@ -73,7 +81,14 @@ export function Select<T extends string>({
     useOnClickOutside(ref, () => setActive(false));
 
     return (
-        <div ref={ref} className={classNames('select', active && 'select--active')}>
+        <div
+            ref={ref}
+            className={classNames(
+                'select',
+                active && 'select--active',
+                `select--${variant}`,
+            )}
+        >
             <button
                 className="select__btn"
                 type="button"
@@ -89,6 +104,7 @@ export function Select<T extends string>({
                         value={option.value}
                         title={option.title}
                         active={option.value === value}
+                        skip={option.skip}
                         onClick={handleChange}
                     />
                 ))}
