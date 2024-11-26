@@ -11,12 +11,16 @@ enum Action {
 }
 
 export interface ActionsMenuProps {
+    showExport: boolean;
+    showRemoveAll: boolean;
     onExportExclusionsClick: () => void;
     onImportExclusionsClick: () => void;
     onRemoveAllClick: () => void;
 }
 
 export function ActionsMenu({
+    showExport,
+    showRemoveAll,
     onExportExclusionsClick,
     onImportExclusionsClick,
     onRemoveAllClick,
@@ -52,6 +56,7 @@ export function ActionsMenu({
                 {
                     value: Action.Export,
                     title: reactTranslator.getMessage('settings_exclusions_action_export'),
+                    skip: !showExport,
                 },
                 {
                     value: Action.Import,
@@ -60,6 +65,7 @@ export function ActionsMenu({
                 {
                     value: Action.Remove,
                     title: reactTranslator.getMessage('settings_exclusions_action_remove_all'),
+                    skip: !showRemoveAll,
                 },
             ]}
             onChange={handleChange}
