@@ -1,0 +1,108 @@
+.service-mode {
+    display: flex;
+    flex-direction: column;
+
+    &__search {
+        padding: 8px 0;
+    }
+
+    &__content {
+        flex: 1 1 auto;
+        overflow-y: auto;
+    }
+
+    &-list {
+        max-height: 250px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+
+        &__empty {
+            text-align: center;
+            margin: 50px 0;
+            color: var(--text-description-description-default);
+        }
+    }
+
+    &-category {
+        &__btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            column-gap: 16px;
+            transition: var(--t3) background-color;
+            color: var(--text-main-text-main-default);
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+
+            &:hover,
+            &:active {
+                background-color: var(--fills-backgrounds-page-background-hovered);
+            }
+
+            &-icon {
+                transition: var(--t3) transform;
+                transform: rotate(-90deg);
+
+                .service-mode-category--active & {
+                    transform: rotate(0);
+                }
+            }
+        }
+
+        &__services {
+            display: none;
+
+            .service-mode-category--active & {
+                display: block;
+            }
+        }
+    }
+
+    &-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 16px;
+        padding: 16px;
+        width: 100%;
+        border-radius: 8px;
+        transition: var(--t3) background-color;
+
+        &:hover,
+        &:active {
+            background-color: var(--fills-backgrounds-page-background-hovered);
+        }
+
+        &__img {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            object-fit: cover;
+        }
+
+        &__title {
+            text-align: left;
+            flex: 1 1 auto;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--text-main-text-main-default);
+        }
+
+        &__action {
+            flex-shrink: 0;
+            color: var(--text-links-link-default);
+            text-align: right;
+            font-size: 16px;
+            transition: var(--t3) color;
+
+            .service-mode-item--active & {
+                color: var(--text-main-text-main-default);
+            }
+        }
+    }
+}

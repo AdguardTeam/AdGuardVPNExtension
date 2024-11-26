@@ -19,7 +19,7 @@ import {
     type ServiceDto,
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../common/messenger';
-import { containsIgnoreCase } from '../components_old/Exclusions/Search/SearchHighlighter/helpers';
+import { containsIgnoreCase } from '../components/views/Exclusions/Search/helpers';
 import type { ServiceCategory } from '../../background/schema';
 
 import type { RootStore } from './RootStore';
@@ -34,6 +34,15 @@ interface PreparedServiceCategories {
 
 interface PreparedServices {
     [key: string]: ServiceDto
+}
+
+export interface ComputedService extends ServiceDto {
+    active: boolean;
+}
+
+export interface ComputedServiceCategory extends ServiceCategory {
+    active: boolean;
+    services: ComputedService[];
 }
 
 export enum AddExclusionMode {
@@ -240,34 +249,72 @@ export class ExclusionsStore {
 
     @computed
     get preparedServicesData() {
-        const categories = this.servicesData.reduce((acc: PreparedServiceCategories, serviceData) => {
-            const { categories, serviceId } = serviceData;
+        const categories: PreparedServiceCategories = {};
+        const services: PreparedServices = {};
 
-            categories.forEach((category) => {
-                const foundCategory = acc[category.id];
+        this.servicesData.forEach((serviceData) => {
+            services[serviceData.serviceId] = serviceData;
+
+            serviceData.categories.forEach((category) => {
+                const foundCategory = categories[category.id];
                 if (!foundCategory) {
-                    acc[category.id] = {
+                    categories[category.id] = {
                         id: category.id,
                         name: category.name,
-                        services: [serviceId],
+                        services: [serviceData.serviceId],
                     };
                 } else {
-                    foundCategory.services.push(serviceId);
+                    foundCategory.services.push(serviceData.serviceId);
                 }
             });
-            return acc;
-        }, {});
-
-        const services = this.servicesData.reduce((acc: PreparedServices, serviceData) => {
-            const { serviceId } = serviceData;
-            acc[serviceId] = serviceData;
-            return acc;
-        }, {});
+        });
 
         return {
             categories,
             services,
         };
+    }
+
+    @computed
+    get filteredServicesData() {
+        const { categories, services } = this.preparedServicesData;
+        const categoriesArr: ComputedServiceCategory[] = Object.values(categories)
+            .map((category) => {
+                const active = this.unfoldAllServiceCategories
+                    || this.unfoldedServiceCategories.some((id) => id === category.id);
+
+                const servicesArr: ComputedService[] = category.services
+                    .map((serviceId) => {
+                        const service = services[serviceId];
+                        const isInToggle = this.servicesToToggle.some((id) => id === serviceId);
+
+                        let canAddService: boolean;
+                        if (isInToggle) {
+                            canAddService = service.state !== ExclusionState.Disabled;
+                        } else {
+                            canAddService = service.state === ExclusionState.Disabled;
+                        }
+
+                        return {
+                            ...service,
+                            active: !canAddService,
+                        };
+                    })
+                    .filter((service) => {
+                        if (this.servicesSearchValue.length === 0) {
+                            return true;
+                        }
+
+                        return containsIgnoreCase(service.serviceName, this.servicesSearchValue);
+                    });
+
+                return {
+                    ...category,
+                    services: servicesArr,
+                    active,
+                };
+            });
+        return categoriesArr;
     }
 
     @action

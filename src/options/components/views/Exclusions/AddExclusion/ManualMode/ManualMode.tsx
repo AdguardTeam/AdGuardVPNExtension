@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
-import { reactTranslator } from '../../../../../common/reactTranslator';
-import { Button } from '../../../ui/Button';
-import { Input } from '../../../ui/Input';
+import { reactTranslator } from '../../../../../../common/reactTranslator';
+import { Button } from '../../../../ui/Button';
+import { Input } from '../../../../ui/Input';
+
+import './manual-mode.pcss';
 
 export interface ManualModeProps {
     onSubmit: (domain: string) => void;
@@ -38,7 +40,7 @@ export function ManualMode({ onSubmit, onClose }: ManualModeProps) {
                 <Button type="reset" variant="outline">
                     {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
                 </Button>
-                <Button type="submit">
+                <Button type="submit" disabled={!inputValue}>
                     {reactTranslator.getMessage('settings_exclusion_add_manually_add')}
                 </Button>
             </div>

@@ -9,7 +9,7 @@ import './input.pcss';
 export interface InputBaseProps {
     id?: string;
     name?: string;
-    label: string | React.ReactNode;
+    label?: string | React.ReactNode;
     placeholder?: string;
     required?: boolean;
     value: string;
@@ -56,9 +56,11 @@ export function Input({
                 !!value && !readOnly && 'input--has-value',
             )}
         >
-            <div className="input__label">
-                {label}
-            </div>
+            {label && (
+                <div className="input__label">
+                    {label}
+                </div>
+            )}
             <div className="input__wrapper">
                 <input
                     id={id}
