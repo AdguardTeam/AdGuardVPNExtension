@@ -12,6 +12,7 @@ export interface TitleProps {
     action?: React.ReactNode;
     size?: 'medium' | 'large';
     style?: React.CSSProperties;
+    smallGap?: boolean;
     onClick?: () => void;
 }
 
@@ -21,6 +22,7 @@ export function Title({
     action,
     size = 'large',
     style,
+    smallGap = false,
     onClick,
 }: TitleProps) {
     const isBackTitle = !!onClick;
@@ -29,6 +31,7 @@ export function Title({
         'title',
         `title--${size}`,
         isBackTitle && 'title--hoverable',
+        smallGap && 'title--small-gap',
     );
 
     return (

@@ -27,9 +27,9 @@ export function ServiceModeList({
         );
     } else {
         content = (
-            <ul className="service-mode-list">
+            <div className="service-mode-list">
                 {children}
-            </ul>
+            </div>
         );
     }
 

@@ -215,30 +215,29 @@ export const Icons = () => (
             <path d="M11.1925 6.00694L9.30687 4.12132" />
         </symbol>
 
-        {/* OLD ICONS, FIXME: Check usage */}
-
-        <symbol id="bullet_on" viewBox="0 0 24 24">
-            <g fill="none" fillRule="evenodd" transform="translate(2 2)">
-                <circle cx="10" cy="10" r="9.25" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="10" cy="10" r="6" fill="currentColor" />
-            </g>
-        </symbol>
-
-        <symbol id="bullet_off" viewBox="0 0 24 24">
-            <circle cx="10" cy="10" r="9.25" fill="none" stroke="#909090" strokeWidth="1.5" transform="translate(2 2)" />
-        </symbol>
-
-        <symbol id="arrow" viewBox="0 0 24 24">
-            <path d="M9 18L15 12L9 6" fill="none" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </symbol>
-
-        <svg id="small-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10.9307 15.9645L14.9999 12.0349L11.0703 7.9657" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+            id="globe"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path fillRule="evenodd" clipRule="evenodd" d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" />
+            <path d="M14.5001 3.5C14.7747 4.66688 14.9927 5.83376 15.1542 7.00065" />
+            <path d="M19.0002 7C17.7516 7.35674 16.503 7.61803 15.2544 7.78387C15.4181 9.18865 15.5002 10.5943 15.5002 12C15.5002 13.406 15.4181 14.812 15.2539 16.218C16.5017 16.3817 17.7509 16.6431 19.0002 17" />
+            <path d="M15.1541 17.0004C14.9926 18.1669 14.7747 19.3335 14.5002 20.5" />
+            <path d="M9.49982 20.5C9.22533 19.3335 9.00736 18.1669 8.84589 17.0004" />
+            <path d="M5 17C6.24891 16.6432 7.49781 16.3818 8.74672 16.216C8.58208 14.812 8.5 13.406 8.5 12C8.5 10.5943 8.58205 9.18865 8.74614 7.78297C7.49781 7.61816 6.24891 7.35683 5 7V7" />
+            <path d="M8.84582 7.00065C9.0073 5.83376 9.22533 4.66688 9.49989 3.5V3.5" />
+            <path d="M9.50049 16.1275C10.3336 16.0425 11.1668 16 11.9999 16C12.8331 16 13.6662 16.0425 14.4993 16.1275" />
+            <path d="M14.4993 7.87251C13.6662 7.9575 12.8331 8 11.9999 8C11.1668 8 10.3336 7.9575 9.50049 7.87251" />
+            <path d="M3 12H21" />
         </svg>
 
-        <symbol id="back-arrow" viewBox="0 0 24 24">
-            <path fill="none" fillRule="evenodd" stroke="#888" strokeLinecap="round" strokeWidth="1.5" d="M15 18l-6-6 6-6" />
-        </symbol>
+        {/* OLD ICONS, FIXME: Check usage */}
 
         <symbol id="spinner" fill="none" viewBox="0 0 24 24">
             <path d="M6.2903 5.04276C6.40404 4.94931 6.52011 4.8586 6.63842 4.77072" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

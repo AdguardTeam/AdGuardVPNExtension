@@ -16,9 +16,7 @@ export const General = observer(() => {
     const { showDnsSettings } = settingsStore;
 
     if (showDnsSettings) {
-        return (
-            <DnsSettings />
-        );
+        return <DnsSettings />;
     }
 
     return (

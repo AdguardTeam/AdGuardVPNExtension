@@ -23,6 +23,10 @@
             align-items: center;
             justify-content: flex-start;
             column-gap: 16px;
+
+            .title--small-gap & {
+                column-gap: 4px;
+            }
         }
 
         .title--large & {
@@ -55,6 +59,10 @@
 
         b {
             font-weight: 600;
+        }
+
+        .title--hoverable & {
+            padding-left: 28px;
         }
     }
 }
