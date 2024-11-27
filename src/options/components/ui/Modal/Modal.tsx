@@ -19,7 +19,6 @@ const setBodyLockedState = (locked: boolean) => {
 export interface ModalProps extends PropsWithChildren {
     title: string | React.ReactNode;
     description?: string | React.ReactNode;
-    descriptionClassName?: string;
     open: boolean;
     variant?: 'default' | 'thin';
     onClose: () => void;
@@ -28,13 +27,14 @@ export interface ModalProps extends PropsWithChildren {
 export function Modal({
     title,
     description,
-    descriptionClassName,
     open,
     variant = 'default',
     children,
     onClose,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
+
+    const classes = classNames('modal', `modal--${variant}`);
 
     useOnClickOutside(ref, onClose);
 
@@ -52,7 +52,7 @@ export function Modal({
 
     return (
         <ReactPortal>
-            <div className={classNames('modal', `modal--${variant}`)}>
+            <div className={classes}>
                 <div className="modal__overlay" />
                 <div ref={ref} className="modal__content">
                     <IconButton
@@ -60,13 +60,17 @@ export function Modal({
                         className="modal__close-btn"
                         onClick={onClose}
                     />
-                    <div className="modal__title">{title}</div>
+                    <div className="modal__title">
+                        {title}
+                    </div>
                     {description && (
-                        <div className={classNames('modal__description', descriptionClassName)}>
+                        <div className="modal__description">
                             {description}
                         </div>
                     )}
-                    <div className="modal__wrapper">{children}</div>
+                    <div className="modal__wrapper">
+                        {children}
+                    </div>
                 </div>
             </div>
         </ReactPortal>

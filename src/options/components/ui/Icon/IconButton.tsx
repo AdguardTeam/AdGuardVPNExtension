@@ -23,15 +23,17 @@ export function IconButton({
     tabIndex,
     onClick,
 }: IconButtonProps) {
+    const classes = classNames(
+        'icon-button',
+        `icon-button--${variant}`,
+        className,
+    );
+
     return (
         <button
             // eslint-disable-next-line react/button-has-type
             type={type}
-            className={classNames(
-                'icon-button',
-                `icon-button--${variant}`,
-                className,
-            )}
+            className={classes}
             tabIndex={tabIndex}
             onClick={onClick}
         >

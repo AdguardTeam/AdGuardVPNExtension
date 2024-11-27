@@ -8,8 +8,10 @@ export interface IconProps {
 }
 
 export function Icon({ name, className }: IconProps) {
+    const classes = classNames('icon', className);
+
     return (
-        <svg className={classNames('icon', className)}>
+        <svg className={classes}>
             <use xlinkHref={`#${name}`} />
         </svg>
     );

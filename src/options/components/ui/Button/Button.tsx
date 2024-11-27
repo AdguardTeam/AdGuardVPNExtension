@@ -28,15 +28,17 @@ export function Button({
     disabled,
     onClick,
 }: ButtonProps) {
+    const classes = classNames(
+        'button',
+        `button--${variant}`,
+        `button--${size}`,
+        `button--color-${color}`,
+        className,
+    );
+
     return (
         <button
-            className={classNames(
-                'button',
-                `button--${variant}`,
-                `button--${size}`,
-                `button--color-${color}`,
-                className,
-            )}
+            className={classes}
             // eslint-disable-next-line react/button-has-type
             type={type}
             onClick={onClick}
@@ -45,7 +47,9 @@ export function Button({
             {beforeIconName && (
                 <Icon name={beforeIconName} className="button__icon" />
             )}
-            <span className="button__text">{children}</span>
+            <span className="button__text">
+                {children}
+            </span>
         </button>
     );
 }

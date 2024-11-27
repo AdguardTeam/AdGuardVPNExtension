@@ -9,12 +9,12 @@ import './input.pcss';
 export interface InputBaseProps {
     id?: string;
     name?: string;
-    label?: string | React.ReactNode;
+    label?: React.ReactNode;
     placeholder?: string;
     required?: boolean;
     value: string;
     readOnly?: boolean;
-    error?: string | React.ReactNode | null;
+    error?: React.ReactNode;
     onChange?: (value: string) => void;
 }
 
@@ -34,6 +34,12 @@ export function Input({
     error,
     onChange,
 }: InputProps) {
+    const classes = classNames(
+        'input',
+        !!error && 'input--error',
+        !!value && !readOnly && 'input--has-value',
+    );
+
     const clearValue = () => {
         if (onChange) {
             onChange('');
@@ -48,14 +54,7 @@ export function Input({
     };
 
     return (
-        <label
-            htmlFor={id}
-            className={classNames(
-                'input',
-                !!error && 'input--error',
-                !!value && !readOnly && 'input--has-value',
-            )}
-        >
+        <label htmlFor={id} className={classes}>
             {label && (
                 <div className="input__label">
                     {label}
@@ -83,7 +82,9 @@ export function Input({
                 )}
             </div>
             {!!error && (
-                <div className="input__error">{error}</div>
+                <div className="input__error">
+                    {error}
+                </div>
             )}
         </label>
     );

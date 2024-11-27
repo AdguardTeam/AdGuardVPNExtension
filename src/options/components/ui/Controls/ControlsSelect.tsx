@@ -21,7 +21,16 @@ export function ControlsSelect<T extends string>({
     onChange,
 }: ControlsSelectProps<T>) {
     const ref = useRef<HTMLDivElement>(null);
+
     const [active, setActive] = useState(false);
+
+    const handleClick = () => {
+        setActive((currentActive) => !currentActive);
+    };
+
+    const handleOutsideClick = () => {
+        setActive(false);
+    };
 
     useElementRect(ref, 'controls');
 
@@ -40,8 +49,8 @@ export function ControlsSelect<T extends string>({
                 />
             )}
             active={active}
-            onClick={() => setActive((current) => !current)}
-            onOutsideClick={() => setActive(false)}
+            onClick={handleClick}
+            onOutsideClick={handleOutsideClick}
         />
     );
 }

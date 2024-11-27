@@ -9,7 +9,7 @@ import './select.pcss';
 
 interface SelectOptionItem<T> {
     value: T;
-    title: string | React.ReactNode;
+    title: React.ReactNode;
     skip?: boolean;
 }
 
@@ -25,6 +25,8 @@ function SelectOption<T extends string>({
     skip,
     onClick,
 }: SelectOptionProps<T>) {
+    const classes = classNames('select__item', active && 'select__item--active');
+
     const handleClick = () => {
         onClick(value);
     };
@@ -35,7 +37,7 @@ function SelectOption<T extends string>({
 
     return (
         <button
-            className={classNames('select__item', active && 'select__item--active')}
+            className={classes}
             type="button"
             onClick={handleClick}
         >
@@ -65,34 +67,43 @@ export function Select<T extends string>({
     const activeItem = options.find((option) => option.value === value);
 
     const ref = useRef<HTMLDivElement>(null);
+
     const [localActive, setLocalActive] = useState(false);
     const active = outsideActive !== undefined ? outsideActive : localActive;
+
+    const classes = classNames(
+        'select',
+        active && 'select--active',
+        `select--${variant}`,
+    );
+
     const setActive = (value: boolean | ((oldValue: boolean) => boolean)) => {
         if (!onActiveChange) {
             setLocalActive(value);
         }
     };
 
-    const handleChange = (value: T) => {
+    const handleClose = () => {
         setActive(false);
+    };
+
+    const handleToggle = () => {
+        setActive((currentActive) => !currentActive);
+    };
+
+    const handleChange = (value: T) => {
+        handleClose();
         onChange(value);
     };
 
-    useOnClickOutside(ref, () => setActive(false));
+    useOnClickOutside(ref, handleClose);
 
     return (
-        <div
-            ref={ref}
-            className={classNames(
-                'select',
-                active && 'select--active',
-                `select--${variant}`,
-            )}
-        >
+        <div ref={ref} className={classes}>
             <button
                 className="select__btn"
                 type="button"
-                onClick={() => setActive((current) => !current)}
+                onClick={handleToggle}
             >
                 {activeItem?.title}
                 <Icon name="arrow-down" className="select__btn-icon" />

@@ -7,8 +7,8 @@ import { useOnClickOutside } from '../../../hooks/useOnOutsideClick';
 import './controls.pcss';
 
 export interface ControlsProps {
-    title: string | React.ReactNode;
-    description?: string | React.ReactNode;
+    title: React.ReactNode;
+    description?: React.ReactNode;
     beforeAction?: React.ReactNode;
     action?: React.ReactNode;
     active?: boolean;
@@ -32,6 +32,13 @@ export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
 
         const ref = useRef<HTMLDivElement>(null);
 
+        const classes = classNames(
+            'controls',
+            !!onClick && 'controls--hoverable',
+            active && 'controls--active',
+            className,
+        );
+
         const handleOutsideClick = () => {
             if (onOutsideClick) {
                 onOutsideClick();
@@ -44,20 +51,27 @@ export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
         return (
             <div
                 ref={ref}
-                className={classNames(
-                    'controls',
-                    !!onClick && 'controls--hoverable',
-                    active && 'controls--active',
-                    className,
-                )}
+                className={classes}
                 onClick={onClick}
             >
-                <div className="controls__before-action">{beforeAction}</div>
+                {beforeAction && (
+                    <div className="controls__before-action">
+                        {beforeAction}
+                    </div>
+                )}
                 <div className="controls__content">
                     <div className="controls__title">{title}</div>
-                    <div className="controls__description">{description}</div>
+                    {description && (
+                        <div className="controls__description">
+                            {description}
+                        </div>
+                    )}
                 </div>
-                <div className="controls__action">{action}</div>
+                {action && (
+                    <div className="controls__action">
+                        {action}
+                    </div>
+                )}
             </div>
         );
     },

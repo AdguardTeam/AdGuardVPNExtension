@@ -7,9 +7,9 @@ import './radio.pcss';
 export interface RadioProps<T> {
     value: T;
     active: boolean;
-    title: string | React.ReactNode;
-    description?: string | React.ReactNode;
-    action?: string | React.ReactNode;
+    title: React.ReactNode;
+    description?: React.ReactNode;
+    action?: React.ReactNode;
     variant?: 'default' | 'thin';
     onSelect: (value: T) => void;
 }
@@ -23,17 +23,19 @@ export function Radio<T extends string>({
     variant = 'default',
     onSelect,
 }: RadioProps<T>) {
+    const classes = classNames(
+        'radio',
+        active && 'radio--active',
+        `radio--${variant}`,
+    );
+
     const handleClick = () => {
         onSelect(value);
     };
 
     return (
         <button
-            className={classNames(
-                'radio',
-                active && 'radio--active',
-                `radio--${variant}`,
-            )}
+            className={classes}
             type="button"
             onClick={handleClick}
         >
@@ -41,13 +43,19 @@ export function Radio<T extends string>({
                 <span className="radio__circle-inner" />
             </span>
             <span className="radio__content">
-                <span className="radio__title">{title}</span>
+                <span className="radio__title">
+                    {title}
+                </span>
                 {description && (
-                    <span className="radio__description">{description}</span>
+                    <span className="radio__description">
+                        {description}
+                    </span>
                 )}
             </span>
             {action && (
-                <span className="radio__action">{action}</span>
+                <span className="radio__action">
+                    {action}
+                </span>
             )}
         </button>
     );

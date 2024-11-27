@@ -10,6 +10,8 @@ export interface SwitchProps {
 }
 
 export function Switch({ value, onToggle }: SwitchProps) {
+    const classes = classNames('switch', value && 'switch--active');
+
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
         onToggle();
@@ -17,7 +19,7 @@ export function Switch({ value, onToggle }: SwitchProps) {
 
     return (
         <button
-            className={classNames('switch', value && 'switch--active')}
+            className={classes}
             onClick={handleClick}
             type="button"
         >

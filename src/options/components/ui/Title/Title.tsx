@@ -7,8 +7,8 @@ import { Icon } from '../Icon';
 import './title.pcss';
 
 export interface TitleProps {
-    title: React.ReactNode | string;
-    description?: React.ReactNode | string;
+    title: React.ReactNode;
+    description?: React.ReactNode;
     action?: React.ReactNode;
     size?: 'medium' | 'large';
     style?: React.CSSProperties;
@@ -25,13 +25,15 @@ export function Title({
 }: TitleProps) {
     const isBackTitle = !!onClick;
 
+    const classes = classNames(
+        'title',
+        `title--${size}`,
+        isBackTitle && 'title--hoverable',
+    );
+
     return (
         <div
-            className={classNames(
-                'title',
-                `title--${size}`,
-                isBackTitle && 'title--hoverable',
-            )}
+            className={classes}
             style={style}
             onClick={onClick}
         >
@@ -41,7 +43,9 @@ export function Title({
                     {title}
                 </div>
                 {action && (
-                    <div className="title__action">{action}</div>
+                    <div className="title__action">
+                        {action}
+                    </div>
                 )}
             </div>
             {description && (
