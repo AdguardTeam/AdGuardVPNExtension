@@ -1,16 +1,17 @@
 import { type RefObject, useEffect, useState } from 'react';
 
+// FIXME: Add jsdoc and refactor
+
 export interface ElementRect {
-    width: number
-    height: number
-    x: number
-    y: number
+    width: number;
+    height: number;
+    x: number;
+    y: number;
 }
 
 export function useElementRect(
     ref: RefObject<HTMLElement>,
     key?: string,
-    attach: boolean = true,
     attachOnBody: boolean = false,
 ) {
     const [rect, setRect] = useState<ElementRect>({
@@ -56,7 +57,7 @@ export function useElementRect(
     }, [ref]);
 
     useEffect(() => {
-        if (!key || !ref.current || !attach) {
+        if (!key || !ref.current) {
             return;
         }
         let element = ref.current;
@@ -76,7 +77,7 @@ export function useElementRect(
             element.style.removeProperty(`--${key}-x`);
             element.style.removeProperty(`--${key}-y`);
         };
-    }, [key, rect, attach, attachOnBody]);
+    }, [key, rect, attachOnBody]);
 
     return rect;
 }

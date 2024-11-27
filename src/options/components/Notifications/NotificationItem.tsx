@@ -9,50 +9,56 @@ const NOTIFICATION_CLEAR_TIMEOUT_MS = 5 * 1000; // 5s
 
 export interface NotificationItemProps {
     value: Notification;
-    onClose: (id: string) => void;
+    onClose: (notificationId: string) => void;
 }
 
 export function NotificationItem({ value, onClose }: NotificationItemProps) {
     const isSuccess = value.isSuccess();
     const isError = value.isError();
+
     const classes = classNames(
         'notifications__item',
         isSuccess && 'notifications__item--success',
         isError && 'notifications__item--error',
     );
 
-    const emitClose = () => {
+    const handleClose = () => {
         onClose(value.id);
     };
 
-    const handleAction = (action: () => void) => () => {
-        action();
-        emitClose();
+    const handleAction = () => {
+        if (value.action) {
+            value.action.handler();
+        }
+
+        handleClose();
     };
 
     useEffect(() => {
-        const timeoutId = setTimeout(emitClose, NOTIFICATION_CLEAR_TIMEOUT_MS);
+        const timeoutId = setTimeout(handleClose, NOTIFICATION_CLEAR_TIMEOUT_MS);
 
         return () => {
             clearTimeout(timeoutId);
         };
-    }, [emitClose]);
+    }, [handleClose]);
 
     return (
         <div className={classes}>
             <div className="notifications__item-content">
-                <div className="notifications__item-message">{value.message}</div>
+                <div className="notifications__item-message">
+                    {value.message}
+                </div>
                 {value.action && (
                     <button
                         className="notifications__item-action"
                         type="button"
-                        onClick={handleAction(value.action.handler)}
+                        onClick={handleAction}
                     >
                         {value.action.action}
                     </button>
                 )}
             </div>
-            <IconButton name="cross" onClick={emitClose} />
+            <IconButton name="cross" onClick={handleClose} />
         </div>
     );
 }

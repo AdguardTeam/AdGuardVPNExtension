@@ -3,8 +3,8 @@ import { observer } from 'mobx-react';
 
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import { getForwarderUrl } from '../../../../common/helpers';
-import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { rootStore } from '../../../stores';
 
 import { RateStar } from './RateStar';
 
@@ -15,13 +15,12 @@ const RATING_STARS = [5, 4, 3, 2, 1];
 export const Rate = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const {
-        hideRate,
         isRateVisible,
         forwarderDomain,
     } = settingsStore;
 
     const handleHideRate = async (): Promise<void> => {
-        await hideRate();
+        await settingsStore.hideRate();
     };
 
     const handleChange = async (value: number): Promise<void> => {

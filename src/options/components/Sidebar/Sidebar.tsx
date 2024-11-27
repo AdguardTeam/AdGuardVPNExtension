@@ -20,11 +20,22 @@ export const Sidebar = observer(() => {
         confirmEmailQuestCompleted,
         addDeviceQuestCompleted,
     } = settingsStore;
+
     const [isActive, setIsActive] = useState(false);
 
-    const closeAll = () => {
-        settingsStore.closeSubComponents();
+    const classes = classNames('sidebar', isActive && 'sidebar--active');
+
+    const handleCloseMenu = () => {
         setIsActive(false);
+    };
+
+    const handleOpenMenu = () => {
+        setIsActive(true);
+    };
+
+    const handleCloseAll = () => {
+        settingsStore.closeSubComponents();
+        handleCloseMenu();
     };
 
     useEffect(() => {
@@ -34,23 +45,27 @@ export const Sidebar = observer(() => {
         })();
     }, []);
 
-    const allQuestsCompleted = invitesQuestCompleted && confirmEmailQuestCompleted && addDeviceQuestCompleted;
+    const allQuestsCompleted = (
+        invitesQuestCompleted
+        && confirmEmailQuestCompleted
+        && addDeviceQuestCompleted
+    );
 
     return (
-        <div className={classNames('sidebar', isActive && 'sidebar--active')}>
-            <div className="sidebar__overlay" onClick={() => setIsActive(false)} />
+        <div className={classes}>
+            <div className="sidebar__overlay" onClick={handleCloseMenu} />
             <div className="sidebar__menu">
                 <IconButton
                     name="sidebar-burger"
                     className="sidebar__menu-btn"
-                    onClick={() => setIsActive(true)}
+                    onClick={handleOpenMenu}
                 />
             </div>
             <div className="sidebar__content">
                 <div className="sidebar__logo">
                     <div className="logo" />
                 </div>
-                <nav className="sidebar__nav" onClick={closeAll}>
+                <nav className="sidebar__nav" onClick={handleCloseAll}>
                     <SidebarLink to="/">
                         {/* FIXME: Translation */}
                         General

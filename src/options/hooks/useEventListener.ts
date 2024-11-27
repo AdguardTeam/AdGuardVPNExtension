@@ -42,6 +42,8 @@ function useEventListener<K extends keyof DocumentEventMap>(
     options?: boolean | AddEventListenerOptions,
 ): void;
 
+// FIXME: Add jsdoc
+
 function useEventListener<
     KW extends keyof WindowEventMap,
     KH extends keyof HTMLElementEventMap & keyof SVGElementEventMap,

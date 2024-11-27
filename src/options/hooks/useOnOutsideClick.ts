@@ -2,6 +2,8 @@ import type { RefObject } from 'react';
 
 import { useEventListener } from './useEventListener';
 
+// FIXME: Add jsdoc
+
 type EventType =
   | 'mousedown'
   | 'mouseup'
