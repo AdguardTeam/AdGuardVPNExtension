@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -15,6 +15,7 @@ export interface InputBaseProps {
     value: string;
     readOnly?: boolean;
     error?: React.ReactNode;
+    postfix?: string;
     onChange?: (value: string) => void;
 }
 
@@ -32,13 +33,24 @@ export function Input({
     value,
     readOnly,
     error,
+    postfix,
     onChange,
 }: InputProps) {
+    const [focused, setFocused] = useState(false);
+
     const classes = classNames(
         'input',
         !!error && 'input--error',
-        !!value && !readOnly && 'input--has-value',
+        focused && 'input--focus',
     );
+
+    const handleFocus = () => {
+        setFocused(true);
+    };
+
+    const handleBlur = () => {
+        setFocused(false);
+    };
 
     const clearValue = () => {
         if (onChange) {
@@ -71,6 +83,8 @@ export function Input({
                     onChange={handleChange}
                     required={required}
                     readOnly={readOnly}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                 />
                 {value && !readOnly && (
                     <IconButton
@@ -79,6 +93,11 @@ export function Input({
                         tabIndex={-1}
                         className="input__clear-btn"
                     />
+                )}
+                {postfix && (
+                    <div className="input__postfix">
+                        {postfix}
+                    </div>
                 )}
             </div>
             {!!error && (

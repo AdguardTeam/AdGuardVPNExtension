@@ -10,9 +10,10 @@ import { Button } from '../../../ui/Button';
 import { Exclusion } from '../Exclusion';
 
 import { ResetServiceModal } from './ResetServiceModal';
+import { AddSubdomainModal } from './AddSubdomainModal';
 
 export const ChildrenList = observer(() => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore } = useContext(rootStore);
     const { selectedExclusion } = exclusionsStore;
 
     if (!selectedExclusion || selectedExclusion.children.length === 0) {
@@ -56,6 +57,22 @@ export const ChildrenList = observer(() => {
         exclusionsStore.openAddSubdomainModal();
     };
 
+    const handleCloseAddSubdomainModal = () => {
+        exclusionsStore.closeAddSubdomainModal();
+    };
+
+    const handleSubmitAddSubdomain = async (subdomain: string) => {
+        const addedExclusionsCount = await exclusionsStore.addSubdomainToExclusions(subdomain);
+        const message = reactTranslator.getMessage(
+            'options_exclusions_added_exclusions',
+            { count: addedExclusionsCount },
+        );
+        notificationsStore.notifySuccess(message, {
+            action: reactTranslator.getMessage('settings_exclusions_undo'),
+            handler: () => exclusionsStore.restoreExclusions(),
+        });
+    };
+
     // FIXME: Add loader
     return (
         <>
@@ -80,6 +97,12 @@ export const ChildrenList = observer(() => {
                     </Button>
                 </div>
             )}
+            <AddSubdomainModal
+                open={exclusionsStore.addSubdomainModalOpen}
+                hostname={selectedExclusion.hostname}
+                onClose={handleCloseAddSubdomainModal}
+                onSubmit={handleSubmitAddSubdomain}
+            />
             {isModifiedService && (
                 <Button
                     variant="outline"

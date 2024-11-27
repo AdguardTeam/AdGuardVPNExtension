@@ -11,20 +11,34 @@
     }
 
     &__wrapper {
-        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: var(--fills-inputs-input-background-default);
+        border: 1px solid var(--stroke-inputs-inactive-input-stroke-default);
+        transition: var(--t3) border-color;
+        padding-right: 8px;
+
+        .input--focus & {
+            border-color: var(--stroke-inputs-inactive-input-stroke-focus);
+        }
+
+        .input--error & {
+            border-color: var(--stroke-icons-error-icon-default);
+        }
     }
 
     &__native {
+        flex: 1 1 auto;
         display: block;
         width: 100%;
-        padding: 16px;
-        border-radius: 8px;
-        background: var(--fills-inputs-input-background-default);
+        padding: 16px 8px 16px 16px;
         color: var(--text-main-text-main-default);
-        border: 1px solid var(--stroke-inputs-inactive-input-stroke-default);
         outline: none;
-        transition: var(--t3) border-color;
         text-overflow: ellipsis;
+        border: none;
+        background-color: transparent;
 
         &, &::placeholder {
             font-size: 16px;
@@ -35,18 +49,6 @@
         &::placeholder {
             color: var(--text-labels-labels-disabled);
         }
-
-        &:focus {
-            border-color: var(--stroke-inputs-inactive-input-stroke-focus);
-        }
-
-        .input--error & {
-            border-color: var(--stroke-icons-error-icon-default);
-        }
-
-        .input--has-value & {
-            padding-right: 50px;
-        }
     }
 
     textarea.input__native {
@@ -55,11 +57,20 @@
     }
 
     &__clear-btn {
-        position: absolute;
-        right: 10px;
+        flex-shrink: 0;
         padding: 6px;
-        top: 50%;
-        transform: translateY(-50%);
+    }
+
+    &__postfix {
+        flex-shrink: 0;
+        color: var(--text-main-text-main-default);
+        text-align: right;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: -0.31px;
+        padding-left: 16px;
+        padding-right: 8px;
+        border-left: 1px solid var(--stroke-dividers-item-divider-default);
     }
 
     &__error {

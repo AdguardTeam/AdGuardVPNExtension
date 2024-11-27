@@ -21,6 +21,7 @@ export interface ModalProps extends PropsWithChildren {
     description?: string | React.ReactNode;
     open: boolean;
     variant?: 'default' | 'thin';
+    // FIXME: Check clearing value
     onClose: () => void;
 }
 
