@@ -3,7 +3,7 @@ import React from 'react';
 import cn from 'classnames';
 import { nanoid } from 'nanoid';
 
-import { containsIgnoreCase, findChunks } from './helpers';
+import { containsIgnoreCase, findChunks } from '../helpers';
 
 import './highlighter.pcss';
 
