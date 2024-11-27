@@ -3,10 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../stores';
 import { reactTranslator } from '../../../../../common/reactTranslator';
-
-import { RootListItem } from './RootListItem';
-
-import './root-list.pcss';
+import { Exclusion } from '../Exclusion';
 
 export const RootList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -23,9 +20,10 @@ export const RootList = observer(() => {
     return (
         <div>
             {exclusionsStore.preparedExclusions.map((exclusion) => (
-                <RootListItem
+                <Exclusion
                     key={exclusion.id}
                     exclusion={exclusion}
+                    hasIcon
                 />
             ))}
         </div>

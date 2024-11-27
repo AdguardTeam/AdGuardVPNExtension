@@ -8,8 +8,7 @@ import { Title } from '../../ui/Title';
 import { Actions } from './Actions';
 import { ModeSelector } from './ModeSelector';
 import { Search } from './Search';
-import { ChildrenList } from './ChildrenList';
-import { RootList } from './RootList';
+import { RootList, ChildrenList } from './Lists';
 import { AddExclusion } from './AddExclusion';
 
 import './exclusions.pcss';

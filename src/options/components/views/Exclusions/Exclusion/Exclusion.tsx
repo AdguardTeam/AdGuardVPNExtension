@@ -9,8 +9,9 @@ import { rootStore } from '../../../../stores';
 import { Icon } from '../../../ui/Icon';
 import { SearchHighlighter } from '../Search';
 
-export interface RootListItemProps {
+export interface ExclusionProps {
     exclusion: ExclusionDtoInterface;
+    hasIcon?: boolean;
 }
 
 const ICON_FOR_DOMAIN = 'https://icons.adguardvpn.com/icon?domain=';
@@ -45,19 +46,22 @@ function getCheckIconName(state: ExclusionState) {
 function getStateClassName(state: ExclusionState) {
     switch (state) {
         case ExclusionState.Disabled: {
-            return 'root-list-item--disabled';
+            return 'exclusion--disabled';
         }
         case ExclusionState.Enabled: {
-            return 'root-list-item--enabled';
+            return 'exclusion--enabled';
         }
         case ExclusionState.PartlyEnabled:
         default: {
-            return 'root-list-item--partly-enabled';
+            return 'exclusion--partly-enabled';
         }
     }
 }
 
-export const RootListItem = observer(({ exclusion }: RootListItemProps) => {
+export const Exclusion = observer(({
+    exclusion,
+    hasIcon = false,
+}: ExclusionProps) => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
 
     const [iconLoaded, setIconLoaded] = useState(false);
@@ -65,9 +69,9 @@ export const RootListItem = observer(({ exclusion }: RootListItemProps) => {
     const hasChildren = exclusion.children.length !== 0;
 
     const classes = classNames(
-        'root-list-item',
+        'exclusion',
         getStateClassName(exclusion.state),
-        iconLoaded && 'root-list-item--icon-loaded',
+        iconLoaded && 'exclusion--icon-loaded',
     );
 
     const checkIconName = getCheckIconName(exclusion.state);
@@ -83,6 +87,7 @@ export const RootListItem = observer(({ exclusion }: RootListItemProps) => {
 
     const handleForwardClick = () => {
         if (!hasChildren) {
+            handleClick();
             return;
         }
 
@@ -103,32 +108,36 @@ export const RootListItem = observer(({ exclusion }: RootListItemProps) => {
 
     return (
         <div className={classes}>
-            <button className="root-list-item__btn" type="button" onClick={handleClick}>
-                <Icon name={checkIconName} className="root-list-item__btn-check-icon" />
-                {iconUrl && (
-                    <img
-                        src={iconUrl}
-                        alt={exclusion.hostname}
-                        onLoad={handleIconLoaded}
-                        className="root-list-item__btn-icon"
-                    />
+            <button className="exclusion__check" type="button" onClick={handleClick}>
+                <Icon name={checkIconName} className="exclusion__check-icon" />
+            </button>
+            <button className="exclusion__btn" type="button" onClick={handleForwardClick}>
+                {hasIcon && (
+                    <>
+                        {iconUrl && (
+                            <img
+                                src={iconUrl}
+                                alt={exclusion.hostname}
+                                onLoad={handleIconLoaded}
+                                className="exclusion__btn-icon"
+                            />
+                        )}
+                        <Icon name="globe" className="exclusion__btn-globe-icon" />
+                    </>
                 )}
-                <Icon name="globe" className="root-list-item__btn-globe-icon" />
-                <span className="root-list-item__btn-title">
+                <span className="exclusion__btn-title">
                     <SearchHighlighter
                         value={exclusion.hostname}
                         search={exclusionsStore.exclusionsSearchValue}
                     />
                 </span>
+                {hasChildren && (
+                    <Icon name="arrow-down" className="exclusion__btn-forward-icon" />
+                )}
             </button>
-            <button className="root-list-item__delete" type="button" onClick={handleDeleteClick}>
-                <Icon name="basket" className="root-list-item__delete-icon" />
+            <button className="exclusion__delete" type="button" onClick={handleDeleteClick}>
+                <Icon name="basket" className="exclusion__delete-icon" />
             </button>
-            {hasChildren && (
-                <button className="root-list-item__forward" type="button" onClick={handleForwardClick}>
-                    <Icon name="arrow-down" className="root-list-item__forward-icon" />
-                </button>
-            )}
         </div>
     );
 });
