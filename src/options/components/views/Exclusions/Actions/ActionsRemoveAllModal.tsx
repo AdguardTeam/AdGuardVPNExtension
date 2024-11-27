@@ -20,7 +20,7 @@ export const ActionsRemoveAllModal = observer(() => {
             reactTranslator.getMessage('options_exclusions_remove_all_success'),
             {
                 action: reactTranslator.getMessage('settings_exclusions_undo'),
-                handler: exclusionsStore.restoreExclusions,
+                handler: () => exclusionsStore.restoreExclusions(),
             },
         );
     };
@@ -30,7 +30,6 @@ export const ActionsRemoveAllModal = observer(() => {
         <Modal
             title={reactTranslator.getMessage('settings_exclusions_remove_all_exclusions')}
             description="Do you want to remove the entire list of exclusions?"
-            descriptionClassName="exclusions__modal-description"
             open={exclusionsStore.removeAllModalOpen}
             variant="thin"
             onClose={handleCloseModal}

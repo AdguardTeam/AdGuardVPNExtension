@@ -4,8 +4,8 @@ import { Controls } from '../../ui/Controls';
 import { Icon } from '../../ui/Icon';
 
 export interface SupportItemProps {
-    title: string | React.ReactNode;
-    description: string | React.ReactNode;
+    title: React.ReactNode;
+    description: React.ReactNode;
     icon: string;
     onClick: () => void;
 }

@@ -104,7 +104,7 @@ export const Actions = observer(() => {
                     ),
                     {
                         action: reactTranslator.getMessage('settings_exclusions_undo'),
-                        handler: exclusionsStore.restoreExclusions,
+                        handler: () => exclusionsStore.restoreExclusions(),
                     },
                 );
                 await exclusionsStore.updateExclusionsData();
@@ -125,7 +125,7 @@ export const Actions = observer(() => {
             ),
             {
                 action: reactTranslator.getMessage('settings_exclusions_undo'),
-                handler: exclusionsStore.restoreExclusions,
+                handler: () => exclusionsStore.restoreExclusions(),
             },
         );
         await exclusionsStore.updateExclusionsData();
@@ -141,7 +141,7 @@ export const Actions = observer(() => {
             ),
             {
                 action: reactTranslator.getMessage('settings_exclusions_undo'),
-                handler: exclusionsStore.restoreExclusions,
+                handler: () => exclusionsStore.restoreExclusions(),
             },
         );
         await exclusionsStore.updateExclusionsData();

@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { rootStore } from '../../../../stores';
+import { type AddExclusionMode } from '../../../../stores/ExclusionsStore';
 import { Button } from '../../../ui/Button';
 
 import { AddExclusionModal } from './AddExclusionModal';
@@ -25,6 +26,22 @@ export const AddExclusion = observer(() => {
         servicesToToggle,
     } = exclusionsStore;
 
+    const handleOpenModal = () => {
+        exclusionsStore.openAddExclusionModal();
+    };
+
+    const handleCloseModal = () => {
+        exclusionsStore.closeAddExclusionModal();
+    };
+
+    const handleModeChange = (mode: AddExclusionMode) => {
+        exclusionsStore.setAddExclusionMode(mode);
+    };
+
+    const handleSearchChange = (value: string) => {
+        exclusionsStore.setServicesSearchValue(value);
+    };
+
     const handleServiceAdd = async () => {
         const toggleServicesResult = await exclusionsStore.toggleServices();
         const { added, deleted } = toggleServicesResult;
@@ -41,7 +58,7 @@ export const AddExclusion = observer(() => {
             `${addedExclusionsMessage} ${deletedExclusionsMessage}`,
             {
                 action: reactTranslator.getMessage('settings_exclusions_undo'),
-                handler: exclusionsStore.restoreExclusions,
+                handler: () => exclusionsStore.restoreExclusions(),
             },
         );
 
@@ -66,7 +83,7 @@ export const AddExclusion = observer(() => {
                 ),
                 {
                     action: reactTranslator.getMessage('settings_exclusions_undo'),
-                    handler: exclusionsStore.restoreExclusions,
+                    handler: () => exclusionsStore.restoreExclusions(),
                 },
             );
         } else {
@@ -90,7 +107,7 @@ export const AddExclusion = observer(() => {
                 ),
                 {
                     action: reactTranslator.getMessage('settings_exclusions_undo'),
-                    handler: exclusionsStore.restoreExclusions,
+                    handler: () => exclusionsStore.restoreExclusions(),
                 },
             );
         }
@@ -99,7 +116,7 @@ export const AddExclusion = observer(() => {
 
     return (
         <>
-            <Button variant="ghost" beforeIconName="plus" onClick={exclusionsStore.openAddExclusionModal}>
+            <Button variant="ghost" beforeIconName="plus" onClick={handleOpenModal}>
                 {reactTranslator.getMessage('settings_exclusion_add_website')}
             </Button>
             <AddExclusionModal
@@ -111,8 +128,8 @@ export const AddExclusion = observer(() => {
                         searchEmpty={isServicesSearchEmpty}
                         categories={filteredServicesData}
                         selectedSize={servicesToToggle.length}
-                        onSearchChange={exclusionsStore.setServicesSearchValue}
-                        onClose={exclusionsStore.closeAddExclusionModal}
+                        onSearchChange={handleSearchChange}
+                        onClose={handleCloseModal}
                         onSubmit={handleServiceAdd}
                         onCategoryClick={handleCategoryClick}
                         onServiceClick={handleServiceClick}
@@ -120,12 +137,12 @@ export const AddExclusion = observer(() => {
                 )}
                 manual={(
                     <ManualMode
-                        onClose={exclusionsStore.closeAddExclusionModal}
+                        onClose={handleCloseModal}
                         onSubmit={handleManualAdd}
                     />
                 )}
-                onClose={exclusionsStore.closeAddExclusionModal}
-                onModeChange={exclusionsStore.setAddExclusionMode}
+                onClose={handleCloseModal}
+                onModeChange={handleModeChange}
             />
             <AddExclusionConfirmModal
                 open={confirmAddModalOpen}

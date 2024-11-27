@@ -16,8 +16,6 @@ export const DnsSettingsServerModalAdd = observer(() => {
         isCustomDnsModalOpen,
         customDnsServers,
         dnsServerToEdit,
-        addCustomDnsServer,
-        removeCustomDnsServer,
     } = settingsStore;
 
     const adguardKnownDnsKbUrl = getForwarderUrl(
@@ -32,12 +30,12 @@ export const DnsSettingsServerModalAdd = observer(() => {
             return dnsServerAddressError;
         }
         const normalizedDnsServerAddress = normalizeDnsServerAddress(dnsServerAddress);
-        const dnsServer = await addCustomDnsServer(dnsServerName, normalizedDnsServerAddress);
+        const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, normalizedDnsServerAddress);
         notificationsStore.notifySuccess(
             reactTranslator.getMessage('settings_dns_add_custom_server_notification_success'),
             {
                 action: reactTranslator.getMessage('settings_exclusions_undo'),
-                handler: () => removeCustomDnsServer(dnsServer.id),
+                handler: () => settingsStore.removeCustomDnsServer(dnsServer.id),
             },
         );
         return null;

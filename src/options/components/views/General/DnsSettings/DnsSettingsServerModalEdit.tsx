@@ -13,7 +13,6 @@ export const DnsSettingsServerModalEdit = observer(() => {
         isCustomDnsModalOpen,
         customDnsServers,
         dnsServerToEdit,
-        editCustomDnsServer,
     } = settingsStore;
 
     const handleSubmit = async (dnsServerName: string, dnsServerAddress: string) => {
@@ -39,13 +38,13 @@ export const DnsSettingsServerModalEdit = observer(() => {
             return null;
         }
         const normalizedDnsServerAddress = normalizeDnsServerAddress(dnsServerAddress);
-        await editCustomDnsServer(id, dnsServerName, normalizedDnsServerAddress);
+        await settingsStore.editCustomDnsServer(id, dnsServerName, normalizedDnsServerAddress);
         notificationsStore.notifySuccess(
             // FIXME: Translation
             'Custom DNS server edited',
             {
                 action: reactTranslator.getMessage('settings_exclusions_undo'),
-                handler: () => editCustomDnsServer(id, oldDnsServerName, oldDnsServerAddress),
+                handler: () => settingsStore.editCustomDnsServer(id, oldDnsServerName, oldDnsServerAddress),
             },
         );
 

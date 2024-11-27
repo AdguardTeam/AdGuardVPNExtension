@@ -114,7 +114,9 @@ export function BugReporterForm({
                     onChange={setIncludeLog}
                 />
                 {error && (
-                    <div className="bug-reporter__form-error">{error}</div>
+                    <div className="bug-reporter__form-error">
+                        {error}
+                    </div>
                 )}
                 <Button
                     type="submit"

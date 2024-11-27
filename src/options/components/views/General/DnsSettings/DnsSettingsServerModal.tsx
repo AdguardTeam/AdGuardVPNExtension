@@ -27,21 +27,23 @@ export const DnsSettingsServerModal = observer(({
     const {
         dnsServerName,
         dnsServerAddress,
-        setDnsServerName,
-        setDnsServerAddress,
     } = settingsStore;
 
     const [dnsServerAddressError, setDnsServerAddressError] = useState<string | null>(null);
 
     const handleCloseModal = () => {
-        setDnsServerName('');
-        setDnsServerAddress('');
+        settingsStore.setDnsServerName('');
+        settingsStore.setDnsServerAddress('');
         setDnsServerAddressError(null);
         settingsStore.closeCustomDnsModal();
     };
 
+    const handeleDnsServerNameChange = (value: string) => {
+        settingsStore.setDnsServerName(value);
+    };
+
     const handleDnsServerAddressChange = (value: string) => {
-        setDnsServerAddress(value);
+        settingsStore.setDnsServerAddress(value);
         if (dnsServerAddressError) {
             setDnsServerAddressError(null);
         }
@@ -78,7 +80,7 @@ export const DnsSettingsServerModal = observer(({
                     label={reactTranslator.getMessage('settings_dns_add_custom_server_name')}
                     placeholder="My DNS server"
                     value={dnsServerName}
-                    onChange={setDnsServerName}
+                    onChange={handeleDnsServerNameChange}
                     required
                 />
                 <Input

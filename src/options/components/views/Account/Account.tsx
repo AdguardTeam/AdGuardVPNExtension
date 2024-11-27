@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { rootStore } from '../../../stores';
+import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import { translator } from '../../../../common/translator';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { SubscriptionType } from '../../../../common/constants';
 import { getForwarderUrl } from '../../../../common/helpers';
-import { FORWARDER_URL_QUERIES } from '../../../../background/config';
+import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { Button } from '../../ui/Button';
 
@@ -21,27 +21,24 @@ export const Account = observer(() => {
         currentUsername,
         isPremiumToken,
         premiumFeatures,
-        hidePremiumFeatures,
-        openPremiumPromoPage,
         subscriptionType,
         subscriptionTimeExpiresIso,
         forwarderDomain,
     } = settingsStore;
-
     const { maxDevicesCount } = authStore;
 
     const editAccountUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.EDIT_ACCOUNT);
 
-    const signOut = async (): Promise<void> => {
+    const handleSignOut = async (): Promise<void> => {
         await authStore.deauthenticate();
     };
 
-    const hideFeatures = async (): Promise<void> => {
-        await hidePremiumFeatures();
+    const handleHideFeatures = async (): Promise<void> => {
+        await settingsStore.hidePremiumFeatures();
     };
 
-    const upgrade = async (): Promise<void> => {
-        await openPremiumPromoPage();
+    const handleUpgrade = async (): Promise<void> => {
+        await settingsStore.openPremiumPromoPage();
     };
 
     let expiresDate;
@@ -129,7 +126,7 @@ export const Account = observer(() => {
                     variant="outline"
                     color="red"
                     className="account__action"
-                    onClick={signOut}
+                    onClick={handleSignOut}
                 >
                     {translator.getMessage('account_sign_out')}
                 </Button>
@@ -138,10 +135,10 @@ export const Account = observer(() => {
                 <div className="account__features">
                     <AccountFeatures />
                     <div className="account__actions">
-                        <Button className="account__action" onClick={upgrade}>
+                        <Button className="account__action" onClick={handleUpgrade}>
                             {translator.getMessage('account_get_subscription')}
                         </Button>
-                        <Button className="account__action" variant="outline" onClick={hideFeatures}>
+                        <Button className="account__action" variant="outline" onClick={handleHideFeatures}>
                             {translator.getMessage('rate_hide')}
                         </Button>
                     </div>

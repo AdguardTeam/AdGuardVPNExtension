@@ -2,11 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../../stores/consts';
 import { DotsLoader } from '../../../../common/components/DotsLoader';
+import { rootStore } from '../../../stores';
+import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../../stores/consts';
 import { Title } from '../../ui/Title';
 
 import { FreeGbsButton } from './FreeGbsButton';
@@ -60,7 +60,7 @@ export const FreeGbs = observer(() => {
 
     const query = new URLSearchParams(search);
 
-    const goBackHandler = () => {
+    const handleGoBackClick = () => {
         history.push(`/${FREE_GBS}`);
     };
 
@@ -79,15 +79,15 @@ export const FreeGbs = observer(() => {
     }
 
     if (query.has(INVITE_FRIEND)) {
-        return <InviteFriend onBackClick={goBackHandler} />;
+        return <InviteFriend onBackClick={handleGoBackClick} />;
     }
 
     if (query.has(CONFIRM_EMAIL)) {
-        return <ConfirmEmail onBackClick={goBackHandler} />;
+        return <ConfirmEmail onBackClick={handleGoBackClick} />;
     }
 
     if (query.has(ADD_DEVICE)) {
-        return <AddDevice onBackClick={goBackHandler} />;
+        return <AddDevice onBackClick={handleGoBackClick} />;
     }
 
     return (

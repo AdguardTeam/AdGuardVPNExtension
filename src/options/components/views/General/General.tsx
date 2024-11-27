@@ -11,8 +11,6 @@ import { HelpUsImprove } from './HelpUsImprove';
 import { WebRTC } from './WebRTC';
 import { DnsSettingsButton, DnsSettings } from './DnsSettings';
 
-import './DnsSettings/dns-settings.pcss';
-
 export const General = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const { showDnsSettings } = settingsStore;

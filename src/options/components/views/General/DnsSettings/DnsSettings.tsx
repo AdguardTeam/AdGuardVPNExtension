@@ -1,16 +1,18 @@
 import { observer } from 'mobx-react';
 import React, { useContext } from 'react';
 
-import { rootStore } from '../../../../stores';
-import { reactTranslator } from '../../../../../common/reactTranslator';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../../../../background/dns/dnsConstants';
 import { type DnsServerData } from '../../../../../background/schema';
+import { reactTranslator } from '../../../../../common/reactTranslator';
+import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { Button } from '../../../ui/Button';
 
 import { DnsSettingsServer } from './DnsSettingsServer';
 import { DnsSettingsServerModalAdd } from './DnsSettingsServerModalAdd';
 import { DnsSettingsServerModalEdit } from './DnsSettingsServerModalEdit';
+
+import './dns-settings.pcss';
 
 export const DnsSettings = observer(() => {
     const { settingsStore, notificationsStore } = useContext(rootStore);

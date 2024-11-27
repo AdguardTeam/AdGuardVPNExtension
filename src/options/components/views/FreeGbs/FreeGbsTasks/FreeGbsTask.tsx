@@ -14,8 +14,8 @@ export interface BaseProps {
 
 export interface FreeGbsTaskProps extends PropsWithChildren, BaseProps {
     imageName: string;
-    title: string | React.ReactNode;
-    description: string | React.ReactNode;
+    title: React.ReactNode;
+    description: React.ReactNode;
     contentClassName?: string;
     completed?: boolean;
 }
@@ -29,6 +29,8 @@ export function FreeGbsTask({
     completed,
     onBackClick,
 }: FreeGbsTaskProps) {
+    const classes = classNames('free-gbs-task__content', contentClassName);
+
     return (
         <div className="free-gbs-task">
             <img
@@ -40,7 +42,7 @@ export function FreeGbsTask({
                 title={title}
                 description={description}
             />
-            <div className={classNames('free-gbs-task__content', contentClassName)}>
+            <div className={classes}>
                 {!completed ? children : (
                     <Button
                         variant="outline"

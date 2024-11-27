@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { rootStore } from '../../../stores';
+import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import { getForwarderUrl } from '../../../../common/helpers';
 import { messenger } from '../../../../common/messenger';
-import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import { translator } from '../../../../common/translator';
+import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 
 import { SupportItem } from './SupportItem';
@@ -15,7 +15,7 @@ import './support.pcss';
 
 export const Support = observer(() => {
     const { settingsStore } = useContext(rootStore);
-    const { forwarderDomain, setShowBugReporter, showBugReporter } = settingsStore;
+    const { forwarderDomain, showBugReporter } = settingsStore;
 
     const faqUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FAQ);
     const handleClickFaq = async () => {
@@ -23,7 +23,7 @@ export const Support = observer(() => {
     };
 
     const handleReportClick = (): void => {
-        setShowBugReporter(true);
+        settingsStore.setShowBugReporter(true);
     };
 
     const feedbackUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK);

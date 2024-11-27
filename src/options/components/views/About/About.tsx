@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { reactTranslator } from '../../../../common/reactTranslator';
-import { rootStore } from '../../../stores';
-import { getForwarderUrl } from '../../../../common/helpers';
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
+import { reactTranslator } from '../../../../common/reactTranslator';
+import { getForwarderUrl } from '../../../../common/helpers';
+import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { Button } from '../../ui/Button';
 
@@ -12,7 +12,6 @@ import './about.pcss';
 
 export const About = observer(() => {
     const { settingsStore } = useContext(rootStore);
-
     const { forwarderDomain } = settingsStore;
 
     const websiteUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.WEBSITE);

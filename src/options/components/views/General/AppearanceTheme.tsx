@@ -2,8 +2,8 @@ import { observer } from 'mobx-react';
 import React, { useContext } from 'react';
 
 import { AppearanceTheme as AppearanceThemeEnum } from '../../../../common/constants';
-import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { rootStore } from '../../../stores';
 import { ControlsSelect } from '../../ui/Controls';
 
 export const AppearanceTheme = observer(() => {

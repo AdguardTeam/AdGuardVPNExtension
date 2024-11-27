@@ -11,8 +11,8 @@ import { type BaseProps, FreeGbsTask } from './FreeGbsTask';
 
 export const InviteFriend = observer(({ onBackClick }: BaseProps) => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
-
     const { invitesCount, maxInvitesCount, inviteUrl } = settingsStore.invitesBonuses;
+
     const isCompleted = invitesCount >= maxInvitesCount;
 
     const description = isCompleted
@@ -50,13 +50,10 @@ export const InviteFriend = observer(({ onBackClick }: BaseProps) => {
                 </Button>
             </div>
             <div className="invite-friend__counter">
-                {reactTranslator.getMessage(
-                    'settings_referral_invited_friends',
-                    {
-                        count: invitesCount,
-                        limit: maxInvitesCount,
-                    },
-                )}
+                {reactTranslator.getMessage('settings_referral_invited_friends', {
+                    count: invitesCount,
+                    limit: maxInvitesCount,
+                })}
             </div>
         </FreeGbsTask>
     );

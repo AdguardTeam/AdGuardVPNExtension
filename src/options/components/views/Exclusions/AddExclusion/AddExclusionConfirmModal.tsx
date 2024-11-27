@@ -25,7 +25,6 @@ export function AddExclusionConfirmModal({
         <Modal
             title={reactTranslator.getMessage('settings_exclusion_add_website')}
             description={reactTranslator.getMessage('settings_exclusions_add_invalid_domain', { url })}
-            descriptionClassName="exclusions__modal-description"
             open={open}
             variant="thin"
             onClose={onClose}

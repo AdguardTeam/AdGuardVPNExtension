@@ -54,12 +54,12 @@ export const BugReporter = observer(() => {
         }
     };
 
-    const resetToIdle = () => {
+    const handleChange = () => {
         setState(State.Idle);
     };
 
     if (state === State.Success) {
-        return <BugReporterSuccess onClick={resetToIdle} />;
+        return <BugReporterSuccess onClick={handleChange} />;
     }
 
     return (
@@ -69,7 +69,7 @@ export const BugReporter = observer(() => {
             error={state === State.Error ? error : null}
             onBackClick={handleGoBack}
             onSubmit={handleSubmit}
-            onChange={resetToIdle}
+            onChange={handleChange}
         />
     );
 });
