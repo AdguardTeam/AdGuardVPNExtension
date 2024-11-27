@@ -9,6 +9,8 @@ import { rootStore } from '../../../../stores';
 import { Icon } from '../../../ui/Icon';
 import { SearchHighlighter } from '../Search';
 
+import './exclusion.pcss';
+
 export interface ExclusionProps {
     exclusion: ExclusionDtoInterface;
     hasIcon?: boolean;
@@ -58,20 +60,49 @@ function getStateClassName(state: ExclusionState) {
     }
 }
 
+function getExclusionDescription(hostname: string, exclusion?: ExclusionDtoInterface | null) {
+    if (hostname === exclusion?.hostname) {
+        return reactTranslator.getMessage('settings_exclusion_status_domain');
+    }
+    if (hostname.startsWith('*')) {
+        return reactTranslator.getMessage('settings_exclusion_status_all_subdomains');
+    }
+    return reactTranslator.getMessage('settings_exclusion_status_subdomain');
+}
+
+function isUselessExclusion(hostname: string, exclusion?: ExclusionDtoInterface | null) {
+    const wildcardExclusion = `*.${exclusion?.hostname}`;
+
+    return (
+        hostname !== exclusion?.hostname
+        && !hostname.startsWith(wildcardExclusion)
+        && exclusion?.children.some((exclusion) => {
+            return exclusion.hostname.startsWith(wildcardExclusion)
+                && exclusion.state === ExclusionState.Enabled;
+        })
+    );
+}
+
 export const Exclusion = observer(({
     exclusion,
     hasIcon = false,
 }: ExclusionProps) => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
+    const { selectedExclusion } = exclusionsStore;
 
     const [iconLoaded, setIconLoaded] = useState(false);
 
     const hasChildren = exclusion.children.length !== 0;
+    const isGroupExclusion = selectedExclusion?.type === ExclusionsType.Group;
+    const description = getExclusionDescription(exclusion.hostname, selectedExclusion);
+    const isUseless = isUselessExclusion(exclusion.hostname, selectedExclusion);
 
     const classes = classNames(
         'exclusion',
         getStateClassName(exclusion.state),
         iconLoaded && 'exclusion--icon-loaded',
+        isGroupExclusion && 'exclusion--group',
+        isUseless && 'exclusion--useless',
     );
 
     const checkIconName = getCheckIconName(exclusion.state);
@@ -108,36 +139,45 @@ export const Exclusion = observer(({
 
     return (
         <div className={classes}>
-            <button className="exclusion__check" type="button" onClick={handleClick}>
-                <Icon name={checkIconName} className="exclusion__check-icon" />
-            </button>
-            <button className="exclusion__btn" type="button" onClick={handleForwardClick}>
-                {hasIcon && (
-                    <>
-                        {iconUrl && (
-                            <img
-                                src={iconUrl}
-                                alt={exclusion.hostname}
-                                onLoad={handleIconLoaded}
-                                className="exclusion__btn-icon"
-                            />
+            <div className="exclusion__wrapper">
+                <button className="exclusion__check" type="button" onClick={handleClick}>
+                    <Icon name={checkIconName} className="exclusion__check-icon" />
+                </button>
+                <button className="exclusion__btn" type="button" onClick={handleForwardClick}>
+                    <span className="exclusion__btn-content">
+                        {hasIcon && (
+                            <>
+                                {iconUrl && (
+                                    <img
+                                        src={iconUrl}
+                                        alt={exclusion.hostname}
+                                        onLoad={handleIconLoaded}
+                                        className="exclusion__btn-icon"
+                                    />
+                                )}
+                                <Icon name="globe" className="exclusion__btn-globe-icon" />
+                            </>
                         )}
-                        <Icon name="globe" className="exclusion__btn-globe-icon" />
-                    </>
-                )}
-                <span className="exclusion__btn-title">
-                    <SearchHighlighter
-                        value={exclusion.hostname}
-                        search={exclusionsStore.exclusionsSearchValue}
-                    />
-                </span>
-                {hasChildren && (
-                    <Icon name="arrow-down" className="exclusion__btn-forward-icon" />
-                )}
-            </button>
-            <button className="exclusion__delete" type="button" onClick={handleDeleteClick}>
-                <Icon name="basket" className="exclusion__delete-icon" />
-            </button>
+                        <span className="exclusion__btn-title">
+                            <SearchHighlighter
+                                value={exclusion.hostname}
+                                search={exclusionsStore.exclusionsSearchValue}
+                            />
+                        </span>
+                        {hasChildren && (
+                            <Icon name="arrow-down" className="exclusion__btn-forward-icon" />
+                        )}
+                    </span>
+                    {isGroupExclusion && description && (
+                        <span className="exclusion__btn-description">
+                            {description}
+                        </span>
+                    )}
+                </button>
+                <button className="exclusion__delete" type="button" onClick={handleDeleteClick}>
+                    <Icon name="basket" className="exclusion__delete-icon" />
+                </button>
+            </div>
         </div>
     );
 });

@@ -1,25 +1,47 @@
 .exclusion {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    transition: var(--t3) background-color;
-    border-radius: 8px;
+    &--group {
+        padding-left: 40px;
 
-    &:hover,
-    &:active {
-        background-color: var(--fills-backgrounds-page-background-hovered);
+        &:first-child {
+            padding-left: 0;
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        background-color: transparent;
+        transition: var(--t3) background-color;
+        border-radius: 8px;
+
+        &:hover,
+        &:active {
+            background-color: var(--fills-backgrounds-page-background-hovered);
+        }
     }
 
     &__btn {
         flex: 1 1 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        column-gap: 16px;
+        display: block;
         text-align: left;
         padding: 16px 0;
         overflow: hidden;
+
+        &-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 16px;
+            overflow: hidden;
+        }
+
+        &-description {
+            display: block;
+            color: var(--text-description-description-default);
+            font-size: 14px;
+            line-height: 1.5;
+        }
 
         &-globe-icon,
         &-forward-icon {
@@ -68,6 +90,9 @@
 
     &__check,
     &__delete {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
         flex-shrink: 0;
         padding: 16px;
         border-radius: 8px;
