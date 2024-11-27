@@ -9,6 +9,8 @@ import { Title } from '../../../ui/Title';
 import { Button } from '../../../ui/Button';
 import { Exclusion } from '../Exclusion';
 
+import { ResetServiceModal } from './ResetServiceModal';
+
 export const ChildrenList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
     const { selectedExclusion } = exclusionsStore;
@@ -35,6 +37,19 @@ export const ChildrenList = observer(() => {
 
     const handleOpenResetServiceModal = () => {
         exclusionsStore.setResetServiceModalOpen(true);
+    };
+
+    const handleCloseResetServiceModal = () => {
+        exclusionsStore.setResetServiceModalOpen(false);
+    };
+
+    const handleConfirmResetServiceModal = async () => {
+        if (!selectedExclusion) {
+            return;
+        }
+
+        await exclusionsStore.resetServiceData(selectedExclusion.id);
+        handleCloseResetServiceModal();
     };
 
     const handleOpenAddSubdomainModal = () => {
@@ -74,6 +89,12 @@ export const ChildrenList = observer(() => {
                     {reactTranslator.getMessage('settings_exclusion_reset_to_default')}
                 </Button>
             )}
+            <ResetServiceModal
+                open={exclusionsStore.resetServiceModalOpen}
+                hostname={selectedExclusion.hostname}
+                onClose={handleCloseResetServiceModal}
+                onConfirm={handleConfirmResetServiceModal}
+            />
         </>
     );
 });
