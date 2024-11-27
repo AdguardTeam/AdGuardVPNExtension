@@ -6,6 +6,7 @@ import { Title } from '../../ui/Title';
 
 import { Actions } from './Actions';
 import { ModeSelector } from './ModeSelector';
+import { Search } from './Search';
 import { AddExclusion } from './AddExclusion';
 
 import './exclusions.pcss';
@@ -17,12 +18,10 @@ export const Exclusions = observer(() => {
                 title={reactTranslator.getMessage('settings_exclusion_title')}
                 action={<Actions />}
                 description={(
-                    <div className="exclusions__description">
+                    <>
                         <ModeSelector />
-                        <div className="exclusions__description-search">
-                            Search
-                        </div>
-                    </div>
+                        <Search />
+                    </>
                 )}
             />
             <AddExclusion />
