@@ -1,6 +1,4 @@
-import {
-    canAddService,
-} from '../../../../../../../src/options/components/Exclusions/ExclusionsModal/AddExclusionsModal/ServiceMode/ServiceRow';
+import { canAddService } from '../../../../../../../src/options/stores/ExclusionsStore';
 import { ExclusionState, type ServiceDto } from '../../../../../../../src/common/exclusionsConstants';
 
 const generateService = (props: Partial<ServiceDto>): ServiceDto => {

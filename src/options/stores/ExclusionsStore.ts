@@ -79,6 +79,21 @@ const findExclusionById = (
     return null;
 };
 
+/**
+ * Returns true if service can be added, and returns false if service can be removed
+ * @param service
+ * @param servicesToToggle
+ */
+export const canAddService = (service: ServiceDto, servicesToToggle: string[]) => {
+    const isInToggle = servicesToToggle.some((serviceId) => serviceId === service.serviceId);
+
+    if (isInToggle) {
+        return service.state !== ExclusionState.Disabled;
+    }
+
+    return service.state === ExclusionState.Disabled;
+};
+
 const convertExclusionsValuesToUnicode = (exclusionsTree: ExclusionDtoInterface) => {
     const unicodeTree = { ...exclusionsTree };
     unicodeTree.hostname = punycode.toUnicode(unicodeTree.hostname);
@@ -286,18 +301,10 @@ export class ExclusionsStore {
                 const servicesArr: ComputedService[] = category.services
                     .map((serviceId) => {
                         const service = services[serviceId];
-                        const isInToggle = this.servicesToToggle.some((id) => id === serviceId);
-
-                        let canAddService: boolean;
-                        if (isInToggle) {
-                            canAddService = service.state !== ExclusionState.Disabled;
-                        } else {
-                            canAddService = service.state === ExclusionState.Disabled;
-                        }
 
                         return {
                             ...service,
-                            active: !canAddService,
+                            active: !canAddService(service, this.servicesToToggle),
                         };
                     })
                     .filter((service) => {
