@@ -81,9 +81,9 @@ export const App = observer(() => {
         })();
     }, []);
 
-    // show preloader while data is loading
+    // show nothing while data is loading
     if (status === RequestStatus.Pending) {
-        return <Preloader />;
+        return null;
     }
 
     const { authenticated, requestProcessState } = authStore;
