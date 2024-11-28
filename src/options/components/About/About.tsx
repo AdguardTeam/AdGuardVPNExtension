@@ -24,7 +24,7 @@ export const About = observer(() => {
     const copyRightText = `© 2009-${currentYear} AdGuard Software Ltd.`;
 
     const handleCheckUpdates = () => {
-        // FIXME: Add functionality
+        // FIXME: Implement
     };
 
     return (
@@ -43,7 +43,8 @@ export const About = observer(() => {
                 className="about__update-btn"
                 onClick={handleCheckUpdates}
             >
-                {reactTranslator.getMessage('check_for_updates')}
+                {/* FIXME: Add translation if button is needed */}
+                Check for updates
             </Button>
             <div className="about__copyright">
                 <div className="about__copyright-item">
