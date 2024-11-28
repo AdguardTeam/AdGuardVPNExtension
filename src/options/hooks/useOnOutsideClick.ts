@@ -2,8 +2,6 @@ import type { RefObject } from 'react';
 
 import { useEventListener } from './useEventListener';
 
-// FIXME: Add jsdoc
-
 type EventType =
   | 'mousedown'
   | 'mouseup'
@@ -12,6 +10,14 @@ type EventType =
   | 'focusin'
   | 'focusout';
 
+/**
+ * Event which fired whenever click happens outside of element boundaries.
+ *
+ * @param ref Element to which attach listener.
+ * @param handler Handler callback.
+ * @param eventType Event type on which to fire.
+ * @param eventListenerOptions Listener options.
+ */
 export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
     ref: RefObject<T> | RefObject<T>[],
     handler: (event: MouseEvent | TouchEvent | FocusEvent) => void,

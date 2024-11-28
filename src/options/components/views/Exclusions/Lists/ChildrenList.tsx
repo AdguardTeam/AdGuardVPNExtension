@@ -73,7 +73,6 @@ export const ChildrenList = observer(() => {
         });
     };
 
-    // FIXME: Add loader
     return (
         <>
             <Title

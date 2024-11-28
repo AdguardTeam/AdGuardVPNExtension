@@ -1,7 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import type { RefObject } from 'react';
-
-import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 
 // MediaQueryList Event based useEventListener interface
 function useEventListener<K extends keyof MediaQueryListEventMap>(
@@ -42,8 +40,14 @@ function useEventListener<K extends keyof DocumentEventMap>(
     options?: boolean | AddEventListenerOptions,
 ): void;
 
-// FIXME: Add jsdoc
-
+/**
+ * Attaches event listener to element or window.
+ *
+ * @param eventName Name of event.
+ * @param handler Handler callback.
+ * @param element Element to which attach listener, attached to window if not specified.
+ * @param options Listener options.
+ */
 function useEventListener<
     KW extends keyof WindowEventMap,
     KH extends keyof HTMLElementEventMap & keyof SVGElementEventMap,
@@ -65,7 +69,7 @@ function useEventListener<
     // Create a ref that stores handler
     const savedHandler = useRef(handler);
 
-    useIsomorphicLayoutEffect(() => {
+    useLayoutEffect(() => {
         savedHandler.current = handler;
     }, [handler]);
 

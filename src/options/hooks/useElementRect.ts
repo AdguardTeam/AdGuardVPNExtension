@@ -1,7 +1,5 @@
 import { type RefObject, useEffect, useState } from 'react';
 
-// FIXME: Add jsdoc and refactor
-
 export interface ElementRect {
     width: number;
     height: number;
@@ -9,6 +7,16 @@ export interface ElementRect {
     y: number;
 }
 
+/**
+ * Measures sizes of element dynamically and attaches
+ * css variables to element itself (or body)
+ * about sizes of element.
+ *
+ * @param ref Reference to element.
+ * @param key Prefix for css variable.
+ * @param attachOnBody If true attaches css var to body, otherwise to element itself.
+ * @returns Size and coordinates of element.
+ */
 export function useElementRect(
     ref: RefObject<HTMLElement>,
     key?: string,
