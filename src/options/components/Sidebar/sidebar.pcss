@@ -46,6 +46,19 @@
         &-btn {
             padding: 12px 8px;
         }
+
+        &-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            pointer-events: none;
+            opacity: 0;
+
+            &:focus {
+                pointer-events: auto;
+                opacity: 1;
+            }
+        }
     }
 
     &__content {
@@ -90,6 +103,7 @@
         width: 100%;
         overflow-y: auto;
         scrollbar-width: thin;
+        padding-top: 2px;
 
         &-link {
             position: relative;
@@ -106,6 +120,10 @@
             font-weight: 400;
             transition: var(--t3) background-color;
             cursor: pointer;
+
+            & + & {
+                margin-top: 2px;
+            }
 
             &:hover,
             &:active {

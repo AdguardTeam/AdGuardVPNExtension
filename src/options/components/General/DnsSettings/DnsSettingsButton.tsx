@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { Controls } from '../../ui/Controls';
-import { Icon } from '../../ui/Icon';
+import { IconButton } from '../../ui/Icon';
 
 export const DnsSettingsButton = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -29,7 +29,7 @@ export const DnsSettingsButton = observer(() => {
                     {currentDnsServerName}
                 </>
             )}
-            action={<Icon name="arrow-down" className="dns-settings__btn-icon" />}
+            action={<IconButton name="arrow-down" className="dns-settings__btn-icon" />}
             onClick={handleClick}
         />
     );

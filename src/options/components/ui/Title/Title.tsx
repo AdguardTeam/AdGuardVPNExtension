@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { Icon } from '../Icon';
+import { IconButton } from '../Icon';
 
 import './title.pcss';
 
@@ -42,7 +42,12 @@ export function Title({
         >
             <div className="title__text">
                 <div className="title__text-start">
-                    {isBackTitle && <Icon name="arrow-down" className="title__text-start-icon" />}
+                    {isBackTitle && (
+                        <IconButton
+                            name="arrow-down"
+                            className="title__text-start-icon"
+                        />
+                    )}
                     {title}
                 </div>
                 {action && (

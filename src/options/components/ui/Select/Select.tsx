@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import { Icon } from '../Icon';
 import { useOnClickOutside } from '../../../hooks/useOnOutsideClick';
+import { useFocusTrap } from '../../../hooks/useFocusTrap';
 
 import './select.pcss';
 
@@ -11,6 +12,7 @@ interface SelectOptionItem<T> {
     value: T;
     title: React.ReactNode;
     skip?: boolean;
+    open?: boolean;
 }
 
 interface SelectOptionProps<T> extends SelectOptionItem<T> {
@@ -23,6 +25,7 @@ function SelectOption<T extends string>({
     title,
     active,
     skip,
+    open,
     onClick,
 }: SelectOptionProps<T>) {
     const classes = classNames('select__item', active && 'select__item--active');
@@ -40,6 +43,7 @@ function SelectOption<T extends string>({
             className={classes}
             type="button"
             onClick={handleClick}
+            tabIndex={!open ? -1 : undefined}
         >
             {title}
             <Icon name="tick" className="select__item-icon" />
@@ -97,6 +101,7 @@ export function Select<T extends string>({
     };
 
     useOnClickOutside(ref, handleClose);
+    useFocusTrap(ref, active);
 
     return (
         <div ref={ref} className={classes}>
@@ -116,6 +121,7 @@ export function Select<T extends string>({
                         title={option.title}
                         active={option.value === value}
                         skip={option.skip}
+                        open={active}
                         onClick={handleChange}
                     />
                 ))}

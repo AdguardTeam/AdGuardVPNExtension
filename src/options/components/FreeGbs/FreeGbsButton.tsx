@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Controls } from '../ui/Controls';
-import { Icon } from '../ui/Icon';
+import { Icon, IconButton } from '../ui/Icon';
 
 export interface FreeGbsButtonProps {
     title: React.ReactNode;
@@ -37,7 +37,7 @@ export function FreeGbsButton({
             description={completed ? doneDescription : description}
             className={classes}
             beforeAction={<Icon name="checkmark" className="free-gbs__button-check-icon" />}
-            action={<Icon name="arrow-down" className="free-gbs__button-arrow-icon" />}
+            action={<IconButton name="arrow-down" className="free-gbs__button-arrow-icon" />}
             onClick={handleClick}
         />
     );

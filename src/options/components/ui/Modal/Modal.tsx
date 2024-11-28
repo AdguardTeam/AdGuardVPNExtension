@@ -3,6 +3,7 @@ import React, { useEffect, useRef, type PropsWithChildren } from 'react';
 import classNames from 'classnames';
 
 import { useOnClickOutside } from '../../../hooks/useOnOutsideClick';
+import { useFocusTrap } from '../../../hooks/useFocusTrap';
 import { ReactPortal } from '../ReactPortal';
 import { IconButton } from '../Icon';
 
@@ -38,6 +39,7 @@ export function Modal({
     const classes = classNames('modal', `modal--${variant}`);
 
     useOnClickOutside(ref, onClose);
+    useFocusTrap(ref, open);
 
     useEffect(() => {
         setBodyLockedState(open);

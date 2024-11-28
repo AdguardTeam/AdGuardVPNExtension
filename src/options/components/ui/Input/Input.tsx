@@ -90,7 +90,6 @@ export function Input({
                     <IconButton
                         name="cross"
                         onClick={clearValue}
-                        tabIndex={-1}
                         className="input__clear-btn"
                     />
                 )}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Controls } from '../ui/Controls';
-import { Icon } from '../ui/Icon';
+import { Icon, IconButton } from '../ui/Icon';
 
 export interface SupportItemProps {
     title: React.ReactNode;
@@ -21,7 +21,7 @@ export function SupportItem({
             title={title}
             description={description}
             beforeAction={<Icon name={icon} className="support__icon" />}
-            action={<Icon name="arrow-down" className="support__btn-icon" />}
+            action={<IconButton name="arrow-down" className="support__btn-icon" />}
             onClick={onClick}
         />
     );
