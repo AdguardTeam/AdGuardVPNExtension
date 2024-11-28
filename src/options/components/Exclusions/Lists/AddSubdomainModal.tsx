@@ -49,12 +49,12 @@ export function AddSubdomainModal({
             title={reactTranslator.getMessage('settings_exclusion_add_subdomain')}
             open={open}
             variant="thin"
-            onClose={onClose}
+            onClose={handleClose}
         >
             <form
                 style={{ marginTop: 16 }}
                 onSubmit={handleSubmit}
-                onReset={onClose}
+                onReset={handleClose}
             >
                 <Input
                     id="subdomain"
