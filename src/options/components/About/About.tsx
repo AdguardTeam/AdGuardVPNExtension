@@ -43,16 +43,14 @@ export const About = observer(() => {
                 className="about__update-btn"
                 onClick={handleCheckUpdates}
             >
-                {/* FIXME: Translation */}
-                Check for updates
+                {reactTranslator.getMessage('check_for_updates')}
             </Button>
             <div className="about__copyright">
                 <div className="about__copyright-item">
                     {copyRightText}
                 </div>
                 <div className="about__copyright-item">
-                    {/* FIXME: Translation */}
-                    All rights reserved.
+                    {reactTranslator.getMessage('all_rights_reserved')}
                 </div>
             </div>
             <a

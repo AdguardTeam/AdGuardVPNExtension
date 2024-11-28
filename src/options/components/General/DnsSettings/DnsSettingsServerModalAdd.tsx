@@ -46,8 +46,7 @@ export const DnsSettingsServerModalAdd = observer(() => {
             title={reactTranslator.getMessage('settings_dns_add_custom_server')}
             description={(
                 <a href={adguardKnownDnsKbUrl} target="_blank" rel="noreferrer">
-                    {/* FIXME: Translation */}
-                    Known DNS Providers
+                    {reactTranslator.getMessage('settings_dns_add_known_providers')}
                 </a>
             )}
             submitBtnTitle={reactTranslator.getMessage('settings_dns_add_custom_server_save_and_select')}

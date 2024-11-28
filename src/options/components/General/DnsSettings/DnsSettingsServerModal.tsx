@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 import { Button } from '../../ui/Button';
 import { Modal } from '../../ui/Modal';
 import { Input } from '../../ui/Input';
@@ -72,13 +73,12 @@ export const DnsSettingsServerModal = observer(({
             open={open}
             onClose={handleCloseModal}
         >
-            {/* FIXME: Translation */}
             <form onSubmit={handleSubmit} onReset={handleReset} className="form">
                 <Input
                     id="dns-name"
                     name="dns-name"
                     label={reactTranslator.getMessage('settings_dns_add_custom_server_name')}
-                    placeholder="My DNS server"
+                    placeholder={translator.getMessage('settings_dns_add_custom_server_name_placeholder')}
                     value={dnsServerName}
                     onChange={handleDnsServerNameChange}
                     required
@@ -86,8 +86,8 @@ export const DnsSettingsServerModal = observer(({
                 <Input
                     id="dns-address"
                     name="dns-address"
-                    label="Server address"
-                    placeholder="IP address, sdns://, quic://, https://, h3://, or tls://"
+                    label={reactTranslator.getMessage('settings_dns_add_custom_server_address')}
+                    placeholder={translator.getMessage('settings_dns_add_custom_server_address_placeholder')}
                     value={dnsServerAddress}
                     onChange={handleDnsServerAddressChange}
                     error={dnsServerAddressError}

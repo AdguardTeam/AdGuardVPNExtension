@@ -18,9 +18,8 @@ export function BugReporterSuccess({ onClick }: BugReporterSuccessProps) {
                 className="bug-reporter__success-image"
                 alt="slide"
             />
-            {/* FIXME: Translation */}
             <div className="bug-reporter__success-title">
-                Thank you, your message sent successfully!
+                {reactTranslator.getMessage('options_bug_report_page_success')}
             </div>
             <Button className="bug-reporter__success-btn" onClick={onClick}>
                 {reactTranslator.getMessage('options_bug_report_new_report_button')}

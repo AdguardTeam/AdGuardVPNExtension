@@ -81,8 +81,7 @@ export const Sidebar = observer(() => {
                 </div>
                 <nav className="sidebar__nav" onClick={handleCloseAll}>
                     <SidebarLink to="/" canTab={canTabLink}>
-                        {/* FIXME: Translation */}
-                        General
+                        {reactTranslator.getMessage('settings_title')}
                     </SidebarLink>
                     <SidebarLink to="/exclusions" canTab={canTabLink}>
                         {reactTranslator.getMessage('settings_exclusion_title')}

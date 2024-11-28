@@ -14,19 +14,17 @@ export const DnsSettingsButton = observer(() => {
         settingsStore.setShowDnsSettings(true);
     };
 
-    // FIXME: Translation
     return (
         <Controls
             title={reactTranslator.getMessage('settings_dns_label')}
             description={(
                 <>
-                    Resolve DNS requests, block ads and trackers,
-                    and encrypt DNS traffic when you&apos;re connected to VPN
+                    {reactTranslator.getMessage('settings_dns_description')}
                     <br />
                     <br />
-                    Current:
-                    {' '}
-                    {currentDnsServerName}
+                    {reactTranslator.getMessage('settings_dns_current', {
+                        dnsServerName: currentDnsServerName,
+                    })}
                 </>
             )}
             action={<IconButton name="arrow-down" className="dns-settings__btn-icon" />}

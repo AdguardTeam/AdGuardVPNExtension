@@ -13,11 +13,10 @@ export const WebRTC = observer(() => {
         await settingsStore.setWebRTCValue(!webRTCEnabled);
     };
 
-    // FIXME: Translation
     return (
         <ControlsSwitch
             title={reactTranslator.getMessage('settings_webrtc_label')}
-            description="Block WebRTC, a known vulnerability that can leak your real IP address even if you use a proxy or VPN"
+            description={reactTranslator.getMessage('settings_webrtc_desc')}
             value={webRTCEnabled}
             onToggle={handleToggle}
         />

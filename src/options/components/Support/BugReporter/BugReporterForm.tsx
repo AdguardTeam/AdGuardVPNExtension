@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 import { Title } from '../../ui/Title';
 import { Input, TextArea } from '../../ui/Input';
 import { Checkbox } from '../../ui/Checkbox';
@@ -67,10 +68,9 @@ export function BugReporterForm({
         onSubmit(sanitizedEmail, sanitizedMessage, includeLog);
     };
 
-    // FIXME: Translation
-    let buttonText = 'Send report';
+    let buttonText = reactTranslator.getMessage('options_bug_report_send_button');
     if (isSending) {
-        buttonText = 'Sending...';
+        buttonText = reactTranslator.getMessage('options_bug_report_sending_button');
     }
 
     return (
@@ -95,21 +95,19 @@ export function BugReporterForm({
                     onChange={handleEmailChange}
                     required
                 />
-                {/* FIXME: Translation */}
                 <TextArea
                     id="message"
                     name="message"
                     label={reactTranslator.getMessage('options_bug_report_textarea_label')}
-                    placeholder="Provide details"
+                    placeholder={translator.getMessage('options_bug_report_textarea_placeholder')}
                     value={message}
                     error={messageError}
                     onChange={handleMessageChange}
                     required
                 />
-                {/* FIXME: Translation */}
                 <Checkbox
-                    title="Send detailed system info"
-                    description="Attach detailed system info on running processes, installed applications, memory, CPU, battery state, and app log."
+                    title={reactTranslator.getMessage('options_bug_report_include_log_label')}
+                    description={reactTranslator.getMessage('options_bug_report_include_log_description')}
                     value={includeLog}
                     onChange={setIncludeLog}
                 />

@@ -25,11 +25,10 @@ export const ActionsRemoveAllModal = observer(() => {
         );
     };
 
-    // FIXME: Translation
     return (
         <Modal
             title={reactTranslator.getMessage('settings_exclusions_remove_all_exclusions')}
-            description="Do you want to remove the entire list of exclusions?"
+            description={reactTranslator.getMessage('settings_exclusions_remove_all_exclusions_message')}
             open={exclusionsStore.removeAllModalOpen}
             variant="thin"
             onClose={handleCloseModal}

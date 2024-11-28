@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import { messenger } from '../../../../common/messenger';
+import { translator } from '../../../../common/translator';
 import { addMinDurationTime } from '../../../../common/helpers';
 import { rootStore } from '../../../stores';
 
@@ -39,8 +40,9 @@ export const BugReporter = observer(() => {
 
             const response = await reportWithMinDuration(email, message, includeLog);
             if (response.error) {
-                // FIXME: Translation
-                throw new Error(`An error occurred during sending report, status: ${response.status}`);
+                throw new Error(translator.getMessage('options_bug_report_page_error', {
+                    status: response.status,
+                }));
             }
 
             setState(State.Success);
@@ -49,8 +51,7 @@ export const BugReporter = observer(() => {
             if (err instanceof Error) {
                 setError(err.message);
             } else {
-                // FIXME: Translation
-                setError('Something went wrong, try again.');
+                setError(translator.getMessage('options_bug_report_page_error_unknown'));
             }
         }
     };

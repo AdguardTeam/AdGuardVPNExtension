@@ -57,6 +57,12 @@
     "about_title": {
         "message": "About"
     },
+    "check_for_updates": {
+        "message": "Check for updates"
+    },
+    "all_rights_reserved": {
+        "message": "All rights reserved."
+    },
     "options_support_title": {
         "message": "Support"
     },
@@ -85,7 +91,10 @@
         "message": "Email"
     },
     "options_bug_report_include_log_label": {
-        "message": "Include the diagnostic report in the message"
+        "message": "Send detailed system info"
+    },
+    "options_bug_report_include_log_description": {
+        "message": "Attach detailed system info on running processes, installed applications, memory, CPU, battery state, and app log."
     },
     "options_bug_report_email_invalid": {
         "message": "Incorrect email address"
@@ -97,16 +106,22 @@
         "message": "An error occurred. Please try again later."
     },
     "options_bug_report_send_button": {
-        "message": "Submit"
+        "message": "Send report"
     },
     "options_bug_report_sending_button": {
-        "message": "Submitting..."
+        "message": "Sending..."
     },
     "options_bug_report_textarea_placeholder": {
-        "message": "Describe the problem here..."
+        "message": "Provide details"
     },
     "options_bug_report_page_success": {
-        "message": "Thank you, your message was submitted successfully!"
+        "message": "Thank you, your message sent successfully!"
+    },
+    "options_bug_report_page_error": {
+        "message": "An error occurred during sending report, status: %status%"
+    },
+    "options_bug_report_page_error_unknown": {
+        "message": "Something went wrong, try again."
     },
     "options_bug_report_new_report_button": {
         "message": "New report"
@@ -157,7 +172,7 @@
         "message": "Get the Unlimited version!"
     },
     "rate_description": {
-        "message": "Hey, we are a team from AdGuard and it is very important for us to know your opinion about our product. Please rate it."
+        "message": "Enjoying AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Hide"
@@ -235,7 +250,7 @@
         "message": "Privacy Policy"
     },
     "settings_title": {
-        "message": "Settings"
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "Get free GBs!"
@@ -313,16 +328,19 @@
         "message": "Block WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC is a special program in most Internet browsers that can allow a third-party website to detect your real IP address and use it to identify you"
+        "message": "Block WebRTC, a known vulnerability that can leak your real IP address even if you use a proxy or VPN"
     },
     "settings_context_menus_title": {
-        "message": "Add AdGuard VPN item to the browser’s context menu"
+        "message": "Display AdGuard VPN in the browser context menu"
+    },
+    "settings_context_menus_description": {
+        "message": "Manage VPN exclusions for a specific website"
     },
     "settings_help_us_improve_title": {
-        "message": "Help us improve"
+        "message": "Send anonymous crash reports"
     },
     "settings_help_us_improve_description": {
-        "message": "Allow AdGuard VPN to gather crash reports, technical and interaction data. This is anonymous."
+        "message": "Notify AdGuard VPN developers if something goes wrong"
     },
     "context_menu_selective_mode": {
         "message": "Selective mode"
@@ -339,6 +357,12 @@
     "settings_dns_label": {
         "message": "DNS server"
     },
+    "settings_dns_description": {
+        "message": "Resolve DNS requests, block ads and trackers, and encrypt DNS traffic when you're connected to VPN"
+    },
+    "settings_dns_current": {
+        "message": "Current: %dnsServerName%"
+    },
     "settings_dns_popular_servers": {
         "message": "Popular DNS servers"
     },
@@ -354,17 +378,20 @@
     "settings_dns_add_custom_server_info": {
         "message": "<a>Read more</a> about DNS servers"
     },
+    "settings_dns_add_known_providers": {
+        "message": "Known DNS Providers"
+    },
     "settings_dns_add_custom_server_name": {
         "message": "Server name"
     },
     "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Server name"
+        "message": "My DNS server"
     },
     "settings_dns_add_custom_server_address": {
-        "message": "DNS server address"
+        "message": "Server address"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "Server IP or TLS domain name"
+        "message": "IP address, sdns://, quic://, https://, h3://, or tls://"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Invalid DNS server address"
@@ -383,6 +410,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Custom DNS server deleted"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Custom DNS server edited"
     },
     "settings_dns_selector_default_title": {
         "message": "Default"
@@ -550,7 +580,7 @@
         "message": "Remove all exclusions"
     },
     "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Are you sure you want to continue? The entire list of exclusions will be removed."
+        "message": "Do you want to remove the entire list of exclusions?"
     },
     "settings_exclusion_title": {
         "message": "Exclusions"
@@ -943,10 +973,13 @@
         "message": "Connections limit reached"
     },
     "options_signedout_page_title": {
-        "message": "You have signed out of AdGuard VPN"
+        "message": "You have logged out of AdGuard VPN"
+    },
+    "options_signedout_page_description_not_secure": {
+        "message": "Your connection is not secured!"
     },
     "options_signedout_page_description": {
-        "message": "Please note: you are not connected to VPN and your traffic is not protected! To continue surfing privately, click the AdGuard VPN icon and sign in again."
+        "message": "To continue surfing privately, click the AdGuard VPN icon and log in again."
     },
     "notification_data_limit_reached_title": {
         "message": "Monthly data limit reached"
