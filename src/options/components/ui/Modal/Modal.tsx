@@ -1,21 +1,14 @@
-import React, { useEffect, useRef, type PropsWithChildren } from 'react';
+import React, { useRef, type PropsWithChildren } from 'react';
 
 import classNames from 'classnames';
 
 import { useOnClickOutside } from '../../../hooks/useOnOutsideClick';
+import { useLockBody } from '../../../hooks/useLockBody';
 import { useFocusTrap } from '../../../hooks/useFocusTrap';
 import { ReactPortal } from '../ReactPortal';
 import { IconButton } from '../Icon';
 
 import './modal.pcss';
-
-const setBodyLockedState = (locked: boolean) => {
-    if (locked) {
-        document.body.classList.add('locked');
-    } else {
-        document.body.classList.remove('locked');
-    }
-};
 
 export interface ModalProps extends PropsWithChildren {
     title: string | React.ReactNode;
@@ -40,14 +33,7 @@ export function Modal({
 
     useOnClickOutside(ref, onClose);
     useFocusTrap(ref, open);
-
-    useEffect(() => {
-        setBodyLockedState(open);
-
-        return () => {
-            setBodyLockedState(false);
-        };
-    }, [open]);
+    useLockBody(open);
 
     if (!open) {
         return null;

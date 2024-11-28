@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { rootStore } from '../../stores';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
+import { useLockBody } from '../../hooks/useLockBody';
 import { IconButton } from '../ui/Icon';
 
 import { Rate } from './Rate';
@@ -31,6 +32,8 @@ export const Sidebar = observer(() => {
     const [isActive, setIsActive] = useState(false);
 
     const classes = classNames('sidebar', isActive && 'sidebar--active');
+    const isMobileScreen = window.matchMedia('(max-width: 872px)').matches;
+    const canTabLink = !isMobileScreen || isActive;
 
     const handleCloseMenu = () => {
         setIsActive(false);
@@ -46,6 +49,7 @@ export const Sidebar = observer(() => {
     };
 
     useFocusTrap(ref, isActive);
+    useLockBody(isMobileScreen && isActive);
 
     useEffect(() => {
         (async () => {
@@ -62,14 +66,7 @@ export const Sidebar = observer(() => {
 
     return (
         <div ref={ref} className={classes}>
-            <div className="sidebar__overlay" onClick={handleCloseMenu}>
-                <IconButton
-                    name="cross"
-                    className="sidebar__menu-close-btn"
-                    tabIndex={!isActive ? -1 : undefined}
-                    onClick={handleCloseMenu}
-                />
-            </div>
+            <div className="sidebar__overlay" onClick={handleCloseMenu} />
             <div className="sidebar__menu">
                 <IconButton
                     name="sidebar-burger"
@@ -83,32 +80,38 @@ export const Sidebar = observer(() => {
                     <div className="logo" />
                 </div>
                 <nav className="sidebar__nav" onClick={handleCloseAll}>
-                    <SidebarLink to="/" menuActive={isActive}>
+                    <SidebarLink to="/" canTab={canTabLink}>
                         {/* FIXME: Translation */}
                         General
                     </SidebarLink>
-                    <SidebarLink to="/exclusions" menuActive={isActive}>
+                    <SidebarLink to="/exclusions" canTab={canTabLink}>
                         {reactTranslator.getMessage('settings_exclusion_title')}
                     </SidebarLink>
-                    <SidebarLink to="/account" menuActive={isActive}>
+                    <SidebarLink to="/account" canTab={canTabLink}>
                         {reactTranslator.getMessage('account_title')}
                     </SidebarLink>
-                    <SidebarLink to="/support" menuActive={isActive}>
+                    <SidebarLink to="/support" canTab={canTabLink}>
                         {reactTranslator.getMessage('options_support_title')}
                     </SidebarLink>
-                    <SidebarLink to="/about" menuActive={isActive}>
+                    <SidebarLink to="/about" canTab={canTabLink}>
                         {reactTranslator.getMessage('about_title')}
                     </SidebarLink>
                     {!isPremiumToken && (
                         <SidebarLink
                             to="/free-gbs"
                             hasBullet={!allQuestsCompleted}
-                            menuActive={isActive}
+                            canTab={canTabLink}
                         >
                             {reactTranslator.getMessage('settings_free_gbs')}
                         </SidebarLink>
                     )}
                 </nav>
+                <IconButton
+                    name="cross"
+                    className="sidebar__menu-close-btn"
+                    tabIndex={!isActive ? -1 : undefined}
+                    onClick={handleCloseMenu}
+                />
                 <Rate />
             </div>
         </div>
