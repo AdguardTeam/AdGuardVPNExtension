@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../../stores';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { Exclusion } from '../Exclusion';
+import { Loader } from '../Loader';
 
 export const RootList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -16,9 +17,8 @@ export const RootList = observer(() => {
         );
     }
 
-    // FIXME: Add loader
     return (
-        <div>
+        <>
             {exclusionsStore.preparedExclusions.map((exclusion) => (
                 <Exclusion
                     key={exclusion.id}
@@ -26,6 +26,9 @@ export const RootList = observer(() => {
                     hasIcon
                 />
             ))}
-        </div>
+            {exclusionsStore.importingExclusions && (
+                <Loader />
+            )}
+        </>
     );
 });

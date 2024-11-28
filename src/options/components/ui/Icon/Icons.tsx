@@ -215,7 +215,7 @@ export const Icons = () => (
             <path d="M11.1925 6.00694L9.30687 4.12132" />
         </symbol>
 
-        <svg
+        <symbol
             id="globe"
             viewBox="0 0 24 24"
             fill="none"
@@ -235,20 +235,20 @@ export const Icons = () => (
             <path d="M9.50049 16.1275C10.3336 16.0425 11.1668 16 11.9999 16C12.8331 16 13.6662 16.0425 14.4993 16.1275" />
             <path d="M14.4993 7.87251C13.6662 7.9575 12.8331 8 11.9999 8C11.1668 8 10.3336 7.9575 9.50049 7.87251" />
             <path d="M3 12H21" />
-        </svg>
-
-        {/* OLD ICONS, FIXME: Check usage */}
-
-        <symbol id="spinner" fill="none" viewBox="0 0 24 24">
-            <path d="M6.2903 5.04276C6.40404 4.94931 6.52011 4.8586 6.63842 4.77072" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M8.55511 3.68292C8.82001 3.57307 9.0913 3.47551 9.36826 3.39095C9.51032 3.34758 9.65388 3.30762 9.79883 3.27119" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C9.51472 21 7.26472 19.9926 5.63604 18.364C4.80704 17.535 4.13901 16.545 3.68286 15.4449" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </symbol>
 
-        <svg id="warning" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="9" cy="9" r="9" transform="matrix(1 0 0 -1 3 21)" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M12 8V14" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M11.997 16.4045C12.009 16.4025 11.997 16.5955 11.997 16.5955" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <symbol
+            id="spinner"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="#74A352"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M6.2903 5.04276C6.40404 4.94931 6.52011 4.8586 6.63842 4.77072" />
+            <path d="M8.55511 3.68292C8.82001 3.57307 9.0913 3.47551 9.36826 3.39095C9.51032 3.34758 9.65388 3.30762 9.79883 3.27119" />
+            <path d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C9.51472 21 7.26472 19.9926 5.63604 18.364C4.80704 17.535 4.13901 16.545 3.68286 15.4449" />
+        </symbol>
     </svg>
 );
