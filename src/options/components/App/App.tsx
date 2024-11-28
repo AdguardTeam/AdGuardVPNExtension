@@ -2,22 +2,21 @@ import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
-import { RequestStatus } from '../stores/consts';
-import { rootStore } from '../stores';
-import { useAppearanceTheme } from '../../common/useAppearanceTheme';
-import { useCustomDnsFromQuery } from '../hooks/useQueryStringData';
-import { useMessageHandler } from '../hooks/useMessageHandler';
-
-import { Notifications } from './Notifications';
-import { Icons } from './ui/Icon';
-import { Preloader } from './Preloader';
-import { Sidebar } from './Sidebar';
-import { General } from './General';
-import { Exclusions } from './Exclusions';
-import { Account, AccountSignedOut } from './Account';
-import { About } from './About';
-import { Support } from './Support';
-import { FreeGbs } from './FreeGbs';
+import { RequestStatus } from '../../stores/consts';
+import { rootStore } from '../../stores';
+import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
+import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
+import { useMessageHandler } from '../../hooks/useMessageHandler';
+import { Notifications } from '../Notifications';
+import { Icons } from '../ui/Icon';
+import { Preloader } from '../Preloader';
+import { Sidebar } from '../Sidebar';
+import { General } from '../General';
+import { Exclusions } from '../Exclusions';
+import { Account, AccountSignedOut } from '../Account';
+import { About } from '../About';
+import { Support } from '../Support';
+import { FreeGbs } from '../FreeGbs';
 
 import './app.pcss';
 
