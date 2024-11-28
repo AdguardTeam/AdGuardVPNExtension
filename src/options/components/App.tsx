@@ -12,14 +12,13 @@ import { Notifications } from './Notifications';
 import { Icons } from './ui/Icon';
 import { Preloader } from './Preloader';
 import { Sidebar } from './Sidebar';
-import { General } from './views/General';
-import { Exclusions } from './views/Exclusions';
-import { Account, AccountSignedOut } from './views/Account';
-import { About } from './views/About';
-import { Support } from './views/Support';
-import { FreeGbs } from './views/FreeGbs';
+import { General } from './General';
+import { Exclusions } from './Exclusions';
+import { Account, AccountSignedOut } from './Account';
+import { About } from './About';
+import { Support } from './Support';
+import { FreeGbs } from './FreeGbs';
 
-import '../styles/main.pcss';
 import './app.pcss';
 
 const getContent = (

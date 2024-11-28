@@ -19,7 +19,7 @@ import {
     type ServiceDto,
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../common/messenger';
-import { containsIgnoreCase } from '../components/views/Exclusions/Search/helpers';
+import { containsIgnoreCase } from '../components/Exclusions/Search/helpers';
 import type { ServiceCategory } from '../../background/schema';
 
 import type { RootStore } from './RootStore';

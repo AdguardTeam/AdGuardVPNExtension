@@ -20,6 +20,10 @@
         transition: var(--t3) border-color;
         padding-right: 8px;
 
+        .textarea & {
+            padding-right: 0;
+        }
+
         .input--focus & {
             border-color: var(--stroke-inputs-inactive-input-stroke-focus);
         }
@@ -39,6 +43,14 @@
         text-overflow: ellipsis;
         border: none;
         background-color: transparent;
+
+        &--textarea {
+            padding: 16px;
+        }
+
+        .textarea & {
+            padding: 16px;
+        }
 
         &, &::placeholder {
             font-size: 16px;

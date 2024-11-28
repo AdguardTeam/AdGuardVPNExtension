@@ -2,16 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-export interface TextAreaProps {
-    id: string;
-    name: string;
-    label: string | React.ReactNode;
-    placeholder: string;
-    required?: boolean;
-    value: string;
-    error?: string | React.ReactNode | null;
-    onChange: (value: string) => void;
-}
+import { type InputBaseProps } from './Input';
 
 export function TextArea({
     id,
@@ -22,20 +13,29 @@ export function TextArea({
     required,
     onChange,
     error,
-}: TextAreaProps) {
+}: InputBaseProps) {
+    const classes = classNames(
+        'input',
+        'textarea',
+        !!error && 'input--error',
+    );
+
+    console.log(classes);
+
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = e.target;
-        onChange(value);
+        if (onChange) {
+            onChange(value);
+        }
     };
 
     return (
-        <label
-            htmlFor={id}
-            className={classNames('input', !!error && 'input--error')}
-        >
-            <div className="input__label">
-                {label}
-            </div>
+        <label htmlFor={id} className={classes}>
+            {label && (
+                <div className="input__label">
+                    {label}
+                </div>
+            )}
             <div className="input__wrapper">
                 {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                 <textarea
@@ -49,7 +49,9 @@ export function TextArea({
                 />
             </div>
             {!!error && (
-                <div className="input__error">{error}</div>
+                <div className="input__error">
+                    {error}
+                </div>
             )}
         </label>
     );

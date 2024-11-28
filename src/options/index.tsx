@@ -7,6 +7,8 @@ import { translator } from '../common/translator';
 
 import { App } from './components/App';
 
+import './styles/main.pcss';
+
 document.title = translator.getMessage('options_title');
 
 const rootNode = document.getElementById('root')!;

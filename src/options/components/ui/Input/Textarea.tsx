@@ -14,7 +14,11 @@ export function TextArea({
     onChange,
     error,
 }: InputBaseProps) {
-    const classes = classNames('input', !!error && 'input--error');
+    const classes = classNames(
+        'input',
+        'textarea',
+        !!error && 'input--error',
+    );
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = e.target;
