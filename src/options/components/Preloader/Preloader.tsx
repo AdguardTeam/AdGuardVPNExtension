@@ -1,27 +1,11 @@
-import React, { useContext } from 'react';
-import { observer } from 'mobx-react';
-import Modal from 'react-modal';
-
-import { rootStore } from '../../stores';
-import { RequestStatus } from '../../stores/consts';
+import React from 'react';
 
 import './preloader.pcss';
 
-// FIXME: Update
-
-export const Preloader = observer(() => {
-    const { authStore, globalStore } = useContext(rootStore);
-
-    const isOpen = globalStore.status === RequestStatus.Pending
-        || authStore.requestProcessState === RequestStatus.Pending;
-
+export function Preloader() {
     return (
-        <Modal
-            isOpen={isOpen}
-            className="preloader"
-            overlayClassName="preloader__overlay"
-        >
+        <div className="preloader">
             <div className="preloader__in" />
-        </Modal>
+        </div>
     );
-});
+}
