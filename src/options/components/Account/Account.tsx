@@ -82,7 +82,7 @@ export const Account = observer(() => {
                         <div className="account__info">
                             {getAccountType()}
                         </div>
-                        {expiresDate && (
+                        {expiresDate && isPremiumToken && (
                             <div className="account__info">
                                 {reactTranslator.getMessage('account_valid_until', {
                                     date: expiresDate,
@@ -114,6 +114,11 @@ export const Account = observer(() => {
                 )}
             />
             <div className="account__actions">
+                {(!isPremiumToken && !premiumFeatures) && (
+                    <Button className="account__action" onClick={handleUpgrade}>
+                        {translator.getMessage('account_get_subscription')}
+                    </Button>
+                )}
                 <a
                     href={editAccountUrl}
                     className="button button--medium button--outline account__action"
