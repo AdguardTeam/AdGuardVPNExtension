@@ -6,7 +6,6 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { getForwarderUrl } from '../../../common/helpers';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
-import { Button } from '../ui/Button';
 
 import './about.pcss';
 
@@ -23,10 +22,6 @@ export const About = observer(() => {
     const currentYear = new Date().getFullYear();
     const copyRightText = `© 2009-${currentYear} AdGuard Software Ltd.`;
 
-    const handleCheckUpdates = () => {
-        // FIXME: Implement
-    };
-
     return (
         <>
             <Title title={reactTranslator.getMessage('about_title')} />
@@ -38,14 +33,6 @@ export const About = observer(() => {
                     {aboutVersionStr}
                 </div>
             </div>
-            <Button
-                variant="ghost"
-                className="about__update-btn"
-                onClick={handleCheckUpdates}
-            >
-                {/* FIXME: Add translation if button is needed */}
-                Check for updates
-            </Button>
             <div className="about__copyright">
                 <div className="about__copyright-item">
                     {copyRightText}
