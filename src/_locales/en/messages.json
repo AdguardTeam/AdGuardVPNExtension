@@ -88,10 +88,7 @@
         "message": "Email"
     },
     "options_bug_report_include_log_label": {
-        "message": "Send detailed system info"
-    },
-    "options_bug_report_include_log_description": {
-        "message": "Attach detailed system info on running processes, installed applications, memory, CPU, battery state, and app log."
+        "message": "Include the diagnostic report in the message"
     },
     "options_bug_report_email_invalid": {
         "message": "Incorrect email address"
@@ -388,7 +385,7 @@
         "message": "Server address"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP address, sdns://, quic://, https://, h3://, or tls://"
+        "message": "IP address or tls://"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Invalid DNS server address"
@@ -514,10 +511,10 @@
         "message": "AdGuard VPN is on for the checked domains and subdomains"
     },
     "settings_exclusion_domain_name": {
-        "message": "Domain name:"
+        "message": "Domain name"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Subdomain name:"
+        "message": "Subdomain name"
     },
     "settings_exclusion_add_from_list": {
         "message": "From the list"

@@ -10,11 +10,11 @@ import { Button } from '../../ui/Button';
 const options = [
     {
         value: ExclusionsMode.Regular,
-        translationKey: 'options_exclusions_import_select_regular',
+        title: translator.getMessage('options_exclusions_import_select_regular'),
     },
     {
         value: ExclusionsMode.Selective,
-        translationKey: 'options_exclusions_import_select_selective',
+        title: translator.getMessage('options_exclusions_import_select_selective'),
     },
 ];
 
@@ -55,12 +55,12 @@ export function ActionsSelectModal({
             onClose={onClose}
         >
             <div className="mode-selector__content">
-                {options.map(({ value, translationKey }) => (
+                {options.map(({ value, title }) => (
                     <Radio
                         key={value}
                         value={value}
                         active={selectedList === value}
-                        title={translator.getMessage(translationKey)}
+                        title={title}
                         variant="thin"
                         onSelect={setSelectedList}
                     />

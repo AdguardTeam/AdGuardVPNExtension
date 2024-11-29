@@ -107,7 +107,6 @@ export function BugReporterForm({
                 />
                 <Checkbox
                     title={reactTranslator.getMessage('options_bug_report_include_log_label')}
-                    description={reactTranslator.getMessage('options_bug_report_include_log_description')}
                     value={includeLog}
                     onChange={setIncludeLog}
                 />
