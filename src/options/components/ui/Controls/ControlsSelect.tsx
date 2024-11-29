@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 
 import { Select, type SelectProps } from '../Select';
-import { useElementRect } from '../../../hooks/useElementRect';
 
 import { Controls, type ControlsProps } from './Controls';
 
@@ -32,8 +31,6 @@ export function ControlsSelect<T extends string>({
         setActive(false);
     };
 
-    useElementRect(ref, 'controls');
-
     return (
         <Controls
             ref={ref}
@@ -49,6 +46,7 @@ export function ControlsSelect<T extends string>({
                 />
             )}
             active={active}
+            className="controls--select"
             onClick={handleClick}
             onOutsideClick={handleOutsideClick}
         />

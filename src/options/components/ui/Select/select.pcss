@@ -1,6 +1,10 @@
 .select {
     position: relative;
 
+    .controls & {
+        position: static;
+    }
+
     &__btn {
         display: flex;
         align-items: center;
@@ -28,7 +32,7 @@
         z-index: 2;
         width: 240px;
         position: absolute;
-        top: calc(var(--controls-height, calc(100% + 25px)));
+        top: calc(100% + 16px);
         right: 0;
         display: flex;
         flex-direction: column;
@@ -40,6 +44,10 @@
         transform: translateY(-20%);
         opacity: 0;
         pointer-events: none;
+
+        .controls & {
+            right: 8px;
+        }
 
         .select--active & {
             transform: translateY(0);

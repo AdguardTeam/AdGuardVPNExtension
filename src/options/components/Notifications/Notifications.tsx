@@ -2,7 +2,6 @@ import React, { useContext, useRef } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { useElementRect } from '../../hooks/useElementRect';
 
 import { NotificationItem } from './NotificationItem';
 
@@ -19,8 +18,6 @@ export const Notifications = observer(() => {
     const handleClose = (notificationId: string) => {
         notificationsStore.removeNotification(notificationId);
     };
-
-    useElementRect(ref, 'notifications', true);
 
     return (
         <div ref={ref} className="notifications">
