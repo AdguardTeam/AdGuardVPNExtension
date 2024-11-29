@@ -20,8 +20,6 @@ export function TextArea({
         !!error && 'input--error',
     );
 
-    console.log(classes);
-
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = e.target;
         if (onChange) {
