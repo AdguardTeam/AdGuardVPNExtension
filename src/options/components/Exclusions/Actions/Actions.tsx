@@ -8,12 +8,7 @@ import { type ExclusionsContentMap } from '../../../../common/constants';
 import { messenger } from '../../../../common/messenger';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 
-import {
-    exportExclusions,
-    handleGeneralExclusionsString,
-    handleSelectiveExclusionsString,
-    prepareExclusionsAfterImport,
-} from './utils';
+import { exportExclusions, prepareExclusionsAfterImport } from './utils';
 import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
 import { ActionsMenu } from './ActionsMenu';
 import { ActionsSelectModal } from './ActionsSelectModal';
@@ -116,6 +111,11 @@ export const Actions = observer(() => {
         }
     };
 
+    const handleGeneralExclusionsString = async (exclusionsString: string): Promise<number> => {
+        const generalExclusions = prepareExclusionsAfterImport(exclusionsString);
+        return messenger.addRegularExclusions(generalExclusions);
+    };
+
     const handleRegularClick = async () => {
         const exclusionsAddedCount = await handleGeneralExclusionsString(fileContent);
         notificationsStore.notifySuccess(
@@ -130,6 +130,11 @@ export const Actions = observer(() => {
         );
         await exclusionsStore.updateExclusionsData();
         closeSelectListModal();
+    };
+
+    const handleSelectiveExclusionsString = async (exclusionsString: string): Promise<number> => {
+        const selectiveExclusions = prepareExclusionsAfterImport(exclusionsString);
+        return messenger.addSelectiveExclusions(selectiveExclusions);
     };
 
     const handleSelectiveClick = async () => {

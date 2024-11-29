@@ -7,6 +7,14 @@ import { isValidExclusion } from '../../../../common/utils/string';
 import { messenger } from '../../../../common/messenger';
 import { log } from '../../../../common/logger';
 
+/**
+ * Parses line-by-line, each line:
+ * - Normalized.
+ * - Skipped and logged if it's not valid exclusion.
+ *
+ * @param exclusionsString Raw string content containing all exclusions separated with newline.
+ * @returns Array of parsed exclusions.
+ */
 export const prepareExclusionsAfterImport = (exclusionsString: string) => {
     return exclusionsString
         .split('\n')
@@ -22,16 +30,13 @@ export const prepareExclusionsAfterImport = (exclusionsString: string) => {
         .reverse();
 };
 
-export const handleGeneralExclusionsString = async (exclusionsString: string): Promise<number> => {
-    const generalExclusions = prepareExclusionsAfterImport(exclusionsString);
-    return messenger.addRegularExclusions(generalExclusions);
-};
-
-export const handleSelectiveExclusionsString = async (exclusionsString: string): Promise<number> => {
-    const selectiveExclusions = prepareExclusionsAfterImport(exclusionsString);
-    return messenger.addSelectiveExclusions(selectiveExclusions);
-};
-
+/**
+ * Exports both general and selective exclusions in zip archive:
+ *
+ * - exclusions-yyyy_MM_dd-HH_mm_ss.zip
+ *   - yyyy_MM_dd-HH_mm_ss.general.txt
+ *   - yyyy_MM_dd-HH_mm_ss.selective.txt
+ */
 export const exportExclusions = async () => {
     const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
     const ZIP_FILENAME = `exclusions-${nowFormatted}.zip`;
