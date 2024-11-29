@@ -4,20 +4,20 @@ import { NavLink } from 'react-router-dom';
 export interface SidebarLinkProps extends PropsWithChildren {
     to: string;
     hasBullet?: boolean;
-    canTab?: boolean;
+    tabIndex?: number;
 }
 
 export function SidebarLink({
     to,
     hasBullet,
-    canTab,
+    tabIndex,
     children,
 }: SidebarLinkProps) {
     return (
         <NavLink
             className="sidebar__nav-link"
             activeClassName="sidebar__nav-link--active"
-            tabIndex={!canTab ? -1 : undefined}
+            tabIndex={tabIndex}
             to={to}
             exact
             replace

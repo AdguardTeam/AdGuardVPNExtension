@@ -13,10 +13,6 @@ import './mode-selector.pcss';
 export const ModeSelector = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
-    const modeInfoKey = exclusionsStore.currentMode === ExclusionsMode.Regular
-        ? 'settings_exclusion_general_mode_info'
-        : 'settings_exclusion_selective_mode_info';
-
     const showWarning = exclusionsStore.currentMode === ExclusionsMode.Selective
         && exclusionsStore.exclusionsTree.children.length === 0;
 
@@ -24,20 +20,26 @@ export const ModeSelector = observer(() => {
         exclusionsStore.setModeSelectorModalOpen(true);
     };
 
+    const modeInfoOptions = {
+        span: (chunk: string) => (
+            <button
+                type="button"
+                className="mode-selector__btn"
+                onClick={handleClick}
+            >
+                {chunk}
+                <Icon name="pencil" className="mode-selector__btn-icon" />
+            </button>
+        ),
+    };
+
+    const modeInfo = exclusionsStore.currentMode === ExclusionsMode.Regular
+        ? reactTranslator.getMessage('settings_exclusion_general_mode_info', modeInfoOptions)
+        : reactTranslator.getMessage('settings_exclusion_selective_mode_info', modeInfoOptions);
+
     return (
         <>
-            {reactTranslator.getMessage(modeInfoKey, {
-                span: (chunk: string) => (
-                    <button
-                        type="button"
-                        className="mode-selector__btn"
-                        onClick={handleClick}
-                    >
-                        {chunk}
-                        <Icon name="pencil" className="mode-selector__btn-icon" />
-                    </button>
-                ),
-            })}
+            {modeInfo}
             {showWarning && (
                 <div className="mode-selector__warning">
                     {reactTranslator.getMessage('settings_exclusion_selective_mode_warning')}

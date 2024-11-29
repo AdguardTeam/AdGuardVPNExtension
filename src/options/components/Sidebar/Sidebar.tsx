@@ -34,6 +34,7 @@ export const Sidebar = observer(() => {
     const classes = classNames('sidebar', isActive && 'sidebar--active');
     const isMobileScreen = window.matchMedia('(max-width: 872px)').matches;
     const canTabLink = !isMobileScreen || isActive;
+    const linkTabIndex = !canTabLink ? -1 : undefined;
 
     const handleCloseMenu = () => {
         setIsActive(false);
@@ -80,26 +81,26 @@ export const Sidebar = observer(() => {
                     <div className="logo" />
                 </div>
                 <nav className="sidebar__nav" onClick={handleCloseAll}>
-                    <SidebarLink to="/" canTab={canTabLink}>
+                    <SidebarLink to="/" tabIndex={linkTabIndex}>
                         {reactTranslator.getMessage('settings_title')}
                     </SidebarLink>
-                    <SidebarLink to="/exclusions" canTab={canTabLink}>
+                    <SidebarLink to="/exclusions" tabIndex={linkTabIndex}>
                         {reactTranslator.getMessage('settings_exclusion_title')}
                     </SidebarLink>
-                    <SidebarLink to="/account" canTab={canTabLink}>
+                    <SidebarLink to="/account" tabIndex={linkTabIndex}>
                         {reactTranslator.getMessage('account_title')}
                     </SidebarLink>
-                    <SidebarLink to="/support" canTab={canTabLink}>
+                    <SidebarLink to="/support" tabIndex={linkTabIndex}>
                         {reactTranslator.getMessage('options_support_title')}
                     </SidebarLink>
-                    <SidebarLink to="/about" canTab={canTabLink}>
+                    <SidebarLink to="/about" tabIndex={linkTabIndex}>
                         {reactTranslator.getMessage('about_title')}
                     </SidebarLink>
                     {!isPremiumToken && (
                         <SidebarLink
                             to="/free-gbs"
                             hasBullet={!allQuestsCompleted}
-                            canTab={canTabLink}
+                            tabIndex={linkTabIndex}
                         >
                             {reactTranslator.getMessage('settings_free_gbs')}
                         </SidebarLink>
