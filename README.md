@@ -47,25 +47,25 @@ and ensure anonymous browsing on the web.
 To get more information and to download AdGuard VPN
 visit our website [https://adguard-vpn.com/](https://adguard-vpn.com/).
 
-<a name="feedback"></a>
+- [Feedback options](#feedback)
+- [Development](#development)
+    - [Requirements](dev-requirements)
+    - [Linting](#linting)
+    - [Tests](#tests)
+    - [Build](#build)
+        - [Special building instructions for Firefox reviewers](#build-firefox-review)
+    - [Localization](#localization)
+    - [Proto scheme update](#proto)
+- [Acknowledgments](#acknowledgments)
+- [Minimum supported browser versions](#minimum-supported-browser-versions)
 
-## Feedback options
+## <a name="feedback"></a> Feedback options
 
 We appreciate your feedback and always welcome both constructive criticism and new ideas.
 
 You can use GitHub to report a bug or to submit a feature request.
 To do so, go to [this page](https://github.com/AdguardTeam/AdguardVPNExtension/issues),
 click the _New issue_ button and choose between creating a bug report or feature request.
-
-- [Development](#development)
-    - [Requirements](dev-requirements)
-    - [Linting](#linting)
-    - [Tests](#tests)
-    - [Build](#build)
-    - [Localization](#localization)
-    - [Proto scheme update](#proto)
-- [Acknowledgments](#acknowledgments)
-- [Minimum supported browser versions](#minimum-supported-browser-versions)
 
 ## <a name="development"></a> Development
 
@@ -129,11 +129,10 @@ yarn release
 
 By default, you will have builds for all browsers:
 
-- Chrome (manifest version 2)
-- Chrome (manifest version 3)
-- Firefox (manifest version 2)
-- Opera (manifest version 2)
-- Edge (manifest version 2)
+- Chrome — both manifest versions **2** and **3**
+- Firefox — manifest version **3**
+- Edge — manifest version **2**
+- Opera — manifest version **2**
 
 You can specify browser in arguments. See examples below:
 
@@ -159,6 +158,24 @@ Make sure you have added credentials
 - mozilla_credentials.json - encrypted credentials,
 
 to the directory `./private/AdguardVPN`
+
+#### <a name="build-firefox-review"></a> Special building instructions for Firefox reviewers
+
+1. Ensure you have installed Node.js and yarn, see [Requirements](#dev-requirements).
+
+1. To build the **Release** version, run:
+
+    ```shell
+    yarn release firefox
+    ```
+
+1. Navigate to the build directory:
+
+    ```shell
+    cd ./build/release
+    ```
+
+1. Compare the generated `firefox.zip` file with the uploaded one.
 
 ### <a name="localization"></a> Localization
 
@@ -187,10 +204,10 @@ This software wouldn't have been possible without:
 
 For a full list of all `npm` packages in use, please take a look at [package.json](package.json) file.
 
-## <a id='minimum-supported-browser-versions'></a> Minimum supported browser versions
+## <a name='minimum-supported-browser-versions'></a> Minimum supported browser versions
 
 | Browser                     | Version |
-|-----------------------------|:-------:|
+|-----------------------------|---------|
 | Chromium Based Browsers MV3 | 109     |
 | Chromium Based Browsers MV2 | 66      |
 | Firefox                     | 91.1    |

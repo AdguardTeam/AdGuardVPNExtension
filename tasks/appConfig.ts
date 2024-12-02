@@ -119,9 +119,6 @@ export const genAppConfig = (browserType: string, stageEnv?: string, buildingEnv
     if (browserType === Browser.ChromeMV2) {
         // api urls are same for the Chrome mv2 and mv3 versions
         browser = Browser.Chrome;
-    } else if (browserType === Browser.FirefoxMV2) {
-        // api urls are same for the Firefox mv2 and mv3 versions
-        browser = Browser.Firefox;
     }
 
     const urlQueriesMapByBrowser = URL_QUERIES_MAP[buildingEnv] || URL_QUERIES_MAP[Env.Release];
