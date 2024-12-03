@@ -11,8 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Ability to add a custom DNS server by pressing the Enter key [#180].
 
+### Fixed
+
+- Hover-effect is missing on 'Cancel' button on 'Can’t connect to server' screen [#189].
+
 [Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.2.32...HEAD
 [#180]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/180
+[#189]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/189
 
 ## [2.2.31] - 2024-10-23
 

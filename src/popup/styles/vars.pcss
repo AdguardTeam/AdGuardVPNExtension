@@ -57,6 +57,16 @@
     --dark22: #22040A;
     --endpoint-gray-background: #f3f3f3;
 
+    /* Base Colors */
+    --gray-10: #F6F6F6;
+    --gray-20: #E4E4E4;
+    --gray-70: #5B5B5B;
+    --gray-80: #3D3D3D;
+
+    /* Dynamic Colors */
+    --fills-backgrounds-page-background-hovered: var(--gray-10);
+    --fills-backgrounds-page-background-pressed: var(--gray-20);
+
     @media (prefers-color-scheme: dark) {
         --white: #131313;
         --white-strong: #000;
@@ -80,6 +90,10 @@
         --exclude-site-hint-overlay: rgba(51, 51, 51, 0.85);
         --dark13: #eeeeee;
         --endpoint-gray-background: #4d4d4d;
+
+        /* Dynamic Colors */
+        --fills-backgrounds-page-background-hovered: var(--gray-80);
+        --fills-backgrounds-page-background-pressed: var(--gray-70);
     }
 }
 
@@ -106,6 +120,10 @@
     --exclude-site-hint-overlay: rgba(0, 0, 0, 0.8);
     --dark13: #131313;
     --endpoint-gray-background: #f3f3f3;
+
+    /* Dynamic Colors */
+    --fills-backgrounds-page-background-hovered: var(--gray-10);
+    --fills-backgrounds-page-background-pressed: var(--gray-20);
 }
 
 .dark-mode {
@@ -131,4 +149,8 @@
     --exclude-site-hint-overlay: rgba(51, 51, 51, 0.85);
     --dark13: #eeeeee;
     --endpoint-gray-background: #4d4d4d;
+
+    /* Dynamic Colors */
+    --fills-backgrounds-page-background-hovered: var(--gray-80);
+    --fills-backgrounds-page-background-pressed: var(--gray-70);
 }
