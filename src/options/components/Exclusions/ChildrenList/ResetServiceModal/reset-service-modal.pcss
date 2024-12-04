@@ -1,9 +1,15 @@
 .reset-service-modal {
     &__actions {
         margin-top: 35px;
+        display: flex;
+        gap: 16px;
 
-        & .button:first-child {
-            margin-right: 16px;
+        @media (--mobile) {
+            flex-direction: column-reverse;
+
+            .button {
+                width: 100%;
+            }
         }
     }
 }

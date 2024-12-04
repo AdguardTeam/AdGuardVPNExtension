@@ -3,6 +3,7 @@ import { AuthStore } from './AuthStore';
 import { SettingsStore } from './SettingsStore';
 import { ExclusionsStore } from './ExclusionsStore';
 import { NotificationsStore } from './NotificationsStore';
+import { UiStore } from './UiStore';
 
 export class RootStore {
     globalStore: GlobalStore;
@@ -15,11 +16,14 @@ export class RootStore {
 
     notificationsStore: NotificationsStore;
 
+    uiStore: UiStore;
+
     constructor() {
         this.globalStore = new GlobalStore(this);
         this.authStore = new AuthStore(this);
         this.settingsStore = new SettingsStore(this);
         this.exclusionsStore = new ExclusionsStore(this);
         this.notificationsStore = new NotificationsStore(this);
+        this.uiStore = new UiStore(this);
     }
 }

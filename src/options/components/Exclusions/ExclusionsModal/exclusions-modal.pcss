@@ -5,10 +5,16 @@
 
     &__mode {
         height: 320px;
+
+        @media (--mobile) {
+            /* TODO: Hardcoded value, remove after re-design (AG-38059) */
+            height: 392px;
+        }
     }
 
     & .content__title {
         margin: 0 8px 8px 0;
+        padding-left: 0;
     }
 
     & .content__subtitle {

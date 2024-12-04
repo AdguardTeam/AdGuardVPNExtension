@@ -36,7 +36,7 @@ export const ConfirmAddModal = observer(() => {
     return (
         <Modal
             isOpen={confirmAddModalOpen}
-            className="modal confirm-add-modal"
+            className="modal modal-exclusions confirm-add-modal"
             overlayClassName="overlay overlay--fullscreen"
             onRequestClose={closeModal}
         >

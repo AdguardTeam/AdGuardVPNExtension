@@ -38,20 +38,22 @@ export const RemoveAllModal = observer(() => {
                 <div className="remove-all-modal__message">
                     {reactTranslator.getMessage('settings_exclusions_remove_all_exclusions_message')}
                 </div>
-                <button
-                    type="button"
-                    className="button button--large button--outline-secondary"
-                    onClick={closeModal}
-                >
-                    {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
-                </button>
-                <button
-                    type="button"
-                    className="button button--large button--primary"
-                    onClick={removeAllExclusions}
-                >
-                    {reactTranslator.getMessage('settings_exclusion_modal_remove')}
-                </button>
+                <div className="form__actions">
+                    <button
+                        type="button"
+                        className="button button--large button--outline-secondary"
+                        onClick={closeModal}
+                    >
+                        {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
+                    </button>
+                    <button
+                        type="button"
+                        className="button button--large button--primary"
+                        onClick={removeAllExclusions}
+                    >
+                        {reactTranslator.getMessage('settings_exclusion_modal_remove')}
+                    </button>
+                </div>
             </div>
         </ExclusionsModal>
     );

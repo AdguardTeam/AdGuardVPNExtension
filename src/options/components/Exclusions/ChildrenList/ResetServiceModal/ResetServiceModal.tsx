@@ -29,7 +29,7 @@ export const ResetServiceModal = observer(() => {
     return (
         <Modal
             isOpen={exclusionsStore.resetServiceModalOpen}
-            className="modal reset-service-modal"
+            className="modal modal-exclusions reset-service-modal"
             overlayClassName="overlay overlay--fullscreen"
             onRequestClose={closeModal}
         >

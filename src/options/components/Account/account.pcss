@@ -26,13 +26,15 @@
     &__actions {
         margin-top: 24px;
         display: flex;
-    }
+        gap: 16px;
 
-    &__action {
-        margin-right: 16px;
+        @media (--mobile) {
+            flex-direction: column;
+            padding-right: 16px;
 
-        &:last-child {
-            margin-right: 0;
+            .button {
+                width: 100%;
+            }
         }
     }
 

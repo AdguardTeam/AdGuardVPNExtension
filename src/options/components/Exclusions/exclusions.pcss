@@ -1,10 +1,10 @@
 .exclusions {
     &__mode {
         position: relative;
+        margin-right: 16px;
 
         &--info {
-            max-width: 430px;
-            margin-left: 16px;
+            padding: 0 16px;
         }
 
         &--link {
@@ -29,12 +29,11 @@
     }
 
     &__wrapper {
-        padding-left: 16px;
+        padding: 0 16px;
     }
 
     &__search {
         margin: 38px 0 16px;
-        min-width: 470px;
         width: 100%;
     }
 
@@ -202,15 +201,22 @@
 
     &__change-mode-actions {
         margin-top: -10px;
+        display: flex;
+        gap: 16px;
 
-        & .button:first-child {
-            margin-right: 20px;
+        @media (--mobile) {
+            flex-direction: column-reverse;
+
+            .button {
+                width: 100%;
+            }
         }
     }
 }
 
 .modal {
-    max-height: 535px;
+    max-height: 95%;
+    max-width: 95%;
     overflow-y: auto;
     background: var(--white-strong);
     position: relative;
@@ -297,6 +303,7 @@
 }
 
 .overlay {
+    z-index: var(--modal-z);
     background-color: var(--overlay);
     position: fixed;
     top: 0;

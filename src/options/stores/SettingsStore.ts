@@ -352,6 +352,10 @@ export class SettingsStore {
         return !this.multiplatformBonus.available;
     }
 
+    @computed get allQuestsCompleted() {
+        return this.invitesQuestCompleted && this.confirmEmailQuestCompleted && this.addDeviceQuestCompleted;
+    }
+
     @action setDnsServerName = (name: string) => {
         this.dnsServerName = name;
     };

@@ -1,32 +1,47 @@
 .wrapper {
     display: flex;
-    min-height: 100%;
+    min-height: 100vh;
+    /* Dynamic viewport height, if not supported fallbacks to vh */
+    min-height: 100dvh;
     flex-direction: row;
+
+    @media (--tablet) {
+        flex-direction: column;
+    }
 }
 
 .content {
-    margin-left: calc((100vw - (var(--sidebar-width) + var(--content-width))) / 2);
-    @media (max-width: 980px) {
-        margin-left: auto;
+    position: relative;
+    padding: 40px 0;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    @media (--tablet) {
+        padding: 32px 0;
     }
 
-    width: 100%;
-    max-width: var(--content-width);
-    min-height: 500px;
-    padding: 40px 50px;
+    &__wrapper {
+        width: 100%;
+        max-width: 630px;
+    }
 
     &__title {
         width: 100%;
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
-        margin: 0 0 16px 16px;
+        padding-left: 16px;
+        margin-top: 0;
+        margin-bottom: 16px;
         font-size: 32px;
         line-height: 38px;
 
         &--pointer {
             cursor: pointer;
             margin: 0;
+            padding-left: 0;
         }
     }
 
@@ -46,9 +61,13 @@
 .modal {
     &__title {
         letter-spacing: 0;
-        font-size: 40px;
+        font-size: 32px;
         font-weight: 700;
-        line-height: 48px;
-        margin-bottom: 8px;
+        line-height: 1.2;
+        margin-bottom: 12px;
+
+        @media (--mobile) {
+            font-size: 24px;
+        }
     }
 }

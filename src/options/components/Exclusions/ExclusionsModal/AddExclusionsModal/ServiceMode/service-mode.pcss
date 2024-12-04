@@ -2,11 +2,18 @@
 
     &__actions {
         position: absolute;
+        right: 32px;
+        left: 32px;
         bottom: 30px;
+        display: flex;
+        gap: 16px;
 
-        & button {
-            margin-right: 20px;
-            text-transform: none;
+        @media (--mobile) {
+            flex-direction: column-reverse;
+
+            .button {
+                width: 100%;
+            }
         }
     }
 }

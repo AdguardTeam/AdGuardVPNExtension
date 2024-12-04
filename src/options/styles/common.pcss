@@ -25,6 +25,10 @@ body {
     line-height: 1.4;
     color: var(--gray-base);
     background-color: var(--white-strong);
+
+    &.locked {
+        overflow-y: hidden;
+    }
 }
 
 .hidden {
@@ -32,8 +36,8 @@ body {
 }
 
 .logo {
-    width: 146px;
-    height: 48px;
+    width: 125px;
+    height: 24px;
     background-image: url('../../assets/images/logo-vpn.svg');
     background-repeat: no-repeat;
     background-size: contain;
@@ -42,12 +46,6 @@ body {
         background-image: url('../../assets/images/logo-vpn-dark.svg');
     }
 }
-
-.general-settings {
-    min-height: 680px;
-    margin-left: 16px;
-}
-
 
 .light-mode {
     color-scheme: light;
@@ -68,4 +66,18 @@ body {
 .body_light,
 .body_dark {
     background-color: var(--white-strong);
+}
+
+.has-tab-focus {
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+
+    &:focus-visible {
+        outline-color: var(--primary-50);
+    }
+}
+
+.general-settings {
+    min-height: 680px;
+    margin-left: 16px;
 }

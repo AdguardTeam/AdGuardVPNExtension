@@ -4,7 +4,6 @@
     align-items: flex-start;
     padding: 8px 0 8px 16px;
     border-radius: 4px;
-    min-width: 500px;
 
     &__domains-details {
         padding: 8px 0 8px 32px;
@@ -18,6 +17,12 @@
         background: var(--grayF3);
 
         & .children-list-item__remove-button {
+            visibility: visible;
+        }
+    }
+
+    @media (--tablet) {
+        .children-list-item__remove-button {
             visibility: visible;
         }
     }

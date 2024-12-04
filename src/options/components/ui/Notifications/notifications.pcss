@@ -1,6 +1,6 @@
 .notifications {
     position: fixed;
-    z-index: 5;
+    z-index: var(--notifications-z);
     display: flex;
     justify-content: center;
     width: 632px;
@@ -8,6 +8,12 @@
     bottom: 24px;
     flex-direction: column;
     align-items: center;
+
+    @media (--tablet) {
+        left: 16px;
+        right: 16px;
+        width: auto;
+    }
 }
 
 .notification {

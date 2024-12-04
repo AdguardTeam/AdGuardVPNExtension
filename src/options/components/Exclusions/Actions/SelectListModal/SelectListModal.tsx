@@ -79,11 +79,11 @@ export const SelectListModal = ({
             />
             {renderRadioButton(ExclusionsMode.Selective)}
             {renderRadioButton(ExclusionsMode.Regular)}
-            <div>
+            <div className="form__actions">
                 <button
                     type="button"
                     onClick={closeModal}
-                    className="button button--outline-secondary button--large modal__button--first"
+                    className="button button--outline-secondary button--large"
                 >
                     {reactTranslator.getMessage('options_exclusions_delete_cancel_button')}
                 </button>
