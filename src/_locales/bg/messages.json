@@ -125,6 +125,9 @@
     "popup_server_error_popup_close": {
         "message": "Затвори"
     },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Продължи"
+    },
     "popup_newsletter_subscribe": {
         "message": "Абонирай се"
     },

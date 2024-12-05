@@ -144,8 +144,11 @@
     "account_max_devices_count": {
         "message": "Akár %num% egyidejű eszköz"
     },
-    "account_next_charge": {
-        "message": "Következő számlázási dátum %date%"
+    "account_valid_until": {
+        "message": "Érvényesség vége: <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "Bejelentkezve mint <b>%username%</b>"
     },
     "account_sign_out": {
         "message": "Kijelentkezés"

@@ -137,9 +137,6 @@
     "account_max_devices_count": {
         "message": "עד %num% מכשירים"
     },
-    "account_next_charge": {
-        "message": "התאריך של החיוב הבא %date%"
-    },
     "account_sign_out": {
         "message": "צא"
     },

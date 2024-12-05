@@ -144,8 +144,11 @@
     "account_max_devices_count": {
         "message": "同時接続可能端末数: %num%台"
     },
-    "account_next_charge": {
-        "message": "次の請求日: %date%"
+    "account_valid_until": {
+        "message": "有効期間: <b>%date% まで</b>"
+    },
+    "account_logged_in_as": {
+        "message": "<b>%username%</b> としてログイン済みです。"
     },
     "account_sign_out": {
         "message": "ログアウト"

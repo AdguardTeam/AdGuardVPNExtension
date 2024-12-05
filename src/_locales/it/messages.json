@@ -144,8 +144,11 @@
     "account_max_devices_count": {
         "message": "Fino a %num% dispositivi simultanei"
     },
-    "account_next_charge": {
-        "message": "Prossima data di fatturazione %date%"
+    "account_valid_until": {
+        "message": "Valida fino al <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "Connesso come <b>%username%</b>"
     },
     "account_sign_out": {
         "message": "Disconnetti"

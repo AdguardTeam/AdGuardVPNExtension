@@ -144,8 +144,11 @@
     "account_max_devices_count": {
         "message": "Bis zu %num% Geräte "
     },
-    "account_next_charge": {
-        "message": "Nächste Abrechnung %date%"
+    "account_valid_until": {
+        "message": "Gültig bis <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "Angemeldet als <b>%username%</b>"
     },
     "account_sign_out": {
         "message": "Abmelden"
@@ -598,7 +601,7 @@
         "message": "Deaktivieren"
     },
     "popup_skeleton_status": {
-        "message": "Nach Standorten wird gesucht …"
+        "message": "Suchen nach Standorten..."
     },
     "popup_no_locations_title": {
         "message": "Keine Standorte gefunden"

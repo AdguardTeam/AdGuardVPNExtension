@@ -51,6 +51,9 @@
     "authentication_error_default": {
         "message": "Адбылася памылка, паспрабуйце пазней"
     },
+    "global_error_message": {
+        "message": "Адбылася памылка, калі ласка, звяжыцеся з намі па адрасе <a>%support_email%</a>"
+    },
     "about_title": {
         "message": "Пра нас"
     },
@@ -141,8 +144,11 @@
     "account_max_devices_count": {
         "message": "Да %num% адначасовых прылад"
     },
-    "account_next_charge": {
-        "message": "Наступная дата выстаўлення рахунку %date%"
+    "account_valid_until": {
+        "message": "Дзейнічае да <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "Вы ўвайшлі як <b>%username%</b>"
     },
     "account_sign_out": {
         "message": "Выйсці"
@@ -440,6 +446,9 @@
     },
     "settings_quick_connect_title": {
         "message": "Хуткае падключэнне"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Размяшчэнне VPN, выбранае пры націску Падключыцца"
     },
     "settings_quick_connect_last_used": {
         "message": "Апошняя выкарыстаная"
@@ -836,6 +845,10 @@
         "message": "Засталося %value% %unit%",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_days_left": {
+        "message": "Трафік абновіцца сёння | Трафік абновіцца праз %days% дзень | Трафік абновіцца праз %days% дня | Трафік абновіцца праз %days% дзён",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
         "message": "Дарэчы, пры жаданні вы можаце адключыць VPN для гэтага сайта"
     },
@@ -968,8 +981,17 @@
     "confirm_email_code_invalid": {
         "message": "Праверце код: ён выглядае няправільным"
     },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Адправіць іншы код (%count%)"
+    },
     "confirm_email_resend_code_button": {
         "message": "Адправіць іншы код"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Не ўдалося ўвайсці. Паўтарыце спробу або звяжыцеся з намі праз <a>%support_email%</a>"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Не атрымалася зарэгістраваць вас. Калі ласка, паспрабуйце яшчэ раз або звяжыцеся з намі праз <a>%support_email%</a>"
     },
     "resend_confirm_registration_link_notification": {
         "message": "Спасылка для пацверджання была адпраўлена на вашу электронную пошту"

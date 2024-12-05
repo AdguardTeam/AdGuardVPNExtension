@@ -144,8 +144,11 @@
     "account_max_devices_count": {
         "message": "Cùng lúc tối đa %num% thiết bị"
     },
-    "account_next_charge": {
-        "message": "(Thu phí tiếp theo vào %date%)"
+    "account_valid_until": {
+        "message": "Có giá trị đến <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "Đăng nhập với <b>%username%</b>"
     },
     "account_sign_out": {
         "message": "Đăng xuất"

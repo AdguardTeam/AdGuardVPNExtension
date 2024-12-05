@@ -144,8 +144,11 @@
     "account_max_devices_count": {
         "message": "Až %num% súčasne pripojených zariadení"
     },
-    "account_next_charge": {
-        "message": "Dátum nasledujúcej fakturácie %date%"
+    "account_valid_until": {
+        "message": "Platí do <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "Prihlásený ako <b>%username%</b>"
     },
     "account_sign_out": {
         "message": "Odhlásenie"

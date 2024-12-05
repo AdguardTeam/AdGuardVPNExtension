@@ -144,8 +144,11 @@
     "account_max_devices_count": {
         "message": "ما يصل إلى %num% أجهزة متزامنة"
     },
-    "account_next_charge": {
-        "message": "تاريخ الفاتورة التالية: %date%"
+    "account_valid_until": {
+        "message": "صالح حتى <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "تم تسجيل الدخول باسم <b>%username%</b>"
     },
     "account_sign_out": {
         "message": "تسجيل خروج"
@@ -841,6 +844,10 @@
     "popup_free_traffic_info_left": {
         "message": "%value% %unit% متبقية",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_free_traffic_info_days_left": {
+        "message": "يتم تجديد حركة المرور اليوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
         "message": "بالمناسبة، يمكنك تعطيل VPN لهذا الموقع إذا كنت ترغب في ذلك"

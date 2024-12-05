@@ -144,8 +144,11 @@
     "account_max_devices_count": {
         "message": "Do %num% sočasnih naprav"
     },
-    "account_next_charge": {
-        "message": "Naslednji datum obračuna %date%"
+    "account_valid_until": {
+        "message": "Velja do <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "Prijavljen kot <b>%username%</b>"
     },
     "account_sign_out": {
         "message": "Odjava"

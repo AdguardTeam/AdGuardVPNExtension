@@ -80,6 +80,12 @@
     "account_get_subscription": {
         "message": "Langganan sekarang"
     },
+    "account_valid_until": {
+        "message": "Berlaku hingga <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "Masuk sebagai <b>%username%</b>"
+    },
     "account_sign_out": {
         "message": "Keluar"
     },
