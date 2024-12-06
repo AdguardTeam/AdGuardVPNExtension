@@ -8,6 +8,10 @@
     padding: 16px;
     height: var(--header-height);
 
+    &__logo {
+        flex: 1 1 auto;
+    }
+
     &__setting {
         width: 24px;
         height: 24px;
@@ -21,12 +25,16 @@
     }
 
     &__referral {
-        position: relative;
-        left: 30px;
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
 
         &__hint {
             position: fixed;
-            right: 47px;
+            right: 38px;
             top: 50px;
             max-width: 250px;
             display: none;
@@ -39,6 +47,10 @@
             cursor: pointer;
             text-decoration: none;
 
+            /* TODO: Remove it when popup design will be available in wider screens. */
+            .android & {
+                position: absolute;
+            }
 
             &:after {
                 content: "▲";
@@ -55,6 +67,14 @@
         &:hover .header__referral__hint {
             display: block;
         }
+    }
+
+    &__actions {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        column-gap: 16px;
     }
 }
 

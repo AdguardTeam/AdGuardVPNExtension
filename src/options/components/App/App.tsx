@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
@@ -94,7 +94,7 @@ export const App = observer(() => {
      * if any modal, sidebar is open. We are adding specifically to body because
      * in Apple devices "spring scroll" is not works if we add locking to div elements.
      */
-    useEffect(() => {
+    useLayoutEffect(() => {
         const BODY_LOCK_CLASS = 'locked';
 
         if (isContentLocked) {

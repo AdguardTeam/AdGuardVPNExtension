@@ -24,6 +24,11 @@
     right: 0;
     bottom: 0;
 
+    /* TODO: Remove it when popup design will be available in wider screens. */
+    .android & {
+        position: absolute;
+    }
+
     &__wrap {
         outline: none;
         animation: notify-show 0.3s ease-in
@@ -35,6 +40,7 @@
         background-color: #E6F6FF;
         background-size: cover;
         background-repeat: no-repeat;
+        background-position: bottom center;
     }
 
     &__close {
