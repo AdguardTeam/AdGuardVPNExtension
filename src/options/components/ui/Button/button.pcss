@@ -1,0 +1,103 @@
+button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: var(--font-stack);
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 12px;
+    font-family: var(--font-stack);
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: var(--t3) color, var(--t3) background-color, var(--t3) border-color;
+
+    &:disabled {
+        cursor: default;
+        pointer-events: none;
+    }
+
+    &--default,
+    &--outline {
+        padding: 16px 24px;
+        font-size: 18px;
+        line-height: 1.3;
+    }
+
+    &--default {
+        color: var(--text-buttons-primary-default);
+        background-color: var(--fills-buttons-main-button-default);
+        border-color: var(--fills-buttons-main-button-default);
+
+        &:hover {
+            background-color: var(--fills-buttons-main-button-hovered);
+            border-color: var(--fills-buttons-main-button-hovered);
+        }
+
+        &:active {
+            background-color: var(--fills-buttons-main-button-pressed);
+            border-color: var(--fills-buttons-main-button-pressed);
+        }
+
+        &:disabled {
+            background-color: var(--fills-buttons-main-button-disabled);
+            border-color: var(--fills-buttons-main-button-disabled);
+        }
+    }
+
+    &--outline {
+        color: var(--text-main-text-main-default);
+        border-color: var(--stroke-buttons-secondary-default);
+
+        &:hover {
+            background-color: var(--fills-buttons-secondary-hovered);
+        }
+
+        &:active {
+            background-color: var(--fills-buttons-secondary-pressed);
+        }
+
+        &:disabled {
+            color: var(--text-main-text-main-disabled);
+            border-color: var(--stroke-buttons-secondary-disabled);
+        }
+    }
+
+    &--ghost {
+        width: 100%;
+        padding: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.3;
+        text-align: left;
+        color: var(--text-links-link-default);
+
+        &:hover {
+            background-color: var(--fills-backgrounds-page-background-hovered);
+        }
+
+        &:active {
+            background-color: var(--fills-backgrounds-page-background-pressed);
+        }
+
+        &:disabled {
+            color: var(--text-links-link-disabled);
+        }
+    }
+
+    &__text {
+        flex: 1 1 auto;
+    }
+
+    &__before-icon {
+        color: currentColor;
+    }
+}

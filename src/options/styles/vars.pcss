@@ -51,28 +51,45 @@
     --gray-80: #3D3D3D;
     --gray-90: #1F1F1F;
     --gray-100: #000000;
+    --product-primary-30: #B2CC9E;
     --product-primary-50: #74A352;
     --product-primary-60: #68924A;
+    --product-primary-70: #5C8141;
     --orange-50: #D58500;
     --red-50: #BF4829;
 
     /* Text */
     --text-main-text-main-default: var(--gray-80);
+    --text-main-text-main-disabled: var(--gray-50);
     --text-description-description-default: var(--gray-70);
+    --text-buttons-primary-default: var(--gray-0);
+    --text-links-link-default: var(--product-primary-50);
+    --text-links-link-hovered: var(--product-primary-60);
+    --text-links-link-pressed: var(--product-primary-70);
+    --text-links-link-disabled: var(--product-primary-30);
 
     /* Fills */
     --fills-backgrounds-page-background-default: var(--gray-0);
     --fills-backgrounds-page-background-hovered: var(--gray-10);
+    --fills-backgrounds-page-background-pressed: var(--gray-20);
     --fills-backgrounds-page-background-additional-default: var(--gray-10);
     --fills-backgrounds-page-background-additional-hovered: var(--gray-20);
+    --fills-backgrounds-page-background-additional-pressed: var(--gray-30);
     --fills-backgrounds-dialog-background-default: var(--gray-100);
     --fills-menus-dropdown-menu-background-default: var(--gray-0);
     --fills-menus-dropdown-menu-background-hovered: var(--gray-10);
+    --fills-menus-dropdown-menu-background-pressed: var(--gray-20);
     --fills-switch-all-on-default: var(--product-primary-50);
     --fills-switch-all-on-hovered: var(--product-primary-60);
     --fills-switch-all-off-default: var(--gray-40);
     --fills-switch-all-off-hovered: var(--gray-50);
     --fills-switch-all-knob-default: var(--gray-0);
+    --fills-buttons-main-button-default: var(--product-primary-50);
+    --fills-buttons-main-button-hovered: var(--product-primary-60);
+    --fills-buttons-main-button-pressed: var(--product-primary-70);
+    --fills-buttons-main-button-disabled: var(--product-primary-30);
+    --fills-buttons-secondary-hovered: var(--gray-10);
+    --fills-buttons-secondary-pressed: var(--gray-20);
 
     /* Stroke */
     --stroke-dividers-item-divider-default: var(--gray-30);
@@ -81,6 +98,8 @@
     --stroke-icons-product-icon-default: var(--product-primary-50);
     --stroke-icons-attention-icon-default: var(--orange-50);
     --stroke-icons-error-icon-default: var(--red-50);
+    --stroke-buttons-secondary-default: var(--gray-80);
+    --stroke-buttons-secondary-disabled: var(--gray-50);
 
     @media (prefers-color-scheme: dark) {
         --white: #131313;
@@ -105,17 +124,23 @@
         /* Fills */
         --fills-backgrounds-page-background-default: var(--gray-90);
         --fills-backgrounds-page-background-hovered: var(--gray-80);
+        --fills-backgrounds-page-background-pressed: var(--gray-70);
         --fills-backgrounds-page-background-additional-default: var(--gray-80);
         --fills-backgrounds-page-background-additional-hovered: var(--gray-70);
+        --fills-backgrounds-page-background-additional-pressed: var(--gray-60);
         --fills-menus-dropdown-menu-background-default: var(--gray-80);
         --fills-menus-dropdown-menu-background-hovered: var(--gray-70);
+        --fills-menus-dropdown-menu-background-pressed: var(--gray-60);
         --fills-switch-all-off-default: var(--gray-60);
         --fills-switch-all-off-hovered: var(--gray-70);
+        --fills-buttons-secondary-hovered: var(--gray-80);
+        --fills-buttons-secondary-pressed: var(--gray-70);
 
         /* Stroke */
         --stroke-dividers-item-divider-default: var(--gray-70);
         --stroke-icons-gray-icons-default: var(--gray-40);
         --stroke-icons-gray-icons-disabled: var(--gray-70);
+        --stroke-buttons-secondary-default: var(--gray-20);
     }
 }
 
@@ -142,17 +167,23 @@
     /* Fills */
     --fills-backgrounds-page-background-default: var(--gray-90);
     --fills-backgrounds-page-background-hovered: var(--gray-80);
+    --fills-backgrounds-page-background-pressed: var(--gray-70);
     --fills-backgrounds-page-background-additional-default: var(--gray-80);
     --fills-backgrounds-page-background-additional-hovered: var(--gray-70);
+    --fills-backgrounds-page-background-additional-pressed: var(--gray-60);
     --fills-menus-dropdown-menu-background-default: var(--gray-80);
     --fills-menus-dropdown-menu-background-hovered: var(--gray-70);
+    --fills-menus-dropdown-menu-background-pressed: var(--gray-60);
     --fills-switch-all-off-default: var(--gray-60);
     --fills-switch-all-off-hovered: var(--gray-70);
+    --fills-buttons-secondary-hovered: var(--gray-80);
+    --fills-buttons-secondary-pressed: var(--gray-70);
 
     /* Stroke */
     --stroke-dividers-item-divider-default: var(--gray-70);
     --stroke-icons-gray-icons-default: var(--gray-40);
     --stroke-icons-gray-icons-disabled: var(--gray-70);
+    --stroke-buttons-secondary-default: var(--gray-20);
 }
 
 .light-mode {
@@ -178,15 +209,21 @@
     /* Fills */
     --fills-backgrounds-page-background-default: var(--gray-0);
     --fills-backgrounds-page-background-hovered: var(--gray-10);
+    --fills-backgrounds-page-background-pressed: var(--gray-20);
     --fills-backgrounds-page-background-additional-default: var(--gray-10);
     --fills-backgrounds-page-background-additional-hovered: var(--gray-20);
+    --fills-backgrounds-page-background-additional-pressed: var(--gray-30);
     --fills-menus-dropdown-menu-background-default: var(--gray-0);
     --fills-menus-dropdown-menu-background-hovered: var(--gray-10);
+    --fills-menus-dropdown-menu-background-pressed: var(--gray-20);
     --fills-switch-all-off-default: var(--gray-40);
     --fills-switch-all-off-hovered: var(--gray-50);
+    --fills-buttons-secondary-hovered: var(--gray-10);
+    --fills-buttons-secondary-pressed: var(--gray-20);
 
     /* Stroke */
     --stroke-dividers-item-divider-default: var(--gray-30);
     --stroke-icons-gray-icons-default: var(--gray-60);
     --stroke-icons-gray-icons-disabled: var(--gray-30);
+    --stroke-buttons-secondary-default: var(--gray-80);
 }
