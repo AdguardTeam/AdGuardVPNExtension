@@ -9,19 +9,25 @@ import './title.pcss';
 export interface TitleProps {
     title: React.ReactNode;
     subtitle?: React.ReactNode;
+    size?: 'large' | 'medium';
+    className?: string;
     onClick?: () => void;
 }
 
 export function Title({
     title,
     subtitle,
+    size = 'large',
+    className,
     onClick,
 }: TitleProps) {
     const isBackTitle = !!onClick;
 
     const classes = classNames(
         'title',
+        `title--${size}`,
         isBackTitle && 'title--hoverable',
+        className,
     );
 
     return (
