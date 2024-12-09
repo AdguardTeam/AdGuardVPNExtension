@@ -2,7 +2,6 @@ import React, { useRef, type PropsWithChildren } from 'react';
 
 import classNames from 'classnames';
 
-import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
 import { ReactPortal } from '../ReactPortal';
 import { IconButton } from '../Icon';
 
@@ -31,8 +30,6 @@ export function Modal({
         `modal--${variant}`,
     );
 
-    useOutsideClick(ref, onClose);
-
     if (!open) {
         return null;
     }
@@ -40,7 +37,7 @@ export function Modal({
     return (
         <ReactPortal>
             <div className={classes}>
-                <div className="modal__overlay" />
+                <div className="modal__overlay" onClick={onClose} />
                 <div ref={ref} className="modal__content">
                     <IconButton
                         name="cross"
