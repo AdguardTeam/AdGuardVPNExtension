@@ -72,6 +72,8 @@ export class SettingsStore {
 
     @observable hasDesktopAppForOs: boolean = false;
 
+    @observable isAndroidBrowser: boolean = false;
+
     @observable arePingsRecalculating: boolean = false;
 
     @observable forwarderDomain: string;
@@ -457,6 +459,17 @@ export class SettingsStore {
         const isMacOS = await Prefs.isMacOS();
         runInAction(() => {
             this.hasDesktopAppForOs = isWindows || isMacOS;
+        });
+    }
+
+    /**
+     * Checks whether the extension is running on a android browser.
+     * Sets the result to {@link isAndroidBrowser}
+     */
+    @action async setIsAndroidBrowser(): Promise<void> {
+        const isAndroid = await Prefs.isAndroid();
+        runInAction(() => {
+            this.isAndroidBrowser = isAndroid;
         });
     }
 

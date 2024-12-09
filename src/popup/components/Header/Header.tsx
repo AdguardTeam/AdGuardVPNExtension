@@ -5,7 +5,8 @@ import classnames from 'classnames';
 
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
-import { reactTranslator } from '../../../common/reactTranslator';
+import { translator } from '../../../common/translator';
+import { Icon } from '../ui/Icon';
 
 import './header.pcss';
 
@@ -18,8 +19,7 @@ export const Header = observer(({ showMenuButton }: { showMenuButton: boolean })
         uiStore.openOptionsModal();
     };
 
-    const handleOpenReferral = async (e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
+    const handleOpenReferral = async () => {
         await popupActions.openFreeGbsPage();
     };
 
@@ -45,38 +45,28 @@ export const Header = observer(({ showMenuButton }: { showMenuButton: boolean })
             <div className="header__logo">
                 <div className="logo" />
             </div>
-            {shouldShowGiftBtn && (
-                <div className="header__referral">
-                    <button
-                        className="button header__referral__button"
-                        type="button"
-                        onClick={handleOpenReferral}
-                    >
-                        <svg className="icon icon--button">
-                            <use xlinkHref="#gift" />
-                        </svg>
+            <div className="header__actions">
+                {shouldShowGiftBtn && (
+                    <button className="header__referral" type="button" onClick={handleOpenReferral}>
+                        <span className="button header__referral__button">
+                            <Icon icon="gift" className="icon--button" />
+                        </span>
+                        <span className="header__referral__hint">
+                            {translator.getMessage('referral_get_free_traffic')}
+                        </span>
                     </button>
-                    <a
-                        className="header__referral__hint"
-                        href="#"
-                        onClick={handleOpenReferral}
+                )}
+                {showMenuButton && (
+                    <button
+                        className="button header__setting"
+                        type="button"
+                        tabIndex={tabIndex}
+                        onClick={handleOpenModal}
                     >
-                        {reactTranslator.getMessage('referral_get_free_traffic')}
-                    </a>
-                </div>
-            )}
-            {showMenuButton && (
-                <button
-                    className="button header__setting"
-                    type="button"
-                    tabIndex={tabIndex}
-                    onClick={handleOpenModal}
-                >
-                    <svg className="icon icon--button icon--popup-menu">
-                        <use xlinkHref="#bar" />
-                    </svg>
-                </button>
-            )}
+                        <Icon icon="bar" className="icon--button icon--popup-menu" />
+                    </button>
+                )}
+            </div>
         </div>
     );
 });

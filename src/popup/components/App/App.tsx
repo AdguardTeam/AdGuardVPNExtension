@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';
@@ -62,6 +62,7 @@ export const App = observer(() => {
         isHostPermissionsGranted,
         hasDesktopAppForOs,
         isLimitedOfferActive,
+        isAndroidBrowser,
     } = settingsStore;
 
     const { authenticated } = authStore;
@@ -156,6 +157,24 @@ export const App = observer(() => {
             settingsStore.stopTrackSystemTheme();
         };
     }, []);
+
+    /**
+     * We are adding "android" class to html element
+     * in order to apply android specific styles.
+     */
+    useLayoutEffect(() => {
+        const ANDROID_CLASS = 'android';
+
+        if (isAndroidBrowser) {
+            document.documentElement.classList.add(ANDROID_CLASS);
+        } else {
+            document.documentElement.classList.remove(ANDROID_CLASS);
+        }
+
+        return () => {
+            document.documentElement.classList.remove(ANDROID_CLASS);
+        };
+    }, [isAndroidBrowser]);
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 

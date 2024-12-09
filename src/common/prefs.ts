@@ -71,6 +71,16 @@ interface PrefsInterface {
      * @returns Promise that will be fulfilled with `true` if the current OS is MacOS, `false` otherwise.
      */
     isMacOS(): Promise<boolean>;
+
+    /**
+     * Checks whether the current OS is Android.
+     *
+     * Uses native {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getPlatformInfo | runtime.getPlatformInfo()}
+     * to determine the OS.
+     *
+     * @returns Promise that will be fulfilled with `true` if the current OS is Android, `false` otherwise.
+     */
+    isAndroid(): Promise<boolean>;
 }
 
 enum BrowserName {
@@ -85,6 +95,7 @@ enum BrowserName {
 enum SystemName {
     MacOS = 'mac',
     Windows = 'win',
+    Android = 'android',
 }
 
 export const Prefs: PrefsInterface = {
@@ -150,5 +161,10 @@ export const Prefs: PrefsInterface = {
     async isMacOS(): Promise<boolean> {
         const os = await this.getOS();
         return os === SystemName.MacOS;
+    },
+
+    async isAndroid(): Promise<boolean> {
+        const os = await this.getOS();
+        return os === SystemName.Android;
     },
 };

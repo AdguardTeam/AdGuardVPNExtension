@@ -7,6 +7,15 @@
 html {
     color-scheme: light dark;
     font-size: 10px;
+
+    /* TODO: Remove it when popup design will be available in wider screens. */
+    &.android {
+        /* Because body width can be caped on wider screens we need to center body in viewport. */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 body {
@@ -18,6 +27,21 @@ body {
     line-height: 1.4;
     color: var(--gray-base);
     background-color: var(--white);
+
+    /* TODO: Remove it when popup design will be available in wider screens. */
+    .android & {
+        /* Because popup design is available only on small screens, we need to cap its width. */
+        max-width: var(--popup-android-max-width);
+
+        /**
+         * In case if body width is capped we need to make sure that
+         * all absolutely positioned elements will be relative to body.
+         *
+         * You can see in other files that we use `position: absolute`
+         * instead of `position: fixed` for android popup.
+         */
+        position: relative;
+    }
 }
 
 .content {
@@ -60,6 +84,7 @@ textarea {
 }
 
 .data-loader {
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;

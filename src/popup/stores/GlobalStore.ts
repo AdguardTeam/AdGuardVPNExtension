@@ -23,7 +23,17 @@ export class GlobalStore {
     @action
     async getDesktopAppData(): Promise<void> {
         const { rootStore: { settingsStore } } = this;
-        settingsStore.setHasDesktopAppForOs();
+        await settingsStore.setHasDesktopAppForOs();
+    }
+
+    /**
+     * Checks whether the extension is running on a android browser.
+     * Sets the result to the settings store.
+     */
+    @action
+    async getAndroidData(): Promise<void> {
+        const { rootStore: { settingsStore } } = this;
+        await settingsStore.setIsAndroidBrowser();
     }
 
     @action
@@ -128,6 +138,11 @@ export class GlobalStore {
 
     @action
     async init(): Promise<void> {
+        /**
+         * Get android data first because our styles depends on it,
+         * and UI might shift because it was loaded too late.
+         */
+        await this.getAndroidData();
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         await this.getDesktopAppData();
         await this.rootStore.authStore.getResendCodeCountdownAndStart();

@@ -46,6 +46,8 @@
     --red-gradient: linear-gradient(103deg, #da3434, #ec428a 102%);
     --popup-width: 320px;
     --popup-height: 598px;
+    /* TODO: Remove it when popup design will be available in wider screens. */
+    --popup-android-max-width: 450px;
     --blue-gradient: linear-gradient(180deg, #E2F5FF -50.38%, #FFFFFF 80%);
     --shadow-0-07: rgba(0, 0, 0, 0.07);
     --overlay: rgba(0, 0, 0, 0.5);
@@ -153,4 +155,9 @@
     /* Dynamic Colors */
     --fills-backgrounds-page-background-hovered: var(--gray-80);
     --fills-backgrounds-page-background-pressed: var(--gray-70);
+}
+
+.android {
+    /* In android browsers popup size is dynamic, so we need to adjust its size */
+    --popup-width: 100%;
 }

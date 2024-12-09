@@ -1,5 +1,5 @@
 .endpoints {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     z-index: var(--endpoints-z-index);
@@ -9,6 +9,11 @@
     transition: opacity var(--t3);
     background-color: var(--white);
     overflow: hidden;
+
+    /* TODO: Remove it when popup design will be available in wider screens. */
+    .android & {
+        position: absolute;
+    }
 
     &__header {
         position: relative;
