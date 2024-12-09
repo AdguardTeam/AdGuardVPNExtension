@@ -25,7 +25,7 @@ export function Button({
     onClick,
 }: ButtonProps) {
     const classes = classNames(
-        'button',
+        'button has-tab-focus',
         `button--${variant}`,
         className,
     );
