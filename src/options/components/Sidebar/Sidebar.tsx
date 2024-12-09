@@ -62,7 +62,9 @@ export const Sidebar = observer(() => {
                 </div>
                 <nav className="sidebar__nav" onClick={handleCloseAll}>
                     <SidebarLink to="/">
-                        {translator.getMessage('settings_title')}
+                        {/* FIXME: Update translation text */}
+                        {/* {translator.getMessage('settings_title')} */}
+                        General
                     </SidebarLink>
                     <SidebarLink to="/exclusions">
                         {translator.getMessage('settings_exclusion_title')}
