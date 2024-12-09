@@ -67,6 +67,9 @@
     --text-links-link-hovered: var(--product-primary-60);
     --text-links-link-pressed: var(--product-primary-70);
     --text-links-link-disabled: var(--product-primary-30);
+    --text-links-error-link-default: var(--red-50);
+    --text-labels-labels-default: var(--gray-70);
+    --text-placeholder-placeholder-default: var(--gray-50);
 
     /* Fills */
     --fills-backgrounds-page-background-default: var(--gray-0);
@@ -90,6 +93,7 @@
     --fills-buttons-main-button-disabled: var(--product-primary-30);
     --fills-buttons-secondary-hovered: var(--gray-10);
     --fills-buttons-secondary-pressed: var(--gray-20);
+    --fills-inputs-input-background-default: var(--gray-10);
 
     /* Stroke */
     --stroke-dividers-item-divider-default: var(--gray-30);
@@ -100,6 +104,9 @@
     --stroke-icons-error-icon-default: var(--red-50);
     --stroke-buttons-secondary-default: var(--gray-80);
     --stroke-buttons-secondary-disabled: var(--gray-50);
+    --stroke-inputs-inactive-input-stroke-default: var(--gray-30);
+    --stroke-inputs-active-input-stroke-default: var(--gray-50);
+    --stroke-inputs-error-input-default: var(--red-50);
 
     @media (prefers-color-scheme: dark) {
         --white: #131313;
@@ -120,6 +127,7 @@
         /* Text */
         --text-main-text-main-default: var(--gray-20);
         --text-description-description-default: var(--gray-30);
+        --text-labels-labels-default: var(--gray-30);
 
         /* Fills */
         --fills-backgrounds-page-background-default: var(--gray-90);
@@ -135,12 +143,14 @@
         --fills-switch-all-off-hovered: var(--gray-70);
         --fills-buttons-secondary-hovered: var(--gray-80);
         --fills-buttons-secondary-pressed: var(--gray-70);
+        --fills-inputs-input-background-default: var(--gray-80);
 
         /* Stroke */
         --stroke-dividers-item-divider-default: var(--gray-70);
         --stroke-icons-gray-icons-default: var(--gray-40);
         --stroke-icons-gray-icons-disabled: var(--gray-70);
         --stroke-buttons-secondary-default: var(--gray-20);
+        --stroke-inputs-inactive-input-stroke-default: var(--gray-70);
     }
 }
 
@@ -163,6 +173,7 @@
     /* Text */
     --text-main-text-main-default: var(--gray-20);
     --text-description-description-default: var(--gray-30);
+    --text-labels-labels-default: var(--gray-30);
 
     /* Fills */
     --fills-backgrounds-page-background-default: var(--gray-90);
@@ -178,12 +189,14 @@
     --fills-switch-all-off-hovered: var(--gray-70);
     --fills-buttons-secondary-hovered: var(--gray-80);
     --fills-buttons-secondary-pressed: var(--gray-70);
+    --fills-inputs-input-background-default: var(--gray-80);
 
     /* Stroke */
     --stroke-dividers-item-divider-default: var(--gray-70);
     --stroke-icons-gray-icons-default: var(--gray-40);
     --stroke-icons-gray-icons-disabled: var(--gray-70);
     --stroke-buttons-secondary-default: var(--gray-20);
+    --stroke-inputs-inactive-input-stroke-default: var(--gray-70);
 }
 
 .light-mode {
@@ -205,6 +218,7 @@
     /* Text */
     --text-main-text-main-default: var(--gray-80);
     --text-description-description-default: var(--gray-70);
+    --text-labels-labels-default: var(--gray-70);
 
     /* Fills */
     --fills-backgrounds-page-background-default: var(--gray-0);
@@ -220,10 +234,12 @@
     --fills-switch-all-off-hovered: var(--gray-50);
     --fills-buttons-secondary-hovered: var(--gray-10);
     --fills-buttons-secondary-pressed: var(--gray-20);
+    --fills-inputs-input-background-default: var(--gray-10);
 
     /* Stroke */
     --stroke-dividers-item-divider-default: var(--gray-30);
     --stroke-icons-gray-icons-default: var(--gray-60);
     --stroke-icons-gray-icons-disabled: var(--gray-30);
     --stroke-buttons-secondary-default: var(--gray-80);
+    --stroke-inputs-inactive-input-stroke-default: var(--gray-30);
 }
