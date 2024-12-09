@@ -32,6 +32,16 @@ body {
     }
 }
 
+a {
+    color: var(--text-links-link-default);
+    text-decoration-line: underline;
+    outline: 2px solid transparent;
+
+    &:focus-visible {
+        outline-color: var(--product-primary-50);
+    }
+}
+
 .body_light,
 .body_dark {
     background-color: var(--fills-backgrounds-page-background-default);

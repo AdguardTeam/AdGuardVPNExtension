@@ -11,6 +11,7 @@ export interface ButtonProps extends PropsWithChildren {
     type?: 'button' | 'submit' | 'reset';
     className?: string;
     disabled?: boolean;
+    form?: string;
     beforeIconName?: string;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -20,6 +21,7 @@ export function Button({
     type = 'button',
     className,
     disabled,
+    form,
     beforeIconName,
     children,
     onClick,
@@ -36,6 +38,7 @@ export function Button({
             type={type}
             className={classes}
             disabled={disabled}
+            form={form}
             onClick={onClick}
         >
             {beforeIconName && (

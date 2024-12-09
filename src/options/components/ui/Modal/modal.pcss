@@ -1,5 +1,5 @@
 .modal {
-    z-index: 6;
+    z-index: var(--modal-z);
     position: fixed;
     display: flex;
     align-items: center;
@@ -15,14 +15,12 @@
     }
 
     &__overlay {
-        z-index: 7;
         position: absolute;
         background-color: var(--fills-backgrounds-dialog-background-default);
         opacity: 0.5;
     }
 
     &__content {
-        z-index: 8;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -33,15 +31,15 @@
         background: var(--fills-backgrounds-page-background-default);
         box-shadow: var(--big-light-shadow-br);
 
-        .modal--default & {
+        .modal--size-large & {
             width: 720px;
         }
 
-        .modal--thin & {
+        .modal--size-medium & {
             width: 600px;
         }
 
-        @media (max-width: 872px) {
+        @media (--tablet) {
             padding: 24px 16px;
         }
     }
@@ -54,27 +52,20 @@
         line-height: 1.2;
         padding-right: 24px;
 
-        @media (max-width: 872px) {
+        @media (--tablet) {
             font-size: 24px;
             padding-right: 64px;
         }
     }
 
     &__description {
+        flex-shrink: 0;
         font-size: 16px;
         line-height: 1.5;
         margin-top: 12px;
+        color: var(--text-description-description-default);
 
-        .modal--thin & {
-            color: var(--text-description-description-default);
-        }
-
-        a {
-            color: var(--text-links-link-default);
-            text-decoration-line: underline;
-        }
-
-        @media (max-width: 872px) {
+        @media (--tablet) {
             padding-right: 40px;
         }
     }
@@ -89,5 +80,34 @@
     &__wrapper {
         overflow-y: auto;
         scrollbar-width: thin;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        row-gap: 32px;
+        margin-top: 32px;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding-top: 32px;
+        flex-shrink: 0;
+        display: flex;
+        gap: 16px;
+
+        @media (--tablet) {
+            flex-direction: column;
+        }
+
+        .button {
+            width: 200px;
+
+            @media (--tablet) {
+                width: 100%;
+            }
+        }
     }
 }

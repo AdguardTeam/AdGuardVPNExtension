@@ -293,6 +293,10 @@ export class SettingsStore {
 
     @action closeCustomDnsModal = (): void => {
         this.isCustomDnsModalOpen = false;
+
+        if (this.dnsServerToEdit) {
+            this.setDnsServerToEdit(null);
+        }
     };
 
     /**

@@ -1,4 +1,4 @@
-import React, { useRef, type PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 
 import classNames from 'classnames';
 
@@ -8,26 +8,26 @@ import { IconButton } from '../Icon';
 import './modal.pcss';
 
 export interface ModalProps extends PropsWithChildren {
-    title: string | React.ReactNode;
-    description?: string | React.ReactNode;
+    title: React.ReactNode;
+    description?: React.ReactNode;
+    actions?: React.ReactNode;
     open: boolean;
-    variant?: 'default' | 'thin';
+    size?: 'large' | 'medium';
     onClose: () => void;
 }
 
 export function Modal({
     title,
     description,
+    actions,
     open,
-    variant = 'default',
+    size = 'large',
     children,
     onClose,
 }: ModalProps) {
-    const ref = useRef<HTMLDivElement>(null);
-
     const classes = classNames(
         'modal',
-        `modal--${variant}`,
+        `modal--size-${size}`,
     );
 
     if (!open) {
@@ -38,7 +38,7 @@ export function Modal({
         <ReactPortal>
             <div className={classes}>
                 <div className="modal__overlay" onClick={onClose} />
-                <div ref={ref} className="modal__content">
+                <div className="modal__content">
                     <IconButton
                         name="cross"
                         className="modal__close-btn"
@@ -55,6 +55,11 @@ export function Modal({
                     <div className="modal__wrapper">
                         {children}
                     </div>
+                    {actions && (
+                        <div className="modal__actions">
+                            {actions}
+                        </div>
+                    )}
                 </div>
             </div>
         </ReactPortal>

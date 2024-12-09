@@ -29,6 +29,8 @@ export const DnsSettingsServerModal = observer(({
         dnsServerAddress,
     } = settingsStore;
 
+    const formId = 'custom-dns-server-form';
+
     const [dnsServerAddressError, setDnsServerAddressError] = useState<string | null>(null);
 
     const handleCloseModal = () => {
@@ -70,14 +72,31 @@ export const DnsSettingsServerModal = observer(({
             title={title}
             description={description}
             open={open}
+            actions={(
+                <>
+                    <Button type="submit" form={formId}>
+                        {submitBtnTitle}
+                    </Button>
+                    <Button variant="outline" type="reset" form={formId}>
+                        {translator.getMessage('settings_exclusion_modal_cancel')}
+                    </Button>
+                </>
+            )}
             onClose={handleCloseModal}
         >
-            <form onSubmit={handleSubmit} onReset={handleReset} className="form">
+            <form
+                id={formId}
+                className="modal__form"
+                onSubmit={handleSubmit}
+                onReset={handleReset}
+            >
                 <Input
                     id="dns-name"
                     name="dns-name"
                     label={translator.getMessage('settings_dns_add_custom_server_name')}
-                    placeholder={translator.getMessage('settings_dns_add_custom_server_name_placeholder')}
+                    // FIXME: Update translation text
+                    // placeholder={translator.getMessage('settings_dns_add_custom_server_name_placeholder')}
+                    placeholder="My DNS Server"
                     value={dnsServerName}
                     onChange={handleDnsServerNameChange}
                     required
@@ -85,21 +104,17 @@ export const DnsSettingsServerModal = observer(({
                 <Input
                     id="dns-address"
                     name="dns-address"
-                    label={translator.getMessage('settings_dns_add_custom_server_address')}
-                    placeholder={translator.getMessage('settings_dns_add_custom_server_address_placeholder')}
+                    // FIXME: Update translation text
+                    // label={translator.getMessage('settings_dns_add_custom_server_address')}
+                    label="Server address"
+                    // FIXME: Update translation text
+                    // placeholder={translator.getMessage('settings_dns_add_custom_server_address_placeholder')}
+                    placeholder="IP address or tls://"
                     value={dnsServerAddress}
                     onChange={handleDnsServerAddressChange}
                     error={dnsServerAddressError}
                     required
                 />
-                <div className="form__actions">
-                    <Button type="submit">
-                        {submitBtnTitle}
-                    </Button>
-                    <Button variant="outline" type="reset">
-                        {translator.getMessage('settings_exclusion_modal_cancel')}
-                    </Button>
-                </div>
             </form>
         </Modal>
     );
