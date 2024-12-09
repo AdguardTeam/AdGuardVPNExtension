@@ -23,8 +23,8 @@ body {
     font-family: var(--font-stack);
     font-size: 1.6rem;
     line-height: 1.4;
-    color: var(--gray-base);
-    background-color: var(--white-strong);
+    color: var(--text-main-text-main-default);
+    background-color: var(--fills-backgrounds-page-background-default);
 
     &.locked {
         overflow-y: hidden;
@@ -64,10 +64,9 @@ body {
     }
 }
 
-/* FIXME: Fix body color according to design */
 .body_light,
 .body_dark {
-    background-color: var(--white-strong);
+    background-color: var(--fills-backgrounds-page-background-default);
 }
 
 .has-tab-focus {
@@ -77,10 +76,4 @@ body {
     &:focus-visible {
         outline-color: var(--primary-50);
     }
-}
-
-/* FIXME: Remove this */
-.general-settings {
-    min-height: 680px;
-    margin-left: 16px;
 }
