@@ -10,7 +10,10 @@ export interface SwitchProps {
 }
 
 export function Switch({ active, onToggle }: SwitchProps) {
-    const classes = classNames('switch', active && 'switch--active');
+    const classes = classNames(
+        'switch has-tab-focus',
+        active && 'switch--active',
+    );
 
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
