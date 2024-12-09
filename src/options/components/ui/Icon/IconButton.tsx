@@ -6,6 +6,7 @@ import { Icon } from './Icon';
 
 export interface IconButtonProps {
     type?: 'button' | 'submit' | 'reset';
+    color?: 'default' | 'success' | 'error';
     name: string;
     className?: string;
     iconClassName?: string;
@@ -14,14 +15,15 @@ export interface IconButtonProps {
 
 export function IconButton({
     type = 'button',
+    color = 'default',
     name,
     className,
     iconClassName,
     onClick,
 }: IconButtonProps) {
     const classes = classNames(
-        'icon-button',
-        'has-tab-focus',
+        'icon-button has-tab-focus',
+        `icon-button--${color}`,
         className,
     );
 
