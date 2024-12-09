@@ -4,7 +4,8 @@ import classNames from 'classnames';
 
 import './radio.pcss';
 
-export interface RadioProps<T> {
+export interface RadioProps<T extends string> {
+    name: string;
     value: T;
     active: boolean;
     title: React.ReactNode;
@@ -14,6 +15,7 @@ export interface RadioProps<T> {
 }
 
 export function Radio<T extends string>({
+    name,
     value,
     active,
     title,
@@ -26,16 +28,26 @@ export function Radio<T extends string>({
         active && 'radio--active',
     );
 
-    const handleClick = () => {
-        onSelect(value);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) {
+            onSelect(value);
+        }
     };
 
     return (
-        <button
+        <label
             className={classes}
-            type="button"
-            onClick={handleClick}
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={0}
         >
+            <input
+                type="radio"
+                value={value}
+                name={name}
+                checked={active}
+                onChange={handleChange}
+                className="hidden"
+            />
             <span className="radio__circle-outer">
                 <span className="radio__circle-inner" />
             </span>
@@ -54,6 +66,6 @@ export function Radio<T extends string>({
                     {action}
                 </span>
             )}
-        </button>
+        </label>
     );
 }
