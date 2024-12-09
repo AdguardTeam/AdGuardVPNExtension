@@ -163,3 +163,31 @@
         }
     }
 }
+
+.logo {
+    width: 125px;
+    height: 24px;
+    background-image: url('../../../assets/images/logo-vpn.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    @media (prefers-color-scheme: dark) {
+        background-image: url('../../../assets/images/logo-vpn-dark.svg');
+    }
+}
+
+.light-mode {
+    color-scheme: light;
+
+    .logo {
+        background-image: url('../../../assets/images/logo-vpn.svg');
+    }
+}
+
+.dark-mode {
+    color-scheme: dark;
+
+    .logo {
+        background-image: url('../../../assets/images/logo-vpn-dark.svg');
+    }
+}

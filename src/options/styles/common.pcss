@@ -31,42 +31,13 @@ body {
     }
 }
 
-.hidden {
-    display: none;
-}
-
-/* FIXME: Move logo to navbar styles */
-.logo {
-    width: 125px;
-    height: 24px;
-    background-image: url('../../assets/images/logo-vpn.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-
-    @media (prefers-color-scheme: dark) {
-        background-image: url('../../assets/images/logo-vpn-dark.svg');
-    }
-}
-
-.light-mode {
-    color-scheme: light;
-
-    .logo {
-        background-image: url('../../assets/images/logo-vpn.svg');
-    }
-}
-
-.dark-mode {
-    color-scheme: dark;
-
-    .logo {
-        background-image: url('../../assets/images/logo-vpn-dark.svg');
-    }
-}
-
 .body_light,
 .body_dark {
     background-color: var(--fills-backgrounds-page-background-default);
+}
+
+.hidden {
+    display: none;
 }
 
 .has-tab-focus {
