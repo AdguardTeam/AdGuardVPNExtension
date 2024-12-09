@@ -8,8 +8,6 @@ import { rootStore } from '../../../stores';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { translator } from '../../../../common/translator';
 
-import '../../ui/radio.pcss';
-
 export const ModeSelectorModal = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
