@@ -19,7 +19,7 @@ export const Icons = () => (
         </symbol>
 
         <symbol id="cross" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-            <path d="M6.42857143 6.42857143L17.604347 17.604347M6.42857143 17.5714286L17.604347 6.39565302" />
+            <path d="M6.43 6.43 17.6 17.6m-11.17-.03L17.6 6.4" />
         </symbol>
 
         <symbol id="star" viewBox="0 0 30 30" fill="currentColor" fillRule="evenodd" clipRule="evenodd">
@@ -34,7 +34,6 @@ export const Icons = () => (
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            xmlns="http://www.w3.org/2000/svg"
         >
             <path d="M6 10L12 16L18 10" />
         </symbol>
