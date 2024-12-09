@@ -1,1 +1,0 @@
-export { DnsMenuItem } from './DnsMenuItem';
