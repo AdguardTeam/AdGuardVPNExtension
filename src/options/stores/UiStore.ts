@@ -27,7 +27,7 @@ export class UiStore {
      * It's used as scroll blocker if any modal, sidebar is open. And also in order to
      * trap focus inside of that opened element.
      *
-     * TODO: Bring modal states to this computed state (AG-38059).
+     * FIXME: Bring modal states to this computed state (AG-38059).
      */
     @computed get isContentLocked(): boolean {
         return this.isSidebarOpen;
