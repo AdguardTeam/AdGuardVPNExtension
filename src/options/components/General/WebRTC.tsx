@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { reactTranslator } from '../../../common/reactTranslator';
+import { translator } from '../../../common/translator';
 import { ControlsSwitch } from '../ui/Controls';
 
 export const WebRTC = observer(() => {
@@ -15,9 +15,9 @@ export const WebRTC = observer(() => {
 
     return (
         <ControlsSwitch
-            title={reactTranslator.getMessage('settings_webrtc_label')}
+            title={translator.getMessage('settings_webrtc_label')}
             // FIXME: Update translation text
-            // description={reactTranslator.getMessage('settings_webrtc_desc')}
+            // description={translator.getMessage('settings_webrtc_desc')}
             description="Block WebRTC, a known vulnerability that can leak your real IP address even if you use a proxy or VPN"
             active={webRTCEnabled}
             onToggle={handleToggle}

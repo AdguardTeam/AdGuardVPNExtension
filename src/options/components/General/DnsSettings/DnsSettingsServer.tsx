@@ -24,7 +24,7 @@ function ModifyButton({ icon, color, onClick }: ModifyButtonProps) {
 interface DnsSettingsServerBaseProps {
     name: string;
     value: DnsServerData;
-    active: boolean;
+    isActive: boolean;
     onSelect: (dnsServerId: string) => void;
 }
 
@@ -43,7 +43,7 @@ export type DnsSettingsServerProps = DnsSettingsServerDefinedProps | DnsSettings
 export function DnsSettingsServer({
     name,
     value,
-    active,
+    isActive,
     onSelect,
     ...restProps
 }: DnsSettingsServerProps) {
@@ -52,7 +52,7 @@ export function DnsSettingsServer({
             <Radio
                 name={name}
                 value={value.id}
-                active={active}
+                isActive={isActive}
                 title={value.title}
                 description={value.address}
                 onSelect={onSelect}
@@ -78,7 +78,7 @@ export function DnsSettingsServer({
         <Radio
             name={name}
             value={value.id}
-            active={active}
+            isActive={isActive}
             title={value.title}
             description={value.desc}
             onSelect={onSelect}
