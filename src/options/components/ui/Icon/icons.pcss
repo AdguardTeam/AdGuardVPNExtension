@@ -1,0 +1,25 @@
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    font-size: 0;
+    width: 24px;
+    height: 24px;
+    color: var(--stroke-icons-gray-icons-default);
+}
+
+.icon-button {
+    flex-shrink: 0;
+    color: var(--stroke-icons-gray-icons-default);
+    transition: var(--t3) color;
+
+    &:hover,
+    &:active,
+    &:focus-visible {
+        color: var(--text-main-text-main-default);
+    }
+
+    .icon {
+        color: currentColor;
+    }
+}

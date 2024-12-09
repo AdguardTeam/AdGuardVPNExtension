@@ -3,7 +3,9 @@ import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
 
+import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { RequestStatus } from '../../stores/consts';
+import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
 import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
 import { Settings } from '../Settings';
@@ -12,12 +14,10 @@ import { Account } from '../Account';
 import { About } from '../About';
 import { SignedOut } from '../SignedOut';
 import { Preloader } from '../Preloader';
-import Icons from '../ui/Icons';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
-import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { Exclusions } from '../Exclusions';
-import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
+import { Icons } from '../ui/Icon';
 
 import { useMessageHandler } from './useMessageHandler';
 

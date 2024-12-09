@@ -1,11 +1,10 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react';
 
-import './icon.pcss';
+import './icons.pcss';
 
-const Icons = () => (
+export const Icons = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="hidden">
-        {/* New icons */}
         <symbol
             id="sidebar-burger"
             viewBox="0 0 24 24"
@@ -186,5 +185,3 @@ const Icons = () => (
 
     </svg>
 );
-
-export default Icons;
