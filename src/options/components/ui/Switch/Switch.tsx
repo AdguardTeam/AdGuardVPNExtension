@@ -1,43 +1,31 @@
 import React from 'react';
 
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 import './switch.pcss';
 
-interface SwitchProps {
-    title: string | React.ReactNode;
-    desc?: string | React.ReactNode;
-    checked: boolean;
-    handleToggle: () => void;
+export interface SwitchProps {
+    active: boolean;
+    onToggle: () => void;
 }
 
-export const Switch = ({
-    title,
-    desc,
-    checked,
-    handleToggle,
-}: SwitchProps) => {
-    const togglerClass = classnames('switch__toggler', {
-        'switch__toggler--active': checked,
-    });
+export function Switch({ active, onToggle }: SwitchProps) {
+    const classes = classNames('switch', active && 'switch--active');
+
+    const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        onToggle();
+    };
 
     return (
-        <div className="switch">
-            <div className="switch__info">
-                <div className="switch__title">
-                    {title}
-                </div>
-                {desc && (
-                    <div className="switch__desc">
-                        {desc}
-                    </div>
-                )}
-            </div>
-            <button
-                type="button"
-                className={togglerClass}
-                onClick={handleToggle}
-            />
-        </div>
+        <button
+            className={classes}
+            onClick={handleClick}
+            type="button"
+        >
+            <span className="switch__wrapper">
+                <span className="switch__knob" />
+            </span>
+        </button>
     );
-};
+}
