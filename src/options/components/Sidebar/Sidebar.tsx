@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
+import { IconButton } from '../ui/Icon';
 
 import { SidebarLink } from './SidebarLink';
 import { Rate } from './Rate';
@@ -48,16 +49,11 @@ export const Sidebar = observer(() => {
     return (
         <div className={classes}>
             <div className="sidebar__header" inert={isSidebarOpen ? '' : undefined}>
-                {/* FIXME: Export icons to component (AG-38059) */}
-                <button
-                    className="sidebar__open-btn has-tab-focus"
-                    type="button"
+                <IconButton
+                    name="sidebar-burger"
                     onClick={openSidebar}
-                >
-                    <svg className="sidebar__open-btn-icon">
-                        <use xlinkHref="#sidebar-burger" />
-                    </svg>
-                </button>
+                    className="sidebar__open-btn"
+                />
             </div>
             <div className="sidebar__overlay" onClick={closeSidebar} />
             <div className="sidebar__content" inert={!isSidebarOpen && isMobileScreen ? '' : undefined}>
@@ -89,16 +85,11 @@ export const Sidebar = observer(() => {
                         </SidebarLink>
                     )}
                 </nav>
-                {/* FIXME: Export icons to component (AG-38059) */}
-                <button
-                    className="sidebar__close-btn has-tab-focus"
-                    type="button"
+                <IconButton
+                    name="cross"
                     onClick={closeSidebar}
-                >
-                    <svg className="sidebar__close-btn-icon">
-                        <use xlinkHref="#cross" />
-                    </svg>
-                </button>
+                    className="sidebar__close-btn"
+                />
                 <Rate />
             </div>
         </div>
