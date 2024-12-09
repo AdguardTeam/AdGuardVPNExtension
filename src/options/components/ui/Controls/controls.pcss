@@ -1,0 +1,52 @@
+.controls {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 16px;
+
+    &--select {
+        position: relative;
+    }
+
+    &--hoverable,
+    &--active {
+        cursor: pointer;
+        background-color: transparent;
+        transition: var(--t3) background-color;
+        border-radius: 8px;
+    }
+
+    &--hoverable:hover,
+    &--hoverable:active,
+    &--active {
+        background-color: var(--fills-backgrounds-page-background-hovered);
+    }
+
+    &__content {
+        flex: 1 1 auto;
+    }
+
+    &__before-action {
+        margin-right: 12px;
+        flex-shrink: 0;
+    }
+
+    &__action {
+        margin-left: 16px;
+        flex-shrink: 0;
+    }
+
+    &__title {
+        color: var(--text-main-text-main-default);
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    &__description {
+        color: var(--text-description-description-default);
+        font-size: 14px;
+        line-height: 1.3;
+        margin-top: 2px;
+    }
+}
