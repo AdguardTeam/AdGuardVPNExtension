@@ -64,9 +64,12 @@
         transition: var(--t3) background-color, var(--t3) color;
 
         &:hover,
-        &:active,
         &:focus-visible {
             background-color: var(--fills-menus-dropdown-menu-background-hovered);
+        }
+
+        &:active {
+            background-color: var(--fills-menus-dropdown-menu-background-pressed);
         }
 
         &-icon {

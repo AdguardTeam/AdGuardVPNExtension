@@ -118,9 +118,12 @@
         outline-offset: -2px;
 
         &:hover,
-        &:active,
         &:focus-visible {
             background-color: var(--fills-backgrounds-page-background-additional-hovered);
+        }
+
+        &:active {
+            background-color: var(--fills-backgrounds-page-background-additional-pressed);
         }
 
         &.sidebar__link--active {
