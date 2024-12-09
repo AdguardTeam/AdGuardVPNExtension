@@ -38,6 +38,19 @@ export const Icons = () => (
             <path d="M6 10L12 16L18 10" />
         </symbol>
 
+        <symbol
+            id="tick"
+            viewBox="0 0 24 24"
+            fill="none"
+            fillRule="evenodd"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="m5 12 6 6 8-9" />
+        </symbol>
+
         {/* Old icons, FIXME: Remove unused icons later when re-design is finished (AG-38059) */}
         <svg id="social_apple" viewBox="0 0 12 14">
             <defs>
