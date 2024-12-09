@@ -22,14 +22,16 @@ export class UiStore {
         this.isSidebarOpen = false;
     };
 
+    @computed get isAnyModalOpen(): boolean {
+        return this.rootStore.settingsStore.isCustomDnsModalOpen;
+    }
+
     /**
      * This computed state indicates when content is overlapped with modal, sidebar, etc.
      * It's used as scroll blocker if any modal, sidebar is open. And also in order to
      * trap focus inside of that opened element.
-     *
-     * FIXME: Bring modal states to this computed state (AG-38059).
      */
     @computed get isContentLocked(): boolean {
-        return this.isSidebarOpen;
+        return this.isSidebarOpen || this.isAnyModalOpen;
     }
 }

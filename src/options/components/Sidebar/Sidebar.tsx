@@ -23,6 +23,7 @@ export const Sidebar = observer(() => {
 
     const {
         isSidebarOpen,
+        isAnyModalOpen,
         openSidebar,
         closeSidebar,
     } = uiStore;
@@ -33,6 +34,7 @@ export const Sidebar = observer(() => {
     );
 
     const isMobileScreen = window.matchMedia('(max-width: 865px)').matches;
+    const isSidebarLocked = isAnyModalOpen || (!isSidebarOpen && isMobileScreen);
 
     useEffect(() => {
         (async () => {
@@ -56,7 +58,7 @@ export const Sidebar = observer(() => {
                 />
             </div>
             <div className="sidebar__overlay" onClick={closeSidebar} />
-            <div className="sidebar__content" inert={!isSidebarOpen && isMobileScreen ? '' : undefined}>
+            <div className="sidebar__content" inert={isSidebarLocked ? '' : undefined}>
                 <div className="sidebar__logo">
                     <div className="logo" />
                 </div>
