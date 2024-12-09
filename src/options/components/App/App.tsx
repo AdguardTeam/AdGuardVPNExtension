@@ -4,11 +4,10 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
 
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
+import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/consts';
 import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
-import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
-import { Settings } from '../Settings';
 import { FreeGbs } from '../FreeGbs';
 import { Account } from '../Account';
 import { About } from '../About';
@@ -18,6 +17,7 @@ import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { Exclusions } from '../Exclusions';
 import { Icons } from '../ui/Icon';
+import { General } from '../General';
 
 import { useMessageHandler } from './useMessageHandler';
 
@@ -39,7 +39,7 @@ const getContent = (
                 <div className="content" inert={isContentLocked ? '' : undefined}>
                     <div className="content__wrapper">
                         <Switch>
-                            <Route path="/" exact component={Settings} />
+                            <Route path="/" exact component={General} />
                             <Route path="/exclusions" exact component={Exclusions} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
@@ -47,7 +47,7 @@ const getContent = (
                             {!isPremiumToken && (
                                 <Route path="/free-gbs" component={FreeGbs} />
                             )}
-                            <Route component={Settings} />
+                            <Route component={General} />
                         </Switch>
                     </div>
                 </div>
