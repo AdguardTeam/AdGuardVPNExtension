@@ -7,7 +7,7 @@ import './radio.pcss';
 export interface RadioProps<T extends string> {
     name: string;
     value: T;
-    active: boolean;
+    isActive: boolean;
     title: React.ReactNode;
     description?: React.ReactNode;
     action?: React.ReactNode;
@@ -17,7 +17,7 @@ export interface RadioProps<T extends string> {
 export function Radio<T extends string>({
     name,
     value,
-    active,
+    isActive,
     title,
     description,
     action,
@@ -25,7 +25,7 @@ export function Radio<T extends string>({
 }: RadioProps<T>) {
     const classes = classNames(
         'radio has-tab-focus',
-        active && 'radio--active',
+        isActive && 'radio--active',
     );
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +44,7 @@ export function Radio<T extends string>({
                 type="radio"
                 value={value}
                 name={name}
-                checked={active}
+                checked={isActive}
                 onChange={handleChange}
                 className="hidden"
             />
