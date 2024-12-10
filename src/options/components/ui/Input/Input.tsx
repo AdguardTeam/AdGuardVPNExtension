@@ -13,14 +13,14 @@ export interface InputBaseProps {
     placeholder?: string;
     required?: boolean;
     value: string;
-    readOnly?: boolean;
     error?: React.ReactNode;
-    postfix?: string;
     onChange?: (value: string) => void;
 }
 
 export interface InputProps extends InputBaseProps {
     type?: 'text' | 'email';
+    readOnly?: boolean;
+    postfix?: string;
 }
 
 export function Input({
