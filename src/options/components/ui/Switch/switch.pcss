@@ -20,29 +20,25 @@
     }
 
     &__wrapper {
-        position: relative;
         display: block;
         width: 40px;
         height: 20px;
+        padding: 2px;
         background-color: var(--background);
         border-radius: 20px;
         transition: var(--t3) background-color;
     }
 
     &__knob {
-        position: absolute;
-        top: 2px;
-        left: 2px;
         display: block;
         width: 16px;
         height: 16px;
         border-radius: 50%;
         background-color: var(--fills-switch-all-knob-default);
-        transition: var(--t3) transform;
-        transform: translateX(0);
+        transition: var(--t3) margin;
 
         .switch--active & {
-            transform: translateX(20px);
+            margin-left: calc(100% - 16px);
         }
     }
 }
