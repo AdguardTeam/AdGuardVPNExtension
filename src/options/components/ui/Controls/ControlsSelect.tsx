@@ -27,7 +27,7 @@ export function ControlsSelect<T extends string>({
         setIsActive((currentActive) => !currentActive);
     };
 
-    const handleOutsideClick = () => {
+    const handleOutsideClickOrFocus = () => {
         setIsActive(false);
     };
 
@@ -48,7 +48,8 @@ export function ControlsSelect<T extends string>({
             isActive={isActive}
             className="controls--select"
             onClick={handleClick}
-            onOutsideClick={handleOutsideClick}
+            onOutsideClick={handleOutsideClickOrFocus}
+            onOutsideFocus={handleOutsideClickOrFocus}
         />
     );
 }

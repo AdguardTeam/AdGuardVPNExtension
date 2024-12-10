@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
+import { useOutsideFocus } from '../../../../common/components/ui/useOutsideFocus';
 import { Icon } from '../Icon';
 
 import './select.pcss';
@@ -100,6 +101,7 @@ export function Select<T extends string>({
     };
 
     useOutsideClick(ref, handleClose);
+    useOutsideFocus(ref, handleClose);
 
     return (
         <div ref={ref} className={classes}>

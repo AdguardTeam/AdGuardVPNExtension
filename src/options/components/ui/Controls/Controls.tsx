@@ -3,6 +3,7 @@ import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import classNames from 'classnames';
 
 import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
+import { useOutsideFocus } from '../../../../common/components/ui/useOutsideFocus';
 
 import './controls.pcss';
 
@@ -15,6 +16,7 @@ export interface ControlsProps {
     className?: string;
     onClick?: () => void;
     onOutsideClick?: () => void;
+    onOutsideFocus?: () => void;
 }
 
 export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
@@ -28,6 +30,7 @@ export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
             className,
             onClick,
             onOutsideClick,
+            onOutsideFocus,
         } = props;
 
         const ref = useRef<HTMLDivElement>(null);
@@ -45,7 +48,14 @@ export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
             }
         };
 
+        const handleOutsideFocus = () => {
+            if (onOutsideFocus) {
+                onOutsideFocus();
+            }
+        };
+
         useOutsideClick(ref, handleOutsideClick);
+        useOutsideFocus(ref, handleOutsideFocus);
         useImperativeHandle(forwardedRef, () => ref.current!);
 
         return (
