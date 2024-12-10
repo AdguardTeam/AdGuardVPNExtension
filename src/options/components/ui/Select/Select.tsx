@@ -15,21 +15,21 @@ interface SelectOptionItem<T> {
 }
 
 interface SelectOptionProps<T> extends SelectOptionItem<T> {
-    active?: boolean;
+    isActive?: boolean;
     onClick: (value: T) => void;
 }
 
 function SelectOption<T extends string>({
     value,
     title,
-    active,
+    isActive,
     shouldSkip,
     open,
     onClick,
 }: SelectOptionProps<T>) {
     const classes = classNames(
         'select__item has-tab-focus',
-        active && 'select__item--active',
+        isActive && 'select__item--active',
     );
 
     const handleClick = () => {
@@ -57,16 +57,16 @@ export interface SelectProps<T> {
     value: T;
     options: SelectOptionItem<T>[];
     onChange: (value: T) => void;
-    active?: boolean;
-    onActiveChange?: (value: boolean | ((oldValue: boolean) => boolean)) => void;
+    isActive?: boolean;
+    onIsActiveChange?: (value: boolean | ((oldValue: boolean) => boolean)) => void;
 }
 
 export function Select<T extends string>({
     value,
     options,
     onChange,
-    active: outsideActive,
-    onActiveChange,
+    isActive: outsideActive,
+    onIsActiveChange,
 }: SelectProps<T>) {
     const activeItem = options.find((option) => option.value === value);
 
@@ -81,7 +81,7 @@ export function Select<T extends string>({
     );
 
     const setActive = (value: boolean | ((oldValue: boolean) => boolean)) => {
-        if (!onActiveChange) {
+        if (!onIsActiveChange) {
             setLocalActive(value);
         }
     };
@@ -117,7 +117,7 @@ export function Select<T extends string>({
                         key={option.value}
                         value={option.value}
                         title={option.title}
-                        active={option.value === value}
+                        isActive={option.value === value}
                         shouldSkip={option.shouldSkip}
                         open={active}
                         onClick={handleChange}

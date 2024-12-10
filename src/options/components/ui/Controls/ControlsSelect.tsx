@@ -21,14 +21,14 @@ export function ControlsSelect<T extends string>({
 }: ControlsSelectProps<T>) {
     const ref = useRef<HTMLDivElement>(null);
 
-    const [active, setActive] = useState(false);
+    const [isActive, setIsActive] = useState(false);
 
     const handleClick = () => {
-        setActive((currentActive) => !currentActive);
+        setIsActive((currentActive) => !currentActive);
     };
 
     const handleOutsideClick = () => {
-        setActive(false);
+        setIsActive(false);
     };
 
     return (
@@ -41,11 +41,11 @@ export function ControlsSelect<T extends string>({
                     value={value}
                     options={options}
                     onChange={onChange}
-                    active={active}
-                    onActiveChange={setActive}
+                    isActive={isActive}
+                    onIsActiveChange={setIsActive}
                 />
             )}
-            active={active}
+            isActive={isActive}
             className="controls--select"
             onClick={handleClick}
             onOutsideClick={handleOutsideClick}
