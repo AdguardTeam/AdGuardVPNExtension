@@ -7,10 +7,32 @@ import { IconButton } from '../Icon';
 import './title.pcss';
 
 export interface TitleProps {
+    /**
+     * Title text to display.
+     */
     title: React.ReactNode;
+
+    /**
+     * Subtitle text to display.
+     */
     subtitle?: React.ReactNode;
+
+    /**
+     * Size of the title. Default is `large`.
+     * 'large' - 24px font size
+     * 'medium' - 20px font size
+     */
     size?: 'large' | 'medium';
+
+    /**
+     * Additional class name.
+     */
     className?: string;
+
+    /**
+     * Click event handler.
+     * If provided, title will be hoverable.
+     */
     onClick?: () => void;
 }
 

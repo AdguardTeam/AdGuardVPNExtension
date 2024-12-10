@@ -6,17 +6,52 @@ import { Icon } from '../Icon';
 
 import './button.pcss';
 
+/**
+ * Button component props.
+ */
 export interface ButtonProps extends PropsWithChildren {
-    variant?: 'default' | 'outline' | 'ghost';
-    type?: 'button' | 'submit' | 'reset';
     /**
-     * Currently only "outline" variant supports color "red"
+     * Button variant. Default is 'default'.
+     * 'default' - Contained button.
+     * 'outline' - Outlined button.
+     * 'ghost' - Transparent button.
+     */
+    variant?: 'default' | 'outline' | 'ghost';
+
+    /**
+     * Button type. Default is 'button'.
+     */
+    type?: 'button' | 'submit' | 'reset';
+
+    /**
+     * Button color. Default is 'default'.
+     * Currently only 'outline' variant supports color 'red'.
      */
     color?: 'default' | 'red';
+
+    /**
+     * Additional class name.
+     */
     className?: string;
+
+    /**
+     * Is button disabled or not.
+     */
     disabled?: boolean;
+
+    /**
+     * Form id to associate the button with.
+     */
     form?: string;
+
+    /**
+     * Icon name to display before the text.
+     */
     beforeIconName?: string;
+
+    /**
+     * Click event handler.
+     */
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 

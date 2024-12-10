@@ -1,14 +1,29 @@
 import React from 'react';
 
-import { Switch } from '../Switch';
+import { Switch, type SwitchProps } from '../Switch';
 
 import { type ControlsProps, Controls } from './Controls';
 
 export interface ControlsSwitchProps {
+    /**
+     * Title of the controls.
+     */
     title: ControlsProps['title'];
+
+    /**
+     * Description of the controls.
+     */
     description?: ControlsProps['description'];
-    isActive: boolean;
-    onToggle: () => void;
+
+    /**
+     * Is the switch active or not.
+     */
+    isActive: SwitchProps['isActive'];
+
+    /**
+     * On toggle handler.
+     */
+    onToggle: SwitchProps['onToggle'];
 }
 
 export function ControlsSwitch({

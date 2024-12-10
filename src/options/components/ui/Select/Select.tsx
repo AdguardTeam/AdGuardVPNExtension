@@ -9,14 +9,36 @@ import { Icon } from '../Icon';
 import './select.pcss';
 
 interface SelectOptionItem<T> {
+    /**
+     * Value of the option.
+     */
     value: T;
+
+    /**
+     * Title of the option.
+     */
     title: React.ReactNode;
+
+    /**
+     * Should skip rendering of the option.
+     */
     shouldSkip?: boolean;
-    open?: boolean;
+
+    /**
+     * Is the select active or not. Used to control tab index.
+     */
+    isSelectActive?: boolean;
 }
 
 interface SelectOptionProps<T> extends SelectOptionItem<T> {
+    /**
+     * Is the option is selected one or not.
+     */
     isActive?: boolean;
+
+    /**
+     * On click handler.
+     */
     onClick: (value: T) => void;
 }
 
@@ -25,7 +47,7 @@ function SelectOption<T extends string>({
     title,
     isActive,
     shouldSkip,
-    open,
+    isSelectActive,
     onClick,
 }: SelectOptionProps<T>) {
     const classes = classNames(
@@ -46,7 +68,7 @@ function SelectOption<T extends string>({
             className={classes}
             type="button"
             onClick={handleClick}
-            tabIndex={!open ? -1 : undefined}
+            tabIndex={!isSelectActive ? -1 : undefined}
         >
             {title}
             <Icon name="tick" className="select__item-icon" />
@@ -55,18 +77,37 @@ function SelectOption<T extends string>({
 }
 
 export interface SelectProps<T> {
+    /**
+     * Current selected value of the select.
+     */
     value: T;
+
+    /**
+     * Options of the select.
+     */
     options: SelectOptionItem<T>[];
-    onChange: (value: T) => void;
+
+    /**
+     * Is the select active or not.
+     */
     isActive?: boolean;
+
+    /**
+     * On change handler.
+     */
+    onChange: (value: T) => void;
+
+    /**
+     * On isActive change handler.
+     */
     onIsActiveChange?: (value: boolean | ((oldValue: boolean) => boolean)) => void;
 }
 
 export function Select<T extends string>({
     value,
     options,
-    onChange,
     isActive: outsideActive,
+    onChange,
     onIsActiveChange,
 }: SelectProps<T>) {
     const activeItem = options.find((option) => option.value === value);
@@ -74,11 +115,11 @@ export function Select<T extends string>({
     const ref = useRef<HTMLDivElement>(null);
 
     const [localActive, setLocalActive] = useState(false);
-    const active = outsideActive !== undefined ? outsideActive : localActive;
+    const isActive = outsideActive !== undefined ? outsideActive : localActive;
 
     const classes = classNames(
         'select',
-        active && 'select--active',
+        isActive && 'select--active',
     );
 
     const setActive = (value: boolean | ((oldValue: boolean) => boolean)) => {
@@ -121,7 +162,7 @@ export function Select<T extends string>({
                         title={option.title}
                         isActive={option.value === value}
                         shouldSkip={option.shouldSkip}
-                        open={active}
+                        isSelectActive={isActive}
                         onClick={handleChange}
                     />
                 ))}

@@ -6,18 +6,18 @@ import { IconButton, type IconButtonProps } from '../../ui/Icon';
 
 interface ModifyButtonProps {
     icon: string;
-    color?: IconButtonProps['color'];
+    hoverColor?: IconButtonProps['hoverColor'];
     onClick: () => void;
 }
 
-function ModifyButton({ icon, color, onClick }: ModifyButtonProps) {
+function ModifyButton({ icon, hoverColor, onClick }: ModifyButtonProps) {
     const handleClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         onClick();
     };
 
     return (
-        <IconButton name={icon} color={color} onClick={handleClick} />
+        <IconButton name={icon} hoverColor={hoverColor} onClick={handleClick} />
     );
 }
 
@@ -60,12 +60,12 @@ export function DnsSettingsServer({
                     <span className="dns-settings__custom-actions">
                         <ModifyButton
                             icon="edit"
-                            color="success"
+                            hoverColor="success"
                             onClick={() => restProps.onEdit(value)}
                         />
                         <ModifyButton
                             icon="basket"
-                            color="error"
+                            hoverColor="error"
                             onClick={() => restProps.onDelete(value.id)}
                         />
                     </span>

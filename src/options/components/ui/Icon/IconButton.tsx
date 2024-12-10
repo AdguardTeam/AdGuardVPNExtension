@@ -5,17 +5,41 @@ import classNames from 'classnames';
 import { Icon } from './Icon';
 
 export interface IconButtonProps {
+    /**
+     * Button type. Default is 'button'.
+     */
     type?: 'button' | 'submit' | 'reset';
-    color?: 'default' | 'success' | 'error';
+
+    /**
+     * Button hover color. Default is 'default'.
+     */
+    hoverColor?: 'default' | 'success' | 'error';
+
+    /**
+     * The name of the icon to display.
+     * Full list of available icons can be found in the Icons.tsx file.
+     */
     name: string;
+
+    /**
+     * Additional class name.
+     */
     className?: string;
+
+    /**
+     * Additional icon class name.
+     */
     iconClassName?: string;
+
+    /**
+     * Click event handler.
+     */
     onClick?: (e: React.MouseEvent) => void;
 }
 
 export function IconButton({
     type = 'button',
-    color = 'default',
+    hoverColor = 'default',
     name,
     className,
     iconClassName,
@@ -23,7 +47,7 @@ export function IconButton({
 }: IconButtonProps) {
     const classes = classNames(
         'icon-button has-tab-focus',
-        `icon-button--${color}`,
+        `icon-button--hover-${hoverColor}`,
         className,
     );
 

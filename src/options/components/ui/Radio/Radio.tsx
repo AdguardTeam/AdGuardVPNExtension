@@ -5,12 +5,39 @@ import classNames from 'classnames';
 import './radio.pcss';
 
 export interface RadioProps<T extends string> {
+    /**
+     * Radio name.
+     */
     name: string;
+
+    /**
+     * Current radio value.
+     */
     value: T;
+
+    /**
+     * Is radio active or not.
+     */
     isActive: boolean;
+
+    /**
+     * Radio title.
+     */
     title: React.ReactNode;
+
+    /**
+     * Radio description.
+     */
     description?: React.ReactNode;
+
+    /**
+     * Radio action. Rendered on the right side of the radio.
+     */
     action?: React.ReactNode;
+
+    /**
+     * On radio select handler.
+     */
     onSelect: (value: T) => void;
 }
 

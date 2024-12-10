@@ -20,8 +20,7 @@ export const DnsSettingsServerModalAdd = observer(() => {
 
     const adguardKnownDnsKbUrl = getForwarderUrl(
         forwarderDomain,
-        // FIXME: Add proper link
-        FORWARDER_URL_QUERIES.ADGUARD_DNS_KB,
+        FORWARDER_URL_QUERIES.ADGUARD_DNS_PROVIDERS_KB,
     );
 
     const handleSubmit = async (dnsServerName: string, dnsServerAddress: string) => {

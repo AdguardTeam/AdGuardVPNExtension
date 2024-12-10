@@ -8,7 +8,14 @@ import { IconButton } from '../Icon';
 const NOTIFICATION_CLEAR_TIMEOUT_MS = 5 * 1000; // 5s
 
 export interface NotificationItemProps {
+    /**
+     * Notification to display.
+     */
     value: Notification;
+
+    /**
+     * Callback to close notification.
+     */
     onClose: (notificationId: string) => void;
 }
 

@@ -8,11 +8,36 @@ import { IconButton } from '../Icon';
 import './modal.pcss';
 
 export interface ModalProps extends PropsWithChildren {
+    /**
+     * Title of the modal.
+     */
     title: React.ReactNode;
+
+    /**
+     * Description of the modal.
+     */
     description?: React.ReactNode;
+
+    /**
+     * Actions of the modal. Also can be considered as footer.
+     */
     actions?: React.ReactNode;
+
+    /**
+     * Flag that indicates whether the modal is open or not.
+     */
     isOpen: boolean;
+
+    /**
+     * Size of the modal. Default is `large`.
+     * 'large' - 720px width
+     * 'medium' - 600px width
+     */
     size?: 'large' | 'medium';
+
+    /**
+     * Function that will be called when the modal is closed.
+     */
     onClose: () => void;
 }
 

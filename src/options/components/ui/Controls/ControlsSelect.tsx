@@ -5,11 +5,30 @@ import { Select, type SelectProps } from '../Select';
 import { Controls, type ControlsProps } from './Controls';
 
 export interface ControlsSelectProps<T> {
+    /**
+     * Title of the controls.
+     */
     title: ControlsProps['title'];
+
+    /**
+     * Description of the controls.
+     */
     description?: ControlsProps['description'];
-    value: T;
+
+    /**
+     * Current selected value of the select.
+     */
+    value: SelectProps<T>['value'];
+
+    /**
+     * Options of the select.
+     */
     options: SelectProps<T>['options'];
-    onChange: (value: T) => void;
+
+    /**
+     * On change handler.
+     */
+    onChange: SelectProps<T>['onChange'];
 }
 
 export function ControlsSelect<T extends string>({
