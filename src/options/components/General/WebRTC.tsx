@@ -19,7 +19,7 @@ export const WebRTC = observer(() => {
             // FIXME: Update translation text
             // description={translator.getMessage('settings_webrtc_desc')}
             description="Block WebRTC, a known vulnerability that can leak your real IP address even if you use a proxy or VPN"
-            active={webRTCEnabled}
+            isActive={webRTCEnabled}
             onToggle={handleToggle}
         />
     );

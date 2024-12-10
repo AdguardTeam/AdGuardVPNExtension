@@ -21,7 +21,7 @@ export const HelpUsImprove = observer(() => {
             // FIXME: Update translation text
             // description={translator.getMessage('settings_help_us_improve_description')}
             description="Notify AdGuard VPN developers if something goes wrong"
-            active={helpUsImprove}
+            isActive={helpUsImprove}
             onToggle={handleToggle}
         />
     );

@@ -5,14 +5,14 @@ import classNames from 'classnames';
 import './switch.pcss';
 
 export interface SwitchProps {
-    active: boolean;
+    isActive: boolean;
     onToggle: () => void;
 }
 
-export function Switch({ active, onToggle }: SwitchProps) {
+export function Switch({ isActive, onToggle }: SwitchProps) {
     const classes = classNames(
         'switch has-tab-focus',
-        active && 'switch--active',
+        isActive && 'switch--active',
     );
 
     const handleClick = (e: React.MouseEvent) => {

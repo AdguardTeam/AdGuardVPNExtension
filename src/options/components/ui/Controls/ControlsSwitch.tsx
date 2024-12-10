@@ -7,21 +7,21 @@ import { type ControlsProps, Controls } from './Controls';
 export interface ControlsSwitchProps {
     title: ControlsProps['title'];
     description?: ControlsProps['description'];
-    active: boolean;
+    isActive: boolean;
     onToggle: () => void;
 }
 
 export function ControlsSwitch({
     title,
     description,
-    active,
+    isActive,
     onToggle,
 }: ControlsSwitchProps) {
     return (
         <Controls
             title={title}
             description={description}
-            action={<Switch active={active} onToggle={onToggle} />}
+            action={<Switch isActive={isActive} onToggle={onToggle} />}
             onClick={onToggle}
         />
     );

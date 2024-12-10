@@ -21,7 +21,7 @@ export const ContextMenus = observer(() => {
             // FIXME: Add translation text
             // description={translator.getMessage('settings_context_menus_description')}
             description="Manage VPN exclusions for a specific website"
-            active={contextMenusEnabled}
+            isActive={contextMenusEnabled}
             onToggle={handleToggle}
         />
     );
