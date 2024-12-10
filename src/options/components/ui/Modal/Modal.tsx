@@ -44,14 +44,16 @@ export function Modal({
                         className="modal__close-btn"
                         onClick={onClose}
                     />
-                    <div className="modal__title">
-                        {title}
-                    </div>
-                    {description && (
-                        <div className="modal__description">
-                            {description}
+                    <div className="modal__header">
+                        <div className="modal__title">
+                            {title}
                         </div>
-                    )}
+                        {description && (
+                            <div className="modal__description">
+                                {description}
+                            </div>
+                        )}
+                    </div>
                     <div className="modal__wrapper">
                         {children}
                     </div>
