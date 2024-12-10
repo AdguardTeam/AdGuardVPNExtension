@@ -11,7 +11,7 @@ export interface DnsSettingsServerModalProps {
     title: React.ReactNode;
     description?: React.ReactNode;
     submitBtnTitle?: React.ReactNode;
-    open: boolean;
+    isOpen: boolean;
     onSubmit: (dnsServerName: string, dnsServerAddress: string) => Promise<string | null>;
 }
 
@@ -19,7 +19,7 @@ export const DnsSettingsServerModal = observer(({
     title,
     description,
     submitBtnTitle,
-    open,
+    isOpen,
     onSubmit,
 }: DnsSettingsServerModalProps) => {
     const { settingsStore } = useContext(rootStore);
@@ -72,7 +72,7 @@ export const DnsSettingsServerModal = observer(({
         <Modal
             title={title}
             description={description}
-            open={open}
+            isOpen={isOpen}
             actions={(
                 <>
                     <Button type="submit" form={formId}>

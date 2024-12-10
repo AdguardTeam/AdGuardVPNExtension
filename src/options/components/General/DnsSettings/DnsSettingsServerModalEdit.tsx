@@ -57,7 +57,7 @@ export const DnsSettingsServerModalEdit = observer(() => {
         <DnsSettingsServerModal
             title={translator.getMessage('settings_dns_edit_custom_server')}
             submitBtnTitle={translator.getMessage('settings_dns_add_custom_server_save')}
-            open={isCustomDnsModalOpen && !!dnsServerToEdit}
+            isOpen={isCustomDnsModalOpen && !!dnsServerToEdit}
             onSubmit={handleSubmit}
         />
     );

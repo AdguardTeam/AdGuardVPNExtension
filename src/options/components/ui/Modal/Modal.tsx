@@ -11,7 +11,7 @@ export interface ModalProps extends PropsWithChildren {
     title: React.ReactNode;
     description?: React.ReactNode;
     actions?: React.ReactNode;
-    open: boolean;
+    isOpen: boolean;
     size?: 'large' | 'medium';
     onClose: () => void;
 }
@@ -20,7 +20,7 @@ export function Modal({
     title,
     description,
     actions,
-    open,
+    isOpen,
     size = 'large',
     children,
     onClose,
@@ -30,7 +30,7 @@ export function Modal({
         `modal--size-${size}`,
     );
 
-    if (!open) {
+    if (!isOpen) {
         return null;
     }
 
