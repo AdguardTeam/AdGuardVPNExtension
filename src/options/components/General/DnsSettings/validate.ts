@@ -11,6 +11,13 @@ const DNS_SERVER_ERROR = {
     DUPLICATE: translator.getMessage('settings_dns_add_custom_server_duplicate_address'),
 };
 
+/**
+ * Validate custom dns server address.
+ *
+ * @param customDnsServers List of custom dns servers.
+ * @param address Address to validate.
+ * @returns Error message if address is invalid, otherwise null.
+ */
 export const validateDnsServerAddress = (
     customDnsServers: DnsServerData[],
     address: string,
@@ -27,6 +34,12 @@ export const validateDnsServerAddress = (
     return null;
 };
 
+/**
+ * Normalize dns server address.
+ *
+ * @param address Address to normalize.
+ * @returns Normalized address.
+ */
 export const normalizeDnsServerAddress = (address: string) => {
     if (isIP(address) || address.startsWith(DOT_PREFIX)) {
         return address;
