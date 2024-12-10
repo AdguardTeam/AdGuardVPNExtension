@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import Modal from 'react-modal';
 
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/consts';
 import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
+import { useMessageHandler } from '../../hooks/useMessageHandler';
 import { Sidebar } from '../Sidebar';
 import { FreeGbs } from '../FreeGbs';
 import { Account } from '../Account';
@@ -14,17 +14,13 @@ import { About } from '../About';
 import { SignedOut } from '../SignedOut';
 import { Preloader } from '../Preloader';
 import { Support } from '../Support';
-import { Notifications } from '../ui/Notifications';
 import { Exclusions } from '../Exclusions';
+import { Notifications } from '../ui/Notifications';
 import { Icons } from '../ui/Icon';
 import { General } from '../General';
 
-import { useMessageHandler } from './useMessageHandler';
-
 import '../../styles/main.pcss';
 import './app.pcss';
-
-Modal.setAppElement('#root');
 
 const getContent = (
     authenticated: boolean,
