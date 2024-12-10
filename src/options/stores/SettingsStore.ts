@@ -257,10 +257,7 @@ export class SettingsStore {
         });
 
         this.setCustomDnsServers(editedDnsServers);
-
-        if (this.dnsServerToEdit) {
-            this.setDnsServerToEdit(null);
-        }
+        this.setDnsServerToEdit(null);
     };
 
     @action removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {
@@ -293,10 +290,6 @@ export class SettingsStore {
 
     @action closeCustomDnsModal = (): void => {
         this.isCustomDnsModalOpen = false;
-
-        if (this.dnsServerToEdit) {
-            this.setDnsServerToEdit(null);
-        }
     };
 
     /**

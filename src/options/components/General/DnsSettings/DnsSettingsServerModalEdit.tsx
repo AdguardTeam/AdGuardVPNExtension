@@ -27,7 +27,7 @@ export const DnsSettingsServerModalEdit = observer(() => {
         } = dnsServerToEdit;
 
         if (oldDnsServerAddress !== dnsServerAddress) {
-            // `address` is dns address before editing,
+            // `oldDnsServerAddress` is dns address before editing,
             // `dnsServerAddress` is the state of dns address form.
             // if dns address was edited, it has to be verified.
             const dnsServerAddressError = validateDnsServerAddress(customDnsServers, dnsServerAddress);
@@ -41,7 +41,9 @@ export const DnsSettingsServerModalEdit = observer(() => {
         const normalizedDnsServerAddress = normalizeDnsServerAddress(dnsServerAddress);
         await settingsStore.editCustomDnsServer(id, dnsServerName, normalizedDnsServerAddress);
         notificationsStore.notifySuccess(
-            translator.getMessage('settings_dns_edit_custom_server_notification'),
+            // FIXME: Add translation text
+            // translator.getMessage('settings_dns_edit_custom_server_notification'),
+            'Custom DNS server edited',
             {
                 action: translator.getMessage('settings_exclusions_undo'),
                 handler: () => settingsStore.editCustomDnsServer(id, oldDnsServerName, oldDnsServerAddress),

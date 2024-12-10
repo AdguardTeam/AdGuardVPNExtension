@@ -25,6 +25,10 @@ export const DnsSettings = observer(() => {
         settingsStore.setDnsServer(dnsServerId);
     };
 
+    const handleAddClick = () => {
+        settingsStore.openCustomDnsModal();
+    };
+
     const handleEditClick = (dnsServer: DnsServerData) => {
         settingsStore.setDnsServerToEdit(dnsServer);
         settingsStore.openCustomDnsModal();
@@ -39,10 +43,6 @@ export const DnsSettings = observer(() => {
                 handler: () => settingsStore.restoreCustomDnsServersData(),
             },
         );
-    };
-
-    const handleOpenModal = () => {
-        settingsStore.openCustomDnsModal();
     };
 
     const renderDnsServer = (dnsServer: DnsServerData) => (
@@ -94,7 +94,7 @@ export const DnsSettings = observer(() => {
                 className="dns-settings__custom-servers"
             />
             {settingsStore.customDnsServers.map(renderCustomDnsServer)}
-            <Button variant="ghost" beforeIconName="plus" onClick={handleOpenModal}>
+            <Button variant="ghost" beforeIconName="plus" onClick={handleAddClick}>
                 {translator.getMessage('settings_dns_add_custom_server')}
             </Button>
             <DnsSettingsServerModalAdd />

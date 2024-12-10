@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useId, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
@@ -29,15 +29,16 @@ export const DnsSettingsServerModal = observer(({
         dnsServerAddress,
     } = settingsStore;
 
-    const formId = 'custom-dns-server-form';
+    const formId = useId();
 
     const [dnsServerAddressError, setDnsServerAddressError] = useState<string | null>(null);
 
     const handleCloseModal = () => {
+        settingsStore.closeCustomDnsModal();
         settingsStore.setDnsServerName('');
         settingsStore.setDnsServerAddress('');
+        settingsStore.setDnsServerToEdit(null);
         setDnsServerAddressError(null);
-        settingsStore.closeCustomDnsModal();
     };
 
     const handleDnsServerNameChange = (value: string) => {
