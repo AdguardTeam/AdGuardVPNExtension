@@ -33,7 +33,7 @@ export const Sidebar = observer(() => {
         isSidebarOpen && 'sidebar--open',
     );
 
-    const isMobileScreen = window.matchMedia('(max-width: 865px)').matches;
+    const isMobileScreen = window.matchMedia('(max-width: 875px)').matches;
 
     /**
      * Lock sidebar from tab focus in following scenarios:
