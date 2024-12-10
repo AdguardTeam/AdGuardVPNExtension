@@ -1,44 +1,128 @@
 .account {
-    margin-left: 16px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 18px;
+    &__description {
+        color: var(--text-main-text-main-default);
+    }
 
     &__info {
-        padding-top: 8px;
-
-        &-item {
-            font-size: 16px;
-            line-height: 21px;
-            font-weight: 400;
-            margin-bottom: 16px;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-
-            &--bold {
-                font-weight: 600;
-            }
+        & + & {
+            margin-top: 24px;
         }
     }
 
     &__actions {
-        margin-top: 24px;
         display: flex;
-        gap: 16px;
+        flex-direction: column;
+        margin-top: 24px;
+        padding: 0 16px;
+        row-gap: 16px;
+    }
+
+    &__action {
+        text-decoration: none;
+        width: 260px;
+        /* Overriding button's default font style */
+        font-size: 16px;
+        font-weight: 600;
 
         @media (--mobile) {
-            flex-direction: column;
-            padding-right: 16px;
-
-            .button {
-                width: 100%;
-            }
+            width: 100%;
         }
     }
 
     &__features {
         padding-top: 48px;
+
+        &-list {
+            padding: 0 16px;
+        }
+
+        &-item {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        &-image {
+            width: 56px;
+            height: 56px;
+            margin-right: 24px;
+            flex-shrink: 0;
+        }
+
+        &-title {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        &-desc {
+            color: var(--text-description-description-default);
+            font-size: 14px;
+            line-height: 18px;
+        }
+    }
+
+    &__signed-out {
+        z-index: var(--signed-out-z);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--fills-backgrounds-page-background-default);
+
+        text-align: center;
+        color: var(--text-main-text-main-default);
+
+        &-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 800px;
+            padding: 0 16px;
+        }
+
+        &-image {
+            height: 200px;
+        }
+
+        &-title {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-top: 16px;
+
+            @media (--tablet) {
+                font-size: 24px;
+                padding: 0 16px;
+            }
+        }
+
+        &-description {
+            font-size: 18px;
+            line-height: 1.5;
+            padding-top: 16px;
+            margin: 24px 0;
+
+            @media (--tablet) {
+                padding: 0 16px;
+            }
+        }
+
+        &-btn {
+            min-width: 260px;
+
+            @media (--mobile) {
+                width: 100%;
+                min-width: auto;
+            }
+        }
     }
 }

@@ -7,17 +7,16 @@ import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/consts';
 import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
 import { useMessageHandler } from '../../hooks/useMessageHandler';
-import { Sidebar } from '../Sidebar';
-import { FreeGbs } from '../FreeGbs';
-import { Account } from '../Account';
-import { About } from '../About';
-import { SignedOut } from '../SignedOut';
-import { Preloader } from '../Preloader';
-import { Support } from '../Support';
-import { Exclusions } from '../Exclusions';
 import { Notifications } from '../ui/Notifications';
 import { Icons } from '../ui/Icon';
+import { Preloader } from '../Preloader';
+import { Sidebar } from '../Sidebar';
 import { General } from '../General';
+import { Exclusions } from '../Exclusions';
+import { Account, AccountSignedOut } from '../Account';
+import { Support } from '../Support';
+import { About } from '../About';
+import { FreeGbs } from '../FreeGbs';
 
 import '../../styles/main.pcss';
 import './app.pcss';
@@ -54,7 +53,7 @@ const getContent = (
     return (
         <>
             {requestProcessState === RequestStatus.Pending && <Preloader />}
-            <SignedOut />
+            <AccountSignedOut />
         </>
     );
 };

@@ -1,15 +1,16 @@
-import React, { type ReactNode, useContext } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { FORWARDER_URL_QUERIES } from '../../../background/config';
+import { translator } from '../../../common/translator';
+import { reactTranslator } from '../../../common/reactTranslator';
+import { SubscriptionType } from '../../../common/constants';
+import { getForwarderUrl } from '../../../common/helpers';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
-import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { getForwarderUrl } from '../../../common/helpers';
-import { reactTranslator } from '../../../common/reactTranslator';
-import { translator } from '../../../common/translator';
-import { SubscriptionType } from '../../../common/constants';
+import { Button } from '../ui/Button';
 
-import { Features } from './Features/Features';
+import { AccountFeatures } from './AccountFeatures';
 
 import './account.pcss';
 
@@ -20,27 +21,24 @@ export const Account = observer(() => {
         currentUsername,
         isPremiumToken,
         premiumFeatures,
-        hidePremiumFeatures,
-        openPremiumPromoPage,
         subscriptionType,
         subscriptionTimeExpiresIso,
         forwarderDomain,
     } = settingsStore;
+    const { maxDevicesCount } = authStore;
 
     const editAccountUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.EDIT_ACCOUNT);
 
-    const { maxDevicesCount } = authStore;
-
-    const signOut = async (): Promise<void> => {
+    const handleSignOut = async (): Promise<void> => {
         await authStore.deauthenticate();
     };
 
-    const hideFeatures = async (): Promise<void> => {
-        await hidePremiumFeatures();
+    const handleHideFeatures = async (): Promise<void> => {
+        await settingsStore.hidePremiumFeatures();
     };
 
-    const upgrade = async (): Promise<void> => {
-        await openPremiumPromoPage();
+    const handleUpgrade = async (): Promise<void> => {
+        await settingsStore.openPremiumPromoPage();
     };
 
     let expiresDate;
@@ -63,7 +61,7 @@ export const Account = observer(() => {
         [SubscriptionType.TwoYears]: translator.getMessage('account_two_year_paid'),
     };
 
-    const getAccountType = (): ReactNode => {
+    const getAccountType = (): React.ReactNode => {
         if (!isPremiumToken) {
             return translator.getMessage('account_free');
         }
@@ -77,86 +75,88 @@ export const Account = observer(() => {
 
     return (
         <>
-            <Title title={translator.getMessage('account_title')} />
-            <div className="account">
-                <div className="account__info">
-                    <div className="account__info-item">
-                        {getAccountType()}
-                    </div>
-                    {expiresDate && (
-                        <div className="account__info-item">
-                            {reactTranslator.getMessage('account_valid_until', {
-                                date: expiresDate,
+            <Title
+                title={translator.getMessage('account_title')}
+                subtitle={(
+                    <div className="account__description">
+                        <div className="account__info">
+                            {getAccountType()}
+                        </div>
+                        {expiresDate && isPremiumToken && (
+                            <div className="account__info">
+                                {reactTranslator.getMessage('account_valid_until', {
+                                    date: expiresDate,
+                                    b: (chunks: any) => (
+                                        <b>{chunks}</b>
+                                    ),
+                                })}
+                            </div>
+                        )}
+                        {maxDevicesCount !== undefined && (
+                            <div className="account__info">
+                                {/* FIXME: Update translation text */}
+                                {/* {reactTranslator.getMessage('account_max_devices_count', {
+                                    num: maxDevicesCount,
+                                    b: (chunks: any) => (
+                                        <b>{chunks}</b>
+                                    ),
+                                })} */}
+                                Up to
+                                {' '}
+                                <b>{maxDevicesCount}</b>
+                                {' '}
+                                simultaneous devices
+                            </div>
+                        )}
+                        <div className="account__info">
+                            {reactTranslator.getMessage('account_logged_in_as', {
+                                username: currentUsername,
                                 b: (chunks: any) => (
-                                    <span className="account__info-item--bold">
-                                        {chunks}
-                                    </span>
+                                    <b>{chunks}</b>
                                 ),
                             })}
-                        </div>
-                    )}
-                    {maxDevicesCount !== undefined && (
-                        <div className="account__info-item">
-                            {reactTranslator.getMessage('account_max_devices_count', {
-                                num: maxDevicesCount,
-                                b: (chunks: any) => (
-                                    <span className="account__info-item--bold">
-                                        {chunks}
-                                    </span>
-                                ),
-                            })}
-                        </div>
-                    )}
-                    <div className="account__info-item">
-                        {reactTranslator.getMessage('account_logged_in_as', {
-                            username: currentUsername,
-                            b: (chunks: any) => (
-                                <span className="account__info-item--bold">
-                                    {chunks}
-                                </span>
-                            ),
-                        })}
-                    </div>
-                </div>
-                <div className="account__actions">
-                    <a
-                        href={editAccountUrl}
-                        className="button button--large button--outline-gray account__action"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {translator.getMessage('account_edit')}
-                    </a>
-                    <button
-                        type="button"
-                        className="button button--large button--outline-red account__action"
-                        onClick={signOut}
-                    >
-                        {translator.getMessage('account_sign_out')}
-                    </button>
-                </div>
-                {(!isPremiumToken && premiumFeatures) && (
-                    <div className="account__features">
-                        <Features />
-                        <div className="account__actions">
-                            <button
-                                type="button"
-                                className="button button--large button--primary account__action"
-                                onClick={upgrade}
-                            >
-                                {translator.getMessage('account_get_subscription')}
-                            </button>
-                            <button
-                                type="button"
-                                className="button button--large button--outline-gray account__action"
-                                onClick={hideFeatures}
-                            >
-                                {translator.getMessage('rate_hide')}
-                            </button>
                         </div>
                     </div>
                 )}
+            />
+            <div className="account__actions">
+                {!isPremiumToken && !premiumFeatures && (
+                    <Button className="account__action" onClick={handleUpgrade}>
+                        {translator.getMessage('account_get_subscription')}
+                    </Button>
+                )}
+                <a
+                    href={editAccountUrl}
+                    className="button button--medium button--outline account__action"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {/* FIXME: Update translation text */}
+                    {/* {translator.getMessage('account_edit')} */}
+                    Open account settings
+                </a>
+                <Button
+                    variant="outline"
+                    color="red"
+                    className="account__action"
+                    onClick={handleSignOut}
+                >
+                    {translator.getMessage('account_sign_out')}
+                </Button>
             </div>
+            {!isPremiumToken && premiumFeatures && (
+                <div className="account__features">
+                    <AccountFeatures />
+                    <div className="account__actions">
+                        <Button className="account__action" onClick={handleUpgrade}>
+                            {translator.getMessage('account_get_subscription')}
+                        </Button>
+                        <Button className="account__action" variant="outline" onClick={handleHideFeatures}>
+                            {translator.getMessage('rate_hide')}
+                        </Button>
+                    </div>
+                </div>
+            )}
         </>
     );
 });
