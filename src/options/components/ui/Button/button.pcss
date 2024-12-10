@@ -71,6 +71,16 @@ button {
             color: var(--text-main-text-main-disabled);
             border-color: var(--stroke-buttons-secondary-disabled);
         }
+
+        &.button--color-red {
+            color: var(--text-buttons-secondary-red-default);
+            border-color: var(--stroke-buttons-secondary-red-default);
+
+            &:disabled {
+                color: var(--text-buttons-secondary-red-disabled);
+                border-color: var(--stroke-buttons-secondary-red-disabled);
+            }
+        }
     }
 
     &--ghost {

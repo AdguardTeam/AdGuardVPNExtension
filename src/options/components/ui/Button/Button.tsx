@@ -9,6 +9,10 @@ import './button.pcss';
 export interface ButtonProps extends PropsWithChildren {
     variant?: 'default' | 'outline' | 'ghost';
     type?: 'button' | 'submit' | 'reset';
+    /**
+     * Currently only "outline" variant supports color "red"
+     */
+    color?: 'default' | 'red';
     className?: string;
     disabled?: boolean;
     form?: string;
@@ -19,6 +23,7 @@ export interface ButtonProps extends PropsWithChildren {
 export function Button({
     variant = 'default',
     type = 'button',
+    color = 'default',
     className,
     disabled,
     form,
@@ -29,6 +34,7 @@ export function Button({
     const classes = classNames(
         'button has-tab-focus',
         `button--${variant}`,
+        `button--color-${color}`,
         className,
     );
 
