@@ -7,7 +7,9 @@ const DOH_PREFIX = 'https://';
 const DOT_PREFIX = 'tls://';
 
 const DNS_SERVER_ERROR = {
-    INVALID: translator.getMessage('settings_dns_add_custom_server_invalid_address'),
+    // FIXME: Update translation text
+    // INVALID: translator.getMessage('settings_dns_add_custom_server_invalid_address'),
+    INVALID: 'Invalid server address',
     DUPLICATE: translator.getMessage('settings_dns_add_custom_server_duplicate_address'),
 };
 
