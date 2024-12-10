@@ -7,19 +7,61 @@ import { IconButton } from '../Icon';
 import './input.pcss';
 
 export interface InputBaseProps {
+    /**
+     * ID of the element.
+     */
     id?: string;
+
+    /**
+     * Name of the element.
+     */
     name?: string;
+
+    /**
+     * Label of the element.
+     */
     label?: React.ReactNode;
+
+    /**
+     * Placeholder of the element.
+     */
     placeholder?: string;
+
+    /**
+     * Whether the element is required or not.
+     */
     required?: boolean;
+
+    /**
+     * Current value of the element.
+     */
     value: string;
+
+    /**
+     * Error message to display.
+     */
     error?: React.ReactNode;
+
+    /**
+     * Callback to handle value change.
+     */
     onChange?: (value: string) => void;
 }
 
 export interface InputProps extends InputBaseProps {
+    /**
+     * Type of the input.
+     */
     type?: 'text' | 'email';
+
+    /**
+     * Whether the input is read-only or not.
+     */
     readOnly?: boolean;
+
+    /**
+     * Postfix message to display.
+     */
     postfix?: string;
 }
 

@@ -3,7 +3,15 @@ import React from 'react';
 import classNames from 'classnames';
 
 export interface IconProps {
+    /**
+     * The name of the icon to display.
+     * Full list of available icons can be found in the Icons.tsx file.
+     */
     name: string;
+
+    /**
+     * Additional class name.
+     */
     className?: string;
 }
 
