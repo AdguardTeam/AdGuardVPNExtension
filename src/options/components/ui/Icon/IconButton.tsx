@@ -14,7 +14,7 @@ export interface IconButtonProps {
     type?: 'button' | 'submit' | 'reset';
 
     /**
-     * Button hover color. Default is 'default'.
+     * Button hover color. Default is 'primary'.
      */
     hoverColor?: 'primary' | 'success' | 'error';
 

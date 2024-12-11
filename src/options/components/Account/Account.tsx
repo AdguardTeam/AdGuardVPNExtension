@@ -127,7 +127,7 @@ export const Account = observer(() => {
                 )}
                 <a
                     href={editAccountUrl}
-                    className="button button--medium button--outline account__action"
+                    className="button button--medium button--outlined account__action"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -136,7 +136,7 @@ export const Account = observer(() => {
                     Open account settings
                 </a>
                 <Button
-                    variant="outline"
+                    variant="outlined"
                     color="danger"
                     className="account__action"
                     onClick={handleSignOut}
@@ -151,7 +151,7 @@ export const Account = observer(() => {
                         <Button className="account__action" onClick={handleUpgrade}>
                             {translator.getMessage('account_get_subscription')}
                         </Button>
-                        <Button className="account__action" variant="outline" onClick={handleHideFeatures}>
+                        <Button className="account__action" variant="outlined" onClick={handleHideFeatures}>
                             {translator.getMessage('rate_hide')}
                         </Button>
                     </div>

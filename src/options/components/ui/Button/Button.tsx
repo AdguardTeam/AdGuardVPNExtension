@@ -23,7 +23,7 @@ export interface ButtonProps extends PropsWithChildren {
     /**
      * Button color. Default is 'default'.
      */
-    color?: 'default' | 'danger';
+    color?: 'primary' | 'danger';
 
     /**
      * Additional class name.
@@ -54,7 +54,7 @@ export interface ButtonProps extends PropsWithChildren {
 export function Button({
     variant = 'filled',
     type = 'button',
-    color = 'default',
+    color = 'primary',
     className,
     disabled,
     form,
