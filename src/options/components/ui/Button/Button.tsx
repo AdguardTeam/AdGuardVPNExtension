@@ -21,7 +21,7 @@ export interface ButtonProps extends PropsWithChildren {
     type?: 'button' | 'submit' | 'reset';
 
     /**
-     * Button color. Default is 'default'.
+     * Button color. Default is 'primary'.
      */
     color?: 'primary' | 'danger';
 
