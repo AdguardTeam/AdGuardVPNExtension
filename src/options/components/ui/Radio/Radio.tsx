@@ -4,6 +4,9 @@ import classNames from 'classnames';
 
 import './radio.pcss';
 
+/**
+ * Radio component props.
+ */
 export interface RadioProps<T extends string> {
     /**
      * Radio name.
@@ -11,7 +14,7 @@ export interface RadioProps<T extends string> {
     name: string;
 
     /**
-     * Current radio value.
+     * Radio value.
      */
     value: T;
 
@@ -36,7 +39,7 @@ export interface RadioProps<T extends string> {
     action?: React.ReactNode;
 
     /**
-     * On radio select handler.
+     * Select radio handler.
      */
     onSelect: (value: T) => void;
 }

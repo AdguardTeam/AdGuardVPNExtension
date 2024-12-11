@@ -6,6 +6,9 @@ import { IconButton } from '../Icon';
 
 import './title.pcss';
 
+/**
+ * Title component props.
+ */
 export interface TitleProps {
     /**
      * Title text to display.
@@ -19,8 +22,8 @@ export interface TitleProps {
 
     /**
      * Size of the title. Default is `large`.
-     * 'large' - 24px font size
-     * 'medium' - 20px font size
+     * - 'large' - 24px font size
+     * - 'medium' - 20px font size
      */
     size?: 'large' | 'medium';
 

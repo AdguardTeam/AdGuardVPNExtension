@@ -4,6 +4,9 @@ import classNames from 'classnames';
 
 import { Icon } from './Icon';
 
+/**
+ * IconButton component props.
+ */
 export interface IconButtonProps {
     /**
      * Button type. Default is 'button'.
@@ -17,7 +20,8 @@ export interface IconButtonProps {
 
     /**
      * The name of the icon to display.
-     * Full list of available icons can be found in the Icons.tsx file.
+     *
+     * Full list of available icons can be found in the `Icons.tsx` file.
      */
     name: string;
 

@@ -6,6 +6,9 @@ import { IconButton } from '../Icon';
 
 import './input.pcss';
 
+/**
+ * Base props for the input component.
+ */
 export interface InputBaseProps {
     /**
      * ID of the element.
@@ -43,14 +46,17 @@ export interface InputBaseProps {
     error?: React.ReactNode;
 
     /**
-     * Callback to handle value change.
+     * Change event handler.
      */
     onChange?: (value: string) => void;
 }
 
+/**
+ * Input component props.
+ */
 export interface InputProps extends InputBaseProps {
     /**
-     * Type of the input.
+     * Type of the input. Default is 'text'.
      */
     type?: 'text' | 'email';
 

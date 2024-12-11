@@ -4,6 +4,9 @@ import { Switch, type SwitchProps } from '../Switch';
 
 import { type ControlsProps, Controls } from './Controls';
 
+/**
+ * ControlsSwitch component props.
+ */
 export interface ControlsSwitchProps {
     /**
      * Title of the controls.
@@ -21,7 +24,7 @@ export interface ControlsSwitchProps {
     isActive: SwitchProps['isActive'];
 
     /**
-     * On toggle handler.
+     * Toggle event handler.
      */
     onToggle: SwitchProps['onToggle'];
 }
