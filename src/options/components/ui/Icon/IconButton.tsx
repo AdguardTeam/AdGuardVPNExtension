@@ -16,7 +16,7 @@ export interface IconButtonProps {
     /**
      * Button hover color. Default is 'default'.
      */
-    hoverColor?: 'default' | 'success' | 'error';
+    hoverColor?: 'primary' | 'success' | 'error';
 
     /**
      * The name of the icon to display.
@@ -43,7 +43,7 @@ export interface IconButtonProps {
 
 export function IconButton({
     type = 'button',
-    hoverColor = 'default',
+    hoverColor = 'primary',
     name,
     className,
     iconClassName,
