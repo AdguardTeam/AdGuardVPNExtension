@@ -94,7 +94,7 @@ export const DnsSettings = observer(() => {
                 className="dns-settings__custom-servers"
             />
             {settingsStore.customDnsServers.map(renderCustomDnsServer)}
-            <Button variant="ghost" beforeIconName="plus" onClick={handleAddClick}>
+            <Button variant="transparent" beforeIconName="plus" onClick={handleAddClick}>
                 {translator.getMessage('settings_dns_add_custom_server')}
             </Button>
             <DnsSettingsServerModalAdd />
