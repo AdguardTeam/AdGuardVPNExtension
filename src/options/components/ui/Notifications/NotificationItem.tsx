@@ -7,6 +7,9 @@ import { IconButton } from '../Icon';
 
 const NOTIFICATION_CLEAR_TIMEOUT_MS = 5 * 1000; // 5s
 
+/**
+ * NotificationItem component props.
+ */
 export interface NotificationItemProps {
     /**
      * Notification to display.
@@ -14,7 +17,7 @@ export interface NotificationItemProps {
     value: Notification;
 
     /**
-     * Callback to close notification.
+     * Close event handler.
      */
     onClose: (notificationId: string) => void;
 }

@@ -4,6 +4,9 @@ import classNames from 'classnames';
 
 import './switch.pcss';
 
+/**
+ * Switch component props.
+ */
 export interface SwitchProps {
     /**
      * Is the switch active or not.
@@ -11,7 +14,7 @@ export interface SwitchProps {
     isActive: boolean;
 
     /**
-     * On toggle handler.
+     * Toggle event handler.
      */
     onToggle: () => void;
 }

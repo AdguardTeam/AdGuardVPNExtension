@@ -7,6 +7,9 @@ import { IconButton } from '../Icon';
 
 import './modal.pcss';
 
+/**
+ * Modal component props.
+ */
 export interface ModalProps extends PropsWithChildren {
     /**
      * Title of the modal.
@@ -30,13 +33,13 @@ export interface ModalProps extends PropsWithChildren {
 
     /**
      * Size of the modal. Default is `large`.
-     * 'large' - 720px width
-     * 'medium' - 600px width
+     * - 'large' - 720px width
+     * - 'medium' - 600px width
      */
     size?: 'large' | 'medium';
 
     /**
-     * Function that will be called when the modal is closed.
+     * Close event handler.
      */
     onClose: () => void;
 }

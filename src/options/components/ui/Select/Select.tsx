@@ -8,6 +8,9 @@ import { Icon } from '../Icon';
 
 import './select.pcss';
 
+/**
+ * Select option item.
+ */
 interface SelectOptionItem<T> {
     /**
      * Value of the option.
@@ -30,6 +33,9 @@ interface SelectOptionItem<T> {
     isSelectActive?: boolean;
 }
 
+/**
+ * SelectOption component props.
+ */
 interface SelectOptionProps<T> extends SelectOptionItem<T> {
     /**
      * Is the option is selected one or not.
@@ -37,7 +43,7 @@ interface SelectOptionProps<T> extends SelectOptionItem<T> {
     isActive?: boolean;
 
     /**
-     * On click handler.
+     * Click event handler.
      */
     onClick: (value: T) => void;
 }
@@ -76,6 +82,9 @@ function SelectOption<T extends string>({
     );
 }
 
+/**
+ * Select component props.
+ */
 export interface SelectProps<T> {
     /**
      * Current selected value of the select.
@@ -93,12 +102,12 @@ export interface SelectProps<T> {
     isActive?: boolean;
 
     /**
-     * On change handler.
+     * Change event handler.
      */
     onChange: (value: T) => void;
 
     /**
-     * On isActive change handler.
+     * Is active change event handler.
      */
     onIsActiveChange?: (value: boolean | ((oldValue: boolean) => boolean)) => void;
 }

@@ -4,6 +4,9 @@ import { Select, type SelectProps } from '../Select';
 
 import { Controls, type ControlsProps } from './Controls';
 
+/**
+ * ControlsSelect component props.
+ */
 export interface ControlsSelectProps<T> {
     /**
      * Title of the controls.
@@ -26,7 +29,7 @@ export interface ControlsSelectProps<T> {
     options: SelectProps<T>['options'];
 
     /**
-     * On change handler.
+     * Change event handler.
      */
     onChange: SelectProps<T>['onChange'];
 }
