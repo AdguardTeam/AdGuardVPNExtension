@@ -47,7 +47,7 @@ export const About = observer(() => {
                 href={websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="button has-tab-focus button--ghost about__link"
+                className="button has-tab-focus button--transparent about__link"
             >
                 <span className="button__text">
                     {translator.getMessage('official_website')}
@@ -57,7 +57,7 @@ export const About = observer(() => {
                 href={eulaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="button has-tab-focus button--ghost about__link"
+                className="button has-tab-focus button--transparent about__link"
             >
                 <span className="button__text">
                     {translator.getMessage('eula')}
@@ -67,7 +67,7 @@ export const About = observer(() => {
                 href={privacyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="button has-tab-focus button--ghost about__link"
+                className="button has-tab-focus button--transparent about__link"
             >
                 <span className="button__text">
                     {translator.getMessage('privacy_policy')}
