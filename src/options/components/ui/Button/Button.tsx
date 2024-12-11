@@ -11,12 +11,9 @@ import './button.pcss';
  */
 export interface ButtonProps extends PropsWithChildren {
     /**
-     * Button variant. Default is 'default'.
-     * - 'default' - Contained button.
-     * - 'outline' - Outlined button.
-     * - 'transparent' - Transparent button.
+     * Button variant. Default is 'filled'.
      */
-    variant?: 'default' | 'outline' | 'transparent';
+    variant?: 'filled' | 'outlined' | 'transparent';
 
     /**
      * Button type. Default is 'button'.
@@ -55,7 +52,7 @@ export interface ButtonProps extends PropsWithChildren {
 }
 
 export function Button({
-    variant = 'default',
+    variant = 'filled',
     type = 'button',
     color = 'default',
     className,

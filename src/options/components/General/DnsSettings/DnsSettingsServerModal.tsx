@@ -78,7 +78,7 @@ export const DnsSettingsServerModal = observer(({
                     <Button type="submit" form={formId}>
                         {submitBtnTitle}
                     </Button>
-                    <Button variant="outline" type="reset" form={formId}>
+                    <Button variant="outlined" type="reset" form={formId}>
                         {translator.getMessage('settings_exclusion_modal_cancel')}
                     </Button>
                 </>
