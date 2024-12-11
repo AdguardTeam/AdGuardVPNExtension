@@ -14,9 +14,9 @@ export interface ButtonProps extends PropsWithChildren {
      * Button variant. Default is 'default'.
      * - 'default' - Contained button.
      * - 'outline' - Outlined button.
-     * - 'ghost' - Transparent button.
+     * - 'transparent' - Transparent button.
      */
-    variant?: 'default' | 'outline' | 'ghost';
+    variant?: 'default' | 'outline' | 'transparent';
 
     /**
      * Button type. Default is 'button'.
