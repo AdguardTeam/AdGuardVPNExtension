@@ -137,7 +137,7 @@ export const Account = observer(() => {
                 </a>
                 <Button
                     variant="outline"
-                    color="red"
+                    color="danger"
                     className="account__action"
                     onClick={handleSignOut}
                 >

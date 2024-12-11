@@ -25,9 +25,8 @@ export interface ButtonProps extends PropsWithChildren {
 
     /**
      * Button color. Default is 'default'.
-     * Currently only 'outline' variant supports color 'red'.
      */
-    color?: 'default' | 'red';
+    color?: 'default' | 'danger';
 
     /**
      * Additional class name.
