@@ -51,7 +51,7 @@ export const AddDevice = observer(({ onBackClick }: BaseProps) => {
                 href={otherProductsUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="button button--filled add-device__link"
+                className="button button--filled button--size-medium add-device__link"
             >
                 <Icon name="external-link" className="add-device__link-icon" />
                 {translator.getMessage('settings_free_gbs_add_device_products_button')}

@@ -53,7 +53,7 @@ export const InviteFriend = observer(({ onBackClick }: BaseProps) => {
                     value={inviteUrl}
                     readOnly
                 />
-                <Button onClick={handleCopyLink}>
+                <Button size="medium" onClick={handleCopyLink}>
                     {translator.getMessage('settings_referral_copy_link')}
                 </Button>
             </div>

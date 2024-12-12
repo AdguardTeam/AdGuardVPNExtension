@@ -48,6 +48,7 @@ export function FreeGbsTask({
                 {!completed ? children : (
                     <Button
                         variant="outlined"
+                        size="medium"
                         onClick={onBackClick}
                         className="free-gbs-task__go-back-btn"
                     >

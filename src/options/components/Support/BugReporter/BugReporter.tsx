@@ -188,7 +188,11 @@ export const BugReporter = observer(() => {
                     {/* {translator.getMessage('options_bug_report_page_success')} */}
                     Thank you, your message sent successfully!
                 </div>
-                <Button className="bug-reporter__success-btn" onClick={handleNewReport}>
+                <Button
+                    size="medium"
+                    className="bug-reporter__success-btn"
+                    onClick={handleNewReport}
+                >
                     {translator.getMessage('options_bug_report_new_report_button')}
                 </Button>
             </div>
@@ -238,6 +242,7 @@ export const BugReporter = observer(() => {
                 )}
                 <Button
                     type="submit"
+                    size="medium"
                     className="bug-reporter__form-btn"
                     disabled={isButtonDisabled}
                 >

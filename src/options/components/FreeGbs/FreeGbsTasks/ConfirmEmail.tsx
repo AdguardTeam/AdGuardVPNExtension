@@ -36,7 +36,11 @@ export const ConfirmEmail = observer(({ onBackClick }: BaseProps) => {
             completed={isCompleted}
             onBackClick={onBackClick}
         >
-            <Button className="confirm-email__btn" onClick={handleResendLink}>
+            <Button
+                size="medium"
+                className="confirm-email__btn"
+                onClick={handleResendLink}
+            >
                 {translator.getMessage('settings_free_gbs_confirm_email_resend_link_button')}
             </Button>
         </FreeGbsTask>
