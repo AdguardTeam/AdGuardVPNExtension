@@ -32,7 +32,7 @@ export const InviteFriend = observer(({ onBackClick }: BaseProps) => {
 
     return (
         <FreeGbsTask
-            imageName="referral"
+            imageName="referral.svg"
             title={translator.getMessage('settings_free_gbs_invite_friend')}
             description={description}
             persistentDescription={(

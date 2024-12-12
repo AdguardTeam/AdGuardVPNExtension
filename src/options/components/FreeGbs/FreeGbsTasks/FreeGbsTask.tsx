@@ -36,7 +36,7 @@ export function FreeGbsTask({
     return (
         <div className="free-gbs-task">
             <img
-                src={`../../../assets/images/${imageName}.svg`}
+                src={`../../../assets/images/${imageName}`}
                 alt={`Task - ${imageName}`}
                 className="free-gbs-task__image"
             />

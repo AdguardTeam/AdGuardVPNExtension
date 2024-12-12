@@ -29,7 +29,7 @@ export const ConfirmEmail = observer(({ onBackClick }: BaseProps) => {
 
     return (
         <FreeGbsTask
-            imageName="confirm-email-task"
+            imageName="confirm-email-task.svg"
             title={title}
             description={description}
             contentClassName="confirm-email"

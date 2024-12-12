@@ -35,7 +35,7 @@ export const AddDevice = observer(({ onBackClick }: BaseProps) => {
 
     return (
         <FreeGbsTask
-            imageName="add-device"
+            imageName="add-device.svg"
             title={title}
             description={description}
             contentClassName="add-device"
