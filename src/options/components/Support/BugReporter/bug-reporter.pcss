@@ -1,0 +1,56 @@
+.bug-reporter {
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        row-gap: 16px;
+        padding: 0 16px;
+        margin-top: 16px;
+
+        &-error {
+            color: var(--text-links-error-link-default);
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        &-btn {
+            width: 260px;
+            margin-top: 32px;
+
+            @media (--mobile) {
+                width: 100%;
+            }
+        }
+    }
+
+    &__success {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        row-gap: 24px;
+
+        &-image {
+            width: 160px;
+        }
+
+        &-title {
+            padding: 16px 0;
+            color: var(--text-main-text-main-default);
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        &-btn {
+            width: 260px;
+
+            @media (--mobile) {
+                width: 100%;
+            }
+        }
+    }
+}
