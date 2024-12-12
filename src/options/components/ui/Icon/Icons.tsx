@@ -80,6 +80,60 @@ export const Icons = () => (
             <path d="M4 20.5h15.983M10.778 16.435l-4.242-4.243 7.07-7.07a3 3 0 0 1 4.243 0 3 3 0 0 1 0 4.242l-7.07 7.071ZM5.121 17.85l1.415-5.658 4.242 4.243-5.657 1.414ZM16.789 9.01 13.96 6.182" />
         </symbol>
 
+        <symbol id="question" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9.25" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M11.01 13.92c0-.63.08-1.13.23-1.5.15-.38.42-.74.83-1.1.4-.36.67-.66.8-.88s.2-.47.2-.72c0-.76-.35-1.13-1.04-1.13-.33 0-.6.1-.79.3-.2.2-.3.49-.3.85H9c0-.86.28-1.53.82-2.01A3.19 3.19 0 0 1 12.03 7c.94 0 1.67.23 2.2.69.51.46.77 1.1.77 1.94 0 .39-.08.74-.25 1.08-.17.34-.47.72-.89 1.13l-.54.52c-.34.32-.53.7-.58 1.15l-.02.4zm-.2 2.06c0-.3.1-.55.31-.74.2-.2.46-.3.78-.3s.57.1.77.3c.2.2.3.44.3.74s-.1.54-.3.73c-.19.2-.45.29-.77.29-.33 0-.59-.1-.79-.29a.98.98 0 0 1-.3-.73z" fill="currentColor" />
+        </symbol>
+
+        <symbol
+            id="bug"
+            viewBox="0 0 24 24"
+            fill="none"
+            fillRule="evenodd"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+        >
+            <path d="M12 5a6 6 0 0 1 6 6v4a6 6 0 1 1-12 0v-4a6 6 0 0 1 6-6zm6 5h3m-6.25-5 1.5-2m-6.5 2-1.5-2M2.5 10h3M18 14h3M2.5 14h3m12 4H21M2.5 18h4m0-6.5h11" />
+        </symbol>
+
+        <symbol
+            id="send-feedback"
+            viewBox="0 0 24 24"
+            fill="none"
+            fillRule="evenodd"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+        >
+            <path d="M13 12H7l-3 8 17-8L4 4l3 8z" />
+        </symbol>
+
+        <symbol
+            id="checkbox-disabled"
+            viewBox="0 0 24 24"
+            fill="none"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M21 3H3V21H21V3Z" />
+        </symbol>
+
+        <symbol id="checkbox-enabled" viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd" clipRule="evenodd">
+            <path d="M22 22V2H2v20h20ZM17.57 9.49a.75.75 0 1 0-1.14-.98l-5.48 6.38-3.41-3.49a.75.75 0 0 0-1.08 1.05l4.57 4.66 6.54-7.62Z" />
+        </symbol>
+
+        <symbol id="checkbox-partly-enabled" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 3H3V21H21V3Z" fillRule="evenodd" clipRule="evenodd" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <rect x="9.5" y="9.5" width="5" height="5" strokeWidth="5" strokeLinejoin="miter" />
+        </symbol>
+
         {/* Old icons, FIXME: Remove unused icons later when re-design is finished (AG-38059) */}
         <svg id="social_apple" viewBox="0 0 12 14">
             <defs>
@@ -90,19 +144,6 @@ export const Icons = () => (
 
         <svg id="more-actions" width="2" height="12" viewBox="0 0 2 12" fill="none">
             <path fillRule="evenodd" clipRule="evenodd" d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2ZM1 7C0.447715 7 0 6.55228 0 6C0 5.44772 0.447715 5 1 5C1.55228 5 2 5.44772 2 6C2 6.55228 1.55228 7 1 7ZM0 11C0 11.5523 0.447715 12 1 12C1.55228 12 2 11.5523 2 11C2 10.4477 1.55228 10 1 10C0.447715 10 0 10.4477 0 11Z" fill="#4D4D4D" />
-        </svg>
-
-        <svg id="disabled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M21 3H3V21H21V3Z" stroke="#7F7F7F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-
-        <svg id="enabled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M22 22V2H2V22H22ZM17.5691 9.4885C17.8389 9.1742 17.8028 8.7007 17.4885 8.43091C17.1742 8.16112 16.7007 8.1972 16.4309 8.5115L10.9546 14.8913L7.53551 11.4044C7.24551 11.1087 6.77066 11.104 6.4749 11.394C6.17915 11.684 6.17448 12.1589 6.46449 12.4546L11.028 17.1087L17.5691 9.4885Z" fill="#74A352" />
-        </svg>
-
-        <svg id="partly-enabled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M21 3H3V21H21V3Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <rect x="9.5" y="9.5" width="5" height="5" stroke="#74A352" strokeWidth="5" strokeLinejoin="miter" />
         </svg>
 
         <symbol id="social_facebook" viewBox="0 0 112.196 112.196" fill="currentColor">
@@ -141,11 +182,6 @@ export const Icons = () => (
             <circle cx="10" cy="10" r="9.25" fill="none" stroke="#909090" strokeWidth="1.5" transform="translate(2 2)" />
         </symbol>
 
-        <symbol id="question" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="9.25" stroke="currentColor" strokeWidth="1.5" />
-            <path d="m11.0110988 13.9153226c0-.6272433.0754709-1.1267903.2264151-1.4986559.1509441-.3718657.427301-.7381255.8290788-1.0987904.4017778-.3606648.6692557-.6541207.8024417-.8803763s.199778-.46482849.199778-.71572581c0-.75717224-.3462784-1.13575268-1.0388457-1.13575268-.3285255 0-.5915639.1019255-.7891232.30577957-.1975592.20385406-.3007769.48498924-.3096559.84341397h-1.9311876c.00887907-.85573904.28301617-1.52553521.82241953-2.0094086.53940337-.48387339 1.27524507-.72580645 2.20754717-.72580645.9411812 0 1.6714735.2296124 2.190899.68884409.5194255.45923168.7791343 1.1077467.7791343 1.94556451 0 .3808263-.0843499.7403657-.2530522 1.078629-.1687023.3382634-.4639268.7134836-.8856825 1.1256721l-.5394007.5174731c-.3374046.3270626-.5305214.7101232-.5793563 1.1491935l-.026637.4099463zm-.1931188 2.063172c0-.3001807.1009979-.5477141.3029967-.7426075.2019988-.1948935.4605978-.2923387.7758047-.2923387s.5738058.0974452.7758046.2923387c.2019988.1948934.3029967.4424268.3029967.7426075 0 .2957004-.0987782.5398736-.2963374.7325269-.1975593.1926533-.458378.2889785-.7824639.2889785-.324086 0-.5849047-.0963252-.782464-.2889785-.1975592-.1926533-.2963374-.4368265-.2963374-.7325269z" fill="currentColor" />
-        </symbol>
-
         <symbol id="cross_bold" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M6.42857143 6.42857143L17.604347 17.604347M6.42857143 17.5714286L17.604347 6.39565302" />
         </symbol>
@@ -164,20 +200,6 @@ export const Icons = () => (
 
         <symbol id="back-arrow" viewBox="0 0 24 24">
             <path fill="none" fillRule="evenodd" stroke="#888" strokeLinecap="round" strokeWidth="1.5" d="M15 18l-6-6 6-6" />
-        </symbol>
-
-        <symbol id="bug" viewBox="0 0 24 24">
-            <g fill="none" fillRule="evenodd">
-                <path fill="#878787" fillOpacity=".01" d="M0 0h24v24H0z" />
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 5a6 6 0 016 6v4a6 6 0 11-12 0v-4a6 6 0 016-6zm6 5h3m-6.25-5l1.5-2m-6.5 2l-1.5-2M2.5 10h3M18 14h3M2.5 14h3m12 4H21M2.5 18h4m0-6.5h11" />
-            </g>
-        </symbol>
-
-        <symbol id="send-feedback" viewBox="0 0 24 24">
-            <g fill="none" fillRule="evenodd">
-                <path fill="none" fillOpacity="0" d="M0 0h24v24H0z" />
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 12H7l-3 8 17-8L4 4l3 8z" />
-            </g>
         </symbol>
 
         <symbol id="spinner" fill="none" viewBox="0 0 24 24">
