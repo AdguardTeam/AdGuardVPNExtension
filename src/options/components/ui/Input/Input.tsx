@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import classNames from 'classnames';
 
@@ -84,21 +84,10 @@ export function Input({
     postfix,
     onChange,
 }: InputProps) {
-    const [focused, setFocused] = useState(false);
-
     const classes = classNames(
         'input',
         !!error && 'input--error',
-        focused && 'input--focus',
     );
-
-    const handleFocus = () => {
-        setFocused(true);
-    };
-
-    const handleBlur = () => {
-        setFocused(false);
-    };
 
     const clearValue = () => {
         if (onChange) {
@@ -131,8 +120,6 @@ export function Input({
                     onChange={handleChange}
                     required={required}
                     readOnly={readOnly}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
                 />
                 {value && !readOnly && (
                     <IconButton
