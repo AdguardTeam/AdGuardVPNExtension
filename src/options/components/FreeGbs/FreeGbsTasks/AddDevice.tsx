@@ -15,7 +15,7 @@ export const AddDevice = observer(({ onBackClick }: BaseProps) => {
     const { multiplatformBonus, forwarderDomain } = settingsStore;
 
     const otherProductsUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS);
-    const isCompleted = !!multiplatformBonus.available;
+    const isCompleted = !multiplatformBonus.available;
 
     const title = isCompleted
         // FIXME: Update translation text
