@@ -35,7 +35,6 @@ const getContent = (
                     <div className="content__wrapper">
                         <Switch>
                             <Route path="/" exact component={General} />
-                            <Route path="/" exact component={General} />
                             <Route path="/exclusions" exact component={Exclusions} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
@@ -43,7 +42,6 @@ const getContent = (
                             {!isPremiumToken && (
                                 <Route path="/free-gbs" component={FreeGbs} />
                             )}
-                            <Route component={General} />
                             <Route component={General} />
                         </Switch>
                     </div>
