@@ -20,7 +20,10 @@ export function Checkbox({
     onToggle,
 }: CheckboxProps) {
     const [checkedValue, setCheckedValue] = useState(value);
-    const classes = classNames('checkbox', checkedValue && 'checkbox--active');
+    const classes = classNames(
+        'checkbox has-tab-focus',
+        checkedValue && 'checkbox--active',
+    );
     const iconName = `checkbox-${checkedValue ? 'enabled' : 'disabled'}`;
 
     const handleChange = () => {
@@ -31,13 +34,19 @@ export function Checkbox({
     };
 
     return (
-        <label htmlFor={id} className={classes}>
+        <label
+            htmlFor={id}
+            className={classes}
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={0}
+        >
             <Icon name={iconName} className="checkbox__icon" />
             <input
                 id={id}
                 type="checkbox"
                 checked={value}
                 className="checkbox__input"
+                tabIndex={-1}
                 onChange={handleChange}
             />
             <div className="checkbox__label">
