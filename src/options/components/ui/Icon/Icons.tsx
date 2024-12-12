@@ -152,6 +152,21 @@ export const Icons = () => (
         </symbol>
 
         <symbol
+            id="pencil"
+            viewBox="0 0 16 16"
+            fill="none"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M7.19 10.96 4.36 8.13 9.07 3.4a2 2 0 0 1 2.83 2.83l-4.71 4.72Z" />
+            <path d="m3.41 11.9.95-3.77 2.83 2.83-3.78.94ZM11.2 6 9.3 4.13" />
+        </symbol>
+
+        <symbol
             id="spinner"
             fill="none"
             viewBox="0 0 24 24"
@@ -162,12 +177,5 @@ export const Icons = () => (
         >
             <path d="M6.29 5.04c.11-.1.23-.18.35-.27M8.56 3.68a8.93 8.93 0 0 1 1.24-.4M12 3a9 9 0 1 1-8.32 12.44" />
         </symbol>
-
-        {/* Old icons, FIXME: Remove unused icons later when re-design is finished (AG-38059) */}
-        <svg id="pencil" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path fillRule="evenodd" clipRule="evenodd" d="M7.18555 10.9567L4.35712 8.12827L9.07117 3.41422C9.85221 2.63318 11.1185 2.63318 11.8996 3.41422V3.41422C12.6806 4.19527 12.6806 5.4616 11.8996 6.24265L7.18555 10.9567Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M3.41416 11.8995L4.35696 8.12827L7.18539 10.9567L3.41416 11.8995Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M11.1925 6.00694L9.30687 4.12132" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
     </svg>
 );
