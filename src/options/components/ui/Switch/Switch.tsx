@@ -1,43 +1,44 @@
 import React from 'react';
 
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 import './switch.pcss';
 
-interface SwitchProps {
-    title: string | React.ReactNode;
-    desc?: string | React.ReactNode;
-    checked: boolean;
-    handleToggle: () => void;
+/**
+ * Switch component props.
+ */
+export interface SwitchProps {
+    /**
+     * Is the switch active or not.
+     */
+    isActive: boolean;
+
+    /**
+     * Toggle event handler.
+     */
+    onToggle: () => void;
 }
 
-export const Switch = ({
-    title,
-    desc,
-    checked,
-    handleToggle,
-}: SwitchProps) => {
-    const togglerClass = classnames('switch__toggler', {
-        'switch__toggler--active': checked,
-    });
+export function Switch({ isActive, onToggle }: SwitchProps) {
+    const classes = classNames(
+        'switch has-tab-focus',
+        isActive && 'switch--active',
+    );
+
+    const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        onToggle();
+    };
 
     return (
-        <div className="switch">
-            <div className="switch__info">
-                <div className="switch__title">
-                    {title}
-                </div>
-                {desc && (
-                    <div className="switch__desc">
-                        {desc}
-                    </div>
-                )}
-            </div>
-            <button
-                type="button"
-                className={togglerClass}
-                onClick={handleToggle}
-            />
-        </div>
+        <button
+            className={classes}
+            onClick={handleClick}
+            type="button"
+        >
+            <span className="switch__wrapper">
+                <span className="switch__knob" />
+            </span>
+        </button>
     );
-};
+}

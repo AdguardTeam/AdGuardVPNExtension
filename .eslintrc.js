@@ -143,5 +143,6 @@ module.exports = {
                 tsx: 'never',
             },
         ],
+        'no-console': 'error',
     },
 };

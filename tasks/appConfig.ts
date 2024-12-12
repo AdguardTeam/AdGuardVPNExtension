@@ -105,6 +105,8 @@ const COMMON_URL_QUERIES = {
     UNINSTALL_PAGE: 'action=adguard_uninstal_ext&from=background_page&app=vpn_extension',
     // AdGuard DNS Knowledge Base
     ADGUARD_DNS_KB: 'action=adguard_dns_kb&from=options_screen&app=vpn_extension',
+    // AdGuard DNS Providers Knowledge Base
+    ADGUARD_DNS_PROVIDERS_KB: 'action=adguard_dns_providers_kb&from=options_screen&app=vpn_extension',
     COMPARE_PAGE: 'action=compare&from=popup&app=vpn_extension',
     // AG-25941
     VPN_BLOCKED_GET_APP: 'action=vpn_blocked_get_app&from=popup&app=vpn_extension',

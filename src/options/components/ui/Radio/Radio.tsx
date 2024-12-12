@@ -1,0 +1,101 @@
+import React from 'react';
+
+import classNames from 'classnames';
+
+import './radio.pcss';
+
+/**
+ * Radio component props.
+ */
+export interface RadioProps<T extends string> {
+    /**
+     * Radio name.
+     */
+    name: string;
+
+    /**
+     * Radio value.
+     */
+    value: T;
+
+    /**
+     * Is radio active or not.
+     */
+    isActive: boolean;
+
+    /**
+     * Radio title.
+     */
+    title: React.ReactNode;
+
+    /**
+     * Radio description.
+     */
+    description?: React.ReactNode;
+
+    /**
+     * Radio action. Rendered on the right side of the radio.
+     */
+    action?: React.ReactNode;
+
+    /**
+     * Select radio handler.
+     */
+    onSelect: (value: T) => void;
+}
+
+export function Radio<T extends string>({
+    name,
+    value,
+    isActive,
+    title,
+    description,
+    action,
+    onSelect,
+}: RadioProps<T>) {
+    const classes = classNames(
+        'radio has-tab-focus',
+        isActive && 'radio--active',
+    );
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) {
+            onSelect(value);
+        }
+    };
+
+    return (
+        <label
+            className={classes}
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={0}
+        >
+            <input
+                type="radio"
+                value={value}
+                name={name}
+                checked={isActive}
+                onChange={handleChange}
+                className="hidden"
+            />
+            <span className="radio__circle-outer">
+                <span className="radio__circle-inner" />
+            </span>
+            <span className="radio__content">
+                <span className="radio__title">
+                    {title}
+                </span>
+                {description && (
+                    <span className="radio__description">
+                        {description}
+                    </span>
+                )}
+            </span>
+            {action && (
+                <span className="radio__action">
+                    {action}
+                </span>
+            )}
+        </label>
+    );
+}

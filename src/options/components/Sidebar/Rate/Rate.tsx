@@ -1,10 +1,12 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import { getForwarderUrl } from '../../../../common/helpers';
+import { translator } from '../../../../common/translator';
 import { rootStore } from '../../../stores';
-import { reactTranslator } from '../../../../common/reactTranslator';
+
+import { RateStar } from './RateStar';
 
 import './rate.pcss';
 
@@ -12,22 +14,24 @@ const RATING_STARS = [5, 4, 3, 2, 1];
 
 export const Rate = observer(() => {
     const { settingsStore } = useContext(rootStore);
+
     const {
-        hideRate,
         isRateVisible,
         forwarderDomain,
     } = settingsStore;
 
-    const handleHideRate = async (): Promise<void> => {
-        await hideRate();
+    const handleHideRate = async () => {
+        await settingsStore.hideRate();
     };
 
-    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
-        const { value } = e.target;
+    const handleChange = async (value: number) => {
+        if (value < 0 || value > 5) {
+            return;
+        }
 
         await handleHideRate();
 
-        if (value && parseInt(value, 10) >= 4) {
+        if (value >= 4) {
             window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OPTIONS_STORE), '_blank');
         } else {
             window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
@@ -40,33 +44,23 @@ export const Rate = observer(() => {
 
     return (
         <div className="rate">
-            <div className="rate__text">
-                {reactTranslator.getMessage('rate_description')}
-            </div>
+            <div className="rate__line" />
             <div className="rate__stars">
                 {RATING_STARS.map((star) => (
-                    <Fragment key={star}>
-                        <input
-                            type="radio"
-                            value={star}
-                            name="rating"
-                            id={`rating-${star}`}
-                            className="rate__input"
-                            onChange={handleChange}
-                        />
-                        <label
-                            htmlFor={`rating-${star}`}
-                            className="rate__star"
-                        />
-                    </Fragment>
+                    <RateStar key={star} value={star} onChange={handleChange} />
                 ))}
+            </div>
+            <div className="rate__title">
+                {/* FIXME: Update translation text */}
+                {/* {translator.getMessage('rate_description')} */}
+                Enjoying AdGuard VPN?
             </div>
             <button
                 type="button"
-                className="rate__hide"
+                className="rate__hide-btn has-tab-focus"
                 onClick={handleHideRate}
             >
-                {reactTranslator.getMessage('rate_hide')}
+                {translator.getMessage('rate_hide')}
             </button>
         </div>
     );
