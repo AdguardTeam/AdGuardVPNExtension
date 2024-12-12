@@ -1,30 +1,48 @@
 import React, { useState } from 'react';
 
+import classNames from 'classnames';
+
+import { Icon } from '../Icon';
+
 import './checkbox.pcss';
 
-type CheckboxProps = {
-    label: React.ReactNode,
-    id: string,
-    value: boolean,
-};
+export interface CheckboxProps {
+    id?: string;
+    label: React.ReactNode;
+    value: boolean;
+    onToggle?: () => void;
+}
 
-export const Checkbox = ({ label, id, value }: CheckboxProps) => {
+export function Checkbox({
+    id,
+    label,
+    value,
+    onToggle,
+}: CheckboxProps) {
     const [checkedValue, setCheckedValue] = useState(value);
+    const classes = classNames('checkbox', checkedValue && 'checkbox--active');
+    const iconName = `checkbox-${checkedValue ? 'enabled' : 'disabled'}`;
+
+    const handleChange = () => {
+        setCheckedValue((prevValue) => !prevValue);
+        if (onToggle) {
+            onToggle();
+        }
+    };
+
     return (
-        <div className="checkbox">
+        <label htmlFor={id} className={classes}>
+            <Icon name={iconName} className="checkbox__icon" />
             <input
                 id={id}
                 type="checkbox"
-                checked={checkedValue}
-                className="checkbox__in"
-                onChange={() => setCheckedValue(!checkedValue)}
+                checked={value}
+                className="checkbox__input"
+                onChange={handleChange}
             />
-            <label
-                htmlFor={id}
-                className="checkbox__label"
-            >
+            <div className="checkbox__label">
                 {label}
-            </label>
-        </div>
+            </div>
+        </label>
     );
-};
+}

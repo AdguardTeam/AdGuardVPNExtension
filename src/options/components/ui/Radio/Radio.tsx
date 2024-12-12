@@ -76,7 +76,7 @@ export function Radio<T extends string>({
                 name={name}
                 checked={isActive}
                 onChange={handleChange}
-                className="hidden"
+                className="radio__input"
             />
             <span className="radio__circle-outer">
                 <span className="radio__circle-inner" />
