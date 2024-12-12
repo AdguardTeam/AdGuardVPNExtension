@@ -25,7 +25,7 @@ export interface ButtonProps extends PropsWithChildren {
      * - 'large' - 16px 24px padding, 18px font size.
      * - 'medium' - 16px 16px padding, 16px font size.
      *
-     * Supported only with 'filled' and 'outlined' variant
+     * Supported only with 'filled' and 'outlined' variant.
      */
     size?: 'large' | 'medium';
 
