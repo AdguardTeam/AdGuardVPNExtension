@@ -1,0 +1,68 @@
+.free-gbs-task {
+    &__image {
+        width: 250px;
+        height: 250px;
+    }
+
+    &__content {
+        padding: 0 16px;
+
+        .button {
+            flex-shrink: 0;
+            width: 200px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+
+            @media (--mobile) {
+                width: 100%;
+                padding: 16px;
+            }
+        }
+    }
+
+    &__go-back-btn {
+        margin-top: 16px;
+    }
+}
+
+.invite-friend {
+    &__content {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        column-gap: 16px;
+
+        @media (--mobile) {
+            flex-direction: column;
+            column-gap: 0;
+            row-gap: 16px;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+    }
+
+    &__counter {
+        margin-top: 24px;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+}
+
+.confirm-email {
+    &__btn {
+        margin-top: 16px;
+    }
+}
+
+.add-device {
+    &__link {
+        margin-top: 24px;
+        text-decoration: none;
+
+        &-icon {
+            color: currentColor;
+        }
+    }
+}
