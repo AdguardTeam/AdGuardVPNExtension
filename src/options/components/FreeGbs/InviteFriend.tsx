@@ -1,16 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 
+import { DotsLoader } from '../../../common/components/DotsLoader';
 import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
-import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
+import { COMPLETE_TASK_BONUS_GB, RequestStatus } from '../../stores/consts';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Title } from '../ui/Title';
 
 export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
-    const { invitesCount, maxInvitesCount, inviteUrl } = settingsStore.invitesBonuses;
+
+    const { invitesBonuses, bonusesDataRequestStatus } = settingsStore;
+    const { invitesCount, maxInvitesCount, inviteUrl } = invitesBonuses;
 
     const isCompleted = invitesCount >= maxInvitesCount;
 
@@ -22,12 +25,22 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
             friend_gb: COMPLETE_TASK_BONUS_GB,
         });
 
+    useEffect(() => {
+        (async () => {
+            await settingsStore.updateBonusesData();
+        })();
+    }, []);
+
     const handleCopyLink = async () => {
         await navigator.clipboard.writeText(inviteUrl);
         notificationsStore.notifySuccess(
             translator.getMessage('settings_referral_link_copied'),
         );
     };
+
+    if (bonusesDataRequestStatus !== RequestStatus.Done) {
+        return <DotsLoader />;
+    }
 
     return (
         <div className="free-gbs-task">

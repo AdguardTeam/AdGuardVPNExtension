@@ -2,13 +2,16 @@ import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import classNames from 'classnames';
+
 import { translator } from '../../../common/translator';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { rootStore } from '../../stores';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Title } from '../ui/Title';
+import { Controls } from '../ui/Controls';
+import { Icon, IconButton } from '../ui/Icon';
 
-import { FreeGbsButton } from './FreeGbsButton';
 import { InviteFriend } from './InviteFriend';
 import { ConfirmEmail } from './ConfirmEmail';
 import { AddDevice } from './AddDevice';
@@ -22,8 +25,12 @@ const ADD_DEVICE = 'add-device';
 
 export const FreeGbs = observer(() => {
     const { settingsStore } = useContext(rootStore);
-    const history = useHistory();
-    const { search } = useLocation();
+
+    useEffect(() => {
+        (async () => {
+            await settingsStore.updateBonusesData();
+        })();
+    }, []);
 
     const {
         invitesBonuses,
@@ -34,61 +41,58 @@ export const FreeGbs = observer(() => {
     } = settingsStore;
 
     const { invitesCount, maxInvitesCount } = invitesBonuses;
+
+    const history = useHistory();
+    const { search } = useLocation();
+    const query = new URLSearchParams(search);
+
+    const goBackHandler = () => {
+        history.push(`/${FREE_GBS}`);
+    };
+
+    const clickItemHandler = (query: string) => {
+        history.push(`/${FREE_GBS}?${query}`);
+    };
+
     const inviteFriendTitle = `${translator.getMessage('settings_free_gbs_invite_friend')} (${invitesCount}/${maxInvitesCount})`;
     const itemsData = [
         {
             title: inviteFriendTitle,
-            description: translator.getMessage('settings_free_gbs_invite_friend_get_GB', { num: maxInvitesCount }),
-            doneDescription: translator.getMessage('settings_free_gbs_invite_friend_complete', { num: maxInvitesCount }),
+            status: translator.getMessage('settings_free_gbs_invite_friend_get_GB', { num: maxInvitesCount }),
+            statusDone: translator.getMessage('settings_free_gbs_invite_friend_complete', { num: maxInvitesCount }),
             query: INVITE_FRIEND,
-            isDone: invitesQuestCompleted,
+            completed: invitesQuestCompleted,
         },
         {
             title: translator.getMessage('settings_free_gbs_confirm_email_title'),
-            description: translator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
-            doneDescription: translator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
+            status: translator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
+            statusDone: translator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: CONFIRM_EMAIL,
-            isDone: confirmEmailQuestCompleted,
+            completed: confirmEmailQuestCompleted,
         },
         {
             title: translator.getMessage('settings_free_gbs_add_device_title'),
-            description: translator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
-            doneDescription: translator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
+            status: translator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
+            statusDone: translator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: ADD_DEVICE,
-            isDone: addDeviceQuestCompleted,
+            completed: addDeviceQuestCompleted,
         },
     ];
 
-    const query = new URLSearchParams(search);
-
-    const handleGoBackClick = () => {
-        history.push(`/${FREE_GBS}`);
-    };
-
-    const handleButtonClick = (query: string) => {
-        history.push(`/${FREE_GBS}?${query}`);
-    };
-
-    useEffect(() => {
-        (async () => {
-            await settingsStore.updateBonusesData();
-        })();
-    }, []);
-
-    if (bonusesDataRequestStatus !== RequestStatus.Done) {
-        return <DotsLoader />;
-    }
-
     if (query.has(INVITE_FRIEND)) {
-        return <InviteFriend goBackHandler={handleGoBackClick} />;
+        return <InviteFriend goBackHandler={goBackHandler} />;
     }
 
     if (query.has(CONFIRM_EMAIL)) {
-        return <ConfirmEmail goBackHandler={handleGoBackClick} />;
+        return <ConfirmEmail goBackHandler={goBackHandler} />;
     }
 
     if (query.has(ADD_DEVICE)) {
-        return <AddDevice goBackHandler={handleGoBackClick} />;
+        return <AddDevice goBackHandler={goBackHandler} />;
+    }
+
+    if (bonusesDataRequestStatus !== RequestStatus.Done) {
+        return <DotsLoader />;
     }
 
     return (
@@ -98,14 +102,14 @@ export const FreeGbs = observer(() => {
                 subtitle={translator.getMessage('settings_free_gbs_subtitle')}
             />
             {itemsData.map((item) => (
-                <FreeGbsButton
+                <Controls
                     key={item.query}
                     title={item.title}
-                    description={item.description}
-                    doneDescription={item.doneDescription}
-                    isDone={item.isDone}
-                    query={item.query}
-                    onClick={handleButtonClick}
+                    description={item.completed ? item.statusDone : item.status}
+                    className={classNames('free-gbs__button', item.completed && 'free-gbs__button--done')}
+                    beforeAction={<Icon name="checkmark" className="free-gbs__button-check-icon" />}
+                    action={<IconButton name="arrow-down" className="free-gbs__button-arrow-icon" />}
+                    onClick={() => clickItemHandler(item.query)}
                 />
             ))}
         </>
