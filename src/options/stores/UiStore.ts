@@ -28,6 +28,8 @@ export class UiStore {
             || this.rootStore.exclusionsStore.modeSelectorModalOpen
             || this.rootStore.exclusionsStore.removeAllModalOpen
             || this.rootStore.exclusionsStore.selectListModalOpen
+            || this.rootStore.exclusionsStore.addExclusionModalOpen
+            || this.rootStore.exclusionsStore.confirmAddModalOpen
         );
     }
 

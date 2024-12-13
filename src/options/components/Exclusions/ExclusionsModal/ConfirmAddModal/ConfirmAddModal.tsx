@@ -1,12 +1,10 @@
 import React, { useContext } from 'react';
-import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import { Title } from '../../../ui/Title';
 import { rootStore } from '../../../../stores';
-import { reactTranslator } from '../../../../../common/reactTranslator';
-
-import './confirm-add-modal.pcss';
+import { translator } from '../../../../../common/translator';
+import { Modal } from '../../../ui/Modal';
+import { Button } from '../../../ui/Button';
 
 export const ConfirmAddModal = observer(() => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
@@ -20,12 +18,12 @@ export const ConfirmAddModal = observer(() => {
         if (urlToConfirm) {
             const addedExclusionsCount = await exclusionsStore.addUrlToExclusions(urlToConfirm);
             notificationsStore.notifySuccess(
-                reactTranslator.getMessage(
+                translator.getMessage(
                     'options_exclusions_added_exclusions',
                     { count: addedExclusionsCount },
                 ),
                 {
-                    action: reactTranslator.getMessage('settings_exclusions_undo'),
+                    action: translator.getMessage('settings_exclusions_undo'),
                     handler: exclusionsStore.restoreExclusions,
                 },
             );
@@ -35,44 +33,22 @@ export const ConfirmAddModal = observer(() => {
 
     return (
         <Modal
+            title={translator.getMessage('settings_exclusion_add_website')}
+            description={translator.getMessage('settings_exclusions_add_invalid_domain', { url: urlToConfirm })}
+            actions={(
+                <>
+                    <Button variant="outlined" onClick={closeModal}>
+                        {translator.getMessage('settings_exclusion_modal_cancel')}
+                    </Button>
+                    <Button onClick={confirmAddUrl}>
+                        {translator.getMessage('settings_exclusion_add')}
+                    </Button>
+                </>
+            )}
             isOpen={confirmAddModalOpen}
-            className="modal modal-exclusions confirm-add-modal"
-            overlayClassName="overlay overlay--fullscreen"
-            onRequestClose={closeModal}
-        >
-            <button
-                type="button"
-                className="button button--icon modal__close-icon"
-                onClick={closeModal}
-            >
-                <svg className="icon icon--button icon--cross">
-                    <use xlinkHref="#cross" />
-                </svg>
-            </button>
-            <div className="settings__section">
-                <Title
-                    title={reactTranslator.getMessage('settings_exclusion_add_website')}
-                />
-                <div className="confirm-add-modal__message">
-                    {reactTranslator.getMessage('settings_exclusions_add_invalid_domain', { url: urlToConfirm })}
-                </div>
-            </div>
-            <div className="confirm-add-modal__actions">
-                <button
-                    type="button"
-                    className="button button--large button--outline-gray"
-                    onClick={closeModal}
-                >
-                    {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
-                </button>
-                <button
-                    type="button"
-                    className="button button--large button--primary"
-                    onClick={confirmAddUrl}
-                >
-                    {reactTranslator.getMessage('settings_exclusion_add')}
-                </button>
-            </div>
-        </Modal>
+            className="exclusions__modal exclusions__modal--empty-body"
+            size="medium"
+            onClose={closeModal}
+        />
     );
 });
