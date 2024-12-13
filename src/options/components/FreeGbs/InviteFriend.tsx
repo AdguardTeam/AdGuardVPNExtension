@@ -34,9 +34,7 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
     const handleCopyLink = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await navigator.clipboard.writeText(inviteUrl);
-        notificationsStore.notifySuccess(
-            translator.getMessage('settings_referral_link_copied'),
-        );
+        notificationsStore.notifySuccess(translator.getMessage('settings_referral_link_copied'));
     };
 
     if (bonusesDataRequestStatus !== RequestStatus.Done) {
