@@ -9,7 +9,9 @@ import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Title } from '../ui/Title';
 
 import { FreeGbsButton } from './FreeGbsButton';
-import { InviteFriend, ConfirmEmail, AddDevice } from './FreeGbsTasks';
+import { InviteFriend } from './InviteFriend';
+import { ConfirmEmail } from './ConfirmEmail';
+import { AddDevice } from './AddDevice';
 
 import './free-gbs.pcss';
 
@@ -78,15 +80,15 @@ export const FreeGbs = observer(() => {
     }
 
     if (query.has(INVITE_FRIEND)) {
-        return <InviteFriend onBackClick={handleGoBackClick} />;
+        return <InviteFriend goBackHandler={handleGoBackClick} />;
     }
 
     if (query.has(CONFIRM_EMAIL)) {
-        return <ConfirmEmail onBackClick={handleGoBackClick} />;
+        return <ConfirmEmail goBackHandler={handleGoBackClick} />;
     }
 
     if (query.has(ADD_DEVICE)) {
-        return <AddDevice onBackClick={handleGoBackClick} />;
+        return <AddDevice goBackHandler={handleGoBackClick} />;
     }
 
     return (
