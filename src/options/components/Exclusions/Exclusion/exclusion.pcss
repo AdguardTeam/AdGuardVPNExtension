@@ -16,8 +16,12 @@
         border-radius: 8px;
 
         &:hover,
-        &:active {
+        &:focus-within {
             background-color: var(--fills-backgrounds-page-background-hovered);
+        }
+
+        &:active {
+            background-color: var(--fills-backgrounds-page-background-pressed);
         }
     }
 
@@ -63,7 +67,8 @@
             transform: rotate(-90deg);
         }
 
-        &:hover &-forward-icon {
+        &:hover &-forward-icon,
+        &:focus-visible &-forward-icon {
             color: var(--text-main-text-main-default);
         }
 
@@ -125,7 +130,8 @@
         transition: var(--t3) color;
 
         &:hover,
-        &:active {
+        &:active,
+        &:focus-visible {
             color: var(--stroke-icons-error-icon-default);
         }
     }
