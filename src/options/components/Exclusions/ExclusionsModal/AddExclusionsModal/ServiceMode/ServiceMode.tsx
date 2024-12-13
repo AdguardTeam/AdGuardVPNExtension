@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../../stores';
-import { ServicesSearch } from '../../../Search/ServicesSearch';
+import { ServicesSearch } from '../../../Search';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
 
 import { ServicesList } from './ServicesList';
