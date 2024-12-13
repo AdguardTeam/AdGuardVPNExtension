@@ -30,6 +30,8 @@ export class UiStore {
             || this.rootStore.exclusionsStore.selectListModalOpen
             || this.rootStore.exclusionsStore.addExclusionModalOpen
             || this.rootStore.exclusionsStore.confirmAddModalOpen
+            || this.rootStore.exclusionsStore.resetServiceModalOpen
+            || this.rootStore.exclusionsStore.addSubdomainModalOpen
         );
     }
 
