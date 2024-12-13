@@ -25,8 +25,37 @@
     }
 
     &__modal {
+        &--radio {
+            .modal__header {
+                padding-bottom: 24px;
+            }
+
+            .modal__actions {
+                padding-top: 24px;
+            }
+        }
+
+        &--empty-body {
+            .modal__header {
+                padding-bottom: 0;
+            }
+
+            .modal__actions {
+                padding-top: 24px;
+            }
+        }
+
+        &-content {
+            .radio {
+                outline-offset: -2px;
+
+                &__title {
+                    font-weight: 400;
+                }
+            }
+        }
+
         .modal__actions {
-            padding-top: 24px;
             gap: 0;
             row-gap: 8px;
             justify-content: space-between;
@@ -44,12 +73,6 @@
                 @media (--tablet) {
                     width: 100%;
                 }
-            }
-        }
-
-        &--empty-body {
-            .modal__header {
-                padding-bottom: 0;
             }
         }
     }

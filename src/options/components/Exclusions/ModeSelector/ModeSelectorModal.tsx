@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 
-import { rootStore } from '../../../stores';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { translator } from '../../../../common/translator';
+import { rootStore } from '../../../stores';
 import { Modal } from '../../ui/Modal';
 import { Radio } from '../../ui/Radio';
 import { Button } from '../../ui/Button';
@@ -32,22 +32,20 @@ export const ModeSelectorModal = observer(() => {
         [ExclusionsMode.Selective]: translator.getMessage('settings_exclusion_selective_title'),
     };
 
-    const renderRadioButton = (exclusionsType: ExclusionsMode) => {
-        return (
-            <Radio
-                name="exclusion-mode"
-                value={exclusionsType}
-                isActive={exclusionsType === mode}
-                title={titles[exclusionsType]}
-                onSelect={handleSelect}
-            />
-        );
-    };
+    const renderRadioButton = (exclusionsType: ExclusionsMode) => (
+        <Radio
+            name="exclusion-mode"
+            value={exclusionsType}
+            isActive={exclusionsType === mode}
+            title={titles[exclusionsType]}
+            onSelect={handleSelect}
+        />
+    );
 
     return (
         <Modal
-            title={translator.getMessage('settings_exclusion_change_mode_modal_title')}
             isOpen={exclusionsStore.modeSelectorModalOpen}
+            title={translator.getMessage('settings_exclusion_change_mode_modal_title')}
             actions={(
                 <>
                     <Button onClick={handleSaveMode}>
@@ -60,9 +58,10 @@ export const ModeSelectorModal = observer(() => {
                     </Button>
                 </>
             )}
+            className="exclusions__modal--radio"
             onClose={closeModal}
         >
-            <div className="mode-selector__content">
+            <div className="exclusions__modal-content">
                 {renderRadioButton(ExclusionsMode.Regular)}
                 {renderRadioButton(ExclusionsMode.Selective)}
             </div>

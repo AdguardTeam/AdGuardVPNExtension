@@ -74,19 +74,15 @@ const exportExclusions = async () => {
 
 export const Actions = observer(() => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
+    const { selectListModalOpen } = exclusionsStore;
 
     const importEl = useRef<HTMLInputElement>(null);
 
-    const [isSelectListModalOpen, setSelectListModalState] = useState(false);
     const [fileContent, setFileContent] = useState('');
 
     const closeSelectListModal = () => {
-        setSelectListModalState(false);
+        exclusionsStore.closeSelectListModal();
         setFileContent('');
-    };
-
-    const openSelectListModal = () => {
-        setSelectListModalState(true);
     };
 
     const handleRegularClick = async () => {
@@ -123,7 +119,7 @@ export const Actions = observer(() => {
 
     const handleTxtExclusionsData = (content: string) => {
         setFileContent(content);
-        openSelectListModal();
+        exclusionsStore.openSelectListModal();
         return null;
     };
 
@@ -244,7 +240,7 @@ export const Actions = observer(() => {
                 />
             </div>
             <SelectListModal
-                isOpen={isSelectListModalOpen}
+                isOpen={selectListModalOpen}
                 closeModal={closeSelectListModal}
                 handleRegularClick={handleRegularClick}
                 handleSelectiveClick={handleSelectiveClick}

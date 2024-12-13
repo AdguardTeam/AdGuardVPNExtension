@@ -96,6 +96,8 @@ export class ExclusionsStore {
 
     @observable removeAllModalOpen = false;
 
+    @observable selectListModalOpen = false;
+
     @observable confirmAddModalOpen = false;
 
     @observable urlToConfirm: string | undefined;
@@ -236,6 +238,14 @@ export class ExclusionsStore {
 
     @action closeRemoveAllModal = () => {
         this.removeAllModalOpen = false;
+    };
+
+    @action openSelectListModal = () => {
+        this.selectListModalOpen = true;
+    };
+
+    @action closeSelectListModal = () => {
+        this.selectListModalOpen = false;
     };
 
     @computed
