@@ -94,6 +94,7 @@ export const Exclusion = observer(({
 
     const hasChildren = exclusion.children.length !== 0;
     const isGroupExclusion = selectedExclusion?.type === ExclusionsType.Group;
+    const isDomain = exclusion.hostname === selectedExclusion?.hostname;
     const description = getExclusionDescription(exclusion.hostname, selectedExclusion);
     const isUseless = isUselessExclusion(exclusion.hostname, selectedExclusion);
 
@@ -101,7 +102,7 @@ export const Exclusion = observer(({
         'exclusion',
         getStateClassName(exclusion.state),
         iconLoaded && 'exclusion--icon-loaded',
-        isGroupExclusion && 'exclusion--group',
+        isGroupExclusion && !isDomain && 'exclusion--group',
         isUseless && 'exclusion--useless',
     );
 

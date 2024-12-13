@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { translator } from '../../../common/translator';
+import { reactTranslator } from '../../../common/reactTranslator';
 import { ExclusionsMode } from '../../../common/exclusionsConstants';
 import { Icon } from '../ui/Icon';
 import { Button } from '../ui/Button';
@@ -46,8 +47,8 @@ export const Exclusions = observer(() => {
         },
     };
 
-    const generalModeInfo = translator.getMessage('settings_exclusion_general_mode_info', modeInfoParams);
-    const selectiveModeInfo = translator.getMessage('settings_exclusion_selective_mode_info', modeInfoParams);
+    const generalModeInfo = reactTranslator.getMessage('settings_exclusion_general_mode_info', modeInfoParams);
+    const selectiveModeInfo = reactTranslator.getMessage('settings_exclusion_selective_mode_info', modeInfoParams);
 
     const modeInfo = exclusionsStore.currentMode === ExclusionsMode.Regular
         ? generalModeInfo
