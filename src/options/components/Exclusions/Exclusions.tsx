@@ -4,11 +4,14 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { translator } from '../../../common/translator';
+import { ExclusionsMode } from '../../../common/exclusionsConstants';
+import { reactTranslator } from '../../../common/reactTranslator';
+import { Icon } from '../ui/Icon';
 
-import { ModeSelector, ModeSelectorModal } from './ModeSelector';
+import { ModeSelectorModal } from './ModeSelectorModal';
 import { Actions } from './Actions';
 import { ChildrenList } from './ChildrenList';
-import { ExclusionsSearch } from './Search';
+import { ExclusionsSearch } from './Search/ExclusionsSearch';
 
 import './exclusions.pcss';
 
@@ -21,13 +24,52 @@ export const Exclusions = observer(() => {
         );
     }
 
+    const openModeSelectorModal = () => {
+        exclusionsStore.setModeSelectorModalOpen(true);
+    };
+
+    const modeInfoParams = {
+        span: (chunks: string) => {
+            return (
+                <button
+                    type="button"
+                    className="exclusions__mode-btn"
+                    onClick={openModeSelectorModal}
+                >
+                    {chunks}
+                    <Icon name="pencil" className="exclusions__mode-btn-icon" />
+                </button>
+            );
+        },
+    };
+
+    const generalModeInfo = reactTranslator.getMessage('settings_exclusion_general_mode_info', modeInfoParams);
+    const selectiveModeInfo = reactTranslator.getMessage('settings_exclusion_selective_mode_info', modeInfoParams);
+
+    const modeInfo = exclusionsStore.currentMode === ExclusionsMode.Regular
+        ? generalModeInfo
+        : selectiveModeInfo;
+
+    const renderSelectiveModeWarning = () => {
+        if (exclusionsStore.currentMode === ExclusionsMode.Selective
+                && !exclusionsStore.exclusionsTree.children.length) {
+            return (
+                <div className="exclusions__mode-warning">
+                    {translator.getMessage('settings_exclusion_selective_mode_warning')}
+                </div>
+            );
+        }
+        return null;
+    };
+
     return (
         <>
             <Title
                 title={translator.getMessage('settings_exclusion_title')}
                 subtitle={(
                     <>
-                        <ModeSelector />
+                        {modeInfo}
+                        {renderSelectiveModeWarning()}
                         <ExclusionsSearch />
                     </>
                 )}

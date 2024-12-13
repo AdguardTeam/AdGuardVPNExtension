@@ -23,10 +23,6 @@ export const ModeSelectorModal = observer(() => {
         exclusionsStore.setModeSelectorModalOpen(false);
     };
 
-    const handleSelect = (value: ExclusionsMode) => {
-        setMode(value);
-    };
-
     const titles = {
         [ExclusionsMode.Regular]: translator.getMessage('settings_exclusion_general_title'),
         [ExclusionsMode.Selective]: translator.getMessage('settings_exclusion_selective_title'),
@@ -38,7 +34,7 @@ export const ModeSelectorModal = observer(() => {
             value={exclusionsType}
             isActive={exclusionsType === mode}
             title={titles[exclusionsType]}
-            onSelect={handleSelect}
+            onSelect={setMode}
         />
     );
 
