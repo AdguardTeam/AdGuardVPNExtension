@@ -78,31 +78,27 @@ export const AddExclusionModal = observer(() => {
                     </Button>
                 </>
             )}
-            className="exclusions__modal"
+            className="exclusions__modal add-exclusion-modal"
             size="medium"
             onClose={onClose}
         >
-            <div className="add-exclusion-modal">
-                <div className="add-exclusion-modal__tabs">
-                    <button
-                        onClick={onServiceModeClick}
-                        type="button"
-                        className={ModeSelectButtons.service.classname}
-                    >
-                        {translator.getMessage('settings_exclusion_add_from_list')}
-                    </button>
-                    <button
-                        onClick={onManualModeClick}
-                        type="button"
-                        className={ModeSelectButtons.manual.classname}
-                    >
-                        {translator.getMessage('settings_exclusion_add_manually')}
-                    </button>
-                </div>
-                <div className="add-exclusion-modal__content">
-                    {mode.content()}
-                </div>
+            <div className="add-exclusion-modal__tabs">
+                <button
+                    onClick={onServiceModeClick}
+                    type="button"
+                    className={ModeSelectButtons.service.classname}
+                >
+                    {translator.getMessage('settings_exclusion_add_from_list')}
+                </button>
+                <button
+                    onClick={onManualModeClick}
+                    type="button"
+                    className={ModeSelectButtons.manual.classname}
+                >
+                    {translator.getMessage('settings_exclusion_add_manually')}
+                </button>
             </div>
+            {mode.content()}
         </Modal>
     );
 });

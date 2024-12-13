@@ -1,4 +1,13 @@
 .add-exclusion-modal {
+    .modal__wrapper {
+        flex: 1 1 auto;
+        max-height: 400px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+
     &__tabs {
         display: flex;
         column-gap: 8px;
@@ -19,10 +28,5 @@
                 background: var(--gray-80);
             }
         }
-    }
-
-    &__content {
-        /* Size of 5 buttons in service mode */
-        height: 336px;
     }
 }

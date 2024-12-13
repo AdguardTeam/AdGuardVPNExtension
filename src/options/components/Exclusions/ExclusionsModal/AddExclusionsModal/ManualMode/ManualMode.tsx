@@ -38,7 +38,10 @@ export const ManualMode = () => {
     };
 
     return (
-        <form id={MANUAL_FORM_ID} onSubmit={addUrl}>
+        <form
+            id={MANUAL_FORM_ID}
+            onSubmit={addUrl}
+        >
             <Input
                 id="domain"
                 name="domain"

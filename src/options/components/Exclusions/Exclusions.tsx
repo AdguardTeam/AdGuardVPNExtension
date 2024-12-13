@@ -37,7 +37,7 @@ export const Exclusions = observer(() => {
             return (
                 <button
                     type="button"
-                    className="exclusions__mode-btn"
+                    className="exclusions__mode-btn has-tab-focus"
                     onClick={openModeSelectorModal}
                 >
                     {chunks}
