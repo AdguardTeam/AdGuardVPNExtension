@@ -16,8 +16,11 @@ import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { rootStore } from '../../../stores';
 import { Select } from '../../ui/Select';
 
-import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
 import { SelectListModal } from './SelectListModal';
+import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
+import { RemoveAllModal } from './RemoveAllModal';
+
+import './actions.pcss';
 
 enum Action {
     Default = 'default',
@@ -85,6 +88,10 @@ export const Actions = observer(() => {
         setFileContent('');
     };
 
+    const openSelectListModal = () => {
+        exclusionsStore.openSelectListModal();
+    };
+
     const handleRegularClick = async () => {
         const exclusionsAddedCount = await handleGeneralExclusionsString(fileContent);
         notificationsStore.notifySuccess(
@@ -119,7 +126,7 @@ export const Actions = observer(() => {
 
     const handleTxtExclusionsData = (content: string) => {
         setFileContent(content);
-        exclusionsStore.openSelectListModal();
+        openSelectListModal();
         return null;
     };
 
@@ -205,7 +212,7 @@ export const Actions = observer(() => {
 
     return (
         <>
-            <div className="exclusions__actions">
+            <div className="actions">
                 <Select
                     value={Action.Default}
                     options={[
@@ -245,6 +252,7 @@ export const Actions = observer(() => {
                 handleRegularClick={handleRegularClick}
                 handleSelectiveClick={handleSelectiveClick}
             />
+            <RemoveAllModal />
         </>
     );
 });

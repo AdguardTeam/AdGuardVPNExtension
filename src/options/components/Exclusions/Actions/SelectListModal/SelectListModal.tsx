@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import { ExclusionsMode } from '../../../../common/exclusionsConstants';
-import { translator } from '../../../../common/translator';
-import { rootStore } from '../../../stores';
-import { Radio } from '../../ui/Radio';
-import { Modal } from '../../ui/Modal';
-import { Button } from '../../ui/Button';
+import { ExclusionsMode } from '../../../../../common/exclusionsConstants';
+import { translator } from '../../../../../common/translator';
+import { rootStore } from '../../../../stores';
+import { Radio } from '../../../ui/Radio';
+import { Modal } from '../../../ui/Modal';
+import { Button } from '../../../ui/Button';
 
 interface SelectListModalProps {
     isOpen: boolean;
@@ -29,6 +29,11 @@ export const SelectListModal = ({
         setSelectedList(currentMode);
     }, [currentMode, isOpen]);
 
+    const modesInfo = {
+        [ExclusionsMode.Regular]: translator.getMessage('options_exclusions_import_select_regular'),
+        [ExclusionsMode.Selective]: translator.getMessage('options_exclusions_import_select_selective'),
+    };
+
     const handleImportClick = async () => {
         if (selectedList === ExclusionsMode.Regular) {
             await handleRegularClick();
@@ -37,17 +42,12 @@ export const SelectListModal = ({
         }
     };
 
-    const titles = {
-        [ExclusionsMode.Regular]: translator.getMessage('options_exclusions_import_select_regular'),
-        [ExclusionsMode.Selective]: translator.getMessage('options_exclusions_import_select_selective'),
-    };
-
     const renderRadioButton = (exclusionsType: ExclusionsMode) => (
         <Radio
             name="exclusion-type"
             value={exclusionsType}
             isActive={exclusionsType === selectedList}
-            title={titles[exclusionsType]}
+            title={modesInfo[exclusionsType]}
             onSelect={setSelectedList}
         />
     );

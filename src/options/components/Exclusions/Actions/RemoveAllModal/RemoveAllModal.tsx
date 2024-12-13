@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { translator } from '../../../../common/translator';
-import { rootStore } from '../../../stores';
-import { Modal } from '../../ui/Modal';
-import { Button } from '../../ui/Button';
+import { translator } from '../../../../../common/translator';
+import { rootStore } from '../../../../stores';
+import { Modal } from '../../../ui/Modal';
+import { Button } from '../../../ui/Button';
 
 export const RemoveAllModal = observer(() => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
