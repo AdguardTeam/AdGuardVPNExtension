@@ -4,6 +4,8 @@ import { rootStore } from '../../../../../stores';
 import { translator } from '../../../../../../common/translator';
 import { Input } from '../../../../ui/Input';
 
+import './manual-mode.pcss';
+
 export const MANUAL_FORM_ID = 'add-exclusion-form-manual';
 
 export const ManualMode = () => {
@@ -40,6 +42,7 @@ export const ManualMode = () => {
     return (
         <form
             id={MANUAL_FORM_ID}
+            className="manual-mode"
             onSubmit={addUrl}
         >
             <Input
