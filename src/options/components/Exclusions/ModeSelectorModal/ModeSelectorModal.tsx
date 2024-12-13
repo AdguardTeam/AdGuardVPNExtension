@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 
+import { rootStore } from '../../../stores';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { translator } from '../../../../common/translator';
-import { rootStore } from '../../../stores';
 import { Modal } from '../../ui/Modal';
 import { Radio } from '../../ui/Radio';
 import { Button } from '../../ui/Button';

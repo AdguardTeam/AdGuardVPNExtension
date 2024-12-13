@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { translator } from '../../../../../common/translator';
 import { rootStore } from '../../../../stores';
+import { translator } from '../../../../../common/translator';
 import { Modal } from '../../../ui/Modal';
 import { Button } from '../../../ui/Button';
 

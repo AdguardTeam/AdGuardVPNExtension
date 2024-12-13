@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import { ExclusionsMode } from '../../../../../common/exclusionsConstants';
 import { translator } from '../../../../../common/translator';
+import { ExclusionsMode } from '../../../../../common/exclusionsConstants';
 import { rootStore } from '../../../../stores';
 import { Radio } from '../../../ui/Radio';
 import { Modal } from '../../../ui/Modal';

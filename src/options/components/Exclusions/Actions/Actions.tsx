@@ -7,13 +7,13 @@ import format from 'date-fns/format';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
+import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../common/utils/string';
 import { type ExclusionsContentMap } from '../../../../common/constants';
 import { log } from '../../../../common/logger';
 import { messenger } from '../../../../common/messenger';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
-import { rootStore } from '../../../stores';
 import { Select } from '../../ui/Select';
 
 import { SelectListModal } from './SelectListModal';
