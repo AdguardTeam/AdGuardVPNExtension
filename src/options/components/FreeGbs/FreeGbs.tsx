@@ -18,6 +18,14 @@ import { AddDevice } from './AddDevice';
 
 import './free-gbs.pcss';
 
+interface RenderItemProps {
+    title: string;
+    status: string | React.ReactNode;
+    query: string;
+    statusDone: string | React.ReactNode;
+    completed: boolean;
+}
+
 const FREE_GBS = 'free-gbs';
 const INVITE_FRIEND = 'invite-friend';
 const CONFIRM_EMAIL = 'confirm-email';
@@ -55,7 +63,8 @@ export const FreeGbs = observer(() => {
     };
 
     const inviteFriendTitle = `${translator.getMessage('settings_free_gbs_invite_friend')} (${invitesCount}/${maxInvitesCount})`;
-    const itemsData = [
+
+    const itemsData: RenderItemProps[] = [
         {
             title: inviteFriendTitle,
             status: translator.getMessage('settings_free_gbs_invite_friend_get_GB', { num: maxInvitesCount }),
@@ -79,6 +88,26 @@ export const FreeGbs = observer(() => {
         },
     ];
 
+    const renderItem = ({
+        title,
+        status,
+        query,
+        statusDone,
+        completed,
+    }: RenderItemProps) => {
+        return (
+            <Controls
+                key={query}
+                title={title}
+                description={completed ? statusDone : status}
+                className={classNames('free-gbs__button', completed && 'free-gbs__button--done')}
+                beforeAction={<Icon name="checkmark" className="free-gbs__button-check-icon" />}
+                action={<IconButton name="arrow-down" className="free-gbs__button-arrow-icon" />}
+                onClick={() => clickItemHandler(query)}
+            />
+        );
+    };
+
     if (query.has(INVITE_FRIEND)) {
         return <InviteFriend goBackHandler={goBackHandler} />;
     }
@@ -101,17 +130,7 @@ export const FreeGbs = observer(() => {
                 title={translator.getMessage('settings_free_gbs')}
                 subtitle={translator.getMessage('settings_free_gbs_subtitle')}
             />
-            {itemsData.map((item) => (
-                <Controls
-                    key={item.query}
-                    title={item.title}
-                    description={item.completed ? item.statusDone : item.status}
-                    className={classNames('free-gbs__button', item.completed && 'free-gbs__button--done')}
-                    beforeAction={<Icon name="checkmark" className="free-gbs__button-check-icon" />}
-                    action={<IconButton name="arrow-down" className="free-gbs__button-arrow-icon" />}
-                    onClick={() => clickItemHandler(item.query)}
-                />
-            ))}
+            {itemsData.map(renderItem)}
         </>
     );
 });

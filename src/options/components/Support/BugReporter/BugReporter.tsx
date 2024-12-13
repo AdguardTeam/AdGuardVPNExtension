@@ -15,7 +15,7 @@ import { Button } from '../../ui/Button';
 
 import { RequestEvent, RequestState, requestMachine } from './requestMachine';
 
-import './bug-reporter.pcss';
+import './bug-report.pcss';
 
 enum FormField {
     Email = 'email',
@@ -94,10 +94,6 @@ export const BugReporter = observer(() => {
         },
     };
 
-    const handleGoBack = () => {
-        settingsStore.setShowBugReporter(false);
-    };
-
     const handleNewReport = () => {
         sendToRequestMachine(RequestEvent.StartAgain);
         setFormState(DEFAULT_FORM_STATE);
@@ -120,7 +116,7 @@ export const BugReporter = observer(() => {
         }, {});
     };
 
-    const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
         const errors = validateFields();
@@ -140,7 +136,7 @@ export const BugReporter = observer(() => {
         );
     };
 
-    const handleFormChange = (e: React.ChangeEvent<HTMLFormElement>) => {
+    const formChangeHandler = (e: React.ChangeEvent<HTMLFormElement>): void => {
         const { id, value, checked } = e.target;
 
         const resultValue = e.target.type === 'checkbox' ? checked : value;
@@ -175,22 +171,26 @@ export const BugReporter = observer(() => {
         isButtonDisabled = true;
     }
 
+    const closeHandler = (): void => {
+        settingsStore.setShowBugReporter(false);
+    };
+
     if (requestState.matches(RequestState.Success)) {
         return (
-            <div className="bug-reporter__success">
+            <div className="bug-report__success">
                 <img
                     src="../../../../assets/images/ninja-like.svg"
-                    className="bug-reporter__success-image"
+                    className="bug-report__success-image"
                     alt="slide"
                 />
-                <div className="bug-reporter__success-title">
+                <div className="bug-report__success-title">
                     {/* FIXME: Update translation text */}
                     {/* {translator.getMessage('options_bug_report_page_success')} */}
                     Thank you, your message sent successfully!
                 </div>
                 <Button
                     size="medium"
-                    className="bug-reporter__success-btn"
+                    className="bug-report__success-btn"
                     onClick={handleNewReport}
                 >
                     {translator.getMessage('options_bug_report_new_report_button')}
@@ -203,14 +203,14 @@ export const BugReporter = observer(() => {
         <>
             <Title
                 title={translator.getMessage('options_report_bug_title')}
-                onClick={handleGoBack}
+                onClick={closeHandler}
             />
 
             <form
-                className="bug-reporter__form"
+                className="bug-report__form"
                 noValidate
-                onSubmit={handleFormSubmit}
-                onChange={handleFormChange}
+                onSubmit={handleSubmit}
+                onChange={formChangeHandler}
             >
                 <Input
                     id={FormField.Email}
@@ -236,14 +236,14 @@ export const BugReporter = observer(() => {
                     value={formState[FormField.IncludeLog]}
                 />
                 {requestState.matches(RequestState.Error) && (
-                    <div className="bug-reporter__form-error">
+                    <div className="bug-report__form-error">
                         {translator.getMessage('options_bug_report_request_error')}
                     </div>
                 )}
                 <Button
                     type="submit"
                     size="medium"
-                    className="bug-reporter__form-btn"
+                    className="bug-report__form-btn"
                     disabled={isButtonDisabled}
                 >
                     {buttonText}
