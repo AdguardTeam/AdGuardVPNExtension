@@ -21,6 +21,11 @@ export interface ButtonProps extends PropsWithChildren {
     type?: 'button' | 'submit' | 'reset';
 
     /**
+     * Button color. Default is 'primary'.
+     */
+    color?: 'primary' | 'danger';
+
+    /**
      * Button size. Default is 'large'.
      * - 'large' - 16px 24px padding, 18px font size.
      * - 'medium' - 16px 16px padding, 16px font size.
@@ -58,6 +63,7 @@ export interface ButtonProps extends PropsWithChildren {
 export function Button({
     variant = 'filled',
     type = 'button',
+    color = 'primary',
     size = 'large',
     className,
     disabled,
@@ -69,6 +75,7 @@ export function Button({
     const classes = classNames(
         'button has-tab-focus',
         `button--${variant}`,
+        `button--color-${color}`,
         `button--size-${size}`,
         className,
     );
