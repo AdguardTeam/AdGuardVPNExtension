@@ -224,7 +224,7 @@ export const Actions = observer(() => {
                         {
                             value: Action.Export,
                             title: translator.getMessage('settings_exclusions_action_export'),
-                            shouldSkip: !exclusionsStore.isAllExclusionsListsEmpty,
+                            shouldSkip: exclusionsStore.isAllExclusionsListsEmpty,
                         },
                         {
                             value: Action.Import,
@@ -233,7 +233,7 @@ export const Actions = observer(() => {
                         {
                             value: Action.Remove,
                             title: translator.getMessage('settings_exclusions_action_remove_all'),
-                            shouldSkip: !exclusionsStore.isCurrentModeExclusionsListEmpty,
+                            shouldSkip: exclusionsStore.isCurrentModeExclusionsListEmpty,
                         },
                     ]}
                     onChange={handleAction}

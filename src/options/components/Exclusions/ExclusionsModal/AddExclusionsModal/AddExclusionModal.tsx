@@ -35,13 +35,13 @@ export const AddExclusionModal = observer(() => {
     const ModeSelectButtons = {
         service: {
             classname: classnames(
-                'add-exclusion-modal__tabs-item',
+                'add-exclusion-modal__tabs-item has-tab-focus',
                 addExclusionMode === AddExclusionMode.Service && 'add-exclusion-modal__tabs-item--active',
             ),
         },
         manual: {
             classname: classnames(
-                'add-exclusion-modal__tabs-item',
+                'add-exclusion-modal__tabs-item has-tab-focus',
                 addExclusionMode === AddExclusionMode.Manual && 'add-exclusion-modal__tabs-item--active',
             ),
         },

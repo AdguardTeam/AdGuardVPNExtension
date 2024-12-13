@@ -13,10 +13,12 @@ export const ServicesSearch = observer(() => {
     };
 
     return (
-        <Input
-            placeholder={translator.getMessage('settings_exclusion_placeholder_search')}
-            value={exclusionsStore.servicesSearchValue}
-            onChange={onChange}
-        />
+        <div className="exclusions__search exclusions__search--services">
+            <Input
+                placeholder={translator.getMessage('settings_exclusion_placeholder_search')}
+                value={exclusionsStore.servicesSearchValue}
+                onChange={onChange}
+            />
+        </div>
     );
 });
