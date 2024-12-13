@@ -26,6 +26,7 @@ export class UiStore {
         return (
             this.rootStore.settingsStore.isCustomDnsModalOpen
             || this.rootStore.exclusionsStore.modeSelectorModalOpen
+            || this.rootStore.exclusionsStore.removeAllModalOpen
         );
     }
 

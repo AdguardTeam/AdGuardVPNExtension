@@ -7,7 +7,6 @@ import format from 'date-fns/format';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
-import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../common/utils/string';
 import { type ExclusionsContentMap } from '../../../../common/constants';
@@ -17,9 +16,8 @@ import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { rootStore } from '../../../stores';
 import { Select } from '../../ui/Select';
 
-import { SelectListModal } from './SelectListModal/SelectListModal';
 import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
-import { RemoveAllModal } from './RemoveAllModal';
+import { SelectListModal } from './SelectListModal';
 
 enum Action {
     Default = 'default',
@@ -99,7 +97,7 @@ export const Actions = observer(() => {
                 { count: exclusionsAddedCount },
             ),
             {
-                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                action: translator.getMessage('settings_exclusions_undo'),
                 handler: exclusionsStore.restoreExclusions,
             },
         );
@@ -115,7 +113,7 @@ export const Actions = observer(() => {
                 { count: exclusionsAddedCount },
             ),
             {
-                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                action: translator.getMessage('settings_exclusions_undo'),
                 handler: exclusionsStore.restoreExclusions,
             },
         );
@@ -196,7 +194,7 @@ export const Actions = observer(() => {
                         { count: exclusionsAdded },
                     ),
                     {
-                        action: reactTranslator.getMessage('settings_exclusions_undo'),
+                        action: translator.getMessage('settings_exclusions_undo'),
                         handler: exclusionsStore.restoreExclusions,
                     },
                 );
@@ -251,7 +249,6 @@ export const Actions = observer(() => {
                 handleRegularClick={handleRegularClick}
                 handleSelectiveClick={handleSelectiveClick}
             />
-            <RemoveAllModal />
         </>
     );
 });

@@ -1,0 +1,52 @@
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
+
+import { translator } from '../../../../common/translator';
+import { rootStore } from '../../../stores';
+import { Modal } from '../../ui/Modal';
+import { Button } from '../../ui/Button';
+
+export const RemoveAllModal = observer(() => {
+    const { exclusionsStore, notificationsStore } = useContext(rootStore);
+
+    const isOpen = exclusionsStore.removeAllModalOpen;
+
+    const closeModal = () => {
+        exclusionsStore.closeRemoveAllModal();
+    };
+
+    const removeAllExclusions = async () => {
+        await exclusionsStore.clearExclusionsList();
+        closeModal();
+        notificationsStore.notifySuccess(
+            translator.getMessage('options_exclusions_remove_all_success'),
+            {
+                action: translator.getMessage('settings_exclusions_undo'),
+                handler: exclusionsStore.restoreExclusions,
+            },
+        );
+    };
+
+    return (
+        <Modal
+            title={translator.getMessage('settings_exclusions_remove_all_exclusions')}
+            // FIXME: Update translation text
+            // description={translator.getMessage('settings_exclusions_remove_all_exclusions_message')}
+            description="Do you want to remove the entire list of exclusions?"
+            actions={(
+                <>
+                    <Button variant="outlined" onClick={closeModal}>
+                        {translator.getMessage('settings_exclusion_modal_cancel')}
+                    </Button>
+                    <Button color="danger" onClick={removeAllExclusions}>
+                        {translator.getMessage('settings_exclusion_modal_remove')}
+                    </Button>
+                </>
+            )}
+            isOpen={isOpen}
+            className="exclusions__modal exclusions__modal--empty-body"
+            size="medium"
+            onClose={closeModal}
+        />
+    );
+});

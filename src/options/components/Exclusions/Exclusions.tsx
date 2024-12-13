@@ -6,7 +6,7 @@ import { Title } from '../ui/Title';
 import { translator } from '../../../common/translator';
 
 import { ModeSelector, ModeSelectorModal } from './ModeSelector';
-import { Actions } from './Actions';
+import { Actions, RemoveAllModal } from './Actions';
 import { ChildrenList } from './ChildrenList';
 import { ExclusionsSearch } from './Search';
 
@@ -34,6 +34,7 @@ export const Exclusions = observer(() => {
                 action={<Actions />}
             />
             <ModeSelectorModal />
+            <RemoveAllModal />
         </>
     );
 });

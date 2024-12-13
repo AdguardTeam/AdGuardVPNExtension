@@ -2,11 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 
 import classnames from 'classnames';
 
-import { reactTranslator } from '../../../../../common/reactTranslator';
-import { ExclusionsModal } from '../../ExclusionsModal/ExclusionsModal';
-import { Title } from '../../../ui/Title';
-import { ExclusionsMode } from '../../../../../common/exclusionsConstants';
-import { rootStore } from '../../../../stores';
+import { reactTranslator } from '../../../../common/reactTranslator';
+import { ExclusionsModal } from '../ExclusionsModal/ExclusionsModal';
+import { Title } from '../../ui/Title';
+import { ExclusionsMode } from '../../../../common/exclusionsConstants';
+import { rootStore } from '../../../stores';
 
 interface SelectListModalProps {
     isOpen: boolean;

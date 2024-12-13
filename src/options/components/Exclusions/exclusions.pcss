@@ -23,4 +23,34 @@
             line-height: 16px;
         }
     }
+
+    &__modal {
+        .modal__actions {
+            padding-top: 24px;
+            gap: 0;
+            row-gap: 8px;
+            justify-content: space-between;
+
+            @media (--tablet) {
+                flex-direction: column-reverse;
+            }
+
+            .button {
+                width: calc(50% - 12px);
+                padding: 16px;
+                font-size: 16px;
+                font-weight: 600;
+
+                @media (--tablet) {
+                    width: 100%;
+                }
+            }
+        }
+
+        &--empty-body {
+            .modal__header {
+                padding-bottom: 0;
+            }
+        }
+    }
 }
