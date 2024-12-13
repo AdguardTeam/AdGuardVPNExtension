@@ -9,7 +9,12 @@ import { Title } from '../ui/Title';
 
 export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
-    const { confirmBonus } = settingsStore;
+    const { confirmBonus, resendConfirmationLink } = settingsStore;
+
+    const resendLink = async () => {
+        await resendConfirmationLink();
+        notificationsStore.notifySuccess(translator.getMessage('resend_confirm_registration_link_notification'));
+    };
 
     const isCompleted = !confirmBonus.available;
 
@@ -20,11 +25,6 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
     const description = isCompleted
         ? translator.getMessage('confirm_email_done_info')
         : translator.getMessage('settings_free_gbs_confirm_email_info', { your_gb: COMPLETE_TASK_BONUS_GB });
-
-    const handleResendLink = async () => {
-        await settingsStore.resendConfirmationLink();
-        notificationsStore.notifySuccess(translator.getMessage('resend_confirm_registration_link_notification'));
-    };
 
     return (
         <div className="free-gbs-task">
@@ -39,7 +39,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
                     <Button
                         size="medium"
                         className="confirm-email__btn"
-                        onClick={handleResendLink}
+                        onClick={resendLink}
                     >
                         {translator.getMessage('settings_free_gbs_confirm_email_resend_link_button')}
                     </Button>

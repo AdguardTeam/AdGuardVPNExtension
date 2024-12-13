@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
-import { COMPLETE_TASK_BONUS_GB, RequestStatus } from '../../stores/consts';
+import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Title } from '../ui/Title';
@@ -31,7 +31,8 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
         })();
     }, []);
 
-    const handleCopyLink = async () => {
+    const handleCopyLink = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         await navigator.clipboard.writeText(inviteUrl);
         notificationsStore.notifySuccess(
             translator.getMessage('settings_referral_link_copied'),
@@ -55,20 +56,23 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
             />
             <div className="free-gbs-task__content invite-friend">
                 {!isCompleted ? (
-                    <div className="invite-friend__content">
+                    <form
+                        className="invite-friend__content"
+                        onSubmit={handleCopyLink}
+                    >
                         <Input
                             label={translator.getMessage('settings_referral_invite_link')}
                             value={inviteUrl}
                             readOnly
                         />
                         <Button
+                            type="submit"
                             size="medium"
                             className="invite-friend__btn"
-                            onClick={handleCopyLink}
                         >
                             {translator.getMessage('settings_referral_copy_link')}
                         </Button>
-                    </div>
+                    </form>
                 ) : (
                     <Button
                         variant="outlined"
