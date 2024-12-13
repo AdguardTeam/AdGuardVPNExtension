@@ -32,6 +32,32 @@
     }
 
     &__modal {
+        .modal__header {
+            padding-bottom: 16px;
+        }
+
+        .modal__actions {
+            padding-top: 24px;
+            gap: 0;
+            row-gap: 8px;
+            justify-content: space-between;
+
+            @media (--tablet) {
+                flex-direction: column-reverse;
+            }
+
+            .button {
+                width: calc(50% - 12px);
+                padding: 16px;
+                font-size: 16px;
+                font-weight: 600;
+
+                @media (--tablet) {
+                    width: 100%;
+                }
+            }
+        }
+
         &--radio {
             .modal__header {
                 padding-bottom: 24px;
@@ -57,27 +83,6 @@
 
             .modal__actions {
                 padding-top: 24px;
-            }
-        }
-
-        .modal__actions {
-            gap: 0;
-            row-gap: 8px;
-            justify-content: space-between;
-
-            @media (--tablet) {
-                flex-direction: column-reverse;
-            }
-
-            .button {
-                width: calc(50% - 12px);
-                padding: 16px;
-                font-size: 16px;
-                font-weight: 600;
-
-                @media (--tablet) {
-                    width: 100%;
-                }
             }
         }
     }

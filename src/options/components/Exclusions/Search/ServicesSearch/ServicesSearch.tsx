@@ -14,8 +14,8 @@ export const ServicesSearch = observer(() => {
 
     return (
         <Input
-            placeholder={translator.getMessage('settings_exclusion_search_website')}
-            value={exclusionsStore.exclusionsSearchValue}
+            placeholder={translator.getMessage('settings_exclusion_placeholder_search')}
+            value={exclusionsStore.servicesSearchValue}
             onChange={onChange}
         />
     );
