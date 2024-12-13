@@ -70,10 +70,8 @@ export const SelectListModal = ({
             className="exclusions__modal--radio"
             onClose={closeModal}
         >
-            <div className="exclusions__modal-content">
-                {renderRadioButton(ExclusionsMode.Selective)}
-                {renderRadioButton(ExclusionsMode.Regular)}
-            </div>
+            {renderRadioButton(ExclusionsMode.Selective)}
+            {renderRadioButton(ExclusionsMode.Regular)}
         </Modal>
     );
 };

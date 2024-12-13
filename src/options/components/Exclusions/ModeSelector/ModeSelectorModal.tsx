@@ -61,10 +61,8 @@ export const ModeSelectorModal = observer(() => {
             className="exclusions__modal--radio"
             onClose={closeModal}
         >
-            <div className="exclusions__modal-content">
-                {renderRadioButton(ExclusionsMode.Regular)}
-                {renderRadioButton(ExclusionsMode.Selective)}
-            </div>
+            {renderRadioButton(ExclusionsMode.Regular)}
+            {renderRadioButton(ExclusionsMode.Selective)}
         </Modal>
     );
 });
