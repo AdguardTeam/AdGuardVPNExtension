@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { translator } from '../../../../common/translator';
-import { rootStore } from '../../../stores';
-import { Input } from '../../ui/Input';
+import { translator } from '../../../../../common/translator';
+import { rootStore } from '../../../../stores';
+import { Input } from '../../../ui/Input';
 
 export const ServicesSearch = observer(() => {
     const { exclusionsStore } = useContext(rootStore);

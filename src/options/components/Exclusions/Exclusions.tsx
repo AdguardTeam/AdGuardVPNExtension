@@ -7,11 +7,15 @@ import { translator } from '../../../common/translator';
 import { ExclusionsMode } from '../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Icon } from '../ui/Icon';
+import { Button } from '../ui/Button';
 
 import { ModeSelectorModal } from './ModeSelectorModal';
 import { Actions } from './Actions';
+import { List } from './List';
+import { AddExclusionModal } from './ExclusionsModal/AddExclusionsModal';
+import { ConfirmAddModal } from './ExclusionsModal/ConfirmAddModal';
 import { ChildrenList } from './ChildrenList';
-import { ExclusionsSearch } from './Search/ExclusionsSearch';
+import { ExclusionsSearch } from './Search';
 
 import './exclusions.pcss';
 
@@ -50,9 +54,13 @@ export const Exclusions = observer(() => {
         ? generalModeInfo
         : selectiveModeInfo;
 
+    const onAddExclusionClick = () => {
+        exclusionsStore.openAddExclusionModal();
+    };
+
     const renderSelectiveModeWarning = () => {
         if (exclusionsStore.currentMode === ExclusionsMode.Selective
-                && !exclusionsStore.exclusionsTree.children.length) {
+            && !exclusionsStore.exclusionsTree.children.length) {
             return (
                 <div className="exclusions__mode-warning">
                     {translator.getMessage('settings_exclusion_selective_mode_warning')}
@@ -63,7 +71,7 @@ export const Exclusions = observer(() => {
     };
 
     return (
-        <>
+        <div className="exclusions">
             <Title
                 title={translator.getMessage('settings_exclusion_title')}
                 subtitle={(
@@ -75,7 +83,17 @@ export const Exclusions = observer(() => {
                 )}
                 action={<Actions />}
             />
+            <List />
+            <Button
+                variant="transparent"
+                beforeIconName="plus"
+                onClick={onAddExclusionClick}
+            >
+                {translator.getMessage('settings_exclusion_add_website')}
+            </Button>
+            <AddExclusionModal />
+            <ConfirmAddModal />
             <ModeSelectorModal />
-        </>
+        </div>
     );
 });
