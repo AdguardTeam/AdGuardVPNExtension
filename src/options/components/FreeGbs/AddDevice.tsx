@@ -37,7 +37,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
         <div className="free-gbs-task">
             <img
                 src="../../../assets/images/add-device.svg"
-                alt="Add device task"
+                alt={title}
                 className="free-gbs-task__image"
             />
             <Title title={title} subtitle={description} />
