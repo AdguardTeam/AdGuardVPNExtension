@@ -14,6 +14,7 @@ export const SubdomainModal = observer(() => {
     const [inputError, setInputError] = useState<null | string>(null);
 
     const isOpen = exclusionsStore.addSubdomainModalOpen;
+    const formId = 'add-subdomain-form';
 
     const closeModal = () => {
         exclusionsStore.closeAddSubdomainModal();
@@ -59,11 +60,7 @@ export const SubdomainModal = observer(() => {
                     <Button variant="outlined" onClick={closeModal}>
                         {translator.getMessage('settings_exclusion_modal_cancel')}
                     </Button>
-                    <Button
-                        form="add-subdomain-form"
-                        type="submit"
-                        disabled={!inputValue}
-                    >
+                    <Button form={formId} type="submit" disabled={!inputValue}>
                         {translator.getMessage('settings_exclusion_add')}
                     </Button>
                 </>
@@ -72,14 +69,13 @@ export const SubdomainModal = observer(() => {
             size="medium"
             onClose={closeModal}
         >
-            <form
-                id="add-subdomain-form"
-                onSubmit={addSubdomain}
-            >
+            <form id={formId} onSubmit={addSubdomain}>
                 <Input
                     id="subdomain"
                     name="subdomain"
-                    label={translator.getMessage('settings_exclusion_subdomain_name')}
+                    // FIXME: Updated translation text
+                    // label={translator.getMessage('settings_exclusion_subdomain_name')}
+                    label="Subdomain"
                     placeholder="subdomain"
                     required
                     value={inputValue}
