@@ -12,8 +12,7 @@ import { Button } from '../ui/Button';
 import { ModeSelectorModal } from './ModeSelectorModal';
 import { Actions } from './Actions';
 import { List } from './List';
-import { AddExclusionModal } from './ExclusionsModal/AddExclusionsModal';
-import { ConfirmAddModal } from './ExclusionsModal/ConfirmAddModal';
+import { AddExclusionModal, ConfirmAddModal } from './ExclusionsModal';
 import { ChildrenList } from './ChildrenList';
 import { ExclusionsSearch } from './Search';
 

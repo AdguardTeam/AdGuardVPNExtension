@@ -45,9 +45,7 @@ export const ModeSelectorModal = observer(() => {
             actions={(
                 <>
                     <Button onClick={handleSaveMode}>
-                        {/* FIXME: Updated translation text */}
-                        {/* {translator.getMessage('settings_exclusion_modal_save')} */}
-                        Save and select
+                        {translator.getMessage('settings_dns_add_custom_server_save_and_select')}
                     </Button>
                     <Button variant="outlined" onClick={closeModal}>
                         {translator.getMessage('settings_exclusion_modal_cancel')}
