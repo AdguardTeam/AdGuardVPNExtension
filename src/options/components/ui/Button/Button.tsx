@@ -21,6 +21,11 @@ export interface ButtonProps extends PropsWithChildren {
     type?: 'button' | 'submit' | 'reset';
 
     /**
+     * Button color. Default is 'primary'.
+     */
+    color?: 'primary' | 'danger';
+
+    /**
      * Additional class name.
      */
     className?: string;
@@ -49,6 +54,7 @@ export interface ButtonProps extends PropsWithChildren {
 export function Button({
     variant = 'filled',
     type = 'button',
+    color = 'primary',
     className,
     disabled,
     form,
@@ -59,6 +65,7 @@ export function Button({
     const classes = classNames(
         'button has-tab-focus',
         `button--${variant}`,
+        `button--color-${color}`,
         className,
     );
 
