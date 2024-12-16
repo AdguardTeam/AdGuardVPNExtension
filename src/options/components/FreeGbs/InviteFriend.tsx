@@ -17,6 +17,8 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
 
     const isCompleted = invitesCount >= maxInvitesCount;
 
+    const title = translator.getMessage('settings_free_gbs_invite_friend');
+
     const description = isCompleted
         ? translator.getMessage('settings_free_gbs_invite_friend_completed_thank_you')
         : translator.getMessage('settings_referral_info', {
@@ -45,13 +47,10 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
         <div className="free-gbs-task">
             <img
                 src="../../../assets/images/referral.svg"
-                alt="Invite friend task"
+                alt={title}
                 className="free-gbs-task__image"
             />
-            <Title
-                title={translator.getMessage('settings_free_gbs_invite_friend')}
-                subtitle={description}
-            />
+            <Title title={title} subtitle={description} />
             <div className="free-gbs-task__content invite-friend">
                 {!isCompleted ? (
                     <form

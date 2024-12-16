@@ -30,7 +30,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
         <div className="free-gbs-task">
             <img
                 src="../../../assets/images/confirm-email-task.svg"
-                alt="Confirm email task"
+                alt={title}
                 className="free-gbs-task__image"
             />
             <Title title={title} subtitle={description} />
