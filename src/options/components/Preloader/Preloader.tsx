@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import Modal from 'react-modal';
 
 import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/consts';
@@ -13,13 +12,13 @@ export const Preloader = observer(() => {
     const isOpen = globalStore.status === RequestStatus.Pending
         || authStore.requestProcessState === RequestStatus.Pending;
 
+    if (!isOpen) {
+        return null;
+    }
+
     return (
-        <Modal
-            isOpen={isOpen}
-            className="preloader"
-            overlayClassName="preloader__overlay"
-        >
+        <div className="preloader">
             <div className="preloader__in" />
-        </Modal>
+        </div>
     );
 });

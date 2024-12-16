@@ -58,6 +58,27 @@ button {
             background-color: var(--fills-buttons-main-button-disabled);
             border-color: var(--fills-buttons-main-button-disabled);
         }
+
+        &.button--color-danger {
+            background-color: var(--fills-buttons-danger-button-default);
+            border-color: var(--fills-buttons-danger-button-default);
+
+            &:hover,
+            &:focus-visible {
+                background-color: var(--fills-buttons-danger-button-hovered);
+                border-color: var(--fills-buttons-danger-button-hovered);
+            }
+
+            &:active {
+                background-color: var(--fills-buttons-danger-button-pressed);
+                border-color: var(--fills-buttons-danger-button-pressed);
+            }
+
+            &:disabled {
+                background-color: var(--fills-buttons-danger-button-disabled);
+                border-color: var(--fills-buttons-danger-button-disabled);
+            }
+        }
     }
 
     &--outlined {
@@ -76,6 +97,16 @@ button {
         &:disabled {
             color: var(--text-main-text-main-disabled);
             border-color: var(--stroke-buttons-secondary-disabled);
+        }
+
+        &.button--color-danger {
+            color: var(--text-buttons-secondary-red-default);
+            border-color: var(--stroke-buttons-secondary-red-default);
+
+            &:disabled {
+                color: var(--text-buttons-secondary-red-disabled);
+                border-color: var(--stroke-buttons-secondary-red-disabled);
+            }
         }
     }
 
@@ -99,6 +130,14 @@ button {
 
         &:disabled {
             color: var(--text-links-link-disabled);
+        }
+
+        &.button--color-danger {
+            color: var(--text-links-error-link-default);
+
+            &:disabled {
+                color: var(--text-links-error-link-disabled);
+            }
         }
     }
 
