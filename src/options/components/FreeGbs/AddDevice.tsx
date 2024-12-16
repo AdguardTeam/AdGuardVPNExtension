@@ -18,20 +18,12 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
     const isCompleted = !multiplatformBonus.available;
 
     const title = isCompleted
-        // FIXME: Update translation text
-        // ? translator.getMessage('settings_free_gbs_devices_added_title')
-        ? 'Another platform added'
-        // FIXME: Update translation text
-        // : translator.getMessage('settings_free_gbs_add_device_title');
-        : 'Add another platform';
+        ? translator.getMessage('settings_free_gbs_devices_added_title')
+        : translator.getMessage('settings_free_gbs_add_device_title');
 
     const description = isCompleted
-        // FIXME: Update translation text
-        // ? translator.getMessage('settings_free_gbs_devices_added_info')
-        ? 'Congrats with installing AdGuard VPN on multiple platforms. Stay safe!'
-        // FIXME: Update translation text
-        // : translator.getMessage('settings_free_gbs_add_device_info', { your_gb: COMPLETE_TASK_BONUS_GB });
-        : `Install AdGuard VPN for iOS, Mac, Windows, or Android, log in to your AdGuard account there, and get ${COMPLETE_TASK_BONUS_GB} GB.`;
+        ? translator.getMessage('settings_free_gbs_devices_added_info')
+        : translator.getMessage('settings_free_gbs_add_device_info', { your_gb: COMPLETE_TASK_BONUS_GB });
 
     return (
         <div className="free-gbs-task">

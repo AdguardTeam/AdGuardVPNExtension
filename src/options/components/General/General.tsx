@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 
@@ -21,11 +22,7 @@ export const General = observer(() => {
 
     return (
         <>
-            <Title
-                // FIXME: Update translation text
-                // title={translator.getMessage('settings_title')}
-                title="General"
-            />
+            <Title title={translator.getMessage('settings_title')} />
             <QuickConnect />
             <Theme />
             <ContextMenus />

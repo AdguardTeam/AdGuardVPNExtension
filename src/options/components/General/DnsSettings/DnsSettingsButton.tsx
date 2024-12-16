@@ -19,19 +19,10 @@ export const DnsSettingsButton = observer(() => {
             title={translator.getMessage('settings_dns_label')}
             description={(
                 <>
-                    {/* FIXME: Add translation text */}
-                    {/* {translator.getMessage('settings_dns_description')} */}
-                    Resolve DNS requests, block ads and trackers, and encrypt
-                    DNS traffic when you&apos;re connected to VPN
+                    {translator.getMessage('settings_dns_description')}
                     <br />
                     <br />
-                    {/* FIXME: Add translation text */}
-                    {/* {translator.getMessage('settings_dns_current', {
-                        dnsServerName: currentDnsServerName,
-                    })} */}
-                    Current:
-                    {' '}
-                    {currentDnsServerName}
+                    {translator.getMessage('settings_dns_current', { dnsServerName: currentDnsServerName })}
                 </>
             )}
             action={<IconButton name="arrow-down" className="dns-settings__btn-icon" />}

@@ -51,9 +51,7 @@ export const Rate = observer(() => {
                 ))}
             </div>
             <div className="rate__title">
-                {/* FIXME: Update translation text */}
-                {/* {translator.getMessage('rate_description')} */}
-                Enjoying AdGuard VPN?
+                {translator.getMessage('rate_description')}
             </div>
             <button
                 type="button"

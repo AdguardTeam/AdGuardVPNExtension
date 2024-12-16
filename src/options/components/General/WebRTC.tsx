@@ -16,9 +16,7 @@ export const WebRTC = observer(() => {
     return (
         <ControlsSwitch
             title={translator.getMessage('settings_webrtc_label')}
-            // FIXME: Update translation text
-            // description={translator.getMessage('settings_webrtc_desc')}
-            description="Block WebRTC, a known vulnerability that can leak your real IP address even if you use a proxy or VPN"
+            description={translator.getMessage('settings_webrtc_desc')}
             isActive={webRTCEnabled}
             onToggle={handleToggle}
         />

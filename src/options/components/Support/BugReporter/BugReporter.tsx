@@ -160,14 +160,10 @@ export const BugReporter = observer(() => {
         });
     };
 
-    // FIXME: Update translation text
-    // let buttonText = translator.getMessage('options_bug_report_send_button');
-    let buttonText = 'Send report';
+    let buttonText = translator.getMessage('options_bug_report_send_button');
     let isButtonDisabled = !formState[FormField.Email] || !formState[FormField.Message];
     if (requestState.matches(RequestState.Sending)) {
-        // FIXME: Update translation text
-        // buttonText = translator.getMessage('options_bug_report_sending_button');
-        buttonText = 'Sending report...';
+        buttonText = translator.getMessage('options_bug_report_sending_button');
         isButtonDisabled = true;
     }
 
@@ -184,9 +180,7 @@ export const BugReporter = observer(() => {
                     alt="slide"
                 />
                 <div className="bug-report__success-title">
-                    {/* FIXME: Update translation text */}
-                    {/* {translator.getMessage('options_bug_report_page_success')} */}
-                    Thank you, your message sent successfully!
+                    {translator.getMessage('options_bug_report_page_success')}
                 </div>
                 <Button
                     size="medium"
@@ -224,9 +218,7 @@ export const BugReporter = observer(() => {
                 <TextArea
                     id={FormField.Message}
                     label={translator.getMessage('options_bug_report_textarea_label')}
-                    // FIXME: Update translation text
-                    // placeholder={translator.getMessage('options_bug_report_textarea_placeholder')}
-                    placeholder="Provide details"
+                    placeholder={translator.getMessage('options_bug_report_textarea_placeholder')}
                     value={formState[FormField.Message]}
                     error={formErrors[FormField.Message]}
                 />

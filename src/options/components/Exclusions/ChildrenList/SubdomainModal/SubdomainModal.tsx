@@ -73,9 +73,7 @@ export const SubdomainModal = observer(() => {
                 <Input
                     id="subdomain"
                     name="subdomain"
-                    // FIXME: Updated translation text
-                    // label={translator.getMessage('settings_exclusion_subdomain_name')}
-                    label="Subdomain"
+                    label={translator.getMessage('settings_exclusion_subdomain_name')}
                     placeholder="subdomain"
                     required
                     value={inputValue}

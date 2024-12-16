@@ -40,9 +40,7 @@ export const About = observer(() => {
                         {copyRightText}
                     </div>
                     <div className="about__copyright-item">
-                        {/* FIXME: Add translation text */}
-                        {/* {translator.getMessage('all_rights_reserved')} */}
-                    All rights reserved.
+                        {translator.getMessage('all_rights_reserved')}
                     </div>
                 </div>
                 <nav className="about__nav">

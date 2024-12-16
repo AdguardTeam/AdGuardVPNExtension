@@ -48,9 +48,7 @@ export const ManualMode = () => {
             <Input
                 id="domain"
                 name="domain"
-                // FIXME: Updated translation text
-                // label={translator.getMessage('settings_exclusion_domain_name')}
-                label="Domain name"
+                label={translator.getMessage('settings_exclusion_domain_name')}
                 placeholder="example.org"
                 required
                 value={inputValue}

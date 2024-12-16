@@ -30,9 +30,7 @@ export const RemoveAllModal = observer(() => {
     return (
         <Modal
             title={translator.getMessage('settings_exclusions_remove_all_exclusions')}
-            // FIXME: Update translation text
-            // description={translator.getMessage('settings_exclusions_remove_all_exclusions_message')}
-            description="Do you want to remove the entire list of exclusions?"
+            description={translator.getMessage('settings_exclusions_remove_all_exclusions_message')}
             actions={(
                 <>
                     <Button variant="outlined" onClick={closeModal}>

@@ -41,9 +41,7 @@ export const DnsSettingsServerModalEdit = observer(() => {
         const normalizedDnsServerAddress = normalizeDnsServerAddress(dnsServerAddress);
         await settingsStore.editCustomDnsServer(id, dnsServerName, normalizedDnsServerAddress);
         notificationsStore.notifySuccess(
-            // FIXME: Add translation text
-            // translator.getMessage('settings_dns_edit_custom_server_notification'),
-            'Custom DNS server edited',
+            translator.getMessage('settings_dns_edit_custom_server_notification'),
             {
                 action: translator.getMessage('settings_exclusions_undo'),
                 handler: () => settingsStore.editCustomDnsServer(id, oldDnsServerName, oldDnsServerAddress),

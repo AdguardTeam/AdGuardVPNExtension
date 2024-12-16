@@ -103,18 +103,12 @@ export const Account = observer(() => {
                         )}
                         {maxDevicesCount !== undefined && (
                             <div className="account__info">
-                                {/* FIXME: Update translation text */}
-                                {/* {reactTranslator.getMessage('account_max_devices_count', {
+                                {reactTranslator.getMessage('account_max_devices_count', {
                                     num: maxDevicesCount,
                                     b: (chunks: any) => (
                                         <b>{chunks}</b>
                                     ),
-                                })} */}
-                                Up to
-                                {' '}
-                                <b>{maxDevicesCount}</b>
-                                {' '}
-                                simultaneous devices
+                                })}
                             </div>
                         )}
                         <div className="account__info">
@@ -140,9 +134,7 @@ export const Account = observer(() => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    {/* FIXME: Update translation text */}
-                    {/* {translator.getMessage('account_edit')} */}
-                    Open account settings
+                    {translator.getMessage('account_edit')}
                 </a>
                 <Button
                     variant="outlined"

@@ -95,9 +95,7 @@ export const DnsSettingsServerModal = observer(({
                     id="dns-name"
                     name="dns-name"
                     label={translator.getMessage('settings_dns_add_custom_server_name')}
-                    // FIXME: Update translation text
-                    // placeholder={translator.getMessage('settings_dns_add_custom_server_name_placeholder')}
-                    placeholder="My DNS Server"
+                    placeholder={translator.getMessage('settings_dns_add_custom_server_name_placeholder')}
                     value={dnsServerName}
                     onChange={handleDnsServerNameChange}
                     required
@@ -105,12 +103,8 @@ export const DnsSettingsServerModal = observer(({
                 <Input
                     id="dns-address"
                     name="dns-address"
-                    // FIXME: Update translation text
-                    // label={translator.getMessage('settings_dns_add_custom_server_address')}
-                    label="Server address"
-                    // FIXME: Update translation text
-                    // placeholder={translator.getMessage('settings_dns_add_custom_server_address_placeholder')}
-                    placeholder="IP address or tls://"
+                    label={translator.getMessage('settings_dns_add_custom_server_address')}
+                    placeholder={translator.getMessage('settings_dns_add_custom_server_address_placeholder')}
                     value={dnsServerAddress}
                     onChange={handleDnsServerAddressChange}
                     error={dnsServerAddressError}

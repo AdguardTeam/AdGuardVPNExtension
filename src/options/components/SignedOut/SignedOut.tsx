@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import { translator } from '../../../common/translator';
+import { translator } from '../../../common/translator';
 import { Button } from '../ui/Button';
 
 import './signedout.pcss';
@@ -19,19 +19,13 @@ export function SignedOut() {
                     alt="Floating Ninja"
                 />
                 <div className="signedout__title">
-                    {/* FIXME: Update translation text */}
-                    {/* {translator.getMessage('options_signedout_page_title')} */}
-                    You have logged out of AdGuard VPN
+                    {translator.getMessage('options_signedout_page_title')}
                 </div>
                 <div className="signedout__description">
-                    {/* FIXME: Add translation text */}
-                    {/* {translator.getMessage('options_signedout_page_description_not_secure')} */}
-                    Your connection is not secured!
+                    {translator.getMessage('options_signedout_page_description_not_secure')}
                     <br />
                     <br />
-                    {/* FIXME: Updated translation text */}
-                    {/* {translator.getMessage('options_signedout_page_description')} */}
-                    To continue surfing privately, click the AdGuard VPN icon and log in again.
+                    {translator.getMessage('options_signedout_page_description')}
                 </div>
                 <Button className="signedout__btn account__action" onClick={handleGoHomeClick}>
                     {/* FIXME: Add translation text if needed */}
