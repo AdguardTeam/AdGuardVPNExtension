@@ -30,36 +30,6 @@ function getIconUrl(exclusion: ExclusionDtoInterface) {
     return null;
 }
 
-function getCheckIconName(state: ExclusionState) {
-    switch (state) {
-        case ExclusionState.Disabled: {
-            return 'checkbox-disabled';
-        }
-        case ExclusionState.Enabled: {
-            return 'checkbox-enabled';
-        }
-        case ExclusionState.PartlyEnabled:
-        default: {
-            return 'checkbox-partly-enabled';
-        }
-    }
-}
-
-function getStateClassName(state: ExclusionState) {
-    switch (state) {
-        case ExclusionState.Disabled: {
-            return 'exclusion--disabled';
-        }
-        case ExclusionState.Enabled: {
-            return 'exclusion--enabled';
-        }
-        case ExclusionState.PartlyEnabled:
-        default: {
-            return 'exclusion--partly-enabled';
-        }
-    }
-}
-
 function getExclusionDescription(hostname: string, exclusion?: ExclusionDtoInterface | null) {
     if (hostname === exclusion?.hostname) {
         return translator.getMessage('settings_exclusion_status_domain');
@@ -98,15 +68,30 @@ export const Exclusion = observer(({
     const description = getExclusionDescription(exclusion.hostname, selectedExclusion);
     const isUseless = isUselessExclusion(exclusion.hostname, selectedExclusion);
 
+    const stateMap = {
+        [ExclusionState.Disabled]: {
+            icon: 'checkbox-disabled',
+            className: 'exclusion--disabled',
+        },
+        [ExclusionState.Enabled]: {
+            icon: 'checkbox-enabled',
+            className: 'exclusion--enabled',
+        },
+        [ExclusionState.PartlyEnabled]: {
+            icon: 'checkbox-partly-enabled',
+            className: 'exclusion--partly-enabled',
+        },
+    };
+
     const classes = classNames(
         'exclusion',
-        getStateClassName(exclusion.state),
+        stateMap[exclusion.state].className,
         iconLoaded && 'exclusion--icon-loaded',
         isGroupExclusion && !isDomain && 'exclusion--group',
         isUseless && 'exclusion--useless',
     );
 
-    const checkIconName = getCheckIconName(exclusion.state);
+    const checkIconName = stateMap[exclusion.state].icon;
     const iconUrl = getIconUrl(exclusion);
 
     const handleIconLoaded = () => {
