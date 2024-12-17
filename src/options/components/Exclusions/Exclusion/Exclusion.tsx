@@ -16,7 +16,7 @@ export interface ExclusionProps {
     hasIcon?: boolean;
 }
 
-const ICON_FOR_DOMAIN = 'https://icons.adguardvpn.com/icon?domain=';
+const ICONS_ORIGIN = 'https://icons.adguardvpn.com';
 
 function getIconUrl(exclusion: ExclusionDtoInterface) {
     if (exclusion.type === ExclusionsType.Service && exclusion.iconUrl) {
@@ -24,7 +24,7 @@ function getIconUrl(exclusion: ExclusionDtoInterface) {
     }
 
     if (exclusion.type === ExclusionsType.Group) {
-        return `${ICON_FOR_DOMAIN}${exclusion.hostname}`;
+        return `${ICONS_ORIGIN}/icon?domain=${exclusion.hostname}`;
     }
 
     return null;
