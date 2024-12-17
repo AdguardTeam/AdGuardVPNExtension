@@ -15,7 +15,7 @@ export function SignedOut() {
             <div className="signedout__content">
                 <img
                     className="signedout__image"
-                    src="../../../assets/images/signedout.svg"
+                    src="../../../assets/images/signed-out.svg"
                     alt="Floating Ninja"
                 />
                 <div className="signedout__title">
