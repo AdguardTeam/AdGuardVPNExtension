@@ -65,6 +65,7 @@
     &__btn.button {
         /* We are aligning height of button with input height */
         padding: 14px 16px;
+        white-space: nowrap;
     }
 }
 
@@ -78,6 +79,12 @@
     &__link {
         margin-top: 24px;
         text-decoration: none;
+
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
         &-icon {
             color: currentColor;

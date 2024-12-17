@@ -160,7 +160,7 @@ export function Select<T extends string>({
                 type="button"
                 onClick={handleToggle}
             >
-                {activeItem?.title}
+                <span className="select__btn-text">{activeItem?.title}</span>
                 <Icon name="arrow-down" className="select__btn-icon" />
             </button>
             <div className="select__list">

@@ -48,7 +48,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
                             className="button button--filled button--size-medium add-device__link"
                         >
                             <Icon name="external-link" className="add-device__link-icon" />
-                            {translator.getMessage('settings_free_gbs_add_device_products_button')}
+                            <span>{translator.getMessage('settings_free_gbs_add_device_products_button')}</span>
                         </a>
                     </>
                 ) : (

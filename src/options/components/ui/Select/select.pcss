@@ -14,6 +14,17 @@
         font-size: 16px;
         line-height: 1.3;
         transform: var(--t3) color;
+        text-align: right;
+        white-space: normal;
+        /* In case if select is placed in div with fixed width */
+        width: 100%;
+        overflow: hidden;
+
+        &-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
         &-icon {
             transition: var(--t3) transform;
@@ -61,6 +72,7 @@
         font-size: 16px;
         line-height: 1.3;
         transition: var(--t3) background-color, var(--t3) color;
+        text-align: left;
 
         &--active {
             padding: 16px 8px 16px 24px;

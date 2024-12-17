@@ -55,7 +55,9 @@ export const ServiceCategory = observer(({
                 onClick={handleClickOnCategory}
             >
                 <Icon name="arrow-down" className="service-mode-category__btn-icon" />
-                {category.name}
+                <span className="service-mode-category__btn-text">
+                    {category.name}
+                </span>
             </button>
             <div className="service-mode-category__services">
                 {filteredServices.map((service) => {

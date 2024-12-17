@@ -107,7 +107,8 @@
         }
 
         .button {
-            width: 200px;
+            /* As button size can differ from language to language, we should make it expandable with min-width */
+            min-width: 200px;
 
             @media (--mobile) {
                 width: 100%;

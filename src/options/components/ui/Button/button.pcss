@@ -15,7 +15,6 @@ button {
     font-family: var(--font-stack);
     overflow: hidden;
     text-align: center;
-    text-overflow: ellipsis;
     border-radius: 8px;
     border: 1px solid transparent;
     transition: var(--t3) color, var(--t3) background-color, var(--t3) border-color;
@@ -143,6 +142,9 @@ button {
 
     &__text {
         flex: 1 1 auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__before-icon {
