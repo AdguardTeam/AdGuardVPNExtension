@@ -26,6 +26,15 @@ export interface ButtonProps extends PropsWithChildren {
     color?: 'primary' | 'danger';
 
     /**
+     * Button size. Default is 'large'.
+     * - 'large' - 16px 24px padding, 18px font size.
+     * - 'medium' - 16px 16px padding, 16px font size.
+     *
+     * Supported only with 'filled' and 'outlined' variant.
+     */
+    size?: 'large' | 'medium';
+
+    /**
      * Additional class name.
      */
     className?: string;
@@ -55,6 +64,7 @@ export function Button({
     variant = 'filled',
     type = 'button',
     color = 'primary',
+    size = 'large',
     className,
     disabled,
     form,
@@ -66,6 +76,7 @@ export function Button({
         'button has-tab-focus',
         `button--${variant}`,
         `button--color-${color}`,
+        `button--size-${size}`,
         className,
     );
 

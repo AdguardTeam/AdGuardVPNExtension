@@ -9,6 +9,11 @@ import './radio.pcss';
  */
 export interface RadioProps<T extends string> {
     /**
+     * Radio id.
+     */
+    id?: string;
+
+    /**
      * Radio name.
      */
     name: string;
@@ -45,6 +50,7 @@ export interface RadioProps<T extends string> {
 }
 
 export function Radio<T extends string>({
+    id,
     name,
     value,
     isActive,
@@ -66,17 +72,20 @@ export function Radio<T extends string>({
 
     return (
         <label
+            htmlFor={id}
             className={classes}
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
         >
             <input
+                id={id}
                 type="radio"
                 value={value}
                 name={name}
                 checked={isActive}
+                tabIndex={-1}
                 onChange={handleChange}
-                className="hidden"
+                className="radio__input"
             />
             <span className="radio__circle-outer">
                 <span className="radio__circle-inner" />

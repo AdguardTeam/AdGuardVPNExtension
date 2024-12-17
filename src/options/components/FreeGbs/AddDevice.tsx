@@ -1,75 +1,75 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { rootStore } from '../../stores';
-import { Title } from '../ui/Title';
 import { getForwarderUrl } from '../../../common/helpers';
-import { reactTranslator } from '../../../common/reactTranslator';
-import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
+import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
+import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
+import { rootStore } from '../../stores';
+import { Icon } from '../ui/Icon';
+import { Title } from '../ui/Title';
+import { Button } from '../ui/Button';
 
 export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore } = useContext(rootStore);
     const { multiplatformBonus, forwarderDomain } = settingsStore;
 
     const otherProductsUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS);
+    const isCompleted = !multiplatformBonus.available;
 
-    const getContent = () => {
-        if (multiplatformBonus.available) {
-            return (
-                <>
-                    <Title title={reactTranslator.getMessage('settings_free_gbs_add_device_title')} />
-                    <div className="free-gbs__info">
-                        {reactTranslator.getMessage('settings_free_gbs_add_device_info', { your_gb: COMPLETE_TASK_BONUS_GB })}
-                    </div>
-                    <img
-                        src="../../../assets/images/products.svg"
-                        className="free-gbs__products-pic"
-                        alt="products"
-                    />
-                    <a
-                        className="button button--large button--primary"
-                        href={otherProductsUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        <svg className="icon icon--button free-gbs__external-link">
-                            <use xlinkHref="#external-link" />
-                        </svg>
-                        {reactTranslator.getMessage('settings_free_gbs_add_device_products_button')}
-                    </a>
-                </>
-            );
-        }
+    const title = isCompleted
+        // FIXME: Update translation text
+        // ? translator.getMessage('settings_free_gbs_devices_added_title')
+        ? 'Another platform added'
+        // FIXME: Update translation text
+        // : translator.getMessage('settings_free_gbs_add_device_title');
+        : 'Add another platform';
 
-        return (
-            <>
-                <Title title={reactTranslator.getMessage('settings_free_gbs_devices_added_title')} />
-                <div className="free-gbs__info">{reactTranslator.getMessage('settings_free_gbs_devices_added_info')}</div>
-                <button
-                    type="button"
-                    className="button button--large button--outline-secondary free-gbs__button"
-                    onClick={goBackHandler}
-                >
-                    {reactTranslator.getMessage('settings_free_gbs_go_back')}
-                </button>
-            </>
-        );
-    };
+    const description = isCompleted
+        // FIXME: Update translation text
+        // ? translator.getMessage('settings_free_gbs_devices_added_info')
+        ? 'Congrats with installing AdGuard VPN on multiple platforms. Stay safe!'
+        // FIXME: Update translation text
+        // : translator.getMessage('settings_free_gbs_add_device_info', { your_gb: COMPLETE_TASK_BONUS_GB });
+        : `Install AdGuard VPN for iOS, Mac, Windows, or Android, log in to your AdGuard account there, and get ${COMPLETE_TASK_BONUS_GB} GB.`;
 
     return (
-        <div className="free-gbs__content">
-            <button
-                className="free-gbs__back-button"
-                type="button"
-                onClick={goBackHandler}
-            >
-                <svg className="icon icon--button">
-                    <use xlinkHref="#arrow" />
-                </svg>
-            </button>
-            <div className="free-gbs__picture free-gbs__add-device-pic" />
-            {getContent()}
+        <div className="free-gbs-task">
+            <img
+                src="../../../assets/images/add-device.svg"
+                alt={title}
+                className="free-gbs-task__image"
+            />
+            <Title title={title} subtitle={description} />
+            <div className="free-gbs-task__content add-device">
+                {!isCompleted ? (
+                    <>
+                        <img
+                            src="../../../assets/images/products.svg"
+                            className="add-device__products"
+                            alt="products"
+                        />
+                        <a
+                            href={otherProductsUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="button button--filled button--size-medium add-device__link"
+                        >
+                            <Icon name="external-link" className="add-device__link-icon" />
+                            {translator.getMessage('settings_free_gbs_add_device_products_button')}
+                        </a>
+                    </>
+                ) : (
+                    <Button
+                        variant="outlined"
+                        size="medium"
+                        onClick={goBackHandler}
+                        className="free-gbs-task__go-back-btn"
+                    >
+                        {translator.getMessage('settings_free_gbs_go_back')}
+                    </Button>
+                )}
+            </div>
         </div>
     );
 });
