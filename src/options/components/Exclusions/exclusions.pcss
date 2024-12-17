@@ -51,6 +51,7 @@
             }
 
             .button {
+                /* Each button will take half of the space, 12px (24px in total) for gap between buttons */
                 width: calc(50% - 12px);
                 padding: 16px;
                 font-size: 16px;
@@ -101,6 +102,7 @@
         margin-top: 16px;
 
         @media (--mobile) {
+            /* 100% of container - 16px left margin - 16px right margin */
             width: calc(100% - 32px);
             margin: 16px 16px 0;
         }
