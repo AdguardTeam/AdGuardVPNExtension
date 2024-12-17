@@ -1,7 +1,8 @@
-import React, { type PropsWithChildren } from 'react';
+import React, { useEffect, type PropsWithChildren } from 'react';
 
 import classNames from 'classnames';
 
+import { ESC_KEY_NAME } from '../../../../common/components/ui/useOutsideClick';
 import { ReactPortal } from '../ReactPortal';
 import { IconButton } from '../Icon';
 
@@ -64,6 +65,20 @@ export function Modal({
         `modal--size-${size}`,
         className,
     );
+
+    useEffect(() => {
+        const listener = (event: KeyboardEvent) => {
+            if (event.key === ESC_KEY_NAME) {
+                onClose();
+            }
+        };
+
+        document.addEventListener('keydown', listener);
+
+        return () => {
+            document.removeEventListener('keydown', listener);
+        };
+    }, [onClose]);
 
     if (!isOpen) {
         return null;
