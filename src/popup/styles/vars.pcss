@@ -64,10 +64,24 @@
     --gray-20: #E4E4E4;
     --gray-70: #5B5B5B;
     --gray-80: #3D3D3D;
+    --product-primary-30: #B2CC9E;
+    --product-primary-50: #74A352;
+    --product-primary-60: #68924A;
+    --product-primary-70: #5C8141;
 
-    /* Dynamic Colors */
+    /* Text */
+    --text-links-link-default: var(--product-primary-50);
+    --text-links-link-hovered: var(--product-primary-60);
+    --text-links-link-pressed: var(--product-primary-70);
+    --text-links-link-disabled: var(--product-primary-30);
+
+    /* Fills */
     --fills-backgrounds-page-background-hovered: var(--gray-10);
     --fills-backgrounds-page-background-pressed: var(--gray-20);
+    --fills-buttons-main-button-default: var(--product-primary-50);
+    --fills-buttons-main-button-hovered: var(--product-primary-60);
+    --fills-buttons-main-button-pressed: var(--product-primary-70);
+    --fills-buttons-main-button-disabled: var(--product-primary-30);
 
     @media (prefers-color-scheme: dark) {
         --white: #131313;
@@ -93,7 +107,7 @@
         --dark13: #eeeeee;
         --endpoint-gray-background: #4d4d4d;
 
-        /* Dynamic Colors */
+        /* Fills */
         --fills-backgrounds-page-background-hovered: var(--gray-80);
         --fills-backgrounds-page-background-pressed: var(--gray-70);
     }
@@ -123,7 +137,7 @@
     --dark13: #131313;
     --endpoint-gray-background: #f3f3f3;
 
-    /* Dynamic Colors */
+    /* Fills */
     --fills-backgrounds-page-background-hovered: var(--gray-10);
     --fills-backgrounds-page-background-pressed: var(--gray-20);
 }
@@ -152,7 +166,7 @@
     --dark13: #eeeeee;
     --endpoint-gray-background: #4d4d4d;
 
-    /* Dynamic Colors */
+    /* Fills */
     --fills-backgrounds-page-background-hovered: var(--gray-80);
     --fills-backgrounds-page-background-pressed: var(--gray-70);
 }

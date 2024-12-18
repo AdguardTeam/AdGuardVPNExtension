@@ -74,11 +74,15 @@ button,
 
     &--green {
         color: #fff;
-        background-color: var(--green700);
+        background-color: var(--fills-buttons-main-button-default);
         transition: var(--t3) background-color;
 
         &:hover {
-            background-color: var(--green900);
+            background-color: var(--fills-buttons-main-button-hovered);
+        }
+
+        &:active {
+            background-color: var(--fills-buttons-main-button-pressed);
         }
 
         &--inactive {
@@ -114,10 +118,19 @@ button,
         display: inline;
         padding: 0;
         text-decoration: underline;
-        color: var(--green700);
+        color: var(--text-links-link-default);
         border: 0;
         appearance: none;
         border-radius: 0;
+        transition: var(--t3) color;
+
+        &:hover {
+            color: var(--text-links-link-hovered);
+        }
+
+        &:active {
+            color: var(--text-links-link-pressed);
+        }
     }
 
     &--green-gradient {
