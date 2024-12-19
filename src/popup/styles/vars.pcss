@@ -62,6 +62,8 @@
     /* Base Colors */
     --gray-10: #F6F6F6;
     --gray-20: #E4E4E4;
+    --gray-30: #D2D2D2;
+    --gray-50: #A4A4A4;
     --gray-70: #5B5B5B;
     --gray-80: #3D3D3D;
     --product-primary-30: #B2CC9E;
@@ -71,6 +73,8 @@
 
     /* Text */
     --text-main-text-main-default: var(--gray-80);
+    --text-labels-labels-default: var(--gray-70);
+    --text-placeholder-placeholder-default: var(--gray-50);
     --text-links-link-default: var(--product-primary-50);
     --text-links-link-hovered: var(--product-primary-60);
     --text-links-link-pressed: var(--product-primary-70);
@@ -83,9 +87,12 @@
     --fills-buttons-main-button-hovered: var(--product-primary-60);
     --fills-buttons-main-button-pressed: var(--product-primary-70);
     --fills-buttons-main-button-disabled: var(--product-primary-30);
+    --fills-inputs-input-background-default: var(--gray-10);
 
     /* Stroke */
     --stroke-buttons-secondary-button-default: var(--gray-80);
+    --stroke-inputs-inactive-input-stroke-default: var(--gray-20);
+    --stroke-inputs-active-input-stroke-default: var(--gray-50);
 
     @media (prefers-color-scheme: dark) {
         --white: #131313;
@@ -113,13 +120,16 @@
 
         /* Text */
         --text-main-text-main-default: var(--gray-20);
+        --text-labels-labels-default: var(--gray-30);
 
         /* Fills */
         --fills-backgrounds-page-background-hovered: var(--gray-80);
         --fills-backgrounds-page-background-pressed: var(--gray-70);
+        --fills-inputs-input-background-default: var(--gray-80);
 
         /* Stroke */
         --stroke-buttons-secondary-button-default: var(--gray-20);
+        --stroke-inputs-inactive-input-stroke-default: var(--gray-80);
     }
 }
 
@@ -149,13 +159,16 @@
 
     /* Text */
     --text-main-text-main-default: var(--gray-80);
+    --text-labels-labels-default: var(--gray-70);
 
     /* Fills */
     --fills-backgrounds-page-background-hovered: var(--gray-10);
     --fills-backgrounds-page-background-pressed: var(--gray-20);
+    --fills-inputs-input-background-default: var(--gray-10);
 
     /* Stroke */
     --stroke-buttons-secondary-button-default: var(--gray-80);
+    --stroke-inputs-inactive-input-stroke-default: var(--gray-20);
 }
 
 .dark-mode {
@@ -184,13 +197,16 @@
 
     /* Text */
     --text-main-text-main-default: var(--gray-20);
+    --text-labels-labels-default: var(--gray-30);
 
     /* Fills */
     --fills-backgrounds-page-background-hovered: var(--gray-80);
     --fills-backgrounds-page-background-pressed: var(--gray-70);
+    --fills-inputs-input-background-default: var(--gray-80);
 
     /* Stroke */
     --stroke-buttons-secondary-button-default: var(--gray-20);
+    --stroke-inputs-inactive-input-stroke-default: var(--gray-80);
 }
 
 .android {
