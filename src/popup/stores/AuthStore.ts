@@ -457,6 +457,14 @@ export class AuthStore {
         await this.switchStep(this.STEPS.SCREENSHOT);
     };
 
+    @action resetAuthorization = async () => {
+        if (this.showScreenshotFlow) {
+            this.showScreenShotScreen();
+        } else {
+            this.showAuthorizationScreen();
+        }
+    };
+
     @action handleScreenshotClick = async () => {
         // TODO: collect statistic
         await this.switchStep(this.STEPS.AUTHORIZATION);
