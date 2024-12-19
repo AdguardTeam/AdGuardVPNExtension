@@ -12,12 +12,12 @@ export const BackButton = () => {
         await authStore.resetCode();
 
         if (prevSteps.length === 0) {
-            await authStore.showScreenShotScreen();
+            await authStore.showAuthorizationScreen();
         }
 
         const prevStep = prevSteps.pop();
         if (!prevStep) {
-            await authStore.showScreenShotScreen();
+            await authStore.showAuthorizationScreen();
             return;
         }
 

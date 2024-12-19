@@ -20,7 +20,7 @@ export const Authentication = observer(() => {
     const getHeader = (step: string) => {
         const titleMaps: { [key: string]: null | React.ReactElement } = {
             policyAgreement: null,
-            authorization: <BackButton />,
+            authorization: null,
             signIn: <BackButton />,
             registration: <BackButton />,
             twoFactor: <BackButton />,
