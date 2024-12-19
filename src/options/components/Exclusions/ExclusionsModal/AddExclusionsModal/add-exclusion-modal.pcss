@@ -31,6 +31,9 @@
             outline-offset: -2px;
             transition: var(--t3) color, var(--t3) background-color;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             &:hover,
             &:focus-visible {
@@ -52,6 +55,8 @@
             }
 
             &-text {
+                width: 100%;
+                text-align: left;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
