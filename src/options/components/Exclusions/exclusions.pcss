@@ -42,8 +42,7 @@
 
         .modal__actions {
             padding-top: 24px;
-            gap: 0;
-            row-gap: 8px;
+            gap: 8px;
             justify-content: space-between;
 
             @media (--tablet) {
@@ -51,8 +50,7 @@
             }
 
             .button {
-                /* Each button will take half of the space, 12px (24px in total) for gap between buttons */
-                width: calc(50% - 12px);
+                width: 256px;
                 padding: 16px;
                 font-size: 16px;
                 font-weight: 600;
@@ -102,8 +100,6 @@
         margin-top: 16px;
 
         @media (--mobile) {
-            /* 100% of container - 16px left margin - 16px right margin */
-            width: calc(100% - 32px);
             margin: 16px 16px 0;
         }
     }
