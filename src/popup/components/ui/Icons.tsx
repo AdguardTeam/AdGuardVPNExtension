@@ -10,7 +10,7 @@ export const Icons = () => (
         </symbol>
 
         <svg id="right-arrow" width="8" height="14" viewBox="0 0 8 14" fill="none">
-            <path d="M1 13L7 7L1 1" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M1 13L7 7L1 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
         <symbol id="options" viewBox="0 0 24 24">
