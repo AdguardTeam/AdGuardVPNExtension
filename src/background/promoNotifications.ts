@@ -185,7 +185,7 @@ const christmas24Notification = {
             btn: '80% popusta',
         },
         hu: {
-            title: 'Újévi akció',
+            title: 'Karácsonyi akció',
             btn: '80% kedvezmény',
         },
         hy: {
