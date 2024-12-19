@@ -134,7 +134,9 @@ export const Account = observer(() => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    {translator.getMessage('account_edit')}
+                    <span className="button__text">
+                        {translator.getMessage('account_edit')}
+                    </span>
                 </a>
                 <Button
                     variant="outlined"

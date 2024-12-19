@@ -30,6 +30,7 @@
             line-height: 1.5;
             outline-offset: -2px;
             transition: var(--t3) color, var(--t3) background-color;
+            overflow: hidden;
 
             &:hover,
             &:focus-visible {
@@ -48,6 +49,12 @@
                     color: var(--gray-0);
                     background: var(--gray-80);
                 }
+            }
+
+            &-text {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
         }
     }

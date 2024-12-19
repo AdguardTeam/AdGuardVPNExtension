@@ -88,14 +88,18 @@ export const AddExclusionModal = observer(() => {
                     type="button"
                     className={ModeSelectButtons.service.classname}
                 >
-                    {translator.getMessage('settings_exclusion_add_from_list')}
+                    <span className="add-exclusion-modal__tabs-item-text">
+                        {translator.getMessage('settings_exclusion_add_from_list')}
+                    </span>
                 </button>
                 <button
                     onClick={onManualModeClick}
                     type="button"
                     className={ModeSelectButtons.manual.classname}
                 >
-                    {translator.getMessage('settings_exclusion_add_manually')}
+                    <span className="add-exclusion-modal__tabs-item-text">
+                        {translator.getMessage('settings_exclusion_add_manually')}
+                    </span>
                 </button>
             </div>
             {mode.content()}
