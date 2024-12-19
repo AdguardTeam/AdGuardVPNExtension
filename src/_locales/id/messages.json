@@ -380,9 +380,6 @@
     "settings_exclusion_title": {
         "message": "Pengecualian"
     },
-    "settings_exclusion_change_mode_modal_title": {
-        "message": "Dimana VPN aktif"
-    },
     "settings_exclusion_general_title": {
         "message": "Di mana saja kecuali untuk situs web yang dikecualikan"
     },

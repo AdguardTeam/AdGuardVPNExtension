@@ -69,8 +69,8 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'black_friday_24_vpn';
-const TDS_PROMO_ACTION_RU = 'black_friday_24_vpn_ru';
+const TDS_PROMO_ACTION = 'christmas_24_vpn';
+const TDS_PROMO_ACTION_RU = 'christmas_24_vpn_ru';
 
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
 const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
@@ -79,199 +79,199 @@ const urlQuery = isRuLocale
     ? RU_PROMO_URL_QUERY
     : COMMON_PROMO_URL_QUERY;
 
-const BLACK_FRIDAY_24_ID = 'blackFriday24';
+const CHRISTMAS_24_ID = 'christmas24';
 
-const blackFriday24Notification = {
-    id: BLACK_FRIDAY_24_ID,
+const christmas24Notification = {
+    id: CHRISTMAS_24_ID,
     locales: {
         en: {
-            title: 'Greatest sale of the year',
-            btn: 'Get 85% off',
+            title: 'Christmas promo',
+            btn: 'Get 80% off',
         },
         fr: {
-            title: "La grande promo de l'année",
-            btn: 'Obtenez -85%',
+            title: 'Promo Noël chez AdGuard VPN',
+            btn: '80% de remise',
         },
         it: {
-            title: "La vendita maggiore dell'anno",
-            btn: 'Ottieni -85%',
+            title: 'Promo di Natale ad AdGuard VPN',
+            btn: '80% di sconto',
         },
         de: {
-            title: 'Die besten Deals des Jahres',
-            btn: '85% Rabatt',
+            title: 'Weihnachtspromo',
+            btn: '80% Rabatt',
         },
         ru: {
-            title: 'Самая большая скидка года',
-            btn: '−80% на AdGuard VPN',
+            title: 'Новогодняя акция',
+            btn: 'Скидка 75%',
         },
         es: {
-            title: 'La mejor oferta del año',
-            btn: 'Obtener 85% off',
+            title: 'Promo navideña',
+            btn: '80% de descuento',
         },
         es_419: {
-            title: 'La mayor venta del año',
-            btn: '85% de descuento',
+            title: 'Promo navideña',
+            btn: '80% de descuento',
         },
         pt_pt: {
-            title: 'A melhor oferta do ano',
-            btn: 'Obter 85% off',
+            title: 'Promo de Natal',
+            btn: '80% de desconto',
         },
         pt_br: {
-            title: 'A melhor oferta do ano',
-            btn: 'Obter 85% off',
+            title: 'Promo de Natal',
+            btn: '80% de desconto',
         },
         zh_cn: {
-            title: '年度最大SALE',
-            btn: '85%OFF',
+            title: 'AdGuard Christmas SALE',
+            btn: '大优惠',
         },
         zh_tw: {
-            title: '年末最大折扣',
-            btn: '85%OFF',
+            title: 'AdGuard Christmas SALE',
+            btn: '大折扣',
         },
         ja: {
-            title: 'BLACK FRIDAY: 今年最安セール',
-            btn: '85%OFF割引をGET',
+            title: 'AdGuard Christmas SALE',
+            btn: '80%OFF割引をGET',
         },
         ko: {
-            title: '올해의 가장 큰 세일',
-            btn: '85% 할인',
+            title: '크리스마스  프로모션',
+            btn: '80% 할인',
         },
         uk: {
-            title: 'Найбільший розпродаж року',
-            btn: 'Знижка 85%',
+            title: 'Різдвяна акція',
+            btn: 'Знижка 80%',
         },
         ar: {
-            title: 'أعظم بيع لهذا العام',
-            btn: '٪85 احصل على خصم',
+            title: 'تخفيضات العام الجديد',
+            btn: '٪خصم 80',
         },
         be: {
-            title: 'Самы вялікі распродаж года',
-            btn: 'Зніжка 85%',
+            title: 'Навагоднія скідкі',
+            btn: '80% зніжка',
         },
         bg: {
-            title: 'Най-голямата разпродажба на годината',
-            btn: '85% отстъпка',
+            title: 'Новогодишни отстъпки',
+            btn: '80% отстъпка',
         },
         ca: {
-            title: "La venda més gran de l'any",
-            btn: '85% de descompte',
+            title: "Venda de Cap d'Any",
+            btn: '80% de descompte',
         },
         cs: {
-            title: 'Největší výprodej roku',
-            btn: '85% sleva',
+            title: 'Novoroční výprodej',
+            btn: '80% sleva',
         },
         da: {
-            title: 'Årets største salg',
-            btn: '85% rabat',
+            title: 'Nytårsudsalg',
+            btn: '80% rabat',
         },
         el: {
-            title: 'Η μεγαλύτερη πώληση της χρονιάς',
-            btn: '85% έκπτωση',
+            title: 'Εκπτώσεις Πρωτοχρονιάς',
+            btn: '80% έκπτωση',
         },
         fa: {
-            title: 'بزرگترین فروش سال',
-            btn: '٪85 تخفیف',
+            title: 'فروش سال نو',
+            btn: '٪80 خاموش',
         },
         fi: {
-            title: 'Vuoden suurin myynti',
-            btn: '85% alennus',
+            title: 'Uudenvuoden alennus',
+            btn: '80% alennus',
         },
         he: {
-            title: 'המכירה הגדולה של השנה',
-            btn: '85% הנחה',
+            title: 'מבצע לשנה החדשה',
+            btn: '80% הנחה',
         },
         hr: {
-            title: 'Najveća rasprodaja godine',
-            btn: '85% popusta',
+            title: 'Otvoren',
+            btn: '80% popusta',
         },
         hu: {
-            title: 'Az év legnagyobb leárazása',
-            btn: '85% kedvezmény',
+            title: 'Újévi akció',
+            btn: '80% kedvezmény',
         },
         hy: {
-            title: 'Տարվա ամենամեծ վաճառքը',
-            btn: '85% զեղչ',
+            title: 'Ամանորյա զեղչեր',
+            btn: '80% զեղչ',
         },
         id: {
-            title: 'Penjualan terbesar tahun ini',
-            btn: 'Diskon 85%',
+            title: 'Obral Tahun Baru',
+            btn: 'Diskon 80%',
         },
         lt: {
-            title: 'Didžiausias metų išpardavimas',
-            btn: '85% nuolaida',
+            title: 'Naujųjų metų nuolaidos',
+            btn: '80% nuolaida',
         },
         ms: {
-            title: 'Jualan terhebat pada tahun ini',
-            btn: 'Diskaun 85%',
+            title: 'Jualan Tahun Baru',
+            btn: 'Diskaun 80%',
         },
         nb: {
-            title: 'Årets største salg',
-            btn: '85% rabatt',
+            title: 'Nyttårs salg',
+            btn: '80% rabatt',
         },
         nl: {
-            title: 'Grootste uitverkoop van het jaar',
-            btn: '85% korting',
+            title: 'Kerstpromo',
+            btn: '80% korting',
         },
         pl: {
-            title: 'Największa wyprzedaż roku',
-            btn: '85% zniżki',
+            title: 'Zniżki noworoczne',
+            btn: '80% zniżki',
         },
         ro: {
-            title: 'Cea mai mare vânzare a anului',
-            btn: '85% reducere',
+            title: 'Vânzarea de Anul Nou',
+            btn: '80% reducere',
         },
         sk: {
-            title: 'Najväčší predaj roka',
-            btn: '85% zľava',
+            title: 'Novoročný výpredaj',
+            btn: '80% zľava',
         },
         sl: {
-            title: 'Največja prodaja leta',
-            btn: '85% popust',
+            title: 'Novoletni popusti',
+            btn: '80% popust',
         },
         'sr-Latn': {
-            title: 'Najveća prodaja godine',
-            btn: '85% popusta',
+            title: 'Novogodišnji popusti',
+            btn: '80% popusta',
         },
         sv: {
-            title: 'Årets bästa rea',
-            btn: '85% rabatt',
+            title: 'Nyårsrabatter',
+            btn: '80% rabatt',
         },
         tr: {
-            title: 'Yılın en büyük satışı',
-            btn: '%85 indirim',
+            title: 'Yılbaşı indirimleri',
+            btn: '%80 indirim',
         },
         vi: {
-            title: 'Khuyến mại lớn nhất trong năm',
-            btn: 'Giảm giá 85%',
+            title: 'Giảm giá năm mới',
+            btn: 'Giảm giá 80%',
         },
         mk: {
-            title: 'Најголемиот попуст на годината',
-            btn: '−85% на AdGuard VPN',
+            title: 'Новогодишна промоција',
+            btn: 'Попуст од 80%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
     urlQuery,
-    from: '25 November 2024 12:00:00',
-    to: '6 December 2024 23:59:00',
+    from: '23 December 2024 12:00:00',
+    to: '3 January 2025 23:59:00',
     type: 'animated',
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
-    bgImage: getUrl('assets/images/blackfriday24.svg'),
+    bgImage: getUrl('assets/images/christmas24.svg'),
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/blackfriday24-on-19.png'),
-            38: getUrl('assets/images/icons/blackfriday24-on-38.png'),
+            19: getUrl('assets/images/icons/christmas24-on-19.png'),
+            38: getUrl('assets/images/icons/christmas24-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/blackfriday24-off-19.png'),
-            38: getUrl('assets/images/icons/blackfriday24-off-38.png'),
+            19: getUrl('assets/images/icons/christmas24-off-19.png'),
+            38: getUrl('assets/images/icons/christmas24-off-38.png'),
         },
     },
 };
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [BLACK_FRIDAY_24_ID]: blackFriday24Notification,
+    [CHRISTMAS_24_ID]: christmas24Notification,
 };
 
 /**
@@ -398,6 +398,12 @@ const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
 const getCurrentNotification = async (): Promise<PromoNotificationData | null> => {
     // Do not display notification on Firefox
     if (Prefs.isFirefox()) {
+        return null;
+    }
+
+    // do not display notification on Mobile Edge
+    const isAndroid = await Prefs.isAndroid();
+    if (isAndroid) {
         return null;
     }
 
