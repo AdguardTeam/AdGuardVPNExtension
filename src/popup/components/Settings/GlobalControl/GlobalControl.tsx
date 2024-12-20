@@ -84,7 +84,7 @@ export const GlobalControl = observer(() => {
         <>
             <button
                 type="button"
-                className={`button button--medium ${buttonState.className}`}
+                className={`button button--medium button--main ${buttonState.className}`}
                 onClick={buttonState.handler}
             >
                 {buttonState.message}

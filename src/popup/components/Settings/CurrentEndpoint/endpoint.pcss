@@ -13,7 +13,7 @@
     cursor: pointer;
     border: 0;
     border-bottom: var(--endpoint-border-width) solid var(--grayd8);
-    background-color: var(--white);
+    background-color: var(--fills-backgrounds-page-background-default);
     transition: var(--t3) background-color;
 
     &:last-child {
@@ -48,6 +48,7 @@
 
         .icon--arrow {
             margin-left: 16px;
+            color: var(--stroke-icons-gray-icons-default);
         }
     }
 
@@ -87,6 +88,7 @@
         position: relative;
         font-size: 16px;
         line-height: 21px;
+        color: var(--text-main-text-main-default);
 
         &--selected {
             font-weight: 700;
@@ -98,7 +100,7 @@
     }
 
     &__desc {
-        color: var(--gray88);
+        color: var(--text-description-description-default);
     }
 
     &__limited-speed {

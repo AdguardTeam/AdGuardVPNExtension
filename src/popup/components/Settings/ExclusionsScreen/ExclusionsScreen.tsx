@@ -37,7 +37,7 @@ export const ExclusionsScreen = observer(() => {
                 <button
                     onClick={onBtnClick}
                     type="button"
-                    className="button button--medium button--green"
+                    className="button button--medium button--main button--green"
                 >
                     {reactTranslator.getMessage('popup_settings_enable_vpn_short')}
                 </button>

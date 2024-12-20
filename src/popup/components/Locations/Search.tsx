@@ -21,7 +21,7 @@ export const Search = ({ value, handleChange, handleClear }: SearchProps) => {
         <div className="endpoints__search">
             <input
                 autoFocus
-                className="endpoints__search-in"
+                className="form__input endpoints__search-in"
                 type="text"
                 placeholder={translator.getMessage('endpoints_search')}
                 value={value}

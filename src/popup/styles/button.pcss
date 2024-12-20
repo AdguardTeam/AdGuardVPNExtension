@@ -39,13 +39,6 @@ button,
         color: var(--white);
     }
 
-    &--inline {
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
     &--inline-green {
         color: var(--green74);
     }
@@ -81,11 +74,15 @@ button,
 
     &--green {
         color: #fff;
-        background-color: var(--green700);
+        background-color: var(--fills-buttons-main-button-default);
         transition: var(--t3) background-color;
 
         &:hover {
-            background-color: var(--green900);
+            background-color: var(--fills-buttons-main-button-hovered);
+        }
+
+        &:active {
+            background-color: var(--fills-buttons-main-button-pressed);
         }
 
         &--inactive {
@@ -121,10 +118,19 @@ button,
         display: inline;
         padding: 0;
         text-decoration: underline;
-        color: var(--green700);
+        color: var(--text-links-link-default);
         border: 0;
         appearance: none;
         border-radius: 0;
+        transition: var(--t3) color;
+
+        &:hover {
+            color: var(--text-links-link-hovered);
+        }
+
+        &:active {
+            color: var(--text-links-link-pressed);
+        }
     }
 
     &--green-gradient {
@@ -149,8 +155,8 @@ button,
     }
 
     &--outline-secondary {
-        border-color: var(--gray88);
-        color: var(--gray88);
+        border-color: var(--stroke-buttons-secondary-button-default);
+        color: var(--text-main-text-main-default);
         transition: var(--t3) background-color;
 
         &:hover {
@@ -203,5 +209,9 @@ button,
         border: none;
         font-size: 16px;
         line-height: 21px;
+    }
+
+    &--main {
+        height: 56px;
     }
 }

@@ -10,7 +10,7 @@ export const Icons = () => (
         </symbol>
 
         <svg id="right-arrow" width="8" height="14" viewBox="0 0 8 14" fill="none">
-            <path d="M1 13L7 7L1 1" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M1 13L7 7L1 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
         <symbol id="options" viewBox="0 0 24 24">
@@ -98,8 +98,8 @@ export const Icons = () => (
         </symbol>
 
         <symbol id="reload" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 25">
-            <path d="M6 7.5c3.6-5.2 13.5-3.5 14 5V14M18 17.5c-3.6 5.2-13.5 3.5-14-5v-1" stroke="var(--green700)" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="m22 12.5-2 2-2-2M2 12.5l2-2 2 2" stroke="var(--green700)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 7.5c3.6-5.2 13.5-3.5 14 5V14M18 17.5c-3.6 5.2-13.5 3.5-14-5v-1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="m22 12.5-2 2-2-2M2 12.5l2-2 2 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </symbol>
 
         <symbol id="closed_eye" viewBox="0 0 24 24">

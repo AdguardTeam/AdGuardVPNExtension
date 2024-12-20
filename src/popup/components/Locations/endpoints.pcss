@@ -7,7 +7,7 @@
     height: 100%;
     padding-top: 16px;
     transition: opacity var(--t3);
-    background-color: var(--white);
+    background-color: var(--fills-backgrounds-page-background-default);
     overflow: hidden;
 
     /* TODO: Remove it when popup design will be available in wider screens. */
@@ -54,6 +54,7 @@
         }
 
         &-icon {
+            color: var(--stroke-icons-product-icons-default);
 
             &--active {
                 pointer-events: none;
@@ -68,17 +69,7 @@
     }
 
     &__search-in {
-        width: 100%;
-        padding: 16px 45px 16px 15px;
-        font-size: 16px;
-        border: 0;
-        border-radius: 8px;
-        background-color: var(--endpoint-gray-background);
-        color: var(--gray-base);
-
-        &:focus {
-            outline: 1px solid var(--grayd8);
-        }
+        padding: 16px 45px 16px 16px;
     }
 
     &__cross {

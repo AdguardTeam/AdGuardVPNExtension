@@ -28,7 +28,7 @@ export const SkeletonLoading = () => {
                     <button
                         type="button"
                         tabIndex={-1}
-                        className="button button--medium button--green button--green--inactive"
+                        className="button button--medium button--green button--green--inactive button--main"
                     >
                         {reactTranslator.getMessage('settings_connect')}
                     </button>
