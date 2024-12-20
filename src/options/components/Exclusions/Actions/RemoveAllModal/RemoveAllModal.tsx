@@ -34,7 +34,7 @@ export const RemoveAllModal = observer(() => {
             actions={(
                 <>
                     <Button variant="outlined" onClick={closeModal}>
-                        {translator.getMessage('settings_exclusion_modal_cancel')}
+                        {translator.getMessage('options_exclusions_delete_cancel_button')}
                     </Button>
                     <Button color="danger" onClick={removeAllExclusions}>
                         {translator.getMessage('settings_exclusion_modal_remove')}

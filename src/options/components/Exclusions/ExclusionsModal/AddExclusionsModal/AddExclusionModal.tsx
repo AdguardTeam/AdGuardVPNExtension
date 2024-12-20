@@ -50,7 +50,7 @@ export const AddExclusionModal = observer(() => {
     const MODE_MAP = {
         [AddExclusionMode.Service]: {
             formId: SERVICE_FORM_ID,
-            btnText: translator.getMessage('settings_dns_add_custom_server_save_and_select'),
+            btnText: translator.getMessage('settings_exclusion_modal_save'),
             btnDisabled: !exclusionsStore.servicesToToggle.length,
             content: () => <ServiceMode />,
         },
