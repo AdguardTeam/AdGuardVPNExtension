@@ -83,13 +83,15 @@ export const Exclusions = observer(() => {
                 action={<Actions />}
             />
             <List />
-            <Button
-                variant="transparent"
-                beforeIconName="plus"
-                onClick={onAddExclusionClick}
-            >
-                {translator.getMessage('settings_exclusion_add_website')}
-            </Button>
+            {!exclusionsStore.exclusionsSearchValue && (
+                <Button
+                    variant="transparent"
+                    beforeIconName="plus"
+                    onClick={onAddExclusionClick}
+                >
+                    {translator.getMessage('settings_exclusion_add_website')}
+                </Button>
+            )}
             <AddExclusionModal />
             <ConfirmAddModal />
             <ModeSelectorModal />

@@ -16,7 +16,7 @@ export interface ExclusionProps {
     hasIcon?: boolean;
 }
 
-const ICON_FOR_DOMAIN = 'https://icons.adguardvpn.com/icon?domain=';
+const ICONS_ORIGIN = 'https://icons.adguardvpn.com';
 
 function getIconUrl(exclusion: ExclusionDtoInterface) {
     if (exclusion.type === ExclusionsType.Service && exclusion.iconUrl) {
@@ -24,40 +24,10 @@ function getIconUrl(exclusion: ExclusionDtoInterface) {
     }
 
     if (exclusion.type === ExclusionsType.Group) {
-        return `${ICON_FOR_DOMAIN}${exclusion.hostname}`;
+        return `${ICONS_ORIGIN}/icon?domain=${exclusion.hostname}`;
     }
 
     return null;
-}
-
-function getCheckIconName(state: ExclusionState) {
-    switch (state) {
-        case ExclusionState.Disabled: {
-            return 'checkbox-disabled';
-        }
-        case ExclusionState.Enabled: {
-            return 'checkbox-enabled';
-        }
-        case ExclusionState.PartlyEnabled:
-        default: {
-            return 'checkbox-partly-enabled';
-        }
-    }
-}
-
-function getStateClassName(state: ExclusionState) {
-    switch (state) {
-        case ExclusionState.Disabled: {
-            return 'exclusion--disabled';
-        }
-        case ExclusionState.Enabled: {
-            return 'exclusion--enabled';
-        }
-        case ExclusionState.PartlyEnabled:
-        default: {
-            return 'exclusion--partly-enabled';
-        }
-    }
 }
 
 function getExclusionDescription(hostname: string, exclusion?: ExclusionDtoInterface | null) {
@@ -98,15 +68,30 @@ export const Exclusion = observer(({
     const description = getExclusionDescription(exclusion.hostname, selectedExclusion);
     const isUseless = isUselessExclusion(exclusion.hostname, selectedExclusion);
 
+    const stateMap = {
+        [ExclusionState.Disabled]: {
+            icon: 'checkbox-disabled',
+            className: 'exclusion--disabled',
+        },
+        [ExclusionState.Enabled]: {
+            icon: 'checkbox-enabled',
+            className: 'exclusion--enabled',
+        },
+        [ExclusionState.PartlyEnabled]: {
+            icon: 'checkbox-partly-enabled',
+            className: 'exclusion--partly-enabled',
+        },
+    };
+
     const classes = classNames(
         'exclusion',
-        getStateClassName(exclusion.state),
+        stateMap[exclusion.state].className,
         iconLoaded && 'exclusion--icon-loaded',
         isGroupExclusion && !isDomain && 'exclusion--group',
         isUseless && 'exclusion--useless',
     );
 
-    const checkIconName = getCheckIconName(exclusion.state);
+    const checkIconName = stateMap[exclusion.state].icon;
     const iconUrl = getIconUrl(exclusion);
 
     const handleIconLoaded = () => {
