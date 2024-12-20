@@ -22,7 +22,9 @@ export const DnsSettingsButton = observer(() => {
                     {translator.getMessage('settings_dns_description')}
                     <br />
                     <br />
-                    {translator.getMessage('settings_dns_current', { dnsServerName: currentDnsServerName })}
+                    {translator.getMessage('settings_dns_description_current', {
+                        dnsServerName: currentDnsServerName,
+                    })}
                 </>
             )}
             action={<IconButton name="arrow-down" className="dns-settings__btn-icon" />}

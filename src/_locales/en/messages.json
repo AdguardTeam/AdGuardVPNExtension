@@ -348,7 +348,7 @@
     "settings_dns_description": {
         "message": "Resolve DNS requests, block ads and trackers, and encrypt DNS traffic when you're connected to VPN"
     },
-    "settings_dns_current": {
+    "settings_dns_description_current": {
         "message": "Current: %dnsServerName%"
     },
     "settings_dns_popular_servers": {
