@@ -1,13 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import Modal from 'react-modal';
 
 import { rootStore } from '../../../../stores';
-import { reactTranslator } from '../../../../../common/reactTranslator';
-import { Title } from '../../../ui/Title';
 import { translator } from '../../../../../common/translator';
-
-import './reset-service-modal.pcss';
+import { Modal } from '../../../ui/Modal';
+import { Button } from '../../../ui/Button';
 
 export const ResetServiceModal = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -28,45 +25,27 @@ export const ResetServiceModal = observer(() => {
 
     return (
         <Modal
-            isOpen={exclusionsStore.resetServiceModalOpen}
-            className="modal modal-exclusions reset-service-modal"
-            overlayClassName="overlay overlay--fullscreen"
-            onRequestClose={closeModal}
-        >
-            <button
-                type="button"
-                className="button button--icon modal__close-icon"
-                onClick={closeModal}
-            >
-                <svg className="icon icon--button icon--cross">
-                    <use xlinkHref="#cross" />
-                </svg>
-            </button>
-            <div className="settings__section">
-                <Title
-                    title={translator.getMessage('settings_exclusion_reset_to_default')}
-                />
-                {reactTranslator.getMessage(
+            title={translator.getMessage('settings_exclusion_reset_to_default')}
+            description={
+                translator.getMessage(
                     'settings_exclusion_reset_service_confirmation_message',
                     { hostname: selectedExclusion.hostname },
-                )}
-            </div>
-            <div className="reset-service-modal__actions">
-                <button
-                    type="button"
-                    className="button button--large button--outline-gray"
-                    onClick={closeModal}
-                >
-                    {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
-                </button>
-                <button
-                    type="button"
-                    className="button button--large button--primary"
-                    onClick={resetServiceData}
-                >
-                    {reactTranslator.getMessage('settings_exclusion_reset_button')}
-                </button>
-            </div>
-        </Modal>
+                )
+            }
+            actions={(
+                <>
+                    <Button variant="outlined" onClick={closeModal}>
+                        {translator.getMessage('settings_exclusion_modal_cancel')}
+                    </Button>
+                    <Button onClick={resetServiceData}>
+                        {translator.getMessage('settings_exclusion_reset_button')}
+                    </Button>
+                </>
+            )}
+            isOpen={exclusionsStore.resetServiceModalOpen}
+            className="exclusions__modal exclusions__modal--empty-body"
+            size="medium"
+            onClose={closeModal}
+        />
     );
 });

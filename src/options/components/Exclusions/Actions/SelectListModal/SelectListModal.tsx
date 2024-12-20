@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import classnames from 'classnames';
-
-import { reactTranslator } from '../../../../../common/reactTranslator';
-import { ExclusionsModal } from '../../ExclusionsModal/ExclusionsModal';
-import { Title } from '../../../ui/Title';
+import { translator } from '../../../../../common/translator';
 import { ExclusionsMode } from '../../../../../common/exclusionsConstants';
 import { rootStore } from '../../../../stores';
+import { Radio } from '../../../ui/Radio';
+import { Modal } from '../../../ui/Modal';
+import { Button } from '../../../ui/Button';
 
 interface SelectListModalProps {
     isOpen: boolean;
@@ -31,8 +30,8 @@ export const SelectListModal = ({
     }, [currentMode, isOpen]);
 
     const modesInfo = {
-        [ExclusionsMode.Regular]: reactTranslator.getMessage('options_exclusions_import_select_regular'),
-        [ExclusionsMode.Selective]: reactTranslator.getMessage('options_exclusions_import_select_selective'),
+        [ExclusionsMode.Regular]: translator.getMessage('options_exclusions_import_select_regular'),
+        [ExclusionsMode.Selective]: translator.getMessage('options_exclusions_import_select_selective'),
     };
 
     const handleImportClick = async () => {
@@ -43,58 +42,36 @@ export const SelectListModal = ({
         }
     };
 
-    const renderRadioButton = (exclusionsType: ExclusionsMode) => {
-        const enabled = exclusionsType === selectedList;
-        const titleClass = classnames('radio__title', { 'radio__title--active': enabled });
-        const xlinkHref = classnames({
-            '#bullet_on': enabled,
-            '#bullet_off': !enabled,
-        });
-
-        return (
-            <div
-                className="radio"
-                onClick={() => setSelectedList(exclusionsType)}
-            >
-                <svg className="radio__icon">
-                    <use xlinkHref={xlinkHref} />
-                </svg>
-                <div className="radio__label">
-                    <div className={titleClass}>
-                        {modesInfo[exclusionsType]}
-                    </div>
-                </div>
-            </div>
-        );
-    };
+    const renderRadioButton = (exclusionsType: ExclusionsMode) => (
+        <Radio
+            name="exclusion-type"
+            value={exclusionsType}
+            isActive={exclusionsType === selectedList}
+            title={modesInfo[exclusionsType]}
+            onSelect={setSelectedList}
+        />
+    );
 
     return (
-        <ExclusionsModal
+        <Modal
             isOpen={isOpen}
-            closeModal={closeModal}
+            title={translator.getMessage('options_exclusions_import_select_title')}
+            description={translator.getMessage('options_exclusions_import_select_subtitle')}
+            actions={(
+                <>
+                    <Button onClick={handleImportClick}>
+                        {translator.getMessage('settings_exclusion_import_button')}
+                    </Button>
+                    <Button variant="outlined" onClick={closeModal}>
+                        {translator.getMessage('settings_exclusion_modal_cancel')}
+                    </Button>
+                </>
+            )}
+            className="exclusions__modal--radio"
+            onClose={closeModal}
         >
-            <Title
-                title={reactTranslator.getMessage('options_exclusions_import_select_title')}
-                subtitle={reactTranslator.getMessage('options_exclusions_import_select_subtitle')}
-            />
             {renderRadioButton(ExclusionsMode.Selective)}
             {renderRadioButton(ExclusionsMode.Regular)}
-            <div className="form__actions">
-                <button
-                    type="button"
-                    onClick={closeModal}
-                    className="button button--outline-secondary button--large"
-                >
-                    {reactTranslator.getMessage('options_exclusions_delete_cancel_button')}
-                </button>
-                <button
-                    type="button"
-                    onClick={handleImportClick}
-                    className="button button--primary button--large"
-                >
-                    {reactTranslator.getMessage('settings_exclusion_import_button')}
-                </button>
-            </div>
-        </ExclusionsModal>
+        </Modal>
     );
 };

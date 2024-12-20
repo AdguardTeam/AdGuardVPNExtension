@@ -21,6 +21,11 @@ export interface TitleProps {
     subtitle?: React.ReactNode;
 
     /**
+     * Action to display on the right side of the title.
+     */
+    action?: React.ReactNode;
+
+    /**
      * Size of the title. Default is `large`.
      * - 'large' - 24px font size
      * - 'medium' - 20px font size
@@ -42,6 +47,7 @@ export interface TitleProps {
 export function Title({
     title,
     subtitle,
+    action,
     size = 'large',
     className,
     onClick,
@@ -67,6 +73,11 @@ export function Title({
                     )}
                     {title}
                 </div>
+                {action && (
+                    <div className="title__action">
+                        {action}
+                    </div>
+                )}
             </div>
             {subtitle && (
                 <div className="title__subtitle">

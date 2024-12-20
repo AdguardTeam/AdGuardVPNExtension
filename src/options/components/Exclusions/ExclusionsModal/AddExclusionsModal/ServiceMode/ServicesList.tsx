@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../../stores';
-import { reactTranslator } from '../../../../../../common/reactTranslator';
+import { translator } from '../../../../../../common/translator';
 
 import { ServiceCategory } from './ServiceCategory';
 
@@ -11,32 +11,37 @@ export const ServicesList = observer(() => {
 
     const { categories } = exclusionsStore.preparedServicesData;
 
+    let content: React.ReactNode;
     if (!Object.keys(categories).length) {
-        return (
-            <div className="services-list__connection-problem">
-                {reactTranslator.getMessage('settings_exclusion_connection_problem')}
+        content = (
+            <div className="service-mode-list__empty">
+                {translator.getMessage('settings_exclusion_connection_problem')}
             </div>
         );
-    }
-
-    if (exclusionsStore.isServicesSearchEmpty) {
-        return (
-            <div className="search__nothing-found">
-                {reactTranslator.getMessage('settings_exclusion_nothing_found')}
+    } else if (exclusionsStore.isServicesSearchEmpty) {
+        content = (
+            <div className="service-mode-list__empty">
+                {translator.getMessage('settings_exclusion_nothing_found')}
+            </div>
+        );
+    } else {
+        content = (
+            <div className="service-mode-list">
+                {Object.values(categories).map((category) => {
+                    return (
+                        <ServiceCategory
+                            key={category.id}
+                            category={category}
+                        />
+                    );
+                })}
             </div>
         );
     }
 
     return (
-        <ul className="services-list">
-            {Object.values(categories).map((category) => {
-                return (
-                    <ServiceCategory
-                        key={category.id}
-                        category={category}
-                    />
-                );
-            })}
-        </ul>
+        <div className="service-mode__content">
+            {content}
+        </div>
     );
 });

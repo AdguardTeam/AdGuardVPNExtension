@@ -23,7 +23,16 @@ export class UiStore {
     };
 
     @computed get isAnyModalOpen(): boolean {
-        return this.rootStore.settingsStore.isCustomDnsModalOpen;
+        return (
+            this.rootStore.settingsStore.isCustomDnsModalOpen
+            || this.rootStore.exclusionsStore.modeSelectorModalOpen
+            || this.rootStore.exclusionsStore.removeAllModalOpen
+            || this.rootStore.exclusionsStore.selectListModalOpen
+            || this.rootStore.exclusionsStore.addExclusionModalOpen
+            || this.rootStore.exclusionsStore.confirmAddModalOpen
+            || this.rootStore.exclusionsStore.resetServiceModalOpen
+            || this.rootStore.exclusionsStore.addSubdomainModalOpen
+        );
     }
 
     /**

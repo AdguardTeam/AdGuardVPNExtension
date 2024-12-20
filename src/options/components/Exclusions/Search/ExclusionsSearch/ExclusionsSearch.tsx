@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { Search } from '../Search';
 import { rootStore } from '../../../../stores';
-import { reactTranslator } from '../../../../../common/reactTranslator';
+import { translator } from '../../../../../common/translator';
+import { Input } from '../../../ui/Input';
 
 export const ExclusionsSearch = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -12,16 +12,13 @@ export const ExclusionsSearch = observer(() => {
         exclusionsStore.setExclusionsSearchValue(value);
     };
 
-    const onClear = () => {
-        exclusionsStore.setExclusionsSearchValue('');
-    };
-
     return (
-        <Search
-            placeholder={reactTranslator.getMessage('settings_exclusion_search_website')}
-            value={exclusionsStore.exclusionsSearchValue}
-            onChange={onChange}
-            onClear={onClear}
-        />
+        <div className="exclusions__search">
+            <Input
+                placeholder={translator.getMessage('settings_exclusion_search_website')}
+                value={exclusionsStore.exclusionsSearchValue}
+                onChange={onChange}
+            />
+        </div>
     );
 });

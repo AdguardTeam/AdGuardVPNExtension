@@ -39,6 +39,11 @@ export interface ModalProps extends PropsWithChildren {
     size?: 'large' | 'medium';
 
     /**
+     * Additional class name.
+     */
+    className?: string;
+
+    /**
      * Close event handler.
      */
     onClose: () => void;
@@ -50,12 +55,14 @@ export function Modal({
     actions,
     isOpen,
     size = 'large',
+    className,
     children,
     onClose,
 }: ModalProps) {
     const classes = classNames(
         'modal',
         `modal--size-${size}`,
+        className,
     );
 
     if (!isOpen) {
