@@ -4,16 +4,17 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { translator } from '../../../common/translator';
-import { ExclusionsMode } from '../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { ExclusionsMode } from '../../../common/exclusionsConstants';
+import { Icon } from '../ui/Icon';
+import { Button } from '../ui/Button';
 
 import { ModeSelectorModal } from './ModeSelectorModal';
 import { Actions } from './Actions';
 import { List } from './List';
-import { AddExclusionModal } from './ExclusionsModal/AddExclusionsModal';
-import { ConfirmAddModal } from './ExclusionsModal/ConfirmAddModal';
+import { AddExclusionModal, ConfirmAddModal } from './ExclusionsModal';
 import { ChildrenList } from './ChildrenList';
-import { ExclusionsSearch } from './Search/ExclusionsSearch';
+import { ExclusionsSearch } from './Search';
 
 import './exclusions.pcss';
 
@@ -35,13 +36,11 @@ export const Exclusions = observer(() => {
             return (
                 <button
                     type="button"
-                    className="exclusions__mode--link"
+                    className="exclusions__mode-btn has-tab-focus"
                     onClick={openModeSelectorModal}
                 >
                     {chunks}
-                    <svg className="icon icon--pencil">
-                        <use xlinkHref="#pencil" />
-                    </svg>
+                    <Icon name="pencil" className="exclusions__mode-btn-icon" />
                 </button>
             );
         },
@@ -62,8 +61,8 @@ export const Exclusions = observer(() => {
         if (exclusionsStore.currentMode === ExclusionsMode.Selective
             && !exclusionsStore.exclusionsTree.children.length) {
             return (
-                <div className="exclusions__mode--warning">
-                    {reactTranslator.getMessage('settings_exclusion_selective_mode_warning')}
+                <div className="exclusions__mode-warning">
+                    {translator.getMessage('settings_exclusion_selective_mode_warning')}
                 </div>
             );
         }
@@ -71,37 +70,30 @@ export const Exclusions = observer(() => {
     };
 
     return (
-        <div className="settings">
-            <div className="exclusions__mode">
-                <Title
-                    title={translator.getMessage('settings_exclusion_title')}
-                />
-                <div className="exclusions__mode--info">
-                    {modeInfo}
-                </div>
-                {renderSelectiveModeWarning()}
-                <Actions />
-            </div>
-            <div className="exclusions__wrapper">
-                <div className="exclusions__search">
-                    <ExclusionsSearch />
-                </div>
-                <button
-                    type="button"
-                    className="exclusions__add-website simple-button"
+        <div className="exclusions">
+            <Title
+                title={translator.getMessage('settings_exclusion_title')}
+                subtitle={(
+                    <>
+                        {modeInfo}
+                        {renderSelectiveModeWarning()}
+                        <ExclusionsSearch />
+                    </>
+                )}
+                action={<Actions />}
+            />
+            <List />
+            {!exclusionsStore.exclusionsSearchValue && (
+                <Button
+                    variant="transparent"
+                    beforeIconName="plus"
                     onClick={onAddExclusionClick}
                 >
-                    <svg className="icon icon--button">
-                        <use xlinkHref="#plus" />
-                    </svg>
-                    <div className="exclusions__add-website__label">
-                        {reactTranslator.getMessage('settings_exclusion_add_website')}
-                    </div>
-                </button>
-                <List />
-                <AddExclusionModal />
-                <ConfirmAddModal />
-            </div>
+                    {translator.getMessage('settings_exclusion_add_website')}
+                </Button>
+            )}
+            <AddExclusionModal />
+            <ConfirmAddModal />
             <ModeSelectorModal />
         </div>
     );

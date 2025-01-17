@@ -1,12 +1,14 @@
-import React, { type ReactNode, useContext } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { rootStore } from '../../stores';
+import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { getForwarderUrl } from '../../../common/helpers';
 import { messenger } from '../../../common/messenger';
-import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { Title } from '../ui/Title';
 import { translator } from '../../../common/translator';
+import { rootStore } from '../../stores';
+import { Title } from '../ui/Title';
+import { Icon, IconButton } from '../ui/Icon';
+import { Controls } from '../ui/Controls';
 
 import { BugReporter } from './BugReporter';
 
@@ -14,8 +16,8 @@ import './support.pcss';
 
 interface SupportItems {
     title: string;
-    description: ReactNode;
-    iconXlink: string;
+    description: React.ReactNode;
+    icon: string;
     clickHandler: () => void;
 }
 
@@ -35,17 +37,17 @@ export const Support = observer(() => {
         {
             title: translator.getMessage('options_support_faq_title'),
             description: translator.getMessage('options_support_faq_description'),
-            iconXlink: '#question',
+            icon: 'question',
             clickHandler: createOpenUrlHandler(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FAQ)),
         }, {
             title: translator.getMessage('options_support_report_title'),
             description: translator.getMessage('options_support_report_description'),
-            iconXlink: '#bug',
+            icon: 'bug',
             clickHandler: handleReportClick,
         }, {
             title: translator.getMessage('options_support_feedback_title'),
             description: translator.getMessage('options_support_feedback_description'),
-            iconXlink: '#send-feedback',
+            icon: 'send-feedback',
             clickHandler: createOpenUrlHandler(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK)),
         },
     ];
@@ -53,29 +55,18 @@ export const Support = observer(() => {
     const renderSupportItem = ({
         title,
         description,
-        iconXlink,
+        icon,
         clickHandler,
     }: SupportItems) => {
         return (
-            <button
-                type="button"
+            <Controls
                 key={title}
-                className="support-item"
+                title={title}
+                description={description}
+                beforeAction={<Icon name={icon} className="support__icon" />}
+                action={<IconButton name="arrow-down" className="support__btn-icon" />}
                 onClick={clickHandler}
-            >
-                <div className="support-item__area">
-                    <svg className="icon icon--support">
-                        <use xlinkHref={iconXlink} />
-                    </svg>
-                    <div className="support-item__info">
-                        <div className="support-item__title">{title}</div>
-                        <div className="support-item__description">{description}</div>
-                    </div>
-                </div>
-                <svg className="icon icon--button">
-                    <use xlinkHref="#arrow" />
-                </svg>
-            </button>
+            />
         );
     };
 

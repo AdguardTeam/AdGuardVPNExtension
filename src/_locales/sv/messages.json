@@ -51,6 +51,9 @@
     "about_title": {
         "message": "Om"
     },
+    "all_rights_reserved": {
+        "message": "Alla rättigheter förbehållna."
+    },
     "options_support_title": {
         "message": "Support"
     },
@@ -90,18 +93,6 @@
     "options_bug_report_request_error": {
         "message": "Ett fel uppstod. Försök igen senare."
     },
-    "options_bug_report_send_button": {
-        "message": "Skicka"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Skickar..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Beskriv problemet här..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Tack, ditt meddelande skickades framgångsrikt!"
-    },
     "options_bug_report_new_report_button": {
         "message": "Ny rapport"
     },
@@ -112,13 +103,13 @@
         "message": "Konto"
     },
     "account_edit": {
-        "message": "Hantera konto"
+        "message": "Öppna kontoinställningar"
     },
     "account_version": {
         "message": "Version"
     },
     "account_free": {
-        "message": "Gratis konto"
+        "message": "Gratis version"
     },
     "account_get_subscription": {
         "message": "Skaffa prenumeration"
@@ -131,9 +122,6 @@
     },
     "account_sign_out": {
         "message": "Logga ut"
-    },
-    "rate_description": {
-        "message": "Hej, vi är ett team från AdGuard och det är mycket viktigt för oss att veta din åsikt om vår produkt. Var snäll och prissätta det."
     },
     "rate_hide": {
         "message": "Dölj"
@@ -210,8 +198,8 @@
     "privacy_policy": {
         "message": "Integritetspolicy"
     },
-    "settings_title": {
-        "message": "Inställningar"
+    "settings_general_title": {
+        "message": "Allmänt"
     },
     "settings_referral_copy_link": {
         "message": "Kopiera inbjudningslänken"
@@ -230,18 +218,6 @@
     },
     "settings_webrtc_label": {
         "message": "Blockera WebRTC"
-    },
-    "settings_webrtc_desc": {
-        "message": "WebRTC är ett speciellt program i de flesta webbläsare som kan tillåta en tredje parts webbplats att upptäcka din riktiga IP adress och använda den för att identifiera dig"
-    },
-    "settings_context_menus_title": {
-        "message": "Lägg till AdGuard VPN objekt i webbläsarens snabbmeny"
-    },
-    "settings_help_us_improve_title": {
-        "message": "Hjälp oss att förbättra"
-    },
-    "settings_help_us_improve_description": {
-        "message": "Tillåt AdGuard VPN att samla in kraschrapporter, tekniska data och interaktionsdata. Det här är anonymt."
     },
     "context_menu_selective_mode": {
         "message": "Selektivt läge"
@@ -264,20 +240,11 @@
     "settings_dns_edit_custom_server": {
         "message": "Redigera anpassad DNS-server"
     },
-    "settings_dns_add_custom_server_info": {
-        "message": "<a>Läs mer</a> om DNS-servrar"
-    },
     "settings_dns_add_custom_server_name": {
         "message": "Servernamn"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Servernamn"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "DNS-serveradress"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "Ogiltig DNS-serveradress"
+        "message": "Serveradress"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Spara och välj"
@@ -364,7 +331,10 @@
         "message": "AdGuard VPN är aktiverat för de i kryssade domänerna och underdomänerna"
     },
     "settings_exclusion_domain_name": {
-        "message": "Domännamn:"
+        "message": "Domännamn"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Underdomän"
     },
     "settings_exclusion_add_from_list": {
         "message": "Från listan"
@@ -705,12 +675,6 @@
     },
     "popup_connections_limit_title": {
         "message": "Anslutningsgränsen har nåtts"
-    },
-    "options_signedout_page_title": {
-        "message": "Du har loggat ut ur AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "Observera att din anslutning inte är säker. För att fortsätta surfa privat, klicka på AdGuard VPN ikonen och logga in igen."
     },
     "confirm_email_title": {
         "message": "Bekräfta din e-postadress"

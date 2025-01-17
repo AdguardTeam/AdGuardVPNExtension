@@ -23,61 +23,38 @@ body {
     font-family: var(--font-stack);
     font-size: 1.6rem;
     line-height: 1.4;
-    color: var(--gray-base);
-    background-color: var(--white-strong);
+    color: var(--text-main-text-main-default);
+    background-color: var(--fills-backgrounds-page-background-default);
+    transition: var(--t3) background-color;
 
     &.locked {
         overflow-y: hidden;
     }
 }
 
-.hidden {
-    display: none;
-}
+a {
+    color: var(--text-links-link-default);
+    text-decoration-line: underline;
+    outline: 2px solid transparent;
 
-.logo {
-    width: 125px;
-    height: 24px;
-    background-image: url('../../assets/images/logo-vpn.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-
-    @media (prefers-color-scheme: dark) {
-        background-image: url('../../assets/images/logo-vpn-dark.svg');
-    }
-}
-
-.light-mode {
-    color-scheme: light;
-
-    .logo {
-        background-image: url('../../assets/images/logo-vpn.svg');
-    }
-}
-
-.dark-mode {
-    color-scheme: dark;
-
-    .logo {
-        background-image: url('../../assets/images/logo-vpn-dark.svg');
+    &:focus-visible {
+        outline-color: var(--product-primary-50);
     }
 }
 
 .body_light,
 .body_dark {
-    background-color: var(--white-strong);
+    background-color: var(--fills-backgrounds-page-background-default);
+}
+
+.hidden {
+    display: none;
 }
 
 .has-tab-focus {
     outline: 2px solid transparent;
-    outline-offset: -2px;
 
     &:focus-visible {
-        outline-color: var(--primary-50);
+        outline-color: var(--product-primary-50);
     }
-}
-
-.general-settings {
-    min-height: 680px;
-    margin-left: 16px;
 }

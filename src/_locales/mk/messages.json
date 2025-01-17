@@ -57,6 +57,9 @@
     "about_title": {
         "message": "За програмата"
     },
+    "all_rights_reserved": {
+        "message": "Сите права се задржани."
+    },
     "options_support_title": {
         "message": "Поддршка"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "Настана грешка, обидете се повторно подоцна."
     },
-    "options_bug_report_send_button": {
-        "message": "Поднеси"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Се поднесува..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Опишете го проблемот овде..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Ви благодариме, вашата порака беше успешно испратена!"
-    },
     "options_bug_report_new_report_button": {
         "message": "Нов извештај"
     },
@@ -118,13 +109,13 @@
         "message": "Сметка"
     },
     "account_edit": {
-        "message": "Управување со сметката"
+        "message": "Отворете ги поставките за сметката"
     },
     "account_version": {
         "message": "Верзија"
     },
     "account_free": {
-        "message": "Бесплатна сметка"
+        "message": "Бесплатна верзија"
     },
     "account_unlimited": {
         "message": "Неограничена претплата"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "Земете претплата"
     },
-    "account_max_devices_count": {
-        "message": "До %num% симултани уреди"
-    },
     "account_valid_until": {
         "message": "Валидност до <b>%date%</b>"
     },
@@ -155,9 +143,6 @@
     },
     "account_unlimited_title": {
         "message": "Добијте ја неограничената верзија!"
-    },
-    "rate_description": {
-        "message": "Еј, ние сме тим од AdGuard и ни е многу важно да го знаеме вашето мислење за нашиот производ. Ве молиме оценете го."
     },
     "rate_hide": {
         "message": "Сокриј"
@@ -234,9 +219,6 @@
     "privacy_policy": {
         "message": "Политика за приватност"
     },
-    "settings_title": {
-        "message": "Поставки"
-    },
     "referral_get_free_traffic": {
         "message": "Добијте бесплатни ГБ!"
     },
@@ -276,18 +258,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Повторно испратете линк"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Додадете друг уред"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Инсталирајте AdGuard VPN на уште еден уред, најавете се на вашата сметка на AdGuard на него и добијте %your_gb% ГБ"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Уредите се додадени"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Честитки за инсталирањето на AdGuard VPN на повеќе уреди. Останете безбедни!"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Проверете ги производите"
     },
@@ -312,17 +282,8 @@
     "settings_webrtc_label": {
         "message": "Блокирај WebRTC"
     },
-    "settings_webrtc_desc": {
-        "message": "WebRTC е специјална програма во повеќето интернет прелистувачи што може да дозволи веб-локација од трета страна да ја открие вашата вистинска IP адреса и да ја користи за да ве идентификува"
-    },
-    "settings_context_menus_title": {
-        "message": "Додајте ставка AdGuard VPN во контекстното мени на прелистувачот"
-    },
     "settings_help_us_improve_title": {
-        "message": "Помогнете ни да се подобриме"
-    },
-    "settings_help_us_improve_description": {
-        "message": "Дозволете AdGuard VPN да собира извештаи за падови, технички и податоци за интеракција. Ова е анонимно."
+        "message": "Испратете анонимни извештаи за падови"
     },
     "context_menu_selective_mode": {
         "message": "Селективен режим"
@@ -352,22 +313,13 @@
         "message": "Уредете прилагоден DNS сервер"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>Прочитајте повеќе</a> за DNS серверите"
+        "message": "Познати DNS провајдери"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Име на серверот"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Име на серверот"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "Адреса на DNS сервер"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP на сервер или име на TLS домен"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "Неважечка адреса на DNS-сервер"
+        "message": "Адреса на серверот"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-серверот е веќе додаден"
@@ -487,10 +439,10 @@
         "message": "AdGuard VPN е вклучен за проверените домени и поддомени"
     },
     "settings_exclusion_domain_name": {
-        "message": "Име на домен:"
+        "message": "Име на домен"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Име на поддомен:"
+        "message": "Поддомен"
     },
     "settings_exclusion_add_from_list": {
         "message": "Од списокот"
@@ -548,9 +500,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Отстранете ги сите исклучоци"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Дали сте сигурни дека сакате да продолжите? Целата листа со исклучоци ќе биде отстранета."
     },
     "settings_exclusion_title": {
         "message": "Исклучоци"
@@ -941,12 +890,6 @@
     },
     "popup_connections_limit_title": {
         "message": "Достигнато е ограничувањето на врските"
-    },
-    "options_signedout_page_title": {
-        "message": "Се одјавивте од AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "Ве молиме имајте предвид: не сте поврзани со VPN и вашиот сообраќај не е заштитен! За да продолжите да сурфате приватно, кликнете на иконата AdGuard VPN и најавете се повторно."
     },
     "notification_data_limit_reached_title": {
         "message": "Достигнат е месечниот лимит за податоци"

@@ -57,6 +57,9 @@
     "about_title": {
         "message": "O"
     },
+    "all_rights_reserved": {
+        "message": "Sva prava pridržana."
+    },
     "options_support_title": {
         "message": "Podrška"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "Došlo je do pogreške. Pokušajte kasnije."
     },
-    "options_bug_report_send_button": {
-        "message": "Pošalji"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Slanje..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Ovdje opišite problem..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Hvala vam, vaša je poruka uspješno poslana!"
-    },
     "options_bug_report_new_report_button": {
         "message": "Novi izvještaj"
     },
@@ -118,13 +109,13 @@
         "message": "Račun"
     },
     "account_edit": {
-        "message": "Upravljanje"
+        "message": "Otvoriti postavke računa"
     },
     "account_version": {
         "message": "Verzija"
     },
     "account_free": {
-        "message": "Besplatno"
+        "message": "Besplatna verzija"
     },
     "account_unlimited": {
         "message": "Neograničena pretlata"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "Kupi pretplatu"
     },
-    "account_max_devices_count": {
-        "message": "Do %num% uređaja istovremeno"
-    },
     "account_valid_until": {
         "message": "Vrijedi do <b>%date%</b>"
     },
@@ -157,7 +145,7 @@
         "message": "Kupite neograničenu inačicu!"
     },
     "rate_description": {
-        "message": "Hej, mi smo tim iz AdGuarda i vrlo nam je važno čuti vaše mišljenje o našem proizvodu. Molimo ocijenite ga."
+        "message": "Uživate li u AdGuard VPN-u?"
     },
     "rate_hide": {
         "message": "Sakrij"
@@ -234,8 +222,8 @@
     "privacy_policy": {
         "message": "Politika privatnosti"
     },
-    "settings_title": {
-        "message": "Postavke"
+    "settings_general_title": {
+        "message": "Općenito"
     },
     "referral_get_free_traffic": {
         "message": "Dobijte besplatne GB!"
@@ -276,18 +264,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Ponovno pošalji vezu"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Dodajte novi uređaj"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Instalirajte AdGuard VPN na još jedan uređaj, prijavite se na svoj AdGuard račun i dobijte %your_gb% gigabajta"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Dodani uređaji"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Čestitamo na instaliranju AdGuard VPN-a na više uređaja. Ostanite sigurni!"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Idi na Proizvode"
     },
@@ -312,17 +288,8 @@
     "settings_webrtc_label": {
         "message": "Blokiraj WebRTC"
     },
-    "settings_webrtc_desc": {
-        "message": "WebRTC je poseban program u većini preglednika koji može omogućiti web stranicama trećih strana, otkrivanje vaše stvarne IP adrese i koristiti za identificiranje"
-    },
-    "settings_context_menus_title": {
-        "message": "Dodajte AdGuard VPN stavku u kontekstni izbornik preglednika"
-    },
     "settings_help_us_improve_title": {
-        "message": "Pomognite nam postati bolji"
-    },
-    "settings_help_us_improve_description": {
-        "message": "Omogućite AdGuard VPN-u da prikuplja izvješća o rušenju aplikacije, tehničke podatke i podatke o interakciji. Ovo je anonimno."
+        "message": "Šaljite anonimna izvješća o padu programa"
     },
     "context_menu_selective_mode": {
         "message": "Selektivni način"
@@ -352,22 +319,13 @@
         "message": "Uredi prilagođeni DNS poslužitelj"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>Pročitajte više</a> o DNS poslužiteljima"
+        "message": "Poznati davatelji DNS-a"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Naziv poslužitelja"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Naziv poslužitelja"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "Adresa DNS poslužitelja"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP poslužitelja ili TLS naziv domene"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "Adresa DNS poslužitelja nije valjana"
+        "message": "Adresa poslužitelja"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS poslužitelj je već dodan"
@@ -487,10 +445,10 @@
         "message": "AdGuard VPN uključen je za provjerene domene i poddomene"
     },
     "settings_exclusion_domain_name": {
-        "message": "Naziv domene:"
+        "message": "Naziv domene"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Naziv poddomene:"
+        "message": "Poddomena"
     },
     "settings_exclusion_add_from_list": {
         "message": "S popisa"
@@ -548,9 +506,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Ukloni sva izuzimanja"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Jeste li sigurni da želite nastaviti? Cijeli popis isključenja bit će uklonjen."
     },
     "settings_exclusion_title": {
         "message": "Iznimke"
@@ -941,12 +896,6 @@
     },
     "popup_connections_limit_title": {
         "message": "Dosegnuto ograničenje veza"
-    },
-    "options_signedout_page_title": {
-        "message": "Odjavili ste se iz AdGuard VPN-a"
-    },
-    "options_signedout_page_description": {
-        "message": "Imajte na umu da vaša veza nije sigurna. Da biste nastavili privatno surfati, kliknite na ikonu AdGuard VPN i ponovno se prijavite."
     },
     "notification_data_limit_reached_title": {
         "message": "Dosegnuli ste mjesečno ograničenje podataka."

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import classNames from 'classnames';
+
 import { rootStore } from '../../../../../stores';
 import { ExclusionState, type ServiceDto } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../Search/SearchHighlighter';
-import { reactTranslator } from '../../../../../../common/reactTranslator';
-
-import './service-mode.pcss';
+import { translator } from '../../../../../../common/translator';
 
 /**
  * Returns true if service can be added, and returns false if service can be removed
@@ -40,43 +40,39 @@ export const ServiceRow = observer(({ service }: ServiceRowProps) => {
         exclusionsStore.addToServicesToToggle(service.serviceId);
     };
 
-    const buttonsMap = {
-        add: () => (
-            <button
-                type="button"
-                className="simple-button"
-                onClick={addService}
-            >
-                {reactTranslator.getMessage('settings_exclusion_add')}
-            </button>
-        ),
-        remove: () => (
-            <button
-                type="button"
-                className="simple-button service-row__actions__remove"
-                onClick={removeService}
-            >
-                {reactTranslator.getMessage('settings_exclusion_modal_remove')}
-            </button>
-        ),
-    };
-
     const serviceCanBeAdded = canAddService(service, exclusionsStore.servicesToToggle);
 
-    const actionButton = serviceCanBeAdded ? buttonsMap.add() : buttonsMap.remove();
+    const classes = classNames(
+        'service-mode-item has-tab-focus',
+        !serviceCanBeAdded && 'service-mode-item--active',
+    );
+
+    const buttonText = serviceCanBeAdded
+        ? translator.getMessage('settings_exclusion_add')
+        : translator.getMessage('settings_exclusion_modal_remove');
+
+    const clickHandler = serviceCanBeAdded ? addService : removeService;
 
     return (
-        <div className="service-row">
-            <img className="service-row__icon" src={service.iconUrl} alt={service.serviceName} />
-            <div className="service-row__title">
+        <button
+            type="button"
+            className={classes}
+            onClick={clickHandler}
+        >
+            <img
+                className="service-mode-item__img"
+                src={service.iconUrl}
+                alt={service.serviceName}
+            />
+            <div className="service-mode-item__title text-ellipsis">
                 <SearchHighlighter
                     value={service.serviceName}
                     search={exclusionsStore.servicesSearchValue}
                 />
             </div>
-            <div className="service-row__actions">
-                {actionButton}
+            <div className="service-mode-item__action">
+                {buttonText}
             </div>
-        </div>
+        </button>
     );
 });

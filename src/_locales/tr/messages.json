@@ -57,6 +57,9 @@
     "about_title": {
         "message": "Hakkında"
     },
+    "all_rights_reserved": {
+        "message": "Tüm hakları saklıdır."
+    },
     "options_support_title": {
         "message": "Destek"
     },
@@ -96,14 +99,8 @@
     "options_bug_report_request_error": {
         "message": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin."
     },
-    "options_bug_report_send_button": {
-        "message": "Gönder"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Gönderiliyor..."
-    },
     "options_bug_report_textarea_placeholder": {
-        "message": "Sorunu burada açıklayın..."
+        "message": "Ayrıntıları sağlayın"
     },
     "options_bug_report_page_success": {
         "message": "Teşekkürler, mesajınız başarıyla gönderildi!"
@@ -118,13 +115,13 @@
         "message": "Hesap"
     },
     "account_edit": {
-        "message": "Hesabı yönet"
+        "message": "Hesap ayarlarını aç"
     },
     "account_version": {
         "message": "Sürüm"
     },
     "account_free": {
-        "message": "Ücretsiz hesap"
+        "message": "Ücretsiz sürüm"
     },
     "account_unlimited": {
         "message": "Sınırsız abonelik"
@@ -142,7 +139,7 @@
         "message": "Abonelik al"
     },
     "account_max_devices_count": {
-        "message": "Aynı anda %num% cihaza kadar"
+        "message": "Aynı anda <b>%num%</b> cihaza kadar"
     },
     "account_valid_until": {
         "message": "<b>%date%</b> tarihine kadar geçerli"
@@ -157,7 +154,7 @@
         "message": "Sınırsız sürümü edinin!"
     },
     "rate_description": {
-        "message": "Hey, biz AdGuard'dan bir ekibiz ve ürünümüz hakkındaki düşüncelerinizi bilmek bizim için çok önemlidir. Lütfen oylayın."
+        "message": "AdGuard VPN'in keyfini çıkarıyor musunuz?"
     },
     "rate_hide": {
         "message": "Gizle"
@@ -234,8 +231,8 @@
     "privacy_policy": {
         "message": "Gizlilik Politikası"
     },
-    "settings_title": {
-        "message": "Ayarlar"
+    "settings_general_title": {
+        "message": "Genel"
     },
     "referral_get_free_traffic": {
         "message": "Ücretsiz GB'lar edinin!"
@@ -277,16 +274,16 @@
         "message": "Bağlantıyı yeniden gönder"
     },
     "settings_free_gbs_add_device_title": {
-        "message": "Başka bir cihaz ekle"
+        "message": "Başka bir platform ekle"
     },
     "settings_free_gbs_add_device_info": {
-        "message": "AdGuard VPN'i bir cihaza daha yükleyin, AdGuard hesabınıza giriş yapın ve %your_gb% GB edinin"
+        "message": "iOS, Mac, Windows veya Android için AdGuard VPN'i yükleyin, orada AdGuard hesabınıza giriş yapın ve %your_gb% GB edinin."
     },
     "settings_free_gbs_devices_added_title": {
-        "message": "Cihaz eklendi"
+        "message": "Başka bir platform eklendi"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "AdGuard VPN'i birden fazla cihaza yüklediğiniz için tebrikler. Güvende kalın!"
+        "message": "AdGuard VPN'i birden çok platforma yüklediğiniz için tebrikler. Güvende kalın!"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Ürünlere git"
@@ -313,16 +310,19 @@
         "message": "WebRTC'i engelle"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC çoğu internet tarayıcısında, üçüncü taraf bir sitenin gerçek IP adresinizi tespit etmesine ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
+        "message": "Proxy veya VPN kullansanız bile gerçek IP adresinizi sızdırabilecek bilinen bir güvenlik açığı olan WebRTC'i engelleyin"
     },
     "settings_context_menus_title": {
-        "message": "Tarayıcının sağ tık menüsüne AdGuard VPN öğesini ekle"
+        "message": "Tarayıcının sağ tık menüsünde AdGuard VPN'i göster"
+    },
+    "settings_context_menus_description": {
+        "message": "Belirli bir site için VPN istisnalarını yönetin"
     },
     "settings_help_us_improve_title": {
-        "message": "Geliştirmemize yardımcı ol"
+        "message": "Anonim çökme raporları gönder"
     },
     "settings_help_us_improve_description": {
-        "message": "AdGuard VPN'in çökme raporları, teknik ve etkileşim verilerini toplamasına izin verin. Bu anonimdir."
+        "message": "Bir şeyler ters giderse AdGuard VPN geliştiricilerini bilgilendirin"
     },
     "context_menu_selective_mode": {
         "message": "Seçici mod"
@@ -339,6 +339,12 @@
     "settings_dns_label": {
         "message": "DNS sunucusu"
     },
+    "settings_dns_description": {
+        "message": "VPN'e bağlandığınızda DNS isteklerini çözün, reklamları ve izleyicileri engelleyin ve DNS trafiğini şifreleyin"
+    },
+    "settings_dns_description_current": {
+        "message": "Şu anki: %dnsServerName%"
+    },
     "settings_dns_popular_servers": {
         "message": "Popüler DNS sunucuları"
     },
@@ -352,22 +358,22 @@
         "message": "Özel DNS sunucusunu düzenle"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "DNS sunucuları hakkında <a>daha fazla bilgi edinin</a>"
+        "message": "Bilinen DNS sağlayıcıları"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Sunucu adı"
     },
     "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Sunucu adı"
+        "message": "DNS Sunucum"
     },
     "settings_dns_add_custom_server_address": {
-        "message": "DNS sunucusu adresi"
+        "message": "Sunucu adresi"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "Sunucu IP'si veya TLS alan adı"
+        "message": "IP adresi veya tls://"
     },
     "settings_dns_add_custom_server_invalid_address": {
-        "message": "Geçersiz DNS sunucu adresi"
+        "message": "Geçersiz sunucu adresi"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS sunucusu zaten eklendi"
@@ -383,6 +389,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Özel DNS sunucusu silindi"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Özel DNS sunucusu düzenlendi"
     },
     "settings_dns_selector_default_title": {
         "message": "Varsayılan"
@@ -487,10 +496,10 @@
         "message": "AdGuard VPN, seçili alan adları ve alt alan adları için açık"
     },
     "settings_exclusion_domain_name": {
-        "message": "Alan adı:"
+        "message": "Alan adı"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Alt alan adı:"
+        "message": "Alt alan adı"
     },
     "settings_exclusion_add_from_list": {
         "message": "Listeden"
@@ -550,7 +559,7 @@
         "message": "Tüm istisnaları kaldır"
     },
     "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Devam etmek istediğinize emin misiniz? Tüm istisnalar listesi kaldırılacaktır."
+        "message": "Tüm istisnaların listesini kaldırmak istiyor musunuz?"
     },
     "settings_exclusion_title": {
         "message": "İstisnalar"
@@ -945,8 +954,11 @@
     "options_signedout_page_title": {
         "message": "AdGuard VPN'den çıkış yaptınız"
     },
+    "options_signedout_page_description_not_secure": {
+        "message": "Bağlantınız güvenli değil!"
+    },
     "options_signedout_page_description": {
-        "message": "Lütfen unutmayın: VPN'e bağlı değilsiniz ve trafiğiniz korunmuyor! Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
+        "message": "Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
     },
     "notification_data_limit_reached_title": {
         "message": "Aylık veri sınırına ulaşıldı"

@@ -57,6 +57,9 @@
     "about_title": {
         "message": "Névjegy"
     },
+    "all_rights_reserved": {
+        "message": "Minden jog fenntartva."
+    },
     "options_support_title": {
         "message": "Támogatás"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "Valamilyen hiba történt, próbálja újból később."
     },
-    "options_bug_report_send_button": {
-        "message": "Küldés"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Küldés..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Írja le itt a problémát..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Köszönjük, az üzenetét sikeresen elküldtük!"
-    },
     "options_bug_report_new_report_button": {
         "message": "Új jelentés"
     },
@@ -118,13 +109,13 @@
         "message": "Fiók"
     },
     "account_edit": {
-        "message": "Fiók kezelése"
+        "message": "Fiókbeállításokat megnyitni"
     },
     "account_version": {
         "message": "Verzió"
     },
     "account_free": {
-        "message": "Ingyenes fiók"
+        "message": "Ingyenes verzió"
     },
     "account_unlimited": {
         "message": "Korlátlan előfizetés"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "Előfizetés vásárlása"
     },
-    "account_max_devices_count": {
-        "message": "Akár %num% egyidejű eszköz"
-    },
     "account_valid_until": {
         "message": "Érvényesség vége: <b>%date%</b>"
     },
@@ -157,7 +145,7 @@
         "message": "Szerezze meg a korlátlan verziót!"
     },
     "rate_description": {
-        "message": "Üdvözöljük! Az AdGuard csapatának fontos, hogy megismerje a termékkel kapcsolatos véleményét. Kérjük, szánjon rá néhány percet, és értékelje."
+        "message": "Élvezi az AdGuard VPN-t?"
     },
     "rate_hide": {
         "message": "Elrejtés"
@@ -234,8 +222,8 @@
     "privacy_policy": {
         "message": "Adatvédelmi irányelvek"
     },
-    "settings_title": {
-        "message": "Beállítások"
+    "settings_general_title": {
+        "message": "Általános"
     },
     "referral_get_free_traffic": {
         "message": "Szerezz ingyenes GB-okat!"
@@ -276,18 +264,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Link újraküldése"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Egy másik eszköz hozzáadása"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Telepítse az AdGuard VPN-t még egy eszközre, jelentkezzen be rajta az AdGuard-fiókjába, és kapja meg a %your_gb% GB-ot."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Hozzáadott eszközök"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Gratulálok az AdGuard VPN több eszközre történő telepítéséhez. Maradj biztonságban!"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Ugrás a termékekhez"
     },
@@ -312,17 +288,8 @@
     "settings_webrtc_label": {
         "message": "WebRTC tiltása"
     },
-    "settings_webrtc_desc": {
-        "message": "A WebRTC egy speciális program a legtöbb internetes böngészőben, amely lehetővé teszi egy harmadik fél webhelyének, hogy megismerje az Ön valódi IP-címét, és felhasználja azt az Ön azonosítására"
-    },
-    "settings_context_menus_title": {
-        "message": "Adja hozzá az AdGuard VPN elemet a böngésző helyi menüjéhez"
-    },
     "settings_help_us_improve_title": {
-        "message": "Segítsen nekünk a fejlesztésben"
-    },
-    "settings_help_us_improve_description": {
-        "message": "Engedélyezés az AdGuard VPN számára, hogy hibahelentéseket, műszaki adatokat és használati statisztikákat küldjön. Ez névtelenül történik."
+        "message": "Névtelen hibajelentések küldése"
     },
     "context_menu_selective_mode": {
         "message": "Szelektív mód"
@@ -352,22 +319,13 @@
         "message": "Egyéni DNS szerver módosítása"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>További információ</a> a DNS-kiszolgálókról"
+        "message": "Ismert DNS-szolgáltatók"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Szerver neve"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Szerver neve"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "DNS szerver címe"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "Kiszolgáló IP vagy TLS tartománynév"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "Érvénytelen DNS szerver cím"
+        "message": "Szerver cím"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-kiszolgáló már hozzáadva"
@@ -487,10 +445,10 @@
         "message": "Az AdGuard VPN be van kapcsolva a jelölt domaineken és aldomaineken"
     },
     "settings_exclusion_domain_name": {
-        "message": "Domain név:"
+        "message": "Domain név"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Aldomain neve:"
+        "message": "Aldomain"
     },
     "settings_exclusion_add_from_list": {
         "message": "A listából"
@@ -548,9 +506,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Összes kivétel törlése"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Biztosan folytatja? A kivételek teljes listája törölve lesz."
     },
     "settings_exclusion_title": {
         "message": "Kivételek"
@@ -941,12 +896,6 @@
     },
     "popup_connections_limit_title": {
         "message": "Kapcsolódási korlát elérve"
-    },
-    "options_signedout_page_title": {
-        "message": "Kijelentkezett az AdGuard VPN-ből"
-    },
-    "options_signedout_page_description": {
-        "message": "Kérjük, vegye figyelembe: nem csatlakozik a VPN-hez, ezért az adatforgalma nem védett! Ha továbbra is privát módon szeretne böngészni, kattintson az AdGuard VPN ikonra, és jelentkezzen be újra."
     },
     "notification_data_limit_reached_title": {
         "message": "Elérte a havi adatkorlátot"

@@ -1,0 +1,40 @@
+.dns-settings {
+    &__btn-icon {
+        transform: rotate(-90deg);
+    }
+
+    &__title {
+        margin-bottom: 24px;
+    }
+
+    &__popular-servers {
+        padding-top: 32px;
+    }
+
+    &__custom {
+        &:hover,
+        &:active,
+        &:focus-visible,
+        &:focus-within {
+            .dns-settings__custom-actions {
+                opacity: 1;
+            }
+        }
+
+        &-actions {
+            display: flex;
+            column-gap: 16px;
+            /* Use opacity instead of display to not cause layout shifts */
+            opacity: 0;
+            transition: var(--t3) opacity;
+
+            @media (--touch-screen) {
+                opacity: 1;
+            }
+        }
+
+        &-servers {
+            padding-top: 48px;
+        }
+    }
+}

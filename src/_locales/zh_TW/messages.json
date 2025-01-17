@@ -57,6 +57,9 @@
     "about_title": {
         "message": "關於"
     },
+    "all_rights_reserved": {
+        "message": "保留所有的權利。"
+    },
     "options_support_title": {
         "message": "支援"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "錯誤已發生。請稍後再試。"
     },
-    "options_bug_report_send_button": {
-        "message": "提交"
-    },
-    "options_bug_report_sending_button": {
-        "message": "正在提交…"
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "於此描述該問題…"
-    },
-    "options_bug_report_page_success": {
-        "message": "感謝您，您的訊息被成功地提交了！"
-    },
     "options_bug_report_new_report_button": {
         "message": "新的報告"
     },
@@ -118,13 +109,13 @@
         "message": "帳戶"
     },
     "account_edit": {
-        "message": "管理帳戶"
+        "message": "開啟帳戶設定"
     },
     "account_version": {
         "message": "版本"
     },
     "account_free": {
-        "message": "免費帳戶"
+        "message": "免費版"
     },
     "account_unlimited": {
         "message": "無限訂閱"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "取得訂閱"
     },
-    "account_max_devices_count": {
-        "message": "最多可以同時連線 %num% 台裝置"
-    },
     "account_valid_until": {
         "message": "有效期限至 <b>%date%</b>"
     },
@@ -157,7 +145,7 @@
         "message": "獲取無限版！"
     },
     "rate_description": {
-        "message": "嗨，我們是來自 AdGuard 的團隊，而了解您對我們的產品之意見對於我們是非常重要的。請對它評分。"
+        "message": "喜歡 AdGuard VPN 嗎？"
     },
     "rate_hide": {
         "message": "隱藏"
@@ -234,8 +222,8 @@
     "privacy_policy": {
         "message": "隱私政策"
     },
-    "settings_title": {
-        "message": "設定"
+    "settings_general_title": {
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "取得免費的流量！"
@@ -276,18 +264,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "重新傳送連結"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "新增其他裝置"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "在另一台裝置上安裝 AdGuard VPN，在上面登入您的 AdGuard 帳戶，取得 %your_gb%GB"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "裝置新增成功"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "恭喜您在多台裝置上安裝 AdGuard VPN。注意安全！"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "至產品"
     },
@@ -312,17 +288,8 @@
     "settings_webrtc_label": {
         "message": "封鎖網路即時通訊（WebRTC）"
     },
-    "settings_webrtc_desc": {
-        "message": "網路即時通訊（WebRTC）是在大多數網際網路瀏覽器中的一款特殊的程式，其可允許第三方的網站偵測您真實的 IP 位址並使用它識別您"
-    },
-    "settings_context_menus_title": {
-        "message": "新增 AdGuard VPN 項目至瀏覽器之內容功能表"
-    },
     "settings_help_us_improve_title": {
-        "message": "幫助我們改善"
-    },
-    "settings_help_us_improve_description": {
-        "message": "允許 AdGuard VPN 收集崩潰報告、技術的資料和相互作用資訊。這是匿名的。"
+        "message": "匿名傳送崩潰報告"
     },
     "context_menu_selective_mode": {
         "message": "選擇性模式"
@@ -352,22 +319,13 @@
         "message": "編輯自訂的 DNS 伺服器"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>閱讀更多</a>關於 DNS 伺服器"
+        "message": "已知的 DNS 供應商"
     },
     "settings_dns_add_custom_server_name": {
         "message": "伺服器名稱"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "伺服器名稱"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "DNS 伺服器位址"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "伺服器 IP 或 TLS 域名"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "無效的 DNS 伺服器位址"
+        "message": "伺服器位址"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "已新增 DNS 伺服器"
@@ -487,10 +445,10 @@
         "message": "AdGuard VPN 已為所選的網域和子網域啟用"
     },
     "settings_exclusion_domain_name": {
-        "message": "域名："
+        "message": "域名"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "子網域名稱："
+        "message": "子網域"
     },
     "settings_exclusion_add_from_list": {
         "message": "從該清單中"
@@ -548,9 +506,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "移除所有例外"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "您確定您想要繼續嗎？例外的整個清單將被移除。"
     },
     "settings_exclusion_title": {
         "message": "例外"
@@ -941,12 +896,6 @@
     },
     "popup_connections_limit_title": {
         "message": "已達到連線限制"
-    },
-    "options_signedout_page_title": {
-        "message": "您已登出 AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "請注意：您未連線 VPN，因此您的流量不受保護！要繼續秘密地瀏覽，點擊 AdGuard VPN 圖示並再次登入。"
     },
     "notification_data_limit_reached_title": {
         "message": "已達到每月的流量限制"

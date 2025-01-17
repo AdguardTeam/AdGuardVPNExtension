@@ -1,0 +1,117 @@
+.modal {
+    z-index: var(--modal-z);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &, &__overlay {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__overlay {
+        position: absolute;
+        background-color: var(--fills-backgrounds-dialog-background-default);
+        opacity: 0.5;
+    }
+
+    &__content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        max-width: 95%;
+        max-height: 95%;
+        padding: 32px;
+        border-radius: 8px;
+        background: var(--fills-backgrounds-page-background-default);
+        box-shadow: var(--big-light-shadow-br);
+
+        .modal--size-large & {
+            width: 720px;
+        }
+
+        .modal--size-medium & {
+            width: 600px;
+        }
+
+        @media (--tablet-sm) {
+            padding: 24px 16px;
+        }
+    }
+
+    &__header {
+        flex-shrink: 0;
+        padding-bottom: 32px;
+    }
+
+    &__title {
+        flex-shrink: 0;
+        color: var(--text-main-text-main-default);
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.2;
+        padding-right: 24px;
+
+        @media (--tablet-sm) {
+            font-size: 24px;
+            padding-right: 64px;
+        }
+    }
+
+    &__description {
+        flex-shrink: 0;
+        font-size: 16px;
+        line-height: 1.5;
+        margin-top: 12px;
+        color: var(--text-description-description-default);
+
+        @media (--tablet-sm) {
+            padding-right: 40px;
+        }
+    }
+
+    &__close-btn {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        padding: 4px;
+    }
+
+    &__wrapper {
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        row-gap: 32px;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding-top: 32px;
+        flex-shrink: 0;
+        display: flex;
+        gap: 16px;
+
+        @media (--tablet-sm) {
+            flex-direction: column;
+        }
+
+        .button {
+            width: 200px;
+
+            @media (--tablet-sm) {
+                width: 100%;
+            }
+        }
+    }
+}

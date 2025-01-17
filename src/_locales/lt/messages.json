@@ -36,6 +36,9 @@
     "about_title": {
         "message": "Apie"
     },
+    "all_rights_reserved": {
+        "message": "Visos teisės saugomos."
+    },
     "options_support_title": {
         "message": "Palaikymas"
     },
@@ -45,17 +48,11 @@
     "options_bug_report_include_log_label": {
         "message": "Įtraukti diagnostinę ataskaitą į pranešimą"
     },
-    "options_bug_report_send_button": {
-        "message": "Pateikti"
-    },
     "options_bug_report_textarea_label": {
         "message": "Pranešimas"
     },
     "account_title": {
         "message": "Paskyra"
-    },
-    "account_edit": {
-        "message": "Redaguoti"
     },
     "account_version": {
         "message": "Versija"
@@ -102,9 +99,6 @@
     "privacy_policy": {
         "message": "Privatumo Politika"
     },
-    "settings_title": {
-        "message": "Nustatymai"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Eiti į svetainę"
     },
@@ -131,12 +125,6 @@
     },
     "settings_dns_add_custom_server_name": {
         "message": "Serverio pavadinimas"
-    },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Serverio pavadinimas"
-    },
-    "settings_dns_add_custom_server_address": {
-        "message": "DNS serverio adresas"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Išsaugoti ir pasirinkti"
@@ -205,7 +193,7 @@
         "message": "Veiksmai"
     },
     "settings_exclusion_domain_name": {
-        "message": "Domeno vardas:"
+        "message": "Domenas"
     },
     "settings_exclusion_modal_cancel": {
         "message": "Atšaukti"

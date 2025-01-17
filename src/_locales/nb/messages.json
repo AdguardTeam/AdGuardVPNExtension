@@ -38,6 +38,9 @@
     "about_title": {
         "message": "Om"
     },
+    "all_rights_reserved": {
+        "message": "Alle rettigheter reservert."
+    },
     "options_support_title": {
         "message": "Kundestøtte"
     },
@@ -71,12 +74,6 @@
     "options_bug_report_request_error": {
         "message": "En feil oppstod. Vennligst prøv igjen senere."
     },
-    "options_bug_report_send_button": {
-        "message": "Send"
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Beskriv problemet her …"
-    },
     "options_bug_report_new_report_button": {
         "message": "Ny rapport"
     },
@@ -88,12 +85,6 @@
     },
     "account_version": {
         "message": "Versjon"
-    },
-    "account_free": {
-        "message": "Gratiskonto"
-    },
-    "rate_description": {
-        "message": "Heisann, vi er et team fra AdGuard og det er veldig viktig for oss å vite om din mening om vårt produkt. Vennligst gi det en vurdering."
     },
     "rate_hide": {
         "message": "Skjul"
@@ -158,17 +149,14 @@
     "privacy_policy": {
         "message": "Personvern"
     },
-    "settings_title": {
-        "message": "Innstillinger"
+    "settings_general_title": {
+        "message": "General"
     },
     "settings_free_gbs": {
         "message": "Gratis GB-er"
     },
     "settings_free_gbs_confirm_email_title": {
         "message": "Bekreft E-postadressen din"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Legg til en annen enhet"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Gå til Produkter"
@@ -181,15 +169,6 @@
     },
     "settings_webrtc_label": {
         "message": "Blokker WebRTC"
-    },
-    "settings_webrtc_desc": {
-        "message": "WebRTC er et spesielt program i de fleste nettlesere som kan la et tredjepartsnettsted oppdage din ekte IP-adresse og bruke det til å identifisere deg"
-    },
-    "settings_context_menus_title": {
-        "message": "Legg til AdGuard VPN-element i nettleserens sammenhengsmeny"
-    },
-    "settings_help_us_improve_title": {
-        "message": "Hjelp oss med å forbedre"
     },
     "context_menu_selective_mode": {
         "message": "Selektiv modus"
@@ -208,12 +187,6 @@
     },
     "settings_dns_add_custom_server_name": {
         "message": "Tjenerens navn"
-    },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Tjenerens navn"
-    },
-    "settings_dns_add_custom_server_address": {
-        "message": "DNS-tjeneradresse"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Lagre og velg"
@@ -294,7 +267,7 @@
         "message": "alle underdomener"
     },
     "settings_exclusion_domain_name": {
-        "message": "Domenenavn:"
+        "message": "Domenenavn"
     },
     "settings_exclusion_modal_cancel": {
         "message": "Avbryt"

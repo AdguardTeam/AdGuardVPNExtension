@@ -57,6 +57,9 @@
     "about_title": {
         "message": "À propos"
     },
+    "all_rights_reserved": {
+        "message": "Tous droits réservés."
+    },
     "options_support_title": {
         "message": "Assistance"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "Une erreur est survenue. Veuillez réessayer plus tard."
     },
-    "options_bug_report_send_button": {
-        "message": "Envoyer"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Envoi en cours..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Décrivez le problème ici..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Merci, votre message a bien été envoyé !"
-    },
     "options_bug_report_new_report_button": {
         "message": "Nouveau signalement"
     },
@@ -118,13 +109,13 @@
         "message": "Compte"
     },
     "account_edit": {
-        "message": "Gérer le compte"
+        "message": "Ouvrir les paramètres du compte"
     },
     "account_version": {
         "message": "Version"
     },
     "account_free": {
-        "message": "Compte gratuit"
+        "message": "Version gratuite"
     },
     "account_unlimited": {
         "message": "Abonnement illimité"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "Obtenir un abonnement"
     },
-    "account_max_devices_count": {
-        "message": "Jusqu'à %num% appareils simultanés"
-    },
     "account_valid_until": {
         "message": "Valable jusqu'au <b>%date%</b>"
     },
@@ -157,7 +145,7 @@
         "message": "Obtenez la version Illimitée !"
     },
     "rate_description": {
-        "message": "Hé, nous sommes une équipe d’AdGuard et il est très important pour nous de connaître votre opinion sur notre produit. Veuillez le noter."
+        "message": "Appréciez-vous AdGuard VPN ?"
     },
     "rate_hide": {
         "message": "Masquer"
@@ -234,8 +222,8 @@
     "privacy_policy": {
         "message": "Politique de confidentialité"
     },
-    "settings_title": {
-        "message": "Paramètres"
+    "settings_general_title": {
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "Obtenez des Go gratuits !"
@@ -276,18 +264,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Renvoyer le lien"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Ajouter un autre appareil"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Installez AdGuard VPN sur un autre appareil, connectez-vous avec votre compte AdGuard sur celui-ci et obtenez %your_gb% Go"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Appareils ajoutés"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Félicitations pour l'installation d'AdGuard VPN sur plusieurs appareils. Restez prudent !"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Aller vers Produits"
     },
@@ -312,17 +288,8 @@
     "settings_webrtc_label": {
         "message": "Bloquer WebRTC"
     },
-    "settings_webrtc_desc": {
-        "message": "WebRTC est un programme spécial inclus dans la majorité des navigateurs Internet qui peut permettre à un site tiers de détecter votre adresse IP et de l'utiliser pour vous identifier"
-    },
-    "settings_context_menus_title": {
-        "message": "Ajouter AdGuard VPN au menu contextuel du navigateur"
-    },
     "settings_help_us_improve_title": {
-        "message": "Aidez nous à améliorer"
-    },
-    "settings_help_us_improve_description": {
-        "message": "Autorisez AdGuard VPN à collecter des rapports de plantage, des données techniques et celles d’interaction. Ceci est anonyme."
+        "message": "Envoyer des rapports de plantage anonymes"
     },
     "context_menu_selective_mode": {
         "message": "Mode sélectif"
@@ -352,22 +319,13 @@
         "message": "Éditer le serveur DNS personnalisé"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>En savoir plus</a> sur les serveurs DNS"
+        "message": "Fournisseurs DNS connus"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Nom du serveur"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Nom du serveur"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "Adresse du serveur DNS"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP du serveur ou nom de domaine TLS"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "Adresse DNS non-valide"
+        "message": "Adresse du serveur"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Serveur DNS déjà ajouté"
@@ -487,10 +445,10 @@
         "message": "AdGuard VPN est activé pour les domaines et sous-domaines cochés"
     },
     "settings_exclusion_domain_name": {
-        "message": "Nom de domaine :"
+        "message": "Nom de domaine"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Nom de sous-domaine :"
+        "message": "Sous-domaine"
     },
     "settings_exclusion_add_from_list": {
         "message": "Depuis la liste"
@@ -548,9 +506,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Supprimer toutes les exclusions"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Souhaitez-vous vraiment continuer ? La liste entière des exclusions sera supprimée."
     },
     "settings_exclusion_title": {
         "message": "Exclusions"
@@ -941,12 +896,6 @@
     },
     "popup_connections_limit_title": {
         "message": "La limite des connexions est atteinte"
-    },
-    "options_signedout_page_title": {
-        "message": "Vous vous êtes déconnecté(e) de AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "Votre connexion n'est pas sécurisée ! Pour continuer à surfer l'Internet en toute confidentialité, cliquez l'icône AdGuard VPN et reconnectez-vous."
     },
     "notification_data_limit_reached_title": {
         "message": "La limite mensuelle de données"

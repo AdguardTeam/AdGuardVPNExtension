@@ -41,7 +41,7 @@ export enum AddExclusionMode {
     Manual = 'Manual',
 }
 
-const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.Manual;
+const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.Service;
 
 const findExclusionById = (
     exclusionsTree: ExclusionDtoInterface,
@@ -95,6 +95,8 @@ export class ExclusionsStore {
     @observable resetServiceModalOpen = false;
 
     @observable removeAllModalOpen = false;
+
+    @observable selectListModalOpen = false;
 
     @observable confirmAddModalOpen = false;
 
@@ -215,7 +217,7 @@ export class ExclusionsStore {
         this.setServicesSearchValue('');
         this.servicesToToggle = [];
         this.unfoldedServiceCategories = [];
-        this.setAddExclusionMode(AddExclusionMode.Manual);
+        this.setAddExclusionMode(DEFAULT_ADD_EXCLUSION_MODE);
     };
 
     @action setAddExclusionMode = (mode: AddExclusionMode) => {
@@ -236,6 +238,14 @@ export class ExclusionsStore {
 
     @action closeRemoveAllModal = () => {
         this.removeAllModalOpen = false;
+    };
+
+    @action openSelectListModal = () => {
+        this.selectListModalOpen = true;
+    };
+
+    @action closeSelectListModal = () => {
+        this.selectListModalOpen = false;
     };
 
     @computed

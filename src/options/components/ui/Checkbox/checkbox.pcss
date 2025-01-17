@@ -1,25 +1,27 @@
 .checkbox {
-    cursor: pointer;
-    color: var(--gray-base);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    cursor: pointer;
 
-    & .checkbox__in {
-        appearance: none;
-        width: 24px;
-        height: 24px;
-        margin: 0 16px 0 0;
-        background-image: url('../../../../assets/images/unchecked.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
+    &__icon {
+        flex-shrink: 0;
 
-        &:checked {
-            background-image: url('../../../../assets/images/checked.svg');
+        .checkbox--active & {
+            color: var(--stroke-icons-product-icon-default);
         }
     }
 
+    &__input {
+        appearance: none;
+        margin: 0;
+    }
+
     &__label {
-        cursor: pointer;
+        flex: 1 1 auto;
+        color: var(--text-main-text-main-default);
+        font-size: 16px;
+        line-height: 1.5;
+        margin-left: 16px;
     }
 }

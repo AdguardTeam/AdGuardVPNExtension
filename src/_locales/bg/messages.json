@@ -5,6 +5,9 @@
     "about_title": {
         "message": "Относно"
     },
+    "all_rights_reserved": {
+        "message": "Всички права запазени."
+    },
     "options_support_title": {
         "message": "Поддръжка"
     },
@@ -32,16 +35,13 @@
     "privacy_policy": {
         "message": "Правила за поверителност"
     },
-    "settings_title": {
-        "message": "Настройки"
+    "settings_general_title": {
+        "message": "General"
     },
     "settings_webrtc_label": {
         "message": "Блокирай WebRTC"
     },
     "settings_dns_add_custom_server_name": {
-        "message": "Име на сървъра"
-    },
-    "settings_dns_add_custom_server_name_placeholder": {
         "message": "Име на сървъра"
     },
     "settings_dns_add_custom_server_save": {
@@ -76,6 +76,9 @@
     },
     "settings_exclusion_actions": {
         "message": "Действия"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Име на домейн"
     },
     "settings_exclusion_modal_cancel": {
         "message": "Отказ"

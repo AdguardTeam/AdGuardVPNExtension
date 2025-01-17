@@ -57,6 +57,9 @@
     "about_title": {
         "message": "정보"
     },
+    "all_rights_reserved": {
+        "message": "All rights reserved."
+    },
     "options_support_title": {
         "message": "고객 지원"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "오류가 발생했습니다. 다시 시도해 주십시오."
     },
-    "options_bug_report_send_button": {
-        "message": "제출"
-    },
-    "options_bug_report_sending_button": {
-        "message": "전송 중..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "문제를 설명해 주세요…"
-    },
-    "options_bug_report_page_success": {
-        "message": "감사합니다. 메시지가 전송되었습니다!"
-    },
     "options_bug_report_new_report_button": {
         "message": "새로운 보고서"
     },
@@ -118,13 +109,13 @@
         "message": "계정"
     },
     "account_edit": {
-        "message": "계정 관리"
+        "message": "계정 설정 열기"
     },
     "account_version": {
         "message": "버전"
     },
     "account_free": {
-        "message": "무료 계정"
+        "message": "무료 버전"
     },
     "account_unlimited": {
         "message": "무제한 구독"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "구독 구매"
     },
-    "account_max_devices_count": {
-        "message": "최대 %num%개의 동시 연결"
-    },
     "account_valid_until": {
         "message": "<b>%date%</b>까지 유효"
     },
@@ -157,7 +145,7 @@
         "message": "무제한 버전 이용하기!"
     },
     "rate_description": {
-        "message": "안녕하세요, AdGuard 팀은 제품에 대한 사용자 의견을 중요하게 생각하고 있습니다. 만족도를 평가해주세요."
+        "message": "AdGuard VPN을 즐기세요?"
     },
     "rate_hide": {
         "message": "숨기기"
@@ -234,8 +222,8 @@
     "privacy_policy": {
         "message": "개인정보처리방침"
     },
-    "settings_title": {
-        "message": "설정"
+    "settings_general_title": {
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "무료 GB를 받으세요!"
@@ -276,18 +264,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "링크 재전송"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "다른 기기 추가"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "AdGuard VPN을 하나 이상의 디바이스에 설치하시고, AdGuard 계정으로 로그인하여 %your_gb%GB 를 얻으세요."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "기기가 추가됨"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "여러 디바이스에 AdGuard VPN을 설치하신 것을 축하드립니다. 안전하게 지내세요!"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "제품들로"
     },
@@ -312,17 +288,8 @@
     "settings_webrtc_label": {
         "message": "WebRTC 차단"
     },
-    "settings_webrtc_desc": {
-        "message": "WebRTC는 대부분의 브라우저에서 제3자 웹사이트가 실제 IP 주소를 감지하고 식별하는 데에 사용될 수 있는 특수한 프로그램입니다"
-    },
-    "settings_context_menus_title": {
-        "message": "브라우저 콘텍스트 메뉴에 AdGuard VPN 항목 추가"
-    },
     "settings_help_us_improve_title": {
-        "message": "개선할 수 있도록 도와주세요"
-    },
-    "settings_help_us_improve_description": {
-        "message": "AdGuard VPN이 충돌 보고서, 기술 및 상호작용 데이터를 수집할 수 있도록 허용해주세요. 익명으로 처리됩니다."
+        "message": "익명의 충돌 보고서 전송"
     },
     "context_menu_selective_mode": {
         "message": "선별 모드"
@@ -352,22 +319,13 @@
         "message": "사용자 정의 DNS 서버 수정"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "DNS 서버에 대해 <a>자세히 알아보기</a>"
+        "message": "알려진 DNS 공급자"
     },
     "settings_dns_add_custom_server_name": {
         "message": "서버 이름"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "서버 이름"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "DNS 서버 주소"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "서버 IP 또는 TLS 도메인 이름"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "유효하지 않은 DNS 주소"
+        "message": "서버 주소"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS 서버가 이미 추가되었습니다"
@@ -487,10 +445,10 @@
         "message": "선택한 도메인 및 서브 도메인에 대해 AdGuard VPN이 켜집니다"
     },
     "settings_exclusion_domain_name": {
-        "message": "도메인 명:"
+        "message": "도메인명"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "서브 도메인 이름:"
+        "message": "서브 도메인"
     },
     "settings_exclusion_add_from_list": {
         "message": "목록에서 선택"
@@ -548,9 +506,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "모든 예외 항목 제거"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "계속하시겠습니까? 예외 목록이 제거됩니다."
     },
     "settings_exclusion_title": {
         "message": "예외 목록"
@@ -941,12 +896,6 @@
     },
     "popup_connections_limit_title": {
         "message": "연결 수 제한 도달"
-    },
-    "options_signedout_page_title": {
-        "message": "AdGuard VPN에서 로그아웃하셨습니다"
-    },
-    "options_signedout_page_description": {
-        "message": "VPN에 연결되어 있지 않고 트래픽이 보호되지 않습니다. 비공개적으로 인터넷 서핑을 계속하려면 AdGuard VPN 아이콘을 누르고 다시 로그인하세요."
     },
     "notification_data_limit_reached_title": {
         "message": "월별 데이터 한도에 도달했습니다"

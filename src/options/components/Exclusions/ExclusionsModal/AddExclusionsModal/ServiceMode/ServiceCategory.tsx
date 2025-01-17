@@ -6,10 +6,9 @@ import cn from 'classnames';
 import { rootStore } from '../../../../../stores';
 import { type PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
 import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
+import { Icon } from '../../../../ui/Icon';
 
 import { ServiceRow } from './ServiceRow';
-
-import s from './service-category.module.pcss';
 
 export interface ServiceCategoryProps {
     category: PreparedServiceCategory;
@@ -39,15 +38,10 @@ export const ServiceCategory = observer(({
     const unfoldCategory = exclusionsStore.unfoldAllServiceCategories
         || exclusionsStore.unfoldedServiceCategories.some((id) => id === category.id);
 
-    const categoryClassname = cn('category', {
-        category__unfolded: unfoldCategory,
-        category__folded: !unfoldCategory,
-    });
-
-    const categoryServicesClassname = cn('category__services', {
-        [s.show]: unfoldCategory,
-        [s.hide]: !unfoldCategory,
-    });
+    const categoryClassname = cn(
+        'service-mode-category',
+        unfoldCategory && 'service-mode-category--active',
+    );
 
     if (filteredServices.length === 0) {
         return null;
@@ -56,21 +50,19 @@ export const ServiceCategory = observer(({
     return (
         <div className={categoryClassname}>
             <button
+                className="service-mode-category__btn has-tab-focus"
                 type="button"
-                className="category__title"
                 onClick={handleClickOnCategory}
             >
-                <svg className="icon icon--button category__title__arrow">
-                    <use xlinkHref="#arrow" />
-                </svg>
-                {category.name}
+                <Icon name="arrow-down" className="service-mode-category__btn-icon" />
+                <span className="text-ellipsis">
+                    {category.name}
+                </span>
             </button>
-            <div className={categoryServicesClassname}>
-                {
-                    filteredServices.map((service) => {
-                        return (<ServiceRow key={service.serviceId} service={service} />);
-                    })
-                }
+            <div className="service-mode-category__services">
+                {filteredServices.map((service) => {
+                    return (<ServiceRow key={service.serviceId} service={service} />);
+                })}
             </div>
         </div>
     );

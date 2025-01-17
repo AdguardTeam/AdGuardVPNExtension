@@ -7,6 +7,7 @@ import { runtime } from './browserApi/runtime';
  */
 const enum ForwarderUrlQueryKey {
     AdguardDnsKb = 'ADGUARD_DNS_KB',
+    AdguardDnsProvidersKb = 'ADGUARD_DNS_PROVIDERS_KB',
     ComparePage = 'COMPARE_PAGE',
     DeviceCount = 'DEVICE_COUNT',
     EditAccount = 'EDIT_ACCOUNT',
@@ -66,6 +67,7 @@ const {
     STAGE_ENV,
     // keep them sorted
     ADGUARD_DNS_KB,
+    ADGUARD_DNS_PROVIDERS_KB,
     COMPARE_PAGE,
     DEVICE_COUNT,
     EDIT_ACCOUNT,
@@ -103,6 +105,7 @@ const FORWARDER_DOMAIN = CONFIG.FORWARDER_DOMAIN; // eslint-disable-line prefer-
  */
 const FORWARDER_URL_QUERIES: ForwarderUrlQueries = {
     ADGUARD_DNS_KB,
+    ADGUARD_DNS_PROVIDERS_KB,
     COMPARE_PAGE,
     DEVICE_COUNT,
     EDIT_ACCOUNT,

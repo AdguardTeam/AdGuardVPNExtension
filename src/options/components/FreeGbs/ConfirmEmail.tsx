@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
-import { reactTranslator } from '../../../common/reactTranslator';
-import { Title } from '../ui/Title';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
+import { Button } from '../ui/Button';
+import { Title } from '../ui/Title';
 
 export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
@@ -12,56 +13,52 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
 
     const resendLink = async () => {
         await resendConfirmationLink();
-        notificationsStore.notifySuccess(reactTranslator.getMessage('resend_confirm_registration_link_notification'));
+        notificationsStore.notifySuccess(translator.getMessage('resend_confirm_registration_link_notification'));
     };
 
-    const getContent = () => {
-        if (confirmBonus.available) {
-            return (
-                <>
-                    <Title title={reactTranslator.getMessage('settings_free_gbs_confirm_email_title')} />
-                    <div className="free-gbs__info">
-                        {reactTranslator.getMessage('settings_free_gbs_confirm_email_info', { your_gb: COMPLETE_TASK_BONUS_GB })}
-                    </div>
-                    <button
-                        type="button"
-                        className="button button--large button--outline-green free-gbs__button"
-                        onClick={resendLink}
-                    >
-                        {reactTranslator.getMessage('settings_free_gbs_confirm_email_resend_link_button')}
-                    </button>
-                </>
-            );
-        }
+    const isCompleted = !confirmBonus.available;
 
-        return (
-            <>
-                <Title title={reactTranslator.getMessage('confirm_email_done_title')} />
-                <div className="free-gbs__info">{reactTranslator.getMessage('confirm_email_done_info')}</div>
-                <button
-                    type="button"
-                    className="button button--large button--outline-secondary free-gbs__button"
-                    onClick={goBackHandler}
-                >
-                    {reactTranslator.getMessage('settings_free_gbs_go_back')}
-                </button>
-            </>
-        );
-    };
+    const title = isCompleted
+        ? translator.getMessage('confirm_email_done_title')
+        : translator.getMessage('settings_free_gbs_confirm_email_title');
+
+    const description = isCompleted
+        ? translator.getMessage('confirm_email_done_info')
+        : translator.getMessage('settings_free_gbs_confirm_email_info', { your_gb: COMPLETE_TASK_BONUS_GB });
 
     return (
-        <div className="free-gbs__content">
-            <button
-                className="free-gbs__back-button"
-                type="button"
-                onClick={goBackHandler}
-            >
-                <svg className="icon icon--button">
-                    <use xlinkHref="#arrow" />
-                </svg>
-            </button>
-            <div className="free-gbs__picture free-gbs__confirm-email-pic" />
-            {getContent()}
+        <div className="free-gbs-task">
+            <Title title="" onClick={goBackHandler} />
+            <img
+                src="../../../assets/images/confirm-email-task.svg"
+                alt={title}
+                className="free-gbs-task__image"
+            />
+            <Title
+                title={title}
+                subtitle={description}
+                className="free-gbs-task__title"
+            />
+            <div className="free-gbs-task__content confirm-email">
+                {!isCompleted ? (
+                    <Button
+                        size="medium"
+                        className="confirm-email__btn"
+                        onClick={resendLink}
+                    >
+                        {translator.getMessage('settings_free_gbs_confirm_email_resend_link_button')}
+                    </Button>
+                ) : (
+                    <Button
+                        variant="outlined"
+                        size="medium"
+                        onClick={goBackHandler}
+                        className="free-gbs-task__go-back-btn"
+                    >
+                        {translator.getMessage('settings_free_gbs_go_back')}
+                    </Button>
+                )}
+            </div>
         </div>
     );
 });

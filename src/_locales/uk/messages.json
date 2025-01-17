@@ -57,6 +57,9 @@
     "about_title": {
         "message": "Про розширення"
     },
+    "all_rights_reserved": {
+        "message": "Усі права захищено."
+    },
     "options_support_title": {
         "message": "Підтримка"
     },
@@ -97,13 +100,13 @@
         "message": "Сталася помилка, спробуйте пізніше."
     },
     "options_bug_report_send_button": {
-        "message": "Надіслати"
+        "message": "Надіслати звіт"
     },
     "options_bug_report_sending_button": {
-        "message": "Надсилання..."
+        "message": "Надсилання звіту..."
     },
     "options_bug_report_textarea_placeholder": {
-        "message": "Опишіть проблему тут..."
+        "message": "Надайте детальну інформацію"
     },
     "options_bug_report_page_success": {
         "message": "Дякуємо, ваше повідомлення успішно надіслано!"
@@ -118,13 +121,13 @@
         "message": "Обліковий запис"
     },
     "account_edit": {
-        "message": "Керувати обліковим записом"
+        "message": "Налаштування облікового запису"
     },
     "account_version": {
         "message": "Версія"
     },
     "account_free": {
-        "message": "Безплатний обліковий запис"
+        "message": "Безкоштовна версія"
     },
     "account_unlimited": {
         "message": "Безлімітна передплата"
@@ -142,7 +145,7 @@
         "message": "Отримати передплату"
     },
     "account_max_devices_count": {
-        "message": "До %num% пристроїв одночасно"
+        "message": "До <b>%num%</b> пристроїв одночасно"
     },
     "account_valid_until": {
         "message": "Діє до <b>%date%</b>"
@@ -157,7 +160,7 @@
         "message": "Отримайте безлімітну версію!"
     },
     "rate_description": {
-        "message": "Для нас дуже важливо дізнатись вашу думку про це розширення. Оцінить його, будь ласка."
+        "message": "Подобається AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Приховати"
@@ -234,8 +237,8 @@
     "privacy_policy": {
         "message": "Політика конфіденційності"
     },
-    "settings_title": {
-        "message": "Налаштування"
+    "settings_general_title": {
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "Отримайте безплатний VPN-трафік!"
@@ -277,16 +280,16 @@
         "message": "Надіслати повторно"
     },
     "settings_free_gbs_add_device_title": {
-        "message": "Додайте інший пристрій"
+        "message": "Додати іншу платформу"
     },
     "settings_free_gbs_add_device_info": {
-        "message": "Встановіть AdGuard VPN на ще один пристрій, увійдіть до облікового запису AdGuard на ньому — отримайте %your_gb% ГБ"
+        "message": "Встановіть AdGuard VPN для iOS, Mac, Windows або Android, увійдіть до свого облікового запису AdGuard там і отримайте %your_gb% ГБ."
     },
     "settings_free_gbs_devices_added_title": {
-        "message": "Пристрої додано"
+        "message": "Іншу платформу додано"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Вітаємо, тепер AdGuard VPN захищатиме декілька ваших пристроїв!"
+        "message": "Вітаємо з встановленням AdGuard VPN на декількох платформах. Залишайтеся в безпеці!"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Перейти до продуктів"
@@ -313,16 +316,19 @@
         "message": "Блокувати WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC — це спеціальна технологія, яка реалізована у більшості браузерів та дає можливість стороннім сайтам виявляти вашу реальну IP-адресу та використовувати її для ідентифікації вас"
+        "message": "Блокує WebRTC — відому вразливість, яка може призвести до витоку вашої реальної IP-адреси, навіть якщо ви використовуєте проксі або VPN"
     },
     "settings_context_menus_title": {
-        "message": "Додати AdGuard VPN в контекстне меню браузера"
+        "message": "Показувати AdGuard VPN у контекстному меню браузера"
+    },
+    "settings_context_menus_description": {
+        "message": "Керувати винятками VPN для конкретного сайту"
     },
     "settings_help_us_improve_title": {
-        "message": "Допоможіть нам покращити програму"
+        "message": "Надсилати анонімні повідомлення про збої"
     },
     "settings_help_us_improve_description": {
-        "message": "Дозволити AdGuard VPN збирати анонімну технічну інформацію про збої та помилки."
+        "message": "Повідомте розробників AdGuard VPN, якщо щось не так"
     },
     "context_menu_selective_mode": {
         "message": "Вибірковий режим"
@@ -339,6 +345,12 @@
     "settings_dns_label": {
         "message": "DNS-сервер"
     },
+    "settings_dns_description": {
+        "message": "Вирішуйте DNS-запити, блокуйте рекламу та трекери, шифруйте DNS-трафік, коли ви підʼєднані до VPN"
+    },
+    "settings_dns_description_current": {
+        "message": "Зараз обрано: %dnsServerName%"
+    },
     "settings_dns_popular_servers": {
         "message": "Популярні DNS-сервери"
     },
@@ -352,22 +364,22 @@
         "message": "Змінити власний DNS-сервер"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>Докладніше</a> про DNS-сервери"
+        "message": "Відомі DNS-провайдери"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Назва сервера"
     },
     "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Назва сервера"
+        "message": "Мій DNS-сервер"
     },
     "settings_dns_add_custom_server_address": {
-        "message": "Адреса DNS-сервера"
+        "message": "Адреса сервера"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP-адреса або TLS-домен сервера"
+        "message": "IP-адреса або tls://"
     },
     "settings_dns_add_custom_server_invalid_address": {
-        "message": "Недійсна адреса DNS-сервера"
+        "message": "Недійсна адреса сервера"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-сервер уже додано"
@@ -383,6 +395,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Власний DNS-сервер видалено"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Власний DNS-сервер відредаговано"
     },
     "settings_dns_selector_default_title": {
         "message": "Усталений"
@@ -487,10 +502,10 @@
         "message": "AdGuard VPN увімкнено для помічених галкою доменів та піддоменів"
     },
     "settings_exclusion_domain_name": {
-        "message": "Назва домену:"
+        "message": "Назва домену"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Назва піддомену:"
+        "message": "Піддомен"
     },
     "settings_exclusion_add_from_list": {
         "message": "Зі списку"
@@ -550,7 +565,7 @@
         "message": "Видалити всі винятки"
     },
     "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Ви дійсно хочете продовжити? Увесь список винятнів буде видалено."
+        "message": "Ви дійсно хочете видалити весь список винятків?"
     },
     "settings_exclusion_title": {
         "message": "Винятки"
@@ -945,8 +960,11 @@
     "options_signedout_page_title": {
         "message": "Ви вийшли з AdGuard VPN"
     },
+    "options_signedout_page_description_not_secure": {
+        "message": "Ваше зʼєднання не захищене!"
+    },
     "options_signedout_page_description": {
-        "message": "Зверніть увагу, що тепер ви не підʼєднані до VPN та ваш трафік не захищено! Щоб безпечно користуватись інтернетом, натисніть на іконку AdGuard VPN та увійдіть знову."
+        "message": "Щоб продовжувати безпечно серфити інтернетом, натисніть на іконку AdGuard VPN та увійдіть знову."
     },
     "notification_data_limit_reached_title": {
         "message": "Вичерпано місячний ліміт трафіку"

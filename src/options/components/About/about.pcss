@@ -1,41 +1,29 @@
 .about {
-    padding-top: 32px;
-    margin-left: 16px;
+    &__info {
+        padding: 16px 16px 0;
 
-    &__header {
-        margin-bottom: 48px;
+        &-name {
+            color: var(--text-main-text-main-default);
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        &-version {
+            color: var(--text-description-description-default);
+            font-size: 14px;
+            line-height: 1.3;
+        }
     }
 
-    &__title {
-        font-size: 16px;
-        line-height: 19px;
-        font-weight: 500;
-    }
-
-    &__version {
+    &__copyright {
+        padding: 8px 16px 24px;
+        color: var(--text-description-description-default);
         font-size: 14px;
-        line-height: 17px;
-        font-weight: 400;
-        color: var(--gray88);
-    }
-
-    &__description {
-        max-width: 385px;
-        line-height: 22px;
-    }
-
-    &__nav {
-        display: flex;
-        flex-direction: column;
+        line-height: 1.3;
     }
 
     &__link {
-        margin-bottom: 16px;
-        color: var(--green700);
-        transition: var(--t3) color;
-
-        &:hover {
-            color: var(--green900);
-        }
+        text-decoration: none;
     }
 }

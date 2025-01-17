@@ -57,6 +57,9 @@
     "about_title": {
         "message": "关于"
     },
+    "all_rights_reserved": {
+        "message": "保留所有版权。"
+    },
     "options_support_title": {
         "message": "支持"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "发生错误，请稍后再试。"
     },
-    "options_bug_report_send_button": {
-        "message": "提交"
-    },
-    "options_bug_report_sending_button": {
-        "message": "正在提交..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "描述出现什么错误..."
-    },
-    "options_bug_report_page_success": {
-        "message": "感谢您，您的信息已发送成功！"
-    },
     "options_bug_report_new_report_button": {
         "message": "新报告"
     },
@@ -118,13 +109,13 @@
         "message": "账号"
     },
     "account_edit": {
-        "message": "管理账号"
+        "message": "打开账号设置"
     },
     "account_version": {
         "message": "版本"
     },
     "account_free": {
-        "message": "免费账号"
+        "message": "免费版"
     },
     "account_unlimited": {
         "message": "无限订阅"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "获取订阅"
     },
-    "account_max_devices_count": {
-        "message": "最多可以同时连接 %num% 台设备"
-    },
     "account_valid_until": {
         "message": "有效期至 <b>%date%</b>"
     },
@@ -157,7 +145,7 @@
         "message": "获取无限版！"
     },
     "rate_description": {
-        "message": "嗨，我们是 AdGuard 团队！对我们来说，了解用户对我们产品的评价是非常重要的。请您对 AdGuard 产品进行评价。"
+        "message": "喜欢 AdGuard VPN 吗?"
     },
     "rate_hide": {
         "message": "隐藏"
@@ -234,8 +222,8 @@
     "privacy_policy": {
         "message": "隐私策略"
     },
-    "settings_title": {
-        "message": "设置"
+    "settings_general_title": {
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "获取免费流量！"
@@ -276,18 +264,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "重新发送链接"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "添加其他设备"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "在另一台设备上安装 AdGuard VPN，在上面登录您的 AdGuard 账号，获得 %your_gb%GB"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "设备添加成功"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "恭喜您在多台设备上安装 AdGuard VPN。注意安全！"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "转到产品"
     },
@@ -312,17 +288,8 @@
     "settings_webrtc_label": {
         "message": "拦截 WebRTC"
     },
-    "settings_webrtc_desc": {
-        "message": "WebRTC 是一个适用于大多数浏览器中的特殊程序，允许第三方网站检测您的真实 IP 地址并用来辨认您的身份"
-    },
-    "settings_context_menus_title": {
-        "message": "将 AdGuard VPN 添加到浏览器上下文菜单"
-    },
     "settings_help_us_improve_title": {
-        "message": "帮我们进一步改进"
-    },
-    "settings_help_us_improve_description": {
-        "message": "允许 AdGuard VPN 收集崩溃报告，技术和交互数据。数据将被匿名处理。"
+        "message": "匿名发送崩溃报告"
     },
     "context_menu_selective_mode": {
         "message": "选择模式"
@@ -352,22 +319,13 @@
         "message": "编辑自定义 DNS 服务器"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>阅读更多</a>有关 DNS 服务器的详细信息"
+        "message": "已知的 DNS 提供商"
     },
     "settings_dns_add_custom_server_name": {
         "message": "服务器名称"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "服务器名称"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "DNS 服务器地址"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "服务器 IP 或 TLS 域名"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "无效的 DNS 服务器地址"
+        "message": "服务器地址"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS 服务器添加成功"
@@ -487,10 +445,10 @@
         "message": "AdGuard VPN 已为所选域名及子域名启用"
     },
     "settings_exclusion_domain_name": {
-        "message": "域名:"
+        "message": "域名"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "子域名名称："
+        "message": "子域名"
     },
     "settings_exclusion_add_from_list": {
         "message": "从列表中"
@@ -548,9 +506,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "删除所有排除项"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "您确定想要继续吗？完整排除项列表将会被移除。"
     },
     "settings_exclusion_title": {
         "message": "排除项"
@@ -941,12 +896,6 @@
     },
     "popup_connections_limit_title": {
         "message": "已达到连接限制"
-    },
-    "options_signedout_page_title": {
-        "message": "您已退出 AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "请注意：您未连接连接 VPN，因此您的流量不受保护！为了继续匿名浏览，请点击 AdGuard VPN 图标并重新登录。"
     },
     "notification_data_limit_reached_title": {
         "message": "已达到每月流量限制"

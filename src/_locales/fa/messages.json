@@ -14,6 +14,9 @@
     "about_title": {
         "message": "درباره"
     },
+    "all_rights_reserved": {
+        "message": "همه حقوق محفوظ است."
+    },
     "options_support_title": {
         "message": "پشتيباني"
     },
@@ -35,9 +38,6 @@
     "options_bug_report_include_log_label": {
         "message": "شامل یک گزارش تشخیصی به این پیام"
     },
-    "options_bug_report_send_button": {
-        "message": "ارسال"
-    },
     "options_bug_report_textarea_label": {
         "message": "پيام"
     },
@@ -46,6 +46,9 @@
     },
     "account_version": {
         "message": "نسخه"
+    },
+    "account_free": {
+        "message": "رایگان"
     },
     "rate_hide": {
         "message": "پنهان کن"
@@ -95,8 +98,8 @@
     "privacy_policy": {
         "message": "سیاست حریم خصوصی"
     },
-    "settings_title": {
-        "message": "تنظیمات"
+    "settings_general_title": {
+        "message": "General"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "برو به محصولات"
@@ -128,20 +131,8 @@
     "settings_dns_edit_custom_server": {
         "message": "افزودن سرور DNS دلخواه"
     },
-    "settings_dns_add_custom_server_info": {
-        "message": "در مورد سرورهای DNS <a>بیشتر بخوانید</a>"
-    },
     "settings_dns_add_custom_server_name": {
         "message": "نام سرور"
-    },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "نام سرور"
-    },
-    "settings_dns_add_custom_server_address": {
-        "message": "آدرس DNS سرور"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "آدرس DNS نامعتبر"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "ذخیره و انتخاب"
@@ -211,6 +202,9 @@
     },
     "settings_exclusion_actions": {
         "message": "اقدامات"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "نام دامنه"
     },
     "settings_exclusion_modal_cancel": {
         "message": "لغو"

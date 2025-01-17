@@ -3,15 +3,15 @@ import { observer } from 'mobx-react';
 
 import { useMachine } from '@xstate/react';
 import identity from 'lodash/identity';
-import classnames from 'classnames';
 
-import { Title } from '../../ui/Title';
-import { Checkbox } from '../../ui/Checkbox';
-import { rootStore } from '../../../stores';
-import { messenger } from '../../../../common/messenger';
 import { addMinDurationTime } from '../../../../common/helpers';
-import { reactTranslator } from '../../../../common/reactTranslator';
+import { messenger } from '../../../../common/messenger';
 import { translator } from '../../../../common/translator';
+import { rootStore } from '../../../stores';
+import { Title } from '../../ui/Title';
+import { Input, TextArea } from '../../ui/Input';
+import { Checkbox } from '../../ui/Checkbox';
+import { Button } from '../../ui/Button';
 
 import { RequestEvent, RequestState, requestMachine } from './requestMachine';
 
@@ -94,13 +94,20 @@ export const BugReporter = observer(() => {
         },
     };
 
+    const handleNewReport = () => {
+        sendToRequestMachine(RequestEvent.StartAgain);
+        setFormState(DEFAULT_FORM_STATE);
+        setEmailInput(DEFAULT_FORM_STATE[FormField.Email]);
+        setFormErrors(DEFAULT_ERROR_STATE);
+    };
+
     const validateFields = (): FormError => {
         return Object.keys(formState).reduce((acc: FormError, key) => {
             const value = formState[key];
             const validator = validators[key];
             if (validator) {
                 if (typeof value === 'string') {
-                    acc[key] = validator(value);
+                    acc[key] = validator(value.trim());
                 }
             } else {
                 acc[key] = null;
@@ -153,20 +160,10 @@ export const BugReporter = observer(() => {
         });
     };
 
-    const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        const { target: { value } } = e;
-        setEmailInput(value);
-    };
-
-    const emailCleanHandler = (): void => {
-        setEmailInput('');
-    };
-
-    let buttonText = reactTranslator.getMessage('options_bug_report_send_button');
+    let buttonText = translator.getMessage('options_bug_report_send_button');
     let isButtonDisabled = !formState[FormField.Email] || !formState[FormField.Message];
-
     if (requestState.matches(RequestState.Sending)) {
-        buttonText = reactTranslator.getMessage('options_bug_report_sending_button');
+        buttonText = translator.getMessage('options_bug_report_sending_button');
         isButtonDisabled = true;
     }
 
@@ -174,139 +171,76 @@ export const BugReporter = observer(() => {
         settingsStore.setShowBugReporter(false);
     };
 
-    const bugReportTitle = (
-        <div className="bug-report__title">
-            <button className="back-button" type="button" onClick={closeHandler}>
-                <svg className="icon icon--button">
-                    <use xlinkHref="#back-arrow" />
-                </svg>
-            </button>
-            <div>
-                <Title
-                    title={reactTranslator.getMessage('options_report_bug_title')}
-                    onClick={closeHandler}
-                />
-            </div>
-        </div>
-    );
-
     if (requestState.matches(RequestState.Success)) {
-        const newReportClickHandler = () => {
-            sendToRequestMachine(RequestEvent.StartAgain);
-            setFormState(DEFAULT_FORM_STATE);
-            setEmailInput(DEFAULT_FORM_STATE[FormField.Email]);
-            setFormErrors(DEFAULT_ERROR_STATE);
-        };
-
         return (
-            <>
-                {bugReportTitle}
-
-                <div className="bug-report">
-                    <div className="bug-report__done">
-                        <img
-                            src="../../../../../assets/images/ninja-like.svg"
-                            className="bug-report__image"
-                            alt="slide"
-                        />
-                        <div className="bug-report__description">
-                            {reactTranslator.getMessage('options_bug_report_page_success')}
-                        </div>
-                        <button
-                            type="button"
-                            onClick={newReportClickHandler}
-                            className="button button--medium button--primary bug-report__action"
-                        >
-                            {reactTranslator.getMessage('options_bug_report_new_report_button')}
-                        </button>
-                    </div>
+            <div className="bug-report__success">
+                <img
+                    src="../../../../assets/images/ninja-like.svg"
+                    className="bug-report__success-image"
+                    alt="slide"
+                />
+                <div className="bug-report__success-title">
+                    {translator.getMessage('options_bug_report_page_success')}
                 </div>
-            </>
+                <Button
+                    size="medium"
+                    className="bug-report__success-btn"
+                    onClick={handleNewReport}
+                >
+                    {translator.getMessage('options_bug_report_new_report_button')}
+                </Button>
+            </div>
         );
     }
-    const emailClassName = classnames('input', { 'input--error': formErrors[FormField.Email] });
-    const messageClassName = classnames('input', { 'input--error': formErrors[FormField.Message] });
 
     return (
         <>
-            <Title title={bugReportTitle} />
+            <Title
+                title={translator.getMessage('options_report_bug_title')}
+                onClick={closeHandler}
+            />
 
-            <div className="bug-report">
-                <form
-                    className="bug-report__form"
-                    noValidate
-                    onSubmit={handleSubmit}
-                    onChange={formChangeHandler}
+            <form
+                className="bug-report__form"
+                noValidate
+                onSubmit={handleSubmit}
+                onChange={formChangeHandler}
+            >
+                <Input
+                    id={FormField.Email}
+                    label={translator.getMessage('options_bug_report_email_label')}
+                    type="email"
+                    placeholder="example@mail.com"
+                    value={emailInput}
+                    error={formErrors[FormField.Email]}
+                    onChange={setEmailInput}
+                />
+                <TextArea
+                    id={FormField.Message}
+                    label={translator.getMessage('options_bug_report_textarea_label')}
+                    placeholder={translator.getMessage('options_bug_report_textarea_placeholder')}
+                    value={formState[FormField.Message]}
+                    error={formErrors[FormField.Message]}
+                />
+                <Checkbox
+                    id={FormField.IncludeLog}
+                    label={translator.getMessage('options_bug_report_include_log_label')}
+                    value={formState[FormField.IncludeLog]}
+                />
+                {requestState.matches(RequestState.Error) && (
+                    <div className="bug-report__form-error">
+                        {translator.getMessage('options_bug_report_request_error')}
+                    </div>
+                )}
+                <Button
+                    type="submit"
+                    size="medium"
+                    className="bug-report__form-btn"
+                    disabled={isButtonDisabled}
                 >
-                    <div className="bug-report__input">
-                        <label
-                            className="bug-report__label"
-                            htmlFor={FormField.Email}
-                        >
-                            {reactTranslator.getMessage('options_bug_report_email_label')}
-                        </label>
-                        <div className={emailClassName}>
-                            <input
-                                className="input__in input__in--content input__in--close"
-                                id={FormField.Email}
-                                type="email"
-                                placeholder="example@mail.com"
-                                value={emailInput}
-                                onChange={emailChangeHandler}
-                            />
-                            {emailInput && (
-                                <button
-                                    type="button"
-                                    className="button button--icon input__close"
-                                    onClick={emailCleanHandler}
-                                >
-                                    <svg className="icon icon--button icon--cross">
-                                        <use xlinkHref="#cross" />
-                                    </svg>
-                                </button>
-                            )}
-                            <div className="input__error">{formErrors[FormField.Email]}</div>
-                        </div>
-                    </div>
-                    <div className="bug-report__input">
-                        <label
-                            className="bug-report__label"
-                            htmlFor={FormField.Message}
-                        >
-                            {reactTranslator.getMessage('options_bug_report_textarea_label')}
-                        </label>
-                        <div className={messageClassName}>
-                            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-                            <textarea
-                                className="input__in input__in--content input__in--textarea"
-                                id={FormField.Message}
-                                placeholder={translator.getMessage('options_bug_report_textarea_placeholder')}
-                                defaultValue={formState[FormField.Message]}
-                            />
-                            <div className="input__error">
-                                <span>{formErrors[FormField.Message]}</span>
-                                {requestState.matches(RequestState.Error)
-                                    && <span>{reactTranslator.getMessage('options_bug_report_request_error')}</span>}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="bug-report__checkbox">
-                        <Checkbox
-                            id={FormField.IncludeLog}
-                            value={formState[FormField.IncludeLog]}
-                            label={reactTranslator.getMessage('options_bug_report_include_log_label')}
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        tabIndex={0}
-                        disabled={isButtonDisabled}
-                        className="button button--medium button--primary bug-report__action"
-                    >
-                        {buttonText}
-                    </button>
-                </form>
-            </div>
+                    {buttonText}
+                </Button>
+            </form>
         </>
     );
 });

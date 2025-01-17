@@ -32,8 +32,8 @@
     "privacy_policy": {
         "message": "Գաղտնիության քաղաքականություն"
     },
-    "settings_title": {
-        "message": "Կարգավորումներ"
+    "settings_general_title": {
+        "message": "General"
     },
     "settings_webrtc_label": {
         "message": "Արգելափակել WebRTC-ին"

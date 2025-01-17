@@ -57,6 +57,9 @@
     "about_title": {
         "message": "AdGuard VPNについて"
     },
+    "all_rights_reserved": {
+        "message": "All rights reserved."
+    },
     "options_support_title": {
         "message": "お客様サポート"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "エラーが発生しました。後ほどもう一度お試しください。"
     },
-    "options_bug_report_send_button": {
-        "message": "送信する"
-    },
-    "options_bug_report_sending_button": {
-        "message": "送信中…"
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "こちらに問題の概要をご記入ください…"
-    },
-    "options_bug_report_page_success": {
-        "message": "送信完了！ありがとうございます。"
-    },
     "options_bug_report_new_report_button": {
         "message": "新しい報告"
     },
@@ -118,13 +109,13 @@
         "message": "アカウント"
     },
     "account_edit": {
-        "message": "アカウント管理"
+        "message": "アカウント設定を開く"
     },
     "account_version": {
         "message": "バージョン"
     },
     "account_free": {
-        "message": "無料プラン"
+        "message": "無料版"
     },
     "account_unlimited": {
         "message": "無制限プラン"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "サブスクリプションを購入する"
     },
-    "account_max_devices_count": {
-        "message": "同時接続可能端末数: %num%台"
-    },
     "account_valid_until": {
         "message": "有効期間: <b>%date% まで</b>"
     },
@@ -157,7 +145,7 @@
         "message": "無制限版を入手しよう！"
     },
     "rate_description": {
-        "message": "AdGuardチームです。私たちにとってユーザー様のご意見が一番大事です。ぜひ本製品をご評価いただくようお願いいたします。"
+        "message": "AdGuard VPN に満足されていますでしょうか？"
     },
     "rate_hide": {
         "message": "非表示"
@@ -234,8 +222,8 @@
     "privacy_policy": {
         "message": "プライバシーポリシー"
     },
-    "settings_title": {
-        "message": "設定"
+    "settings_general_title": {
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "無料GBをGET！"
@@ -276,18 +264,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "リンクを再送信する"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "もう1台の端末を追加する"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "AdGuard VPNをもう1台のデバイスにインストールし、そのデバイスでAdGuardアカウントにログインしますと、%your_gb%GBを取得できます。"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "デバイスが追加されました。"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "AdGuard VPNを複数のデバイスにインストールすることができ、おめでとうございます。安全にお過ごしください。"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "製品一覧へ移動する"
     },
@@ -312,17 +288,8 @@
     "settings_webrtc_label": {
         "message": "WebRTCをブロックする"
     },
-    "settings_webrtc_desc": {
-        "message": "WebRTCは、ほとんどのインターネットブラウザーにある特別なプログラムであり、サードパーティ（第三者）Webサイトがあなたの実際のIPアドレスを検出し、それを使用してあなたを識別することを可能にします。"
-    },
-    "settings_context_menus_title": {
-        "message": "ブラウザの右クリックメニューにAdGuard VPNを追加する"
-    },
     "settings_help_us_improve_title": {
-        "message": "AdGuard VPNの改善に協力する"
-    },
-    "settings_help_us_improve_description": {
-        "message": "AdGuard VPNによる、クラッシュレポート、技術データ、およびインタラクションデータの収集を許可します。※この情報は完全に匿名です。"
+        "message": "匿名のクラッシュレポートを送信する"
     },
     "context_menu_selective_mode": {
         "message": "指定モード"
@@ -352,22 +319,13 @@
         "message": "カスタムDNSサーバーを編集"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "DNSサーバーについて、<a>詳しくはこちら</a>"
+        "message": "既知のDNSプロバイダー"
     },
     "settings_dns_add_custom_server_name": {
         "message": "サーバー名"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "サーバー名"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "DNSサーバアドレス"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "サーバーIPまたはTLSドメイン名"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "DNSサーバーアドレスが無効です"
+        "message": "サーバーアドレス"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "このDNSサーバーはすでに追加されています"
@@ -487,10 +445,10 @@
         "message": "AdGuard VPNはチェック入りドメインとサブドメインに対してオンです"
     },
     "settings_exclusion_domain_name": {
-        "message": "ドメイン名:"
+        "message": "ドメイン名"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "サブドメイン名:"
+        "message": "サブドメイン"
     },
     "settings_exclusion_add_from_list": {
         "message": "リストから選ぶ"
@@ -548,9 +506,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "すべての除外項目を削除する"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "続行してよろしいですか？除外リストが完全に削除されます。"
     },
     "settings_exclusion_title": {
         "message": "VPN対象からの除外"
@@ -941,12 +896,6 @@
     },
     "popup_connections_limit_title": {
         "message": "同時接続可能端末数の上限に達成"
-    },
-    "options_signedout_page_title": {
-        "message": "AdGuard VPNからログアウトしました"
-    },
-    "options_signedout_page_description": {
-        "message": "※VPNに接続されていないので、通信が保護されていません。安全にネット閲覧を続けるには、AdGuard VPNのアイコンをクリックし、再度ログインしてください。"
     },
     "notification_data_limit_reached_title": {
         "message": "月間無料通信量の上限に達しました。"

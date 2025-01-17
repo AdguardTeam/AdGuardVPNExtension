@@ -57,6 +57,9 @@
     "about_title": {
         "message": "O aplikaci"
     },
+    "all_rights_reserved": {
+        "message": "Všechna práva vyhrazena."
+    },
     "options_support_title": {
         "message": "Podpora"
     },
@@ -97,13 +100,13 @@
         "message": "Došlo k chybě. Prosím, zkuste to znovu později."
     },
     "options_bug_report_send_button": {
-        "message": "Odeslat"
+        "message": "Odeslat hlášení"
     },
     "options_bug_report_sending_button": {
-        "message": "Odesílání..."
+        "message": "Odesílání hlášení..."
     },
     "options_bug_report_textarea_placeholder": {
-        "message": "Zde popište nalezenou chybu..."
+        "message": "Uveďte podrobnosti"
     },
     "options_bug_report_page_success": {
         "message": "Děkujeme, Vaše zpráva byla úspěšně odeslána!"
@@ -118,13 +121,13 @@
         "message": "Účet"
     },
     "account_edit": {
-        "message": "Spravovat účet"
+        "message": "Otevřít nastavení účtu"
     },
     "account_version": {
         "message": "Verze"
     },
     "account_free": {
-        "message": "Účet zdarma"
+        "message": "Bezplatná verze"
     },
     "account_unlimited": {
         "message": "Neomezené předplatné"
@@ -142,7 +145,7 @@
         "message": "Získat předplatné"
     },
     "account_max_devices_count": {
-        "message": "Až %num% připojená zařízení současně"
+        "message": "Až <b>%num%</b> zařízení připojených současně"
     },
     "account_valid_until": {
         "message": "Platí do <b>%date%</b>"
@@ -157,7 +160,7 @@
         "message": "Získat neomezenou verzi!"
     },
     "rate_description": {
-        "message": "Ahoj, jsme tým AdGuardu a je pro nás velmi důležité znát Váš názor na náš produkt. Prosíme ohodnoťte jej."
+        "message": "Užíváte si AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Skrýt"
@@ -234,8 +237,8 @@
     "privacy_policy": {
         "message": "Zásady ochrany osobních údajů"
     },
-    "settings_title": {
-        "message": "Nastavení"
+    "settings_general_title": {
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "Získejte GB zdarma!"
@@ -277,16 +280,16 @@
         "message": "Znovu odeslat odkaz"
     },
     "settings_free_gbs_add_device_title": {
-        "message": "Přidat další zařízení"
+        "message": "Přidat další platformu"
     },
     "settings_free_gbs_add_device_info": {
-        "message": "Nainstalujte si AdGuard VPN na další zařízení, přihlaste se na něm ke svému účtu AdGuard a získejte %your_gb% GB"
+        "message": "Nainstalujte si AdGuard VPN pro iOS, Windows nebo Android, přihlaste se ke svému účtu AdGuard a získejte %your_gb% GB."
     },
     "settings_free_gbs_devices_added_title": {
-        "message": "Přidaná zařízení"
+        "message": "Další platforma přidána"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Gratulujeme k instalaci AdGuard VPN na vícero zařízení. Zůstaňte v bezpečí!"
+        "message": "Gratulujeme k instalaci AdGuard VPN na více platformách. Zůstaňte v bezpečí!"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Přejít na produkty"
@@ -313,16 +316,19 @@
         "message": "Blokovat WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC je speciální program ve většině internetových prohlížečů, který umožňuje webové stránce třetí strany zjistit vaši skutečnou IP adresu a použít ji k vaší identifikaci"
+        "message": "Blokuje WebRTC, známou zranitelnost, která může prozradit vaši skutečnou IP adresu, i když používáte proxy server nebo VPN"
     },
     "settings_context_menus_title": {
-        "message": "Přidat AdGuard VPN do kontextového menu prohlížeče"
+        "message": "Zobrazit AdGuard VPN v kontextovém menu prohlížeče"
+    },
+    "settings_context_menus_description": {
+        "message": "Správa výjimek VPN pro konkrétní webovou stránku"
     },
     "settings_help_us_improve_title": {
-        "message": "Pomozte nám vylepšit"
+        "message": "Odesílání anonymních hlášení o pádu aplikace"
     },
     "settings_help_us_improve_description": {
-        "message": "Umožněte službě AdGuard VPN shromažďovat zprávy o selhání, technické a interakční údaje. Je to anonymní."
+        "message": "Upozorněte vývojáře AdGuard VPN, pokud se něco pokazí"
     },
     "context_menu_selective_mode": {
         "message": "Selektivní režim"
@@ -339,6 +345,12 @@
     "settings_dns_label": {
         "message": "DNS server"
     },
+    "settings_dns_description": {
+        "message": "Řešení požadavků DNS, blokování reklam a slídičů a šifrování provozu DNS při připojení k VPN"
+    },
+    "settings_dns_description_current": {
+        "message": "Aktuální: %dnsServerName%"
+    },
     "settings_dns_popular_servers": {
         "message": "Populární DNS servery"
     },
@@ -352,22 +364,22 @@
         "message": "Editovat vlastní DNS server"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>Přečtěte si více</a> o serverech DNS"
+        "message": "Známí poskytovatelé DNS"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Název serveru"
     },
     "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Název serveru"
+        "message": "Můj DNS server"
     },
     "settings_dns_add_custom_server_address": {
-        "message": "Adresa serveru DNS"
+        "message": "Adresa serveru"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP serveru nebo název domény TLS"
+        "message": "IP adresa nebo tls://"
     },
     "settings_dns_add_custom_server_invalid_address": {
-        "message": "Neplatná adresa DNS serveru"
+        "message": "Neplatná adresa serveru"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Server DNS je již přidán"
@@ -383,6 +395,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Vlastní DNS server byl smazán"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Vlastní DNS server byl upraven"
     },
     "settings_dns_selector_default_title": {
         "message": "Výchozí"
@@ -487,10 +502,10 @@
         "message": "AdGuard VPN je zapnuta pro zaškrtnuté domény a subdomény"
     },
     "settings_exclusion_domain_name": {
-        "message": "Název domény:"
+        "message": "Název domény"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Název subdomény:"
+        "message": "Subdoména"
     },
     "settings_exclusion_add_from_list": {
         "message": "Ze seznamu"
@@ -550,7 +565,7 @@
         "message": "Odstranit všechny výjimky"
     },
     "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Opravdu chcete pokračovat? Celý seznam výjimek bude odstraněn."
+        "message": "Chcete odstranit celý seznam výjimek?"
     },
     "settings_exclusion_title": {
         "message": "Výjimky"
@@ -945,8 +960,11 @@
     "options_signedout_page_title": {
         "message": "Odhlásili jste se z AdGuard VPN"
     },
+    "options_signedout_page_description_not_secure": {
+        "message": "Vaše připojení není zabezpečeno!"
+    },
     "options_signedout_page_description": {
-        "message": "Upozornění: nejste připojeni k síti VPN a váš provoz není chráněn! Chcete-li pokračovat v soukromém surfování, klikněte na ikonu AdGuard VPN a znovu se přihlaste."
+        "message": "Chcete-li pokračovat v soukromém procházení internetu, klikněte na ikonu AdGuard VPN a znovu se přihlaste."
     },
     "notification_data_limit_reached_title": {
         "message": "Měsíční datový limit je dosažen"

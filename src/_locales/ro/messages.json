@@ -57,6 +57,9 @@
     "about_title": {
         "message": "Despre"
     },
+    "all_rights_reserved": {
+        "message": "Toate drepturile rezervate."
+    },
     "options_support_title": {
         "message": "Suport"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "A apărut o eroare. Vă rugăm să încercați din nou mai târziu."
     },
-    "options_bug_report_send_button": {
-        "message": "Trimite"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Se trimite..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Descrieți problema aici..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Vă mulțumim, mesajul dvs. a fost trimis cu succes!"
-    },
     "options_bug_report_new_report_button": {
         "message": "Raport nou"
     },
@@ -118,13 +109,13 @@
         "message": "Cont"
     },
     "account_edit": {
-        "message": "Gestionați contul"
+        "message": "A deschide setările contului"
     },
     "account_version": {
         "message": "Versiune"
     },
     "account_free": {
-        "message": "Cont gratuit"
+        "message": "Versiune gratuită"
     },
     "account_unlimited": {
         "message": "Abonament nelimitat"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "Obțineți abonamentul"
     },
-    "account_max_devices_count": {
-        "message": "Până la %num% dispozitive simultan"
-    },
     "account_valid_until": {
         "message": "Valabil până la <b>%date%</b>"
     },
@@ -157,7 +145,7 @@
         "message": "Obțineți versiunea nelimitată!"
     },
     "rate_description": {
-        "message": "Hei, suntem o echipă de la AdGuard și pentru noi este esențial să vă știm părerea despre produsul nostru. Vă rugăm să-l evaluați."
+        "message": "Vă bucurați de AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Ascunde"
@@ -234,8 +222,8 @@
     "privacy_policy": {
         "message": "Politică Intimitate"
     },
-    "settings_title": {
-        "message": "Setări"
+    "settings_general_title": {
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "Obțineți GB gratuit!"
@@ -276,18 +264,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Trimiteți din nou linkul"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Adăugați alt dispozitiv"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Instalați AdGuard VPN pe încă un dispozitiv, apoi conectați-vă de pe acesta la contul AdGuard și primiți %your_gb% GB"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Dispozitive adăugate"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Felicitări pentru instalarea AdGuard VPN pe mai multe dispozitive. Rămâneți în siguranță!"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Mergi la Produse"
     },
@@ -312,17 +288,8 @@
     "settings_webrtc_label": {
         "message": "Blocați WebRTC"
     },
-    "settings_webrtc_desc": {
-        "message": "WebRTC este un program special în cele mai multe browsere internet care poate permite unui site terț să vă detecteze adresa IP reală pentru a vă identifica"
-    },
-    "settings_context_menus_title": {
-        "message": "Adăugați AdGuard VPN la meniul contextual al browserului"
-    },
     "settings_help_us_improve_title": {
-        "message": "Ajutați-ne să ne îmbunătățim"
-    },
-    "settings_help_us_improve_description": {
-        "message": "Permiteți AdGuard VPN să adune rapoarte de avarie, date tehnice și de interacțiune. Acest lucru este anonim."
+        "message": "Trimiteți rapoarte de blocare anonime"
     },
     "context_menu_selective_mode": {
         "message": "Modul selectiv"
@@ -352,22 +319,13 @@
         "message": "Editarea serverului DNS personalizat"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>Aflați mai multe</a> despre serverele DNS"
+        "message": "Furnizori DNS cunoscuți"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Nume de server"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Nume de server"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "Adresă server DNS"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP-ul serverului sau numele de domeniu TLS"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "Adresă DNS invalidă"
+        "message": "Adresa serverului"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Server DNS deja adăugat"
@@ -487,10 +445,10 @@
         "message": "AdGuard VPN este activat pentru domeniile și subdomeniile verificate"
     },
     "settings_exclusion_domain_name": {
-        "message": "Nume domeniu:"
+        "message": "Nume domeniu"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Numele subdomeniului:"
+        "message": "Subdomeniu"
     },
     "settings_exclusion_add_from_list": {
         "message": "Din listă"
@@ -548,9 +506,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Eliminați toate excluderile"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Sunteți sigur că doriți să continuați? Întreaga listă de excluderi va fi eliminată."
     },
     "settings_exclusion_title": {
         "message": "Excluderi"
@@ -941,12 +896,6 @@
     },
     "popup_connections_limit_title": {
         "message": "Limita de conexiuni a fost atinsă"
-    },
-    "options_signedout_page_title": {
-        "message": "V-ați deconectat de la AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "Vă rugăm să rețineți: nu sunteți conectat la VPN și traficul dvs. nu este protejat! Pentru a continua să navigați în mod privat, faceți clic pe pictograma AdGuard VPN și conectați-vă din nou."
     },
     "notification_data_limit_reached_title": {
         "message": "Limita lunară de date a fost atinsă"

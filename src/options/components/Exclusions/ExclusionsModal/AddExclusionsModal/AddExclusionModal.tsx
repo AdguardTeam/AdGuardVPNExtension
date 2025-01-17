@@ -3,18 +3,20 @@ import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
 
-import { ExclusionsModal } from '../ExclusionsModal';
 import { rootStore } from '../../../../stores';
 import { AddExclusionMode } from '../../../../stores/ExclusionsStore';
-import { reactTranslator } from '../../../../../common/reactTranslator';
+import { translator } from '../../../../../common/translator';
+import { Modal } from '../../../ui/Modal';
+import { Button } from '../../../ui/Button';
 
-import { ServiceMode } from './ServiceMode/ServiceMode';
-import { ManualMode } from './ManualMode/ManualMode';
+import { SERVICE_FORM_ID, ServiceMode } from './ServiceMode';
+import { MANUAL_FORM_ID, ManualMode } from './ManualMode';
 
-import '../exclusions-modal.pcss';
+import './add-exclusion-modal.pcss';
 
 export const AddExclusionModal = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
+    const { addExclusionMode } = exclusionsStore;
 
     const isOpen = exclusionsStore.addExclusionModalOpen;
 
@@ -33,50 +35,74 @@ export const AddExclusionModal = observer(() => {
     const ModeSelectButtons = {
         service: {
             classname: classnames(
-                'mode-select-button',
-                { enabled: exclusionsStore.addExclusionMode === AddExclusionMode.Service },
+                'add-exclusion-modal__tabs-item has-tab-focus',
+                addExclusionMode === AddExclusionMode.Service && 'add-exclusion-modal__tabs-item--active',
             ),
         },
         manual: {
             classname: classnames(
-                'mode-select-button',
-                { enabled: exclusionsStore.addExclusionMode === AddExclusionMode.Manual },
+                'add-exclusion-modal__tabs-item has-tab-focus',
+                addExclusionMode === AddExclusionMode.Manual && 'add-exclusion-modal__tabs-item--active',
             ),
         },
     };
 
     const MODE_MAP = {
-        [AddExclusionMode.Service]: () => <ServiceMode />,
-        [AddExclusionMode.Manual]: () => <ManualMode />,
+        [AddExclusionMode.Service]: {
+            formId: SERVICE_FORM_ID,
+            btnText: translator.getMessage('settings_exclusion_modal_save'),
+            btnDisabled: !exclusionsStore.servicesToToggle.length,
+            content: () => <ServiceMode />,
+        },
+        [AddExclusionMode.Manual]: {
+            formId: MANUAL_FORM_ID,
+            btnText: translator.getMessage('settings_exclusion_add_manually_add'),
+            btnDisabled: false,
+            content: () => <ManualMode />,
+        },
     };
 
-    const mode = MODE_MAP[exclusionsStore.addExclusionMode];
+    const mode = MODE_MAP[addExclusionMode];
 
     return (
-        <ExclusionsModal
+        <Modal
             isOpen={isOpen}
-            closeModal={onClose}
-            title={reactTranslator.getMessage('settings_exclusion_add_website')}
+            title={translator.getMessage('settings_exclusion_add_website')}
+            actions={(
+                <>
+                    <Button variant="outlined" onClick={onClose}>
+                        {translator.getMessage('settings_exclusion_modal_cancel')}
+                    </Button>
+                    <Button form={mode.formId} type="submit" disabled={mode.btnDisabled}>
+                        {mode.btnText}
+                    </Button>
+                </>
+            )}
+            className="exclusions__modal add-exclusion-modal"
+            size="medium"
+            onClose={onClose}
         >
-            <div className="modal__mode-selectors">
+            <div className="add-exclusion-modal__tabs">
                 <button
                     onClick={onServiceModeClick}
                     type="button"
                     className={ModeSelectButtons.service.classname}
                 >
-                    {reactTranslator.getMessage('settings_exclusion_add_from_list')}
+                    <span className="add-exclusion-modal__tabs-item-text text-ellipsis">
+                        {translator.getMessage('settings_exclusion_add_from_list')}
+                    </span>
                 </button>
                 <button
                     onClick={onManualModeClick}
                     type="button"
                     className={ModeSelectButtons.manual.classname}
                 >
-                    {reactTranslator.getMessage('settings_exclusion_add_manually')}
+                    <span className="add-exclusion-modal__tabs-item-text text-ellipsis">
+                        {translator.getMessage('settings_exclusion_add_manually')}
+                    </span>
                 </button>
             </div>
-            <div className="modal__mode">
-                {mode()}
-            </div>
-        </ExclusionsModal>
+            {mode.content()}
+        </Modal>
     );
 });

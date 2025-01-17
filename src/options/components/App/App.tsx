@@ -1,30 +1,26 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import Modal from 'react-modal';
 
-import { RequestStatus } from '../../stores/consts';
-import { rootStore } from '../../stores';
-import { Sidebar } from '../Sidebar';
-import { Settings } from '../Settings';
-import { FreeGbs } from '../FreeGbs';
-import { Account } from '../Account';
-import { About } from '../About';
-import { SignedOut } from '../SignedOut';
-import { Preloader } from '../Preloader';
-import Icons from '../ui/Icons';
-import { Support } from '../Support';
-import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
-import { Exclusions } from '../Exclusions';
+import { rootStore } from '../../stores';
+import { RequestStatus } from '../../stores/consts';
 import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
-
-import { useMessageHandler } from './useMessageHandler';
+import { useMessageHandler } from '../../hooks/useMessageHandler';
+import { Notifications } from '../ui/Notifications';
+import { Icons } from '../ui/Icon';
+import { Preloader } from '../Preloader';
+import { SignedOut } from '../SignedOut';
+import { Sidebar } from '../Sidebar';
+import { General } from '../General';
+import { Exclusions } from '../Exclusions';
+import { Account } from '../Account';
+import { Support } from '../Support';
+import { About } from '../About';
+import { FreeGbs } from '../FreeGbs';
 
 import '../../styles/main.pcss';
 import './app.pcss';
-
-Modal.setAppElement('#root');
 
 const getContent = (
     authenticated: boolean,
@@ -39,7 +35,7 @@ const getContent = (
                 <div className="content" inert={isContentLocked ? '' : undefined}>
                     <div className="content__wrapper">
                         <Switch>
-                            <Route path="/" exact component={Settings} />
+                            <Route path="/" exact component={General} />
                             <Route path="/exclusions" exact component={Exclusions} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
@@ -47,7 +43,7 @@ const getContent = (
                             {!isPremiumToken && (
                                 <Route path="/free-gbs" component={FreeGbs} />
                             )}
-                            <Route component={Settings} />
+                            <Route component={General} />
                         </Switch>
                     </div>
                 </div>

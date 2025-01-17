@@ -1,10 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import React, {
+    useContext,
+    useEffect,
+    useLayoutEffect,
+    useState,
+} from 'react';
 import { observer } from 'mobx-react';
 
 import classNames from 'classnames';
 
 import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
+import { IconButton } from '../ui/Icon';
 
 import { SidebarLink } from './SidebarLink';
 import { Rate } from './Rate';
@@ -22,6 +28,7 @@ export const Sidebar = observer(() => {
 
     const {
         isSidebarOpen,
+        isAnyModalOpen,
         openSidebar,
         closeSidebar,
     } = uiStore;
@@ -31,7 +38,32 @@ export const Sidebar = observer(() => {
         isSidebarOpen && 'sidebar--open',
     );
 
-    const isMobileScreen = window.matchMedia('(max-width: 865px)').matches;
+    const smallTabletQuery = '(max-width: 875px)';
+    const [isSmallTabletScreen, setIsSmallTabletScreen] = useState(window.matchMedia(smallTabletQuery).matches);
+
+    useLayoutEffect(() => {
+        const matchMedia = window.matchMedia(smallTabletQuery);
+
+        const handleScreenChange = (e: MediaQueryListEvent) => {
+            setIsSmallTabletScreen(e.matches);
+        };
+
+        // Triggered at the first client-side load and if query changes
+        setIsSmallTabletScreen(matchMedia.matches);
+
+        matchMedia.addEventListener('change', handleScreenChange);
+
+        return () => {
+            matchMedia.removeEventListener('change', handleScreenChange);
+        };
+    }, []);
+
+    /**
+     * Lock sidebar from tab focus in following scenarios:
+     * - Any modal open
+     * - Sidebar closed on mobile screen
+     */
+    const isSidebarLocked = isAnyModalOpen || (!isSidebarOpen && isSmallTabletScreen);
 
     useEffect(() => {
         (async () => {
@@ -48,25 +80,20 @@ export const Sidebar = observer(() => {
     return (
         <div className={classes}>
             <div className="sidebar__header" inert={isSidebarOpen ? '' : undefined}>
-                {/* TODO: Export icons to component (AG-38059) */}
-                <button
-                    className="sidebar__open-btn has-tab-focus"
-                    type="button"
+                <IconButton
+                    name="sidebar-burger"
                     onClick={openSidebar}
-                >
-                    <svg className="sidebar__open-btn-icon">
-                        <use xlinkHref="#sidebar-burger" />
-                    </svg>
-                </button>
+                    className="sidebar__open-btn"
+                />
             </div>
             <div className="sidebar__overlay" onClick={closeSidebar} />
-            <div className="sidebar__content" inert={!isSidebarOpen && isMobileScreen ? '' : undefined}>
+            <div className="sidebar__content" inert={isSidebarLocked ? '' : undefined}>
                 <div className="sidebar__logo">
                     <div className="logo" />
                 </div>
                 <nav className="sidebar__nav" onClick={handleCloseAll}>
                     <SidebarLink to="/">
-                        {translator.getMessage('settings_title')}
+                        {translator.getMessage('settings_general_title')}
                     </SidebarLink>
                     <SidebarLink to="/exclusions">
                         {translator.getMessage('settings_exclusion_title')}
@@ -89,16 +116,11 @@ export const Sidebar = observer(() => {
                         </SidebarLink>
                     )}
                 </nav>
-                {/* TODO: Export icons to component (AG-38059) */}
-                <button
-                    className="sidebar__close-btn has-tab-focus"
-                    type="button"
+                <IconButton
+                    name="cross"
                     onClick={closeSidebar}
-                >
-                    <svg className="sidebar__close-btn-icon">
-                        <use xlinkHref="#cross" />
-                    </svg>
-                </button>
+                    className="sidebar__close-btn"
+                />
                 <Rate />
             </div>
         </div>

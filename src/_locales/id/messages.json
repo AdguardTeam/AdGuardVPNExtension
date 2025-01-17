@@ -35,6 +35,9 @@
     "about_title": {
         "message": "Tentang"
     },
+    "all_rights_reserved": {
+        "message": "Hak cipta dilindungi undang-undang."
+    },
     "options_support_title": {
         "message": "Dukungan"
     },
@@ -62,20 +65,20 @@
     "options_bug_report_email_invalid": {
         "message": "Alamat e-mail salah"
     },
-    "options_bug_report_send_button": {
-        "message": "Kirim"
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Jelaskan bug yang ditemukan disini..."
-    },
     "options_bug_report_textarea_label": {
         "message": "Pesan"
     },
     "account_title": {
         "message": "Akun"
     },
+    "account_edit": {
+        "message": "Buka pengaturan akun"
+    },
     "account_version": {
         "message": "Versi"
+    },
+    "account_free": {
+        "message": "Gratis"
     },
     "account_get_subscription": {
         "message": "Langganan sekarang"
@@ -90,7 +93,7 @@
         "message": "Keluar"
     },
     "rate_description": {
-        "message": "Hai, kami adalah tim dari AdGuard dan ini sangat penting bagi kami mengetahui opini Anda tentang produk kami. Silakan beri nilai."
+        "message": "Menikmati AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Sembunyikan"
@@ -161,8 +164,8 @@
     "privacy_policy": {
         "message": "Kebijakan Privasi"
     },
-    "settings_title": {
-        "message": "Pengaturan"
+    "settings_general_title": {
+        "message": "General"
     },
     "settings_referral_invited_friends": {
         "message": "Teman yang diundang %count%/%limit%"
@@ -179,9 +182,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Kirim ulang tautan"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Pasang AdGuard VPN di satu perangkat lagi, masuk ke akun AdGuard Anda di perangkat tersebut, dan dapatkan %your_gb% GB"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Buka Produk"
     },
@@ -193,15 +193,6 @@
     },
     "settings_webrtc_label": {
         "message": "Blokir WebRTC"
-    },
-    "settings_webrtc_desc": {
-        "message": "WebRTC adalah program khusus di sebagian besar peramban Internet yang memungkinkan situs web pihak ketiga mendeteksi alamat IP asli dan memakainya untuk mengidentifikasi Anda"
-    },
-    "settings_context_menus_title": {
-        "message": "Tambahkan item AdGuard VPN ke menu konteks peramban"
-    },
-    "settings_help_us_improve_title": {
-        "message": "Bantu kami meningkatkan"
     },
     "context_menu_selective_mode": {
         "message": "Mode selektif"
@@ -227,20 +218,11 @@
     "settings_dns_edit_custom_server": {
         "message": "Edit server DNS kustom"
     },
-    "settings_dns_add_custom_server_info": {
-        "message": "<a>Baca lebih lanjut</a> tentang server DNS"
-    },
     "settings_dns_add_custom_server_name": {
         "message": "Nama server"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Nama server"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "Alamat server DNS"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "Alamat server DNS tidak valid"
+        "message": "Alamat server"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Simpan dan pilih"
@@ -327,7 +309,10 @@
         "message": "AdGuard VPN aktif untuk domain dan subdomain yang diperiksa"
     },
     "settings_exclusion_domain_name": {
-        "message": "Nama domain:"
+        "message": "Nama domain"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Subdomain"
     },
     "settings_exclusion_add_from_list": {
         "message": "Dari daftar"

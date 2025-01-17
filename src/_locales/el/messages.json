@@ -38,6 +38,9 @@
     "about_title": {
         "message": "Σχετικά με"
     },
+    "all_rights_reserved": {
+        "message": "Όλα τα δικαιώματα διατηρούνται."
+    },
     "options_support_title": {
         "message": "Υποστήριξη"
     },
@@ -74,18 +77,6 @@
     "options_bug_report_request_error": {
         "message": "Παρουσιάστηκε σφάλμα. Παρακαλώ δοκιμάστε ξανά αργότερα."
     },
-    "options_bug_report_send_button": {
-        "message": "Υποβολή"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Υποβολή..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Περιγράψτε το πρόβλημα εδώ..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Σας ευχαριστούμε, το μήνυμά σας υποβλήθηκε με επιτυχία!"
-    },
     "options_bug_report_new_report_button": {
         "message": "Νέα αναφορά"
     },
@@ -97,9 +88,6 @@
     },
     "account_version": {
         "message": "Έκδοση"
-    },
-    "rate_description": {
-        "message": "Γεια σας, είμαστε μια ομάδα από το AdGuard και είναι πολύ σημαντικό να γνωρίζουμε τη γνώμη σας για το προϊόν μας. Παρακαλώ αξιολογήστε το."
     },
     "rate_hide": {
         "message": "Απόκρυψη"
@@ -161,9 +149,6 @@
     "privacy_policy": {
         "message": "Πολιτική Απορρήτου"
     },
-    "settings_title": {
-        "message": "Ρυθμίσεις"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Μεταβείτε στα Προϊόντα"
     },
@@ -175,18 +160,6 @@
     },
     "settings_webrtc_label": {
         "message": "Αποκλεισμός WebRTC"
-    },
-    "settings_webrtc_desc": {
-        "message": "Το WebRTC είναι ένα ειδικό πρόγραμμα στα περισσότερα προγράμματα περιήγησης που μπορούν να επιτρέψουν σε έναν ιστότοπο τρίτου μέρους να εντοπίσει την πραγματική σας διεύθυνση IP και να την χρησιμοποιήσει για να σας αναγνωρίσει"
-    },
-    "settings_context_menus_title": {
-        "message": "Προσθήκη στοιχείου AdGuard VPN στο μενού περιβάλλοντος του προγράμματος περιήγησης"
-    },
-    "settings_help_us_improve_title": {
-        "message": "Βοηθήστε μας να βελτιωθούμε"
-    },
-    "settings_help_us_improve_description": {
-        "message": "Επιτρέψτε στο AdGuard VPN να συλλέγει αναφορές σφαλμάτων, τεχνικά δεδομένα και δεδομένα αλληλεπίδρασης. Αυτό είναι ανώνυμο."
     },
     "context_menu_selective_mode": {
         "message": "Επιλεκτική λειτουργία"
@@ -214,12 +187,6 @@
     },
     "settings_dns_add_custom_server_name": {
         "message": "Όνομα διακομιστή"
-    },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Όνομα διακομιστή"
-    },
-    "settings_dns_add_custom_server_address": {
-        "message": "Διεύθυνση διακομιστή DNS"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Αποθήκευση και επιλογή"
@@ -291,7 +258,7 @@
         "message": "Ενέργειες"
     },
     "settings_exclusion_domain_name": {
-        "message": "Όνομα τομέα:"
+        "message": "Όνομα τομέα"
     },
     "settings_exclusion_modal_cancel": {
         "message": "Άκυρο"
@@ -499,9 +466,6 @@
     },
     "popup_connections_limit_title": {
         "message": "Συμπληρώθηκε το όριο συνδέσεων"
-    },
-    "options_signedout_page_title": {
-        "message": "Έχετε αποσυνδεθεί από το AdGuard VPN"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

@@ -57,6 +57,9 @@
     "about_title": {
         "message": "Thông tin"
     },
+    "all_rights_reserved": {
+        "message": "Tất cả các quyền đã được đăng ký trước"
+    },
     "options_support_title": {
         "message": "Hỗ trợ"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "Đã xảy ra lỗi. Vui lòng thử lại sau."
     },
-    "options_bug_report_send_button": {
-        "message": "Gửi"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Đang gửi..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Mô tả vấn đề ở đây..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Cảm ơn bạn, tin nhắn của bạn đã được gửi thành công!"
-    },
     "options_bug_report_new_report_button": {
         "message": "Báo cáo mới"
     },
@@ -118,13 +109,13 @@
         "message": "Tài khoản"
     },
     "account_edit": {
-        "message": "Chỉnh sửa"
+        "message": "Mở cài đặt tài khoản"
     },
     "account_version": {
         "message": "Phiên bản"
     },
     "account_free": {
-        "message": "Tài khoản miễn phí"
+        "message": "Phiên bản miễn phí"
     },
     "account_unlimited": {
         "message": "Đăng ký không giới hạn"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "Đăng ký"
     },
-    "account_max_devices_count": {
-        "message": "Cùng lúc tối đa %num% thiết bị"
-    },
     "account_valid_until": {
         "message": "Có giá trị đến <b>%date%</b>"
     },
@@ -157,7 +145,7 @@
         "message": "Tải ngay phiên bản Không giới hạn!"
     },
     "rate_description": {
-        "message": "Xin chào, chúng tôi là một nhóm đến từ AdGuard và điều rất quan trọng là chúng tôi phải biết ý kiến ​​của bạn về sản phẩm của chúng tôi. Hãy đánh giá nó."
+        "message": "Tận hưởng việc sử dụng AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Ẩn"
@@ -234,8 +222,8 @@
     "privacy_policy": {
         "message": "Chính sách quyền riêng tư"
     },
-    "settings_title": {
-        "message": "Cài đặt"
+    "settings_general_title": {
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "Nhận GB miễn phí!"
@@ -276,18 +264,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Gửi lại liên kết"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Thêm thiết bị khác"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Cài đặt AdGuard VPN trên một thiết bị khác, đăng nhập vào tài khoản AdGuard của bạn trên thiết bị đó và nhận %your_gb% GB"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Đã thêm thiết bị"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Chúc mừng bạn đã cài đặt AdGuard VPN trên nhiều thiết bị. Giữ an toàn!"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Đi đến Sản phẩm"
     },
@@ -312,17 +288,8 @@
     "settings_webrtc_label": {
         "message": "Chặn WebRTC"
     },
-    "settings_webrtc_desc": {
-        "message": "WebRTC là một chương trình đặc biệt trong hầu hết các trình duyệt Internet có thể cho phép trang web của bên thứ ba phát hiện địa chỉ IP thực của bạn và sử dụng nó để nhận dạng bạn"
-    },
-    "settings_context_menus_title": {
-        "message": "Thêm AdGuard vào menu ngữ cảnh của trình duyệt"
-    },
     "settings_help_us_improve_title": {
-        "message": "Giúp chúng tôi cải tiến"
-    },
-    "settings_help_us_improve_description": {
-        "message": "Cho phép AdGuard VPN thu thập báo cáo sự cố, dữ liệu kỹ thuật và tương tác. Đây là ẩn danh."
+        "message": "Gửi báo cáo sự cố ẩn danh"
     },
     "context_menu_selective_mode": {
         "message": "Chế độ chọn lọc"
@@ -352,22 +319,13 @@
         "message": "Chỉnh sửa máy chủ DNS tuỳ chỉnh"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>Đọc thêm</a> về máy chủ DNS"
+        "message": "Các nhà cung cấp DNS đã biết"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Tên máy chủ"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Tên máy chủ"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "Địa chỉ máy chủ DNS"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "Tên miền IP hoặc TLS của máy chủ"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "Địa chỉ máy chủ DNS không hợp lệ"
+        "message": "Địa chỉ máy chủ"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Máy chủ DNS đã được thêm vào"
@@ -487,10 +445,10 @@
         "message": "AdGuard VPN được bật với những tên miền và tên miền con được chọn"
     },
     "settings_exclusion_domain_name": {
-        "message": "Tên miền:"
+        "message": "Tên miền"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Tên miền phụ:"
+        "message": "Tên miền con"
     },
     "settings_exclusion_add_from_list": {
         "message": "Từ danh sách"
@@ -548,9 +506,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Xóa tất cả các loại trừ"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Bạn có chắc muốn tiếp tục? Tất cả danh sách loại trừ sẽ bị xóa."
     },
     "settings_exclusion_title": {
         "message": "Loại trừ"
@@ -941,12 +896,6 @@
     },
     "popup_connections_limit_title": {
         "message": "Đã đạt đến giới hạn kết nối"
-    },
-    "options_signedout_page_title": {
-        "message": "Bạn đã đăng xuất khỏi AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "Xin lưu ý rằng kết nối của bạn không an toàn. Để tiếp tục lướt web ở chế độ riêng tư, hãy nhấp vào biểu tượng AdGuard VPN và đăng nhập lại."
     },
     "notification_data_limit_reached_title": {
         "message": "Đã đạt đến giới hạn dữ liệu hàng tháng. Cần thêm?"

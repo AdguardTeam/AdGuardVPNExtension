@@ -50,6 +50,9 @@
     "about_title": {
         "message": "אודות"
     },
+    "all_rights_reserved": {
+        "message": "כל הזכויות שמורות."
+    },
     "options_support_title": {
         "message": "תמיכה"
     },
@@ -89,18 +92,6 @@
     "options_bug_report_request_error": {
         "message": "שגיאה התרחשה. אנא נסה שוב מאוחר יותר."
     },
-    "options_bug_report_send_button": {
-        "message": "הגש"
-    },
-    "options_bug_report_sending_button": {
-        "message": "מגיש…"
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "תאר את הבעיה כאן…"
-    },
-    "options_bug_report_page_success": {
-        "message": "תודה, ההודעה שלך הוגשה בהצלחה!"
-    },
     "options_bug_report_new_report_button": {
         "message": "דוח חדש"
     },
@@ -110,14 +101,8 @@
     "account_title": {
         "message": "חשבון"
     },
-    "account_edit": {
-        "message": "נהל חשבון"
-    },
     "account_version": {
         "message": "גרסה"
-    },
-    "account_free": {
-        "message": "חשבון חינמי"
     },
     "account_unlimited": {
         "message": "מינוי בלתי מוגבל"
@@ -134,17 +119,11 @@
     "account_get_subscription": {
         "message": "השג מינוי"
     },
-    "account_max_devices_count": {
-        "message": "עד %num% מכשירים"
-    },
     "account_sign_out": {
         "message": "צא"
     },
     "account_unlimited_title": {
         "message": "קבל את הגרסה הבלתי מוגבלת!"
-    },
-    "rate_description": {
-        "message": "היי, אנחנו צוות של AdGuard וזה חשוב מאוד עבורנו לדעת מה דעתך על המוצר שלנו. אנא דרג אותו."
     },
     "rate_hide": {
         "message": "הסתר"
@@ -221,8 +200,8 @@
     "privacy_policy": {
         "message": "מדיניות פרטיות"
     },
-    "settings_title": {
-        "message": "הגדרות"
+    "settings_general_title": {
+        "message": "General"
     },
     "settings_referral_invited_friends": {
         "message": "חברים מוזמנים %count%/%limit%"
@@ -238,18 +217,6 @@
     },
     "settings_webrtc_label": {
         "message": "חסום WebRTC"
-    },
-    "settings_webrtc_desc": {
-        "message": "WebRTC הוא תוכנית מיוחדת ברוב הדפדפנים אשר יכולה להתיר לאתר צד־שלישי לגלות את כתובת ה־IP האמיתית שלך ולהשתמש בה כדי לזהות אותך"
-    },
-    "settings_context_menus_title": {
-        "message": "הוסף פריט AdGuard VPN אל תפריט ההקשר של הדפדפן"
-    },
-    "settings_help_us_improve_title": {
-        "message": "עזור לנו להשתפר"
-    },
-    "settings_help_us_improve_description": {
-        "message": "התר אל AdGuard VPN לאסוף דוחות קריסה, נתונים טכנים ונתוני הידוד. המידע שנאסף אלמוני."
     },
     "context_menu_selective_mode": {
         "message": "מצב בררני"
@@ -278,14 +245,8 @@
     "settings_dns_add_custom_server_name": {
         "message": "שם שרת"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "שם שרת"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "כתובת שרת DNS"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "כתובת שרת DNS בלתי תקפה"
+        "message": "כתובת שרת"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "שמור ובחר"
@@ -381,10 +342,10 @@
         "message": "AdGuard VPN מופעל עבור התחומים והתת־תחומים המסומנים"
     },
     "settings_exclusion_domain_name": {
-        "message": "שם תחום:"
+        "message": "שם תחום"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "שם תת־תחום:"
+        "message": "תת־תחום"
     },
     "settings_exclusion_add_from_list": {
         "message": "מתוך הרשימה"
@@ -442,9 +403,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "הסר את כל ההחרגות"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "האם אתה בטוח שאתה רוצה להמשיך? רשימת ההחרגות תוסר."
     },
     "settings_exclusion_title": {
         "message": "החרגות"
@@ -674,12 +632,6 @@
     },
     "popup_connections_limit_title": {
         "message": "מגבלת חיבורים הושגה"
-    },
-    "options_signedout_page_title": {
-        "message": "יצאת מן AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "אנא שים לב: אתה לא מחובר אל VPN והתעבורה שלך לא מוגנת! כדי להמשיך לגלוש בפרטיות, לחץ על האיקון של AdGuard VPN והיכנס שוב."
     },
     "notification_data_limit_reached_title": {
         "message": "מגבלת נתונים חודשית הושגה"

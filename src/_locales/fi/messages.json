@@ -57,6 +57,9 @@
     "about_title": {
         "message": "Tietoja"
     },
+    "all_rights_reserved": {
+        "message": "Kaikki oikeudet pidätetään."
+    },
     "options_support_title": {
         "message": "Tuki"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "Tapahtui virhe. Yritä myöhemmin uudelleen."
     },
-    "options_bug_report_send_button": {
-        "message": "Lähetä"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Lähetetään..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Kuvaile ongelmaa..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Kiitos, viestisi lähetys onnistui!"
-    },
     "options_bug_report_new_report_button": {
         "message": "Uusi raportti"
     },
@@ -118,13 +109,13 @@
         "message": "Tili"
     },
     "account_edit": {
-        "message": "Hallitse tiliä"
+        "message": "Avaa tilin asetukset"
     },
     "account_version": {
         "message": "Versio"
     },
     "account_free": {
-        "message": "Ilmainen tili"
+        "message": "Ilmaisversio"
     },
     "account_unlimited": {
         "message": "Unlimited-tilaus"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "Hanki tilaus"
     },
-    "account_max_devices_count": {
-        "message": "Samanaikaisesti %num% laiteelle"
-    },
     "account_valid_until": {
         "message": "Voimassa <b>%date%</b> asti"
     },
@@ -157,7 +145,7 @@
         "message": "Hanki Unlimited-tilaus!"
     },
     "rate_description": {
-        "message": "Hei. Olemme AdGuard VPN:n tiimi ja kuulisimme erittäin mielellämme mielipiteesi tuotteestamme."
+        "message": "Nautitko AdGuard VPN:stä?"
     },
     "rate_hide": {
         "message": "Piilota"
@@ -234,8 +222,8 @@
     "privacy_policy": {
         "message": "Tietosuojakäytäntö"
     },
-    "settings_title": {
-        "message": "Asetukset"
+    "settings_general_title": {
+        "message": "Yleiset"
     },
     "referral_get_free_traffic": {
         "message": "Ansaitse ilmaisia gigatavuja!"
@@ -276,18 +264,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Lähetä linkki uudelleen"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Lisää uusi laite"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Asenna AdGuard VPN uudelle laitteelle ja kirjaudu AdGuard-tilillesi niin saat %your_gb% Gt"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Laitteita lisätty"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Onnittelut AdGuard VPN:n asennuksesta useille laitteille. Pysy turvassa!"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Tutustu tuotteisiimme"
     },
@@ -312,17 +288,8 @@
     "settings_webrtc_label": {
         "message": "Estä WebRTC"
     },
-    "settings_webrtc_desc": {
-        "message": "WebRTC on useimpien selainten käyttämä rajapinta, jonka avulla kolmansien osapuolten verkkosivustot voivat havaita todellisen IP-osoitteesi ja käyttää sitä tunnistamiseesi."
-    },
-    "settings_context_menus_title": {
-        "message": "Lisää AdGuard VPN selaimen valikkoon"
-    },
     "settings_help_us_improve_title": {
-        "message": "Auta meitä parantamaan"
-    },
-    "settings_help_us_improve_description": {
-        "message": "Salli AdGuard VPN:n kerätä nimettömiä virheraportteja ja teknisiä tietoja sen käytöstä."
+        "message": "Lähetä anonyymejä virheraportteja"
     },
     "context_menu_selective_mode": {
         "message": "Valikoiva tila"
@@ -352,22 +319,13 @@
         "message": "Muokkaa omaa DNS-palvelinta"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>Lue lisää</a> DNS-palvelimista"
+        "message": "Tunnetut DNS-palveluntarjoajat"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Palvelimen nimi"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Palvelimen nimi"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "DNS-palvelimen osoite"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "Palvelimen IP-osoite tai TLS-verkkotunnus"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "Virheellinen DNS-palvelimen osoite"
+        "message": "Palvelimen osoite"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-palvelin on jo lisätty"
@@ -487,10 +445,10 @@
         "message": "AdGuard VPN toimii valituilla verkko- ja aliverkkotunnuksilla."
     },
     "settings_exclusion_domain_name": {
-        "message": "Verkkotunnus:"
+        "message": "Verkkotunnus"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Aliverkkotunnuksen nimi:"
+        "message": "Aliverkkotunnus"
     },
     "settings_exclusion_add_from_list": {
         "message": "Hakemistosta"
@@ -548,9 +506,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Poista kaikki poikkeukset"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Haluatko varmasti jatkaa? Koko lista ja kaikki sen sisältämät poikkeukset poistetaan."
     },
     "settings_exclusion_title": {
         "message": "Poikkeukset"
@@ -941,12 +896,6 @@
     },
     "popup_connections_limit_title": {
         "message": "Yhteysraja saavutettu"
-    },
-    "options_signedout_page_title": {
-        "message": "Olet kirjautunut ulos AdGuard VPN -palvelusta"
-    },
-    "options_signedout_page_description": {
-        "message": "Huomioi: Et ole yhteydessä VPN:ään, eikä tietoliikennettäsi ole suojattu! Jatkaaksesi selausta yksityisesti, paina AdGuard VPN -kuvaketta ja kirjaudu uudelleen."
     },
     "notification_data_limit_reached_title": {
         "message": "Kuukautinen tiedonsiirtorajoitus on saavutettu"

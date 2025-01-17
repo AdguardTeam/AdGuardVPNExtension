@@ -57,6 +57,9 @@
     "about_title": {
         "message": "О программе"
     },
+    "all_rights_reserved": {
+        "message": "Все права защищены."
+    },
     "options_support_title": {
         "message": "Поддержка"
     },
@@ -96,18 +99,6 @@
     "options_bug_report_request_error": {
         "message": "Произошла ошибка. Попробуйте позже."
     },
-    "options_bug_report_send_button": {
-        "message": "Отправить"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Отправка..."
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Опишите найденную ошибку..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Спасибо, ваше сообщение отправлено!"
-    },
     "options_bug_report_new_report_button": {
         "message": "Новый отчет"
     },
@@ -118,13 +109,13 @@
         "message": "Аккаунт"
     },
     "account_edit": {
-        "message": "Перейти в аккаунт"
+        "message": "Открыть настройки аккаунта"
     },
     "account_version": {
         "message": "Версия"
     },
     "account_free": {
-        "message": "Бесплатный аккаунт"
+        "message": "Бесплатная версия"
     },
     "account_unlimited": {
         "message": "Безлимитная подписка"
@@ -141,9 +132,6 @@
     "account_get_subscription": {
         "message": "Купить подписку"
     },
-    "account_max_devices_count": {
-        "message": "До %num% устройств одновременно"
-    },
     "account_valid_until": {
         "message": "Действует до <b>%date%</b>"
     },
@@ -157,7 +145,7 @@
         "message": "Получите безлимитную версию!"
     },
     "rate_description": {
-        "message": "Привет, мы команда AdGuard, и для нас очень важно знать ваше мнение о нашем продукте. Пожалуйста, оцените его.\n"
+        "message": "Вы довольны AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Скрыть"
@@ -234,9 +222,6 @@
     "privacy_policy": {
         "message": "Политика конфиденциальности"
     },
-    "settings_title": {
-        "message": "Настройки"
-    },
     "referral_get_free_traffic": {
         "message": "Получите бесплатные ГБ!"
     },
@@ -276,18 +261,6 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Отправить ссылку ещё раз"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Добавьте ещё устройство"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Установите AdGuard VPN ещё на одном устройстве, войдите на нём в свою учётную запись AdGuard и получите %your_gb% ГБ"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Устройства добавлены"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Спасибо, что установили AdGuard VPN на нескольких устройствах. Оставайтесь в безопасности!"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Перейти в «Продукты»"
     },
@@ -312,17 +285,8 @@
     "settings_webrtc_label": {
         "message": "Блокировать WebRTC"
     },
-    "settings_webrtc_desc": {
-        "message": "WebRTC — это специальная технология, используемая большинством браузеров, которая позволяет стороннему веб-сайту обнаружить ваш реальный IP-адрес и использовать его для вашей идентификации."
-    },
-    "settings_context_menus_title": {
-        "message": "Добавить AdGuard VPN в контекстное меню браузера\n"
-    },
     "settings_help_us_improve_title": {
-        "message": "Помогите нам стать лучше"
-    },
-    "settings_help_us_improve_description": {
-        "message": "Разрешить AdGuard VPN собирать отчёты о сбоях, технические данные и данные о взаимодействии. Это анонимно."
+        "message": "Отправлять анонимные отчёты о сбоях"
     },
     "context_menu_selective_mode": {
         "message": "Выборочный режим"
@@ -352,22 +316,13 @@
         "message": "Изменить пользовательский DNS-сервер"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>Подробнее</a> о DNS-серверах"
+        "message": "Известные DNS-провайдеры"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Имя сервера"
     },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Имя сервера"
-    },
     "settings_dns_add_custom_server_address": {
-        "message": "Адрес сервера DNS"
-    },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP-адрес сервера или доменное имя TLS"
-    },
-    "settings_dns_add_custom_server_invalid_address": {
-        "message": "Некорректный адрес DNS-сервера"
+        "message": "Адрес сервера"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Такой DNS-сервер уже есть"
@@ -487,10 +442,10 @@
         "message": "AdGuard VPN подключен для доменов и поддоменов, отмеченных галочкой"
     },
     "settings_exclusion_domain_name": {
-        "message": "Доменное имя:"
+        "message": "Домен"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Имя поддомена:"
+        "message": "Поддомен"
     },
     "settings_exclusion_add_from_list": {
         "message": "Из списка"
@@ -548,9 +503,6 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Удалить все исключения"
-    },
-    "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Вы уверены, что хотите продолжить? Список исключений будет удалён."
     },
     "settings_exclusion_title": {
         "message": "Исключения"
@@ -941,12 +893,6 @@
     },
     "popup_connections_limit_title": {
         "message": "Достигнут лимит подключений"
-    },
-    "options_signedout_page_title": {
-        "message": "Вы вышли из AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "Вы не подключены к AdGuard VPN. Чтобы оставаться в безопасности, нажмите на иконку AdGuard VPN и войдите в аккаунт заново."
     },
     "notification_data_limit_reached_title": {
         "message": "Лимит трафика в этом месяце исчерпан"

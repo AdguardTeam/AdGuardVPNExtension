@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
-import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 import { Title } from '../../ui/Title';
 
 import './features.pcss';
@@ -9,7 +9,11 @@ import './features.pcss';
 export const Features = () => {
     return (
         <div className="features">
-            <Title title={reactTranslator.getMessage('account_unlimited_title')} />
+            <Title
+                title={translator.getMessage('account_unlimited_title')}
+                size="medium"
+                className="features__title"
+            />
             <div className="features__list">
                 {UNLIMITED_FEATURES.map((feature) => {
                     const { image, title, info } = feature;

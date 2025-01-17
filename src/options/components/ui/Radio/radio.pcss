@@ -1,0 +1,92 @@
+.radio {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 16px;
+    transition: var(--t3) background-color;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--fills-backgrounds-page-background-hovered);
+    }
+
+    &:active {
+        background-color: var(--fills-backgrounds-page-background-pressed);
+    }
+
+    &__input {
+        appearance: none;
+        margin: 0;
+    }
+
+    &__circle {
+        &-outer {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--stroke-icons-gray-icons-default);
+            padding: 4px;
+            transition: var(--t3) border-color;
+
+            .radio--active & {
+                border-color: var(--stroke-icons-product-icon-default);
+            }
+        }
+
+        &-inner {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--stroke-icons-gray-icons-default);
+            transition: var(--t3) background-color, var(--t3) transform;
+            transform: scale(0);
+
+            .radio--active & {
+                transform: scale(1);
+                background-color: var(--stroke-icons-product-icon-default);
+            }
+        }
+    }
+
+    &__content {
+        flex: 1 1 auto;
+        display: block;
+        margin-left: 12px;
+        margin-top: 1px;
+    }
+
+    &__title,
+    &__description {
+        display: block;
+        line-height: 1.3;
+    }
+
+    &__title {
+        color: var(--text-main-text-main-default);
+        font-size: 16px;
+        font-weight: 600;
+
+        .radio--thin & {
+            font-weight: 400;
+        }
+    }
+
+    &__description {
+        color: var(--text-description-description-default);
+        font-size: 14px;
+        margin-top: 2px;
+    }
+
+    &__action {
+        flex-shrink: 0;
+        margin-left: 16px;
+    }
+}

@@ -57,6 +57,9 @@
     "about_title": {
         "message": "Om"
     },
+    "all_rights_reserved": {
+        "message": "Alle rettigheder forbeholdes."
+    },
     "options_support_title": {
         "message": "Support"
     },
@@ -97,16 +100,16 @@
         "message": "En fejl opstod. Prøv igen senere."
     },
     "options_bug_report_send_button": {
-        "message": "Indsend"
+        "message": "Indsend rapport"
     },
     "options_bug_report_sending_button": {
-        "message": "Indsender..."
+        "message": "Indsender rapport..."
     },
     "options_bug_report_textarea_placeholder": {
-        "message": "Beskriv problemet hér..."
+        "message": "Angiv detaljer"
     },
     "options_bug_report_page_success": {
-        "message": "Tak, din besked er indsendt!"
+        "message": "Tak, beskeden er indsendt!"
     },
     "options_bug_report_new_report_button": {
         "message": "Ny rapport"
@@ -118,13 +121,13 @@
         "message": "Konto"
     },
     "account_edit": {
-        "message": "Håndtér konto"
+        "message": "Åbn kontoindstillinger"
     },
     "account_version": {
         "message": "Version"
     },
     "account_free": {
-        "message": "Gratis konto"
+        "message": "Gratis version"
     },
     "account_unlimited": {
         "message": "Ubegrænset abonnement"
@@ -142,7 +145,7 @@
         "message": "Køb abonnement"
     },
     "account_max_devices_count": {
-        "message": "Op til %num% samtidige enheder"
+        "message": "Op til <b>%num%</b> samtidige enheder"
     },
     "account_valid_until": {
         "message": "Gyldig indtil <b>%date%</b>"
@@ -157,7 +160,7 @@
         "message": "Køb den ubegrænsede version!"
     },
     "rate_description": {
-        "message": "Hej, vi er et team fra AdGuard, og det er meget vigtigt for os at kende din mening om vores produkt. Bedøm det derfor venligst."
+        "message": "Har gavn af AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Skjul"
@@ -234,8 +237,8 @@
     "privacy_policy": {
         "message": "Fortrolighedspolitik"
     },
-    "settings_title": {
-        "message": "Indstillinger"
+    "settings_general_title": {
+        "message": "Generalt"
     },
     "referral_get_free_traffic": {
         "message": "Få gratis GB!"
@@ -277,16 +280,16 @@
         "message": "Gensend link"
     },
     "settings_free_gbs_add_device_title": {
-        "message": "Tilføj en ny enhed"
+        "message": "Tilføj endnu en platform"
     },
     "settings_free_gbs_add_device_info": {
-        "message": "Installér AdGuard VPN på en enhed mere, log ind på AdGuard-kontoen fra den, og få %your_gb% GB"
+        "message": "Installér AdGuard VPN til Windows, Android, iOS eller Mac, log dernæst ind på AdGuard-kontoen og få %your_gb% GB."
     },
     "settings_free_gbs_devices_added_title": {
-        "message": "Enheder tilføjet"
+        "message": "Endnu en platform tilføjet"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Tillykke med installationen af AdGuard VPN på flere enheder. Pas på dig selv!"
+        "message": "Tillykke med installationen af AdGuard VPN på flere platforme. Forbliv sikret!"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Gå til Produkter"
@@ -313,16 +316,19 @@
         "message": "Bloker WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC er et specialprogram i de fleste Internetbrowsere, der kan tillade et tredjepartswebsted at registrere din rigtige IP-adresse og bruge den til at identificere dig"
+        "message": "Blokér WebRTC, en kendt sårbarhed, der kan lække den reelle IP-adresse selv ved brug af proxy eller VPN"
     },
     "settings_context_menus_title": {
-        "message": "Føj AdGuard VPN-element til browserens kontekstmenu"
+        "message": "Vis AdGuard VPN i webbrowserens kontekstmenu"
+    },
+    "settings_context_menus_description": {
+        "message": "Håndtér VPN-undtagelser for et bestemt websted"
     },
     "settings_help_us_improve_title": {
-        "message": "Hjælp os med at blive bedre"
+        "message": "Indsend anonyme nedbrudsrapporter"
     },
     "settings_help_us_improve_description": {
-        "message": "Tillad AdGuard VPN anonymiseret indsamling af nedbrudsrapporter, tekniske data og interaktionsdata."
+        "message": "Underret AdGuard VPN-udviklerne, hvis noget går galt"
     },
     "context_menu_selective_mode": {
         "message": "Selektiv tilstand"
@@ -339,6 +345,12 @@
     "settings_dns_label": {
         "message": "DNS-server"
     },
+    "settings_dns_description": {
+        "message": "Opløs DNS--forespørgsler, blokér annoncer og trackere samt kryptér DNS-trafik, når VPN er aktiveret"
+    },
+    "settings_dns_description_current": {
+        "message": "Nuværende: %dnsServerName%"
+    },
     "settings_dns_popular_servers": {
         "message": "Populære DNS-servere"
     },
@@ -352,22 +364,22 @@
         "message": "Redigere tilpasset DNS-server"
     },
     "settings_dns_add_custom_server_info": {
-        "message": "<a>Læs mere</a> om DNS-servere"
+        "message": "Kendte DNS-udbydere"
     },
     "settings_dns_add_custom_server_name": {
         "message": "Servernavn"
     },
     "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Servernavn"
+        "message": "Min DNS-server"
     },
     "settings_dns_add_custom_server_address": {
-        "message": "DNS-serveradresse"
+        "message": "Serveradresse"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "Server-IP eller TLS-domænenavn"
+        "message": "IP-adresse eller tls://"
     },
     "settings_dns_add_custom_server_invalid_address": {
-        "message": "Ugyldig DNS-serveradresse"
+        "message": "Ugyldig serveradresse"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-server allerede tilføjet"
@@ -383,6 +395,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Tilpasset DNS-server slettet"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Tilpasset DNS-server redigeret"
     },
     "settings_dns_selector_default_title": {
         "message": "Standard"
@@ -487,10 +502,10 @@
         "message": "AdGuard VPN er slået til for afkrydsede domæner og underdomæner"
     },
     "settings_exclusion_domain_name": {
-        "message": "Domænenavn:"
+        "message": "Domænenavn"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Underdomænenavn:"
+        "message": "Underdomæne"
     },
     "settings_exclusion_add_from_list": {
         "message": "Fra listen"
@@ -550,7 +565,7 @@
         "message": "Fjern alle undtagelser"
     },
     "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Sikker på, at du vil fortsætte? Hele listen over undtagelser fjernes."
+        "message": "Skal hele listen over undtagelser fjernes?"
     },
     "settings_exclusion_title": {
         "message": "Undtagelser"
@@ -943,10 +958,13 @@
         "message": "Maks. antal forbindelser nået"
     },
     "options_signedout_page_title": {
-        "message": "Du er logget ud af AdGuard VPN"
+        "message": "Der er logget ud af AdGuard VPN"
+    },
+    "options_signedout_page_description_not_secure": {
+        "message": "Forbindelsen er ikke sikret!"
     },
     "options_signedout_page_description": {
-        "message": "Bemærk: Der er ikke forbundet til VPN, og trafikken er ikke beskyttet! For fortsat at surfe anonymt, så klik på AdGuard VPN-ikonet, og log ind igen."
+        "message": "For at fortsætte med at surfe anonymt, klik på AdGuard VPN-ikonet, og log ind igen."
     },
     "notification_data_limit_reached_title": {
         "message": "Månedlig datakvote opbrugt"

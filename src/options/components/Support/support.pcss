@@ -1,62 +1,9 @@
-.support-items {
-    .support-item {
-        display: flex;
-        padding: 16px;
-        border: none;
-        border-radius: 8px;
-        width: 100%;
-        align-items: center;
-        cursor: pointer;
-        transition: var(--t3) background-color;
-        background: none;
-        text-align: left;
-        font-family: inherit;
-
-        &:hover {
-            background-color: #f3f3f3;
-
-            @media (prefers-color-scheme: dark) {
-                background-color: #131313;
-            }
-        }
-
-        .support-item__area {
-            display: flex;
-            width: 100%;
-
-            .icon {
-                margin-right: 16px;
-                transform: translateX(-2px);
-            }
-        }
-
-        &__title {
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 19px;
-        }
-
-        &__description {
-            font-size: 14px;
-            line-height: 20px;
-            color: var(--gray88);
-        }
+.support {
+    &__icon {
+        color: var(--stroke-icons-product-icon-default);
     }
-}
 
-
-.dark-mode {
-    .support-item {
-        &:hover {
-            background-color: #131313;
-        }
-    }
-}
-
-.light-mode {
-    .support-item {
-        &:hover {
-            background-color: #f3f3f3;
-        }
+    &__btn-icon {
+        transform: rotate(-90deg);
     }
 }

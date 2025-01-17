@@ -2,6 +2,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "all_rights_reserved": {
+        "message": "Tots els drets reservats."
+    },
     "options_support_title": {
         "message": "Assistència tècnica"
     },
@@ -16,12 +19,6 @@
     },
     "options_report_bug_title": {
         "message": "Informa d'un error"
-    },
-    "options_bug_report_send_button": {
-        "message": "Envia"
-    },
-    "options_bug_report_textarea_placeholder": {
-        "message": "Descriu el problema aquí..."
     },
     "options_bug_report_textarea_label": {
         "message": "Missatge"
@@ -44,9 +41,6 @@
     "eula": {
         "message": "EULA"
     },
-    "settings_title": {
-        "message": "Configuració"
-    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Vés als productes"
     },
@@ -61,12 +55,6 @@
     },
     "settings_dns_add_custom_server_name": {
         "message": "Nom del servidor"
-    },
-    "settings_dns_add_custom_server_name_placeholder": {
-        "message": "Nom del servidor"
-    },
-    "settings_dns_add_custom_server_address": {
-        "message": "Adreça del servidor DNS"
     },
     "settings_dns_selector_default_title": {
         "message": "Per defecte"
@@ -84,7 +72,7 @@
         "message": "Accions"
     },
     "settings_exclusion_domain_name": {
-        "message": "Nom de domini:"
+        "message": "Nom de domini"
     },
     "settings_exclusion_placeholder_search": {
         "message": "Buscar"
