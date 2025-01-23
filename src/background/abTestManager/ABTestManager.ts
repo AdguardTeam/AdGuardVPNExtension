@@ -6,8 +6,6 @@ import {
 import { browserApi } from '../browserApi';
 import { log } from '../../common/logger';
 
-import { AG21492_SHOW_SCREENSHOT_FLOW_VERSION_ID } from './constants';
-
 /**
  * Class representing a manager for handling AB tests.
  */
@@ -85,15 +83,6 @@ class ABTestManager {
         }
 
         return this.versions;
-    }
-
-    /**
-     * Determine whether the screenshot flow should be shown.
-     * @returns {boolean} True if the screenshot flow should be shown, false otherwise.
-     */
-    async isShowScreenshotFlow() {
-        const versions = await this.getVersions();
-        return !!versions?.includes(AG21492_SHOW_SCREENSHOT_FLOW_VERSION_ID);
     }
 }
 

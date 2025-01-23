@@ -7,6 +7,7 @@ import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { popupActions } from '../../actions/popupActions';
 import { rootStore } from '../../stores';
+import { Icon } from '../ui/Icon';
 
 import './limited-offer-details.pcss';
 
@@ -54,17 +55,16 @@ export const LimitedOfferDetails = observer(() => {
             onRequestClose={closeDetails}
         >
             <div className="limited-offer-details__content">
+                <button
+                    type="button"
+                    className="button button--icon limited-offer-details__close-icon"
+                    onClick={closeDetails}
+                >
+                    <Icon icon="cross" className="icon--button icon--cross-gray7f" />
+                </button>
 
-                <div className="limited-offer-details__image">
-                    <button
-                        type="button"
-                        className="button button--icon limited-offer-details__close-icon"
-                        onClick={closeDetails}
-                    >
-                        <svg className="icon icon--button icon--cross-gray7f">
-                            <use xlinkHref="#cross" />
-                        </svg>
-                    </button>
+                <div className="limited-offer-details__image-wrapper">
+                    <div className="limited-offer-details__image" />
                 </div>
 
                 <div className="limited-offer-details__header">
