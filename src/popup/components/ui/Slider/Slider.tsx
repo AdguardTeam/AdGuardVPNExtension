@@ -2,7 +2,7 @@ import React from 'react';
 
 import cn from 'classnames';
 
-import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 import { DotsIndicator } from '../DotsIndicator';
 import { CloseButton } from '../CloseButton';
 import { Icon } from '../Icon';
@@ -102,7 +102,7 @@ export const Slider = (props: SliderProps) => {
                         onClick={nextSlideHandler}
                         className="button button--large button--green slider__button-next"
                     >
-                        {reactTranslator.getMessage('popup_onboarding_next')}
+                        {translator.getMessage('popup_onboarding_next')}
                     </button>
                 )}
             </div>
