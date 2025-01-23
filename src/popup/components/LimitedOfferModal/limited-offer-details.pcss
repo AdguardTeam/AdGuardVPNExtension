@@ -1,6 +1,7 @@
 .limited-offer-details {
 
     &__content {
+        position: relative;
         overflow-y: scroll;
         /* 100% - footer height */
         height: calc(100% - 72px);
@@ -17,16 +18,24 @@
 
     &__image {
         width: 100%;
+        height: 100%;
         background-position: center;
         background-repeat: no-repeat;
-        height: 276px;
+        background-size: contain;
         background-image: url(../../../../src/assets/images/temp-promo-offer.svg);
+
+        &-wrapper {
+            width: 100%;
+            /* Custom padding according to design */
+            padding: 30px 36px 24px;
+            height: 276px;
+        }
     }
 
     &__close-icon {
-        position: relative;
-        top: 12px;
-        left: calc((var(--popup-width) / 2) - 24px);
+        position: absolute;
+        top: 16px;
+        right: 16px;
     }
 
     &__header {
