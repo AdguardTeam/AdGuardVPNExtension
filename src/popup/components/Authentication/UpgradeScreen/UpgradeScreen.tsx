@@ -51,16 +51,18 @@ export const UpgradeScreen = () => {
                     {reactTranslator.getMessage('popup_upgrade_screen_title')}
                 </div>
             </div>
-            <Slider
-                arrows
-                sliderMod="medium"
-                slideIndex={currentSlideIndex}
-                slideData={UNLIMITED_FEATURES[currentSlideIndex]}
-                nextSlideHandler={nextSlideHandler}
-                prevSlideHandler={prevSlideHandler}
-                navigationHandler={setCurrentSlide}
-                slidesAmount={UNLIMITED_FEATURES.length}
-            />
+            <div className="upgrade-screen__slider">
+                <Slider
+                    arrows
+                    sliderMod="medium"
+                    slideIndex={currentSlideIndex}
+                    slideData={UNLIMITED_FEATURES[currentSlideIndex]}
+                    nextSlideHandler={nextSlideHandler}
+                    prevSlideHandler={prevSlideHandler}
+                    navigationHandler={setCurrentSlide}
+                    slidesAmount={UNLIMITED_FEATURES.length}
+                />
+            </div>
             <div className="upgrade-screen__actions">
                 <button
                     type="button"
