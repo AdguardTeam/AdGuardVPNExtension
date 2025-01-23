@@ -24,7 +24,6 @@ import { isLocationsNumberAcceptable } from '../../common/is-locations-number-ac
 import { appStatus } from '../appStatus';
 import { type LocationWithPing } from '../endpoints/LocationWithPing';
 import { hintPopup } from '../hintPopup';
-import { abTestManager } from '../abTestManager';
 
 import { popupOpenedCounter } from './popupOpenedCounter';
 
@@ -47,7 +46,6 @@ interface PopupDataInterface {
     forwarderDomain: string;
     isAuthenticated: string | boolean;
     policyAgreement: boolean;
-    showScreenshotFlow: boolean;
     canControlProxy?: CanControlProxy;
     isProxyEnabled?: boolean;
     isRoutable?: boolean;
@@ -104,7 +102,6 @@ export class PopupData {
     getPopupData = async (url: string): Promise<PopupDataInterface> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
-        const showScreenshotFlow = await abTestManager.isShowScreenshotFlow();
         const isHostPermissionsGranted = await Permissions.hasNeededHostPermissions();
         const forwarderDomain = await forwarder.updateAndGetDomain();
 
@@ -113,7 +110,6 @@ export class PopupData {
                 forwarderDomain,
                 isAuthenticated,
                 policyAgreement,
-                showScreenshotFlow,
                 isHostPermissionsGranted,
             };
         }
@@ -174,7 +170,6 @@ export class PopupData {
             shouldShowRateModal,
             username,
             shouldShowHintPopup,
-            showScreenshotFlow,
             isVpnBlocked,
             isHostPermissionsGranted,
         };

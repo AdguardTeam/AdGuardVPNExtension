@@ -68,7 +68,6 @@ export class GlobalStore {
                 isVpnEnabledByUrl,
                 shouldShowRateModal,
                 shouldShowHintPopup,
-                showScreenshotFlow,
                 isVpnBlocked,
                 isHostPermissionsGranted,
             } = popupData;
@@ -80,7 +79,6 @@ export class GlobalStore {
             if (!isAuthenticated) {
                 await authStore.handleInitPolicyAgreement(policyAgreement);
                 await authStore.getAuthCacheFromBackground();
-                await authStore.setShowScreenshotFlow(showScreenshotFlow);
                 this.setInitStatus(RequestStatus.Done);
                 return;
             }

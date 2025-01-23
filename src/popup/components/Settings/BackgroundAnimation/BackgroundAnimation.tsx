@@ -7,7 +7,16 @@ import { AnimationState, animationSourcesMap } from '../../../constants';
 
 import { animationService } from './animationStateMachine';
 
-export const BackgroundAnimation = observer(() => {
+export interface BackgroundAnimationProps {
+    /**
+     * Animation state to override store provided state.
+     */
+    overrideAnimationState?: AnimationState;
+}
+
+export const BackgroundAnimation = observer(({
+    overrideAnimationState,
+}: BackgroundAnimationProps) => {
     const { settingsStore } = useContext(rootStore);
 
     const {
@@ -15,6 +24,8 @@ export const BackgroundAnimation = observer(() => {
         systemTheme,
         animationState,
     } = settingsStore;
+
+    const animationStateToUse = overrideAnimationState || animationState;
 
     useEffect(() => {
         animationService.onTransition((state) => {
@@ -33,10 +44,10 @@ export const BackgroundAnimation = observer(() => {
         animationSources = animationSourcesMap[appearanceTheme];
     }
 
-    const sourceUrl = animationSources[animationState];
+    const sourceUrl = animationSources[animationStateToUse];
 
-    const loop = animationState === AnimationState.VpnEnabled
-        || animationState === AnimationState.VpnDisabled;
+    const loop = animationStateToUse === AnimationState.VpnEnabled
+        || animationStateToUse === AnimationState.VpnDisabled;
 
     const handleAnimationEnd = () => {
         settingsStore.handleAnimationEnd();

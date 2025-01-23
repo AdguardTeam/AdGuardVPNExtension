@@ -125,8 +125,6 @@ export class AuthStore {
 
     @observable showHintPopup = false;
 
-    @observable showScreenshotFlow = false;
-
     STEPS = AUTH_STEPS;
 
     rootStore: RootStore;
@@ -422,10 +420,6 @@ export class AuthStore {
         this.authenticated = value;
     };
 
-    @action setShowScreenshotFlow = (value: boolean) => {
-        this.showScreenshotFlow = value;
-    };
-
     @action deauthenticate = async () => {
         this.setDefaults();
         await messenger.deauthenticateUser();
@@ -524,12 +518,10 @@ export class AuthStore {
         await messenger.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, this.policyAgreement);
         await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
 
-        if (this.showScreenshotFlow) {
-            await this.showScreenShotScreen();
-            return;
-        }
-
-        await this.showAuthorizationScreen();
+        // Activate Screenshot Flow which acts as a "cover" of a main
+        // content, which on click anywhere will trigger Login/Signup flow.
+        // This is needed to improve conversion rate of the extension.
+        await this.showScreenShotScreen();
     };
 
     @action setMarketingConsent = async (value: boolean) => {

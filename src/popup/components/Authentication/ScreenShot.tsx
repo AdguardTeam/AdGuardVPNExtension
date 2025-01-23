@@ -2,23 +2,43 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { AppearanceTheme } from '../../../common/constants';
+import { HeaderScreenShot } from '../Header';
+import { CurrentEndpointScreenShot } from '../Settings/CurrentEndpoint';
+import { SettingsScreenShot } from '../Settings';
 
+/**
+ * Component is a step of the Authentication flow.
+ * It acts as a big "Call to Action" button, which on click anywhere
+ * will trigger Login/Signup flow. It renders the main content
+ * of Popup page as a static non-interactive screenshot.
+ * The main reason why static elements are used instead of actual
+ * screenshot image is ability to adapt to different screen sizes.
+ */
 export const ScreenShot = observer(() => {
-    const { authStore, settingsStore } = useContext(rootStore);
+    const { authStore } = useContext(rootStore);
     const { handleScreenshotClick } = authStore;
-    const { systemTheme } = settingsStore;
 
-    const imageSource = systemTheme === AppearanceTheme.Dark
-        ? '../../../assets/images/screenshot_dark.svg'
-        : '../../../assets/images/screenshot.svg';
+    const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleScreenshotClick();
+    };
 
     return (
-        <img
-            src={imageSource}
-            className="auth__screenshot"
-            alt="screenshot"
-            onClick={handleScreenshotClick}
-        />
+        <div
+            className="auth__screenshot content"
+            onClickCapture={onClickHandler}
+        >
+            <HeaderScreenShot />
+            <SettingsScreenShot />
+            <div className="footer">
+                {/* We are assigning manually because at this stage we don't have list of servers */}
+                <CurrentEndpointScreenShot
+                    countryCode="DE"
+                    countryName="Germany"
+                    cityName="Berlin"
+                />
+            </div>
+        </div>
     );
 });

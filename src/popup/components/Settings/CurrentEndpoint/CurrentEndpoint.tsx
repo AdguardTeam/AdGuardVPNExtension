@@ -6,8 +6,17 @@ import classnames from 'classnames';
 import { rootStore } from '../../../stores';
 import { Ping } from '../../Ping';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { Icon } from '../../ui/Icon';
 
 import './endpoint.pcss';
+
+const getFlagIconStyle = (countryCode: string) => {
+    if (!countryCode) {
+        return {};
+    }
+    const iconName = countryCode.toLowerCase();
+    return { backgroundImage: `url("../../assets/images/flags/${iconName}.svg")` };
+};
 
 export const CurrentEndpoint = observer(() => {
     const {
@@ -33,14 +42,6 @@ export const CurrentEndpoint = observer(() => {
     const titleClass = classnames('endpoint__location-name', 'endpoint__title', { 'endpoint__title--selected': isConnected });
 
     const flagClass = classnames('endpoint__flag', { 'endpoint__flag--active': isConnected });
-
-    const getFlagIconStyle = (countryCode: string) => {
-        if (!countryCode) {
-            return {};
-        }
-        const iconName = countryCode.toLowerCase();
-        return { backgroundImage: `url("../../assets/images/flags/${iconName}.svg")` };
-    };
 
     const renderPing = () => {
         if (selectedLocationPing) {
@@ -82,11 +83,62 @@ export const CurrentEndpoint = observer(() => {
                             </div>
                         )}
                     </div>
-                    <svg className="icon icon--arrow">
-                        <use xlinkHref="#right-arrow" />
-                    </svg>
+                    <Icon icon="right-arrow" className="icon--arrow" />
                 </div>
             </button>
         </div>
     );
 });
+
+export interface CurrentEndpointScreenShotProps {
+    /**
+     * Two letter country code, case insensitive, example: "DE".
+     * Used to display flag image.
+     * To see available list of countries, check `src/assets/images/flags` directory.
+     */
+    countryCode: string;
+
+    /**
+     * Country name, example: "Germany".
+     */
+    countryName: string;
+
+    /**
+     * City name, example: "Berlin".
+     */
+    cityName: string;
+}
+
+/**
+ * Component is used as part of the ScreenShot component
+ * to render the CurrentEndpoint as static non-interactive element.
+ *
+ * See `ScreenShot.tsx` for more details.
+ */
+export const CurrentEndpointScreenShot = ({
+    countryCode,
+    countryName,
+    cityName,
+}: CurrentEndpointScreenShotProps) => (
+    <div className="endpoint__current">
+        <button type="button" className="endpoint">
+            <div className="endpoint__info">
+                <div className="endpoint__flag" style={getFlagIconStyle(countryCode)} />
+                <div className="endpoint__location-container">
+                    <div className="endpoint__location-name endpoint__title">
+                        {countryName}
+                    </div>
+                    <div className="endpoint__location-name endpoint__desc">
+                        {cityName}
+                    </div>
+                </div>
+            </div>
+            <div className="endpoint__ping-container">
+                <div>
+                    <div className="ping">—</div>
+                </div>
+                <Icon icon="right-arrow" className="icon--arrow" />
+            </div>
+        </button>
+    </div>
+);

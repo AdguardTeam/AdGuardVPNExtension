@@ -1,1 +1,1 @@
-export { CurrentEndpoint } from './CurrentEndpoint';
+export { CurrentEndpoint, CurrentEndpointScreenShot } from './CurrentEndpoint';
