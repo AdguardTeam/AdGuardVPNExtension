@@ -87,6 +87,8 @@ export const Slider = (props: SliderProps) => {
                 <div className="slider__info">
                     {info}
                 </div>
+            </div>
+            <div className="slider__controls">
                 <div className="slider__indicator">
                     <DotsIndicator
                         dotsAmount={slidesAmount}
@@ -94,16 +96,16 @@ export const Slider = (props: SliderProps) => {
                         navigationHandler={navigationHandler}
                     />
                 </div>
+                {button && (
+                    <button
+                        type="button"
+                        onClick={nextSlideHandler}
+                        className="button button--large button--green slider__button-next"
+                    >
+                        {reactTranslator.getMessage('popup_onboarding_next')}
+                    </button>
+                )}
             </div>
-            {button && (
-                <button
-                    type="button"
-                    onClick={nextSlideHandler}
-                    className="button button--large button--green slider__button-next"
-                >
-                    {reactTranslator.getMessage('popup_onboarding_next')}
-                </button>
-            )}
         </div>
     );
 };
