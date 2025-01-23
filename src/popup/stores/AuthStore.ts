@@ -237,12 +237,17 @@ export class AuthStore {
         return false;
     }
 
+    // FIXME: Remove this flag after testing
+    @observable testNewsletterFlag = true;
+
     // AG-10009 Newsletter subscription screen
     @computed
     get renderNewsletter() {
-        return this.marketingConsent === null
-            && ((this.isFirstRun && this.isSocialAuth)
-                || (this.isNewUser && !this.isSocialAuth));
+        // FIXME: Return this after testing
+        // return this.marketingConsent === null
+        //     && ((this.isFirstRun && this.isSocialAuth)
+        //         || (this.isNewUser && !this.isSocialAuth));
+        return this.testNewsletterFlag;
     }
 
     // AG-10009 Promo screens (onboarding and upgrade screen) should be shown
@@ -533,6 +538,8 @@ export class AuthStore {
     };
 
     @action setMarketingConsent = async (value: boolean) => {
+        // FIXME: Remove this after testing
+        this.testNewsletterFlag = false;
         await messenger.updateAuthCache('marketingConsent', value);
         runInAction(() => {
             this.credentials.marketingConsent = value;
