@@ -1,6 +1,12 @@
 .newsletter {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     padding: 40px 0;
+
+    &__content {
+        flex-shrink: 0;
+    }
 
     &__title {
         font-size: 2.4rem;
@@ -16,8 +22,14 @@
     }
 
     &__image {
-        width: 100%;
-        margin-bottom: 20px;
+        object-fit: contain;
+
+        &-wrapper {
+            flex: 1 1 auto;
+            /* Cap height at design defined height so image will not grow */
+            max-height: 260px;
+            margin-bottom: 20px;
+        }
     }
 
     &__button-skip {
