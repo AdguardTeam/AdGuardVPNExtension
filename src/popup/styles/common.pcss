@@ -15,11 +15,6 @@ html {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        /* Because popup design is available only on small screens, we need to cap its width and height. */
-        min-width: var(--popup-android-min-width);
-        max-width: var(--popup-android-max-width);
-        max-height: var(--popup-android-max-height);
-        min-height: var(--popup-android-min-height);
     }
 }
 
@@ -35,6 +30,9 @@ body {
 
     /* TODO: Remove it when popup design will be available in wider screens. */
     .android & {
+        /* Because popup design is available only on small screens, we need to cap its width. */
+        max-width: var(--popup-android-max-width);
+
         /**
          * In case if body width is capped we need to make sure that
          * all absolutely positioned elements will be relative to body.
