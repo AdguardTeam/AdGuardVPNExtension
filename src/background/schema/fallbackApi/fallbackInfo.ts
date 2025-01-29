@@ -4,6 +4,7 @@ export const fallbackInfoScheme = zod.object({
     vpnApiUrl: zod.string(),
     authApiUrl: zod.string(),
     forwarderApiUrl: zod.string(),
+    telemetryApiUrl: zod.string(),
     expiresInMs: zod.number(),
 }).strict();
 
