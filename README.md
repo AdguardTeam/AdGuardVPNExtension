@@ -90,6 +90,7 @@ yarn install
 STAGE_ENV=test \
 VPN_API_URL="vpn_api_url" \
 AUTH_API_URL="auth_api_url" \
+TELEMETRY_API_URL="telemetry_api_url" \
 FORWARDER_DOMAIN="forwarder_domain" \
 ```
 

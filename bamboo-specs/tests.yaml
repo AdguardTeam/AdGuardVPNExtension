@@ -51,6 +51,7 @@ Test:
             STAGE_ENV=test \
             VPN_API_URL="${bamboo.devVpnApiUrl}" \
             AUTH_API_URL="${bamboo.devAuthApiUrl}" \
+            TELEMETRY_API_URL="${bamboo.devTelemetryApiUrl}" \
             FORWARDER_DOMAIN="${bamboo.devVpnForwarderDomain}" \
             yarn dev
 
@@ -58,6 +59,7 @@ Test:
             STAGE_ENV=prod \
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
+            TELEMETRY_API_URL="${bamboo.prodTelemetryApiUrl}" \
             FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
             yarn dev
   final-tasks:

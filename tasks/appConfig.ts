@@ -1,6 +1,11 @@
 import { Browser, Env } from './consts';
 
-const { FORWARDER_DOMAIN, VPN_API_URL, AUTH_API_URL } = process.env;
+const {
+    FORWARDER_DOMAIN,
+    VPN_API_URL,
+    AUTH_API_URL,
+    TELEMETRY_API_URL,
+} = process.env;
 
 type BrowsersUrlQueriesMap = {
     [key: string]: {
@@ -61,9 +66,11 @@ const URL_QUERIES_MAP: UrlQueriesMap = {
 
 // VPN section API description - projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 // Auth section API description - projects/ADGUARD/repos/adguard-auth-service/browse
+// Telemetry section API description - projects/ADGUARD/repos/adguard-telemetry-service/browse
 const STAGE_CONF = {
     VPN_API_URL,
     AUTH_API_URL,
+    TELEMETRY_API_URL,
 };
 
 const COMMON_CONF = {
