@@ -164,15 +164,55 @@ export const App = observer(() => {
      */
     useLayoutEffect(() => {
         const ANDROID_CLASS = 'android';
+        const html = document.documentElement;
 
         if (isAndroidBrowser) {
-            document.documentElement.classList.add(ANDROID_CLASS);
+            html.classList.add(ANDROID_CLASS);
         } else {
-            document.documentElement.classList.remove(ANDROID_CLASS);
+            html.classList.remove(ANDROID_CLASS);
         }
 
         return () => {
-            document.documentElement.classList.remove(ANDROID_CLASS);
+            html.classList.remove(ANDROID_CLASS);
+        };
+    }, [isAndroidBrowser]);
+
+    /**
+     * Update popup height on Android browsers based on window height.
+     * This is required because Android browsers do not support 100vh properly.
+     */
+    useLayoutEffect(() => {
+        const POPUP_HEIGHT_PROP = '--popup-height';
+        const POPUP_MIN_HEIGHT = 550;
+        const html = document.documentElement;
+
+        const removeHeightProperty = () => {
+            html.style.removeProperty(POPUP_HEIGHT_PROP);
+        };
+
+        if (!isAndroidBrowser) {
+            // Remove if height property previously set on html element
+            removeHeightProperty();
+
+            // Cleanup: Remove the height property after unmount
+            return removeHeightProperty;
+        }
+
+        const resizePopupHeight = () => {
+            const newHeight = Math.max(window.innerHeight, POPUP_MIN_HEIGHT);
+            html.style.setProperty(POPUP_HEIGHT_PROP, `${newHeight}px`);
+        };
+
+        // Resize on initial render
+        resizePopupHeight();
+
+        // Add resize event listener
+        window.addEventListener('resize', resizePopupHeight);
+
+        // Cleanup: Remove the height property and event listener after unmount
+        return () => {
+            removeHeightProperty();
+            window.removeEventListener('resize', resizePopupHeight);
         };
     }, [isAndroidBrowser]);
 
