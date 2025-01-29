@@ -68,6 +68,8 @@ export class SettingsStore {
 
     @observable isCustomDnsModalOpen = false;
 
+    @observable isHelpUsImproveModalOpen = false;
+
     @observable customDnsServers: DnsServerData[] = [];
 
     @observable invitesBonuses = {
@@ -290,6 +292,14 @@ export class SettingsStore {
 
     @action closeCustomDnsModal = (): void => {
         this.isCustomDnsModalOpen = false;
+    };
+
+    @action openHelpUsImproveModal = (): void => {
+        this.isHelpUsImproveModalOpen = true;
+    };
+
+    @action closeHelpUsImproveModal = (): void => {
+        this.isHelpUsImproveModalOpen = false;
     };
 
     /**

@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import classNames from 'classnames';
+
 import { rootStore } from '../../stores';
 
 import { SignInForm } from './SignInForm';
@@ -60,9 +62,13 @@ export const Authentication = observer(() => {
 
     const { step } = authStore;
 
+    const containerClassNames = classNames('auth__container', {
+        'auth__container--agreement': step === authStore.STEPS.POLICY_AGREEMENT,
+    });
+
     return (
         <div className="auth">
-            <div className="auth__container">
+            <div className={containerClassNames}>
                 {getHeader(step)}
                 {getForm(step)}
             </div>

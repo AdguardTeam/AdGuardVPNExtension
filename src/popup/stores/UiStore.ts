@@ -7,6 +7,8 @@ export class UiStore {
 
     @observable isOpenOptionsModal: boolean = false;
 
+    @observable isAgreementModalOpen: boolean = false;
+
     @observable isOpenRecovery: boolean = false;
 
     @observable isConnecting: boolean = false;
@@ -67,6 +69,14 @@ export class UiStore {
 
     @action closeOptionsModal = (): void => {
         this.isOpenOptionsModal = false;
+    };
+
+    @action openAgreementModal = (): void => {
+        this.isAgreementModalOpen = true;
+    };
+
+    @action closeAgreementModal = (): void => {
+        this.isAgreementModalOpen = false;
     };
 
     @action openVpnBlockedErrorNotice = (): void => {

@@ -325,10 +325,31 @@
         "message": "Manage VPN exclusions for a specific website"
     },
     "settings_help_us_improve_title": {
-        "message": "Send anonymous crash reports"
+        "message": "Help improve AdGuard VPN"
     },
-    "settings_help_us_improve_description": {
-        "message": "Notify AdGuard VPN developers if something goes wrong"
+    "settings_help_us_improve_modal_title": {
+        "message": "Extension usage data"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "This data includes:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Names of screens you interact with"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Names of buttons you click"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Session identifiers"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "We need this information to analyze and improve the functionality of AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "This data is anonymous and only used internally. We never share it with third parties"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Got it"
     },
     "context_menu_selective_mode": {
         "message": "Selective mode"
@@ -780,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN is disabled on this website"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Welcome on board"
+    },
     "popup_auth_policy_agreement": {
-        "message": "I have read and agree to AdGuard’s <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
+        "message": "I accept AdGuard VPN’s <eula>EULA</eula> and <privacy>Privacy policy</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "I allow AdGuard to gather <link>strictly anonymous data</link> on the app usage to make AdGuard VPN even better"
+        "message": "Send anonymized <link>extension usage data</link>"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "If you agree, AdGuard VPN will collect data about the screens and buttons you interact with. You can always disable data sharing in <b>Settings</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "This information helps us understand what features work well and what needs improvement. It is anonymized and only used internally. We never share it with anyone"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Continue"
+        "message": "Log in or create an account"
     },
     "popup_newsletter_title": {
         "message": "AdGuard newsletter"

@@ -3,18 +3,24 @@ import { observer } from 'mobx-react';
 
 import { popupActions } from '../../../actions/popupActions';
 import { getForwarderUrl } from '../../../../common/helpers';
+import { translator } from '../../../../common/translator';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import { rootStore } from '../../../stores';
 import { Checkbox } from '../Checkbox';
 
+import { PolicyAgreementModal } from './PolicyAgreementModal';
+
+import './policy-agreement.pcss';
+
 const POLICY_AGREEMENT_ID = 'policy_agreement';
 const HELP_US_IMPROVE_ID = 'help_us_improve';
 
 export const PolicyAgreement = observer(() => {
-    const { authStore, settingsStore } = useContext(rootStore);
+    const { authStore, settingsStore, uiStore } = useContext(rootStore);
 
     const { forwarderDomain } = settingsStore;
+    const { openAgreementModal } = uiStore;
 
     const eulaUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.EULA);
     const privacyUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY);
@@ -27,11 +33,6 @@ export const PolicyAgreement = observer(() => {
     const handleEulaClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
         await popupActions.openTab(eulaUrl);
-    };
-
-    const handleAnonymousDataLinkClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
-        e.preventDefault();
-        await popupActions.openTab(privacyUrl);
     };
 
     const onPolicyAgreementChange = async (value: boolean): Promise<void> => {
@@ -47,67 +48,78 @@ export const PolicyAgreement = observer(() => {
     };
 
     return (
-        <>
-            <div className="logo auth__logo" />
-            <div className="form__group form__group--wide">
-                <Checkbox
-                    id={POLICY_AGREEMENT_ID}
-                    checked={authStore.policyAgreement}
-                    onChange={onPolicyAgreementChange}
-                    label={reactTranslator.getMessage('popup_auth_policy_agreement', {
-                        eula: (chunks: string) => (
-                            <a
-                                href={eulaUrl}
-                                onClick={handleEulaClick}
-                                className="button button--link-green"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                {chunks}
-                            </a>
-                        ),
-                        privacy: (chunks: string) => (
-                            <a
-                                href={privacyUrl}
-                                onClick={handlePrivacyClick}
-                                className="button button--link-green"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                {chunks}
-                            </a>
-                        ),
-                    })}
+        <div className="policy-agreement">
+            <div className="policy-agreement__image-wrapper">
+                <img
+                    src="../../../../assets/images/vpn-blocked-error-ninja.svg"
+                    alt="Reading Ninja"
+                    className="policy-agreement__image"
                 />
             </div>
-            <div className="form__group form__group--last form__group--wide">
-                <Checkbox
-                    id={HELP_US_IMPROVE_ID}
-                    checked={authStore.helpUsImprove}
-                    onChange={onHelpUsImproveChanged}
-                    label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
-                        link: (chunks: string) => (
-                            <a
-                                href={privacyUrl}
-                                onClick={handleAnonymousDataLinkClick}
-                                className="button button--link-green"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                {chunks}
-                            </a>
-                        ),
-                    })}
-                />
+            <div className="policy-agreement__content">
+                <h1 className="policy-agreement__title">
+                    {translator.getMessage('popup_auth_policy_agreement_title')}
+                </h1>
+                <div className="policy-agreement__checkbox">
+                    <Checkbox
+                        id={POLICY_AGREEMENT_ID}
+                        checked={authStore.policyAgreement}
+                        onChange={onPolicyAgreementChange}
+                        label={reactTranslator.getMessage('popup_auth_policy_agreement', {
+                            eula: (chunks: string) => (
+                                <a
+                                    href={eulaUrl}
+                                    onClick={handleEulaClick}
+                                    className="button button--link-green"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    {chunks}
+                                </a>
+                            ),
+                            privacy: (chunks: string) => (
+                                <a
+                                    href={privacyUrl}
+                                    onClick={handlePrivacyClick}
+                                    className="button button--link-green"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    {chunks}
+                                </a>
+                            ),
+                        })}
+                    />
+                </div>
+                <div className="policy-agreement__checkbox">
+                    <Checkbox
+                        id={HELP_US_IMPROVE_ID}
+                        checked={authStore.helpUsImprove}
+                        onChange={onHelpUsImproveChanged}
+                        label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
+                            link: (chunks: string) => (
+                                <a
+                                    role="button"
+                                    href="#"
+                                    onClick={openAgreementModal}
+                                    className="button button--link-green"
+                                >
+                                    {chunks}
+                                </a>
+                            ),
+                        })}
+                    />
+                </div>
+                <button
+                    type="button"
+                    onClick={handleContinueClick}
+                    className="button button--medium button--green form__btn policy-agreement__button"
+                    disabled={!authStore.policyAgreement}
+                >
+                    {translator.getMessage('popup_auth_policy_agreement_continue_button')}
+                </button>
             </div>
-            <button
-                type="button"
-                onClick={handleContinueClick}
-                className="button button--medium button--green form__btn"
-                disabled={!authStore.policyAgreement}
-            >
-                {reactTranslator.getMessage('popup_auth_policy_agreement_continue_button')}
-            </button>
-        </>
+            <PolicyAgreementModal />
+        </div>
     );
 });
