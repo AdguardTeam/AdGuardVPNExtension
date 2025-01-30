@@ -179,11 +179,21 @@ export const App = observer(() => {
 
     /**
      * Update popup height on Android browsers based on window height.
-     * This is required because Android browsers do not support 100vh properly.
+     * This is required because Android browser's popup do not support 100vh properly.
      */
     useLayoutEffect(() => {
-        const POPUP_HEIGHT_PROP = '--popup-height';
+        /**
+         * Minimum height for the popup. If window height is less than this value,
+         * popup height will be set to this value. Value is based on calculation:
+         * Android Extension Window Height = clamp(Popup Height, 15% of viewport height, 70% of viewport height)
+         *
+         * We took average mobile viewport height as 785px from:
+         * {@link https://gs.statcounter.com/screen-resolution-stats/mobile/worldwide}
+         *
+         * 785px % 70 = 550px
+         */
         const POPUP_MIN_HEIGHT = 550;
+        const POPUP_HEIGHT_PROP = '--popup-height';
         const html = document.documentElement;
 
         const removeHeightProperty = () => {
