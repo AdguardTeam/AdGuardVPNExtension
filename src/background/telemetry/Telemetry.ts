@@ -8,6 +8,8 @@ import { type BrowserApi } from '../browserApi';
 import { type StorageInterface } from '../browserApi/storage';
 
 import {
+    type TelemetryScreenName,
+    type TelemetryActionName,
     TelemetryLicenseStatus,
     TelemetryOs,
     TelemetrySubscriptionDuration,
@@ -25,16 +27,16 @@ export interface TelemetryInterface {
     /**
      * Sends a telemetry page view event using {@link telemetryProvider}.
      *
-     * @param event Page view event data.
+     * @param screenName Name of the screen.
      */
-    sendPageViewEvent(event: TelemetryPageViewEventData): Promise<void>;
+    sendPageViewEvent(screenName: TelemetryScreenName): Promise<void>;
 
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
-     * @param event Custom event data.
+     * @param actionName Name of the action.
      */
-    sendCustomEvent(event: TelemetryCustomEventData): Promise<void>;
+    sendCustomEvent(actionName: TelemetryActionName): Promise<void>;
 }
 
 export interface TelemetryParameters {
@@ -86,8 +88,6 @@ export class Telemetry implements TelemetryInterface {
      */
     private telemetryProvider: TelemetryProviderInterface;
 
-    // FIXME: Add prev and current page view data to track navigation events
-
     constructor({
         browserApi,
         telemetryProvider,
@@ -99,22 +99,34 @@ export class Telemetry implements TelemetryInterface {
     /**
      * Sends a telemetry page view event using {@link telemetryProvider}.
      *
-     * @param event Page view event data.
+     * @param screenName Name of the screen.
      */
-    public sendPageViewEvent = async (event: TelemetryPageViewEventData): Promise<void> => {
+    public sendPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
         // FIXME: Add check if settings enabled or not
         const baseData = await this.getBaseData();
+        const event: TelemetryPageViewEventData = {
+            name: screenName,
+            refName: undefined, // FIXME: Implement current screen name
+        };
+
         this.telemetryProvider.sendPageViewEvent(event, baseData);
     };
 
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
-     * @param event Custom event data.
+     * @param actionName Name of the action.
      */
-    public sendCustomEvent = async (event: TelemetryCustomEventData): Promise<void> => {
+    public sendCustomEvent = async (actionName: TelemetryActionName): Promise<void> => {
         // FIXME: Add check if settings enabled or not
         const baseData = await this.getBaseData();
+        const event: TelemetryCustomEventData = {
+            name: actionName,
+            refName: undefined, // FIXME: Implement current screen name
+            action: undefined, // FIXME: What should I pass?
+            label: undefined, // FIXME: What should I pass?
+        };
+
         this.telemetryProvider.sendCustomEvent(event, baseData);
     };
 

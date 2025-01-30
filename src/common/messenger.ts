@@ -6,7 +6,7 @@ import type { StartSocialAuthData, UserLookupData } from '../background/messagin
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { Message } from '../popup/components/App/App';
-import type { TelemetryCustomEventData, TelemetryPageViewEventData } from '../background/telemetry';
+import type { TelemetryActionName, TelemetryScreenName } from '../background/telemetry';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
@@ -495,14 +495,14 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async sendPageViewTelemetryEvent(event: TelemetryPageViewEventData): Promise<void> {
+    async sendPageViewTelemetryEvent(screenName: TelemetryScreenName): Promise<void> {
         const type = MessageType.SEND_PAGE_VIEW_TELEMETRY_EVENT;
-        return this.sendMessage(type, { event });
+        return this.sendMessage(type, { screenName });
     }
 
-    async sendCustomTelemetryEvent(event: TelemetryCustomEventData): Promise<void> {
+    async sendCustomTelemetryEvent(actionName: TelemetryActionName): Promise<void> {
         const type = MessageType.SEND_CUSTOM_TELEMETRY_EVENT;
-        return this.sendMessage(type, { event });
+        return this.sendMessage(type, { actionName });
     }
 }
 

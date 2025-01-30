@@ -451,13 +451,13 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             break;
         }
         case MessageType.SEND_PAGE_VIEW_TELEMETRY_EVENT: {
-            const { event } = data;
-            await telemetry.sendPageViewEvent(event);
+            const { screenName } = data;
+            await telemetry.sendPageViewEvent(screenName);
             break;
         }
         case MessageType.SEND_CUSTOM_TELEMETRY_EVENT: {
-            const { event } = data;
-            await telemetry.sendCustomEvent(event);
+            const { actionName } = data;
+            await telemetry.sendCustomEvent(actionName);
             break;
         }
         default:
