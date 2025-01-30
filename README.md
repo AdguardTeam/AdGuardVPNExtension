@@ -138,7 +138,7 @@ You can specify browser in arguments. See examples below:
 
 ```bash
 yarn dev chrome
-yarn beta chrome-mv3
+yarn beta chrome-mv2
 yarn release opera
 ```
 
@@ -148,16 +148,44 @@ Before releasing new versions do not forget to update exclusions-services data, 
 
 ### Artifact builds
 
-- `CREDENTIALS_PASSWORD=<password> artifacts:beta`
-- `CREDENTIALS_PASSWORD=<password> artifacts:release`
+Before building artifacts make sure you have [build](#build)
+the extension and also make sure you have added credentials:
 
-Make sure you have added credentials
+- `certificate-beta.pem` - chrome crx beta certificate
+- `certificate-release.pem` - chrome crx release certificate
+- `mozilla_credentials.json` - encrypted credentials - temporary not needed,
 
-- certificate-beta.pem - chrome crx beta certificate
-- certificate-release.pem - chrome crx release certificate
-- mozilla_credentials.json - encrypted credentials,
+to the directory `./private/AdguardVPN`.
 
-to the directory `./private/AdguardVPN`
+For testing purposes for `artifacts:dev` command credentials taken from `./tests/certificate-test.pem` file.
+
+WARNING: DO NOT USE TEST CREDENTIALS FOR PRODUCTION BUILDS, BECAUSE THEY ARE AVAILABLE IN PUBLIC.
+
+If you want to generate your own credentials you can go to
+[How to generate credentials for `crx` builds](#how-to-generate-credentials-for-crx-builds) for more details
+
+To build artifacts, run:
+
+- `CREDENTIALS_PASSWORD=<password> yarn artifacts:dev`
+- `CREDENTIALS_PASSWORD=<password> yarn artifacts:beta`
+- `CREDENTIALS_PASSWORD=<password> yarn artifacts:release`
+
+**Builds will be located in the `build` directory**
+
+By default, you will have builds for:
+
+- Chrome — manifest versions **3** (`chrome.crx`)
+- Firefox — manifest version **3** (`firefox.xpi`) - temporarily disabled
+
+#### How to generate credentials for `crx` builds
+
+You can use [Crx CLI `keygen`](https://github.com/thom4parisot/crx#crx-keygen-directory)
+to generate credentials for `crx` builds, see the example below:
+
+```bash
+# Command will generate `key.pem` credential in the `./private/AdguardVPN` directory
+yarn crx keygen ./private/AdguardVPN
+```
 
 #### <a name="build-firefox-review"></a> Special building instructions for Firefox reviewers
 
