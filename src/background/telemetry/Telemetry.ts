@@ -3,7 +3,9 @@ import browser from 'webextension-polyfill';
 import { AppearanceTheme } from '../../common/constants';
 import { Prefs, SystemName } from '../../common/prefs';
 import { appStatus } from '../appStatus';
-import { telemetryProvider } from '../providers/telemetryProvider';
+import { type TelemetryProviderInterface } from '../providers/telemetryProvider';
+import { type BrowserApi } from '../browserApi';
+import { type StorageInterface } from '../browserApi/storage';
 
 import {
     TelemetryLicenseStatus,
@@ -13,10 +15,10 @@ import {
 } from './telemetryEnums';
 import {
     type TelemetryBaseData,
-    type TelemetryUserAgent,
     type TelemetryProps,
     type TelemetryPageViewEventData,
     type TelemetryCustomEventData,
+    type TelemetryUserAgent,
 } from './telemetryTypes';
 
 export interface TelemetryInterface {
@@ -35,11 +37,21 @@ export interface TelemetryInterface {
     sendCustomEvent(event: TelemetryCustomEventData): Promise<void>;
 }
 
+export interface TelemetryParameters {
+    browserApi: BrowserApi;
+    telemetryProvider: TelemetryProviderInterface;
+}
+
 export class Telemetry implements TelemetryInterface {
     /**
      * Application type sent in telemetry events
      */
     private static APP_TYPE = 'VPN_EXTENSION';
+
+    /**
+     * Key for synthetic ID in local storage.
+     */
+    private static SYNTHETIC_ID_KEY = 'telemetry.synthetic.id';
 
     /**
      * SystemName to TelemetryOs mapper.
@@ -65,13 +77,23 @@ export class Telemetry implements TelemetryInterface {
     };
 
     /**
-     * User agent data for telemetry events.
-     * Initialized in {@link init} method.
+     * Browser local storage.
      */
-    private userAgent!: TelemetryUserAgent;
+    private storage: StorageInterface;
 
-    async init(): Promise<void> {
-        await this.updateUserAgent();
+    /**
+     * Telemetry provider.
+     */
+    private telemetryProvider: TelemetryProviderInterface;
+
+    // FIXME: Add prev and current page view data to track navigation events
+
+    constructor({
+        browserApi,
+        telemetryProvider,
+    }: TelemetryParameters) {
+        this.storage = browserApi.storage;
+        this.telemetryProvider = telemetryProvider;
     }
 
     /**
@@ -80,8 +102,9 @@ export class Telemetry implements TelemetryInterface {
      * @param event Page view event data.
      */
     public sendPageViewEvent = async (event: TelemetryPageViewEventData): Promise<void> => {
-        const baseData = this.getBaseData();
-        telemetryProvider.sendPageViewEvent(event, baseData);
+        // FIXME: Add check if settings enabled or not
+        const baseData = await this.getBaseData();
+        this.telemetryProvider.sendPageViewEvent(event, baseData);
     };
 
     /**
@@ -90,8 +113,9 @@ export class Telemetry implements TelemetryInterface {
      * @param event Custom event data.
      */
     public sendCustomEvent = async (event: TelemetryCustomEventData): Promise<void> => {
-        const baseData = this.getBaseData();
-        telemetryProvider.sendCustomEvent(event, baseData);
+        // FIXME: Add check if settings enabled or not
+        const baseData = await this.getBaseData();
+        this.telemetryProvider.sendCustomEvent(event, baseData);
     };
 
     /**
@@ -99,14 +123,16 @@ export class Telemetry implements TelemetryInterface {
      *
      * @returns Base data for telemetry events.
      */
-    private getBaseData(): TelemetryBaseData {
+    private async getBaseData(): Promise<TelemetryBaseData> {
+        const { version } = appStatus;
+        const userAgent = await this.getUserAgent();
         const props = this.getProps();
 
         return {
             syntheticId: 'FIXME: Take it from storage',
             appType: Telemetry.APP_TYPE,
-            version: appStatus.version,
-            userAgent: this.userAgent,
+            version,
+            userAgent,
             props,
         };
     }
@@ -114,11 +140,11 @@ export class Telemetry implements TelemetryInterface {
     /**
      * Sets user agent data for telemetry events.
      */
-    private async updateUserAgent(): Promise<void> {
+    private async getUserAgent(): Promise<TelemetryUserAgent> {
         const { os, arch } = await Prefs.getPlatformInfo();
         const osName = Telemetry.OS_MAPPER[os];
 
-        this.userAgent = {
+        return {
             device: {
                 brand: 'FIXME: Can it be retrieved?',
                 model: 'FIXME: Can it be retrieved?',
@@ -139,15 +165,15 @@ export class Telemetry implements TelemetryInterface {
     private getProps(): TelemetryProps {
         const locale = browser.i18n.getUILanguage();
 
-        const appearanceTheme = AppearanceTheme.System; // FIXME: Take it from fields
+        const appearanceTheme = AppearanceTheme.System; // FIXME: How should I retrieve this data?
         const theme = appearanceTheme && Telemetry.THEME_MAPPER[appearanceTheme];
 
         return {
             appLocale: locale,
             systemLocale: locale,
-            loggedIn: false, // FIXME: Take it from fields
-            licenseStatus: TelemetryLicenseStatus.Free, // FIXME: Take it from fields
-            subscriptionDuration: TelemetrySubscriptionDuration.Other, // FIXME: Take it from fields
+            loggedIn: false, // FIXME: How should I retrieve this data?
+            licenseStatus: TelemetryLicenseStatus.Free, // FIXME: How should I retrieve this data?
+            subscriptionDuration: TelemetrySubscriptionDuration.Other, // FIXME: How should I retrieve this data?
             theme,
         };
     }
