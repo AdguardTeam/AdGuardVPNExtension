@@ -27,6 +27,12 @@
         width: 100%;
         max-width: 320px;
         padding: 0 16px;
+
+        .slider__info {
+            /* To eliminate jumping dots effect we set size of slider text at min 3 lines: */
+            /* 1em (font-size) * 1.3 (line-height) * 3 (lines) */
+            min-height: 3.9em;
+        }
     }
 
     &__desc {
