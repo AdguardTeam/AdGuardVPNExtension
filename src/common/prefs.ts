@@ -51,7 +51,7 @@ interface PlatformInfo {
     arch: Runtime.PlatformArch;
 }
 
-interface PrefsInterface {
+export interface PrefsInterface {
     ICONS: IconVariants;
     browser: string;
     platformInfo?: PlatformInfo;
