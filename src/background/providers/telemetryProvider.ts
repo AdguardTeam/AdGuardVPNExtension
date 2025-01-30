@@ -316,17 +316,17 @@ const THEME_MAPPER: Record<AppearanceTheme, TelemetryTheme> = {
 /**
  * Creates telemetry base data for the event.
  *
- * @param options Options for sending telemetry event.
+ * @param data Data for sending telemetry event.
  * @returns Telemetry base data.
  */
-const getBaseData = async (options: TelemetrySendEventData): Promise<TelemetryBaseData> => {
+const getBaseData = async (data: TelemetrySendEventData): Promise<TelemetryBaseData> => {
     const {
         syntheticId,
         loggedIn,
         licenseStatus,
         subscriptionDuration,
         appearanceTheme,
-    } = options;
+    } = data;
 
     const { os, arch } = await Prefs.getPlatformInfo();
     const osName = OS_MAPPER[os];
