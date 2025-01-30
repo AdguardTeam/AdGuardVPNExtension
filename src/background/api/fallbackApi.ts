@@ -191,7 +191,7 @@ export class FallbackApi {
         return [
             await this.getVpnApiUrl(),
             await this.getAuthApiUrl(),
-            // await this.getTelemetryApiUrl(), FIXME: Should we add this?
+            await this.getTelemetryApiUrl(),
             GOOGLE_DOH_HOSTNAME,
             CLOUDFLARE_DOH_HOSTNAME,
             ALIDNS_DOH_HOSTNAME,

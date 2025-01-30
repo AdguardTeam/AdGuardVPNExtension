@@ -33,17 +33,36 @@ export type IconVariants = {
     [key: string]: IconData,
 };
 
+interface PlatformInfo {
+    /**
+     * The operating system the browser is running on.
+     */
+    os: SystemName;
+
+    /**
+     * The architecture of the operating system.
+     */
+    arch: Runtime.PlatformArch;
+}
+
 interface PrefsInterface {
     ICONS: IconVariants;
     browser: string;
-    os?: Runtime.PlatformOs;
+    platformInfo?: PlatformInfo;
+
+    /**
+     * Returns the platform info.
+     *
+     * Uses native {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getPlatformInfo | runtime.getPlatformInfo()}.
+     */
+    getPlatformInfo(): Promise<PlatformInfo>;
 
     /**
      * Returns the current OS.
      *
      * Uses native {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getPlatformInfo | runtime.getPlatformInfo()}.
      */
-    getOS(): Promise<Runtime.PlatformOs>;
+    getOS(): Promise<SystemName>;
 
     /**
      * Checks whether the current browser is Firefox.
@@ -92,10 +111,15 @@ enum BrowserName {
     YaBrowser = 'YaBrowser',
 }
 
-enum SystemName {
+export enum SystemName {
     MacOS = 'mac',
+    iOS = 'ios',
     Windows = 'win',
     Android = 'android',
+    ChromeOS = 'cros',
+    Linux = 'linux',
+    OpenBSD = 'openbsd',
+    Fuchsia = 'fuchsia',
 }
 
 export const Prefs: PrefsInterface = {
@@ -146,11 +170,20 @@ export const Prefs: PrefsInterface = {
         });
     },
 
-    async getOS(): Promise<Runtime.PlatformOs> {
-        if (!this.os) {
-            this.os = await runtime.getPlatformOs();
+    async getPlatformInfo(): Promise<PlatformInfo> {
+        if (!this.platformInfo) {
+            const platformInfo = await runtime.getPlatformInfo();
+            this.platformInfo = {
+                os: platformInfo.os as SystemName,
+                arch: platformInfo.arch,
+            };
         }
-        return this.os;
+        return this.platformInfo;
+    },
+
+    async getOS(): Promise<SystemName> {
+        const platformInfo = await this.getPlatformInfo();
+        return platformInfo.os as SystemName;
     },
 
     async isWindows(): Promise<boolean> {

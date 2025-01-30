@@ -1,7 +1,7 @@
 import browser, { type Runtime } from 'webextension-polyfill';
 
 import { AppearanceTheme } from '../../common/constants';
-import { browserApi } from '../browserApi';
+import { Prefs, SystemName } from '../../common/prefs';
 import { appStatus } from '../appStatus';
 import { telemetryApi } from '../api/telemetryApi';
 
@@ -9,21 +9,23 @@ import { telemetryApi } from '../api/telemetryApi';
  * Screen names passed to telemetry.
  */
 export enum TelemetryScreenName {
-    // FIXME: Add screen names
+    WelcomeScreen = 'welcome_screen',
+    // FIXME: Add rest of screen names
 }
 
 /**
  * Event names passed to telemetry.
  */
 export enum TelemetryActionName {
-    // FIXME: Add action names
+    OnboardingPurchaseClick = 'onboarding_purchase_click',
+    // FIXME: Add rest of action names
 }
 
 /**
  * Operating system names passed to telemetry.
  */
 export enum TelemetryOs {
-    Mac = 'Mac',
+    MacOS = 'Mac',
     iOS = 'iOS',
     Windows = 'Windows',
     Android = 'Android',
@@ -249,7 +251,7 @@ export interface TelemetrySendEventData {
     /**
      * User authentication status.
      */
-    isAuthenticated?: TelemetryProps['loggedIn'];
+    loggedIn?: TelemetryProps['loggedIn'];
 
     /**
      * License status.
@@ -289,26 +291,23 @@ export interface TelemetryProviderInterface {
 }
 
 /**
- * Runtime.PlatformOs to TelemetryOs mapper.
- *
- * Keys are based on
- * {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/PlatformOs | Runtime.PlatformOs}
+ * SystemName to TelemetryOs mapper.
  */
-const RUNTIME_OS_TO_TELEMETRY_OS_MAPPER: Record<string, TelemetryOs> = {
-    mac: TelemetryOs.Mac,
-    ios: TelemetryOs.iOS,
-    win: TelemetryOs.Windows,
-    android: TelemetryOs.Android,
-    cros: TelemetryOs.ChromeOS,
-    linux: TelemetryOs.Linux,
-    openbsd: TelemetryOs.OpenBSD,
-    fuchsia: TelemetryOs.Fuchsia,
+const OS_MAPPER: Record<SystemName, TelemetryOs> = {
+    [SystemName.MacOS]: TelemetryOs.MacOS,
+    [SystemName.iOS]: TelemetryOs.iOS,
+    [SystemName.Windows]: TelemetryOs.Windows,
+    [SystemName.Android]: TelemetryOs.Android,
+    [SystemName.ChromeOS]: TelemetryOs.ChromeOS,
+    [SystemName.Linux]: TelemetryOs.Linux,
+    [SystemName.OpenBSD]: TelemetryOs.OpenBSD,
+    [SystemName.Fuchsia]: TelemetryOs.Fuchsia,
 };
 
 /**
  * AppearanceTheme to TelemetryTheme mapper.
  */
-const APPEARANCE_THEME_TO_TELEMETRY_THEME_MAPPER: Record<AppearanceTheme, TelemetryTheme> = {
+const THEME_MAPPER: Record<AppearanceTheme, TelemetryTheme> = {
     [AppearanceTheme.Light]: TelemetryTheme.Light,
     [AppearanceTheme.Dark]: TelemetryTheme.Dark,
     [AppearanceTheme.System]: TelemetryTheme.System,
@@ -323,34 +322,35 @@ const APPEARANCE_THEME_TO_TELEMETRY_THEME_MAPPER: Record<AppearanceTheme, Teleme
 const getBaseData = async (options: TelemetrySendEventData): Promise<TelemetryBaseData> => {
     const {
         syntheticId,
-        isAuthenticated,
+        loggedIn,
         licenseStatus,
         subscriptionDuration,
         appearanceTheme,
     } = options;
 
-    const runtimePlatform = await browserApi.runtime.getPlatformInfo();
+    const { os, arch } = await Prefs.getPlatformInfo();
+    const osName = OS_MAPPER[os];
     const userAgent: TelemetryUserAgent = {
-        // FIXME: Probably we need to add browser info instead?
         device: {
             brand: 'FIXME: Can it be retrieved?',
             model: 'FIXME: Can it be retrieved?',
         },
         os: {
-            name: RUNTIME_OS_TO_TELEMETRY_OS_MAPPER[runtimePlatform.os],
-            platform: runtimePlatform.arch,
+            name: osName,
+            platform: arch,
             version: 'FIXME: Can it be retrieved?',
         },
     };
 
     const locale = browser.i18n.getUILanguage();
+    const theme = appearanceTheme && THEME_MAPPER[appearanceTheme];
     const props: TelemetryProps = {
         appLocale: locale,
         systemLocale: locale,
-        loggedIn: isAuthenticated,
+        loggedIn,
         licenseStatus,
         subscriptionDuration,
-        theme: appearanceTheme && APPEARANCE_THEME_TO_TELEMETRY_THEME_MAPPER[appearanceTheme],
+        theme,
     };
 
     return {
