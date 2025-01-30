@@ -33,6 +33,12 @@ export type IconVariants = {
     [key: string]: IconData,
 };
 
+/**
+ * Re-structured Runtime.PlatformInfo.
+ * The only difference is that `os` type re-defined as `SystemName` enum.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/PlatformInfo | Runtime.PlatformInfo}
+ */
 interface PlatformInfo {
     /**
      * The operating system the browser is running on.
