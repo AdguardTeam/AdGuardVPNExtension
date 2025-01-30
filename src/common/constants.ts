@@ -112,6 +112,9 @@ export enum MessageType {
     UPDATE_LISTENERS = 'update.listeners',
 
     RECALCULATE_PINGS = 'recalculate.pings',
+
+    SEND_PAGE_VIEW_TELEMETRY_EVENT = 'send.page.view.telemetry.event',
+    SEND_CUSTOM_TELEMETRY_EVENT = 'send.custom.telemetry.event',
 }
 
 export enum SocialAuthProvider {

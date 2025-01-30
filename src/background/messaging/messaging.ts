@@ -29,6 +29,7 @@ import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
 import { emailConfirmationService } from '../emailConfirmationService';
 import { limitedOfferService } from '../limitedOfferService';
+import { telemetry } from '../telemetry';
 
 interface Message {
     type: MessageType,
@@ -447,6 +448,16 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.RECALCULATE_PINGS: {
             locationsService.measurePings(true);
+            break;
+        }
+        case MessageType.SEND_PAGE_VIEW_TELEMETRY_EVENT: {
+            const { event } = data;
+            await telemetry.sendPageViewEvent(event);
+            break;
+        }
+        case MessageType.SEND_CUSTOM_TELEMETRY_EVENT: {
+            const { event } = data;
+            await telemetry.sendCustomEvent(event);
             break;
         }
         default:
