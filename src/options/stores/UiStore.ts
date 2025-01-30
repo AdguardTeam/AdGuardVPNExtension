@@ -25,6 +25,7 @@ export class UiStore {
     @computed get isAnyModalOpen(): boolean {
         return (
             this.rootStore.settingsStore.isCustomDnsModalOpen
+            || this.rootStore.settingsStore.isHelpUsImproveModalOpen
             || this.rootStore.exclusionsStore.modeSelectorModalOpen
             || this.rootStore.exclusionsStore.removeAllModalOpen
             || this.rootStore.exclusionsStore.selectListModalOpen

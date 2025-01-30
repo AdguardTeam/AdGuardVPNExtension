@@ -4,23 +4,87 @@ import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
 import { type RequestProps } from './apiTypes';
 
-interface TokensInterface {
-    token: string;
-    license_status: string;
-    time_expires_sec: number;
-    time_expires_iso: string;
-    license_key: string;
-    max_devices_count: number;
-    vpn_subscription: {
-        status: string;
-        next_bill_date_sec: number;
-        next_bill_date_iso: string;
-        duration_v2: SubscriptionType;
-    }
+/**
+ * VPN subscription data.
+ */
+export interface VpnSubscriptionData {
+    /**
+     * Subscription status.
+     * Possible values: 'ACTIVE', 'PAST_DUE', 'PAUSED', 'DELETED'.
+     * TODO: Convert to enum.
+     */
+    status: string;
+
+    /**
+     * Subscription expiration timestamp (in seconds).
+     */
+    next_bill_date_sec: number;
+
+    /**
+     * Subscription expiration time in ISO 8601 format (yyyy-MM-dd'T'HH:mm:ssZ).
+     */
+    next_bill_date_iso: string;
+
+    /**
+     * Subscription duration.
+     */
+    duration_v2: SubscriptionType;
 }
 
+/**
+ * VPN license token info.
+ */
+interface TokensInterface {
+    /**
+     * Token needed for accessing VPN service.
+     */
+    token: string;
+
+    /**
+     * License status.
+     * Possible values: 'NOT_EXISTS', 'EXPIRED', 'LIMIT_EXCEEDED', 'BLOCKED', 'VALID'.
+     * TODO: Convert to enum.
+     */
+    license_status: string;
+
+    /**
+     * Token expiration timestamp (in seconds).
+     */
+    time_expires_sec: number;
+
+    /**
+     * Token expiration time in ISO 8601 format (yyyy-MM-dd'T'HH:mm:ssZ).
+     */
+    time_expires_iso: string;
+
+    /**
+     * License key (`null` for FREE token).
+     */
+    license_key: string | null;
+
+    /**
+     * Max number of connected devices.
+     */
+    max_devices_count: number;
+
+    /**
+     * VPN license subscription info.
+     */
+    vpn_subscription: VpnSubscriptionData | null;
+}
+
+/**
+ * VPN tokens data.
+ */
 interface VpnTokenData {
+    /**
+     * Token needed for accessing VPN backend.
+     */
     token?: string;
+
+    /**
+     * List of VPN license tokens.
+     */
     tokens?: Array<TokensInterface>;
 }
 

@@ -54,12 +54,22 @@ Test:
             FORWARDER_DOMAIN="${bamboo.devVpnForwarderDomain}" \
             yarn dev
 
+            # build artifacts chrome.crx
+            # firefox.xpi - temporary disabled
+            STAGE_ENV=test \
+            yarn artifacts:dev
+
             # build with prod API endpoints
             STAGE_ENV=prod \
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
             yarn dev
+
+            # build artifacts chrome-prod.crx
+            # firefox-prod.xpi - temporary disabled
+            STAGE_ENV=prod \
+            yarn artifacts:dev
   final-tasks:
     - script:
         interpreter: SHELL
@@ -102,6 +112,11 @@ Test:
       pattern: firefox.zip
       shared: true
       required: true
+    - name: chrome.crx
+      location: build/dev
+      pattern: chrome.crx
+      shared: true
+      required: true
     - name: build.txt
       location: build/dev
       pattern: build.txt
@@ -125,6 +140,11 @@ Test:
     - name: firefox-prod.zip
       location: build/dev
       pattern: firefox-prod.zip
+      shared: true
+      required: true
+    - name: chrome-prod.crx
+      location: build/dev
+      pattern: chrome-prod.crx
       shared: true
       required: true
   requirements:

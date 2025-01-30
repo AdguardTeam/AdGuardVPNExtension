@@ -1,22 +1,41 @@
 import { getForwarderUrl } from '../../common/helpers';
-import { accountApi } from '../api';
+import { accountApi, type VpnSubscriptionData } from '../api';
 import { forwarder } from '../forwarder';
 import { notifications } from '../notifications';
 import { translator } from '../../common/translator';
-import { type SubscriptionType } from '../../common/constants';
 
 interface VpnTokenData {
+    /**
+     * Token needed for accessing VPN service.
+     */
     token: string;
+
+    /**
+     * License status.
+     * Possible values: 'NOT_EXISTS', 'EXPIRED', 'LIMIT_EXCEEDED', 'BLOCKED', 'VALID'.
+     * TODO: Convert to enum.
+     */
     licenseStatus: string;
+
+    /**
+     * Token expiration timestamp (in seconds).
+     */
     timeExpiresSec: number;
+
+    /**
+     * Token expiration time in ISO 8601 format (yyyy-MM-dd'T'HH:mm:ssZ).
+     */
     timeExpiresIso: string;
-    licenseKey: string;
-    vpnSubscription: {
-        status: string;
-        next_bill_date_sec: number;
-        next_bill_date_iso: string;
-        duration_v2: SubscriptionType;
-    };
+
+    /**
+     * License key (`null` for FREE token).
+     */
+    licenseKey: string | null;
+
+    /**
+     * VPN license subscription info.
+     */
+    vpnSubscription: VpnSubscriptionData | null;
 }
 
 export type AccountInfoData = {

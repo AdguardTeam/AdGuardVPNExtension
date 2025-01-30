@@ -65,8 +65,8 @@ Build:
             # build with prod API endpoints edge.zip, chrome.zip, firefox.zip, opera.zip
             yarn beta
 
-            # build artifacts chrome.crx
-            # firefox.xpi - temporary disabled
+            # build artifacts chrome.crx and update.xml
+            # firefox.xpi and update.json - temporary disabled
             yarn artifacts:beta
 
             # build source code for uploading to amo
