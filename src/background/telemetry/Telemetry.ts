@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 import { customAlphabet } from 'nanoid';
 
-import { AppearanceTheme } from '../../common/constants';
+import { AppearanceTheme, SubscriptionType } from '../../common/constants';
 import { type PrefsInterface, SystemName } from '../../common/prefs';
 import { type TelemetryProviderInterface } from '../providers/telemetryProvider';
 import { type AppStatus } from '../appStatus/AppStatus';
@@ -11,6 +11,8 @@ import { type TelemetryState } from '../schema/telemetry';
 import { type StateStorageInterface } from '../stateStorage/stateStorage.abstract';
 import { StorageKey } from '../schema';
 import { type SettingsInterface } from '../settings/settings';
+import { type AuthInterface } from '../auth';
+import { type CredentialsInterface } from '../credentials/Credentials';
 
 import {
     type TelemetryScreenName,
@@ -33,9 +35,9 @@ import {
  */
 export interface TelemetryInterface {
     /**
-     * Initializes telemetry module.
+     * Initializes telemetry module state.
      */
-    init(): Promise<void>;
+    initState(): void;
 
     /**
      * Sends a telemetry page view event using {@link telemetryProvider}.
@@ -77,6 +79,16 @@ export interface TelemetryParameters {
     settings: SettingsInterface;
 
     /**
+     * Auth instance.
+     */
+    auth: AuthInterface;
+
+    /**
+     * Credentials instance.
+     */
+    credentials: CredentialsInterface;
+
+    /**
      * Prefs instance.
      */
     prefs: PrefsInterface;
@@ -92,7 +104,6 @@ export interface TelemetryParameters {
  *
  * FIXME:
  * - Implement user agent data retrieval (device, os, probably browser info).
- * - Implement props data retrieval (appearanceTheme, loggedIn, licenseStatus, subscriptionDuration).
  * - Implement prev/current screen name reset logic.
  * - Should telemetry send events when dialog screens are closed?
  * - Add tests for telemetry api / provider / module.
@@ -142,6 +153,15 @@ export class Telemetry implements TelemetryInterface {
     };
 
     /**
+     * SubscriptionType to TelemetrySubscriptionDuration mapper.
+     */
+    private static readonly DURATION_MAPPER: Record<SubscriptionType, TelemetrySubscriptionDuration> = {
+        [SubscriptionType.Monthly]: TelemetrySubscriptionDuration.Monthly,
+        [SubscriptionType.Yearly]: TelemetrySubscriptionDuration.Annual,
+        [SubscriptionType.TwoYears]: TelemetrySubscriptionDuration.Other,
+    };
+
+    /**
      * Browser local storage.
      */
     private storage: StorageInterface;
@@ -162,6 +182,16 @@ export class Telemetry implements TelemetryInterface {
     private settings: SettingsInterface;
 
     /**
+     * Auth instance.
+     */
+    private auth: AuthInterface;
+
+    /**
+     * Credentials instance.
+     */
+    private credentials: CredentialsInterface;
+
+    /**
      * AppStatus instance.
      */
     private appStatus: AppStatus;
@@ -177,6 +207,22 @@ export class Telemetry implements TelemetryInterface {
     private state: TelemetryState;
 
     /**
+     * Previous screen name.
+     *
+     * NOTE: This is not defined in state storage because
+     * it's not needed to persist if extension is reloaded.
+     */
+    private prevScreenName: TelemetryScreenName | null = null;
+
+    /**
+     * Current screen name.
+     *
+     * NOTE: This is not defined in state storage because
+     * it's not needed to persist if extension is reloaded.
+     */
+    private currentScreenName: TelemetryScreenName | null = null;
+
+    /**
      * Constructor.
      */
     constructor({
@@ -184,6 +230,8 @@ export class Telemetry implements TelemetryInterface {
         stateStorage,
         telemetryProvider,
         settings,
+        auth,
+        credentials,
         prefs,
         appStatus,
     }: TelemetryParameters) {
@@ -191,6 +239,8 @@ export class Telemetry implements TelemetryInterface {
         this.stateStorage = stateStorage;
         this.telemetryProvider = telemetryProvider;
         this.settings = settings;
+        this.auth = auth;
+        this.credentials = credentials;
         this.prefs = prefs;
         this.appStatus = appStatus;
     }
@@ -211,15 +261,10 @@ export class Telemetry implements TelemetryInterface {
     }
 
     /**
-     * Initializes telemetry module.
+     * Initializes telemetry module state.
      */
-    public async init(): Promise<void> {
-        try {
-            this.state = this.stateStorage.getItem(StorageKey.TelemetryState);
-        } catch (e) {
-            log.debug('Unable to init telemetry module, due to error:', e.message);
-        }
-        log.info('Telemetry module is ready');
+    public initState(): void {
+        this.state = this.stateStorage.getItem(StorageKey.TelemetryState);
     }
 
     /**
@@ -233,14 +278,13 @@ export class Telemetry implements TelemetryInterface {
         }
 
         // Save previous and current screen names
-        this.state.prevScreenName = this.state.currentScreenName;
-        this.state.currentScreenName = screenName;
-        this.saveTelemetryState();
+        this.prevScreenName = this.currentScreenName;
+        this.currentScreenName = screenName;
 
         const baseData = await this.getBaseData();
         const event: TelemetryPageViewEventData = {
             name: screenName,
-            refName: this.state.prevScreenName ?? undefined,
+            refName: this.prevScreenName ?? undefined,
         };
 
         await this.telemetryProvider.sendPageViewEvent(event, baseData);
@@ -259,7 +303,7 @@ export class Telemetry implements TelemetryInterface {
         const baseData = await this.getBaseData();
         const event: TelemetryCustomEventData = {
             ...eventData,
-            refName: this.state.currentScreenName ?? undefined,
+            refName: this.currentScreenName ?? undefined,
         };
 
         await this.telemetryProvider.sendCustomEvent(event, baseData);
@@ -279,15 +323,13 @@ export class Telemetry implements TelemetryInterface {
      */
     private async getBaseData(): Promise<TelemetryBaseData> {
         const syntheticId = await this.getSyntheticId();
-        const appType = Telemetry.APP_TYPE;
-        const { version } = this.appStatus;
         const userAgent = await this.getUserAgent();
-        const props = this.getProps();
+        const props = await this.getProps();
 
         return {
             syntheticId,
-            appType,
-            version,
+            appType: Telemetry.APP_TYPE,
+            version: this.appStatus.version,
             userAgent,
             props,
         };
@@ -296,11 +338,10 @@ export class Telemetry implements TelemetryInterface {
     /**
      * Sets user agent data for telemetry events.
      *
-     * FIXME: Should we optimize it by saving platform info to state?
+     * @returns User agent data for telemetry events.
      */
     private async getUserAgent(): Promise<TelemetryUserAgent> {
         const { os, arch } = await this.prefs.getPlatformInfo();
-        const osName = Telemetry.OS_MAPPER[os];
 
         return {
             device: {
@@ -308,7 +349,7 @@ export class Telemetry implements TelemetryInterface {
                 model: 'FIXME: Can it be retrieved?',
             },
             os: {
-                name: osName,
+                name: Telemetry.OS_MAPPER[os],
                 platform: arch,
                 version: 'FIXME: Can it be retrieved?',
             },
@@ -320,19 +361,41 @@ export class Telemetry implements TelemetryInterface {
      *
      * @returns Props data for telemetry events.
      */
-    private getProps(): TelemetryProps {
+    private async getProps(): Promise<TelemetryProps> {
         const locale = browser.i18n.getUILanguage();
+        const appearanceTheme = this.settings.getAppearanceTheme();
+        const loggedIn = !!(await this.auth.isAuthenticated(false));
 
-        const appearanceTheme = AppearanceTheme.System; // FIXME: How should I retrieve this data?
-        const theme = appearanceTheme && Telemetry.THEME_MAPPER[appearanceTheme];
+        let licenseStatus: TelemetryLicenseStatus | undefined;
+        let subscriptionDuration: TelemetrySubscriptionDuration | undefined;
+        if (loggedIn) {
+            const isPremiumToken = await this.credentials.isPremiumToken();
+            if (isPremiumToken) {
+                licenseStatus = TelemetryLicenseStatus.Premium;
+            } else {
+                licenseStatus = TelemetryLicenseStatus.Free;
+            }
+            // FIXME: How should I determine Trial subscription?
+
+            if (licenseStatus !== TelemetryLicenseStatus.Free) {
+                const subscriptionType = this.credentials.getSubscriptionType();
+
+                if (subscriptionType) {
+                    subscriptionDuration = Telemetry.DURATION_MAPPER[subscriptionType];
+                } else {
+                    // If subscription type is not sent from backend - it's a lifetime subscription.
+                    subscriptionDuration = TelemetrySubscriptionDuration.Lifetime;
+                }
+            }
+        }
 
         return {
             appLocale: locale,
             systemLocale: locale,
-            loggedIn: false, // FIXME: How should I retrieve this data?
-            licenseStatus: TelemetryLicenseStatus.Free, // FIXME: How should I retrieve this data?
-            subscriptionDuration: TelemetrySubscriptionDuration.Other, // FIXME: How should I retrieve this data?
-            theme,
+            loggedIn,
+            licenseStatus,
+            subscriptionDuration,
+            theme: Telemetry.THEME_MAPPER[appearanceTheme],
         };
     }
 
