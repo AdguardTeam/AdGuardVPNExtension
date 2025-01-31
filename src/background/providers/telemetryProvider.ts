@@ -6,6 +6,7 @@ import {
     type TelemetryPageViewEventData,
     type TelemetryCustomEventData,
     type TelemetryCustomEvent,
+    type TelemetryApiEventData,
 } from '../telemetry/telemetryTypes';
 
 /**
@@ -48,7 +49,7 @@ const sendEvent = async (event: TelemetryEvent): Promise<void> => {
          * Re-map event data keys to match the API schema.
          * Note that in `TelemetryEvent` we either have pageview or event, but not both.
          */
-        const body = JSON.stringify({
+        const data: TelemetryApiEventData = {
             synthetic_id: syntheticId,
             app_type: appType,
             version,
@@ -63,16 +64,16 @@ const sendEvent = async (event: TelemetryEvent): Promise<void> => {
                     version: userAgent.os.version,
                 },
             },
-            pageview: 'pageview' in event && {
+            pageview: 'pageview' in event ? {
                 name: event.pageview.name,
                 ref_name: event.pageview.refName,
-            },
-            event: 'event' in event && {
+            } : undefined,
+            event: 'event' in event ? {
                 name: event.event.name,
                 ref_name: event.event.refName,
                 action: event.event.action,
                 label: event.event.label,
-            },
+            } : undefined,
             props: props && {
                 app_locale: props.appLocale,
                 system_locale: props.systemLocale,
@@ -81,9 +82,9 @@ const sendEvent = async (event: TelemetryEvent): Promise<void> => {
                 subscription_duration: props.subscriptionDuration,
                 theme: props.theme,
             },
-        });
+        };
 
-        await telemetryApi.sendEvent(body);
+        await telemetryApi.sendEvent(data);
     } catch {
         // FIXME: What should we do in case of error? Retry?
     }

@@ -75,7 +75,7 @@ export interface TelemetryParameters {
  * - Implement user agent data retrieval (device, os, probably browser info).
  * - Implement props data retrieval (appearanceTheme, loggedIn, licenseStatus, subscriptionDuration).
  * - Implement prev/current screen name reset logic.
- * - Correct prev/current logic if dialog is opened.
+ * - Should telemetry send events when dialog screens are closed?
  */
 export class Telemetry implements TelemetryInterface {
     /**

@@ -192,3 +192,34 @@ export type TelemetryEventData = TelemetryPageViewEventData | TelemetryCustomEve
  * Union type for telemetry events.
  */
 export type TelemetryEvent = TelemetryPageViewEvent | TelemetryCustomEvent;
+
+/**
+ * Telemetry event data passed to the API. For documentation see:
+ * - {@link TelemetryBaseData}
+ * - {@link TelemetryUserAgent}
+ * - {@link TelemetryProps}
+ */
+export interface TelemetryApiEventData {
+    synthetic_id: TelemetryBaseData['syntheticId'];
+    app_type: TelemetryBaseData['appType'];
+    version: TelemetryBaseData['version'];
+    user_agent: TelemetryUserAgent;
+    pageview?: {
+        name: TelemetryPageViewEventData['name'];
+        ref_name?: TelemetryPageViewEventData['refName'];
+    };
+    event?: {
+        name: TelemetryCustomEventData['name'];
+        ref_name?: TelemetryCustomEventData['refName'];
+        action?: TelemetryCustomEventData['action'];
+        label?: TelemetryCustomEventData['label'];
+    };
+    props?: {
+        app_locale: TelemetryProps['appLocale'];
+        system_locale: TelemetryProps['systemLocale'];
+        logged_in?: TelemetryProps['loggedIn'];
+        license_status?: TelemetryProps['licenseStatus'];
+        subscription_duration?: TelemetryProps['subscriptionDuration'];
+        theme?: TelemetryProps['theme'];
+    };
+}
