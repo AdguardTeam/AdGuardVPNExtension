@@ -2,14 +2,13 @@ import browser from 'webextension-polyfill';
 import { customAlphabet } from 'nanoid';
 
 import { AppearanceTheme } from '../../common/constants';
-import { Prefs, SystemName } from '../../common/prefs';
-import { appStatus } from '../appStatus';
+import { type PrefsInterface, SystemName } from '../../common/prefs';
 import { type TelemetryProviderInterface } from '../providers/telemetryProvider';
-import { type BrowserApi } from '../browserApi';
+import { type AppStatus } from '../appStatus/AppStatus';
 import { type StorageInterface } from '../browserApi/storage';
 import { log } from '../../common/logger';
 import { type TelemetryState } from '../schema/telemetry';
-import { stateStorage } from '../stateStorage';
+import { type StateStorageInterface } from '../stateStorage/stateStorage.abstract';
 import { StorageKey } from '../schema';
 
 import {
@@ -57,14 +56,29 @@ export interface TelemetryInterface {
  */
 export interface TelemetryParameters {
     /**
-     * Browser API.
+     * Browser local storage.
      */
-    browserApi: BrowserApi;
+    storage: StorageInterface;
+
+    /**
+     * Browser session storage.
+     */
+    stateStorage: StateStorageInterface;
 
     /**
      * Telemetry provider.
      */
     telemetryProvider: TelemetryProviderInterface;
+
+    /**
+     * Prefs instance.
+     */
+    prefs: PrefsInterface;
+
+    /**
+     * AppStatus instance.
+     */
+    appStatus: AppStatus;
 }
 
 /**
@@ -128,9 +142,24 @@ export class Telemetry implements TelemetryInterface {
     private storage: StorageInterface;
 
     /**
+     * Browser session storage.
+     */
+    private stateStorage: StateStorageInterface;
+
+    /**
      * Telemetry provider.
      */
     private telemetryProvider: TelemetryProviderInterface;
+
+    /**
+     * AppStatus instance.
+     */
+    private appStatus: AppStatus;
+
+    /**
+     * Prefs instance.
+     */
+    private prefs: PrefsInterface;
 
     /**
      * Telemetry state.
@@ -141,11 +170,17 @@ export class Telemetry implements TelemetryInterface {
      * Constructor.
      */
     constructor({
-        browserApi,
+        storage,
+        stateStorage,
         telemetryProvider,
+        prefs,
+        appStatus,
     }: TelemetryParameters) {
-        this.storage = browserApi.storage;
+        this.storage = storage;
+        this.stateStorage = stateStorage;
         this.telemetryProvider = telemetryProvider;
+        this.prefs = prefs;
+        this.appStatus = appStatus;
     }
 
     /**
@@ -168,7 +203,7 @@ export class Telemetry implements TelemetryInterface {
      */
     public async init(): Promise<void> {
         try {
-            this.state = stateStorage.getItem(StorageKey.TelemetryState);
+            this.state = this.stateStorage.getItem(StorageKey.TelemetryState);
         } catch (e) {
             log.debug('Unable to init telemetry module, due to error:', e.message);
         }
@@ -217,7 +252,7 @@ export class Telemetry implements TelemetryInterface {
      * Saves telemetry state to state storage.
      */
     private saveTelemetryState() {
-        stateStorage.setItem(StorageKey.TelemetryState, this.state);
+        this.stateStorage.setItem(StorageKey.TelemetryState, this.state);
     }
 
     /**
@@ -228,7 +263,7 @@ export class Telemetry implements TelemetryInterface {
     private async getBaseData(): Promise<TelemetryBaseData> {
         const syntheticId = await this.getSyntheticId();
         const appType = Telemetry.APP_TYPE;
-        const { version } = appStatus;
+        const { version } = this.appStatus;
         const userAgent = await this.getUserAgent();
         const props = this.getProps();
 
@@ -245,7 +280,7 @@ export class Telemetry implements TelemetryInterface {
      * Sets user agent data for telemetry events.
      */
     private async getUserAgent(): Promise<TelemetryUserAgent> {
-        const { os, arch } = await Prefs.getPlatformInfo();
+        const { os, arch } = await this.prefs.getPlatformInfo();
         const osName = Telemetry.OS_MAPPER[os];
 
         return {
