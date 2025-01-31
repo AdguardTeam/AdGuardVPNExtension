@@ -76,6 +76,7 @@ export interface TelemetryParameters {
  * - Implement props data retrieval (appearanceTheme, loggedIn, licenseStatus, subscriptionDuration).
  * - Implement prev/current screen name reset logic.
  * - Should telemetry send events when dialog screens are closed?
+ * - Add tests for telemetry api / provider / module.
  */
 export class Telemetry implements TelemetryInterface {
     /**
