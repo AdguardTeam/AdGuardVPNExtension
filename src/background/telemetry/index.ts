@@ -1,6 +1,7 @@
 import { browserApi } from '../browserApi';
 import { stateStorage } from '../stateStorage';
 import { telemetryProvider } from '../providers/telemetryProvider';
+import { settings } from '../settings';
 import { Prefs } from '../../common/prefs';
 import { appStatus } from '../appStatus';
 
@@ -13,6 +14,7 @@ export const telemetry = new Telemetry({
     storage: browserApi.storage,
     stateStorage,
     telemetryProvider,
+    settings,
     prefs: Prefs,
     appStatus,
 });

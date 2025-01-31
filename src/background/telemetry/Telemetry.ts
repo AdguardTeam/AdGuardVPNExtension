@@ -10,6 +10,7 @@ import { log } from '../../common/logger';
 import { type TelemetryState } from '../schema/telemetry';
 import { type StateStorageInterface } from '../stateStorage/stateStorage.abstract';
 import { StorageKey } from '../schema';
+import { type SettingsInterface } from '../settings/settings';
 
 import {
     type TelemetryScreenName,
@@ -71,6 +72,11 @@ export interface TelemetryParameters {
     telemetryProvider: TelemetryProviderInterface;
 
     /**
+     * Settings instance.
+     */
+    settings: SettingsInterface;
+
+    /**
      * Prefs instance.
      */
     prefs: PrefsInterface;
@@ -85,7 +91,6 @@ export interface TelemetryParameters {
  * Telemetry service.
  *
  * FIXME:
- * - Implement checking if telemetry is enabled.
  * - Implement user agent data retrieval (device, os, probably browser info).
  * - Implement props data retrieval (appearanceTheme, loggedIn, licenseStatus, subscriptionDuration).
  * - Implement prev/current screen name reset logic.
@@ -152,6 +157,11 @@ export class Telemetry implements TelemetryInterface {
     private telemetryProvider: TelemetryProviderInterface;
 
     /**
+     * Settings instance.
+     */
+    private settings: SettingsInterface;
+
+    /**
      * AppStatus instance.
      */
     private appStatus: AppStatus;
@@ -173,12 +183,14 @@ export class Telemetry implements TelemetryInterface {
         storage,
         stateStorage,
         telemetryProvider,
+        settings,
         prefs,
         appStatus,
     }: TelemetryParameters) {
         this.storage = storage;
         this.stateStorage = stateStorage;
         this.telemetryProvider = telemetryProvider;
+        this.settings = settings;
         this.prefs = prefs;
         this.appStatus = appStatus;
     }
@@ -216,7 +228,9 @@ export class Telemetry implements TelemetryInterface {
      * @param screenName Name of the screen.
      */
     public sendPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
-        // FIXME: Add check if settings enabled or not
+        if (!this.settings.isHelpUsImproveEnabled()) {
+            return;
+        }
 
         // Save previous and current screen names
         this.state.prevScreenName = this.state.currentScreenName;
@@ -238,7 +252,10 @@ export class Telemetry implements TelemetryInterface {
      * @param eventData Custom event data.
      */
     public sendCustomEvent = async (eventData: TelemetrySendCustomEventData): Promise<void> => {
-        // FIXME: Add check if settings enabled or not
+        if (!this.settings.isHelpUsImproveEnabled()) {
+            return;
+        }
+
         const baseData = await this.getBaseData();
         const event: TelemetryCustomEventData = {
             ...eventData,
@@ -278,6 +295,8 @@ export class Telemetry implements TelemetryInterface {
 
     /**
      * Sets user agent data for telemetry events.
+     *
+     * FIXME: Should we optimize it by saving platform info to state?
      */
     private async getUserAgent(): Promise<TelemetryUserAgent> {
         const { os, arch } = await this.prefs.getPlatformInfo();
