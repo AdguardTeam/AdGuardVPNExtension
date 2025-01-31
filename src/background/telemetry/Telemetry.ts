@@ -2,16 +2,16 @@ import browser from 'webextension-polyfill';
 import { customAlphabet } from 'nanoid';
 
 import { AppearanceTheme, SubscriptionType } from '../../common/constants';
-import { type PrefsInterface, SystemName } from '../../common/prefs';
+import { Prefs, SystemName } from '../../common/prefs';
 import { type TelemetryProviderInterface } from '../providers/telemetryProvider';
-import { type AppStatus } from '../appStatus/AppStatus';
+import { appStatus } from '../appStatus';
 import { type StorageInterface } from '../browserApi/storage';
 import { log } from '../../common/logger';
 import { type TelemetryState } from '../schema/telemetry';
-import { type StateStorageInterface } from '../stateStorage/stateStorage.abstract';
+import { stateStorage } from '../stateStorage';
 import { StorageKey } from '../schema';
-import { type SettingsInterface } from '../settings/settings';
-import { type AuthInterface } from '../auth';
+import { settings } from '../settings';
+import { auth } from '../auth';
 import { type CredentialsInterface } from '../credentials/Credentials';
 
 import {
@@ -64,39 +64,14 @@ export interface TelemetryParameters {
     storage: StorageInterface;
 
     /**
-     * Browser session storage.
-     */
-    stateStorage: StateStorageInterface;
-
-    /**
      * Telemetry provider.
      */
     telemetryProvider: TelemetryProviderInterface;
 
     /**
-     * Settings instance.
-     */
-    settings: SettingsInterface;
-
-    /**
-     * Auth instance.
-     */
-    auth: AuthInterface;
-
-    /**
      * Credentials instance.
      */
     credentials: CredentialsInterface;
-
-    /**
-     * Prefs instance.
-     */
-    prefs: PrefsInterface;
-
-    /**
-     * AppStatus instance.
-     */
-    appStatus: AppStatus;
 }
 
 /**
@@ -167,39 +142,14 @@ export class Telemetry implements TelemetryInterface {
     private storage: StorageInterface;
 
     /**
-     * Browser session storage.
-     */
-    private stateStorage: StateStorageInterface;
-
-    /**
      * Telemetry provider.
      */
     private telemetryProvider: TelemetryProviderInterface;
 
     /**
-     * Settings instance.
-     */
-    private settings: SettingsInterface;
-
-    /**
-     * Auth instance.
-     */
-    private auth: AuthInterface;
-
-    /**
      * Credentials instance.
      */
     private credentials: CredentialsInterface;
-
-    /**
-     * AppStatus instance.
-     */
-    private appStatus: AppStatus;
-
-    /**
-     * Prefs instance.
-     */
-    private prefs: PrefsInterface;
 
     /**
      * Telemetry state.
@@ -227,22 +177,12 @@ export class Telemetry implements TelemetryInterface {
      */
     constructor({
         storage,
-        stateStorage,
         telemetryProvider,
-        settings,
-        auth,
         credentials,
-        prefs,
-        appStatus,
     }: TelemetryParameters) {
         this.storage = storage;
-        this.stateStorage = stateStorage;
         this.telemetryProvider = telemetryProvider;
-        this.settings = settings;
-        this.auth = auth;
         this.credentials = credentials;
-        this.prefs = prefs;
-        this.appStatus = appStatus;
     }
 
     /**
@@ -264,14 +204,14 @@ export class Telemetry implements TelemetryInterface {
      * Initializes telemetry module state.
      */
     public initState(): void {
-        this.state = this.stateStorage.getItem(StorageKey.TelemetryState);
+        this.state = stateStorage.getItem(StorageKey.TelemetryState);
     }
 
     /**
      * Saves telemetry state to state storage.
      */
     private saveTelemetryState() {
-        this.stateStorage.setItem(StorageKey.TelemetryState, this.state);
+        stateStorage.setItem(StorageKey.TelemetryState, this.state);
     }
 
     /**
@@ -280,7 +220,7 @@ export class Telemetry implements TelemetryInterface {
      * @param screenName Name of the screen.
      */
     public sendPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
-        if (!this.settings.isHelpUsImproveEnabled()) {
+        if (!settings.isHelpUsImproveEnabled()) {
             return;
         }
 
@@ -303,7 +243,7 @@ export class Telemetry implements TelemetryInterface {
      * @param eventData Custom event data.
      */
     public sendCustomEvent = async (eventData: TelemetrySendCustomEventData): Promise<void> => {
-        if (!this.settings.isHelpUsImproveEnabled()) {
+        if (!settings.isHelpUsImproveEnabled()) {
             return;
         }
 
@@ -331,7 +271,7 @@ export class Telemetry implements TelemetryInterface {
         return {
             syntheticId,
             appType: Telemetry.APP_TYPE,
-            version: this.appStatus.version,
+            version: appStatus.version,
             userAgent,
             props,
         };
@@ -343,7 +283,7 @@ export class Telemetry implements TelemetryInterface {
      * @returns User agent data for telemetry events.
      */
     private async getUserAgent(): Promise<TelemetryUserAgent> {
-        const { os, arch } = await this.prefs.getPlatformInfo();
+        const { os, arch } = await Prefs.getPlatformInfo();
 
         return {
             device: {
@@ -365,8 +305,8 @@ export class Telemetry implements TelemetryInterface {
      */
     private async getProps(): Promise<TelemetryProps> {
         const locale = browser.i18n.getUILanguage();
-        const appearanceTheme = this.settings.getAppearanceTheme();
-        const loggedIn = !!(await this.auth.isAuthenticated(false));
+        const appearanceTheme = settings.getAppearanceTheme();
+        const loggedIn = !!(await auth.isAuthenticated(false));
 
         let licenseStatus: TelemetryLicenseStatus | undefined;
         let subscriptionDuration: TelemetrySubscriptionDuration | undefined;
