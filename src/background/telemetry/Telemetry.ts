@@ -14,7 +14,6 @@ import { StorageKey } from '../schema';
 
 import {
     type TelemetryScreenName,
-    type TelemetryActionName,
     TelemetryLicenseStatus,
     TelemetryOs,
     TelemetrySubscriptionDuration,
@@ -26,6 +25,7 @@ import {
     type TelemetryPageViewEventData,
     type TelemetryCustomEventData,
     type TelemetryUserAgent,
+    type TelemetrySendCustomEventData,
 } from './telemetryTypes';
 
 export interface TelemetryInterface {
@@ -44,9 +44,9 @@ export interface TelemetryInterface {
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
-     * @param actionName Name of the action.
+     * @param eventData Custom event data.
      */
-    sendCustomEvent(actionName: TelemetryActionName): Promise<void>;
+    sendCustomEvent(eventData: TelemetrySendCustomEventData): Promise<void>;
 }
 
 /**
@@ -68,10 +68,11 @@ export interface TelemetryParameters {
  * Telemetry service.
  *
  * FIXME:
- * - Implement prev/current screen name storage.
  * - Implement checking if telemetry is enabled.
  * - Implement user agent data retrieval (device, os, probably browser info).
  * - Implement props data retrieval (appearanceTheme, loggedIn, licenseStatus, subscriptionDuration).
+ * - Implement prev/current screen name reset logic.
+ * - Correct prev/current logic if dialog is opened.
  */
 export class Telemetry implements TelemetryInterface {
     /**
@@ -177,31 +178,35 @@ export class Telemetry implements TelemetryInterface {
      */
     public sendPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
         // FIXME: Add check if settings enabled or not
+
+        // Save previous and current screen names
+        this.state.prevScreenName = this.state.currentScreenName;
+        this.state.currentScreenName = screenName;
+        this.saveTelemetryState();
+
         const baseData = await this.getBaseData();
         const event: TelemetryPageViewEventData = {
             name: screenName,
-            refName: undefined, // FIXME: Implement current screen name
+            refName: this.state.prevScreenName ?? undefined,
         };
 
-        this.telemetryProvider.sendPageViewEvent(event, baseData);
+        await this.telemetryProvider.sendPageViewEvent(event, baseData);
     };
 
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
-     * @param actionName Name of the action.
+     * @param eventData Custom event data.
      */
-    public sendCustomEvent = async (actionName: TelemetryActionName): Promise<void> => {
+    public sendCustomEvent = async (eventData: TelemetrySendCustomEventData): Promise<void> => {
         // FIXME: Add check if settings enabled or not
         const baseData = await this.getBaseData();
         const event: TelemetryCustomEventData = {
-            name: actionName,
-            refName: undefined, // FIXME: Implement current screen name
-            action: undefined, // FIXME: What should I pass?
-            label: undefined, // FIXME: What should I pass?
+            ...eventData,
+            refName: this.state.currentScreenName ?? undefined,
         };
 
-        this.telemetryProvider.sendCustomEvent(event, baseData);
+        await this.telemetryProvider.sendCustomEvent(event, baseData);
     };
 
     /**

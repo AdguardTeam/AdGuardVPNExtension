@@ -10,6 +10,8 @@ import { messenger } from './messenger';
  * @param screenName Name of the screen to be logged in telemetry.
  */
 export function useTelemetryPageViewEvent(screenName: TelemetryScreenName) {
+    // Take a note that dependencies are not passed to useEffect
+    // intentionally to avoid unnecessary re-renders.
     useEffect(() => {
         messenger.sendPageViewTelemetryEvent(screenName);
     }, []);

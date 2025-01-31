@@ -8,11 +8,23 @@ import { messenger } from './messenger';
  * Hook that returns a callback that sends a custom telemetry event when called.
  *
  * @param actionName Name of the action to be logged in telemetry.
+ * @param action Action name.
+ * @param label Label name.
  * @returns Callback that sends a custom telemetry event when called.
  */
-export function useTelemetryCustomEvent(actionName: TelemetryActionName) {
+export function useTelemetryCustomEvent(
+    actionName: TelemetryActionName,
+    action?: string,
+    label?: string,
+) {
+    // Take a note that dependencies are not passed to useCallback
+    // intentionally to avoid unnecessary re-renders.
     const handler = useCallback(async (): Promise<void> => {
-        await messenger.sendCustomTelemetryEvent(actionName);
+        await messenger.sendCustomTelemetryEvent({
+            name: actionName,
+            action,
+            label,
+        });
     }, []);
 
     return handler;
