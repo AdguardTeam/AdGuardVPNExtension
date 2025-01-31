@@ -42,6 +42,7 @@ import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
 import '../rateModal';
 import '../networkConnectionObserver';
+import { telemetry } from '../telemetry';
 
 declare global {
     module globalThis {
@@ -117,6 +118,8 @@ const asyncInitModules = async (): Promise<void> => {
         await contextMenu.updateBrowserActionItems();
         // the checkAndSwitchStorage is called after settings.init() because it uses settings
         await logStorageManager.checkAndSwitchStorage(settings.isDebugModeEnabled());
+        // the init method is called after settings.init() because it uses settings, FIXME: make sure it's correct
+        await telemetry.init();
         await exclusions.init();
         await endpointsTldExclusions.init();
         settings.applySettings(); // we have to apply settings when credentials are ready

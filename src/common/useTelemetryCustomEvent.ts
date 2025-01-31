@@ -12,7 +12,7 @@ import { messenger } from './messenger';
  */
 export function useTelemetryCustomEvent(actionName: TelemetryActionName) {
     const handler = useCallback(async (): Promise<void> => {
-        messenger.sendCustomTelemetryEvent(actionName);
+        await messenger.sendCustomTelemetryEvent(actionName);
     }, []);
 
     return handler;
