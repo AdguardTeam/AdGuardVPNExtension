@@ -114,7 +114,7 @@ const asyncInitModules = async (): Promise<void> => {
         await auth.init();
         await locationsService.init();
         await settings.init();
-        await telemetry.initState(); // should be initiated after auth, credentials and settings
+        await telemetry.initState();
         // the updateBrowserActionItems method is called after settings.init() because it uses settings
         await contextMenu.updateBrowserActionItems();
         // the checkAndSwitchStorage is called after settings.init() because it uses settings

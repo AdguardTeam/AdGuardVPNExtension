@@ -268,6 +268,13 @@ export class Telemetry implements TelemetryInterface {
     }
 
     /**
+     * Saves telemetry state to state storage.
+     */
+    private saveTelemetryState() {
+        this.stateStorage.setItem(StorageKey.TelemetryState, this.state);
+    }
+
+    /**
      * Sends a telemetry page view event using {@link telemetryProvider}.
      *
      * @param screenName Name of the screen.
@@ -310,21 +317,16 @@ export class Telemetry implements TelemetryInterface {
     };
 
     /**
-     * Saves telemetry state to state storage.
-     */
-    private saveTelemetryState() {
-        this.stateStorage.setItem(StorageKey.TelemetryState, this.state);
-    }
-
-    /**
      * Retrieves base data for telemetry events based on state.
      *
      * @returns Base data for telemetry events.
      */
     private async getBaseData(): Promise<TelemetryBaseData> {
-        const syntheticId = await this.getSyntheticId();
-        const userAgent = await this.getUserAgent();
-        const props = await this.getProps();
+        const [syntheticId, userAgent, props] = await Promise.all([
+            this.getSyntheticId(),
+            this.getUserAgent(),
+            this.getProps(),
+        ]);
 
         return {
             syntheticId,
