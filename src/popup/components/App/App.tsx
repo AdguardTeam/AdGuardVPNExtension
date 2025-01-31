@@ -179,7 +179,7 @@ export const App = observer(() => {
 
     /**
      * Update popup height on Android browsers based on window height.
-     * This is required because Android browser's popup do not support 100vh properly.
+     * This is required because Android browser's popup does not support 100vh properly.
      */
     useLayoutEffect(() => {
         /**
@@ -217,7 +217,7 @@ export const App = observer(() => {
         resizePopupHeight();
 
         // Add resize event listener
-        window.addEventListener('resize', resizePopupHeight);
+        window.addEventListener('resize', resizePopupHeight, { once: true });
 
         // Cleanup: Remove the height property and event listener after unmount
         return () => {

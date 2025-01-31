@@ -101,6 +101,8 @@
     }
 
     &--medium {
+        position: relative;
+
         & .slider {
             &__slide {
                 max-height: 96px;
@@ -118,11 +120,16 @@
             }
 
             &__info {
-                margin-bottom: 5px;
                 font-size: 16px;
                 font-weight: 400;
                 line-height: 130%;
                 color: var(--gray-3d);
+            }
+
+            &__controls {
+                /* To eliminate jumping effect */
+                position: absolute;
+                bottom: -10px;
             }
         }
     }

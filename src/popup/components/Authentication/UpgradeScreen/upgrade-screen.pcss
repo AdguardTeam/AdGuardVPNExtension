@@ -7,15 +7,6 @@
     height: 100%;
     background: var(--blue-gradient);
 
-    &__image {
-        width: 78%;
-    }
-
-    &__head {
-        flex: 1 1 auto;
-        padding-bottom: 16px;
-    }
-
     &__title {
         font-size: 32px;
         line-height: 36px;
@@ -25,14 +16,19 @@
     }
 
     &__slider {
+        flex: 1 1 auto;
         width: 100%;
         max-width: 320px;
-        padding: 0 16px 16px;
+        padding: 77px 16px 16px;
 
-        .slider__info {
-            /* To eliminate jumping dots effect we set size of slider text at min 3 lines: */
-            /* 1em (font-size) * 1.3 (line-height) * 3 (lines) */
-            min-height: 3.9em;
+        /* This media queries is edge cases when padding top is too high */
+
+        @media (max-height: 580px) {
+            padding-top: 48px;
+        }
+
+        @media (max-height: 560px) {
+            padding-top: 32px;
         }
     }
 
@@ -80,7 +76,6 @@
     }
 
     &__actions {
-        flex: 1 1 auto;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
