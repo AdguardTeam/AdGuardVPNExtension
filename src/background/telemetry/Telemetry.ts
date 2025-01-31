@@ -410,7 +410,7 @@ export class Telemetry implements TelemetryInterface {
         let syntheticId = await this.storage.get<string>(Telemetry.SYNTHETIC_ID_KEY);
 
         if (!syntheticId) {
-            log.debug('Generating new app id');
+            log.debug('Generating new synthetic id');
 
             const nanoid = customAlphabet(
                 Telemetry.SYNTHETIC_ID_ALPHABET,
