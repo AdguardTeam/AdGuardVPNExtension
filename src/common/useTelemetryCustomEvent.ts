@@ -7,13 +7,13 @@ import { messenger } from './messenger';
 /**
  * Hook that returns a callback that sends a custom telemetry event when called.
  *
- * @param actionName Name of the action to be logged in telemetry.
+ * @param name Name of the action to be logged in telemetry.
  * @param action Action name.
  * @param label Label name.
  * @returns Callback that sends a custom telemetry event when called.
  */
 export function useTelemetryCustomEvent(
-    actionName: TelemetryActionName,
+    name: TelemetryActionName,
     action?: string,
     label?: string,
 ) {
@@ -21,7 +21,7 @@ export function useTelemetryCustomEvent(
     // intentionally to avoid unnecessary re-renders.
     const handler = useCallback(async (): Promise<void> => {
         await messenger.sendCustomTelemetryEvent({
-            name: actionName,
+            name,
             action,
             label,
         });

@@ -28,6 +28,9 @@ import {
     type TelemetrySendCustomEventData,
 } from './telemetryTypes';
 
+/**
+ * Telemetry interface.
+ */
 export interface TelemetryInterface {
     /**
      * Initializes telemetry module.
