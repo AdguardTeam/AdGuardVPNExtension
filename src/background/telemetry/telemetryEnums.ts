@@ -3,6 +3,7 @@
  */
 export enum TelemetryScreenName {
     WelcomeScreen = 'welcome_screen',
+    PurchaseScreen = 'purchase_screen',
     // FIXME: Add rest of screen names
 }
 
@@ -11,6 +12,7 @@ export enum TelemetryScreenName {
  */
 export enum TelemetryActionName {
     OnboardingPurchaseClick = 'onboarding_purchase_click',
+    OnboardingStayFreeClick = 'onboarding_stay_free_click',
     // FIXME: Add rest of action names
 }
 
