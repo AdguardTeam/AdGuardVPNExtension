@@ -243,7 +243,7 @@ export class Telemetry implements TelemetryInterface {
      * This method is used internally to send page view events.
      */
     private async internalSendPageViewEvent(): Promise<void> {
-        if (!this.canSendEvents() || !this.currentScreenName) {
+        if (!this.canSendEvents()) {
             return;
         }
 
