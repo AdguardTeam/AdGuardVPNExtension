@@ -15,10 +15,10 @@ const API_URL_PREFIX = '/api';
  * Documentation: projects/ADGUARD/repos/adguard-telemetry-service/browse
  */
 class TelemetryApi extends Api {
-    SEND_EVENT: RequestProps = { path: 'v1/event', method: 'POST' };
+    private static readonly SEND_EVENT: RequestProps = { path: 'v1/event', method: 'POST' };
 
     sendEvent = async (data: TelemetryApiEventData): Promise<void> => {
-        const { path, method } = this.SEND_EVENT;
+        const { path, method } = TelemetryApi.SEND_EVENT;
 
         const headers = {
             'Content-Type': 'application/json',

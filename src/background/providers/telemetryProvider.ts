@@ -1,6 +1,5 @@
 import { log } from '../../common/logger';
 import { telemetryApi } from '../api/telemetryApi';
-import { settings } from '../settings';
 import {
     type TelemetryEvent,
     type TelemetryBaseData,
@@ -88,9 +87,7 @@ const sendEvent = async (event: TelemetryEvent): Promise<void> => {
 
         await telemetryApi.sendEvent(data);
     } catch (e) {
-        if (settings.isDebugModeEnabled()) {
-            log.debug('Failed to send telemetry event', e);
-        }
+        log.debug('Failed to send telemetry event', e);
     }
 };
 

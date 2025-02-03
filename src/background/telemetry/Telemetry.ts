@@ -325,9 +325,7 @@ export class Telemetry implements TelemetryInterface {
         // NOTE: We are not throwing an error here because telemetry
         // should not block the application nor notify the user
         if (!this.isInitialized) {
-            if (settings.isDebugModeEnabled()) {
-                log.debug('Telemetry module is not initialized');
-            }
+            log.debug('Telemetry module is not initialized');
             return false;
         }
 
