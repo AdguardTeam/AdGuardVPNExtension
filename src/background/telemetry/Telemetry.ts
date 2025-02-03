@@ -45,7 +45,7 @@ export interface TelemetryInterface {
     /**
      * Reverts the previous page view event. This is used when a dialog is closed.
      */
-    revertPageViewEvent(): Promise<void>;
+    revertPageViewEvent(screenName: TelemetryScreenName): Promise<void>;
 
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
@@ -278,11 +278,19 @@ export class Telemetry implements TelemetryInterface {
     };
 
     /**
-     * Reverts the previous page view event. This is used when a dialog is closed.
+     * Reverts to the previous page view event only if `currentScreenName` is the same as the given `screenName`.
+     * Additional check is needed to eliminate race condition when the screen is changed before the event is sent.
+     *
+     * @param screenName Name of the screen to revert.
      */
-    public revertPageViewEvent = async (): Promise<void> => {
+    public revertPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
         // Do not revert if previous screen name is not set
         if (!this.prevScreenName) {
+            return;
+        }
+
+        // Do not revert if current screen name is not the same as the given screen name
+        if (this.currentScreenName !== screenName) {
             return;
         }
 

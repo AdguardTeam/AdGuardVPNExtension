@@ -509,12 +509,16 @@ class Messenger {
 
     /**
      * Sends a message to the background to revert a page view telemetry event.
+     * Screen name will be reverted only if current screen name is equal to the provided screen name.
+     * This is needed to eliminate race condition when the screen is changed before the event is sent.
      *
      * NOTE: Do not await this function, as it is not necessary to wait for the response.
+     *
+     * @param screenName Name of the screen.
      */
-    async revertPageViewTelemetryEvent(): Promise<void> {
+    async revertPageViewTelemetryEvent(screenName: TelemetryScreenName): Promise<void> {
         const type = MessageType.TELEMETRY_EVENT_REVERT_PAGE_VIEW;
-        return this.sendMessage(type);
+        return this.sendMessage(type, { screenName });
     }
 
     /**
