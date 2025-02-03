@@ -40,9 +40,9 @@ import { proxyApi } from '../proxy/abstractProxyApi';
 import { updateOptionsPageListeners } from '../stateStorage/helper';
 import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
+import { telemetry } from '../telemetry';
 import '../rateModal';
 import '../networkConnectionObserver';
-import { telemetry } from '../telemetry';
 
 declare global {
     module globalThis {
@@ -114,7 +114,7 @@ const asyncInitModules = async (): Promise<void> => {
         await auth.init();
         await locationsService.init();
         await settings.init();
-        telemetry.initState();
+        await telemetry.initState();
         // the updateBrowserActionItems method is called after settings.init() because it uses settings
         await contextMenu.updateBrowserActionItems();
         // the checkAndSwitchStorage is called after settings.init() because it uses settings

@@ -7,9 +7,6 @@ import { type TelemetryProviderInterface } from '../providers/telemetryProvider'
 import { appStatus } from '../appStatus';
 import { type StorageInterface } from '../browserApi/storage';
 import { log } from '../../common/logger';
-import { type TelemetryState } from '../schema/telemetry';
-import { stateStorage } from '../stateStorage';
-import { StorageKey } from '../schema';
 import { settings } from '../settings';
 import { auth } from '../auth';
 import { type CredentialsInterface } from '../credentials/Credentials';
@@ -36,7 +33,7 @@ export interface TelemetryInterface {
     /**
      * Initializes telemetry module state.
      */
-    initState(): void;
+    initState(): Promise<void>;
 
     /**
      * Sends a telemetry page view event using {@link telemetryProvider}.
@@ -155,9 +152,16 @@ export class Telemetry implements TelemetryInterface {
     private credentials: CredentialsInterface;
 
     /**
-     * Telemetry state.
+     * Flag indicating whether telemetry module is initialized or not.
      */
-    private state: TelemetryState;
+    private isInitialized = false;
+
+    /**
+     * Synthetic ID.
+     *
+     * Initialized in {@link initState} method.
+     */
+    private syntheticId!: string;
 
     /**
      * Previous screen name.
@@ -189,32 +193,29 @@ export class Telemetry implements TelemetryInterface {
     }
 
     /**
-     * Synthetic ID getter.
-     */
-    private get syntheticId(): string | null {
-        return this.state.syntheticId;
-    }
-
-    /**
-     * Synthetic ID setter.
-     */
-    private set syntheticId(syntheticId: string | null) {
-        this.state.syntheticId = syntheticId;
-        this.saveTelemetryState();
-    }
-
-    /**
      * Initializes telemetry module state.
      */
-    public initState(): void {
-        this.state = stateStorage.getItem(StorageKey.TelemetryState);
-    }
+    public initState = async (): Promise<void> => {
+        this.syntheticId = await this.gainSyntheticId();
+        this.isInitialized = true;
+    };
 
     /**
-     * Saves telemetry state to state storage.
+     * Retrieves synthetic ID from local storage. If it doesn't exist or corrupted, generates a new one.
+     *
+     * @returns Synthetic ID.
      */
-    private saveTelemetryState() {
-        stateStorage.setItem(StorageKey.TelemetryState, this.state);
+    private async gainSyntheticId(): Promise<string> {
+        let syntheticId = await this.storage.get<string>(Telemetry.SYNTHETIC_ID_KEY);
+
+        // Generate new synthetic ID if it doesn't exist or corrupted in local storage
+        if (!syntheticId || !Telemetry.isValidSyntheticId(syntheticId)) {
+            log.debug('Generating new synthetic id');
+            syntheticId = Telemetry.generateSyntheticId();
+            await this.storage.set(Telemetry.SYNTHETIC_ID_KEY, syntheticId);
+        }
+
+        return syntheticId;
     }
 
     /**
@@ -226,6 +227,15 @@ export class Telemetry implements TelemetryInterface {
         // Do not send telemetry events if user opted out
         // or if current screen name is not set
         if (!settings.isHelpUsImproveEnabled() || !this.currentScreenName) {
+            return;
+        }
+
+        // Do not send telemetry events if module is not initialized
+        // only after making sure that user opted in
+        // NOTE: We are not throwing an error here because telemetry
+        // should not block the application nor notify the user
+        if (!this.isInitialized) {
+            log.debug('Telemetry module is not initialized');
             return;
         }
 
@@ -273,6 +283,15 @@ export class Telemetry implements TelemetryInterface {
             return;
         }
 
+        // Do not send telemetry events if module is not initialized
+        // only after making sure that user opted in
+        // NOTE: We are not throwing an error here because telemetry
+        // should not block the application nor notify the user
+        if (!this.isInitialized) {
+            log.debug('Telemetry module is not initialized');
+            return;
+        }
+
         const baseData = await this.getBaseData();
 
         await this.telemetryProvider.sendCustomEvent(event, baseData);
@@ -284,14 +303,13 @@ export class Telemetry implements TelemetryInterface {
      * @returns Base data for telemetry events.
      */
     private async getBaseData(): Promise<TelemetryBaseData> {
-        const [syntheticId, userAgent, props] = await Promise.all([
-            this.getSyntheticId(),
+        const [userAgent, props] = await Promise.all([
             this.getUserAgent(),
             this.getProps(),
         ]);
 
         return {
-            syntheticId,
+            syntheticId: this.syntheticId,
             appType: Telemetry.APP_TYPE,
             version: appStatus.version,
             userAgent,
@@ -364,38 +382,35 @@ export class Telemetry implements TelemetryInterface {
     }
 
     /**
-     * Retrieves synthetic ID from local storage. If it doesn't exist, generates a new one.
+     * Generates synthetic ID with the given length and alphabet.
      *
      * @returns Synthetic ID.
      */
-    private async gainSyntheticId(): Promise<string> {
-        let syntheticId = await this.storage.get<string>(Telemetry.SYNTHETIC_ID_KEY);
-
-        if (!syntheticId) {
-            log.debug('Generating new synthetic id');
-
-            const nanoid = customAlphabet(
-                Telemetry.SYNTHETIC_ID_ALPHABET,
-                Telemetry.SYNTHETIC_ID_SIZE,
-            );
-            syntheticId = nanoid();
-
-            await this.storage.set(Telemetry.SYNTHETIC_ID_KEY, syntheticId);
-        }
-
-        return syntheticId;
+    private static generateSyntheticId(): string {
+        const nanoid = customAlphabet(
+            Telemetry.SYNTHETIC_ID_ALPHABET,
+            Telemetry.SYNTHETIC_ID_SIZE,
+        );
+        return nanoid();
     }
 
     /**
-     * Retrieves synthetic ID. If it doesn't exist, generates a new one.
+     * Checks if the given synthetic ID is valid.
      *
-     * @returns Synthetic ID.
+     * @param syntheticId Synthetic ID to check.
+     * @returns True if the synthetic ID is valid, false otherwise.
      */
-    private async getSyntheticId(): Promise<string> {
-        if (!this.syntheticId) {
-            this.syntheticId = await this.gainSyntheticId();
+    private static isValidSyntheticId(syntheticId: string): boolean {
+        if (syntheticId.length !== Telemetry.SYNTHETIC_ID_SIZE) {
+            return false;
         }
 
-        return this.syntheticId;
+        for (let i = 0; i < syntheticId.length; i += 1) {
+            if (!Telemetry.SYNTHETIC_ID_ALPHABET.includes(syntheticId[i])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
