@@ -247,6 +247,14 @@ export class Telemetry implements TelemetryInterface {
             return;
         }
 
+        if (!this.currentScreenName) {
+            log.warn('Failed to send page view event: current screen name is not set', {
+                currentScreenName: this.currentScreenName,
+                prevScreenName: this.prevScreenName,
+            });
+            return;
+        }
+
         const baseData = await this.getBaseData();
         const event: TelemetryPageViewEventData = {
             name: this.currentScreenName,
