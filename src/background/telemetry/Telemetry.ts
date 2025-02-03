@@ -77,11 +77,30 @@ export interface TelemetryParameters {
 
 /**
  * Telemetry service.
+ * This service is responsible for sending telemetry events.
  *
- * FIXME:
- * - Implement user agent data retrieval (device, os, probably browser info).
- * - Implement prev/current screen name reset logic.
- * - Add tests for telemetry api / provider / module.
+ * Implementation details:
+ *
+ * On each new session launch (including first launch):
+ *
+ * Retrieve synthetic ID from local storage, if it doesn't exist or corrupted, generate a new one
+ * and save it to local storage. Valid ID: 8 characters long, contains only [1-9a-f] characters.
+ *
+ * Common for all event dispatching methods:
+ *   1) Check if extension can send events by making sure that user opted in setting and module is
+ *      initialized. If module is not initialized and debug mode is enabled, we log a debug message.
+ *   2) Retrieve base data (synthetic id, version, user agent, props) for telemetry events from other services.
+ *   3) Send event using {@link telemetryProvider}.
+ *
+ * Notes about pageview events:
+ * We have {@link currentScreenName} and {@link prevScreenName} props that are used to track
+ * the current and previous screen names. When a new page view event is sent, we save the {@link currentScreenName}
+ * to {@link prevScreenName} and set the new screen name to {@link currentScreenName}. This is used in two cases:
+ * - Send `refName` in page view events.
+ * - Revert to the previous screen name when nested screen (e.g. dialog) is closed.
+ *
+ * FIXME: Write about prev/current screen name reset logic when implemented.
+ * FIXME: Implement user agent data retrieval (device, os, probably browser info).
  */
 export class Telemetry implements TelemetryInterface {
     /**
@@ -367,7 +386,6 @@ export class Telemetry implements TelemetryInterface {
             } else {
                 licenseStatus = TelemetryLicenseStatus.Free;
             }
-            // FIXME: How should I determine Trial subscription?
 
             if (licenseStatus !== TelemetryLicenseStatus.Free) {
                 const subscriptionType = this.credentials.getSubscriptionType();
