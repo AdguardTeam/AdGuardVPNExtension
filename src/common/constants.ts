@@ -113,9 +113,9 @@ export enum MessageType {
 
     RECALCULATE_PINGS = 'recalculate.pings',
 
-    SEND_PAGE_VIEW_TELEMETRY_EVENT = 'send.page.view.telemetry.event',
-    REVERT_PAGE_VIEW_TELEMETRY_EVENT = 'revert.page.view.telemetry.event',
-    SEND_CUSTOM_TELEMETRY_EVENT = 'send.custom.telemetry.event',
+    TELEMETRY_EVENT_SEND_PAGE_VIEW = 'telemetry.event.send.page.view',
+    TELEMETRY_EVENT_REVERT_PAGE_VIEW = 'telemetry.event.revert.page.view',
+    TELEMETRY_EVENT_SEND_CUSTOM = 'telemetry.event.send.custom',
 }
 
 export enum SocialAuthProvider {

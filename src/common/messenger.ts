@@ -503,7 +503,7 @@ class Messenger {
      * @param screenName Name of the screen.
      */
     async sendPageViewTelemetryEvent(screenName: TelemetryScreenName): Promise<void> {
-        const type = MessageType.SEND_PAGE_VIEW_TELEMETRY_EVENT;
+        const type = MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW;
         return this.sendMessage(type, { screenName });
     }
 
@@ -513,7 +513,7 @@ class Messenger {
      * NOTE: Do not await this function, as it is not necessary to wait for the response.
      */
     async revertPageViewTelemetryEvent(): Promise<void> {
-        const type = MessageType.REVERT_PAGE_VIEW_TELEMETRY_EVENT;
+        const type = MessageType.TELEMETRY_EVENT_REVERT_PAGE_VIEW;
         return this.sendMessage(type);
     }
 
@@ -525,7 +525,7 @@ class Messenger {
      * @param event Custom telemetry event data.
      */
     async sendCustomTelemetryEvent(event: TelemetryCustomEventData): Promise<void> {
-        const type = MessageType.SEND_CUSTOM_TELEMETRY_EVENT;
+        const type = MessageType.TELEMETRY_EVENT_SEND_CUSTOM;
         return this.sendMessage(type, { event });
     }
 }

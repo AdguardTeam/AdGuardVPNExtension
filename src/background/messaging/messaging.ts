@@ -450,16 +450,16 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             locationsService.measurePings(true);
             break;
         }
-        case MessageType.SEND_PAGE_VIEW_TELEMETRY_EVENT: {
+        case MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW: {
             const { screenName } = data;
             await telemetry.sendPageViewEvent(screenName);
             break;
         }
-        case MessageType.REVERT_PAGE_VIEW_TELEMETRY_EVENT: {
+        case MessageType.TELEMETRY_EVENT_REVERT_PAGE_VIEW: {
             await telemetry.revertPageViewEvent();
             break;
         }
-        case MessageType.SEND_CUSTOM_TELEMETRY_EVENT: {
+        case MessageType.TELEMETRY_EVENT_SEND_CUSTOM: {
             const { event } = data;
             await telemetry.sendCustomEvent(event);
             break;
