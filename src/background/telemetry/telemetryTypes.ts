@@ -98,7 +98,7 @@ export interface TelemetryBaseData {
     /**
      * Application type sent in telemetry events. ('VPN_EXTENSION')
      */
-    appType: string;
+    appType: 'VPN_EXTENSION';
 
     /**
      * Short version of application, e.g. "2.14 beta 1".

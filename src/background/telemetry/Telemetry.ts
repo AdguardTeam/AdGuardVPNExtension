@@ -224,18 +224,7 @@ export class Telemetry implements TelemetryInterface {
      * This method is used internally to send page view events.
      */
     private async internalSendPageViewEvent(): Promise<void> {
-        // Do not send telemetry events if user opted out
-        // or if current screen name is not set
-        if (!settings.isHelpUsImproveEnabled() || !this.currentScreenName) {
-            return;
-        }
-
-        // Do not send telemetry events if module is not initialized
-        // only after making sure that user opted in
-        // NOTE: We are not throwing an error here because telemetry
-        // should not block the application nor notify the user
-        if (!this.isInitialized) {
-            log.debug('Telemetry module is not initialized');
+        if (!this.canSendEvents() || !this.currentScreenName) {
             return;
         }
 
@@ -284,17 +273,7 @@ export class Telemetry implements TelemetryInterface {
      * @param eventData Custom event data.
      */
     public sendCustomEvent = async (event: TelemetryCustomEventData): Promise<void> => {
-        // Do not send telemetry events if user opted out
-        if (!settings.isHelpUsImproveEnabled()) {
-            return;
-        }
-
-        // Do not send telemetry events if module is not initialized
-        // only after making sure that user opted in
-        // NOTE: We are not throwing an error here because telemetry
-        // should not block the application nor notify the user
-        if (!this.isInitialized) {
-            log.debug('Telemetry module is not initialized');
+        if (!this.canSendEvents()) {
             return;
         }
 
@@ -302,6 +281,31 @@ export class Telemetry implements TelemetryInterface {
 
         await this.telemetryProvider.sendCustomEvent(event, baseData);
     };
+
+    /**
+     * Checks if telemetry events can be sent.
+     *
+     * @returns True if telemetry events can be sent, false otherwise.
+     */
+    private canSendEvents(): boolean {
+        // Do not send telemetry events if user opted out
+        if (!settings.isHelpUsImproveEnabled()) {
+            return false;
+        }
+
+        // Do not send telemetry events if module is not initialized
+        // only after making sure that user opted in
+        // NOTE: We are not throwing an error here because telemetry
+        // should not block the application nor notify the user
+        if (!this.isInitialized) {
+            if (settings.isDebugModeEnabled()) {
+                log.debug('Telemetry module is not initialized');
+            }
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * Retrieves base data for telemetry events based on state.
