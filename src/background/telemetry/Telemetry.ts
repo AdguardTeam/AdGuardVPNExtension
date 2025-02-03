@@ -46,6 +46,11 @@ export interface TelemetryInterface {
     sendPageViewEvent(screenName: TelemetryScreenName): Promise<void>;
 
     /**
+     * Reverts the previous page view event. This is used when a dialog is closed.
+     */
+    revertPageViewEvent(): Promise<void>;
+
+    /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
      * @param eventData Custom event data.
@@ -79,7 +84,6 @@ export interface TelemetryParameters {
  * FIXME:
  * - Implement user agent data retrieval (device, os, probably browser info).
  * - Implement prev/current screen name reset logic.
- * - Should telemetry send events when dialog screens are closed?
  * - Add tests for telemetry api / provider / module.
  */
 export class Telemetry implements TelemetryInterface {
@@ -216,24 +220,47 @@ export class Telemetry implements TelemetryInterface {
     /**
      * Sends a telemetry page view event using {@link telemetryProvider}.
      *
-     * @param screenName Name of the screen.
+     * This method is used internally to send page view events.
      */
-    public sendPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
-        if (!settings.isHelpUsImproveEnabled()) {
+    private async internalSendPageViewEvent(): Promise<void> {
+        // Do not send telemetry events if user opted out
+        // or if current screen name is not set
+        if (!settings.isHelpUsImproveEnabled() || !this.currentScreenName) {
             return;
         }
 
-        // Save previous and current screen names
-        this.prevScreenName = this.currentScreenName;
-        this.currentScreenName = screenName;
-
         const baseData = await this.getBaseData();
         const event: TelemetryPageViewEventData = {
-            name: screenName,
+            name: this.currentScreenName,
             refName: this.prevScreenName ?? undefined,
         };
 
         await this.telemetryProvider.sendPageViewEvent(event, baseData);
+    }
+
+    /**
+     * Sends a telemetry page view event using {@link telemetryProvider}.
+     *
+     * @param screenName Name of the screen.
+     */
+    public sendPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
+        // Save previous and current screen names
+        this.prevScreenName = this.currentScreenName;
+        this.currentScreenName = screenName;
+
+        await this.internalSendPageViewEvent();
+    };
+
+    /**
+     * Reverts the previous page view event. This is used when a dialog is closed.
+     */
+    public revertPageViewEvent = async (): Promise<void> => {
+        // Revert previous and current screen names
+        const temp = this.currentScreenName;
+        this.currentScreenName = this.prevScreenName;
+        this.prevScreenName = temp;
+
+        await this.internalSendPageViewEvent();
     };
 
     /**

@@ -506,6 +506,14 @@ class Messenger {
     }
 
     /**
+     * Sends a message to the background to revert a page view telemetry event.
+     */
+    async revertPageViewTelemetryEvent(): Promise<void> {
+        const type = MessageType.REVERT_PAGE_VIEW_TELEMETRY_EVENT;
+        return this.sendMessage(type);
+    }
+
+    /**
      * Sends a message to the background to send a custom telemetry event.
      *
      * @param event Custom telemetry event data.

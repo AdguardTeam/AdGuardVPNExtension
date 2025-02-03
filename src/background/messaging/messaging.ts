@@ -455,6 +455,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             await telemetry.sendPageViewEvent(screenName);
             break;
         }
+        case MessageType.REVERT_PAGE_VIEW_TELEMETRY_EVENT: {
+            await telemetry.revertPageViewEvent();
+            break;
+        }
         case MessageType.SEND_CUSTOM_TELEMETRY_EVENT: {
             const { event } = data;
             await telemetry.sendCustomEvent(event);
