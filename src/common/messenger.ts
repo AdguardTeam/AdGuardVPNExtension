@@ -498,6 +498,8 @@ class Messenger {
     /**
      * Sends a message to the background to send a page view telemetry event.
      *
+     * NOTE: Do not await this function, as it is not necessary to wait for the response.
+     *
      * @param screenName Name of the screen.
      */
     async sendPageViewTelemetryEvent(screenName: TelemetryScreenName): Promise<void> {
