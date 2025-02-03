@@ -422,7 +422,13 @@ export class Telemetry implements TelemetryInterface {
             Telemetry.SYNTHETIC_ID_ALPHABET,
             Telemetry.SYNTHETIC_ID_SIZE,
         );
-        return nanoid();
+        const syntheticId = nanoid();
+
+        if (!Telemetry.isValidSyntheticId(syntheticId)) {
+            throw new Error('Failed to generate valid synthetic ID');
+        }
+
+        return syntheticId;
     }
 
     /**
