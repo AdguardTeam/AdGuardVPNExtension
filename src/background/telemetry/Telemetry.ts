@@ -384,25 +384,22 @@ export class Telemetry implements TelemetryInterface {
         const loggedIn = !!(await auth.isAuthenticated(false));
 
         let licenseStatus: TelemetryLicenseStatus | undefined;
-        let subscriptionDuration: TelemetrySubscriptionDuration | undefined;
         if (loggedIn) {
             const isPremiumToken = await this.credentials.isPremiumToken();
-            if (isPremiumToken) {
-                licenseStatus = TelemetryLicenseStatus.Premium;
-            } else {
-                licenseStatus = TelemetryLicenseStatus.Free;
-            }
 
-            if (licenseStatus !== TelemetryLicenseStatus.Free) {
-                const subscriptionType = this.credentials.getSubscriptionType();
+            licenseStatus = isPremiumToken
+                ? TelemetryLicenseStatus.Premium
+                : TelemetryLicenseStatus.Free;
+        }
 
-                if (subscriptionType) {
-                    subscriptionDuration = Telemetry.DURATION_MAPPER[subscriptionType];
-                } else {
-                    // If subscription type is not sent from backend - it's a lifetime subscription.
-                    subscriptionDuration = TelemetrySubscriptionDuration.Lifetime;
-                }
-            }
+        let subscriptionDuration: TelemetrySubscriptionDuration | undefined;
+        if (licenseStatus === TelemetryLicenseStatus.Premium) {
+            const subscriptionType = this.credentials.getSubscriptionType();
+
+            // If subscription type is not sent from backend - it's a lifetime subscription.
+            subscriptionDuration = subscriptionType
+                ? Telemetry.DURATION_MAPPER[subscriptionType]
+                : TelemetrySubscriptionDuration.Lifetime;
         }
 
         return {

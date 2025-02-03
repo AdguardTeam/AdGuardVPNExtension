@@ -35,7 +35,6 @@ export enum TelemetryOs {
  */
 export enum TelemetryLicenseStatus {
     Free = 'FREE',
-    Trial = 'TRIAL',
     Premium = 'PREMIUM',
 }
 
