@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { type TelemetryActionName } from '../background/telemetry';
+import { type TelemetryScreenName, type TelemetryActionName } from '../background/telemetry';
 
 import { messenger } from './messenger';
 
@@ -8,12 +8,14 @@ import { messenger } from './messenger';
  * Hook that returns a callback that sends a custom telemetry event when called.
  *
  * @param name Name of the action to be logged in telemetry.
+ * @param refName Name of the screen where the action is performed.
  * @param action Action name.
  * @param label Label name.
  * @returns Callback that sends a custom telemetry event when called.
  */
 export function useTelemetryCustomEvent(
     name: TelemetryActionName,
+    refName: TelemetryScreenName,
     action?: string,
     label?: string,
 ) {
@@ -22,6 +24,7 @@ export function useTelemetryCustomEvent(
     const handler = useCallback(async (): Promise<void> => {
         await messenger.sendCustomTelemetryEvent({
             name,
+            refName,
             action,
             label,
         });

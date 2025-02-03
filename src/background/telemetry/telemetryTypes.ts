@@ -168,11 +168,6 @@ export interface TelemetryCustomEventData {
 }
 
 /**
- * Custom event data without `refName`. Used by messenger.
- */
-export type TelemetrySendCustomEventData = Omit<TelemetryCustomEventData, 'refName'>;
-
-/**
  * Custom event type.
  */
 export interface TelemetryCustomEvent extends TelemetryBaseData {

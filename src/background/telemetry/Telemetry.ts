@@ -27,7 +27,6 @@ import {
     type TelemetryPageViewEventData,
     type TelemetryCustomEventData,
     type TelemetryUserAgent,
-    type TelemetrySendCustomEventData,
 } from './telemetryTypes';
 
 /**
@@ -51,7 +50,7 @@ export interface TelemetryInterface {
      *
      * @param eventData Custom event data.
      */
-    sendCustomEvent(eventData: TelemetrySendCustomEventData): Promise<void>;
+    sendCustomEvent(eventData: TelemetryCustomEventData): Promise<void>;
 }
 
 /**
@@ -242,16 +241,12 @@ export class Telemetry implements TelemetryInterface {
      *
      * @param eventData Custom event data.
      */
-    public sendCustomEvent = async (eventData: TelemetrySendCustomEventData): Promise<void> => {
+    public sendCustomEvent = async (event: TelemetryCustomEventData): Promise<void> => {
         if (!settings.isHelpUsImproveEnabled()) {
             return;
         }
 
         const baseData = await this.getBaseData();
-        const event: TelemetryCustomEventData = {
-            ...eventData,
-            refName: this.currentScreenName ?? undefined,
-        };
 
         await this.telemetryProvider.sendCustomEvent(event, baseData);
     };

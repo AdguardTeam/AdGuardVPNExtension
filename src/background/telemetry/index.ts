@@ -5,7 +5,7 @@ import { credentials } from '../credentials';
 import { Telemetry } from './Telemetry';
 
 export { TelemetryScreenName, TelemetryActionName } from './telemetryEnums';
-export { type TelemetrySendCustomEventData } from './telemetryTypes';
+export { type TelemetryCustomEventData } from './telemetryTypes';
 
 export const telemetry = new Telemetry({
     storage: browserApi.storage,

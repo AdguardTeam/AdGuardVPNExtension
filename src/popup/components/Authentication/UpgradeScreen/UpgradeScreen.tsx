@@ -16,8 +16,14 @@ export const UpgradeScreen = () => {
 
     useTelemetryPageViewEvent(TelemetryScreenName.PurchaseScreen);
 
-    const sendUpgradeEvent = useTelemetryCustomEvent(TelemetryActionName.OnboardingPurchaseClick);
-    const sendSkipEvent = useTelemetryCustomEvent(TelemetryActionName.OnboardingStayFreeClick);
+    const sendUpgradeEvent = useTelemetryCustomEvent(
+        TelemetryActionName.OnboardingPurchaseClick,
+        TelemetryScreenName.PurchaseScreen,
+    );
+    const sendSkipEvent = useTelemetryCustomEvent(
+        TelemetryActionName.OnboardingStayFreeClick,
+        TelemetryScreenName.PurchaseScreen,
+    );
 
     const handleUpgradeClick = async (): Promise<void> => {
         sendUpgradeEvent();

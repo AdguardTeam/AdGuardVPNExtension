@@ -6,7 +6,7 @@ import type { StartSocialAuthData, UserLookupData } from '../background/messagin
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { Message } from '../popup/components/App/App';
-import type { TelemetryScreenName, TelemetrySendCustomEventData } from '../background/telemetry';
+import type { TelemetryScreenName, TelemetryCustomEventData } from '../background/telemetry';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
@@ -508,11 +508,11 @@ class Messenger {
     /**
      * Sends a message to the background to send a custom telemetry event.
      *
-     * @param eventData Custom telemetry event data.
+     * @param event Custom telemetry event data.
      */
-    async sendCustomTelemetryEvent(eventData: TelemetrySendCustomEventData): Promise<void> {
+    async sendCustomTelemetryEvent(event: TelemetryCustomEventData): Promise<void> {
         const type = MessageType.SEND_CUSTOM_TELEMETRY_EVENT;
-        return this.sendMessage(type, { eventData });
+        return this.sendMessage(type, { event });
     }
 }
 
