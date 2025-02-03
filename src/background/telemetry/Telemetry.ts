@@ -265,6 +265,11 @@ export class Telemetry implements TelemetryInterface {
      * Reverts the previous page view event. This is used when a dialog is closed.
      */
     public revertPageViewEvent = async (): Promise<void> => {
+        // Do not revert if previous screen name is not set
+        if (!this.prevScreenName) {
+            return;
+        }
+
         // Revert previous and current screen names
         const temp = this.currentScreenName;
         this.currentScreenName = this.prevScreenName;
@@ -279,6 +284,7 @@ export class Telemetry implements TelemetryInterface {
      * @param eventData Custom event data.
      */
     public sendCustomEvent = async (event: TelemetryCustomEventData): Promise<void> => {
+        // Do not send telemetry events if user opted out
         if (!settings.isHelpUsImproveEnabled()) {
             return;
         }

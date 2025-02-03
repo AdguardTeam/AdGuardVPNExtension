@@ -507,6 +507,8 @@ class Messenger {
 
     /**
      * Sends a message to the background to revert a page view telemetry event.
+     *
+     * NOTE: Do not await this function, as it is not necessary to wait for the response.
      */
     async revertPageViewTelemetryEvent(): Promise<void> {
         const type = MessageType.REVERT_PAGE_VIEW_TELEMETRY_EVENT;
@@ -515,6 +517,8 @@ class Messenger {
 
     /**
      * Sends a message to the background to send a custom telemetry event.
+     *
+     * NOTE: Do not await this function, as it is not necessary to wait for the response.
      *
      * @param event Custom telemetry event data.
      */

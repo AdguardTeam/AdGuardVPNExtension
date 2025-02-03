@@ -5,9 +5,9 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 import { CloseButton } from '../../ui/CloseButton';
 import { Slider } from '../../ui/Slider';
 import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
-import { useTelemetryCustomEvent } from '../../../../common/useTelemetryCustomEvent';
 import { useTelemetryPageViewEvent } from '../../../../common/useTelemetryPageViewEvent';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { messenger } from '../../../../common/messenger';
 
 import './upgrade-screen.pcss';
 
@@ -16,24 +16,21 @@ export const UpgradeScreen = () => {
 
     useTelemetryPageViewEvent(TelemetryScreenName.PurchaseScreen);
 
-    const sendUpgradeEvent = useTelemetryCustomEvent(
-        TelemetryActionName.OnboardingPurchaseClick,
-        TelemetryScreenName.PurchaseScreen,
-    );
-    const sendSkipEvent = useTelemetryCustomEvent(
-        TelemetryActionName.OnboardingStayFreeClick,
-        TelemetryScreenName.PurchaseScreen,
-    );
-
     const handleUpgradeClick = async (): Promise<void> => {
-        sendUpgradeEvent();
+        messenger.sendCustomTelemetryEvent({
+            name: TelemetryActionName.OnboardingPurchaseClick,
+            refName: TelemetryScreenName.PurchaseScreen,
+        });
         await authStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
         window.close();
     };
 
     const handleSkipClick = async (): Promise<void> => {
-        sendSkipEvent();
+        messenger.sendCustomTelemetryEvent({
+            name: TelemetryActionName.OnboardingStayFreeClick,
+            refName: TelemetryScreenName.PurchaseScreen,
+        });
         await authStore.setShowUpgradeScreen(false);
     };
 
