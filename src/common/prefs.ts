@@ -81,11 +81,20 @@ export enum SystemName {
  *
  * Utility class for getting icon urls, platform info, device runtime.
  */
-class Preferences {
+export class Preferences {
     /**
      * Cache storage for lazy getters.
      */
     private static cache: Record<string, any> = {};
+
+    /**
+     * Clears the cache.
+     *
+     * NOTE: This method is used for testing purposes.
+     */
+    public static clearCache(): void {
+        Preferences.cache = {};
+    }
 
     /* ICON RELATED PREFERENCES */
 
@@ -350,8 +359,9 @@ class Preferences {
         return actualVersion;
     }
 
-    /* DEVICE RELATED PREFERENCES */
-
+    /**
+     * Device info getter.
+     */
     public get device(): IDevice {
         return lazyGet(Preferences.cache, 'device', (): IDevice => Preferences.uaParser.getDevice());
     }
