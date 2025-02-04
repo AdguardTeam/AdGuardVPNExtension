@@ -124,6 +124,11 @@ export class Telemetry implements TelemetryInterface {
     private static readonly SYNTHETIC_ID_SIZE = 8;
 
     /**
+     * This version will be sent to telemetry API if version is not detected.
+     */
+    private static readonly UNKNOWN_OS_VERSION = 'unknown';
+
+    /**
      * SystemName to TelemetryOs mapper.
      */
     private static readonly OS_MAPPER: Record<SystemName, TelemetryOs> = {
@@ -149,10 +154,11 @@ export class Telemetry implements TelemetryInterface {
     /**
      * SubscriptionType to TelemetrySubscriptionDuration mapper.
      */
-    private static readonly DURATION_MAPPER: Record<SubscriptionType, TelemetrySubscriptionDuration> = {
+    private static readonly DURATION_MAPPER: Record<SubscriptionType | 'Unlimited', TelemetrySubscriptionDuration> = {
         [SubscriptionType.Monthly]: TelemetrySubscriptionDuration.Monthly,
         [SubscriptionType.Yearly]: TelemetrySubscriptionDuration.Annual,
         [SubscriptionType.TwoYears]: TelemetrySubscriptionDuration.Other,
+        Unlimited: TelemetrySubscriptionDuration.Lifetime,
     };
 
     /**
@@ -181,6 +187,15 @@ export class Telemetry implements TelemetryInterface {
      * Initialized in {@link initState} method.
      */
     private syntheticId!: string;
+
+    /**
+     * User agent data.
+     *
+     * Initialized in {@link initState} method.
+     *
+     * This data can be calculated once when session launched and reused for all events.
+     */
+    private userAgent!: TelemetryUserAgent;
 
     /**
      * Previous screen name.
@@ -215,7 +230,12 @@ export class Telemetry implements TelemetryInterface {
      * Initializes telemetry module state.
      */
     public initState = async (): Promise<void> => {
-        this.syntheticId = await this.gainSyntheticId();
+        const [syntheticId, userAgent] = await Promise.all([
+            this.gainSyntheticId(),
+            Telemetry.getUserAgent(),
+        ]);
+        this.syntheticId = syntheticId;
+        this.userAgent = userAgent;
         this.isInitialized = true;
     };
 
@@ -346,37 +366,45 @@ export class Telemetry implements TelemetryInterface {
      * @returns Base data for telemetry events.
      */
     private async getBaseData(): Promise<TelemetryBaseData> {
-        const [userAgent, props] = await Promise.all([
-            this.getUserAgent(),
-            this.getProps(),
-        ]);
+        const props = await this.getProps();
 
         return {
             syntheticId: this.syntheticId,
             appType: Telemetry.APP_TYPE,
             version: appStatus.version,
-            userAgent,
+            userAgent: this.userAgent,
             props,
         };
     }
 
     /**
-     * Sets user agent data for telemetry events.
+     * Retrieves user agent data for telemetry events.
      *
      * @returns User agent data for telemetry events.
      */
-    private async getUserAgent(): Promise<TelemetryUserAgent> {
-        const { os, arch } = await Prefs.getPlatformInfo();
+    private static async getUserAgent(): Promise<TelemetryUserAgent> {
+        // get platform related info
+        const [{ os, arch }, version] = await Promise.all([
+            Prefs.getPlatformInfo(),
+            Prefs.getPlatformVersion(),
+        ]);
+
+        // get device related info
+        const { model, vendor } = Prefs.device;
+        let device: TelemetryUserAgent['device'] | undefined;
+        if (vendor) {
+            device = {
+                brand: vendor,
+                model,
+            };
+        }
 
         return {
-            device: {
-                brand: 'FIXME: Can it be retrieved?',
-                model: 'FIXME: Can it be retrieved?',
-            },
+            device,
             os: {
                 name: Telemetry.OS_MAPPER[os],
                 platform: arch,
-                version: 'FIXME: Can it be retrieved?',
+                version: version ?? Telemetry.UNKNOWN_OS_VERSION,
             },
         };
     }
@@ -407,7 +435,7 @@ export class Telemetry implements TelemetryInterface {
             // If subscription type is not sent from backend - it's a lifetime subscription.
             subscriptionDuration = subscriptionType
                 ? Telemetry.DURATION_MAPPER[subscriptionType]
-                : TelemetrySubscriptionDuration.Lifetime;
+                : Telemetry.DURATION_MAPPER.Unlimited;
         }
 
         return {
