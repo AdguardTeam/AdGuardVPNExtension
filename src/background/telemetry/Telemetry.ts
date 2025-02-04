@@ -83,8 +83,9 @@ export interface TelemetryParameters {
  *
  * On each new session launch (including first launch):
  *
- * Retrieve synthetic ID from local storage, if it doesn't exist or corrupted, generate a new one
- * and save it to local storage. Valid ID: 8 characters long, contains only [1-9a-f] characters.
+ *   1) Retrieve synthetic ID from local storage, if it doesn't exist or corrupted, generate a new one
+ *      and save it to local storage. Valid ID: 8 characters long, contains only [1-9a-f] characters.
+ *   2) Parse and save user agent data locally.
  *
  * Common for all event dispatching methods:
  *   1) Check if extension can send events by making sure that user opted in setting and module is
@@ -100,7 +101,6 @@ export interface TelemetryParameters {
  * - Revert to the previous screen name when nested screen (e.g. dialog) is closed.
  *
  * FIXME: Write about prev/current screen name reset logic when implemented.
- * FIXME: Implement user agent data retrieval (device, os, probably browser info).
  */
 export class Telemetry implements TelemetryInterface {
     /**
