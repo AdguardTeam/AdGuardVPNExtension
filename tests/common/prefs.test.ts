@@ -8,7 +8,7 @@ import {
 } from '../../src/common/prefs';
 import { runtime } from '../../src/background/browserApi/runtime';
 
-// partially mock browserApi.runtime
+// Partially mock browserApi.runtime
 const getPlatformInfoSpy = jest.spyOn(runtime, 'getPlatformInfo');
 jest.mock('../../src/background/browserApi/runtime', () => ({
     getUrl: (path: string) => `test/${path}`,
@@ -17,7 +17,7 @@ jest.mock('../../src/background/browserApi/runtime', () => ({
     },
 }));
 
-// Mock ua-parser-js
+// Partially mock ua-parser-js
 const uaGetOS = jest.fn();
 const uaGetDevice = jest.fn();
 jest.mock('ua-parser-js', () => jest.fn().mockImplementation(() => ({
@@ -25,23 +25,27 @@ jest.mock('ua-parser-js', () => jest.fn().mockImplementation(() => ({
     getDevice: uaGetDevice,
 })));
 
-// Mock navigator.userAgentData and navigator.userAgent
+// Mock navigator.userAgentData
 (global.window.navigator as any).userAgentData = {
     getHighEntropyValues: jest.fn(),
 };
 
-let userAgentGetter: jest.SpyInstance<string, []>;
-let getHighEntropyValuesSpy: jest.SpyInstance<Promise<{ platformVersion: string }>>;
-beforeEach(() => {
-    userAgentGetter = jest.spyOn(window.navigator, 'userAgent', 'get');
-    getHighEntropyValuesSpy = jest.spyOn((window.navigator as any).userAgentData, 'getHighEntropyValues');
-});
-
-afterEach(() => {
-    Preferences.clearCache();
-});
-
 describe('prefs', () => {
+    let userAgentGetter: jest.SpyInstance<string, []>;
+    let getHighEntropyValuesSpy: jest.SpyInstance<Promise<{ platformVersion: string }>>;
+    beforeEach(() => {
+        userAgentGetter = jest.spyOn(window.navigator, 'userAgent', 'get');
+        getHighEntropyValuesSpy = jest.spyOn((window.navigator as any).userAgentData, 'getHighEntropyValues');
+    });
+
+    afterEach(() => {
+        Preferences.clearCache();
+    });
+
+    afterAll(() => {
+        jest.clearAllMocks();
+    });
+
     it('can get ICONS properly and lazily', () => {
         const firstGet = Prefs.ICONS;
         expect(firstGet).toBeDefined();
