@@ -5,9 +5,14 @@ import { type LocationInterface } from '../background/schema';
 
 /**
  * Returns the value of the property from the cache,
- * otherwise, calculates it using the callback, memoizes it, and returns the value
+ * otherwise, calculates it using the callback, memoizes it, and returns the value.
+ *
+ * @param obj Object to store the property.
+ * @param prop Property name.
+ * @param getter Callback to get the value.
+ * @returns Property value.
  */
-export const lazyGet = (obj: any, prop: string, func: () => any) => {
+export const lazyGet = <T>(obj: Record<string, any>, prop: string, func: () => T): T => {
     const cachedProp = `_${prop}`;
     if (cachedProp in obj) {
         return obj[cachedProp];

@@ -121,6 +121,7 @@
         "@adguard/logger": "^1.1.1",
         "@adguard/translate": "^1.0.2",
         "@babel/runtime": "^7.12.0",
+        "@types/ua-parser-js": "^0.7.37",
         "@xstate/react": "^2.0.1",
         "buffer": "^6.0.3",
         "classnames": "^2.3.1",
@@ -145,6 +146,7 @@
         "react-router-dom": "^5.2.0",
         "react-transition-group": "^4.4.1",
         "tldts": "^5.6.59",
+        "ua-parser-js": "^1.0.36",
         "webextension-polyfill": "^0.9.0",
         "xstate": "^4.37.2",
         "zod": "^3.21.4"
