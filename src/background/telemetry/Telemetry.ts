@@ -331,7 +331,7 @@ export class Telemetry implements TelemetryInterface {
         // Do not send telemetry events if module is not initialized
         // only after making sure that user opted in
         // NOTE: We are not throwing an error here because telemetry
-        // should not block the application nor notify the user
+        // should neither block the application nor notify the user
         if (!this.isInitialized) {
             log.debug('Telemetry module is not initialized');
             return false;
