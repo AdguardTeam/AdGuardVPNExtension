@@ -17,7 +17,7 @@ const API_URL_PREFIX = '/api';
 class TelemetryApi extends Api {
     private static readonly SEND_EVENT: RequestProps = { path: 'v1/event', method: 'POST' };
 
-    sendEvent = async (data: TelemetryApiEventData): Promise<void> => {
+    public sendEvent = async (data: TelemetryApiEventData): Promise<void> => {
         const { path, method } = TelemetryApi.SEND_EVENT;
 
         const headers = {
