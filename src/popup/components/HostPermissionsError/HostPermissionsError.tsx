@@ -8,6 +8,8 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry';
 
 import './host-permissions-error.pcss';
 
@@ -18,7 +20,12 @@ import './host-permissions-error.pcss';
  * because otherwise it won't be able to make api requests.
  */
 export const HostPermissionsError = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogAccessWebsitesPermission,
+    );
 
     const { isHostPermissionsGranted, forwarderDomain } = settingsStore;
 
