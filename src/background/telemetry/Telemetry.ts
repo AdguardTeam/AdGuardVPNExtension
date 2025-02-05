@@ -9,7 +9,7 @@ import { type StorageInterface } from '../browserApi/storage';
 import { log } from '../../common/logger';
 import { settings } from '../settings';
 import { auth } from '../auth';
-import { type CredentialsInterface } from '../credentials/Credentials';
+import { credentials } from '../credentials';
 
 import {
     type TelemetryScreenName,
@@ -68,11 +68,6 @@ export interface TelemetryParameters {
      * Telemetry provider.
      */
     telemetryProvider: TelemetryProviderInterface;
-
-    /**
-     * Credentials instance.
-     */
-    credentials: CredentialsInterface;
 }
 
 /**
@@ -172,11 +167,6 @@ export class Telemetry implements TelemetryInterface {
     private telemetryProvider: TelemetryProviderInterface;
 
     /**
-     * Credentials instance.
-     */
-    private credentials: CredentialsInterface;
-
-    /**
      * Flag indicating whether telemetry module is initialized or not.
      */
     private isInitialized = false;
@@ -219,11 +209,9 @@ export class Telemetry implements TelemetryInterface {
     constructor({
         storage,
         telemetryProvider,
-        credentials,
     }: TelemetryParameters) {
         this.storage = storage;
         this.telemetryProvider = telemetryProvider;
-        this.credentials = credentials;
     }
 
     /**
@@ -421,7 +409,7 @@ export class Telemetry implements TelemetryInterface {
 
         let licenseStatus: TelemetryLicenseStatus | undefined;
         if (loggedIn) {
-            const isPremiumToken = await this.credentials.isPremiumToken();
+            const isPremiumToken = await credentials.isPremiumToken();
 
             licenseStatus = isPremiumToken
                 ? TelemetryLicenseStatus.Premium
@@ -430,7 +418,7 @@ export class Telemetry implements TelemetryInterface {
 
         let subscriptionDuration: TelemetrySubscriptionDuration | undefined;
         if (licenseStatus === TelemetryLicenseStatus.Premium) {
-            const subscriptionType = this.credentials.getSubscriptionType();
+            const subscriptionType = credentials.getSubscriptionType();
 
             // If subscription type is not sent from backend - it's a lifetime subscription.
             subscriptionDuration = subscriptionType
