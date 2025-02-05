@@ -5,7 +5,7 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 import { CloseButton } from '../../ui/CloseButton';
 import { Slider } from '../../ui/Slider';
 import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
-import { useTelemetryPageViewEvent } from '../../../../common/useTelemetryPageViewEvent';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 import { messenger } from '../../../../common/messenger';
 

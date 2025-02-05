@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { translator } from '../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry';
 import { rootStore } from '../../stores';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Button } from '../ui/Button';
@@ -9,6 +11,9 @@ import { Title } from '../ui/Title';
 
 export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(TelemetryScreenName.FreeGbConfirmEmailScreen);
+
     const { confirmBonus, resendConfirmationLink } = settingsStore;
 
     const resendLink = async () => {

@@ -6,6 +6,8 @@ import classNames from 'classnames';
 
 import { translator } from '../../../common/translator';
 import { DotsLoader } from '../../../common/components/DotsLoader';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry';
 import { rootStore } from '../../stores';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Title } from '../ui/Title';
@@ -53,6 +55,16 @@ export const FreeGbs = observer(() => {
     const history = useHistory();
     const { search } = useLocation();
     const query = new URLSearchParams(search);
+
+    const isInviteFriendPage = query.has(INVITE_FRIEND);
+    const isConfirmEmailPage = query.has(CONFIRM_EMAIL);
+    const isAddDevicePage = query.has(ADD_DEVICE);
+    const isLoading = bonusesDataRequestStatus !== RequestStatus.Done;
+
+    useTelemetryPageViewEvent(
+        TelemetryScreenName.FreeGbScreen,
+        !isInviteFriendPage && !isConfirmEmailPage && !isAddDevicePage && !isLoading,
+    );
 
     const goBackHandler = () => {
         history.push(`/${FREE_GBS}`);
@@ -108,19 +120,19 @@ export const FreeGbs = observer(() => {
         );
     };
 
-    if (query.has(INVITE_FRIEND)) {
+    if (isInviteFriendPage) {
         return <InviteFriend goBackHandler={goBackHandler} />;
     }
 
-    if (query.has(CONFIRM_EMAIL)) {
+    if (isConfirmEmailPage) {
         return <ConfirmEmail goBackHandler={goBackHandler} />;
     }
 
-    if (query.has(ADD_DEVICE)) {
+    if (isAddDevicePage) {
         return <AddDevice goBackHandler={goBackHandler} />;
     }
 
-    if (bonusesDataRequestStatus !== RequestStatus.Done) {
+    if (isLoading) {
         return <DotsLoader />;
     }
 
