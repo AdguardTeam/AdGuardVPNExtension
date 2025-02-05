@@ -80,7 +80,7 @@ export interface TelemetryParameters {
  *
  *   1) Retrieve synthetic ID from local storage, if it doesn't exist or corrupted, generate a new one
  *      and save it to local storage. Valid ID: 8 characters long, contains only [1-9a-f] characters.
- *   2) Parse and save user agent data locally.
+ *   2) Parse and save user agent data in-memory to not calculate it for each event.
  *
  * Common for all event dispatching methods:
  *   1) Check if extension can send events by making sure that user opted in setting and module is
