@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryActionName } from '../../../background/telemetry';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { translator } from '../../../common/translator';
@@ -19,7 +20,7 @@ import { ExclusionsSearch } from './Search';
 import './exclusions.pcss';
 
 export const Exclusions = observer(() => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, telemetryStore } = useContext(rootStore);
 
     if (exclusionsStore.selectedExclusion) {
         return (
@@ -54,6 +55,7 @@ export const Exclusions = observer(() => {
         : selectiveModeInfo;
 
     const onAddExclusionClick = () => {
+        telemetryStore.sendCustomEvent(TelemetryActionName.AddWebsiteClick);
         exclusionsStore.openAddExclusionModal();
     };
 

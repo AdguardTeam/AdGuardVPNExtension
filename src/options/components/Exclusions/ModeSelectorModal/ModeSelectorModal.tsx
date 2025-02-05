@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryActionName } from '../../../../background/telemetry';
 import { rootStore } from '../../../stores';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { translator } from '../../../../common/translator';
@@ -9,7 +10,7 @@ import { Radio } from '../../ui/Radio';
 import { Button } from '../../ui/Button';
 
 export const ModeSelectorModal = observer(() => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, telemetryStore } = useContext(rootStore);
 
     const [mode, setMode] = useState(exclusionsStore.currentMode);
 
@@ -19,6 +20,11 @@ export const ModeSelectorModal = observer(() => {
     };
 
     const handleSaveMode = async () => {
+        const telemetryAction = mode === ExclusionsMode.Regular
+            ? TelemetryActionName.GeneralModeClick
+            : TelemetryActionName.SelectiveModeClick;
+        telemetryStore.sendCustomEvent(telemetryAction);
+
         await exclusionsStore.setCurrentMode(mode);
         exclusionsStore.setModeSelectorModalOpen(false);
     };
