@@ -43,11 +43,6 @@ export interface TelemetryInterface {
     sendPageViewEvent(screenName: TelemetryScreenName): Promise<void>;
 
     /**
-     * Reverts the previous page view event. This is used when a dialog is closed.
-     */
-    revertPageViewEvent(screenName: TelemetryScreenName): Promise<void>;
-
-    /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
      * @param eventData Custom event data.
@@ -91,9 +86,8 @@ export interface TelemetryParameters {
  * Notes about pageview events:
  * We have {@link currentScreenName} and {@link prevScreenName} props that are used to track
  * the current and previous screen names. When a new page view event is sent, we save the {@link currentScreenName}
- * to {@link prevScreenName} and set the new screen name to {@link currentScreenName}. This is used in two cases:
- * - Send `refName` in page view events.
- * - Revert to the previous screen name when nested screen (e.g. dialog) is closed.
+ * to {@link prevScreenName} and set the new screen name to {@link currentScreenName}.
+ * This is used in two cases to send `refName` in page view events to keep track of the previous screen name.
  *
  * FIXME: Write about prev/current screen name reset logic when implemented.
  */
@@ -248,20 +242,16 @@ export class Telemetry implements TelemetryInterface {
     /**
      * Sends a telemetry page view event using {@link telemetryProvider}.
      *
-     * This method is used internally to send page view events.
+     * @param screenName Name of the screen.
      */
-    private async internalSendPageViewEvent(): Promise<void> {
+    public sendPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
         if (!this.canSendEvents()) {
             return;
         }
 
-        if (!this.currentScreenName) {
-            log.warn('Failed to send page view event: current screen name is not set', {
-                currentScreenName: this.currentScreenName,
-                prevScreenName: this.prevScreenName,
-            });
-            return;
-        }
+        // Save previous and current screen names
+        this.prevScreenName = this.currentScreenName;
+        this.currentScreenName = screenName;
 
         const baseData = await this.getBaseData();
         const event: TelemetryPageViewEventData = {
@@ -270,44 +260,6 @@ export class Telemetry implements TelemetryInterface {
         };
 
         await this.telemetryProvider.sendPageViewEvent(event, baseData);
-    }
-
-    /**
-     * Sends a telemetry page view event using {@link telemetryProvider}.
-     *
-     * @param screenName Name of the screen.
-     */
-    public sendPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
-        // Save previous and current screen names
-        this.prevScreenName = this.currentScreenName;
-        this.currentScreenName = screenName;
-
-        await this.internalSendPageViewEvent();
-    };
-
-    /**
-     * Reverts to the previous page view event only if `currentScreenName` is the same as the given `screenName`.
-     * Additional check is needed to eliminate race condition when the screen is changed before the event is sent.
-     *
-     * @param screenName Name of the screen to revert.
-     */
-    public revertPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
-        // Do not revert if previous screen name is not set
-        if (!this.prevScreenName) {
-            return;
-        }
-
-        // Do not revert if current screen name is not the same as the given screen name
-        if (this.currentScreenName !== screenName) {
-            return;
-        }
-
-        // Revert previous and current screen names
-        const temp = this.currentScreenName;
-        this.currentScreenName = this.prevScreenName;
-        this.prevScreenName = temp;
-
-        await this.internalSendPageViewEvent();
     };
 
     /**

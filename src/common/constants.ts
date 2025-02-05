@@ -114,7 +114,6 @@ export enum MessageType {
     RECALCULATE_PINGS = 'recalculate.pings',
 
     TELEMETRY_EVENT_SEND_PAGE_VIEW = 'telemetry.event.send.page.view',
-    TELEMETRY_EVENT_REVERT_PAGE_VIEW = 'telemetry.event.revert.page.view',
     TELEMETRY_EVENT_SEND_CUSTOM = 'telemetry.event.send.custom',
 }
 
