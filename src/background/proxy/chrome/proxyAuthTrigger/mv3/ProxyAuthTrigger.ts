@@ -12,7 +12,11 @@ const createOffScreenDocument = (() => {
         } else {
             creating = chrome.offscreen.createDocument({
                 url: 'offscreen.html',
-                reasons: [chrome.offscreen.Reason.WORKERS],
+                reasons: [
+                    chrome.offscreen.Reason.WORKERS
+                    // Fallback for Chrome 113 and below
+                    || chrome.offscreen.Reason.IFRAME_SCRIPTING,
+                ],
                 justification: 'needed to trigger on auth required handler',
             });
             await creating;
