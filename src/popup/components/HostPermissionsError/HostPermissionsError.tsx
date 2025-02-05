@@ -22,12 +22,13 @@ import './host-permissions-error.pcss';
 export const HostPermissionsError = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
 
+    const { isHostPermissionsGranted, forwarderDomain } = settingsStore;
+
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.DialogAccessWebsitesPermission,
+        !isHostPermissionsGranted,
     );
-
-    const { isHostPermissionsGranted, forwarderDomain } = settingsStore;
 
     const handleAllow = () => {
         // the method is async but we don't need to wait for it

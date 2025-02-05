@@ -19,14 +19,15 @@ import './limited-offer-details.pcss';
 export const LimitedOfferDetails = observer(() => {
     const { uiStore, settingsStore, telemetryStore } = useContext(rootStore);
 
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.PromoOfferScreen,
-    );
-
     const { shouldShowLimitedOfferDetails } = uiStore;
 
     const { limitedOfferData } = settingsStore;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.PromoOfferScreen,
+        !!limitedOfferData && shouldShowLimitedOfferDetails,
+    );
 
     if (!limitedOfferData) {
         return null;
