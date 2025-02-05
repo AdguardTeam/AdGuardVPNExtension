@@ -163,6 +163,18 @@ export class Telemetry implements TelemetryInterface {
     private static readonly ACTION_SCREEN_MAPPER: Record<TelemetryActionName, TelemetryScreenName> = {
         [TelemetryActionName.OnboardingPurchaseClick]: TelemetryScreenName.PurchaseScreen,
         [TelemetryActionName.OnboardingStayFreeClick]: TelemetryScreenName.PurchaseScreen,
+        [TelemetryActionName.PromoOfferPurchaseClick]: TelemetryScreenName.PromoOfferScreen,
+        [TelemetryActionName.PromoOfferClick]: TelemetryScreenName.HomeScreen,
+        [TelemetryActionName.ConnectClick]: TelemetryScreenName.HomeScreen,
+        [TelemetryActionName.DisconnectClick]: TelemetryScreenName.HomeScreen,
+        [TelemetryActionName.PurchaseClick]: TelemetryScreenName.HomeScreen,
+        [TelemetryActionName.FreeGbClick]: TelemetryScreenName.HomeScreen,
+        [TelemetryActionName.SpeedReducedPurchaseClick]: TelemetryScreenName.SpeedReducedScreen,
+        [TelemetryActionName.AddWebsiteClick]: TelemetryScreenName.ExclusionsScreen,
+        [TelemetryActionName.GeneralModeClick]: TelemetryScreenName.DialogExclusionsModeSelection,
+        [TelemetryActionName.SelectiveModeClick]: TelemetryScreenName.DialogExclusionsModeSelection,
+        [TelemetryActionName.AddWebsiteFromList]: TelemetryScreenName.DialogAddWebsiteExclusion,
+        [TelemetryActionName.AddWebsiteManually]: TelemetryScreenName.DialogAddWebsiteExclusion,
     };
 
     /**
