@@ -5,10 +5,10 @@ import { TelemetryActionName, TelemetryScreenName } from '../../../../background
 import { rootStore } from '../../../stores';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { translator } from '../../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { Modal } from '../../ui/Modal';
 import { Radio } from '../../ui/Radio';
 import { Button } from '../../ui/Button';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 
 export const ModeSelectorModal = observer(() => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);

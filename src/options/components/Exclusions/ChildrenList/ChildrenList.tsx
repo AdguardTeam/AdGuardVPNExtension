@@ -21,7 +21,7 @@ export const ChildrenList = observer(() => {
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.ExclusionsDomainDetailsScreen,
-        addSubdomainModalOpen, // `DialogExclusionsAddSubdomain` is rendered on top of this screen,
+        !addSubdomainModalOpen, // `DialogExclusionsAddSubdomain` is rendered on top of this screen,
     );
 
     if (!selectedExclusion || selectedExclusion.children.length === 0) {
