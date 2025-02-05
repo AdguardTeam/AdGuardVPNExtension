@@ -10,13 +10,22 @@ import { rootStore } from '../../stores';
 import { messenger } from '../../../common/messenger';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry';
 
 import './popup-error.pcss';
 
 export const ConnectionsLimitError = observer(() => {
-    const { vpnStore, settingsStore } = useContext(rootStore);
+    const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
 
     const { tooManyDevicesConnected, isPremiumToken, maxDevicesAllowed } = vpnStore;
+    const isMaxDevicesAllowedCorrect = !isNil(maxDevicesAllowed);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DeviceLimitScreen,
+        tooManyDevicesConnected && isMaxDevicesAllowedCorrect,
+    );
 
     const { forwarderDomain } = settingsStore;
 
@@ -24,7 +33,7 @@ export const ConnectionsLimitError = observer(() => {
         return null;
     }
 
-    if (isNil(maxDevicesAllowed)) {
+    if (!isMaxDevicesAllowedCorrect) {
         log.error('Property maxDevicesAllowed is required');
         return null;
     }

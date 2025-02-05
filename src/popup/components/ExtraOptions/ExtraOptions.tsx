@@ -8,6 +8,8 @@ import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { messenger } from '../../../common/messenger';
 import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry';
 import { RatePopup } from '../RatePopup';
 
 import { Option } from './Option';
@@ -15,7 +17,12 @@ import { Option } from './Option';
 import './extra-options.pcss';
 
 export const ExtraOptions = observer(() => {
-    const { uiStore, settingsStore } = useContext(rootStore);
+    const { uiStore, settingsStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.MenuScreen,
+    );
 
     const {
         isRateVisible,
