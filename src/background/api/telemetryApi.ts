@@ -1,8 +1,8 @@
+import { TELEMETRY_API_URL } from '../config';
 import { type TelemetryApiEventData } from '../telemetry/telemetryTypes';
 
 import { Api } from './Api';
 import { type RequestProps } from './apiTypes';
-import { fallbackApi } from './fallbackApi';
 
 /**
  * API URL prefix
@@ -29,7 +29,4 @@ class TelemetryApi extends Api {
     };
 }
 
-export const telemetryApi = new TelemetryApi(async () => {
-    const telemetryApiBaseUrl = await fallbackApi.getTelemetryApiUrl();
-    return `${telemetryApiBaseUrl}${API_URL_PREFIX}`;
-});
+export const telemetryApi = new TelemetryApi(`${TELEMETRY_API_URL}${API_URL_PREFIX}`);

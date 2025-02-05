@@ -63,17 +63,11 @@ export class FallbackApi {
      * Default urls we set already expired,
      * so we need to check bkp url immediately when bkp url is required
      */
-    constructor(
-        vpnApiUrl: string,
-        authApiUrl: string,
-        forwarderApiUrl: string,
-        telemetryApiUrl: string,
-    ) {
+    constructor(vpnApiUrl: string, authApiUrl: string, forwarderApiUrl: string) {
         this.defaultFallbackInfo = {
             vpnApiUrl,
             authApiUrl,
             forwarderApiUrl,
-            telemetryApiUrl,
             expiresInMs: Date.now() - 1,
         };
     }
@@ -110,9 +104,8 @@ export class FallbackApi {
             this.fallbackInfo = {
                 vpnApiUrl: bkpVpnApiUrl,
                 authApiUrl: bkpAuthApiUrl,
-                // use received vpn api url as forwarder api and telemetry api url
+                // use received vpn api url as forwarder api url
                 forwarderApiUrl: bkpVpnApiUrl,
-                telemetryApiUrl: bkpVpnApiUrl,
                 expiresInMs: Date.now() + FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS,
             };
         } else if (!this.fallbackInfo) {
@@ -152,21 +145,6 @@ export class FallbackApi {
             : forwarderApiUrl;
     };
 
-    /**
-     * Returns fallback telemetry API URL.
-     *
-     * Received VPN API URL is used as a fallback telemetry API URL,
-     * but if the default VPN API URL is received, the default telemetry API URL should be returned.
-     *
-     * @returns Telemetry API URL.
-     */
-    public getTelemetryApiUrl = async (): Promise<string> => {
-        const { telemetryApiUrl } = await this.getFallbackInfo();
-        return telemetryApiUrl === this.defaultFallbackInfo.vpnApiUrl
-            ? this.defaultFallbackInfo.telemetryApiUrl
-            : telemetryApiUrl;
-    };
-
     public getAuthApiUrl = async (): Promise<string> => {
         const fallbackInfo = await this.getFallbackInfo();
         return fallbackInfo.authApiUrl;
@@ -191,7 +169,7 @@ export class FallbackApi {
         return [
             await this.getVpnApiUrl(),
             await this.getAuthApiUrl(),
-            await this.getTelemetryApiUrl(),
+            TELEMETRY_API_URL,
             GOOGLE_DOH_HOSTNAME,
             CLOUDFLARE_DOH_HOSTNAME,
             ALIDNS_DOH_HOSTNAME,
@@ -368,16 +346,9 @@ export class FallbackApi {
         return bkpAuthUrl;
     };
 
-    // FIXME: Should we add getBkpTelemetryApiUrl?
-
     private static isString(val: unknown): boolean {
         return typeof val === 'string';
     }
 }
 
-export const fallbackApi = new FallbackApi(
-    VPN_API_URL,
-    AUTH_API_URL,
-    FORWARDER_DOMAIN,
-    TELEMETRY_API_URL,
-);
+export const fallbackApi = new FallbackApi(VPN_API_URL, AUTH_API_URL, FORWARDER_DOMAIN);
