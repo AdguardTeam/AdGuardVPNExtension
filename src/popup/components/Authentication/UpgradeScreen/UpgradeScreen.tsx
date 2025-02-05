@@ -7,24 +7,26 @@ import { Slider } from '../../ui/Slider';
 import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
-import { messenger } from '../../../../common/messenger';
 
 import './upgrade-screen.pcss';
 
 export const UpgradeScreen = () => {
-    const { authStore, vpnStore } = useContext(rootStore);
+    const { authStore, vpnStore, telemetryStore } = useContext(rootStore);
 
-    useTelemetryPageViewEvent(TelemetryScreenName.PurchaseScreen);
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.PurchaseScreen,
+    );
 
     const handleUpgradeClick = async (): Promise<void> => {
-        messenger.sendCustomTelemetryEvent(TelemetryActionName.OnboardingPurchaseClick);
+        telemetryStore.sendCustomEvent(TelemetryActionName.OnboardingPurchaseClick);
         await authStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
         window.close();
     };
 
     const handleSkipClick = async (): Promise<void> => {
-        messenger.sendCustomTelemetryEvent(TelemetryActionName.OnboardingStayFreeClick);
+        telemetryStore.sendCustomEvent(TelemetryActionName.OnboardingStayFreeClick);
         await authStore.setShowUpgradeScreen(false);
     };
 

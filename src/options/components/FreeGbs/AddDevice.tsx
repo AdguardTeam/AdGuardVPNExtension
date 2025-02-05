@@ -13,9 +13,12 @@ import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
 
 export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
 
-    useTelemetryPageViewEvent(TelemetryScreenName.FreeGbAddAnotherPlatformScreen);
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.FreeGbAddAnotherPlatformScreen,
+    );
 
     const { multiplatformBonus, forwarderDomain } = settingsStore;
 

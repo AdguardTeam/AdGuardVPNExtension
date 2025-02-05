@@ -12,9 +12,12 @@ import { Button } from '../ui/Button';
 import { Title } from '../ui/Title';
 
 export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
-    const { settingsStore, notificationsStore } = useContext(rootStore);
+    const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
-    useTelemetryPageViewEvent(TelemetryScreenName.FreeGbInviteFriendScreen);
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.FreeGbInviteFriendScreen,
+    );
 
     const { invitesBonuses, bonusesDataRequestStatus } = settingsStore;
     const { invitesCount, maxInvitesCount, inviteUrl } = invitesBonuses;

@@ -1,3 +1,5 @@
+import { TelemetryStore } from '../../common/telemetry';
+
 import { GlobalStore } from './GlobalStore';
 import { AuthStore } from './AuthStore';
 import { SettingsStore } from './SettingsStore';
@@ -18,6 +20,8 @@ export class RootStore {
 
     uiStore: UiStore;
 
+    telemetryStore: TelemetryStore;
+
     constructor() {
         this.globalStore = new GlobalStore(this);
         this.authStore = new AuthStore(this);
@@ -25,5 +29,6 @@ export class RootStore {
         this.exclusionsStore = new ExclusionsStore(this);
         this.notificationsStore = new NotificationsStore(this);
         this.uiStore = new UiStore(this);
+        this.telemetryStore = new TelemetryStore();
     }
 }

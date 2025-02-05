@@ -10,9 +10,12 @@ import { Button } from '../ui/Button';
 import { Title } from '../ui/Title';
 
 export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
-    const { settingsStore, notificationsStore } = useContext(rootStore);
+    const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
-    useTelemetryPageViewEvent(TelemetryScreenName.FreeGbConfirmEmailScreen);
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.FreeGbConfirmEmailScreen,
+    );
 
     const { confirmBonus, resendConfirmationLink } = settingsStore;
 

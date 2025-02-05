@@ -34,7 +34,7 @@ const CONFIRM_EMAIL = 'confirm-email';
 const ADD_DEVICE = 'add-device';
 
 export const FreeGbs = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
 
     useEffect(() => {
         (async () => {
@@ -62,6 +62,7 @@ export const FreeGbs = observer(() => {
     const isLoading = bonusesDataRequestStatus !== RequestStatus.Done;
 
     useTelemetryPageViewEvent(
+        telemetryStore,
         TelemetryScreenName.FreeGbScreen,
         !isInviteFriendPage && !isConfirmEmailPage && !isAddDevicePage && !isLoading,
     );

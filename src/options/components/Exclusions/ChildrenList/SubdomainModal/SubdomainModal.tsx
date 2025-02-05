@@ -10,11 +10,15 @@ import { useTelemetryPageViewEvent } from '../../../../../common/telemetry';
 import { TelemetryScreenName } from '../../../../../background/telemetry';
 
 export const SubdomainModal = observer(() => {
-    const { exclusionsStore, notificationsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const isOpen = exclusionsStore.addSubdomainModalOpen;
 
-    useTelemetryPageViewEvent(TelemetryScreenName.DialogExclusionsAddSubdomain, isOpen);
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogExclusionsAddSubdomain,
+        isOpen,
+    );
 
     const [inputValue, setInputValue] = useState('');
     const [inputError, setInputError] = useState<null | string>(null);

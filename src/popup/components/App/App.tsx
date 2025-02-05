@@ -33,6 +33,7 @@ import { HostPermissionsError } from '../HostPermissionsError';
 import { SkeletonLoading } from '../SkeletonLoading';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal/LimitedOfferModal';
+import { SETTINGS_IDS } from '../../../common/constants';
 
 export interface Message {
     type: NotifierType,
@@ -49,6 +50,7 @@ export const App = observer(() => {
         uiStore,
         vpnStore,
         globalStore,
+        telemetryStore,
     } = useContext(rootStore);
 
     const {
@@ -77,6 +79,8 @@ export const App = observer(() => {
         filteredLocations,
         showSearchResults,
     } = vpnStore;
+
+    const { toggleIsTelemetryEnabled } = telemetryStore;
 
     useEffect(() => {
         (async () => {
@@ -131,6 +135,12 @@ export const App = observer(() => {
                     settingsStore.openServerErrorPopup();
                     break;
                 }
+                case notifier.types.SETTING_UPDATED: {
+                    if (data === SETTINGS_IDS.HELP_US_IMPROVE) {
+                        toggleIsTelemetryEnabled();
+                    }
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -148,6 +158,7 @@ export const App = observer(() => {
             notifier.types.CONNECTIVITY_STATE_CHANGED,
             notifier.types.TOO_MANY_DEVICES_CONNECTED,
             notifier.types.SERVER_ERROR,
+            notifier.types.SETTING_UPDATED,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 
 import { type TelemetryScreenName } from '../../background/telemetry';
-import { messenger } from '../messenger';
+
+import { type TelemetryStore } from './TelemetryStore';
 
 /**
  * Hook that sends a page view telemetry event when `condition` is `true`.
@@ -15,10 +16,12 @@ import { messenger } from '../messenger';
  *    only when the `screenName` is rendered. For example, dialog that is rendered only when
  *    `condition` is `true`.
  *
+ * @param telemetryStore Telemetry store instance.
  * @param screenName Name of the screen to be logged in telemetry.
  * @param condition Condition when the telemetry event should be sent.
  */
 export function useTelemetryPageViewEvent(
+    telemetryStore: TelemetryStore,
     screenName: TelemetryScreenName,
     condition = true,
 ) {
@@ -27,6 +30,6 @@ export function useTelemetryPageViewEvent(
             return;
         }
 
-        messenger.sendPageViewTelemetryEvent(screenName);
+        telemetryStore.sendPageViewEvent(screenName);
     }, [condition]);
 }

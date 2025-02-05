@@ -158,6 +158,7 @@ export class SettingsStore {
     @action setHelpUsImproveValue = async (value: boolean): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, value);
         runInAction(() => {
+            this.rootStore.telemetryStore.setIsTelemetryEnabled(value);
             this.helpUsImprove = value;
         });
     };

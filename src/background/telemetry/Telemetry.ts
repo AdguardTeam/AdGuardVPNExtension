@@ -309,8 +309,11 @@ export class Telemetry implements TelemetryInterface {
      * @returns True if telemetry events can be sent, false otherwise.
      */
     private canSendEvents(): boolean {
-        // Do not send telemetry events if user opted out
+        // Double check if user opted in to send telemetry events.
+        // At this point we previously checked if settings enabled or not,
+        // but in case if event is reached this point it means that bug appeared.
         if (!settings.isHelpUsImproveEnabled()) {
+            log.debug('Telemetry is disabled by user but event is trying to be sent');
             return false;
         }
 
