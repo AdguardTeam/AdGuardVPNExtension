@@ -6,12 +6,19 @@ import classnames from 'classnames';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { translator } from '../../../common/translator';
+import { TelemetryActionName } from '../../../background/telemetry';
 import { Icon } from '../ui/Icon';
 
 import './header.pcss';
 
 export const Header = observer(({ showMenuButton }: { showMenuButton: boolean }) => {
-    const { uiStore, vpnStore, settingsStore } = useContext(rootStore);
+    const {
+        uiStore,
+        vpnStore,
+        settingsStore,
+        telemetryStore,
+    } = useContext(rootStore);
+
     const { isPremiumToken } = vpnStore;
     const { hasGlobalError, isLimitedOfferActive } = settingsStore;
 
@@ -20,6 +27,7 @@ export const Header = observer(({ showMenuButton }: { showMenuButton: boolean })
     };
 
     const handleOpenReferral = async () => {
+        telemetryStore.sendCustomEvent(TelemetryActionName.FreeGbClick);
         await popupActions.openFreeGbsPage();
     };
 

@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { TelemetryActionName } from '../../../../background/telemetry';
 
 import { ExcludeSite } from './ExcludeSite/ExcludeSite';
 
@@ -15,13 +16,15 @@ type ButtonStates = {
 };
 
 export const GlobalControl = observer(() => {
-    const { settingsStore, uiStore } = useContext(rootStore);
+    const { settingsStore, uiStore, telemetryStore } = useContext(rootStore);
 
     const connectHandler = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(TelemetryActionName.ConnectClick);
         await settingsStore.setProxyState(true);
     };
 
     const disconnectHandler = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(TelemetryActionName.DisconnectClick);
         await settingsStore.setProxyState(false);
     };
 
