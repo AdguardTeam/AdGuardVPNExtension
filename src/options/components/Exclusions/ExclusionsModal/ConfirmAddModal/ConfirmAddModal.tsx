@@ -5,10 +5,18 @@ import { rootStore } from '../../../../stores';
 import { translator } from '../../../../../common/translator';
 import { Modal } from '../../../ui/Modal';
 import { Button } from '../../../ui/Button';
+import { useTelemetryPageViewEvent } from '../../../../../common/telemetry';
+import { TelemetryScreenName } from '../../../../../background/telemetry';
 
 export const ConfirmAddModal = observer(() => {
-    const { exclusionsStore, notificationsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
     const { confirmAddModalOpen, urlToConfirm } = exclusionsStore;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogExclusionsAddNotValidDomain,
+        confirmAddModalOpen,
+    );
 
     const closeModal = () => {
         exclusionsStore.setConfirmAddModalOpen(false);

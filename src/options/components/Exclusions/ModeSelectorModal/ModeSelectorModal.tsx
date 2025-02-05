@@ -1,16 +1,23 @@
 import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 import { rootStore } from '../../../stores';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { translator } from '../../../../common/translator';
 import { Modal } from '../../ui/Modal';
 import { Radio } from '../../ui/Radio';
 import { Button } from '../../ui/Button';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 
 export const ModeSelectorModal = observer(() => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogExclusionsModeSelection,
+        exclusionsStore.modeSelectorModalOpen,
+    );
 
     const [mode, setMode] = useState(exclusionsStore.currentMode);
 
