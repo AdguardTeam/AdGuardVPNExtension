@@ -22,7 +22,7 @@ export const DnsSettingsServerModalEdit = observer(() => {
 
     useTelemetryPageViewEvent(
         telemetryStore,
-        TelemetryScreenName.DialogAddCustomDns,
+        TelemetryScreenName.DialogEditCustomDns,
         isOpen,
     );
 

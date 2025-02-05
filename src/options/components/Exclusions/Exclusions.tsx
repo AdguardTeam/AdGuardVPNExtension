@@ -34,7 +34,7 @@ export const Exclusions = observer(() => {
     const canSendTelemetry = !modeSelectorModalOpen // `DialogExclusionsModeSelection` rendered on top of this screen
         && !addExclusionModalOpen // `DialogAddWebsiteExclusion` rendered on top of this screen
         && !removeAllModalOpen // `DialogExclusionsRemoveAll` rendered on top of this screen
-        && !!selectedExclusion // `ExclusionsDomainDetailsScreen` rendered on top of this screen
+        && !selectedExclusion // `ExclusionsDomainDetailsScreen` rendered on top of this screen
         && !confirmAddModalOpen; // `DialogExclusionsAddNotValidDomain` rendered on top of this screen
 
     useTelemetryPageViewEvent(
