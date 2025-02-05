@@ -456,8 +456,8 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_CUSTOM: {
-            const { event } = data;
-            await telemetry.sendCustomEvent(event);
+            const { actionName, screenName } = data;
+            await telemetry.sendCustomEvent(actionName, screenName);
             break;
         }
         default:

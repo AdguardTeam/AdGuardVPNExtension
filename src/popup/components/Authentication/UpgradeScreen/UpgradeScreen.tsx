@@ -17,20 +17,14 @@ export const UpgradeScreen = () => {
     useTelemetryPageViewEvent(TelemetryScreenName.PurchaseScreen);
 
     const handleUpgradeClick = async (): Promise<void> => {
-        messenger.sendCustomTelemetryEvent({
-            name: TelemetryActionName.OnboardingPurchaseClick,
-            refName: TelemetryScreenName.PurchaseScreen,
-        });
+        messenger.sendCustomTelemetryEvent(TelemetryActionName.OnboardingPurchaseClick);
         await authStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
         window.close();
     };
 
     const handleSkipClick = async (): Promise<void> => {
-        messenger.sendCustomTelemetryEvent({
-            name: TelemetryActionName.OnboardingStayFreeClick,
-            refName: TelemetryScreenName.PurchaseScreen,
-        });
+        messenger.sendCustomTelemetryEvent(TelemetryActionName.OnboardingStayFreeClick);
         await authStore.setShowUpgradeScreen(false);
     };
 

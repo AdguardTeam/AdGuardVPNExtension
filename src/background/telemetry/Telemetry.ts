@@ -12,9 +12,10 @@ import { auth } from '../auth';
 import { credentials } from '../credentials';
 
 import {
-    type TelemetryScreenName,
+    TelemetryActionName,
     TelemetryLicenseStatus,
     TelemetryOs,
+    TelemetryScreenName,
     TelemetrySubscriptionDuration,
     TelemetryTheme,
 } from './telemetryEnums';
@@ -45,9 +46,13 @@ export interface TelemetryInterface {
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
-     * @param eventData Custom event data.
+     * If `screenName` is not provided, it will take value from default mapping {@link ACTION_SCREEN_MAPPER}.
+     * This can be useful in case if action appears in multiple screens and if it's not default screen name.
+     *
+     * @param actionName Name of the action.
+     * @param screenName Name of the screen.
      */
-    sendCustomEvent(eventData: TelemetryCustomEventData): Promise<void>;
+    sendCustomEvent(actionName: TelemetryActionName, screenName?: TelemetryScreenName): Promise<void>;
 }
 
 /**
@@ -148,6 +153,16 @@ export class Telemetry implements TelemetryInterface {
         [SubscriptionType.Yearly]: TelemetrySubscriptionDuration.Annual,
         [SubscriptionType.TwoYears]: TelemetrySubscriptionDuration.Other,
         Unlimited: TelemetrySubscriptionDuration.Lifetime,
+    };
+
+    /**
+     * Default mapping of telemetry actions to screens.
+     *
+     * This mapping is used when screen name is not provided in {@link sendCustomEvent} method.
+     */
+    private static readonly ACTION_SCREEN_MAPPER: Record<TelemetryActionName, TelemetryScreenName> = {
+        [TelemetryActionName.OnboardingPurchaseClick]: TelemetryScreenName.PurchaseScreen,
+        [TelemetryActionName.OnboardingStayFreeClick]: TelemetryScreenName.PurchaseScreen,
     };
 
     /**
@@ -265,14 +280,25 @@ export class Telemetry implements TelemetryInterface {
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
-     * @param eventData Custom event data.
+     * If `screenName` is not provided, it will take value from default mapping {@link ACTION_SCREEN_MAPPER}.
+     * This can be useful in case if action appears in multiple screens and if it's not default screen name.
+     *
+     * @param actionName Name of the action.
+     * @param screenName Name of the screen.
      */
-    public sendCustomEvent = async (event: TelemetryCustomEventData): Promise<void> => {
+    public sendCustomEvent = async (
+        actionName: TelemetryActionName,
+        screenName?: TelemetryScreenName,
+    ): Promise<void> => {
         if (!this.canSendEvents()) {
             return;
         }
 
         const baseData = await this.getBaseData();
+        const event: TelemetryCustomEventData = {
+            name: actionName,
+            refName: screenName ?? Telemetry.ACTION_SCREEN_MAPPER[actionName],
+        };
 
         await this.telemetryProvider.sendCustomEvent(event, baseData);
     };
@@ -332,6 +358,8 @@ export class Telemetry implements TelemetryInterface {
         // get device related info
         const { model, vendor } = Prefs.device;
         let device: TelemetryUserAgent['device'] | undefined;
+
+        // vendor needs to be present to include device info
         if (vendor) {
             device = {
                 brand: vendor,
