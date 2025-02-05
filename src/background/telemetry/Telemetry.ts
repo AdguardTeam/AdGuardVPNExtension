@@ -1,15 +1,15 @@
 import browser from 'webextension-polyfill';
 import { customAlphabet } from 'nanoid';
 
-import { AppearanceTheme, SubscriptionType } from '../../common/constants';
-import { Prefs, SystemName } from '../../common/prefs';
 import { type TelemetryProviderInterface } from '../providers/telemetryProvider';
-import { appStatus } from '../appStatus';
+import { type AppStatus } from '../appStatus/AppStatus';
 import { type StorageInterface } from '../browserApi/storage';
+import { type SettingsInterface } from '../settings/settings';
+import { type AuthInterface } from '../auth';
+import { type CredentialsInterface } from '../credentials/Credentials';
+import { Prefs, SystemName } from '../../common/prefs';
+import { AppearanceTheme, SubscriptionType } from '../../common/constants';
 import { log } from '../../common/logger';
-import { settings } from '../settings';
-import { auth } from '../auth';
-import { credentials } from '../credentials';
 
 import {
     TelemetryActionName,
@@ -68,6 +68,26 @@ export interface TelemetryParameters {
      * Telemetry provider.
      */
     telemetryProvider: TelemetryProviderInterface;
+
+    /**
+     * App status service.
+     */
+    appStatus: AppStatus;
+
+    /**
+     * Settings service.
+     */
+    settings: SettingsInterface;
+
+    /**
+     * Auth service.
+     */
+    auth: AuthInterface;
+
+    /**
+     * Credentials service.
+     */
+    credentials: CredentialsInterface;
 }
 
 /**
@@ -174,6 +194,26 @@ export class Telemetry implements TelemetryInterface {
      * Telemetry provider.
      */
     private telemetryProvider: TelemetryProviderInterface;
+
+    /**
+     * App status service.
+     */
+    private appStatus: AppStatus;
+
+    /**
+     * Settings service.
+     */
+    private settings: SettingsInterface;
+
+    /**
+     * Auth service.
+     */
+    private auth: AuthInterface;
+
+    /**
+     * Credentials service.
+     */
+    private credentials: CredentialsInterface;
 
     /**
      * Flag indicating whether telemetry module is initialized or not.
@@ -312,7 +352,7 @@ export class Telemetry implements TelemetryInterface {
         // Double check if user opted in to send telemetry events.
         // At this point we previously checked if settings enabled or not,
         // but in case if event is reached this point it means that bug appeared.
-        if (!settings.isHelpUsImproveEnabled()) {
+        if (!this.settings.isHelpUsImproveEnabled()) {
             log.debug('Telemetry is disabled by user but event is trying to be sent');
             return false;
         }
@@ -340,7 +380,7 @@ export class Telemetry implements TelemetryInterface {
         return {
             syntheticId: this.syntheticId,
             appType: Telemetry.APP_TYPE,
-            version: appStatus.version,
+            version: this.appStatus.version,
             userAgent: this.userAgent,
             props,
         };
@@ -387,12 +427,12 @@ export class Telemetry implements TelemetryInterface {
      */
     private async getProps(): Promise<TelemetryProps> {
         const locale = browser.i18n.getUILanguage();
-        const appearanceTheme = settings.getAppearanceTheme();
-        const loggedIn = !!(await auth.isAuthenticated(false));
+        const appearanceTheme = this.settings.getAppearanceTheme();
+        const loggedIn = !!(await this.auth.isAuthenticated(false));
 
         let licenseStatus: TelemetryLicenseStatus | undefined;
         if (loggedIn) {
-            const isPremiumToken = await credentials.isPremiumToken();
+            const isPremiumToken = await this.credentials.isPremiumToken();
 
             licenseStatus = isPremiumToken
                 ? TelemetryLicenseStatus.Premium
@@ -401,7 +441,7 @@ export class Telemetry implements TelemetryInterface {
 
         let subscriptionDuration: TelemetrySubscriptionDuration | undefined;
         if (licenseStatus === TelemetryLicenseStatus.Premium) {
-            const subscriptionType = credentials.getSubscriptionType();
+            const subscriptionType = this.credentials.getSubscriptionType();
 
             // If subscription type is not sent from backend - it's a lifetime subscription.
             subscriptionDuration = subscriptionType
