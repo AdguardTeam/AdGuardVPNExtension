@@ -4,19 +4,30 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { getForwarderUrl } from '../../../../common/helpers';
 import { translator } from '../../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { TelemetryScreenName } from '../../../../background/telemetry';
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 
 import { DnsSettingsServerModal } from './DnsSettingsServerModal';
 import { normalizeDnsServerAddress, validateDnsServerAddress } from './validate';
 
 export const DnsSettingsServerModalAdd = observer(() => {
-    const { settingsStore, notificationsStore } = useContext(rootStore);
+    const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
+
     const {
         forwarderDomain,
         isCustomDnsModalOpen,
         customDnsServers,
         dnsServerToEdit,
     } = settingsStore;
+
+    const isOpen = isCustomDnsModalOpen && !dnsServerToEdit;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogAddCustomDns,
+        isOpen,
+    );
 
     const adguardKnownDnsKbUrl = getForwarderUrl(
         forwarderDomain,
@@ -49,7 +60,7 @@ export const DnsSettingsServerModalAdd = observer(() => {
                 </a>
             )}
             submitBtnTitle={translator.getMessage('settings_dns_add_custom_server_save_and_select')}
-            isOpen={isCustomDnsModalOpen && !dnsServerToEdit}
+            isOpen={isOpen}
             onSubmit={handleSubmit}
         />
     );

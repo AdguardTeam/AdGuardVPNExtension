@@ -3,7 +3,9 @@ import { observer } from 'mobx-react';
 
 import { type DnsServerData } from '../../../../background/schema';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../../../background/dns/dnsConstants';
+import { TelemetryScreenName } from '../../../../background/telemetry';
 import { translator } from '../../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { Button } from '../../ui/Button';
@@ -15,7 +17,14 @@ import { DnsSettingsServerModalEdit } from './DnsSettingsServerModalEdit';
 import './dns-settings.pcss';
 
 export const DnsSettings = observer(() => {
-    const { settingsStore, notificationsStore } = useContext(rootStore);
+    const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.SettingsDnsServersScreen,
+        // `DialogAddCustomDns` and `DialogEditCustomDns` rendered on top of this screen
+        !settingsStore.isCustomDnsModalOpen,
+    );
 
     const handleGoBack = () => {
         settingsStore.setShowDnsSettings(false);

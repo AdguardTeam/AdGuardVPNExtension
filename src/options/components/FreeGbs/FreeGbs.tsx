@@ -59,12 +59,15 @@ export const FreeGbs = observer(() => {
     const isInviteFriendPage = query.has(INVITE_FRIEND);
     const isConfirmEmailPage = query.has(CONFIRM_EMAIL);
     const isAddDevicePage = query.has(ADD_DEVICE);
-    const isLoading = bonusesDataRequestStatus !== RequestStatus.Done;
+
+    const canSendTelemetry = !isInviteFriendPage // `FreeGbInviteFriendScreen` is rendered on top of this screen
+        && !isConfirmEmailPage // `FreeGbConfirmEmailScreen` is rendered on top of this screen
+        && !isAddDevicePage; // `FreeGbAddAnotherPlatformScreen` is rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.FreeGbScreen,
-        !isInviteFriendPage && !isConfirmEmailPage && !isAddDevicePage && !isLoading,
+        canSendTelemetry,
     );
 
     const goBackHandler = () => {
@@ -133,7 +136,7 @@ export const FreeGbs = observer(() => {
         return <AddDevice goBackHandler={goBackHandler} />;
     }
 
-    if (isLoading) {
+    if (bonusesDataRequestStatus !== RequestStatus.Done) {
         return <DotsLoader />;
     }
 
