@@ -1,21 +1,21 @@
 import browser from 'webextension-polyfill';
 import { customAlphabet } from 'nanoid';
 
-import { AppearanceTheme, SubscriptionType } from '../../common/constants';
-import { Prefs, SystemName } from '../../common/prefs';
 import { type TelemetryProviderInterface } from '../providers/telemetryProvider';
-import { appStatus } from '../appStatus';
+import { type AppStatus } from '../appStatus/AppStatus';
 import { type StorageInterface } from '../browserApi/storage';
+import { type SettingsInterface } from '../settings/settings';
+import { type AuthInterface } from '../auth';
+import { type CredentialsInterface } from '../credentials/Credentials';
+import { Prefs, SystemName } from '../../common/prefs';
+import { AppearanceTheme, SubscriptionType } from '../../common/constants';
 import { log } from '../../common/logger';
-import { settings } from '../settings';
-import { auth } from '../auth';
-import { credentials } from '../credentials';
 
 import {
-    TelemetryActionName,
+    type TelemetryActionName,
     TelemetryLicenseStatus,
     TelemetryOs,
-    TelemetryScreenName,
+    type TelemetryScreenName,
     TelemetrySubscriptionDuration,
     TelemetryTheme,
 } from './telemetryEnums';
@@ -46,13 +46,10 @@ export interface TelemetryInterface {
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
-     * If `screenName` is not provided, it will take value from default mapping {@link ACTION_SCREEN_MAPPER}.
-     * This can be useful in case if action appears in multiple screens and if it's not default screen name.
-     *
      * @param actionName Name of the action.
      * @param screenName Name of the screen.
      */
-    sendCustomEvent(actionName: TelemetryActionName, screenName?: TelemetryScreenName): Promise<void>;
+    sendCustomEvent(actionName: TelemetryActionName, screenName: TelemetryScreenName): Promise<void>;
 }
 
 /**
@@ -68,6 +65,26 @@ export interface TelemetryParameters {
      * Telemetry provider.
      */
     telemetryProvider: TelemetryProviderInterface;
+
+    /**
+     * App status service.
+     */
+    appStatus: AppStatus;
+
+    /**
+     * Settings service.
+     */
+    settings: SettingsInterface;
+
+    /**
+     * Auth service.
+     */
+    auth: AuthInterface;
+
+    /**
+     * Credentials service.
+     */
+    credentials: CredentialsInterface;
 }
 
 /**
@@ -156,28 +173,6 @@ export class Telemetry implements TelemetryInterface {
     };
 
     /**
-     * Default mapping of telemetry actions to screens.
-     *
-     * This mapping is used when screen name is not provided in {@link sendCustomEvent} method.
-     */
-    private static readonly ACTION_SCREEN_MAPPER: Record<TelemetryActionName, TelemetryScreenName> = {
-        [TelemetryActionName.OnboardingPurchaseClick]: TelemetryScreenName.PurchaseScreen,
-        [TelemetryActionName.OnboardingStayFreeClick]: TelemetryScreenName.PurchaseScreen,
-        [TelemetryActionName.PromoOfferPurchaseClick]: TelemetryScreenName.PromoOfferScreen,
-        [TelemetryActionName.PromoOfferClick]: TelemetryScreenName.HomeScreen,
-        [TelemetryActionName.ConnectClick]: TelemetryScreenName.HomeScreen,
-        [TelemetryActionName.DisconnectClick]: TelemetryScreenName.HomeScreen,
-        [TelemetryActionName.PurchaseClick]: TelemetryScreenName.HomeScreen,
-        [TelemetryActionName.FreeGbClick]: TelemetryScreenName.HomeScreen,
-        [TelemetryActionName.SpeedReducedPurchaseClick]: TelemetryScreenName.SpeedReducedScreen,
-        [TelemetryActionName.AddWebsiteClick]: TelemetryScreenName.ExclusionsScreen,
-        [TelemetryActionName.GeneralModeClick]: TelemetryScreenName.DialogExclusionsModeSelection,
-        [TelemetryActionName.SelectiveModeClick]: TelemetryScreenName.DialogExclusionsModeSelection,
-        [TelemetryActionName.AddWebsiteFromList]: TelemetryScreenName.DialogAddWebsiteExclusion,
-        [TelemetryActionName.AddWebsiteManually]: TelemetryScreenName.DialogAddWebsiteExclusion,
-    };
-
-    /**
      * Browser local storage.
      */
     private storage: StorageInterface;
@@ -186,6 +181,26 @@ export class Telemetry implements TelemetryInterface {
      * Telemetry provider.
      */
     private telemetryProvider: TelemetryProviderInterface;
+
+    /**
+     * App status service.
+     */
+    private appStatus: AppStatus;
+
+    /**
+     * Settings service.
+     */
+    private settings: SettingsInterface;
+
+    /**
+     * Auth service.
+     */
+    private auth: AuthInterface;
+
+    /**
+     * Credentials service.
+     */
+    private credentials: CredentialsInterface;
 
     /**
      * Flag indicating whether telemetry module is initialized or not.
@@ -230,21 +245,25 @@ export class Telemetry implements TelemetryInterface {
     constructor({
         storage,
         telemetryProvider,
+        appStatus,
+        settings,
+        auth,
+        credentials,
     }: TelemetryParameters) {
         this.storage = storage;
         this.telemetryProvider = telemetryProvider;
+        this.appStatus = appStatus;
+        this.settings = settings;
+        this.auth = auth;
+        this.credentials = credentials;
     }
 
     /**
      * Initializes telemetry module state.
      */
     public initState = async (): Promise<void> => {
-        const [syntheticId, userAgent] = await Promise.all([
-            this.gainSyntheticId(),
-            Telemetry.getUserAgent(),
-        ]);
-        this.syntheticId = syntheticId;
-        this.userAgent = userAgent;
+        this.syntheticId = await this.gainSyntheticId();
+        this.userAgent = await Telemetry.getUserAgent();
         this.isInitialized = true;
     };
 
@@ -292,15 +311,12 @@ export class Telemetry implements TelemetryInterface {
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
-     * If `screenName` is not provided, it will take value from default mapping {@link ACTION_SCREEN_MAPPER}.
-     * This can be useful in case if action appears in multiple screens and if it's not default screen name.
-     *
      * @param actionName Name of the action.
      * @param screenName Name of the screen.
      */
     public sendCustomEvent = async (
         actionName: TelemetryActionName,
-        screenName?: TelemetryScreenName,
+        screenName: TelemetryScreenName,
     ): Promise<void> => {
         if (!this.canSendEvents()) {
             return;
@@ -309,7 +325,7 @@ export class Telemetry implements TelemetryInterface {
         const baseData = await this.getBaseData();
         const event: TelemetryCustomEventData = {
             name: actionName,
-            refName: screenName ?? Telemetry.ACTION_SCREEN_MAPPER[actionName],
+            refName: screenName,
         };
 
         await this.telemetryProvider.sendCustomEvent(event, baseData);
@@ -324,7 +340,7 @@ export class Telemetry implements TelemetryInterface {
         // Double check if user opted in to send telemetry events.
         // At this point we previously checked if settings enabled or not,
         // but in case if event is reached this point it means that bug appeared.
-        if (!settings.isHelpUsImproveEnabled()) {
+        if (!this.settings.isHelpUsImproveEnabled()) {
             log.debug('Telemetry is disabled by user but event is trying to be sent');
             return false;
         }
@@ -352,7 +368,7 @@ export class Telemetry implements TelemetryInterface {
         return {
             syntheticId: this.syntheticId,
             appType: Telemetry.APP_TYPE,
-            version: appStatus.version,
+            version: this.appStatus.version,
             userAgent: this.userAgent,
             props,
         };
@@ -399,12 +415,12 @@ export class Telemetry implements TelemetryInterface {
      */
     private async getProps(): Promise<TelemetryProps> {
         const locale = browser.i18n.getUILanguage();
-        const appearanceTheme = settings.getAppearanceTheme();
-        const loggedIn = !!(await auth.isAuthenticated(false));
+        const appearanceTheme = this.settings.getAppearanceTheme();
+        const loggedIn = !!(await this.auth.isAuthenticated(false));
 
         let licenseStatus: TelemetryLicenseStatus | undefined;
         if (loggedIn) {
-            const isPremiumToken = await credentials.isPremiumToken();
+            const isPremiumToken = await this.credentials.isPremiumToken();
 
             licenseStatus = isPremiumToken
                 ? TelemetryLicenseStatus.Premium
@@ -413,7 +429,7 @@ export class Telemetry implements TelemetryInterface {
 
         let subscriptionDuration: TelemetrySubscriptionDuration | undefined;
         if (licenseStatus === TelemetryLicenseStatus.Premium) {
-            const subscriptionType = credentials.getSubscriptionType();
+            const subscriptionType = this.credentials.getSubscriptionType();
 
             // If subscription type is not sent from backend - it's a lifetime subscription.
             subscriptionDuration = subscriptionType

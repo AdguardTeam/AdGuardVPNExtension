@@ -19,14 +19,20 @@ export const UpgradeScreen = () => {
     );
 
     const handleUpgradeClick = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(TelemetryActionName.OnboardingPurchaseClick);
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.OnboardingPurchaseClick,
+            TelemetryScreenName.PurchaseScreen,
+        );
         await authStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
         window.close();
     };
 
     const handleSkipClick = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(TelemetryActionName.OnboardingStayFreeClick);
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.OnboardingStayFreeClick,
+            TelemetryScreenName.PurchaseScreen,
+        );
         await authStore.setShowUpgradeScreen(false);
     };
 

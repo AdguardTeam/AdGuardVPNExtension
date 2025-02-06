@@ -1,10 +1,9 @@
-import { Browser, Env } from './consts';
+import { Browser, Env, StageEnv } from './consts';
 
 const {
     FORWARDER_DOMAIN,
     VPN_API_URL,
     AUTH_API_URL,
-    TELEMETRY_API_URL,
 } = process.env;
 
 type BrowsersUrlQueriesMap = {
@@ -66,11 +65,9 @@ const URL_QUERIES_MAP: UrlQueriesMap = {
 
 // VPN section API description - projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 // Auth section API description - projects/ADGUARD/repos/adguard-auth-service/browse
-// Telemetry section API description - projects/ADGUARD/repos/adguard-telemetry-service/browse
-const STAGE_CONF = {
+const STAGE_CONF: Record<string, string | undefined> = {
     VPN_API_URL,
     AUTH_API_URL,
-    TELEMETRY_API_URL,
 };
 
 const COMMON_CONF = {
@@ -119,6 +116,16 @@ const COMMON_URL_QUERIES = {
     VPN_BLOCKED_GET_APP: 'action=vpn_blocked_get_app&from=popup&app=vpn_extension',
 };
 
+/**
+ * Stage environment to Telemetry API URLs mapping.
+ *
+ * Telemetry section API description - projects/ADGUARD/repos/adguard-telemetry-service/browse
+ */
+const TELEMETRY_API_URLS = {
+    [StageEnv.Prod]: 'api.agrdvpn-tm.com',
+    [StageEnv.Test]: 'telemetry.service.agrd.dev',
+};
+
 export const genAppConfig = (browserType: string, stageEnv?: string, buildingEnv?: string) => {
     if (!buildingEnv) {
         throw new Error('No building environment was provided');
@@ -128,6 +135,10 @@ export const genAppConfig = (browserType: string, stageEnv?: string, buildingEnv
     if (browserType === Browser.ChromeMV2) {
         // api urls are same for the Chrome mv2 and mv3 versions
         browser = Browser.Chrome;
+    }
+
+    if (stageEnv && TELEMETRY_API_URLS[stageEnv as StageEnv]) {
+        STAGE_CONF.TELEMETRY_API_URL = TELEMETRY_API_URLS[stageEnv as StageEnv];
     }
 
     const urlQueriesMapByBrowser = URL_QUERIES_MAP[buildingEnv] || URL_QUERIES_MAP[Env.Release];

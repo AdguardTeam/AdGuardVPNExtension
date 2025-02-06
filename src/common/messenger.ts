@@ -510,16 +510,13 @@ class Messenger {
     /**
      * Sends a message to the background to send a custom telemetry event.
      *
-     * If `screenName` is not provided, it will take value from default mapping.
-     * This can be useful in case if action appears in multiple screens and if it's not default screen name.
-     *
      * NOTE: Do not await this function, as it is not necessary to wait for the response.
      *
      * @param event Custom telemetry event data.
      */
     async sendCustomTelemetryEvent(
         actionName: TelemetryActionName,
-        screenName?: TelemetryScreenName,
+        screenName: TelemetryScreenName,
     ): Promise<void> {
         const type = MessageType.TELEMETRY_EVENT_SEND_CUSTOM;
         return this.sendMessage(type, { actionName, screenName });
