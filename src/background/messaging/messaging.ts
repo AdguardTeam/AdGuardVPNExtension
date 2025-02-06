@@ -460,6 +460,15 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             await telemetry.sendCustomEvent(actionName, screenName);
             break;
         }
+        case MessageType.TELEMETRY_EVENT_ADD_OPENED_PAGE: {
+            const pageId = telemetry.addOpenedPage();
+            return pageId;
+        }
+        case MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE: {
+            const { pageId } = data;
+            telemetry.removeOpenedPage(pageId);
+            break;
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }
@@ -474,6 +483,12 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
  */
 const longLivedMessageHandler = (port: Runtime.Port) => {
     let listenerId: string;
+
+    /**
+     * Because popup page doesn't fire 'beforeunload' or 'unload' events
+     * We need to track opened state of popup by it's connection state.
+     */
+    const pageId = telemetry.addOpenedPage();
 
     log.debug(`Connecting to the port "${port.name}"`);
     port.onMessage.addListener((message) => {
@@ -494,6 +509,7 @@ const longLivedMessageHandler = (port: Runtime.Port) => {
     port.onDisconnect.addListener(() => {
         log.debug(`Removing listener: ${listenerId} for port ${port.name}`);
         notifier.removeListener(listenerId);
+        telemetry.removeOpenedPage(pageId);
     });
 };
 

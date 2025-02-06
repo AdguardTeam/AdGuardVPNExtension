@@ -15,6 +15,27 @@ export class TelemetryStore {
     @observable isTelemetryEnabled = false;
 
     /**
+     * ID of the current page.
+     */
+    @observable pageId: string | undefined = undefined;
+
+    /**
+     * Initializes telemetry store.
+     */
+    @action init = async (): Promise<void> => {
+        this.pageId = await messenger.addTelemetryOpenedPage();
+    };
+
+    /**
+     * De-initializes telemetry store.
+     */
+    @action deInit = (): void => {
+        if (this.pageId) {
+            messenger.removeTelemetryOpenedPage(this.pageId);
+        }
+    };
+
+    /**
      * Sets telemetry enabled flag.
      *
      * @param enabled Telemetry enabled flag.
