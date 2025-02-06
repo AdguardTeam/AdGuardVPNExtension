@@ -51,7 +51,6 @@ Build:
             export STAGE_ENV="prod"
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
-            export TELEMETRY_API_URL="api.agrdvpn-tm.com"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
             export CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}"
             yarn release
