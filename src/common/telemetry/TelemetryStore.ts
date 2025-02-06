@@ -46,12 +46,9 @@ export class TelemetryStore {
     /**
      * Sends a message to the background to send a custom telemetry event.
      *
-     * If `screenName` is not provided, it will take value from default mapping.
-     * This can be useful in case if action appears in multiple screens and if it's not default screen name.
-     *
      * @param event Custom telemetry event data.
      */
-    @action sendCustomEvent = (actionName: TelemetryActionName, screenName?: TelemetryScreenName): void => {
+    @action sendCustomEvent = (actionName: TelemetryActionName, screenName: TelemetryScreenName): void => {
         if (!this.isTelemetryEnabled) {
             return;
         }

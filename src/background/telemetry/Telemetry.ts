@@ -12,10 +12,10 @@ import { AppearanceTheme, SubscriptionType } from '../../common/constants';
 import { log } from '../../common/logger';
 
 import {
-    TelemetryActionName,
+    type TelemetryActionName,
     TelemetryLicenseStatus,
     TelemetryOs,
-    TelemetryScreenName,
+    type TelemetryScreenName,
     TelemetrySubscriptionDuration,
     TelemetryTheme,
 } from './telemetryEnums';
@@ -46,13 +46,10 @@ export interface TelemetryInterface {
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
-     * If `screenName` is not provided, it will take value from default mapping {@link ACTION_SCREEN_MAPPER}.
-     * This can be useful in case if action appears in multiple screens and if it's not default screen name.
-     *
      * @param actionName Name of the action.
      * @param screenName Name of the screen.
      */
-    sendCustomEvent(actionName: TelemetryActionName, screenName?: TelemetryScreenName): Promise<void>;
+    sendCustomEvent(actionName: TelemetryActionName, screenName: TelemetryScreenName): Promise<void>;
 }
 
 /**
@@ -176,16 +173,6 @@ export class Telemetry implements TelemetryInterface {
     };
 
     /**
-     * Default mapping of telemetry actions to screens.
-     *
-     * This mapping is used when screen name is not provided in {@link sendCustomEvent} method.
-     */
-    private static readonly ACTION_SCREEN_MAPPER: Record<TelemetryActionName, TelemetryScreenName> = {
-        [TelemetryActionName.OnboardingPurchaseClick]: TelemetryScreenName.PurchaseScreen,
-        [TelemetryActionName.OnboardingStayFreeClick]: TelemetryScreenName.PurchaseScreen,
-    };
-
-    /**
      * Browser local storage.
      */
     private storage: StorageInterface;
@@ -275,12 +262,8 @@ export class Telemetry implements TelemetryInterface {
      * Initializes telemetry module state.
      */
     public initState = async (): Promise<void> => {
-        const [syntheticId, userAgent] = await Promise.all([
-            this.gainSyntheticId(),
-            Telemetry.getUserAgent(),
-        ]);
-        this.syntheticId = syntheticId;
-        this.userAgent = userAgent;
+        this.syntheticId = await this.gainSyntheticId();
+        this.userAgent = await Telemetry.getUserAgent();
         this.isInitialized = true;
     };
 
@@ -328,15 +311,12 @@ export class Telemetry implements TelemetryInterface {
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
      *
-     * If `screenName` is not provided, it will take value from default mapping {@link ACTION_SCREEN_MAPPER}.
-     * This can be useful in case if action appears in multiple screens and if it's not default screen name.
-     *
      * @param actionName Name of the action.
      * @param screenName Name of the screen.
      */
     public sendCustomEvent = async (
         actionName: TelemetryActionName,
-        screenName?: TelemetryScreenName,
+        screenName: TelemetryScreenName,
     ): Promise<void> => {
         if (!this.canSendEvents()) {
             return;
@@ -345,7 +325,7 @@ export class Telemetry implements TelemetryInterface {
         const baseData = await this.getBaseData();
         const event: TelemetryCustomEventData = {
             name: actionName,
-            refName: screenName ?? Telemetry.ACTION_SCREEN_MAPPER[actionName],
+            refName: screenName,
         };
 
         await this.telemetryProvider.sendCustomEvent(event, baseData);

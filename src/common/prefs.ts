@@ -5,6 +5,35 @@ import { getUrl, runtime } from '../background/browserApi/runtime';
 
 import { lazyGet } from './helpers';
 
+declare global {
+    interface UserAgentVendor {
+        brand?: string;
+        version?: string;
+    }
+
+    interface UserAgentHighEntropyValues {
+        brands?: UserAgentVendor[];
+        mobile?: boolean;
+        platform?: string;
+        architecture?: string;
+        bitness?: string;
+        formFactor?: string;
+        fullVersionList?: UserAgentVendor[];
+        model?: string;
+        platformVersion?: string;
+        uaFullVersion?: string;
+        wow64?: boolean;
+    }
+
+    type UserAgentHighEntropyHint = keyof UserAgentHighEntropyValues;
+
+    interface Navigator {
+        userAgentData?: {
+            getHighEntropyValues: (hints: UserAgentHighEntropyHint[]) => Promise<UserAgentHighEntropyValues>;
+        };
+    }
+}
+
 /**
  * Icon data for different sizes.
  */
@@ -305,9 +334,10 @@ export class Preferences {
     private static async getEntropyPlatformVersion(): Promise<string | undefined> {
         let platformVersion: string | undefined;
         try {
-            // @ts-ignore
-            const ua = await navigator.userAgentData.getHighEntropyValues([Preferences.PLATFORM_VERSION_ENTROPY]);
-            platformVersion = ua[Preferences.PLATFORM_VERSION_ENTROPY];
+            const ua = await navigator.userAgentData?.getHighEntropyValues([Preferences.PLATFORM_VERSION_ENTROPY]);
+            if (ua) {
+                platformVersion = ua[Preferences.PLATFORM_VERSION_ENTROPY];
+            }
         } catch (e) {
             // do nothing
         }
@@ -325,17 +355,19 @@ export class Preferences {
         let actualVersion = version;
         const entropyPlatformVersion = await Preferences.getEntropyPlatformVersion();
 
-        if (typeof entropyPlatformVersion !== 'undefined') {
-            const rawMajorPlatformVersion = entropyPlatformVersion.split('.')[0];
-            const majorPlatformVersion = rawMajorPlatformVersion && parseInt(rawMajorPlatformVersion, 10);
+        if (typeof entropyPlatformVersion === 'undefined') {
+            return actualVersion;
+        }
 
-            if (!majorPlatformVersion || Number.isNaN(majorPlatformVersion)) {
-                return actualVersion;
-            }
+        const rawMajorPlatformVersion = entropyPlatformVersion.split('.')[0];
+        const majorPlatformVersion = rawMajorPlatformVersion && parseInt(rawMajorPlatformVersion, 10);
 
-            if (majorPlatformVersion >= Preferences.MIN_WINDOWS_11_PLATFORM_VERSION) {
-                actualVersion = Preferences.WINDOWS_11_OS_VERSION;
-            }
+        if (!majorPlatformVersion || Number.isNaN(majorPlatformVersion)) {
+            return actualVersion;
+        }
+
+        if (majorPlatformVersion >= Preferences.MIN_WINDOWS_11_PLATFORM_VERSION) {
+            actualVersion = Preferences.WINDOWS_11_OS_VERSION;
         }
 
         return actualVersion;
