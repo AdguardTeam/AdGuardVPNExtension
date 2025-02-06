@@ -258,9 +258,17 @@ export class Telemetry implements TelemetryInterface {
     constructor({
         storage,
         telemetryProvider,
+        appStatus,
+        settings,
+        auth,
+        credentials,
     }: TelemetryParameters) {
         this.storage = storage;
         this.telemetryProvider = telemetryProvider;
+        this.appStatus = appStatus;
+        this.settings = settings;
+        this.auth = auth;
+        this.credentials = credentials;
     }
 
     /**
