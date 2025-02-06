@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { reactTranslator } from '../../../common/reactTranslator';
-import { TelemetryActionName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { rootStore } from '../../stores';
 
 import { TrafficInfo } from './TrafficInfo';
@@ -21,7 +21,10 @@ export const InfoMessage = observer(() => {
 
     const upgradeClickHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        telemetryStore.sendCustomEvent(TelemetryActionName.PurchaseClick);
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.PurchaseClick,
+            TelemetryScreenName.HomeScreen,
+        );
         await vpnStore.openPremiumPromoPage();
         // close popup after click on upgrade button
         window.close();

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { rootStore } from '../../stores';
@@ -26,7 +26,10 @@ export const LimitedOfferNotice = observer(() => {
      * Opens limited offer details by changing the flag in the uiStore.
      */
     const openDetails = () => {
-        telemetryStore.sendCustomEvent(TelemetryActionName.PromoOfferClick);
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.PromoOfferClick,
+            TelemetryScreenName.HomeScreen,
+        );
         uiStore.openLimitedOfferDetails();
     };
 

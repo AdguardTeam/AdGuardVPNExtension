@@ -30,7 +30,10 @@ export const ModeSelectorModal = observer(() => {
         const telemetryAction = mode === ExclusionsMode.Regular
             ? TelemetryActionName.GeneralModeClick
             : TelemetryActionName.SelectiveModeClick;
-        telemetryStore.sendCustomEvent(telemetryAction);
+        telemetryStore.sendCustomEvent(
+            telemetryAction,
+            TelemetryScreenName.DialogExclusionsModeSelection,
+        );
 
         await exclusionsStore.setCurrentMode(mode);
         exclusionsStore.setModeSelectorModalOpen(false);

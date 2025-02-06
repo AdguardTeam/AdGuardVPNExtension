@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import classNames from 'classnames';
 
-import { TelemetryActionName } from '../../../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../../../background/telemetry';
 import { rootStore } from '../../../../../stores';
 import { ExclusionState, type ServiceDto } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../Search/SearchHighlighter';
@@ -33,7 +33,10 @@ export const ServiceRow = observer(({ service }: ServiceRowProps) => {
 
     const addService = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        telemetryStore.sendCustomEvent(TelemetryActionName.AddWebsiteFromList);
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.AddWebsiteFromList,
+            TelemetryScreenName.DialogAddWebsiteExclusion,
+        );
         exclusionsStore.addToServicesToToggle(service.serviceId);
     };
 

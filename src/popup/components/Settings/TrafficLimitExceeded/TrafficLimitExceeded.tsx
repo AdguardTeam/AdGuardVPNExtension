@@ -16,7 +16,10 @@ export const TrafficLimitExceeded = observer(() => {
 
     const upgradeClickHandler = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
-        telemetryStore.sendCustomEvent(TelemetryActionName.SpeedReducedPurchaseClick);
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SpeedReducedPurchaseClick,
+            TelemetryScreenName.SpeedReducedScreen,
+        );
         await vpnStore.openPremiumPromoPage();
         window.close();
     };

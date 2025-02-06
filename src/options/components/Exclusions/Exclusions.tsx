@@ -76,7 +76,10 @@ export const Exclusions = observer(() => {
         : selectiveModeInfo;
 
     const onAddExclusionClick = () => {
-        telemetryStore.sendCustomEvent(TelemetryActionName.AddWebsiteClick);
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.AddWebsiteClick,
+            TelemetryScreenName.ExclusionsScreen,
+        );
         exclusionsStore.openAddExclusionModal();
     };
 

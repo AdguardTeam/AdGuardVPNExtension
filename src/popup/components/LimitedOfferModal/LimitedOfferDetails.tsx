@@ -41,7 +41,10 @@ export const LimitedOfferDetails = observer(() => {
     } = limitedOfferData;
 
     const openLimitedOfferLink = () => {
-        telemetryStore.sendCustomEvent(TelemetryActionName.PromoOfferPurchaseClick);
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.PromoOfferPurchaseClick,
+            TelemetryScreenName.PromoOfferScreen,
+        );
         popupActions.openTab(url);
     };
 
