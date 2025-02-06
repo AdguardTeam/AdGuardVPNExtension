@@ -19,11 +19,13 @@ import './dns-settings.pcss';
 export const DnsSettings = observer(() => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
+    // `DialogAddCustomDns` and `DialogEditCustomDns` rendered on top of this screen
+    const canSendTelemetry = settingsStore.isCustomDnsModalOpen;
+
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.SettingsDnsServersScreen,
-        // `DialogAddCustomDns` and `DialogEditCustomDns` rendered on top of this screen
-        !settingsStore.isCustomDnsModalOpen,
+        canSendTelemetry,
     );
 
     const handleGoBack = () => {

@@ -20,6 +20,7 @@ export const ManualMode = () => {
 
     const addUrl = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         telemetryStore.sendCustomEvent(
             TelemetryActionName.AddWebsiteManually,
             TelemetryScreenName.DialogAddWebsiteExclusion,

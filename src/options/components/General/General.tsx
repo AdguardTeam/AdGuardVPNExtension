@@ -20,10 +20,13 @@ export const General = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
     const { showDnsSettings } = settingsStore;
 
+    // `SettingsDnsServersScreen` is rendered on top of this screen
+    const canSendTelemetry = !showDnsSettings;
+
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.SettingsScreen,
-        !showDnsSettings,
+        canSendTelemetry,
     );
 
     if (showDnsSettings) {

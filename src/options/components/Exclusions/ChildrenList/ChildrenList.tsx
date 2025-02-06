@@ -18,10 +18,13 @@ export const ChildrenList = observer(() => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
     const { selectedExclusion, addSubdomainModalOpen } = exclusionsStore;
 
+    // `DialogExclusionsAddSubdomain` is rendered on top of this screen
+    const canSendTelemetry = !addSubdomainModalOpen;
+
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.ExclusionsDomainDetailsScreen,
-        !addSubdomainModalOpen, // `DialogExclusionsAddSubdomain` is rendered on top of this screen,
+        canSendTelemetry,
     );
 
     if (!selectedExclusion || selectedExclusion.children.length === 0) {

@@ -24,10 +24,12 @@ export const HostPermissionsError = observer(() => {
 
     const { isHostPermissionsGranted, forwarderDomain } = settingsStore;
 
+    const isOpen = !isHostPermissionsGranted;
+
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.DialogAccessWebsitesPermission,
-        !isHostPermissionsGranted,
+        isOpen,
     );
 
     const handleAllow = () => {
@@ -58,7 +60,7 @@ export const HostPermissionsError = observer(() => {
 
     return (
         <Modal
-            isOpen={!isHostPermissionsGranted}
+            isOpen={isOpen}
             className="modal host-permissions-error"
             shouldCloseOnOverlayClick
             overlayClassName="modal__overlay"

@@ -18,12 +18,12 @@ import './vpn-blocked-details.pcss';
 export const VpnBlockedDetails = observer(() => {
     const { uiStore, settingsStore, telemetryStore } = useContext(rootStore);
 
-    const { isShownVpnBlockedErrorDetails } = uiStore;
+    const isOpen = uiStore.isShownVpnBlockedErrorDetails;
 
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.DialogDesktopVersionPromo,
-        isShownVpnBlockedErrorDetails,
+        isOpen,
     );
 
     const { forwarderDomain } = settingsStore;
@@ -41,7 +41,7 @@ export const VpnBlockedDetails = observer(() => {
 
     return (
         <Modal
-            isOpen={isShownVpnBlockedErrorDetails}
+            isOpen={isOpen}
             className="modal vpn-blocked-details"
             shouldCloseOnOverlayClick
             overlayClassName="modal__overlay"

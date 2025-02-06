@@ -27,10 +27,13 @@ export const Support = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
     const { showBugReporter, setShowBugReporter, forwarderDomain } = settingsStore;
 
+    // `SupportReportBugScreen` rendered on top of this screen
+    const canSendTelemetry = !showBugReporter;
+
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.SupportScreen,
-        !showBugReporter, // `SupportReportBugScreen` rendered on top of this screen
+        canSendTelemetry,
     );
 
     const createOpenUrlHandler = (url: string) => async (): Promise<void> => {

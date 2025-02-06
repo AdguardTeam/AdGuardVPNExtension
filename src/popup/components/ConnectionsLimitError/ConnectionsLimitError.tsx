@@ -21,10 +21,12 @@ export const ConnectionsLimitError = observer(() => {
     const { tooManyDevicesConnected, isPremiumToken, maxDevicesAllowed } = vpnStore;
     const isMaxDevicesAllowedCorrect = !isNil(maxDevicesAllowed);
 
+    const isRendered = tooManyDevicesConnected && isMaxDevicesAllowedCorrect;
+
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.DeviceLimitScreen,
-        tooManyDevicesConnected && isMaxDevicesAllowedCorrect,
+        isRendered,
     );
 
     const { forwarderDomain } = settingsStore;

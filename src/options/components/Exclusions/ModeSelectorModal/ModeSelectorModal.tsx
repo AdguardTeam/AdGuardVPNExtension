@@ -13,10 +13,12 @@ import { Button } from '../../ui/Button';
 export const ModeSelectorModal = observer(() => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
 
+    const isOpen = exclusionsStore.modeSelectorModalOpen;
+
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.DialogExclusionsModeSelection,
-        exclusionsStore.modeSelectorModalOpen,
+        isOpen,
     );
 
     const [mode, setMode] = useState(exclusionsStore.currentMode);
@@ -27,11 +29,10 @@ export const ModeSelectorModal = observer(() => {
     };
 
     const handleSaveMode = async () => {
-        const telemetryAction = mode === ExclusionsMode.Regular
-            ? TelemetryActionName.GeneralModeClick
-            : TelemetryActionName.SelectiveModeClick;
         telemetryStore.sendCustomEvent(
-            telemetryAction,
+            mode === ExclusionsMode.Regular
+                ? TelemetryActionName.GeneralModeClick
+                : TelemetryActionName.SelectiveModeClick,
             TelemetryScreenName.DialogExclusionsModeSelection,
         );
 
@@ -56,7 +57,7 @@ export const ModeSelectorModal = observer(() => {
 
     return (
         <Modal
-            isOpen={exclusionsStore.modeSelectorModalOpen}
+            isOpen={isOpen}
             title={translator.getMessage('settings_exclusion_change_mode_modal_title')}
             actions={(
                 <>

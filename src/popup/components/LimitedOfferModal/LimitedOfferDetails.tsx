@@ -23,10 +23,12 @@ export const LimitedOfferDetails = observer(() => {
 
     const { limitedOfferData } = settingsStore;
 
+    const isRenderedAndOpen = !!limitedOfferData && shouldShowLimitedOfferDetails;
+
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.PromoOfferScreen,
-        !!limitedOfferData && shouldShowLimitedOfferDetails,
+        isRenderedAndOpen,
     );
 
     if (!limitedOfferData) {

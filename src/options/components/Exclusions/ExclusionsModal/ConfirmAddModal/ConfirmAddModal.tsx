@@ -12,10 +12,12 @@ export const ConfirmAddModal = observer(() => {
     const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
     const { confirmAddModalOpen, urlToConfirm } = exclusionsStore;
 
+    const isOpen = confirmAddModalOpen;
+
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.DialogExclusionsAddNotValidDomain,
-        confirmAddModalOpen,
+        isOpen,
     );
 
     const closeModal = () => {
@@ -53,7 +55,7 @@ export const ConfirmAddModal = observer(() => {
                     </Button>
                 </>
             )}
-            isOpen={confirmAddModalOpen}
+            isOpen={isOpen}
             className="exclusions__modal exclusions__modal--empty-body"
             size="medium"
             onClose={closeModal}
