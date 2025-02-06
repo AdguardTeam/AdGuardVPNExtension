@@ -103,16 +103,22 @@ describe('Telemetry', () => {
 
             await telemetry.initState();
 
+            // Check if synthetic id is set in memory
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    syntheticId: expect.stringMatching(syntheticIdRegex),
+                }),
+            );
+
+            // Check if synthetic id is saved
             expect(mockStorage.get).toHaveBeenCalledTimes(1);
             expect(mockStorage.set).toHaveBeenCalledTimes(1);
             expect(mockStorage.set).toHaveBeenCalledWith(
                 expect.any(String), // Storage key
                 expect.stringMatching(syntheticIdRegex), // Synthetic id
             );
-            // @ts-ignore - private property
-            expect(telemetry.syntheticId).toMatch(syntheticIdRegex);
-            // @ts-ignore - private property
-            expect(telemetry.isInitialized).toBe(true);
         });
 
         it('should generate and save new synthetic id if storage value is corrupted', async () => {
@@ -121,16 +127,22 @@ describe('Telemetry', () => {
 
             await telemetry.initState();
 
+            // Check if synthetic id is set in memory
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    syntheticId: expect.stringMatching(syntheticIdRegex),
+                }),
+            );
+
+            // Check if synthetic id is saved
             expect(mockStorage.get).toHaveBeenCalledTimes(1);
             expect(mockStorage.set).toHaveBeenCalledTimes(1);
             expect(mockStorage.set).toHaveBeenCalledWith(
                 expect.any(String), // Storage key
                 expect.stringMatching(syntheticIdRegex), // Synthetic id
             );
-            // @ts-ignore - private property
-            expect(telemetry.syntheticId).toMatch(syntheticIdRegex);
-            // @ts-ignore - private property
-            expect(telemetry.isInitialized).toBe(true);
         });
 
         it('should read synthetic id from storage if value is valid', async () => {
@@ -139,12 +151,18 @@ describe('Telemetry', () => {
 
             await telemetry.initState();
 
+            // Check if synthetic id is set in memory
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    syntheticId: expect.stringMatching(syntheticIdRegex),
+                }),
+            );
+
+            // Check if synthetic id is not rewritten
             expect(mockStorage.get).toHaveBeenCalledTimes(1);
             expect(mockStorage.set).not.toHaveBeenCalled();
-            // @ts-ignore - private property
-            expect(telemetry.syntheticId).toBe('abcd1234');
-            // @ts-ignore - private property
-            expect(telemetry.isInitialized).toBe(true);
         });
 
         it('should correctly get user agent', async () => {
@@ -162,10 +180,14 @@ describe('Telemetry', () => {
                 },
             };
 
-            // @ts-ignore - private property
-            expect(telemetry.userAgent).toEqual(expectedUserAgent);
-            // @ts-ignore - private property
-            expect(telemetry.isInitialized).toBe(true);
+            // Check if user agent is set in memory
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    userAgent: expectedUserAgent,
+                }),
+            );
         });
 
         it('should set os.version to "unknown" if version is not detected', async () => {
@@ -185,10 +207,14 @@ describe('Telemetry', () => {
                 },
             };
 
-            // @ts-ignore - private property
-            expect(telemetry.userAgent).toEqual(expectedUserAgent);
-            // @ts-ignore - private property
-            expect(telemetry.isInitialized).toBe(true);
+            // Check if user agent is set in memory
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    userAgent: expectedUserAgent,
+                }),
+            );
         });
 
         it('should not include device info if vendor is not detected', async () => {
@@ -204,20 +230,30 @@ describe('Telemetry', () => {
                 },
             };
 
-            // @ts-ignore - private property
-            expect(telemetry.userAgent).toEqual(expectedUserAgent);
-            // @ts-ignore - private property
-            expect(telemetry.isInitialized).toBe(true);
+            // Check if user agent is set in memory
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    userAgent: expectedUserAgent,
+                }),
+            );
         });
     });
 
     describe('Telemetry.getProps', () => {
         it('should return correct props', async () => {
             await telemetry.initState();
-            // @ts-ignore - private method
-            const props = await telemetry.getProps();
 
-            expect(props).toEqual(sampleEventBaseData.props);
+            const expectedProps = sampleEventBaseData.props;
+
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    props: expectedProps,
+                }),
+            );
         });
 
         it('should return correct props if language and theme is changed', async () => {
@@ -225,90 +261,125 @@ describe('Telemetry', () => {
             mockSettings.getAppearanceTheme.mockReturnValueOnce(AppearanceTheme.Dark);
 
             await telemetry.initState();
-            // @ts-ignore - private method
-            const props = await telemetry.getProps();
 
-            expect(props).toEqual({
+            const expectedProps = {
                 ...sampleEventBaseData.props,
                 appLocale: 'ru-RU',
                 systemLocale: 'ru-RU',
                 theme: TelemetryTheme.Dark,
-            });
+            };
+
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    props: expectedProps,
+                }),
+            );
         });
 
         it('should not include data about subscription if user is not authenticated', async () => {
             mockAuth.isAuthenticated.mockResolvedValueOnce(false);
 
             await telemetry.initState();
-            // @ts-ignore - private method
-            const props = await telemetry.getProps();
 
-            expect(props).toEqual({
+            const expectedProps = {
                 ...sampleEventBaseData.props,
                 loggedIn: false,
                 licenseStatus: undefined,
                 subscriptionDuration: undefined,
-            });
+            };
+
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    props: expectedProps,
+                }),
+            );
         });
 
         it('should not include data about subscription duration if user is not premium', async () => {
             mockCredentials.isPremiumToken.mockResolvedValueOnce(false);
 
             await telemetry.initState();
-            // @ts-ignore - private method
-            const props = await telemetry.getProps();
 
-            expect(props).toEqual({
+            const expectedProps = {
                 ...sampleEventBaseData.props,
                 licenseStatus: TelemetryLicenseStatus.Free,
                 subscriptionDuration: undefined,
-            });
+            };
+
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    props: expectedProps,
+                }),
+            );
         });
 
         it('should correctly map subscription duration if user is premium', async () => {
             await telemetry.initState();
 
             mockCredentials.getSubscriptionType.mockReturnValueOnce(SubscriptionType.Yearly);
-            // @ts-ignore - private method
-            expect(await telemetry.getProps()).toEqual({
-                ...sampleEventBaseData.props,
-                subscriptionDuration: TelemetrySubscriptionDuration.Annual,
-            });
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    props: {
+                        ...sampleEventBaseData.props,
+                        subscriptionDuration: TelemetrySubscriptionDuration.Annual,
+                    },
+                }),
+            );
 
             mockCredentials.getSubscriptionType.mockReturnValueOnce(SubscriptionType.TwoYears);
-            // @ts-ignore - private method
-            expect(await telemetry.getProps()).toEqual({
-                ...sampleEventBaseData.props,
-                subscriptionDuration: TelemetrySubscriptionDuration.Other,
-            });
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    props: {
+                        ...sampleEventBaseData.props,
+                        subscriptionDuration: TelemetrySubscriptionDuration.Other,
+                    },
+                }),
+            );
 
             mockCredentials.getSubscriptionType.mockReturnValueOnce(undefined);
-            // @ts-ignore - private method
-            expect(await telemetry.getProps()).toEqual({
-                ...sampleEventBaseData.props,
-                subscriptionDuration: TelemetrySubscriptionDuration.Lifetime,
-            });
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
+                expect.any(Object), // Event data
+                expect.objectContaining({
+                    props: {
+                        ...sampleEventBaseData.props,
+                        subscriptionDuration: TelemetrySubscriptionDuration.Lifetime,
+                    },
+                }),
+            );
         });
     });
 
     describe('Telemetry.canSendEvents', () => {
         it('should return true if user opted in and initialized', async () => {
             await telemetry.initState();
-            // @ts-ignore - private method
-            expect(telemetry.canSendEvents()).toBe(true);
+
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);
         });
 
         it('should return false if user opted out', async () => {
             mockSettings.isHelpUsImproveEnabled.mockReturnValueOnce(false);
             await telemetry.initState();
-            // @ts-ignore - private method
-            expect(telemetry.canSendEvents()).toBe(false);
+
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).not.toHaveBeenCalled();
             expect(log.debug).toHaveBeenCalled();
         });
 
         it('should return false if telemetry is not initialized', async () => {
-            // @ts-ignore - private method
-            expect(telemetry.canSendEvents()).toBe(false);
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            expect(mockTelemetryProvider.sendPageViewEvent).not.toHaveBeenCalled();
             expect(log.debug).toHaveBeenCalled();
         });
     });
