@@ -83,6 +83,19 @@ export const App = observer(() => {
         (async () => {
             await globalStore.init();
         })();
+
+        const onUnload = () => {
+            globalStore.deInit();
+        };
+
+        window.addEventListener('beforeunload', onUnload);
+        window.addEventListener('unload', onUnload);
+
+        return () => {
+            onUnload();
+            window.removeEventListener('beforeunload', onUnload);
+            window.removeEventListener('unload', onUnload);
+        };
     }, []);
 
     /**

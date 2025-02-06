@@ -387,6 +387,7 @@ describe('Telemetry', () => {
     describe('Telemetry.sendPageViewEvent', () => {
         it('should send event', async () => {
             await telemetry.initState();
+            telemetry.addOpenedPage();
             await telemetry.sendPageViewEvent(TelemetryScreenName.PurchaseScreen);
 
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);
@@ -401,6 +402,7 @@ describe('Telemetry', () => {
 
         it('should save previous screen name', async () => {
             await telemetry.initState();
+            telemetry.addOpenedPage();
             await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
             await telemetry.sendPageViewEvent(TelemetryScreenName.PurchaseScreen);
 
@@ -415,7 +417,26 @@ describe('Telemetry', () => {
             );
         });
 
-        // FIXME: Add test cases after reset is implemented
+        it('should reset screen names if no opened page left', async () => {
+            await telemetry.initState();
+
+            const pageId = telemetry.addOpenedPage();
+            await telemetry.sendPageViewEvent(TelemetryScreenName.WelcomeScreen);
+            telemetry.removeOpenedPage(pageId);
+
+            telemetry.addOpenedPage();
+            await telemetry.sendPageViewEvent(TelemetryScreenName.PurchaseScreen);
+
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(2);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenNthCalledWith(
+                2,
+                {
+                    name: TelemetryScreenName.PurchaseScreen,
+                    refName: undefined,
+                },
+                sampleEventBaseData,
+            );
+        });
     });
 
     describe('Telemetry.sendCustomEvent', () => {

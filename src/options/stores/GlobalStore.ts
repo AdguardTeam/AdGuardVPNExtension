@@ -49,6 +49,12 @@ export class GlobalStore {
     @action
     async init(): Promise<void> {
         await this.getOptionsData();
+        await this.rootStore.telemetryStore.init();
+    }
+
+    @action
+    deInit(): void {
+        this.rootStore.telemetryStore.deInit();
     }
 
     @action

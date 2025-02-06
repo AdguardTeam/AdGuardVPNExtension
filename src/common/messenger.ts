@@ -521,6 +521,26 @@ class Messenger {
         const type = MessageType.TELEMETRY_EVENT_SEND_CUSTOM;
         return this.sendMessage(type, { actionName, screenName });
     }
+
+    /**
+     * Adds opened page to the list of opened pages inside of telemetry module.
+     *
+     * @returns Page ID of new opened page, which can be used to remove it later.
+     */
+    async addTelemetryOpenedPage(): Promise<string> {
+        const type = MessageType.TELEMETRY_EVENT_ADD_OPENED_PAGE;
+        return this.sendMessage(type);
+    }
+
+    /**
+     * Removes opened page from the list of opened pages of telemetry module.
+     *
+     * @param pageId ID of page to remove.
+     */
+    async removeTelemetryOpenedPage(pageId: string): Promise<void> {
+        const type = MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE;
+        return this.sendMessage(type, { pageId });
+    }
 }
 
 export const messenger = new Messenger();

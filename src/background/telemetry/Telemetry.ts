@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import { customAlphabet } from 'nanoid';
+import { nanoid, customAlphabet } from 'nanoid';
 
 import { type TelemetryProviderInterface } from '../providers/telemetryProvider';
 import { type AppStatus } from '../appStatus/AppStatus';
@@ -50,6 +50,20 @@ export interface TelemetryInterface {
      * @param screenName Name of the screen.
      */
     sendCustomEvent(actionName: TelemetryActionName, screenName: TelemetryScreenName): Promise<void>;
+
+    /**
+     * Adds opened page to the list of opened pages.
+     *
+     * @returns Page ID of new opened page, which can be used to remove it later.
+     */
+    addOpenedPage(): string;
+
+    /**
+     * Removes opened page from the list of opened pages.
+     *
+     * @param pageId ID of page to remove.
+     */
+    removeOpenedPage(pageId: string): void;
 }
 
 /**
@@ -110,8 +124,8 @@ export interface TelemetryParameters {
  * the current and previous screen names. When a new page view event is sent, we save the {@link currentScreenName}
  * to {@link prevScreenName} and set the new screen name to {@link currentScreenName}.
  * This is used in two cases to send `refName` in page view events to keep track of the previous screen name.
- *
- * FIXME: Write about prev/current screen name reset logic when implemented.
+ * Whenever there is no left opened pages, we reset both {@link prevScreenName} and {@link currentScreenName}
+ * to `undefined`, see {@link openedPages} for more details.
  */
 export class Telemetry implements TelemetryInterface {
     /**
@@ -229,7 +243,7 @@ export class Telemetry implements TelemetryInterface {
      * NOTE: This is not defined in state storage because
      * it's not needed to persist if extension is reloaded.
      */
-    private prevScreenName: TelemetryScreenName | null = null;
+    private prevScreenName: TelemetryScreenName | undefined = undefined;
 
     /**
      * Current screen name.
@@ -237,7 +251,19 @@ export class Telemetry implements TelemetryInterface {
      * NOTE: This is not defined in state storage because
      * it's not needed to persist if extension is reloaded.
      */
-    private currentScreenName: TelemetryScreenName | null = null;
+    private currentScreenName: TelemetryScreenName | undefined = undefined;
+
+    /**
+     * List of opened pages IDs.
+     * This is needed to track all opened pages (popup, options) and whenever it gets empty
+     * reset {@link prevScreenName} and {@link currentScreenName} to `undefined`.
+     * We store IDs instead of booleans or counter simply to avoid case when user opens
+     * multiple pages of options / popup by directly putting URL in the browser tab.
+     *
+     * NOTE: This is not defined in state storage because
+     * it's not needed to persist if extension is reloaded.
+     */
+    private openedPages: string[] = [];
 
     /**
      * Constructor.
@@ -356,6 +382,40 @@ export class Telemetry implements TelemetryInterface {
 
         return true;
     }
+
+    /**
+     * Adds opened page to the list of opened pages.
+     *
+     * @returns Page ID of new opened page, which can be used to remove it later.
+     */
+    public addOpenedPage = (): string => {
+        const newPageId = nanoid();
+        this.openedPages.push(newPageId);
+
+        return newPageId;
+    };
+
+    /**
+     * Removes opened page from the list of opened pages.
+     *
+     * @param pageId ID of page to remove.
+     */
+    public removeOpenedPage = (pageId: string): void => {
+        const index = this.openedPages.indexOf(pageId);
+
+        if (index === -1) {
+            log.debug(`Page with ID ${pageId} not found in opened pages list`);
+            return;
+        }
+
+        this.openedPages.splice(index, 1);
+
+        // Reset screen names if there are no opened pages
+        if (this.openedPages.length === 0) {
+            this.prevScreenName = undefined;
+            this.currentScreenName = undefined;
+        }
+    };
 
     /**
      * Retrieves base data for telemetry events based on state.
