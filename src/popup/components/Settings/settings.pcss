@@ -55,17 +55,13 @@
 
     &__main {
         text-align: center;
-        padding-top: 220px;
-
-        /* This media queries is edge cases when padding top is too high */
-
-        @media (max-height: 580px) {
-            padding-top: 200px;
-        }
-
-        @media (max-height: 560px) {
-            padding-top: 180px;
-        }
+        /* Padding top will be proportional to base design value (220px)  */
+        /* if actual popup height is smaller that default height on desktops */
+        /* value will be in range 100px-220px */
+        padding-top: max(
+            100px,
+            calc(220px - var(--popup-default-height) + var(--popup-height))
+        );
     }
 
     &__extra {

@@ -193,6 +193,12 @@ export const App = observer(() => {
          * 785px % 70 = 550px
          */
         const POPUP_MIN_HEIGHT = 550;
+        /**
+         * Maximum height for the popup. If window height is greater than this value,
+         * popup height will be set to this value. Value is based on base height of 598px
+         * in desktop extension.
+         */
+        const POPUP_MAX_HEIGHT = 598;
         const POPUP_HEIGHT_PROP = '--popup-height';
         const html = document.documentElement;
 
@@ -209,7 +215,10 @@ export const App = observer(() => {
         }
 
         const resizePopupHeight = () => {
-            const newHeight = Math.max(window.innerHeight, POPUP_MIN_HEIGHT);
+            const newHeight = Math.min(
+                Math.max(window.innerHeight, POPUP_MIN_HEIGHT),
+                POPUP_MAX_HEIGHT,
+            );
             html.style.setProperty(POPUP_HEIGHT_PROP, `${newHeight}px`);
         };
 
@@ -217,7 +226,7 @@ export const App = observer(() => {
         resizePopupHeight();
 
         // Add resize event listener
-        window.addEventListener('resize', resizePopupHeight, { once: true });
+        window.addEventListener('resize', resizePopupHeight);
 
         // Cleanup: Remove the height property and event listener after unmount
         return () => {

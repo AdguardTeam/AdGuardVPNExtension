@@ -19,18 +19,14 @@
         flex: 1 1 auto;
         width: 100%;
         max-width: 320px;
-        /* Padding top (77px) is specified in design */
-        padding: 77px 16px 16px;
-
-        /* This media queries is edge cases when padding top is too high */
-
-        @media (max-height: 580px) {
-            padding-top: 48px;
-        }
-
-        @media (max-height: 560px) {
-            padding-top: 32px;
-        }
+        padding: 0 16px 16px;
+        /* Padding top will be proportional to base design value (77px)  */
+        /* if actual popup height is smaller that default height on desktops */
+        /* value will be in range 16px-77px */
+        padding-top: max(
+            16px,
+            calc(77px - var(--popup-default-height) + var(--popup-height))
+        );
     }
 
     &__desc {
