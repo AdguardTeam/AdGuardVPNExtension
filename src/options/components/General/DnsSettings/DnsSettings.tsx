@@ -20,7 +20,7 @@ export const DnsSettings = observer(() => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     // `DialogAddCustomDns` and `DialogEditCustomDns` rendered on top of this screen
-    const canSendTelemetry = settingsStore.isCustomDnsModalOpen;
+    const canSendTelemetry = !settingsStore.isCustomDnsModalOpen;
 
     useTelemetryPageViewEvent(
         telemetryStore,
