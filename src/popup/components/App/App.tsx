@@ -183,8 +183,7 @@ export const App = observer(() => {
      */
     useLayoutEffect(() => {
         /**
-         * Minimum height for the popup. If window height is less than this value,
-         * popup height will be set to this value. Value is based on calculation:
+         * Minimum height for the popup. Value is based on calculation:
          * Android Extension Window Height = clamp(Popup Height, 15% of viewport height, 70% of viewport height)
          *
          * We took average mobile viewport height as 785px from:
@@ -194,9 +193,7 @@ export const App = observer(() => {
          */
         const POPUP_MIN_HEIGHT = 550;
         /**
-         * Maximum height for the popup. If window height is greater than this value,
-         * popup height will be set to this value. Value is based on base height of 598px
-         * in desktop extension.
+         * Maximum height for the popup. Value is based on base height of 598px in desktop extension.
          */
         const POPUP_MAX_HEIGHT = 598;
         const POPUP_HEIGHT_PROP = '--popup-height';
@@ -215,17 +212,39 @@ export const App = observer(() => {
         }
 
         const resizePopupHeight = () => {
-            const newHeight = Math.min(
-                Math.max(window.innerHeight, POPUP_MIN_HEIGHT),
-                POPUP_MAX_HEIGHT,
-            );
-            html.style.setProperty(POPUP_HEIGHT_PROP, `${newHeight}px`);
+            /**
+             * From observation on Android browsers, popup height is properly set only on third time:
+             * 1. Initially window.innerHeight is 0
+             * 2. After that it is set to 15% (approx) of viewport height
+             * 3. Finally it calculates proper height of window.innerHeight capped by 70% (approx) of viewport height.
+             *
+             * Example if viewport height is 840px:
+             * 0px -> 126px (15% of 840px) -> 588px (70% of 840px)
+             *
+             * Example if viewport height is 860px:
+             * 0px -> 129px (15% of 860px) -> 598px (we ignore 602px (70% of 860px) because it's larger than 598px)
+             *
+             * Example if viewport height is 770px:
+             * 0px -> 115px (15% of 770px) -> 550px (we ignore 539px (70% of 770px) because it's smaller than 550px)
+             *
+             * This is needed to display the popup properly on Android browsers.
+             */
+            if (
+                window.innerHeight < POPUP_MIN_HEIGHT
+                || window.innerHeight > POPUP_MAX_HEIGHT
+            ) {
+                return;
+            }
+
+            html.style.setProperty(POPUP_HEIGHT_PROP, `${window.innerHeight}px`);
         };
 
         // Resize on initial render
         resizePopupHeight();
 
         // Add resize event listener
+        // NOTE: Do not use `once` option because it may cause unexpected
+        // behavior on Android browsers when keyboard is opened.
         window.addEventListener('resize', resizePopupHeight);
 
         // Cleanup: Remove the height property and event listener after unmount
