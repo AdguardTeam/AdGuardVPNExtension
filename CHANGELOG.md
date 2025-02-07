@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Error with `chrome.offscreen.createDocument` on Chrome 109 when connecting to proxy [#190].
+- Error with `chrome.offscreen.createDocument` on Chrome 109 when connecting to proxy for MV3 [#190].
 
 [Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.3.2...HEAD
 [#190]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/190

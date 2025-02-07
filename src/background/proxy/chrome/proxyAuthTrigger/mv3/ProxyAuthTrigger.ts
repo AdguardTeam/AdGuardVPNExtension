@@ -14,7 +14,7 @@ const createOffScreenDocument = (() => {
                 url: 'offscreen.html',
                 reasons: [
                     chrome.offscreen.Reason.WORKERS
-                    // Fallback for Chrome 113 and below
+                    // Fallback reason because Reason.WORKERS is not supported prior to Chrome 113
                     || chrome.offscreen.Reason.IFRAME_SCRIPTING,
                 ],
                 justification: 'needed to trigger on auth required handler',
