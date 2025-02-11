@@ -552,24 +552,41 @@ export class AuthStore {
         this.rating = value;
     };
 
+    /**
+     * Closes rate modal without rating.
+     */
     @action closeRateModal = async () => {
-        await messenger.setRateModalViewed();
-        runInAction(() => {
-            this.showRateModal = false;
-        });
+        await messenger.hideRateModalAfterCancel();
+        this.showRateModal = false;
     };
 
+    /**
+     * Closes rate modal and opens confirm rate modal.
+     */
     @action openConfirmRateModal = () => {
+        this.showRateModal = false;
         this.showConfirmRateModal = true;
     };
 
-    @action closeConfirmRateModal = async () => {
-        await messenger.setRateModalViewed();
-        runInAction(() => {
-            this.showConfirmRateModal = false;
-        });
+    /**
+     * Closes confirm rate modal after rating.
+     */
+    @action closeConfirmRateModalAfterRate = async () => {
+        await messenger.hideRateModalAfterRate();
+        this.showConfirmRateModal = false;
     };
 
+    /**
+     * Closes confirm rate modal without rating.
+     */
+    @action closeConfirmRateModalAfterCancel = async () => {
+        await messenger.hideRateModalAfterCancel();
+        this.showConfirmRateModal = false;
+    };
+
+    /**
+     * Sets new value for {@link showRateModal}.
+     */
     @action setShouldShowRateModal = (value: boolean) => {
         this.showRateModal = value;
     };
