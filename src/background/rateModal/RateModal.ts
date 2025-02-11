@@ -1,9 +1,8 @@
-import { notifier } from '../common/notifier';
-import { SETTINGS_IDS } from '../common/constants';
-
-import { browserApi } from './browserApi';
-import { settings } from './settings';
-import { ConnectivityStateType } from './schema';
+import { type Notifier } from '../../common/notifier';
+import { SETTINGS_IDS } from '../../common/constants';
+import { ConnectivityStateType } from '../schema';
+import { type SettingsInterface } from '../settings/settings';
+import { type StorageInterface } from '../browserApi/storage';
 
 /**
  * Data passed by connectivity state change event.
@@ -18,7 +17,7 @@ interface StateType {
 /**
  * Status of rate modal.
  */
-enum RateModalStatus {
+export enum RateModalStatus {
     /**
      * Rate modal has not been shown yet.
      */
@@ -76,7 +75,27 @@ export interface RateModalInterface {
      *
      * @returns True if rate modal should be shown, false otherwise.
      */
-    shouldShowRateModal(): Promise<boolean>;
+    shouldShowRateModal(): boolean;
+}
+
+/**
+ * Constructor parameters for {@link RateModal}.
+ */
+export interface RateModalParameters {
+    /**
+     * Browser local storage.
+     */
+    storage: StorageInterface;
+
+    /**
+     * Settings service.
+     */
+    settings: SettingsInterface;
+
+    /**
+     * Notifier service.
+     */
+    notifier: Notifier;
 }
 
 /**
@@ -101,7 +120,7 @@ export interface RateModalInterface {
  * 5.2) If user rates: status = Rated, connections = 30
  *      After that, rate modal will not be shown anymore.
  */
-class RateModal implements RateModalInterface {
+export class RateModal implements RateModalInterface {
     /**
      * Key for open rate modal state in browser local storage.
      */
@@ -126,6 +145,21 @@ class RateModal implements RateModalInterface {
     };
 
     /**
+     * Browser local storage.
+     */
+    private storage: StorageInterface;
+
+    /**
+     * Settings service.
+     */
+    private settings: SettingsInterface;
+
+    /**
+     * Notifier service.
+     */
+    private notifier: Notifier;
+
+    /**
      * Current rate modal state.
      *
      * Initialized in {@link init} method.
@@ -137,11 +171,30 @@ class RateModal implements RateModalInterface {
      */
     private listenerId: string | null = null;
 
+    constructor({
+        storage,
+        settings,
+        notifier,
+    }: RateModalParameters) {
+        this.storage = storage;
+        this.settings = settings;
+        this.notifier = notifier;
+    }
+
+    /**
+     * Is show rate setting enabled.
+     *
+     * @returns True if setting is enabled, false otherwise.
+     */
+    private isShowRateSettingEnabled(): boolean {
+        return this.settings.getSetting(SETTINGS_IDS.RATE_SHOW);
+    }
+
     /**
      * Initializes rate modal service.
      */
     public initState = async (): Promise<void> => {
-        const state = await browserApi.storage.get<RateModalState>(RateModal.OPEN_RATE_MODAL_STATE_KEY);
+        const state = await this.storage.get<RateModalState>(RateModal.OPEN_RATE_MODAL_STATE_KEY);
 
         if (state) {
             this.state = state;
@@ -151,10 +204,9 @@ class RateModal implements RateModalInterface {
         }
 
         // Do not attach listener if already rated or rate show setting is disabled
-        const shouldRateShowSetting = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
-        if (this.state.status !== RateModalStatus.Rated && shouldRateShowSetting) {
-            this.listenerId = notifier.addSpecifiedListener(
-                notifier.types.CONNECTIVITY_STATE_CHANGED,
+        if (this.state.status !== RateModalStatus.Rated && this.isShowRateSettingEnabled()) {
+            this.listenerId = this.notifier.addSpecifiedListener(
+                this.notifier.types.CONNECTIVITY_STATE_CHANGED,
                 this.handleConnectivityStateChange.bind(this),
             );
         }
@@ -165,7 +217,7 @@ class RateModal implements RateModalInterface {
      */
     private removeListener(): void {
         if (this.listenerId) {
-            notifier.removeListener(this.listenerId);
+            this.notifier.removeListener(this.listenerId);
             this.listenerId = null;
         }
     }
@@ -176,7 +228,7 @@ class RateModal implements RateModalInterface {
      * @param state New state to save.
      */
     private async saveState(state: RateModalState): Promise<void> {
-        browserApi.storage.set(RateModal.OPEN_RATE_MODAL_STATE_KEY, state);
+        this.storage.set(RateModal.OPEN_RATE_MODAL_STATE_KEY, state);
     }
 
     /**
@@ -201,8 +253,7 @@ class RateModal implements RateModalInterface {
         }
 
         // If rate show setting is disabled do not handle change state and delete listener
-        const shouldRateShowSetting = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
-        if (!shouldRateShowSetting) {
+        if (!this.isShowRateSettingEnabled()) {
             this.removeListener();
             return;
         }
@@ -211,9 +262,8 @@ class RateModal implements RateModalInterface {
             connections: this.state.connections + 1,
         });
 
-        const shouldShow = await this.shouldShowRateModal();
-        if (shouldShow) {
-            notifier.notifyListeners(notifier.types.SHOW_RATE_MODAL);
+        if (this.shouldShowRateModal()) {
+            this.notifier.notifyListeners(this.notifier.types.SHOW_RATE_MODAL);
         }
     }
 
@@ -258,10 +308,9 @@ class RateModal implements RateModalInterface {
      *
      * @returns True if rate modal should be shown, false otherwise.
      */
-    public shouldShowRateModal = async (): Promise<boolean> => {
+    public shouldShowRateModal = (): boolean => {
         // Check if rate show setting is enabled
-        const shouldRateShowSetting = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
-        if (!shouldRateShowSetting) {
+        if (!this.isShowRateSettingEnabled()) {
             return false;
         }
 
@@ -283,5 +332,3 @@ class RateModal implements RateModalInterface {
         return false;
     };
 }
-
-export const rateModal = new RateModal();

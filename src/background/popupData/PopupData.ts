@@ -132,7 +132,7 @@ export class PopupData {
         const { isFirstRun } = updateService;
         const flagsStorageData = await flagsStorage.getFlagsStorageData();
         const isVpnEnabledByUrl = exclusions.isVpnEnabledByUrl(url);
-        const shouldShowRateModal = await rateModal.shouldShowRateModal();
+        const shouldShowRateModal = rateModal.shouldShowRateModal();
         const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
 
