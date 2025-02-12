@@ -557,7 +557,9 @@ export class AuthStore {
      */
     @action closeRateModal = async () => {
         await messenger.hideRateModalAfterCancel();
-        this.showRateModal = false;
+        runInAction(() => {
+            this.showRateModal = false;
+        });
     };
 
     /**
@@ -573,7 +575,9 @@ export class AuthStore {
      */
     @action closeConfirmRateModalAfterRate = async () => {
         await messenger.hideRateModalAfterRate();
-        this.showConfirmRateModal = false;
+        runInAction(() => {
+            this.showConfirmRateModal = false;
+        });
     };
 
     /**
@@ -581,7 +585,9 @@ export class AuthStore {
      */
     @action closeConfirmRateModalAfterCancel = async () => {
         await messenger.hideRateModalAfterCancel();
-        this.showConfirmRateModal = false;
+        runInAction(() => {
+            this.showConfirmRateModal = false;
+        });
     };
 
     /**
