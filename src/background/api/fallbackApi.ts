@@ -21,9 +21,6 @@ import { type FallbackInfo, StorageKey } from '../schema';
 const GOOGLE_DOH_HOSTNAME = 'dns.google';
 export const GOOGLE_DOH_URL = `${GOOGLE_DOH_HOSTNAME}/resolve`;
 
-const CLOUDFLARE_DOH_HOSTNAME = 'cloudflare-dns.com';
-export const CLOUDFLARE_DOH_URL = `${CLOUDFLARE_DOH_HOSTNAME}/dns-query`;
-
 const ALIDNS_DOH_HOSTNAME = 'dns.alidns.com';
 export const ALIDNS_DOH_URL = `${ALIDNS_DOH_HOSTNAME}/resolve`;
 
@@ -169,7 +166,6 @@ export class FallbackApi {
             await this.getVpnApiUrl(),
             await this.getAuthApiUrl(),
             GOOGLE_DOH_HOSTNAME,
-            CLOUDFLARE_DOH_HOSTNAME,
             ALIDNS_DOH_HOSTNAME,
         ].map((url) => `*${url}`);
     };
@@ -192,30 +188,6 @@ export class FallbackApi {
 
         if (!FallbackApi.isString(bkpUrl)) {
             throw new Error(`Invalid bkp url from google doh for ${name}`);
-        }
-
-        return bkpUrl;
-    };
-
-    private getBkpUrlByCloudFlareDoh = async (name: string): Promise<string> => {
-        const { data } = await axios.get(`https://${CLOUDFLARE_DOH_URL}`, {
-            headers: {
-                'Cache-Control': 'no-cache',
-                Pragma: 'no-cache',
-                accept: 'application/dns-json',
-            },
-            params: {
-                name,
-                type: 'TXT',
-            },
-            timeout: REQUEST_TIMEOUT_MS,
-            ...fetchConfig,
-        });
-
-        const bkpUrl = _.get(data, 'Answer[0].data');
-
-        if (!FallbackApi.isString(bkpUrl)) {
-            throw new Error(`Invalid bkp url from cloudflare doh for ${name}`);
         }
 
         return bkpUrl;
@@ -268,7 +240,6 @@ export class FallbackApi {
         try {
             bkpUrl = await Promise.any([
                 this.debugErrors(() => this.getBkpUrlByGoogleDoh(hostname)),
-                this.debugErrors(() => this.getBkpUrlByCloudFlareDoh(hostname)),
                 this.debugErrors(() => this.getBkpUrlByAliDnsDoh(hostname)),
             ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
