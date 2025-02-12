@@ -65,6 +65,7 @@ export const App = observer(() => {
         settingsStore,
         globalStore,
         uiStore,
+        telemetryStore,
     } = useContext(rootStore);
 
     useMessageHandler();
@@ -82,7 +83,19 @@ export const App = observer(() => {
     useEffect(() => {
         (async () => {
             await globalStore.init();
+            await telemetryStore.addOpenedPage();
         })();
+
+        const onUnload = () => {
+            telemetryStore.removeOpenedPage();
+        };
+
+        window.addEventListener('beforeunload', onUnload);
+
+        return () => {
+            onUnload();
+            window.removeEventListener('beforeunload', onUnload);
+        };
     }, []);
 
     /**

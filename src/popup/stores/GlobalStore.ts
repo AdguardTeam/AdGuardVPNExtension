@@ -38,7 +38,13 @@ export class GlobalStore {
 
     @action
     async getPopupData(numberOfTries = 1): Promise<void> {
-        const { rootStore: { vpnStore, settingsStore, authStore } } = this;
+        const { rootStore } = this;
+        const {
+            vpnStore,
+            settingsStore,
+            authStore,
+            telemetryStore,
+        } = rootStore;
 
         this.setInitStatus(RequestStatus.Pending);
 
@@ -63,6 +69,7 @@ export class GlobalStore {
                 connectivityState,
                 promoNotification,
                 policyAgreement,
+                helpUsImprove,
                 isFirstRun,
                 flagsStorageData,
                 isVpnEnabledByUrl,
@@ -75,6 +82,8 @@ export class GlobalStore {
             settingsStore.setForwarderDomain(forwarderDomain);
 
             authStore.setIsAuthenticated(isAuthenticated);
+
+            telemetryStore.setIsHelpUsImproveEnabled(helpUsImprove);
 
             if (!isAuthenticated) {
                 await authStore.handleInitPolicyAgreement(policyAgreement);

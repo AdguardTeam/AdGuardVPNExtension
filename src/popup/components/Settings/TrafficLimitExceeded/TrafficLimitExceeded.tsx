@@ -3,12 +3,23 @@ import { observer } from 'mobx-react';
 
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { rootStore } from '../../../stores';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 
 export const TrafficLimitExceeded = observer(() => {
-    const { vpnStore, settingsStore } = useContext(rootStore);
+    const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.SpeedReducedScreen,
+    );
 
     const upgradeClickHandler = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SpeedReducedPurchaseClick,
+            TelemetryScreenName.SpeedReducedScreen,
+        );
         await vpnStore.openPremiumPromoPage();
         window.close();
     };

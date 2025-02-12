@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryScreenName } from '../../../background/telemetry';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { getForwarderUrl } from '../../../common/helpers';
 import { messenger } from '../../../common/messenger';
 import { translator } from '../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { Icon, IconButton } from '../ui/Icon';
@@ -22,8 +24,17 @@ interface SupportItems {
 }
 
 export const Support = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
     const { showBugReporter, setShowBugReporter, forwarderDomain } = settingsStore;
+
+    // `SupportReportBugScreen` rendered on top of this screen
+    const canSendTelemetry = !showBugReporter;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.SupportScreen,
+        canSendTelemetry,
+    );
 
     const createOpenUrlHandler = (url: string) => async (): Promise<void> => {
         await messenger.openTab(url);

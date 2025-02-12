@@ -7,6 +7,8 @@ import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { popupActions } from '../../actions/popupActions';
 import { rootStore } from '../../stores';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry';
 
 import './vpn-blocked-details.pcss';
 
@@ -14,9 +16,15 @@ import './vpn-blocked-details.pcss';
  * Component for displaying connection error details.
  */
 export const VpnBlockedDetails = observer(() => {
-    const { uiStore, settingsStore } = useContext(rootStore);
+    const { uiStore, settingsStore, telemetryStore } = useContext(rootStore);
 
-    const { isShownVpnBlockedErrorDetails } = uiStore;
+    const isOpen = uiStore.isShownVpnBlockedErrorDetails;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogDesktopVersionPromo,
+        isOpen,
+    );
 
     const { forwarderDomain } = settingsStore;
 
@@ -33,7 +41,7 @@ export const VpnBlockedDetails = observer(() => {
 
     return (
         <Modal
-            isOpen={isShownVpnBlockedErrorDetails}
+            isOpen={isOpen}
             className="modal vpn-blocked-details"
             shouldCloseOnOverlayClick
             overlayClassName="modal__overlay"

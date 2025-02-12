@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
 
+import { TelemetryScreenName } from '../../../background/telemetry';
 import { translator } from '../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { rootStore } from '../../stores';
 
 import './signedout.pcss';
 
-export function SignedOut() {
+export const SignedOut = observer(() => {
+    const { telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.LoggedOutScreen,
+    );
+
     return (
         <div className="signedout">
             <div className="signedout__content">
@@ -25,4 +36,4 @@ export function SignedOut() {
             </div>
         </div>
     );
-}
+});

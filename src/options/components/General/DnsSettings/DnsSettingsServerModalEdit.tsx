@@ -1,20 +1,30 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryScreenName } from '../../../../background/telemetry';
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 
 import { DnsSettingsServerModal } from './DnsSettingsServerModal';
 import { normalizeDnsServerAddress, validateDnsServerAddress } from './validate';
 
 export const DnsSettingsServerModalEdit = observer(() => {
-    const { settingsStore, notificationsStore } = useContext(rootStore);
+    const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const {
         isCustomDnsModalOpen,
         customDnsServers,
         dnsServerToEdit,
     } = settingsStore;
+
+    const isOpen = isCustomDnsModalOpen && !!dnsServerToEdit;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogEditCustomDns,
+        isOpen,
+    );
 
     const handleSubmit = async (dnsServerName: string, dnsServerAddress: string) => {
         if (!dnsServerToEdit) {
@@ -55,7 +65,7 @@ export const DnsSettingsServerModalEdit = observer(() => {
         <DnsSettingsServerModal
             title={translator.getMessage('settings_dns_edit_custom_server')}
             submitBtnTitle={translator.getMessage('settings_dns_add_custom_server_save')}
-            isOpen={isCustomDnsModalOpen && !!dnsServerToEdit}
+            isOpen={isOpen}
             onSubmit={handleSubmit}
         />
     );

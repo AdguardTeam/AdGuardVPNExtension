@@ -4,6 +4,8 @@ import { observer } from 'mobx-react';
 import { useMachine } from '@xstate/react';
 import identity from 'lodash/identity';
 
+import { TelemetryScreenName } from '../../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { addMinDurationTime } from '../../../../common/helpers';
 import { messenger } from '../../../../common/messenger';
 import { translator } from '../../../../common/translator';
@@ -47,7 +49,12 @@ interface FormError extends FormErrorType {
 }
 
 export const BugReporter = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.SupportReportBugScreen,
+    );
 
     const MIN_DURATION_MS = 500;
     const reportWithMinDuration = addMinDurationTime(

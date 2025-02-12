@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { ExclusionsMode } from '../../../common/exclusionsConstants';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { Icon } from '../ui/Icon';
 import { Button } from '../ui/Button';
 
@@ -19,9 +21,29 @@ import { ExclusionsSearch } from './Search';
 import './exclusions.pcss';
 
 export const Exclusions = observer(() => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, telemetryStore } = useContext(rootStore);
 
-    if (exclusionsStore.selectedExclusion) {
+    const {
+        modeSelectorModalOpen,
+        addExclusionModalOpen,
+        removeAllModalOpen,
+        selectedExclusion,
+        confirmAddModalOpen,
+    } = exclusionsStore;
+
+    const canSendTelemetry = !modeSelectorModalOpen // `DialogExclusionsModeSelection` rendered on top of this screen
+        && !addExclusionModalOpen // `DialogAddWebsiteExclusion` rendered on top of this screen
+        && !removeAllModalOpen // `DialogExclusionsRemoveAll` rendered on top of this screen
+        && !selectedExclusion // `ExclusionsDomainDetailsScreen` rendered on top of this screen
+        && !confirmAddModalOpen; // `DialogExclusionsAddNotValidDomain` rendered on top of this screen
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.ExclusionsScreen,
+        canSendTelemetry,
+    );
+
+    if (selectedExclusion) {
         return (
             <ChildrenList />
         );
@@ -54,6 +76,10 @@ export const Exclusions = observer(() => {
         : selectiveModeInfo;
 
     const onAddExclusionClick = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.AddWebsiteClick,
+            TelemetryScreenName.ExclusionsScreen,
+        );
         exclusionsStore.openAddExclusionModal();
     };
 
