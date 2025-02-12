@@ -171,6 +171,9 @@ export class RateModal implements RateModalInterface {
      */
     private listenerId: string | null = null;
 
+    /**
+     * Constructor.
+     */
     constructor({
         storage,
         settings,
@@ -203,7 +206,7 @@ export class RateModal implements RateModalInterface {
             await this.saveState(RateModal.DEFAULT_STATE);
         }
 
-        // Do not attach listener if already rated or rate show setting is disabled
+        // Attach listener only if user not rated and setting enabled
         if (this.state.status !== RateModalStatus.Rated && this.isShowRateSettingEnabled()) {
             this.listenerId = this.notifier.addSpecifiedListener(
                 this.notifier.types.CONNECTIVITY_STATE_CHANGED,
@@ -247,14 +250,14 @@ export class RateModal implements RateModalInterface {
      * @param state New connectivity state.
      */
     private async handleConnectivityStateChange(state: StateType): Promise<void> {
-        // If not connected, do nothing
-        if (state.value !== ConnectivityStateType.Connected) {
-            return;
-        }
-
         // If rate show setting is disabled do not handle change state and delete listener
         if (!this.isShowRateSettingEnabled()) {
             this.removeListener();
+            return;
+        }
+
+        // If not connected, do nothing
+        if (state.value !== ConnectivityStateType.Connected) {
             return;
         }
 
@@ -269,7 +272,7 @@ export class RateModal implements RateModalInterface {
 
     /**
      * Hides rate modal after user closes it without rating.
-     * Updates rate modal status to hided and resets connections count.
+     * Updates rate modal status to hided and resets connections count if needed.
      */
     public hideAfterCancel = async (): Promise<void> => {
         // If already rated, do not update state
@@ -277,7 +280,7 @@ export class RateModal implements RateModalInterface {
             return;
         }
 
-        // Reset connections only if status was hidden
+        // Reset connections count if status is cycling hidden -> hidden as in step 4 -> 5.1
         const shouldResetConnections = this.state.status === RateModalStatus.Hidden;
 
         await this.updateState({
