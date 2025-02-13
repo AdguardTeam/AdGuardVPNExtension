@@ -20,16 +20,19 @@ interface StateType {
 export enum RateModalStatus {
     /**
      * Rate modal has not been shown yet.
+     * Modal should be shown after 3rd successful connection.
      */
     Initial = 'initial',
 
     /**
      * User has closed rate modal without rating.
+     * Modal should be shown after every 30th successful connection.
      */
     Hidden = 'hidden',
 
     /**
      * User has rated.
+     * Modal should not be shown anymore.
      */
     Rated = 'rated',
 }
@@ -109,15 +112,15 @@ export interface RateModalParameters {
  * 1) After installation state: status = Initial, connections = 0
  * 2) After 3rd successful connection: status = Initial, connections = 3
  *    Notify listeners to show rate modal.
- * 3.1) If user closes rate modal without rating or with bad rating: status = Hidden, connections = 3
+ * 3.1) If user closes rate modal without rating or rates with bad rating (1-3 stars): status = Hidden, connections = 3
  *      Goes to step 4.
- * 3.2) If user rates: status = Rated, connections = 3
+ * 3.2) If user rates with good rating (4-5 stars): status = Rated, connections = 3
  *      After that, rate modal will not be shown anymore.
  * 4) After 30th successful connection: status = Hidden, connections = 30
  *    Notify listeners to show rate modal.
- * 5.1) If user closes rate modal without rating or with bad rating: status = Hidden, connections = 0
+ * 5.1) If user closes rate modal without rating or rates with bad rating (1-3 stars): status = Hidden, connections = 0
  *      Repeats step 4 until 5.2 happens.
- * 5.2) If user rates: status = Rated, connections = 30
+ * 5.2) If user rates with good rating (4-5 stars): status = Rated, connections = 30
  *      After that, rate modal will not be shown anymore.
  */
 export class RateModal implements RateModalInterface {
@@ -164,7 +167,7 @@ export class RateModal implements RateModalInterface {
      *
      * Initialized in {@link init} method.
      */
-    private state!: RateModalState;
+    private state: RateModalState = RateModal.DEFAULT_STATE;
 
     /**
      * Listener ID for connectivity state change event.
@@ -202,8 +205,8 @@ export class RateModal implements RateModalInterface {
         if (state) {
             this.state = state;
         } else {
-            this.state = RateModal.DEFAULT_STATE;
-            await this.saveState(RateModal.DEFAULT_STATE);
+            // If state is not found in storage, save default state to storage
+            await this.updateState(this.state);
         }
 
         // Attach listener only if user not rated and setting enabled
@@ -226,22 +229,13 @@ export class RateModal implements RateModalInterface {
     }
 
     /**
-     * Saves rate modal state to browser storage.
-     *
-     * @param state New state to save.
-     */
-    private async saveState(state: RateModalState): Promise<void> {
-        this.storage.set(RateModal.OPEN_RATE_MODAL_STATE_KEY, state);
-    }
-
-    /**
      * Updates rate modal state and saves it to browser storage.
      *
      * @param state Partial state to update.
      */
     private async updateState(state: Partial<RateModalState>): Promise<void> {
         this.state = { ...this.state, ...state };
-        await this.saveState(this.state);
+        await this.storage.set(RateModal.OPEN_RATE_MODAL_STATE_KEY, this.state);
     }
 
     /**
