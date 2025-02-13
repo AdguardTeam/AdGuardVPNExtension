@@ -325,10 +325,31 @@
         "message": "VPN-uitsluitingen beheren voor een specifieke website"
     },
     "settings_help_us_improve_title": {
-        "message": "Anonieme crashrapporten verzenden"
+        "message": "Help AdGuard VPN te verbeteren"
     },
-    "settings_help_us_improve_description": {
-        "message": "AdGuard VPN-ontwikkelaars op de hoogte brengen als er iets misgaat"
+    "settings_help_us_improve_modal_title": {
+        "message": "Gebruiksgegevens van uitbreidingen"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Deze gegevens omvatten:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Namen van schermen waarmee je interactie hebt"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Namen van knoppen waarop je klikt"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Sessie-ID's"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "We hebben deze informatie nodig om de functionaliteit van AdGuard VPN te analyseren en te verbeteren"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Deze gegevens zijn anoniem en worden alleen intern gebruikt. We delen het nooit met derden"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Begrepen"
     },
     "context_menu_selective_mode": {
         "message": "Selectieve modus"
@@ -780,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN is uitgezet op deze website"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Welkom aan boord"
+    },
     "popup_auth_policy_agreement": {
-        "message": "Ik heb de <eula>EULA</eula> en het <privacy>Privacybeleid</privacy> gelezen en ga ermee akkoord",
+        "message": "Ik accepteer de <eula>EULA</eula> en <privacy>het Privacybeleid</privacy> van AdGuard VPN",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Ik sta AdGuard toe om <link>strikt anonieme gegevens</link> te verzamelen over het app gebruik om AdGuard VPN te verbeteren"
+        "message": "Geanonimiseerde <link>gebruiksgegevens van uitbreidingen</link> verzenden"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Als je akkoord gaat, verzamelt AdGuard VPN gegevens over de schermen en knoppen waarmee je communiceert. Je kunt het delen van gegevens altijd uitschakelen in <b>Instellingen</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Deze informatie helpt ons te begrijpen welke functionaliteiten goed werken en wat verbetering behoeft. Het is geanonimiseerd en wordt alleen intern gebruikt. We delen het nooit met anderen"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Doorgaan"
+        "message": "Aanmelden bij of registreren van een account"
     },
     "popup_newsletter_title": {
         "message": "AdGuard-nieuwsbrief"
