@@ -206,7 +206,7 @@ export class RateModal implements RateModalInterface {
             this.state = state;
         } else {
             // If state is not found in storage, save default state to storage
-            await this.updateState(this.state);
+            await this.updateState(RateModal.DEFAULT_STATE);
         }
 
         // Attach listener only if user not rated and setting enabled
