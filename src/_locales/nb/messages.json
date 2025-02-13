@@ -170,6 +170,9 @@
     "settings_webrtc_label": {
         "message": "Blokker WebRTC"
     },
+    "settings_help_us_improve_modal_button": {
+        "message": "Skjønner"
+    },
     "context_menu_selective_mode": {
         "message": "Selektiv modus"
     },
@@ -427,9 +430,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN er skrudd av på dette nettstedet"
-    },
-    "popup_auth_policy_agreement_continue_button": {
-        "message": "Fortsett"
     },
     "popup_newsletter_title": {
         "message": "AdGuards nyhetsbrev"

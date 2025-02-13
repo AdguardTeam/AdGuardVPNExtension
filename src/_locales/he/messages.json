@@ -536,16 +536,6 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN מושבת באתר זה"
     },
-    "popup_auth_policy_agreement": {
-        "message": "קראתי ואני מסכים אל <eula>EULA</eula> ו<privacy>מדיניות הפרטיות</privacy> של AdGuard",
-        "description": "WARNING! Respect spaces between tags"
-    },
-    "popup_auth_help_us_improve_agreement": {
-        "message": "אני מתיר אל AdGuard לאסוף <link>נתונים עלומי זהות קפדניים</link> על השימוש ביישום כדי לשפר את AdGuard VPN"
-    },
-    "popup_auth_policy_agreement_continue_button": {
-        "message": "המשך"
-    },
     "popup_newsletter_title": {
         "message": "עלון AdGuard"
     },

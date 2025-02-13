@@ -288,8 +288,8 @@
     "settings_webrtc_label": {
         "message": "Chặn WebRTC"
     },
-    "settings_help_us_improve_title": {
-        "message": "Gửi báo cáo sự cố ẩn danh"
+    "settings_help_us_improve_modal_button": {
+        "message": "Đã nhận được"
     },
     "context_menu_selective_mode": {
         "message": "Chế độ chọn lọc"
@@ -720,15 +720,11 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN bị tắt trên trang web này"
     },
-    "popup_auth_policy_agreement": {
-        "message": "Chấp nhận <eula>EULA</eula> và <privacy>chính sách quyền riêng tư</privacy>",
-        "description": "WARNING! Respect spaces between tags"
-    },
-    "popup_auth_help_us_improve_agreement": {
-        "message": "Cho phép AdGuard thu thập dữ <link>liệu ẩn danh</link> về việc sử dụng ứng dụng để cải thiện AdGuard VPN"
+    "popup_auth_policy_agreement_title": {
+        "message": "Chào mừng bạn gia nhập"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Tiếp tục"
+        "message": "Đăng nhập hoặc tạo một tài khoản"
     },
     "popup_newsletter_title": {
         "message": "Bản tin AdGuard"

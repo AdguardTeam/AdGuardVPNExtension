@@ -45,8 +45,14 @@
     "authentication_error_wrong_credentials": {
         "message": "Fel lösenord"
     },
+    "authentication_too_many_requests": {
+        "message": "För många förfrågningar erhölls från din IP-adress. Vänligen försök igen senare."
+    },
     "authentication_error_default": {
         "message": "Ett fel uppstod, försök igen senare"
+    },
+    "global_error_message": {
+        "message": "Ett fel uppstod, kontakta oss via <a>%support_email%</a>"
     },
     "about_title": {
         "message": "Om"
@@ -93,6 +99,18 @@
     "options_bug_report_request_error": {
         "message": "Ett fel uppstod. Försök igen senare."
     },
+    "options_bug_report_send_button": {
+        "message": "Skicka rapport"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Skickar rapport..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Ange detaljer"
+    },
+    "options_bug_report_page_success": {
+        "message": "Tack, ditt meddelande skickades framgångsrikt!"
+    },
     "options_bug_report_new_report_button": {
         "message": "Ny rapport"
     },
@@ -111,8 +129,23 @@
     "account_free": {
         "message": "Gratis version"
     },
+    "account_unlimited": {
+        "message": "Obegränsad prenumeration"
+    },
+    "account_monthly_paid": {
+        "message": "Månadsvis betald prenumeration"
+    },
+    "account_yearly_paid": {
+        "message": "Årlig betald prenumeration"
+    },
+    "account_two_year_paid": {
+        "message": "Två års betald prenumeration"
+    },
     "account_get_subscription": {
         "message": "Skaffa prenumeration"
+    },
+    "account_max_devices_count": {
+        "message": "Upp till <b>%num%</b> enheter samtidigt"
     },
     "account_valid_until": {
         "message": "Giltig till <b>%date%</b>"
@@ -122,6 +155,12 @@
     },
     "account_sign_out": {
         "message": "Logga ut"
+    },
+    "account_unlimited_title": {
+        "message": "Skaffa Unlimited-versionen!"
+    },
+    "rate_description": {
+        "message": "Njut av AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Dölj"
@@ -201,14 +240,71 @@
     "settings_general_title": {
         "message": "Allmänt"
     },
+    "referral_get_free_traffic": {
+        "message": "Få gratis GBs!"
+    },
+    "settings_referral_info": {
+        "message": "Få %your_gb% GB VPN-trafik gratis i en månad för varje vän som registrerar sig via din inbjudan, upp till %total_gb% GB totalt. Din vän får också %friend_gb% GB extra gratis."
+    },
+    "settings_referral_invited_friends": {
+        "message": "Inbjudna vänner %count%/%limit%"
+    },
+    "settings_referral_invite_link": {
+        "message": "Inbjudningslänk"
+    },
     "settings_referral_copy_link": {
         "message": "Kopiera inbjudningslänken"
+    },
+    "settings_referral_link_copied": {
+        "message": "Inbjudningslänk kopierad till urklipp"
+    },
+    "settings_free_gbs": {
+        "message": "Gratis GB"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Slutför uppgifterna för att få gratis VPN-trafik!"
     },
     "settings_free_gbs_confirm_email_title": {
         "message": "Bekräfta din e-postadress"
     },
+    "settings_free_gbs_get_GB": {
+        "message": "Få %num% GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Du har %num% GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Klicka på e-postbekräftelselänken som vi skickade till dig vid registreringen och få %your_gb% GB gratis VPN-trafik. Om du inte hittar vår e-post, klicka på knappen nedan."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Skicka länk igen"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Lägg till ytterligare en plattform"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Installera AdGuard VPN för iOS, Mac, Windows eller Android, logga in på ditt AdGuard-konto där och få %your_gb% GB."
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Ytterligare en plattform tillagd"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Grattis till att du installerat AdGuard VPN på flera plattformar. Var säker!"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Gå till Produkter"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Bjud in en vän"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Få upp till %num% GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Du har %num% GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Tack för att du använde alla dina inbjudningar!"
     },
     "settings_free_gbs_go_back": {
         "message": "Återgå"
@@ -219,14 +315,62 @@
     "settings_webrtc_label": {
         "message": "Blockera WebRTC"
     },
+    "settings_webrtc_desc": {
+        "message": "Blockera WebRTC, en känd sårbarhet som kan läcka din riktiga IP-adress även om du använder en proxy eller VPN"
+    },
+    "settings_context_menus_title": {
+        "message": "Visa AdGuard VPN i webbläsarens meny"
+    },
+    "settings_context_menus_description": {
+        "message": "Hantera VPN-exkluderingar för en specifik webbplats"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Hjälp till att förbättra AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_title": {
+        "message": "Användningsdata för tillägg"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Dessa data omfattar:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Skärmmän namn du interagerar med"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Namnen på knapparna du klickar på"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Sessionsidentifierare"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Vi behöver denna information för att analysera och förbättra funktionaliteten hos AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Dessa uppgifter är anonyma och används endast internt. Vi delar det aldrig med tredje part"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Uppfattat"
+    },
     "context_menu_selective_mode": {
         "message": "Selektivt läge"
+    },
+    "context_menu_general_mode": {
+        "message": "Allmänt"
     },
     "context_menu_export_logs": {
         "message": "Exportera loggar"
     },
+    "context_menu_debug_level": {
+        "message": "Felsökningsloggning"
+    },
     "settings_dns_label": {
         "message": "DNS-server"
+    },
+    "settings_dns_description": {
+        "message": "Lösa DNS-förfrågningar, blockera annonser och spårare, och kryptera DNS-trafik när du är ansluten till VPN"
+    },
+    "settings_dns_description_current": {
+        "message": "Nuvarande: %dnsServerName%"
     },
     "settings_dns_popular_servers": {
         "message": "Populära DNS-servrar"
@@ -240,17 +384,41 @@
     "settings_dns_edit_custom_server": {
         "message": "Redigera anpassad DNS-server"
     },
+    "settings_dns_add_custom_server_info": {
+        "message": "Kända DNS-leverantörer"
+    },
     "settings_dns_add_custom_server_name": {
         "message": "Servernamn"
     },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Min DNS-server"
+    },
     "settings_dns_add_custom_server_address": {
         "message": "Serveradress"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP-adress eller tls://"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Ogiltig adress för servern"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS-server har redan lagts till"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Spara och välj"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Spara"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Anpassad DNS-server har lagts till"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Anpassad DNS-server raderad"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Anpassad DNS-server redigerad"
     },
     "settings_dns_selector_default_title": {
         "message": "Standard"
@@ -312,6 +480,18 @@
     "settings_theme_light": {
         "message": "Ljust"
     },
+    "settings_quick_connect_title": {
+        "message": "Snabbanslutning"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN-position väljs när du klickar på Anslut"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Senast använda plats"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Snabbaste platsen"
+    },
     "settings_exclusion_add": {
         "message": "Lägg till"
     },
@@ -323,6 +503,18 @@
     },
     "settings_exclusion_add_subdomain": {
         "message": "Lägg till en underdomän"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Ogiltig subdomän"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "domän"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "subdomän"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "alla subdomäner"
     },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN är avstängd för de i kryssade domänerna och underdomänerna"
@@ -345,6 +537,9 @@
     "settings_exclusion_add_manually_add": {
         "message": "Lägg till manuellt"
     },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" är inte en giltig domän. Vill du lägga till den i listan?"
+    },
     "settings_exclusion_modal_cancel": {
         "message": "Avbryt"
     },
@@ -362,6 +557,12 @@
     },
     "settings_exclusions_undo": {
         "message": "Ångra"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Återställ %hostname% till standardinställningarna? Det här kommer att återställa alla saknade domäner och kryssa i alla kryssrutor."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Sök webbplats"
     },
     "settings_exclusion_placeholder_search": {
         "message": "Sök"
@@ -381,6 +582,12 @@
     "settings_exclusions_action_remove_all": {
         "message": "Ta bort allt"
     },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Ta bort alla undantag"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Vill du ta bort hela listan med undantag?"
+    },
     "settings_exclusion_title": {
         "message": "Exkluderingar"
     },
@@ -390,8 +597,14 @@
     "settings_exclusion_general_title": {
         "message": "Överallt utom för uteslutna webbplatser"
     },
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN är på <span>överallt</span> utom för webbplatserna nedan"
+    },
     "settings_exclusion_selective_title": {
         "message": "Endast på utvalda webbplatser"
+    },
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN är på <span>selektivt</span>: endast för nedanstående webbplatser"
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Om listan lämnas tom inaktiveras VPN för alla webbplatser"
@@ -411,6 +624,12 @@
     "global_error_try_again": {
         "message": "Försök igen"
     },
+    "authentication_successful_notification": {
+        "message": "Framgångsrikt autentiserad! Du kan öppna AdGuard VPN och börja använda det."
+    },
+    "control_error_title": {
+        "message": "Konflikt med tillägg"
+    },
     "control_error_description": {
         "message": "Det ser ut som om ett annat webbläsartillägg försöker kontrollera din anslutning. Vänligen inaktivera det andra tillägget i din webbläsare."
     },
@@ -428,6 +647,12 @@
     },
     "popup_settings_enable_vpn_short": {
         "message": "Aktivera"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Inaktivera VPN på denna webbplats"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Aktivera VPN för denna webbplats"
     },
     "popup_settings_other_products": {
         "message": "Andra produkter"
@@ -465,6 +690,9 @@
     "endpoints_not_found": {
         "message": "Platser hittades inte"
     },
+    "popup_traffic_limit_reached": {
+        "message": "Månadens datagräns nådd"
+    },
     "popup_traffic_limited_speed": {
         "message": "Begränsad hastighet"
     },
@@ -501,6 +729,12 @@
     "popup_feedback_button": {
         "message": "Lämna feedback"
     },
+    "popup_compare_button": {
+        "message": "Varför appen är bättre"
+    },
+    "popup_rate_modal_title": {
+        "message": "Hur grymt är AdGuard VPN?"
+    },
     "popup_rate_modal_subtitle": {
         "message": "Betygsätt oss gärna"
     },
@@ -513,11 +747,23 @@
     "popup_confirm_rate_modal_feedback_title": {
         "message": "Hjälp oss att förbättras"
     },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "Berätta vad som gick fel"
+    },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Lämna feedback"
     },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Wow! Kan du betygsätta oss också i Extension Store?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Gå till Extension Store"
+    },
     "popup_server_error_popup_title": {
         "message": "Kan inte ansluta till server"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Troligtvis blockerades VPN i ditt land eller så uppstod ett tekniskt fel. Vi försöker redan fixa det"
     },
     "popup_server_error_popup_action": {
         "message": "Knuffa till AdGuard-teamet"
@@ -534,6 +780,12 @@
     "popup_server_error_popup_close": {
         "message": "Stäng"
     },
+    "popup_host_permission_error_title": {
+        "message": "Tillåt åtkomst till webbplatser"
+    },
+    "popup_host_permission_error_info": {
+        "message": "För att använda AdGuard VPN måste du tillåta att den får åtkomst till dina uppgifter på webbplatser. Vi lagrar inte dessa uppgifter och delar dem inte med någon. <privacy>Integritetspolicy</privacy>"
+    },
     "popup_host_permission_error_btn_allow": {
         "message": "Tillåt"
     },
@@ -549,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN är inaktiverat på denna webbplats"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Välkommen ombord"
+    },
     "popup_auth_policy_agreement": {
-        "message": "Jag har läst och godkänner AdGuards <eula>EULA</eula> och <privacy>Integritetspolicy</privacy>",
+        "message": "Jag accepterar AdGuard VPN-tjänster <eula>EULA</eula> och <privacy>Integritetspolicy</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Tillåt AdGuard att samla <link>anonymiserade data</link> om appanvändningen för att göra AdGuard VPN bättre"
+        "message": "Skicka anonymiserad <link>data för användning av tillägg</link>"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Om du godkänna, kommer AdGuard VPN att samla in data om de skärmar och knappar du interagerar med. Du kan alltid inaktivera datadelning i <b>Inställningar</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Denna information hjälper oss att förstå vilken funktionalitet som fungerar bra och vad som behöver förbättras. Den är anonymiserad och används endast internt. Vi delar aldrig denna information med någon"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Fortsätt"
+        "message": "Logga in eller skapa ett konto"
     },
     "popup_newsletter_title": {
         "message": "AdGuard Nyhetsbrev"
@@ -574,6 +835,21 @@
     "popup_onboarding_unique_protocol": {
         "message": "Unikt VPN-protokoll"
     },
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPNs protokoll fungerar snabbt och gör din VPN-trafik obemärkt"
+    },
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Webbplatsers och appars undantag"
+    },
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Undantag hjälper dig att snabbt specificera vilka webbplatser eller appar som ska skyddas av AdGuard VPN"
+    },
+    "popup_onboarding_no_logging_policy": {
+        "message": "Noll-loggnings-policy"
+    },
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN gör dig anonym. Den samlar aldrig in eller delar dina data med tredjeparter"
+    },
     "popup_onboarding_next": {
         "message": "Nästa"
     },
@@ -589,11 +865,17 @@
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Obegränsad hastighet"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Inga hastighetsbegränsningar. Få ut det mesta av din internetleverantör!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Alla platser"
     },
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinenter och dussintals länder. Välj en stad och surfa säkert på nätet!"
+    },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Upp till %potential_num% enheter"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Anslut alla dina prylar till AdGuard VPN samtidigt — eller skydda hela familjen!"
@@ -601,9 +883,19 @@
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uppgradera"
     },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Fortsätt gratis"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% kvar",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
     "popup_free_traffic_info_days_left": {
         "message": "Trafiken förnyas idag | Trafiken förnyas om %days% dag | Trafiken förnyas om %days% dagar",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
+    "popup_hint_popup_content": {
+        "message": "Förresten, du kan inaktivera VPN för den här webbplatsen om du vill"
     },
     "popup_hint_popup_button": {
         "message": "Uppfattat"
@@ -627,6 +919,9 @@
         "message": "%discount%%% rabatt på AdGuard VPN",
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
+    "limited_offer_notification_desc": {
+        "message": "REA i endast 6 timmar. Läs mer i ditt AdGuard VPN-tillägg"
+    },
     "popup_limited_offer_notice": {
         "message": "%discount%%% rabatt: <span>%time_left%</span>",
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
@@ -634,11 +929,18 @@
     "popup_limited_offer_details_time_left": {
         "message": "Tid kvar: %time_left%"
     },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN Unlimited i %count% år till <span>%discount%%% rabatt</span> | AdGuard VPN Unlimited i %count% år till <span>%discount%%% rabatt</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
+    },
     "popup_limited_offer_details_btn": {
         "message": "Ta del av erbjudandet"
     },
     "options_exclusions_import_select_title": {
         "message": "Hur använder man denna lista med undantag?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Webbplatser från den importerade listan läggs till i de befintliga undantagen"
     },
     "options_exclusions_import_select_regular": {
         "message": "Jag vill att VPN ska vara avstängt för dessa webbplatser"
@@ -651,6 +953,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Importerade undantag: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Raderade undantag: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Tillagda undantag: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Alla undantag för aktuellt läge har tagits bort."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Exklusionsfilen bör ha en av följande tillägg: %extensions%"
@@ -676,13 +987,61 @@
     "popup_connections_limit_title": {
         "message": "Anslutningsgränsen har nåtts"
     },
+    "options_signedout_page_title": {
+        "message": "Du har loggat ut ur AdGuard VPN"
+    },
+    "options_signedout_page_description_not_secure": {
+        "message": "Anslutningen är inte säker!"
+    },
+    "options_signedout_page_description": {
+        "message": "För att fortsätta surfa privat, klicka på AdGuard VPN-ikonen och logga in igen."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Månadens datagräns nådd"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "VPN-anslutningshastigheten har sänkts."
+    },
+    "notification_data_left_mb": {
+        "message": "Det finns %num% MB kvar."
+    },
+    "notification_data_left_description": {
+        "message": "VPN anslutningshastigheten kommer snart att minskas."
+    },
     "confirm_email_title": {
         "message": "Bekräfta din e-postadress"
+    },
+    "confirm_email_info": {
+        "message": "Vi har skickat en bekräftelsekod till <span>%email%</span>"
+    },
+    "confirm_email_done_title": {
+        "message": "E-postadress bekräftad"
+    },
+    "confirm_email_done_info": {
+        "message": "Tack för att du bekräftade det!"
     },
     "confirm_email_code_label": {
         "message": "Bekräftelsekod"
     },
     "confirm_email_code_placeholder": {
         "message": "Innehåller siffror och bokstäver"
+    },
+    "confirm_email_code_invalid": {
+        "message": "Vänligen kontrollera koden — den ser felaktig ut"
+    },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Skicka en annan kod (%count%)"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "Skicka ny kod"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Det gick inte att logga in dig. Försök igen eller kontakta oss via <a>%support_email%</a>"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Det gick inte att registrera dig. Försök igen eller kontakta oss via <a>%support_email%</a>"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Bekräftelselänk skickad igen"
     }
 }

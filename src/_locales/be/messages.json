@@ -289,7 +289,28 @@
         "message": "Блакаваць WebRTC"
     },
     "settings_help_us_improve_title": {
-        "message": "Адпраўляць ананімныя справаздачы аб збоях"
+        "message": "Дапамажыце палепшыць AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Гэтыя даныя ўключаюць:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Назвы экранаў, з якімі вы ўзаемадзейнічаеце"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Назвы кнопак, на якія вы націскаеце"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Ідэнтыфікатары сесій"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Нам патрэбна гэтая інфармацыя, каб аналізаваць і паляпшаць функцыянальнасць AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Гэтыя даныя ананімныя і выкарыстоўваюцца толькі ўнутры кампаніі. Мы ніколі не перадаём іх трэцім асобам"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Зразумела"
     },
     "context_menu_selective_mode": {
         "message": "Выбарковы рэжым"
@@ -720,15 +741,11 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN адключаны на гэтым сайце"
     },
-    "popup_auth_policy_agreement": {
-        "message": "Я прачытаў і згаджаюся з <eula>EULA</eula> і <privacy>Палітыкай прыватнасці</privacy>AdGuard",
-        "description": "WARNING! Respect spaces between tags"
-    },
-    "popup_auth_help_us_improve_agreement": {
-        "message": "Дазволіць AdGuard збіраць <link>строга ананімныя даныя</link> пра выкарыстанне дадатку, каб зрабіць AdGuard VPN лепш"
+    "popup_auth_policy_agreement_title": {
+        "message": "Сардэчна запрашаем"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Працягнуць"
+        "message": "Увайдзіце або стварыце ўліковы запіс"
     },
     "popup_newsletter_title": {
         "message": "Навіны ад AdGuard"

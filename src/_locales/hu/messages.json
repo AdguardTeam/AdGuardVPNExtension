@@ -288,8 +288,8 @@
     "settings_webrtc_label": {
         "message": "WebRTC tiltása"
     },
-    "settings_help_us_improve_title": {
-        "message": "Névtelen hibajelentések küldése"
+    "settings_help_us_improve_modal_button": {
+        "message": "Rendben"
     },
     "context_menu_selective_mode": {
         "message": "Szelektív mód"
@@ -720,15 +720,11 @@
     "popup_site_status_vpn_disabled": {
         "message": "A VPN le van tiltva ezen a webhelyen"
     },
-    "popup_auth_policy_agreement": {
-        "message": "Elfogadom az AdGuard <eula>Végfelhasználói licencszerződését</eula> és az <privacy>Adatvédelmi irányelveket</privacy>",
-        "description": "WARNING! Respect spaces between tags"
-    },
-    "popup_auth_help_us_improve_agreement": {
-        "message": "Engedélyezem az AdGuard számára, hogy <link>szigorúan névtelen adatokat</link> gyűjtsön az alkalmazás használatával kapcsolatban, segítve ezzel az AdGuard VPN jobbá tételét"
+    "popup_auth_policy_agreement_title": {
+        "message": "Üdvözöljük a fedélzeten"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Folytatás"
+        "message": "Bejelentkezés vagy fiók létrehozása"
     },
     "popup_newsletter_title": {
         "message": "AdGuard hírlevél"

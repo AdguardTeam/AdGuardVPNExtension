@@ -325,10 +325,31 @@
         "message": "Керувати винятками VPN для конкретного сайту"
     },
     "settings_help_us_improve_title": {
-        "message": "Надсилати анонімні повідомлення про збої"
+        "message": "Допоможіть покращити AdGuard VPN"
     },
-    "settings_help_us_improve_description": {
-        "message": "Повідомте розробників AdGuard VPN, якщо щось не так"
+    "settings_help_us_improve_modal_title": {
+        "message": "Дані про використання розширення"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Що входить у ці дані:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Назви екранів, з якими ви взаємодієте"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Назви кнопок, які ви натискаєте"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Ідентифікатори сеансів"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Ми потребуємо цієї інформації для аналізу та покращення можливостей AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Ці дані є анонімними й використовуються лише в середині нашої компанії. Ми ніколи не передаємо їх третім особам"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Зрозуміло"
     },
     "context_menu_selective_mode": {
         "message": "Вибірковий режим"
@@ -780,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN вимкнено на цьому сайті"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Ласкаво просимо!"
+    },
     "popup_auth_policy_agreement": {
-        "message": "Я приймаю <eula>Ліцензійну угоду</eula> та <privacy>Політику конфіденційності</privacy> AdGuard",
+        "message": "Я приймаю <eula>EULA</eula> та <privacy>Політику конфіденційності</privacy> AdGuard VPN",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Я дозволяю AdGuard збирати <link>анонімні дані</link> про використання розширення, щоб покращити AdGuard VPN"
+        "message": "Надсилати анонімізовані <link>дані про використання розширення</link>"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Якщо ви погоджуєтеся, AdGuard VPN збиратиме дані про екрани та кнопки, з якими ви взаємодієте. Ви завжди можете вимкнути обмін даними у <b>налаштуваннях</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Ця інформація допомагає нам зрозуміти, що працює добре, а що потребує покращення. Вона анонімізована і використовується лише всередині нашої компанії. Ми ніколи не обмінюємося нею з ким-небудь"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Продовжити"
+        "message": "Вхід або реєстрація"
     },
     "popup_newsletter_title": {
         "message": "Листи AdGuard"

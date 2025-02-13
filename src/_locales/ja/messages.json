@@ -99,6 +99,18 @@
     "options_bug_report_request_error": {
         "message": "エラーが発生しました。後ほどもう一度お試しください。"
     },
+    "options_bug_report_send_button": {
+        "message": "報告する"
+    },
+    "options_bug_report_sending_button": {
+        "message": "報告を送信中…"
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "詳細を入力してください"
+    },
+    "options_bug_report_page_success": {
+        "message": "ありがとうございます。ご報告は正常に送信されました。"
+    },
     "options_bug_report_new_report_button": {
         "message": "新しい報告"
     },
@@ -131,6 +143,9 @@
     },
     "account_get_subscription": {
         "message": "サブスクリプションを購入する"
+    },
+    "account_max_devices_count": {
+        "message": "同時に接続できる端末数: <b>%num%</b> 台"
     },
     "account_valid_until": {
         "message": "有効期間: <b>%date% まで</b>"
@@ -264,6 +279,18 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "リンクを再送信する"
     },
+    "settings_free_gbs_add_device_title": {
+        "message": "別のプラットフォームを追加する"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "AdGuard VPN for iOS/Android/Mac/Windows アプリをインストールし、そちらで AdGuard アカウントにログインすると、無料で%your_gb%GBを取得できます。"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "もう一つのプラットフォームが追加されました。"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "複数のプラットフォームに AdGuard VPN をインストールしていただきありがとうございます。安全なインターネットライフをお過ごしください。"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "製品一覧へ移動する"
     },
@@ -288,8 +315,41 @@
     "settings_webrtc_label": {
         "message": "WebRTCをブロックする"
     },
+    "settings_webrtc_desc": {
+        "message": "WebRTCをブロックします。（WebRTCは、プロキシやVPNを使用しても実際のIPアドレスを漏らす可能性のある脆弱性です。）"
+    },
+    "settings_context_menus_title": {
+        "message": "ブラウザの右クリックメニューに AdGuard VPN を表示させる"
+    },
+    "settings_context_menus_description": {
+        "message": "特定のウェブサイトに対するVPN除外設定を管理する"
+    },
     "settings_help_us_improve_title": {
-        "message": "匿名のクラッシュレポートを送信する"
+        "message": "AdGuard VPN の改善に協力する"
+    },
+    "settings_help_us_improve_modal_title": {
+        "message": "拡張機能の使用状況データ"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "このデータには以下のものが含まれます:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "あなたが操作する画面の名前"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "クリックしたボタンの名前"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "セッション識別子"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "これらの情報は、AdGuard VPN の分析および機能向上のために必要です。"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "※このデータは匿名であり、社内でのみ使用されます。第三者と共有することは一切ありません。"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "OK"
     },
     "context_menu_selective_mode": {
         "message": "指定モード"
@@ -305,6 +365,12 @@
     },
     "settings_dns_label": {
         "message": "DNSサーバー"
+    },
+    "settings_dns_description": {
+        "message": "DNSサーバーは、DNSリクエストを解決し、広告や追跡者をブロックし、VPNに接続しているときにDNSトラフィックを暗号化してくれます。"
+    },
+    "settings_dns_description_current": {
+        "message": "現在のDNSサーバー: %dnsServerName%"
     },
     "settings_dns_popular_servers": {
         "message": "人気DNSサーバー"
@@ -324,8 +390,17 @@
     "settings_dns_add_custom_server_name": {
         "message": "サーバー名"
     },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "My サーバー"
+    },
     "settings_dns_add_custom_server_address": {
         "message": "サーバーアドレス"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP アドレスまたは tls://"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "このサーバーアドレスは無効です"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "このDNSサーバーはすでに追加されています"
@@ -341,6 +416,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "カスタムDNSサーバーは削除されました。"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "カスタムDNSサーバーが編集されました。"
     },
     "settings_dns_selector_default_title": {
         "message": "デフォルト"
@@ -388,7 +466,7 @@
         "message": "Quad9"
     },
     "settings_dns_selector_quad9_desc": {
-        "message": "フィッシング詐欺やスパイウェアから保護する無料代替DNSサービス"
+        "message": "不正なドメインへの接続から保護する無料代替DNSサービス"
     },
     "settings_theme_label": {
         "message": "カラーテーマ"
@@ -506,6 +584,9 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "すべての除外項目を削除する"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "VPN対象外リストを全部削除しますか？"
     },
     "settings_exclusion_title": {
         "message": "VPN対象からの除外"
@@ -720,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "このサイトに対してVPNは無効になっています。"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "AdGuard VPN へようこそ"
+    },
     "popup_auth_policy_agreement": {
-        "message": "<eula>EULA（利用許諾契約）</eula> と <privacy>プライバシーポリシー</privacy> に同意する",
+        "message": "AdGuard VPN の<eula>使用許諾契約（EULA）</eula>と<privacy>プライバシーポリシー</privacy>に同意する",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "AdGuard VPNの改善のために、本アプリ使用状況に関する<link>完全に匿名なデータ</link>の収集をAdGuardに許可する"
+        "message": "匿名化された<link>拡張機能の使用状況データ</link>を送信する"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "同意すると、AdGuard VPN は、お客様がAdGuard VPNアプリ内で操作した画面やボタンに関するデータを収集します。<b>設定</b>でいつでもこのデータ共有をオフにすることができます。"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "この情報は、どのような機能がうまく機能し、どのような改善が必要かを理解するのに役立ち、開発に活用させていただきます。この情報は匿名化され、社内でのみ使用されます。AdGuard社がこの情報を第三者と共有することは一切ありません。"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "続ける"
+        "message": "ログイン／ご登録"
     },
     "popup_newsletter_title": {
         "message": "AdGuardニュースレター"
@@ -896,6 +986,15 @@
     },
     "popup_connections_limit_title": {
         "message": "同時接続可能端末数の上限に達成"
+    },
+    "options_signedout_page_title": {
+        "message": "AdGuard VPN からログアウトしました"
+    },
+    "options_signedout_page_description_not_secure": {
+        "message": "接続が保護されていません！"
+    },
+    "options_signedout_page_description": {
+        "message": "安全でプライベートなネット閲覧を続けるには、AdGuard VPN のアイコンをクリックし、再度ログインしてください。"
     },
     "notification_data_limit_reached_title": {
         "message": "月間無料通信量の上限に達しました。"
