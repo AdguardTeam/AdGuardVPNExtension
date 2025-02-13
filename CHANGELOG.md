@@ -11,7 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - UI Design of options page.
 
+### Fixed
+
+- Error with `chrome.offscreen.createDocument` on Chrome 109 when connecting to proxy for MV3 [#190].
+
 [Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.3.2...HEAD
+[#190]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/190
 
 ## [2.3.2] - 2024-12-10
 

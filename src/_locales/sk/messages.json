@@ -325,10 +325,31 @@
         "message": "Správa výnimiek VPN pre konkrétnu webovú lokalitu"
     },
     "settings_help_us_improve_title": {
-        "message": "Odosielať anonymné hlásenia o zlyhaní"
+        "message": "Pomôžte zlepšiť AdGuard VPN"
     },
-    "settings_help_us_improve_description": {
-        "message": "Upozornite vývojárov AdGuard VPN, ak sa niečo pokazí"
+    "settings_help_us_improve_modal_title": {
+        "message": "Údaje o používaní rozšírenia"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Tieto údaje zahŕňajú:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Názvy obrazoviek, s ktorými interagujete"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Názvy tlačidiel, na ktoré kliknete"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Identifikátory relácie"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Tieto informácie potrebujeme na analýzu a zlepšenie funkčnosti AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Tieto údaje sú anonymné a používajú sa iba interne. Nikdy ich nezdieľame s tretími stranami"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Chápem"
     },
     "context_menu_selective_mode": {
         "message": "Výberový režim"
@@ -780,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN je vypnuté na tejto stránke"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Vitajte na palube"
+    },
     "popup_auth_policy_agreement": {
-        "message": "Akceptovať <eula>Zmluvu EULA</eula> a <privacy>Pravidlá ochrany súkromia</privacy>",
+        "message": "Súhlasím so <eula>Zmluvou EULA</eula> a <privacy>Zásadami ochrany osobných údajov</privacy> AdGuard VPN",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Dovoľte nám zhromažďovať<link>anonymné údaje</link> o používaní aplikácie, aby sme vylepšili AdGuard VPN"
+        "message": "Odoslať anonymizované <link>údaje o používaní rozšírenia</link>"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Ak súhlasíte, AdGuard VPN bude zhromažďovať údaje o obrazovkách a tlačidlách, s ktorými interagujete. Zdieľanie údajov môžete kedykoľvek zakázať v <b>Nastavenia</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Tieto informácie nám pomáhajú pochopiť, ktoré funkcie fungujú dobre a čo je potrebné zlepšiť. Je anonymizovaný a používa sa iba interne. Nikdy to s nikým nezdieľame"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Pokračovať"
+        "message": "Prihláste sa alebo si vytvorte účet"
     },
     "popup_newsletter_title": {
         "message": "Novinky Adguard"
