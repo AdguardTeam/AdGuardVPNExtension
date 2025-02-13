@@ -99,6 +99,18 @@
     "options_bug_report_request_error": {
         "message": "发生错误，请稍后再试。"
     },
+    "options_bug_report_send_button": {
+        "message": "发送报告"
+    },
+    "options_bug_report_sending_button": {
+        "message": "正在发送报告..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "提供详细信息"
+    },
+    "options_bug_report_page_success": {
+        "message": "感谢您，您的信息已发送成功！"
+    },
     "options_bug_report_new_report_button": {
         "message": "新报告"
     },
@@ -131,6 +143,9 @@
     },
     "account_get_subscription": {
         "message": "获取订阅"
+    },
+    "account_max_devices_count": {
+        "message": "最多可以同时连接 <b>%num%</b> 台设备"
     },
     "account_valid_until": {
         "message": "有效期至 <b>%date%</b>"
@@ -264,6 +279,18 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "重新发送链接"
     },
+    "settings_free_gbs_add_device_title": {
+        "message": "添加另一个平台"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "安装 AdGuard VPN，在 iOS、Mac、Windows 或 Android 上登录您的 AdGuard 账号，获得 %your_gb%GB。"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "另一个平台添加成功"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "恭喜您在多个系统上安装 AdGuard VPN。安全上网！"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "转到产品"
     },
@@ -288,8 +315,41 @@
     "settings_webrtc_label": {
         "message": "拦截 WebRTC"
     },
+    "settings_webrtc_desc": {
+        "message": "拦截 WebRTC，这是一个已知的漏洞，即使用户使用代理或 VPN，也会泄露真实 IP 地址。"
+    },
+    "settings_context_menus_title": {
+        "message": "在浏览器上下文菜单中显示 AdGuard VPN"
+    },
+    "settings_context_menus_description": {
+        "message": "管理特定网站的 VPN 排除项"
+    },
     "settings_help_us_improve_title": {
-        "message": "匿名发送崩溃报告"
+        "message": "帮助 AdGuard VPN 变得更好"
+    },
+    "settings_help_us_improve_modal_title": {
+        "message": "扩展使用数据"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "数据包括："
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "用户所交互的屏幕名称"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "用户点击的按钮名称"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "会话标识符"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "我们需要这些信息来分析和改善 AdGuard VPN 的功能。"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "数据是匿名发送的，仅在公司内部使用。我们从不与第三方分享数据。"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "知道了"
     },
     "context_menu_selective_mode": {
         "message": "选择模式"
@@ -305,6 +365,12 @@
     },
     "settings_dns_label": {
         "message": "DNS 服务器"
+    },
+    "settings_dns_description": {
+        "message": "在连接到 VPN 时解析 DNS 请求、拦截广告和跟踪器，以及加密 DNS 流量。"
+    },
+    "settings_dns_description_current": {
+        "message": "当前：%dnsServerName%"
     },
     "settings_dns_popular_servers": {
         "message": "流行 DNS 服务器"
@@ -324,8 +390,17 @@
     "settings_dns_add_custom_server_name": {
         "message": "服务器名称"
     },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "我的 DNS 服务器"
+    },
     "settings_dns_add_custom_server_address": {
         "message": "服务器地址"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP 地址或 tls://"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "无效的服务器地址"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS 服务器添加成功"
@@ -341,6 +416,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "自定义 DNS 服务器已删除"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "自定义 DNS 服务器已编辑"
     },
     "settings_dns_selector_default_title": {
         "message": "默认"
@@ -506,6 +584,9 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "删除所有排除项"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "您确定要删除整个排除项列表吗？"
     },
     "settings_exclusion_title": {
         "message": "排除项"
@@ -720,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN 在该网站上已被禁用"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "欢迎加入"
+    },
     "popup_auth_policy_agreement": {
-        "message": "我已经阅读并接受 AdGuard 的<eula>最终用户许可协议</eula>和<privacy>隐私政策</privacy>",
+        "message": "我接受 AdGuard VPN 的 <eula>EULA</eula> 和<privacy>隐私政策</privacy>。",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "我允许 AdGuard 收集关于应用程序运行的<link>匿名数据</link>以帮助改进 AdGuard VPN"
+        "message": "匿名发送<link>扩展使用数据</link>"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "如果同意，AdGuard VPN 将收集您与之交互的屏幕和按钮的数据。您可以随时在「<b>设置</b>」中禁用数据共享。"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "这些信息有助于我们了解哪些功能运行良好，哪些功能需要改进。这些信息是匿名的，仅在内部使用。我们绝不会与任何人共享。"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "继续"
+        "message": "登录或创建账号"
     },
     "popup_newsletter_title": {
         "message": "AdGuard 资讯"
@@ -896,6 +986,15 @@
     },
     "popup_connections_limit_title": {
         "message": "已达到连接限制"
+    },
+    "options_signedout_page_title": {
+        "message": "您已退出 AdGuard VPN"
+    },
+    "options_signedout_page_description_not_secure": {
+        "message": "连接不安全！"
+    },
+    "options_signedout_page_description": {
+        "message": "要继续匿名浏览，请点击 AdGuard VPN 图标重新登录。"
     },
     "notification_data_limit_reached_title": {
         "message": "已达到每月流量限制"

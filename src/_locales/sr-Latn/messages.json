@@ -288,8 +288,8 @@
     "settings_webrtc_label": {
         "message": "Blokiraj WebRTC"
     },
-    "settings_help_us_improve_title": {
-        "message": "Slati anonimne izveštaje o rušenju"
+    "settings_help_us_improve_modal_button": {
+        "message": "Shvatam"
     },
     "context_menu_selective_mode": {
         "message": "Selektivni način rada"
@@ -720,15 +720,11 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPn je isključen na ovom sajtu"
     },
-    "popup_auth_policy_agreement": {
-        "message": "Prihvati <eula>EULA</eula> i <privacy>Politiku privatnosti</privacy>",
-        "description": "WARNING! Respect spaces between tags"
-    },
-    "popup_auth_help_us_improve_agreement": {
-        "message": "Dozvolite AdGuard-u <link>da prikupi anonimne podatke</link> o korišćenju aplikacije kako bi AdGuard VPN bio bolji"
+    "popup_auth_policy_agreement_title": {
+        "message": "Dobrodošli"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Nastavi"
+        "message": "Prijavljivanje ili kreiranje naloga"
     },
     "popup_newsletter_title": {
         "message": "AdGuard novosti"

@@ -325,10 +325,31 @@
         "message": "Håndtér VPN-undtagelser for et bestemt websted"
     },
     "settings_help_us_improve_title": {
-        "message": "Indsend anonyme nedbrudsrapporter"
+        "message": "Hjælp med at forbedre AdGuard VPN"
     },
-    "settings_help_us_improve_description": {
-        "message": "Underret AdGuard VPN-udviklerne, hvis noget går galt"
+    "settings_help_us_improve_modal_title": {
+        "message": "Udvidelsesbrugsdata"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Disse data omfatter:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Navne på skærme, der er interageret med"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Navne på knapper, som klikkes på"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Sessionsidentifikatorer"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Vi har brug for disse oplysninger for at analysere og forbedre funktionaliteten af AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Disse data er anonyme og bruges kun internt. De deles aldrig med tredjeparter"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Forstået"
     },
     "context_menu_selective_mode": {
         "message": "Selektiv tilstand"
@@ -780,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN er deaktiveret på dette websted"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Velkommen ombord"
+    },
     "popup_auth_policy_agreement": {
-        "message": "Jeg har læst og accepterer AdGuards <eula>EULA</eula> og <privacy>Fortrolighedspolitik</privacy>",
+        "message": "Jeg accepterer AdGuard VPNs <eula>EULA</eula> og <privacy>Fortrolighedspolitik</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Tillad AdGuard at indsamle <link>anonymiserede data</link> om brugen af appen for at gøre AdGuard VPN bedre"
+        "message": "Indsend anonymiserede <link>udvidelsesbrugsdata</link>"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Accepterer man, vil AdGuard VPN indsamle data om de skærme og knapper, man interagerer med. Man kan altid deaktivere deling af data via <b>Indstillinger</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Denne information hjælper os med at forstå, hvilke funktionaliteter, som fungerer godt, og hvad der skal forbedres. Informationen er anonymiseret, bruges kun internt og deles aldrig med nogen"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Fortsæt"
+        "message": "Log ind eller opret konto"
     },
     "popup_newsletter_title": {
         "message": "AdGuard-nyhedsbrev"

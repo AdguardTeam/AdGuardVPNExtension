@@ -105,6 +105,9 @@
     "options_bug_report_sending_button": {
         "message": "Enviando relatório..."
     },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Forneça detalhes"
+    },
     "options_bug_report_page_success": {
         "message": "Obrigado, sua mensagem foi enviada com sucesso!"
     },
@@ -312,14 +315,41 @@
     "settings_webrtc_label": {
         "message": "Bloquear WebRTC"
     },
+    "settings_webrtc_desc": {
+        "message": "Bloqueia WebRTC, uma vulnerabilidade conhecida que pode vazar seu endereço IP real, mesmo se você usar um proxy ou VPN"
+    },
+    "settings_context_menus_title": {
+        "message": "Exibe AdGuard VPN no menu de contexto do navegador"
+    },
     "settings_context_menus_description": {
         "message": "Gerenciar exclusões de VPN para um site específico"
     },
     "settings_help_us_improve_title": {
-        "message": "Envie relatórios de erro anônimos"
+        "message": "Ajude-nos a melhorar o AdGuard VPN"
     },
-    "settings_help_us_improve_description": {
-        "message": "Notifique os desenvolvedores do AdGuard VPN se algo estiver errado"
+    "settings_help_us_improve_modal_title": {
+        "message": "Dados de uso da extensão"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Esses dados incluem:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Nomes das telas com as quais você interage"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Nomes dos botões em que você clica"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Identificadores de sessão"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Precisamos dessa informação para analisar e melhorar a funcionalidade do AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Esses dados são anônimos e usados apenas internamente. Nunca os compartilhamos com terceiros"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Entendi"
     },
     "context_menu_selective_mode": {
         "message": "Modo seletivo"
@@ -335,6 +365,12 @@
     },
     "settings_dns_label": {
         "message": "Servidor DNS"
+    },
+    "settings_dns_description": {
+        "message": "Resolve solicitações de DNS, bloquear anúncios e rastreadores e criptografar o tráfego DNS quando você estiver conectado à VPN"
+    },
+    "settings_dns_description_current": {
+        "message": "Atual: %dnsServerName%"
     },
     "settings_dns_popular_servers": {
         "message": "Servidores DNS populares"
@@ -765,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "A VPN está desativada neste site"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Bem-vindo"
+    },
     "popup_auth_policy_agreement": {
-        "message": "Li e concordo com o <eula>contrato</eula> e <privacy>política de privacidade</privacy> do AdGuard",
+        "message": "Aceito o <eula>EULA</eula> e a <privacy>Política de privacidade</privacy> do AdGuard VPN",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Permitir que o AdGuard reúna <link>dados estritamente anônimos</link> sobre o uso do aplicativo para tornar o AdGuard VPN ainda melhor"
+        "message": "Enviar dados de <link>uso da extensão</link> anonimizados"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Se você concordar, o AdGuard VPN coletará dados sobre as telas e botões com os quais você interage. Você pode desativar o compartilhamento de dados sempre que quiser em <b>Configurações</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Essas informações nos ajudam a entender quais recursos funcionam bem e o que precisa ser melhorado. Elas são anônimas e usadas apenas internamente. Nós nunca compartilhamos isso com ninguém"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Continuar"
+        "message": "Entrar ou criar uma conta"
     },
     "popup_newsletter_title": {
         "message": "Boletim informativo do AdGuard"

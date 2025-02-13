@@ -99,6 +99,18 @@
     "options_bug_report_request_error": {
         "message": "A apărut o eroare. Vă rugăm să încercați din nou mai târziu."
     },
+    "options_bug_report_send_button": {
+        "message": "Trimiteți raportul"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Trimitere de raport..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Furnizați detalii"
+    },
+    "options_bug_report_page_success": {
+        "message": "Mulțumesc, mesajul dvs. a fost trimis cu succes!"
+    },
     "options_bug_report_new_report_button": {
         "message": "Raport nou"
     },
@@ -131,6 +143,9 @@
     },
     "account_get_subscription": {
         "message": "Obțineți abonamentul"
+    },
+    "account_max_devices_count": {
+        "message": "Până la <b>%num%</b> dispozitive simultan"
     },
     "account_valid_until": {
         "message": "Valabil până la <b>%date%</b>"
@@ -264,6 +279,18 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Trimiteți din nou linkul"
     },
+    "settings_free_gbs_add_device_title": {
+        "message": "Adăugați o altă platformă"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Instalați AdGuard VPN pentru iOS, Windows sau Android, conectați-vă la contul AdGuard de pe acesta și primiți %your_gb% GB."
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "O altă platformă adăugată"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Felicitări pentru instalarea AdGuard VPN pe mai multe platforme. Rămâneți în siguranță!"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Mergi la Produse"
     },
@@ -288,8 +315,41 @@
     "settings_webrtc_label": {
         "message": "Blocați WebRTC"
     },
+    "settings_webrtc_desc": {
+        "message": "Blochează WebRTC, o vulnerabilitate cunoscută care vă poate scurge adresa IP reală chiar dacă utilizați un proxy sau VPN"
+    },
+    "settings_context_menus_title": {
+        "message": "Afisați AdGuard VPN în meniul contextual al browserului"
+    },
+    "settings_context_menus_description": {
+        "message": "Gestionează excluderile VPN pentru un site web"
+    },
     "settings_help_us_improve_title": {
-        "message": "Trimiteți rapoarte de blocare anonime"
+        "message": "Ajutați la îmbunătățirea AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_title": {
+        "message": "Date de utilizare a extensiei"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Aceste date includ:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Numele ecranelor cu care interacționezi"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Numele butoanelor pe care faceți clic"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Identificatori de sesiune"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Avem nevoie de aceste informații pentru a analiza și îmbunătăți funcționalitatea AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Aceste date sunt anonime și sunt folosite doar intern. Nu îl împărtășim niciodată cu alte site-uri"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Am înțeles."
     },
     "context_menu_selective_mode": {
         "message": "Modul selectiv"
@@ -305,6 +365,12 @@
     },
     "settings_dns_label": {
         "message": "Server DNS"
+    },
+    "settings_dns_description": {
+        "message": "Permite selectarea unui server DNS pentru a rezolva cererile DNS, pentru a bloca reclamele și trackerele, și pentru a cripta traficul DNS atunci când sunteți conectat la VPN"
+    },
+    "settings_dns_description_current": {
+        "message": "Actual: %dnsServerName%"
     },
     "settings_dns_popular_servers": {
         "message": "Servere DNS populare"
@@ -324,8 +390,17 @@
     "settings_dns_add_custom_server_name": {
         "message": "Nume de server"
     },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Serverul meu DNS"
+    },
     "settings_dns_add_custom_server_address": {
         "message": "Adresa serverului"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "Adresa IP sau tls://"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Adresă de server invalidă"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Server DNS deja adăugat"
@@ -341,6 +416,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Serverul DNS personalizat șters"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Serverul DNS personalizat editat"
     },
     "settings_dns_selector_default_title": {
         "message": "Implicit"
@@ -506,6 +584,9 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Eliminați toate excluderile"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Doriți să ștergeți întreaga listă de excluderi?"
     },
     "settings_exclusion_title": {
         "message": "Excluderi"
@@ -720,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN este dezactivat pe acest site"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Bine ați venit la bord"
+    },
     "popup_auth_policy_agreement": {
-        "message": "Am citit și sunt de acord cu <eula>EULA</eula> și <privacy>Politica de confidențialitate</privacy> a AdGuard",
+        "message": "Accept AdGuard VPN <eula>EULA</eula> și <privacy>Politica de confidențialitate</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Permit ca AdGuard să colecteze <link>date strict anonime</link> despre utilizarea aplicației pentru a face AdGuard VPN și mai bun"
+        "message": "Trimite datele de utilizare a <link>extensiei</link> anonimizate"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Dacă ești de acord, AdGuard VPN va colecta date despre ecranele și butoanele cu care interacționezi. Poți dezactiva întotdeauna partajarea datelor în <b>Setări</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Aceste informații ne ajută să înțelegem ce funcții funcționează bine și ce necesită îmbunătățiri. Este anonimizat și folosit doar intern. Nu o împărtășim niciodată cu nimeni"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Continuă"
+        "message": "Conectați-vă sau creați un cont"
     },
     "popup_newsletter_title": {
         "message": "Buletin informativ AdGuard"
@@ -896,6 +986,15 @@
     },
     "popup_connections_limit_title": {
         "message": "Limita de conexiuni a fost atinsă"
+    },
+    "options_signedout_page_title": {
+        "message": "V-ați deconectat de la AdGuard VPN"
+    },
+    "options_signedout_page_description_not_secure": {
+        "message": "Conexiunea nu este sigură!"
+    },
+    "options_signedout_page_description": {
+        "message": "Pentru a continua surf-ul în privat, faceți clic pe pictograma AdGuard VPN și jurnalizați-vă din nou."
     },
     "notification_data_limit_reached_title": {
         "message": "Limita lunară de date a fost atinsă"

@@ -194,6 +194,30 @@
     "settings_webrtc_label": {
         "message": "Blokir WebRTC"
     },
+    "settings_help_us_improve_title": {
+        "message": "Bantu meningkatkan AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Data ini termasuk:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Nama layar yang Anda gunakan untuk berinteraksi"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Nama tombol yang Anda klik"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Sesi ID"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Kami membutuhkan informasi ini untuk menganalisis dan meningkatkan fungsionalitas AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Data ini bersifat anonim dan hanya digunakan secara internal. Kami tidak pernah membagikannya dengan pihak ketiga"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Mengerti"
+    },
     "context_menu_selective_mode": {
         "message": "Mode selektif"
     },
@@ -524,8 +548,11 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN tidak diaktifkan pada situs ini"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Selamat datang di kapal"
+    },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Lanjut"
+        "message": "Masuk atau buat akun"
     },
     "popup_newsletter_title": {
         "message": "Buletin AdGuard"

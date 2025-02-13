@@ -404,9 +404,6 @@
     "popup_site_status_vpn_disabled": {
         "message": "Το VPN είναι απενεργοποιημένο σε αυτόν τον ιστότοπο"
     },
-    "popup_auth_policy_agreement_continue_button": {
-        "message": "Συνέχεια"
-    },
     "popup_newsletter_title": {
         "message": "Ενημερωτικό δελτίο AdGuard"
     },

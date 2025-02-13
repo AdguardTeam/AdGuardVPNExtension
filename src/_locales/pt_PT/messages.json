@@ -105,6 +105,9 @@
     "options_bug_report_sending_button": {
         "message": "A enviar relatório..."
     },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Forneça detalhes"
+    },
     "options_bug_report_page_success": {
         "message": "Obrigado, a sua mensagem foi enviada com sucesso!"
     },
@@ -140,6 +143,9 @@
     },
     "account_get_subscription": {
         "message": "Obter subscrição"
+    },
+    "account_max_devices_count": {
+        "message": "Até <b>%num%</b> dispositivos simultâneos"
     },
     "account_valid_until": {
         "message": "Válido até <b>%date%</b>"
@@ -273,6 +279,15 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Reenviar link"
     },
+    "settings_free_gbs_add_device_title": {
+        "message": "Acrescente outra plataforma"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Instale o AdGuard VPN para iOS, Mac, Windows ou Android, inicie sessão na sua conta AdGuard lá e obtenha %your_gb% GB."
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Outra plataforma acrescentada"
+    },
     "settings_free_gbs_devices_added_info": {
         "message": "Parabéns por instalar o AdGuard VPN em várias plataformas. Continue seguro!"
     },
@@ -300,6 +315,9 @@
     "settings_webrtc_label": {
         "message": "Bloquear WebRTC"
     },
+    "settings_webrtc_desc": {
+        "message": "Bloqueia o WebRTC, uma vulnerabilidade conhecida que pode divulgar o seu endereço IP real, mesmo que utilize um proxy ou VPN"
+    },
     "settings_context_menus_title": {
         "message": "Exibe AdGuard VPN no menu de contexto do navegador"
     },
@@ -307,10 +325,31 @@
         "message": "Gerir exclusão de VPN para um sítio específico"
     },
     "settings_help_us_improve_title": {
-        "message": "Envie relatórios de falhas anônimos"
+        "message": "Ajude-nos a melhorar o AdGuard VPN"
     },
-    "settings_help_us_improve_description": {
-        "message": "Notifique os programadores do AdGuard VPN se algo correr mal"
+    "settings_help_us_improve_modal_title": {
+        "message": "Dados de utilização da extensão"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Esses dados incluem:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Nomes das telas com as quais você interage"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Nomes dos botões em que você clica"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Identificadores de sessão"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Precisamos dessa informação para analisar e melhorar a funcionalidade do AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Esses dados são anónimos e usados apenas internamente. Nunca o compartilhamos com terceiros"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Entendi"
     },
     "context_menu_selective_mode": {
         "message": "Modo seletivo"
@@ -350,6 +389,9 @@
     },
     "settings_dns_add_custom_server_name": {
         "message": "Nome do servidor"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "O meu servidor DNS"
     },
     "settings_dns_add_custom_server_address": {
         "message": "Endereço de servidor"
@@ -759,15 +801,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "A VPN está desativada neste sítio"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Bem-vindo"
+    },
     "popup_auth_policy_agreement": {
-        "message": "Li e concordo com o <eula>contrato</eula> e <privacy>política de privacidade</privacy> do AdGuard",
+        "message": "Aceito o <eula>EULA</eula> e a <privacy>Política de privacidade</privacy> do AdGuard VPN",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Permitir que o AdGuard reúna <link>dados estritamente anónimos</link> sobre o uso do aplicativo para tornar o AdGuard VPN ainda melhor"
+        "message": "Enviar <link>dados de uso de extensão</link> anonimizados"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Se concordar, o AdGuard VPN irá recolher dados sobre os ecrãs e botões com os quais interage. Pode sempre desativar a partilha de dados em <b>Definições</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Estas informações ajudam-nos a compreender quais as funcionalidades que funcionam bem e quais as que precisam de ser melhoradas. São anónimas e apenas utilizadas internamente. Nunca as partilhamos com ninguém"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Continuar"
+        "message": "Iniciar sessão ou criar uma conta"
     },
     "popup_newsletter_title": {
         "message": "Boletim informativo do AdGuard"

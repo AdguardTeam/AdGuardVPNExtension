@@ -99,6 +99,9 @@
     "options_bug_report_request_error": {
         "message": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin."
     },
+    "options_bug_report_sending_button": {
+        "message": "Rapor gönderiliyor..."
+    },
     "options_bug_report_textarea_placeholder": {
         "message": "Ayrıntıları sağlayın"
     },
@@ -319,10 +322,31 @@
         "message": "Belirli bir site için VPN istisnalarını yönetin"
     },
     "settings_help_us_improve_title": {
-        "message": "Anonim çökme raporları gönder"
+        "message": "AdGuard VPN'in iyileştirilmesine yardımcı ol"
     },
-    "settings_help_us_improve_description": {
-        "message": "Bir şeyler ters giderse AdGuard VPN geliştiricilerini bilgilendirin"
+    "settings_help_us_improve_modal_title": {
+        "message": "Uzantı kullanım verileri"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Bu veriler şunları içerir:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Etkileşimde bulunduğunuz ekranların adları"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Tıkladığınız düğmelerin adları"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Oturum tanımlayıcıları"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "AdGuard VPN'in işlevselliğini analiz etmek ve geliştirmek için bu bilgilere ihtiyacımız var"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Bu veriler anonimdir ve yalnızca dâhili olarak kullanılır. Üçüncü taraflarla asla paylaşmayız"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Anladım"
     },
     "context_menu_selective_mode": {
         "message": "Seçici mod"
@@ -774,15 +798,24 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN bu sitede devre dışı bırakıldı"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "Aramıza hoş geldin"
+    },
     "popup_auth_policy_agreement": {
-        "message": "AdGuard'ın <eula>SKLS</eula> ve <privacy>Gizlilik Politikasını</privacy> okudum ve kabul ediyorum",
+        "message": "AdGuard VPN'in <eula>SKLS</eula> ve <privacy>Gizlilik Politikasını</privacy> kabul ediyorum",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "AdGuard VPN'i daha da iyi hâle getirmek için AdGuard'ın uygulama kullanımına hakkında <link>anonim veriler</link> toplamasına izin veriyorum"
+        "message": "Anonim <link>uzantı kullanım verilerini</link> gönder"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Kabul ederseniz, AdGuard VPN etkileşimde bulunduğunuz ekranlar ve düğmeler hakkında veri toplar. Veri paylaşımını her zaman <b>Ayarlar</b> öğesinden devre dışı bırakabilirsiniz"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Bu bilgiler hangi özelliklerin iyi çalıştığını ve hangilerinin iyileştirilmesi gerektiğini anlamamıza yardımcı olur. Anonimdir ve yalnızca dâhili olarak kullanılır. Bunu asla kimseyle paylaşmayız"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Devam et"
+        "message": "Giriş yap veya bir hesap oluştur"
     },
     "popup_newsletter_title": {
         "message": "AdGuard bülteni"

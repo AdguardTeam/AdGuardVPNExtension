@@ -264,8 +264,8 @@
     "popup_host_permission_error_btn_allow": {
         "message": "Leisti"
     },
-    "popup_auth_policy_agreement_continue_button": {
-        "message": "Tęsti"
+    "popup_auth_policy_agreement_title": {
+        "message": "Sveiki atvykę"
     },
     "popup_newsletter_subscribe": {
         "message": "Užsiprenumeruoti"

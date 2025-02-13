@@ -278,8 +278,11 @@
     "popup_server_error_popup_close": {
         "message": "بستن"
     },
+    "popup_auth_policy_agreement_title": {
+        "message": "به عرشه خوش آمدید"
+    },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "ادامه"
+        "message": "احراز هویت"
     },
     "popup_newsletter_subscribe": {
         "message": "اشتراک"
