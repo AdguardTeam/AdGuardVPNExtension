@@ -272,8 +272,8 @@ export class FallbackApi {
 
         try {
             bkpUrl = await Promise.any([
-                this.debugErrors(() => this.getBkpUrlByGoogleDoh(hostname)),
-                this.debugErrors(() => this.getBkpUrlByAliDnsDoh(hostname)),
+                // this.debugErrors(() => this.getBkpUrlByGoogleDoh(hostname)),
+                // this.debugErrors(() => this.getBkpUrlByAliDnsDoh(hostname)),
                 this.debugErrors(() => this.getBkpUrlByQuad9Doh(hostname)),
             ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
