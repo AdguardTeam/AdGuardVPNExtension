@@ -55,7 +55,14 @@
 
     &__main {
         text-align: center;
-        padding-top: 220px;
+        /* Adjust padding-top proportionally if actual height of popup (--popup-height) */
+        /* becomes smaller that default height of popup in desktops (--popup-default-height). */
+        /* Design specified padding with value 220px will be base with 100px min padding. */
+        /* This is needed for extension running on mobile browsers where popup height is dynamic. */
+        padding-top: max(
+            100px,
+            calc(220px - var(--popup-default-height) + var(--popup-height))
+        );
     }
 
     &__extra {

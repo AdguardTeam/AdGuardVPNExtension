@@ -1,4 +1,5 @@
 .upgrade-screen {
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,20 +7,27 @@
     height: 100%;
     background: var(--blue-gradient);
 
-    &__image {
-        width: 78%;
-    }
-
-    &__head {
-        margin-bottom: 77px;
-    }
-
     &__title {
         font-size: 32px;
         line-height: 36px;
         font-weight: bold;
-        margin: 0 auto 8px;
+        margin: 0 auto;
         text-align: center;
+    }
+
+    &__slider {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 320px;
+        padding: 0 16px 16px;
+        /* Adjust padding-top proportionally if actual height of popup (--popup-height) */
+        /* becomes smaller that default height of popup in desktops (--popup-default-height). */
+        /* Design specified padding with value 77px will be base with 16px min padding. */
+        /* This is needed for extension running on mobile browsers where popup height is dynamic. */
+        padding-top: max(
+            16px,
+            calc(77px - var(--popup-default-height) + var(--popup-height))
+        );
     }
 
     &__desc {
@@ -66,10 +74,9 @@
     }
 
     &__actions {
-        position: absolute;
-        bottom: 25px;
         display: flex;
         flex-direction: column;
+        justify-content: flex-end;
     }
 
     & .slider__indicator {

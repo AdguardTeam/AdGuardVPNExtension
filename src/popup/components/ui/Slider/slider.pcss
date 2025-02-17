@@ -1,13 +1,20 @@
 .slider {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+
+    &, &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
 
     &__content {
-        height: 165px;
         position: relative;
+        flex: 1 1 auto;
+        row-gap: 12px;
+        padding: 8px 24px 16px;
+        /* To align text according to design */
+        max-width: 320px;
     }
 
     &__title {
@@ -16,12 +23,9 @@
         font-size: 24px;
         font-weight: 700;
         line-height: 120%;
-        padding: 0px 24px 12px 24px;
     }
 
     &__info {
-        margin-bottom: 7px;
-        padding: 0 23px;
         color: var(--gray-3d);
         text-align: center;
         font-size: 16px;
@@ -30,24 +34,35 @@
     }
 
     &__image {
-        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        pointer-events: none;
     }
 
     &__button-next {
-        position: absolute;
-        bottom: 24px;
+        margin-top: 24px;
     }
 
     &__slide {
         width: 100%;
         user-select: none;
         position: relative;
+        flex: 1 1 auto;
+        /* Cap height at design defined height so image will not grow */
+        max-height: 240px;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
+    &__controls,
     &__indicator {
         width: 100%;
-        position: absolute;
-        bottom: -15px;
+    }
+
+    &__controls {
+        flex-shrink: 0;
     }
 
     &__arrow {
@@ -86,27 +101,35 @@
     }
 
     &--medium {
+        position: relative;
+
         & .slider {
-            &__image {
-                height: 96px;
-                margin-bottom: 0;
+            &__slide {
+                max-height: 96px;
+            }
+
+            &__content {
+                padding: 8px 0 16px;
             }
 
             &__title {
                 font-size: 24px;
                 font-weight: 700;
                 line-height: 120%;
-                margin: 0 0 4px;
                 color: var(--gray-3d);
             }
 
             &__info {
-                margin-bottom: 5px;
-                padding: 0 25px;
                 font-size: 16px;
                 font-weight: 400;
                 line-height: 130%;
                 color: var(--gray-3d);
+            }
+
+            &__controls {
+                /* To eliminate jumping effect */
+                position: absolute;
+                bottom: -10px;
             }
         }
     }

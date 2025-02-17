@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { rootStore } from '../../../stores';
-import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 
 import './newsletter.pcss';
 
@@ -14,31 +14,35 @@ export const Newsletter = () => {
 
     return (
         <div className="newsletter">
-            <img
-                src="../../../../assets/images/newsletter.svg"
-                className="newsletter__image"
-                alt="newsletter"
-            />
-            <div className="newsletter__title">
-                {reactTranslator.getMessage('popup_newsletter_title')}
+            <div className="newsletter__image-wrapper">
+                <img
+                    src="../../../../assets/images/newsletter.svg"
+                    className="newsletter__image"
+                    alt="newsletter"
+                />
             </div>
-            <div className="newsletter__info">
-                {reactTranslator.getMessage('popup_newsletter_info')}
+            <div className="newsletter__content">
+                <div className="newsletter__title">
+                    {translator.getMessage('popup_newsletter_title')}
+                </div>
+                <div className="newsletter__info">
+                    {translator.getMessage('popup_newsletter_info')}
+                </div>
+                <button
+                    type="button"
+                    onClick={handleClick(true)}
+                    className="button button--large button--green"
+                >
+                    {translator.getMessage('popup_newsletter_subscribe')}
+                </button>
+                <button
+                    type="button"
+                    onClick={handleClick(false)}
+                    className="button button--medium newsletter__button-skip"
+                >
+                    {translator.getMessage('popup_newsletter_no_subscribe')}
+                </button>
             </div>
-            <button
-                type="button"
-                onClick={handleClick(true)}
-                className="button button--large button--green"
-            >
-                {reactTranslator.getMessage('popup_newsletter_subscribe')}
-            </button>
-            <button
-                type="button"
-                onClick={handleClick(false)}
-                className="button button--medium newsletter__button-skip"
-            >
-                {reactTranslator.getMessage('popup_newsletter_no_subscribe')}
-            </button>
         </div>
     );
 };

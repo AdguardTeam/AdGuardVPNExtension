@@ -164,15 +164,93 @@ export const App = observer(() => {
      */
     useLayoutEffect(() => {
         const ANDROID_CLASS = 'android';
+        const html = document.documentElement;
 
         if (isAndroidBrowser) {
-            document.documentElement.classList.add(ANDROID_CLASS);
+            html.classList.add(ANDROID_CLASS);
         } else {
-            document.documentElement.classList.remove(ANDROID_CLASS);
+            html.classList.remove(ANDROID_CLASS);
         }
 
         return () => {
-            document.documentElement.classList.remove(ANDROID_CLASS);
+            html.classList.remove(ANDROID_CLASS);
+        };
+    }, [isAndroidBrowser]);
+
+    /**
+     * Update popup height on Android browsers based on window height.
+     * This is required because Android browser's popup does not support 100vh properly.
+     */
+    useLayoutEffect(() => {
+        /**
+         * Minimum height for the popup. Value is based on calculation:
+         * Android Extension Window Height = clamp(Popup Height, 15% of viewport height, 70% of viewport height)
+         *
+         * We took average mobile viewport height as 785px from:
+         * {@link https://gs.statcounter.com/screen-resolution-stats/mobile/worldwide}
+         *
+         * 785px % 70 = 550px
+         */
+        const POPUP_MIN_HEIGHT = 550;
+        /**
+         * Maximum height for the popup. Value is based on base height of 598px in desktop extension.
+         */
+        const POPUP_MAX_HEIGHT = 598;
+        const POPUP_HEIGHT_PROP = '--popup-height';
+        const html = document.documentElement;
+
+        const removeHeightProperty = () => {
+            html.style.removeProperty(POPUP_HEIGHT_PROP);
+        };
+
+        if (!isAndroidBrowser) {
+            // Remove if height property previously set on html element
+            removeHeightProperty();
+
+            // Cleanup: Remove the height property after unmount
+            return removeHeightProperty;
+        }
+
+        const resizePopupHeight = () => {
+            /**
+             * From observation on Android browsers, popup height is properly set only on third time:
+             * 1. Initially window.innerHeight is 0
+             * 2. After that it is set to 15% (approx) of viewport height
+             * 3. Finally it calculates proper height of window.innerHeight capped by 70% (approx) of viewport height.
+             *
+             * Example if viewport height is 840px:
+             * 0px -> 126px (15% of 840px) -> 588px (70% of 840px)
+             *
+             * Example if viewport height is 860px:
+             * 0px -> 129px (15% of 860px) -> 598px (we ignore 602px (70% of 860px) because it's larger than 598px)
+             *
+             * Example if viewport height is 770px:
+             * 0px -> 115px (15% of 770px) -> 550px (we ignore 539px (70% of 770px) because it's smaller than 550px)
+             *
+             * This is needed to display the popup properly on Android browsers.
+             */
+            if (
+                window.innerHeight < POPUP_MIN_HEIGHT
+                || window.innerHeight > POPUP_MAX_HEIGHT
+            ) {
+                return;
+            }
+
+            html.style.setProperty(POPUP_HEIGHT_PROP, `${window.innerHeight}px`);
+        };
+
+        // Resize on initial render
+        resizePopupHeight();
+
+        // Add resize event listener
+        // NOTE: Do not use `once` option because it may cause unexpected
+        // behavior on Android browsers when keyboard is opened.
+        window.addEventListener('resize', resizePopupHeight);
+
+        // Cleanup: Remove the height property and event listener after unmount
+        return () => {
+            removeHeightProperty();
+            window.removeEventListener('resize', resizePopupHeight);
         };
     }, [isAndroidBrowser]);
 
