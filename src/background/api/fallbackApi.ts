@@ -24,7 +24,11 @@ export const GOOGLE_DOH_URL = `${GOOGLE_DOH_HOSTNAME}/resolve`;
 const ALIDNS_DOH_HOSTNAME = 'dns.alidns.com';
 export const ALIDNS_DOH_URL = `${ALIDNS_DOH_HOSTNAME}/resolve`;
 
-// Port must be specified, otherwise it will not work
+/**
+ * We need to specify the port to make it work.
+ *
+ * @see {@link https://quad9.net/news/blog/doh-with-quad9-dns-servers/}
+ */
 const QUAD9_DOH_HOSTNAME = 'dns.quad9.net:5053';
 export const QUAD9_DOH_URL = `${QUAD9_DOH_HOSTNAME}/dns-query`;
 
