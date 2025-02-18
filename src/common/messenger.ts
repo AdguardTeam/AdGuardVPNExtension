@@ -99,7 +99,7 @@ class Messenger {
      * @param callback
      */
     createLongLivedConnection = (events: NotifierType[], callback: (...args: Message[]) => void): Function => {
-        const eventListener = (...args: { type: NotifierType; data: string; }[]) => {
+        const eventListener = (...args: Message[]) => {
             callback(...args);
         };
 
@@ -112,8 +112,8 @@ class Messenger {
 
             port.onMessage.addListener((message) => {
                 if (message.type === MessageType.NOTIFY_LISTENERS) {
-                    const [type, data] = message.data;
-                    eventListener({ type, data });
+                    const [type, data, value] = message.data;
+                    eventListener({ type, data, value });
                 }
             });
 
