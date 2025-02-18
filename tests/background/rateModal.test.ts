@@ -59,10 +59,10 @@ describe('RateModal', () => {
             expect(mockStorage.set).toHaveBeenCalledTimes(1);
         });
 
-        it('should not attach listener if already rated', async () => {
+        it('should not attach listener if flow is finished', async () => {
             mockStorage.get.mockResolvedValueOnce({
                 connections: 0,
-                status: RateModalStatus.Rated,
+                status: RateModalStatus.Finished,
             });
 
             await rateModal.initState();
@@ -183,10 +183,10 @@ describe('RateModal', () => {
             expect(shouldShow).toBe(false);
         });
 
-        it('should return "false" if already rated', async () => {
+        it('should return "false" if flow is finished', async () => {
             mockStorage.get.mockResolvedValueOnce({
                 connections: 0,
-                status: RateModalStatus.Rated,
+                status: RateModalStatus.Finished,
             });
 
             await rateModal.initState();
@@ -245,10 +245,10 @@ describe('RateModal', () => {
     });
 
     describe('RateModal.hideAfterRate', () => {
-        it('should not update state if already rated', async () => {
+        it('should not update state if flow is finished', async () => {
             mockStorage.get.mockResolvedValueOnce({
                 connections: 0,
-                status: RateModalStatus.Rated,
+                status: RateModalStatus.Finished,
             });
 
             await rateModal.initState();
@@ -257,7 +257,7 @@ describe('RateModal', () => {
             expect(mockStorage.set).not.toHaveBeenCalled();
         });
 
-        it('should update state to "rated" and remove listener', async () => {
+        it('should update state to "finished" and remove listener', async () => {
             await rateModal.initState();
             await rateModal.hideAfterRate();
 
@@ -266,7 +266,7 @@ describe('RateModal', () => {
                 expect.any(String),
                 {
                     connections: 0,
-                    status: RateModalStatus.Rated,
+                    status: RateModalStatus.Finished,
                 },
             );
             expect(mockNotifier.removeListener).toHaveBeenCalledTimes(1);
@@ -274,10 +274,10 @@ describe('RateModal', () => {
     });
 
     describe('RateModal.hideAfterCancel', () => {
-        it('should not update state if already rated', async () => {
+        it('should not update state if flow is finished', async () => {
             mockStorage.get.mockResolvedValueOnce({
                 connections: 0,
-                status: RateModalStatus.Rated,
+                status: RateModalStatus.Finished,
             });
 
             await rateModal.initState();
@@ -286,7 +286,7 @@ describe('RateModal', () => {
             expect(mockStorage.set).not.toHaveBeenCalled();
         });
 
-        it('should update state to "hidden"', async () => {
+        it('should update state to "hidden" if it was "initial"', async () => {
             await rateModal.initState();
             await rateModal.hideAfterCancel();
 
@@ -300,9 +300,9 @@ describe('RateModal', () => {
             );
         });
 
-        it('should reset connections count if update from "hidden" to "hidden"', async () => {
+        it('should update state to "finished" if it was "hidden"', async () => {
             mockStorage.get.mockResolvedValueOnce({
-                connections: 10,
+                connections: 0,
                 status: RateModalStatus.Hidden,
             });
 
@@ -314,7 +314,7 @@ describe('RateModal', () => {
                 expect.any(String),
                 {
                     connections: 0,
-                    status: RateModalStatus.Hidden,
+                    status: RateModalStatus.Finished,
                 },
             );
         });

@@ -25,16 +25,19 @@ export enum RateModalStatus {
     Initial = 'initial',
 
     /**
-     * User has closed rate modal without rating.
-     * Modal should be shown after every 30th successful connection.
+     * User has closed rate modal without rating or with bad rating after 3rd successful connection.
+     * Modal should be shown after 30th successful connection.
      */
     Hidden = 'hidden',
 
     /**
-     * User has rated.
+     * Either:
+     * - User has rated with good rating after 3rd / 30th successful connection.
+     * - User has closed rate modal without rating or with bad rating after 30th successful connection.
+     *
      * Modal should not be shown anymore.
      */
-    Rated = 'rated',
+    Finished = 'finished',
 }
 
 /**
@@ -62,14 +65,14 @@ export interface RateModalInterface {
     initState(): Promise<void>;
 
     /**
-     * Hides rate modal after user closes it without rating.
-     * Updates rate modal status to hided and resets connections count.
+     * Hides rate modal after user closes it without rating or with bad rating.
+     * Updates rate modal status to hided / finished.
      */
     hideAfterCancel(): Promise<void>;
 
     /**
      * Hides rate modal after user rates.
-     * Updates rate modal status to rated.
+     * Updates rate modal status to finished.
      */
     hideAfterRate(): Promise<void>;
 
@@ -103,25 +106,25 @@ export interface RateModalParameters {
 
 /**
  * Rate modal service.
- *
  * Handles rate modal display.
- * Shows rate modal after 3rd successful connection after installation.
- * And after every 30th successful connection after closing rate modal without rating.
  *
  * Flow of state:
  * 1) After installation state: status = Initial, connections = 0
  * 2) After 3rd successful connection: status = Initial, connections = 3
  *    Notify listeners to show rate modal.
- * 3.1) If user closes rate modal without rating or rates with bad rating (1-3 stars): status = Hidden, connections = 3
+ * 3.1) If user closes rate modal without rating or rates with bad rating: status = Hidden, connections = 3
  *      Goes to step 4.
- * 3.2) If user rates with good rating (4-5 stars): status = Rated, connections = 3
+ * 3.2) If user rates with good rating: status = Finished, connections = 3
  *      After that, rate modal will not be shown anymore.
  * 4) After 30th successful connection: status = Hidden, connections = 30
  *    Notify listeners to show rate modal.
- * 5.1) If user closes rate modal without rating or rates with bad rating (1-3 stars): status = Hidden, connections = 0
- *      Repeats step 4 until 5.2 happens.
- * 5.2) If user rates with good rating (4-5 stars): status = Rated, connections = 30
+ * 5.1) If user closes rate modal without rating or rates with bad rating: status = Finished, connections = 30
  *      After that, rate modal will not be shown anymore.
+ * 5.2) If user rates with good rating: status = Finished, connections = 30
+ *      After that, rate modal will not be shown anymore.
+ *
+ * Bad rating: 1-3 stars
+ * Good rating: 4-5 stars
  */
 export class RateModal implements RateModalInterface {
     /**
@@ -209,8 +212,8 @@ export class RateModal implements RateModalInterface {
             await this.updateState(RateModal.DEFAULT_STATE);
         }
 
-        // Attach listener only if user not rated and setting enabled
-        if (this.state.status !== RateModalStatus.Rated && this.isShowRateSettingEnabled()) {
+        // Attach listener only if flow is not finished and setting enabled
+        if (this.state.status !== RateModalStatus.Finished && this.isShowRateSettingEnabled()) {
             this.listenerId = this.notifier.addSpecifiedListener(
                 this.notifier.types.CONNECTIVITY_STATE_CHANGED,
                 this.handleConnectivityStateChange.bind(this),
@@ -265,36 +268,39 @@ export class RateModal implements RateModalInterface {
     }
 
     /**
-     * Hides rate modal after user closes it without rating.
-     * Updates rate modal status to hided and resets connections count if needed.
+     * Hides rate modal after user closes it without rating or with bad rating.
+     * Updates rate modal status to hided / finished.
      */
     public hideAfterCancel = async (): Promise<void> => {
-        // If already rated, do not update state
-        if (this.state.status === RateModalStatus.Rated) {
+        // If flow is finished, do not update state
+        if (this.state.status === RateModalStatus.Finished) {
             return;
         }
 
-        // Reset connections count if status is cycling hidden -> hidden as in step 4 -> 5.1
-        const shouldResetConnections = this.state.status === RateModalStatus.Hidden;
+        if (this.state.status === RateModalStatus.Initial) {
+            // Step 3.1. If user closes rate modal without rating or rates with bad rating
+            this.updateState({ status: RateModalStatus.Hidden });
+        } else {
+            // Step 5.1. If user closes rate modal without rating or rates with bad rating
+            this.updateState({ status: RateModalStatus.Finished });
 
-        await this.updateState({
-            status: RateModalStatus.Hidden,
-            connections: shouldResetConnections ? 0 : this.state.connections,
-        });
+            // Remove listener because rate modal will not be shown anymore
+            this.removeListener();
+        }
     };
 
     /**
      * Hides rate modal after user rates.
-     * Updates rate modal status to rated.
+     * Updates rate modal status to finished.
      */
     public hideAfterRate = async (): Promise<void> => {
-        // If already rated, do not update state
-        if (this.state.status === RateModalStatus.Rated) {
+        // If flow is finished, do not update state
+        if (this.state.status === RateModalStatus.Finished) {
             return;
         }
 
-        // We need to update only status to 'rated'
-        await this.updateState({ status: RateModalStatus.Rated });
+        // Step 3.2 / 5.2. We need to update only status to Finished
+        await this.updateState({ status: RateModalStatus.Finished });
 
         // Remove listener after rating
         this.removeListener();
@@ -311,17 +317,17 @@ export class RateModal implements RateModalInterface {
             return false;
         }
 
-        // If already rated, do not show rate modal
-        if (this.state.status === RateModalStatus.Rated) {
+        // If flow is finished, do not show rate modal
+        if (this.state.status === RateModalStatus.Finished) {
             return false;
         }
 
-        // If rate modal has not been shown yet, show it after 3rd connection
+        // Step 2. If rate modal has not been shown yet, show it after 3rd connection
         if (this.state.status === RateModalStatus.Initial) {
             return this.state.connections >= RateModal.CONNECTIONS_TO_SHOW_AFTER_INSTALL;
         }
 
-        // If user has closed rate modal without rating, show it after 30th connection
+        // Step 4. If user has closed rate modal without rating, show it after 30th connection
         if (this.state.status === RateModalStatus.Hidden) {
             return this.state.connections >= RateModal.CONNECTIONS_TO_SHOW_AFTER_HIDE;
         }
