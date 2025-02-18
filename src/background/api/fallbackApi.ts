@@ -25,12 +25,13 @@ const ALIDNS_DOH_HOSTNAME = 'dns.alidns.com';
 export const ALIDNS_DOH_URL = `${ALIDNS_DOH_HOSTNAME}/resolve`;
 
 /**
- * We need to specify the port to make it work.
+ * Port must be specified for Quad9 DOH.
  *
  * @see {@link https://quad9.net/news/blog/doh-with-quad9-dns-servers/}
  */
-const QUAD9_DOH_HOSTNAME = 'dns.quad9.net:5053';
-export const QUAD9_DOH_URL = `${QUAD9_DOH_HOSTNAME}/dns-query`;
+const QUAD9_DOH_HOSTNAME = 'dns.quad9.net';
+const QUAD9_DOH_PORT = 5053;
+export const QUAD9_DOH_URL = `${QUAD9_DOH_HOSTNAME}:${QUAD9_DOH_PORT}/dns-query`;
 
 const stageSuffix = STAGE_ENV === 'test' ? '-dev' : '';
 const BKP_API_HOSTNAME_PART = `bkp-api${stageSuffix}.adguard-vpn.online`;
