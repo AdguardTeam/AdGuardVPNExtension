@@ -25,10 +25,8 @@ type StateType = {
     value: string,
 };
 
-const IS_TEST = true;
-
 export class SettingsStore {
-    @observable canControlProxy: boolean = !IS_TEST;
+    @observable canControlProxy: boolean = true;
 
     @observable isCurrentTabExcluded: boolean;
 
@@ -99,9 +97,7 @@ export class SettingsStore {
     }
 
     @action setCanControlProxy = ({ canControlProxy }: { canControlProxy: boolean }): void => {
-        if (!IS_TEST) {
-            this.canControlProxy = canControlProxy;
-        }
+        this.canControlProxy = canControlProxy;
     };
 
     @action enableProxy = async (force = false): Promise<void> => {
