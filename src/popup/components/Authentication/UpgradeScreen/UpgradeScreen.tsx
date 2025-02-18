@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { rootStore } from '../../../stores';
-import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 import { CloseButton } from '../../ui/CloseButton';
 import { Slider } from '../../ui/Slider';
 import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
@@ -48,33 +48,35 @@ export const UpgradeScreen = () => {
             <CloseButton handler={handleSkipClick} />
             <div className="upgrade-screen__head">
                 <div className="upgrade-screen__title">
-                    {reactTranslator.getMessage('popup_upgrade_screen_title')}
+                    {translator.getMessage('popup_upgrade_screen_title')}
                 </div>
             </div>
-            <Slider
-                arrows
-                sliderMod="medium"
-                slideIndex={currentSlideIndex}
-                slideData={UNLIMITED_FEATURES[currentSlideIndex]}
-                nextSlideHandler={nextSlideHandler}
-                prevSlideHandler={prevSlideHandler}
-                navigationHandler={setCurrentSlide}
-                slidesAmount={UNLIMITED_FEATURES.length}
-            />
+            <div className="upgrade-screen__slider">
+                <Slider
+                    arrows
+                    sliderMod="medium"
+                    slideIndex={currentSlideIndex}
+                    slideData={UNLIMITED_FEATURES[currentSlideIndex]}
+                    nextSlideHandler={nextSlideHandler}
+                    prevSlideHandler={prevSlideHandler}
+                    navigationHandler={setCurrentSlide}
+                    slidesAmount={UNLIMITED_FEATURES.length}
+                />
+            </div>
             <div className="upgrade-screen__actions">
                 <button
                     type="button"
                     onClick={handleUpgradeClick}
                     className="button button--large button--green"
                 >
-                    {reactTranslator.getMessage('popup_upgrade_screen_upgrade_button')}
+                    {translator.getMessage('popup_upgrade_screen_upgrade_button')}
                 </button>
                 <button
                     type="button"
                     onClick={handleSkipClick}
                     className="button button--medium upgrade-screen__continue-button"
                 >
-                    {reactTranslator.getMessage('popup_upgrade_screen_continue_free')}
+                    {translator.getMessage('popup_upgrade_screen_continue_free')}
                 </button>
             </div>
         </div>
