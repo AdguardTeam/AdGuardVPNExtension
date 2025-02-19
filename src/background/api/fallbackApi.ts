@@ -24,6 +24,15 @@ export const GOOGLE_DOH_URL = `${GOOGLE_DOH_HOSTNAME}/resolve`;
 const ALIDNS_DOH_HOSTNAME = 'dns.alidns.com';
 export const ALIDNS_DOH_URL = `${ALIDNS_DOH_HOSTNAME}/resolve`;
 
+/**
+ * Port must be specified for Quad9 DOH.
+ *
+ * @see {@link https://quad9.net/news/blog/doh-with-quad9-dns-servers/}
+ */
+const QUAD9_DOH_HOSTNAME = 'dns.quad9.net';
+const QUAD9_DOH_PORT = 5053;
+export const QUAD9_DOH_URL = `${QUAD9_DOH_HOSTNAME}:${QUAD9_DOH_PORT}/dns-query`;
+
 const stageSuffix = STAGE_ENV === 'test' ? '-dev' : '';
 const BKP_API_HOSTNAME_PART = `bkp-api${stageSuffix}.adguard-vpn.online`;
 const BKP_AUTH_HOSTNAME_PART = `bkp-auth${stageSuffix}.adguard-vpn.online`;
@@ -167,6 +176,7 @@ export class FallbackApi {
             await this.getAuthApiUrl(),
             GOOGLE_DOH_HOSTNAME,
             ALIDNS_DOH_HOSTNAME,
+            QUAD9_DOH_HOSTNAME,
         ].map((url) => `*${url}`);
     };
 
@@ -217,6 +227,30 @@ export class FallbackApi {
         return bkpUrl;
     };
 
+    private getBkpUrlByQuad9Doh = async (name: string): Promise<string> => {
+        const { data } = await axios.get(`https://${QUAD9_DOH_URL}`, {
+            headers: {
+                'Cache-Control': 'no-cache',
+                Pragma: 'no-cache',
+                accept: 'application/json',
+            },
+            params: {
+                name,
+                type: 'TXT',
+            },
+            timeout: REQUEST_TIMEOUT_MS,
+            ...fetchConfig,
+        });
+
+        const bkpUrl = _.get(data, 'Answer[0].data');
+
+        if (!FallbackApi.isString(bkpUrl)) {
+            throw new Error(`Invalid bkp url from quad9 doh for ${name}`);
+        }
+
+        return bkpUrl;
+    };
+
     /**
      * Logs errors in the function and re-throws them to ensure that Promise.any receives them
      * @param fn Function to call
@@ -241,6 +275,7 @@ export class FallbackApi {
             bkpUrl = await Promise.any([
                 this.debugErrors(() => this.getBkpUrlByGoogleDoh(hostname)),
                 this.debugErrors(() => this.getBkpUrlByAliDnsDoh(hostname)),
+                this.debugErrors(() => this.getBkpUrlByQuad9Doh(hostname)),
             ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
         } catch (e) {
