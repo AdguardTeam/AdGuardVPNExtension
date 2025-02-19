@@ -5,17 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+<!-- TODO: Add release date -->
+## [2.4.1]
+
+### Added
+
+- Anonymized telemetry data collection to capture usage metrics.
 
 ### Changed
 
 - UI Design of options page.
+- Logic of how rate us dialog is shown.
 
 ### Fixed
 
 - Error with `chrome.offscreen.createDocument` on Chrome 109 when connecting to proxy for MV3 [#190].
 
-[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.3.2...HEAD
+[2.4.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.3.2...HEAD
 [#190]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/190
 
 ## [2.3.2] - 2024-12-10
