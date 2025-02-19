@@ -4,7 +4,7 @@ import { type LocationInterface } from '../../src/background/schema';
 describe('lazyGet callback', () => {
     const expectedColor = 'blue';
     const cb = jest.fn(() => expectedColor);
-    const obj = {
+    const obj: { color: string } = {
         get color() {
             return lazyGet(obj, 'color', cb);
         },

@@ -4,6 +4,7 @@ import _ from 'lodash';
 import pJSON from '../../../package.json';
 import {
     AUTH_API_URL,
+    TELEMETRY_API_URL,
     VPN_API_URL,
     STAGE_ENV,
     FORWARDER_DOMAIN,
@@ -174,6 +175,7 @@ export class FallbackApi {
         return [
             await this.getVpnApiUrl(),
             await this.getAuthApiUrl(),
+            TELEMETRY_API_URL,
             GOOGLE_DOH_HOSTNAME,
             ALIDNS_DOH_HOSTNAME,
             QUAD9_DOH_HOSTNAME,

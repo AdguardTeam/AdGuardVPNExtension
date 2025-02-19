@@ -1,3 +1,5 @@
+import { TelemetryStore } from '../../common/telemetry';
+
 /* eslint-disable import/no-cycle */
 import { SettingsStore } from './SettingsStore';
 import { UiStore } from './UiStore';
@@ -16,11 +18,14 @@ export class RootStore {
 
     vpnStore: VpnStore;
 
+    telemetryStore: TelemetryStore;
+
     constructor() {
         this.globalStore = new GlobalStore(this);
         this.settingsStore = new SettingsStore(this);
         this.uiStore = new UiStore(this);
         this.authStore = new AuthStore(this);
         this.vpnStore = new VpnStore(this);
+        this.telemetryStore = new TelemetryStore();
     }
 }

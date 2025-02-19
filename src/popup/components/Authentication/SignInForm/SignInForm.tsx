@@ -13,9 +13,16 @@ import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import { getForwarderUrl } from '../../../../common/helpers';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { TelemetryScreenName } from '../../../../background/telemetry';
 
 export const SignInForm = observer(() => {
-    const { authStore, settingsStore } = useContext(rootStore);
+    const { authStore, settingsStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.AuthLoginScreen,
+    );
 
     const { forwarderDomain } = settingsStore;
 

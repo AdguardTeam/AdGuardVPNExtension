@@ -13,6 +13,7 @@ export interface BrowserRuntime {
     sendMessage(...args: [SendMessageParameters]): Promise<void>;
     getManifest(): Manifest.WebExtensionManifest;
     isManifestVersion2(): boolean;
+    getPlatformInfo(): Promise<Runtime.PlatformInfo>;
     getPlatformOs(): Promise<Runtime.PlatformOs>;
 }
 
@@ -36,8 +37,12 @@ const getManifest = (): Manifest.WebExtensionManifest => {
 
 const isManifestVersion2 = () => getManifest().manifest_version === MANIFEST_VERSION_2;
 
+const getPlatformInfo = async (): Promise<Runtime.PlatformInfo> => {
+    return browser.runtime.getPlatformInfo();
+};
+
 const getPlatformOs = async (): Promise<Runtime.PlatformOs> => {
-    const platformInfo = await browser.runtime.getPlatformInfo();
+    const platformInfo = await getPlatformInfo();
     return platformInfo.os;
 };
 
@@ -45,5 +50,6 @@ export const runtime: BrowserRuntime = {
     sendMessage,
     getManifest,
     isManifestVersion2,
+    getPlatformInfo,
     getPlatformOs,
 };

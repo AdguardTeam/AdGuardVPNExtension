@@ -17,7 +17,13 @@ export class GlobalStore {
 
     @action
     async getOptionsData(reloading = false): Promise<void> {
-        const { rootStore: { settingsStore, authStore, exclusionsStore } } = this;
+        const { rootStore } = this;
+        const {
+            settingsStore,
+            authStore,
+            exclusionsStore,
+            telemetryStore,
+        } = rootStore;
 
         if (!reloading) {
             this.setInitStatus(RequestStatus.Pending);
@@ -32,6 +38,7 @@ export class GlobalStore {
             exclusionsStore.setServicesData(optionsData.servicesData);
             exclusionsStore.setExclusionsData(optionsData.exclusionsData);
             exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
+            telemetryStore.setIsHelpUsImproveEnabled(optionsData.helpUsImprove);
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
             log.error(e.message);

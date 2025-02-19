@@ -3,6 +3,8 @@ import { observer } from 'mobx-react';
 
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { translator } from '../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry';
 import { rootStore } from '../../stores';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Input } from '../ui/Input';
@@ -10,7 +12,12 @@ import { Button } from '../ui/Button';
 import { Title } from '../ui/Title';
 
 export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
-    const { settingsStore, notificationsStore } = useContext(rootStore);
+    const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.FreeGbInviteFriendScreen,
+    );
 
     const { invitesBonuses, bonusesDataRequestStatus } = settingsStore;
     const { invitesCount, maxInvitesCount, inviteUrl } = invitesBonuses;

@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryScreenName } from '../../../background/telemetry';
 import { translator } from '../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 
@@ -15,8 +17,17 @@ import { DnsSettings, DnsSettingsButton } from './DnsSettings';
 import './general.pcss';
 
 export const General = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
     const { showDnsSettings } = settingsStore;
+
+    // `SettingsDnsServersScreen` is rendered on top of this screen
+    const canSendTelemetry = !showDnsSettings;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.SettingsScreen,
+        canSendTelemetry,
+    );
 
     if (showDnsSettings) {
         return <DnsSettings />;

@@ -3,12 +3,19 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { TelemetryScreenName } from '../../../../background/telemetry';
 import { Slider } from '../../ui/Slider';
 
 import './onboarding.pcss';
 
 export const Onboarding = observer(() => {
-    const { authStore } = useContext(rootStore);
+    const { authStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.OnboardingScreen,
+    );
 
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 

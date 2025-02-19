@@ -29,6 +29,7 @@ import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
 import { emailConfirmationService } from '../emailConfirmationService';
 import { limitedOfferService } from '../limitedOfferService';
+import { telemetry } from '../telemetry';
 
 interface Message {
     type: MessageType,
@@ -453,6 +454,25 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             locationsService.measurePings(true);
             break;
         }
+        case MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW: {
+            const { screenName } = data;
+            await telemetry.sendPageViewEventDebounced(screenName);
+            break;
+        }
+        case MessageType.TELEMETRY_EVENT_SEND_CUSTOM: {
+            const { actionName, screenName } = data;
+            await telemetry.sendCustomEventDebounced(actionName, screenName);
+            break;
+        }
+        case MessageType.TELEMETRY_EVENT_ADD_OPENED_PAGE: {
+            const pageId = telemetry.addOpenedPage();
+            return pageId;
+        }
+        case MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE: {
+            const { pageId } = data;
+            telemetry.removeOpenedPage(pageId);
+            break;
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }
@@ -469,6 +489,8 @@ const longLivedMessageHandler = (port: Runtime.Port) => {
     let listenerId: string;
 
     log.debug(`Connecting to the port "${port.name}"`);
+    notifier.notifyListeners(notifier.types.PORT_CONNECTED, port.name);
+
     port.onMessage.addListener((message) => {
         const { type, data } = message;
         if (type === MessageType.ADD_LONG_LIVED_CONNECTION) {
@@ -487,6 +509,7 @@ const longLivedMessageHandler = (port: Runtime.Port) => {
     port.onDisconnect.addListener(() => {
         log.debug(`Removing listener: ${listenerId} for port ${port.name}`);
         notifier.removeListener(listenerId);
+        notifier.notifyListeners(notifier.types.PORT_DISCONNECTED, port.name);
     });
 };
 

@@ -46,6 +46,7 @@ interface PopupDataInterface {
     forwarderDomain: string;
     isAuthenticated: string | boolean;
     policyAgreement: boolean;
+    helpUsImprove: boolean;
     canControlProxy?: CanControlProxy;
     isProxyEnabled?: boolean;
     isRoutable?: boolean;
@@ -102,6 +103,7 @@ export class PopupData {
     getPopupData = async (url: string): Promise<PopupDataInterface> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
+        const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
         const isHostPermissionsGranted = await Permissions.hasNeededHostPermissions();
         const forwarderDomain = await forwarder.updateAndGetDomain();
 
@@ -110,6 +112,7 @@ export class PopupData {
                 forwarderDomain,
                 isAuthenticated,
                 policyAgreement,
+                helpUsImprove,
                 isHostPermissionsGranted,
             };
         }
@@ -158,6 +161,7 @@ export class PopupData {
             forwarderDomain,
             isAuthenticated,
             policyAgreement,
+            helpUsImprove,
             canControlProxy,
             isProxyEnabled,
             isRoutable,

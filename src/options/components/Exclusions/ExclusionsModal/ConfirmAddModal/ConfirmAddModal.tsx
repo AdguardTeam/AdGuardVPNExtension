@@ -1,14 +1,24 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryScreenName } from '../../../../../background/telemetry';
 import { rootStore } from '../../../../stores';
 import { translator } from '../../../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../../../common/telemetry';
 import { Modal } from '../../../ui/Modal';
 import { Button } from '../../../ui/Button';
 
 export const ConfirmAddModal = observer(() => {
-    const { exclusionsStore, notificationsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
     const { confirmAddModalOpen, urlToConfirm } = exclusionsStore;
+
+    const isOpen = confirmAddModalOpen;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogExclusionsAddNotValidDomain,
+        isOpen,
+    );
 
     const closeModal = () => {
         exclusionsStore.setConfirmAddModalOpen(false);
@@ -45,7 +55,7 @@ export const ConfirmAddModal = observer(() => {
                     </Button>
                 </>
             )}
-            isOpen={confirmAddModalOpen}
+            isOpen={isOpen}
             className="exclusions__modal exclusions__modal--empty-body"
             size="medium"
             onClose={closeModal}

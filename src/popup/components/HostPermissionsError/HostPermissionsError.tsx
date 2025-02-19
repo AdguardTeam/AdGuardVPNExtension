@@ -8,6 +8,8 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry';
 
 import './host-permissions-error.pcss';
 
@@ -18,9 +20,17 @@ import './host-permissions-error.pcss';
  * because otherwise it won't be able to make api requests.
  */
 export const HostPermissionsError = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
 
     const { isHostPermissionsGranted, forwarderDomain } = settingsStore;
+
+    const isOpen = !isHostPermissionsGranted;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogAccessWebsitesPermission,
+        isOpen,
+    );
 
     const handleAllow = () => {
         // the method is async but we don't need to wait for it
@@ -50,7 +60,7 @@ export const HostPermissionsError = observer(() => {
 
     return (
         <Modal
-            isOpen={!isHostPermissionsGranted}
+            isOpen={isOpen}
             className="modal host-permissions-error"
             shouldCloseOnOverlayClick
             overlayClassName="modal__overlay"

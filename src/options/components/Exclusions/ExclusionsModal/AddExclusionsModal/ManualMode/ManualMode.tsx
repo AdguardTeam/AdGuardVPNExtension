@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 
+import { TelemetryActionName, TelemetryScreenName } from '../../../../../../background/telemetry';
 import { rootStore } from '../../../../../stores';
 import { translator } from '../../../../../../common/translator';
 import { Input } from '../../../../ui/Input';
@@ -9,7 +10,7 @@ import './manual-mode.pcss';
 export const MANUAL_FORM_ID = 'add-exclusion-form-manual';
 
 export const ManualMode = () => {
-    const { exclusionsStore, notificationsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');
 
@@ -19,6 +20,11 @@ export const ManualMode = () => {
 
     const addUrl = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.AddWebsiteManually,
+            TelemetryScreenName.DialogAddWebsiteExclusion,
+        );
 
         if (exclusionsStore.validateUrl(inputValue)) {
             const addedExclusionsCount = await exclusionsStore.addUrlToExclusions(inputValue);

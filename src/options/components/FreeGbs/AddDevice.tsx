@@ -4,6 +4,8 @@ import { observer } from 'mobx-react';
 import { getForwarderUrl } from '../../../common/helpers';
 import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { rootStore } from '../../stores';
 import { Icon } from '../ui/Icon';
@@ -11,7 +13,13 @@ import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
 
 export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.FreeGbAddAnotherPlatformScreen,
+    );
+
     const { multiplatformBonus, forwarderDomain } = settingsStore;
 
     const otherProductsUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS);

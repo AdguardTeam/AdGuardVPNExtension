@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
+import { TelemetryScreenName } from '../../../background/telemetry';
 import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { SubscriptionType } from '../../../common/constants';
 import { getForwarderUrl } from '../../../common/helpers';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
@@ -15,7 +17,12 @@ import { Features } from './Features';
 import './account.pcss';
 
 export const Account = observer(() => {
-    const { authStore, settingsStore } = useContext(rootStore);
+    const { authStore, settingsStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.AccountScreen,
+    );
 
     const {
         currentUsername,
@@ -25,6 +32,7 @@ export const Account = observer(() => {
         subscriptionTimeExpiresIso,
         forwarderDomain,
     } = settingsStore;
+
     const { maxDevicesCount } = authStore;
 
     const editAccountUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.EDIT_ACCOUNT);

@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef } from 'react';
 
 import { notifier } from '../../common/notifier';
-import { messenger } from '../../common/messenger';
-import { MessageType } from '../../common/constants';
+import { type Message, messenger } from '../../common/messenger';
+import { MessageType, SETTINGS_IDS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { Prefs } from '../../common/prefs';
 import { rootStore } from '../stores';
@@ -12,6 +12,7 @@ const NOTIFIER_EVENTS = [
     notifier.types.EXCLUSIONS_DATA_UPDATED,
     notifier.types.USER_AUTHENTICATED,
     notifier.types.USER_DEAUTHENTICATED,
+    notifier.types.SETTING_UPDATED,
 ];
 
 export const useMessageHandler = () => {
@@ -20,13 +21,14 @@ export const useMessageHandler = () => {
         settingsStore,
         globalStore,
         exclusionsStore,
+        telemetryStore,
     } = useContext(rootStore);
 
     const reloadingRef = useRef<boolean>(false);
     const callbackRef = useRef<(() => Promise<void>) | null>(null);
 
-    const messageHandler = async (message: any) => {
-        const { type } = message;
+    const messageHandler = async (message: Message) => {
+        const { type, data, value } = message;
 
         switch (type) {
             case notifier.types.AUTHENTICATE_SOCIAL_SUCCESS: {
@@ -45,6 +47,15 @@ export const useMessageHandler = () => {
             case notifier.types.USER_DEAUTHENTICATED: {
                 authStore.setIsAuthenticated(false);
                 await settingsStore.updateCurrentUsername();
+                break;
+            }
+            case notifier.types.SETTING_UPDATED: {
+                if (
+                    data === SETTINGS_IDS.HELP_US_IMPROVE
+                    && typeof value === 'boolean'
+                ) {
+                    telemetryStore.setIsHelpUsImproveEnabled(value);
+                }
                 break;
             }
             default: {

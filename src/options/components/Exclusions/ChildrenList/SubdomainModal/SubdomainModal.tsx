@@ -6,14 +6,23 @@ import { translator } from '../../../../../common/translator';
 import { Modal } from '../../../ui/Modal';
 import { Button } from '../../../ui/Button';
 import { Input } from '../../../ui/Input';
+import { useTelemetryPageViewEvent } from '../../../../../common/telemetry';
+import { TelemetryScreenName } from '../../../../../background/telemetry';
 
 export const SubdomainModal = observer(() => {
-    const { exclusionsStore, notificationsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
+
+    const isOpen = exclusionsStore.addSubdomainModalOpen;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogExclusionsAddSubdomain,
+        isOpen,
+    );
 
     const [inputValue, setInputValue] = useState('');
     const [inputError, setInputError] = useState<null | string>(null);
 
-    const isOpen = exclusionsStore.addSubdomainModalOpen;
     const formId = 'add-subdomain-form';
 
     const closeModal = () => {

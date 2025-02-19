@@ -4,6 +4,8 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { type LocationData } from '../../stores/VpnStore';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry';
 
 import { FastestSkeleton } from './FastestSkeleton';
 import { Location } from './Location';
@@ -13,7 +15,17 @@ import { Reload } from './Reload';
 import './endpoints.pcss';
 
 export const Locations = observer(() => {
-    const { vpnStore, uiStore, settingsStore } = useContext(rootStore);
+    const {
+        vpnStore,
+        uiStore,
+        settingsStore,
+        telemetryStore,
+    } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.LocationsScreen,
+    );
 
     const handleLocationSelect = async (id: string) => {
         const prevId = vpnStore.selectedLocation?.id;

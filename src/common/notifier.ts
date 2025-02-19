@@ -27,6 +27,10 @@ export enum NotifierType {
     CONNECTIVITY_STATE_CHANGED = 'event.connectivity.state.changed',
 
     SERVER_ERROR = 'server.error',
+
+    // Background page connection events
+    PORT_CONNECTED = 'event.port.connected',
+    PORT_DISCONNECTED = 'event.port.disconnected',
 }
 
 export type NotifierTypeMap = {

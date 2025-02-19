@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryScreenName } from '../../../../background/telemetry';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { translator } from '../../../../common/translator';
 import { ExclusionsMode, ExclusionsType } from '../../../../common/exclusionsConstants';
 import { isTopLevel } from '../../../../common/utils/url';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { Button } from '../../ui/Button';
 import { Exclusion } from '../Exclusion';
 
@@ -13,8 +15,17 @@ import { SubdomainModal } from './SubdomainModal';
 import { ResetServiceModal } from './ResetServiceModal';
 
 export const ChildrenList = observer(() => {
-    const { exclusionsStore } = useContext(rootStore);
-    const { selectedExclusion } = exclusionsStore;
+    const { exclusionsStore, telemetryStore } = useContext(rootStore);
+    const { selectedExclusion, addSubdomainModalOpen } = exclusionsStore;
+
+    // `DialogExclusionsAddSubdomain` is rendered on top of this screen
+    const canSendTelemetry = !addSubdomainModalOpen;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.ExclusionsDomainDetailsScreen,
+        canSendTelemetry,
+    );
 
     if (!selectedExclusion || selectedExclusion.children.length === 0) {
         return null;

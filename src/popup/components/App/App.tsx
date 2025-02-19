@@ -17,8 +17,8 @@ import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/constants';
 import { log } from '../../../common/logger';
-import { messenger } from '../../../common/messenger';
-import { notifier, type NotifierType } from '../../../common/notifier';
+import { type Message, messenger } from '../../../common/messenger';
+import { notifier } from '../../../common/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
@@ -33,11 +33,7 @@ import { HostPermissionsError } from '../HostPermissionsError';
 import { SkeletonLoading } from '../SkeletonLoading';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal/LimitedOfferModal';
-
-export interface Message {
-    type: NotifierType,
-    data: any
-}
+import { SETTINGS_IDS } from '../../../common/constants';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -49,6 +45,7 @@ export const App = observer(() => {
         uiStore,
         vpnStore,
         globalStore,
+        telemetryStore,
     } = useContext(rootStore);
 
     const {
@@ -87,7 +84,7 @@ export const App = observer(() => {
         settingsStore.trackSystemTheme();
 
         const messageHandler = async (message: Message) => {
-            const { type, data } = message;
+            const { type, data, value } = message;
 
             switch (type) {
                 case notifier.types.VPN_INFO_UPDATED: {
@@ -131,6 +128,15 @@ export const App = observer(() => {
                     settingsStore.openServerErrorPopup();
                     break;
                 }
+                case notifier.types.SETTING_UPDATED: {
+                    if (
+                        data === SETTINGS_IDS.HELP_US_IMPROVE
+                        && typeof value === 'boolean'
+                    ) {
+                        telemetryStore.setIsHelpUsImproveEnabled(value);
+                    }
+                    break;
+                }
                 case notifier.types.SHOW_RATE_MODAL: {
                     authStore.setShouldShowRateModal(true);
                     break;
@@ -152,6 +158,7 @@ export const App = observer(() => {
             notifier.types.CONNECTIVITY_STATE_CHANGED,
             notifier.types.TOO_MANY_DEVICES_CONNECTED,
             notifier.types.SERVER_ERROR,
+            notifier.types.SETTING_UPDATED,
             notifier.types.SHOW_RATE_MODAL,
         ];
 

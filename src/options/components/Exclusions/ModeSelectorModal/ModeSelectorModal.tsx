@@ -1,15 +1,25 @@
 import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 import { rootStore } from '../../../stores';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { translator } from '../../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { Modal } from '../../ui/Modal';
 import { Radio } from '../../ui/Radio';
 import { Button } from '../../ui/Button';
 
 export const ModeSelectorModal = observer(() => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, telemetryStore } = useContext(rootStore);
+
+    const isOpen = exclusionsStore.modeSelectorModalOpen;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogExclusionsModeSelection,
+        isOpen,
+    );
 
     const [mode, setMode] = useState(exclusionsStore.currentMode);
 
@@ -19,6 +29,13 @@ export const ModeSelectorModal = observer(() => {
     };
 
     const handleSaveMode = async () => {
+        telemetryStore.sendCustomEvent(
+            mode === ExclusionsMode.Regular
+                ? TelemetryActionName.GeneralModeClick
+                : TelemetryActionName.SelectiveModeClick,
+            TelemetryScreenName.DialogExclusionsModeSelection,
+        );
+
         await exclusionsStore.setCurrentMode(mode);
         exclusionsStore.setModeSelectorModalOpen(false);
     };
@@ -40,7 +57,7 @@ export const ModeSelectorModal = observer(() => {
 
     return (
         <Modal
-            isOpen={exclusionsStore.modeSelectorModalOpen}
+            isOpen={isOpen}
             title={translator.getMessage('settings_exclusion_change_mode_modal_title')}
             actions={(
                 <>

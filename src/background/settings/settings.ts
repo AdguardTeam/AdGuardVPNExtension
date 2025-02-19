@@ -6,6 +6,7 @@ import {
     type QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
     APPEARANCE_THEME_DEFAULT,
+    type AppearanceTheme,
 } from '../../common/constants';
 import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
@@ -32,6 +33,8 @@ export interface SettingsInterface {
     setCustomDnsServers(dnsServersData: DnsServerData[]): void;
     getSelectedDnsServer(): string;
     getQuickConnectSetting(): QuickConnectSetting;
+    getAppearanceTheme(): AppearanceTheme;
+    isHelpUsImproveEnabled(): boolean;
 }
 
 const DEFAULT_SETTINGS = {
@@ -178,6 +181,14 @@ const isDebugModeEnabled = (): boolean => {
     return settingsService.getSetting(SETTINGS_IDS.DEBUG_MODE_ENABLED);
 };
 
+const getAppearanceTheme = (): AppearanceTheme => {
+    return settingsService.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+};
+
+const isHelpUsImproveEnabled = (): boolean => {
+    return settingsService.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
+};
+
 const init = async (): Promise<void> => {
     await settingsService.init();
     dns.init();
@@ -201,4 +212,6 @@ export const settings: SettingsInterface = {
     getSelectedDnsServer,
     getQuickConnectSetting,
     isDebugModeEnabled,
+    getAppearanceTheme,
+    isHelpUsImproveEnabled,
 };

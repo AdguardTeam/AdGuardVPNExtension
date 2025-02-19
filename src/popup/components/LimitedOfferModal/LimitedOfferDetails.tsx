@@ -5,6 +5,8 @@ import { observer } from 'mobx-react';
 import { UNLIMITED_FEATURES } from '../../../common/components/constants';
 import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { popupActions } from '../../actions/popupActions';
 import { rootStore } from '../../stores';
 import { Icon } from '../ui/Icon';
@@ -15,11 +17,19 @@ import './limited-offer-details.pcss';
  * Component for displaying limited offer details.
  */
 export const LimitedOfferDetails = observer(() => {
-    const { uiStore, settingsStore } = useContext(rootStore);
+    const { uiStore, settingsStore, telemetryStore } = useContext(rootStore);
 
     const { shouldShowLimitedOfferDetails } = uiStore;
 
     const { limitedOfferData } = settingsStore;
+
+    const isRenderedAndOpen = !!limitedOfferData && shouldShowLimitedOfferDetails;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.PromoOfferScreen,
+        isRenderedAndOpen,
+    );
 
     if (!limitedOfferData) {
         return null;
@@ -33,6 +43,10 @@ export const LimitedOfferDetails = observer(() => {
     } = limitedOfferData;
 
     const openLimitedOfferLink = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.PromoOfferPurchaseClick,
+            TelemetryScreenName.PromoOfferScreen,
+        );
         popupActions.openTab(url);
     };
 

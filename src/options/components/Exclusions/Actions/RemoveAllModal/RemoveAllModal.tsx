@@ -1,15 +1,23 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryScreenName } from '../../../../../background/telemetry';
 import { rootStore } from '../../../../stores';
 import { translator } from '../../../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../../../common/telemetry';
 import { Modal } from '../../../ui/Modal';
 import { Button } from '../../../ui/Button';
 
 export const RemoveAllModal = observer(() => {
-    const { exclusionsStore, notificationsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const isOpen = exclusionsStore.removeAllModalOpen;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogExclusionsRemoveAll,
+        isOpen,
+    );
 
     const closeModal = () => {
         exclusionsStore.closeRemoveAllModal();

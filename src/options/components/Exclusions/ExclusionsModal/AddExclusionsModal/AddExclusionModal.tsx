@@ -3,9 +3,11 @@ import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
 
+import { TelemetryScreenName } from '../../../../../background/telemetry';
 import { rootStore } from '../../../../stores';
 import { AddExclusionMode } from '../../../../stores/ExclusionsStore';
 import { translator } from '../../../../../common/translator';
+import { useTelemetryPageViewEvent } from '../../../../../common/telemetry';
 import { Modal } from '../../../ui/Modal';
 import { Button } from '../../../ui/Button';
 
@@ -15,10 +17,16 @@ import { MANUAL_FORM_ID, ManualMode } from './ManualMode';
 import './add-exclusion-modal.pcss';
 
 export const AddExclusionModal = observer(() => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, telemetryStore } = useContext(rootStore);
     const { addExclusionMode } = exclusionsStore;
 
     const isOpen = exclusionsStore.addExclusionModalOpen;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogAddWebsiteExclusion,
+        isOpen,
+    );
 
     const onClose = () => {
         exclusionsStore.closeAddExclusionModal();

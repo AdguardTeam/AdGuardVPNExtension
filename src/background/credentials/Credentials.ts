@@ -21,6 +21,7 @@ import { auth, type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
 import { abTestManager } from '../abTestManager';
 import { ERROR_STATUSES } from '../constants';
+import { type SubscriptionType } from '../../common/constants';
 
 import { credentialsService } from './credentialsService';
 
@@ -62,6 +63,7 @@ export interface CredentialsInterface {
     ): boolean;
     getAppId(): Promise<string>;
     isPremiumToken(): Promise<boolean>;
+    getSubscriptionType(): SubscriptionType | undefined;
     getTimeExpiresIso(): Promise<string | null>;
     getUsername(): Promise<string | null>;
     getUserRegistrationTimeISO(): Promise<string | null>;

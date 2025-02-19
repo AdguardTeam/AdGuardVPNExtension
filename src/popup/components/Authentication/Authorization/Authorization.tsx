@@ -3,13 +3,20 @@ import React, { useContext } from 'react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { SocialAuthProvider } from '../../../../common/constants';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { TelemetryScreenName } from '../../../../background/telemetry';
 import { EmailAuth } from '../EmailAuth';
 import { Icon } from '../../ui/Icon';
 
 import './authorization.pcss';
 
 export const Authorization = () => {
-    const { authStore } = useContext(rootStore);
+    const { authStore, telemetryStore } = useContext(rootStore);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.AuthScreen,
+    );
 
     const authClickHandler = (provider: SocialAuthProvider) => async () => {
         await authStore.proceedAuthorization(provider);

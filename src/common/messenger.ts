@@ -5,12 +5,31 @@ import type { LimitedOfferData } from '../background/limitedOfferService';
 import type { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
-import type { Message } from '../popup/components/App/App';
+import type { TelemetryScreenName, TelemetryActionName, TelemetryActionToScreenMap } from '../background/telemetry';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
 import { MessageType, type SocialAuthProvider, type ExclusionsContentMap } from './constants';
 import { type NotifierType } from './notifier';
+
+export interface Message {
+    /**
+     * Type of the message.
+     */
+    type: NotifierType;
+
+    /**
+     * Data of the message.
+     */
+    data: any;
+
+    /**
+     * Optional value of the message.
+     * Some messages may have a value, for example when setting updated
+     * it sends a new value of the setting attached.
+     */
+    value?: any,
+}
 
 class Messenger {
     async sendMessage<T>(type: string, data?: T) {
@@ -48,8 +67,8 @@ class Messenger {
 
         const messageHandler = (message: any) => {
             if (message.type === MessageType.NOTIFY_LISTENERS) {
-                const [type, data] = message.data;
-                eventListener({ type, data });
+                const [type, data, value] = message.data;
+                eventListener({ type, data, value });
             }
             if (message.type === MessageType.UPDATE_LISTENERS) {
                 onUpdateListeners();
@@ -80,7 +99,7 @@ class Messenger {
      * @param callback
      */
     createLongLivedConnection = (events: NotifierType[], callback: (...args: Message[]) => void): Function => {
-        const eventListener = (...args: { type: NotifierType; data: string; }[]) => {
+        const eventListener = (...args: Message[]) => {
             callback(...args);
         };
 
@@ -93,8 +112,8 @@ class Messenger {
 
             port.onMessage.addListener((message) => {
                 if (message.type === MessageType.NOTIFY_LISTENERS) {
-                    const [type, data] = message.data;
-                    eventListener({ type, data });
+                    const [type, data, value] = message.data;
+                    eventListener({ type, data, value });
                 }
             });
 
@@ -497,6 +516,53 @@ class Messenger {
     recalculatePings() {
         const type = MessageType.RECALCULATE_PINGS;
         return this.sendMessage(type);
+    }
+
+    /**
+     * Sends a message to the background to send a page view telemetry event.
+     *
+     * NOTE: Do not await this function, as it is not necessary to wait for the response.
+     *
+     * @param screenName Name of the screen.
+     */
+    async sendPageViewTelemetryEvent(screenName: TelemetryScreenName): Promise<void> {
+        const type = MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW;
+        return this.sendMessage(type, { screenName });
+    }
+
+    /**
+     * Sends a message to the background to send a custom telemetry event.
+     *
+     * NOTE: Do not await this function, as it is not necessary to wait for the response.
+     *
+     * @param event Custom telemetry event data.
+     */
+    async sendCustomTelemetryEvent<T extends TelemetryActionName>(
+        actionName: T,
+        screenName: TelemetryActionToScreenMap[T],
+    ): Promise<void> {
+        const type = MessageType.TELEMETRY_EVENT_SEND_CUSTOM;
+        return this.sendMessage(type, { actionName, screenName });
+    }
+
+    /**
+     * Adds opened page to the list of opened pages inside of telemetry module.
+     *
+     * @returns Page ID of new opened page, which can be used to remove it later.
+     */
+    async addTelemetryOpenedPage(): Promise<string> {
+        const type = MessageType.TELEMETRY_EVENT_ADD_OPENED_PAGE;
+        return this.sendMessage(type);
+    }
+
+    /**
+     * Removes opened page from the list of opened pages of telemetry module.
+     *
+     * @param pageId ID of page to remove.
+     */
+    async removeTelemetryOpenedPage(pageId: string): Promise<void> {
+        const type = MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE;
+        return this.sendMessage(type, { pageId });
     }
 }
 
