@@ -371,8 +371,12 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { key, value } = data;
             return flagsStorage.set(key, value);
         }
-        case MessageType.SET_RATE_MODAL_VIEWED: {
-            await rateModal.setViewed();
+        case MessageType.HIDE_RATE_MODAL_AFTER_CANCEL: {
+            await rateModal.hideAfterCancel();
+            break;
+        }
+        case MessageType.HIDE_RATE_MODAL_AFTER_RATE: {
+            await rateModal.hideAfterRate();
             break;
         }
         case MessageType.GET_GENERAL_EXCLUSIONS: {

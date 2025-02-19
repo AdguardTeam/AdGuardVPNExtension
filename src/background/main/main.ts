@@ -40,7 +40,7 @@ import { proxyApi } from '../proxy/abstractProxyApi';
 import { updateOptionsPageListeners } from '../stateStorage/helper';
 import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
-import '../rateModal';
+import { rateModal } from '../rateModal';
 import '../networkConnectionObserver';
 
 declare global {
@@ -119,6 +119,7 @@ const asyncInitModules = async (): Promise<void> => {
         await logStorageManager.checkAndSwitchStorage(settings.isDebugModeEnabled());
         await exclusions.init();
         await endpointsTldExclusions.init();
+        await rateModal.initState();
         settings.applySettings(); // we have to apply settings when credentials are ready
         endpoints.init(); // update endpoints list on extension or browser restart
         await nonRoutable.init();

@@ -33,16 +33,22 @@ export const ConfirmRateModal = observer(() => {
     const content = rating > BAD_RATING_LIMIT ? storeRatingContent : feedbackContent;
 
     const closeModal = () => {
-        authStore.closeConfirmRateModal();
+        authStore.closeConfirmRateModalAfterCancel();
+    };
+
+    const closeModalWithRating = () => {
+        authStore.closeConfirmRateModalAfterRate();
+        settingsStore.hideRate();
     };
 
     const handleConfirm = () => {
         if (rating > BAD_RATING_LIMIT) {
             window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_STORE), '_blank');
+            closeModalWithRating();
         } else {
             window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
+            closeModal();
         }
-        closeModal();
     };
 
     const getMainImagePath = () => {

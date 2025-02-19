@@ -354,8 +354,13 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async setRateModalViewed() {
-        const type = MessageType.SET_RATE_MODAL_VIEWED;
+    async hideRateModalAfterCancel() {
+        const type = MessageType.HIDE_RATE_MODAL_AFTER_CANCEL;
+        return this.sendMessage(type);
+    }
+
+    async hideRateModalAfterRate() {
+        const type = MessageType.HIDE_RATE_MODAL_AFTER_RATE;
         return this.sendMessage(type);
     }
 

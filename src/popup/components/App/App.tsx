@@ -131,6 +131,10 @@ export const App = observer(() => {
                     settingsStore.openServerErrorPopup();
                     break;
                 }
+                case notifier.types.SHOW_RATE_MODAL: {
+                    authStore.setShouldShowRateModal(true);
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -148,6 +152,7 @@ export const App = observer(() => {
             notifier.types.CONNECTIVITY_STATE_CHANGED,
             notifier.types.TOO_MANY_DEVICES_CONNECTED,
             notifier.types.SERVER_ERROR,
+            notifier.types.SHOW_RATE_MODAL,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);
