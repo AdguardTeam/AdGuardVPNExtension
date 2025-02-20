@@ -30,9 +30,9 @@ export type LimitedOfferData = {
     discount: number;
 
     /**
-     * URL query key for forwarder page.
+     * Forwarder URL query key.
      */
-    urlQuery: ForwarderUrlQueryKey;
+    forwarderUrlQueryKey: ForwarderUrlQueryKey;
 };
 
 /**
@@ -253,7 +253,7 @@ class LimitedOfferService {
                 timeLeftMs,
                 years: this.LIMITED_OFFER_YEARS_RU,
                 discount: this.LIMITED_OFFER_DISCOUNT_RU_PERCENT,
-                urlQuery: ForwarderUrlQueryKey.LimitedOfferRu,
+                forwarderUrlQueryKey: ForwarderUrlQueryKey.LimitedOfferRu,
             };
         }
 
@@ -265,7 +265,7 @@ class LimitedOfferService {
             timeLeftMs,
             years: this.LIMITED_OFFER_YEARS,
             discount: this.LIMITED_OFFER_DISCOUNT_PERCENT,
-            urlQuery: ForwarderUrlQueryKey.LimitedOffer,
+            forwarderUrlQueryKey: ForwarderUrlQueryKey.LimitedOffer,
         };
     }
 }

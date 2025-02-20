@@ -37,7 +37,7 @@ describe('Actions tests', () => {
         getUsernameMock.mockImplementation(() => 'test@mail.com');
 
         const expectedUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=test%40mail.com';
-        const url = await actions.getForwarderUrlWithUsername(ForwarderUrlQueryKey.UpgradeLicense);
+        const url = await actions.getForwarderUrlWithEmail(ForwarderUrlQueryKey.UpgradeLicense);
         getUsernameMock.mockClear();
         expect(url).toEqual(expectedUrl);
     });
@@ -47,7 +47,7 @@ describe('Actions tests', () => {
         getUsernameMock.mockImplementation(() => 'tester+000@test.com');
 
         const expectedUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=tester%2B000%40test.com';
-        const url = await actions.getForwarderUrlWithUsername(ForwarderUrlQueryKey.UpgradeLicense);
+        const url = await actions.getForwarderUrlWithEmail(ForwarderUrlQueryKey.UpgradeLicense);
         getUsernameMock.mockClear();
         expect(url).toEqual(expectedUrl);
     });

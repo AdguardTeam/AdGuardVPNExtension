@@ -408,24 +408,24 @@ class Messenger {
      * Opens Premium Promo Page in new tab.
      */
     async openPremiumPromoPage() {
-        return this.openPageWithUsername(ForwarderUrlQueryKey.UpgradeLicense);
+        return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.UpgradeLicense);
     }
 
     /**
      * Opens Subscribe Promo Page in new tab.
      */
     async openSubscribePromoPage() {
-        return this.openPageWithUsername(ForwarderUrlQueryKey.Subscribe);
+        return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.Subscribe);
     }
 
     /**
-     * Opens page by appending username (email) query param if user is logged in.
+     * Opens forwarder URL in new tab by appending email query param if user is logged in.
      *
-     * @param query Forwarder URL query.
+     * @param forwarderUrlQueryKey Forwarder query key.
      */
-    async openPageWithUsername(query: ForwarderUrlQueryKey) {
-        const type = MessageType.OPEN_PAGE_WITH_USERNAME;
-        return this.sendMessage(type, { query });
+    async openForwarderUrlWithEmail(forwarderUrlQueryKey: ForwarderUrlQueryKey) {
+        const type = MessageType.OPEN_FORWARDER_URL_WITH_EMAIL;
+        return this.sendMessage(type, { forwarderUrlQueryKey });
     }
 
     /**

@@ -365,9 +365,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
 
             return vpnProvider.requestSupport(reportData);
         }
-        case MessageType.OPEN_PAGE_WITH_USERNAME: {
-            const { query } = data;
-            return actions.openPageWithUsername(query);
+        case MessageType.OPEN_FORWARDER_URL_WITH_EMAIL: {
+            const { forwarderUrlQueryKey } = data;
+            return actions.openForwarderUrlWithEmail(forwarderUrlQueryKey);
         }
         case MessageType.SET_FLAG: {
             const { key, value } = data;

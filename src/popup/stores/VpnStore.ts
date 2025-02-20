@@ -359,12 +359,12 @@ export class VpnStore {
     };
 
     /**
-     * Opens page by appending username (email) query param if user is logged in.
+     * Opens forwarder URL in new tab by appending email query param if user is logged in.
      *
-     * @param query Forwarder URL query.
+     * @param forwarderUrlQueryKey Forwarder query key.
      */
-    openPageWithUsername = async (query: ForwarderUrlQueryKey): Promise<void> => {
-        await messenger.openPageWithUsername(query);
+    openForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey): Promise<void> => {
+        await messenger.openForwarderUrlWithEmail(forwarderUrlQueryKey);
     };
 
     @action setTooManyDevicesConnected = (state: boolean): void => {

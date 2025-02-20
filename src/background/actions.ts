@@ -206,25 +206,25 @@ const clearBadgeText = async (tabId: number) => {
 };
 
 /**
- * Returns forwarder URL by appending username (email) query param if user is logged in.
+ * Constructs forwarder URL with email query param if user is logged in.
  *
- * @param query Forwarder URL query.
+ * @param forwarderUrlQueryKey Forwarder query key.
  * @returns Constructed forwarder URL.
  */
-const getForwarderUrlWithUsername = async (query: ForwarderUrlQueryKey): Promise<string> => {
+const getForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey): Promise<string> => {
     const username = await credentials.getUsername();
     const forwarderDomain = await forwarder.updateAndGetDomain();
-    const url = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES[query]);
+    const url = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES[forwarderUrlQueryKey]);
     return `${url}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
 };
 
 /**
- * Opens page by appending username (email) query param if user is logged in.
+ * Opens forwarder URL in new tab by appending email query param if user is logged in.
  *
- * @param query Forwarder URL query.
+ * @param forwarderUrlQueryKey Forwarder query key.
  */
-const openPageWithUsername = async (query: ForwarderUrlQueryKey) => {
-    const url = await getForwarderUrlWithUsername(query);
+const openForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey) => {
+    const url = await getForwarderUrlWithEmail(forwarderUrlQueryKey);
     await tabs.openTab(url);
 };
 
@@ -262,7 +262,7 @@ export const actions = {
     setIconTrafficOff,
     setBadgeText,
     clearBadgeText,
-    getForwarderUrlWithUsername,
-    openPageWithUsername,
+    getForwarderUrlWithEmail,
+    openForwarderUrlWithEmail,
     openFreeGbsPage,
 };

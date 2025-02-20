@@ -27,7 +27,7 @@ export const LimitedOfferDetails = observer(() => {
 
     const { limitedOfferData } = settingsStore;
 
-    const { openPageWithUsername } = vpnStore;
+    const { openForwarderUrlWithEmail } = vpnStore;
 
     const isRenderedAndOpen = !!limitedOfferData && shouldShowLimitedOfferDetails;
 
@@ -45,7 +45,7 @@ export const LimitedOfferDetails = observer(() => {
         timeLeftMs,
         years,
         discount,
-        urlQuery,
+        forwarderUrlQueryKey,
     } = limitedOfferData;
 
     const openLimitedOfferLink = () => {
@@ -53,7 +53,7 @@ export const LimitedOfferDetails = observer(() => {
             TelemetryActionName.PromoOfferPurchaseClick,
             TelemetryScreenName.PromoOfferScreen,
         );
-        openPageWithUsername(urlQuery);
+        openForwarderUrlWithEmail(forwarderUrlQueryKey);
     };
 
     /**

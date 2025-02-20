@@ -84,7 +84,7 @@ export enum MessageType {
     SET_NOTIFICATION_VIEWED = 'set.notification.viewed',
     OPEN_TAB = 'open.tab.action',
     REPORT_BUG = 'post.report.bug',
-    OPEN_PAGE_WITH_USERNAME = 'open.page.with.username',
+    OPEN_FORWARDER_URL_WITH_EMAIL = 'open.forwarder.url.with.email',
     ADD_REGULAR_EXCLUSIONS = 'add.regular.exclusions',
     ADD_SELECTIVE_EXCLUSIONS = 'add.selective.exclusions',
     SET_FLAG = 'set.flag',
