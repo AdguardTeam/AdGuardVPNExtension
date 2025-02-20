@@ -57,10 +57,10 @@ export const ConnectionsLimitError = observer(() => {
 
     const description = `${descriptionFirstPart} ${descriptionRestPart}`;
 
-    const premiumButtonUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.DEVICE_COUNT);
+    const deviceCountUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.DEVICE_COUNT);
 
-    const onPremiumButtonClick = async (): Promise<void> => {
-        await messenger.openTab(premiumButtonUrl);
+    const openDeviceCountPage = async (): Promise<void> => {
+        await messenger.openTab(deviceCountUrl);
         window.close();
     };
 
@@ -71,7 +71,7 @@ export const ConnectionsLimitError = observer(() => {
         },
         premium: {
             title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_premium'),
-            onClick: onPremiumButtonClick,
+            onClick: openDeviceCountPage,
         },
     };
 

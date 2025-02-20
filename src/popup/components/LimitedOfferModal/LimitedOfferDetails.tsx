@@ -17,7 +17,10 @@ import './limited-offer-details.pcss';
  */
 export const LimitedOfferDetails = observer(() => {
     const {
-        uiStore, settingsStore, telemetryStore, vpnStore,
+        uiStore,
+        settingsStore,
+        telemetryStore,
+        vpnStore,
     } = useContext(rootStore);
 
     const { shouldShowLimitedOfferDetails } = uiStore;
