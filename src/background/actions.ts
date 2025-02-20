@@ -9,7 +9,7 @@ import { tabs } from './tabs';
 import { credentials } from './credentials';
 import { forwarder } from './forwarder';
 import { settings } from './settings';
-import { FORWARDER_URL_QUERIES } from './config';
+import { FORWARDER_URL_QUERIES, type ForwarderUrlQueryKey } from './config';
 import { promoNotifications } from './promoNotifications';
 import { browserAction } from './browserAction';
 
@@ -205,27 +205,27 @@ const clearBadgeText = async (tabId: number) => {
     }
 };
 
-const getForwarderUrlWithUsername = async (urlQuery: string): Promise<string> => {
+/**
+ * Returns forwarder URL by appending username (email) query param if user is logged in.
+ *
+ * @param query Forwarder URL query.
+ * @returns Constructed forwarder URL.
+ */
+const getForwarderUrlWithUsername = async (query: ForwarderUrlQueryKey): Promise<string> => {
     const username = await credentials.getUsername();
     const forwarderDomain = await forwarder.updateAndGetDomain();
-    const url = getForwarderUrl(forwarderDomain, urlQuery);
+    const url = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES[query]);
     return `${url}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
 };
 
 /**
- * Opens Premium Promo Page in new tab
+ * Opens page by appending username (email) query param if user is logged in.
+ *
+ * @param query Forwarder URL query.
  */
-const openPremiumPromoPage = async () => {
-    const premiumPromoUrl = await getForwarderUrlWithUsername(FORWARDER_URL_QUERIES.UPGRADE_LICENSE);
-    await tabs.openTab(premiumPromoUrl);
-};
-
-/**
- * Opens Subscribe Promo Page in new tab.
- */
-const openSubscribePromoPage = async () => {
-    const subscribePromoUrl = await getForwarderUrlWithUsername(FORWARDER_URL_QUERIES.SUBSCRIBE);
-    await tabs.openTab(subscribePromoUrl);
+const openPageWithUsername = async (query: ForwarderUrlQueryKey) => {
+    const url = await getForwarderUrlWithUsername(query);
+    await tabs.openTab(url);
 };
 
 /**
@@ -263,7 +263,6 @@ export const actions = {
     setBadgeText,
     clearBadgeText,
     getForwarderUrlWithUsername,
-    openPremiumPromoPage,
-    openSubscribePromoPage,
+    openPageWithUsername,
     openFreeGbsPage,
 };

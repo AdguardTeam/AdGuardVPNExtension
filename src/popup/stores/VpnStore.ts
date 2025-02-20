@@ -14,6 +14,7 @@ import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vp
 import { daysToRenewal } from '../../common/utils/date';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { AnimationEvent } from '../constants';
+import { type ForwarderUrlQueryKey } from '../../background/config';
 
 import type { RootStore } from './RootStore';
 
@@ -355,6 +356,15 @@ export class VpnStore {
      */
     openSubscribePromoPage = async (): Promise<void> => {
         await messenger.openSubscribePromoPage();
+    };
+
+    /**
+     * Opens page by appending username (email) query param if user is logged in.
+     *
+     * @param query Forwarder URL query.
+     */
+    openPageWithUsername = async (query: ForwarderUrlQueryKey): Promise<void> => {
+        await messenger.openPageWithUsername(query);
     };
 
     @action setTooManyDevicesConnected = (state: boolean): void => {

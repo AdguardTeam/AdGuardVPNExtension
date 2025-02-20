@@ -3,7 +3,7 @@ import { credentials } from '../../src/background/credentials';
 // TODO: test mv3 after official switch to mv3
 import { stateStorage } from '../../src/background/stateStorage/mv2';
 import { forwarder } from '../../src/background/forwarder';
-import { FORWARDER_URL_QUERIES } from '../../src/background/config';
+import { ForwarderUrlQueryKey } from '../../src/background/config';
 
 jest.mock('../../src/background/stateStorage', () => {
     // eslint-disable-next-line global-require
@@ -17,7 +17,9 @@ jest.mock('../../src/background/config', () => {
         // url example for test
         FORWARDER_URL_QUERIES: {
             UPGRADE_LICENSE: 'action=upgrade_license',
-            SUBSCRIBE: 'action=subscribe',
+        },
+        ForwarderUrlQueryKey: {
+            UpgradeLicense: 'UPGRADE_LICENSE',
         },
     };
 });
@@ -35,14 +37,9 @@ describe('Actions tests', () => {
         getUsernameMock.mockImplementation(() => 'test@mail.com');
 
         const expectedPremiumUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=test%40mail.com';
-        const premiumUrl = await actions.getForwarderUrlWithUsername(FORWARDER_URL_QUERIES.UPGRADE_LICENSE);
-        expect(premiumUrl).toEqual(expectedPremiumUrl);
-
-        const expectedSubscribeUrl = 'https://adguard-vpn.com/forward.html?action=subscribe&email=test%40mail.com';
-        const subscribeUrl = await actions.getForwarderUrlWithUsername(FORWARDER_URL_QUERIES.SUBSCRIBE);
-        expect(expectedSubscribeUrl).toEqual(subscribeUrl);
-
+        const premiumUrl = await actions.getForwarderUrlWithUsername(ForwarderUrlQueryKey.UpgradeLicense);
         getUsernameMock.mockClear();
+        expect(premiumUrl).toEqual(expectedPremiumUrl);
     });
 
     it('Test email with special symbols', async () => {
@@ -50,14 +47,9 @@ describe('Actions tests', () => {
         getUsernameMock.mockImplementation(() => 'tester+000@test.com');
 
         const expectedPremiumUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=tester%2B000%40test.com';
-        const premiumUrl = await actions.getForwarderUrlWithUsername(FORWARDER_URL_QUERIES.UPGRADE_LICENSE);
-        expect(premiumUrl).toEqual(expectedPremiumUrl);
-
-        const expectedSubscribeUrl = 'https://adguard-vpn.com/forward.html?action=subscribe&email=tester%2B000%40test.com';
-        const subscribeUrl = await actions.getForwarderUrlWithUsername(FORWARDER_URL_QUERIES.SUBSCRIBE);
-        expect(subscribeUrl).toEqual(expectedSubscribeUrl);
-
+        const premiumUrl = await actions.getForwarderUrlWithUsername(ForwarderUrlQueryKey.UpgradeLicense);
         getUsernameMock.mockClear();
+        expect(premiumUrl).toEqual(expectedPremiumUrl);
     });
 });
 

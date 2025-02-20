@@ -365,11 +365,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
 
             return vpnProvider.requestSupport(reportData);
         }
-        case MessageType.OPEN_PREMIUM_PROMO_PAGE: {
-            return actions.openPremiumPromoPage();
-        }
-        case MessageType.OPEN_SUBSCRIBE_PROMO_PAGE: {
-            return actions.openSubscribePromoPage();
+        case MessageType.OPEN_PAGE_WITH_USERNAME: {
+            const { query } = data;
+            return actions.openPageWithUsername(query);
         }
         case MessageType.SET_FLAG: {
             const { key, value } = data;

@@ -90,6 +90,9 @@ const COMMON_URL_QUERIES = {
     UPGRADE_LICENSE: 'action=buy_license&from=popup&app=vpn_extension',
     // Get subscription
     SUBSCRIBE: 'action=subscribe&from=popup_connections_limit&app=vpn_extension',
+    // Limited Offer
+    LIMITED_OFFER: 'action=limited_offer&from=popup&app=vpn_extension',
+    LIMITED_OFFER_RU: 'action=limited_offer_ru&from=popup&app=vpn_extension',
     // Devices count details
     DEVICE_COUNT: 'action=devices_count&from=popup_connections_limit&app=vpn_extension',
     // Commercial
