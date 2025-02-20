@@ -36,20 +36,20 @@ describe('Actions tests', () => {
         const getUsernameMock = credentials.getUsername as jest.MockedFunction<() => any>;
         getUsernameMock.mockImplementation(() => 'test@mail.com');
 
-        const expectedPremiumUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=test%40mail.com';
-        const premiumUrl = await actions.getForwarderUrlWithUsername(ForwarderUrlQueryKey.UpgradeLicense);
+        const expectedUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=test%40mail.com';
+        const url = await actions.getForwarderUrlWithUsername(ForwarderUrlQueryKey.UpgradeLicense);
         getUsernameMock.mockClear();
-        expect(premiumUrl).toEqual(expectedPremiumUrl);
+        expect(url).toEqual(expectedUrl);
     });
 
     it('Test email with special symbols', async () => {
         const getUsernameMock = credentials.getUsername as jest.MockedFunction<() => any>;
         getUsernameMock.mockImplementation(() => 'tester+000@test.com');
 
-        const expectedPremiumUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=tester%2B000%40test.com';
-        const premiumUrl = await actions.getForwarderUrlWithUsername(ForwarderUrlQueryKey.UpgradeLicense);
+        const expectedUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=tester%2B000%40test.com';
+        const url = await actions.getForwarderUrlWithUsername(ForwarderUrlQueryKey.UpgradeLicense);
         getUsernameMock.mockClear();
-        expect(premiumUrl).toEqual(expectedPremiumUrl);
+        expect(url).toEqual(expectedUrl);
     });
 });
 
