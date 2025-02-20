@@ -343,8 +343,18 @@ export class VpnStore {
         return ping;
     }
 
-    @action openPremiumPromoPage = async (): Promise<void> => {
+    /**
+     * Opens Premium Promo Page in new tab.
+     */
+    openPremiumPromoPage = async (): Promise<void> => {
         await messenger.openPremiumPromoPage();
+    };
+
+    /**
+     * Opens Subscribe Promo Page in new tab.
+     */
+    openSubscribePromoPage = async (): Promise<void> => {
+        await messenger.openSubscribePromoPage();
     };
 
     @action setTooManyDevicesConnected = (state: boolean): void => {

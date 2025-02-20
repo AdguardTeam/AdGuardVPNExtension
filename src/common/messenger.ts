@@ -403,8 +403,19 @@ class Messenger {
         return this.sendMessage(type, { email, message, includeLog });
     }
 
+    /**
+     * Opens Premium Promo Page in new tab.
+     */
     async openPremiumPromoPage() {
         const type = MessageType.OPEN_PREMIUM_PROMO_PAGE;
+        return this.sendMessage(type);
+    }
+
+    /**
+     * Opens Subscribe Promo Page in new tab.
+     */
+    async openSubscribePromoPage() {
+        const type = MessageType.OPEN_SUBSCRIBE_PROMO_PAGE;
         return this.sendMessage(type);
     }
 

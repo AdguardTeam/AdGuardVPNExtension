@@ -85,6 +85,7 @@ export enum MessageType {
     OPEN_TAB = 'open.tab.action',
     REPORT_BUG = 'post.report.bug',
     OPEN_PREMIUM_PROMO_PAGE = 'open.premium.promo.page',
+    OPEN_SUBSCRIBE_PROMO_PAGE = 'open.subscribe.promo.page',
     ADD_REGULAR_EXCLUSIONS = 'add.regular.exclusions',
     ADD_SELECTIVE_EXCLUSIONS = 'add.selective.exclusions',
     SET_FLAG = 'set.flag',

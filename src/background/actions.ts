@@ -205,22 +205,27 @@ const clearBadgeText = async (tabId: number) => {
     }
 };
 
-/**
- * Generates Premium Promo Page url with user email in parameter (if authenticated)
- */
-const getPremiumPromoPageUrl = async (): Promise<string> => {
+const getForwarderUrlWithUsername = async (urlQuery: string): Promise<string> => {
     const username = await credentials.getUsername();
     const forwarderDomain = await forwarder.updateAndGetDomain();
-    const upgradeLicenseUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.UPGRADE_LICENSE);
-    return `${upgradeLicenseUrl}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
+    const url = getForwarderUrl(forwarderDomain, urlQuery);
+    return `${url}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
 };
 
 /**
  * Opens Premium Promo Page in new tab
  */
 const openPremiumPromoPage = async () => {
-    const url = await getPremiumPromoPageUrl();
-    await tabs.openTab(url);
+    const premiumPromoUrl = await getForwarderUrlWithUsername(FORWARDER_URL_QUERIES.UPGRADE_LICENSE);
+    await tabs.openTab(premiumPromoUrl);
+};
+
+/**
+ * Opens Subscribe Promo Page in new tab.
+ */
+const openSubscribePromoPage = async () => {
+    const subscribePromoUrl = await getForwarderUrlWithUsername(FORWARDER_URL_QUERIES.SUBSCRIBE);
+    await tabs.openTab(subscribePromoUrl);
 };
 
 /**
@@ -257,7 +262,8 @@ export const actions = {
     setIconTrafficOff,
     setBadgeText,
     clearBadgeText,
-    getPremiumPromoPageUrl,
+    getForwarderUrlWithUsername,
     openPremiumPromoPage,
+    openSubscribePromoPage,
     openFreeGbsPage,
 };

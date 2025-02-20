@@ -368,6 +368,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.OPEN_PREMIUM_PROMO_PAGE: {
             return actions.openPremiumPromoPage();
         }
+        case MessageType.OPEN_SUBSCRIBE_PROMO_PAGE: {
+            return actions.openSubscribePromoPage();
+        }
         case MessageType.SET_FLAG: {
             const { key, value } = data;
             return flagsStorage.set(key, value);
