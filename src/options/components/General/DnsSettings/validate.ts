@@ -3,6 +3,12 @@ import { isIP } from 'is-ip';
 import { type DnsServerData } from '../../../../background/schema';
 import { translator } from '../../../../common/translator';
 
+/**
+ * Max length of dns server name.
+ *
+ * 64 characters seems to be a reasonable limit for a DNS server name,
+ * because if it will be longer, it will be rendered in 3 rows in the UI.
+ */
 const MAX_DNS_SERVER_NAME_LENGTH = 64;
 
 const DNS_SERVER_NAME_ERRORS = {

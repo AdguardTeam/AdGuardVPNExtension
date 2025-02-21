@@ -96,7 +96,7 @@ export const DnsSettingsServerModal = observer(({
         e.preventDefault();
 
         const errors = await onSubmit(dnsServerName, dnsServerAddress);
-        if (errors && (errors.dnsServerNameError || errors.dnsServerAddressError)) {
+        if (errors) {
             if (errors.dnsServerNameError) {
                 setDnsServerNameError(errors.dnsServerNameError);
             }
