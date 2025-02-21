@@ -8,8 +8,13 @@ import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { TelemetryScreenName } from '../../../../background/telemetry';
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 
-import { DnsSettingsServerModal } from './DnsSettingsServerModal';
-import { normalizeDnsServerAddress, validateDnsServerAddress } from './validate';
+import { DnsSettingsServerModal, type DnsSettingsServerModalError } from './DnsSettingsServerModal';
+import {
+    normalizeDnsServerName,
+    normalizeDnsServerAddress,
+    validateDnsServerName,
+    validateDnsServerAddress,
+} from './validate';
 
 export const DnsSettingsServerModalAdd = observer(() => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
@@ -34,13 +39,31 @@ export const DnsSettingsServerModalAdd = observer(() => {
         FORWARDER_URL_QUERIES.ADGUARD_DNS_PROVIDERS_KB,
     );
 
-    const handleSubmit = async (dnsServerName: string, dnsServerAddress: string) => {
-        const dnsServerAddressError = validateDnsServerAddress(customDnsServers, dnsServerAddress);
-        if (dnsServerAddressError) {
-            return dnsServerAddressError;
-        }
+    const handleSubmit = async (
+        dnsServerName: string,
+        dnsServerAddress: string,
+    ): Promise<DnsSettingsServerModalError | null> => {
+        // Normalize and validate DNS server name
+        const normalizedDnsServerName = normalizeDnsServerName(dnsServerName);
+        const dnsServerNameError = validateDnsServerName(normalizedDnsServerName);
+
+        // Normalize and validate DNS server address
         const normalizedDnsServerAddress = normalizeDnsServerAddress(dnsServerAddress);
-        const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, normalizedDnsServerAddress);
+        const dnsServerAddressError = validateDnsServerAddress(customDnsServers, normalizedDnsServerAddress);
+
+        // If there are errors, return them
+        if (dnsServerNameError || dnsServerAddressError) {
+            return {
+                dnsServerNameError,
+                dnsServerAddressError,
+            };
+        }
+
+        const dnsServer = await settingsStore.addCustomDnsServer(
+            normalizedDnsServerName,
+            normalizedDnsServerAddress,
+        );
+
         notificationsStore.notifySuccess(
             translator.getMessage('settings_dns_add_custom_server_notification_success'),
             {
