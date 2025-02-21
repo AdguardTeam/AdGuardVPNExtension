@@ -50,6 +50,7 @@
 
     &__content {
         flex: 1 1 auto;
+        overflow: auto;
     }
 
     &__before-action {
@@ -60,6 +61,12 @@
     &__action {
         margin-left: 16px;
         flex-shrink: 0;
+    }
+
+    &__title,
+    &__description {
+        overflow: auto;
+        text-overflow: ellipsis;
     }
 
     &__title {
