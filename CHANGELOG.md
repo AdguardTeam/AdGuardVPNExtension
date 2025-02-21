@@ -5,8 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Limit on the number of characters a user can enter when adding a custom DNS server [#169].
+
+<!-- TODO: Fix range when previous version will be released -->
+[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.4.2...HEAD
+[#169]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/169
+
 <!-- TODO: Add release date -->
-## [2.4.1]
+## [2.4.2]
 
 ### Added
 
@@ -21,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Error with `chrome.offscreen.createDocument` on Chrome 109 when connecting to proxy for MV3 [#190].
 
-[2.4.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.3.2...HEAD
+[2.4.2]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.3.2...HEAD
 [#190]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/190
 
 ## [2.3.2] - 2024-12-10
