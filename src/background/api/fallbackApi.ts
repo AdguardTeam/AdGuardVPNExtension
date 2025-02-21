@@ -27,10 +27,11 @@ export const ALIDNS_DOH_URL = `${ALIDNS_DOH_HOSTNAME}/resolve`;
 
 /**
  * Port must be specified for Quad9 DOH.
+ * We are using `dns11` because it supports secured ECS.
  *
  * @see {@link https://quad9.net/news/blog/doh-with-quad9-dns-servers/}
  */
-const QUAD9_DOH_HOSTNAME = 'dns.quad9.net';
+const QUAD9_DOH_HOSTNAME = 'dns11.quad9.net';
 const QUAD9_DOH_PORT = 5053;
 export const QUAD9_DOH_URL = `${QUAD9_DOH_HOSTNAME}:${QUAD9_DOH_PORT}/dns-query`;
 
