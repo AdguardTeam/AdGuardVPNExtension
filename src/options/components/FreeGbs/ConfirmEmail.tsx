@@ -35,7 +35,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
         const cooldownStartTimeMs = Number(sessionStorage.getItem(RESEND_COOLDOWN_KEY));
         const cooldownTimeLeftMs = cooldownStartTimeMs + ONE_MINUTE_MS - Date.now();
 
-        // {cooldownStartTimeMs is NaN when sessionStorage is empty;
+        // cooldownStartTimeMs is NaN when sessionStorage is empty
         if (!Number.isNaN(cooldownStartTimeMs) && cooldownTimeLeftMs > 0) {
             setIsButtonCooldown(true);
 
