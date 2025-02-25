@@ -1,8 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import { observer } from 'mobx-react';
 
-import { ONE_MINUTE_MS } from 'common/constants';
-
+import { ONE_MINUTE_MS } from '../../../common/constants';
 import { translator } from '../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryScreenName } from '../../../background/telemetry';
@@ -17,6 +21,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const [isButtonCooldown, setIsButtonCooldown] = useState(false);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -37,21 +42,29 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
         if (cooldownTimeLeftMs > 0) {
             setIsButtonCooldown(true);
 
-            setTimeout(() => {
+            timeoutRef.current = setTimeout(() => {
                 setIsButtonCooldown(false);
             }, cooldownTimeLeftMs);
         }
     }, []);
 
-    const resendLink = async () => {
-        await resendConfirmationLink();
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
+    const resendLink = async () => {
         sessionStorage.setItem(RESEND_COOLDOWN_KEY, Date.now().toString());
         setIsButtonCooldown(true);
 
-        setTimeout(() => {
+        timeoutRef.current = setTimeout(() => {
             setIsButtonCooldown(false);
         }, ONE_MINUTE_MS);
+
+        await resendConfirmationLink();
 
         notificationsStore.notifySuccess(translator.getMessage('resend_confirm_registration_link_notification'));
     };
