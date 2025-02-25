@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
+
+import { ONE_MINUTE_MS } from 'common/constants';
 
 import { translator } from '../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
@@ -9,8 +11,11 @@ import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Button } from '../ui/Button';
 import { Title } from '../ui/Title';
 
+const RESEND_COOLDOWN_KEY = 'resend.email.countdown.start.time';
+
 export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
+    const [isButtonCooldown, setIsButtonCooldown] = useState(false);
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -19,8 +24,34 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
 
     const { confirmBonus, resendConfirmationLink } = settingsStore;
 
+    useEffect(() => {
+        const cooldownStartTimeMs = Number(sessionStorage.getItem(RESEND_COOLDOWN_KEY));
+
+        if (!cooldownStartTimeMs) {
+            return;
+        }
+
+        const cooldownTimeLeftMs = cooldownStartTimeMs + ONE_MINUTE_MS - Date.now();
+
+        if (cooldownTimeLeftMs > 0) {
+            setIsButtonCooldown(true);
+
+            setTimeout(() => {
+                setIsButtonCooldown(false);
+            }, cooldownTimeLeftMs);
+        }
+    }, []);
+
     const resendLink = async () => {
         await resendConfirmationLink();
+
+        sessionStorage.setItem(RESEND_COOLDOWN_KEY, Date.now().toString());
+        setIsButtonCooldown(true);
+
+        setTimeout(() => {
+            setIsButtonCooldown(false);
+        }, ONE_MINUTE_MS);
+
         notificationsStore.notifySuccess(translator.getMessage('resend_confirm_registration_link_notification'));
     };
 
@@ -53,6 +84,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
                         size="medium"
                         className="confirm-email__btn"
                         onClick={resendLink}
+                        disabled={isButtonCooldown}
                     >
                         {translator.getMessage('settings_free_gbs_confirm_email_resend_link_button')}
                     </Button>
