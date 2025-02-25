@@ -31,7 +31,9 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
 
     const { confirmBonus, resendConfirmationLink } = settingsStore;
 
-    // Clear any existing timeouts to prevent memory leaks
+    /**
+     * Clear any existing timeouts to prevent memory leaks
+     */
     const clearExistingTimeout = () => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
@@ -39,7 +41,9 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
         }
     };
 
-    // Set up the cooldown timer based on stored timestamp
+    /**
+     * Set up the cooldown timer based on stored timestamp
+     */
     const setupCooldownTimer = () => {
         const cooldownStartTimeMs = Number(localStorage.getItem(RESEND_COOLDOWN_KEY));
 
