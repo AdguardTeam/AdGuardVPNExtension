@@ -22,7 +22,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
 
     const [isButtonCooldown, setIsButtonCooldown] = useState(false);
 
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -32,11 +32,19 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
     const { confirmBonus, resendConfirmationLink } = settingsStore;
 
     useEffect(() => {
+        const timeoutClearFn = () => {
+            clearTimeout(timeoutRef.current);
+        };
+
         const cooldownStartTimeMs = Number(sessionStorage.getItem(RESEND_COOLDOWN_KEY));
+
+        if (!cooldownStartTimeMs) {
+            return timeoutClearFn;
+        }
+
         const cooldownTimeLeftMs = cooldownStartTimeMs + ONE_MINUTE_MS - Date.now();
 
-        // cooldownStartTimeMs is NaN when sessionStorage is empty
-        if (!Number.isNaN(cooldownStartTimeMs) && cooldownTimeLeftMs > 0) {
+        if (cooldownTimeLeftMs > 0) {
             setIsButtonCooldown(true);
 
             timeoutRef.current = setTimeout(() => {
@@ -44,11 +52,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
             }, cooldownTimeLeftMs);
         }
 
-        return () => {
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-        };
+        return timeoutClearFn;
     }, []);
 
     const resendLink = async () => {
