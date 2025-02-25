@@ -1,0 +1,1 @@
+export { registrationConfirmationService } from './registrationConfirmationService';

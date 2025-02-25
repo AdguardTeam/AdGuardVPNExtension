@@ -463,9 +463,24 @@ class Messenger {
         return this.sendMessage(type);
     }
 
+    /**
+     * Sends a message to the background page to send a new confirmation link to user's email.
+     *
+     * @param displayNotification Whether to display a notification after sending the link.
+     */
     resendConfirmRegistrationLink(displayNotification: boolean) {
         const type = MessageType.RESEND_CONFIRM_REGISTRATION_LINK;
         return this.sendMessage(type, { displayNotification });
+    }
+
+    /**
+     * Sends a message to the background page to get the resend confirmation link countdown.
+     *
+     * @returns Number of seconds left before the user can send a new confirmation link.
+     */
+    async getResendLinkCountdown() {
+        const type = MessageType.GET_RESEND_CONFIRM_REGISTRATION_LINK_COUNTDOWN;
+        return this.sendMessage(type);
     }
 
     /**

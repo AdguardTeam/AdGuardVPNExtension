@@ -44,7 +44,7 @@ class EmailConfirmationService {
      * @returns Timestamp in milliseconds on which countdown was started last time
      * or null if countdown was not started.
      */
-    getResentCodeCountdownStartFromStorage = async (): Promise<number | null> => {
+    private getResentCodeCountdownStartFromStorage = async (): Promise<number | null> => {
         if (this.countdownStartMs) {
             return this.countdownStartMs;
         }
@@ -57,7 +57,7 @@ class EmailConfirmationService {
      *
      * @param countdownStart Timestamp in milliseconds on which countdown was started last time.
      */
-    setResentCodeCountdownStartToStorage = async (countdownStart: number | null): Promise<void> => {
+    private setResentCodeCountdownStartToStorage = async (countdownStart: number | null): Promise<void> => {
         this.countdownStartMs = countdownStart;
         await this.browserApi.storage.set(this.COUNTDOWN_START_KEY, countdownStart);
     };

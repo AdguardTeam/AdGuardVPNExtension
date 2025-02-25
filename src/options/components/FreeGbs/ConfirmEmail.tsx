@@ -17,7 +17,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
         TelemetryScreenName.FreeGbConfirmEmailScreen,
     );
 
-    const { confirmBonus, resendConfirmationLink } = settingsStore;
+    const { confirmBonus, resendConfirmationLink, resendLinkCountdown } = settingsStore;
 
     const resendLink = async () => {
         await resendConfirmationLink();
@@ -53,6 +53,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
                         size="medium"
                         className="confirm-email__btn"
                         onClick={resendLink}
+                        disabled={!!resendLinkCountdown}
                     >
                         {translator.getMessage('settings_free_gbs_confirm_email_resend_link_button')}
                     </Button>

@@ -13,6 +13,7 @@ import {
     type SubscriptionType,
     type QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
+    RESEND_CONFIRMATION_REGISTRATION_LINK_DELAY_SEC,
 } from '../../common/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../common/messenger';
@@ -65,6 +66,10 @@ export class SettingsStore {
     @observable dnsServer = DEFAULT_DNS_SERVER.id;
 
     @observable dnsServerToEdit: DnsServerData | null = null;
+
+    @observable resendLinkCountdown = RESEND_CONFIRMATION_REGISTRATION_LINK_DELAY_SEC;
+
+    @observable resendLinkTimer?: ReturnType<typeof setInterval>;
 
     @observable isCustomDnsModalOpen = false;
 
@@ -324,7 +329,68 @@ export class SettingsStore {
         return null;
     }
 
+    /**
+     * Sets the store's value {@link resendLinkCountdown} to the passed value.
+     *
+     * @param value Number of seconds to set.
+     */
+    @action setResendLinkCountdown(value: number): void {
+        this.resendLinkCountdown = value;
+    }
+
+    /**
+     * Gets countdown timer value for email confirmation link resend via messenger,
+     * and sets it to the store's value {@link resendLinkCountdown}
+     */
+    @action
+    async getResendLinkCountdown(): Promise<void> {
+        let countdown;
+        try {
+            countdown = await messenger.getResendLinkCountdown();
+        } catch (e) {
+            countdown = 0;
+        }
+        this.setResendLinkCountdown(countdown);
+    }
+
+    /**
+     * Starts countdown timer based on store's value {@link resendCodeCountdown}.
+     */
+    @action startCountdown = () => {
+        this.resendLinkTimer = setInterval(() => {
+            runInAction(() => {
+                if (this.resendLinkCountdown === 0) {
+                    clearInterval(this.resendLinkTimer);
+                    return;
+                }
+                this.resendLinkCountdown -= 1;
+            });
+        }, 1000);
+    };
+
+    /**
+     * Gets countdown timer value for confirmation link resend from the background,
+     * and starts countdown timer based on it.
+     *
+     * Needed for the case when the window is reopened and the timer was running in the background.
+     */
+    @action
+    async getResendLinkCountdownAndStart(): Promise<void> {
+        await this.getResendLinkCountdown();
+        if (this.resendLinkCountdown > 0
+            // if the timer is already running, don't start it again
+            && !this.resendLinkTimer) {
+            this.startCountdown();
+        }
+    }
+
+    /**
+     * Resets countdown timer, starts it again, and sends a message to the background
+     * to send a new confirmation link.
+     */
     @action resendConfirmationLink = async (): Promise<void> => {
+        this.setResendLinkCountdown(RESEND_CONFIRMATION_REGISTRATION_LINK_DELAY_SEC);
+        this.startCountdown();
         await messenger.resendConfirmRegistrationLink(false);
     };
 

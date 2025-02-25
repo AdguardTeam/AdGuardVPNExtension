@@ -101,6 +101,7 @@ export enum MessageType {
     EDIT_CUSTOM_DNS_SERVER = 'edit.custom.dns.server',
     REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
     RESEND_CONFIRM_REGISTRATION_LINK = 'resend.confirm.registration.link',
+    GET_RESEND_CONFIRM_REGISTRATION_LINK_COUNTDOWN = 'get.resend.confirm.registration.link.countdown',
     SET_EMAIL_CONFIRMATION_AUTH_ID = 'set.email.confirmation.auth.id',
     RESEND_EMAIL_CONFIRMATION_CODE = 'resend.email.confirmation.code',
     GET_RESEND_CODE_COUNTDOWN = 'get.resend.code.countdown',
@@ -155,6 +156,11 @@ export const BAD_CREDENTIALS_CODE = 'bad_credentials';
  * Delay in seconds before user can resend email confirmation code.
  */
 export const RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC = 60;
+
+/**
+ * Delay in seconds before user can resend confirmation registration link.
+ */
+export const RESEND_CONFIRMATION_REGISTRATION_LINK_DELAY_SEC = 60;
 
 export const ONE_SECOND_MS = 1000;
 export const ONE_MINUTE_MS = ONE_SECOND_MS * 60;
