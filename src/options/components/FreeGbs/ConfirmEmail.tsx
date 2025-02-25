@@ -21,6 +21,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const [isButtonCooldown, setIsButtonCooldown] = useState(false);
+
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     useTelemetryPageViewEvent(
