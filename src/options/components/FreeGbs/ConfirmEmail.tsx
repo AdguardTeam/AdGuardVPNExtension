@@ -31,15 +31,20 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
 
     const { confirmBonus, resendConfirmationLink } = settingsStore;
 
-    useEffect(() => {
-        const timeoutClearFn = () => {
+    // Clear any existing timeouts to prevent memory leaks
+    const clearExistingTimeout = () => {
+        if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
-        };
+            timeoutRef.current = undefined;
+        }
+    };
 
-        const cooldownStartTimeMs = Number(sessionStorage.getItem(RESEND_COOLDOWN_KEY));
+    // Set up the cooldown timer based on stored timestamp
+    const setupCooldownTimer = () => {
+        const cooldownStartTimeMs = Number(localStorage.getItem(RESEND_COOLDOWN_KEY));
 
         if (!cooldownStartTimeMs) {
-            return timeoutClearFn;
+            return;
         }
 
         const cooldownTimeLeftMs = cooldownStartTimeMs + ONE_MINUTE_MS - Date.now();
@@ -49,15 +54,27 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
 
             timeoutRef.current = setTimeout(() => {
                 setIsButtonCooldown(false);
+                timeoutRef.current = undefined;
             }, cooldownTimeLeftMs);
+        } else {
+            // If cooldown has already expired, clean up localStorage
+            localStorage.removeItem(RESEND_COOLDOWN_KEY);
         }
+    };
 
-        return timeoutClearFn;
+    useEffect(() => {
+        setupCooldownTimer();
+
+        return () => {
+            clearExistingTimeout();
+        };
     }, []);
 
     const resendLink = async () => {
-        sessionStorage.setItem(RESEND_COOLDOWN_KEY, Date.now().toString());
+        localStorage.setItem(RESEND_COOLDOWN_KEY, Date.now().toString());
         setIsButtonCooldown(true);
+
+        clearExistingTimeout();
 
         timeoutRef.current = setTimeout(() => {
             setIsButtonCooldown(false);
