@@ -15,6 +15,7 @@ const RESEND_COOLDOWN_KEY = 'resend.email.countdown.start.time';
 
 export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
+
     const [isButtonCooldown, setIsButtonCooldown] = useState(false);
 
     useTelemetryPageViewEvent(
