@@ -33,23 +33,17 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
 
     useEffect(() => {
         const cooldownStartTimeMs = Number(sessionStorage.getItem(RESEND_COOLDOWN_KEY));
-
-        if (!cooldownStartTimeMs) {
-            return;
-        }
-
         const cooldownTimeLeftMs = cooldownStartTimeMs + ONE_MINUTE_MS - Date.now();
 
-        if (cooldownTimeLeftMs > 0) {
+        // {cooldownStartTimeMs is NaN when sessionStorage is empty;
+        if (!Number.isNaN(cooldownStartTimeMs) && cooldownTimeLeftMs > 0) {
             setIsButtonCooldown(true);
 
             timeoutRef.current = setTimeout(() => {
                 setIsButtonCooldown(false);
             }, cooldownTimeLeftMs);
         }
-    }, []);
 
-    useEffect(() => {
         return () => {
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
