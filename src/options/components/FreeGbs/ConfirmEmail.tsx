@@ -15,7 +15,7 @@ import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Button } from '../ui/Button';
 import { Title } from '../ui/Title';
 
-const RESEND_COOLDOWN_KEY = 'resend.email.countdown.start.time';
+const RESEND_COOLDOWN_KEY = 'resend.email.cooldown.start.time';
 
 export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
