@@ -28,7 +28,6 @@ import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
 import { emailConfirmationService } from '../emailConfirmationService';
-import { registrationConfirmationService } from '../registrationConfirmationService';
 import { limitedOfferService } from '../limitedOfferService';
 import { telemetry } from '../telemetry';
 
@@ -413,16 +412,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return dns.removeCustomDnsServer(data.dnsServerId);
         }
         case MessageType.RESEND_CONFIRM_REGISTRATION_LINK: {
-            registrationConfirmationService.restartCountdown();
-
             const { displayNotification } = data;
             const accessToken = await auth.getAccessToken();
-
             return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
-        }
-        case MessageType.GET_RESEND_CONFIRM_REGISTRATION_LINK_COUNTDOWN: {
-            const countdown = await registrationConfirmationService.getLinkCountdown();
-            return countdown;
         }
         case MessageType.SET_EMAIL_CONFIRMATION_AUTH_ID: {
             const { authId } = data;

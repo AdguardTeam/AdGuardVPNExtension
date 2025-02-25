@@ -49,7 +49,6 @@ export class GlobalStore {
     @action
     async init(): Promise<void> {
         await this.getOptionsData();
-        await this.rootStore.settingsStore.getResendLinkCountdownAndStart();
     }
 
     @action
