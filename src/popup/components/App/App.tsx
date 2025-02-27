@@ -1,4 +1,9 @@
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import React, {
+    useContext,
+    useEffect,
+    useLayoutEffect,
+    useState,
+} from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';
@@ -34,6 +39,8 @@ import { SkeletonLoading } from '../SkeletonLoading';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal/LimitedOfferModal';
 import { SETTINGS_IDS } from '../../../common/constants';
+
+const SKELETON_DELAY_TIMEOUT_MS = 350;
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -74,6 +81,19 @@ export const App = observer(() => {
         filteredLocations,
         showSearchResults,
     } = vpnStore;
+
+    const [isSkeletonDelayed, setIsSkeletonDelayed] = useState(true);
+
+    /**
+     * Show skeleton for 350ms to avoid flickers while fetching locations data when opening the popup
+     */
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsSkeletonDelayed(false);
+        }, SKELETON_DELAY_TIMEOUT_MS);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -367,6 +387,10 @@ export const App = observer(() => {
                 <Icons />
             </>
         );
+    }
+
+    if (isSkeletonDelayed) {
+        return <SkeletonLoading />;
     }
 
     return (
