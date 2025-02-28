@@ -16,6 +16,12 @@ export class NetworkConnectionObserver {
     constructor(callback: () => Promise<void>) {
         this.onlineHandler = callback;
         this.isOnline = navigator.onLine;
+    }
+
+    /**
+     * Initializes the network connection observer.
+     */
+    public init() {
         this.startCheckIsOnline();
     }
 

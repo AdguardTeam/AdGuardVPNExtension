@@ -19,6 +19,7 @@ import { log } from '../../common/logger';
 import { management } from '../management';
 import { messaging } from '../messaging';
 import { nonRoutable } from '../routability/nonRoutable';
+import { networkConnectionObserver } from '../networkConnectionObserver';
 import { permissionsChecker } from '../permissionsChecker';
 import { permissionsError } from '../permissionsChecker/permissionsError';
 import { popupData } from '../popupData';
@@ -42,7 +43,6 @@ import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
 import { telemetry } from '../telemetry';
 import { rateModal } from '../rateModal';
-import '../networkConnectionObserver';
 
 declare global {
     module globalThis {
@@ -111,6 +111,7 @@ const asyncInitModules = async (): Promise<void> => {
         await auth.initState(); // auth state should be initiated before credentials init
         await credentials.init();
         permissionsChecker.init(); // should be initiated before auth module
+        networkConnectionObserver.init(); // uses permissionsChecker and connectivityService
         await auth.init();
         await locationsService.init();
         await settings.init();
