@@ -8,4 +8,8 @@ export class NetworkConnectionObserver {
     constructor(arg?: unknown) {
         throw new Error('Seems like webpack didn\'t inject proper NetworkConnectionObserver');
     }
+
+    public init() {
+        throw new Error('Seems like webpack didn\'t inject proper NetworkConnectionObserver');
+    }
 }
