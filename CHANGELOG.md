@@ -8,10 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <!-- TODO: Add diff link -->
 ## Unreleased
 
+### Changed
+
+- Improved validation of domain name when adding an exclusions [#191].
+
 ### Fixed
 
 - Inconsistent colors of UI elements [#171].
 
+[#191]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/191
 [#171]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/171
 
 <!-- TODO: Add release date -->
