@@ -5,14 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-<!-- TODO: Add release date -->
-## [2.5.0]
+<!-- TODO: Add diff link -->
+## Unreleased
 
 ### Fixed
 
 - Disable resend email button for 60 seconds after clicking it [#192].
 
-[2.5.0]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.4.1...HEAD
 [#192]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/192
 
 <!-- TODO: Add release date -->
