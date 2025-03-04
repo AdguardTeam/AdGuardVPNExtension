@@ -5,7 +5,7 @@ import { runtime } from './browserApi/runtime';
 /**
  * Keys for forwarder urls queries.
  */
-const enum ForwarderUrlQueryKey {
+export const enum ForwarderUrlQueryKey {
     AdguardDnsKb = 'ADGUARD_DNS_KB',
     AdguardDnsProvidersKb = 'ADGUARD_DNS_PROVIDERS_KB',
     ComparePage = 'COMPARE_PAGE',
@@ -15,6 +15,8 @@ const enum ForwarderUrlQueryKey {
     Faq = 'FAQ',
     Feedback = 'FEEDBACK',
     FirefoxThankYouPage = 'FIREFOX_THANK_YOU_PAGE',
+    LimitedOffer = 'LIMITED_OFFER',
+    LimitedOfferRu = 'LIMITED_OFFER_RU',
     OptionsStore = 'OPTIONS_STORE',
     OtherProducts = 'OTHER_PRODUCTS',
     PasswordCompromised = 'PASSWORD_COMPROMISED',
@@ -76,6 +78,8 @@ const {
     FAQ,
     FEEDBACK,
     FIREFOX_THANK_YOU_PAGE,
+    LIMITED_OFFER,
+    LIMITED_OFFER_RU,
     OPTIONS_STORE,
     OTHER_PRODUCTS,
     PASSWORD_COMPROMISED,
@@ -114,6 +118,8 @@ const FORWARDER_URL_QUERIES: ForwarderUrlQueries = {
     FAQ,
     FEEDBACK,
     FIREFOX_THANK_YOU_PAGE,
+    LIMITED_OFFER,
+    LIMITED_OFFER_RU,
     OPTIONS_STORE,
     OTHER_PRODUCTS,
     PASSWORD_COMPROMISED,

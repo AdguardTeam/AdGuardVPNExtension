@@ -3,6 +3,7 @@ import { credentials } from '../../src/background/credentials';
 // TODO: test mv3 after official switch to mv3
 import { stateStorage } from '../../src/background/stateStorage/mv2';
 import { forwarder } from '../../src/background/forwarder';
+import { ForwarderUrlQueryKey } from '../../src/background/config';
 
 jest.mock('../../src/background/stateStorage', () => {
     // eslint-disable-next-line global-require
@@ -17,6 +18,9 @@ jest.mock('../../src/background/config', () => {
         FORWARDER_URL_QUERIES: {
             UPGRADE_LICENSE: 'action=upgrade_license',
         },
+        ForwarderUrlQueryKey: {
+            UpgradeLicense: 'UPGRADE_LICENSE',
+        },
     };
 });
 jest.mock('../../src/background/settings');
@@ -28,12 +32,12 @@ describe('Actions tests', () => {
             .mockResolvedValue('adguard-vpn.com');
     });
 
-    it('Get premium promo page url', async () => {
+    it('Get forwarder url with username', async () => {
         const getUsernameMock = credentials.getUsername as jest.MockedFunction<() => any>;
         getUsernameMock.mockImplementation(() => 'test@mail.com');
 
         const expectedUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=test%40mail.com';
-        const url = await actions.getPremiumPromoPageUrl();
+        const url = await actions.getForwarderUrlWithEmail(ForwarderUrlQueryKey.UpgradeLicense);
         getUsernameMock.mockClear();
         expect(url).toEqual(expectedUrl);
     });
@@ -43,7 +47,7 @@ describe('Actions tests', () => {
         getUsernameMock.mockImplementation(() => 'tester+000@test.com');
 
         const expectedUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=tester%2B000%40test.com';
-        const url = await actions.getPremiumPromoPageUrl();
+        const url = await actions.getForwarderUrlWithEmail(ForwarderUrlQueryKey.UpgradeLicense);
         getUsernameMock.mockClear();
         expect(url).toEqual(expectedUrl);
     });

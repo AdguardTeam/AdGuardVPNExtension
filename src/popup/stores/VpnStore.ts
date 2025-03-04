@@ -14,6 +14,7 @@ import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vp
 import { daysToRenewal } from '../../common/utils/date';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { AnimationEvent } from '../constants';
+import { type ForwarderUrlQueryKey } from '../../background/config';
 
 import type { RootStore } from './RootStore';
 
@@ -343,8 +344,27 @@ export class VpnStore {
         return ping;
     }
 
-    @action openPremiumPromoPage = async (): Promise<void> => {
+    /**
+     * Opens Premium Promo Page in new tab.
+     */
+    openPremiumPromoPage = async (): Promise<void> => {
         await messenger.openPremiumPromoPage();
+    };
+
+    /**
+     * Opens Subscribe Promo Page in new tab.
+     */
+    openSubscribePromoPage = async (): Promise<void> => {
+        await messenger.openSubscribePromoPage();
+    };
+
+    /**
+     * Opens forwarder URL in new tab by appending email query param if user is logged in.
+     *
+     * @param forwarderUrlQueryKey Forwarder query key.
+     */
+    openForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey): Promise<void> => {
+        await messenger.openForwarderUrlWithEmail(forwarderUrlQueryKey);
     };
 
     @action setTooManyDevicesConnected = (state: boolean): void => {
