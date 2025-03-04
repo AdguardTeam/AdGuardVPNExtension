@@ -15,9 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Inconsistent colors of UI elements [#171].
+- Disable resend email button for 60 seconds after clicking it [#192].
 
 [#191]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/191
 [#171]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/171
+[#192]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/192
 
 <!-- TODO: Add release date -->
 ## [2.4.1]
