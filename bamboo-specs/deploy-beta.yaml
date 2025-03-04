@@ -15,7 +15,7 @@ Chrome WebStore:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
+        force-clean-build: true
     - artifact-download:
         artifacts:
           - name: edge.zip
@@ -57,7 +57,7 @@ static.adtidy.net:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
+        force-clean-build: true
     - artifact-download:
         artifacts:
           - name: edge.zip
@@ -102,7 +102,7 @@ GitHub:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
+        force-clean-build: true
     - artifact-download:
         artifacts:
           - name: edge.zip

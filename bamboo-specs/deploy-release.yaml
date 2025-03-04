@@ -17,7 +17,7 @@ Addons Mozilla:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
+        force-clean-build: true
     - artifact-download:
         artifacts:
           - {}
@@ -58,7 +58,7 @@ Chrome WebStore:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
+        force-clean-build: true
     - artifact-download:
         artifacts:
           - {}
@@ -95,7 +95,7 @@ Edge Addons:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
+        force-clean-build: true
     - artifact-download:
         artifacts:
           - {}
@@ -132,7 +132,7 @@ GitHub:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
+        force-clean-build: true
     - artifact-download:
         artifacts:
           - {}

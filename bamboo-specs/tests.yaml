@@ -9,8 +9,8 @@ variables:
 
 stages:
   - Test:
-      manual: 'false'
-      final: 'false'
+      manual: false
+      final: false
       jobs:
         - Test
 
@@ -24,7 +24,7 @@ Test:
       ${system.YARN_DIR}: "${bamboo.cacheYarn}"
   tasks:
     - checkout:
-        force-clean-build: 'true'
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
@@ -97,11 +97,6 @@ Test:
       pattern: chrome.zip
       shared: true
       required: true
-    - name: chrome-mv2.zip
-      location: build/dev
-      pattern: chrome-mv2.zip
-      shared: true
-      required: true
     - name: opera.zip
       location: build/dev
       pattern: opera.zip
@@ -155,7 +150,7 @@ branches:
   delete:
     after-deleted-days: '1'
     after-inactive-days: '5'
-  link-to-jira: 'true'
+  link-to-jira: true
 
 notifications: []
 labels: []
