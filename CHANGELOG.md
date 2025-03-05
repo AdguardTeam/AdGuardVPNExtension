@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Inconsistent colors of UI elements [#171].
 - Disable resend email button for 60 seconds after clicking it [#192].
-- Flashing of skeleton [#168].
+- Flashing of skeleton loader [#168].
 
 [#169]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/169
 [#191]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/191
