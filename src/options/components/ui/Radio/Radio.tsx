@@ -34,6 +34,11 @@ export interface RadioProps<T extends string> {
     title: React.ReactNode;
 
     /**
+     * Native label title attribute.
+     */
+    labelTitle?: string;
+
+    /**
      * Radio description.
      */
     description?: React.ReactNode;
@@ -60,6 +65,7 @@ export function Radio<T extends string>({
     value,
     isActive,
     title,
+    labelTitle,
     description,
     action,
     className,
@@ -83,6 +89,7 @@ export function Radio<T extends string>({
             className={classes}
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
+            title={labelTitle}
         >
             <input
                 id={id}

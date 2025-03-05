@@ -7,12 +7,52 @@ import { Button } from '../../ui/Button';
 import { Modal } from '../../ui/Modal';
 import { Input } from '../../ui/Input';
 
+/**
+ * Return type for `onSubmit` method of modal.
+ *
+ * NOTE: If you are going to add more errors, do not forget to properly handle it.
+ */
+export interface DnsSettingsServerModalError {
+    /**
+     * Error message for DNS server name input.
+     */
+    dnsServerNameError?: string | null;
+
+    /**
+     * Error message for DNS server address input.
+     */
+    dnsServerAddressError?: string | null;
+}
+
 export interface DnsSettingsServerModalProps {
+    /**
+     * Title of modal.
+     */
     title: React.ReactNode;
+
+    /**
+     * Description of modal.
+     */
     description?: React.ReactNode;
+
+    /**
+     * Title of submit button.
+     */
     submitBtnTitle?: React.ReactNode;
+
+    /**
+     * Is modal open.
+     */
     isOpen: boolean;
-    onSubmit: (dnsServerName: string, dnsServerAddress: string) => Promise<string | null>;
+
+    /**
+     * Submit handler.
+     *
+     * @param dnsServerName DNS server name.
+     * @param dnsServerAddress DNS server address.
+     * @returns Object with error messages for inputs. If no errors, return null.
+     */
+    onSubmit: (dnsServerName: string, dnsServerAddress: string) => Promise<DnsSettingsServerModalError | null>;
 }
 
 export const DnsSettingsServerModal = observer(({
@@ -31,6 +71,7 @@ export const DnsSettingsServerModal = observer(({
 
     const formId = useId();
 
+    const [dnsServerNameError, setDnsServerNameError] = useState<string | null>(null);
     const [dnsServerAddressError, setDnsServerAddressError] = useState<string | null>(null);
 
     const handleCloseModal = () => {
@@ -38,11 +79,15 @@ export const DnsSettingsServerModal = observer(({
         settingsStore.setDnsServerName('');
         settingsStore.setDnsServerAddress('');
         settingsStore.setDnsServerToEdit(null);
+        setDnsServerNameError(null);
         setDnsServerAddressError(null);
     };
 
     const handleDnsServerNameChange = (value: string) => {
         settingsStore.setDnsServerName(value);
+        if (dnsServerNameError) {
+            setDnsServerNameError(null);
+        }
     };
 
     const handleDnsServerAddressChange = (value: string) => {
@@ -55,11 +100,17 @@ export const DnsSettingsServerModal = observer(({
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const dnsServerAddressError = await onSubmit(dnsServerName, dnsServerAddress);
-        if (dnsServerAddressError) {
-            setDnsServerAddressError(dnsServerAddressError);
+        const errors = await onSubmit(dnsServerName, dnsServerAddress);
+        if (errors) {
+            if (errors.dnsServerNameError) {
+                setDnsServerNameError(errors.dnsServerNameError);
+            }
+            if (errors.dnsServerAddressError) {
+                setDnsServerAddressError(errors.dnsServerAddressError);
+            }
             return;
         }
+
         handleCloseModal();
     };
 
@@ -98,6 +149,7 @@ export const DnsSettingsServerModal = observer(({
                     placeholder={translator.getMessage('settings_dns_add_custom_server_name_placeholder')}
                     value={dnsServerName}
                     onChange={handleDnsServerNameChange}
+                    error={dnsServerNameError}
                     required
                 />
                 <Input

@@ -405,6 +405,9 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS server already added"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Server name exceeds the %max%-character limit (currently %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Save and select"
     },
