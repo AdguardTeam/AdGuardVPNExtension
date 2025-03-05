@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "Verbindungslimit erreicht"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "VPN-Erweiterung für Android holen"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN für Edge — jetzt auch für Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Scannen Sie den QR-Code, um Edge auf Ihrem Smartphone oder Tablet zu installieren. AdGuard VPN wird in den Vorschlägen angezeigt"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Alles klar"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Nicht mehr anzeigen"
+    },
     "options_signedout_page_title": {
         "message": "Sie haben sich von AdGuard VPN abgemeldet"
     },

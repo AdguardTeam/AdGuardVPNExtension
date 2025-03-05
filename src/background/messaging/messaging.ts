@@ -30,6 +30,7 @@ import { hintPopup } from '../hintPopup';
 import { emailConfirmationService } from '../emailConfirmationService';
 import { limitedOfferService } from '../limitedOfferService';
 import { telemetry } from '../telemetry';
+import { mobileEdgePromoService } from '../mobileEdgePromoService';
 
 interface Message {
     type: MessageType,
@@ -378,6 +379,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.HIDE_RATE_MODAL_AFTER_RATE: {
             await rateModal.hideAfterRate();
+            break;
+        }
+        case MessageType.HIDE_MOBILE_EDGE_PROMO_BANNER: {
+            await mobileEdgePromoService.hideBanner();
             break;
         }
         case MessageType.GET_GENERAL_EXCLUSIONS: {

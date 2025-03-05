@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "Connections limit reached"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "Get VPN extension for Android"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN for Edge — now on Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Scan the QR code to install Edge on your phone or tablet. AdGuard VPN will appear in suggestions"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Got it"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Don’t show this again"
+    },
     "options_signedout_page_title": {
         "message": "You have logged out of AdGuard VPN"
     },

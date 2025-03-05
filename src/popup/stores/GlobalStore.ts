@@ -75,6 +75,7 @@ export class GlobalStore {
                 isVpnEnabledByUrl,
                 shouldShowRateModal,
                 shouldShowHintPopup,
+                shouldShowMobileEdgePromoBanner,
                 isVpnBlocked,
                 isHostPermissionsGranted,
             } = popupData;
@@ -122,6 +123,7 @@ export class GlobalStore {
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setIsVpnBlocked(isVpnBlocked);
+            settingsStore.setShowMobileEdgePromoBanner(shouldShowMobileEdgePromoBanner);
             settingsStore.setLimitedOfferData(limitedOfferData);
             settingsStore.setPromoNotification(promoNotification);
             vpnStore.setVpnInfo(vpnInfo);

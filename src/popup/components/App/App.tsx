@@ -32,8 +32,9 @@ import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
 import { SkeletonLoading } from '../SkeletonLoading';
 import { NoLocationsError } from '../NoLocationsError';
-import { LimitedOfferModal } from '../LimitedOfferModal/LimitedOfferModal';
+import { LimitedOfferModal } from '../LimitedOfferModal';
 import { SETTINGS_IDS } from '../../../common/constants';
+import { MobileEdgePromo } from '../MobileEdgePromo';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -374,6 +375,7 @@ export const App = observer(() => {
             <ConnectionsLimitError />
             <PromoNotificationModal />
             {isOpenOptionsModal && <ExtraOptions />}
+            <MobileEdgePromo />
             <Header showMenuButton={authenticated} />
             {
                 isVpnBlocked

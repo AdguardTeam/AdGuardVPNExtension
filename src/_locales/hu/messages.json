@@ -99,6 +99,18 @@
     "options_bug_report_request_error": {
         "message": "Valamilyen hiba történt, próbálja újból később."
     },
+    "options_bug_report_send_button": {
+        "message": "Jelentés küldése"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Jelentés küldése..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Adja meg a részleteket"
+    },
+    "options_bug_report_page_success": {
+        "message": "Köszönjük, az üzenetét sikeresen elküldtük!"
+    },
     "options_bug_report_new_report_button": {
         "message": "Új jelentés"
     },
@@ -131,6 +143,9 @@
     },
     "account_get_subscription": {
         "message": "Előfizetés vásárlása"
+    },
+    "account_max_devices_count": {
+        "message": "Akár <b>%num%</b> egyidejű eszköz"
     },
     "account_valid_until": {
         "message": "Érvényesség vége: <b>%date%</b>"
@@ -264,6 +279,18 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Link újraküldése"
     },
+    "settings_free_gbs_add_device_title": {
+        "message": "Adjon hozzá egy másik platformot"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Telepítse az AdGuard VPN-t iOS-ra, Windows-ra vagy Android-ra, jelentkezzen be rajta az AdGuard-fiókjába, és kapja meg a %your_gb% GB-ot."
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Másik platform hozzáadva"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Gratulálunk az AdGuard VPN több platformra történő telepítéséhez. Maradj biztonságban!"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Ugrás a termékekhez"
     },
@@ -288,6 +315,39 @@
     "settings_webrtc_label": {
         "message": "WebRTC tiltása"
     },
+    "settings_webrtc_desc": {
+        "message": "Blokkolja a WebRTC-t, egy ismert biztonsági rést, amely kiszivárogtathatja valós IP-címét még akkor is, ha proxyt vagy VPN-t használ"
+    },
+    "settings_context_menus_title": {
+        "message": "AdGuard VPN megjelenítése a böngésző helyi menüjében"
+    },
+    "settings_context_menus_description": {
+        "message": "VPN kivételek kezelése egy adott weboldalhoz"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Segítsen javítani az AdGuard VPN-t"
+    },
+    "settings_help_us_improve_modal_title": {
+        "message": "Kiegészítő használati adatok"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Ezek az adatok a következőket tartalmazzák:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Azon képernyők nevei, amelyekkel kapcsolatba lép"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Azon gombok neve, amelyekre rákattint"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Munkamenet azonosítók"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Ezekre az információkra az AdGuard VPN működésének elemzése és javítása érdekében van szükségünk"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Ezek az adatok névtelenek, és csak belsőleg használhatók fel. Soha nem osztjuk meg harmadik felekkel"
+    },
     "settings_help_us_improve_modal_button": {
         "message": "Rendben"
     },
@@ -305,6 +365,12 @@
     },
     "settings_dns_label": {
         "message": "DNS szerver"
+    },
+    "settings_dns_description": {
+        "message": "DNS-kérések megoldása, hirdetések és nyomkövetők blokkolása, valamint DNS-forgalom titkosítása, amikor VPN-hez csatlakozik"
+    },
+    "settings_dns_description_current": {
+        "message": "Jelenlegi: %dnsServerName%"
     },
     "settings_dns_popular_servers": {
         "message": "Népszerű DNS szerverek"
@@ -324,8 +390,17 @@
     "settings_dns_add_custom_server_name": {
         "message": "Szerver neve"
     },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Saját DNS szerverem"
+    },
     "settings_dns_add_custom_server_address": {
         "message": "Szerver cím"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP-cím vagy tls://"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Érvénytelen szerver cím"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-kiszolgáló már hozzáadva"
@@ -341,6 +416,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Egyéni DNS szerver törölve"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Egyéni DNS szerver szerkesztve"
     },
     "settings_dns_selector_default_title": {
         "message": "Alapértelmezett"
@@ -506,6 +584,9 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Összes kivétel törlése"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Biztosan eltávolítja az összes kivételt a listából?"
     },
     "settings_exclusion_title": {
         "message": "Kivételek"
@@ -723,6 +804,19 @@
     "popup_auth_policy_agreement_title": {
         "message": "Üdvözöljük a fedélzeten"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Elfogadom az AdGuard VPN <eula>EULA</eula> és <privacy>Adatvédelmi Irányelvek</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Küldje el az anonimizált <link>kiegészítő használati adatokat</link>"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Ha egyetértesz, az AdGuard VPN adatokat gyűjt a képernyőkről és gombokról, amelyekkel interakcióba lépsz. Az adatok megosztását mindig kikapcsolhatod a <b>Beállítások</b> menüben"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Ez az információ segít megérteni, hogy mely funkciók működnek jól és mi igényel fejlesztést. Anonimizált és csak belső használatra kerül. Soha nem osztjuk meg senkivel"
+    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Bejelentkezés vagy fiók létrehozása"
     },
@@ -892,6 +986,30 @@
     },
     "popup_connections_limit_title": {
         "message": "Kapcsolódási korlát elérve"
+    },
+    "popup_mobile_edge_promo_text": {
+        "message": "VPN-bővítmény beszerzése Androidhoz"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN Edge-hez — mostantól Androidon"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Olvasd be a QR-kódot az Edge telepítéséhez a telefonodra vagy táblagépedre. Az AdGuard VPN megjelenik a javaslatok között"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Rendben"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Ne jelenjen meg többé"
+    },
+    "options_signedout_page_title": {
+        "message": "Kijelentkezett az AdGuard VPN-ből"
+    },
+    "options_signedout_page_description_not_secure": {
+        "message": "A kapcsolat nincs biztonságban!"
+    },
+    "options_signedout_page_description": {
+        "message": "A privát böngészés folytatásához kattintson az AdGuard VPN ikonra és jelentkezzen be ismét."
     },
     "notification_data_limit_reached_title": {
         "message": "Elérte a havi adatkorlátot"

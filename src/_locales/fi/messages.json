@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "Yhteysraja saavutettu"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "Hanki VPN-laajennus Androidille"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN Edgelle – nyt Androidille"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Asenna Edge puhelimeesi tai tablet-laitteeseen skannaamalla QR-koodi. AdGuard VPN näkyy ehdotuksissa"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Selvä"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Älä näytä uudelleen"
+    },
     "options_signedout_page_title": {
         "message": "Olet kirjautunut ulos AdGuard VPN -palvelusta"
     },

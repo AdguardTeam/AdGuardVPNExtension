@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "同時接続可能端末数の上限に達成"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "Android用VPN拡張機能をゲット"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN for Edge、Android版も登場"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "QRコードをスキャンして、お使いのスマホまたはタブレットにEdgeブラウザをインストールします。AdGuard VPNはEdgeの「☰」メニュー → 「拡張機能」でおすすめとして出ます。"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "OK"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "今後、この通知を表示しない"
+    },
     "options_signedout_page_title": {
         "message": "AdGuard VPN からログアウトしました"
     },

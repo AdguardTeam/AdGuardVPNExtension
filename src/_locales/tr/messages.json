@@ -99,6 +99,9 @@
     "options_bug_report_request_error": {
         "message": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin."
     },
+    "options_bug_report_send_button": {
+        "message": "Raporu gönder"
+    },
     "options_bug_report_sending_button": {
         "message": "Rapor gönderiliyor..."
     },
@@ -983,6 +986,21 @@
     },
     "popup_connections_limit_title": {
         "message": "Bağlantı sınırına ulaşıldı"
+    },
+    "popup_mobile_edge_promo_text": {
+        "message": "Android için VPN uzantısını edinin"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "Edge için AdGuard VPN — artık Android'de"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Edge'i telefonunuza veya tabletinize yüklemek için QR kodunu tarayın. AdGuard VPN önerilerde görünür"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Anladım"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Bunu tekrar gösterme"
     },
     "options_signedout_page_title": {
         "message": "AdGuard VPN'den çıkış yaptınız"

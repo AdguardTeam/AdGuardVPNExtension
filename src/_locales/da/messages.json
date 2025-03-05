@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "Maks. antal forbindelser nået"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "Hent VPN-udvidelse til Android"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN til Edge — nu på Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Skan QR-koden for at installere Edge på mobilem eller tablet'en. AdGuard VPN vil fremgå af forslagene"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Forstået"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Vis ikke dette igen"
+    },
     "options_signedout_page_title": {
         "message": "Der er logget ud af AdGuard VPN"
     },

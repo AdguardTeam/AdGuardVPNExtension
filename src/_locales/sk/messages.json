@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "Bol dosiahnutý limit pripojení"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "Získajte rozšírenie VPN pre Android"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN pre Edge — teraz aj pre Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Naskenujte QR kód a nainštalujte si Edge do telefónu alebo tabletu. AdGuard VPN sa zobrazí v návrhoch"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Chápem"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Už viac nezobrazovať"
+    },
     "options_signedout_page_title": {
         "message": "Odhlásili ste sa z AdGuard VPN"
     },

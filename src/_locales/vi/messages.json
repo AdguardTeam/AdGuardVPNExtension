@@ -99,6 +99,18 @@
     "options_bug_report_request_error": {
         "message": "Đã xảy ra lỗi. Vui lòng thử lại sau."
     },
+    "options_bug_report_send_button": {
+        "message": "Gửi báo cáo"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Đang gửi báo cáo..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Cung cấp thông tin chi tiết"
+    },
+    "options_bug_report_page_success": {
+        "message": "Cảm ơn bạn, tin nhắn của bạn đã được gửi thành công!"
+    },
     "options_bug_report_new_report_button": {
         "message": "Báo cáo mới"
     },
@@ -131,6 +143,9 @@
     },
     "account_get_subscription": {
         "message": "Đăng ký"
+    },
+    "account_max_devices_count": {
+        "message": "Lên đến <b>%num%</b> thiết bị cùng lúc"
     },
     "account_valid_until": {
         "message": "Có giá trị đến <b>%date%</b>"
@@ -264,6 +279,18 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Gửi lại liên kết"
     },
+    "settings_free_gbs_add_device_title": {
+        "message": "Thêm nền tảng khác"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Cài đặt AdGuard VPN cho iOS, Windows hoặc Android, đăng nhập vào tài khoản AdGuard của bạn tại đó và nhận %your_gb% GB."
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Một nền tảng khác được thêm vào"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Chúc mừng bạn đã cài đặt AdGuard VPN trên nhiều nền tảng. Giữ an toàn!"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Đi đến Sản phẩm"
     },
@@ -288,6 +315,39 @@
     "settings_webrtc_label": {
         "message": "Chặn WebRTC"
     },
+    "settings_webrtc_desc": {
+        "message": "Chặn WebRTC, một lỗ hổng đã biết có thể làm rò rỉ địa chỉ IP thực của bạn ngay cả khi bạn sử dụng proxy hoặc VPN"
+    },
+    "settings_context_menus_title": {
+        "message": "Hiển thị AdGuard VPN trong danh mục ngữ cảnh của trình duyệt"
+    },
+    "settings_context_menus_description": {
+        "message": "Chỉnh sửa loại trừ VPN cho một trang cụ thể"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Giúp cải thiện AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_title": {
+        "message": "Dữ liệu sử dụng phần mở rộng"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Dữ liệu này bao gồm:"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Tên của các màn hình bạn tương tác"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Tên các nút bạn nhấp"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Định danh phiên bản"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Chúng tôi cần thông tin này để phân tích và cải thiện chức năng của AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Dữ liệu này là ẩn danh và chỉ được sử dụng nội bộ. Chúng tôi không bao giờ chia sẻ nó với bên thứ ba"
+    },
     "settings_help_us_improve_modal_button": {
         "message": "Đã nhận được"
     },
@@ -305,6 +365,12 @@
     },
     "settings_dns_label": {
         "message": "Máy chủ DNS"
+    },
+    "settings_dns_description": {
+        "message": "Giải quyết các yêu cầu DNS, chặn quảng cáo và trình theo dõi, cũng như mã hóa lưu lượng DNS khi bạn kết nối với VPN"
+    },
+    "settings_dns_description_current": {
+        "message": "Hiện tại: %dnsServerName%"
     },
     "settings_dns_popular_servers": {
         "message": "Các máy chủ DNS phổ biến"
@@ -324,8 +390,17 @@
     "settings_dns_add_custom_server_name": {
         "message": "Tên máy chủ"
     },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Máy chủ DNS của tôi"
+    },
     "settings_dns_add_custom_server_address": {
         "message": "Địa chỉ máy chủ"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "Địa chỉ IP hoặc tls://"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Địa chỉ máy chủ không hợp lệ"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Máy chủ DNS đã được thêm vào"
@@ -341,6 +416,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Đã xoá máy chủ DNS tuỳ chỉnh"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Đã chỉnh sửa máy chủ DNS tuỳ chỉnh"
     },
     "settings_dns_selector_default_title": {
         "message": "Mặc định"
@@ -506,6 +584,9 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Xóa tất cả các loại trừ"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Bạn có muốn xóa toàn bộ danh sách loại trừ không?"
     },
     "settings_exclusion_title": {
         "message": "Loại trừ"
@@ -723,6 +804,19 @@
     "popup_auth_policy_agreement_title": {
         "message": "Chào mừng bạn gia nhập"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Tôi đồng ý với <eula>thoả thuận người dùng cuối</eula> và <privacy>Chính sách quyền riêng tư</privacy> của AdGuard VPN",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Gửi <link>dữ liệu sử dụng phần mở rộng</link> đã được ẩn danh"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Nếu bạn đồng ý, AdGuard VPN sẽ thu thập dữ liệu về các màn hình và nút mà bạn tương tác. Bạn có thể luôn luôn vô hiệu hóa việc chia sẻ dữ liệu trong <b>Cài đặt</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Thông tin này giúp chúng tôi hiểu chức năng nào hoạt động tốt và chức năng nào cần cải thiện. Nó được ẩn danh và chỉ được sử dụng nội bộ. Chúng tôi không bao giờ chia sẻ với ai"
+    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Đăng nhập hoặc tạo một tài khoản"
     },
@@ -892,6 +986,30 @@
     },
     "popup_connections_limit_title": {
         "message": "Đã đạt đến giới hạn kết nối"
+    },
+    "popup_mobile_edge_promo_text": {
+        "message": "Cài tiện ích mở rộng VPN cho Android"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN cho Edge — hiện có trên Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Quét mã QR để cài đặt Edge trên điện thoại hoặc máy tính bảng của bạn. AdGuard VPN sẽ xuất hiện trong gợi ý"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Đã hiểu"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Không hiện nữa"
+    },
+    "options_signedout_page_title": {
+        "message": "Bạn đã đăng xuất khỏi AdGuard VPN"
+    },
+    "options_signedout_page_description_not_secure": {
+        "message": "Kết nối của bạn không được bảo mật!"
+    },
+    "options_signedout_page_description": {
+        "message": "Để tiếp tục lướt một cách riêng tư, hãy nhấp vào biểu tượng AdGuard VPN và đăng nhập lại."
     },
     "notification_data_limit_reached_title": {
         "message": "Đã đạt đến giới hạn dữ liệu hàng tháng. Cần thêm?"

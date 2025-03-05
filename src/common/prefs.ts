@@ -192,6 +192,15 @@ export class Preferences {
         return this.browser === BrowserName.Firefox;
     }
 
+    /**
+     * Checks whether the current browser is Edge.
+     *
+     * @returns True if the current browser is Edge, false otherwise.
+     */
+    public isEdge(): boolean {
+        return this.browser === BrowserName.Edge || this.browser === BrowserName.EdgeChromium;
+    }
+
     /* PLATFORM RELATED PREFERENCES */
 
     /**

@@ -383,6 +383,11 @@ class Messenger {
         return this.sendMessage(type);
     }
 
+    async hideMobileEdgePromoBanner() {
+        const type = MessageType.HIDE_MOBILE_EDGE_PROMO_BANNER;
+        return this.sendMessage(type);
+    }
+
     async setNotificationViewed(withDelay: boolean) {
         const type = MessageType.SET_NOTIFICATION_VIEWED;
         return this.sendMessage(type, { withDelay });
