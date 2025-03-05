@@ -7,7 +7,6 @@ import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
-import { popupActions } from '../../actions/popupActions';
 import { rootStore } from '../../stores';
 import { Icon } from '../ui/Icon';
 
@@ -17,11 +16,18 @@ import './limited-offer-details.pcss';
  * Component for displaying limited offer details.
  */
 export const LimitedOfferDetails = observer(() => {
-    const { uiStore, settingsStore, telemetryStore } = useContext(rootStore);
+    const {
+        uiStore,
+        settingsStore,
+        telemetryStore,
+        vpnStore,
+    } = useContext(rootStore);
 
     const { shouldShowLimitedOfferDetails } = uiStore;
 
     const { limitedOfferData } = settingsStore;
+
+    const { openForwarderUrlWithEmail } = vpnStore;
 
     const isRenderedAndOpen = !!limitedOfferData && shouldShowLimitedOfferDetails;
 
@@ -39,7 +45,7 @@ export const LimitedOfferDetails = observer(() => {
         timeLeftMs,
         years,
         discount,
-        url,
+        forwarderUrlQueryKey,
     } = limitedOfferData;
 
     const openLimitedOfferLink = () => {
@@ -47,7 +53,7 @@ export const LimitedOfferDetails = observer(() => {
             TelemetryActionName.PromoOfferPurchaseClick,
             TelemetryScreenName.PromoOfferScreen,
         );
-        popupActions.openTab(url);
+        openForwarderUrlWithEmail(forwarderUrlQueryKey);
     };
 
     /**

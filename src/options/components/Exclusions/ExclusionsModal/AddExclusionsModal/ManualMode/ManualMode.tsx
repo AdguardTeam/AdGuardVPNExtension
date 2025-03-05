@@ -27,7 +27,7 @@ export const ManualMode = () => {
         );
 
         if (exclusionsStore.validateUrl(inputValue)) {
-            const addedExclusionsCount = await exclusionsStore.addUrlToExclusions(inputValue);
+            const addedExclusionsCount = await exclusionsStore.addUrlToExclusions(inputValue.trim());
             notificationsStore.notifySuccess(
                 translator.getMessage(
                     'options_exclusions_added_exclusions',

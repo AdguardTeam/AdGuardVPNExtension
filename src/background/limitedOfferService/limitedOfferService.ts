@@ -1,15 +1,14 @@
-import { getForwarderUrl } from '../../common/helpers';
 import { isRuLocale } from '../../common/utils/promo';
 import { translator } from '../../common/translator';
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { type BrowserApi, browserApi } from '../browserApi';
 import { credentials } from '../credentials';
-import { forwarder } from '../forwarder';
 import { notifications } from '../notifications';
 import { stateStorage } from '../stateStorage';
 import { StorageKey } from '../schema';
 import { type LimitedOfferStorageData } from '../schema/limitedOffer';
+import { ForwarderUrlQueryKey } from '../config';
 
 /**
  * Limited offer data type needed for popup.
@@ -31,9 +30,9 @@ export type LimitedOfferData = {
     discount: number;
 
     /**
-     * Url to forwarder page.
+     * Forwarder URL query key.
      */
-    url: string;
+    forwarderUrlQueryKey: ForwarderUrlQueryKey;
 };
 
 /**
@@ -61,10 +60,6 @@ class LimitedOfferService {
      * Discount in percents in limited offer only for russian users.
      */
     private LIMITED_OFFER_DISCOUNT_RU_PERCENT = 75;
-
-    private TDS_LIMITED_OFFER_ACTION = 'limited_offer';
-
-    private TDS_LIMITED_OFFER_ACTION_RU = 'limited_offer_ru';
 
     private COUNTDOWN_DATA_KEY = 'limited.offer.countdown.data';
 
@@ -249,8 +244,6 @@ class LimitedOfferService {
             return null;
         }
 
-        const forwarderDomain = await forwarder.updateAndGetDomain();
-
         if (isRuLocale) {
             if (shouldShowNotification) {
                 await this.createNotification(this.LIMITED_OFFER_DISCOUNT_RU_PERCENT);
@@ -260,10 +253,7 @@ class LimitedOfferService {
                 timeLeftMs,
                 years: this.LIMITED_OFFER_YEARS_RU,
                 discount: this.LIMITED_OFFER_DISCOUNT_RU_PERCENT,
-                url: getForwarderUrl(
-                    forwarderDomain,
-                    `action=${this.TDS_LIMITED_OFFER_ACTION_RU}&from=popup&app=vpn_extension`,
-                ),
+                forwarderUrlQueryKey: ForwarderUrlQueryKey.LimitedOfferRu,
             };
         }
 
@@ -275,10 +265,7 @@ class LimitedOfferService {
             timeLeftMs,
             years: this.LIMITED_OFFER_YEARS,
             discount: this.LIMITED_OFFER_DISCOUNT_PERCENT,
-            url: getForwarderUrl(
-                forwarderDomain,
-                `action=${this.TDS_LIMITED_OFFER_ACTION}&from=popup&app=vpn_extension`,
-            ),
+            forwarderUrlQueryKey: ForwarderUrlQueryKey.LimitedOffer,
         };
     }
 }

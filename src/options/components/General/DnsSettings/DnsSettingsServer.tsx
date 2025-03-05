@@ -54,6 +54,7 @@ export function DnsSettingsServer({
                 value={value.id}
                 isActive={isActive}
                 title={value.title}
+                labelTitle={`${value.title} (${value.address})`}
                 description={value.address}
                 onSelect={onSelect}
                 className="dns-settings__custom"
@@ -81,9 +82,9 @@ export function DnsSettingsServer({
             value={value.id}
             isActive={isActive}
             title={value.title}
+            labelTitle={value.title}
             description={value.desc}
             onSelect={onSelect}
-            className="dns-settings__custom"
         />
     );
 }

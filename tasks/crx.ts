@@ -5,6 +5,7 @@ import path from 'path';
 import Crx from 'crx';
 import chalk from 'chalk';
 import { program } from 'commander';
+import forge from 'node-forge';
 
 import packageJson from '../package.json';
 
@@ -23,7 +24,7 @@ import {
     IS_DEV,
     STAGE_ENV,
     StageEnv,
-    type Env,
+    Env,
 } from './consts';
 
 const { log, error } = console;
@@ -32,6 +33,35 @@ const { BUILD_ENV } = process.env;
 const { outputPath } = BUILD_ENV_MAP[BUILD_ENV as string];
 
 const WRITE_PATH = path.resolve(__dirname, BUILD_PATH, outputPath);
+
+type PrivateKey = forge.pki.rsa.PrivateKey;
+
+/**
+ * Parsed test certificate private key details.
+ */
+let TEST_CERTIFICATE_PRIVATE_KEY: PrivateKey | null = null;
+
+/**
+ * Parses a PEM certificate and extracts private key details
+ *
+ * @param fileContent Content of the file
+ * @returns Parsed private key details
+ */
+async function parsePrivateKey(fileContent: Buffer): Promise<PrivateKey> {
+    const cert = forge.pki.privateKeyFromPem(fileContent.toString('utf-8'));
+    return cert;
+}
+
+/**
+ * Compares two private keys by checking modulus (n) and exponent (e)
+ *
+ * @param keyA First private key
+ * @param keyB Second private key
+ * @returns True if keys are identical, false otherwise
+ */
+function arePrivateKeysEqual(keyA: PrivateKey, keyB: PrivateKey) {
+    return keyA.n.equals(keyB.n) && keyA.e.equals(keyB.e);
+}
 
 /**
  * Retrieves certificate private key depending on the environment
@@ -44,11 +74,30 @@ const WRITE_PATH = path.resolve(__dirname, BUILD_PATH, outputPath);
 const getPrivateKey = async (crxName: string) => {
     const certificatePath = CERTIFICATE_PATHS[BUILD_ENV as Env];
     try {
-        const privateKey = await fs.readFile(certificatePath);
+        const privateKeyBuffer = await fs.readFile(certificatePath);
+
+        /**
+         * Make sure that the test certificate is not used in the production environment.
+         * We perform full parsing of the certificate to avoid any issues with the comparison,
+         * like formatting differences.
+         */
+        if (BUILD_ENV !== Env.Dev) {
+            if (TEST_CERTIFICATE_PRIVATE_KEY === null) {
+                const testPrivateKeyBuffer = await fs.readFile(CERTIFICATE_PATHS[Env.Dev]);
+                TEST_CERTIFICATE_PRIVATE_KEY = await parsePrivateKey(testPrivateKeyBuffer);
+            }
+
+            const privateKey = await parsePrivateKey(privateKeyBuffer);
+
+            if (arePrivateKeysEqual(TEST_CERTIFICATE_PRIVATE_KEY, privateKey)) {
+                throw new Error('The test certificate is used in the production environment');
+            }
+        }
+
         log(chalk.greenBright(`\nThe certificate is read from ${certificatePath}\n`));
-        return privateKey;
+        return privateKeyBuffer;
     } catch (e: any) {
-        error(chalk.redBright(`Can not create ${crxName} - the valid certificate is not found in ${certificatePath} - ${e.message}\n`));
+        error(chalk.redBright(`Can not create ${crxName} - ${e.message}\n`));
         throw e;
     }
 };

@@ -9,7 +9,7 @@ import { tabs } from './tabs';
 import { credentials } from './credentials';
 import { forwarder } from './forwarder';
 import { settings } from './settings';
-import { FORWARDER_URL_QUERIES } from './config';
+import { FORWARDER_URL_QUERIES, type ForwarderUrlQueryKey } from './config';
 import { promoNotifications } from './promoNotifications';
 import { browserAction } from './browserAction';
 
@@ -206,20 +206,25 @@ const clearBadgeText = async (tabId: number) => {
 };
 
 /**
- * Generates Premium Promo Page url with user email in parameter (if authenticated)
+ * Constructs forwarder URL with email query param if user is logged in.
+ *
+ * @param forwarderUrlQueryKey Forwarder query key.
+ * @returns Constructed forwarder URL.
  */
-const getPremiumPromoPageUrl = async (): Promise<string> => {
+const getForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey): Promise<string> => {
     const username = await credentials.getUsername();
     const forwarderDomain = await forwarder.updateAndGetDomain();
-    const upgradeLicenseUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.UPGRADE_LICENSE);
-    return `${upgradeLicenseUrl}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
+    const url = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES[forwarderUrlQueryKey]);
+    return `${url}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
 };
 
 /**
- * Opens Premium Promo Page in new tab
+ * Opens forwarder URL in new tab by appending email query param if user is logged in.
+ *
+ * @param forwarderUrlQueryKey Forwarder query key.
  */
-const openPremiumPromoPage = async () => {
-    const url = await getPremiumPromoPageUrl();
+const openForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey) => {
+    const url = await getForwarderUrlWithEmail(forwarderUrlQueryKey);
     await tabs.openTab(url);
 };
 
@@ -257,7 +262,7 @@ export const actions = {
     setIconTrafficOff,
     setBadgeText,
     clearBadgeText,
-    getPremiumPromoPageUrl,
-    openPremiumPromoPage,
+    getForwarderUrlWithEmail,
+    openForwarderUrlWithEmail,
     openFreeGbsPage,
 };

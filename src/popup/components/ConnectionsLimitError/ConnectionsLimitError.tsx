@@ -18,7 +18,13 @@ import './popup-error.pcss';
 export const ConnectionsLimitError = observer(() => {
     const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
 
-    const { tooManyDevicesConnected, isPremiumToken, maxDevicesAllowed } = vpnStore;
+    const {
+        tooManyDevicesConnected,
+        isPremiumToken,
+        maxDevicesAllowed,
+        openSubscribePromoPage,
+    } = vpnStore;
+
     const isMaxDevicesAllowedCorrect = !isNil(maxDevicesAllowed);
 
     const isRendered = tooManyDevicesConnected && isMaxDevicesAllowedCorrect;
@@ -51,23 +57,25 @@ export const ConnectionsLimitError = observer(() => {
 
     const description = `${descriptionFirstPart} ${descriptionRestPart}`;
 
+    const deviceCountUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.DEVICE_COUNT);
+
+    const openDeviceCountPage = async (): Promise<void> => {
+        await messenger.openTab(deviceCountUrl);
+        window.close();
+    };
+
     const buttonsMap = {
         free: {
             title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_free'),
-            url: getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.SUBSCRIBE),
+            onClick: openSubscribePromoPage,
         },
         premium: {
             title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_premium'),
-            url: getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.DEVICE_COUNT),
+            onClick: openDeviceCountPage,
         },
     };
 
     const buttonData = isPremiumToken ? buttonsMap.premium : buttonsMap.free;
-
-    const handleCtaClick = (url: string) => async (): Promise<void> => {
-        await messenger.openTab(url);
-        window.close();
-    };
 
     const handleCloseClick = (): void => {
         vpnStore.setTooManyDevicesConnected(false);
@@ -94,7 +102,7 @@ export const ConnectionsLimitError = observer(() => {
                 <button
                     type="button"
                     className="button button--medium button--green"
-                    onClick={handleCtaClick(buttonData.url)}
+                    onClick={buttonData.onClick}
                 >
                     {buttonData.title}
                 </button>

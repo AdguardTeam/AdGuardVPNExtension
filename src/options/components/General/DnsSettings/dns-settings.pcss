@@ -1,4 +1,16 @@
 .dns-settings {
+    &__btn {
+        .controls__content {
+            overflow-x: hidden;
+        }
+
+        .controls__title,
+        .controls__description {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
     &__btn-icon {
         transform: rotate(-90deg);
     }
@@ -35,6 +47,16 @@
 
         &-servers {
             padding-top: 48px;
+        }
+
+        .radio__content {
+            overflow-x: hidden;
+        }
+
+        .radio__title,
+        .radio__description {
+            overflow-x: hidden;
+            text-overflow: ellipsis;
         }
     }
 }

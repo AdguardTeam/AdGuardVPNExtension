@@ -28,7 +28,6 @@ export const Reload = observer(() => {
 
     const iconClass = cn(
         'icon',
-        'icon--button',
         'endpoints__reload-icon',
         { 'endpoints__reload-icon--active': arePingsRecalculating },
     );

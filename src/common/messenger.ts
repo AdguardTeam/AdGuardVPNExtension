@@ -6,6 +6,7 @@ import type { StartSocialAuthData, UserLookupData } from '../background/messagin
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { TelemetryScreenName, TelemetryActionName, TelemetryActionToScreenMap } from '../background/telemetry';
+import { ForwarderUrlQueryKey } from '../background/config';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
@@ -403,9 +404,28 @@ class Messenger {
         return this.sendMessage(type, { email, message, includeLog });
     }
 
+    /**
+     * Opens Premium Promo Page in new tab.
+     */
     async openPremiumPromoPage() {
-        const type = MessageType.OPEN_PREMIUM_PROMO_PAGE;
-        return this.sendMessage(type);
+        return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.UpgradeLicense);
+    }
+
+    /**
+     * Opens Subscribe Promo Page in new tab.
+     */
+    async openSubscribePromoPage() {
+        return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.Subscribe);
+    }
+
+    /**
+     * Opens forwarder URL in new tab by appending email query param if user is logged in.
+     *
+     * @param forwarderUrlQueryKey Forwarder query key.
+     */
+    async openForwarderUrlWithEmail(forwarderUrlQueryKey: ForwarderUrlQueryKey) {
+        const type = MessageType.OPEN_FORWARDER_URL_WITH_EMAIL;
+        return this.sendMessage(type, { forwarderUrlQueryKey });
     }
 
     /**
