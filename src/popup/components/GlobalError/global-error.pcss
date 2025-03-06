@@ -89,11 +89,26 @@
         padding: 32px 24px;
     }
 
-    &--reduced {
-        position: relative;
+    &--reduced,
+    &--device {
         height: 100%;
         padding: 24px;
         justify-content: center;
+    }
+
+    &--reduced {
+        position: relative;
+    }
+
+    &--device {
+        position: fixed;
+        z-index: calc(var(--header-z-index) + 1);
+        background-color: var(--white);
+
+        /* TODO: Remove it when popup design will be available in wider screens. */
+        .android & {
+            position: absolute;
+        }
     }
 
     &__close-btn {
@@ -103,6 +118,7 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
+        padding: 0;
     }
 
     &__image {
@@ -114,7 +130,8 @@
             min-height: 0;
             margin-bottom: 24px;
 
-            .new-global-error--control & {
+            .new-global-error--control &,
+            .new-global-error--device & {
                 /* Cap height at design defined height so image will not grow */
                 max-height: 175px;
             }
