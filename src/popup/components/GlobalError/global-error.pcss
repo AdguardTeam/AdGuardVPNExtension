@@ -147,7 +147,9 @@
         flex-shrink: 0;
 
         .button {
-            /* Re-defined size of large button (by design) */
+            /* Re-defined size of large button (by design). */
+            /* We are using min-width instead of width to override */
+            /* .button--large min-width property. */
             /* TODO: Remove this when button will be standardized across popup */
             min-width: 200px;
             padding: 16px;
