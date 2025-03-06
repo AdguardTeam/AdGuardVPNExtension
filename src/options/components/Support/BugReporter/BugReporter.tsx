@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { useMachine } from '@xstate/react';
 import identity from 'lodash/identity';
 
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { addMinDurationTime } from '../../../../common/helpers';
 import { messenger } from '../../../../common/messenger';
@@ -48,6 +48,9 @@ interface FormError extends FormErrorType {
     [FormField.Message]?: string | null;
 }
 
+/**
+ * Bug reporter page component.
+ */
 export const BugReporter = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
 
@@ -123,6 +126,14 @@ export const BugReporter = observer(() => {
         }, {});
     };
 
+    const handleCheckboxClick = () => {
+        // FIXME: Waits for clarification
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SendInfoClick,
+            TelemetryScreenName.SupportReportBugScreen,
+        );
+    };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
@@ -132,6 +143,12 @@ export const BugReporter = observer(() => {
             setFormErrors(errors);
             return;
         }
+
+        // FIXME: Waits for clarification, maybe just add to button?
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SendReportClick,
+            TelemetryScreenName.SupportReportBugScreen,
+        );
 
         sendToRequestMachine(
             RequestEvent.SendReport,
@@ -233,6 +250,7 @@ export const BugReporter = observer(() => {
                     id={FormField.IncludeLog}
                     label={translator.getMessage('options_bug_report_include_log_label')}
                     value={formState[FormField.IncludeLog]}
+                    onClick={handleCheckboxClick}
                 />
                 {requestState.matches(RequestState.Error) && (
                     <div className="bug-report__form-error">

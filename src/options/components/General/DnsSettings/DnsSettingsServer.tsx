@@ -1,15 +1,33 @@
 import React from 'react';
 
 import { type DnsServerData } from '../../../../background/schema';
+import { type DnsServerClickActionNames } from '../../../../background/telemetry';
 import { Radio } from '../../ui/Radio';
 import { IconButton, type IconButtonProps } from '../../ui/Icon';
 
+/**
+ * Modify button props.
+ */
 interface ModifyButtonProps {
+    /**
+     * Icon name.
+     */
     icon: string;
+
+    /**
+     * Hover color.
+     */
     hoverColor?: IconButtonProps['hoverColor'];
+
+    /**
+     * Click handler.
+     */
     onClick: () => void;
 }
 
+/**
+ * Modify button component (Delete / Edit).
+ */
 function ModifyButton({ icon, hoverColor, onClick }: ModifyButtonProps) {
     const handleClick = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -21,25 +39,77 @@ function ModifyButton({ icon, hoverColor, onClick }: ModifyButtonProps) {
     );
 }
 
+/**
+ * DNS server base props.
+ */
 interface DnsSettingsServerBaseProps {
+    /**
+     * DNS server name.
+     */
     name: string;
+
+    /**
+     * DNS server data.
+     */
     value: DnsServerData;
+
+    /**
+     * Is active flag.
+     */
     isActive: boolean;
-    onSelect: (dnsServerId: string) => void;
+
+    /**
+     * Select DNS server handler.
+     *
+     * @param dnsServerId DNS server ID.
+     * @param telemetryActionName Telemetry action name.
+     */
+    onSelect: (dnsServerId: string, telemetryActionName?: DnsServerClickActionNames) => void;
 }
 
+/**
+ * Defined DNS server component props.
+ */
 interface DnsSettingsServerDefinedProps extends DnsSettingsServerBaseProps {
+    /**
+     * Defined DNS server flag.
+     */
     custom?: false;
 }
 
+/**
+ * Custom DNS server component props.
+ */
 interface DnsSettingsServerCustomProps extends DnsSettingsServerBaseProps {
+    /**
+     * Custom DNS server flag.
+     */
     custom: true;
+
+    /**
+     * Edit custom DNS server handler.
+     *
+     * @param dnsServer DNS server data.
+     */
     onEdit: (dnsServer: DnsServerData) => void;
+
+    /**
+     * Delete custom DNS server handler.
+     *
+     * @param dnsServerId DNS server ID.
+     */
     onDelete: (dnsServerId: string) => void;
 }
 
+/**
+ * DNS server component props.
+ * It can be either defined or custom.
+ */
 export type DnsSettingsServerProps = DnsSettingsServerDefinedProps | DnsSettingsServerCustomProps;
 
+/**
+ * DNS server component.
+ */
 export function DnsSettingsServer({
     name,
     value,
@@ -47,6 +117,10 @@ export function DnsSettingsServer({
     onSelect,
     ...restProps
 }: DnsSettingsServerProps) {
+    const handleSelect = (dnsServerId: string) => {
+        onSelect(dnsServerId, value.telemetryActionName);
+    };
+
     if (restProps.custom) {
         return (
             <Radio
@@ -56,7 +130,7 @@ export function DnsSettingsServer({
                 title={value.title}
                 labelTitle={`${value.title} (${value.address})`}
                 description={value.address}
-                onSelect={onSelect}
+                onSelect={handleSelect}
                 className="dns-settings__custom"
                 action={(
                     <span className="dns-settings__custom-actions">
@@ -84,7 +158,7 @@ export function DnsSettingsServer({
             title={value.title}
             labelTitle={value.title}
             description={value.desc}
-            onSelect={onSelect}
+            onSelect={handleSelect}
         />
     );
 }

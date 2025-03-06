@@ -12,6 +12,8 @@ export {
     TelemetryActionName,
     type TelemetryActionToScreenMap,
     type HeaderScreenNames,
+    type DnsServerClickActionNames,
+    type FreeGbItemClickActionNames,
 } from './telemetryEnums';
 
 export const telemetry = new Telemetry({

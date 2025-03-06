@@ -5,13 +5,16 @@ import { getForwarderUrl } from '../../../common/helpers';
 import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { rootStore } from '../../stores';
 import { Icon } from '../ui/Icon';
 import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
 
+/**
+ * Add device page component.
+ */
 export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
 
@@ -24,6 +27,13 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
 
     const otherProductsUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS);
     const isCompleted = !multiplatformBonus.available;
+
+    const handleLinkClick = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.GoToProductsClick,
+            TelemetryScreenName.FreeGbAddAnotherPlatformScreen,
+        );
+    };
 
     const title = isCompleted
         ? translator.getMessage('settings_free_gbs_devices_added_title')
@@ -60,6 +70,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
                                 target="_blank"
                                 rel="noreferrer"
                                 className="button button--filled button--size-medium add-device__link"
+                                onClick={handleLinkClick}
                             >
                                 <Icon name="external-link" className="add-device__link-icon" />
                                 <span className="text-ellipsis">

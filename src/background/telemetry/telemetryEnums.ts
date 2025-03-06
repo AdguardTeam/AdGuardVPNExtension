@@ -69,19 +69,78 @@ export enum TelemetryActionName {
     SearchLocationsClick = 'search_locations_click',
     GetDesktopClick = 'get_desktop_click',
     DeclineDesktopClick = 'decline_desktop_click',
+    // FIXME: Add rest of popup events
 
     // Options actions
+    // FIXME: This events are context based, they should be handled properly later
+    GeneralSettingsClick = 'general_settings_click',
+    ExclusionsSettingsClick = 'exclusions_settings_click',
+    AccountSettingsClick = 'account_settings_click',
+    SupportSettingsClick = 'support_settings_click',
+    AboutSettingsClick = 'about_settings_click',
+    FreeGbsSettingsClick = 'free_gbs_settings_click',
+    SettingsRateUsClick = 'settings_rate_us_click',
+    SettingsHideRateUsClick = 'settings_hide_rate_us_click',
+    // FIXME: End of context based events
+    AddCustomDnsClick = 'add_custom_dns_click',
+    AdguardDnsClick = 'adguard_dns_click',
+    AdguardNonfilteringDnsClick = 'adguard_nonfiltering_dns_click',
+    AdguardFamilyDnsClick = 'adguard_family_dns_click',
+    GoogleDnsClick = 'google_dns_click',
+    CloudflareDnsClick = 'cloudflare_dns_click',
+    CiscoDnsClick = 'cisco_dns_click',
+    QuadDnsClick = 'quad_dns_click',
+    SaveCustomDnsClick = 'save_custom_dns_click',
+    InviteFriendClick = 'invite_friend_click',
+    ConfirmEmailClick = 'confirm_email_click',
+    AddGbDeviceClick = 'add_gb_device_click',
+    CopyLinkClick = 'copy_link_click',
+    ResendEmailClick = 'resend_email_click',
+    GoToProductsClick = 'go_to_products_click',
+    GetSubscriptionClick = 'get_subscription_click',
+    OpenAccountSettingsClick = 'open_account_settings_click',
+    FaqClick = 'faq_click',
+    ReportBugClick = 'report_bug_click',
+    LeaveFeedbackClick = 'leave_feedback_click',
+    SendReportClick = 'send_report_click',
+    SendInfoClick = 'send_info_click',
+    OfficialWebClick = 'official_web_click',
+    ModeClick = 'mode_click',
+    SearchWebsite = 'search_website', // FIXME: Waits for clarification
     AddWebsiteClick = 'add_website_click',
     GeneralModeClick = 'general_mode_click',
     SelectiveModeClick = 'selective_mode_click',
+    SearchFromList = 'search_from_list', // FIXME: Waits for clarification
     AddWebsiteFromList = 'add_website_from_list',
+    SaveWebsiteClick = 'save_website_click',
     AddWebsiteManually = 'add_website_manually',
+    ExitInvalidDomainClick = 'exit_invalid_domain_click',
+    AddInvalidDomainClick = 'add_invalid_domain_click',
 }
 
 /**
  * Header can be shown on different screens.
  */
 export type HeaderScreenNames = TelemetryScreenName.HomeScreen | TelemetryScreenName.DisableAnotherVpnExtensionScreen;
+
+/**
+ * DNS server click actions.
+ */
+export type DnsServerClickActionNames = TelemetryActionName.AdguardDnsClick
+| TelemetryActionName.AdguardNonfilteringDnsClick
+| TelemetryActionName.AdguardFamilyDnsClick
+| TelemetryActionName.GoogleDnsClick
+| TelemetryActionName.CloudflareDnsClick
+| TelemetryActionName.CiscoDnsClick
+| TelemetryActionName.QuadDnsClick;
+
+export type FreeGbItemClickActionNames = TelemetryActionName.InviteFriendClick
+| TelemetryActionName.ConfirmEmailClick
+| TelemetryActionName.AddGbDeviceClick;
+
+export type SupportItemClickActionNames = TelemetryActionName.FaqClick
+| TelemetryActionName.ReportBugClick
+| TelemetryActionName.LeaveFeedbackClick;
 
 /**
  * Action to screen mapping.
@@ -111,11 +170,40 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.DeclineDesktopClick]: TelemetryScreenName.DialogDesktopVersionPromo;
 
     // Options actions
+    [TelemetryActionName.AddCustomDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
+    [TelemetryActionName.AdguardDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
+    [TelemetryActionName.AdguardNonfilteringDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
+    [TelemetryActionName.AdguardFamilyDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
+    [TelemetryActionName.GoogleDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
+    [TelemetryActionName.CloudflareDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
+    [TelemetryActionName.CiscoDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
+    [TelemetryActionName.QuadDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
+    [TelemetryActionName.SaveCustomDnsClick]: TelemetryScreenName.DialogAddCustomDns,
+    [TelemetryActionName.InviteFriendClick]: TelemetryScreenName.FreeGbScreen;
+    [TelemetryActionName.ConfirmEmailClick]: TelemetryScreenName.FreeGbScreen;
+    [TelemetryActionName.AddGbDeviceClick]: TelemetryScreenName.FreeGbScreen;
+    [TelemetryActionName.CopyLinkClick]: TelemetryScreenName.FreeGbInviteFriendScreen;
+    [TelemetryActionName.ResendEmailClick]: TelemetryScreenName.FreeGbConfirmEmailScreen;
+    [TelemetryActionName.GoToProductsClick]: TelemetryScreenName.FreeGbAddAnotherPlatformScreen;
+    [TelemetryActionName.GetSubscriptionClick]: TelemetryScreenName.AccountScreen;
+    [TelemetryActionName.OpenAccountSettingsClick]: TelemetryScreenName.AccountScreen;
+    [TelemetryActionName.FaqClick]: TelemetryScreenName.SupportScreen;
+    [TelemetryActionName.ReportBugClick]: TelemetryScreenName.SupportScreen;
+    [TelemetryActionName.LeaveFeedbackClick]: TelemetryScreenName.SupportScreen;
+    [TelemetryActionName.SendReportClick]: TelemetryScreenName.SupportReportBugScreen;
+    [TelemetryActionName.SendInfoClick]: TelemetryScreenName.SupportReportBugScreen;
+    [TelemetryActionName.OfficialWebClick]: TelemetryScreenName.AboutScreen;
+    [TelemetryActionName.ModeClick]: TelemetryScreenName.ExclusionsScreen;
+    [TelemetryActionName.SearchWebsite]: TelemetryScreenName.ExclusionsScreen;
     [TelemetryActionName.AddWebsiteClick]: TelemetryScreenName.ExclusionsScreen;
     [TelemetryActionName.GeneralModeClick]: TelemetryScreenName.DialogExclusionsModeSelection;
     [TelemetryActionName.SelectiveModeClick]: TelemetryScreenName.DialogExclusionsModeSelection;
+    [TelemetryActionName.SearchFromList]: TelemetryScreenName.DialogAddWebsiteExclusion;
     [TelemetryActionName.AddWebsiteFromList]: TelemetryScreenName.DialogAddWebsiteExclusion;
+    [TelemetryActionName.SaveWebsiteClick]: TelemetryScreenName.DialogAddWebsiteExclusion;
     [TelemetryActionName.AddWebsiteManually]: TelemetryScreenName.DialogAddWebsiteExclusion;
+    [TelemetryActionName.ExitInvalidDomainClick]: TelemetryScreenName.DialogExclusionsAddNotValidDomain;
+    [TelemetryActionName.AddInvalidDomainClick]: TelemetryScreenName.DialogExclusionsAddNotValidDomain;
 }
 
 /**

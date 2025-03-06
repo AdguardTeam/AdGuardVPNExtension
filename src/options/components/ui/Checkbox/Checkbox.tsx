@@ -6,18 +6,45 @@ import { Icon } from '../Icon';
 
 import './checkbox.pcss';
 
+/**
+ * Checkbox component props.
+ */
 export interface CheckboxProps {
+    /**
+     * ID of input.
+     */
     id?: string;
+
+    /**
+     * Label.
+     */
     label: React.ReactNode;
+
+    /**
+     * Current value.
+     */
     value: boolean;
+
+    /**
+     * On toggle handler.
+     */
     onToggle?: () => void;
+
+    /**
+     * On click handler.
+     */
+    onClick?: () => void;
 }
 
+/**
+ * Checkbox component.
+ */
 export function Checkbox({
     id,
     label,
     value,
     onToggle,
+    onClick,
 }: CheckboxProps) {
     const [checkedValue, setCheckedValue] = useState(value);
     const classes = classNames(
@@ -39,6 +66,7 @@ export function Checkbox({
             className={classes}
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
+            onClick={onClick}
         >
             <Icon name={iconName} className="checkbox__icon" />
             <input

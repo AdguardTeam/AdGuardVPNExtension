@@ -3,7 +3,11 @@ import { observer } from 'mobx-react';
 
 import { type DnsServerData } from '../../../../background/schema';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../../../background/dns/dnsConstants';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import {
+    TelemetryActionName,
+    TelemetryScreenName,
+    type DnsServerClickActionNames,
+} from '../../../../background/telemetry';
 import { translator } from '../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { rootStore } from '../../../stores';
@@ -16,6 +20,9 @@ import { DnsSettingsServerModalEdit } from './DnsSettingsServerModalEdit';
 
 import './dns-settings.pcss';
 
+/**
+ * DNS settings page component.
+ */
 export const DnsSettings = observer(() => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
@@ -32,11 +39,21 @@ export const DnsSettings = observer(() => {
         settingsStore.setShowDnsSettings(false);
     };
 
-    const handleSelect = (dnsServerId: string) => {
+    const handleSelect = (dnsServerId: string, telemetryActionName?: DnsServerClickActionNames) => {
+        if (telemetryActionName) {
+            telemetryStore.sendCustomEvent(
+                telemetryActionName,
+                TelemetryScreenName.SettingsDnsServersScreen,
+            );
+        }
         settingsStore.setDnsServer(dnsServerId);
     };
 
     const handleAddClick = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.AddCustomDnsClick,
+            TelemetryScreenName.SettingsDnsServersScreen,
+        );
         settingsStore.openCustomDnsModal();
     };
 

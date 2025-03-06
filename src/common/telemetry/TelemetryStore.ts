@@ -90,6 +90,9 @@ export class TelemetryStore {
      *
      * NOTE: Do not await this function, as it is not necessary to wait for the response.
      *
+     * FIXME: Fix the type of the screenName parameter.
+     * FIXME: Check where is possible to attach to button clicks.
+     *
      * @param event Custom telemetry event data.
      */
     sendCustomEvent = async <T extends TelemetryActionName>(
