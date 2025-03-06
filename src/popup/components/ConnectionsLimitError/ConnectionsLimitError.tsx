@@ -14,8 +14,6 @@ import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryScreenName } from '../../../background/telemetry';
 import { Icon } from '../ui/Icon';
 
-import './popup-error.pcss';
-
 export const ConnectionsLimitError = observer(() => {
     const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
 
