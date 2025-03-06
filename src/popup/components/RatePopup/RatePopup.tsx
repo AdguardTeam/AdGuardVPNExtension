@@ -26,6 +26,7 @@ export const RatePopup = observer(() => {
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
 
+        // FIXME: Maybe add to onClick?
         telemetryStore.sendCustomEvent(
             TelemetryActionName.RateUsClick,
             TelemetryScreenName.MenuScreen,
