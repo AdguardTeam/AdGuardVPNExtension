@@ -6,7 +6,7 @@ import { popupActions } from '../../actions/popupActions';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { isLocationsNumberAcceptable } from '../../../common/is-locations-number-acceptable';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 
 import './global-error.pcss';
 
@@ -44,6 +44,10 @@ export const GlobalError = observer(() => {
 
     const handleDisableExtensions = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.DisableAnotherExtensionClick,
+            TelemetryScreenName.DisableAnotherVpnExtensionScreen,
+        );
         await settingsStore.disableOtherProxyExtensions();
     };
 

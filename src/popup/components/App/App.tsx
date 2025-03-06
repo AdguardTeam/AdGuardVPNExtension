@@ -34,6 +34,7 @@ import { SkeletonLoading } from '../SkeletonLoading';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal/LimitedOfferModal';
 import { SETTINGS_IDS } from '../../../common/constants';
+import { TelemetryScreenName } from '../../../background/telemetry';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -320,10 +321,14 @@ export const App = observer(() => {
 
     if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy) {
         const showMenuButton = authenticated && canControlProxy;
+
+        // Screen name can be null if the error is not related to the control of the proxy.
+        const screenName = !canControlProxy ? TelemetryScreenName.DisableAnotherVpnExtensionScreen : null;
+
         return (
             <>
                 {isOpenOptionsModal && <ExtraOptions />}
-                <Header showMenuButton={showMenuButton} />
+                <Header showMenuButton={showMenuButton} screenName={screenName} />
                 {
                     // do not show the warning for users on linux AG-27487
                     hasDesktopAppForOs

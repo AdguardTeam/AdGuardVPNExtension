@@ -9,7 +9,7 @@ import { messenger } from '../../../common/messenger';
 import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { RatePopup } from '../RatePopup';
 
 import { Option } from './Option';
@@ -33,6 +33,10 @@ export const ExtraOptions = observer(() => {
     } = settingsStore;
 
     const openSettings = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SettingsClick,
+            TelemetryScreenName.MenuScreen,
+        );
         await messenger.openOptionsPage();
         window.close();
     };
@@ -42,6 +46,10 @@ export const ExtraOptions = observer(() => {
     };
 
     const handleOtherProductsClick = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.OtherProductsClick,
+            TelemetryScreenName.MenuScreen,
+        );
         await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS));
     };
 
@@ -56,6 +64,10 @@ export const ExtraOptions = observer(() => {
     };
 
     const openComparePage = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.WhyDesktopClick,
+            TelemetryScreenName.MenuScreen,
+        );
         popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.COMPARE_PAGE));
     };
 

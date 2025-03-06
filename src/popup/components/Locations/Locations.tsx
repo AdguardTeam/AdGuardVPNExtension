@@ -5,7 +5,7 @@ import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { type LocationData } from '../../stores/VpnStore';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 
 import { FastestSkeleton } from './FastestSkeleton';
 import { Location } from './Location';
@@ -66,6 +66,13 @@ export const Locations = observer(() => {
 
     const handleSearchClear = () => {
         vpnStore.setSearchValue('');
+    };
+
+    const handleSearchClick = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SearchLocationsClick,
+            TelemetryScreenName.LocationsScreen,
+        );
     };
 
     const renderFilteredEndpoint = () => {
@@ -130,8 +137,9 @@ export const Locations = observer(() => {
             </div>
             <Search
                 value={vpnStore.searchValue}
-                handleChange={handleSearchInput}
-                handleClear={handleSearchClear}
+                onChange={handleSearchInput}
+                onClear={handleSearchClear}
+                onClick={handleSearchClick}
             />
             <div className="endpoints__scroll">
                 {!showSearchResults && (

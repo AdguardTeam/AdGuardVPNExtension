@@ -57,6 +57,18 @@ export enum TelemetryActionName {
     PurchaseClick = 'purchase_click',
     FreeGbClick = 'free_gb_click',
     SpeedReducedPurchaseClick = 'speed_reduced_purchase_click',
+    ClosePromoOfferClick = 'close_promo_offer_click',
+    DisableAnotherExtensionClick = 'disable_another_extension_click',
+    MenuClick = 'menu_click',
+    CloseSpeedReducesClick = 'close_speed_reduces_click',
+    SettingsClick = 'settings_click',
+    OtherProductsClick = 'other_products_click',
+    WhyDesktopClick = 'why_desktop_click',
+    RateUsClick = 'rate_us_click',
+    RenewLocationsClick = 'renew_locations_click',
+    SearchLocationsClick = 'search_locations_click',
+    GetDesktopClick = 'get_desktop_click',
+    DeclineDesktopClick = 'decline_desktop_click',
 
     // Options actions
     AddWebsiteClick = 'add_website_click',
@@ -65,6 +77,11 @@ export enum TelemetryActionName {
     AddWebsiteFromList = 'add_website_from_list',
     AddWebsiteManually = 'add_website_manually',
 }
+
+/**
+ * Header can be shown on different screens.
+ */
+export type HeaderScreenNames = TelemetryScreenName.HomeScreen | TelemetryScreenName.DisableAnotherVpnExtensionScreen;
 
 /**
  * Action to screen mapping.
@@ -78,8 +95,20 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.ConnectClick]: TelemetryScreenName.HomeScreen;
     [TelemetryActionName.DisconnectClick]: TelemetryScreenName.HomeScreen;
     [TelemetryActionName.PurchaseClick]: TelemetryScreenName.HomeScreen;
-    [TelemetryActionName.FreeGbClick]: TelemetryScreenName.HomeScreen;
+    [TelemetryActionName.FreeGbClick]: HeaderScreenNames;
     [TelemetryActionName.SpeedReducedPurchaseClick]: TelemetryScreenName.SpeedReducedScreen;
+    [TelemetryActionName.ClosePromoOfferClick]: TelemetryScreenName.PromoOfferScreen;
+    [TelemetryActionName.DisableAnotherExtensionClick]: TelemetryScreenName.DisableAnotherVpnExtensionScreen;
+    [TelemetryActionName.MenuClick]: HeaderScreenNames;
+    [TelemetryActionName.CloseSpeedReducesClick]: TelemetryScreenName.SpeedReducedScreen;
+    [TelemetryActionName.SettingsClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.OtherProductsClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.WhyDesktopClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.RateUsClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.RenewLocationsClick]: TelemetryScreenName.LocationsScreen;
+    [TelemetryActionName.SearchLocationsClick]: TelemetryScreenName.LocationsScreen;
+    [TelemetryActionName.GetDesktopClick]: TelemetryScreenName.DialogDesktopVersionPromo;
+    [TelemetryActionName.DeclineDesktopClick]: TelemetryScreenName.DialogDesktopVersionPromo;
 
     // Options actions
     [TelemetryActionName.AddWebsiteClick]: TelemetryScreenName.ExclusionsScreen;
