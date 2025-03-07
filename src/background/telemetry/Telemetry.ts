@@ -399,6 +399,7 @@ export class Telemetry implements TelemetryInterface {
          * replace ContextBasedScreen with the actual screen name.
          *
          * If current screen name is not defined, we don't send screen name.
+         * Because ref_name is optional in custom events.
          */
         let actualScreenName: TelemetryScreenName | undefined = screenName;
         if (actualScreenName === TelemetryScreenName.ContextBasedScreen) {

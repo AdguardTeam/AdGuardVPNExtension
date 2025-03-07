@@ -35,11 +35,12 @@ export const ConfirmAddModal = observer(() => {
     };
 
     const confirmAddUrl = async () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.AddInvalidDomainClick,
+            TelemetryScreenName.DialogExclusionsAddNotValidDomain,
+        );
+
         if (urlToConfirm) {
-            telemetryStore.sendCustomEvent(
-                TelemetryActionName.AddInvalidDomainClick,
-                TelemetryScreenName.DialogExclusionsAddNotValidDomain,
-            );
             const addedExclusionsCount = await exclusionsStore.addUrlToExclusions(urlToConfirm);
             notificationsStore.notifySuccess(
                 translator.getMessage(

@@ -52,8 +52,6 @@ export enum TelemetryScreenName {
 
 /**
  * Event names passed to telemetry.
- *
- * FIXME: When finished check all events are applied correctly.
  */
 export enum TelemetryActionName {
     // Popup actions
