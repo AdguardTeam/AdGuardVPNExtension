@@ -1,9 +1,4 @@
-import React, {
-    useContext,
-    useEffect,
-    useLayoutEffect,
-    useState,
-} from 'react';
+import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';
@@ -30,17 +25,15 @@ import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
-import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
-import { SkeletonLoading } from '../SkeletonLoading';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal/LimitedOfferModal';
 import { SETTINGS_IDS } from '../../../common/constants';
 
-const SKELETON_DELAY_TIMEOUT_MS = 350;
+import { AppLoaders } from './AppLoaders';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -81,19 +74,6 @@ export const App = observer(() => {
         filteredLocations,
         showSearchResults,
     } = vpnStore;
-
-    const [isSkeletonDelayed, setIsSkeletonDelayed] = useState(true);
-
-    /**
-     * Show skeleton for 350ms to avoid flickers while fetching locations data when opening the popup
-     */
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsSkeletonDelayed(false);
-        }, SKELETON_DELAY_TIMEOUT_MS);
-
-        return () => clearTimeout(timer);
-    }, []);
 
     useEffect(() => {
         (async () => {
@@ -288,21 +268,15 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
-    // show skeleton while data is loading.
+    // show one type of loader while popup data is loading.
     // it is more reliable to show a separate skeleton component
     // instead of changing different components based on the initStatus
     // because it would be more difficult to check all components and make sure
     // that they do not require any data fetching
     if (initStatus === RequestStatus.Pending) {
-        return authStore.authenticated
-            && !authStore.renderOnboarding
-            ? <SkeletonLoading />
-            // show dots loader until the user is authenticated
-            : (
-                <div className="data-loader">
-                    <DotsLoader />
-                </div>
-            );
+        return (
+            <AppLoaders />
+        );
     }
 
     if (authStore.requestProcessState !== RequestStatus.Pending
@@ -387,10 +361,6 @@ export const App = observer(() => {
                 <Icons />
             </>
         );
-    }
-
-    if (isSkeletonDelayed) {
-        return <SkeletonLoading />;
     }
 
     return (
