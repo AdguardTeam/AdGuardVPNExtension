@@ -19,6 +19,7 @@ export enum TelemetryScreenName {
     DeviceLimitScreen = 'device_limit_screen',
     DialogDesktopVersionPromo = 'dialog_desktop_version_promo',
     DialogAccessWebsitesPermission = 'dialog_access_websites_permission',
+    DialogCantConnect = 'dialog_cant_connect',
 
     // Options screens
     SettingsScreen = 'settings_screen',
@@ -45,9 +46,12 @@ export enum TelemetryScreenName {
 
 /**
  * Event names passed to telemetry.
+ *
+ * FIXME: When finished check all events are applied correctly.
  */
 export enum TelemetryActionName {
     // Popup actions
+    LogInClick = 'log_in_click', // FIXME: Waits for clarification
     OnboardingPurchaseClick = 'onboarding_purchase_click',
     OnboardingStayFreeClick = 'onboarding_stay_free_click',
     PromoOfferPurchaseClick = 'promo_offer_purchase_click',
@@ -69,7 +73,13 @@ export enum TelemetryActionName {
     SearchLocationsClick = 'search_locations_click',
     GetDesktopClick = 'get_desktop_click',
     DeclineDesktopClick = 'decline_desktop_click',
-    // FIXME: Add rest of popup events
+    NextOnboardingClick = 'next_onboarding_click',
+    SkipOnboardingClick = 'skip_onboarding_click',
+    DeclineNewsletter = 'decline_newsletter',
+    AcceptNewsletter = 'accept_newsletter',
+    // FIXME: Implement this
+    NudgeAdguardClick = 'nudge_adguard_click',
+    CloseCantConnectClick = 'close_cant_connect_click',
 
     // Options actions
     // FIXME: This events are context based, they should be handled properly later
@@ -147,6 +157,7 @@ export type SupportItemClickActionNames = TelemetryActionName.FaqClick
  */
 export interface TelemetryActionToScreenMap {
     // Popup actions
+    [TelemetryActionName.LogInClick]: TelemetryScreenName.WelcomeScreen;
     [TelemetryActionName.OnboardingPurchaseClick]: TelemetryScreenName.PurchaseScreen;
     [TelemetryActionName.OnboardingStayFreeClick]: TelemetryScreenName.PurchaseScreen;
     [TelemetryActionName.PromoOfferPurchaseClick]: TelemetryScreenName.PromoOfferScreen;
@@ -168,6 +179,12 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.SearchLocationsClick]: TelemetryScreenName.LocationsScreen;
     [TelemetryActionName.GetDesktopClick]: TelemetryScreenName.DialogDesktopVersionPromo;
     [TelemetryActionName.DeclineDesktopClick]: TelemetryScreenName.DialogDesktopVersionPromo;
+    [TelemetryActionName.NextOnboardingClick]: TelemetryScreenName.OnboardingScreen;
+    [TelemetryActionName.SkipOnboardingClick]: TelemetryScreenName.OnboardingScreen;
+    [TelemetryActionName.DeclineNewsletter]: TelemetryScreenName.NewsletterScreen;
+    [TelemetryActionName.AcceptNewsletter]: TelemetryScreenName.NewsletterScreen;
+    [TelemetryActionName.NudgeAdguardClick]: TelemetryScreenName.DialogCantConnect;
+    [TelemetryActionName.CloseCantConnectClick]: TelemetryScreenName.DialogCantConnect;
 
     // Options actions
     [TelemetryActionName.AddCustomDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
