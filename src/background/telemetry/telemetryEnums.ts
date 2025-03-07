@@ -83,7 +83,6 @@ export enum TelemetryActionName {
     SkipOnboardingClick = 'skip_onboarding_click',
     DeclineNewsletter = 'decline_newsletter',
     AcceptNewsletter = 'accept_newsletter',
-    // FIXME: Implement this
     NudgeAdguardClick = 'nudge_adguard_click',
     CloseCantConnectClick = 'close_cant_connect_click',
 

@@ -19,6 +19,7 @@ export const GlobalError = observer(() => {
     } = useContext(rootStore);
 
     const { isOpenOptionsModal, isShownVpnBlockedErrorDetails } = uiStore;
+    const { showServerErrorPopup } = settingsStore;
 
     const ERROR_TYPES = {
         PERMISSION: 'permission',
@@ -64,7 +65,8 @@ export const GlobalError = observer(() => {
 
     const canSendTelemetry = errorType === ERROR_TYPES.CONTROL
         && !isOpenOptionsModal // `MenuScreen` is rendered on top of this screen
-        && !isShownVpnBlockedErrorDetails; // `DialogDesktopVersionPromo` is rendered on top of this screen
+        && !isShownVpnBlockedErrorDetails // `DialogDesktopVersionPromo` is rendered on top of this screen
+        && !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,

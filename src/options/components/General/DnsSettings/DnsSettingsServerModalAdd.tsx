@@ -62,7 +62,7 @@ export const DnsSettingsServerModalAdd = observer(() => {
             };
         }
 
-        // FIXME: Waits for clarification, maybe just add to button?
+        // FIXME: Waits for clarification
         telemetryStore.sendCustomEvent(
             TelemetryActionName.SaveCustomDnsClick,
             TelemetryScreenName.DialogAddCustomDns,

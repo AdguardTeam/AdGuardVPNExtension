@@ -25,7 +25,6 @@ export const ServiceMode = observer(() => {
     const handleSaveServices = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // FIXME: Maybe add to button?
         telemetryStore.sendCustomEvent(
             TelemetryActionName.SaveWebsiteClick,
             TelemetryScreenName.DialogAddWebsiteExclusion,

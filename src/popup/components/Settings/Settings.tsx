@@ -24,7 +24,7 @@ export const Settings = observer(() => {
         telemetryStore,
     } = useContext(rootStore);
 
-    const { isConnected } = settingsStore;
+    const { isConnected, showServerErrorPopup } = settingsStore;
 
     const {
         isOpenOptionsModal,
@@ -46,7 +46,8 @@ export const Settings = observer(() => {
         && !shouldShowLimitedOfferDetails // `PromoOfferScreen` is rendered on top of this screen
         && !isOpenEndpointsSearch // `LocationsScreen` is rendered on top of this screen
         && !isDeviceLimitScreenRendered // `DeviceLimitScreen` is rendered on top of this screen
-        && !isShownVpnBlockedErrorDetails; // `DialogDesktopVersionPromo` is rendered on top of this screen
+        && !isShownVpnBlockedErrorDetails // `DialogDesktopVersionPromo` is rendered on top of this screen
+        && !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,

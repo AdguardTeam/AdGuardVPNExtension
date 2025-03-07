@@ -144,7 +144,7 @@ export const BugReporter = observer(() => {
             return;
         }
 
-        // FIXME: Waits for clarification, maybe just add to button?
+        // FIXME: Waits for clarification
         telemetryStore.sendCustomEvent(
             TelemetryActionName.SendReportClick,
             TelemetryScreenName.SupportReportBugScreen,
