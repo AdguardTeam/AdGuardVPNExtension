@@ -12,6 +12,7 @@ export {
     TelemetryActionName,
     type TelemetryActionToScreenMap,
     type HeaderScreenNames,
+    type SidebarLinkItemClickActionNames,
     type DnsServerClickActionNames,
     type FreeGbItemClickActionNames,
 } from './telemetryEnums';

@@ -42,6 +42,12 @@ export enum TelemetryScreenName {
     DialogExclusionsAddSubdomain = 'dialog_exclusions_add_subdomain',
     DialogExclusionsAddNotValidDomain = 'dialog_exclusions_add_not_valid_domain',
     DialogExclusionsRemoveAll = 'dialog_exclusions_remove_all',
+
+    /**
+     * This is special screen name. Used as flag to send telemetry
+     * action events based on what screen is currently active.
+     */
+    ContextBasedScreen = 'context_based_screen',
 }
 
 /**
@@ -82,7 +88,6 @@ export enum TelemetryActionName {
     CloseCantConnectClick = 'close_cant_connect_click',
 
     // Options actions
-    // FIXME: This events are context based, they should be handled properly later
     GeneralSettingsClick = 'general_settings_click',
     ExclusionsSettingsClick = 'exclusions_settings_click',
     AccountSettingsClick = 'account_settings_click',
@@ -91,7 +96,6 @@ export enum TelemetryActionName {
     FreeGbsSettingsClick = 'free_gbs_settings_click',
     SettingsRateUsClick = 'settings_rate_us_click',
     SettingsHideRateUsClick = 'settings_hide_rate_us_click',
-    // FIXME: End of context based events
     AddCustomDnsClick = 'add_custom_dns_click',
     AdguardDnsClick = 'adguard_dns_click',
     AdguardNonfilteringDnsClick = 'adguard_nonfiltering_dns_click',
@@ -132,6 +136,16 @@ export enum TelemetryActionName {
  * Header can be shown on different screens.
  */
 export type HeaderScreenNames = TelemetryScreenName.HomeScreen | TelemetryScreenName.DisableAnotherVpnExtensionScreen;
+
+/**
+ * Sidebar link item click actions.
+ */
+export type SidebarLinkItemClickActionNames = TelemetryActionName.GeneralSettingsClick
+| TelemetryActionName.ExclusionsSettingsClick
+| TelemetryActionName.AccountSettingsClick
+| TelemetryActionName.SupportSettingsClick
+| TelemetryActionName.AboutSettingsClick
+| TelemetryActionName.FreeGbsSettingsClick;
 
 /**
  * DNS server click actions.
@@ -193,6 +207,14 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.CloseCantConnectClick]: TelemetryScreenName.DialogCantConnect;
 
     // Options actions
+    [TelemetryActionName.GeneralSettingsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.ExclusionsSettingsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.AccountSettingsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.SupportSettingsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.AboutSettingsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.FreeGbsSettingsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.SettingsRateUsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.SettingsHideRateUsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.AddCustomDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
     [TelemetryActionName.AdguardDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
     [TelemetryActionName.AdguardNonfilteringDnsClick]: TelemetryScreenName.SettingsDnsServersScreen;
