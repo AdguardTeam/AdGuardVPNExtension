@@ -120,11 +120,11 @@ export enum TelemetryActionName {
     SendInfoClick = 'send_info_click',
     OfficialWebClick = 'official_web_click',
     ModeClick = 'mode_click',
-    SearchWebsite = 'search_website', // FIXME: Waits for clarification
+    SearchWebsite = 'search_website',
     AddWebsiteClick = 'add_website_click',
     GeneralModeClick = 'general_mode_click',
     SelectiveModeClick = 'selective_mode_click',
-    SearchFromList = 'search_from_list', // FIXME: Waits for clarification
+    SearchFromList = 'search_from_list',
     AddWebsiteFromList = 'add_website_from_list',
     SaveWebsiteClick = 'save_website_click',
     AddWebsiteManually = 'add_website_manually',

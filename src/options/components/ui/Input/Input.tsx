@@ -49,6 +49,11 @@ export interface InputBaseProps {
      * Change event handler.
      */
     onChange?: (value: string) => void;
+
+    /**
+     * Click event handler.
+     */
+    onClick?: () => void;
 }
 
 /**
@@ -83,6 +88,7 @@ export function Input({
     error,
     postfix,
     onChange,
+    onClick,
 }: InputProps) {
     const classes = classNames(
         'input',
@@ -103,7 +109,7 @@ export function Input({
     };
 
     return (
-        <label htmlFor={id} className={classes}>
+        <label htmlFor={id} className={classes} onClick={onClick}>
             {label && (
                 <div className="input__label">
                     {label}
