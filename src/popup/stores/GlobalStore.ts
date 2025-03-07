@@ -140,6 +140,10 @@ export class GlobalStore {
         }
     }
 
+    /**
+     * Retrieves the authentication status from the
+     * background and marks the status as retrieved.
+     */
     @action
     async initAuthenticatedStatus(): Promise<void> {
         const { authStore } = this.rootStore;
