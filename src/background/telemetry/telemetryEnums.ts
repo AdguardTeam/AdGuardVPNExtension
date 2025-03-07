@@ -144,10 +144,16 @@ export type DnsServerClickActionNames = TelemetryActionName.AdguardDnsClick
 | TelemetryActionName.CiscoDnsClick
 | TelemetryActionName.QuadDnsClick;
 
+/**
+ * Free GB item click actions.
+ */
 export type FreeGbItemClickActionNames = TelemetryActionName.InviteFriendClick
 | TelemetryActionName.ConfirmEmailClick
 | TelemetryActionName.AddGbDeviceClick;
 
+/**
+ * Support item click actions.
+ */
 export type SupportItemClickActionNames = TelemetryActionName.FaqClick
 | TelemetryActionName.ReportBugClick
 | TelemetryActionName.LeaveFeedbackClick;

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type DnsServerData } from '../../../../background/schema';
-import { type DnsServerClickActionNames } from '../../../../background/telemetry';
 import { Radio } from '../../ui/Radio';
 import { IconButton, type IconButtonProps } from '../../ui/Icon';
 
@@ -62,9 +61,8 @@ interface DnsSettingsServerBaseProps {
      * Select DNS server handler.
      *
      * @param dnsServerId DNS server ID.
-     * @param telemetryActionName Telemetry action name.
      */
-    onSelect: (dnsServerId: string, telemetryActionName?: DnsServerClickActionNames) => void;
+    onSelect: (dnsServerId: string) => void;
 }
 
 /**
@@ -117,10 +115,6 @@ export function DnsSettingsServer({
     onSelect,
     ...restProps
 }: DnsSettingsServerProps) {
-    const handleSelect = (dnsServerId: string) => {
-        onSelect(dnsServerId, value.telemetryActionName);
-    };
-
     if (restProps.custom) {
         return (
             <Radio
@@ -130,7 +124,7 @@ export function DnsSettingsServer({
                 title={value.title}
                 labelTitle={`${value.title} (${value.address})`}
                 description={value.address}
-                onSelect={handleSelect}
+                onSelect={onSelect}
                 className="dns-settings__custom"
                 action={(
                     <span className="dns-settings__custom-actions">
@@ -158,7 +152,7 @@ export function DnsSettingsServer({
             title={value.title}
             labelTitle={value.title}
             description={value.desc}
-            onSelect={handleSelect}
+            onSelect={onSelect}
         />
     );
 }
