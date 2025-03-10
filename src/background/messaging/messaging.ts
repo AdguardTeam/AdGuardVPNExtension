@@ -30,6 +30,7 @@ import { hintPopup } from '../hintPopup';
 import { emailConfirmationService } from '../emailConfirmationService';
 import { limitedOfferService } from '../limitedOfferService';
 import { telemetry } from '../telemetry';
+import { savedLocations } from '../savedLocations';
 
 interface Message {
     type: MessageType,
@@ -162,6 +163,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             // set selected location after the locations are updated
             await endpoints.getSelectedLocation();
             return locations;
+        }
+        case MessageType.SAVE_LOCATIONS_TAB: {
+            const { locationsTab } = data;
+            return savedLocations.saveLocationsTab(locationsTab);
         }
         case MessageType.GET_OPTIONS_DATA: {
             return getOptionsData();

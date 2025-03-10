@@ -7,6 +7,7 @@ import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { TelemetryScreenName, TelemetryActionName, TelemetryActionToScreenMap } from '../background/telemetry';
 import { ForwarderUrlQueryKey } from '../background/config';
+import { type LocationsTab } from '../background/savedLocations';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
@@ -168,6 +169,16 @@ class Messenger {
     async forceUpdateLocations(): Promise<any> {
         const type = MessageType.FORCE_UPDATE_LOCATIONS;
         return this.sendMessage(type);
+    }
+
+    /**
+     * Sends a message to the background page to save locations tab.
+     *
+     * @param locationsTab New locations tab.
+     */
+    async saveLocationsTab(locationsTab: LocationsTab): Promise<void> {
+        const type = MessageType.SAVE_LOCATIONS_TAB;
+        return this.sendMessage(type, { locationsTab });
     }
 
     async getOptionsData() {

@@ -15,6 +15,7 @@ import { daysToRenewal } from '../../common/utils/date';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { AnimationEvent } from '../constants';
 import { type ForwarderUrlQueryKey } from '../../background/config';
+import { type LocationsTab } from '../../background/savedLocations';
 
 import type { RootStore } from './RootStore';
 
@@ -63,6 +64,11 @@ export class VpnStore {
     @observable maxDevicesAllowed: number | null = null;
 
     @observable isPremiumToken: boolean;
+
+    /**
+     * Locations tab.
+     */
+    @observable locationsTab: LocationsTab;
 
     @action setSearchValue = (value: string) => {
         // do not trim, or change logic see issue AG-2233
@@ -384,5 +390,31 @@ export class VpnStore {
     forceUpdateLocations = async (): Promise<any> => {
         const locations = await messenger.forceUpdateLocations();
         return locations;
+    };
+
+    /**
+     * Sets locations tab to the store.
+     *
+     * @param locationsTab New locations tab.
+     */
+    @action setLocationsTab = (locationsTab: LocationsTab): void => {
+        this.locationsTab = locationsTab;
+    };
+
+    /**
+     * Saves locations tab in local storage and sets it to the store.
+     *
+     * @param locationsTab New locations tab.
+     */
+    @action saveLocationsTab = async (locationsTab: LocationsTab): Promise<void> => {
+        // Do nothing if the tab is the same
+        if (this.locationsTab === locationsTab) {
+            return;
+        }
+
+        await messenger.saveLocationsTab(locationsTab);
+        runInAction(() => {
+            this.setLocationsTab(locationsTab);
+        });
     };
 }

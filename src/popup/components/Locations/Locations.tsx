@@ -11,6 +11,7 @@ import { FastestSkeleton } from './FastestSkeleton';
 import { Location } from './Location';
 import { Search } from './Search';
 import { Reload } from './Reload';
+import { TabButtons } from './TabButtons';
 
 import './endpoints.pcss';
 
@@ -133,6 +134,7 @@ export const Locations = observer(() => {
                 handleChange={handleSearchInput}
                 handleClear={handleSearchClear}
             />
+            <TabButtons />
             <div className="endpoints__scroll">
                 {!showSearchResults && (
                     <div className="endpoints__list">
