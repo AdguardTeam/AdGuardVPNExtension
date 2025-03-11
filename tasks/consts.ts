@@ -13,7 +13,6 @@ export enum Env {
 
 export enum Browser {
     Chrome = 'chrome',
-    ChromeMV2 = 'chrome-mv2',
     Firefox = 'firefox',
     Edge = 'edge',
     Opera = 'opera',

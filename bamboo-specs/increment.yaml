@@ -44,7 +44,7 @@ Increment:
           commitMessage: 'skipci: Automatic increment build number'
           selectedRepository: defaultRepository
   requirements:
-    - adg-docker: true
+    - adg-docker: 'true'
 
 branches:
   create: manually

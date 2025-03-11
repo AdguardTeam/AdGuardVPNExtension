@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "연결 수 제한 도달"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "Android용 VPN 확장 프로그램 받기"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "Edge용 AdGuard VPN - 이제 Android에서 사용 가능"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "QR 코드를 스캔하여 휴대전화나 태블릿에 Edge를 설치하세요. AdGuard VPN이 제안에 표시됩니다."
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "확인"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "다시 표시 안 함"
+    },
     "options_signedout_page_title": {
         "message": "AdGuard VPN에서 로그아웃되었습니다."
     },

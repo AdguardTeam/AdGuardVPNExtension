@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "Limita de conexiuni a fost atinsă"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "Obține extensia VPN pentru Android"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN pentru Edge — acum pe Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Scanați codul QR pentru a instala Edge pe telefon sau tabletă. AdGuard VPN va apărea în sugestii"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Am înțeles."
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Nu mai arăta asta"
+    },
     "options_signedout_page_title": {
         "message": "V-ați deconectat de la AdGuard VPN"
     },

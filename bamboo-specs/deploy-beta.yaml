@@ -15,7 +15,7 @@ Chrome WebStore:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
+        force-clean-build: true
     - artifact-download:
         artifacts:
           - name: edge.zip
@@ -57,19 +57,12 @@ static.adtidy.net:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
+        force-clean-build: true
     - artifact-download:
         artifacts:
-          - name: edge.zip
           - name: chrome.zip
-          - name: opera.zip
-          - name: firefox.zip
-          - name: build.txt
           - name: chrome.crx
           - name: update.xml
-          # temporary disable xpi and update.json
-          # - name: firefox.xpi
-          # - name: update.json
     - script:
         interpreter: SHELL
         scripts:
@@ -82,7 +75,7 @@ static.adtidy.net:
 
             ls -la
 
-            ./bamboo-deploy-publisher/deploy.sh adguard-vpn-webext-beta
+            ./bamboo-deploy-publisher/deploy.sh adguard-vpn-webext-chrome-beta
   final-tasks: []
   variables: {}
   requirements:
@@ -102,7 +95,7 @@ GitHub:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
+        force-clean-build: true
     - artifact-download:
         artifacts:
           - name: edge.zip

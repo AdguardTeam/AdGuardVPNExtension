@@ -1,0 +1,1 @@
+export { mobileEdgePromoService } from './mobileEdgePromoService';

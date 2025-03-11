@@ -983,6 +983,21 @@
     "popup_connections_limit_title": {
         "message": "تم الوصول إلى الحد الأقصى للاتصالات"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "احصل على امتداد VPN لنظام Android"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN ل Edge – الآن على Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "امسح رمز الاستجابة السريعة ضوئيا لتثبيت Edge على هاتفك أو جهازك اللوحي. سيظهر AdGuard VPN في الاقتراحات"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "فهمت ذلك"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "عدم إظهار هذا مرة أخرى"
+    },
     "options_signedout_page_title": {
         "message": "لقد قمت بتسجيل الخروج من AdGuard VPN"
     },

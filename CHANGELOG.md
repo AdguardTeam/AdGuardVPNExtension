@@ -28,8 +28,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#192]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/192
 [#197]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/197
 
-<!-- TODO: Add release date -->
-## [2.4.1]
+## [2.4.6] - 2025-03-10
+
+### Changed
+
+- The minimum supported Edge version is now 109 due to the move to MV3.
+
+[2.4.6]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.4.3...v2.4.6
+
+## [2.4.3] - 2025-02-27
 
 ### Added
 
@@ -44,7 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Error with `chrome.offscreen.createDocument` on Chrome 109 when connecting to proxy for MV3 [#190].
 
-[2.4.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.3.2...HEAD
+[2.4.3]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.3.2...v2.4.3
 [#190]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/190
 
 ## [2.3.2] - 2024-12-10

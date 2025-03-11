@@ -41,6 +41,13 @@ export class UiStore {
      */
     @observable shouldShowLimitedOfferDetails: boolean = false;
 
+    /**
+     * Flag for the mobile Edge promo modal display.
+     *
+     * Init value is `false`.
+     */
+    @observable shouldShowMobileEdgePromoModal: boolean = false;
+
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -127,5 +134,19 @@ export class UiStore {
      */
     @action closeLimitedOfferDetails = (): void => {
         this.shouldShowLimitedOfferDetails = false;
+    };
+
+    /**
+     * Opens the modal for the mobile edge extension promo.
+     */
+    @action openMobileEdgePromoModal = (): void => {
+        this.shouldShowMobileEdgePromoModal = true;
+    };
+
+    /**
+     * Closes the modal for the mobile edge extension promo.
+     */
+    @action closeMobileEdgePromoModal = (): void => {
+        this.shouldShowMobileEdgePromoModal = false;
     };
 }

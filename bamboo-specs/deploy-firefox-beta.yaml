@@ -1,0 +1,46 @@
+---
+version: 2
+deployment:
+  name: vpn-extension - deploy firefox beta
+  source-plan: ADGEXT-AVFIREFOXBSPECS
+release-naming: ${bamboo.inject.version}
+environments:
+  - static.adtidy.net
+
+static.adtidy.net:
+  triggers: []
+  tasks:
+    - clean
+    - checkout:
+        repository: bamboo-deploy-publisher
+        path: bamboo-deploy-publisher
+        force-clean-build: true
+    - artifact-download:
+        artifacts:
+          - name: firefox.zip
+          - name: firefox.xpi
+          - name: update.json
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -la
+
+            ./bamboo-deploy-publisher/deploy.sh adguard-vpn-webext-firefox-beta
+  final-tasks: []
+  variables: {}
+  requirements:
+    - adg-docker: 'true'
+  notifications:
+    - events:
+        - deployment-started-and-finished
+      recipients:
+        - webhook:
+            name: Deploy webhook
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds

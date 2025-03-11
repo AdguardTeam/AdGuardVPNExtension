@@ -96,6 +96,7 @@ export enum MessageType {
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     HIDE_RATE_MODAL_AFTER_RATE = 'hide.rate.modal.after.rate',
     HIDE_RATE_MODAL_AFTER_CANCEL = 'hide.rate.modal.after.cancel',
+    HIDE_MOBILE_EDGE_PROMO_BANNER = 'hide.mobile.edge.promo.banner',
     HANDLE_CUSTOM_DNS_LINK = 'handle.custom.dns.link',
     ADD_CUSTOM_DNS_SERVER = 'add.custom.dns.server',
     EDIT_CUSTOM_DNS_SERVER = 'edit.custom.dns.server',

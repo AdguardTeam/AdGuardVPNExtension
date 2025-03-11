@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "已達到連線限制"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "取得 Android 的 VPN 擴充功能"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN Edge 版：現在在 Android 上"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "掃描 QR 碼以在手機或平板電腦上安裝 Edge。AdGuard VPN 將顯示在推薦清單中。"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "知道了"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "不再顯示"
+    },
     "options_signedout_page_title": {
         "message": "您已登出 AdGuard VPN"
     },

@@ -129,16 +129,16 @@ yarn release
 
 By default, you will have builds for all browsers:
 
-- Chrome — both manifest versions **2** and **3**
+- Chrome — manifest versions **3**
 - Firefox — manifest version **3**
-- Edge — manifest version **2**
+- Edge — manifest version **3**
+<!-- TODO: check later if manifest version can be updated for Opera. AG-40386 -->
 - Opera — manifest version **2**
 
 You can specify browser in arguments. See examples below:
 
 ```bash
 yarn dev chrome
-yarn beta chrome-mv2
 yarn release opera
 ```
 
