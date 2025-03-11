@@ -4,33 +4,49 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames';
 
 import { LocationsTab } from '../../../background/savedLocations';
+import {
+    TelemetryActionName,
+    TelemetryScreenName,
+    type LocationsTabClickActionNames,
+} from '../../../background/telemetry';
+import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
 
 /**
- * Locations tab button component props.
+ * Locations tab button data.
  */
-interface TabProps {
+interface TabButtonData {
     /**
      * Tab value.
      */
     tab: LocationsTab;
 
     /**
+     * Tab content.
+     */
+    title: string;
+
+    /**
+     * Telemetry action name.
+     */
+    telemetryActionName: LocationsTabClickActionNames;
+}
+
+/**
+ * Locations tab button component props.
+ */
+interface TabButtonProps extends TabButtonData {
+    /**
      * Is tab active.
      */
     active: boolean;
-
-    /**
-     * Tab content.
-     */
-    children: React.ReactNode;
 
     /**
      * Click handler.
      *
      * @param tab Tab value.
      */
-    onClick: (tab: LocationsTab) => void;
+    onClick: (tab: LocationsTab, telemetryActionName: LocationsTabClickActionNames) => void;
 }
 
 /**
@@ -39,15 +55,16 @@ interface TabProps {
 const TabButton = ({
     tab,
     active,
-    children,
+    title,
+    telemetryActionName,
     onClick,
-}: TabProps) => {
+}: TabButtonProps) => {
     const classes = classNames('endpoints__tab-btn', {
         'endpoints__tab-btn--active': active,
     });
 
     const handleClick = () => {
-        onClick(tab);
+        onClick(tab, telemetryActionName);
     };
 
     return (
@@ -56,7 +73,7 @@ const TabButton = ({
             className={classes}
             onClick={handleClick}
         >
-            {children}
+            {title}
         </button>
     );
 };
@@ -65,36 +82,41 @@ const TabButton = ({
  * Locations tabs switcher component.
  */
 export const TabButtons = observer(() => {
-    const { vpnStore } = useContext(rootStore);
+    const { vpnStore, telemetryStore } = useContext(rootStore);
     const { locationsTab, saveLocationsTab } = vpnStore;
 
-    // FIXME: Add telemetry events
-    const TAB_BUTTONS = [
+    const TAB_BUTTONS: TabButtonData[] = [
         {
             tab: LocationsTab.All,
-            title: 'All',
+            title: translator.getMessage('endpoints_tab_all'),
+            telemetryActionName: TelemetryActionName.AllLocationsClick,
         },
         {
             tab: LocationsTab.Saved,
-            title: 'Saved',
+            title: translator.getMessage('endpoints_tab_saved'),
+            telemetryActionName: TelemetryActionName.SavedLocationsClick,
         },
     ];
 
-    const tabClickHandler = async (tab: LocationsTab) => {
+    const tabClickHandler = async (tab: LocationsTab, telemetryActionName: LocationsTabClickActionNames) => {
+        telemetryStore.sendCustomEvent(
+            telemetryActionName,
+            TelemetryScreenName.LocationsScreen,
+        );
         await saveLocationsTab(tab);
     };
 
     return (
         <div className="endpoints__tab-btns">
-            {TAB_BUTTONS.map(({ tab, title }) => (
+            {TAB_BUTTONS.map(({ tab, title, telemetryActionName }) => (
                 <TabButton
                     key={tab}
                     tab={tab}
+                    title={title}
                     active={locationsTab === tab}
+                    telemetryActionName={telemetryActionName}
                     onClick={tabClickHandler}
-                >
-                    {title}
-                </TabButton>
+                />
             ))}
         </div>
     );

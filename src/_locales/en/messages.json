@@ -693,6 +693,12 @@
     "endpoints_not_found": {
         "message": "Locations not found"
     },
+    "endpoints_tab_all": {
+        "message": "All"
+    },
+    "endpoints_tab_saved": {
+        "message": "Saved"
+    },
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached"
     },

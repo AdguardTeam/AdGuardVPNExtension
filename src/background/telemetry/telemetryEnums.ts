@@ -57,6 +57,8 @@ export enum TelemetryActionName {
     PurchaseClick = 'purchase_click',
     FreeGbClick = 'free_gb_click',
     SpeedReducedPurchaseClick = 'speed_reduced_purchase_click',
+    AllLocationsClick = 'all_locations_click',
+    SavedLocationsClick = 'saved_locations_click',
 
     // Options actions
     AddWebsiteClick = 'add_website_click',
@@ -65,6 +67,12 @@ export enum TelemetryActionName {
     AddWebsiteFromList = 'add_website_from_list',
     AddWebsiteManually = 'add_website_manually',
 }
+
+/**
+ * Support item click actions.
+ */
+export type LocationsTabClickActionNames = TelemetryActionName.AllLocationsClick
+| TelemetryActionName.SavedLocationsClick;
 
 /**
  * Action to screen mapping.
@@ -80,6 +88,8 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.PurchaseClick]: TelemetryScreenName.HomeScreen;
     [TelemetryActionName.FreeGbClick]: TelemetryScreenName.HomeScreen;
     [TelemetryActionName.SpeedReducedPurchaseClick]: TelemetryScreenName.SpeedReducedScreen;
+    [TelemetryActionName.AllLocationsClick]: TelemetryScreenName.LocationsScreen;
+    [TelemetryActionName.SavedLocationsClick]: TelemetryScreenName.LocationsScreen
 
     // Options actions
     [TelemetryActionName.AddWebsiteClick]: TelemetryScreenName.ExclusionsScreen;

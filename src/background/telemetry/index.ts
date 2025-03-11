@@ -11,6 +11,7 @@ export {
     TelemetryScreenName,
     TelemetryActionName,
     type TelemetryActionToScreenMap,
+    type LocationsTabClickActionNames,
 } from './telemetryEnums';
 
 export const telemetry = new Telemetry({
