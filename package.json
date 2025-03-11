@@ -19,6 +19,7 @@
         "crx:dev": "export BUILD_ENV=dev; ts-node tasks/crx.ts",
         "crx:beta": "export BUILD_ENV=beta; ts-node tasks/crx.ts",
         "crx:release": "export BUILD_ENV=release; ts-node tasks/crx.ts",
+        "xpi:dev": "export BUILD_ENV=dev; ts-node tasks/xpi.ts",
         "xpi:beta": "export BUILD_ENV=beta; ts-node tasks/xpi.ts",
         "xpi:release": "export BUILD_ENV=release; ts-node tasks/xpi.ts",
         "artifacts:dev": "yarn crx:dev",
