@@ -68,6 +68,7 @@ export const TabButtons = observer(() => {
     const { vpnStore } = useContext(rootStore);
     const { locationsTab, saveLocationsTab } = vpnStore;
 
+    // FIXME: Add telemetry events
     const TAB_BUTTONS = [
         {
             tab: LocationsTab.All,

@@ -177,8 +177,28 @@ class Messenger {
      * @param locationsTab New locations tab.
      */
     async saveLocationsTab(locationsTab: LocationsTab): Promise<void> {
-        const type = MessageType.SAVE_LOCATIONS_TAB;
+        const type = MessageType.SAVED_LOCATIONS_SAVE_TAB;
         return this.sendMessage(type, { locationsTab });
+    }
+
+    /**
+     * Sends a message to the background page to add location to saved locations.
+     *
+     * @param locationId Location ID to add.
+     */
+    async addSavedLocation(locationId: string): Promise<void> {
+        const type = MessageType.SAVED_LOCATIONS_ADD;
+        return this.sendMessage(type, { locationId });
+    }
+
+    /**
+     * Sends a message to the background page to remove location from saved locations.
+     *
+     * @param locationId Location ID to remove.
+     */
+    async removeSavedLocation(locationId: string): Promise<void> {
+        const type = MessageType.SAVED_LOCATIONS_REMOVE;
+        return this.sendMessage(type, { locationId });
     }
 
     async getOptionsData() {

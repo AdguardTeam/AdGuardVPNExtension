@@ -78,6 +78,7 @@ export class GlobalStore {
                 isVpnBlocked,
                 isHostPermissionsGranted,
                 locationsTab,
+                savedLocationIds,
             } = popupData;
 
             settingsStore.setForwarderDomain(forwarderDomain);
@@ -87,6 +88,7 @@ export class GlobalStore {
             telemetryStore.setIsHelpUsImproveEnabled(helpUsImprove);
 
             vpnStore.setLocationsTab(locationsTab);
+            vpnStore.setSavedLocationIds(savedLocationIds);
 
             if (!isAuthenticated) {
                 await authStore.handleInitPolicyAgreement(policyAgreement);

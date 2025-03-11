@@ -13,7 +13,8 @@ export enum LocationsTab {
  */
 export interface SavedLocationsInterface {
     /**
-     * Retrieves locations tab from local storage. If it doesn't exist or corrupted - sets default value.
+     * Retrieves locations tab from local storage.
+     * If it doesn't exist or corrupted - sets default value.
      *
      * @returns Locations tab.
      */
@@ -25,6 +26,28 @@ export interface SavedLocationsInterface {
      * @param locationsTab New locations tab.
      */
     saveLocationsTab(locationsTab: LocationsTab): Promise<void>;
+
+    /**
+     * Retrieves saved location IDs from local storage.
+     * If it doesn't exist or corrupted - initializes empty array.
+     *
+     * @returns Saved location IDs.
+     */
+    getSavedLocationIds(): Promise<string[]>;
+
+    /**
+     * Adds new location to saved locations.
+     *
+     * @param locationId Location ID to add.
+     */
+    addSavedLocation(locationId: string): Promise<void>;
+
+    /**
+     * Removes location from saved locations.
+     *
+     * @param locationId Location ID to remove.
+     */
+    removeSavedLocation(locationId: string): Promise<void>;
 }
 
 /**
@@ -52,6 +75,11 @@ export class SavedLocations implements SavedLocationsInterface {
     private static readonly DEFAULT_LOCATIONS_TAB = LocationsTab.All;
 
     /**
+     * Key for saved location IDs in local storage.
+     */
+    private static readonly SAVED_LOCATION_IDS_KEY = 'saved.location.ids';
+
+    /**
      * Browser local storage.
      */
     private storage: StorageInterface;
@@ -64,6 +92,13 @@ export class SavedLocations implements SavedLocationsInterface {
     private locationsTab!: LocationsTab;
 
     /**
+     * Cached saved location IDs.
+     *
+     * Lazy-loaded in {@link getSavedLocationIds} method.
+     */
+    private savedLocationIds!: string[];
+
+    /**
      * Constructor.
      */
     constructor({
@@ -73,7 +108,8 @@ export class SavedLocations implements SavedLocationsInterface {
     }
 
     /**
-     * Retrieves locations tab from local storage. If it doesn't exist or corrupted - sets default value.
+     * Retrieves locations tab from local storage.
+     * If it doesn't exist or corrupted - sets default value.
      *
      * @returns Locations tab.
      */
@@ -105,4 +141,64 @@ export class SavedLocations implements SavedLocationsInterface {
         this.locationsTab = locationsTab;
         await this.storage.set(SavedLocations.LOCATIONS_TAB_KEY, this.locationsTab);
     };
+
+    /**
+     * Retrieves saved location IDs from local storage.
+     * If it doesn't exist or corrupted - initializes empty array.
+     *
+     * @returns Saved location IDs.
+     */
+    public getSavedLocationIds = async (): Promise<string[]> => {
+        // If already in memory - return it
+        if (this.savedLocationIds) {
+            return this.savedLocationIds;
+        }
+
+        let storageSavedLocationIds = await this.storage.get<string[]>(SavedLocations.SAVED_LOCATION_IDS_KEY);
+
+        // Sets default value if it doesn't exist or corrupted in local storage
+        if (!storageSavedLocationIds || !Array.isArray(storageSavedLocationIds)) {
+            storageSavedLocationIds = [];
+            await this.saveSavedLocationIds(storageSavedLocationIds);
+        }
+
+        // Save in memory and return
+        this.savedLocationIds = storageSavedLocationIds;
+        return this.savedLocationIds;
+    };
+
+    /**
+     * Adds new location to saved locations.
+     *
+     * @param locationId Location ID to add.
+     */
+    public addSavedLocation = async (locationId: string): Promise<void> => {
+        const savedLocations = await this.getSavedLocationIds();
+        savedLocations.push(locationId);
+        await this.saveSavedLocationIds(savedLocations);
+    };
+
+    /**
+     * Removes location from saved locations.
+     *
+     * @param locationId Location ID to remove.
+     */
+    public removeSavedLocation = async (locationId: string): Promise<void> => {
+        const savedLocations = await this.getSavedLocationIds();
+        const index = savedLocations.indexOf(locationId);
+        if (index !== -1) {
+            savedLocations.splice(index, 1);
+            await this.saveSavedLocationIds(savedLocations);
+        }
+    };
+
+    /**
+     * Saves saved location IDs in local storage.
+     *
+     * @param savedLocations New saved location IDs.
+     */
+    private async saveSavedLocationIds(savedLocations: string[]): Promise<void> {
+        this.savedLocationIds = savedLocations;
+        await this.storage.set(SavedLocations.SAVED_LOCATION_IDS_KEY, this.savedLocationIds);
+    }
 }

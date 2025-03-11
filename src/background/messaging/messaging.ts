@@ -164,9 +164,17 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             await endpoints.getSelectedLocation();
             return locations;
         }
-        case MessageType.SAVE_LOCATIONS_TAB: {
+        case MessageType.SAVED_LOCATIONS_SAVE_TAB: {
             const { locationsTab } = data;
             return savedLocations.saveLocationsTab(locationsTab);
+        }
+        case MessageType.SAVED_LOCATIONS_ADD: {
+            const { locationId } = data;
+            return savedLocations.addSavedLocation(locationId);
+        }
+        case MessageType.SAVED_LOCATIONS_REMOVE: {
+            const { locationId } = data;
+            return savedLocations.removeSavedLocation(locationId);
         }
         case MessageType.GET_OPTIONS_DATA: {
             return getOptionsData();

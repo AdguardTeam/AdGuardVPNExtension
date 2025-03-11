@@ -75,6 +75,11 @@ interface PopupDataInterface {
      * Locations tab.
      */
     locationsTab: LocationsTab;
+
+    /**
+     * Saved location IDs.
+     */
+    savedLocationsIds: string[];
 }
 
 interface PopupDataRetry extends PopupDataInterface {
@@ -113,6 +118,7 @@ export class PopupData {
         const isHostPermissionsGranted = await Permissions.hasNeededHostPermissions();
         const forwarderDomain = await forwarder.updateAndGetDomain();
         const locationsTab = await savedLocations.getLocationsTab();
+        const savedLocationsIds = await savedLocations.getSavedLocationIds();
 
         if (!isAuthenticated) {
             return {
@@ -122,6 +128,7 @@ export class PopupData {
                 helpUsImprove,
                 isHostPermissionsGranted,
                 locationsTab,
+                savedLocationsIds,
             };
         }
 
@@ -185,6 +192,7 @@ export class PopupData {
             isVpnBlocked,
             isHostPermissionsGranted,
             locationsTab,
+            savedLocationsIds,
         };
     };
 

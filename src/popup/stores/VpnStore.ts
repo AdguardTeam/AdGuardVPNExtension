@@ -70,6 +70,11 @@ export class VpnStore {
      */
     @observable locationsTab: LocationsTab;
 
+    /**
+     * Set of saved location IDs.
+     */
+    @observable savedLocationIds: Set<string> = new Set();
+
     @action setSearchValue = (value: string) => {
         // do not trim, or change logic see issue AG-2233
         this.searchValue = value;
@@ -118,6 +123,7 @@ export class VpnStore {
 
     @computed
     get filteredLocations(): LocationData[] {
+        // FIXME: Implement saved locations
         const locations = this.locations || [];
 
         return locations
@@ -416,5 +422,36 @@ export class VpnStore {
         runInAction(() => {
             this.setLocationsTab(locationsTab);
         });
+    };
+
+    /**
+     * Sets saved location IDs to the store.
+     *
+     * @param savedLocationIds Saved location IDs.
+     */
+    @action setSavedLocationIds = (savedLocationIds: string[]): void => {
+        this.savedLocationIds = new Set(savedLocationIds);
+    };
+
+    /**
+     * Toggles saved location by its ID.
+     *
+     * @param locationId Location ID to toggle.
+     * @returns True if location was added, false if location was removed.
+     */
+    @action toggleSavedLocation = async (locationId: string): Promise<boolean> => {
+        if (this.savedLocationIds.has(locationId)) {
+            await messenger.removeSavedLocation(locationId);
+            runInAction(() => {
+                this.savedLocationIds.delete(locationId);
+            });
+            return false;
+        }
+
+        await messenger.addSavedLocation(locationId);
+        runInAction(() => {
+            this.savedLocationIds.add(locationId);
+        });
+        return true;
     };
 }
