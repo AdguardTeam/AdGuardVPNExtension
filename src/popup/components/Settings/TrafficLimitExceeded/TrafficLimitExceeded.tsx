@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 import { rootStore } from '../../../stores';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { Icon } from '../../ui/Icon';
 
 export const TrafficLimitExceeded = observer(() => {
     const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
@@ -14,7 +15,7 @@ export const TrafficLimitExceeded = observer(() => {
         TelemetryScreenName.SpeedReducedScreen,
     );
 
-    const upgradeClickHandler = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
+    const upgradeClickHandler = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         telemetryStore.sendCustomEvent(
             TelemetryActionName.SpeedReducedPurchaseClick,
@@ -24,37 +25,41 @@ export const TrafficLimitExceeded = observer(() => {
         window.close();
     };
 
-    const handleClose = (e: React.MouseEvent<HTMLDivElement>): void => {
+    const handleClose = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         settingsStore.setHasLimitExceededDisplayed();
     };
 
     return (
-        <div className="global-error global-error--reduced">
-            <div
-                className="global-error__cancel"
+        <div className="new-global-error new-global-error--reduced">
+            <button
+                type="button"
                 onClick={handleClose}
+                className="new-global-error__close-btn"
             >
-                <svg className="icon icon--button">
-                    <use xlinkHref="#cross" />
-                </svg>
+                <Icon icon="cross" className="icon--button" />
+            </button>
+            <div className="new-global-error__image-wrapper">
+                <img
+                    src="../../../assets/images/tired.svg"
+                    className="new-global-error__image"
+                    alt="Slow Ninja"
+                />
             </div>
-            <div className="global-error__content global-error__content--centered">
-                <div className="global-error__icon global-error__icon--reduced" />
-                <div className="global-error__title">
-                    {reactTranslator.getMessage('popup_traffic_limit_exceeded_title')}
+            <div className="new-global-error__content">
+                <div className="new-global-error__title">
+                    {translator.getMessage('popup_traffic_limit_exceeded_title')}
                 </div>
-                <div className="global-error__description global-error__description--reduced">
-                    {reactTranslator.getMessage('popup_traffic_limit_exceeded_description')}
+                <div className="new-global-error__description">
+                    {translator.getMessage('popup_traffic_limit_exceeded_description')}
                 </div>
-            </div>
-            <div className="global-error__actions">
-                <a
-                    className="button button--medium button--green global-error__button global-error__button--reduced"
+                <button
+                    type="button"
                     onClick={upgradeClickHandler}
+                    className="button button--large button--green"
                 >
-                    {reactTranslator.getMessage('popup_traffic_limit_exceeded_cta_btn')}
-                </a>
+                    {translator.getMessage('popup_traffic_limit_exceeded_cta_btn')}
+                </button>
             </div>
         </div>
     );

@@ -8,12 +8,11 @@ import { getForwarderUrl } from '../../../common/helpers';
 import { log } from '../../../common/logger';
 import { rootStore } from '../../stores';
 import { messenger } from '../../../common/messenger';
-import { reactTranslator } from '../../../common/reactTranslator';
+import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryScreenName } from '../../../background/telemetry';
-
-import './popup-error.pcss';
+import { Icon } from '../ui/Icon';
 
 export const ConnectionsLimitError = observer(() => {
     const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
@@ -46,13 +45,13 @@ export const ConnectionsLimitError = observer(() => {
         return null;
     }
 
-    const descriptionFirstPart = reactTranslator.getMessage('popup_connections_limit_description_start', {
+    const descriptionFirstPart = translator.getMessage('popup_connections_limit_description_start', {
         maxDevicesAllowed,
     });
 
-    let descriptionRestPart = reactTranslator.getMessage('popup_connections_limit_description_end_free');
+    let descriptionRestPart = translator.getMessage('popup_connections_limit_description_end_free');
     if (isPremiumToken) {
-        descriptionRestPart = reactTranslator.getMessage('popup_connections_limit_description_end_premium');
+        descriptionRestPart = translator.getMessage('popup_connections_limit_description_end_premium');
     }
 
     const description = `${descriptionFirstPart} ${descriptionRestPart}`;
@@ -66,11 +65,11 @@ export const ConnectionsLimitError = observer(() => {
 
     const buttonsMap = {
         free: {
-            title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_free'),
+            title: translator.getMessage('popup_connections_limit_description_cta_button_free'),
             onClick: openSubscribePromoPage,
         },
         premium: {
-            title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_premium'),
+            title: translator.getMessage('popup_connections_limit_description_cta_button_premium'),
             onClick: openDeviceCountPage,
         },
     };
@@ -88,24 +87,36 @@ export const ConnectionsLimitError = observer(() => {
             classNames="fade"
             unmountOnExit
         >
-            <div className="popup-error">
-                <button className="button button--close popup-error__close" type="button" onClick={handleCloseClick}>
-                    <svg className="icon icon--button">
-                        <use xlinkHref="#cross" />
-                    </svg>
-                </button>
-                <div className="popup-error__icon" />
-                <div className="popup-error__title">
-                    {reactTranslator.getMessage('popup_connections_limit_title')}
-                </div>
-                <div className="popup-error__description">{description}</div>
+            <div className="new-global-error new-global-error--device">
                 <button
                     type="button"
-                    className="button button--medium button--green"
-                    onClick={buttonData.onClick}
+                    onClick={handleCloseClick}
+                    className="new-global-error__close-btn"
                 >
-                    {buttonData.title}
+                    <Icon icon="cross" className="icon--button" />
                 </button>
+                <div className="new-global-error__image-wrapper">
+                    <img
+                        src="../../../assets/images/confused.svg"
+                        className="new-global-error__image"
+                        alt="Confused Ninja"
+                    />
+                </div>
+                <div className="new-global-error__content">
+                    <div className="new-global-error__title">
+                        {translator.getMessage('popup_connections_limit_title')}
+                    </div>
+                    <div className="new-global-error__description">
+                        {description}
+                    </div>
+                    <button
+                        type="button"
+                        onClick={buttonData.onClick}
+                        className="button button--large button--green"
+                    >
+                        {buttonData.title}
+                    </button>
+                </div>
             </div>
         </CSSTransition>
     );
