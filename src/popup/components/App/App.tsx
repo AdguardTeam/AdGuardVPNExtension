@@ -25,16 +25,16 @@ import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
-import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
-import { SkeletonLoading } from '../SkeletonLoading';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal';
 import { SETTINGS_IDS } from '../../../common/constants';
 import { MobileEdgePromo } from '../MobileEdgePromo';
+
+import { AppLoaders } from './AppLoaders';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -269,21 +269,11 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
-    // show skeleton while data is loading.
-    // it is more reliable to show a separate skeleton component
-    // instead of changing different components based on the initStatus
-    // because it would be more difficult to check all components and make sure
-    // that they do not require any data fetching
+    // show one type of loader while popup data is loading.
     if (initStatus === RequestStatus.Pending) {
-        return authStore.authenticated
-            && !authStore.renderOnboarding
-            ? <SkeletonLoading />
-            // show dots loader until the user is authenticated
-            : (
-                <div className="data-loader">
-                    <DotsLoader />
-                </div>
-            );
+        return (
+            <AppLoaders />
+        );
     }
 
     if (authStore.requestProcessState !== RequestStatus.Pending

@@ -61,6 +61,7 @@ const DEFAULTS = {
         [CredentialsKey.Code]: '',
     },
     authenticated: false,
+    authenticatedStatusRetrieved: false,
     need2fa: false,
     error: null,
     field: '',
@@ -79,6 +80,8 @@ export class AuthStore {
     @observable credentials: CredentialsInterface = DEFAULTS.credentials;
 
     @observable authenticated = DEFAULTS.authenticated;
+
+    @observable authenticatedStatusRetrieved = DEFAULTS.authenticatedStatusRetrieved;
 
     @observable need2fa = DEFAULTS.need2fa;
 
@@ -418,6 +421,10 @@ export class AuthStore {
 
     @action setIsAuthenticated = (value: boolean) => {
         this.authenticated = value;
+    };
+
+    @action setAuthenticatedStatusRetrieved = (value: boolean) => {
+        this.authenticatedStatusRetrieved = value;
     };
 
     @action deauthenticate = async () => {

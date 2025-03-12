@@ -82,8 +82,6 @@ export class GlobalStore {
 
             settingsStore.setForwarderDomain(forwarderDomain);
 
-            authStore.setIsAuthenticated(isAuthenticated);
-
             telemetryStore.setIsHelpUsImproveEnabled(helpUsImprove);
 
             if (!isAuthenticated) {
@@ -130,7 +128,6 @@ export class GlobalStore {
             vpnStore.setLocations(locations);
             vpnStore.setSelectedLocation(selectedLocation);
             vpnStore.setIsPremiumToken(isPremiumToken);
-            authStore.setIsAuthenticated(isAuthenticated);
             await authStore.getAuthCacheFromBackground();
             await authStore.setPolicyAgreement(policyAgreement);
             await settingsStore.checkRateStatus();
@@ -145,6 +142,19 @@ export class GlobalStore {
         }
     }
 
+    /**
+     * Retrieves the authentication status from the
+     * background and marks the status as retrieved.
+     */
+    @action
+    async initAuthenticatedStatus(): Promise<void> {
+        const { authStore } = this.rootStore;
+
+        const result = await messenger.isAuthenticated();
+        authStore.setIsAuthenticated(!!result);
+        authStore.setAuthenticatedStatusRetrieved(true);
+    }
+
     @action
     async init(): Promise<void> {
         /**
@@ -152,6 +162,13 @@ export class GlobalStore {
          * and UI might shift because it was loaded too late.
          */
         await this.getAndroidData();
+
+        /**
+         * Authentication status should be retrieved from background before
+         * popup data is retrieved to prevent flickering of the loaders.
+         */
+        await this.initAuthenticatedStatus();
+
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         await this.getDesktopAppData();
         await this.rootStore.authStore.getResendCodeCountdownAndStart();
