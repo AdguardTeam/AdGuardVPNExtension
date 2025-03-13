@@ -15,7 +15,7 @@ import { daysToRenewal } from '../../common/utils/date';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { AnimationEvent } from '../constants';
 import { type ForwarderUrlQueryKey } from '../../background/config';
-import { type LocationsTab } from '../../background/savedLocations';
+import { LocationsTab } from '../../background/savedLocations';
 
 import type { RootStore } from './RootStore';
 
@@ -29,6 +29,7 @@ interface LocationState extends PingData {
 
 export interface LocationData extends LocationWithPing {
     selected: boolean;
+    saved?: boolean;
 }
 
 export class VpnStore {
@@ -123,35 +124,44 @@ export class VpnStore {
 
     @computed
     get filteredLocations(): LocationData[] {
-        // FIXME: Implement saved locations
         const locations = this.locations || [];
 
         return locations
             .filter((location) => {
+                // early exit, if location is not saved and we are in saved locations tab
+                if (this.isSavedLocationsTab && !this.savedLocationIds.has(location.id)) {
+                    return false;
+                }
+
+                // early exit, if there is no search value
                 if (!this.searchValue || this.searchValue.length === 0) {
                     return true;
                 }
+
                 const escapedSearchValue = this.searchValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const regex = new RegExp(escapedSearchValue, 'ig');
+
                 return (location.cityName && location.cityName.match(regex))
                 || (location.countryCode && location.countryCode.match(regex))
                 || (location.countryName && location.countryName.match(regex));
             })
-            .sort((a, b) => {
-                if (a.countryName < b.countryName) {
-                    return -1;
-                }
-                if (a.countryName > b.countryName) {
-                    return 1;
-                }
-                return 0;
-            })
-            .map(this.enrichWithStateData)
             .map((location) => {
-                if (this.selectedLocation && this.selectedLocation.id === location.id) {
-                    return { ...location, selected: true };
+                const enrichedLocation = this.enrichWithStateData(location);
+                const selected = this.selectedLocation && this.selectedLocation.id === location.id;
+                const saved = this.savedLocationIds.has(location.id);
+
+                return <LocationData>{ ...enrichedLocation, selected, saved };
+            })
+            .sort((a, b) => {
+                const compareCountryName = a.countryName.localeCompare(b.countryName);
+
+                // If country names are different, sort by country name
+                if (compareCountryName !== 0) {
+                    return compareCountryName;
                 }
-                return location;
+
+                // If country names are the same, sort by city name
+                return a.cityName.localeCompare(b.cityName);
             });
     }
 
@@ -316,6 +326,16 @@ export class VpnStore {
     @computed
     get showSearchResults(): boolean {
         return this.searchValue.length > 0;
+    }
+
+    @computed
+    get isSavedLocationsTab(): boolean {
+        return this.locationsTab === LocationsTab.Saved;
+    }
+
+    @computed
+    get notSearchingAndSavedTab(): boolean {
+        return !this.showSearchResults && !this.isSavedLocationsTab;
     }
 
     @action

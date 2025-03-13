@@ -9,12 +9,32 @@ import { type LocationData } from '../../stores/VpnStore';
 import { Ping } from '../Ping';
 import { PingDotsLoader } from '../PingDotsLoader';
 
-type LocationProps = {
-    location: LocationData,
-    handleClick: Function,
-};
+/**
+ * Location component props.
+ */
+interface LocationProps {
+    /**
+     * Location data.
+     */
+    location: LocationData;
 
-export const Location = observer(({ location, handleClick }: LocationProps) => {
+    /**
+     * Click handler.
+     */
+    onClick: (id: string) => void;
+
+    /**
+     * Save click handler.
+     */
+    onSaveClick: (id: string) => void;
+}
+
+/**
+ * Location component.
+ *
+ * FIXME: Implement save button
+ */
+export const Location = observer(({ location, onClick, onSaveClick }: LocationProps) => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
     const {
@@ -34,7 +54,7 @@ export const Location = observer(({ location, handleClick }: LocationProps) => {
     const handleLocationClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (locationFitsPremiumToken) {
-            handleClick(id);
+            onClick(id);
         } else {
             settingsStore.setPremiumLocationClickedByFreeUser(true);
         }

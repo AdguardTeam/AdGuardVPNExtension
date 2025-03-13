@@ -156,25 +156,49 @@
         font-weight: 700;
     }
 
-    &__not-found {
+    &__not-found,
+    &__empty-saved {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        /* FIXME: On smaller popup height */
         height: 360px;
+    }
 
-        &--icon {
+    &__not-found {
+        &-icon {
             width: 64px;
             height: 64px;
             background-image: url("../../../assets/images/no-search-result.svg");
         }
 
-        &--title {
+        &-title {
             font-size: 16px;
             line-height: 21px;
             font-weight: 400;
             text-align: center;
             color: var(--gray7f);
+        }
+    }
+
+    &__empty-saved {
+        padding: 48px 60px;
+
+        &-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            color: var(--stroke-icons-product-icons-default);
+            background-color: var(--fills-backgrounds-page-background-additional-default);
+        }
+
+        &-title {
+            margin-top: 8px;
+            color: var(--text-description-description-default);
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.3;
         }
     }
 

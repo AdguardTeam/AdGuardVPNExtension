@@ -684,14 +684,14 @@
     "endpoints_all": {
         "message": "All locations"
     },
-    "endpoints_search_results": {
-        "message": "Search result"
-    },
     "endpoints_search": {
         "message": "Search location"
     },
     "endpoints_not_found": {
         "message": "Locations not found"
+    },
+    "endpoints_empty_saved": {
+        "message": "To see locations here, select <b>All</b> and click the icon next to a location"
     },
     "endpoints_tab_all": {
         "message": "All"

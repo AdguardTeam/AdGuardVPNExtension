@@ -3,9 +3,11 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { translator } from '../../../common/translator';
 import { type LocationData } from '../../stores/VpnStore';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryScreenName } from '../../../background/telemetry';
+import { Icon } from '../ui/Icon';
 
 import { FastestSkeleton } from './FastestSkeleton';
 import { Location } from './Location';
@@ -28,6 +30,14 @@ export const Locations = observer(() => {
         TelemetryScreenName.LocationsScreen,
     );
 
+    const {
+        filteredLocations,
+        fastestLocationsToDisplay,
+        showSearchResults,
+        isSavedLocationsTab,
+        notSearchingAndSavedTab,
+    } = vpnStore;
+
     const handleLocationSelect = async (id: string) => {
         const prevId = vpnStore.selectedLocation?.id;
         await vpnStore.selectLocation(id);
@@ -45,6 +55,14 @@ export const Locations = observer(() => {
         }
     };
 
+    const handleLocationSave = async (id: string) => {
+        const isAdded = await vpnStore.toggleSavedLocation(id);
+
+        if (!isAdded) {
+            // FIXME: Add undo snackbar
+        }
+    };
+
     const handleLocationsClose = () => {
         uiStore.closeEndpointsSearch();
         vpnStore.setSearchValue('');
@@ -54,8 +72,9 @@ export const Locations = observer(() => {
         return (
             <Location
                 key={location.id}
-                handleClick={handleLocationSelect}
                 location={location}
+                onClick={handleLocationSelect}
+                onSaveClick={handleLocationSave}
             />
         );
     });
@@ -70,24 +89,25 @@ export const Locations = observer(() => {
     };
 
     const renderFilteredEndpoint = () => {
-        const {
-            filteredLocations,
-            showSearchResults,
-        } = vpnStore;
-
         const emptySearchResults = showSearchResults && filteredLocations.length === 0;
-        let listTitle = 'endpoints_all';
-
-        if (showSearchResults && filteredLocations.length > 0) {
-            listTitle = 'endpoints_search_results';
-        }
-
         if (emptySearchResults) {
             return (
                 <div className="endpoints__not-found">
-                    <div className="endpoints__not-found--icon" />
-                    <div className="endpoints__title endpoints__not-found--title">
-                        {reactTranslator.getMessage('endpoints_not_found')}
+                    <div className="endpoints__not-found-icon" />
+                    <div className="endpoints__title endpoints__not-found-title">
+                        {translator.getMessage('endpoints_not_found')}
+                    </div>
+                </div>
+            );
+        }
+
+        const emptySavedLocations = isSavedLocationsTab && filteredLocations.length === 0;
+        if (emptySavedLocations) {
+            return (
+                <div className="endpoints__empty-saved">
+                    <Icon icon="bookmark-off-thin" className="endpoints__empty-saved-icon" />
+                    <div className="endpoints__empty-saved-title">
+                        {reactTranslator.getMessage('endpoints_empty_saved')}
                     </div>
                 </div>
             );
@@ -95,37 +115,28 @@ export const Locations = observer(() => {
 
         return (
             <div className="endpoints__list">
-                <div className="endpoints__title">
-                    {reactTranslator.getMessage(listTitle)}
-                    {!showSearchResults && (
-                        <>
-                            &nbsp;
-                            {`(${filteredLocations.length})`}
-                        </>
-                    )}
-                </div>
+                {notSearchingAndSavedTab && (
+                    <div className="endpoints__title">
+                        {translator.getMessage('endpoints_all')}
+                        &nbsp;
+                        {`(${filteredLocations.length})`}
+                    </div>
+                )}
                 {renderLocations(filteredLocations)}
             </div>
         );
     };
 
-    const {
-        fastestLocationsToDisplay,
-        showSearchResults,
-    } = vpnStore;
-
     return (
         <div className="endpoints">
             <div className="endpoints__header">
-                {reactTranslator.getMessage('endpoints_countries')}
+                {translator.getMessage('endpoints_countries')}
                 <button
                     type="button"
                     className="button endpoints__back"
                     onClick={handleLocationsClose}
                 >
-                    <svg className="icon icon--button">
-                        <use xlinkHref="#back" />
-                    </svg>
+                    <Icon icon="back" className="icon--button" />
                 </button>
                 <Reload />
             </div>
@@ -136,10 +147,10 @@ export const Locations = observer(() => {
             />
             <TabButtons />
             <div className="endpoints__scroll">
-                {!showSearchResults && (
+                {notSearchingAndSavedTab && (
                     <div className="endpoints__list">
                         <div className="endpoints__title">
-                            {reactTranslator.getMessage('endpoints_fastest')}
+                            {translator.getMessage('endpoints_fastest')}
                         </div>
                         {fastestLocationsToDisplay.length > 0 ? (
                             renderLocations(fastestLocationsToDisplay)
