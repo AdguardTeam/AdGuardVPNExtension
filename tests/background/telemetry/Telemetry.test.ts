@@ -53,7 +53,7 @@ jest.spyOn(Prefs, 'getPlatformInfo').mockResolvedValue({ os: SystemName.MacOS, a
 
 describe('Telemetry', () => {
     let telemetry: Telemetry;
-    let prevUsedScreenName = TelemetryScreenName.WelcomeScreen;
+    let prevUsedScreenName = TelemetryScreenName.AuthScreen;
 
     beforeEach(() => {
         telemetry = new Telemetry({
@@ -68,10 +68,10 @@ describe('Telemetry', () => {
             // @ts-ignore - partially mocked credentials
             credentials: mockCredentials,
         });
-        if (prevUsedScreenName === TelemetryScreenName.WelcomeScreen) {
+        if (prevUsedScreenName === TelemetryScreenName.AuthScreen) {
             prevUsedScreenName = TelemetryScreenName.PurchaseScreen;
         } else {
-            prevUsedScreenName = TelemetryScreenName.WelcomeScreen;
+            prevUsedScreenName = TelemetryScreenName.AuthScreen;
         }
     });
 
@@ -349,7 +349,7 @@ describe('Telemetry', () => {
         it('should return true if user opted in and initialized', async () => {
             await telemetry.initState();
 
-            await sendPageViewEventNotDebounced(TelemetryScreenName.WelcomeScreen);
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);
         });
 
@@ -357,13 +357,13 @@ describe('Telemetry', () => {
             mockSettings.isHelpUsImproveEnabled.mockReturnValueOnce(false);
             await telemetry.initState();
 
-            await sendPageViewEventNotDebounced(TelemetryScreenName.WelcomeScreen);
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
             expect(mockTelemetryProvider.sendPageViewEvent).not.toHaveBeenCalled();
             expect(log.debug).toHaveBeenCalled();
         });
 
         it('should return false if telemetry is not initialized', async () => {
-            await sendPageViewEventNotDebounced(TelemetryScreenName.WelcomeScreen);
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
             expect(mockTelemetryProvider.sendPageViewEvent).not.toHaveBeenCalled();
             expect(log.debug).toHaveBeenCalled();
         });
@@ -388,7 +388,7 @@ describe('Telemetry', () => {
         it('should save previous screen name', async () => {
             await telemetry.initState();
             telemetry.addOpenedPage();
-            await sendPageViewEventNotDebounced(TelemetryScreenName.WelcomeScreen);
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
             await sendPageViewEventNotDebounced(TelemetryScreenName.PurchaseScreen);
 
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(2);
@@ -396,7 +396,7 @@ describe('Telemetry', () => {
                 2,
                 {
                     name: TelemetryScreenName.PurchaseScreen,
-                    refName: TelemetryScreenName.WelcomeScreen,
+                    refName: TelemetryScreenName.AuthScreen,
                 },
                 sampleEventBaseData,
             );
@@ -406,7 +406,7 @@ describe('Telemetry', () => {
             await telemetry.initState();
 
             const pageId = telemetry.addOpenedPage();
-            await sendPageViewEventNotDebounced(TelemetryScreenName.WelcomeScreen);
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
             telemetry.removeOpenedPage(pageId);
 
             telemetry.addOpenedPage();
@@ -427,8 +427,8 @@ describe('Telemetry', () => {
             await telemetry.initState();
 
             telemetry.addOpenedPage();
-            await sendPageViewEventNotDebounced(TelemetryScreenName.WelcomeScreen);
-            await sendPageViewEventNotDebounced(TelemetryScreenName.WelcomeScreen);
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
 
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);
             expect(log.debug).toHaveBeenCalled();
@@ -438,7 +438,7 @@ describe('Telemetry', () => {
             await telemetry.initState();
 
             telemetry.addOpenedPage();
-            await telemetry.sendPageViewEventDebounced(TelemetryScreenName.WelcomeScreen);
+            await telemetry.sendPageViewEventDebounced(TelemetryScreenName.AuthScreen);
             await telemetry.sendPageViewEventDebounced(TelemetryScreenName.PurchaseScreen);
 
             setTimeout(() => {

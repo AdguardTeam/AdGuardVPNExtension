@@ -18,10 +18,14 @@ import { TelemetryScreenName } from '../../../../background/telemetry';
 
 export const SignInForm = observer(() => {
     const { authStore, settingsStore, telemetryStore } = useContext(rootStore);
+    const { showServerErrorPopup } = settingsStore;
+
+    const canSendTelemetry = !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,
-        TelemetryScreenName.AuthLoginScreen,
+        TelemetryScreenName.AuthLoginScreen2,
+        canSendTelemetry,
     );
 
     const { forwarderDomain } = settingsStore;

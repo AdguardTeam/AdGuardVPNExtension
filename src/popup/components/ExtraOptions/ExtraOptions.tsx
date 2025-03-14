@@ -41,6 +41,10 @@ export const ExtraOptions = observer(() => {
         && Prefs.isEdge();
 
     const openSettings = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SettingsClick,
+            TelemetryScreenName.MenuScreen,
+        );
         await messenger.openOptionsPage();
         window.close();
     };
@@ -64,6 +68,10 @@ export const ExtraOptions = observer(() => {
     };
 
     const handleOtherProductsClick = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.OtherProductsClick,
+            TelemetryScreenName.MenuScreen,
+        );
         await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS));
     };
 
@@ -78,6 +86,10 @@ export const ExtraOptions = observer(() => {
     };
 
     const openComparePage = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.WhyDesktopClick,
+            TelemetryScreenName.MenuScreen,
+        );
         popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.COMPARE_PAGE));
     };
 

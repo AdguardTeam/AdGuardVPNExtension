@@ -61,6 +61,10 @@ export const LimitedOfferDetails = observer(() => {
      * by changing the flags in the **uiStore**.
      */
     const closeDetails = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.ClosePromoOfferClick,
+            TelemetryScreenName.PromoOfferScreen,
+        );
         uiStore.closeLimitedOfferDetails();
         // show the notice again as it cannot be hidden manually, hide only it timer is over
         uiStore.openLimitedOfferNotice();

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 import { Slider } from '../../ui/Slider';
 
 import './onboarding.pcss';
@@ -38,6 +38,10 @@ export const Onboarding = observer(() => {
     ];
 
     const nextSlideHandler = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.NextOnboardingClick,
+            TelemetryScreenName.OnboardingScreen,
+        );
         if (currentSlideIndex === slides.length - 1) {
             await authStore.setShowOnboarding(false);
             return;
@@ -50,6 +54,10 @@ export const Onboarding = observer(() => {
     };
 
     const handleCloseClick = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SkipOnboardingClick,
+            TelemetryScreenName.OnboardingScreen,
+        );
         await authStore.setShowOnboarding(false);
     };
 

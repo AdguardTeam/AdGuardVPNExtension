@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 
 import { TelemetryScreenName } from '../../../background/telemetry';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
+import { TelemetryActionName, type SupportItemClickActionNames } from '../../../background/telemetry/telemetryEnums';
 import { getForwarderUrl } from '../../../common/helpers';
 import { messenger } from '../../../common/messenger';
 import { translator } from '../../../common/translator';
@@ -16,13 +17,34 @@ import { BugReporter } from './BugReporter';
 
 import './support.pcss';
 
+/**
+ * Support items interface.
+ */
 interface SupportItems {
+    /**
+     * Title of item.
+     */
     title: string;
+
+    /**
+     * Description of item.
+     */
     description: React.ReactNode;
+
+    /**
+     * Icon name.
+     */
     icon: string;
+
+    /**
+     * Click handler.
+     */
     clickHandler: () => void;
 }
 
+/**
+ * Support page component.
+ */
 export const Support = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
     const { showBugReporter, setShowBugReporter, forwarderDomain } = settingsStore;
@@ -36,11 +58,22 @@ export const Support = observer(() => {
         canSendTelemetry,
     );
 
-    const createOpenUrlHandler = (url: string) => async (): Promise<void> => {
+    const createOpenUrlHandler = (
+        url: string,
+        telemetryActionName: SupportItemClickActionNames,
+    ) => async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            telemetryActionName,
+            TelemetryScreenName.SupportScreen,
+        );
         await messenger.openTab(url);
     };
 
     const handleReportClick = (): void => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.ReportBugClick,
+            TelemetryScreenName.SupportScreen,
+        );
         setShowBugReporter(true);
     };
 
@@ -49,7 +82,10 @@ export const Support = observer(() => {
             title: translator.getMessage('options_support_faq_title'),
             description: translator.getMessage('options_support_faq_description'),
             icon: 'question',
-            clickHandler: createOpenUrlHandler(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FAQ)),
+            clickHandler: createOpenUrlHandler(
+                getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FAQ),
+                TelemetryActionName.FaqClick,
+            ),
         }, {
             title: translator.getMessage('options_support_report_title'),
             description: translator.getMessage('options_support_report_description'),
@@ -59,7 +95,10 @@ export const Support = observer(() => {
             title: translator.getMessage('options_support_feedback_title'),
             description: translator.getMessage('options_support_feedback_description'),
             icon: 'send-feedback',
-            clickHandler: createOpenUrlHandler(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK)),
+            clickHandler: createOpenUrlHandler(
+                getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK),
+                TelemetryActionName.LeaveFeedbackClick,
+            ),
         },
     ];
 

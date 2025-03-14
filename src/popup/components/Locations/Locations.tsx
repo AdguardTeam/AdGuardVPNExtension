@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { type LocationData } from '../../stores/VpnStore';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 
 import { FastestSkeleton } from './FastestSkeleton';
 import { Location } from './Location';
@@ -21,6 +21,8 @@ export const Locations = observer(() => {
         settingsStore,
         telemetryStore,
     } = useContext(rootStore);
+
+    const isSearchTelemetrySent = useRef(false);
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -61,6 +63,18 @@ export const Locations = observer(() => {
 
     const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
+
+        // Telemetry event should be sent only once
+        // when user starts typing in the search field.
+        // NOTE: State will be reset when this component is unmounted.
+        if (!isSearchTelemetrySent.current) {
+            isSearchTelemetrySent.current = true;
+            telemetryStore.sendCustomEvent(
+                TelemetryActionName.SearchLocationsClick,
+                TelemetryScreenName.LocationsScreen,
+            );
+        }
+
         vpnStore.setSearchValue(value);
     };
 
@@ -130,8 +144,8 @@ export const Locations = observer(() => {
             </div>
             <Search
                 value={vpnStore.searchValue}
-                handleChange={handleSearchInput}
-                handleClear={handleSearchClear}
+                onChange={handleSearchInput}
+                onClear={handleSearchClear}
             />
             <div className="endpoints__scroll">
                 {!showSearchResults && (

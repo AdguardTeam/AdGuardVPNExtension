@@ -6,7 +6,7 @@ import { popupActions } from '../../actions/popupActions';
 import { translator } from '../../../common/translator';
 import { isLocationsNumberAcceptable } from '../../../common/is-locations-number-acceptable';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 
 import './global-error.pcss';
 
@@ -19,6 +19,7 @@ export const GlobalError = observer(() => {
     } = useContext(rootStore);
 
     const { isOpenOptionsModal, isShownVpnBlockedErrorDetails } = uiStore;
+    const { showServerErrorPopup } = settingsStore;
 
     const ERROR_TYPES = {
         PERMISSION: 'permission',
@@ -39,6 +40,10 @@ export const GlobalError = observer(() => {
 
     const handleDisableExtensions = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.DisableAnotherExtensionClick,
+            TelemetryScreenName.DisableAnotherVpnExtensionScreen,
+        );
         await settingsStore.disableOtherProxyExtensions();
     };
 
@@ -54,7 +59,8 @@ export const GlobalError = observer(() => {
 
     const canSendTelemetry = errorType === ERROR_TYPES.CONTROL
         && !isOpenOptionsModal // `MenuScreen` is rendered on top of this screen
-        && !isShownVpnBlockedErrorDetails; // `DialogDesktopVersionPromo` is rendered on top of this screen
+        && !isShownVpnBlockedErrorDetails // `DialogDesktopVersionPromo` is rendered on top of this screen
+        && !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,

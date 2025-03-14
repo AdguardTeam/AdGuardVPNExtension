@@ -2,8 +2,22 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { type DnsServerData } from '../../../../background/schema';
-import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../../../background/dns/dnsConstants';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import {
+    DEFAULT_DNS_SERVER,
+    POPULAR_DNS_SERVERS,
+    ADGUARD_DNS_ID,
+    ADGUARD_NON_FILTERING_DNS_ID,
+    ADGUARD_FAMILY_DNS_ID,
+    GOOGLE_DNS_ID,
+    CLOUDFLARE_DNS_ID,
+    CISCO_DNS_ID,
+    QUAD9_DNS_ID,
+} from '../../../../background/dns/dnsConstants';
+import {
+    TelemetryActionName,
+    TelemetryScreenName,
+    type DnsServerClickActionNames,
+} from '../../../../background/telemetry';
 import { translator } from '../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { rootStore } from '../../../stores';
@@ -16,6 +30,22 @@ import { DnsSettingsServerModalEdit } from './DnsSettingsServerModalEdit';
 
 import './dns-settings.pcss';
 
+/**
+ * Map of popular DNS server IDs to telemetry action names.
+ */
+const POPULAR_DNS_SERVER_ID_ACTION_MAP: Record<string, DnsServerClickActionNames | undefined> = {
+    [ADGUARD_DNS_ID]: TelemetryActionName.AdguardDnsClick,
+    [ADGUARD_NON_FILTERING_DNS_ID]: TelemetryActionName.AdguardNonfilteringDnsClick,
+    [ADGUARD_FAMILY_DNS_ID]: TelemetryActionName.AdguardFamilyDnsClick,
+    [GOOGLE_DNS_ID]: TelemetryActionName.GoogleDnsClick,
+    [CLOUDFLARE_DNS_ID]: TelemetryActionName.CloudflareDnsClick,
+    [CISCO_DNS_ID]: TelemetryActionName.CiscoDnsClick,
+    [QUAD9_DNS_ID]: TelemetryActionName.QuadDnsClick,
+};
+
+/**
+ * DNS settings page component.
+ */
 export const DnsSettings = observer(() => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
@@ -33,10 +63,22 @@ export const DnsSettings = observer(() => {
     };
 
     const handleSelect = (dnsServerId: string) => {
+        const telemetryActionName = POPULAR_DNS_SERVER_ID_ACTION_MAP[dnsServerId];
+        if (telemetryActionName) {
+            telemetryStore.sendCustomEvent(
+                telemetryActionName,
+                TelemetryScreenName.SettingsDnsServersScreen,
+            );
+        }
+
         settingsStore.setDnsServer(dnsServerId);
     };
 
     const handleAddClick = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.AddCustomDnsClick,
+            TelemetryScreenName.SettingsDnsServersScreen,
+        );
         settingsStore.openCustomDnsModal();
     };
 
