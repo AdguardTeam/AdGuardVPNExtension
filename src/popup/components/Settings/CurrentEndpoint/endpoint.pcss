@@ -171,10 +171,13 @@
             height: 24px;
         }
 
+        @media (hover: none) {
+            opacity: 1;
+        }
+
         .endpoint:hover &,
         .endpoint:focus-visible &,
         .endpoint--saved & {
-            /* FIXME: Add mobile device */
             opacity: 1;
         }
     }
