@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
@@ -17,6 +17,11 @@ import { TabButtons } from './TabButtons';
 
 import './endpoints.pcss';
 
+/**
+ * Duration of the notification that appears when a location is deleted.
+ */
+const DELETED_NOTIFICATION_DURATION = 3000;
+
 export const Locations = observer(() => {
     const {
         vpnStore,
@@ -24,6 +29,9 @@ export const Locations = observer(() => {
         settingsStore,
         telemetryStore,
     } = useContext(rootStore);
+
+    const deletedNotificationTimeout = useRef<NodeJS.Timeout>();
+    const [lastUnsavedLocation, setLastUnsavedLocation] = useState<string | null>(null);
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -59,8 +67,25 @@ export const Locations = observer(() => {
         const isAdded = await vpnStore.toggleSavedLocation(id);
 
         if (!isAdded) {
-            // FIXME: Add undo snackbar
+            clearTimeout(deletedNotificationTimeout.current);
+            setLastUnsavedLocation(id);
+
+            deletedNotificationTimeout.current = setTimeout(() => {
+                setLastUnsavedLocation(null);
+            }, DELETED_NOTIFICATION_DURATION);
         }
+    };
+
+    const handleNotificationUndo = () => {
+        if (lastUnsavedLocation) {
+            vpnStore.addSavedLocation(lastUnsavedLocation);
+            setLastUnsavedLocation(null);
+        }
+    };
+
+    const handleNotificationClose = () => {
+        setLastUnsavedLocation(null);
+        clearTimeout(deletedNotificationTimeout.current);
     };
 
     const handleLocationsClose = () => {
@@ -89,7 +114,7 @@ export const Locations = observer(() => {
     };
 
     const renderFilteredEndpoint = () => {
-        // FIXME: Waits for clarification which one to show when searching and saved tab is empty
+        // FIXME: Waits for clarification
 
         const emptySearchResults = showSearchResults && filteredLocations.length === 0;
         if (emptySearchResults) {
@@ -130,7 +155,7 @@ export const Locations = observer(() => {
     };
 
     return (
-        <div className="endpoints endpoints--re-design">
+        <div className="endpoints">
             <div className="endpoints__header">
                 {translator.getMessage('endpoints_countries')}
                 <button
@@ -164,6 +189,39 @@ export const Locations = observer(() => {
 
                 {renderFilteredEndpoint()}
             </div>
+
+            {lastUnsavedLocation && (
+                <div className="endpoints__notification">
+                    <div className="endpoints__notification-wrapper">
+                        <Icon
+                            icon="info"
+                            className="endpoints__notification-icon"
+                        />
+                        <div className="endpoints__notification-content">
+                            <div className="endpoints__notification-title">
+                                {translator.getMessage('endpoints_saved_location_deleted')}
+                            </div>
+                            <button
+                                type="button"
+                                className="endpoints__notification-undo"
+                                onClick={handleNotificationUndo}
+                            >
+                                {translator.getMessage('settings_exclusions_undo')}
+                            </button>
+                        </div>
+                        <button
+                            type="button"
+                            className="endpoints__notification-close"
+                            onClick={handleNotificationClose}
+                        >
+                            <Icon
+                                icon="cross"
+                                className="endpoints__notification-close-icon icon--button"
+                            />
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 });

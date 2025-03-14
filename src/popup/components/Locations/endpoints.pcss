@@ -247,6 +247,75 @@
             background-color: var(--stroke-dividers-item-divider-green-default);
         }
     }
+
+    &__notification {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 8px;
+
+        &-wrapper {
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+            column-gap: 12px;
+            border-radius: 4px;
+            background-color: var(--fills-snacks-mobile-snacks-default);
+        }
+
+        &-icon,
+        &-close-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        &-icon,
+        &-close {
+            flex-shrink: 0;
+        }
+
+        &-icon {
+            color: var(--stroke-icons-product-icons-default);
+        }
+
+        &-title,
+        &-undo {
+            color: var(--text-buttons-primary-default);
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        &-title {
+            margin-bottom: 8px;
+        }
+
+        &-undo,
+        &-close {
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            border: none;
+            background-color: transparent;
+        }
+
+        &-undo {
+            color: var(--text-links-link-default);
+            transition: var(--t3) color;
+
+            &:hover {
+                color: var(--text-links-link-hovered);
+            }
+
+            &:active {
+                color: var(--text-links-link-pressed);
+            }
+        }
+
+        &-close {
+            color: var(--stroke-icons-gray-icons-default);
+        }
+    }
 }
 
 @keyframes wave {

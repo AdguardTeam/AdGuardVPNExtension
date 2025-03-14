@@ -158,5 +158,12 @@ export const Icons = () => (
         <symbol id="bookmark-on" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1.5">
             <path d="M7 6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v12.59a1 1 0 0 1-1.7.7l-2.6-2.58a1 1 0 0 0-1.4 0l-2.6 2.58a1 1 0 0 1-1.7-.7V6Z" />
         </symbol>
+
+        <svg id="info" viewBox="0 0 24 24" fill="none">
+            <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 16v-6M12 7.6v-.2" />
+            </g>
+        </svg>
     </svg>
 );

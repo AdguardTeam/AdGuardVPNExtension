@@ -699,6 +699,9 @@
     "endpoints_tab_saved": {
         "message": "Saved"
     },
+    "endpoints_saved_location_deleted": {
+        "message": "Location deleted from Saved"
+    },
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached"
     },

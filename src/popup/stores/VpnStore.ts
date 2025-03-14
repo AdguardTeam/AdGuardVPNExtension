@@ -462,6 +462,38 @@ export class VpnStore {
     };
 
     /**
+     * Adds saved location by its ID.
+     *
+     * @param locationId Location ID to add.
+     */
+    @action addSavedLocation = async (locationId: string): Promise<void> => {
+        if (this.savedLocationIds.has(locationId)) {
+            return;
+        }
+
+        await messenger.addSavedLocation(locationId);
+        runInAction(() => {
+            this.savedLocationIds.add(locationId);
+        });
+    };
+
+    /**
+     * Removes saved location by its ID.
+     *
+     * @param locationId Location ID to remove.
+     */
+    @action removeSavedLocation = async (locationId: string): Promise<void> => {
+        if (!this.savedLocationIds.has(locationId)) {
+            return;
+        }
+
+        await messenger.removeSavedLocation(locationId);
+        runInAction(() => {
+            this.savedLocationIds.delete(locationId);
+        });
+    };
+
+    /**
      * Toggles saved location by its ID.
      *
      * @param locationId Location ID to toggle.
@@ -469,17 +501,11 @@ export class VpnStore {
      */
     @action toggleSavedLocation = async (locationId: string): Promise<boolean> => {
         if (this.savedLocationIds.has(locationId)) {
-            await messenger.removeSavedLocation(locationId);
-            runInAction(() => {
-                this.savedLocationIds.delete(locationId);
-            });
+            this.removeSavedLocation(locationId);
             return false;
         }
 
-        await messenger.addSavedLocation(locationId);
-        runInAction(() => {
-            this.savedLocationIds.add(locationId);
-        });
+        this.addSavedLocation(locationId);
         return true;
     };
 }
