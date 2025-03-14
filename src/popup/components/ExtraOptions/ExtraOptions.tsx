@@ -9,7 +9,8 @@ import { messenger } from '../../../common/messenger';
 import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { Prefs } from '../../../common/prefs';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { RatePopup } from '../RatePopup';
 
 import { Option } from './Option';
@@ -30,7 +31,14 @@ export const ExtraOptions = observer(() => {
         canBeExcluded,
         hasDesktopAppForOs,
         forwarderDomain,
+        isAndroidBrowser,
     } = settingsStore;
+
+    /**
+     * Whether to display the mobile Edge promo menu item — for desktop Edge only.
+     */
+    const shouldShouldMobileEdgePromoMenuItem = !isAndroidBrowser
+        && Prefs.isEdge();
 
     const openSettings = async (): Promise<void> => {
         await messenger.openOptionsPage();
@@ -39,6 +47,20 @@ export const ExtraOptions = observer(() => {
 
     const handleFeedback = async (): Promise<void> => {
         await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_FEEDBACK));
+    };
+
+    /**
+     * Handles the click on the mobile Edge promo menu item —
+     * opens the mobile Edge promo modal
+     * and closes the options modal (i.e. opened popup menu).
+     */
+    const handleMobileEdgePromoClick = (): void => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.MenuGetAndroidClick,
+            TelemetryScreenName.MenuScreen,
+        );
+        uiStore.openMobileEdgePromoModal();
+        uiStore.closeOptionsModal();
     };
 
     const handleOtherProductsClick = async (): Promise<void> => {
@@ -82,6 +104,9 @@ export const ExtraOptions = observer(() => {
 
             {canBeExcluded && isCurrentTabExcluded
                 && renderOption('popup_settings_enable_vpn', removeFromExclusions)}
+
+            {shouldShouldMobileEdgePromoMenuItem
+                && renderOption('popup_mobile_edge_promo_text', handleMobileEdgePromoClick)}
 
             {renderOption('popup_settings_other_products', handleOtherProductsClick)}
 

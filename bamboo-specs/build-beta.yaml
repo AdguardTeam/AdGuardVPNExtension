@@ -9,8 +9,8 @@ variables:
 
 stages:
   - Build:
-      manual: 'false'
-      final: 'false'
+      manual: false
+      final: false
       jobs:
         - Build
 
@@ -26,11 +26,11 @@ Build:
     docker-run-arguments: [ '--dns', '8.8.8.8' ]
   tasks:
     - checkout:
-        force-clean-build: 'true'
+        force-clean-build: true
     - checkout:
         repository: extensions-private
         path: private
-        force-clean-build: 'true'
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
@@ -156,7 +156,7 @@ triggers: []
 branches:
   create: manually
   delete: never
-  link-to-jira: 'true'
+  link-to-jira: true
 
 notifications:
   - events:

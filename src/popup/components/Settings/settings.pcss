@@ -59,9 +59,10 @@
         /* becomes smaller that default height of popup in desktops (--popup-default-height). */
         /* Design specified padding with value 220px will be base with 100px min padding. */
         /* This is needed for extension running on mobile browsers where popup height is dynamic. */
+        /* Also we subtract height of promo (if not rendered = 0px) so padding will be adjusted properly. */
         padding-top: max(
             100px,
-            calc(220px - var(--popup-default-height) + var(--popup-height))
+            calc(220px - var(--popup-default-height) + var(--popup-height) - var(--mobile-edge-promo-height))
         );
     }
 

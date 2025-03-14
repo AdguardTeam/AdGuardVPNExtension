@@ -1,12 +1,88 @@
 {
+    "name": {
+        "message": "AdGuard VPN — անվճար և անվտանգ պրոքսի"
+    },
+    "description": {
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Չի կարող լինել դատարկ"
+    },
+    "registration_error_not_valid": {
+        "message": "Այս արժեքը ոչ անհարգելի է"
+    },
+    "registration_error_min_length": {
+        "message": "Գաղտնաբառը պետք է պարունակի առնվազն 8 նիշ"
+    },
+    "registration_error_confirm_password": {
+        "message": "Գաղտնաբառերը չեն համընկնում"
+    },
+    "registration_error_compromised_password": {
+        "message": "Մուտքագրած գաղտնաբառը հայտնաբերվել է <a>հանրային տվյալների բազայում</a> խախտված գաղտնաբառերի: Խնդրում ենք փորձել մեկ այլ։"
+    },
+    "registration_error_unique_constraint": {
+        "message": "Այս արժեքը արդեն օգտագործվում է"
+    },
+    "registration_error_default": {
+        "message": "Սխալ տեղի ունեցավ, փորձեք հետագայում"
+    },
+    "authentication_error_2fa_required": {
+        "message": "Պահանջվում է 2FA"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Սխալ կոդ"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Հաշիվը դադարեցվել է"
+    },
+    "authentication_error_account_locked": {
+        "message": "Հաշիվը փակ է 15 րոպեով"
+    },
     "authentication_error_wrong_credentials": {
         "message": "Սխալ գաղտնաբառ"
+    },
+    "authentication_too_many_requests": {
+        "message": "We received too many requests from your IP address. Please try again later."
+    },
+    "authentication_error_default": {
+        "message": "Սխալ՝ փորձեք մի քիչ հետ"
+    },
+    "global_error_message": {
+        "message": "Սխալ է տեղի ունեցել, խնդրում ենք կապնվել մեզ <a>%support_email%</a>-ի միջոցով"
     },
     "about_title": {
         "message": "Ծրագրի մասին"
     },
+    "all_rights_reserved": {
+        "message": "Բոլոր իրավունքները պաշտպանված են։"
+    },
     "options_support_title": {
         "message": "Աջակցում"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Հարցեր և պատասխաններ"
+    },
+    "options_support_report_title": {
+        "message": "Հաղորդել սխալի մասին"
+    },
+    "options_support_report_description": {
+        "message": "Ուղարկեք մեզ հաշվետվություն հնարավոր սխալի մասին"
+    },
+    "options_support_feedback_title": {
+        "message": "Թողնել կարծիք"
+    },
+    "options_support_feedback_description": {
+        "message": "Հանձնել հատկությունների խնդրանքներ և առաջարկություններ"
+    },
+    "options_report_bug_title": {
+        "message": "Հաղորդել սխալի մասին"
     },
     "options_bug_report_email_label": {
         "message": "Էլ. փոստ"
@@ -14,20 +90,149 @@
     "options_bug_report_include_log_label": {
         "message": "Ներառել ախտորոշման զեկույցը"
     },
+    "options_bug_report_email_invalid": {
+        "message": "Էլ. փոստի հասցեն սխալ է"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Այս դաշտը պարտադիր է"
+    },
+    "options_bug_report_request_error": {
+        "message": "Սխալ է տեղի ունեցել։ Խնդրում եմ փորձեք մի փոքր ուշ։"
+    },
+    "options_bug_report_send_button": {
+        "message": "Ուղարկել հաշվետվություն"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Ուղարկվում է հաշվետվություն..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Մանրամասներ"
+    },
+    "options_bug_report_page_success": {
+        "message": "Շնորհակալություն, ձեր հաղորդագրությունը հաջողությամբ ուղարկվեց։"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Նոր հաշվետվություն"
+    },
     "options_bug_report_textarea_label": {
         "message": "Հաղորդագրություն"
+    },
+    "account_title": {
+        "message": "Հաշիվ"
+    },
+    "account_edit": {
+        "message": "Բացեք հաշվի կարգավորումները"
     },
     "account_version": {
         "message": "Տարբերակ՝"
     },
+    "account_free": {
+        "message": "Անվճար տարբերակ"
+    },
+    "account_unlimited": {
+        "message": "Անսահմանափակ բաժանորդագրություն"
+    },
+    "account_monthly_paid": {
+        "message": "Մսաբաժին վճարովի բաժանորդություն"
+    },
+    "account_yearly_paid": {
+        "message": "Տարեկան վճարովի բաժանորդություն"
+    },
+    "account_two_year_paid": {
+        "message": "Երկու տարվա վճարովի բաժանորդություն"
+    },
+    "account_get_subscription": {
+        "message": "Գնել բաժանորդագրություն"
+    },
+    "account_max_devices_count": {
+        "message": "Ամենաշատը <b>%num%</b> միաժամանակյա սարքեր"
+    },
+    "account_valid_until": {
+        "message": "Վավեր է մինչև <b>%date%</b>"
+    },
+    "account_logged_in_as": {
+        "message": "Մուտք եք գործել որպես <b>%username%</b>"
+    },
+    "account_sign_out": {
+        "message": "Դուրս թողնել"
+    },
+    "account_unlimited_title": {
+        "message": "Ստացեք անսահմանափակ տարբերակը"
+    },
+    "rate_description": {
+        "message": "Ուրախ լինեք AdGuard VPN-ից:"
+    },
+    "rate_hide": {
+        "message": "Թաքցնել"
+    },
+    "auth_confirm": {
+        "message": "Հաստատել"
+    },
+    "auth_email": {
+        "message": "Էլ. փոստի հասցե"
+    },
     "auth_password": {
         "message": "Գաղտնաբառ"
+    },
+    "auth_your_password": {
+        "message": "Քո գաղտնաբառը"
     },
     "auth_password_confirm": {
         "message": "Հաստատել գաղտնաբառը"
     },
+    "auth_recover": {
+        "message": "Մոռացե՞լ է գաղտնաբառը"
+    },
+    "auth_sign_up": {
+        "message": "Գրանցվել"
+    },
+    "auth_sign_up_info": {
+        "message": "Ստեղծեք ձեր AdGuard հաշիվը"
+    },
+    "auth_sign_up_button": {
+        "message": "Գրանցվել"
+    },
+    "auth_sign_in": {
+        "message": "Մուտքագրեք ձեր գաղտնաբառը"
+    },
+    "auth_sign_in_button": {
+        "message": "Մուտք գործել"
+    },
+    "auth_title": {
+        "message": "Մուտք գործել կամ նոր հաշիվ ստեղծել"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "Էլ. փոստ"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Շարունակել փոստով"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Շարունակել Apple-ով"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Շարունակել Google-ով"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Շարունակել Facebook-ով"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Քայլում եք որպես <span>%username%</span>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Երկու գործոնով հաստատում"
+    },
+    "auth_header_2fa": {
+        "message": "Մուտքագրեք վավերացման կոդը"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Վավերացման կոդ"
+    },
+    "official_website": {
+        "message": "Պաշտոնական կայք"
+    },
+    "eula": {
+        "message": "EULA"
     },
     "privacy_policy": {
         "message": "Գաղտնիության քաղաքականություն"
@@ -35,32 +240,305 @@
     "settings_general_title": {
         "message": "General"
     },
+    "referral_get_free_traffic": {
+        "message": "Ստացեք անվճար GB-ներ։"
+    },
+    "settings_referral_info": {
+        "message": "Ստացեք %your_gb% ԳԲ անվճար VPN տրաֆիկ մեկ ամսով յուրաքանչյուր ընկերոջ համար, ով գրանցվում է ձեր հրավերի միջոցով, ընդհանուր առմամբ մինչև %total_gb% ԳԲ: Ձեր ընկերը նաև ստանում է լրացուցիչ %friend_gb% ԳԲ անվճար:"
+    },
+    "settings_referral_invited_friends": {
+        "message": "Հրավիրված ընկերներ %count%/%limit%"
+    },
+    "settings_referral_invite_link": {
+        "message": "Հրավիրելու հղում"
+    },
+    "settings_referral_copy_link": {
+        "message": "Պատճենել հրավերի հղումը"
+    },
+    "settings_referral_link_copied": {
+        "message": "Հրավիրելու հղումը պատճենվել է ստեղնաշարի"
+    },
+    "settings_free_gbs": {
+        "message": "Անվճար ԳԲ"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Կատարեք առաջադրանքները՝ անվճար VPN տրաֆիկ ստանալու համար"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Հաստատեք ձեր էլ. փոստը"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Ստացեք %num% ԳԲ"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Դուք ստացել եք %num% ԳԲ"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Click the email confirmation link that we sent you at sign up and get %your_gb% GB of free VPN traffic. If you can’t find our email, click the button below."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Resend link"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Ավելացնել մեկ այլ պլատֆորմ"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Տեղադրեք AdGuard VPN iOS-ի, Windows-ի կամ Android-ի համար, մուտք գործեք ձեր AdGuard հաշվող այնտեղ, և ստացեք %your_gb% GB։"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Ավելացվել է մեկ այլ պլատֆորմ"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Շնորհավորում ենք AdGuard VPN-ի տեղադրումը մի քանի պլատֆորմներում։ Պահպանեք անվտանգ։"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Մուտքագրեք արտադրանքի էջը"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Invite a friend"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Ստացեք մինչև %num% ԳԲ"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Դուք ստացել եք %num% ԳԲ"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Շնորհակալություն ձեր բոլոր հրավերները օգտագործելու համար։"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Վերադառնալ"
+    },
+    "settings_rate_us": {
+        "message": "Գնահատեք մեզ"
+    },
     "settings_webrtc_label": {
         "message": "Արգելափակել WebRTC-ին"
+    },
+    "settings_webrtc_desc": {
+        "message": "Խոչընդոտում WebRTC, հայտնի խոցելիություն, որը կարող է արտահոսել ձեր իրական IP հասցեն նույնիսկ եթե դուք օգտագործում եք proxy կամ VPN"
+    },
+    "settings_context_menus_title": {
+        "message": "Ցուցաբերել AdGuard VPN-ը դիտարկիչի համատեքստային ցանկում"
+    },
+    "settings_context_menus_description": {
+        "message": "Գործարկել VPN բացառությունները որոշակի կայքի համար"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Օգնեք բարելավել AdGuard VPN-ն"
+    },
+    "settings_help_us_improve_modal_title": {
+        "message": "Ընդարձակման օգտագործման տվյալներ"
+    },
+    "settings_help_us_improve_modal_desc_data": {
+        "message": "Այս տվյալները ներառում են՝"
+    },
+    "settings_help_us_improve_modal_desc_data_screens": {
+        "message": "Ապրանքներ, որոնք դուք օգտագործում եք"
+    },
+    "settings_help_us_improve_modal_desc_data_buttons": {
+        "message": "Նաև այն կոճակները, որոնց վրա դուք սեղմում եք"
+    },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Բաժինների նույնականացուցիչները"
+    },
+    "settings_help_us_improve_modal_desc_improve": {
+        "message": "Մենք այս տեղեկությունները պետք է վերլուծենք և բարելավենք AdGuard VPN-ի գործառույթները"
+    },
+    "settings_help_us_improve_modal_desc_internally": {
+        "message": "Այս տվյալները անանուն են և օգտագործվում են միայն ներքին"
+    },
+    "settings_help_us_improve_modal_button": {
+        "message": "Հասկացա"
+    },
+    "context_menu_selective_mode": {
+        "message": "Ընտրովի ռեժիմ"
+    },
+    "context_menu_general_mode": {
+        "message": "Ընդհանուր ռեժիմ"
+    },
+    "context_menu_export_logs": {
+        "message": "Արտահանել տեղեկամատյանը"
+    },
+    "context_menu_debug_level": {
+        "message": "Դեֆոգի համառոտագրություն"
+    },
+    "settings_dns_label": {
+        "message": "DNS սերվեր"
+    },
+    "settings_dns_description": {
+        "message": "Ջատակի DNS պահանջները, արգելակել գովազդներն ու հետևողներին, և Encrypt DNS տրաֆիկը, երբ դուք միացված եք VPN-ին"
+    },
+    "settings_dns_description_current": {
+        "message": "Ընթացիկ. %dnsServerName%"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Ամենահայտնի DNS սերվերները"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Պատվերով DNS սերվերներ"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Ավելացնել պատվերով DNS սերվեր"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Խմբագրել պատվերով DNS սերվեր"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "Խմբագրված DNS մատակարարները"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Սերվերի մականունը"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Իմ DNS սերվերը"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Սերվերի հասցե"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP հասցե կամ tls://"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Անավեր սերվերի հասցե"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS սերվեր արդեն ավելացված է"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Պահպանել և ընտրել"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Պահպանել"
     },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Ապահովված DNS սերվեր ավելացվել է"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Ապահովված DNS սերվեր հեռացվել է"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Ադապտացված DNS սերվերը խմբագրվել է"
+    },
     "settings_dns_selector_default_title": {
         "message": "Հիմնական"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Օգտագործում է AdGuard VPN-ի կողմից տրամադրված DNS ծառայությունները"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
     },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Հանում է գովազդներն ու հետևիչները ձեր устройկից"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS առանց զտման"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Ապահով DNS, որ չունի գործունեության գրանցում (չի զտում գովազդներ & հետևորդներ)"
+    },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS Family Protection"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + SafeSearch և հասուն բովանդակության արգելափակում"
     },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"
     },
+    "settings_dns_selector_google_desc": {
+        "message": "Անվճար այլընտրանքային DNS ծառայություն Google-ից"
+    },
     "settings_dns_selector_cloudflare_title": {
         "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Անվճար DNS ծառայություն Cloudflare-ից"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS սերվեր, որը պաշտպանում է ձեր սարքը վնասակար ծրագրերից"
     },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"
     },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Անվճար այլընտրանքային DNS ծառայություն, որն ապահովում է պաշտպանություն ֆիշինգի և գրոհանքների դեմ"
+    },
     "settings_theme_label": {
         "message": "Ֆոն"
+    },
+    "settings_theme_system": {
+        "message": "Համակարգի լռելյայն"
+    },
+    "settings_theme_dark": {
+        "message": "Մութ"
+    },
+    "settings_theme_light": {
+        "message": "Բաց"
+    },
+    "settings_quick_connect_title": {
+        "message": "Ապահով կապ"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN-ի վայր ընտրվեց, երբ դուք սեղմում եք միանալ"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Ավելի վաղ օգտագործված վայրը"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Արթնացնող վայրը"
+    },
+    "settings_exclusion_add": {
+        "message": "Ավելացնել"
+    },
+    "settings_exclusion_add_website": {
+        "message": "Ավելացնել կայք"
+    },
+    "settings_exclusion_actions": {
+        "message": "Գործողություններ"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Ավելացնել ենթատիրույթ"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Սխալ ենթադոմեն"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "դոմեն"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "ենթադոմեն"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "բոլոր ենթադոմենները"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN-ը անջատված է նշված տիրույթների և ենթատիրույթների համար"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN-ը միացված է նշված տիրույթների և ենթատիրույթների համար"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Տիրույթի անուն"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Ենթատիրույթ"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Ճանաչել ցանկից"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Մանուալ"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Ավելացնել ձեռքով"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "«%url%»-ը վավեր տիրույթ չէ: Ցանկանու՞մ եք այն ավելացնել ցանկին:"
     },
     "settings_exclusion_modal_cancel": {
         "message": "Չեղարկել"
@@ -71,23 +549,113 @@
     "settings_exclusion_modal_save": {
         "message": "Պահպանել"
     },
+    "settings_exclusion_reset_to_default": {
+        "message": "Վերակայել"
+    },
     "settings_exclusion_reset_button": {
         "message": "Վերակայել"
     },
     "settings_exclusions_undo": {
         "message": "Հետարկել"
     },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Reset the default settings for %hostname%? This will restore any missing domains and set all check marks to on."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Search website"
+    },
     "settings_exclusion_placeholder_search": {
         "message": "Որոնում"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "No results found"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Կապակցման խնդրանք"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Նվազեցնել բացառումները"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Ներմուծել բացառումները"
     },
     "settings_exclusions_action_remove_all": {
         "message": "Հեռացնել բոլորը"
     },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Remove all exclusions"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Do you want to delete the entire list of exclusions?"
+    },
     "settings_exclusion_title": {
         "message": "Կառավարելբացառությունները"
     },
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Որտեղ VPN-ն է ակտիվ"
+    },
+    "settings_exclusion_general_title": {
+        "message": "Everywhere except for excluded websites"
+    },
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN-ը <span>աշխատում է</span> բացառությամբ ստորև նշված կայքերում"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Ընտրված որոշ կայքերում"
+    },
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN-ը <span>ընտրաբար</span> է՝ միայն ստորև նշված կայքեր համար"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Այս ցուցակը դատարկ թողնելը դադարեցնում է VPN-ը բոլոր կայքերից"
+    },
     "settings_exclusion_import_button": {
         "message": "Ներմուծել"
+    },
+    "global_error_title": {
+        "message": "Error occurred"
+    },
+    "global_error_description": {
+        "message": "Խնդրում ենք կապվել մեզ հետ, եթե շարունակեք տեսնել այս հաղորդումը"
+    },
+    "global_error_learn_more": {
+        "message": "Իմանալ ավելին"
+    },
+    "global_error_try_again": {
+        "message": "Կրկին փորձեք"
+    },
+    "authentication_successful_notification": {
+        "message": "Հաջողությամբ հավաստագրված եք։ Կարող եք բացել AdGuard VPN-ը և սկսել այն օգտագործել։"
+    },
+    "control_error_title": {
+        "message": "Ընդլայնման հակամարտություն"
+    },
+    "control_error_description": {
+        "message": "Միանական, որ մյուս դիտարկիչի լրացյալ ծրագիրն փորձում է կառավարել ձեր կապը։ Խնդրում եմ անջատեք մյուս լրացյալ ծրագիրը ձեր դիտարկիչում։"
+    },
+    "control_error_disable": {
+        "message": "Անջատել սա"
+    },
+    "popup_skeleton_status": {
+        "message": "Փնտրում էր...։"
+    },
+    "popup_no_locations_title": {
+        "message": "Սերվեր չի գտնվել"
+    },
+    "popup_no_locations_button": {
+        "message": "Փնտրել նորից"
+    },
+    "popup_settings_enable_vpn_short": {
+        "message": "Միացնել այս էջում"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Անջատել VPN-ը այս կայքում"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Ապահով VPN այս կայքի համար"
+    },
+    "popup_settings_other_products": {
+        "message": "Այլ արտադրանքներ"
     },
     "popup_settings_feedback": {
         "message": "Արձագանք"
@@ -95,35 +663,392 @@
     "popup_settings_open_settings": {
         "message": "Կարգավորումներ"
     },
+    "context_menu_enable_vpn": {
+        "message": "Միացնել VPN-ը այս կայքում"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Անջատել VPN-ը այս կայքում"
+    },
+    "endpoints_countries": {
+        "message": "Հայթայթներ"
+    },
+    "endpoints_location_virtual": {
+        "message": "Վիրտուալ"
+    },
+    "endpoints_fastest": {
+        "message": "Արագագույն"
+    },
+    "endpoints_all": {
+        "message": "Բոլոր վայրերը"
+    },
+    "endpoints_search_results": {
+        "message": "Որոնման արդյունք"
+    },
+    "endpoints_search": {
+        "message": "Որոնել վայրերը"
+    },
+    "endpoints_not_found": {
+        "message": "Սերվեր չի գտնվել"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Ամսական տվյալների սահմանաչափը հասել է"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Ապահովված արագություն"
+    },
     "premium_upgrade": {
         "message": "Արդիացնել"
+    },
+    "settings_disconnect": {
+        "message": "Անջատել"
+    },
+    "settings_vpn_connecting": {
+        "message": "Միացում..."
+    },
+    "settings_connect": {
+        "message": "Միանալ"
+    },
+    "settings_vpn_enabled": {
+        "message": "Միացված է"
+    },
+    "settings_vpn_disabled": {
+        "message": "Անջատված է"
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Արագությունը նվազում է"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Դուք հասել եք անվճար տվյալների սահմանին, և AdGuard VPN-ը աշխատում է դանդաղ:"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Բարձրացնել արագությունը"
+    },
+    "popup_feedback_title": {
+        "message": "Մենք ուզում ենք լսել ձեր կարծիքը"
+    },
+    "popup_feedback_button": {
+        "message": "Թողնել կարծիք"
+    },
+    "popup_compare_button": {
+        "message": "Ինչու է հավելվածը ավելի լավ"
+    },
+    "popup_rate_modal_title": {
+        "message": "Որքան հրաշալի է AdGuard VPN-ը:"
+    },
+    "popup_rate_modal_subtitle": {
+        "message": "Խնդրում ենք գնահատել մեզ"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Ուղարկել"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Չեղարկել"
     },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Օգնել մեզ բարելավել"
+    },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "Փորձեք մեզ ասել, ինչ սխալ եղավ"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Թողնել կարծիք"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Վայ! Կարո՞ղ եք մեզ գնահատել նաև ընդլայնման խանութում:"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Մուտք գործել Ելքային Խանութ"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Չի կարող կապնվել սերվերին"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Հավանաբար, VPN-ը արգելափակվել է ձեր երկրում կամ տեխնիկական սխալ է եղել։ Մենք արդեն փորձում ենք դա շտկել"
+    },
+    "popup_server_error_popup_action": {
+        "message": "Հուշել AdGuard թիմին"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Չեղարկել"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Աշխատում եմ դրա վրա"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Շնորհակալություն, որ մեզ տեղյակ պահեցիք։"
     },
     "popup_server_error_popup_close": {
         "message": "Փակել"
     },
+    "popup_host_permission_error_title": {
+        "message": "Թույլ տվեք մուտք դեպի կայքեր"
+    },
+    "popup_host_permission_error_info": {
+        "message": "Օգտվելու համար AdGuard VPN, թույլ տվեք մուտք ունենալ ձեր տվյալներին կայքերում։ Մենք այս տվյալները չեմ պահում կամ որևէ մեկի հետ չենք կիսում։ <privacy>Կառավարական քաղաքականություն</privacy>"
+    },
+    "popup_host_permission_error_btn_allow": {
+        "message": "Թույլատրել"
+    },
+    "options_title": {
+        "message": "AdGuard VPN ընտրանքներ"
+    },
+    "offline_title": {
+        "message": "Օֆլայն"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "գտնվում է ձեր տեղական ցանցում և անհասանելի է VPN-ի միջոցով"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN-ը անջատված է այս կայքում"
+    },
+    "popup_auth_policy_agreement_title": {
+        "message": "Բարի գալուստ"
+    },
+    "popup_auth_policy_agreement": {
+        "message": "Ես ընդունում եմ AdGuard VPN-ի <eula>EULA</eula> և <privacy>Անձնական կյանքի քաղաքականությունը</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Ուղարկել անանուն <link>լայնացման օգտագործման</link> տվյալներ"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Եթե Դուք համաձայնեք, AdGuard VPN-ը կգտնի տվյալներ այն էկրանների և կոճակների մասին, որոնց հետ Դուք համագործակցում եք: Դուք միշտ կարող եք անջատել տվյալների կիսումը <b>Настройки</b>։"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Այս տեղեկությունը մեզ օգնում է հասկանալ, թե որ ֆունկցիաները լավ են աշխատում և ինչ պետք է բարելավվի։ Այն անոնիմացված է և օգտագործվում է միայն ներքին։ Մենք երբեք չենք կիսվում դրանով որևէ մեկի հետ։"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Մուտք գործել կամ ստեղծել հաշիվ"
+    },
+    "popup_newsletter_title": {
+        "message": "AdGuard տեղեկագիր"
+    },
+    "popup_newsletter_info": {
+        "message": "Նախընտրում եմ, որ ինձ էլեկտրոնային հասցեներով հատուկ առաջարկներ և AdGuard նորություններ ուղարկել"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Բաժանորդագրվել"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Ոչ"
+    },
+    "popup_onboarding_unique_protocol": {
+        "message": "Հատուկ VPN պրոտոկոլ"
+    },
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPN-ի պրոտոկոլը արագ աշխատում է և դարձնում է ձեր VPN տրաֆիկը աննկատ"
+    },
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Կայքերի և կիրառումների բացառություններ"
+    },
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Բացառությունները օգնում են արագ նշանակել այն կայքերը կամ ծրագրերը, որոնք ԱդԳարդ VPN պաշտպանություն է ստացել"
+    },
+    "popup_onboarding_no_logging_policy": {
+        "message": "Չգրանցման քաղաքականություն"
+    },
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN makes you anonymous. It never collects or shares your data with third parties"
+    },
     "popup_onboarding_next": {
         "message": "Հաջորդը"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Անսահմանափակ VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Անսահմանափակ տվյալներ"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Միակ սահմանն այն է, որ ձեր տվյալները երբեք չեն կիսվում: Զարկեք մինչև եղանակները!"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Անսահմանափակ արագություն"
+    },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "No speed restrictions. Get the most out of your service provider!"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Բոլոր վայրերը"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 մայրցամաքներ և տասնյակ երկրներ։ Ընտրեք քաղաք և ապահով զննեք ցանցում:"
+    },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Մինչ %potential_num% սարքերի"
+    },
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Միացրեք ձեր բոլոր սարքերը AdGuard VPN-ին միաժամանակ՝ կամ պաշտպանեք ողջ ընտանիքը!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Արդիացնել"
     },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Շարունակել անվճար տարբերակի հետ"
+    },
+    "popup_free_traffic_info_left": {
+        "message": "%value% %unit% մնացել է",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_hint_popup_content": {
+        "message": "Մասնավորապես, դուք կարող եք անջատել VPN այս կայքի համար, եթե ցանկանում եք"
+    },
+    "popup_hint_popup_button": {
+        "message": "Got it"
+    },
+    "popup_vpn_blocked_error_notice": {
+        "message": "Չեք կարող միանալ:"
+    },
+    "popup_vpn_blocked_error_details_title": {
+        "message": "Սեղանային տարբերակը ավելի կայուն է"
+    },
+    "popup_vpn_blocked_error_details_description": {
+        "message": "Եթե դուք ունեք միացման խնդիրներ, խորհուրդ ենք տալիս փոխել սեղանային տարբերակին `այն ավելի փարթամ աշխատում է"
+    },
+    "popup_vpn_blocked_error_details_get_app_button": {
+        "message": "Սեղանային տարբերակը ստանալ"
+    },
+    "popup_vpn_blocked_error_details_later_button": {
+        "message": "Ավելի ուշ"
+    },
+    "limited_offer_notification_title": {
+        "message": "%discount%%% զեղչ AdGuard VPN-ի համար",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
+    },
+    "limited_offer_notification_desc": {
+        "message": "Flash առաջարկ միայն 6 ժամ: Ինչպես ավելին իմանալ ձեր AdGuard VPN ընդլայնմանը"
+    },
+    "popup_limited_offer_notice": {
+        "message": "%discount%%% զեղչ: <span>%time_left%</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
+    },
+    "popup_limited_offer_details_time_left": {
+        "message": "Մնացել է: %time_left%"
+    },
+    "popup_limited_offer_details_btn": {
+        "message": "Վերցնել առաջարկը"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Ինչպես օգտագործել այս բացառությունների ցուցակը:"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Ավելացված ցանկի կայքերը կավելացվեն արդեն գոյություն ունեցող բացառումների մեջ"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Ես ցանկանում եմ, որ VPN-ը անջատ լինի այս կայքերի համար"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Ես ուզում եմ, որ VPN-ը ակտիվ լինի այս կայքերի համար"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "Չեղարկել"
     },
-    "name": {
-        "message": "AdGuard VPN — free & secure proxy"
+    "options_exclusions_import_successful": {
+        "message": "Ներմուծված բացառությունները: %count%"
     },
-    "short_name": {
-        "message": "AdGuard VPN"
+    "options_exclusions_deleted_exclusions": {
+        "message": "Ջնջված բացառությունները: %count%"
     },
-    "description": {
-        "description": "TEXT MAX LENGTH: 132",
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
+    "options_exclusions_added_exclusions": {
+        "message": "Ավելացված բացառությունները: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Բոլոր բացառությունները ներկայիս ռեժիմի համար հաջողությամբ հեռացվել են։"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Բացառությունների ֆայլը պետք է ունենա հետևյալ ընդլայնումները՝ %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip արխիվը: \"%filename%\" չի պարունակում հետևյալ ընդլայնումներով ֆայլեր՝ %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Դուք հասել եք միաժամանակյա միացման առավելագույն թվին՝ %maxDevicesAllowed%։"
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Ավելացնել որոշ սարքեր, հաշվի առեք անդամագրվել Unlimited AdGuard VPN-ին։"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Այդ պատճառով, отключьте AdGuard VPN ձեր ցանկացած gadget-ից։"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Բաժանորդագրվել"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Իմանալ ավելին"
+    },
+    "popup_connections_limit_title": {
+        "message": "Connections limit reached"
+    },
+    "popup_mobile_edge_promo_text": {
+        "message": "Ստացեք VPN ընդլայնումը Android-ի համար"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN for Edge — այժմ Android-ում"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Սկանավորեք QR կոդը, որպեսզի ձեռքում կամ պլանշետում տեղադրեք Edge-ը։ AdGuard VPN-ը կհայտնվի առաջարկներում"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Հասկացա"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Սա այլևս մի ցուցադրեք"
+    },
+    "options_signedout_page_title": {
+        "message": "Դուք դուրս եք եկել AdGuard VPN-ից"
+    },
+    "options_signedout_page_description_not_secure": {
+        "message": "Ձեր կապը անվտանգ չէ։"
+    },
+    "options_signedout_page_description": {
+        "message": "Մասնավոր զննումը շարունակելու համար, սեղմեք AdGuard VPN պատկերակը և կրկին գրանցվեք։"
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Ամսական տվյալների սահմանաչափը հասել է"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "VPN կապի արագությունը կրճատվել է։"
+    },
+    "notification_data_left_mb": {
+        "message": "Մնացել է %num% ՄԲ։"
+    },
+    "notification_data_left_description": {
+        "message": "VPN կապի արագությունը շուտով կրճատվի։"
+    },
+    "confirm_email_title": {
+        "message": "Հաստատեք ձեր էլ. փոստը"
+    },
+    "confirm_email_info": {
+        "message": "Մենք ուղարկել ենք հաստատման կոդ <span>%email%</span>"
+    },
+    "confirm_email_done_title": {
+        "message": "Էլփոստի հասցեն հաստատված է"
+    },
+    "confirm_email_done_info": {
+        "message": "Շնորհակալություն, որ ստուգեցիք դա։"
+    },
+    "confirm_email_code_label": {
+        "message": "Պատճառի կոդ"
+    },
+    "confirm_email_code_placeholder": {
+        "message": "Օգտվողներ և նամակներ պարունակում են"
+    },
+    "confirm_email_code_invalid": {
+        "message": "Խնդրում ենք ստուգել կոդը՝ այն թվում է սխալ"
+    },
+    "confirm_email_resend_code_button_disabled": {
+        "message": "Ուղարկել մեկ այլ կոդ (%count%)"
+    },
+    "confirm_email_resend_code_button": {
+        "message": "Ուղարկել մեկ այլ կոդ"
+    },
+    "confirm_email_no_auth_id_error_on_auth": {
+        "message": "Մուտք գործելը ձախողվեց։ Խնդրում ենք կրկին փորձել կամ կապնվել մեզ հետ <a>%support_email%</a>"
+    },
+    "confirm_email_no_auth_id_error_on_register": {
+        "message": "Գրանցումն անհաջող է։ Խնդրում ենք կրկնակի փորձել կամ կապնվել մեզ հետ <a>%support_email%</a>"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Հաստատման հղումը կրկին ուղարկված է"
     }
 }

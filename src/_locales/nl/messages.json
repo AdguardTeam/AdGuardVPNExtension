@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "Maximaal aantal verbindingen bereikt"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "VPN-uitbreiding voor Android downloaden"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN voor Edge — nu op Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Scan de QR-code om Edge op je telefoon of tablet te installeren. AdGuard VPN wordt weergegeven in de suggesties"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Begrepen"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Dit niet opnieuw weergeven"
+    },
     "options_signedout_page_title": {
         "message": "Je hebt je afgemeld bij AdGuard VPN"
     },

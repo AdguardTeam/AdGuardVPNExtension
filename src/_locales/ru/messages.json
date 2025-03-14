@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "Достигнут лимит подключений"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "Расширение VPN для Android"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN для Edge — теперь на Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Сканируйте QR-код, чтобы установить Edge на смартфон или планшет. AdGuard VPN появится в рекомендациях браузера"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Хорошо"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Не показывать снова"
+    },
     "options_signedout_page_title": {
         "message": "Вы вышли из аккаунта AdGuard VPN"
     },

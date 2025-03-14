@@ -57,6 +57,12 @@ export enum TelemetryActionName {
     PurchaseClick = 'purchase_click',
     FreeGbClick = 'free_gb_click',
     SpeedReducedPurchaseClick = 'speed_reduced_purchase_click',
+    OpenAndroidPromoClick = 'open_android_promo_click',
+    CloseAndroidPromoClick = 'close_android_promo_click',
+    DeclineAndroidPromoClick = 'decline_android_promo_click',
+    GotItAndroidPromoClick = 'got_it_android_promo_click',
+    DontShowAndroidPromoClick = 'dont_show_android_promo_click',
+    MenuGetAndroidClick = 'menu_get_android_click',
     AllLocationsClick = 'all_locations_click',
     SavedLocationsClick = 'saved_locations_click',
 
@@ -87,6 +93,12 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.DisconnectClick]: TelemetryScreenName.HomeScreen;
     [TelemetryActionName.PurchaseClick]: TelemetryScreenName.HomeScreen;
     [TelemetryActionName.FreeGbClick]: TelemetryScreenName.HomeScreen;
+    [TelemetryActionName.OpenAndroidPromoClick]: TelemetryScreenName.HomeScreen;
+    [TelemetryActionName.CloseAndroidPromoClick]: TelemetryScreenName.HomeScreen;
+    [TelemetryActionName.DeclineAndroidPromoClick]: TelemetryScreenName.HomeScreen;
+    [TelemetryActionName.GotItAndroidPromoClick]: TelemetryScreenName.HomeScreen;
+    [TelemetryActionName.DontShowAndroidPromoClick]: TelemetryScreenName.HomeScreen;
+    [TelemetryActionName.MenuGetAndroidClick]: TelemetryScreenName.MenuScreen;
     [TelemetryActionName.SpeedReducedPurchaseClick]: TelemetryScreenName.SpeedReducedScreen;
     [TelemetryActionName.AllLocationsClick]: TelemetryScreenName.LocationsScreen;
     [TelemetryActionName.SavedLocationsClick]: TelemetryScreenName.LocationsScreen

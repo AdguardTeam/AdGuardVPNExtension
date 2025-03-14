@@ -222,6 +222,15 @@ export class SettingsService {
         return oldSettings;
     };
 
+    /**
+     * Runs settings migration from schema v11 to v12.
+     *
+     * For the extension update to v1.4.14.
+     *
+     * @param oldSettings Old settings.
+     *
+     * @returns Updated settings.
+     */
     migrateFrom11to12 = async (oldSettings: Settings) => {
         // update SETTINGS_IDS.APPEARANCE_THEME setting value
         // after converting APPEARANCE_THEMES object to enum

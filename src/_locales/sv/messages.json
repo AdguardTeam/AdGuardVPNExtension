@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "Anslutningsgränsen har nåtts"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "Skaffa VPN-tillägg för Android"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN för Edge — nu på Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Skanna QR-koden för att installera Edge på din telefon eller surfplatta. AdGuard VPN kommer att visas i förslag"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Uppfattat"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Visa inte igen"
+    },
     "options_signedout_page_title": {
         "message": "Du har loggat ut ur AdGuard VPN"
     },

@@ -148,7 +148,6 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                         .replace(/\.\/abstractProxyApi/, './firefox/proxyApi')
                         .replace(/\.\/proxy\/abstractProxyApi/, './proxy/firefox/proxyApi');
                 } else if (browser === Browser.Chrome
-                    || browser === Browser.ChromeMV2
                     || browser === Browser.Edge
                     || browser === Browser.Opera) {
                     // eslint-disable-next-line no-param-reassign
@@ -194,8 +193,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                                 updateLocales,
                                 process.env.BUILD_ENV,
                                 ' for Chrome',
-                                (browser === Browser.Chrome || browser === Browser.ChromeMV2)
-                                    && path.includes(EN_MESSAGES_PATH),
+                                browser === Browser.Chrome && path.includes(EN_MESSAGES_PATH),
                             );
                         },
                     },

@@ -987,6 +987,21 @@
     "popup_connections_limit_title": {
         "message": "Достигнато е ограничувањето на врските"
     },
+    "popup_mobile_edge_promo_text": {
+        "message": "Добијте VPN екстензија за Android"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN за Edge — сега на Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Скенирајте го QR кодот за да ја инсталирате Edge на вашиот телефон или таблет. AdGuard VPN ќе се појави во предлозите"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Добро"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Не го покажувај ова повторно"
+    },
     "options_signedout_page_title": {
         "message": "Се одјавивте од AdGuard VPN"
     },

@@ -99,6 +99,18 @@
     "options_bug_report_request_error": {
         "message": "Адбылася памылка. Паспрабуйце пазней."
     },
+    "options_bug_report_send_button": {
+        "message": "Адправіць справаздачу"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Адправка справаздачы..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Укажыце дэталі"
+    },
+    "options_bug_report_page_success": {
+        "message": "Дзякуй, ваша паведамленне адпраўлена!"
+    },
     "options_bug_report_new_report_button": {
         "message": "Новая справаздача"
     },
@@ -131,6 +143,9 @@
     },
     "account_get_subscription": {
         "message": "Атрымаць падпіску"
+    },
+    "account_max_devices_count": {
+        "message": "Да <b>%num%</b> адначасовых прылад"
     },
     "account_valid_until": {
         "message": "Дзейнічае да <b>%date%</b>"
@@ -264,6 +279,18 @@
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Паўторна адправіць спасылку"
     },
+    "settings_free_gbs_add_device_title": {
+        "message": "Дадайце іншую платформу"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Усталюйце AdGuard VPN для iOS, Mac, Windows або Android, увайдзіце на ёй у свой уліковы запіс AdGuard і атрымайце %your_gb% ГБ."
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Дададзена яшчэ адна платформа"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Віншуем з устаноўкай AdGuard VPN на некалькіх платформах. Заставайцеся ў бяспецы!"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Перайсці ў \"Прадукты\""
     },
@@ -288,8 +315,20 @@
     "settings_webrtc_label": {
         "message": "Блакаваць WebRTC"
     },
+    "settings_webrtc_desc": {
+        "message": "Блакуе WebRTC, вядомую ўразлівасць, якая можа выклікаць уцечку вашага рэальнага IP-адраса, нават калі вы выкарыстоўваеце проксі або VPN"
+    },
+    "settings_context_menus_title": {
+        "message": "Дадаць AdGuard у кантэкставае меню браўзара"
+    },
+    "settings_context_menus_description": {
+        "message": "Кіруйце выняткамі VPN для канкрэтнага сайта"
+    },
     "settings_help_us_improve_title": {
         "message": "Дапамажыце палепшыць AdGuard VPN"
+    },
+    "settings_help_us_improve_modal_title": {
+        "message": "Дадзеныя аб выкарыстанні пашырэння"
     },
     "settings_help_us_improve_modal_desc_data": {
         "message": "Гэтыя даныя ўключаюць:"
@@ -327,6 +366,12 @@
     "settings_dns_label": {
         "message": "Абраны DNS-сервер"
     },
+    "settings_dns_description": {
+        "message": "Рашайце DNS-запыты, блакуйце рэкламу і трэкеры, і шыфруйце DNS-трафік, калі вы падлучаны да VPN"
+    },
+    "settings_dns_description_current": {
+        "message": "Зараз абраны %dnsServerName%"
+    },
     "settings_dns_popular_servers": {
         "message": "Папулярныя DNS-серверы"
     },
@@ -345,8 +390,17 @@
     "settings_dns_add_custom_server_name": {
         "message": "Назва сервера"
     },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Мой DNS-сервер"
+    },
     "settings_dns_add_custom_server_address": {
         "message": "Адрас сервера"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP-адрас або tls://"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Памылковы адрас сервера"
     },
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-сервер ужо дададзены"
@@ -362,6 +416,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Карыстальніцкі сервер DNS выдалены"
+    },
+    "settings_dns_edit_custom_server_notification": {
+        "message": "Карыстальніцкі сервер DNS адрэджаны"
     },
     "settings_dns_selector_default_title": {
         "message": "Прадвызначаны"
@@ -527,6 +584,9 @@
     },
     "settings_exclusions_remove_all_exclusions": {
         "message": "Выдаліць усе выняткі"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Вы жадаеце выдаліць увесь спіс выключэнняў?"
     },
     "settings_exclusion_title": {
         "message": "Выняткі"
@@ -744,6 +804,19 @@
     "popup_auth_policy_agreement_title": {
         "message": "Сардэчна запрашаем"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Я прымаю <eula>EULA</eula> і <privacy>Палітыку прыватнасці</privacy> AdGuard VPN",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Відправіць анонімізаваныя <link>даныя пра выкарыстанне пашырэння</link>"
+    },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "Калі вы згаджаецеся, AdGuard VPN тут будзе збіраць дадзеныя аб экранах і кнопках, з якімі вы ўзаемадзейнічалі. Вы заўсёды можаце адключыць абмен дадзенымі ў <b>Настройках</b>"
+    },
+    "popup_auth_help_us_improve_modal_desc_info": {
+        "message": "Гэтая інфармацыя дапамагае нам зразумець, якія функцыянальнасці працуюць добра, а што патрабуе паляпшэння. Яна ананімізавана і выкарыстоўваецца толькі ўнутрана. Мы ніколі не дзелімся ёй з кім-небудзь."
+    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Увайдзіце або стварыце ўліковы запіс"
     },
@@ -913,6 +986,30 @@
     },
     "popup_connections_limit_title": {
         "message": "Дасягнуты ліміт падлучэнняў"
+    },
+    "popup_mobile_edge_promo_text": {
+        "message": "Атрымаць VPN пашырэнне для Android"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN для Edge — цяпер на Android"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Скануйце QR-код, каб устанавіць Edge на вашым тэлефоне або планшэце. AdGuard VPN з'явіцца ў прапановах"
+    },
+    "popup_mobile_edge_promo_modal_got_it_btn": {
+        "message": "Зразумела"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Не паказваць зноў"
+    },
+    "options_signedout_page_title": {
+        "message": "Вы выйшлі з AdGuard VPN"
+    },
+    "options_signedout_page_description_not_secure": {
+        "message": "Злучэнне не абаронена!"
+    },
+    "options_signedout_page_description": {
+        "message": "Каб працягнуць карыстацца інтэрнэтам бяспечна, націсніце на значок AdGuard VPN і зноў увайдзіце ў дадатак."
     },
     "notification_data_limit_reached_title": {
         "message": "Дасягнуты месячны ліміт дадзеных"

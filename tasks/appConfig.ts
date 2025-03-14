@@ -129,19 +129,22 @@ const TELEMETRY_API_URLS = {
     [StageEnv.Test]: 'telemetry.service.agrd.dev',
 };
 
-export const genAppConfig = (browserType: string, stageEnv?: string, buildingEnv?: string) => {
+/**
+ * Generates app config based on the provided browser, stage environment and building environment.
+ *
+ * @param browser Browser name.
+ * @param stageEnv Stage environment.
+ * @param buildingEnv Building environment.
+ *
+ * @returns App config.
+ */
+export const genAppConfig = (browser: string, stageEnv?: string, buildingEnv?: string) => {
     if (!buildingEnv) {
         throw new Error('No building environment was provided');
     }
 
     if (!stageEnv) {
         throw new Error('No stage environment was provided');
-    }
-
-    let browser = browserType;
-    if (browserType === Browser.ChromeMV2) {
-        // api urls are same for the Chrome mv2 and mv3 versions
-        browser = Browser.Chrome;
     }
 
     if (!TELEMETRY_API_URLS[stageEnv as StageEnv]) {

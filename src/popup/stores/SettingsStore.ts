@@ -46,6 +46,8 @@ export class SettingsStore {
 
     @observable isRateVisible: boolean;
 
+    @observable isMobileEdgePromoBannerVisible: boolean;
+
     @observable freeUserClickedPremiumLocation: boolean = false;
 
     @observable hasLimitExceededDisplayed: boolean = false;
@@ -302,6 +304,13 @@ export class SettingsStore {
         });
     };
 
+    @action hideMobileEdgePromoBanner = async (): Promise<void> => {
+        await messenger.hideMobileEdgePromoBanner();
+        runInAction(() => {
+            this.isMobileEdgePromoBannerVisible = false;
+        });
+    };
+
     @action setPremiumLocationClickedByFreeUser = (state: boolean): void => {
         this.freeUserClickedPremiumLocation = state;
     };
@@ -410,6 +419,10 @@ export class SettingsStore {
     @action setIsVpnBlocked = (value: boolean): void => {
         this.isVpnBlocked = value;
     };
+
+    @action setShowMobileEdgePromoBanner(value: boolean): void {
+        this.isMobileEdgePromoBannerVisible = value;
+    }
 
     @action setHostPermissionsError = (value: boolean): void => {
         this.isHostPermissionsGranted = value;

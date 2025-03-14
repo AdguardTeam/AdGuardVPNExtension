@@ -11,7 +11,7 @@ import { type TelemetryStore } from './TelemetryStore';
  * 1) Default behavior is to send telemetry event when the component is mounted.
  * 2) When specified `screenName` is overlapped by another screen, and you need to send telemetry
  *    event when another screen is closed. For example, when you have a dialog that rendered
- *   on top of `screenName`, and you want to send telemetry event when dialog gets closed.
+ *    on top of `screenName`, and you want to send telemetry event when dialog gets closed.
  * 3) When specified `screenName` is rendered conditionally, and you want to send telemetry event,
  *    only when the `screenName` is rendered. For example, dialog that is rendered only when
  *    `condition` is `true`.
