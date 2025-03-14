@@ -130,7 +130,7 @@ export const Locations = observer(() => {
     };
 
     return (
-        <div className="endpoints">
+        <div className="endpoints endpoints--re-design">
             <div className="endpoints__header">
                 {translator.getMessage('endpoints_countries')}
                 <button

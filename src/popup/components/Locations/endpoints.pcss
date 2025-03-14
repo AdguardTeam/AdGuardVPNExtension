@@ -9,6 +9,8 @@
     transition: opacity var(--t3);
     background-color: var(--fills-backgrounds-page-background-default);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 
     /* TODO: Remove it when popup design will be available in wider screens. */
     .android & {
@@ -135,7 +137,7 @@
     }
 
     &__scroll {
-        max-height: 406px;
+        flex: 1 1 auto;
         overflow-y: auto;
         scrollbar-width: thin;
 
@@ -162,8 +164,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        /* FIXME: On smaller popup height */
-        height: 360px;
+        height: 100%;
     }
 
     &__not-found {
