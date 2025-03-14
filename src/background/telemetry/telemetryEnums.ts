@@ -75,7 +75,7 @@ export enum TelemetryActionName {
 }
 
 /**
- * Support item click actions.
+ * Locations tab click action names.
  */
 export type LocationsTabClickActionNames = TelemetryActionName.AllLocationsClick
 | TelemetryActionName.SavedLocationsClick;
