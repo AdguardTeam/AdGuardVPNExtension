@@ -3,11 +3,12 @@ import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
 
-import { reactTranslator } from '../../../common/reactTranslator';
+import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
 import { type LocationData } from '../../stores/VpnStore';
 import { Ping } from '../Ping';
 import { PingDotsLoader } from '../PingDotsLoader';
+import { Icon } from '../ui/Icon';
 
 /**
  * Location component props.
@@ -31,8 +32,6 @@ interface LocationProps {
 
 /**
  * Location component.
- *
- * FIXME: Implement save button
  */
 export const Location = observer(({ location, onClick, onSaveClick }: LocationProps) => {
     const { vpnStore, settingsStore } = useContext(rootStore);
@@ -47,9 +46,27 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         available,
         premiumOnly,
         virtual,
+        saved,
     } = location;
 
     const locationFitsPremiumToken = vpnStore.isPremiumToken || !premiumOnly;
+
+    const virtualText = translator.getMessage('endpoints_location_virtual');
+    const offlineText = translator.getMessage('offline_title');
+
+    let computedCityName = cityName;
+    if (virtual) {
+        computedCityName = `${cityName} (${virtualText})`;
+    }
+
+    let pingText = '...';
+    if (!available) {
+        pingText = offlineText;
+    } else if (ping) {
+        pingText = `${ping} ms`;
+    }
+
+    const title = `${countryName} - ${computedCityName}: ${pingText}`;
 
     const handleLocationClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -60,10 +77,18 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         }
     };
 
+    const handleSaveClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onSaveClick(id);
+    };
+
     const endpointItemClass = classnames(
         'endpoint',
+        'endpoint--re-designed',
         'endpoints__item',
         { 'endpoint--active': selected },
+        { 'endpoint--saved': saved },
         { 'endpoints__item--offline': !available },
     );
 
@@ -98,14 +123,6 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         );
     };
 
-    const renderCityName = () => {
-        if (!virtual) {
-            return cityName;
-        }
-
-        return `${cityName} (${reactTranslator.getMessage('endpoints_location_virtual')})`;
-    };
-
     const renderPingDotsLoader = () => {
         return (
             <div className="ping">
@@ -124,7 +141,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         if (!available) {
             return (
                 <div className="ping">
-                    <span>{reactTranslator.getMessage('offline_title')}</span>
+                    <span>{offlineText}</span>
                 </div>
             );
         }
@@ -136,28 +153,46 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         return renderPingDotsLoader();
     };
 
+    const renderSaveButton = () => {
+        // Do not render as button, because it descends from
+        // button element, which may error in console from React.
+
+        return (
+            <div
+                className="endpoint__save-btn"
+                onClick={handleSaveClick}
+            >
+                <Icon
+                    icon={saved ? 'bookmark-on' : 'bookmark-off'}
+                    className="endpoint__save-btn-icon"
+                />
+            </div>
+        );
+    };
+
     return (
         <button
             type="button"
             className={endpointItemClass}
+            title={title}
             onClick={handleLocationClick}
         >
             <div className="endpoint__info">
                 {renderLocationIcon(countryCode)}
-                <div className="endpoint__location-container endpoint__location-container--wide">
+                <div className="endpoint__location-container">
                     <div className={titleClass}>
                         {countryName}
                     </div>
                     <div className="endpoint__location-name endpoint__desc">
-                        {renderCityName()}
+                        {computedCityName}
                     </div>
                 </div>
             </div>
 
             <div className="endpoint__ping-container">
+                {renderSaveButton()}
                 {renderLocationPing()}
             </div>
-
         </button>
     );
 });

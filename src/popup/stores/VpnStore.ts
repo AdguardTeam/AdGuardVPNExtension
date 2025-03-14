@@ -148,9 +148,8 @@ export class VpnStore {
             .map((location) => {
                 const enrichedLocation = this.enrichWithStateData(location);
                 const selected = this.selectedLocation && this.selectedLocation.id === location.id;
-                const saved = this.savedLocationIds.has(location.id);
 
-                return <LocationData>{ ...enrichedLocation, selected, saved };
+                return <LocationData>{ ...enrichedLocation, selected };
             })
             .sort((a, b) => {
                 const compareCountryName = a.countryName.localeCompare(b.countryName);
@@ -171,11 +170,20 @@ export class VpnStore {
      */
     enrichWithStateData = (location: LocationData): LocationData => {
         const pingData = this.pings[location.id];
-        if (pingData) {
-            const { ping, available } = pingData;
-            return <LocationData>{ ...location, ping, available };
+        const saved = this.savedLocationIds.has(location.id);
+
+        if (!pingData) {
+            return { ...location, saved };
         }
-        return location;
+
+        const { ping, available } = pingData;
+
+        return <LocationData>{
+            ...location,
+            ping,
+            available,
+            saved,
+        };
     };
 
     /**

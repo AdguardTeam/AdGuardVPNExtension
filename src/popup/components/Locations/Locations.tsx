@@ -89,6 +89,8 @@ export const Locations = observer(() => {
     };
 
     const renderFilteredEndpoint = () => {
+        // FIXME: Waits for clarification which one to show when searching and saved tab is empty
+
         const emptySearchResults = showSearchResults && filteredLocations.length === 0;
         if (emptySearchResults) {
             return (
