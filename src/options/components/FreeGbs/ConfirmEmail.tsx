@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 import { ONE_MINUTE_MS } from '../../../common/constants';
 import { translator } from '../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { rootStore } from '../../stores';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Button } from '../ui/Button';
@@ -17,6 +17,9 @@ import { Title } from '../ui/Title';
 
 const RESEND_COOLDOWN_KEY = 'resend.email.cooldown.start.time';
 
+/**
+ * Confirm email page component.
+ */
 export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
@@ -83,6 +86,11 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
         timeoutRef.current = setTimeout(() => {
             setIsButtonCooldown(false);
         }, ONE_MINUTE_MS);
+
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.ResendEmailClick,
+            TelemetryScreenName.FreeGbConfirmEmailScreen,
+        );
 
         await resendConfirmationLink();
 

@@ -18,7 +18,7 @@ import {
     type TelemetryActionToScreenMap,
     TelemetryLicenseStatus,
     TelemetryOs,
-    type TelemetryScreenName,
+    TelemetryScreenName,
     TelemetrySubscriptionDuration,
     TelemetryTheme,
 } from './telemetryEnums';
@@ -393,10 +393,26 @@ export class Telemetry implements TelemetryInterface {
             return;
         }
 
+        /**
+         * ContextBasedScreen is a special case when custom event is sent
+         * based on current active screen name. In this case, we need to
+         * replace ContextBasedScreen with the actual screen name.
+         *
+         * If current screen name is not defined, we don't send screen name.
+         * Because ref_name is optional in custom events.
+         *
+         * For example: Links of sidebar, sidebar is rendered in multiple screens
+         * and when click event is sent, we need to know from which screen it was clicked.
+         */
+        let actualScreenName: TelemetryScreenName | undefined = screenName;
+        if (actualScreenName === TelemetryScreenName.ContextBasedScreen) {
+            actualScreenName = this.currentScreenName;
+        }
+
         const baseData = await this.getBaseData();
         const event: TelemetryCustomEventData = {
             name: actionName,
-            refName: screenName,
+            refName: actualScreenName,
         };
 
         await this.telemetryProvider.sendCustomEvent(event, baseData);

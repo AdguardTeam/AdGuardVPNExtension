@@ -5,7 +5,7 @@ import { rootStore } from '../../../stores';
 import { getForwarderUrl } from '../../../../common/helpers';
 import { translator } from '../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 
 import { DnsSettingsServerModal, type DnsSettingsServerModalError } from './DnsSettingsServerModal';
@@ -16,6 +16,9 @@ import {
     validateDnsServerAddress,
 } from './validate';
 
+/**
+ * Add custom DNS server modal component.
+ */
 export const DnsSettingsServerModalAdd = observer(() => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
@@ -58,6 +61,12 @@ export const DnsSettingsServerModalAdd = observer(() => {
                 dnsServerAddressError,
             };
         }
+
+        // Send telemetry event only if fields are valid
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SaveCustomDnsClick,
+            TelemetryScreenName.DialogAddCustomDns,
+        );
 
         const dnsServer = await settingsStore.addCustomDnsServer(
             normalizedDnsServerName,

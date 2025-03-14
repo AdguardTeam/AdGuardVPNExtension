@@ -11,11 +11,15 @@ import { Icon } from '../../ui/Icon';
 import './authorization.pcss';
 
 export const Authorization = () => {
-    const { authStore, telemetryStore } = useContext(rootStore);
+    const { authStore, telemetryStore, settingsStore } = useContext(rootStore);
+    const { showServerErrorPopup } = settingsStore;
+
+    const canSendTelemetry = !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,
-        TelemetryScreenName.AuthScreen,
+        TelemetryScreenName.AuthLoginScreen1,
+        canSendTelemetry,
     );
 
     const authClickHandler = (provider: SocialAuthProvider) => async () => {

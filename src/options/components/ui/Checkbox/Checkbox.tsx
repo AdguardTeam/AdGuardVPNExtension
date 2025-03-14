@@ -6,13 +6,34 @@ import { Icon } from '../Icon';
 
 import './checkbox.pcss';
 
+/**
+ * Checkbox component props.
+ */
 export interface CheckboxProps {
+    /**
+     * ID of input.
+     */
     id?: string;
+
+    /**
+     * Label.
+     */
     label: React.ReactNode;
+
+    /**
+     * Current value.
+     */
     value: boolean;
+
+    /**
+     * On toggle handler.
+     */
     onToggle?: () => void;
 }
 
+/**
+ * Checkbox component.
+ */
 export function Checkbox({
     id,
     label,

@@ -6,7 +6,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { translator } from '../../../common/translator';
 import { type LocationData } from '../../stores/VpnStore';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { Icon } from '../ui/Icon';
 
 import { FastestSkeleton } from './FastestSkeleton';
@@ -29,6 +29,8 @@ export const Locations = observer(() => {
         settingsStore,
         telemetryStore,
     } = useContext(rootStore);
+
+    const isSearchTelemetrySent = useRef(false);
 
     const deletedNotificationTimeout = useRef<NodeJS.Timeout>();
     const [lastUnsavedLocation, setLastUnsavedLocation] = useState<string | null>(null);
@@ -106,6 +108,18 @@ export const Locations = observer(() => {
 
     const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
+
+        // Telemetry event should be sent only once
+        // when user starts typing in the search field.
+        // NOTE: State will be reset when this component is unmounted.
+        if (!isSearchTelemetrySent.current) {
+            isSearchTelemetrySent.current = true;
+            telemetryStore.sendCustomEvent(
+                TelemetryActionName.SearchLocationsClick,
+                TelemetryScreenName.LocationsScreen,
+            );
+        }
+
         vpnStore.setSearchValue(value);
     };
 
@@ -169,8 +183,8 @@ export const Locations = observer(() => {
             </div>
             <Search
                 value={vpnStore.searchValue}
-                handleChange={handleSearchInput}
-                handleClear={handleSearchClear}
+                onChange={handleSearchInput}
+                onClear={handleSearchClear}
             />
             <TabButtons />
             <div className="endpoints__scroll">

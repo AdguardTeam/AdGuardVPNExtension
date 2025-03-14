@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 
 import './newsletter.pcss';
 
@@ -16,6 +16,15 @@ export const Newsletter = () => {
     );
 
     const handleClick = (value: boolean) => async (): Promise<void> => {
+        const telemetryActionName = value
+            ? TelemetryActionName.AcceptNewsletter
+            : TelemetryActionName.DeclineNewsletter;
+
+        telemetryStore.sendCustomEvent(
+            telemetryActionName,
+            TelemetryScreenName.NewsletterScreen,
+        );
+
         await authStore.setMarketingConsent(value);
     };
 

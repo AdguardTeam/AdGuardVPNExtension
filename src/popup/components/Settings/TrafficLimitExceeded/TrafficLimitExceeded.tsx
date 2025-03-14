@@ -27,6 +27,10 @@ export const TrafficLimitExceeded = observer(() => {
 
     const handleClose = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.CloseSpeedReducesClick,
+            TelemetryScreenName.SpeedReducedScreen,
+        );
         settingsStore.setHasLimitExceededDisplayed();
     };
 

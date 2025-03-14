@@ -4,8 +4,10 @@ import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
 
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 
 import './server-error-popup.pcss';
 
@@ -24,7 +26,7 @@ type ServerErrorPopupData = {
  * This component presents two screens: dialog screen and thank you screen
  */
 export const ServerErrorPopup = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
     const { showServerErrorPopup, closeServerErrorPopup } = settingsStore;
 
     enum ServerErrorPopupState {
@@ -35,7 +37,19 @@ export const ServerErrorPopup = observer(() => {
     const initialPopupState = ServerErrorPopupState.DialogScreen;
     const [state, setState] = useState(initialPopupState);
 
+    const isOpen = showServerErrorPopup;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogCantConnect,
+        isOpen,
+    );
+
     const closeModal = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.CloseCantConnectClick,
+            TelemetryScreenName.DialogCantConnect,
+        );
         closeServerErrorPopup();
         // reset to initial server error popup state, otherwise it will be shown again if server error
         // occurs AG-23009
@@ -48,7 +62,13 @@ export const ServerErrorPopup = observer(() => {
             info: reactTranslator.getMessage('popup_server_error_popup_info'),
             button: {
                 text: reactTranslator.getMessage('popup_server_error_popup_action'),
-                action: () => setState(ServerErrorPopupState.ThankYouScreen),
+                action: () => {
+                    telemetryStore.sendCustomEvent(
+                        TelemetryActionName.NudgeAdguardClick,
+                        TelemetryScreenName.DialogCantConnect,
+                    );
+                    setState(ServerErrorPopupState.ThankYouScreen);
+                },
             },
         },
         [ServerErrorPopupState.ThankYouScreen]: {
@@ -75,7 +95,7 @@ export const ServerErrorPopup = observer(() => {
 
     return (
         <Modal
-            isOpen={showServerErrorPopup}
+            isOpen={isOpen}
             className={modalClasses}
             shouldCloseOnOverlayClick
             overlayClassName="modal__overlay"

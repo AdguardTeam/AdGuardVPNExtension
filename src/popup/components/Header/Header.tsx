@@ -6,12 +6,35 @@ import classnames from 'classnames';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { translator } from '../../../common/translator';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName, type HeaderScreenNames } from '../../../background/telemetry';
 import { Icon } from '../ui/Icon';
 
 import './header.pcss';
 
-export const Header = observer(({ showMenuButton }: { showMenuButton: boolean }) => {
+/**
+ * Header component props.
+ */
+export interface HeaderProps {
+    /**
+     * If true, show menu button.
+     */
+    showMenuButton: boolean;
+
+    /**
+     * Screen name for telemetry. Default is HomeScreen.
+     *
+     * If null, telemetry will not be sent.
+     */
+    screenName?: HeaderScreenNames | null;
+}
+
+/**
+ * Main header component of popup.
+ */
+export const Header = observer(({
+    showMenuButton,
+    screenName = TelemetryScreenName.HomeScreen,
+}: HeaderProps) => {
     const {
         uiStore,
         vpnStore,
@@ -23,14 +46,24 @@ export const Header = observer(({ showMenuButton }: { showMenuButton: boolean })
     const { hasGlobalError, isLimitedOfferActive } = settingsStore;
 
     const handleOpenModal = () => {
+        if (screenName) {
+            telemetryStore.sendCustomEvent(
+                TelemetryActionName.MenuClick,
+                screenName,
+            );
+        }
+
         uiStore.openOptionsModal();
     };
 
     const handleOpenReferral = async () => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.FreeGbClick,
-            TelemetryScreenName.HomeScreen,
-        );
+        if (screenName) {
+            telemetryStore.sendCustomEvent(
+                TelemetryActionName.FreeGbClick,
+                screenName,
+            );
+        }
+
         await popupActions.openFreeGbsPage();
     };
 

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryActionName, TelemetryScreenName } from '../../../../../../background/telemetry';
 import { rootStore } from '../../../../../stores';
 import { ServicesSearch } from '../../../Search';
 import { translator } from '../../../../../../common/translator';
@@ -11,8 +12,11 @@ import './service-mode.pcss';
 
 export const SERVICE_FORM_ID = 'add-exclusion-form-service';
 
+/**
+ * Service mode component.
+ */
 export const ServiceMode = observer(() => {
-    const { exclusionsStore, notificationsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const closeModal = () => {
         exclusionsStore.closeAddExclusionModal();
@@ -20,6 +24,11 @@ export const ServiceMode = observer(() => {
 
     const handleSaveServices = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SaveWebsiteClick,
+            TelemetryScreenName.DialogAddWebsiteExclusion,
+        );
 
         const toggleServicesResult = await exclusionsStore.toggleServices();
         const { added, deleted } = toggleServicesResult;

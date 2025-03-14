@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { translator } from '../../../common/translator';
 import { getForwarderUrl } from '../../../common/helpers';
@@ -11,6 +11,9 @@ import { Title } from '../ui/Title';
 
 import './about.pcss';
 
+/**
+ * About page component.
+ */
 export const About = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
 
@@ -24,6 +27,13 @@ export const About = observer(() => {
     const websiteUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.WEBSITE);
     const eulaUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.EULA);
     const privacyUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY);
+
+    const handleWebsiteClick = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.OfficialWebClick,
+            TelemetryScreenName.AboutScreen,
+        );
+    };
 
     const aboutVersionStr = `${translator.getMessage('account_version')} ${settingsStore.appVersion}`;
 
@@ -56,6 +66,7 @@ export const About = observer(() => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="button has-tab-focus button--transparent about__link"
+                        onClick={handleWebsiteClick}
                     >
                         <span className="button__text">
                             {translator.getMessage('official_website')}

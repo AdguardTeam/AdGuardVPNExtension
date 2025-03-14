@@ -15,11 +15,15 @@ import { TelemetryScreenName } from '../../../../background/telemetry';
 import { InputField } from '../InputField';
 
 export const RegistrationForm = observer(() => {
-    const { authStore, telemetryStore } = useContext(rootStore);
+    const { authStore, telemetryStore, settingsStore } = useContext(rootStore);
+    const { showServerErrorPopup } = settingsStore;
+
+    const canSendTelemetry = !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,
         TelemetryScreenName.AuthSignupScreen,
+        canSendTelemetry,
     );
 
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {

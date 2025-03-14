@@ -7,7 +7,11 @@ import classNames from 'classnames';
 import { translator } from '../../../common/translator';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import {
+    TelemetryActionName,
+    TelemetryScreenName,
+    type FreeGbItemClickActionNames,
+} from '../../../background/telemetry';
 import { rootStore } from '../../stores';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Title } from '../ui/Title';
@@ -20,19 +24,64 @@ import { AddDevice } from './AddDevice';
 
 import './free-gbs.pcss';
 
+/**
+ * Free GBs page component props.
+ */
 interface RenderItemProps {
+    /**
+     * Item title.
+     */
     title: string;
+
+    /**
+     * Item status.
+     */
     status: string | React.ReactNode;
+
+    /**
+     * Item query.
+     */
     query: string;
+
+    /**
+     * Item status when completed.
+     */
     statusDone: string | React.ReactNode;
+
+    /**
+     * Is item completed.
+     */
     completed: boolean;
+
+    /**
+     * Telemetry action name.
+     */
+    telemetryActionName: FreeGbItemClickActionNames;
 }
 
+/**
+ * Free GBs page route.
+ */
 const FREE_GBS = 'free-gbs';
+
+/**
+ * Free GBs invite friend page query.
+ */
 const INVITE_FRIEND = 'invite-friend';
+
+/**
+ * Free GBs confirm email page query.
+ */
 const CONFIRM_EMAIL = 'confirm-email';
+
+/**
+ * Free GBs add device page query.
+ */
 const ADD_DEVICE = 'add-device';
 
+/**
+ * Free GBs page component.
+ */
 export const FreeGbs = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
 
@@ -88,6 +137,7 @@ export const FreeGbs = observer(() => {
             statusDone: translator.getMessage('settings_free_gbs_invite_friend_complete', { num: maxInvitesCount }),
             query: INVITE_FRIEND,
             completed: invitesQuestCompleted,
+            telemetryActionName: TelemetryActionName.InviteFriendClick,
         },
         {
             title: translator.getMessage('settings_free_gbs_confirm_email_title'),
@@ -95,6 +145,7 @@ export const FreeGbs = observer(() => {
             statusDone: translator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: CONFIRM_EMAIL,
             completed: confirmEmailQuestCompleted,
+            telemetryActionName: TelemetryActionName.ConfirmEmailClick,
         },
         {
             title: translator.getMessage('settings_free_gbs_add_device_title'),
@@ -102,6 +153,7 @@ export const FreeGbs = observer(() => {
             statusDone: translator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: ADD_DEVICE,
             completed: addDeviceQuestCompleted,
+            telemetryActionName: TelemetryActionName.AddGbDeviceClick,
         },
     ];
 
@@ -111,7 +163,16 @@ export const FreeGbs = observer(() => {
         query,
         statusDone,
         completed,
+        telemetryActionName,
     }: RenderItemProps) => {
+        const handleClick = () => {
+            telemetryStore.sendCustomEvent(
+                telemetryActionName,
+                TelemetryScreenName.FreeGbScreen,
+            );
+            clickItemHandler(query);
+        };
+
         return (
             <Controls
                 key={query}
@@ -120,7 +181,7 @@ export const FreeGbs = observer(() => {
                 className={classNames('free-gbs__button', completed && 'free-gbs__button--done')}
                 beforeAction={<Icon name="checkmark" className="free-gbs__button-check-icon" />}
                 action={<IconButton name="arrow-down" className="free-gbs__button-arrow-icon" />}
-                onClick={() => clickItemHandler(query)}
+                onClick={handleClick}
             />
         );
     };

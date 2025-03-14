@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { useMachine } from '@xstate/react';
 import identity from 'lodash/identity';
 
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { addMinDurationTime } from '../../../../common/helpers';
 import { messenger } from '../../../../common/messenger';
@@ -48,6 +48,9 @@ interface FormError extends FormErrorType {
     [FormField.Message]?: string | null;
 }
 
+/**
+ * Bug reporter page component.
+ */
 export const BugReporter = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
 
@@ -133,6 +136,12 @@ export const BugReporter = observer(() => {
             return;
         }
 
+        // Send telemetry event only if fields are valid
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SendReportClick,
+            TelemetryScreenName.SupportReportBugScreen,
+        );
+
         sendToRequestMachine(
             RequestEvent.SendReport,
             {
@@ -146,7 +155,8 @@ export const BugReporter = observer(() => {
     const formChangeHandler = (e: React.ChangeEvent<HTMLFormElement>): void => {
         const { id, value, checked } = e.target;
 
-        const resultValue = e.target.type === 'checkbox' ? checked : value;
+        const isCheckbox = e.target.type === 'checkbox';
+        const resultValue = isCheckbox ? checked : value;
 
         // clear request errors
         sendToRequestMachine(RequestEvent.ClearErrors);
@@ -165,6 +175,14 @@ export const BugReporter = observer(() => {
                 [id]: resultValue,
             };
         });
+
+        // Send telemetry event only when checkbox becomes active
+        if (isCheckbox && resultValue) {
+            telemetryStore.sendCustomEvent(
+                TelemetryActionName.SendInfoClick,
+                TelemetryScreenName.SupportReportBugScreen,
+            );
+        }
     };
 
     let buttonText = translator.getMessage('options_bug_report_send_button');
