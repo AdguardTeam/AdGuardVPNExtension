@@ -174,8 +174,13 @@ export class SavedLocations implements SavedLocationsInterface {
      */
     public addSavedLocation = async (locationId: string): Promise<void> => {
         const savedLocations = await this.getSavedLocationIds();
-        savedLocations.push(locationId);
-        await this.saveSavedLocationIds(savedLocations);
+        const index = savedLocations.indexOf(locationId);
+
+        // Add location if it doesn't exist
+        if (index === -1) {
+            savedLocations.push(locationId);
+            await this.saveSavedLocationIds(savedLocations);
+        }
     };
 
     /**
@@ -186,6 +191,8 @@ export class SavedLocations implements SavedLocationsInterface {
     public removeSavedLocation = async (locationId: string): Promise<void> => {
         const savedLocations = await this.getSavedLocationIds();
         const index = savedLocations.indexOf(locationId);
+
+        // Remove location if it exists
         if (index !== -1) {
             savedLocations.splice(index, 1);
             await this.saveSavedLocationIds(savedLocations);
