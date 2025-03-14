@@ -62,11 +62,19 @@
         }
 
         .endpoint--re-designed & {
+            justify-content: space-between;
             flex-shrink: 0;
 
             .ping {
                 flex-shrink: 0;
                 min-width: 55px;
+
+                &--loader {
+                    display: flex;
+                    justify-content: flex-end;
+                    /* Center loader vertically */
+                    margin-top: 9px;
+                }
             }
         }
     }

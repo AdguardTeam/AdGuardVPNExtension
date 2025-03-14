@@ -125,7 +125,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
 
     const renderPingDotsLoader = () => {
         return (
-            <div className="ping">
+            <div className="ping ping--loader">
                 <span className="endpoints__ping-dots-loader">
                     <PingDotsLoader />
                 </span>
