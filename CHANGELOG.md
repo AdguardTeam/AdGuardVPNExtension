@@ -23,14 +23,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable resend email button for 60 seconds after clicking it [#192].
 - "X" icon in the locations is hard to see with long letters [#197].
 - Flashing of skeleton loader [#168].
+- 'Disable VPN on this website' hint is not displaying in the extension popup [#203].
 
+[#168]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/168
 [#169]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/169
-[#191]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/191
 [#171]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/171
+[#191]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/191
 [#192]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/192
 [#197]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/197
-[#168]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/168
 [#199]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/199
+[#203]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/203
 
 ## [2.4.6] - 2025-03-10
 

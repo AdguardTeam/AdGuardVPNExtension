@@ -681,7 +681,7 @@ export class AuthStore {
             // host permissions should be granted to show the hint popup;
             // no `!` is used because of its semantics
             && this.rootStore.settingsStore.isHostPermissionsGranted
-            && this.rootStore.settingsStore.isLimitedOfferActive
+            && !this.rootStore.settingsStore.isLimitedOfferActive
             && !this.rootStore.settingsStore.showNotificationModal
             && !this.rootStore.vpnStore.tooManyDevicesConnected;
     }

@@ -85,13 +85,20 @@ class HintPopup implements HintPopupInterface {
             return false;
         }
 
+        // Do not show hint if login time is null (shown already) or undefined (not logged in yet)
+        const loginTime = await this.getLoginTime();
+        if (typeof loginTime !== 'number') {
+            return false;
+        }
+
         const isTesting = await browserApi.storage.get(TEST_KEY);
         const hintPopupDelay = isTesting ? HINT_POPUP_TEST_DELAY : HINT_POPUP_DELAY;
+        const isDelayPassedSinceLogin = loginTime + hintPopupDelay <= Date.now();
 
-        const loginTime = await this.getLoginTime();
-        return !!(loginTime && (loginTime + hintPopupDelay <= Date.now()))
-            // add 1 to popupOpenedNum because shouldShowHintPopup called for next popup opening
-            && popupOpenedCounter.count + 1 >= POPUP_OPENED_COUNT_TO_SHOW_HINT;
+        // Add 1 to popupOpenedNum because shouldShowHintPopup called for next popup opening
+        const isPopupOpenedEnough = popupOpenedCounter.count + 1 >= POPUP_OPENED_COUNT_TO_SHOW_HINT;
+
+        return isDelayPassedSinceLogin && isPopupOpenedEnough;
     };
 }
 
