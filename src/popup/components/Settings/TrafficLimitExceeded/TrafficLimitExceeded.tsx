@@ -5,6 +5,7 @@ import { translator } from '../../../../common/translator';
 import { rootStore } from '../../../stores';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import tiredImageUrl from '../../../../assets/images/tired.svg';
 import { Icon } from '../../ui/Icon';
 
 export const TrafficLimitExceeded = observer(() => {
@@ -45,7 +46,7 @@ export const TrafficLimitExceeded = observer(() => {
             </button>
             <div className="new-global-error__image-wrapper">
                 <img
-                    src="../../../assets/images/tired.svg"
+                    src={tiredImageUrl}
                     className="new-global-error__image"
                     alt="Slow Ninja"
                 />

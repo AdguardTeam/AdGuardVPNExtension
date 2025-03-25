@@ -10,6 +10,7 @@ import { ONE_MINUTE_MS } from '../../../common/constants';
 import { translator } from '../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import confirmEmailTaskImageUrl from '../../../assets/images/confirm-email.svg';
 import { rootStore } from '../../stores';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Button } from '../ui/Button';
@@ -111,7 +112,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
         <div className="free-gbs-task">
             <Title title="" onClick={goBackHandler} />
             <img
-                src="../../../assets/images/confirm-email-task.svg"
+                src={confirmEmailTaskImageUrl}
                 alt={title}
                 className="free-gbs-task__image"
             />

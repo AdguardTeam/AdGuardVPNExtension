@@ -5,6 +5,7 @@ import { DotsLoader } from '../../../common/components/DotsLoader';
 import { translator } from '../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import referralImageUrl from '../../../assets/images/referral.svg';
 import { rootStore } from '../../stores';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Input } from '../ui/Input';
@@ -61,7 +62,7 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
         <div className="free-gbs-task">
             <Title title="" onClick={goBackHandler} />
             <img
-                src="../../../assets/images/referral.svg"
+                src={referralImageUrl}
                 alt={title}
                 className="free-gbs-task__image"
             />

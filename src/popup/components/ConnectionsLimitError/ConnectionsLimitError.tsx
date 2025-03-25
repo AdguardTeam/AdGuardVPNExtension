@@ -12,6 +12,7 @@ import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryScreenName } from '../../../background/telemetry';
+import confusedImageUrl from '../../../assets/images/confused.svg';
 import { Icon } from '../ui/Icon';
 
 export const ConnectionsLimitError = observer(() => {
@@ -97,7 +98,7 @@ export const ConnectionsLimitError = observer(() => {
                 </button>
                 <div className="new-global-error__image-wrapper">
                     <img
-                        src="../../../assets/images/confused.svg"
+                        src={confusedImageUrl}
                         className="new-global-error__image"
                         alt="Confused Ninja"
                     />

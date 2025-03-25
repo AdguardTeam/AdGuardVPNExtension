@@ -7,6 +7,7 @@ import { translator } from '../../../common/translator';
 import { isLocationsNumberAcceptable } from '../../../common/is-locations-number-acceptable';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import confusedImageUrl from '../../../assets/images/confused.svg';
 
 import './global-error.pcss';
 
@@ -73,7 +74,7 @@ export const GlobalError = observer(() => {
             <div className="new-global-error new-global-error--control">
                 <div className="new-global-error__image-wrapper">
                     <img
-                        src="../../../assets/images/confused.svg"
+                        src={confusedImageUrl}
                         className="new-global-error__image"
                         alt="Confused Ninja"
                     />

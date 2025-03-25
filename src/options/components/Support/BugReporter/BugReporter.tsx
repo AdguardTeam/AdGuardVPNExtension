@@ -9,6 +9,7 @@ import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
 import { addMinDurationTime } from '../../../../common/helpers';
 import { messenger } from '../../../../common/messenger';
 import { translator } from '../../../../common/translator';
+import ninjaLikeImageUrl from '../../../../assets/images/ninja-like.svg';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { Input, TextArea } from '../../ui/Input';
@@ -200,7 +201,7 @@ export const BugReporter = observer(() => {
         return (
             <div className="bug-report__success">
                 <img
-                    src="../../../../assets/images/ninja-like.svg"
+                    src={ninjaLikeImageUrl}
                     className="bug-report__success-image"
                     alt="slide"
                 />

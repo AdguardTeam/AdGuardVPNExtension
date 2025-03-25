@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { TelemetryScreenName } from '../../../background/telemetry';
 import { translator } from '../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import signedOutImageUrl from '../../../assets/images/signed-out.svg';
 import { rootStore } from '../../stores';
 
 import './signedout.pcss';
@@ -21,7 +22,7 @@ export const SignedOut = observer(() => {
             <div className="signedout__content">
                 <img
                     className="signedout__image"
-                    src="../../../assets/images/signed-out.svg"
+                    src={signedOutImageUrl}
                     alt="Floating Ninja"
                 />
                 <div className="signedout__title">

@@ -7,6 +7,7 @@ import { getForwarderUrl } from '../common/helpers';
 import { type IconVariants, Prefs } from '../common/prefs';
 import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
+import promoBannerImageUrl from '../assets/images/christmas24.svg';
 
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
@@ -255,9 +256,9 @@ const christmas24Notification = {
     from: '23 December 2024 12:00:00',
     to: '3 January 2025 23:59:00',
     type: 'animated',
+    bgImage: promoBannerImageUrl,
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
-    bgImage: getUrl('assets/images/christmas24.svg'),
     icons: {
         ENABLED: {
             19: getUrl('assets/images/icons/christmas24-on-19.png'),

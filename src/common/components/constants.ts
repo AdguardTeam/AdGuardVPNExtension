@@ -1,4 +1,8 @@
 import { translator } from '../translator';
+import unlimitedImageUrl from '../../assets/images/unlimited.svg';
+import allLocationsImageUrl from '../../assets/images/all-locations.svg';
+import unlimitedDataImageUrl from '../../assets/images/unlimited-data.svg';
+import connectDevicesImageUrl from '../../assets/images/connect-devices.svg';
 
 /**
  * Number of devices available in the unlimited plan.
@@ -7,22 +11,22 @@ const POTENTIAL_DEVICE_NUM = 10;
 
 export const UNLIMITED_FEATURES = [
     {
-        image: 'unlimited.svg',
+        imageUrl: unlimitedImageUrl,
         title: translator.getMessage('popup_upgrade_screen_unlimited_speed'),
         info: translator.getMessage('popup_upgrade_screen_unlimited_speed_desc'),
     },
     {
-        image: 'all-locations.svg',
+        imageUrl: allLocationsImageUrl,
         title: translator.getMessage('popup_upgrade_screen_all_locations'),
         info: translator.getMessage('popup_upgrade_screen_all_locations_desc'),
     },
     {
-        image: 'unlimited-data.svg',
+        imageUrl: unlimitedDataImageUrl,
         title: translator.getMessage('popup_upgrade_screen_unlimited_data'),
         info: translator.getMessage('popup_upgrade_screen_unlimited_data_desc'),
     },
     {
-        image: 'connect-devices.svg',
+        imageUrl: connectDevicesImageUrl,
         title: translator.getMessage('popup_upgrade_screen_connect_devices', {
             potential_num: POTENTIAL_DEVICE_NUM,
         }),

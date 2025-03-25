@@ -110,11 +110,12 @@ export const LimitedOfferDetails = observer(() => {
 
                 <div>
                     {UNLIMITED_FEATURES.map((feature) => {
-                        const { image, title, info } = feature;
+                        const { imageUrl, title, info } = feature;
+
                         return (
                             <div key={title} className="limited-offer-details__features-item">
                                 <img
-                                    src={`../../../assets/images/${image}`}
+                                    src={imageUrl}
                                     className="limited-offer-details__features-image"
                                     alt="slide"
                                 />

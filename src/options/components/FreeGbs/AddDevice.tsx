@@ -6,6 +6,8 @@ import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import addDeviceImageUrl from '../../../assets/images/add-device.svg';
+import productsImageUrl from '../../../assets/images/products.svg';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { rootStore } from '../../stores';
 import { Icon } from '../ui/Icon';
@@ -47,7 +49,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
         <div className="free-gbs-task">
             <Title title="" onClick={goBackHandler} />
             <img
-                src="../../../assets/images/add-device.svg"
+                src={addDeviceImageUrl}
                 alt={title}
                 className="free-gbs-task__image"
             />
@@ -60,7 +62,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
                 {!isCompleted ? (
                     <>
                         <img
-                            src="../../../assets/images/products.svg"
+                            src={productsImageUrl}
                             className="add-device__products"
                             alt="products"
                         />

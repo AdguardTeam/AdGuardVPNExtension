@@ -15,6 +15,7 @@ import {
     Browser,
     SRC_PATH,
 } from '../consts';
+import { megabytesToBytes, SizeLimitPlugin } from '../size-limit-plugin';
 
 import { firefoxManifestDiff } from './manifest.firefox';
 
@@ -25,6 +26,18 @@ let zipFilename = 'firefox.zip';
 const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
 const CUSTOM_PROTOCOL_HANDLER_PATH = path.resolve(__dirname, '..', SRC_PATH, 'custom-protocol-handler');
+
+/**
+ * Firefox Extensions Store has a limit of 4 MB for .js files.
+ */
+const FIREFOX_FILE_SIZE_LIMIT_MB = 4;
+
+/**
+ * File extension to byte size limits mapping.
+ */
+const SIZE_LIMITS_MB = {
+    '.js': megabytesToBytes(FIREFOX_FILE_SIZE_LIMIT_MB),
+};
 
 if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'firefox-prod.zip';
@@ -81,6 +94,9 @@ const plugins: webpack.WebpackPluginInstance[] = [
         path: '../',
         filename: zipFilename,
     }) as unknown as webpack.WebpackPluginInstance,
+    // Check the size of the output JS files and fail the build if any file exceeds the limit
+    // but not in the development mode.
+    new SizeLimitPlugin(IS_DEV ? {} : SIZE_LIMITS_MB),
 ];
 
 const outputPath = commonConfig.output?.path;

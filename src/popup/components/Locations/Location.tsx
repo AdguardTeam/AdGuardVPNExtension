@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import browser from 'webextension-polyfill';
 import classnames from 'classnames';
 
 import { reactTranslator } from '../../../common/reactTranslator';
@@ -8,6 +9,24 @@ import { rootStore } from '../../stores';
 import { type LocationData } from '../../stores/VpnStore';
 import { Ping } from '../Ping';
 import { PingDotsLoader } from '../PingDotsLoader';
+
+/**
+ * Get flag icon style object by country code.
+ *
+ * @param countryCode Country code.
+ * @returns Flag icon style object with background image,
+ * empty object if country code is not provided.
+ */
+export const getFlagIconStyle = (countryCode: string) => {
+    if (!countryCode) {
+        return {};
+    }
+
+    const iconName = countryCode.toLowerCase();
+    const fullUrl = browser.runtime.getURL(`assets/images/flags/${iconName}.svg`);
+
+    return { backgroundImage: `url("${fullUrl}")` };
+};
 
 type LocationProps = {
     location: LocationData,
@@ -64,14 +83,6 @@ export const Location = observer(({ location, handleClick }: LocationProps) => {
                 <div className="endpoints__lock-icon" />
             );
         }
-
-        const getFlagIconStyle = (countryCode: string) => {
-            if (!countryCode) {
-                return {};
-            }
-            const iconName = countryCode.toLowerCase();
-            return { backgroundImage: `url("../../assets/images/flags/${iconName}.svg")` };
-        };
 
         return (
             <div className={flagClass} style={getFlagIconStyle(countryCode)} />

@@ -8,14 +8,13 @@ import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Icon } from '../ui/Icon';
 
-import { PATH_TO_RATING_IMAGES, RATING_IMAGES_MAP } from './constants';
+import { RATING_IMAGES_MAP } from './constants';
 
 import './rate-modal.pcss';
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 
-const DEFAULT_RATING_IMAGE = RATING_IMAGES_MAP[5];
-const DEFAULT_RATING_IMAGE_PATH = `${PATH_TO_RATING_IMAGES}${DEFAULT_RATING_IMAGE}`;
+const DEFAULT_RATING_IMAGE_URL = RATING_IMAGES_MAP[5];
 
 export const RateModal = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -23,17 +22,17 @@ export const RateModal = observer(() => {
     const { rating, setRating, showRateModal } = authStore;
 
     const [ratingHovered, setRatingHovered] = useState<number | null>(null);
-    const [mainImagePath, setMainImagePath] = useState<string>(DEFAULT_RATING_IMAGE_PATH);
+    const [mainImagePath, setMainImagePath] = useState<string>(DEFAULT_RATING_IMAGE_URL);
 
     useEffect(() => {
         if (!rating && !ratingHovered) {
-            setMainImagePath(DEFAULT_RATING_IMAGE_PATH);
+            setMainImagePath(DEFAULT_RATING_IMAGE_URL);
             return;
         }
-        const imageName = ratingHovered
+        const imageUrl = ratingHovered
             ? RATING_IMAGES_MAP[ratingHovered]
             : RATING_IMAGES_MAP[rating];
-        setMainImagePath(`${PATH_TO_RATING_IMAGES}${imageName}`);
+        setMainImagePath(imageUrl);
     }, [rating, ratingHovered]);
 
     const closeModal = () => {
