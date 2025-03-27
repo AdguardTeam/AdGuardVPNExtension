@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Flashing of skeleton loader [#168].
 - 'Disable VPN on this website' hint is not displaying in the extension popup [#203].
 - Corners of Actions is not rounded [#200].
+- Incorrect height rendering in Edge for Android.
 
 [#168]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/168
 [#169]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/169

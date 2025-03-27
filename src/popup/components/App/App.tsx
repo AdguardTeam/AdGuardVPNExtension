@@ -206,10 +206,6 @@ export const App = observer(() => {
          * 785px % 70 = 550px
          */
         const POPUP_MIN_HEIGHT = 550;
-        /**
-         * Maximum height for the popup. Value is based on base height of 598px in desktop extension.
-         */
-        const POPUP_MAX_HEIGHT = 598;
         const POPUP_HEIGHT_PROP = '--popup-height';
         const html = document.documentElement;
 
@@ -227,26 +223,20 @@ export const App = observer(() => {
 
         const resizePopupHeight = () => {
             /**
-             * From observation on Android browsers, popup height is properly set only on third time:
-             * 1. Initially window.innerHeight is 0
+             * From observation on Android browsers, popup's `windows.innerHeight` is properly set only on third time:
+             * 1. Initially equal to 0
              * 2. After that it is set to 15% (approx) of viewport height
-             * 3. Finally it calculates proper height of window.innerHeight capped by 70% (approx) of viewport height.
+             * 3. Finally it calculates properly fixed at 70% (approx) of viewport height.
              *
              * Example if viewport height is 840px:
              * 0px -> 126px (15% of 840px) -> 588px (70% of 840px)
-             *
-             * Example if viewport height is 860px:
-             * 0px -> 129px (15% of 860px) -> 598px (we ignore 602px (70% of 860px) because it's larger than 598px)
              *
              * Example if viewport height is 770px:
              * 0px -> 115px (15% of 770px) -> 550px (we ignore 539px (70% of 770px) because it's smaller than 550px)
              *
              * This is needed to display the popup properly on Android browsers.
              */
-            if (
-                window.innerHeight < POPUP_MIN_HEIGHT
-                || window.innerHeight > POPUP_MAX_HEIGHT
-            ) {
+            if (window.innerHeight < POPUP_MIN_HEIGHT) {
                 return;
             }
 
