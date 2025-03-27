@@ -7,6 +7,7 @@ import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type { TelemetryScreenName, TelemetryActionName, TelemetryActionToScreenMap } from '../background/telemetry';
 import { ForwarderUrlQueryKey } from '../background/config';
+import { type LocationsTab } from '../background/endpoints/locationsService';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
@@ -168,6 +169,36 @@ class Messenger {
     async forceUpdateLocations(): Promise<any> {
         const type = MessageType.FORCE_UPDATE_LOCATIONS;
         return this.sendMessage(type);
+    }
+
+    /**
+     * Sends a message to the background page to save locations tab.
+     *
+     * @param locationsTab New locations tab.
+     */
+    async saveLocationsTab(locationsTab: LocationsTab): Promise<void> {
+        const type = MessageType.SAVED_LOCATIONS_SAVE_TAB;
+        return this.sendMessage(type, { locationsTab });
+    }
+
+    /**
+     * Sends a message to the background page to add location to saved locations.
+     *
+     * @param locationId Location ID to add.
+     */
+    async addSavedLocation(locationId: string): Promise<void> {
+        const type = MessageType.SAVED_LOCATIONS_ADD;
+        return this.sendMessage(type, { locationId });
+    }
+
+    /**
+     * Sends a message to the background page to remove location from saved locations.
+     *
+     * @param locationId Location ID to remove.
+     */
+    async removeSavedLocation(locationId: string): Promise<void> {
+        const type = MessageType.SAVED_LOCATIONS_REMOVE;
+        return this.sendMessage(type, { locationId });
     }
 
     async getOptionsData() {

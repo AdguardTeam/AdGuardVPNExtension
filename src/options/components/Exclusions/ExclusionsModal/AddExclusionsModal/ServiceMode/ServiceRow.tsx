@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../../../background/telemetry';
 import { rootStore } from '../../../../../stores';
 import { ExclusionState, type ServiceDto } from '../../../../../../common/exclusionsConstants';
-import { SearchHighlighter } from '../../../Search/SearchHighlighter';
+import { SearchHighlighter } from '../../../../../../common/components/SearchHighlighter';
 import { translator } from '../../../../../../common/translator';
 
 /**

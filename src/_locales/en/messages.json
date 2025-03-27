@@ -684,14 +684,24 @@
     "endpoints_all": {
         "message": "All locations"
     },
-    "endpoints_search_results": {
-        "message": "Search result"
-    },
     "endpoints_search": {
         "message": "Search location"
     },
     "endpoints_not_found": {
         "message": "Locations not found"
+    },
+    "endpoints_empty_saved": {
+        "message": "To see locations here, select <b>All</b> and click the icon next to a location",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "All"
+    },
+    "endpoints_tab_saved": {
+        "message": "Saved"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Location deleted from Saved"
     },
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached"

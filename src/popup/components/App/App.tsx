@@ -74,7 +74,7 @@ export const App = observer(() => {
         premiumPromoEnabled,
         isPremiumToken,
         filteredLocations,
-        showSearchResults,
+        notSearchingAndSavedTab,
     } = vpnStore;
 
     useEffect(() => {
@@ -283,7 +283,7 @@ export const App = observer(() => {
     // warn authenticated users if no locations were fetch. AG-28164
     if (authenticated
         && !hasGlobalError
-        && !showSearchResults
+        && notSearchingAndSavedTab
         && filteredLocations.length === 0) {
         return (
             <NoLocationsError />

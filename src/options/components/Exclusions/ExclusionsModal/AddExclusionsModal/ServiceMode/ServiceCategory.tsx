@@ -5,7 +5,7 @@ import cn from 'classnames';
 
 import { rootStore } from '../../../../../stores';
 import { type PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
-import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
+import { containsIgnoreCase } from '../../../../../../common/components/SearchHighlighter/helpers';
 import { Icon } from '../../../../ui/Icon';
 
 import { ServiceRow } from './ServiceRow';

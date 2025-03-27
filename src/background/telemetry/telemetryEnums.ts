@@ -88,6 +88,8 @@ export enum TelemetryActionName {
     AcceptNewsletter = 'accept_newsletter',
     NudgeAdguardClick = 'nudge_adguard_click',
     CloseCantConnectClick = 'close_cant_connect_click',
+    AllLocationsClick = 'all_locations_click',
+    SavedLocationsClick = 'saved_locations_click',
 
     // Options actions
     GeneralSettingsClick = 'general_settings_click',
@@ -175,6 +177,12 @@ export type SupportItemClickActionNames = TelemetryActionName.FaqClick
 | TelemetryActionName.LeaveFeedbackClick;
 
 /**
+ * Locations tab click action names.
+ */
+export type LocationsTabClickActionNames = TelemetryActionName.AllLocationsClick
+| TelemetryActionName.SavedLocationsClick;
+
+/**
  * Action to screen mapping.
  */
 export interface TelemetryActionToScreenMap {
@@ -212,6 +220,8 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.AcceptNewsletter]: TelemetryScreenName.NewsletterScreen;
     [TelemetryActionName.NudgeAdguardClick]: TelemetryScreenName.DialogCantConnect;
     [TelemetryActionName.CloseCantConnectClick]: TelemetryScreenName.DialogCantConnect;
+    [TelemetryActionName.AllLocationsClick]: TelemetryScreenName.LocationsScreen;
+    [TelemetryActionName.SavedLocationsClick]: TelemetryScreenName.LocationsScreen
 
     // Options actions
     [TelemetryActionName.GeneralSettingsClick]: TelemetryScreenName.ContextBasedScreen;

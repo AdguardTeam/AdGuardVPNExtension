@@ -5,9 +5,9 @@ import classNames from 'classnames';
 
 import { type ExclusionDtoInterface, ExclusionState, ExclusionsType } from '../../../../common/exclusionsConstants';
 import { translator } from '../../../../common/translator';
+import { SearchHighlighter } from '../../../../common/components/SearchHighlighter';
 import { rootStore } from '../../../stores';
 import { Icon } from '../../ui/Icon';
-import { SearchHighlighter } from '../Search';
 
 import './exclusion.pcss';
 

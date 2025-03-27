@@ -16,6 +16,13 @@
     background-color: var(--fills-backgrounds-page-background-default);
     transition: var(--t3) background-color;
 
+    /* Re-designed endpoint styles located under this modifier. */
+    /* This is needed, because not everywhere endpoint is updated, */
+    /* so we need to override existing styles for new design. */
+    &--re-designed {
+        align-items: flex-start;
+    }
+
     &:last-child {
         border-bottom: 0;
     }
@@ -34,8 +41,11 @@
         max-width: 108px;
         text-align: left;
 
-        &--wide {
-            max-width: 160px;
+        .endpoint--re-designed & {
+            flex: 1 1 auto;
+            margin-right: 0;
+            max-width: none;
+            overflow: hidden;
         }
     }
 
@@ -49,6 +59,23 @@
         .icon--arrow {
             margin-left: 16px;
             color: var(--stroke-icons-gray-icons-default);
+        }
+
+        .endpoint--re-designed & {
+            justify-content: space-between;
+            flex-shrink: 0;
+
+            .ping {
+                flex-shrink: 0;
+                min-width: 55px;
+
+                &--loader {
+                    display: flex;
+                    justify-content: flex-end;
+                    /* Center loader vertically */
+                    margin-top: 9px;
+                }
+            }
         }
     }
 
@@ -82,6 +109,10 @@
     &__location-name {
         overflow: hidden;
         text-overflow: ellipsis;
+
+        .endpoint--re-designed & {
+            white-space: nowrap;
+        }
     }
 
     &__title {
@@ -93,18 +124,61 @@
         &--selected {
             font-weight: 700;
         }
+
+        .endpoint--re-designed & {
+            line-height: 20px;
+            padding: 2px 0;
+        }
     }
 
     &__info {
         display: flex;
+
+        .endpoint--re-designed & {
+            flex: 1 1 auto;
+            overflow: hidden;
+        }
     }
 
     &__desc {
         color: var(--text-description-description-default);
+
+        .endpoint--re-designed & {
+            font-size: 14px;
+            line-height: 1.3;
+        }
     }
 
     &__limited-speed {
         color: var(--gray88);
         text-align: right;
+    }
+
+    &__save-btn {
+        background-color: transparent;
+        color: var(--stroke-icons-product-icons-default);
+        border: 0;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        flex-shrink: 0;
+        margin-right: 16px;
+        opacity: 0;
+        transition: var(--t3) opacity;
+
+        &-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (hover: none) {
+            opacity: 1;
+        }
+
+        .endpoint:hover &,
+        .endpoint:focus-visible &,
+        .endpoint--saved & {
+            opacity: 1;
+        }
     }
 }

@@ -31,6 +31,7 @@ import { emailConfirmationService } from '../emailConfirmationService';
 import { limitedOfferService } from '../limitedOfferService';
 import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
+import { savedLocations } from '../savedLocations';
 
 interface Message {
     type: MessageType,
@@ -163,6 +164,18 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             // set selected location after the locations are updated
             await endpoints.getSelectedLocation();
             return locations;
+        }
+        case MessageType.SAVED_LOCATIONS_SAVE_TAB: {
+            const { locationsTab } = data;
+            return locationsService.saveLocationsTab(locationsTab);
+        }
+        case MessageType.SAVED_LOCATIONS_ADD: {
+            const { locationId } = data;
+            return savedLocations.addSavedLocation(locationId);
+        }
+        case MessageType.SAVED_LOCATIONS_REMOVE: {
+            const { locationId } = data;
+            return savedLocations.removeSavedLocation(locationId);
         }
         case MessageType.GET_OPTIONS_DATA: {
             return getOptionsData();

@@ -76,6 +76,7 @@
     --gray-70: #5B5B5B;
     --gray-80: #3D3D3D;
     --gray-90: #1F1F1F;
+    --gray-100: #000000;
     --product-primary-30: #B2CC9E;
     --product-primary-50: #74A352;
     --product-primary-60: #68924A;
@@ -93,17 +94,20 @@
     --text-links-link-pressed: var(--product-primary-70);
     --text-links-link-disabled: var(--product-primary-30);
     --text-links-attention-link-default: var(--orange-50);
+    --text-buttons-primary-default: var(--gray-0);
 
     /* Fills */
     --fills-backgrounds-cards-background-default: var(--gray-0);
     --fills-backgrounds-page-background-default: var(--gray-0);
     --fills-backgrounds-page-background-hovered: var(--gray-10);
     --fills-backgrounds-page-background-pressed: var(--gray-20);
+    --fills-backgrounds-page-background-additional-default: var(--gray-10);
     --fills-buttons-main-button-default: var(--product-primary-50);
     --fills-buttons-main-button-hovered: var(--product-primary-60);
     --fills-buttons-main-button-pressed: var(--product-primary-70);
     --fills-buttons-main-button-disabled: var(--product-primary-30);
     --fills-inputs-input-background-default: var(--gray-10);
+    --fills-snacks-mobile-snacks-default: var(--gray-100);
 
     /* Stroke */
     --stroke-icons-gray-icons-default: var(--gray-60);
@@ -111,6 +115,8 @@
     --stroke-buttons-secondary-button-default: var(--gray-80);
     --stroke-inputs-inactive-input-stroke-default: var(--gray-20);
     --stroke-inputs-active-input-stroke-default: var(--gray-50);
+    --stroke-dividers-item-divider-default: var(--gray-30);
+    --stroke-dividers-item-divider-green-default: var(--product-primary-50);
 
     @media (prefers-color-scheme: dark) {
         --white: #131313;
@@ -146,6 +152,7 @@
         --fills-backgrounds-page-background-default: var(--gray-90);
         --fills-backgrounds-page-background-hovered: var(--gray-80);
         --fills-backgrounds-page-background-pressed: var(--gray-70);
+        --fills-backgrounds-page-background-additional-default: var(--gray-80);
         /* TODO: Fix disabled color when in design it will be fixed */
         --fills-buttons-main-button-disabled: var(--grayd8);
         --fills-inputs-input-background-default: var(--gray-80);
@@ -154,6 +161,7 @@
         --stroke-icons-gray-icons-default: var(--gray-40);
         --stroke-buttons-secondary-button-default: var(--gray-20);
         --stroke-inputs-inactive-input-stroke-default: var(--gray-80);
+        --stroke-dividers-item-divider-default: var(--gray-70);
     }
 }
 
@@ -191,6 +199,7 @@
     --fills-backgrounds-page-background-default: var(--gray-0);
     --fills-backgrounds-page-background-hovered: var(--gray-10);
     --fills-backgrounds-page-background-pressed: var(--gray-20);
+    --fills-backgrounds-page-background-additional-default: var(--gray-10);
     --fills-buttons-main-button-disabled: var(--product-primary-30);
     --fills-inputs-input-background-default: var(--gray-10);
 
@@ -198,6 +207,7 @@
     --stroke-icons-gray-icons-default: var(--gray-60);
     --stroke-buttons-secondary-button-default: var(--gray-80);
     --stroke-inputs-inactive-input-stroke-default: var(--gray-20);
+    --stroke-dividers-item-divider-default: var(--gray-30);
 }
 
 .dark-mode {
@@ -234,6 +244,7 @@
     --fills-backgrounds-page-background-default: var(--gray-90);
     --fills-backgrounds-page-background-hovered: var(--gray-80);
     --fills-backgrounds-page-background-pressed: var(--gray-70);
+    --fills-backgrounds-page-background-additional-default: var(--gray-80);
     /* TODO: Fix disabled color when in design it will be fixed */
     --fills-buttons-main-button-disabled: var(--grayd8);
     --fills-inputs-input-background-default: var(--gray-80);
@@ -242,6 +253,7 @@
     --stroke-icons-gray-icons-default: var(--gray-40);
     --stroke-buttons-secondary-button-default: var(--gray-20);
     --stroke-inputs-inactive-input-stroke-default: var(--gray-80);
+    --stroke-dividers-item-divider-default: var(--gray-70);
 }
 
 .android {

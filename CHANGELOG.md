@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Limit on the number of characters a user can enter when adding a custom DNS server [#169].
+- Saved Locations [#48].
 
 ### Changed
 
@@ -27,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Corners of Actions is not rounded [#200].
 - Incorrect height rendering in Edge for Android.
 
+[#48]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/48
 [#168]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/168
 [#169]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/169
 [#171]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/171

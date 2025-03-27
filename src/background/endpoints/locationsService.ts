@@ -15,6 +15,8 @@ import {
     StorageKey,
 } from '../schema';
 import { stateStorage } from '../stateStorage';
+import { type StorageInterface } from '../browserApi/storage';
+import { browserApi } from '../browserApi';
 
 import { Location } from './Location';
 import { LocationWithPing } from './LocationWithPing';
@@ -35,6 +37,14 @@ interface IncomingPingData {
     isMeasuring?: boolean;
 }
 
+/**
+ * Locations tab.
+ */
+export enum LocationsTab {
+    All = 'all',
+    Saved = 'saved',
+}
+
 interface LocationsServiceInterface {
     getIsLocationSelectedByUser(): Promise<boolean>;
     getLocationsFromServer(appId: string, vpnToken: string): Promise<Location[]>;
@@ -52,12 +62,68 @@ interface LocationsServiceInterface {
         location: LocationInterface,
         forcePrevEndpoint: boolean,
     ): Promise<EndpointInterface | null>;
+
+    /**
+     * Retrieves locations tab from local storage.
+     * If it doesn't exist or corrupted - sets default value.
+     *
+     * @returns Locations tab.
+     */
+    getLocationsTab(): Promise<LocationsTab>;
+
+    /**
+     * Sets locations tab in local storage.
+     *
+     * @param locationsTab New locations tab.
+     */
+    saveLocationsTab(locationsTab: LocationsTab): Promise<void>;
 }
 
-class LocationsService implements LocationsServiceInterface {
+/**
+ * Constructor parameters for {@link LocationsService}.
+ */
+export interface LocationsServiceParameters {
+    /**
+     * Browser local storage.
+     */
+    storage: StorageInterface;
+}
+
+export class LocationsService implements LocationsServiceInterface {
+    /**
+     * Key for saved locations in local storage.
+     */
+    private static readonly LOCATIONS_TAB_KEY = 'locations.tab';
+
+    /**
+     * Default locations tab after installation.
+     */
+    private static readonly DEFAULT_LOCATIONS_TAB = LocationsTab.All;
+
+    /**
+     * Browser local storage.
+     */
+    private storage: StorageInterface;
+
+    /**
+     * Cached locations tab.
+     *
+     * Lazy-loaded in {@link getLocationsTab} method.
+     */
+    private locationsTab: LocationsTab | null = null;
+
     state: LocationsServiceState;
 
     PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
+
+    /**
+     * Constructor.
+     */
+    constructor({
+        storage,
+    }: LocationsServiceParameters) {
+        this.storage = storage;
+    }
 
     public init() {
         this.state = stateStorage.getItem(StorageKey.LocationsService);
@@ -537,6 +603,43 @@ class LocationsService implements LocationsServiceInterface {
 
         return this.selectedLocation;
     };
+
+    /**
+     * Retrieves locations tab from local storage.
+     * If it doesn't exist or corrupted - sets default value.
+     *
+     * @returns Locations tab.
+     */
+    public getLocationsTab = async (): Promise<LocationsTab> => {
+        // If already in memory - return it
+        if (this.locationsTab) {
+            return this.locationsTab;
+        }
+
+        let storageLocationsTab = await this.storage.get<LocationsTab>(LocationsService.LOCATIONS_TAB_KEY);
+
+        // Sets default value if it doesn't exist or corrupted in local storage
+        if (!storageLocationsTab || !Object.values(LocationsTab).includes(storageLocationsTab)) {
+            storageLocationsTab = LocationsService.DEFAULT_LOCATIONS_TAB;
+            await this.saveLocationsTab(storageLocationsTab);
+        }
+
+        // Save in memory and return
+        this.locationsTab = storageLocationsTab;
+        return this.locationsTab;
+    };
+
+    /**
+     * Saves locations tab in local storage.
+     *
+     * @param locationsTab New locations tab.
+     */
+    public saveLocationsTab = async (locationsTab: LocationsTab): Promise<void> => {
+        this.locationsTab = locationsTab;
+        await this.storage.set(LocationsService.LOCATIONS_TAB_KEY, this.locationsTab);
+    };
 }
 
-export const locationsService = new LocationsService();
+export const locationsService = new LocationsService({
+    storage: browserApi.storage,
+});
