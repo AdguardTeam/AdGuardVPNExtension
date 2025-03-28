@@ -47,7 +47,7 @@ interface PopupDataInterface {
     locations?: LocationWithPing[];
     selectedLocation?: LocationWithPing | null;
     forwarderDomain: string;
-    isAuthenticated: string | boolean;
+    isAuthenticated: boolean;
     policyAgreement: boolean;
     helpUsImprove: boolean;
     canControlProxy?: CanControlProxy;

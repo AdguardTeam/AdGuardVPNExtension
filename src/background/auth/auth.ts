@@ -25,7 +25,7 @@ import { type ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema'
 
 export interface AuthInterface {
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
-    isAuthenticated(turnOffProxy?: boolean): Promise<string | boolean>;
+    isAuthenticated(): Promise<boolean>;
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
     getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string>;
     authenticateSocial(authData: SocialAuthData, tabId: number): Promise<void>;
@@ -88,16 +88,17 @@ class Auth implements AuthInterface {
         return { status: 'ok' };
     }
 
-    async isAuthenticated(turnOffProxy?: boolean): Promise<string | boolean> {
-        let accessToken;
-
+    async isAuthenticated(): Promise<boolean> {
         try {
-            accessToken = await this.getAccessToken(turnOffProxy);
+            // Wait for session storage after service worker awoken.
+            // This is needed because isAuthenticated is might be called
+            // before extension is fully loaded between service worker restarts.
+            await stateStorage.waitInit();
+            const accessToken = await this.getAccessToken();
+            return !!accessToken;
         } catch (e) {
             return false;
         }
-
-        return accessToken;
     }
 
     async startSocialAuth(
@@ -343,7 +344,7 @@ class Auth implements AuthInterface {
      * @param [turnOffProxy=true] - if false do not turn off proxy
      */
     async getAccessToken(turnOffProxy = true): Promise<string> {
-        if (this.accessTokenData && this.accessTokenData.accessToken) {
+        if (this.accessTokenData?.accessToken) {
             return this.accessTokenData.accessToken;
         }
 
@@ -352,7 +353,7 @@ class Auth implements AuthInterface {
 
         if (accessTokenData?.accessToken) {
             this.accessTokenData = accessTokenData;
-            return this.accessTokenData.accessToken;
+            return accessTokenData.accessToken;
         }
 
         // if no access token found

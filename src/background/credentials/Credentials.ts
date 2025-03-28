@@ -667,7 +667,7 @@ export class Credentials implements CredentialsInterface {
 
             const forceRemote = true;
 
-            const isUserAuthenticated = await auth.isAuthenticated(false);
+            const isUserAuthenticated = await auth.isAuthenticated();
 
             if (isUserAuthenticated) {
                 // Use persisted state on extension initialization.

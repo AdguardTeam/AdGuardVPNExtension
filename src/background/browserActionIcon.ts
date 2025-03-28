@@ -33,7 +33,7 @@ class BrowserActionIcon {
             return;
         }
 
-        const isUserAuthenticated = await auth.isAuthenticated(false);
+        const isUserAuthenticated = await auth.isAuthenticated();
         if (!isUserAuthenticated) {
             await actions.setIconDisabled(id);
             await actions.clearBadgeText(id);
