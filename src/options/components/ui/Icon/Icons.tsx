@@ -190,5 +190,18 @@ export const Icons = () => (
         >
             <path d="M6.29 5.04c.11-.1.23-.18.35-.27M8.56 3.68a8.93 8.93 0 0 1 1.24-.4M12 3a9 9 0 1 1-8.32 12.44" />
         </symbol>
+
+        <symbol
+            id="info"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 16v-6M12 7.6v-.2" />
+        </symbol>
     </svg>
 );

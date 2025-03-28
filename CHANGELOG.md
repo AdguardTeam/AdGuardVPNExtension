@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Improved validation of domain name when adding an exclusions [#191].
 - `"subdomain"` placeholder of input to `"example"` in add subdomain modal [#199].
+- Updated design and logic of notifications [#198].
 
 ### Fixed
 
@@ -35,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#191]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/191
 [#192]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/192
 [#197]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/197
+[#198]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/198
 [#199]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/199
 [#200]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/200
 [#203]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/203

@@ -20,7 +20,7 @@ import {
  * Add custom DNS server modal component.
  */
 export const DnsSettingsServerModalAdd = observer(() => {
-    const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
 
     const {
         forwarderDomain,
@@ -68,18 +68,11 @@ export const DnsSettingsServerModalAdd = observer(() => {
             TelemetryScreenName.DialogAddCustomDns,
         );
 
-        const dnsServer = await settingsStore.addCustomDnsServer(
+        await settingsStore.addCustomDnsServer(
             normalizedDnsServerName,
             normalizedDnsServerAddress,
         );
 
-        notificationsStore.notifySuccess(
-            translator.getMessage('settings_dns_add_custom_server_notification_success'),
-            {
-                action: translator.getMessage('settings_exclusions_undo'),
-                handler: () => settingsStore.removeCustomDnsServer(dnsServer.id),
-            },
-        );
         return null;
     };
 

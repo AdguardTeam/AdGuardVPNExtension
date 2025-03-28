@@ -15,7 +15,7 @@ import {
 } from './validate';
 
 export const DnsSettingsServerModalEdit = observer(() => {
-    const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
 
     const {
         isCustomDnsModalOpen,
@@ -81,14 +81,6 @@ export const DnsSettingsServerModalEdit = observer(() => {
             id,
             normalizedDnsServerName,
             normalizedDnsServerAddress,
-        );
-
-        notificationsStore.notifySuccess(
-            translator.getMessage('settings_dns_edit_custom_server_notification'),
-            {
-                action: translator.getMessage('settings_exclusions_undo'),
-                handler: () => settingsStore.editCustomDnsServer(id, oldDnsServerName, oldDnsServerAddress),
-            },
         );
 
         return null;

@@ -234,7 +234,7 @@ export class SettingsStore {
     @action addCustomDnsServer = async (
         dnsServerName: string,
         dnsServerAddress: string,
-    ): Promise<DnsServerData> => {
+    ): Promise<void> => {
         log.info(`Adding DNS server: ${dnsServerName} with address: ${dnsServerAddress}`);
         const dnsServer = {
             id: nanoid(),
@@ -244,7 +244,6 @@ export class SettingsStore {
         this.customDnsServers.push(dnsServer);
         await messenger.addCustomDnsServer(dnsServer);
         await this.setDnsServer(dnsServer.id);
-        return dnsServer;
     };
 
     @action editCustomDnsServer = async (
