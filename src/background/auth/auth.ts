@@ -44,27 +44,61 @@ export interface AuthInterface {
 }
 
 class Auth implements AuthInterface {
-    state: AuthState;
+    state: AuthState | null = null;
+
+    /**
+     * Promise that resolves when the state is initialized.
+     */
+    private initStatePromise: Promise<void> | null = null;
+
+    /**
+     * Function that resolves the {@link initStatePromise}.
+     */
+    private resolveInitStatePromise: (() => void) | null = null;
+
+    constructor() {
+        this.initStatePromise = new Promise((resolve) => {
+            this.resolveInitStatePromise = resolve;
+        });
+    }
+
+    /**
+     * Waits for the state to be initialized.
+     * This is useful when the service worker is awoken and the state is not yet initialized.
+     * And it is needed to wait for the state to be initialized before calling any other methods.
+     */
+    private async waitInitState(): Promise<void> {
+        // If the state is already initialized, return immediately.
+        if (!this.initStatePromise) {
+            return;
+        }
+
+        await this.initStatePromise;
+    }
 
     private saveAuthState = () => {
         stateStorage.setItem(StorageKey.AuthState, this.state);
     };
 
     private get socialAuthState(): string | null {
-        return this.state.socialAuthState;
+        return this.state?.socialAuthState ?? null;
     }
 
-    private set socialAuthState(socialAuthState: string | null) {
-        this.state.socialAuthState = socialAuthState;
+    private async setSocialAuthState(socialAuthState: string | null) {
+        await this.waitInitState();
+        // we are sure that state is initialized here
+        this.state!.socialAuthState = socialAuthState;
         this.saveAuthState();
     }
 
     private get accessTokenData(): AuthAccessToken | null {
-        return this.state.accessTokenData;
+        return this.state?.accessTokenData ?? null;
     }
 
-    private set accessTokenData(accessTokenData: AuthAccessToken | null) {
-        this.state.accessTokenData = accessTokenData;
+    private async setAccessTokenData(accessTokenData: AuthAccessToken | null) {
+        await this.waitInitState();
+        // we are sure that state is initialized here
+        this.state!.accessTokenData = accessTokenData;
         this.saveAuthState();
     }
 
@@ -90,10 +124,6 @@ class Auth implements AuthInterface {
 
     async isAuthenticated(): Promise<boolean> {
         try {
-            // Wait for session storage after service worker awoken.
-            // This is needed because isAuthenticated is might be called
-            // before extension is fully loaded between service worker restarts.
-            await stateStorage.waitInit();
             const accessToken = await this.getAccessToken();
             return !!accessToken;
         } catch (e) {
@@ -113,7 +143,7 @@ class Auth implements AuthInterface {
         }
 
         // Generates uniq state id, which will be checked on the auth end
-        this.socialAuthState = nanoid();
+        await this.setSocialAuthState(nanoid());
         const authUrl = await this.getImplicitAuthUrl(socialProvider, marketingConsent);
         await tabs.openSocialAuthTab(authUrl);
     }
@@ -185,7 +215,7 @@ class Auth implements AuthInterface {
             tokenType,
         });
         await tabs.closeTab(tabId);
-        this.socialAuthState = null;
+        await this.setSocialAuthState(null);
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
@@ -328,13 +358,13 @@ class Auth implements AuthInterface {
     }
 
     async setAccessToken(accessToken: AuthAccessToken): Promise<void> {
-        this.accessTokenData = accessToken;
+        await this.setAccessTokenData(accessToken);
         await authService.saveAccessTokenData(accessToken);
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
     }
 
     async removeAccessToken(): Promise<void> {
-        this.accessTokenData = null;
+        await this.setAccessTokenData(null);
         await authService.removeAccessTokenData();
     }
 
@@ -352,7 +382,7 @@ class Auth implements AuthInterface {
         const accessTokenData = await authService.getAccessTokenData();
 
         if (accessTokenData?.accessToken) {
-            this.accessTokenData = accessTokenData;
+            await this.setAccessTokenData(accessTokenData);
             return accessTokenData.accessToken;
         }
 
@@ -372,6 +402,14 @@ class Auth implements AuthInterface {
 
     async initState(): Promise<void> {
         this.state = stateStorage.getItem(StorageKey.AuthState);
+
+        // if init state promise resolver is set, we should resolve it
+        // and clear excess references to avoid memory leaks
+        if (this.resolveInitStatePromise) {
+            this.resolveInitStatePromise();
+            this.resolveInitStatePromise = null;
+            this.initStatePromise = null;
+        }
     }
 
     async init(): Promise<void> {
@@ -380,7 +418,7 @@ class Auth implements AuthInterface {
             return;
         }
 
-        this.accessTokenData = accessTokenData;
+        await this.setAccessTokenData(accessTokenData);
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
         log.info('Authentication module is ready');
     }
