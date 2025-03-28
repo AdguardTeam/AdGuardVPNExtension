@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Teme"
     },
-    "settings_theme_system": {
-        "message": "Sistemski podrazumevano"
-    },
     "settings_theme_dark": {
         "message": "Tamna tema"
     },
@@ -627,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Uspešno ste prijavljeni! Možete otvoriti AdGuard VPN i uključiti tunel."
     },
-    "control_error_title": {
-        "message": "Neusaglašenost proširenja"
-    },
-    "control_error_description": {
-        "message": "Izgleda da drugo Chrome proširenje pokušava da upravlja vašom vezom. Isključite to proširenje u vašem pregledniku."
-    },
     "control_error_disable": {
-        "message": "Isključi to"
+        "message": "Isključi"
     },
     "popup_skeleton_status": {
         "message": "Pretraživanje lokacija..."
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Sve krajnje tačke"
     },
-    "endpoints_search_results": {
-        "message": "Rezultat pretrage"
-    },
     "endpoints_search": {
         "message": "Pretraži lokaciju"
     },
     "endpoints_not_found": {
         "message": "Lokacija nije pronađena"
+    },
+    "endpoints_tab_all": {
+        "message": "Sve"
+    },
+    "endpoints_tab_saved": {
+        "message": "Sačuvano"
     },
     "popup_traffic_limit_reached": {
         "message": "Dostignuta mesečna granica podataka"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Brzina veze je smanjena"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Ponestalo vam je besplatnog saobraćaja i Adguard VPN je sada spor."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Povećaj brzinu"
+        "message": "Nadogradi"
     },
     "popup_feedback_title": {
         "message": "Želimo da čujemo vaše povratne informacije"
@@ -818,7 +809,7 @@
         "message": "Ove nam informacije pomažu razumjeti koje značajke dobro funkcioniraju, a koje treba poboljšati. Anonimiziran je i koristi se samo interno. Nikad to ni s kim ne dijelimo"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Prijavljivanje ili kreiranje naloga"
+        "message": "Prijavite se ili napravite nalog"
     },
     "popup_newsletter_title": {
         "message": "AdGuard novosti"
@@ -894,9 +885,6 @@
         "message": "Saobraćaj se obnavlja danas | Saobraćaj se obnavlja u %days% dan | Saobraćaj se obnavlja u %days% dani | Saobraćaj se obnavlja u %days% dana",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Uzgred, možete onemogućiti VPN za ovaj sajt ako želite"
-    },
     "popup_hint_popup_button": {
         "message": "Shvatam"
     },
@@ -969,23 +957,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip arhiva: \"%filename%\" ne sadrži datoteke sa nastavcima: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Dostigli ste najveći dozvoljeni broj veza: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Ako želite više uređaja, razmislite o pretplati na neograničeni AdGuard VPN."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Za dodavanje drugog uređaja, isključite AdGuard VPN na bilo kom vašem uređaju."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Pretplati se"
+        "message": "Nadogradi"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Saznajte više"
     },
     "popup_connections_limit_title": {
-        "message": "Dosegnuto je ograničenje povezivanja"
+        "message": "Dostignuta granica uređaja"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Preuzmite VPN ekstenziju za Android"

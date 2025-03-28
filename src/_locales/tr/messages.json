@@ -199,7 +199,7 @@
         "message": "Giriş yap"
     },
     "auth_title": {
-        "message": "Giriş yap veya bir hesap oluştur"
+        "message": "Giriş yap ya da bir hesap oluştur"
     },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-posta"
@@ -405,6 +405,9 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS sunucusu zaten eklendi"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Sunucu adı %max% karakter sınırını aşıyor (şu anda %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Kaydet ve seç"
     },
@@ -472,7 +475,7 @@
         "message": "Tema"
     },
     "settings_theme_system": {
-        "message": "Sistem varsayılanı"
+        "message": "Tarayıcı varsayılanı"
     },
     "settings_theme_dark": {
         "message": "Koyu"
@@ -595,7 +598,7 @@
         "message": "VPN'nin açık olduğu yer"
     },
     "settings_exclusion_general_title": {
-        "message": "Hariç tutulan siteler hariç her yerde"
+        "message": "Hariç tutulan siteler dışında her yerde"
     },
     "settings_exclusion_general_mode_info": {
         "message": "VPN, aşağıdaki siteler dışında <span>her yerde</span> açık"
@@ -628,10 +631,10 @@
         "message": "Başarıyla doğrulandı! AdGuard VPN'i açabilir ve kullanmaya başlayabilirsiniz."
     },
     "control_error_title": {
-        "message": "Uzantı çakışması"
+        "message": "Bağlanmak için başka bir VPN uzantısını devre dışı bırakın"
     },
     "control_error_description": {
-        "message": "Başka bir Tarayıcı uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
+        "message": "Başka bir VPN uzantısının bağlantınızı kontrol ettiği anlaşılıyor. AdGuard VPN'i kullanmak için lütfen diğer uzantıyı devre dışı bırakın"
     },
     "control_error_disable": {
         "message": "Devre dışı bırak"
@@ -681,14 +684,24 @@
     "endpoints_all": {
         "message": "Tüm konumlar"
     },
-    "endpoints_search_results": {
-        "message": "Arama sonucu"
-    },
     "endpoints_search": {
         "message": "Konum ara"
     },
     "endpoints_not_found": {
         "message": "Konum bulunamadı"
+    },
+    "endpoints_empty_saved": {
+        "message": "Buradaki konumları görmek için <b>Tümü</b> öğesini seçin ve bir konumun yanındaki simgeye tıklayın",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Tümü"
+    },
+    "endpoints_tab_saved": {
+        "message": "Kaydedildi"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Konum Kaydedilenlerden silindi"
     },
     "popup_traffic_limit_reached": {
         "message": "Aylık veri sınırına ulaşıldı"
@@ -718,10 +731,10 @@
         "message": "Hız azaltıldı"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Ücretsiz veri sınırına ulaştınız, ve AdGuard VPN yavaş çalışıyor."
+        "message": "Ücretsiz veri sınırına ulaştınız, ve AdGuard VPN yavaş çalışıyor"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Hızı artır"
+        "message": "Yükselt"
     },
     "popup_feedback_title": {
         "message": "Geri bildiriminizi duymak isteriz"
@@ -809,7 +822,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Anonim <link>uzantı kullanım verilerini</link> gönder"
+        "message": "Anonim <link>uzantı kullanım verilerini</link> gönderin"
     },
     "popup_auth_help_us_improve_modal_desc_data": {
         "message": "Kabul ederseniz, AdGuard VPN etkileşimde bulunduğunuz ekranlar ve düğmeler hakkında veri toplar. Veri paylaşımını her zaman <b>Ayarlar</b> öğesinden devre dışı bırakabilirsiniz"
@@ -818,7 +831,7 @@
         "message": "Bu bilgiler hangi özelliklerin iyi çalıştığını ve hangilerinin iyileştirilmesi gerektiğini anlamamıza yardımcı olur. Anonimdir ve yalnızca dâhili olarak kullanılır. Bunu asla kimseyle paylaşmayız"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Giriş yap veya bir hesap oluştur"
+        "message": "Giriş yap ya da bir hesap oluştur"
     },
     "popup_newsletter_title": {
         "message": "AdGuard bülteni"
@@ -895,7 +908,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "Bu arada, isterseniz bu site için VPN'i devre dışı bırakabilirsiniz"
+        "message": "Bu arada, VPN'i bir site için devre dışı bırakabilir ve diğerleri için etkin tutabilirsiniz"
     },
     "popup_hint_popup_button": {
         "message": "Anladım"
@@ -970,22 +983,22 @@
         "message": "Zip arşivi: \"%filename%\" bu uzantılara sahip dosyalar içermiyor: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Maksimum bağlantı sayısına ulaştınız: %maxDevicesAllowed%."
+        "message": "Aynı anda %maxDevicesAllowed% cihaza kadar bağlanabilirsiniz."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Daha fazla cihaz eklemek için Sınırsız AdGuard VPN'e abone olmayı düşünün."
+        "message": "Bu konuda VPN kullanmak için AdGuard VPN Unlimited satın almayı düşünün"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Başka bir cihaz eklemek için herhangi bir cihazınızda AdGuard VPN'i devre dışı bırakın."
+        "message": "Bu cihazda VPN kullanmak için başka bir cihazın bağlantısını kesin"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Abone ol"
+        "message": "Yükselt"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Daha fazla bilgi edinin"
     },
     "popup_connections_limit_title": {
-        "message": "Bağlantı sınırına ulaşıldı"
+        "message": "Cihaz limitine ulaşıldı"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Android için VPN uzantısını edinin"

@@ -4,7 +4,7 @@
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
+        "message": "Utilitzeu AdGuard VPN per navegar per Internet ràpidament. Protegiu la vostra privacitat amb el nostre proxy VPN privat."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Tema"
     },
-    "settings_theme_system": {
-        "message": "Per defecte del sistema"
-    },
     "settings_theme_dark": {
         "message": "Fosc"
     },
@@ -627,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Autenticació exitosa! Pots obrir AdGuard VPN i començar a utilitzar-lo."
     },
-    "control_error_title": {
-        "message": "Conflicte d'instal·lacions"
-    },
-    "control_error_description": {
-        "message": "Sembla que una altra extensió del navegador està intentant controlar la vostra connexió. Si us plau, desactiva l'altra extensió al vostre navegador."
-    },
     "control_error_disable": {
-        "message": "Desactiva-ho"
+        "message": "Desactivar"
     },
     "popup_skeleton_status": {
         "message": "Cercant ubicacions..."
@@ -681,14 +672,14 @@
     "endpoints_all": {
         "message": "Totes les ubicacions"
     },
-    "endpoints_search_results": {
-        "message": "Resultat de cerca"
-    },
     "endpoints_search": {
         "message": "Cerca ubicació"
     },
     "endpoints_not_found": {
         "message": "No s'han trobat ubicacions"
+    },
+    "endpoints_tab_saved": {
+        "message": "Guardat"
     },
     "popup_traffic_limit_reached": {
         "message": "S'ha assolit el límit de dades mensuals"
@@ -716,12 +707,6 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "La velocitat es redueix"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Has arribat al límit de dades gratuïtes, i AdGuard VPN funciona lentament."
-    },
-    "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Augmenta la velocitat"
     },
     "popup_feedback_title": {
         "message": "Ens encantaria escoltar la vostra retroalimentació"
@@ -894,9 +879,6 @@
         "message": "El trànsit es renova avui | El trànsit es renova en %days% dia | El trànsit es renova en %days% dies",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Per això, podeu desactivar el VPN per a aquest lloc si ho desitgeu."
-    },
     "popup_hint_popup_button": {
         "message": "Entesos"
     },
@@ -969,23 +951,8 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "L'arxiu Zip: \"%filename%\" no conté fitxers amb extensions: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Has arribat al nombre màxim de connexions: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Per afegir més dispositius, considera subscriure't a l'AdGuard VPN Il·limitat."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Per afegir un altre dispositiu, desactiva l'AdGuard VPN en qualsevol dels teus gadgets."
-    },
-    "popup_connections_limit_description_cta_button_free": {
-        "message": "Subscriure"
-    },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Més informació"
-    },
-    "popup_connections_limit_title": {
-        "message": "S'ha arribat al límit de connexions"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Obteniu l'extensió VPN per a Android"

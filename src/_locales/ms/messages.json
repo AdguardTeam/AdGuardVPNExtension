@@ -4,7 +4,7 @@
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
+        "message": "Gunakan AdGuard VPN untuk menjelajahi Internet dengan cepat dan aman. Lindungi privasi Anda dengan proksi VPN pribadi kami."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Tema"
     },
-    "settings_theme_system": {
-        "message": "Lalai sistem"
-    },
     "settings_theme_dark": {
         "message": "Gelap"
     },
@@ -627,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Pengesahan berjaya! Anda boleh membuka AdGuard VPN dan mula menggunakannya."
     },
-    "control_error_title": {
-        "message": "Konflik penyambung"
-    },
-    "control_error_description": {
-        "message": "Nampaknya terdapat ekstensi pelayar lain yang cuba mengawal sambungan anda. Sila nyahaktifkan ekstensi lain di pelayar anda."
-    },
     "control_error_disable": {
-        "message": "Nyahaktifkan"
+        "message": "Nyahdaya"
     },
     "popup_skeleton_status": {
         "message": "Mencari lokasi..."
@@ -681,14 +672,14 @@
     "endpoints_all": {
         "message": "Semua lokasi"
     },
-    "endpoints_search_results": {
-        "message": "Hasil carian"
-    },
     "endpoints_search": {
         "message": "Cari lokasi"
     },
     "endpoints_not_found": {
         "message": "Lokasi tidak ditemui"
+    },
+    "endpoints_tab_saved": {
+        "message": "Disimpan"
     },
     "popup_traffic_limit_reached": {
         "message": "Had data bulanan telah dicapai"
@@ -716,12 +707,6 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Kelajuan dikurangkan"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Anda telah mencapai had data percuma, dan AdGuard VPN berfungsi dengan perlahan."
-    },
-    "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Tingkatkan kelajuan"
     },
     "popup_feedback_title": {
         "message": "Kami ingin mendengar maklum balas anda"
@@ -890,8 +875,9 @@
         "message": "%value% %unit% tinggal",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_hint_popup_content": {
-        "message": "Sebenarnya, anda boleh nyahaktif VPN untuk laman ini jika anda mahu"
+    "popup_free_traffic_info_days_left": {
+        "message": "Trafik diperbaharui hari ini | Trafik diperbaharui dalam %days% hari",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_button": {
         "message": "Kami ambil maklum"
@@ -924,6 +910,10 @@
     },
     "popup_limited_offer_details_time_left": {
         "message": "Masa yang tinggal: %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN Unlimited untuk %count% tahun dengan diskaun <span>%discount%%% off</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Dapatkan tawaran"
@@ -961,23 +951,8 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Arkhif zip: \"%filename%\" tidak mengandungi fail dengan sambungan:%extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Anda telah mencapai jumlah maksimum sambungan: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Untuk menambah lebih banyak peranti, pertimbangkan untuk melanggan AdGuard VPN tanpa had."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Untuk menambah peranti lain, nyahaktifkan AdGuard VPN pada mana-mana peranti anda."
-    },
-    "popup_connections_limit_description_cta_button_free": {
-        "message": "Langgan"
-    },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Ketahui lebih lanjut"
-    },
-    "popup_connections_limit_title": {
-        "message": "Had sambungan dicapai"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Dapatkan sambungan VPN untuk Android"

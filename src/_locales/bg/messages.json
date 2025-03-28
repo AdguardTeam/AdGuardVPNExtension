@@ -4,7 +4,7 @@
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
+        "message": "Използвайте AdGuard VPN, за да сърфирате в Интернет бързо и сигурно. Защитете своята конфиденциалност с нашия личен VPN прокси."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Тема"
     },
-    "settings_theme_system": {
-        "message": "Система по подразбиране"
-    },
     "settings_theme_dark": {
         "message": "Тъмна тема"
     },
@@ -627,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Успешно удостоверен! Можете да отворите AdGuard VPN и да започнете да го използвате."
     },
-    "control_error_title": {
-        "message": "Конфликт на разширения"
-    },
-    "control_error_description": {
-        "message": "Изглежда, че друго разширение на браузъра се опитва да контролира вашето свързване. Моля, деактивирайте другото разширение в браузъра си."
-    },
     "control_error_disable": {
-        "message": "Деактивирай"
+        "message": "Изключи"
     },
     "popup_skeleton_status": {
         "message": "Търся локации..."
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Всички локации"
     },
-    "endpoints_search_results": {
-        "message": "Резултат от търсенето"
-    },
     "endpoints_search": {
         "message": "Търсене на местоположение"
     },
     "endpoints_not_found": {
         "message": "Локации не намерени"
+    },
+    "endpoints_tab_all": {
+        "message": "All"
+    },
+    "endpoints_tab_saved": {
+        "message": "Запазено"
     },
     "popup_traffic_limit_reached": {
         "message": "Месечният лимит за данни е достигнат"
@@ -716,12 +710,6 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Скоростта е намалена"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Достигнахте лимита за безплатни данни и AdGuard VPN работи бавно."
-    },
-    "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Увеличаване на скоростта"
     },
     "popup_feedback_title": {
         "message": "Бихме искали да чуем вашето мнение"
@@ -894,9 +882,6 @@
         "message": "Трафикът се обновява днес | Трафикът се обновява след %days% ден | Трафикът се обновява след %days% дни",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Между другото, можете да деактивирате VPN за този сайт, ако желаете"
-    },
     "popup_hint_popup_button": {
         "message": "Схванах"
     },
@@ -969,23 +954,8 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip архив: \"%filename%\" не съдържа файлове с разширения: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Достигнахте максималния брой връзки: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "За да добавите още устройства, помислете за абониране за Unlimited AdGuard VPN."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "За да добавите друг уред, деактивирайте AdGuard VPN на някое от вашите устройства."
-    },
-    "popup_connections_limit_description_cta_button_free": {
-        "message": "Абонирай се"
-    },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Научи повече"
-    },
-    "popup_connections_limit_title": {
-        "message": "Лимитът за връзки е достигнат"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Вземете VPN разширение за Android"

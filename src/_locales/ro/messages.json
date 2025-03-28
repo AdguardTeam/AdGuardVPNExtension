@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Temă"
     },
-    "settings_theme_system": {
-        "message": "Implicită de sistem"
-    },
     "settings_theme_dark": {
         "message": "Sumbră"
     },
@@ -627,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Autentificat cu succes! Puteți deschide AdGuard VPN și puteți începe să-l utilizați."
     },
-    "control_error_title": {
-        "message": "Conflict de extensie"
-    },
-    "control_error_description": {
-        "message": "Se pare că o altă extensie Chrome încearcă să vă controleze conexiunea. Dezactivați cealaltă extensie din browserul dumneavoastră."
-    },
     "control_error_disable": {
-        "message": "Dezactivați-l"
+        "message": "Dezactivare"
     },
     "popup_skeleton_status": {
         "message": "Căutarea locațiilor..."
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Toate locațiile"
     },
-    "endpoints_search_results": {
-        "message": "Rezultatul căutării"
-    },
     "endpoints_search": {
         "message": "Căutare locație"
     },
     "endpoints_not_found": {
         "message": "Locația nu a fost găsită"
+    },
+    "endpoints_tab_all": {
+        "message": "Toate"
+    },
+    "endpoints_tab_saved": {
+        "message": "Salvat"
     },
     "popup_traffic_limit_reached": {
         "message": "Limita lunară de date a fost atinsă"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Viteza este redusă"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Ați atins limita de date gratuite, și AdGuard VPN funcționează încet."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Crește viteza"
+        "message": "Actualizați"
     },
     "popup_feedback_title": {
         "message": "Ne-ar plăcea să auzim feedback-ul dvs."
@@ -894,9 +885,6 @@
         "message": "Traficul se reînnoiește astăzi | Traficul se reînnoiește în %days% zi | Traficul se reînnoiește în %days% zile | Traficul se reînnoiește în %days% de zile",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Apropo, dacă doriți, puteți dezactiva VPN-ul pentru acest site"
-    },
     "popup_hint_popup_button": {
         "message": "Am înțeles."
     },
@@ -969,23 +957,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Arhiva zip: \"%filename%\" nu conține fișiere cu extensii: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Ați atins numărul maxim de conexiuni: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Pentru a adăuga mai multe dispozitive, luați în considerare abonarea la AdGuard VPN nelimitat."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Pentru a adăuga un alt dispozitiv, dezactivați AdGuard VPN pe oricare dintre gadget-urile dvs."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Abonați-vă"
+        "message": "Actualizați"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Aflați mai multe"
     },
     "popup_connections_limit_title": {
-        "message": "Limita de conexiuni a fost atinsă"
+        "message": "Limita de dispozitive a fost atinsă"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Obține extensia VPN pentru Android"

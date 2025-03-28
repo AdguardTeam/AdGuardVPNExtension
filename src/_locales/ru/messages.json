@@ -405,6 +405,9 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Такой DNS-сервер уже есть"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Имя сервера превышает ограничение в %max% символов (сейчас %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Сохранить и выбрать"
     },
@@ -472,7 +475,7 @@
         "message": "Тема"
     },
     "settings_theme_system": {
-        "message": "Системная"
+        "message": "Тема браузера"
     },
     "settings_theme_dark": {
         "message": "Тёмная"
@@ -628,10 +631,10 @@
         "message": "Вы вошли в аккаунт. Можно начинать пользоваться AdGuard VPN."
     },
     "control_error_title": {
-        "message": "Конфликт расширений"
+        "message": "Чтобы подключиться, отключите другое VPN-расширение"
     },
     "control_error_description": {
-        "message": "Похоже, что ещё одно расширение пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в браузере."
+        "message": "Похоже, что другое VPN-расширение контролирует ваше соединение. Чтобы использовать AdGuard VPN, отключите другое расширение"
     },
     "control_error_disable": {
         "message": "Отключить"
@@ -681,14 +684,24 @@
     "endpoints_all": {
         "message": "Все локации"
     },
-    "endpoints_search_results": {
-        "message": "Результаты поиска"
-    },
     "endpoints_search": {
         "message": "Поиск локации"
     },
     "endpoints_not_found": {
         "message": "Ничего не нашлось"
+    },
+    "endpoints_empty_saved": {
+        "message": "Чтобы здесь появились локации, выберите <b>Все</b> и нажмите на иконку рядом с локацией",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Все"
+    },
+    "endpoints_tab_saved": {
+        "message": "Сохранённые"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Локация удалена из Сохранённых"
     },
     "popup_traffic_limit_reached": {
         "message": "Лимит трафика в этом месяце исчерпан"
@@ -718,10 +731,10 @@
         "message": "Скорость снижена"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "У вас закончился бесплатный трафик, и теперь AdGuard VPN работает медленно."
+        "message": "У вас закончился бесплатный трафик. AdGuard VPN работает медленно"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Ускорить VPN"
+        "message": "Купить подписку"
     },
     "popup_feedback_title": {
         "message": "Мы будем рады увидеть ваш отзыв"
@@ -818,7 +831,7 @@
         "message": "Эта информация помогает нам понять, какие функции работают хорошо, а какие требуют улучшения. Она анонимна и используется только внутри компании. Мы никогда не передаём её кому-либо"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Войти или зарегистрироваться"
+        "message": "Войдите или создайте аккаунт"
     },
     "popup_newsletter_title": {
         "message": "Рассылка AdGuard"
@@ -895,7 +908,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "VPN можно отключить для конкретного сайта — на остальных он продолжит работать"
+        "message": "VPN можно отключить для одного сайта — на остальных он продолжит работать"
     },
     "popup_hint_popup_button": {
         "message": "Хорошо"
@@ -970,22 +983,22 @@
         "message": "Zip-архив: «%filename%» не содержит файлов с расширениями: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Достигнуто максимальное количество подключений: %maxDevicesAllowed%."
+        "message": "Вы можете подключить до %maxDevicesAllowed% устройств одновременно."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Чтобы добавить больше устройств, оформите подписку на AdGuard VPN."
+        "message": "Чтобы использовать VPN на этом устройстве, понадобится подписка AdGuard VPN"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Чтобы добавить еще одно устройство, отключите AdGuard VPN на любом другом устройстве."
+        "message": "Чтобы использовать VPN на этом устройстве, отключите другое устройство"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Подписаться"
+        "message": "Купить подписку"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Подробнее"
     },
     "popup_connections_limit_title": {
-        "message": "Достигнут лимит подключений"
+        "message": "Достигнут лимит устройств"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Расширение VPN для Android"

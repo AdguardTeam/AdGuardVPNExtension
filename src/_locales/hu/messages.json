@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Téma"
     },
-    "settings_theme_system": {
-        "message": "Rendszer alapértelmezett"
-    },
     "settings_theme_dark": {
         "message": "Sötét"
     },
@@ -627,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Sikeres hitelesítés! Megnyithatja az AdGuard VPN-t és elkezdheti használni."
     },
-    "control_error_title": {
-        "message": "Kiegészítők ütközése"
-    },
-    "control_error_description": {
-        "message": "Úgy tűnik, hogy egy másik böngészőbővítmény megpróbálja vezérelni a kapcsolatot. Kérjük, tiltsa le a másik bővítményt a böngészőjében."
-    },
     "control_error_disable": {
-        "message": "Letiltás"
+        "message": "Kikapcsolás"
     },
     "popup_skeleton_status": {
         "message": "Helyek keresése..."
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Minden végpont"
     },
-    "endpoints_search_results": {
-        "message": "Keresés eredménye"
-    },
     "endpoints_search": {
         "message": "Helyszín keresése"
     },
     "endpoints_not_found": {
         "message": "Nem található helyszín"
+    },
+    "endpoints_tab_all": {
+        "message": "Mind"
+    },
+    "endpoints_tab_saved": {
+        "message": "Elmentve"
     },
     "popup_traffic_limit_reached": {
         "message": "Elérte a havi adatkorlátot"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Csökkentett sebesség"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Elhasználta az ingyenes adatkeretet, az AdGuard VPN lassan működik."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Sebesség növelése"
+        "message": "Frissítés"
     },
     "popup_feedback_title": {
         "message": "Örülnénk az Ön visszajelzésének"
@@ -894,9 +885,6 @@
         "message": "Adatforgalom megújulás ma | Adatforgalom megújulás %days% napon belül | Adatforgalom megújulás %days% napon belül",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Egyébként, ha szeretné, letilthatja a VPN-t ezen az oldalon"
-    },
     "popup_hint_popup_button": {
         "message": "Rendben"
     },
@@ -969,23 +957,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip archívum: a(z) \"%filename%\" nem tartalmaz fájlokat ezekkel a kiterjesztésekkel: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Elérte a kapcsolatok maximális számát: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "További eszközök hozzáadásához fontolja meg, hogy előfizessen a korlátlan AdGuard VPN-re."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Újabb eszköz hozzáadásához le kell választani a jelenlegi eszközei egyikét."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Előfizetés"
+        "message": "Frissítés"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Tudjon meg többet"
     },
     "popup_connections_limit_title": {
-        "message": "Kapcsolódási korlát elérve"
+        "message": "Eszközkorlát elérve"
     },
     "popup_mobile_edge_promo_text": {
         "message": "VPN-bővítmény beszerzése Androidhoz"

@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Tema"
     },
-    "settings_theme_system": {
-        "message": "Sistem standar"
-    },
     "settings_theme_dark": {
         "message": "Gelap"
     },
@@ -627,12 +624,6 @@
     "authentication_successful_notification": {
         "message": "Berhasil diautentikasi! Anda dapat membuka AdGuard VPN dan menggunakannya."
     },
-    "control_error_title": {
-        "message": "Konflik ekstensi"
-    },
-    "control_error_description": {
-        "message": "Sepertinya ada ekstensi peramban lain yang mencoba mengontrol koneksi Anda. Nonaktifkan ekstensi lain di peramban Anda."
-    },
     "control_error_disable": {
         "message": "Nonaktifkan"
     },
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Semua lokasi"
     },
-    "endpoints_search_results": {
-        "message": "Hasil pencarian"
-    },
     "endpoints_search": {
         "message": "Cari lokasi"
     },
     "endpoints_not_found": {
         "message": "Lokasi tidak ditemukan"
+    },
+    "endpoints_tab_all": {
+        "message": "All"
+    },
+    "endpoints_tab_saved": {
+        "message": "Tersimpan"
     },
     "popup_traffic_limit_reached": {
         "message": "Batas data bulanan tercapai. Butuh lebih?"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Kecepatan koneksi berkurang"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Anda telah mencapai batas data gratis, dan AdGuard VPN bekerja dengan lambat."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Naikan kecepatan"
+        "message": "Tingkatkan"
     },
     "popup_feedback_title": {
         "message": "Kami ingin mendengar masukan Anda"
@@ -890,9 +881,6 @@
         "message": "%value% %unit% tersisa",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_hint_popup_content": {
-        "message": "Omong-omong, Anda bisa menonaktifkan VPN untuk situs ini jika Anda mau"
-    },
     "popup_hint_popup_button": {
         "message": "Mengerti"
     },
@@ -924,6 +912,10 @@
     },
     "popup_limited_offer_details_time_left": {
         "message": "Waktu tersisa: %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN Unlimited untuk %count% tahun, diskon <span>%discount%%% </span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Dapatkan penawarannya"
@@ -961,23 +953,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Arsip zip: \"%filename%\" tidak berisi berkas dengan ekstensi: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Anda telah mencapai jumlah koneksi maksimum: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Untuk menambahkan lebih banyak perangkat, pertimbangkan untuk berlangganan AdGuard VPN Tanpa Batas."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Untuk menambahkan perangkat lain, nonaktifkan AdGuard VPN di salah satu gadget Anda."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Langganan"
+        "message": "Tingkatkan"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Pelajari lebih lanjut"
     },
     "popup_connections_limit_title": {
-        "message": "Batas koneksi tercapai"
+        "message": "Batas perangkat tercapai"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Dapatkan ekstensi VPN untuk Android"

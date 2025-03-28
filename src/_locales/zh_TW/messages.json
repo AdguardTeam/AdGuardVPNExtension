@@ -405,6 +405,9 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "已新增 DNS 伺服器"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "伺服器名稱超過 %max% 字元限制（目前 %current%）"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "儲存並選擇"
     },
@@ -472,7 +475,7 @@
         "message": "主題"
     },
     "settings_theme_system": {
-        "message": "系統預設"
+        "message": "瀏覽器預設"
     },
     "settings_theme_dark": {
         "message": "深色"
@@ -628,13 +631,13 @@
         "message": "驗證成功！您可開啟 AdGuard VPN 並開始使用它。"
     },
     "control_error_title": {
-        "message": "延伸功能衝突"
+        "message": "關閉其他的 VPN 擴充功能以連線"
     },
     "control_error_description": {
-        "message": "看似另一款瀏覽器擴充功能正在嘗試控制您的連線。請在您的瀏覽器中禁用其它的擴充功能。"
+        "message": "似乎有另一個 VPN 擴充功能正在控制您的連線。要使用 AdGuard VPN，請關閉該擴充功能。"
     },
     "control_error_disable": {
-        "message": "禁用它"
+        "message": "禁用"
     },
     "popup_skeleton_status": {
         "message": "正在搜尋位置…"
@@ -681,14 +684,24 @@
     "endpoints_all": {
         "message": "所有的位置"
     },
-    "endpoints_search_results": {
-        "message": "搜尋結果"
-    },
     "endpoints_search": {
         "message": "搜尋位置"
     },
     "endpoints_not_found": {
         "message": "找不到位置"
+    },
+    "endpoints_empty_saved": {
+        "message": "要檢視位置，請選擇「<b>全部</b>」並單擊位置旁邊的圖示。",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "所有的"
+    },
+    "endpoints_tab_saved": {
+        "message": "已儲存"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "已從「已儲存」中刪除位置"
     },
     "popup_traffic_limit_reached": {
         "message": "已達到每月的流量限制"
@@ -721,7 +734,7 @@
         "message": "您已達到免費的流量限制，所以 AdGuard VPN 緩慢地運作。"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "提升速度"
+        "message": "升級"
     },
     "popup_feedback_title": {
         "message": "我們願意聽取您的回饋意見"
@@ -895,7 +908,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "如果需要，使用者可以在此網站上禁用 VPN"
+        "message": "順便一提，您可以為一個網站關閉 VPN，而為其他網站保持已啟用。"
     },
     "popup_hint_popup_button": {
         "message": "知道了"
@@ -970,22 +983,22 @@
         "message": "Zip 檔案：\"%filename%\" 不包含有副檔名：%extensions% 的檔案"
     },
     "popup_connections_limit_description_start": {
-        "message": "您已達到連線之最大數量：%maxDevicesAllowed%。"
+        "message": "您可以同時連線最多 %maxDevicesAllowed% 台裝置。"
     },
     "popup_connections_limit_description_end_free": {
-        "message": "為了新增更多的裝置，考慮訂閱無限制的 AdGuard VPN。"
+        "message": "若要在此裝置上使用 VPN，請考慮購買 AdGuard VPN 無限版。"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "為了新增另一台裝置，於您的任何裝置上禁用 AdGuard VPN。"
+        "message": "若要在此裝置上使用 VPN，請斷開其他裝置。"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "訂閱"
+        "message": "升級"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "了解更多"
     },
     "popup_connections_limit_title": {
-        "message": "已達到連線限制"
+        "message": "已達裝置數量上限"
     },
     "popup_mobile_edge_promo_text": {
         "message": "取得 Android 的 VPN 擴充功能"

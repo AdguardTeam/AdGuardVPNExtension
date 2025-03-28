@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Thème"
     },
-    "settings_theme_system": {
-        "message": "Valeur par défaut du système"
-    },
     "settings_theme_dark": {
         "message": "Sombre"
     },
@@ -627,12 +624,6 @@
     "authentication_successful_notification": {
         "message": "Authentification réussie ! Vous pouvez lancer AdGuard VPN et commencer à l'utiliser."
     },
-    "control_error_title": {
-        "message": "Conflit d'extensions"
-    },
-    "control_error_description": {
-        "message": "Il semble qu'une autre extension du navigateur essaie de contrôler votre connexion. Veuillez désactiver l'autre extension dans votre navigateur."
-    },
     "control_error_disable": {
         "message": "Désactiver"
     },
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Toutes les localisations"
     },
-    "endpoints_search_results": {
-        "message": "Résultat de la recherche"
-    },
     "endpoints_search": {
         "message": "Rechercher une localisation"
     },
     "endpoints_not_found": {
         "message": "Localisations introuvables"
+    },
+    "endpoints_tab_all": {
+        "message": "Toutes"
+    },
+    "endpoints_tab_saved": {
+        "message": "Enregistré"
     },
     "popup_traffic_limit_reached": {
         "message": "La limite mensuelle de données est atteinte"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Vitesse de connexion réduite"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Vous avez dépassé la limite des données gratuites et AdGuard VPN fonctionne lentement."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Augmenter la vitesse"
+        "message": "Mise à niveau "
     },
     "popup_feedback_title": {
         "message": "Nous aimerions entendre vos retours"
@@ -818,7 +809,7 @@
         "message": "Ces informations nous aident à comprendre quelles sont les fonctionnalités qui marchent bien et à déterminer celles qui doivent être améliorées. Elles sont anonymes et ne sont utilisées qu'en interne. Nous ne les partageons jamais avec qui que ce soit"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Connectez-vous ou créez un compte"
+        "message": "Identifiez-vous ou créez un compte"
     },
     "popup_newsletter_title": {
         "message": "Newsletter AdGuard"
@@ -894,9 +885,6 @@
         "message": "Le trafic se renouvelle aujourd'hui | Le trafic se renouvelle dans %days% jour | Le trafic se renouvelle dans %days% jours",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Par ailleurs, vous pouvez désactiver le VPN pour ce site si vous le souhaitez"
-    },
     "popup_hint_popup_button": {
         "message": "OK"
     },
@@ -969,23 +957,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "L'archive Zip : \"%filename%\" ne contient pas de fichiers avec des extensions : %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Vous avez atteint le maximum de connexions : %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Pour ajouter plus d'appareils, pensez à un abonnement AdGuard VPN Illimité."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Pour ajouter un autre appareil, désactivez AdGuard VPN sur l'un de vos autres dispositifs."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "M'abonner"
+        "message": "Mise à niveau "
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "En savoir plus"
     },
     "popup_connections_limit_title": {
-        "message": "La limite des connexions est atteinte"
+        "message": "Limite d’appareils atteinte"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Obtenez l'extension VPN pour Android"

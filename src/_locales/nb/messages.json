@@ -4,7 +4,7 @@
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
+        "message": "Bruk AdGuard VPN for å surfe på Internett raskt og sikkert. Beskytt ditt personvernet og forbli anonym med vår private VPN-proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -50,6 +50,9 @@
     },
     "authentication_error_default": {
         "message": "En feil oppstod, prøv igjen senere"
+    },
+    "global_error_message": {
+        "message": "Det oppstod en feil, vennligst kontakt oss via <a>%support_email%</a>"
     },
     "about_title": {
         "message": "Om"
@@ -468,9 +471,6 @@
     "settings_theme_label": {
         "message": "Tema"
     },
-    "settings_theme_system": {
-        "message": "Systemtema"
-    },
     "settings_theme_dark": {
         "message": "Mørkt"
     },
@@ -624,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Autentiseringen var vellykket! Du kan åpne AdGuard VPN og skru på tunnelen."
     },
-    "control_error_title": {
-        "message": "Utvidelseskonflikt"
-    },
-    "control_error_description": {
-        "message": "Det ser ut som en annen Chrome-utvidelse prøver å styre tilkoblingen din. Vennligst skru av den andre utvidelsen i nettleseren din."
-    },
     "control_error_disable": {
-        "message": "Skru den av"
+        "message": "Deaktiver"
     },
     "popup_skeleton_status": {
         "message": "Søker etter steder..."
@@ -678,14 +672,17 @@
     "endpoints_all": {
         "message": "Alle posisjoner"
     },
-    "endpoints_search_results": {
-        "message": "Søkeresultat"
-    },
     "endpoints_search": {
         "message": "Søk etter sted"
     },
     "endpoints_not_found": {
         "message": "Lokasjoner ikke funnet"
+    },
+    "endpoints_tab_all": {
+        "message": "Alle"
+    },
+    "endpoints_tab_saved": {
+        "message": "Lagret"
     },
     "popup_traffic_limit_reached": {
         "message": "Den månedlige datagrensen har blitt nådd. Behøver du mer?"
@@ -714,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Tilkoblingshastigheten er redusert"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Du har nådd den gratis datagrensen, og AdGuard VPN fungerer sakte."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Øk hastigheten"
+        "message": "Oppgrader"
     },
     "popup_feedback_title": {
         "message": "Vi ville likt å høre tilbakemeldingene dine"
@@ -891,9 +885,6 @@
         "message": "Trafikk fornyes i dag | Trafikk fornyes om %days% dag | Trafikk fornyes om %days% dager",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Forresten, kan du deaktivere VPN for denne siden hvis du ønsker det"
-    },
     "popup_hint_popup_button": {
         "message": "Skjønner"
     },
@@ -966,23 +957,11 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip-arkiv: \"%filename%\" inneholder ikke filer med utvidelser: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Du har nådd det maksimale antall forbindelser: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "For å legge til flere enheter, vurder å abonnere på Unlimited AdGuard VPN."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "For å legge til en annen enhet, deaktiver AdGuard VPN på en av enhetene dine."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Abonner"
+        "message": "Oppgrader"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Lær mer"
-    },
-    "popup_connections_limit_title": {
-        "message": "Enhetsgrensen er nådd"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Få VPN-utvidelse for Android"

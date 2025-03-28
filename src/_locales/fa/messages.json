@@ -4,7 +4,7 @@
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
+        "message": "استفاده از AdGuard VPN برای گشت‌وگذار سریع، ایمن و ناشناس در اینترنت. حریم خصوصی‌تان را محافظت کنید و ناشناس بمانید."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -50,6 +50,9 @@
     },
     "authentication_error_default": {
         "message": "خطا ای رخ داد،بعدا دوباره امتحان کنید"
+    },
+    "global_error_message": {
+        "message": "خطایی روی داد، لطفاً از طریق <a>%support_email%</a>با ما تماس بگیرید"
     },
     "about_title": {
         "message": "درباره"
@@ -239,6 +242,9 @@
     },
     "referral_get_free_traffic": {
         "message": "حجم داده‌های رایگان دریافت کنید!"
+    },
+    "settings_referral_info": {
+        "message": "برای هر دوستی که از طریق دعوتنامه شما ثبت نام می کند، %your_gb% گیگابایت ترافیک VPN رایگان به مدت یک ماه دریافت کنید، در مجموع تا %total_gb% گیگابایت. دوست شما همچنین یک %friend_gb% گیگابایت اضافی به صورت رایگان دریافت می کند."
     },
     "settings_referral_invited_friends": {
         "message": "دوستان دعوت شده %count%/%limit%"
@@ -465,9 +471,6 @@
     "settings_theme_label": {
         "message": "پوسته"
     },
-    "settings_theme_system": {
-        "message": "پیش فرض سیستم"
-    },
     "settings_theme_dark": {
         "message": "تیره"
     },
@@ -621,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "با موفقیت احراز هویت شد! می توانید AdGuard VPN را باز کرده و شروع به استفاده کنید."
     },
-    "control_error_title": {
-        "message": "تعارض در افزونه"
-    },
-    "control_error_description": {
-        "message": "به نظر می‌رسد یک افزونه مرورگر دیگر در حال تلاش برای کنترل اتصال شماست. لطفاً افزونه دیگر را در مرورگر خود غیرفعال کنید."
-    },
     "control_error_disable": {
-        "message": "آن را غیرفعال کنید"
+        "message": "غيرفعالسازي"
     },
     "popup_skeleton_status": {
         "message": "جستجوی مکان‌ها..."
@@ -675,14 +672,17 @@
     "endpoints_all": {
         "message": "همه مکانها"
     },
-    "endpoints_search_results": {
-        "message": "جستجوی مکان"
-    },
     "endpoints_search": {
         "message": "جستجوی مکان"
     },
     "endpoints_not_found": {
         "message": "مکان‌ها یافت نشد"
+    },
+    "endpoints_tab_all": {
+        "message": "همه"
+    },
+    "endpoints_tab_saved": {
+        "message": "ذخیره شده"
     },
     "popup_traffic_limit_reached": {
         "message": "حد داده ماهانه سر رسید"
@@ -711,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "سرعت کاهش یافته است"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "You've reached the free data limit, and AdGuard VPN works slowly."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "افزایش سرعت"
+        "message": "ارتقاء"
     },
     "popup_feedback_title": {
         "message": "ما مشتاقانه منتظر بازخورد شما هستیم"
@@ -888,9 +885,6 @@
         "message": "ترافیک امروز تجدید می‌شود | ترافیک در %days% روز تجدید می‌شود | ترافیک در %days% روزها تجدید می‌شود",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "بالمناسبت، شما می‌توانید VPN را برای این سایت غیرفعال کنید اگر بخواهید"
-    },
     "popup_hint_popup_button": {
         "message": "فهمیدم"
     },
@@ -963,23 +957,11 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "فایل ZIP: \"%filename%\" شامل فایل با پسوندهای: %extensions% نیست"
     },
-    "popup_connections_limit_description_start": {
-        "message": "You've reached the maximum number of connections: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "برای اضافه کردن دستگاه‌های بیشتر، پیشنهاد می‌کنیم به اشتراک AdGuard VPN نامحدود بپیوندید."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "برای اضافه کردن یک دستگاه دیگر، AdGuard VPN را بر روی هر یک از گجت‌های خود غیرفعال کنید."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "اشتراک"
+        "message": "ارتقاء"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "بیشتر بدانید"
-    },
-    "popup_connections_limit_title": {
-        "message": "به حد مجاز اتصالات رسیده‌اید"
     },
     "popup_mobile_edge_promo_text": {
         "message": "دریافت افزونه VPN برای Android"

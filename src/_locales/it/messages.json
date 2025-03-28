@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Tema"
     },
-    "settings_theme_system": {
-        "message": "Predefinito di sistema"
-    },
     "settings_theme_dark": {
         "message": "Scuro"
     },
@@ -627,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Autenticazione riuscita! Puoi aprire AdGuard VPN e iniziare a utilizzarla."
     },
-    "control_error_title": {
-        "message": "Conflitto di estensione"
-    },
-    "control_error_description": {
-        "message": "Sembra che un'altra estensione di browser stia cercando di controllare la connessione. Si prega di disabilitare l'altra estensione nel browser."
-    },
     "control_error_disable": {
-        "message": "Disattivala"
+        "message": "Disattiva"
     },
     "popup_skeleton_status": {
         "message": "In cerca di località..."
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Tutte le località"
     },
-    "endpoints_search_results": {
-        "message": "Risultato della ricerca"
-    },
     "endpoints_search": {
         "message": "Cerca località"
     },
     "endpoints_not_found": {
         "message": "Località non trovate"
+    },
+    "endpoints_tab_all": {
+        "message": "Tutti"
+    },
+    "endpoints_tab_saved": {
+        "message": "Salvato"
     },
     "popup_traffic_limit_reached": {
         "message": "Limite dati mensile raggiunto"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "La velocità è stata ridotta"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Hai raggiunto il limite dati gratuito, e AdGuard VPN lavorerà lentamente."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Incrementa velocità"
+        "message": "Aggiorna"
     },
     "popup_feedback_title": {
         "message": "Ci piacerebbe sentire un tuo parere"
@@ -818,7 +809,7 @@
         "message": "Queste informazioni ci aiutano a comprendere quali funzioni operano bene e cosa necessita miglioramenti. Sono anonimizzate e usate solo internamente. Non le condividiamo mai con nessuno"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Accedi o registrati"
+        "message": "Accedere o creare un account"
     },
     "popup_newsletter_title": {
         "message": "Newsletter AdGuard"
@@ -894,9 +885,6 @@
         "message": "Il traffico si rinnova oggi | Il traffico si rinnova in %days% giorno | Il traffico si rinnova in %days% giorni",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "A proposito, puoi disabilitare la VPN per questo sito se lo desideri"
-    },
     "popup_hint_popup_button": {
         "message": "Capito"
     },
@@ -969,23 +957,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "L'archivio Zip \"%filename%\" non contiene file con estensioni: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Hai raggiunto il numero massimo di connessioni: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Per aggiungere altri dispositivi, valuta la possibilità di sottoscrivere un abbonamento Illimitato ad AdGuard VPN."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Per aggiungere un altro dispositivo, scollega AdGuard VPN da uno di quelli attualmente in uso."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Abbonati"
+        "message": "Aggiorna"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Ulteriori informazioni"
     },
     "popup_connections_limit_title": {
-        "message": "Limite connessioni raggiunto"
+        "message": "Limite dispositivi raggiunto"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Ottieni l'estensione VPN per Android"

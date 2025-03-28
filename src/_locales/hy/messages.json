@@ -4,7 +4,7 @@
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
+        "message": "Օգտագործեք AdGuard VPN` ինտերնետում արագ և ապահով սերդելու համար: Պաշտպանեք ձեր գաղտնիությունն՝ մեր մասնավոր VPN պրոքսի միջոցով։"
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Ֆոն"
     },
-    "settings_theme_system": {
-        "message": "Համակարգի լռելյայն"
-    },
     "settings_theme_dark": {
         "message": "Մութ"
     },
@@ -627,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Հաջողությամբ հավաստագրված եք։ Կարող եք բացել AdGuard VPN-ը և սկսել այն օգտագործել։"
     },
-    "control_error_title": {
-        "message": "Ընդլայնման հակամարտություն"
-    },
-    "control_error_description": {
-        "message": "Միանական, որ մյուս դիտարկիչի լրացյալ ծրագիրն փորձում է կառավարել ձեր կապը։ Խնդրում եմ անջատեք մյուս լրացյալ ծրագիրը ձեր դիտարկիչում։"
-    },
     "control_error_disable": {
-        "message": "Անջատել սա"
+        "message": "Անջատել"
     },
     "popup_skeleton_status": {
         "message": "Փնտրում էր...։"
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Բոլոր վայրերը"
     },
-    "endpoints_search_results": {
-        "message": "Որոնման արդյունք"
-    },
     "endpoints_search": {
         "message": "Որոնել վայրերը"
     },
     "endpoints_not_found": {
         "message": "Սերվեր չի գտնվել"
+    },
+    "endpoints_tab_all": {
+        "message": "All"
+    },
+    "endpoints_tab_saved": {
+        "message": "Պահպանված է"
     },
     "popup_traffic_limit_reached": {
         "message": "Ամսական տվյալների սահմանաչափը հասել է"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Արագությունը նվազում է"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Դուք հասել եք անվճար տվյալների սահմանին, և AdGuard VPN-ը աշխատում է դանդաղ:"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Բարձրացնել արագությունը"
+        "message": "Արդիացնել"
     },
     "popup_feedback_title": {
         "message": "Մենք ուզում ենք լսել ձեր կարծիքը"
@@ -890,8 +881,9 @@
         "message": "%value% %unit% մնացել է",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_hint_popup_content": {
-        "message": "Մասնավորապես, դուք կարող եք անջատել VPN այս կայքի համար, եթե ցանկանում եք"
+    "popup_free_traffic_info_days_left": {
+        "message": "Տրաֆիկը նորանում է այսօր | Տրաֆիկը նորանում է %days% օրում",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_button": {
         "message": "Got it"
@@ -924,6 +916,10 @@
     },
     "popup_limited_offer_details_time_left": {
         "message": "Մնացել է: %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN Unlimited %count% տարի <span>%discount%%% զեղչ</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Վերցնել առաջարկը"
@@ -961,23 +957,11 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip արխիվը: \"%filename%\" չի պարունակում հետևյալ ընդլայնումներով ֆայլեր՝ %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Դուք հասել եք միաժամանակյա միացման առավելագույն թվին՝ %maxDevicesAllowed%։"
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Ավելացնել որոշ սարքեր, հաշվի առեք անդամագրվել Unlimited AdGuard VPN-ին։"
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Այդ պատճառով, отключьте AdGuard VPN ձեր ցանկացած gadget-ից։"
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Բաժանորդագրվել"
+        "message": "Արդիացնել"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Իմանալ ավելին"
-    },
-    "popup_connections_limit_title": {
-        "message": "Connections limit reached"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Ստացեք VPN ընդլայնումը Android-ի համար"

@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Тэма"
     },
-    "settings_theme_system": {
-        "message": "Як у сістэме"
-    },
     "settings_theme_dark": {
         "message": "Цёмная"
     },
@@ -627,12 +624,6 @@
     "authentication_successful_notification": {
         "message": "Праверка сапраўднасці прайшла! Вы можаце адкрыць AdGuard VPN і пачаць выкарыстоўваць яго."
     },
-    "control_error_title": {
-        "message": "Канфлікт пашырэння"
-    },
-    "control_error_description": {
-        "message": "Здаецца, што яшчэ адно пашырэнне Chrome спрабуе кантраляваць ваша злучэнне. Калі ласка, адключыце іншае пашырэнне ў вашым браўзары."
-    },
     "control_error_disable": {
         "message": "Адключыць"
     },
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Усе месцівы"
     },
-    "endpoints_search_results": {
-        "message": "Вынікі пошуку"
-    },
     "endpoints_search": {
         "message": "Пошук месціва"
     },
     "endpoints_not_found": {
         "message": "Сервер не знойдзены"
+    },
+    "endpoints_tab_all": {
+        "message": "All"
+    },
+    "endpoints_tab_saved": {
+        "message": "Захавана"
     },
     "popup_traffic_limit_reached": {
         "message": "Дасягнуты месячны ліміт дадзеных"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Хуткасць злучэння зніжана"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "У вас скончыўся дармовы трафік, і зараз AdGuard VPN працуе павольна."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Павялічыць хуткасць"
+        "message": "Абнаўленне"
     },
     "popup_feedback_title": {
         "message": "Мы будзем рады ўбачыць ваш водгук"
@@ -818,7 +809,7 @@
         "message": "Гэтая інфармацыя дапамагае нам зразумець, якія функцыянальнасці працуюць добра, а што патрабуе паляпшэння. Яна ананімізавана і выкарыстоўваецца толькі ўнутрана. Мы ніколі не дзелімся ёй з кім-небудзь."
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Увайдзіце або стварыце ўліковы запіс"
+        "message": "Увайдзіце або стварыце акаўнт"
     },
     "popup_newsletter_title": {
         "message": "Навіны ад AdGuard"
@@ -894,9 +885,6 @@
         "message": "Трафік абновіцца сёння | Трафік абновіцца праз %days% дзень | Трафік абновіцца праз %days% дня | Трафік абновіцца праз %days% дзён",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Дарэчы, пры жаданні вы можаце адключыць VPN для гэтага сайта"
-    },
     "popup_hint_popup_button": {
         "message": "Зразумела"
     },
@@ -969,23 +957,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip-архіў: \"%filename%\" не ўтрымвае файлаў з пашырэннямі: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Дасягнута максімальная колькасць падлучэнняў: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Каб дадаць больш прылад, аформіце падпіску на AdGuard VPN."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Каб дадаць яшчэ адну прыладу, адключыце AdGuard VPN на кожнай іншай прыладзе."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Падпісаццца"
+        "message": "Абнаўленне"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Падрабязней"
     },
     "popup_connections_limit_title": {
-        "message": "Дасягнуты ліміт падлучэнняў"
+        "message": "Дасягнуты ліміт прылад"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Атрымаць VPN пашырэнне для Android"

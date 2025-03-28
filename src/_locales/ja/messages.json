@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "カラーテーマ"
     },
-    "settings_theme_system": {
-        "message": "システムに合わせる"
-    },
     "settings_theme_dark": {
         "message": "ダーク"
     },
@@ -627,12 +624,6 @@
     "authentication_successful_notification": {
         "message": "認証完了！AdGuard VPNを開き、利用を開始することができます。"
     },
-    "control_error_title": {
-        "message": "拡張機能コンフリクト"
-    },
-    "control_error_description": {
-        "message": "別のChrome拡張機能があなたの接続を制御しようとしているようです。その拡張機能を無効にしてください。"
-    },
     "control_error_disable": {
         "message": "無効にする"
     },
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "ずべてのロケーション"
     },
-    "endpoints_search_results": {
-        "message": "検索結果"
-    },
     "endpoints_search": {
         "message": "ロケーションを検索"
     },
     "endpoints_not_found": {
         "message": "ロケーションが見つかりません"
+    },
+    "endpoints_tab_all": {
+        "message": "全て"
+    },
+    "endpoints_tab_saved": {
+        "message": "保存完了"
     },
     "popup_traffic_limit_reached": {
         "message": "月間無料通信量の上限に達しました。"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "低速化されています。"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "無料データ上限に達したため、AdGuard VPNは低速化しています。"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "今すぐ速度を上げる"
+        "message": "アップグレード"
     },
     "popup_feedback_title": {
         "message": "ユーザ様の声をお聞かせください。"
@@ -818,7 +809,7 @@
         "message": "この情報は、どのような機能がうまく機能し、どのような改善が必要かを理解するのに役立ち、開発に活用させていただきます。この情報は匿名化され、社内でのみ使用されます。AdGuard社がこの情報を第三者と共有することは一切ありません。"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "ログイン／ご登録"
+        "message": "ログインまたはアカウントご登録"
     },
     "popup_newsletter_title": {
         "message": "AdGuardニュースレター"
@@ -894,9 +885,6 @@
         "message": "通信量は本日更新されます | 通信量は後%days%日で更新されます",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "必要に応じて、このサイトに対してVPNを無効にすることも可能です。"
-    },
     "popup_hint_popup_button": {
         "message": "OK"
     },
@@ -969,23 +957,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "【zipアーカイブ】「%filename%」には %extensions% という拡張子のファイルがないためインポートできません"
     },
-    "popup_connections_limit_description_start": {
-        "message": "同時接続可能端末数の上限（%maxDevicesAllowed%台）に達しています"
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "もっと多くの端末を同時接続するには、ぜひAdGuard VPN無制限版のご利用をご検討ください。"
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "もう1台の端末を接続するには、既に接続している端末のいずれでAdGuard VPNをオフにしてください。"
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "利用開始する"
+        "message": "アップグレード"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "詳しくはこちら"
     },
     "popup_connections_limit_title": {
-        "message": "同時接続可能端末数の上限に達成"
+        "message": "デバイス数上限に達しました"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Android用VPN拡張機能をゲット"

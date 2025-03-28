@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "المظهر"
     },
-    "settings_theme_system": {
-        "message": "استخدام مظهر النظام"
-    },
     "settings_theme_dark": {
         "message": "داكن"
     },
@@ -627,12 +624,6 @@
     "authentication_successful_notification": {
         "message": "تمت المصادقة بنجاح! يمكنك فتح AdGuard VPN والبدء في استخدامه."
     },
-    "control_error_title": {
-        "message": "تعارض في ملحقات المتصفح"
-    },
-    "control_error_description": {
-        "message": "يبدو أن هناك امتداد متصفح آخر يحاول التحكم في اتصالك. يرجى تعطيل الامتداد الآخر في متصفحك."
-    },
     "control_error_disable": {
         "message": "تعطيل"
     },
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "جميع المواقع"
     },
-    "endpoints_search_results": {
-        "message": "نتائج البحث"
-    },
     "endpoints_search": {
         "message": "مواقع البحث"
     },
     "endpoints_not_found": {
         "message": "لم يتم العثور على المواقع"
+    },
+    "endpoints_tab_all": {
+        "message": "الكل"
+    },
+    "endpoints_tab_saved": {
+        "message": "تم الحفظ"
     },
     "popup_traffic_limit_reached": {
         "message": "تم الوصول إلى الحد الأقصى للبيانات الشهرية"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "تم تخفيض السرعة"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "لقد وصلت إلى حد الأقصى من البيانات المجانية، اصبح AdGuard VPN يعمل ببطء."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "تعزيز السرعة"
+        "message": "ترقية"
     },
     "popup_feedback_title": {
         "message": "يسعدنا سماع ملاحظاتك"
@@ -894,9 +885,6 @@
         "message": "يتم تجديد حركة المرور اليوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "بالمناسبة، يمكنك تعطيل VPN لهذا الموقع إذا كنت ترغب في ذلك"
-    },
     "popup_hint_popup_button": {
         "message": "فهمت ذلك"
     },
@@ -965,23 +953,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "أرشيف مضغوط: \"%filename%\" لا يحتوي على ملفات ذات امتدادات:%extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "لقد وصلت إلى الحد الأقصى لعدد الاتصالات: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "لإضافة المزيد من الأجهزة، فكر في الاشتراك في خدمة AdGuard VPN غير المحدودة."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "لإضافة جهاز آخر، قم بتعطيل AdGuard VPN على أي من أجهزتك."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "اشترا"
+        "message": "ترقية"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "اعرف المزيد"
     },
     "popup_connections_limit_title": {
-        "message": "تم الوصول إلى الحد الأقصى للاتصالات"
+        "message": "تم الوصول إلى الحد الأقصى للجهاز"
     },
     "popup_mobile_edge_promo_text": {
         "message": "احصل على امتداد VPN لنظام Android"
@@ -996,7 +975,7 @@
         "message": "فهمت ذلك"
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
-        "message": "عدم إظهار هذا مرة أخرى"
+        "message": "عدم إظهار هذه مرة أخرى"
     },
     "options_signedout_page_title": {
         "message": "لقد قمت بتسجيل الخروج من AdGuard VPN"

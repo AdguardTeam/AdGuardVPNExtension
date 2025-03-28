@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Tema"
     },
-    "settings_theme_system": {
-        "message": "Sistemska privzeta"
-    },
     "settings_theme_dark": {
         "message": "Temna"
     },
@@ -627,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Uspešno preverjena! Lahko odprete AdGuard VPN in ga začnete uporabljati."
     },
-    "control_error_title": {
-        "message": "Spor razširitve"
-    },
-    "control_error_description": {
-        "message": "Zdi se, da poskuša druga razširitev brskalnika nadzorovati vašo povezavo. Prosimo, onemogočite drugo razširitev v brskalniku."
-    },
     "control_error_disable": {
-        "message": "Onemogoči jih"
+        "message": "Onemogoči"
     },
     "popup_skeleton_status": {
         "message": "Iskanje lokacij..."
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Vse lokacije"
     },
-    "endpoints_search_results": {
-        "message": "Rezultat iskanja"
-    },
     "endpoints_search": {
         "message": "Poišči lokacijo"
     },
     "endpoints_not_found": {
         "message": "Lokacije niso bile najdene"
+    },
+    "endpoints_tab_all": {
+        "message": "Vse"
+    },
+    "endpoints_tab_saved": {
+        "message": "Shranjeno"
     },
     "popup_traffic_limit_reached": {
         "message": "Mesečna omejitev podatkov je dosežena"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Hitrost je zmanjšana"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Dosegli ste omejitev brezplačnih podatkov in AdGuard VPN deluje počasi."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Povečajte hitrost"
+        "message": "Nadgradi"
     },
     "popup_feedback_title": {
         "message": "Zelo radi bi slišali vaše povratne informacije"
@@ -894,9 +885,6 @@
         "message": "Promet je danes obnovljen | Promet se obnovi čez %days% dan | Promet se obnovi čez %days% dni | Promet se obnovi čez %days% dni | Promet se obnovi čez %days% dni",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Mimogrede, lahko onemogočite VPN za to spletno stran, če želite"
-    },
     "popup_hint_popup_button": {
         "message": "Razumem"
     },
@@ -969,23 +957,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Arhiv Zip: \"%filename%\" ne vsebuje datotek s končnicami: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Dosegli ste največje število povezav: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Za dodajanje več naprav, se naročite na neomejeno različico AdGuard VPN."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Za dodajanje druge naprave, onemogočite AdGuard VPN v katerem koli od pripomočkov."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Naroči se"
+        "message": "Nadgradi"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Več o tem"
     },
     "popup_connections_limit_title": {
-        "message": "Dosežena je omejitev povezave"
+        "message": "Dosežena je omejitev naprave"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Pridobite razširitev VPN za Android"

@@ -4,7 +4,7 @@
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
+        "message": "Χρησιμοποιήστε το AdGuard VPN για να σερφάρετε στο Internet με ασφάλεια. Προστατέψτε το απόρρητό σας με το VPN proxy μας."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -468,9 +468,6 @@
     "settings_theme_label": {
         "message": "Θέμα"
     },
-    "settings_theme_system": {
-        "message": "Προεπιλογή συστήματος"
-    },
     "settings_theme_dark": {
         "message": "Σκοτεινό"
     },
@@ -624,14 +621,8 @@
     "authentication_successful_notification": {
         "message": "Επιβεβαίωση με επιτυχία! Μπορείτε να ανοίξετε το AdGuard VPN και να αρχίσετε να το χρησιμοποιείτε."
     },
-    "control_error_title": {
-        "message": "Διένεξη επέκτασης"
-    },
-    "control_error_description": {
-        "message": "Φαίνεται ότι μια άλλη επέκταση Chrome προσπαθεί να ελέγξει τη σύνδεσή σας. Απενεργοποιήστε την άλλη επέκταση στο πρόγραμμα περιήγησής σας."
-    },
     "control_error_disable": {
-        "message": "Απενεργοποιήστε τη"
+        "message": "Απενεργοποίηση"
     },
     "popup_skeleton_status": {
         "message": "Αναζήτηση τοποθεσιών..."
@@ -678,14 +669,17 @@
     "endpoints_all": {
         "message": "Όλες οι τοποθεσίες"
     },
-    "endpoints_search_results": {
-        "message": "Αποτέλεσμα αναζήτησης"
-    },
     "endpoints_search": {
         "message": "Αναζήτηση τοποθεσίας"
     },
     "endpoints_not_found": {
         "message": "Δεν βρέθηκαν τοποθεσίες"
+    },
+    "endpoints_tab_all": {
+        "message": "Όλα"
+    },
+    "endpoints_tab_saved": {
+        "message": "Αποθηκεύτηκε"
     },
     "popup_traffic_limit_reached": {
         "message": "Συμπληρώθηκε το μηνιαίο όριο δεδομένων. Χρειάζεστε περισσότερο;"
@@ -714,11 +708,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Η ταχύτητα είναι μειωμένη"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Έχετε φτάσει το όριο των δωρεάν δεδομένων και το AdGuard VPN λειτουργεί αργά."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Ενίσχυση ταχύτητας"
+        "message": "Αναβάθμιση"
     },
     "popup_feedback_title": {
         "message": "Θα θέλαμε πολύ να ακούσουμε τα σχόλιά σας"
@@ -815,7 +806,7 @@
         "message": "Αυτές οι πληροφορίες μας βοηθούν να κατανοήσουμε ποιες λειτουργίες λειτουργούν καλά και τι χρειάζεται βελτίωση. Είναι ανώνυμες και χρησιμοποιούνται μόνο εσωτερικά. Ποτέ δεν τις κοινοποιούμε σε κανέναν"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Συνδεθείτε ή εγγραφείτε"
+        "message": "Συνδεθείτε ή δημιουργήστε έναν λογαριασμό"
     },
     "popup_newsletter_title": {
         "message": "Ενημερωτικό δελτίο AdGuard"
@@ -891,9 +882,6 @@
         "message": "Η κίνηση ανανεώνεται σήμερα | Η κίνηση ανανεώνεται σε %days% ημέρα | Η κίνηση ανανεώνεται σε %days% ημέρες",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Αλλά, μπορείτε να απενεργοποιήσετε το VPN για αυτόν τον ιστότοπο αν το επιθυμείτε"
-    },
     "popup_hint_popup_button": {
         "message": "Το κατάλαβα"
     },
@@ -966,23 +954,11 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Αρχείο zip: \"%filename%\" δεν περιέχει αρχεία με επεκτάσεις: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Έχετε φτάσει τον μέγιστο αριθμό συνδέσεων: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Για να προσθέσετε περισσότερες συσκευές, σκεφτείτε να εγγραφείτε στο Unlimited AdGuard VPN."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Για να προσθέσετε μια άλλη συσκευή, απενεργοποιήστε το AdGuard VPN σε οποιοδήποτε από τα gadgets σας."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Συνδρομή"
+        "message": "Αναβάθμιση"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Μάθετε περισσότερα"
-    },
-    "popup_connections_limit_title": {
-        "message": "Συμπληρώθηκε το όριο συνδέσεων"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Λήψη επέκτασης VPN για Android"

@@ -51,6 +51,9 @@
     "authentication_error_default": {
         "message": "שגיאה התרחשה, נסה שוב מאוחר יותר"
     },
+    "global_error_message": {
+        "message": "אירעה שגיאה, אנא צור איתנו קשר דרך <a>%support_email%</a>"
+    },
     "about_title": {
         "message": "אודות"
     },
@@ -468,9 +471,6 @@
     "settings_theme_label": {
         "message": "ערכת נושא"
     },
-    "settings_theme_system": {
-        "message": "ברירת מחדל"
-    },
     "settings_theme_dark": {
         "message": "כהה"
     },
@@ -624,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "אומת בהצלחה! אתה יכול לפתוח את AdGuard VPN ולהתחיל להשתמש בו."
     },
-    "control_error_title": {
-        "message": "קונפליקט הרחבה"
-    },
-    "control_error_description": {
-        "message": "נראה שהרחבת Chrome אחרת מנסה לשלוט בחיבור שלך. אנא השבת את ההרחבה האחרת בדפדפן שלך."
-    },
     "control_error_disable": {
-        "message": "השבת זאת"
+        "message": "השבת"
     },
     "popup_skeleton_status": {
         "message": "מחפש מיקומים..."
@@ -678,14 +672,17 @@
     "endpoints_all": {
         "message": "כל המיקומים"
     },
-    "endpoints_search_results": {
-        "message": "תוצאת חיפוש"
-    },
     "endpoints_search": {
         "message": "חפש מיקום"
     },
     "endpoints_not_found": {
         "message": "מיקומים לא נמצאו."
+    },
+    "endpoints_tab_all": {
+        "message": "הכל"
+    },
+    "endpoints_tab_saved": {
+        "message": "נשמר"
     },
     "popup_traffic_limit_reached": {
         "message": "מגבלת נתונים חודשית הושגה"
@@ -714,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "המהירות מופחתת"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "הגעת אל מגבלת הנתונים החינמיים, ו־AdGuard VPN עובד באיטיות."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "הגבר מהירות"
+        "message": "שדרג"
     },
     "popup_feedback_title": {
         "message": "נשמח לקרוא את המשוב שלך"
@@ -808,11 +802,14 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "שלח נתוני שימוש בהרחבה <link>אנונימיים</link>"
     },
+    "popup_auth_help_us_improve_modal_desc_data": {
+        "message": "אם תסכימו, AdGuard VPN יאסוף נתונים על המסכים והכפתורים איתם אתם מתקשרים. תמיד אפשר להשבית את שיתוף הנתונים ב- <b>הגדרות</b>"
+    },
     "popup_auth_help_us_improve_modal_desc_info": {
         "message": "מידע זה עוזר לנו להבין אילו תכונות פועלות היטב ואילו דורשות שיפור. הוא אנונימי ומשמש רק פנימית. אנו לעולם לא משתפים אותו עם אף אחד"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "היכנס או הירשם"
+        "message": "היכנס או צור חשבון"
     },
     "popup_newsletter_title": {
         "message": "עלון AdGuard"
@@ -888,9 +885,6 @@
         "message": "תעבורה מתחדשת היום | תעבורה מתחדשת בעוד %days% יום | תעבורה מתחדשת בעוד %days% ימים",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "בדרך אגב, אתה יכול להשבית את ה-VPN לאתר הזה אם תרצה"
-    },
     "popup_hint_popup_button": {
         "message": "הבנת"
     },
@@ -963,23 +957,11 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "ארכיון Zip: הקובץ \"%filename%\" אינו מכיל קבצים עם סיומות: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "הגעת אל המספר המרבי של החיבורים: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "כדי להוסיף עוד מכשירים, שקול להירשם כמנוי אל AdGuard VPN בלתי מוגבל."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "כדי להוסיף מכשיר נוסף, השבת את AdGuard VPN בכל אחד מהחפיצים שלך."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "הירשם כמנוי"
+        "message": "שדרג"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "למד עוד"
-    },
-    "popup_connections_limit_title": {
-        "message": "מגבלת חיבורים הושגה"
     },
     "popup_mobile_edge_promo_text": {
         "message": "קבל תוסף VPN לאנדרואיד"

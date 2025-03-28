@@ -405,6 +405,9 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-palvelin on jo lisätty"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Palvelimen nimi ylittää %max%-merkkirajoituksen (tällä hetkellä %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Tallenna ja valitse"
     },
@@ -472,7 +475,7 @@
         "message": "Teema"
     },
     "settings_theme_system": {
-        "message": "Järjestelmä"
+        "message": "Oletus selain"
     },
     "settings_theme_dark": {
         "message": "Tumma"
@@ -628,10 +631,10 @@
         "message": "Todennus onnistui! Voit avata AdGuard VPN:n ja aloittaa sen käytön."
     },
     "control_error_title": {
-        "message": "Laajennusristiriita"
+        "message": "Poista toinen VPN-laajennus käytöstä muodostaaksesi yhteyden"
     },
     "control_error_description": {
-        "message": "Näyttää siltä, että jokin muu selainlaajennus pyrkii hallitsemaan yhteyttäsi. Poista se käytöstä selaimestasi."
+        "message": "Näyttää siltä, että toinen VPN-laajennus ohjaa yhteyttäsi. Jos haluat käyttää AdGuard VPN: ää, poista toinen laajennus käytöstä"
     },
     "control_error_disable": {
         "message": "Poista käytöstä"
@@ -681,14 +684,24 @@
     "endpoints_all": {
         "message": "Kaikki sijainnit"
     },
-    "endpoints_search_results": {
-        "message": "Hakutulokset"
-    },
     "endpoints_search": {
         "message": "Etsi sijainneista"
     },
     "endpoints_not_found": {
         "message": "Sijainteja ei löytynyt"
+    },
+    "endpoints_empty_saved": {
+        "message": "Jos haluat nähdä sijainnit täältä, valitse <b>Kaikki</b> ja klikkaa sijainnin vieressä olevaa kuvaketta",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Kaikki"
+    },
+    "endpoints_tab_saved": {
+        "message": "Säästetty"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Sijainti poistettu Tallennettuista"
     },
     "popup_traffic_limit_reached": {
         "message": "Kuukautinen tiedonsiirtorajoitus on saavutettu"
@@ -718,10 +731,10 @@
         "message": "Nopeutta on alennettu"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Olet saavuttanut ilmaisen tiedonsiirron rajan ja AdGuard VPN toimii hitaasti."
+        "message": "Olet käyttänyt ilmaisen tiedonsiirtomääräsi ja AdGuard VPN toimii hitaasti"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Nosta nopeutta"
+        "message": "Päivitä"
     },
     "popup_feedback_title": {
         "message": "Haluaisimme kuulla palautteesi"
@@ -895,7 +908,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "Tarvittaessa voit poistaa VPN-yhteyden käytöstä tällä sivustolla."
+        "message": "Voit muuten poistaa VPN:n käytöstä yhtä verkkosivustoa varten ja pitää sen käytössä muita sivustoja varten"
     },
     "popup_hint_popup_button": {
         "message": "Selvä"
@@ -970,22 +983,22 @@
         "message": "Zip-tiedosto: \"%filename%\" ei sisällä tiedostoja poikkeuksilla: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Olet saavuttanut yhteyksien enimmäismäärän: %maxDevicesAllowed%."
+        "message": "Voit yhdistää enintään %maxDevicesAllowed% laitetta samanaikaisesti."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Lisätäksesi laitteita, harkitse rajatonta AdGuard VPN Unlimited -tilausta."
+        "message": "Käyttääksesi VPN: ää tällä, harkitse AdGuard VPN Unlimitedin ostamista"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Lisätäksesi laitteen, poista AdGuard VPN käytöstä joltakin muulta laitteeltasi."
+        "message": "Jos haluat käyttää VPN: ää tässä laitteessa, kytke irti toinen laite"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Tilaa"
+        "message": "Päivitä"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Lue lisää"
     },
     "popup_connections_limit_title": {
-        "message": "Yhteysraja saavutettu"
+        "message": "Laiterajoitus on saavutettu"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Hanki VPN-laajennus Androidille"

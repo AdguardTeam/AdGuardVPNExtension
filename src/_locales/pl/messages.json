@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Motyw"
     },
-    "settings_theme_system": {
-        "message": "Domyślny systemowy"
-    },
     "settings_theme_dark": {
         "message": "Ciemny"
     },
@@ -627,12 +624,6 @@
     "authentication_successful_notification": {
         "message": "Pomyślnie uwierzytelniono! Możesz otworzyć AdGuard VPN i zacząć go używać."
     },
-    "control_error_title": {
-        "message": "Konflikt rozszerzeń"
-    },
-    "control_error_description": {
-        "message": "Wygląda na to, że inne rozszerzenie Chrome próbuje kontrolować twoje połączenie. Wyłącz inne rozszerzenie w przeglądarce."
-    },
     "control_error_disable": {
         "message": "Wyłącz"
     },
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Wszystkie lokalizacje"
     },
-    "endpoints_search_results": {
-        "message": "Wynik wyszukiwania"
-    },
     "endpoints_search": {
         "message": "Wyszukaj lokalizację"
     },
     "endpoints_not_found": {
         "message": "Nie znaleziono lokalizacji"
+    },
+    "endpoints_tab_all": {
+        "message": "Wszystko"
+    },
+    "endpoints_tab_saved": {
+        "message": "Zapisano"
     },
     "popup_traffic_limit_reached": {
         "message": "Miesięczny limit danych przekroczony. Potrzebujesz więcej?"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Szybkość jest zmniejszona"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Osiągnięto limit darmowych danych, i AdGuard VPN działa wolno."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Zwiększ prędkość"
+        "message": "Uaktualnij"
     },
     "popup_feedback_title": {
         "message": "Bardzo chcielibyśmy poznać Twoją opinię"
@@ -894,9 +885,6 @@
         "message": "Ruch odnawia się dzisiaj | Ruch odnawia się za %days% dzień | Ruch odnawia się za %days% dni | Ruch odnawia się za %days% dni",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Swoją drogą, możesz wyłączyć VPN dla tej witryny, jeśli chcesz"
-    },
     "popup_hint_popup_button": {
         "message": "Rozumiem"
     },
@@ -969,23 +957,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Archiwum Zip: \"%filename%\" nie zawiera plików z rozszerzeniami: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Osiągnięto maksymalną liczbę połączeń: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Aby dodać więcej urządzeń, rozważ subskrypcję AdGuard VPN Unlimited."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Aby dodać kolejne urządzenie, wyłącz AdGuard VPN na dowolnym ze swoich gadżetów."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Subskrybuj"
+        "message": "Uaktualnij"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Dowiedz się więcej"
     },
     "popup_connections_limit_title": {
-        "message": "Osiągnięto limit połączeń"
+        "message": "Osiągnięto limit urządzeń"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Pobierz rozszerzenie VPN dla Androida"

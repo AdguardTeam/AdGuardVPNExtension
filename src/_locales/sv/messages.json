@@ -471,9 +471,6 @@
     "settings_theme_label": {
         "message": "Tema"
     },
-    "settings_theme_system": {
-        "message": "Standard system"
-    },
     "settings_theme_dark": {
         "message": "Mörkt"
     },
@@ -627,14 +624,8 @@
     "authentication_successful_notification": {
         "message": "Framgångsrikt autentiserad! Du kan öppna AdGuard VPN och börja använda det."
     },
-    "control_error_title": {
-        "message": "Konflikt med tillägg"
-    },
-    "control_error_description": {
-        "message": "Det ser ut som om ett annat webbläsartillägg försöker kontrollera din anslutning. Vänligen inaktivera det andra tillägget i din webbläsare."
-    },
     "control_error_disable": {
-        "message": "Inaktivera det"
+        "message": "Inaktivera"
     },
     "popup_skeleton_status": {
         "message": "Söker efter platser..."
@@ -681,14 +672,17 @@
     "endpoints_all": {
         "message": "Alla platser"
     },
-    "endpoints_search_results": {
-        "message": "Sökresultat"
-    },
     "endpoints_search": {
         "message": "Sök plats"
     },
     "endpoints_not_found": {
         "message": "Platser hittades inte"
+    },
+    "endpoints_tab_all": {
+        "message": "All"
+    },
+    "endpoints_tab_saved": {
+        "message": "Sparad"
     },
     "popup_traffic_limit_reached": {
         "message": "Månadens datagräns nådd"
@@ -717,11 +711,8 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Hastigheten sänks"
     },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Du har nått den kostnadsfria datagränsen, och AdGuard VPN fungerar långsamt."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Öka hastigheten"
+        "message": "Uppgradera"
     },
     "popup_feedback_title": {
         "message": "Vi vill gärna höra din feedback"
@@ -894,9 +885,6 @@
         "message": "Trafiken förnyas idag | Trafiken förnyas om %days% dag | Trafiken förnyas om %days% dagar",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
-    "popup_hint_popup_content": {
-        "message": "Förresten, du kan inaktivera VPN för den här webbplatsen om du vill"
-    },
     "popup_hint_popup_button": {
         "message": "Uppfattat"
     },
@@ -969,23 +957,14 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip-arkiv: Arkiv: \"%filename%\" innehåller inga filer med tillägg: %extensions%"
     },
-    "popup_connections_limit_description_start": {
-        "message": "Du har nått det maximala antalet anslutningar: %maxDevicesAllowed%."
-    },
-    "popup_connections_limit_description_end_free": {
-        "message": "Om du vill lägga till fler enheter bör du överväga att prenumerera på Obegränsad AdGuard VPN."
-    },
-    "popup_connections_limit_description_end_premium": {
-        "message": "Om du vill lägga till en annan enhet inaktiverar du AdGuard VPN på någon av dina prylar."
-    },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Prenumerera"
+        "message": "Uppgradera"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Läs mer"
     },
     "popup_connections_limit_title": {
-        "message": "Anslutningsgränsen har nåtts"
+        "message": "Enhetsgräns har nåtts"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Skaffa VPN-tillägg för Android"
