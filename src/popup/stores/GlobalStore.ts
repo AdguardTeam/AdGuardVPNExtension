@@ -155,8 +155,8 @@ export class GlobalStore {
     async initAuthenticatedStatus(): Promise<void> {
         const { authStore } = this.rootStore;
 
-        const result = await messenger.isAuthenticated();
-        authStore.setIsAuthenticated(!!result);
+        const isAuthenticated = await messenger.isAuthenticated();
+        authStore.setIsAuthenticated(isAuthenticated);
         authStore.setAuthenticatedStatusRetrieved(true);
     }
 
