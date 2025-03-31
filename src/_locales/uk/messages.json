@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-сервер уже додано"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Назва сервера перевищує максимально допустиму кількість знаків %max% (наразі %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Зберегти та вибрати"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Зберегти"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Власний DNS-сервер додано"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Власний DNS-сервер видалено"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Власний DNS-сервер відредаговано"
     },
     "settings_dns_selector_default_title": {
         "message": "Усталений"
@@ -472,7 +469,7 @@
         "message": "Тема"
     },
     "settings_theme_system": {
-        "message": "Системна"
+        "message": "Усталена в браузері"
     },
     "settings_theme_dark": {
         "message": "Темна"
@@ -628,10 +625,10 @@
         "message": "Ви успішно авторизувались! Можете відкрити AdGuard VPN та підʼєднатись."
     },
     "control_error_title": {
-        "message": "Конфлікт розширення"
+        "message": "Вимкніть інше VPN-розширення, щоб підʼєднатися"
     },
     "control_error_description": {
-        "message": "Схоже, що якесь інше браузерне розширення намагається контролювати з'єднання. Вимкніть його, будь ласка."
+        "message": "Схоже, що інше VPN-розширення контролює ваше зʼєднання. Щоб використовувати AdGuard VPN, будь ласка, вимкніть інше розширення"
     },
     "control_error_disable": {
         "message": "Вимкнути"
@@ -681,14 +678,24 @@
     "endpoints_all": {
         "message": "Усі місцезнаходження"
     },
-    "endpoints_search_results": {
-        "message": "Результати пошуку"
-    },
     "endpoints_search": {
         "message": "Пошук місцезнаходження"
     },
     "endpoints_not_found": {
         "message": "Місцезнаходження не знайдено"
+    },
+    "endpoints_empty_saved": {
+        "message": "Щоб побачити місцезнаходження тут, виберіть <b>Усі</b> та клацніть на іконку поруч з місцезнаходженням",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Усі"
+    },
+    "endpoints_tab_saved": {
+        "message": "Збережені"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Місцезнаходження видалено зі Збережених"
     },
     "popup_traffic_limit_reached": {
         "message": "Вичерпано місячний ліміт трафіку"
@@ -718,10 +725,10 @@
         "message": "Швидкість з'єднання знижено"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Ви досягли обмеження безплатного обсягу даних, тому AdGuard VPN тепер працює повільніше."
+        "message": "Ви досягли обмеження безплатного обсягу даних, тому AdGuard VPN працює повільніше"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Збільшити швидкість"
+        "message": "Покращити"
     },
     "popup_feedback_title": {
         "message": "Будемо раді вашій думці"
@@ -818,7 +825,7 @@
         "message": "Ця інформація допомагає нам зрозуміти, що працює добре, а що потребує покращення. Вона анонімізована і використовується лише всередині нашої компанії. Ми ніколи не обмінюємося нею з ким-небудь"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Вхід або реєстрація"
+        "message": "Увійти або створити обліковий запис"
     },
     "popup_newsletter_title": {
         "message": "Листи AdGuard"
@@ -895,7 +902,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "До речі, ви можете вимкнути VPN для цього сайту"
+        "message": "До речі, ви можете вимкнути VPN для одного сайту і залишити його увімкненим для інших"
     },
     "popup_hint_popup_button": {
         "message": "Зрозуміло"
@@ -970,22 +977,22 @@
         "message": "Zip-архів «%filename%» не містить файлів з прийнятними розширеннями: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Досягнуто максимальну кількість підʼєднань: %maxDevicesAllowed%."
+        "message": "Ви можете підʼєднати до %maxDevicesAllowed% пристроїв одночасно."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Щоб додати більше пристроїв, оформте передплату на AdGuard VPN."
+        "message": "Щоб використовувати VPN на цьому пристрої, розгляньте можливість придбання AdGuard VPN Unlimited"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Щоб додати ще один пристрій, вимкніть AdGuard VPN на будь-якому іншому вашому пристрої."
+        "message": "Щоб використовувати VPN на цьому своєму пристрої, відʼєднайте інший"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Передплатити"
+        "message": "Покращити"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Докладніше"
     },
     "popup_connections_limit_title": {
-        "message": "Досягнуто ліміт підʼєднань"
+        "message": "Вичерпано ліміт пристроїв"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Розширення VPN для Android"

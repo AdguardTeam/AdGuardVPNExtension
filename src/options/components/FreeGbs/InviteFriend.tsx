@@ -4,13 +4,17 @@ import { observer } from 'mobx-react';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { translator } from '../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import referralImageUrl from '../../../assets/images/referral.svg';
 import { rootStore } from '../../stores';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Title } from '../ui/Title';
 
+/**
+ * Invite friend page component.
+ */
 export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
@@ -42,6 +46,10 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
 
     const handleCopyLink = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.CopyLinkClick,
+            TelemetryScreenName.FreeGbInviteFriendScreen,
+        );
         await navigator.clipboard.writeText(inviteUrl);
         notificationsStore.notifySuccess(translator.getMessage('settings_referral_link_copied'));
     };
@@ -54,7 +62,7 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
         <div className="free-gbs-task">
             <Title title="" onClick={goBackHandler} />
             <img
-                src="../../../assets/images/referral.svg"
+                src={referralImageUrl}
                 alt={title}
                 className="free-gbs-task__image"
             />

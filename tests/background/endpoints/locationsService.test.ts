@@ -5,7 +5,7 @@ import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
 import type { VpnTokenData, EndpointInterface, LocationData } from '../../../src/background/schema';
-import { locationsService } from '../../../src/background/endpoints/locationsService';
+import { locationsService, LocationsTab, LocationsService } from '../../../src/background/endpoints/locationsService';
 import { session } from '../../__mocks__';
 // TODO: test mv3 after official switch to mv3
 import { stateStorage } from '../../../src/background/stateStorage/mv2';
@@ -36,6 +36,7 @@ describe('location service', () => {
         connectivityService.start();
         locationsService.init();
     });
+
     it('by default it tries to connect to previously selected endpoint', async () => {
         const firstEndpoint = {
             id: 'gc-gb-lhr-01-1r06zxq6.adguard.io',
@@ -173,5 +174,82 @@ describe('location service', () => {
         expect(selectedLocation?.id).toBe('test-location');
         // endpoints of selected location should be updated
         expect(selectedLocation?.endpoints[0].domainName).toBe('123.new-domain.org');
+    });
+
+    describe('SavedLocations.locationsTab', () => {
+        const mockStorage = {
+            get: jest.fn(),
+            set: jest.fn(),
+            remove: jest.fn(),
+        };
+
+        let freshLocationsService: LocationsService;
+
+        beforeEach(() => {
+            freshLocationsService = new LocationsService({
+                storage: mockStorage,
+            });
+        });
+
+        afterEach(() => {
+            jest.clearAllMocks();
+        });
+
+        it('should read from storage and save when not exists', async () => {
+            mockStorage.get.mockResolvedValue(undefined);
+
+            const result = await freshLocationsService.getLocationsTab();
+
+            // Should read from storage
+            expect(mockStorage.get).toHaveBeenCalledTimes(1);
+
+            // Should be default value
+            expect(result).toBe(LocationsTab.All);
+
+            // Should save to storage default value
+            expect(mockStorage.set).toHaveBeenCalledTimes(1);
+            expect(mockStorage.set).toHaveBeenCalledWith(expect.any(String), LocationsTab.All);
+        });
+
+        it('should cache value read from storage', async () => {
+            mockStorage.get.mockResolvedValue(LocationsTab.Saved);
+
+            // Try to read twice, to see if it caches value in-memory
+            const result1 = await freshLocationsService.getLocationsTab();
+            const result2 = await freshLocationsService.getLocationsTab();
+
+            // Should read from storage only once
+            expect(mockStorage.get).toHaveBeenCalledTimes(1);
+
+            // Should be value from storage
+            expect(result1).toBe(LocationsTab.Saved);
+            expect(result2).toBe(LocationsTab.Saved);
+
+            // Should not save to storage because it was already there
+            expect(mockStorage.set).not.toHaveBeenCalled();
+        });
+
+        it('should validate value when reading from storage', async () => {
+            mockStorage.get.mockResolvedValue('invalid');
+
+            const result = await freshLocationsService.getLocationsTab();
+
+            // Should read from storage
+            expect(mockStorage.get).toHaveBeenCalledTimes(1);
+
+            // Should be default value
+            expect(result).toBe(LocationsTab.All);
+
+            // Should save to storage default value
+            expect(mockStorage.set).toHaveBeenCalledTimes(1);
+            expect(mockStorage.set).toHaveBeenCalledWith(expect.any(String), LocationsTab.All);
+        });
+
+        it('should save to storage', async () => {
+            await freshLocationsService.saveLocationsTab(LocationsTab.Saved);
+
+            expect(mockStorage.set).toHaveBeenCalledTimes(1);
+            expect(mockStorage.set).toHaveBeenCalledWith(expect.any(String), LocationsTab.Saved);
+        });
     });
 });

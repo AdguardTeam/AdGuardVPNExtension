@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Servidor DNS ya añadido"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "El nombre del servidor excede el límite de %max% caracteres (actualmente %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Guardar y seleccionar"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Guardar"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Servidor DNS personalizado añadido"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Servidor DNS personalizado eliminado"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Servidor DNS personalizado editado"
     },
     "settings_dns_selector_default_title": {
         "message": "Predeterminado"
@@ -472,7 +469,7 @@
         "message": "Tema"
     },
     "settings_theme_system": {
-        "message": "Predeterminado del sistema"
+        "message": "Predeterminado del navegador"
     },
     "settings_theme_dark": {
         "message": "Oscuro"
@@ -628,13 +625,13 @@
         "message": "¡Autenticado correctamente! Puedes abrir AdGuard VPN y comenzar a usarlo."
     },
     "control_error_title": {
-        "message": "Conflicto de extensiones"
+        "message": "Deshabilita otra extensión de VPN para conectar"
     },
     "control_error_description": {
-        "message": "Parece que otra extensión está intentando controlar tu conexión. Deshabilita la otra extensión de tu navegador."
+        "message": "Parece que otra extensión de VPN está controlando tu conexión. Para usar AdGuard VPN, deshabilita la otra extensión"
     },
     "control_error_disable": {
-        "message": "Deshabilitarlo"
+        "message": "Deshabilitar"
     },
     "popup_skeleton_status": {
         "message": "Buscando ubicaciones..."
@@ -681,14 +678,24 @@
     "endpoints_all": {
         "message": "Todas las ubicaciones"
     },
-    "endpoints_search_results": {
-        "message": "Resultado de búsqueda"
-    },
     "endpoints_search": {
         "message": "Buscar ubicación"
     },
     "endpoints_not_found": {
         "message": "Ubicaciones no encontradas"
+    },
+    "endpoints_empty_saved": {
+        "message": "Para ver las ubicaciones aquí, selecciona <b>Todo</b> y haz clic en el icono al lado de una ubicación",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Todo"
+    },
+    "endpoints_tab_saved": {
+        "message": "Guardado"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Ubicación eliminada de Guardado"
     },
     "popup_traffic_limit_reached": {
         "message": "Se alcanzó el límite de datos mensual"
@@ -718,10 +725,10 @@
         "message": "La velocidad está reducida"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Has alcanzado el límite de datos gratis, y AdGuard VPN funcionará lentamente."
+        "message": "Has alcanzado el límite de datos gratis, AdGuard VPN funcionará lentamente"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Aumentar velocidad"
+        "message": "Mejorar"
     },
     "popup_feedback_title": {
         "message": "Nos encantaría escuchar tu comentario"
@@ -818,7 +825,7 @@
         "message": "Esta información nos ayuda a entender qué funcionalidades funcionan bien y qué necesita mejoras. Está anonimizada y se utiliza solo internamente. Nunca la compartimos con nadie"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Iniciar sesión o crear una cuenta"
+        "message": "Inicia sesión o crea una cuenta"
     },
     "popup_newsletter_title": {
         "message": "Boletín de AdGuard"
@@ -895,7 +902,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "Por cierto, puede desactivar VPN para este sitio si lo desea"
+        "message": "Puedes deshabilitar la VPN para un sitio web y mantenerla habilitada para otros"
     },
     "popup_hint_popup_button": {
         "message": "Entiendo"
@@ -970,22 +977,22 @@
         "message": "Archivo zip: \"%filename%\" no contiene archivos con extensiones: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Has alcanzado el número máximo de conexiones: %maxDevicesAllowed%."
+        "message": "Puedes conectar hasta %maxDevicesAllowed% dispositivos al mismo tiempo."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Para añadir más dispositivos, considera la posibilidad de suscribirte a AdGuard VPN ilimitado."
+        "message": "Para usar la VPN en este dispositivo, considera comprar AdGuard VPN Unlimited"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Para añadir otro dispositivo, deshabilita AdGuard VPN en cualquiera de tus dispositivos."
+        "message": "Para usar la VPN en este dispositivo, desconecta otro dispositivo"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Suscribirse"
+        "message": "Mejorar"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Más información"
     },
     "popup_connections_limit_title": {
-        "message": "Se alcanzó el límite de conexiones"
+        "message": "Se ha alcanzado el límite de dispositivos"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Obtener la extensión VPN para Android"

@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-server al toegevoegd"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "De servernaam overschrijdt de %max%-tekenlimiet (momenteel %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Opslaan en selecteren"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Opslaan"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Aangepaste DNS-server toegevoegd"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Aangepaste DNS-server verwijderd"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Aangepaste DNS-server bewerkt"
     },
     "settings_dns_selector_default_title": {
         "message": "Standaard"
@@ -472,7 +469,7 @@
         "message": "Thema"
     },
     "settings_theme_system": {
-        "message": "Systeemstandaard"
+        "message": "Browser standaard"
     },
     "settings_theme_dark": {
         "message": "Donker"
@@ -628,10 +625,10 @@
         "message": "Succesvol geauthenticeerd! Je kunt AdGuard VPN openen en gaan gebruiken."
     },
     "control_error_title": {
-        "message": "Uitbreidingsconflict"
+        "message": "Schakel een andere VPN-uitbreiding uit om verbinding te maken"
     },
     "control_error_description": {
-        "message": "Het lijkt erop dat een andere browseruitbreiding je verbinding probeert te beheren. Schakel de andere uitbreiding in je browser uit."
+        "message": "Het lijkt erop dat een andere VPN-uitbreiding je verbinding controleert. Om AdGuard VPN te gebruiken, schakel je de andere uitbreiding uit"
     },
     "control_error_disable": {
         "message": "Uitschakelen"
@@ -681,14 +678,24 @@
     "endpoints_all": {
         "message": "Alle locaties"
     },
-    "endpoints_search_results": {
-        "message": "Zoekresultaat"
-    },
     "endpoints_search": {
         "message": "Locatie zoeken"
     },
     "endpoints_not_found": {
         "message": "Locaties niet gevonden"
+    },
+    "endpoints_empty_saved": {
+        "message": "Om hier locaties te zien, selecteer <b>Alle</b> en klik op het pictogram naast een locatie",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Alle"
+    },
+    "endpoints_tab_saved": {
+        "message": "Opgeslagen"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Locatie verwijderd uit Opgeslagen"
     },
     "popup_traffic_limit_reached": {
         "message": "Maandelijkse datalimiet bereikt"
@@ -718,10 +725,10 @@
         "message": "Verbindingssnelheid is verlaagd"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Je hebt de gratis data limiet bereikt, en AdGuard VPN werkt traag."
+        "message": "Je hebt de gratis gegevenslimiet bereikt, en AdGuard VPN werkt traag"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Snelheid verhogen"
+        "message": "Opwaarderen"
     },
     "popup_feedback_title": {
         "message": "We verheugen ons op je feedback"
@@ -895,7 +902,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "Overigens kun je desgewenst VPN voor deze site uitschakelen"
+        "message": "Overigens kun je VPN voor de ene website uitschakelen en voor andere ingeschakeld houden"
     },
     "popup_hint_popup_button": {
         "message": "Begrepen"
@@ -970,22 +977,22 @@
         "message": "Zip-archief: %filename% bevat geen bestanden met uitbreidingen: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Je hebt het maximale aantal verbindingen bereikt: %maxDevicesAllowed%."
+        "message": "Je kunt tot %maxDevicesAllowed% apparaten tegelijkertijd verbinden."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Om meer apparaten toe te voegen, overweeg een Unlimited AdGuard VPN abonnement te nemen."
+        "message": "Om VPN hierop te gebruiken, overweeg AdGuard VPN Onbeperkt te kopen"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Om nog een apparaat toe te voegen, moet je AdGuard VPN uitschakelen op één van je apparaten."
+        "message": "Om VPN op dit apparaat te gebruiken, koppel je een ander apparaat los"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Abonneren"
+        "message": "Opwaarderen"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Meer informatie"
     },
     "popup_connections_limit_title": {
-        "message": "Maximaal aantal verbindingen bereikt"
+        "message": "Apparaatlimiet bereikt"
     },
     "popup_mobile_edge_promo_text": {
         "message": "VPN-uitbreiding voor Android downloaden"

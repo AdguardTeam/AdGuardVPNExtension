@@ -1,9 +1,12 @@
 import { AppearanceTheme } from '../common/constants';
-
-/**
- * Relative path to the folder with motion assets.
- */
-const MOTION_FOLDER_PATH = '../assets/motion/';
+import lightOnMotionUrl from '../assets/motion/on-light.webm';
+import lightOffMotionUrl from '../assets/motion/off-light.webm';
+import lightSwitchOnMotionUrl from '../assets/motion/switch-on-light.webm';
+import lightSwitchOffMotionUrl from '../assets/motion/switch-off-light.webm';
+import darkOnMotionUrl from '../assets/motion/on-dark.webm';
+import darkOffMotionUrl from '../assets/motion/off-dark.webm';
+import darkSwitchOnMotionUrl from '../assets/motion/switch-on-dark.webm';
+import darkSwitchOffMotionUrl from '../assets/motion/switch-off-dark.webm';
 
 export const enum AnimationState {
     // Initial state
@@ -33,21 +36,21 @@ type AnimationSourcesMap = {
 
 export const animationSourcesMap: AnimationSourcesMap = {
     [AppearanceTheme.Light]: {
-        [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-light.webm`,
+        [AnimationState.VpnEnabled]: lightOnMotionUrl,
         // Added this state for the case when switching location
         [AnimationState.VpnSwitchingLocation]: '',
-        [AnimationState.VpnDisabled]: `${MOTION_FOLDER_PATH}off-light.webm`,
-        [AnimationState.VpnDisabledIdle]: `${MOTION_FOLDER_PATH}off-light.webm`,
-        [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
-        [AnimationState.VpnDisconnecting]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
+        [AnimationState.VpnDisabled]: lightOffMotionUrl,
+        [AnimationState.VpnDisabledIdle]: lightOffMotionUrl,
+        [AnimationState.VpnConnecting]: lightSwitchOnMotionUrl,
+        [AnimationState.VpnDisconnecting]: lightSwitchOffMotionUrl,
     },
     [AppearanceTheme.Dark]: {
-        [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-dark.webm`,
+        [AnimationState.VpnEnabled]: darkOnMotionUrl,
         // Added this state for the case when switching location
         [AnimationState.VpnSwitchingLocation]: '',
-        [AnimationState.VpnDisabled]: `${MOTION_FOLDER_PATH}off-dark.webm`,
-        [AnimationState.VpnDisabledIdle]: `${MOTION_FOLDER_PATH}off-dark.webm`,
-        [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-dark.webm`,
-        [AnimationState.VpnDisconnecting]: `${MOTION_FOLDER_PATH}switch-off-dark.webm`,
+        [AnimationState.VpnDisabled]: darkOffMotionUrl,
+        [AnimationState.VpnDisabledIdle]: darkOffMotionUrl,
+        [AnimationState.VpnConnecting]: darkSwitchOnMotionUrl,
+        [AnimationState.VpnDisconnecting]: darkSwitchOffMotionUrl,
     },
 };

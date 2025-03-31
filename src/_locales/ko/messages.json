@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS 서버가 이미 추가되었습니다"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "서버 이름이 %max%자 제한(현재: %current%자)을 초과합니다."
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "저장하고 선택"
     },
     "settings_dns_add_custom_server_save": {
         "message": "저장"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "사용자 정의 DNS 서버가 추가됨"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "사용자 정의 DNS 서버가 제거됨"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "사용자 정의 DNS 서버가 편집됨"
     },
     "settings_dns_selector_default_title": {
         "message": "기본"
@@ -472,7 +469,7 @@
         "message": "테마"
     },
     "settings_theme_system": {
-        "message": "시스템 기본값"
+        "message": "브라우저 기본 설정"
     },
     "settings_theme_dark": {
         "message": "다크 테마"
@@ -628,10 +625,10 @@
         "message": "성공적으로 인증되었습니다! 이제 AdGuard VPN을 사용할 수 있습니다."
     },
     "control_error_title": {
-        "message": "확장 프로그램 충돌"
+        "message": "연결하려면 다른 VPN 확장 프로그램을 비활성화하세요."
     },
     "control_error_description": {
-        "message": "다른 브라우저 확장 프로그램이 연결을 제어하려는 것 같습니다. 브라우저에서 다른 확장 프로그램을 비활성화하세요."
+        "message": "다른 VPN 확장 프로그램이 연결을 제어하고 있는 것 같습니다. AdGuard VPN을 사용하려면 다른 확장 프로그램을 비활성화하세요."
     },
     "control_error_disable": {
         "message": "비활성화"
@@ -681,14 +678,24 @@
     "endpoints_all": {
         "message": "모든 위치"
     },
-    "endpoints_search_results": {
-        "message": "검색 결과"
-    },
     "endpoints_search": {
         "message": "위치 검색"
     },
     "endpoints_not_found": {
         "message": "위치를 찾을 수 없음"
+    },
+    "endpoints_empty_saved": {
+        "message": "여기에서 위치를 보려면 <b>전체</b>를 선택하고 위치 옆에 있는 아이콘을 클릭하세요.",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "모두"
+    },
+    "endpoints_tab_saved": {
+        "message": "저장"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "저장됨에서 위치가 삭제되었습니다."
     },
     "popup_traffic_limit_reached": {
         "message": "월간 데이터 제한에 도달했습니다"
@@ -718,10 +725,10 @@
         "message": "연결 속도가 감소됩니다"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "무료 데이터 제한에 도달했습니다. AdGuard VPN은 느리게 작동합니다."
+        "message": "무료 데이터 한도에 도달했고, AdGuard VPN이 느리게 작동합니다."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "속도 향상"
+        "message": "업그레이드"
     },
     "popup_feedback_title": {
         "message": "여러분의 피드백을 기다리고 있습니다"
@@ -895,7 +902,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "이 사이트에 대해 VPN을 비활성화할 수 있습니다."
+        "message": "참고로, 한 웹사이트에서는 VPN을 비활성화하고, 다른 웹사이트에서는 활성화된 상태로 유지할 수 있습니다."
     },
     "popup_hint_popup_button": {
         "message": "확인"
@@ -970,22 +977,22 @@
         "message": "Zip 아카이브: %filename%에는 다음 확장자를 가진 파일이 포함되지 않습니다:%extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "최대 연결 수(%maxDevicesAllowed%개)에 도달했습니다."
+        "message": "최대 %maxDevicesAllowed%개의 기기를 동시에 연결할 수 있습니다."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "기기를 더 연결하려면, 무제한 AdGuard VPN 사용권을 구독하세요."
+        "message": "이 기기에서 VPN을 사용하려면 AdGuard VPN 무제한 버전을 구입하는 것을 고려해 보세요."
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "기기를 더 연결하려면, 다른 기기에서 AdGuard VPN을 비활성화하십시오."
+        "message": "이 기기에서 VPN을 사용하려면 다른 기기의 연결을 해제하세요."
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "구독"
+        "message": "업그레이드"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "더 알아보기"
     },
     "popup_connections_limit_title": {
-        "message": "연결 수 제한 도달"
+        "message": "기기 제한 도달"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Android용 VPN 확장 프로그램 받기"

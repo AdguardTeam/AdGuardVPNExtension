@@ -51,7 +51,7 @@ describe('telemetryProvider', () => {
     };
     const samplePageViewEventData: TelemetryPageViewEventData = {
         name: TelemetryScreenName.PurchaseScreen,
-        refName: TelemetryScreenName.WelcomeScreen,
+        refName: TelemetryScreenName.AuthScreen,
     };
     const sampleCustomEventData: TelemetryCustomEventData = {
         name: TelemetryActionName.OnboardingPurchaseClick,

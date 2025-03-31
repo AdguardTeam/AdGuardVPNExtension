@@ -20,10 +20,10 @@
         z-index: -1;
         top: calc(var(--header-height) * -1);
         left: 0;
-        background-image: url('../../../assets/images/clouds.svg');
+        background-image: url("../../../assets/images/clouds.svg");
 
         @media (prefers-color-scheme: dark) {
-            background-image: url('../../../assets/images/space.svg');
+            background-image: url("../../../assets/images/space.svg");
         }
     }
 
@@ -32,7 +32,7 @@
         max-width: 225px;
         height: 215px;
         margin: 0 auto 24px;
-        background-image: url(../../../../src/assets/images/not-found.svg);
+        background-image: url("../../../assets/images/not-found.svg");
         background-position: center bottom;
         background-repeat: no-repeat;
         background-size: contain;
@@ -48,12 +48,12 @@
 
 .light-mode {
     .no-locations-error__background {
-        background-image: url('../../../assets/images/clouds.svg');
+        background-image: url("../../../assets/images/clouds.svg");
     }
 }
 
 .dark-mode {
     .no-locations-error__background {
-        background-image: url('../../../assets/images/space.svg');
+        background-image: url("../../../assets/images/space.svg");
     }
 }

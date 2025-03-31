@@ -29,6 +29,7 @@ export const DnsSettingsButton = observer(() => {
             )}
             action={<IconButton name="arrow-down" className="dns-settings__btn-icon" />}
             onClick={handleClick}
+            className="dns-settings__btn"
         />
     );
 });

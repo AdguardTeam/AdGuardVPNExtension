@@ -120,14 +120,21 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     test: /\.(woff|woff2|eot|ttf|otf)$/,
                     type: 'asset/resource',
                     generator: {
-                        filename: 'assets/[name][ext]',
+                        filename: 'assets/fonts/[name][ext]',
                     },
                 },
                 {
-                    test: /\.(svg)$/,
+                    test: /\.(svg|png)$/,
                     type: 'asset/resource',
                     generator: {
                         filename: 'assets/images/[name][ext]',
+                    },
+                },
+                {
+                    test: /\.(webm)$/,
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'assets/videos/[name][ext]',
                     },
                 },
             ],
@@ -177,8 +184,18 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     },
                     {
                         context: 'src',
-                        from: 'assets/',
-                        to: 'assets/',
+                        from: 'assets/images/flags',
+                        to: 'assets/images/flags',
+                    },
+                    {
+                        context: 'src',
+                        from: 'assets/images/icons',
+                        to: 'assets/images/icons',
+                    },
+                    {
+                        context: 'src',
+                        from: 'assets/prebuild-data',
+                        to: 'assets/prebuild-data',
                     },
                     {
                         context: 'src',

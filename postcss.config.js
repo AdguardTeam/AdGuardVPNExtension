@@ -10,6 +10,5 @@ module.exports = {
         'postcss-nested',
         [postcssPresetEnv, { stage: 3, features: { 'nesting-rules': true } }],
         'postcss-custom-media',
-        'postcss-svg',
     ],
 };

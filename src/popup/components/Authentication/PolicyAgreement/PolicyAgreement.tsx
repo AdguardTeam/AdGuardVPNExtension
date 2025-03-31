@@ -6,6 +6,7 @@ import { getForwarderUrl } from '../../../../common/helpers';
 import { translator } from '../../../../common/translator';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
+import vpnBlockedErrorNinjaImageUrl from '../../../../assets/images/vpn-blocked-error-ninja.svg';
 import { rootStore } from '../../../stores';
 import { Checkbox } from '../Checkbox';
 
@@ -51,7 +52,7 @@ export const PolicyAgreement = observer(() => {
         <div className="policy-agreement">
             <div className="policy-agreement__image-wrapper">
                 <img
-                    src="../../../../assets/images/vpn-blocked-error-ninja.svg"
+                    src={vpnBlockedErrorNinjaImageUrl}
                     alt="Reading Ninja"
                     className="policy-agreement__image"
                 />

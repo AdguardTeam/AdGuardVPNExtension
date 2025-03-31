@@ -31,6 +31,8 @@ import { emailConfirmationService } from '../emailConfirmationService';
 import { limitedOfferService } from '../limitedOfferService';
 import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
+import { savedLocations } from '../savedLocations';
+import { authService } from '../authentication/authService';
 
 interface Message {
     type: MessageType,
@@ -164,6 +166,18 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             await endpoints.getSelectedLocation();
             return locations;
         }
+        case MessageType.SAVED_LOCATIONS_SAVE_TAB: {
+            const { locationsTab } = data;
+            return locationsService.saveLocationsTab(locationsTab);
+        }
+        case MessageType.SAVED_LOCATIONS_ADD: {
+            const { locationId } = data;
+            return savedLocations.addSavedLocation(locationId);
+        }
+        case MessageType.SAVED_LOCATIONS_REMOVE: {
+            const { locationId } = data;
+            return savedLocations.removeSavedLocation(locationId);
+        }
         case MessageType.GET_OPTIONS_DATA: {
             return getOptionsData();
         }
@@ -268,7 +282,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return auth.register({ ...data.credentials, appId });
         }
         case MessageType.IS_AUTHENTICATED: {
-            return auth.isAuthenticated();
+            return authService.isAuthenticated();
         }
         case MessageType.START_SOCIAL_AUTH: {
             const { provider, marketingConsent } = data;
@@ -366,8 +380,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
 
             return vpnProvider.requestSupport(reportData);
         }
-        case MessageType.OPEN_PREMIUM_PROMO_PAGE: {
-            return actions.openPremiumPromoPage();
+        case MessageType.OPEN_FORWARDER_URL_WITH_EMAIL: {
+            const { forwarderUrlQueryKey } = data;
+            return actions.openForwarderUrlWithEmail(forwarderUrlQueryKey);
         }
         case MessageType.SET_FLAG: {
             const { key, value } = data;

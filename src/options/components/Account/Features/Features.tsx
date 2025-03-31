@@ -16,12 +16,12 @@ export const Features = () => {
             />
             <div className="features__list">
                 {UNLIMITED_FEATURES.map((feature) => {
-                    const { image, title, info } = feature;
+                    const { imageUrl, title, info } = feature;
 
                     return (
                         <div key={title} className="features__item">
                             <img
-                                src={`../../../../assets/images/${image}`}
+                                src={imageUrl}
                                 className="features__image"
                                 alt="slide"
                             />

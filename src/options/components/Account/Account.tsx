@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { SubscriptionType } from '../../../common/constants';
@@ -16,6 +16,9 @@ import { Features } from './Features';
 
 import './account.pcss';
 
+/**
+ * Account page component.
+ */
 export const Account = observer(() => {
     const { authStore, settingsStore, telemetryStore } = useContext(rootStore);
 
@@ -48,7 +51,18 @@ export const Account = observer(() => {
     };
 
     const handleUpgrade = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.GetSubscriptionClick,
+            TelemetryScreenName.AccountScreen,
+        );
         await settingsStore.openPremiumPromoPage();
+    };
+
+    const handleOpenAccountSettings = (): void => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.OpenAccountSettingsClick,
+            TelemetryScreenName.AccountScreen,
+        );
     };
 
     let expiresDate;
@@ -134,6 +148,7 @@ export const Account = observer(() => {
                     className="button button--medium button--outlined account__action"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={handleOpenAccountSettings}
                 >
                     <span className="button__text">
                         {translator.getMessage('account_edit')}

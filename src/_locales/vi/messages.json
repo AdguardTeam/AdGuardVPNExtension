@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Máy chủ DNS đã được thêm vào"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Tên máy chủ vượt quá giới hạn ký tự %max% (hiện tại %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Lưu và chọn"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Lưu"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Máy chủ DNS tùy chỉnh đã được thêm"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Đã xoá máy chủ DNS tuỳ chỉnh"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Đã chỉnh sửa máy chủ DNS tuỳ chỉnh"
     },
     "settings_dns_selector_default_title": {
         "message": "Mặc định"
@@ -472,7 +469,7 @@
         "message": "Chủ đề"
     },
     "settings_theme_system": {
-        "message": "Mặc định hệ thống"
+        "message": "Trình duyệt mặc định"
     },
     "settings_theme_dark": {
         "message": "Chế độ Tối"
@@ -628,13 +625,13 @@
         "message": "Đã xác thực thành công! Bạn có thể mở AdGuard VPN và bắt đầu sử dụng nó."
     },
     "control_error_title": {
-        "message": "Xung đột tiện ích mở rộng"
+        "message": "Vô hiệu hóa phần mở rộng VPN khác để kết nối"
     },
     "control_error_description": {
-        "message": "Có vẻ như một tiện ích mở rộng khác của Chrome đang cố gắng kiểm soát kết nối của bạn. Vui lòng tắt tiện ích mở rộng khác trong trình duyệt của bạn."
+        "message": "Có vẻ như một phần mở rộng VPN khác đang kiểm soát kết nối của bạn. Để sử dụng AdGuard VPN, vui lòng vô hiệu hóa phần mở rộng khác"
     },
     "control_error_disable": {
-        "message": "Vô hiệu hóa nó"
+        "message": "Vô hiệu"
     },
     "popup_skeleton_status": {
         "message": "Tìm kiếm địa điểm..."
@@ -681,14 +678,24 @@
     "endpoints_all": {
         "message": "Tất cả vị trí"
     },
-    "endpoints_search_results": {
-        "message": "Kết quả tìm kiếm"
-    },
     "endpoints_search": {
         "message": "Tìm vị trí"
     },
     "endpoints_not_found": {
         "message": "Không tìm thấy vị trí"
+    },
+    "endpoints_empty_saved": {
+        "message": "Để xem các địa điểm ở đây, chọn <b>Tất cả</b> và nhấp vào biểu tượng bên cạnh một địa điểm",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "All"
+    },
+    "endpoints_tab_saved": {
+        "message": "Đã lưu"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Đã xóa vị trí khỏi Đã lưu"
     },
     "popup_traffic_limit_reached": {
         "message": "Đã đạt đến giới hạn dữ liệu hàng tháng. Cần thêm?"
@@ -718,10 +725,10 @@
         "message": "Tốc độ kết nối đang bị giảm"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Bạn đã dùng hết lưu lượng miễn phí, và AdGuard VPN sử dụng kết nối chậm."
+        "message": "Bạn đã dùng hết lưu lượng miễn phí, và AdGuard VPN sử dụng kết nối chậm"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Tăng tốc độ mạng"
+        "message": "Cập nhật"
     },
     "popup_feedback_title": {
         "message": "Chúng tôi rất muốn nghe phản hồi của bạn"
@@ -895,7 +902,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "Nhân tiện, bạn có thể tắt VPN cho trang web này nếu muốn"
+        "message": "Nhân tiện, bạn có thể vô hiệu hóa VPN cho một trang web và giữ nó được bật cho các trang khác"
     },
     "popup_hint_popup_button": {
         "message": "Đã nhận được"
@@ -970,22 +977,22 @@
         "message": "Lưu trữ zip: \"%filename%\" không chứa các tệp có phần mở rộng: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Bạn đã đạt đến số lượng kết nối tối đa: %maxDevicesAllowed%."
+        "message": "Bạn có thể kết nối tối đa %maxDevicesAllowed% thiết bị cùng một lúc."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Để thêm nhiều thiết bị hơn, hãy cân nhắc đăng ký VPN AdGuard không giới hạn."
+        "message": "Để sử dụng VPN trên thiết bị này, hãy xem xét việc mua AdGuard VPN Unlimited"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Để thêm một thiết bị khác, hãy tắt AdGuard VPN trên bất kỳ tiện ích nào của bạn."
+        "message": "Để sử dụng VPN trên thiết bị này, hãy ngắt kết nối một thiết bị khác"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Đăng ký"
+        "message": "Cập nhật"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Tìm hiểu thêm"
     },
     "popup_connections_limit_title": {
-        "message": "Đã đạt đến giới hạn kết nối"
+        "message": "Đã đạt giới hạn số lượng thiết bị"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Cài tiện ích mở rộng VPN cho Android"

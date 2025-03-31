@@ -282,6 +282,9 @@
     "settings_free_gbs_add_device_title": {
         "message": "Pridėti kitą platformą"
     },
+    "settings_free_gbs_add_device_info": {
+        "message": "Įdiekite AdGuard VPN į iOS, Mac, Windows arba Android, ten prisijunkite prie savo AdGuard paskyros ir gauti %your_gb% GB."
+    },
     "settings_free_gbs_devices_added_title": {
         "message": "Dar viena platforma pridėta"
     },
@@ -402,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS serveris jau pridėtas"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Serverio pavadinimas viršija %max% simbolių ribą (šiuo metu %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Išsaugoti ir pasirinkti"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Išsaugoti"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Pridėtas pasirinktinis DNS serveris"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Ištrintas pasirinktinis DNS serveris"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Pasirinktinis DNS serveris redaguotas"
     },
     "settings_dns_selector_default_title": {
         "message": "Numatytosios vertės"
@@ -469,7 +469,7 @@
         "message": "Tema"
     },
     "settings_theme_system": {
-        "message": "Sisteminis"
+        "message": "Naršyklės numatytasis"
     },
     "settings_theme_dark": {
         "message": "Tamsi"
@@ -625,10 +625,10 @@
         "message": "Sėkmingai patvirtinta! Galite atidaryti AdGuard VPN ir pradėti jį naudoti."
     },
     "control_error_title": {
-        "message": "Plėtinio konfliktas"
+        "message": "Išjunkite kitą VPN plėtinį, kad sujungtumėte"
     },
     "control_error_description": {
-        "message": "Atrodo, kad kitas naršyklės plėtinys bando kontroliuoti jūsų ryšį. Prašome išjungti kitą plėtinį savo naršyklėje."
+        "message": "Atrodo, kad kitą VPN plėtinį kontroliuoja jūsų ryšys. Norėdami naudoti AdGuard VPN, išjunkite kitą plėtinį"
     },
     "control_error_disable": {
         "message": "Išjungti"
@@ -678,14 +678,24 @@
     "endpoints_all": {
         "message": "Visos vietovės"
     },
-    "endpoints_search_results": {
-        "message": "Paieškos rezultatai"
-    },
     "endpoints_search": {
         "message": "Ieškoti lokacijos"
     },
     "endpoints_not_found": {
         "message": "Lokacijos nerasta"
+    },
+    "endpoints_empty_saved": {
+        "message": "Norėdami pamatyti vietoves čia, pasirinkite <b>Visi</b> ir spustelėkite šalia vietos esančią piktogramą",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Visi"
+    },
+    "endpoints_tab_saved": {
+        "message": "Išsaugota"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Vieta pašalinta iš Išsaugota"
     },
     "popup_traffic_limit_reached": {
         "message": "Pasiektas mėnesinis duomenų limitas"
@@ -715,10 +725,10 @@
         "message": "Greitis sumažintas"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Jūs išnaudojote nemokamų duomenų limitą, todėl AdGuard VPN veikia lėčiau."
+        "message": "Jūs išnaudojote nemokamų duomenų limitą, todėl AdGuard VPN veikia lėčiau"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Padidinti greitį"
+        "message": "Pagerinkite"
     },
     "popup_feedback_title": {
         "message": "Norėtume išgirsti jūsų atsiliepimą"
@@ -887,8 +897,12 @@
         "message": "%value% %unit% liko",
         "description": "Respect spaces between text, tags and placeholders"
     },
+    "popup_free_traffic_info_days_left": {
+        "message": "Srautas atsinaujina šiandien | Srautas atsinaujina per %days% dieną | Srautas atsinaujina per %days% dienų | Srautas atsinaujina per %days% dienas",
+        "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
+    },
     "popup_hint_popup_content": {
-        "message": "Beje, galite išjungti VPN šiam puslapiui, jei norite"
+        "message": "Beje, galite išjungti VPN vienam tinklapiui ir palikti jį įjungtą kitiems"
     },
     "popup_hint_popup_button": {
         "message": "Supratau"
@@ -921,6 +935,10 @@
     },
     "popup_limited_offer_details_time_left": {
         "message": "Likęs laikas: %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN Unlimited, skirtas %count% metams su <span>%discount%%% nuolaida</span> | AdGuard VPN Unlimited, skirtas %count% metams su <span>%discount%%% nuolaida</span> | AdGuard VPN Unlimited, skirtas %count% metams su <span>%discount%%% nuolaida</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "Pasinaudok pasiūlymu"
@@ -959,25 +977,37 @@
         "message": "Zip archyvas: \"%filename%\" neturi failų su plėtiniais: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Pasiekėte maksimalų ryšių skaičių: %maxDevicesAllowed%."
+        "message": "Galite prijungti iki %maxDevicesAllowed% įrenginių vienu metu."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Norėdami pridėti daugiau įrenginių, apsvarstykite galimybę užsisakyti neribotą AdGuard VPN."
+        "message": "Kad naudotumėte VPN šiam, apsvarstykite galimybę įsigyti AdGuard VPN Unlimited"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Norėdami pridėti kitą įrenginį, išjunkite AdGuard VPN bet kuriame iš savo įrenginių."
+        "message": "Kad naudotumėte VPN šiam, atjunkite kitą įrenginį"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Užsiprenumeruoti"
+        "message": "Pagerinkite"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Sužinoti daugiau"
     },
     "popup_connections_limit_title": {
-        "message": "Pasiektas prisijungimų limitas"
+        "message": "Pasiektas įrenginių limitas"
+    },
+    "popup_mobile_edge_promo_text": {
+        "message": "Gauti VPN plėtinį Android įrenginiui"
+    },
+    "popup_mobile_edge_promo_modal_title": {
+        "message": "AdGuard VPN Edge naršyklei — dabar Android įrenginiui"
+    },
+    "popup_mobile_edge_promo_modal_description": {
+        "message": "Skenuokite QR kodą, kad įdiegtumėte Edge savo telefone ar planšetėje. AdGuard VPN pasirodys pasiūlymuose"
     },
     "popup_mobile_edge_promo_modal_got_it_btn": {
         "message": "Supratau"
+    },
+    "popup_mobile_edge_promo_modal_do_not_show_btn": {
+        "message": "Nerodyti šio pranešimo"
     },
     "options_signedout_page_title": {
         "message": "Jūs atsijungėte iš AdGuard VPN"

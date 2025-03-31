@@ -1,11 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
 import { type Notification } from '../../../stores/NotificationsStore/Notification';
-import { IconButton } from '../Icon';
+import { Icon, IconButton } from '../Icon';
 
-const NOTIFICATION_CLEAR_TIMEOUT_MS = 5 * 1000; // 5s
+/**
+ * Notification show duration in milliseconds.
+ */
+const NOTIFICATION_TTL_MS = 5 * 1000; // 5s
+
+/**
+ * Notification close animation duration in milliseconds.
+ */
+const NOTIFICATION_CLOSE_ANIMATION_MS = 300; // 0.3s
 
 /**
  * NotificationItem component props.
@@ -22,18 +30,39 @@ export interface NotificationItemProps {
     onClose: (notificationId: string) => void;
 }
 
+/**
+ * NotificationItem component.
+ */
 export function NotificationItem({ value, onClose }: NotificationItemProps) {
+    const [notificationIsClosed, setNotificationIsClosed] = useState(false);
+    const [shouldCloseOnTimeout, setShouldCloseOnTimeout] = useState(true);
+
     const isSuccess = value.isSuccess();
-    const isError = value.isError();
 
     const classes = classNames(
         'notifications__item',
-        isSuccess && 'notifications__item--success',
-        isError && 'notifications__item--error',
+        isSuccess ? 'notifications__item--success' : 'notifications__item--error',
+        notificationIsClosed && 'notifications__item--closed',
     );
 
-    const handleClose = () => {
+    const handleMouseOver = () => {
+        setShouldCloseOnTimeout(false);
+    };
+
+    const handleMouseOut = () => {
+        setShouldCloseOnTimeout(true);
+    };
+
+    const handleRemove = () => {
         onClose(value.id);
+    };
+
+    const handleClose = () => {
+        setNotificationIsClosed(true);
+        const removeTimeoutId = setTimeout(() => {
+            handleRemove();
+            clearTimeout(removeTimeoutId);
+        }, NOTIFICATION_CLOSE_ANIMATION_MS);
     };
 
     const handleAction = () => {
@@ -45,15 +74,35 @@ export function NotificationItem({ value, onClose }: NotificationItemProps) {
     };
 
     useEffect(() => {
-        const timeoutId = setTimeout(handleClose, NOTIFICATION_CLEAR_TIMEOUT_MS);
+        const closeTimeoutId = setTimeout(() => {
+            if (shouldCloseOnTimeout) {
+                setNotificationIsClosed(true);
+            }
+        }, NOTIFICATION_TTL_MS);
+
+        const removeTimeoutId = setTimeout(() => {
+            if (shouldCloseOnTimeout) {
+                handleRemove();
+            }
+        }, NOTIFICATION_TTL_MS + NOTIFICATION_CLOSE_ANIMATION_MS);
 
         return () => {
-            clearTimeout(timeoutId);
+            clearTimeout(closeTimeoutId);
+            clearTimeout(removeTimeoutId);
         };
-    }, [handleClose]);
+    }, [shouldCloseOnTimeout]);
 
     return (
-        <div className={classes}>
+        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+        <div
+            className={classes}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+        >
+            <Icon
+                name="info"
+                className="notifications__item-icon"
+            />
             <div className="notifications__item-content">
                 <div className="notifications__item-message">
                     {value.message}
@@ -68,7 +117,11 @@ export function NotificationItem({ value, onClose }: NotificationItemProps) {
                     </button>
                 )}
             </div>
-            <IconButton name="cross" onClick={handleClose} />
+            <IconButton
+                name="cross"
+                onClick={handleClose}
+                className="notifications__item-close"
+            />
         </div>
     );
 }

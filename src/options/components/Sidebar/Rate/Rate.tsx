@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 import { getForwarderUrl } from '../../../../common/helpers';
 import { translator } from '../../../../common/translator';
 import { rootStore } from '../../../stores';
@@ -13,7 +14,7 @@ import './rate.pcss';
 const RATING_STARS = [5, 4, 3, 2, 1];
 
 export const Rate = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
 
     const {
         isRateVisible,
@@ -21,6 +22,10 @@ export const Rate = observer(() => {
     } = settingsStore;
 
     const handleHideRate = async () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SettingsHideRateUsClick,
+            TelemetryScreenName.ContextBasedScreen,
+        );
         await settingsStore.hideRate();
     };
 
@@ -28,6 +33,11 @@ export const Rate = observer(() => {
         if (value < 0 || value > 5) {
             return;
         }
+
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SettingsRateUsClick,
+            TelemetryScreenName.ContextBasedScreen,
+        );
 
         await handleHideRate();
 

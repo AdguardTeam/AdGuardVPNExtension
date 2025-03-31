@@ -83,7 +83,7 @@ export const SubdomainModal = observer(() => {
                     id="subdomain"
                     name="subdomain"
                     label={translator.getMessage('settings_exclusion_subdomain_name')}
-                    placeholder="subdomain"
+                    placeholder="example"
                     required
                     value={inputValue}
                     error={inputError}

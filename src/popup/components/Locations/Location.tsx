@@ -1,20 +1,64 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import browser from 'webextension-polyfill';
 import classnames from 'classnames';
 
-import { reactTranslator } from '../../../common/reactTranslator';
+import { translator } from '../../../common/translator';
+import { SearchHighlighter } from '../../../common/components/SearchHighlighter';
 import { rootStore } from '../../stores';
 import { type LocationData } from '../../stores/VpnStore';
 import { Ping } from '../Ping';
 import { PingDotsLoader } from '../PingDotsLoader';
+import { Icon } from '../ui/Icon';
 
-type LocationProps = {
-    location: LocationData,
-    handleClick: Function,
+/**
+ * Get flag icon style object by country code.
+ *
+ * @param countryCode Country code.
+ * @returns Flag icon style object with background image,
+ * empty object if country code is not provided.
+ */
+export const getFlagIconStyle = (countryCode: string) => {
+    if (!countryCode) {
+        return {};
+    }
+
+    const iconName = countryCode.toLowerCase();
+    const fullUrl = browser.runtime.getURL(`assets/images/flags/${iconName}.svg`);
+
+    return { backgroundImage: `url("${fullUrl}")` };
 };
 
-export const Location = observer(({ location, handleClick }: LocationProps) => {
+/**
+ * Location component props.
+ */
+interface LocationProps {
+    /**
+     * Location data.
+     */
+    location: LocationData;
+
+    /**
+     * Search value. Used to highlight search results.
+     */
+    searchValue: string;
+
+    /**
+     * Click handler.
+     */
+    onClick: (id: string) => void;
+
+    /**
+     * Save click handler.
+     */
+    onSaveClick: (id: string) => void;
+}
+
+/**
+ * Location component.
+ */
+export const Location = observer(({ location, onClick, onSaveClick }: LocationProps) => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
     const {
@@ -27,23 +71,49 @@ export const Location = observer(({ location, handleClick }: LocationProps) => {
         available,
         premiumOnly,
         virtual,
+        saved,
     } = location;
 
     const locationFitsPremiumToken = vpnStore.isPremiumToken || !premiumOnly;
 
+    const virtualText = translator.getMessage('endpoints_location_virtual');
+    const offlineText = translator.getMessage('offline_title');
+
+    let computedCityName = cityName;
+    if (virtual) {
+        computedCityName = `${cityName} (${virtualText})`;
+    }
+
+    let pingText = '...';
+    if (!available) {
+        pingText = offlineText;
+    } else if (ping) {
+        pingText = `${ping} ms`;
+    }
+
+    const title = `${countryName} - ${computedCityName}: ${pingText}`;
+
     const handleLocationClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (locationFitsPremiumToken) {
-            handleClick(id);
+            onClick(id);
         } else {
             settingsStore.setPremiumLocationClickedByFreeUser(true);
         }
     };
 
+    const handleSaveClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onSaveClick(id);
+    };
+
     const endpointItemClass = classnames(
         'endpoint',
+        'endpoint--re-designed',
         'endpoints__item',
         { 'endpoint--active': selected },
+        { 'endpoint--saved': saved },
         { 'endpoints__item--offline': !available },
     );
 
@@ -65,30 +135,14 @@ export const Location = observer(({ location, handleClick }: LocationProps) => {
             );
         }
 
-        const getFlagIconStyle = (countryCode: string) => {
-            if (!countryCode) {
-                return {};
-            }
-            const iconName = countryCode.toLowerCase();
-            return { backgroundImage: `url("../../assets/images/flags/${iconName}.svg")` };
-        };
-
         return (
             <div className={flagClass} style={getFlagIconStyle(countryCode)} />
         );
     };
 
-    const renderCityName = () => {
-        if (!virtual) {
-            return cityName;
-        }
-
-        return `${cityName} (${reactTranslator.getMessage('endpoints_location_virtual')})`;
-    };
-
     const renderPingDotsLoader = () => {
         return (
-            <div className="ping">
+            <div className="ping ping--loader">
                 <span className="endpoints__ping-dots-loader">
                     <PingDotsLoader />
                 </span>
@@ -104,7 +158,7 @@ export const Location = observer(({ location, handleClick }: LocationProps) => {
         if (!available) {
             return (
                 <div className="ping">
-                    <span>{reactTranslator.getMessage('offline_title')}</span>
+                    <span>{offlineText}</span>
                 </div>
             );
         }
@@ -116,28 +170,53 @@ export const Location = observer(({ location, handleClick }: LocationProps) => {
         return renderPingDotsLoader();
     };
 
+    const renderSaveButton = () => {
+        // Do not render as button, because it descends from
+        // button element, which may throw error in console from React.
+        // TODO: Consider refactoring top level button
+
+        return (
+            <div
+                className="endpoint__save-btn"
+                onClick={handleSaveClick}
+            >
+                <Icon
+                    icon={saved ? 'bookmark-on' : 'bookmark-off'}
+                    className="endpoint__save-btn-icon"
+                />
+            </div>
+        );
+    };
+
     return (
         <button
             type="button"
             className={endpointItemClass}
+            title={title}
             onClick={handleLocationClick}
         >
             <div className="endpoint__info">
                 {renderLocationIcon(countryCode)}
-                <div className="endpoint__location-container endpoint__location-container--wide">
+                <div className="endpoint__location-container">
                     <div className={titleClass}>
-                        {countryName}
+                        <SearchHighlighter
+                            value={countryName}
+                            search={vpnStore.searchValue}
+                        />
                     </div>
                     <div className="endpoint__location-name endpoint__desc">
-                        {renderCityName()}
+                        <SearchHighlighter
+                            value={computedCityName}
+                            search={vpnStore.searchValue}
+                        />
                     </div>
                 </div>
             </div>
 
             <div className="endpoint__ping-container">
+                {renderSaveButton()}
                 {renderLocationPing()}
             </div>
-
         </button>
     );
 });

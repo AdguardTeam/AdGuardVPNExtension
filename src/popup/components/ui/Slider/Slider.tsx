@@ -10,7 +10,7 @@ import { Icon } from '../Icon';
 import './slider.pcss';
 
 type SlideData = {
-    image: string,
+    imageUrl: string,
     title: string | React.ReactNode,
     info: string | React.ReactNode,
 };
@@ -43,7 +43,7 @@ export const Slider = (props: SliderProps) => {
     } = props;
 
     const {
-        image,
+        imageUrl,
         title,
         info,
     } = slideData;
@@ -75,7 +75,7 @@ export const Slider = (props: SliderProps) => {
                     </>
                 )}
                 <img
-                    src={`../../../../assets/images/${image}`}
+                    src={imageUrl}
                     className="slider__image"
                     alt="slide"
                 />

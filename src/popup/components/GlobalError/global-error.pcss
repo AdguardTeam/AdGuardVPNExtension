@@ -17,25 +17,11 @@
         z-index: -1;
         top: calc(var(--header-height) * -1);
         left: 0;
-        background-image: url('../../../assets/images/clouds.svg');
+        background-image: url("../../../assets/images/clouds.svg");
 
         @media (prefers-color-scheme: dark) {
-            background-image: url('../../../assets/images/space.svg');
+            background-image: url("../../../assets/images/space.svg");
         }
-    }
-
-    &--upgrade {
-        &:after {
-            display: none;
-        }
-
-        .global-error__description {
-            margin-bottom: 20px;
-        }
-    }
-
-    &--reduced {
-        padding: 16px 30px 0;
     }
 
     &__content {
@@ -43,36 +29,17 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-
-        &--centered {
-            margin-top: 61px;
-        }
     }
 
     &__icon {
         width: 100%;
         max-width: 225px;
         height: 215px;
-        margin: -20px auto 24px;
-        background-image: url(../../../../src/assets/images/confused.svg);
+        margin: 0 auto 24px;
+        background-image: url("../../../assets/images/not-found.svg");
         background-position: center bottom;
         background-repeat: no-repeat;
         background-size: contain;
-
-        &--error {
-            margin: 0 auto 24px;
-            background-image: url(../../../../src/assets/images/not-found.svg);
-        }
-
-        &--reduced {
-            margin: 0 auto 24px;
-            height: 224px;
-            background-image: url(../../../assets/images/tired.svg);
-        }
-
-        &--trouble {
-            margin-top: 10px;
-        }
     }
 
     &__title {
@@ -89,55 +56,118 @@
 
     &__description {
         margin-bottom: 24px;
-
-        &--reduced {
-            max-width: none;
-            margin-bottom: 32px;
-            font-size: 1.6rem;
-            line-height: 2.2rem;
-        }
     }
 
     &__button {
         &:first-child {
             margin-bottom: 10px;
         }
-
-        &--reduced {
-            min-width: 220px;
-
-            &:first-child {
-                margin-bottom: 32px;
-            }
-        }
-    }
-
-    &__cancel {
-        margin-right: -14px;
-        align-self: flex-end;
-        cursor: pointer;
-    }
-
-    &__info {
-        text-align: center;
-        font-size: 1.6rem;
-    }
-
-    &__early {
-        text-align: center;
-        font-size: 1.6rem;
-        color: var(--orange);
     }
 }
 
 .light-mode {
     .global-error__pic {
-        background-image: url('../../../assets/images/clouds.svg');
+        background-image: url("../../../assets/images/clouds.svg");
     }
 }
 
 .dark-mode {
     .global-error__pic {
-        background-image: url('../../../assets/images/space.svg');
+        background-image: url("../../../assets/images/space.svg");
+    }
+}
+
+.new-global-error {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: var(--text-main-text-main-default);
+
+    &--control {
+        height: calc(100% - var(--header-height));
+        padding: 32px 24px;
+    }
+
+    &--reduced,
+    &--device {
+        height: 100%;
+        padding: 24px;
+        justify-content: center;
+    }
+
+    &--reduced {
+        position: relative;
+    }
+
+    &--device {
+        position: fixed;
+        z-index: calc(var(--header-z-index) + 1);
+        background-color: var(--white);
+
+        /* TODO: Remove it when popup design will be available in wider screens. */
+        .android & {
+            position: absolute;
+        }
+    }
+
+    &__close-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    &__image {
+        height: 100%;
+        object-fit: contain;
+
+        &-wrapper {
+            flex: 1 1 auto;
+            min-height: 0;
+            margin-bottom: 24px;
+
+            .new-global-error--control &,
+            .new-global-error--device & {
+                /* Cap height at design defined height so image will not grow */
+                max-height: 175px;
+            }
+
+            .new-global-error--reduced & {
+                /* Cap height at design defined height so image will not grow */
+                max-height: 208px;
+            }
+        }
+    }
+
+    &__content {
+        flex-shrink: 0;
+
+        .button {
+            /* Re-defined size of large button (by design). */
+            /* We are using min-width instead of width to override */
+            /* .button--large min-width property. */
+            /* TODO: Remove this when button will be standardized across popup */
+            min-width: 200px;
+            /* Limit size of button so it will not overflow */
+            max-width: 100%;
+            padding: 16px;
+        }
+    }
+
+    &__title {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 8px;
+    }
+
+    &__description {
+        font-size: 16px;
+        line-height: 1.3;
+        margin-bottom: 24px;
     }
 }

@@ -94,6 +94,9 @@ module.exports = {
         ],
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
         'import/no-extraneous-dependencies': 0,
+        'import/no-unassigned-import': ['error', {
+            allow: ['**/*.pcss', '@testing-library/jest-dom'],
+        }],
         // TODO: remove rule
         'import/no-cycle': 0,
         indent: ['error', 4, { SwitchCase: 1 }],

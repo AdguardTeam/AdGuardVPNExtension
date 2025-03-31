@@ -20,6 +20,9 @@ import { ExclusionsSearch } from './Search';
 
 import './exclusions.pcss';
 
+/**
+ * Exclusions page component.
+ */
 export const Exclusions = observer(() => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
 
@@ -50,6 +53,10 @@ export const Exclusions = observer(() => {
     }
 
     const openModeSelectorModal = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.ModeClick,
+            TelemetryScreenName.ExclusionsScreen,
+        );
         exclusionsStore.setModeSelectorModalOpen(true);
     };
 

@@ -25,6 +25,8 @@ import { isLocationsNumberAcceptable } from '../../common/is-locations-number-ac
 import { appStatus } from '../appStatus';
 import { type LocationWithPing } from '../endpoints/LocationWithPing';
 import { hintPopup } from '../hintPopup';
+import { savedLocations } from '../savedLocations';
+import { locationsService, type LocationsTab } from '../endpoints/locationsService';
 
 import { popupOpenedCounter } from './popupOpenedCounter';
 
@@ -71,6 +73,16 @@ interface PopupDataInterface {
      * Flag that shows that all locations are not available. AG-25941.
      */
     isVpnBlocked?: boolean;
+
+    /**
+     * Locations tab.
+     */
+    locationsTab: LocationsTab;
+
+    /**
+     * Saved location IDs.
+     */
+    savedLocationIds: string[];
 }
 
 interface PopupDataRetry extends PopupDataInterface {
@@ -108,6 +120,8 @@ export class PopupData {
         const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
         const isHostPermissionsGranted = await Permissions.hasNeededHostPermissions();
         const forwarderDomain = await forwarder.updateAndGetDomain();
+        const locationsTab = await locationsService.getLocationsTab();
+        const savedLocationIds = await savedLocations.getSavedLocationIds();
 
         if (!isAuthenticated) {
             return {
@@ -116,6 +130,8 @@ export class PopupData {
                 policyAgreement,
                 helpUsImprove,
                 isHostPermissionsGranted,
+                locationsTab,
+                savedLocationIds,
             };
         }
 
@@ -180,6 +196,8 @@ export class PopupData {
             shouldShowHintPopup,
             isVpnBlocked,
             isHostPermissionsGranted,
+            locationsTab,
+            savedLocationIds,
         };
     };
 

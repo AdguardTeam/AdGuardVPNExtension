@@ -61,6 +61,7 @@ const DEFAULTS = {
         [CredentialsKey.Code]: '',
     },
     authenticated: false,
+    authenticatedStatusRetrieved: false,
     need2fa: false,
     error: null,
     field: '',
@@ -79,6 +80,8 @@ export class AuthStore {
     @observable credentials: CredentialsInterface = DEFAULTS.credentials;
 
     @observable authenticated = DEFAULTS.authenticated;
+
+    @observable authenticatedStatusRetrieved = DEFAULTS.authenticatedStatusRetrieved;
 
     @observable need2fa = DEFAULTS.need2fa;
 
@@ -420,6 +423,10 @@ export class AuthStore {
         this.authenticated = value;
     };
 
+    @action setAuthenticatedStatusRetrieved = (value: boolean) => {
+        this.authenticatedStatusRetrieved = value;
+    };
+
     @action deauthenticate = async () => {
         this.setDefaults();
         await messenger.deauthenticateUser();
@@ -674,7 +681,7 @@ export class AuthStore {
             // host permissions should be granted to show the hint popup;
             // no `!` is used because of its semantics
             && this.rootStore.settingsStore.isHostPermissionsGranted
-            && this.rootStore.settingsStore.isLimitedOfferActive
+            && !this.rootStore.settingsStore.isLimitedOfferActive
             && !this.rootStore.settingsStore.showNotificationModal
             && !this.rootStore.vpnStore.tooManyDevicesConnected;
     }

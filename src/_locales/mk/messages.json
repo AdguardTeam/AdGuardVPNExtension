@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-серверот е веќе додаден"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Името на серверот ја надминува лимита од %max% карактери (моментално %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Зачувајте и изберете"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Зачувај"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Додаден е прилагоден DNS сервер"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Прилагодениот DNS-сервер е избришан"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Прилагодениот DNS-сервер е уреден"
     },
     "settings_dns_selector_default_title": {
         "message": "Стандардно"
@@ -472,7 +469,7 @@
         "message": "Тема"
     },
     "settings_theme_system": {
-        "message": "Стандардно на системот"
+        "message": "Стандардно за прелистувачот"
     },
     "settings_theme_dark": {
         "message": "Темна"
@@ -628,10 +625,10 @@
         "message": "Потврдата беше успешна! Можете да го отворите AdGuard VPN и да започнете да го користите."
     },
     "control_error_title": {
-        "message": "Конфликт на екстензијата"
+        "message": "Оневозможи друга VPN екстензија за да се поврзеш"
     },
     "control_error_description": {
-        "message": "Се чини дека друга екстензија на прелистувачот се обидува да ја контролира вашата врска. Ве молиме оневозможете ја другата екстензија во вашиот прелистувач."
+        "message": "Изгледа дека друга VPN екстензија го контролира твоето поврзување. За да користиш AdGuard VPN, исклучи ја другата екстензија"
     },
     "control_error_disable": {
         "message": "Оневозможи"
@@ -681,14 +678,24 @@
     "endpoints_all": {
         "message": "Сите локации"
     },
-    "endpoints_search_results": {
-        "message": "Резултат од пребарувањето"
-    },
     "endpoints_search": {
         "message": "Пребарајте локација"
     },
     "endpoints_not_found": {
         "message": "Локациите не се пронајдени"
+    },
+    "endpoints_empty_saved": {
+        "message": "За да видите локации тука, изберете <b>Сите</b> и кликнете на иконата до локацијата",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Сите"
+    },
+    "endpoints_tab_saved": {
+        "message": "Зачувано"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Локацијата е избришана од Зачувани"
     },
     "popup_traffic_limit_reached": {
         "message": "Достигнат е месечниот лимит за податоци"
@@ -718,10 +725,10 @@
         "message": "Брзината е намалена"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Го достигнавте лимитот за бесплатни податоци, а AdGuard VPN работи бавно."
+        "message": "Го достигнавте лимитот за бесплатни податоци, а AdGuard VPN работи бавно"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Зголемете ја брзината"
+        "message": "Надгради"
     },
     "popup_feedback_title": {
         "message": "Би сакале да ги слушнеме вашите повратни информации"
@@ -895,7 +902,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "Патем, можете да го оневозможите VPN за оваа страница ако сакате"
+        "message": "Поради тоа, можете да го оневозможите VPN за една веб-страница и да го задржите овозможен за другите"
     },
     "popup_hint_popup_button": {
         "message": "Добро"
@@ -970,22 +977,22 @@
         "message": "Zip архива: „%filename%“ не содржи датотеки со екстензии: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Го достигнавте максималниот број на поврзувања: %maxDevicesAllowed%."
+        "message": "Можете да се поврзете до %maxDevicesAllowed% уреди во исто време."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "За да додадете повеќе уреди, размислете да се претплатите на неограничениот AdGuard VPN."
+        "message": "За да користите VPN на ова, разгледајте го купувањето на AdGuard VPN Unlimited"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "За да додадете друг уред, оневозможете AdGuard VPN на кој било од вашите уреди."
+        "message": "За да користите VPN на ова, исклучете друг уред"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Претплатете се"
+        "message": "Надгради"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Дознај повеќе"
     },
     "popup_connections_limit_title": {
-        "message": "Достигнато е ограничувањето на врските"
+        "message": "Достигнат е ограничувањето на уреди"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Добијте VPN екстензија за Android"

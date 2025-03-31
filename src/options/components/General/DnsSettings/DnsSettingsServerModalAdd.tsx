@@ -5,14 +5,22 @@ import { rootStore } from '../../../stores';
 import { getForwarderUrl } from '../../../../common/helpers';
 import { translator } from '../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 
-import { DnsSettingsServerModal } from './DnsSettingsServerModal';
-import { normalizeDnsServerAddress, validateDnsServerAddress } from './validate';
+import { DnsSettingsServerModal, type DnsSettingsServerModalError } from './DnsSettingsServerModal';
+import {
+    normalizeDnsServerName,
+    normalizeDnsServerAddress,
+    validateDnsServerName,
+    validateDnsServerAddress,
+} from './validate';
 
+/**
+ * Add custom DNS server modal component.
+ */
 export const DnsSettingsServerModalAdd = observer(() => {
-    const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
 
     const {
         forwarderDomain,
@@ -34,20 +42,37 @@ export const DnsSettingsServerModalAdd = observer(() => {
         FORWARDER_URL_QUERIES.ADGUARD_DNS_PROVIDERS_KB,
     );
 
-    const handleSubmit = async (dnsServerName: string, dnsServerAddress: string) => {
-        const dnsServerAddressError = validateDnsServerAddress(customDnsServers, dnsServerAddress);
-        if (dnsServerAddressError) {
-            return dnsServerAddressError;
-        }
+    const handleSubmit = async (
+        dnsServerName: string,
+        dnsServerAddress: string,
+    ): Promise<DnsSettingsServerModalError | null> => {
+        // Normalize and validate DNS server name
+        const normalizedDnsServerName = normalizeDnsServerName(dnsServerName);
+        const dnsServerNameError = validateDnsServerName(normalizedDnsServerName);
+
+        // Normalize and validate DNS server address
         const normalizedDnsServerAddress = normalizeDnsServerAddress(dnsServerAddress);
-        const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, normalizedDnsServerAddress);
-        notificationsStore.notifySuccess(
-            translator.getMessage('settings_dns_add_custom_server_notification_success'),
-            {
-                action: translator.getMessage('settings_exclusions_undo'),
-                handler: () => settingsStore.removeCustomDnsServer(dnsServer.id),
-            },
+        const dnsServerAddressError = validateDnsServerAddress(customDnsServers, normalizedDnsServerAddress);
+
+        // If there are errors, return them
+        if (dnsServerNameError || dnsServerAddressError) {
+            return {
+                dnsServerNameError,
+                dnsServerAddressError,
+            };
+        }
+
+        // Send telemetry event only if fields are valid
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SaveCustomDnsClick,
+            TelemetryScreenName.DialogAddCustomDns,
         );
+
+        await settingsStore.addCustomDnsServer(
+            normalizedDnsServerName,
+            normalizedDnsServerAddress,
+        );
+
         return null;
     };
 

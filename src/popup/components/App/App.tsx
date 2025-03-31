@@ -25,16 +25,17 @@ import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
-import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
 import { HostPermissionsError } from '../HostPermissionsError';
-import { SkeletonLoading } from '../SkeletonLoading';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal';
 import { SETTINGS_IDS } from '../../../common/constants';
+import { TelemetryScreenName } from '../../../background/telemetry';
 import { MobileEdgePromo } from '../MobileEdgePromo';
+
+import { AppLoaders } from './AppLoaders';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -73,7 +74,7 @@ export const App = observer(() => {
         premiumPromoEnabled,
         isPremiumToken,
         filteredLocations,
-        showSearchResults,
+        notSearchingAndSavedTab,
     } = vpnStore;
 
     useEffect(() => {
@@ -205,10 +206,6 @@ export const App = observer(() => {
          * 785px % 70 = 550px
          */
         const POPUP_MIN_HEIGHT = 550;
-        /**
-         * Maximum height for the popup. Value is based on base height of 598px in desktop extension.
-         */
-        const POPUP_MAX_HEIGHT = 598;
         const POPUP_HEIGHT_PROP = '--popup-height';
         const html = document.documentElement;
 
@@ -226,26 +223,20 @@ export const App = observer(() => {
 
         const resizePopupHeight = () => {
             /**
-             * From observation on Android browsers, popup height is properly set only on third time:
-             * 1. Initially window.innerHeight is 0
+             * From observation on Android browsers, popup's `windows.innerHeight` is properly set only on third time:
+             * 1. Initially equal to 0
              * 2. After that it is set to 15% (approx) of viewport height
-             * 3. Finally it calculates proper height of window.innerHeight capped by 70% (approx) of viewport height.
+             * 3. Finally it calculates properly fixed at 70% (approx) of viewport height.
              *
              * Example if viewport height is 840px:
              * 0px -> 126px (15% of 840px) -> 588px (70% of 840px)
-             *
-             * Example if viewport height is 860px:
-             * 0px -> 129px (15% of 860px) -> 598px (we ignore 602px (70% of 860px) because it's larger than 598px)
              *
              * Example if viewport height is 770px:
              * 0px -> 115px (15% of 770px) -> 550px (we ignore 539px (70% of 770px) because it's smaller than 550px)
              *
              * This is needed to display the popup properly on Android browsers.
              */
-            if (
-                window.innerHeight < POPUP_MIN_HEIGHT
-                || window.innerHeight > POPUP_MAX_HEIGHT
-            ) {
+            if (window.innerHeight < POPUP_MIN_HEIGHT) {
                 return;
             }
 
@@ -269,21 +260,11 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
-    // show skeleton while data is loading.
-    // it is more reliable to show a separate skeleton component
-    // instead of changing different components based on the initStatus
-    // because it would be more difficult to check all components and make sure
-    // that they do not require any data fetching
+    // show one type of loader while popup data is loading.
     if (initStatus === RequestStatus.Pending) {
-        return authStore.authenticated
-            && !authStore.renderOnboarding
-            ? <SkeletonLoading />
-            // show dots loader until the user is authenticated
-            : (
-                <div className="data-loader">
-                    <DotsLoader />
-                </div>
-            );
+        return (
+            <AppLoaders />
+        );
     }
 
     if (authStore.requestProcessState !== RequestStatus.Pending
@@ -302,7 +283,7 @@ export const App = observer(() => {
     // warn authenticated users if no locations were fetch. AG-28164
     if (authenticated
         && !hasGlobalError
-        && !showSearchResults
+        && notSearchingAndSavedTab
         && filteredLocations.length === 0) {
         return (
             <NoLocationsError />
@@ -321,10 +302,14 @@ export const App = observer(() => {
 
     if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy) {
         const showMenuButton = authenticated && canControlProxy;
+
+        // Screen name can be null if the error is not related to the control of the proxy.
+        const screenName = !canControlProxy ? TelemetryScreenName.DisableAnotherVpnExtensionScreen : null;
+
         return (
             <>
                 {isOpenOptionsModal && <ExtraOptions />}
-                <Header showMenuButton={showMenuButton} />
+                <Header showMenuButton={showMenuButton} screenName={screenName} />
                 {
                     // do not show the warning for users on linux AG-27487
                     hasDesktopAppForOs

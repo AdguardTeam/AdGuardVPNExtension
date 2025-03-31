@@ -8,7 +8,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { popupActions } from '../../actions/popupActions';
 import { rootStore } from '../../stores';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 
 import './vpn-blocked-details.pcss';
 
@@ -29,6 +29,10 @@ export const VpnBlockedDetails = observer(() => {
     const { forwarderDomain } = settingsStore;
 
     const openDownloadPage = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.GetDesktopClick,
+            TelemetryScreenName.DialogDesktopVersionPromo,
+        );
         popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.VPN_BLOCKED_GET_APP));
     };
 
@@ -36,6 +40,10 @@ export const VpnBlockedDetails = observer(() => {
      * Closes the error notice by changing the flag in the **settingsStore**.
      */
     const closeErrorDetails = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.DeclineDesktopClick,
+            TelemetryScreenName.DialogDesktopVersionPromo,
+        );
         uiStore.closeVpnBlockedErrorDetails();
     };
 

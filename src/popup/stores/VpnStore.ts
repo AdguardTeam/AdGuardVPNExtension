@@ -14,6 +14,9 @@ import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vp
 import { daysToRenewal } from '../../common/utils/date';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { AnimationEvent } from '../constants';
+import { type ForwarderUrlQueryKey } from '../../background/config';
+import { LocationsTab } from '../../background/endpoints/locationsService';
+import { containsIgnoreCase } from '../../common/components/SearchHighlighter/helpers';
 
 import type { RootStore } from './RootStore';
 
@@ -27,6 +30,7 @@ interface LocationState extends PingData {
 
 export interface LocationData extends LocationWithPing {
     selected: boolean;
+    saved?: boolean;
 }
 
 export class VpnStore {
@@ -62,6 +66,16 @@ export class VpnStore {
     @observable maxDevicesAllowed: number | null = null;
 
     @observable isPremiumToken: boolean;
+
+    /**
+     * Locations tab.
+     */
+    @observable locationsTab: LocationsTab;
+
+    /**
+     * Set of saved location IDs.
+     */
+    @observable savedLocationIds: Set<string> = new Set();
 
     @action setSearchValue = (value: string) => {
         // do not trim, or change logic see issue AG-2233
@@ -115,30 +129,32 @@ export class VpnStore {
 
         return locations
             .filter((location) => {
-                if (!this.searchValue || this.searchValue.length === 0) {
-                    return true;
+                // If searching, we search from all locations (not depending on the all / saved tab)
+                if (this.showSearchResults) {
+                    return containsIgnoreCase(location.cityName, this.searchValue)
+                        || containsIgnoreCase(location.countryCode, this.searchValue)
+                        || containsIgnoreCase(location.countryName, this.searchValue);
                 }
-                const escapedSearchValue = this.searchValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const regex = new RegExp(escapedSearchValue, 'ig');
-                return (location.cityName && location.cityName.match(regex))
-                || (location.countryCode && location.countryCode.match(regex))
-                || (location.countryName && location.countryName.match(regex));
+
+                // Include if it's a all tab or if it's a saved tab and the location is saved
+                return !this.isSavedLocationsTab || this.savedLocationIds.has(location.id);
+            })
+            .map((location) => {
+                const enrichedLocation = this.enrichWithStateData(location);
+                const selected = this.selectedLocation && this.selectedLocation.id === location.id;
+
+                return <LocationData>{ ...enrichedLocation, selected };
             })
             .sort((a, b) => {
-                if (a.countryName < b.countryName) {
-                    return -1;
+                const compareCountryName = a.countryName.localeCompare(b.countryName);
+
+                // If country names are different, sort by country name
+                if (compareCountryName !== 0) {
+                    return compareCountryName;
                 }
-                if (a.countryName > b.countryName) {
-                    return 1;
-                }
-                return 0;
-            })
-            .map(this.enrichWithStateData)
-            .map((location) => {
-                if (this.selectedLocation && this.selectedLocation.id === location.id) {
-                    return { ...location, selected: true };
-                }
-                return location;
+
+                // If country names are the same, sort by city name
+                return a.cityName.localeCompare(b.cityName);
             });
     }
 
@@ -148,11 +164,20 @@ export class VpnStore {
      */
     enrichWithStateData = (location: LocationData): LocationData => {
         const pingData = this.pings[location.id];
-        if (pingData) {
-            const { ping, available } = pingData;
-            return <LocationData>{ ...location, ping, available };
+        const saved = this.savedLocationIds.has(location.id);
+
+        if (!pingData) {
+            return { ...location, saved };
         }
-        return location;
+
+        const { ping, available } = pingData;
+
+        return <LocationData>{
+            ...location,
+            ping,
+            available,
+            saved,
+        };
     };
 
     /**
@@ -305,6 +330,16 @@ export class VpnStore {
         return this.searchValue.length > 0;
     }
 
+    @computed
+    get isSavedLocationsTab(): boolean {
+        return this.locationsTab === LocationsTab.Saved;
+    }
+
+    @computed
+    get notSearchingAndSavedTab(): boolean {
+        return !this.showSearchResults && !this.isSavedLocationsTab;
+    }
+
     @action
     setIsPremiumToken(isPremiumToken: boolean): void {
         this.isPremiumToken = isPremiumToken;
@@ -343,8 +378,27 @@ export class VpnStore {
         return ping;
     }
 
-    @action openPremiumPromoPage = async (): Promise<void> => {
+    /**
+     * Opens Premium Promo Page in new tab.
+     */
+    openPremiumPromoPage = async (): Promise<void> => {
         await messenger.openPremiumPromoPage();
+    };
+
+    /**
+     * Opens Subscribe Promo Page in new tab.
+     */
+    openSubscribePromoPage = async (): Promise<void> => {
+        await messenger.openSubscribePromoPage();
+    };
+
+    /**
+     * Opens forwarder URL in new tab by appending email query param if user is logged in.
+     *
+     * @param forwarderUrlQueryKey Forwarder query key.
+     */
+    openForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey): Promise<void> => {
+        await messenger.openForwarderUrlWithEmail(forwarderUrlQueryKey);
     };
 
     @action setTooManyDevicesConnected = (state: boolean): void => {
@@ -364,5 +418,88 @@ export class VpnStore {
     forceUpdateLocations = async (): Promise<any> => {
         const locations = await messenger.forceUpdateLocations();
         return locations;
+    };
+
+    /**
+     * Sets locations tab to the store.
+     *
+     * @param locationsTab New locations tab.
+     */
+    @action setLocationsTab = (locationsTab: LocationsTab): void => {
+        this.locationsTab = locationsTab;
+    };
+
+    /**
+     * Saves locations tab in local storage and sets it to the store.
+     *
+     * @param locationsTab New locations tab.
+     */
+    @action saveLocationsTab = async (locationsTab: LocationsTab): Promise<void> => {
+        // Do nothing if the tab is the same
+        if (this.locationsTab === locationsTab) {
+            return;
+        }
+
+        await messenger.saveLocationsTab(locationsTab);
+        runInAction(() => {
+            this.setLocationsTab(locationsTab);
+        });
+    };
+
+    /**
+     * Sets saved location IDs to the store.
+     *
+     * @param savedLocationIds Saved location IDs.
+     */
+    @action setSavedLocationIds = (savedLocationIds: string[]): void => {
+        this.savedLocationIds = new Set(savedLocationIds);
+    };
+
+    /**
+     * Adds saved location by its ID.
+     *
+     * @param locationId Location ID to add.
+     */
+    @action addSavedLocation = async (locationId: string): Promise<void> => {
+        if (this.savedLocationIds.has(locationId)) {
+            return;
+        }
+
+        await messenger.addSavedLocation(locationId);
+        runInAction(() => {
+            this.savedLocationIds.add(locationId);
+        });
+    };
+
+    /**
+     * Removes saved location by its ID.
+     *
+     * @param locationId Location ID to remove.
+     */
+    @action removeSavedLocation = async (locationId: string): Promise<void> => {
+        if (!this.savedLocationIds.has(locationId)) {
+            return;
+        }
+
+        await messenger.removeSavedLocation(locationId);
+        runInAction(() => {
+            this.savedLocationIds.delete(locationId);
+        });
+    };
+
+    /**
+     * Toggles saved location by its ID.
+     *
+     * @param locationId Location ID to toggle.
+     * @returns True if location was added, false if location was removed.
+     */
+    @action toggleSavedLocation = async (locationId: string): Promise<boolean> => {
+        if (this.savedLocationIds.has(locationId)) {
+            this.removeSavedLocation(locationId);
+            return false;
+        }
+
+        this.addSavedLocation(locationId);
+        return true;
     };
 }

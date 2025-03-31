@@ -5,13 +5,18 @@ import { getForwarderUrl } from '../../../common/helpers';
 import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import addDeviceImageUrl from '../../../assets/images/add-device.svg';
+import productsImageUrl from '../../../assets/images/products.svg';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { rootStore } from '../../stores';
 import { Icon } from '../ui/Icon';
 import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
 
+/**
+ * Add device page component.
+ */
 export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
 
@@ -25,6 +30,13 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
     const otherProductsUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS);
     const isCompleted = !multiplatformBonus.available;
 
+    const handleLinkClick = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.GoToProductsClick,
+            TelemetryScreenName.FreeGbAddAnotherPlatformScreen,
+        );
+    };
+
     const title = isCompleted
         ? translator.getMessage('settings_free_gbs_devices_added_title')
         : translator.getMessage('settings_free_gbs_add_device_title');
@@ -37,7 +49,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
         <div className="free-gbs-task">
             <Title title="" onClick={goBackHandler} />
             <img
-                src="../../../assets/images/add-device.svg"
+                src={addDeviceImageUrl}
                 alt={title}
                 className="free-gbs-task__image"
             />
@@ -50,7 +62,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
                 {!isCompleted ? (
                     <>
                         <img
-                            src="../../../assets/images/products.svg"
+                            src={productsImageUrl}
                             className="add-device__products"
                             alt="products"
                         />
@@ -60,6 +72,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
                                 target="_blank"
                                 rel="noreferrer"
                                 className="button button--filled button--size-medium add-device__link"
+                                onClick={handleLinkClick}
                             >
                                 <Icon name="external-link" className="add-device__link-icon" />
                                 <span className="text-ellipsis">

@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import newsletterImageUrl from '../../../../assets/images/newsletter.svg';
 
 import './newsletter.pcss';
 
@@ -16,6 +17,15 @@ export const Newsletter = () => {
     );
 
     const handleClick = (value: boolean) => async (): Promise<void> => {
+        const telemetryActionName = value
+            ? TelemetryActionName.AcceptNewsletter
+            : TelemetryActionName.DeclineNewsletter;
+
+        telemetryStore.sendCustomEvent(
+            telemetryActionName,
+            TelemetryScreenName.NewsletterScreen,
+        );
+
         await authStore.setMarketingConsent(value);
     };
 
@@ -23,7 +33,7 @@ export const Newsletter = () => {
         <div className="newsletter">
             <div className="newsletter__image-wrapper">
                 <img
-                    src="../../../../assets/images/newsletter.svg"
+                    src={newsletterImageUrl}
                     className="newsletter__image"
                     alt="newsletter"
                 />

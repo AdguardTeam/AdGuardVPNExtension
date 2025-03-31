@@ -7,7 +7,7 @@ import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { getForwarderUrl } from '../../../common/helpers';
 
-import { PATH_TO_RATING_IMAGES, RATING_IMAGES_MAP } from './constants';
+import { RATING_IMAGES_MAP } from './constants';
 
 import './rate-modal.pcss';
 
@@ -51,10 +51,6 @@ export const ConfirmRateModal = observer(() => {
         }
     };
 
-    const getMainImagePath = () => {
-        return `${PATH_TO_RATING_IMAGES}${RATING_IMAGES_MAP[rating]}`;
-    };
-
     return (
         <Modal
             isOpen={showConfirmRateModal}
@@ -73,7 +69,7 @@ export const ConfirmRateModal = observer(() => {
                 </svg>
             </button>
             <img
-                src={getMainImagePath()}
+                src={RATING_IMAGES_MAP[rating]}
                 className="rate-modal__image"
                 alt="rating"
             />

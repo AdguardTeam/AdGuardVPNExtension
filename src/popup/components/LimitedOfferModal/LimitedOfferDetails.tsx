@@ -7,7 +7,6 @@ import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
-import { popupActions } from '../../actions/popupActions';
 import { rootStore } from '../../stores';
 import { Icon } from '../ui/Icon';
 
@@ -17,11 +16,18 @@ import './limited-offer-details.pcss';
  * Component for displaying limited offer details.
  */
 export const LimitedOfferDetails = observer(() => {
-    const { uiStore, settingsStore, telemetryStore } = useContext(rootStore);
+    const {
+        uiStore,
+        settingsStore,
+        telemetryStore,
+        vpnStore,
+    } = useContext(rootStore);
 
     const { shouldShowLimitedOfferDetails } = uiStore;
 
     const { limitedOfferData } = settingsStore;
+
+    const { openForwarderUrlWithEmail } = vpnStore;
 
     const isRenderedAndOpen = !!limitedOfferData && shouldShowLimitedOfferDetails;
 
@@ -39,7 +45,7 @@ export const LimitedOfferDetails = observer(() => {
         timeLeftMs,
         years,
         discount,
-        url,
+        forwarderUrlQueryKey,
     } = limitedOfferData;
 
     const openLimitedOfferLink = () => {
@@ -47,7 +53,7 @@ export const LimitedOfferDetails = observer(() => {
             TelemetryActionName.PromoOfferPurchaseClick,
             TelemetryScreenName.PromoOfferScreen,
         );
-        popupActions.openTab(url);
+        openForwarderUrlWithEmail(forwarderUrlQueryKey);
     };
 
     /**
@@ -55,6 +61,10 @@ export const LimitedOfferDetails = observer(() => {
      * by changing the flags in the **uiStore**.
      */
     const closeDetails = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.ClosePromoOfferClick,
+            TelemetryScreenName.PromoOfferScreen,
+        );
         uiStore.closeLimitedOfferDetails();
         // show the notice again as it cannot be hidden manually, hide only it timer is over
         uiStore.openLimitedOfferNotice();
@@ -100,11 +110,12 @@ export const LimitedOfferDetails = observer(() => {
 
                 <div>
                     {UNLIMITED_FEATURES.map((feature) => {
-                        const { image, title, info } = feature;
+                        const { imageUrl, title, info } = feature;
+
                         return (
                             <div key={title} className="limited-offer-details__features-item">
                                 <img
-                                    src={`../../../assets/images/${image}`}
+                                    src={imageUrl}
                                     className="limited-offer-details__features-image"
                                     alt="slide"
                                 />

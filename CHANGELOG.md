@@ -5,6 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+<!-- TODO: Add release date -->
+## [2.5.1]
+
+### Added
+
+- Limit on the number of characters a user can enter when adding a custom DNS server [#169].
+- Saved Locations [#48].
+
+### Changed
+
+- Improved validation of domain name when adding an exclusions [#191].
+- `"subdomain"` placeholder of input to `"example"` in add subdomain modal [#199].
+- Updated design and logic of notifications [#198].
+
+### Fixed
+
+- Inconsistent colors of UI elements [#171].
+- Disable resend email button for 60 seconds after clicking it [#192].
+- "X" icon in the locations is hard to see with long letters [#197].
+- Flashing of skeleton loader [#168].
+- 'Disable VPN on this website' hint is not displaying in the extension popup [#203].
+- Corners of Actions is not rounded [#200].
+- Incorrect height rendering in Edge for Android.
+
+[#48]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/48
+[#168]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/168
+[#169]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/169
+[#171]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/171
+[#191]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/191
+[#192]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/192
+[#197]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/197
+[#198]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/198
+[#199]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/199
+[#200]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/200
+[#203]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/203
+[2.5.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.4.6...v2.5.1
+
 ## [2.4.6] - 2025-03-10
 
 ### Changed

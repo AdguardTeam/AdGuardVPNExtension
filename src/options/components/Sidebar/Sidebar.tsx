@@ -8,6 +8,11 @@ import { observer } from 'mobx-react';
 
 import classNames from 'classnames';
 
+import {
+    type SidebarLinkItemClickActionNames,
+    TelemetryActionName,
+    TelemetryScreenName,
+} from '../../../background/telemetry';
 import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
 import { IconButton } from '../ui/Icon';
@@ -17,8 +22,11 @@ import { Rate } from './Rate';
 
 import './sidebar.pcss';
 
+/**
+ * Sidebar component.
+ */
 export const Sidebar = observer(() => {
-    const { settingsStore, uiStore } = useContext(rootStore);
+    const { settingsStore, uiStore, telemetryStore } = useContext(rootStore);
 
     const {
         isPremiumToken,
@@ -77,6 +85,13 @@ export const Sidebar = observer(() => {
         closeSidebar();
     };
 
+    const handleLinkClick = (telemetryActionName: SidebarLinkItemClickActionNames) => {
+        telemetryStore.sendCustomEvent(
+            telemetryActionName,
+            TelemetryScreenName.ContextBasedScreen,
+        );
+    };
+
     return (
         <div className={classes}>
             <div className="sidebar__header" inert={isSidebarOpen ? '' : undefined}>
@@ -92,25 +107,47 @@ export const Sidebar = observer(() => {
                     <div className="logo" />
                 </div>
                 <nav className="sidebar__nav" onClick={handleCloseAll}>
-                    <SidebarLink to="/">
+                    <SidebarLink
+                        to="/"
+                        telemetryActionName={TelemetryActionName.GeneralSettingsClick}
+                        onClick={handleLinkClick}
+                    >
                         {translator.getMessage('settings_general_title')}
                     </SidebarLink>
-                    <SidebarLink to="/exclusions">
+                    <SidebarLink
+                        to="/exclusions"
+                        telemetryActionName={TelemetryActionName.ExclusionsSettingsClick}
+                        onClick={handleLinkClick}
+                    >
                         {translator.getMessage('settings_exclusion_title')}
                     </SidebarLink>
-                    <SidebarLink to="/account">
+                    <SidebarLink
+                        to="/account"
+                        telemetryActionName={TelemetryActionName.AccountSettingsClick}
+                        onClick={handleLinkClick}
+                    >
                         {translator.getMessage('account_title')}
                     </SidebarLink>
-                    <SidebarLink to="/support">
+                    <SidebarLink
+                        to="/support"
+                        telemetryActionName={TelemetryActionName.SupportSettingsClick}
+                        onClick={handleLinkClick}
+                    >
                         {translator.getMessage('options_support_title')}
                     </SidebarLink>
-                    <SidebarLink to="/about">
+                    <SidebarLink
+                        to="/about"
+                        telemetryActionName={TelemetryActionName.AboutSettingsClick}
+                        onClick={handleLinkClick}
+                    >
                         {translator.getMessage('about_title')}
                     </SidebarLink>
                     {!isPremiumToken && (
                         <SidebarLink
                             to="/free-gbs"
                             hasBullet={!allQuestsCompleted}
+                            telemetryActionName={TelemetryActionName.FreeGbsSettingsClick}
+                            onClick={handleLinkClick}
                         >
                             {translator.getMessage('settings_free_gbs')}
                         </SidebarLink>

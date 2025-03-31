@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Server DNS už bol pridaný"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Názov servera prekračuje limit %max% znakov (momentálne %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Uložiť a zvoliť"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Uložiť"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Vlastný DNS server bol pridaný"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Vlastný DNS server bol odstránený"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Vlastný DNS server bol upravený"
     },
     "settings_dns_selector_default_title": {
         "message": "Predvolené"
@@ -472,7 +469,7 @@
         "message": "Téma"
     },
     "settings_theme_system": {
-        "message": "Systémom predvolené"
+        "message": "Predvolený prehliadač"
     },
     "settings_theme_dark": {
         "message": "Tmavá"
@@ -628,10 +625,10 @@
         "message": "Úspešne overené! Môžete otvoriť AdGuard VPN a začať ju používať."
     },
     "control_error_title": {
-        "message": "Konflikt rozšírenia"
+        "message": "Ak sa chcete pripojiť, vypnite ďalšie VPN rozšírenie"
     },
     "control_error_description": {
-        "message": "Vyzerá to, že sa vaše pripojenie snaží ovládať iné rozšírenie prehliadača. Zakážte prosím iné rozšírenie v prehliadači."
+        "message": "Zdá sa, že Vaše pripojenie ovláda iné VPN rozšírenie. Ak chcete používať AdGuard VPN, vypnite druhé rozšírenie"
     },
     "control_error_disable": {
         "message": "Vypnúť"
@@ -681,14 +678,24 @@
     "endpoints_all": {
         "message": "Všetky lokality"
     },
-    "endpoints_search_results": {
-        "message": "Výsledky vyhľadávania"
-    },
     "endpoints_search": {
         "message": "Hľadať krajinu"
     },
     "endpoints_not_found": {
         "message": "Lokalita sa nenašla"
+    },
+    "endpoints_empty_saved": {
+        "message": "Ak chcete zobraziť lokality, vyberte položku <b>Všetky</b> a kliknite na ikonu vedľa lokality",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Všetko"
+    },
+    "endpoints_tab_saved": {
+        "message": "Uložené"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Lokalita bola odstránená zo zoznamu Uložené"
     },
     "popup_traffic_limit_reached": {
         "message": "Dosiahnutý mesačný dátový limit"
@@ -718,10 +725,10 @@
         "message": "Rýchlosť je znížená"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Dosiahli ste bezplatný dátový limit a AdGuard VPN funguje pomaly."
+        "message": "Dosiahli ste limit bezplatných dát a AdGuard VPN preto pracuje pomaly"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Zvýšte rýchlosť"
+        "message": "Upgrade"
     },
     "popup_feedback_title": {
         "message": "Radi by sme počuli Vašu spätnú väzbu"
@@ -895,7 +902,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "Mimochodom, ak chcete, môžete pre túto stránku vypnúť VPN"
+        "message": "Mimochodom, môžete vypnúť VPN pre jednu webovú stránku a ponechať ju povolenú pre ostatné"
     },
     "popup_hint_popup_button": {
         "message": "Rozumiem"
@@ -970,22 +977,22 @@
         "message": "Archív ZIP: \"%filename%\" neobsahuje súbory s príponami: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Dosiahli ste maximálny počet pripojení: %maxDevicesAllowed%."
+        "message": "Súčasne môžete pripojiť až %maxDevicesAllowed% zariadení."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Ak chcete pridať ďalšie zariadenia, zvážte predplatné Unlimited AdGuard VPN."
+        "message": "Ak chcete v tomto prípade používať VPN, zvážte nákup AdGuard VPN Unlimited"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Ak chcete pridať ďalšie zariadenie, zakážte AdGuard VPN v niektorom inom Vašom zariadení."
+        "message": "Ak chcete používať sieť VPN na tomto zariadení, odpojte iné zariadenie"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Získať predplatné"
+        "message": "Upgrade"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Dozvedieť sa viac"
     },
     "popup_connections_limit_title": {
-        "message": "Bol dosiahnutý limit pripojení"
+        "message": "Dosiahol sa limit na počet zariadení"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Získajte rozšírenie VPN pre Android"

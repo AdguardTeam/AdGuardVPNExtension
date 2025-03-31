@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS 服务器添加成功"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "服务器名称超出了 %max% 个字符的限制（当前为 %current%）"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "保存并选择"
     },
     "settings_dns_add_custom_server_save": {
         "message": "保存"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "自定义 DNS 服务器已添加"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "自定义 DNS 服务器已删除"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "自定义 DNS 服务器已编辑"
     },
     "settings_dns_selector_default_title": {
         "message": "默认"
@@ -472,7 +469,7 @@
         "message": "主题"
     },
     "settings_theme_system": {
-        "message": "系统默认"
+        "message": "浏览器默认"
     },
     "settings_theme_dark": {
         "message": "黑暗"
@@ -628,10 +625,10 @@
         "message": "验证成功！您可以开始使用 AdGuard VPN。"
     },
     "control_error_title": {
-        "message": "扩展冲突"
+        "message": "关闭其他的 VPN 扩展以连接"
     },
     "control_error_description": {
-        "message": "似乎是另外一个浏览器扩展正在控制您的连接。请禁用安装在您的浏览器里的其他扩展。"
+        "message": "似乎有另一个 VPN 扩展正在控制您的连接。要使用 AdGuard VPN，请关闭该扩展。"
     },
     "control_error_disable": {
         "message": "禁用"
@@ -681,14 +678,24 @@
     "endpoints_all": {
         "message": "所有位置"
     },
-    "endpoints_search_results": {
-        "message": "搜索结果"
-    },
     "endpoints_search": {
         "message": "搜索位置"
     },
     "endpoints_not_found": {
         "message": "未找到位置"
+    },
+    "endpoints_empty_saved": {
+        "message": "要查看位置，请选择「<b>全部</b>」并单击位置旁边的图标。",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "全部"
+    },
+    "endpoints_tab_saved": {
+        "message": "已保存"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "已从「已保存」中删除位置"
     },
     "popup_traffic_limit_reached": {
         "message": "已达到每月流量限制"
@@ -718,10 +725,10 @@
         "message": "连接速度下降"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "由于您的高速流量已用尽，所以 AdGuard VPN 运行缓慢。"
+        "message": "由于您的免费流量已用尽，所以 AdGuard VPN 运行缓慢。"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "加速"
+        "message": "升级"
     },
     "popup_feedback_title": {
         "message": "我们很高兴收到您的反馈"
@@ -895,7 +902,7 @@
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
     "popup_hint_popup_content": {
-        "message": "用户可以根据自己需求在此网站上禁用 VPN"
+        "message": "顺便一提，您可以为一个网站禁用 VPN，而为其他网站保持已启用。"
     },
     "popup_hint_popup_button": {
         "message": "知道了"
@@ -970,22 +977,22 @@
         "message": "Zip文件：\"%filename%\" 不包含有 %extensions% 扩展名的文件"
     },
     "popup_connections_limit_description_start": {
-        "message": "您的连接数量达到上限：%maxDevicesAllowed%。"
+        "message": "您可以同时连接最多 %maxDevicesAllowed% 台设备。"
     },
     "popup_connections_limit_description_end_free": {
-        "message": "若要添加更多设备，请考虑订阅无限的 AdGuard VPN。"
+        "message": "若要在此设备上使用 VPN，请考虑购买 AdGuard VPN 无限版。"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "要连接其他设备，请先在另一台已连接的设备上禁用 AdGuard VPN。"
+        "message": "若要在此设备上使用 VPN，请断开其他设备。"
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "订阅"
+        "message": "升级"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "了解更多"
     },
     "popup_connections_limit_title": {
-        "message": "已达到连接限制"
+        "message": "达到设备数量上限"
     },
     "popup_mobile_edge_promo_text": {
         "message": "获取 Android 版 VPN 扩展"

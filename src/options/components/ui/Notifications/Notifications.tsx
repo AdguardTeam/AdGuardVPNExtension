@@ -7,13 +7,14 @@ import { NotificationItem } from './NotificationItem';
 
 import './notifications.pcss';
 
+/**
+ * App notifications component.
+ */
 export const Notifications = observer(() => {
     const { notificationsStore } = useContext(rootStore);
     const { notifications } = notificationsStore;
 
     const ref = useRef<HTMLDivElement>(null);
-
-    const firstThreeNotifications = notifications.slice(0, 3);
 
     const handleClose = (notificationId: string) => {
         notificationsStore.removeNotification(notificationId);
@@ -21,7 +22,7 @@ export const Notifications = observer(() => {
 
     return (
         <div ref={ref} className="notifications">
-            {firstThreeNotifications.map((notification) => (
+            {notifications.map((notification) => (
                 <NotificationItem
                     key={notification.id}
                     value={notification}

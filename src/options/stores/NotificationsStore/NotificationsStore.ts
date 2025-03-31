@@ -8,6 +8,11 @@ import { SuccessNotification } from './SuccessNotification';
 import { ErrorNotification } from './ErrorNotification';
 import { type Action, type Notification } from './Notification';
 
+/**
+ * The maximum number of notifications that can be displayed at once.
+ */
+const MAX_NOTIFICATIONS_COUNT = 1;
+
 export class NotificationsStore {
     private rootStore: RootStore;
 
@@ -18,6 +23,10 @@ export class NotificationsStore {
     @observable notifications: Notification[] = [];
 
     @action addNotification = (notification: Notification) => {
+        // Remove the oldest notification if there are already 1 notification.
+        if (this.notifications.length === MAX_NOTIFICATIONS_COUNT) {
+            this.notifications.shift();
+        }
         this.notifications.push(notification);
     };
 
@@ -26,17 +35,11 @@ export class NotificationsStore {
             .filter((notification) => notification.id !== notificationId);
     };
 
-    @action clearNotifications() {
-        this.notifications = [];
-    }
-
-    notifySuccess = (message: ReactNode, action?: Action) => {
-        this.clearNotifications();
+    @action notifySuccess = (message: ReactNode, action?: Action) => {
         this.addNotification(new SuccessNotification(message, action));
     };
 
-    notifyError = (message: ReactNode, action?: Action) => {
-        this.clearNotifications();
+    @action notifyError = (message: ReactNode, action?: Action) => {
         this.addNotification(new ErrorNotification(message, action));
     };
 }

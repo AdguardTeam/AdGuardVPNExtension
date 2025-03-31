@@ -7,16 +7,9 @@ import { rootStore } from '../../../stores';
 import { Ping } from '../../Ping';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { Icon } from '../../ui/Icon';
+import { getFlagIconStyle } from '../../Locations';
 
 import './endpoint.pcss';
-
-const getFlagIconStyle = (countryCode: string) => {
-    if (!countryCode) {
-        return {};
-    }
-    const iconName = countryCode.toLowerCase();
-    return { backgroundImage: `url("../../assets/images/flags/${iconName}.svg")` };
-};
 
 export const CurrentEndpoint = observer(() => {
     const {
