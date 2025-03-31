@@ -108,7 +108,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     };
 
     checkPermissions = async (): Promise<void> => {
-        const isUserAuthenticated = await auth.isAuthenticated();
+        const isUserAuthenticated = await auth.isAuthenticated(false);
         // don't check permissions for not authenticated users
         if (!isUserAuthenticated) {
             return;

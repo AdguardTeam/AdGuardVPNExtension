@@ -991,6 +991,9 @@
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Lær mer"
     },
+    "popup_connections_limit_title": {
+        "message": "Enhetsgrensen er nådd"
+    },
     "popup_mobile_edge_promo_text": {
         "message": "Få VPN-utvidelse for Android"
     },

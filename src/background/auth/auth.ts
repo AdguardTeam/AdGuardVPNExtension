@@ -26,7 +26,7 @@ import { type ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema'
 export interface AuthInterface {
     waitInitState(): Promise<void>;
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
-    isAuthenticated(): Promise<boolean>;
+    isAuthenticated(turnOffProxy?: boolean): Promise<boolean>;
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
     getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string>;
     authenticateSocial(authData: SocialAuthData, tabId: number): Promise<void>;
@@ -121,9 +121,9 @@ class Auth implements AuthInterface {
         return { status: 'ok' };
     }
 
-    async isAuthenticated(): Promise<boolean> {
+    async isAuthenticated(turnOffProxy?: boolean): Promise<boolean> {
         try {
-            const accessToken = await this.getAccessToken();
+            const accessToken = await this.getAccessToken(turnOffProxy);
             return !!accessToken;
         } catch (e) {
             return false;
