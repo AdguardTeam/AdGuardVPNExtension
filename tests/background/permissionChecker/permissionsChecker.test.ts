@@ -10,6 +10,13 @@ import { session } from '../../__mocks__';
 import { stateStorage } from '../../../src/background/stateStorage/mv2';
 import { credentials } from '../../../src/background/credentials';
 
+// Mock auth module to undefined to avoid circular dependency issues
+jest.mock('../../../src/background/auth/auth.ts', () => ({
+    auth: {
+        isAuthenticated: () => Promise.resolve(true),
+    },
+}));
+
 jest.mock('../../../src/background/stateStorage', () => {
     // eslint-disable-next-line global-require
     return require('../../../src/background/stateStorage/mv2');

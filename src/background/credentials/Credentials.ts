@@ -17,7 +17,7 @@ import {
     StorageKey,
 } from '../schema';
 import { stateStorage } from '../stateStorage';
-import { auth, type AuthInterface } from '../auth';
+import { type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
 import { abTestManager } from '../abTestManager';
 import { ERROR_STATUSES } from '../constants';
@@ -667,7 +667,7 @@ export class Credentials implements CredentialsInterface {
 
             const forceRemote = true;
 
-            const isUserAuthenticated = await auth.isAuthenticated(false);
+            const isUserAuthenticated = await this.auth.isAuthenticated(false);
 
             if (isUserAuthenticated) {
                 // Use persisted state on extension initialization.

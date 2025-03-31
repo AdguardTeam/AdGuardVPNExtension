@@ -5,6 +5,9 @@ import { stateStorage } from '../../src/background/stateStorage/mv2';
 import { forwarder } from '../../src/background/forwarder';
 import { ForwarderUrlQueryKey } from '../../src/background/config';
 
+// Mock auth module to undefined to avoid circular dependency issues
+jest.mock('../../src/background/auth/auth.ts', () => ({ auth: undefined }));
+
 jest.mock('../../src/background/stateStorage', () => {
     // eslint-disable-next-line global-require
     return require('../../src/background/stateStorage/mv2');

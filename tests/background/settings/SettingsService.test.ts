@@ -3,6 +3,8 @@ import { sleep } from '../../../src/common/helpers';
 
 const SCHEME_VERSION = '12';
 
+jest.mock('../../../src/background/auth/auth.ts', () => ({ auth: undefined }));
+
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
 
 jest.mock('../../../src/common/logger');

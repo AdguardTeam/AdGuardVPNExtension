@@ -3,6 +3,9 @@ import {
 } from '../../../../../../../src/options/components/Exclusions/ExclusionsModal/AddExclusionsModal/ServiceMode/ServiceRow';
 import { ExclusionState, type ServiceDto } from '../../../../../../../src/common/exclusionsConstants';
 
+// Mock auth module to undefined to avoid circular dependency issues
+jest.mock('../../../../../../../src/background/auth/auth.ts', () => ({ auth: undefined }));
+
 const generateService = (props: Partial<ServiceDto>): ServiceDto => {
     const mockedService: ServiceDto = {
         serviceId: 'string',

@@ -4,6 +4,9 @@ import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTre
 import { ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import type { ExclusionInterface, ServicesInterface } from '../../../src/background/schema';
 
+// Mock auth module to undefined to avoid circular dependency issues
+jest.mock('../../../src/background/auth/auth.ts', () => ({ auth: undefined }));
+
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
 
 jest.mock('../../../src/common/logger.ts');
