@@ -80,25 +80,35 @@ class Auth implements AuthInterface {
         stateStorage.setItem(StorageKey.AuthState, this.state);
     };
 
-    private get socialAuthState(): string | null {
+    private async getSocialAuthState(): Promise<string | null> {
+        await this.waitInitState();
         return this.state?.socialAuthState ?? null;
     }
 
     private async setSocialAuthState(socialAuthState: string | null) {
         await this.waitInitState();
-        // we are sure that state is initialized here
-        this.state!.socialAuthState = socialAuthState;
+        if (!this.state) {
+            log.warn('Auth state is marked as initialized, but it is not initialized yet');
+            return;
+        }
+
+        this.state.socialAuthState = socialAuthState;
         this.saveAuthState();
     }
 
-    private get accessTokenData(): AuthAccessToken | null {
+    private async getAccessTokenData(): Promise<AuthAccessToken | null> {
+        await this.waitInitState();
         return this.state?.accessTokenData ?? null;
     }
 
     private async setAccessTokenData(accessTokenData: AuthAccessToken | null) {
         await this.waitInitState();
-        // we are sure that state is initialized here
-        this.state!.accessTokenData = accessTokenData;
+        if (!this.state) {
+            log.warn('Auth state is marked as initialized, but it is not initialized yet');
+            return;
+        }
+
+        this.state.accessTokenData = accessTokenData;
         this.saveAuthState();
     }
 
@@ -154,7 +164,7 @@ class Auth implements AuthInterface {
             client_id: AUTH_CLIENT_ID,
             redirect_uri: `https://${await fallbackApi.getAuthRedirectUri()}`,
             scope: 'trust',
-            state: this.socialAuthState,
+            state: await this.getSocialAuthState(),
             social_provider: '',
             marketing_consent: false,
         };
@@ -203,7 +213,7 @@ class Auth implements AuthInterface {
             expiresIn,
         } = authData;
 
-        const isStateMatching = state && state === this.socialAuthState;
+        const isStateMatching = state && state === await this.getSocialAuthState();
         if (!isStateMatching) {
             log.error('Social auth state is not equal to the state received from the server');
             return;
@@ -374,8 +384,9 @@ class Auth implements AuthInterface {
      * @param [turnOffProxy=true] - if false do not turn off proxy
      */
     async getAccessToken(turnOffProxy = true): Promise<string> {
-        if (this.accessTokenData?.accessToken) {
-            return this.accessTokenData.accessToken;
+        const localAccessTokenData = await this.getAccessTokenData();
+        if (localAccessTokenData?.accessToken) {
+            return localAccessTokenData.accessToken;
         }
 
         // if no access token, then try to get it from storage
