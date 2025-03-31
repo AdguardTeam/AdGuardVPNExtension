@@ -24,7 +24,6 @@ import { type SocialAuthData } from './socialAuthSchema';
 import { type ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema';
 
 export interface AuthInterface {
-    waitInitState(): Promise<void>;
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
     isAuthenticated(turnOffProxy?: boolean): Promise<boolean>;
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
@@ -61,7 +60,7 @@ class Auth implements AuthInterface {
      * This is useful when the service worker is awoken and the state is not yet initialized.
      * And it is needed to wait for the state to be initialized before calling any other methods.
      */
-    public async waitInitState(): Promise<void> {
+    private async waitInitState(): Promise<void> {
         return this.initStatePromise;
     }
 

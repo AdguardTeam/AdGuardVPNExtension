@@ -3,6 +3,7 @@ import { sleep } from '../../../src/common/helpers';
 
 const SCHEME_VERSION = '12';
 
+// Mock auth module to undefined to avoid circular dependency issues
 jest.mock('../../../src/background/auth/auth.ts', () => ({ auth: undefined }));
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));

@@ -108,7 +108,6 @@ const asyncInitModules = async (): Promise<void> => {
         await updateService.init();
         await openThankYouPage();
         await flagsStorage.init();
-        await auth.waitInitState(); // auth state should be initiated before credentials init
         await credentials.init();
         permissionsChecker.init(); // should be initiated before auth module
         networkConnectionObserver.init(); // uses permissionsChecker and connectivityService
