@@ -24,6 +24,7 @@ import { type SocialAuthData } from './socialAuthSchema';
 import { type ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema';
 
 export interface AuthInterface {
+    waitInitState(): Promise<void>;
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
     isAuthenticated(): Promise<boolean>;
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
@@ -49,17 +50,10 @@ class Auth implements AuthInterface {
     /**
      * Promise that resolves when the state is initialized.
      */
-    private initStatePromise: Promise<void> | null = null;
-
-    /**
-     * Function that resolves the {@link initStatePromise}.
-     */
-    private resolveInitStatePromise: (() => void) | null = null;
+    private initStatePromise: Promise<void>;
 
     constructor() {
-        this.initStatePromise = new Promise((resolve) => {
-            this.resolveInitStatePromise = resolve;
-        });
+        this.initStatePromise = this.initState();
     }
 
     /**
@@ -67,13 +61,8 @@ class Auth implements AuthInterface {
      * This is useful when the service worker is awoken and the state is not yet initialized.
      * And it is needed to wait for the state to be initialized before calling any other methods.
      */
-    private async waitInitState(): Promise<void> {
-        // If the state is already initialized, return immediately.
-        if (!this.initStatePromise) {
-            return;
-        }
-
-        await this.initStatePromise;
+    public async waitInitState(): Promise<void> {
+        return this.initStatePromise;
     }
 
     private saveAuthState = () => {
@@ -412,15 +401,8 @@ class Auth implements AuthInterface {
     }
 
     async initState(): Promise<void> {
+        await stateStorage.waitInit();
         this.state = stateStorage.getItem(StorageKey.AuthState);
-
-        // if init state promise resolver is set, we should resolve it
-        // and clear excess references to avoid memory leaks
-        if (this.resolveInitStatePromise) {
-            this.resolveInitStatePromise();
-            this.resolveInitStatePromise = null;
-            this.initStatePromise = null;
-        }
     }
 
     async init(): Promise<void> {
