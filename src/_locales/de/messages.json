@@ -414,14 +414,8 @@
     "settings_dns_add_custom_server_save": {
         "message": "Speichern"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Benutzerdefinierter DNS-Server hinzugefügt"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Benutzerdefinierter DNS-Server entfernt"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Benutzerdefinierter DNS-Server bearbeitet"
     },
     "settings_dns_selector_default_title": {
         "message": "Standard"
@@ -698,7 +692,7 @@
         "message": "Alle"
     },
     "endpoints_tab_saved": {
-        "message": "Gespeichert"
+        "message": "Gespeicherte"
     },
     "endpoints_saved_location_deleted": {
         "message": "Standort aus „Gespeicherte“ entfernt"

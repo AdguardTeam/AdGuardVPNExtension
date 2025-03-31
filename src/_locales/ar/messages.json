@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "خادم DNS مضاف بالفعل"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "يتجاوز اسم الخادم الحد الأقصى المسموح به من الأحرف (%max%) حاليًا %current%ث"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "حفظ وتحديد"
     },
     "settings_dns_add_custom_server_save": {
         "message": "حفظ"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "تمت إضافة خادم DNS مخصص"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "تم حذف خادم DNS مخصص"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "تم تحرير خادم DNS مخصص"
     },
     "settings_dns_selector_default_title": {
         "message": "افتراضي"
@@ -470,6 +467,9 @@
     },
     "settings_theme_label": {
         "message": "المظهر"
+    },
+    "settings_theme_system": {
+        "message": "الإعداد الافتراضي للمتصفح"
     },
     "settings_theme_dark": {
         "message": "داكن"
@@ -624,6 +624,12 @@
     "authentication_successful_notification": {
         "message": "تمت المصادقة بنجاح! يمكنك فتح AdGuard VPN والبدء في استخدامه."
     },
+    "control_error_title": {
+        "message": "عطِّل أي إضافة VPN أخرى للاتصال"
+    },
+    "control_error_description": {
+        "message": "يبدو أن إضافة VPN أخرى تتحكم في اتصالك. لاستخدام AdGuard VPN، يرجى تعطيل الإضافة الأخرى"
+    },
     "control_error_disable": {
         "message": "تعطيل"
     },
@@ -678,11 +684,18 @@
     "endpoints_not_found": {
         "message": "لم يتم العثور على المواقع"
     },
+    "endpoints_empty_saved": {
+        "message": "لعرض المواقع هنا، حدد <b>الكل</b> وانقر على الأيقونة بجوار الموقع",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
     "endpoints_tab_all": {
         "message": "الكل"
     },
     "endpoints_tab_saved": {
         "message": "تم الحفظ"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "تم حذف الموقع من المحفوظات"
     },
     "popup_traffic_limit_reached": {
         "message": "تم الوصول إلى الحد الأقصى للبيانات الشهرية"
@@ -710,6 +723,9 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "تم تخفيض السرعة"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "لقد وصلت إلى حد البيانات المجانية، وAdGuard VPN يعمل ببطء"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "ترقية"
@@ -885,6 +901,9 @@
         "message": "يتم تجديد حركة المرور اليوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم | يتم تجديد حركة المرور خلال %days% يوم",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
+    "popup_hint_popup_content": {
+        "message": "بالمناسبة، يمكنك تعطيل الـVPN لموقع واحد مع إبقائه مفعلًا للمواقع الأخرى"
+    },
     "popup_hint_popup_button": {
         "message": "فهمت ذلك"
     },
@@ -952,6 +971,15 @@
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "أرشيف مضغوط: \"%filename%\" لا يحتوي على ملفات ذات امتدادات:%extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "يمكنك الاتصال حتى %maxDevicesAllowed% جهاز في نفس الوقت."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "لاستخدام الـVPN على هذا الجهاز، يمكنك التفكير في شراء AdGuard VPN Unlimited"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "لاستخدام الـVPN على هذا الجهاز، قم بفصل جهاز آخر"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "ترقية"

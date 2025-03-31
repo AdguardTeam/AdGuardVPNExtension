@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS սերվեր արդեն ավելացված է"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Ծառսի անունը գերազանցում է %max% նիշերի սահմանաչափը (ընդհանուր %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Պահպանել և ընտրել"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Պահպանել"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Ապահովված DNS սերվեր ավելացվել է"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Ապահովված DNS սերվեր հեռացվել է"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Ադապտացված DNS սերվերը խմբագրվել է"
     },
     "settings_dns_selector_default_title": {
         "message": "Հիմնական"
@@ -470,6 +467,9 @@
     },
     "settings_theme_label": {
         "message": "Ֆոն"
+    },
+    "settings_theme_system": {
+        "message": "Բռաուզերի լռելյայն"
     },
     "settings_theme_dark": {
         "message": "Մութ"
@@ -624,6 +624,12 @@
     "authentication_successful_notification": {
         "message": "Հաջողությամբ հավաստագրված եք։ Կարող եք բացել AdGuard VPN-ը և սկսել այն օգտագործել։"
     },
+    "control_error_title": {
+        "message": "Անջատեք մյուս VPN ընդարձակումը միանալու համար"
+    },
+    "control_error_description": {
+        "message": "Թվում է, որ մյուս VPN ընդարձակումը վերահսկում է ձեր միացումը: Օգտվելու համար AdGuard VPN-ից խնդրում ենք անջատել մյուս ընդարձակումը"
+    },
     "control_error_disable": {
         "message": "Անջատել"
     },
@@ -678,11 +684,18 @@
     "endpoints_not_found": {
         "message": "Սերվեր չի գտնվել"
     },
+    "endpoints_empty_saved": {
+        "message": "Տեղերն այստեղ տեսնելու համար ընտրեք <b>Բոլորը</b> և կտտացրեք տեղադրության կողքին գտնվող պատկերակին",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
     "endpoints_tab_all": {
         "message": "All"
     },
     "endpoints_tab_saved": {
         "message": "Պահպանված է"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Տեղադրումը ջնջվել է Պահվածից"
     },
     "popup_traffic_limit_reached": {
         "message": "Ամսական տվյալների սահմանաչափը հասել է"
@@ -710,6 +723,9 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Արագությունը նվազում է"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Դուք հասել եք անվճար տվյալների սահմանին, և AdGuard VPN-ը աշխատում է դանդաղ"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Արդիացնել"
@@ -885,6 +901,9 @@
         "message": "Տրաֆիկը նորանում է այսօր | Տրաֆիկը նորանում է %days% օրում",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
+    "popup_hint_popup_content": {
+        "message": "Այս առիթով, դուք կարող եք անջատել VPN-ն մեկ կայքի համար և պահել այն այլ կայքերում"
+    },
     "popup_hint_popup_button": {
         "message": "Got it"
     },
@@ -957,11 +976,23 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip արխիվը: \"%filename%\" չի պարունակում հետևյալ ընդլայնումներով ֆայլեր՝ %extensions%"
     },
+    "popup_connections_limit_description_start": {
+        "message": "Դուք կարող եք միացնել մինչև %maxDevicesAllowed% սարքավորում մեկաժամանակ։"
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Այս սարքում VPN օգտագործելու համար մի՛ մոռացեք գնել AdGuard VPN Unlimited"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Այս սարքում VPN օգտագործելու համար անջատեք մեկ այլ սարքավորում"
+    },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Արդիացնել"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Իմանալ ավելին"
+    },
+    "popup_connections_limit_title": {
+        "message": "Զինվածքների սահմանը լրացել է"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Ստացեք VPN ընդլայնումը Android-ի համար"

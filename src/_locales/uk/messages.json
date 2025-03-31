@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-сервер уже додано"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Назва сервера перевищує максимально допустиму кількість знаків %max% (наразі %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Зберегти та вибрати"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Зберегти"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Власний DNS-сервер додано"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Власний DNS-сервер видалено"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Власний DNS-сервер відредаговано"
     },
     "settings_dns_selector_default_title": {
         "message": "Усталений"
@@ -470,6 +467,9 @@
     },
     "settings_theme_label": {
         "message": "Тема"
+    },
+    "settings_theme_system": {
+        "message": "Усталена в браузері"
     },
     "settings_theme_dark": {
         "message": "Темна"
@@ -624,6 +624,12 @@
     "authentication_successful_notification": {
         "message": "Ви успішно авторизувались! Можете відкрити AdGuard VPN та підʼєднатись."
     },
+    "control_error_title": {
+        "message": "Вимкніть інше VPN-розширення, щоб підʼєднатися"
+    },
+    "control_error_description": {
+        "message": "Схоже, що інше VPN-розширення контролює ваше зʼєднання. Щоб використовувати AdGuard VPN, будь ласка, вимкніть інше розширення"
+    },
     "control_error_disable": {
         "message": "Вимкнути"
     },
@@ -678,11 +684,18 @@
     "endpoints_not_found": {
         "message": "Місцезнаходження не знайдено"
     },
+    "endpoints_empty_saved": {
+        "message": "Щоб побачити місцезнаходження тут, виберіть <b>Усі</b> та клацніть на іконку поруч з місцезнаходженням",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
     "endpoints_tab_all": {
         "message": "Усі"
     },
     "endpoints_tab_saved": {
-        "message": "Збережено"
+        "message": "Збережені"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Місцезнаходження видалено зі Збережених"
     },
     "popup_traffic_limit_reached": {
         "message": "Вичерпано місячний ліміт трафіку"
@@ -710,6 +723,9 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Швидкість з'єднання знижено"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Ви досягли обмеження безплатного обсягу даних, тому AdGuard VPN працює повільніше"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Покращити"
@@ -885,6 +901,9 @@
         "message": "Трафік поновлюється сьогодні | Трафік поновиться через %days% день | Трафік поновиться через %days% дні | Трафік поновиться через %days% днів",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
+    "popup_hint_popup_content": {
+        "message": "До речі, ви можете вимкнути VPN для одного сайту і залишити його увімкненим для інших"
+    },
     "popup_hint_popup_button": {
         "message": "Зрозуміло"
     },
@@ -956,6 +975,15 @@
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip-архів «%filename%» не містить файлів з прийнятними розширеннями: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Ви можете підʼєднати до %maxDevicesAllowed% пристроїв одночасно."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Щоб використовувати VPN на цьому пристрої, розгляньте можливість придбання AdGuard VPN Unlimited"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Щоб використовувати VPN на цьому своєму пристрої, відʼєднайте інший"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Покращити"

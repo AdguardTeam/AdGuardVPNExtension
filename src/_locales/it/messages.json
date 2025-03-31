@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Server DNS già aggiunto"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Il nome del server supera il limite di %max% caratteri (attualmente sono %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Salva e seleziona"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Salva"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "I server DNS personalizzati sono stati aggiunti"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "I server DNS personalizzati sono stati rimossi"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Server DNS personale modificato"
     },
     "settings_dns_selector_default_title": {
         "message": "Predefinito"
@@ -470,6 +467,9 @@
     },
     "settings_theme_label": {
         "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Predefinito del browser"
     },
     "settings_theme_dark": {
         "message": "Scuro"
@@ -624,8 +624,14 @@
     "authentication_successful_notification": {
         "message": "Autenticazione riuscita! Puoi aprire AdGuard VPN e iniziare a utilizzarla."
     },
+    "control_error_title": {
+        "message": "Disabilita un'altra estensione VPN per connetterti"
+    },
+    "control_error_description": {
+        "message": "Sembra che un'altra estensione VPN stia controllando la tua connessione. Per usare AdGuard VPN disabilita l'altra estensione"
+    },
     "control_error_disable": {
-        "message": "Disattiva"
+        "message": "Disabilita"
     },
     "popup_skeleton_status": {
         "message": "In cerca di località..."
@@ -678,11 +684,18 @@
     "endpoints_not_found": {
         "message": "Località non trovate"
     },
+    "endpoints_empty_saved": {
+        "message": "Per vedere le località qui, seleziona <b>Tutte</b> e clicca l'icona accanto a un luogo",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
     "endpoints_tab_all": {
         "message": "Tutti"
     },
     "endpoints_tab_saved": {
-        "message": "Salvato"
+        "message": "Salvati"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Luogo eliminato da Salvati"
     },
     "popup_traffic_limit_reached": {
         "message": "Limite dati mensile raggiunto"
@@ -710,6 +723,9 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "La velocità è stata ridotta"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Hai raggiunto il limite dati gratuito, e AdGuard VPN lavorerà lentamente"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Aggiorna"
@@ -885,6 +901,9 @@
         "message": "Il traffico si rinnova oggi | Il traffico si rinnova in %days% giorno | Il traffico si rinnova in %days% giorni",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
+    "popup_hint_popup_content": {
+        "message": "A proposito, puoi disabilitare la VPN per un sito web e mantenerla abilitata per altri"
+    },
     "popup_hint_popup_button": {
         "message": "Capito"
     },
@@ -956,6 +975,15 @@
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "L'archivio Zip \"%filename%\" non contiene file con estensioni: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Puoi connettere fino a %maxDevicesAllowed% dispositivi allo stesso tempo."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Per usare VPN su questo, considera di comprare AdGuard VPN Unlimited"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Per usare la VPN su questo dispositivo, disconnetti un altro dispositivo"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Aggiorna"

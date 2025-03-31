@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "سرور DNS قبلاً اضافه شده است"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "نام سرور از حد حداکثر %max% کاراکتر (در حال حاضر %current%) تجاوز می‌کند"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "ذخیره و انتخاب"
     },
     "settings_dns_add_custom_server_save": {
         "message": "ذخیره"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "سرور DNS سفارشی اضافه شد"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "سرور DNS سفارشی حذف شد"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "سرور DNS سفارشی ویرایش شد"
     },
     "settings_dns_selector_default_title": {
         "message": "پيش فرض"
@@ -470,6 +467,9 @@
     },
     "settings_theme_label": {
         "message": "پوسته"
+    },
+    "settings_theme_system": {
+        "message": "پیش‌فرض مرورگر"
     },
     "settings_theme_dark": {
         "message": "تیره"
@@ -624,6 +624,12 @@
     "authentication_successful_notification": {
         "message": "با موفقیت احراز هویت شد! می توانید AdGuard VPN را باز کرده و شروع به استفاده کنید."
     },
+    "control_error_title": {
+        "message": "برای اتصال، یک افزونه VPN دیگر را غیر فعال کنید"
+    },
+    "control_error_description": {
+        "message": "به نظر می‌رسد که یک افزونه VPN دیگر در حال کنترل اتصال شماست. برای استفاده از AdGuard VPN، لطفاً افزونه دیگر را غیر فعال کنید"
+    },
     "control_error_disable": {
         "message": "غيرفعالسازي"
     },
@@ -678,11 +684,18 @@
     "endpoints_not_found": {
         "message": "مکان‌ها یافت نشد"
     },
+    "endpoints_empty_saved": {
+        "message": "برای مشاهده مکان‌ها در اینجا، <b>همه</b> را انتخاب کرده و بر روی شمایل کنار یک مکان کلیک کنید",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
     "endpoints_tab_all": {
         "message": "همه"
     },
     "endpoints_tab_saved": {
         "message": "ذخیره شده"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "مکان از لیست ذخیره‌شده حذف شد"
     },
     "popup_traffic_limit_reached": {
         "message": "حد داده ماهانه سر رسید"
@@ -710,6 +723,9 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "سرعت کاهش یافته است"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "شما به محدودیت داده رایگان دست یافته‌اید و AdGuard VPN به آرامی کار می‌کند"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "ارتقاء"
@@ -885,6 +901,9 @@
         "message": "ترافیک امروز تجدید می‌شود | ترافیک در %days% روز تجدید می‌شود | ترافیک در %days% روزها تجدید می‌شود",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
+    "popup_hint_popup_content": {
+        "message": "به هر حال، می‌توانید VPN را برای یک تارنما غیر فعال کنید و آن را برای تارنماهای دیگر فعال نگه دارید"
+    },
     "popup_hint_popup_button": {
         "message": "فهمیدم"
     },
@@ -957,11 +976,23 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "فایل ZIP: \"%filename%\" شامل فایل با پسوندهای: %extensions% نیست"
     },
+    "popup_connections_limit_description_start": {
+        "message": "شما می‌توانید تا %maxDevicesAllowed% دستگاه را به طور همزمان متصل کنید."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "برای استفاده از VPN در اینجا، خرید AdGuard VPN Unlimited را در نظر بگیرید"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "برای استفاده از VPN در این دستگاه، دستگاه دیگر را قطع کنید"
+    },
     "popup_connections_limit_description_cta_button_free": {
         "message": "ارتقاء"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "بیشتر بدانید"
+    },
+    "popup_connections_limit_title": {
+        "message": "محدودیت دستگاه رسیده است"
     },
     "popup_mobile_edge_promo_text": {
         "message": "دریافت افزونه VPN برای Android"

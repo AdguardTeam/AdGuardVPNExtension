@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS poslužitelj je već dodan"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Naziv poslužitelja prelazi ograničenje od %max% znakova (trenutačno %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Spremi i odaberi"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Spremi"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Prilagođeni DNS poslužitelj je dodan"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Prilagođeni DNS poslužitelj je uklonjen"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Prilagođeni DNS poslužitelj je uređen"
     },
     "settings_dns_selector_default_title": {
         "message": "Zadano"
@@ -470,6 +467,9 @@
     },
     "settings_theme_label": {
         "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Zadani preglednik"
     },
     "settings_theme_dark": {
         "message": "Tamna"
@@ -624,6 +624,12 @@
     "authentication_successful_notification": {
         "message": "Uspješno provjerena autentičnost! Možete otvoriti AdGuard VPN i početi ga koristiti."
     },
+    "control_error_title": {
+        "message": "Onemogući drugo proširenje VPN za povezivanje"
+    },
+    "control_error_description": {
+        "message": "Izgleda da drugo proširenje VPN kontrolira vašu vezu. Da biste koristili AdGuard VPN, onemogućite drugo proširenje"
+    },
     "control_error_disable": {
         "message": "Onemogući"
     },
@@ -678,11 +684,18 @@
     "endpoints_not_found": {
         "message": "Lokacija nije pronađena"
     },
+    "endpoints_empty_saved": {
+        "message": "Kako biste vidjeli lokacije ovdje, odaberite <b>Sve</b> i kliknite ikonu pored lokacije",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
     "endpoints_tab_all": {
         "message": "Sve"
     },
     "endpoints_tab_saved": {
         "message": "Spremljeno"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Lokacija uklonjena iz Spremljenih"
     },
     "popup_traffic_limit_reached": {
         "message": "Mjesečno ograničenje podatka je dosegnuto. Trebate li više?"
@@ -710,6 +723,9 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Smanjena je brzina"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Dostigli ste ograničenje besplatnih podataka i AdGuard VPN će raditi sporije"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Nadogradi"
@@ -885,6 +901,9 @@
         "message": "Promet se obnavlja danas | Promet se obnavlja za %days% dan | Promet se obnavlja za %days% dana | Promet se obnavlja za %days% dana",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
+    "popup_hint_popup_content": {
+        "message": "Uzgred, možete onemogućiti VPN za jednu web stranicu i zadržati ga omogućitim za druge"
+    },
     "popup_hint_popup_button": {
         "message": "U redu"
     },
@@ -956,6 +975,15 @@
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip arhiva: \"%filename%\" ne sadržava datoteke sa nastavcima: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Možete povezati do %maxDevicesAllowed% uređaja istovremeno."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Da biste koristili VPN na ovom, razmislite o kupnji AdGuard VPN Unlimited"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Da biste koristili VPN na ovom, odspojite drugi uređaj"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Nadogradi"

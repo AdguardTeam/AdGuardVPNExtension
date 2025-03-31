@@ -414,14 +414,8 @@
     "settings_dns_add_custom_server_save": {
         "message": "Salvar"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Servidor DNS personalizado adicionado"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Servidor DNS personalizado excluído"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Servidor DNS personalizado editado"
     },
     "settings_dns_selector_default_title": {
         "message": "Padrão"

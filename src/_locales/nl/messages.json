@@ -414,14 +414,8 @@
     "settings_dns_add_custom_server_save": {
         "message": "Opslaan"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Aangepaste DNS-server toegevoegd"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Aangepaste DNS-server verwijderd"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Aangepaste DNS-server bewerkt"
     },
     "settings_dns_selector_default_title": {
         "message": "Standaard"
@@ -689,6 +683,10 @@
     },
     "endpoints_not_found": {
         "message": "Locaties niet gevonden"
+    },
+    "endpoints_empty_saved": {
+        "message": "Om hier locaties te zien, selecteer <b>Alle</b> en klik op het pictogram naast een locatie",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
     },
     "endpoints_tab_all": {
         "message": "Alle"

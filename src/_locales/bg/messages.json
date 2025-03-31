@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Този DNS сървър вече съществува"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Името на сървъра надвишава лимита от %max% символа (в момента %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Запазете и изберете"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Запази"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Добавен персонализиран DNS сървър"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Персонализираният DNS сървър е изтрит"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Персонализираният DNS сървър е редактиран"
     },
     "settings_dns_selector_default_title": {
         "message": "По подразбиране"
@@ -470,6 +467,9 @@
     },
     "settings_theme_label": {
         "message": "Тема"
+    },
+    "settings_theme_system": {
+        "message": "Стандартно за браузера"
     },
     "settings_theme_dark": {
         "message": "Тъмна тема"
@@ -624,6 +624,12 @@
     "authentication_successful_notification": {
         "message": "Успешно удостоверен! Можете да отворите AdGuard VPN и да започнете да го използвате."
     },
+    "control_error_title": {
+        "message": "Деактивирайте друго VPN разширение, за да се свържете"
+    },
+    "control_error_description": {
+        "message": "Изглежда, че друго VPN разширение контролира вашето свързване. За да използвате AdGuard VPN, моля, деактивирайте другото разширение"
+    },
     "control_error_disable": {
         "message": "Изключи"
     },
@@ -678,11 +684,18 @@
     "endpoints_not_found": {
         "message": "Локации не намерени"
     },
+    "endpoints_empty_saved": {
+        "message": "За да видите местоположения тук, изберете <b>Всички</b> и кликнете на иконата до местоположението",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
     "endpoints_tab_all": {
         "message": "All"
     },
     "endpoints_tab_saved": {
         "message": "Запазено"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Местоположението е изтрито от Запазени"
     },
     "popup_traffic_limit_reached": {
         "message": "Месечният лимит за данни е достигнат"
@@ -710,6 +723,12 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Скоростта е намалена"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Достигнахте лимита за безплатни данни и AdGuard VPN работи бавно"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Надграждане"
     },
     "popup_feedback_title": {
         "message": "Бихме искали да чуем вашето мнение"
@@ -882,6 +901,9 @@
         "message": "Трафикът се обновява днес | Трафикът се обновява след %days% ден | Трафикът се обновява след %days% дни",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
+    "popup_hint_popup_content": {
+        "message": "Между другото, можете да деактивирате VPN за един уебсайт и да я оставите активирана за други"
+    },
     "popup_hint_popup_button": {
         "message": "Схванах"
     },
@@ -954,8 +976,23 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip архив: \"%filename%\" не съдържа файлове с разширения: %extensions%"
     },
+    "popup_connections_limit_description_start": {
+        "message": "Можете да свържете до %maxDevicesAllowed% устройства едновременно."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "За да използвате VPN на този, помислете за закупуването на AdGuard VPN Unlimited"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "За да използвате VPN на този, изключете друго устройство"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Надграждане"
+    },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Научи повече"
+    },
+    "popup_connections_limit_title": {
+        "message": "Лимитът за устройства е достигнат"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Вземете VPN разширение за Android"

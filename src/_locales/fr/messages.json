@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Serveur DNS déjà ajouté"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Le nom du serveur dépasse la limite de %max% caractères (actuellement %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Enregistrer et sélectionner"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Sauvegarder"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Un serveur DNS personnalisé a été ajouté"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Le serveur DNS personnalisé a été supprimé"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Serveur DNS personnalisé modifié"
     },
     "settings_dns_selector_default_title": {
         "message": "Par défaut"
@@ -470,6 +467,9 @@
     },
     "settings_theme_label": {
         "message": "Thème"
+    },
+    "settings_theme_system": {
+        "message": "Par défaut du navigateur"
     },
     "settings_theme_dark": {
         "message": "Sombre"
@@ -624,6 +624,12 @@
     "authentication_successful_notification": {
         "message": "Authentification réussie ! Vous pouvez lancer AdGuard VPN et commencer à l'utiliser."
     },
+    "control_error_title": {
+        "message": "Désactivez une autre extension VPN pour connecter"
+    },
+    "control_error_description": {
+        "message": "Il semble qu'une autre extension VPN contrôle votre connexion. Pour utiliser AdGuard VPN, veuillez désactiver l'autre extension"
+    },
     "control_error_disable": {
         "message": "Désactiver"
     },
@@ -678,11 +684,18 @@
     "endpoints_not_found": {
         "message": "Localisations introuvables"
     },
+    "endpoints_empty_saved": {
+        "message": "Pour voir les emplacements ici, sélectionnez <b>Tout</b> et cliquez sur l'icône à côté d'un emplacement",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
     "endpoints_tab_all": {
         "message": "Toutes"
     },
     "endpoints_tab_saved": {
         "message": "Enregistré"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Emplacement supprimé des Enregistrés"
     },
     "popup_traffic_limit_reached": {
         "message": "La limite mensuelle de données est atteinte"
@@ -710,6 +723,9 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Vitesse de connexion réduite"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Vous avez dépassé la limite des données gratuites et AdGuard VPN fonctionne lentement"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Mise à niveau "
@@ -885,6 +901,9 @@
         "message": "Le trafic se renouvelle aujourd'hui | Le trafic se renouvelle dans %days% jour | Le trafic se renouvelle dans %days% jours",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
+    "popup_hint_popup_content": {
+        "message": "Au fait, vous pouvez désactiver le VPN pour un site Web et le garder activé pour d'autres"
+    },
     "popup_hint_popup_button": {
         "message": "OK"
     },
@@ -956,6 +975,15 @@
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "L'archive Zip : \"%filename%\" ne contient pas de fichiers avec des extensions : %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Vous pouvez connecter jusqu'à %maxDevicesAllowed% appareils en même temps."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Pour utiliser le VPN sur celui-ci, envisagez d'acheter AdGuard VPN Illimité"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Pour utiliser le VPN sur celui-ci, déconnectez un autre appareil"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Mise à niveau "

@@ -414,14 +414,8 @@
     "settings_dns_add_custom_server_save": {
         "message": "Сохранить"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Пользовательский DNS-сервер добавлен"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Пользовательский DNS-сервер удалён"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Пользовательский DNS-сервер изменён"
     },
     "settings_dns_selector_default_title": {
         "message": "По умолчанию"

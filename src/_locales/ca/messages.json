@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "Servidor DNS ja afegit"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "El nom del servidor supera el límit de %max% caràcters (actualment %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Desar i seleccionar"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Desar"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Servidor DNS personalitzat afegit"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Servidor DNS personalitzat eliminat"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Servidor DNS personalitzat editat"
     },
     "settings_dns_selector_default_title": {
         "message": "Per defecte"
@@ -470,6 +467,9 @@
     },
     "settings_theme_label": {
         "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Per defecte del navegador"
     },
     "settings_theme_dark": {
         "message": "Fosc"
@@ -624,6 +624,12 @@
     "authentication_successful_notification": {
         "message": "Autenticació exitosa! Pots obrir AdGuard VPN i començar a utilitzar-lo."
     },
+    "control_error_title": {
+        "message": "Desactiva una altra extensió VPN per connectar-te"
+    },
+    "control_error_description": {
+        "message": "Sembla que una altra extensió VPN està controlant la teva connexió. Per utilitzar AdGuard VPN, si us plau, desactiva l'altra extensió"
+    },
     "control_error_disable": {
         "message": "Desactivar"
     },
@@ -678,8 +684,18 @@
     "endpoints_not_found": {
         "message": "No s'han trobat ubicacions"
     },
+    "endpoints_empty_saved": {
+        "message": "Per veure les ubicacions aquí, selecciona <b>Totes</b> i fes clic a la icona al costat d'una ubicació",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Tots"
+    },
     "endpoints_tab_saved": {
         "message": "Guardat"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Ubicació eliminada de Guardat"
     },
     "popup_traffic_limit_reached": {
         "message": "S'ha assolit el límit de dades mensuals"
@@ -707,6 +723,12 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "La velocitat es redueix"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Has arribat al límit de dades gratuïtes, i AdGuard VPN funciona lentament"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Millorar"
     },
     "popup_feedback_title": {
         "message": "Ens encantaria escoltar la vostra retroalimentació"
@@ -879,6 +901,9 @@
         "message": "El trànsit es renova avui | El trànsit es renova en %days% dia | El trànsit es renova en %days% dies",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
+    "popup_hint_popup_content": {
+        "message": "Per cert, pots desactivar el VPN per a un lloc web i mantenir-lo activat per als altres"
+    },
     "popup_hint_popup_button": {
         "message": "Entesos"
     },
@@ -951,8 +976,23 @@
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "L'arxiu Zip: \"%filename%\" no conté fitxers amb extensions: %extensions%"
     },
+    "popup_connections_limit_description_start": {
+        "message": "Pots connectar fins a %maxDevicesAllowed% dispositius al mateix temps."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Per utilitzar el VPN en aquest, considera comprar AdGuard VPN Unlimited"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Per utilitzar el VPN en aquest, desconecta un altre dispositiu"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Millorar"
+    },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Més informació"
+    },
+    "popup_connections_limit_title": {
+        "message": "S'ha arribat al límit de dispositius"
     },
     "popup_mobile_edge_promo_text": {
         "message": "Obteniu l'extensió VPN per a Android"

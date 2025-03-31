@@ -414,14 +414,8 @@
     "settings_dns_add_custom_server_save": {
         "message": "Uložiť"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Vlastný DNS server bol pridaný"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Vlastný DNS server bol odstránený"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Vlastný DNS server bol upravený"
     },
     "settings_dns_selector_default_title": {
         "message": "Predvolené"

@@ -405,20 +405,17 @@
     "settings_dns_add_custom_server_duplicate_address": {
         "message": "DNS-сервер ужо дададзены"
     },
+    "settings_dns_add_custom_server_too_long_name": {
+        "message": "Назва сервера перавышае ліміт у %max% сімвалаў (цяпер %current%)"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Захаваць і выбраць"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Захаваць"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Дададзены карыстальніцкі сервер DNS"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Карыстальніцкі сервер DNS выдалены"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Карыстальніцкі сервер DNS адрэджаны"
     },
     "settings_dns_selector_default_title": {
         "message": "Прадвызначаны"
@@ -470,6 +467,9 @@
     },
     "settings_theme_label": {
         "message": "Тэма"
+    },
+    "settings_theme_system": {
+        "message": "Усталявана ў браўзеры"
     },
     "settings_theme_dark": {
         "message": "Цёмная"
@@ -624,6 +624,12 @@
     "authentication_successful_notification": {
         "message": "Праверка сапраўднасці прайшла! Вы можаце адкрыць AdGuard VPN і пачаць выкарыстоўваць яго."
     },
+    "control_error_title": {
+        "message": "Адключыце другое VPN-расшырэнне для падключэння"
+    },
+    "control_error_description": {
+        "message": "Схоже, што другое VPN-расшырэнне кантралюе ваша зʼяднанне. Каб выкарыстоўваць AdGuard VPN, адключыце іншае расшырэнне"
+    },
     "control_error_disable": {
         "message": "Адключыць"
     },
@@ -678,11 +684,18 @@
     "endpoints_not_found": {
         "message": "Сервер не знойдзены"
     },
+    "endpoints_empty_saved": {
+        "message": "Каб убачыць лакацыі, абярыце <b>Усе</b> і націсніце на значок побач з лакацыяй",
+        "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
     "endpoints_tab_all": {
         "message": "All"
     },
     "endpoints_tab_saved": {
         "message": "Захавана"
+    },
+    "endpoints_saved_location_deleted": {
+        "message": "Лакацыя выдаленая з Захаваных"
     },
     "popup_traffic_limit_reached": {
         "message": "Дасягнуты месячны ліміт дадзеных"
@@ -710,6 +723,9 @@
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Хуткасць злучэння зніжана"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "У вас скончыўся дармовы трафік, і зараз AdGuard VPN працуе павольна"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Абнаўленне"
@@ -885,6 +901,9 @@
         "message": "Трафік абновіцца сёння | Трафік абновіцца праз %days% дзень | Трафік абновіцца праз %days% дня | Трафік абновіцца праз %days% дзён",
         "description": "Respect spaces between text, tags and placeholders. 40 characters max limit for every plural form"
     },
+    "popup_hint_popup_content": {
+        "message": "Да слова, вы можаце адключыць VPN для аднаго вэб-сайта і ўключыць яго для іншых"
+    },
     "popup_hint_popup_button": {
         "message": "Зразумела"
     },
@@ -956,6 +975,15 @@
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip-архіў: \"%filename%\" не ўтрымвае файлаў з пашырэннямі: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Вы можаце падключыць да %maxDevicesAllowed% прылад адначасова."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Каб выкарыстоўваць VPN на гэтым, разгляньце магчымасць куплі AdGuard VPN Unlimited"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Каб выкарыстоўваць VPN на гэтым, адключыце іншую прыладу"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Абнаўленне"

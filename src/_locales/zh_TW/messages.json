@@ -414,14 +414,8 @@
     "settings_dns_add_custom_server_save": {
         "message": "儲存"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "自訂 DNS 伺服器已新增"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "自訂 DNS 伺服器已刪除"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "自訂的 DNS 伺服器已編輯"
     },
     "settings_dns_selector_default_title": {
         "message": "預設"

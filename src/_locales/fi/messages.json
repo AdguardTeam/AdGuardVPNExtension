@@ -414,14 +414,8 @@
     "settings_dns_add_custom_server_save": {
         "message": "Tallenna"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Oma DNS-palvelin lisättiin"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Oma DNS-palvelin poistettiin"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Mukautettua DNS-palvelinta muokattu"
     },
     "settings_dns_selector_default_title": {
         "message": "Oletus"

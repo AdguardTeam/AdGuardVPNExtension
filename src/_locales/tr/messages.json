@@ -414,14 +414,8 @@
     "settings_dns_add_custom_server_save": {
         "message": "Kaydet"
     },
-    "settings_dns_add_custom_server_notification_success": {
-        "message": "Özel DNS sunucusu eklendi"
-    },
     "settings_dns_delete_custom_server_notification": {
         "message": "Özel DNS sunucusu silindi"
-    },
-    "settings_dns_edit_custom_server_notification": {
-        "message": "Özel DNS sunucusu düzenlendi"
     },
     "settings_dns_selector_default_title": {
         "message": "Varsayılan"
