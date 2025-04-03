@@ -11,13 +11,14 @@ import { updateManifest } from '../helpers';
 import {
     STAGE_ENV,
     IS_DEV,
+    IS_BETA,
     StageEnv,
     Browser,
     SRC_PATH,
 } from '../consts';
 import { megabytesToBytes, SizeLimitPlugin } from '../size-limit-plugin';
 
-import { firefoxManifestDiff } from './manifest.firefox';
+import { firefoxManifestDiff, firefoxManifestStandaloneDiff } from './manifest.firefox';
 
 const FIREFOX_PATH = 'firefox';
 
@@ -74,7 +75,16 @@ const plugins: webpack.WebpackPluginInstance[] = [
             {
                 from: path.resolve(__dirname, '../manifest.common.json'),
                 to: 'manifest.json',
-                transform: (content: Buffer) => updateManifest(content, firefoxManifestDiff),
+                transform: (content: Buffer) => {
+                    let result = updateManifest(content, firefoxManifestDiff);
+
+                    // Append beta standalone update URL
+                    if (IS_BETA) {
+                        result = updateManifest(result, firefoxManifestStandaloneDiff);
+                    }
+
+                    return result;
+                },
             },
         ],
     }),

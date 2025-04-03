@@ -6,6 +6,7 @@ deployment:
 release-naming: ${bamboo.inject.version}
 environments:
   - static.adtidy.net
+  - GitHub
 
 static.adtidy.net:
   triggers: []
@@ -33,6 +34,46 @@ static.adtidy.net:
             ls -la
 
             ./bamboo-deploy-publisher/deploy.sh adguard-vpn-webext-firefox-beta
+  final-tasks: []
+  variables: {}
+  requirements:
+    - adg-docker: 'true'
+  notifications:
+    - events:
+        - deployment-started-and-finished
+      recipients:
+        - webhook:
+            name: Deploy webhook
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds
+
+GitHub:
+  triggers: []
+  tasks:
+    - clean
+    - checkout:
+        repository: bamboo-deploy-publisher
+        path: bamboo-deploy-publisher
+        force-clean-build: true
+    - artifact-download:
+        artifacts:
+          - name: firefox.zip
+          - name: firefox.xpi
+          - name: build.txt
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -la
+
+            # append files to latest Github Releases with correct tag
+            GITHUB_TOKEN="${bamboo.githubPublicRepoPassword}" \
+            ./bamboo-deploy-publisher/deploy.sh adguard-vpn-github-beta-firefox
   final-tasks: []
   variables: {}
   requirements:

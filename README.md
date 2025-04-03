@@ -148,36 +148,41 @@ Before releasing new versions do not forget to update exclusions-services data, 
 
 ### Artifact builds
 
-Before building artifacts make sure you have [build](#build)
+#### `crx` builds
+
+Before building `crx` make sure you have [built](#build)
 the extension and also make sure you have added credentials:
 
 - `certificate-beta.pem` - chrome crx beta certificate
-- `certificate-release.pem` - chrome crx release certificate
-- `mozilla_credentials.json` - encrypted credentials - temporary not needed,
+- `certificate-release.pem` - chrome crx release certificate,
 
 to the directory `./private/AdguardVPN`.
 
-For testing purposes for `artifacts:dev` command credentials taken from `./tests/certificate-test.pem` file.
+For testing purposes for `crx:dev` command credentials taken from `./tests/certificate-test.pem` file.
 
 WARNING: DO NOT USE TEST CREDENTIALS FOR PRODUCTION BUILDS, BECAUSE THEY ARE AVAILABLE IN PUBLIC.
 
 If you want to generate your own credentials you can go to
 [How to generate credentials for `crx` builds](#how-to-generate-credentials-for-crx-builds) for more details
 
-To build artifacts, run:
+To build `crx`, run:
 
-- `CREDENTIALS_PASSWORD=<password> yarn artifacts:dev`
-- `CREDENTIALS_PASSWORD=<password> yarn artifacts:beta`
-- `CREDENTIALS_PASSWORD=<password> yarn artifacts:release`
+- `yarn crx:dev`
+- `yarn crx:beta`
+- `yarn crx:release`
 
-**Builds will be located in the `build` directory**
+**`crx` will be located in the `build/channel` directory**
+
+Where `channel` is one of the following:
+- `dev` (`build/dev/chrome.crx`)
+- `beta` (`build/beta/chrome.crx`)
+- `release` (`build/release/chrome.crx`)
 
 By default, you will have builds for:
 
 - Chrome — manifest versions **3** (`chrome.crx`)
-- Firefox — manifest version **3** (`firefox.xpi`) - temporarily disabled
 
-#### How to generate credentials for `crx` builds
+##### How to generate credentials for `crx` builds
 
 You can use [Crx CLI `keygen`](https://github.com/thom4parisot/crx#crx-keygen-directory)
 to generate credentials for `crx` builds, see the example below:

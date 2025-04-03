@@ -5,7 +5,7 @@ plan:
   key: AVFIREFOXBSPECS
   name: vpn-extension - build firefox beta
 variables:
-  dockerNode: adguard/node-ssh:18.13--1
+  dockerNode: adguard/extension-builder:18.19.0--0.1.3
 
 stages:
   - Build:
@@ -60,16 +60,23 @@ Build:
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-            export CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}"
 
-            # build with prod API endpoints firefox.zip
+            # build with prod API endpoints firefox.zip and update.json
             yarn beta firefox
 
-            # build artifacts firefox.xpi and update.json
-            yarn xpi:beta
-
-            # build source code for uploading to amo
+            # zip source files to sign firefox.xpi
             git ls-files | zip -@ build/beta/source.zip
+
+            # Move to the build/beta directory and sign the Firefox extension
+            cd ./build/beta
+
+            # Set environment variables and run go-webext to sign the Firefox extension
+            FIREFOX_CLIENT_ID="${bamboo_firefoxAmoClientId}" \
+            FIREFOX_CLIENT_SECRET="${bamboo_firefoxAmoClientSecret}" \
+            go-webext -v sign firefox -f 'firefox.zip' -s 'source.zip' -o 'firefox.xpi'
+
+            # Exit from build/beta directory
+            cd ../..
     - inject-variables:
         file: build/beta/build.txt
         scope: RESULT
@@ -104,11 +111,6 @@ Build:
     - name: update.json
       location: build/beta
       pattern: update.json
-      shared: true
-      required: true
-    - name: source.zip
-      location: build/beta
-      pattern: source.zip
       shared: true
       required: true
     - name: build.txt

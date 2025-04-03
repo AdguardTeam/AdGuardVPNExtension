@@ -19,12 +19,6 @@
         "crx:dev": "export BUILD_ENV=dev; ts-node tasks/crx.ts",
         "crx:beta": "export BUILD_ENV=beta; ts-node tasks/crx.ts",
         "crx:release": "export BUILD_ENV=release; ts-node tasks/crx.ts",
-        "xpi:dev": "export BUILD_ENV=dev; ts-node tasks/xpi.ts",
-        "xpi:beta": "export BUILD_ENV=beta; ts-node tasks/xpi.ts",
-        "xpi:release": "export BUILD_ENV=release; ts-node tasks/xpi.ts",
-        "artifacts:dev": "yarn crx:dev",
-        "artifacts:beta": "yarn crx:beta",
-        "artifacts:release": "yarn crx:release",
         "resources": "ts-node tasks/resources"
     },
     "devDependencies": {
@@ -114,7 +108,6 @@
         "tmp-promise": "^3.0.2",
         "ts-node": "^10.9.2",
         "typescript": "~5.0.4",
-        "web-ext": "^6.6.0",
         "webpack": "^5.82.1",
         "webpack-cli": "^5.1.1",
         "webpack-merge": "^5.2.0",

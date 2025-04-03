@@ -47,7 +47,8 @@ Test:
             yarn lint
             yarn test
 
-            # build with test API endpoints
+            # build with test API endpoints:
+            # chrome.zip, edge.zip, opera.zip, firefox.zip
             STAGE_ENV=test \
             VPN_API_URL="${bamboo.devVpnApiUrl}" \
             AUTH_API_URL="${bamboo.devAuthApiUrl}" \
@@ -55,11 +56,11 @@ Test:
             yarn dev
 
             # build artifacts chrome.crx
-            # firefox.xpi - temporary disabled
             STAGE_ENV=test \
-            yarn artifacts:dev
+            yarn crx:dev
 
             # build with prod API endpoints
+            # chrome-prod.zip, edge-prod.zip, opera-prod.zip, firefox-prod.zip
             STAGE_ENV=prod \
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
@@ -67,9 +68,8 @@ Test:
             yarn dev
 
             # build artifacts chrome-prod.crx
-            # firefox-prod.xpi - temporary disabled
             STAGE_ENV=prod \
-            yarn artifacts:dev
+            yarn crx:dev
   final-tasks:
     - script:
         interpreter: SHELL
@@ -110,11 +110,6 @@ Test:
     - name: chrome.crx
       location: build/dev
       pattern: chrome.crx
-      shared: true
-      required: true
-    - name: build.txt
-      location: build/dev
-      pattern: build.txt
       shared: true
       required: true
     - name: edge-prod.zip

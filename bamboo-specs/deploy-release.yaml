@@ -9,6 +9,7 @@ environments:
   - Addons Mozilla
   - Edge Addons
   - GitHub
+  - static.adtidy.net
 
 Addons Mozilla:
   triggers: []
@@ -20,11 +21,8 @@ Addons Mozilla:
         force-clean-build: true
     - artifact-download:
         artifacts:
-          - {}
-    - inject-variables:
-        file: build.txt
-        scope: LOCAL
-        namespace: inject
+          - name: firefox.zip
+          - name: source.zip
     - script:
         interpreter: SHELL
         scripts:
@@ -61,7 +59,7 @@ Chrome WebStore:
         force-clean-build: true
     - artifact-download:
         artifacts:
-          - {}
+          - name: chrome.zip
     - script:
         interpreter: SHELL
         scripts:
@@ -98,7 +96,7 @@ Edge Addons:
         force-clean-build: true
     - artifact-download:
         artifacts:
-          - {}
+          - name: edge.zip
     - script:
         interpreter: SHELL
         scripts:
@@ -135,7 +133,11 @@ GitHub:
         force-clean-build: true
     - artifact-download:
         artifacts:
-          - {}
+          - name: chrome.zip
+          - name: firefox.zip
+          - name: edge.zip
+          - name: opera.zip
+          - name: build.txt
     - script:
         interpreter: SHELL
         scripts:
@@ -152,6 +154,44 @@ GitHub:
             # publish to Github Releases
             GITHUB_TOKEN="${bamboo.githubPublicRepoPassword}" \
             ./bamboo-deploy-publisher/deploy.sh adguard-vpn-github-release
+  final-tasks: []
+  variables: {}
+  requirements:
+    - adg-docker: 'true'
+  notifications:
+    - events:
+        - deployment-started-and-finished
+      recipients:
+        - webhook:
+            name: Deploy webhook
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds
+
+static.adtidy.net:
+  triggers: []
+  tasks:
+    - clean
+    - checkout:
+        repository: bamboo-deploy-publisher
+        path: bamboo-deploy-publisher
+        force-clean-build: true
+    - artifact-download:
+        artifacts:
+          - name: chrome.zip
+          - name: firefox.zip
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -la
+
+            ./bamboo-deploy-publisher/deploy.sh adguard-vpn-webext-chrome-release
+            ./bamboo-deploy-publisher/deploy.sh adguard-vpn-webext-firefox-release
   final-tasks: []
   variables: {}
   requirements:

@@ -56,12 +56,10 @@ Build:
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-            export CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}"
             yarn release
 
-            # build artifacts chrome.crx and update.xml
-            # firefox.xpi and update.json - temporary disabled
-            yarn artifacts:release
+            # build artifacts chrome.crx
+            yarn crx:release
 
             # build source code for uploading to amo
             git ls-files | zip -@ build/release/source.zip
@@ -114,11 +112,6 @@ Build:
     - name: chrome.crx
       location: build/release
       pattern: chrome.crx
-      shared: true
-      required: true
-    - name: update.xml
-      location: build/release
-      pattern: update.xml
       shared: true
       required: true
     - name: build.txt

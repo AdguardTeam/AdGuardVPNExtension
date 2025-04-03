@@ -1,9 +1,5 @@
+/* eslint-disable no-console */
 import webpack from 'webpack';
-
-const {
-    log: logInfo,
-    error: logError,
-} = console;
 
 export const bundleRunner = (
     webpackConfig: webpack.Configuration,
@@ -18,15 +14,15 @@ export const bundleRunner = (
     return new Promise((resolve, reject) => {
         run((err: any, stats: webpack.Stats) => {
             if (err) {
-                logError(err.stack || err);
+                console.error(err.stack || err);
                 if (err.details) {
-                    logError(err.details);
+                    console.error(err.details);
                 }
                 reject();
                 return;
             }
             if (stats.hasErrors()) {
-                logInfo(stats.toString({
+                console.log(stats.toString({
                     colors: true,
                     all: false,
                     errors: true,
@@ -36,7 +32,7 @@ export const bundleRunner = (
                 return;
             }
 
-            logInfo(stats.toString({
+            console.log(stats.toString({
                 chunks: false, // Makes the build much quieter
                 colors: true, // Shows colors in the console
             }));

@@ -8,6 +8,7 @@ environments:
   - Chrome WebStore
   - static.adtidy.net
   - GitHub
+
 Chrome WebStore:
   triggers: []
   tasks:
@@ -18,13 +19,7 @@ Chrome WebStore:
         force-clean-build: true
     - artifact-download:
         artifacts:
-          - name: edge.zip
           - name: chrome.zip
-          - name: opera.zip
-          - name: firefox.zip
-          - name: build.txt
-          - name: chrome.crx
-          - name: update.xml
     - script:
         interpreter: SHELL
         scripts:
@@ -101,13 +96,8 @@ GitHub:
           - name: edge.zip
           - name: chrome.zip
           - name: opera.zip
-          - name: firefox.zip
           - name: build.txt
           - name: chrome.crx
-          - name: update.xml
-          # temporary disable xpi and update.json
-          # - name: firefox.xpi
-          # - name: update.json
     - script:
         interpreter: SHELL
         scripts:

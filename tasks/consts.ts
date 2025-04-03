@@ -1,3 +1,5 @@
+import path from 'path';
+
 import dotenv from 'dotenv';
 
 // Retrieves config from .env file and assigns it to the process.env
@@ -69,14 +71,27 @@ export const DEPLOY_PATH = process.env.BUILD_ENV || Env.Dev;
 
 export const UPDATE_BASE_URL = 'https://static.adtidy.net/extensions/adguardvpn';
 
-// Update manifest URL for the Chrome extension
+/**
+ * Update manifest URL for the Chrome extension
+ */
 export const CHROME_UPDATE_URL = `${UPDATE_BASE_URL}/${DEPLOY_PATH}/${CHROME_UPDATER_FILENAME}`;
 
-// Update manifest URL for the Firefox add-on
+/**
+ * Update manifest URL for the Firefox add-on
+ */
 export const FIREFOX_UPDATE_URL = `${UPDATE_BASE_URL}/${DEPLOY_PATH}/${FIREFOX_UPDATER_FILENAME}`;
 
-// Path to the Chrome CRX (that we'll add to the update manifest)
+/**
+ * URL to the Chrome CRX (that we'll add to the update manifest)
+ */
 export const CHROME_UPDATE_CRX = `${UPDATE_BASE_URL}/${DEPLOY_PATH}/${CRX_NAME}`;
 
-// Path to the Firefox XPI (that we'll add to the update manifest)
+/**
+ * URL to the Firefox XPI (that we'll add to the update manifest)
+ */
 export const FIREFOX_UPDATE_XPI = `${UPDATE_BASE_URL}/${DEPLOY_PATH}/${XPI_NAME}`;
+
+/**
+ * Path to update.json template
+ */
+export const FIREFOX_UPDATE_TEMPLATE_PATH = path.resolve(__dirname, './firefox/update_template.json');

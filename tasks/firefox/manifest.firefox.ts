@@ -1,4 +1,4 @@
-const { BUILD_ENV, GECKO_ID_ENV_MAP } = require('../consts');
+const { BUILD_ENV, GECKO_ID_ENV_MAP, FIREFOX_UPDATE_URL } = require('../consts');
 
 export const firefoxManifestDiff = {
     manifest_version: 3,
@@ -40,4 +40,12 @@ export const firefoxManifestDiff = {
             uriTemplate: '/custom-protocol-handler.html#matched=%s',
         },
     ],
+};
+
+export const firefoxManifestStandaloneDiff = {
+    browser_specific_settings: {
+        gecko: {
+            update_url: FIREFOX_UPDATE_URL,
+        },
+    },
 };
