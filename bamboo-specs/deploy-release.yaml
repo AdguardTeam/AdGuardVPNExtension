@@ -4,6 +4,7 @@ deployment:
   name: vpn-extension - deploy release
   source-plan: ADGEXT-AVRELEASESPECS
 release-naming: ${bamboo.inject.version}
+
 environments:
   - Chrome WebStore
   - Addons Mozilla

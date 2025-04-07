@@ -4,10 +4,12 @@ deployment:
   name: vpn-extension - deploy beta
   source-plan: ADGEXT-AVBSPECS
 release-naming: ${bamboo.inject.version}
+
 environments:
   - Chrome WebStore
   - static.adtidy.net
   - GitHub
+
 Chrome WebStore:
   triggers: []
   tasks:
