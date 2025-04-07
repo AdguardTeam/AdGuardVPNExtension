@@ -79,7 +79,10 @@ export class ConnectivityService {
 
         if (state.changed) {
             log.debug(`Current state: ${state.value}`);
-            notifier.notifyListeners(notifier.types.CONNECTIVITY_STATE_CHANGED, { value: state.value });
+            notifier.notifyListeners(notifier.types.CONNECTIVITY_STATE_CHANGED, {
+                value: state.value,
+                event: state.event.type,
+            });
             stateStorage.setItem<ConnectivityData>(StorageKey.ConnectivityData, {
                 context: state.context,
                 state: state.value as ConnectivityStateType,

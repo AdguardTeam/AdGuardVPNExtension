@@ -3,6 +3,7 @@ import { SETTINGS_IDS } from '../../common/constants';
 import { ConnectivityStateType } from '../schema';
 import { type SettingsInterface } from '../settings/settings';
 import { type StorageInterface } from '../browserApi/storage';
+import { ConnectivityEventType } from '../connectivity/connectivityService';
 
 /**
  * Data passed by connectivity state change event.
@@ -12,6 +13,11 @@ interface StateType {
      * New connectivity state type.
      */
     value: ConnectivityStateType;
+
+    /**
+     * Event type.
+     */
+    event: ConnectivityEventType;
 }
 
 /**
@@ -178,6 +184,12 @@ export class RateModal implements RateModalInterface {
     private listenerId: string | null = null;
 
     /**
+     * Flag to handle if we should count next "Connected" state change.
+     * This is used to identify if user pressed connect button.
+     */
+    private shouldCountNextConnection = false;
+
+    /**
      * Constructor.
      */
     constructor({
@@ -253,8 +265,19 @@ export class RateModal implements RateModalInterface {
             return;
         }
 
-        // If not connected, do nothing
-        if (state.value !== ConnectivityStateType.Connected) {
+        const { value, event } = state;
+
+        // We should handle connecting idle state in order to identify if user
+        // pressed connect button and count next connected event if it is pressed
+        if (value === ConnectivityStateType.ConnectingIdle) {
+            this.shouldCountNextConnection = event === ConnectivityEventType.ConnectBtnPressed;
+            return;
+        }
+
+        // If connectivity state is not connected or if this connect is not cause by press connect button:
+        // reset shouldCountNextConnection and do not update state
+        if (value !== ConnectivityStateType.Connected || !this.shouldCountNextConnection) {
+            this.shouldCountNextConnection = false;
             return;
         }
 
