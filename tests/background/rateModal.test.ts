@@ -1,3 +1,4 @@
+import { ConnectivityEventType } from '../../src/background/connectivity/connectivityService';
 import { RateModal, RateModalStatus } from '../../src/background/rateModal/RateModal';
 import { ConnectivityStateType } from '../../src/background/schema';
 
@@ -90,11 +91,26 @@ describe('RateModal', () => {
             await rateModal.initState();
 
             // Simulate event emit
-            savedListener({ value: ConnectivityStateType.Idle });
-            savedListener({ value: ConnectivityStateType.ConnectingIdle });
-            savedListener({ value: ConnectivityStateType.ConnectingRetrying });
-            savedListener({ value: ConnectivityStateType.DisconnectedIdle });
-            savedListener({ value: ConnectivityStateType.DisconnectedRetrying });
+            savedListener({
+                value: ConnectivityStateType.Idle,
+                event: 'any-event',
+            });
+            savedListener({
+                value: ConnectivityStateType.ConnectingIdle,
+                event: ConnectivityEventType.ExtensionLaunched,
+            });
+            savedListener({
+                value: ConnectivityStateType.ConnectingRetrying,
+                event: 'any-event',
+            });
+            savedListener({
+                value: ConnectivityStateType.DisconnectedIdle,
+                event: 'any-event',
+            });
+            savedListener({
+                value: ConnectivityStateType.DisconnectedRetrying,
+                event: 'any-event',
+            });
 
             // It should not update state
             expect(mockStorage.set).not.toHaveBeenCalled();
@@ -113,12 +129,39 @@ describe('RateModal', () => {
             mockSettings.getSetting.mockReturnValueOnce(false);
 
             // Simulate event emit
-            savedListener({ value: ConnectivityStateType.Connected });
+            savedListener({
+                value: ConnectivityStateType.Connected,
+                event: ConnectivityEventType.ConnectionSuccess,
+            });
 
             // It should not update state
             expect(mockStorage.set).not.toHaveBeenCalled();
             expect(mockNotifier.removeListener).toHaveBeenCalledTimes(1);
             expect(mockNotifier.removeListener).toHaveBeenCalledWith('some-random-id');
+        });
+
+        it('should not trigger state update if connected is not caused by pressing btn', async () => {
+            let savedListener!: (state: any) => void;
+            mockNotifier.addSpecifiedListener.mockImplementationOnce((_, listener) => {
+                savedListener = listener;
+                return 'some-random-id';
+            });
+
+            await rateModal.initState();
+
+            // Simulate event emit
+            savedListener({
+                value: ConnectivityStateType.ConnectingIdle,
+                event: ConnectivityEventType.ExtensionLaunched,
+            });
+            savedListener({
+                value: ConnectivityStateType.Connected,
+                event: ConnectivityEventType.ConnectionSuccess,
+            });
+
+            // It should update state
+            expect(mockStorage.set).not.toHaveBeenCalled();
+            expect(mockNotifier.removeListener).not.toHaveBeenCalled();
         });
 
         it('should update state', async () => {
@@ -131,7 +174,14 @@ describe('RateModal', () => {
             await rateModal.initState();
 
             // Simulate event emit
-            savedListener({ value: ConnectivityStateType.Connected });
+            savedListener({
+                value: ConnectivityStateType.ConnectingIdle,
+                event: ConnectivityEventType.ConnectBtnPressed,
+            });
+            savedListener({
+                value: ConnectivityStateType.Connected,
+                event: ConnectivityEventType.ConnectionSuccess,
+            });
 
             // It should update state
             expect(mockStorage.set).toHaveBeenCalledTimes(1);
@@ -159,7 +209,14 @@ describe('RateModal', () => {
             await rateModal.initState();
 
             // Simulate event emit
-            savedListener({ value: ConnectivityStateType.Connected });
+            savedListener({
+                value: ConnectivityStateType.ConnectingIdle,
+                event: ConnectivityEventType.ConnectBtnPressed,
+            });
+            savedListener({
+                value: ConnectivityStateType.Connected,
+                event: ConnectivityEventType.ConnectionSuccess,
+            });
 
             // It should update state
             expect(mockStorage.set).toHaveBeenCalledTimes(1);

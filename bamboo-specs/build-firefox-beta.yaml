@@ -5,7 +5,8 @@ plan:
   key: AVFIREFOXBSPECS
   name: vpn-extension - build firefox beta
 variables:
-  dockerNode: adguard/extension-builder:18.19.0--0.1.3
+  # FIXME: Use extension-builder image
+  dockerNode: adguard/node-ssh:22.14--0
 
 stages:
   - Build:
