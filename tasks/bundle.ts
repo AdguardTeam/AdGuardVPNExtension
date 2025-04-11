@@ -24,7 +24,7 @@ const buildAllBrowsers = async (): Promise<void> => {
     await createBundle(operaConfig, program.watch);
     await createBundle(edgeConfig, program.watch);
 
-    // Firefox is not built with `yarn beta` command
+    // Firefox is not built with `pnpm beta` command
     // because we have separate plan for Firefox
     if (!IS_BETA) {
         await createBundle(firefoxConfig, program.watch);

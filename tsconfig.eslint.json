@@ -1,7 +1,13 @@
 {
     "extends": "./tsconfig.json",
     "include": [
-      ".eslintrc.js",
-      "**/*"
-    ]
+        "src",
+        "tasks",
+        "tests",
+        ".eslintrc.js",
+        ".lintstagedrc.mjs",
+        "babel.config.js",
+        "jest.config.ts",
+        "postcss.config.js",
+    ],
 }

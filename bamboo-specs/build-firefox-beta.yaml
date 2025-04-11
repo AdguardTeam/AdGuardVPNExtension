@@ -5,8 +5,7 @@ plan:
   key: AVFIREFOXBSPECS
   name: vpn-extension - build firefox beta
 variables:
-  # FIXME: Use extension-builder image
-  dockerNode: adguard/node-ssh:22.14--0
+  dockerNode: adguard/extension-builder:22.14--0.2--0
 
 stages:
   - Build:
@@ -22,7 +21,7 @@ Build:
   docker:
     image: ${bamboo.dockerNode}
     volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
     # we use dns to avoid etimedout error when AMO is validating extension
     docker-run-arguments: [ '--dns', '8.8.8.8' ]
   tasks:
@@ -44,18 +43,15 @@ Build:
 
             ls -alt
 
-            # Exclude '--ignore-optional' from yarn arguments
-            # This is needed for installing swc core optional dependencies properly
-            # as swc is used by 'yarn test'
-            originalYarnArgs="$bamboo_varsYarn"
-            modifiedYarnArgs=$(echo "$originalYarnArgs" | sed 's/--ignore-optional//g')
+            # Set cache directory
+            pnpm config set store-dir ${bamboo.cachePnpm}
 
             # Install dependencies
-            yarn install ${modifiedYarnArgs}
+            pnpm install ${bamboo.varsPnpm}
 
-            yarn lint
-            yarn test
-            yarn locales validate --min
+            pnpm lint
+            pnpm test
+            pnpm locales validate --min
 
             export STAGE_ENV="prod"
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
@@ -63,7 +59,7 @@ Build:
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
 
             # build with prod API endpoints firefox.zip and update.json
-            yarn beta firefox
+            pnpm beta firefox
 
             # zip source files to sign firefox.xpi
             git ls-files | zip -@ build/beta/source.zip

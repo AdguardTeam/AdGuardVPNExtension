@@ -16,5 +16,14 @@ module.exports = {
     transform: {
         '^.+\\.(t|j)sx?$': '@swc/jest',
     },
-    transformIgnorePatterns: ['node_modules/(?!(is-ip|ip-regex|@vespaiach/axios-fetch-adapter)/)'],
+    transformIgnorePatterns: [
+        // We should ignore packages from:
+        // - node_modules
+        // - node_modules/.pnpm
+        // - node_modules/.pnpm/node_modules
+        // - node_modules/.pnpm/<pnpm-generated-folder>/node_modules
+
+        // eslint-disable-next-line max-len
+        '<rootDir>/node_modules/(?!(?:.pnpm(?:/(?:[^/]+)?/node_modules/)?)?(is-ip|ip-regex|@vespaiach/axios-fetch-adapter))',
+    ],
 };

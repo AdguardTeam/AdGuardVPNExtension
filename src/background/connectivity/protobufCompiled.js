@@ -1,5 +1,5 @@
 /**
- * This file was automatically generated with protobufjs cli tool, see "yarn compile-proto"
+ * This file was automatically generated with protobufjs cli tool, see "pnpm compile-proto"
  */
 /* eslint-disable */
 import * as $protobuf from "protobufjs/minimal";

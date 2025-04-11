@@ -1,42 +1,43 @@
 {
-  "compilerOptions": {
-    "baseUrl": "src",
-    "target": "esnext",
-    "jsx": "react",
-    "lib": [
-      "es5",
-      "es6",
-      "esnext",
-      "DOM",
-      "DOM.Iterable",
-      "WebWorker"
+    "compilerOptions": {
+        "baseUrl": "src",
+        "target": "esnext",
+        "jsx": "react",
+        "lib": [
+            "es5",
+            "es6",
+            "esnext",
+            "DOM",
+            "DOM.Iterable",
+            "WebWorker"
+        ],
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "allowJs": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "strictPropertyInitialization": false,
+        // strict flag sets to true next flags:
+        // - alwaysStrict
+        // - noImplicitAny
+        // - strictNullChecks
+        // - strictFunctionTypes,
+        // - strictPropertyInitialization
+        // - noImplicitThis
+        // - strictBindCallApply
+        "strict": true,
+        "incremental": true,
+        // TODO: remove useUnknownInCatchVariables from config
+        "useUnknownInCatchVariables": false,
+        "noEmit": true,
+    },
+    "include": [
+        "src/",
+        "tests/"
     ],
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "allowJs": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "strictPropertyInitialization": false,
-    // strict flag sets to true next flags:
-    // - alwaysStrict
-    // - noImplicitAny
-    // - strictNullChecks
-    // - strictFunctionTypes,
-    // - strictPropertyInitialization
-    // - noImplicitThis
-    // - strictBindCallApply
-    "strict": true,
-    "incremental": true,
-    // TODO: remove useUnknownInCatchVariables from config
-    "useUnknownInCatchVariables": false
-  },
-  "include": [
-    "src/",
-    "test/"
-  ],
-  "exclude": [
-    "src/**/*.js"
-  ]
+    "exclude": [
+        "src/**/*.js"
+    ]
 }

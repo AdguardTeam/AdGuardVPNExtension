@@ -19,7 +19,7 @@ Build:
   docker:
     image: ${bamboo.dockerNode}
     volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   tasks:
     - checkout:
         force-clean-build: true
@@ -39,27 +39,24 @@ Build:
 
             ls -alt
 
-            # Exclude '--ignore-optional' from yarn arguments
-            # This is needed for installing swc core optional dependencies properly
-            # as swc is used by 'yarn test'
-            originalYarnArgs="$bamboo_varsYarn"
-            modifiedYarnArgs=$(echo "$originalYarnArgs" | sed 's/--ignore-optional//g')
+            # Set cache directory
+            pnpm config set store-dir ${bamboo.cachePnpm}
 
             # Install dependencies
-            yarn install ${modifiedYarnArgs}
+            pnpm install ${bamboo.varsPnpm}
 
-            yarn lint
-            yarn test
-            yarn locales validate --min
+            pnpm lint
+            pnpm test
+            pnpm locales validate --min
 
             export STAGE_ENV="prod"
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-            yarn release
+            pnpm release
 
             # build artifacts chrome.crx
-            yarn crx:release
+            pnpm crx:release
 
             # build source code for uploading to amo
             git ls-files | zip -@ build/release/source.zip

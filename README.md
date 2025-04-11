@@ -71,14 +71,23 @@ click the _New issue_ button and choose between creating a bug report or feature
 
 ### <a name="dev-requirements"></a> Requirements
 
-- [node.js LTS](https://nodejs.org/en/download/)
-- NPM v8
-- [yarn v1.22](https://yarnpkg.com/en/docs/install/)
+- [Node.js][nodejs]: v22 (you can install multiple versions using [nvm][nvm])
+- [pnpm][pnpm]: v10
+- [Git][git]
+
+> [!NOTE]
+> For development, our team uses macOS and Linux. It may be possible that some commands not work on Windows,
+> so if you are using Windows, we recommend using WSL or a virtual machine.
+
+[nodejs]: https://nodejs.org/en/download
+[git]: https://git-scm.com/
+[pnpm]: https://pnpm.io/installation
+[nvm]: https://github.com/nvm-sh/nvm
 
 #### Install local dependencies
 
 ```bash
-yarn install
+pnpm install
 ```
 
 #### Manage environment variables
@@ -96,13 +105,13 @@ FORWARDER_DOMAIN="forwarder_domain" \
 ### <a name="linting"></a> Linting
 
 ```bash
-yarn lint
+pnpm lint
 ```
 
 ### <a name="tests"></a> Tests
 
 ```bash
-yarn test
+pnpm test
 ```
 
 ### <a name="build"></a> Build
@@ -110,19 +119,19 @@ yarn test
 #### Dev version
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 #### Beta version
 
 ```bash
-yarn beta
+pnpm beta
 ```
 
 #### Release version
 
 ```bash
-yarn release
+pnpm release
 ```
 
 **Builds will be located in the `build` directory**
@@ -138,8 +147,8 @@ By default, you will have builds for all browsers:
 You can specify browser in arguments. See examples below:
 
 ```bash
-yarn dev chrome
-yarn release opera
+pnpm dev chrome
+pnpm release opera
 ```
 
 ### Update resources
@@ -167,9 +176,9 @@ If you want to generate your own credentials you can go to
 
 To build `crx`, run:
 
-- `yarn crx:dev`
-- `yarn crx:beta`
-- `yarn crx:release`
+- `pnpm crx:dev`
+- `pnpm crx:beta`
+- `pnpm crx:release`
 
 **`crx` will be located in the `build/channel` directory**
 
@@ -189,17 +198,17 @@ to generate credentials for `crx` builds, see the example below:
 
 ```bash
 # Command will generate `key.pem` credential in the `./private/AdguardVPN` directory
-yarn crx keygen ./private/AdguardVPN
+pnpm crx keygen ./private/AdguardVPN
 ```
 
 #### <a name="build-firefox-review"></a> Special building instructions for Firefox reviewers
 
-1. Ensure you have installed Node.js and yarn, see [Requirements](#dev-requirements).
+1. Ensure you have installed Node.js and pnpm, see [Requirements](#dev-requirements).
 
 1. To build the **Release** version, run:
 
     ```shell
-    yarn release firefox
+    pnpm release firefox
     ```
 
 1. Navigate to the build directory:
@@ -213,15 +222,15 @@ yarn crx keygen ./private/AdguardVPN
 ### <a name="localization"></a> Localization
 
 - setup your project locales, directories in the file `tasks/locales.js`
-- `yarn locales:upload` used to upload base `en` locale
-- `yarn locales:download` run to download and save all locales
-- `yarn locales:validate` used to validate locales
-- `yarn locales:validate --min` used to validate only major locales
+- `pnpm locales:upload` used to upload base `en` locale
+- `pnpm locales:download` run to download and save all locales
+- `pnpm locales:validate` used to validate locales
+- `pnpm locales:validate --min` used to validate only major locales
 
 ### <a name="proto"></a> Proto scheme update
 
 After every update of proto scheme in the file `src/background/connectivity/connectivity.proto`,
-you have to run `yarn compile-proto`.
+you have to run `pnpm compile-proto`.
 This command will update module `src/background/connectivity/protobufCompiled.js` used to build messages
 with appropriate scheme for websocket messaging.
 

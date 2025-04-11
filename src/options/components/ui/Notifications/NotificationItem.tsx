@@ -94,11 +94,7 @@ export function NotificationItem({ value, onClose }: NotificationItemProps) {
 
     return (
         // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-        <div
-            className={classes}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-        >
+        <div className={classes} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             <Icon
                 name="info"
                 className="notifications__item-icon"
