@@ -43,7 +43,7 @@ Build:
             pnpm config set store-dir ${bamboo.cachePnpm}
 
             # Install dependencies
-            pnpm install ${bamboo.varsPnpm}
+            pnpm install
 
             pnpm lint
             pnpm test
