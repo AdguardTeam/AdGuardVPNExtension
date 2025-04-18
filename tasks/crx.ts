@@ -144,7 +144,7 @@ const createXml = async (crx: any, updateName: string) => {
 };
 
 /**
- * Packs extension to crx file for chrome browser with manifest version 3.
+ * Packs extension to crx file for chrome browser.
  *
  * Output files:
  * - chrome.crx and updated.xml - beta and release environments
@@ -199,7 +199,7 @@ const generateChromeFiles = async () => {
 };
 
 program
-    .description('Packs extension to crx file for chrome browser with manifest version 3')
+    .description('Packs extension to crx file for chrome browser')
     .action(generateChromeFiles);
 
 program.parse(process.argv);

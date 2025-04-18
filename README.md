@@ -141,8 +141,7 @@ By default, you will have builds for all browsers:
 - Chrome — manifest versions **3**
 - Firefox — manifest version **3**
 - Edge — manifest version **3**
-<!-- TODO: check later if manifest version can be updated for Opera. AG-40386 -->
-- Opera — manifest version **2**
+- Opera — manifest version **3**
 
 You can specify browser in arguments. See examples below:
 
