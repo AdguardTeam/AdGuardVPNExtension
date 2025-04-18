@@ -28,7 +28,7 @@ const createOffScreenDocument = (() => {
 class ProxyAuthTrigger {
     /**
      * As onAuthRequired event doesn't fire if we send a random request to
-     * PAC_SCRIPT_CHECK_URL from the service worker, like we did in the mv2 extension, we decided to use an ugly hack
+     * PAC_SCRIPT_CHECK_URL from the service worker, we decided to use an ugly hack
      * for triggering onAuthRequired.
      * To send a random request, we use worker created from the offscreen document.
      * background service worker -> offscreen document -> worker

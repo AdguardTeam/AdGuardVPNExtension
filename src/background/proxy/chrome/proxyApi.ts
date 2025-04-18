@@ -138,10 +138,13 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
-     * Checks if we need to trigger onAuthRequired event, we added this check because the trigger for mv3 looks awfully,
-     * and we want to do it as less as possible
-     * @param oldConfig
-     * @param newConfig
+     * Checks if we need to trigger onAuthRequired event, we added this check
+     * because the trigger looks awfully, and we want to do it as less as possible.
+     *
+     * @param oldConfig Old proxy config.
+     * @param newConfig New proxy config.
+     *
+     * @returns True if we need to trigger onAuthRequired event, false otherwise.
      */
     shouldApplyProxyAuthTrigger = (
         oldConfig: ProxyConfigInterface | null,
@@ -208,7 +211,7 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
-     * Registers onAuthRequired listener for MV3 on top level to wake up the service worker
+     * Registers onAuthRequired listener on top level to wake up the service worker
      * and handles authorization for active proxy only
      */
     public init = (): void => {

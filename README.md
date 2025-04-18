@@ -250,6 +250,5 @@ For a full list of all `npm` packages in use, please take a look at [package.jso
 
 | Browser                     | Version |
 |-----------------------------|---------|
-| Chromium Based Browsers MV3 | 109     |
-| Chromium Based Browsers MV2 | 66      |
+| Chromium Based Browsers     | 109     |
 | Firefox                     | 91.1    |

@@ -70,7 +70,7 @@ const getOptionsData = async () => {
 
     let servicesData = exclusions.getServices();
     if (servicesData.length === 0) {
-        // services may not be up-to-date on very first option page opening in firefox mv3
+        // services may not be up-to-date on very first option page opening in firefox
         // if their loading was blocked before due to default absence of host permissions (<all_urls>).
         // so if it happens, they should be updated forcedly
         await exclusions.forceUpdateServices();
