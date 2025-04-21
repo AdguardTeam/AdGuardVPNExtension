@@ -60,7 +60,10 @@ export class ConnectivityService {
 
         this.interpreter.subscribe(this.handleStateChange);
 
-        // Restore the websocket connection after the service worker wakes up.
+        /**
+         * Restore the websocket connection after the service
+         * worker wakes up, because fsm state is not persisted.
+         */
         if (this.isVPNConnected()) {
             this.send(ConnectivityEventType.WsClose);
         }
