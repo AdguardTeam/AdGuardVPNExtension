@@ -2,7 +2,6 @@ import { nanoid } from 'nanoid';
 
 import { servicesManager } from '../../../../src/background/exclusions/services/ServicesManager';
 import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
-import { session } from '../../../__mocks__';
 import { stateStorage } from '../../../../src/background/stateStorage';
 
 jest.mock('../../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
@@ -71,13 +70,6 @@ getServicesFromStorageMock.mockReturnValue({});
 const saveServicesInStorageMock = jest.fn();
 servicesManager.saveServicesInStorage = saveServicesInStorageMock;
 saveServicesInStorageMock.mockReturnValue({});
-
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
-};
 
 describe('ServicesManager tests', () => {
     beforeEach(async () => {

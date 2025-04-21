@@ -3,7 +3,6 @@ import { SubscriptionType } from '../../../src/common/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
 import type { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
-import { session } from '../../__mocks__';
 import { stateStorage } from '../../../src/background/stateStorage';
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
@@ -47,13 +46,6 @@ jest.mock('../../../src/background/browserApi', () => {
 
 const msToSec = (ms: number) => {
     return Math.floor(ms / 1000);
-};
-
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
 };
 
 describe('Credentials', () => {

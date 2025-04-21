@@ -16,7 +16,6 @@ import type {
     LocationData,
 } from '../../../src/background/schema';
 import type { VpnExtensionInfoInterface } from '../../../src/common/schema/endpoints/vpnInfo';
-import { session } from '../../__mocks__';
 import { stateStorage } from '../../../src/background/stateStorage';
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
@@ -48,13 +47,6 @@ jest.mock('../../../src/background/browserApi', () => {
     // eslint-disable-next-line global-require
     return require('../../__mocks__/browserApiMock');
 });
-
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
-};
 
 describe('Endpoints', () => {
     beforeEach(async () => {

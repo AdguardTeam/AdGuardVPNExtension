@@ -6,7 +6,6 @@ import {
     ALIDNS_DOH_URL,
     QUAD9_DOH_URL,
 } from '../../../src/background/api/fallbackApi';
-import { session } from '../../__mocks__';
 import { stateStorage } from '../../../src/background/stateStorage';
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
@@ -18,13 +17,6 @@ jest.mock('../../../src/background/browserApi', () => {
     // eslint-disable-next-line global-require
     return require('../../__mocks__/browserApiMock');
 });
-
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
-};
 
 jest.useFakeTimers('modern');
 

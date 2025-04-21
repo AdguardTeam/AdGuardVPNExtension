@@ -6,7 +6,6 @@ import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
 import type { VpnTokenData, EndpointInterface, LocationData } from '../../../src/background/schema';
 import { locationsService, LocationsTab, LocationsService } from '../../../src/background/endpoints/locationsService';
-import { session } from '../../__mocks__';
 import { stateStorage } from '../../../src/background/stateStorage';
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
@@ -16,13 +15,6 @@ jest.mock('../../../src/common/logger'); // hides redundant log messages during 
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/browserApi');
 jest.mock('../../../src/background/providers/vpnProvider');
-
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
-};
 
 describe('location service', () => {
     beforeEach(async () => {

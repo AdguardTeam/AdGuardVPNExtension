@@ -3,7 +3,6 @@ import { credentials } from '../../src/background/credentials';
 import { stateStorage } from '../../src/background/stateStorage';
 import { forwarder } from '../../src/background/forwarder';
 import { ForwarderUrlQueryKey } from '../../src/background/config';
-import { session } from '../__mocks__';
 
 jest.mock('../../src/background/browserApi');
 jest.mock('../../src/background/credentials');
@@ -19,13 +18,6 @@ jest.mock('../../src/background/config', () => {
     };
 });
 jest.mock('../../src/background/settings');
-
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
-};
 
 describe('Actions tests', () => {
     beforeEach(async () => {
