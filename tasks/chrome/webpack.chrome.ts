@@ -45,10 +45,6 @@ const plugins: webpack.WebpackPluginInstance[] = [
         // eslint-disable-next-line no-param-reassign
         resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
     })),
-    new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyAuthTrigger/, ((resource: any) => {
-        // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/abstractProxyAuthTrigger/, './mv3');
-    })),
     new CopyWebpackPlugin({
         patterns: [
             {
