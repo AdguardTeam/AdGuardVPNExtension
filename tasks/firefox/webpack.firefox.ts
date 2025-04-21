@@ -62,10 +62,6 @@ const plugins: webpack.WebpackPluginInstance[] = [
         resource.request = resource.request
             .replace(/\.\/init\/initAbstract/, './init/initMV3');
     })),
-    new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
-        // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
-    })),
     new CopyWebpackPlugin({
         patterns: [
             {

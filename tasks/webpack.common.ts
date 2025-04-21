@@ -188,6 +188,18 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     throw new Error(`There is no proxy api for browser: ${browser}`);
                 }
             })),
+            new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
+                if (browser !== Browser.Firefox) {
+                    // TODO remove this replacement when MV3 will fix alarms bug,
+                    //  https://github.com/AdguardTeam/AdGuardVPNExtension/issues/116
+                    //  https://bugs.chromium.org/p/chromium/issues/detail?id=1472759
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
+                } else {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
+                }
+            })),
             new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\.abstract/, ((resource: any) => {
                 if (browser === Browser.Chrome) {
                     // eslint-disable-next-line no-param-reassign
