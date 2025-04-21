@@ -1,11 +1,20 @@
-import { log } from '../../../common/logger';
+import { log } from '../../common/logger';
 import {
     type StorageKey,
     storageDataScheme,
     type StorageData,
     DEFAULT_STORAGE_DATA,
-} from '../../schema';
-import { type StateStorageInterface } from '../stateStorage.abstract';
+} from '../schema';
+
+export interface StateStorageInterface {
+    getItem<T>(key: StorageKey): T;
+
+    setItem<T>(key: StorageKey, value: T): void;
+
+    init(): Promise<void>;
+
+    waitInit(): Promise<void>;
+}
 
 /**
  * A class provides methods for storing and retrieving data in the browser's session storage.
@@ -14,7 +23,7 @@ import { type StateStorageInterface } from '../stateStorage.abstract';
  *
  * @implements {StateStorageInterface}
  */
-class StateStorage implements StateStorageInterface {
+export class StateStorage implements StateStorageInterface {
     private isInit = false;
 
     private state: StorageData;
@@ -105,5 +114,3 @@ class StateStorage implements StateStorageInterface {
         return this.initPromise;
     }
 }
-
-export const stateStorage = new StateStorage();

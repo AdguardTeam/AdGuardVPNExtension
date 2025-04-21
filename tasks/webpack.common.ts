@@ -200,15 +200,6 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
                 }
             })),
-            new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\.abstract/, ((resource: any) => {
-                if (browser === Browser.Chrome) {
-                    // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/stateStorage\.abstract/, './mv3');
-                } else {
-                    // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/stateStorage\.abstract/, './mv2');
-                }
-            })),
             new CleanWebpackPlugin(cleanOptions),
             new CopyWebpackPlugin({
                 patterns: [

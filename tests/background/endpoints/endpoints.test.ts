@@ -17,13 +17,7 @@ import type {
 } from '../../../src/background/schema';
 import type { VpnExtensionInfoInterface } from '../../../src/common/schema/endpoints/vpnInfo';
 import { session } from '../../__mocks__';
-// TODO: test mv3 after official switch to mv3
-import { stateStorage } from '../../../src/background/stateStorage/mv2';
-
-jest.mock('../../../src/background/stateStorage', () => {
-    // eslint-disable-next-line global-require
-    return require('../../../src/background/stateStorage/mv2');
-});
+import { stateStorage } from '../../../src/background/stateStorage';
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
 

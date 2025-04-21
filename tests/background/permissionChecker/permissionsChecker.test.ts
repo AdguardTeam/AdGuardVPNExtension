@@ -6,14 +6,8 @@ import {
     UPDATE_VPN_INFO_INTERVAL_MS,
 } from '../../../src/background/permissionsChecker/PermissionsChecker';
 import { session } from '../../__mocks__';
-// TODO: test mv3 after official switch to mv3
-import { stateStorage } from '../../../src/background/stateStorage/mv2';
+import { stateStorage } from '../../../src/background/stateStorage';
 import { credentials } from '../../../src/background/credentials';
-
-jest.mock('../../../src/background/stateStorage', () => {
-    // eslint-disable-next-line global-require
-    return require('../../../src/background/stateStorage/mv2');
-});
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
 
