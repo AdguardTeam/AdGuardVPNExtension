@@ -8,7 +8,6 @@ import { complementedExclusionsWithServices, complementExclusions } from '../exc
 import { ExclusionState } from '../../common/exclusionsConstants';
 import { type StorageInterface } from '../browserApi/storage';
 import { type ExclusionInterface } from '../schema';
-import { THEME_STORAGE_KEY } from '../../common/useAppearanceTheme';
 
 const SCHEME_VERSION = '12';
 const THROTTLE_TIMEOUT = 100;
@@ -213,12 +212,6 @@ export class SettingsService {
     };
 
     migrateFrom10to11 = (oldSettings: Settings) => {
-        if (browserApi.runtime.isManifestVersion2()) {
-            const appearanceTheme = localStorage.getItem(THEME_STORAGE_KEY);
-            if (appearanceTheme) {
-                browserApi.storage.set(THEME_STORAGE_KEY, appearanceTheme);
-            }
-        }
         return oldSettings;
     };
 
