@@ -66,10 +66,6 @@ const plugins: webpack.WebpackPluginInstance[] = [
         // eslint-disable-next-line no-param-reassign
         resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
     })),
-    new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
-        // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv3');
-    })),
     new CopyWebpackPlugin({
         patterns: [
             {
