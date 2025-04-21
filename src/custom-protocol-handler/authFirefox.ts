@@ -55,7 +55,7 @@ const getRawAuthData = (matchedUrl: string, pathname: string): unknown => {
 };
 
 /**
- * Authentication on website does not work in Firefox MV3
+ * Authentication on website does not work in Firefox
  * because it has disabled host permissions for all urls by default
  * and content scripts cannot be injected because of that.
  *
