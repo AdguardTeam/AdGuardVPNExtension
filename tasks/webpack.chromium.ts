@@ -42,7 +42,7 @@ export const getChromiumWebpackConfig = (
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, '../manifest.common.json'),
+                    from: path.resolve(__dirname, 'manifest.common.json'),
                     to: 'manifest.json',
                     transform: (content: Buffer) => updateManifest(content, manifestDiff),
                 },
