@@ -26,14 +26,20 @@ global.chrome.storage.session = {
         });
     }),
     // @ts-expect-error - partially implemented
-    get: jest.fn(async (key: string | null): Promise<string> => {
+    get: jest.fn(async (key: string | null): Promise<Record<string, any>> => {
         if (key === null) {
             // @ts-expect-error - partially implemented
             return global.chrome.storage.session.__storage;
         }
 
+        return {
+            // @ts-expect-error - partially implemented
+            [key]: global.chrome.storage.session.__storage[key],
+        };
+    }),
+    clear: jest.fn(async (): Promise<void> => {
         // @ts-expect-error - partially implemented
-        return global.chrome.storage.session.__storage[key];
+        global.chrome.storage.session.__storage = {};
     }),
 };
 
