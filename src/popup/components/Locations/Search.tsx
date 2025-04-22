@@ -4,6 +4,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import { translator } from '../../../common/translator';
+import { Icon } from '../ui/Icon';
 
 /**
  * Search component props.
@@ -34,15 +35,15 @@ export const Search = ({
     onClear,
 }: SearchProps) => {
     const crossClassNames = classnames(
-        'button button--close endpoints__cross',
-        { 'endpoints__cross--active': value.length > 0 },
+        'button button--close form__input-btn',
+        { 'form__input-btn--active': value.length > 0 },
     );
 
     return (
-        <div className="endpoints__search">
+        <div className="endpoints__search form__input-wrapper">
             <input
                 autoFocus
-                className="form__input endpoints__search-in"
+                className="form__input form__input--with-button"
                 type="text"
                 placeholder={translator.getMessage('endpoints_search')}
                 value={value}
@@ -53,9 +54,10 @@ export const Search = ({
                 className={crossClassNames}
                 onClick={onClear}
             >
-                <svg className="icon icon--button">
-                    <use xlinkHref="#cross" />
-                </svg>
+                <Icon
+                    icon="cross"
+                    className="icon--button"
+                />
             </button>
         </div>
     );

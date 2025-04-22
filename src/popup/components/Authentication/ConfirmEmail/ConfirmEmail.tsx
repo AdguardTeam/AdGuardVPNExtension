@@ -8,6 +8,7 @@ import { translator } from '../../../../common/translator';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { rootStore } from '../../../stores';
 import { RequestStatus } from '../../../stores/constants';
+import { CredentialsKey } from '../../../stores/AuthStore';
 import { Submit } from '../Submit';
 import { InputField } from '../InputField';
 
@@ -15,6 +16,7 @@ export const ConfirmEmail = observer(() => {
     const { authStore } = useContext(rootStore);
     const {
         resendEmailConfirmationCode,
+        onCredentialsChange,
         resendCodeCountdown,
         requestProcessState,
         credentials,
@@ -25,11 +27,6 @@ export const ConfirmEmail = observer(() => {
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await authStore.authenticate();
-    };
-
-    const inputChangeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { target: { name, value } } = event;
-        await authStore.onCredentialsChange(name, value);
     };
 
     const resendCode = () => {
@@ -66,11 +63,11 @@ export const ConfirmEmail = observer(() => {
                     }
                 </div>
                 <InputField
-                    id="code"
+                    id={CredentialsKey.Code}
                     type="text"
                     value={code}
                     placeholder={translator.getMessage('confirm_email_code_placeholder')}
-                    inputChangeHandler={inputChangeHandler}
+                    onChange={onCredentialsChange}
                     error={authStore.error}
                     label={translator.getMessage('confirm_email_code_label')}
                     autocomplete="off"

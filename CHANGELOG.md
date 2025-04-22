@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <!-- TODO: Add release version, link and date -->
 ## Unreleased
 
+### Added
+
+- Clear button to authentication inputs [#210].
+
 ### Fixed
 
 - Email field is not mandatory in the report bug form [#204].
@@ -15,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [#204]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/204
 [#209]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/209
+[#210]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/210
 
 <!-- TODO: Add release date -->
 ## [2.5.1]
