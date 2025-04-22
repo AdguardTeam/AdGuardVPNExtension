@@ -47,7 +47,7 @@ class Messenger {
             log.debug('Response data:', response);
         }
 
-        return response;
+        return response as any;
     }
 
     /**
@@ -112,7 +112,7 @@ class Messenger {
             port = browser.runtime.connect({ name: `popup_${nanoid()}` });
             port.postMessage({ type: MessageType.ADD_LONG_LIVED_CONNECTION, data: { events } });
 
-            port.onMessage.addListener((message) => {
+            port.onMessage.addListener((message: any) => {
                 if (message.type === MessageType.NOTIFY_LISTENERS) {
                     const [type, data, value] = message.data;
                     eventListener({ type, data, value });

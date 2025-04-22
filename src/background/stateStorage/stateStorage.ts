@@ -1,3 +1,5 @@
+import browser from 'webextension-polyfill';
+
 import { log } from '../../common/logger';
 import {
     type StorageKey,
@@ -60,7 +62,7 @@ export class StateStorage implements StateStorageInterface {
 
         (<T> this.state[key]) = value;
 
-        chrome.storage.session
+        browser.storage.session
             .set({ [key]: value })
             .catch((e) => {
                 log.error(e);
@@ -73,13 +75,13 @@ export class StateStorage implements StateStorageInterface {
      */
     private innerInit = async (): Promise<void> => {
         try {
-            const res = storageDataScheme.safeParse(await chrome.storage.session.get(null));
+            const res = storageDataScheme.safeParse(await browser.storage.session.get(null));
 
             if (res.success) {
                 this.state = res.data;
             } else {
                 this.state = { ...DEFAULT_STORAGE_DATA };
-                await chrome.storage.session.set(this.state);
+                await browser.storage.session.set(this.state);
             }
 
             this.isInit = true;

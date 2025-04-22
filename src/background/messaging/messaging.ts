@@ -111,7 +111,25 @@ const getOptionsData = async () => {
     };
 };
 
-const messagesHandler = async (message: Message, sender: Runtime.MessageSender) => {
+const isMessage = (message: unknown): message is Message => {
+    if (typeof message !== 'object' || message === null) {
+        return false;
+    }
+
+    const { type } = message as Message;
+
+    return (
+        typeof type === 'string'
+        && Object.values(MessageType).includes(type)
+    );
+};
+
+const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) => {
+    if (!isMessage(message)) {
+        log.error('Invalid message received:', message);
+        return Promise.resolve();
+    }
+
     const { type, data } = message;
 
     // Here we keep track of event listeners added through notifier
@@ -512,6 +530,11 @@ const longLivedMessageHandler = (port: Runtime.Port) => {
     notifier.notifyListeners(notifier.types.PORT_CONNECTED, port.name);
 
     port.onMessage.addListener((message) => {
+        if (!isMessage(message)) {
+            log.error('Invalid message received:', message);
+            return;
+        }
+
         const { type, data } = message;
         if (type === MessageType.ADD_LONG_LIVED_CONNECTION) {
             const { events } = data;

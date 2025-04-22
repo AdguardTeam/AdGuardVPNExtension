@@ -57,11 +57,6 @@ const plugins: webpack.WebpackPluginInstance[] = [
         process: 'process/browser',
         Buffer: ['buffer', 'Buffer'],
     }),
-    new webpack.NormalModuleReplacementPlugin(/\.\/init\/initAbstract/, ((resource: any) => {
-        // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request
-            .replace(/\.\/init\/initAbstract/, './init/initMV3');
-    })),
     new CopyWebpackPlugin({
         patterns: [
             {

@@ -3,4 +3,4 @@ import { getChromiumWebpackConfig } from '../webpack.chromium';
 
 import { operaManifestDiff } from './manifest.opera';
 
-export const chromeConfig = getChromiumWebpackConfig(Browser.Chrome, operaManifestDiff);
+export const operaConfig = getChromiumWebpackConfig(Browser.Opera, operaManifestDiff);
