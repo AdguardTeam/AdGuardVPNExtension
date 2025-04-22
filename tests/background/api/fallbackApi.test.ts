@@ -26,7 +26,6 @@ describe('FallbackApi', () => {
     });
 
     afterEach(async () => {
-        await chrome.storage.session.clear();
         jest.clearAllMocks();
     });
 

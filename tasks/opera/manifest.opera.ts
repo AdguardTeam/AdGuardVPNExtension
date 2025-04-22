@@ -6,6 +6,6 @@ import { chromeManifestDiff } from '../chrome/manifest.chrome';
  * Basically the same as Chrome Manifest.
  */
 export const operaManifestDiff = {
-    minimum_opera_version: '109',
+    minimum_opera_version: chromeManifestDiff.minimum_chrome_version,
     ...chromeManifestDiff,
 };

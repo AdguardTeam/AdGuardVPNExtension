@@ -127,7 +127,7 @@ const isMessage = (message: unknown): message is Message => {
 const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) => {
     if (!isMessage(message)) {
         log.error('Invalid message received:', message);
-        return Promise.resolve();
+        return null;
     }
 
     const { type, data } = message;

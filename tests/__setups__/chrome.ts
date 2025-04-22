@@ -16,31 +16,28 @@ global.chrome = chrome;
 
 global.chrome.storage.session = {
     __storage: {},
-    set: jest.fn((setter: Record<string, any>): Promise<void> => {
-        return new Promise((resolve) => {
-            Object.keys(setter).forEach((key) => {
-                // @ts-expect-error - partially implemented
-                global.chrome.storage.session.__storage[key] = setter[key];
-            });
-            resolve();
+    set: async (setter: Record<string, any>): Promise<void> => {
+        Object.keys(setter).forEach((key) => {
+            // @ts-expect-error
+            global.chrome.storage.session.__storage[key] = setter[key];
         });
-    }),
+    },
     // @ts-expect-error - partially implemented
-    get: jest.fn(async (key: string | null): Promise<Record<string, any>> => {
+    get: async (key: string | null): Promise<Record<string, any>> => {
         if (key === null) {
-            // @ts-expect-error - partially implemented
+            // @ts-expect-error
             return global.chrome.storage.session.__storage;
         }
 
         return {
-            // @ts-expect-error - partially implemented
+            // @ts-expect-error
             [key]: global.chrome.storage.session.__storage[key],
         };
-    }),
-    clear: jest.fn(async (): Promise<void> => {
-        // @ts-expect-error - partially implemented
+    },
+    clear: async (): Promise<void> => {
+        // @ts-expect-error
         global.chrome.storage.session.__storage = {};
-    }),
+    },
 };
 
 export {};
