@@ -10,17 +10,6 @@ jest.mock('../../../../src/background/providers/vpnProvider');
 jest.mock('../../../../src/common/logger');
 jest.mock('nanoid');
 
-jest.mock('../../../../src/background/browserApi', () => {
-    return {
-        browserApi: {
-            runtime: {
-                // TODO: test mv3 after official switch to mv3
-                isManifestVersion2: () => true,
-            },
-        },
-    };
-});
-
 const nanoidMock = nanoid as jest.MockedFunction<() => string>;
 nanoidMock.mockImplementation(() => 'random_id');
 

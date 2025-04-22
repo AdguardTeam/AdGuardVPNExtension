@@ -25,10 +25,6 @@ const storageImplementation: { [key: string]: any } = {};
 jest.mock('../../../src/background/browserApi', () => {
     return {
         browserApi: {
-            runtime: {
-                // TODO: test mv3 after official switch to mv3
-                isManifestVersion2: () => true,
-            },
             storage: {
                 set: jest.fn((key, data) => {
                     storageImplementation[key] = data;
