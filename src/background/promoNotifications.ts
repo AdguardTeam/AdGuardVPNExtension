@@ -7,7 +7,7 @@ import { getForwarderUrl } from '../common/helpers';
 import { type IconVariants, Prefs } from '../common/prefs';
 import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
-import promoBannerImageUrl from '../assets/images/christmas24.svg';
+import promoBannerImageUrl from '../assets/images/spring25.svg';
 
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
@@ -70,8 +70,8 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'christmas_24_vpn';
-const TDS_PROMO_ACTION_RU = 'christmas_24_vpn_ru';
+const TDS_PROMO_ACTION = 'spring_25_vpn';
+const TDS_PROMO_ACTION_RU = 'spring_25_vpn_ru';
 
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
 const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
@@ -80,199 +80,200 @@ const urlQuery = isRuLocale
     ? RU_PROMO_URL_QUERY
     : COMMON_PROMO_URL_QUERY;
 
-const CHRISTMAS_24_ID = 'christmas24';
+const SPRING_25_ID = 'spring25';
 
-const christmas24Notification = {
-    id: CHRISTMAS_24_ID,
+const spring25Notification = {
+    id: SPRING_25_ID,
     locales: {
         en: {
-            title: 'Christmas promo',
+            title: 'Spring cleaning promo',
             btn: 'Get 80% off',
         },
         fr: {
-            title: 'Promo Noël chez AdGuard VPN',
-            btn: '80% de remise',
+            title: 'Promo Printemps',
+            btn: '80% de remise ici',
         },
         it: {
-            title: 'Promo di Natale ad AdGuard VPN',
-            btn: '80% di sconto',
+            title: 'Offerta di Primavera',
+            btn: '80% di sconto qui',
         },
         de: {
-            title: 'Weihnachtspromo',
+            title: 'Aktion zum Frühjahrsputz',
             btn: '80% Rabatt',
         },
         ru: {
-            title: 'Новогодняя акция',
+            title: 'Весенняя уборка с AdGuard VPN',
             btn: 'Скидка 75%',
         },
         es: {
-            title: 'Promo navideña',
-            btn: '80% de descuento',
+            title: 'Una oferta especial',
+            btn: 'Obtener 80% OFF',
         },
         es_419: {
-            title: 'Promo navideña',
+            title: 'Promoción de limpieza de primavera',
             btn: '80% de descuento',
         },
         pt_pt: {
-            title: 'Promo de Natal',
-            btn: '80% de desconto',
+            title: 'Promoção de primavera',
+            btn: 'Obter 80% OFF',
         },
         pt_br: {
-            title: 'Promo de Natal',
-            btn: '80% de desconto',
+            title: 'Promoção de outono',
+            btn: 'Obter 80% OFF',
         },
         zh_cn: {
-            title: 'AdGuard Christmas SALE',
-            btn: '大优惠',
+            title: '暖春特惠',
+            btn: '80%OFF',
         },
         zh_tw: {
-            title: 'AdGuard Christmas SALE',
-            btn: '大折扣',
+            title: '暖春優惠',
+            btn: '享2折',
         },
-        ja: {
-            title: 'AdGuard Christmas SALE',
-            btn: '80%OFF割引をGET',
-        },
+        // For Japanese, there will be other promo soon
+        // ja: {
+        //     title: 'AdGuard Christmas SALE',
+        //     btn: '80%OFF割引をGET',
+        // },
         ko: {
-            title: '크리스마스  프로모션',
+            title: '봄맞이 할인 프로모션',
             btn: '80% 할인',
         },
         uk: {
-            title: 'Різдвяна акція',
+            title: 'Весняне прибирання з AdGuard VPN',
             btn: 'Знижка 80%',
         },
         ar: {
-            title: 'تخفيضات العام الجديد',
-            btn: '٪خصم 80',
+            title: 'تنظيف الربيع مع AdGuard VPN',
+            btn: '80٪ خصم',
         },
         be: {
-            title: 'Навагоднія скідкі',
-            btn: '80% зніжка',
+            title: 'Вясновае ўборка з AdGuard VPN',
+            btn: 'Зніжка 80%',
         },
         bg: {
-            title: 'Новогодишни отстъпки',
+            title: 'Пролетно почистване с AdGuard VPN',
             btn: '80% отстъпка',
         },
         ca: {
-            title: "Venda de Cap d'Any",
+            title: 'Neteja de primavera amb AdGuard VPN',
             btn: '80% de descompte',
         },
         cs: {
-            title: 'Novoroční výprodej',
+            title: 'Jarní úklid s AdGuard VPN',
             btn: '80% sleva',
         },
         da: {
-            title: 'Nytårsudsalg',
+            title: 'Forårsrengøring med AdGuard VPN',
             btn: '80% rabat',
         },
         el: {
-            title: 'Εκπτώσεις Πρωτοχρονιάς',
+            title: 'Προσφορά για την άνοιξη',
             btn: '80% έκπτωση',
         },
         fa: {
-            title: 'فروش سال نو',
-            btn: '٪80 خاموش',
+            title: 'تمیزکاری بهاری با AdGuard VPN',
+            btn: '80 درصد تخفیف',
         },
         fi: {
-            title: 'Uudenvuoden alennus',
+            title: 'Kevätsiivous AdGuard VPN:llä',
             btn: '80% alennus',
         },
         he: {
-            title: 'מבצע לשנה החדשה',
+            title: 'ניקיון אביב עם AdGuard VPN',
             btn: '80% הנחה',
         },
         hr: {
-            title: 'Otvoren',
+            title: 'Proljetna čišćenje s AdGuard VPN',
             btn: '80% popusta',
         },
         hu: {
-            title: 'Karácsonyi akció',
+            title: 'Tavaszi takarítás AdGuard VPN-nel',
             btn: '80% kedvezmény',
         },
         hy: {
-            title: 'Ամանորյա զեղչեր',
+            title: 'Գարնան մաքրագործման պրոմո',
             btn: '80% զեղչ',
         },
         id: {
-            title: 'Obral Tahun Baru',
+            title: 'Promosi musim semi',
             btn: 'Diskon 80%',
         },
         lt: {
-            title: 'Naujųjų metų nuolaidos',
+            title: 'Pavasario valymas su AdGuard VPN',
             btn: '80% nuolaida',
         },
         ms: {
-            title: 'Jualan Tahun Baru',
-            btn: 'Diskaun 80%',
+            title: 'Promosi pembersihan musim bunga',
+            btn: '80% diskaun',
         },
         nb: {
-            title: 'Nyttårs salg',
+            title: 'Vår rengjøring med AdGuard VPN',
             btn: '80% rabatt',
         },
         nl: {
-            title: 'Kerstpromo',
+            title: 'Lente schoonmaak actie',
             btn: '80% korting',
         },
         pl: {
-            title: 'Zniżki noworoczne',
+            title: 'Wiosenna promocja sprzątania',
             btn: '80% zniżki',
         },
         ro: {
-            title: 'Vânzarea de Anul Nou',
+            title: 'Promoție de curățenie de primăvară',
             btn: '80% reducere',
         },
         sk: {
-            title: 'Novoročný výpredaj',
+            title: 'Jarné upratovanie s AdGuard VPN',
             btn: '80% zľava',
         },
         sl: {
-            title: 'Novoletni popusti',
+            title: 'Pomladansko čiščenje z AdGuard VPN',
             btn: '80% popust',
         },
-        'sr-Latn': {
-            title: 'Novogodišnji popusti',
-            btn: '80% popusta',
+        sr_latn: {
+            title: 'Prolećno čišćenje sa AdGuard VPN',
+            btn: 'Popust 80%',
         },
         sv: {
-            title: 'Nyårsrabatter',
+            title: 'Vårstädning med AdGuard VPN',
             btn: '80% rabatt',
         },
         tr: {
-            title: 'Yılbaşı indirimleri',
+            title: 'Bahar temizlik AdGuard VPN ile',
             btn: '%80 indirim',
         },
         vi: {
-            title: 'Giảm giá năm mới',
+            title: 'Dọn dẹp mùa xuân với AdGuard VPN',
             btn: 'Giảm giá 80%',
         },
         mk: {
-            title: 'Новогодишна промоција',
+            title: 'Пролетно чистење со AdGuard VPN',
             btn: 'Попуст од 80%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
     urlQuery,
-    from: '23 December 2024 12:00:00',
-    to: '3 January 2025 23:59:00',
+    from: '28 April 2025 12:00:00',
+    to: '4 May 2025 23:59:00',
     type: 'animated',
     bgImage: promoBannerImageUrl,
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/christmas24-on-19.png'),
-            38: getUrl('assets/images/icons/christmas24-on-38.png'),
+            19: getUrl('assets/images/icons/spring25-on-19.png'),
+            38: getUrl('assets/images/icons/spring25-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/christmas24-off-19.png'),
-            38: getUrl('assets/images/icons/christmas24-off-38.png'),
+            19: getUrl('assets/images/icons/spring25-off-19.png'),
+            38: getUrl('assets/images/icons/spring25-off-38.png'),
         },
     },
 };
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [CHRISTMAS_24_ID]: christmas24Notification,
+    [SPRING_25_ID]: spring25Notification,
 };
 
 /**
@@ -316,6 +317,25 @@ const handleSpanishLocale = (normalizedLocale: string): string => {
 };
 
 /**
+ * Handles Serbian locale codes:
+ * - for non-Serbian locales, returns the same code;
+ * - for any Serbian, e.g. 'sr', 'sr_latn', 'sr_cyrl_rs', returns 'sr_latn'.
+ *
+ * @param normalizedLocale Normalized locale code.
+ *
+ * @returns Normalized locale code.
+ */
+const handleSerbianLocale = (normalizedLocale: string): string => {
+    const GENERAL_SERBIAN_LOCALE = 'sr';
+    const GENERAL_SERBIAN_LATIN_LOCALE = 'sr_latn';
+    if (normalizedLocale.startsWith(GENERAL_SERBIAN_LOCALE)) {
+        return GENERAL_SERBIAN_LATIN_LOCALE;
+    }
+
+    return normalizedLocale;
+};
+
+/**
  * Scans notification locales and returns the one matching navigator.language
  * @param notification notification object
  * returns matching text or null
@@ -328,6 +348,7 @@ const getNotificationText = (notification: PromoNotificationData): NotificationT
     }
 
     language = handleSpanishLocale(language);
+    language = handleSerbianLocale(language);
 
     const languageCode = language.split('_')[0];
     if (!languageCode) {
