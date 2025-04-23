@@ -13,16 +13,34 @@ import {
     SRC_PATH,
     IS_DEV,
     StageEnv,
-    type Browser,
+    Browser,
 } from './consts';
 
 const OFFSCREEN_PATH = path.resolve(__dirname, SRC_PATH, 'offscreen');
 const WORKER_SCRIPT = path.resolve(__dirname, SRC_PATH, 'worker/worker.ts');
 
+const CHROMIUM_BROWSERS = [
+    Browser.Chrome,
+    Browser.Edge,
+    Browser.Opera,
+];
+
+/**
+ * Get the webpack config for the Chromium browser.
+ *
+ * @param browser Browser name.
+ * @param manifestDiff Manifest diff object.
+ *
+ * @returns Webpack configuration object.
+ */
 export const getChromiumWebpackConfig = (
     browser: Browser,
     manifestDiff: Record<string, unknown>,
 ) => {
+    if (!CHROMIUM_BROWSERS.includes(browser)) {
+        throw new Error(`${browser} is not a valid Chromium browser`);
+    }
+
     const outputFolder = browser;
 
     let zipFilename = `${outputFolder}.zip`;
