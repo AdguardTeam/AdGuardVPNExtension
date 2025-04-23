@@ -33,7 +33,7 @@ const AUTH_STEPS = {
     CONFIRM_EMAIL: 'confirmEmail',
 };
 
-enum CredentialsKey {
+export enum CredentialsKey {
     Username = 'username',
     Password = 'password',
     ConfirmPassword = 'confirmPassword',
@@ -149,12 +149,11 @@ export class AuthStore {
         await this.setError(DEFAULTS.error);
     };
 
-    @action onCredentialsChange = async (field: string, value: string) => {
+    @action onCredentialsChange = async (field: CredentialsKey, value: string) => {
         await this.resetError();
-        const key = <CredentialsKey>field;
 
         runInAction(() => {
-            this.credentials[key] = value;
+            this.credentials[field] = value;
         });
         await messenger.updateAuthCache(field, value);
     };
