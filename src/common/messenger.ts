@@ -14,9 +14,40 @@ import { log } from './logger';
 import { MessageType, type SocialAuthProvider, type ExclusionsContentMap } from './constants';
 import { type NotifierType } from './notifier';
 
+/**
+ * Message interface that emits background page.
+ */
 export interface Message {
     /**
      * Type of the message.
+     */
+    type: MessageType;
+
+    /**
+     * Data of the message.
+     */
+    data: any;
+}
+
+export const isMessage = (message: unknown): message is Message => {
+    if (typeof message !== 'object' || message === null) {
+        return false;
+    }
+
+    const { type } = message as Message;
+
+    return (
+        typeof type === 'string'
+        && Object.values(MessageType).includes(type)
+    );
+};
+
+/**
+ * Notifier message interface that emits notifier.
+ */
+export interface NotifierMessage {
+    /**
+     * Type of the notifier message.
      */
     type: NotifierType;
 
@@ -55,8 +86,8 @@ class Messenger {
      * @param events Events for listening
      * @param callback Event listener callback
      */
-    createEventListener = async (events: NotifierType[], callback: (...args: Message[]) => void) => {
-        const eventListener = (...args: Message[]) => {
+    createEventListener = async (events: NotifierType[], callback: (...args: NotifierMessage[]) => void) => {
+        const eventListener = (...args: NotifierMessage[]) => {
             callback(...args);
         };
 
@@ -67,7 +98,12 @@ class Messenger {
             listenerId = response.listenerId;
         };
 
-        const messageHandler = (message: any) => {
+        const messageHandler = (message: unknown) => {
+            if (!isMessage(message)) {
+                log.error('Invalid message received:', message);
+                return;
+            }
+
             if (message.type === MessageType.NOTIFY_LISTENERS) {
                 const [type, data, value] = message.data;
                 eventListener({ type, data, value });
@@ -100,8 +136,8 @@ class Messenger {
      * @param events
      * @param callback
      */
-    createLongLivedConnection = (events: NotifierType[], callback: (...args: Message[]) => void): Function => {
-        const eventListener = (...args: Message[]) => {
+    createLongLivedConnection = (events: NotifierType[], callback: (...args: NotifierMessage[]) => void): Function => {
+        const eventListener = (...args: NotifierMessage[]) => {
             callback(...args);
         };
 
@@ -112,7 +148,12 @@ class Messenger {
             port = browser.runtime.connect({ name: `popup_${nanoid()}` });
             port.postMessage({ type: MessageType.ADD_LONG_LIVED_CONNECTION, data: { events } });
 
-            port.onMessage.addListener((message: any) => {
+            port.onMessage.addListener((message) => {
+                if (!isMessage(message)) {
+                    log.error('Invalid message received:', message);
+                    return;
+                }
+
                 if (message.type === MessageType.NOTIFY_LISTENERS) {
                     const [type, data, value] = message.data;
                     eventListener({ type, data, value });

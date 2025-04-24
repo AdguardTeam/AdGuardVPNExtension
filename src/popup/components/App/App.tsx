@@ -17,7 +17,7 @@ import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/constants';
 import { log } from '../../../common/logger';
-import { type Message, messenger } from '../../../common/messenger';
+import { type NotifierMessage, messenger } from '../../../common/messenger';
 import { notifier } from '../../../common/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
@@ -85,7 +85,7 @@ export const App = observer(() => {
 
         settingsStore.trackSystemTheme();
 
-        const messageHandler = async (message: Message) => {
+        const messageHandler = async (message: NotifierMessage) => {
             const { type, data, value } = message;
 
             switch (type) {

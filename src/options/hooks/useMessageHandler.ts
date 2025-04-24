@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef } from 'react';
 import browser from 'webextension-polyfill';
 
 import { notifier } from '../../common/notifier';
-import { type Message, messenger } from '../../common/messenger';
+import { type NotifierMessage, messenger } from '../../common/messenger';
 import { MessageType, SETTINGS_IDS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { rootStore } from '../stores';
@@ -28,7 +28,7 @@ export const useMessageHandler = () => {
     const reloadingRef = useRef<boolean>(false);
     const callbackRef = useRef<(() => Promise<void>) | null>(null);
 
-    const messageHandler = async (message: Message) => {
+    const messageHandler = async (message: NotifierMessage) => {
         const { type, data, value } = message;
 
         switch (type) {

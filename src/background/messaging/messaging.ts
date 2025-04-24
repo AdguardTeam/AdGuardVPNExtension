@@ -33,11 +33,7 @@ import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
 import { savedLocations } from '../savedLocations';
 import { authService } from '../authentication/authService';
-
-interface Message {
-    type: MessageType,
-    data: any
-}
+import { isMessage } from '../../common/messenger';
 
 interface EventListeners {
     [index: string]: Runtime.MessageSender;
@@ -109,19 +105,6 @@ const getOptionsData = async () => {
         customDnsServers,
         quickConnectSetting,
     };
-};
-
-const isMessage = (message: unknown): message is Message => {
-    if (typeof message !== 'object' || message === null) {
-        return false;
-    }
-
-    const { type } = message as Message;
-
-    return (
-        typeof type === 'string'
-        && Object.values(MessageType).includes(type)
-    );
 };
 
 const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) => {
