@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Clear button to authentication inputs [#210].
+- VPN Usage statistics [#207].
 
 ### Fixed
 
@@ -18,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Actions button color [#209].
 
 [#204]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/204
+[#207]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/207
 [#209]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/209
 [#210]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/210
 
