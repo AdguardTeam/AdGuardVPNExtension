@@ -153,13 +153,15 @@ export const Locations = observer(() => {
             );
         }
 
+        const title = isSavedLocationsTab
+            ? translator.getMessage('endpoints_saved')
+            : `${translator.getMessage('endpoints_all')} (${filteredLocations.length})`;
+
         return (
             <div className="endpoints__list">
-                {notSearchingAndSavedTab && (
+                {!showSearchResults && (
                     <div className="endpoints__title">
-                        {translator.getMessage('endpoints_all')}
-                        &nbsp;
-                        {`(${filteredLocations.length})`}
+                        {title}
                     </div>
                 )}
                 {renderLocations(filteredLocations)}
