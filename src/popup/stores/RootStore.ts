@@ -6,6 +6,7 @@ import { UiStore } from './UiStore';
 import { AuthStore } from './AuthStore';
 import { VpnStore } from './VpnStore';
 import { GlobalStore } from './GlobalStore';
+import { StatsStore } from './StatsStore';
 
 export class RootStore {
     globalStore: GlobalStore;
@@ -20,6 +21,8 @@ export class RootStore {
 
     telemetryStore: TelemetryStore;
 
+    statsStore: StatsStore;
+
     constructor() {
         this.globalStore = new GlobalStore(this);
         this.settingsStore = new SettingsStore(this);
@@ -27,5 +30,6 @@ export class RootStore {
         this.authStore = new AuthStore(this);
         this.vpnStore = new VpnStore(this);
         this.telemetryStore = new TelemetryStore();
+        this.statsStore = new StatsStore(this);
     }
 }
