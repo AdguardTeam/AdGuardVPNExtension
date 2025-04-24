@@ -25,11 +25,7 @@ export const StatsMenuItem = observer(({ onCloseRequest }: StatsMenuItemProps) =
     const { vpnStore, authStore, statsStore } = useContext(rootStore);
     const { isPremiumToken } = vpnStore;
     const { setForceShowUpgradeScreen } = authStore;
-    const { openStatsScreen } = statsStore;
-
-    // FIXME: Replace with actual data
-    const downloadBytes = 4.2e+9;
-    const uploadBytes = 789e+6;
+    const { totalUsageData, openStatsScreen } = statsStore;
 
     const handleClick = () => {
         onCloseRequest();
@@ -53,10 +49,10 @@ export const StatsMenuItem = observer(({ onCloseRequest }: StatsMenuItemProps) =
         return (
             <span className="stats-menu-item__usage">
                 <span className="stats-menu-item__usage-item stats-menu-item__usage-item--download">
-                    {formatBytes(downloadBytes, true, true)}
+                    {formatBytes(totalUsageData.downloadBytes, true, true)}
                 </span>
                 <span className="stats-menu-item__usage-item stats-menu-item__usage-item--upload">
-                    {formatBytes(uploadBytes, true, false)}
+                    {formatBytes(totalUsageData.uploadBytes, true, false)}
                 </span>
             </span>
         );

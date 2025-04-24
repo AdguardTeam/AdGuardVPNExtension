@@ -2,6 +2,21 @@ import { action, computed, observable } from 'mobx';
 
 import { type RootStore } from './RootStore';
 
+/**
+ * Data usage interface.
+ */
+export interface DataUsage {
+    /**
+     * Download bytes.
+     */
+    downloadBytes: number;
+
+    /**
+     * Upload bytes.
+     */
+    uploadBytes: number;
+}
+
 export class StatsStore {
     rootStore: RootStore;
 
@@ -50,4 +65,16 @@ export class StatsStore {
 
         this.isStatsScreenOpen = false;
     };
+
+    /**
+     * Total data usage across all locations.
+     *
+     * FIXME: Replace with actual data.
+     */
+    @computed get totalUsageData(): DataUsage {
+        return {
+            downloadBytes: 4.2e9,
+            uploadBytes: 789e6,
+        };
+    }
 }
