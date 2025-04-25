@@ -170,9 +170,9 @@ export const Icons = () => (
             id="burger"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
         >
             <path d="M4 12H20" />
             <path d="M4 7H20" />

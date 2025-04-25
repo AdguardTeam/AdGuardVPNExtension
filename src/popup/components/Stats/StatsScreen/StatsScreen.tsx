@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { translator } from '../../../../common/translator';
 import { type DataUsage, type StatsRange } from '../../../stores/StatsStore';
@@ -74,11 +74,28 @@ export function StatsScreen(props: StatsScreenProps) {
         onRangeChange,
     } = props;
 
-    // FIXME: Implement shadow when content is started scrolling
+    const headerRef = useRef<HTMLDivElement>(null);
+
+    const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+        const header = headerRef.current;
+        if (!header) {
+            return;
+        }
+
+        const HEADER_WITH_SHADOW_CLASS = 'stats-screen__header--with-shadow';
+        const content = event.target as HTMLDivElement;
+
+        // If user scrolled down, add shadow to header
+        if (content.scrollTop > 0) {
+            header.classList.add(HEADER_WITH_SHADOW_CLASS);
+        } else {
+            header.classList.remove(HEADER_WITH_SHADOW_CLASS);
+        }
+    };
 
     return (
         <div className="stats-screen">
-            <div className="stats-screen__header">
+            <div ref={headerRef} className="stats-screen__header">
                 <div className="stats-screen__navbar">
                     <button
                         type="button"
@@ -110,7 +127,7 @@ export function StatsScreen(props: StatsScreenProps) {
                     />
                 </div>
             </div>
-            <div className="stats-screen__content">
+            <div className="stats-screen__content" onScroll={handleScroll}>
                 {dataUsage && (
                     <>
                         <div className="stats-screen__subtitle">
