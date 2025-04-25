@@ -5,7 +5,6 @@ import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { translator } from '../../../common/translator';
 import { getForwarderUrl } from '../../../common/helpers';
 import { rootStore } from '../../stores';
-import { StatsRange } from '../../stores/StatsStore';
 
 import { StatsScreen } from './StatsScreen';
 
@@ -13,15 +12,14 @@ export const Stats = observer(() => {
     const { statsStore, settingsStore } = useContext(rootStore);
     const {
         shouldRenderStatsScreen,
+        range,
         totalUsageData,
         closeStatsScreen,
+        setRange,
     } = statsStore;
     const { forwarderDomain } = settingsStore;
 
     const privacyPolicyUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY);
-
-    // FIXME: Implement range on store
-    const [range, setRange] = React.useState<StatsRange>(StatsRange.Days7);
 
     const handleClear = () => {
         // FIXME: Implement

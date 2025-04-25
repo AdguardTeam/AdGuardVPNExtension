@@ -40,6 +40,13 @@ export class StatsStore {
     @observable isStatsScreenOpen = false;
 
     /**
+     * Stats range to show data for.
+     *
+     * FIXME: Replace with actual data (probably it will be stored in background).
+     */
+    @observable range: StatsRange = StatsRange.Days7;
+
+    /**
      * Should stats screen be rendered.
      */
     @computed get shouldRenderStatsScreen() {
@@ -74,6 +81,17 @@ export class StatsStore {
         }
 
         this.isStatsScreenOpen = false;
+    };
+
+    /**
+     * Set the stats range.
+     *
+     * FIXME: Replace with actual implementation (probably it will need to update in background).
+     *
+     * @param range New range value.
+     */
+    @action setRange = (range: StatsRange) => {
+        this.range = range;
     };
 
     /**
