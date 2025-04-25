@@ -16,15 +16,11 @@ export const Stats = observer(() => {
         totalUsageData,
         closeStatsScreen,
         setRange,
+        clearStats,
     } = statsStore;
     const { forwarderDomain } = settingsStore;
 
     const privacyPolicyUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY);
-
-    const handleClear = () => {
-        // FIXME: Implement
-        // FIXME: Clarify is it clears based on current screen or all
-    };
 
     if (!shouldRenderStatsScreen) {
         return null;
@@ -41,7 +37,7 @@ export const Stats = observer(() => {
             privacyPolicyUrl={privacyPolicyUrl}
             dataUsage={totalUsageData}
             onBackClick={closeStatsScreen}
-            onClear={handleClear}
+            onClear={clearStats}
             onRangeChange={setRange}
         />
     );

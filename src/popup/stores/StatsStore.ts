@@ -95,6 +95,14 @@ export class StatsStore {
     };
 
     /**
+     * Clear the stats.
+     *
+     * FIXME: Replace with actual implementation (probably it will send message to background).
+     * FIXME: Clarify is it clears based on current screen or clears all stats.
+     */
+    @action clearStats = () => {};
+
+    /**
      * Total data usage across all locations.
      *
      * FIXME: Replace with actual data.
