@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { translator } from '../../../../common/translator';
 import { type DataUsage, type StatsRange } from '../../../stores/StatsStore';
 import { Icon } from '../../ui/Icon';
+import { getStatsRangeDates } from '../utils';
 
 import { StatsScreenMenu } from './StatsScreenMenu';
 import { StatsScreenRange } from './StatsScreenRange';
@@ -118,8 +119,7 @@ export function StatsScreen(props: StatsScreenProps) {
                         {title}
                     </div>
                     <div className="stats-screen__range">
-                        {/* FIXME: Implement range based dates */}
-                        11 Aug 2022 – 17 Aug 2023
+                        {getStatsRangeDates(range)}
                     </div>
                     <StatsScreenRange
                         range={range}
