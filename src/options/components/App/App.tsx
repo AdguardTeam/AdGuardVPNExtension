@@ -83,7 +83,6 @@ export const App = observer(() => {
     useEffect(() => {
         (async () => {
             await globalStore.init();
-            await telemetryStore.addOpenedPage();
         })();
 
         const onUnload = () => {
