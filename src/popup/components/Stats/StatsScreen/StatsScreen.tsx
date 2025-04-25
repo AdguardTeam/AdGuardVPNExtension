@@ -133,17 +133,17 @@ export function StatsScreen(props: StatsScreenProps) {
                         <div className="stats-screen__subtitle">
                             {translator.getMessage('popup_stats_data_usage')}
                         </div>
-                        {'TEST\n'.repeat(50) /* FIXME: Implement data usage block */}
+                        {/* FIXME: Implement data usage block */}
                     </>
                 )}
                 <div className="stats-screen__subtitle">
                     {translator.getMessage('popup_stats_most_used_locations')}
                 </div>
-                {'TEST\n'.repeat(50) /* FIXME: Implement locations block */}
+                {/* FIXME: Implement locations block */}
                 <div className="stats-screen__subtitle">
                     {translator.getMessage('popup_stats_usage_time')}
                 </div>
-                {'TEST\n'.repeat(50) /* FIXME: Implement usage time block */}
+                {/* FIXME: Implement usage time block */}
             </div>
         </div>
     );
