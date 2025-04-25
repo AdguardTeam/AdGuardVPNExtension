@@ -64,6 +64,18 @@ export interface NotifierMessage {
     value?: any,
 }
 
+export interface LongLivedConnectionResult {
+    /**
+     * Callback function which disconnects from the background page.
+     */
+    onUnload: () => void;
+
+    /**
+     * Port ID of the connection.
+     */
+    portId: string;
+}
+
 class Messenger {
     async sendMessage<T>(type: string, data?: T) {
         log.debug(`Request type: "${type}"`);
@@ -136,16 +148,20 @@ class Messenger {
      * @param events
      * @param callback
      */
-    createLongLivedConnection = (events: NotifierType[], callback: (...args: NotifierMessage[]) => void): Function => {
+    createLongLivedConnection = (
+        events: NotifierType[],
+        callback: (...args: NotifierMessage[]) => void,
+    ): LongLivedConnectionResult => {
         const eventListener = (...args: NotifierMessage[]) => {
             callback(...args);
         };
 
+        const portId = `popup_${nanoid()}`;
         let port: Runtime.Port;
         let forceDisconnected = false;
 
         const connect = () => {
-            port = browser.runtime.connect({ name: `popup_${nanoid()}` });
+            port = browser.runtime.connect({ name: portId });
             port.postMessage({ type: MessageType.ADD_LONG_LIVED_CONNECTION, data: { events } });
 
             port.onMessage.addListener((message) => {
@@ -183,7 +199,10 @@ class Messenger {
         window.addEventListener('beforeunload', onUnload);
         window.addEventListener('unload', onUnload);
 
-        return onUnload;
+        return {
+            onUnload,
+            portId,
+        };
     };
 
     async getPopupData(url: string | null, numberOfTries: number) {
@@ -242,9 +261,18 @@ class Messenger {
         return this.sendMessage(type, { locationId });
     }
 
-    async getOptionsData() {
+    /**
+     * Sends a message to the background page to get options data.
+     *
+     * @param isDataRefresh If `true`, skips new `pageId` generation.
+     * Use this when you want to refresh the data without needing to
+     * generate a new `pageId`.
+     *
+     * @returns Returns a promise that resolves to the options data.
+     */
+    async getOptionsData(isDataRefresh: boolean) {
         const type = MessageType.GET_OPTIONS_DATA;
-        return this.sendMessage(type);
+        return this.sendMessage(type, { isDataRefresh });
     }
 
     async getVpnFailurePage() {
@@ -621,10 +649,14 @@ class Messenger {
      * NOTE: Do not await this function, as it is not necessary to wait for the response.
      *
      * @param screenName Name of the screen.
+     * @param pageId Page ID of the screen.
      */
-    async sendPageViewTelemetryEvent(screenName: TelemetryScreenName): Promise<void> {
+    async sendPageViewTelemetryEvent(
+        screenName: TelemetryScreenName,
+        pageId: string,
+    ): Promise<void> {
         const type = MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW;
-        return this.sendMessage(type, { screenName });
+        return this.sendMessage(type, { screenName, pageId });
     }
 
     /**
@@ -640,16 +672,6 @@ class Messenger {
     ): Promise<void> {
         const type = MessageType.TELEMETRY_EVENT_SEND_CUSTOM;
         return this.sendMessage(type, { actionName, screenName });
-    }
-
-    /**
-     * Adds opened page to the list of opened pages inside of telemetry module.
-     *
-     * @returns Page ID of new opened page, which can be used to remove it later.
-     */
-    async addTelemetryOpenedPage(): Promise<string> {
-        const type = MessageType.TELEMETRY_EVENT_ADD_OPENED_PAGE;
-        return this.sendMessage(type);
     }
 
     /**

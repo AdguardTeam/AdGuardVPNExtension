@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Clear button to authentication inputs [#210].
+- Title to saved locations tab [#211].
 
 ### Changed
 
@@ -25,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#204]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/204
 [#209]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/209
 [#210]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/210
+[#211]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/211
 
 <!-- TODO: Add release date -->
 ## [2.5.1]

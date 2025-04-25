@@ -41,7 +41,16 @@ interface EventListeners {
 
 const eventListeners: EventListeners = {};
 
-const getOptionsData = async () => {
+/**
+ * This function is used to get options data for the options page.
+ *
+ * @param isDataRefresh If `true`, skips new `pageId` generation.
+ * Use this when you want to refresh the data without needing to
+ * generate a new `pageId`.
+ *
+ * @returns Options data.
+ */
+const getOptionsData = async (isDataRefresh: boolean) => {
     const appVersion = appStatus.version;
     const username = await credentials.getUsername();
     const isRateVisible = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
@@ -55,6 +64,11 @@ const getOptionsData = async () => {
     const maxDevicesCount = vpnInfo?.maxDevicesCount;
     const customDnsServers = settings.getCustomDnsServers();
     const quickConnectSetting = settings.getQuickConnectSetting();
+
+    let pageId = null;
+    if (!isDataRefresh) {
+        pageId = telemetry.addOpenedPage();
+    }
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
@@ -104,6 +118,7 @@ const getOptionsData = async () => {
         subscriptionTimeExpiresIso,
         customDnsServers,
         quickConnectSetting,
+        pageId,
     };
 };
 
@@ -180,7 +195,8 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             return savedLocations.removeSavedLocation(locationId);
         }
         case MessageType.GET_OPTIONS_DATA: {
-            return getOptionsData();
+            const { isRefresh } = data;
+            return getOptionsData(isRefresh);
         }
         case MessageType.GET_VPN_FAILURE_PAGE: {
             return endpoints.getVpnFailurePage();
@@ -476,18 +492,14 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW: {
-            const { screenName } = data;
-            await telemetry.sendPageViewEventDebounced(screenName);
+            const { screenName, pageId } = data;
+            await telemetry.sendPageViewEventDebounced(screenName, pageId);
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_CUSTOM: {
             const { actionName, screenName } = data;
             await telemetry.sendCustomEventDebounced(actionName, screenName);
             break;
-        }
-        case MessageType.TELEMETRY_EVENT_ADD_OPENED_PAGE: {
-            const pageId = telemetry.addOpenedPage();
-            return pageId;
         }
         case MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE: {
             const { pageId } = data;
