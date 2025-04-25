@@ -1030,8 +1030,32 @@
     "popup_stats_menu_why_safe_btn": {
         "message": "Why it's safe"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Why it's safe"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "As the connection is encrypted and secure, nobody can see your activity data — we only calculate your traffic usage"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "All stats are collected and stored locally on your device. We don’t have access to them"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Got it"
+    },
     "popup_stats_menu_clear_stats_btn": {
         "message": "Clear stats"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Clear stats?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "All stats will be permanently deleted"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Clear"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Cancel"
     },
     "popup_stats_range_hours_24": {
         "message": "24 hours"

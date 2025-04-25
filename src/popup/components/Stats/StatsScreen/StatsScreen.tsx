@@ -5,10 +5,9 @@ import { type DataUsage, type StatsRange } from '../../../stores/StatsStore';
 import { Icon } from '../../ui/Icon';
 
 import { StatsScreenMenu } from './StatsScreenMenu';
+import { StatsScreenRange } from './StatsScreenRange';
 
 import './stats-screen.pcss';
-
-import { StatsScreenRange } from './StatsScreenRange';
 
 /**
  * Props for the StatsScreen component.
@@ -27,8 +26,15 @@ export interface StatsScreenProps {
 
     /**
      * Should 'Why it's safe' button and modal be rendered.
+     * Do not forget to provide privacy policy URL if this field is true.
      */
     shouldRenderWhySafe?: boolean;
+
+    /**
+     * Privacy policy URL. This field is mandatory if
+     * `shouldRenderWhySafe` is true.
+     */
+    privacyPolicyUrl?: string;
 
     /**
      * Data usage bytes. If not provided, data usage block will not be rendered.
@@ -61,6 +67,7 @@ export function StatsScreen(props: StatsScreenProps) {
         title,
         range,
         shouldRenderWhySafe = false,
+        privacyPolicyUrl,
         dataUsage,
         onBackClick,
         onClear,
@@ -68,11 +75,6 @@ export function StatsScreen(props: StatsScreenProps) {
     } = props;
 
     // FIXME: Implement shadow when content is started scrolling
-    // FIXME: Implement clear modal
-
-    const handleClearClick = () => {
-        // FIXME: Implement clear modal opening
-    };
 
     return (
         <div className="stats-screen">
@@ -90,7 +92,8 @@ export function StatsScreen(props: StatsScreenProps) {
                     </button>
                     <StatsScreenMenu
                         shouldRenderWhySafe={shouldRenderWhySafe}
-                        onClear={handleClearClick}
+                        privacyPolicyUrl={privacyPolicyUrl}
+                        onClear={onClear}
                     />
                 </div>
                 <div className="stats-screen__header-content">
