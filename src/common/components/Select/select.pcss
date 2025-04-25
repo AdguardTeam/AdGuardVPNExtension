@@ -17,6 +17,16 @@
         text-align: right;
         overflow: hidden;
 
+        /* This styles applied in case if globally button style is not reset */
+        &-reset {
+            padding: 0;
+            margin: 0;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            font-family: var(--font-stack);
+        }
+
         &-icon {
             transition: var(--t3) transform;
 
