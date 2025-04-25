@@ -212,6 +212,7 @@ export function Select<T extends string>({
                         key={option.value}
                         value={option.value}
                         title={option.title}
+                        className={option.className}
                         isActive={option.value === value}
                         shouldSkip={option.shouldSkip}
                         isSelectActive={isActive}
