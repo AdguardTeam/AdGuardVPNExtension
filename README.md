@@ -247,6 +247,8 @@ For a full list of all `npm` packages in use, please take a look at [package.jso
 
 ## <a name='minimum-supported-browser-versions'></a> Minimum supported browser versions
 
+<!-- NOTE: see MIN_SUPPORTED_VERSION in ./tasks/consts.ts -->
+
 | Browser                     | Version |
 |-----------------------------|---------|
 | Chromium Based Browsers     | 109     |

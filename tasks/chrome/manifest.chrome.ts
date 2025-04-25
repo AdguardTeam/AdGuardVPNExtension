@@ -1,6 +1,8 @@
+import { MIN_SUPPORTED_VERSION } from '../consts';
+
 export const chromeManifestDiff = {
     manifest_version: 3,
-    minimum_chrome_version: '109.0',
+    minimum_chrome_version: String(MIN_SUPPORTED_VERSION.CHROMIUM),
     options_page: 'options.html',
     background: {
         service_worker: 'background.js',
