@@ -165,5 +165,43 @@ export const Icons = () => (
                 <path d="M12 16v-6M12 7.6v-.2" />
             </g>
         </symbol>
+
+        <symbol
+            id="burger"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="M4 12H20" />
+            <path d="M4 7H20" />
+            <path d="M4 17H20" />
+        </symbol>
+
+        <symbol
+            id="arrow-down"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M6 10L12 16L18 10" />
+        </symbol>
+
+        <symbol
+            id="tick"
+            viewBox="0 0 24 24"
+            fill="none"
+            fillRule="evenodd"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="m5 12 6 6 8-9" />
+        </symbol>
     </svg>
 );
