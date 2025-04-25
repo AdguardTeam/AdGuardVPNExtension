@@ -1015,6 +1015,36 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Don’t show this again"
     },
+    "popup_stats_for_browser_title": {
+        "message": "Statistics for this browser"
+    },
+    "popup_stats_data_usage": {
+        "message": "Data usage"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Most-used locations"
+    },
+    "popup_stats_usage_time": {
+        "message": "Usage time"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Why it's safe"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Clear stats"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 hours"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 days"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 days"
+    },
+    "popup_stats_range_all_time": {
+        "message": "All time"
+    },
     "options_signedout_page_title": {
         "message": "You have logged out of AdGuard VPN"
     },
