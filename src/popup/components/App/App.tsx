@@ -164,9 +164,12 @@ export const App = observer(() => {
             notifier.types.SHOW_RATE_MODAL,
         ];
 
-        const onUnload = messenger.createLongLivedConnection(events, messageHandler);
+        const { onUnload, portId } = messenger.createLongLivedConnection(events, messageHandler);
+
+        telemetryStore.setPageId(portId);
 
         return () => {
+            telemetryStore.setPageId(null);
             onUnload();
             settingsStore.stopTrackSystemTheme();
         };
