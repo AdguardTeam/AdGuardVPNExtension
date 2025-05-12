@@ -18,7 +18,7 @@ export const firefoxManifestDiff = {
     browser_specific_settings: {
         gecko: {
             id: GECKO_ID_ENV_MAP[BUILD_ENV],
-            strict_min_version: String(MIN_SUPPORTED_VERSION.FIREFOX),
+            strict_min_version: `${MIN_SUPPORTED_VERSION.FIREFOX}.0`,
         },
     },
     background: {

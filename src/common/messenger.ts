@@ -29,6 +29,13 @@ export interface Message {
     data: any;
 }
 
+/**
+ * Function that checks if the message is a valid {@link Message}.
+ *
+ * @param message Message to check.
+ *
+ * @returns True if the message is a valid message, false otherwise.
+ */
 export const isMessage = (message: unknown): message is Message => {
     if (typeof message !== 'object' || message === null) {
         return false;
@@ -90,6 +97,8 @@ class Messenger {
             log.debug('Response data:', response);
         }
 
+        // TODO: This is temporary fix of message type,
+        // it should be refactored to support `unknown` type (AG-41896)
         return response as any;
     }
 
