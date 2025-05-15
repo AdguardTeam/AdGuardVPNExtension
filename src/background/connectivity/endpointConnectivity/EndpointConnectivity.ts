@@ -15,6 +15,8 @@ import { credentials } from '../../credentials';
 import { notifications } from '../../notifications';
 import { translator } from '../../../common/translator';
 
+import { type ConnectivityInfoMsgEvent } from './connectivityInfoMsg';
+
 interface EndpointConnectivityInterface {
     setCredentials(domainName: string, vpnToken: string, credentialsHash: string): void;
     isWebsocketConnectionOpen(): boolean;
@@ -284,11 +286,13 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
      * Handles info message, updates stats or sends message to update tokens
      * @param infoMsg
      */
-    handleInfoMsg = async (infoMsg : { refreshTokens: boolean }): Promise<void> => {
-        const { refreshTokens } = infoMsg;
-
-        if (refreshTokens) {
+    handleInfoMsg = async (infoMsg: ConnectivityInfoMsgEvent): Promise<void> => {
+        if ('refreshTokens' in infoMsg && infoMsg.refreshTokens) {
             notifier.notifyListeners(notifier.types.SHOULD_REFRESH_TOKENS);
+        }
+
+        if ('bytesDownloaded' in infoMsg && 'bytesUploaded' in infoMsg) {
+            notifier.notifyListeners(notifier.types.STATS_UPDATED, infoMsg);
         }
     };
 
