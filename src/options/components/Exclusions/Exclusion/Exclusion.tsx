@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import classNames from 'classnames';
@@ -60,6 +60,7 @@ export const Exclusion = observer(({
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
     const { selectedExclusion } = exclusionsStore;
 
+    const checkboxRef = useRef<HTMLButtonElement>(null);
     const [iconLoaded, setIconLoaded] = useState(false);
 
     const hasChildren = exclusion.children.length !== 0;
@@ -98,13 +99,33 @@ export const Exclusion = observer(({
         setIconLoaded(true);
     };
 
-    const handleClick = () => {
+    const toggleExclusionState = () => {
         exclusionsStore.toggleExclusionState(exclusion.id);
+    };
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        /**
+         * The detail property of the event is used to determine how the event was triggered.
+         * A value of 0 indicates that the event was triggered by a keyboard action (e.g., pressing Enter or Space).
+         */
+        const KEYBOARD_EVENT_DETAIL = 0;
+
+        /**
+         * Prevent from remaining focus on the checkbox if the click is made by mouse or touch,
+         * allow to keep focus on the checkbox for keyboard navigation.
+         *
+         * This is needed to avoid focused styles on exclusion after clicking it.
+         */
+        if (e.detail !== KEYBOARD_EVENT_DETAIL && checkboxRef.current) {
+            checkboxRef.current.blur();
+        }
+
+        toggleExclusionState();
     };
 
     const handleForwardClick = () => {
         if (!hasChildren) {
-            handleClick();
+            toggleExclusionState();
             return;
         }
 
@@ -127,6 +148,7 @@ export const Exclusion = observer(({
         <div className={classes}>
             <div className="exclusion__wrapper">
                 <button
+                    ref={checkboxRef}
                     className="exclusion__check has-tab-focus"
                     type="button"
                     onClick={handleClick}
