@@ -284,7 +284,8 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
 
     /**
      * Handles info message, updates stats or sends message to update tokens
-     * @param infoMsg
+     *
+     * @param infoMsg Info message event sent from the server.
      */
     handleInfoMsg = async (infoMsg: ConnectivityInfoMsgEvent): Promise<void> => {
         if ('refreshTokens' in infoMsg && infoMsg.refreshTokens) {
