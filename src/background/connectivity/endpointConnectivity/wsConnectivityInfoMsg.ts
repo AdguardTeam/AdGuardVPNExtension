@@ -3,7 +3,7 @@
  */
 
 /**
- * ConnectivityInfoMsg refresh tokens event.
+ * Websocket connectivity info message to refresh tokens.
  */
 export interface WsConnectivityInfoMsgRefreshTokens {
     /**
@@ -14,11 +14,11 @@ export interface WsConnectivityInfoMsgRefreshTokens {
 }
 
 /**
- * ConnectivityInfoMsg stats event.
+ * Websocket connectivity info message with traffic statistics.
  *
  * NOTE: Traffic bytes are counted for some period and not absolute.
  */
-export interface WsConnectivityInfoMsgStats {
+export interface WsConnectivityInfoMsgTraffic {
     /**
      * Bytes downloaded since the last event.
      */
@@ -31,8 +31,9 @@ export interface WsConnectivityInfoMsgStats {
 }
 
 /**
+ * Websocket connectivity info message.
  * Periodically sent by websocket with some information about the connection.
  */
 export type WsConnectivityInfoMsg =
     | WsConnectivityInfoMsgRefreshTokens
-    | WsConnectivityInfoMsgStats;
+    | WsConnectivityInfoMsgTraffic;

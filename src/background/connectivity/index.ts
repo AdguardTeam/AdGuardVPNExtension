@@ -3,7 +3,7 @@ import { endpointConnectivity } from './endpointConnectivity';
 
 export {
     type WsConnectivityInfoMsgRefreshTokens,
-    type WsConnectivityInfoMsgStats,
+    type WsConnectivityInfoMsgTraffic,
     type WsConnectivityInfoMsg,
 } from './endpointConnectivity/wsConnectivityInfoMsg';
 
