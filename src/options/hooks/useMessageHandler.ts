@@ -1,11 +1,10 @@
 import { useContext, useEffect, useRef } from 'react';
 
-import browser from 'webextension-polyfill';
-
 import { notifier } from '../../common/notifier';
 import { type NotifierMessage, messenger } from '../../common/messenger';
 import { MessageType, SETTINGS_IDS } from '../../common/constants';
 import { log } from '../../common/logger';
+import { Prefs } from '../../common/prefs';
 import { rootStore } from '../stores';
 
 const NOTIFIER_EVENTS = [
@@ -92,14 +91,22 @@ export const useMessageHandler = () => {
             callbackRef.current = await createMessageListener();
         })();
 
-        browser.runtime.onMessage.addListener(handleBrowserMessage);
+        // don't need to add listeners in Firefox mv2,
+        // because options page listeners have to be updated in mv3 only
+        // TODO: resolve for Firefox mv3
+        if (!Prefs.isFirefox()) {
+            chrome.runtime.onMessage.addListener(handleBrowserMessage);
+        }
 
         return () => {
             if (callbackRef.current) {
                 callbackRef.current();
             }
 
-            browser.runtime.onMessage.removeListener(handleBrowserMessage);
+            // TODO: resolve for Firefox mv3
+            if (!Prefs.isFirefox()) {
+                chrome.runtime.onMessage.removeListener(handleBrowserMessage);
+            }
         };
     }, []);
 };
