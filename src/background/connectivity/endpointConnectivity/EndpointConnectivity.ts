@@ -293,7 +293,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         }
 
         if ('bytesDownloaded' in infoMsg && 'bytesUploaded' in infoMsg) {
-            notifier.notifyListeners(notifier.types.STATS_UPDATED, infoMsg);
+            notifier.notifyListeners(notifier.types.TRAFFIC_STATS_UPDATED, infoMsg);
         }
     };
 
