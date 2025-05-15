@@ -2,10 +2,10 @@
 import { endpointConnectivity } from './endpointConnectivity';
 
 export {
-    type ConnectivityInfoMsgRefreshTokensEvent,
-    type ConnectivityInfoMsgStatsEvent,
-    type ConnectivityInfoMsgEvent,
-} from './endpointConnectivity/connectivityInfoMsg';
+    type WsConnectivityInfoMsgRefreshTokens,
+    type WsConnectivityInfoMsgStats,
+    type WsConnectivityInfoMsg,
+} from './endpointConnectivity/wsConnectivityInfoMsg';
 
 export const connectivity = {
     endpointConnectivity,

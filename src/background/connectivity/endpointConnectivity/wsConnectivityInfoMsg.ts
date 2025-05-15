@@ -5,7 +5,7 @@
 /**
  * ConnectivityInfoMsg refresh tokens event.
  */
-export interface ConnectivityInfoMsgRefreshTokensEvent {
+export interface WsConnectivityInfoMsgRefreshTokens {
     /**
      * If `true`, it means that there were some changes with VPN token
      * or credentials and the client must refresh them.
@@ -18,7 +18,7 @@ export interface ConnectivityInfoMsgRefreshTokensEvent {
  *
  * NOTE: Traffic bytes are counted for some period and not absolute.
  */
-export interface ConnectivityInfoMsgStatsEvent {
+export interface WsConnectivityInfoMsgStats {
     /**
      * Bytes downloaded since the last event.
      */
@@ -33,6 +33,6 @@ export interface ConnectivityInfoMsgStatsEvent {
 /**
  * Periodically sent by websocket with some information about the connection.
  */
-export type ConnectivityInfoMsgEvent =
-    | ConnectivityInfoMsgRefreshTokensEvent
-    | ConnectivityInfoMsgStatsEvent;
+export type WsConnectivityInfoMsg =
+    | WsConnectivityInfoMsgRefreshTokens
+    | WsConnectivityInfoMsgStats;

@@ -15,7 +15,7 @@ import { credentials } from '../../credentials';
 import { notifications } from '../../notifications';
 import { translator } from '../../../common/translator';
 
-import { type ConnectivityInfoMsgEvent } from './connectivityInfoMsg';
+import { type WsConnectivityInfoMsg } from './wsConnectivityInfoMsg';
 
 interface EndpointConnectivityInterface {
     setCredentials(domainName: string, vpnToken: string, credentialsHash: string): void;
@@ -287,7 +287,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
      *
      * @param infoMsg Info message event sent from the server.
      */
-    handleInfoMsg = async (infoMsg: ConnectivityInfoMsgEvent): Promise<void> => {
+    handleInfoMsg = async (infoMsg: WsConnectivityInfoMsg): Promise<void> => {
         if ('refreshTokens' in infoMsg && infoMsg.refreshTokens) {
             notifier.notifyListeners(notifier.types.SHOULD_REFRESH_TOKENS);
         }
