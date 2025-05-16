@@ -1,17 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, type SetStateAction } from 'react';
 
 import classNames from 'classnames';
 
-import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
-import { useOutsideFocus } from '../../../../common/components/ui/useOutsideFocus';
-import { Icon } from '../Icon';
+import { useOutsideClick } from '../ui/useOutsideClick';
+import { useOutsideFocus } from '../ui/useOutsideFocus';
 
 import './select.pcss';
 
 /**
  * Select option item.
  */
-interface SelectOptionItem<T> {
+export interface SelectOptionItem<T> {
     /**
      * Value of the option.
      */
@@ -28,9 +27,9 @@ interface SelectOptionItem<T> {
     shouldSkip?: boolean;
 
     /**
-     * Is the select active or not. Used to control tab index.
+     * Additional class name for the option.
      */
-    isSelectActive?: boolean;
+    className?: string;
 }
 
 /**
@@ -43,22 +42,38 @@ interface SelectOptionProps<T> extends SelectOptionItem<T> {
     isActive?: boolean;
 
     /**
+     * Is the select active or not. Used to control tab index.
+     */
+    isSelectActive?: boolean;
+
+    /**
+     * Icon that will be shown in the active item.
+     */
+    activeItemIcon?: React.ReactNode;
+
+    /**
      * Click event handler.
      */
     onClick: (value: T) => void;
 }
 
+/**
+ * SelectOption component.
+ */
 function SelectOption<T extends string>({
     value,
     title,
     isActive,
     shouldSkip,
     isSelectActive,
+    activeItemIcon,
+    className,
     onClick,
 }: SelectOptionProps<T>) {
     const classes = classNames(
-        'select__item has-tab-focus',
+        'select__item has-tab-focus select__btn-reset',
         isActive && 'select__item--active',
+        className,
     );
 
     const handleClick = () => {
@@ -77,7 +92,7 @@ function SelectOption<T extends string>({
             tabIndex={!isSelectActive ? -1 : undefined}
         >
             {title}
-            <Icon name="tick" className="select__item-icon" />
+            {activeItemIcon}
         </button>
     );
 }
@@ -86,6 +101,12 @@ function SelectOption<T extends string>({
  * Select component props.
  */
 export interface SelectProps<T> {
+    /**
+     * Icon that will be shown beside the title.
+     * You can add 'select__btn-icon' class to it to inherit styles.
+     */
+    titleIcon?: React.ReactNode;
+
     /**
      * Current selected value of the select.
      */
@@ -102,6 +123,23 @@ export interface SelectProps<T> {
     isActive?: boolean;
 
     /**
+     * Icon that will be shown in the active item.
+     * You can add 'select__item-icon' class to it to inherit styles.
+     */
+    activeItemIcon?: React.ReactNode;
+
+    /**
+     * Additional class name for the select.
+     */
+    className?: string;
+
+    /**
+     * Should component manage outside click.
+     * Default value is `true`.
+     */
+    shouldManageOutsideClick?: boolean;
+
+    /**
      * Change event handler.
      */
     onChange: (value: T) => void;
@@ -109,15 +147,28 @@ export interface SelectProps<T> {
     /**
      * Is active change event handler.
      */
-    onIsActiveChange?: (value: boolean | ((oldValue: boolean) => boolean)) => void;
+    onIsActiveChange?: (value: SetStateAction<boolean>) => void;
+
+    /**
+     * Callback that will be called when the select button is clicked.
+     */
+    onClick?: () => void;
 }
 
+/**
+ * Select component.
+ */
 export function Select<T extends string>({
+    titleIcon,
     value,
     options,
     isActive: outsideActive,
+    activeItemIcon,
+    className,
+    shouldManageOutsideClick = true,
     onChange,
     onIsActiveChange,
+    onClick,
 }: SelectProps<T>) {
     const activeItem = options.find((option) => option.value === value);
 
@@ -129,11 +180,14 @@ export function Select<T extends string>({
     const classes = classNames(
         'select',
         isActive && 'select--active',
+        className,
     );
 
     const setActive = (value: boolean | ((oldValue: boolean) => boolean)) => {
         if (!onIsActiveChange) {
             setLocalActive(value);
+        } else {
+            onIsActiveChange(value);
         }
     };
 
@@ -142,6 +196,9 @@ export function Select<T extends string>({
     };
 
     const handleToggle = () => {
+        if (onClick) {
+            onClick();
+        }
         setActive((currentActive) => !currentActive);
     };
 
@@ -150,20 +207,28 @@ export function Select<T extends string>({
         onChange(value);
     };
 
-    useOutsideClick(ref, handleClose);
-    useOutsideFocus(ref, handleClose);
+    const handleOutsideClick = () => {
+        if (shouldManageOutsideClick) {
+            handleClose();
+        }
+    };
+
+    useOutsideClick(ref, handleOutsideClick);
+    useOutsideFocus(ref, handleOutsideClick);
 
     return (
         <div ref={ref} className={classes}>
             <button
-                className="select__btn has-tab-focus"
+                className="select__btn has-tab-focus select__btn-reset"
                 type="button"
                 onClick={handleToggle}
             >
-                <span className="select__btn-text text-ellipsis">
-                    {activeItem?.title}
-                </span>
-                <Icon name="arrow-down" className="select__btn-icon" />
+                {activeItem?.title && (
+                    <span className="select__btn-text text-ellipsis">
+                        {activeItem.title}
+                    </span>
+                )}
+                {titleIcon}
             </button>
             <div className="select__list">
                 {options.map((option) => (
@@ -171,9 +236,11 @@ export function Select<T extends string>({
                         key={option.value}
                         value={option.value}
                         title={option.title}
+                        className={option.className}
                         isActive={option.value === value}
                         shouldSkip={option.shouldSkip}
                         isSelectActive={isActive}
+                        activeItemIcon={activeItemIcon}
                         onClick={handleChange}
                     />
                 ))}

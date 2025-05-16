@@ -12,6 +12,7 @@ import { useTelemetryPageViewEvent } from '../../../common/telemetry';
 import { Prefs } from '../../../common/prefs';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
 import { RatePopup } from '../RatePopup';
+import { StatsMenuItem } from '../Stats';
 
 import { Option } from './Option';
 
@@ -123,6 +124,8 @@ export const ExtraOptions = observer(() => {
             {renderOption('popup_settings_other_products', handleOtherProductsClick)}
 
             {renderOption('popup_settings_open_settings', openSettings)}
+
+            <StatsMenuItem />
 
             {hasDesktopAppForOs
                 && renderOption('popup_compare_button', openComparePage, 'extra-options__item--compare')}

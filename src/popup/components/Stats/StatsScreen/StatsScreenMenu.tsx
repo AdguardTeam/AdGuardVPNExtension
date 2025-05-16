@@ -1,0 +1,222 @@
+import React, { type SetStateAction, useContext } from 'react';
+import { observer } from 'mobx-react';
+
+import { FORWARDER_URL_QUERIES } from '../../../../background/config';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { Select, type SelectOptionItem } from '../../../../common/components/Select';
+import { translator } from '../../../../common/translator';
+import { getForwarderUrl } from '../../../../common/helpers';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { Icon } from '../../ui/Icon';
+import { rootStore } from '../../../stores';
+
+import { type StatsScreenBaseProps } from './StatsScreen';
+import { StatsScreenModal } from './StatsScreenModal';
+
+/**
+ * Menu action types.
+ */
+enum MenuActions {
+    None = 'none',
+    WhySafe = 'why-safe',
+    Clear = 'clear',
+}
+
+/**
+ * Props for the {@link StatsScreenMenu} component.
+ */
+export interface StatsScreenMenuProps extends Pick<StatsScreenBaseProps, 'onClear'> {
+    /**
+     * Flag indicating if the menu is on the main screen.
+     * If true, the 'Why it's safe' button with modal will be shown.
+     */
+    isMainScreen: boolean;
+}
+
+/**
+ * Component that renders the menu for the stats screen.
+ * It contains 'Why it's safe' button and 'Clear stats' button with their modals.
+ */
+export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
+    const { isMainScreen, onClear } = props;
+    const { statsStore, telemetryStore, settingsStore } = useContext(rootStore);
+
+    const { forwarderDomain } = settingsStore;
+
+    const {
+        isMenuOpen,
+        isWhySafeModalOpen,
+        isClearModalOpen,
+        setIsMenuOpen,
+        setIsWhySafeModalOpen,
+        setIsClearModalOpen,
+    } = statsStore;
+
+    const privacyPolicyUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY);
+
+    const canSendSettingsTelemetry = isMenuOpen
+        && !isWhySafeModalOpen // `WhySafeScreen` is rendered on top of this screen
+        && !isClearModalOpen; // `ClearStatsScreen` is rendered on top of this screen
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.SettingsStatsScreen,
+        canSendSettingsTelemetry,
+    );
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.WhySafeScreen,
+        isWhySafeModalOpen,
+    );
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.ClearStatsScreen,
+        isClearModalOpen,
+    );
+
+    const handleOnMenuActiveChange = (isActive: SetStateAction<boolean>) => {
+        if (typeof isActive === 'function') {
+            setIsMenuOpen(isActive(isMenuOpen));
+        } else {
+            setIsMenuOpen(isActive);
+        }
+    };
+
+    const menuOptions: SelectOptionItem<MenuActions>[] = [{
+        value: MenuActions.Clear,
+        title: translator.getMessage('popup_stats_menu_clear_stats_btn'),
+        className: 'stats-screen__clear',
+    }];
+
+    if (isMainScreen) {
+        menuOptions.unshift({
+            value: MenuActions.WhySafe,
+            title: translator.getMessage('popup_stats_menu_why_safe_btn'),
+        });
+    }
+
+    const openWhySafeModal = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.WhySafeClick,
+            TelemetryScreenName.SettingsStatsScreen,
+        );
+        setIsWhySafeModalOpen(true);
+    };
+
+    const closeWhySafeModal = () => {
+        setIsWhySafeModalOpen(false);
+    };
+
+    const openClearModal = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.OpenClearStatsClick,
+            TelemetryScreenName.SettingsStatsScreen,
+        );
+        setIsClearModalOpen(true);
+    };
+
+    const closeClearModal = () => {
+        setIsClearModalOpen(false);
+    };
+
+    const handleClearClick = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.ClearStatsClick,
+            TelemetryScreenName.ClearStatsScreen,
+        );
+        closeClearModal();
+        onClear();
+    };
+
+    const handlePrivacyPolicyClick = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.StatsPrivacyClick,
+            TelemetryScreenName.WhySafeScreen,
+        );
+    };
+
+    const handleMenuAction = (value: MenuActions) => {
+        switch (value) {
+            case MenuActions.WhySafe:
+                openWhySafeModal();
+                break;
+            case MenuActions.Clear:
+                openClearModal();
+                break;
+            default:
+                break;
+        }
+    };
+
+    return (
+        <>
+            <Select
+                titleIcon={<Icon icon="burger" className="stats-screen__navbar-btn-icon" />}
+                value={MenuActions.None}
+                className="stats-screen__select stats-screen__select--menu"
+                options={menuOptions}
+                isActive={isMenuOpen}
+                onChange={handleMenuAction}
+                onIsActiveChange={handleOnMenuActiveChange}
+            />
+            {isMainScreen && (
+                <StatsScreenModal
+                    isOpen={isWhySafeModalOpen}
+                    title={translator.getMessage('popup_stats_menu_why_safe_title')}
+                    description={(
+                        <>
+                            <ul>
+                                <li>{translator.getMessage('popup_stats_menu_why_safe_description_1')}</li>
+                                <li>{translator.getMessage('popup_stats_menu_why_safe_description_2')}</li>
+                            </ul>
+                            <a
+                                href={privacyPolicyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={handlePrivacyPolicyClick}
+                            >
+                                {translator.getMessage('privacy_policy')}
+                            </a>
+                        </>
+                    )}
+                    actions={(
+                        <button
+                            type="button"
+                            onClick={closeWhySafeModal}
+                            className="stats-screen-modal__btn stats-screen-modal__btn--primary"
+                        >
+                            {translator.getMessage('popup_stats_menu_why_safe_got_it')}
+                        </button>
+                    )}
+                    onClose={closeWhySafeModal}
+                />
+            )}
+            <StatsScreenModal
+                isOpen={isClearModalOpen}
+                title={translator.getMessage('popup_stats_menu_clear_stats_title')}
+                description={translator.getMessage('popup_stats_menu_clear_stats_description')}
+                actions={(
+                    <>
+                        <button
+                            type="button"
+                            onClick={handleClearClick}
+                            className="stats-screen-modal__btn stats-screen-modal__btn--red"
+                        >
+                            {translator.getMessage('popup_stats_menu_clear_stats_clear_btn')}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={closeClearModal}
+                            className="stats-screen-modal__btn stats-screen-modal__btn--outline"
+                        >
+                            {translator.getMessage('popup_stats_menu_clear_stats_cancel_btn')}
+                        </button>
+                    </>
+                )}
+                onClose={closeClearModal}
+            />
+        </>
+    );
+});

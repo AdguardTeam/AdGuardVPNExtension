@@ -34,6 +34,7 @@ import { LimitedOfferModal } from '../LimitedOfferModal';
 import { SETTINGS_IDS } from '../../../common/constants';
 import { TelemetryScreenName } from '../../../background/telemetry';
 import { MobileEdgePromo } from '../MobileEdgePromo';
+import { Stats } from '../Stats';
 
 import { AppLoaders } from './AppLoaders';
 
@@ -385,6 +386,7 @@ export const App = observer(() => {
             >
                 <Locations />
             </CSSTransition>
+            <Stats />
             {isCurrentTabExcluded && canBeExcluded
                 ? <ExclusionsScreen />
                 : (

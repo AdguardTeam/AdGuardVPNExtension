@@ -2,7 +2,8 @@ import React, { useRef, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { Select, type SelectProps } from '../Select';
+import { Select, type SelectProps } from '../../../../common/components/Select';
+import { Icon } from '../Icon';
 
 import { Controls, type ControlsProps } from './Controls';
 
@@ -67,10 +68,13 @@ export function ControlsSelect<T extends string>({
             description={description}
             action={(
                 <Select
+                    titleIcon={<Icon name="arrow-down" className="select__btn-icon" />}
                     value={value}
                     options={options}
                     onChange={onChange}
                     isActive={isActive}
+                    activeItemIcon={<Icon name="tick" className="select__item-icon" />}
+                    shouldManageOutsideClick={false}
                     onIsActiveChange={setIsActive}
                 />
             )}
