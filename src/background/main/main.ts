@@ -43,6 +43,7 @@ import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
 import { telemetry } from '../telemetry';
 import { rateModal } from '../rateModal';
+import { statisticsProvider } from '../statistics';
 
 declare global {
     module globalThis {
@@ -102,6 +103,11 @@ const asyncInitModules = async (): Promise<void> => {
     try {
         const initStartDate = Date.now();
         await stateStorage.init();
+        /**
+         * Statistics service should be initiated before any other module,
+         * in order to hop into first load event emission.
+         */
+        await statisticsProvider.init();
         connectivityService.start();
         await proxy.init();
         await fallbackApi.init();
