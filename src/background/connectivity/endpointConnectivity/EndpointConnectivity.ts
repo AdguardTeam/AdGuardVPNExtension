@@ -283,7 +283,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
     };
 
     /**
-     * Handles info message, sends message to updates traffic stats or to update tokens
+     * Handles info message, sends message to update traffic stats or to update tokens
      *
      * @param infoMsg Info message event sent from the server.
      */
