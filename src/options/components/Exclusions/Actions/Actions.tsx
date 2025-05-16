@@ -14,7 +14,8 @@ import { type ExclusionsContentMap } from '../../../../common/constants';
 import { log } from '../../../../common/logger';
 import { messenger } from '../../../../common/messenger';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
-import { Select } from '../../ui/Select';
+import { Select } from '../../../../common/components/Select';
+import { Icon } from '../../ui/Icon';
 
 import { SelectListModal } from './SelectListModal';
 import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
@@ -214,6 +215,7 @@ export const Actions = observer(() => {
         <>
             <div className="actions">
                 <Select
+                    titleIcon={<Icon name="arrow-down" className="select__btn-icon" />}
                     value={Action.Default}
                     options={[
                         {

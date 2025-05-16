@@ -20,6 +20,11 @@ export enum TelemetryScreenName {
     DialogDesktopVersionPromo = 'dialog_desktop_version_promo',
     DialogAccessWebsitesPermission = 'dialog_access_websites_permission',
     DialogCantConnect = 'dialog_cant_connect',
+    StatsScreen = 'stats_screen',
+    LocationScreen = 'location_screen',
+    SettingsStatsScreen = 'settings_stats_screen',
+    WhySafeScreen = 'why_safe_screen',
+    ClearStatsScreen = 'clear_stats_screen',
 
     // Options screens
     SettingsScreen = 'settings_screen',
@@ -90,6 +95,14 @@ export enum TelemetryActionName {
     CloseCantConnectClick = 'close_cant_connect_click',
     AllLocationsClick = 'all_locations_click',
     SavedLocationsClick = 'saved_locations_click',
+    FreeMenuStatsClick = 'free_menu_stats_click',
+    MenuStatsClick = 'menu_stats_click',
+    PeriodStatsClick = 'period_stats_click',
+    WhySafeClick = 'why_safe_click',
+    OpenClearStatsClick = 'open_clear_stats_click',
+    StatsPrivacyClick = 'stats_privacy_click',
+    StatsAllLocationsClick = 'stats_all_locations_click',
+    ClearStatsClick = 'clear_stats_click',
 
     // Options actions
     GeneralSettingsClick = 'general_settings_click',
@@ -221,7 +234,15 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.NudgeAdguardClick]: TelemetryScreenName.DialogCantConnect;
     [TelemetryActionName.CloseCantConnectClick]: TelemetryScreenName.DialogCantConnect;
     [TelemetryActionName.AllLocationsClick]: TelemetryScreenName.LocationsScreen;
-    [TelemetryActionName.SavedLocationsClick]: TelemetryScreenName.LocationsScreen
+    [TelemetryActionName.SavedLocationsClick]: TelemetryScreenName.LocationsScreen;
+    [TelemetryActionName.FreeMenuStatsClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.MenuStatsClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.PeriodStatsClick]: TelemetryScreenName.StatsScreen;
+    [TelemetryActionName.WhySafeClick]: TelemetryScreenName.SettingsStatsScreen;
+    [TelemetryActionName.OpenClearStatsClick]: TelemetryScreenName.SettingsStatsScreen;
+    [TelemetryActionName.StatsPrivacyClick]: TelemetryScreenName.WhySafeScreen;
+    [TelemetryActionName.StatsAllLocationsClick]: TelemetryScreenName.StatsScreen;
+    [TelemetryActionName.ClearStatsClick]: TelemetryScreenName.ClearStatsScreen;
 
     // Options actions
     [TelemetryActionName.GeneralSettingsClick]: TelemetryScreenName.ContextBasedScreen;

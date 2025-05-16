@@ -114,6 +114,8 @@ export class AuthStore {
 
     @observable showUpgradeScreen: boolean;
 
+    @observable forceShowUpgradeScreen: boolean = false;
+
     @observable showRateModal = false;
 
     @observable showConfirmRateModal = false;
@@ -215,7 +217,16 @@ export class AuthStore {
         await messenger.setFlag(FLAGS_FIELDS.SHOW_UPGRADE_SCREEN, value);
         runInAction(() => {
             this.showUpgradeScreen = value;
+
+            // Reset forceShowUpgradeScreen if showUpgradeScreen is set to false
+            if (!value) {
+                this.forceShowUpgradeScreen = false;
+            }
         });
+    };
+
+    @action setForceShowUpgradeScreen = (value: boolean) => {
+        this.forceShowUpgradeScreen = value;
     };
 
     @action setIsFirstRun = (value: boolean) => {
@@ -259,7 +270,7 @@ export class AuthStore {
 
     @computed
     get renderUpgradeScreen() {
-        return this.showUpgradeScreen && this.shouldRenderPromo;
+        return this.forceShowUpgradeScreen || (this.showUpgradeScreen && this.shouldRenderPromo);
     }
 
     @action authenticate = async () => {

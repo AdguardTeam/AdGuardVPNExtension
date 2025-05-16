@@ -57,7 +57,7 @@
         &-icon {
             width: 24px;
             height: 24px;
-            color: var(--stroke-icons-product-icons-default);
+            color: var(--stroke-icons-product-icon-default);
 
             &--active {
                 pointer-events: none;
@@ -167,7 +167,7 @@
             width: 48px;
             height: 48px;
             border-radius: 8px;
-            color: var(--stroke-icons-product-icons-default);
+            color: var(--stroke-icons-product-icon-default);
             background-color: var(--fills-backgrounds-page-background-additional-default);
         }
 
@@ -198,7 +198,7 @@
         padding: 12px 16px;
         background-color: transparent;
         overflow: hidden;
-        color: var(--text-main-text-main-default);
+        color: var(--text-description-description-default);
         text-align: center;
         text-overflow: ellipsis;
         font-size: 14px;
@@ -208,6 +208,13 @@
         cursor: pointer;
         /* Button should not wrap, to not expand button in height */
         white-space: nowrap;
+        transition: var(--t3) color;
+
+        &:hover,
+        &:active,
+        &--active {
+            color: var(--text-main-text-main-default);
+        }
 
         &::after {
             content: "";
@@ -215,12 +222,15 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 1px;
+            height: 2px;
             background-color: var(--stroke-dividers-item-divider-default);
+            transform: scaleY(0.5);
+            transform-origin: center bottom;
+            transition: var(--t3) background-color, var(--t3) transform;
         }
 
         &--active::after {
-            height: 2px;
+            transform: scaleY(1);
             background-color: var(--stroke-dividers-item-divider-green-default);
         }
     }
@@ -257,7 +267,7 @@
         }
 
         &-icon {
-            color: var(--stroke-icons-product-icons-default);
+            color: var(--stroke-icons-product-icon-default);
         }
 
         &-title,
