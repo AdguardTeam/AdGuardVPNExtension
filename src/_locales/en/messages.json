@@ -1088,13 +1088,16 @@
         "message": "Connection to VPN"
     },
     "popup_stats_connection_to_vpn_days": {
-        "message": "%days%d"
+        "message": "%days% d",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
     },
     "popup_stats_connection_to_vpn_hours": {
-        "message": "%hours%h"
+        "message": "%hours% h",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
     },
     "popup_stats_connection_to_vpn_minutes": {
-        "message": "%minutes%m"
+        "message": "%minutes% m",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
     },
     "popup_stats_locations": {
         "message": "Locations"
