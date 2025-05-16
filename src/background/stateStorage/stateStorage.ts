@@ -7,6 +7,7 @@ import {
     type StorageData,
     DEFAULT_STORAGE_DATA,
 } from '../schema';
+import { Prefs } from '../../common/prefs';
 
 export interface StateStorageInterface {
     getItem<T>(key: StorageKey): T;
@@ -62,8 +63,17 @@ export class StateStorage implements StateStorageInterface {
 
         (<T> this.state[key]) = value;
 
+        /**
+         * Strip non-serializable data from the object before storing it in the session storage
+         * in Firefox, because it throws an error when trying to store non-serializable data.
+         */
+        let storageValue = value;
+        if (Prefs.isFirefox() && typeof value === 'object') {
+            storageValue = JSON.parse(JSON.stringify(value));
+        }
+
         browser.storage.session
-            .set({ [key]: value })
+            .set({ [key]: storageValue })
             .catch((e) => {
                 log.error(e);
             });
