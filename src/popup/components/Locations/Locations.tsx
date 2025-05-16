@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
+import { CSSTransition } from 'react-transition-group';
 
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
@@ -30,6 +31,7 @@ export const Locations = observer(() => {
         telemetryStore,
     } = useContext(rootStore);
 
+    const nodeRef = useRef<HTMLDivElement>(null);
     const isSearchTelemetrySent = useRef(false);
 
     const deletedNotificationTimeout = useRef<NodeJS.Timeout>();
@@ -47,6 +49,8 @@ export const Locations = observer(() => {
         isSavedLocationsTab,
         notSearchingAndSavedTab,
     } = vpnStore;
+
+    const { isOpenEndpointsSearch } = uiStore;
 
     const handleLocationSelect = async (id: string) => {
         const prevId = vpnStore.selectedLocation?.id;
@@ -170,73 +174,81 @@ export const Locations = observer(() => {
     };
 
     return (
-        <div className="endpoints">
-            <div className="endpoints__header">
-                {translator.getMessage('endpoints_countries')}
-                <button
-                    type="button"
-                    className="button endpoints__back"
-                    onClick={handleLocationsClose}
-                >
-                    <Icon icon="back" className="icon--button" />
-                </button>
-                <Reload />
-            </div>
-            <Search
-                value={vpnStore.searchValue}
-                onChange={handleSearchInput}
-                onClear={handleSearchClear}
-            />
-            {!showSearchResults && <TabButtons />}
-            <div className="endpoints__scroll">
-                {notSearchingAndSavedTab && (
-                    <div className="endpoints__list">
-                        <div className="endpoints__title">
-                            {translator.getMessage('endpoints_fastest')}
+        <CSSTransition
+            nodeRef={nodeRef}
+            in={isOpenEndpointsSearch}
+            timeout={300}
+            classNames="fade"
+            unmountOnExit
+        >
+            <div ref={nodeRef} className="endpoints">
+                <div className="endpoints__header">
+                    {translator.getMessage('endpoints_countries')}
+                    <button
+                        type="button"
+                        className="button endpoints__back"
+                        onClick={handleLocationsClose}
+                    >
+                        <Icon icon="back" className="icon--button" />
+                    </button>
+                    <Reload />
+                </div>
+                <Search
+                    value={vpnStore.searchValue}
+                    onChange={handleSearchInput}
+                    onClear={handleSearchClear}
+                />
+                {!showSearchResults && <TabButtons />}
+                <div className="endpoints__scroll">
+                    {notSearchingAndSavedTab && (
+                        <div className="endpoints__list">
+                            <div className="endpoints__title">
+                                {translator.getMessage('endpoints_fastest')}
+                            </div>
+                            {fastestLocationsToDisplay.length > 0 ? (
+                                renderLocations(fastestLocationsToDisplay)
+                            ) : (
+                                <FastestSkeleton />
+                            )}
                         </div>
-                        {fastestLocationsToDisplay.length > 0 ? (
-                            renderLocations(fastestLocationsToDisplay)
-                        ) : (
-                            <FastestSkeleton />
-                        )}
-                    </div>
-                )}
+                    )}
 
-                {renderFilteredEndpoint()}
-            </div>
+                    {renderFilteredEndpoint()}
+                </div>
 
-            {lastUnsavedLocation && (
-                <div className="endpoints__notification">
-                    <div className="endpoints__notification-wrapper">
-                        <Icon
-                            icon="info"
-                            className="endpoints__notification-icon"
-                        />
-                        <div className="endpoints__notification-content">
-                            <div className="endpoints__notification-title">
-                                {translator.getMessage('endpoints_saved_location_deleted')}
+                {lastUnsavedLocation && (
+                    <div className="endpoints__notification">
+                        <div className="endpoints__notification-wrapper">
+                            <Icon
+                                icon="info"
+                                className="endpoints__notification-icon"
+                            />
+                            <div className="endpoints__notification-content">
+                                <div className="endpoints__notification-title">
+                                    {translator.getMessage('endpoints_saved_location_deleted')}
+                                </div>
+                                <button
+                                    type="button"
+                                    className="endpoints__notification-undo"
+                                    onClick={handleNotificationUndo}
+                                >
+                                    {translator.getMessage('settings_exclusions_undo')}
+                                </button>
                             </div>
                             <button
                                 type="button"
-                                className="endpoints__notification-undo"
-                                onClick={handleNotificationUndo}
+                                className="endpoints__notification-close"
+                                onClick={handleNotificationClose}
                             >
-                                {translator.getMessage('settings_exclusions_undo')}
+                                <Icon
+                                    icon="cross"
+                                    className="endpoints__notification-close-icon icon--button"
+                                />
                             </button>
                         </div>
-                        <button
-                            type="button"
-                            className="endpoints__notification-close"
-                            onClick={handleNotificationClose}
-                        >
-                            <Icon
-                                icon="cross"
-                                className="endpoints__notification-close-icon icon--button"
-                            />
-                        </button>
                     </div>
-                </div>
-            )}
-        </div>
+                )}
+            </div>
+        </CSSTransition>
     );
 });

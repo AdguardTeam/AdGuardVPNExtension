@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
-import { CSSTransition } from 'react-transition-group';
 
 import { Header } from '../Header';
 import { InfoMessage, FeedbackMessage } from '../InfoMessage';
@@ -68,7 +67,7 @@ export const App = observer(() => {
 
     const { initStatus } = globalStore;
 
-    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+    const { isOpenOptionsModal } = uiStore;
 
     const {
         premiumPromoEnabled,
@@ -377,14 +376,7 @@ export const App = observer(() => {
                 isLimitedOfferActive
                 && <LimitedOfferModal />
             }
-            <CSSTransition
-                in={isOpenEndpointsSearch}
-                timeout={300}
-                classNames="fade"
-                unmountOnExit
-            >
-                <Locations />
-            </CSSTransition>
+            <Locations />
             {isCurrentTabExcluded && canBeExcluded
                 ? <ExclusionsScreen />
                 : (
