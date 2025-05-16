@@ -11,6 +11,21 @@ type ConnectivityInterpreter = ReturnType<typeof createConnectivityInterpreter>;
 
 type ConnectivityFsmState = Parameters<NonNullable<Parameters<ConnectivityInterpreter['subscribe']>[0]>>[0];
 
+/**
+ * Connectivity state change event type.
+ */
+export interface ConnectivityStateChangeEvent {
+    /**
+     * New connectivity state type.
+     */
+    value: ConnectivityStateType;
+
+    /**
+     * Event type.
+     */
+    event: ConnectivityEventType;
+}
+
 // TODO: use custom interpreter instead wrapper
 /**
  * This service manages connectivity via xstate FSM.
@@ -79,10 +94,15 @@ export class ConnectivityService {
 
         if (state.changed) {
             log.debug(`Current state: ${state.value}`);
-            notifier.notifyListeners(notifier.types.CONNECTIVITY_STATE_CHANGED, {
-                value: state.value,
-                event: state.event.type,
-            });
+
+            // Emit event to listeners
+            const event: ConnectivityStateChangeEvent = {
+                value: state.value as ConnectivityStateType,
+                event: state.event.type as ConnectivityEventType,
+            };
+            notifier.notifyListeners(notifier.types.CONNECTIVITY_STATE_CHANGED, event);
+
+            // Update state in storage
             stateStorage.setItem<ConnectivityData>(StorageKey.ConnectivityData, {
                 context: state.context,
                 state: state.value as ConnectivityStateType,
