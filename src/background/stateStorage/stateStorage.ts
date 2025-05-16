@@ -69,7 +69,13 @@ export class StateStorage implements StateStorageInterface {
          */
         let storageValue = value;
         if (Prefs.isFirefox() && typeof value === 'object') {
-            storageValue = JSON.parse(JSON.stringify(value));
+            try {
+                storageValue = JSON.parse(JSON.stringify(value));
+            } catch (e) {
+                // only circular reference can cause this error
+                log.error('Unable to serialize data for storage:', e.message);
+                return;
+            }
         }
 
         browser.storage.session
