@@ -195,7 +195,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     /**
      * Initializes the statistics provider.
      */
-    public async init(): Promise<void> {
+    public init = async (): Promise<void> => {
         try {
             this.state = this.stateStorage.getItem(StorageKey.StatisticsState);
             await this.statisticsStorage.init();
@@ -203,7 +203,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         } catch (e) {
             log.error('Unable to initialize statistics provider, due to error:', e);
         }
-    }
+    };
 
     /**
      * Retrieves the base data for adding statistics.
