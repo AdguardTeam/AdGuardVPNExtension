@@ -260,10 +260,22 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         const isConnected = state.value === ConnectivityStateType.Connected;
         this.isConnected = isConnected;
 
+        const baseData = this.getAddBaseData();
+
+        /**
+         * Do nothing if we can't add statistics because:
+         * 1. Is not connected
+         * 2. User is not a premium
+         * 3. Account ID or location ID is not set
+         */
+        if (!baseData) {
+            return;
+        }
+
         if (isConnected) {
-            // FIXME: Save timestamp to measure connection duration later
+            this.statisticsStorage.startDuration(baseData);
         } else {
-            // FIXME: Calculate connection duration and save it to storage
+            this.statisticsStorage.endDuration(baseData);
         }
     }
 
