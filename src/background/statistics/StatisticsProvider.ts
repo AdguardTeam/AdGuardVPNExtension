@@ -5,6 +5,7 @@ import { type CredentialsInterface } from '../credentials/Credentials';
 import { StorageKey, type LocationInterface, ConnectivityStateType } from '../schema';
 import { type StatisticsState } from '../schema/statistics';
 import { type StateStorageInterface } from '../stateStorage/stateStorage.abstract';
+import { type TimersInterface } from '../timers/AbstractTimers';
 
 import { type StatisticsStorageInterface } from './StatisticsStorage';
 import { type AddStatisticsDataBase } from './statisticsTypes';
@@ -37,6 +38,11 @@ export interface StatisticsProviderParameters {
      * Credentials instance.
      */
     credentials: CredentialsInterface;
+
+    /**
+     * Timers instance.
+     */
+    timers: TimersInterface;
 }
 
 /**
@@ -44,6 +50,11 @@ export interface StatisticsProviderParameters {
  * FIXME: Add tests
  */
 export class StatisticsProvider implements StatisticsProviderInterface {
+    /**
+     * Update duration interval in milliseconds (5 minutes).
+     */
+    private static readonly TIMER_UPDATE_INTERVAL = 5 * 60 * 1000;
+
     /**
      * Browser session storage.
      */
@@ -60,6 +71,11 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     private credentials: CredentialsInterface;
 
     /**
+     * Timers instance.
+     */
+    private timers: TimersInterface;
+
+    /**
      * State of the statistics provider.
      *
      * Initialized in {@link init} method.
@@ -73,10 +89,12 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         stateStorage,
         statisticsStorage,
         credentials,
+        timers,
     }: StatisticsProviderParameters) {
         this.stateStorage = stateStorage;
         this.statisticsStorage = statisticsStorage;
         this.credentials = credentials;
+        this.timers = timers;
 
         notifier.addSpecifiedListener(
             notifier.types.TRAFFIC_STATS_UPDATED,
@@ -101,6 +119,10 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         notifier.addSpecifiedListener(
             notifier.types.USER_DEAUTHENTICATED,
             this.handleUserDeauthenticated.bind(this),
+        );
+        this.timers.setInterval(
+            this.handleTimerUpdate.bind(this),
+            StatisticsProvider.TIMER_UPDATE_INTERVAL,
         );
     }
 
@@ -294,5 +316,25 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      */
     private handleUserDeauthenticated(): void {
         this.accountId = null;
+    }
+
+    /**
+     * Handles timer update event.
+     * This event is fired at regular intervals to update the duration statistics.
+     */
+    private handleTimerUpdate(): void {
+        const baseData = this.getAddBaseData();
+
+        /**
+         * Do nothing if we can't add statistics because:
+         * 1. Is not connected
+         * 2. User is not a premium
+         * 3. Account ID or location ID is not set
+         */
+        if (!baseData) {
+            return;
+        }
+
+        this.statisticsStorage.updateDuration(baseData);
     }
 }
