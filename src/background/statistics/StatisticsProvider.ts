@@ -178,7 +178,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             this.state = this.stateStorage.getItem(StorageKey.StatisticsState);
             log.info('Statistics provider ready');
         } catch (e) {
-            log.error('Unable to initialize statistics provider, due to error:', e.message);
+            log.error('Unable to initialize statistics provider, due to error:', e);
         }
     }
 
