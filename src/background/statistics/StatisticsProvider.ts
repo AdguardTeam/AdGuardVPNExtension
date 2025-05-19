@@ -280,7 +280,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      *
      * @param event Stats event data.
      */
-    private handleTrafficStatsUpdated(event: WsConnectivityInfoMsgTraffic): void {
+    private async handleTrafficStatsUpdated(event: WsConnectivityInfoMsgTraffic): Promise<void> {
         const baseData = this.getAddBaseData();
 
         /**
@@ -297,7 +297,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         }
 
         // Add traffic statistics to storage
-        this.statisticsStorage.addTraffic({
+        await this.statisticsStorage.addTraffic({
             ...baseData,
             downloaded: event.bytesDownloaded,
             uploaded: event.bytesUploaded,
@@ -330,7 +330,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      *
      * @param state Connectivity state change event data.
      */
-    private handleConnectivityStateChanged(state: ConnectivityStateChangeEvent): void {
+    private async handleConnectivityStateChanged(state: ConnectivityStateChangeEvent): Promise<void> {
         const baseData = this.getAddBaseData();
 
         /**
@@ -343,10 +343,10 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         }
 
         if (state.value === ConnectivityStateType.Connected) {
-            this.statisticsStorage.startDuration(baseData);
+            await this.statisticsStorage.startDuration(baseData);
             this.startDurationInterval();
         } else {
-            this.statisticsStorage.endDuration(baseData);
+            await this.statisticsStorage.endDuration(baseData);
             this.clearDurationInterval();
         }
     }
@@ -371,7 +371,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * Handles timer update event.
      * This event is fired at regular intervals to update the duration statistics.
      */
-    private handleTimerUpdate(): void {
+    private async handleTimerUpdate(): Promise<void> {
         const baseData = this.getAddBaseData();
 
         /**
@@ -386,6 +386,6 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             return;
         }
 
-        this.statisticsStorage.updateDuration(baseData);
+        await this.statisticsStorage.updateDuration(baseData);
     }
 }
