@@ -46,14 +46,36 @@ export interface StatisticsProviderParameters {
 }
 
 /**
- * FIXME: Add jsdoc
- * FIXME: Add tests
+ * Statistics provider.
+ * This class is responsible for providing statistics data to {@link StatisticsStorageInterface}.
+ * It listens to events from the {@link notifier} and updates the statistics storage accordingly.
+ * Also, it sets interval to update the connection duration data every 5 minutes.
+ *
+ * Before updating the statistics storage, it performs following checks:
+ * - Is the user connected?
+ * - Is the user a premium user?
+ * - Is the user authenticated?
+ * - Is the user selected a location?
+ *
+ * If any of these checks fail, the statistics storage will not be updated.
  */
 export class StatisticsProvider implements StatisticsProviderInterface {
     /**
      * Update duration interval in milliseconds (5 minutes).
      */
     private static readonly TIMER_UPDATE_INTERVAL = 5 * 60 * 1000;
+
+    /**
+     * List of events that are used to update the statistics storage.
+     */
+    private static readonly NOTIFIER_EVENTS = [
+        notifier.types.TRAFFIC_STATS_UPDATED,
+        notifier.types.CURRENT_LOCATION_UPDATED,
+        notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
+        notifier.types.CONNECTIVITY_STATE_CHANGED,
+        notifier.types.USER_AUTHENTICATED,
+        notifier.types.USER_DEAUTHENTICATED,
+    ];
 
     /**
      * Browser session storage.
@@ -97,28 +119,8 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         this.timers = timers;
 
         notifier.addSpecifiedListener(
-            notifier.types.TRAFFIC_STATS_UPDATED,
-            this.handleTrafficStatsUpdated.bind(this),
-        );
-        notifier.addSpecifiedListener(
-            notifier.types.CURRENT_LOCATION_UPDATED,
-            this.handleCurrentLocationUpdated.bind(this),
-        );
-        notifier.addSpecifiedListener(
-            notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
-            this.handleTokenPremiumStateUpdated.bind(this),
-        );
-        notifier.addSpecifiedListener(
-            notifier.types.CONNECTIVITY_STATE_CHANGED,
-            this.handleConnectivityStateChanged.bind(this),
-        );
-        notifier.addSpecifiedListener(
-            notifier.types.USER_AUTHENTICATED,
-            this.handleUserAuthenticated.bind(this),
-        );
-        notifier.addSpecifiedListener(
-            notifier.types.USER_DEAUTHENTICATED,
-            this.handleUserDeauthenticated.bind(this),
+            StatisticsProvider.NOTIFIER_EVENTS,
+            this.handleNotifierEvent.bind(this),
         );
         this.timers.setInterval(
             this.handleTimerUpdate.bind(this),
@@ -224,6 +226,33 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             accountId: this.accountId,
             locationId: this.locationId,
         };
+    }
+
+    /**
+     * Handles event from the notifier.
+     *
+     * @param event Event type.
+     * @param args Event arguments.
+     */
+    // eslint-disable-next-line consistent-return
+    private handleNotifierEvent(event: string, ...args: any[]): void | Promise<void> {
+        switch (event) {
+            case notifier.types.TRAFFIC_STATS_UPDATED:
+                return this.handleTrafficStatsUpdated(args[0]);
+            case notifier.types.CURRENT_LOCATION_UPDATED:
+                return this.handleCurrentLocationUpdated(args[0]);
+            case notifier.types.TOKEN_PREMIUM_STATE_UPDATED:
+                return this.handleTokenPremiumStateUpdated(args[0]);
+            case notifier.types.CONNECTIVITY_STATE_CHANGED:
+                return this.handleConnectivityStateChanged(args[0]);
+            case notifier.types.USER_AUTHENTICATED:
+                return this.handleUserAuthenticated();
+            case notifier.types.USER_DEAUTHENTICATED:
+                return this.handleUserDeauthenticated();
+            default:
+                // Do nothing
+                break;
+        }
     }
 
     /**
