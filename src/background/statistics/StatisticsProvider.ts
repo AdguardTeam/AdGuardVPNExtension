@@ -50,6 +50,7 @@ export interface StatisticsProviderParameters {
  * This class is responsible for providing statistics data to {@link StatisticsStorageInterface}.
  * It listens to events from the {@link notifier} and updates the statistics storage accordingly.
  * Also, it sets interval to update the connection duration data every 5 minutes.
+ * Interval is started only when the user is connected to the Proxy.
  *
  * Before updating the statistics storage, it performs following checks:
  * - Is the user connected?
@@ -122,10 +123,6 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             StatisticsProvider.NOTIFIER_EVENTS,
             this.handleNotifierEvent.bind(this),
         );
-        this.timers.setInterval(
-            this.handleTimerUpdate.bind(this),
-            StatisticsProvider.TIMER_UPDATE_INTERVAL,
-        );
     }
 
     /**
@@ -133,21 +130,6 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      */
     private saveState(): void {
         this.stateStorage.setItem(StorageKey.StatisticsState, this.state);
-    }
-
-    /**
-     * `isConnected` state property getter.
-     */
-    private get isConnected(): boolean {
-        return this.state.isConnected;
-    }
-
-    /**
-     * `isConnected` state property setter.
-     */
-    private set isConnected(value: boolean) {
-        this.state.isConnected = value;
-        this.saveState();
     }
 
     /**
@@ -196,6 +178,21 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     }
 
     /**
+     * `durationIntervalId` state property getter.
+     */
+    private get durationIntervalId(): number | null {
+        return this.state.durationIntervalId;
+    }
+
+    /**
+     * `durationIntervalId` state property setter.
+     */
+    private set durationIntervalId(value: number | null) {
+        this.state.durationIntervalId = value;
+        this.saveState();
+    }
+
+    /**
      * Initializes the statistics provider.
      */
     public async init(): Promise<void> {
@@ -223,6 +220,31 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             accountId: this.accountId,
             locationId: this.locationId,
         };
+    }
+
+    /**
+     * Starts the duration interval.
+     */
+    private startDurationInterval(): void {
+        if (this.durationIntervalId) {
+            this.timers.clearInterval(this.durationIntervalId);
+            this.durationIntervalId = null;
+        }
+
+        this.durationIntervalId = this.timers.setInterval(
+            this.handleTimerUpdate.bind(this),
+            StatisticsProvider.TIMER_UPDATE_INTERVAL,
+        );
+    }
+
+    /**
+     * Clears the duration interval.
+     */
+    private clearDurationInterval(): void {
+        if (this.durationIntervalId) {
+            this.timers.clearInterval(this.durationIntervalId);
+            this.durationIntervalId = null;
+        }
     }
 
     /**
@@ -320,13 +342,12 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             return;
         }
 
-        const isConnected = state.value === ConnectivityStateType.Connected;
-        this.isConnected = isConnected;
-
-        if (isConnected) {
+        if (state.value === ConnectivityStateType.Connected) {
             this.statisticsStorage.startDuration(baseData);
+            this.startDurationInterval();
         } else {
             this.statisticsStorage.endDuration(baseData);
+            this.clearDurationInterval();
         }
     }
 
@@ -355,11 +376,13 @@ export class StatisticsProvider implements StatisticsProviderInterface {
 
         /**
          * Do nothing if we can't update duration statistics because:
-         * 1. Is not connected
-         * 2. User is not a premium
-         * 3. Account ID or location ID is not set
+         * 1. User is not a premium
+         * 2. Account ID or location ID is not set
+         *
+         * Note: We do not check if the user is connected because interval is started
+         * only when user is connected to Proxy. Otherwise, the interval is cleared.
          */
-        if (!this.isConnected || !baseData) {
+        if (!baseData) {
             return;
         }
 
