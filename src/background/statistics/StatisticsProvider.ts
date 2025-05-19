@@ -41,6 +41,7 @@ export interface StatisticsProviderParameters {
 
 /**
  * FIXME: Add jsdoc
+ * FIXME: Add tests
  */
 export class StatisticsProvider implements StatisticsProviderInterface {
     /**
