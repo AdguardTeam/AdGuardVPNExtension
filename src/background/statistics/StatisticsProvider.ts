@@ -177,6 +177,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     public async init(): Promise<void> {
         try {
             this.state = this.stateStorage.getItem(StorageKey.StatisticsState);
+            await this.statisticsStorage.init();
             log.info('Statistics provider ready');
         } catch (e) {
             log.error('Unable to initialize statistics provider, due to error:', e);
