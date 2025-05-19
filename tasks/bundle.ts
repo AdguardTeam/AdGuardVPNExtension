@@ -36,14 +36,14 @@ program
 
 program
     .command(Browser.Chrome)
-    .description('Builds extension for chrome browser with manifest version 3')
+    .description('Builds extension for chrome browser')
     .action(async () => {
         await createBundle(chromeConfig, program.watch);
     });
 
 program
     .command(Browser.Firefox)
-    .description('Builds extension for firefox browser with manifest version 3')
+    .description('Builds extension for firefox browser')
     .action(async () => {
         await createBundle(firefoxConfig, program.watch);
 

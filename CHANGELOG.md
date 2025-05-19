@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Title to saved locations tab [#211].
 - Hover effect to saved location tabs [#214].
 
+### Changed
+
+- The minimum supported Opera version is now 109 due to MV3 migration.
+- The minimum supported Firefox version is now 115 due to `storage.session` adoption.
+
 ### Fixed
 
 - Email field is not mandatory in the report bug form [#204].

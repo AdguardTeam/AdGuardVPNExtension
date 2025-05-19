@@ -1,11 +1,23 @@
-import { log } from '../../../common/logger';
+import browser from 'webextension-polyfill';
+
+import { log } from '../../common/logger';
 import {
     type StorageKey,
     storageDataScheme,
     type StorageData,
     DEFAULT_STORAGE_DATA,
-} from '../../schema';
-import { type StateStorageInterface } from '../stateStorage.abstract';
+} from '../schema';
+import { Prefs } from '../../common/prefs';
+
+export interface StateStorageInterface {
+    getItem<T>(key: StorageKey): T;
+
+    setItem<T>(key: StorageKey, value: T): void;
+
+    init(): Promise<void>;
+
+    waitInit(): Promise<void>;
+}
 
 /**
  * A class provides methods for storing and retrieving data in the browser's session storage.
@@ -14,7 +26,7 @@ import { type StateStorageInterface } from '../stateStorage.abstract';
  *
  * @implements {StateStorageInterface}
  */
-class StateStorage implements StateStorageInterface {
+export class StateStorage implements StateStorageInterface {
     private isInit = false;
 
     private state: StorageData;
@@ -51,8 +63,23 @@ class StateStorage implements StateStorageInterface {
 
         (<T> this.state[key]) = value;
 
-        chrome.storage.session
-            .set({ [key]: value })
+        /**
+         * Strip non-serializable data from the object before storing it in the session storage
+         * in Firefox, because it throws an error when trying to store non-serializable data.
+         */
+        let storageValue = value;
+        if (Prefs.isFirefox() && typeof value === 'object') {
+            try {
+                storageValue = JSON.parse(JSON.stringify(value));
+            } catch (e) {
+                // only circular reference can cause this error
+                log.error('Unable to serialize data for storage:', e);
+                return;
+            }
+        }
+
+        browser.storage.session
+            .set({ [key]: storageValue })
             .catch((e) => {
                 log.error(e);
             });
@@ -64,13 +91,13 @@ class StateStorage implements StateStorageInterface {
      */
     private innerInit = async (): Promise<void> => {
         try {
-            const res = storageDataScheme.safeParse(await chrome.storage.session.get(null));
+            const res = storageDataScheme.safeParse(await browser.storage.session.get(null));
 
             if (res.success) {
                 this.state = res.data;
             } else {
                 this.state = { ...DEFAULT_STORAGE_DATA };
-                await chrome.storage.session.set(this.state);
+                await browser.storage.session.set(this.state);
             }
 
             this.isInit = true;
@@ -105,5 +132,3 @@ class StateStorage implements StateStorageInterface {
         return this.initPromise;
     }
 }
-
-export const stateStorage = new StateStorage();

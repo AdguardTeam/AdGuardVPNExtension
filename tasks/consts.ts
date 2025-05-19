@@ -45,6 +45,16 @@ export const GECKO_ID_ENV_MAP = {
     [Env.Release]: 'adguard-vpn@adguard.com',
 };
 
+/**
+ * Minimum supported browser versions.
+ *
+ * IMPORTANT! Update browser compatibility in the README.md file when changing the versions.
+ */
+export const MIN_SUPPORTED_VERSION = {
+    CHROMIUM: 109,
+    FIREFOX: 115,
+};
+
 export const { BUILD_ENV, STAGE_ENV } = process.env;
 
 export const IS_DEV = BUILD_ENV ? BUILD_ENV === Env.Dev : true;

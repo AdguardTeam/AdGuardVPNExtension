@@ -2,14 +2,7 @@ import { ExclusionsService } from '../../../src/background/exclusions/Exclusions
 import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
 import { proxy } from '../../../src/background/proxy';
-import { session } from '../../__mocks__';
-// TODO: test mv3 after official switch to mv3
-import { stateStorage } from '../../../src/background/stateStorage/mv2';
-
-jest.mock('../../../src/background/stateStorage', () => {
-    // eslint-disable-next-line global-require
-    return require('../../../src/background/stateStorage/mv2');
-});
+import { stateStorage } from '../../../src/background/stateStorage';
 
 jest.mock('../../../src/background/browserApi', () => {
     // eslint-disable-next-line global-require
@@ -87,13 +80,6 @@ getIndexedServicesMock.mockReturnValue({
     'aliexpress.com': 'aliexpress',
     'aliexpress.ru': 'aliexpress',
 });
-
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
-};
 
 describe('ExclusionsService', () => {
     beforeEach(async () => {

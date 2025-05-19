@@ -11,7 +11,6 @@ import { forwarder } from './forwarder';
 import { settings } from './settings';
 import { FORWARDER_URL_QUERIES, type ForwarderUrlQueryKey } from './config';
 import { promoNotifications } from './promoNotifications';
-import { browserAction } from './browserAction';
 
 type SetIconDetailsType = browser.Action.SetIconDetailsType;
 type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
@@ -110,7 +109,7 @@ const openOptionsPage = async (
 
 const setIcon = async (details: SetIconDetailsType): Promise<void> => {
     try {
-        await browserAction.setIcon(details);
+        await browser.action.setIcon(details);
     } catch (e) {
         log.debug(e.message);
     }
@@ -120,10 +119,10 @@ const BADGE_COLOR = '#74a352';
 
 const setBadge = async (details: SetBadgeDetailsType): Promise<void> => {
     try {
-        await browserAction.setBadgeText(details);
+        await browser.action.setBadgeText(details);
         const { tabId } = details;
 
-        await browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
+        await browser.action.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
     } catch (e) {
         log.debug(e.message);
     }

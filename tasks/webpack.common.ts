@@ -47,7 +47,7 @@ const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!a
 export const getCommonConfig = (browser: string): webpack.Configuration => {
     return {
         mode: IS_DEV ? 'development' : 'production',
-        // we don't use eval source maps because of CSP in MV3
+        // we don't use eval source maps because of CSP
         devtool: IS_DEV ? 'inline-source-map' : false,
         optimization: {
             minimize: false,
@@ -188,13 +188,16 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     throw new Error(`There is no proxy api for browser: ${browser}`);
                 }
             })),
-            new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\.abstract/, ((resource: any) => {
-                if (browser === Browser.Chrome) {
+            new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
+                if (browser !== Browser.Firefox) {
+                    // TODO remove this replacement when Chromium based MV3 will fix alarms bug,
+                    //  https://github.com/AdguardTeam/AdGuardVPNExtension/issues/116
+                    //  https://bugs.chromium.org/p/chromium/issues/detail?id=1472759
                     // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/stateStorage\.abstract/, './mv3');
+                    resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
                 } else {
                     // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/stateStorage\.abstract/, './mv2');
+                    resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
                 }
             })),
             new CleanWebpackPlugin(cleanOptions),
