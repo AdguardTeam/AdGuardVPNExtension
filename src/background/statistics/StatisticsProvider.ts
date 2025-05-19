@@ -268,7 +268,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
          *
          * Note: We do not check if the user is connected because the traffic statistics
          * are sent only when the user is connected to WebSocket. But there might be
-         * case when WebSocket is sent this event later when user is already disconnected.
+         * case when WebSocket sends this event later when user is already disconnected from Proxy.
          */
         if (!baseData) {
             return;
