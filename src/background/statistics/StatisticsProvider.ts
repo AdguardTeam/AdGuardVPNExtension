@@ -211,14 +211,11 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     /**
      * Retrieves the base data for adding statistics.
      *
-     * @returns Base data for adding statistics or null if not connected,
-     * not a premium token or accountId/locationId is not set.
+     * @returns Base data for adding statistics or null if account ID / location ID is not set,
+     * or if the token is not premium.
      */
     private getAddBaseData(): AddStatisticsDataBase | null {
-        if (!this.isConnected
-            || !this.isPremiumToken
-            || !this.accountId
-            || !this.locationId) {
+        if (!this.isPremiumToken || !this.accountId || !this.locationId) {
             return null;
         }
 
@@ -266,9 +263,12 @@ export class StatisticsProvider implements StatisticsProviderInterface {
 
         /**
          * Do nothing if we can't add statistics because:
-         * 1. Is not connected
-         * 2. User is not a premium
-         * 3. Account ID or location ID is not set
+         * 1. User is not a premium
+         * 2. Account ID or location ID is not set
+         *
+         * Note: We do not check if the user is connected because the traffic statistics
+         * are sent only when the user is connected to WebSocket. But there might be
+         * case when WebSocket is sent this event later when user is already disconnected.
          */
         if (!baseData) {
             return;
@@ -309,20 +309,19 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * @param state Connectivity state change event data.
      */
     private handleConnectivityStateChanged(state: ConnectivityStateChangeEvent): void {
-        const isConnected = state.value === ConnectivityStateType.Connected;
-        this.isConnected = isConnected;
-
         const baseData = this.getAddBaseData();
 
         /**
          * Do nothing if we can't add statistics because:
-         * 1. Is not connected
-         * 2. User is not a premium
-         * 3. Account ID or location ID is not set
+         * 1. User is not a premium
+         * 2. Account ID or location ID is not set
          */
         if (!baseData) {
             return;
         }
+
+        const isConnected = state.value === ConnectivityStateType.Connected;
+        this.isConnected = isConnected;
 
         if (isConnected) {
             this.statisticsStorage.startDuration(baseData);
@@ -355,12 +354,12 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         const baseData = this.getAddBaseData();
 
         /**
-         * Do nothing if we can't add statistics because:
+         * Do nothing if we can't update duration statistics because:
          * 1. Is not connected
          * 2. User is not a premium
          * 3. Account ID or location ID is not set
          */
-        if (!baseData) {
+        if (!this.isConnected || !baseData) {
             return;
         }
 
