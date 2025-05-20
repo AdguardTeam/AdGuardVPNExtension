@@ -1,5 +1,5 @@
 // TODO: fix NetworkConnectionObserver implementation:
-//  listen for the online event, when it will be fixed in mv3,
+//  listen for the online event, when it will be fixed,
 //  instead of using setInterval to check navigator.onLine
 //  https://bugs.chromium.org/p/chromium/issues/detail?id=1442046#c7
 

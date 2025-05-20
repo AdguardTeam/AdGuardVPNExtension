@@ -14,7 +14,7 @@ export const openThankYouPage = async (): Promise<void> => {
     const forwarderDomain = await forwarder.updateAndGetDomain();
 
     /**
-     * Needed for auth on website after install in Firefox MV3
+     * Needed for auth on website after install in Firefox
      * since content-script cannot be injected and custom protocol handler is implemented,
      * so to avoid custom url redirecting for older versions of the extension
      * extra query param is added to the url `firefox=true`

@@ -141,8 +141,7 @@ By default, you will have builds for all browsers:
 - Chrome — manifest versions **3**
 - Firefox — manifest version **3**
 - Edge — manifest version **3**
-<!-- TODO: check later if manifest version can be updated for Opera. AG-40386 -->
-- Opera — manifest version **2**
+- Opera — manifest version **3**
 
 You can specify browser in arguments. See examples below:
 
@@ -248,8 +247,9 @@ For a full list of all `npm` packages in use, please take a look at [package.jso
 
 ## <a name='minimum-supported-browser-versions'></a> Minimum supported browser versions
 
+<!-- NOTE: see MIN_SUPPORTED_VERSION in ./tasks/consts.ts -->
+
 | Browser                     | Version |
 |-----------------------------|---------|
-| Chromium Based Browsers MV3 | 109     |
-| Chromium Based Browsers MV2 | 66      |
-| Firefox                     | 91.1    |
+| Chromium Based Browsers     | 109     |
+| Firefox                     | 115     |

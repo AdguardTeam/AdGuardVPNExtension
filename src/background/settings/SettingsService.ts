@@ -213,7 +213,7 @@ export class SettingsService {
     };
 
     migrateFrom10to11 = (oldSettings: Settings) => {
-        if (browserApi.runtime.isManifestVersion2()) {
+        if (browserApi.runtime.getManifest().manifest_version === 2) {
             const appearanceTheme = localStorage.getItem(THEME_STORAGE_KEY);
             if (appearanceTheme) {
                 browserApi.storage.set(THEME_STORAGE_KEY, appearanceTheme);

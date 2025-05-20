@@ -1,10 +1,11 @@
 import { useContext, useEffect, useRef } from 'react';
 
+import browser, { type Runtime } from 'webextension-polyfill';
+
 import { notifier } from '../../common/notifier';
-import { type Message, messenger } from '../../common/messenger';
+import { type NotifierMessage, messenger } from '../../common/messenger';
 import { MessageType, SETTINGS_IDS } from '../../common/constants';
 import { log } from '../../common/logger';
-import { Prefs } from '../../common/prefs';
 import { rootStore } from '../stores';
 
 const NOTIFIER_EVENTS = [
@@ -27,7 +28,7 @@ export const useMessageHandler = () => {
     const reloadingRef = useRef<boolean>(false);
     const callbackRef = useRef<(() => Promise<void>) | null>(null);
 
-    const messageHandler = async (message: Message) => {
+    const messageHandler = async (message: NotifierMessage) => {
         const { type, data, value } = message;
 
         switch (type) {
@@ -74,7 +75,27 @@ export const useMessageHandler = () => {
         return messenger.createEventListener(NOTIFIER_EVENTS, messageHandler);
     };
 
-    const handleBrowserMessage = async (message: any) => {
+    /**
+     * Handle messages from the background page.
+     * This function intentionally not async to avoid interception of several
+     * listeners. In order to deal with async code we return `true` as result
+     * of listener to keep the message channel open until the response is sent.
+     *
+     * @see {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage#sending_an_asynchronous_response_using_sendresponse}
+     *
+     * @param message Message from background page.
+     * @param sender Sender of the message.
+     * @param sendResponse Response function to send response back to the sender.
+     *
+     * @returns True if message type is UPDATE_LISTENERS to keep the message
+     * channel open until the callback is invoked.
+     */
+    const handleBrowserMessage = (
+        message: any,
+        sender: Runtime.MessageSender,
+        sendResponse: (response: unknown) => void,
+        // eslint-disable-next-line consistent-return
+    ): any => {
         const { type } = message;
         if (type === MessageType.UPDATE_LISTENERS) {
             reloadingRef.current = true;
@@ -82,7 +103,17 @@ export const useMessageHandler = () => {
                 callbackRef.current();
             }
 
-            callbackRef.current = await createMessageListener();
+            createMessageListener().then((callback) => {
+                callbackRef.current = callback;
+
+                // By sending a response, we indicate that we have handled
+                // the message and that the message channel can be closed.
+                sendResponse(null);
+            });
+
+            // Return true to keep the message
+            // channel open until the callback is invoked
+            return true;
         }
     };
 
@@ -91,22 +122,14 @@ export const useMessageHandler = () => {
             callbackRef.current = await createMessageListener();
         })();
 
-        // don't need to add listeners in Firefox mv2,
-        // because options page listeners have to be updated in mv3 only
-        // TODO: resolve for Firefox mv3
-        if (!Prefs.isFirefox()) {
-            chrome.runtime.onMessage.addListener(handleBrowserMessage);
-        }
+        browser.runtime.onMessage.addListener(handleBrowserMessage);
 
         return () => {
             if (callbackRef.current) {
                 callbackRef.current();
             }
 
-            // TODO: resolve for Firefox mv3
-            if (!Prefs.isFirefox()) {
-                chrome.runtime.onMessage.removeListener(handleBrowserMessage);
-            }
+            browser.runtime.onMessage.removeListener(handleBrowserMessage);
         };
     }, []);
 };

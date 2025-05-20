@@ -33,11 +33,7 @@ import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
 import { savedLocations } from '../savedLocations';
 import { authService } from '../authentication/authService';
-
-interface Message {
-    type: MessageType,
-    data: any
-}
+import { isMessage } from '../../common/messenger';
 
 interface EventListeners {
     [index: string]: Runtime.MessageSender;
@@ -84,7 +80,7 @@ const getOptionsData = async (isDataRefresh: boolean) => {
 
     let servicesData = exclusions.getServices();
     if (servicesData.length === 0) {
-        // services may not be up-to-date on very first option page opening in firefox mv3
+        // services may not be up-to-date on very first option page opening in firefox
         // if their loading was blocked before due to default absence of host permissions (<all_urls>).
         // so if it happens, they should be updated forcedly
         await exclusions.forceUpdateServices();
@@ -126,7 +122,12 @@ const getOptionsData = async (isDataRefresh: boolean) => {
     };
 };
 
-const messagesHandler = async (message: Message, sender: Runtime.MessageSender) => {
+const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) => {
+    if (!isMessage(message)) {
+        log.error('Invalid message received:', message);
+        return null;
+    }
+
     const { type, data } = message;
 
     // Here we keep track of event listeners added through notifier
@@ -524,6 +525,11 @@ const longLivedMessageHandler = (port: Runtime.Port) => {
     notifier.notifyListeners(notifier.types.PORT_CONNECTED, port.name);
 
     port.onMessage.addListener((message) => {
+        if (!isMessage(message)) {
+            log.error('Invalid message received:', message);
+            return;
+        }
+
         const { type, data } = message;
         if (type === MessageType.ADD_LONG_LIVED_CONNECTION) {
             const { events } = data;

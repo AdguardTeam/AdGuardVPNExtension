@@ -1,14 +1,8 @@
 import { actions, buildQueryString } from '../../src/background/actions';
 import { credentials } from '../../src/background/credentials';
-// TODO: test mv3 after official switch to mv3
-import { stateStorage } from '../../src/background/stateStorage/mv2';
+import { stateStorage } from '../../src/background/stateStorage';
 import { forwarder } from '../../src/background/forwarder';
 import { ForwarderUrlQueryKey } from '../../src/background/config';
-
-jest.mock('../../src/background/stateStorage', () => {
-    // eslint-disable-next-line global-require
-    return require('../../src/background/stateStorage/mv2');
-});
 
 jest.mock('../../src/background/browserApi');
 jest.mock('../../src/background/credentials');

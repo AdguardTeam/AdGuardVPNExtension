@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
-import { CSSTransition } from 'react-transition-group';
 
 import { Header } from '../Header';
 import { InfoMessage, FeedbackMessage } from '../InfoMessage';
@@ -17,7 +16,7 @@ import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/constants';
 import { log } from '../../../common/logger';
-import { type Message, messenger } from '../../../common/messenger';
+import { type NotifierMessage, messenger } from '../../../common/messenger';
 import { notifier } from '../../../common/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
@@ -69,7 +68,7 @@ export const App = observer(() => {
 
     const { initStatus } = globalStore;
 
-    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+    const { isOpenOptionsModal } = uiStore;
 
     const {
         premiumPromoEnabled,
@@ -86,7 +85,7 @@ export const App = observer(() => {
 
         settingsStore.trackSystemTheme();
 
-        const messageHandler = async (message: Message) => {
+        const messageHandler = async (message: NotifierMessage) => {
             const { type, data, value } = message;
 
             switch (type) {
@@ -378,14 +377,7 @@ export const App = observer(() => {
                 isLimitedOfferActive
                 && <LimitedOfferModal />
             }
-            <CSSTransition
-                in={isOpenEndpointsSearch}
-                timeout={300}
-                classNames="fade"
-                unmountOnExit
-            >
-                <Locations />
-            </CSSTransition>
+            <Locations />
             <Stats />
             {isCurrentTabExcluded && canBeExcluded
                 ? <ExclusionsScreen />
