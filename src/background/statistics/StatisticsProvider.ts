@@ -4,7 +4,7 @@ import { type ConnectivityStateChangeEvent, type WsConnectivityInfoMsgTraffic } 
 import { type CredentialsInterface } from '../credentials/Credentials';
 import { StorageKey, type LocationInterface, ConnectivityStateType } from '../schema';
 import { type StatisticsState } from '../schema/statistics';
-import { type StateStorageInterface } from '../stateStorage/stateStorage.abstract';
+import { type StateStorageInterface } from '../stateStorage/stateStorage';
 import { type TimersInterface } from '../timers/AbstractTimers';
 
 import { type StatisticsStorageInterface } from './StatisticsStorage';
