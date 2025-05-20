@@ -15,7 +15,7 @@ export interface StatisticsData {
     /**
      * Duration of the connection in milliseconds.
      */
-    durationMs: number;
+    duration: number;
 }
 
 /**
