@@ -76,8 +76,8 @@ export class ConnectivityService {
         this.interpreter.subscribe(this.handleStateChange);
 
         /**
-         * Restore the websocket connection after the service worker wakes up.
-         * Note: this condition only works for the mv3 version, as the fsm state is not persisted in mv2.
+         * Restore the websocket connection after the service
+         * worker wakes up, because fsm state is not persisted.
          */
         if (this.isVPNConnected()) {
             this.send(ConnectivityEventType.WsClose);

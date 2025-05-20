@@ -9,7 +9,7 @@ import { MemoryLogStorageProvider } from './storageProvider/memoryProvider';
  * Manages the storage mechanism for logs, allowing for dynamic switching
  * between different storage providers based on the debug mode setting.
  * We store logs to facilitate exporting when a user sends logs to the server.
- * Storing logs in memory is unsuitable for manifest v3 extensions, as they reload frequently.
+ * Storing logs in memory is unsuitable, as service worker reloads frequently.
  * Therefore, we also use browser storage, which preserves logs across reloads.
  */
 class LogStorageManager {

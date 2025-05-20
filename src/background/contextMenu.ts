@@ -13,7 +13,6 @@ import { exclusions } from './exclusions';
 import { tabs } from './tabs';
 import { settings } from './settings';
 import { actions } from './actions';
-import { browserApi } from './browserApi';
 
 type ContextType = browser.Menus.ContextType;
 type CreateCreatePropertiesType = browser.Menus.CreateCreatePropertiesType;
@@ -209,25 +208,9 @@ const updateContextMenu = async (tab: { url?: string }): Promise<void> => {
 };
 
 /**
- * Browser action contexts depending on the manifest version.
- * We calculate it once and use it in the future
- */
-const browserActionContexts = ((): ContextType[] => {
-    const contexts: ContextType[] = [];
-
-    // cant use together since they conflict in the firefox
-    if (browserApi.runtime.isManifestVersion2()) {
-        contexts.push('browser_action'); // context for mv2
-    } else {
-        contexts.push('action'); // context for mv3
-    }
-
-    return contexts;
-})();
-
-/**
  * Adds context menu items to the browser action item
- * @param item
+ *
+ * @param item Context menu item to be added
  */
 const addBrowserActionItem = async (item: ContextMenuItem): Promise<void> => {
     const props: browser.Menus.CreateCreatePropertiesType = {
@@ -235,7 +218,7 @@ const addBrowserActionItem = async (item: ContextMenuItem): Promise<void> => {
         title: item.title,
         checked: item.checked,
         type: item.type,
-        contexts: browserActionContexts,
+        contexts: ['action'],
     };
 
     try {

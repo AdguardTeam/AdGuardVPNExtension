@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { observer } from 'mobx-react';
 import { CSSTransition } from 'react-transition-group';
 
@@ -17,6 +17,7 @@ import { Icon } from '../ui/Icon';
 
 export const ConnectionsLimitError = observer(() => {
     const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
+    const nodeRef = useRef<HTMLDivElement>(null);
 
     const {
         tooManyDevicesConnected,
@@ -83,12 +84,13 @@ export const ConnectionsLimitError = observer(() => {
 
     return (
         <CSSTransition
+            nodeRef={nodeRef}
             in={tooManyDevicesConnected}
             timeout={300}
             classNames="fade"
             unmountOnExit
         >
-            <div className="new-global-error new-global-error--device">
+            <div ref={nodeRef} className="new-global-error new-global-error--device">
                 <button
                     type="button"
                     onClick={handleCloseClick}
