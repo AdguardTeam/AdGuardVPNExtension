@@ -53,7 +53,6 @@ export interface StatisticsProviderParameters {
  * Interval is started only when the user is connected to the Proxy.
  *
  * Before updating the statistics storage, it performs following checks:
- * - Is the user connected?
  * - Is the user a premium user?
  * - Is the user authenticated?
  * - Is the user selected a location?
@@ -223,21 +222,6 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     }
 
     /**
-     * Starts the duration interval.
-     */
-    private startDurationInterval(): void {
-        if (this.durationIntervalId) {
-            this.timers.clearInterval(this.durationIntervalId);
-            this.durationIntervalId = null;
-        }
-
-        this.durationIntervalId = this.timers.setInterval(
-            this.handleTimerUpdate.bind(this),
-            StatisticsProvider.TIMER_UPDATE_INTERVAL,
-        );
-    }
-
-    /**
      * Clears the duration interval.
      */
     private clearDurationInterval(): void {
@@ -245,6 +229,18 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             this.timers.clearInterval(this.durationIntervalId);
             this.durationIntervalId = null;
         }
+    }
+
+    /**
+     * Starts the duration interval.
+     */
+    private startDurationInterval(): void {
+        this.clearDurationInterval();
+
+        this.durationIntervalId = this.timers.setInterval(
+            this.handleTimerUpdate.bind(this),
+            StatisticsProvider.TIMER_UPDATE_INTERVAL,
+        );
     }
 
     /**
