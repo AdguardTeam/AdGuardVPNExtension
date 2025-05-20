@@ -280,7 +280,10 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      *
      * @param event Stats event data.
      */
-    private async handleTrafficStatsUpdated(event: WsConnectivityInfoMsgTraffic): Promise<void> {
+    private async handleTrafficStatsUpdated({
+        bytesDownloaded,
+        bytesUploaded,
+    }: WsConnectivityInfoMsgTraffic): Promise<void> {
         const baseData = this.getAddBaseData();
 
         /**
@@ -299,8 +302,8 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         // Add traffic statistics to storage
         await this.statisticsStorage.addTraffic({
             ...baseData,
-            downloaded: event.bytesDownloaded,
-            uploaded: event.bytesUploaded,
+            downloaded: bytesDownloaded,
+            uploaded: bytesUploaded,
         });
     }
 
@@ -310,8 +313,8 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      *
      * @param location Updated location.
      */
-    private handleCurrentLocationUpdated(location: LocationInterface): void {
-        this.locationId = location.id;
+    private handleCurrentLocationUpdated({ id }: LocationInterface): void {
+        this.locationId = id;
     }
 
     /**
@@ -330,7 +333,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      *
      * @param state Connectivity state change event data.
      */
-    private async handleConnectivityStateChanged(state: ConnectivityStateChangeEvent): Promise<void> {
+    private async handleConnectivityStateChanged({ value }: ConnectivityStateChangeEvent): Promise<void> {
         const baseData = this.getAddBaseData();
 
         /**
@@ -342,7 +345,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             return;
         }
 
-        if (state.value === ConnectivityStateType.Connected) {
+        if (value === ConnectivityStateType.Connected) {
             await this.statisticsStorage.startDuration(baseData);
             this.startDurationInterval();
         } else {
