@@ -47,6 +47,21 @@ export interface StatisticsDailyStorage {
 }
 
 /**
+ * Duration tracker for the location statistics.
+ */
+export interface StatisticsDurationTracker {
+    /**
+     * Timestamp when the connection started.
+     */
+    startedTimestamp: number;
+
+    /**
+     * Last timestamp when connection was still active.
+     */
+    lastUpdatedTimestamp: number;
+}
+
+/**
  * Statistics data for a specific location.
  */
 export interface StatisticsLocationStorage {
@@ -67,6 +82,11 @@ export interface StatisticsLocationStorage {
      * It stores statistics data for dates that are beyond the 30 days.
      */
     total: StatisticsData;
+
+    /**
+     *
+     */
+    durationTracker?: StatisticsDurationTracker
 }
 
 /**
