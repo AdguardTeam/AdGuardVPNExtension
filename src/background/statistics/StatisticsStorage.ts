@@ -160,11 +160,16 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /**
-     * Updates stale statistics by moving them to the next period.
+     * Updates stale statistics by:
+     * 1. Distributing the duration tracker to hourly / daily / total statistics
+     *    (see {@link distributeDuration} for detailed explanation),
+     * 2. Moving hourly statistics to daily statistics if 24 hours passed
+     *    (see {@link moveHourlyStatistics} for detailed explanation),
+     * 3. Moving daily statistics to total statistics if 30 days passed
+     *    (see {@link moveDailyStatistics} for detailed explanation);
      *
-     * @see {@link moveDurationTracker} - for duration tracker
-     * @see {@link moveHourlyStatistics} - for hourly statistics
-     * @see {@link moveDailyStatistics} - for daily statistics
+     * Note: Order of operations described above is important,
+     * because we are moving to the top of the statistics period.
      */
     private async updateStaleStatistics(): Promise<void> {
         // create before to make consistent calculations
@@ -172,7 +177,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         Object.values(this.statistics).forEach((accountStorage) => {
             Object.values(accountStorage!).forEach((locationStorage) => {
-                StatisticsStorage.moveDurationTracker(locationStorage!, now);
+                StatisticsStorage.distributeDuration(locationStorage!, now);
                 StatisticsStorage.moveHourlyStatistics(locationStorage!, now);
                 StatisticsStorage.moveDailyStatistics(locationStorage!, now);
             });
@@ -182,14 +187,14 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /**
-     * Moves duration tracker according to hourly / daily / total statistics.
+     * Distributes the duration tracker of location storage to hourly / daily / total statistics.
      *
-     * FIXME: Explanation comment
+     * @see {@link distributeDurationAcrossPeriod} for more details how distribution works.
      *
      * @param locationStorage Location storage.
      * @param timestamp Timestamp to compare with.
      */
-    private static moveDurationTracker(locationStorage: StatisticsLocationStorage, timestamp: number): void {
+    private static distributeDuration(locationStorage: StatisticsLocationStorage, timestamp: number): void {
         // skip if duration tracker is not set
         const { durationTracker } = locationStorage;
         if (!durationTracker) {
@@ -203,8 +208,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const deleteDurationTracker = () => delete locationStorage.durationTracker;
 
         // if the duration is not valid, delete tracker and skip
-        const duration = lastUpdatedTimestamp - startedTimestamp;
-        if (duration <= 0) {
+        if (lastUpdatedTimestamp - startedTimestamp <= 0) {
             deleteDurationTracker();
             return;
         }
@@ -212,37 +216,64 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const dailyBorderTimestamp = StatisticsStorage.getDailyBorderTimestamp(timestamp);
         const hourlyBorderTimestamp = StatisticsStorage.getHourlyBorderTimestamp(timestamp);
 
-        // Add to total
+        /**
+         * Duration can go to total only if connection was started before 30 days.
+         * If connection was started after 30 days, `totalDuration` will be negative.
+         *
+         * We are covering following cases:
+         * - started < lastUpdated < 30 days < 24 hours -> lastUpdated - started goes to total,
+         * - started < 30 days < lastUpdated < 24 hours -> 30 days - started goes to total,
+         * - started < 30 days < 24 hours < lastUpdated -> 30 days - started goes to total;
+         */
         const totalDuration = Math.min(dailyBorderTimestamp, lastUpdatedTimestamp) - startedTimestamp;
+
+        // add to total if the duration is valid
         if (totalDuration > 0) {
             total.duration += totalDuration;
         }
 
-        // Spread across daily
+        /**
+         * We are determining the start and end timestamps for daily duration distribution.
+         *
+         * We are covering following cases:
+         * - started < 30 days < lastUpdated < 24 hours -> lastUpdated - 30 days distributed to daily,
+         * - 30 days < started < lastUpdated < 24 hours -> lastUpdated - started distributed to daily,
+         * - started < 30 days < 24 hours < lastUpdated -> 24 hours - 30 days distributed to daily,
+         * - 30 days < started < 24 hours < lastUpdated -> 24 hours - started distributed to daily;
+         */
         const dailyStart = Math.max(dailyBorderTimestamp, startedTimestamp);
         const dailyEnd = Math.min(hourlyBorderTimestamp, lastUpdatedTimestamp);
-        StatisticsStorage.spreadDurationAcrossPeriods(locationStorage, dailyStart, dailyEnd, false);
 
-        // Spread across hourly
+        // distribute across daily
+        StatisticsStorage.distributeDurationAcrossPeriod(locationStorage, dailyStart, dailyEnd, false);
+
+        /**
+         * We are determining the start and end timestamps for hourly duration distribution.
+         *
+         * We are covering following cases:
+         * - started < 30 days < 24 hours < lastUpdated -> lastUpdated - 24 hours distributed to hourly
+         * - 30 days < started < 24 hours < lastUpdated -> lastUpdated - 24 hours distributed to hourly
+         * - 30 days < 24 hours < started < lastUpdated -> lastUpdated - started distributed to hourly
+         */
         const hourlyStart = Math.max(hourlyBorderTimestamp, startedTimestamp);
         const hourlyEnd = Math.min(timestamp, lastUpdatedTimestamp);
-        StatisticsStorage.spreadDurationAcrossPeriods(locationStorage, hourlyStart, hourlyEnd, true);
 
-        // delete tracker after tracker is spread
+        // distribute across hourly
+        StatisticsStorage.distributeDurationAcrossPeriod(locationStorage, hourlyStart, hourlyEnd, true);
+
+        // delete tracker after tracker is distributed
         deleteDurationTracker();
     }
 
     /**
-     * Spreads the duration across hourly / daily statistics.
-     *
-     * FIXME: Explanation comment
+     * Distributes the duration across hourly / daily statistics.
      *
      * @param locationStorage Location storage.
      * @param start Start timestamp.
      * @param end End timestamp.
-     * @param isHourly Whether to spread across hourly or daily statistics.
+     * @param isHourly Whether to distribute across hourly or daily statistics.
      */
-    private static spreadDurationAcrossPeriods(
+    private static distributeDurationAcrossPeriod(
         locationStorage: StatisticsLocationStorage,
         start: number,
         end: number,
@@ -253,32 +284,44 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             return;
         }
 
-        const timeDiff = start - StatisticsStorage.getCroppedTimestamp(start, isHourly);
-        const increment = isHourly ? ONE_HOUR_MS : ONE_DAY_MS;
+        // step size in milliseconds
+        const step = isHourly ? ONE_HOUR_MS : ONE_DAY_MS;
+
+        /**
+         * First period is special, because it can be less than step size.
+         * For example:
+         * - start = 2025-05-21 00:23:21
+         * - end = 2025-05-21 02:37:33
+         *
+         * In this case:
+         * 1. This period should be 36 minutes 39 seconds (00:23:21 - 01:00:00).
+         * 2. The next period should be 1 hour (01:00:00 - 02:00:00).
+         * 3. The last period should be 37 minutes 33 seconds (02:00:00 - 02:37:33).
+         */
+        const timeLeftOnFirstPeriod = step - (start - StatisticsStorage.getCroppedTimestamp(start, isHourly));
 
         let current = start;
-        let isFirst = true;
+        let isFirstIteration = true;
+        let increment = timeLeftOnFirstPeriod;
 
         while (current < end) {
             const data = StatisticsStorage.getPeriodStatistics(locationStorage, isHourly, new Date(current));
 
-            let durationToAdd = 0;
-            if (isFirst) {
-                durationToAdd = Math.min(current + increment - timeDiff, end) - current;
-                isFirst = false;
-            } else if (current + increment > end) {
-                durationToAdd = end - current + timeDiff;
-            } else {
-                durationToAdd = increment;
-            }
-
+            const durationToAdd = Math.min(current + increment, end) - current;
             data.duration += durationToAdd;
             current += durationToAdd;
+
+            if (isFirstIteration) {
+                increment = step;
+                isFirstIteration = false;
+            }
         }
     }
 
     /**
-     * Moves hourly statistics to daily statistics if 24 hours passed.
+     * Moves hourly statistics by traversing the each available hourly data
+     * and if for given hour 24 hours is passed, it moves the statistics
+     * to according daily statistics (`YYYY-MM-DD-HH` -> `YYYY-MM-DD`).
      *
      * @param locationStorage Location statistics storage.
      * @param timestamp Timestamp to compare with.
@@ -296,27 +339,28 @@ export class StatisticsStorage implements StatisticsStorageInterface {
                 return;
             }
 
-            // skip if should not move to daily
-            const hourlyBorderTimestamp = StatisticsStorage.getHourlyBorderTimestamp(timestamp);
-            const shouldMoveToDaily = date.getTime() < hourlyBorderTimestamp;
-            if (!shouldMoveToDaily) {
+            // skip if 24 hours is not passed, inclusive (>=)
+            // to store last 24 hours data, instead of last 23 hours
+            if (date.getTime() >= StatisticsStorage.getHourlyBorderTimestamp(timestamp)) {
                 return;
             }
 
-            // add hourly data to daily data
+            // move hourly data to daily data
             const { downloaded, uploaded, duration } = hourlyData!;
             const dailyData = StatisticsStorage.getPeriodStatistics(locationStorage, false, date);
             dailyData.downloaded += downloaded;
             dailyData.uploaded += uploaded;
             dailyData.duration += duration;
 
-            // remove hourly data
+            // remove hourly data after moving
             delete hourly[hourlyKey];
         });
     }
 
     /**
-     * Moves daily statistics to total statistics if 30 days passed.
+     * Moves daily statistics by traversing the each available daily data
+     * and if for given date 30 days is passed, it moves the statistics
+     * to total statistics (`YYYY-MM-DD` -> `total`).
      *
      * @param locationStorage Location statistics storage.
      * @param timestamp Timestamp to compare with.
@@ -334,26 +378,25 @@ export class StatisticsStorage implements StatisticsStorageInterface {
                 return;
             }
 
-            // skip if should not move to total
-            const dailyBorderTimestamp = StatisticsStorage.getDailyBorderTimestamp(timestamp);
-            const shouldMoveToTotal = date.getTime() < dailyBorderTimestamp;
-            if (!shouldMoveToTotal) {
+            // skip if 30 days is not passed, inclusive (>=)
+            // to store 30 days data, instead of 29 days
+            if (date.getTime() >= StatisticsStorage.getDailyBorderTimestamp(timestamp)) {
                 return;
             }
 
-            // add daily data to total data
+            // move daily data to total data
             const { downloaded, uploaded, duration } = dailyData!;
             total.downloaded += downloaded;
             total.uploaded += uploaded;
             total.duration += duration;
 
-            // remove daily data
+            // remove daily data after moving
             delete daily[dailyKey];
         });
     }
 
     /**
-     * Gets location storage for the given account and location.
+     * Gets location storage for the given account ID and location ID.
      * If not found, creates a new one.
      *
      * @param data Data about account and location.
@@ -466,20 +509,22 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     public endDuration = async (data: AddStatisticsDataBase): Promise<void> => {
         const locationStorage = this.updateDurationTracker(data);
 
-        // move duration tracker to statistics and save if updated
+        // distribute duration to statistics and save if updated
         if (locationStorage) {
-            StatisticsStorage.moveDurationTracker(locationStorage, Date.now());
+            StatisticsStorage.distributeDuration(locationStorage, Date.now());
             await this.saveStatistics();
         }
     };
 
     /**
-     * Gets statistics data for the given hourly / daily -> datetime / date (now).
+     * Gets statistics data for the given hourly / daily -> datetime / date for a given date.
      * If not found, creates a new one.
      *
      * @param locationStorage Location storage.
+     * @param isHourly Whether to get hourly or daily statistics.
+     * @param date Date to get statistics for. If not provided, current date is used.
      *
-     * @returns Statistics data for the provided hour.
+     * @returns Statistics data for given date.
      */
     private static getPeriodStatistics(
         { hourly, daily }: StatisticsLocationStorage,
@@ -567,7 +612,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Gets the timestamp with cropped hours or minutes for the given timestamp.
      *
      * @param timestamp Timestamp to crop.
-     * @param isHourly Whether to crop hours or minutes.
+     * @param isHourly If true crops the minutes, otherwise crops the hours.
      *
      * @returns Cropped timestamp.
      */
@@ -583,6 +628,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /**
      * Gets the timestamp of the hourly border for the given timestamp.
+     * Hourly border is the timestamp when hourly statistics should be moved to daily statistics.
      *
      * @param timestamp Timestamp to get the border for.
      *
@@ -594,6 +640,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /**
      * Gets the timestamp of the daily border for the given timestamp.
+     * Daily border is the timestamp when daily statistics should be moved to total statistics.
      *
      * @param timestamp Timestamp to get the border for.
      *

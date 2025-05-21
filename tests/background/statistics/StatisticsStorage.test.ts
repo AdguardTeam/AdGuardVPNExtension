@@ -102,19 +102,19 @@ describe('StatisticsStorage', () => {
          * 1. started < lastUpdated < 30 days < 24 hours
          *    - lastUpdated - started should go to total duration
          * 2. 30 days < started < lastUpdated < 24 hours
-         *    - lastUpdated - started should spread across daily
+         *    - lastUpdated - started should distributed across daily
          * 3. 30 days < 24 hours < started < lastUpdated
-         *    - lastUpdated - started should spread across hourly
+         *    - lastUpdated - started should distributed across hourly
          * 4. started < 30 days < lastUpdated < 24 hours
          *    - 30 days - started should go to total duration
-         *    - lastUpdated - 30 days should spread across daily
+         *    - lastUpdated - 30 days should distributed across daily
          * 5. 30 days < started < 24 hours < lastUpdated
-         *    - 24 hours - started should spread across daily
-         *    - lastUpdated - 24 hours should spread across hourly
+         *    - 24 hours - started should distributed across daily
+         *    - lastUpdated - 24 hours should distributed across hourly
          * 6. started < 30 days < 24 hours < lastUpdated
          *    - 30 days - started should go to total duration
-         *    - 24 hours - 30 days should spread across daily
-         *    - lastUpdated - 24 hours should spread across hourly
+         *    - 24 hours - 30 days should distributed across daily
+         *    - lastUpdated - 24 hours should distributed across hourly
          *
          * Where:
          * - started: the time when connection was started
@@ -123,8 +123,8 @@ describe('StatisticsStorage', () => {
          * - 24 hours: 24 hours before the current date
          *
          * And also we are testing several scenarios:
-         * - when duration is spread across multiple days
-         * - when duration is spread across multiple hours
+         * - when duration is distributed across multiple days
+         * - when duration is distributed across multiple hours
          */
         const cases: DurationTrackerTestCase[] = [
             // case 1
@@ -178,8 +178,8 @@ describe('StatisticsStorage', () => {
                         '2025-09-01': getDuration(ONE_DAY_MS - 1000),
                         // full day
                         '2025-09-02': getDuration(ONE_DAY_MS),
-                        // last day used 2000ms more
-                        '2025-09-03': getDuration(3000),
+                        // last day used 2000ms
+                        '2025-09-03': getDuration(2000),
                     },
                     total: getDuration(0),
                 },
@@ -210,6 +210,25 @@ describe('StatisticsStorage', () => {
                 expected: {
                     hourly: {
                         '2025-09-30-10': getDuration(1000),
+                    },
+                    daily: {},
+                    total: getDuration(0),
+                },
+            },
+            // case 3 - multiple hours
+            {
+                tracker: {
+                    startedTimestamp: hourlyBorderDateTimestamp + 1000,
+                    lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2 * ONE_HOUR_MS + 2000,
+                },
+                expected: {
+                    hourly: {
+                        // first hour used 1000ms less
+                        '2025-09-30-10': getDuration(ONE_HOUR_MS - 1000),
+                        // full hour
+                        '2025-09-30-11': getDuration(ONE_HOUR_MS),
+                        // last hour used 2000ms
+                        '2025-09-30-12': getDuration(2000),
                     },
                     daily: {},
                     total: getDuration(0),
@@ -348,7 +367,7 @@ describe('StatisticsStorage', () => {
     });
 
     describe('Period switch', () => {
-        it('should move from hourly to daily or total properly', async () => {
+        it('should move from hourly to daily properly', async () => {
             storageMock.get.mockResolvedValueOnce({
                 'test1@adguard.com': {
                     locationId1: {
@@ -360,10 +379,16 @@ describe('StatisticsStorage', () => {
                                 duration: 3,
                             },
                             // should be moved to daily (24 hours passed - close time)
-                            '2025-09-30-10': {
+                            '2025-09-30-09': {
                                 downloaded: 2,
                                 uploaded: 2,
                                 duration: 2,
+                            },
+                            // edge case: should not be moved to daily (24 hours passed, but it's border time)
+                            '2025-09-30-10': {
+                                downloaded: 3,
+                                uploaded: 3,
+                                duration: 3,
                             },
                             // should not be moved to daily (24 hours not passed)
                             '2025-09-30-11': {
@@ -381,17 +406,6 @@ describe('StatisticsStorage', () => {
                                 downloaded: 3,
                                 uploaded: 2,
                                 duration: 1,
-                            },
-                            // should be moved to total and accumulated (30 days passed)
-                            '2025-09-01-10': {
-                                downloaded: 4,
-                                uploaded: 4,
-                                duration: 4,
-                            },
-                            '2025-08-28-23': {
-                                downloaded: 5,
-                                uploaded: 5,
-                                duration: 5,
                             },
                         },
                         daily: {},
@@ -447,6 +461,11 @@ describe('StatisticsStorage', () => {
                 'test1@adguard.com': {
                     locationId1: {
                         hourly: {
+                            '2025-09-30-10': {
+                                downloaded: 3,
+                                uploaded: 3,
+                                duration: 3,
+                            },
                             '2025-09-30-11': {
                                 downloaded: 3,
                                 uploaded: 2,
@@ -471,9 +490,9 @@ describe('StatisticsStorage', () => {
                             },
                         },
                         total: {
-                            downloaded: 9,
-                            uploaded: 9,
-                            duration: 9,
+                            downloaded: 0,
+                            uploaded: 0,
+                            duration: 0,
                         },
                     },
                     locationId2: {
@@ -525,8 +544,14 @@ describe('StatisticsStorage', () => {
                                 uploaded: 3,
                                 duration: 3,
                             },
-                            // should be moved to total (30 days passed - close date)
+                            // edge case: should not be moved to total (30 days passed, but it's border time)
                             '2025-09-01': {
+                                downloaded: 2,
+                                uploaded: 2,
+                                duration: 2,
+                            },
+                            // should be moved to total (30 days passed - close date)
+                            '2025-08-31': {
                                 downloaded: 2,
                                 uploaded: 2,
                                 duration: 2,
@@ -549,7 +574,7 @@ describe('StatisticsStorage', () => {
                         hourly: {},
                         daily: {
                             // should be moved to total (30 days passed)
-                            '2025-09-01': {
+                            '2025-08-31': {
                                 downloaded: 1,
                                 uploaded: 1,
                                 duration: 1,
@@ -568,7 +593,7 @@ describe('StatisticsStorage', () => {
                         hourly: {},
                         daily: {
                             // should be moved to total (30 days passed)
-                            '2025-09-01': {
+                            '2025-08-31': {
                                 downloaded: 1,
                                 uploaded: 2,
                                 duration: 3,
@@ -591,6 +616,11 @@ describe('StatisticsStorage', () => {
                     locationId1: {
                         hourly: {},
                         daily: {
+                            '2025-09-01': {
+                                downloaded: 2,
+                                uploaded: 2,
+                                duration: 2,
+                            },
                             '2025-09-30': {
                                 downloaded: 3,
                                 uploaded: 2,
