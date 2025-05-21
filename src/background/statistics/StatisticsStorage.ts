@@ -282,7 +282,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
             // add hourly data to daily data
             const { downloaded, uploaded, duration } = hourlyData!;
-            const dailyData = this.getPeriodStatistics(locationStorage, false);
+            const dailyData = this.getPeriodStatistics(locationStorage, false, date);
             dailyData.downloaded += downloaded;
             dailyData.uploaded += uploaded;
             dailyData.duration += duration;
@@ -492,7 +492,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      *
      * @returns Key of current date in UTC format.
      */
-    private static dateToKey(includeHours: boolean, date = new Date()): string {
+    public static dateToKey(includeHours: boolean, date = new Date()): string {
         const parts = [
             date.getUTCFullYear(),
             date.getUTCMonth() + 1,
@@ -524,7 +524,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      *
      * @returns Date object or null if the key is not valid.
      */
-    private static keyToDate(key: string): Date | null {
+    public static keyToDate(key: string): Date | null {
         const parts = key
             .split(StatisticsStorage.DATE_SEPARATOR)
             .map((part) => parseInt(part, 10));
