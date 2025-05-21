@@ -61,7 +61,6 @@ export interface StatisticsStorageParameters {
 
 /**
  * FIXME: Add jsdoc
- * FIXME: Add tests
  * FIXME: Add first collection date
  */
 export class StatisticsStorage implements StatisticsStorageInterface {
