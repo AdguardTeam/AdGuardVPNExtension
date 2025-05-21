@@ -355,7 +355,12 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * This event is fired when user is authenticated.
      */
     private async handleUserAuthenticated(): Promise<void> {
-        this.accountId = await this.credentials.getUsername();
+        const accountId = await this.credentials.getUsername();
+
+        if (accountId) {
+            this.accountId = accountId;
+            await this.statisticsStorage.addAccount(accountId);
+        }
     }
 
     /**

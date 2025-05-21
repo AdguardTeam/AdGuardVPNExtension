@@ -114,6 +114,18 @@ export interface StatisticsStorageShape {
 }
 
 /**
+ * Map that contains when collection of statistics started for each account.
+ */
+export interface StatisticsStartedTimes {
+    /**
+     * Account ID to timestamp when the statistics collection started.
+     *
+     * Note: `undefined` is used to type guard if the data for the given account is not available.
+     */
+    [accountId: string]: number | undefined;
+}
+
+/**
  * Base data required for adding statistics.
  */
 export interface AddStatisticsDataBase {

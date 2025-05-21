@@ -9,6 +9,7 @@ import {
     type StatisticsLocationStorage,
     type StatisticsAccountStorage,
     type StatisticsData,
+    type StatisticsStartedTimes,
 } from './statisticsTypes';
 
 /**
@@ -19,6 +20,13 @@ export interface StatisticsStorageInterface {
      * Initializes the statistics provider.
      */
     init(): Promise<void>;
+
+    /**
+     * Adds a new account to the statistics storage.
+     *
+     * @param accountId Account ID to add.
+     */
+    addAccount(accountId: string): Promise<void>;
 
     /**
      * Adds traffic statistics.
@@ -75,9 +83,7 @@ export interface StatisticsStorageParameters {
  *       - Total statistics used to store statistics that are older than 30 days.
  *       - Optional duration tracker used to track connection duration statistics.
  *
- *
- *
- * FIXME: Add first collection date
+ * FIXME: Add more explanation.
  */
 export class StatisticsStorage implements StatisticsStorageInterface {
     /**
@@ -89,6 +95,11 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Key for statistics storage in local storage.
      */
     private static readonly STATISTICS_STORAGE_KEY = 'statistics.storage';
+
+    /**
+     * Key for statistics collection started times in local storage.
+     */
+    private static readonly STARTED_TIMES_STORAGE_KEY = 'statistics.started.times';
 
     /**
      * Default statistics data object.
@@ -125,6 +136,13 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private statistics!: StatisticsStorageShape;
 
     /**
+     * Object that contains map when the statistics collection was started for each account.
+     *
+     * Initialized in {@link init} method.
+     */
+    private startedTimes!: StatisticsStartedTimes;
+
+    /**
      * Constructor.
      */
     constructor({ storage }: StatisticsStorageParameters) {
@@ -137,11 +155,26 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     public init = async (): Promise<void> => {
         try {
             log.info('Statistics storage ready');
+            await this.gainStartedTimes();
             await this.gainStatistics();
         } catch (e) {
             log.error('Unable to initialize statistics storage, due to error:', e);
         }
     };
+
+    /**
+     * Saves the started times to local storage.
+     */
+    private async saveStartedTimes(): Promise<void> {
+        try {
+            await this.storage.set<StatisticsStartedTimes>(
+                StatisticsStorage.STARTED_TIMES_STORAGE_KEY,
+                this.startedTimes,
+            );
+        } catch (e) {
+            log.error('Unable to save statistics started times, due to error:', e);
+        }
+    }
 
     /**
      * Saves the statistics storage to local storage.
@@ -154,6 +187,23 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             );
         } catch (e) {
             log.error('Unable to save statistics storage, due to error:', e);
+        }
+    }
+
+    /**
+     * Reads the started times storage from local storage.
+     * If not found, creates a new one and saves it.
+     */
+    private async gainStartedTimes(): Promise<void> {
+        const storageStartedTimes = await this.storage.get<StatisticsStartedTimes>(
+            StatisticsStorage.STARTED_TIMES_STORAGE_KEY,
+        );
+
+        if (!storageStartedTimes) {
+            this.startedTimes = {};
+            await this.saveStatistics();
+        } else {
+            this.startedTimes = storageStartedTimes;
         }
     }
 
@@ -449,6 +499,23 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         return locationStorage;
     }
+
+    /**
+     * Adds a new account to the statistics storage.
+     *
+     * @param accountId Account ID to add.
+     */
+    public addAccount = async (accountId: string): Promise<void> => {
+        if (!this.statistics[accountId]) {
+            this.statistics[accountId] = {};
+            await this.saveStatistics();
+        }
+
+        if (!this.startedTimes[accountId]) {
+            this.startedTimes[accountId] = Date.now();
+            await this.saveStartedTimes();
+        }
+    };
 
     /**
      * Adds traffic statistics to current date and hour by account and location.
