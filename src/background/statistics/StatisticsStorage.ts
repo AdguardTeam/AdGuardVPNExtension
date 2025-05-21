@@ -201,7 +201,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         if (!storageStartedTimes) {
             this.startedTimes = {};
-            await this.saveStatistics();
+            await this.saveStartedTimes();
         } else {
             this.startedTimes = storageStartedTimes;
         }
@@ -234,9 +234,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * 1. Distributing the duration tracker to hourly / daily / total statistics
      *    (see {@link distributeDuration} for detailed explanation),
      * 2. Moving hourly statistics to daily statistics if 24 hours passed
-     *    (see {@link moveHourlyStatistics} for detailed explanation),
+     *    (see {@link moveStatistics} for detailed explanation),
      * 3. Moving daily statistics to total statistics if 30 days passed
-     *    (see {@link moveDailyStatistics} for detailed explanation);
+     *    (see {@link moveStatistics} for detailed explanation);
      *
      * Note: Order of operations described above is important,
      * because we are moving to the top of the statistics period.
@@ -248,8 +248,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         Object.values(this.statistics).forEach((accountStorage) => {
             Object.values(accountStorage!).forEach((locationStorage) => {
                 StatisticsStorage.distributeDuration(locationStorage!, now);
-                StatisticsStorage.moveHourlyStatistics(locationStorage!, now);
-                StatisticsStorage.moveDailyStatistics(locationStorage!, now);
+                StatisticsStorage.moveStatistics(locationStorage!, now, true);
+                StatisticsStorage.moveStatistics(locationStorage!, now, false);
             });
         });
     }
@@ -387,79 +387,61 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /**
-     * Moves hourly statistics by traversing the each available hourly data
-     * and if for given hour 24 hours is passed, it moves the statistics
-     * to according daily statistics (`YYYY-MM-DD-HH` -> `YYYY-MM-DD`).
+     * Moves hourly / daily statistics by traversing the each available hourly / daily data
+     * and if for given hour / day 24 hours / 30 days is passed, it moves the statistics
+     * to according daily statistics (`YYYY-MM-DD-HH` -> `YYYY-MM-DD` / `YYYY-MM-DD` -> `total`).
      *
      * @param locationStorage Location statistics storage.
      * @param timestamp Timestamp to compare with.
+     * @param isHourly Whether to move hourly or daily statistics.
      */
-    private static moveHourlyStatistics(locationStorage: StatisticsLocationStorage, timestamp: number): void {
-        const { hourly } = locationStorage;
+    private static moveStatistics(
+        locationStorage: StatisticsLocationStorage,
+        timestamp: number,
+        isHourly: boolean,
+    ): void {
+        const { hourly, daily, total } = locationStorage;
 
-        Object.entries(hourly).forEach(([hourlyKey, hourlyData]) => {
+        const sourceStorage = isHourly
+            ? hourly
+            : daily;
+
+        const borderTimestamp = isHourly
+            ? StatisticsStorage.getHourlyBorderTimestamp(timestamp)
+            : StatisticsStorage.getDailyBorderTimestamp(timestamp);
+
+        Object.entries(sourceStorage).forEach(([key, data]) => {
             // convert key to date
-            const date = StatisticsStorage.keyToDate(hourlyKey);
+            const date = StatisticsStorage.keyToDate(key);
 
             // delete and skip if date is not valid
             if (!date) {
-                delete hourly[hourlyKey];
+                delete sourceStorage[key];
                 return;
             }
 
-            // skip if 24 hours is not passed, inclusive (>=)
-            // to store last 24 hours data, instead of last 23 hours
-            if (date.getTime() >= StatisticsStorage.getHourlyBorderTimestamp(timestamp)) {
+            // skip if 24 hours / 30 days is not passed, inclusive (>=)
+            // to store last 24 hours / 30 days data, instead of last 23 hours / 29 days
+            if (date.getTime() >= borderTimestamp) {
                 return;
             }
 
-            // move hourly data to daily data
-            const { downloaded, uploaded, duration } = hourlyData!;
-            const dailyData = StatisticsStorage.getPeriodStatistics(locationStorage, false, date);
-            dailyData.downloaded += downloaded;
-            dailyData.uploaded += uploaded;
-            dailyData.duration += duration;
+            // move hourly / daily data to daily data / total data
+            const { downloaded, uploaded, duration } = data!;
 
-            // remove hourly data after moving
-            delete hourly[hourlyKey];
-        });
-    }
-
-    /**
-     * Moves daily statistics by traversing the each available daily data
-     * and if for given date 30 days is passed, it moves the statistics
-     * to total statistics (`YYYY-MM-DD` -> `total`).
-     *
-     * @param locationStorage Location statistics storage.
-     * @param timestamp Timestamp to compare with.
-     */
-    private static moveDailyStatistics(locationStorage: StatisticsLocationStorage, timestamp: number): void {
-        const { daily, total } = locationStorage;
-
-        Object.entries(daily).forEach(([dailyKey, dailyData]) => {
-            // convert key to date
-            const date = StatisticsStorage.keyToDate(dailyKey);
-
-            // delete and skip if date is not valid
-            if (!date) {
-                delete daily[dailyKey];
-                return;
+            let targetData: StatisticsData;
+            if (isHourly) {
+                targetData = StatisticsStorage.getPeriodStatistics(locationStorage, isHourly, date);
+            } else {
+                targetData = total;
             }
 
-            // skip if 30 days is not passed, inclusive (>=)
-            // to store 30 days data, instead of 29 days
-            if (date.getTime() >= StatisticsStorage.getDailyBorderTimestamp(timestamp)) {
-                return;
-            }
+            targetData.downloaded += downloaded;
+            targetData.uploaded += uploaded;
+            targetData.duration += duration;
 
-            // move daily data to total data
-            const { downloaded, uploaded, duration } = dailyData!;
-            total.downloaded += downloaded;
-            total.uploaded += uploaded;
-            total.duration += duration;
-
-            // remove daily data after moving
-            delete daily[dailyKey];
+            // remove hourly / daily data after moving
+            delete sourceStorage[key];
         });
     }
 
