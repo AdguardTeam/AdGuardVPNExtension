@@ -60,7 +60,23 @@ export interface StatisticsStorageParameters {
 }
 
 /**
- * FIXME: Add jsdoc
+ * Statistics storage.
+ * This class is responsible for storing and managing statistics data.
+ * It uses browser local storage to persist data.
+ *
+ * It stores statistics in the following format:
+ * - Root storage contains account IDs as keys, location storage as values.
+ *   - Location storage contains location IDs as keys, location statistics as values.
+ *     - Location statistics contains hourly, daily, total statistics and optional duration tracker.
+ *       - Hourly statistics contains datetime keys (YYYY-MM-DD-HH) and statistics data as values.
+ *         Used to store statistics for the last 24 hours (inclusive).
+ *       - Daily statistics contains date keys (YYYY-MM-DD) and statistics data as values.
+ *         Used to store statistics for the last 30 days (inclusive).
+ *       - Total statistics used to store statistics that are older than 30 days.
+ *       - Optional duration tracker used to track connection duration statistics.
+ *
+ *
+ *
  * FIXME: Add first collection date
  */
 export class StatisticsStorage implements StatisticsStorageInterface {
@@ -122,7 +138,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         try {
             log.info('Statistics storage ready');
             await this.gainStatistics();
-            await this.updateStaleStatistics();
         } catch (e) {
             log.error('Unable to initialize statistics storage, due to error:', e);
         }
@@ -143,8 +158,11 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /**
-     * Reads the statistics storage from local storage.
-     * If not found, initializes it with an empty object and saves it.
+     * Reads the statistics storage from local storage, and:
+     * - If not found, creates a new one,
+     * - If found, updates stale statistics;
+     *
+     * After that, it saves the statistics storage to local storage.
      */
     private async gainStatistics(): Promise<void> {
         const storageStatistics = await this.storage.get<StatisticsStorageShape>(
@@ -153,10 +171,12 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         if (!storageStatistics) {
             this.statistics = {};
-            await this.saveStatistics();
         } else {
             this.statistics = storageStatistics;
+            this.updateStaleStatistics();
         }
+
+        await this.saveStatistics();
     }
 
     /**
@@ -171,7 +191,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Note: Order of operations described above is important,
      * because we are moving to the top of the statistics period.
      */
-    private async updateStaleStatistics(): Promise<void> {
+    private updateStaleStatistics(): void {
         // create before to make consistent calculations
         const now = Date.now();
 
@@ -182,8 +202,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
                 StatisticsStorage.moveDailyStatistics(locationStorage!, now);
             });
         });
-
-        await this.saveStatistics();
     }
 
     /**
