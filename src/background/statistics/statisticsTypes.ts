@@ -79,12 +79,12 @@ export interface StatisticsLocationStorage {
 
     /**
      * Total statistics data.
-     * It stores statistics data for dates that are beyond the 30 days.
+     * It stores statistics data for dates that are older than 30 days.
      */
     total: StatisticsData;
 
     /**
-     *
+     * Duration tracker for location.
      */
     durationTracker?: StatisticsDurationTracker
 }
