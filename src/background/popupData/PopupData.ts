@@ -27,6 +27,8 @@ import { type LocationWithPing } from '../endpoints/LocationWithPing';
 import { hintPopup } from '../hintPopup';
 import { savedLocations } from '../savedLocations';
 import { locationsService, type LocationsTab } from '../endpoints/locationsService';
+import { statisticsService } from '../statistics';
+import { type AllAccountStatistics } from '../statistics/statisticsTypes';
 
 import { popupOpenedCounter } from './popupOpenedCounter';
 
@@ -83,6 +85,11 @@ interface PopupDataInterface {
      * Saved location IDs.
      */
     savedLocationIds: string[];
+
+    /**
+     * Statistics data.
+     */
+    statistics?: AllAccountStatistics | null;
 }
 
 interface PopupDataRetry extends PopupDataInterface {
@@ -157,6 +164,7 @@ export class PopupData {
         const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
         const shouldShowMobileEdgePromoBanner = await mobileEdgePromoService.shouldShowBanner();
+        const statistics = await statisticsService.getAllStatistics();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -198,6 +206,7 @@ export class PopupData {
             isHostPermissionsGranted,
             locationsTab,
             savedLocationIds,
+            statistics,
         };
     };
 
