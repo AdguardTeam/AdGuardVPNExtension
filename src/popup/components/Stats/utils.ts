@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { StatsRange } from '../../../background/statistics/statisticsTypes';
+import { StatisticsRange } from '../../../background/statistics/statisticsTypes';
 import { translator } from '../../../common/translator';
 import { formatBytes } from '../../../common/helpers';
 import { ONE_DAY_MS, ONE_HOUR_MS, ONE_MINUTE_MS } from '../../../common/constants';
@@ -113,13 +113,13 @@ export function formatDuration(timeMs: number): string {
 }
 
 /**
- * Formats a date range string based on the given {@link StatsRange}.
+ * Formats a date range string based on the given {@link StatisticsRange}.
  *
- * - If the range is {@link StatsRange.Hours24},
+ * - If the range is {@link StatisticsRange.Hours24},
  *   returns exactly 24 hours ago to now (with time).
- * - If the range is {@link StatsRange.Days7} or {@link StatsRange.Days30},
+ * - If the range is {@link StatisticsRange.Days7} or {@link StatisticsRange.Days30},
  *   returns a formatted string representing the range from N days ago (inclusive) to today.
- * - If the range is {@link StatsRange.AllTime},
+ * - If the range is {@link StatisticsRange.AllTime},
  *   returns the range from the first stats collection date to todays date.
  *
  * Dates are formatted using the current browser UI language.
@@ -127,10 +127,10 @@ export function formatDuration(timeMs: number): string {
  * @example
  * ```ts
  * // Locale is set to 'en-US'
- * getStatsRangeDates(StatsRange.Hours24, firstStatsDate); // 'May 11, 2025 10:25 PM - May 12, 2025 10:25 PM'
- * getStatsRangeDates(StatsRange.Days7, firstStatsDate); // 'May 6, 2025 - May 12, 2025'
- * getStatsRangeDates(StatsRange.Days30, firstStatsDate); // 'Apr 13, 2025 - May 12, 2025'
- * getStatsRangeDates(StatsRange.AllTime, firstStatsDate); // 'Sep 19, 2024 - May 12, 2025'
+ * formatRange(StatisticsRange.Hours24, firstStatsDate); // 'May 11, 2025 10:25 PM - May 12, 2025 10:25 PM'
+ * formatRange(StatisticsRange.Days7, firstStatsDate); // 'May 6, 2025 - May 12, 2025'
+ * formatRange(StatisticsRange.Days30, firstStatsDate); // 'Apr 13, 2025 - May 12, 2025'
+ * formatRange(StatisticsRange.AllTime, firstStatsDate); // 'Sep 19, 2024 - May 12, 2025'
  * ```
  *
  * @param range The time range to format.
@@ -138,11 +138,11 @@ export function formatDuration(timeMs: number): string {
  *
  * @returns A string representing the formatted date range.
  */
-export function formatRange(range: StatsRange, firstStatsDate: Date): string {
+export function formatRange(range: StatisticsRange, firstStatsDate: Date): string {
     const locale = browser.i18n.getUILanguage();
 
     let formatter: Intl.DateTimeFormat;
-    if (range === StatsRange.Hours24) {
+    if (range === StatisticsRange.Hours24) {
         formatter = new Intl.DateTimeFormat(locale, {
             day: '2-digit',
             month: 'short',
@@ -163,17 +163,17 @@ export function formatRange(range: StatsRange, firstStatsDate: Date): string {
 
     let pastDate: Date;
     switch (range) {
-        case StatsRange.Hours24:
+        case StatisticsRange.Hours24:
             pastDate = new Date(now);
             pastDate.setHours(now.getHours() - 24);
             break;
-        case StatsRange.Days7:
-        case StatsRange.Days30:
+        case StatisticsRange.Days7:
+        case StatisticsRange.Days30:
             pastDate = new Date(now);
             // +1 because the range is inclusive
-            pastDate.setDate(now.getDate() - (range === StatsRange.Days7 ? 7 : 30) + 1);
+            pastDate.setDate(now.getDate() - (range === StatisticsRange.Days7 ? 7 : 30) + 1);
             break;
-        case StatsRange.AllTime:
+        case StatisticsRange.AllTime:
             pastDate = firstStatsDate;
             break;
         default:

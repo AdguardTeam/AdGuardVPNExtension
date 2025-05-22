@@ -1,6 +1,6 @@
 import { action, computed, observable } from 'mobx';
 
-import { StatsRange } from '../../background/statistics/statisticsTypes';
+import { StatisticsRange } from '../../background/statistics/statisticsTypes';
 
 import { type RootStore } from './RootStore';
 import { type LocationData } from './VpnStore';
@@ -67,7 +67,7 @@ export class StatsStore {
      *
      * FIXME: It should persist between sessions (should be retrieved from background).
      */
-    @observable range: StatsRange = StatsRange.Days7;
+    @observable range: StatisticsRange = StatisticsRange.Days7;
 
     /**
      * Date when the stats collection started.
@@ -185,7 +185,7 @@ export class StatsStore {
      *
      * @param range New range value.
      */
-    @action updateRange = async (range: StatsRange) => {
+    @action updateRange = async (range: StatisticsRange) => {
         this.range = range;
     };
 

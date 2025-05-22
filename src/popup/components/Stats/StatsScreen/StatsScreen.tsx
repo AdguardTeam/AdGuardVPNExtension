@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import { type StatsRange } from '../../../../background/statistics/statisticsTypes';
+import { type StatisticsRange } from '../../../../background/statistics/statisticsTypes';
 import { type DataUsage, type LocationDataUsage } from '../../../stores/StatsStore';
 import { Icon } from '../../ui/Icon';
 import { getFlagIconStyle } from '../../Locations';
@@ -27,7 +27,7 @@ export interface StatsScreenBaseProps {
      * Range of the stats.
      * Used to calculate date range string and as value of select.
      */
-    range: StatsRange;
+    range: StatisticsRange;
 
     /**
      * Date when the stats collection started.
@@ -49,7 +49,7 @@ export interface StatsScreenBaseProps {
      *
      * @param range New range value of range
      */
-    onRangeChange: (range: StatsRange) => void;
+    onRangeChange: (range: StatisticsRange) => void;
 }
 
 /**

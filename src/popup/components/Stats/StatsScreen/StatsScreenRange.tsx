@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
-import { StatsRange } from '../../../../background/statistics/statisticsTypes';
+import { StatisticsRange } from '../../../../background/statistics/statisticsTypes';
 import { Select } from '../../../../common/components/Select';
 import { translator } from '../../../../common/translator';
 import { Icon } from '../../ui/Icon';
@@ -35,10 +35,10 @@ export const StatsScreenRange = observer((props: StatsScreenRangeProps) => {
             value={range}
             className="stats-screen__select stats-screen__select--range"
             options={[
-                { value: StatsRange.Hours24, title: translator.getMessage('popup_stats_range_hours_24') },
-                { value: StatsRange.Days7, title: translator.getMessage('popup_stats_range_days_7') },
-                { value: StatsRange.Days30, title: translator.getMessage('popup_stats_range_days_30') },
-                { value: StatsRange.AllTime, title: translator.getMessage('popup_stats_range_all_time') },
+                { value: StatisticsRange.Hours24, title: translator.getMessage('popup_stats_range_hours_24') },
+                { value: StatisticsRange.Days7, title: translator.getMessage('popup_stats_range_days_7') },
+                { value: StatisticsRange.Days30, title: translator.getMessage('popup_stats_range_days_30') },
+                { value: StatisticsRange.AllTime, title: translator.getMessage('popup_stats_range_all_time') },
             ]}
             activeItemIcon={<Icon icon="tick" className="select__item-icon stats-screen__select-icon" />}
             onChange={onRangeChange}
