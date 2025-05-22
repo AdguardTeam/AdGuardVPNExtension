@@ -1,17 +1,9 @@
 import { action, computed, observable } from 'mobx';
 
+import { StatsRange } from '../../background/statistics/statisticsTypes';
+
 import { type RootStore } from './RootStore';
 import { type LocationData } from './VpnStore';
-
-/**
- * Statistics range.
- */
-export enum StatsRange {
-    Hours24 = 'hours24',
-    Days7 = 'days7',
-    Days30 = 'days30',
-    AllTime = 'allTime',
-}
 
 /**
  * Data usage interface.

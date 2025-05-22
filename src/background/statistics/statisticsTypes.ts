@@ -154,3 +154,14 @@ export interface AddStatisticsDataTraffic extends AddStatisticsDataBase {
      */
     uploaded: number;
 }
+
+/**
+ * Statistics ranges.
+ * Used to show statistics for different time periods.
+ */
+export enum StatsRange {
+    Hours24 = 'hours24',
+    Days7 = 'days7',
+    Days30 = 'days30',
+    AllTime = 'allTime',
+}

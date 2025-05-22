@@ -1,9 +1,9 @@
 import browser from 'webextension-polyfill';
 
+import { StatsRange } from '../../../background/statistics/statisticsTypes';
 import { translator } from '../../../common/translator';
 import { formatBytes } from '../../../common/helpers';
 import { ONE_DAY_MS, ONE_HOUR_MS, ONE_MINUTE_MS } from '../../../common/constants';
-import { StatsRange } from '../../stores/StatsStore';
 
 /**
  * Amount of bytes in a megabyte.

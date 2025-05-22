@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 
-import { type DataUsage, type LocationDataUsage, type StatsRange } from '../../../stores/StatsStore';
+import { type StatsRange } from '../../../../background/statistics/statisticsTypes';
+import { type DataUsage, type LocationDataUsage } from '../../../stores/StatsStore';
 import { Icon } from '../../ui/Icon';
 import { getFlagIconStyle } from '../../Locations';
 import { formatRange } from '../utils';

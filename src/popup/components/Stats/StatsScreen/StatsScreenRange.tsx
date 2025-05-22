@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { StatsRange } from '../../../../background/statistics/statisticsTypes';
 import { Select } from '../../../../common/components/Select';
 import { translator } from '../../../../common/translator';
 import { Icon } from '../../ui/Icon';
 import { rootStore } from '../../../stores';
-import { StatsRange } from '../../../stores/StatsStore';
 
 import { type StatsScreenBaseProps } from './StatsScreen';
 
