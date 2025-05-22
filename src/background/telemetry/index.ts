@@ -7,6 +7,8 @@ import { settings } from '../settings';
 
 import { Telemetry } from './Telemetry';
 
+// TODO: Instead of re-exporting it, import it directly, because it causes side effects
+// which gets imported to the page bundles (AG-42568).
 export {
     TelemetryScreenName,
     TelemetryActionName,
