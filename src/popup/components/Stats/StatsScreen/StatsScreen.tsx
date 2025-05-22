@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
-import { type StatisticsRange } from '../../../../background/statistics/statisticsTypes';
-import { type DataUsage, type LocationDataUsage } from '../../../stores/StatsStore';
+import { type StatisticsData, type StatisticsRange } from '../../../../background/statistics/statisticsTypes';
+import { type LocationDataUsage } from '../../../stores/StatsStore';
 import { Icon } from '../../ui/Icon';
 import { getFlagIconStyle } from '../../Locations';
 import { formatRange } from '../utils';
@@ -59,12 +59,7 @@ export interface StatsScreenWithUsageProps {
     /**
      * Data usage bytes.
      */
-    dataUsage: DataUsage;
-
-    /**
-     * Time usage in milliseconds.
-     */
-    timeUsageMs: number;
+    dataUsage: StatisticsData;
 }
 
 /**
@@ -182,10 +177,10 @@ export function StatsScreen(props: StatsScreenProps) {
     let dataUsageNode: React.ReactNode;
     let timeUsageNode: React.ReactNode;
     if (isMainScreen || isLocationScreen) {
-        const { dataUsage, timeUsageMs } = props;
+        const { dataUsage } = props;
 
         dataUsageNode = <StatsScreenData dataUsage={dataUsage} />;
-        timeUsageNode = <StatsScreenTime timeUsageMs={timeUsageMs} />;
+        timeUsageNode = <StatsScreenTime dataUsage={dataUsage} />;
     }
 
     let locationsNode: React.ReactNode;

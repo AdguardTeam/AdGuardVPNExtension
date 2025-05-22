@@ -8,14 +8,15 @@ import { type StatsScreenWithUsageProps } from './StatsScreen';
 /**
  * Props for the {@link StatsScreenTime} component.
  */
-export type StatsScreenTimeProps = Pick<StatsScreenWithUsageProps, 'timeUsageMs'>;
+export type StatsScreenTimeProps = Pick<StatsScreenWithUsageProps, 'dataUsage'>;
 
 /**
  * Component that renders the time usage for the stats screen.
  * Example: 'Connection to VPN - 1d 1h 1m'
  */
 export function StatsScreenTime(props: StatsScreenTimeProps) {
-    const { timeUsageMs } = props;
+    const { dataUsage } = props;
+    const { duration } = dataUsage;
 
     return (
         <>
@@ -27,7 +28,7 @@ export function StatsScreenTime(props: StatsScreenTimeProps) {
                     {translator.getMessage('popup_stats_connection_to_vpn')}
                 </div>
                 <div className="stats-screen-time__usage">
-                    {formatDuration(timeUsageMs)}
+                    {formatDuration(duration)}
                 </div>
             </div>
         </>
