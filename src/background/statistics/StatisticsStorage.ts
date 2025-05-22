@@ -82,8 +82,20 @@ export interface StatisticsStorageParameters {
  *         Used to store statistics for the last 30 days (inclusive).
  *       - Total statistics used to store statistics that are older than 30 days.
  *       - Optional duration tracker used to track connection duration statistics.
+ * - Additional storage contains statistics collection started timestamps for each account.
  *
- * FIXME: Add more explanation.
+ * Statistics implemented as time-based aggregation system:
+ * - New statistics data is initially stored in hourly buckets (YYYY-MM-DD-HH).
+ * - After 24 hours, hourly data is consolidated into daily buckets (YYYY-MM-DD).
+ * - After 30 days, daily data is consolidated into a single 'total' record.
+ *
+ * Data consolidation occurs when service worker starts ({@link init} method)
+ * by checking timestamp thresholds and data from older buckets
+ * is merged into the next level (hourly to daily, daily to total).
+ *
+ * Duration tracking works by creating a tracker object when a connection starts, updating it
+ * periodically during an active connection, and calculating the total duration when the connection ends.
+ * The calculated duration is then distributed to the appropriate hourly, daily, and total buckets.
  */
 export class StatisticsStorage implements StatisticsStorageInterface {
     /**
