@@ -156,6 +156,21 @@ export interface AddStatisticsDataTraffic extends AddStatisticsDataBase {
 }
 
 /**
+ * Location storage and started time combined data for the given account.
+ */
+export interface StatisticsAccountData {
+    /**
+     * Timestamp when the statistics collection started.
+     */
+    startedTimestamp: number;
+
+    /**
+     * Account storage for the given account.
+     */
+    accountStorage: StatisticsAccountStorage | undefined;
+}
+
+/**
  * Statistics ranges.
  * Used to show statistics for different time periods.
  */

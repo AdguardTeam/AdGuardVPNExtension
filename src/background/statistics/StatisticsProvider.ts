@@ -8,12 +8,17 @@ import { type StateStorageInterface } from '../stateStorage/stateStorage';
 import { type TimersInterface } from '../timers/AbstractTimers';
 
 import { type StatisticsStorageInterface } from './StatisticsStorage';
-import { type AddStatisticsDataBase } from './statisticsTypes';
+import { type StatisticsAccountData, type AddStatisticsDataBase } from './statisticsTypes';
+
+/**
+ * Methods that are forwarded to the statistics storage.
+ */
+type StorageForwardedMethods = Pick<StatisticsStorageInterface, 'getAccountStatistics' | 'clearAccountStatistics'>;
 
 /**
  * Statistics provider interface.
  */
-export interface StatisticsProviderInterface {
+export interface StatisticsProviderInterface extends StorageForwardedMethods {
     /**
      * Initializes the statistics provider.
      */
@@ -202,6 +207,26 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         } catch (e) {
             log.error('Unable to initialize statistics provider, due to error:', e);
         }
+    };
+
+    /**
+     * Gets statistics data for the given account ID.
+     *
+     * @param accountId Account ID to get statistics for.
+     *
+     * @returns Statistics data for the given account ID or null if not found.
+     */
+    public getAccountStatistics = (accountId: string): StatisticsAccountData | null => {
+        return this.statisticsStorage.getAccountStatistics(accountId);
+    };
+
+    /**
+     * Clears all statistics for the given account ID.
+     *
+     * @param accountId Account ID to clear statistics for.
+     */
+    public clearAccountStatistics = async (accountId: string): Promise<void> => {
+        await this.statisticsStorage.clearAccountStatistics(accountId);
     };
 
     /**

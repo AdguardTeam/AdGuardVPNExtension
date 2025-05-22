@@ -10,6 +10,7 @@ import {
     type StatisticsAccountStorage,
     type StatisticsData,
     type StatisticsStartedTimes,
+    type StatisticsAccountData,
 } from './statisticsTypes';
 
 /**
@@ -55,6 +56,22 @@ export interface StatisticsStorageInterface {
      * @param data Data about account and location.
      */
     endDuration(data: AddStatisticsDataBase): Promise<void>;
+
+    /**
+     * Gets statistics data for the given account ID.
+     *
+     * @param accountId Account ID to get statistics for.
+     *
+     * @returns Statistics data for the given account ID or null if not found.
+     */
+    getAccountStatistics(accountId: string): StatisticsAccountData | null;
+
+    /**
+     * Clears all statistics for the given account ID.
+     *
+     * @param accountId Account ID to clear statistics for.
+     */
+    clearAccountStatistics(accountId: string): Promise<void>;
 }
 
 /**
@@ -592,6 +609,43 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             StatisticsStorage.distributeDuration(locationStorage, Date.now());
             await this.saveStatistics();
         }
+    };
+
+    /**
+     * Gets statistics data for the given account ID.
+     *
+     * @param accountId Account ID to get statistics for.
+     *
+     * @returns Statistics data for the given account ID or null if not found.
+     */
+    public getAccountStatistics = (accountId: string): StatisticsAccountData | null => {
+        const startedTimestamp = this.startedTimes[accountId];
+
+        if (!startedTimestamp) {
+            return null;
+        }
+
+        return {
+            startedTimestamp,
+            accountStorage: this.statistics[accountId],
+        };
+    };
+
+    /**
+     * Clears all statistics for the given account ID.
+     *
+     * @param accountId Account ID to clear statistics for.
+     */
+    public clearAccountStatistics = async (accountId: string): Promise<void> => {
+        // delete account storage
+        if (this.statistics[accountId]) {
+            delete this.statistics[accountId];
+            await this.saveStatistics();
+        }
+
+        // renew started time
+        this.startedTimes[accountId] = Date.now();
+        await this.saveStartedTimes();
     };
 
     /**

@@ -727,7 +727,7 @@ describe('StatisticsStorage', () => {
         });
     });
 
-    describe('Adding statistics', () => {
+    describe('Working with statistics', () => {
         it('should add traffic statistics properly', async () => {
             storageMock.get.mockImplementation(async (key: string) => {
                 if (key === storageKey || key === startedTimesKey) {
@@ -887,6 +887,105 @@ describe('StatisticsStorage', () => {
             expect(storageMock.set).toHaveBeenCalledWith(storageKey, {
                 [accountId]: {},
             });
+            expect(storageMock.set).toHaveBeenCalledWith(startedTimesKey, {
+                [accountId]: expect.any(Number),
+            });
+
+            storageMock.get.mockReset();
+        });
+
+        it('should return account storage and started time properly', async () => {
+            const accountId = 'test-account@adguard.com';
+            const startedTimestamp = 1234567890;
+            const accountStorage = {
+                locationId: {
+                    hourly: {
+                        '2025-10-01-10': {
+                            downloaded: 1,
+                            uploaded: 1,
+                            duration: 1,
+                        },
+                    },
+                    daily: {
+                        '2025-10-01': {
+                            downloaded: 2,
+                            uploaded: 2,
+                            duration: 2,
+                        },
+                    },
+                    total: {
+                        downloaded: 3,
+                        uploaded: 3,
+                        duration: 3,
+                    },
+                },
+            };
+
+            storageMock.get.mockImplementation(async (key: string) => {
+                if (key === storageKey) {
+                    return { [accountId]: accountStorage };
+                }
+
+                if (key === startedTimesKey) {
+                    return { [accountId]: startedTimestamp };
+                }
+
+                return undefined;
+            });
+
+            await statisticsStorage.init();
+
+            expect(statisticsStorage.getAccountStatistics(accountId)).toEqual({
+                startedTimestamp,
+                accountStorage,
+            });
+
+            storageMock.get.mockReset();
+        });
+
+        it('should clear statistics for the given account', async () => {
+            const accountId = 'test-account@adguard.com';
+            const startedTimestamp = 1234567890;
+            const accountStorage = {
+                locationId: {
+                    hourly: {
+                        '2025-10-01-10': {
+                            downloaded: 1,
+                            uploaded: 1,
+                            duration: 1,
+                        },
+                    },
+                    daily: {
+                        '2025-10-01': {
+                            downloaded: 2,
+                            uploaded: 2,
+                            duration: 2,
+                        },
+                    },
+                    total: {
+                        downloaded: 3,
+                        uploaded: 3,
+                        duration: 3,
+                    },
+                },
+            };
+
+            storageMock.get.mockImplementation(async (key: string) => {
+                if (key === storageKey) {
+                    return { [accountId]: accountStorage };
+                }
+
+                if (key === startedTimesKey) {
+                    return { [accountId]: startedTimestamp };
+                }
+
+                return undefined;
+            });
+
+            await statisticsStorage.init();
+            await statisticsStorage.clearAccountStatistics(accountId);
+
+            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {});
             expect(storageMock.set).toHaveBeenCalledWith(startedTimesKey, {
                 [accountId]: expect.any(Number),
             });
