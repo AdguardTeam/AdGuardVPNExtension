@@ -92,20 +92,20 @@ export function formatDuration(timeMs: number): string {
     const minutes = Math.floor((timeMs % ONE_HOUR_MS) / ONE_MINUTE_MS);
 
     /**
-     * Replace the last space with an empty string of each chunk, this space is added
+     * Replace the spaces with an empty string of each chunk, this space is added
      * to avoid false variable determination in crowdin
      */
 
-    const minutesString = translator.getMessage('popup_stats_connection_to_vpn_minutes', { minutes }).replace(/\s+$/, '');
+    const minutesString = translator.getMessage('popup_stats_connection_to_vpn_minutes', { minutes }).replace(/\s+/, '');
     let result = minutesString;
 
     if (days > 0 || hours > 0) {
-        const hoursString = translator.getMessage('popup_stats_connection_to_vpn_hours', { hours }).replace(/\s+$/, '');
+        const hoursString = translator.getMessage('popup_stats_connection_to_vpn_hours', { hours }).replace(/\s+/, '');
         result = `${hoursString} ${result}`;
     }
 
     if (days > 0) {
-        const daysString = translator.getMessage('popup_stats_connection_to_vpn_days', { days }).replace(/\s+$/, '');
+        const daysString = translator.getMessage('popup_stats_connection_to_vpn_days', { days }).replace(/\s+/, '');
         result = `${daysString} ${result}`;
     }
 
