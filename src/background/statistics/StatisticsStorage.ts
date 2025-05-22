@@ -62,7 +62,8 @@ export interface StatisticsStorageInterface {
      *
      * @param accountId Account ID to get statistics for.
      *
-     * @returns Statistics data for the given account ID or null if not found.
+     * @returns Statistics data for the given account ID,
+     * or `null` if stats didn't started collecting yet.
      */
     getAccountStatistics(accountId: string): StatisticsAccountData | null;
 
@@ -616,7 +617,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      *
      * @param accountId Account ID to get statistics for.
      *
-     * @returns Statistics data for the given account ID or null if not found.
+     * @returns Statistics data for the given account ID,
+     * or `null` if stats didn't started collecting yet.
      */
     public getAccountStatistics = (accountId: string): StatisticsAccountData | null => {
         const startedTimestamp = this.startedTimes[accountId];

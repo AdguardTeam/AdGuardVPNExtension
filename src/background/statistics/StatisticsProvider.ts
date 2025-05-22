@@ -214,7 +214,8 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      *
      * @param accountId Account ID to get statistics for.
      *
-     * @returns Statistics data for the given account ID or null if not found.
+     * @returns Statistics data for the given account ID,
+     * or `null` if stats didn't started collecting yet.
      */
     public getAccountStatistics = (accountId: string): StatisticsAccountData | null => {
         return this.statisticsStorage.getAccountStatistics(accountId);
