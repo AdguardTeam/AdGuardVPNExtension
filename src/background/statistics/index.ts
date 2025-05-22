@@ -5,14 +5,21 @@ import { timers } from '../timers';
 
 import { StatisticsStorage } from './StatisticsStorage';
 import { StatisticsProvider } from './StatisticsProvider';
+import { StatisticsService } from './StatisticsService';
 
 const statisticsStorage = new StatisticsStorage({
     storage: browserApi.storage,
 });
 
-export const statisticsProvider = new StatisticsProvider({
+const statisticsProvider = new StatisticsProvider({
     stateStorage,
     statisticsStorage,
     credentials,
     timers,
+});
+
+export const statisticsService = new StatisticsService({
+    storage: browserApi.storage,
+    provider: statisticsProvider,
+    credentials,
 });

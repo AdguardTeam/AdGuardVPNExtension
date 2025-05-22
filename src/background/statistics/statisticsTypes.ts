@@ -180,3 +180,48 @@ export enum StatisticsRange {
     Days30 = 'days30',
     AllTime = 'allTime',
 }
+
+/**
+ * Statistics data usage for a specific location.
+ */
+export interface StatisticsDataUsage {
+    /**
+     * Location ID to which the statistics data belong.
+     */
+    locationId: string;
+
+    /**
+     * Statistics data which contains the traffic and duration usage.
+     */
+    data: StatisticsData;
+}
+
+/**
+ * Statistics sent when {@link StatisticsRange} is changed, and data for that range is needed.
+ */
+export interface RangeAccountStatistics {
+    /**
+     * Summarized statistics data for {@link locations}.
+     */
+    total: StatisticsData;
+
+    /**
+     * List of statistics data for all locations.
+     */
+    locations: StatisticsDataUsage[];
+}
+
+/**
+ * All information about statistics for a specific account.
+ */
+export interface AllAccountStatistics extends RangeAccountStatistics {
+    /**
+     * Timestamp when the statistics collection started.
+     */
+    startedTimestamp: number;
+
+    /**
+     * Currently selected statistics range.
+     */
+    range: StatisticsRange;
+}
