@@ -431,7 +431,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
             let targetData: StatisticsData;
             if (isHourly) {
-                targetData = StatisticsStorage.getPeriodStatistics(locationStorage, isHourly, date);
+                targetData = StatisticsStorage.getPeriodStatistics(locationStorage, false, date);
             } else {
                 targetData = total;
             }

@@ -19,6 +19,7 @@ const stateStorageMock = {
 
 const statisticsStorageMock = {
     init: jest.fn(),
+    addAccount: jest.fn(),
     addTraffic: jest.fn(),
     startDuration: jest.fn(),
     updateDuration: jest.fn(),
