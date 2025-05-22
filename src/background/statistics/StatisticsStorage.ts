@@ -558,7 +558,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private updateDurationTracker(data: AddStatisticsDataBase): StatisticsLocationStorage | null {
         const locationStorage = this.getLocationStorage(data);
         if (!locationStorage.durationTracker) {
-            log.error('Missing duration tracker for location');
             return null;
         }
 
