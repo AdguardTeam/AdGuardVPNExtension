@@ -8,14 +8,14 @@ import { type StatsScreenWithUsageProps } from './StatsScreen';
 /**
  * Props for the {@link StatsScreenData} component.
  */
-export type StatsScreenDataProps = Pick<StatsScreenWithUsageProps, 'dataUsage'>;
+export type StatsScreenDataProps = Pick<StatsScreenWithUsageProps, 'usage'>;
 
 /**
  * Component that renders the data usage block (chart) in the stats screen.
  */
 export function StatsScreenData(props: StatsScreenDataProps) {
-    const { dataUsage } = props;
-    const { downloaded, uploaded } = dataUsage;
+    const { usage } = props;
+    const { downloaded, uploaded } = usage;
 
     const downloadText = formatTraffic(downloaded);
     const uploadText = formatTraffic(uploaded);

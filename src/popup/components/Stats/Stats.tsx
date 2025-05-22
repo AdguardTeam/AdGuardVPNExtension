@@ -18,10 +18,9 @@ export const Stats = observer(() => {
         isMenuOpen,
         isWhySafeModalOpen,
         isClearModalOpen,
-        totalUsageData,
-        allLocationsDataUsage,
-        selectedLocationDataUsage,
-        totalTimeUsageMs,
+        totalUsage,
+        locations,
+        selectedLocation,
         closeStatsScreen,
         openAllLocationsScreen,
         closeAllLocationsScreen,
@@ -37,7 +36,7 @@ export const Stats = observer(() => {
         || isClearModalOpen; // `ClearStatsScreen`
 
     const canSendStatsTelemetry = shouldRenderStatsScreen
-        && !selectedLocationDataUsage
+        && !selectedLocation
         && !isOverlappedWithScreen;
 
     useTelemetryPageViewEvent(
@@ -47,7 +46,7 @@ export const Stats = observer(() => {
     );
 
     const canSendLocationStatsTelemetry = shouldRenderStatsScreen
-        && !!selectedLocationDataUsage
+        && !!selectedLocation
         && !isOverlappedWithScreen;
 
     useTelemetryPageViewEvent(
@@ -60,8 +59,8 @@ export const Stats = observer(() => {
         return null;
     }
 
-    if (selectedLocationDataUsage) {
-        const { location, dataUsage, timeUsageMs } = selectedLocationDataUsage;
+    if (selectedLocation) {
+        const { location, usage } = selectedLocation;
         const { countryCode, countryName, cityName } = location;
 
         return (
@@ -70,8 +69,7 @@ export const Stats = observer(() => {
                 title={`${countryName} (${cityName})`}
                 range={range}
                 firstStatsDate={firstStatsDate}
-                dataUsage={dataUsage}
-                timeUsageMs={timeUsageMs}
+                usage={usage}
                 countryCode={countryCode}
                 onBackClick={closeLocationScreen}
                 onClear={clearAllStats}
@@ -87,7 +85,7 @@ export const Stats = observer(() => {
                 title={translator.getMessage('popup_stats_locations')}
                 range={range}
                 firstStatsDate={firstStatsDate}
-                locations={allLocationsDataUsage}
+                locations={locations}
                 onBackClick={closeAllLocationsScreen}
                 onClear={clearAllStats}
                 onRangeChange={updateRange}
@@ -103,9 +101,8 @@ export const Stats = observer(() => {
             title={translator.getMessage('popup_stats_for_browser_title')}
             range={range}
             firstStatsDate={firstStatsDate}
-            dataUsage={totalUsageData}
-            locations={allLocationsDataUsage}
-            timeUsageMs={totalTimeUsageMs}
+            usage={totalUsage}
+            locations={locations}
             onBackClick={closeStatsScreen}
             onClear={clearAllStats}
             onRangeChange={updateRange}

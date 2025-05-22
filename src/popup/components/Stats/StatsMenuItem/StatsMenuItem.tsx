@@ -23,7 +23,7 @@ export const StatsMenuItem = observer(() => {
 
     const { isPremiumToken } = vpnStore;
     const { setForceShowUpgradeScreen } = authStore;
-    const { totalUsageData, openStatsScreen } = statsStore;
+    const { totalUsage, openStatsScreen } = statsStore;
     const { closeOptionsModal } = uiStore;
 
     const handleClick = () => {
@@ -56,10 +56,10 @@ export const StatsMenuItem = observer(() => {
         return (
             <span className="stats-menu-item__usage">
                 <span className="stats-menu-item__usage-item stats-menu-item__usage-item--download">
-                    {formatTraffic(totalUsageData.downloadBytes, true, true)}
+                    {formatTraffic(totalUsage.downloaded, true, true)}
                 </span>
                 <span className="stats-menu-item__usage-item stats-menu-item__usage-item--upload">
-                    {formatTraffic(totalUsageData.uploadBytes, true, false)}
+                    {formatTraffic(totalUsage.uploaded, true, false)}
                 </span>
             </span>
         );

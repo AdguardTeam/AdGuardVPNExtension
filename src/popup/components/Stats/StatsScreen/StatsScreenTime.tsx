@@ -8,15 +8,15 @@ import { type StatsScreenWithUsageProps } from './StatsScreen';
 /**
  * Props for the {@link StatsScreenTime} component.
  */
-export type StatsScreenTimeProps = Pick<StatsScreenWithUsageProps, 'dataUsage'>;
+export type StatsScreenTimeProps = Pick<StatsScreenWithUsageProps, 'usage'>;
 
 /**
  * Component that renders the time usage for the stats screen.
  * Example: 'Connection to VPN - 1d 1h 1m'
  */
 export function StatsScreenTime(props: StatsScreenTimeProps) {
-    const { dataUsage } = props;
-    const { duration } = dataUsage;
+    const { usage } = props;
+    const { duration } = usage;
 
     return (
         <>

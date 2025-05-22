@@ -1,48 +1,55 @@
 import { action, computed, observable } from 'mobx';
 
-import { StatisticsRange } from '../../background/statistics/statisticsTypes';
+import {
+    type AllAccountStatistics,
+    StatisticsRange,
+    type RangeAccountStatistics,
+    type StatisticsData,
+    type StatisticsDataUsage,
+} from '../../background/statistics/statisticsTypes';
+import { messenger } from '../../common/messenger';
 
 import { type RootStore } from './RootStore';
 import { type LocationData } from './VpnStore';
 
 /**
- * Data usage interface.
+ * Data and duration usage for a specific location.
  */
-export interface DataUsage {
-    /**
-     * Download bytes.
-     */
-    downloadBytes: number;
-
-    /**
-     * Upload bytes.
-     */
-    uploadBytes: number;
-}
-
-/**
- * Data usage for a specific location.
- */
-export interface LocationDataUsage {
+export interface LocationUsage {
     /**
      * Location info.
      */
     location: LocationData;
 
     /**
-     * Data usage for the location.
+     * Data and duration usage for the location.
      */
-    dataUsage: DataUsage;
-
-    /**
-     * Time usage for the location in milliseconds.
-     */
-    timeUsageMs: number;
+    usage: StatisticsData;
 }
 
 export class StatsStore {
+    /**
+     * Default range for statistics.
+     */
+    private static readonly DEFAULT_RANGE = StatisticsRange.Days7;
+
+    /**
+     * Default total statistics data.
+     */
+    private static readonly DEFAULT_TOTAL: StatisticsData = {
+        downloaded: 0,
+        uploaded: 0,
+        duration: 0,
+    };
+
+    /**
+     * Root store instance.
+     */
     rootStore: RootStore;
 
+    /**
+     * Constructor.
+     */
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
@@ -64,17 +71,23 @@ export class StatsStore {
 
     /**
      * Stats range to show data for.
-     *
-     * FIXME: It should persist between sessions (should be retrieved from background).
      */
-    @observable range: StatisticsRange = StatisticsRange.Days7;
+    @observable range: StatisticsRange = StatsStore.DEFAULT_RANGE;
 
     /**
      * Date when the stats collection started.
-     *
-     * FIXME: It should persist between sessions (should be retrieved from background).
      */
-    @observable firstStatsDate = new Date('2024-09-19T00:00:00Z');
+    @observable firstStatsDate = new Date();
+
+    /**
+     * Total statistics data for all locations and the selected range.
+     */
+    @observable totalUsage: StatisticsData = StatsStore.DEFAULT_TOTAL;
+
+    /**
+     * Raw statistics data for all locations.
+     */
+    @observable rawLocations: StatisticsDataUsage[] = [];
 
     /**
      * Is stats menu open.
@@ -103,6 +116,78 @@ export class StatsStore {
         // Render the stats screen if it is open
         return this.isStatsScreenOpen;
     }
+
+    /**
+     * Raw statistics data converted filled with location data.
+     */
+    @computed get locations(): LocationUsage[] {
+        const locations: LocationUsage[] = [];
+
+        for (let i = 0; i < this.rawLocations.length; i += 1) {
+            const { locationId, data } = this.rawLocations[i];
+            const locationData = this.rootStore.vpnStore.locations.find(
+                (location) => location.id === locationId,
+            );
+
+            if (locationData) {
+                locations.push({
+                    location: locationData,
+                    usage: data,
+                });
+            }
+        }
+
+        return locations;
+    }
+
+    /**
+     * Data usage for the selected location.
+     */
+    @computed get selectedLocation(): LocationUsage | null {
+        if (!this.selectedLocationId) {
+            return null;
+        }
+
+        const locationData = this.locations.find(
+            (locationUsage) => locationUsage.location.id === this.selectedLocationId,
+        );
+
+        return locationData || null;
+    }
+
+    /**
+     * Update statistics data after range update.
+     *
+     * @param rangeStatistics Statistics data for the selected range,
+     * if `null` then it will reset the statistics data to default values.
+     */
+    @action setRangeStatistics = (rangeStatistics: RangeAccountStatistics | null) => {
+        if (rangeStatistics) {
+            this.totalUsage = rangeStatistics.total;
+            this.rawLocations = rangeStatistics.locations;
+        } else {
+            this.totalUsage = StatsStore.DEFAULT_TOTAL;
+            this.rawLocations = [];
+        }
+    };
+
+    /**
+     * Updates all statistics related data inside of the store.
+     *
+     * @param statistics Statistics data to set, if `null` then
+     * it will reset the statistics data to default values.
+     */
+    @action setStatistics = (statistics: AllAccountStatistics | null) => {
+        if (statistics) {
+            this.firstStatsDate = new Date(statistics.startedTimestamp);
+            this.range = statistics.range;
+        } else {
+            this.firstStatsDate = new Date();
+            this.range = StatsStore.DEFAULT_RANGE;
+        }
+
+        this.setRangeStatistics(statistics);
+    };
 
     /**
      * Open the stats screen.
@@ -179,22 +264,23 @@ export class StatsStore {
     };
 
     /**
-     * Update the stats range both in store and in background.
-     *
-     * FIXME: Implement (send message to background to update it).
+     * Update the stats range both in store and in background,
+     * and receives the new statistics data for that range.
      *
      * @param range New range value.
      */
     @action updateRange = async (range: StatisticsRange) => {
         this.range = range;
+        const rangeStatistics = await messenger.getRangeStatistics(range);
+        this.setRangeStatistics(rangeStatistics);
     };
 
     /**
      * Clear all stats.
-     *
-     * FIXME: Implement (send message to background to clear it).
      */
-    @action clearAllStats = async () => {};
+    @action clearAllStats = async () => {
+        await messenger.clearStatistics();
+    };
 
     /**
      * Set the stats menu open state.
@@ -222,91 +308,4 @@ export class StatsStore {
     @action setIsClearModalOpen = (isClearModalOpen: boolean) => {
         this.isClearModalOpen = isClearModalOpen;
     };
-
-    /**
-     * Data usage for all locations.
-     *
-     * FIXME: Replace with actual data and sort by download bytes
-     * (probably we need to transform raw data from background depending on range).
-     */
-    @computed get allLocationsDataUsage(): LocationDataUsage[] {
-        return [
-            {
-                location: this.rootStore.vpnStore.locations[0],
-                dataUsage: {
-                    downloadBytes: 4.2e9,
-                    uploadBytes: 789e6,
-                },
-                timeUsageMs: 90_060_000, // 1d 1h 1m
-            },
-            {
-                location: this.rootStore.vpnStore.locations[1],
-                dataUsage: {
-                    downloadBytes: 2.2e9,
-                    uploadBytes: 689e6,
-                },
-                timeUsageMs: 90_060_000, // 1d 1h 1m
-            },
-            {
-                location: this.rootStore.vpnStore.locations[2],
-                dataUsage: {
-                    downloadBytes: 1.2e9,
-                    uploadBytes: 589e6,
-                },
-                timeUsageMs: 90_060_000, // 1d 1h 1m
-            },
-            {
-                location: this.rootStore.vpnStore.locations[3],
-                dataUsage: {
-                    downloadBytes: 2e8,
-                    uploadBytes: 489e6,
-                },
-                timeUsageMs: 90_060_000, // 1d 1h 1m
-            },
-            {
-                location: this.rootStore.vpnStore.locations[4],
-                dataUsage: {
-                    downloadBytes: 1e8,
-                    uploadBytes: 389e6,
-                },
-                timeUsageMs: 90_060_000, // 1d 1h 1m
-            },
-        ];
-    }
-
-    /**
-     * Total data usage across all locations.
-     *
-     * FIXME: Replace with actual data (probably we need to reduce `allLocationsDataUsage`).
-     */
-    @computed get totalUsageData(): DataUsage {
-        return {
-            downloadBytes: 4.2e9,
-            uploadBytes: 789e6,
-        };
-    }
-
-    /**
-     * Total time usage across all locations in milliseconds.
-     *
-     * FIXME: Replace with actual data (probably we need to reduce `allLocationsDataUsage`).
-     */
-    @computed get totalTimeUsageMs(): number {
-        return 90_060_000; // 1d 1h 1m
-    }
-
-    /**
-     * Data usage for the selected location.
-     */
-    @computed get selectedLocationDataUsage(): LocationDataUsage | null {
-        if (!this.selectedLocationId) {
-            return null;
-        }
-
-        const locationData = this.allLocationsDataUsage.find(
-            (locationUsage) => locationUsage.location.id === this.selectedLocationId,
-        );
-
-        return locationData || null;
-    }
 }
