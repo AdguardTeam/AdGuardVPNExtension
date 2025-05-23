@@ -105,7 +105,7 @@ export class StatisticsService implements StatisticsServiceInterface {
      *
      * Initialized in {@link init} method.
      */
-    private range!: StatisticsRange;
+    private range: StatisticsRange;
 
     /**
      * Constructor.
@@ -187,14 +187,14 @@ export class StatisticsService implements StatisticsServiceInterface {
 
         // add all hourly data for all cases,
         // hourly data stores stats for last 24 hours
-        Object.values(hourly).forEach((hour) => addStatisticsData(hour!));
+        Object.values(hourly).forEach((hour) => addStatisticsData(hour));
 
         // add only some daily data if range is Days7,
         // daily data stores stats older than 24 hours and up to 30 days
         if (range === StatisticsRange.Days7) {
             Object.entries(daily).forEach(([dateKey, dayData]) => {
                 if (StatisticsService.isDateInWeekRange(dateKey)) {
-                    addStatisticsData(dayData!);
+                    addStatisticsData(dayData);
                 }
             });
         }
@@ -202,7 +202,7 @@ export class StatisticsService implements StatisticsServiceInterface {
         // add all daily data if range is Days30 or AllTime,
         // daily data stores stats older than 24 hours and up to 30 days
         if (range === StatisticsRange.Days30 || range === StatisticsRange.AllTime) {
-            Object.values(daily).forEach((day) => addStatisticsData(day!));
+            Object.values(daily).forEach((day) => addStatisticsData(day));
         }
 
         // add total data if range is AllTime,
@@ -234,7 +234,7 @@ export class StatisticsService implements StatisticsServiceInterface {
 
         const locations = Object.entries(accountStorage).map(
             ([locationId, locationStorage]): StatisticsDataUsage => {
-                const data = this.queryLocationStorage(locationStorage!, range);
+                const data = this.queryLocationStorage(locationStorage, range);
 
                 total.downloaded += data.downloaded;
                 total.uploaded += data.uploaded;

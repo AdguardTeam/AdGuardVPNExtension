@@ -167,7 +167,7 @@ export interface StatisticsAccountData {
     /**
      * Account storage for the given account.
      */
-    accountStorage: StatisticsAccountStorage | undefined;
+    accountStorage?: StatisticsAccountStorage;
 }
 
 /**
