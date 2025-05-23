@@ -192,11 +192,21 @@ export class StatisticsService implements StatisticsServiceInterface {
         // add only some daily data if range is Days7,
         // daily data stores stats older than 24 hours and up to 30 days
         if (range === StatisticsRange.Days7) {
-            Object.entries(daily).forEach(([dateKey, dayData]) => {
+            let addedDays = 0;
+            const dailyEntries = Object.entries(daily);
+            for (let i = 0; i < dailyEntries.length; i += 1) {
+                const [dateKey, dayData] = dailyEntries[i];
+
                 if (StatisticsService.isDateInWeekRange(dateKey)) {
                     addStatisticsData(dayData);
+                    addedDays += 1;
                 }
-            });
+
+                // stop if we already added 7 days
+                if (addedDays >= 7) {
+                    break;
+                }
+            }
         }
 
         // add all daily data if range is Days30 or AllTime,
