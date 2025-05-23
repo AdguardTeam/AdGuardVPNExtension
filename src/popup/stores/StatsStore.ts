@@ -1,11 +1,15 @@
-import { action, computed, observable } from 'mobx';
+import {
+    action,
+    computed,
+    observable,
+    runInAction,
+} from 'mobx';
 
 import {
     type AllAccountStatistics,
     StatisticsRange,
     type RangeAccountStatistics,
     type StatisticsData,
-    type StatisticsDataUsage,
 } from '../../background/statistics/statisticsTypes';
 import { messenger } from '../../common/messenger';
 
@@ -85,9 +89,9 @@ export class StatsStore {
     @observable totalUsage: StatisticsData = StatsStore.DEFAULT_TOTAL;
 
     /**
-     * Raw statistics data for all locations.
+     * Statistics data for all locations.
      */
-    @observable rawLocations: StatisticsDataUsage[] = [];
+    @observable locations: LocationUsage[] = [];
 
     /**
      * Is stats menu open.
@@ -118,29 +122,6 @@ export class StatsStore {
     }
 
     /**
-     * Raw statistics data converted filled with location data.
-     */
-    @computed get locations(): LocationUsage[] {
-        const locations: LocationUsage[] = [];
-
-        for (let i = 0; i < this.rawLocations.length; i += 1) {
-            const { locationId, data } = this.rawLocations[i];
-            const locationData = this.rootStore.vpnStore.locations.find(
-                (location) => location.id === locationId,
-            );
-
-            if (locationData) {
-                locations.push({
-                    location: locationData,
-                    usage: data,
-                });
-            }
-        }
-
-        return locations;
-    }
-
-    /**
      * Data usage for the selected location.
      */
     @computed get selectedLocation(): LocationUsage | null {
@@ -163,11 +144,28 @@ export class StatsStore {
      */
     @action setRangeStatistics = (rangeStatistics: RangeAccountStatistics | null) => {
         if (rangeStatistics) {
-            this.totalUsage = rangeStatistics.total;
-            this.rawLocations = rangeStatistics.locations;
+            const { total, locations } = rangeStatistics;
+
+            const newLocations: LocationUsage[] = [];
+            for (let i = 0; i < locations.length; i += 1) {
+                const { locationId, data } = locations[i];
+                const locationData = this.rootStore.vpnStore.locations.find(
+                    (location) => location.id === locationId,
+                );
+
+                if (locationData) {
+                    newLocations.push({
+                        location: locationData,
+                        usage: data,
+                    });
+                }
+            }
+
+            this.totalUsage = total;
+            this.locations = newLocations;
         } else {
             this.totalUsage = StatsStore.DEFAULT_TOTAL;
-            this.rawLocations = [];
+            this.locations = [];
         }
     };
 
@@ -281,12 +279,17 @@ export class StatsStore {
     @action clearAllStats = async () => {
         const succeeded = await messenger.clearStatistics();
 
-        if (succeeded) {
-            this.rawLocations = [];
+        // do nothing if not succeeded
+        if (!succeeded) {
+            return;
+        }
+
+        runInAction(() => {
+            this.locations = [];
             this.totalUsage = StatsStore.DEFAULT_TOTAL;
             this.firstStatsDate = new Date();
             this.selectedLocationId = null;
-        }
+        });
     };
 
     /**
