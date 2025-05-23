@@ -714,7 +714,7 @@ class Messenger {
      * WARNING: This method will delete all statistics data,
      * make sure that you know what you are doing before calling it.
      */
-    async clearStatistics(): Promise<void> {
+    async clearStatistics(): Promise<boolean> {
         const type = MessageType.STATISTICS_CLEAR;
         return this.sendMessage(type);
     }

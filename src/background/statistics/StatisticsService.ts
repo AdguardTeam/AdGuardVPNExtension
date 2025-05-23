@@ -47,8 +47,10 @@ export interface StatisticsServiceInterface {
      *
      * WARNING: This method will delete all statistics data,
      * make sure that you know what you are doing before calling it.
+     *
+     * @returns True if the statistics were cleared, false otherwise.
      */
-    clearStatistics(): Promise<void>;
+    clearStatistics(): Promise<boolean>;
 }
 
 /**
@@ -341,16 +343,19 @@ export class StatisticsService implements StatisticsServiceInterface {
      *
      * WARNING: This method will delete all statistics data,
      * make sure that you know what you are doing before calling it.
+     *
+     * @returns True if the statistics were cleared, false otherwise.
      */
-    public clearStatistics = async (): Promise<void> => {
+    public clearStatistics = async (): Promise<boolean> => {
         const accountId = await this.credentials.getUsername();
 
         // do nothing if user is not authenticated
         if (!accountId) {
-            return;
+            return false;
         }
 
         await this.provider.clearAccountStatistics(accountId);
+        return true;
     };
 
     /**

@@ -279,7 +279,14 @@ export class StatsStore {
      * Clear all stats.
      */
     @action clearAllStats = async () => {
-        await messenger.clearStatistics();
+        const succeeded = await messenger.clearStatistics();
+
+        if (succeeded) {
+            this.rawLocations = [];
+            this.totalUsage = StatsStore.DEFAULT_TOTAL;
+            this.firstStatsDate = new Date();
+            this.selectedLocationId = null;
+        }
     };
 
     /**
