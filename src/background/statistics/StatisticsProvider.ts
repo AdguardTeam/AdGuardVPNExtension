@@ -283,9 +283,10 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         const baseData = this.getAddBaseData();
 
         /**
-         * Do nothing if we can't add statistics because:
-         * 1. User is not a premium
-         * 2. Account ID or location ID is not set
+         * Do nothing if we can't add statistics because of any of the following:
+         * - User is not a premium
+         * - Account ID is not set
+         * - Location ID is not set
          *
          * Note: We do not check if the user is connected because the traffic statistics
          * are sent only when the user is connected to WebSocket. But there might be
@@ -333,9 +334,10 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         const baseData = this.getAddBaseData();
 
         /**
-         * Do nothing if we can't add statistics because:
-         * 1. User is not a premium
-         * 2. Account ID or location ID is not set
+         * Do nothing if we can't add statistics because of any of the following:
+         * - User is not a premium
+         * - Account ID is not set
+         * - Location ID is not set
          */
         if (!baseData) {
             return;
@@ -379,9 +381,10 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         const baseData = this.getAddBaseData();
 
         /**
-         * Do nothing if we can't update duration statistics because:
-         * 1. User is not a premium
-         * 2. Account ID or location ID is not set
+         * Do nothing if we can't add statistics because of any of the following:
+         * - User is not a premium
+         * - Account ID is not set
+         * - Location ID is not set
          *
          * Note: We do not check if the user is connected because interval is started
          * only when user is connected to Proxy. Otherwise, the interval is cleared.
