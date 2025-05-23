@@ -12,6 +12,7 @@ import {
     type StatisticsData,
     type StatisticsStartedTimes,
     type StatisticsAccountData,
+    type StatisticsUpdatedTimes,
 } from './statisticsTypes';
 
 /**
@@ -66,7 +67,7 @@ export interface StatisticsStorageInterface {
      * @returns Statistics data for the given account ID,
      * or `null` if stats didn't started collecting yet.
      */
-    getAccountStatistics(accountId: string): StatisticsAccountData | null;
+    getAccountStatistics(accountId: string): Promise<StatisticsAccountData | null>;
 
     /**
      * Clears all statistics for the given account ID.
@@ -167,6 +168,14 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Initialized in {@link init} method.
      */
     private startedTimes: StatisticsStartedTimes;
+
+    /**
+     * Object that contains map when the statistics data was last updated for each account.
+     *
+     * NOTE: This field is not needed to persist if extension is reloaded,
+     * because we update stale statistics on each extension reload.
+     */
+    private updatedTimes: StatisticsUpdatedTimes = {};
 
     /**
      * Constructor.
@@ -271,7 +280,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         // create before to make consistent calculations
         const now = Date.now();
 
-        Object.values(this.statistics).forEach((accountStorage) => {
+        Object.entries(this.statistics).forEach(([accountId, accountStorage]) => {
+            this.updatedTimes[accountId] = now;
+
             Object.values(accountStorage).forEach((locationStorage) => {
                 StatisticsStorage.distributeDuration(locationStorage, now);
                 StatisticsStorage.moveStatistics(locationStorage, now, true);
@@ -610,17 +621,40 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /**
      * Gets statistics data for the given account ID.
+     * Before returning the data, it checks if the statistics should be updated,
+     * and if so, it updates the statistics and returns consolidated data.
      *
      * @param accountId Account ID to get statistics for.
      *
      * @returns Statistics data for the given account ID,
      * or `null` if stats didn't started collecting yet.
      */
-    public getAccountStatistics = (accountId: string): StatisticsAccountData | null => {
+    public getAccountStatistics = async (accountId: string): Promise<StatisticsAccountData | null> => {
         const startedTimestamp = this.startedTimes[accountId];
+        const updatedTimestamp = this.updatedTimes[accountId];
 
         if (!startedTimestamp) {
             return null;
+        }
+
+        // retrieve account storage
+        const accountStorage = this.statistics[accountId];
+
+        // if updated timestamp is not set or set but statistics should be updated
+        const shouldUpdate = !updatedTimestamp || StatisticsStorage.shouldUpdateStatistics(updatedTimestamp);
+
+        // we need to update statistics first and only after that return the data
+        // this is needed in case if extension is running longer than 1 hour
+        if (shouldUpdate && accountStorage) {
+            const now = Date.now();
+            this.updatedTimes[accountId] = now;
+
+            Object.values(accountStorage).forEach((locationStorage) => {
+                StatisticsStorage.moveStatistics(locationStorage, now, true);
+                StatisticsStorage.moveStatistics(locationStorage, now, false);
+            });
+
+            await this.saveStatistics();
         }
 
         return {
@@ -715,5 +749,26 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      */
     private static getDailyBorderTimestamp(timestamp: number): number {
         return this.getCroppedTimestamp(timestamp - StatisticsStorage.MOVE_DAILY_STATS_AFTER_MS, false);
+    }
+
+    /**
+     * Checks if the statistics should be updated.
+     * Update is needed only if hour, day, month or year is different.
+     *
+     * @param updatedTimestamp Timestamp of the last update.
+     *
+     * @returns True if the statistics should be updated, false otherwise.
+     */
+    private static shouldUpdateStatistics(updatedTimestamp: number): boolean {
+        const now = new Date();
+        const updatedTime = new Date(updatedTimestamp);
+
+        // update needed only if hour, day, month or year is different
+        return (
+            now.getUTCFullYear() !== updatedTime.getUTCFullYear()
+            || now.getUTCMonth() !== updatedTime.getUTCMonth()
+            || now.getUTCDate() !== updatedTime.getUTCDate()
+            || now.getUTCHours() !== updatedTime.getUTCHours()
+        );
     }
 }

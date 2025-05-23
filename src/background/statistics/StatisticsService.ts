@@ -282,8 +282,8 @@ export class StatisticsService implements StatisticsServiceInterface {
             return null;
         }
 
-        // FIXME: Probably we need to request to update stats before getting it
-        const accountStatistics = this.provider.getAccountStatistics(accountId);
+        // get account statistics from provider
+        const accountStatistics = await this.provider.getAccountStatistics(accountId);
 
         // return null if stats didn't started collecting yet
         if (!accountStatistics) {

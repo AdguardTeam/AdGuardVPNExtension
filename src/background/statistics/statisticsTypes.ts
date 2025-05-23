@@ -126,6 +126,18 @@ export interface StatisticsStartedTimes {
 }
 
 /**
+ * Map that contains when statistics data updated for each account.
+ */
+export interface StatisticsUpdatedTimes {
+    /**
+     * Account ID to timestamp when the statistics was updated.
+     *
+     * Note: Always check if the value is `undefined` before using it.
+     */
+    [accountId: string]: number;
+}
+
+/**
  * Base data required for adding statistics.
  */
 export interface AddStatisticsDataBase {
