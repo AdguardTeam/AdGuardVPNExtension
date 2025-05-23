@@ -362,9 +362,6 @@ export class StatisticsService implements StatisticsServiceInterface {
         const sevenDaysAgo = new Date();
         sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
-        // crop time to compare only dates
-        sevenDaysAgo.setHours(0, 0, 0, 0);
-
         return date >= sevenDaysAgo;
     }
 }
