@@ -404,6 +404,16 @@ describe('StatisticsStorage', () => {
     });
 
     describe('Period switch', () => {
+        const getData = (
+            downloaded: number,
+            uploaded = downloaded,
+            duration = downloaded,
+        ) => ({
+            downloaded,
+            uploaded,
+            duration,
+        });
+
         it('should move from hourly to daily properly', async () => {
             storageMock.get.mockImplementation(async (key: string) => {
                 if (key === storageKey) {
@@ -412,64 +422,28 @@ describe('StatisticsStorage', () => {
                             locationId1: {
                                 hourly: {
                                     // should be moved to daily (24 hours passed)
-                                    '2025-09-29-01': {
-                                        downloaded: 3,
-                                        uploaded: 3,
-                                        duration: 3,
-                                    },
+                                    '2025-09-29-01': getData(3),
                                     // should be moved to daily (24 hours passed - close time)
-                                    '2025-09-30-09': {
-                                        downloaded: 2,
-                                        uploaded: 2,
-                                        duration: 2,
-                                    },
+                                    '2025-09-30-09': getData(2),
                                     // edge case: should not be moved to daily (24 hours passed, but it's border time)
-                                    '2025-09-30-10': {
-                                        downloaded: 3,
-                                        uploaded: 3,
-                                        duration: 3,
-                                    },
+                                    '2025-09-30-10': getData(3),
                                     // should not be moved to daily (24 hours not passed)
-                                    '2025-09-30-11': {
-                                        downloaded: 3,
-                                        uploaded: 2,
-                                        duration: 1,
-                                    },
+                                    '2025-09-30-11': getData(3, 2, 1),
                                     // should accumulate same day hourly
-                                    '2025-09-28-10': {
-                                        downloaded: 1,
-                                        uploaded: 2,
-                                        duration: 3,
-                                    },
-                                    '2025-09-28-23': {
-                                        downloaded: 3,
-                                        uploaded: 2,
-                                        duration: 1,
-                                    },
+                                    '2025-09-28-10': getData(1, 2, 3),
+                                    '2025-09-28-23': getData(3, 2, 1),
                                 },
                                 daily: {},
-                                total: {
-                                    downloaded: 0,
-                                    uploaded: 0,
-                                    duration: 0,
-                                },
+                                total: getData(0),
                             },
                             // should check different locations
                             locationId2: {
                                 hourly: {
                                     // should be moved to daily (24 hours passed)
-                                    '2025-09-15-23': {
-                                        downloaded: 1,
-                                        uploaded: 1,
-                                        duration: 1,
-                                    },
+                                    '2025-09-15-23': getData(1),
                                 },
                                 daily: {},
-                                total: {
-                                    downloaded: 0,
-                                    uploaded: 0,
-                                    duration: 0,
-                                },
+                                total: getData(0),
                             },
                         },
                         // should check different accounts
@@ -477,18 +451,10 @@ describe('StatisticsStorage', () => {
                             locationId1: {
                                 hourly: {
                                     // should be moved to daily (24 hours passed)
-                                    '2025-09-30-09': {
-                                        downloaded: 1,
-                                        uploaded: 2,
-                                        duration: 3,
-                                    },
+                                    '2025-09-30-09': getData(1, 2, 3),
                                 },
                                 daily: {},
-                                total: {
-                                    downloaded: 0,
-                                    uploaded: 0,
-                                    duration: 0,
-                                },
+                                total: getData(0),
                             },
                         },
                     };
@@ -512,71 +478,127 @@ describe('StatisticsStorage', () => {
                 'test1@adguard.com': {
                     locationId1: {
                         hourly: {
-                            '2025-09-30-10': {
-                                downloaded: 3,
-                                uploaded: 3,
-                                duration: 3,
-                            },
-                            '2025-09-30-11': {
-                                downloaded: 3,
-                                uploaded: 2,
-                                duration: 1,
-                            },
+                            '2025-09-30-10': getData(3),
+                            '2025-09-30-11': getData(3, 2, 1),
                         },
                         daily: {
-                            '2025-09-29': {
-                                downloaded: 3,
-                                uploaded: 3,
-                                duration: 3,
-                            },
-                            '2025-09-30': {
-                                downloaded: 2,
-                                uploaded: 2,
-                                duration: 2,
-                            },
-                            '2025-09-28': {
-                                downloaded: 4,
-                                uploaded: 4,
-                                duration: 4,
-                            },
+                            '2025-09-29': getData(3),
+                            '2025-09-30': getData(2),
+                            '2025-09-28': getData(4),
                         },
-                        total: {
-                            downloaded: 0,
-                            uploaded: 0,
-                            duration: 0,
-                        },
+                        total: getData(0),
                     },
                     locationId2: {
                         hourly: {},
                         daily: {
-                            '2025-09-15': {
-                                downloaded: 1,
-                                uploaded: 1,
-                                duration: 1,
-                            },
+                            '2025-09-15': getData(1),
                         },
-                        total: {
-                            downloaded: 0,
-                            uploaded: 0,
-                            duration: 0,
-                        },
+                        total: getData(0),
                     },
                 },
                 'test2@adguard.com': {
                     locationId1: {
                         hourly: {},
                         daily: {
-                            '2025-09-30': {
-                                downloaded: 1,
-                                uploaded: 2,
-                                duration: 3,
+                            '2025-09-30': getData(1, 2, 3),
+                        },
+                        total: getData(0),
+                    },
+                },
+            });
+
+            storageMock.get.mockReset();
+        });
+
+        it('should store past 24 hours only', async () => {
+            storageMock.get.mockImplementation(async (key: string) => {
+                if (key === storageKey) {
+                    return {
+                        'test@adguard.com': {
+                            locationId1: {
+                                hourly: {
+                                    '2025-10-01-10': getData(1),
+                                    '2025-10-01-09': getData(1),
+                                    '2025-10-01-08': getData(1),
+                                    '2025-10-01-07': getData(1),
+                                    '2025-10-01-06': getData(1),
+                                    '2025-10-01-05': getData(1),
+                                    '2025-10-01-04': getData(1),
+                                    '2025-10-01-03': getData(1),
+                                    '2025-10-01-02': getData(1),
+                                    '2025-10-01-01': getData(1),
+                                    '2025-10-01-00': getData(1),
+                                    '2025-09-30-23': getData(1),
+                                    '2025-09-30-22': getData(1),
+                                    '2025-09-30-21': getData(1),
+                                    '2025-09-30-20': getData(1),
+                                    '2025-09-30-19': getData(1),
+                                    '2025-09-30-18': getData(1),
+                                    '2025-09-30-17': getData(1),
+                                    '2025-09-30-16': getData(1),
+                                    '2025-09-30-15': getData(1),
+                                    '2025-09-30-14': getData(1),
+                                    '2025-09-30-13': getData(1),
+                                    '2025-09-30-12': getData(1),
+                                    '2025-09-30-11': getData(1),
+                                    '2025-09-30-10': getData(1),
+                                    '2025-09-30-09': getData(1),
+                                    '2025-09-30-08': getData(1),
+                                },
+                                daily: {},
+                                total: getData(0),
                             },
                         },
-                        total: {
-                            downloaded: 0,
-                            uploaded: 0,
-                            duration: 0,
+                    };
+                }
+
+                if (key === startedTimesKey) {
+                    return {
+                        'test@adguard.com': 1,
+                    };
+                }
+
+                return undefined;
+            });
+
+            await statisticsStorage.init();
+
+            // for update stale statistics
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {
+                'test@adguard.com': {
+                    locationId1: {
+                        hourly: {
+                            '2025-10-01-10': getData(1),
+                            '2025-10-01-09': getData(1),
+                            '2025-10-01-08': getData(1),
+                            '2025-10-01-07': getData(1),
+                            '2025-10-01-06': getData(1),
+                            '2025-10-01-05': getData(1),
+                            '2025-10-01-04': getData(1),
+                            '2025-10-01-03': getData(1),
+                            '2025-10-01-02': getData(1),
+                            '2025-10-01-01': getData(1),
+                            '2025-10-01-00': getData(1),
+                            '2025-09-30-23': getData(1),
+                            '2025-09-30-22': getData(1),
+                            '2025-09-30-21': getData(1),
+                            '2025-09-30-20': getData(1),
+                            '2025-09-30-19': getData(1),
+                            '2025-09-30-18': getData(1),
+                            '2025-09-30-17': getData(1),
+                            '2025-09-30-16': getData(1),
+                            '2025-09-30-15': getData(1),
+                            '2025-09-30-14': getData(1),
+                            '2025-09-30-13': getData(1),
+                            '2025-09-30-12': getData(1),
+                            '2025-09-30-11': getData(1),
+                            '2025-09-30-10': getData(1),
                         },
+                        daily: {
+                            '2025-09-30': getData(2),
+                        },
+                        total: getData(0),
                     },
                 },
             });
@@ -594,52 +616,24 @@ describe('StatisticsStorage', () => {
                                 // should accumulate total
                                 daily: {
                                     // should be moved to total (30 days passed)
-                                    '2025-08-01': {
-                                        downloaded: 3,
-                                        uploaded: 3,
-                                        duration: 3,
-                                    },
+                                    '2025-08-01': getData(3),
                                     // edge case: should not be moved to total (30 days passed, but it's border time)
-                                    '2025-09-01': {
-                                        downloaded: 2,
-                                        uploaded: 2,
-                                        duration: 2,
-                                    },
+                                    '2025-09-01': getData(2),
                                     // should be moved to total (30 days passed - close date)
-                                    '2025-08-31': {
-                                        downloaded: 2,
-                                        uploaded: 2,
-                                        duration: 2,
-                                    },
+                                    '2025-08-31': getData(2),
                                     // should not be moved to total (30 days not passed)
-                                    '2025-09-30': {
-                                        downloaded: 3,
-                                        uploaded: 2,
-                                        duration: 1,
-                                    },
+                                    '2025-09-30': getData(3, 2, 1),
                                 },
-                                total: {
-                                    downloaded: 0,
-                                    uploaded: 0,
-                                    duration: 0,
-                                },
+                                total: getData(0),
                             },
                             // should check different locations
                             locationId2: {
                                 hourly: {},
                                 daily: {
                                     // should be moved to total (30 days passed)
-                                    '2025-08-31': {
-                                        downloaded: 1,
-                                        uploaded: 1,
-                                        duration: 1,
-                                    },
+                                    '2025-08-31': getData(1),
                                 },
-                                total: {
-                                    downloaded: 0,
-                                    uploaded: 0,
-                                    duration: 0,
-                                },
+                                total: getData(0),
                             },
                         },
                         // should check different accounts
@@ -648,17 +642,9 @@ describe('StatisticsStorage', () => {
                                 hourly: {},
                                 daily: {
                                     // should be moved to total (30 days passed)
-                                    '2025-08-31': {
-                                        downloaded: 1,
-                                        uploaded: 2,
-                                        duration: 3,
-                                    },
+                                    '2025-08-31': getData(1, 2, 3),
                                 },
-                                total: {
-                                    downloaded: 0,
-                                    uploaded: 0,
-                                    duration: 0,
-                                },
+                                total: getData(0),
                             },
                         },
                     };
@@ -683,42 +669,129 @@ describe('StatisticsStorage', () => {
                     locationId1: {
                         hourly: {},
                         daily: {
-                            '2025-09-01': {
-                                downloaded: 2,
-                                uploaded: 2,
-                                duration: 2,
-                            },
-                            '2025-09-30': {
-                                downloaded: 3,
-                                uploaded: 2,
-                                duration: 1,
-                            },
+                            '2025-09-01': getData(2),
+                            '2025-09-30': getData(3, 2, 1),
                         },
-                        total: {
-                            downloaded: 5,
-                            uploaded: 5,
-                            duration: 5,
-                        },
+                        total: getData(5),
                     },
                     locationId2: {
                         hourly: {},
                         daily: {},
-                        total: {
-                            downloaded: 1,
-                            uploaded: 1,
-                            duration: 1,
-                        },
+                        total: getData(1),
                     },
                 },
                 'test2@adguard.com': {
                     locationId1: {
                         hourly: {},
                         daily: {},
-                        total: {
-                            downloaded: 1,
-                            uploaded: 2,
-                            duration: 3,
+                        total: getData(1, 2, 3),
+                    },
+                },
+            });
+
+            storageMock.get.mockReset();
+        });
+
+        it('should store past 30 days only', async () => {
+            storageMock.get.mockImplementation(async (key: string) => {
+                if (key === storageKey) {
+                    return {
+                        'test@adguard.com': {
+                            locationId1: {
+                                hourly: {},
+                                daily: {
+                                    '2025-10-01': getData(1),
+                                    '2025-09-30': getData(1),
+                                    '2025-09-29': getData(1),
+                                    '2025-09-28': getData(1),
+                                    '2025-09-27': getData(1),
+                                    '2025-09-26': getData(1),
+                                    '2025-09-25': getData(1),
+                                    '2025-09-24': getData(1),
+                                    '2025-09-23': getData(1),
+                                    '2025-09-22': getData(1),
+                                    '2025-09-21': getData(1),
+                                    '2025-09-20': getData(1),
+                                    '2025-09-19': getData(1),
+                                    '2025-09-18': getData(1),
+                                    '2025-09-17': getData(1),
+                                    '2025-09-16': getData(1),
+                                    '2025-09-15': getData(1),
+                                    '2025-09-14': getData(1),
+                                    '2025-09-13': getData(1),
+                                    '2025-09-12': getData(1),
+                                    '2025-09-11': getData(1),
+                                    '2025-09-10': getData(1),
+                                    '2025-09-09': getData(1),
+                                    '2025-09-08': getData(1),
+                                    '2025-09-07': getData(1),
+                                    '2025-09-06': getData(1),
+                                    '2025-09-05': getData(1),
+                                    '2025-09-04': getData(1),
+                                    '2025-09-03': getData(1),
+                                    '2025-09-02': getData(1),
+                                    '2025-09-01': getData(1),
+                                    '2025-08-31': getData(1),
+                                    '2025-08-30': getData(1),
+                                    '2025-08-29': getData(1),
+                                },
+                                total: getData(0),
+                            },
                         },
+                    };
+                }
+
+                if (key === startedTimesKey) {
+                    return {
+                        'test@adguard.com': 1,
+                    };
+                }
+
+                return undefined;
+            });
+
+            await statisticsStorage.init();
+
+            // for update stale statistics
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {
+                'test@adguard.com': {
+                    locationId1: {
+                        hourly: {},
+                        daily: {
+                            '2025-10-01': getData(1),
+                            '2025-09-30': getData(1),
+                            '2025-09-29': getData(1),
+                            '2025-09-28': getData(1),
+                            '2025-09-27': getData(1),
+                            '2025-09-26': getData(1),
+                            '2025-09-25': getData(1),
+                            '2025-09-24': getData(1),
+                            '2025-09-23': getData(1),
+                            '2025-09-22': getData(1),
+                            '2025-09-21': getData(1),
+                            '2025-09-20': getData(1),
+                            '2025-09-19': getData(1),
+                            '2025-09-18': getData(1),
+                            '2025-09-17': getData(1),
+                            '2025-09-16': getData(1),
+                            '2025-09-15': getData(1),
+                            '2025-09-14': getData(1),
+                            '2025-09-13': getData(1),
+                            '2025-09-12': getData(1),
+                            '2025-09-11': getData(1),
+                            '2025-09-10': getData(1),
+                            '2025-09-09': getData(1),
+                            '2025-09-08': getData(1),
+                            '2025-09-07': getData(1),
+                            '2025-09-06': getData(1),
+                            '2025-09-05': getData(1),
+                            '2025-09-04': getData(1),
+                            '2025-09-03': getData(1),
+                            '2025-09-02': getData(1),
+                            '2025-09-01': getData(1),
+                        },
+                        total: getData(3),
                     },
                 },
             });
