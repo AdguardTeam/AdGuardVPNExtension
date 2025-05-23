@@ -159,14 +159,14 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      *
      * Initialized in {@link init} method.
      */
-    private statistics!: StatisticsStorageShape;
+    private statistics: StatisticsStorageShape;
 
     /**
      * Object that contains map when the statistics collection was started for each account.
      *
      * Initialized in {@link init} method.
      */
-    private startedTimes!: StatisticsStartedTimes;
+    private startedTimes: StatisticsStartedTimes;
 
     /**
      * Constructor.
@@ -272,10 +272,10 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const now = Date.now();
 
         Object.values(this.statistics).forEach((accountStorage) => {
-            Object.values(accountStorage!).forEach((locationStorage) => {
-                StatisticsStorage.distributeDuration(locationStorage!, now);
-                StatisticsStorage.moveStatistics(locationStorage!, now, true);
-                StatisticsStorage.moveStatistics(locationStorage!, now, false);
+            Object.values(accountStorage).forEach((locationStorage) => {
+                StatisticsStorage.distributeDuration(locationStorage, now);
+                StatisticsStorage.moveStatistics(locationStorage, now, true);
+                StatisticsStorage.moveStatistics(locationStorage, now, false);
             });
         });
     }
@@ -453,7 +453,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             }
 
             // move hourly / daily data to daily data / total data
-            const { downloaded, uploaded, duration } = data!;
+            const { downloaded, uploaded, duration } = data;
 
             let targetData: StatisticsData;
             if (isHourly) {
@@ -485,7 +485,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }: AddStatisticsDataBase): StatisticsLocationStorage {
         let accountStorage: StatisticsAccountStorage;
         if (this.statistics[accountId]) {
-            accountStorage = this.statistics[accountId]!;
+            accountStorage = this.statistics[accountId];
         } else {
             accountStorage = {};
             this.statistics[accountId] = accountStorage;
@@ -493,7 +493,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         let locationStorage: StatisticsLocationStorage;
         if (accountStorage[locationId]) {
-            locationStorage = accountStorage[locationId]!;
+            locationStorage = accountStorage[locationId];
         } else {
             locationStorage = {
                 hourly: {},
@@ -666,7 +666,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         let periodData: StatisticsData;
         if (periodStorage[dateKey]) {
-            periodData = periodStorage[dateKey]!;
+            periodData = periodStorage[dateKey];
         } else {
             periodData = { ...StatisticsStorage.DEFAULT_STATISTICS_DATA };
             periodStorage[dateKey] = periodData;

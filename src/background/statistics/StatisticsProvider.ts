@@ -15,6 +15,13 @@ import { type StatisticsAccountData, type AddStatisticsDataBase } from './statis
  */
 type StorageForwardedMethods = Pick<StatisticsStorageInterface, 'getAccountStatistics' | 'clearAccountStatistics'>;
 
+type NotifierArg =
+    WsConnectivityInfoMsgTraffic
+    | LocationInterface
+    | ConnectivityStateChangeEvent
+    | boolean
+    | undefined;
+
 /**
  * Statistics provider interface.
  */
@@ -276,16 +283,16 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * @param args Event arguments.
      */
     // eslint-disable-next-line consistent-return
-    private handleNotifierEvent(event: string, ...args: any[]): void | Promise<void> {
+    private handleNotifierEvent(event: string, arg: NotifierArg): void | Promise<void> {
         switch (event) {
             case notifier.types.TRAFFIC_STATS_UPDATED:
-                return this.handleTrafficStatsUpdated(args[0]);
+                return this.handleTrafficStatsUpdated(arg as WsConnectivityInfoMsgTraffic);
             case notifier.types.CURRENT_LOCATION_UPDATED:
-                return this.handleCurrentLocationUpdated(args[0]);
+                return this.handleCurrentLocationUpdated(arg as LocationInterface);
             case notifier.types.TOKEN_PREMIUM_STATE_UPDATED:
-                return this.handleTokenPremiumStateUpdated(args[0]);
+                return this.handleTokenPremiumStateUpdated(arg as boolean);
             case notifier.types.CONNECTIVITY_STATE_CHANGED:
-                return this.handleConnectivityStateChanged(args[0]);
+                return this.handleConnectivityStateChanged(arg as ConnectivityStateChangeEvent);
             case notifier.types.USER_AUTHENTICATED:
                 return this.handleUserAuthenticated();
             case notifier.types.USER_DEAUTHENTICATED:
@@ -309,9 +316,10 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         const baseData = this.getAddBaseData();
 
         /**
-         * Do nothing if we can't add statistics because:
-         * 1. User is not a premium
-         * 2. Account ID or location ID is not set
+         * Do nothing if we can't add statistics because of any of the following:
+         * - User is not a premium
+         * - Account ID is not set
+         * - Location ID is not set
          *
          * Note: We do not check if the user is connected because the traffic statistics
          * are sent only when the user is connected to WebSocket. But there might be
@@ -359,9 +367,10 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         const baseData = this.getAddBaseData();
 
         /**
-         * Do nothing if we can't add statistics because:
-         * 1. User is not a premium
-         * 2. Account ID or location ID is not set
+         * Do nothing if we can't add statistics because of any of the following:
+         * - User is not a premium
+         * - Account ID is not set
+         * - Location ID is not set
          */
         if (!baseData) {
             return;
@@ -405,9 +414,10 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         const baseData = this.getAddBaseData();
 
         /**
-         * Do nothing if we can't update duration statistics because:
-         * 1. User is not a premium
-         * 2. Account ID or location ID is not set
+         * Do nothing if we can't add statistics because of any of the following:
+         * - User is not a premium
+         * - Account ID is not set
+         * - Location ID is not set
          *
          * Note: We do not check if the user is connected because interval is started
          * only when user is connected to Proxy. Otherwise, the interval is cleared.
