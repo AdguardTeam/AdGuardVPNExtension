@@ -10,6 +10,13 @@ import { type TimersInterface } from '../timers/AbstractTimers';
 import { type StatisticsStorageInterface } from './StatisticsStorage';
 import { type AddStatisticsDataBase } from './statisticsTypes';
 
+type NotifierArg =
+    WsConnectivityInfoMsgTraffic
+    | LocationInterface
+    | ConnectivityStateChangeEvent
+    | boolean
+    | undefined;
+
 /**
  * Statistics provider interface.
  */
@@ -250,16 +257,16 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * @param args Event arguments.
      */
     // eslint-disable-next-line consistent-return
-    private handleNotifierEvent(event: string, ...args: any[]): void | Promise<void> {
+    private handleNotifierEvent(event: string, arg: NotifierArg): void | Promise<void> {
         switch (event) {
             case notifier.types.TRAFFIC_STATS_UPDATED:
-                return this.handleTrafficStatsUpdated(args[0]);
+                return this.handleTrafficStatsUpdated(arg as WsConnectivityInfoMsgTraffic);
             case notifier.types.CURRENT_LOCATION_UPDATED:
-                return this.handleCurrentLocationUpdated(args[0]);
+                return this.handleCurrentLocationUpdated(arg as LocationInterface);
             case notifier.types.TOKEN_PREMIUM_STATE_UPDATED:
-                return this.handleTokenPremiumStateUpdated(args[0]);
+                return this.handleTokenPremiumStateUpdated(arg as boolean);
             case notifier.types.CONNECTIVITY_STATE_CHANGED:
-                return this.handleConnectivityStateChanged(args[0]);
+                return this.handleConnectivityStateChanged(arg as ConnectivityStateChangeEvent);
             case notifier.types.USER_AUTHENTICATED:
                 return this.handleUserAuthenticated();
             case notifier.types.USER_DEAUTHENTICATED:
