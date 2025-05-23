@@ -74,7 +74,10 @@ export interface StatisticsServiceParameters {
 }
 
 /**
- * FIXME: Add jsdoc description.
+ * Statistics service.
+ * This class is responsible for statistics data processing and aggregation to UI.
+ * It used to retrieve statistics data for currently logged in account from the provider
+ * by converting raw statistics data into a more user-friendly format depending on the selected range.
  */
 export class StatisticsService implements StatisticsServiceInterface {
     /**
