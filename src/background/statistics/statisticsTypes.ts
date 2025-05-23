@@ -27,9 +27,9 @@ export interface StatisticsHourlyStorage {
      * Datetime to statistics data mapping.
      * The datetime is in the format `'YYYY-MM-DD-HH'` (UTC+0).
      *
-     * Note: `undefined` is used to type guard if the data for the given datetime is not available.
+     * Note: Always check if the value is `undefined` before using it.
      */
-    [dateTime: string]: StatisticsData | undefined;
+    [dateTime: string]: StatisticsData;
 }
 
 /**
@@ -41,9 +41,9 @@ export interface StatisticsDailyStorage {
      * Date to statistics data mapping.
      * The date is in the format `'YYYY-MM-DD'` (UTC+0).
      *
-     * Note: `undefined` is used to type guard if the data for the given date is not available.
+     * Note: Always check if the value is `undefined` before using it.
      */
-    [date: string]: StatisticsData | undefined;
+    [date: string]: StatisticsData;
 }
 
 /**
@@ -96,9 +96,9 @@ export interface StatisticsAccountStorage {
     /**
      * Location ID to location statistics data mapping.
      *
-     * Note: `undefined` is used to type guard if the data for the given location is not available.
+     * Note: Always check if the value is `undefined` before using it.
      */
-    [locationId: string]: StatisticsLocationStorage | undefined;
+    [locationId: string]: StatisticsLocationStorage;
 }
 
 /**
@@ -108,9 +108,9 @@ export interface StatisticsStorageShape {
     /**
      * Account ID to account statistics data mapping.
      *
-     * Note: `undefined` is used to type guard if the data for the given account is not available.
+     * Note: Always check if the value is `undefined` before using it.
      */
-    [accountId: string]: StatisticsAccountStorage | undefined;
+    [accountId: string]: StatisticsAccountStorage;
 }
 
 /**
@@ -120,9 +120,9 @@ export interface StatisticsStartedTimes {
     /**
      * Account ID to timestamp when the statistics collection started.
      *
-     * Note: `undefined` is used to type guard if the data for the given account is not available.
+     * Note: Always check if the value is `undefined` before using it.
      */
-    [accountId: string]: number | undefined;
+    [accountId: string]: number;
 }
 
 /**
