@@ -24,6 +24,8 @@ const statisticsStorageMock = {
     startDuration: jest.fn(),
     updateDuration: jest.fn(),
     endDuration: jest.fn(),
+    getAccountStatistics: jest.fn(),
+    clearAccountStatistics: jest.fn(),
 };
 
 const credentialsMock = {
