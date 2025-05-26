@@ -659,7 +659,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         return {
             startedTimestamp,
-            accountStorage: this.statistics[accountId],
+            accountStorage,
         };
     };
 
