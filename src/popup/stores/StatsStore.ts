@@ -161,6 +161,21 @@ export class StatsStore {
                 }
             }
 
+            newLocations.sort((a, b) => {
+                // If downloaded data is equal, sort by uploaded data
+                if (a.usage.downloaded === b.usage.downloaded) {
+                    // If uploaded data is also equal, sort by duration
+                    if (a.usage.uploaded === b.usage.uploaded) {
+                        return b.usage.duration - a.usage.duration;
+                    }
+
+                    return b.usage.uploaded - a.usage.uploaded;
+                }
+
+                // Sort by downloaded data in descending order
+                return b.usage.downloaded - a.usage.downloaded;
+            });
+
             this.totalUsage = total;
             this.locations = newLocations;
         } else {
