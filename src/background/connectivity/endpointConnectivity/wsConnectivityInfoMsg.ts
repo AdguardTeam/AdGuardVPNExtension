@@ -16,7 +16,8 @@ export interface WsConnectivityInfoMsgRefreshTokens {
 /**
  * Websocket connectivity info message with traffic statistics.
  *
- * NOTE: Traffic bytes are counted for some period and not absolute.
+ * NOTE: Traffic bytes are counted for some period and not absolute,
+ * period is determined by the backend server (around 2-3 min).
  */
 export interface WsConnectivityInfoMsgTraffic {
     /**
