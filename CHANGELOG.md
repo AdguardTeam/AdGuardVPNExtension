@@ -34,8 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#214]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/214
 [#215]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/215
 
-<!-- TODO: Add release date -->
-## [2.5.1]
+## [2.5.2] - 2025-04-14
 
 ### Added
 
@@ -58,6 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Corners of Actions is not rounded [#200].
 - Incorrect height rendering in Edge for Android.
 
+[2.5.2]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.4.6...v2.5.2
 [#48]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/48
 [#168]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/168
 [#169]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/169
@@ -69,7 +69,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#199]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/199
 [#200]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/200
 [#203]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/203
-[2.5.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.4.6...v2.5.1
 
 ## [2.4.6] - 2025-03-10
 
