@@ -5,9 +5,9 @@ import browser from 'webextension-polyfill';
 
 import { getForwarderUrl } from '../common/helpers';
 import { type IconVariants, Prefs } from '../common/prefs';
-import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
+import { normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
-import promoBannerImageUrl from '../assets/images/spring25.svg';
+import promoBannerImageUrl from '../assets/images/birthday25.svg';
 
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
@@ -70,210 +70,203 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'spring_25_vpn';
-const TDS_PROMO_ACTION_RU = 'spring_25_vpn_ru';
+const TDS_PROMO_ACTION = 'birthday_25_vpn';
 
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
-const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
-const urlQuery = isRuLocale
-    ? RU_PROMO_URL_QUERY
-    : COMMON_PROMO_URL_QUERY;
+const BIRTHDAY_25_ID = 'birthday25';
 
-const SPRING_25_ID = 'spring25';
-
-const spring25Notification = {
-    id: SPRING_25_ID,
+const birthday25Notification = {
+    id: BIRTHDAY_25_ID,
     locales: {
         en: {
-            title: 'Spring cleaning promo',
-            btn: 'Get 80% off',
+            title: '16 years. One big sale',
+            btn: 'Discover deals',
         },
         fr: {
-            title: 'Promo Printemps',
-            btn: '80% de remise ici',
+            title: '16 ans, une offre promo',
+            btn: 'Voir les détails',
         },
         it: {
-            title: 'Offerta di Primavera',
-            btn: '80% di sconto qui',
+            title: "16 anni. Un'offerta",
+            btn: 'Scopri di più',
         },
         de: {
-            title: 'Aktion zum Frühjahrsputz',
-            btn: '80% Rabatt',
+            title: 'Geburtstagsspecial: Große Rabatte',
+            btn: 'Schnappen',
         },
         ru: {
-            title: 'Весенняя уборка с AdGuard VPN',
-            btn: 'Скидка 75%',
+            title: 'История, которая закончится скидкой',
+            btn: 'Узнать',
         },
         es: {
-            title: 'Una oferta especial',
-            btn: 'Obtener 80% OFF',
+            title: '16 añitos, una súper oferta',
+            btn: 'Descubrir',
         },
         es_419: {
-            title: 'Promoción de limpieza de primavera',
-            btn: '80% de descuento',
+            title: '16 añitos, una súper oferta',
+            btn: 'Descubrir',
         },
         pt_pt: {
-            title: 'Promoção de primavera',
-            btn: 'Obter 80% OFF',
+            title: '16 aninhos, 1 ofertão',
+            btn: 'Descobrir',
         },
         pt_br: {
-            title: 'Promoção de outono',
-            btn: 'Obter 80% OFF',
+            title: '16 aninhos, 1 ofertão',
+            btn: 'Descobrir',
         },
         zh_cn: {
-            title: '暖春特惠',
-            btn: '80%OFF',
+            title: '16周年庆',
+            btn: '抢购优惠',
         },
         zh_tw: {
-            title: '暖春優惠',
-            btn: '享2折',
+            title: '16周年慶',
+            btn: '搶購折扣',
         },
-        // For Japanese, there will be other promo soon
-        // ja: {
-        //     title: 'AdGuard Christmas SALE',
-        //     btn: '80%OFF割引をGET',
-        // },
+        ja: {
+            title: 'AdGuard 16周年セール',
+            btn: 'セール内容はこちら',
+        },
         ko: {
-            title: '봄맞이 할인 프로모션',
-            btn: '80% 할인',
+            title: '16주년 기념 세일',
+            btn: '자세히 알아보기',
         },
         uk: {
-            title: 'Весняне прибирання з AdGuard VPN',
-            btn: 'Знижка 80%',
+            title: '16 років. Великий розпродаж',
+            btn: 'Дізнатись',
         },
         ar: {
-            title: 'تنظيف الربيع مع AdGuard VPN',
-            btn: '80٪ خصم',
+            title: 'قصة تنتهي بخصم',
+            btn: 'اكتشف العروض',
         },
         be: {
-            title: 'Вясновае ўборка з AdGuard VPN',
-            btn: 'Зніжка 80%',
+            title: '16 гадоў. Вялікі распродаж',
+            btn: 'Знайсці прапановы',
         },
         bg: {
-            title: 'Пролетно почистване с AdGuard VPN',
-            btn: '80% отстъпка',
+            title: '16 години. Голямо намаление',
+            btn: 'Открий оферти',
         },
         ca: {
-            title: 'Neteja de primavera amb AdGuard VPN',
-            btn: '80% de descompte',
+            title: '16 anys. Gran rebaixa',
+            btn: 'Descobreix ofertes',
         },
         cs: {
-            title: 'Jarní úklid s AdGuard VPN',
-            btn: '80% sleva',
+            title: '16 let. Velký výprodej',
+            btn: 'Objevte nabídky',
         },
         da: {
-            title: 'Forårsrengøring med AdGuard VPN',
-            btn: '80% rabat',
+            title: '16 år. Stort udsalg',
+            btn: 'Opdag tilbud',
         },
         el: {
-            title: 'Προσφορά για την άνοιξη',
-            btn: '80% έκπτωση',
+            title: 'Ιστορία με έκπτωση',
+            btn: 'Μάθετε',
         },
         fa: {
-            title: 'تمیزکاری بهاری با AdGuard VPN',
-            btn: '80 درصد تخفیف',
+            title: 'داستانی با تخفیف',
+            btn: 'کشف تخفیف‌ها',
         },
         fi: {
-            title: 'Kevätsiivous AdGuard VPN:llä',
-            btn: '80% alennus',
+            title: '16 vuotta. Suuri alennus',
+            btn: 'Löydä tarjoukset',
         },
         he: {
-            title: 'ניקיון אביב עם AdGuard VPN',
-            btn: '80% הנחה',
+            title: 'סיפור עם הנחה',
+            btn: 'גלה מבצעים',
         },
         hr: {
-            title: 'Proljetna čišćenje s AdGuard VPN',
-            btn: '80% popusta',
+            title: '16 godina. Velika rasprodaja',
+            btn: 'Otkrij ponude',
         },
         hu: {
-            title: 'Tavaszi takarítás AdGuard VPN-nel',
-            btn: '80% kedvezmény',
+            title: 'Történet kedvezménnyel',
+            btn: 'Tudj meg',
         },
         hy: {
-            title: 'Գարնան մաքրագործման պրոմո',
-            btn: '80% զեղչ',
+            title: 'Պատմություն զեղչով',
+            btn: 'Բացահայտել',
         },
         id: {
-            title: 'Promosi musim semi',
-            btn: 'Diskon 80%',
+            title: '16 tahun. Diskon besar',
+            btn: 'Temukan penawaran',
         },
         lt: {
-            title: 'Pavasario valymas su AdGuard VPN',
-            btn: '80% nuolaida',
+            title: '16 metų. Didelis išpardavimas',
+            btn: 'Atrask pasiūlymus',
         },
         ms: {
-            title: 'Promosi pembersihan musim bunga',
-            btn: '80% diskaun',
+            title: '16 tahun. Jualan besar',
+            btn: 'Temui tawaran',
         },
         nb: {
-            title: 'Vår rengjøring med AdGuard VPN',
-            btn: '80% rabatt',
+            title: '16 år. Stort salg',
+            btn: 'Oppdag tilbud',
         },
         nl: {
-            title: 'Lente schoonmaak actie',
-            btn: '80% korting',
+            title: '16 jaar. Grote uitverkoop',
+            btn: 'Ontdek aanbiedingen',
         },
         pl: {
-            title: 'Wiosenna promocja sprzątania',
-            btn: '80% zniżki',
+            title: '16 lat. Wielka wyprzedaż',
+            btn: 'Odkryj oferty',
         },
         ro: {
-            title: 'Promoție de curățenie de primăvară',
-            btn: '80% reducere',
+            title: '16 ani. Reducere mare',
+            btn: 'Descoperă oferte',
         },
         sk: {
-            title: 'Jarné upratovanie s AdGuard VPN',
-            btn: '80% zľava',
+            title: '16 rokov. Veľký výpredaj',
+            btn: 'Objavte ponuky',
         },
         sl: {
-            title: 'Pomladansko čiščenje z AdGuard VPN',
-            btn: '80% popust',
+            title: '16 let. Velika razprodaja',
+            btn: 'Odkrijte ponudbe',
         },
         sr_latn: {
-            title: 'Prolećno čišćenje sa AdGuard VPN',
-            btn: 'Popust 80%',
+            title: '16 godina. Velika rasprodaja',
+            btn: 'Otkrij ponude',
         },
         sv: {
-            title: 'Vårstädning med AdGuard VPN',
-            btn: '80% rabatt',
+            title: '16 år. Stor rea',
+            btn: 'Se erbjudanden',
         },
         tr: {
-            title: 'Bahar temizlik AdGuard VPN ile',
-            btn: '%80 indirim',
+            title: '16 yıl. Büyük indirim',
+            btn: 'Fırsatları keşfet',
         },
         vi: {
-            title: 'Dọn dẹp mùa xuân với AdGuard VPN',
-            btn: 'Giảm giá 80%',
+            title: '16 năm. Giảm giá lớn',
+            btn: 'Khám phá ưu đãi',
         },
         mk: {
-            title: 'Пролетно чистење со AdGuard VPN',
-            btn: 'Попуст од 80%',
+            title: '16 години. Голема распродажба',
+            btn: 'Откриј понуди',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    urlQuery,
-    from: '28 April 2025 12:00:00',
-    to: '4 May 2025 23:59:00',
+    urlQuery: COMMON_PROMO_URL_QUERY,
+    from: '30 May 2025 12:00:00',
+    to: '5 June 2025 23:59:00',
     type: 'animated',
     bgImage: promoBannerImageUrl,
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/spring25-on-19.png'),
-            38: getUrl('assets/images/icons/spring25-on-38.png'),
+            19: getUrl('assets/images/icons/birthday25-on-19.png'),
+            38: getUrl('assets/images/icons/birthday25-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/spring25-off-19.png'),
-            38: getUrl('assets/images/icons/spring25-off-38.png'),
+            19: getUrl('assets/images/icons/birthday25-off-19.png'),
+            38: getUrl('assets/images/icons/birthday25-off-38.png'),
         },
     },
 };
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [SPRING_25_ID]: spring25Notification,
+    [BIRTHDAY_25_ID]: birthday25Notification,
 };
 
 /**
