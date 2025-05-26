@@ -379,6 +379,7 @@ export class StatisticsService implements StatisticsServiceInterface {
 
         const sevenDaysAgo = new Date();
         sevenDaysAgo.setUTCDate(sevenDaysAgo.getUTCDate() - 7);
+        sevenDaysAgo.setUTCHours(0, 0, 0, 0);
 
         return date >= sevenDaysAgo;
     }
