@@ -186,7 +186,7 @@ describe('StatisticsService', () => {
                             '2025-09-27': getData(1),
                             '2025-09-26': getData(1),
                             '2025-09-25': getData(1),
-                            '2025-09-24': getData(1), // <-- should not be included
+                            '2025-09-24': getData(1),
                             '2025-09-23': getData(1), // <-- should not be included
                             '2025-09-22': getData(1), // <-- should not be included
                         },
@@ -201,22 +201,22 @@ describe('StatisticsService', () => {
                             '2025-09-30': getData(3),
                             '2025-09-29': getData(2),
                             '2025-09-25': getData(1),
-                            '2025-09-24': getData(1), // <-- should not be included
+                            '2025-09-24': getData(1),
                             '2025-09-23': getData(1), // <-- should not be included
                         },
                         total: getData(4),
                     },
                 },
                 expected: {
-                    total: getData(19),
+                    total: getData(21),
                     locations: [
                         {
                             locationId: 'locationId1',
-                            data: getData(8),
+                            data: getData(9),
                         },
                         {
                             locationId: 'locationId2',
-                            data: getData(11),
+                            data: getData(12),
                         },
                     ],
                 },

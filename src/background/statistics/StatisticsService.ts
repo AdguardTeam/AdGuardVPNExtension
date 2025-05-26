@@ -172,7 +172,7 @@ export class StatisticsService implements StatisticsServiceInterface {
      *
      * @returns Statistics data for the given range.
      */
-    private queryLocationStorage(
+    private static queryLocationStorage(
         locationStorage: StatisticsLocationStorage,
         range: StatisticsRange,
     ): StatisticsData {
@@ -237,7 +237,7 @@ export class StatisticsService implements StatisticsServiceInterface {
      *
      * @returns Statistics data for the given range.
      */
-    private queryAccountStorage(
+    private static queryAccountStorage(
         accountStorage: StatisticsAccountStorage,
         range: StatisticsRange,
     ): RangeAccountStatistics {
@@ -249,7 +249,7 @@ export class StatisticsService implements StatisticsServiceInterface {
 
         const locations = Object.entries(accountStorage).map(
             ([locationId, locationStorage]): StatisticsDataUsage => {
-                const data = this.queryLocationStorage(locationStorage, range);
+                const data = StatisticsService.queryLocationStorage(locationStorage, range);
 
                 total.downloaded += data.downloaded;
                 total.uploaded += data.uploaded;
@@ -294,7 +294,7 @@ export class StatisticsService implements StatisticsServiceInterface {
 
         let rangeAccountStatistics: RangeAccountStatistics;
         if (accountStorage) {
-            rangeAccountStatistics = this.queryAccountStorage(accountStorage, this.range);
+            rangeAccountStatistics = StatisticsService.queryAccountStorage(accountStorage, this.range);
         } else {
             // collection started but no data yet, fallback to empty stats
             rangeAccountStatistics = {
