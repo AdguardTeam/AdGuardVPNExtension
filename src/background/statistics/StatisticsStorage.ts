@@ -551,11 +551,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         return locationStorage;
     }
 
-    /**
-     * Updates tracking data of connection duration.
-     *
-     * @param data Data about account and location.
-     */
+    /** @inheritdoc */
     public updateDuration = async (data: AddStatisticsDataBase): Promise<void> => {
         const locationStorage = this.updateDurationTracker(data);
 
@@ -565,11 +561,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
     };
 
-    /**
-     * Ends tracking connection duration.
-     *
-     * @param data Data about account and location.
-     */
+    /** @inheritdoc */
     public endDuration = async (data: AddStatisticsDataBase): Promise<void> => {
         const locationStorage = this.updateDurationTracker(data);
 
