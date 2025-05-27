@@ -125,9 +125,7 @@ export class StatisticsService implements StatisticsServiceInterface {
         this.credentials = credentials;
     }
 
-    /**
-     * Initializes the statistics service.
-     */
+    /** @inheritdoc */
     public init = async (): Promise<void> => {
         try {
             log.info('Statistics service ready');
@@ -268,12 +266,7 @@ export class StatisticsService implements StatisticsServiceInterface {
         };
     }
 
-    /**
-     * Retrieves full statistics information for the current account.
-     *
-     * @returns Promise that resolves to the all statistics data,
-     * or `null` if user is not authenticated or stats didn't started collecting yet.
-     */
+    /** @inheritdoc */
     public getAllStatistics = async (): Promise<AllAccountStatistics | null> => {
         const accountId = await this.credentials.getUsername();
 
@@ -314,15 +307,7 @@ export class StatisticsService implements StatisticsServiceInterface {
         };
     };
 
-    /**
-     * Updates range in local storage and retrieves statistics data
-     * for the given range for the current account.
-     *
-     * @param range The range for which statistics data is needed.
-     *
-     * @returns Promise that resolves to the refreshed statistics data,
-     * or `null` if user is not authenticated or stats didn't started collecting yet.
-     */
+    /** @inheritdoc */
     public getRangeStatistics = async (range: StatisticsRange): Promise<RangeAccountStatistics | null> => {
         await this.saveRange(range);
         const allStatistics = await this.getAllStatistics();
@@ -341,14 +326,7 @@ export class StatisticsService implements StatisticsServiceInterface {
         };
     };
 
-    /**
-     * Clears all statistics for the current account.
-     *
-     * WARNING: This method will delete all statistics data,
-     * make sure that you know what you are doing before calling it.
-     *
-     * @returns True if the statistics were cleared, false otherwise.
-     */
+    /** @inheritdoc */
     public clearStatistics = async (): Promise<boolean> => {
         const accountId = await this.credentials.getUsername();
 

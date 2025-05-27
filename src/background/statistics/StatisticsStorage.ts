@@ -597,16 +597,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
     };
 
-    /**
-     * Gets statistics data for the given account ID.
-     * Before returning the data, it checks if the statistics should be updated,
-     * and if so, it updates the statistics and returns consolidated data.
-     *
-     * @param accountId Account ID to get statistics for.
-     *
-     * @returns Statistics data for the given account ID,
-     * or `null` if stats didn't started collecting yet.
-     */
+    /** @inheritdoc */
     public getAccountStatistics = async (accountId: string): Promise<StatisticsAccountData | null> => {
         const startedTimestamp = this.startedTimes[accountId];
         const updatedTimestamp = this.updatedTimes[accountId];
@@ -641,11 +632,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         };
     };
 
-    /**
-     * Clears all statistics for the given account ID.
-     *
-     * @param accountId Account ID to clear statistics for.
-     */
+    /** @inheritdoc */
     public clearAccountStatistics = async (accountId: string): Promise<void> => {
         // delete account storage
         if (this.statistics[accountId]) {

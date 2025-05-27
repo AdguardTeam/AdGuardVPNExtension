@@ -214,23 +214,12 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         }
     };
 
-    /**
-     * Gets statistics data for the given account ID.
-     *
-     * @param accountId Account ID to get statistics for.
-     *
-     * @returns Statistics data for the given account ID,
-     * or `null` if stats didn't started collecting yet.
-     */
+    /** @inheritdoc */
     public getAccountStatistics = async (accountId: string): Promise<StatisticsAccountData | null> => {
         return this.statisticsStorage.getAccountStatistics(accountId);
     };
 
-    /**
-     * Clears all statistics for the given account ID.
-     *
-     * @param accountId Account ID to clear statistics for.
-     */
+    /** @inheritdoc */
     public clearAccountStatistics = async (accountId: string): Promise<void> => {
         return this.statisticsStorage.clearAccountStatistics(accountId);
     };
