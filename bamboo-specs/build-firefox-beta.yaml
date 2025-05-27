@@ -61,8 +61,8 @@ Build:
             # build with prod API endpoints firefox.zip and update.json
             pnpm beta firefox
 
-            # zip source files to sign firefox.xpi
-            git ls-files | zip -@ build/beta/source.zip
+            # archive source for Firefox review
+            ./bamboo-specs/scripts/archive-source.sh beta
 
             # Move to the build/beta directory and sign the Firefox extension
             cd ./build/beta
