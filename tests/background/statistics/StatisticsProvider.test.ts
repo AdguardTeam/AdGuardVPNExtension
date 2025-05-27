@@ -229,19 +229,19 @@ describe('StatisticsProvider', () => {
 
             const accountId = 'user-id-1@adguard.com';
             const locationId = 'location-id-1';
-            const downloaded = 11111;
-            const uploaded = 22222;
+            const downloadedBytes = 11111;
+            const uploadedBytes = 22222;
 
             await simulateUserAuth(accountId, true);
             await simulateLocationSelection(locationId);
-            await simulateTrafficUpdate(downloaded, uploaded);
+            await simulateTrafficUpdate(downloadedBytes, uploadedBytes);
 
             expect(statisticsStorageMock.addTraffic).toHaveBeenCalledTimes(1);
             expect(statisticsStorageMock.addTraffic).toHaveBeenCalledWith({
                 accountId,
                 locationId,
-                downloaded,
-                uploaded,
+                downloadedBytes,
+                uploadedBytes,
             });
         });
 
@@ -250,12 +250,12 @@ describe('StatisticsProvider', () => {
 
             const accountId = 'user-id-2@adguard.com';
             const locationId = 'location-id-2';
-            const downloaded = 22222;
-            const uploaded = 33333;
+            const downloadedBytes = 22222;
+            const uploadedBytes = 33333;
 
             await simulateUserAuth(accountId, false);
             await simulateLocationSelection(locationId);
-            await simulateTrafficUpdate(downloaded, uploaded);
+            await simulateTrafficUpdate(downloadedBytes, uploadedBytes);
 
             expect(statisticsStorageMock.addTraffic).not.toHaveBeenCalled();
         });
@@ -264,11 +264,11 @@ describe('StatisticsProvider', () => {
             await statisticsProvider.init();
 
             const locationId = 'location-id-3';
-            const downloaded = 33333;
-            const uploaded = 44444;
+            const downloadedBytes = 33333;
+            const uploadedBytes = 44444;
 
             await simulateLocationSelection(locationId);
-            await simulateTrafficUpdate(downloaded, uploaded);
+            await simulateTrafficUpdate(downloadedBytes, uploadedBytes);
 
             expect(statisticsStorageMock.addTraffic).not.toHaveBeenCalled();
         });
@@ -277,11 +277,11 @@ describe('StatisticsProvider', () => {
             await statisticsProvider.init();
 
             const accountId = 'user-id-4@adguard.com';
-            const downloaded = 44444;
-            const uploaded = 55555;
+            const downloadedBytes = 44444;
+            const uploadedBytes = 55555;
 
             await simulateUserAuth(accountId, true);
-            await simulateTrafficUpdate(downloaded, uploaded);
+            await simulateTrafficUpdate(downloadedBytes, uploadedBytes);
 
             expect(statisticsStorageMock.addTraffic).not.toHaveBeenCalled();
         });
@@ -292,18 +292,18 @@ describe('StatisticsProvider', () => {
             const accountId1 = 'user-id-5@adguard.com';
             const accountId2 = 'user-id-6@adguard.com';
             const locationId = 'location-id-5';
-            const downloaded = 55555;
-            const uploaded = 66666;
+            const downloadedBytes = 55555;
+            const uploadedBytes = 66666;
 
             await simulateUserAuth(accountId1, false);
             await simulateLocationSelection(locationId);
-            await simulateTrafficUpdate(downloaded, uploaded);
+            await simulateTrafficUpdate(downloadedBytes, uploadedBytes);
 
             await simulateUserDeauth();
-            await simulateTrafficUpdate(downloaded, uploaded);
+            await simulateTrafficUpdate(downloadedBytes, uploadedBytes);
 
             await simulateUserAuth(accountId2, true);
-            await simulateTrafficUpdate(downloaded, uploaded);
+            await simulateTrafficUpdate(downloadedBytes, uploadedBytes);
 
             expect(statisticsStorageMock.addTraffic).toHaveBeenCalledTimes(1);
         });

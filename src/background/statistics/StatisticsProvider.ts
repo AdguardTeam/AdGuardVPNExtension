@@ -304,8 +304,8 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         // Add traffic statistics to storage
         await this.statisticsStorage.addTraffic({
             ...baseData,
-            downloaded: bytesDownloaded,
-            uploaded: bytesUploaded,
+            downloadedBytes: bytesDownloaded,
+            uploadedBytes: bytesUploaded,
         });
     }
 

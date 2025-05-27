@@ -97,10 +97,10 @@ describe('StatisticsStorage', () => {
             expected: StatisticsLocationStorage;
         };
 
-        const getDuration = (duration: number) => ({
-            downloaded: 0,
-            uploaded: 0,
-            duration,
+        const getDuration = (durationMs: number) => ({
+            downloadedBytes: 0,
+            uploadedBytes: 0,
+            durationMs,
         });
 
         const spamAllDays = (daysCount = 30) => {
@@ -405,13 +405,13 @@ describe('StatisticsStorage', () => {
 
     describe('Period switch', () => {
         const getData = (
-            downloaded: number,
-            uploaded = downloaded,
-            duration = downloaded,
+            downloadedBytes: number,
+            uploadedBytes = downloadedBytes,
+            durationMs = downloadedBytes,
         ) => ({
-            downloaded,
-            uploaded,
-            duration,
+            downloadedBytes,
+            uploadedBytes,
+            durationMs,
         });
 
         it('should move from hourly to daily properly', async () => {
@@ -818,8 +818,8 @@ describe('StatisticsStorage', () => {
             await statisticsStorage.addTraffic({
                 accountId: 'test@adguard.com',
                 locationId: 'locationId10',
-                downloaded: 1111,
-                uploaded: 2222,
+                downloadedBytes: 1111,
+                uploadedBytes: 2222,
             });
 
             // for addTraffic
@@ -829,16 +829,16 @@ describe('StatisticsStorage', () => {
                     locationId10: {
                         hourly: {
                             '2025-10-01-10': {
-                                downloaded: 1111,
-                                uploaded: 2222,
-                                duration: 0,
+                                downloadedBytes: 1111,
+                                uploadedBytes: 2222,
+                                durationMs: 0,
                             },
                         },
                         daily: {},
                         total: {
-                            downloaded: 0,
-                            uploaded: 0,
-                            duration: 0,
+                            downloadedBytes: 0,
+                            uploadedBytes: 0,
+                            durationMs: 0,
                         },
                     },
                 },
@@ -875,9 +875,9 @@ describe('StatisticsStorage', () => {
                         hourly: {},
                         daily: {},
                         total: {
-                            downloaded: 0,
-                            uploaded: 0,
-                            duration: 0,
+                            downloadedBytes: 0,
+                            uploadedBytes: 0,
+                            durationMs: 0,
                         },
                         durationTracker: {
                             startedTimestamp: systemDate.getTime(),
@@ -898,9 +898,9 @@ describe('StatisticsStorage', () => {
                         hourly: {},
                         daily: {},
                         total: {
-                            downloaded: 0,
-                            uploaded: 0,
-                            duration: 0,
+                            downloadedBytes: 0,
+                            uploadedBytes: 0,
+                            durationMs: 0,
                         },
                         durationTracker: {
                             startedTimestamp: systemDate.getTime(),
@@ -920,16 +920,16 @@ describe('StatisticsStorage', () => {
                     [locationId]: {
                         hourly: {
                             '2025-10-01-10': {
-                                downloaded: 0,
-                                uploaded: 0,
-                                duration: 2000,
+                                downloadedBytes: 0,
+                                uploadedBytes: 0,
+                                durationMs: 2000,
                             },
                         },
                         daily: {},
                         total: {
-                            downloaded: 0,
-                            uploaded: 0,
-                            duration: 0,
+                            downloadedBytes: 0,
+                            uploadedBytes: 0,
+                            durationMs: 0,
                         },
                     },
                 },
