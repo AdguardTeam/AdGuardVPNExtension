@@ -161,9 +161,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         this.storage = storage;
     }
 
-    /**
-     * Initializes the statistics storage.
-     */
+    /** @inheritdoc */
     public init = async (): Promise<void> => {
         try {
             log.info('Statistics storage ready');
@@ -494,11 +492,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         return locationStorage;
     }
 
-    /**
-     * Adds a new account to the statistics storage.
-     *
-     * @param accountId Account ID to add.
-     */
+    /** @inheritdoc */
     public addAccount = async (accountId: string): Promise<void> => {
         if (!this.statistics[accountId]) {
             this.statistics[accountId] = {};
@@ -511,11 +505,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
     };
 
-    /**
-     * Adds traffic statistics to current date and hour by account and location.
-     *
-     * @param data Data about account, location and traffic.
-     */
+    /** @inheritdoc */
     public addTraffic = async (data: AddStatisticsDataTraffic): Promise<void> => {
         const locationStorage = this.getLocationStorage(data);
         const hourlyData = StatisticsStorage.getPeriodStatistics(locationStorage, true);
@@ -526,11 +516,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         await this.saveStatistics();
     };
 
-    /**
-     * Starts tracking connection duration.
-     *
-     * @param data Data about account and location.
-     */
+    /** @inheritdoc */
     public startDuration = async (data: AddStatisticsDataBase): Promise<void> => {
         const locationStorage = this.getLocationStorage(data);
 

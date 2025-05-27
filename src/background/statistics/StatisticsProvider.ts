@@ -198,9 +198,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         this.saveState();
     }
 
-    /**
-     * Initializes the statistics provider.
-     */
+    /** @inheritdoc */
     public init = async (): Promise<void> => {
         try {
             this.state = this.stateStorage.getItem(StorageKey.StatisticsState);
