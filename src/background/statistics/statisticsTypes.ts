@@ -5,17 +5,17 @@ export interface StatisticsData {
     /**
      * Number of bytes downloaded.
      */
-    downloaded: number;
+    downloadedBytes: number;
 
     /**
      * Number of bytes uploaded.
      */
-    uploaded: number;
+    uploadedBytes: number;
 
     /**
      * Duration of the connection in milliseconds.
      */
-    duration: number;
+    durationMs: number;
 }
 
 /**
@@ -159,12 +159,12 @@ export interface AddStatisticsDataTraffic extends AddStatisticsDataBase {
     /**
      * Number of bytes downloaded.
      */
-    downloaded: number;
+    downloadedBytes: number;
 
     /**
      * Number of bytes uploaded.
      */
-    uploaded: number;
+    uploadedBytes: number;
 }
 
 /**
