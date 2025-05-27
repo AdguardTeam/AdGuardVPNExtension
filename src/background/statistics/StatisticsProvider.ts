@@ -70,7 +70,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     /**
      * Update duration interval in milliseconds (5 minutes).
      */
-    private static readonly TIMER_UPDATE_INTERVAL = 5 * 60 * 1000;
+    private static readonly TIMER_UPDATE_INTERVAL_MS = 5 * 60 * 1000;
 
     /**
      * List of events that are used to update the statistics storage.
@@ -244,7 +244,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
 
         this.durationIntervalId = this.timers.setInterval(
             this.handleTimerUpdate.bind(this),
-            StatisticsProvider.TIMER_UPDATE_INTERVAL,
+            StatisticsProvider.TIMER_UPDATE_INTERVAL_MS,
         );
     }
 
