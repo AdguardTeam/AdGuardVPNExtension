@@ -974,22 +974,22 @@ describe('StatisticsStorage', () => {
                 locationId: {
                     hourly: {
                         '2025-10-01-10': {
-                            downloaded: 1,
-                            uploaded: 1,
-                            duration: 1,
+                            downloadedBytes: 1,
+                            uploadedBytes: 1,
+                            durationMs: 1,
                         },
                     },
                     daily: {
                         '2025-10-01': {
-                            downloaded: 2,
-                            uploaded: 2,
-                            duration: 2,
+                            downloadedBytes: 2,
+                            uploadedBytes: 2,
+                            durationMs: 2,
                         },
                     },
                     total: {
-                        downloaded: 3,
-                        uploaded: 3,
-                        duration: 3,
+                        downloadedBytes: 3,
+                        uploadedBytes: 3,
+                        durationMs: 3,
                     },
                 },
             };
@@ -1028,32 +1028,32 @@ describe('StatisticsStorage', () => {
                             locationId: {
                                 hourly: {
                                     '2025-10-01-10': {
-                                        downloaded: 1,
-                                        uploaded: 1,
-                                        duration: 1,
+                                        downloadedBytes: 1,
+                                        uploadedBytes: 1,
+                                        durationMs: 1,
                                     },
                                     '2025-09-30-10': {
-                                        downloaded: 1,
-                                        uploaded: 1,
-                                        duration: 1,
+                                        downloadedBytes: 1,
+                                        uploadedBytes: 1,
+                                        durationMs: 1,
                                     },
                                 },
                                 daily: {
                                     '2025-10-01': {
-                                        downloaded: 2,
-                                        uploaded: 2,
-                                        duration: 2,
+                                        downloadedBytes: 2,
+                                        uploadedBytes: 2,
+                                        durationMs: 2,
                                     },
                                     '2025-09-01': {
-                                        downloaded: 2,
-                                        uploaded: 2,
-                                        duration: 2,
+                                        downloadedBytes: 2,
+                                        uploadedBytes: 2,
+                                        durationMs: 2,
                                     },
                                 },
                                 total: {
-                                    downloaded: 3,
-                                    uploaded: 3,
-                                    duration: 3,
+                                    downloadedBytes: 3,
+                                    uploadedBytes: 3,
+                                    durationMs: 3,
                                 },
                             },
                         },
@@ -1082,32 +1082,32 @@ describe('StatisticsStorage', () => {
                     locationId: {
                         hourly: {
                             '2025-10-01-10': {
-                                downloaded: 1,
-                                uploaded: 1,
-                                duration: 1,
+                                downloadedBytes: 1,
+                                uploadedBytes: 1,
+                                durationMs: 1,
                             },
                         },
                         daily: {
                             '2025-10-01': {
-                                downloaded: 2,
-                                uploaded: 2,
-                                duration: 2,
+                                downloadedBytes: 2,
+                                uploadedBytes: 2,
+                                durationMs: 2,
                             },
                             '2025-09-30': {
-                                downloaded: 1,
-                                uploaded: 1,
-                                duration: 1,
+                                downloadedBytes: 1,
+                                uploadedBytes: 1,
+                                durationMs: 1,
                             },
                             '2025-09-01': {
-                                downloaded: 2,
-                                uploaded: 2,
-                                duration: 2,
+                                downloadedBytes: 2,
+                                uploadedBytes: 2,
+                                durationMs: 2,
                             },
                         },
                         total: {
-                            downloaded: 3,
-                            uploaded: 3,
-                            duration: 3,
+                            downloadedBytes: 3,
+                            uploadedBytes: 3,
+                            durationMs: 3,
                         },
                     },
                 },
@@ -1125,20 +1125,20 @@ describe('StatisticsStorage', () => {
                         hourly: {},
                         daily: {
                             '2025-09-30': {
-                                downloaded: 1,
-                                uploaded: 1,
-                                duration: 1,
+                                downloadedBytes: 1,
+                                uploadedBytes: 1,
+                                durationMs: 1,
                             },
                             '2025-10-01': {
-                                downloaded: 3,
-                                uploaded: 3,
-                                duration: 3,
+                                downloadedBytes: 3,
+                                uploadedBytes: 3,
+                                durationMs: 3,
                             },
                         },
                         total: {
-                            downloaded: 5,
-                            uploaded: 5,
-                            duration: 5,
+                            downloadedBytes: 5,
+                            uploadedBytes: 5,
+                            durationMs: 5,
                         },
                     },
                 },
@@ -1154,22 +1154,22 @@ describe('StatisticsStorage', () => {
                 locationId: {
                     hourly: {
                         '2025-10-01-10': {
-                            downloaded: 1,
-                            uploaded: 1,
-                            duration: 1,
+                            downloadedBytes: 1,
+                            uploadedBytes: 1,
+                            durationMs: 1,
                         },
                     },
                     daily: {
                         '2025-10-01': {
-                            downloaded: 2,
-                            uploaded: 2,
-                            duration: 2,
+                            downloadedBytes: 2,
+                            uploadedBytes: 2,
+                            durationMs: 2,
                         },
                     },
                     total: {
-                        downloaded: 3,
-                        uploaded: 3,
-                        duration: 3,
+                        downloadedBytes: 3,
+                        uploadedBytes: 3,
+                        durationMs: 3,
                     },
                 },
             };

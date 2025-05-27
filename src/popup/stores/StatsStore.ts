@@ -41,9 +41,9 @@ export class StatsStore {
      * Default total statistics data.
      */
     private static readonly DEFAULT_TOTAL: StatisticsData = {
-        downloaded: 0,
-        uploaded: 0,
-        duration: 0,
+        downloadedBytes: 0,
+        uploadedBytes: 0,
+        durationMs: 0,
     };
 
     /**
@@ -163,17 +163,17 @@ export class StatsStore {
 
             newLocations.sort((a, b) => {
                 // If downloaded data is equal, sort by uploaded data
-                if (a.usage.downloaded === b.usage.downloaded) {
+                if (a.usage.downloadedBytes === b.usage.downloadedBytes) {
                     // If uploaded data is also equal, sort by duration
-                    if (a.usage.uploaded === b.usage.uploaded) {
-                        return b.usage.duration - a.usage.duration;
+                    if (a.usage.uploadedBytes === b.usage.uploadedBytes) {
+                        return b.usage.durationMs - a.usage.durationMs;
                     }
 
-                    return b.usage.uploaded - a.usage.uploaded;
+                    return b.usage.uploadedBytes - a.usage.uploadedBytes;
                 }
 
                 // Sort by downloaded data in descending order
-                return b.usage.downloaded - a.usage.downloaded;
+                return b.usage.downloadedBytes - a.usage.downloadedBytes;
             });
 
             this.totalUsage = total;

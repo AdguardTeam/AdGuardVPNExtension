@@ -175,17 +175,17 @@ export class StatisticsService implements StatisticsServiceInterface {
         range: StatisticsRange,
     ): StatisticsData {
         const data: StatisticsData = {
-            downloaded: 0,
-            uploaded: 0,
-            duration: 0,
+            downloadedBytes: 0,
+            uploadedBytes: 0,
+            durationMs: 0,
         };
 
         const { hourly, daily, total } = locationStorage;
 
-        const addStatisticsData = ({ downloaded, uploaded, duration }: StatisticsData) => {
-            data.downloaded += downloaded;
-            data.uploaded += uploaded;
-            data.duration += duration;
+        const addStatisticsData = ({ downloadedBytes, uploadedBytes, durationMs }: StatisticsData) => {
+            data.downloadedBytes += downloadedBytes;
+            data.uploadedBytes += uploadedBytes;
+            data.durationMs += durationMs;
         };
 
         // add all hourly data for all cases,
@@ -240,18 +240,18 @@ export class StatisticsService implements StatisticsServiceInterface {
         range: StatisticsRange,
     ): RangeAccountStatistics {
         const total: StatisticsData = {
-            downloaded: 0,
-            uploaded: 0,
-            duration: 0,
+            downloadedBytes: 0,
+            uploadedBytes: 0,
+            durationMs: 0,
         };
 
         const locations = Object.entries(accountStorage).map(
             ([locationId, locationStorage]): StatisticsDataUsage => {
                 const data = StatisticsService.queryLocationStorage(locationStorage, range);
 
-                total.downloaded += data.downloaded;
-                total.uploaded += data.uploaded;
-                total.duration += data.duration;
+                total.downloadedBytes += data.downloadedBytes;
+                total.uploadedBytes += data.uploadedBytes;
+                total.durationMs += data.durationMs;
 
                 return {
                     locationId,
@@ -292,9 +292,9 @@ export class StatisticsService implements StatisticsServiceInterface {
             // collection started but no data yet, fallback to empty stats
             rangeAccountStatistics = {
                 total: {
-                    downloaded: 0,
-                    uploaded: 0,
-                    duration: 0,
+                    downloadedBytes: 0,
+                    uploadedBytes: 0,
+                    durationMs: 0,
                 },
                 locations: [],
             };

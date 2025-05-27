@@ -16,7 +16,7 @@ export type StatsScreenTimeProps = Pick<StatsScreenWithUsageProps, 'usage'>;
  */
 export function StatsScreenTime(props: StatsScreenTimeProps) {
     const { usage } = props;
-    const { duration } = usage;
+    const { durationMs } = usage;
 
     return (
         <>
@@ -28,7 +28,7 @@ export function StatsScreenTime(props: StatsScreenTimeProps) {
                     {translator.getMessage('popup_stats_connection_to_vpn')}
                 </div>
                 <div className="stats-screen-time__usage">
-                    {formatDuration(duration)}
+                    {formatDuration(durationMs)}
                 </div>
             </div>
         </>

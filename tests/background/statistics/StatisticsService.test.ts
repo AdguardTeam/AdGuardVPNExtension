@@ -103,9 +103,9 @@ describe('StatisticsService', () => {
             startedTimestamp: 12345,
             range: StatisticsRange.AllTime,
             total: {
-                downloaded: 0,
-                uploaded: 0,
-                duration: 0,
+                downloadedBytes: 0,
+                uploadedBytes: 0,
+                durationMs: 0,
             },
             locations: [],
         });
@@ -113,13 +113,13 @@ describe('StatisticsService', () => {
 
     describe('Range queries', () => {
         const getData = (
-            downloaded: number,
-            uploaded = downloaded,
-            duration = downloaded,
+            downloadedBytes: number,
+            uploadedBytes = downloadedBytes,
+            durationMs = downloadedBytes,
         ) => ({
-            downloaded,
-            uploaded,
-            duration,
+            downloadedBytes,
+            uploadedBytes,
+            durationMs,
         });
 
         type RangeQueriesTestCase = {

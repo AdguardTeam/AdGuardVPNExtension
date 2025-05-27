@@ -56,10 +56,10 @@ export const StatsMenuItem = observer(() => {
         return (
             <span className="stats-menu-item__usage">
                 <span className="stats-menu-item__usage-item stats-menu-item__usage-item--download">
-                    {formatTraffic(totalUsage.downloaded, true, true)}
+                    {formatTraffic(totalUsage.downloadedBytes, true, true)}
                 </span>
                 <span className="stats-menu-item__usage-item stats-menu-item__usage-item--upload">
-                    {formatTraffic(totalUsage.uploaded, true, false)}
+                    {formatTraffic(totalUsage.uploadedBytes, true, false)}
                 </span>
             </span>
         );

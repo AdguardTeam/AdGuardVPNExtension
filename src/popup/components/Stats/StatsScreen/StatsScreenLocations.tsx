@@ -27,11 +27,11 @@ interface StatsScreenLocationProps extends Pick<StatsScreenWithLocationsProps, '
 function StatsScreenLocation(props: StatsScreenLocationProps) {
     const { locationUsage, onLocationClick } = props;
     const { location, usage } = locationUsage;
-    const { downloaded, uploaded } = usage;
+    const { downloadedBytes, uploadedBytes } = usage;
 
     const title = `${location.countryName} (${location.cityName})`;
-    const downloadText = formatTraffic(downloaded, true, true);
-    const uploadText = formatTraffic(uploaded, true, false);
+    const downloadText = formatTraffic(downloadedBytes, true, true);
+    const uploadText = formatTraffic(uploadedBytes, true, false);
 
     const handleClick = () => {
         onLocationClick(location.id);

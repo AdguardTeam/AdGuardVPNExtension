@@ -15,15 +15,15 @@ export type StatsScreenDataProps = Pick<StatsScreenWithUsageProps, 'usage'>;
  */
 export function StatsScreenData(props: StatsScreenDataProps) {
     const { usage } = props;
-    const { downloaded, uploaded } = usage;
+    const { downloadedBytes, uploadedBytes } = usage;
 
-    const downloadText = formatTraffic(downloaded);
-    const uploadText = formatTraffic(uploaded);
+    const downloadText = formatTraffic(downloadedBytes);
+    const uploadText = formatTraffic(uploadedBytes);
 
     // If both download and upload are <1MB then we consider it empty
-    const isEmpty = downloaded < MEGABYTE_BYTES && uploaded < MEGABYTE_BYTES;
+    const isEmpty = downloadedBytes < MEGABYTE_BYTES && uploadedBytes < MEGABYTE_BYTES;
 
-    const totalBytes = downloaded + uploaded;
+    const totalBytes = downloadedBytes + uploadedBytes;
 
     const getLineWidth = (bytes: number) => {
         const percent = Math.round((bytes / totalBytes) * 100);
@@ -63,11 +63,11 @@ export function StatsScreenData(props: StatsScreenDataProps) {
                         <>
                             <div
                                 className="stats-screen-data__chart-line stats-screen-data__chart-line--download"
-                                style={{ width: getLineWidth(downloaded) }}
+                                style={{ width: getLineWidth(downloadedBytes) }}
                             />
                             <div
                                 className="stats-screen-data__chart-line stats-screen-data__chart-line--upload"
-                                style={{ width: getLineWidth(uploaded) }}
+                                style={{ width: getLineWidth(uploadedBytes) }}
                             />
                         </>
                     )}
