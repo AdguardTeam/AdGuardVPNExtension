@@ -43,7 +43,6 @@ const DEFAULT_EMITTER = {
 };
 
 describe('StatisticsProvider', () => {
-    let statisticsProvider: StatisticsProvider;
     let emitter = {
         ...DEFAULT_EMITTER,
     };
@@ -73,12 +72,13 @@ describe('StatisticsProvider', () => {
         return 1;
     });
 
-    beforeEach(() => {
-        statisticsProvider = new StatisticsProvider({
+    beforeEach(async () => {
+        const statisticsProvider = new StatisticsProvider({
             statisticsStorage: statisticsStorageMock,
             // @ts-expect-error - partially implemented
             timers: timersMock,
         });
+        await statisticsProvider.init();
     });
 
     afterEach(() => {
@@ -141,8 +141,6 @@ describe('StatisticsProvider', () => {
     };
 
     it('should initialize properly', async () => {
-        await statisticsProvider.init();
-
         // should attach listeners
         expect(addSpecifiedListenerSpy).toHaveBeenCalledTimes(1);
         expect(addSpecifiedListenerSpy).toHaveBeenCalledWith(
@@ -161,8 +159,6 @@ describe('StatisticsProvider', () => {
 
     describe('Traffic statistics collection', () => {
         it('should save traffic stats to storage - user is premium', async () => {
-            await statisticsProvider.init();
-
             const locationId = 'location-id-1';
             const downloadedBytes = 11111;
             const uploadedBytes = 22222;
@@ -179,8 +175,6 @@ describe('StatisticsProvider', () => {
         });
 
         it('should not save traffic stats to storage - user is not premium', async () => {
-            await statisticsProvider.init();
-
             const locationId = 'location-id-2';
             const downloadedBytes = 22222;
             const uploadedBytes = 33333;
@@ -193,8 +187,6 @@ describe('StatisticsProvider', () => {
         });
 
         it('should not save traffic stats to storage - location is not selected', async () => {
-            await statisticsProvider.init();
-
             const downloadedBytes = 44444;
             const uploadedBytes = 55555;
 
@@ -205,8 +197,6 @@ describe('StatisticsProvider', () => {
         });
 
         it('should continue collecting after re-authentication to premium account', async () => {
-            await statisticsProvider.init();
-
             const locationId = 'location-id-5';
             const downloadedBytes = 55555;
             const uploadedBytes = 66666;
@@ -228,8 +218,6 @@ describe('StatisticsProvider', () => {
 
     describe('Duration statistics collection', () => {
         it('should save duration stats to storage - user is premium', async () => {
-            await statisticsProvider.init();
-
             const locationId = 'location-id-1';
 
             await simulateUser(true);
@@ -246,8 +234,6 @@ describe('StatisticsProvider', () => {
         });
 
         it('should not save duration stats to storage - user is not premium', async () => {
-            await statisticsProvider.init();
-
             const locationId = 'location-id-2';
 
             await simulateUser(false);
@@ -262,8 +248,6 @@ describe('StatisticsProvider', () => {
         });
 
         it('should not save duration stats to storage - location is not selected', async () => {
-            await statisticsProvider.init();
-
             await simulateUser(false);
             await simulateConnect();
 
@@ -275,8 +259,6 @@ describe('StatisticsProvider', () => {
         });
 
         it('should continue collecting after re-authentication to premium account', async () => {
-            await statisticsProvider.init();
-
             const locationId = 'location-id-5';
 
             await simulateUser(false);
@@ -291,8 +273,6 @@ describe('StatisticsProvider', () => {
         });
 
         it('should correctly start duration interval process', async () => {
-            await statisticsProvider.init();
-
             const locationId = 'location-id-6';
 
             await simulateUser(true);
