@@ -6,9 +6,9 @@ import {
 } from 'mobx';
 
 import {
-    type AllAccountStatistics,
+    type FullStatistics,
     StatisticsRange,
-    type RangeAccountStatistics,
+    type RangeStatistics,
     type StatisticsData,
 } from '../../background/statistics/statisticsTypes';
 import { messenger } from '../../common/messenger';
@@ -142,46 +142,47 @@ export class StatsStore {
      * @param rangeStatistics Statistics data for the selected range,
      * if `null` then it will reset the statistics data to default values.
      */
-    @action setRangeStatistics = (rangeStatistics: RangeAccountStatistics | null) => {
-        if (rangeStatistics) {
-            const { total, locations } = rangeStatistics;
-
-            const newLocations: LocationUsage[] = [];
-            for (let i = 0; i < locations.length; i += 1) {
-                const { locationId, data } = locations[i];
-                const locationData = this.rootStore.vpnStore.locations.find(
-                    (location) => location.id === locationId,
-                );
-
-                if (locationData) {
-                    newLocations.push({
-                        location: locationData,
-                        usage: data,
-                    });
-                }
-            }
-
-            newLocations.sort((a, b) => {
-                // If downloaded data is equal, sort by uploaded data
-                if (a.usage.downloadedBytes === b.usage.downloadedBytes) {
-                    // If uploaded data is also equal, sort by duration
-                    if (a.usage.uploadedBytes === b.usage.uploadedBytes) {
-                        return b.usage.durationMs - a.usage.durationMs;
-                    }
-
-                    return b.usage.uploadedBytes - a.usage.uploadedBytes;
-                }
-
-                // Sort by downloaded data in descending order
-                return b.usage.downloadedBytes - a.usage.downloadedBytes;
-            });
-
-            this.totalUsage = total;
-            this.locations = newLocations;
-        } else {
+    @action setRangeStatistics = (rangeStatistics: RangeStatistics | null) => {
+        if (!rangeStatistics) {
             this.totalUsage = StatsStore.DEFAULT_TOTAL;
             this.locations = [];
+            return;
         }
+
+        const { total, locations } = rangeStatistics;
+
+        const newLocations: LocationUsage[] = [];
+        for (let i = 0; i < locations.length; i += 1) {
+            const { locationId, data } = locations[i];
+            const locationData = this.rootStore.vpnStore.locations.find(
+                (location) => location.id === locationId,
+            );
+
+            if (locationData) {
+                newLocations.push({
+                    location: locationData,
+                    usage: data,
+                });
+            }
+        }
+
+        newLocations.sort((a, b) => {
+            // If downloaded data is equal, sort by uploaded data
+            if (a.usage.downloadedBytes === b.usage.downloadedBytes) {
+                // If uploaded data is also equal, sort by duration
+                if (a.usage.uploadedBytes === b.usage.uploadedBytes) {
+                    return b.usage.durationMs - a.usage.durationMs;
+                }
+
+                return b.usage.uploadedBytes - a.usage.uploadedBytes;
+            }
+
+            // Sort by downloaded data in descending order
+            return b.usage.downloadedBytes - a.usage.downloadedBytes;
+        });
+
+        this.totalUsage = total;
+        this.locations = newLocations;
     };
 
     /**
@@ -190,7 +191,7 @@ export class StatsStore {
      * @param statistics Statistics data to set, if `null` then
      * it will reset the statistics data to default values.
      */
-    @action setStatistics = (statistics: AllAccountStatistics | null) => {
+    @action setStatistics = (statistics: FullStatistics | null) => {
         if (statistics) {
             this.firstStatsDate = new Date(statistics.startedTimestamp);
             this.range = statistics.range;
@@ -292,12 +293,7 @@ export class StatsStore {
      * Clear all stats.
      */
     @action clearAllStats = async () => {
-        const succeeded = await messenger.clearStatistics();
-
-        // do nothing if not succeeded
-        if (!succeeded) {
-            return;
-        }
+        await messenger.clearStatistics();
 
         runInAction(() => {
             this.locations = [];

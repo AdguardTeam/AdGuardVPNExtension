@@ -15,8 +15,8 @@ const statisticsStorageMock = {
     startDuration: jest.fn(),
     updateDuration: jest.fn(),
     endDuration: jest.fn(),
-    getAccountStatistics: jest.fn(),
-    clearAccountStatistics: jest.fn(),
+    getStatistics: jest.fn(),
+    clearStatistics: jest.fn(),
 };
 
 const timersMock = {
@@ -315,5 +315,15 @@ describe('StatisticsProvider', () => {
             // should clear duration interval
             expect(timersMock.clearInterval).toHaveBeenCalledTimes(1);
         });
+    });
+
+    it('should forward storage methods', async () => {
+        await statisticsProvider.init();
+
+        await statisticsProvider.getStatistics();
+        expect(statisticsStorageMock.getStatistics).toHaveBeenCalledTimes(1);
+
+        await statisticsProvider.clearStatistics();
+        expect(statisticsStorageMock.clearStatistics).toHaveBeenCalledTimes(1);
     });
 });

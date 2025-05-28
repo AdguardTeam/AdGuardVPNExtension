@@ -5,12 +5,12 @@ import { type LocationInterface, ConnectivityStateType } from '../schema';
 import { type TimersInterface } from '../timers/AbstractTimers';
 
 import { type StatisticsStorageInterface } from './StatisticsStorage';
-import { type StatisticsAccountData } from './statisticsTypes';
+import { type Statistics } from './statisticsTypes';
 
 /**
  * Methods that are forwarded to the statistics storage.
  */
-type StorageForwardedMethods = Pick<StatisticsStorageInterface, 'getAccountStatistics' | 'clearAccountStatistics'>;
+type StorageForwardedMethods = Pick<StatisticsStorageInterface, 'getStatistics' | 'clearStatistics'>;
 
 type NotifierArg =
     WsConnectivityInfoMsgTraffic
@@ -133,13 +133,13 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     };
 
     /** @inheritdoc */
-    public getAccountStatistics = async (accountId: string): Promise<StatisticsAccountData | null> => {
-        return this.statisticsStorage.getAccountStatistics(accountId);
+    public getStatistics = async (): Promise<Statistics> => {
+        return this.statisticsStorage.getStatistics();
     };
 
     /** @inheritdoc */
-    public clearAccountStatistics = async (accountId: string): Promise<void> => {
-        return this.statisticsStorage.clearAccountStatistics(accountId);
+    public clearStatistics = async (): Promise<void> => {
+        return this.statisticsStorage.clearStatistics();
     };
 
     /**

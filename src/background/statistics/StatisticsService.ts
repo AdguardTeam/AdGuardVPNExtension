@@ -1,16 +1,15 @@
 import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
-import { type CredentialsInterface } from '../credentials/Credentials';
 
 import { type StatisticsProviderInterface } from './StatisticsProvider';
 import {
     StatisticsRange,
-    type RangeAccountStatistics,
-    type AllAccountStatistics,
-    type StatisticsAccountStorage,
+    type RangeStatistics,
+    type FullStatistics,
     type StatisticsData,
-    type StatisticsLocationStorage,
     type StatisticsDataUsage,
+    type StatisticsLocationsStorage,
+    type StatisticsLocationData,
 } from './statisticsTypes';
 import { keyToDate } from './utils';
 
@@ -24,33 +23,28 @@ export interface StatisticsServiceInterface {
     init(): Promise<void>;
 
     /**
-     * Retrieves full statistics information for the current account.
+     * Retrieves full statistics information.
      *
-     * @returns Promise that resolves to the all statistics data,
-     * or `null` if user is not authenticated or stats didn't started collecting yet.
+     * @returns All statistics data.
      */
-    getAllStatistics(): Promise<AllAccountStatistics | null>;
+    getAllStatistics(): Promise<FullStatistics>;
 
     /**
-     * Updates range in local storage and retrieves statistics data
-     * for the given range for the current account.
+     * Updates range in local storage and retrieves statistics data for the given range.
      *
      * @param range The range for which statistics data is needed.
      *
-     * @returns Promise that resolves to the refreshed statistics data,
-     * or `null` if user is not authenticated or stats didn't started collecting yet.
+     * @returns Range statistics data.
      */
-    getRangeStatistics(range: StatisticsRange): Promise<RangeAccountStatistics | null>
+    getRangeStatistics(range: StatisticsRange): Promise<RangeStatistics>
 
     /**
-     * Clears all statistics for the current account.
+     * Clears all statistics.
      *
      * WARNING: This method will delete all statistics data,
      * make sure that you know what you are doing before calling it.
-     *
-     * @returns True if the statistics were cleared, false otherwise.
      */
-    clearStatistics(): Promise<boolean>;
+    clearStatistics(): Promise<void>;
 }
 
 /**
@@ -66,18 +60,13 @@ export interface StatisticsServiceParameters {
      * Statistics provider.
      */
     provider: StatisticsProviderInterface;
-
-    /**
-     * Credentials instance.
-     */
-    credentials: CredentialsInterface;
 }
 
 /**
  * Statistics service.
  * This class is responsible for statistics data processing and aggregation to UI.
- * It used to retrieve statistics data for currently logged in account from the provider
- * by converting raw statistics data into a more user-friendly format depending on the selected range.
+ * It used to retrieve statistics data from the provider by converting
+ * raw statistics data into a more user-friendly format depending on the selected range.
  */
 export class StatisticsService implements StatisticsServiceInterface {
     /**
@@ -101,11 +90,6 @@ export class StatisticsService implements StatisticsServiceInterface {
     private provider: StatisticsProviderInterface;
 
     /**
-     * Credentials instance.
-     */
-    private credentials: CredentialsInterface;
-
-    /**
      * Currently selected statistics range.
      *
      * Initialized in {@link init} method.
@@ -118,11 +102,9 @@ export class StatisticsService implements StatisticsServiceInterface {
     constructor({
         storage,
         provider,
-        credentials,
     }: StatisticsServiceParameters) {
         this.storage = storage;
         this.provider = provider;
-        this.credentials = credentials;
     }
 
     /** @inheritdoc */
@@ -163,15 +145,15 @@ export class StatisticsService implements StatisticsServiceInterface {
     }
 
     /**
-     * Queries the location storage for statistics data for the given range.
+     * Queries the location data for statistics data for the given range.
      *
-     * @param locationStorage Location storage to query.
+     * @param locationData Location storage to query.
      * @param range The range for which statistics data is needed.
      *
      * @returns Statistics data for the given range.
      */
-    private static queryLocationStorage(
-        locationStorage: StatisticsLocationStorage,
+    private static queryLocationData(
+        locationData: StatisticsLocationData,
         range: StatisticsRange,
     ): StatisticsData {
         const data: StatisticsData = {
@@ -180,7 +162,7 @@ export class StatisticsService implements StatisticsServiceInterface {
             durationMs: 0,
         };
 
-        const { hourly, daily, total } = locationStorage;
+        const { hourly, daily, total } = locationData;
 
         const addStatisticsData = ({ downloadedBytes, uploadedBytes, durationMs }: StatisticsData) => {
             data.downloadedBytes += downloadedBytes;
@@ -228,26 +210,26 @@ export class StatisticsService implements StatisticsServiceInterface {
     }
 
     /**
-     * Queries the account storage for statistics data for the given range.
+     * Queries the locations storage for statistics data for the given range.
      *
-     * @param accountStorage Account storage to query.
+     * @param locationsStorage Account storage to query.
      * @param range The range for which statistics data is needed.
      *
      * @returns Statistics data for the given range.
      */
-    private static queryAccountStorage(
-        accountStorage: StatisticsAccountStorage,
+    private static queryLocationsStorage(
+        locationsStorage: StatisticsLocationsStorage,
         range: StatisticsRange,
-    ): RangeAccountStatistics {
+    ): RangeStatistics {
         const total: StatisticsData = {
             downloadedBytes: 0,
             uploadedBytes: 0,
             durationMs: 0,
         };
 
-        const locations = Object.entries(accountStorage).map(
-            ([locationId, locationStorage]): StatisticsDataUsage => {
-                const data = StatisticsService.queryLocationStorage(locationStorage, range);
+        const locations = Object.entries(locationsStorage).map(
+            ([locationId, locationData]): StatisticsDataUsage => {
+                const data = StatisticsService.queryLocationData(locationData, range);
 
                 total.downloadedBytes += data.downloadedBytes;
                 total.uploadedBytes += data.uploadedBytes;
@@ -267,57 +249,22 @@ export class StatisticsService implements StatisticsServiceInterface {
     }
 
     /** @inheritdoc */
-    public getAllStatistics = async (): Promise<AllAccountStatistics | null> => {
-        const accountId = await this.credentials.getUsername();
-
-        // return null if user is not authenticated
-        if (!accountId) {
-            return null;
-        }
-
-        // get account statistics from provider
-        const accountStatistics = await this.provider.getAccountStatistics(accountId);
-
-        // return null if stats didn't started collecting yet
-        if (!accountStatistics) {
-            return null;
-        }
-
-        const { startedTimestamp, accountStorage } = accountStatistics;
-
-        let rangeAccountStatistics: RangeAccountStatistics;
-        if (accountStorage) {
-            rangeAccountStatistics = StatisticsService.queryAccountStorage(accountStorage, this.range);
-        } else {
-            // collection started but no data yet, fallback to empty stats
-            rangeAccountStatistics = {
-                total: {
-                    downloadedBytes: 0,
-                    uploadedBytes: 0,
-                    durationMs: 0,
-                },
-                locations: [],
-            };
-        }
+    public getAllStatistics = async (): Promise<FullStatistics> => {
+        const accountStatistics = await this.provider.getStatistics();
+        const { startedTimestamp, locations } = accountStatistics;
 
         return {
             startedTimestamp,
             range: this.range,
-            ...rangeAccountStatistics,
+            ...StatisticsService.queryLocationsStorage(locations, this.range),
         };
     };
 
     /** @inheritdoc */
-    public getRangeStatistics = async (range: StatisticsRange): Promise<RangeAccountStatistics | null> => {
+    public getRangeStatistics = async (range: StatisticsRange): Promise<RangeStatistics> => {
         await this.saveRange(range);
+
         const allStatistics = await this.getAllStatistics();
-
-        // return null if user is not authenticated
-        // or if stats didn't started collecting yet
-        if (!allStatistics) {
-            return null;
-        }
-
         const { total, locations } = allStatistics;
 
         return {
@@ -327,16 +274,8 @@ export class StatisticsService implements StatisticsServiceInterface {
     };
 
     /** @inheritdoc */
-    public clearStatistics = async (): Promise<boolean> => {
-        const accountId = await this.credentials.getUsername();
-
-        // do nothing if user is not authenticated
-        if (!accountId) {
-            return false;
-        }
-
-        await this.provider.clearAccountStatistics(accountId);
-        return true;
+    public clearStatistics = async (): Promise<void> => {
+        await this.provider.clearStatistics();
     };
 
     /**

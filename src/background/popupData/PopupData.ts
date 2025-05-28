@@ -28,7 +28,7 @@ import { hintPopup } from '../hintPopup';
 import { savedLocations } from '../savedLocations';
 import { locationsService, type LocationsTab } from '../endpoints/locationsService';
 import { statisticsService } from '../statistics';
-import { type AllAccountStatistics } from '../statistics/statisticsTypes';
+import { type FullStatistics } from '../statistics/statisticsTypes';
 
 import { popupOpenedCounter } from './popupOpenedCounter';
 
@@ -89,7 +89,7 @@ interface PopupDataInterface {
     /**
      * Statistics data.
      */
-    statistics?: AllAccountStatistics | null;
+    statistics?: FullStatistics;
 }
 
 interface PopupDataRetry extends PopupDataInterface {

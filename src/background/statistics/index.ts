@@ -17,5 +17,4 @@ const statisticsProvider = new StatisticsProvider({
 export const statisticsService = new StatisticsService({
     storage: browserApi.storage,
     provider: statisticsProvider,
-    credentials,
 });

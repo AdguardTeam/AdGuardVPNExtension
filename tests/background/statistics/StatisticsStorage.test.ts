@@ -777,234 +777,102 @@ describe('StatisticsStorage', () => {
             }));
         });
 
-        it('should return account storage and started time properly', async () => {
-            const accountId = 'test-account@adguard.com';
-            const startedTimestamp = 1234567890;
-            const accountStorage = {
+        it('should return statistics properly', async () => {
+            const statistics = getStatistics({
                 locationId: {
                     hourly: {
-                        '2025-10-01-10': {
-                            downloadedBytes: 1,
-                            uploadedBytes: 1,
-                            durationMs: 1,
-                        },
+                        '2025-10-01-10': getData(1),
                     },
                     daily: {
-                        '2025-10-01': {
-                            downloadedBytes: 2,
-                            uploadedBytes: 2,
-                            durationMs: 2,
-                        },
+                        '2025-10-01': getData(2),
                     },
-                    total: {
-                        downloadedBytes: 3,
-                        uploadedBytes: 3,
-                        durationMs: 3,
-                    },
+                    total: getData(3),
                 },
-            };
-
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey) {
-                    return { [accountId]: accountStorage };
-                }
-
-                if (key === startedTimesKey) {
-                    return { [accountId]: startedTimestamp };
-                }
-
-                return undefined;
             });
+
+            storageMock.get.mockResolvedValueOnce(statistics);
 
             await statisticsStorage.init();
-            const result = await statisticsStorage.getAccountStatistics(accountId);
 
-            expect(result).toEqual({
-                startedTimestamp,
-                accountStorage,
-            });
+            const result = await statisticsStorage.getStatistics();
 
-            storageMock.get.mockReset();
+            expect(result).toEqual(statistics);
         });
 
         it('should return updated account storage after time', async () => {
-            const accountId = 'test-account@adguard.com';
-            const startedTimestamp = 1234567890;
-
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey) {
-                    return {
-                        [accountId]: {
-                            locationId: {
-                                hourly: {
-                                    '2025-10-01-10': {
-                                        downloadedBytes: 1,
-                                        uploadedBytes: 1,
-                                        durationMs: 1,
-                                    },
-                                    '2025-09-30-10': {
-                                        downloadedBytes: 1,
-                                        uploadedBytes: 1,
-                                        durationMs: 1,
-                                    },
-                                },
-                                daily: {
-                                    '2025-10-01': {
-                                        downloadedBytes: 2,
-                                        uploadedBytes: 2,
-                                        durationMs: 2,
-                                    },
-                                    '2025-09-01': {
-                                        downloadedBytes: 2,
-                                        uploadedBytes: 2,
-                                        durationMs: 2,
-                                    },
-                                },
-                                total: {
-                                    downloadedBytes: 3,
-                                    uploadedBytes: 3,
-                                    durationMs: 3,
-                                },
-                            },
-                        },
-                    };
-                }
-
-                if (key === startedTimesKey) {
-                    return {
-                        [accountId]: startedTimestamp,
-                    };
-                }
-
-                return undefined;
-            });
+            storageMock.get.mockResolvedValueOnce(getStatistics({
+                locationId: {
+                    hourly: {
+                        '2025-10-01-10': getData(1),
+                        '2025-09-30-10': getData(1),
+                    },
+                    daily: {
+                        '2025-10-01': getData(2),
+                        '2025-09-01': getData(2),
+                    },
+                    total: getData(3),
+                },
+            }));
 
             await statisticsStorage.init();
 
             // advance by 1 hour
-            jest.advanceTimersByTime(60 * 60 * 1000);
+            jest.advanceTimersByTime(ONE_HOUR_MS);
 
-            const result1 = await statisticsStorage.getAccountStatistics(accountId);
+            const result1 = await statisticsStorage.getStatistics();
 
-            expect(result1).toEqual({
-                startedTimestamp,
-                accountStorage: {
-                    locationId: {
-                        hourly: {
-                            '2025-10-01-10': {
-                                downloadedBytes: 1,
-                                uploadedBytes: 1,
-                                durationMs: 1,
-                            },
-                        },
-                        daily: {
-                            '2025-10-01': {
-                                downloadedBytes: 2,
-                                uploadedBytes: 2,
-                                durationMs: 2,
-                            },
-                            '2025-09-30': {
-                                downloadedBytes: 1,
-                                uploadedBytes: 1,
-                                durationMs: 1,
-                            },
-                            '2025-09-01': {
-                                downloadedBytes: 2,
-                                uploadedBytes: 2,
-                                durationMs: 2,
-                            },
-                        },
-                        total: {
-                            downloadedBytes: 3,
-                            uploadedBytes: 3,
-                            durationMs: 3,
-                        },
+            expect(result1).toEqual(getStatistics({
+                locationId: {
+                    hourly: {
+                        '2025-10-01-10': getData(1),
                     },
+                    daily: {
+                        '2025-10-01': getData(2),
+                        '2025-09-30': getData(1),
+                        '2025-09-01': getData(2),
+                    },
+                    total: getData(3),
                 },
-            });
+            }));
 
             // advance by 1 day
-            jest.advanceTimersByTime(24 * 60 * 60 * 1000);
+            jest.advanceTimersByTime(ONE_DAY_MS);
 
-            const result2 = await statisticsStorage.getAccountStatistics(accountId);
+            const result2 = await statisticsStorage.getStatistics();
 
-            expect(result2).toEqual({
-                startedTimestamp,
-                accountStorage: {
-                    locationId: {
-                        hourly: {},
-                        daily: {
-                            '2025-09-30': {
-                                downloadedBytes: 1,
-                                uploadedBytes: 1,
-                                durationMs: 1,
-                            },
-                            '2025-10-01': {
-                                downloadedBytes: 3,
-                                uploadedBytes: 3,
-                                durationMs: 3,
-                            },
-                        },
-                        total: {
-                            downloadedBytes: 5,
-                            uploadedBytes: 5,
-                            durationMs: 5,
-                        },
+            expect(result2).toEqual(getStatistics({
+                locationId: {
+                    hourly: {},
+                    daily: {
+                        '2025-09-30': getData(1),
+                        '2025-10-01': getData(3),
                     },
+                    total: getData(5),
                 },
-            });
-
-            storageMock.get.mockReset();
+            }));
         });
 
         it('should clear statistics for the given account', async () => {
-            const accountId = 'test-account@adguard.com';
-            const startedTimestamp = 1234567890;
-            const accountStorage = {
+            storageMock.get.mockResolvedValueOnce(getStatistics({
                 locationId: {
                     hourly: {
-                        '2025-10-01-10': {
-                            downloadedBytes: 1,
-                            uploadedBytes: 1,
-                            durationMs: 1,
-                        },
+                        '2025-10-01-10': getData(1),
                     },
                     daily: {
-                        '2025-10-01': {
-                            downloadedBytes: 2,
-                            uploadedBytes: 2,
-                            durationMs: 2,
-                        },
+                        '2025-10-01': getData(2),
                     },
-                    total: {
-                        downloadedBytes: 3,
-                        uploadedBytes: 3,
-                        durationMs: 3,
-                    },
+                    total: getData(3),
                 },
-            };
-
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey) {
-                    return { [accountId]: accountStorage };
-                }
-
-                if (key === startedTimesKey) {
-                    return { [accountId]: startedTimestamp };
-                }
-
-                return undefined;
-            });
+            }));
 
             await statisticsStorage.init();
-            await statisticsStorage.clearAccountStatistics(accountId);
 
-            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {});
-            expect(storageMock.set).toHaveBeenCalledWith(startedTimesKey, {
-                [accountId]: expect.any(Number),
+            await statisticsStorage.clearStatistics();
+
+            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), {
+                locations: {},
+                startedTimestamp: systemDate.getTime(),
             });
-
-            storageMock.get.mockReset();
         });
     });
 });

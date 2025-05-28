@@ -113,7 +113,7 @@ export interface Statistics {
     /**
      * Timestamp when the statistics collection started for this account.
      */
-    [accountId: string]: number;
+    startedTimestamp: number;
 }
 
 /**
@@ -129,21 +129,6 @@ export interface AddStatisticsDataTraffic {
      * Number of bytes uploaded.
      */
     uploadedBytes: number;
-}
-
-/**
- * Location storage and started time combined data for the given account.
- */
-export interface StatisticsAccountData {
-    /**
-     * Timestamp when the statistics collection started.
-     */
-    startedTimestamp: number;
-
-    /**
-     * Account storage for the given account.
-     */
-    accountStorage?: StatisticsAccountStorage;
 }
 
 /**
@@ -175,7 +160,7 @@ export interface StatisticsDataUsage {
 /**
  * Statistics sent when {@link StatisticsRange} is changed, and data for that range is needed.
  */
-export interface RangeAccountStatistics {
+export interface RangeStatistics {
     /**
      * Summarized statistics data for {@link locations}.
      */
@@ -190,7 +175,7 @@ export interface RangeAccountStatistics {
 /**
  * All information about statistics for a specific account.
  */
-export interface AllAccountStatistics extends RangeAccountStatistics {
+export interface FullStatistics extends RangeStatistics {
     /**
      * Timestamp when the statistics collection started.
      */

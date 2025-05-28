@@ -8,8 +8,6 @@ import {
     type StatisticsLocationData,
     type StatisticsData,
     type Statistics,
-    type StatisticsAccountData,
-    type StatisticsUpdatedTimes,
 } from './statisticsTypes';
 
 /**
@@ -51,21 +49,16 @@ export interface StatisticsStorageInterface {
     endDuration(locationId: string): Promise<void>;
 
     /**
-     * Gets statistics data for the given account ID.
+     * Gets statistics data.
      *
-     * @param accountId Account ID to get statistics for.
-     *
-     * @returns Statistics data for the given account ID,
-     * or `null` if stats didn't started collecting yet.
+     * @returns Statistics data.
      */
-    getAccountStatistics(accountId: string): Promise<StatisticsAccountData | null>;
+    getStatistics(): Promise<Statistics>;
 
     /**
-     * Clears all statistics for the given account ID.
-     *
-     * @param accountId Account ID to clear statistics for.
+     * Clears all statistics.
      */
-    clearAccountStatistics(accountId: string): Promise<void>;
+    clearStatistics(): Promise<void>;
 }
 
 /**
@@ -160,12 +153,10 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private isStatisticsChanged = false;
 
     /**
-     * Object that contains map when the statistics data was last updated for each account.
-     *
-     * NOTE: This field is not needed to persist if extension is reloaded,
-     * because we update stale statistics on each extension reload.
+     * Last timestamp when statistics were updated.
+     * This is used to determine if statistics should be updated before sending it to the UI.
      */
-    private updatedTimes: StatisticsUpdatedTimes = {};
+    private statisticsUpdatedTimestamp = 0;
 
     /**
      * Constructor.
@@ -246,6 +237,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         // create before to make consistent calculations
         const now = Date.now();
 
+        this.statisticsUpdatedTimestamp = now;
         Object.values(this.statistics.locations).forEach((locationData) => {
             this.distributeDuration(locationData, now);
             this.moveStatistics(locationData, now, true);
@@ -479,54 +471,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         return locationData;
     }
 
-    /** @inheritdoc */
-    public getAccountStatistics = async (accountId: string): Promise<StatisticsAccountData | null> => {
-        const startedTimestamp = this.startedTimes[accountId];
-        const updatedTimestamp = this.updatedTimes[accountId];
-
-        if (!startedTimestamp) {
-            return null;
-        }
-
-        // retrieve account storage
-        const accountStorage = this.statistics[accountId];
-
-        // if updated timestamp is not set or set but statistics should be updated
-        const shouldUpdate = !updatedTimestamp || StatisticsStorage.shouldUpdateStatistics(updatedTimestamp);
-
-        // we need to update statistics first and only after that return the data
-        // this is needed in case if extension is running longer than 1 hour
-        if (shouldUpdate && accountStorage) {
-            const now = Date.now();
-            this.updatedTimes[accountId] = now;
-
-            Object.values(accountStorage).forEach((locationStorage) => {
-                StatisticsStorage.moveStatistics(locationStorage, now, true);
-                StatisticsStorage.moveStatistics(locationStorage, now, false);
-            });
-
-            await this.saveStatistics();
-        }
-
-        return {
-            startedTimestamp,
-            accountStorage,
-        };
-    };
-
-    /** @inheritdoc */
-    public clearAccountStatistics = async (accountId: string): Promise<void> => {
-        // delete account storage
-        if (this.statistics[accountId]) {
-            delete this.statistics[accountId];
-            await this.saveStatistics();
-        }
-
-        // renew started time
-        this.startedTimes[accountId] = Date.now();
-        await this.saveStartedTimes();
-    };
-
     /**
      * Gets statistics data for the given hourly / daily -> datetime / date for a given date.
      * If not found, creates a new one.
@@ -555,6 +499,25 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
 
         return periodData;
+    }
+
+    /**
+     * Checks if the statistics should be updated.
+     * Update is needed only if hour, day, month or year is different.
+     *
+     * @returns True if the statistics should be updated, false otherwise.
+     */
+    private shouldUpdateStatistics(): boolean {
+        const now = new Date();
+        const updatedTime = new Date(this.statisticsUpdatedTimestamp);
+
+        // update needed only if hour, day, month or year is different
+        return (
+            now.getUTCFullYear() !== updatedTime.getUTCFullYear()
+            || now.getUTCMonth() !== updatedTime.getUTCMonth()
+            || now.getUTCDate() !== updatedTime.getUTCDate()
+            || now.getUTCHours() !== updatedTime.getUTCHours()
+        );
     }
 
     /** @inheritdoc */
@@ -624,6 +587,37 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
     };
 
+    /** @inheritdoc */
+    public getStatistics = async (): Promise<Statistics> => {
+        // we need to update statistics first and only after that return the data
+        // this is needed in case if extension is running longer than 1 hour
+        if (this.shouldUpdateStatistics()) {
+            const now = Date.now();
+
+            this.statisticsUpdatedTimestamp = now;
+            Object.values(this.statistics.locations).forEach((locationData) => {
+                this.moveStatistics(locationData, now, true);
+                this.moveStatistics(locationData, now, false);
+            });
+
+            await this.saveStatistics();
+        }
+
+        return this.statistics;
+    };
+
+    /** @inheritdoc */
+    public clearStatistics = async (): Promise<void> => {
+        // delete all locations
+        this.statistics.locations = {};
+
+        // renew started time
+        this.statistics.startedTimestamp = Date.now();
+
+        this.isStatisticsChanged = true;
+        await this.saveStatistics();
+    };
+
     /**
      * Gets the timestamp with cropped hours or minutes for the given timestamp.
      *
@@ -664,26 +658,5 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      */
     private static getDailyBorderTimestamp(timestamp: number): number {
         return this.getCroppedTimestamp(timestamp - StatisticsStorage.MOVE_DAILY_STATS_AFTER_MS, false);
-    }
-
-    /**
-     * Checks if the statistics should be updated.
-     * Update is needed only if hour, day, month or year is different.
-     *
-     * @param updatedTimestamp Timestamp of the last update.
-     *
-     * @returns True if the statistics should be updated, false otherwise.
-     */
-    private static shouldUpdateStatistics(updatedTimestamp: number): boolean {
-        const now = new Date();
-        const updatedTime = new Date(updatedTimestamp);
-
-        // update needed only if hour, day, month or year is different
-        return (
-            now.getUTCFullYear() !== updatedTime.getUTCFullYear()
-            || now.getUTCMonth() !== updatedTime.getUTCMonth()
-            || now.getUTCDate() !== updatedTime.getUTCDate()
-            || now.getUTCHours() !== updatedTime.getUTCHours()
-        );
     }
 }

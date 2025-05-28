@@ -1,8 +1,9 @@
 import { StatisticsService } from '../../../src/background/statistics/StatisticsService';
 import {
-    type StatisticsAccountStorage,
     StatisticsRange,
-    type RangeAccountStatistics,
+    type RangeStatistics,
+    type StatisticsData,
+    type StatisticsLocationsStorage,
 } from '../../../src/background/statistics/statisticsTypes';
 
 const storageMock = {
@@ -13,12 +14,8 @@ const storageMock = {
 
 const providerMock = {
     init: jest.fn(),
-    getAccountStatistics: jest.fn(),
-    clearAccountStatistics: jest.fn(),
-};
-
-const credentialsMock = {
-    getUsername: jest.fn().mockResolvedValue('test@adguard.com'),
+    getStatistics: jest.fn(),
+    clearStatistics: jest.fn(),
 };
 
 describe('StatisticsService', () => {
@@ -29,8 +26,6 @@ describe('StatisticsService', () => {
         statisticsService = new StatisticsService({
             storage: storageMock,
             provider: providerMock,
-            // @ts-expect-error - partially mocked
-            credentials: credentialsMock,
         });
         jest.useFakeTimers('modern').setSystemTime(systemDate);
     });
@@ -38,6 +33,25 @@ describe('StatisticsService', () => {
     afterEach(() => {
         jest.clearAllMocks();
         jest.useRealTimers();
+    });
+
+    /**
+     * Get statistics data for testing.
+     *
+     * @param downloadedBytes Number of bytes downloaded.
+     * @param uploadedBytes Number of bytes uploaded (Default is `downloadedBytes`).
+     * @param durationMs Duration in milliseconds (Default is `downloadedBytes`).
+     *
+     * @returns Statistics data.
+     */
+    const getData = (
+        downloadedBytes: number,
+        uploadedBytes = downloadedBytes,
+        durationMs = downloadedBytes,
+    ): StatisticsData => ({
+        downloadedBytes,
+        uploadedBytes,
+        durationMs,
     });
 
     it('should initialize properly', async () => {
@@ -68,71 +82,32 @@ describe('StatisticsService', () => {
         expect(statisticsService.range).toBe(StatisticsRange.Hours24);
     });
 
-    it('should return null for all statistics if user is not authenticated', async () => {
-        credentialsMock.getUsername.mockResolvedValueOnce(null);
-
-        await statisticsService.init();
-
-        const result = await statisticsService.getAllStatistics();
-
-        expect(result).toEqual(null);
-    });
-
-    it('should return null for all statistics if collection is not started', async () => {
-        providerMock.getAccountStatistics.mockResolvedValueOnce(null);
-
-        await statisticsService.init();
-
-        const result = await statisticsService.getAllStatistics();
-
-        expect(result).toEqual(null);
-    });
-
-    it('should return empty stats for all statistics if collection started but no data yet', async () => {
-        storageMock.get.mockResolvedValueOnce(StatisticsRange.AllTime);
-        providerMock.getAccountStatistics.mockResolvedValueOnce({
-            startedTimestamp: 12345,
-            accountStorage: undefined,
-        });
-
-        await statisticsService.init();
-
-        const result = await statisticsService.getAllStatistics();
-
-        expect(result).toEqual({
-            startedTimestamp: 12345,
-            range: StatisticsRange.AllTime,
-            total: {
-                downloadedBytes: 0,
-                uploadedBytes: 0,
-                durationMs: 0,
-            },
-            locations: [],
-        });
-    });
-
     describe('Range queries', () => {
-        const getData = (
-            downloadedBytes: number,
-            uploadedBytes = downloadedBytes,
-            durationMs = downloadedBytes,
-        ) => ({
-            downloadedBytes,
-            uploadedBytes,
-            durationMs,
-        });
-
+        /**
+         * Test case for range queries.
+         */
         type RangeQueriesTestCase = {
+            /**
+             * The range to test.
+             */
             range: StatisticsRange;
-            accountStorage: StatisticsAccountStorage;
-            expected: RangeAccountStatistics;
+
+            /**
+             * Locations storage to test.
+             */
+            storage: StatisticsLocationsStorage;
+
+            /**
+             * Expected range statistics.
+             */
+            expected: RangeStatistics;
         };
 
         const cases: RangeQueriesTestCase[] = [
             // 24 hours
             {
                 range: StatisticsRange.Hours24,
-                accountStorage: {
+                storage: {
                     locationId1: {
                         hourly: {
                             '2025-10-01-10': getData(1),
@@ -173,7 +148,7 @@ describe('StatisticsService', () => {
             // 7 days
             {
                 range: StatisticsRange.Days7,
-                accountStorage: {
+                storage: {
                     locationId1: {
                         hourly: {
                             '2025-10-01-10': getData(1),
@@ -224,7 +199,7 @@ describe('StatisticsService', () => {
             // 30 days
             {
                 range: StatisticsRange.Days30,
-                accountStorage: {
+                storage: {
                     locationId1: {
                         hourly: {
                             '2025-10-01-10': getData(1),
@@ -265,7 +240,7 @@ describe('StatisticsService', () => {
             // AllTime
             {
                 range: StatisticsRange.AllTime,
-                accountStorage: {
+                storage: {
                     locationId1: {
                         hourly: {
                             '2025-10-01-10': getData(1),
@@ -305,11 +280,11 @@ describe('StatisticsService', () => {
             },
         ];
 
-        it.each(cases)('should correctly calculate range', async ({ range, accountStorage, expected }) => {
+        it.each(cases)('should correctly calculate range', async ({ range, storage, expected }) => {
             storageMock.get.mockResolvedValueOnce(range);
-            providerMock.getAccountStatistics.mockResolvedValueOnce({
+            providerMock.getStatistics.mockResolvedValueOnce({
                 startedTimestamp: 12345,
-                accountStorage,
+                locations: storage,
             });
 
             await statisticsService.init();
