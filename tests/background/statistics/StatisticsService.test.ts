@@ -12,7 +12,9 @@ const storageMock = {
     remove: jest.fn(),
 };
 
-const providerMock = {};
+const providerMock = {
+    init: jest.fn(),
+};
 
 const statisticsStorageMock = {
     init: jest.fn(),
