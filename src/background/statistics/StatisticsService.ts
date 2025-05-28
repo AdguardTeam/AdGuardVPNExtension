@@ -123,9 +123,10 @@ export class StatisticsService implements StatisticsServiceInterface {
     /** @inheritdoc */
     public init = async (): Promise<void> => {
         try {
-            log.info('Statistics service ready');
+            this.provider.init();
             await this.statisticsStorage.init();
             await this.gainRange();
+            log.info('Statistics service ready');
         } catch (e) {
             log.error('Unable to initialize statistics service, due to error:', e);
         }

@@ -1,3 +1,4 @@
+import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
 import { type ConnectivityStateChangeEvent, type WsConnectivityInfoMsgTraffic } from '../connectivity';
 import { type LocationInterface, ConnectivityStateType } from '../schema';
@@ -14,7 +15,12 @@ type NotifierArg =
 /**
  * Statistics provider interface.
  */
-export interface StatisticsProviderInterface {}
+export interface StatisticsProviderInterface {
+    /**
+     * Initializes the statistics provider.
+     */
+    init(): void;
+}
 
 /**
  * Constructor parameters for {@link StatisticsProvider}.
@@ -103,12 +109,17 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     }: StatisticsProviderParameters) {
         this.statisticsStorage = statisticsStorage;
         this.timers = timers;
+    }
 
+    /** @inheritdoc */
+    public init = (): void => {
         notifier.addSpecifiedListener(
             StatisticsProvider.NOTIFIER_EVENTS,
             this.handleNotifierEvent.bind(this),
         );
-    }
+
+        log.info('Statistics provider ready');
+    };
 
     /**
      * Clears the duration interval.
