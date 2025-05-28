@@ -87,7 +87,7 @@ describe('StatisticsProvider', () => {
             await callback();
         };
 
-        return 'timerId';
+        return 1;
     });
 
     beforeEach(() => {
@@ -273,6 +273,12 @@ describe('StatisticsProvider', () => {
             await simulateTrafficUpdate(downloadedBytes, uploadedBytes);
 
             expect(statisticsStorageMock.addTraffic).toHaveBeenCalledTimes(1);
+            expect(statisticsStorageMock.addTraffic).toHaveBeenCalledWith({
+                accountId: accountId2,
+                locationId,
+                downloadedBytes,
+                uploadedBytes,
+            });
         });
     });
 
@@ -367,6 +373,10 @@ describe('StatisticsProvider', () => {
             await simulateConnect();
 
             expect(statisticsStorageMock.startDuration).toHaveBeenCalledTimes(1);
+            expect(statisticsStorageMock.startDuration).toHaveBeenCalledWith({
+                accountId: accountId2,
+                locationId,
+            });
         });
 
         it('should correctly start duration interval process', async () => {
