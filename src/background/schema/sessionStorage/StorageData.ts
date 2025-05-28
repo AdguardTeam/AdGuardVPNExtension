@@ -22,7 +22,6 @@ import { LOCATIONS_SERVICE_STATE_DEFAULTS, locationsServiceStateScheme } from '.
 import { POPUP_OPENED_COUNTER_DEFAULTS, popupOpenedCounterStateScheme } from '../popupData';
 import { CONNECTIVITY_DATA_DEFAULTS, connectivityDataScheme } from '../connectivity/data';
 import { limitedOfferStorageDataScheme } from '../limitedOffer';
-import { STATISTICS_STATE_DEFAULTS, statisticsStateScheme } from '../statistics';
 
 export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
@@ -65,7 +64,6 @@ export const storageDataScheme = zod.object({
     [StorageKey.ConnectivityData]: connectivityDataScheme,
     [StorageKey.GlobalProxyConfig]: proxyConfigInterfaceScheme.or(zod.null()),
     [StorageKey.LimitedOfferService]: limitedOfferStorageDataScheme,
-    [StorageKey.StatisticsState]: statisticsStateScheme,
 });
 
 export type StorageData = zod.infer<typeof storageDataScheme>;
@@ -89,5 +87,4 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.ConnectivityData]: CONNECTIVITY_DATA_DEFAULTS,
     [StorageKey.GlobalProxyConfig]: null,
     [StorageKey.LimitedOfferService]: null,
-    [StorageKey.StatisticsState]: STATISTICS_STATE_DEFAULTS,
 };

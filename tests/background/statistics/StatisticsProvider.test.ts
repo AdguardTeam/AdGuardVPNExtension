@@ -1,5 +1,4 @@
 import { ConnectivityStateType } from '../../../src/background/schema';
-import { STATISTICS_STATE_DEFAULTS } from '../../../src/background/schema/statistics';
 import { StatisticsProvider } from '../../../src/background/statistics/StatisticsProvider';
 import { notifier } from '../../../src/common/notifier';
 
@@ -9,13 +8,6 @@ jest.mock('../../../src/common/notifier', () => ({
 }));
 
 jest.mock('../../../src/common/logger');
-
-const stateStorageMock = {
-    getItem: jest.fn().mockImplementation(() => ({
-        ...STATISTICS_STATE_DEFAULTS,
-    })),
-    setItem: jest.fn(),
-};
 
 const statisticsStorageMock = {
     init: jest.fn(),
@@ -100,8 +92,6 @@ describe('StatisticsProvider', () => {
 
     beforeEach(() => {
         statisticsProvider = new StatisticsProvider({
-            // @ts-expect-error - partially implemented
-            stateStorage: stateStorageMock,
             statisticsStorage: statisticsStorageMock,
             // @ts-expect-error - partially implemented
             credentials: credentialsMock,
@@ -179,48 +169,25 @@ describe('StatisticsProvider', () => {
         await emitter.tickTimer();
     };
 
-    describe('Initialization', () => {
-        it('should initialize properly', async () => {
-            await statisticsProvider.init();
+    it('should initialize properly', async () => {
+        await statisticsProvider.init();
 
-            // should attach listeners
-            expect(addSpecifiedListenerSpy).toHaveBeenCalledTimes(1);
-            expect(addSpecifiedListenerSpy).toHaveBeenCalledWith(
-                [
-                    notifier.types.TRAFFIC_STATS_UPDATED,
-                    notifier.types.CURRENT_LOCATION_UPDATED,
-                    notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
-                    notifier.types.CONNECTIVITY_STATE_CHANGED,
-                    notifier.types.USER_AUTHENTICATED,
-                    notifier.types.USER_DEAUTHENTICATED,
-                ],
-                expect.any(Function),
-            );
+        // should attach listeners
+        expect(addSpecifiedListenerSpy).toHaveBeenCalledTimes(1);
+        expect(addSpecifiedListenerSpy).toHaveBeenCalledWith(
+            [
+                notifier.types.TRAFFIC_STATS_UPDATED,
+                notifier.types.CURRENT_LOCATION_UPDATED,
+                notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
+                notifier.types.CONNECTIVITY_STATE_CHANGED,
+                notifier.types.USER_AUTHENTICATED,
+                notifier.types.USER_DEAUTHENTICATED,
+            ],
+            expect.any(Function),
+        );
 
-            // should read state from session storage
-            expect(stateStorageMock.getItem).toHaveBeenCalledTimes(1);
-            expect(stateStorageMock.getItem).toHaveBeenCalledWith(expect.any(String));
-
-            // statistics storage should be initialized
-            expect(statisticsStorageMock.init).toHaveBeenCalledTimes(1);
-        });
-
-        it('should restore state from session storage', async () => {
-            const state = {
-                accountId: 'restored@adguard.com',
-                locationId: 'restored-location',
-                isPremiumToken: true,
-                durationIntervalId: 1,
-            };
-
-            stateStorageMock.getItem.mockReturnValueOnce(state);
-
-            await statisticsProvider.init();
-
-            expect(stateStorageMock.getItem).toHaveBeenCalledTimes(1);
-            // @ts-expect-error - accessing private property
-            expect(statisticsProvider.state).toEqual(state);
-        });
+        // statistics storage should be initialized
+        expect(statisticsStorageMock.init).toHaveBeenCalledTimes(1);
     });
 
     describe('Traffic statistics collection', () => {
