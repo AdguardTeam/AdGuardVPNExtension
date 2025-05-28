@@ -1,16 +1,9 @@
-import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
 import { type ConnectivityStateChangeEvent, type WsConnectivityInfoMsgTraffic } from '../connectivity';
 import { type LocationInterface, ConnectivityStateType } from '../schema';
 import { type TimersInterface } from '../timers/AbstractTimers';
 
 import { type StatisticsStorageInterface } from './StatisticsStorage';
-import { type Statistics } from './statisticsTypes';
-
-/**
- * Methods that are forwarded to the statistics storage.
- */
-type StorageForwardedMethods = Pick<StatisticsStorageInterface, 'getStatistics' | 'clearStatistics'>;
 
 type NotifierArg =
     WsConnectivityInfoMsgTraffic
@@ -21,12 +14,7 @@ type NotifierArg =
 /**
  * Statistics provider interface.
  */
-export interface StatisticsProviderInterface extends StorageForwardedMethods {
-    /**
-     * Initializes the statistics provider.
-     */
-    init(): Promise<void>;
-}
+export interface StatisticsProviderInterface {}
 
 /**
  * Constructor parameters for {@link StatisticsProvider}.
@@ -121,26 +109,6 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             this.handleNotifierEvent.bind(this),
         );
     }
-
-    /** @inheritdoc */
-    public init = async (): Promise<void> => {
-        try {
-            await this.statisticsStorage.init();
-            log.info('Statistics provider ready');
-        } catch (e) {
-            log.error('Unable to initialize statistics provider, due to error:', e);
-        }
-    };
-
-    /** @inheritdoc */
-    public getStatistics = async (): Promise<Statistics> => {
-        return this.statisticsStorage.getStatistics();
-    };
-
-    /** @inheritdoc */
-    public clearStatistics = async (): Promise<void> => {
-        return this.statisticsStorage.clearStatistics();
-    };
 
     /**
      * Clears the duration interval.

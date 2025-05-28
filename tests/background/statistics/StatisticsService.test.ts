@@ -12,7 +12,9 @@ const storageMock = {
     remove: jest.fn(),
 };
 
-const providerMock = {
+const providerMock = {};
+
+const statisticsStorageMock = {
     init: jest.fn(),
     getStatistics: jest.fn(),
     clearStatistics: jest.fn(),
@@ -25,6 +27,8 @@ describe('StatisticsService', () => {
     beforeEach(() => {
         statisticsService = new StatisticsService({
             storage: storageMock,
+            // @ts-expect-error - partially mocked
+            statisticsStorage: statisticsStorageMock,
             provider: providerMock,
         });
         jest.useFakeTimers('modern').setSystemTime(systemDate);
@@ -58,7 +62,7 @@ describe('StatisticsService', () => {
         await statisticsService.init();
 
         // provider init
-        expect(providerMock.init).toHaveBeenCalledTimes(1);
+        expect(statisticsStorageMock.init).toHaveBeenCalledTimes(1);
 
         // get range
         expect(storageMock.get).toHaveBeenCalledTimes(1);
@@ -282,7 +286,7 @@ describe('StatisticsService', () => {
 
         it.each(cases)('should correctly calculate range', async ({ range, storage, expected }) => {
             storageMock.get.mockResolvedValueOnce(range);
-            providerMock.getStatistics.mockResolvedValueOnce({
+            statisticsStorageMock.getStatistics.mockResolvedValueOnce({
                 startedTimestamp: 12345,
                 locations: storage,
             });

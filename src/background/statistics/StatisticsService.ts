@@ -2,6 +2,7 @@ import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
 
 import { type StatisticsProviderInterface } from './StatisticsProvider';
+import { type StatisticsStorageInterface } from './StatisticsStorage';
 import {
     StatisticsRange,
     type RangeStatistics,
@@ -57,6 +58,11 @@ export interface StatisticsServiceParameters {
     storage: StorageInterface;
 
     /**
+     * Storage for statistics.
+     */
+    statisticsStorage: StatisticsStorageInterface;
+
+    /**
      * Statistics provider.
      */
     provider: StatisticsProviderInterface;
@@ -85,6 +91,11 @@ export class StatisticsService implements StatisticsServiceInterface {
     private storage: StorageInterface;
 
     /**
+     * Storage for statistics.
+     */
+    private statisticsStorage: StatisticsStorageInterface;
+
+    /**
      * Statistics provider.
      */
     private provider: StatisticsProviderInterface;
@@ -101,9 +112,11 @@ export class StatisticsService implements StatisticsServiceInterface {
      */
     constructor({
         storage,
+        statisticsStorage,
         provider,
     }: StatisticsServiceParameters) {
         this.storage = storage;
+        this.statisticsStorage = statisticsStorage;
         this.provider = provider;
     }
 
@@ -111,7 +124,7 @@ export class StatisticsService implements StatisticsServiceInterface {
     public init = async (): Promise<void> => {
         try {
             log.info('Statistics service ready');
-            await this.provider.init();
+            await this.statisticsStorage.init();
             await this.gainRange();
         } catch (e) {
             log.error('Unable to initialize statistics service, due to error:', e);
@@ -250,7 +263,7 @@ export class StatisticsService implements StatisticsServiceInterface {
 
     /** @inheritdoc */
     public getAllStatistics = async (): Promise<FullStatistics> => {
-        const accountStatistics = await this.provider.getStatistics();
+        const accountStatistics = await this.statisticsStorage.getStatistics();
         const { startedTimestamp, locations } = accountStatistics;
 
         return {
@@ -275,7 +288,7 @@ export class StatisticsService implements StatisticsServiceInterface {
 
     /** @inheritdoc */
     public clearStatistics = async (): Promise<void> => {
-        await this.provider.clearStatistics();
+        await this.statisticsStorage.clearStatistics();
     };
 
     /**
