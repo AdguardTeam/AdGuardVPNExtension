@@ -109,16 +109,16 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     }: StatisticsProviderParameters) {
         this.statisticsStorage = statisticsStorage;
         this.timers = timers;
-
-        notifier.addSpecifiedListener(
-            StatisticsProvider.NOTIFIER_EVENTS,
-            this.handleNotifierEvent.bind(this),
-        );
     }
 
     /** @inheritdoc */
     public init = async (): Promise<void> => {
         try {
+            notifier.addSpecifiedListener(
+                StatisticsProvider.NOTIFIER_EVENTS,
+                this.handleNotifierEvent.bind(this),
+            );
+
             await this.statisticsStorage.init();
             log.info('Statistics provider ready');
         } catch (e) {
