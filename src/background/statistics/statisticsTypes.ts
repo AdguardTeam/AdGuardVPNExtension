@@ -64,7 +64,7 @@ export interface StatisticsDurationTracker {
 /**
  * Statistics data for a specific location.
  */
-export interface StatisticsLocationStorage {
+export interface StatisticsLocationData {
     /**
      * Hourly based statistics data.
      * It stores statistics data for past 24 hours.
@@ -90,72 +90,36 @@ export interface StatisticsLocationStorage {
 }
 
 /**
- * Statistics data for a specific account.
+ * Map that contains statistics data for each location.
  */
-export interface StatisticsAccountStorage {
+export interface StatisticsLocationsStorage {
     /**
      * Location ID to location statistics data mapping.
      *
      * Note: Always check if the value is `undefined` before using it.
      */
-    [locationId: string]: StatisticsLocationStorage;
+    [locationId: string]: StatisticsLocationData;
 }
 
 /**
- * Statistics storage for all accounts.
+ * Statistics for all locations with started timestamp.
  */
-export interface StatisticsStorageShape {
+export interface Statistics {
     /**
-     * Account ID to account statistics data mapping.
-     *
-     * Note: Always check if the value is `undefined` before using it.
+     * Map that contains statistics data for each location.
      */
-    [accountId: string]: StatisticsAccountStorage;
-}
+    locations: StatisticsLocationsStorage;
 
-/**
- * Map that contains when collection of statistics started for each account.
- */
-export interface StatisticsStartedTimes {
     /**
-     * Account ID to timestamp when the statistics collection started.
-     *
-     * Note: Always check if the value is `undefined` before using it.
+     * Timestamp when the statistics collection started for this account.
      */
     [accountId: string]: number;
-}
-
-/**
- * Map that contains when statistics data updated for each account.
- */
-export interface StatisticsUpdatedTimes {
-    /**
-     * Account ID to timestamp when the statistics was updated.
-     *
-     * Note: Always check if the value is `undefined` before using it.
-     */
-    [accountId: string]: number;
-}
-
-/**
- * Base data required for adding statistics.
- */
-export interface AddStatisticsDataBase {
-    /**
-     * Account ID to which the statistics belong.
-     */
-    accountId: string;
-
-    /**
-     * Location ID to which the statistics belong.
-     */
-    locationId: string;
 }
 
 /**
  * Add traffic statistics data.
  */
-export interface AddStatisticsDataTraffic extends AddStatisticsDataBase {
+export interface AddStatisticsDataTraffic {
     /**
      * Number of bytes downloaded.
      */

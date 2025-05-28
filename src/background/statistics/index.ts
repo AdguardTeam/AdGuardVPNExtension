@@ -1,6 +1,4 @@
 import { browserApi } from '../browserApi';
-import { stateStorage } from '../stateStorage';
-import { credentials } from '../credentials';
 import { timers } from '../timers';
 
 import { StatisticsStorage } from './StatisticsStorage';
@@ -12,9 +10,7 @@ const statisticsStorage = new StatisticsStorage({
 });
 
 const statisticsProvider = new StatisticsProvider({
-    stateStorage,
     statisticsStorage,
-    credentials,
     timers,
 });
 

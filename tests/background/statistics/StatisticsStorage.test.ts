@@ -2,7 +2,11 @@ import { StatisticsStorage } from '../../../src/background/statistics/Statistics
 import {
     type StatisticsData,
     type StatisticsDurationTracker,
-    type StatisticsLocationStorage,
+    type StatisticsLocationData,
+    type StatisticsDailyStorage,
+    type StatisticsHourlyStorage,
+    type Statistics,
+    type StatisticsLocationsStorage,
 } from '../../../src/background/statistics/statisticsTypes';
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../../src/common/constants';
 
@@ -17,10 +21,6 @@ const storageMock = {
 describe('StatisticsStorage', () => {
     let statisticsStorage: StatisticsStorage;
     const systemDate = new Date('2025-10-01T10:25:10Z');
-    // @ts-expect-error - accessing private property
-    const storageKey = StatisticsStorage.STATISTICS_STORAGE_KEY;
-    // @ts-expect-error - accessing private property
-    const startedTimesKey = StatisticsStorage.STARTED_TIMES_STORAGE_KEY;
 
     beforeEach(() => {
         statisticsStorage = new StatisticsStorage({
@@ -34,55 +34,63 @@ describe('StatisticsStorage', () => {
         jest.useRealTimers();
     });
 
+    /**
+     * Get statistics data for testing.
+     *
+     * @param downloadedBytes Number of bytes downloaded.
+     * @param uploadedBytes Number of bytes uploaded (Default is `downloadedBytes`).
+     * @param durationMs Duration in milliseconds (Default is `downloadedBytes`).
+     *
+     * @returns Statistics data.
+     */
+    const getData = (
+        downloadedBytes: number,
+        uploadedBytes = downloadedBytes,
+        durationMs = downloadedBytes,
+    ): StatisticsData => ({
+        downloadedBytes,
+        uploadedBytes,
+        durationMs,
+    });
+
+    /**
+     * Returns statistics data with duration in milliseconds.
+     *
+     * @returns Statistics data.
+     */
+    const getDuration = (durationMs: number): StatisticsData => ({
+        downloadedBytes: 0,
+        uploadedBytes: 0,
+        durationMs,
+    });
+
+    const getStatistics = (locations: StatisticsLocationsStorage = {}): Statistics => ({
+        locations,
+        startedTimestamp: 0,
+    });
+
     describe('Initialization', () => {
         it('should initialize properly', async () => {
-            storageMock.get.mockResolvedValue(undefined);
+            storageMock.get.mockResolvedValueOnce(undefined);
 
             await statisticsStorage.init();
 
-            // 2 times - once for storage and once for started times
-            expect(storageMock.get).toHaveBeenCalledTimes(2);
-            expect(storageMock.get).toHaveBeenCalledWith(storageKey);
-            expect(storageMock.get).toHaveBeenCalledWith(startedTimesKey);
-
-            // 2 times - once for storage and once for started times
-            expect(storageMock.set).toHaveBeenCalledTimes(2);
-            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {});
-            expect(storageMock.set).toHaveBeenCalledWith(startedTimesKey, {});
-
-            storageMock.get.mockReset();
+            expect(storageMock.get).toHaveBeenCalledTimes(1);
+            expect(storageMock.get).toHaveBeenCalledWith(expect.any(String));
         });
 
         it('should restore statistics from local storage', async () => {
-            const storage = { 'account@adguard.com': {} };
-            const startedTimes = { 'account@adguard.com': 1 };
+            const statistics = getStatistics();
 
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey) {
-                    return storage;
-                }
-
-                if (key === startedTimesKey) {
-                    return startedTimes;
-                }
-
-                return undefined;
-            });
+            storageMock.get.mockResolvedValueOnce(statistics);
 
             await statisticsStorage.init();
 
-            // 2 times - once for storage and once for started times
-            expect(storageMock.get).toHaveBeenCalledTimes(2);
-            expect(storageMock.get).toHaveBeenCalledWith(startedTimesKey);
-            expect(storageMock.get).toHaveBeenCalledWith(storageKey);
+            expect(storageMock.get).toHaveBeenCalledTimes(1);
+            expect(storageMock.get).toHaveBeenCalledWith(expect.any(String));
 
             // @ts-expect-error - accessing private property
-            expect(statisticsStorage.statistics).toEqual(storage);
-
-            // @ts-expect-error - accessing private property
-            expect(statisticsStorage.startedTimes).toEqual(startedTimes);
-
-            storageMock.get.mockReset();
+            expect(statisticsStorage.statistics).toEqual(statistics);
         });
     });
 
@@ -92,19 +100,15 @@ describe('StatisticsStorage', () => {
         // @ts-expect-error - accessing private method
         const hourlyBorderDateTimestamp = StatisticsStorage.getHourlyBorderTimestamp(systemDate.getTime());
 
-        type DurationTrackerTestCase = {
-            tracker: StatisticsDurationTracker;
-            expected: StatisticsLocationStorage;
-        };
-
-        const getDuration = (durationMs: number) => ({
-            downloadedBytes: 0,
-            uploadedBytes: 0,
-            durationMs,
-        });
-
+        /**
+         * Spams daily statistics for the given number of days.
+         *
+         * @param daysCount Number of days to spam.
+         *
+         * @returns Daily statistics storage with the given number of days.
+         */
         const spamAllDays = (daysCount = 30) => {
-            const days: Record<string, StatisticsData> = {};
+            const days: StatisticsDailyStorage = {};
             for (let i = 0; i < daysCount; i += 1) {
                 const date = new Date(dailyBorderDateTimestamp + i * ONE_DAY_MS);
                 const dateKey = date.toISOString().split('T')[0];
@@ -113,8 +117,15 @@ describe('StatisticsStorage', () => {
             return days;
         };
 
+        /**
+         * Spams hourly statistics for the given number of hours.
+         *
+         * @param hoursCount Number of hours to spam.
+         *
+         * @returns Hourly statistics storage with the given number of hours.
+         */
         const spamAllHours = (hoursCount = 24) => {
-            const hours: Record<string, StatisticsData> = {};
+            const hours: StatisticsHourlyStorage = {};
             for (let i = 0; i < hoursCount; i += 1) {
                 const date = new Date(hourlyBorderDateTimestamp + i * ONE_HOUR_MS);
                 const dateKey = date.toISOString().split('T')[0];
@@ -122,6 +133,21 @@ describe('StatisticsStorage', () => {
                 hours[`${dateKey}-${hourKey}`] = getDuration(ONE_HOUR_MS);
             }
             return hours;
+        };
+
+        /**
+         * Test case for duration tracker.
+         */
+        type DurationTrackerTestCase = {
+            /**
+             * Duration tracker to test.
+             */
+            tracker: StatisticsDurationTracker;
+
+            /**
+             * Expected statistics after processing the tracker.
+             */
+            expected: StatisticsLocationData;
         };
 
         /**
@@ -363,120 +389,78 @@ describe('StatisticsStorage', () => {
         ];
 
         it.each(cases)('should correctly resolve the duration', async ({ tracker, expected }) => {
-            const accountId = 'test@adguard.com';
             const locationId = 'locationId';
 
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey) {
-                    return {
-                        [accountId]: {
-                            [locationId]: {
-                                hourly: {},
-                                daily: {},
-                                total: getDuration(0),
-                                durationTracker: tracker,
-                            },
-                        },
-                    };
-                }
-
-                if (key === startedTimesKey) {
-                    return {
-                        [accountId]: 1,
-                    };
-                }
-
-                return undefined;
-            });
+            storageMock.get.mockResolvedValueOnce(getStatistics({
+                [locationId]: {
+                    hourly: {},
+                    daily: {},
+                    total: getDuration(0),
+                    durationTracker: tracker,
+                },
+            }));
 
             await statisticsStorage.init();
 
-            // for update stale statistics
             expect(storageMock.set).toHaveBeenCalledTimes(1);
-            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {
-                [accountId]: {
-                    [locationId]: expected,
-                },
-            });
-
-            storageMock.get.mockReset();
+            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics({
+                [locationId]: expected,
+            }));
         });
     });
 
     describe('Period switch', () => {
-        const getData = (
-            downloadedBytes: number,
-            uploadedBytes = downloadedBytes,
-            durationMs = downloadedBytes,
-        ) => ({
-            downloadedBytes,
-            uploadedBytes,
-            durationMs,
-        });
+        /**
+         * Test case for period switch.
+         */
+        type PeriodSwitchTestCase = {
+            /**
+             * Locations storage to test.
+             */
+            storage: StatisticsLocationsStorage;
 
-        it('should move from hourly to daily properly', async () => {
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey) {
-                    return {
-                        'test1@adguard.com': {
-                            locationId1: {
-                                hourly: {
-                                    // should be moved to daily (24 hours passed)
-                                    '2025-09-29-01': getData(3),
-                                    // should be moved to daily (24 hours passed - close time)
-                                    '2025-09-30-09': getData(2),
-                                    // edge case: should not be moved to daily (24 hours passed, but it's border time)
-                                    '2025-09-30-10': getData(3),
-                                    // should not be moved to daily (24 hours not passed)
-                                    '2025-09-30-11': getData(3, 2, 1),
-                                    // should accumulate same day hourly
-                                    '2025-09-28-10': getData(1, 2, 3),
-                                    '2025-09-28-23': getData(3, 2, 1),
-                                },
-                                daily: {},
-                                total: getData(0),
-                            },
-                            // should check different locations
-                            locationId2: {
-                                hourly: {
-                                    // should be moved to daily (24 hours passed)
-                                    '2025-09-15-23': getData(1),
-                                },
-                                daily: {},
-                                total: getData(0),
-                            },
+            /**
+             * Expected locations storage after processing the storage.
+             */
+            expected: StatisticsLocationsStorage;
+        };
+
+        const locationId1 = 'locationId1';
+        const locationId2 = 'locationId2';
+
+        const cases: PeriodSwitchTestCase[] = [
+            // case 1 - should move from hourly to daily properly
+            {
+                storage: {
+                    [locationId1]: {
+                        hourly: {
+                        // should be moved to daily (24 hours passed)
+                            '2025-09-29-01': getData(3),
+                            // should be moved to daily (24 hours passed - close time)
+                            '2025-09-30-09': getData(2),
+                            // edge case: should not be moved to daily (24 hours passed, but it's border time)
+                            '2025-09-30-10': getData(3),
+                            // should not be moved to daily (24 hours not passed)
+                            '2025-09-30-11': getData(3, 2, 1),
+                            // should accumulate same day hourly
+                            '2025-09-28-10': getData(1, 2, 3),
+                            '2025-09-28-23': getData(3, 2, 1),
                         },
-                        // should check different accounts
-                        'test2@adguard.com': {
-                            locationId1: {
-                                hourly: {
-                                    // should be moved to daily (24 hours passed)
-                                    '2025-09-30-09': getData(1, 2, 3),
-                                },
-                                daily: {},
-                                total: getData(0),
-                            },
+                        daily: {},
+                        total: getData(0),
+                    },
+                    // should check different locations
+                    [locationId2]: {
+                        hourly: {
+                        // should be moved to daily (24 hours passed)
+                            '2025-09-15-23': getData(1),
                         },
-                    };
-                }
-
-                if (key === startedTimesKey) {
-                    return {
-                        'test1@adguard.com': 1,
-                        'test2@adguard.com': 2,
-                    };
-                }
-
-                return undefined;
-            });
-
-            await statisticsStorage.init();
-
-            // for update stale statistics
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
-            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {
-                'test1@adguard.com': {
-                    locationId1: {
+                        daily: {},
+                        total: getData(0),
+                    },
+                },
+                expected: {
+                    [locationId1]: {
                         hourly: {
                             '2025-09-30-10': getData(3),
                             '2025-09-30-11': getData(3, 2, 1),
@@ -488,7 +472,7 @@ describe('StatisticsStorage', () => {
                         },
                         total: getData(0),
                     },
-                    locationId2: {
+                    [locationId2]: {
                         hourly: {},
                         daily: {
                             '2025-09-15': getData(1),
@@ -496,78 +480,46 @@ describe('StatisticsStorage', () => {
                         total: getData(0),
                     },
                 },
-                'test2@adguard.com': {
-                    locationId1: {
-                        hourly: {},
-                        daily: {
-                            '2025-09-30': getData(1, 2, 3),
+            },
+            // case 2 - should store past 24 hours only
+            {
+                storage: {
+                    [locationId1]: {
+                        hourly: {
+                            '2025-10-01-10': getData(1),
+                            '2025-10-01-09': getData(1),
+                            '2025-10-01-08': getData(1),
+                            '2025-10-01-07': getData(1),
+                            '2025-10-01-06': getData(1),
+                            '2025-10-01-05': getData(1),
+                            '2025-10-01-04': getData(1),
+                            '2025-10-01-03': getData(1),
+                            '2025-10-01-02': getData(1),
+                            '2025-10-01-01': getData(1),
+                            '2025-10-01-00': getData(1),
+                            '2025-09-30-23': getData(1),
+                            '2025-09-30-22': getData(1),
+                            '2025-09-30-21': getData(1),
+                            '2025-09-30-20': getData(1),
+                            '2025-09-30-19': getData(1),
+                            '2025-09-30-18': getData(1),
+                            '2025-09-30-17': getData(1),
+                            '2025-09-30-16': getData(1),
+                            '2025-09-30-15': getData(1),
+                            '2025-09-30-14': getData(1),
+                            '2025-09-30-13': getData(1),
+                            '2025-09-30-12': getData(1),
+                            '2025-09-30-11': getData(1),
+                            '2025-09-30-10': getData(1),
+                            '2025-09-30-09': getData(1), // <-- should be moved to daily
+                            '2025-09-30-08': getData(1), // <-- should be moved to daily
                         },
+                        daily: {},
                         total: getData(0),
                     },
                 },
-            });
-
-            storageMock.get.mockReset();
-        });
-
-        it('should store past 24 hours only', async () => {
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey) {
-                    return {
-                        'test@adguard.com': {
-                            locationId1: {
-                                hourly: {
-                                    '2025-10-01-10': getData(1),
-                                    '2025-10-01-09': getData(1),
-                                    '2025-10-01-08': getData(1),
-                                    '2025-10-01-07': getData(1),
-                                    '2025-10-01-06': getData(1),
-                                    '2025-10-01-05': getData(1),
-                                    '2025-10-01-04': getData(1),
-                                    '2025-10-01-03': getData(1),
-                                    '2025-10-01-02': getData(1),
-                                    '2025-10-01-01': getData(1),
-                                    '2025-10-01-00': getData(1),
-                                    '2025-09-30-23': getData(1),
-                                    '2025-09-30-22': getData(1),
-                                    '2025-09-30-21': getData(1),
-                                    '2025-09-30-20': getData(1),
-                                    '2025-09-30-19': getData(1),
-                                    '2025-09-30-18': getData(1),
-                                    '2025-09-30-17': getData(1),
-                                    '2025-09-30-16': getData(1),
-                                    '2025-09-30-15': getData(1),
-                                    '2025-09-30-14': getData(1),
-                                    '2025-09-30-13': getData(1),
-                                    '2025-09-30-12': getData(1),
-                                    '2025-09-30-11': getData(1),
-                                    '2025-09-30-10': getData(1),
-                                    '2025-09-30-09': getData(1),
-                                    '2025-09-30-08': getData(1),
-                                },
-                                daily: {},
-                                total: getData(0),
-                            },
-                        },
-                    };
-                }
-
-                if (key === startedTimesKey) {
-                    return {
-                        'test@adguard.com': 1,
-                    };
-                }
-
-                return undefined;
-            });
-
-            await statisticsStorage.init();
-
-            // for update stale statistics
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
-            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {
-                'test@adguard.com': {
-                    locationId1: {
+                expected: {
+                    [locationId1]: {
                         hourly: {
                             '2025-10-01-10': getData(1),
                             '2025-10-01-09': getData(1),
@@ -601,72 +553,37 @@ describe('StatisticsStorage', () => {
                         total: getData(0),
                     },
                 },
-            });
-
-            storageMock.get.mockReset();
-        });
-
-        it('should move from daily to total properly', async () => {
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey) {
-                    return {
-                        'test1@adguard.com': {
-                            locationId1: {
-                                hourly: {},
-                                // should accumulate total
-                                daily: {
-                                    // should be moved to total (30 days passed)
-                                    '2025-08-01': getData(3),
-                                    // edge case: should not be moved to total (30 days passed, but it's border time)
-                                    '2025-09-01': getData(2),
-                                    // should be moved to total (30 days passed - close date)
-                                    '2025-08-31': getData(2),
-                                    // should not be moved to total (30 days not passed)
-                                    '2025-09-30': getData(3, 2, 1),
-                                },
-                                total: getData(0),
-                            },
-                            // should check different locations
-                            locationId2: {
-                                hourly: {},
-                                daily: {
-                                    // should be moved to total (30 days passed)
-                                    '2025-08-31': getData(1),
-                                },
-                                total: getData(0),
-                            },
+            },
+            // case 3 - should move from daily to total properly
+            {
+                storage: {
+                    [locationId1]: {
+                        hourly: {},
+                        // should accumulate total
+                        daily: {
+                        // should be moved to total (30 days passed)
+                            '2025-08-01': getData(3),
+                            // edge case: should not be moved to total (30 days passed, but it's border time)
+                            '2025-09-01': getData(2),
+                            // should be moved to total (30 days passed - close date)
+                            '2025-08-31': getData(2),
+                            // should not be moved to total (30 days not passed)
+                            '2025-09-30': getData(3, 2, 1),
                         },
-                        // should check different accounts
-                        'test2@adguard.com': {
-                            locationId1: {
-                                hourly: {},
-                                daily: {
-                                    // should be moved to total (30 days passed)
-                                    '2025-08-31': getData(1, 2, 3),
-                                },
-                                total: getData(0),
-                            },
+                        total: getData(0),
+                    },
+                    // should check different locations
+                    [locationId2]: {
+                        hourly: {},
+                        daily: {
+                        // should be moved to total (30 days passed)
+                            '2025-08-31': getData(1),
                         },
-                    };
-                }
-
-                if (key === startedTimesKey) {
-                    return {
-                        'test1@adguard.com': 1,
-                        'test2@adguard.com': 2,
-                    };
-                }
-
-                return undefined;
-            });
-
-            await statisticsStorage.init();
-
-            // for update stale statistics
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
-            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {
-                'test1@adguard.com': {
-                    locationId1: {
+                        total: getData(0),
+                    },
+                },
+                expected: {
+                    [locationId1]: {
                         hourly: {},
                         daily: {
                             '2025-09-01': getData(2),
@@ -674,89 +591,59 @@ describe('StatisticsStorage', () => {
                         },
                         total: getData(5),
                     },
-                    locationId2: {
+                    [locationId2]: {
                         hourly: {},
                         daily: {},
                         total: getData(1),
                     },
                 },
-                'test2@adguard.com': {
-                    locationId1: {
+            },
+            // case 4 - should store past 30 days only
+            {
+                storage: {
+                    [locationId1]: {
                         hourly: {},
-                        daily: {},
-                        total: getData(1, 2, 3),
+                        daily: {
+                            '2025-10-01': getData(1),
+                            '2025-09-30': getData(1),
+                            '2025-09-29': getData(1),
+                            '2025-09-28': getData(1),
+                            '2025-09-27': getData(1),
+                            '2025-09-26': getData(1),
+                            '2025-09-25': getData(1),
+                            '2025-09-24': getData(1),
+                            '2025-09-23': getData(1),
+                            '2025-09-22': getData(1),
+                            '2025-09-21': getData(1),
+                            '2025-09-20': getData(1),
+                            '2025-09-19': getData(1),
+                            '2025-09-18': getData(1),
+                            '2025-09-17': getData(1),
+                            '2025-09-16': getData(1),
+                            '2025-09-15': getData(1),
+                            '2025-09-14': getData(1),
+                            '2025-09-13': getData(1),
+                            '2025-09-12': getData(1),
+                            '2025-09-11': getData(1),
+                            '2025-09-10': getData(1),
+                            '2025-09-09': getData(1),
+                            '2025-09-08': getData(1),
+                            '2025-09-07': getData(1),
+                            '2025-09-06': getData(1),
+                            '2025-09-05': getData(1),
+                            '2025-09-04': getData(1),
+                            '2025-09-03': getData(1),
+                            '2025-09-02': getData(1),
+                            '2025-09-01': getData(1),
+                            '2025-08-31': getData(1), // <-- should be moved to total
+                            '2025-08-30': getData(1), // <-- should be moved to total
+                            '2025-08-29': getData(1), // <-- should be moved to total
+                        },
+                        total: getData(0),
                     },
                 },
-            });
-
-            storageMock.get.mockReset();
-        });
-
-        it('should store past 30 days only', async () => {
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey) {
-                    return {
-                        'test@adguard.com': {
-                            locationId1: {
-                                hourly: {},
-                                daily: {
-                                    '2025-10-01': getData(1),
-                                    '2025-09-30': getData(1),
-                                    '2025-09-29': getData(1),
-                                    '2025-09-28': getData(1),
-                                    '2025-09-27': getData(1),
-                                    '2025-09-26': getData(1),
-                                    '2025-09-25': getData(1),
-                                    '2025-09-24': getData(1),
-                                    '2025-09-23': getData(1),
-                                    '2025-09-22': getData(1),
-                                    '2025-09-21': getData(1),
-                                    '2025-09-20': getData(1),
-                                    '2025-09-19': getData(1),
-                                    '2025-09-18': getData(1),
-                                    '2025-09-17': getData(1),
-                                    '2025-09-16': getData(1),
-                                    '2025-09-15': getData(1),
-                                    '2025-09-14': getData(1),
-                                    '2025-09-13': getData(1),
-                                    '2025-09-12': getData(1),
-                                    '2025-09-11': getData(1),
-                                    '2025-09-10': getData(1),
-                                    '2025-09-09': getData(1),
-                                    '2025-09-08': getData(1),
-                                    '2025-09-07': getData(1),
-                                    '2025-09-06': getData(1),
-                                    '2025-09-05': getData(1),
-                                    '2025-09-04': getData(1),
-                                    '2025-09-03': getData(1),
-                                    '2025-09-02': getData(1),
-                                    '2025-09-01': getData(1),
-                                    '2025-08-31': getData(1),
-                                    '2025-08-30': getData(1),
-                                    '2025-08-29': getData(1),
-                                },
-                                total: getData(0),
-                            },
-                        },
-                    };
-                }
-
-                if (key === startedTimesKey) {
-                    return {
-                        'test@adguard.com': 1,
-                    };
-                }
-
-                return undefined;
-            });
-
-            await statisticsStorage.init();
-
-            // for update stale statistics
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
-            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {
-                'test@adguard.com': {
-                    locationId1: {
+                expected: {
+                    [locationId1]: {
                         hourly: {},
                         daily: {
                             '2025-10-01': getData(1),
@@ -794,177 +681,100 @@ describe('StatisticsStorage', () => {
                         total: getData(3),
                     },
                 },
-            });
+            },
+        ];
 
-            storageMock.get.mockReset();
+        it.each(cases)('should switch period properly', async ({ storage, expected }) => {
+            storageMock.get.mockResolvedValueOnce(getStatistics(storage));
+
+            await statisticsStorage.init();
+
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics(expected));
         });
     });
 
     describe('Working with statistics', () => {
         it('should add traffic statistics properly', async () => {
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey || key === startedTimesKey) {
-                    return {};
-                }
+            const locationId = 'locationId10';
+            const downloadedBytes = 1111;
+            const uploadedBytes = 2222;
 
-                return undefined;
-            });
+            storageMock.get.mockResolvedValueOnce(getStatistics());
 
             await statisticsStorage.init();
 
-            // for update stale statistics
+            await statisticsStorage.addTraffic(locationId, {
+                downloadedBytes,
+                uploadedBytes,
+            });
+
             expect(storageMock.set).toHaveBeenCalledTimes(1);
-
-            await statisticsStorage.addTraffic({
-                accountId: 'test@adguard.com',
-                locationId: 'locationId10',
-                downloadedBytes: 1111,
-                uploadedBytes: 2222,
-            });
-
-            // for addTraffic
-            expect(storageMock.set).toHaveBeenCalledTimes(2);
-            expect(storageMock.set).toHaveBeenNthCalledWith(2, storageKey, {
-                'test@adguard.com': {
-                    locationId10: {
-                        hourly: {
-                            '2025-10-01-10': {
-                                downloadedBytes: 1111,
-                                uploadedBytes: 2222,
-                                durationMs: 0,
-                            },
-                        },
-                        daily: {},
-                        total: {
-                            downloadedBytes: 0,
-                            uploadedBytes: 0,
-                            durationMs: 0,
-                        },
+            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics({
+                [locationId]: {
+                    hourly: {
+                        '2025-10-01-10': getData(downloadedBytes, uploadedBytes, 0),
                     },
+                    daily: {},
+                    total: getData(0),
                 },
-            });
-
-            storageMock.get.mockReset();
+            }));
         });
 
         it('should add duration tracker properly', async () => {
-            const accountId = 'test@adguard.com';
             const locationId = 'locationId11';
-            const data = { accountId, locationId };
 
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey || key === startedTimesKey) {
-                    return {};
-                }
-
-                return undefined;
-            });
+            storageMock.get.mockResolvedValueOnce(getStatistics());
 
             await statisticsStorage.init();
 
-            // for update stale statistics
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
+            await statisticsStorage.startDuration(locationId);
 
-            await statisticsStorage.startDuration(data);
+            // for startDuration
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+            expect(storageMock.set).toHaveBeenNthCalledWith(1, expect.any(String), getStatistics({
+                [locationId]: {
+                    hourly: {},
+                    daily: {},
+                    total: getData(0),
+                    durationTracker: {
+                        startedTimestamp: systemDate.getTime(),
+                        lastUpdatedTimestamp: systemDate.getTime(),
+                    },
+                },
+            }));
+
+            jest.advanceTimersByTime(1000);
+            await statisticsStorage.updateDuration(locationId);
 
             // for startDuration
             expect(storageMock.set).toHaveBeenCalledTimes(2);
-            expect(storageMock.set).toHaveBeenNthCalledWith(2, storageKey, {
-                [accountId]: {
-                    [locationId]: {
-                        hourly: {},
-                        daily: {},
-                        total: {
-                            downloadedBytes: 0,
-                            uploadedBytes: 0,
-                            durationMs: 0,
-                        },
-                        durationTracker: {
-                            startedTimestamp: systemDate.getTime(),
-                            lastUpdatedTimestamp: systemDate.getTime(),
-                        },
+            expect(storageMock.set).toHaveBeenNthCalledWith(2, expect.any(String), getStatistics({
+                [locationId]: {
+                    hourly: {},
+                    daily: {},
+                    total: getData(0),
+                    durationTracker: {
+                        startedTimestamp: systemDate.getTime(),
+                        lastUpdatedTimestamp: systemDate.getTime() + 1000,
                     },
                 },
-            });
+            }));
 
             jest.advanceTimersByTime(1000);
-            await statisticsStorage.updateDuration(data);
-
-            // for startDuration
-            expect(storageMock.set).toHaveBeenCalledTimes(3);
-            expect(storageMock.set).toHaveBeenNthCalledWith(3, storageKey, {
-                [accountId]: {
-                    [locationId]: {
-                        hourly: {},
-                        daily: {},
-                        total: {
-                            downloadedBytes: 0,
-                            uploadedBytes: 0,
-                            durationMs: 0,
-                        },
-                        durationTracker: {
-                            startedTimestamp: systemDate.getTime(),
-                            lastUpdatedTimestamp: systemDate.getTime() + 1000,
-                        },
-                    },
-                },
-            });
-
-            jest.advanceTimersByTime(1000);
-            await statisticsStorage.endDuration(data);
+            await statisticsStorage.endDuration(locationId);
 
             // for endDuration
-            expect(storageMock.set).toHaveBeenCalledTimes(4);
-            expect(storageMock.set).toHaveBeenNthCalledWith(4, storageKey, {
-                [accountId]: {
-                    [locationId]: {
-                        hourly: {
-                            '2025-10-01-10': {
-                                downloadedBytes: 0,
-                                uploadedBytes: 0,
-                                durationMs: 2000,
-                            },
-                        },
-                        daily: {},
-                        total: {
-                            downloadedBytes: 0,
-                            uploadedBytes: 0,
-                            durationMs: 0,
-                        },
-                    },
-                },
-            });
-
-            storageMock.get.mockReset();
-        });
-
-        it('should add account properly', async () => {
-            const accountId = 'test-account@adguard.com';
-
-            storageMock.get.mockImplementation(async (key: string) => {
-                if (key === storageKey || key === startedTimesKey) {
-                    return {};
-                }
-
-                return undefined;
-            });
-
-            await statisticsStorage.init();
-
-            // for update stale statistics
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
-
-            await statisticsStorage.addAccount(accountId);
-
             expect(storageMock.set).toHaveBeenCalledTimes(3);
-            expect(storageMock.set).toHaveBeenCalledWith(storageKey, {
-                [accountId]: {},
-            });
-            expect(storageMock.set).toHaveBeenCalledWith(startedTimesKey, {
-                [accountId]: expect.any(Number),
-            });
-
-            storageMock.get.mockReset();
+            expect(storageMock.set).toHaveBeenNthCalledWith(3, expect.any(String), getStatistics({
+                [locationId]: {
+                    hourly: {
+                        '2025-10-01-10': getDuration(2000),
+                    },
+                    daily: {},
+                    total: getData(0),
+                },
+            }));
         });
 
         it('should return account storage and started time properly', async () => {

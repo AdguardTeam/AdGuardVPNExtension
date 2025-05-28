@@ -4,13 +4,10 @@ import { type StorageInterface } from '../browserApi/storage';
 
 import { dateToKey, keyToDate } from './utils';
 import {
-    type StatisticsStorageShape,
-    type AddStatisticsDataBase,
     type AddStatisticsDataTraffic,
-    type StatisticsLocationStorage,
-    type StatisticsAccountStorage,
+    type StatisticsLocationData,
     type StatisticsData,
-    type StatisticsStartedTimes,
+    type Statistics,
     type StatisticsAccountData,
     type StatisticsUpdatedTimes,
 } from './statisticsTypes';
@@ -25,39 +22,33 @@ export interface StatisticsStorageInterface {
     init(): Promise<void>;
 
     /**
-     * Adds a new account to the statistics storage.
-     *
-     * @param accountId Account ID to add.
-     */
-    addAccount(accountId: string): Promise<void>;
-
-    /**
      * Adds traffic statistics.
      *
-     * @param data Data to add.
+     * @param locationId Location ID to add traffic for.
+     * @param data Traffic data to add.
      */
-    addTraffic(data: AddStatisticsDataTraffic): Promise<void>;
+    addTraffic(locationId: string, data: AddStatisticsDataTraffic): Promise<void>;
 
     /**
      * Starts tracking connection duration.
      *
-     * @param data Data about account and location.
+     * @param locationId Location ID to start tracking duration for.
      */
-    startDuration(data: AddStatisticsDataBase): Promise<void>;
+    startDuration(locationId: string): Promise<void>;
 
     /**
      * Updates tracking data of connection duration.
      *
-     * @param data Data about account and location.
+     * @param locationId Location ID to update tracking duration for.
      */
-    updateDuration(data: AddStatisticsDataBase): Promise<void>;
+    updateDuration(locationId: string): Promise<void>;
 
     /**
      * Ends tracking connection duration.
      *
-     * @param data Data about account and location.
+     * @param locationId Location ID to end tracking duration for.
      */
-    endDuration(data: AddStatisticsDataBase): Promise<void>;
+    endDuration(locationId: string): Promise<void>;
 
     /**
      * Gets statistics data for the given account ID.
@@ -93,16 +84,17 @@ export interface StatisticsStorageParameters {
  * It uses browser local storage to persist data.
  *
  * It stores statistics in the following format:
- * - Root storage contains account IDs as keys, location storage as values.
- *   - Location storage contains location IDs as keys, location statistics as values.
- *     - Location statistics contains hourly, daily, total statistics and optional duration tracker.
+ * - Root object contains locations storage and started timestamp.
+ *   - Started timestamp is used to track when the statistics collection started.
+ *     It will reset when user clears the statistics.
+ *   - Locations storage contains location IDs as keys, location data as values.
+ *     - Location data contains hourly, daily, total statistics and optional duration tracker.
  *       - Hourly statistics contains datetime keys (YYYY-MM-DD-HH) and statistics data as values.
  *         Used to store statistics for the last 24 hours (inclusive).
  *       - Daily statistics contains date keys (YYYY-MM-DD) and statistics data as values.
- *         Used to store statistics for the last 30 days (inclusive).
+ *         Used to store statistics older than 24 hours up to the last 30 days (inclusive).
  *       - Total statistics used to store statistics that are older than 30 days.
  *       - Optional duration tracker used to track connection duration statistics.
- * - Additional storage contains statistics collection started timestamps for each account.
  *
  * Statistics implemented as time-based aggregation system:
  * - New statistics data is initially stored in hourly buckets (YYYY-MM-DD-HH).
@@ -122,11 +114,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Key for statistics storage in local storage.
      */
     private static readonly STATISTICS_STORAGE_KEY = 'statistics.storage';
-
-    /**
-     * Key for statistics collection started times in local storage.
-     */
-    private static readonly STARTED_TIMES_STORAGE_KEY = 'statistics.started.times';
 
     /**
      * Default statistics data object.
@@ -156,18 +143,21 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private storage: StorageInterface;
 
     /**
-     * Object that contains all statistics data.
+     * Statistics for all locations with started timestamp.
      *
      * Initialized in {@link init} method.
      */
-    private statistics: StatisticsStorageShape;
+    private statistics: Statistics;
 
     /**
-     * Object that contains map when the statistics collection was started for each account.
+     * Mutex flag to prevent unnecessary writes to storage.
+     * This value is `true` when statistics data is changed and write is allowed.
      *
-     * Initialized in {@link init} method.
+     * NOTE: Change this flag only AFTER the statistics data is changed,
+     * and BEFORE {@link saveStatistics} method is called, this way we can ensure
+     * that asynchronous writes to storage are not called multiple times with same data.
      */
-    private startedTimes: StatisticsStartedTimes;
+    private isStatisticsChanged = false;
 
     /**
      * Object that contains map when the statistics data was last updated for each account.
@@ -188,7 +178,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     public init = async (): Promise<void> => {
         try {
             log.info('Statistics storage ready');
-            await this.gainStartedTimes();
             await this.gainStatistics();
         } catch (e) {
             log.error('Unable to initialize statistics storage, due to error:', e);
@@ -196,25 +185,17 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     };
 
     /**
-     * Saves the started times to local storage.
-     */
-    private async saveStartedTimes(): Promise<void> {
-        try {
-            await this.storage.set<StatisticsStartedTimes>(
-                StatisticsStorage.STARTED_TIMES_STORAGE_KEY,
-                this.startedTimes,
-            );
-        } catch (e) {
-            log.error('Unable to save statistics started times, due to error:', e);
-        }
-    }
-
-    /**
-     * Saves the statistics storage to local storage.
+     * Saves the statistics to local storage.
      */
     private async saveStatistics(): Promise<void> {
+        // skip saving if nothing changed
+        if (!this.isStatisticsChanged) {
+            return;
+        }
+
         try {
-            await this.storage.set<StatisticsStorageShape>(
+            this.isStatisticsChanged = false;
+            await this.storage.set<Statistics>(
                 StatisticsStorage.STATISTICS_STORAGE_KEY,
                 this.statistics,
             );
@@ -224,38 +205,25 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /**
-     * Reads the started times storage from local storage.
-     * If not found, creates a new one and saves it.
-     */
-    private async gainStartedTimes(): Promise<void> {
-        const storageStartedTimes = await this.storage.get<StatisticsStartedTimes>(
-            StatisticsStorage.STARTED_TIMES_STORAGE_KEY,
-        );
-
-        if (!storageStartedTimes) {
-            this.startedTimes = {};
-            await this.saveStartedTimes();
-        } else {
-            this.startedTimes = storageStartedTimes;
-        }
-    }
-
-    /**
-     * Reads the statistics storage from local storage, and:
+     * Reads the statistics from local storage, and:
      * - If not found, creates a new one,
      * - If found, updates stale statistics;
      *
-     * After that, it saves the statistics storage to local storage.
+     * After that, it saves the statistics to local storage.
      */
     private async gainStatistics(): Promise<void> {
-        const storageStatistics = await this.storage.get<StatisticsStorageShape>(
+        const statistics = await this.storage.get<Statistics>(
             StatisticsStorage.STATISTICS_STORAGE_KEY,
         );
 
-        if (!storageStatistics) {
-            this.statistics = {};
+        if (!statistics) {
+            this.statistics = {
+                locations: {},
+                startedTimestamp: Date.now(),
+            };
+            this.isStatisticsChanged = true;
         } else {
-            this.statistics = storageStatistics;
+            this.statistics = statistics;
             this.updateStaleStatistics();
         }
 
@@ -278,37 +246,37 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         // create before to make consistent calculations
         const now = Date.now();
 
-        Object.entries(this.statistics).forEach(([accountId, accountStorage]) => {
-            this.updatedTimes[accountId] = now;
-
-            Object.values(accountStorage).forEach((locationStorage) => {
-                StatisticsStorage.distributeDuration(locationStorage, now);
-                StatisticsStorage.moveStatistics(locationStorage, now, true);
-                StatisticsStorage.moveStatistics(locationStorage, now, false);
-            });
+        Object.values(this.statistics.locations).forEach((locationData) => {
+            this.distributeDuration(locationData, now);
+            this.moveStatistics(locationData, now, true);
+            this.moveStatistics(locationData, now, false);
         });
     }
 
     /**
-     * Distributes the duration tracker of location storage to hourly / daily / total statistics.
+     * Distributes the duration tracker of location data to hourly / daily / total statistics.
      *
      * @see {@link distributeDurationAcrossPeriod} for more details how distribution works.
      *
-     * @param locationStorage Location storage.
+     * @param locationData Location data.
      * @param timestamp Timestamp to compare with.
      */
-    private static distributeDuration(locationStorage: StatisticsLocationStorage, timestamp: number): void {
+    private distributeDuration(locationData: StatisticsLocationData, timestamp: number): void {
         // skip if duration tracker is not set
-        const { durationTracker } = locationStorage;
+        const { durationTracker } = locationData;
         if (!durationTracker) {
             return;
         }
 
-        const { total } = locationStorage;
+        const { total } = locationData;
         const { startedTimestamp, lastUpdatedTimestamp } = durationTracker;
 
-        // eslint-disable-next-line no-param-reassign
-        const deleteDurationTracker = () => delete locationStorage.durationTracker;
+        const deleteDurationTracker = () => {
+            // eslint-disable-next-line no-param-reassign
+            delete locationData.durationTracker;
+
+            this.isStatisticsChanged = true;
+        };
 
         // if the duration is not valid, delete tracker and skip
         if (lastUpdatedTimestamp - startedTimestamp <= 0) {
@@ -333,6 +301,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         // add to total if the duration is valid
         if (totalDuration > 0) {
             total.durationMs += totalDuration;
+            this.isStatisticsChanged = true;
         }
 
         /**
@@ -348,7 +317,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const dailyEnd = Math.min(hourlyBorderTimestamp, lastUpdatedTimestamp);
 
         // distribute across daily
-        StatisticsStorage.distributeDurationAcrossPeriod(locationStorage, dailyStart, dailyEnd, false);
+        this.distributeDurationAcrossPeriod(locationData, dailyStart, dailyEnd, false);
 
         /**
          * We are determining the start and end timestamps for hourly duration distribution.
@@ -362,7 +331,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const hourlyEnd = Math.min(timestamp, lastUpdatedTimestamp);
 
         // distribute across hourly
-        StatisticsStorage.distributeDurationAcrossPeriod(locationStorage, hourlyStart, hourlyEnd, true);
+        this.distributeDurationAcrossPeriod(locationData, hourlyStart, hourlyEnd, true);
 
         // delete tracker after tracker is distributed
         deleteDurationTracker();
@@ -371,13 +340,13 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     /**
      * Distributes the duration across hourly / daily statistics.
      *
-     * @param locationStorage Location storage.
+     * @param locationData Location data.
      * @param start Start timestamp.
      * @param end End timestamp.
      * @param isHourly Whether to distribute across hourly or daily statistics.
      */
-    private static distributeDurationAcrossPeriod(
-        locationStorage: StatisticsLocationStorage,
+    private distributeDurationAcrossPeriod(
+        locationData: StatisticsLocationData,
         start: number,
         end: number,
         isHourly: boolean,
@@ -408,10 +377,11 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         let increment = timeLeftOnFirstPeriod;
 
         while (current < end) {
-            const data = StatisticsStorage.getPeriodStatistics(locationStorage, isHourly, new Date(current));
+            const data = this.getPeriodStatistics(locationData, isHourly, new Date(current));
 
             const durationToAdd = Math.min(current + increment, end) - current;
             data.durationMs += durationToAdd;
+            this.isStatisticsChanged = true;
             current += durationToAdd;
 
             if (isFirstIteration) {
@@ -426,16 +396,16 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * and if for given hour / day 24 hours / 30 days is passed, it moves the statistics
      * to according daily statistics (`YYYY-MM-DD-HH` -> `YYYY-MM-DD` / `YYYY-MM-DD` -> `total`).
      *
-     * @param locationStorage Location statistics storage.
+     * @param locationData Location data.
      * @param timestamp Timestamp to compare with.
      * @param isHourly Whether to move hourly or daily statistics.
      */
-    private static moveStatistics(
-        locationStorage: StatisticsLocationStorage,
+    private moveStatistics(
+        locationData: StatisticsLocationData,
         timestamp: number,
         isHourly: boolean,
     ): void {
-        const { hourly, daily, total } = locationStorage;
+        const { hourly, daily, total } = locationData;
 
         const sourceStorage = isHourly
             ? hourly
@@ -452,6 +422,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             // delete and skip if date is not valid
             if (!date) {
                 delete sourceStorage[key];
+                this.isStatisticsChanged = true;
                 return;
             }
 
@@ -466,7 +437,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
             let targetData: StatisticsData;
             if (isHourly) {
-                targetData = StatisticsStorage.getPeriodStatistics(locationStorage, false, date);
+                targetData = this.getPeriodStatistics(locationData, false, date);
             } else {
                 targetData = total;
             }
@@ -477,125 +448,36 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
             // remove hourly / daily data after moving
             delete sourceStorage[key];
+            this.isStatisticsChanged = true;
         });
     }
 
     /**
-     * Gets location storage for the given account ID and location ID.
+     * Gets location data for the given location ID.
      * If not found, creates a new one.
      *
-     * @param data Data about account and location.
+     * @param locationId Location ID to get data for.
      *
-     * @returns Location storage.
+     * @returns Location data.
      */
-    private getLocationStorage({
-        accountId,
-        locationId,
-    }: AddStatisticsDataBase): StatisticsLocationStorage {
-        let accountStorage: StatisticsAccountStorage;
-        if (this.statistics[accountId]) {
-            accountStorage = this.statistics[accountId];
+    private getLocationData(locationId: string): StatisticsLocationData {
+        let locationData: StatisticsLocationData;
+        if (this.statistics.locations[locationId]) {
+            locationData = this.statistics.locations[locationId];
         } else {
-            accountStorage = {};
-            this.statistics[accountId] = accountStorage;
-        }
-
-        let locationStorage: StatisticsLocationStorage;
-        if (accountStorage[locationId]) {
-            locationStorage = accountStorage[locationId];
-        } else {
-            locationStorage = {
+            locationData = {
                 hourly: {},
                 daily: {},
                 total: {
                     ...StatisticsStorage.DEFAULT_STATISTICS_DATA,
                 },
             };
-            accountStorage[locationId] = locationStorage;
+            this.statistics.locations[locationId] = locationData;
+            this.isStatisticsChanged = true;
         }
 
-        return locationStorage;
+        return locationData;
     }
-
-    /** @inheritdoc */
-    public addAccount = async (accountId: string): Promise<void> => {
-        if (!this.statistics[accountId]) {
-            this.statistics[accountId] = {};
-            await this.saveStatistics();
-        }
-
-        if (!this.startedTimes[accountId]) {
-            this.startedTimes[accountId] = Date.now();
-            await this.saveStartedTimes();
-        }
-    };
-
-    /** @inheritdoc */
-    public addTraffic = async (data: AddStatisticsDataTraffic): Promise<void> => {
-        const locationStorage = this.getLocationStorage(data);
-        const hourlyData = StatisticsStorage.getPeriodStatistics(locationStorage, true);
-
-        const { downloadedBytes, uploadedBytes } = data;
-        hourlyData.downloadedBytes += downloadedBytes;
-        hourlyData.uploadedBytes += uploadedBytes;
-        await this.saveStatistics();
-    };
-
-    /** @inheritdoc */
-    public startDuration = async (data: AddStatisticsDataBase): Promise<void> => {
-        const locationStorage = this.getLocationStorage(data);
-
-        const now = Date.now();
-        if (!locationStorage.durationTracker) {
-            locationStorage.durationTracker = {
-                startedTimestamp: now,
-                lastUpdatedTimestamp: now,
-            };
-        } else {
-            locationStorage.durationTracker.startedTimestamp = now;
-            locationStorage.durationTracker.lastUpdatedTimestamp = now;
-        }
-
-        await this.saveStatistics();
-    };
-
-    /**
-     * Updates `lastUpdatedTimestamp` of the duration tracker.
-     *
-     * @param data Data about account and location.
-     *
-     * @returns Location storage with updated duration tracker or null if not found.
-     */
-    private updateDurationTracker(data: AddStatisticsDataBase): StatisticsLocationStorage | null {
-        const locationStorage = this.getLocationStorage(data);
-        if (!locationStorage.durationTracker) {
-            return null;
-        }
-
-        locationStorage.durationTracker.lastUpdatedTimestamp = Date.now();
-        return locationStorage;
-    }
-
-    /** @inheritdoc */
-    public updateDuration = async (data: AddStatisticsDataBase): Promise<void> => {
-        const locationStorage = this.updateDurationTracker(data);
-
-        // save if updated
-        if (locationStorage) {
-            await this.saveStatistics();
-        }
-    };
-
-    /** @inheritdoc */
-    public endDuration = async (data: AddStatisticsDataBase): Promise<void> => {
-        const locationStorage = this.updateDurationTracker(data);
-
-        // distribute duration to statistics and save if updated
-        if (locationStorage) {
-            StatisticsStorage.distributeDuration(locationStorage, Date.now());
-            await this.saveStatistics();
-        }
-    };
 
     /** @inheritdoc */
     public getAccountStatistics = async (accountId: string): Promise<StatisticsAccountData | null> => {
@@ -649,14 +531,14 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Gets statistics data for the given hourly / daily -> datetime / date for a given date.
      * If not found, creates a new one.
      *
-     * @param locationStorage Location storage.
+     * @param locationData Location data.
      * @param isHourly Whether to get hourly or daily statistics.
      * @param date Date to get statistics for. If not provided, current date is used.
      *
      * @returns Statistics data for given date.
      */
-    private static getPeriodStatistics(
-        { hourly, daily }: StatisticsLocationStorage,
+    private getPeriodStatistics(
+        { hourly, daily }: StatisticsLocationData,
         isHourly: boolean,
         date = new Date(),
     ): StatisticsData {
@@ -669,10 +551,78 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         } else {
             periodData = { ...StatisticsStorage.DEFAULT_STATISTICS_DATA };
             periodStorage[dateKey] = periodData;
+            this.isStatisticsChanged = true;
         }
 
         return periodData;
     }
+
+    /** @inheritdoc */
+    public addTraffic = async (locationId: string, data: AddStatisticsDataTraffic): Promise<void> => {
+        const locationData = this.getLocationData(locationId);
+        const hourlyData = this.getPeriodStatistics(locationData, true);
+
+        const { downloadedBytes, uploadedBytes } = data;
+        hourlyData.downloadedBytes += downloadedBytes;
+        hourlyData.uploadedBytes += uploadedBytes;
+        this.isStatisticsChanged = true;
+        await this.saveStatistics();
+    };
+
+    /** @inheritdoc */
+    public startDuration = async (locationId: string): Promise<void> => {
+        const locationData = this.getLocationData(locationId);
+
+        const now = Date.now();
+        if (!locationData.durationTracker) {
+            locationData.durationTracker = {
+                startedTimestamp: now,
+                lastUpdatedTimestamp: now,
+            };
+        } else {
+            locationData.durationTracker.startedTimestamp = now;
+            locationData.durationTracker.lastUpdatedTimestamp = now;
+        }
+
+        this.isStatisticsChanged = true;
+        await this.saveStatistics();
+    };
+
+    /**
+     * Updates `lastUpdatedTimestamp` of the duration tracker.
+     *
+     * @param locationId Location ID to update duration tracker for.
+     *
+     * @returns Location data with updated duration tracker or null if not found.
+     */
+    private updateDurationTracker(locationId: string): StatisticsLocationData | null {
+        const locationData = this.getLocationData(locationId);
+        if (!locationData.durationTracker) {
+            return null;
+        }
+
+        locationData.durationTracker.lastUpdatedTimestamp = Date.now();
+        this.isStatisticsChanged = true;
+
+        return locationData;
+    }
+
+    /** @inheritdoc */
+    public updateDuration = async (locationId: string): Promise<void> => {
+        this.updateDurationTracker(locationId);
+        await this.saveStatistics();
+    };
+
+    /** @inheritdoc */
+    public endDuration = async (locationId: string): Promise<void> => {
+        const locationData = this.updateDurationTracker(locationId);
+
+        // distribute duration to statistics and save if updated
+        if (locationData) {
+            this.distributeDuration(locationData, Date.now());
+            await this.saveStatistics();
+        }
+    };
 
     /**
      * Gets the timestamp with cropped hours or minutes for the given timestamp.
