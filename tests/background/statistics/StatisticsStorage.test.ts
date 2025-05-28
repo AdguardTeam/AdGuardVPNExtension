@@ -2,7 +2,7 @@ import { StatisticsStorage } from '../../../src/background/statistics/Statistics
 import {
     type StatisticsData,
     type StatisticsDurationTracker,
-    type StatisticsLocationStorage,
+    type StatisticsLocationData,
 } from '../../../src/background/statistics/statisticsTypes';
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../../src/common/constants';
 
@@ -77,7 +77,7 @@ describe('StatisticsStorage', () => {
             expect(storageMock.get).toHaveBeenCalledWith(storageKey);
 
             // @ts-expect-error - accessing private property
-            expect(statisticsStorage.statistics).toEqual(storage);
+            expect(statisticsStorage.accountsStorage).toEqual(storage);
 
             // @ts-expect-error - accessing private property
             expect(statisticsStorage.startedTimes).toEqual(startedTimes);
@@ -94,7 +94,7 @@ describe('StatisticsStorage', () => {
 
         type DurationTrackerTestCase = {
             tracker: StatisticsDurationTracker;
-            expected: StatisticsLocationStorage;
+            expected: StatisticsLocationData;
         };
 
         const getDuration = (durationMs: number) => ({

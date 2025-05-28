@@ -64,7 +64,7 @@ export interface StatisticsDurationTracker {
 /**
  * Statistics data for a specific location.
  */
-export interface StatisticsLocationStorage {
+export interface StatisticsLocationData {
     /**
      * Hourly based statistics data.
      * It stores statistics data for past 24 hours.
@@ -90,27 +90,27 @@ export interface StatisticsLocationStorage {
 }
 
 /**
- * Statistics data for a specific account.
+ * Map that contains statistics data for each location.
  */
-export interface StatisticsAccountStorage {
+export interface StatisticsLocationsStorage {
     /**
      * Location ID to location statistics data mapping.
      *
      * Note: Always check if the value is `undefined` before using it.
      */
-    [locationId: string]: StatisticsLocationStorage;
+    [locationId: string]: StatisticsLocationData;
 }
 
 /**
- * Statistics storage for all accounts.
+ * Map that contains statistics data for each account.
  */
-export interface StatisticsStorageShape {
+export interface StatisticsAccountsStorage {
     /**
-     * Account ID to account statistics data mapping.
+     * Account ID to locations storage mapping.
      *
      * Note: Always check if the value is `undefined` before using it.
      */
-    [accountId: string]: StatisticsAccountStorage;
+    [accountId: string]: StatisticsLocationsStorage;
 }
 
 /**
