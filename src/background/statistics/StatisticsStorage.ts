@@ -501,25 +501,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         return periodData;
     }
 
-    /**
-     * Checks if the statistics should be updated.
-     * Update is needed only if hour, day, month or year is different.
-     *
-     * @returns True if the statistics should be updated, false otherwise.
-     */
-    private shouldUpdateStatistics(): boolean {
-        const now = new Date();
-        const updatedTime = new Date(this.statisticsUpdatedTimestamp);
-
-        // update needed only if hour, day, month or year is different
-        return (
-            now.getUTCFullYear() !== updatedTime.getUTCFullYear()
-            || now.getUTCMonth() !== updatedTime.getUTCMonth()
-            || now.getUTCDate() !== updatedTime.getUTCDate()
-            || now.getUTCHours() !== updatedTime.getUTCHours()
-        );
-    }
-
     /** @inheritdoc */
     public addTraffic = async (locationId: string, data: AddStatisticsDataTraffic): Promise<void> => {
         const locationData = this.getLocationData(locationId);
@@ -586,6 +567,25 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             await this.saveStatistics();
         }
     };
+
+    /**
+     * Checks if the statistics should be updated.
+     * Update is needed only if hour, day, month or year is different.
+     *
+     * @returns True if the statistics should be updated, false otherwise.
+     */
+    private shouldUpdateStatistics(): boolean {
+        const now = new Date();
+        const updatedTime = new Date(this.statisticsUpdatedTimestamp);
+
+        // update needed only if hour, day, month or year is different
+        return (
+            now.getUTCFullYear() !== updatedTime.getUTCFullYear()
+            || now.getUTCMonth() !== updatedTime.getUTCMonth()
+            || now.getUTCDate() !== updatedTime.getUTCDate()
+            || now.getUTCHours() !== updatedTime.getUTCHours()
+        );
+    }
 
     /** @inheritdoc */
     public getStatistics = async (): Promise<Statistics> => {
