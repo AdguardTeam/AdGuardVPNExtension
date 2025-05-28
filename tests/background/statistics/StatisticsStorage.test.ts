@@ -64,6 +64,13 @@ describe('StatisticsStorage', () => {
         durationMs,
     });
 
+    /**
+     * Returns statistics with provided locations.
+     *
+     * @param locations Locations to include.
+     *
+     * @returns Statistics.
+     */
     const getStatistics = (locations: StatisticsLocationsStorage = {}): Statistics => ({
         locations,
         startedTimestamp: 0,
