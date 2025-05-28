@@ -1,19 +1,16 @@
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
 import { type ConnectivityStateChangeEvent, type WsConnectivityInfoMsgTraffic } from '../connectivity';
-import { type CredentialsInterface } from '../credentials/Credentials';
 import { type LocationInterface, ConnectivityStateType } from '../schema';
 import { type TimersInterface } from '../timers/AbstractTimers';
 
 import { type StatisticsStorageInterface } from './StatisticsStorage';
-import { type AddStatisticsDataBase } from './statisticsTypes';
 
 type NotifierArg =
     WsConnectivityInfoMsgTraffic
     | LocationInterface
     | ConnectivityStateChangeEvent
-    | boolean
-    | undefined;
+    | boolean;
 
 /**
  * Statistics provider interface.
@@ -35,11 +32,6 @@ export interface StatisticsProviderParameters {
     statisticsStorage: StatisticsStorageInterface;
 
     /**
-     * Credentials instance.
-     */
-    credentials: CredentialsInterface;
-
-    /**
      * Timers instance.
      */
     timers: TimersInterface;
@@ -54,7 +46,6 @@ export interface StatisticsProviderParameters {
  *
  * Before updating the statistics storage, it performs following checks:
  * - Is the user a premium user?
- * - Is the user authenticated?
  * - Is the user selected a location?
  *
  * If any of these checks fail, the statistics storage will not be updated.
@@ -73,19 +64,12 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         notifier.types.CURRENT_LOCATION_UPDATED,
         notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
         notifier.types.CONNECTIVITY_STATE_CHANGED,
-        notifier.types.USER_AUTHENTICATED,
-        notifier.types.USER_DEAUTHENTICATED,
     ];
 
     /**
      * Storage for statistics.
      */
     private statisticsStorage: StatisticsStorageInterface;
-
-    /**
-     * Credentials instance.
-     */
-    private credentials: CredentialsInterface;
 
     /**
      * Timers instance.
@@ -109,14 +93,6 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     private locationId: string | null = null;
 
     /**
-     * Currently logged in user's account ID.
-     *
-     * NOTE: It's not stored in state storage because after extension restart
-     * it will be retrieved from events sent by notifier at startup.
-     */
-    private accountId: string | null = null;
-
-    /**
      * ID of the interval that updates the connection duration statistics.
      *
      * NOTE: It's not stored in state storage because
@@ -129,11 +105,9 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      */
     constructor({
         statisticsStorage,
-        credentials,
         timers,
     }: StatisticsProviderParameters) {
         this.statisticsStorage = statisticsStorage;
-        this.credentials = credentials;
         this.timers = timers;
 
         notifier.addSpecifiedListener(
@@ -151,23 +125,6 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             log.error('Unable to initialize statistics provider, due to error:', e);
         }
     };
-
-    /**
-     * Retrieves the base data for adding statistics.
-     *
-     * @returns Base data for adding statistics or null if account ID / location ID is not set,
-     * or if the token is not premium.
-     */
-    private getAddBaseData(): AddStatisticsDataBase | null {
-        if (!this.isPremiumToken || !this.accountId || !this.locationId) {
-            return null;
-        }
-
-        return {
-            accountId: this.accountId,
-            locationId: this.locationId,
-        };
-    }
 
     /**
      * Clears the duration interval.
@@ -208,10 +165,6 @@ export class StatisticsProvider implements StatisticsProviderInterface {
                 return this.handleTokenPremiumStateUpdated(arg as boolean);
             case notifier.types.CONNECTIVITY_STATE_CHANGED:
                 return this.handleConnectivityStateChanged(arg as ConnectivityStateChangeEvent);
-            case notifier.types.USER_AUTHENTICATED:
-                return this.handleUserAuthenticated();
-            case notifier.types.USER_DEAUTHENTICATED:
-                return this.handleUserDeauthenticated();
             default:
                 // Do nothing
                 break;
@@ -228,25 +181,21 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         bytesDownloaded,
         bytesUploaded,
     }: WsConnectivityInfoMsgTraffic): Promise<void> {
-        const baseData = this.getAddBaseData();
-
         /**
          * Do nothing if we can't add statistics because of any of the following:
          * - User is not a premium
-         * - Account ID is not set
          * - Location ID is not set
          *
          * Note: We do not check if the user is connected because the traffic statistics
          * are sent only when the user is connected to WebSocket. But there might be
          * case when WebSocket sends this event later when user is already disconnected from Proxy.
          */
-        if (!baseData) {
+        if (!this.isPremiumToken || !this.locationId) {
             return;
         }
 
         // Add traffic statistics to storage
-        await this.statisticsStorage.addTraffic({
-            ...baseData,
+        await this.statisticsStorage.addTraffic(this.locationId, {
             downloadedBytes: bytesDownloaded,
             uploadedBytes: bytesUploaded,
         });
@@ -279,46 +228,22 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * @param state Connectivity state change event data.
      */
     private async handleConnectivityStateChanged({ value }: ConnectivityStateChangeEvent): Promise<void> {
-        const baseData = this.getAddBaseData();
-
         /**
          * Do nothing if we can't add statistics because of any of the following:
          * - User is not a premium
-         * - Account ID is not set
          * - Location ID is not set
          */
-        if (!baseData) {
+        if (!this.isPremiumToken || !this.locationId) {
             return;
         }
 
         if (value === ConnectivityStateType.Connected) {
-            await this.statisticsStorage.startDuration(baseData);
+            await this.statisticsStorage.startDuration(this.locationId);
             this.startDurationInterval();
         } else {
-            await this.statisticsStorage.endDuration(baseData);
+            await this.statisticsStorage.endDuration(this.locationId);
             this.clearDurationInterval();
         }
-    }
-
-    /**
-     * Handles user authenticated event.
-     * This event is fired when user is authenticated.
-     */
-    private async handleUserAuthenticated(): Promise<void> {
-        const accountId = await this.credentials.getUsername();
-
-        if (accountId) {
-            this.accountId = accountId;
-            await this.statisticsStorage.addAccount(accountId);
-        }
-    }
-
-    /**
-     * Handles user logged out event.
-     * This event is fired when user is deauthenticated.
-     */
-    private handleUserDeauthenticated(): void {
-        this.accountId = null;
     }
 
     /**
@@ -326,21 +251,18 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * This event is fired at regular intervals to update the duration statistics.
      */
     private async handleTimerUpdate(): Promise<void> {
-        const baseData = this.getAddBaseData();
-
         /**
          * Do nothing if we can't add statistics because of any of the following:
          * - User is not a premium
-         * - Account ID is not set
          * - Location ID is not set
          *
          * Note: We do not check if the user is connected because interval is started
          * only when user is connected to Proxy. Otherwise, the interval is cleared.
          */
-        if (!baseData) {
+        if (!this.isPremiumToken || !this.locationId) {
             return;
         }
 
-        await this.statisticsStorage.updateDuration(baseData);
+        await this.statisticsStorage.updateDuration(this.locationId);
     }
 }

@@ -42,7 +42,6 @@ export const enum StorageKey {
     ConnectivityData = 'connectivityData',
     GlobalProxyConfig = 'globalProxyConfig',
     LimitedOfferService = 'limitedOfferService',
-    StatisticsState = 'statisticsState',
 }
 
 export const storageDataScheme = zod.object({

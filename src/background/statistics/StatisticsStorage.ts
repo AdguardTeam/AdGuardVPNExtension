@@ -3,13 +3,10 @@ import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
 
 import {
-    type StatisticsAccountsStorage,
-    type AddStatisticsDataBase,
     type AddStatisticsDataTraffic,
     type StatisticsLocationData,
-    type StatisticsLocationsStorage,
     type StatisticsData,
-    type StatisticsStartedTimes,
+    type Statistics,
 } from './statisticsTypes';
 
 /**
@@ -22,39 +19,33 @@ export interface StatisticsStorageInterface {
     init(): Promise<void>;
 
     /**
-     * Adds a new account to the statistics storage.
-     *
-     * @param accountId Account ID to add.
-     */
-    addAccount(accountId: string): Promise<void>;
-
-    /**
      * Adds traffic statistics.
      *
-     * @param data Data to add.
+     * @param locationId Location ID to add traffic for.
+     * @param data Traffic data to add.
      */
-    addTraffic(data: AddStatisticsDataTraffic): Promise<void>;
+    addTraffic(locationId: string, data: AddStatisticsDataTraffic): Promise<void>;
 
     /**
      * Starts tracking connection duration.
      *
-     * @param data Data about account and location.
+     * @param locationId Location ID to start tracking duration for.
      */
-    startDuration(data: AddStatisticsDataBase): Promise<void>;
+    startDuration(locationId: string): Promise<void>;
 
     /**
      * Updates tracking data of connection duration.
      *
-     * @param data Data about account and location.
+     * @param locationId Location ID to update tracking duration for.
      */
-    updateDuration(data: AddStatisticsDataBase): Promise<void>;
+    updateDuration(locationId: string): Promise<void>;
 
     /**
      * Ends tracking connection duration.
      *
-     * @param data Data about account and location.
+     * @param locationId Location ID to end tracking duration for.
      */
-    endDuration(data: AddStatisticsDataBase): Promise<void>;
+    endDuration(locationId: string): Promise<void>;
 }
 
 /**
@@ -73,7 +64,9 @@ export interface StatisticsStorageParameters {
  * It uses browser local storage to persist data.
  *
  * It stores statistics in the following format:
- * - Accounts storage contains account IDs as keys, locations storage as values.
+ * - Root object contains locations storage and started timestamp.
+ *   - Started timestamp is used to track when the statistics collection started.
+ *     It will reset when user clears the statistics.
  *   - Locations storage contains location IDs as keys, location data as values.
  *     - Location data contains hourly, daily, total statistics and optional duration tracker.
  *       - Hourly statistics contains datetime keys (YYYY-MM-DD-HH) and statistics data as values.
@@ -82,7 +75,6 @@ export interface StatisticsStorageParameters {
  *         Used to store statistics older than 24 hours up to the last 30 days (inclusive).
  *       - Total statistics used to store statistics that are older than 30 days.
  *       - Optional duration tracker used to track connection duration statistics.
- * - Additional storage contains statistics collection started timestamps for each account.
  *
  * Statistics implemented as time-based aggregation system:
  * - New statistics data is initially stored in hourly buckets (YYYY-MM-DD-HH).
@@ -107,11 +99,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Key for statistics storage in local storage.
      */
     private static readonly STATISTICS_STORAGE_KEY = 'statistics.storage';
-
-    /**
-     * Key for statistics collection started times in local storage.
-     */
-    private static readonly STARTED_TIMES_STORAGE_KEY = 'statistics.started.times';
 
     /**
      * Default statistics data object.
@@ -141,18 +128,11 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private storage: StorageInterface;
 
     /**
-     * Map that contains statistics data for each account.
+     * Statistics for all locations with started timestamp.
      *
      * Initialized in {@link init} method.
      */
-    private accountsStorage: StatisticsAccountsStorage;
-
-    /**
-     * Object that contains map when the statistics collection was started for each account.
-     *
-     * Initialized in {@link init} method.
-     */
-    private startedTimes: StatisticsStartedTimes;
+    private statistics: Statistics;
 
     /**
      * Constructor.
@@ -165,35 +145,20 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     public init = async (): Promise<void> => {
         try {
             log.info('Statistics storage ready');
-            await this.gainStartedTimes();
-            await this.gainAccountsStorage();
+            await this.gainStatistics();
         } catch (e) {
             log.error('Unable to initialize statistics storage, due to error:', e);
         }
     };
 
     /**
-     * Saves the started times to local storage.
+     * Saves the statistics to local storage.
      */
-    private async saveStartedTimes(): Promise<void> {
+    private async saveStatistics(): Promise<void> {
         try {
-            await this.storage.set<StatisticsStartedTimes>(
-                StatisticsStorage.STARTED_TIMES_STORAGE_KEY,
-                this.startedTimes,
-            );
-        } catch (e) {
-            log.error('Unable to save statistics started times, due to error:', e);
-        }
-    }
-
-    /**
-     * Saves the accounts storage to local storage.
-     */
-    private async saveAccountsStorage(): Promise<void> {
-        try {
-            await this.storage.set<StatisticsAccountsStorage>(
+            await this.storage.set<Statistics>(
                 StatisticsStorage.STATISTICS_STORAGE_KEY,
-                this.accountsStorage,
+                this.statistics,
             );
         } catch (e) {
             log.error('Unable to save statistics storage, due to error:', e);
@@ -201,42 +166,28 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /**
-     * Reads the started times storage from local storage.
-     * If not found, creates a new one and saves it.
-     */
-    private async gainStartedTimes(): Promise<void> {
-        const storageStartedTimes = await this.storage.get<StatisticsStartedTimes>(
-            StatisticsStorage.STARTED_TIMES_STORAGE_KEY,
-        );
-
-        if (!storageStartedTimes) {
-            this.startedTimes = {};
-            await this.saveStartedTimes();
-        } else {
-            this.startedTimes = storageStartedTimes;
-        }
-    }
-
-    /**
-     * Reads the accounts storage from local storage, and:
+     * Reads the statistics from local storage, and:
      * - If not found, creates a new one,
      * - If found, updates stale statistics;
      *
-     * After that, it saves the statistics storage to local storage.
+     * After that, it saves the statistics to local storage.
      */
-    private async gainAccountsStorage(): Promise<void> {
-        const accountsStorage = await this.storage.get<StatisticsAccountsStorage>(
+    private async gainStatistics(): Promise<void> {
+        const statistics = await this.storage.get<Statistics>(
             StatisticsStorage.STATISTICS_STORAGE_KEY,
         );
 
-        if (!accountsStorage) {
-            this.accountsStorage = {};
+        if (!statistics) {
+            this.statistics = {
+                locations: {},
+                startedTimestamp: Date.now(),
+            };
         } else {
-            this.accountsStorage = accountsStorage;
+            this.statistics = statistics;
             this.updateStaleStatistics();
         }
 
-        await this.saveAccountsStorage();
+        await this.saveStatistics();
     }
 
     /**
@@ -255,12 +206,10 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         // create before to make consistent calculations
         const now = Date.now();
 
-        Object.values(this.accountsStorage).forEach((accountData) => {
-            Object.values(accountData).forEach((locationData) => {
-                StatisticsStorage.distributeDuration(locationData, now);
-                StatisticsStorage.moveStatistics(locationData, now, true);
-                StatisticsStorage.moveStatistics(locationData, now, false);
-            });
+        Object.values(this.statistics.locations).forEach((locationData) => {
+            StatisticsStorage.distributeDuration(locationData, now);
+            StatisticsStorage.moveStatistics(locationData, now, true);
+            StatisticsStorage.moveStatistics(locationData, now, false);
         });
     }
 
@@ -456,28 +405,17 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /**
-     * Gets location data for the given account ID and location ID.
+     * Gets location data for the given location ID.
      * If not found, creates a new one.
      *
-     * @param data Data about account and location.
+     * @param locationId Location ID to get data for.
      *
      * @returns Location data.
      */
-    private getLocationData({
-        accountId,
-        locationId,
-    }: AddStatisticsDataBase): StatisticsLocationData {
-        let locationsStorage: StatisticsLocationsStorage;
-        if (this.accountsStorage[accountId]) {
-            locationsStorage = this.accountsStorage[accountId];
-        } else {
-            locationsStorage = {};
-            this.accountsStorage[accountId] = locationsStorage;
-        }
-
+    private getLocationData(locationId: string): StatisticsLocationData {
         let locationData: StatisticsLocationData;
-        if (locationsStorage[locationId]) {
-            locationData = locationsStorage[locationId];
+        if (this.statistics.locations[locationId]) {
+            locationData = this.statistics.locations[locationId];
         } else {
             locationData = {
                 hourly: {},
@@ -486,39 +424,26 @@ export class StatisticsStorage implements StatisticsStorageInterface {
                     ...StatisticsStorage.DEFAULT_STATISTICS_DATA,
                 },
             };
-            locationsStorage[locationId] = locationData;
+            this.statistics.locations[locationId] = locationData;
         }
 
         return locationData;
     }
 
     /** @inheritdoc */
-    public addAccount = async (accountId: string): Promise<void> => {
-        if (!this.accountsStorage[accountId]) {
-            this.accountsStorage[accountId] = {};
-            await this.saveAccountsStorage();
-        }
-
-        if (!this.startedTimes[accountId]) {
-            this.startedTimes[accountId] = Date.now();
-            await this.saveStartedTimes();
-        }
-    };
-
-    /** @inheritdoc */
-    public addTraffic = async (data: AddStatisticsDataTraffic): Promise<void> => {
-        const locationData = this.getLocationData(data);
+    public addTraffic = async (locationId: string, data: AddStatisticsDataTraffic): Promise<void> => {
+        const locationData = this.getLocationData(locationId);
         const hourlyData = StatisticsStorage.getPeriodStatistics(locationData, true);
 
         const { downloadedBytes, uploadedBytes } = data;
         hourlyData.downloadedBytes += downloadedBytes;
         hourlyData.uploadedBytes += uploadedBytes;
-        await this.saveAccountsStorage();
+        await this.saveStatistics();
     };
 
     /** @inheritdoc */
-    public startDuration = async (data: AddStatisticsDataBase): Promise<void> => {
-        const locationData = this.getLocationData(data);
+    public startDuration = async (locationId: string): Promise<void> => {
+        const locationData = this.getLocationData(locationId);
 
         const now = Date.now();
         if (!locationData.durationTracker) {
@@ -531,18 +456,18 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             locationData.durationTracker.lastUpdatedTimestamp = now;
         }
 
-        await this.saveAccountsStorage();
+        await this.saveStatistics();
     };
 
     /**
      * Updates `lastUpdatedTimestamp` of the duration tracker.
      *
-     * @param data Data about account and location.
+     * @param locationId Location ID to update duration tracker for.
      *
      * @returns Location data with updated duration tracker or null if not found.
      */
-    private updateDurationTracker(data: AddStatisticsDataBase): StatisticsLocationData | null {
-        const locationData = this.getLocationData(data);
+    private updateDurationTracker(locationId: string): StatisticsLocationData | null {
+        const locationData = this.getLocationData(locationId);
         if (!locationData.durationTracker) {
             return null;
         }
@@ -552,23 +477,23 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /** @inheritdoc */
-    public updateDuration = async (data: AddStatisticsDataBase): Promise<void> => {
-        const locationData = this.updateDurationTracker(data);
+    public updateDuration = async (locationId: string): Promise<void> => {
+        const locationData = this.updateDurationTracker(locationId);
 
         // save if updated
         if (locationData) {
-            await this.saveAccountsStorage();
+            await this.saveStatistics();
         }
     };
 
     /** @inheritdoc */
-    public endDuration = async (data: AddStatisticsDataBase): Promise<void> => {
-        const locationData = this.updateDurationTracker(data);
+    public endDuration = async (locationId: string): Promise<void> => {
+        const locationData = this.updateDurationTracker(locationId);
 
         // distribute duration to statistics and save if updated
         if (locationData) {
             StatisticsStorage.distributeDuration(locationData, Date.now());
-            await this.saveAccountsStorage();
+            await this.saveStatistics();
         }
     };
 
