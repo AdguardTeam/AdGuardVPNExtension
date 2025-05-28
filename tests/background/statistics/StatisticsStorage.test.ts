@@ -30,7 +30,6 @@ describe('StatisticsStorage', () => {
     });
 
     afterEach(() => {
-        storageMock.get.mockReset();
         jest.clearAllMocks();
         jest.useRealTimers();
     });
