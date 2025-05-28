@@ -75,12 +75,12 @@ describe('StatisticsProvider', () => {
     });
 
     beforeEach(() => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const statisticsProvider = new StatisticsProvider({
             statisticsStorage: statisticsStorageMock,
             // @ts-expect-error - partially implemented
             timers: timersMock,
         });
+        statisticsProvider.init();
     });
 
     afterEach(() => {
