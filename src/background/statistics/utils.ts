@@ -56,11 +56,19 @@ export function keyToDate(key: string): Date | null {
         .split(STATISTICS_DATE_SEPARATOR)
         .map((part) => parseInt(part, 10));
 
+    // Validate the parts
     if (parts.length < 3 || parts.length > 4 || parts.some((part) => Number.isNaN(part))) {
         return null;
     }
 
     const [year, month, day, hour = 0] = parts;
 
-    return new Date(Date.UTC(year, month - 1, day, hour));
+    const date = new Date(Date.UTC(year, month - 1, day, hour));
+
+    // Check if the date is valid
+    if (Number.isNaN(date.getTime())) {
+        return null;
+    }
+
+    return date;
 }
