@@ -705,17 +705,13 @@ describe('StatisticsStorage', () => {
 
             await statisticsStorage.init();
 
-            // for update stale statistics
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
-
             await statisticsStorage.addTraffic(locationId, {
                 downloadedBytes,
                 uploadedBytes,
             });
 
-            // for addTraffic
-            expect(storageMock.set).toHaveBeenCalledTimes(2);
-            expect(storageMock.set).toHaveBeenNthCalledWith(2, expect.any(String), getStatistics({
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics({
                 [locationId]: {
                     hourly: {
                         '2025-10-01-10': getData(downloadedBytes, uploadedBytes, 0),
@@ -733,14 +729,11 @@ describe('StatisticsStorage', () => {
 
             await statisticsStorage.init();
 
-            // for update stale statistics
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
-
             await statisticsStorage.startDuration(locationId);
 
             // for startDuration
-            expect(storageMock.set).toHaveBeenCalledTimes(2);
-            expect(storageMock.set).toHaveBeenNthCalledWith(2, expect.any(String), getStatistics({
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+            expect(storageMock.set).toHaveBeenNthCalledWith(1, expect.any(String), getStatistics({
                 [locationId]: {
                     hourly: {},
                     daily: {},
@@ -756,8 +749,8 @@ describe('StatisticsStorage', () => {
             await statisticsStorage.updateDuration(locationId);
 
             // for startDuration
-            expect(storageMock.set).toHaveBeenCalledTimes(3);
-            expect(storageMock.set).toHaveBeenNthCalledWith(3, expect.any(String), getStatistics({
+            expect(storageMock.set).toHaveBeenCalledTimes(2);
+            expect(storageMock.set).toHaveBeenNthCalledWith(2, expect.any(String), getStatistics({
                 [locationId]: {
                     hourly: {},
                     daily: {},
@@ -773,8 +766,8 @@ describe('StatisticsStorage', () => {
             await statisticsStorage.endDuration(locationId);
 
             // for endDuration
-            expect(storageMock.set).toHaveBeenCalledTimes(4);
-            expect(storageMock.set).toHaveBeenNthCalledWith(4, expect.any(String), getStatistics({
+            expect(storageMock.set).toHaveBeenCalledTimes(3);
+            expect(storageMock.set).toHaveBeenNthCalledWith(3, expect.any(String), getStatistics({
                 [locationId]: {
                     hourly: {
                         '2025-10-01-10': getDuration(2000),
