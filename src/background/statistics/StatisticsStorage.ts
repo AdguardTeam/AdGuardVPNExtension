@@ -2,6 +2,7 @@ import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
 
+import { dateToKey, keyToDate } from './utils';
 import {
     type AddStatisticsDataTraffic,
     type StatisticsLocationData,
@@ -90,11 +91,6 @@ export interface StatisticsStorageParameters {
  * The calculated duration is then distributed to the appropriate hourly, daily, and total buckets.
  */
 export class StatisticsStorage implements StatisticsStorageInterface {
-    /**
-     * Separator for date keys.
-     */
-    private static readonly DATE_SEPARATOR = '-';
-
     /**
      * Key for statistics storage in local storage.
      */
@@ -394,7 +390,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         Object.entries(sourceStorage).forEach(([key, data]) => {
             // convert key to date
-            const date = StatisticsStorage.keyToDate(key);
+            const date = keyToDate(key);
 
             // delete and skip if date is not valid
             if (!date) {
@@ -471,7 +467,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         isHourly: boolean,
         date = new Date(),
     ): StatisticsData {
-        const dateKey = StatisticsStorage.dateToKey(isHourly, date);
+        const dateKey = dateToKey(isHourly, date);
         const periodStorage = isHourly ? hourly : daily;
 
         let periodData: StatisticsData;
@@ -552,69 +548,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             await this.saveStatistics();
         }
     };
-
-    /**
-     * Gets dash separated storage key for the current date in UTC format.
-     *
-     * @example
-     * ```ts
-     * StatisticsStorage.dateToKey(false); // 2025-05-19
-     * StatisticsStorage.dateToKey(true); // 2025-05-19-12
-     * StatisticsStorage.dateToKey(false, new Date('2023-04-01T12:00:00Z')); // 2023-04-01
-     * StatisticsStorage.dateToKey(true, new Date('2023-04-01T12:00:00Z')); // 2023-04-01-12
-     * ```
-     *
-     * @param includeHours Whether to include hours in the date string.
-     * @param date Date to convert. If not provided, current date is used.
-     *
-     * @returns Key of current date in UTC format.
-     */
-    public static dateToKey(includeHours: boolean, date = new Date()): string {
-        const parts = [
-            date.getUTCFullYear(),
-            date.getUTCMonth() + 1,
-            date.getUTCDate(),
-        ];
-
-        if (includeHours) {
-            parts.push(date.getUTCHours());
-        }
-
-        return parts
-            .map((part) => String(part).padStart(2, '0'))
-            .join(StatisticsStorage.DATE_SEPARATOR);
-    }
-
-    /**
-     * Converts a date key to a Date object.
-     * The key should be in the format `'YYYY-MM-DD'` or `'YYYY-MM-DD-HH'`.
-     * If hour is not provided, it will be set to 0.
-     *
-     * @example
-     * ```ts
-     * StatisticsStorage.keyToDate('2023-04-01'); // 2023-04-01T00:00:00.000Z
-     * StatisticsStorage.keyToDate('2023-04-01-12'); // 2023-04-01T12:00:00.000Z
-     * StatisticsStorage.keyToDate('2023-04-01-12-30'); // null
-     * ```
-     *
-     * @param key Key to convert.
-     *
-     * @returns Date object or null if the key is not valid.
-     */
-    public static keyToDate(key: string): Date | null {
-        const parts = key
-            .split(StatisticsStorage.DATE_SEPARATOR)
-            .map((part) => parseInt(part, 10));
-
-        if (parts.length < 3 || parts.length > 4 || parts.some((part) => Number.isNaN(part))) {
-            log.error(`Key "${key}" is not valid date key`);
-            return null;
-        }
-
-        const [year, month, day, hour = 0] = parts;
-
-        return new Date(Date.UTC(year, month - 1, day, hour));
-    }
 
     /**
      * Gets the timestamp with cropped hours or minutes for the given timestamp.
