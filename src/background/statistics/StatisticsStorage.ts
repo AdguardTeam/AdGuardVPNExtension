@@ -156,6 +156,11 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private isStatisticsChanged = false;
 
     /**
+     * Flag indicating whether telemetry module is initialized or not.
+     */
+    private isInitialized = false;
+
+    /**
      * Constructor.
      */
     constructor({ storage }: StatisticsStorageParameters) {
@@ -171,6 +176,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         try {
             log.info('Statistics storage ready');
             await this.gainStatistics();
+            this.isInitialized = true;
         } catch (e) {
             log.error('Unable to initialize statistics storage, due to error:', e);
         }
@@ -504,8 +510,22 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         return periodData;
     }
 
+    /**
+     * Asserts that the statistics storage is initialized.
+     * Used to protect against calling public methods before initialization.
+     *
+     * @throws Error if the statistics storage is not initialized.
+     */
+    private assertInitialized(): void {
+        if (!this.isInitialized) {
+            throw new Error('Statistics storage is not initialized yet. Please call init() method first.');
+        }
+    }
+
     /** @inheritdoc */
     public addTraffic = async (locationId: string, data: AddStatisticsDataTraffic): Promise<void> => {
+        this.assertInitialized();
+
         const locationData = this.getLocationData(locationId);
         const hourlyData = this.getPeriodStatistics(locationData, true);
 
@@ -517,6 +537,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /** @inheritdoc */
     public startDuration = async (locationId: string): Promise<void> => {
+        this.assertInitialized();
+
         const locationData = this.getLocationData(locationId);
 
         const now = Date.now();
@@ -553,12 +575,16 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /** @inheritdoc */
     public updateDuration = async (locationId: string): Promise<void> => {
+        this.assertInitialized();
+
         this.updateDurationTracker(locationId);
         await this.saveStatistics();
     };
 
     /** @inheritdoc */
     public endDuration = async (locationId: string): Promise<void> => {
+        this.assertInitialized();
+
         const locationData = this.updateDurationTracker(locationId);
 
         // distribute duration to statistics and save if updated
