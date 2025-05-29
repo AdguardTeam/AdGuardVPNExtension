@@ -120,10 +120,10 @@ describe('StatisticsService', () => {
                             '2025-10-01-09': getData(1),
                         },
                         daily: {
-                            '2025-09-30': getData(1),
-                            '2025-09-29': getData(1),
+                            '2025-09-30': getData(1), // <-- should not be included
+                            '2025-09-29': getData(1), // <-- should not be included
                         },
-                        total: getData(1),
+                        total: getData(1), // <-- should not be included
                     },
                     locationId2: {
                         hourly: {
@@ -131,10 +131,10 @@ describe('StatisticsService', () => {
                             '2025-10-01-09': getData(3),
                         },
                         daily: {
-                            '2025-09-30': getData(3),
-                            '2025-09-29': getData(2),
+                            '2025-09-30': getData(3), // <-- should not be included
+                            '2025-09-29': getData(2), // <-- should not be included
                         },
-                        total: getData(4),
+                        total: getData(4), // <-- should not be included
                     },
                 },
                 expected: {
@@ -171,7 +171,7 @@ describe('StatisticsService', () => {
                             '2025-09-23': getData(1), // <-- should not be included
                             '2025-09-22': getData(1), // <-- should not be included
                         },
-                        total: getData(1),
+                        total: getData(1), // <-- should not be included
                     },
                     locationId2: {
                         hourly: {
@@ -185,7 +185,7 @@ describe('StatisticsService', () => {
                             '2025-09-24': getData(1),
                             '2025-09-23': getData(1), // <-- should not be included
                         },
-                        total: getData(4),
+                        total: getData(4), // <-- should not be included
                     },
                 },
                 expected: {
