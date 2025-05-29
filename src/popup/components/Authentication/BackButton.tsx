@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import { rootStore } from '../../stores';
+import { IconButton } from '../../../common/components/Icons';
 
 export const BackButton = () => {
     const { authStore } = useContext(rootStore);
@@ -26,14 +27,10 @@ export const BackButton = () => {
     };
 
     return (
-        <button
-            className="button button--back button--gray"
-            type="button"
+        <IconButton
+            name="back"
+            className="button--back"
             onClick={handleBackClick}
-        >
-            <svg className="icon icon--button">
-                <use xlinkHref="#back" />
-            </svg>
-        </button>
+        />
     );
 };

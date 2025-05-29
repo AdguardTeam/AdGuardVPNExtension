@@ -16,14 +16,6 @@
         transform: var(--t3) color;
         text-align: right;
         overflow: hidden;
-
-        &-icon {
-            transition: var(--t3) transform;
-
-            .select--active & {
-                transform: rotate(180deg);
-            }
-        }
     }
 
     &__list {
@@ -79,7 +71,6 @@
         }
 
         &-icon {
-            color: var(--stroke-icons-product-icon-default);
             display: none;
 
             .select__item--active & {

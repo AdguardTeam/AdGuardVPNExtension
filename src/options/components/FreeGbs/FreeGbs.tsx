@@ -2,11 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import classNames from 'classnames';
-
 import { translator } from '../../../common/translator';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { Icon, IconButton } from '../../../common/components/Icons';
 import {
     TelemetryActionName,
     TelemetryScreenName,
@@ -16,7 +15,6 @@ import { rootStore } from '../../stores';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Title } from '../ui/Title';
 import { Controls } from '../ui/Controls';
-import { Icon, IconButton } from '../ui/Icon';
 
 import { InviteFriend } from './InviteFriend';
 import { ConfirmEmail } from './ConfirmEmail';
@@ -178,9 +176,9 @@ export const FreeGbs = observer(() => {
                 key={query}
                 title={title}
                 description={completed ? statusDone : status}
-                className={classNames('free-gbs__button', completed && 'free-gbs__button--done')}
-                beforeAction={<Icon name="checkmark" className="free-gbs__button-check-icon" />}
-                action={<IconButton name="arrow-down" className="free-gbs__button-arrow-icon" />}
+                className="free-gbs__button"
+                beforeAction={<Icon name="checkmark" color={completed ? 'product' : 'gray'} />}
+                action={<IconButton name="arrow-down" rotation="clockwise" />}
                 onClick={handleClick}
             />
         );

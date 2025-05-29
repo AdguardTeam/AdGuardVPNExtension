@@ -1,0 +1,36 @@
+.icon-button {
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    &--hover-color {
+        &-current {
+            --icon-hover-color: currentColor;
+        }
+
+        &-gray {
+            --icon-hover-color: var(--stroke-icons-gray-icons-hover);
+        }
+
+        &-product {
+            --icon-hover-color: var(--stroke-icons-product-icon-default);
+        }
+
+        &-error {
+            --icon-hover-color: var(--stroke-icons-error-icon-default);
+        }
+
+        &-text-main {
+            --icon-hover-color: var(--text-main-text-main-default);
+        }
+    }
+
+    &:hover .icon,
+    &:active .icon,
+    &:focus-visible .icon {
+        color: var(--icon-hover-color);
+    }
+}

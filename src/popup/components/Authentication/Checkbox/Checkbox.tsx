@@ -2,7 +2,7 @@ import React from 'react';
 
 import cn from 'classnames';
 
-import { Icon } from '../../ui/Icon';
+import { Icon } from '../../../../common/components/Icons/Icon';
 
 import './checkbox.pcss';
 
@@ -50,8 +50,8 @@ export const Checkbox = ({
                     tabIndex={-1}
                 />
                 <Icon
-                    icon={checked ? 'checked' : 'unchecked'}
-                    className="checkbox__icon"
+                    name={checked ? 'checkbox-enabled' : 'checkbox-disabled'}
+                    color={checked ? 'product' : 'gray'}
                 />
             </button>
             <div

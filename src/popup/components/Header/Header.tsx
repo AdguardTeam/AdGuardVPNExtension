@@ -7,7 +7,7 @@ import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { translator } from '../../../common/translator';
 import { TelemetryActionName, TelemetryScreenName, type HeaderScreenNames } from '../../../background/telemetry';
-import { Icon } from '../ui/Icon';
+import { Icon, IconButton } from '../../../common/components/Icons';
 
 import './header.pcss';
 
@@ -72,8 +72,6 @@ export const Header = observer(({
         'header--main': showMenuButton,
     });
 
-    const tabIndex = 0;
-
     /**
      * Gift button should be shown if:
      * 1. User is not premium;
@@ -93,7 +91,7 @@ export const Header = observer(({
                 {shouldShowGiftBtn && (
                     <button className="header__referral" type="button" onClick={handleOpenReferral}>
                         <span className="button header__referral__button">
-                            <Icon icon="gift" className="icon--button" />
+                            <Icon name="gift" />
                         </span>
                         <span className="header__referral__hint">
                             {translator.getMessage('referral_get_free_traffic')}
@@ -101,14 +99,11 @@ export const Header = observer(({
                     </button>
                 )}
                 {showMenuButton && (
-                    <button
-                        className="button header__setting"
-                        type="button"
-                        tabIndex={tabIndex}
+                    <IconButton
+                        name="bar"
+                        size="20"
                         onClick={handleOpenModal}
-                    >
-                        <Icon icon="bar" className="icon--button icon--popup-menu" />
-                    </button>
+                    />
                 )}
             </div>
         </div>
@@ -127,9 +122,7 @@ export const HeaderScreenShot = () => (
             <div className="logo" />
         </div>
         <div className="header__actions">
-            <button type="button" className="button header__setting">
-                <Icon icon="bar" className="icon--button icon--popup-menu" />
-            </button>
+            <IconButton name="bar" size="20" />
         </div>
     </div>
 );

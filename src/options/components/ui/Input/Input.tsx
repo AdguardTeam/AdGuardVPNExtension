@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { IconButton } from '../Icon';
+import { IconButton } from '../../../../common/components/Icons';
 
 import './input.pcss';
 
@@ -124,8 +124,8 @@ export function Input({
                 {value && !readOnly && (
                     <IconButton
                         name="cross"
-                        onClick={clearValue}
                         className="input__clear-btn"
+                        onClick={clearValue}
                     />
                 )}
                 {postfix && (

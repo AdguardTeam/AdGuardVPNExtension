@@ -2,9 +2,9 @@ import React, { useRef, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
-import { useOutsideFocus } from '../../../../common/components/ui/useOutsideFocus';
-import { Icon } from '../Icon';
+import { useOutsideClick } from '../../../../common/hooks/useOutsideClick';
+import { useOutsideFocus } from '../../../../common/hooks/useOutsideFocus';
+import { Icon } from '../../../../common/components/Icons';
 
 import './select.pcss';
 
@@ -77,7 +77,11 @@ function SelectOption<T extends string>({
             tabIndex={!isSelectActive ? -1 : undefined}
         >
             {title}
-            <Icon name="tick" className="select__item-icon" />
+            <Icon
+                name="tick"
+                color="product"
+                className="select__item-icon"
+            />
         </button>
     );
 }
@@ -163,7 +167,11 @@ export function Select<T extends string>({
                 <span className="select__btn-text text-ellipsis">
                     {activeItem?.title}
                 </span>
-                <Icon name="arrow-down" className="select__btn-icon" />
+                <Icon
+                    name="arrow-down"
+                    color="gray"
+                    rotation={isActive ? 'upside-down' : 'none'}
+                />
             </button>
             <div className="select__list">
                 {options.map((option) => (

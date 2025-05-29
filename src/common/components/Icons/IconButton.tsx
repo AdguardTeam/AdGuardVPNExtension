@@ -2,33 +2,30 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { Icon } from './Icon';
+import { Icon, type IconColor, type IconProps } from './Icon';
+
+import './icon-button.pcss';
 
 /**
  * IconButton component props.
  */
-export interface IconButtonProps {
+export interface IconButtonProps extends IconProps {
     /**
      * Button type. Default is 'button'.
      */
     type?: 'button' | 'submit' | 'reset';
 
     /**
-     * Button hover color. Default is 'primary'.
+     * Color of the icon.
+     * Default is `'gray'`.
      */
-    hoverColor?: 'primary' | 'success' | 'error';
+    color?: IconColor;
 
     /**
-     * The name of the icon to display.
-     *
-     * Full list of available icons can be found in the `Icons.tsx` file.
+     * Hover color of the icon.
+     * Default is `'text-main'`.
      */
-    name: string;
-
-    /**
-     * Additional class name.
-     */
-    className?: string;
+    hoverColor?: IconColor;
 
     /**
      * Additional icon class name.
@@ -38,20 +35,23 @@ export interface IconButtonProps {
     /**
      * Click event handler.
      */
-    onClick?: (e: React.MouseEvent) => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export function IconButton({
-    type = 'button',
-    hoverColor = 'primary',
     name,
+    size,
+    rotation,
     className,
+    type = 'button',
+    color = 'gray',
+    hoverColor = 'text-main',
     iconClassName,
     onClick,
 }: IconButtonProps) {
     const classes = classNames(
         'icon-button has-tab-focus',
-        `icon-button--hover-${hoverColor}`,
+        `icon-button--hover-color-${hoverColor}`,
         className,
     );
 
@@ -62,7 +62,13 @@ export function IconButton({
             className={classes}
             onClick={onClick}
         >
-            <Icon name={name} className={iconClassName} />
+            <Icon
+                name={name}
+                color={color}
+                size={size}
+                rotation={rotation}
+                className={iconClassName}
+            />
         </button>
     );
 }

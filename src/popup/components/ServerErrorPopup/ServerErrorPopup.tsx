@@ -8,6 +8,7 @@ import { TelemetryActionName, TelemetryScreenName } from '../../../background/te
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { IconButton } from '../../../common/components/Icons';
 
 import './server-error-popup.pcss';
 
@@ -101,15 +102,11 @@ export const ServerErrorPopup = observer(() => {
             overlayClassName="modal__overlay"
             onRequestClose={closeModal}
         >
-            <button
-                type="button"
-                className="button button--icon modal__close-icon"
+            <IconButton
+                name="cross"
+                className="close-icon-btn"
                 onClick={closeModal}
-            >
-                <svg className="icon icon--button icon--cross">
-                    <use xlinkHref="#cross" />
-                </svg>
-            </button>
+            />
             <div className={imageClasses} />
             <div className="modal__title">
                 {serverErrorPopupData[state].title}

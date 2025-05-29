@@ -6,7 +6,7 @@ import cn from 'classnames';
 import { rootStore } from '../../../../../stores';
 import { type PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
 import { containsIgnoreCase } from '../../../../../../common/components/SearchHighlighter/helpers';
-import { Icon } from '../../../../ui/Icon';
+import { Icon } from '../../../../../../common/components/Icons';
 
 import { ServiceRow } from './ServiceRow';
 
@@ -54,7 +54,11 @@ export const ServiceCategory = observer(({
                 type="button"
                 onClick={handleClickOnCategory}
             >
-                <Icon name="arrow-down" className="service-mode-category__btn-icon" />
+                <Icon
+                    name="arrow-down"
+                    color="gray"
+                    rotation={unfoldCategory ? 'none' : 'clockwise'}
+                />
                 <span className="text-ellipsis">
                     {category.name}
                 </span>

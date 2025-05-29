@@ -8,14 +8,12 @@ import { getForwarderUrl } from '../../../common/helpers';
 import { messenger } from '../../../common/messenger';
 import { translator } from '../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { Icon, IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
-import { Icon, IconButton } from '../ui/Icon';
 import { Controls } from '../ui/Controls';
 
 import { BugReporter } from './BugReporter';
-
-import './support.pcss';
 
 /**
  * Support items interface.
@@ -113,8 +111,8 @@ export const Support = observer(() => {
                 key={title}
                 title={title}
                 description={description}
-                beforeAction={<Icon name={icon} className="support__icon" />}
-                action={<IconButton name="arrow-down" className="support__btn-icon" />}
+                beforeAction={<Icon name={icon} color="product" />}
+                action={<IconButton name="arrow-down" rotation="clockwise" />}
                 onClick={clickHandler}
             />
         );

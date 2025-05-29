@@ -6,11 +6,11 @@ import classnames from 'classnames';
 
 import { translator } from '../../../common/translator';
 import { SearchHighlighter } from '../../../common/components/SearchHighlighter';
+import { Icon } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
 import { type LocationData } from '../../stores/VpnStore';
 import { Ping } from '../Ping';
 import { PingDotsLoader } from '../PingDotsLoader';
-import { Icon } from '../ui/Icon';
 
 /**
  * Get flag icon style object by country code.
@@ -180,10 +180,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
                 className="endpoint__save-btn"
                 onClick={handleSaveClick}
             >
-                <Icon
-                    icon={saved ? 'bookmark-on' : 'bookmark-off'}
-                    className="endpoint__save-btn-icon"
-                />
+                <Icon name={saved ? 'bookmark-on' : 'bookmark-off'} />
             </div>
         );
     };

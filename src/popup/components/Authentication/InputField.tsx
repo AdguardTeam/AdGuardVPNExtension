@@ -2,8 +2,8 @@ import React from 'react';
 
 import classnames from 'classnames';
 
+import { IconButton } from '../../../common/components/Icons';
 import { type CredentialsKey } from '../../stores/AuthStore';
-import { Icon } from '../ui/Icon';
 
 interface InputFieldParameters {
     id: CredentialsKey;
@@ -38,7 +38,7 @@ export const InputField = ({
     );
 
     const buttonClassName = classnames(
-        'button button--close form__input-btn',
+        'form__input-btn',
         { 'form__input-btn--active': !disabled && value.length > 0 },
     );
 
@@ -77,16 +77,11 @@ export const InputField = ({
                         disabled={disabled}
                         autoComplete={autocomplete}
                     />
-                    <button
-                        type="button"
+                    <IconButton
+                        name="cross"
                         className={buttonClassName}
                         onClick={handleClear}
-                    >
-                        <Icon
-                            icon="cross"
-                            className="icon--button"
-                        />
-                    </button>
+                    />
                 </div>
             </label>
         </div>

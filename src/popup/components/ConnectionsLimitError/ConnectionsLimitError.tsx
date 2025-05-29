@@ -11,9 +11,9 @@ import { messenger } from '../../../common/messenger';
 import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { IconButton } from '../../../common/components/Icons';
 import { TelemetryScreenName } from '../../../background/telemetry';
 import confusedImageUrl from '../../../assets/images/confused.svg';
-import { Icon } from '../ui/Icon';
 
 export const ConnectionsLimitError = observer(() => {
     const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
@@ -91,13 +91,11 @@ export const ConnectionsLimitError = observer(() => {
             unmountOnExit
         >
             <div ref={nodeRef} className="new-global-error new-global-error--device">
-                <button
-                    type="button"
+                <IconButton
+                    name="cross"
+                    className="close-icon-btn"
                     onClick={handleCloseClick}
-                    className="new-global-error__close-btn"
-                >
-                    <Icon icon="cross" className="icon--button" />
-                </button>
+                />
                 <div className="new-global-error__image-wrapper">
                     <img
                         src={confusedImageUrl}
