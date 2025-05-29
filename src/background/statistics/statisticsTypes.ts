@@ -20,7 +20,7 @@ export interface StatisticsData {
 
 /**
  * Hourly based statistics data.
- * It stores statistics data for past 24 hours.
+ * It stores statistics data for past 25 hours.
  */
 export interface StatisticsHourlyStorage {
     /**
@@ -34,7 +34,7 @@ export interface StatisticsHourlyStorage {
 
 /**
  * Daily based statistics data.
- * It stores statistics data for past 30 days.
+ * It stores statistics data for past 31 days.
  */
 export interface StatisticsDailyStorage {
     /**
@@ -67,19 +67,19 @@ export interface StatisticsDurationTracker {
 export interface StatisticsLocationData {
     /**
      * Hourly based statistics data.
-     * It stores statistics data for past 24 hours.
+     * It stores statistics data for past 25 hours.
      */
     hourly: StatisticsHourlyStorage;
 
     /**
      * Daily based statistics data.
-     * It stores statistics data for past 30 days.
+     * It stores statistics data for past 31 days.
      */
     daily: StatisticsDailyStorage;
 
     /**
      * Total statistics data.
-     * It stores statistics data for dates that are older than 30 days.
+     * It stores statistics data for dates that are older than 31 days.
      */
     total: StatisticsData;
 

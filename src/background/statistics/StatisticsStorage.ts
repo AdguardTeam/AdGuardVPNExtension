@@ -1,8 +1,10 @@
+import throttle from 'lodash/throttle';
+
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
 
-import { dateToKey, keyToDate } from './utils';
+import { dateToKey, keyToDate, watchChanges } from './utils';
 import {
     type AddStatisticsDataTraffic,
     type StatisticsLocationData,
@@ -83,16 +85,24 @@ export interface StatisticsStorageParameters {
  *   - Locations storage contains location IDs as keys, location data as values.
  *     - Location data contains hourly, daily, total statistics and optional duration tracker.
  *       - Hourly statistics contains datetime keys (YYYY-MM-DD-HH) and statistics data as values.
- *         Used to store statistics for the last 24 hours (inclusive).
+ *         Used to store statistics for the last 25 hours (inclusive).
  *       - Daily statistics contains date keys (YYYY-MM-DD) and statistics data as values.
- *         Used to store statistics older than 24 hours up to the last 30 days (inclusive).
- *       - Total statistics used to store statistics that are older than 30 days.
+ *         Used to store statistics older than 25 hours up to the last 31 days (inclusive).
+ *       - Total statistics used to store statistics that are older than 31 days.
  *       - Optional duration tracker used to track connection duration statistics.
  *
  * Statistics implemented as time-based aggregation system:
  * - New statistics data is initially stored in hourly buckets (YYYY-MM-DD-HH).
- * - After 24 hours, hourly data is consolidated into daily buckets (YYYY-MM-DD).
- * - After 30 days, daily data is consolidated into a single 'total' record.
+ * - After 25 hours, hourly data is consolidated into daily buckets (YYYY-MM-DD).
+ * - After 31 days, daily data is consolidated into a single 'total' record.
+ *
+ * The reason why we store 25 hours / 31 days of statistics instead of 24 hours / 30 days
+ * is due to storage design, because we can't store statistics by minutes we lose precise
+ * information about the last hour / day For example if user requests statistics
+ * for 28 May 2025 22:51:30 - 29 May 2025 22:51:30, but because we store statistics by full hours,
+ * we can only show statistics from 28 May 2025 22:00:00 to 29 May 2025 22:51:30,
+ * or 29 May 2025 23:00:00 to 29 May 2025 22:51:30, we move towards the top edge of the hour
+ * to keep the last hour data. Same applies to daily statistics.
  *
  * Data consolidation occurs when service worker starts ({@link init} method)
  * by checking timestamp thresholds and data from older buckets
@@ -131,6 +141,12 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private static readonly MOVE_DAILY_STATS_AFTER_MS = 30 * ONE_DAY_MS;
 
     /**
+     * Throttle timeout for saving statistics to local storage.
+     * The value is set to 5 seconds.
+     */
+    private static readonly SAVE_STATISTICS_TIMEOUT_MS = 5 * 1000;
+
+    /**
      * Browser local storage.
      */
     private storage: StorageInterface;
@@ -146,11 +162,15 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Mutex flag to prevent unnecessary writes to storage.
      * This value is `true` when statistics data is changed and write is allowed.
      *
-     * NOTE: Change this flag only AFTER the statistics data is changed,
-     * and BEFORE {@link saveStatistics} method is called, this way we can ensure
-     * that asynchronous writes to storage are not called multiple times with same data.
+     * NOTE: Do not change this flag manually, because this flag is changed
+     * only when proxy detects changes in statistics data.
      */
     private isStatisticsChanged = false;
+
+    /**
+     * Flag indicating whether telemetry module is initialized or not.
+     */
+    private isInitialized = false;
 
     /**
      * Last timestamp when statistics were updated.
@@ -163,6 +183,10 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      */
     constructor({ storage }: StatisticsStorageParameters) {
         this.storage = storage;
+        this.saveStatistics = throttle(
+            this.saveStatistics.bind(this),
+            StatisticsStorage.SAVE_STATISTICS_TIMEOUT_MS,
+        );
     }
 
     /** @inheritdoc */
@@ -170,6 +194,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         try {
             log.info('Statistics storage ready');
             await this.gainStatistics();
+            this.isInitialized = true;
         } catch (e) {
             log.error('Unable to initialize statistics storage, due to error:', e);
         }
@@ -185,14 +210,22 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
 
         try {
-            this.isStatisticsChanged = false;
             await this.storage.set<Statistics>(
                 StatisticsStorage.STATISTICS_STORAGE_KEY,
                 this.statistics,
             );
+            this.isStatisticsChanged = false;
         } catch (e) {
             log.error('Unable to save statistics storage, due to error:', e);
         }
+    }
+
+    /**
+     * Handles event when statistics data is changed.
+     */
+    private handleStatisticsChanged(): void {
+        // set flag to true to allow saving statistics
+        this.isStatisticsChanged = true;
     }
 
     /**
@@ -203,18 +236,20 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * After that, it saves the statistics to local storage.
      */
     private async gainStatistics(): Promise<void> {
-        const statistics = await this.storage.get<Statistics>(
+        let statistics = await this.storage.get<Statistics>(
             StatisticsStorage.STATISTICS_STORAGE_KEY,
         );
 
         if (!statistics) {
-            this.statistics = {
+            statistics = {
                 locations: {},
                 startedTimestamp: Date.now(),
             };
+
+            this.statistics = watchChanges(statistics, this.handleStatisticsChanged.bind(this));
             this.isStatisticsChanged = true;
         } else {
-            this.statistics = statistics;
+            this.statistics = watchChanges(statistics, this.handleStatisticsChanged.bind(this));
             this.updateStaleStatistics();
         }
 
@@ -225,9 +260,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Updates stale statistics by:
      * 1. Distributing the duration tracker to hourly / daily / total statistics
      *    (see {@link distributeDuration} for detailed explanation),
-     * 2. Moving hourly statistics to daily statistics if 24 hours passed
+     * 2. Moving hourly statistics to daily statistics if 25 hours passed
      *    (see {@link moveStatistics} for detailed explanation),
-     * 3. Moving daily statistics to total statistics if 30 days passed
+     * 3. Moving daily statistics to total statistics if 31 days passed
      *    (see {@link moveStatistics} for detailed explanation);
      *
      * Note: Order of operations described above is important,
@@ -266,8 +301,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const deleteDurationTracker = () => {
             // eslint-disable-next-line no-param-reassign
             delete locationData.durationTracker;
-
-            this.isStatisticsChanged = true;
         };
 
         // if the duration is not valid, delete tracker and skip
@@ -293,7 +326,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         // add to total if the duration is valid
         if (totalDuration > 0) {
             total.durationMs += totalDuration;
-            this.isStatisticsChanged = true;
         }
 
         /**
@@ -373,7 +405,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
             const durationToAdd = Math.min(current + increment, end) - current;
             data.durationMs += durationToAdd;
-            this.isStatisticsChanged = true;
             current += durationToAdd;
 
             if (isFirstIteration) {
@@ -385,7 +416,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /**
      * Moves hourly / daily statistics by traversing the each available hourly / daily data
-     * and if for given hour / day 24 hours / 30 days is passed, it moves the statistics
+     * and if for given hour / day 25 hours / 31 days is passed, it moves the statistics
      * to according daily statistics (`YYYY-MM-DD-HH` -> `YYYY-MM-DD` / `YYYY-MM-DD` -> `total`).
      *
      * @param locationData Location data.
@@ -414,12 +445,12 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             // delete and skip if date is not valid
             if (!date) {
                 delete sourceStorage[key];
-                this.isStatisticsChanged = true;
                 return;
             }
 
             // skip if 24 hours / 30 days is not passed, inclusive (>=)
-            // to store last 24 hours / 30 days data, instead of last 23 hours / 29 days
+            // to store last 25 hours / 31 days data, instead of last 24 hours / 30 days
+            // see class jsdoc for explanation
             if (date.getTime() >= borderTimestamp) {
                 return;
             }
@@ -440,7 +471,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
             // remove hourly / daily data after moving
             delete sourceStorage[key];
-            this.isStatisticsChanged = true;
         });
     }
 
@@ -465,7 +495,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
                 },
             };
             this.statistics.locations[locationId] = locationData;
-            this.isStatisticsChanged = true;
         }
 
         return locationData;
@@ -495,26 +524,40 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         } else {
             periodData = { ...StatisticsStorage.DEFAULT_STATISTICS_DATA };
             periodStorage[dateKey] = periodData;
-            this.isStatisticsChanged = true;
         }
 
         return periodData;
     }
 
+    /**
+     * Asserts that the statistics storage is initialized.
+     * Used to protect against calling public methods before initialization.
+     *
+     * @throws Error if the statistics storage is not initialized.
+     */
+    private assertInitialized(): void {
+        if (!this.isInitialized) {
+            throw new Error('Statistics storage is not initialized yet. Please call init() method first.');
+        }
+    }
+
     /** @inheritdoc */
     public addTraffic = async (locationId: string, data: AddStatisticsDataTraffic): Promise<void> => {
+        this.assertInitialized();
+
         const locationData = this.getLocationData(locationId);
         const hourlyData = this.getPeriodStatistics(locationData, true);
 
         const { downloadedBytes, uploadedBytes } = data;
         hourlyData.downloadedBytes += downloadedBytes;
         hourlyData.uploadedBytes += uploadedBytes;
-        this.isStatisticsChanged = true;
         await this.saveStatistics();
     };
 
     /** @inheritdoc */
     public startDuration = async (locationId: string): Promise<void> => {
+        this.assertInitialized();
+
         const locationData = this.getLocationData(locationId);
 
         const now = Date.now();
@@ -528,7 +571,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             locationData.durationTracker.lastUpdatedTimestamp = now;
         }
 
-        this.isStatisticsChanged = true;
         await this.saveStatistics();
     };
 
@@ -546,19 +588,22 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
 
         locationData.durationTracker.lastUpdatedTimestamp = Date.now();
-        this.isStatisticsChanged = true;
 
         return locationData;
     }
 
     /** @inheritdoc */
     public updateDuration = async (locationId: string): Promise<void> => {
+        this.assertInitialized();
+
         this.updateDurationTracker(locationId);
         await this.saveStatistics();
     };
 
     /** @inheritdoc */
     public endDuration = async (locationId: string): Promise<void> => {
+        this.assertInitialized();
+
         const locationData = this.updateDurationTracker(locationId);
 
         // distribute duration to statistics and save if updated
@@ -589,6 +634,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /** @inheritdoc */
     public getStatistics = async (): Promise<Statistics> => {
+        this.assertInitialized();
+
         // we need to update statistics first and only after that return the data
         // this is needed in case if extension is running longer than 1 hour
         if (this.shouldUpdateStatistics()) {
@@ -608,6 +655,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /** @inheritdoc */
     public clearStatistics = async (): Promise<void> => {
+        this.assertInitialized();
+
         // delete all locations
         this.statistics.locations = {};
 

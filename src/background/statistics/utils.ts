@@ -56,11 +56,77 @@ export function keyToDate(key: string): Date | null {
         .split(STATISTICS_DATE_SEPARATOR)
         .map((part) => parseInt(part, 10));
 
+    // Validate the parts
     if (parts.length < 3 || parts.length > 4 || parts.some((part) => Number.isNaN(part))) {
         return null;
     }
 
     const [year, month, day, hour = 0] = parts;
 
-    return new Date(Date.UTC(year, month - 1, day, hour));
+    const date = new Date(Date.UTC(year, month - 1, day, hour));
+
+    // Check if the date is valid
+    if (Number.isNaN(date.getTime())) {
+        return null;
+    }
+
+    return date;
+}
+
+/**
+ * Creates a deep proxy for an object that watches for changes to nested properties.
+ *
+ * @param obj Object to create a deep proxy for.
+ * @param callback Callback to call when a property (or nested property) is changed.
+ *
+ * @returns Proxied object.
+ */
+export function watchChanges<T extends object>(obj: T, callback: () => void): T {
+    const proxyCache = new WeakMap<object, any>();
+
+    const createProxy = <Obj extends object>(target: Obj): Obj => {
+        if (proxyCache.has(target)) {
+            return proxyCache.get(target);
+        }
+
+        const handler: ProxyHandler<Obj> = {
+            get(target, key, receiver) {
+                const value = Reflect.get(target, key, receiver);
+
+                if (typeof value === 'object' && value !== null) {
+                    return createProxy(value);
+                }
+
+                return value;
+            },
+
+            set(target, key, value, receiver) {
+                const oldValue = target[key as keyof Obj];
+                const result = Reflect.set(target, key, value, receiver);
+
+                if (oldValue !== value) {
+                    callback();
+                }
+
+                return result;
+            },
+
+            deleteProperty(target, key) {
+                const hadKey = key in target;
+                const result = Reflect.deleteProperty(target, key);
+
+                if (hadKey && result) {
+                    callback();
+                }
+
+                return result;
+            },
+        };
+
+        const proxy = new Proxy(target, handler);
+        proxyCache.set(target, proxy);
+        return proxy;
+    };
+
+    return createProxy(obj);
 }
