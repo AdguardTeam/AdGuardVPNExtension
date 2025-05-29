@@ -6,10 +6,11 @@ import {
     type StatisticsLocationsStorage,
 } from '../../../src/background/statistics/statisticsTypes';
 
-const storageMock = {
-    get: jest.fn(),
-    set: jest.fn(),
-    remove: jest.fn(),
+const stateStorageMock = {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    init: jest.fn(),
+    waitInit: jest.fn(),
 };
 
 const providerMock = {
@@ -28,7 +29,7 @@ describe('StatisticsService', () => {
 
     beforeEach(() => {
         statisticsService = new StatisticsService({
-            storage: storageMock,
+            stateStorage: stateStorageMock,
             // @ts-expect-error - partially mocked
             statisticsStorage: statisticsStorageMock,
             provider: providerMock,
@@ -67,22 +68,16 @@ describe('StatisticsService', () => {
         expect(statisticsStorageMock.init).toHaveBeenCalledTimes(1);
 
         // get range
-        expect(storageMock.get).toHaveBeenCalledTimes(1);
-
-        // save range (because it was empty)
-        expect(storageMock.set).toHaveBeenCalledTimes(1);
+        expect(stateStorageMock.getItem).toHaveBeenCalledTimes(1);
     });
 
     it('should read range from local storage', async () => {
-        storageMock.get.mockResolvedValueOnce(StatisticsRange.Hours24);
+        stateStorageMock.getItem.mockReturnValueOnce({ range: StatisticsRange.Hours24 });
 
         await statisticsService.init();
 
         // get range
-        expect(storageMock.get).toHaveBeenCalledTimes(1);
-
-        // should not save range, because it was already in storage
-        expect(storageMock.set).not.toHaveBeenCalled();
+        expect(stateStorageMock.getItem).toHaveBeenCalledTimes(1);
 
         // @ts-expect-error - private property
         expect(statisticsService.range).toBe(StatisticsRange.Hours24);
@@ -287,7 +282,7 @@ describe('StatisticsService', () => {
         ];
 
         it.each(cases)('should correctly calculate range', async ({ range, storage, expected }) => {
-            storageMock.get.mockResolvedValueOnce(range);
+            stateStorageMock.getItem.mockReturnValueOnce({ range });
             statisticsStorageMock.getStatistics.mockResolvedValueOnce({
                 startedTimestamp: 12345,
                 locations: storage,
@@ -298,7 +293,7 @@ describe('StatisticsService', () => {
             const result = await statisticsService.getRangeStatistics(range);
 
             // should update range in local storage
-            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), range);
+            expect(stateStorageMock.setItem).toHaveBeenCalledWith(expect.any(String), { range });
             expect(result).toEqual(expected);
         });
     });
