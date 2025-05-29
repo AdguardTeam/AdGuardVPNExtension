@@ -1,8 +1,10 @@
+import throttle from 'lodash/throttle';
+
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
 
-import { dateToKey, keyToDate } from './utils';
+import { dateToKey, keyToDate, watchChanges } from './utils';
 import {
     type AddStatisticsDataTraffic,
     type StatisticsLocationData,
@@ -119,6 +121,12 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private static readonly MOVE_DAILY_STATS_AFTER_MS = 30 * ONE_DAY_MS;
 
     /**
+     * Throttle timeout for saving statistics to local storage.
+     * The value is set to 5 seconds.
+     */
+    private static readonly SAVE_STATISTICS_TIMEOUT_MS = 5 * 1000;
+
+    /**
      * Browser local storage.
      */
     private storage: StorageInterface;
@@ -134,9 +142,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Mutex flag to prevent unnecessary writes to storage.
      * This value is `true` when statistics data is changed and write is allowed.
      *
-     * NOTE: Change this flag only AFTER the statistics data is changed,
-     * and BEFORE {@link saveStatistics} method is called, this way we can ensure
-     * that asynchronous writes to storage are not called multiple times with same data.
+     * NOTE: Do not change this flag manually, because this flag is changed
+     * only when proxy detects changes in statistics data.
      */
     private isStatisticsChanged = false;
 
@@ -145,6 +152,10 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      */
     constructor({ storage }: StatisticsStorageParameters) {
         this.storage = storage;
+        this.saveStatistics = throttle(
+            this.saveStatistics.bind(this),
+            StatisticsStorage.SAVE_STATISTICS_TIMEOUT_MS,
+        );
     }
 
     /** @inheritdoc */
@@ -167,14 +178,22 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
 
         try {
-            this.isStatisticsChanged = false;
             await this.storage.set<Statistics>(
                 StatisticsStorage.STATISTICS_STORAGE_KEY,
                 this.statistics,
             );
+            this.isStatisticsChanged = false;
         } catch (e) {
             log.error('Unable to save statistics storage, due to error:', e);
         }
+    }
+
+    /**
+     * Handles event when statistics data is changed.
+     */
+    private handleStatisticsChanged(): void {
+        // set flag to true to allow saving statistics
+        this.isStatisticsChanged = true;
     }
 
     /**
@@ -185,18 +204,20 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * After that, it saves the statistics to local storage.
      */
     private async gainStatistics(): Promise<void> {
-        const statistics = await this.storage.get<Statistics>(
+        let statistics = await this.storage.get<Statistics>(
             StatisticsStorage.STATISTICS_STORAGE_KEY,
         );
 
         if (!statistics) {
-            this.statistics = {
+            statistics = {
                 locations: {},
                 startedTimestamp: Date.now(),
             };
+
+            this.statistics = watchChanges(statistics, this.handleStatisticsChanged.bind(this));
             this.isStatisticsChanged = true;
         } else {
-            this.statistics = statistics;
+            this.statistics = watchChanges(statistics, this.handleStatisticsChanged.bind(this));
             this.updateStaleStatistics();
         }
 
@@ -247,8 +268,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const deleteDurationTracker = () => {
             // eslint-disable-next-line no-param-reassign
             delete locationData.durationTracker;
-
-            this.isStatisticsChanged = true;
         };
 
         // if the duration is not valid, delete tracker and skip
@@ -274,7 +293,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         // add to total if the duration is valid
         if (totalDuration > 0) {
             total.durationMs += totalDuration;
-            this.isStatisticsChanged = true;
         }
 
         /**
@@ -354,7 +372,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
             const durationToAdd = Math.min(current + increment, end) - current;
             data.durationMs += durationToAdd;
-            this.isStatisticsChanged = true;
             current += durationToAdd;
 
             if (isFirstIteration) {
@@ -395,7 +412,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             // delete and skip if date is not valid
             if (!date) {
                 delete sourceStorage[key];
-                this.isStatisticsChanged = true;
                 return;
             }
 
@@ -421,7 +437,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
             // remove hourly / daily data after moving
             delete sourceStorage[key];
-            this.isStatisticsChanged = true;
         });
     }
 
@@ -446,7 +461,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
                 },
             };
             this.statistics.locations[locationId] = locationData;
-            this.isStatisticsChanged = true;
         }
 
         return locationData;
@@ -476,7 +490,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         } else {
             periodData = { ...StatisticsStorage.DEFAULT_STATISTICS_DATA };
             periodStorage[dateKey] = periodData;
-            this.isStatisticsChanged = true;
         }
 
         return periodData;
@@ -490,7 +503,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const { downloadedBytes, uploadedBytes } = data;
         hourlyData.downloadedBytes += downloadedBytes;
         hourlyData.uploadedBytes += uploadedBytes;
-        this.isStatisticsChanged = true;
         await this.saveStatistics();
     };
 
@@ -509,7 +521,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             locationData.durationTracker.lastUpdatedTimestamp = now;
         }
 
-        this.isStatisticsChanged = true;
         await this.saveStatistics();
     };
 
@@ -527,7 +538,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
 
         locationData.durationTracker.lastUpdatedTimestamp = Date.now();
-        this.isStatisticsChanged = true;
 
         return locationData;
     }

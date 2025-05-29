@@ -10,6 +10,8 @@ import {
 } from '../../../src/background/statistics/statisticsTypes';
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../../src/common/constants';
 
+jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
+
 jest.mock('../../../src/common/logger');
 
 const storageMock = {
