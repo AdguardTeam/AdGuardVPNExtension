@@ -625,10 +625,10 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         // update needed only if hour, day, month or year is different
         return (
-            now.getUTCFullYear() !== updatedTime.getUTCFullYear()
-            || now.getUTCMonth() !== updatedTime.getUTCMonth()
+            now.getUTCHours() !== updatedTime.getUTCHours()
             || now.getUTCDate() !== updatedTime.getUTCDate()
-            || now.getUTCHours() !== updatedTime.getUTCHours()
+            || now.getUTCMonth() !== updatedTime.getUTCMonth()
+            || now.getUTCFullYear() !== updatedTime.getUTCFullYear()
         );
     }
 
