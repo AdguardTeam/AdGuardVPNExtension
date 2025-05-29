@@ -3,6 +3,7 @@ import throttle from 'lodash/throttle';
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
+import { notifier } from '../../common/notifier';
 
 import { dateToKey, keyToDate, watchChanges } from './utils';
 import {
@@ -226,6 +227,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private handleStatisticsChanged(): void {
         // set flag to true to allow saving statistics
         this.isStatisticsChanged = true;
+
+        // notify listeners about statistics update
+        notifier.notifyListeners(notifier.types.STATS_UPDATED);
     }
 
     /**

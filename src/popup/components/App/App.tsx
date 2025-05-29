@@ -48,6 +48,7 @@ export const App = observer(() => {
         vpnStore,
         globalStore,
         telemetryStore,
+        statsStore,
     } = useContext(rootStore);
 
     const {
@@ -143,6 +144,10 @@ export const App = observer(() => {
                     authStore.setShouldShowRateModal(true);
                     break;
                 }
+                case notifier.types.STATS_UPDATED: {
+                    await statsStore.updateStatistics();
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -162,6 +167,7 @@ export const App = observer(() => {
             notifier.types.SERVER_ERROR,
             notifier.types.SETTING_UPDATED,
             notifier.types.SHOW_RATE_MODAL,
+            notifier.types.STATS_UPDATED,
         ];
 
         const { onUnload, portId } = messenger.createLongLivedConnection(events, messageHandler);

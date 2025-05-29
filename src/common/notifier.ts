@@ -23,6 +23,7 @@ export enum NotifierType {
     PERMISSIONS_ERROR_UPDATE = 'event.permission.error.update',
     TOKEN_PREMIUM_STATE_UPDATED = 'event.token.premium.state.updated',
     TRAFFIC_STATS_UPDATED = 'event.traffic.stats.updated',
+    STATS_UPDATED = 'event.stats.updated',
 
     // Connectivity state
     CONNECTIVITY_STATE_CHANGED = 'event.connectivity.state.changed',
