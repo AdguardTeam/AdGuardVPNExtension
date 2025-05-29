@@ -73,16 +73,24 @@ export interface StatisticsStorageParameters {
  *   - Locations storage contains location IDs as keys, location data as values.
  *     - Location data contains hourly, daily, total statistics and optional duration tracker.
  *       - Hourly statistics contains datetime keys (YYYY-MM-DD-HH) and statistics data as values.
- *         Used to store statistics for the last 24 hours (inclusive).
+ *         Used to store statistics for the last 25 hours (inclusive).
  *       - Daily statistics contains date keys (YYYY-MM-DD) and statistics data as values.
- *         Used to store statistics older than 24 hours up to the last 30 days (inclusive).
- *       - Total statistics used to store statistics that are older than 30 days.
+ *         Used to store statistics older than 25 hours up to the last 31 days (inclusive).
+ *       - Total statistics used to store statistics that are older than 31 days.
  *       - Optional duration tracker used to track connection duration statistics.
  *
  * Statistics implemented as time-based aggregation system:
  * - New statistics data is initially stored in hourly buckets (YYYY-MM-DD-HH).
- * - After 24 hours, hourly data is consolidated into daily buckets (YYYY-MM-DD).
- * - After 30 days, daily data is consolidated into a single 'total' record.
+ * - After 25 hours, hourly data is consolidated into daily buckets (YYYY-MM-DD).
+ * - After 31 days, daily data is consolidated into a single 'total' record.
+ *
+ * The reason why we store 25 hours / 31 days of statistics instead of 24 hours / 30 days
+ * is due to storage design, because we can't store statistics by minutes we lose precise
+ * information about the last hour / day For example if user requests statistics
+ * for 28 May 2025 22:51:30 - 29 May 2025 22:51:30, but because we store statistics by full hours,
+ * we can only show statistics from 28 May 2025 22:00:00 to 29 May 2025 22:51:30,
+ * or 29 May 2025 23:00:00 to 29 May 2025 22:51:30, we move towards the top edge of the hour
+ * to keep the last hour data. Same applies to daily statistics.
  *
  * Data consolidation occurs when service worker starts ({@link init} method)
  * by checking timestamp thresholds and data from older buckets
@@ -228,9 +236,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Updates stale statistics by:
      * 1. Distributing the duration tracker to hourly / daily / total statistics
      *    (see {@link distributeDuration} for detailed explanation),
-     * 2. Moving hourly statistics to daily statistics if 24 hours passed
+     * 2. Moving hourly statistics to daily statistics if 25 hours passed
      *    (see {@link moveStatistics} for detailed explanation),
-     * 3. Moving daily statistics to total statistics if 30 days passed
+     * 3. Moving daily statistics to total statistics if 31 days passed
      *    (see {@link moveStatistics} for detailed explanation);
      *
      * Note: Order of operations described above is important,
@@ -383,7 +391,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /**
      * Moves hourly / daily statistics by traversing the each available hourly / daily data
-     * and if for given hour / day 24 hours / 30 days is passed, it moves the statistics
+     * and if for given hour / day 25 hours / 31 days is passed, it moves the statistics
      * to according daily statistics (`YYYY-MM-DD-HH` -> `YYYY-MM-DD` / `YYYY-MM-DD` -> `total`).
      *
      * @param locationData Location data.
@@ -416,7 +424,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             }
 
             // skip if 24 hours / 30 days is not passed, inclusive (>=)
-            // to store last 24 hours / 30 days data, instead of last 23 hours / 29 days
+            // to store last 25 hours / 31 days data, instead of last 24 hours / 30 days
+            // see class jsdoc for explanation
             if (date.getTime() >= borderTimestamp) {
                 return;
             }
