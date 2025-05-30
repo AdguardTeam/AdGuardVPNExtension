@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
+import {
+    TelemetryScreenName,
+    TelemetryActionName,
+    type SupportItemClickActionNames,
+} from '../../../background/telemetry/telemetryEnums';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { TelemetryActionName, type SupportItemClickActionNames } from '../../../background/telemetry/telemetryEnums';
 import { getForwarderUrl } from '../../../common/helpers';
 import { messenger } from '../../../common/messenger';
 import { translator } from '../../../common/translator';
