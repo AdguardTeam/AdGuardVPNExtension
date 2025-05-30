@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { popupActions } from '../../../actions/popupActions';
-import { getForwarderUrl } from '../../../../common/helpers';
+import { getPrivacyAndEulaUrls } from '../../../../common/forwarderHelpers';
 import { translator } from '../../../../common/translator';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import vpnBlockedErrorNinjaImageUrl from '../../../../assets/images/vpn-blocked-error-ninja.svg';
 import { rootStore } from '../../../stores';
 import { Checkbox } from '../Checkbox';
@@ -23,8 +22,7 @@ export const PolicyAgreement = observer(() => {
     const { forwarderDomain } = settingsStore;
     const { openAgreementModal } = uiStore;
 
-    const eulaUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.EULA);
-    const privacyUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY);
+    const { eulaUrl, privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
 
     const handlePrivacyClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
