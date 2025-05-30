@@ -43,6 +43,8 @@ import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
 import { telemetry } from '../telemetry';
 import { rateModal } from '../rateModal';
+import { runtime } from '../browserApi/runtime';
+import { BROWSER, BUILD_ENV, STAGE_ENV } from '../config';
 
 declare global {
     module globalThis {
@@ -137,6 +139,14 @@ const asyncInitModules = async (): Promise<void> => {
 };
 
 export const main = () => {
+    runtime.getPlatformOs().then((res) => {
+        log.debug(`Current os: '${res}'`);
+    });
+
+    log.debug(`Current browser: "${BROWSER}"`);
+    log.debug(`Current build env: "${BUILD_ENV}"`);
+    log.debug(`Current stage env: "${STAGE_ENV}"`);
+
     syncInitModules();
     asyncInitModules();
 };
