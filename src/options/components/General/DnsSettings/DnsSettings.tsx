@@ -12,7 +12,7 @@ import {
     CLOUDFLARE_DNS_ID,
     CISCO_DNS_ID,
     QUAD9_DNS_ID,
-} from '../../../../background/dns/dnsConstants';
+} from '../../../../common/dnsConstants';
 import {
     TelemetryActionName,
     TelemetryScreenName,
