@@ -1,7 +1,8 @@
 /**
- * WARNING: Do NOT import anything here, because this file is used in both options and popup.
- * This may lead into background code being bundled into options or popup, which might cause
- * size bloat and other issues.
+ * IMPORTANT:
+ * Do not import inside this file other dependencies,
+ * because imports of this file are also used in the popup
+ * and redundant code from background may get into popup code
  */
 
 /**
