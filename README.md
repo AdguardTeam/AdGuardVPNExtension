@@ -189,21 +189,41 @@ yarn crx keygen ./private/AdguardVPN
 
 #### <a name="build-firefox-review"></a> Special building instructions for Firefox reviewers
 
-1. Ensure you have installed Node.js and yarn, see [Requirements](#dev-requirements).
+If you need to build the **BETA** version:
 
-1. To build the **Release** version, run:
-
-    ```shell
-    yarn release firefox
-    ```
-
-1. Navigate to the build directory:
+1. To ensure that the extension is built in the same way, use the docker image:
 
     ```shell
-    cd ./build/release
+    docker run --rm -it \
+        -v $(pwd):/workspace \
+        -w /workspace \
+        --env-file .env \
+        adguard/node-ssh:18.19--0 \
+        /bin/sh -c "
+            yarn install && \
+            STAGE_ENV=prod \
+            yarn beta firefox"
     ```
 
-1. Compare the generated `firefox.zip` file with the uploaded one.
+1. Compare the generated `build/beta/firefox.zip` file with the uploaded one.
+
+If you need to build the **RELEASE** version:
+
+1. To ensure that the extension is built in the same way, use the docker image:
+
+    ```shell
+    docker run --rm -it \
+        -v $(pwd):/workspace \
+        -w /workspace \
+        --env-file .env \
+        adguard/node-ssh:18.19--0 \
+        /bin/sh -c "
+            yarn install && \
+            STAGE_ENV=prod \
+            yarn release firefox"
+    ```
+
+1. Compare the generated `build/release/firefox.zip` file with the uploaded one.
 
 ### <a name="localization"></a> Localization
 

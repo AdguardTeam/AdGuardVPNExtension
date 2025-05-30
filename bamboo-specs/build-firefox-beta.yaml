@@ -68,8 +68,8 @@ Build:
             # build artifacts firefox.xpi and update.json
             yarn xpi:beta
 
-            # build source code for uploading to amo
-            git ls-files | zip -@ build/beta/source.zip
+            # archive source for Firefox review
+            ./bamboo-specs/scripts/archive-source.sh beta
     - inject-variables:
         file: build/beta/build.txt
         scope: RESULT
