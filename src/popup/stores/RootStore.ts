@@ -1,4 +1,4 @@
-import { TelemetryStore } from '../../common/telemetry';
+import { TelemetryStore } from '../../common/telemetry/TelemetryStore';
 
 /* eslint-disable import/no-cycle */
 import { SettingsStore } from './SettingsStore';

@@ -17,9 +17,9 @@ import {
     TelemetryActionName,
     TelemetryScreenName,
     type DnsServerClickActionNames,
-} from '../../../../background/telemetry';
+} from '../../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { Button } from '../../ui/Button';

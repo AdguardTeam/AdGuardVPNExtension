@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import newsletterImageUrl from '../../../../assets/images/newsletter.svg';
 
 import './newsletter.pcss';

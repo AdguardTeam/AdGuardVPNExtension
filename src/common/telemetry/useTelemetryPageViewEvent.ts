@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { type TelemetryScreenName } from '../../background/telemetry';
+import { type TelemetryScreenName } from '../../background/telemetry/telemetryEnums';
 
 import { type TelemetryStore } from './TelemetryStore';
 

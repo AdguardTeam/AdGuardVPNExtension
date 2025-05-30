@@ -1,4 +1,10 @@
 /**
+ * WARNING: Do NOT import anything here, because this file is used in both options and popup.
+ * This may lead into background code being bundled into options or popup, which might cause
+ * size bloat and other issues.
+ */
+
+/**
  * Screen names passed to telemetry.
  */
 export enum TelemetryScreenName {

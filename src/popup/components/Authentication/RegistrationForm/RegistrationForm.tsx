@@ -11,8 +11,8 @@ import PasswordField from '../PasswordField';
 import { Submit } from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { InputField } from '../InputField';
 
 export const RegistrationForm = observer(() => {

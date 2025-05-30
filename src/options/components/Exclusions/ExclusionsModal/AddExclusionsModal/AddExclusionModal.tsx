@@ -3,11 +3,11 @@ import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
 
-import { TelemetryScreenName } from '../../../../../background/telemetry';
+import { TelemetryScreenName } from '../../../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../../../stores';
 import { AddExclusionMode } from '../../../../stores/ExclusionsStore';
 import { translator } from '../../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../../common/telemetry/useTelemetryPageViewEvent';
 import { Modal } from '../../../ui/Modal';
 import { Button } from '../../../ui/Button';
 

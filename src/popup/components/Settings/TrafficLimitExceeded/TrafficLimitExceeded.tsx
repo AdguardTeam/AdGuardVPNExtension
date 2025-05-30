@@ -3,9 +3,9 @@ import { observer } from 'mobx-react';
 
 import { translator } from '../../../../common/translator';
 import { rootStore } from '../../../stores';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { IconButton } from '../../../../common/components/Icons';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import tiredImageUrl from '../../../../assets/images/tired.svg';
 
 export const TrafficLimitExceeded = observer(() => {

@@ -5,8 +5,8 @@ import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { translator } from '../../../common/translator';
 import { isLocationsNumberAcceptable } from '../../../common/is-locations-number-acceptable';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import confusedImageUrl from '../../../assets/images/confused.svg';
 
 import './global-error.pcss';

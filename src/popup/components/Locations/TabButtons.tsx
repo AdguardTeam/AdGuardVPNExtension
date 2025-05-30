@@ -8,7 +8,7 @@ import {
     TelemetryActionName,
     TelemetryScreenName,
     type LocationsTabClickActionNames,
-} from '../../../background/telemetry';
+} from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
 

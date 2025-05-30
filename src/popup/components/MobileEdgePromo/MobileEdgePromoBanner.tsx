@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
 import { Icon, IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
