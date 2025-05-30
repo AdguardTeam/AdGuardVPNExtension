@@ -11,7 +11,7 @@ import {
     type TelemetryActionToScreenMap,
 } from '../background/telemetry/telemetryEnums';
 import { ForwarderUrlQueryKey } from '../background/config';
-import { type LocationsTab } from '../background/endpoints/locationsService';
+import { type LocationsTab } from '../background/endpoints/locationsEnums';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';

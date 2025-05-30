@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import classNames from 'classnames';
 
-import { LocationsTab } from '../../../background/endpoints/locationsService';
+import { LocationsTab } from '../../../background/endpoints/locationsEnums';
 import {
     TelemetryActionName,
     TelemetryScreenName,
