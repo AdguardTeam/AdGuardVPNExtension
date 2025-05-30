@@ -20,7 +20,7 @@ import {
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../common/messenger';
 import { containsIgnoreCase } from '../../common/components/SearchHighlighter/helpers';
-import type { ServiceCategory } from '../../background/schema';
+import { type ServiceCategory } from '../../background/schema/exclusions/exclusionsServices/service';
 
 import type { RootStore } from './RootStore';
 

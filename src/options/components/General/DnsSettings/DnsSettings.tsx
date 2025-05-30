@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { type DnsServerData } from '../../../../background/schema';
+import { type DnsServerData } from '../../../../background/schema/dns/dnsServerData';
 import {
     DEFAULT_DNS_SERVER,
     POPULAR_DNS_SERVERS,
