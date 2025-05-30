@@ -1,7 +1,7 @@
 import browser, { type Runtime } from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
-import type { LimitedOfferData } from '../background/limitedOfferService/limitedOfferService';
+import type { LimitedOfferData } from '../background/limitedOfferService';
 import type { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';

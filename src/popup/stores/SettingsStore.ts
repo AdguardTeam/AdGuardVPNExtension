@@ -12,7 +12,7 @@ import { messenger } from '../../common/messenger';
 import { ConnectivityStateType } from '../../background/schema';
 import { getHostname, getProtocol } from '../../common/utils/url';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
-import { type LimitedOfferData } from '../../background/limitedOfferService/limitedOfferService';
+import { type LimitedOfferData } from '../../background/limitedOfferService';
 import { type PromoNotificationData } from '../../background/promoNotifications';
 import { Prefs } from '../../common/prefs';
 import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
