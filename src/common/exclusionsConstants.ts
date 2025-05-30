@@ -1,4 +1,4 @@
-import type { ServiceCategory } from '../background/schema';
+import { type ServiceCategory } from '../background/schema/exclusions/exclusionsServices/service';
 
 // Extracted in the separate file because these entities are also used in the options page
 

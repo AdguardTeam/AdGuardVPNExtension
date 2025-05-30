@@ -6,8 +6,8 @@ import { type BrowserApi, browserApi } from '../browserApi';
 import { credentials } from '../credentials';
 import { notifications } from '../notifications';
 import { stateStorage } from '../stateStorage';
-import { StorageKey } from '../schema';
-import { type LimitedOfferStorageData } from '../schema/limitedOffer';
+import { StorageKey } from '../schema/sessionStorage/StorageData';
+import { type LimitedOfferStorageData } from '../schema/limitedOffer/limitedOfferService';
 import { ForwarderUrlQueryKey } from '../config';
 
 /**

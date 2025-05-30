@@ -1,7 +1,7 @@
 import punycode from 'punycode';
 
 import { type LocationWithPingInterface } from '../background/endpoints/Location';
-import { type LocationInterface } from '../background/schema';
+import { type LocationInterface } from '../background/schema/endpoints/location';
 
 /**
  * Returns the value of the property from the cache,

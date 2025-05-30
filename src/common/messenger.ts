@@ -1,14 +1,14 @@
 import browser, { type Runtime } from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
-import type { LimitedOfferData } from '../background/limitedOfferService';
-import type { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
-import type { DnsServerData } from '../background/schema';
-import type { LocationData } from '../popup/stores/VpnStore';
-import type {
-    TelemetryScreenName,
-    TelemetryActionName,
-    TelemetryActionToScreenMap,
+import { type LimitedOfferData } from '../background/limitedOfferService/limitedOfferService';
+import { type StartSocialAuthData, type UserLookupData } from '../background/messaging/messagingTypes';
+import { type DnsServerData } from '../background/schema/dns/dnsServerData';
+import { type LocationData } from '../popup/stores/VpnStore';
+import {
+    type TelemetryScreenName,
+    type TelemetryActionName,
+    type TelemetryActionToScreenMap,
 } from '../background/telemetry/telemetryEnums';
 import { ForwarderUrlQueryKey } from '../background/config';
 import { type LocationsTab } from '../background/endpoints/locationsService';
