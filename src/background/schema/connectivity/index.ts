@@ -1,6 +1,20 @@
 // Connectivity FSM context schema
-export * from './context';
+export {
+    connectivityContextScheme,
+    type ConnectivityContext,
+    CONNECTIVITY_CONTEXT_DEFAULTS,
+} from './context';
+
 // Connectivity FSM state schema
-export * from './state';
+export {
+    ConnectivityStateType,
+    connectivityStateScheme,
+    CONNECTIVITY_STATE_DEFAULT,
+} from './state';
+
 // All persisted FSM data
-export * from './data';
+export {
+    connectivityDataScheme,
+    type ConnectivityData,
+    CONNECTIVITY_DATA_DEFAULTS,
+} from './data';

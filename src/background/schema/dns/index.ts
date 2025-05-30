@@ -1,2 +1,10 @@
-export * from './dnsState';
-export * from './dnsServerData';
+export {
+    dnsStateScheme,
+    type DnsState,
+    DNS_STATE_DEFAULTS,
+} from './dnsState';
+
+export {
+    dnsServerDataScheme,
+    type DnsServerData,
+} from './dnsServerData';

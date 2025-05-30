@@ -1,6 +1,6 @@
 import { isIP } from 'is-ip';
 
-import { type DnsServerData } from '../../../../background/schema/dns/dnsServerData';
+import { type DnsServerData } from '../../../../background/schema';
 import { translator } from '../../../../common/translator';
 
 /**

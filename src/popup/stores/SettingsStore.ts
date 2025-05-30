@@ -9,7 +9,7 @@ import { tabs } from '../../background/tabs';
 import { log } from '../../common/logger';
 import { SETTINGS_IDS, AppearanceTheme } from '../../common/constants';
 import { messenger } from '../../common/messenger';
-import { ConnectivityStateType } from '../../background/schema/connectivity/state';
+import { ConnectivityStateType } from '../../background/schema';
 import { getHostname, getProtocol } from '../../common/utils/url';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { type LimitedOfferData } from '../../background/limitedOfferService/limitedOfferService';

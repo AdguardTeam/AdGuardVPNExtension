@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type DnsServerData } from '../../../../background/schema/dns/dnsServerData';
+import { type DnsServerData } from '../../../../background/schema';
 import { Radio } from '../../ui/Radio';
 import { IconButton, type IconButtonProps } from '../../../../common/components/Icons';
 

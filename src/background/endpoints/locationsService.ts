@@ -7,11 +7,13 @@ import { vpnProvider } from '../providers/vpnProvider';
 import { SETTINGS_IDS } from '../../common/constants';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
-import { type LocationInterface } from '../schema/endpoints/location';
-import { type EndpointInterface } from '../schema/endpoints/endpointInterface';
-import { type LocationsServiceState } from '../schema/endpoints/locationsService';
-import { type PingsCacheInterface } from '../schema/endpoints/pingsCache';
-import { StorageKey } from '../schema/sessionStorage/StorageData';
+import {
+    type LocationInterface,
+    type EndpointInterface,
+    type LocationsServiceState,
+    type PingsCacheInterface,
+    StorageKey,
+} from '../schema';
 import { stateStorage } from '../stateStorage';
 import { type StorageInterface } from '../browserApi/storage';
 import { browserApi } from '../browserApi';

@@ -1,5 +1,4 @@
-import { type EndpointInterface } from '../schema/endpoints/endpointInterface';
-import { type LocationData, type LocationInterface } from '../schema/endpoints/location';
+import type { EndpointInterface, LocationData, LocationInterface } from '../schema';
 
 import { Endpoint } from './Endpoint';
 

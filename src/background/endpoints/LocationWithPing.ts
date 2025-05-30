@@ -1,4 +1,4 @@
-import { type LocationInterface } from '../schema/endpoints/location';
+import { type LocationInterface } from '../schema';
 
 export interface LocationWithPingInterface {
     id: string;

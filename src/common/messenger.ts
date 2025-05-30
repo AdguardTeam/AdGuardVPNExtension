@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 import { type LimitedOfferData } from '../background/limitedOfferService/limitedOfferService';
 import { type StartSocialAuthData, type UserLookupData } from '../background/messaging/messagingTypes';
-import { type DnsServerData } from '../background/schema/dns/dnsServerData';
+import { type DnsServerData } from '../background/schema';
 import { type LocationData } from '../popup/stores/VpnStore';
 import {
     type TelemetryScreenName,

@@ -1,1 +1,4 @@
-export * from './fallbackInfo';
+export {
+    fallbackInfoScheme,
+    type FallbackInfo,
+} from './fallbackInfo';

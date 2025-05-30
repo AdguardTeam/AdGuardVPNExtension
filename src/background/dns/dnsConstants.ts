@@ -1,11 +1,10 @@
+import type { DnsServerData } from '../schema';
 /**
  * IMPORTANT
  * Do not import inside this file other dependencies,
  * because imports of this file are also used in the popup
  * and redundant code from background may get into popup code
-*/
-
-import { type DnsServerData } from '../schema/dns/dnsServerData';
+ */
 import { translator } from '../../common/translator';
 
 /**
