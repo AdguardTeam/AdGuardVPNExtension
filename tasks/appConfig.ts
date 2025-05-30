@@ -77,6 +77,10 @@ const COMMON_CONF = {
     WS_API_URL_TEMPLATE: 'wss://{{host}}:443/user?hash={{hash}}',
     // API
     AUTH_CLIENT_ID: 'adguard-vpn-extension',
+    // Privacy URL for Firefox
+    AMO_PRIVACY_URL: 'https://addons.mozilla.org/en-US/firefox/addon/adguard-vpn/privacy/',
+    // EULA URL for Firefox
+    AMO_EULA_URL: 'https://addons.mozilla.org/en-US/firefox/addon/adguard-vpn/eula/',
 };
 
 /**
