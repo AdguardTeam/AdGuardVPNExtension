@@ -82,7 +82,7 @@ describe('StatisticsStorage', () => {
         it('should initialize properly', async () => {
             storageMock.get.mockResolvedValueOnce(undefined);
 
-            await statisticsStorage.init();
+            await statisticsStorage.init(jest.fn());
 
             expect(storageMock.get).toHaveBeenCalledTimes(1);
             expect(storageMock.get).toHaveBeenCalledWith(expect.any(String));
@@ -93,7 +93,7 @@ describe('StatisticsStorage', () => {
 
             storageMock.get.mockResolvedValueOnce(statistics);
 
-            await statisticsStorage.init();
+            await statisticsStorage.init(jest.fn());
 
             expect(storageMock.get).toHaveBeenCalledTimes(1);
             expect(storageMock.get).toHaveBeenCalledWith(expect.any(String));
@@ -409,7 +409,7 @@ describe('StatisticsStorage', () => {
                 },
             }));
 
-            await statisticsStorage.init();
+            await statisticsStorage.init(jest.fn());
 
             expect(storageMock.set).toHaveBeenCalledTimes(1);
             expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics({
@@ -696,7 +696,7 @@ describe('StatisticsStorage', () => {
         it.each(cases)('should switch period properly', async ({ storage, expected }) => {
             storageMock.get.mockResolvedValueOnce(getStatistics(storage));
 
-            await statisticsStorage.init();
+            await statisticsStorage.init(jest.fn());
 
             expect(storageMock.set).toHaveBeenCalledTimes(1);
             expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics(expected));
@@ -711,7 +711,7 @@ describe('StatisticsStorage', () => {
 
             storageMock.get.mockResolvedValueOnce(getStatistics());
 
-            await statisticsStorage.init();
+            await statisticsStorage.init(jest.fn());
 
             await statisticsStorage.addTraffic(locationId, {
                 downloadedBytes,
@@ -735,7 +735,7 @@ describe('StatisticsStorage', () => {
 
             storageMock.get.mockResolvedValueOnce(getStatistics());
 
-            await statisticsStorage.init();
+            await statisticsStorage.init(jest.fn());
 
             await statisticsStorage.startDuration(locationId);
 
@@ -801,7 +801,7 @@ describe('StatisticsStorage', () => {
 
             storageMock.get.mockResolvedValueOnce(statistics);
 
-            await statisticsStorage.init();
+            await statisticsStorage.init(jest.fn());
 
             const result = await statisticsStorage.getStatistics();
 
@@ -823,7 +823,7 @@ describe('StatisticsStorage', () => {
                 },
             }));
 
-            await statisticsStorage.init();
+            await statisticsStorage.init(jest.fn());
 
             // advance by 1 hour
             jest.advanceTimersByTime(ONE_HOUR_MS);
@@ -874,13 +874,43 @@ describe('StatisticsStorage', () => {
                 },
             }));
 
-            await statisticsStorage.init();
+            await statisticsStorage.init(jest.fn());
 
             await statisticsStorage.clearStatistics();
 
             expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), {
                 locations: {},
                 startedTimestamp: systemDate.getTime(),
+            });
+        });
+
+        it('should call callback when statistics are updated', async () => {
+            const callback = jest.fn();
+
+            storageMock.get.mockResolvedValueOnce(getStatistics({
+                locationId: {
+                    hourly: {},
+                    daily: {},
+                    total: getData(3),
+                },
+            }));
+
+            await statisticsStorage.init(callback);
+
+            await statisticsStorage.addTraffic('locationId', {
+                downloadedBytes: 100,
+                uploadedBytes: 200,
+            });
+
+            expect(callback).toHaveBeenCalledTimes(1);
+            expect(callback).toHaveBeenCalledWith({
+                locationId: {
+                    hourly: {
+                        '2025-10-01-10': getData(100, 200, 0),
+                    },
+                    daily: {},
+                    total: getData(3),
+                },
             });
         });
     });

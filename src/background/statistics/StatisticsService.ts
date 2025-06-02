@@ -1,4 +1,5 @@
 import { log } from '../../common/logger';
+import { notifier } from '../../common/notifier';
 import { StorageKey } from '../schema';
 import { type StatisticsState } from '../schema/statistics';
 import { type StateStorageInterface } from '../stateStorage/stateStorage';
@@ -139,12 +140,25 @@ export class StatisticsService implements StatisticsServiceInterface {
         try {
             this.state = this.stateStorage.getItem(StorageKey.StatisticsState);
             this.provider.init();
-            await this.statisticsStorage.init();
+            await this.statisticsStorage.init(this.handleStatisticsUpdate.bind(this));
             log.info('Statistics service ready');
         } catch (e) {
             log.error('Unable to initialize statistics service, due to error:', e);
         }
     };
+
+    /**
+     * Handles statistics update from the storage by notifying listeners
+     * with the updated statistics data for the current range.
+     *
+     * @param locationsStorage Locations storage containing updated statistics data.
+     */
+    private handleStatisticsUpdate(locationsStorage: StatisticsLocationsStorage): void {
+        notifier.notifyListeners(
+            notifier.types.STATS_UPDATED,
+            StatisticsService.queryLocationsStorage(locationsStorage, this.range),
+        );
+    }
 
     /**
      * Queries the location data for statistics data for the given range.

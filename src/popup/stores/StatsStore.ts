@@ -278,14 +278,6 @@ export class StatsStore {
     };
 
     /**
-     * Updates the statistics data for the current range.
-     */
-    @action updateStatistics = async () => {
-        const rangeStatistics = await messenger.getRangeStatistics(this.range);
-        this.setRangeStatistics(rangeStatistics);
-    };
-
-    /**
      * Update the stats range both in store and in background,
      * and receives the new statistics data for that range.
      *
@@ -293,7 +285,8 @@ export class StatsStore {
      */
     @action updateRange = async (range: StatisticsRange) => {
         this.range = range;
-        await this.updateStatistics();
+        const rangeStatistics = await messenger.getRangeStatistics(this.range);
+        this.setRangeStatistics(rangeStatistics);
     };
 
     /**

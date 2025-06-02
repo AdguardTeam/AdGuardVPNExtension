@@ -3,7 +3,6 @@ import throttle from 'lodash/throttle';
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
-import { notifier } from '../../common/notifier';
 
 import { dateToKey, keyToDate, watchChanges } from './utils';
 import {
@@ -11,16 +10,27 @@ import {
     type StatisticsLocationData,
     type StatisticsData,
     type Statistics,
+    type StatisticsLocationsStorage,
 } from './statisticsTypes';
+
+/**
+ * Callback type for statistics update.
+ * This callback is called when statistics data is updated.
+ *
+ * @param locationsStorage Updated statistics locations storage.
+ */
+type UpdateCallback = (locationsStorage: StatisticsLocationsStorage) => void;
 
 /**
  * Statistics storage interface.
  */
 export interface StatisticsStorageInterface {
     /**
-     * Initializes the statistics provider.
+     * Initializes the statistics storage.
+     *
+     * @param updateCallback Callback to be called when statistics data is updated.
      */
-    init(): Promise<void>;
+    init(updateCallback: UpdateCallback): Promise<void>;
 
     /**
      * Adds traffic statistics.
@@ -160,6 +170,13 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private statistics: Statistics;
 
     /**
+     * Callback to be called when statistics data is updated.
+     *
+     * Initialized in {@link init} method.
+     */
+    private updateCallback: UpdateCallback | null = null;
+
+    /**
      * Mutex flag to prevent unnecessary writes to storage.
      * This value is `true` when statistics data is changed and write is allowed.
      *
@@ -191,9 +208,10 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /** @inheritdoc */
-    public init = async (): Promise<void> => {
+    public init = async (updateCallback: UpdateCallback): Promise<void> => {
         try {
             log.info('Statistics storage ready');
+            this.updateCallback = updateCallback;
             await this.gainStatistics();
             this.isInitialized = true;
         } catch (e) {
@@ -228,8 +246,10 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         // set flag to true to allow saving statistics
         this.isStatisticsChanged = true;
 
-        // notify listeners about statistics update
-        notifier.notifyListeners(notifier.types.STATS_UPDATED);
+        // call update callback with updated locations storage
+        if (this.updateCallback) {
+            this.updateCallback(this.statistics.locations);
+        }
     }
 
     /**
