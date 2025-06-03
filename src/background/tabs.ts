@@ -3,6 +3,8 @@ import browser from 'webextension-polyfill';
 import { notifier } from '../common/notifier';
 import { log } from '../common/logger';
 
+import { WindowsApi } from './windowsApi';
+
 export type PreparedTab = {
     id?: number,
     url?: string,
@@ -44,8 +46,8 @@ class Tabs implements TabsInterface {
         });
 
         // notify listeners when tab activated from another window
-        browser.windows.onFocusChanged.addListener(async (windowId) => {
-            if (windowId === browser.windows.WINDOW_ID_NONE) {
+        WindowsApi.onFocusChanged.addListener(async (windowId) => {
+            if (windowId === WindowsApi.WINDOW_ID_NONE) {
                 return;
             }
             const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
@@ -65,7 +67,14 @@ class Tabs implements TabsInterface {
     };
 
     async getCurrent(): Promise<browser.Tabs.Tab> {
-        const { id: windowId } = await browser.windows.getCurrent();
+        const window = await WindowsApi.getCurrent();
+
+        // if the Windows API is not supported, we rely on current active tab
+        let windowId: number | undefined;
+        if (window && typeof window.id === 'number') {
+            windowId = window.id;
+        }
+
         const tabs = await browser.tabs.query({ active: true, windowId });
         return tabs[0];
     }
