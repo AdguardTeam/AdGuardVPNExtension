@@ -4,9 +4,9 @@ import {
     observable,
     runInAction,
 } from 'mobx';
+import browser from 'webextension-polyfill';
 
 import {
-    type FullStatistics,
     StatisticsRange,
     type RangeStatistics,
     type StatisticsData,
@@ -33,6 +33,11 @@ export interface LocationUsage {
 
 export class StatsStore {
     /**
+     * Range session storage key.
+     */
+    private static readonly RANGE_STORAGE_KEY = 'statistics.range';
+
+    /**
      * Default range for statistics.
      */
     private static readonly DEFAULT_RANGE = StatisticsRange.Days7;
@@ -57,6 +62,13 @@ export class StatsStore {
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
+
+    /**
+     * Initializes the stats store by retrieving the range from session storage.
+     */
+    @action init = async (): Promise<void> => {
+        this.range = await this.getRangeFromStorage();
+    };
 
     /**
      * Flag indicating whether the stats screen is open.
@@ -145,11 +157,12 @@ export class StatsStore {
     @action setRangeStatistics = (rangeStatistics: RangeStatistics | null) => {
         if (!rangeStatistics) {
             this.totalUsage = StatsStore.DEFAULT_TOTAL;
+            this.firstStatsDate = new Date();
             this.locations = [];
             return;
         }
 
-        const { total, locations } = rangeStatistics;
+        const { total, locations, startedTimestamp } = rangeStatistics;
 
         const newLocations: LocationUsage[] = [];
         for (let i = 0; i < locations.length; i += 1) {
@@ -182,25 +195,8 @@ export class StatsStore {
         });
 
         this.totalUsage = total;
+        this.firstStatsDate = new Date(startedTimestamp);
         this.locations = newLocations;
-    };
-
-    /**
-     * Updates all statistics related data inside of the store.
-     *
-     * @param statistics Statistics data to set, if `null` then
-     * it will reset the statistics data to default values.
-     */
-    @action setStatistics = (statistics: FullStatistics | null) => {
-        if (statistics) {
-            this.firstStatsDate = new Date(statistics.startedTimestamp);
-            this.range = statistics.range;
-        } else {
-            this.firstStatsDate = new Date();
-            this.range = StatsStore.DEFAULT_RANGE;
-        }
-
-        this.setRangeStatistics(statistics);
     };
 
     /**
@@ -293,6 +289,7 @@ export class StatsStore {
      */
     @action updateRange = async (range: StatisticsRange) => {
         this.range = range;
+        await this.saveRangeToStorage(range);
         await this.updateStatistics();
     };
 
@@ -336,4 +333,37 @@ export class StatsStore {
     @action setIsClearModalOpen = (isClearModalOpen: boolean) => {
         this.isClearModalOpen = isClearModalOpen;
     };
+
+    /**
+     * Retrieves the statistics range from session storage.
+     *
+     * @returns The statistics range from storage, or the default range if not set or invalid.
+     */
+    private async getRangeFromStorage(): Promise<StatisticsRange> {
+        try {
+            const storageRange = await browser.storage.session.get(StatsStore.RANGE_STORAGE_KEY);
+            const range = storageRange[StatsStore.RANGE_STORAGE_KEY];
+
+            if (range && Object.values(StatisticsRange).includes(range as StatisticsRange)) {
+                return range as StatisticsRange;
+            }
+
+            // If the range is not set or invalid, return the default range
+            return StatsStore.DEFAULT_RANGE;
+        } catch {
+            // If there is an error retrieving the range, return the default range
+            return StatsStore.DEFAULT_RANGE;
+        }
+    }
+
+    /**
+     * Saves the statistics range to session storage.
+     *
+     * @param range The statistics range to save.
+     */
+    private async saveRangeToStorage(range: StatisticsRange): Promise<void> {
+        await browser.storage.session.set({
+            [StatsStore.RANGE_STORAGE_KEY]: range,
+        });
+    }
 }

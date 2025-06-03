@@ -54,7 +54,11 @@ export class GlobalStore {
         const url = tab.url || null;
 
         try {
-            const popupData = await messenger.getPopupData(url, numberOfTries);
+            const options = {
+                url,
+                statisticsRange: statsStore.range,
+            };
+            const popupData = await messenger.getPopupData(options, numberOfTries);
 
             const {
                 vpnInfo,
@@ -141,7 +145,7 @@ export class GlobalStore {
             await settingsStore.getExclusionsInverted();
             await settingsStore.getCurrentTabHostname();
             settingsStore.setIsExcluded(!isVpnEnabledByUrl);
-            statsStore.setStatistics(statistics);
+            statsStore.setRangeStatistics(statistics);
 
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
@@ -176,6 +180,12 @@ export class GlobalStore {
          * popup data is retrieved to prevent flickering of the loaders.
          */
         await this.initAuthenticatedStatus();
+
+        /**
+         * Statistics store should be initialized before popup data is retrieved
+         * because statistics range is used in the popup data request.
+         */
+        await this.rootStore.statsStore.init();
 
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         await this.getDesktopAppData();

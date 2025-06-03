@@ -9,6 +9,7 @@ import type { TelemetryScreenName, TelemetryActionName, TelemetryActionToScreenM
 import { ForwarderUrlQueryKey } from '../background/config';
 import { type LocationsTab } from '../background/endpoints/locationsService';
 import { type RangeStatistics, type StatisticsRange } from '../background/statistics/statisticsTypes';
+import { type GetPopupDataOptions } from '../background/popupData/PopupData';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
@@ -215,9 +216,9 @@ class Messenger {
         };
     };
 
-    async getPopupData(url: string | null, numberOfTries: number) {
+    async getPopupData(options: GetPopupDataOptions, numberOfTries: number) {
         const type = MessageType.GET_POPUP_DATA;
-        return this.sendMessage(type, { url, numberOfTries });
+        return this.sendMessage(type, { options, numberOfTries });
     }
 
     /**

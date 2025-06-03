@@ -6,13 +6,6 @@ import {
     type StatisticsLocationsStorage,
 } from '../../../src/background/statistics/statisticsTypes';
 
-const stateStorageMock = {
-    getItem: jest.fn(),
-    setItem: jest.fn(),
-    init: jest.fn(),
-    waitInit: jest.fn(),
-};
-
 const providerMock = {
     init: jest.fn(),
 };
@@ -29,7 +22,6 @@ describe('StatisticsService', () => {
 
     beforeEach(() => {
         statisticsService = new StatisticsService({
-            stateStorage: stateStorageMock,
             // @ts-expect-error - partially mocked
             statisticsStorage: statisticsStorageMock,
             provider: providerMock,
@@ -66,21 +58,6 @@ describe('StatisticsService', () => {
 
         // provider init
         expect(statisticsStorageMock.init).toHaveBeenCalledTimes(1);
-
-        // get range
-        expect(stateStorageMock.getItem).toHaveBeenCalledTimes(1);
-    });
-
-    it('should read range from local storage', async () => {
-        stateStorageMock.getItem.mockReturnValueOnce({ range: StatisticsRange.Hours24 });
-
-        await statisticsService.init();
-
-        // get range
-        expect(stateStorageMock.getItem).toHaveBeenCalledTimes(1);
-
-        // @ts-expect-error - private property
-        expect(statisticsService.range).toBe(StatisticsRange.Hours24);
     });
 
     describe('Range queries', () => {
@@ -101,7 +78,7 @@ describe('StatisticsService', () => {
             /**
              * Expected range statistics.
              */
-            expected: RangeStatistics;
+            expected: Pick<RangeStatistics, 'total' | 'locations'>;
         };
 
         const cases: RangeQueriesTestCase[] = [
@@ -282,7 +259,6 @@ describe('StatisticsService', () => {
         ];
 
         it.each(cases)('should correctly calculate range', async ({ range, storage, expected }) => {
-            stateStorageMock.getItem.mockReturnValueOnce({ range });
             statisticsStorageMock.getStatistics.mockResolvedValueOnce({
                 startedTimestamp: 12345,
                 locations: storage,
@@ -292,9 +268,10 @@ describe('StatisticsService', () => {
 
             const result = await statisticsService.getRangeStatistics(range);
 
-            // should update range in local storage
-            expect(stateStorageMock.setItem).toHaveBeenCalledWith(expect.any(String), { range });
-            expect(result).toEqual(expected);
+            expect(result).toEqual({
+                ...expected,
+                startedTimestamp: 12345,
+            });
         });
     });
 });

@@ -475,7 +475,7 @@ export class ExclusionsService {
      * If this function is called when currentHandler is not set yet, it returns true
      * @param url
      */
-    isVpnEnabledByUrl(url: string) {
+    isVpnEnabledByUrl(url: string | null) {
         if (!url || !exclusionsManager.currentHandler) {
             return true;
         }

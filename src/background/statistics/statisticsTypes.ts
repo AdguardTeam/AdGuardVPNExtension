@@ -158,9 +158,14 @@ export interface StatisticsDataUsage {
 }
 
 /**
- * Statistics sent when {@link StatisticsRange} is changed, and data for that range is needed.
+ * Statistics data for a specific range.
  */
 export interface RangeStatistics {
+    /**
+     * Timestamp when the statistics collection started.
+     */
+    startedTimestamp: number;
+
     /**
      * Summarized statistics data for {@link locations}.
      */
@@ -170,19 +175,4 @@ export interface RangeStatistics {
      * List of statistics data for all locations.
      */
     locations: StatisticsDataUsage[];
-}
-
-/**
- * All information about statistics for a specific account.
- */
-export interface FullStatistics extends RangeStatistics {
-    /**
-     * Timestamp when the statistics collection started.
-     */
-    startedTimestamp: number;
-
-    /**
-     * Currently selected statistics range.
-     */
-    range: StatisticsRange;
 }

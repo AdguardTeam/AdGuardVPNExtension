@@ -1,14 +1,10 @@
 import { log } from '../../common/logger';
-import { StorageKey } from '../schema';
-import { type StatisticsState } from '../schema/statistics';
-import { type StateStorageInterface } from '../stateStorage/stateStorage';
 
 import { type StatisticsProviderInterface } from './StatisticsProvider';
 import { type StatisticsStorageInterface } from './StatisticsStorage';
 import {
     StatisticsRange,
     type RangeStatistics,
-    type FullStatistics,
     type StatisticsData,
     type StatisticsDataUsage,
     type StatisticsLocationsStorage,
@@ -24,13 +20,6 @@ export interface StatisticsServiceInterface {
      * Initializes the statistics service.
      */
     init(): Promise<void>;
-
-    /**
-     * Retrieves full statistics information.
-     *
-     * @returns All statistics data.
-     */
-    getAllStatistics(): Promise<FullStatistics>;
 
     /**
      * Updates range in local storage and retrieves statistics data for the given range.
@@ -55,11 +44,6 @@ export interface StatisticsServiceInterface {
  */
 export interface StatisticsServiceParameters {
     /**
-     * Browser session storage.
-     */
-    stateStorage: StateStorageInterface;
-
-    /**
      * Storage for statistics.
      */
     statisticsStorage: StatisticsStorageInterface;
@@ -78,11 +62,6 @@ export interface StatisticsServiceParameters {
  */
 export class StatisticsService implements StatisticsServiceInterface {
     /**
-     * Browser session storage.
-     */
-    private stateStorage: StateStorageInterface;
-
-    /**
      * Storage for statistics.
      */
     private statisticsStorage: StatisticsStorageInterface;
@@ -93,51 +72,19 @@ export class StatisticsService implements StatisticsServiceInterface {
     private provider: StatisticsProviderInterface;
 
     /**
-     * Statistics state.
-     *
-     * Initialized in {@link init} method.
-     */
-    private state: StatisticsState;
-
-    /**
      * Constructor.
      */
     constructor({
-        stateStorage,
         statisticsStorage,
         provider,
     }: StatisticsServiceParameters) {
-        this.stateStorage = stateStorage;
         this.statisticsStorage = statisticsStorage;
         this.provider = provider;
-    }
-
-    /**
-     * Saves the current statistics state to session storage.
-     */
-    private saveState() {
-        this.stateStorage.setItem(StorageKey.StatisticsState, this.state);
-    }
-
-    /**
-     * Range getter.
-     */
-    private get range(): StatisticsRange {
-        return this.state.range;
-    }
-
-    /**
-     * Range setter.
-     */
-    private set range(newRange: StatisticsRange) {
-        this.state.range = newRange;
-        this.saveState();
     }
 
     /** @inheritdoc */
     public init = async (): Promise<void> => {
         try {
-            this.state = this.stateStorage.getItem(StorageKey.StatisticsState);
             this.provider.init();
             await this.statisticsStorage.init();
             log.info('Statistics service ready');
@@ -222,7 +169,7 @@ export class StatisticsService implements StatisticsServiceInterface {
     private static queryLocationsStorage(
         locationsStorage: StatisticsLocationsStorage,
         range: StatisticsRange,
-    ): RangeStatistics {
+    ): Pick<RangeStatistics, 'total' | 'locations'> {
         const total: StatisticsData = {
             downloadedBytes: 0,
             uploadedBytes: 0,
@@ -251,27 +198,13 @@ export class StatisticsService implements StatisticsServiceInterface {
     }
 
     /** @inheritdoc */
-    public getAllStatistics = async (): Promise<FullStatistics> => {
+    public getRangeStatistics = async (range: StatisticsRange): Promise<RangeStatistics> => {
         const accountStatistics = await this.statisticsStorage.getStatistics();
         const { startedTimestamp, locations } = accountStatistics;
 
         return {
             startedTimestamp,
-            range: this.range,
-            ...StatisticsService.queryLocationsStorage(locations, this.range),
-        };
-    };
-
-    /** @inheritdoc */
-    public getRangeStatistics = async (range: StatisticsRange): Promise<RangeStatistics> => {
-        this.range = range;
-
-        const allStatistics = await this.getAllStatistics();
-        const { total, locations } = allStatistics;
-
-        return {
-            total,
-            locations,
+            ...StatisticsService.queryLocationsStorage(locations, range),
         };
     };
 
