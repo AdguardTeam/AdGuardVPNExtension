@@ -9,7 +9,7 @@ import {
     type AppearanceTheme,
 } from '../../common/constants';
 import { dns } from '../dns';
-import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
+import { DEFAULT_DNS_SERVER } from '../../common/dnsConstants';
 import { webrtc } from '../browserApi/webrtc';
 import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
 import type { DnsServerData, PersistedExclusions } from '../schema';

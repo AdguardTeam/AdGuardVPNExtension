@@ -31,7 +31,7 @@ import { HostPermissionsError } from '../HostPermissionsError';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal';
 import { SETTINGS_IDS } from '../../../common/constants';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { MobileEdgePromo } from '../MobileEdgePromo';
 
 import { AppLoaders } from './AppLoaders';

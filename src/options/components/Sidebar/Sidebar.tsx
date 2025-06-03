@@ -12,7 +12,7 @@ import {
     type SidebarLinkItemClickActionNames,
     TelemetryActionName,
     TelemetryScreenName,
-} from '../../../background/telemetry';
+} from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
 import { IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';

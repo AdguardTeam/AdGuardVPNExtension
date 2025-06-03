@@ -7,8 +7,8 @@ import isNil from 'lodash/isNil';
 import { rootStore } from '../../stores';
 import { AnimationState } from '../../constants';
 import { translator } from '../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import { GlobalControl } from './GlobalControl';
 import { Status } from './Status';

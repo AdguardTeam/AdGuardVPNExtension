@@ -3,12 +3,12 @@ import { observer } from 'mobx-react';
 
 import classNames from 'classnames';
 
-import { LocationsTab } from '../../../background/endpoints/locationsService';
+import { LocationsTab } from '../../../background/endpoints/locationsEnums';
 import {
     TelemetryActionName,
     TelemetryScreenName,
     type LocationsTabClickActionNames,
-} from '../../../background/telemetry';
+} from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
 

@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import { useMachine } from '@xstate/react';
 import identity from 'lodash/identity';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { addMinDurationTime } from '../../../../common/helpers';
 import { messenger } from '../../../../common/messenger';
 import { translator } from '../../../../common/translator';

@@ -6,8 +6,8 @@ import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { translator } from '../../../common/translator';
 import { type LocationData } from '../../stores/VpnStore';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { Icon, IconButton } from '../../../common/components/Icons';
 
 import { FastestSkeleton } from './FastestSkeleton';

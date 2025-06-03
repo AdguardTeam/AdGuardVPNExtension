@@ -4,9 +4,9 @@ import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
 import { Slider } from '../../ui/Slider';
 import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { IconButton } from '../../../../common/components/Icons';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 
 import './upgrade-screen.pcss';
 

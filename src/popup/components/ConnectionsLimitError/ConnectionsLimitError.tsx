@@ -10,9 +10,9 @@ import { rootStore } from '../../stores';
 import { messenger } from '../../../common/messenger';
 import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { IconButton } from '../../../common/components/Icons';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import confusedImageUrl from '../../../assets/images/confused.svg';
 
 export const ConnectionsLimitError = observer(() => {

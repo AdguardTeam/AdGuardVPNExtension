@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { translator } from '../../../../common/translator';
 import { ExclusionsMode, ExclusionsType } from '../../../../common/exclusionsConstants';
 import { isTopLevel } from '../../../../common/utils/url';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { Button } from '../../ui/Button';
 import { Exclusion } from '../Exclusion';
 

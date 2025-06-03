@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import classNames from 'classnames';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../../../../stores';
 import { ExclusionState, type ServiceDto } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../../../../common/components/SearchHighlighter';

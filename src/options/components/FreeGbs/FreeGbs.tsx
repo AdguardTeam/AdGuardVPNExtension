@@ -4,13 +4,13 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { translator } from '../../../common/translator';
 import { DotsLoader } from '../../../common/components/DotsLoader';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { Icon, IconButton } from '../../../common/components/Icons';
 import {
     TelemetryActionName,
     TelemetryScreenName,
     type FreeGbItemClickActionNames,
-} from '../../../background/telemetry';
+} from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { Title } from '../ui/Title';

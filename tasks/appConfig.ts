@@ -164,7 +164,7 @@ export const genAppConfig = (browser: string, stageEnv?: string, buildingEnv?: s
         throw new Error(`No browser config for browser: "${browser}"`);
     }
 
-    return {
+    const appConfig: Record<string, any> = {
         BROWSER: browser,
         BUILD_ENV: buildingEnv,
         STAGE_ENV: stageEnv,
@@ -173,4 +173,12 @@ export const genAppConfig = (browser: string, stageEnv?: string, buildingEnv?: s
         ...STAGE_CONF,
         ...COMMON_CONF,
     };
+
+    Object.keys(appConfig).forEach((key) => {
+        if (appConfig[key] === undefined) {
+            throw new Error(`Missed value for key '${key}' in config: ${appConfig}`);
+        }
+    });
+
+    return appConfig;
 };

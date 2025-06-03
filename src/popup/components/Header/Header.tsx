@@ -6,7 +6,11 @@ import classnames from 'classnames';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { translator } from '../../../common/translator';
-import { TelemetryActionName, TelemetryScreenName, type HeaderScreenNames } from '../../../background/telemetry';
+import {
+    TelemetryActionName,
+    TelemetryScreenName,
+    type HeaderScreenNames,
+} from '../../../background/telemetry/telemetryEnums';
 import { Icon, IconButton } from '../../../common/components/Icons';
 
 import './header.pcss';

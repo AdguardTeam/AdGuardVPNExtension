@@ -4,10 +4,10 @@ import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { IconButton } from '../../../common/components/Icons';
 
 import './server-error-popup.pcss';

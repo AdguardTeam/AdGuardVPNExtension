@@ -8,9 +8,9 @@ import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { messenger } from '../../../common/messenger';
 import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { Prefs } from '../../../common/prefs';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { RatePopup } from '../RatePopup';
 
 import { Option } from './Option';

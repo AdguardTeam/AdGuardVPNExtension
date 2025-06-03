@@ -1,13 +1,16 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryScreenName } from '../../../background/telemetry';
+import {
+    TelemetryScreenName,
+    TelemetryActionName,
+    type SupportItemClickActionNames,
+} from '../../../background/telemetry/telemetryEnums';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { TelemetryActionName, type SupportItemClickActionNames } from '../../../background/telemetry/telemetryEnums';
 import { getForwarderUrl } from '../../../common/helpers';
 import { messenger } from '../../../common/messenger';
 import { translator } from '../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { Icon, IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';

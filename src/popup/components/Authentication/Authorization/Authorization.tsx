@@ -3,9 +3,9 @@ import React, { useContext } from 'react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { SocialAuthProvider } from '../../../../common/constants';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { Icon } from '../../../../common/components/Icons';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { EmailAuth } from '../EmailAuth';
 
 import './authorization.pcss';
