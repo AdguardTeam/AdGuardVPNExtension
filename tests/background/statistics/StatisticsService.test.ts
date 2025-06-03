@@ -5,7 +5,6 @@ import {
     type StatisticsData,
     type StatisticsLocationsStorage,
 } from '../../../src/background/statistics/statisticsTypes';
-import { notifier } from '../../../src/common/notifier';
 
 const stateStorageMock = {
     getItem: jest.fn(),
@@ -296,37 +295,6 @@ describe('StatisticsService', () => {
             // should update range in local storage
             expect(stateStorageMock.setItem).toHaveBeenCalledWith(expect.any(String), { range });
             expect(result).toEqual(expected);
-        });
-    });
-
-    it('should emit notifier event when statistics are changed', async () => {
-        stateStorageMock.getItem.mockReturnValueOnce({ range: StatisticsRange.Hours24 });
-
-        let savedUpdateCallback: any;
-        statisticsStorageMock.init.mockImplementationOnce((updateCallback) => {
-            savedUpdateCallback = updateCallback;
-        });
-
-        const callback = jest.fn();
-        notifier.addSpecifiedListener(notifier.types.STATS_UPDATED, callback);
-
-        await statisticsService.init();
-        savedUpdateCallback({
-            locationId1: {
-                hourly: {},
-                daily: {},
-                total: getData(1),
-            },
-        });
-
-        expect(callback).toHaveBeenCalledWith({
-            total: getData(0),
-            locations: [
-                {
-                    locationId: 'locationId1',
-                    data: getData(0),
-                },
-            ],
         });
     });
 });

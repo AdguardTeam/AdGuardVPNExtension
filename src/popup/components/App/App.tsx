@@ -145,7 +145,7 @@ export const App = observer(() => {
                     break;
                 }
                 case notifier.types.STATS_UPDATED: {
-                    await statsStore.setRangeStatistics(data);
+                    await statsStore.updateStatistics();
                     break;
                 }
                 default: {
