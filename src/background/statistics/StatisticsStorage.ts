@@ -8,7 +8,7 @@ import { dateToKey, keyToDate, watchChanges } from './utils';
 import {
     type AddStatisticsDataTraffic,
     type StatisticsLocationData,
-    type StatisticsData,
+    type StatisticsDataTuple,
     type Statistics,
 } from './statisticsTypes';
 
@@ -107,16 +107,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private static readonly STATISTICS_STORAGE_KEY = 'statistics.storage';
 
     /**
-     * Default statistics data object.
-     * Used when the statistics data is not found in hourly / daily / total storage.
-     */
-    private static readonly DEFAULT_STATISTICS_DATA: StatisticsData = {
-        downloadedBytes: 0,
-        uploadedBytes: 0,
-        durationMs: 0,
-    };
-
-    /**
      * Time in milliseconds after which the hourly statistics are moved to daily statistics.
      * The value is set to 24 hours.
      */
@@ -133,6 +123,31 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * The value is set to 5 seconds.
      */
     private static readonly SAVE_STATISTICS_TIMEOUT_MS = 5 * 1000;
+
+    /**
+     * Index in statistics data tuple for downloaded bytes.
+     */
+    private static readonly DOWNLOADED_INDEX = 0;
+
+    /**
+     * Index in statistics data tuple for uploaded bytes.
+     */
+    private static readonly UPLOADED_INDEX = 1;
+
+    /**
+     * Index in statistics data tuple for duration in milliseconds.
+     */
+    private static readonly DURATION_INDEX = 2;
+
+    /**
+     * Index in period statistics data tuple for date or datetime.
+     */
+    private static readonly DATE_INDEX = 0;
+
+    /**
+     * Index in period statistics data tuple for statistics data.
+     */
+    private static readonly DATA_INDEX = 1;
 
     /**
      * Browser local storage.
@@ -302,7 +317,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         // add to total if the duration is valid
         if (totalDuration > 0) {
-            total.durationMs += totalDuration;
+            total[StatisticsStorage.DURATION_INDEX] += totalDuration;
         }
 
         /**
@@ -382,7 +397,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             const data = this.getPeriodStatistics(locationData, isHourly, new Date(current));
 
             const durationToAdd = Math.min(current + increment, end) - current;
-            data.durationMs += durationToAdd;
+            data[StatisticsStorage.DURATION_INDEX] += durationToAdd;
             current += durationToAdd;
 
             if (isFirstIteration) {
@@ -406,50 +421,61 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         timestamp: number,
         isHourly: boolean,
     ): void {
-        const { hourly, daily, total } = locationData;
+        const { total } = locationData;
 
-        const sourceStorage = isHourly
-            ? hourly
-            : daily;
+        const storageToUpdate = isHourly ? 'hourly' : 'daily';
+        const sourceStorage = locationData[storageToUpdate];
 
         const borderTimestamp = isHourly
             ? StatisticsStorage.getHourlyBorderTimestamp(timestamp)
             : StatisticsStorage.getDailyBorderTimestamp(timestamp);
 
-        Object.entries(sourceStorage).forEach(([key, data]) => {
+        const indicesToDelete = new Set<number>();
+        for (let i = 0; i < sourceStorage.length; i += 1) {
+            const [key, data] = sourceStorage[i];
+
             // convert key to date
             const date = keyToDate(key);
 
             // delete and skip if date is not valid
             if (!date) {
-                delete sourceStorage[key];
-                return;
+                indicesToDelete.add(i);
+                // eslint-disable-next-line no-continue
+                continue;
             }
 
             // skip if 24 hours / 30 days is not passed, inclusive (>=)
             // to store last 25 hours / 31 days data, instead of last 24 hours / 30 days
             // see class jsdoc for explanation
             if (date.getTime() >= borderTimestamp) {
-                return;
+                // eslint-disable-next-line no-continue
+                continue;
             }
 
             // move hourly / daily data to daily data / total data
-            const { downloadedBytes, uploadedBytes, durationMs } = data;
+            const [downloadedBytes, uploadedBytes, durationMs] = data;
 
-            let targetData: StatisticsData;
+            let targetData: StatisticsDataTuple;
             if (isHourly) {
                 targetData = this.getPeriodStatistics(locationData, false, date);
             } else {
                 targetData = total;
             }
 
-            targetData.downloadedBytes += downloadedBytes;
-            targetData.uploadedBytes += uploadedBytes;
-            targetData.durationMs += durationMs;
+            targetData[StatisticsStorage.DOWNLOADED_INDEX] += downloadedBytes;
+            targetData[StatisticsStorage.UPLOADED_INDEX] += uploadedBytes;
+            targetData[StatisticsStorage.DURATION_INDEX] += durationMs;
 
-            // remove hourly / daily data after moving
-            delete sourceStorage[key];
-        });
+            // mark index for deletion
+            indicesToDelete.add(i);
+        }
+
+        if (indicesToDelete.size > 0) {
+            // eslint-disable-next-line no-param-reassign
+            locationData[storageToUpdate] = sourceStorage.filter(
+                (data, index) => !indicesToDelete.has(index),
+            );
+        }
     }
 
     /**
@@ -466,11 +492,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             locationData = this.statistics.locations[locationId];
         } else {
             locationData = {
-                hourly: {},
-                daily: {},
-                total: {
-                    ...StatisticsStorage.DEFAULT_STATISTICS_DATA,
-                },
+                hourly: [],
+                daily: [],
+                total: [0, 0, 0],
             };
             this.statistics.locations[locationId] = locationData;
         }
@@ -492,19 +516,17 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         { hourly, daily }: StatisticsLocationData,
         isHourly: boolean,
         date = new Date(),
-    ): StatisticsData {
+    ): StatisticsDataTuple {
         const dateKey = dateToKey(isHourly, date);
         const periodStorage = isHourly ? hourly : daily;
 
-        let periodData: StatisticsData;
-        if (periodStorage[dateKey]) {
-            periodData = periodStorage[dateKey];
-        } else {
-            periodData = { ...StatisticsStorage.DEFAULT_STATISTICS_DATA };
-            periodStorage[dateKey] = periodData;
+        let periodData = periodStorage.find((data) => data[StatisticsStorage.DATE_INDEX] === dateKey);
+        if (!periodData) {
+            periodData = [dateKey, [0, 0, 0]];
+            periodStorage.push(periodData);
         }
 
-        return periodData;
+        return periodData[StatisticsStorage.DATA_INDEX];
     }
 
     /**
@@ -527,8 +549,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const hourlyData = this.getPeriodStatistics(locationData, true);
 
         const { downloadedBytes, uploadedBytes } = data;
-        hourlyData.downloadedBytes += downloadedBytes;
-        hourlyData.uploadedBytes += uploadedBytes;
+        hourlyData[StatisticsStorage.DOWNLOADED_INDEX] += downloadedBytes;
+        hourlyData[StatisticsStorage.UPLOADED_INDEX] += uploadedBytes;
         await this.saveStatistics();
     };
 

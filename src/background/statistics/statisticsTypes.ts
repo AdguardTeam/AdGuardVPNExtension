@@ -1,50 +1,27 @@
 /**
- * Usage statistics data.
+ * Tuple representing statistics data.
+ * It contains:
+ * 1. Number of bytes downloaded
+ * 2. Number of bytes uploaded
+ * 3. Duration of the connection in milliseconds
  */
-export interface StatisticsData {
-    /**
-     * Number of bytes downloaded.
-     */
-    downloadedBytes: number;
-
-    /**
-     * Number of bytes uploaded.
-     */
-    uploadedBytes: number;
-
-    /**
-     * Duration of the connection in milliseconds.
-     */
-    durationMs: number;
-}
+export type StatisticsDataTuple = [number, number, number];
 
 /**
- * Hourly based statistics data.
- * It stores statistics data for past 25 hours.
+ * Tuple representing hourly based statistics data.
+ * It contains:
+ * 1. Datetime in the format `'YYYY-MM-DD-HH'` (UTC+0)
+ * 2. Statistics data
  */
-export interface StatisticsHourlyStorage {
-    /**
-     * Datetime to statistics data mapping.
-     * The datetime is in the format `'YYYY-MM-DD-HH'` (UTC+0).
-     *
-     * Note: Always check if the value is `undefined` before using it.
-     */
-    [dateTime: string]: StatisticsData;
-}
+export type StatisticsHourlyTuple = [string, StatisticsDataTuple];
 
 /**
- * Daily based statistics data.
- * It stores statistics data for past 31 days.
+ * Tuple representing daily based statistics data.
+ * It contains:
+ * 1. Date in the format `'YYYY-MM-DD'` (UTC+0)
+ * 2. Statistics data
  */
-export interface StatisticsDailyStorage {
-    /**
-     * Date to statistics data mapping.
-     * The date is in the format `'YYYY-MM-DD'` (UTC+0).
-     *
-     * Note: Always check if the value is `undefined` before using it.
-     */
-    [date: string]: StatisticsData;
-}
+export type StatisticsDailyTuple = [string, StatisticsDataTuple];
 
 /**
  * Duration tracker for the location statistics.
@@ -69,19 +46,19 @@ export interface StatisticsLocationData {
      * Hourly based statistics data.
      * It stores statistics data for past 25 hours.
      */
-    hourly: StatisticsHourlyStorage;
+    hourly: StatisticsHourlyTuple[];
 
     /**
      * Daily based statistics data.
      * It stores statistics data for past 31 days.
      */
-    daily: StatisticsDailyStorage;
+    daily: StatisticsDailyTuple[];
 
     /**
      * Total statistics data.
      * It stores statistics data for dates that are older than 31 days.
      */
-    total: StatisticsData;
+    total: StatisticsDataTuple;
 
     /**
      * Duration tracker for location.
