@@ -279,14 +279,10 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const { total } = locationData;
         const { startedTimestamp, lastUpdatedTimestamp } = durationTracker;
 
-        const deleteDurationTracker = () => {
-            // eslint-disable-next-line no-param-reassign
-            delete locationData.durationTracker;
-        };
-
         // if the duration is not valid, delete tracker and skip
         if (lastUpdatedTimestamp - startedTimestamp <= 0) {
-            deleteDurationTracker();
+            // eslint-disable-next-line no-param-reassign
+            delete locationData.durationTracker;
             return;
         }
 
@@ -339,7 +335,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         this.distributeDurationAcrossPeriod(locationData, hourlyStart, hourlyEnd, true);
 
         // delete tracker after tracker is distributed
-        deleteDurationTracker();
+        // eslint-disable-next-line no-param-reassign
+        delete locationData.durationTracker;
     }
 
     /**
