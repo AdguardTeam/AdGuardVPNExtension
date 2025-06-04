@@ -1,14 +1,10 @@
 import { StatisticsStorage } from '../../../src/background/statistics/StatisticsStorage';
 import {
-    type StatisticsDataTuple,
-    type StatisticsDurationTracker,
-    type StatisticsLocationData,
-    type StatisticsDailyTuple,
-    type StatisticsHourlyTuple,
     type Statistics,
+    type StatisticsDataTuple,
+    type StatisticsSessionTuple,
     type StatisticsLocationsStorage,
 } from '../../../src/background/statistics/statisticsTypes';
-import { ONE_DAY_MS, ONE_HOUR_MS } from '../../../src/common/constants';
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
@@ -41,26 +37,32 @@ describe('StatisticsStorage', () => {
      *
      * @param downloadedBytes Number of bytes downloaded.
      * @param uploadedBytes Number of bytes uploaded (Default is `downloadedBytes`).
-     * @param durationMs Duration in milliseconds (Default is `downloadedBytes`).
      *
      * @returns Statistics data.
      */
     const getData = (
         downloadedBytes: number,
         uploadedBytes = downloadedBytes,
-        durationMs = downloadedBytes,
     ): StatisticsDataTuple => ([
         downloadedBytes,
         uploadedBytes,
-        durationMs,
     ]);
 
     /**
-     * Returns statistics data with duration in milliseconds.
+     * Get duration for testing.
      *
-     * @returns Statistics data.
+     * @param startedTimestamp Session start timestamp.
+     * @param endedTimestamp Session end timestamp (Default is `started`).
+     *
+     * @returns Statistics session tuple.
      */
-    const getDuration = (durationMs: number): StatisticsDataTuple => ([0, 0, durationMs]);
+    const getSession = (
+        startedTimestamp: number,
+        endedTimestamp = startedTimestamp,
+    ): StatisticsSessionTuple => ([
+        startedTimestamp,
+        endedTimestamp,
+    ]);
 
     /**
      * Returns statistics with provided locations.
@@ -99,349 +101,42 @@ describe('StatisticsStorage', () => {
         });
     });
 
-    describe('Duration tracker', () => {
-        // @ts-expect-error - accessing private method
-        const dailyBorderDateTimestamp = StatisticsStorage.getDailyBorderTimestamp(systemDate.getTime());
-        // @ts-expect-error - accessing private method
-        const hourlyBorderDateTimestamp = StatisticsStorage.getHourlyBorderTimestamp(systemDate.getTime());
-
+    describe('Storage optimization', () => {
         /**
-         * Spams daily statistics for the given number of days.
-         *
-         * @param daysCount Number of days to spam.
-         *
-         * @returns Daily statistics storage with the given number of days.
+         * Test case for switch.
          */
-        const spamAllDays = (daysCount = 29) => {
-            const days: StatisticsDailyTuple[] = [];
-            for (let i = 0; i < daysCount; i += 1) {
-                const date = new Date(dailyBorderDateTimestamp + i * ONE_DAY_MS);
-                const dateKey = date.toISOString().split('T')[0];
-                days.push([dateKey, getDuration(ONE_DAY_MS)]);
-            }
-            return days;
-        };
-
-        /**
-         * Spams hourly statistics for the given number of hours.
-         *
-         * @param hoursCount Number of hours to spam.
-         *
-         * @returns Hourly statistics storage with the given number of hours.
-         */
-        const spamAllHours = (hoursCount = 24) => {
-            const hours: StatisticsHourlyTuple[] = [];
-            for (let i = 0; i < hoursCount; i += 1) {
-                const date = new Date(hourlyBorderDateTimestamp + i * ONE_HOUR_MS);
-                const dateKey = date.toISOString().split('T')[0];
-                const hourKey = String(date.getUTCHours()).padStart(2, '0');
-                hours.push([`${dateKey}-${hourKey}`, getDuration(ONE_HOUR_MS)]);
-            }
-            return hours;
-        };
-
-        /**
-         * Test case for duration tracker.
-         */
-        type DurationTrackerTestCase = {
+        type OptimizationCase = {
             /**
-             * Duration tracker to test.
-             */
-            tracker: StatisticsDurationTracker;
-
-            /**
-             * Expected statistics after processing the tracker.
-             */
-            expected: StatisticsLocationData;
-        };
-
-        /**
-         * There are 6 cases to test:
-         * 1. started < lastUpdated < 30 days < 24 hours
-         *    - lastUpdated - started should go to total duration
-         * 2. 30 days < started < lastUpdated < 24 hours
-         *    - lastUpdated - started should distributed across daily
-         * 3. 30 days < 24 hours < started < lastUpdated
-         *    - lastUpdated - started should distributed across hourly
-         * 4. started < 30 days < lastUpdated < 24 hours
-         *    - 30 days - started should go to total duration
-         *    - lastUpdated - 30 days should distributed across daily
-         * 5. 30 days < started < 24 hours < lastUpdated
-         *    - 24 hours - started should distributed across daily
-         *    - lastUpdated - 24 hours should distributed across hourly
-         * 6. started < 30 days < 24 hours < lastUpdated
-         *    - 30 days - started should go to total duration
-         *    - 24 hours - 30 days should distributed across daily
-         *    - lastUpdated - 24 hours should distributed across hourly
-         *
-         * Where:
-         * - started: the time when connection was started
-         * - lastUpdated: the last time when connection was still active
-         * - 30 days: 30 days before the current date
-         * - 24 hours: 24 hours before the current date
-         *
-         * And also we are testing several scenarios:
-         * - when duration is distributed across multiple days
-         * - when duration is distributed across multiple hours
-         */
-        const cases: DurationTrackerTestCase[] = [
-            // case 1
-            {
-                tracker: {
-                    startedTimestamp: dailyBorderDateTimestamp - 2000,
-                    lastUpdatedTimestamp: dailyBorderDateTimestamp - 1000,
-                },
-                expected: {
-                    hourly: [],
-                    daily: [],
-                    total: getDuration(1000),
-                },
-            },
-            // case 1 - edge case when lastUpdated is equal to 30 days
-            {
-                tracker: {
-                    startedTimestamp: dailyBorderDateTimestamp - 1000,
-                    lastUpdatedTimestamp: dailyBorderDateTimestamp,
-                },
-                expected: {
-                    hourly: [],
-                    daily: [],
-                    total: getDuration(1000),
-                },
-            },
-            // case 2 - only one day
-            {
-                tracker: {
-                    startedTimestamp: dailyBorderDateTimestamp + 1000,
-                    lastUpdatedTimestamp: dailyBorderDateTimestamp + 2000,
-                },
-                expected: {
-                    hourly: [],
-                    daily: [
-                        ['2025-09-01', getDuration(1000)],
-                    ],
-                    total: getDuration(0),
-                },
-            },
-            // case 2 - multiple days
-            {
-                tracker: {
-                    startedTimestamp: dailyBorderDateTimestamp + 1000,
-                    lastUpdatedTimestamp: dailyBorderDateTimestamp + 2 * ONE_DAY_MS + 2000,
-                },
-                expected: {
-                    hourly: [],
-                    daily: [
-                        // first day used 1000ms less
-                        ['2025-09-01', getDuration(ONE_DAY_MS - 1000)],
-                        // full day
-                        ['2025-09-02', getDuration(ONE_DAY_MS)],
-                        // last day used 2000ms
-                        ['2025-09-03', getDuration(2000)],
-                    ],
-                    total: getDuration(0),
-                },
-            },
-            // case 2 - edge case when started is equal to 30 days and lastUpdated is equal to 24 hours
-            {
-                tracker: {
-                    startedTimestamp: dailyBorderDateTimestamp,
-                    lastUpdatedTimestamp: hourlyBorderDateTimestamp,
-                },
-                expected: {
-                    hourly: [],
-                    daily: [
-                        // all days used full day
-                        ...spamAllDays(),
-                        // last day used up to 10:00
-                        ['2025-09-30', getDuration(10 * ONE_HOUR_MS)],
-                    ],
-                    total: getDuration(0),
-                },
-            },
-            // case 3 - only one hour
-            {
-                tracker: {
-                    startedTimestamp: hourlyBorderDateTimestamp + 1000,
-                    lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2000,
-                },
-                expected: {
-                    hourly: [
-                        ['2025-09-30-10', getDuration(1000)],
-                    ],
-                    daily: [],
-                    total: getDuration(0),
-                },
-            },
-            // case 3 - multiple hours
-            {
-                tracker: {
-                    startedTimestamp: hourlyBorderDateTimestamp + 1000,
-                    lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2 * ONE_HOUR_MS + 2000,
-                },
-                expected: {
-                    hourly: [
-                        // first hour used 1000ms less
-                        ['2025-09-30-10', getDuration(ONE_HOUR_MS - 1000)],
-                        // full hour
-                        ['2025-09-30-11', getDuration(ONE_HOUR_MS)],
-                        // last hour used 2000ms
-                        ['2025-09-30-12', getDuration(2000)],
-                    ],
-                    daily: [],
-                    total: getDuration(0),
-                },
-            },
-            // case 3 - edge case when started is equal to 24 hours
-            {
-                tracker: {
-                    startedTimestamp: hourlyBorderDateTimestamp,
-                    lastUpdatedTimestamp: systemDate.getTime(),
-                },
-                expected: {
-                    hourly: [
-                        // all hours used full hour
-                        ...spamAllHours(),
-                        // last hour used up to current time
-                        ['2025-10-01-10', getDuration(systemDate.getTime() - new Date('2025-10-01T10:00:00Z').getTime())],
-                    ],
-                    daily: [],
-                    total: getDuration(0),
-                },
-            },
-            // case 4
-            {
-                tracker: {
-                    startedTimestamp: dailyBorderDateTimestamp - 2000,
-                    lastUpdatedTimestamp: dailyBorderDateTimestamp + 2000,
-                },
-                expected: {
-                    hourly: [],
-                    daily: [
-                        ['2025-09-01', getDuration(2000)],
-                    ],
-                    total: getDuration(2000),
-                },
-            },
-            // case 4 - edge case when lastUpdated is equal to 24 hours
-            {
-                tracker: {
-                    startedTimestamp: dailyBorderDateTimestamp - 2000,
-                    lastUpdatedTimestamp: hourlyBorderDateTimestamp,
-                },
-                expected: {
-                    hourly: [],
-                    daily: [
-                        ...spamAllDays(),
-                        // last day used up to 10:00
-                        ['2025-09-30', getDuration(10 * ONE_HOUR_MS)],
-                    ],
-                    total: getDuration(2000),
-                },
-            },
-            // case 5
-            {
-                tracker: {
-                    startedTimestamp: hourlyBorderDateTimestamp - 2000,
-                    lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2000,
-                },
-                expected: {
-                    hourly: [
-                        ['2025-09-30-10', getDuration(2000)],
-                    ],
-                    daily: [
-                        ['2025-09-30', getDuration(2000)],
-                    ],
-                    total: getDuration(0),
-                },
-            },
-            // case 5 - edge case when started is equal to 30 days
-            {
-                tracker: {
-                    startedTimestamp: dailyBorderDateTimestamp,
-                    lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2000,
-                },
-                expected: {
-                    hourly: [
-                        ['2025-09-30-10', getDuration(2000)],
-                    ],
-                    daily: [
-                        ...spamAllDays(),
-                        // last day used up to 10:00
-                        ['2025-09-30', getDuration(10 * ONE_HOUR_MS)],
-                    ],
-                    total: getDuration(0),
-                },
-            },
-            // case 6
-            {
-                tracker: {
-                    startedTimestamp: dailyBorderDateTimestamp - 2000,
-                    lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2000,
-                },
-                expected: {
-                    hourly: [
-                        ['2025-09-30-10', getDuration(2000)],
-                    ],
-                    daily: [
-                        ...spamAllDays(),
-                        // last day used up to 10:00
-                        ['2025-09-30', getDuration(10 * ONE_HOUR_MS)],
-                    ],
-                    total: getDuration(2000),
-                },
-            },
-        ];
-
-        it.each(cases)('should correctly resolve the duration', async ({ tracker, expected }) => {
-            const locationId = 'locationId';
-
-            storageMock.get.mockResolvedValueOnce(getStatistics({
-                [locationId]: {
-                    hourly: [],
-                    daily: [],
-                    total: getDuration(0),
-                    durationTracker: tracker,
-                },
-            }));
-
-            await statisticsStorage.init();
-
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
-            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics({
-                [locationId]: expected,
-            }));
-        });
-    });
-
-    describe('Period switch', () => {
-        /**
-         * Test case for period switch.
-         */
-        type PeriodSwitchTestCase = {
-            /**
-             * Locations storage to test.
+             * Input data for the test case.
              */
             storage: StatisticsLocationsStorage;
 
             /**
-             * Expected locations storage after processing the storage.
+             * Expected data after processing the input.
              */
             expected: StatisticsLocationsStorage;
+
+            /**
+             * If true, the data should not be saved to storage.
+             */
+            shouldNotSave?: boolean;
         };
 
         const locationId1 = 'locationId1';
         const locationId2 = 'locationId2';
 
-        const cases: PeriodSwitchTestCase[] = [
-            // case 1 - should move from hourly to daily properly
-            {
+        const NOW = systemDate.getTime();
+        const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+        const THRESHOLD_TIMESTAMP = NOW - THIRTY_DAYS_MS;
+
+        const cases: [string, OptimizationCase][] = [
+            ['data - should move from hourly to daily properly', {
                 storage: {
                     [locationId1]: {
                         hourly: [
                             // should accumulate same day hourly
-                            ['2025-09-28-10', getData(1, 2, 3)],
-                            ['2025-09-28-23', getData(3, 2, 1)],
+                            ['2025-09-28-10', getData(1, 2)],
+                            ['2025-09-28-23', getData(3, 2)],
                             // should be moved to daily (24 hours passed)
                             ['2025-09-29-01', getData(3)],
                             // should be moved to daily (24 hours passed - close time)
@@ -449,10 +144,12 @@ describe('StatisticsStorage', () => {
                             // edge case: should not be moved to daily (24 hours passed, but it's border time)
                             ['2025-09-30-10', getData(3)],
                             // should not be moved to daily (24 hours not passed)
-                            ['2025-09-30-11', getData(3, 2, 1)],
+                            ['2025-09-30-11', getData(3, 2)],
                         ],
                         daily: [],
                         total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                     // should check different locations
                     [locationId2]: {
@@ -462,13 +159,15 @@ describe('StatisticsStorage', () => {
                         ],
                         daily: [],
                         total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                 },
                 expected: {
                     [locationId1]: {
                         hourly: [
                             ['2025-09-30-10', getData(3)],
-                            ['2025-09-30-11', getData(3, 2, 1)],
+                            ['2025-09-30-11', getData(3, 2)],
                         ],
                         daily: [
                             ['2025-09-28', getData(4)],
@@ -476,6 +175,8 @@ describe('StatisticsStorage', () => {
                             ['2025-09-30', getData(2)],
                         ],
                         total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                     [locationId2]: {
                         hourly: [],
@@ -483,11 +184,12 @@ describe('StatisticsStorage', () => {
                             ['2025-09-15', getData(1)],
                         ],
                         total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                 },
-            },
-            // case 2 - should store past 24 hours only
-            {
+            }],
+            ['data - should store past 24 hours only', {
                 storage: {
                     [locationId1]: {
                         hourly: [
@@ -521,6 +223,8 @@ describe('StatisticsStorage', () => {
                         ],
                         daily: [],
                         total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                 },
                 expected: {
@@ -556,11 +260,12 @@ describe('StatisticsStorage', () => {
                             ['2025-09-30', getData(2)],
                         ],
                         total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                 },
-            },
-            // case 3 - should move from daily to total properly
-            {
+            }],
+            ['data - should move from daily to total properly', {
                 storage: {
                     [locationId1]: {
                         hourly: [],
@@ -573,9 +278,11 @@ describe('StatisticsStorage', () => {
                             // edge case: should not be moved to total (30 days passed, but it's border time)
                             ['2025-09-01', getData(2)],
                             // should not be moved to total (30 days not passed)
-                            ['2025-09-30', getData(3, 2, 1)],
+                            ['2025-09-30', getData(3, 2)],
                         ],
                         total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                     // should check different locations
                     [locationId2]: {
@@ -585,6 +292,8 @@ describe('StatisticsStorage', () => {
                             ['2025-08-31', getData(1)],
                         ],
                         total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                 },
                 expected: {
@@ -592,19 +301,22 @@ describe('StatisticsStorage', () => {
                         hourly: [],
                         daily: [
                             ['2025-09-01', getData(2)],
-                            ['2025-09-30', getData(3, 2, 1)],
+                            ['2025-09-30', getData(3, 2)],
                         ],
                         total: getData(5),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                     [locationId2]: {
                         hourly: [],
                         daily: [],
                         total: getData(1),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                 },
-            },
-            // case 4 - should store past 30 days only
-            {
+            }],
+            ['data - should store past 30 days only', {
                 storage: {
                     [locationId1]: {
                         hourly: [],
@@ -645,6 +357,8 @@ describe('StatisticsStorage', () => {
                             ['2025-10-01', getData(1)],
                         ],
                         total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                 },
                 expected: {
@@ -684,18 +398,200 @@ describe('StatisticsStorage', () => {
                             ['2025-10-01', getData(1)],
                         ],
                         total: getData(3),
+                        sessions: [],
+                        totalDurationMs: 0,
                     },
                 },
-            },
+            }],
+
+            ['duration - fully outdated session', {
+                storage: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            getSession(THRESHOLD_TIMESTAMP - 2000, THRESHOLD_TIMESTAMP - 1000),
+                        ],
+                        totalDurationMs: 0,
+                    },
+                },
+                expected: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 1000,
+                    },
+                },
+            }],
+            ['duration - partially outdated session', {
+                storage: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            getSession(THRESHOLD_TIMESTAMP - 1000, THRESHOLD_TIMESTAMP + 1000),
+                        ],
+                        totalDurationMs: 0,
+                    },
+                },
+                expected: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            getSession(THRESHOLD_TIMESTAMP, THRESHOLD_TIMESTAMP + 1000),
+                        ],
+                        totalDurationMs: 1000,
+                    },
+                },
+            }],
+            ['duration - not outdated session', {
+                storage: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            getSession(THRESHOLD_TIMESTAMP + 1000, THRESHOLD_TIMESTAMP + 2000),
+                        ],
+                        totalDurationMs: 0,
+                    },
+                },
+                expected: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            getSession(THRESHOLD_TIMESTAMP + 1000, THRESHOLD_TIMESTAMP + 2000),
+                        ],
+                        totalDurationMs: 0,
+                    },
+                },
+                shouldNotSave: true, // should not save if no changes
+            }],
+            ['duration - mixed multiple sessions (fully, partially, not outdated)', {
+                storage: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            // fully outdated (1000ms)
+                            getSession(THRESHOLD_TIMESTAMP - 3000, THRESHOLD_TIMESTAMP - 2000),
+                            // partially outdated (1000ms moved)
+                            getSession(THRESHOLD_TIMESTAMP - 1000, THRESHOLD_TIMESTAMP + 1000),
+                            // not outdated
+                            getSession(THRESHOLD_TIMESTAMP + 2000, THRESHOLD_TIMESTAMP + 3000),
+                        ],
+                        totalDurationMs: 100,
+                    },
+                },
+                expected: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            getSession(THRESHOLD_TIMESTAMP, THRESHOLD_TIMESTAMP + 1000),
+                            getSession(THRESHOLD_TIMESTAMP + 2000, THRESHOLD_TIMESTAMP + 3000),
+                        ],
+                        totalDurationMs: 100 + 1000 + 1000, // 1200
+                    },
+                },
+            }],
+            ['duration - invalid sessions', {
+                storage: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            // started > ended
+                            getSession(THRESHOLD_TIMESTAMP + 1000, THRESHOLD_TIMESTAMP + 500),
+                            // negative startedTimestamp
+                            getSession(-100, THRESHOLD_TIMESTAMP + 500),
+                            // negative endedTimestamp
+                            getSession(THRESHOLD_TIMESTAMP + 500, -100),
+                        ],
+                        totalDurationMs: 0,
+                    },
+                },
+                expected: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 0,
+                    },
+                },
+            }],
+            ['duration - session ends exactly at threshold', {
+                storage: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            getSession(THRESHOLD_TIMESTAMP - 1000, THRESHOLD_TIMESTAMP),
+                        ],
+                        totalDurationMs: 0,
+                    },
+                },
+                expected: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [],
+                        totalDurationMs: 1000,
+                    },
+                },
+            }],
+            ['duration - session starts exactly at threshold', {
+                storage: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            getSession(THRESHOLD_TIMESTAMP, THRESHOLD_TIMESTAMP + 1000),
+                        ],
+                        totalDurationMs: 0,
+                    },
+                },
+                expected: {
+                    [locationId1]: {
+                        hourly: [],
+                        daily: [],
+                        total: getData(0),
+                        sessions: [
+                            getSession(THRESHOLD_TIMESTAMP, THRESHOLD_TIMESTAMP + 1000),
+                        ],
+                        totalDurationMs: 0,
+                    },
+                },
+                shouldNotSave: true,
+            }],
         ];
 
-        it.each(cases)('should switch period properly', async ({ storage, expected }) => {
+        it.each(cases)('should optimize storage properly %s', async (caseName, { storage, expected, shouldNotSave }) => {
             storageMock.get.mockResolvedValueOnce(getStatistics(storage));
 
             await statisticsStorage.init();
 
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
-            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics(expected));
+            if (shouldNotSave) {
+                expect(storageMock.set).toHaveBeenCalledTimes(0);
+            } else {
+                expect(storageMock.set).toHaveBeenCalledTimes(1);
+                expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics(expected));
+            }
         });
     });
 
@@ -718,15 +614,17 @@ describe('StatisticsStorage', () => {
             expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics({
                 [locationId]: {
                     hourly: [
-                        ['2025-10-01-10', getData(downloadedBytes, uploadedBytes, 0)],
+                        ['2025-10-01-10', getData(downloadedBytes, uploadedBytes)],
                     ],
                     daily: [],
                     total: getData(0),
+                    sessions: [],
+                    totalDurationMs: 0,
                 },
             }));
         });
 
-        it('should add duration tracker properly', async () => {
+        it('should add last session properly', async () => {
             const locationId = 'locationId11';
 
             storageMock.get.mockResolvedValueOnce(getStatistics());
@@ -742,10 +640,9 @@ describe('StatisticsStorage', () => {
                     hourly: [],
                     daily: [],
                     total: getData(0),
-                    durationTracker: {
-                        startedTimestamp: systemDate.getTime(),
-                        lastUpdatedTimestamp: systemDate.getTime(),
-                    },
+                    lastSession: [systemDate.getTime(), systemDate.getTime()],
+                    sessions: [],
+                    totalDurationMs: 0,
                 },
             }));
 
@@ -759,10 +656,9 @@ describe('StatisticsStorage', () => {
                     hourly: [],
                     daily: [],
                     total: getData(0),
-                    durationTracker: {
-                        startedTimestamp: systemDate.getTime(),
-                        lastUpdatedTimestamp: systemDate.getTime() + 1000,
-                    },
+                    lastSession: [systemDate.getTime(), systemDate.getTime() + 1000],
+                    sessions: [],
+                    totalDurationMs: 0,
                 },
             }));
 
@@ -773,11 +669,13 @@ describe('StatisticsStorage', () => {
             expect(storageMock.set).toHaveBeenCalledTimes(3);
             expect(storageMock.set).toHaveBeenNthCalledWith(3, expect.any(String), getStatistics({
                 [locationId]: {
-                    hourly: [
-                        ['2025-10-01-10', getDuration(2000)],
-                    ],
+                    hourly: [],
                     daily: [],
                     total: getData(0),
+                    sessions: [
+                        [systemDate.getTime(), systemDate.getTime() + 2000],
+                    ],
+                    totalDurationMs: 0,
                 },
             }));
         });

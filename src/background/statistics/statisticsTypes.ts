@@ -3,9 +3,8 @@
  * It contains:
  * 1. Number of bytes downloaded
  * 2. Number of bytes uploaded
- * 3. Duration of the connection in milliseconds
  */
-export type StatisticsDataTuple = [number, number, number];
+export type StatisticsDataTuple = [number, number];
 
 /**
  * Tuple representing hourly based statistics data.
@@ -24,19 +23,12 @@ export type StatisticsHourlyTuple = [string, StatisticsDataTuple];
 export type StatisticsDailyTuple = [string, StatisticsDataTuple];
 
 /**
- * Duration tracker for the location statistics.
+ * Tuple representing connection session data.
+ * It contains:
+ * 1. Timestamp when the session started
+ * 2. Timestamp when the session ended
  */
-export interface StatisticsDurationTracker {
-    /**
-     * Timestamp when the connection started.
-     */
-    startedTimestamp: number;
-
-    /**
-     * Last timestamp when connection was still active.
-     */
-    lastUpdatedTimestamp: number;
-}
+export type StatisticsSessionTuple = [number, number];
 
 /**
  * Statistics data for a specific location.
@@ -61,9 +53,21 @@ export interface StatisticsLocationData {
     total: StatisticsDataTuple;
 
     /**
-     * Duration tracker for location.
+     * Connection sessions data.
+     * It stores connection sessions data for the past 30 days.
      */
-    durationTracker?: StatisticsDurationTracker
+    sessions: StatisticsSessionTuple[];
+
+    /**
+     * Total connection duration in milliseconds for the location.
+     * It stores the total duration for sessions that are older than 30 days.
+     */
+    totalDurationMs: number;
+
+    /**
+     * Last connection session data.
+     */
+    lastSession?: StatisticsSessionTuple;
 }
 
 /**
