@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "احراز هویت"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "ادامه"
+    },
     "popup_newsletter_title": {
         "message": "خبرنامه AdGuard"
     },

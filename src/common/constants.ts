@@ -50,6 +50,8 @@ export enum MessageType {
     SAVED_LOCATIONS_ADD = 'saved.locations.add',
     SAVED_LOCATIONS_REMOVE = 'saved.locations.remove',
     GET_OPTIONS_DATA = 'get.options.data',
+    GET_CONSENT_DATA = 'get.consent.data',
+    SET_CONSENT_DATA = 'set.consent.data',
     GET_VPN_FAILURE_PAGE = 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE = 'open.options.page',
     SET_SELECTED_LOCATION = 'set.selected.location',
@@ -138,6 +140,68 @@ export const FLAGS_FIELDS = {
     SALE_SHOW: 'saleShow',
     SHOULD_SHOW_RATE_MODAL: 'shouldShowRateModal',
 };
+
+/**
+ * Authentication flow steps.
+ */
+export const AUTH_STEPS = {
+    /**
+     * Policy agreement or also called consent step.
+     * This step is shown only for new users in the extension popup.
+     * For Firefox, this step is also shown as separate consent page.
+     *
+     * In this step, user needs to agree with the policy and EULA.
+     */
+    POLICY_AGREEMENT: 'policyAgreement',
+
+    /**
+     * Screenshot step.
+     * This step is shown only for new users in the extension popup.
+     * In this step, main screen is rendered as a screenshot.
+     */
+    SCREENSHOT: 'screenshot',
+
+    /**
+     * Authorization step.
+     * In this step, user can type email or sign in with social account.
+     */
+    AUTHORIZATION: 'authorization',
+
+    /**
+     * Email confirmation step.
+     * In this step, user needs to confirm their email address.
+     */
+    CHECK_EMAIL: 'checkEmail',
+
+    /**
+     * Sign in step.
+     * In this step, user needs to type password to sign in with existing account.
+     */
+    SIGN_IN: 'signIn',
+
+    /**
+     * Registration step.
+     * In this step, user needs to type email and password to create a new account.
+     */
+    REGISTRATION: 'registration',
+
+    /**
+     * Two-factor authentication step.
+     * In this step, user needs to type 2FA code to complete the authentication.
+     */
+    TWO_FACTOR: 'twoFactor',
+
+    /**
+     * Confirmation email step.
+     * In this step, user needs to confirm their sign in by writing the code.
+     */
+    CONFIRM_EMAIL: 'confirmEmail',
+};
+
+/**
+ * Absolute URL for the consent page.
+ */
+export const CONSENT_PAGE_URL = '/consent.html';
 
 export type ExclusionsContentMap = {
     [key: string]: string[];

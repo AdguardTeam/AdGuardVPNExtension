@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Log ind eller opret en konto"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Fortsæt"
+    },
     "popup_newsletter_title": {
         "message": "AdGuard-nyhedsbrev"
     },

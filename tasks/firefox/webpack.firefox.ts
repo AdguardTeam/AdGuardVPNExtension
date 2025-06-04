@@ -27,6 +27,8 @@ const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
 const CUSTOM_PROTOCOL_HANDLER_PATH = path.resolve(__dirname, '..', SRC_PATH, 'custom-protocol-handler');
 
+const CONSENT_PATH = path.resolve(__dirname, '..', SRC_PATH, 'consent');
+
 /**
  * Firefox Extensions Store has a limit of 4 MB for .js files.
  */
@@ -50,6 +52,12 @@ if (commonConfig.resolve) {
         buffer: require.resolve('buffer'),
     };
 }
+
+/**
+ * Entry point for consent page react script.
+ * This is done only for Firefox, because consent page is not used in other browsers.
+ */
+(commonConfig.entry as webpack.EntryObject).consent = CONSENT_PATH;
 
 const plugins: webpack.WebpackPluginInstance[] = [
     new webpack.ProvidePlugin({
@@ -88,6 +96,12 @@ const plugins: webpack.WebpackPluginInstance[] = [
         template: path.join(CUSTOM_PROTOCOL_HANDLER_PATH, 'index.html'),
         filename: 'custom-protocol-handler.html',
         chunks: ['custom-protocol-handler'],
+        cache: false,
+    }),
+    new HtmlWebpackPlugin({
+        template: path.join(CONSENT_PATH, 'index.html'),
+        filename: 'consent.html',
+        chunks: ['consent'],
         cache: false,
     }),
     new ZipWebpackPlugin({

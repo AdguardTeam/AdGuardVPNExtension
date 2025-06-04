@@ -1,4 +1,4 @@
-import { AppearanceTheme, THEME_URL_PARAMETER } from '../common/constants';
+import { AppearanceTheme, THEME_URL_PARAMETER } from './constants';
 
 /**
  * this script is injected at the top of the page to display

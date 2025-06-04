@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "로그인 또는 계정 생성"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "계속하기"
+    },
     "popup_newsletter_title": {
         "message": "AdGuard 소식지"
     },

@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Մուտք գործել կամ ստեղծել հաշիվ"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Շարունակել"
+    },
     "popup_newsletter_title": {
         "message": "AdGuard տեղեկագիր"
     },

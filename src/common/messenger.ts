@@ -206,6 +206,28 @@ class Messenger {
         return this.sendMessage(type);
     }
 
+    /**
+     * Sends a message to the background page to get consent data.
+     *
+     * @returns Data needed for the consent page.
+     */
+    async getConsentData() {
+        const type = MessageType.GET_CONSENT_DATA;
+        return this.sendMessage(type);
+    }
+
+    /**
+     * Sends a message to the background page to set consent data,
+     * which includes user agreement to the policy and help us improve checkbox.
+     *
+     * @param policyAgreement Policy agreement status.
+     * @param helpUsImprove Help us improve status.
+     */
+    async setConsentData(policyAgreement: boolean, helpUsImprove: boolean) {
+        const type = MessageType.SET_CONSENT_DATA;
+        return this.sendMessage(type, { policyAgreement, helpUsImprove });
+    }
+
     async getVpnFailurePage() {
         const type = MessageType.GET_VPN_FAILURE_PAGE;
         return this.sendMessage(type);

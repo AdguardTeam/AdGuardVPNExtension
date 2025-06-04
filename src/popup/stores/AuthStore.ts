@@ -14,24 +14,13 @@ import {
     REQUIRED_2FA_CODE,
     REQUIRED_EMAIL_CONFIRMATION_CODE,
     RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC,
-    SETTINGS_IDS,
     FLAGS_FIELDS,
     type SocialAuthProvider,
+    AUTH_STEPS,
 } from '../../common/constants';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
-
-const AUTH_STEPS = {
-    POLICY_AGREEMENT: 'policyAgreement',
-    SCREENSHOT: 'screenshot',
-    AUTHORIZATION: 'authorization',
-    CHECK_EMAIL: 'checkEmail',
-    SIGN_IN: 'signIn',
-    REGISTRATION: 'registration',
-    TWO_FACTOR: 'twoFactor',
-    CONFIRM_EMAIL: 'confirmEmail',
-};
 
 enum CredentialsKey {
     Username = 'username',
@@ -522,8 +511,7 @@ export class AuthStore {
     };
 
     @action onPolicyAgreementReceived = async () => {
-        await messenger.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, this.policyAgreement);
-        await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
+        await messenger.setConsentData(this.policyAgreement, this.helpUsImprove);
 
         // Activate Screenshot Flow which acts as a "cover" of a main
         // content, which on click anywhere will trigger Login/Signup flow.

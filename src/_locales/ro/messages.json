@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Conectați-vă sau creați un cont"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Continuați"
+    },
     "popup_newsletter_title": {
         "message": "Buletin informativ AdGuard"
     },

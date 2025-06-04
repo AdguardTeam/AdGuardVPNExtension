@@ -33,6 +33,7 @@ import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
 import { savedLocations } from '../savedLocations';
 import { authService } from '../authentication/authService';
+import { getConsentData, setConsentData } from '../consent';
 
 interface Message {
     type: MessageType,
@@ -180,6 +181,13 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.GET_OPTIONS_DATA: {
             return getOptionsData();
+        }
+        case MessageType.GET_CONSENT_DATA: {
+            return getConsentData();
+        }
+        case MessageType.SET_CONSENT_DATA: {
+            const { policyAgreement, helpUsImprove } = data;
+            return setConsentData(policyAgreement, helpUsImprove);
         }
         case MessageType.GET_VPN_FAILURE_PAGE: {
             return endpoints.getVpnFailurePage();

@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Identifiez-vous ou créez un compte"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Continuer"
+    },
     "popup_newsletter_title": {
         "message": "Newsletter AdGuard"
     },

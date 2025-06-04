@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { getForwarderUrl } from '../../../common/helpers';
+import { getPrivacyAndEulaUrls } from '../../../common/forwarderHelpers';
 import { rootStore } from '../../stores';
 import { ControlsSwitch } from '../ui/Controls';
 import { Modal } from '../ui/Modal';
@@ -21,7 +20,7 @@ export const HelpUsImprove = observer(() => {
         forwarderDomain,
     } = settingsStore;
 
-    const privacyUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY);
+    const { privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
 
     const handleToggle = async (): Promise<void> => {
         await setHelpUsImproveValue(!helpUsImprove);

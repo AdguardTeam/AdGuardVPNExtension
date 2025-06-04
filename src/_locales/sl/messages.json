@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Prijavite se ali ustvarite račun"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Nadaljuj"
+    },
     "popup_newsletter_title": {
         "message": "Glasilo AdGuarda"
     },

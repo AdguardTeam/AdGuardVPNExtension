@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Giriş yap ya da bir hesap oluştur"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Devam et"
+    },
     "popup_newsletter_title": {
         "message": "AdGuard bülteni"
     },
