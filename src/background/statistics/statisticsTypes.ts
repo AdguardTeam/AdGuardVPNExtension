@@ -120,6 +120,26 @@ export enum StatisticsRange {
 }
 
 /**
+ * Usage statistics data.
+ */
+export interface StatisticsData {
+    /**
+     * Number of bytes downloaded.
+     */
+    downloadedBytes: number;
+
+    /**
+     * Number of bytes uploaded.
+     */
+    uploadedBytes: number;
+
+    /**
+     * Duration of the connection in milliseconds.
+     */
+    durationMs: number;
+}
+
+/**
  * Statistics data usage for a specific location.
  */
 export interface StatisticsDataUsage {

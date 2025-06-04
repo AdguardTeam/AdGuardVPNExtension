@@ -785,12 +785,12 @@ describe('StatisticsStorage', () => {
         it('should return statistics properly', async () => {
             const statistics = getStatistics({
                 locationId: {
-                    hourly: {
-                        '2025-10-01-10': getData(1),
-                    },
-                    daily: {
-                        '2025-10-01': getData(2),
-                    },
+                    hourly: [
+                        ['2025-10-01-10', getData(1)],
+                    ],
+                    daily: [
+                        ['2025-10-01', getData(2)],
+                    ],
                     total: getData(3),
                 },
             });
@@ -807,14 +807,14 @@ describe('StatisticsStorage', () => {
         it('should return updated account storage after time', async () => {
             storageMock.get.mockResolvedValueOnce(getStatistics({
                 locationId: {
-                    hourly: {
-                        '2025-10-01-10': getData(1),
-                        '2025-09-30-10': getData(1),
-                    },
-                    daily: {
-                        '2025-10-01': getData(2),
-                        '2025-09-01': getData(2),
-                    },
+                    hourly: [
+                        ['2025-09-30-10', getData(1)],
+                        ['2025-10-01-10', getData(1)],
+                    ],
+                    daily: [
+                        ['2025-09-01', getData(2)],
+                        ['2025-10-01', getData(2)],
+                    ],
                     total: getData(3),
                 },
             }));
@@ -828,14 +828,14 @@ describe('StatisticsStorage', () => {
 
             expect(result1).toEqual(getStatistics({
                 locationId: {
-                    hourly: {
-                        '2025-10-01-10': getData(1),
-                    },
-                    daily: {
-                        '2025-10-01': getData(2),
-                        '2025-09-30': getData(1),
-                        '2025-09-01': getData(2),
-                    },
+                    hourly: [
+                        ['2025-10-01-10', getData(1)],
+                    ],
+                    daily: [
+                        ['2025-09-01', getData(2)],
+                        ['2025-10-01', getData(2)],
+                        ['2025-09-30', getData(1)],
+                    ],
                     total: getData(3),
                 },
             }));
@@ -847,11 +847,11 @@ describe('StatisticsStorage', () => {
 
             expect(result2).toEqual(getStatistics({
                 locationId: {
-                    hourly: {},
-                    daily: {
-                        '2025-09-30': getData(1),
-                        '2025-10-01': getData(3),
-                    },
+                    hourly: [],
+                    daily: [
+                        ['2025-10-01', getData(3)],
+                        ['2025-09-30', getData(1)],
+                    ],
                     total: getData(5),
                 },
             }));
@@ -860,12 +860,12 @@ describe('StatisticsStorage', () => {
         it('should clear statistics for the given account', async () => {
             storageMock.get.mockResolvedValueOnce(getStatistics({
                 locationId: {
-                    hourly: {
-                        '2025-10-01-10': getData(1),
-                    },
-                    daily: {
-                        '2025-10-01': getData(2),
-                    },
+                    hourly: [
+                        ['2025-10-01-10', getData(1)],
+                    ],
+                    daily: [
+                        ['2025-10-01', getData(2)],
+                    ],
                     total: getData(3),
                 },
             }));

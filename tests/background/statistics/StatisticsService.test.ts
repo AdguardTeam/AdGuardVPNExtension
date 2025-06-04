@@ -3,6 +3,7 @@ import {
     StatisticsRange,
     type RangeStatistics,
     type StatisticsData,
+    type StatisticsDataTuple,
     type StatisticsLocationsStorage,
 } from '../../../src/background/statistics/statisticsTypes';
 
@@ -53,6 +54,25 @@ describe('StatisticsService', () => {
         durationMs,
     });
 
+    /**
+     * Get statistics data tuple for testing.
+     *
+     * @param downloadedBytes Number of bytes downloaded.
+     * @param uploadedBytes Number of bytes uploaded (Default is `downloadedBytes`).
+     * @param durationMs Duration in milliseconds (Default is `downloadedBytes`).
+     *
+     * @returns Statistics data.
+     */
+    const getDataTuple = (
+        downloadedBytes: number,
+        uploadedBytes = downloadedBytes,
+        durationMs = downloadedBytes,
+    ): StatisticsDataTuple => ([
+        downloadedBytes,
+        uploadedBytes,
+        durationMs,
+    ]);
+
     it('should initialize properly', async () => {
         await statisticsService.init();
 
@@ -87,26 +107,26 @@ describe('StatisticsService', () => {
                 range: StatisticsRange.Hours24,
                 storage: {
                     locationId1: {
-                        hourly: {
-                            '2025-10-01-10': getData(1),
-                            '2025-10-01-09': getData(1),
-                        },
-                        daily: {
-                            '2025-09-30': getData(1), // <-- should not be included
-                            '2025-09-29': getData(1), // <-- should not be included
-                        },
-                        total: getData(1), // <-- should not be included
+                        hourly: [
+                            ['2025-10-01-09', getDataTuple(1)],
+                            ['2025-10-01-10', getDataTuple(1)],
+                        ],
+                        daily: [
+                            ['2025-09-29', getDataTuple(1)], // <-- should not be included
+                            ['2025-09-30', getDataTuple(1)], // <-- should not be included
+                        ],
+                        total: getDataTuple(1), // <-- should not be included
                     },
                     locationId2: {
-                        hourly: {
-                            '2025-10-01-10': getData(2),
-                            '2025-10-01-09': getData(3),
-                        },
-                        daily: {
-                            '2025-09-30': getData(3), // <-- should not be included
-                            '2025-09-29': getData(2), // <-- should not be included
-                        },
-                        total: getData(4), // <-- should not be included
+                        hourly: [
+                            ['2025-10-01-09', getDataTuple(3)],
+                            ['2025-10-01-10', getDataTuple(2)],
+                        ],
+                        daily: [
+                            ['2025-09-29', getDataTuple(2)], // <-- should not be included
+                            ['2025-09-30', getDataTuple(3)], // <-- should not be included
+                        ],
+                        total: getDataTuple(4), // <-- should not be included
                     },
                 },
                 expected: {
@@ -128,36 +148,36 @@ describe('StatisticsService', () => {
                 range: StatisticsRange.Days7,
                 storage: {
                     locationId1: {
-                        hourly: {
-                            '2025-10-01-10': getData(1),
-                            '2025-10-01-09': getData(1),
-                        },
-                        daily: {
-                            '2025-09-30': getData(1),
-                            '2025-09-29': getData(1),
-                            '2025-09-28': getData(1),
-                            '2025-09-27': getData(1),
-                            '2025-09-26': getData(1),
-                            '2025-09-25': getData(1),
-                            '2025-09-24': getData(1),
-                            '2025-09-23': getData(1), // <-- should not be included
-                            '2025-09-22': getData(1), // <-- should not be included
-                        },
-                        total: getData(1), // <-- should not be included
+                        hourly: [
+                            ['2025-10-01-09', getDataTuple(1)],
+                            ['2025-10-01-10', getDataTuple(1)],
+                        ],
+                        daily: [
+                            ['2025-09-22', getDataTuple(1)], // <-- should not be included
+                            ['2025-09-23', getDataTuple(1)], // <-- should not be included
+                            ['2025-09-24', getDataTuple(1)],
+                            ['2025-09-25', getDataTuple(1)],
+                            ['2025-09-26', getDataTuple(1)],
+                            ['2025-09-27', getDataTuple(1)],
+                            ['2025-09-28', getDataTuple(1)],
+                            ['2025-09-29', getDataTuple(1)],
+                            ['2025-09-30', getDataTuple(1)],
+                        ],
+                        total: getDataTuple(1), // <-- should not be included
                     },
                     locationId2: {
-                        hourly: {
-                            '2025-10-01-10': getData(2),
-                            '2025-10-01-09': getData(3),
-                        },
-                        daily: {
-                            '2025-09-30': getData(3),
-                            '2025-09-29': getData(2),
-                            '2025-09-25': getData(1),
-                            '2025-09-24': getData(1),
-                            '2025-09-23': getData(1), // <-- should not be included
-                        },
-                        total: getData(4), // <-- should not be included
+                        hourly: [
+                            ['2025-10-01-09', getDataTuple(3)],
+                            ['2025-10-01-10', getDataTuple(2)],
+                        ],
+                        daily: [
+                            ['2025-09-23', getDataTuple(1)], // <-- should not be included
+                            ['2025-09-24', getDataTuple(1)],
+                            ['2025-09-25', getDataTuple(1)],
+                            ['2025-09-29', getDataTuple(2)],
+                            ['2025-09-30', getDataTuple(3)],
+                        ],
+                        total: getDataTuple(4), // <-- should not be included
                     },
                 },
                 expected: {
@@ -179,26 +199,26 @@ describe('StatisticsService', () => {
                 range: StatisticsRange.Days30,
                 storage: {
                     locationId1: {
-                        hourly: {
-                            '2025-10-01-10': getData(1),
-                            '2025-10-01-09': getData(1),
-                        },
-                        daily: {
-                            '2025-09-30': getData(1),
-                            '2025-09-29': getData(1),
-                        },
-                        total: getData(1),
+                        hourly: [
+                            ['2025-10-01-09', getDataTuple(1)],
+                            ['2025-10-01-10', getDataTuple(1)],
+                        ],
+                        daily: [
+                            ['2025-09-29', getDataTuple(1)],
+                            ['2025-09-30', getDataTuple(1)],
+                        ],
+                        total: getDataTuple(1),
                     },
                     locationId2: {
-                        hourly: {
-                            '2025-10-01-10': getData(2),
-                            '2025-10-01-09': getData(3),
-                        },
-                        daily: {
-                            '2025-09-30': getData(3),
-                            '2025-09-29': getData(2),
-                        },
-                        total: getData(4),
+                        hourly: [
+                            ['2025-10-01-09', getDataTuple(3)],
+                            ['2025-10-01-10', getDataTuple(2)],
+                        ],
+                        daily: [
+                            ['2025-09-29', getDataTuple(2)],
+                            ['2025-09-30', getDataTuple(3)],
+                        ],
+                        total: getDataTuple(4),
                     },
                 },
                 expected: {
@@ -220,26 +240,26 @@ describe('StatisticsService', () => {
                 range: StatisticsRange.AllTime,
                 storage: {
                     locationId1: {
-                        hourly: {
-                            '2025-10-01-10': getData(1),
-                            '2025-10-01-09': getData(1),
-                        },
-                        daily: {
-                            '2025-09-30': getData(1),
-                            '2025-09-29': getData(1),
-                        },
-                        total: getData(1),
+                        hourly: [
+                            ['2025-10-01-09', getDataTuple(1)],
+                            ['2025-10-01-10', getDataTuple(1)],
+                        ],
+                        daily: [
+                            ['2025-09-29', getDataTuple(1)],
+                            ['2025-09-30', getDataTuple(1)],
+                        ],
+                        total: getDataTuple(1),
                     },
                     locationId2: {
-                        hourly: {
-                            '2025-10-01-10': getData(2),
-                            '2025-10-01-09': getData(3),
-                        },
-                        daily: {
-                            '2025-09-30': getData(3),
-                            '2025-09-29': getData(2),
-                        },
-                        total: getData(4),
+                        hourly: [
+                            ['2025-10-01-09', getDataTuple(3)],
+                            ['2025-10-01-10', getDataTuple(2)],
+                        ],
+                        daily: [
+                            ['2025-09-29', getDataTuple(2)],
+                            ['2025-09-30', getDataTuple(3)],
+                        ],
+                        total: getDataTuple(4),
                     },
                 },
                 expected: {

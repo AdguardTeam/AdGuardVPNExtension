@@ -6,6 +6,7 @@ import {
     StatisticsRange,
     type RangeStatistics,
     type StatisticsData,
+    type StatisticsDataTuple,
     type StatisticsDataUsage,
     type StatisticsLocationsStorage,
     type StatisticsLocationData,
@@ -113,7 +114,7 @@ export class StatisticsService implements StatisticsServiceInterface {
 
         const { hourly, daily, total } = locationData;
 
-        const addStatisticsData = ({ downloadedBytes, uploadedBytes, durationMs }: StatisticsData) => {
+        const addStatisticsData = ([downloadedBytes, uploadedBytes, durationMs]: StatisticsDataTuple) => {
             data.downloadedBytes += downloadedBytes;
             data.uploadedBytes += uploadedBytes;
             data.durationMs += durationMs;
@@ -121,15 +122,14 @@ export class StatisticsService implements StatisticsServiceInterface {
 
         // add all hourly data for all cases,
         // hourly data stores stats for last 24 hours
-        Object.values(hourly).forEach((hour) => addStatisticsData(hour));
+        hourly.forEach(([, hourData]) => addStatisticsData(hourData));
 
         // add only some daily data if range is Days7,
         // daily data stores stats older than 24 hours and up to 30 days
         if (range === StatisticsRange.Days7) {
             let addedDays = 0;
-            const dailyEntries = Object.entries(daily);
-            for (let i = 0; i < dailyEntries.length; i += 1) {
-                const [dateKey, dayData] = dailyEntries[i];
+            for (let i = 0; i < daily.length; i += 1) {
+                const [dateKey, dayData] = daily[i];
 
                 if (StatisticsService.isDateInWeekRange(dateKey)) {
                     addStatisticsData(dayData);
@@ -146,7 +146,7 @@ export class StatisticsService implements StatisticsServiceInterface {
         // add all daily data if range is Days30 or AllTime,
         // daily data stores stats older than 24 hours and up to 30 days
         if (range === StatisticsRange.Days30 || range === StatisticsRange.AllTime) {
-            Object.values(daily).forEach((day) => addStatisticsData(day));
+            daily.forEach(([, dayData]) => addStatisticsData(dayData));
         }
 
         // add total data if range is AllTime,
