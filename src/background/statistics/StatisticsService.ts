@@ -1,3 +1,4 @@
+import { ONE_DAY_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 
 import { type StatisticsProviderInterface } from './StatisticsProvider';
@@ -10,6 +11,7 @@ import {
     type StatisticsDataUsage,
     type StatisticsLocationsStorage,
     type StatisticsLocationData,
+    type StatisticsSessionTuple,
 } from './statisticsTypes';
 import { keyToDate } from './utils';
 
@@ -95,6 +97,51 @@ export class StatisticsService implements StatisticsServiceInterface {
     };
 
     /**
+     * Queries the duration of sessions for the given range.
+     *
+     * @param sessions Sessions to query.
+     * @param totalDurationMs Total duration in milliseconds for sessions that are older than 30 days.
+     * @param range The range for which statistics data is needed.
+     *
+     * @returns Total duration in milliseconds for the given range.
+     */
+    private static querySessionsDuration(
+        sessions: StatisticsSessionTuple[],
+        totalDurationMs: number,
+        range: StatisticsRange,
+    ): number {
+        let durationMs = 0;
+
+        const threshold = StatisticsService.getRangeThreshold(range);
+
+        // move backwards because last sessions are the most recent ones
+        for (let i = sessions.length - 1; i >= 0; i -= 1) {
+            const [startedTimestamp, endedTimestamp] = sessions[i];
+
+            if (endedTimestamp <= threshold) {
+                // case 1: if session ended before threshold, we can stop processing,
+                // because all next iteration sessions will be older than threshold
+                break;
+            } else if (startedTimestamp < threshold && endedTimestamp > threshold) {
+                // case 2: session is partially fits the threshold,
+                // we can add only the part of the session that is after threshold
+                durationMs += endedTimestamp - threshold;
+            } else {
+                // case 3: session is fully fits the threshold,
+                // we can add full duration to total duration
+                durationMs += endedTimestamp - startedTimestamp;
+            }
+        }
+
+        // add all sessions duration for AllTime range
+        if (range === StatisticsRange.AllTime) {
+            durationMs += totalDurationMs;
+        }
+
+        return durationMs;
+    }
+
+    /**
      * Queries the location data for statistics data for the given range.
      *
      * @param locationData Location storage to query.
@@ -106,18 +153,27 @@ export class StatisticsService implements StatisticsServiceInterface {
         locationData: StatisticsLocationData,
         range: StatisticsRange,
     ): StatisticsData {
+        const {
+            hourly,
+            daily,
+            total,
+            sessions,
+            totalDurationMs,
+        } = locationData;
+
         const data: StatisticsData = {
             downloadedBytes: 0,
             uploadedBytes: 0,
-            durationMs: 0,
+            durationMs: StatisticsService.querySessionsDuration(
+                sessions,
+                totalDurationMs,
+                range,
+            ),
         };
 
-        const { hourly, daily, total } = locationData;
-
-        const addStatisticsData = ([downloadedBytes, uploadedBytes, durationMs]: StatisticsDataTuple) => {
+        const addStatisticsData = ([downloadedBytes, uploadedBytes]: StatisticsDataTuple) => {
             data.downloadedBytes += downloadedBytes;
             data.uploadedBytes += uploadedBytes;
-            data.durationMs += durationMs;
         };
 
         // add all hourly data for all cases,
@@ -234,5 +290,30 @@ export class StatisticsService implements StatisticsServiceInterface {
         sevenDaysAgo.setUTCHours(0, 0, 0, 0);
 
         return date >= sevenDaysAgo;
+    }
+
+    /**
+     * Calculates the threshold timestamp for the given range.
+     *
+     * @param range The range for which the threshold is needed.
+     *
+     * @returns The threshold timestamp in milliseconds.
+     */
+    private static getRangeThreshold(range: StatisticsRange): number {
+        const now = Date.now();
+
+        switch (range) {
+            case StatisticsRange.Hours24:
+                return now - ONE_DAY_MS;
+            case StatisticsRange.Days7:
+                return now - 7 * ONE_DAY_MS;
+            case StatisticsRange.Days30:
+                return now - 30 * ONE_DAY_MS;
+            case StatisticsRange.AllTime:
+                // For AllTime, we do not filter by date, so we return 0
+                return 0;
+            default:
+                throw new Error(`Unknown statistics range: ${range}`);
+        }
     }
 }

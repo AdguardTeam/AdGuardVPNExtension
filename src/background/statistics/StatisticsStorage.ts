@@ -611,6 +611,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
             this.statisticsUpdatedTimestamp = now;
             Object.values(this.statistics.locations).forEach((locationData) => {
+                this.moveDuration(locationData, now);
                 this.moveStatistics(locationData, now, true);
                 this.moveStatistics(locationData, now, false);
             });

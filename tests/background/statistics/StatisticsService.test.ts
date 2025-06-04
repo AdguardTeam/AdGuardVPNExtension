@@ -4,8 +4,10 @@ import {
     type RangeStatistics,
     type StatisticsData,
     type StatisticsDataTuple,
+    type StatisticsSessionTuple,
     type StatisticsLocationsStorage,
 } from '../../../src/background/statistics/statisticsTypes';
+import { ONE_DAY_MS } from '../../../src/common/constants';
 
 const providerMock = {
     init: jest.fn(),
@@ -66,11 +68,25 @@ describe('StatisticsService', () => {
     const getDataTuple = (
         downloadedBytes: number,
         uploadedBytes = downloadedBytes,
-        durationMs = downloadedBytes,
     ): StatisticsDataTuple => ([
         downloadedBytes,
         uploadedBytes,
-        durationMs,
+    ]);
+
+    /**
+     * Get duration for testing.
+     *
+     * @param startedTimestamp Session start timestamp.
+     * @param endedTimestamp Session end timestamp (Default is `started`).
+     *
+     * @returns Statistics session tuple.
+     */
+    const getSession = (
+        startedTimestamp: number,
+        endedTimestamp = startedTimestamp,
+    ): StatisticsSessionTuple => ([
+        startedTimestamp,
+        endedTimestamp,
     ]);
 
     it('should initialize properly', async () => {
@@ -101,9 +117,8 @@ describe('StatisticsService', () => {
             expected: Pick<RangeStatistics, 'total' | 'locations'>;
         };
 
-        const cases: RangeQueriesTestCase[] = [
-            // 24 hours
-            {
+        const cases: [string, RangeQueriesTestCase][] = [
+            ['24 hours', {
                 range: StatisticsRange.Hours24,
                 storage: {
                     locationId1: {
@@ -116,6 +131,21 @@ describe('StatisticsService', () => {
                             ['2025-09-30', getDataTuple(1)], // <-- should not be included
                         ],
                         total: getDataTuple(1), // <-- should not be included
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - ONE_DAY_MS - 2,
+                                systemDate.getTime() - ONE_DAY_MS - 1,
+                            ), // <-- should not be included
+                            getSession(
+                                systemDate.getTime() - 4,
+                                systemDate.getTime() - 3,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 2,
+                                systemDate.getTime() - 1,
+                            ),
+                        ],
+                        totalDurationMs: 1, // <-- should not be included
                     },
                     locationId2: {
                         hourly: [
@@ -127,6 +157,21 @@ describe('StatisticsService', () => {
                             ['2025-09-30', getDataTuple(3)], // <-- should not be included
                         ],
                         total: getDataTuple(4), // <-- should not be included
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - ONE_DAY_MS - 2,
+                                systemDate.getTime() - ONE_DAY_MS - 1,
+                            ), // <-- should not be included
+                            getSession(
+                                systemDate.getTime() - 7,
+                                systemDate.getTime() - 5,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 4,
+                                systemDate.getTime() - 1,
+                            ),
+                        ],
+                        totalDurationMs: 1, // <-- should not be included
                     },
                 },
                 expected: {
@@ -142,9 +187,8 @@ describe('StatisticsService', () => {
                         },
                     ],
                 },
-            },
-            // 7 days
-            {
+            }],
+            ['7 days', {
                 range: StatisticsRange.Days7,
                 storage: {
                     locationId1: {
@@ -164,6 +208,29 @@ describe('StatisticsService', () => {
                             ['2025-09-30', getDataTuple(1)],
                         ],
                         total: getDataTuple(1), // <-- should not be included
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - 7 * ONE_DAY_MS - 2,
+                                systemDate.getTime() - 7 * ONE_DAY_MS - 1,
+                            ), // <-- should not be included
+                            getSession(
+                                systemDate.getTime() - 2 * ONE_DAY_MS - 4,
+                                systemDate.getTime() - 2 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - ONE_DAY_MS - 4,
+                                systemDate.getTime() - ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 5,
+                                systemDate.getTime() - 3,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 2,
+                                systemDate.getTime() - 1,
+                            ),
+                        ],
+                        totalDurationMs: 1, // <-- should not be included
                     },
                     locationId2: {
                         hourly: [
@@ -178,6 +245,29 @@ describe('StatisticsService', () => {
                             ['2025-09-30', getDataTuple(3)],
                         ],
                         total: getDataTuple(4), // <-- should not be included
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - 7 * ONE_DAY_MS - 2,
+                                systemDate.getTime() - 7 * ONE_DAY_MS - 1,
+                            ), // <-- should not be included
+                            getSession(
+                                systemDate.getTime() - 2 * ONE_DAY_MS - 4,
+                                systemDate.getTime() - 2 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - ONE_DAY_MS - 4,
+                                systemDate.getTime() - ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 8,
+                                systemDate.getTime() - 5,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 4,
+                                systemDate.getTime() - 1,
+                            ),
+                        ],
+                        totalDurationMs: 1, // <-- should not be included
                     },
                 },
                 expected: {
@@ -193,9 +283,8 @@ describe('StatisticsService', () => {
                         },
                     ],
                 },
-            },
-            // 30 days
-            {
+            }],
+            ['30 days', {
                 range: StatisticsRange.Days30,
                 storage: {
                     locationId1: {
@@ -208,6 +297,29 @@ describe('StatisticsService', () => {
                             ['2025-09-30', getDataTuple(1)],
                         ],
                         total: getDataTuple(1),
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - 30 * ONE_DAY_MS - 2,
+                                systemDate.getTime() - 30 * ONE_DAY_MS - 1,
+                            ), // <-- should not be included
+                            getSession(
+                                systemDate.getTime() - 12 * ONE_DAY_MS - 2,
+                                systemDate.getTime() - 12 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 7 * ONE_DAY_MS - 2,
+                                systemDate.getTime() - 7 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 2 * ONE_DAY_MS - 2,
+                                systemDate.getTime() - 2 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 2,
+                                systemDate.getTime() - 1,
+                            ),
+                        ],
+                        totalDurationMs: 1, // <-- should not be included
                     },
                     locationId2: {
                         hourly: [
@@ -219,6 +331,29 @@ describe('StatisticsService', () => {
                             ['2025-09-30', getDataTuple(3)],
                         ],
                         total: getDataTuple(4),
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - 30 * ONE_DAY_MS - 2,
+                                systemDate.getTime() - 30 * ONE_DAY_MS - 1,
+                            ), // <-- should not be included
+                            getSession(
+                                systemDate.getTime() - 12 * ONE_DAY_MS - 4,
+                                systemDate.getTime() - 12 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 7 * ONE_DAY_MS - 4,
+                                systemDate.getTime() - 7 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 2 * ONE_DAY_MS - 3,
+                                systemDate.getTime() - 2 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 3,
+                                systemDate.getTime() - 1,
+                            ),
+                        ],
+                        totalDurationMs: 1, // <-- should not be included
                     },
                 },
                 expected: {
@@ -234,9 +369,8 @@ describe('StatisticsService', () => {
                         },
                     ],
                 },
-            },
-            // AllTime
-            {
+            }],
+            ['all time', {
                 range: StatisticsRange.AllTime,
                 storage: {
                     locationId1: {
@@ -249,6 +383,21 @@ describe('StatisticsService', () => {
                             ['2025-09-30', getDataTuple(1)],
                         ],
                         total: getDataTuple(1),
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - 300 * ONE_DAY_MS - 3,
+                                systemDate.getTime() - 300 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 12 * ONE_DAY_MS - 2,
+                                systemDate.getTime() - 12 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 2,
+                                systemDate.getTime() - 1,
+                            ),
+                        ],
+                        totalDurationMs: 1,
                     },
                     locationId2: {
                         hourly: [
@@ -260,6 +409,21 @@ describe('StatisticsService', () => {
                             ['2025-09-30', getDataTuple(3)],
                         ],
                         total: getDataTuple(4),
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - 300 * ONE_DAY_MS - 6,
+                                systemDate.getTime() - 300 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 12 * ONE_DAY_MS - 5,
+                                systemDate.getTime() - 12 * ONE_DAY_MS - 1,
+                            ),
+                            getSession(
+                                systemDate.getTime() - 5,
+                                systemDate.getTime() - 1,
+                            ),
+                        ],
+                        totalDurationMs: 1,
                     },
                 },
                 expected: {
@@ -275,10 +439,10 @@ describe('StatisticsService', () => {
                         },
                     ],
                 },
-            },
+            }],
         ];
 
-        it.each(cases)('should correctly calculate range', async ({ range, storage, expected }) => {
+        it.each(cases)('should correctly calculate range - %s', async (caseName, { range, storage, expected }) => {
             statisticsStorageMock.getStatistics.mockResolvedValueOnce({
                 startedTimestamp: 12345,
                 locations: storage,

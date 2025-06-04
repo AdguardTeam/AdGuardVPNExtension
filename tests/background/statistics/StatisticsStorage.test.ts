@@ -5,6 +5,7 @@ import {
     type StatisticsSessionTuple,
     type StatisticsLocationsStorage,
 } from '../../../src/background/statistics/statisticsTypes';
+import { ONE_DAY_MS, ONE_HOUR_MS } from '../../../src/common/constants';
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
@@ -690,6 +691,10 @@ describe('StatisticsStorage', () => {
                         ['2025-10-01', getData(2)],
                     ],
                     total: getData(3),
+                    sessions: [
+                        getSession(systemDate.getTime() - 1000, systemDate.getTime()),
+                    ],
+                    totalDurationMs: 1000,
                 },
             });
 
@@ -702,7 +707,7 @@ describe('StatisticsStorage', () => {
             expect(result).toEqual(statistics);
         });
 
-        it('should return updated account storage after time', async () => {
+        it('should return updated storage after time', async () => {
             storageMock.get.mockResolvedValueOnce(getStatistics({
                 locationId: {
                     hourly: [
@@ -714,6 +719,10 @@ describe('StatisticsStorage', () => {
                         ['2025-10-01', getData(2)],
                     ],
                     total: getData(3),
+                    sessions: [
+                        getSession(systemDate.getTime() - 1000, systemDate.getTime()),
+                    ],
+                    totalDurationMs: 1000,
                 },
             }));
 
@@ -735,6 +744,10 @@ describe('StatisticsStorage', () => {
                         ['2025-09-30', getData(1)],
                     ],
                     total: getData(3),
+                    sessions: [
+                        getSession(systemDate.getTime() - 1000, systemDate.getTime()),
+                    ],
+                    totalDurationMs: 1000,
                 },
             }));
 
@@ -751,11 +764,30 @@ describe('StatisticsStorage', () => {
                         ['2025-09-30', getData(1)],
                     ],
                     total: getData(5),
+                    sessions: [
+                        getSession(systemDate.getTime() - 1000, systemDate.getTime()),
+                    ],
+                    totalDurationMs: 1000,
+                },
+            }));
+
+            // advance by 30 days
+            jest.advanceTimersByTime(30 * ONE_DAY_MS);
+
+            const result3 = await statisticsStorage.getStatistics();
+
+            expect(result3).toEqual(getStatistics({
+                locationId: {
+                    hourly: [],
+                    daily: [],
+                    total: getData(9),
+                    sessions: [],
+                    totalDurationMs: 2000,
                 },
             }));
         });
 
-        it('should clear statistics for the given account', async () => {
+        it('should clear statistics', async () => {
             storageMock.get.mockResolvedValueOnce(getStatistics({
                 locationId: {
                     hourly: [
@@ -765,6 +797,10 @@ describe('StatisticsStorage', () => {
                         ['2025-10-01', getData(2)],
                     ],
                     total: getData(3),
+                    sessions: [
+                        getSession(systemDate.getTime() - 1000, systemDate.getTime()),
+                    ],
+                    totalDurationMs: 1000,
                 },
             }));
 
