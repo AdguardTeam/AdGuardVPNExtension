@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Prisijunkite arba sukurkite paskyrą"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Tęsti"
+    },
     "popup_newsletter_title": {
         "message": "AdGuard naujienlaiškis"
     },

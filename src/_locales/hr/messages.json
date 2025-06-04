@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Autorizacija"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Nastavi"
+    },
     "popup_newsletter_title": {
         "message": "AdGuard newsletter"
     },

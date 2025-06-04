@@ -33,6 +33,7 @@ import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
 import { savedLocations } from '../savedLocations';
 import { authService } from '../authentication/authService';
+import { getConsentData, setConsentData } from '../consent';
 import { isMessage } from '../../common/messenger';
 
 interface EventListeners {
@@ -197,6 +198,13 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
         case MessageType.GET_OPTIONS_DATA: {
             const { isRefresh } = data;
             return getOptionsData(isRefresh);
+        }
+        case MessageType.GET_CONSENT_DATA: {
+            return getConsentData();
+        }
+        case MessageType.SET_CONSENT_DATA: {
+            const { policyAgreement, helpUsImprove } = data;
+            return setConsentData(policyAgreement, helpUsImprove);
         }
         case MessageType.GET_VPN_FAILURE_PAGE: {
             return endpoints.getVpnFailurePage();

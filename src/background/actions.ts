@@ -11,6 +11,7 @@ import { forwarder } from './forwarder';
 import { settings } from './settings';
 import { FORWARDER_URL_QUERIES, type ForwarderUrlQueryKey } from './config';
 import { promoNotifications } from './promoNotifications';
+import { WindowsApi } from './windowsApi';
 
 type SetIconDetailsType = browser.Action.SetIconDetailsType;
 type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
@@ -45,7 +46,7 @@ const openOptionsPageFirefox = async (queryString: string = '') => {
     const { windowId, id: tabId } = optionsTabs[0];
     await browser.tabs.update(tabId, { url: targetUrl, active: true });
     if (windowId) {
-        await browser.windows.update(windowId, { focused: true });
+        await WindowsApi.update(windowId, { focused: true });
     }
 };
 

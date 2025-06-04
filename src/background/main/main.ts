@@ -31,7 +31,7 @@ import { tabs } from '../tabs';
 import { updateService } from '../updateService';
 import { vpnApi } from '../api';
 import { browserActionIcon } from '../browserActionIcon';
-import { openThankYouPage } from '../postinstall';
+import { openPostInstallPage } from '../postinstall';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 import { logStorage } from '../../common/log-storage';
 import { fallbackApi } from '../api/fallbackApi';
@@ -108,7 +108,9 @@ const asyncInitModules = async (): Promise<void> => {
         await proxy.init();
         await fallbackApi.init();
         await updateService.init();
-        await openThankYouPage();
+        await settings.init();
+        // the consent page uses settings, so it should be initiated after settings.init()
+        await openPostInstallPage();
         await flagsStorage.init();
         await auth.initState(); // auth state should be initiated before credentials init
         await credentials.init();
@@ -116,7 +118,6 @@ const asyncInitModules = async (): Promise<void> => {
         networkConnectionObserver.init(); // uses permissionsChecker and connectivityService
         await auth.init();
         await locationsService.init();
-        await settings.init();
         await telemetry.initState();
         // the updateBrowserActionItems method is called after settings.init() because it uses settings
         await contextMenu.updateBrowserActionItems();
