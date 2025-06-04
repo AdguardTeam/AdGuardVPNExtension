@@ -211,10 +211,18 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
 
         try {
+            // save statistics to local storage
             await this.storage.set<Statistics>(
                 StatisticsStorage.STATISTICS_STORAGE_KEY,
                 this.statistics,
             );
+
+            // notify listeners about statistics update,
+            // we do it only after statistics is saved
+            // to not trigger UI updates every time statistics is changed
+            notifier.notifyListeners(notifier.types.STATS_UPDATED);
+
+            // mark statistics as unchanged
             this.isStatisticsChanged = false;
         } catch (e) {
             log.error('Unable to save statistics storage, due to error:', e);
@@ -227,9 +235,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private handleStatisticsChanged(): void {
         // set flag to true to allow saving statistics
         this.isStatisticsChanged = true;
-
-        // notify listeners about statistics update
-        notifier.notifyListeners(notifier.types.STATS_UPDATED);
     }
 
     /**
