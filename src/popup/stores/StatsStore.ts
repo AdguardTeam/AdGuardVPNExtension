@@ -12,6 +12,7 @@ import {
     type StatisticsData,
 } from '../../background/statistics/statisticsTypes';
 import { messenger } from '../../common/messenger';
+import { log } from '../../common/logger';
 
 import { type RootStore } from './RootStore';
 import { type LocationData } from './VpnStore';
@@ -350,8 +351,9 @@ export class StatsStore {
 
             // If the range is not set or invalid, return the default range
             return StatsStore.DEFAULT_RANGE;
-        } catch {
+        } catch (e) {
             // If there is an error retrieving the range, return the default range
+            log.error('Failed to retrieve statistics range from storage:', e);
             return StatsStore.DEFAULT_RANGE;
         }
     }
