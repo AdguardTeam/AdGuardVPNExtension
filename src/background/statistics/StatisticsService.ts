@@ -22,7 +22,7 @@ export interface StatisticsServiceInterface {
     init(): Promise<void>;
 
     /**
-     * Updates range in local storage and retrieves statistics data for the given range.
+     * Retrieves statistics data for the given range.
      *
      * @param range The range for which statistics data is needed.
      *
