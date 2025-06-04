@@ -1,6 +1,8 @@
+/* eslint-disable no-continue */
+/* eslint-disable no-param-reassign */
 import throttle from 'lodash/throttle';
 
-import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
+import { ONE_DAY_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
 
@@ -71,13 +73,17 @@ export interface StatisticsStorageParameters {
  *   - Started timestamp is used to track when the statistics collection started.
  *     It will reset when user clears the statistics.
  *   - Locations storage contains location IDs as keys, location data as values.
- *     - Location data contains hourly, daily, total statistics and optional duration tracker.
+ *     - Location data contains hourly, daily, total statistics, sessions, total duration and optional last session.
  *       - Hourly statistics contains datetime keys (YYYY-MM-DD-HH) and statistics data as values.
  *         Used to store statistics for the last 25 hours (inclusive).
  *       - Daily statistics contains date keys (YYYY-MM-DD) and statistics data as values.
  *         Used to store statistics older than 25 hours up to the last 31 days (inclusive).
  *       - Total statistics used to store statistics that are older than 31 days.
- *       - Optional duration tracker used to track connection duration statistics.
+ *       - Sessions contains started and ended timestamps for each session.
+ *         Used to store connection sessions data for the last 30 days.
+ *       - Total duration is used to store total connection duration in milliseconds.
+ *         Used to store total connection duration for sessions that are older than 30 days.
+ *       - Optional last session used to track connection duration statistics for the current session.
  *
  * Statistics implemented as time-based aggregation system:
  * - New statistics data is initially stored in hourly buckets (YYYY-MM-DD-HH).
@@ -96,9 +102,11 @@ export interface StatisticsStorageParameters {
  * by checking timestamp thresholds and data from older buckets
  * is merged into the next level (hourly to daily, daily to total).
  *
- * Duration tracking works by creating a tracker object when a connection starts, updating it
- * periodically during an active connection, and calculating the total duration when the connection ends.
- * The calculated duration is then distributed to the appropriate hourly, daily, and total buckets.
+ * Duration tracking works by tracking last session timestamps,
+ * when connection starts - we start a session, when connection ends - we update
+ * end timestamp and move it to sessions array, in between we update it at some (5 min)
+ * interval our end updated timestamp. Also if session is older than 30 days
+ * we move it to total duration.
  */
 export class StatisticsStorage implements StatisticsStorageInterface {
     /**
@@ -119,6 +127,12 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private static readonly MOVE_DAILY_STATS_AFTER_MS = 30 * ONE_DAY_MS;
 
     /**
+     * Time in milliseconds after which session is moved from sessions array to total duration.
+     * The value is set to 30 days.
+     */
+    private static readonly MOVE_DURATION_AFTER_MS = 30 * ONE_DAY_MS;
+
+    /**
      * Throttle timeout for saving statistics to local storage.
      * The value is set to 5 seconds.
      */
@@ -135,11 +149,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private static readonly UPLOADED_INDEX = 1;
 
     /**
-     * Index in statistics data tuple for duration in milliseconds.
-     */
-    private static readonly DURATION_INDEX = 2;
-
-    /**
      * Index in period statistics data tuple for date or datetime.
      */
     private static readonly DATE_INDEX = 0;
@@ -148,6 +157,16 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Index in period statistics data tuple for statistics data.
      */
     private static readonly DATA_INDEX = 1;
+
+    /**
+     * Index in statistics session tuple for started timestamp.
+     */
+    private static readonly STARTED_TIMESTAMP_INDEX = 0;
+
+    /**
+     * Index in statistics session tuple for ended timestamp.
+     */
+    private static readonly ENDED_TIMESTAMP_INDEX = 1;
 
     /**
      * Browser local storage.
@@ -255,8 +274,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /**
      * Updates stale statistics by:
-     * 1. Distributing the duration tracker to hourly / daily / total statistics
-     *    (see {@link distributeDuration} for detailed explanation),
+     * 1. Moving last session to sessions array and updating total duration
+     *    (see {@link moveDuration} for detailed explanation),
      * 2. Moving hourly statistics to daily statistics if 25 hours passed
      *    (see {@link moveStatistics} for detailed explanation),
      * 3. Moving daily statistics to total statistics if 31 days passed
@@ -270,140 +289,57 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const now = Date.now();
 
         Object.values(this.statistics.locations).forEach((locationData) => {
-            this.distributeDuration(locationData, now);
+            this.moveDuration(locationData, now);
             this.moveStatistics(locationData, now, true);
             this.moveStatistics(locationData, now, false);
         });
     }
 
     /**
-     * Distributes the duration tracker of location data to hourly / daily / total statistics.
+     * Moves the last session to the sessions array and updates total duration
+     * if there are any session that are older than 30 days.
      *
-     * @see {@link distributeDurationAcrossPeriod} for more details how distribution works.
-     *
-     * @param locationData Location data.
+     * @param locationData Location data to move duration for.
      * @param timestamp Timestamp to compare with.
      */
-    private distributeDuration(locationData: StatisticsLocationData, timestamp: number): void {
-        // skip if duration tracker is not set
-        const { durationTracker } = locationData;
-        if (!durationTracker) {
-            return;
-        }
-
-        const { total } = locationData;
-        const { startedTimestamp, lastUpdatedTimestamp } = durationTracker;
-
-        // if the duration is not valid, delete tracker and skip
-        if (lastUpdatedTimestamp - startedTimestamp <= 0) {
-            // eslint-disable-next-line no-param-reassign
-            delete locationData.durationTracker;
-            return;
-        }
-
-        const dailyBorderTimestamp = StatisticsStorage.getDailyBorderTimestamp(timestamp);
-        const hourlyBorderTimestamp = StatisticsStorage.getHourlyBorderTimestamp(timestamp);
-
-        /**
-         * Duration can go to total only if connection was started before 30 days.
-         * If connection was started after 30 days, `totalDuration` will be negative.
-         *
-         * We are covering following cases:
-         * - started < lastUpdated < 30 days < 24 hours -> lastUpdated - started goes to total,
-         * - started < 30 days < lastUpdated < 24 hours -> 30 days - started goes to total,
-         * - started < 30 days < 24 hours < lastUpdated -> 30 days - started goes to total;
-         */
-        const totalDuration = Math.min(dailyBorderTimestamp, lastUpdatedTimestamp) - startedTimestamp;
-
-        // add to total if the duration is valid
-        if (totalDuration > 0) {
-            total[StatisticsStorage.DURATION_INDEX] += totalDuration;
-        }
-
-        /**
-         * We are determining the start and end timestamps for daily duration distribution.
-         *
-         * We are covering following cases:
-         * - started < 30 days < lastUpdated < 24 hours -> lastUpdated - 30 days distributed to daily,
-         * - 30 days < started < lastUpdated < 24 hours -> lastUpdated - started distributed to daily,
-         * - started < 30 days < 24 hours < lastUpdated -> 24 hours - 30 days distributed to daily,
-         * - 30 days < started < 24 hours < lastUpdated -> 24 hours - started distributed to daily;
-         */
-        const dailyStart = Math.max(dailyBorderTimestamp, startedTimestamp);
-        const dailyEnd = Math.min(hourlyBorderTimestamp, lastUpdatedTimestamp);
-
-        // distribute across daily
-        this.distributeDurationAcrossPeriod(locationData, dailyStart, dailyEnd, false);
-
-        /**
-         * We are determining the start and end timestamps for hourly duration distribution.
-         *
-         * We are covering following cases:
-         * - started < 30 days < 24 hours < lastUpdated -> lastUpdated - 24 hours distributed to hourly
-         * - 30 days < started < 24 hours < lastUpdated -> lastUpdated - 24 hours distributed to hourly
-         * - 30 days < 24 hours < started < lastUpdated -> lastUpdated - started distributed to hourly
-         */
-        const hourlyStart = Math.max(hourlyBorderTimestamp, startedTimestamp);
-        const hourlyEnd = Math.min(timestamp, lastUpdatedTimestamp);
-
-        // distribute across hourly
-        this.distributeDurationAcrossPeriod(locationData, hourlyStart, hourlyEnd, true);
-
-        // delete tracker after tracker is distributed
-        // eslint-disable-next-line no-param-reassign
-        delete locationData.durationTracker;
-    }
-
-    /**
-     * Distributes the duration across hourly / daily statistics.
-     *
-     * @param locationData Location data.
-     * @param start Start timestamp.
-     * @param end End timestamp.
-     * @param isHourly Whether to distribute across hourly or daily statistics.
-     */
-    private distributeDurationAcrossPeriod(
+    private moveDuration(
         locationData: StatisticsLocationData,
-        start: number,
-        end: number,
-        isHourly: boolean,
+        timestamp: number,
     ): void {
-        // skip if duration is not valid
-        if (end - start <= 0) {
-            return;
+        const { sessions } = locationData;
+        const threshold = timestamp - StatisticsStorage.MOVE_DURATION_AFTER_MS;
+
+        const indicesToDelete = new Set<number>();
+        for (let i = 0; i < sessions.length; i += 1) {
+            const [startedTimestamp, endedTimestamp] = sessions[i];
+
+            // skip if session is not valid
+            if (startedTimestamp >= endedTimestamp || startedTimestamp < 0 || endedTimestamp < 0) {
+                indicesToDelete.add(i);
+                continue;
+            }
+
+            if (endedTimestamp <= threshold) {
+                // case 1: session is fully outdated, we should add its
+                // duration to total duration and remove it from sessions
+                locationData.totalDurationMs += endedTimestamp - startedTimestamp;
+                indicesToDelete.add(i);
+            } else if (startedTimestamp < threshold && endedTimestamp > threshold) {
+                // case 2: session is partially outdated, we should add partial duration
+                // to total duration and update started timestamp to threshold
+                locationData.totalDurationMs += threshold - startedTimestamp;
+                sessions[i][StatisticsStorage.STARTED_TIMESTAMP_INDEX] = threshold;
+            } else {
+                // case 3: session is not outdated, we should keep it as is
+                // and we exit the loop as next sessions are also not outdated
+                break;
+            }
         }
 
-        // step size in milliseconds
-        const step = isHourly ? ONE_HOUR_MS : ONE_DAY_MS;
-
-        /**
-         * First period is special, because it can be less than step size.
-         * For example:
-         * - start = 2025-05-21 00:23:21
-         * - end = 2025-05-21 02:37:33
-         *
-         * In this case:
-         * 1. This period should be 36 minutes 39 seconds (00:23:21 - 01:00:00).
-         * 2. The next period should be 1 hour (01:00:00 - 02:00:00).
-         * 3. The last period should be 37 minutes 33 seconds (02:00:00 - 02:37:33).
-         */
-        const timeLeftOnFirstPeriod = step - (start - StatisticsStorage.getCroppedTimestamp(start, isHourly));
-
-        let current = start;
-        let isFirstIteration = true;
-        let increment = timeLeftOnFirstPeriod;
-
-        while (current < end) {
-            const data = this.getPeriodStatistics(locationData, isHourly, new Date(current));
-
-            const durationToAdd = Math.min(current + increment, end) - current;
-            data[StatisticsStorage.DURATION_INDEX] += durationToAdd;
-            current += durationToAdd;
-
-            if (isFirstIteration) {
-                increment = step;
-                isFirstIteration = false;
-            }
+        if (indicesToDelete.size > 0) {
+            locationData.sessions = sessions.filter(
+                (data, index) => !indicesToDelete.has(index),
+            );
         }
     }
 
@@ -440,7 +376,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             // delete and skip if date is not valid
             if (!date) {
                 indicesToDelete.add(i);
-                // eslint-disable-next-line no-continue
                 continue;
             }
 
@@ -448,12 +383,11 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             // to store last 25 hours / 31 days data, instead of last 24 hours / 30 days
             // see class jsdoc for explanation
             if (date.getTime() >= borderTimestamp) {
-                // eslint-disable-next-line no-continue
                 continue;
             }
 
             // move hourly / daily data to daily data / total data
-            const [downloadedBytes, uploadedBytes, durationMs] = data;
+            const [downloadedBytes, uploadedBytes] = data;
 
             let targetData: StatisticsDataTuple;
             if (isHourly) {
@@ -464,14 +398,12 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
             targetData[StatisticsStorage.DOWNLOADED_INDEX] += downloadedBytes;
             targetData[StatisticsStorage.UPLOADED_INDEX] += uploadedBytes;
-            targetData[StatisticsStorage.DURATION_INDEX] += durationMs;
 
             // mark index for deletion
             indicesToDelete.add(i);
         }
 
         if (indicesToDelete.size > 0) {
-            // eslint-disable-next-line no-param-reassign
             locationData[storageToUpdate] = sourceStorage.filter(
                 (data, index) => !indicesToDelete.has(index),
             );
@@ -494,7 +426,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             locationData = {
                 hourly: [],
                 daily: [],
-                total: [0, 0, 0],
+                total: [0, 0],
+                sessions: [],
+                totalDurationMs: 0,
             };
             this.statistics.locations[locationId] = locationData;
         }
@@ -522,7 +456,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         let periodData = periodStorage.find((data) => data[StatisticsStorage.DATE_INDEX] === dateKey);
         if (!periodData) {
-            periodData = [dateKey, [0, 0, 0]];
+            periodData = [dateKey, [0, 0]];
             periodStorage.push(periodData);
         }
 
@@ -561,33 +495,30 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const locationData = this.getLocationData(locationId);
 
         const now = Date.now();
-        if (!locationData.durationTracker) {
-            locationData.durationTracker = {
-                startedTimestamp: now,
-                lastUpdatedTimestamp: now,
-            };
+        if (!locationData.lastSession) {
+            locationData.lastSession = [now, now];
         } else {
-            locationData.durationTracker.startedTimestamp = now;
-            locationData.durationTracker.lastUpdatedTimestamp = now;
+            locationData.lastSession[StatisticsStorage.STARTED_TIMESTAMP_INDEX] = now;
+            locationData.lastSession[StatisticsStorage.ENDED_TIMESTAMP_INDEX] = now;
         }
 
         await this.saveStatistics();
     };
 
     /**
-     * Updates `lastUpdatedTimestamp` of the duration tracker.
+     * Updates `lastUpdatedTimestamp` of the last session.
      *
-     * @param locationId Location ID to update duration tracker for.
+     * @param locationId Location ID to update last session for.
      *
-     * @returns Location data with updated duration tracker or null if not found.
+     * @returns Location data with updated last session or null if not found.
      */
-    private updateDurationTracker(locationId: string): StatisticsLocationData | null {
+    private updateLastSession(locationId: string): StatisticsLocationData | null {
         const locationData = this.getLocationData(locationId);
-        if (!locationData.durationTracker) {
+        if (!locationData.lastSession) {
             return null;
         }
 
-        locationData.durationTracker.lastUpdatedTimestamp = Date.now();
+        locationData.lastSession[StatisticsStorage.ENDED_TIMESTAMP_INDEX] = Date.now();
 
         return locationData;
     }
@@ -596,7 +527,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     public updateDuration = async (locationId: string): Promise<void> => {
         this.assertInitialized();
 
-        this.updateDurationTracker(locationId);
+        this.updateLastSession(locationId);
         await this.saveStatistics();
     };
 
@@ -604,11 +535,20 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     public endDuration = async (locationId: string): Promise<void> => {
         this.assertInitialized();
 
-        const locationData = this.updateDurationTracker(locationId);
+        const locationData = this.updateLastSession(locationId);
 
         // distribute duration to statistics and save if updated
         if (locationData) {
-            this.distributeDuration(locationData, Date.now());
+            // skip if last session is not set
+            const { lastSession, sessions } = locationData;
+            if (!lastSession) {
+                return;
+            }
+
+            // move last session to sessions array
+            sessions.push(lastSession);
+            delete locationData.lastSession;
+
             await this.saveStatistics();
         }
     };
