@@ -1,10 +1,10 @@
 import { StatisticsStorage } from '../../../src/background/statistics/StatisticsStorage';
 import {
-    type StatisticsData,
+    type StatisticsDataTuple,
     type StatisticsDurationTracker,
     type StatisticsLocationData,
-    type StatisticsDailyStorage,
-    type StatisticsHourlyStorage,
+    type StatisticsDailyTuple,
+    type StatisticsHourlyTuple,
     type Statistics,
     type StatisticsLocationsStorage,
 } from '../../../src/background/statistics/statisticsTypes';
@@ -49,22 +49,18 @@ describe('StatisticsStorage', () => {
         downloadedBytes: number,
         uploadedBytes = downloadedBytes,
         durationMs = downloadedBytes,
-    ): StatisticsData => ({
+    ): StatisticsDataTuple => ([
         downloadedBytes,
         uploadedBytes,
         durationMs,
-    });
+    ]);
 
     /**
      * Returns statistics data with duration in milliseconds.
      *
      * @returns Statistics data.
      */
-    const getDuration = (durationMs: number): StatisticsData => ({
-        downloadedBytes: 0,
-        uploadedBytes: 0,
-        durationMs,
-    });
+    const getDuration = (durationMs: number): StatisticsDataTuple => ([0, 0, durationMs]);
 
     /**
      * Returns statistics with provided locations.
@@ -116,12 +112,12 @@ describe('StatisticsStorage', () => {
          *
          * @returns Daily statistics storage with the given number of days.
          */
-        const spamAllDays = (daysCount = 30) => {
-            const days: StatisticsDailyStorage = {};
+        const spamAllDays = (daysCount = 29) => {
+            const days: StatisticsDailyTuple[] = [];
             for (let i = 0; i < daysCount; i += 1) {
                 const date = new Date(dailyBorderDateTimestamp + i * ONE_DAY_MS);
                 const dateKey = date.toISOString().split('T')[0];
-                days[dateKey] = getDuration(ONE_DAY_MS);
+                days.push([dateKey, getDuration(ONE_DAY_MS)]);
             }
             return days;
         };
@@ -134,12 +130,12 @@ describe('StatisticsStorage', () => {
          * @returns Hourly statistics storage with the given number of hours.
          */
         const spamAllHours = (hoursCount = 24) => {
-            const hours: StatisticsHourlyStorage = {};
+            const hours: StatisticsHourlyTuple[] = [];
             for (let i = 0; i < hoursCount; i += 1) {
                 const date = new Date(hourlyBorderDateTimestamp + i * ONE_HOUR_MS);
                 const dateKey = date.toISOString().split('T')[0];
                 const hourKey = String(date.getUTCHours()).padStart(2, '0');
-                hours[`${dateKey}-${hourKey}`] = getDuration(ONE_HOUR_MS);
+                hours.push([`${dateKey}-${hourKey}`, getDuration(ONE_HOUR_MS)]);
             }
             return hours;
         };
@@ -196,8 +192,8 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: dailyBorderDateTimestamp - 1000,
                 },
                 expected: {
-                    hourly: {},
-                    daily: {},
+                    hourly: [],
+                    daily: [],
                     total: getDuration(1000),
                 },
             },
@@ -208,8 +204,8 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: dailyBorderDateTimestamp,
                 },
                 expected: {
-                    hourly: {},
-                    daily: {},
+                    hourly: [],
+                    daily: [],
                     total: getDuration(1000),
                 },
             },
@@ -220,10 +216,10 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: dailyBorderDateTimestamp + 2000,
                 },
                 expected: {
-                    hourly: {},
-                    daily: {
-                        '2025-09-01': getDuration(1000),
-                    },
+                    hourly: [],
+                    daily: [
+                        ['2025-09-01', getDuration(1000)],
+                    ],
                     total: getDuration(0),
                 },
             },
@@ -234,15 +230,15 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: dailyBorderDateTimestamp + 2 * ONE_DAY_MS + 2000,
                 },
                 expected: {
-                    hourly: {},
-                    daily: {
+                    hourly: [],
+                    daily: [
                         // first day used 1000ms less
-                        '2025-09-01': getDuration(ONE_DAY_MS - 1000),
+                        ['2025-09-01', getDuration(ONE_DAY_MS - 1000)],
                         // full day
-                        '2025-09-02': getDuration(ONE_DAY_MS),
+                        ['2025-09-02', getDuration(ONE_DAY_MS)],
                         // last day used 2000ms
-                        '2025-09-03': getDuration(2000),
-                    },
+                        ['2025-09-03', getDuration(2000)],
+                    ],
                     total: getDuration(0),
                 },
             },
@@ -253,13 +249,13 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: hourlyBorderDateTimestamp,
                 },
                 expected: {
-                    hourly: {},
-                    daily: {
+                    hourly: [],
+                    daily: [
                         // all days used full day
                         ...spamAllDays(),
                         // last day used up to 10:00
-                        '2025-09-30': getDuration(10 * ONE_HOUR_MS),
-                    },
+                        ['2025-09-30', getDuration(10 * ONE_HOUR_MS)],
+                    ],
                     total: getDuration(0),
                 },
             },
@@ -270,10 +266,10 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2000,
                 },
                 expected: {
-                    hourly: {
-                        '2025-09-30-10': getDuration(1000),
-                    },
-                    daily: {},
+                    hourly: [
+                        ['2025-09-30-10', getDuration(1000)],
+                    ],
+                    daily: [],
                     total: getDuration(0),
                 },
             },
@@ -284,15 +280,15 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2 * ONE_HOUR_MS + 2000,
                 },
                 expected: {
-                    hourly: {
+                    hourly: [
                         // first hour used 1000ms less
-                        '2025-09-30-10': getDuration(ONE_HOUR_MS - 1000),
+                        ['2025-09-30-10', getDuration(ONE_HOUR_MS - 1000)],
                         // full hour
-                        '2025-09-30-11': getDuration(ONE_HOUR_MS),
+                        ['2025-09-30-11', getDuration(ONE_HOUR_MS)],
                         // last hour used 2000ms
-                        '2025-09-30-12': getDuration(2000),
-                    },
-                    daily: {},
+                        ['2025-09-30-12', getDuration(2000)],
+                    ],
+                    daily: [],
                     total: getDuration(0),
                 },
             },
@@ -303,13 +299,13 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: systemDate.getTime(),
                 },
                 expected: {
-                    hourly: {
+                    hourly: [
                         // all hours used full hour
                         ...spamAllHours(),
                         // last hour used up to current time
-                        '2025-10-01-10': getDuration(systemDate.getTime() - new Date('2025-10-01T10:00:00Z').getTime()),
-                    },
-                    daily: {},
+                        ['2025-10-01-10', getDuration(systemDate.getTime() - new Date('2025-10-01T10:00:00Z').getTime())],
+                    ],
+                    daily: [],
                     total: getDuration(0),
                 },
             },
@@ -320,10 +316,10 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: dailyBorderDateTimestamp + 2000,
                 },
                 expected: {
-                    hourly: {},
-                    daily: {
-                        '2025-09-01': getDuration(2000),
-                    },
+                    hourly: [],
+                    daily: [
+                        ['2025-09-01', getDuration(2000)],
+                    ],
                     total: getDuration(2000),
                 },
             },
@@ -334,12 +330,12 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: hourlyBorderDateTimestamp,
                 },
                 expected: {
-                    hourly: {},
-                    daily: {
-                        ...spamAllDays(29),
+                    hourly: [],
+                    daily: [
+                        ...spamAllDays(),
                         // last day used up to 10:00
-                        '2025-09-30': getDuration(10 * ONE_HOUR_MS),
-                    },
+                        ['2025-09-30', getDuration(10 * ONE_HOUR_MS)],
+                    ],
                     total: getDuration(2000),
                 },
             },
@@ -350,12 +346,12 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2000,
                 },
                 expected: {
-                    hourly: {
-                        '2025-09-30-10': getDuration(2000),
-                    },
-                    daily: {
-                        '2025-09-30': getDuration(2000),
-                    },
+                    hourly: [
+                        ['2025-09-30-10', getDuration(2000)],
+                    ],
+                    daily: [
+                        ['2025-09-30', getDuration(2000)],
+                    ],
                     total: getDuration(0),
                 },
             },
@@ -366,14 +362,14 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2000,
                 },
                 expected: {
-                    hourly: {
-                        '2025-09-30-10': getDuration(2000),
-                    },
-                    daily: {
-                        ...spamAllDays(29),
+                    hourly: [
+                        ['2025-09-30-10', getDuration(2000)],
+                    ],
+                    daily: [
+                        ...spamAllDays(),
                         // last day used up to 10:00
-                        '2025-09-30': getDuration(10 * ONE_HOUR_MS),
-                    },
+                        ['2025-09-30', getDuration(10 * ONE_HOUR_MS)],
+                    ],
                     total: getDuration(0),
                 },
             },
@@ -384,14 +380,14 @@ describe('StatisticsStorage', () => {
                     lastUpdatedTimestamp: hourlyBorderDateTimestamp + 2000,
                 },
                 expected: {
-                    hourly: {
-                        '2025-09-30-10': getDuration(2000),
-                    },
-                    daily: {
-                        ...spamAllDays(29),
+                    hourly: [
+                        ['2025-09-30-10', getDuration(2000)],
+                    ],
+                    daily: [
+                        ...spamAllDays(),
                         // last day used up to 10:00
-                        '2025-09-30': getDuration(10 * ONE_HOUR_MS),
-                    },
+                        ['2025-09-30', getDuration(10 * ONE_HOUR_MS)],
+                    ],
                     total: getDuration(2000),
                 },
             },
@@ -402,8 +398,8 @@ describe('StatisticsStorage', () => {
 
             storageMock.get.mockResolvedValueOnce(getStatistics({
                 [locationId]: {
-                    hourly: {},
-                    daily: {},
+                    hourly: [],
+                    daily: [],
                     total: getDuration(0),
                     durationTracker: tracker,
                 },
@@ -442,50 +438,50 @@ describe('StatisticsStorage', () => {
             {
                 storage: {
                     [locationId1]: {
-                        hourly: {
-                        // should be moved to daily (24 hours passed)
-                            '2025-09-29-01': getData(3),
-                            // should be moved to daily (24 hours passed - close time)
-                            '2025-09-30-09': getData(2),
-                            // edge case: should not be moved to daily (24 hours passed, but it's border time)
-                            '2025-09-30-10': getData(3),
-                            // should not be moved to daily (24 hours not passed)
-                            '2025-09-30-11': getData(3, 2, 1),
+                        hourly: [
                             // should accumulate same day hourly
-                            '2025-09-28-10': getData(1, 2, 3),
-                            '2025-09-28-23': getData(3, 2, 1),
-                        },
-                        daily: {},
+                            ['2025-09-28-10', getData(1, 2, 3)],
+                            ['2025-09-28-23', getData(3, 2, 1)],
+                            // should be moved to daily (24 hours passed)
+                            ['2025-09-29-01', getData(3)],
+                            // should be moved to daily (24 hours passed - close time)
+                            ['2025-09-30-09', getData(2)],
+                            // edge case: should not be moved to daily (24 hours passed, but it's border time)
+                            ['2025-09-30-10', getData(3)],
+                            // should not be moved to daily (24 hours not passed)
+                            ['2025-09-30-11', getData(3, 2, 1)],
+                        ],
+                        daily: [],
                         total: getData(0),
                     },
                     // should check different locations
                     [locationId2]: {
-                        hourly: {
-                        // should be moved to daily (24 hours passed)
-                            '2025-09-15-23': getData(1),
-                        },
-                        daily: {},
+                        hourly: [
+                            // should be moved to daily (24 hours passed)
+                            ['2025-09-15-23', getData(1)],
+                        ],
+                        daily: [],
                         total: getData(0),
                     },
                 },
                 expected: {
                     [locationId1]: {
-                        hourly: {
-                            '2025-09-30-10': getData(3),
-                            '2025-09-30-11': getData(3, 2, 1),
-                        },
-                        daily: {
-                            '2025-09-29': getData(3),
-                            '2025-09-30': getData(2),
-                            '2025-09-28': getData(4),
-                        },
+                        hourly: [
+                            ['2025-09-30-10', getData(3)],
+                            ['2025-09-30-11', getData(3, 2, 1)],
+                        ],
+                        daily: [
+                            ['2025-09-28', getData(4)],
+                            ['2025-09-29', getData(3)],
+                            ['2025-09-30', getData(2)],
+                        ],
                         total: getData(0),
                     },
                     [locationId2]: {
-                        hourly: {},
-                        daily: {
-                            '2025-09-15': getData(1),
-                        },
+                        hourly: [],
+                        daily: [
+                            ['2025-09-15', getData(1)],
+                        ],
                         total: getData(0),
                     },
                 },
@@ -494,71 +490,71 @@ describe('StatisticsStorage', () => {
             {
                 storage: {
                     [locationId1]: {
-                        hourly: {
-                            '2025-10-01-10': getData(1),
-                            '2025-10-01-09': getData(1),
-                            '2025-10-01-08': getData(1),
-                            '2025-10-01-07': getData(1),
-                            '2025-10-01-06': getData(1),
-                            '2025-10-01-05': getData(1),
-                            '2025-10-01-04': getData(1),
-                            '2025-10-01-03': getData(1),
-                            '2025-10-01-02': getData(1),
-                            '2025-10-01-01': getData(1),
-                            '2025-10-01-00': getData(1),
-                            '2025-09-30-23': getData(1),
-                            '2025-09-30-22': getData(1),
-                            '2025-09-30-21': getData(1),
-                            '2025-09-30-20': getData(1),
-                            '2025-09-30-19': getData(1),
-                            '2025-09-30-18': getData(1),
-                            '2025-09-30-17': getData(1),
-                            '2025-09-30-16': getData(1),
-                            '2025-09-30-15': getData(1),
-                            '2025-09-30-14': getData(1),
-                            '2025-09-30-13': getData(1),
-                            '2025-09-30-12': getData(1),
-                            '2025-09-30-11': getData(1),
-                            '2025-09-30-10': getData(1),
-                            '2025-09-30-09': getData(1), // <-- should be moved to daily
-                            '2025-09-30-08': getData(1), // <-- should be moved to daily
-                        },
-                        daily: {},
+                        hourly: [
+                            ['2025-09-30-08', getData(1)], // <-- should be moved to daily
+                            ['2025-09-30-09', getData(1)], // <-- should be moved to daily
+                            ['2025-09-30-10', getData(1)],
+                            ['2025-09-30-11', getData(1)],
+                            ['2025-09-30-12', getData(1)],
+                            ['2025-09-30-13', getData(1)],
+                            ['2025-09-30-14', getData(1)],
+                            ['2025-09-30-15', getData(1)],
+                            ['2025-09-30-16', getData(1)],
+                            ['2025-09-30-17', getData(1)],
+                            ['2025-09-30-18', getData(1)],
+                            ['2025-09-30-19', getData(1)],
+                            ['2025-09-30-20', getData(1)],
+                            ['2025-09-30-21', getData(1)],
+                            ['2025-09-30-22', getData(1)],
+                            ['2025-09-30-23', getData(1)],
+                            ['2025-10-01-00', getData(1)],
+                            ['2025-10-01-01', getData(1)],
+                            ['2025-10-01-02', getData(1)],
+                            ['2025-10-01-03', getData(1)],
+                            ['2025-10-01-04', getData(1)],
+                            ['2025-10-01-05', getData(1)],
+                            ['2025-10-01-06', getData(1)],
+                            ['2025-10-01-07', getData(1)],
+                            ['2025-10-01-08', getData(1)],
+                            ['2025-10-01-09', getData(1)],
+                            ['2025-10-01-10', getData(1)],
+                        ],
+                        daily: [],
                         total: getData(0),
                     },
                 },
                 expected: {
                     [locationId1]: {
-                        hourly: {
-                            '2025-10-01-10': getData(1),
-                            '2025-10-01-09': getData(1),
-                            '2025-10-01-08': getData(1),
-                            '2025-10-01-07': getData(1),
-                            '2025-10-01-06': getData(1),
-                            '2025-10-01-05': getData(1),
-                            '2025-10-01-04': getData(1),
-                            '2025-10-01-03': getData(1),
-                            '2025-10-01-02': getData(1),
-                            '2025-10-01-01': getData(1),
-                            '2025-10-01-00': getData(1),
-                            '2025-09-30-23': getData(1),
-                            '2025-09-30-22': getData(1),
-                            '2025-09-30-21': getData(1),
-                            '2025-09-30-20': getData(1),
-                            '2025-09-30-19': getData(1),
-                            '2025-09-30-18': getData(1),
-                            '2025-09-30-17': getData(1),
-                            '2025-09-30-16': getData(1),
-                            '2025-09-30-15': getData(1),
-                            '2025-09-30-14': getData(1),
-                            '2025-09-30-13': getData(1),
-                            '2025-09-30-12': getData(1),
-                            '2025-09-30-11': getData(1),
-                            '2025-09-30-10': getData(1),
-                        },
-                        daily: {
-                            '2025-09-30': getData(2),
-                        },
+                        hourly: [
+                            ['2025-09-30-10', getData(1)],
+                            ['2025-09-30-11', getData(1)],
+                            ['2025-09-30-12', getData(1)],
+                            ['2025-09-30-13', getData(1)],
+                            ['2025-09-30-14', getData(1)],
+                            ['2025-09-30-15', getData(1)],
+                            ['2025-09-30-16', getData(1)],
+                            ['2025-09-30-17', getData(1)],
+                            ['2025-09-30-18', getData(1)],
+                            ['2025-09-30-19', getData(1)],
+                            ['2025-09-30-20', getData(1)],
+                            ['2025-09-30-21', getData(1)],
+                            ['2025-09-30-22', getData(1)],
+                            ['2025-09-30-23', getData(1)],
+                            ['2025-10-01-00', getData(1)],
+                            ['2025-10-01-01', getData(1)],
+                            ['2025-10-01-02', getData(1)],
+                            ['2025-10-01-03', getData(1)],
+                            ['2025-10-01-04', getData(1)],
+                            ['2025-10-01-05', getData(1)],
+                            ['2025-10-01-06', getData(1)],
+                            ['2025-10-01-07', getData(1)],
+                            ['2025-10-01-08', getData(1)],
+                            ['2025-10-01-09', getData(1)],
+                            ['2025-10-01-10', getData(1)],
+                        ],
+                        daily: [
+                            ['2025-09-30', getData(2)],
+                        ],
                         total: getData(0),
                     },
                 },
@@ -567,42 +563,42 @@ describe('StatisticsStorage', () => {
             {
                 storage: {
                     [locationId1]: {
-                        hourly: {},
+                        hourly: [],
                         // should accumulate total
-                        daily: {
-                        // should be moved to total (30 days passed)
-                            '2025-08-01': getData(3),
-                            // edge case: should not be moved to total (30 days passed, but it's border time)
-                            '2025-09-01': getData(2),
+                        daily: [
+                            // should be moved to total (30 days passed)
+                            ['2025-08-01', getData(3)],
                             // should be moved to total (30 days passed - close date)
-                            '2025-08-31': getData(2),
+                            ['2025-08-31', getData(2)],
+                            // edge case: should not be moved to total (30 days passed, but it's border time)
+                            ['2025-09-01', getData(2)],
                             // should not be moved to total (30 days not passed)
-                            '2025-09-30': getData(3, 2, 1),
-                        },
+                            ['2025-09-30', getData(3, 2, 1)],
+                        ],
                         total: getData(0),
                     },
                     // should check different locations
                     [locationId2]: {
-                        hourly: {},
-                        daily: {
-                        // should be moved to total (30 days passed)
-                            '2025-08-31': getData(1),
-                        },
+                        hourly: [],
+                        daily: [
+                            // should be moved to total (30 days passed)
+                            ['2025-08-31', getData(1)],
+                        ],
                         total: getData(0),
                     },
                 },
                 expected: {
                     [locationId1]: {
-                        hourly: {},
-                        daily: {
-                            '2025-09-01': getData(2),
-                            '2025-09-30': getData(3, 2, 1),
-                        },
+                        hourly: [],
+                        daily: [
+                            ['2025-09-01', getData(2)],
+                            ['2025-09-30', getData(3, 2, 1)],
+                        ],
                         total: getData(5),
                     },
                     [locationId2]: {
-                        hourly: {},
-                        daily: {},
+                        hourly: [],
+                        daily: [],
                         total: getData(1),
                     },
                 },
@@ -611,82 +607,82 @@ describe('StatisticsStorage', () => {
             {
                 storage: {
                     [locationId1]: {
-                        hourly: {},
-                        daily: {
-                            '2025-10-01': getData(1),
-                            '2025-09-30': getData(1),
-                            '2025-09-29': getData(1),
-                            '2025-09-28': getData(1),
-                            '2025-09-27': getData(1),
-                            '2025-09-26': getData(1),
-                            '2025-09-25': getData(1),
-                            '2025-09-24': getData(1),
-                            '2025-09-23': getData(1),
-                            '2025-09-22': getData(1),
-                            '2025-09-21': getData(1),
-                            '2025-09-20': getData(1),
-                            '2025-09-19': getData(1),
-                            '2025-09-18': getData(1),
-                            '2025-09-17': getData(1),
-                            '2025-09-16': getData(1),
-                            '2025-09-15': getData(1),
-                            '2025-09-14': getData(1),
-                            '2025-09-13': getData(1),
-                            '2025-09-12': getData(1),
-                            '2025-09-11': getData(1),
-                            '2025-09-10': getData(1),
-                            '2025-09-09': getData(1),
-                            '2025-09-08': getData(1),
-                            '2025-09-07': getData(1),
-                            '2025-09-06': getData(1),
-                            '2025-09-05': getData(1),
-                            '2025-09-04': getData(1),
-                            '2025-09-03': getData(1),
-                            '2025-09-02': getData(1),
-                            '2025-09-01': getData(1),
-                            '2025-08-31': getData(1), // <-- should be moved to total
-                            '2025-08-30': getData(1), // <-- should be moved to total
-                            '2025-08-29': getData(1), // <-- should be moved to total
-                        },
+                        hourly: [],
+                        daily: [
+                            ['2025-08-29', getData(1)], // <-- should be moved to total
+                            ['2025-08-30', getData(1)], // <-- should be moved to total
+                            ['2025-08-31', getData(1)], // <-- should be moved to total
+                            ['2025-09-01', getData(1)],
+                            ['2025-09-02', getData(1)],
+                            ['2025-09-03', getData(1)],
+                            ['2025-09-04', getData(1)],
+                            ['2025-09-05', getData(1)],
+                            ['2025-09-06', getData(1)],
+                            ['2025-09-07', getData(1)],
+                            ['2025-09-08', getData(1)],
+                            ['2025-09-09', getData(1)],
+                            ['2025-09-10', getData(1)],
+                            ['2025-09-11', getData(1)],
+                            ['2025-09-12', getData(1)],
+                            ['2025-09-13', getData(1)],
+                            ['2025-09-14', getData(1)],
+                            ['2025-09-15', getData(1)],
+                            ['2025-09-16', getData(1)],
+                            ['2025-09-17', getData(1)],
+                            ['2025-09-18', getData(1)],
+                            ['2025-09-19', getData(1)],
+                            ['2025-09-20', getData(1)],
+                            ['2025-09-21', getData(1)],
+                            ['2025-09-22', getData(1)],
+                            ['2025-09-23', getData(1)],
+                            ['2025-09-24', getData(1)],
+                            ['2025-09-25', getData(1)],
+                            ['2025-09-26', getData(1)],
+                            ['2025-09-27', getData(1)],
+                            ['2025-09-28', getData(1)],
+                            ['2025-09-29', getData(1)],
+                            ['2025-09-30', getData(1)],
+                            ['2025-10-01', getData(1)],
+                        ],
                         total: getData(0),
                     },
                 },
                 expected: {
                     [locationId1]: {
-                        hourly: {},
-                        daily: {
-                            '2025-10-01': getData(1),
-                            '2025-09-30': getData(1),
-                            '2025-09-29': getData(1),
-                            '2025-09-28': getData(1),
-                            '2025-09-27': getData(1),
-                            '2025-09-26': getData(1),
-                            '2025-09-25': getData(1),
-                            '2025-09-24': getData(1),
-                            '2025-09-23': getData(1),
-                            '2025-09-22': getData(1),
-                            '2025-09-21': getData(1),
-                            '2025-09-20': getData(1),
-                            '2025-09-19': getData(1),
-                            '2025-09-18': getData(1),
-                            '2025-09-17': getData(1),
-                            '2025-09-16': getData(1),
-                            '2025-09-15': getData(1),
-                            '2025-09-14': getData(1),
-                            '2025-09-13': getData(1),
-                            '2025-09-12': getData(1),
-                            '2025-09-11': getData(1),
-                            '2025-09-10': getData(1),
-                            '2025-09-09': getData(1),
-                            '2025-09-08': getData(1),
-                            '2025-09-07': getData(1),
-                            '2025-09-06': getData(1),
-                            '2025-09-05': getData(1),
-                            '2025-09-04': getData(1),
-                            '2025-09-03': getData(1),
-                            '2025-09-02': getData(1),
-                            '2025-09-01': getData(1),
-                        },
+                        hourly: [],
+                        daily: [
+                            ['2025-09-01', getData(1)],
+                            ['2025-09-02', getData(1)],
+                            ['2025-09-03', getData(1)],
+                            ['2025-09-04', getData(1)],
+                            ['2025-09-05', getData(1)],
+                            ['2025-09-06', getData(1)],
+                            ['2025-09-07', getData(1)],
+                            ['2025-09-08', getData(1)],
+                            ['2025-09-09', getData(1)],
+                            ['2025-09-10', getData(1)],
+                            ['2025-09-11', getData(1)],
+                            ['2025-09-12', getData(1)],
+                            ['2025-09-13', getData(1)],
+                            ['2025-09-14', getData(1)],
+                            ['2025-09-15', getData(1)],
+                            ['2025-09-16', getData(1)],
+                            ['2025-09-17', getData(1)],
+                            ['2025-09-18', getData(1)],
+                            ['2025-09-19', getData(1)],
+                            ['2025-09-20', getData(1)],
+                            ['2025-09-21', getData(1)],
+                            ['2025-09-22', getData(1)],
+                            ['2025-09-23', getData(1)],
+                            ['2025-09-24', getData(1)],
+                            ['2025-09-25', getData(1)],
+                            ['2025-09-26', getData(1)],
+                            ['2025-09-27', getData(1)],
+                            ['2025-09-28', getData(1)],
+                            ['2025-09-29', getData(1)],
+                            ['2025-09-30', getData(1)],
+                            ['2025-10-01', getData(1)],
+                        ],
                         total: getData(3),
                     },
                 },
@@ -721,10 +717,10 @@ describe('StatisticsStorage', () => {
             expect(storageMock.set).toHaveBeenCalledTimes(1);
             expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics({
                 [locationId]: {
-                    hourly: {
-                        '2025-10-01-10': getData(downloadedBytes, uploadedBytes, 0),
-                    },
-                    daily: {},
+                    hourly: [
+                        ['2025-10-01-10', getData(downloadedBytes, uploadedBytes, 0)],
+                    ],
+                    daily: [],
                     total: getData(0),
                 },
             }));
@@ -743,8 +739,8 @@ describe('StatisticsStorage', () => {
             expect(storageMock.set).toHaveBeenCalledTimes(1);
             expect(storageMock.set).toHaveBeenNthCalledWith(1, expect.any(String), getStatistics({
                 [locationId]: {
-                    hourly: {},
-                    daily: {},
+                    hourly: [],
+                    daily: [],
                     total: getData(0),
                     durationTracker: {
                         startedTimestamp: systemDate.getTime(),
@@ -760,8 +756,8 @@ describe('StatisticsStorage', () => {
             expect(storageMock.set).toHaveBeenCalledTimes(2);
             expect(storageMock.set).toHaveBeenNthCalledWith(2, expect.any(String), getStatistics({
                 [locationId]: {
-                    hourly: {},
-                    daily: {},
+                    hourly: [],
+                    daily: [],
                     total: getData(0),
                     durationTracker: {
                         startedTimestamp: systemDate.getTime(),
@@ -777,10 +773,10 @@ describe('StatisticsStorage', () => {
             expect(storageMock.set).toHaveBeenCalledTimes(3);
             expect(storageMock.set).toHaveBeenNthCalledWith(3, expect.any(String), getStatistics({
                 [locationId]: {
-                    hourly: {
-                        '2025-10-01-10': getDuration(2000),
-                    },
-                    daily: {},
+                    hourly: [
+                        ['2025-10-01-10', getDuration(2000)],
+                    ],
+                    daily: [],
                     total: getData(0),
                 },
             }));
