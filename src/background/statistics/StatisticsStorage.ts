@@ -1,6 +1,8 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-param-reassign */
 import throttle from 'lodash/throttle';
+import { utc } from '@date-fns/utc';
+import { isSameHour } from 'date-fns';
 
 import { ONE_DAY_MS } from '../../common/constants';
 import { log } from '../../common/logger';
@@ -581,34 +583,15 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
     };
 
-    /**
-     * Checks if the statistics should be updated.
-     * Update is needed only if hour, day, month or year is different.
-     *
-     * @returns True if the statistics should be updated, false otherwise.
-     */
-    private shouldUpdateStatistics(): boolean {
-        const now = new Date();
-        const updatedTime = new Date(this.statisticsUpdatedTimestamp);
-
-        // update needed only if hour, day, month or year is different
-        return (
-            now.getUTCHours() !== updatedTime.getUTCHours()
-            || now.getUTCDate() !== updatedTime.getUTCDate()
-            || now.getUTCMonth() !== updatedTime.getUTCMonth()
-            || now.getUTCFullYear() !== updatedTime.getUTCFullYear()
-        );
-    }
-
     /** @inheritdoc */
     public getStatistics = async (): Promise<Statistics> => {
         this.assertInitialized();
 
+        const now = Date.now();
+
         // we need to update statistics first and only after that return the data
         // this is needed in case if extension is running longer than 1 hour
-        if (this.shouldUpdateStatistics()) {
-            const now = Date.now();
-
+        if (!isSameHour(this.statisticsUpdatedTimestamp, now, { in: utc })) {
             this.statisticsUpdatedTimestamp = now;
             Object.values(this.statistics.locations).forEach((locationData) => {
                 this.moveDuration(locationData, now);

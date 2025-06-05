@@ -1,7 +1,30 @@
+import { utc } from '@date-fns/utc';
+import { format, parse } from 'date-fns';
+
 /**
- * Separator for statistics storage keys.
+ * Format of date keys used in statistics storage in hourly buckets.
+ *
+ * Note: Keys are formatted in UTC time.
  */
-export const STATISTICS_DATE_SEPARATOR = '-';
+const HOURLY_KEY_FORMAT = 'yyyy-MM-dd-HH';
+
+/**
+ * Format of date keys used in statistics storage in daily buckets.
+ *
+ * Note: Keys are formatted in UTC time.
+ */
+const DAILY_KEY_FORMAT = 'yyyy-MM-dd';
+
+/**
+ * Array of supported date formats for statistics storage.
+ */
+const DATE_FORMATS = [HOURLY_KEY_FORMAT, DAILY_KEY_FORMAT];
+
+/**
+ * Default value to use for missing parts of the date when parsing keys.
+ * For example, if the key is '2023-04-01', we want to set hours to 0.
+ */
+const MISSING_PARTS_VALUE = 0;
 
 /**
  * Gets dash separated storage key for the current date in UTC format.
@@ -20,24 +43,16 @@ export const STATISTICS_DATE_SEPARATOR = '-';
  * @returns Key of current date in UTC format.
  */
 export function dateToKey(includeHours: boolean, date = new Date()): string {
-    const parts = [
-        date.getUTCFullYear(),
-        date.getUTCMonth() + 1,
-        date.getUTCDate(),
-    ];
+    const keyFormat = includeHours
+        ? HOURLY_KEY_FORMAT
+        : DAILY_KEY_FORMAT;
 
-    if (includeHours) {
-        parts.push(date.getUTCHours());
-    }
-
-    return parts
-        .map((part) => String(part).padStart(2, '0'))
-        .join(STATISTICS_DATE_SEPARATOR);
+    return format(date, keyFormat, { in: utc });
 }
 
 /**
  * Converts a date key to a Date object.
- * The key should be in the format `'YYYY-MM-DD'` or `'YYYY-MM-DD-HH'`.
+ * The key should be in the format {@link DAILY_KEY_FORMAT} or {@link HOURLY_KEY_FORMAT}.
  * If hour is not provided, it will be set to 0.
  *
  * @example
@@ -52,25 +67,14 @@ export function dateToKey(includeHours: boolean, date = new Date()): string {
  * @returns Date object or null if the key is not valid.
  */
 export function keyToDate(key: string): Date | null {
-    const parts = key
-        .split(STATISTICS_DATE_SEPARATOR)
-        .map((part) => parseInt(part, 10));
-
-    // Validate the parts
-    if (parts.length < 3 || parts.length > 4 || parts.some((part) => Number.isNaN(part))) {
-        return null;
+    for (let i = 0; i < DATE_FORMATS.length; i += 1) {
+        const date = parse(key, DATE_FORMATS[i], MISSING_PARTS_VALUE, { in: utc });
+        if (!Number.isNaN(date.getTime())) {
+            return date;
+        }
     }
 
-    const [year, month, day, hour = 0] = parts;
-
-    const date = new Date(Date.UTC(year, month - 1, day, hour));
-
-    // Check if the date is valid
-    if (Number.isNaN(date.getTime())) {
-        return null;
-    }
-
-    return date;
+    return null;
 }
 
 /**
