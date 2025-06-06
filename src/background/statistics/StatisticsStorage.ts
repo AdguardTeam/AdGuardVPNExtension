@@ -248,7 +248,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         }
 
         try {
-            // save statistics to local storage
+            // save original un-proxied statistics data to local storage,
+            // because when browser serializes proxied data, it converts
+            // it to plain object and brakes storage shape
             await this.storage.set<Statistics>(
                 StatisticsStorage.STATISTICS_STORAGE_KEY,
                 onChange.target(this.statistics),
