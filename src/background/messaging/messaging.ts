@@ -171,8 +171,8 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             return auth.authenticateThankYouPage({ token, redirectUrl, newUser });
         }
         case MessageType.GET_POPUP_DATA: {
-            const { options, numberOfTries } = data;
-            return popupData.getPopupDataRetry(options, numberOfTries);
+            const { url, numberOfTries } = data;
+            return popupData.getPopupDataRetry(url, numberOfTries);
         }
         case MessageType.GET_LIMITED_OFFER_DATA: {
             return limitedOfferService.getLimitedOfferData();

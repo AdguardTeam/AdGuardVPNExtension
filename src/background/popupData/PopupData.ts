@@ -27,8 +27,6 @@ import { type LocationWithPing } from '../endpoints/LocationWithPing';
 import { hintPopup } from '../hintPopup';
 import { savedLocations } from '../savedLocations';
 import { locationsService, type LocationsTab } from '../endpoints/locationsService';
-import { statisticsService } from '../statistics';
-import { type StatisticsRange, type RangeStatistics } from '../statistics/statisticsTypes';
 
 import { popupOpenedCounter } from './popupOpenedCounter';
 
@@ -85,30 +83,10 @@ interface PopupDataInterface {
      * Saved location IDs.
      */
     savedLocationIds: string[];
-
-    /**
-     * Statistics data.
-     */
-    statistics?: RangeStatistics;
 }
 
 interface PopupDataRetry extends PopupDataInterface {
     hasRequiredData: boolean;
-}
-
-/**
- * Options for getting popup data.
- */
-export interface GetPopupDataOptions {
-    /**
-     * URL of the current tab.
-     */
-    url: string | null;
-
-    /**
-     * Range to get statistics for.
-     */
-    statisticsRange: StatisticsRange;
 }
 
 export class PopupData {
@@ -136,16 +114,7 @@ export class PopupData {
         this.credentials = credentials;
     }
 
-    /**
-     * Gets data for the popup from various services.
-     *
-     * @param options Options for getting popup data.
-     *
-     * @returns Popup data.
-     */
-    private async getPopupData(options: GetPopupDataOptions): Promise<PopupDataInterface> {
-        const { url, statisticsRange } = options;
-
+    getPopupData = async (url: string): Promise<PopupDataInterface> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
         const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
@@ -188,7 +157,6 @@ export class PopupData {
         const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
         const shouldShowMobileEdgePromoBanner = await mobileEdgePromoService.shouldShowBanner();
-        const statistics = await statisticsService.getRangeStatistics(statisticsRange);
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -230,39 +198,25 @@ export class PopupData {
             isHostPermissionsGranted,
             locationsTab,
             savedLocationIds,
-            statistics,
         };
-    }
+    };
 
     retryCounter = 0;
 
     DEFAULT_RETRY_DELAY = 400;
 
-    /**
-     * Gets popup data with retries in case of failure.
-     *
-     * @param options Options for getting popup data.
-     * @param retryNum Number of retries to attempt.
-     * @param retryDelay Delay between retries in milliseconds.
-     *
-     * @returns Popup data.
-     */
-    public getPopupDataRetry = async (
-        options: GetPopupDataOptions,
-        retryNum = 1,
-        retryDelay = this.DEFAULT_RETRY_DELAY,
-    ): Promise<PopupDataRetry> => {
+    async getPopupDataRetry(url: string, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY): Promise<PopupDataRetry> {
         const backoffIndex = 1.5;
         let data: PopupDataInterface;
 
         try {
-            data = await this.getPopupData(options);
+            data = await this.getPopupData(url);
         } catch (e) {
             log.error(e);
             await sleep(retryDelay);
             this.retryCounter += 1;
             log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
-            return this.getPopupDataRetry(options, retryNum - 1, retryDelay * backoffIndex);
+            return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
 
         this.retryCounter += 1;
@@ -291,11 +245,11 @@ export class PopupData {
             }
             await sleep(retryDelay);
             log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
-            return this.getPopupDataRetry(options, retryNum - 1, retryDelay * backoffIndex);
+            return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
 
         this.retryCounter = 0;
         popupOpenedCounter.increment();
         return { ...data, hasRequiredData };
-    };
+    }
 }

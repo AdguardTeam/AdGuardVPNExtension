@@ -44,7 +44,6 @@ export class GlobalStore {
             settingsStore,
             authStore,
             telemetryStore,
-            statsStore,
         } = rootStore;
 
         this.setInitStatus(RequestStatus.Pending);
@@ -54,11 +53,7 @@ export class GlobalStore {
         const url = tab.url || null;
 
         try {
-            const options = {
-                url,
-                statisticsRange: statsStore.range,
-            };
-            const popupData = await messenger.getPopupData(options, numberOfTries);
+            const popupData = await messenger.getPopupData(url, numberOfTries);
 
             const {
                 vpnInfo,
@@ -85,7 +80,6 @@ export class GlobalStore {
                 isHostPermissionsGranted,
                 locationsTab,
                 savedLocationIds,
-                statistics,
             } = popupData;
 
             settingsStore.setForwarderDomain(forwarderDomain);
@@ -145,7 +139,6 @@ export class GlobalStore {
             await settingsStore.getExclusionsInverted();
             await settingsStore.getCurrentTabHostname();
             settingsStore.setIsExcluded(!isVpnEnabledByUrl);
-            statsStore.setRangeStatistics(statistics);
 
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
