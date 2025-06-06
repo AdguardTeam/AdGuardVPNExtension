@@ -171,11 +171,18 @@ describe('StatisticsService', () => {
                                 systemDate.getTime() - 1,
                             ),
                         ],
+                        lastSession: getSession(
+                            systemDate.getTime() - 2,
+                            systemDate.getTime() - 1,
+                        ),
                         totalDurationMs: 1, // <-- should not be included
                     },
                 },
                 expected: {
-                    total: getData(7),
+                    total: {
+                        ...getData(7),
+                        connectionStartedTimestamp: systemDate.getTime() - 2,
+                    },
                     locations: [
                         {
                             locationId: 'locationId1',
@@ -183,7 +190,10 @@ describe('StatisticsService', () => {
                         },
                         {
                             locationId: 'locationId2',
-                            data: getData(5),
+                            data: {
+                                ...getData(5),
+                                connectionStartedTimestamp: systemDate.getTime() - 2,
+                            },
                         },
                     ],
                 },
