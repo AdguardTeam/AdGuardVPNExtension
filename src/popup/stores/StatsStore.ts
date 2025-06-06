@@ -122,6 +122,18 @@ export class StatsStore {
     @observable isClearModalOpen = false;
 
     /**
+     * Flag indicating whether the first statistics retrieval has occurred.
+     * This is needed to retrieve only once when stats screen is opened,
+     * because after it will be update via notifier events.
+     */
+    @observable isFirstStatisticsRetrieved = false;
+
+    /**
+     * Flag indicating whether statistics data is currently being loaded.
+     */
+    @observable isStatisticsLoading = false;
+
+    /**
      * Should stats screen be rendered.
      */
     @computed get shouldRenderStatsScreen() {
@@ -160,6 +172,7 @@ export class StatsStore {
             this.totalUsage = StatsStore.DEFAULT_TOTAL;
             this.firstStatsDate = new Date();
             this.locations = [];
+            this.selectedLocationId = null;
             return;
         }
 
@@ -276,10 +289,33 @@ export class StatsStore {
 
     /**
      * Updates the statistics data for the current range.
+     *
+     * @param isRequestedFromUiRender True if update is requested from UI render, false otherwise.
      */
-    @action updateStatistics = async () => {
+    @action updateStatistics = async (isRequestedFromUiRender = false) => {
+        /**
+         * Negative XOR check to ensure following:
+         * - If first stats retrieved before and it's called from UI render,
+         *   we don't need to update statistics because update is handled via notifier.
+         * - If first stats not retrieved before and it's called from UI render,
+         *   we need to retrieve first stats.
+         * - If first stats retrieved before and it's not called from UI render,
+         *   it means it was called from notifier update event, we should update stats.
+         * - If first stats not retrieved before and it's not called from UI render,
+         *   we don't need to update statistics because first stats should be initiated
+         *   from UI render.
+         */
+        if (!(this.isFirstStatisticsRetrieved !== isRequestedFromUiRender)) {
+            return;
+        }
+
+        this.isStatisticsLoading = true;
+
         const rangeStatistics = await messenger.getRangeStatistics(this.range);
         this.setRangeStatistics(rangeStatistics);
+        this.isFirstStatisticsRetrieved = true;
+
+        this.isStatisticsLoading = false;
     };
 
     /**
