@@ -159,6 +159,7 @@ export class StatisticsService implements StatisticsServiceInterface {
             total,
             sessions,
             totalDurationMs,
+            lastSession,
         } = locationData;
 
         const data: StatisticsData = {
@@ -170,6 +171,11 @@ export class StatisticsService implements StatisticsServiceInterface {
                 range,
             ),
         };
+
+        if (lastSession) {
+            const [startedTimestamp] = lastSession;
+            data.connectionStartedTimestamp = startedTimestamp;
+        }
 
         const addStatisticsData = ([downloadedBytes, uploadedBytes]: StatisticsDataTuple) => {
             data.downloadedBytes += downloadedBytes;
@@ -239,6 +245,13 @@ export class StatisticsService implements StatisticsServiceInterface {
                 total.downloadedBytes += data.downloadedBytes;
                 total.uploadedBytes += data.uploadedBytes;
                 total.durationMs += data.durationMs;
+
+                // if live connection is found on this location,
+                // we should set it to total stats also, because
+                // there can be only one live connection at a time
+                if (data.connectionStartedTimestamp) {
+                    total.connectionStartedTimestamp = data.connectionStartedTimestamp;
+                }
 
                 return {
                     locationId,

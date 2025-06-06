@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { translator } from '../../../../common/translator';
 import { formatDuration } from '../utils';
+import { ONE_MINUTE_MS } from '../../../../common/constants';
 
 import { type StatsScreenWithUsageProps } from './StatsScreen';
 
@@ -16,7 +17,34 @@ export type StatsScreenTimeProps = Pick<StatsScreenWithUsageProps, 'usage'>;
  */
 export function StatsScreenTime(props: StatsScreenTimeProps) {
     const { usage } = props;
-    const { durationMs } = usage;
+    const { durationMs, connectionStartedTimestamp } = usage;
+
+    const [liveDuration, setLiveDuration] = useState(0);
+
+    useEffect(() => {
+        if (typeof connectionStartedTimestamp !== 'number') {
+            setLiveDuration(0);
+
+            return () => {
+                setLiveDuration(0);
+            };
+        }
+
+        const calculateLiveDuration = () => {
+            setLiveDuration(Date.now() - connectionStartedTimestamp);
+        };
+
+        // calculate initial live duration
+        calculateLiveDuration();
+
+        // update live duration every minute
+        const intervalId = setInterval(calculateLiveDuration, ONE_MINUTE_MS);
+
+        return () => {
+            clearInterval(intervalId);
+            setLiveDuration(0);
+        };
+    }, [connectionStartedTimestamp]);
 
     return (
         <>
@@ -28,7 +56,7 @@ export function StatsScreenTime(props: StatsScreenTimeProps) {
                     {translator.getMessage('popup_stats_connection_to_vpn')}
                 </div>
                 <div className="stats-screen-time__usage">
-                    {formatDuration(durationMs)}
+                    {formatDuration(durationMs + liveDuration)}
                 </div>
             </div>
         </>

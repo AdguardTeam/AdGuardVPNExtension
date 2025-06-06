@@ -141,6 +141,12 @@ export interface StatisticsData {
      * Duration of the connection in milliseconds.
      */
     durationMs: number;
+
+    /**
+     * Timestamp when current connection is started.
+     * This field is presented in case if there is an active connection.
+     */
+    connectionStartedTimestamp?: number;
 }
 
 /**
