@@ -3,7 +3,7 @@ import React, { useContext, useState, useRef } from 'react';
 import { observer } from 'mobx-react';
 
 import identity from 'lodash/identity';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
