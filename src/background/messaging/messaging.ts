@@ -32,7 +32,6 @@ import { limitedOfferService } from '../limitedOfferService';
 import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
 import { savedLocations } from '../savedLocations';
-import { authService } from '../authentication/authService';
 import { getConsentData, setConsentData } from '../consent';
 import { isMessage } from '../../common/messenger';
 
@@ -307,7 +306,7 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             return auth.register({ ...data.credentials, appId });
         }
         case MessageType.IS_AUTHENTICATED: {
-            return authService.isAuthenticated();
+            return auth.isAuthenticated();
         }
         case MessageType.START_SOCIAL_AUTH: {
             const { provider, marketingConsent } = data;

@@ -84,10 +84,10 @@ class ProxyApi implements ProxyApiInterface {
         const { challenger } = details;
 
         // Wait for session storage after service worker awoken.
-        // This is needed because onAuthRequiredHandler is called before the extension is fully loaded between service
-        // worker restarts
+        // This is needed because onAuthRequiredHandler is called before
+        // the extension is fully loaded between service worker restarts
         try {
-            await stateStorage.waitInit();
+            await stateStorage.init();
         } catch (e) {
             log.error('Error on waiting for state storage to init', e);
         }
