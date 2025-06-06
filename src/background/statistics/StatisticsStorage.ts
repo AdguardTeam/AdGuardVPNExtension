@@ -3,13 +3,14 @@
 import throttle from 'lodash/throttle';
 import { utc } from '@date-fns/utc';
 import { isSameHour } from 'date-fns';
+import onChange from 'on-change';
 
 import { ONE_DAY_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
 import { notifier } from '../../common/notifier';
 
-import { dateToKey, keyToDate, watchChanges } from './utils';
+import { dateToKey, keyToDate } from './utils';
 import {
     type AddStatisticsDataTraffic,
     type StatisticsLocationData,
@@ -250,7 +251,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             // save statistics to local storage
             await this.storage.set<Statistics>(
                 StatisticsStorage.STATISTICS_STORAGE_KEY,
-                this.statistics,
+                onChange.target(this.statistics),
             );
 
             // notify listeners about statistics update,
@@ -266,14 +267,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /**
-     * Handles event when statistics data is changed.
-     */
-    private handleStatisticsChanged(): void {
-        // set flag to true to allow saving statistics
-        this.isStatisticsChanged = true;
-    }
-
-    /**
      * Reads the statistics from local storage, and:
      * - If not found, creates a new one,
      * - If found, updates stale statistics;
@@ -285,16 +278,19 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             StatisticsStorage.STATISTICS_STORAGE_KEY,
         );
 
+        const handleStatisticsChanged = () => {
+            this.isStatisticsChanged = true;
+        };
+
         if (!statistics) {
             statistics = {
                 locations: {},
                 startedTimestamp: Date.now(),
             };
-
-            this.statistics = watchChanges(statistics, this.handleStatisticsChanged.bind(this));
+            this.statistics = onChange(statistics, handleStatisticsChanged);
             this.isStatisticsChanged = true;
         } else {
-            this.statistics = watchChanges(statistics, this.handleStatisticsChanged.bind(this));
+            this.statistics = onChange(statistics, handleStatisticsChanged);
             this.updateStaleStatistics();
         }
 

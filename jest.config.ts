@@ -24,6 +24,6 @@ module.exports = {
         // - node_modules/.pnpm/<pnpm-generated-folder>/node_modules
 
         // eslint-disable-next-line max-len
-        '<rootDir>/node_modules/(?!(?:.pnpm(?:/(?:[^/]+)?/node_modules/)?)?(is-ip|ip-regex|@vespaiach/axios-fetch-adapter|@date-fns/utc))',
+        '<rootDir>/node_modules/(?!(?:.pnpm(?:/(?:[^/]+)?/node_modules/)?)?(is-ip|ip-regex|@vespaiach/axios-fetch-adapter|@date-fns/utc|on-change))',
     ],
 };
