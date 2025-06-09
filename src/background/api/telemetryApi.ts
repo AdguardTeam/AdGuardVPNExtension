@@ -25,7 +25,7 @@ class TelemetryApi extends Api {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
-            shouldNotTriggerServerErrorEvent: true,
+            shouldTriggerServerErrorEvent: false,
         };
 
         await this.makeRequest(path, config, method);

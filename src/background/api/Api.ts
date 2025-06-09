@@ -32,8 +32,9 @@ export interface ConfigInterface {
     /**
      * Flag to indicate whether to trigger a server error notification
      * in case if server is unavailable or network error occurs.
+     * Default is `true`.
      */
-    shouldNotTriggerServerErrorEvent?: boolean;
+    shouldTriggerServerErrorEvent?: boolean;
 }
 
 interface ApiInterface {
@@ -92,7 +93,7 @@ export class Api implements ApiInterface {
             signal,
         };
 
-        const { body, headers } = config;
+        const { body, headers, shouldTriggerServerErrorEvent = true } = config;
 
         if (body) {
             fetchConfig.body = body;
@@ -142,7 +143,7 @@ export class Api implements ApiInterface {
             // if server is unavailable or network error occurs
             // we should notify listeners about server error,
             // but only if the user is online and the event is not suppressed
-            if (!config.shouldNotTriggerServerErrorEvent && navigator.onLine) {
+            if (shouldTriggerServerErrorEvent && navigator.onLine) {
                 notifier.notifyListeners(notifier.types.SERVER_ERROR);
             }
             throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${requestUrl} | ${e.message || JSON.stringify(e)}`);
