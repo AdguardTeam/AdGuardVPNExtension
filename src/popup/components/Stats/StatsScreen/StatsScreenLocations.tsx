@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
 import { translator } from '../../../../common/translator';
-import { type LocationDataUsage } from '../../../stores/StatsStore';
+import { type LocationUsage } from '../../../stores/StatsStore';
 import { Icon } from '../../ui/Icon';
 import { rootStore } from '../../../stores';
 import { getFlagIconStyle } from '../../Locations';
@@ -18,7 +18,7 @@ interface StatsScreenLocationProps extends Pick<StatsScreenWithLocationsProps, '
     /**
      * Location data usage.
      */
-    locationUsage: LocationDataUsage;
+    locationUsage: LocationUsage;
 }
 
 /**
@@ -26,12 +26,12 @@ interface StatsScreenLocationProps extends Pick<StatsScreenWithLocationsProps, '
  */
 function StatsScreenLocation(props: StatsScreenLocationProps) {
     const { locationUsage, onLocationClick } = props;
-    const { location, dataUsage } = locationUsage;
-    const { downloadBytes, uploadBytes } = dataUsage;
+    const { location, usage } = locationUsage;
+    const { downloadedBytes, uploadedBytes } = usage;
 
     const title = `${location.countryName} (${location.cityName})`;
-    const downloadText = formatTraffic(downloadBytes, true, true);
-    const uploadText = formatTraffic(uploadBytes, true, false);
+    const downloadText = formatTraffic(downloadedBytes, true, true);
+    const uploadText = formatTraffic(uploadedBytes, true, false);
 
     const handleClick = () => {
         onLocationClick(location.id);

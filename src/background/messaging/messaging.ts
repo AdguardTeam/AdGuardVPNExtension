@@ -34,6 +34,7 @@ import { mobileEdgePromoService } from '../mobileEdgePromoService';
 import { savedLocations } from '../savedLocations';
 import { authService } from '../authentication/authService';
 import { isMessage } from '../../common/messenger';
+import { statisticsService } from '../statistics';
 
 interface EventListeners {
     [index: string]: Runtime.MessageSender;
@@ -505,6 +506,13 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             const { pageId } = data;
             telemetry.removeOpenedPage(pageId);
             break;
+        }
+        case MessageType.STATISTICS_GET_BY_RANGE: {
+            const { range } = data;
+            return statisticsService.getStatsByRange(range);
+        }
+        case MessageType.STATISTICS_CLEAR: {
+            return statisticsService.clearStatistics();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

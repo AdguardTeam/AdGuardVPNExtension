@@ -8,22 +8,22 @@ import { type StatsScreenWithUsageProps } from './StatsScreen';
 /**
  * Props for the {@link StatsScreenData} component.
  */
-export type StatsScreenDataProps = Pick<StatsScreenWithUsageProps, 'dataUsage'>;
+export type StatsScreenDataProps = Pick<StatsScreenWithUsageProps, 'usage'>;
 
 /**
  * Component that renders the data usage block (chart) in the stats screen.
  */
 export function StatsScreenData(props: StatsScreenDataProps) {
-    const { dataUsage } = props;
-    const { downloadBytes, uploadBytes } = dataUsage;
+    const { usage } = props;
+    const { downloadedBytes, uploadedBytes } = usage;
 
-    const downloadText = formatTraffic(downloadBytes);
-    const uploadText = formatTraffic(uploadBytes);
+    const downloadText = formatTraffic(downloadedBytes);
+    const uploadText = formatTraffic(uploadedBytes);
 
     // If both download and upload are <1MB then we consider it empty
-    const isEmpty = downloadBytes < MEGABYTE_BYTES && uploadBytes < MEGABYTE_BYTES;
+    const isEmpty = downloadedBytes < MEGABYTE_BYTES && uploadedBytes < MEGABYTE_BYTES;
 
-    const totalBytes = downloadBytes + uploadBytes;
+    const totalBytes = downloadedBytes + uploadedBytes;
 
     const getLineWidth = (bytes: number) => {
         const percent = Math.round((bytes / totalBytes) * 100);
@@ -63,11 +63,11 @@ export function StatsScreenData(props: StatsScreenDataProps) {
                         <>
                             <div
                                 className="stats-screen-data__chart-line stats-screen-data__chart-line--download"
-                                style={{ width: getLineWidth(downloadBytes) }}
+                                style={{ width: getLineWidth(downloadedBytes) }}
                             />
                             <div
                                 className="stats-screen-data__chart-line stats-screen-data__chart-line--upload"
-                                style={{ width: getLineWidth(uploadBytes) }}
+                                style={{ width: getLineWidth(uploadedBytes) }}
                             />
                         </>
                     )}

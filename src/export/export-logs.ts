@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format } from 'date-fns/format';
 
 import { messenger } from '../common/messenger';
 import { log } from '../common/logger';

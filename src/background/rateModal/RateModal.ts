@@ -4,21 +4,7 @@ import { ConnectivityStateType } from '../schema';
 import { type SettingsInterface } from '../settings/settings';
 import { type StorageInterface } from '../browserApi/storage';
 import { ConnectivityEventType } from '../connectivity/connectivityService';
-
-/**
- * Data passed by connectivity state change event.
- */
-interface StateType {
-    /**
-     * New connectivity state type.
-     */
-    value: ConnectivityStateType;
-
-    /**
-     * Event type.
-     */
-    event: ConnectivityEventType;
-}
+import { type ConnectivityStateChangeEvent } from '../connectivity';
 
 /**
  * Status of rate modal.
@@ -258,7 +244,7 @@ export class RateModal implements RateModalInterface {
      *
      * @param state New connectivity state.
      */
-    private async handleConnectivityStateChange(state: StateType): Promise<void> {
+    private async handleConnectivityStateChange(state: ConnectivityStateChangeEvent): Promise<void> {
         // If rate show setting is disabled do not handle change state and delete listener
         if (!this.isShowRateSettingEnabled()) {
             this.removeListener();

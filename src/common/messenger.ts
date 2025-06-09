@@ -8,6 +8,7 @@ import type { LocationData } from '../popup/stores/VpnStore';
 import type { TelemetryScreenName, TelemetryActionName, TelemetryActionToScreenMap } from '../background/telemetry';
 import { ForwarderUrlQueryKey } from '../background/config';
 import { type LocationsTab } from '../background/endpoints/locationsService';
+import { type StatisticsByRange, type StatisticsRange } from '../background/statistics/statisticsTypes';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
@@ -691,6 +692,29 @@ class Messenger {
     async removeTelemetryOpenedPage(pageId: string): Promise<void> {
         const type = MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE;
         return this.sendMessage(type, { pageId });
+    }
+
+    /**
+     * Retrieves statistics data for the given range.
+     *
+     * @param range The range for which statistics data is needed.
+     *
+     * @returns Stats data for the given range.
+     */
+    async getStatsByRange(range: StatisticsRange): Promise<StatisticsByRange> {
+        const type = MessageType.STATISTICS_GET_BY_RANGE;
+        return this.sendMessage(type, { range });
+    }
+
+    /**
+     * Clears all statistics.
+     *
+     * WARNING: This method will delete all statistics data,
+     * make sure that you know what you are doing before calling it.
+     */
+    async clearStatistics(): Promise<void> {
+        const type = MessageType.STATISTICS_CLEAR;
+        return this.sendMessage(type);
     }
 }
 

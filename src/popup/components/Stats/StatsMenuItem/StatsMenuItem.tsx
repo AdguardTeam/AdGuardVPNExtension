@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
@@ -23,8 +23,16 @@ export const StatsMenuItem = observer(() => {
 
     const { isPremiumToken } = vpnStore;
     const { setForceShowUpgradeScreen } = authStore;
-    const { totalUsageData, openStatsScreen } = statsStore;
+    const { totalUsage, openStatsScreen, updateStatistics } = statsStore;
     const { closeOptionsModal } = uiStore;
+
+    /**
+     * Statistics retrieved only once - on first render of stats menu item.
+     * After that it will be updated via notifier events.
+     */
+    useEffect(() => {
+        updateStatistics(true);
+    }, []);
 
     const handleClick = () => {
         closeOptionsModal();
@@ -56,10 +64,10 @@ export const StatsMenuItem = observer(() => {
         return (
             <span className="stats-menu-item__usage">
                 <span className="stats-menu-item__usage-item stats-menu-item__usage-item--download">
-                    {formatTraffic(totalUsageData.downloadBytes, true, true)}
+                    {formatTraffic(totalUsage.downloadedBytes, true, true)}
                 </span>
                 <span className="stats-menu-item__usage-item stats-menu-item__usage-item--upload">
-                    {formatTraffic(totalUsageData.uploadBytes, true, false)}
+                    {formatTraffic(totalUsage.uploadedBytes, true, false)}
                 </span>
             </span>
         );

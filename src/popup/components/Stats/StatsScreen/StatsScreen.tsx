@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 
-import { type DataUsage, type LocationDataUsage, type StatsRange } from '../../../stores/StatsStore';
+import { type StatisticsData, type StatisticsRange } from '../../../../background/statistics/statisticsTypes';
+import { type LocationUsage } from '../../../stores/StatsStore';
 import { Icon } from '../../ui/Icon';
 import { getFlagIconStyle } from '../../Locations';
 import { formatRange } from '../utils';
@@ -26,7 +27,7 @@ export interface StatsScreenBaseProps {
      * Range of the stats.
      * Used to calculate date range string and as value of select.
      */
-    range: StatsRange;
+    range: StatisticsRange;
 
     /**
      * Date when the stats collection started.
@@ -48,7 +49,7 @@ export interface StatsScreenBaseProps {
      *
      * @param range New range value of range
      */
-    onRangeChange: (range: StatsRange) => void;
+    onRangeChange: (range: StatisticsRange) => void;
 }
 
 /**
@@ -56,14 +57,9 @@ export interface StatsScreenBaseProps {
  */
 export interface StatsScreenWithUsageProps {
     /**
-     * Data usage bytes.
+     * Data and duration usage.
      */
-    dataUsage: DataUsage;
-
-    /**
-     * Time usage in milliseconds.
-     */
-    timeUsageMs: number;
+    usage: StatisticsData;
 }
 
 /**
@@ -73,7 +69,7 @@ export interface StatsScreenWithLocationsProps {
     /**
      * Locations data usage.
      */
-    locations: LocationDataUsage[];
+    locations: LocationUsage[];
 
     /**
      * Callback function to be called when the location is clicked.
@@ -181,10 +177,10 @@ export function StatsScreen(props: StatsScreenProps) {
     let dataUsageNode: React.ReactNode;
     let timeUsageNode: React.ReactNode;
     if (isMainScreen || isLocationScreen) {
-        const { dataUsage, timeUsageMs } = props;
+        const { usage } = props;
 
-        dataUsageNode = <StatsScreenData dataUsage={dataUsage} />;
-        timeUsageNode = <StatsScreenTime timeUsageMs={timeUsageMs} />;
+        dataUsageNode = <StatsScreenData usage={usage} />;
+        timeUsageNode = <StatsScreenTime usage={usage} />;
     }
 
     let locationsNode: React.ReactNode;

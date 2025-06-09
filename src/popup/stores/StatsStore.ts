@@ -1,59 +1,75 @@
-import { action, computed, observable } from 'mobx';
+import {
+    action,
+    computed,
+    observable,
+    runInAction,
+} from 'mobx';
+import browser from 'webextension-polyfill';
+
+import {
+    StatisticsRange,
+    type StatisticsByRange,
+    type StatisticsData,
+} from '../../background/statistics/statisticsTypes';
+import { messenger } from '../../common/messenger';
+import { log } from '../../common/logger';
 
 import { type RootStore } from './RootStore';
 import { type LocationData } from './VpnStore';
 
 /**
- * Statistics range.
+ * Data and duration usage for a specific location.
  */
-export enum StatsRange {
-    Hours24 = 'hours24',
-    Days7 = 'days7',
-    Days30 = 'days30',
-    AllTime = 'allTime',
-}
-
-/**
- * Data usage interface.
- */
-export interface DataUsage {
-    /**
-     * Download bytes.
-     */
-    downloadBytes: number;
-
-    /**
-     * Upload bytes.
-     */
-    uploadBytes: number;
-}
-
-/**
- * Data usage for a specific location.
- */
-export interface LocationDataUsage {
+export interface LocationUsage {
     /**
      * Location info.
      */
     location: LocationData;
 
     /**
-     * Data usage for the location.
+     * Data and duration usage for the location.
      */
-    dataUsage: DataUsage;
-
-    /**
-     * Time usage for the location in milliseconds.
-     */
-    timeUsageMs: number;
+    usage: StatisticsData;
 }
 
 export class StatsStore {
+    /**
+     * Range session storage key.
+     */
+    private static readonly RANGE_STORAGE_KEY = 'statistics.range';
+
+    /**
+     * Default range for statistics.
+     */
+    private static readonly DEFAULT_RANGE = StatisticsRange.Days7;
+
+    /**
+     * Default total statistics data.
+     */
+    private static readonly DEFAULT_TOTAL: StatisticsData = {
+        downloadedBytes: 0,
+        uploadedBytes: 0,
+        durationMs: 0,
+    };
+
+    /**
+     * Root store instance.
+     */
     rootStore: RootStore;
 
+    /**
+     * Constructor.
+     */
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
+
+    /**
+     * Initializes the stats store by retrieving the range from session storage.
+     */
+    @action init = async (): Promise<void> => {
+        this.range = await this.getRangeFromStorage();
+    };
 
     /**
      * Flag indicating whether the stats screen is open.
@@ -72,17 +88,23 @@ export class StatsStore {
 
     /**
      * Stats range to show data for.
-     *
-     * FIXME: It should persist between sessions (should be retrieved from background).
      */
-    @observable range: StatsRange = StatsRange.Days7;
+    @observable range: StatisticsRange = StatsStore.DEFAULT_RANGE;
 
     /**
      * Date when the stats collection started.
-     *
-     * FIXME: It should persist between sessions (should be retrieved from background).
      */
-    @observable firstStatsDate = new Date('2024-09-19T00:00:00Z');
+    @observable firstStatsDate = new Date();
+
+    /**
+     * Total statistics data for all locations and the selected range.
+     */
+    @observable totalUsage: StatisticsData = StatsStore.DEFAULT_TOTAL;
+
+    /**
+     * Statistics data for all locations.
+     */
+    @observable locations: LocationUsage[] = [];
 
     /**
      * Is stats menu open.
@@ -100,6 +122,18 @@ export class StatsStore {
     @observable isClearModalOpen = false;
 
     /**
+     * Flag indicating whether the first statistics retrieval has occurred.
+     * This is needed to retrieve only once when stats screen is opened,
+     * because after it will be update via notifier events.
+     */
+    @observable isFirstStatisticsRetrieved = false;
+
+    /**
+     * Flag indicating whether statistics data is currently being loaded.
+     */
+    @observable isStatisticsLoading = false;
+
+    /**
      * Should stats screen be rendered.
      */
     @computed get shouldRenderStatsScreen() {
@@ -111,6 +145,73 @@ export class StatsStore {
         // Render the stats screen if it is open
         return this.isStatsScreenOpen;
     }
+
+    /**
+     * Data usage for the selected location.
+     */
+    @computed get selectedLocation(): LocationUsage | null {
+        if (!this.selectedLocationId) {
+            return null;
+        }
+
+        const locationData = this.locations.find(
+            (locationUsage) => locationUsage.location.id === this.selectedLocationId,
+        );
+
+        return locationData || null;
+    }
+
+    /**
+     * Update statistics data after range update.
+     *
+     * @param rangeStatistics Statistics data for the selected range,
+     * if `null` then it will reset the statistics data to default values.
+     */
+    @action setStatisticsByRange = (rangeStatistics: StatisticsByRange | null) => {
+        if (!rangeStatistics) {
+            this.totalUsage = StatsStore.DEFAULT_TOTAL;
+            this.firstStatsDate = new Date();
+            this.locations = [];
+            this.selectedLocationId = null;
+            return;
+        }
+
+        const { total, locations, startedTimestamp } = rangeStatistics;
+
+        const newLocations: LocationUsage[] = [];
+        for (let i = 0; i < locations.length; i += 1) {
+            const { locationId, data } = locations[i];
+            const locationData = this.rootStore.vpnStore.locations.find(
+                (location) => location.id === locationId,
+            );
+
+            if (locationData) {
+                newLocations.push({
+                    location: locationData,
+                    usage: data,
+                });
+            }
+        }
+
+        newLocations.sort((a, b) => {
+            // If downloaded data is equal, sort by uploaded data
+            if (a.usage.downloadedBytes === b.usage.downloadedBytes) {
+                // If uploaded data is also equal, sort by duration
+                if (a.usage.uploadedBytes === b.usage.uploadedBytes) {
+                    return b.usage.durationMs - a.usage.durationMs;
+                }
+
+                return b.usage.uploadedBytes - a.usage.uploadedBytes;
+            }
+
+            // Sort by downloaded data in descending order
+            return b.usage.downloadedBytes - a.usage.downloadedBytes;
+        });
+
+        this.totalUsage = total;
+        this.firstStatsDate = new Date(startedTimestamp);
+        this.locations = newLocations;
+    };
 
     /**
      * Open the stats screen.
@@ -187,22 +288,61 @@ export class StatsStore {
     };
 
     /**
-     * Update the stats range both in store and in background.
+     * Updates the statistics data for the current range.
      *
-     * FIXME: Implement (send message to background to update it).
+     * @param isRequestedFromUiRender True if update is requested from UI render, false otherwise.
+     */
+    @action updateStatistics = async (isRequestedFromUiRender = false) => {
+        /**
+         * Negative XOR check to ensure following:
+         * - If first stats retrieved before and it's called from UI render,
+         *   we don't need to update statistics because update is handled via notifier.
+         * - If first stats not retrieved before and it's called from UI render,
+         *   we need to retrieve first stats.
+         * - If first stats retrieved before and it's not called from UI render,
+         *   it means it was called from notifier update event, we should update stats.
+         * - If first stats not retrieved before and it's not called from UI render,
+         *   we don't need to update statistics because first stats should be initiated
+         *   from UI render.
+         */
+        if (!(this.isFirstStatisticsRetrieved !== isRequestedFromUiRender)) {
+            return;
+        }
+
+        this.isStatisticsLoading = true;
+
+        const statisticsByRange = await messenger.getStatsByRange(this.range);
+        this.setStatisticsByRange(statisticsByRange);
+        this.isFirstStatisticsRetrieved = true;
+
+        this.isStatisticsLoading = false;
+    };
+
+    /**
+     * Update the stats range both in store and in background,
+     * and receives the new statistics data for that range.
      *
      * @param range New range value.
      */
-    @action updateRange = async (range: StatsRange) => {
+    @action updateRange = async (range: StatisticsRange) => {
         this.range = range;
+        await this.saveRangeToStorage(range);
+        await this.updateStatistics();
     };
 
     /**
      * Clear all stats.
-     *
-     * FIXME: Implement (send message to background to clear it).
      */
-    @action clearAllStats = async () => {};
+    @action clearAllStats = async () => {
+        await messenger.clearStatistics();
+
+        runInAction(() => {
+            this.locations = [];
+            this.totalUsage = StatsStore.DEFAULT_TOTAL;
+            this.firstStatsDate = new Date();
+            this.selectedLocationId = null;
+        });
+    };
 
     /**
      * Set the stats menu open state.
@@ -232,89 +372,36 @@ export class StatsStore {
     };
 
     /**
-     * Data usage for all locations.
+     * Retrieves the statistics range from session storage.
      *
-     * FIXME: Replace with actual data and sort by download bytes
-     * (probably we need to transform raw data from background depending on range).
+     * @returns The statistics range from storage, or the default range if not set or invalid.
      */
-    @computed get allLocationsDataUsage(): LocationDataUsage[] {
-        return [
-            {
-                location: this.rootStore.vpnStore.locations[0],
-                dataUsage: {
-                    downloadBytes: 4.2e9,
-                    uploadBytes: 789e6,
-                },
-                timeUsageMs: 90_060_000, // 1d 1h 1m
-            },
-            {
-                location: this.rootStore.vpnStore.locations[1],
-                dataUsage: {
-                    downloadBytes: 2.2e9,
-                    uploadBytes: 689e6,
-                },
-                timeUsageMs: 90_060_000, // 1d 1h 1m
-            },
-            {
-                location: this.rootStore.vpnStore.locations[2],
-                dataUsage: {
-                    downloadBytes: 1.2e9,
-                    uploadBytes: 589e6,
-                },
-                timeUsageMs: 90_060_000, // 1d 1h 1m
-            },
-            {
-                location: this.rootStore.vpnStore.locations[3],
-                dataUsage: {
-                    downloadBytes: 2e8,
-                    uploadBytes: 489e6,
-                },
-                timeUsageMs: 90_060_000, // 1d 1h 1m
-            },
-            {
-                location: this.rootStore.vpnStore.locations[4],
-                dataUsage: {
-                    downloadBytes: 1e8,
-                    uploadBytes: 389e6,
-                },
-                timeUsageMs: 90_060_000, // 1d 1h 1m
-            },
-        ];
-    }
+    private async getRangeFromStorage(): Promise<StatisticsRange> {
+        try {
+            const storageRange = await browser.storage.session.get(StatsStore.RANGE_STORAGE_KEY);
+            const range = storageRange[StatsStore.RANGE_STORAGE_KEY];
 
-    /**
-     * Total data usage across all locations.
-     *
-     * FIXME: Replace with actual data (probably we need to reduce `allLocationsDataUsage`).
-     */
-    @computed get totalUsageData(): DataUsage {
-        return {
-            downloadBytes: 4.2e9,
-            uploadBytes: 789e6,
-        };
-    }
+            if (range && Object.values(StatisticsRange).includes(range as StatisticsRange)) {
+                return range as StatisticsRange;
+            }
 
-    /**
-     * Total time usage across all locations in milliseconds.
-     *
-     * FIXME: Replace with actual data (probably we need to reduce `allLocationsDataUsage`).
-     */
-    @computed get totalTimeUsageMs(): number {
-        return 90_060_000; // 1d 1h 1m
-    }
-
-    /**
-     * Data usage for the selected location.
-     */
-    @computed get selectedLocationDataUsage(): LocationDataUsage | null {
-        if (!this.selectedLocationId) {
-            return null;
+            // If the range is not set or invalid, return the default range
+            return StatsStore.DEFAULT_RANGE;
+        } catch (e) {
+            // If there is an error retrieving the range, return the default range
+            log.error('Failed to retrieve statistics range from storage:', e);
+            return StatsStore.DEFAULT_RANGE;
         }
+    }
 
-        const locationData = this.allLocationsDataUsage.find(
-            (locationUsage) => locationUsage.location.id === this.selectedLocationId,
-        );
-
-        return locationData || null;
+    /**
+     * Saves the statistics range to session storage.
+     *
+     * @param range The statistics range to save.
+     */
+    private async saveRangeToStorage(range: StatisticsRange): Promise<void> {
+        await browser.storage.session.set({
+            [StatsStore.RANGE_STORAGE_KEY]: range,
+        });
     }
 }
