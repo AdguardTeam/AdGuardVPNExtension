@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 
 import { type StatisticsData, type StatisticsRange } from '../../../../background/statistics/statisticsTypes';
+import { IconButton } from '../../../../common/components/Icons';
 import { type LocationUsage } from '../../../stores/StatsStore';
-import { Icon } from '../../ui/Icon';
 import { getFlagIconStyle } from '../../Locations';
 import { formatRange } from '../utils';
 
@@ -201,16 +201,11 @@ export function StatsScreen(props: StatsScreenProps) {
         <div className="stats-screen">
             <div ref={headerRef} className="stats-screen__header">
                 <div className="stats-screen__navbar">
-                    <button
-                        type="button"
+                    <IconButton
+                        name="back"
                         className="stats-screen__navbar-btn"
                         onClick={onBackClick}
-                    >
-                        <Icon
-                            icon="back"
-                            className="stats-screen__navbar-btn-icon"
-                        />
-                    </button>
+                    />
                     <StatsScreenMenu
                         isMainScreen={isMainScreen}
                         onClear={onClear}

@@ -42,20 +42,14 @@
     &__navbar-btn,
     &__select--menu .select__btn {
         padding: 12px 8px;
-        border: none;
-        margin: 0;
-        outline: none;
-        cursor: pointer;
-        background-color: transparent;
     }
 
-    &__navbar-btn-icon {
-        width: 24px;
-        height: 24px;
+    &__select--menu .select__btn {
+        column-gap: 0;
         color: var(--stroke-icons-gray-icons-default);
         transition: var(--t3) color;
 
-        button:hover & {
+        &:hover {
             color: var(--text-main-text-main-default);
         }
     }
@@ -213,23 +207,7 @@
         position: absolute;
         top: 12px;
         right: 12px;
-        border: none;
         padding: 4px;
-        margin: 0;
-        outline: none;
-        cursor: pointer;
-        background-color: transparent;
-        color: var(--stroke-icons-gray-icons-default);
-        transition: var(--t3) color;
-
-        &:hover {
-            color: var(--text-main-text-main-default);
-        }
-
-        &-icon {
-            width: 24px;
-            height: 24px;
-        }
     }
 
     &__text {
@@ -454,14 +432,6 @@
 
         &-content {
             flex-grow: 1;
-        }
-
-        &-icon {
-            flex-shrink: 0;
-            width: 24px;
-            height: 24px;
-            color: var(--stroke-icons-gray-icons-default);
-            transform: rotate(-90deg);
         }
 
         &-title {

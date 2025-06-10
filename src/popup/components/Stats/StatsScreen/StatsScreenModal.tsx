@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { Icon } from '../../ui/Icon';
+import { IconButton } from '../../../../common/components/Icons';
 
 /**
  * Props for the {@link StatsScreenModal} component.
@@ -55,16 +55,11 @@ export function StatsScreenModal(props: StatsScreenModalProps) {
         <div className={classes}>
             <div className="stats-screen-modal__overlay" onClick={onClose} />
             <div className="stats-screen-modal__content">
-                <button
-                    type="button"
-                    onClick={onClose}
+                <IconButton
+                    name="cross"
                     className="stats-screen-modal__close-btn"
-                >
-                    <Icon
-                        icon="cross"
-                        className="stats-screen-modal__close-btn-icon"
-                    />
-                </button>
+                    onClick={onClose}
+                />
                 <div className="stats-screen-modal__text">
                     <div className="stats-screen-modal__title">
                         {title}

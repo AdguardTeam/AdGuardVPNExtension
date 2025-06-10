@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../../common/translator';
+import { Icon } from '../../../../common/components/Icons';
 import { rootStore } from '../../../stores';
-import { Icon } from '../../ui/Icon';
 import { formatTraffic } from '../utils';
 
 import './stats-menu-item.pcss';
@@ -84,8 +84,9 @@ export const StatsMenuItem = observer(() => {
                     {translator.getMessage('popup_settings_stats')}
                 </span>
                 <Icon
-                    icon="right-arrow"
-                    className="stats-menu-item__icon icon--arrow"
+                    name="arrow-down"
+                    color="gray"
+                    rotation="clockwise"
                 />
             </span>
             {renderSecondaryBlock()}

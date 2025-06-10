@@ -2,12 +2,12 @@ import React, { type SetStateAction, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { Select, type SelectOptionItem } from '../../../../common/components/Select';
 import { translator } from '../../../../common/translator';
 import { getForwarderUrl } from '../../../../common/helpers';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { Icon } from '../../ui/Icon';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
+import { Icon } from '../../../../common/components/Icons';
 import { rootStore } from '../../../stores';
 
 import { type StatsScreenBaseProps } from './StatsScreen';
@@ -153,7 +153,7 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
     return (
         <>
             <Select
-                titleIcon={<Icon icon="burger" className="stats-screen__navbar-btn-icon" />}
+                titleIcon={<Icon name="sidebar-burger" />}
                 value={MenuActions.None}
                 className="stats-screen__select stats-screen__select--menu"
                 options={menuOptions}

@@ -101,6 +101,12 @@ function SelectOption<T extends string>({
  */
 export interface SelectProps<T> {
     /**
+     * Icon that will be shown beside the title.
+     * You can add 'select__btn-icon' class to it to inherit styles.
+     */
+    titleIcon?: React.ReactNode;
+
+    /**
      * Current selected value of the select.
      */
     value: T;
@@ -146,6 +152,7 @@ export interface SelectProps<T> {
  * Select component.
  */
 export function Select<T extends string>({
+    titleIcon,
     value,
     options,
     isActive: outsideActive,
@@ -211,11 +218,12 @@ export function Select<T extends string>({
                 <span className="select__btn-text text-ellipsis">
                     {activeItem?.title}
                 </span>
-                <Icon
-                    name="arrow-down"
-                    color="gray"
-                    rotation={isActive ? 'upside-down' : 'none'}
-                />
+                {titleIcon || (
+                    <Icon
+                        name="arrow-down"
+                        rotation={isActive ? 'upside-down' : 'none'}
+                    />
+                )}
             </button>
             <div className="select__list">
                 {options.map((option) => (

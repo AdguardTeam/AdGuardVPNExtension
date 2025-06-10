@@ -3,19 +3,6 @@ import React from 'react';
 export const Icons = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="hidden">
         {/* Options page icons */}
-        <symbol
-            id="sidebar-burger"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M4 12H20" />
-            <path d="M4 7H20" />
-            <path d="M4 17H20" />
-        </symbol>
-
         <symbol id="star" viewBox="0 0 30 30" fill="currentColor" fillRule="evenodd" clipRule="evenodd">
             <path d="m15 21-8.8 6.1 3-10.2-8.5-6.5 10.8-.3L15 0l3.5 10.1 10.8.3-8.6 6.5L23.8 27l-8.8-6Z" />
         </symbol>
@@ -325,6 +312,19 @@ export const Icons = () => (
         >
             <circle cx="12" cy="12" r="9" />
             <path d="M12 16v-6M12 7.6v-.2" />
+        </symbol>
+
+        <symbol
+            id="sidebar-burger"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M4 12H20" />
+            <path d="M4 7H20" />
+            <path d="M4 17H20" />
         </symbol>
     </svg>
 );

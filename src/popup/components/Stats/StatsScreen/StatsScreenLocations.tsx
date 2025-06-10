@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../../common/translator';
+import { Icon } from '../../../../common/components/Icons';
 import { type LocationUsage } from '../../../stores/StatsStore';
-import { Icon } from '../../ui/Icon';
 import { rootStore } from '../../../stores';
 import { getFlagIconStyle } from '../../Locations';
 import { formatTraffic } from '../utils';
@@ -63,8 +63,9 @@ function StatsScreenLocation(props: StatsScreenLocationProps) {
                 </span>
             </span>
             <Icon
-                className="stats-screen-locations__button-icon"
-                icon="arrow-down"
+                name="arrow-down"
+                color="gray"
+                rotation="clockwise"
             />
         </button>
     );
@@ -148,8 +149,9 @@ export const StatsScreenLocations = observer((props: StatsScreenLocationsProps) 
                             </span>
                         </span>
                         <Icon
-                            className="stats-screen-locations__button-icon"
-                            icon="arrow-down"
+                            name="arrow-down"
+                            color="gray"
+                            rotation="clockwise"
                         />
                     </button>
                 )}
