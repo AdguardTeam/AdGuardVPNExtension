@@ -3,8 +3,8 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import uniqueProtocolImageUrl from '../../../../assets/images/onboarding-unique-protocol.svg';
 import sitesAppExclusionsImageUrl from '../../../../assets/images/onboarding-sites-app-exclusions.svg';
 import noLoggingPolicyImageUrl from '../../../../assets/images/onboarding-no-logging-policy.svg';

@@ -32,7 +32,7 @@ import { limitedOfferService } from '../limitedOfferService';
 import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
 import { savedLocations } from '../savedLocations';
-import { authService } from '../authentication/authService';
+import { getConsentData, setConsentData } from '../consent';
 import { isMessage } from '../../common/messenger';
 import { statisticsService } from '../statistics';
 
@@ -199,6 +199,13 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             const { isRefresh } = data;
             return getOptionsData(isRefresh);
         }
+        case MessageType.GET_CONSENT_DATA: {
+            return getConsentData();
+        }
+        case MessageType.SET_CONSENT_DATA: {
+            const { policyAgreement, helpUsImprove } = data;
+            return setConsentData(policyAgreement, helpUsImprove);
+        }
         case MessageType.GET_VPN_FAILURE_PAGE: {
             return endpoints.getVpnFailurePage();
         }
@@ -300,7 +307,7 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             return auth.register({ ...data.credentials, appId });
         }
         case MessageType.IS_AUTHENTICATED: {
-            return authService.isAuthenticated();
+            return auth.isAuthenticated();
         }
         case MessageType.START_SOCIAL_AUTH: {
             const { provider, marketingConsent } = data;

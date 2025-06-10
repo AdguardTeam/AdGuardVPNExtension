@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { rootStore } from '../../../../stores';
-import { useOutsideClick } from '../../../../../common/components/ui/useOutsideClick';
+import { useOutsideClick } from '../../../../../common/hooks/useOutsideClick';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { HintPopup } from '../HintPopup/HintPopup';
 

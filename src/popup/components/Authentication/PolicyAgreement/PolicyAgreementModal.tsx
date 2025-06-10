@@ -2,12 +2,11 @@ import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import { translator } from '../../../../common/translator';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { getForwarderUrl } from '../../../../common/helpers';
+import { getPrivacyAndEulaUrls } from '../../../../common/forwarderHelpers';
+import { IconButton } from '../../../../common/components/Icons';
 import { rootStore } from '../../../stores';
-import { Icon } from '../../ui/Icon';
 
 export const PolicyAgreementModal = observer(() => {
     const { settingsStore, uiStore } = useContext(rootStore);
@@ -15,7 +14,7 @@ export const PolicyAgreementModal = observer(() => {
     const { forwarderDomain } = settingsStore;
     const { isAgreementModalOpen, closeAgreementModal } = uiStore;
 
-    const privacyUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY);
+    const { privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
 
     return (
         <Modal
@@ -25,13 +24,11 @@ export const PolicyAgreementModal = observer(() => {
             overlayClassName="modal__overlay"
             className="policy-agreement__modal"
         >
-            <button
-                type="button"
-                className="button button--icon policy-agreement__modal-close"
+            <IconButton
+                name="cross"
+                className="close-icon-btn"
                 onClick={closeAgreementModal}
-            >
-                <Icon icon="cross" className="icon--button icon--cross-gray7f" />
-            </button>
+            />
             <div className="policy-agreement__modal-content">
                 <h2 className="policy-agreement__modal-title">
                     {translator.getMessage('settings_help_us_improve_modal_title')}

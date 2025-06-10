@@ -10,7 +10,7 @@ import { ExtraOptions } from '../ExtraOptions';
 import { GlobalError } from '../GlobalError';
 import { Settings } from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
-import { Icons } from '../ui/Icons';
+import { Icons } from '../../../common/components/Icons';
 import { CurrentEndpoint } from '../Settings/CurrentEndpoint';
 import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 import { rootStore } from '../../stores';
@@ -31,7 +31,7 @@ import { HostPermissionsError } from '../HostPermissionsError';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal';
 import { SETTINGS_IDS } from '../../../common/constants';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { MobileEdgePromo } from '../MobileEdgePromo';
 import { Stats } from '../Stats';
 

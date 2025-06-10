@@ -594,7 +594,7 @@ export class Telemetry implements TelemetryInterface {
     private async getProps(): Promise<TelemetryProps> {
         const locale = browser.i18n.getUILanguage();
         const appearanceTheme = this.settings.getAppearanceTheme();
-        const loggedIn = !!(await this.auth.isAuthenticated(false));
+        const loggedIn = await this.auth.isAuthenticated(false);
 
         let licenseStatus: TelemetryLicenseStatus | undefined;
         if (loggedIn) {

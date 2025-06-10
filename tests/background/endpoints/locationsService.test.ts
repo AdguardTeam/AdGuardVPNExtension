@@ -5,7 +5,8 @@ import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
 import type { VpnTokenData, EndpointInterface, LocationData } from '../../../src/background/schema';
-import { locationsService, LocationsTab, LocationsService } from '../../../src/background/endpoints/locationsService';
+import { locationsService, LocationsService } from '../../../src/background/endpoints/locationsService';
+import { LocationsTab } from '../../../src/background/endpoints/locationsEnums';
 import { stateStorage } from '../../../src/background/stateStorage';
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));

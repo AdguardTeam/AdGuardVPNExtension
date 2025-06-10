@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Увійти або створити обліковий запис"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Продовжити"
+    },
     "popup_newsletter_title": {
         "message": "Листи AdGuard"
     },

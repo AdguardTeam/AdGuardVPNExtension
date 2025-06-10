@@ -2,8 +2,9 @@ import React, { useRef, useState, type SetStateAction } from 'react';
 
 import classNames from 'classnames';
 
-import { useOutsideClick } from '../ui/useOutsideClick';
-import { useOutsideFocus } from '../ui/useOutsideFocus';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { useOutsideFocus } from '../../hooks/useOutsideFocus';
+import { Icon } from '../Icons';
 
 import './select.pcss';
 
@@ -47,11 +48,6 @@ interface SelectOptionProps<T> extends SelectOptionItem<T> {
     isSelectActive?: boolean;
 
     /**
-     * Icon that will be shown in the active item.
-     */
-    activeItemIcon?: React.ReactNode;
-
-    /**
      * Click event handler.
      */
     onClick: (value: T) => void;
@@ -66,7 +62,6 @@ function SelectOption<T extends string>({
     isActive,
     shouldSkip,
     isSelectActive,
-    activeItemIcon,
     className,
     onClick,
 }: SelectOptionProps<T>) {
@@ -92,7 +87,11 @@ function SelectOption<T extends string>({
             tabIndex={!isSelectActive ? -1 : undefined}
         >
             {title}
-            {activeItemIcon}
+            <Icon
+                name="tick"
+                color="product"
+                className="select__item-icon"
+            />
         </button>
     );
 }
@@ -101,12 +100,6 @@ function SelectOption<T extends string>({
  * Select component props.
  */
 export interface SelectProps<T> {
-    /**
-     * Icon that will be shown beside the title.
-     * You can add 'select__btn-icon' class to it to inherit styles.
-     */
-    titleIcon?: React.ReactNode;
-
     /**
      * Current selected value of the select.
      */
@@ -121,12 +114,6 @@ export interface SelectProps<T> {
      * Is the select active or not.
      */
     isActive?: boolean;
-
-    /**
-     * Icon that will be shown in the active item.
-     * You can add 'select__item-icon' class to it to inherit styles.
-     */
-    activeItemIcon?: React.ReactNode;
 
     /**
      * Additional class name for the select.
@@ -159,11 +146,9 @@ export interface SelectProps<T> {
  * Select component.
  */
 export function Select<T extends string>({
-    titleIcon,
     value,
     options,
     isActive: outsideActive,
-    activeItemIcon,
     className,
     shouldManageOutsideClick = true,
     onChange,
@@ -223,12 +208,14 @@ export function Select<T extends string>({
                 type="button"
                 onClick={handleToggle}
             >
-                {activeItem?.title && (
-                    <span className="select__btn-text text-ellipsis">
-                        {activeItem.title}
-                    </span>
-                )}
-                {titleIcon}
+                <span className="select__btn-text text-ellipsis">
+                    {activeItem?.title}
+                </span>
+                <Icon
+                    name="arrow-down"
+                    color="gray"
+                    rotation={isActive ? 'upside-down' : 'none'}
+                />
             </button>
             <div className="select__list">
                 {options.map((option) => (
@@ -240,7 +227,6 @@ export function Select<T extends string>({
                         isActive={option.value === value}
                         shouldSkip={option.shouldSkip}
                         isSelectActive={isActive}
-                        activeItemIcon={activeItemIcon}
                         onClick={handleChange}
                     />
                 ))}

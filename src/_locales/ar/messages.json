@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "تسجيل الدخول أو إنشاء حساب"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "استمرار"
+    },
     "popup_newsletter_title": {
         "message": "النشرة الإخبارية لـ AdGuard"
     },

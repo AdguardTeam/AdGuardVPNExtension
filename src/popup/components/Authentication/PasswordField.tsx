@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import classnames from 'classnames';
 
+import { IconButton } from '../../../common/components/Icons';
 import { type CredentialsKey } from '../../stores/AuthStore';
-import { Icon } from '../ui/Icon';
 
 interface PasswordFieldParameters {
     id: CredentialsKey;
@@ -62,17 +62,11 @@ const PasswordField = ({
                         // eslint-disable-next-line jsx-a11y/no-autofocus
                         autoFocus={focus}
                     />
-                    <button
-                        type="button"
-                        tabIndex={-1}
-                        className="button form__input-btn form__input-btn--password"
+                    <IconButton
+                        name={icon}
+                        className="form__input-btn form__input-btn--password"
                         onClick={toggleInputType}
-                    >
-                        <Icon
-                            className="icon--button"
-                            icon={icon}
-                        />
-                    </button>
+                    />
                 </div>
             </label>
         </div>

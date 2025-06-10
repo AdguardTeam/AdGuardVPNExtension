@@ -1,4 +1,11 @@
 /**
+ * IMPORTANT:
+ * Do not import inside this file other dependencies,
+ * because imports of this file are also used in the popup
+ * and redundant code from background may get into popup code
+ */
+
+/**
  * Screen names passed to telemetry.
  */
 export enum TelemetryScreenName {

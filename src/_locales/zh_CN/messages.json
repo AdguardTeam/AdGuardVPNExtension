@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "登录或创建账号"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "继续"
+    },
     "popup_newsletter_title": {
         "message": "AdGuard 资讯"
     },

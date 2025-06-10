@@ -129,10 +129,4 @@ describe('StateStorage', () => {
         expect(() => stateStorage.setItem(testKey, 'testValue')).toThrowError(errorMessage);
         expect(() => stateStorage.getItem(testKey)).toThrowError(errorMessage);
     });
-
-    it('should return same promise for init and waitInit', () => {
-        const stateStorage = new StateStorage();
-
-        expect(stateStorage.init()).toStrictEqual(stateStorage.waitInit());
-    });
 });

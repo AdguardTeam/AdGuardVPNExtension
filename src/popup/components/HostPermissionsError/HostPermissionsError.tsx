@@ -2,14 +2,13 @@ import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import { getForwarderUrl } from '../../../common/helpers';
 import { Permissions } from '../../../common/permissions';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { FORWARDER_URL_QUERIES } from '../../../background/config';
+import { getPrivacyAndEulaUrls } from '../../../common/forwarderHelpers';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import './host-permissions-error.pcss';
 
@@ -23,6 +22,8 @@ export const HostPermissionsError = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
 
     const { isHostPermissionsGranted, forwarderDomain } = settingsStore;
+
+    const { privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
 
     const isOpen = !isHostPermissionsGranted;
 
@@ -41,7 +42,7 @@ export const HostPermissionsError = observer(() => {
 
     const handlePrivacyClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
-        await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY));
+        await popupActions.openTab(privacyUrl);
     };
 
     const hostPermissionsInfo = reactTranslator.getMessage(

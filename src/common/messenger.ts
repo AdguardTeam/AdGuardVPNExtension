@@ -5,9 +5,13 @@ import type { LimitedOfferData } from '../background/limitedOfferService';
 import type { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
-import type { TelemetryScreenName, TelemetryActionName, TelemetryActionToScreenMap } from '../background/telemetry';
+import type {
+    TelemetryScreenName,
+    TelemetryActionName,
+    TelemetryActionToScreenMap,
+} from '../background/telemetry/telemetryEnums';
 import { ForwarderUrlQueryKey } from '../background/config';
-import { type LocationsTab } from '../background/endpoints/locationsService';
+import { type LocationsTab } from '../background/endpoints/locationsEnums';
 import { type StatisticsByRange, type StatisticsRange } from '../background/statistics/statisticsTypes';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
@@ -283,6 +287,28 @@ class Messenger {
     async getOptionsData(isDataRefresh: boolean) {
         const type = MessageType.GET_OPTIONS_DATA;
         return this.sendMessage(type, { isDataRefresh });
+    }
+
+    /**
+     * Sends a message to the background page to get consent data.
+     *
+     * @returns Data needed for the consent page.
+     */
+    async getConsentData() {
+        const type = MessageType.GET_CONSENT_DATA;
+        return this.sendMessage(type);
+    }
+
+    /**
+     * Sends a message to the background page to set consent data,
+     * which includes user agreement to the policy and help us improve checkbox.
+     *
+     * @param policyAgreement Policy agreement status.
+     * @param helpUsImprove Help us improve status.
+     */
+    async setConsentData(policyAgreement: boolean, helpUsImprove: boolean) {
+        const type = MessageType.SET_CONSENT_DATA;
+        return this.sendMessage(type, { policyAgreement, helpUsImprove });
     }
 
     async getVpnFailurePage() {

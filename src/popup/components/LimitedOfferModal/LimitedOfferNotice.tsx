@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { Icon } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
 
 import './limited-offer-notice.pcss';
@@ -39,9 +40,7 @@ export const LimitedOfferNotice = observer(() => {
             className="limited-offer-notice"
             onClick={openDetails}
         >
-            <svg className="icon icon--button limited-offer-notice__icon">
-                <use xlinkHref="#fire" />
-            </svg>
+            <Icon name="fire" className="limited-offer-notice__icon" />
 
             <div className="limited-offer-notice__info">
                 {reactTranslator.getMessage('popup_limited_offer_notice', {

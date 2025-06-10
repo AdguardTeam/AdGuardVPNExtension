@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from 'react';
 
 import classNames from 'classnames';
 
-import { Icon } from '../Icon';
+import { Icon } from '../../../../common/components/Icons';
 
 import './button.pcss';
 
@@ -89,9 +89,7 @@ export function Button({
             form={form}
             onClick={onClick}
         >
-            {beforeIconName && (
-                <Icon name={beforeIconName} className="button__before-icon" />
-            )}
+            {beforeIconName && <Icon name={beforeIconName} />}
             <span className="button__text">
                 {children}
             </span>

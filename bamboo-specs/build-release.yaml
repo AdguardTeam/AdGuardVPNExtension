@@ -58,8 +58,8 @@ Build:
             # build artifacts chrome.crx
             pnpm crx:release
 
-            # build source code for uploading to amo
-            git ls-files | zip -@ build/release/source.zip
+            # archive source for Firefox review
+            ./bamboo-specs/scripts/archive-source.sh release
     - inject-variables:
         file: build/release/build.txt
         scope: RESULT

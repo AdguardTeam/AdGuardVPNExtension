@@ -25,7 +25,7 @@ import { type ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema'
 
 export interface AuthInterface {
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
-    isAuthenticated(turnOffProxy?: boolean): Promise<string | boolean>;
+    isAuthenticated(turnOffProxy?: boolean): Promise<boolean>;
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
     getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string>;
     authenticateSocial(authData: SocialAuthData, tabId: number): Promise<void>;
@@ -44,7 +44,15 @@ export interface AuthInterface {
 }
 
 class Auth implements AuthInterface {
-    state: AuthState;
+    /**
+     * Promise that resolves when the authentication state is initialized.
+     */
+    private initStatePromise: Promise<void> | null = null;
+
+    /**
+     * Current authentication state.
+     */
+    private state: AuthState;
 
     private saveAuthState = () => {
         stateStorage.setItem(StorageKey.AuthState, this.state);
@@ -88,7 +96,21 @@ class Auth implements AuthInterface {
         return { status: 'ok' };
     }
 
-    async isAuthenticated(turnOffProxy?: boolean): Promise<string | boolean> {
+    /**
+     * Checks if user is authenticated.
+     *
+     * @param turnOffProxy If true, turns off the proxy if no access token is found.
+     *
+     * @returns True if user is authenticated, false otherwise.
+     */
+    async isAuthenticated(turnOffProxy?: boolean): Promise<boolean> {
+        /**
+         * Wait for session storage after service worker awoken.
+         * This is needed because this method might be called before
+         * the extension is fully loaded between service worker restarts.
+         */
+        await this.initState();
+
         let accessToken;
 
         try {
@@ -97,7 +119,7 @@ class Auth implements AuthInterface {
             return false;
         }
 
-        return accessToken;
+        return !!accessToken;
     }
 
     async startSocialAuth(
@@ -369,11 +391,33 @@ class Auth implements AuthInterface {
         throw new Error('No access token, user is not authenticated');
     }
 
-    async initState(): Promise<void> {
+    /**
+     * Initializes the authentication state by waiting for the state storage to be initialized
+     * and then retrieving the current authentication state from state storage.
+     */
+    private async innerInitState(): Promise<void> {
+        await stateStorage.init();
         this.state = stateStorage.getItem(StorageKey.AuthState);
     }
 
-    async init(): Promise<void> {
+    /**
+     * Initializes the state of the authentication module.
+     *
+     * Note: You can call this method to wait for the auth to be initialized,
+     * because it was implemented as it can be called multiple times but
+     * initialization will happen only once.
+     *
+     * @returns Promise that resolves when the auth is initialized.
+     */
+    public async initState(): Promise<void> {
+        if (!this.initStatePromise) {
+            this.initStatePromise = this.innerInitState();
+        }
+
+        return this.initStatePromise;
+    }
+
+    public async init(): Promise<void> {
         const accessTokenData = await authService.getAccessTokenData();
         if (!accessTokenData?.accessToken) {
             return;

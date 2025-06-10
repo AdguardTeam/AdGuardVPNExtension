@@ -827,6 +827,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Влезте или създайте акаунт"
     },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Продължи"
+    },
     "popup_newsletter_title": {
         "message": "Бюлетин на AdGuard"
     },

@@ -31,11 +31,6 @@
         position: absolute;
         top: 1px;
         left: 0;
-        width: 24px;
-        height: 24px;
-        padding: 0;
-        border: 0;
-        color: var(--gray-base);
     }
 
     &__reload {
@@ -54,15 +49,9 @@
             }
         }
 
-        &-icon {
-            width: 24px;
-            height: 24px;
-            color: var(--stroke-icons-product-icon-default);
-
-            &--active {
-                pointer-events: none;
-                animation: rotate 2s linear infinite running;
-            }
+        &-icon--active {
+            pointer-events: none;
+            animation: rotate 2s linear infinite running;
         }
     }
 
@@ -167,7 +156,6 @@
             width: 48px;
             height: 48px;
             border-radius: 8px;
-            color: var(--stroke-icons-product-icon-default);
             background-color: var(--fills-backgrounds-page-background-additional-default);
         }
 
@@ -251,23 +239,8 @@
             background-color: var(--fills-snacks-mobile-snacks-default);
         }
 
-        &-icon,
-        &-close-icon {
-            width: 24px;
-            height: 24px;
-        }
-
-        &-icon,
-        &-close {
-            flex-shrink: 0;
-        }
-
         &-content {
             flex: 1 1 auto;
-        }
-
-        &-icon {
-            color: var(--stroke-icons-product-icon-default);
         }
 
         &-title,
@@ -301,10 +274,6 @@
             &:active {
                 color: var(--text-links-link-pressed);
             }
-        }
-
-        &-close {
-            color: var(--stroke-icons-gray-icons-default);
         }
     }
 }

@@ -6,7 +6,7 @@ import classnames from 'classnames';
 
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { Icon } from '../ui/Icon';
+import { Icon, IconButton } from '../../../common/components/Icons';
 
 import { RATING_IMAGES_MAP } from './constants';
 
@@ -65,15 +65,11 @@ export const RateModal = observer(() => {
             overlayClassName="modal__overlay"
             onRequestClose={closeModal}
         >
-            <button
-                type="button"
-                className="button button--icon modal__close-icon"
+            <IconButton
+                name="cross"
+                className="close-icon-btn"
                 onClick={closeModal}
-            >
-                <svg className="icon icon--button icon--cross">
-                    <use xlinkHref="#cross" />
-                </svg>
-            </button>
+            />
             <img
                 src={mainImagePath}
                 className="rate-modal__image"
@@ -98,10 +94,7 @@ export const RateModal = observer(() => {
                         onMouseLeave={handleMouseLeave}
                         onClick={saveRating}
                     >
-                        <Icon
-                            icon="star"
-                            className="rate-modal__star__icon"
-                        />
+                        <Icon name="star-rounded" className="rate-modal__star__icon" />
                     </div>
                 ))}
             </div>

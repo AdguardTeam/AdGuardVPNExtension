@@ -2,8 +2,8 @@ import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
 import classNames from 'classnames';
 
-import { useOutsideClick } from '../../../../common/components/ui/useOutsideClick';
-import { useOutsideFocus } from '../../../../common/components/ui/useOutsideFocus';
+import { useOutsideClick } from '../../../../common/hooks/useOutsideClick';
+import { useOutsideFocus } from '../../../../common/hooks/useOutsideFocus';
 
 import './controls.pcss';
 

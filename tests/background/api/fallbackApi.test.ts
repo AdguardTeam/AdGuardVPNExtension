@@ -25,8 +25,10 @@ describe('FallbackApi', () => {
         await stateStorage.init();
     });
 
-    afterEach(async () => {
+    afterEach(() => {
         jest.clearAllMocks();
+        // @ts-expect-error - reset stateStorage to default
+        stateStorage.state.fallbackInfo = null;
     });
 
     it('returns default api urls if requests to google, ali, quad9 fail', async () => {

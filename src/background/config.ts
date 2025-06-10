@@ -1,7 +1,3 @@
-import { log } from '../common/logger';
-
-import { runtime } from './browserApi/runtime';
-
 /**
  * Keys for forwarder urls queries.
  */
@@ -45,20 +41,6 @@ type ForwarderUrlQueries = {
 // @ts-ignore
 const CONFIG = __APP_CONFIG__;
 
-runtime.getPlatformOs().then((res) => {
-    log.debug(`Current os: '${res}'`);
-});
-
-log.debug(`Current browser: "${CONFIG.BROWSER}"`);
-log.debug(`Current build env: "${CONFIG.BUILD_ENV}"`);
-log.debug(`Current stage env: "${CONFIG.STAGE_ENV}"`);
-
-Object.keys(CONFIG).forEach((key) => {
-    if (CONFIG[key] === undefined) {
-        throw new Error(`Missed value for key '${key}' in config: ${CONFIG}`);
-    }
-});
-
 const {
     VPN_API_URL,
     AUTH_API_URL,
@@ -68,6 +50,8 @@ const {
     BROWSER,
     BUILD_ENV,
     STAGE_ENV,
+    AMO_EULA_URL,
+    AMO_PRIVACY_URL,
     // keep them sorted
     ADGUARD_DNS_KB,
     ADGUARD_DNS_PROVIDERS_KB,
@@ -148,4 +132,6 @@ export {
     STAGE_ENV,
     FORWARDER_DOMAIN,
     FORWARDER_URL_QUERIES,
+    AMO_PRIVACY_URL,
+    AMO_EULA_URL,
 };

@@ -5,10 +5,10 @@ import { observer } from 'mobx-react';
 import { UNLIMITED_FEATURES } from '../../../common/components/constants';
 import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { IconButton } from '../../../common/components/Icons';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
-import { Icon } from '../ui/Icon';
 
 import './limited-offer-details.pcss';
 
@@ -79,13 +79,11 @@ export const LimitedOfferDetails = observer(() => {
             onRequestClose={closeDetails}
         >
             <div className="limited-offer-details__content">
-                <button
-                    type="button"
-                    className="button button--icon limited-offer-details__close-icon"
+                <IconButton
+                    name="cross"
+                    className="close-icon-btn"
                     onClick={closeDetails}
-                >
-                    <Icon icon="cross" className="icon--button icon--cross-gray7f" />
-                </button>
+                />
 
                 <div className="limited-offer-details__image-wrapper">
                     <div className="limited-offer-details__image" />

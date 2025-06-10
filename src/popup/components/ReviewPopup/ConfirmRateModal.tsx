@@ -6,6 +6,7 @@ import { rootStore } from '../../stores';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { getForwarderUrl } from '../../../common/helpers';
+import { IconButton } from '../../../common/components/Icons';
 
 import { RATING_IMAGES_MAP } from './constants';
 
@@ -59,15 +60,11 @@ export const ConfirmRateModal = observer(() => {
             overlayClassName="modal__overlay"
             onRequestClose={closeModal}
         >
-            <button
-                type="button"
-                className="button button--icon modal__close-icon"
+            <IconButton
+                name="cross"
+                className="close-icon-btn"
                 onClick={closeModal}
-            >
-                <svg className="icon icon--button icon--cross">
-                    <use xlinkHref="#cross" />
-                </svg>
-            </button>
+            />
             <img
                 src={RATING_IMAGES_MAP[rating]}
                 className="rate-modal__image"

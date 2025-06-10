@@ -27,7 +27,7 @@ const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.ts');
 const CUSTOM_DNS_LINKS_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/custom-dns-links.ts');
-const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'options/preloadTheme.ts');
+const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'common/preloadTheme.ts');
 const AUTH_FIREFOX_SCRIPT = path.resolve(__dirname, SRC_PATH, 'custom-protocol-handler/authFirefox.ts');
 const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
 

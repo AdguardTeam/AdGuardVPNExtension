@@ -26,14 +26,6 @@
             cursor: pointer;
             font-family: var(--font-stack);
         }
-
-        &-icon {
-            transition: var(--t3) transform;
-
-            .select--active & {
-                transform: rotate(180deg);
-            }
-        }
     }
 
     &__list {
@@ -89,7 +81,6 @@
         }
 
         &-icon {
-            color: var(--stroke-icons-product-icon-default);
             display: none;
 
             .select__item--active & {

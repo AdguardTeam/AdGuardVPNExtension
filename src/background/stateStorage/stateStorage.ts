@@ -15,8 +15,6 @@ export interface StateStorageInterface {
     setItem<T>(key: StorageKey, value: T): void;
 
     init(): Promise<void>;
-
-    waitInit(): Promise<void>;
 }
 
 /**
@@ -27,11 +25,20 @@ export interface StateStorageInterface {
  * @implements {StateStorageInterface}
  */
 export class StateStorage implements StateStorageInterface {
+    /**
+     * Is the state storage initialized flag.
+     */
     private isInit = false;
 
+    /**
+     * All state data is stored in this object.
+     */
     private state: StorageData;
 
-    private initPromise: Promise<void>;
+    /**
+     * Promise that resolves when the state data object has been initialized.
+     */
+    private initPromise: Promise<void> | null = null;
 
     /**
      * Gets the value for the specified key from the session storage.
@@ -107,10 +114,19 @@ export class StateStorage implements StateStorageInterface {
     };
 
     /**
-     * Returns init promise, which resolves when the storage data object has been initialized.
+     * Initializes the state storage.
+     *
+     * Note: You can call this method to wait for the storage to be initialized,
+     * because it was implemented as it can be called multiple times but
+     * initialization will happen only once.
+     *
+     * @returns Promise that resolves when the storage is initialized.
      */
     public init = async (): Promise<void> => {
-        this.initPromise = this.innerInit();
+        if (!this.initPromise) {
+            this.initPromise = this.innerInit();
+        }
+
         return this.initPromise;
     };
 
@@ -123,12 +139,5 @@ export class StateStorage implements StateStorageInterface {
      */
     private static createNotInitializedError(): Error {
         return new Error('StateStorage is not initialized. Call init() method first.');
-    }
-
-    /**
-     * Returns init promise, which resolves when the storage data object has been initialized.
-     */
-    public async waitInit(): Promise<void> {
-        return this.initPromise;
     }
 }

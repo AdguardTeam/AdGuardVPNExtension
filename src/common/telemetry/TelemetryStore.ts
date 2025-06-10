@@ -4,7 +4,7 @@ import {
     type TelemetryActionName,
     type TelemetryScreenName,
     type TelemetryActionToScreenMap,
-} from '../../background/telemetry';
+} from '../../background/telemetry/telemetryEnums';
 import { messenger } from '../messenger';
 import { log } from '../logger';
 

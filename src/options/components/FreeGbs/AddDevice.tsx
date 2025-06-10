@@ -4,13 +4,13 @@ import { observer } from 'mobx-react';
 import { getForwarderUrl } from '../../../common/helpers';
 import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
+import { Icon } from '../../../common/components/Icons';
 import addDeviceImageUrl from '../../../assets/images/add-device.svg';
 import productsImageUrl from '../../../assets/images/products.svg';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import { rootStore } from '../../stores';
-import { Icon } from '../ui/Icon';
 import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
 
@@ -74,7 +74,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
                                 className="button button--filled button--size-medium add-device__link"
                                 onClick={handleLinkClick}
                             >
-                                <Icon name="external-link" className="add-device__link-icon" />
+                                <Icon name="external-link" />
                                 <span className="text-ellipsis">
                                     {translator.getMessage('settings_free_gbs_add_device_products_button')}
                                 </span>

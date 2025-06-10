@@ -5,6 +5,8 @@
  * 2. Second raw of modules with asynchronous initializations
  *    contains all other required modules.
  */
+import { LogLevel } from '@adguard/logger';
+
 import { stateStorage } from '../stateStorage';
 import { actions } from '../actions';
 import { appStatus } from '../appStatus';
@@ -29,7 +31,7 @@ import { tabs } from '../tabs';
 import { updateService } from '../updateService';
 import { vpnApi } from '../api';
 import { browserActionIcon } from '../browserActionIcon';
-import { openThankYouPage } from '../postinstall';
+import { openPostInstallPage } from '../postinstall';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 import { logStorage } from '../../common/log-storage';
 import { fallbackApi } from '../api/fallbackApi';
@@ -43,6 +45,8 @@ import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
 import { telemetry } from '../telemetry';
 import { rateModal } from '../rateModal';
+import { runtime } from '../browserApi/runtime';
+import { BROWSER, BUILD_ENV, STAGE_ENV } from '../config';
 import { statisticsService } from '../statistics';
 
 declare global {
@@ -110,7 +114,9 @@ const asyncInitModules = async (): Promise<void> => {
         await proxy.init();
         await fallbackApi.init();
         await updateService.init();
-        await openThankYouPage();
+        await settings.init();
+        // the consent page uses settings, so it should be initiated after settings.init()
+        await openPostInstallPage();
         await flagsStorage.init();
         await auth.initState(); // auth state should be initiated before credentials init
         await credentials.init();
@@ -118,7 +124,6 @@ const asyncInitModules = async (): Promise<void> => {
         networkConnectionObserver.init(); // uses permissionsChecker and connectivityService
         await auth.init();
         await locationsService.init();
-        await settings.init();
         await telemetry.initState();
         // the updateBrowserActionItems method is called after settings.init() because it uses settings
         await contextMenu.updateBrowserActionItems();
@@ -143,6 +148,16 @@ const asyncInitModules = async (): Promise<void> => {
 };
 
 export const main = () => {
+    if (log.currentLevel === LogLevel.Debug) {
+        runtime.getPlatformOs().then((res) => {
+            log.debug(`Current os: '${res}'`);
+        });
+
+        log.debug(`Current browser: "${BROWSER}"`);
+        log.debug(`Current build env: "${BUILD_ENV}"`);
+        log.debug(`Current stage env: "${STAGE_ENV}"`);
+    }
+
     syncInitModules();
     asyncInitModules();
 };

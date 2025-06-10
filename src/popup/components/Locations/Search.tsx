@@ -4,7 +4,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import { translator } from '../../../common/translator';
-import { Icon } from '../ui/Icon';
+import { IconButton } from '../../../common/components/Icons';
 
 /**
  * Search component props.
@@ -35,7 +35,7 @@ export const Search = ({
     onClear,
 }: SearchProps) => {
     const crossClassNames = classnames(
-        'button button--close form__input-btn',
+        'form__input-btn',
         { 'form__input-btn--active': value.length > 0 },
     );
 
@@ -49,16 +49,11 @@ export const Search = ({
                 value={value}
                 onChange={onChange}
             />
-            <button
-                type="button"
+            <IconButton
+                name="cross"
                 className={crossClassNames}
                 onClick={onClear}
-            >
-                <Icon
-                    icon="cross"
-                    className="icon--button"
-                />
-            </button>
+            />
         </div>
     );
 };

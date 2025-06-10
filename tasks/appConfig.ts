@@ -77,6 +77,10 @@ const COMMON_CONF = {
     WS_API_URL_TEMPLATE: 'wss://{{host}}:443/user?hash={{hash}}',
     // API
     AUTH_CLIENT_ID: 'adguard-vpn-extension',
+    // Privacy URL for Firefox
+    AMO_PRIVACY_URL: 'https://addons.mozilla.org/en-US/firefox/addon/adguard-vpn/privacy/',
+    // EULA URL for Firefox
+    AMO_EULA_URL: 'https://addons.mozilla.org/en-US/firefox/addon/adguard-vpn/eula/',
 };
 
 /**
@@ -160,7 +164,7 @@ export const genAppConfig = (browser: string, stageEnv?: string, buildingEnv?: s
         throw new Error(`No browser config for browser: "${browser}"`);
     }
 
-    return {
+    const appConfig: Record<string, any> = {
         BROWSER: browser,
         BUILD_ENV: buildingEnv,
         STAGE_ENV: stageEnv,
@@ -169,4 +173,12 @@ export const genAppConfig = (browser: string, stageEnv?: string, buildingEnv?: s
         ...STAGE_CONF,
         ...COMMON_CONF,
     };
+
+    Object.keys(appConfig).forEach((key) => {
+        if (appConfig[key] === undefined) {
+            throw new Error(`Missed value for key '${key}' in config: ${appConfig}`);
+        }
+    });
+
+    return appConfig;
 };

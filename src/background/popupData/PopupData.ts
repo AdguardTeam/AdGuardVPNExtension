@@ -26,7 +26,8 @@ import { appStatus } from '../appStatus';
 import { type LocationWithPing } from '../endpoints/LocationWithPing';
 import { hintPopup } from '../hintPopup';
 import { savedLocations } from '../savedLocations';
-import { locationsService, type LocationsTab } from '../endpoints/locationsService';
+import { locationsService } from '../endpoints/locationsService';
+import { type LocationsTab } from '../endpoints/locationsEnums';
 
 import { popupOpenedCounter } from './popupOpenedCounter';
 
