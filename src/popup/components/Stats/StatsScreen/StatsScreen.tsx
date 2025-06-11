@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 
 import { StatisticsRange, type StatisticsData } from '../../../../background/statistics/statisticsTypes';
 import { IconButton } from '../../../../common/components/Icons';
+import { DotsLoader } from '../../../../common/components/DotsLoader';
 import { type LocationUsage } from '../../../stores/StatsStore';
 import { getFlagIconStyle } from '../../Locations';
 import { formatRange } from '../utils';
@@ -33,6 +34,11 @@ export interface StatsScreenBaseProps {
      * Date when the stats collection started.
      */
     firstStatsDate: Date;
+
+    /**
+     * Whether the stats screen is currently loading.
+     */
+    isLoading: boolean;
 
     /**
      * Callback function to be called when the back button is clicked.
@@ -134,6 +140,7 @@ export function StatsScreen(props: StatsScreenProps) {
         title,
         range,
         firstStatsDate,
+        isLoading,
         onBackClick,
         onClear,
         onRangeChange,
@@ -240,9 +247,17 @@ export function StatsScreen(props: StatsScreenProps) {
                 </div>
             </div>
             <div className="stats-screen__content" onScroll={handleScroll}>
-                {dataUsageNode}
-                {locationsNode}
-                {timeUsageNode}
+                {isLoading ? (
+                    <div className="stats-screen__loader">
+                        <DotsLoader />
+                    </div>
+                ) : (
+                    <>
+                        {dataUsageNode}
+                        {locationsNode}
+                        {timeUsageNode}
+                    </>
+                )}
             </div>
         </div>
     );

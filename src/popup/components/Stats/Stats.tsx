@@ -15,6 +15,7 @@ export const Stats = observer(() => {
         shouldRenderStatsScreen,
         range,
         firstStatsDate,
+        isStatisticsLoading,
         isMenuOpen,
         isWhySafeModalOpen,
         isClearModalOpen,
@@ -69,6 +70,7 @@ export const Stats = observer(() => {
                 title={`${countryName} (${cityName})`}
                 range={range}
                 firstStatsDate={firstStatsDate}
+                isLoading={isStatisticsLoading}
                 usage={usage}
                 countryCode={countryCode}
                 onBackClick={closeLocationScreen}
@@ -85,6 +87,7 @@ export const Stats = observer(() => {
                 title={translator.getMessage('popup_stats_locations')}
                 range={range}
                 firstStatsDate={firstStatsDate}
+                isLoading={isStatisticsLoading}
                 locations={locations}
                 onBackClick={closeAllLocationsScreen}
                 onClear={clearAllStats}
@@ -101,6 +104,7 @@ export const Stats = observer(() => {
             title={translator.getMessage('popup_stats_for_browser_title')}
             range={range}
             firstStatsDate={firstStatsDate}
+            isLoading={isStatisticsLoading}
             usage={totalUsage}
             locations={locations}
             onBackClick={closeStatsScreen}

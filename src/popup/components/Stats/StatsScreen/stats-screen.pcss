@@ -10,6 +10,8 @@
     background-color: var(--fills-backgrounds-page-background-default);
 
     &__header {
+        /* Specify z-index to make it layout on top of content */
+        z-index: 1;
         position: relative;
         flex-shrink: 0;
 
@@ -141,6 +143,10 @@
         font-weight: 700;
         line-height: 1.2;
         padding: 32px 16px 16px;
+    }
+
+    &__loader {
+        padding-top: 72px;
     }
 }
 

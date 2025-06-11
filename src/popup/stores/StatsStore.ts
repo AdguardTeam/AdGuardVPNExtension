@@ -309,13 +309,13 @@ export class StatsStore {
             return;
         }
 
-        this.isStatisticsLoading = true;
+        this.setIsStatisticsLoading(true);
 
         const statisticsByRange = await messenger.getStatsByRange(this.range);
         this.setStatisticsByRange(statisticsByRange);
-        this.isFirstStatisticsRetrieved = true;
+        this.setIsFirstStatisticsRetrieved(true);
 
-        this.isStatisticsLoading = false;
+        this.setIsStatisticsLoading(false);
     };
 
     /**
@@ -369,6 +369,24 @@ export class StatsStore {
      */
     @action setIsClearModalOpen = (isClearModalOpen: boolean) => {
         this.isClearModalOpen = isClearModalOpen;
+    };
+
+    /**
+     * Sets the flag indicating whether the first statistics retrieval has occurred.
+     *
+     * @param isFirstStatisticsRetrieved True if the first statistics retrieval has occurred, false otherwise.
+     */
+    @action setIsFirstStatisticsRetrieved = (isFirstStatisticsRetrieved: boolean) => {
+        this.isFirstStatisticsRetrieved = isFirstStatisticsRetrieved;
+    };
+
+    /**
+     * Sets the loading state for statistics.
+     *
+     * @param isStatisticsLoading True if statistics are currently loading, false otherwise.
+     */
+    @action setIsStatisticsLoading = (isStatisticsLoading: boolean) => {
+        this.isStatisticsLoading = isStatisticsLoading;
     };
 
     /**
