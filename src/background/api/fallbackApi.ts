@@ -24,8 +24,9 @@ import { type FallbackInfo, StorageKey } from '../schema';
 const GOOGLE_DOH_HOSTNAME = 'dns.google';
 export const GOOGLE_DOH_URL = `${GOOGLE_DOH_HOSTNAME}/dns-query`;
 
-const ALIDNS_DOH_HOSTNAME = 'dns.alidns.com';
-export const ALIDNS_DOH_URL = `${ALIDNS_DOH_HOSTNAME}/dns-query`;
+const DOHPUB_DOH_HOSTNAME = 'doh.pub';
+export const DOHPUB_DOH_URL = `${DOHPUB_DOH_HOSTNAME}/dns-query`;
+
 /**
  * We are using `dns11` because it supports secured ECS.
  *
@@ -177,7 +178,7 @@ export class FallbackApi {
             await this.getAuthApiUrl(),
             TELEMETRY_API_URL,
             GOOGLE_DOH_HOSTNAME,
-            ALIDNS_DOH_HOSTNAME,
+            DOHPUB_DOH_HOSTNAME,
             QUAD9_DOH_HOSTNAME,
         ].map((url) => `*${url}`);
     };
@@ -202,10 +203,14 @@ export class FallbackApi {
         // We're using DoH so ID should be 0
         packet.header.id = 0;
 
+        // Absolute fully qualified domain name should end with a dot,
+        // to now allow DNS servers to append any suffixes.
+        const absoluteFullyQualifiedDomainName = `${name}.`;
+
         // Add question for TXT record
         packet.question.push(
             new DNSRecord(
-                `${name}.`, // Fully qualified domain name should end with a dot
+                absoluteFullyQualifiedDomainName,
                 DNSRecord.Type.TXT, // TXT record type
                 DNSRecord.Class.IN, // Internet class
             ),
@@ -260,8 +265,8 @@ export class FallbackApi {
      *
      * @throws Error if the DNS response is invalid or the backup URL is not found.
      */
-    private async getBkpUrlByAliDnsDoh(hostname: string): Promise<string> {
-        return this.queryDns(ALIDNS_DOH_URL, hostname);
+    private async getBkpUrlByDohPubDnsDoh(hostname: string): Promise<string> {
+        return this.queryDns(DOHPUB_DOH_URL, hostname);
     }
 
     /**
@@ -314,7 +319,7 @@ export class FallbackApi {
         try {
             bkpUrl = await Promise.any([
                 this.debugErrors(() => this.getBkpUrlByGoogleDoh(hostname)),
-                this.debugErrors(() => this.getBkpUrlByAliDnsDoh(hostname)),
+                this.debugErrors(() => this.getBkpUrlByDohPubDnsDoh(hostname)),
                 this.debugErrors(() => this.getBkpUrlByQuad9Doh(hostname)),
             ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
