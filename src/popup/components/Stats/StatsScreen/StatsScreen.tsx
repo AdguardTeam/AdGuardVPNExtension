@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import { type StatisticsData, type StatisticsRange } from '../../../../background/statistics/statisticsTypes';
+import { StatisticsRange, type StatisticsData } from '../../../../background/statistics/statisticsTypes';
 import { IconButton } from '../../../../common/components/Icons';
 import { type LocationUsage } from '../../../stores/StatsStore';
 import { getFlagIconStyle } from '../../Locations';
@@ -158,6 +158,23 @@ export function StatsScreen(props: StatsScreenProps) {
         }
     };
 
+    const renderRange = () => {
+        const { start, end } = formatRange(range, firstStatsDate);
+
+        // for 24 hours we should render in two lines, because it includes time
+        if (range === StatisticsRange.Hours24) {
+            return (
+                <>
+                    {`${start} –`}
+                    <br />
+                    {end}
+                </>
+            );
+        }
+
+        return `${start} – ${end}`;
+    };
+
     const isMainScreen = type === 'main';
     const isLocationScreen = type === 'location';
     const isAllLocationsScreen = type === 'all-locations';
@@ -214,7 +231,7 @@ export function StatsScreen(props: StatsScreenProps) {
                         {title}
                     </div>
                     <div className="stats-screen__range">
-                        {formatRange(range, firstStatsDate)}
+                        {renderRange()}
                     </div>
                     <StatsScreenRange
                         range={range}

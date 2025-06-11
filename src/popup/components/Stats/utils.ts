@@ -113,6 +113,21 @@ export function formatDuration(timeMs: number): string {
 }
 
 /**
+ * Return type for {@link formatRange} function.
+ */
+export interface FormattedRangeDates {
+    /**
+     * Formatted start date string.
+     */
+    start: string;
+
+    /**
+     * Formatted end date string.
+     */
+    end: string;
+}
+
+/**
  * Formats a date range string based on the given {@link StatisticsRange}.
  *
  * - If the range is {@link StatisticsRange.Hours24},
@@ -138,7 +153,7 @@ export function formatDuration(timeMs: number): string {
  *
  * @returns A string representing the formatted date range.
  */
-export function formatRange(range: StatisticsRange, firstStatsDate: Date): string {
+export function formatRange(range: StatisticsRange, firstStatsDate: Date): FormattedRangeDates {
     const locale = browser.i18n.getUILanguage();
 
     let formatter: Intl.DateTimeFormat;
@@ -180,5 +195,8 @@ export function formatRange(range: StatisticsRange, firstStatsDate: Date): strin
             throw new Error('Invalid range');
     }
 
-    return `${format(pastDate)} - ${format(now)}`;
+    return {
+        start: format(pastDate),
+        end: format(now),
+    };
 }
