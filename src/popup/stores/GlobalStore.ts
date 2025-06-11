@@ -44,6 +44,7 @@ export class GlobalStore {
             settingsStore,
             authStore,
             telemetryStore,
+            statsStore,
         } = rootStore;
 
         this.setInitStatus(RequestStatus.Pending);
@@ -80,6 +81,7 @@ export class GlobalStore {
                 isHostPermissionsGranted,
                 locationsTab,
                 savedLocationIds,
+                isStatisticsDisabled,
             } = popupData;
 
             settingsStore.setForwarderDomain(forwarderDomain);
@@ -139,6 +141,7 @@ export class GlobalStore {
             await settingsStore.getExclusionsInverted();
             await settingsStore.getCurrentTabHostname();
             settingsStore.setIsExcluded(!isVpnEnabledByUrl);
+            statsStore.setIsStatsDisabled(isStatisticsDisabled);
 
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {

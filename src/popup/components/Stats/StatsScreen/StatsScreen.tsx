@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { StatisticsRange, type StatisticsData } from '../../../../background/statistics/statisticsTypes';
 import { IconButton } from '../../../../common/components/Icons';
 import { DotsLoader } from '../../../../common/components/DotsLoader';
+import { translator } from '../../../../common/translator';
 import { type LocationUsage } from '../../../stores/StatsStore';
 import { getFlagIconStyle } from '../../Locations';
 import { formatRange } from '../utils';
@@ -36,9 +37,14 @@ export interface StatsScreenBaseProps {
     firstStatsDate: Date;
 
     /**
-     * Whether the stats screen is currently loading.
+     * Whether the stats screen is currently loading or not
      */
     isLoading: boolean;
+
+    /**
+     * Whether the stats collection is disabled or not.
+     */
+    isDisabled: boolean;
 
     /**
      * Callback function to be called when the back button is clicked.
@@ -56,6 +62,13 @@ export interface StatsScreenBaseProps {
      * @param range New range value of range
      */
     onRangeChange: (range: StatisticsRange) => void;
+
+    /**
+     * Callback function to be called when the disable state is changed.
+     *
+     * @param isDisabled New disable state of the stats collection.
+     */
+    onDisableChange: (isDisabled: boolean) => void;
 }
 
 /**
@@ -141,9 +154,11 @@ export function StatsScreen(props: StatsScreenProps) {
         range,
         firstStatsDate,
         isLoading,
+        isDisabled,
         onBackClick,
         onClear,
         onRangeChange,
+        onDisableChange,
     } = props;
 
     const headerRef = useRef<HTMLDivElement>(null);
@@ -163,6 +178,10 @@ export function StatsScreen(props: StatsScreenProps) {
         } else {
             header.classList.remove(HEADER_WITH_SHADOW_CLASS);
         }
+    };
+
+    const handleEnableClick = () => {
+        onDisableChange(false);
     };
 
     const renderRange = () => {
@@ -230,7 +249,11 @@ export function StatsScreen(props: StatsScreenProps) {
                         className="stats-screen__navbar-btn"
                         onClick={onBackClick}
                     />
-                    <StatsScreenMenu onClear={onClear} />
+                    <StatsScreenMenu
+                        isDisabled={isDisabled}
+                        onDisableChange={onDisableChange}
+                        onClear={onClear}
+                    />
                 </div>
                 <div className="stats-screen__header-content">
                     {flagNode}
@@ -240,6 +263,11 @@ export function StatsScreen(props: StatsScreenProps) {
                     <div className="stats-screen__range">
                         {renderRange()}
                     </div>
+                    {isDisabled && (
+                        <div className="stats-screen__disabled-notice">
+                            {translator.getMessage('popup_stats_disabled_notice')}
+                        </div>
+                    )}
                     <StatsScreenRange
                         range={range}
                         onRangeChange={onRangeChange}
@@ -259,6 +287,17 @@ export function StatsScreen(props: StatsScreenProps) {
                     </>
                 )}
             </div>
+            {isDisabled && (
+                <div className="stats-screen__footer">
+                    <button
+                        type="button"
+                        onClick={handleEnableClick}
+                        className="stats-screen-btn stats-screen-btn--primary"
+                    >
+                        {translator.getMessage('popup_stats_enable_btn')}
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

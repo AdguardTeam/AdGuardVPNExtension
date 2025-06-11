@@ -28,6 +28,7 @@ import { hintPopup } from '../hintPopup';
 import { savedLocations } from '../savedLocations';
 import { locationsService } from '../endpoints/locationsService';
 import { type LocationsTab } from '../endpoints/locationsEnums';
+import { statisticsService } from '../statistics';
 
 import { popupOpenedCounter } from './popupOpenedCounter';
 
@@ -84,6 +85,11 @@ interface PopupDataInterface {
      * Saved location IDs.
      */
     savedLocationIds: string[];
+
+    /**
+     * Flag that shows is statistics collection disabled or not.
+     */
+    isStatisticsDisabled?: boolean;
 }
 
 interface PopupDataRetry extends PopupDataInterface {
@@ -158,6 +164,7 @@ export class PopupData {
         const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
         const shouldShowMobileEdgePromoBanner = await mobileEdgePromoService.shouldShowBanner();
+        const isStatisticsDisabled = statisticsService.getIsDisabled();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -199,6 +206,7 @@ export class PopupData {
             isHostPermissionsGranted,
             locationsTab,
             savedLocationIds,
+            isStatisticsDisabled,
         };
     };
 

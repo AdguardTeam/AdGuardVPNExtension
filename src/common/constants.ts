@@ -126,6 +126,7 @@ export enum MessageType {
 
     STATISTICS_GET_BY_RANGE = 'statistics.get.by.range',
     STATISTICS_CLEAR = 'statistics.clear',
+    STATISTICS_SET_IS_DISABLED = 'statistics.set.is.disabled',
 }
 
 export enum SocialAuthProvider {

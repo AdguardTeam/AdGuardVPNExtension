@@ -9,6 +9,12 @@ jest.mock('../../../src/common/notifier', () => ({
 
 jest.mock('../../../src/common/logger');
 
+const storageMock = {
+    get: jest.fn(),
+    set: jest.fn(),
+    remove: jest.fn(),
+};
+
 const statisticsStorageMock = {
     init: jest.fn(),
     addTraffic: jest.fn(),
@@ -74,13 +80,16 @@ describe('StatisticsProvider', () => {
         return 1;
     });
 
-    beforeEach(() => {
-        const statisticsProvider = new StatisticsProvider({
+    let statisticsProvider: StatisticsProvider;
+    beforeEach(async () => {
+        statisticsProvider = new StatisticsProvider({
+            storage: storageMock,
             statisticsStorage: statisticsStorageMock,
             // @ts-expect-error - partially implemented
             timers: timersMock,
         });
-        statisticsProvider.init();
+
+        await statisticsProvider.init();
     });
 
     afterEach(() => {
@@ -195,6 +204,19 @@ describe('StatisticsProvider', () => {
             expect(statisticsStorageMock.addTraffic).not.toHaveBeenCalled();
         });
 
+        it('should not save traffic stats to storage - stats collection disabled', async () => {
+            const locationId = 'location-id-1';
+            const downloadedBytes = 11111;
+            const uploadedBytes = 22222;
+
+            await statisticsProvider.setIsDisabled(true);
+            await simulateUser(true);
+            await simulateLocationSelection(locationId);
+            await simulateTrafficUpdate(downloadedBytes, uploadedBytes);
+
+            expect(statisticsStorageMock.addTraffic).not.toHaveBeenCalled();
+        });
+
         it('should continue collecting after re-authentication to premium account', async () => {
             const locationId = 'location-id-5';
             const downloadedBytes = 55555;
@@ -257,6 +279,21 @@ describe('StatisticsProvider', () => {
             expect(statisticsStorageMock.endDuration).not.toHaveBeenCalled();
         });
 
+        it('should save duration stats to storage - stats collection disabled', async () => {
+            const locationId = 'location-id-1';
+
+            await statisticsProvider.setIsDisabled(true);
+            await simulateUser(true);
+            await simulateLocationSelection(locationId);
+            await simulateConnect();
+
+            expect(statisticsStorageMock.startDuration).not.toHaveBeenCalled();
+
+            await simulateDisconnect();
+
+            expect(statisticsStorageMock.endDuration).not.toHaveBeenCalled();
+        });
+
         it('should continue collecting after re-authentication to premium account', async () => {
             const locationId = 'location-id-5';
 
@@ -288,6 +325,28 @@ describe('StatisticsProvider', () => {
             expect(statisticsStorageMock.updateDuration).toHaveBeenCalledWith(locationId);
 
             await simulateDisconnect();
+
+            // should clear duration interval
+            expect(timersMock.clearInterval).toHaveBeenCalledTimes(1);
+        });
+
+        it('should correctly end duration interval process if stats disabled', async () => {
+            const locationId = 'location-id-6';
+
+            await simulateUser(true);
+            await simulateLocationSelection(locationId);
+            await simulateConnect();
+
+            // should start duration interval
+            expect(timersMock.setInterval).toHaveBeenCalledTimes(1);
+
+            await advanceTimer();
+
+            // should update duration stats
+            expect(statisticsStorageMock.updateDuration).toHaveBeenCalledTimes(1);
+            expect(statisticsStorageMock.updateDuration).toHaveBeenCalledWith(locationId);
+
+            await statisticsProvider.setIsDisabled(true);
 
             // should clear duration interval
             expect(timersMock.clearInterval).toHaveBeenCalledTimes(1);

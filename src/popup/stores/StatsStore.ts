@@ -117,6 +117,11 @@ export class StatsStore {
     @observable isWhySafeModalOpen = false;
 
     /**
+     * Is disable modal open.
+     */
+    @observable isDisableModalOpen = false;
+
+    /**
      * Is clear modal open.
      */
     @observable isClearModalOpen = false;
@@ -132,6 +137,12 @@ export class StatsStore {
      * Flag indicating whether statistics data is currently being loaded.
      */
     @observable isStatisticsLoading = false;
+
+    /**
+     * Flag indicating whether stats screen is disabled.
+     * True if stats are not collected currently, false otherwise.
+     */
+    @observable isStatsDisabled = false;
 
     /**
      * Should stats screen be rendered.
@@ -331,6 +342,25 @@ export class StatsStore {
     };
 
     /**
+     * Sets the isDisabled flag in store only.
+     *
+     * @param isDisabled True if stats collection should be disabled, false otherwise.
+     */
+    @action setIsStatsDisabled = (isStatsScreenOpen: boolean) => {
+        this.isStatsDisabled = isStatsScreenOpen;
+    };
+
+    /**
+     * Disables or enables stats collection both in store and in background.
+     *
+     * @param isDisabled True if stats collection should be disabled, false otherwise.
+     */
+    @action updateIsStatsDisabled = async (isDisabled: boolean) => {
+        await messenger.setStatisticsIsDisabled(isDisabled);
+        this.setIsStatsDisabled(isDisabled);
+    };
+
+    /**
      * Clear all stats.
      */
     @action clearAllStats = async () => {
@@ -360,6 +390,15 @@ export class StatsStore {
      */
     @action setIsWhySafeModalOpen = (isWhySafeModalOpen: boolean) => {
         this.isWhySafeModalOpen = isWhySafeModalOpen;
+    };
+
+    /**
+     * Set the disable modal open state.
+     *
+     * @param isDisableModalOpen True if the modal is open, false otherwise.
+     */
+    @action setIsDisableModalOpen = (isDisableModalOpen: boolean) => {
+        this.isDisableModalOpen = isDisableModalOpen;
     };
 
     /**

@@ -1,5 +1,6 @@
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
+import { type StorageInterface } from '../browserApi/storage';
 import { type ConnectivityStateChangeEvent, type WsConnectivityInfoMsgTraffic } from '../connectivity';
 import { type LocationInterface, ConnectivityStateType } from '../schema';
 import { type TimersInterface } from '../timers/AbstractTimers';
@@ -19,13 +20,32 @@ export interface StatisticsProviderInterface {
     /**
      * Initializes the statistics provider.
      */
-    init(): void;
+    init(): Promise<void>;
+
+    /**
+     * Sets is statistics collection disabled or not.
+     *
+     * @param isDisabled Indicates whether the statistics collection is disabled.
+     */
+    setIsDisabled(isDisabled: boolean): Promise<void>;
+
+    /**
+     * Checks if the statistics collection is disabled.
+     *
+     * @returns True if statistics collection is disabled, false otherwise.
+     */
+    getIsDisabled(): boolean;
 }
 
 /**
  * Constructor parameters for {@link StatisticsProvider}.
  */
 export interface StatisticsProviderParameters {
+    /**
+     * Browser local storage.
+     */
+    storage: StorageInterface;
+
     /**
      * Storage for statistics.
      */
@@ -52,6 +72,16 @@ export interface StatisticsProviderParameters {
  */
 export class StatisticsProvider implements StatisticsProviderInterface {
     /**
+     * Key for {@link isDisabled} in the browser local storage.
+     */
+    private static readonly STATISTICS_DISABLED_KEY = 'statistics.disabled';
+
+    /**
+     * Default value for {@link isDisabled} if it is not set in the browser local storage.
+     */
+    private static readonly DEFAULT_IS_DISABLED = false;
+
+    /**
      * Update duration interval in milliseconds (5 minutes).
      */
     private static readonly TIMER_UPDATE_INTERVAL_MS = 5 * 60 * 1000;
@@ -67,6 +97,11 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     ];
 
     /**
+     * Browser local storage.
+     */
+    private storage: StorageInterface;
+
+    /**
      * Storage for statistics.
      */
     private statisticsStorage: StatisticsStorageInterface;
@@ -75,6 +110,11 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * Timers instance.
      */
     private timers: TimersInterface;
+
+    /**
+     * Flag indicating whether telemetry module is initialized or not.
+     */
+    private isInitialized = false;
 
     /**
      * Indicates whether the logged in user's token is premium.
@@ -101,25 +141,105 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     private durationIntervalId: number | null = null;
 
     /**
+     * Indicates whether the statistics collection is disabled or not.
+     *
+     * Initialized in {@link init} method.
+     */
+    private isDisabled: boolean;
+
+    /**
      * Constructor.
      */
     constructor({
+        storage,
         statisticsStorage,
         timers,
     }: StatisticsProviderParameters) {
+        this.storage = storage;
         this.statisticsStorage = statisticsStorage;
         this.timers = timers;
     }
 
     /** @inheritdoc */
-    public init = (): void => {
-        notifier.addSpecifiedListener(
-            StatisticsProvider.NOTIFIER_EVENTS,
-            this.handleNotifierEvent.bind(this),
+    public init = async (): Promise<void> => {
+        try {
+            await this.gainIsDisabled();
+            notifier.addSpecifiedListener(
+                StatisticsProvider.NOTIFIER_EVENTS,
+                this.handleNotifierEvent.bind(this),
+            );
+            this.isInitialized = true;
+            log.info('Statistics provider ready');
+        } catch (e) {
+            log.error('Unable to initialize statistics provider, due to error:', e);
+        }
+    };
+
+    /**
+     * Saves the {@link isDisabled} value to local storage and updates the memory state.
+     *
+     * @param isDisabled Indicates whether the statistics collection is disabled.
+     */
+    private async saveIsDisabled(isDisabled: boolean): Promise<void> {
+        this.isDisabled = isDisabled;
+        await this.storage.set<boolean>(
+            StatisticsProvider.STATISTICS_DISABLED_KEY,
+            this.isDisabled,
+        );
+    }
+
+    /**
+     * Reads the {@link isDisabled} from local storage and saves it to memory,
+     * if not found in local storage, it initializes it with default value.
+     */
+    private async gainIsDisabled(): Promise<void> {
+        const isDisabled = await this.storage.get<boolean>(
+            StatisticsProvider.STATISTICS_DISABLED_KEY,
         );
 
-        log.info('Statistics provider ready');
+        if (typeof isDisabled === 'boolean') {
+            this.isDisabled = isDisabled;
+        } else {
+            await this.saveIsDisabled(StatisticsProvider.DEFAULT_IS_DISABLED);
+        }
+    }
+
+    /** @inheritdoc */
+    public setIsDisabled = async (isDisabled: boolean): Promise<void> => {
+        this.assertInitialized();
+
+        await this.saveIsDisabled(isDisabled);
+
+        // clear duration interval and end duration if statistics collection is disabled
+        if (this.isDisabled && this.durationIntervalId) {
+            this.clearDurationInterval();
+            await this.statisticsStorage.endDuration(this.locationId!);
+        }
     };
+
+    /** @inheritdoc */
+    public getIsDisabled = (): boolean => {
+        this.assertInitialized();
+
+        return this.isDisabled;
+    };
+
+    /**
+     * Checks if the statistics can be collected or not.
+     * Statistics can be collected if:
+     * - Statistics collection is not disabled
+     * - User is a premium user
+     * - Location is selected
+     *
+     * @returns True if statistics can be collected, false otherwise.
+     */
+    private canCollectStatistics(): boolean {
+        return (
+            !this.isDisabled
+            && this.isPremiumToken
+            && !!this.locationId
+        );
+    }
 
     /**
      * Clears the duration interval.
@@ -177,20 +297,17 @@ export class StatisticsProvider implements StatisticsProviderInterface {
         bytesUploaded,
     }: WsConnectivityInfoMsgTraffic): Promise<void> {
         /**
-         * Do nothing if we can't add statistics because of any of the following:
-         * - User is not a premium
-         * - Location ID is not set
-         *
          * Note: We do not check if the user is connected because the traffic statistics
          * are sent only when the user is connected to WebSocket. But there might be
          * case when WebSocket sends this event later when user is already disconnected from Proxy.
          */
-        if (!this.isPremiumToken || !this.locationId) {
+        if (!this.canCollectStatistics()) {
             return;
         }
 
         // Add traffic statistics to storage
-        await this.statisticsStorage.addTraffic(this.locationId, {
+        // Note: locationId is already checked in canCollectStatistics()
+        await this.statisticsStorage.addTraffic(this.locationId!, {
             downloadedBytes: bytesDownloaded,
             uploadedBytes: bytesUploaded,
         });
@@ -223,20 +340,16 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * @param state Connectivity state change event data.
      */
     private async handleConnectivityStateChanged({ value }: ConnectivityStateChangeEvent): Promise<void> {
-        /**
-         * Do nothing if we can't add statistics because of any of the following:
-         * - User is not a premium
-         * - Location ID is not set
-         */
-        if (!this.isPremiumToken || !this.locationId) {
+        if (!this.canCollectStatistics()) {
             return;
         }
 
+        // Note: locationId is already checked in canCollectStatistics()
         if (value === ConnectivityStateType.Connected) {
-            await this.statisticsStorage.startDuration(this.locationId);
+            await this.statisticsStorage.startDuration(this.locationId!);
             this.startDurationInterval();
         } else {
-            await this.statisticsStorage.endDuration(this.locationId);
+            await this.statisticsStorage.endDuration(this.locationId!);
             this.clearDurationInterval();
         }
     }
@@ -247,17 +360,26 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      */
     private async handleTimerUpdate(): Promise<void> {
         /**
-         * Do nothing if we can't add statistics because of any of the following:
-         * - User is not a premium
-         * - Location ID is not set
-         *
          * Note: We do not check if the user is connected because interval is started
          * only when user is connected to Proxy. Otherwise, the interval is cleared.
          */
-        if (!this.isPremiumToken || !this.locationId) {
+        if (!this.canCollectStatistics()) {
             return;
         }
 
-        await this.statisticsStorage.updateDuration(this.locationId);
+        // Note: locationId is already checked in canCollectStatistics()
+        await this.statisticsStorage.updateDuration(this.locationId!);
+    }
+
+    /**
+     * Asserts that the statistics provider is initialized.
+     * Used to protect against calling public methods before initialization.
+     *
+     * @throws Error if the statistics storage is not initialized.
+     */
+    private assertInitialized(): void {
+        if (!this.isInitialized) {
+            throw new Error('Statistics storage is not initialized yet. Please call init() method first.');
+        }
     }
 }

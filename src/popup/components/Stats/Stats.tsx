@@ -16,6 +16,7 @@ export const Stats = observer(() => {
         range,
         firstStatsDate,
         isStatisticsLoading,
+        isStatsDisabled,
         isMenuOpen,
         isWhySafeModalOpen,
         isClearModalOpen,
@@ -28,6 +29,7 @@ export const Stats = observer(() => {
         openLocationScreen,
         closeLocationScreen,
         updateRange,
+        updateIsStatsDisabled,
         clearAllStats,
     } = statsStore;
 
@@ -71,11 +73,13 @@ export const Stats = observer(() => {
                 range={range}
                 firstStatsDate={firstStatsDate}
                 isLoading={isStatisticsLoading}
+                isDisabled={isStatsDisabled}
                 usage={usage}
                 countryCode={countryCode}
                 onBackClick={closeLocationScreen}
                 onClear={clearAllStats}
                 onRangeChange={updateRange}
+                onDisableChange={updateIsStatsDisabled}
             />
         );
     }
@@ -88,12 +92,14 @@ export const Stats = observer(() => {
                 range={range}
                 firstStatsDate={firstStatsDate}
                 isLoading={isStatisticsLoading}
+                isDisabled={isStatsDisabled}
                 locations={locations}
                 onBackClick={closeAllLocationsScreen}
                 onClear={clearAllStats}
                 onRangeChange={updateRange}
                 onAllLocationsClick={openAllLocationsScreen}
                 onLocationClick={openLocationScreen}
+                onDisableChange={updateIsStatsDisabled}
             />
         );
     }
@@ -105,6 +111,7 @@ export const Stats = observer(() => {
             range={range}
             firstStatsDate={firstStatsDate}
             isLoading={isStatisticsLoading}
+            isDisabled={isStatsDisabled}
             usage={totalUsage}
             locations={locations}
             onBackClick={closeStatsScreen}
@@ -112,6 +119,7 @@ export const Stats = observer(() => {
             onRangeChange={updateRange}
             onAllLocationsClick={openAllLocationsScreen}
             onLocationClick={openLocationScreen}
+            onDisableChange={updateIsStatsDisabled}
         />
     );
 });

@@ -18,20 +18,21 @@ import { StatsScreenModal } from './StatsScreenModal';
 enum MenuActions {
     None = 'none',
     WhySafe = 'why-safe',
+    Disable = 'disable',
     Clear = 'clear',
 }
 
 /**
  * Props for the {@link StatsScreenMenu} component.
  */
-export type StatsScreenMenuProps = Pick<StatsScreenBaseProps, 'onClear'>;
+export type StatsScreenMenuProps = Pick<StatsScreenBaseProps, 'isDisabled' | 'onDisableChange' | 'onClear'>;
 
 /**
  * Component that renders the menu for the stats screen.
  * It contains 'Why it's safe' button and 'Clear stats' button with their modals.
  */
 export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
-    const { onClear } = props;
+    const { isDisabled, onDisableChange, onClear } = props;
     const { statsStore, telemetryStore, settingsStore } = useContext(rootStore);
 
     const { forwarderDomain } = settingsStore;
@@ -39,9 +40,11 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
     const {
         isMenuOpen,
         isWhySafeModalOpen,
+        isDisableModalOpen,
         isClearModalOpen,
         setIsMenuOpen,
         setIsWhySafeModalOpen,
+        setIsDisableModalOpen,
         setIsClearModalOpen,
     } = statsStore;
 
@@ -62,6 +65,8 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         TelemetryScreenName.WhySafeScreen,
         isWhySafeModalOpen,
     );
+
+    // FIXME: Clarify is telemetry screen event needed or not for disable modal
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -89,6 +94,15 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         },
     ];
 
+    // If stats are disabled, we don't show the 'Disable stats' option,
+    // otherwise render it as the second option in the menu.
+    if (!isDisabled) {
+        menuOptions.splice(1, 0, {
+            value: MenuActions.Disable,
+            title: translator.getMessage('popup_stats_menu_disable_stats_btn'),
+        });
+    }
+
     const openWhySafeModal = () => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.WhySafeClick,
@@ -99,6 +113,21 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
 
     const closeWhySafeModal = () => {
         setIsWhySafeModalOpen(false);
+    };
+
+    const openDisableModal = () => {
+        // FIXME: Clarify is telemetry click event needed or not for disable modal
+        setIsDisableModalOpen(true);
+    };
+
+    const closeDisableModal = () => {
+        setIsDisableModalOpen(false);
+    };
+
+    const handleDisableClick = () => {
+        // FIXME: Clarify is telemetry click event needed or not for disable modal
+        closeDisableModal();
+        onDisableChange(true);
     };
 
     const openClearModal = () => {
@@ -133,6 +162,9 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         switch (value) {
             case MenuActions.WhySafe:
                 openWhySafeModal();
+                break;
+            case MenuActions.Disable:
+                openDisableModal();
                 break;
             case MenuActions.Clear:
                 openClearModal();
@@ -174,13 +206,39 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
                     <button
                         type="button"
                         onClick={closeWhySafeModal}
-                        className="stats-screen-modal__btn stats-screen-modal__btn--primary"
+                        className="stats-screen-btn stats-screen-btn--primary"
                     >
                         {translator.getMessage('popup_stats_menu_why_safe_got_it')}
                     </button>
                 )}
                 onClose={closeWhySafeModal}
             />
+            {!isDisabled && (
+                <StatsScreenModal
+                    isOpen={isDisableModalOpen}
+                    title={translator.getMessage('popup_stats_menu_disable_stats_title')}
+                    description={translator.getMessage('popup_stats_menu_disable_stats_description')}
+                    actions={(
+                        <>
+                            <button
+                                type="button"
+                                onClick={handleDisableClick}
+                                className="stats-screen-btn stats-screen-btn--red"
+                            >
+                                {translator.getMessage('popup_stats_menu_disable_stats_disable_btn')}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={closeDisableModal}
+                                className="stats-screen-btn stats-screen-btn--outline"
+                            >
+                                {translator.getMessage('popup_stats_menu_disable_stats_cancel_btn')}
+                            </button>
+                        </>
+                    )}
+                    onClose={closeDisableModal}
+                />
+            )}
             <StatsScreenModal
                 isOpen={isClearModalOpen}
                 title={translator.getMessage('popup_stats_menu_clear_stats_title')}
@@ -190,14 +248,14 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
                         <button
                             type="button"
                             onClick={handleClearClick}
-                            className="stats-screen-modal__btn stats-screen-modal__btn--red"
+                            className="stats-screen-btn stats-screen-btn--red"
                         >
                             {translator.getMessage('popup_stats_menu_clear_stats_clear_btn')}
                         </button>
                         <button
                             type="button"
                             onClick={closeClearModal}
-                            className="stats-screen-modal__btn stats-screen-modal__btn--outline"
+                            className="stats-screen-btn stats-screen-btn--outline"
                         >
                             {translator.getMessage('popup_stats_menu_clear_stats_cancel_btn')}
                         </button>

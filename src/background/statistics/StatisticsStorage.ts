@@ -230,9 +230,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     /** @inheritdoc */
     public init = async (): Promise<void> => {
         try {
-            log.info('Statistics storage ready');
             await this.gainStatistics();
             this.isInitialized = true;
+            log.info('Statistics storage ready');
         } catch (e) {
             log.error('Unable to initialize statistics storage, due to error:', e);
         }

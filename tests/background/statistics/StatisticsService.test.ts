@@ -11,6 +11,8 @@ import { ONE_DAY_MS } from '../../../src/common/constants';
 
 const providerMock = {
     init: jest.fn(),
+    setIsDisabled: jest.fn(),
+    getIsDisabled: jest.fn().mockReturnValue(true),
 };
 
 const statisticsStorageMock = {
@@ -94,6 +96,19 @@ describe('StatisticsService', () => {
 
         // provider init
         expect(statisticsStorageMock.init).toHaveBeenCalledTimes(1);
+    });
+
+    it('should forward methods to provider', async () => {
+        await statisticsService.init();
+
+        // setIsDisabled
+        await statisticsService.setIsDisabled(true);
+        expect(providerMock.setIsDisabled).toHaveBeenCalledWith(true);
+
+        // getIsDisabled
+        const isDisabled = statisticsService.getIsDisabled();
+        expect(isDisabled).toBe(true);
+        expect(providerMock.getIsDisabled).toHaveBeenCalledTimes(1);
     });
 
     describe('Range queries', () => {

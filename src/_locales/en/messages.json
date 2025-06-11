@@ -1024,6 +1024,12 @@
     "popup_stats_for_browser_title": {
         "message": "Stats for this browser"
     },
+    "popup_stats_disabled_notice": {
+        "message": "Stats are disabled"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Enable"
+    },
     "popup_stats_data_usage": {
         "message": "Data"
     },
@@ -1047,6 +1053,21 @@
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Got it"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Disable stats"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Disable stats?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "New stats won’t be collected. You can still access your existing stats"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Disable"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Cancel"
     },
     "popup_stats_menu_clear_stats_btn": {
         "message": "Clear stats"
