@@ -206,10 +206,7 @@ export function StatsScreen(props: StatsScreenProps) {
                         className="stats-screen__navbar-btn"
                         onClick={onBackClick}
                     />
-                    <StatsScreenMenu
-                        isMainScreen={isMainScreen}
-                        onClear={onClear}
-                    />
+                    <StatsScreenMenu onClear={onClear} />
                 </div>
                 <div className="stats-screen__header-content">
                     {flagNode}

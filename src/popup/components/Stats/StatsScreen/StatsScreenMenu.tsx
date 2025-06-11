@@ -25,20 +25,14 @@ enum MenuActions {
 /**
  * Props for the {@link StatsScreenMenu} component.
  */
-export interface StatsScreenMenuProps extends Pick<StatsScreenBaseProps, 'onClear'> {
-    /**
-     * Flag indicating if the menu is on the main screen.
-     * If true, the 'Why it's safe' button with modal will be shown.
-     */
-    isMainScreen: boolean;
-}
+export type StatsScreenMenuProps = Pick<StatsScreenBaseProps, 'onClear'>;
 
 /**
  * Component that renders the menu for the stats screen.
  * It contains 'Why it's safe' button and 'Clear stats' button with their modals.
  */
 export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
-    const { isMainScreen, onClear } = props;
+    const { onClear } = props;
     const { statsStore, telemetryStore, settingsStore } = useContext(rootStore);
 
     const { forwarderDomain } = settingsStore;
@@ -84,18 +78,17 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         }
     };
 
-    const menuOptions: SelectOptionItem<MenuActions>[] = [{
-        value: MenuActions.Clear,
-        title: translator.getMessage('popup_stats_menu_clear_stats_btn'),
-        className: 'stats-screen__clear',
-    }];
-
-    if (isMainScreen) {
-        menuOptions.unshift({
+    const menuOptions: SelectOptionItem<MenuActions>[] = [
+        {
             value: MenuActions.WhySafe,
             title: translator.getMessage('popup_stats_menu_why_safe_btn'),
-        });
-    }
+        },
+        {
+            value: MenuActions.Clear,
+            title: translator.getMessage('popup_stats_menu_clear_stats_btn'),
+            className: 'stats-screen__clear',
+        },
+    ];
 
     const openWhySafeModal = () => {
         telemetryStore.sendCustomEvent(
@@ -161,36 +154,34 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
                 onChange={handleMenuAction}
                 onIsActiveChange={handleOnMenuActiveChange}
             />
-            {isMainScreen && (
-                <StatsScreenModal
-                    isOpen={isWhySafeModalOpen}
-                    title={translator.getMessage('popup_stats_menu_why_safe_title')}
-                    description={(
-                        <>
-                            <p>{translator.getMessage('popup_stats_menu_why_safe_description_1')}</p>
-                            <p>{translator.getMessage('popup_stats_menu_why_safe_description_2')}</p>
-                            <a
-                                href={privacyPolicyUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={handlePrivacyPolicyClick}
-                            >
-                                {translator.getMessage('privacy_policy')}
-                            </a>
-                        </>
-                    )}
-                    actions={(
-                        <button
-                            type="button"
-                            onClick={closeWhySafeModal}
-                            className="stats-screen-modal__btn stats-screen-modal__btn--primary"
+            <StatsScreenModal
+                isOpen={isWhySafeModalOpen}
+                title={translator.getMessage('popup_stats_menu_why_safe_title')}
+                description={(
+                    <>
+                        <p>{translator.getMessage('popup_stats_menu_why_safe_description_1')}</p>
+                        <p>{translator.getMessage('popup_stats_menu_why_safe_description_2')}</p>
+                        <a
+                            href={privacyPolicyUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={handlePrivacyPolicyClick}
                         >
-                            {translator.getMessage('popup_stats_menu_why_safe_got_it')}
-                        </button>
-                    )}
-                    onClose={closeWhySafeModal}
-                />
-            )}
+                            {translator.getMessage('privacy_policy')}
+                        </a>
+                    </>
+                )}
+                actions={(
+                    <button
+                        type="button"
+                        onClick={closeWhySafeModal}
+                        className="stats-screen-modal__btn stats-screen-modal__btn--primary"
+                    >
+                        {translator.getMessage('popup_stats_menu_why_safe_got_it')}
+                    </button>
+                )}
+                onClose={closeWhySafeModal}
+            />
             <StatsScreenModal
                 isOpen={isClearModalOpen}
                 title={translator.getMessage('popup_stats_menu_clear_stats_title')}
