@@ -71,7 +71,7 @@ export const Slider = (props: SliderProps) => {
                             name="arrow-down"
                             rotation="clockwise"
                             className="slider__arrow slider__arrow--right"
-                            onClick={prevSlideHandler}
+                            onClick={nextSlideHandler}
                         />
                     </>
                 )}
