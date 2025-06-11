@@ -167,10 +167,8 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
                     title={translator.getMessage('popup_stats_menu_why_safe_title')}
                     description={(
                         <>
-                            <ul>
-                                <li>{translator.getMessage('popup_stats_menu_why_safe_description_1')}</li>
-                                <li>{translator.getMessage('popup_stats_menu_why_safe_description_2')}</li>
-                            </ul>
+                            <p>{translator.getMessage('popup_stats_menu_why_safe_description_1')}</p>
+                            <p>{translator.getMessage('popup_stats_menu_why_safe_description_2')}</p>
                             <a
                                 href={privacyPolicyUrl}
                                 target="_blank"
