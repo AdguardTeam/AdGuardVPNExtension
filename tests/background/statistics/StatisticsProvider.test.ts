@@ -330,8 +330,8 @@ describe('StatisticsProvider', () => {
             expect(timersMock.clearInterval).toHaveBeenCalledTimes(1);
         });
 
-        it('should correctly end duration interval process if stats disabled', async () => {
-            const locationId = 'location-id-6';
+        it('should correctly end duration interval process if stats disabled when already connected', async () => {
+            const locationId = 'location-id-7';
 
             await simulateUser(true);
             await simulateLocationSelection(locationId);
@@ -339,6 +339,10 @@ describe('StatisticsProvider', () => {
 
             // should start duration interval
             expect(timersMock.setInterval).toHaveBeenCalledTimes(1);
+
+            // should start duration stats
+            expect(statisticsStorageMock.startDuration).toHaveBeenCalledTimes(1);
+            expect(statisticsStorageMock.startDuration).toHaveBeenCalledWith(locationId);
 
             await advanceTimer();
 
@@ -350,6 +354,39 @@ describe('StatisticsProvider', () => {
 
             // should clear duration interval
             expect(timersMock.clearInterval).toHaveBeenCalledTimes(1);
+
+            // should end duration stats
+            expect(statisticsStorageMock.endDuration).toHaveBeenCalledTimes(1);
+            expect(statisticsStorageMock.endDuration).toHaveBeenCalledWith(locationId);
+        });
+
+        it('should correctly restart duration interval process if stats enabled when already connected', async () => {
+            const locationId = 'location-id-8';
+
+            await statisticsProvider.setIsDisabled(true);
+            await simulateUser(true);
+            await simulateLocationSelection(locationId);
+            await simulateConnect();
+
+            // should not start duration interval
+            expect(timersMock.setInterval).not.toHaveBeenCalled();
+
+            // should not start duration stats
+            expect(statisticsStorageMock.startDuration).not.toHaveBeenCalled();
+
+            await expect(advanceTimer).rejects.toThrowError();
+
+            // should not update duration stats
+            expect(statisticsStorageMock.updateDuration).not.toHaveBeenCalled();
+
+            await statisticsProvider.setIsDisabled(false);
+
+            // should start duration interval
+            expect(timersMock.setInterval).toHaveBeenCalledTimes(1);
+
+            // should start duration stats
+            expect(statisticsStorageMock.startDuration).toHaveBeenCalledTimes(1);
+            expect(statisticsStorageMock.startDuration).toHaveBeenCalledWith(locationId);
         });
     });
 });

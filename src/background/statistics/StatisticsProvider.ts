@@ -125,6 +125,11 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     private isPremiumToken = false;
 
     /**
+     * Indicates whether the user is connected to the Proxy currently or not.
+     */
+    private isConnected = false;
+
+    /**
      * Current selected location ID.
      *
      * NOTE: It's not stored in state storage because after extension restart
@@ -210,10 +215,29 @@ export class StatisticsProvider implements StatisticsProviderInterface {
 
         await this.saveIsDisabled(isDisabled);
 
-        // clear duration interval and end duration if statistics collection is disabled
-        if (this.isDisabled && this.durationIntervalId) {
-            this.clearDurationInterval();
-            await this.statisticsStorage.endDuration(this.locationId!);
+        /**
+         * If user was connected and now disables / enables stats collection:
+         * - Disables: We should treat it as disconnected and clear the duration interval,
+         *   and end duration statistics, so that it won't be updated anymore.
+         * - Enables: We should treat it as connected and start the duration interval,
+         *   and start duration statistics, so that it will be updated from now on.
+         */
+        if (this.isConnected) {
+            // At this point, locationId should already exist, if not - we consider it as an error
+            if (!this.locationId) {
+                log.error(
+                    `Cannot ${isDisabled ? 'end' : 'restart'} duration after ${isDisabled ? 'disabling' : 'enabling'} statistics, "locationId" is not set.`,
+                );
+                return;
+            }
+
+            if (this.isDisabled) {
+                await this.statisticsStorage.endDuration(this.locationId!);
+                this.clearDurationInterval();
+            } else {
+                await this.statisticsStorage.startDuration(this.locationId!);
+                this.startDurationInterval();
+            }
         }
     };
 
@@ -340,12 +364,14 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * @param state Connectivity state change event data.
      */
     private async handleConnectivityStateChanged({ value }: ConnectivityStateChangeEvent): Promise<void> {
+        this.isConnected = value === ConnectivityStateType.Connected;
+
         if (!this.canCollectStatistics()) {
             return;
         }
 
         // Note: locationId is already checked in canCollectStatistics()
-        if (value === ConnectivityStateType.Connected) {
+        if (this.isConnected) {
             await this.statisticsStorage.startDuration(this.locationId!);
             this.startDurationInterval();
         } else {
