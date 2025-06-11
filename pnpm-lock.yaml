@@ -35,6 +35,9 @@ importers:
       date-fns:
         specifier: ^2.17.0
         version: 2.30.0
+      dns-js:
+        specifier: ^0.3.1
+        version: 0.3.1
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
@@ -2832,6 +2835,10 @@ packages:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
 
+  dns-js@0.3.1:
+    resolution: {integrity: sha512-+Ih53426tx2Swgd6exQ0eYtnnBH8m0tX67ZEYLDrhzw4ydZeHvPX+jLRp1EmRsrn6owVftXhFCVkiLgchD4mIg==}
+    engines: {node: '>= 14.x'}
+
   doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
@@ -5036,6 +5043,10 @@ packages:
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
+
+  qap@3.3.1:
+    resolution: {integrity: sha512-U0MV9LRz4u19xaK4gssnwyc7XWTnFdmDGrgG9hvV6nchKeu3XeITTclugWKT9rLiLK2GvN3utSkKY90+1tEHkw==}
+    engines: {node: '>=0.4.x'}
 
   qs@6.14.0:
     resolution: {integrity: sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==}
@@ -9081,6 +9092,13 @@ snapshots:
     dependencies:
       path-type: 4.0.0
 
+  dns-js@0.3.1:
+    dependencies:
+      debug: 2.6.9
+      qap: 3.3.1
+    transitivePeerDependencies:
+      - supports-color
+
   doctrine@2.1.0:
     dependencies:
       esutils: 2.0.3
@@ -11813,6 +11831,8 @@ snapshots:
       once: 1.4.0
 
   punycode@2.3.1: {}
+
+  qap@3.3.1: {}
 
   qs@6.14.0:
     dependencies:

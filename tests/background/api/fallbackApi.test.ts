@@ -32,7 +32,7 @@ describe('FallbackApi', () => {
     });
 
     it('returns default api urls if requests to google, ali, quad9 fail', async () => {
-        (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValue({
+        (axios.post as jest.MockedFunction<typeof axios.get>).mockRejectedValue({
             status: 400,
         });
 
@@ -51,9 +51,9 @@ describe('FallbackApi', () => {
         expect(authApiUrl).toBe(DEFAULT_AUTH_API_URL);
         expect(forwarderApiUrl).toBe(DEFAULT_FORWARDER_API_URL);
 
-        expect(axios.get).toBeCalledWith(`https://${GOOGLE_DOH_URL}`, expect.anything());
-        expect(axios.get).toBeCalledWith(`https://${ALIDNS_DOH_URL}`, expect.anything());
-        expect(axios.get).toBeCalledWith(`https://${QUAD9_DOH_URL}`, expect.anything());
+        expect(axios.post).toBeCalledWith(`https://${GOOGLE_DOH_URL}`, expect.anything(), expect.anything());
+        expect(axios.post).toBeCalledWith(`https://${ALIDNS_DOH_URL}`, expect.anything(), expect.anything());
+        expect(axios.post).toBeCalledWith(`https://${QUAD9_DOH_URL}`, expect.anything(), expect.anything());
     });
 
     it('refreshes api url from backend if timestamp is expired, ', async () => {
