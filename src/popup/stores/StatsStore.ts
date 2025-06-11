@@ -178,16 +178,13 @@ export class StatsStore {
      * @param rangeStatistics Statistics data for the selected range,
      * if `null` then it will reset the statistics data to default values.
      */
-    @action setStatisticsByRange = (rangeStatistics: StatisticsByRange | null) => {
-        if (!rangeStatistics) {
-            this.totalUsage = StatsStore.DEFAULT_TOTAL;
-            this.firstStatsDate = new Date();
-            this.locations = [];
-            this.selectedLocationId = null;
-            return;
-        }
-
-        const { total, locations, startedTimestamp } = rangeStatistics;
+    @action setStatisticsByRange = (rangeStatistics: StatisticsByRange) => {
+        const {
+            isDisabled,
+            startedTimestamp,
+            total,
+            locations,
+        } = rangeStatistics;
 
         const newLocations: LocationUsage[] = [];
         for (let i = 0; i < locations.length; i += 1) {
@@ -219,8 +216,9 @@ export class StatsStore {
             return b.usage.downloadedBytes - a.usage.downloadedBytes;
         });
 
-        this.totalUsage = total;
+        this.isStatsDisabled = isDisabled;
         this.firstStatsDate = new Date(startedTimestamp);
+        this.totalUsage = total;
         this.locations = newLocations;
     };
 
@@ -342,22 +340,13 @@ export class StatsStore {
     };
 
     /**
-     * Sets the isDisabled flag in store only.
-     *
-     * @param isDisabled True if stats collection should be disabled, false otherwise.
-     */
-    @action setIsStatsDisabled = (isStatsScreenOpen: boolean) => {
-        this.isStatsDisabled = isStatsScreenOpen;
-    };
-
-    /**
      * Disables or enables stats collection both in store and in background.
      *
      * @param isDisabled True if stats collection should be disabled, false otherwise.
      */
     @action updateIsStatsDisabled = async (isDisabled: boolean) => {
+        this.isStatsDisabled = isDisabled;
         await messenger.setStatisticsIsDisabled(isDisabled);
-        this.setIsStatsDisabled(isDisabled);
     };
 
     /**
