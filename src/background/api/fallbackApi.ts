@@ -210,7 +210,7 @@ export class FallbackApi {
         packet.header.id = 0;
 
         // Absolute fully qualified domain name should end with a dot,
-        // to now allow DNS servers to append any suffixes.
+        // to not allow DNS servers to append any suffixes.
         const absoluteFullyQualifiedDomainName = `${name}.`;
 
         // Add question for TXT record
