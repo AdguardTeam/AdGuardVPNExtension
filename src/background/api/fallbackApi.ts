@@ -20,7 +20,13 @@ import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
 import { type FallbackInfo, StorageKey } from '../schema';
 
-// DNS over https api
+/**
+ * DNS over HTTPS (DoH) URLs.
+ *
+ * Actual list of DoH providers can be found in:
+ * /projects/ADGUARD-CORE-LIBS/repos/vpn-client-backend-config/browse/backend.json
+ */
+
 const GOOGLE_DOH_HOSTNAME = 'dns.google';
 export const GOOGLE_DOH_URL = `${GOOGLE_DOH_HOSTNAME}/dns-query`;
 
