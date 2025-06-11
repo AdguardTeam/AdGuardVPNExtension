@@ -151,7 +151,8 @@ export interface FormattedRangeDates {
  * @param range The time range to format.
  * @param firstStatsDate The date when the stats collection started.
  *
- * @returns A string representing the formatted date range.
+ * @returns Object with `start` and `end` properties, each containing a formatted date string,
+ * where `start` is formatted start date string and `end` is formatted end date string.
  */
 export function formatRange(range: StatisticsRange, firstStatsDate: Date): FormattedRangeDates {
     const locale = browser.i18n.getUILanguage();
