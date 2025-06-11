@@ -10,7 +10,7 @@
     background-color: var(--fills-backgrounds-page-background-default);
 
     &__header {
-        /* Specify z-index to make it layout on top of content */
+        /* Specify z-index to render on top of content */
         z-index: 1;
         position: relative;
         flex-shrink: 0;
@@ -35,6 +35,9 @@
     }
 
     &__navbar {
+        /* Specify z-index to render on top of header */
+        z-index: 1;
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
