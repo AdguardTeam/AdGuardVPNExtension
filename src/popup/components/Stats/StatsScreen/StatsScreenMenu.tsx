@@ -1,11 +1,10 @@
 import React, { type SetStateAction, useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { Select, type SelectOptionItem } from '../../../../common/components/Select';
 import { translator } from '../../../../common/translator';
-import { getForwarderUrl } from '../../../../common/helpers';
+import { getPrivacyAndEulaUrls } from '../../../../common/forwarderHelpers';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { Icon } from '../../../../common/components/Icons';
 import { rootStore } from '../../../stores';
@@ -46,7 +45,7 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         setIsClearModalOpen,
     } = statsStore;
 
-    const privacyPolicyUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PRIVACY);
+    const { privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
 
     const canSendSettingsTelemetry = isMenuOpen
         && !isWhySafeModalOpen // `WhySafeScreen` is rendered on top of this screen
@@ -162,7 +161,7 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
                         <p>{translator.getMessage('popup_stats_menu_why_safe_description_1')}</p>
                         <p>{translator.getMessage('popup_stats_menu_why_safe_description_2')}</p>
                         <a
-                            href={privacyPolicyUrl}
+                            href={privacyUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={handlePrivacyPolicyClick}
