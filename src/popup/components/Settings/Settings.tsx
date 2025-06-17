@@ -29,7 +29,6 @@ export const Settings = observer(() => {
     const {
         isOpenOptionsModal,
         shouldShowLimitedOfferDetails,
-        isOpenEndpointsSearch,
         isShownVpnBlockedErrorDetails,
     } = uiStore;
 
@@ -44,7 +43,6 @@ export const Settings = observer(() => {
 
     const canSendTelemetry = !isOpenOptionsModal // `MenuScreen` is rendered on top of this screen
         && !shouldShowLimitedOfferDetails // `PromoOfferScreen` is rendered on top of this screen
-        && !isOpenEndpointsSearch // `LocationsScreen` is rendered on top of this screen
         && !isDeviceLimitScreenRendered // `DeviceLimitScreen` is rendered on top of this screen
         && !isShownVpnBlockedErrorDetails // `DialogDesktopVersionPromo` is rendered on top of this screen
         && !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen

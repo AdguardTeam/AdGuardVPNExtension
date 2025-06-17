@@ -67,7 +67,7 @@ export const App = observer(() => {
 
     const { initStatus } = globalStore;
 
-    const { isOpenOptionsModal } = uiStore;
+    const { isOpenOptionsModal, isOpenEndpointsSearch } = uiStore;
 
     const {
         premiumPromoEnabled,
@@ -357,6 +357,15 @@ export const App = observer(() => {
         );
     }
 
+    if (isOpenEndpointsSearch) {
+        return (
+            <>
+                <Locations />
+                <Icons />
+            </>
+        );
+    }
+
     return (
         <>
             <ConnectionsLimitError />
@@ -376,7 +385,6 @@ export const App = observer(() => {
                 isLimitedOfferActive
                 && <LimitedOfferModal />
             }
-            <Locations />
             {isCurrentTabExcluded && canBeExcluded
                 ? <ExclusionsScreen />
                 : (
