@@ -1,6 +1,6 @@
 import path from 'path';
 
-import webpack from 'webpack';
+import type webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
@@ -48,12 +48,6 @@ if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
 
 const commonConfig = getCommonConfig(Browser.Firefox);
 
-if (commonConfig.resolve) {
-    commonConfig.resolve.fallback = {
-        buffer: require.resolve('buffer'),
-    };
-}
-
 /**
  * Entry point for consent page react script.
  * This is done only for Firefox, because consent page is not used in other browsers.
@@ -61,10 +55,6 @@ if (commonConfig.resolve) {
 (commonConfig.entry as webpack.EntryObject).consent = CONSENT_PATH;
 
 const plugins: webpack.WebpackPluginInstance[] = [
-    new webpack.ProvidePlugin({
-        process: 'process/browser',
-        Buffer: ['buffer', 'Buffer'],
-    }),
     new CopyWebpackPlugin({
         patterns: [
             {

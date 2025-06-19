@@ -92,6 +92,9 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             extensions: ['.*', '.js', '.jsx', '.ts', '.tsx'],
             // pnpm uses symlinks to manage dependencies, so we need to resolve them
             symlinks: true,
+            fallback: {
+                buffer: require.resolve('buffer'),
+            },
         },
 
         module: {
@@ -163,6 +166,10 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             ],
         },
         plugins: [
+            new webpack.ProvidePlugin({
+                process: 'process/browser',
+                Buffer: ['buffer', 'Buffer'],
+            }),
             // Define environment for choosing appropriate api urls
             new webpack.DefinePlugin({
                 __APP_CONFIG__: JSON.stringify(genAppConfig(
