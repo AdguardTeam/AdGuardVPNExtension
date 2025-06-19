@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Postavke"
     },
+    "popup_settings_stats": {
+        "message": "Statistiku"
+    },
+    "popup_settings_free_description": {
+        "message": "Dostupno u AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "Uključi VPn na ovom sajtu"
     },
@@ -1011,6 +1017,111 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Ne prikazuj ovo ponovo"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Statistika za ovaj pregledač"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Statistika je onemogućena"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Uključi"
+    },
+    "popup_stats_data_usage": {
+        "message": "Podaci"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Najčešće korišćene lokacije"
+    },
+    "popup_stats_usage_time": {
+        "message": "Vreme"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Zašto je bezbedno"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Zašto je bezbedno"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "VPN veza je šifrovana i sigurna, tako da niko ne može da vidi podatke o vašim aktivnostima — mi samo izračunavamo vašu upotrebu saobraćaja"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Sve statistike se prikupljaju i skladište lokalno na uređaju. Nemamo pristup njima"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Shvatam"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Onemogućiti statistiku"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Onemogućiti statistiku?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Nova statistika neće biti prikupljena. I dalje možete pristupiti postojećim statistikama"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Isključi"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Otkaži"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Resetovati statistiku"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Resetovati statistiku?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Sve statistike će biti trajno izbrisane"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Očisti"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Otkaži"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 sata"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 dana"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 dana"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Sve vreme"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "preuzmi"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "otpremiti"
+    },
+    "popup_stats_empty": {
+        "message": "Još nema statistike – nastavite da koristite AdGuard VPN da biste ih videli"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Prikazati sve lokacije"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Povezan sa VPN-om"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% d",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% s",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% min",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Lokacije"
     },
     "options_signedout_page_title": {
         "message": "Odjavili ste se iz AdGuard VPN-a"

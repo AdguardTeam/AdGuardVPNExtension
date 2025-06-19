@@ -660,6 +660,9 @@
     "popup_settings_open_settings": {
         "message": "Налады"
     },
+    "popup_settings_stats": {
+        "message": "Статыстыка"
+    },
     "context_menu_enable_vpn": {
         "message": "Уключыць VPN на гэтым сайце"
     },
@@ -1011,6 +1014,54 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Не паказваць зноў"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Уключыць"
+    },
+    "popup_stats_usage_time": {
+        "message": "Час"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Чаму гэта бяспечна"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Чаму гэта бяспечна"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Уся статыстыка збіраецца і захоўваецца лакальна на вашай прыладзе. Мы не маем да яе доступу"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Зразумела"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Адключыць"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Скасаваць"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Уся статыстыка будзе выдалена назаўсёды"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Ачысціць"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Скасаваць"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 гадзіны"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 дзён"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 дзён"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "спампавана"
+    },
+    "popup_stats_empty": {
+        "message": "Пакуль няма статыстыкі — працягвайце карыстацца AdGuard VPN для яе прагляду"
     },
     "options_signedout_page_title": {
         "message": "Вы выйшлі з AdGuard VPN"
