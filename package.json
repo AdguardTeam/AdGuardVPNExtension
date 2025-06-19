@@ -123,6 +123,7 @@
         "classnames": "^2.3.1",
         "crypto-js": "^4.1.1",
         "date-fns": "^2.17.0",
+        "dns-js": "^0.3.1",
         "file-saver": "^2.0.5",
         "ipaddr.js": "^1.9.1",
         "is-ip": "^4.0.0",
