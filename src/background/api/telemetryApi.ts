@@ -1,7 +1,7 @@
 import { TELEMETRY_API_URL } from '../config';
 import { type TelemetryApiEventData } from '../telemetry/telemetryTypes';
 
-import { Api } from './Api';
+import { Api, type ConfigInterface } from './Api';
 import { type RequestProps } from './apiTypes';
 
 /**
@@ -20,12 +20,15 @@ class TelemetryApi extends Api {
     public sendEvent = async (data: TelemetryApiEventData): Promise<void> => {
         const { path, method } = TelemetryApi.SEND_EVENT;
 
-        const headers = {
-            'Content-Type': 'application/json',
+        const config: ConfigInterface = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            shouldTriggerServerErrorEvent: false,
         };
-        const body = JSON.stringify(data);
 
-        await this.makeRequest(path, { headers, body }, method);
+        await this.makeRequest(path, config, method);
     };
 }
 
