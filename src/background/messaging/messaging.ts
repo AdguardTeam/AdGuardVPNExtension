@@ -521,6 +521,10 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
         case MessageType.STATISTICS_CLEAR: {
             return statisticsService.clearStatistics();
         }
+        case MessageType.STATISTICS_SET_IS_DISABLED: {
+            const { isDisabled } = data;
+            return statisticsService.setIsDisabled(isDisabled);
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

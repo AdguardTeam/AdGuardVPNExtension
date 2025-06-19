@@ -10,6 +10,7 @@ const statisticsStorage = new StatisticsStorage({
 });
 
 const statisticsProvider = new StatisticsProvider({
+    storage: browserApi.storage,
     statisticsStorage,
     timers,
 });

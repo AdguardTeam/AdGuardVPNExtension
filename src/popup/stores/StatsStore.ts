@@ -117,6 +117,11 @@ export class StatsStore {
     @observable isWhySafeModalOpen = false;
 
     /**
+     * Is disable modal open.
+     */
+    @observable isDisableModalOpen = false;
+
+    /**
      * Is clear modal open.
      */
     @observable isClearModalOpen = false;
@@ -132,6 +137,12 @@ export class StatsStore {
      * Flag indicating whether statistics data is currently being loaded.
      */
     @observable isStatisticsLoading = false;
+
+    /**
+     * Flag indicating whether stats screen is disabled.
+     * True if stats are not collected currently, false otherwise.
+     */
+    @observable isStatsDisabled = false;
 
     /**
      * Should stats screen be rendered.
@@ -167,16 +178,13 @@ export class StatsStore {
      * @param rangeStatistics Statistics data for the selected range,
      * if `null` then it will reset the statistics data to default values.
      */
-    @action setStatisticsByRange = (rangeStatistics: StatisticsByRange | null) => {
-        if (!rangeStatistics) {
-            this.totalUsage = StatsStore.DEFAULT_TOTAL;
-            this.firstStatsDate = new Date();
-            this.locations = [];
-            this.selectedLocationId = null;
-            return;
-        }
-
-        const { total, locations, startedTimestamp } = rangeStatistics;
+    @action setStatisticsByRange = (rangeStatistics: StatisticsByRange) => {
+        const {
+            isDisabled,
+            startedTimestamp,
+            total,
+            locations,
+        } = rangeStatistics;
 
         const newLocations: LocationUsage[] = [];
         for (let i = 0; i < locations.length; i += 1) {
@@ -208,8 +216,9 @@ export class StatsStore {
             return b.usage.downloadedBytes - a.usage.downloadedBytes;
         });
 
-        this.totalUsage = total;
+        this.isStatsDisabled = isDisabled;
         this.firstStatsDate = new Date(startedTimestamp);
+        this.totalUsage = total;
         this.locations = newLocations;
     };
 
@@ -309,13 +318,13 @@ export class StatsStore {
             return;
         }
 
-        this.isStatisticsLoading = true;
+        this.setIsStatisticsLoading(true);
 
         const statisticsByRange = await messenger.getStatsByRange(this.range);
         this.setStatisticsByRange(statisticsByRange);
-        this.isFirstStatisticsRetrieved = true;
+        this.setIsFirstStatisticsRetrieved(true);
 
-        this.isStatisticsLoading = false;
+        this.setIsStatisticsLoading(false);
     };
 
     /**
@@ -328,6 +337,16 @@ export class StatsStore {
         this.range = range;
         await this.saveRangeToStorage(range);
         await this.updateStatistics();
+    };
+
+    /**
+     * Disables or enables stats collection both in store and in background.
+     *
+     * @param isDisabled True if stats collection should be disabled, false otherwise.
+     */
+    @action updateIsStatsDisabled = async (isDisabled: boolean) => {
+        this.isStatsDisabled = isDisabled;
+        await messenger.setStatisticsIsDisabled(isDisabled);
     };
 
     /**
@@ -363,12 +382,39 @@ export class StatsStore {
     };
 
     /**
+     * Set the disable modal open state.
+     *
+     * @param isDisableModalOpen True if the modal is open, false otherwise.
+     */
+    @action setIsDisableModalOpen = (isDisableModalOpen: boolean) => {
+        this.isDisableModalOpen = isDisableModalOpen;
+    };
+
+    /**
      * Set the clear modal open state.
      *
      * @param isClearModalOpen True if the modal is open, false otherwise.
      */
     @action setIsClearModalOpen = (isClearModalOpen: boolean) => {
         this.isClearModalOpen = isClearModalOpen;
+    };
+
+    /**
+     * Sets the flag indicating whether the first statistics retrieval has occurred.
+     *
+     * @param isFirstStatisticsRetrieved True if the first statistics retrieval has occurred, false otherwise.
+     */
+    @action setIsFirstStatisticsRetrieved = (isFirstStatisticsRetrieved: boolean) => {
+        this.isFirstStatisticsRetrieved = isFirstStatisticsRetrieved;
+    };
+
+    /**
+     * Sets the loading state for statistics.
+     *
+     * @param isStatisticsLoading True if statistics are currently loading, false otherwise.
+     */
+    @action setIsStatisticsLoading = (isStatisticsLoading: boolean) => {
+        this.isStatisticsLoading = isStatisticsLoading;
     };
 
     /**

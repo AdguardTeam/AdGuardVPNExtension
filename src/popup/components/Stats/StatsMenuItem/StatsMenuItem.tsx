@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../../common/translator';
 import { Icon } from '../../../../common/components/Icons';
+import { DotsLoader } from '../../../../common/components/DotsLoader';
 import { rootStore } from '../../../stores';
 import { formatTraffic } from '../utils';
 
@@ -23,7 +24,12 @@ export const StatsMenuItem = observer(() => {
 
     const { isPremiumToken } = vpnStore;
     const { setForceShowUpgradeScreen } = authStore;
-    const { totalUsage, openStatsScreen, updateStatistics } = statsStore;
+    const {
+        totalUsage,
+        isStatisticsLoading,
+        openStatsScreen,
+        updateStatistics,
+    } = statsStore;
     const { closeOptionsModal } = uiStore;
 
     /**
@@ -53,6 +59,14 @@ export const StatsMenuItem = observer(() => {
     };
 
     const renderSecondaryBlock = () => {
+        if (isStatisticsLoading) {
+            return (
+                <div className="stats-menu-item__loader">
+                    <DotsLoader />
+                </div>
+            );
+        }
+
         if (!isPremiumToken) {
             return (
                 <span className="stats-menu-item__description">

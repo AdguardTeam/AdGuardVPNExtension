@@ -742,6 +742,16 @@ class Messenger {
         const type = MessageType.STATISTICS_CLEAR;
         return this.sendMessage(type);
     }
+
+    /**
+     * Sets the statistics disabled state.
+     *
+     * @param isDisabled If `true`, statistics will be disabled and no data will be collected.
+     */
+    async setStatisticsIsDisabled(isDisabled: boolean): Promise<void> {
+        const type = MessageType.STATISTICS_SET_IS_DISABLED;
+        return this.sendMessage(type, { isDisabled });
+    }
 }
 
 export const messenger = new Messenger();

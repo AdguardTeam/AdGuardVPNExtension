@@ -15,10 +15,12 @@ import {
 } from './statisticsTypes';
 import { keyToDate } from './utils';
 
+type ProviderForwardedMethods = Pick<StatisticsProviderInterface, 'setIsDisabled'>;
+
 /**
  * Statistics service interface.
  */
-export interface StatisticsServiceInterface {
+export interface StatisticsServiceInterface extends ProviderForwardedMethods {
     /**
      * Initializes the statistics service.
      */
@@ -88,7 +90,7 @@ export class StatisticsService implements StatisticsServiceInterface {
     /** @inheritdoc */
     public init = async (): Promise<void> => {
         try {
-            this.provider.init();
+            await this.provider.init();
             await this.statisticsStorage.init();
             log.info('Statistics service ready');
         } catch (e) {
@@ -270,8 +272,10 @@ export class StatisticsService implements StatisticsServiceInterface {
     public getStatsByRange = async (range: StatisticsRange): Promise<StatisticsByRange> => {
         const accountStatistics = await this.statisticsStorage.getStatistics();
         const { startedTimestamp, locations } = accountStatistics;
+        const isDisabled = this.provider.getIsDisabled();
 
         return {
+            isDisabled,
             startedTimestamp,
             ...StatisticsService.queryLocationsStorage(locations, range),
         };
@@ -280,6 +284,11 @@ export class StatisticsService implements StatisticsServiceInterface {
     /** @inheritdoc */
     public clearStatistics = async (): Promise<void> => {
         await this.statisticsStorage.clearStatistics();
+    };
+
+    /** @inheritdoc */
+    public setIsDisabled = async (isDisabled: boolean): Promise<void> => {
+        await this.provider.setIsDisabled(isDisabled);
     };
 
     /**

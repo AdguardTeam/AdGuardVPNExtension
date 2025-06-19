@@ -169,6 +169,11 @@ export interface StatisticsDataUsage {
  */
 export interface StatisticsByRange {
     /**
+     * Flag indicating whether the statistics collection is disabled or not.
+     */
+    isDisabled: boolean;
+
+    /**
      * Timestamp when the statistics collection started.
      */
     startedTimestamp: number;

@@ -37,4 +37,28 @@
             }
         }
     }
+
+    &__loader {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 8px 8px 0;
+
+        .dots-loader {
+            height: 16px;
+
+            &__dot {
+                width: 4px;
+                height: 4px;
+
+                &:first-child {
+                    left: -5px;
+                }
+
+                &:last-child {
+                    right: -5px;
+                }
+            }
+        }
+    }
 }

@@ -1022,16 +1022,22 @@
         "message": "Don’t show this again"
     },
     "popup_stats_for_browser_title": {
-        "message": "Statistics for this browser"
+        "message": "Stats for this browser"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Stats are disabled"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Enable"
     },
     "popup_stats_data_usage": {
-        "message": "Data usage"
+        "message": "Data"
     },
     "popup_stats_most_used_locations": {
         "message": "Most-used locations"
     },
     "popup_stats_usage_time": {
-        "message": "Usage time"
+        "message": "Time"
     },
     "popup_stats_menu_why_safe_btn": {
         "message": "Why it’s safe"
@@ -1040,13 +1046,28 @@
         "message": "Why it’s safe"
     },
     "popup_stats_menu_why_safe_description_1": {
-        "message": "As the connection is encrypted and secure, nobody can see your activity data — we only calculate your traffic usage"
+        "message": "The VPN connection is encrypted and secure, so nobody can see your activity data — we only calculate your traffic usage"
     },
     "popup_stats_menu_why_safe_description_2": {
         "message": "All stats are collected and stored locally on your device. We don’t have access to them"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Got it"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Disable stats"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Disable stats?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "New stats won’t be collected. You can still access your existing stats"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Disable"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Cancel"
     },
     "popup_stats_menu_clear_stats_btn": {
         "message": "Clear stats"
@@ -1088,7 +1109,7 @@
         "message": "View all locations"
     },
     "popup_stats_connection_to_vpn": {
-        "message": "Connection to VPN"
+        "message": "Connected to VPN"
     },
     "popup_stats_connection_to_vpn_days": {
         "message": "%days% d",

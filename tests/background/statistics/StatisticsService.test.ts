@@ -11,6 +11,8 @@ import { ONE_DAY_MS } from '../../../src/common/constants';
 
 const providerMock = {
     init: jest.fn(),
+    setIsDisabled: jest.fn(),
+    getIsDisabled: jest.fn().mockReturnValue(false),
 };
 
 const statisticsStorageMock = {
@@ -94,6 +96,14 @@ describe('StatisticsService', () => {
 
         // provider init
         expect(statisticsStorageMock.init).toHaveBeenCalledTimes(1);
+    });
+
+    it('should forward methods to provider', async () => {
+        await statisticsService.init();
+
+        // setIsDisabled
+        await statisticsService.setIsDisabled(true);
+        expect(providerMock.setIsDisabled).toHaveBeenCalledWith(true);
     });
 
     describe('Range queries', () => {
@@ -464,6 +474,7 @@ describe('StatisticsService', () => {
 
             expect(result).toEqual({
                 ...expected,
+                isDisabled: false,
                 startedTimestamp: 12345,
             });
         });

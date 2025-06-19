@@ -1,7 +1,9 @@
 import React, { useRef } from 'react';
 
-import { type StatisticsData, type StatisticsRange } from '../../../../background/statistics/statisticsTypes';
+import { StatisticsRange, type StatisticsData } from '../../../../background/statistics/statisticsTypes';
 import { IconButton } from '../../../../common/components/Icons';
+import { DotsLoader } from '../../../../common/components/DotsLoader';
+import { translator } from '../../../../common/translator';
 import { type LocationUsage } from '../../../stores/StatsStore';
 import { getFlagIconStyle } from '../../Locations';
 import { formatRange } from '../utils';
@@ -35,6 +37,16 @@ export interface StatsScreenBaseProps {
     firstStatsDate: Date;
 
     /**
+     * Whether the stats screen is currently loading or not
+     */
+    isLoading: boolean;
+
+    /**
+     * Whether the stats collection is disabled or not.
+     */
+    isDisabled: boolean;
+
+    /**
      * Callback function to be called when the back button is clicked.
      */
     onBackClick: () => void;
@@ -50,6 +62,13 @@ export interface StatsScreenBaseProps {
      * @param range New range value of range
      */
     onRangeChange: (range: StatisticsRange) => void;
+
+    /**
+     * Callback function to be called when the disable state is changed.
+     *
+     * @param isDisabled New disable state of the stats collection.
+     */
+    onDisableChange: (isDisabled: boolean) => void;
 }
 
 /**
@@ -134,9 +153,12 @@ export function StatsScreen(props: StatsScreenProps) {
         title,
         range,
         firstStatsDate,
+        isLoading,
+        isDisabled,
         onBackClick,
         onClear,
         onRangeChange,
+        onDisableChange,
     } = props;
 
     const headerRef = useRef<HTMLDivElement>(null);
@@ -156,6 +178,27 @@ export function StatsScreen(props: StatsScreenProps) {
         } else {
             header.classList.remove(HEADER_WITH_SHADOW_CLASS);
         }
+    };
+
+    const handleEnableClick = () => {
+        onDisableChange(false);
+    };
+
+    const renderRange = () => {
+        const { start, end } = formatRange(range, firstStatsDate);
+
+        // for 24 hours we should render in two lines, because it includes time
+        if (range === StatisticsRange.Hours24) {
+            return (
+                <>
+                    {`${start} –`}
+                    <br />
+                    {end}
+                </>
+            );
+        }
+
+        return `${start} – ${end}`;
     };
 
     const isMainScreen = type === 'main';
@@ -207,7 +250,8 @@ export function StatsScreen(props: StatsScreenProps) {
                         onClick={onBackClick}
                     />
                     <StatsScreenMenu
-                        isMainScreen={isMainScreen}
+                        isDisabled={isDisabled}
+                        onDisableChange={onDisableChange}
                         onClear={onClear}
                     />
                 </div>
@@ -217,8 +261,13 @@ export function StatsScreen(props: StatsScreenProps) {
                         {title}
                     </div>
                     <div className="stats-screen__range">
-                        {formatRange(range, firstStatsDate)}
+                        {renderRange()}
                     </div>
+                    {isDisabled && (
+                        <div className="stats-screen__disabled-notice">
+                            {translator.getMessage('popup_stats_disabled_notice')}
+                        </div>
+                    )}
                     <StatsScreenRange
                         range={range}
                         onRangeChange={onRangeChange}
@@ -226,10 +275,29 @@ export function StatsScreen(props: StatsScreenProps) {
                 </div>
             </div>
             <div className="stats-screen__content" onScroll={handleScroll}>
-                {dataUsageNode}
-                {locationsNode}
-                {timeUsageNode}
+                {isLoading ? (
+                    <div className="stats-screen__loader">
+                        <DotsLoader />
+                    </div>
+                ) : (
+                    <>
+                        {dataUsageNode}
+                        {locationsNode}
+                        {timeUsageNode}
+                    </>
+                )}
             </div>
+            {isDisabled && (
+                <div className="stats-screen__footer">
+                    <button
+                        type="button"
+                        onClick={handleEnableClick}
+                        className="stats-screen-btn stats-screen-btn--primary"
+                    >
+                        {translator.getMessage('popup_stats_enable_btn')}
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
