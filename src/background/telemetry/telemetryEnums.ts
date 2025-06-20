@@ -108,6 +108,7 @@ export enum TelemetryActionName {
     PeriodStatsClick = 'period_stats_click',
     WhySafeClick = 'why_safe_click',
     OpenDisableStatsClick = 'open_disable_stats_click',
+    MenuEnableStatsClick = 'menu_enable_stats_click',
     OpenClearStatsClick = 'open_clear_stats_click',
     StatsPrivacyClick = 'stats_privacy_click',
     StatsAllLocationsClick = 'stats_all_locations_click',
@@ -251,6 +252,7 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.PeriodStatsClick]: TelemetryScreenName.StatsScreen;
     [TelemetryActionName.WhySafeClick]: TelemetryScreenName.SettingsStatsScreen;
     [TelemetryActionName.OpenDisableStatsClick]: TelemetryScreenName.SettingsStatsScreen;
+    [TelemetryActionName.MenuEnableStatsClick]: TelemetryScreenName.SettingsStatsScreen;
     [TelemetryActionName.OpenClearStatsClick]: TelemetryScreenName.SettingsStatsScreen;
     [TelemetryActionName.StatsPrivacyClick]: TelemetryScreenName.WhySafeScreen;
     [TelemetryActionName.StatsAllLocationsClick]: TelemetryScreenName.StatsScreen;

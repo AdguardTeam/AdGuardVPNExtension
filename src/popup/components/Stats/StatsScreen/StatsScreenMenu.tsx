@@ -18,6 +18,7 @@ import { StatsScreenModal } from './StatsScreenModal';
 enum MenuActions {
     None = 'none',
     WhySafe = 'why-safe',
+    Enable = 'enable',
     Disable = 'disable',
     Clear = 'clear',
 }
@@ -93,20 +94,17 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
             title: translator.getMessage('popup_stats_menu_why_safe_btn'),
         },
         {
+            value: isDisabled ? MenuActions.Enable : MenuActions.Disable,
+            title: isDisabled
+                ? translator.getMessage('popup_stats_menu_enable_stats_btn')
+                : translator.getMessage('popup_stats_menu_disable_stats_btn'),
+        },
+        {
             value: MenuActions.Clear,
             title: translator.getMessage('popup_stats_menu_clear_stats_btn'),
             className: 'stats-screen__clear',
         },
     ];
-
-    // If stats are disabled, we don't show the 'Disable stats' option,
-    // otherwise render it as the second option in the menu.
-    if (!isDisabled) {
-        menuOptions.splice(1, 0, {
-            value: MenuActions.Disable,
-            title: translator.getMessage('popup_stats_menu_disable_stats_btn'),
-        });
-    }
 
     const openWhySafeModal = () => {
         telemetryStore.sendCustomEvent(
@@ -118,6 +116,14 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
 
     const closeWhySafeModal = () => {
         setIsWhySafeModalOpen(false);
+    };
+
+    const enableStats = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.MenuEnableStatsClick,
+            TelemetryScreenName.SettingsStatsScreen,
+        );
+        onDisableChange(false);
     };
 
     const openDisableModal = () => {
@@ -173,6 +179,9 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         switch (value) {
             case MenuActions.WhySafe:
                 openWhySafeModal();
+                break;
+            case MenuActions.Enable:
+                enableStats();
                 break;
             case MenuActions.Disable:
                 openDisableModal();
