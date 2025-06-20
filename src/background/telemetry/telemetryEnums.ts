@@ -31,6 +31,7 @@ export enum TelemetryScreenName {
     LocationScreen = 'location_screen',
     SettingsStatsScreen = 'settings_stats_screen',
     WhySafeScreen = 'why_safe_screen',
+    DisableStatsScreen = 'disable_stats_screen',
     ClearStatsScreen = 'clear_stats_screen',
 
     // Options screens
@@ -106,9 +107,12 @@ export enum TelemetryActionName {
     MenuStatsClick = 'menu_stats_click',
     PeriodStatsClick = 'period_stats_click',
     WhySafeClick = 'why_safe_click',
+    OpenDisableStatsClick = 'open_disable_stats_click',
     OpenClearStatsClick = 'open_clear_stats_click',
     StatsPrivacyClick = 'stats_privacy_click',
     StatsAllLocationsClick = 'stats_all_locations_click',
+    DisableStatsClick = 'disable_stats_click',
+    EnableStatsClick = 'enable_stats_click',
     ClearStatsClick = 'clear_stats_click',
 
     // Options actions
@@ -246,9 +250,12 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.MenuStatsClick]: TelemetryScreenName.MenuScreen;
     [TelemetryActionName.PeriodStatsClick]: TelemetryScreenName.StatsScreen;
     [TelemetryActionName.WhySafeClick]: TelemetryScreenName.SettingsStatsScreen;
+    [TelemetryActionName.OpenDisableStatsClick]: TelemetryScreenName.SettingsStatsScreen;
     [TelemetryActionName.OpenClearStatsClick]: TelemetryScreenName.SettingsStatsScreen;
     [TelemetryActionName.StatsPrivacyClick]: TelemetryScreenName.WhySafeScreen;
     [TelemetryActionName.StatsAllLocationsClick]: TelemetryScreenName.StatsScreen;
+    [TelemetryActionName.DisableStatsClick]: TelemetryScreenName.DisableStatsScreen;
+    [TelemetryActionName.EnableStatsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.ClearStatsClick]: TelemetryScreenName.ClearStatsScreen;
 
     // Options actions

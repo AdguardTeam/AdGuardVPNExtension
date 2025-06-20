@@ -1,9 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
+import { observer } from 'mobx-react';
 
 import { StatisticsRange, type StatisticsData } from '../../../../background/statistics/statisticsTypes';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { IconButton } from '../../../../common/components/Icons';
 import { DotsLoader } from '../../../../common/components/DotsLoader';
 import { translator } from '../../../../common/translator';
+import { rootStore } from '../../../stores';
 import { type LocationUsage } from '../../../stores/StatsStore';
 import { getFlagIconStyle } from '../../Locations';
 import { formatRange } from '../utils';
@@ -147,7 +150,7 @@ export type StatsScreenProps = StatsScreenLocationProps | StatsScreenAllLocation
 /**
  * Component that renders the stats screen.
  */
-export function StatsScreen(props: StatsScreenProps) {
+export const StatsScreen = observer((props: StatsScreenProps) => {
     const {
         type,
         title,
@@ -160,6 +163,8 @@ export function StatsScreen(props: StatsScreenProps) {
         onRangeChange,
         onDisableChange,
     } = props;
+
+    const { telemetryStore } = useContext(rootStore);
 
     const headerRef = useRef<HTMLDivElement>(null);
 
@@ -181,6 +186,10 @@ export function StatsScreen(props: StatsScreenProps) {
     };
 
     const handleEnableClick = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.EnableStatsClick,
+            TelemetryScreenName.ContextBasedScreen,
+        );
         onDisableChange(false);
     };
 
@@ -300,4 +309,4 @@ export function StatsScreen(props: StatsScreenProps) {
             )}
         </div>
     );
-}
+});

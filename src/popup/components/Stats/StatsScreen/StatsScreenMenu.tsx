@@ -52,7 +52,8 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
 
     const canSendSettingsTelemetry = isMenuOpen
         && !isWhySafeModalOpen // `WhySafeScreen` is rendered on top of this screen
-        && !isClearModalOpen; // `ClearStatsScreen` is rendered on top of this screen
+        && !isClearModalOpen // `ClearStatsScreen` is rendered on top of this screen
+        && !isDisableModalOpen; // `DisableStatsScreen` is rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -66,7 +67,11 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         isWhySafeModalOpen,
     );
 
-    // FIXME: Clarify is telemetry screen event needed or not for disable modal
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DisableStatsScreen,
+        isDisableModalOpen,
+    );
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -116,7 +121,10 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
     };
 
     const openDisableModal = () => {
-        // FIXME: Clarify is telemetry click event needed or not for disable modal
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.OpenDisableStatsClick,
+            TelemetryScreenName.SettingsStatsScreen,
+        );
         setIsDisableModalOpen(true);
     };
 
@@ -125,7 +133,10 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
     };
 
     const handleDisableClick = () => {
-        // FIXME: Clarify is telemetry click event needed or not for disable modal
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.DisableStatsClick,
+            TelemetryScreenName.DisableStatsScreen,
+        );
         closeDisableModal();
         onDisableChange(true);
     };
