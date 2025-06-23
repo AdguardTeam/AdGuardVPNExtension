@@ -558,8 +558,12 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     public updateDuration = async (locationId: string): Promise<void> => {
         this.assertInitialized();
 
-        this.updateLastSession(locationId);
-        await this.saveStatistics();
+        const locationData = this.updateLastSession(locationId);
+
+        // save statistics if last session is updated
+        if (locationData) {
+            await this.saveStatistics();
+        }
     };
 
     /** @inheritdoc */
