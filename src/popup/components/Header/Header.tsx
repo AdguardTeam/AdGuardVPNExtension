@@ -103,11 +103,7 @@ export const Header = observer(({
                     </button>
                 )}
                 {showMenuButton && (
-                    <IconButton
-                        name="bar"
-                        size="20"
-                        onClick={handleOpenModal}
-                    />
+                    <IconButton name="sidebar-burger" onClick={handleOpenModal} />
                 )}
             </div>
         </div>
@@ -126,7 +122,7 @@ export const HeaderScreenShot = () => (
             <div className="logo" />
         </div>
         <div className="header__actions">
-            <IconButton name="bar" size="20" />
+            <IconButton name="sidebar-burger" />
         </div>
     </div>
 );

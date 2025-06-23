@@ -10,7 +10,7 @@ export const SkeletonHeader = () => {
             <div className="header__logo">
                 <div className="logo" />
             </div>
-            <IconButton name="bar" size="20" />
+            <IconButton name="sidebar-burger" size="20" />
         </div>
     );
 };
