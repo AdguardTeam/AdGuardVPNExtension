@@ -19,6 +19,7 @@ export const Stats = observer(() => {
         isStatsDisabled,
         isMenuOpen,
         isWhySafeModalOpen,
+        isDisableModalOpen,
         isClearModalOpen,
         totalUsage,
         locations,
@@ -36,6 +37,7 @@ export const Stats = observer(() => {
     // These screens are rendered on top of `StatsScreen` / `LocationScreen` screens
     const isOverlappedWithScreen = isMenuOpen // `SettingsStatsScreen`
         || isWhySafeModalOpen // `WhySafeScreen`
+        || isDisableModalOpen // `DisableStatsScreen`
         || isClearModalOpen; // `ClearStatsScreen`
 
     const canSendStatsTelemetry = shouldRenderStatsScreen
