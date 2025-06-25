@@ -345,7 +345,13 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             const [startedTimestamp, endedTimestamp] = sessions[i];
 
             // skip if session is not valid
-            if (startedTimestamp >= endedTimestamp || startedTimestamp < 0 || endedTimestamp < 0) {
+            if (
+                startedTimestamp >= endedTimestamp
+                || startedTimestamp < 0
+                || endedTimestamp < 0
+                || startedTimestamp > timestamp
+                || endedTimestamp > timestamp
+            ) {
                 indicesToDelete.add(i);
                 continue;
             }
@@ -405,7 +411,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             const date = keyToDate(key);
 
             // delete and skip if date is not valid
-            if (!date) {
+            if (!date || date.getTime() >= timestamp) {
                 indicesToDelete.add(i);
                 continue;
             }
