@@ -258,11 +258,13 @@ export const StatsScreen = observer((props: StatsScreenProps) => {
                         className="stats-screen__navbar-btn"
                         onClick={onBackClick}
                     />
-                    <StatsScreenMenu
-                        isDisabled={isDisabled}
-                        onDisableChange={onDisableChange}
-                        onClear={onClear}
-                    />
+                    {isMainScreen && (
+                        <StatsScreenMenu
+                            isDisabled={isDisabled}
+                            onDisableChange={onDisableChange}
+                            onClear={onClear}
+                        />
+                    )}
                 </div>
                 <div className="stats-screen__header-content">
                     {flagNode}
