@@ -13,6 +13,7 @@ import {
 } from '../../background/statistics/statisticsTypes';
 import { messenger } from '../../common/messenger';
 import { log } from '../../common/logger';
+import { MEGABYTE_BYTES } from '../components/Stats/utils';
 
 import { type RootStore } from './RootStore';
 import { type LocationData } from './VpnStore';
@@ -175,40 +176,51 @@ export class StatsStore {
     /**
      * Update statistics data after range update.
      *
-     * @param rangeStatistics Statistics data for the selected range,
-     * if `null` then it will reset the statistics data to default values.
+     * @param statisticsByRange Statistics data for the selected range.
      */
-    @action setStatisticsByRange = (rangeStatistics: StatisticsByRange) => {
+    @action setStatisticsByRange = (statisticsByRange: StatisticsByRange) => {
         const {
             isDisabled,
             startedTimestamp,
             total,
             locations,
-        } = rangeStatistics;
+        } = statisticsByRange;
 
-        const newLocations: LocationUsage[] = [];
+        const enrichedLocations: LocationUsage[] = [];
         for (let i = 0; i < locations.length; i += 1) {
             const { locationId, data } = locations[i];
+
+            // Skip locations that have small data usage
+            if (
+                data.downloadedBytes < MEGABYTE_BYTES
+                && data.uploadedBytes < MEGABYTE_BYTES
+            ) {
+                // eslint-disable-next-line no-continue
+                continue;
+            }
+
             const locationData = this.rootStore.vpnStore.locations.find(
                 (location) => location.id === locationId,
             );
 
             if (locationData) {
-                newLocations.push({
+                enrichedLocations.push({
                     location: locationData,
                     usage: data,
                 });
             }
         }
 
-        newLocations.sort((a, b) => {
+        enrichedLocations.sort((a, b) => {
             // If downloaded data is equal, sort by uploaded data
             if (a.usage.downloadedBytes === b.usage.downloadedBytes) {
                 // If uploaded data is also equal, sort by duration
                 if (a.usage.uploadedBytes === b.usage.uploadedBytes) {
+                    // Sort by duration data in descending order
                     return b.usage.durationMs - a.usage.durationMs;
                 }
 
+                // Sort by uploaded data in descending order
                 return b.usage.uploadedBytes - a.usage.uploadedBytes;
             }
 
@@ -219,7 +231,7 @@ export class StatsStore {
         this.isStatsDisabled = isDisabled;
         this.firstStatsDate = new Date(startedTimestamp);
         this.totalUsage = total;
-        this.locations = newLocations;
+        this.locations = enrichedLocations;
     };
 
     /**
