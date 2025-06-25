@@ -197,7 +197,7 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
     return (
         <>
             <Select
-                titleIcon={<Icon name="sidebar-burger" />}
+                titleIcon={<Icon name="bullets" />}
                 value={MenuActions.None}
                 className="stats-screen__select stats-screen__select--menu"
                 options={menuOptions}

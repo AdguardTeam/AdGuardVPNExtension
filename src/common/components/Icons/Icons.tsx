@@ -262,6 +262,10 @@ export const Icons = () => (
             <path id="Path 14 Copy" d="M11.997 16.4045C12.009 16.4025 11.997 16.5955 11.997 16.5955" stroke="#D58500" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
+        <symbol id="bullets" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3ZM12 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3ZM12 20a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
+        </symbol>
+
         {/* Common icons */}
         <symbol
             id="arrow-down"
