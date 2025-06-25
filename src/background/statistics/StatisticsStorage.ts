@@ -3,7 +3,6 @@
 import throttle from 'lodash/throttle';
 import { utc } from '@date-fns/utc';
 import { isSameHour } from 'date-fns/isSameHour';
-import onChange from 'on-change';
 
 import { ONE_DAY_MS } from '../../common/constants';
 import { log } from '../../common/logger';
@@ -197,15 +196,6 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private statistics: Statistics;
 
     /**
-     * Mutex flag to prevent unnecessary writes to storage.
-     * This value is `true` when statistics data is changed and write is allowed.
-     *
-     * NOTE: Do not change this flag manually, because this flag is changed
-     * only when proxy detects changes in statistics data.
-     */
-    private isStatisticsChanged = false;
-
-    /**
      * Flag indicating whether telemetry module is initialized or not.
      */
     private isInitialized = false;
@@ -242,27 +232,16 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Saves the statistics to local storage.
      */
     private async saveStatistics(): Promise<void> {
-        // skip saving if nothing changed
-        if (!this.isStatisticsChanged) {
-            return;
-        }
-
         try {
-            // save original un-proxied statistics data to local storage,
-            // because when browser serializes proxied data, it converts
-            // it to plain object and breaks storage shape
             await this.storage.set<Statistics>(
                 StatisticsStorage.STATISTICS_STORAGE_KEY,
-                onChange.target(this.statistics),
+                this.statistics,
             );
 
             // notify listeners about statistics update,
             // we do it only after statistics is saved
             // to not trigger UI updates every time statistics is changed
             notifier.notifyListeners(notifier.types.STATS_UPDATED);
-
-            // mark statistics as unchanged
-            this.isStatisticsChanged = false;
         } catch (e) {
             log.error('Unable to save statistics storage, due to error:', e);
         }
@@ -276,26 +255,17 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * After that, it saves the statistics to local storage.
      */
     private async gainStatistics(): Promise<void> {
-        let statistics = await this.storage.get<Statistics>(
+        const statistics = await this.storage.get<Statistics>(
             StatisticsStorage.STATISTICS_STORAGE_KEY,
         );
 
-        // We are passing arrow function to onChange,
-        // because `onChange` will re-bind `this` to the proxied object,
-        // so we need to use arrow function to keep the context of `this`.
-        const handleStatisticsChanged = () => {
-            this.isStatisticsChanged = true;
-        };
-
         if (!statistics) {
-            statistics = {
+            this.statistics = {
                 locations: {},
                 startedTimestamp: Date.now(),
             };
-            this.statistics = onChange(statistics, handleStatisticsChanged);
-            this.isStatisticsChanged = true;
         } else {
-            this.statistics = onChange(statistics, handleStatisticsChanged);
+            this.statistics = statistics;
             this.updateStaleStatistics();
         }
 
