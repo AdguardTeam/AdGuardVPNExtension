@@ -7,20 +7,21 @@
 export type StatisticsDataTuple = [number, number];
 
 /**
+ * Tuple representing statistics both data and duration.
+ * It contains:
+ * 1. Number of bytes downloaded
+ * 2. Number of bytes uploaded
+ * 3. Duration of connection
+ */
+export type StatisticsTuple = [number, number, number];
+
+/**
  * Tuple representing hourly based statistics data.
  * It contains:
  * 1. Datetime in the format `'YYYY-MM-DD-HH'` (UTC+0)
  * 2. Statistics data
  */
 export type StatisticsHourlyTuple = [string, StatisticsDataTuple];
-
-/**
- * Tuple representing daily based statistics data.
- * It contains:
- * 1. Date in the format `'YYYY-MM-DD'` (UTC+0)
- * 2. Statistics data
- */
-export type StatisticsDailyTuple = [string, StatisticsDataTuple];
 
 /**
  * Tuple representing connection session data.
@@ -35,22 +36,10 @@ export type StatisticsSessionTuple = [number, number];
  */
 export interface StatisticsLocationData {
     /**
-     * Hourly based statistics data.
-     * It stores statistics data for past 25 hours.
+     * Hourly statistics data.
+     * It stores statistics data for every hour of the past 30 days.
      */
     hourly: StatisticsHourlyTuple[];
-
-    /**
-     * Daily based statistics data.
-     * It stores statistics data for past 31 days.
-     */
-    daily: StatisticsDailyTuple[];
-
-    /**
-     * Total statistics data.
-     * It stores statistics data for dates that are older than 31 days.
-     */
-    total: StatisticsDataTuple;
 
     /**
      * Connection sessions data.
@@ -59,10 +48,10 @@ export interface StatisticsLocationData {
     sessions: StatisticsSessionTuple[];
 
     /**
-     * Total connection duration in milliseconds for the location.
-     * It stores the total duration for sessions that are older than 30 days.
+     * Total statistics data.
+     * It stores the total statistics data and duration for dates and sessions that are older than 30 days.
      */
-    totalDurationMs: number;
+    total: StatisticsTuple;
 
     /**
      * Last connection session data.

@@ -1,6 +1,7 @@
 import { StatisticsStorage } from '../../../src/background/statistics/StatisticsStorage';
 import {
     type Statistics,
+    type StatisticsTuple,
     type StatisticsDataTuple,
     type StatisticsSessionTuple,
     type StatisticsLocationsStorage,
@@ -47,6 +48,25 @@ describe('StatisticsStorage', () => {
     ): StatisticsDataTuple => ([
         downloadedBytes,
         uploadedBytes,
+    ]);
+
+    /**
+     * Get statistics total data for testing.
+     *
+     * @param downloadedBytes Number of bytes downloaded.
+     * @param uploadedBytes Number of bytes uploaded (Default is `downloadedBytes`).
+     * @param durationMs Number of duration milliseconds.
+     *
+     * @returns Statistics data.
+     */
+    const getTotalData = (
+        downloadedBytes: number,
+        uploadedBytes = downloadedBytes,
+        durationMs = downloadedBytes,
+    ): StatisticsTuple => ([
+        downloadedBytes,
+        uploadedBytes,
+        durationMs,
     ]);
 
     /**
@@ -116,372 +136,259 @@ describe('StatisticsStorage', () => {
              * Expected data after processing the input.
              */
             expected: StatisticsLocationsStorage;
-
-            /**
-             * If true, the data should not be saved to storage.
-             */
-            shouldNotSave?: boolean;
         };
 
-        const locationId1 = 'locationId1';
-        const locationId2 = 'locationId2';
-
+        const locationId = 'locationId';
         const NOW = systemDate.getTime();
         const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
         const THRESHOLD_TIMESTAMP = NOW - THIRTY_DAYS_MS;
 
         const cases: [string, OptimizationCase][] = [
-            ['data - should move from hourly to daily properly', {
+            ['data - should move from hourly to total properly', {
                 storage: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [
-                            // should accumulate same day hourly
-                            ['2025-09-28-10', getData(1, 2)],
+                            ['2025-09-01-09', getData(1, 2)],
                             ['2025-09-28-23', getData(3, 2)],
-                            // should be moved to daily (24 hours passed)
                             ['2025-09-29-01', getData(3)],
-                            // should be moved to daily (24 hours passed - close time)
                             ['2025-09-30-09', getData(2)],
-                            // edge case: should not be moved to daily (24 hours passed, but it's border time)
-                            ['2025-09-30-10', getData(3)],
-                            // should not be moved to daily (24 hours not passed)
-                            ['2025-09-30-11', getData(3, 2)],
-                        ],
-                        daily: [],
-                        total: getData(0),
-                        sessions: [],
-                        totalDurationMs: 0,
-                    },
-                    // should check different locations
-                    [locationId2]: {
-                        hourly: [
-                            // should be moved to daily (24 hours passed)
-                            ['2025-09-15-23', getData(1)],
-                        ],
-                        daily: [],
-                        total: getData(0),
-                        sessions: [],
-                        totalDurationMs: 0,
-                    },
-                },
-                expected: {
-                    [locationId1]: {
-                        hourly: [
                             ['2025-09-30-10', getData(3)],
                             ['2025-09-30-11', getData(3, 2)],
                         ],
-                        daily: [
-                            ['2025-09-28', getData(4)],
-                            ['2025-09-29', getData(3)],
-                            ['2025-09-30', getData(2)],
-                        ],
-                        total: getData(0),
                         sessions: [],
-                        totalDurationMs: 0,
-                    },
-                    [locationId2]: {
-                        hourly: [],
-                        daily: [
-                            ['2025-09-15', getData(1)],
-                        ],
-                        total: getData(0),
-                        sessions: [],
-                        totalDurationMs: 0,
+                        total: getTotalData(0),
                     },
                 },
-            }],
-            ['data - should store past 24 hours only', {
-                storage: {
-                    [locationId1]: {
+                expected: {
+                    [locationId]: {
                         hourly: [
-                            ['2025-09-30-08', getData(1)], // <-- should be moved to daily
-                            ['2025-09-30-09', getData(1)], // <-- should be moved to daily
-                            ['2025-09-30-10', getData(1)],
-                            ['2025-09-30-11', getData(1)],
-                            ['2025-09-30-12', getData(1)],
-                            ['2025-09-30-13', getData(1)],
-                            ['2025-09-30-14', getData(1)],
-                            ['2025-09-30-15', getData(1)],
-                            ['2025-09-30-16', getData(1)],
-                            ['2025-09-30-17', getData(1)],
-                            ['2025-09-30-18', getData(1)],
-                            ['2025-09-30-19', getData(1)],
-                            ['2025-09-30-20', getData(1)],
-                            ['2025-09-30-21', getData(1)],
-                            ['2025-09-30-22', getData(1)],
-                            ['2025-09-30-23', getData(1)],
-                            ['2025-10-01-00', getData(1)],
-                            ['2025-10-01-01', getData(1)],
-                            ['2025-10-01-02', getData(1)],
-                            ['2025-10-01-03', getData(1)],
-                            ['2025-10-01-04', getData(1)],
-                            ['2025-10-01-05', getData(1)],
-                            ['2025-10-01-06', getData(1)],
-                            ['2025-10-01-07', getData(1)],
-                            ['2025-10-01-08', getData(1)],
-                            ['2025-10-01-09', getData(1)],
-                            ['2025-10-01-10', getData(1)],
+                            ['2025-09-28-23', getData(3, 2)],
+                            ['2025-09-29-01', getData(3)],
+                            ['2025-09-30-09', getData(2)],
+                            ['2025-09-30-10', getData(3)],
+                            ['2025-09-30-11', getData(3, 2)],
                         ],
-                        daily: [],
-                        total: getData(0),
                         sessions: [],
-                        totalDurationMs: 0,
+                        total: getTotalData(1, 2, 0),
                     },
                 },
-                expected: {
-                    [locationId1]: {
+            }],
+            ['data - all hourly data is older than threshold (everything moves to total)', {
+                storage: {
+                    [locationId]: {
                         hourly: [
-                            ['2025-09-30-10', getData(1)],
-                            ['2025-09-30-11', getData(1)],
-                            ['2025-09-30-12', getData(1)],
-                            ['2025-09-30-13', getData(1)],
-                            ['2025-09-30-14', getData(1)],
-                            ['2025-09-30-15', getData(1)],
-                            ['2025-09-30-16', getData(1)],
-                            ['2025-09-30-17', getData(1)],
-                            ['2025-09-30-18', getData(1)],
-                            ['2025-09-30-19', getData(1)],
-                            ['2025-09-30-20', getData(1)],
-                            ['2025-09-30-21', getData(1)],
-                            ['2025-09-30-22', getData(1)],
-                            ['2025-09-30-23', getData(1)],
-                            ['2025-10-01-00', getData(1)],
-                            ['2025-10-01-01', getData(1)],
-                            ['2025-10-01-02', getData(1)],
-                            ['2025-10-01-03', getData(1)],
-                            ['2025-10-01-04', getData(1)],
-                            ['2025-10-01-05', getData(1)],
-                            ['2025-10-01-06', getData(1)],
-                            ['2025-10-01-07', getData(1)],
-                            ['2025-10-01-08', getData(1)],
-                            ['2025-10-01-09', getData(1)],
-                            ['2025-10-01-10', getData(1)],
+                            ['2025-08-01-09', getData(10, 5)],
+                            ['2025-08-10-23', getData(20, 15)],
+                            ['2025-08-15-01', getData(30, 25)],
                         ],
-                        daily: [
-                            ['2025-09-30', getData(2)],
-                        ],
-                        total: getData(0),
                         sessions: [],
-                        totalDurationMs: 0,
-                    },
-                },
-            }],
-            ['data - should move from daily to total properly', {
-                storage: {
-                    [locationId1]: {
-                        hourly: [],
-                        // should accumulate total
-                        daily: [
-                            // should be moved to total (30 days passed)
-                            ['2025-08-01', getData(3)],
-                            // should be moved to total (30 days passed - close date)
-                            ['2025-08-31', getData(2)],
-                            // edge case: should not be moved to total (30 days passed, but it's border time)
-                            ['2025-09-01', getData(2)],
-                            // should not be moved to total (30 days not passed)
-                            ['2025-09-30', getData(3, 2)],
-                        ],
-                        total: getData(0),
-                        sessions: [],
-                        totalDurationMs: 0,
-                    },
-                    // should check different locations
-                    [locationId2]: {
-                        hourly: [],
-                        daily: [
-                            // should be moved to total (30 days passed)
-                            ['2025-08-31', getData(1)],
-                        ],
-                        total: getData(0),
-                        sessions: [],
-                        totalDurationMs: 0,
+                        total: getTotalData(5, 5, 0),
                     },
                 },
                 expected: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [
-                            ['2025-09-01', getData(2)],
-                            ['2025-09-30', getData(3, 2)],
-                        ],
-                        total: getData(5),
                         sessions: [],
-                        totalDurationMs: 0,
-                    },
-                    [locationId2]: {
-                        hourly: [],
-                        daily: [],
-                        total: getData(1),
-                        sessions: [],
-                        totalDurationMs: 0,
+                        total: getTotalData(65, 50, 0),
                     },
                 },
             }],
-            ['data - should store past 30 days only', {
+            ['data - all hourly data is newer than threshold (nothing moves to total)', {
                 storage: {
-                    [locationId1]: {
-                        hourly: [],
-                        daily: [
-                            ['2025-08-29', getData(1)], // <-- should be moved to total
-                            ['2025-08-30', getData(1)], // <-- should be moved to total
-                            ['2025-08-31', getData(1)], // <-- should be moved to total
-                            ['2025-09-01', getData(1)],
-                            ['2025-09-02', getData(1)],
-                            ['2025-09-03', getData(1)],
-                            ['2025-09-04', getData(1)],
-                            ['2025-09-05', getData(1)],
-                            ['2025-09-06', getData(1)],
-                            ['2025-09-07', getData(1)],
-                            ['2025-09-08', getData(1)],
-                            ['2025-09-09', getData(1)],
-                            ['2025-09-10', getData(1)],
-                            ['2025-09-11', getData(1)],
-                            ['2025-09-12', getData(1)],
-                            ['2025-09-13', getData(1)],
-                            ['2025-09-14', getData(1)],
-                            ['2025-09-15', getData(1)],
-                            ['2025-09-16', getData(1)],
-                            ['2025-09-17', getData(1)],
-                            ['2025-09-18', getData(1)],
-                            ['2025-09-19', getData(1)],
-                            ['2025-09-20', getData(1)],
-                            ['2025-09-21', getData(1)],
-                            ['2025-09-22', getData(1)],
-                            ['2025-09-23', getData(1)],
-                            ['2025-09-24', getData(1)],
-                            ['2025-09-25', getData(1)],
-                            ['2025-09-26', getData(1)],
-                            ['2025-09-27', getData(1)],
-                            ['2025-09-28', getData(1)],
-                            ['2025-09-29', getData(1)],
-                            ['2025-09-30', getData(1)],
-                            ['2025-10-01', getData(1)],
+                    [locationId]: {
+                        hourly: [
+                            ['2025-09-28-23', getData(3, 2)],
+                            ['2025-09-29-01', getData(3)],
+                            ['2025-09-30-09', getData(2)],
                         ],
-                        total: getData(0),
                         sessions: [],
-                        totalDurationMs: 0,
+                        total: getTotalData(10, 10, 0),
                     },
                 },
                 expected: {
-                    [locationId1]: {
-                        hourly: [],
-                        daily: [
-                            ['2025-09-01', getData(1)],
-                            ['2025-09-02', getData(1)],
-                            ['2025-09-03', getData(1)],
-                            ['2025-09-04', getData(1)],
-                            ['2025-09-05', getData(1)],
-                            ['2025-09-06', getData(1)],
-                            ['2025-09-07', getData(1)],
-                            ['2025-09-08', getData(1)],
-                            ['2025-09-09', getData(1)],
-                            ['2025-09-10', getData(1)],
-                            ['2025-09-11', getData(1)],
-                            ['2025-09-12', getData(1)],
-                            ['2025-09-13', getData(1)],
-                            ['2025-09-14', getData(1)],
-                            ['2025-09-15', getData(1)],
-                            ['2025-09-16', getData(1)],
-                            ['2025-09-17', getData(1)],
-                            ['2025-09-18', getData(1)],
-                            ['2025-09-19', getData(1)],
-                            ['2025-09-20', getData(1)],
-                            ['2025-09-21', getData(1)],
-                            ['2025-09-22', getData(1)],
-                            ['2025-09-23', getData(1)],
-                            ['2025-09-24', getData(1)],
-                            ['2025-09-25', getData(1)],
-                            ['2025-09-26', getData(1)],
-                            ['2025-09-27', getData(1)],
-                            ['2025-09-28', getData(1)],
-                            ['2025-09-29', getData(1)],
-                            ['2025-09-30', getData(1)],
-                            ['2025-10-01', getData(1)],
+                    [locationId]: {
+                        hourly: [
+                            ['2025-09-28-23', getData(3, 2)],
+                            ['2025-09-29-01', getData(3)],
+                            ['2025-09-30-09', getData(2)],
                         ],
-                        total: getData(3),
                         sessions: [],
-                        totalDurationMs: 0,
+                        total: getTotalData(10, 10, 0),
+                    },
+                },
+            }],
+            ['data - with invalid date formats in hourly data (should be removed)', {
+                storage: {
+                    [locationId]: {
+                        hourly: [
+                            ['invalid-date', getData(10, 5)],
+                            ['2025-09-28-23', getData(3, 2)],
+                            ['malformed-2025-01', getData(20, 15)],
+                            ['2025-09-30-09', getData(2)],
+                        ],
+                        sessions: [],
+                        total: getTotalData(5, 5, 0),
+                    },
+                },
+                expected: {
+                    [locationId]: {
+                        hourly: [
+                            ['2025-09-28-23', getData(3, 2)],
+                            ['2025-09-30-09', getData(2)],
+                        ],
+                        sessions: [],
+                        total: getTotalData(5, 5, 0),
+                    },
+                },
+            }],
+            ['data - with future dates in hourly data (should be removed)', {
+                storage: {
+                    [locationId]: {
+                        hourly: [
+                            ['2025-09-28-23', getData(3, 2)],
+                            ['2025-12-31-23', getData(10, 5)], // Future date compared to NOW
+                            ['2025-09-30-09', getData(2)],
+                        ],
+                        sessions: [],
+                        total: getTotalData(5, 5, 0),
+                    },
+                },
+                expected: {
+                    [locationId]: {
+                        hourly: [
+                            ['2025-09-28-23', getData(3, 2)],
+                            ['2025-09-30-09', getData(2)],
+                        ],
+                        sessions: [],
+                        total: getTotalData(5, 5, 0),
+                    },
+                },
+            }],
+            ['data - with empty hourly data (nothing to move)', {
+                storage: {
+                    [locationId]: {
+                        hourly: [],
+                        sessions: [],
+                        total: getTotalData(10, 10, 0),
+                    },
+                },
+                expected: {
+                    [locationId]: {
+                        hourly: [],
+                        sessions: [],
+                        total: getTotalData(10, 10, 0),
+                    },
+                },
+            }],
+            ['data - edge case with data exactly at threshold (should not move)', {
+                storage: {
+                    [locationId]: {
+                        hourly: [
+                            // Date exactly at threshold (30 days ago)
+                            ['2025-09-01-10', getData(5, 3)],
+                            ['2025-09-30-09', getData(2)],
+                        ],
+                        sessions: [],
+                        total: getTotalData(10, 10, 0),
+                    },
+                },
+                expected: {
+                    [locationId]: {
+                        hourly: [
+                            ['2025-09-01-10', getData(5, 3)],
+                            ['2025-09-30-09', getData(2)],
+                        ],
+                        sessions: [],
+                        total: getTotalData(10, 10, 0),
+                    },
+                },
+            }],
+            ['data - mixed case with old, threshold, and new data', {
+                storage: {
+                    [locationId]: {
+                        hourly: [
+                            ['2025-08-01-09', getData(10, 5)], // Old data (to be moved)
+                            ['2025-09-01-10', getData(5, 3)], // At threshold (keep)
+                            ['2025-09-30-09', getData(2)], // New data (keep)
+                        ],
+                        sessions: [],
+                        total: getTotalData(5, 5, 0),
+                    },
+                },
+                expected: {
+                    [locationId]: {
+                        hourly: [
+                            ['2025-09-01-10', getData(5, 3)],
+                            ['2025-09-30-09', getData(2)],
+                        ],
+                        sessions: [],
+                        total: getTotalData(15, 10, 0), // Added old data to total
                     },
                 },
             }],
 
             ['duration - fully outdated session', {
                 storage: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             getSession(THRESHOLD_TIMESTAMP - 2000, THRESHOLD_TIMESTAMP - 1000),
                         ],
-                        totalDurationMs: 0,
+                        total: getTotalData(0),
                     },
                 },
                 expected: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [],
-                        totalDurationMs: 1000,
+                        total: getTotalData(0, 0, 1000),
                     },
                 },
             }],
             ['duration - partially outdated session', {
                 storage: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             getSession(THRESHOLD_TIMESTAMP - 1000, THRESHOLD_TIMESTAMP + 1000),
                         ],
-                        totalDurationMs: 0,
+                        total: getTotalData(0),
                     },
                 },
                 expected: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             getSession(THRESHOLD_TIMESTAMP, THRESHOLD_TIMESTAMP + 1000),
                         ],
-                        totalDurationMs: 1000,
+                        total: getTotalData(0, 0, 1000),
                     },
                 },
             }],
             ['duration - not outdated session', {
                 storage: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             getSession(THRESHOLD_TIMESTAMP + 1000, THRESHOLD_TIMESTAMP + 2000),
                         ],
-                        totalDurationMs: 0,
+                        total: getTotalData(0),
                     },
                 },
                 expected: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             getSession(THRESHOLD_TIMESTAMP + 1000, THRESHOLD_TIMESTAMP + 2000),
                         ],
-                        totalDurationMs: 0,
+                        total: getTotalData(0),
                     },
                 },
-                shouldNotSave: true, // should not save if no changes
             }],
             ['duration - mixed multiple sessions (fully, partially, not outdated)', {
                 storage: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             // fully outdated (1000ms)
                             getSession(THRESHOLD_TIMESTAMP - 3000, THRESHOLD_TIMESTAMP - 2000),
@@ -490,28 +397,24 @@ describe('StatisticsStorage', () => {
                             // not outdated
                             getSession(THRESHOLD_TIMESTAMP + 2000, THRESHOLD_TIMESTAMP + 3000),
                         ],
-                        totalDurationMs: 100,
+                        total: getTotalData(0, 0, 100),
                     },
                 },
                 expected: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             getSession(THRESHOLD_TIMESTAMP, THRESHOLD_TIMESTAMP + 1000),
                             getSession(THRESHOLD_TIMESTAMP + 2000, THRESHOLD_TIMESTAMP + 3000),
                         ],
-                        totalDurationMs: 100 + 1000 + 1000, // 1200
+                        total: getTotalData(0, 0, 100 + 1000 + 1000), // 1200
                     },
                 },
             }],
             ['duration - invalid sessions', {
                 storage: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             // started > ended
                             getSession(THRESHOLD_TIMESTAMP + 1000, THRESHOLD_TIMESTAMP + 500),
@@ -520,79 +423,63 @@ describe('StatisticsStorage', () => {
                             // negative endedTimestamp
                             getSession(THRESHOLD_TIMESTAMP + 500, -100),
                         ],
-                        totalDurationMs: 0,
+                        total: getTotalData(0),
                     },
                 },
                 expected: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [],
-                        totalDurationMs: 0,
+                        total: getTotalData(0),
                     },
                 },
             }],
             ['duration - session ends exactly at threshold', {
                 storage: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             getSession(THRESHOLD_TIMESTAMP - 1000, THRESHOLD_TIMESTAMP),
                         ],
-                        totalDurationMs: 0,
+                        total: getTotalData(0),
                     },
                 },
                 expected: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [],
-                        totalDurationMs: 1000,
+                        total: getTotalData(0, 0, 1000),
                     },
                 },
             }],
             ['duration - session starts exactly at threshold', {
                 storage: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             getSession(THRESHOLD_TIMESTAMP, THRESHOLD_TIMESTAMP + 1000),
                         ],
-                        totalDurationMs: 0,
+                        total: getTotalData(0),
                     },
                 },
                 expected: {
-                    [locationId1]: {
+                    [locationId]: {
                         hourly: [],
-                        daily: [],
-                        total: getData(0),
                         sessions: [
                             getSession(THRESHOLD_TIMESTAMP, THRESHOLD_TIMESTAMP + 1000),
                         ],
-                        totalDurationMs: 0,
+                        total: getTotalData(0),
                     },
                 },
-                shouldNotSave: true,
             }],
         ];
 
-        it.each(cases)('should optimize storage properly %s', async (caseName, { storage, expected, shouldNotSave }) => {
+        it.each(cases)('should optimize storage properly %s', async (caseName, { storage, expected }) => {
             storageMock.get.mockResolvedValueOnce(getStatistics(storage));
 
             await statisticsStorage.init();
-
-            if (shouldNotSave) {
-                expect(storageMock.set).toHaveBeenCalledTimes(0);
-            } else {
-                expect(storageMock.set).toHaveBeenCalledTimes(1);
-                expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics(expected));
-            }
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics(expected));
         });
     });
 
@@ -606,21 +493,23 @@ describe('StatisticsStorage', () => {
 
             await statisticsStorage.init();
 
+            // for init
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+
             await statisticsStorage.addTraffic(locationId, {
                 downloadedBytes,
                 uploadedBytes,
             });
 
-            expect(storageMock.set).toHaveBeenCalledTimes(1);
+            // for addTraffic
+            expect(storageMock.set).toHaveBeenCalledTimes(2);
             expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics({
                 [locationId]: {
                     hourly: [
                         ['2025-10-01-10', getData(downloadedBytes, uploadedBytes)],
                     ],
-                    daily: [],
-                    total: getData(0),
                     sessions: [],
-                    totalDurationMs: 0,
+                    total: getTotalData(0),
                 },
             }));
         });
@@ -632,34 +521,33 @@ describe('StatisticsStorage', () => {
 
             await statisticsStorage.init();
 
-            await statisticsStorage.startDuration(locationId);
-
-            // for startDuration
             expect(storageMock.set).toHaveBeenCalledTimes(1);
-            expect(storageMock.set).toHaveBeenNthCalledWith(1, expect.any(String), getStatistics({
-                [locationId]: {
-                    hourly: [],
-                    daily: [],
-                    total: getData(0),
-                    lastSession: [systemDate.getTime(), systemDate.getTime()],
-                    sessions: [],
-                    totalDurationMs: 0,
-                },
-            }));
 
-            jest.advanceTimersByTime(1000);
-            await statisticsStorage.updateDuration(locationId);
+            // for init
+            await statisticsStorage.startDuration(locationId);
 
             // for startDuration
             expect(storageMock.set).toHaveBeenCalledTimes(2);
             expect(storageMock.set).toHaveBeenNthCalledWith(2, expect.any(String), getStatistics({
                 [locationId]: {
                     hourly: [],
-                    daily: [],
-                    total: getData(0),
-                    lastSession: [systemDate.getTime(), systemDate.getTime() + 1000],
                     sessions: [],
-                    totalDurationMs: 0,
+                    total: getTotalData(0),
+                    lastSession: [systemDate.getTime(), systemDate.getTime()],
+                },
+            }));
+
+            jest.advanceTimersByTime(1000);
+            await statisticsStorage.updateDuration(locationId);
+
+            // for updateDuration
+            expect(storageMock.set).toHaveBeenCalledTimes(3);
+            expect(storageMock.set).toHaveBeenNthCalledWith(3, expect.any(String), getStatistics({
+                [locationId]: {
+                    hourly: [],
+                    sessions: [],
+                    total: getTotalData(0),
+                    lastSession: [systemDate.getTime(), systemDate.getTime() + 1000],
                 },
             }));
 
@@ -667,16 +555,14 @@ describe('StatisticsStorage', () => {
             await statisticsStorage.endDuration(locationId);
 
             // for endDuration
-            expect(storageMock.set).toHaveBeenCalledTimes(3);
-            expect(storageMock.set).toHaveBeenNthCalledWith(3, expect.any(String), getStatistics({
+            expect(storageMock.set).toHaveBeenCalledTimes(4);
+            expect(storageMock.set).toHaveBeenNthCalledWith(4, expect.any(String), getStatistics({
                 [locationId]: {
                     hourly: [],
-                    daily: [],
-                    total: getData(0),
                     sessions: [
                         [systemDate.getTime(), systemDate.getTime() + 2000],
                     ],
-                    totalDurationMs: 0,
+                    total: getTotalData(0),
                 },
             }));
         });
@@ -687,14 +573,10 @@ describe('StatisticsStorage', () => {
                     hourly: [
                         ['2025-10-01-10', getData(1)],
                     ],
-                    daily: [
-                        ['2025-10-01', getData(2)],
-                    ],
-                    total: getData(3),
                     sessions: [
                         getSession(systemDate.getTime() - 1000, systemDate.getTime()),
                     ],
-                    totalDurationMs: 1000,
+                    total: getTotalData(3),
                 },
             });
 
@@ -711,18 +593,15 @@ describe('StatisticsStorage', () => {
             storageMock.get.mockResolvedValueOnce(getStatistics({
                 locationId: {
                     hourly: [
+                        ['2025-08-30-09', getData(1)],
+                        ['2025-09-01-11', getData(1)],
                         ['2025-09-30-10', getData(1)],
                         ['2025-10-01-10', getData(1)],
                     ],
-                    daily: [
-                        ['2025-09-01', getData(2)],
-                        ['2025-10-01', getData(2)],
-                    ],
-                    total: getData(3),
                     sessions: [
                         getSession(systemDate.getTime() - 1000, systemDate.getTime()),
                     ],
-                    totalDurationMs: 1000,
+                    total: getTotalData(3, 3, 1000),
                 },
             }));
 
@@ -736,18 +615,14 @@ describe('StatisticsStorage', () => {
             expect(result1).toEqual(getStatistics({
                 locationId: {
                     hourly: [
+                        ['2025-09-01-11', getData(1)],
+                        ['2025-09-30-10', getData(1)],
                         ['2025-10-01-10', getData(1)],
                     ],
-                    daily: [
-                        ['2025-09-01', getData(2)],
-                        ['2025-10-01', getData(2)],
-                        ['2025-09-30', getData(1)],
-                    ],
-                    total: getData(3),
                     sessions: [
                         getSession(systemDate.getTime() - 1000, systemDate.getTime()),
                     ],
-                    totalDurationMs: 1000,
+                    total: getTotalData(4, 4, 1000),
                 },
             }));
 
@@ -758,16 +633,14 @@ describe('StatisticsStorage', () => {
 
             expect(result2).toEqual(getStatistics({
                 locationId: {
-                    hourly: [],
-                    daily: [
-                        ['2025-10-01', getData(3)],
-                        ['2025-09-30', getData(1)],
+                    hourly: [
+                        ['2025-09-30-10', getData(1)],
+                        ['2025-10-01-10', getData(1)],
                     ],
-                    total: getData(5),
                     sessions: [
                         getSession(systemDate.getTime() - 1000, systemDate.getTime()),
                     ],
-                    totalDurationMs: 1000,
+                    total: getTotalData(5, 5, 1000),
                 },
             }));
 
@@ -779,10 +652,8 @@ describe('StatisticsStorage', () => {
             expect(result3).toEqual(getStatistics({
                 locationId: {
                     hourly: [],
-                    daily: [],
-                    total: getData(9),
                     sessions: [],
-                    totalDurationMs: 2000,
+                    total: getTotalData(7, 7, 2000),
                 },
             }));
         });
@@ -793,14 +664,10 @@ describe('StatisticsStorage', () => {
                     hourly: [
                         ['2025-10-01-10', getData(1)],
                     ],
-                    daily: [
-                        ['2025-10-01', getData(2)],
-                    ],
-                    total: getData(3),
                     sessions: [
                         getSession(systemDate.getTime() - 1000, systemDate.getTime()),
                     ],
-                    totalDurationMs: 1000,
+                    total: getTotalData(3),
                 },
             }));
 

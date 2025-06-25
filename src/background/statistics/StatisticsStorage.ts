@@ -9,7 +9,7 @@ import { log } from '../../common/logger';
 import { type StorageInterface } from '../browserApi/storage';
 import { notifier } from '../../common/notifier';
 
-import { dateToKey, keyToDate } from './utils';
+import { cropTimestampMinutes, dateToKey, keyToDate } from './utils';
 import {
     type AddStatisticsDataTraffic,
     type StatisticsLocationData,
@@ -88,34 +88,21 @@ export interface StatisticsStorageParameters {
  *   - Started timestamp is used to track when the statistics collection started.
  *     It will reset when user clears the statistics.
  *   - Locations storage contains location IDs as keys, location data as values.
- *     - Location data contains hourly, daily, total statistics, sessions, total duration and optional last session.
+ *     - Location data contains hourly, total statistics, sessions, total duration and optional last session.
  *       - Hourly statistics contains datetime keys (YYYY-MM-DD-HH) and statistics data as values.
- *         Used to store statistics for the last 25 hours (inclusive).
- *       - Daily statistics contains date keys (YYYY-MM-DD) and statistics data as values.
- *         Used to store statistics older than 25 hours up to the last 31 days (inclusive).
- *       - Total statistics used to store statistics that are older than 31 days.
+ *         Used to store statistics for every hour of the last 30 days (inclusive).
  *       - Sessions contains started and ended timestamps for each session.
  *         Used to store connection sessions data for the last 30 days.
- *       - Total duration is used to store total connection duration in milliseconds.
- *         Used to store total connection duration for sessions that are older than 30 days.
+ *       - Total data and duration is used to store total connection duration and total used data.
+ *         Used to store total data for sessions that are older than 30 days.
  *       - Optional last session used to track connection duration statistics for the current session.
  *
  * Statistics implemented as time-based aggregation system:
- * - New statistics data is initially stored in hourly buckets (YYYY-MM-DD-HH).
- * - After 25 hours, hourly data is consolidated into daily buckets (YYYY-MM-DD).
- * - After 31 days, daily data is consolidated into a single 'total' record.
- *
- * The reason why we store 25 hours / 31 days of statistics instead of 24 hours / 30 days
- * is due to storage design, because we can't store statistics by minutes we lose precise
- * information about the last hour / day For example if user requests statistics
- * for 28 May 2025 22:51:30 - 29 May 2025 22:51:30, but because we store statistics by full hours,
- * we can only show statistics from 28 May 2025 22:00:00 to 29 May 2025 22:51:30,
- * or 29 May 2025 23:00:00 to 29 May 2025 22:51:30, we move towards the top edge of the hour
- * to keep the last hour data. Same applies to daily statistics.
+ * - New statistics data is initially stored in hourly bucket (YYYY-MM-DD-HH).
+ * - After 30 days, hourly data is consolidated into a single 'total' record.
  *
  * Data consolidation occurs when service worker starts ({@link init} method)
- * by checking timestamp thresholds and data from older buckets
- * is merged into the next level (hourly to daily, daily to total).
+ * by checking timestamp thresholds and data from older buckets is merged from hourly to total.
  *
  * Duration tracking works by tracking last session timestamps,
  * when connection starts - we start a session, when connection ends - we update
@@ -130,22 +117,13 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     private static readonly STATISTICS_STORAGE_KEY = 'statistics.storage';
 
     /**
-     * Time in milliseconds after which the hourly statistics are moved to daily statistics.
-     * The value is set to 24 hours.
-     */
-    private static readonly MOVE_HOURLY_STATS_AFTER_MS = ONE_DAY_MS;
-
-    /**
-     * Time in milliseconds after which the daily statistics are moved to total statistics.
+     * Time in milliseconds after which data is consolidated:
+     * - Hourly statistics are moved to total statistics.
+     * - Sessions are moved to total duration.
+     *
      * The value is set to 30 days.
      */
-    private static readonly MOVE_DAILY_STATS_AFTER_MS = 30 * ONE_DAY_MS;
-
-    /**
-     * Time in milliseconds after which session is moved from sessions array to total duration.
-     * The value is set to 30 days.
-     */
-    private static readonly MOVE_DURATION_AFTER_MS = 30 * ONE_DAY_MS;
+    private static readonly MOVE_AFTER_MS = 30 * ONE_DAY_MS;
 
     /**
      * Throttle timeout for saving statistics to local storage.
@@ -162,6 +140,11 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Index in statistics data tuple for uploaded bytes.
      */
     private static readonly UPLOADED_INDEX = 1;
+
+    /**
+     * Index in statistics tuple for duration milliseconds.
+     */
+    private static readonly DURATION_INDEX = 2;
 
     /**
      * Index in period statistics data tuple for date or datetime.
@@ -230,8 +213,11 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
     /**
      * Saves the statistics to local storage.
+     *
+     * @param shouldTriggerUpdate True if method emits STATS_UPDATED event to listeners,
+     * false otherwise. Default value is true.
      */
-    private async saveStatistics(): Promise<void> {
+    private async saveStatistics(shouldTriggerUpdate = true): Promise<void> {
         try {
             await this.storage.set<Statistics>(
                 StatisticsStorage.STATISTICS_STORAGE_KEY,
@@ -241,7 +227,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             // notify listeners about statistics update,
             // we do it only after statistics is saved
             // to not trigger UI updates every time statistics is changed
-            notifier.notifyListeners(notifier.types.STATS_UPDATED);
+            if (shouldTriggerUpdate) {
+                notifier.notifyListeners(notifier.types.STATS_UPDATED);
+            }
         } catch (e) {
             log.error('Unable to save statistics storage, due to error:', e);
         }
@@ -276,23 +264,17 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * Updates stale statistics by:
      * 1. Moving last session to sessions array and updating total duration
      *    (see {@link moveDuration} for detailed explanation),
-     * 2. Moving hourly statistics to daily statistics if 25 hours passed
-     *    (see {@link moveStatistics} for detailed explanation),
-     * 3. Moving daily statistics to total statistics if 31 days passed
-     *    (see {@link moveStatistics} for detailed explanation);
+     * 2. Moving hourly statistics to total statistics if 30 days passed
+     *    (see {@link moveStatistics} for detailed explanation).
      *
-     * Note: Order of operations described above is important,
-     * because we are moving to the top of the statistics period.
+     * @param timestamp Timestamp for which calculations should be made,
+     * if not provided Date.now() will be used.
      */
-    private updateStaleStatistics(): void {
-        // create before to make consistent calculations
-        const now = Date.now();
-
-        this.statisticsUpdatedTimestamp = now;
+    private updateStaleStatistics(timestamp = Date.now()): void {
+        this.statisticsUpdatedTimestamp = timestamp;
         Object.values(this.statistics.locations).forEach((locationData) => {
-            this.moveDuration(locationData, now);
-            this.moveStatistics(locationData, now, true);
-            this.moveStatistics(locationData, now, false);
+            this.moveDuration(locationData, timestamp);
+            this.moveStatistics(locationData, timestamp);
         });
     }
 
@@ -303,18 +285,15 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      * @param locationData Location data to move duration for.
      * @param timestamp Timestamp to compare with.
      */
-    private moveDuration(
-        locationData: StatisticsLocationData,
-        timestamp: number,
-    ): void {
-        const { sessions } = locationData;
-        const threshold = timestamp - StatisticsStorage.MOVE_DURATION_AFTER_MS;
+    private moveDuration(locationData: StatisticsLocationData, timestamp: number): void {
+        const { sessions, total } = locationData;
+        const threshold = timestamp - StatisticsStorage.MOVE_AFTER_MS;
 
         const indicesToDelete = new Set<number>();
         for (let i = 0; i < sessions.length; i += 1) {
             const [startedTimestamp, endedTimestamp] = sessions[i];
 
-            // skip if session is not valid
+            // delete and skip if session is not valid
             if (
                 startedTimestamp >= endedTimestamp
                 || startedTimestamp < 0
@@ -329,12 +308,12 @@ export class StatisticsStorage implements StatisticsStorageInterface {
             if (endedTimestamp <= threshold) {
                 // case 1: session is fully outdated, we should add its
                 // duration to total duration and remove it from sessions
-                locationData.totalDurationMs += endedTimestamp - startedTimestamp;
+                total[StatisticsStorage.DURATION_INDEX] += endedTimestamp - startedTimestamp;
                 indicesToDelete.add(i);
             } else if (startedTimestamp < threshold && endedTimestamp > threshold) {
                 // case 2: session is partially outdated, we should add partial duration
                 // to total duration and update started timestamp to threshold
-                locationData.totalDurationMs += threshold - startedTimestamp;
+                total[StatisticsStorage.DURATION_INDEX] += threshold - startedTimestamp;
                 sessions[i][StatisticsStorage.STARTED_TIMESTAMP_INDEX] = threshold;
             } else {
                 // case 3: session is not outdated, we should keep it as is
@@ -351,67 +330,46 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /**
-     * Moves hourly / daily statistics by traversing the each available hourly / daily data
-     * and if for given hour / day 25 hours / 31 days is passed, it moves the statistics
-     * to according daily statistics (`YYYY-MM-DD-HH` -> `YYYY-MM-DD` / `YYYY-MM-DD` -> `total`).
+     * Moves hourly statistics by traversing the each available hourly data
+     * and if for given hour 30 days is passed, it moves it to total statistics.
      *
      * @param locationData Location data.
      * @param timestamp Timestamp to compare with.
-     * @param isHourly Whether to move hourly or daily statistics.
      */
-    private moveStatistics(
-        locationData: StatisticsLocationData,
-        timestamp: number,
-        isHourly: boolean,
-    ): void {
-        const { total } = locationData;
-
-        const storageToUpdate = isHourly ? 'hourly' : 'daily';
-        const sourceStorage = locationData[storageToUpdate];
-
-        const borderTimestamp = isHourly
-            ? StatisticsStorage.getHourlyBorderTimestamp(timestamp)
-            : StatisticsStorage.getDailyBorderTimestamp(timestamp);
-
+    private moveStatistics(locationData: StatisticsLocationData, timestamp: number): void {
+        const { hourly, total } = locationData;
+        const borderTimestamp = cropTimestampMinutes(timestamp - StatisticsStorage.MOVE_AFTER_MS);
         const indicesToDelete = new Set<number>();
-        for (let i = 0; i < sourceStorage.length; i += 1) {
-            const [key, data] = sourceStorage[i];
+
+        for (let i = 0; i < hourly.length; i += 1) {
+            const [key, data] = hourly[i];
 
             // convert key to date
             const date = keyToDate(key);
 
             // delete and skip if date is not valid
-            if (!date || date.getTime() >= timestamp) {
+            if (!date || date.getTime() > timestamp) {
                 indicesToDelete.add(i);
                 continue;
             }
 
-            // skip if 24 hours / 30 days is not passed, inclusive (>=)
-            // to store last 25 hours / 31 days data, instead of last 24 hours / 30 days
-            // see class jsdoc for explanation
+            // skip if 30 days is not passed, inclusive check because we need
+            // to keep last hour for cases if user timezone has daily savings time
             if (date.getTime() >= borderTimestamp) {
                 continue;
             }
 
-            // move hourly / daily data to daily data / total data
+            // move hourly data to total data
             const [downloadedBytes, uploadedBytes] = data;
-
-            let targetData: StatisticsDataTuple;
-            if (isHourly) {
-                targetData = this.getPeriodStatistics(locationData, false, date);
-            } else {
-                targetData = total;
-            }
-
-            targetData[StatisticsStorage.DOWNLOADED_INDEX] += downloadedBytes;
-            targetData[StatisticsStorage.UPLOADED_INDEX] += uploadedBytes;
+            total[StatisticsStorage.DOWNLOADED_INDEX] += downloadedBytes;
+            total[StatisticsStorage.UPLOADED_INDEX] += uploadedBytes;
 
             // mark index for deletion
             indicesToDelete.add(i);
         }
 
         if (indicesToDelete.size > 0) {
-            locationData[storageToUpdate] = sourceStorage.filter(
+            locationData.hourly = hourly.filter(
                 (data, index) => !indicesToDelete.has(index),
             );
         }
@@ -432,10 +390,8 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         } else {
             locationData = {
                 hourly: [],
-                daily: [],
-                total: [0, 0],
+                total: [0, 0, 0],
                 sessions: [],
-                totalDurationMs: 0,
             };
             this.statistics.locations[locationId] = locationData;
         }
@@ -444,30 +400,25 @@ export class StatisticsStorage implements StatisticsStorageInterface {
     }
 
     /**
-     * Gets statistics data for the given hourly / daily -> datetime / date for a given date.
+     * Gets hourly statistics data for a given date.
      * If not found, creates a new one.
      *
      * @param locationData Location data.
-     * @param isHourly Whether to get hourly or daily statistics.
      * @param date Date to get statistics for. If not provided, current date is used.
      *
      * @returns Statistics data for given date.
      */
-    private getPeriodStatistics(
-        { hourly, daily }: StatisticsLocationData,
-        isHourly: boolean,
-        date = new Date(),
-    ): StatisticsDataTuple {
-        const dateKey = dateToKey(isHourly, date);
-        const periodStorage = isHourly ? hourly : daily;
+    private getHourlyData(locationData: StatisticsLocationData, date = new Date()): StatisticsDataTuple {
+        const { hourly } = locationData;
+        const dateKey = dateToKey(date);
 
-        let periodData = periodStorage.find((data) => data[StatisticsStorage.DATE_INDEX] === dateKey);
-        if (!periodData) {
-            periodData = [dateKey, [0, 0]];
-            periodStorage.push(periodData);
+        let hourlyEntry = hourly.find((data) => data[StatisticsStorage.DATE_INDEX] === dateKey);
+        if (!hourlyEntry) {
+            hourlyEntry = [dateKey, [0, 0]];
+            hourly.push(hourlyEntry);
         }
 
-        return periodData[StatisticsStorage.DATA_INDEX];
+        return hourlyEntry[StatisticsStorage.DATA_INDEX];
     }
 
     /**
@@ -487,7 +438,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         this.assertInitialized();
 
         const locationData = this.getLocationData(locationId);
-        const hourlyData = this.getPeriodStatistics(locationData, true);
+        const hourlyData = this.getHourlyData(locationData);
 
         const { downloadedBytes, uploadedBytes } = data;
         hourlyData[StatisticsStorage.DOWNLOADED_INDEX] += downloadedBytes;
@@ -573,14 +524,10 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         // we need to update statistics first and only after that return the data
         // this is needed in case if extension is running longer than 1 hour
         if (!isSameHour(this.statisticsUpdatedTimestamp, now, { in: utc })) {
-            this.statisticsUpdatedTimestamp = now;
-            Object.values(this.statistics.locations).forEach((locationData) => {
-                this.moveDuration(locationData, now);
-                this.moveStatistics(locationData, now, true);
-                this.moveStatistics(locationData, now, false);
-            });
+            this.updateStaleStatistics(now);
 
-            await this.saveStatistics();
+            // we do not trigger update, because we already sending it
+            await this.saveStatistics(false);
         }
 
         return this.statistics;
@@ -598,46 +545,4 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         await this.saveStatistics();
     };
-
-    /**
-     * Gets the timestamp with cropped hours or minutes for the given timestamp.
-     *
-     * @param timestamp Timestamp to crop.
-     * @param isHourly If true crops the minutes, otherwise crops the hours.
-     *
-     * @returns Cropped timestamp.
-     */
-    private static getCroppedTimestamp(timestamp: number, isHourly: boolean): number {
-        const date = new Date(timestamp);
-        if (isHourly) {
-            date.setUTCMinutes(0, 0, 0);
-        } else {
-            date.setUTCHours(0, 0, 0, 0);
-        }
-        return date.getTime();
-    }
-
-    /**
-     * Gets the timestamp of the hourly border for the given timestamp.
-     * Hourly border is the timestamp when hourly statistics should be moved to daily statistics.
-     *
-     * @param timestamp Timestamp to get the border for.
-     *
-     * @returns Timestamp of the hourly border.
-     */
-    private static getHourlyBorderTimestamp(timestamp: number): number {
-        return this.getCroppedTimestamp(timestamp - StatisticsStorage.MOVE_HOURLY_STATS_AFTER_MS, true);
-    }
-
-    /**
-     * Gets the timestamp of the daily border for the given timestamp.
-     * Daily border is the timestamp when daily statistics should be moved to total statistics.
-     *
-     * @param timestamp Timestamp to get the border for.
-     *
-     * @returns Timestamp of the daily border.
-     */
-    private static getDailyBorderTimestamp(timestamp: number): number {
-        return this.getCroppedTimestamp(timestamp - StatisticsStorage.MOVE_DAILY_STATS_AFTER_MS, false);
-    }
 }

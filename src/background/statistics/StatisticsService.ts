@@ -7,14 +7,27 @@ import {
     StatisticsRange,
     type StatisticsByRange,
     type StatisticsData,
+    type StatisticsTuple,
     type StatisticsDataTuple,
     type StatisticsDataUsage,
     type StatisticsLocationsStorage,
     type StatisticsLocationData,
-    type StatisticsSessionTuple,
 } from './statisticsTypes';
-import { keyToDate } from './utils';
+import { cropTimestampMinutes, keyToDate } from './utils';
 
+/**
+ * Query result for usage duration.
+ */
+type DurationQueryResult = Pick<StatisticsData, 'durationMs' | 'connectionStartedTimestamp'>;
+
+/**
+ * Query result for data usage.
+ */
+type DataQueryResult = Pick<StatisticsData, 'downloadedBytes' | 'uploadedBytes'>;
+
+/**
+ * Methods to forward to provider.
+ */
 type ProviderForwardedMethods = Pick<StatisticsProviderInterface, 'setIsDisabled'>;
 
 /**
@@ -67,6 +80,11 @@ export interface StatisticsServiceParameters {
  */
 export class StatisticsService implements StatisticsServiceInterface {
     /**
+     * Threshold time used for AllTime range.
+     */
+    private static readonly ALL_TIME_THRESHOLD = 0;
+
+    /**
      * Storage for statistics.
      */
     private statisticsStorage: StatisticsStorageInterface;
@@ -101,20 +119,20 @@ export class StatisticsService implements StatisticsServiceInterface {
     /**
      * Queries the duration of sessions for the given range.
      *
-     * @param sessions Sessions to query.
-     * @param totalDurationMs Total duration in milliseconds for sessions that are older than 30 days.
-     * @param range The range for which statistics data is needed.
+     * @param locationData Location data to query.
+     * @param threshold Threshold timestamp to query for.
      *
-     * @returns Total duration in milliseconds for the given range.
+     * @returns Total duration and optional current connection timestamp
      */
-    private static querySessionsDuration(
-        sessions: StatisticsSessionTuple[],
-        totalDurationMs: number,
-        range: StatisticsRange,
-    ): number {
-        let durationMs = 0;
+    private static queryDuration(
+        locationData: StatisticsLocationData,
+        threshold: number,
+    ): DurationQueryResult {
+        const { sessions, total, lastSession } = locationData;
 
-        const threshold = StatisticsService.getRangeThreshold(range);
+        const result: DurationQueryResult = {
+            durationMs: 0,
+        };
 
         // move backwards because last sessions are the most recent ones
         for (let i = sessions.length - 1; i >= 0; i -= 1) {
@@ -127,99 +145,76 @@ export class StatisticsService implements StatisticsServiceInterface {
             } else if (startedTimestamp < threshold && endedTimestamp > threshold) {
                 // case 2: session is partially fits the threshold,
                 // we can add only the part of the session that is after threshold
-                durationMs += endedTimestamp - threshold;
+                result.durationMs += endedTimestamp - threshold;
             } else {
                 // case 3: session is fully fits the threshold,
                 // we can add full duration to total duration
-                durationMs += endedTimestamp - startedTimestamp;
+                result.durationMs += endedTimestamp - startedTimestamp;
             }
         }
 
-        // add all sessions duration for AllTime range
-        if (range === StatisticsRange.AllTime) {
-            durationMs += totalDurationMs;
+        // add total duration if range is AllTime
+        // total data stores stats older than 30 days
+        if (threshold === StatisticsService.ALL_TIME_THRESHOLD) {
+            const [,,totalDurationMs] = total;
+            result.durationMs += totalDurationMs;
         }
 
-        return durationMs;
+        // add connection started timestamp if last session still active
+        if (lastSession) {
+            const [startedTimestamp] = lastSession;
+            result.connectionStartedTimestamp = startedTimestamp;
+        }
+
+        return result;
     }
 
     /**
      * Queries the location data for statistics data for the given range.
      *
-     * @param locationData Location storage to query.
-     * @param range The range for which statistics data is needed.
+     * @param locationData Location data to query.
+     * @param threshold Threshold timestamp to query for.
      *
      * @returns Statistics data for the given range.
      */
-    private static queryLocationData(
+    private static queryData(
         locationData: StatisticsLocationData,
-        range: StatisticsRange,
-    ): StatisticsData {
-        const {
-            hourly,
-            daily,
-            total,
-            sessions,
-            totalDurationMs,
-            lastSession,
-        } = locationData;
+        threshold: number,
+    ): DataQueryResult {
+        const { hourly, total } = locationData;
 
-        const data: StatisticsData = {
+        const result: DataQueryResult = {
             downloadedBytes: 0,
             uploadedBytes: 0,
-            durationMs: StatisticsService.querySessionsDuration(
-                sessions,
-                totalDurationMs,
-                range,
-            ),
         };
 
-        if (lastSession) {
-            const [startedTimestamp] = lastSession;
-            data.connectionStartedTimestamp = startedTimestamp;
-        }
-
-        const addStatisticsData = ([downloadedBytes, uploadedBytes]: StatisticsDataTuple) => {
-            data.downloadedBytes += downloadedBytes;
-            data.uploadedBytes += uploadedBytes;
+        const addStatisticsData = ([downloadedBytes, uploadedBytes]: StatisticsDataTuple | StatisticsTuple) => {
+            result.downloadedBytes += downloadedBytes;
+            result.uploadedBytes += uploadedBytes;
         };
 
-        // add all hourly data for all cases,
-        // hourly data stores stats for last 24 hours
-        hourly.forEach(([, hourData]) => addStatisticsData(hourData));
+        const borderTimestamp = cropTimestampMinutes(threshold);
 
-        // add only some daily data if range is Days7,
-        // daily data stores stats older than 24 hours and up to 30 days
-        if (range === StatisticsRange.Days7) {
-            let addedDays = 0;
-            for (let i = 0; i < daily.length; i += 1) {
-                const [dateKey, dayData] = daily[i];
+        hourly.forEach((hourlyData) => {
+            const [key, data] = hourlyData;
+            const date = keyToDate(key);
 
-                if (StatisticsService.isDateInWeekRange(dateKey)) {
-                    addStatisticsData(dayData);
-                    addedDays += 1;
-                }
-
-                // stop if we already added 7 days
-                if (addedDays >= 7) {
-                    break;
-                }
+            // skip if date invalid or if it beyond threshold, not inclusive check we need
+            // to keep last hour for cases if user timezone has daily savings time
+            if (!date || date.getTime() < borderTimestamp) {
+                return;
             }
-        }
 
-        // add all daily data if range is Days30 or AllTime,
-        // daily data stores stats older than 24 hours and up to 30 days
-        if (range === StatisticsRange.Days30 || range === StatisticsRange.AllTime) {
-            daily.forEach(([, dayData]) => addStatisticsData(dayData));
-        }
+            addStatisticsData(data);
+        });
 
         // add total data if range is AllTime,
         // total data stores stats older than 30 days
-        if (range === StatisticsRange.AllTime) {
+        if (threshold === StatisticsService.ALL_TIME_THRESHOLD) {
             addStatisticsData(total);
         }
 
-        return data;
+        return result;
     }
 
     /**
@@ -240,24 +235,30 @@ export class StatisticsService implements StatisticsServiceInterface {
             durationMs: 0,
         };
 
+        const threshold = StatisticsService.getRangeThreshold(range);
+
         const locations = Object.entries(locationsStorage).map(
             ([locationId, locationData]): StatisticsDataUsage => {
-                const data = StatisticsService.queryLocationData(locationData, range);
+                const data = StatisticsService.queryData(locationData, threshold);
+                const duration = StatisticsService.queryDuration(locationData, threshold);
 
                 total.downloadedBytes += data.downloadedBytes;
                 total.uploadedBytes += data.uploadedBytes;
-                total.durationMs += data.durationMs;
+                total.durationMs += duration.durationMs;
 
                 // if live connection is found on this location,
                 // we should set it to total stats also, because
                 // there can be only one live connection at a time
-                if (data.connectionStartedTimestamp) {
-                    total.connectionStartedTimestamp = data.connectionStartedTimestamp;
+                if (duration.connectionStartedTimestamp) {
+                    total.connectionStartedTimestamp = duration.connectionStartedTimestamp;
                 }
 
                 return {
                     locationId,
-                    data,
+                    data: {
+                        ...data,
+                        ...duration,
+                    },
                 };
             },
         );
@@ -292,29 +293,6 @@ export class StatisticsService implements StatisticsServiceInterface {
     };
 
     /**
-     * Checks if the given date is in the last 7 days.
-     *
-     * @param dateKey Date key in the format `'YYYY-MM-DD'`.
-     *
-     * @returns True if the date is in the last 7 days,
-     * false otherwise or if the date is invalid.
-     */
-    private static isDateInWeekRange(dateKey: string): boolean {
-        const date = keyToDate(dateKey);
-
-        // return false if the date is invalid
-        if (!date) {
-            return false;
-        }
-
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setUTCDate(sevenDaysAgo.getUTCDate() - 7);
-        sevenDaysAgo.setUTCHours(0, 0, 0, 0);
-
-        return date >= sevenDaysAgo;
-    }
-
-    /**
      * Calculates the threshold timestamp for the given range.
      *
      * @param range The range for which the threshold is needed.
@@ -332,8 +310,7 @@ export class StatisticsService implements StatisticsServiceInterface {
             case StatisticsRange.Days30:
                 return now - 30 * ONE_DAY_MS;
             case StatisticsRange.AllTime:
-                // For AllTime, we do not filter by date, so we return 0
-                return 0;
+                return StatisticsService.ALL_TIME_THRESHOLD;
             default:
                 throw new Error(`Unknown statistics range: ${range}`);
         }

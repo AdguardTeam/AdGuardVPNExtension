@@ -3,6 +3,7 @@ import {
     StatisticsRange,
     type StatisticsByRange,
     type StatisticsData,
+    type StatisticsTuple,
     type StatisticsDataTuple,
     type StatisticsSessionTuple,
     type StatisticsLocationsStorage,
@@ -63,7 +64,6 @@ describe('StatisticsService', () => {
      *
      * @param downloadedBytes Number of bytes downloaded.
      * @param uploadedBytes Number of bytes uploaded (Default is `downloadedBytes`).
-     * @param durationMs Duration in milliseconds (Default is `downloadedBytes`).
      *
      * @returns Statistics data.
      */
@@ -73,6 +73,25 @@ describe('StatisticsService', () => {
     ): StatisticsDataTuple => ([
         downloadedBytes,
         uploadedBytes,
+    ]);
+
+    /**
+     * Get statistics data tuple for testing.
+     *
+     * @param downloadedBytes Number of bytes downloaded.
+     * @param uploadedBytes Number of bytes uploaded (Default is `downloadedBytes`).
+     * @param durationMs Duration in milliseconds (Default is `downloadedBytes`).
+     *
+     * @returns Statistics data.
+     */
+    const getTotalDataTuple = (
+        downloadedBytes: number,
+        uploadedBytes = downloadedBytes,
+        durationMs = downloadedBytes,
+    ): StatisticsTuple => ([
+        downloadedBytes,
+        uploadedBytes,
+        durationMs,
     ]);
 
     /**
@@ -128,19 +147,16 @@ describe('StatisticsService', () => {
         };
 
         const cases: [string, RangeQueriesTestCase][] = [
-            ['24 hours', {
+            ['24 hours range', {
                 range: StatisticsRange.Hours24,
                 storage: {
                     locationId1: {
                         hourly: [
+                            ['2025-09-29-10', getDataTuple(1)], // <-- should not be included
+                            ['2025-09-30-09', getDataTuple(1)], // <-- should not be included
                             ['2025-10-01-09', getDataTuple(1)],
                             ['2025-10-01-10', getDataTuple(1)],
                         ],
-                        daily: [
-                            ['2025-09-29', getDataTuple(1)], // <-- should not be included
-                            ['2025-09-30', getDataTuple(1)], // <-- should not be included
-                        ],
-                        total: getDataTuple(1), // <-- should not be included
                         sessions: [
                             getSession(
                                 systemDate.getTime() - ONE_DAY_MS - 2,
@@ -155,307 +171,240 @@ describe('StatisticsService', () => {
                                 systemDate.getTime() - 1,
                             ),
                         ],
-                        totalDurationMs: 1, // <-- should not be included
-                    },
-                    locationId2: {
-                        hourly: [
-                            ['2025-10-01-09', getDataTuple(3)],
-                            ['2025-10-01-10', getDataTuple(2)],
-                        ],
-                        daily: [
-                            ['2025-09-29', getDataTuple(2)], // <-- should not be included
-                            ['2025-09-30', getDataTuple(3)], // <-- should not be included
-                        ],
-                        total: getDataTuple(4), // <-- should not be included
-                        sessions: [
-                            getSession(
-                                systemDate.getTime() - ONE_DAY_MS - 2,
-                                systemDate.getTime() - ONE_DAY_MS - 1,
-                            ), // <-- should not be included
-                            getSession(
-                                systemDate.getTime() - 7,
-                                systemDate.getTime() - 5,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 4,
-                                systemDate.getTime() - 1,
-                            ),
-                        ],
-                        lastSession: getSession(
-                            systemDate.getTime() - 2,
-                            systemDate.getTime() - 1,
-                        ),
-                        totalDurationMs: 1, // <-- should not be included
+                        total: getTotalDataTuple(1), // <-- should not be included
                     },
                 },
                 expected: {
-                    total: {
-                        ...getData(7),
-                        connectionStartedTimestamp: systemDate.getTime() - 2,
-                    },
+                    total: getData(2),
                     locations: [
                         {
                             locationId: 'locationId1',
                             data: getData(2),
                         },
-                        {
-                            locationId: 'locationId2',
-                            data: {
-                                ...getData(5),
-                                connectionStartedTimestamp: systemDate.getTime() - 2,
-                            },
-                        },
                     ],
                 },
             }],
-            ['7 days', {
+            ['7 days range', {
                 range: StatisticsRange.Days7,
                 storage: {
                     locationId1: {
                         hourly: [
-                            ['2025-10-01-09', getDataTuple(1)],
-                            ['2025-10-01-10', getDataTuple(1)],
+                            ['2025-09-23-10', getDataTuple(3)], // <-- should not be included
+                            ['2025-09-25-09', getDataTuple(5)],
+                            ['2025-10-01-09', getDataTuple(2)],
+                            ['2025-10-01-10', getDataTuple(3)],
                         ],
-                        daily: [
-                            ['2025-09-22', getDataTuple(1)], // <-- should not be included
-                            ['2025-09-23', getDataTuple(1)], // <-- should not be included
-                            ['2025-09-24', getDataTuple(1)],
-                            ['2025-09-25', getDataTuple(1)],
-                            ['2025-09-26', getDataTuple(1)],
-                            ['2025-09-27', getDataTuple(1)],
-                            ['2025-09-28', getDataTuple(1)],
-                            ['2025-09-29', getDataTuple(1)],
-                            ['2025-09-30', getDataTuple(1)],
-                        ],
-                        total: getDataTuple(1), // <-- should not be included
                         sessions: [
                             getSession(
-                                systemDate.getTime() - 7 * ONE_DAY_MS - 2,
-                                systemDate.getTime() - 7 * ONE_DAY_MS - 1,
+                                systemDate.getTime() - (8 * ONE_DAY_MS),
+                                systemDate.getTime() - (7.5 * ONE_DAY_MS),
                             ), // <-- should not be included
                             getSession(
-                                systemDate.getTime() - 2 * ONE_DAY_MS - 4,
-                                systemDate.getTime() - 2 * ONE_DAY_MS - 1,
+                                systemDate.getTime() - (6 * ONE_DAY_MS),
+                                systemDate.getTime() - (6 * ONE_DAY_MS - 5),
                             ),
                             getSession(
-                                systemDate.getTime() - ONE_DAY_MS - 4,
-                                systemDate.getTime() - ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 5,
-                                systemDate.getTime() - 3,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 2,
-                                systemDate.getTime() - 1,
-                            ),
-                        ],
-                        totalDurationMs: 1, // <-- should not be included
-                    },
-                    locationId2: {
-                        hourly: [
-                            ['2025-10-01-09', getDataTuple(3)],
-                            ['2025-10-01-10', getDataTuple(2)],
-                        ],
-                        daily: [
-                            ['2025-09-23', getDataTuple(1)], // <-- should not be included
-                            ['2025-09-24', getDataTuple(1)],
-                            ['2025-09-25', getDataTuple(1)],
-                            ['2025-09-29', getDataTuple(2)],
-                            ['2025-09-30', getDataTuple(3)],
-                        ],
-                        total: getDataTuple(4), // <-- should not be included
-                        sessions: [
-                            getSession(
-                                systemDate.getTime() - 7 * ONE_DAY_MS - 2,
-                                systemDate.getTime() - 7 * ONE_DAY_MS - 1,
-                            ), // <-- should not be included
-                            getSession(
-                                systemDate.getTime() - 2 * ONE_DAY_MS - 4,
-                                systemDate.getTime() - 2 * ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - ONE_DAY_MS - 4,
-                                systemDate.getTime() - ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 8,
+                                systemDate.getTime() - 10,
                                 systemDate.getTime() - 5,
                             ),
-                            getSession(
-                                systemDate.getTime() - 4,
-                                systemDate.getTime() - 1,
-                            ),
                         ],
-                        totalDurationMs: 1, // <-- should not be included
+                        total: getTotalDataTuple(10), // <-- should not be included
                     },
                 },
                 expected: {
-                    total: getData(21),
+                    total: getData(10),
                     locations: [
                         {
                             locationId: 'locationId1',
-                            data: getData(9),
-                        },
-                        {
-                            locationId: 'locationId2',
-                            data: getData(12),
-                        },
-                    ],
-                },
-            }],
-            ['30 days', {
-                range: StatisticsRange.Days30,
-                storage: {
-                    locationId1: {
-                        hourly: [
-                            ['2025-10-01-09', getDataTuple(1)],
-                            ['2025-10-01-10', getDataTuple(1)],
-                        ],
-                        daily: [
-                            ['2025-09-29', getDataTuple(1)],
-                            ['2025-09-30', getDataTuple(1)],
-                        ],
-                        total: getDataTuple(1),
-                        sessions: [
-                            getSession(
-                                systemDate.getTime() - 30 * ONE_DAY_MS - 2,
-                                systemDate.getTime() - 30 * ONE_DAY_MS - 1,
-                            ), // <-- should not be included
-                            getSession(
-                                systemDate.getTime() - 12 * ONE_DAY_MS - 2,
-                                systemDate.getTime() - 12 * ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 7 * ONE_DAY_MS - 2,
-                                systemDate.getTime() - 7 * ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 2 * ONE_DAY_MS - 2,
-                                systemDate.getTime() - 2 * ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 2,
-                                systemDate.getTime() - 1,
-                            ),
-                        ],
-                        totalDurationMs: 1, // <-- should not be included
-                    },
-                    locationId2: {
-                        hourly: [
-                            ['2025-10-01-09', getDataTuple(3)],
-                            ['2025-10-01-10', getDataTuple(2)],
-                        ],
-                        daily: [
-                            ['2025-09-29', getDataTuple(2)],
-                            ['2025-09-30', getDataTuple(3)],
-                        ],
-                        total: getDataTuple(4),
-                        sessions: [
-                            getSession(
-                                systemDate.getTime() - 30 * ONE_DAY_MS - 2,
-                                systemDate.getTime() - 30 * ONE_DAY_MS - 1,
-                            ), // <-- should not be included
-                            getSession(
-                                systemDate.getTime() - 12 * ONE_DAY_MS - 4,
-                                systemDate.getTime() - 12 * ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 7 * ONE_DAY_MS - 4,
-                                systemDate.getTime() - 7 * ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 2 * ONE_DAY_MS - 3,
-                                systemDate.getTime() - 2 * ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 3,
-                                systemDate.getTime() - 1,
-                            ),
-                        ],
-                        totalDurationMs: 1, // <-- should not be included
-                    },
-                },
-                expected: {
-                    total: getData(14),
-                    locations: [
-                        {
-                            locationId: 'locationId1',
-                            data: getData(4),
-                        },
-                        {
-                            locationId: 'locationId2',
                             data: getData(10),
                         },
                     ],
                 },
             }],
-            ['all time', {
+            ['30 days range', {
+                range: StatisticsRange.Days30,
+                storage: {
+                    locationId1: {
+                        hourly: [
+                            ['2025-09-01-10', getDataTuple(2)],
+                            ['2025-09-15-09', getDataTuple(3)],
+                            ['2025-10-01-09', getDataTuple(4)],
+                        ],
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - (31 * ONE_DAY_MS),
+                                systemDate.getTime() - (30.5 * ONE_DAY_MS),
+                            ), // <-- should not be included
+                            getSession(
+                                systemDate.getTime() - (25 * ONE_DAY_MS),
+                                systemDate.getTime() - (25 * ONE_DAY_MS - 5),
+                            ),
+                            getSession(
+                                systemDate.getTime() - (15 * ONE_DAY_MS),
+                                systemDate.getTime() - (15 * ONE_DAY_MS - 4),
+                            ),
+                        ],
+                        total: getTotalDataTuple(10), // <-- should not be included
+                    },
+                },
+                expected: {
+                    total: getData(9),
+                    locations: [
+                        {
+                            locationId: 'locationId1',
+                            data: getData(9),
+                        },
+                    ],
+                },
+            }],
+            ['All time range', {
                 range: StatisticsRange.AllTime,
                 storage: {
                     locationId1: {
                         hourly: [
-                            ['2025-10-01-09', getDataTuple(1)],
-                            ['2025-10-01-10', getDataTuple(1)],
-                        ],
-                        daily: [
-                            ['2025-09-29', getDataTuple(1)],
-                            ['2025-09-30', getDataTuple(1)],
-                        ],
-                        total: getDataTuple(1),
-                        sessions: [
-                            getSession(
-                                systemDate.getTime() - 300 * ONE_DAY_MS - 3,
-                                systemDate.getTime() - 300 * ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 12 * ONE_DAY_MS - 2,
-                                systemDate.getTime() - 12 * ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 2,
-                                systemDate.getTime() - 1,
-                            ),
-                        ],
-                        totalDurationMs: 1,
-                    },
-                    locationId2: {
-                        hourly: [
+                            ['2024-09-01-10', getDataTuple(1)],
+                            ['2025-09-15-09', getDataTuple(2)],
                             ['2025-10-01-09', getDataTuple(3)],
-                            ['2025-10-01-10', getDataTuple(2)],
                         ],
-                        daily: [
-                            ['2025-09-29', getDataTuple(2)],
-                            ['2025-09-30', getDataTuple(3)],
-                        ],
-                        total: getDataTuple(4),
                         sessions: [
                             getSession(
-                                systemDate.getTime() - 300 * ONE_DAY_MS - 6,
-                                systemDate.getTime() - 300 * ONE_DAY_MS - 1,
+                                systemDate.getTime() - (365 * ONE_DAY_MS),
+                                systemDate.getTime() - (365 * ONE_DAY_MS - 3),
                             ),
                             getSession(
-                                systemDate.getTime() - 12 * ONE_DAY_MS - 5,
-                                systemDate.getTime() - 12 * ONE_DAY_MS - 1,
-                            ),
-                            getSession(
-                                systemDate.getTime() - 5,
-                                systemDate.getTime() - 1,
+                                systemDate.getTime() - (30 * ONE_DAY_MS),
+                                systemDate.getTime() - (30 * ONE_DAY_MS - 3),
                             ),
                         ],
-                        totalDurationMs: 1,
+                        total: getTotalDataTuple(50),
                     },
                 },
                 expected: {
-                    total: getData(19),
+                    total: getData(56),
                     locations: [
                         {
                             locationId: 'locationId1',
-                            data: getData(5),
+                            data: getData(56),
+                        },
+                    ],
+                },
+            }],
+            ['Empty storage', {
+                range: StatisticsRange.Hours24,
+                storage: {},
+                expected: {
+                    total: getData(0),
+                    locations: [],
+                },
+            }],
+            ['Partially within threshold (24 hours)', {
+                range: StatisticsRange.Hours24,
+                storage: {
+                    locationId1: {
+                        hourly: [
+                            ['2025-09-30-10', getDataTuple(5)],
+                            ['2025-10-01-09', getDataTuple(3)],
+                        ],
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - ONE_DAY_MS - 5000,
+                                systemDate.getTime() - ONE_DAY_MS + 5000,
+                            ),
+                        ],
+                        total: getTotalDataTuple(10),
+                    },
+                },
+                expected: {
+                    total: getData(8, 8, 5000),
+                    locations: [
+                        {
+                            locationId: 'locationId1',
+                            data: getData(8, 8, 5000),
+                        },
+                    ],
+                },
+            }],
+            ['Active connection', {
+                range: StatisticsRange.Hours24,
+                storage: {
+                    locationId1: {
+                        hourly: [],
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - 1000,
+                                systemDate.getTime() - 500,
+                            ),
+                        ],
+                        lastSession: getSession(
+                            systemDate.getTime() - 200,
+                            systemDate.getTime(),
+                        ),
+                        total: getTotalDataTuple(10),
+                    },
+                },
+                expected: {
+                    total: {
+                        ...getData(0, 0, 500),
+                        connectionStartedTimestamp: systemDate.getTime() - 200,
+                    },
+                    locations: [
+                        {
+                            locationId: 'locationId1',
+                            data: {
+                                ...getData(0, 0, 500),
+                                connectionStartedTimestamp: systemDate.getTime() - 200,
+                            },
+                        },
+                    ],
+                },
+            }],
+            ['Mixed sessions and hourly data', {
+                range: StatisticsRange.Hours24,
+                storage: {
+                    locationId1: {
+                        hourly: [
+                            ['2025-10-01-09', getDataTuple(3, 4)],
+                        ],
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - 5000,
+                                systemDate.getTime() - 1000,
+                            ),
+                        ],
+                        total: getTotalDataTuple(10),
+                    },
+                    locationId2: {
+                        hourly: [],
+                        sessions: [
+                            getSession(
+                                systemDate.getTime() - 3000,
+                                systemDate.getTime() - 1000,
+                            ),
+                        ],
+                        total: getTotalDataTuple(5),
+                    },
+                    locationId3: {
+                        hourly: [
+                            ['2025-10-01-09', getDataTuple(2, 1)],
+                        ],
+                        sessions: [],
+                        total: getTotalDataTuple(5),
+                    },
+                },
+                expected: {
+                    total: getData(5, 5, 6000),
+                    locations: [
+                        {
+                            locationId: 'locationId1',
+                            data: getData(3, 4, 4000),
                         },
                         {
                             locationId: 'locationId2',
-                            data: getData(14),
+                            data: getData(0, 0, 2000),
+                        },
+                        {
+                            locationId: 'locationId3',
+                            data: getData(2, 1, 0),
                         },
                     ],
                 },
