@@ -1051,6 +1051,9 @@
     "popup_stats_menu_why_safe_got_it": {
         "message": "הבנת"
     },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "לאפשר סטטיסטיקות"
+    },
     "popup_stats_menu_disable_stats_btn": {
         "message": "השבת סטטיסטיקות"
     },

@@ -1051,6 +1051,9 @@
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rozumiem"
     },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Povoliť štatistiky"
+    },
     "popup_stats_menu_disable_stats_btn": {
         "message": "Vypnúť štatistiky"
     },

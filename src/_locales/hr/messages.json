@@ -1051,6 +1051,9 @@
     "popup_stats_menu_why_safe_got_it": {
         "message": "U redu"
     },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Omogući statistiku"
+    },
     "popup_stats_menu_disable_stats_btn": {
         "message": "Onemogućiti statistiku"
     },
