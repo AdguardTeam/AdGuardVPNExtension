@@ -89,6 +89,10 @@
     --red-60: #AF4226;
     --red-70: #9E3C22;
 
+    /* Base Colors - RGB */
+    --gray-0-rgb: 255, 255, 255;
+    --gray-90-rgb: 31, 31, 31;
+
     /* Text */
     --text-main-text-main-default: var(--gray-80);
     --text-description-description-default: var(--gray-60);
@@ -135,6 +139,9 @@
     --stroke-inputs-active-input-stroke-default: var(--gray-50);
     --stroke-dividers-item-divider-default: var(--gray-30);
     --stroke-dividers-item-divider-green-default: var(--product-primary-50);
+
+    /* Custom (Not exists in Figma) */
+    --scroll-fade-base: var(--gray-0-rgb);
 
     @media (prefers-color-scheme: dark) {
         --white: #131313;
@@ -186,6 +193,9 @@
         --stroke-buttons-secondary-button-default: var(--gray-20);
         --stroke-inputs-inactive-input-stroke-default: var(--gray-80);
         --stroke-dividers-item-divider-default: var(--gray-70);
+
+        /* Custom (Not exists in Figma) */
+        --scroll-fade-base: var(--gray-90-rgb);
     }
 }
 
@@ -238,6 +248,9 @@
     --stroke-buttons-secondary-button-default: var(--gray-80);
     --stroke-inputs-inactive-input-stroke-default: var(--gray-20);
     --stroke-dividers-item-divider-default: var(--gray-30);
+
+    /* Custom (Not exists in Figma) */
+    --scroll-fade-base: var(--gray-0-rgb);
 }
 
 .dark-mode {
@@ -290,6 +303,9 @@
     --stroke-buttons-secondary-button-default: var(--gray-20);
     --stroke-inputs-inactive-input-stroke-default: var(--gray-80);
     --stroke-dividers-item-divider-default: var(--gray-70);
+
+    /* Custom (Not exists in Figma) */
+    --scroll-fade-base: var(--gray-90-rgb);
 }
 
 .android {

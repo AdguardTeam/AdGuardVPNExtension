@@ -32,6 +32,35 @@
         flex: 1 1 auto;
         overflow-y: auto;
         scrollbar-width: thin;
+
+        &-wrapper {
+            position: relative;
+            flex: 1 1 auto;
+            display: flex;
+            overflow: hidden;
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 120px;
+                opacity: 0;
+                background: linear-gradient(
+                    0deg,
+                    rgba(var(--scroll-fade-base), 1) 0%,
+                    rgba(var(--scroll-fade-base), 0) 100%
+                );
+                pointer-events: none;
+                user-select: none;
+                touch-action: none;
+                transition: opacity var(--t3);
+            }
+
+            &--fade-active::after {
+                opacity: 0.8;
+            }
+        }
     }
 
     &__navbar {

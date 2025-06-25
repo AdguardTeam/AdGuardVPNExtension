@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react';
 
 import { StatisticsRange, type StatisticsData } from '../../../../background/statistics/statisticsTypes';
@@ -167,6 +167,29 @@ export const StatsScreen = observer((props: StatsScreenProps) => {
     const { telemetryStore } = useContext(rootStore);
 
     const headerRef = useRef<HTMLDivElement>(null);
+    const contentWrapperRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+
+    const applyFadeIfScrollable = () => {
+        const contentWrapper = contentWrapperRef.current;
+        const content = contentRef.current;
+        if (!contentWrapper || !content) {
+            return;
+        }
+
+        const CONTENT_FADE_ACTIVE_CLASS = 'stats-screen__content-wrapper--fade-active';
+
+        // Pixel buffer needs for cases floating pixel size (e.g. 405.5px)
+        const pixelBuffer = 1;
+        const { scrollTop, clientHeight, scrollHeight } = content;
+        const canScrollBottom = scrollTop + clientHeight + pixelBuffer < scrollHeight;
+
+        if (canScrollBottom) {
+            contentWrapper.classList.add(CONTENT_FADE_ACTIVE_CLASS);
+        } else {
+            contentWrapper.classList.remove(CONTENT_FADE_ACTIVE_CLASS);
+        }
+    };
 
     const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
         const header = headerRef.current;
@@ -183,6 +206,8 @@ export const StatsScreen = observer((props: StatsScreenProps) => {
         } else {
             header.classList.remove(HEADER_WITH_SHADOW_CLASS);
         }
+
+        applyFadeIfScrollable();
     };
 
     const handleEnableClick = () => {
@@ -209,6 +234,9 @@ export const StatsScreen = observer((props: StatsScreenProps) => {
 
         return `${start} – ${end}`;
     };
+
+    // apply fade if content scrollable on first render
+    useEffect(applyFadeIfScrollable, []);
 
     const isMainScreen = type === 'main';
     const isLocationScreen = type === 'location';
@@ -285,18 +313,20 @@ export const StatsScreen = observer((props: StatsScreenProps) => {
                     />
                 </div>
             </div>
-            <div className="stats-screen__content" onScroll={handleScroll}>
-                {isLoading ? (
-                    <div className="stats-screen__loader">
-                        <DotsLoader />
-                    </div>
-                ) : (
-                    <>
-                        {dataUsageNode}
-                        {locationsNode}
-                        {timeUsageNode}
-                    </>
-                )}
+            <div ref={contentWrapperRef} className="stats-screen__content-wrapper">
+                <div ref={contentRef} className="stats-screen__content" onScroll={handleScroll}>
+                    {isLoading ? (
+                        <div className="stats-screen__loader">
+                            <DotsLoader />
+                        </div>
+                    ) : (
+                        <>
+                            {dataUsageNode}
+                            {locationsNode}
+                            {timeUsageNode}
+                        </>
+                    )}
+                </div>
             </div>
             {isDisabled && (
                 <div className="stats-screen__footer">
