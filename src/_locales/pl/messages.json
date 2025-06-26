@@ -1054,6 +1054,9 @@
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rozumiem"
     },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Włącz statystyki"
+    },
     "popup_stats_menu_disable_stats_btn": {
         "message": "Wyłącz statystyki"
     },

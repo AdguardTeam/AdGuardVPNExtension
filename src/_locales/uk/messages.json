@@ -1021,8 +1021,17 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Не показувати знову"
     },
+    "popup_stats_for_browser_title": {
+        "message": "Статистика для цього браузера"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Збір статистики вимкнено"
+    },
     "popup_stats_enable_btn": {
         "message": "Увімкнути"
+    },
+    "popup_stats_data_usage": {
+        "message": "Дані"
     },
     "popup_stats_most_used_locations": {
         "message": "Місцезнаходження, які використовуються найчастіше"
@@ -1036,11 +1045,26 @@
     "popup_stats_menu_why_safe_title": {
         "message": "Чому це безпечно"
     },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "VPN-з'єднання зашифроване та безпечне, тому ніхто не може бачити дані про вашу активність — ми лише підраховуємо використання трафіку"
+    },
     "popup_stats_menu_why_safe_description_2": {
         "message": "Вся статистика збирається і зберігається локально на вашому пристрої. Ми не маємо до неї доступу"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Зрозуміло"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Увімкнути статистику"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Вимкнути статистику"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Вимкнути статистику?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Нові статистичні дані не будуть збиратися. Ви все ще можете отримати доступ до своїх наявних статистичних даних"
     },
     "popup_stats_menu_disable_stats_disable_btn": {
         "message": "Вимкнути"
@@ -1086,6 +1110,9 @@
     },
     "popup_stats_view_all_locations": {
         "message": "Переглянути всі місцезнаходження"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Підʼєднано до VPN"
     },
     "popup_stats_connection_to_vpn_days": {
         "message": "%days% дн",

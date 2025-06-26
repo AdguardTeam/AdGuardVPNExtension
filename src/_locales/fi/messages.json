@@ -1054,6 +1054,9 @@
     "popup_stats_menu_why_safe_got_it": {
         "message": "Selvä"
     },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Ota tilastointi käyttöön"
+    },
     "popup_stats_menu_disable_stats_btn": {
         "message": "Poista tilastot käytöstä"
     },

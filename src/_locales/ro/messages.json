@@ -1054,6 +1054,9 @@
     "popup_stats_menu_why_safe_got_it": {
         "message": "Am înțeles."
     },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Activați statisticile"
+    },
     "popup_stats_menu_disable_stats_btn": {
         "message": "Dezactivați statisticile"
     },

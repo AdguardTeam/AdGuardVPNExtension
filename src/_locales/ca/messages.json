@@ -1054,6 +1054,9 @@
     "popup_stats_menu_why_safe_got_it": {
         "message": "Entesos"
     },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Activa les estadístiques"
+    },
     "popup_stats_menu_disable_stats_btn": {
         "message": "Desactivar estadístiques"
     },
