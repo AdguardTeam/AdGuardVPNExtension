@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Kaikki sijainnit"
     },
+    "endpoints_saved": {
+        "message": "Tallennettu"
+    },
     "endpoints_search": {
         "message": "Etsi sijainneista"
     },

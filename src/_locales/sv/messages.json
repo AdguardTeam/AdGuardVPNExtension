@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Alla platser"
     },
+    "endpoints_saved": {
+        "message": "Sparad"
+    },
     "endpoints_search": {
         "message": "Sök plats"
     },

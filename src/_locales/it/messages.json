@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Tutte le località"
     },
+    "endpoints_saved": {
+        "message": "Salvato"
+    },
     "endpoints_search": {
         "message": "Cerca località"
     },

@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Όλες οι τοποθεσίες"
     },
+    "endpoints_saved": {
+        "message": "Αποθηκεύτηκε"
+    },
     "endpoints_search": {
         "message": "Αναζήτηση τοποθεσίας"
     },

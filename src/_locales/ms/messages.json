@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Semua lokasi"
     },
+    "endpoints_saved": {
+        "message": "Disimpan"
+    },
     "endpoints_search": {
         "message": "Cari lokasi"
     },
@@ -832,6 +835,9 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Daftar masuk atau cipta akaun"
+    },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Teruskan"
     },
     "popup_newsletter_title": {
         "message": "Surat Berita \"Adguard\""

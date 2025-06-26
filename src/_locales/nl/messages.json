@@ -244,7 +244,7 @@
         "message": "Gratis GB's verkrijgen!"
     },
     "settings_referral_info": {
-        "message": "Ontvang een maand lang %your_gb% GB gratis VPN-verkeer voor elke vriend die zich via jouw uitnodiging aanmeldt, tot in totaal %total_gb% GB. Je vriend krijgt ook gratis %friend_gb% GB extra."
+        "message": "Ontvang een maand lang %your_gb% GB gratis VPN-gegevensverkeer voor elke vriend die zich via jouw uitnodiging aanmeldt, tot in totaal %total_gb% GB. Je vriend krijgt ook gratis %friend_gb% GB extra."
     },
     "settings_referral_invited_friends": {
         "message": "Uitgenodigde vrienden %count%/%limit%"
@@ -683,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Alle locaties"
+    },
+    "endpoints_saved": {
+        "message": "Opgeslagen"
     },
     "endpoints_search": {
         "message": "Locatie zoeken"

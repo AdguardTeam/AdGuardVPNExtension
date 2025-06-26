@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Totes les ubicacions"
     },
+    "endpoints_saved": {
+        "message": "Guardat"
+    },
     "endpoints_search": {
         "message": "Cerca ubicació"
     },
@@ -832,6 +835,9 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Inicieu sessió o creeu un compte"
+    },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Continua"
     },
     "popup_newsletter_title": {
         "message": "Butlletí d'AdGuard"

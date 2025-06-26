@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Visos vietovės"
     },
+    "endpoints_saved": {
+        "message": "Išsaugota"
+    },
     "endpoints_search": {
         "message": "Ieškoti lokacijos"
     },

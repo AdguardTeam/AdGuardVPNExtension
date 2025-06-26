@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Усі місцезнаходження"
     },
+    "endpoints_saved": {
+        "message": "Збережені"
+    },
     "endpoints_search": {
         "message": "Пошук місцезнаходження"
     },

@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Բոլոր վայրերը"
     },
+    "endpoints_saved": {
+        "message": "Պահպանված"
+    },
     "endpoints_search": {
         "message": "Որոնել վայրերը"
     },

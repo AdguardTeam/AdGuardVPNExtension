@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Сите локации"
     },
+    "endpoints_saved": {
+        "message": "Зачувано"
+    },
     "endpoints_search": {
         "message": "Пребарајте локација"
     },

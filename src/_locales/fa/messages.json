@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "همه مکانها"
     },
+    "endpoints_saved": {
+        "message": "ذخیره شده"
+    },
     "endpoints_search": {
         "message": "جستجوی مکان"
     },

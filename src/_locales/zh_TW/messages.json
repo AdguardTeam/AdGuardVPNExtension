@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "所有的位置"
     },
+    "endpoints_saved": {
+        "message": "已儲存"
+    },
     "endpoints_search": {
         "message": "搜尋位置"
     },

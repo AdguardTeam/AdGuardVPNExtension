@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Tüm konumlar"
     },
+    "endpoints_saved": {
+        "message": "Kaydedildi"
+    },
     "endpoints_search": {
         "message": "Konum ara"
     },

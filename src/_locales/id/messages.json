@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "Semua lokasi"
     },
+    "endpoints_saved": {
+        "message": "Tersimpan"
+    },
     "endpoints_search": {
         "message": "Cari lokasi"
     },

@@ -684,6 +684,9 @@
     "endpoints_all": {
         "message": "כל המיקומים"
     },
+    "endpoints_saved": {
+        "message": "נשמר"
+    },
     "endpoints_search": {
         "message": "חפש מיקום"
     },
