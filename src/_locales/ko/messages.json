@@ -1051,6 +1051,9 @@
     "popup_stats_menu_why_safe_got_it": {
         "message": "확인"
     },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "통계 활성화"
+    },
     "popup_stats_menu_disable_stats_btn": {
         "message": "통계 비활성화"
     },
