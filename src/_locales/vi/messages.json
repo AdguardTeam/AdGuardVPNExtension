@@ -678,6 +678,9 @@
     "endpoints_all": {
         "message": "Tất cả vị trí"
     },
+    "endpoints_saved": {
+        "message": "Đã lưu"
+    },
     "endpoints_search": {
         "message": "Tìm vị trí"
     },

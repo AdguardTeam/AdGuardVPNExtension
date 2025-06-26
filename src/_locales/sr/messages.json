@@ -678,6 +678,9 @@
     "endpoints_all": {
         "message": "Sve krajnje tačke"
     },
+    "endpoints_saved": {
+        "message": "Sačuvano"
+    },
     "endpoints_search": {
         "message": "Pretraži lokaciju"
     },

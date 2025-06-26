@@ -678,6 +678,9 @@
     "endpoints_all": {
         "message": "모든 위치"
     },
+    "endpoints_saved": {
+        "message": "저장"
+    },
     "endpoints_search": {
         "message": "위치 검색"
     },

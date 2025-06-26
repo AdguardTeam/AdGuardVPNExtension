@@ -199,7 +199,7 @@
         "message": "Anmelden"
     },
     "auth_title": {
-        "message": "Melden Sie sich an oder erstellen Sie ein Konto"
+        "message": "Anmelden oder ein Konto erstellen"
     },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-Mail-Adresse"
@@ -678,6 +678,9 @@
     "endpoints_all": {
         "message": "Alle Standorte"
     },
+    "endpoints_saved": {
+        "message": "Gespeicherte"
+    },
     "endpoints_search": {
         "message": "Standort suchen"
     },
@@ -825,7 +828,7 @@
         "message": "Diese Informationen helfen uns zu verstehen, was gut funktioniert und was verbessert werden muss. Sie sind anonym und werden nur intern verwendet. Wir geben sie nie an Dritte weiter"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Melden Sie sich an oder erstellen Sie ein Konto"
+        "message": "Anmelden oder ein Konto erstellen"
     },
     "popup_auth_policy_agreement_page_continue_button": {
         "message": "Weiter"

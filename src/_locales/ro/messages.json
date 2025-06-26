@@ -678,6 +678,9 @@
     "endpoints_all": {
         "message": "Toate locațiile"
     },
+    "endpoints_saved": {
+        "message": "Salvat"
+    },
     "endpoints_search": {
         "message": "Căutare locație"
     },

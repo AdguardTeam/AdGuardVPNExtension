@@ -678,6 +678,9 @@
     "endpoints_all": {
         "message": "Vse lokacije"
     },
+    "endpoints_saved": {
+        "message": "Shranjeno"
+    },
     "endpoints_search": {
         "message": "Poišči lokacijo"
     },

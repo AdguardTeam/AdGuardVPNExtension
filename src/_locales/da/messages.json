@@ -678,6 +678,9 @@
     "endpoints_all": {
         "message": "Alle placeringer"
     },
+    "endpoints_saved": {
+        "message": "Gemt"
+    },
     "endpoints_search": {
         "message": "Søg placering"
     },

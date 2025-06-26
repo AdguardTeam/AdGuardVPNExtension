@@ -678,6 +678,9 @@
     "endpoints_all": {
         "message": "Toutes les localisations"
     },
+    "endpoints_saved": {
+        "message": "Enregistré"
+    },
     "endpoints_search": {
         "message": "Rechercher une localisation"
     },

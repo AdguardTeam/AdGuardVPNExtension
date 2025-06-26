@@ -678,6 +678,9 @@
     "endpoints_all": {
         "message": "Minden végpont"
     },
+    "endpoints_saved": {
+        "message": "Elmentve"
+    },
     "endpoints_search": {
         "message": "Helyszín keresése"
     },

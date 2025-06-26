@@ -153,9 +153,6 @@
     "account_logged_in_as": {
         "message": "تم تسجيل الدخول باسم <b>%username%</b>"
     },
-    "account_sign_out": {
-        "message": "تسجيل خروج"
-    },
     "account_unlimited_title": {
         "message": "احصل على إصدار غير محدود!"
     },
@@ -183,17 +180,11 @@
     "auth_recover": {
         "message": "هل نسيت كلمة المرور؟"
     },
-    "auth_sign_up": {
-        "message": "إنشاء حساب"
-    },
     "auth_sign_up_info": {
         "message": "أنشأ حسابك في AdGuard"
     },
     "auth_sign_up_button": {
         "message": "إنشاء حساب"
-    },
-    "auth_sign_in": {
-        "message": "أدخل كلمة المرور الخاصة بك"
     },
     "auth_sign_in_button": {
         "message": "تسجيل الدخول"
@@ -236,9 +227,6 @@
     },
     "privacy_policy": {
         "message": "سياسة الخصوصية"
-    },
-    "settings_general_title": {
-        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "احصل على جيجا مجانية!"
@@ -677,6 +665,9 @@
     },
     "endpoints_all": {
         "message": "جميع المواقع"
+    },
+    "endpoints_saved": {
+        "message": "تم الحفظ"
     },
     "endpoints_search": {
         "message": "مواقع البحث"

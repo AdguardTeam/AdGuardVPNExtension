@@ -121,7 +121,7 @@
         "message": "Аккаунт"
     },
     "account_edit": {
-        "message": "Открыть настройки аккаунта"
+        "message": "В настройки аккаунта"
     },
     "account_version": {
         "message": "Версия"
@@ -205,7 +205,7 @@
         "message": "Email"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Войти через почту"
+        "message": "Продолжить"
     },
     "auth_sign_in_provider_apple": {
         "message": "Войти через Apple"
@@ -677,6 +677,9 @@
     },
     "endpoints_all": {
         "message": "Все локации"
+    },
+    "endpoints_saved": {
+        "message": "Сохранённые"
     },
     "endpoints_search": {
         "message": "Поиск локации"

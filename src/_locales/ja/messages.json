@@ -678,6 +678,9 @@
     "endpoints_all": {
         "message": "ずべてのロケーション"
     },
+    "endpoints_saved": {
+        "message": "お気に入り"
+    },
     "endpoints_search": {
         "message": "ロケーションを検索"
     },
@@ -692,10 +695,10 @@
         "message": "全て"
     },
     "endpoints_tab_saved": {
-        "message": "保存済み"
+        "message": "お気に入り"
     },
     "endpoints_saved_location_deleted": {
-        "message": "「保存済み」からロケーションを削除しました。"
+        "message": "「お気に入り」からロケーションを削除しました。"
     },
     "popup_traffic_limit_reached": {
         "message": "月間無料通信量の上限に達しました。"
