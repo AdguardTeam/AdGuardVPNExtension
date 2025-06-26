@@ -1051,6 +1051,9 @@
     "popup_stats_menu_why_safe_got_it": {
         "message": "OK"
     },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "統計情報の収集を有効にする"
+    },
     "popup_stats_menu_disable_stats_btn": {
         "message": "統計情報の収集を無効にする"
     },
