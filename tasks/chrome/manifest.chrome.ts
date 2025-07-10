@@ -1,6 +1,8 @@
+import { MIN_SUPPORTED_VERSION } from '../consts';
+
 export const chromeManifestDiff = {
     manifest_version: 3,
-    minimum_chrome_version: '109.0',
+    minimum_chrome_version: `${MIN_SUPPORTED_VERSION.CHROMIUM}.0`,
     options_page: 'options.html',
     background: {
         service_worker: 'background.js',
@@ -19,6 +21,7 @@ export const chromeManifestDiff = {
     permissions: [
         'webRequestAuthProvider',
         'offscreen',
+        'browsingData',
     ],
     host_permissions: [
         '<all_urls>',

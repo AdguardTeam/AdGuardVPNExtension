@@ -6,22 +6,23 @@ import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { RequestStatus } from '../../../stores/constants';
+import { CredentialsKey } from '../../../stores/AuthStore';
 import { Submit } from '../Submit';
 import { InputField } from '../InputField';
 import { translator } from '../../../../common/translator';
 
 export const EmailAuth = observer(() => {
     const { authStore } = useContext(rootStore);
-    const { username, requestProcessState, error } = authStore;
+    const {
+        username,
+        requestProcessState,
+        error,
+        onCredentialsChange,
+    } = authStore;
 
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await authStore.checkEmail();
-    };
-
-    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { target: { name, value } } = e;
-        await authStore.onCredentialsChange(name, value);
     };
 
     const formClassName = classnames(
@@ -46,11 +47,11 @@ export const EmailAuth = observer(() => {
         >
             <div className="form__inputs">
                 <InputField
-                    id="username"
+                    id={CredentialsKey.Username}
                     type="email"
                     value={username}
                     placeholder={translator.getMessage('auth_email')}
-                    inputChangeHandler={inputChangeHandler}
+                    onChange={onCredentialsChange}
                     error={authStore.error}
                     label={translator.getMessage('auth_sign_in_provider_adguard_label')}
                 />

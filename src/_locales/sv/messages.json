@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Inställningar"
     },
+    "popup_settings_stats": {
+        "message": "Statistik"
+    },
+    "popup_settings_free_description": {
+        "message": "Tillgänglig i AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "Aktivera VPN på denna webbplats"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Alla platser"
+    },
+    "endpoints_saved": {
+        "message": "Sparad"
     },
     "endpoints_search": {
         "message": "Sök plats"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Visa inte igen"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Statistik för denna webbläsare"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Statistik är inaktiverade"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Aktivera"
+    },
+    "popup_stats_data_usage": {
+        "message": "Data"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Mest använda platser"
+    },
+    "popup_stats_usage_time": {
+        "message": "Tid"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Varför det är säkert"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Varför det är säkert"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Eftersom VPN-anslutningen är krypterad och säker kan ingen se din aktivitetsdata — vi beräknar bara din trafikanvändning"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "All statistik samlas in och lagras lokalt på din enhet. Vi har inte tillgång till dem"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Uppfattat"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Aktivera statistik"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Inaktivera statistik"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Inaktivera statistik?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Ny statistik kommer inte att samlas in. Du kan fortfarande komma åt din befintliga statistik"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Inaktivera"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Avbryt"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Rensa statistik"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Rensa statistik?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "All statistik kommer att raderas permanent"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Rensa"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Avbryt"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 timmar"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 dagar"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 dagar"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Totalt"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "nedladdad"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "uppladdad"
+    },
+    "popup_stats_empty": {
+        "message": "Ingen statistik ännu. Fortsätt använda AdGuard VPN för att se den"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Visa alla platser"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Ansluten till VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% d",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% t",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% m",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Platser"
     },
     "options_signedout_page_title": {
         "message": "Du har loggat ut ur AdGuard VPN"

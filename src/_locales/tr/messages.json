@@ -346,7 +346,7 @@
         "message": "AdGuard VPN'in işlevselliğini analiz etmek ve geliştirmek için bu bilgilere ihtiyacımız var"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Bu veriler anonimdir ve yalnızca dâhili olarak kullanılır. Üçüncü taraflarla asla paylaşmayız"
+        "message": "Bu veriler anonimdir ve yalnızca kendimiz kullanırız. Üçüncü taraflarla asla paylaşmayız"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Anladım"
@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Ayarlar"
     },
+    "popup_settings_stats": {
+        "message": "İstatistikler"
+    },
+    "popup_settings_free_description": {
+        "message": "AdGuard VPN Unlimited'da mevcuttur"
+    },
     "context_menu_enable_vpn": {
         "message": "Bu sitede VPN'i etkinleştir"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Tüm konumlar"
+    },
+    "endpoints_saved": {
+        "message": "Kaydedildi"
     },
     "endpoints_search": {
         "message": "Konum ara"
@@ -822,7 +831,7 @@
         "message": "Kabul ederseniz, AdGuard VPN etkileşimde bulunduğunuz ekranlar ve düğmeler hakkında veri toplar. Veri paylaşımını her zaman <b>Ayarlar</b> öğesinden devre dışı bırakabilirsiniz"
     },
     "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Bu bilgiler hangi özelliklerin iyi çalıştığını ve hangilerinin iyileştirilmesi gerektiğini anlamamıza yardımcı olur. Anonimdir ve yalnızca dâhili olarak kullanılır. Bunu asla kimseyle paylaşmayız"
+        "message": "Bu bilgiler hangi özelliklerin iyi çalıştığını ve hangilerinin iyileştirilmesi gerektiğini anlamamıza yardımcı olur. Anonimdir ve yalnızca kendimiz kullanırız. Bunu asla kimseyle paylaşmayız"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Giriş yap ya da bir hesap oluştur"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Bunu tekrar gösterme"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Bu tarayıcı için istatistikler"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "İstatistikler devre dışı"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Etkinleştir"
+    },
+    "popup_stats_data_usage": {
+        "message": "Veri"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "En çok kullanılan konumlar"
+    },
+    "popup_stats_usage_time": {
+        "message": "Saat"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Neden güvenli"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Neden güvenli"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "VPN bağlantısı şifrelenmiş ve güvenlidir, bu nedenle hiç kimse etkinlik verilerinizi göremez — yalnızca veri kullanımınızı hesaplarız"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Tüm istatistikler cihazınızda yerel olarak toplanır ve saklanır. Onlara erişimimiz yoktur"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Anladım"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "İstatistikleri etkinleştir"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "İstatistikleri devre dışı bırak"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "İstatistikler devre dışı bırakılsın mı?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Yeni istatistikler toplanmayacaktır. Mevcut istatistiklerinize hâlâ erişebilirsiniz"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Devre dışı bırak"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "İptal"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "İstatistikleri temizle"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "İstatistikler temizlensin mi?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Tüm istatistikler kalıcı olarak silinecektir"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Temizle"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "İptal"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 saat"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 gün"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 gün"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Her zaman"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "indirilen"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "gönderilen"
+    },
+    "popup_stats_empty": {
+        "message": "Henüz istatistik yok — görüntülemek için AdGuard VPN'i kullanmaya devam edin"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Tüm konumları görüntüle"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "VPN'e bağlı"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% g",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% sa",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% dk",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Konumlar"
     },
     "options_signedout_page_title": {
         "message": "AdGuard VPN'den çıkış yaptınız"

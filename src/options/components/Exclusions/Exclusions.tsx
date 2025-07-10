@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { ExclusionsMode } from '../../../common/exclusionsConstants';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { Icon } from '../ui/Icon';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { Icon } from '../../../common/components/Icons';
 import { Button } from '../ui/Button';
 
 import { ModeSelectorModal } from './ModeSelectorModal';
@@ -69,7 +69,11 @@ export const Exclusions = observer(() => {
                     onClick={openModeSelectorModal}
                 >
                     {chunks}
-                    <Icon name="pencil" className="exclusions__mode-btn-icon" />
+                    <Icon
+                        name="pencil"
+                        size="16"
+                        className="exclusions__mode-btn-icon"
+                    />
                 </button>
             );
         },

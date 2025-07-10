@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
+import { IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
-import { Icon } from '../ui/Icon';
 
 import './mobile-edge-promo-modal.pcss';
 
@@ -60,13 +60,11 @@ export const MobileEdgePromoModal = observer(() => {
             overlayClassName="modal__overlay"
             className="mobile-edge-promo-modal"
         >
-            <button
-                type="button"
-                className="button button--icon mobile-edge-promo-modal__close"
+            <IconButton
+                name="cross"
+                className="close-icon-btn"
                 onClick={handleCloseModal}
-            >
-                <Icon icon="cross" className="icon--button icon--cross-gray7f" />
-            </button>
+            />
 
             <div className="mobile-edge-promo-modal__content">
                 <div className="mobile-edge-promo-modal__image" />

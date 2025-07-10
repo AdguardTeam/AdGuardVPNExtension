@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { reactTranslator } from '../../../common/reactTranslator';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
 
 import { TrafficInfo } from './TrafficInfo';

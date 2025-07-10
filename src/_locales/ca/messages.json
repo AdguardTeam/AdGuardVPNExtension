@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Configuració"
     },
+    "popup_settings_stats": {
+        "message": "Estadístiques"
+    },
+    "popup_settings_free_description": {
+        "message": "Disponible a AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "Habilita el VPN en aquest lloc web"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Totes les ubicacions"
+    },
+    "endpoints_saved": {
+        "message": "Guardat"
     },
     "endpoints_search": {
         "message": "Cerca ubicació"
@@ -826,6 +835,9 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Inicieu sessió o creeu un compte"
+    },
+    "popup_auth_policy_agreement_page_continue_button": {
+        "message": "Continua"
     },
     "popup_newsletter_title": {
         "message": "Butlletí d'AdGuard"
@@ -1008,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "No tornis a mostrar això"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Estadístiques per a aquest navegador"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Les estadístiques estan desactivades"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Habilita"
+    },
+    "popup_stats_data_usage": {
+        "message": "Dades"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Ubicacions més utilitzades"
+    },
+    "popup_stats_usage_time": {
+        "message": "Hora"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Per què és segur"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Per què és segur"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Com que la connexió VPN està xifrada i és segura, ningú pot veure les teves dades d'activitat — només calculem l'ús del teu trànsit"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Totes les estadístiques es recullen i s'emmagatzemen localment al seu dispositiu. No tenim accés a elles"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Entesos"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Activa les estadístiques"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Desactivar estadístiques"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Desactivar les estadístiques?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "No es recolliran noves estadístiques. Encara pots accedir a les teves estadístiques existents"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Deshabilita"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Cancel·lar"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Netejar estadístiques"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Netejar estadístiques?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Totes les estadístiques seran eliminades de forma permanent"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Neteja"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Cancel·lar"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 hores"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 dies"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 dies"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Tot el temps"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "descarregat"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "carregat"
+    },
+    "popup_stats_empty": {
+        "message": "Encara no hi ha estadístiques — continua utilitzant AdGuard VPN per veure-les"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Veure totes les ubicacions"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Connectat a VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% d",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% h",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% m",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Ubicacions"
     },
     "options_signedout_page_title": {
         "message": "Us heu desconnectat d'AdGuard VPN"

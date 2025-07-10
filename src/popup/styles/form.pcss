@@ -72,8 +72,9 @@
         line-height: 1.3;
         outline: none;
 
-        &--password {
-            padding: 16px 42px 16px 16px;
+        &--with-button {
+            /* Padding right is 40px = 24px (icon size) + 16px (icon offset) */
+            padding: 16px 40px 16px 16px;
         }
 
         &:-webkit-autofill:focus,
@@ -221,13 +222,32 @@
         text-overflow: ellipsis;
     }
 
-    &__show-password {
+    &__input-wrapper {
+        position: relative;
+    }
+
+    &__input-btn {
         position: absolute;
-        top: 39px;
-        right: 10px;
+        width: 24px;
+        height: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 16px;
         padding: 0;
-        color: var(--gray-base);
-        opacity: 0.5;
+        border: 0;
+        visibility: hidden;
+        opacity: 0;
+
+        &--password {
+            visibility: visible;
+            opacity: 0.5;
+            color: var(--gray-base);
+        }
+
+        &--active {
+            visibility: visible;
+            opacity: 1;
+        }
     }
 
     &__group {

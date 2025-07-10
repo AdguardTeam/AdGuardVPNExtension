@@ -3,7 +3,7 @@ import { action, observable } from 'mobx';
 import type { RootStore } from './RootStore';
 
 export class UiStore {
-    @observable isOpenEndpointsSearch: boolean = false;
+    @observable isOpenLocationsScreen: boolean = false;
 
     @observable isOpenOptionsModal: boolean = false;
 
@@ -62,12 +62,12 @@ export class UiStore {
         this.isConnecting = false;
     };
 
-    @action openEndpointsSearch = (): void => {
-        this.isOpenEndpointsSearch = true;
+    @action openLocationsScreen = (): void => {
+        this.isOpenLocationsScreen = true;
     };
 
-    @action closeEndpointsSearch = (): void => {
-        this.isOpenEndpointsSearch = false;
+    @action closeLocationsScreen = (): void => {
+        this.isOpenLocationsScreen = false;
     };
 
     @action openOptionsModal = (): void => {

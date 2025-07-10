@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
+import { Icon, IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
-import { Icon } from '../ui/Icon';
 
 import './mobile-edge-promo-banner.pcss';
 
@@ -62,22 +62,10 @@ export const MobileEdgePromoBanner = observer(() => {
                 <span className="mobile-edge-promo-banner__text">
                     {translator.getMessage('popup_mobile_edge_promo_text')}
                 </span>
-                <Icon
-                    icon="right-arrow"
-                    className="icon--arrow"
-                />
+                <Icon name="arrow-down" rotation="clockwise" />
             </button>
 
-            <button
-                type="button"
-                className="button button--icon"
-                onClick={closeBanner}
-            >
-                <Icon
-                    icon="cross"
-                    className="icon--button icon--cross-gray7f"
-                />
-            </button>
+            <IconButton name="cross" onClick={closeBanner} />
         </div>
     );
 });

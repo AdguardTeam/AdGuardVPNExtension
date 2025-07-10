@@ -54,20 +54,6 @@
             line-height: 1.5;
         }
 
-        &-globe-icon,
-        &-forward-icon {
-            flex-shrink: 0;
-        }
-
-        &-globe-icon {
-            color: var(--stroke-icons-product-icon-default);
-        }
-
-        &-forward-icon {
-            transition: var(--t3) color;
-            transform: rotate(-90deg);
-        }
-
         &:hover &-forward-icon,
         &:focus-visible &-forward-icon {
             color: var(--text-main-text-main-default);
@@ -106,10 +92,6 @@
         flex-shrink: 0;
         padding: 16px;
         border-radius: 8px;
-
-        &-icon {
-            color: currentColor;
-        }
     }
 
     &__check {

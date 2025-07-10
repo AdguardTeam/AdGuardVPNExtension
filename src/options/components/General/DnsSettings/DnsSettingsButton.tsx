@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { translator } from '../../../../common/translator';
+import { IconButton } from '../../../../common/components/Icons';
 import { rootStore } from '../../../stores';
 import { Controls } from '../../ui/Controls';
-import { IconButton } from '../../ui/Icon';
 
 export const DnsSettingsButton = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -27,7 +27,7 @@ export const DnsSettingsButton = observer(() => {
                     })}
                 </>
             )}
-            action={<IconButton name="arrow-down" className="dns-settings__btn-icon" />}
+            action={<IconButton name="arrow-down" rotation="clockwise" />}
             onClick={handleClick}
             className="dns-settings__btn"
         />

@@ -3,8 +3,14 @@ import { stateStorage } from '../../stateStorage';
 import { log } from '../../../common/logger';
 import { type ProxyApiInterface } from '../abstractProxyApi';
 import { browserApi } from '../../browserApi';
+import { getETld } from '../../../common/utils/url';
 
-import { promisifiedClearProxy, promisifiedGetProxy, promisifiedSetProxy } from './proxySettingsUtils';
+import {
+    promisifiedClearProxy,
+    promisifiedGetProxy,
+    promisifiedSetProxy,
+    promisifiedRemoveBrowsingData,
+} from './proxySettingsUtils';
 import pacGenerator from './pacGenerator';
 import { proxyAuthTrigger } from './proxyAuthTrigger';
 
@@ -66,6 +72,54 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
+     * Clears proxy credentials cache for the given host.
+     *
+     * NOTE: This method uses a hack by clearing cookies for the top-level
+     * domain of the host, so, reliability of this method is not guaranteed.
+     *
+     * @see {@link https://developer.chrome.com/docs/extensions/reference/api/browsingData#properties_1}
+     * @see {@link https://stackoverflow.com/a/66896099}
+     *
+     * @param host Host for which proxy credentials cache should be cleared.
+     */
+    private static async clearProxyHostCredentialsCache(host: string): Promise<void> {
+        try {
+            const topLevelDomain = getETld(host);
+            if (!topLevelDomain) {
+                log.warn(`Could not determine top-level domain for host '${host}' while clearing proxy credentials cache`);
+                return;
+            }
+
+            /**
+             * For removing cookies data we need to specify only top-level domain.
+             *
+             * @see {@link https://developer.chrome.com/docs/extensions/reference/api/browsingData#properties_1}
+             */
+            const options: chrome.browsingData.RemovalOptions = {
+                origins: [
+                    `https://${topLevelDomain}`,
+                    `http://${topLevelDomain}`,
+                ],
+            };
+
+            /**
+             * This is a hack used to clear proxy credentials cache.
+             * When we specify `cookies` data type, it also appears
+             * to clear the proxy credentials cache.
+             *
+             * @see {@link https://stackoverflow.com/a/66896099}
+             */
+            const dataToRemove: chrome.browsingData.DataTypeSet = {
+                cookies: true,
+            };
+
+            await promisifiedRemoveBrowsingData(options, dataToRemove);
+        } catch (error) {
+            log.error('Error clearing proxy credentials cache:', error);
+        }
+    }
+
+    /**
      * Handles onAuthRequired events
      * @param details - webrequest details
      * @param callback - callback to be called with authCredentials
@@ -84,10 +138,10 @@ class ProxyApi implements ProxyApiInterface {
         const { challenger } = details;
 
         // Wait for session storage after service worker awoken.
-        // This is needed because onAuthRequiredHandler is called before the extension is fully loaded between service
-        // worker restarts
+        // This is needed because onAuthRequiredHandler is called before
+        // the extension is fully loaded between service worker restarts
         try {
-            await stateStorage.waitInit();
+            await stateStorage.init();
         } catch (e) {
             log.error('Error on waiting for state storage to init', e);
         }
@@ -138,10 +192,13 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
-     * Checks if we need to trigger onAuthRequired event, we added this check because the trigger for mv3 looks awfully,
-     * and we want to do it as less as possible
-     * @param oldConfig
-     * @param newConfig
+     * Checks if we need to trigger onAuthRequired event, we added this check
+     * because the trigger looks awfully, and we want to do it as less as possible.
+     *
+     * @param oldConfig Old proxy config.
+     * @param newConfig New proxy config.
+     *
+     * @returns True if we need to trigger onAuthRequired event, false otherwise.
      */
     shouldApplyProxyAuthTrigger = (
         oldConfig: ProxyConfigInterface | null,
@@ -173,6 +230,9 @@ class ProxyApi implements ProxyApiInterface {
         const chromeConfig = ProxyApi.convertToChromeConfig(config);
         await promisifiedSetProxy(chromeConfig);
         if (this.shouldApplyProxyAuthTrigger(this.globalProxyConfig, config)) {
+            // If the host or credentials changed, we need to clear the proxy credentials cache first
+            await ProxyApi.clearProxyHostCredentialsCache(config.host);
+
             // we do not wait for the promise to resolve because we don't want to block the main thread
             proxyAuthTrigger.run();
         }
@@ -208,7 +268,7 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
-     * Registers onAuthRequired listener for MV3 on top level to wake up the service worker
+     * Registers onAuthRequired listener on top level to wake up the service worker
      * and handles authorization for active proxy only
      */
     public init = (): void => {

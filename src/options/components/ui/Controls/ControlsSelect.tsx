@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { Select, type SelectProps } from '../Select';
+import { Select, type SelectProps } from '../../../../common/components/Select';
 
 import { Controls, type ControlsProps } from './Controls';
 
@@ -71,7 +71,6 @@ export function ControlsSelect<T extends string>({
                     options={options}
                     onChange={onChange}
                     isActive={isActive}
-                    onIsActiveChange={setIsActive}
                 />
             )}
             isActive={isActive}

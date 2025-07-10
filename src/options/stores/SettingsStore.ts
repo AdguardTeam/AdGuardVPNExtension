@@ -14,7 +14,7 @@ import {
     type QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
 } from '../../common/constants';
-import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
+import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../common/dnsConstants';
 import { messenger } from '../../common/messenger';
 import { log } from '../../common/logger';
 import type { DnsServerData } from '../../background/schema';

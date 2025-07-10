@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classnames from 'classnames';
 
+import { IconButton } from '../../../common/components/Icons';
+import { type CredentialsKey } from '../../stores/AuthStore';
+
 interface PasswordFieldParameters {
-    id: string;
+    id: CredentialsKey;
     password: string;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+    onChange?: (id: CredentialsKey, value: string) => void;
     error?: string | null;
-    inputType: string;
-    handleInputTypeChange?: React.MouseEventHandler<HTMLButtonElement>;
-    icon?: string;
     placeholder: string;
     label: string | undefined;
     focus?: boolean;
@@ -18,16 +18,31 @@ interface PasswordFieldParameters {
 const PasswordField = ({
     id,
     password,
-    handleChange,
+    onChange,
     error,
-    inputType,
-    handleInputTypeChange,
-    icon,
     placeholder = '',
     label = '',
     focus = false,
 }: PasswordFieldParameters) => {
-    const inputClassName = classnames('form__input form__input--password', { 'form__input--error': error });
+    const [isPasswordShown, setIsPasswordShown] = useState(false);
+
+    const inputClassName = classnames(
+        'form__input form__input--with-button',
+        { 'form__input--error': error },
+    );
+
+    const type = isPasswordShown ? 'text' : 'password';
+    const icon = isPasswordShown ? 'open_eye' : 'closed_eye';
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (onChange) {
+            onChange(id, e.target.value);
+        }
+    };
+
+    const toggleInputType = () => {
+        setIsPasswordShown((prev) => !prev);
+    };
 
     return (
         <div className="form__item">
@@ -35,29 +50,24 @@ const PasswordField = ({
                 <div className="form__label">
                     {label}
                 </div>
-                <input
-                    id={id}
-                    name={id}
-                    className={inputClassName}
-                    type={inputType}
-                    onChange={handleChange}
-                    defaultValue={password}
-                    placeholder={placeholder}
-                    // eslint-disable-next-line jsx-a11y/no-autofocus
-                    autoFocus={focus}
-                />
-                {icon && (
-                    <button
-                        type="button"
-                        tabIndex={-1}
-                        className="button form__show-password"
-                        onClick={handleInputTypeChange}
-                    >
-                        <svg className="icon icon--button">
-                            <use xlinkHref={icon} />
-                        </svg>
-                    </button>
-                )}
+                <div className="form__input-wrapper">
+                    <input
+                        id={id}
+                        name={id}
+                        className={inputClassName}
+                        type={type}
+                        onChange={handleInputChange}
+                        value={password}
+                        placeholder={placeholder}
+                        // eslint-disable-next-line jsx-a11y/no-autofocus
+                        autoFocus={focus}
+                    />
+                    <IconButton
+                        name={icon}
+                        className="form__input-btn form__input-btn--password"
+                        onClick={toggleInputType}
+                    />
+                </div>
             </label>
         </div>
     );

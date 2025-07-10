@@ -15,7 +15,7 @@ import { daysToRenewal } from '../../common/utils/date';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { AnimationEvent } from '../constants';
 import { type ForwarderUrlQueryKey } from '../../background/config';
-import { LocationsTab } from '../../background/endpoints/locationsService';
+import { LocationsTab } from '../../background/endpoints/locationsEnums';
 import { containsIgnoreCase } from '../../common/components/SearchHighlighter/helpers';
 
 import type { RootStore } from './RootStore';

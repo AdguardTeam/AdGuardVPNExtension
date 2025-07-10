@@ -1,0 +1,64 @@
+.stats-menu-item {
+    /* Increase specificity */
+    &.extra-options__item {
+        padding-right: 16px;
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__description {
+        color: var(--text-description-description-default);
+        font-size: 14px;
+        line-height: 1.3;
+        display: block;
+        padding-right: 24px;
+    }
+
+    &__usage {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        column-gap: 8px;
+
+        &-item {
+            font-size: 14px;
+            line-height: 18px;
+
+            &--download {
+                color: var(--text-links-link-default);
+            }
+
+            &--upload {
+                color: var(--text-main-text-main-default);
+            }
+        }
+    }
+
+    &__loader {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 8px 8px 0;
+
+        .dots-loader {
+            height: 16px;
+
+            &__dot {
+                width: 4px;
+                height: 4px;
+
+                &:first-child {
+                    left: -5px;
+                }
+
+                &:last-child {
+                    right: -5px;
+                }
+            }
+        }
+    }
+}

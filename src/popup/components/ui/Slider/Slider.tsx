@@ -3,9 +3,8 @@ import React from 'react';
 import cn from 'classnames';
 
 import { translator } from '../../../../common/translator';
+import { IconButton } from '../../../../common/components/Icons';
 import { DotsIndicator } from '../DotsIndicator';
-import { CloseButton } from '../CloseButton';
-import { Icon } from '../Icon';
 
 import './slider.pcss';
 
@@ -53,25 +52,27 @@ export const Slider = (props: SliderProps) => {
     return (
         <div className={sliderClassName}>
             {handleCloseClick && (
-                <CloseButton handler={handleCloseClick} />
+                <IconButton
+                    name="cross"
+                    className="close-icon-btn"
+                    onClick={handleCloseClick}
+                />
             )}
             <div className="slider__slide">
                 {arrows && (
                     <>
-                        <button
-                            type="button"
+                        <IconButton
+                            name="arrow-down"
+                            rotation="counter-clockwise"
                             className="slider__arrow slider__arrow--left"
                             onClick={prevSlideHandler}
-                        >
-                            <Icon icon="arrow" className="slider__arrow-pic" />
-                        </button>
-                        <button
-                            type="button"
+                        />
+                        <IconButton
+                            name="arrow-down"
+                            rotation="clockwise"
                             className="slider__arrow slider__arrow--right"
                             onClick={nextSlideHandler}
-                        >
-                            <Icon icon="arrow" className="slider__arrow-pic" />
-                        </button>
+                        />
                     </>
                 )}
                 <img

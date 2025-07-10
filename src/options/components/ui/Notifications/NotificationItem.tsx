@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
+import { Icon, IconButton } from '../../../../common/components/Icons';
 import { type Notification } from '../../../stores/NotificationsStore/Notification';
-import { Icon, IconButton } from '../Icon';
 
 /**
  * Notification show duration in milliseconds.
@@ -94,15 +94,8 @@ export function NotificationItem({ value, onClose }: NotificationItemProps) {
 
     return (
         // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-        <div
-            className={classes}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-        >
-            <Icon
-                name="info"
-                className="notifications__item-icon"
-            />
+        <div className={classes} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+            <Icon name="info" className="notifications__item-icon" />
             <div className="notifications__item-content">
                 <div className="notifications__item-message">
                     {value.message}
@@ -117,11 +110,7 @@ export function NotificationItem({ value, onClose }: NotificationItemProps) {
                     </button>
                 )}
             </div>
-            <IconButton
-                name="cross"
-                onClick={handleClose}
-                className="notifications__item-close"
-            />
+            <IconButton name="cross" onClick={handleClose} />
         </div>
     );
 }

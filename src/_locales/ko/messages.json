@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "설정"
     },
+    "popup_settings_stats": {
+        "message": "통계"
+    },
+    "popup_settings_free_description": {
+        "message": "AdGuard VPN 무제한 버전에서 사용 가능"
+    },
     "context_menu_enable_vpn": {
         "message": "이 웹 사이트에서 VPN 활성화"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "모든 위치"
+    },
+    "endpoints_saved": {
+        "message": "저장"
     },
     "endpoints_search": {
         "message": "위치 검색"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "다시 표시 안 함"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "이 브라우저에 대한 통계"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "통계 비활성화됨"
+    },
+    "popup_stats_enable_btn": {
+        "message": "활성화"
+    },
+    "popup_stats_data_usage": {
+        "message": "데이터"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "가장 많이 사용되는 위치"
+    },
+    "popup_stats_usage_time": {
+        "message": "시간"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "안전한 이유"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "안전한 이유"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "VPN 연결은 암호화되어 안전하므로, 누구도 귀하의 활동 데이터를 확인할 수 없습니다. 저희는 사용자의 트래픽 사용량만 계산합니다."
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "모든 통계는 기기에 로컬로 수집 및 저장됩니다. 당사는 해당 통계에 액세스할 수 없습니다."
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "확인"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "통계 활성화"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "통계 비활성화"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "통계를 비활성화하시겠습니까?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "새로운 통계는 수집되지 않습니다. 기존 통계는 계속 액세스할 수 있습니다."
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "비활성화"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "취소"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "통계 지우기"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "통계를 지우시겠습니까?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "모든 통계가 영구적으로 삭제됩니다."
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "비우기"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "취소"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24시간"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7일"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30일"
+    },
+    "popup_stats_range_all_time": {
+        "message": "전체"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "다운로드됨"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "업로드됨"
+    },
+    "popup_stats_empty": {
+        "message": "아직 통계가 없습니다 — AdGuard를 계속 사용하여 통계를 확인하세요."
+    },
+    "popup_stats_view_all_locations": {
+        "message": "모든 위치 보기"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "VPN에 연결됨"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days%일",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours%시간",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes%분",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "위치"
     },
     "options_signedout_page_title": {
         "message": "AdGuard VPN에서 로그아웃되었습니다."

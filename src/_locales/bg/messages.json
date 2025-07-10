@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Настройки"
     },
+    "popup_settings_stats": {
+        "message": "Статистики"
+    },
+    "popup_settings_free_description": {
+        "message": "Налично в AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "Активиране на VPN на този уеб сайт"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Всички локации"
+    },
+    "endpoints_saved": {
+        "message": "Запазено"
     },
     "endpoints_search": {
         "message": "Търсене на местоположение"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Не го показвай отново"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Статистика за този браузър"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Статистиките са деактивирани"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Включи"
+    },
+    "popup_stats_data_usage": {
+        "message": "Данни"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Най-често използвани локации"
+    },
+    "popup_stats_usage_time": {
+        "message": "Време"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Защо е безопасно"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Защо е безопасно"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "VPN връзката е криптирана и защитена, така че никой не може да види данните за вашата активност — ние изчисляваме само потреблението ви на трафик"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Всички статистики се събират и съ хранят локално на вашето устройство. Нямаме достъп до тях"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Стана"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Активиране на статистика"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Деактивиране на статистиката"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Деактивиране на статистиката?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Няма да се събират нови статистики. Все още можете да получите достъп до съществуващите си статистики"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Изключи"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Отказ"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Изчистване на статистиката"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Изчистване на статистиката?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Всички статистики ще бъдат трайно изтрити"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Изчисти"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Отказ"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 часа"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 дни"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 дни"
+    },
+    "popup_stats_range_all_time": {
+        "message": "През цялото време"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "изтеглени"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "качени"
+    },
+    "popup_stats_empty": {
+        "message": "Все още няма статистика — продължавайте да използвате AdGuard VPN, за да ги видите"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Виж всички локации"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Свързан с VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% д",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% ч",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% м",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Локации"
     },
     "options_signedout_page_title": {
         "message": "Вие сте излезли от AdGuard VPN"

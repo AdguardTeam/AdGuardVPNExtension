@@ -153,9 +153,6 @@
     "account_logged_in_as": {
         "message": "تم تسجيل الدخول باسم <b>%username%</b>"
     },
-    "account_sign_out": {
-        "message": "تسجيل خروج"
-    },
     "account_unlimited_title": {
         "message": "احصل على إصدار غير محدود!"
     },
@@ -183,17 +180,11 @@
     "auth_recover": {
         "message": "هل نسيت كلمة المرور؟"
     },
-    "auth_sign_up": {
-        "message": "إنشاء حساب"
-    },
     "auth_sign_up_info": {
         "message": "أنشأ حسابك في AdGuard"
     },
     "auth_sign_up_button": {
         "message": "إنشاء حساب"
-    },
-    "auth_sign_in": {
-        "message": "أدخل كلمة المرور الخاصة بك"
     },
     "auth_sign_in_button": {
         "message": "تسجيل الدخول"
@@ -236,9 +227,6 @@
     },
     "privacy_policy": {
         "message": "سياسة الخصوصية"
-    },
-    "settings_general_title": {
-        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "احصل على جيجا مجانية!"
@@ -660,6 +648,9 @@
     "popup_settings_open_settings": {
         "message": "الإعدادات"
     },
+    "popup_settings_stats": {
+        "message": "إحصائيات"
+    },
     "context_menu_enable_vpn": {
         "message": "تشغيل VPN على هذا الموقع الإلكتروني"
     },
@@ -677,6 +668,9 @@
     },
     "endpoints_all": {
         "message": "جميع المواقع"
+    },
+    "endpoints_saved": {
+        "message": "تم الحفظ"
     },
     "endpoints_search": {
         "message": "مواقع البحث"
@@ -1007,6 +1001,75 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "عدم إظهار هذه مرة أخرى"
+    },
+    "popup_stats_enable_btn": {
+        "message": "تمكين"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "المواقع الأكثر استخداماً"
+    },
+    "popup_stats_usage_time": {
+        "message": "الوقت"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "لماذا هو آمن"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "لماذا هو آمن"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "يتم جمع جميع الإحصائيات وتخزينها محليًا على جهازك. ليس لدينا وصول إليها"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "فهمت ذلك"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "تعطيل"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "إلغاء"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "مسح الإحصائيات"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "مسح الإحصائيات؟"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "سيتم حذف جميع الإحصائيات بشكل دائم"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "مسح"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "إلغاء"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 ساعة"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 أيام"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 يوماً"
+    },
+    "popup_stats_range_all_time": {
+        "message": "كل الأوقات"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "التحميل"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "الرفع"
+    },
+    "popup_stats_empty": {
+        "message": "لا توجد إحصائيات بعد - استمر في استخدام AdGuard VPN لعرضها"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "عرض كافة المواقع"
+    },
+    "popup_stats_locations": {
+        "message": "المواقع"
     },
     "options_signedout_page_title": {
         "message": "لقد قمت بتسجيل الخروج من AdGuard VPN"

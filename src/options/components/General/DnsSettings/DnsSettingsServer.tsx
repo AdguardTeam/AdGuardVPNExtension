@@ -2,7 +2,7 @@ import React from 'react';
 
 import { type DnsServerData } from '../../../../background/schema';
 import { Radio } from '../../ui/Radio';
-import { IconButton, type IconButtonProps } from '../../ui/Icon';
+import { IconButton, type IconButtonProps } from '../../../../common/components/Icons';
 
 /**
  * Modify button props.
@@ -34,7 +34,11 @@ function ModifyButton({ icon, hoverColor, onClick }: ModifyButtonProps) {
     };
 
     return (
-        <IconButton name={icon} hoverColor={hoverColor} onClick={handleClick} />
+        <IconButton
+            name={icon}
+            hoverColor={hoverColor}
+            onClick={handleClick}
+        />
     );
 }
 
@@ -130,7 +134,7 @@ export function DnsSettingsServer({
                     <span className="dns-settings__custom-actions">
                         <ModifyButton
                             icon="edit"
-                            hoverColor="success"
+                            hoverColor="product"
                             onClick={() => restProps.onEdit(value)}
                         />
                         <ModifyButton

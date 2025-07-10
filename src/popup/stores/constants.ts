@@ -6,9 +6,4 @@ export enum RequestStatus {
 
 export const MAX_GET_POPUP_DATA_ATTEMPTS = 5;
 
-export enum InputType {
-    Text = 'text',
-    Password = 'password',
-}
-
 export const RECALCULATE_PINGS_BTN_INACTIVITY_DELAY_MS = 2000;

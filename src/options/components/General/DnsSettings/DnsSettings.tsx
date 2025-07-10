@@ -12,14 +12,14 @@ import {
     CLOUDFLARE_DNS_ID,
     CISCO_DNS_ID,
     QUAD9_DNS_ID,
-} from '../../../../background/dns/dnsConstants';
+} from '../../../../common/dnsConstants';
 import {
     TelemetryActionName,
     TelemetryScreenName,
     type DnsServerClickActionNames,
-} from '../../../../background/telemetry';
+} from '../../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { Button } from '../../ui/Button';

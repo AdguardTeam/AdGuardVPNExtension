@@ -351,8 +351,10 @@ class Endpoints implements EndpointsInterface {
     /**
      * Returns vpn info cached value and launches remote vpn info getting.
      *
-     * Note: If the mv3 sw is woken up by a popup click,
+     * Note: If the service worker is woken up by a popup click,
      * this method can be called before the service is initialized.
+     *
+     * @returns Cached vpn info or `null` if there was an error.
      */
     getVpnInfo = async (): Promise<VpnExtensionInfoInterface | null> => {
         // We check isInit first, because the vpnInfo getter

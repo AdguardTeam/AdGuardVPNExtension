@@ -1,5 +1,6 @@
 import browser, { type Runtime } from 'webextension-polyfill';
 
+import { mainInitializationPromise } from '../index';
 import { MessageType, SETTINGS_IDS, CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
 import { type ExclusionsData } from '../../common/exclusionsConstants';
 import { logStorage } from '../../common/log-storage';
@@ -32,13 +33,9 @@ import { limitedOfferService } from '../limitedOfferService';
 import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
 import { savedLocations } from '../savedLocations';
-import { authService } from '../authentication/authService';
 import { getConsentData, setConsentData } from '../consent';
-
-interface Message {
-    type: MessageType,
-    data: any
-}
+import { isMessage } from '../../common/messenger';
+import { statisticsService } from '../statistics';
 
 interface EventListeners {
     [index: string]: Runtime.MessageSender;
@@ -46,7 +43,16 @@ interface EventListeners {
 
 const eventListeners: EventListeners = {};
 
-const getOptionsData = async () => {
+/**
+ * This function is used to get options data for the options page.
+ *
+ * @param isDataRefresh If `true`, skips new `pageId` generation.
+ * Use this when you want to refresh the data without needing to
+ * generate a new `pageId`.
+ *
+ * @returns Options data.
+ */
+const getOptionsData = async (isDataRefresh: boolean) => {
     const appVersion = appStatus.version;
     const username = await credentials.getUsername();
     const isRateVisible = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
@@ -61,6 +67,11 @@ const getOptionsData = async () => {
     const customDnsServers = settings.getCustomDnsServers();
     const quickConnectSetting = settings.getQuickConnectSetting();
 
+    let pageId = null;
+    if (!isDataRefresh) {
+        pageId = telemetry.addOpenedPage();
+    }
+
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
         currentMode: exclusions.getMode(),
@@ -71,7 +82,7 @@ const getOptionsData = async () => {
 
     let servicesData = exclusions.getServices();
     if (servicesData.length === 0) {
-        // services may not be up-to-date on very first option page opening in firefox mv3
+        // services may not be up-to-date on very first option page opening in firefox
         // if their loading was blocked before due to default absence of host permissions (<all_urls>).
         // so if it happens, they should be updated forcedly
         await exclusions.forceUpdateServices();
@@ -109,11 +120,31 @@ const getOptionsData = async () => {
         subscriptionTimeExpiresIso,
         customDnsServers,
         quickConnectSetting,
+        pageId,
     };
 };
 
-const messagesHandler = async (message: Message, sender: Runtime.MessageSender) => {
+const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) => {
+    if (!isMessage(message)) {
+        log.error('Invalid message received:', message);
+        return null;
+    }
+
     const { type, data } = message;
+
+    /**
+     * Before processing any message, we need to ensure that
+     * all necessary modules are initialized and ready to use.
+     *
+     * Except for the `IS_AUTHENTICATED` message type, which is used to check
+     * if the user is authenticated or not, which needs to be processed immediately
+     * in order to avoid flashing different type of loaders in popup page.
+     * Under the hood, `auth.isAuthenticated()` will wait for the dependant modules
+     * to be initialized, so it can be safely processed immediately.
+     */
+    if (type !== MessageType.IS_AUTHENTICATED) {
+        await mainInitializationPromise;
+    }
 
     // Here we keep track of event listeners added through notifier
 
@@ -180,7 +211,8 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return savedLocations.removeSavedLocation(locationId);
         }
         case MessageType.GET_OPTIONS_DATA: {
-            return getOptionsData();
+            const { isRefresh } = data;
+            return getOptionsData(isRefresh);
         }
         case MessageType.GET_CONSENT_DATA: {
             return getConsentData();
@@ -290,7 +322,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return auth.register({ ...data.credentials, appId });
         }
         case MessageType.IS_AUTHENTICATED: {
-            return authService.isAuthenticated();
+            return auth.isAuthenticated();
         }
         case MessageType.START_SOCIAL_AUTH: {
             const { provider, marketingConsent } = data;
@@ -483,8 +515,8 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW: {
-            const { screenName } = data;
-            await telemetry.sendPageViewEventDebounced(screenName);
+            const { screenName, pageId } = data;
+            await telemetry.sendPageViewEventDebounced(screenName, pageId);
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_CUSTOM: {
@@ -492,14 +524,21 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             await telemetry.sendCustomEventDebounced(actionName, screenName);
             break;
         }
-        case MessageType.TELEMETRY_EVENT_ADD_OPENED_PAGE: {
-            const pageId = telemetry.addOpenedPage();
-            return pageId;
-        }
         case MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE: {
             const { pageId } = data;
             telemetry.removeOpenedPage(pageId);
             break;
+        }
+        case MessageType.STATISTICS_GET_BY_RANGE: {
+            const { range } = data;
+            return statisticsService.getStatsByRange(range);
+        }
+        case MessageType.STATISTICS_CLEAR: {
+            return statisticsService.clearStatistics();
+        }
+        case MessageType.STATISTICS_SET_IS_DISABLED: {
+            const { isDisabled } = data;
+            return statisticsService.setIsDisabled(isDisabled);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
@@ -520,6 +559,11 @@ const longLivedMessageHandler = (port: Runtime.Port) => {
     notifier.notifyListeners(notifier.types.PORT_CONNECTED, port.name);
 
     port.onMessage.addListener((message) => {
+        if (!isMessage(message)) {
+            log.error('Invalid message received:', message);
+            return;
+        }
+
         const { type, data } = message;
         if (type === MessageType.ADD_LONG_LIVED_CONNECTION) {
             const { events } = data;

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import _ from 'lodash';
+// @ts-expect-error - dns-js is not typed
+import { DNSPacket, DNSRecord } from 'dns-js';
 
 import pJSON from '../../../package.json';
 import {
@@ -18,22 +20,26 @@ import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
 import { type FallbackInfo, StorageKey } from '../schema';
 
-// DNS over https api
-const GOOGLE_DOH_HOSTNAME = 'dns.google';
-export const GOOGLE_DOH_URL = `${GOOGLE_DOH_HOSTNAME}/resolve`;
+/**
+ * DNS over HTTPS (DoH) URLs.
+ *
+ * Actual list of DoH providers can be found in:
+ * /projects/ADGUARD-CORE-LIBS/repos/vpn-client-backend-config/browse/backend.json
+ */
 
-const ALIDNS_DOH_HOSTNAME = 'dns.alidns.com';
-export const ALIDNS_DOH_URL = `${ALIDNS_DOH_HOSTNAME}/resolve`;
+const GOOGLE_DOH_HOSTNAME = 'dns.google';
+export const GOOGLE_DOH_URL = `${GOOGLE_DOH_HOSTNAME}/dns-query`;
+
+const DOHPUB_DOH_HOSTNAME = 'doh.pub';
+export const DOHPUB_DOH_URL = `${DOHPUB_DOH_HOSTNAME}/dns-query`;
 
 /**
- * Port must be specified for Quad9 DOH.
  * We are using `dns11` because it supports secured ECS.
  *
  * @see {@link https://quad9.net/news/blog/doh-with-quad9-dns-servers/}
  */
 const QUAD9_DOH_HOSTNAME = 'dns11.quad9.net';
-const QUAD9_DOH_PORT = 5053;
-export const QUAD9_DOH_URL = `${QUAD9_DOH_HOSTNAME}:${QUAD9_DOH_PORT}/dns-query`;
+export const QUAD9_DOH_URL = `${QUAD9_DOH_HOSTNAME}/dns-query`;
 
 const stageSuffix = STAGE_ENV === 'test' ? '-dev' : '';
 const BKP_API_HOSTNAME_PART = `bkp-api${stageSuffix}.adguard-vpn.online`;
@@ -178,106 +184,148 @@ export class FallbackApi {
             await this.getAuthApiUrl(),
             TELEMETRY_API_URL,
             GOOGLE_DOH_HOSTNAME,
-            ALIDNS_DOH_HOSTNAME,
+            DOHPUB_DOH_HOSTNAME,
             QUAD9_DOH_HOSTNAME,
         ].map((url) => `*${url}`);
     };
 
-    private getBkpUrlByGoogleDoh = async (name: string): Promise<string> => {
-        const { data } = await axios.get(`https://${GOOGLE_DOH_URL}`, {
+    /**
+     * Queries the DNS server for a TXT record of the given name for backup API URL.
+     *
+     * @param dnsUrl DNS server URL to query, e.g. `dns.google/dns-query`.
+     * @param name Name to query for, e.g. `bkp-api.adguard-vpn.online`.
+     *
+     * @returns Backup API URL from the TXT record.
+     *
+     * @throws Error if the DNS response is invalid or the backup URL is not found.
+     */
+    private async queryDns(dnsUrl: string, name: string): Promise<string> {
+        // Create DNS query
+        const packet = new DNSPacket();
+
+        // Make query recursive
+        packet.header.rd = 1;
+
+        // We're using DoH so ID should be 0
+        packet.header.id = 0;
+
+        // Absolute fully qualified domain name should end with a dot,
+        // to not allow DNS servers to append any suffixes.
+        const absoluteFullyQualifiedDomainName = `${name}.`;
+
+        // Add question for TXT record
+        packet.question.push(
+            new DNSRecord(
+                absoluteFullyQualifiedDomainName,
+                DNSRecord.Type.TXT, // TXT record type
+                DNSRecord.Class.IN, // Internet class
+            ),
+        );
+
+        // Send the DNS query over HTTPS (DoH)
+        const { data } = await axios.post(`https://${dnsUrl}`, DNSPacket.toBuffer(packet), {
             headers: {
+                'Content-Type': 'application/dns-message',
+                Accept: 'application/dns-message',
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
             },
-            params: {
-                name,
-                type: 'TXT',
-            },
             timeout: REQUEST_TIMEOUT_MS,
+            responseType: 'arraybuffer',
             ...fetchConfig,
         });
 
-        const bkpUrl = _.get(data, 'Answer[0].data');
+        // Parse the DNS response.
+        const responseDataBuffer = Buffer.from(data);
+        const responseData = DNSPacket.parse(responseDataBuffer);
 
-        if (!FallbackApi.isString(bkpUrl)) {
-            throw new Error(`Invalid bkp url from google doh for ${name}`);
+        // Get the first answer from the response.
+        const bkpUrl = _.get(responseData, 'answer[0].data[0]');
+
+        if (typeof bkpUrl !== 'string' || !bkpUrl) {
+            throw new Error(`Invalid bkp url from ${dnsUrl} doh for ${name}`);
         }
 
         return bkpUrl;
-    };
-
-    private getBkpUrlByAliDnsDoh = async (name: string): Promise<string> => {
-        const { data } = await axios.get(`https://${ALIDNS_DOH_URL}`, {
-            headers: {
-                'Cache-Control': 'no-cache',
-                Pragma: 'no-cache',
-                accept: 'application/dns-json',
-            },
-            params: {
-                name,
-                type: 'TXT',
-            },
-            timeout: REQUEST_TIMEOUT_MS,
-            ...fetchConfig,
-        });
-
-        const bkpUrl = _.get(data, 'Answer[0].data');
-
-        if (!FallbackApi.isString(bkpUrl)) {
-            throw new Error(`Invalid bkp url from alidns doh for ${name}`);
-        }
-
-        return bkpUrl;
-    };
-
-    private getBkpUrlByQuad9Doh = async (name: string): Promise<string> => {
-        const { data } = await axios.get(`https://${QUAD9_DOH_URL}`, {
-            headers: {
-                'Cache-Control': 'no-cache',
-                Pragma: 'no-cache',
-                accept: 'application/json',
-            },
-            params: {
-                name,
-                type: 'TXT',
-            },
-            timeout: REQUEST_TIMEOUT_MS,
-            ...fetchConfig,
-        });
-
-        const bkpUrl = _.get(data, 'Answer[0].data');
-
-        if (!FallbackApi.isString(bkpUrl)) {
-            throw new Error(`Invalid bkp url from quad9 doh for ${name}`);
-        }
-
-        return bkpUrl;
-    };
+    }
 
     /**
-     * Logs errors in the function and re-throws them to ensure that Promise.any receives them
-     * @param fn Function to call
-     * @throws Error
+     * Queries Google DNS over HTTPS (DoH) for a backup API URL.
+     *
+     * @param hostname Hostname to query for, e.g. `bkp-api.adguard-vpn.online`.
+     *
+     * @returns Backup API URL from Google DoH.
+     *
+     * @throws Error if the DNS response is invalid or the backup URL is not found.
      */
-    private debugErrors = async (fn: () => Promise<string>): Promise<string> => {
+    private async getBkpUrlByGoogleDoh(hostname: string): Promise<string> {
+        return this.queryDns(GOOGLE_DOH_URL, hostname);
+    }
+
+    /**
+     * Queries AliDNS over HTTPS (DoH) for a backup API URL.
+     *
+     * @param hostname Hostname to query for, e.g. `bkp-api.adguard-vpn.online`.
+     *
+     * @returns Backup API URL from AliDNS DoH.
+     *
+     * @throws Error if the DNS response is invalid or the backup URL is not found.
+     */
+    private async getBkpUrlByDohPubDnsDoh(hostname: string): Promise<string> {
+        return this.queryDns(DOHPUB_DOH_URL, hostname);
+    }
+
+    /**
+     * Queries Quad9 DNS over HTTPS (DoH) for a backup API URL.
+     *
+     * @param hostname Hostname to query for, e.g. `bkp-api.adguard-vpn.online`.
+     *
+     * @returns Backup API URL from Quad9 DoH.
+     *
+     * @throws Error if the DNS response is invalid or the backup URL is not found.
+     */
+    private async getBkpUrlByQuad9Doh(hostname: string): Promise<string> {
+        return this.queryDns(QUAD9_DOH_URL, hostname);
+    }
+
+    /**
+     * Logs errors in the function and re-throws them to ensure that Promise.any receives them.
+     *
+     * @param fn Function to call.
+     *
+     * @throws Re-throws the error caught in the function.
+     */
+    private async debugErrors(fn: () => Promise<string>): Promise<string> {
         try {
             const res = await fn();
             return res;
         } catch (error) {
-            // Usually it's either a network error or response is empty. We don't want to spam logs with such errors,
+            // Usually it's either a network error or response is empty.
+            // We don't want to spam logs with such errors,
             // that's why we only print them for debugging.
             log.debug(`Error in function ${fn.name}:`, getErrorMessage(error));
-            throw error; // Re-throwing the error to ensure that Promise.any receives it
-        }
-    };
 
-    private getBkpUrl = async (hostname: string): Promise<null | string> => {
+            // Re-throwing the error to ensure that Promise.any receives it
+            throw error;
+        }
+    }
+
+    /**
+     * Fetches backup API URL by querying DNS over HTTPS (DoH) for the given hostname.
+     * It tries to fetch the URL from multiple DoH providers (Google, AliDNS, Quad9)
+     * and returns the first successful result or null if all attempts fail.
+     *
+     * @param hostname Hostname to query for, e.g. `bkp-api.adguard-vpn.online`.
+     *
+     * @returns Backup API URL if fetched successfully or null if fetching failed.
+     */
+    private async getBkpUrl(hostname: string): Promise<null | string> {
         let bkpUrl;
 
         try {
             bkpUrl = await Promise.any([
                 this.debugErrors(() => this.getBkpUrlByGoogleDoh(hostname)),
-                this.debugErrors(() => this.getBkpUrlByAliDnsDoh(hostname)),
+                this.debugErrors(() => this.getBkpUrlByDohPubDnsDoh(hostname)),
                 this.debugErrors(() => this.getBkpUrlByQuad9Doh(hostname)),
             ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
@@ -287,7 +335,7 @@ export class FallbackApi {
         }
 
         return bkpUrl;
-    };
+    }
 
     /**
      * Returns base prefix for api hostname in format: `<whoami_version>.<application_type>.<application_version>`
@@ -352,10 +400,6 @@ export class FallbackApi {
 
         return bkpAuthUrl;
     };
-
-    private static isString(val: unknown): boolean {
-        return typeof val === 'string';
-    }
 }
 
 export const fallbackApi = new FallbackApi(VPN_API_URL, AUTH_API_URL, FORWARDER_DOMAIN);

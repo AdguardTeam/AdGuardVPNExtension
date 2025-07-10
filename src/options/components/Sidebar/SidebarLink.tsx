@@ -1,7 +1,7 @@
 import React, { type PropsWithChildren } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { type SidebarLinkItemClickActionNames } from '../../../background/telemetry';
+import { type SidebarLinkItemClickActionNames } from '../../../background/telemetry/telemetryEnums';
 
 /**
  * Sidebar link component props.

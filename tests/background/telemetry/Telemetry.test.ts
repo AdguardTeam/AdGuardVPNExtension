@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill';
+import { nanoid } from 'nanoid';
 
 import { Telemetry } from '../../../src/background/telemetry/Telemetry';
 import {
@@ -110,9 +111,10 @@ describe('Telemetry', () => {
      */
     const sendPageViewEventNotDebounced = async (
         screenName: TelemetryScreenName,
+        pageId = nanoid(),
     ) => {
         // @ts-expect-error - private method
-        await telemetry.sendPageViewEvent(screenName);
+        await telemetry.sendPageViewEvent(screenName, pageId);
     };
 
     /**
@@ -373,7 +375,7 @@ describe('Telemetry', () => {
         it('should send event', async () => {
             await telemetry.initState();
             telemetry.addOpenedPage();
-            await sendPageViewEventNotDebounced(TelemetryScreenName.PurchaseScreen);
+            await sendPageViewEventNotDebounced(TelemetryScreenName.PurchaseScreen, 'pageId1');
 
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
@@ -388,8 +390,28 @@ describe('Telemetry', () => {
         it('should save previous screen name', async () => {
             await telemetry.initState();
             telemetry.addOpenedPage();
-            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
-            await sendPageViewEventNotDebounced(TelemetryScreenName.PurchaseScreen);
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen, 'pageId1');
+            await sendPageViewEventNotDebounced(TelemetryScreenName.PurchaseScreen, 'pageId1');
+
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(2);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenNthCalledWith(
+                2,
+                {
+                    name: TelemetryScreenName.PurchaseScreen,
+                    refName: TelemetryScreenName.AuthScreen,
+                },
+                sampleEventBaseData,
+            );
+        });
+
+        it('should send refName when switched between pages', async () => {
+            await telemetry.initState();
+
+            const pageId1 = telemetry.addOpenedPage();
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen, pageId1);
+
+            const pageId2 = telemetry.addOpenedPage();
+            await sendPageViewEventNotDebounced(TelemetryScreenName.PurchaseScreen, pageId2);
 
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(2);
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenNthCalledWith(
@@ -405,12 +427,12 @@ describe('Telemetry', () => {
         it('should reset screen names if no opened page left', async () => {
             await telemetry.initState();
 
-            const pageId = telemetry.addOpenedPage();
-            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
-            telemetry.removeOpenedPage(pageId);
+            const pageId1 = telemetry.addOpenedPage();
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen, pageId1);
+            telemetry.removeOpenedPage(pageId1);
 
-            telemetry.addOpenedPage();
-            await sendPageViewEventNotDebounced(TelemetryScreenName.PurchaseScreen);
+            const pageId2 = telemetry.addOpenedPage();
+            await sendPageViewEventNotDebounced(TelemetryScreenName.PurchaseScreen, pageId2);
 
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(2);
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenNthCalledWith(
@@ -423,23 +445,57 @@ describe('Telemetry', () => {
             );
         });
 
+        it('should rotate screens when page of current screen is closed', async () => {
+            await telemetry.initState();
+
+            const pageId1 = telemetry.addOpenedPage();
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen, pageId1);
+
+            const pageId2 = telemetry.addOpenedPage();
+            await sendPageViewEventNotDebounced(TelemetryScreenName.PurchaseScreen, pageId2);
+            telemetry.removeOpenedPage(pageId2);
+
+            const pageId3 = telemetry.addOpenedPage();
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AccountScreen, pageId3);
+
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(3);
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenNthCalledWith(
+                3,
+                {
+                    name: TelemetryScreenName.AccountScreen,
+                    refName: undefined,
+                },
+                sampleEventBaseData,
+            );
+        });
+
         it('should not send event if same screen send twice in a row', async () => {
             await telemetry.initState();
 
             telemetry.addOpenedPage();
-            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
-            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen, 'pageId1');
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen, 'pageId1');
 
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);
             expect(log.debug).toHaveBeenCalled();
+        });
+
+        it('should send event if same screen send twice in a row from different pages', async () => {
+            await telemetry.initState();
+
+            telemetry.addOpenedPage();
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen, 'pageId1');
+            await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen, 'pageId2');
+
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(2);
         });
 
         it('should debounce if events are sent too fast', async (done) => {
             await telemetry.initState();
 
             telemetry.addOpenedPage();
-            await telemetry.sendPageViewEventDebounced(TelemetryScreenName.AuthScreen);
-            await telemetry.sendPageViewEventDebounced(TelemetryScreenName.PurchaseScreen);
+            await telemetry.sendPageViewEventDebounced(TelemetryScreenName.AuthScreen, 'pageId1');
+            await telemetry.sendPageViewEventDebounced(TelemetryScreenName.PurchaseScreen, 'pageId1');
 
             setTimeout(() => {
                 expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);

@@ -6,8 +6,8 @@ import { translator } from '../../../../../common/translator';
 import { Modal } from '../../../ui/Modal';
 import { Button } from '../../../ui/Button';
 import { Input } from '../../../ui/Input';
-import { useTelemetryPageViewEvent } from '../../../../../common/telemetry';
-import { TelemetryScreenName } from '../../../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryScreenName } from '../../../../../background/telemetry/telemetryEnums';
 
 export const SubdomainModal = observer(() => {
     const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);

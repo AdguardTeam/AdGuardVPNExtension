@@ -7,8 +7,9 @@ import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { popupActions } from '../../actions/popupActions';
 import { rootStore } from '../../stores';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { IconButton } from '../../../common/components/Icons';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import './vpn-blocked-details.pcss';
 
@@ -55,15 +56,11 @@ export const VpnBlockedDetails = observer(() => {
             overlayClassName="modal__overlay"
             onRequestClose={closeErrorDetails}
         >
-            <button
-                type="button"
-                className="button button--icon modal__close-icon"
+            <IconButton
+                name="cross"
+                className="close-icon-btn"
                 onClick={closeErrorDetails}
-            >
-                <svg className="icon icon--button icon--cross">
-                    <use xlinkHref="#cross" />
-                </svg>
-            </button>
+            />
 
             <div className="vpn-blocked-details__image" />
 

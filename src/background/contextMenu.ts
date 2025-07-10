@@ -13,7 +13,6 @@ import { exclusions } from './exclusions';
 import { tabs } from './tabs';
 import { settings } from './settings';
 import { actions } from './actions';
-import { browserApi } from './browserApi';
 
 type ContextType = browser.Menus.ContextType;
 type CreateCreatePropertiesType = browser.Menus.CreateCreatePropertiesType;
@@ -162,7 +161,14 @@ const renewContextMenuItems = async (menuItems: CreateCreatePropertiesType[]): P
     }));
 };
 
-const getContextMenuItems = (tabUrl: string | undefined): CreateCreatePropertiesType[] => {
+/**
+ * Retrieves context menu items based on the given tab URL.
+ *
+ * @param tabUrl The URL of the tab for which context menu items are to be generated.
+ *
+ * @returns A promise that resolves to an array of context menu items.
+ */
+const getContextMenuItems = async (tabUrl: string | undefined): Promise<CreateCreatePropertiesType[]> => {
     if (!tabUrl) {
         return [];
     }
@@ -170,7 +176,8 @@ const getContextMenuItems = (tabUrl: string | undefined): CreateCreateProperties
     const resultItems = [];
 
     if (isHttp(tabUrl)) {
-        const vpnSwitcher = exclusions.isVpnEnabledByUrl(tabUrl)
+        const isVpnEnabledByUrl = await exclusions.isVpnEnabledByUrl(tabUrl);
+        const vpnSwitcher = isVpnEnabledByUrl
             ? { ...CONTEXT_MENU_ITEMS.disable_vpn }
             : { ...CONTEXT_MENU_ITEMS.enable_vpn };
 
@@ -188,7 +195,7 @@ const getContextMenuItems = (tabUrl: string | undefined): CreateCreateProperties
         ...CONTEXT_MENU_ITEMS.selective_mode,
     };
 
-    if (exclusions.isInverted()) {
+    if (await exclusions.isInverted()) {
         selectiveModeItem.checked = true;
     } else {
         regularModeItem.checked = true;
@@ -199,35 +206,24 @@ const getContextMenuItems = (tabUrl: string | undefined): CreateCreateProperties
     return resultItems;
 };
 
+/**
+ * Updates the context menu items for the given tab.
+ *
+ * @param tab The tab for which the context menu items should be updated.
+ */
 const updateContextMenu = async (tab: { url?: string }): Promise<void> => {
     if (!settings.isContextMenuEnabled()) {
         await clearContextMenuItems();
         return;
     }
-    const menuItems = getContextMenuItems(tab.url);
+    const menuItems = await getContextMenuItems(tab.url);
     await renewContextMenuItems(menuItems);
 };
 
 /**
- * Browser action contexts depending on the manifest version.
- * We calculate it once and use it in the future
- */
-const browserActionContexts = ((): ContextType[] => {
-    const contexts: ContextType[] = [];
-
-    // cant use together since they conflict in the firefox
-    if (browserApi.runtime.isManifestVersion2()) {
-        contexts.push('browser_action'); // context for mv2
-    } else {
-        contexts.push('action'); // context for mv3
-    }
-
-    return contexts;
-})();
-
-/**
  * Adds context menu items to the browser action item
- * @param item
+ *
+ * @param item Context menu item to be added
  */
 const addBrowserActionItem = async (item: ContextMenuItem): Promise<void> => {
     const props: browser.Menus.CreateCreatePropertiesType = {
@@ -235,7 +231,7 @@ const addBrowserActionItem = async (item: ContextMenuItem): Promise<void> => {
         title: item.title,
         checked: item.checked,
         type: item.type,
-        contexts: browserActionContexts,
+        contexts: ['action'],
     };
 
     try {
@@ -289,6 +285,7 @@ const init = (): void => {
     const throttleTimeoutMs = 100;
     const throttledUpdater = throttle(updateContextMenu, throttleTimeoutMs);
 
+    // we don't need to await this call, because init function is called synchronously
     updateBrowserActionItems();
 
     browser.contextMenus.onClicked.addListener(contextMenuClickHandler);

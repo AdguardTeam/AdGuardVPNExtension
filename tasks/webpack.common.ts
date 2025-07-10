@@ -47,7 +47,7 @@ const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!a
 export const getCommonConfig = (browser: string): webpack.Configuration => {
     return {
         mode: IS_DEV ? 'development' : 'production',
-        // we don't use eval source maps because of CSP in MV3
+        // we don't use eval source maps because of CSP
         devtool: IS_DEV ? 'inline-source-map' : false,
         optimization: {
             minimize: false,
@@ -68,7 +68,33 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             filename: '[name].js',
         },
         resolve: {
+            modules: [
+                'node_modules',
+
+                /**
+                 * By default, package managers like Yarn and NPM create a flat structure in the `node_modules` folder,
+                 * placing all dependencies directly in the root `node_modules`.
+                 * For instance, when we install `eslint-config-airbnb` in this project, both it and its dependency,
+                 * `eslint-plugin-import`, are typically placed in the root `node_modules` folder.
+                 *
+                 * However, pnpm follows a different, nested structure where dependencies are stored
+                 * under `node_modules/.pnpm/node_modules`.
+                 * This structure helps reduce duplication but also means that dependencies of dependencies
+                 * are not directly accessible in the root.
+                 *
+                 * As a result, Webpack may fail to resolve these "nested" dependencies in pnpm's setup,
+                 * since they are not in the root `node_modules`.
+                 * To ensure Webpack can locate dependencies correctly in a pnpm project,
+                 * we add `node_modules/.pnpm/node_modules` to the module resolution path as a fallback.
+                 */
+                'node_modules/.pnpm/node_modules',
+            ],
             extensions: ['.*', '.js', '.jsx', '.ts', '.tsx'],
+            // pnpm uses symlinks to manage dependencies, so we need to resolve them
+            symlinks: true,
+            fallback: {
+                buffer: require.resolve('buffer'),
+            },
         },
 
         module: {
@@ -140,6 +166,10 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             ],
         },
         plugins: [
+            new webpack.ProvidePlugin({
+                process: 'process/browser',
+                Buffer: ['buffer', 'Buffer'],
+            }),
             // Define environment for choosing appropriate api urls
             new webpack.DefinePlugin({
                 __APP_CONFIG__: JSON.stringify(genAppConfig(
@@ -165,13 +195,16 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                     throw new Error(`There is no proxy api for browser: ${browser}`);
                 }
             })),
-            new webpack.NormalModuleReplacementPlugin(/\.\/stateStorage\.abstract/, ((resource: any) => {
-                if (browser === Browser.Chrome) {
+            new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
+                if (browser !== Browser.Firefox) {
+                    // TODO remove this replacement when Chromium based MV3 will fix alarms bug,
+                    //  https://github.com/AdguardTeam/AdGuardVPNExtension/issues/116
+                    //  https://bugs.chromium.org/p/chromium/issues/detail?id=1472759
                     // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/stateStorage\.abstract/, './mv3');
+                    resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
                 } else {
                     // eslint-disable-next-line no-param-reassign
-                    resource.request = resource.request.replace(/\.\/stateStorage\.abstract/, './mv2');
+                    resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
                 }
             })),
             new CleanWebpackPlugin(cleanOptions),

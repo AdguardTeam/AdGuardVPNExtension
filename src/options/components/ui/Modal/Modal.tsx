@@ -2,9 +2,9 @@ import React, { useEffect, type PropsWithChildren } from 'react';
 
 import classNames from 'classnames';
 
-import { ESC_KEY_NAME } from '../../../../common/components/ui/useOutsideClick';
+import { ESC_KEY_NAME } from '../../../../common/hooks/useOutsideClick';
+import { IconButton } from '../../../../common/components/Icons';
 import { ReactPortal } from '../ReactPortal';
-import { IconButton } from '../Icon';
 
 import './modal.pcss';
 

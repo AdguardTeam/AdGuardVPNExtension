@@ -15,7 +15,6 @@ export const enum AnimationState {
     VpnDisabled = 'vpnDisabled',
     VpnConnecting = 'vpnConnecting',
     VpnDisconnecting = 'vpnDisconnecting',
-    // on location switch we do not show animation
     VpnSwitchingLocation = 'vpnSwitchingLocation',
 }
 
@@ -37,8 +36,7 @@ type AnimationSourcesMap = {
 export const animationSourcesMap: AnimationSourcesMap = {
     [AppearanceTheme.Light]: {
         [AnimationState.VpnEnabled]: lightOnMotionUrl,
-        // Added this state for the case when switching location
-        [AnimationState.VpnSwitchingLocation]: '',
+        [AnimationState.VpnSwitchingLocation]: lightOnMotionUrl,
         [AnimationState.VpnDisabled]: lightOffMotionUrl,
         [AnimationState.VpnDisabledIdle]: lightOffMotionUrl,
         [AnimationState.VpnConnecting]: lightSwitchOnMotionUrl,
@@ -46,8 +44,7 @@ export const animationSourcesMap: AnimationSourcesMap = {
     },
     [AppearanceTheme.Dark]: {
         [AnimationState.VpnEnabled]: darkOnMotionUrl,
-        // Added this state for the case when switching location
-        [AnimationState.VpnSwitchingLocation]: '',
+        [AnimationState.VpnSwitchingLocation]: darkOnMotionUrl,
         [AnimationState.VpnDisabled]: darkOffMotionUrl,
         [AnimationState.VpnDisabledIdle]: darkOffMotionUrl,
         [AnimationState.VpnConnecting]: darkSwitchOnMotionUrl,

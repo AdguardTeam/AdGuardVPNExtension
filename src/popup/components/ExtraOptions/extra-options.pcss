@@ -18,12 +18,16 @@
     &__item {
         display: inline-block;
         padding: 16px 24px;
-        color: var(--gray-base);
+        color: var(--text-main-text-main-default);
         width: 100%;
-        font-size: 1.6rem;
+        font-size: 16px;
         line-height: 26px;
         text-align: left;
-        border-radius: 0;
+
+        /* Increase specificity */
+        &.button {
+            border-radius: 0;
+        }
 
         &:hover {
             background-color: var(--grayf3);

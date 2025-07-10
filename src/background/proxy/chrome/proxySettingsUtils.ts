@@ -43,3 +43,27 @@ export const promisifiedGetProxy = (config = {}): Promise<browser.Types.SettingG
         });
     });
 };
+
+/**
+ * Wraps the Chrome `browsingData.remove` function into a Promise.
+ *
+ * @param options The options for the removal of browsing data.
+ * @param dataToRemove The set of data types to remove.
+ *
+ * @returns A promise that resolves when the browsing data has been removed,
+ * or rejects with an error if the operation fails.
+ */
+export const promisifiedRemoveBrowsingData = (
+    options: chrome.browsingData.RemovalOptions,
+    dataToRemove: chrome.browsingData.DataTypeSet,
+): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        chrome.browsingData.remove(options, dataToRemove, () => {
+            if (chrome.runtime.lastError) {
+                reject(new Error(chrome.runtime.lastError.message));
+                return;
+            }
+            resolve();
+        });
+    });
+};

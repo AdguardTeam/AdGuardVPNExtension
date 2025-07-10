@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react';
 
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
-import { CloseButton } from '../../ui/CloseButton';
 import { Slider } from '../../ui/Slider';
 import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
+import { IconButton } from '../../../../common/components/Icons';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 
 import './upgrade-screen.pcss';
 
@@ -60,7 +60,11 @@ export const UpgradeScreen = () => {
 
     return (
         <div className="upgrade-screen">
-            <CloseButton handler={handleSkipClick} />
+            <IconButton
+                name="cross"
+                className="close-icon-btn"
+                onClick={handleSkipClick}
+            />
             <div className="upgrade-screen__head">
                 <div className="upgrade-screen__title">
                     {translator.getMessage('popup_upgrade_screen_title')}

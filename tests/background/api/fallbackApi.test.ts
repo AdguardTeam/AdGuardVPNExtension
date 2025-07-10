@@ -3,17 +3,10 @@ import axios from 'axios';
 import {
     FallbackApi,
     GOOGLE_DOH_URL,
-    ALIDNS_DOH_URL,
+    DOHPUB_DOH_URL,
     QUAD9_DOH_URL,
 } from '../../../src/background/api/fallbackApi';
-import { session } from '../../__mocks__';
-// TODO: test mv3 after official switch to mv3
-import { stateStorage } from '../../../src/background/stateStorage/mv2';
-
-jest.mock('../../../src/background/stateStorage', () => {
-    // eslint-disable-next-line global-require
-    return require('../../../src/background/stateStorage/mv2');
-});
+import { stateStorage } from '../../../src/background/stateStorage';
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
 
@@ -25,13 +18,6 @@ jest.mock('../../../src/background/browserApi', () => {
     return require('../../__mocks__/browserApiMock');
 });
 
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
-};
-
 jest.useFakeTimers('modern');
 
 describe('FallbackApi', () => {
@@ -39,12 +25,14 @@ describe('FallbackApi', () => {
         await stateStorage.init();
     });
 
-    afterEach(async () => {
+    afterEach(() => {
         jest.clearAllMocks();
+        // @ts-expect-error - reset stateStorage to default
+        stateStorage.state.fallbackInfo = null;
     });
 
     it('returns default api urls if requests to google, ali, quad9 fail', async () => {
-        (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValue({
+        (axios.post as jest.MockedFunction<typeof axios.get>).mockRejectedValue({
             status: 400,
         });
 
@@ -63,9 +51,9 @@ describe('FallbackApi', () => {
         expect(authApiUrl).toBe(DEFAULT_AUTH_API_URL);
         expect(forwarderApiUrl).toBe(DEFAULT_FORWARDER_API_URL);
 
-        expect(axios.get).toBeCalledWith(`https://${GOOGLE_DOH_URL}`, expect.anything());
-        expect(axios.get).toBeCalledWith(`https://${ALIDNS_DOH_URL}`, expect.anything());
-        expect(axios.get).toBeCalledWith(`https://${QUAD9_DOH_URL}`, expect.anything());
+        expect(axios.post).toBeCalledWith(`https://${GOOGLE_DOH_URL}`, expect.anything(), expect.anything());
+        expect(axios.post).toBeCalledWith(`https://${DOHPUB_DOH_URL}`, expect.anything(), expect.anything());
+        expect(axios.post).toBeCalledWith(`https://${QUAD9_DOH_URL}`, expect.anything(), expect.anything());
     });
 
     it('refreshes api url from backend if timestamp is expired, ', async () => {
@@ -207,7 +195,7 @@ describe('FallbackApi', () => {
 
         jest.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS + 1);
         jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockRejectedValue(new Error('any'));
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByAliDnsDoh').mockRejectedValue(new Error('any'));
+        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByDohPubDnsDoh').mockRejectedValue(new Error('any'));
         jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByQuad9Doh').mockRejectedValue(new Error('any'));
 
         vpnApiUrl = await fallbackApi.getVpnApiUrl();

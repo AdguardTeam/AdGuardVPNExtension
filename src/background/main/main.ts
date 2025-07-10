@@ -1,10 +1,12 @@
 /**
- * This module provides initialization for modules, common for MV2 and MV3,
- * divided in two parts:
- * 1. First raw of modules with synchronous initializations, to be called on top level
- * of service worker in MV3 and background page in MV2.
- * 2. Second raw of modules with asynchronous initializations contains all other required modules.
+ * This module provides initialization for modules, divided in two parts:
+ * 1. First raw of modules with synchronous initializations,
+ *    to be called on top level of service worker.
+ * 2. Second raw of modules with asynchronous initializations
+ *    contains all other required modules.
  */
+import { LogLevel } from '@adguard/logger';
+
 import { stateStorage } from '../stateStorage';
 import { actions } from '../actions';
 import { appStatus } from '../appStatus';
@@ -43,6 +45,9 @@ import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
 import { telemetry } from '../telemetry';
 import { rateModal } from '../rateModal';
+import { runtime } from '../browserApi/runtime';
+import { BROWSER, BUILD_ENV, STAGE_ENV } from '../config';
+import { statisticsService } from '../statistics';
 
 declare global {
     module globalThis {
@@ -52,10 +57,8 @@ declare global {
 }
 
 /**
- * Initiates modules synchronously and
- * adds adguard variables to the global scope.
- * This method must be invoked on the top level
- * of service worker in MV3 and background page in MV2
+ * Initializes synchronous modules and adds adguard variables to the global scope.
+ * This method must be invoked on the top level of service worker.
  */
 const syncInitModules = (): void => {
     if (!global.adguard) {
@@ -88,20 +91,25 @@ const syncInitModules = (): void => {
     proxyApi.init();
 
     // messaging, context menu and tabs inits are on the top-level
-    // because popup should be able to wake up the service worker in MV3
+    // because popup should be able to wake up the service worker
     messaging.init();
     contextMenu.init();
     tabs.init();
 };
 
 /**
- * Initiates raw of required modules
+ * Initializes asynchronous and dependant synchronous modules.
  */
 const asyncInitModules = async (): Promise<void> => {
     log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
         const initStartDate = Date.now();
         await stateStorage.init();
+        /**
+         * Statistics service should be initiated before any other module,
+         * in order to hop into first load event emission.
+         */
+        await statisticsService.init();
         connectivityService.start();
         await proxy.init();
         await fallbackApi.init();
@@ -139,7 +147,20 @@ const asyncInitModules = async (): Promise<void> => {
     }
 };
 
-export const main = () => {
+/**
+ * Main function to be called on service worker start.
+ */
+export const main = async () => {
+    if (log.currentLevel === LogLevel.Debug) {
+        runtime.getPlatformOs().then((res) => {
+            log.debug(`Current os: '${res}'`);
+        });
+
+        log.debug(`Current browser: "${BROWSER}"`);
+        log.debug(`Current build env: "${BUILD_ENV}"`);
+        log.debug(`Current stage env: "${STAGE_ENV}"`);
+    }
+
     syncInitModules();
-    asyncInitModules();
+    await asyncInitModules();
 };

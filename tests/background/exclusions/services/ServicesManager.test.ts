@@ -2,31 +2,13 @@ import { nanoid } from 'nanoid';
 
 import { servicesManager } from '../../../../src/background/exclusions/services/ServicesManager';
 import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
-import { session } from '../../../__mocks__';
-// TODO: test mv3 after official switch to mv3
-import { stateStorage } from '../../../../src/background/stateStorage/mv2';
-
-jest.mock('../../../../src/background/stateStorage', () => {
-    // eslint-disable-next-line global-require
-    return require('../../../../src/background/stateStorage/mv2');
-});
+import { stateStorage } from '../../../../src/background/stateStorage';
 
 jest.mock('../../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
 
 jest.mock('../../../../src/background/providers/vpnProvider');
 jest.mock('../../../../src/common/logger');
 jest.mock('nanoid');
-
-jest.mock('../../../../src/background/browserApi', () => {
-    return {
-        browserApi: {
-            runtime: {
-                // TODO: test mv3 after official switch to mv3
-                isManifestVersion2: () => true,
-            },
-        },
-    };
-});
 
 const nanoidMock = nanoid as jest.MockedFunction<() => string>;
 nanoidMock.mockImplementation(() => 'random_id');
@@ -77,13 +59,6 @@ getServicesFromStorageMock.mockReturnValue({});
 const saveServicesInStorageMock = jest.fn();
 servicesManager.saveServicesInStorage = saveServicesInStorageMock;
 saveServicesInStorageMock.mockReturnValue({});
-
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
-};
 
 describe('ServicesManager tests', () => {
     beforeEach(async () => {

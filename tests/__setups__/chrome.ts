@@ -1,3 +1,5 @@
+import { sessionStorageMock } from '../__mocks__/sessionStorageMock';
+
 const chrome = require('sinon-chrome');
 
 if (!chrome.runtime.id) {
@@ -13,5 +15,8 @@ declare global {
 }
 
 global.chrome = chrome;
+
+// @ts-expect-error Partially mocked
+global.chrome.storage.session = sessionStorageMock;
 
 export {};

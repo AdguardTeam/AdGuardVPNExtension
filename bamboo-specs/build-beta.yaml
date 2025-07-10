@@ -21,7 +21,7 @@ Build:
   docker:
     image: ${bamboo.dockerNode}
     volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
     # we use dns to avoid etimedout error when AMO is validating extension
     docker-run-arguments: [ '--dns', '8.8.8.8' ]
   tasks:
@@ -43,34 +43,26 @@ Build:
 
             ls -alt
 
-            # Exclude '--ignore-optional' from yarn arguments
-            # This is needed for installing swc core optional dependencies properly
-            # as swc is used by 'yarn test'
-            originalYarnArgs="$bamboo_varsYarn"
-            modifiedYarnArgs=$(echo "$originalYarnArgs" | sed 's/--ignore-optional//g')
+            # Set cache directory
+            pnpm config set store-dir ${bamboo.cachePnpm}
 
             # Install dependencies
-            yarn install ${modifiedYarnArgs}
+            pnpm install ${bamboo.varsPnpm}
 
-            yarn lint
-            yarn test
-            yarn locales validate --min
+            pnpm lint
+            pnpm test
+            pnpm locales validate --min
 
             export STAGE_ENV="prod"
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-            export CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}"
 
-            # build with prod API endpoints edge.zip, chrome.zip, firefox.zip, opera.zip
-            yarn beta
+            # build with prod API endpoints edge.zip, chrome.zip, opera.zip
+            pnpm beta
 
             # build artifacts chrome.crx and update.xml
-            # firefox.xpi and update.json - temporary disabled
-            yarn artifacts:beta
-
-            # build source code for uploading to amo
-            git ls-files | zip -@ build/beta/source.zip
+            pnpm crx:beta
     - inject-variables:
         file: build/beta/build.txt
         scope: RESULT
@@ -112,11 +104,6 @@ Build:
       pattern: opera.zip
       shared: true
       required: true
-    - name: firefox.zip
-      location: build/beta
-      pattern: firefox.zip
-      shared: true
-      required: true
     - name: chrome.crx
       location: build/beta
       pattern: chrome.crx
@@ -125,22 +112,6 @@ Build:
     - name: update.xml
       location: build/beta
       pattern: update.xml
-      shared: true
-      required: true
-      # temporary disable xpi and update.json
-      # - name: firefox.xpi
-      # location: build/beta
-      # pattern: firefox.xpi
-      # shared: true
-      # required: true
-      # - name: update.json
-      # location: build/beta
-      # pattern: update.json
-      # shared: true
-      # required: true
-    - name: source.zip
-      location: build/beta
-      pattern: source.zip
       shared: true
       required: true
     - name: build.txt

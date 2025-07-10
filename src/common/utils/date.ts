@@ -1,4 +1,5 @@
-import { differenceInDays, parseISO } from 'date-fns';
+import { differenceInDays } from 'date-fns/differenceInDays';
+import { parseISO } from 'date-fns/parseISO';
 
 /**
  * Returns the number of days between the current date and the renewal date. If the renewal date is in the past,

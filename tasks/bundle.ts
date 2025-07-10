@@ -7,7 +7,8 @@ import { chromeConfig } from './chrome/webpack.chrome';
 import { firefoxConfig } from './firefox/webpack.firefox';
 import { operaConfig } from './opera/webpack.opera';
 import { edgeConfig } from './edge/webpack.edge';
-import { Browser } from './consts';
+import { Browser, IS_BETA } from './consts';
+import { buildUpdateJson } from './firefox/update-json';
 
 const createBundle = async (config: webpack.Configuration, watch: boolean): Promise<void> => {
     try {
@@ -20,9 +21,14 @@ const createBundle = async (config: webpack.Configuration, watch: boolean): Prom
 
 const buildAllBrowsers = async (): Promise<void> => {
     await createBundle(chromeConfig, program.watch);
-    await createBundle(firefoxConfig, program.watch);
     await createBundle(operaConfig, program.watch);
     await createBundle(edgeConfig, program.watch);
+
+    // Firefox is not built with `pnpm beta` command
+    // because we have separate plan for Firefox
+    if (!IS_BETA) {
+        await createBundle(firefoxConfig, program.watch);
+    }
 };
 
 program
@@ -30,30 +36,34 @@ program
 
 program
     .command(Browser.Chrome)
-    .description('Builds extension for chrome browser with manifest version 3')
-    .action(() => {
-        createBundle(chromeConfig, program.watch);
+    .description('Builds extension for chrome browser')
+    .action(async () => {
+        await createBundle(chromeConfig, program.watch);
     });
 
 program
     .command(Browser.Firefox)
-    .description('Builds extension for firefox browser with manifest version 3')
-    .action(() => {
-        createBundle(firefoxConfig, program.watch);
+    .description('Builds extension for firefox browser')
+    .action(async () => {
+        await createBundle(firefoxConfig, program.watch);
+
+        if (IS_BETA) {
+            await buildUpdateJson();
+        }
     });
 
 program
     .command(Browser.Opera)
     .description('Builds extension for firefox browser')
-    .action(() => {
-        createBundle(operaConfig, program.watch);
+    .action(async () => {
+        await createBundle(operaConfig, program.watch);
     });
 
 program
     .command(Browser.Edge)
     .description('Builds extension for firefox browser')
-    .action(() => {
-        createBundle(edgeConfig, program.watch);
+    .action(async () => {
+        await createBundle(edgeConfig, program.watch);
     });
 
 program

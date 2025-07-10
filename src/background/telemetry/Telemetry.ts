@@ -43,8 +43,12 @@ export interface TelemetryInterface {
      * Sends a telemetry page view event using {@link telemetryProvider}.
      *
      * @param screenName Name of the screen.
+     * @param pageId Page ID of the screen.
      */
-    sendPageViewEventDebounced(screenName: TelemetryScreenName): Promise<void> | void;
+    sendPageViewEventDebounced(
+        screenName: TelemetryScreenName,
+        pageId: string,
+    ): Promise<void> | void;
 
     /**
      * Sends a telemetry custom event using {@link telemetryProvider}.
@@ -270,6 +274,14 @@ export class Telemetry implements TelemetryInterface {
     private currentScreenName: TelemetryScreenName | undefined = undefined;
 
     /**
+     * Page ID of the current screen.
+     *
+     * NOTE: This is not defined in state storage because
+     * it's not needed to persist if extension is reloaded.
+     */
+    private currentScreenPageId: string | undefined = undefined;
+
+    /**
      * Set of opened pages IDs.
      * This is needed to track all opened pages (popup, options) and whenever it gets empty
      * reset {@link prevScreenName} and {@link currentScreenName} to `undefined`.
@@ -339,25 +351,35 @@ export class Telemetry implements TelemetryInterface {
      * Sends a telemetry page view event using {@link telemetryProvider}.
      *
      * @param screenName Name of the screen.
+     * @param pageId Page ID of the screen.
      */
-    private async sendPageViewEvent(screenName: TelemetryScreenName): Promise<void> {
+    private async sendPageViewEvent(
+        screenName: TelemetryScreenName,
+        pageId: string,
+    ): Promise<void> {
         if (!this.canSendEvents()) {
             return;
         }
 
         /**
-         * Do not send page view event if screen name is the same as the current screen name.
+         * Do not send page view event if screen name is the same as the current
+         * screen name and page ID is the same as the current screen page ID.
          * This condition as guard if UI renders same screen name twice
          * in a row to prevent flooding telemetry API with events.
          */
-        if (screenName === this.currentScreenName) {
-            log.debug(`Screen name ${screenName} is already sent as page view event`);
+        if (
+            screenName === this.currentScreenName
+            && pageId === this.currentScreenPageId
+        ) {
+            log.debug(`Screen name '${screenName}' in page '${pageId}' is already sent as page view event`);
             return;
         }
 
         // Save previous and current screen names
         this.prevScreenName = this.currentScreenName;
         this.currentScreenName = screenName;
+
+        this.currentScreenPageId = pageId;
 
         const baseData = await this.getBaseData();
         const event: TelemetryPageViewEventData = {
@@ -500,10 +522,16 @@ export class Telemetry implements TelemetryInterface {
 
         this.openedPages.delete(pageId);
 
-        // Reset screen names if there are no opened pages
         if (this.openedPages.size === 0) {
+            // Reset screen names if there are no opened pages
             this.prevScreenName = undefined;
             this.currentScreenName = undefined;
+            this.currentScreenPageId = undefined;
+        } else if (pageId === this.currentScreenPageId) {
+            // Rotate forward screen names if current page is closed
+            this.prevScreenName = this.currentScreenName;
+            this.currentScreenName = undefined;
+            this.currentScreenPageId = undefined;
         }
     };
 
@@ -566,7 +594,7 @@ export class Telemetry implements TelemetryInterface {
     private async getProps(): Promise<TelemetryProps> {
         const locale = browser.i18n.getUILanguage();
         const appearanceTheme = this.settings.getAppearanceTheme();
-        const loggedIn = !!(await this.auth.isAuthenticated(false));
+        const loggedIn = await this.auth.isAuthenticated(false);
 
         let licenseStatus: TelemetryLicenseStatus | undefined;
         if (loggedIn) {

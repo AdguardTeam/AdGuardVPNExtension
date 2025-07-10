@@ -7,8 +7,8 @@ import isNil from 'lodash/isNil';
 import { rootStore } from '../../stores';
 import { AnimationState } from '../../constants';
 import { translator } from '../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import { GlobalControl } from './GlobalControl';
 import { Status } from './Status';
@@ -29,7 +29,6 @@ export const Settings = observer(() => {
     const {
         isOpenOptionsModal,
         shouldShowLimitedOfferDetails,
-        isOpenEndpointsSearch,
         isShownVpnBlockedErrorDetails,
     } = uiStore;
 
@@ -44,7 +43,6 @@ export const Settings = observer(() => {
 
     const canSendTelemetry = !isOpenOptionsModal // `MenuScreen` is rendered on top of this screen
         && !shouldShowLimitedOfferDetails // `PromoOfferScreen` is rendered on top of this screen
-        && !isOpenEndpointsSearch // `LocationsScreen` is rendered on top of this screen
         && !isDeviceLimitScreenRendered // `DeviceLimitScreen` is rendered on top of this screen
         && !isShownVpnBlockedErrorDetails // `DialogDesktopVersionPromo` is rendered on top of this screen
         && !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen

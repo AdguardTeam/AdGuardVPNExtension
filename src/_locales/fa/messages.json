@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "تنظیمات"
     },
+    "popup_settings_stats": {
+        "message": "آمار"
+    },
+    "popup_settings_free_description": {
+        "message": "در AdGuard VPN Unlimited در دسترس است"
+    },
     "context_menu_enable_vpn": {
         "message": "VPN را در این وب سایت فعال کنید"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "همه مکانها"
+    },
+    "endpoints_saved": {
+        "message": "ذخیره شده"
     },
     "endpoints_search": {
         "message": "جستجوی مکان"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "اینو دیگه نشون نده"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "آمار این مرورگر"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "آمار غیرفعال است"
+    },
+    "popup_stats_enable_btn": {
+        "message": "فعالسازي"
+    },
+    "popup_stats_data_usage": {
+        "message": "داده"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "مکان‌های پرتکرار"
+    },
+    "popup_stats_usage_time": {
+        "message": "زمان"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "چرا ایمن است"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "چرا ایمن است"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "چون اتصال VPN رمزگذاری شده و امن است، هیچ‌کس نمی‌تواند داده‌های فعالیت شما را ببیند — ما فقط میزان انتقال داده اینترنتی شما را محاسبه می‌کنیم"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "تمام آمارها جمع‌آوری و به‌طور محلی بر روی دستگاه شما ذخیره می‌شوند. ما به آنها دسترسی نداریم"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "متوجه شدم"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "فعال کردن آمار"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "غیرفعال کردن آمار"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "غیرفعال کردن آمار؟"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "آمارهای جدید جمع‌آوری نمی‌شوند. شما همچنان می‌توانید به آمارهای موجود خود دسترسی داشته باشید."
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "غيرفعالسازي"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "لغو"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "پاک‌سازی آمار"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "آمارها پاک‌سازی شوند؟"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "همه آمار به طور دائم حذف خواهند شد"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "پاکسازی"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "لغو"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 ساعت"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 روز"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 روز"
+    },
+    "popup_stats_range_all_time": {
+        "message": "همیشه"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "دریافت"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "آپلود"
+    },
+    "popup_stats_empty": {
+        "message": "هنوز آماری وجود ندارد - برای مشاهده آنها از AdGuard VPN استفاده کنید"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "مشاهده تمامی مکان ها"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "متصل به VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% د",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% ساعت",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% متر",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "مکان‌ها"
     },
     "options_signedout_page_title": {
         "message": "شما از AdGuard VPN خارج شده اید"

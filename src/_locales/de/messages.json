@@ -199,7 +199,7 @@
         "message": "Anmelden"
     },
     "auth_title": {
-        "message": "Melden Sie sich an oder erstellen Sie ein Konto"
+        "message": "Anmelden oder ein Konto erstellen"
     },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-Mail-Adresse"
@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Einstellungen"
     },
+    "popup_settings_stats": {
+        "message": "Statistiken"
+    },
+    "popup_settings_free_description": {
+        "message": "Verfügbar in AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "VPN auf dieser Website aktivieren"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Alle Standorte"
+    },
+    "endpoints_saved": {
+        "message": "Gespeicherte"
     },
     "endpoints_search": {
         "message": "Standort suchen"
@@ -825,7 +834,7 @@
         "message": "Diese Informationen helfen uns zu verstehen, was gut funktioniert und was verbessert werden muss. Sie sind anonym und werden nur intern verwendet. Wir geben sie nie an Dritte weiter"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Melden Sie sich an oder erstellen Sie ein Konto"
+        "message": "Anmelden oder ein Konto erstellen"
     },
     "popup_auth_policy_agreement_page_continue_button": {
         "message": "Weiter"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Nicht mehr anzeigen"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Statistiken für diesen Browser"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Statistiken sind deaktiviert"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Aktivieren"
+    },
+    "popup_stats_data_usage": {
+        "message": "Daten"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Meistgenutzte Standorte"
+    },
+    "popup_stats_usage_time": {
+        "message": "Zeit"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Warum es sicher ist"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Warum es sicher ist"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Da die VPN-Verbindung verschlüsselt und sicher ist, kann niemand Ihre Aktivitätsdaten sehen — es wird nur Ihr Datenverkehr berechnet"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Alle Statistiken werden lokal auf Ihrem Gerät erfasst und gespeichert. Zu diesen Daten haben wir keinen Zugang"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Verstanden"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Statistiken aktivieren"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Statistiken deaktivieren"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Deaktivieren?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Neue Statistiken werden nicht mehr gesammelt. Sie können weiterhin auf Ihre bestehenden Statistiken zugreifen"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Deaktivieren"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Abbrechen"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Statistiken leeren"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Statistiken leeren?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Alle statistischen Daten werden dauerhaft gelöscht"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Leeren"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Abbrechen"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 Stunden"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 Tage"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 Tage"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Insgesamt"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "heruntergeladen"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "hochgeladen"
+    },
+    "popup_stats_empty": {
+        "message": "Noch keine Statistiken — erst nach weiterer Verwendung können Sie diese einsehen"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Alle Standorte anzeigen"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Mit VPN verbunden"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% T",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% Std.",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% Min.",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Standorte"
     },
     "options_signedout_page_title": {
         "message": "Sie haben sich von AdGuard VPN abgemeldet"

@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Cài đặt"
     },
+    "popup_settings_stats": {
+        "message": "Thống kê"
+    },
+    "popup_settings_free_description": {
+        "message": "Có sẵn trong AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "Bật VPN trên trang web này"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Tất cả vị trí"
+    },
+    "endpoints_saved": {
+        "message": "Đã lưu"
     },
     "endpoints_search": {
         "message": "Tìm vị trí"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Không hiện nữa"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Thống kê cho trình duyệt này"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Thống kê đã bị vô hiệu hóa"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Kích hoạt"
+    },
+    "popup_stats_data_usage": {
+        "message": "Dữ liệu"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Vị trí được sử dụng nhiều nhất"
+    },
+    "popup_stats_usage_time": {
+        "message": "Thời gian"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Tại sao nó an toàn"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Tại sao nó an toàn"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Kết nối VPN được mã hóa và bảo mật, vì vậy không ai có thể xem dữ liệu hoạt động của bạn — chúng tôi chỉ tính toán mức sử dụng lưu lượng của bạn"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Tất cả số liệu thống kê được thu thập và lưu trữ cục bộ trên thiết bị của bạn. Chúng tôi không có quyền truy cập vào chúng"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Đã hiểu"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Bật số liệu thống kê"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Vô hiệu hoá thống kê"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Vô hiệu hoá thống kê?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Số liệu thống kê mới sẽ không được thu thập. Bạn vẫn có thể truy cập các số liệu thống kê hiện có của mình"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Vô hiệu"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Huỷ"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Xóa số liệu thống kê"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Xóa số liệu thống kê?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Tất cả số liệu thống kê sẽ bị xóa vĩnh viễn"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Xoá"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Huỷ"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 giờ"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 ngày"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 ngày"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Mọi lúc"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "đã tải xuống"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "đã tải lên"
+    },
+    "popup_stats_empty": {
+        "message": "Chưa có số liệu thống kê nào — hãy tiếp tục sử dụng AdGuard VPN để xem chúng"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Xem tất cả vị trí"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Đã kết nối với VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% ngày",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% giờ",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% phút",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Vị trí"
     },
     "options_signedout_page_title": {
         "message": "Bạn đã đăng xuất khỏi AdGuard VPN"

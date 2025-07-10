@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Nastavení"
     },
+    "popup_settings_stats": {
+        "message": "Statistiky"
+    },
+    "popup_settings_free_description": {
+        "message": "K dispozici v AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "Zapnout VPN na této stránce"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Všechna umístění"
+    },
+    "endpoints_saved": {
+        "message": "Uloženo"
     },
     "endpoints_search": {
         "message": "Hledat umístění"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Znovu nezobrazovat"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Statistiky pro tento prohlížeč"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Statistiky jsou vypnuty"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Povolit"
+    },
+    "popup_stats_data_usage": {
+        "message": "Data"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Nejpoužívanější umístění"
+    },
+    "popup_stats_usage_time": {
+        "message": "Čas"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Proč je to bezpečné"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Proč je to bezpečné"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "VPN připojení je šifrované a zabezpečené, takže nikdo nemůže vidět vaše data o aktivitě — počítáme pouze vaše využití provozu"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Všechny statistiky jsou shromažďovány a ukládány lokálně v zařízení. Nemáme k nim přístup"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Rozumím"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Povolit statistiky"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Zakázat statistiky"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Zakázat statistiky?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Nové statistiky nebudou shromažďovány. Stále máte přístup ke svým stávajícím statistikám"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Zakázat"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Zrušit"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Vynulovat statistiky"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Vynulovat statistiky?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Všechny statistiky budou trvale smazány"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Vymazat"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Zrušit"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 hodin"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 dní"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 dní"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Celé období"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "staženo"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "nahráno"
+    },
+    "popup_stats_empty": {
+        "message": "Zatím žádné statistiky — pro jejich zobrazení používejte AdGuard VPN"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Zobrazit všechna umístění"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Připojeno k VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% d",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% h",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% m",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Umístění"
     },
     "options_signedout_page_title": {
         "message": "Odhlásili jste se z AdGuard VPN"

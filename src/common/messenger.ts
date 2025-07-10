@@ -5,18 +5,61 @@ import type { LimitedOfferData } from '../background/limitedOfferService';
 import type { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
-import type { TelemetryScreenName, TelemetryActionName, TelemetryActionToScreenMap } from '../background/telemetry';
+import type {
+    TelemetryScreenName,
+    TelemetryActionName,
+    TelemetryActionToScreenMap,
+} from '../background/telemetry/telemetryEnums';
 import { ForwarderUrlQueryKey } from '../background/config';
-import { type LocationsTab } from '../background/endpoints/locationsService';
+import { type LocationsTab } from '../background/endpoints/locationsEnums';
+import { type StatisticsByRange, type StatisticsRange } from '../background/statistics/statisticsTypes';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
 import { MessageType, type SocialAuthProvider, type ExclusionsContentMap } from './constants';
 import { type NotifierType } from './notifier';
 
+/**
+ * Message interface that emits background page.
+ */
 export interface Message {
     /**
      * Type of the message.
+     */
+    type: MessageType;
+
+    /**
+     * Data of the message.
+     */
+    data: any;
+}
+
+/**
+ * Function that checks if the message is a valid {@link Message}.
+ *
+ * @param message Message to check.
+ *
+ * @returns True if the message is a valid message, false otherwise.
+ */
+export const isMessage = (message: unknown): message is Message => {
+    if (typeof message !== 'object' || message === null) {
+        return false;
+    }
+
+    const { type } = message as Message;
+
+    return (
+        typeof type === 'string'
+        && Object.values(MessageType).includes(type)
+    );
+};
+
+/**
+ * Notifier message interface that emits notifier.
+ */
+export interface NotifierMessage {
+    /**
+     * Type of the notifier message.
      */
     type: NotifierType;
 
@@ -33,6 +76,18 @@ export interface Message {
     value?: any,
 }
 
+export interface LongLivedConnectionResult {
+    /**
+     * Callback function which disconnects from the background page.
+     */
+    onUnload: () => void;
+
+    /**
+     * Port ID of the connection.
+     */
+    portId: string;
+}
+
 class Messenger {
     async sendMessage<T>(type: string, data?: T) {
         log.debug(`Request type: "${type}"`);
@@ -47,7 +102,9 @@ class Messenger {
             log.debug('Response data:', response);
         }
 
-        return response;
+        // TODO: This is temporary fix of message type,
+        // it should be refactored to support `unknown` type (AG-41896)
+        return response as any;
     }
 
     /**
@@ -55,8 +112,8 @@ class Messenger {
      * @param events Events for listening
      * @param callback Event listener callback
      */
-    createEventListener = async (events: NotifierType[], callback: (...args: Message[]) => void) => {
-        const eventListener = (...args: Message[]) => {
+    createEventListener = async (events: NotifierType[], callback: (...args: NotifierMessage[]) => void) => {
+        const eventListener = (...args: NotifierMessage[]) => {
             callback(...args);
         };
 
@@ -67,7 +124,12 @@ class Messenger {
             listenerId = response.listenerId;
         };
 
-        const messageHandler = (message: any) => {
+        const messageHandler = (message: unknown) => {
+            if (!isMessage(message)) {
+                log.error('Invalid message received:', message);
+                return;
+            }
+
             if (message.type === MessageType.NOTIFY_LISTENERS) {
                 const [type, data, value] = message.data;
                 eventListener({ type, data, value });
@@ -100,19 +162,28 @@ class Messenger {
      * @param events
      * @param callback
      */
-    createLongLivedConnection = (events: NotifierType[], callback: (...args: Message[]) => void): Function => {
-        const eventListener = (...args: Message[]) => {
+    createLongLivedConnection = (
+        events: NotifierType[],
+        callback: (...args: NotifierMessage[]) => void,
+    ): LongLivedConnectionResult => {
+        const eventListener = (...args: NotifierMessage[]) => {
             callback(...args);
         };
 
+        const portId = `popup_${nanoid()}`;
         let port: Runtime.Port;
         let forceDisconnected = false;
 
         const connect = () => {
-            port = browser.runtime.connect({ name: `popup_${nanoid()}` });
+            port = browser.runtime.connect({ name: portId });
             port.postMessage({ type: MessageType.ADD_LONG_LIVED_CONNECTION, data: { events } });
 
             port.onMessage.addListener((message) => {
+                if (!isMessage(message)) {
+                    log.error('Invalid message received:', message);
+                    return;
+                }
+
                 if (message.type === MessageType.NOTIFY_LISTENERS) {
                     const [type, data, value] = message.data;
                     eventListener({ type, data, value });
@@ -142,7 +213,10 @@ class Messenger {
         window.addEventListener('beforeunload', onUnload);
         window.addEventListener('unload', onUnload);
 
-        return onUnload;
+        return {
+            onUnload,
+            portId,
+        };
     };
 
     async getPopupData(url: string | null, numberOfTries: number) {
@@ -201,9 +275,18 @@ class Messenger {
         return this.sendMessage(type, { locationId });
     }
 
-    async getOptionsData() {
+    /**
+     * Sends a message to the background page to get options data.
+     *
+     * @param isDataRefresh If `true`, skips new `pageId` generation.
+     * Use this when you want to refresh the data without needing to
+     * generate a new `pageId`.
+     *
+     * @returns Returns a promise that resolves to the options data.
+     */
+    async getOptionsData(isDataRefresh: boolean) {
         const type = MessageType.GET_OPTIONS_DATA;
-        return this.sendMessage(type);
+        return this.sendMessage(type, { isDataRefresh });
     }
 
     /**
@@ -602,10 +685,14 @@ class Messenger {
      * NOTE: Do not await this function, as it is not necessary to wait for the response.
      *
      * @param screenName Name of the screen.
+     * @param pageId Page ID of the screen.
      */
-    async sendPageViewTelemetryEvent(screenName: TelemetryScreenName): Promise<void> {
+    async sendPageViewTelemetryEvent(
+        screenName: TelemetryScreenName,
+        pageId: string,
+    ): Promise<void> {
         const type = MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW;
-        return this.sendMessage(type, { screenName });
+        return this.sendMessage(type, { screenName, pageId });
     }
 
     /**
@@ -624,16 +711,6 @@ class Messenger {
     }
 
     /**
-     * Adds opened page to the list of opened pages inside of telemetry module.
-     *
-     * @returns Page ID of new opened page, which can be used to remove it later.
-     */
-    async addTelemetryOpenedPage(): Promise<string> {
-        const type = MessageType.TELEMETRY_EVENT_ADD_OPENED_PAGE;
-        return this.sendMessage(type);
-    }
-
-    /**
      * Removes opened page from the list of opened pages of telemetry module.
      *
      * @param pageId ID of page to remove.
@@ -641,6 +718,39 @@ class Messenger {
     async removeTelemetryOpenedPage(pageId: string): Promise<void> {
         const type = MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE;
         return this.sendMessage(type, { pageId });
+    }
+
+    /**
+     * Retrieves statistics data for the given range.
+     *
+     * @param range The range for which statistics data is needed.
+     *
+     * @returns Stats data for the given range.
+     */
+    async getStatsByRange(range: StatisticsRange): Promise<StatisticsByRange> {
+        const type = MessageType.STATISTICS_GET_BY_RANGE;
+        return this.sendMessage(type, { range });
+    }
+
+    /**
+     * Clears all statistics.
+     *
+     * WARNING: This method will delete all statistics data,
+     * make sure that you know what you are doing before calling it.
+     */
+    async clearStatistics(): Promise<void> {
+        const type = MessageType.STATISTICS_CLEAR;
+        return this.sendMessage(type);
+    }
+
+    /**
+     * Sets the statistics disabled state.
+     *
+     * @param isDisabled If `true`, statistics will be disabled and no data will be collected.
+     */
+    async setStatisticsIsDisabled(isDisabled: boolean): Promise<void> {
+        const type = MessageType.STATISTICS_SET_IS_DISABLED;
+        return this.sendMessage(type, { isDisabled });
     }
 }
 

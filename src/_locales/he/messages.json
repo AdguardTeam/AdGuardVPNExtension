@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "הגדרות"
     },
+    "popup_settings_stats": {
+        "message": "סטטיסטיקות"
+    },
+    "popup_settings_free_description": {
+        "message": "זמין ב-AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "אפשר VPN באתר זה"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "כל המיקומים"
+    },
+    "endpoints_saved": {
+        "message": "נשמר"
     },
     "endpoints_search": {
         "message": "חפש מיקום"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "אל תראה את זה שוב"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "סטטיסטיקה עבור דפדפן זה"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "הסטטיסטיקות מושבתות"
+    },
+    "popup_stats_enable_btn": {
+        "message": "אפשר"
+    },
+    "popup_stats_data_usage": {
+        "message": "נתונים"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "מיקומים נפוצים ביותר"
+    },
+    "popup_stats_usage_time": {
+        "message": "זמן"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "למה זה בטוח"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "למה זה בטוח"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "חיבור ה-VPN מוצפן ומאובטח, כך שאף אחד לא יכול לראות את נתוני הפעילות שלכם — אנו מחשבים רק את השימוש בתעבורה שלכם"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "כל הסטטיסטיקות נאספות ומאוחסנות מקומית על המכשיר שלך. אין לנו גישה אליהן"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "הבנת"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "לאפשר סטטיסטיקות"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "השבת סטטיסטיקות"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "להשבית סטטיסטיקות?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "סטטיסטיקות חדשות לא ייאספו. תוכל עדיין לגשת לסטטיסטיקות הקיימות שלך"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "השבת"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "בטל"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "נקה סטטיסטיקה"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "לנקות סטטיסטיקה?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "כל הסטטיסטיקות יימחקו לצמיתות"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "נקה"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "בטל"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 שעות"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 ימים"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 ימים"
+    },
+    "popup_stats_range_all_time": {
+        "message": "כל הזמן"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "שהורדו"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "נטען"
+    },
+    "popup_stats_empty": {
+        "message": "עדיין אין נתונים סטטיסטיים – המשיכו להשתמש ב-AdGuard VPN כדי לצפות בהם"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "הצג את כל המיקומים"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "מחובר ל-VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% יום",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% שעות",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% דקות",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "מיקומים"
     },
     "options_signedout_page_title": {
         "message": "אתה התנתקת מ-AdGuard VPN"

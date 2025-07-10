@@ -5,9 +5,9 @@ import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { translator } from '../../../common/translator';
 import { type LocationData } from '../../stores/VpnStore';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
-import { Icon } from '../ui/Icon';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
+import { Icon, IconButton } from '../../../common/components/Icons';
 
 import { FastestSkeleton } from './FastestSkeleton';
 import { Location } from './Location';
@@ -51,7 +51,7 @@ export const Locations = observer(() => {
     const handleLocationSelect = async (id: string) => {
         const prevId = vpnStore.selectedLocation?.id;
         await vpnStore.selectLocation(id);
-        uiStore.closeEndpointsSearch();
+        uiStore.closeLocationsScreen();
 
         if ((settingsStore.isConnected
             || settingsStore.isConnectingRetrying
@@ -91,7 +91,7 @@ export const Locations = observer(() => {
     };
 
     const handleLocationsClose = () => {
-        uiStore.closeEndpointsSearch();
+        uiStore.closeLocationsScreen();
         vpnStore.setSearchValue('');
     };
 
@@ -145,7 +145,11 @@ export const Locations = observer(() => {
         if (emptySavedLocations) {
             return (
                 <div className="endpoints__empty-saved">
-                    <Icon icon="bookmark-off-thin" className="endpoints__empty-saved-icon" />
+                    <Icon
+                        name="bookmark-off-thin"
+                        color="product"
+                        className="endpoints__empty-saved-icon"
+                    />
                     <div className="endpoints__empty-saved-title">
                         {reactTranslator.getMessage('endpoints_empty_saved')}
                     </div>
@@ -153,13 +157,15 @@ export const Locations = observer(() => {
             );
         }
 
+        const title = isSavedLocationsTab
+            ? translator.getMessage('endpoints_saved')
+            : `${translator.getMessage('endpoints_all')} (${filteredLocations.length})`;
+
         return (
             <div className="endpoints__list">
-                {notSearchingAndSavedTab && (
+                {!showSearchResults && (
                     <div className="endpoints__title">
-                        {translator.getMessage('endpoints_all')}
-                        &nbsp;
-                        {`(${filteredLocations.length})`}
+                        {title}
                     </div>
                 )}
                 {renderLocations(filteredLocations)}
@@ -171,13 +177,11 @@ export const Locations = observer(() => {
         <div className="endpoints">
             <div className="endpoints__header">
                 {translator.getMessage('endpoints_countries')}
-                <button
-                    type="button"
-                    className="button endpoints__back"
+                <IconButton
+                    name="back"
+                    className="endpoints__back"
                     onClick={handleLocationsClose}
-                >
-                    <Icon icon="back" className="icon--button" />
-                </button>
+                />
                 <Reload />
             </div>
             <Search
@@ -206,10 +210,7 @@ export const Locations = observer(() => {
             {lastUnsavedLocation && (
                 <div className="endpoints__notification">
                     <div className="endpoints__notification-wrapper">
-                        <Icon
-                            icon="info"
-                            className="endpoints__notification-icon"
-                        />
+                        <Icon name="info" color="product" />
                         <div className="endpoints__notification-content">
                             <div className="endpoints__notification-title">
                                 {translator.getMessage('endpoints_saved_location_deleted')}
@@ -222,16 +223,7 @@ export const Locations = observer(() => {
                                 {translator.getMessage('settings_exclusions_undo')}
                             </button>
                         </div>
-                        <button
-                            type="button"
-                            className="endpoints__notification-close"
-                            onClick={handleNotificationClose}
-                        >
-                            <Icon
-                                icon="cross"
-                                className="endpoints__notification-close-icon icon--button"
-                            />
-                        </button>
+                        <IconButton name="cross" onClick={handleNotificationClose} />
                     </div>
                 </div>
             )}

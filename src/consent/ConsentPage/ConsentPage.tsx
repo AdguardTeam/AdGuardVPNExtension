@@ -5,8 +5,7 @@ import { messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
 import { reactTranslator } from '../../common/reactTranslator';
 import { getPrivacyAndEulaUrls } from '../../common/forwarderHelpers';
-// TODO: Import from common instead in release/v2.6 branch
-import { Icons } from '../../options/components/ui/Icon';
+import { Icons } from '../../common/components/Icons';
 import { Checkbox } from '../../options/components/ui/Checkbox';
 import { Button } from '../../options/components/ui/Button';
 import { Modal } from '../../options/components/ui/Modal';

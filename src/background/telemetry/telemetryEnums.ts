@@ -1,4 +1,11 @@
 /**
+ * IMPORTANT:
+ * Do not import inside this file other dependencies,
+ * because imports of this file are also used in the popup
+ * and redundant code from background may get into popup code
+ */
+
+/**
  * Screen names passed to telemetry.
  */
 export enum TelemetryScreenName {
@@ -20,6 +27,16 @@ export enum TelemetryScreenName {
     DialogDesktopVersionPromo = 'dialog_desktop_version_promo',
     DialogAccessWebsitesPermission = 'dialog_access_websites_permission',
     DialogCantConnect = 'dialog_cant_connect',
+    StatsScreen = 'stats_screen',
+    DisabledStatsScreen = 'disabled_stats_screen',
+    LocationStatsScreen = 'location_stats_screen',
+    DisabledLocationStatsScreen = 'disabled_location_stats_screen',
+    AllLocationsStatsScreen = 'all_locations_stats_screen',
+    DisabledAllLocationsStatsScreen = 'disabled_all_locations_stats_screen',
+    SettingsStatsScreen = 'settings_stats_screen',
+    WhySafeScreen = 'why_safe_screen',
+    DisableStatsScreen = 'disable_stats_screen',
+    ClearStatsScreen = 'clear_stats_screen',
 
     // Options screens
     SettingsScreen = 'settings_screen',
@@ -90,6 +107,22 @@ export enum TelemetryActionName {
     CloseCantConnectClick = 'close_cant_connect_click',
     AllLocationsClick = 'all_locations_click',
     SavedLocationsClick = 'saved_locations_click',
+    FreeMenuStatsClick = 'free_menu_stats_click',
+    MenuStatsClick = 'menu_stats_click',
+    PeriodStatsClick = 'period_stats_click',
+    WhySafeClick = 'why_safe_click',
+    OpenDisableStatsClick = 'open_disable_stats_click',
+    MenuEnableStatsClick = 'menu_enable_stats_click',
+    OpenClearStatsClick = 'open_clear_stats_click',
+    StatsPrivacyClick = 'stats_privacy_click',
+    StatsAllLocationsClick = 'stats_all_locations_click',
+    DisableStatsClick = 'disable_stats_click',
+    EnableStatsClick = 'enable_stats_click',
+    ClearStatsClick = 'clear_stats_click',
+    DayStatsClick = 'day_stats_click',
+    WeekStatsClick = 'week_stats_click',
+    MonthStatsClick = 'month_stats_click',
+    AllTimeStatsClick = 'all_time_stats_click',
 
     // Options actions
     GeneralSettingsClick = 'general_settings_click',
@@ -183,6 +216,14 @@ export type LocationsTabClickActionNames = TelemetryActionName.AllLocationsClick
 | TelemetryActionName.SavedLocationsClick;
 
 /**
+ * Stats range click action names.
+ */
+export type StatsRangeClickActionNames = TelemetryActionName.DayStatsClick
+| TelemetryActionName.WeekStatsClick
+| TelemetryActionName.MonthStatsClick
+| TelemetryActionName.AllTimeStatsClick;
+
+/**
  * Action to screen mapping.
  */
 export interface TelemetryActionToScreenMap {
@@ -221,7 +262,23 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.NudgeAdguardClick]: TelemetryScreenName.DialogCantConnect;
     [TelemetryActionName.CloseCantConnectClick]: TelemetryScreenName.DialogCantConnect;
     [TelemetryActionName.AllLocationsClick]: TelemetryScreenName.LocationsScreen;
-    [TelemetryActionName.SavedLocationsClick]: TelemetryScreenName.LocationsScreen
+    [TelemetryActionName.SavedLocationsClick]: TelemetryScreenName.LocationsScreen;
+    [TelemetryActionName.FreeMenuStatsClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.MenuStatsClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.PeriodStatsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.WhySafeClick]: TelemetryScreenName.SettingsStatsScreen;
+    [TelemetryActionName.OpenDisableStatsClick]: TelemetryScreenName.SettingsStatsScreen;
+    [TelemetryActionName.MenuEnableStatsClick]: TelemetryScreenName.SettingsStatsScreen;
+    [TelemetryActionName.OpenClearStatsClick]: TelemetryScreenName.SettingsStatsScreen;
+    [TelemetryActionName.StatsPrivacyClick]: TelemetryScreenName.WhySafeScreen;
+    [TelemetryActionName.StatsAllLocationsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.DisableStatsClick]: TelemetryScreenName.DisableStatsScreen;
+    [TelemetryActionName.EnableStatsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.ClearStatsClick]: TelemetryScreenName.ClearStatsScreen;
+    [TelemetryActionName.DayStatsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.WeekStatsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.MonthStatsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.AllTimeStatsClick]: TelemetryScreenName.ContextBasedScreen;
 
     // Options actions
     [TelemetryActionName.GeneralSettingsClick]: TelemetryScreenName.ContextBasedScreen;

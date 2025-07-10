@@ -4,7 +4,7 @@ import {
     type TelemetryActionName,
     type TelemetryScreenName,
     type TelemetryActionToScreenMap,
-} from '../../background/telemetry';
+} from '../../background/telemetry/telemetryEnums';
 import { messenger } from '../messenger';
 import { log } from '../logger';
 
@@ -40,18 +40,11 @@ export class TelemetryStore {
     };
 
     /**
-     * Adds new opened page to telemetry service.
-     */
-    @action addOpenedPage = async (): Promise<void> => {
-        try {
-            this.pageId = await messenger.addTelemetryOpenedPage();
-        } catch (e) {
-            log.debug('Failed to add opened page to telemetry service', e);
-        }
-    };
-
-    /**
      * Removes previously added opened page from telemetry service.
+     *
+     * Note: This method should be called only from options page,
+     * for popup page we have separate handling based on background connection,
+     * since popup page does not fires unload event.
      */
     @action removeOpenedPage = async (): Promise<void> => {
         try {
@@ -59,11 +52,28 @@ export class TelemetryStore {
                 return;
             }
 
-            await messenger.removeTelemetryOpenedPage(this.pageId);
+            // Delete from store first to prevent race condition
+            const { pageId } = this;
             this.pageId = null;
+            await messenger.removeTelemetryOpenedPage(pageId);
         } catch (e) {
             log.debug('Failed to remove opened page from telemetry service', e);
         }
+    };
+
+    /**
+     * Sets the page ID.
+     *
+     * @param pageId Page ID.
+     */
+    @action setPageId = (pageId: string | null): void => {
+        // Guard against multiple calls, allow to set page ID only once or to `null`
+        if (this.pageId && pageId) {
+            log.error(`Cannot set page ID: already set to '${this.pageId}'`);
+            return;
+        }
+
+        this.pageId = pageId;
     };
 
     /**
@@ -79,7 +89,12 @@ export class TelemetryStore {
                 return;
             }
 
-            await messenger.sendPageViewTelemetryEvent(screenName);
+            if (!this.pageId) {
+                log.error(`Cannot send page view telemetry event: missing page ID for screen '${screenName}'`);
+                return;
+            }
+
+            await messenger.sendPageViewTelemetryEvent(screenName, this.pageId);
         } catch (e) {
             log.debug('Failed to send page view telemetry event', e);
         }

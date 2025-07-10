@@ -7,17 +7,6 @@ import { settings } from '../settings';
 
 import { Telemetry } from './Telemetry';
 
-export {
-    TelemetryScreenName,
-    TelemetryActionName,
-    type TelemetryActionToScreenMap,
-    type HeaderScreenNames,
-    type SidebarLinkItemClickActionNames,
-    type DnsServerClickActionNames,
-    type FreeGbItemClickActionNames,
-    type LocationsTabClickActionNames,
-} from './telemetryEnums';
-
 export const telemetry = new Telemetry({
     storage: browserApi.storage,
     telemetryProvider,

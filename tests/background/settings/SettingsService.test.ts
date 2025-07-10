@@ -7,17 +7,6 @@ jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }
 
 jest.mock('../../../src/common/logger');
 
-jest.mock('../../../src/background/browserApi', () => {
-    return {
-        browserApi: {
-            runtime: {
-                // TODO: test mv3 after official switch to mv3
-                isManifestVersion2: () => true,
-            },
-        },
-    };
-});
-
 jest.mock('../../../src/background/settings');
 
 const storage = (() => {

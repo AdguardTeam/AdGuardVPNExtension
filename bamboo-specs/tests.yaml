@@ -21,7 +21,7 @@ Test:
   docker:
     image: ${bamboo.dockerNode}
     volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   tasks:
     - checkout:
         force-clean-build: true
@@ -35,41 +35,38 @@ Test:
             # Fix mixed logs
             exec 2>&1
 
-            # Exclude '--ignore-optional' from yarn arguments
-            # This is needed for installing swc core optional dependencies properly
-            # as swc is used by 'yarn test'
-            originalYarnArgs="$bamboo_varsYarn"
-            modifiedYarnArgs=$(echo "$originalYarnArgs" | sed 's/--ignore-optional//g')
+            # Set cache directory
+            pnpm config set store-dir ${bamboo.cachePnpm}
 
             # Install dependencies
-            yarn install ${modifiedYarnArgs}
+            pnpm install ${bamboo.varsPnpm}
 
-            yarn lint
-            yarn test
+            pnpm lint
+            pnpm test
 
-            # build with test API endpoints
+            # build with test API endpoints:
+            # chrome.zip, edge.zip, opera.zip, firefox.zip
             STAGE_ENV=test \
             VPN_API_URL="${bamboo.devVpnApiUrl}" \
             AUTH_API_URL="${bamboo.devAuthApiUrl}" \
             FORWARDER_DOMAIN="${bamboo.devVpnForwarderDomain}" \
-            yarn dev
+            pnpm dev
 
             # build artifacts chrome.crx
-            # firefox.xpi - temporary disabled
             STAGE_ENV=test \
-            yarn artifacts:dev
+            pnpm crx:dev
 
             # build with prod API endpoints
+            # chrome-prod.zip, edge-prod.zip, opera-prod.zip, firefox-prod.zip
             STAGE_ENV=prod \
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
-            yarn dev
+            pnpm dev
 
             # build artifacts chrome-prod.crx
-            # firefox-prod.xpi - temporary disabled
             STAGE_ENV=prod \
-            yarn artifacts:dev
+            pnpm crx:dev
   final-tasks:
     - script:
         interpreter: SHELL
@@ -110,11 +107,6 @@ Test:
     - name: chrome.crx
       location: build/dev
       pattern: chrome.crx
-      shared: true
-      required: true
-    - name: build.txt
-      location: build/dev
-      pattern: build.txt
       shared: true
       required: true
     - name: edge-prod.zip

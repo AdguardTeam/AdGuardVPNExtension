@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Pengaturan"
     },
+    "popup_settings_stats": {
+        "message": "Statistik"
+    },
+    "popup_settings_free_description": {
+        "message": "Tersedia di AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "Aktifkan VPN pada situs ini"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Semua lokasi"
+    },
+    "endpoints_saved": {
+        "message": "Tersimpan"
     },
     "endpoints_search": {
         "message": "Cari lokasi"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Jangan tampilkan ini lagi"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Statistik untuk browser ini"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Statistik dinonaktifkan"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Aktifkan"
+    },
+    "popup_stats_data_usage": {
+        "message": "Data"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Lokasi yang paling sering digunakan"
+    },
+    "popup_stats_usage_time": {
+        "message": "Waktu"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Mengapa aman"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Mengapa aman"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Koneksi VPN dienkripsi dan aman, jadi tidak ada yang dapat melihat data aktivitas Anda — kami hanya menghitung penggunaan lalu lintas Anda"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Semua statistik dikumpulkan dan disimpan secara lokal di perangkat Anda. Kami tidak memiliki akses ke sana"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Mengerti"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Aktifkan statistik"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Nonaktifkan statistik"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Nonaktifkan statistik?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Statistik baru tidak akan dikumpulkan. Anda masih dapat mengakses statistik yang ada"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Nonaktifkan"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Batal"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Hapus statistik"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Hapus statistik?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Semua statistik akan dihapus secara permanen"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Hapus"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Batal"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 jam"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 hari"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 hari"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Sepanjang waktu"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "diunduh"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "diunggah"
+    },
+    "popup_stats_empty": {
+        "message": "Belum ada statistik — tetap gunakan AdGuard VPN untuk melihatnya"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Tampilkan semua lokasi"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Terhubung ke VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% h",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% j",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% m",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Lokasi"
     },
     "options_signedout_page_title": {
         "message": "Anda telah keluar dari AdGuard VPN"

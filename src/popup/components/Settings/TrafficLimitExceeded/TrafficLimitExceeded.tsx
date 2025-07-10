@@ -3,10 +3,10 @@ import { observer } from 'mobx-react';
 
 import { translator } from '../../../../common/translator';
 import { rootStore } from '../../../stores';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
+import { IconButton } from '../../../../common/components/Icons';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import tiredImageUrl from '../../../../assets/images/tired.svg';
-import { Icon } from '../../ui/Icon';
 
 export const TrafficLimitExceeded = observer(() => {
     const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
@@ -37,13 +37,11 @@ export const TrafficLimitExceeded = observer(() => {
 
     return (
         <div className="new-global-error new-global-error--reduced">
-            <button
-                type="button"
+            <IconButton
+                name="cross"
+                className="close-icon-btn"
                 onClick={handleClose}
-                className="new-global-error__close-btn"
-            >
-                <Icon icon="cross" className="icon--button" />
-            </button>
+            />
             <div className="new-global-error__image-wrapper">
                 <img
                     src={tiredImageUrl}

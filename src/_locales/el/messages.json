@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Ρυθμίσεις"
     },
+    "popup_settings_stats": {
+        "message": "Στατιστικά"
+    },
+    "popup_settings_free_description": {
+        "message": "Διαθέσιμο στο AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "Ενεργοποίηση VPN σε αυτόν τον ιστότοπο"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Όλες οι τοποθεσίες"
+    },
+    "endpoints_saved": {
+        "message": "Αποθηκεύτηκε"
     },
     "endpoints_search": {
         "message": "Αναζήτηση τοποθεσίας"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Να μην εμφανιστεί ξανά"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Στατιστικά για αυτό το πρόγραμμα περιήγησης"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Τα στατιστικά είναι απενεργοποιημένα"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Ενεργοποίηση"
+    },
+    "popup_stats_data_usage": {
+        "message": "Δεδομένα"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Τοποθεσίες που χρησιμοποιούνται περισσότερο"
+    },
+    "popup_stats_usage_time": {
+        "message": "Ώρα"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Γιατί είναι ασφαλές"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Γιατί είναι ασφαλές"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Δεδομένου ότι η σύνδεση VPN είναι κρυπτογραφημένη και ασφαλής, κανείς δεν μπορεί να δει τα δεδομένα δραστηριότητάς σας — υπολογίζουμε μόνο τη χρήση της κίνησής σας"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Όλες οι στατιστικές συλλέγονται και αποθηκεύονται τοπικά στη συσκευή σας. Δεν έχουμε πρόσβαση σε αυτές"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Το κατάλαβα"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Ενεργοποίηση στατιστικών"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Απενεργοποίηση στατιστικών"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Απενεργοποίηση στατιστικών;"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Δεν θα συλλέγονται νέα στατιστικά στοιχεία. Μπορείτε ακόμα να έχετε πρόσβαση στα υπάρχοντα στατιστικά σας"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Απενεργοποίηση"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Άκυρο"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Εκκαθάριση στατιστικών"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Εκκαθάριση στατιστικών;"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Όλα τα στατιστικά θα διαγραφούν οριστικά"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Εκκαθάριση"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Άκυρο"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 ώρες"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 μέρες"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 μέρες"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Συνολικά"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "κατεβάστηκαν"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "ανεβάστηκαν"
+    },
+    "popup_stats_empty": {
+        "message": "Δεν υπάρχουν ακόμη στατιστικά — συνεχίστε να χρησιμοποιείτε τον AdGuard VPN για να τα δείτε"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Προβολή όλων των τοποθεσιών"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Συνδεδεμένος σε VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% η",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% ώ",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% λ",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Τοποθεσίες"
     },
     "options_signedout_page_title": {
         "message": "Έχετε αποσυνδεθεί από το AdGuard VPN"

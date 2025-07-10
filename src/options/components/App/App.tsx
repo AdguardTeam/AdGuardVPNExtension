@@ -3,12 +3,12 @@ import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
+import { Icons } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/consts';
 import { useCustomDnsFromQuery } from '../../hooks/useQueryStringData';
 import { useMessageHandler } from '../../hooks/useMessageHandler';
 import { Notifications } from '../ui/Notifications';
-import { Icons } from '../ui/Icon';
 import { Preloader } from '../Preloader';
 import { SignedOut } from '../SignedOut';
 import { Sidebar } from '../Sidebar';
@@ -83,7 +83,6 @@ export const App = observer(() => {
     useEffect(() => {
         (async () => {
             await globalStore.init();
-            await telemetryStore.addOpenedPage();
         })();
 
         const onUnload = () => {

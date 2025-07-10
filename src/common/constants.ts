@@ -122,8 +122,11 @@ export enum MessageType {
 
     TELEMETRY_EVENT_SEND_PAGE_VIEW = 'telemetry.event.send.page.view',
     TELEMETRY_EVENT_SEND_CUSTOM = 'telemetry.event.send.custom',
-    TELEMETRY_EVENT_ADD_OPENED_PAGE = 'telemetry.event.add.opened.page',
     TELEMETRY_EVENT_REMOVE_OPENED_PAGE = 'telemetry.event.remove.opened.page',
+
+    STATISTICS_GET_BY_RANGE = 'statistics.get.by.range',
+    STATISTICS_CLEAR = 'statistics.clear',
+    STATISTICS_SET_IS_DISABLED = 'statistics.set.is.disabled',
 }
 
 export enum SocialAuthProvider {

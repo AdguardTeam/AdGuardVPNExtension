@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 
 import { DnsSettingsServerModal, type DnsSettingsServerModalError } from './DnsSettingsServerModal';
 import {

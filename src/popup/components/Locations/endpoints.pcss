@@ -1,8 +1,4 @@
 .endpoints {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: var(--endpoints-z-index);
     width: var(--popup-width);
     height: 100%;
     padding-top: 16px;
@@ -31,11 +27,6 @@
         position: absolute;
         top: 1px;
         left: 0;
-        width: 24px;
-        height: 24px;
-        padding: 0;
-        border: 0;
-        color: var(--gray-base);
     }
 
     &__reload {
@@ -54,44 +45,14 @@
             }
         }
 
-        &-icon {
-            width: 24px;
-            height: 24px;
-            color: var(--stroke-icons-product-icons-default);
-
-            &--active {
-                pointer-events: none;
-                animation: rotate 2s linear infinite running;
-            }
+        &-icon--active {
+            pointer-events: none;
+            animation: rotate 2s linear infinite running;
         }
     }
 
     &__search {
-        position: relative;
         margin: 0 16px 16px;
-    }
-
-    /* Higher selector specificity */
-    &__search &__search-in {
-        /* Padding right is 40px = 24px (icon size) + 16px (icon offset) */
-        padding: 16px 40px 16px 16px;
-    }
-
-    &__cross {
-        position: absolute;
-        width: 24px;
-        height: 24px;
-        top: calc(50% - 12px);
-        right: 16px;
-        padding: 0;
-        border: 0;
-        visibility: hidden;
-        opacity: 0;
-
-        &--active {
-            visibility: visible;
-            opacity: 1;
-        }
     }
 
     &__item {
@@ -191,7 +152,6 @@
             width: 48px;
             height: 48px;
             border-radius: 8px;
-            color: var(--stroke-icons-product-icons-default);
             background-color: var(--fills-backgrounds-page-background-additional-default);
         }
 
@@ -222,7 +182,7 @@
         padding: 12px 16px;
         background-color: transparent;
         overflow: hidden;
-        color: var(--text-main-text-main-default);
+        color: var(--text-description-description-default);
         text-align: center;
         text-overflow: ellipsis;
         font-size: 14px;
@@ -232,6 +192,13 @@
         cursor: pointer;
         /* Button should not wrap, to not expand button in height */
         white-space: nowrap;
+        transition: var(--t3) color;
+
+        &:hover,
+        &:active,
+        &--active {
+            color: var(--text-main-text-main-default);
+        }
 
         &::after {
             content: "";
@@ -239,12 +206,15 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 1px;
+            height: 2px;
             background-color: var(--stroke-dividers-item-divider-default);
+            transform: scaleY(0.5);
+            transform-origin: center bottom;
+            transition: var(--t3) background-color, var(--t3) transform;
         }
 
         &--active::after {
-            height: 2px;
+            transform: scaleY(1);
             background-color: var(--stroke-dividers-item-divider-green-default);
         }
     }
@@ -265,23 +235,8 @@
             background-color: var(--fills-snacks-mobile-snacks-default);
         }
 
-        &-icon,
-        &-close-icon {
-            width: 24px;
-            height: 24px;
-        }
-
-        &-icon,
-        &-close {
-            flex-shrink: 0;
-        }
-
         &-content {
             flex: 1 1 auto;
-        }
-
-        &-icon {
-            color: var(--stroke-icons-product-icons-default);
         }
 
         &-title,
@@ -315,10 +270,6 @@
             &:active {
                 color: var(--text-links-link-pressed);
             }
-        }
-
-        &-close {
-            color: var(--stroke-icons-gray-icons-default);
         }
     }
 }

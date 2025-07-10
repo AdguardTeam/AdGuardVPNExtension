@@ -12,10 +12,10 @@ import {
     type SidebarLinkItemClickActionNames,
     TelemetryActionName,
     TelemetryScreenName,
-} from '../../../background/telemetry';
+} from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
+import { IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
-import { IconButton } from '../ui/Icon';
 
 import { SidebarLink } from './SidebarLink';
 import { Rate } from './Rate';
@@ -97,8 +97,8 @@ export const Sidebar = observer(() => {
             <div className="sidebar__header" inert={isSidebarOpen ? '' : undefined}>
                 <IconButton
                     name="sidebar-burger"
-                    onClick={openSidebar}
                     className="sidebar__open-btn"
+                    onClick={openSidebar}
                 />
             </div>
             <div className="sidebar__overlay" onClick={closeSidebar} />
@@ -155,8 +155,8 @@ export const Sidebar = observer(() => {
                 </nav>
                 <IconButton
                     name="cross"
-                    onClick={closeSidebar}
                     className="sidebar__close-btn"
+                    onClick={closeSidebar}
                 />
                 <Rate />
             </div>

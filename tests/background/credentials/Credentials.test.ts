@@ -3,14 +3,7 @@ import { SubscriptionType } from '../../../src/common/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
 import type { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
-import { session } from '../../__mocks__';
-// TODO: test mv3 after official switch to mv3
-import { stateStorage } from '../../../src/background/stateStorage/mv2';
-
-jest.mock('../../../src/background/stateStorage', () => {
-    // eslint-disable-next-line global-require
-    return require('../../../src/background/stateStorage/mv2');
-});
+import { stateStorage } from '../../../src/background/stateStorage';
 
 jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
 
@@ -32,10 +25,6 @@ const storageImplementation: { [key: string]: any } = {};
 jest.mock('../../../src/background/browserApi', () => {
     return {
         browserApi: {
-            runtime: {
-                // TODO: test mv3 after official switch to mv3
-                isManifestVersion2: () => true,
-            },
             storage: {
                 set: jest.fn((key, data) => {
                     storageImplementation[key] = data;
@@ -53,13 +42,6 @@ jest.mock('../../../src/background/browserApi', () => {
 
 const msToSec = (ms: number) => {
     return Math.floor(ms / 1000);
-};
-
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
 };
 
 describe('Credentials', () => {

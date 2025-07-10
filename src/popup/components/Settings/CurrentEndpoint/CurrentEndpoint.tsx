@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { rootStore } from '../../../stores';
 import { Ping } from '../../Ping';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { Icon } from '../../ui/Icon';
+import { Icon } from '../../../../common/components/Icons';
 import { getFlagIconStyle } from '../../Locations';
 
 import './endpoint.pcss';
@@ -29,7 +29,7 @@ export const CurrentEndpoint = observer(() => {
 
     const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        uiStore.openEndpointsSearch();
+        uiStore.openLocationsScreen();
     };
 
     const titleClass = classnames('endpoint__location-name', 'endpoint__title', { 'endpoint__title--selected': isConnected });
@@ -76,7 +76,12 @@ export const CurrentEndpoint = observer(() => {
                             </div>
                         )}
                     </div>
-                    <Icon icon="right-arrow" className="icon--arrow" />
+                    <Icon
+                        name="arrow-down"
+                        color="gray"
+                        rotation="clockwise"
+                        className="arrow-icon"
+                    />
                 </div>
             </button>
         </div>
@@ -130,7 +135,12 @@ export const CurrentEndpointScreenShot = ({
                 <div>
                     <div className="ping">—</div>
                 </div>
-                <Icon icon="right-arrow" className="icon--arrow" />
+                <Icon
+                    name="arrow-down"
+                    color="gray"
+                    rotation="clockwise"
+                    className="arrow-icon"
+                />
             </div>
         </button>
     </div>

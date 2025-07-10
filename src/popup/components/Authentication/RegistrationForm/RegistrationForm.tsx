@@ -1,22 +1,30 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
 
 import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
-import { RequestStatus, InputType } from '../../../stores/constants';
+import { RequestStatus } from '../../../stores/constants';
+import { CredentialsKey } from '../../../stores/AuthStore';
 import PasswordField from '../PasswordField';
 import { Submit } from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { InputField } from '../InputField';
 
 export const RegistrationForm = observer(() => {
     const { authStore, telemetryStore, settingsStore } = useContext(rootStore);
     const { showServerErrorPopup } = settingsStore;
+    const {
+        requestProcessState,
+        credentials,
+        onCredentialsChange,
+    } = authStore;
+
+    const { username, password, confirmPassword } = credentials;
 
     const canSendTelemetry = !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen
 
@@ -31,40 +39,10 @@ export const RegistrationForm = observer(() => {
         await authStore.register();
     };
 
-    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { target: { name, value } } = e;
-        await authStore.onCredentialsChange(name, value);
-    };
-
-    const { requestProcessState, credentials } = authStore;
-    const { password, confirmPassword } = credentials;
-
-    const [passwordInputType, setPasswordInputType] = useState(InputType.Password);
-    const [confirmPasswordInputType, setConfirmPasswordInputType] = useState(InputType.Password);
-
-    const handlePasswordInputTypeChange = () => {
-        setPasswordInputType(
-            passwordInputType === InputType.Password
-                ? InputType.Text
-                : InputType.Password,
-        );
-    };
-
-    const handleConfirmPasswordInputTypeChange = () => {
-        setConfirmPasswordInputType(
-            confirmPasswordInputType === InputType.Password
-                ? InputType.Text
-                : InputType.Password,
-        );
-    };
-
     const formClassName = classnames(
         'form',
         { 'form--error': authStore.error },
     );
-
-    const passwordIcon = passwordInputType === InputType.Password ? '#closed_eye' : '#open_eye';
-    const confirmPasswordIcon = confirmPasswordInputType === InputType.Password ? '#closed_eye' : '#open_eye';
 
     return (
         <form
@@ -79,23 +57,20 @@ export const RegistrationForm = observer(() => {
                     {reactTranslator.getMessage('auth_sign_up_info')}
                 </div>
                 <InputField
-                    id="username"
+                    id={CredentialsKey.Username}
                     type="email"
-                    value={authStore.credentials.username}
-                    title={authStore.credentials.username}
+                    value={username}
+                    title={username}
                     label={translator.getMessage('auth_sign_in_provider_adguard_label')}
                     className="form__input__email-disabled"
                     disabled
                 />
                 <PasswordField
                     placeholder={translator.getMessage('auth_your_password')}
-                    id="password"
+                    id={CredentialsKey.Password}
                     password={password}
                     error={authStore.error}
-                    inputType={passwordInputType}
-                    handleChange={inputChangeHandler}
-                    handleInputTypeChange={handlePasswordInputTypeChange}
-                    icon={passwordIcon}
+                    onChange={onCredentialsChange}
                     label={translator.getMessage('auth_password')}
                     focus
                 />
@@ -106,12 +81,9 @@ export const RegistrationForm = observer(() => {
                 )}
                 <PasswordField
                     placeholder={translator.getMessage('auth_your_password')}
-                    id="confirmPassword"
+                    id={CredentialsKey.ConfirmPassword}
                     password={confirmPassword}
-                    inputType={confirmPasswordInputType}
-                    handleChange={inputChangeHandler}
-                    handleInputTypeChange={handleConfirmPasswordInputTypeChange}
-                    icon={confirmPasswordIcon}
+                    onChange={onCredentialsChange}
                     label={translator.getMessage('auth_password_confirm')}
                 />
             </div>

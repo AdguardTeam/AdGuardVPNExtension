@@ -7,16 +7,34 @@ const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
 const HTTP_RESPONSE_STATUS_OK = 200;
 
-interface ConfigInterface {
-    params?: {
-        [key: string]: string;
-    };
-    data?: string | FormData;
+/**
+ * Request config.
+ */
+export interface ConfigInterface {
+    /**
+     * Query parameters to append to the request URL.
+     */
+    params?: Record<string, string>;
+
+    /**
+     * Body of the request.
+     */
     body?: string | FormData;
+
+    /**
+     * Headers to include in the request.
+     */
     headers?: {
         Authorization?: string,
         'Content-Type'?: string,
     };
+
+    /**
+     * Flag to indicate whether to trigger a server error notification
+     * in case if server is unavailable or network error occurs.
+     * Default is `true`.
+     */
+    shouldTriggerServerErrorEvent?: boolean;
 }
 
 interface ApiInterface {
@@ -75,7 +93,7 @@ export class Api implements ApiInterface {
             signal,
         };
 
-        const { body, headers } = config;
+        const { body, headers, shouldTriggerServerErrorEvent = true } = config;
 
         if (body) {
             fetchConfig.body = body;
@@ -122,9 +140,10 @@ export class Api implements ApiInterface {
                 throw e;
             }
 
-            // if there is no response from backend and network is online,
-            // notify about server error
-            if (navigator.onLine) {
+            // if server is unavailable or network error occurs
+            // we should notify listeners about server error,
+            // but only if the user is online and the event is not suppressed
+            if (shouldTriggerServerErrorEvent && navigator.onLine) {
                 notifier.notifyListeners(notifier.types.SERVER_ERROR);
             }
             throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${requestUrl} | ${e.message || JSON.stringify(e)}`);

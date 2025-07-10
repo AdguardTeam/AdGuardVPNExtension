@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Setări"
     },
+    "popup_settings_stats": {
+        "message": "Statistici"
+    },
+    "popup_settings_free_description": {
+        "message": "Disponibil în AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "Activați VPN pe acest site"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Toate locațiile"
+    },
+    "endpoints_saved": {
+        "message": "Salvat"
     },
     "endpoints_search": {
         "message": "Căutare locație"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Nu mai arăta asta"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Statistici pentru acest browser"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Statistici sunt dezactivate"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Activare"
+    },
+    "popup_stats_data_usage": {
+        "message": "Date"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Cele mai utilizate locații"
+    },
+    "popup_stats_usage_time": {
+        "message": "Ora"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "De ce este sigur"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "De ce este sigur"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Conexiunea VPN este criptată și securizată, astfel încât nimeni nu vă poate vedea datele de activitate — noi doar calculăm utilizarea traficului dvs."
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Toate statisticile sunt colectate și stocate local pe dispozitiv. Nu avem acces la ele"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Am înțeles."
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Activați statisticile"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Dezactivați statisticile"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Dezactivați statisticile?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Statisticile noi nu vor fi colectate. Puteți accesa în continuare statisticile existente"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Dezactivare"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Anulare"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Ștergeți statisticile"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Ștergeți statisticile?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Toate statisticile vor fi șterse definitiv"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Șterge"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Anulare"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 de ore"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 zile"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 de zile"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Tot timpul"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "descărcat"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "încărcat"
+    },
+    "popup_stats_empty": {
+        "message": "Nicio statistică încă — continuați să utilizați AdGuard VPN pentru a le vizualiza"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Vizualizați toate locațiile"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Conectat la VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% z",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% or",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% min",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Locații"
     },
     "options_signedout_page_title": {
         "message": "V-ați deconectat de la AdGuard VPN"

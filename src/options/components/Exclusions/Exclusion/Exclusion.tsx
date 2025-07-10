@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import classNames from 'classnames';
@@ -6,8 +6,8 @@ import classNames from 'classnames';
 import { type ExclusionDtoInterface, ExclusionState, ExclusionsType } from '../../../../common/exclusionsConstants';
 import { translator } from '../../../../common/translator';
 import { SearchHighlighter } from '../../../../common/components/SearchHighlighter';
+import { Icon } from '../../../../common/components/Icons';
 import { rootStore } from '../../../stores';
-import { Icon } from '../../ui/Icon';
 
 import './exclusion.pcss';
 
@@ -60,6 +60,7 @@ export const Exclusion = observer(({
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
     const { selectedExclusion } = exclusionsStore;
 
+    const checkboxRef = useRef<HTMLButtonElement>(null);
     const [iconLoaded, setIconLoaded] = useState(false);
 
     const hasChildren = exclusion.children.length !== 0;
@@ -98,13 +99,33 @@ export const Exclusion = observer(({
         setIconLoaded(true);
     };
 
-    const handleClick = () => {
+    const toggleExclusionState = () => {
         exclusionsStore.toggleExclusionState(exclusion.id);
+    };
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        /**
+         * The detail property of the event is used to determine how the event was triggered.
+         * A value of 0 indicates that the event was triggered by a keyboard action (e.g., pressing Enter or Space).
+         */
+        const KEYBOARD_EVENT_DETAIL = 0;
+
+        /**
+         * Prevent from remaining focus on the checkbox if the click is made by mouse or touch,
+         * allow to keep focus on the checkbox for keyboard navigation.
+         *
+         * This is needed to avoid focused styles on exclusion after clicking it.
+         */
+        if (e.detail !== KEYBOARD_EVENT_DETAIL && checkboxRef.current) {
+            checkboxRef.current.blur();
+        }
+
+        toggleExclusionState();
     };
 
     const handleForwardClick = () => {
         if (!hasChildren) {
-            handleClick();
+            toggleExclusionState();
             return;
         }
 
@@ -127,11 +148,12 @@ export const Exclusion = observer(({
         <div className={classes}>
             <div className="exclusion__wrapper">
                 <button
+                    ref={checkboxRef}
                     className="exclusion__check has-tab-focus"
                     type="button"
                     onClick={handleClick}
                 >
-                    <Icon name={checkIconName} className="exclusion__check-icon" />
+                    <Icon name={checkIconName} />
                 </button>
                 <button
                     className="exclusion__btn has-tab-focus"
@@ -149,7 +171,11 @@ export const Exclusion = observer(({
                                         className="exclusion__btn-icon"
                                     />
                                 )}
-                                <Icon name="globe" className="exclusion__btn-globe-icon" />
+                                <Icon
+                                    name="globe"
+                                    color="product"
+                                    className="exclusion__btn-globe-icon"
+                                />
                             </>
                         )}
                         <span className="exclusion__btn-title text-ellipsis">
@@ -159,7 +185,12 @@ export const Exclusion = observer(({
                             />
                         </span>
                         {hasChildren && (
-                            <Icon name="arrow-down" className="exclusion__btn-forward-icon" />
+                            <Icon
+                                name="arrow-down"
+                                color="gray"
+                                rotation="clockwise"
+                                className="exclusion__btn-forward-icon"
+                            />
                         )}
                     </span>
                     {isGroupExclusion && description && (
@@ -173,7 +204,7 @@ export const Exclusion = observer(({
                     type="button"
                     onClick={handleDeleteClick}
                 >
-                    <Icon name="basket" className="exclusion__delete-icon" />
+                    <Icon name="basket" />
                 </button>
             </div>
         </div>

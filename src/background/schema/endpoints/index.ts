@@ -1,5 +1,30 @@
-export * from './endpointInterface';
-export * from './location';
-export * from './locationsService';
-export * from './endpointsState';
-export * from './pingsCache';
+export {
+    endpointInterfaceScheme,
+    type EndpointInterface,
+} from './endpointInterface';
+
+export {
+    locationDataScheme,
+    type LocationData,
+    locationInterfaceScheme,
+    locationScheme,
+    type LocationInterface,
+} from './location';
+
+export {
+    locationsServiceStateScheme,
+    type LocationsServiceState,
+    LOCATIONS_SERVICE_STATE_DEFAULTS,
+} from './locationsService';
+
+export {
+    endpointsStateScheme,
+    type EndpointsState,
+    ENDPOINTS_STATE_DEFAULTS,
+} from './endpointsState';
+
+export {
+    pingDataScheme,
+    pingsCacheScheme,
+    type PingsCacheInterface,
+} from './pingsCache';

@@ -174,6 +174,12 @@ export class GlobalStore {
          */
         await this.initAuthenticatedStatus();
 
+        /**
+         * Statistics store should be initialized before popup data is retrieved
+         * because statistics range is used in the popup data request.
+         */
+        await this.rootStore.statsStore.init();
+
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         await this.getDesktopAppData();
         await this.rootStore.authStore.getResendCodeCountdownAndStart();

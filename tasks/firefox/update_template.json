@@ -1,0 +1,17 @@
+{
+    "addons": {
+        "%EXTENSION_ID%": {
+            "updates": [
+                {
+                    "version": "%VERSION%",
+                    "update_link": "%UPDATE_LINK%",
+                    "browser_specific_settings": {
+                        "gecko": {
+                            "strict_min_version": "%STRICT_MIN_VERSION%"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

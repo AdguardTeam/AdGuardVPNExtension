@@ -244,7 +244,7 @@
         "message": "Gratis GB's verkrijgen!"
     },
     "settings_referral_info": {
-        "message": "Ontvang een maand lang %your_gb% GB gratis VPN-verkeer voor elke vriend die zich via jouw uitnodiging aanmeldt, tot in totaal %total_gb% GB. Je vriend krijgt ook gratis %friend_gb% GB extra."
+        "message": "Ontvang een maand lang %your_gb% GB gratis VPN-gegevensverkeer voor elke vriend die zich via jouw uitnodiging aanmeldt, tot in totaal %total_gb% GB. Je vriend krijgt ook gratis %friend_gb% GB extra."
     },
     "settings_referral_invited_friends": {
         "message": "Uitgenodigde vrienden %count%/%limit%"
@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Instellingen"
     },
+    "popup_settings_stats": {
+        "message": "Statistieken"
+    },
+    "popup_settings_free_description": {
+        "message": "Beschikbaar in AdGuard VPN Onbeperkt"
+    },
     "context_menu_enable_vpn": {
         "message": "VPN Inschakelen op deze website"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Alle locaties"
+    },
+    "endpoints_saved": {
+        "message": "Opgeslagen"
     },
     "endpoints_search": {
         "message": "Locatie zoeken"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Dit niet opnieuw weergeven"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Statistieken voor deze browser"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Statistieken zijn uitgeschakeld"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Inschakelen"
+    },
+    "popup_stats_data_usage": {
+        "message": "Gegevens"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Meest gebruikte locaties"
+    },
+    "popup_stats_usage_time": {
+        "message": "Tijd"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Waarom het veilig is"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Waarom het veilig is"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "De VPN-verbinding is versleuteld en veilig, zodat niemand jouw activiteitsgegevens kan zien - we berekenen alleen je gegevensverkeers gebruik"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Alle statistieken worden lokaal op jouw apparaat verzameld en opgeslagen. We hebben er geen toegang toe"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Begrepen"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Statistieken inschakelen"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Statistieken uitschakelen"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Statistieken uitschakelen?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Nieuwe statistieken worden niet meer verzameld. Je hebt nog steeds toegang tot je bestaande statistieken"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Uitschakelen"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Annuleren"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Statistieken wissen"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Statistieken wissen?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Alle statistieken worden permanent verwijderd"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Wissen"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Annuleren"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 uur"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 dagen"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 dagen"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Totaal"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "gedownload"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "geüpload"
+    },
+    "popup_stats_empty": {
+        "message": "Nog geen statistieken - blijf AdGuard VPN gebruiken om ze te bekijken"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Alle locaties bekijken"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Verbonden met VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% d",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% u",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% m",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Locaties"
     },
     "options_signedout_page_title": {
         "message": "Je hebt je afgemeld bij AdGuard VPN"

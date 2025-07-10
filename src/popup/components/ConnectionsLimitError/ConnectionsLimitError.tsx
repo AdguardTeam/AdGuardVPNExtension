@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { observer } from 'mobx-react';
 import { CSSTransition } from 'react-transition-group';
 
@@ -10,13 +10,14 @@ import { rootStore } from '../../stores';
 import { messenger } from '../../../common/messenger';
 import { translator } from '../../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { IconButton } from '../../../common/components/Icons';
+import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import confusedImageUrl from '../../../assets/images/confused.svg';
-import { Icon } from '../ui/Icon';
 
 export const ConnectionsLimitError = observer(() => {
     const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
+    const nodeRef = useRef<HTMLDivElement>(null);
 
     const {
         tooManyDevicesConnected,
@@ -83,19 +84,18 @@ export const ConnectionsLimitError = observer(() => {
 
     return (
         <CSSTransition
+            nodeRef={nodeRef}
             in={tooManyDevicesConnected}
             timeout={300}
             classNames="fade"
             unmountOnExit
         >
-            <div className="new-global-error new-global-error--device">
-                <button
-                    type="button"
+            <div ref={nodeRef} className="new-global-error new-global-error--device">
+                <IconButton
+                    name="cross"
+                    className="close-icon-btn"
                     onClick={handleCloseClick}
-                    className="new-global-error__close-btn"
-                >
-                    <Icon icon="cross" className="icon--button" />
-                </button>
+                />
                 <div className="new-global-error__image-wrapper">
                     <img
                         src={confusedImageUrl}

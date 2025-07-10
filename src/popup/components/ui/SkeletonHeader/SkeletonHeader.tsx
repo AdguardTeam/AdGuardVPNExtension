@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { IconButton } from '../../../../common/components/Icons';
+
 import '../../Header/header.pcss';
 
 export const SkeletonHeader = () => {
@@ -8,15 +10,9 @@ export const SkeletonHeader = () => {
             <div className="header__logo">
                 <div className="logo" />
             </div>
-            <button
-                className="button button__disabled header__setting header__setting--inactive"
-                type="button"
-                tabIndex={-1}
-            >
-                <svg className="icon icon--button icon--popup-menu">
-                    <use xlinkHref="#bar" />
-                </svg>
-            </button>
+            <div className="header__actions">
+                <IconButton name="sidebar-burger" />
+            </div>
         </div>
     );
 };

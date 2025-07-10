@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { IconButton } from '../Icon';
+import { IconButton } from '../../../../common/components/Icons';
 
 import './title.pcss';
 
@@ -65,12 +65,7 @@ export function Title({
         <div className={classes} onClick={onClick}>
             <div className="title__text">
                 <div className="title__text-start">
-                    {isBackTitle && (
-                        <IconButton
-                            name="arrow-down"
-                            className="title__text-start-icon has-tab-focus"
-                        />
-                    )}
+                    {isBackTitle && <IconButton name="arrow-down" rotation="counter-clockwise" />}
                     {title}
                 </div>
                 {action && (

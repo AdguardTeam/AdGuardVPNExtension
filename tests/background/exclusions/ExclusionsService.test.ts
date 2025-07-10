@@ -2,14 +2,7 @@ import { ExclusionsService } from '../../../src/background/exclusions/Exclusions
 import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
 import { proxy } from '../../../src/background/proxy';
-import { session } from '../../__mocks__';
-// TODO: test mv3 after official switch to mv3
-import { stateStorage } from '../../../src/background/stateStorage/mv2';
-
-jest.mock('../../../src/background/stateStorage', () => {
-    // eslint-disable-next-line global-require
-    return require('../../../src/background/stateStorage/mv2');
-});
+import { stateStorage } from '../../../src/background/stateStorage';
 
 jest.mock('../../../src/background/browserApi', () => {
     // eslint-disable-next-line global-require
@@ -88,13 +81,6 @@ getIndexedServicesMock.mockReturnValue({
     'aliexpress.ru': 'aliexpress',
 });
 
-global.chrome = {
-    storage: {
-        // @ts-ignore - partly implementation
-        session,
-    },
-};
-
 describe('ExclusionsService', () => {
     beforeEach(async () => {
         await stateStorage.init();
@@ -118,9 +104,9 @@ describe('ExclusionsService', () => {
         const exclusionsService = new ExclusionsService();
         await exclusionsService.init();
 
-        expect(exclusionsService.isVpnEnabledByUrl('http://example.org')).toBeTruthy();
-        expect(exclusionsService.isVpnEnabledByUrl('https://example.com')).toBeTruthy();
-        expect(exclusionsService.isVpnEnabledByUrl('example.org')).toBeTruthy();
+        await expect(exclusionsService.isVpnEnabledByUrl('http://example.org')).resolves.toBeTruthy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://example.com')).resolves.toBeTruthy();
+        await expect(exclusionsService.isVpnEnabledByUrl('example.org')).resolves.toBeTruthy();
     });
 
     it('returns false if domains are excluded', async () => {
@@ -129,11 +115,11 @@ describe('ExclusionsService', () => {
 
         await exclusionsService.addUrlToExclusions('example.org');
 
-        expect(exclusionsService.isVpnEnabledByUrl('http://example.org')).toBeFalsy();
-        expect(exclusionsService.isVpnEnabledByUrl('https://example.org')).toBeFalsy();
-        expect(exclusionsService.isVpnEnabledByUrl('https://example.org/test')).toBeFalsy();
-        expect(exclusionsService.isVpnEnabledByUrl('https://mail.example.org/test')).toBeFalsy();
-        expect(exclusionsService.isVpnEnabledByUrl('https://example.com')).toBeTruthy();
+        await expect(exclusionsService.isVpnEnabledByUrl('http://example.org')).resolves.toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://example.org')).resolves.toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://example.org/test')).resolves.toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://mail.example.org/test')).resolves.toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://example.com')).resolves.toBeTruthy();
     });
 
     it('should toggle exclusion group', async () => {
@@ -143,22 +129,22 @@ describe('ExclusionsService', () => {
         await exclusionsService.addUrlToExclusions('https://example.org');
 
         // check init state
-        expect(exclusionsService.isVpnEnabledByUrl('https://example.org')).toBeFalsy();
-        expect(exclusionsService.isVpnEnabledByUrl('https://test.example.org')).toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://example.org')).resolves.toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://test.example.org')).resolves.toBeFalsy();
 
         // toggle
         await exclusionsService.toggleExclusionState('example.org');
 
         // check toggled state
-        expect(exclusionsService.isVpnEnabledByUrl('https://example.org')).toBeTruthy();
-        expect(exclusionsService.isVpnEnabledByUrl('https://test.example.org')).toBeTruthy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://example.org')).resolves.toBeTruthy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://test.example.org')).resolves.toBeTruthy();
 
         // toggle
         await exclusionsService.toggleExclusionState('example.org');
 
         // check toggled state
-        expect(exclusionsService.isVpnEnabledByUrl('https://example.org')).toBeFalsy();
-        expect(exclusionsService.isVpnEnabledByUrl('https://test.example.org')).toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://example.org')).resolves.toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://test.example.org')).resolves.toBeFalsy();
     });
 
     it('should add three exclusions if more than two level hostname added', async () => {
@@ -226,14 +212,14 @@ describe('ExclusionsService', () => {
         expect(exclusionsService.getMode()).toBeTruthy();
 
         await exclusionsService.addUrlToExclusions('https://сайт.рф/');
-        expect(exclusionsService.isVpnEnabledByUrl('https://xn--80aswg.xn--p1ai/')).toBeFalsy();
-        expect(exclusionsService.isVpnEnabledByUrl('xn--80aswg.xn--p1ai')).toBeFalsy();
-        expect(exclusionsService.isVpnEnabledByUrl('сайт.рф')).toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('https://xn--80aswg.xn--p1ai/')).resolves.toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('xn--80aswg.xn--p1ai')).resolves.toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('сайт.рф')).resolves.toBeFalsy();
 
         await exclusionsService.addUrlToExclusions('http://xn--e1afmkfd.xn--p1ai/');
-        expect(exclusionsService.isVpnEnabledByUrl('пример.рф')).toBeFalsy();
-        expect(exclusionsService.isVpnEnabledByUrl('http://xn--e1afmkfd.xn--p1ai/')).toBeFalsy();
-        expect(exclusionsService.isVpnEnabledByUrl('xn--e1afmkfd.xn--p1ai')).toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('пример.рф')).resolves.toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('http://xn--e1afmkfd.xn--p1ai/')).resolves.toBeFalsy();
+        await expect(exclusionsService.isVpnEnabledByUrl('xn--e1afmkfd.xn--p1ai')).resolves.toBeFalsy();
     });
 
     it('manually add service by domain', async () => {

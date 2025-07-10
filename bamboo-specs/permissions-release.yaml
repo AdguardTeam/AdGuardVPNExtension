@@ -33,3 +33,9 @@ environment-permissions:
         permissions:
           - view
           - deploy
+  - static.adtidy.net:
+      - groups:
+          - extensions-developers
+        permissions:
+          - view
+          - deploy

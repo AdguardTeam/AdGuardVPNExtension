@@ -1,4 +1,4 @@
-import { TelemetryStore } from '../../common/telemetry';
+import { TelemetryStore } from '../../common/telemetry/TelemetryStore';
 
 import { GlobalStore } from './GlobalStore';
 import { AuthStore } from './AuthStore';

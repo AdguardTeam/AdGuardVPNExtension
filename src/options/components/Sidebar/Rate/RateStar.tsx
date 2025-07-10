@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Icon } from '../../ui/Icon';
+import { Icon } from '../../../../common/components/Icons';
 
 export interface RateStarProps {
     value: number;
@@ -32,7 +32,7 @@ export function RateStar({ value, onChange }: RateStarProps) {
                 // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
                 tabIndex={0}
             >
-                <Icon name="star" className="rate__star-icon" />
+                <Icon name="star" size="30" />
             </label>
         </>
     );

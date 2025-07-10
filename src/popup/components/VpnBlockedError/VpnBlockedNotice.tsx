@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { Icon, IconButton } from '../../../common/components/Icons';
 
 import './vpn-blocked-notice.pcss';
 
@@ -33,20 +34,14 @@ export const VpnBlockedNotice = observer(() => {
                 className="vpn-blocked-notice__warning-icon"
                 tabIndex={-1}
             >
-                <svg className="icon icon--button icon--warning">
-                    <use xlinkHref="#warning" />
-                </svg>
+                <Icon name="warning" />
             </button>
 
-            <button
-                type="button"
-                className="button button--icon modal__close-icon"
+            <IconButton
+                name="cross"
+                className="vpn-blocked-notice__close-btn"
                 onClick={closeNotice}
-            >
-                <svg className="icon icon--button icon--cross">
-                    <use xlinkHref="#cross" />
-                </svg>
-            </button>
+            />
 
             <button
                 type="button"

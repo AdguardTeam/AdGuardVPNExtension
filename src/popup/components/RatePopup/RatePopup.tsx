@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { getForwarderUrl } from '../../../common/helpers';
 

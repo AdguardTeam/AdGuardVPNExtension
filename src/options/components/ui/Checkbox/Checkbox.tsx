@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import classNames from 'classnames';
 
-import { Icon } from '../Icon';
+import { Icon } from '../../../../common/components/Icons';
 
 import './checkbox.pcss';
 
@@ -61,7 +61,7 @@ export function Checkbox({
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
         >
-            <Icon name={iconName} className="checkbox__icon" />
+            <Icon name={iconName} color={checkedValue ? 'product' : 'gray'} />
             <input
                 id={id}
                 type="checkbox"

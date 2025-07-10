@@ -3,8 +3,8 @@ import { observer } from 'mobx-react';
 
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { translator } from '../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import referralImageUrl from '../../../assets/images/referral.svg';
 import { rootStore } from '../../stores';
 import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';

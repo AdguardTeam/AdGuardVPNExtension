@@ -71,14 +71,23 @@ click the _New issue_ button and choose between creating a bug report or feature
 
 ### <a name="dev-requirements"></a> Requirements
 
-- [node.js LTS](https://nodejs.org/en/download/)
-- NPM v8
-- [yarn v1.22](https://yarnpkg.com/en/docs/install/)
+- [Node.js][nodejs]: v22 (you can install multiple versions using [nvm][nvm])
+- [pnpm][pnpm]: v10
+- [Git][git]
+
+> [!NOTE]
+> For development, our team uses macOS and Linux. It may be possible that some commands not work on Windows,
+> so if you are using Windows, we recommend using WSL or a virtual machine.
+
+[nodejs]: https://nodejs.org/en/download
+[git]: https://git-scm.com/
+[pnpm]: https://pnpm.io/installation
+[nvm]: https://github.com/nvm-sh/nvm
 
 #### Install local dependencies
 
 ```bash
-yarn install
+pnpm install
 ```
 
 #### Manage environment variables
@@ -96,13 +105,13 @@ FORWARDER_DOMAIN="forwarder_domain" \
 ### <a name="linting"></a> Linting
 
 ```bash
-yarn lint
+pnpm lint
 ```
 
 ### <a name="tests"></a> Tests
 
 ```bash
-yarn test
+pnpm test
 ```
 
 ### <a name="build"></a> Build
@@ -110,19 +119,19 @@ yarn test
 #### Dev version
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 #### Beta version
 
 ```bash
-yarn beta
+pnpm beta
 ```
 
 #### Release version
 
 ```bash
-yarn release
+pnpm release
 ```
 
 **Builds will be located in the `build` directory**
@@ -132,14 +141,13 @@ By default, you will have builds for all browsers:
 - Chrome — manifest versions **3**
 - Firefox — manifest version **3**
 - Edge — manifest version **3**
-<!-- TODO: check later if manifest version can be updated for Opera. AG-40386 -->
-- Opera — manifest version **2**
+- Opera — manifest version **3**
 
 You can specify browser in arguments. See examples below:
 
 ```bash
-yarn dev chrome
-yarn release opera
+pnpm dev chrome
+pnpm release opera
 ```
 
 ### Update resources
@@ -148,43 +156,48 @@ Before releasing new versions do not forget to update exclusions-services data, 
 
 ### Artifact builds
 
-Before building artifacts make sure you have [build](#build)
+#### `crx` builds
+
+Before building `crx` make sure you have [built](#build)
 the extension and also make sure you have added credentials:
 
 - `certificate-beta.pem` - chrome crx beta certificate
-- `certificate-release.pem` - chrome crx release certificate
-- `mozilla_credentials.json` - encrypted credentials - temporary not needed,
+- `certificate-release.pem` - chrome crx release certificate,
 
 to the directory `./private/AdguardVPN`.
 
-For testing purposes for `artifacts:dev` command credentials taken from `./tests/certificate-test.pem` file.
+For testing purposes for `crx:dev` command credentials taken from `./tests/certificate-test.pem` file.
 
 WARNING: DO NOT USE TEST CREDENTIALS FOR PRODUCTION BUILDS, BECAUSE THEY ARE AVAILABLE IN PUBLIC.
 
 If you want to generate your own credentials you can go to
 [How to generate credentials for `crx` builds](#how-to-generate-credentials-for-crx-builds) for more details
 
-To build artifacts, run:
+To build `crx`, run:
 
-- `CREDENTIALS_PASSWORD=<password> yarn artifacts:dev`
-- `CREDENTIALS_PASSWORD=<password> yarn artifacts:beta`
-- `CREDENTIALS_PASSWORD=<password> yarn artifacts:release`
+- `pnpm crx:dev`
+- `pnpm crx:beta`
+- `pnpm crx:release`
 
-**Builds will be located in the `build` directory**
+**`crx` will be located in the `build/channel` directory**
+
+Where `channel` is one of the following:
+- `dev` (`build/dev/chrome.crx`)
+- `beta` (`build/beta/chrome.crx`)
+- `release` (`build/release/chrome.crx`)
 
 By default, you will have builds for:
 
 - Chrome — manifest versions **3** (`chrome.crx`)
-- Firefox — manifest version **3** (`firefox.xpi`) - temporarily disabled
 
-#### How to generate credentials for `crx` builds
+##### How to generate credentials for `crx` builds
 
 You can use [Crx CLI `keygen`](https://github.com/thom4parisot/crx#crx-keygen-directory)
 to generate credentials for `crx` builds, see the example below:
 
 ```bash
 # Command will generate `key.pem` credential in the `./private/AdguardVPN` directory
-yarn crx keygen ./private/AdguardVPN
+pnpm crx keygen ./private/AdguardVPN
 ```
 
 #### <a name="build-firefox-review"></a> Special building instructions for Firefox reviewers
@@ -198,11 +211,11 @@ If you need to build the **BETA** version:
         -v $(pwd):/workspace \
         -w /workspace \
         --env-file .env \
-        adguard/node-ssh:18.19--0 \
+        adguard/node-ssh:22.14--0 \
         /bin/sh -c "
-            yarn install && \
+            pnpm install && \
             STAGE_ENV=prod \
-            yarn beta firefox"
+            pnpm beta firefox"
     ```
 
 1. Compare the generated `build/beta/firefox.zip` file with the uploaded one.
@@ -216,11 +229,11 @@ If you need to build the **RELEASE** version:
         -v $(pwd):/workspace \
         -w /workspace \
         --env-file .env \
-        adguard/node-ssh:18.19--0 \
+        adguard/node-ssh:22.14--0 \
         /bin/sh -c "
-            yarn install && \
+            pnpm install && \
             STAGE_ENV=prod \
-            yarn release firefox"
+            pnpm release firefox"
     ```
 
 1. Compare the generated `build/release/firefox.zip` file with the uploaded one.
@@ -228,15 +241,15 @@ If you need to build the **RELEASE** version:
 ### <a name="localization"></a> Localization
 
 - setup your project locales, directories in the file `tasks/locales.js`
-- `yarn locales:upload` used to upload base `en` locale
-- `yarn locales:download` run to download and save all locales
-- `yarn locales:validate` used to validate locales
-- `yarn locales:validate --min` used to validate only major locales
+- `pnpm locales:upload` used to upload base `en` locale
+- `pnpm locales:download` run to download and save all locales
+- `pnpm locales:validate` used to validate locales
+- `pnpm locales:validate --min` used to validate only major locales
 
 ### <a name="proto"></a> Proto scheme update
 
 After every update of proto scheme in the file `src/background/connectivity/connectivity.proto`,
-you have to run `yarn compile-proto`.
+you have to run `pnpm compile-proto`.
 This command will update module `src/background/connectivity/protobufCompiled.js` used to build messages
 with appropriate scheme for websocket messaging.
 
@@ -254,8 +267,9 @@ For a full list of all `npm` packages in use, please take a look at [package.jso
 
 ## <a name='minimum-supported-browser-versions'></a> Minimum supported browser versions
 
+<!-- NOTE: see MIN_SUPPORTED_VERSION in ./tasks/consts.ts -->
+
 | Browser                     | Version |
 |-----------------------------|---------|
-| Chromium Based Browsers MV3 | 109     |
-| Chromium Based Browsers MV2 | 66      |
-| Firefox                     | 91.1    |
+| Chromium Based Browsers     | 109     |
+| Firefox                     | 115     |

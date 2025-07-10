@@ -13,19 +13,33 @@ import { locationsService } from './endpoints/locationsService';
 import { connectivityService } from './connectivity/connectivityService';
 
 class BrowserActionIcon {
-    isVpnEnabledForUrl = (id?: number, url?: string) => {
-        if (id && url && isHttp(url)) {
+    /**
+     * Checks if VPN is enabled for the given tab ID and URL.
+     *
+     * @param tabId Tab ID to check for VPN status.
+     * @param url URL to check for VPN status.
+     *
+     * @returns Promise that resolves to true if VPN is enabled for the tab ID and URL, false otherwise.
+     */
+    private async isVpnEnabledForUrl(tabId?: number, url?: string): Promise<boolean> {
+        if (tabId && url && isHttp(url)) {
             return exclusions.isVpnEnabledByUrl(url);
         }
         if (url && !isHttp(url)) {
             // disable icon in tabs with no url only for selective mode
-            return !exclusions.isInverted();
+            const isInverted = await exclusions.isInverted();
+            return !isInverted;
         }
 
         return true;
-    };
+    }
 
-    async updateIcon(tab: PreparedTab) {
+    /**
+     * Updates the browser action icon based on the tab's VPN status.
+     *
+     * @param tab Tab to update the icon for.
+     */
+    private async updateIcon(tab: PreparedTab): Promise<void> {
         const { id, url } = tab;
 
         if (!id) {
@@ -46,7 +60,8 @@ class BrowserActionIcon {
             return;
         }
 
-        if (!this.isVpnEnabledForUrl(id, url)) {
+        const isVpnEnabledForUrl = await this.isVpnEnabledForUrl(id, url);
+        if (!isVpnEnabledForUrl) {
             await actions.setIconDisabled(id);
             await actions.clearBadgeText(id);
             return;

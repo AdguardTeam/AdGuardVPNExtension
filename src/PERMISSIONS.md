@@ -8,3 +8,4 @@
 - `storage`, `unlimitedStorage` - These permissions are required in order to store user settings
 - `webRequest`, `webRequestBlocking` - We use these for two purposes. First, we have a webRequest listener that is listening for error events. We use it to detect non-routable (hosted in the LAN, for instance) domains and automatically add them to the list of exclusions. Also, we have an `onAuthRequired` handler that handles authentication for the endpoints that require it.
 - `<all_urls>` - `<all_urls>` is necessary because otherwise `onAuthRequired` won't fire. Also, this is necessary for the non-routable domains detection feature.
+- `browsingData` - This is used to clear the proxy credentials cache when the credentials are updated for specified host. This is a workaround for the fact that Chrome does not provide a direct API to clear proxy credentials cache.

@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Settings"
     },
+    "popup_settings_stats": {
+        "message": "Stats"
+    },
+    "popup_settings_free_description": {
+        "message": "Available in AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "Enable VPN on this website"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "All locations"
+    },
+    "endpoints_saved": {
+        "message": "Saved"
     },
     "endpoints_search": {
         "message": "Search location"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Don’t show this again"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Stats for this browser"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Stats are disabled"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Enable"
+    },
+    "popup_stats_data_usage": {
+        "message": "Data"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Most-used locations"
+    },
+    "popup_stats_usage_time": {
+        "message": "Time"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Why it’s safe"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Why it’s safe"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "The VPN connection is encrypted and secure, so nobody can see your activity data — we only calculate your traffic usage"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "All stats are collected and stored locally on your device. We don’t have access to them"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Got it"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Enable stats"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Disable stats"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Disable stats?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "New stats won’t be collected. You can still access your existing stats"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Disable"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Cancel"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Clear stats"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Clear stats?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "All stats will be permanently deleted"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Clear"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Cancel"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 hours"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 days"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 days"
+    },
+    "popup_stats_range_all_time": {
+        "message": "All time"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "downloaded"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "uploaded"
+    },
+    "popup_stats_empty": {
+        "message": "No stats yet — keep using AdGuard VPN to view them"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "View all locations"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Connected to VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% d",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% h",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% m",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Locations"
     },
     "options_signedout_page_title": {
         "message": "You have logged out of AdGuard VPN"

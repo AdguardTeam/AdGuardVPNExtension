@@ -1,0 +1,65 @@
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    font-size: 0;
+    transition: var(--t3) color, var(--t3) transform;
+
+    &--color {
+        &-current {
+            color: currentColor;
+        }
+
+        &-gray {
+            color: var(--stroke-icons-gray-icons-default);
+        }
+
+        &-product {
+            color: var(--stroke-icons-product-icon-default);
+        }
+
+        &-error {
+            color: var(--stroke-icons-error-icon-default);
+        }
+
+        &-text-main {
+            color: var(--text-main-text-main-default);
+        }
+    }
+
+    &--size {
+        &-16 {
+            width: 16px;
+            height: 16px;
+        }
+
+        &-20 {
+            width: 20px;
+            height: 20px;
+        }
+
+        &-24 {
+            width: 24px;
+            height: 24px;
+        }
+
+        &-30 {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    &--rotation {
+        &-clockwise {
+            transform: rotate(-90deg);
+        }
+
+        &-counter-clockwise {
+            transform: rotate(90deg);
+        }
+
+        &-upside-down {
+            transform: rotate(180deg);
+        }
+    }
+}

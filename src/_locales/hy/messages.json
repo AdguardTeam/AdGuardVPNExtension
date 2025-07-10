@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Կարգավորումներ"
     },
+    "popup_settings_stats": {
+        "message": "Վիճակագրություն"
+    },
+    "popup_settings_free_description": {
+        "message": "Հասանելի է AdGuard VPN Unlimited-ում"
+    },
     "context_menu_enable_vpn": {
         "message": "Միացնել VPN-ը այս կայքում"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Բոլոր վայրերը"
+    },
+    "endpoints_saved": {
+        "message": "Պահպանված"
     },
     "endpoints_search": {
         "message": "Որոնել վայրերը"
@@ -1011,6 +1020,111 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Սա այլևս մի ցուցադրեք"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Այս դիտարկչի վիճակագրություն"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Վիճակագրությունը անջատված է"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Միացնել"
+    },
+    "popup_stats_data_usage": {
+        "message": "Տվյալներ"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Ամենաօգտագործվող տեղանունները"
+    },
+    "popup_stats_usage_time": {
+        "message": "Ժամանակ"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Ինչու դա անվտանգ է"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Ինչու դա անվտանգ է"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "VPN կապը գաղտնագրված է եւ անվտանգ, այնպես որ ոչ ոք չի կարող տեսնել ձեր գործունեության տվյալները. մենք միայն հաշվարկում ենք ձեր երթեւեկության օգտագործումը"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Բոլոր վիճակագրությունները հավաքվում և պահվում են ձեր սարքում։ Մենք դրանց հասանելիություն չունենք"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Հասկացա"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Անջատել վիճակագրությունը"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Անջատե՞լ վիճակագրությունը:"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Նոր վիճակագրություն չի հավաքվի։ Դուք դեռ կարող եք մուտք գործել ձեր գոյություն ունեցող վիճակագրությունը"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Անջատել"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Չեղարկել"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Մաքրել վիճակագրությունը"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Մաքրել վիճակագրությունը?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Բոլոր վիճակագրությունները մշտապես կջնջվեն"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Մաքրել"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Չեղարկել"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 ժամ"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 օր"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 օր"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Բոլոր ժամանակների"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "ներբեռնված"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "վերբեռնված"
+    },
+    "popup_stats_empty": {
+        "message": "Ստատիստիկան դեռ չկա — շարունակեք օգտագործել AdGuard VPN դրանք դիտելու համար"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Դիտել բոլոր տեղանքները"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Միացված է VPN-ին"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% օր",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% ժ.",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% ր.",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Հայթայթներ"
     },
     "options_signedout_page_title": {
         "message": "Դուք դուրս եք եկել AdGuard VPN-ից"

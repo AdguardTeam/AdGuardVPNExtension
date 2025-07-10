@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "设置"
     },
+    "popup_settings_stats": {
+        "message": "统计数据"
+    },
+    "popup_settings_free_description": {
+        "message": "在 AdGuard VPN 无限版中可用"
+    },
     "context_menu_enable_vpn": {
         "message": "在此网站上开启 VPN"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "所有位置"
+    },
+    "endpoints_saved": {
+        "message": "已保存"
     },
     "endpoints_search": {
         "message": "搜索位置"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "不再显示"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "该浏览器的统计信息"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "统计信息已停用"
+    },
+    "popup_stats_enable_btn": {
+        "message": "启用"
+    },
+    "popup_stats_data_usage": {
+        "message": "数据"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "最常用的位置"
+    },
+    "popup_stats_usage_time": {
+        "message": "时间"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "为什么是安全的"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "为什么是安全的"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "由于 VPN 连接是加密且安全的，因此没有人可以看到用户的活动数据，我们只计算用户的流量使用情况"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "所有统计数据都会收集并存储在用户设备的本地上。我们无法访问"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "知道了"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "启用统计"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "停用统计"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "停用统计信息？"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "将不再收集新的统计数据。您仍然可以访问现有的统计数据。"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "禁用"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "取消"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "清除统计数据"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "清除统计数据？"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "所有统计数据将被永久删除"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "清除"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "取消"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 小时"
+    },
+    "popup_stats_range_days_7": {
+        "message": "一周"
+    },
+    "popup_stats_range_days_30": {
+        "message": "一个月"
+    },
+    "popup_stats_range_all_time": {
+        "message": "全时段"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "已下载"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "已上传"
+    },
+    "popup_stats_empty": {
+        "message": "暂无数据，继续使用 AdGuard VPN 以查看统计数据"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "查看所有位置"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "已连接到 VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% 天",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% 小时",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% 分钟",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "位置"
     },
     "options_signedout_page_title": {
         "message": "您已退出 AdGuard VPN"

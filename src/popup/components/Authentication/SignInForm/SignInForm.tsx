@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
 
@@ -6,19 +6,27 @@ import classnames from 'classnames';
 
 import { popupActions } from '../../../actions/popupActions';
 import { rootStore } from '../../../stores';
-import { RequestStatus, InputType } from '../../../stores/constants';
+import { RequestStatus } from '../../../stores/constants';
+import { CredentialsKey } from '../../../stores/AuthStore';
 import PasswordField from '../PasswordField';
 import { Submit } from '../Submit';
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
 import { getForwarderUrl } from '../../../../common/helpers';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 
 export const SignInForm = observer(() => {
     const { authStore, settingsStore, telemetryStore } = useContext(rootStore);
     const { showServerErrorPopup } = settingsStore;
+    const {
+        requestProcessState,
+        credentials,
+        onCredentialsChange,
+    } = authStore;
+
+    const { password } = credentials;
 
     const canSendTelemetry = !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen
 
@@ -42,27 +50,11 @@ export const SignInForm = observer(() => {
         await authStore.authenticate();
     };
 
-    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { target: { name, value } } = e;
-        await authStore.onCredentialsChange(name, value);
-    };
-
-    const { requestProcessState, credentials } = authStore;
-    const { password } = credentials;
-
-    const [inputType, setInputType] = useState('password');
-
-    const handleInputTypeChange = () => {
-        setInputType(inputType === InputType.Password ? InputType.Text : InputType.Password);
-    };
-
     const formClassName = classnames(
         'form',
         'form--login',
         { 'form--error': authStore.error },
     );
-
-    const icon = inputType === InputType.Password ? '#closed_eye' : '#open_eye';
 
     return (
         <form
@@ -90,12 +82,9 @@ export const SignInForm = observer(() => {
                 </div>
                 <PasswordField
                     placeholder={translator.getMessage('auth_your_password')}
-                    id="password"
+                    id={CredentialsKey.Password}
                     password={password}
-                    handleChange={inputChangeHandler}
-                    handleInputTypeChange={handleInputTypeChange}
-                    icon={icon}
-                    inputType={inputType}
+                    onChange={onCredentialsChange}
                     error={authStore.error}
                     label={translator.getMessage('auth_password')}
                     focus

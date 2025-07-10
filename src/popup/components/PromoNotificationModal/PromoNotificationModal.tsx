@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 
 import { popupActions } from '../../actions/popupActions';
 import { messenger } from '../../../common/messenger';
+import { Icon } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
 
 import './promo-notification-modal.pcss';
@@ -61,9 +62,7 @@ const PromoNotificationModal = observer(() => {
                     className="notify__close"
                     onClick={onCloseHandler}
                 >
-                    <svg className="icon">
-                        <use xlinkHref="#cross" />
-                    </svg>
+                    <Icon name="cross" />
                 </div>
                 <div className="notify__content">
                     <div className="notify__title">

@@ -1,6 +1,6 @@
 import path from 'path';
 
-import webpack from 'webpack';
+import type webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
@@ -11,13 +11,14 @@ import { updateManifest } from '../helpers';
 import {
     STAGE_ENV,
     IS_DEV,
+    IS_BETA,
     StageEnv,
     Browser,
     SRC_PATH,
 } from '../consts';
 import { megabytesToBytes, SizeLimitPlugin } from '../size-limit-plugin';
 
-import { firefoxManifestDiff } from './manifest.firefox';
+import { firefoxManifestDiff, firefoxManifestStandaloneDiff } from './manifest.firefox';
 
 const FIREFOX_PATH = 'firefox';
 
@@ -47,12 +48,6 @@ if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
 
 const commonConfig = getCommonConfig(Browser.Firefox);
 
-if (commonConfig.resolve) {
-    commonConfig.resolve.fallback = {
-        buffer: require.resolve('buffer'),
-    };
-}
-
 /**
  * Entry point for consent page react script.
  * This is done only for Firefox, because consent page is not used in other browsers.
@@ -60,29 +55,21 @@ if (commonConfig.resolve) {
 (commonConfig.entry as webpack.EntryObject).consent = CONSENT_PATH;
 
 const plugins: webpack.WebpackPluginInstance[] = [
-    new webpack.ProvidePlugin({
-        process: 'process/browser',
-        Buffer: ['buffer', 'Buffer'],
-    }),
-    new webpack.NormalModuleReplacementPlugin(/\.\/init\/initAbstract/, ((resource: any) => {
-        // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request
-            .replace(/\.\/init\/initAbstract/, './init/initMV3');
-    })),
-    new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
-        // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv3Timers');
-    })),
-    new webpack.NormalModuleReplacementPlugin(/\.\/networkConnectionObserverAbstract/, ((resource: any) => {
-        // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/networkConnectionObserverAbstract/, './networkConnectionObserverMv3');
-    })),
     new CopyWebpackPlugin({
         patterns: [
             {
                 from: path.resolve(__dirname, '../manifest.common.json'),
                 to: 'manifest.json',
-                transform: (content: Buffer) => updateManifest(content, firefoxManifestDiff),
+                transform: (content: Buffer) => {
+                    let result = updateManifest(content, firefoxManifestDiff);
+
+                    // Append beta standalone update URL
+                    if (IS_BETA) {
+                        result = updateManifest(result, firefoxManifestStandaloneDiff);
+                    }
+
+                    return result;
+                },
             },
         ],
     }),

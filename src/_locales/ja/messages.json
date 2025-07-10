@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "設定"
     },
+    "popup_settings_stats": {
+        "message": "統計"
+    },
+    "popup_settings_free_description": {
+        "message": "AdGuard VPN の無制限版で利用可能"
+    },
     "context_menu_enable_vpn": {
         "message": "このサイトでVPNを有効にする"
     },
@@ -678,6 +684,9 @@
     "endpoints_all": {
         "message": "ずべてのロケーション"
     },
+    "endpoints_saved": {
+        "message": "お気に入り"
+    },
     "endpoints_search": {
         "message": "ロケーションを検索"
     },
@@ -692,10 +701,10 @@
         "message": "全て"
     },
     "endpoints_tab_saved": {
-        "message": "保存済み"
+        "message": "お気に入り"
     },
     "endpoints_saved_location_deleted": {
-        "message": "「保存済み」からロケーションを削除しました。"
+        "message": "「お気に入り」からロケーションを削除しました。"
     },
     "popup_traffic_limit_reached": {
         "message": "月間無料通信量の上限に達しました。"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "今後、この通知を表示しない"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "このブラウザに関する統計"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "統計は無効になっています"
+    },
+    "popup_stats_enable_btn": {
+        "message": "有効にする"
+    },
+    "popup_stats_data_usage": {
+        "message": "データ"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "よく使われるロケーション"
+    },
+    "popup_stats_usage_time": {
+        "message": "時刻"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "これが安全な理由"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "これが安全な理由"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "VPN接続は暗号化されていてセキュアであるため、誰もあなたのアクティビティデータを見ることはできません。AdGuard DNS はあなたのトラフィック使用量の計算を行うだけです。"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "統計情報はすべて、あなたのデバイスでローカルに収集・保存されますので、私たちはその情報にアクセスすることはできません。"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "OK"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "統計情報の収集を有効にする"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "統計情報の収集を無効にする"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "統計情報を無効化しますか？"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "新しい統計情報は収集されなくなります。既存の統計情報は引き続き表示できます。"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "無効にする"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "キャンセル "
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "統計をクリア"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "統計情報をクリアしますか？"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "統計情報がすべて完全に削除されます。"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "クリア"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "キャンセル "
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24時間"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7日間"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30日間"
+    },
+    "popup_stats_range_all_time": {
+        "message": "全期間"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "ダウンロード"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "アップロード"
+    },
+    "popup_stats_empty": {
+        "message": "情報がまだありません。AdGuard VPN を利用し続けますと、こちらで統計情報が表示されます。"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "すべてのロケーションを見る"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "VPNに接続している時間"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days%日間",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours%時間",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes%分",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "ロケーション"
     },
     "options_signedout_page_title": {
         "message": "AdGuard VPN からログアウトしました"

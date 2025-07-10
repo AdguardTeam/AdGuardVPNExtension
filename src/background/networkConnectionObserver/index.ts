@@ -1,12 +1,8 @@
-// !IMPORTANT!
-// './networkConnectionObserverAbstract' will be replaced during webpack compilation
-// with NormalModuleReplacementPlugin to proper browser implementation
-// from './networkConnectionObserverMv2' or './networkConnectionObserverMv3'
 import { log } from '../../common/logger';
 import { permissionsChecker } from '../permissionsChecker';
 import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
 
-import { NetworkConnectionObserver } from './networkConnectionObserverAbstract';
+import { NetworkConnectionObserver } from './networkConnectionObserver';
 
 /**
  * Handler when network connection becomes online.

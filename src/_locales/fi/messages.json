@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Asetukset"
     },
+    "popup_settings_stats": {
+        "message": "Tilastot"
+    },
+    "popup_settings_free_description": {
+        "message": "Saatavilla AdGuard VPN Unlimitedissa"
+    },
     "context_menu_enable_vpn": {
         "message": "Ota VPN käyttöön tällä sivustolla"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Kaikki sijainnit"
+    },
+    "endpoints_saved": {
+        "message": "Tallennettu"
     },
     "endpoints_search": {
         "message": "Etsi sijainneista"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Älä näytä uudelleen"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Tilastot tälle selaimelle"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Tilastot eivät ole käytössä"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Ota käyttöön"
+    },
+    "popup_stats_data_usage": {
+        "message": "Tiedot"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Käytetyimmät sijainnit"
+    },
+    "popup_stats_usage_time": {
+        "message": "Aika"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Miksi se on turvallista"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Miksi se on turvallista"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "VPN-yhteys on salattu ja turvallinen, joten kukaan ei voi nähdä aktiivisuustietojasi – laskemme vain liikenteesi käytön"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Kaikki tilastot kerätään ja säilytetään paikallisesti laitteellasi, eikä meillä ei ole pääsyä niihin."
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Selvä"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Ota tilastointi käyttöön"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Poista tilastot käytöstä"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Poista tilastot käytöstä?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Uusia tilastoja ei kerätä. Voit silti tarkastella olemassa olevia tilastojasi"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Poista käytöstä"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Peruuta"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Tyhjennä tilastot"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Tyhjennetäänkö tilastot?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Kaikki tilastot poistetaan pysyvästi."
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Tyhjennä"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Peruuta"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 tunnilta"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 päivältä"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 päivältä"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Koko ajalta"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "ladattu"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "lähetetty"
+    },
+    "popup_stats_empty": {
+        "message": "Tilastoja ei vielä ole – kerrytä niitä jatkamalla AdGuard VPN:n käyttämistä."
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Näytä kaikki sijainnit"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Yhdistetty VPN: ään"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% pv",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% t",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% m",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Sijainnit"
     },
     "options_signedout_page_title": {
         "message": "Olet kirjautunut ulos AdGuard VPN -palvelusta"

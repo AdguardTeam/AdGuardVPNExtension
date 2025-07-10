@@ -15,8 +15,15 @@ export class GlobalStore {
         this.rootStore = rootStore;
     }
 
+    /**
+     * Fetches options data from the background script.
+     *
+     * @param isDataRefresh If `true`, skips certain first-time initialization steps.
+     * Use this when refreshing the data without needing to reset some store values,
+     * like `initStatus`, `pageId`.
+     */
     @action
-    async getOptionsData(reloading = false): Promise<void> {
+    async getOptionsData(isDataRefresh = false): Promise<void> {
         const { rootStore } = this;
         const {
             settingsStore,
@@ -25,12 +32,12 @@ export class GlobalStore {
             telemetryStore,
         } = rootStore;
 
-        if (!reloading) {
+        if (!isDataRefresh) {
             this.setInitStatus(RequestStatus.Pending);
         }
 
         try {
-            const optionsData = await messenger.getOptionsData();
+            const optionsData = await messenger.getOptionsData(isDataRefresh);
             settingsStore.setOptionsData(optionsData);
             await settingsStore.requestIsPremiumToken();
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
@@ -39,6 +46,10 @@ export class GlobalStore {
             exclusionsStore.setExclusionsData(optionsData.exclusionsData);
             exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
             telemetryStore.setIsHelpUsImproveEnabled(optionsData.helpUsImprove);
+            if (!isDataRefresh) {
+                telemetryStore.setPageId(optionsData.pageId);
+            }
+
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
             log.error(e.message);

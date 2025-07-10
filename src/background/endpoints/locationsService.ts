@@ -20,6 +20,7 @@ import { browserApi } from '../browserApi';
 
 import { Location } from './Location';
 import { LocationWithPing } from './LocationWithPing';
+import { LocationsTab } from './locationsEnums';
 
 export interface PingData {
     ping: number | null;
@@ -35,14 +36,6 @@ interface IncomingPingData {
     lastMeasurementTime?: number;
     endpoint?: EndpointInterface | null;
     isMeasuring?: boolean;
-}
-
-/**
- * Locations tab.
- */
-export enum LocationsTab {
-    All = 'all',
-    Saved = 'saved',
 }
 
 interface LocationsServiceInterface {

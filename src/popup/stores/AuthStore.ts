@@ -22,7 +22,7 @@ import {
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
 
-enum CredentialsKey {
+export enum CredentialsKey {
     Username = 'username',
     Password = 'password',
     ConfirmPassword = 'confirmPassword',
@@ -103,6 +103,8 @@ export class AuthStore {
 
     @observable showUpgradeScreen: boolean;
 
+    @observable forceShowUpgradeScreen: boolean = false;
+
     @observable showRateModal = false;
 
     @observable showConfirmRateModal = false;
@@ -138,12 +140,11 @@ export class AuthStore {
         await this.setError(DEFAULTS.error);
     };
 
-    @action onCredentialsChange = async (field: string, value: string) => {
+    @action onCredentialsChange = async (field: CredentialsKey, value: string) => {
         await this.resetError();
-        const key = <CredentialsKey>field;
 
         runInAction(() => {
-            this.credentials[key] = value;
+            this.credentials[field] = value;
         });
         await messenger.updateAuthCache(field, value);
     };
@@ -205,7 +206,16 @@ export class AuthStore {
         await messenger.setFlag(FLAGS_FIELDS.SHOW_UPGRADE_SCREEN, value);
         runInAction(() => {
             this.showUpgradeScreen = value;
+
+            // Reset forceShowUpgradeScreen if showUpgradeScreen is set to false
+            if (!value) {
+                this.forceShowUpgradeScreen = false;
+            }
         });
+    };
+
+    @action setForceShowUpgradeScreen = (value: boolean) => {
+        this.forceShowUpgradeScreen = value;
     };
 
     @action setIsFirstRun = (value: boolean) => {
@@ -249,7 +259,7 @@ export class AuthStore {
 
     @computed
     get renderUpgradeScreen() {
-        return this.showUpgradeScreen && this.shouldRenderPromo;
+        return this.forceShowUpgradeScreen || (this.showUpgradeScreen && this.shouldRenderPromo);
     }
 
     @action authenticate = async () => {

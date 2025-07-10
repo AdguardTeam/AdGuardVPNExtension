@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Beállítások"
     },
+    "popup_settings_stats": {
+        "message": "Statisztika"
+    },
+    "popup_settings_free_description": {
+        "message": "Elérhető az AdGuard VPN Unlimitedben"
+    },
     "context_menu_enable_vpn": {
         "message": "VPN engedélyezése ezen a webhelyen"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Minden végpont"
+    },
+    "endpoints_saved": {
+        "message": "Elmentve"
     },
     "endpoints_search": {
         "message": "Helyszín keresése"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Ne jelenjen meg többé"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Statisztikák ehhez a böngészőhöz"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Statisztikák le vannak tiltva"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Bekapcsolás"
+    },
+    "popup_stats_data_usage": {
+        "message": "Adat"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Leggyakrabban használt helyek"
+    },
+    "popup_stats_usage_time": {
+        "message": "Idő"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Miért biztonságos"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Miért biztonságos"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "A VPN-kapcsolat titkosított és biztonságos, így senki sem láthatja a tevékenységi adataidat — csak a forgalom kihasználtságát számoljuk ki"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Minden statisztikát helyileg gyűjtünk és tárolunk az eszközödön. Nincs hozzáférésünk hozzájuk"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Rendben"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Statisztikák engedélyezése"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Statisztikák letiltása"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Statisztikák letiltása?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Új statisztikákat nem gyűjtünk. A meglévő statisztikáidat továbbra is elérheted"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Kikapcsolás"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Mégsem"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Statisztikák visszaállítása"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Statisztikák visszaállítása?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Minden statisztika véglegesen törlődik"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Törlés"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Mégsem"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 óra"
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 nap"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 nap"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Mindenkori"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "letöltve"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "feltöltve"
+    },
+    "popup_stats_empty": {
+        "message": "Még nincsenek statisztikák – továbbra is használja az AdGuard VPN-t a megtekintésükhöz"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Az összes helyszín megtekintése"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "VPN-hez csatlakoztatva"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% n",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% óra",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% p",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Helyszínek"
     },
     "options_signedout_page_title": {
         "message": "Kijelentkezett az AdGuard VPN-ből"

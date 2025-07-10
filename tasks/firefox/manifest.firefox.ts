@@ -1,4 +1,6 @@
-const { BUILD_ENV, GECKO_ID_ENV_MAP } = require('../consts');
+import { MIN_SUPPORTED_VERSION } from '../consts';
+
+const { BUILD_ENV, GECKO_ID_ENV_MAP, FIREFOX_UPDATE_URL } = require('../consts');
 
 export const firefoxManifestDiff = {
     manifest_version: 3,
@@ -16,7 +18,7 @@ export const firefoxManifestDiff = {
     browser_specific_settings: {
         gecko: {
             id: GECKO_ID_ENV_MAP[BUILD_ENV],
-            strict_min_version: '91.1.0',
+            strict_min_version: `${MIN_SUPPORTED_VERSION.FIREFOX}.0`,
         },
     },
     background: {
@@ -40,4 +42,12 @@ export const firefoxManifestDiff = {
             uriTemplate: '/custom-protocol-handler.html#matched=%s',
         },
     ],
+};
+
+export const firefoxManifestStandaloneDiff = {
+    browser_specific_settings: {
+        gecko: {
+            update_url: FIREFOX_UPDATE_URL,
+        },
+    },
 };

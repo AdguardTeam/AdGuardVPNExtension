@@ -39,7 +39,6 @@
     --header-z-index: 1001;
     --options-overlay-z-index: 1002;
     --exclude-site-hint-overlay-z-index: 1003;
-    --endpoints-z-index: 1004;
 
     --brand-gradient: linear-gradient(91deg, #b9d06e -8%, #59aebb 104%);
     --button-gradient: linear-gradient(100deg, #76a834 -8%, #59aebb 104%);
@@ -63,7 +62,7 @@
     --endpoint-gray-background: #f3f3f3;
 
     /* Shadows */
-    --box-light-shadow-br: 8px 8px 24px 0px rgba(0, 0, 0, 0.10);
+    --big-light-shadow-br: 8px 8px 24px 0px rgba(0, 0, 0, 0.10);
 
     /* Base Colors */
     --gray-0: #FFFFFF;
@@ -83,6 +82,13 @@
     --product-primary-70: #5C8141;
     --product-primary-90: #435F2F;
     --orange-50: #D58500;
+    --red-50: #BF4829;
+    --red-60: #AF4226;
+    --red-70: #9E3C22;
+
+    /* Base Colors - RGB */
+    --gray-0-rgb: 255, 255, 255;
+    --gray-90-rgb: 31, 31, 31;
 
     /* Text */
     --text-main-text-main-default: var(--gray-80);
@@ -93,8 +99,10 @@
     --text-links-link-hovered: var(--product-primary-60);
     --text-links-link-pressed: var(--product-primary-70);
     --text-links-link-disabled: var(--product-primary-30);
+    --text-links-error-link-default: var(--red-50);
     --text-links-attention-link-default: var(--orange-50);
     --text-buttons-primary-default: var(--gray-0);
+    --text-buttons-primary-button-text-default: var(--gray-0);
 
     /* Fills */
     --fills-backgrounds-cards-background-default: var(--gray-0);
@@ -102,21 +110,35 @@
     --fills-backgrounds-page-background-hovered: var(--gray-10);
     --fills-backgrounds-page-background-pressed: var(--gray-20);
     --fills-backgrounds-page-background-additional-default: var(--gray-10);
+    --fills-backgrounds-dialog-background-default: var(--gray-100);
     --fills-buttons-main-button-default: var(--product-primary-50);
     --fills-buttons-main-button-hovered: var(--product-primary-60);
     --fills-buttons-main-button-pressed: var(--product-primary-70);
     --fills-buttons-main-button-disabled: var(--product-primary-30);
+    --fills-buttons-danger-button-default: var(--red-50);
+    --fills-buttons-danger-button-hovered: var(--red-60);
+    --fills-buttons-danger-button-pressed: var(--red-70);
+    --fills-buttons-secondary-button-hovered: var(--gray-10);
+    --fills-buttons-secondary-button-pressed: var(--gray-20);
     --fills-inputs-input-background-default: var(--gray-10);
     --fills-snacks-mobile-snacks-default: var(--gray-100);
+    --fills-menus-dropdown-menu-background-default: var(--gray-0);
+    --fills-menus-dropdown-menu-background-hovered: var(--gray-10);
+    --fills-menus-dropdown-menu-background-pressed: var(--gray-20);
 
     /* Stroke */
     --stroke-icons-gray-icons-default: var(--gray-60);
-    --stroke-icons-product-icons-default: var(--product-primary-50);
+    --stroke-icons-gray-icons-disabled: var(--gray-30);
+    --stroke-icons-product-icon-default: var(--product-primary-50);
+    --stroke-icons-error-icon-default: var(--red-50);
     --stroke-buttons-secondary-button-default: var(--gray-80);
     --stroke-inputs-inactive-input-stroke-default: var(--gray-20);
     --stroke-inputs-active-input-stroke-default: var(--gray-50);
     --stroke-dividers-item-divider-default: var(--gray-30);
     --stroke-dividers-item-divider-green-default: var(--product-primary-50);
+
+    /* Custom (Not exists in Figma) */
+    --scroll-fade-base: var(--gray-0-rgb);
 
     @media (prefers-color-scheme: dark) {
         --white: #131313;
@@ -155,13 +177,22 @@
         --fills-backgrounds-page-background-additional-default: var(--gray-80);
         /* TODO: Fix disabled color when in design it will be fixed */
         --fills-buttons-main-button-disabled: var(--grayd8);
+        --fills-buttons-secondary-button-hovered: var(--gray-80);
+        --fills-buttons-secondary-button-pressed: var(--gray-70);
         --fills-inputs-input-background-default: var(--gray-80);
+        --fills-menus-dropdown-menu-background-default: var(--gray-80);
+        --fills-menus-dropdown-menu-background-hovered: var(--gray-70);
+        --fills-menus-dropdown-menu-background-pressed: var(--gray-60);
 
         /* Stroke */
         --stroke-icons-gray-icons-default: var(--gray-40);
+        --stroke-icons-gray-icons-disabled: var(--gray-70);
         --stroke-buttons-secondary-button-default: var(--gray-20);
         --stroke-inputs-inactive-input-stroke-default: var(--gray-80);
         --stroke-dividers-item-divider-default: var(--gray-70);
+
+        /* Custom (Not exists in Figma) */
+        --scroll-fade-base: var(--gray-90-rgb);
     }
 }
 
@@ -201,13 +232,22 @@
     --fills-backgrounds-page-background-pressed: var(--gray-20);
     --fills-backgrounds-page-background-additional-default: var(--gray-10);
     --fills-buttons-main-button-disabled: var(--product-primary-30);
+    --fills-buttons-secondary-button-hovered: var(--gray-10);
+    --fills-buttons-secondary-button-pressed: var(--gray-20);
     --fills-inputs-input-background-default: var(--gray-10);
+    --fills-menus-dropdown-menu-background-default: var(--gray-0);
+    --fills-menus-dropdown-menu-background-hovered: var(--gray-10);
+    --fills-menus-dropdown-menu-background-pressed: var(--gray-20);
 
     /* Stroke */
     --stroke-icons-gray-icons-default: var(--gray-60);
+    --stroke-icons-gray-icons-disabled: var(--gray-30);
     --stroke-buttons-secondary-button-default: var(--gray-80);
     --stroke-inputs-inactive-input-stroke-default: var(--gray-20);
     --stroke-dividers-item-divider-default: var(--gray-30);
+
+    /* Custom (Not exists in Figma) */
+    --scroll-fade-base: var(--gray-0-rgb);
 }
 
 .dark-mode {
@@ -247,13 +287,22 @@
     --fills-backgrounds-page-background-additional-default: var(--gray-80);
     /* TODO: Fix disabled color when in design it will be fixed */
     --fills-buttons-main-button-disabled: var(--grayd8);
+    --fills-buttons-secondary-button-hovered: var(--gray-80);
+    --fills-buttons-secondary-button-pressed: var(--gray-70);
     --fills-inputs-input-background-default: var(--gray-80);
+    --fills-menus-dropdown-menu-background-default: var(--gray-80);
+    --fills-menus-dropdown-menu-background-hovered: var(--gray-70);
+    --fills-menus-dropdown-menu-background-pressed: var(--gray-60);
 
     /* Stroke */
     --stroke-icons-gray-icons-default: var(--gray-40);
+    --stroke-icons-gray-icons-disabled: var(--gray-70);
     --stroke-buttons-secondary-button-default: var(--gray-20);
     --stroke-inputs-inactive-input-stroke-default: var(--gray-80);
     --stroke-dividers-item-divider-default: var(--gray-70);
+
+    /* Custom (Not exists in Figma) */
+    --scroll-fade-base: var(--gray-90-rgb);
 }
 
 .android {

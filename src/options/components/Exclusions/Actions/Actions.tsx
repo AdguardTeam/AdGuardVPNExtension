@@ -3,7 +3,7 @@ import React, { useContext, useState, useRef } from 'react';
 import { observer } from 'mobx-react';
 
 import identity from 'lodash/identity';
-import format from 'date-fns/format';
+import { format } from 'date-fns/format';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
@@ -14,7 +14,7 @@ import { type ExclusionsContentMap } from '../../../../common/constants';
 import { log } from '../../../../common/logger';
 import { messenger } from '../../../../common/messenger';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
-import { Select } from '../../ui/Select';
+import { Select } from '../../../../common/components/Select';
 
 import { SelectListModal } from './SelectListModal';
 import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';

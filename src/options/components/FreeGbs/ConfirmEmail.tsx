@@ -8,8 +8,8 @@ import { observer } from 'mobx-react';
 
 import { ONE_MINUTE_MS } from '../../../common/constants';
 import { translator } from '../../../common/translator';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import confirmEmailTaskImageUrl from '../../../assets/images/confirm-email.svg';
 import { rootStore } from '../../stores';
 import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';

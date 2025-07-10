@@ -5,7 +5,7 @@ plan:
   key: AVFIREFOXBSPECS
   name: vpn-extension - build firefox beta
 variables:
-  dockerNode: adguard/node-ssh:22.14--0
+  dockerNode: adguard/extension-builder:22.14--0.2--0
 
 stages:
   - Build:
@@ -21,7 +21,7 @@ Build:
   docker:
     image: ${bamboo.dockerNode}
     volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
     # we use dns to avoid etimedout error when AMO is validating extension
     docker-run-arguments: [ '--dns', '8.8.8.8' ]
   tasks:
@@ -43,33 +43,37 @@ Build:
 
             ls -alt
 
-            # Exclude '--ignore-optional' from yarn arguments
-            # This is needed for installing swc core optional dependencies properly
-            # as swc is used by 'yarn test'
-            originalYarnArgs="$bamboo_varsYarn"
-            modifiedYarnArgs=$(echo "$originalYarnArgs" | sed 's/--ignore-optional//g')
+            # Set cache directory
+            pnpm config set store-dir ${bamboo.cachePnpm}
 
             # Install dependencies
-            yarn install ${modifiedYarnArgs}
+            pnpm install ${bamboo.varsPnpm}
 
-            yarn lint
-            yarn test
-            yarn locales validate --min
+            pnpm lint
+            pnpm test
+            pnpm locales validate --min
 
             export STAGE_ENV="prod"
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-            export CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}"
 
-            # build with prod API endpoints firefox.zip
-            yarn beta firefox
-
-            # build artifacts firefox.xpi and update.json
-            yarn xpi:beta
+            # build with prod API endpoints firefox.zip and update.json
+            pnpm beta firefox
 
             # archive source for Firefox review
             ./bamboo-specs/scripts/archive-source.sh beta
+
+            # Move to the build/beta directory and sign the Firefox extension
+            cd ./build/beta
+
+            # Set environment variables and run go-webext to sign the Firefox extension
+            FIREFOX_CLIENT_ID="${bamboo_firefoxAmoClientId}" \
+            FIREFOX_CLIENT_SECRET="${bamboo_firefoxAmoClientSecret}" \
+            go-webext -v sign firefox -f 'firefox.zip' -s 'source.zip' -o 'firefox.xpi'
+
+            # Exit from build/beta directory
+            cd ../..
     - inject-variables:
         file: build/beta/build.txt
         scope: RESULT
@@ -104,11 +108,6 @@ Build:
     - name: update.json
       location: build/beta
       pattern: update.json
-      shared: true
-      required: true
-    - name: source.zip
-      location: build/beta
-      pattern: source.zip
       shared: true
       required: true
     - name: build.txt

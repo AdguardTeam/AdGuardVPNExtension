@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+<!-- TODO: Add release date -->
+## [2.6.1]
+
+### Added
+
+- Clear button to authentication inputs [#210].
+- Title to saved locations tab [#211].
+- Hover effect to saved location tabs [#214].
+- VPN Usage statistics [#207].
+
+### Changed
+
+- The minimum supported Opera version is now 109 due to MV3 migration.
+- The minimum supported Firefox version is now 115 due to `storage.session` adoption.
+
+### Fixed
+
+- Email field is not mandatory in the report bug form [#204].
+- Actions button color [#209].
+- Hover effect of exclusion checkbox [#215].
+
+[2.6.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.5.2...v2.6.1
+[#204]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/204
+[#207]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/207
+[#209]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/209
+[#210]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/210
+[#211]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/211
+[#214]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/214
+[#215]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/215
+
 ## [2.5.2] - 2025-04-14
 
 ### Added

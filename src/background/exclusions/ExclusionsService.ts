@@ -32,7 +32,15 @@ interface ToggleServicesResult {
 }
 
 export class ExclusionsService {
-    state: ExclusionsState;
+    /**
+     * Promise that resolves when the exclusions service is initialized.
+     */
+    private initPromise: Promise<void> | null = null;
+
+    /**
+     * Current exclusions service state.
+     */
+    private state: ExclusionsState;
 
     exclusionsTree = new ExclusionsTree();
 
@@ -48,7 +56,13 @@ export class ExclusionsService {
         stateStorage.setItem(StorageKey.ExclusionsState, this.state);
     }
 
-    async init() {
+    /**
+     * Initializes the exclusions service by waiting for dependant services to be initialized.
+     */
+    private async innerInit() {
+        // Wait for state storage to be initialized
+        await stateStorage.init();
+
         this.state = stateStorage.getItem(StorageKey.ExclusionsState);
 
         await exclusionsManager.init();
@@ -64,6 +78,23 @@ export class ExclusionsService {
                 }
             },
         );
+    }
+
+    /**
+     * Initializes the exclusions service.
+     *
+     * Note: You can call this method to wait for the exclusions service to be initialized,
+     * because it was implemented as it can be called multiple times but
+     * initialization will happen only once.
+     *
+     * @returns Promise that resolves when the exclusions service is initialized.
+     */
+    public async init(): Promise<void> {
+        if (!this.initPromise) {
+            this.initPromise = this.innerInit();
+        }
+
+        return this.initPromise;
     }
 
     /**
@@ -443,11 +474,12 @@ export class ExclusionsService {
     }
 
     /**
-     * Disables vpn for provided url
-     * @param url
+     * Disables vpn for provided url.
+     *
+     * @param url URL to disable VPN for.
      */
-    async disableVpnByUrl(url: string) {
-        if (this.isInverted()) {
+    public async disableVpnByUrl(url: string): Promise<void> {
+        if (await this.isInverted()) {
             await exclusionsManager.current.disableExclusionByUrl(url);
             this.updateTree();
         } else {
@@ -457,11 +489,12 @@ export class ExclusionsService {
     }
 
     /**
-     * Enables vpn for provided url
-     * @param url
+     * Enables vpn for provided url.
+     *
+     * @param url URL to enable VPN for.
      */
-    async enableVpnByUrl(url: string) {
-        if (this.isInverted()) {
+    public async enableVpnByUrl(url: string): Promise<void> {
+        if (await this.isInverted()) {
             await this.addUrlToExclusions(url);
         } else {
             await exclusionsManager.current.disableExclusionByUrl(url);
@@ -471,11 +504,21 @@ export class ExclusionsService {
     }
 
     /**
-     * Checks if vpn is enabled for url
-     * If this function is called when currentHandler is not set yet, it returns true
-     * @param url
+     * Checks if vpn is enabled for url.
+     * If this function is called when currentHandler is not set yet, it returns true.
+     *
+     * @param url URL to check for VPN status.
+     *
+     * @returns Promise that resolves to true if VPN is enabled for the URL, false otherwise.
      */
-    isVpnEnabledByUrl(url: string) {
+    public async isVpnEnabledByUrl(url: string): Promise<boolean> {
+        /**
+         * Wait for session storage after service worker awoken.
+         * This is needed because this method might be called before
+         * the extension is fully loaded between service worker restarts.
+         */
+        await this.init();
+
         if (!url || !exclusionsManager.currentHandler) {
             return true;
         }
@@ -484,7 +527,19 @@ export class ExclusionsService {
         return exclusionsManager.inverted ? isExcluded : !isExcluded;
     }
 
-    isInverted() {
+    /**
+     * Checks if exclusions are inverted or not.
+     *
+     * @returns True if exclusions are inverted, false otherwise.
+     */
+    public async isInverted(): Promise<boolean> {
+        /**
+         * Wait for session storage after service worker awoken.
+         * This is needed because this method might be called before
+         * the extension is fully loaded between service worker restarts.
+         */
+        await this.init();
+
         return exclusionsManager.inverted;
     }
 

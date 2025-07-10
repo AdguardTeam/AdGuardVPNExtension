@@ -17,12 +17,6 @@ const storage: StorageInterface = {
     }),
 };
 
-const runtime = {
-    // TODO: test mv3 after official switch to mv3
-    isManifestVersion2: () => true,
-};
-
 export const browserApi = {
     storage,
-    runtime,
 };

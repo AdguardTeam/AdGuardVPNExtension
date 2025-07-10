@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import { useMachine } from '@xstate/react';
 import identity from 'lodash/identity';
 
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { addMinDurationTime } from '../../../../common/helpers';
 import { messenger } from '../../../../common/messenger';
 import { translator } from '../../../../common/translator';
@@ -92,7 +92,6 @@ export const BugReporter = observer(() => {
 
     const [formErrors, setFormErrors] = useState(DEFAULT_ERROR_STATE);
     const [formState, setFormState] = useState(DEFAULT_FORM_STATE);
-    const [emailInput, setEmailInput] = useState(formState[FormField.Email]);
 
     const validators: Validators = {
         [FormField.Email]: (value: string) => {
@@ -108,7 +107,6 @@ export const BugReporter = observer(() => {
     const handleNewReport = () => {
         sendToRequestMachine(RequestEvent.StartAgain);
         setFormState(DEFAULT_FORM_STATE);
-        setEmailInput(DEFAULT_FORM_STATE[FormField.Email]);
         setFormErrors(DEFAULT_ERROR_STATE);
     };
 
@@ -186,6 +184,13 @@ export const BugReporter = observer(() => {
         }
     };
 
+    const handleEmailChange = (value: string) => {
+        setFormState((prevState) => ({
+            ...prevState,
+            [FormField.Email]: value,
+        }));
+    };
+
     let buttonText = translator.getMessage('options_bug_report_send_button');
     let isButtonDisabled = !formState[FormField.Email] || !formState[FormField.Message];
     if (requestState.matches(RequestState.Sending)) {
@@ -237,9 +242,9 @@ export const BugReporter = observer(() => {
                     label={translator.getMessage('options_bug_report_email_label')}
                     type="email"
                     placeholder="example@mail.com"
-                    value={emailInput}
+                    value={formState[FormField.Email]}
                     error={formErrors[FormField.Email]}
-                    onChange={setEmailInput}
+                    onChange={handleEmailChange}
                 />
                 <TextArea
                     id={FormField.Message}

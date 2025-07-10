@@ -4,20 +4,18 @@ import ReactHtmlParser from 'react-html-parser';
 
 import { rootStore } from '../../../stores';
 import { RequestStatus } from '../../../stores/constants';
+import { CredentialsKey } from '../../../stores/AuthStore';
 import { Submit } from '../Submit';
 import { InputField } from '../InputField';
 import { translator } from '../../../../common/translator';
 
 export const TwoFactorForm = observer(() => {
     const { authStore } = useContext(rootStore);
+    const { onCredentialsChange } = authStore;
+
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await authStore.authenticate();
-    };
-
-    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { target: { name, value } } = e;
-        await authStore.onCredentialsChange(name, value);
     };
 
     const { requestProcessState, credentials } = authStore;
@@ -36,10 +34,10 @@ export const TwoFactorForm = observer(() => {
                     {translator.getMessage('auth_header_2fa')}
                 </div>
                 <InputField
-                    id="twoFactor"
+                    id={CredentialsKey.TwoFactor}
                     type="text"
                     value={twoFactor}
-                    inputChangeHandler={inputChangeHandler}
+                    onChange={onCredentialsChange}
                     error={authStore.error}
                     placeholder={translator.getMessage('auth_placeholder_2fa')}
                 />

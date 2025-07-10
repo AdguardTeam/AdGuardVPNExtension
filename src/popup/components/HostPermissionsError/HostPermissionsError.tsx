@@ -7,8 +7,8 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { getPrivacyAndEulaUrls } from '../../../common/forwarderHelpers';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import './host-permissions-error.pcss';
 

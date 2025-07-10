@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 
 import { ExcludeSite } from './ExcludeSite/ExcludeSite';
 

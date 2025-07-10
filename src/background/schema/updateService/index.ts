@@ -1,1 +1,4 @@
-export * from './updateServiceState';
+export {
+    updateServiceStateScheme,
+    type UpdateServiceState,
+} from './updateServiceState';

@@ -26,7 +26,8 @@ import { appStatus } from '../appStatus';
 import { type LocationWithPing } from '../endpoints/LocationWithPing';
 import { hintPopup } from '../hintPopup';
 import { savedLocations } from '../savedLocations';
-import { locationsService, type LocationsTab } from '../endpoints/locationsService';
+import { locationsService } from '../endpoints/locationsService';
+import { type LocationsTab } from '../endpoints/locationsEnums';
 
 import { popupOpenedCounter } from './popupOpenedCounter';
 
@@ -152,7 +153,7 @@ export class PopupData {
         const promoNotification = await promoNotifications.getCurrentNotification();
         const { isFirstRun } = updateService;
         const flagsStorageData = await flagsStorage.getFlagsStorageData();
-        const isVpnEnabledByUrl = exclusions.isVpnEnabledByUrl(url);
+        const isVpnEnabledByUrl = await exclusions.isVpnEnabledByUrl(url);
         const shouldShowRateModal = rateModal.shouldShowRateModal();
         const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();

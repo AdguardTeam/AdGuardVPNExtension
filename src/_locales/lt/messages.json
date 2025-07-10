@@ -660,6 +660,12 @@
     "popup_settings_open_settings": {
         "message": "Nustatymai"
     },
+    "popup_settings_stats": {
+        "message": "Statistika"
+    },
+    "popup_settings_free_description": {
+        "message": "Prieinama „AdGuard VPN Unlimited“"
+    },
     "context_menu_enable_vpn": {
         "message": "Įjungti VPN šioje svetainėje"
     },
@@ -677,6 +683,9 @@
     },
     "endpoints_all": {
         "message": "Visos vietovės"
+    },
+    "endpoints_saved": {
+        "message": "Išsaugota"
     },
     "endpoints_search": {
         "message": "Ieškoti lokacijos"
@@ -1011,6 +1020,114 @@
     },
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Nerodyti šio pranešimo"
+    },
+    "popup_stats_for_browser_title": {
+        "message": "Šios naršyklės statistika"
+    },
+    "popup_stats_disabled_notice": {
+        "message": "Statistika yra išjungta"
+    },
+    "popup_stats_enable_btn": {
+        "message": "Įjungti"
+    },
+    "popup_stats_data_usage": {
+        "message": "Duomenys"
+    },
+    "popup_stats_most_used_locations": {
+        "message": "Dažniausiai naudojamos vietos"
+    },
+    "popup_stats_usage_time": {
+        "message": "Laikas"
+    },
+    "popup_stats_menu_why_safe_btn": {
+        "message": "Kodėl tai saugu"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Kodėl tai saugu"
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "VPN ryšys yra užšifruotas ir saugus, todėl niekas negali matyti jūsų veiklos duomenų – mes skaičiuojame tik jūsų srauto naudojimą"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Visi statistiniai duomenys renkami ir saugomi tavo įrenginyje. Mes neturime prieigos prie jų"
+    },
+    "popup_stats_menu_why_safe_got_it": {
+        "message": "Supratau"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Įgalinti statistiką"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "Išjungti statistiką"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "Išjungti statistiką?"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "Nauja statistika nebus renkama. Vis dar galite pasiekti esamą statistiką"
+    },
+    "popup_stats_menu_disable_stats_disable_btn": {
+        "message": "Išjungti"
+    },
+    "popup_stats_menu_disable_stats_cancel_btn": {
+        "message": "Atšaukti"
+    },
+    "popup_stats_menu_clear_stats_btn": {
+        "message": "Išvalyti statistiką"
+    },
+    "popup_stats_menu_clear_stats_title": {
+        "message": "Išvalyti statistiką?"
+    },
+    "popup_stats_menu_clear_stats_description": {
+        "message": "Visi statistiniai duomenys bus visam laikui ištrinti"
+    },
+    "popup_stats_menu_clear_stats_clear_btn": {
+        "message": "Valyti"
+    },
+    "popup_stats_menu_clear_stats_cancel_btn": {
+        "message": "Atšaukti"
+    },
+    "popup_stats_range_hours_24": {
+        "message": "24 val."
+    },
+    "popup_stats_range_days_7": {
+        "message": "7 dienos"
+    },
+    "popup_stats_range_days_30": {
+        "message": "30 dienų"
+    },
+    "popup_stats_range_all_time": {
+        "message": "Nuo pradžių"
+    },
+    "popup_stats_data_usage_downloaded": {
+        "message": "atsisiųsta"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "įkelta"
+    },
+    "popup_stats_empty": {
+        "message": "Nėra statistikos kol kas – norėdamas (-a) ją peržiūrėti, toliau naudokis AdGuard VPN"
+    },
+    "popup_stats_view_all_locations": {
+        "message": "Peržiūrėti visas vietas"
+    },
+    "popup_stats_connection_to_vpn": {
+        "message": "Prisijungta prie VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% d",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% val.",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% min.",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_locations": {
+        "message": "Lokacijos"
     },
     "options_signedout_page_title": {
         "message": "Jūs atsijungėte iš AdGuard VPN"

@@ -1,4 +1,4 @@
-import { parseISO } from 'date-fns';
+import { parseISO } from 'date-fns/parseISO';
 
 import { daysToRenewal } from '../../../src/common/utils/date';
 

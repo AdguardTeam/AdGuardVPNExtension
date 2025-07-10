@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { reactTranslator } from '../../../common/reactTranslator';
 import { rootStore } from '../../stores';
-import { Icons } from '../ui/Icons';
+import { Icons } from '../../../common/components/Icons';
 import { BackgroundAnimation } from '../Settings/BackgroundAnimation';
 import { SkeletonHeader } from '../ui/SkeletonHeader';
 import { SkeletonEndpoint } from '../ui/SkeletonEndpoint';

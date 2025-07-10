@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { FORWARDER_URL_QUERIES } from '../../../../background/config';
-import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { getForwarderUrl } from '../../../../common/helpers';
 import { translator } from '../../../../common/translator';
 import { rootStore } from '../../../stores';

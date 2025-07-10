@@ -1,22 +1,13 @@
+import { chromeManifestDiff } from '../chrome/manifest.chrome';
+import { MIN_SUPPORTED_VERSION } from '../consts';
+
+/**
+ * Opera manifest diff.
+ *
+ * Basically the same as Chrome Manifest.
+ */
 export const operaManifestDiff = {
-    minimum_opera_version: '66',
-    manifest_version: 2,
-    minimum_chrome_version: '66.0',
-    options_page: 'options.html',
-    browser_action: {
-        default_icon: {
-            19: 'assets/images/icons/disabled-19.png',
-            38: 'assets/images/icons/disabled-38.png',
-        },
-        default_title: '__MSG_name__',
-        default_popup: 'popup.html',
-    },
-    background: {
-        page: 'background.html',
-        persistent: true,
-    },
-    permissions: [
-        '<all_urls>',
-        'webRequestBlocking',
-    ],
+    // Opera version matches Chromium version
+    minimum_opera_version: String(MIN_SUPPORTED_VERSION.CHROMIUM),
+    ...chromeManifestDiff,
 };

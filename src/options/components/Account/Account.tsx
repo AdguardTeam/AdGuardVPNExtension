@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
-import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { SubscriptionType } from '../../../common/constants';
 import { getForwarderUrl } from '../../../common/helpers';
-import { useTelemetryPageViewEvent } from '../../../common/telemetry';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';

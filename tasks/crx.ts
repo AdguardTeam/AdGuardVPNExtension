@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { promises as fs } from 'fs';
 import path from 'path';
 
@@ -26,8 +27,6 @@ import {
     StageEnv,
     Env,
 } from './consts';
-
-const { log, error } = console;
 
 const { BUILD_ENV } = process.env;
 const { outputPath } = BUILD_ENV_MAP[BUILD_ENV as string];
@@ -94,10 +93,10 @@ const getPrivateKey = async (crxName: string) => {
             }
         }
 
-        log(chalk.greenBright(`\nThe certificate is read from ${certificatePath}\n`));
+        console.log(chalk.greenBright(`\nThe certificate is read from ${certificatePath}\n`));
         return privateKeyBuffer;
     } catch (e: any) {
-        error(chalk.redBright(`Can not create ${crxName} - ${e.message}\n`));
+        console.error(chalk.redBright(`Can not create ${crxName} - ${e.message}\n`));
         throw e;
     }
 };
@@ -116,9 +115,9 @@ const createCrx = async (loadedFile: any, crxName: string) => {
         const crxBuffer = await loadedFile.pack();
         const resolverPath = path.resolve(WRITE_PATH, crxName);
         await fs.writeFile(resolverPath, crxBuffer);
-        log(chalk.greenBright(`${crxName} saved to ${resolverPath}\n`));
+        console.log(chalk.greenBright(`${crxName} saved to ${resolverPath}\n`));
     } catch (e: any) {
-        error(chalk.redBright(`Error: Can not create ${crxName} - ${e.message}\n`));
+        console.error(chalk.redBright(`Error: Can not create ${crxName} - ${e.message}\n`));
         throw e;
     }
 };
@@ -137,15 +136,15 @@ const createXml = async (crx: any, updateName: string) => {
         const xmlBuffer = await crx.generateUpdateXML();
         const writeXmlPath = path.resolve(WRITE_PATH, updateName);
         await fs.writeFile(writeXmlPath, xmlBuffer);
-        log(chalk.greenBright(`${updateName} saved to ${WRITE_PATH}\n`));
+        console.log(chalk.greenBright(`${updateName} saved to ${WRITE_PATH}\n`));
     } catch (e: any) {
-        error(chalk.redBright(`Error: Can not create ${updateName} - ${e.message}\n`));
+        console.error(chalk.redBright(`Error: Can not create ${updateName} - ${e.message}\n`));
         throw e;
     }
 };
 
 /**
- * Packs extension to crx file for chrome browser with manifest version 3.
+ * Packs extension to crx file for chrome browser.
  *
  * Output files:
  * - chrome.crx and updated.xml - beta and release environments
@@ -191,8 +190,8 @@ const generateChromeFiles = async () => {
             await fs.writeFile(manifestPath, chromeManifest);
         }
     } catch (e: any) {
-        error(chalk.redBright(e.message));
-        error(e);
+        console.error(chalk.redBright(e.message));
+        console.error(e);
 
         // Fail the task execution
         process.exit(1);
@@ -200,7 +199,7 @@ const generateChromeFiles = async () => {
 };
 
 program
-    .description('Packs extension to crx file for chrome browser with manifest version 3')
+    .description('Packs extension to crx file for chrome browser')
     .action(generateChromeFiles);
 
 program.parse(process.argv);

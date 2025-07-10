@@ -3,10 +3,10 @@ import React, { useContext } from 'react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { SocialAuthProvider } from '../../../../common/constants';
-import { useTelemetryPageViewEvent } from '../../../../common/telemetry';
-import { TelemetryScreenName } from '../../../../background/telemetry';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
+import { Icon } from '../../../../common/components/Icons';
+import { TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { EmailAuth } from '../EmailAuth';
-import { Icon } from '../../ui/Icon';
 
 import './authorization.pcss';
 
@@ -47,7 +47,11 @@ export const Authorization = () => {
                         onClick={authClickHandler(provider)}
                         className="button button--outline-secondary button--medium authorization__button"
                     >
-                        <Icon icon={`auth_icon_${provider}`} className="authorization__button__social-icon" />
+                        <Icon
+                            name={`auth_icon_${provider}`}
+                            size="16"
+                            className="authorization__button__social-icon"
+                        />
                         {providersTranslations[provider]}
                     </button>
                 ))}

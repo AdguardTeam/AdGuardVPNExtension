@@ -202,10 +202,9 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
-     * MV3 for firefox browser is not implemented yet, so there is nothing to init
+     * For Firefox browser, initialization is not needed as the proxy settings are set directly.
      */
-    init = (): void => {
-    };
+    init = (): void => {};
 }
 
 const proxyApi = new ProxyApi();

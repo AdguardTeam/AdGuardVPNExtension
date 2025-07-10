@@ -7,7 +7,7 @@ export interface StorageInterface {
 }
 
 export class Storage implements StorageInterface {
-    vault: Browser.Storage.LocalStorageArea;
+    vault: Browser.Storage.StorageArea;
 
     constructor(browser: Browser.Browser) {
         this.vault = browser.storage.local;
@@ -19,7 +19,7 @@ export class Storage implements StorageInterface {
 
     async get<T>(key: string): Promise<T | undefined> {
         const value = await this.vault.get([key]);
-        return value[key];
+        return value[key] as T | undefined;
     }
 
     async remove(key: string): Promise<void> {

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
-import { CSSTransition } from 'react-transition-group';
 
 import { Header } from '../Header';
 import { InfoMessage, FeedbackMessage } from '../InfoMessage';
@@ -11,13 +10,13 @@ import { ExtraOptions } from '../ExtraOptions';
 import { GlobalError } from '../GlobalError';
 import { Settings } from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
-import { Icons } from '../ui/Icons';
+import { Icons } from '../../../common/components/Icons';
 import { CurrentEndpoint } from '../Settings/CurrentEndpoint';
 import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 import { rootStore } from '../../stores';
 import { RequestStatus } from '../../stores/constants';
 import { log } from '../../../common/logger';
-import { type Message, messenger } from '../../../common/messenger';
+import { type NotifierMessage, messenger } from '../../../common/messenger';
 import { notifier } from '../../../common/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
@@ -32,8 +31,9 @@ import { HostPermissionsError } from '../HostPermissionsError';
 import { NoLocationsError } from '../NoLocationsError';
 import { LimitedOfferModal } from '../LimitedOfferModal';
 import { SETTINGS_IDS } from '../../../common/constants';
-import { TelemetryScreenName } from '../../../background/telemetry';
+import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { MobileEdgePromo } from '../MobileEdgePromo';
+import { Stats } from '../Stats';
 
 import { AppLoaders } from './AppLoaders';
 
@@ -48,6 +48,7 @@ export const App = observer(() => {
         vpnStore,
         globalStore,
         telemetryStore,
+        statsStore,
     } = useContext(rootStore);
 
     const {
@@ -68,7 +69,9 @@ export const App = observer(() => {
 
     const { initStatus } = globalStore;
 
-    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+    const { isOpenOptionsModal, isOpenLocationsScreen } = uiStore;
+
+    const { isOpenStatsScreen } = statsStore;
 
     const {
         premiumPromoEnabled,
@@ -85,7 +88,7 @@ export const App = observer(() => {
 
         settingsStore.trackSystemTheme();
 
-        const messageHandler = async (message: Message) => {
+        const messageHandler = async (message: NotifierMessage) => {
             const { type, data, value } = message;
 
             switch (type) {
@@ -143,6 +146,10 @@ export const App = observer(() => {
                     authStore.setShouldShowRateModal(true);
                     break;
                 }
+                case notifier.types.STATS_UPDATED: {
+                    await statsStore.updateStatistics();
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -162,11 +169,15 @@ export const App = observer(() => {
             notifier.types.SERVER_ERROR,
             notifier.types.SETTING_UPDATED,
             notifier.types.SHOW_RATE_MODAL,
+            notifier.types.STATS_UPDATED,
         ];
 
-        const onUnload = messenger.createLongLivedConnection(events, messageHandler);
+        const { onUnload, portId } = messenger.createLongLivedConnection(events, messageHandler);
+
+        telemetryStore.setPageId(portId);
 
         return () => {
+            telemetryStore.setPageId(null);
             onUnload();
             settingsStore.stopTrackSystemTheme();
         };
@@ -355,6 +366,24 @@ export const App = observer(() => {
         );
     }
 
+    if (isOpenLocationsScreen) {
+        return (
+            <>
+                <Locations />
+                <Icons />
+            </>
+        );
+    }
+
+    if (isOpenStatsScreen) {
+        return (
+            <>
+                <Stats />
+                <Icons />
+            </>
+        );
+    }
+
     return (
         <>
             <ConnectionsLimitError />
@@ -374,14 +403,6 @@ export const App = observer(() => {
                 isLimitedOfferActive
                 && <LimitedOfferModal />
             }
-            <CSSTransition
-                in={isOpenEndpointsSearch}
-                timeout={300}
-                classNames="fade"
-                unmountOnExit
-            >
-                <Locations />
-            </CSSTransition>
             {isCurrentTabExcluded && canBeExcluded
                 ? <ExclusionsScreen />
                 : (

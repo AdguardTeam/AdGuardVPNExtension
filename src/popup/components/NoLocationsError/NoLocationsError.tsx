@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { isLocationsNumberAcceptable } from '../../../common/is-locations-number-acceptable';
 import { rootStore } from '../../stores';
-import { Icons } from '../ui/Icons';
+import { Icons } from '../../../common/components/Icons';
 import { SkeletonHeader } from '../ui/SkeletonHeader';
 import { SkeletonEndpoint } from '../ui/SkeletonEndpoint';
 
