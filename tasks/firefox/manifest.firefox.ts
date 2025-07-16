@@ -2,6 +2,12 @@ import { MIN_SUPPORTED_VERSION } from '../consts';
 
 const { BUILD_ENV, GECKO_ID_ENV_MAP, FIREFOX_UPDATE_URL } = require('../consts');
 
+const appId = GECKO_ID_ENV_MAP[BUILD_ENV];
+
+if (appId === undefined) {
+    throw new Error(`App ID not found for BUILD_ENV: ${BUILD_ENV}`);
+}
+
 export const firefoxManifestDiff = {
     manifest_version: 3,
     action: {
@@ -17,7 +23,7 @@ export const firefoxManifestDiff = {
     },
     browser_specific_settings: {
         gecko: {
-            id: GECKO_ID_ENV_MAP[BUILD_ENV],
+            id: appId,
             strict_min_version: `${MIN_SUPPORTED_VERSION.FIREFOX}.0`,
         },
     },

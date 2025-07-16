@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import _ from 'lodash';
+import { merge } from 'webpack-merge';
 
 import { Env, BUILD_ENV_MAP } from './consts';
 
@@ -17,12 +18,16 @@ export const updateManifest = (manifestJson: Buffer, browserManifestDiff: { [key
         // @ts-ignore
         ...(browserManifestDiff.permissions || []),
     ]).sort();
+
+    // Merge the parts
+    const union = merge(manifest, browserManifestDiff);
+
     const updatedManifest = {
-        ...manifest,
-        ...browserManifestDiff,
+        ...union,
         permissions,
         version: pJson.version,
     };
+
     return Buffer.from(JSON.stringify(updatedManifest, null, 4));
 };
 
