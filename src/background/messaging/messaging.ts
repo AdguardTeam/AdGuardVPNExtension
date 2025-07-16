@@ -37,6 +37,38 @@ import { getConsentData, setConsentData } from '../consent';
 import { isMessage } from '../../common/messenger';
 import { statisticsService } from '../statistics';
 
+/**
+ * List of message types that are allowed to be processed before the main initialization is done.
+ */
+const EARLY_ALLOWED_MESSAGE_TYPES = new Set([
+    /**
+     * This message type is used to check if the user is authenticated or not,
+     * which needs to be processed immediately in order to avoid flashing
+     * different type of loaders in popup page. Under the hood,
+     * `auth.isAuthenticated()` will wait for the dependant modules
+     * to be initialized, so it can be safely processed immediately.
+     */
+    MessageType.IS_AUTHENTICATED,
+
+    /**
+     * This message type is used to add event listeners to `notifier`,
+     * which needs to be processed immediately in order to avoid throttling
+     * the render of options / popup pages. Under the hood,
+     * `notifier` is not dependent on any other modules,
+     * so it can be safely processed immediately.
+     */
+    MessageType.ADD_EVENT_LISTENER,
+
+    /**
+     * This message type is used to remove event listeners from `notifier`,
+     * which needs to be processed immediately in order to avoid throttling
+     * the render of options / popup pages. Under the hood,
+     * `notifier` is not dependent on any other modules,
+     * so it can be safely processed immediately.
+     */
+    MessageType.REMOVE_EVENT_LISTENER,
+]);
+
 interface EventListeners {
     [index: string]: Runtime.MessageSender;
 }
@@ -135,14 +167,10 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
     /**
      * Before processing any message, we need to ensure that
      * all necessary modules are initialized and ready to use.
-     *
-     * Except for the `IS_AUTHENTICATED` message type, which is used to check
-     * if the user is authenticated or not, which needs to be processed immediately
-     * in order to avoid flashing different type of loaders in popup page.
-     * Under the hood, `auth.isAuthenticated()` will wait for the dependant modules
-     * to be initialized, so it can be safely processed immediately.
+     * Except for the messages from `EARLY_ALLOWED_MESSAGE_TYPES`,
+     * which can be processed immediately.
      */
-    if (type !== MessageType.IS_AUTHENTICATED) {
+    if (!EARLY_ALLOWED_MESSAGE_TYPES.has(type)) {
         await mainInitializationPromise;
     }
 
