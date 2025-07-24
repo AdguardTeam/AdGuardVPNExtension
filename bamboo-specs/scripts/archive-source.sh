@@ -30,7 +30,7 @@ echo "AUTH_API_URL=${AUTH_API_URL}" >> .env
 echo "FORWARDER_DOMAIN=${FORWARDER_DOMAIN}" >> .env
 
 # build source code for uploading to AMO / Standalone
-(git ls-files; echo ".env") | zip -@ "$OUTPUT_ZIP"
+(git -c safe.directory=$PWD ls-files; echo ".env") | zip -@ "$OUTPUT_ZIP"
 
 echo "source.zip created at $OUTPUT_ZIP"
 
