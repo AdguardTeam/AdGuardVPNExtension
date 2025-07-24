@@ -7,7 +7,6 @@ import { MIN_SUPPORTED_VERSION } from '../consts';
  * Basically the same as Chrome Manifest.
  */
 export const operaManifestDiff = {
-    // Opera version matches Chromium version
-    minimum_opera_version: String(MIN_SUPPORTED_VERSION.CHROMIUM),
+    minimum_opera_version: String(MIN_SUPPORTED_VERSION.OPERA),
     ...chromeManifestDiff,
 };

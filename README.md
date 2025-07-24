@@ -273,3 +273,4 @@ For a full list of all `npm` packages in use, please take a look at [package.jso
 |-----------------------------|---------|
 | Chromium Based Browsers     | 109     |
 | Firefox                     | 115     |
+| Opera                       | 95      |

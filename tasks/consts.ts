@@ -53,6 +53,17 @@ export const GECKO_ID_ENV_MAP = {
 export const MIN_SUPPORTED_VERSION = {
     CHROMIUM: 109,
     FIREFOX: 115,
+
+    /**
+     * Keep it in sync with the Chromium version.
+     * Opera is based on Chromium, but lags behind it a bit.
+     * For example, Opera 95 is based on Chromium 109.
+     *
+     * @see {@link https://en.wikipedia.org/wiki/History_of_the_Opera_web_browser} - To find corresponding Chromium version.
+     * @see {@link https://blogs.opera.com/desktop} - To find the latest Opera version.
+     * @see {@link https://blogs.opera.com/desktop/changelog-for-95} - Change log for Opera 95 (or insert any other version).
+     */
+    OPERA: 95,
 };
 
 export const { BUILD_ENV, STAGE_ENV } = process.env;
