@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import { merge } from 'webpack-merge';
 
-import { Env, BUILD_ENV_MAP } from './consts';
+import { Env, BUILD_ENV_MAP, Browser } from './consts';
 
 const pJson = require('../package.json');
 
@@ -98,4 +98,29 @@ export const updateLocalesMSGName = (content: Buffer, env: string): string => {
     }
 
     return JSON.stringify(messages, null, 4);
+};
+
+/**
+ * Updates the "short_name" key to "sn" for Opera browser only.
+ *
+ * TODO: Remove after Opera Add-Ons store fixes the issue (AG-44559)
+ *
+ * @param locale Content of the locale file.
+ * @param browser Browser target.
+ *
+ * @returns Updated content with "sn" key.
+ */
+export const updateOperaShortNameKey = (locale: Buffer, browser: Browser): Buffer => {
+    if (browser !== Browser.Opera) {
+        return locale;
+    }
+
+    try {
+        const content = JSON.parse(locale.toString());
+        content.sn = content.short_name;
+        delete content.short_name;
+        return Buffer.from(JSON.stringify(content, null, 4));
+    } catch (e) {
+        throw new Error('Unable to parse json from locale file');
+    }
 };

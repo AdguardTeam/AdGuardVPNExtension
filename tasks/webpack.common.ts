@@ -20,7 +20,12 @@ import {
 
 const packageJson = require('../package.json');
 
-const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = require('./helpers');
+const {
+    getOutputPathByEnv,
+    updateLocalesMSGName,
+    modifyExtensionName,
+    updateOperaShortNameKey,
+} = require('./helpers');
 
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
@@ -235,10 +240,14 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                         from: '_locales/',
                         to: '_locales/',
                         transform: (content: Buffer, path: string) => {
-                            const updateLocales = updateLocalesMSGName(
+                            let updateLocales = updateLocalesMSGName(
                                 content,
                                 process.env.BUILD_ENV,
                             );
+
+                            // TODO: Remove after Opera Add-Ons store fixes the issue (AG-44559)
+                            updateLocales = updateOperaShortNameKey(updateLocales, browser);
+
                             return modifyExtensionName(
                                 updateLocales,
                                 process.env.BUILD_ENV,
