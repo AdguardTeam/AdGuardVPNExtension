@@ -118,7 +118,6 @@ export const updateOperaShortNameKey = (locale: Buffer, browser: Browser): Buffe
     try {
         const content = JSON.parse(locale.toString());
         content.sn = content.short_name;
-        delete content.short_name;
         return Buffer.from(JSON.stringify(content, null, 4));
     } catch (e) {
         throw new Error('Unable to parse json from locale file');
