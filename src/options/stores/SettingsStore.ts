@@ -70,6 +70,8 @@ export class SettingsStore {
 
     @observable isHelpUsImproveModalOpen = false;
 
+    @observable isSignOutModalOpen = false;
+
     @observable customDnsServers: DnsServerData[] = [];
 
     @observable invitesBonuses = {
@@ -299,6 +301,14 @@ export class SettingsStore {
 
     @action closeHelpUsImproveModal = (): void => {
         this.isHelpUsImproveModalOpen = false;
+    };
+
+    @action openSignOutModal = (): void => {
+        this.isSignOutModalOpen = true;
+    };
+
+    @action closeSignOutModal = (): void => {
+        this.isSignOutModalOpen = false;
     };
 
     /**
