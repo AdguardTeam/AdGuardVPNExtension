@@ -1,4 +1,4 @@
-import { type IDevice, type IOS } from 'ua-parser-js';
+import { type IBrowser, type IDevice, type IOS } from 'ua-parser-js';
 
 import {
     Preferences,
@@ -20,9 +20,11 @@ jest.mock('../../src/background/browserApi/runtime', () => ({
 // Partially mock ua-parser-js
 const uaGetOS = jest.fn();
 const uaGetDevice = jest.fn();
+const uaGetBrowser = jest.fn();
 jest.mock('ua-parser-js', () => jest.fn().mockImplementation(() => ({
     getOS: uaGetOS,
     getDevice: uaGetDevice,
+    getBrowser: uaGetBrowser,
 })));
 
 // Mock navigator.userAgentData
@@ -56,18 +58,27 @@ describe('prefs', () => {
     });
 
     it('can get browser properly and lazily', () => {
-        userAgentGetter.mockReturnValueOnce('firefox');
+        uaGetBrowser.mockReturnValueOnce({
+            name: 'Firefox',
+        } as IBrowser);
+        userAgentGetter.mockReturnValue('firefox');
 
         const firstGet = Prefs.browser;
         expect(firstGet).toBe(BrowserName.Firefox);
 
         const secondGet = Prefs.browser;
         expect(secondGet).toBe(BrowserName.Firefox);
-        expect(userAgentGetter).toBeCalledTimes(1);
+
+        // 2 calls because: 1 - to create ua-parser-js, 2 - to get browser name
+        expect(userAgentGetter).toBeCalledTimes(2);
 
         const isFirefox = Prefs.isFirefox();
         expect(isFirefox).toBe(true);
-        expect(userAgentGetter).toBeCalledTimes(1);
+
+        // 2 calls because: 1 - to create ua-parser-js, 2 - to get browser name
+        expect(userAgentGetter).toBeCalledTimes(2);
+
+        userAgentGetter.mockClear();
     });
 
     it('can get platform info properly and lazily', async () => {

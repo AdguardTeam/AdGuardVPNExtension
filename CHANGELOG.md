@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <!-- FIXME: Specify release version, date and link (v2.6 patch 1) -->
 ## [Unreleased]
 
+### Changed
+
+- Hide "Context Menu" checkbox in options page for Oculus Browser.
+
 [Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...HEAD
 
 ## [2.6.3] - 2025-07-21
