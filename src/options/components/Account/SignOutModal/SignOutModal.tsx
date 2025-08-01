@@ -24,6 +24,7 @@ export const SignOutModal = observer(() => {
 
     return (
         <Modal
+            title=""
             isOpen={isOpen}
             className="sign-out-modal"
             size="large"
