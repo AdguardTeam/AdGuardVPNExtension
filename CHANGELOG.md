@@ -5,14 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-<!-- FIXME: Specify release version, date and link (v2.6 patch 1) -->
-## [Unreleased]
+<!-- FIXME: Specify date (v2.6 patch 1) -->
+## [2.6.8]
 
 ### Changed
 
 - Hide "Context Menu" checkbox in options page for Oculus Browser.
 
-[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...HEAD
+### Fixed
+
+- Opera Add-Ons store publishing issue [#225].
+
+[2.6.8]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...v2.6.8
+[#225]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/225
 
 ## [2.6.3] - 2025-07-21
 
