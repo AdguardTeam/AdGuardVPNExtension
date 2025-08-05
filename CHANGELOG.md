@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <!-- FIXME: Specify release version, date and link (v2.7) -->
 ## [Unreleased]
 
+### Added
+
+- Log out confirmation popup
+
 ### Fixed
 
 - Overflow in disabled vpn url [#162].

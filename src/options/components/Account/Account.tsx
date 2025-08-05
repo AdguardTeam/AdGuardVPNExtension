@@ -12,6 +12,7 @@ import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
 
+import { SignOutModal } from './SignOutModal';
 import { Features } from './Features';
 
 import './account.pcss';
@@ -43,7 +44,7 @@ export const Account = observer(() => {
     const showGetSubscriptionButton = !isPremiumToken && !premiumFeatures;
 
     const handleSignOut = async (): Promise<void> => {
-        await authStore.deauthenticate();
+        settingsStore.openSignOutModal();
     };
 
     const handleHideFeatures = async (): Promise<void> => {
@@ -176,6 +177,7 @@ export const Account = observer(() => {
                     </div>
                 </div>
             )}
+            <SignOutModal />
         </>
     );
 });

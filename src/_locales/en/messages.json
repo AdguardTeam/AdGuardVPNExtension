@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Log out"
     },
+    "account_sign_out_question": {
+        "message": "Log out?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Cancel"
+    },
+    "account_sign_out_description": {
+        "message": "You’ll be logged out of your account. VPN protection will be stopped"
+    },
     "account_unlimited_title": {
         "message": "Get the Unlimited version!"
     },
