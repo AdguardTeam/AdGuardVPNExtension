@@ -33,22 +33,25 @@ export const ConfirmRateModal = observer(() => {
 
     const content = rating > BAD_RATING_LIMIT ? storeRatingContent : feedbackContent;
 
-    const closeModal = () => {
-        authStore.closeConfirmRateModalAfterCancel();
+    const closeModal = async () => {
+        await authStore.closeConfirmRateModalAfterCancel();
     };
 
-    const closeModalWithRating = () => {
-        authStore.closeConfirmRateModalAfterRate();
-        settingsStore.hideRate();
+    const closeModalWithRating = async () => {
+        await authStore.closeConfirmRateModalAfterRate();
+        await settingsStore.hideRate();
     };
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         if (rating > BAD_RATING_LIMIT) {
+            // Same issue as in RatePopup.tsx
+            // This issue reproduces only on macOS, possibly any unix based OS
+            // https://github.com/AdguardTeam/AdGuardVPNExtension/issues/150
+            await closeModalWithRating();
             window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_STORE), '_blank');
-            closeModalWithRating();
         } else {
+            await closeModal();
             window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
-            closeModal();
         }
     };
 
