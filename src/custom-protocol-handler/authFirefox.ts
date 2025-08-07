@@ -7,9 +7,21 @@ import { log } from '../common/logger';
 const QUERY_STRING_START = '?';
 
 /**
+ * Protocol of custom protocol url for the thankyou page for Firefox.
+ *
+ * Should be the same as used in `protocol_handlers.protocol` in `manifest.firefox.ts`.
+ */
+const THANKYOU_PAGE_PROTOCOL = 'ext+adguardvpn:';
+
+/**
  * Pathname of custom protocol url for the thankyou page for Firefox.
  */
-const THANKYOU_PAGE_PATHNAME = '//authorized-thankyou-page';
+const THANKYOU_PAGE_HOST = 'authorized-thankyou-page';
+
+/**
+ * Origin of custom protocol url for the thankyou page for Firefox.
+ */
+const THANKYOU_PAGE_ORIGIN = `${THANKYOU_PAGE_PROTOCOL}//${THANKYOU_PAGE_HOST}`;
 
 /**
  * Marker of the start of the hash in the custom protocol url.
@@ -78,14 +90,19 @@ const getRawAuthData = (matchedUrl: string, pathname: string): unknown => {
     }
 
     const matchedUrl = new URL(matchedUrlStr);
-    const { pathname } = matchedUrl;
+    const { protocol, host } = matchedUrl;
 
-    if (pathname !== THANKYOU_PAGE_PATHNAME) {
-        log.error(`Unknown pathname: ${pathname}`);
+    if (protocol !== THANKYOU_PAGE_PROTOCOL) {
+        log.error(`Unknown protocol: ${protocol}`);
         return;
     }
 
-    const data = getRawAuthData(matchedUrlStr, THANKYOU_PAGE_PATHNAME);
+    if (host !== THANKYOU_PAGE_HOST) {
+        log.error(`Unknown host: ${host}`);
+        return;
+    }
+
+    const data = getRawAuthData(matchedUrlStr, THANKYOU_PAGE_ORIGIN);
     thankYouPageAuthHandler(data);
 
     window.close();

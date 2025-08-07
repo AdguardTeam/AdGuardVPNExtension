@@ -28,6 +28,8 @@ const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
 const CUSTOM_PROTOCOL_HANDLER_PATH = path.resolve(__dirname, '..', SRC_PATH, 'custom-protocol-handler');
 
+const AUTH_FIREFOX_SCRIPT = path.resolve(CUSTOM_PROTOCOL_HANDLER_PATH, 'authFirefox.ts');
+
 const CONSENT_PATH = path.resolve(__dirname, '..', SRC_PATH, 'consent');
 
 /**
@@ -47,12 +49,6 @@ if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
 }
 
 const commonConfig = getCommonConfig(Browser.Firefox);
-
-/**
- * Entry point for consent page react script.
- * This is done only for Firefox, because consent page is not used in other browsers.
- */
-(commonConfig.entry as webpack.EntryObject).consent = CONSENT_PATH;
 
 const plugins: webpack.WebpackPluginInstance[] = [
     new CopyWebpackPlugin({
@@ -107,6 +103,10 @@ if (!outputPath) {
 }
 
 const firefoxDiffConfig = {
+    entry: {
+        consent: CONSENT_PATH,
+        authFirefox: AUTH_FIREFOX_SCRIPT,
+    },
     output: {
         path: path.join(outputPath, FIREFOX_PATH),
     },
