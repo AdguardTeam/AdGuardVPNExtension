@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Afmelden"
     },
+    "account_sign_out_question": {
+        "message": "Afmelden?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Annuleren"
+    },
+    "account_sign_out_description": {
+        "message": "Je wordt afgemeld bij je account. VPN-bescherming wordt gestopt"
+    },
     "account_unlimited_title": {
         "message": "De Unlimited-versie verkrijgen!"
     },

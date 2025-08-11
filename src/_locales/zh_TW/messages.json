@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "登出"
     },
+    "account_sign_out_question": {
+        "message": "登出？"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "取消"
+    },
+    "account_sign_out_description": {
+        "message": "您的帳戶即將退出登入，VPN 保護將隨之停止。"
+    },
     "account_unlimited_title": {
         "message": "獲取無限版！"
     },

@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Logga ut"
     },
+    "account_sign_out_question": {
+        "message": "Logga ut?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Avbryt"
+    },
+    "account_sign_out_description": {
+        "message": "Du kommer att loggas ut från ditt konto. VPN-skyddet kommer att stoppas"
+    },
     "account_unlimited_title": {
         "message": "Skaffa Unlimited-versionen!"
     },

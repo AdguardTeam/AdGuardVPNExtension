@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Keluar"
     },
+    "account_sign_out_question": {
+        "message": "Keluar?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Batal"
+    },
+    "account_sign_out_description": {
+        "message": "Anda akan keluar dari akun Anda. Perlindungan VPN akan dihentikan"
+    },
     "account_unlimited_title": {
         "message": "Dapatkan versi Unlimited!"
     },
@@ -755,7 +764,7 @@
         "message": "Silakan nilai kami"
     },
     "popup_rate_modal_send_button": {
-        "message": "Kirim laporan"
+        "message": "Kirim"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Batal"

@@ -153,6 +153,9 @@
     "account_logged_in_as": {
         "message": "تم تسجيل الدخول باسم <b>%username%</b>"
     },
+    "account_sign_out_popup_cancel": {
+        "message": "إلغاء"
+    },
     "account_unlimited_title": {
         "message": "احصل على إصدار غير محدود!"
     },
@@ -932,6 +935,10 @@
     },
     "popup_limited_offer_details_time_left": {
         "message": "الوقت المتبقي: %time_left%"
+    },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN غير محدود <span> لمدة</span>%count% <span> عام بسعر%discount%% خصم % خصم</span> | AdGuard VPN غير محدود لمدة%count% عام بسعر <span>%discount%% خصم</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
         "message": "احصل على الصفقة"

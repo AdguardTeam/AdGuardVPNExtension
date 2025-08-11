@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Αποσύνδεση"
     },
+    "account_sign_out_question": {
+        "message": "Αποσύνδεση;"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Άκυρο"
+    },
+    "account_sign_out_description": {
+        "message": "Θα αποσυνδεθείτε από το λογαριασμό σας. Η προστασία VPN θα διακοπεί"
+    },
     "account_unlimited_title": {
         "message": "Αποκτήστε την απεριόριστη έκδοση!"
     },
@@ -1164,9 +1173,6 @@
     },
     "confirm_email_code_label": {
         "message": "Κωδικός επιβεβαίωσης"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Περιέχει αριθμούς και γράμματα"
     },
     "confirm_email_code_invalid": {
         "message": "Ελέγξτε τον κωδικό — φαίνεται λανθασμένος"

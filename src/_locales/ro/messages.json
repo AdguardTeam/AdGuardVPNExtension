@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Deconectați-vă"
     },
+    "account_sign_out_question": {
+        "message": "Deconectați-vă?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Anulare"
+    },
+    "account_sign_out_description": {
+        "message": "Vei fi deconectat(ă) din contul tău. Protecția VPN va fi oprită"
+    },
     "account_unlimited_title": {
         "message": "Obțineți versiunea nelimitată!"
     },

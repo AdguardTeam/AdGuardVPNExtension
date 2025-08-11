@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Odjava"
     },
+    "account_sign_out_question": {
+        "message": "Želite se odjaviti?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Prekliči"
+    },
+    "account_sign_out_description": {
+        "message": "Odjavili se boste iz računa. Zaščita VPN bo ustavljena"
+    },
     "account_unlimited_title": {
         "message": "Pridobite neomejeno različico!"
     },
@@ -1166,7 +1175,7 @@
         "message": "Potrditvena koda"
     },
     "confirm_email_code_placeholder": {
-        "message": "Običajno 10 znakov"
+        "message": "Vsebuje številke in črke"
     },
     "confirm_email_code_invalid": {
         "message": "Preverite kodo — videti je napačna"

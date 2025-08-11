@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Atsijungti"
     },
+    "account_sign_out_question": {
+        "message": "Atsijungti?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Atšaukti"
+    },
+    "account_sign_out_description": {
+        "message": "Būsite atjungti nuo paskyros. VPN apsauga bus sustabdyta"
+    },
     "account_unlimited_title": {
         "message": "Gaukite neribotą versiją!"
     },

@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Çıkış yap"
     },
+    "account_sign_out_question": {
+        "message": "Çıkış yapılsın mı?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "İptal"
+    },
+    "account_sign_out_description": {
+        "message": "Hesabınızdan çıkış yapacaksınız. VPN koruması durdurulacaktır"
+    },
     "account_unlimited_title": {
         "message": "Sınırsız sürümü edinin!"
     },
@@ -685,7 +694,7 @@
         "message": "Tüm konumlar"
     },
     "endpoints_saved": {
-        "message": "Kaydedildi"
+        "message": "Kaydedilenler"
     },
     "endpoints_search": {
         "message": "Konum ara"
@@ -701,7 +710,7 @@
         "message": "Tümü"
     },
     "endpoints_tab_saved": {
-        "message": "Kaydedildi"
+        "message": "Kaydedilenler"
     },
     "endpoints_saved_location_deleted": {
         "message": "Konum Kaydedilenlerden silindi"
@@ -1037,7 +1046,7 @@
         "message": "En çok kullanılan konumlar"
     },
     "popup_stats_usage_time": {
-        "message": "Saat"
+        "message": "Süre"
     },
     "popup_stats_menu_why_safe_btn": {
         "message": "Neden güvenli"

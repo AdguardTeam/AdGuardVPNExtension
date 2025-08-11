@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Odhlásit se"
     },
+    "account_sign_out_question": {
+        "message": "Odhlásit se?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Zrušit"
+    },
+    "account_sign_out_description": {
+        "message": "Budete odhlášeni ze svého účtu. Ochrana VPN bude ukončena"
+    },
     "account_unlimited_title": {
         "message": "Získat neomezenou verzi!"
     },
@@ -1166,7 +1175,7 @@
         "message": "Potvrzovací kód"
     },
     "confirm_email_code_placeholder": {
-        "message": "Obsahuje číslice a písmena"
+        "message": "Obsahuje čísla a písmena"
     },
     "confirm_email_code_invalid": {
         "message": "Zkontrolujte prosím kód — vypadá nesprávně"

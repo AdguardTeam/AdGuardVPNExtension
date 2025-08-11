@@ -38,6 +38,9 @@
     "global_error_message": {
         "message": "Адбылася памылка, калі ласка, звяжыцеся з намі па адрасе <a>%support_email%</a>"
     },
+    "all_rights_reserved": {
+        "message": "Усе правы абаронены."
+    },
     "options_support_title": {
         "message": "Падтрымка"
     },
@@ -118,6 +121,15 @@
     },
     "account_sign_out": {
         "message": "Выйсці"
+    },
+    "account_sign_out_question": {
+        "message": "Выйсці?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Скасаваць"
+    },
+    "account_sign_out_description": {
+        "message": "Вы выйдзеце са свайго ўліковага запісу. Абарона VPN будзе спынена"
     },
     "account_unlimited_title": {
         "message": "Атрымайце безлімітную версію!"
@@ -223,6 +235,9 @@
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
         "message": "Дзякуй за выкарыстанне ўсіх вашых запрашэнняў!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Вярнуцца"
     },
     "settings_webrtc_desc": {
         "message": "Блакуе WebRTC, вядомую ўразлівасць, якая можа выклікаць уцечку вашага рэальнага IP-адраса, нават калі вы выкарыстоўваеце проксі або VPN"
@@ -419,11 +434,17 @@
     "settings_exclusion_selective_mode_warning": {
         "message": "Калі пакінуць гэты спіс пустым, VPN адключаецца для ўсіх вэб-сайтаў"
     },
+    "settings_exclusion_import_button": {
+        "message": "Імпарт"
+    },
     "global_error_title": {
         "message": "Адбылася памылка"
     },
     "global_error_description": {
         "message": "Калі ласка, звяжыцеся з намі, калі вы працягваеце бачыць гэта паведамленне"
+    },
+    "global_error_try_again": {
+        "message": "Паспрабаваць яшчэ раз"
     },
     "authentication_successful_notification": {
         "message": "Праверка сапраўднасці прайшла! Вы можаце адкрыць AdGuard VPN і пачаць выкарыстоўваць яго."
@@ -477,6 +498,9 @@
         "message": "Каб убачыць лакацыі, абярыце <b>Усе</b> і націсніце на значок побач з лакацыяй",
         "description": "Respect spaces between text and tags. Use <b> tag for bold text"
     },
+    "endpoints_tab_all": {
+        "message": "Усе"
+    },
     "endpoints_tab_saved": {
         "message": "Захавана"
     },
@@ -512,9 +536,6 @@
     },
     "popup_rate_modal_title": {
         "message": "Наколькі выдатны AdGuard VPN?"
-    },
-    "popup_rate_modal_send_button": {
-        "message": "Адправіць"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Скасаваць"
@@ -588,6 +609,9 @@
     },
     "popup_newsletter_info": {
         "message": "Дасылаць мне адмысловыя прапановы і навіны AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Падпісацца"
     },
     "popup_newsletter_no_subscribe": {
         "message": "Не, дзякуй"
@@ -797,9 +821,6 @@
     },
     "confirm_email_done_info": {
         "message": "Дзякуй за праверку!"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Змяшчае лічбы і літары"
     },
     "confirm_email_code_invalid": {
         "message": "Праверце код: ён выглядае няправільным"

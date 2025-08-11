@@ -156,6 +156,9 @@
     "account_sign_out": {
         "message": "צא"
     },
+    "account_sign_out_popup_cancel": {
+        "message": "בטל"
+    },
     "account_unlimited_title": {
         "message": "קבל את הגרסה הבלתי מוגבלת!"
     },
@@ -754,9 +757,6 @@
     "popup_rate_modal_subtitle": {
         "message": "אנא דרג אותנו"
     },
-    "popup_rate_modal_send_button": {
-        "message": "שלח דוח"
-    },
     "popup_rate_modal_cancel_button": {
         "message": "בטל"
     },
@@ -1164,9 +1164,6 @@
     },
     "confirm_email_code_label": {
         "message": "קוד אישור"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "מכיל מספרים ואותיות"
     },
     "confirm_email_code_invalid": {
         "message": "אנא בדוק את הקוד — הוא נראה לא נכון"

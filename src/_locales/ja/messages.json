@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "ログアウト"
     },
+    "account_sign_out_question": {
+        "message": "ログアウトしますか？"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "キャンセル "
+    },
+    "account_sign_out_description": {
+        "message": "アカウントからログアウトされます。VPN保護機能は停止します。"
+    },
     "account_unlimited_title": {
         "message": "無制限版を入手しよう！"
     },
@@ -755,7 +764,7 @@
         "message": "ご評価いただければ幸いです"
     },
     "popup_rate_modal_send_button": {
-        "message": "送信する"
+        "message": "送信"
     },
     "popup_rate_modal_cancel_button": {
         "message": "キャンセル "
@@ -1164,9 +1173,6 @@
     },
     "confirm_email_code_label": {
         "message": "認証コード"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "数字と英文字を含むもの"
     },
     "confirm_email_code_invalid": {
         "message": "コードが間違っているようです"

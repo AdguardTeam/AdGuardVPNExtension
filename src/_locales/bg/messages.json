@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Изход"
     },
+    "account_sign_out_question": {
+        "message": "Изход?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Отказ"
+    },
+    "account_sign_out_description": {
+        "message": "Ще излезете от акаунта си. VPN защитата ще бъде спряна"
+    },
     "account_unlimited_title": {
         "message": "Вземете неограничената версия!"
     },

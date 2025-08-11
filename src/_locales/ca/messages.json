@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Desconnectar"
     },
+    "account_sign_out_question": {
+        "message": "Tancar sessió?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Cancel·lar"
+    },
+    "account_sign_out_description": {
+        "message": "Se tancarà la sessió del compte. La protecció VPN s'aturarà"
+    },
     "account_unlimited_title": {
         "message": "Obtingueu la versió il·limitada!"
     },

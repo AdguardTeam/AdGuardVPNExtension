@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Logg av"
     },
+    "account_sign_out_question": {
+        "message": "Vil du logge av?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Avbryt"
+    },
+    "account_sign_out_description": {
+        "message": "Du blir logget ut av kontoen din. VPN-beskyttelse vil bli stoppet"
+    },
     "account_unlimited_title": {
         "message": "Få den ubegrensede versjonen!"
     },
@@ -1166,7 +1175,7 @@
         "message": "Bekreftelseskode"
     },
     "confirm_email_code_placeholder": {
-        "message": "Vanligvis 10 tegn"
+        "message": "Inneholder tall og bokstaver"
     },
     "confirm_email_code_invalid": {
         "message": "Vennligst sjekk koden — den ser feil ut"

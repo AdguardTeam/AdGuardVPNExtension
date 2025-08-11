@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Sair"
     },
+    "account_sign_out_question": {
+        "message": "Sair?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Cancelar"
+    },
+    "account_sign_out_description": {
+        "message": "Você será desconectado da sua conta. A proteção da VPN será interrompida"
+    },
     "account_unlimited_title": {
         "message": "Obtenha a versão ilimitada!"
     },

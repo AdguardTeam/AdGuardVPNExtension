@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "로그아웃"
     },
+    "account_sign_out_question": {
+        "message": "로그아웃하시겠습니까?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "취소"
+    },
+    "account_sign_out_description": {
+        "message": "계정에서 로그아웃됩니다. VPN 보호가 중지됩니다."
+    },
     "account_unlimited_title": {
         "message": "무제한 버전 이용하기!"
     },
@@ -755,7 +764,7 @@
         "message": "평가해주세요!"
     },
     "popup_rate_modal_send_button": {
-        "message": "전송"
+        "message": "보내기"
     },
     "popup_rate_modal_cancel_button": {
         "message": "취소"
@@ -1164,9 +1173,6 @@
     },
     "confirm_email_code_label": {
         "message": "인증 코드"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "라이선스 번호는 숫자와 문자를 포함합니다"
     },
     "confirm_email_code_invalid": {
         "message": "코드가 맞는지 확인해 주세요."

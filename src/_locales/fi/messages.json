@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Kirjaudu ulos"
     },
+    "account_sign_out_question": {
+        "message": "Kirjaudutaanko ulos?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Peruuta"
+    },
+    "account_sign_out_description": {
+        "message": "Sinut kirjataan ulos tililtäsi. VPN-suojaus lopetetaan"
+    },
     "account_unlimited_title": {
         "message": "Hanki Unlimited-tilaus!"
     },

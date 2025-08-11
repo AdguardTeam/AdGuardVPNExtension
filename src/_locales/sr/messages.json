@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Odjavi se"
     },
+    "account_sign_out_question": {
+        "message": "Odjavi se?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Otkaži"
+    },
+    "account_sign_out_description": {
+        "message": "Bićete odjavljeni sa svog naloga. VPN zaštita će biti zaustavljena"
+    },
     "account_unlimited_title": {
         "message": "Nabavite neograničenu verziju!"
     },

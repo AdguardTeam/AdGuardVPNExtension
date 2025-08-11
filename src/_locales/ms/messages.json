@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Daftar keluar"
     },
+    "account_sign_out_question": {
+        "message": "Log keluar?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Batal"
+    },
+    "account_sign_out_description": {
+        "message": "Anda akan dilog keluar dari akaun anda. Perlindungan VPN akan dihentikan"
+    },
     "account_unlimited_title": {
         "message": "Dapatkan versi Tanpa Had!"
     },

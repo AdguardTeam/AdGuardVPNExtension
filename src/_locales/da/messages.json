@@ -156,11 +156,20 @@
     "account_sign_out": {
         "message": "Log ud"
     },
+    "account_sign_out_question": {
+        "message": "Log ud?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Afbryd"
+    },
+    "account_sign_out_description": {
+        "message": "Der logges ud af kontoen, og VPN-beskyttelse stoppes"
+    },
     "account_unlimited_title": {
         "message": "Køb den ubegrænsede version!"
     },
     "rate_description": {
-        "message": "Har gavn af AdGuard VPN?"
+        "message": "Nyd brugen af AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Skjul"
@@ -1166,7 +1175,7 @@
         "message": "Bekræftelseskode"
     },
     "confirm_email_code_placeholder": {
-        "message": "Indeholder cifre og tegn"
+        "message": "Indeholder cifre og bogstaver"
     },
     "confirm_email_code_invalid": {
         "message": "Tjek koden — den lader til at være ugyldig"

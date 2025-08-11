@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "خروج"
     },
+    "account_sign_out_question": {
+        "message": "خارج می‌شوید؟"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "لغو"
+    },
+    "account_sign_out_description": {
+        "message": "از حساب خود خارج خواهید شد. حفاظت VPN متوقف خواهد شد"
+    },
     "account_unlimited_title": {
         "message": "نسخه نامحدود را بگیرید!"
     },

@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Disconnetti"
     },
+    "account_sign_out_question": {
+        "message": "Disconnettere?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Annulla"
+    },
+    "account_sign_out_description": {
+        "message": "Sarai disconnesso dal tuo profilo. La protezione VPN sarà fermata"
+    },
     "account_unlimited_title": {
         "message": "Ottieni versione Illimitata!"
     },

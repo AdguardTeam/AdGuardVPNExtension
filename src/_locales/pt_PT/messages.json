@@ -156,6 +156,15 @@
     "account_sign_out": {
         "message": "Encerrar sessão"
     },
+    "account_sign_out_question": {
+        "message": "Encerrar sessão?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Cancelar"
+    },
+    "account_sign_out_description": {
+        "message": "Será desconectado da sua conta. A proteção VPN será interrompida"
+    },
     "account_unlimited_title": {
         "message": "Obtenha a versão ilimitada!"
     },
@@ -1166,7 +1175,7 @@
         "message": "Código de confirmação"
     },
     "confirm_email_code_placeholder": {
-        "message": "Geralmente 10 caracteres"
+        "message": "Contém números e letras"
     },
     "confirm_email_code_invalid": {
         "message": "Por favor, verifique o código. Parece incorreto"
