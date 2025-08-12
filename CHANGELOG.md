@@ -5,8 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-<!-- TODO: Add release date -->
-## [2.6.1]
+<!-- FIXME: Specify date (v2.6 patch 1) -->
+## [2.6.8]
+
+### Changed
+
+- Hide "Context Menu" checkbox in options page for Oculus Browser.
+
+### Fixed
+
+- Opera Add-Ons store publishing issue [#225].
+
+[2.6.8]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...v2.6.8
+[#225]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/225
+
+## [2.6.3] - 2025-07-21
 
 ### Added
 
@@ -26,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Actions button color [#209].
 - Hover effect of exclusion checkbox [#215].
 
-[2.6.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.5.2...v2.6.1
+[2.6.3]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.5.2...v2.6.3
 [#204]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/204
 [#207]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/207
 [#209]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/209
