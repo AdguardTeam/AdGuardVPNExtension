@@ -5,7 +5,7 @@ plan:
   key: VPNBETASPECS
   name: vpn-extension - test
 variables:
-  dockerNode: adguard/node-ssh:22.14--0
+  dockerNode: adguard/node-ssh:22.17--0
 
 stages:
   - Test:

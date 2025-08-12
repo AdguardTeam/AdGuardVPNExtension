@@ -211,7 +211,7 @@ If you need to build the **BETA** version:
         -v $(pwd):/workspace \
         -w /workspace \
         --env-file .env \
-        adguard/node-ssh:22.14--0 \
+        adguard/node-ssh:22.17--0 \
         /bin/sh -c "
             pnpm install && \
             STAGE_ENV=prod \
@@ -229,7 +229,7 @@ If you need to build the **RELEASE** version:
         -v $(pwd):/workspace \
         -w /workspace \
         --env-file .env \
-        adguard/node-ssh:22.14--0 \
+        adguard/node-ssh:22.17--0 \
         /bin/sh -c "
             pnpm install && \
             STAGE_ENV=prod \
