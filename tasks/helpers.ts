@@ -31,32 +31,6 @@ export const updateManifest = (manifestJson: Buffer, browserManifestDiff: { [key
     return Buffer.from(JSON.stringify(updatedManifest, null, 4));
 };
 
-/**
- * Adds provided suffix for release build
- * @param locales
- * @param env
- * @param suffix
- * @param isTarget
- */
-export const modifyExtensionName = (
-    locales: Buffer,
-    env: string,
-    suffix: string,
-    isTarget: boolean = true,
-): Buffer => {
-    if (env !== Env.Release || !isTarget) {
-        return locales;
-    }
-
-    try {
-        const manifest = JSON.parse(locales.toString());
-        manifest.name.message += suffix;
-        return Buffer.from(JSON.stringify(manifest, null, 4));
-    } catch (e) {
-        throw new Error('Unable to parse json from manifest');
-    }
-};
-
 export const getOutputPathByEnv = (env = Env.Dev): string => {
     const envData = BUILD_ENV_MAP[env];
     if (!envData) {

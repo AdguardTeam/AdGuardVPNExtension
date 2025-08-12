@@ -89,6 +89,7 @@ export enum BrowserName {
     Edge = 'Edge',
     EdgeChromium = 'EdgeChromium',
     YaBrowser = 'YaBrowser',
+    Oculus = 'Oculus',
 }
 
 /**
@@ -158,10 +159,25 @@ export class Preferences {
     /* BROWSER RELATED PREFERENCES */
 
     /**
+     * Check if the current browser is as given one.
+     *
+     * @param browserName Browser Name.
+     *
+     * @returns True if current browser has specified name.
+     */
+    private static isTargetBrowser(browserName: string): boolean {
+        return Preferences.uaParser.getBrowser().name === browserName;
+    }
+
+    /**
      * Browser name getter.
      */
     public get browser(): BrowserName {
         return lazyGet(Preferences.cache, 'browser', (): BrowserName => {
+            if (Preferences.isTargetBrowser('Oculus Browser')) {
+                return BrowserName.Oculus;
+            }
+
             let browser;
             let { userAgent } = navigator;
             userAgent = userAgent.toLowerCase();
@@ -199,6 +215,15 @@ export class Preferences {
      */
     public isEdge(): boolean {
         return this.browser === BrowserName.Edge || this.browser === BrowserName.EdgeChromium;
+    }
+
+    /**
+     * Checks whether the current browser is Oculus.
+     *
+     * @returns True if the current browser is Oculus, false otherwise.
+     */
+    public isOculus(): boolean {
+        return this.browser === BrowserName.Oculus;
     }
 
     /* PLATFORM RELATED PREFERENCES */

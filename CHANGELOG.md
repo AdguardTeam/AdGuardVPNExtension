@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Log out confirmation popup
+- Log out confirmation popup.
 
 ### Fixed
 
@@ -21,6 +21,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...HEAD
 [#162]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/162
 [#223]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/223
+
+<!-- FIXME: Specify date (v2.6 patch 1) -->
+## [2.6.8]
+
+### Changed
+
+- Hide "Context Menu" checkbox in options page for Oculus Browser.
+
+### Fixed
+
+- Opera Add-Ons store publishing issue [#225].
+
+[2.6.8]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...v2.6.8
+[#225]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/225
 
 ## [2.6.3] - 2025-07-21
 

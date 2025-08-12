@@ -23,7 +23,6 @@ const packageJson = require('../package.json');
 const {
     getOutputPathByEnv,
     updateLocalesMSGName,
-    modifyExtensionName,
     updateOperaShortNameKey,
 } = require('./helpers');
 
@@ -36,8 +35,6 @@ const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'common/preloadTh
 const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
 
 const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
-
-const EN_MESSAGES_PATH = '/en/messages.json';
 
 const BUILD_TXT_FILENAME = 'build.txt';
 const BUILD_TXT_CONTENT = IS_BETA
@@ -237,7 +234,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                         context: 'src',
                         from: '_locales/',
                         to: '_locales/',
-                        transform: (content: Buffer, path: string) => {
+                        transform: (content: Buffer) => {
                             let updateLocales = updateLocalesMSGName(
                                 content,
                                 process.env.BUILD_ENV,
@@ -246,12 +243,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                             // TODO: Remove after Opera Add-Ons store fixes the issue (AG-44559)
                             updateLocales = updateOperaShortNameKey(updateLocales, browser);
 
-                            return modifyExtensionName(
-                                updateLocales,
-                                process.env.BUILD_ENV,
-                                ' for Chrome',
-                                browser === Browser.Chrome && path.includes(EN_MESSAGES_PATH),
-                            );
+                            return updateLocales;
                         },
                     },
                 ],
