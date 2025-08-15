@@ -5,9 +5,9 @@ import browser from 'webextension-polyfill';
 
 import { getForwarderUrl } from '../common/helpers';
 import { type IconVariants, Prefs } from '../common/prefs';
-import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
+import { normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
-import promoBannerImageUrl from '../assets/images/bts25.svg';
+import promoBannerImageUrl from '../assets/images/birthday25.svg';
 
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
@@ -70,209 +70,203 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'back_to_school_25_vpn';
-const TDS_PROMO_ACTION_RU = 'back_to_school_25_vpn_ru';
+const TDS_PROMO_ACTION = 'birthday_25_vpn';
 
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
-const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
-const urlQuery = isRuLocale
-    ? RU_PROMO_URL_QUERY
-    : COMMON_PROMO_URL_QUERY;
+const BIRTHDAY_25_ID = 'birthday25';
 
-const BACK_TO_SCHOOL_25_ID = 'backToSchool25';
-
-const backToSchool25Notification = {
-    id: BACK_TO_SCHOOL_25_ID,
+const birthday25Notification = {
+    id: BIRTHDAY_25_ID,
     locales: {
         en: {
-            title: 'Back to School promo',
-            btn: 'Get 80% off',
+            title: '16 years. One big sale',
+            btn: 'Discover deals',
         },
         fr: {
-            title: 'La Rentrée avec AdGuard',
-            btn: 'Obtenez –80%',
+            title: '16 ans, une offre promo',
+            btn: 'Voir les détails',
         },
         it: {
-            title: 'A Scuola con AdGuard',
-            btn: 'Ottieni –80%',
+            title: "16 anni. Un'offerta",
+            btn: 'Scopri di più',
         },
         de: {
-            title: 'Back to School Promo',
-            btn: '80% Rabatt',
+            title: 'Geburtstagsspecial: Große Rabatte',
+            btn: 'Schnappen',
         },
         ru: {
-            title: 'Снова в школу',
-            btn: 'Скидка 75%',
+            title: 'История, которая закончится скидкой',
+            btn: 'Узнать',
         },
         es: {
-            title: 'Promo de vuelta al cole',
-            btn: 'Obtén 80% OFF',
+            title: '16 añitos, una súper oferta',
+            btn: 'Descubrir',
         },
         es_419: {
-            title: 'Vuelta al cole',
-            btn: 'Obtén 80% OFF',
+            title: '16 añitos, una súper oferta',
+            btn: 'Descubrir',
         },
         pt_pt: {
-            title: 'Promo de volta às aulas',
-            btn: 'Obtenha 80% OFF',
+            title: '16 aninhos, 1 ofertão',
+            btn: 'Descobrir',
         },
         pt_br: {
-            title: 'Promo de volta às aulas',
-            btn: 'Obtenha 80% OFF',
+            title: '16 aninhos, 1 ofertão',
+            btn: 'Descobrir',
         },
         zh_cn: {
-            title: '返校 SALE',
-            btn: '低至2折',
+            title: '16周年庆',
+            btn: '抢购优惠',
         },
         zh_tw: {
-            title: '返校 SALE',
-            btn: '低至2折',
+            title: '16周年慶',
+            btn: '搶購折扣',
         },
-        // ja: {
-        //     title: 'AdGuard 16周年セール',
-        //     btn: 'セール内容はこちら',
-        // },
+        ja: {
+            title: 'AdGuard 16周年セール',
+            btn: 'セール内容はこちら',
+        },
         ko: {
-            title: '백투스쿨 세일',
-            btn: '80% 할인',
+            title: '16주년 기념 세일',
+            btn: '자세히 알아보기',
         },
         uk: {
-            title: 'Знову до школи',
-            btn: 'Знижка 80%',
+            title: '16 років. Великий розпродаж',
+            btn: 'Дізнатись',
         },
         ar: {
-            title: 'عرض العودة إلى المدرسة',
-            btn: '٪خصم 80',
+            title: 'قصة تنتهي بخصم',
+            btn: 'اكتشف العروض',
         },
         be: {
-            title: 'Зноў у школу',
-            btn: 'Зніжка 80%',
+            title: '16 гадоў. Вялікі распродаж',
+            btn: 'Знайсці прапановы',
         },
         bg: {
-            title: 'Обратно на училище: промоция',
-            btn: 'Отстъпка 80%',
+            title: '16 години. Голямо намаление',
+            btn: 'Открий оферти',
         },
         ca: {
-            title: "Tornada a l'escola",
-            btn: 'Descompte del 80%',
+            title: '16 anys. Gran rebaixa',
+            btn: 'Descobreix ofertes',
         },
         cs: {
-            title: 'Zpátky do školy: Akce',
-            btn: 'Sleva 80%',
+            title: '16 let. Velký výprodej',
+            btn: 'Objevte nabídky',
         },
         da: {
-            title: 'Tilbage til skole promo',
-            btn: '80% rabat',
+            title: '16 år. Stort udsalg',
+            btn: 'Opdag tilbud',
         },
         el: {
-            title: 'Επιστροφή στα σχολεία',
-            btn: 'Έκπτωση 80%',
+            title: 'Ιστορία με έκπτωση',
+            btn: 'Μάθετε',
         },
         fa: {
-            title: 'تبلیغات بازگشت به مدرسه',
-            btn: '٪تخفیف 80',
+            title: 'داستانی با تخفیف',
+            btn: 'کشف تخفیف‌ها',
         },
         fi: {
-            title: 'Takaisin kouluun -kampanja',
-            btn: '80% alennus',
+            title: '16 vuotta. Suuri alennus',
+            btn: 'Löydä tarjoukset',
         },
         he: {
-            title: 'מבצע חזרה לבית הספר',
-            btn: 'הנחה של 80%',
+            title: 'סיפור עם הנחה',
+            btn: 'גלה מבצעים',
         },
         hr: {
-            title: 'Povratak u školu: Promo',
-            btn: '80% kedvezmény',
+            title: '16 godina. Velika rasprodaja',
+            btn: 'Otkrij ponude',
         },
         hu: {
-            title: 'Vissza az iskolába promóció',
-            btn: '80% kedvezmény',
+            title: 'Történet kedvezménnyel',
+            btn: 'Tudj meg',
         },
         hy: {
-            title: 'Վերադառնալ դպրոց',
-            btn: '80% զեղչ',
+            title: 'Պատմություն զեղչով',
+            btn: 'Բացահայտել',
         },
         id: {
-            title: 'Promo Kembali ke Sekolah',
-            btn: 'Diskon 80%',
+            title: '16 tahun. Diskon besar',
+            btn: 'Temukan penawaran',
         },
         lt: {
-            title: 'Atgal į mokyklą: akcija',
-            btn: '80% nuolaida',
+            title: '16 metų. Didelis išpardavimas',
+            btn: 'Atrask pasiūlymus',
         },
         ms: {
-            title: 'Promosi Kembali ke Sekolah',
-            btn: 'Diskaun 80%',
+            title: '16 tahun. Jualan besar',
+            btn: 'Temui tawaran',
         },
         nb: {
-            title: 'Tilbake til skolen',
-            btn: '80% rabatt',
+            title: '16 år. Stort salg',
+            btn: 'Oppdag tilbud',
         },
         nl: {
-            title: 'Terug naar school promotie',
-            btn: '80% korting',
+            title: '16 jaar. Grote uitverkoop',
+            btn: 'Ontdek aanbiedingen',
         },
         pl: {
-            title: 'Powrót do szkoły: Promocja',
-            btn: 'Zniżka 80%',
+            title: '16 lat. Wielka wyprzedaż',
+            btn: 'Odkryj oferty',
         },
         ro: {
-            title: 'Înapoi la școală: Promoția',
-            btn: 'Reducere de 80%',
+            title: '16 ani. Reducere mare',
+            btn: 'Descoperă oferte',
         },
         sk: {
-            title: 'Späť do školy: Promo akcia',
-            btn: 'Zľava 80%',
+            title: '16 rokov. Veľký výpredaj',
+            btn: 'Objavte ponuky',
         },
         sl: {
-            title: 'Nazaj v šolo: Promocija',
-            btn: '80% popust',
+            title: '16 let. Velika razprodaja',
+            btn: 'Odkrijte ponudbe',
         },
         sr_latn: {
-            title: 'Povratak u školu: Promocija',
-            btn: '80% popust',
+            title: '16 godina. Velika rasprodaja',
+            btn: 'Otkrij ponude',
         },
         sv: {
-            title: 'Tillbaka till skolan',
-            btn: '80% rabatt',
+            title: '16 år. Stor rea',
+            btn: 'Se erbjudanden',
         },
         tr: {
-            title: 'Okula Dönüş kampanyası',
-            btn: '%80 indirim',
+            title: '16 yıl. Büyük indirim',
+            btn: 'Fırsatları keşfet',
         },
         vi: {
-            title: 'Back to School: Khuyến mãi',
-            btn: 'Giảm giá 80%',
+            title: '16 năm. Giảm giá lớn',
+            btn: 'Khám phá ưu đãi',
         },
         mk: {
-            title: 'Назад на училиште: Промоција',
-            btn: 'Попуст од 80%',
+            title: '16 години. Голема распродажба',
+            btn: 'Откриј понуди',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    urlQuery,
-    from: '26 August 2025 12:00:00',
-    to: '1 September 2025 23:59:00',
+    urlQuery: COMMON_PROMO_URL_QUERY,
+    from: '30 May 2025 12:00:00',
+    to: '5 June 2025 23:59:00',
     type: 'animated',
     bgImage: promoBannerImageUrl,
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/bts25-on-19.png'),
-            38: getUrl('assets/images/icons/bts25-on-38.png'),
+            19: getUrl('assets/images/icons/birthday25-on-19.png'),
+            38: getUrl('assets/images/icons/birthday25-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/bts25-off-19.png'),
-            38: getUrl('assets/images/icons/bts25-off-38.png'),
+            19: getUrl('assets/images/icons/birthday25-off-19.png'),
+            38: getUrl('assets/images/icons/birthday25-off-38.png'),
         },
     },
 };
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [BACK_TO_SCHOOL_25_ID]: backToSchool25Notification,
+    [BIRTHDAY_25_ID]: birthday25Notification,
 };
 
 /**

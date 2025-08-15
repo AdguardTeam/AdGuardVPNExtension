@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 <!-- FIXME: Specify date (v2.6 patch 1) -->
-## [2.6.9]
+## [2.6.11]
 
 ### Changed
 
@@ -15,8 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Opera Add-Ons store publishing issue [#225].
+- Usage time statistics is not properly saved when extension forcibly re-launched while connected.
 
-[2.6.9]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...v2.6.9
+[2.6.11]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...v2.6.11
 [#225]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/225
 
 ## [2.6.3] - 2025-07-21
