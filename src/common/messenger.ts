@@ -437,15 +437,6 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async registerUser(credentials: {
-        username: string;
-        password: string;
-        twoFactor: string;
-    }) {
-        const type = MessageType.REGISTER_USER;
-        return this.sendMessage(type, { credentials });
-    }
-
     async isAuthenticated() {
         const type = MessageType.IS_AUTHENTICATED;
         return this.sendMessage(type);

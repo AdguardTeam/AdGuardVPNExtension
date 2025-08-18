@@ -1,9 +1,6 @@
 import { BAD_CREDENTIALS_CODE, REQUIRED_2FA_CODE, REQUIRED_EMAIL_CONFIRMATION_CODE } from '../../common/constants';
-import { getForwarderUrl } from '../../common/helpers';
 import { authApi } from '../api';
-import { forwarder } from '../forwarder';
 import { translator } from '../../common/translator';
-import { FORWARDER_URL_QUERIES } from '../config';
 import { SUPPORT_EMAIL } from '../constants';
 import type { AuthCredentials } from '../api/apiTypes';
 import type { AuthAccessToken } from '../schema';
@@ -107,74 +104,6 @@ const getAccessToken = async (credentials: AuthCredentials): Promise<AuthAccessT
     return accessTokenModel.fromRemoteToLocal(accessTokenData);
 };
 
-const register = async (credentials: AuthCredentials) => {
-    const fieldsMap = {
-        email: 'username',
-    };
-
-    const forwarderDomain = await forwarder.updateAndGetDomain();
-    const compromisedPasswordUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.PASSWORD_COMPROMISED);
-
-    const errorsMap = {
-        'validation.not_empty': translator.getMessage('registration_error_not_empty'),
-        'validation.not_valid': translator.getMessage('registration_error_not_valid'),
-        'validation.min_length': translator.getMessage('registration_error_min_length'),
-        'validation.compromised.password': translator.getMessage('registration_error_compromised_password', {
-            a: (chunks: string[]) => (`<a href="${compromisedPasswordUrl}" target="_blank" class="link">${chunks}</a>`),
-        }),
-        'validation.unique_constraint': translator.getMessage('registration_error_unique_constraint'),
-        // the value is not shown to users, so it is not translated
-        [REQUIRED_EMAIL_CONFIRMATION_CODE]: REQUIRED_EMAIL_CONFIRMATION_CODE,
-        default: translator.getMessage('registration_error_default'),
-    };
-
-    let accessTokenData;
-    try {
-        accessTokenData = await authApi.register(credentials);
-        // send a request to 'oauth/token' to check if email confirmation is required
-        accessTokenData = await authApi.getAccessToken(credentials);
-    } catch (e) {
-        let errorData;
-        try {
-            errorData = JSON.parse(e.message);
-        } catch (e) {
-            // if was unable to parse error message, e.g. network is disabled
-            throw new Error(JSON.stringify({ error: errorsMap.default }));
-        }
-
-        const {
-            error_code: errorCode,
-            field,
-            auth_id: authId,
-        }: {
-            error_code: keyof typeof errorsMap,
-            field: keyof typeof fieldsMap
-            auth_id: string,
-        } = errorData;
-
-        if (errorCode === REQUIRED_EMAIL_CONFIRMATION_CODE) {
-            // authId is required to request another code
-            // so error should be shown in the popup if there is no authId
-            if (!authId) {
-                const error = translator.getMessage('confirm_email_no_auth_id_error_on_register', {
-                    support_email: SUPPORT_EMAIL,
-                    a: (chunks: string) => `<a href="mailto:${SUPPORT_EMAIL}" target="_blank">${chunks}</a>`,
-                });
-                throw new Error(JSON.stringify({ status: errorCode, error }));
-            }
-
-            throw new Error(JSON.stringify({ status: errorCode, authId }));
-        }
-
-        const extensionField = fieldsMap[field] || field;
-        const error = errorsMap[errorCode] || errorsMap.default;
-
-        throw new Error(JSON.stringify({ error, field: extensionField }));
-    }
-
-    return accessTokenModel.fromRemoteToLocal(accessTokenData);
-};
-
 const userLookup = async (email: string, appId: string) => {
     const { can_register: canRegister } = await authApi.userLookup(email, appId);
     return { canRegister };
@@ -191,7 +120,6 @@ const resendEmailConfirmationCode = async (authId: string) => {
 
 export const authProvider = {
     getAccessToken,
-    register,
     userLookup,
     resendEmailConfirmationCode,
 };

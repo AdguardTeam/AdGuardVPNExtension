@@ -344,11 +344,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             await management.turnOffProxyExtensions();
             break;
         }
-        case MessageType.REGISTER_USER: {
-            const appId = await credentials.getAppId();
-            emailConfirmationService.restartCountdown(data.credentials.username);
-            return auth.register({ ...data.credentials, appId });
-        }
         case MessageType.IS_AUTHENTICATED: {
             return auth.isAuthenticated();
         }

@@ -69,7 +69,6 @@ export enum MessageType {
     ENABLE_VPN_BY_URL = 'enable.vpn.by.url',
     CHECK_EMAIL = 'check.email',
     DISABLE_OTHER_EXTENSIONS = 'disable.other.extensions',
-    REGISTER_USER = 'register.user',
     IS_AUTHENTICATED = 'is.authenticated',
     START_SOCIAL_AUTH = 'start.social.auth',
     CLEAR_PERMISSIONS_ERROR = 'clear.permissions.error',
@@ -174,12 +173,6 @@ export const AUTH_STEPS = {
      * In this step, user needs to type password to sign in with existing account.
      */
     SIGN_IN: 'signIn',
-
-    /**
-     * Registration step.
-     * In this step, user needs to type email and password to create a new account.
-     */
-    REGISTRATION: 'registration',
 
     /**
      * Two-factor authentication step.

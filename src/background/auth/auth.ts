@@ -31,9 +31,6 @@ export interface AuthInterface {
     authenticateSocial(authData: SocialAuthData, tabId: number): Promise<void>;
     authenticateThankYouPage(rawData: unknown): Promise<void>;
     deauthenticate(): Promise<void>;
-    register(
-        credentials: AuthCredentials,
-    ): Promise<{ status: string } | { error: string, field?: string }>;
     userLookup(
         email: string,
         appId: string,
@@ -273,46 +270,6 @@ class Auth implements AuthInterface {
         await proxy.resetSettings();
         await flagsStorage.onDeauthenticate();
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
-    }
-
-    async register(
-        credentials: AuthCredentials,
-    ): Promise<{ status: string } | { error: string, field?: string, status?: string, authId?: string }> {
-        const locale = navigator.language;
-        let accessToken;
-        try {
-            accessToken = await authProvider.register({
-                ...credentials,
-                locale,
-                clientId: AUTH_CLIENT_ID,
-            });
-        } catch (e) {
-            const {
-                error,
-                field,
-                status,
-                authId,
-            } = JSON.parse(e.message);
-            return {
-                error,
-                field,
-                status,
-                authId,
-            };
-        }
-
-        if (accessToken) {
-            await this.setAccessToken(accessToken);
-            await flagsStorage.onRegister();
-            return { status: 'ok' };
-        }
-
-        return {
-            error: translator.getMessage('global_error_message', {
-                support_email: SUPPORT_EMAIL,
-                a: (chunks: string) => `<a href="mailto:${SUPPORT_EMAIL}" target="_blank">${chunks}</a>`,
-            }),
-        };
     }
 
     /**

@@ -8,7 +8,6 @@ import {
 import isNil from 'lodash/isNil';
 
 import { messenger } from '../../common/messenger';
-import { translator } from '../../common/translator';
 import {
     BAD_CREDENTIALS_CODE,
     REQUIRED_2FA_CODE,
@@ -25,7 +24,6 @@ import type { RootStore } from './RootStore';
 export enum CredentialsKey {
     Username = 'username',
     Password = 'password',
-    ConfirmPassword = 'confirmPassword',
     TwoFactor = 'twoFactor',
     MarketingConsent = 'marketingConsent',
     Code = 'code',
@@ -34,7 +32,6 @@ export enum CredentialsKey {
 interface CredentialsInterface {
     [CredentialsKey.Username]: string;
     [CredentialsKey.Password]: string;
-    [CredentialsKey.ConfirmPassword]: string;
     [CredentialsKey.TwoFactor]: string;
     [CredentialsKey.MarketingConsent]: boolean | string;
     [CredentialsKey.Code]: string;
@@ -44,7 +41,6 @@ const DEFAULTS = {
     credentials: {
         [CredentialsKey.Username]: '',
         [CredentialsKey.Password]: '',
-        [CredentialsKey.ConfirmPassword]: '',
         [CredentialsKey.TwoFactor]: '',
         [CredentialsKey.MarketingConsent]: '',
         [CredentialsKey.Code]: '',
@@ -53,7 +49,6 @@ const DEFAULTS = {
     authenticatedStatusRetrieved: false,
     need2fa: false,
     error: null,
-    field: '',
     step: AUTH_STEPS.AUTHORIZATION,
     prevSteps: [],
     agreement: true,
@@ -75,8 +70,6 @@ export class AuthStore {
     @observable need2fa = DEFAULTS.need2fa;
 
     @observable error: string | null = DEFAULTS.error;
-
-    @observable field = DEFAULTS.field;
 
     @observable step = DEFAULTS.step;
 
@@ -153,7 +146,6 @@ export class AuthStore {
         const {
             username,
             password,
-            confirmPassword,
             step,
             signInCheck,
             policyAgreement,
@@ -167,7 +159,6 @@ export class AuthStore {
                 ...this.credentials,
                 username,
                 password,
-                confirmPassword,
                 marketingConsent,
                 code,
             };
@@ -221,12 +212,6 @@ export class AuthStore {
     @action setIsFirstRun = (value: boolean) => {
         this.isFirstRun = value;
     };
-
-    @computed
-    get disableRegister() {
-        const { username, password, confirmPassword } = this.credentials;
-        return !username || !password || !confirmPassword;
-    }
 
     @computed
     get disableLogin() {
@@ -343,66 +328,13 @@ export class AuthStore {
         // before switching step save the current one to be able to return to it back
         this.prevSteps.push(this.step);
 
-        if (response.canRegister) {
-            await this.switchStep(this.STEPS.REGISTRATION);
-        } else {
+        if (!response.canRegister) {
             await this.switchStep(this.STEPS.SIGN_IN);
         }
 
         runInAction(() => {
             this.requestProcessState = RequestStatus.Done;
         });
-    };
-
-    @action register = async () => {
-        if (this.credentials.password !== this.credentials.confirmPassword) {
-            await this.setError(translator.getMessage('registration_error_confirm_password'));
-            return;
-        }
-
-        this.requestProcessState = RequestStatus.Pending;
-        const response = await messenger.registerUser(toJS(this.credentials));
-
-        if (response.error) {
-            runInAction(() => {
-                this.requestProcessState = RequestStatus.Error;
-                this.field = response.field;
-                if (response.field === 'username') {
-                    this.switchStep(this.STEPS.CHECK_EMAIL, false);
-                    this.resetPasswords();
-                }
-            });
-            await this.setError(response.error);
-            return;
-        }
-
-        if (response.status === 'ok') {
-            await messenger.clearAuthCache();
-            await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
-            runInAction(() => {
-                this.requestProcessState = RequestStatus.Done;
-                this.authenticated = true;
-                this.credentials = DEFAULTS.credentials;
-            });
-        }
-
-        if (response.status === REQUIRED_EMAIL_CONFIRMATION_CODE) {
-            if (response.error && !response.authId) {
-                runInAction(() => {
-                    this.requestProcessState = RequestStatus.Error;
-                });
-                await this.setError(response.error);
-                return;
-            }
-
-            this.getResendCodeCountdownAndStart();
-            await messenger.setEmailConfirmationAuthId(response.authId);
-
-            runInAction(async () => {
-                this.requestProcessState = RequestStatus.Done;
-                await this.switchStep(this.STEPS.CONFIRM_EMAIL);
-            });
-        }
     };
 
     @action isAuthenticated = async () => {
@@ -451,17 +383,6 @@ export class AuthStore {
     @action showAuthorizationScreen = async () => {
         await this.switchStep(this.STEPS.AUTHORIZATION);
         this.requestProcessState = RequestStatus.Done;
-    };
-
-    @action resetPasswords = async () => {
-        await messenger.updateAuthCache(CredentialsKey.Password, DEFAULTS.credentials.password);
-        await messenger.updateAuthCache(CredentialsKey.ConfirmPassword, DEFAULTS.credentials.confirmPassword);
-        await messenger.updateAuthCache(CredentialsKey.TwoFactor, DEFAULTS.credentials.twoFactor);
-        runInAction(() => {
-            this.credentials.password = DEFAULTS.credentials.password;
-            this.credentials.confirmPassword = DEFAULTS.credentials.confirmPassword;
-            this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
-        });
     };
 
     @action resetCode = async () => {

@@ -7,7 +7,6 @@ import { rootStore } from '../../stores';
 
 import { SignInForm } from './SignInForm';
 import { Authorization } from './Authorization';
-import { RegistrationForm } from './RegistrationForm';
 import { TwoFactorForm } from './TwoFactorForm';
 import { PolicyAgreement } from './PolicyAgreement';
 import { ConfirmEmail } from './ConfirmEmail';
@@ -19,9 +18,6 @@ export const Authentication = observer(() => {
 
     const getForm = (step: string) => {
         switch (step) {
-            case authStore.STEPS.REGISTRATION: {
-                return <RegistrationForm />;
-            }
             case authStore.STEPS.TWO_FACTOR: {
                 return <TwoFactorForm />;
             }

@@ -55,33 +55,6 @@ class AuthApi extends Api {
         return this.makeRequest(path, { body, headers }, method);
     }
 
-    REGISTER_USER: RequestProps = { path: 'api/2.0/registration', method: 'POST' };
-
-    register(credentials: AuthCredentials) {
-        const {
-            username,
-            password,
-            marketingConsent,
-            locale,
-            clientId,
-            appId,
-        } = credentials;
-
-        const { path, method } = this.REGISTER_USER;
-
-        const params = {
-            email: username,
-            password,
-            marketingConsent: (!!marketingConsent).toString(),
-            locale,
-            clientId,
-            applicationId: appId,
-            source: 'VPN_APPLICATION',
-        };
-
-        return this.makeRequest(path, { params }, method);
-    }
-
     USER_LOOKUP: RequestProps = { path: 'api/1.0/user_lookup', method: 'POST' };
 
     userLookup(email: string, appId: string) {

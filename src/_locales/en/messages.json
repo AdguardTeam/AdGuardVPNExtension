@@ -9,27 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Must not be empty"
-    },
-    "registration_error_not_valid": {
-        "message": "This value is not valid"
-    },
-    "registration_error_min_length": {
-        "message": "Password must contain at least 8 characters"
-    },
-    "registration_error_confirm_password": {
-        "message": "Passwords don’t match"
-    },
-    "registration_error_compromised_password": {
-        "message": "The password you entered was found in a <a>public database</a> of compromised passwords. Please try another."
-    },
-    "registration_error_unique_constraint": {
-        "message": "This value is already used"
-    },
-    "registration_error_default": {
-        "message": "An error happened, try again later"
-    },
     "authentication_error_2fa_required": {
         "message": "2FA is required"
     },
@@ -186,20 +165,8 @@
     "auth_your_password": {
         "message": "Your password"
     },
-    "auth_password_confirm": {
-        "message": "Confirm password"
-    },
     "auth_recover": {
         "message": "Forgot password?"
-    },
-    "auth_sign_up": {
-        "message": "Sign up"
-    },
-    "auth_sign_up_info": {
-        "message": "Create your AdGuard account"
-    },
-    "auth_sign_up_button": {
-        "message": "Sign up"
     },
     "auth_sign_in": {
         "message": "Enter your password"
@@ -1185,9 +1152,6 @@
     },
     "confirm_email_no_auth_id_error_on_auth": {
         "message": "Failed to log you in. Please try again or contact us via <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Failed to sign you up. Please try again or contact us via <a>%support_email%</a>"
     },
     "resend_confirm_registration_link_notification": {
         "message": "Confirmation link resent"

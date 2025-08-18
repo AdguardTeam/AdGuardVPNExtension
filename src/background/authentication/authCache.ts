@@ -14,7 +14,6 @@ const AuthCache = (): AuthCacheInterface => {
     const DEFAULTS: AuthCacheData = {
         username: '',
         password: '',
-        confirmPassword: '',
         step: '',
         signInCheck: false,
         policyAgreement: null,
