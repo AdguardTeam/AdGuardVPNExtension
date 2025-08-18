@@ -9,7 +9,6 @@ import { SignInForm } from './SignInForm';
 import { Authorization } from './Authorization';
 import { RegistrationForm } from './RegistrationForm';
 import { TwoFactorForm } from './TwoFactorForm';
-import { BackButton } from './BackButton';
 import { PolicyAgreement } from './PolicyAgreement';
 import { ScreenShot } from './ScreenShot';
 import { ConfirmEmail } from './ConfirmEmail';
@@ -18,18 +17,6 @@ import './auth.pcss';
 
 export const Authentication = observer(() => {
     const { authStore } = useContext(rootStore);
-
-    const getHeader = (step: string) => {
-        const titleMaps: { [key: string]: null | React.ReactElement } = {
-            policyAgreement: null,
-            authorization: null,
-            signIn: <BackButton />,
-            registration: <BackButton />,
-            twoFactor: <BackButton />,
-            confirmEmail: <BackButton />,
-        };
-        return titleMaps[step] || titleMaps.authorization;
-    };
 
     const getForm = (step: string) => {
         switch (step) {
@@ -69,7 +56,6 @@ export const Authentication = observer(() => {
     return (
         <div className="auth">
             <div className={containerClassNames}>
-                {getHeader(step)}
                 {getForm(step)}
             </div>
         </div>
