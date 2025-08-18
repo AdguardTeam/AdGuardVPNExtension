@@ -1,1 +1,0 @@
-export { ConsentPage } from './ConsentPage';

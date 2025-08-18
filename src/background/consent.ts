@@ -37,6 +37,8 @@ export const setConsentData = async (policyAgreement: boolean, helpUsImprove: bo
     await settings.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, policyAgreement);
     await settings.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, helpUsImprove);
 
+    // FIXME: Correct this
+
     // continue to the next step - Screenshot Flow
     authCache.updateCache('step', AUTH_STEPS.SCREENSHOT);
 

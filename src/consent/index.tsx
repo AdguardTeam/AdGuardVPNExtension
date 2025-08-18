@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 
 import { translator } from '../common/translator';
 
-import { ConsentPage } from './ConsentPage';
+import { App } from './components/App';
 
 document.title = translator.getMessage('name');
 
@@ -14,6 +14,6 @@ const root = createRoot(rootNode);
 
 root.render(
     <Provider>
-        <ConsentPage />
+        <App />
     </Provider>,
 );

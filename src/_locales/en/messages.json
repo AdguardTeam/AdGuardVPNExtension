@@ -845,9 +845,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Log in or create an account"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Continue"
-    },
     "popup_newsletter_title": {
         "message": "AdGuard newsletter"
     },
@@ -1194,5 +1191,14 @@
     },
     "resend_confirm_registration_link_notification": {
         "message": "Confirmation link resent"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Failed to log you in"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Please try again or <a>contact support</a>"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Close"
     }
 }

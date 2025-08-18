@@ -1,20 +1,21 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, { useEffect, useState } from 'react';
 
-import { messenger } from '../../common/messenger';
-import { translator } from '../../common/translator';
-import { reactTranslator } from '../../common/reactTranslator';
-import { getPrivacyAndEulaUrls } from '../../common/forwarderHelpers';
-import { Icons } from '../../common/components/Icons';
-import { Checkbox } from '../../options/components/ui/Checkbox';
-import { Button } from '../../options/components/ui/Button';
-import { Modal } from '../../options/components/ui/Modal';
-import vpnBlockedErrorNinjaImageUrl from '../../assets/images/vpn-blocked-error-ninja.svg';
+import { messenger } from '../../../common/messenger';
+import { translator } from '../../../common/translator';
+import { reactTranslator } from '../../../common/reactTranslator';
+import { getPrivacyAndEulaUrls } from '../../../common/forwarderHelpers';
+import { Icons } from '../../../common/components/Icons';
+import { Checkbox } from '../../../options/components/ui/Checkbox';
+import { Button } from '../../../options/components/ui/Button';
+import vpnBlockedErrorNinjaImageUrl from '../../../assets/images/vpn-blocked-error-ninja.svg';
+import { UsageDataModal } from '../UsageDataModal';
+import { FailedToLoginModal } from '../FailedToLoginModal';
 
-import '../../options/styles/main.pcss';
-import './consent-page.pcss';
+import '../../../options/styles/main.pcss';
+import './app.pcss';
 
-export function ConsentPage() {
+export function App() {
     // Retrieved from background
     const [policyAgreement, setPolicyAgreement] = useState(false);
     const [helpUsImprove, setHelpUsImprove] = useState(false);
@@ -22,7 +23,8 @@ export function ConsentPage() {
 
     // Local state
     const [isDataLoaded, setIsDataLoaded] = useState(false);
-    const [isAgreementModalOpen, setIsAgreementModalOpen] = useState(false);
+    const [isUsageDataModalOpen, setIsUsageDataModalOpen] = useState(false);
+    const [isFailedToLoginModalOpen, setIsFailedToLoginModalOpen] = useState(true);
 
     useEffect(() => {
         const getData = async () => {
@@ -62,22 +64,24 @@ export function ConsentPage() {
         setHelpUsImprove((old) => !old);
     };
 
-    const openAgreementModal = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+    const openUsageDataModal = (e: React.MouseEvent<HTMLAnchorElement>): void => {
         e.preventDefault();
-        setIsAgreementModalOpen(true);
+        setIsUsageDataModalOpen(true);
     };
 
-    const closeAgreementModal = (): void => {
-        setIsAgreementModalOpen(false);
+    const closeUsageDataModal = (): void => {
+        setIsUsageDataModalOpen(false);
+    };
+
+    const closeFailedToLoginModal = (): void => {
+        setIsFailedToLoginModalOpen(false);
     };
 
     const handleContinueClick = async (): Promise<void> => {
         // save the consent data
         await messenger.setConsentData(policyAgreement, helpUsImprove);
 
-        // skip consent step and pre-activate Screenshot Flow
-        // in the popup when it is opened later
-        await messenger.updateAuthCache('step', 'screenshot');
+        // FIXME: Initiate WebAuth flow
     };
 
     return (
@@ -139,7 +143,7 @@ export function ConsentPage() {
                                 <a
                                     role="button"
                                     href="#"
-                                    onClick={openAgreementModal}
+                                    onClick={openUsageDataModal}
                                     className="link"
                                 >
                                     {chunks}
@@ -151,51 +155,17 @@ export function ConsentPage() {
                     />
                 </div>
                 <Button onClick={handleContinueClick} disabled={!policyAgreement}>
-                    {translator.getMessage('popup_auth_policy_agreement_page_continue_button')}
+                    {translator.getMessage('popup_auth_policy_agreement_continue_button')}
                 </Button>
             </div>
-            <Modal
-                title={translator.getMessage('settings_help_us_improve_modal_title')}
-                description={(
-                    <>
-                        <p className="consent__modal-text">
-                            {translator.getMessage('settings_help_us_improve_modal_desc_data')}
-                        </p>
-                        <ul className="consent__modal-list">
-                            <li className="consent__modal-list-item">
-                                {translator.getMessage('settings_help_us_improve_modal_desc_data_screens')}
-                            </li>
-                            <li className="consent__modal-list-item">
-                                {translator.getMessage('settings_help_us_improve_modal_desc_data_buttons')}
-                            </li>
-                            <li className="consent__modal-list-item">
-                                {translator.getMessage('settings_help_us_improve_modal_desc_data_sessions')}
-                            </li>
-                        </ul>
-                        <p className="consent__modal-text">
-                            {translator.getMessage('settings_help_us_improve_modal_desc_improve')}
-                        </p>
-                        <p className="consent__modal-text">
-                            {translator.getMessage('settings_help_us_improve_modal_desc_internally')}
-                        </p>
-                        <a
-                            href={privacyUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="link consent__modal-link"
-                        >
-                            {translator.getMessage('privacy_policy')}
-                        </a>
-                    </>
-                )}
-                actions={(
-                    <Button onClick={closeAgreementModal}>
-                        {translator.getMessage('settings_help_us_improve_modal_button')}
-                    </Button>
-                )}
-                isOpen={isAgreementModalOpen}
-                className="consent__modal"
-                onClose={closeAgreementModal}
+            <UsageDataModal
+                isOpen={isUsageDataModalOpen}
+                privacyUrl={privacyUrl}
+                onClose={closeUsageDataModal}
+            />
+            <FailedToLoginModal
+                isOpen={isFailedToLoginModalOpen}
+                onClose={closeFailedToLoginModal}
             />
             <Icons />
         </div>
