@@ -10,8 +10,6 @@ import isNil from 'lodash/isNil';
 import { messenger } from '../../common/messenger';
 import {
     BAD_CREDENTIALS_CODE,
-    REQUIRED_EMAIL_CONFIRMATION_CODE,
-    RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC,
     FLAGS_FIELDS,
     type SocialAuthProvider,
     AUTH_STEPS,
@@ -24,14 +22,12 @@ export enum CredentialsKey {
     Username = 'username',
     Password = 'password',
     MarketingConsent = 'marketingConsent',
-    Code = 'code',
 }
 
 interface CredentialsInterface {
     [CredentialsKey.Username]: string;
     [CredentialsKey.Password]: string;
     [CredentialsKey.MarketingConsent]: boolean | string;
-    [CredentialsKey.Code]: string;
 }
 
 const DEFAULTS = {
@@ -39,7 +35,6 @@ const DEFAULTS = {
         [CredentialsKey.Username]: '',
         [CredentialsKey.Password]: '',
         [CredentialsKey.MarketingConsent]: '',
-        [CredentialsKey.Code]: '',
     },
     authenticated: false,
     authenticatedStatusRetrieved: false,
@@ -52,7 +47,6 @@ const DEFAULTS = {
     signInCheck: false,
     showOnboarding: true,
     showUpgradeScreen: true,
-    resendCodeCountdown: RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC,
 };
 
 export class AuthStore {
@@ -97,10 +91,6 @@ export class AuthStore {
 
     @observable rating = 0;
 
-    @observable confirmEmailTimer?: ReturnType<typeof setInterval>;
-
-    @observable resendCodeCountdown = DEFAULTS.resendCodeCountdown;
-
     @observable userEmail = '';
 
     @observable showHintPopup = false;
@@ -144,7 +134,6 @@ export class AuthStore {
             helpUsImprove,
             marketingConsent,
             authError,
-            code,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
@@ -152,7 +141,6 @@ export class AuthStore {
                 username,
                 password,
                 marketingConsent,
-                code,
             };
             if (step) {
                 this.step = step;
@@ -248,8 +236,7 @@ export class AuthStore {
             // the password is to be checked after the valid code is entered.
             // so 'bad_credentials' may appear on email confirmation step
             // and it should be handled properly
-            if (response.status === BAD_CREDENTIALS_CODE
-                && this.step === this.STEPS.CONFIRM_EMAIL) {
+            if (response.status === BAD_CREDENTIALS_CODE) {
                 // redirect user to password step
                 this.switchStep(this.STEPS.SIGN_IN, false);
             }
@@ -269,27 +256,6 @@ export class AuthStore {
                 this.requestProcessState = RequestStatus.Done;
                 this.authenticated = true;
                 this.credentials = DEFAULTS.credentials;
-            });
-            return;
-        }
-
-        // handle email confirmation requirement
-        if (response.status === REQUIRED_EMAIL_CONFIRMATION_CODE) {
-            if (response.error && !response.authId) {
-                runInAction(() => {
-                    this.requestProcessState = RequestStatus.Error;
-                });
-                await this.setError(response.error);
-                return;
-            }
-
-            this.getResendCodeCountdownAndStart();
-            await messenger.setEmailConfirmationAuthId(response.authId);
-
-            runInAction(async () => {
-                this.requestProcessState = RequestStatus.Done;
-                this.prevSteps.push(this.step);
-                await this.switchStep(this.STEPS.CONFIRM_EMAIL);
             });
         }
     };
@@ -365,13 +331,6 @@ export class AuthStore {
     @action showAuthorizationScreen = async () => {
         await this.switchStep(this.STEPS.AUTHORIZATION);
         this.requestProcessState = RequestStatus.Done;
-    };
-
-    @action resetCode = async () => {
-        await messenger.updateAuthCache(CredentialsKey.Code, DEFAULTS.credentials.code);
-        runInAction(() => {
-            this.credentials.code = DEFAULTS.credentials.code;
-        });
     };
 
     @action resetRequestProcessionState = () => {
@@ -489,71 +448,6 @@ export class AuthStore {
      */
     @action setShouldShowRateModal = (value: boolean) => {
         this.showRateModal = value;
-    };
-
-    /**
-     * Sets the store's value {@link resendCodeCountdown} to the passed value.
-     *
-     * @param value Number of seconds to set.
-     */
-    @action setResendCodeCountdown(value: number): void {
-        this.resendCodeCountdown = value;
-    }
-
-    /**
-     * Gets countdown timer value for email confirmation code resend via messenger,
-     * and sets it to the store's value {@link resendCodeCountdown}.
-     */
-    @action
-    async getResendCodeCountdown(): Promise<void> {
-        let countdown;
-        try {
-            countdown = await messenger.getResendCodeCountdown();
-        } catch (e) {
-            countdown = 0;
-        }
-        this.setResendCodeCountdown(countdown);
-    }
-
-    /**
-     * Starts countdown timer based on store's value {@link resendCodeCountdown}.
-     */
-    @action startCountdown = () => {
-        this.confirmEmailTimer = setInterval(() => {
-            runInAction(() => {
-                if (this.resendCodeCountdown === 0) {
-                    clearInterval(this.confirmEmailTimer);
-                    return;
-                }
-                this.resendCodeCountdown -= 1;
-            });
-        }, 1000);
-    };
-
-    /**
-     * Gets countdown timer value for email confirmation code resend from the background,
-     * and starts countdown timer based on it.
-     *
-     * Needed for the case when the popup is reopened and the timer was running in the background.
-     */
-    @action
-    async getResendCodeCountdownAndStart(): Promise<void> {
-        await this.getResendCodeCountdown();
-        if (this.resendCodeCountdown > 0
-            // if the timer is already running, don't start it again
-            && !this.confirmEmailTimer) {
-            this.startCountdown();
-        }
-    }
-
-    /**
-     * Resets countdown timer, starts it again, and sends a message to the background
-     * to request a new email confirmation code.
-     */
-    @action resendEmailConfirmationCode = async () => {
-        this.setResendCodeCountdown(DEFAULTS.resendCodeCountdown);
-        this.startCountdown();
-        await messenger.resendEmailConfirmationCode();
     };
 
     @computed

@@ -65,18 +65,6 @@ class AuthApi extends Api {
         };
         return this.makeRequest(path, { params }, method);
     }
-
-    RESEND_CONFIRMATION_CODE: RequestProps = { path: 'api/2.0/resend_confirmation_code', method: 'POST' };
-
-    resendCode(authId: string) {
-        const { path, method } = this.RESEND_CONFIRMATION_CODE;
-
-        const params = {
-            auth_id: authId,
-        };
-
-        return this.makeRequest(path, { params }, method);
-    }
 }
 
 export const authApi = new AuthApi(async () => {

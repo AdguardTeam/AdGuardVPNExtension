@@ -1,7 +1,6 @@
-import { BAD_CREDENTIALS_CODE, REQUIRED_EMAIL_CONFIRMATION_CODE } from '../../common/constants';
+import { BAD_CREDENTIALS_CODE } from '../../common/constants';
 import { authApi } from '../api';
 import { translator } from '../../common/translator';
-import { SUPPORT_EMAIL } from '../constants';
 import type { AuthCredentials } from '../api/apiTypes';
 import type { AuthAccessToken } from '../schema';
 
@@ -52,8 +51,6 @@ const getAccessToken = async (credentials: AuthCredentials): Promise<AuthAccessT
         account_locked: translator.getMessage('authentication_error_account_locked'),
         [BAD_CREDENTIALS_CODE]: translator.getMessage('authentication_error_wrong_credentials'),
         [TOO_MANY_REQUESTS_CODE]: translator.getMessage('authentication_too_many_requests'),
-        // the value is not shown to users, so it is not translated
-        [REQUIRED_EMAIL_CONFIRMATION_CODE]: REQUIRED_EMAIL_CONFIRMATION_CODE,
         [INVALID_EMAIL_CONFIRMATION_CODE]: translator.getMessage('confirm_email_code_invalid'),
         default: translator.getMessage('authentication_error_default'),
     };
@@ -71,24 +68,10 @@ const getAccessToken = async (credentials: AuthCredentials): Promise<AuthAccessT
             throw new Error(JSON.stringify({ error: errorsMap.default }));
         }
 
-        const { error_code: errorCode, auth_id: authId }: {
+        const { error_code: errorCode }: {
             error_code: keyof typeof errorsMap,
             auth_id: string,
         } = errorData;
-
-        if (errorCode === REQUIRED_EMAIL_CONFIRMATION_CODE) {
-            // authId is required to request another code
-            // so error should be shown in the popup if there is no authId
-            if (!authId) {
-                const error = translator.getMessage('confirm_email_no_auth_id_error_on_auth', {
-                    support_email: SUPPORT_EMAIL,
-                    a: (chunks: string) => `<a href="mailto:${SUPPORT_EMAIL}" target="_blank">${chunks}</a>`,
-                });
-                throw new Error(JSON.stringify({ status: errorCode, error }));
-            }
-
-            throw new Error(JSON.stringify({ status: errorCode, authId }));
-        }
 
         const error = errorsMap[errorCode] || errorsMap[errorStatusCode] || errorsMap.default;
 
@@ -103,17 +86,7 @@ const userLookup = async (email: string, appId: string) => {
     return { canRegister };
 };
 
-/**
- * Uses {@link authApi} to request another email confirmation code.
- *
- * @param authId Auth id.
- */
-const resendEmailConfirmationCode = async (authId: string) => {
-    await authApi.resendCode(authId);
-};
-
 export const authProvider = {
     getAccessToken,
     userLookup,
-    resendEmailConfirmationCode,
 };

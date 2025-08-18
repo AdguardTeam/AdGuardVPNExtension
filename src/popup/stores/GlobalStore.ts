@@ -182,7 +182,6 @@ export class GlobalStore {
 
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         await this.getDesktopAppData();
-        await this.rootStore.authStore.getResendCodeCountdownAndStart();
     }
 
     @action

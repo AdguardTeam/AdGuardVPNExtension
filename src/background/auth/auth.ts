@@ -35,7 +35,6 @@ export interface AuthInterface {
         email: string,
         appId: string,
     ): Promise<{ canRegister: string } | { error: string }>;
-    resendEmailConfirmationCode(authId: string): Promise<void>;
     getAccessToken(turnOffProxy?: boolean): Promise<string>;
     init(): Promise<void>;
 }
@@ -294,15 +293,6 @@ class Auth implements AuthInterface {
             };
         }
         return response;
-    }
-
-    /**
-     * Uses {@link authProvider} to request a new email confirmation code.
-     *
-     * @param authId Auth id received from the server previously.
-     */
-    async resendEmailConfirmationCode(authId: string): Promise<void> {
-        await authProvider.resendEmailConfirmationCode(authId);
     }
 
     async setAccessToken(accessToken: AuthAccessToken): Promise<void> {

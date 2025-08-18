@@ -8,7 +8,6 @@ import { rootStore } from '../../stores';
 import { SignInForm } from './SignInForm';
 import { Authorization } from './Authorization';
 import { PolicyAgreement } from './PolicyAgreement';
-import { ConfirmEmail } from './ConfirmEmail';
 
 import './auth.pcss';
 
@@ -25,9 +24,6 @@ export const Authentication = observer(() => {
             }
             case authStore.STEPS.POLICY_AGREEMENT: {
                 return <PolicyAgreement />;
-            }
-            case authStore.STEPS.CONFIRM_EMAIL: {
-                return <ConfirmEmail />;
             }
             default: {
                 return <Authorization />;
