@@ -9,12 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "authentication_error_2fa_required": {
-        "message": "2FA is required"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Invalid token"
-    },
     "authentication_error_account_disabled": {
         "message": "Account is disabled"
     },
@@ -194,15 +188,6 @@
     },
     "auth_header_sing_in_notice": {
         "message": "Logging in as <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Two-factor authentication"
-    },
-    "auth_header_2fa": {
-        "message": "Enter the authentication code"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Authentication code"
     },
     "official_website": {
         "message": "Official website"

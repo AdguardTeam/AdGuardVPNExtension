@@ -175,12 +175,6 @@ export const AUTH_STEPS = {
     SIGN_IN: 'signIn',
 
     /**
-     * Two-factor authentication step.
-     * In this step, user needs to type 2FA code to complete the authentication.
-     */
-    TWO_FACTOR: 'twoFactor',
-
-    /**
      * Confirmation email step.
      * In this step, user needs to confirm their sign in by writing the code.
      */
@@ -204,7 +198,6 @@ export enum SubscriptionType {
 
 export const CUSTOM_DNS_ANCHOR_NAME = 'custom-dns';
 
-export const REQUIRED_2FA_CODE = '2fa_required';
 export const REQUIRED_EMAIL_CONFIRMATION_CODE = 'confirmation_code_required';
 export const BAD_CREDENTIALS_CODE = 'bad_credentials';
 

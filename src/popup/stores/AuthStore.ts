@@ -10,7 +10,6 @@ import isNil from 'lodash/isNil';
 import { messenger } from '../../common/messenger';
 import {
     BAD_CREDENTIALS_CODE,
-    REQUIRED_2FA_CODE,
     REQUIRED_EMAIL_CONFIRMATION_CODE,
     RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC,
     FLAGS_FIELDS,
@@ -24,7 +23,6 @@ import type { RootStore } from './RootStore';
 export enum CredentialsKey {
     Username = 'username',
     Password = 'password',
-    TwoFactor = 'twoFactor',
     MarketingConsent = 'marketingConsent',
     Code = 'code',
 }
@@ -32,7 +30,6 @@ export enum CredentialsKey {
 interface CredentialsInterface {
     [CredentialsKey.Username]: string;
     [CredentialsKey.Password]: string;
-    [CredentialsKey.TwoFactor]: string;
     [CredentialsKey.MarketingConsent]: boolean | string;
     [CredentialsKey.Code]: string;
 }
@@ -41,13 +38,11 @@ const DEFAULTS = {
     credentials: {
         [CredentialsKey.Username]: '',
         [CredentialsKey.Password]: '',
-        [CredentialsKey.TwoFactor]: '',
         [CredentialsKey.MarketingConsent]: '',
         [CredentialsKey.Code]: '',
     },
     authenticated: false,
     authenticatedStatusRetrieved: false,
-    need2fa: false,
     error: null,
     step: AUTH_STEPS.AUTHORIZATION,
     prevSteps: [],
@@ -66,8 +61,6 @@ export class AuthStore {
     @observable authenticated = DEFAULTS.authenticated;
 
     @observable authenticatedStatusRetrieved = DEFAULTS.authenticatedStatusRetrieved;
-
-    @observable need2fa = DEFAULTS.need2fa;
 
     @observable error: string | null = DEFAULTS.error;
 
@@ -123,7 +116,6 @@ export class AuthStore {
     @action setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
         this.authenticated = DEFAULTS.authenticated;
-        this.need2fa = DEFAULTS.need2fa;
         this.error = DEFAULTS.error;
         this.step = DEFAULTS.step;
         this.signInCheck = DEFAULTS.signInCheck;
@@ -276,19 +268,9 @@ export class AuthStore {
             runInAction(() => {
                 this.requestProcessState = RequestStatus.Done;
                 this.authenticated = true;
-                this.need2fa = false;
                 this.credentials = DEFAULTS.credentials;
             });
             return;
-        }
-
-        if (response.status === REQUIRED_2FA_CODE) {
-            runInAction(async () => {
-                this.requestProcessState = RequestStatus.Done;
-                this.need2fa = true;
-                this.prevSteps.push(this.step);
-                await this.switchStep(this.STEPS.TWO_FACTOR);
-            });
         }
 
         // handle email confirmation requirement

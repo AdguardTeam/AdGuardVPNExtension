@@ -1,1 +1,0 @@
-export { TwoFactorForm } from './TwoFactorForm';

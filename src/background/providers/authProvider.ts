@@ -1,4 +1,4 @@
-import { BAD_CREDENTIALS_CODE, REQUIRED_2FA_CODE, REQUIRED_EMAIL_CONFIRMATION_CODE } from '../../common/constants';
+import { BAD_CREDENTIALS_CODE, REQUIRED_EMAIL_CONFIRMATION_CODE } from '../../common/constants';
 import { authApi } from '../api';
 import { translator } from '../../common/translator';
 import { SUPPORT_EMAIL } from '../constants';
@@ -48,8 +48,6 @@ const getAccessToken = async (credentials: AuthCredentials): Promise<AuthAccessT
     let accessTokenData;
 
     const errorsMap: ErrorsMap = {
-        [REQUIRED_2FA_CODE]: translator.getMessage('authentication_error_2fa_required'),
-        '2fa_invalid': translator.getMessage('authentication_error_2fa_invalid'),
         account_disabled: translator.getMessage('authentication_error_account_disabled'),
         account_locked: translator.getMessage('authentication_error_account_locked'),
         [BAD_CREDENTIALS_CODE]: translator.getMessage('authentication_error_wrong_credentials'),
@@ -90,10 +88,6 @@ const getAccessToken = async (credentials: AuthCredentials): Promise<AuthAccessT
             }
 
             throw new Error(JSON.stringify({ status: errorCode, authId }));
-        }
-
-        if (errorCode === REQUIRED_2FA_CODE) {
-            throw new Error(JSON.stringify({ status: errorCode }));
         }
 
         const error = errorsMap[errorCode] || errorsMap[errorStatusCode] || errorsMap.default;

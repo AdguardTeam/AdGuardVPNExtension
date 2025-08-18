@@ -340,7 +340,6 @@ class Messenger {
         credentials: {
             username: string;
             password: string;
-            twoFactor: string;
         },
     ) {
         const type = MessageType.AUTHENTICATE_USER;
