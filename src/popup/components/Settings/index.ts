@@ -1,1 +1,1 @@
-export { Settings, SettingsScreenShot } from './Settings';
+export { Settings } from './Settings';

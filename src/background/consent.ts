@@ -1,8 +1,7 @@
-import { SETTINGS_IDS, AUTH_STEPS, CONSENT_PAGE_URL } from '../common/constants';
+import { SETTINGS_IDS, CONSENT_PAGE_URL } from '../common/constants';
 import { getForwarderUrl } from '../common/helpers';
 import { Prefs } from '../common/prefs';
 
-import { authCache } from './authentication';
 import { getUrl } from './browserApi/runtime';
 import { FORWARDER_URL_QUERIES } from './config';
 import { forwarder } from './forwarder';
@@ -38,9 +37,6 @@ export const setConsentData = async (policyAgreement: boolean, helpUsImprove: bo
     await settings.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, helpUsImprove);
 
     // FIXME: Correct this
-
-    // continue to the next step - Screenshot Flow
-    authCache.updateCache('step', AUTH_STEPS.SCREENSHOT);
 
     /**
      * If Firefox, we should show thank you page after consent.

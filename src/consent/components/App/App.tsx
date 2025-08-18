@@ -80,8 +80,6 @@ export function App() {
     const handleContinueClick = async (): Promise<void> => {
         // save the consent data
         await messenger.setConsentData(policyAgreement, helpUsImprove);
-
-        // FIXME: Initiate WebAuth flow
     };
 
     return (

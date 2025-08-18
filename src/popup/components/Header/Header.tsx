@@ -109,20 +109,3 @@ export const Header = observer(({
         </div>
     );
 });
-
-/**
- * Component is used as part of the ScreenShot component
- * to render the Header as static non-interactive element.
- *
- * See `ScreenShot.tsx` for more details.
- */
-export const HeaderScreenShot = () => (
-    <div className="header header--main">
-        <div className="header__logo">
-            <div className="logo" />
-        </div>
-        <div className="header__actions">
-            <IconButton name="sidebar-burger" />
-        </div>
-    </div>
-);

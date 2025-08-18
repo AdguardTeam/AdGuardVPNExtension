@@ -453,15 +453,6 @@ export class AuthStore {
         this.requestProcessState = RequestStatus.Done;
     };
 
-    @action showScreenShotScreen = async () => {
-        await this.switchStep(this.STEPS.SCREENSHOT);
-    };
-
-    @action handleScreenshotClick = async () => {
-        // TODO: collect statistic
-        await this.switchStep(this.STEPS.AUTHORIZATION);
-    };
-
     @action resetPasswords = async () => {
         await messenger.updateAuthCache(CredentialsKey.Password, DEFAULTS.credentials.password);
         await messenger.updateAuthCache(CredentialsKey.ConfirmPassword, DEFAULTS.credentials.confirmPassword);
@@ -522,11 +513,6 @@ export class AuthStore {
 
     @action onPolicyAgreementReceived = async () => {
         await messenger.setConsentData(this.policyAgreement, this.helpUsImprove);
-
-        // Activate Screenshot Flow which acts as a "cover" of a main
-        // content, which on click anywhere will trigger Login/Signup flow.
-        // This is needed to improve conversion rate of the extension.
-        await this.showScreenShotScreen();
     };
 
     @action setMarketingConsent = async (value: boolean) => {

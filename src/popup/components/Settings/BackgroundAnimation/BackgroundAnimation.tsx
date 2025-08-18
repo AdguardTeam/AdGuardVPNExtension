@@ -7,16 +7,7 @@ import { AnimationState, animationSourcesMap } from '../../../constants';
 
 import { animationService } from './animationStateMachine';
 
-export interface BackgroundAnimationProps {
-    /**
-     * Animation state to override store provided state.
-     */
-    overrideAnimationState?: AnimationState;
-}
-
-export const BackgroundAnimation = observer(({
-    overrideAnimationState,
-}: BackgroundAnimationProps) => {
+export const BackgroundAnimation = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
@@ -25,7 +16,7 @@ export const BackgroundAnimation = observer(({
         animationState,
     } = settingsStore;
 
-    const animationStateToUse = overrideAnimationState || animationState;
+    const animationStateToUse = animationState;
 
     useEffect(() => {
         animationService.onTransition((state) => {

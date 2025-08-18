@@ -158,13 +158,6 @@ export const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
 
     /**
-     * Screenshot step.
-     * This step is shown only for new users in the extension popup.
-     * In this step, main screen is rendered as a screenshot.
-     */
-    SCREENSHOT: 'screenshot',
-
-    /**
      * Authorization step.
      * In this step, user can type email or sign in with social account.
      */

@@ -5,8 +5,6 @@ import classnames from 'classnames';
 import isNil from 'lodash/isNil';
 
 import { rootStore } from '../../stores';
-import { AnimationState } from '../../constants';
-import { translator } from '../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
@@ -72,36 +70,3 @@ export const Settings = observer(() => {
         </div>
     );
 });
-
-/**
- * Component is used as part of the ScreenShot component
- * to render the Settings as static non-interactive element.
- *
- * See `ScreenShot.tsx` for more details.
- */
-export const SettingsScreenShot = () => (
-    <div className="settings">
-        <BackgroundAnimation
-            overrideAnimationState={AnimationState.VpnDisabled}
-        />
-        <div className="settings__animation-overlay" />
-        <div className="settings__main">
-            {/* Status */}
-            <div className="status">
-                {translator.getMessage('settings_vpn_disabled')}
-            </div>
-
-            {/* GlobalControl */}
-            <button type="button" className="button button--medium button--main button--green">
-                {translator.getMessage('settings_connect')}
-            </button>
-
-            {/* GlobalControl -> ExcludeSite */}
-            <div className="exclude-site-wrapper">
-                <button type="button" className="button button--inline settings__exclusion-btn">
-                    {translator.getMessage('popup_settings_disable_vpn')}
-                </button>
-            </div>
-        </div>
-    </div>
-);
