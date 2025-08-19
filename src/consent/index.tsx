@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 
 import { translator } from '../common/translator';
 
-import { App } from './components/App';
+import { App } from './App';
 
 document.title = translator.getMessage('name');
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { translator } from '../../../common/translator';
-import { Modal } from '../../../options/components/ui/Modal';
-import { Button } from '../../../options/components/ui/Button';
+import { translator } from '../../common/translator';
+import { Modal } from '../../options/components/ui/Modal';
+import { Button } from '../../options/components/ui/Button';
 
 /**
  * Props for {@link UsageDataModal}.

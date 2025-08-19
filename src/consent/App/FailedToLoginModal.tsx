@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 
-import { SUPPORT_EMAIL } from '../../../background/constants';
-import { translator } from '../../../common/translator';
-import { reactTranslator } from '../../../common/reactTranslator';
-import { Modal } from '../../../options/components/ui/Modal';
-import { Button } from '../../../options/components/ui/Button';
+import { SUPPORT_EMAIL } from '../../background/constants';
+import { translator } from '../../common/translator';
+import { reactTranslator } from '../../common/reactTranslator';
+import { Modal } from '../../options/components/ui/Modal';
+import { Button } from '../../options/components/ui/Button';
 
 /**
  * Props for {@link FailedToLoginModal}.

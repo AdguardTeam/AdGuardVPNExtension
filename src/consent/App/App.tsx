@@ -1,18 +1,19 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, { useEffect, useState } from 'react';
 
-import { messenger } from '../../../common/messenger';
-import { translator } from '../../../common/translator';
-import { reactTranslator } from '../../../common/reactTranslator';
-import { getPrivacyAndEulaUrls } from '../../../common/forwarderHelpers';
-import { Icons } from '../../../common/components/Icons';
-import { Checkbox } from '../../../options/components/ui/Checkbox';
-import { Button } from '../../../options/components/ui/Button';
-import vpnBlockedErrorNinjaImageUrl from '../../../assets/images/vpn-blocked-error-ninja.svg';
-import { UsageDataModal } from '../UsageDataModal';
-import { FailedToLoginModal } from '../FailedToLoginModal';
+import { messenger } from '../../common/messenger';
+import { translator } from '../../common/translator';
+import { reactTranslator } from '../../common/reactTranslator';
+import { getPrivacyAndEulaUrls } from '../../common/forwarderHelpers';
+import { Icons } from '../../common/components/Icons';
+import { Checkbox } from '../../options/components/ui/Checkbox';
+import { Button } from '../../options/components/ui/Button';
+import vpnBlockedErrorNinjaImageUrl from '../../assets/images/vpn-blocked-error-ninja.svg';
 
-import '../../../options/styles/main.pcss';
+import { UsageDataModal } from './UsageDataModal';
+import { FailedToLoginModal } from './FailedToLoginModal';
+
+import '../../options/styles/main.pcss';
 import './app.pcss';
 
 export function App() {
