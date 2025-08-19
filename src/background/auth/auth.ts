@@ -1,9 +1,6 @@
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
-import { translator } from '../../common/translator';
-import { tabs } from '../tabs';
 import { proxy } from '../proxy';
-import { notifications } from '../notifications';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
 import { flagsStorage } from '../flagsStorage';
@@ -11,11 +8,8 @@ import { StorageKey, type AuthAccessToken, type AuthState } from '../schema';
 import { authService } from '../authentication/authService';
 import { stateStorage } from '../stateStorage';
 
-import { type ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema';
-
 export interface AuthInterface {
     isAuthenticated(turnOffProxy?: boolean): Promise<boolean>;
-    authenticateThankYouPage(rawData: unknown): Promise<void>;
     deauthenticate(): Promise<void>;
     getAccessToken(turnOffProxy?: boolean): Promise<string>;
     init(): Promise<void>;
@@ -69,51 +63,6 @@ class Auth implements AuthInterface {
         }
 
         return !!accessToken;
-    }
-
-    /**
-     * Authenticate user after registration on thank you page
-     * @param rawData
-     */
-    async authenticateThankYouPage(
-        rawData: unknown,
-    ): Promise<void> {
-        let data: ThankYouPageData;
-        try {
-            data = thankYouPageSchema.parse(rawData);
-        } catch (e) {
-            log.error(`Unable to authenticate user, invalid params received from the page: ${JSON.stringify(rawData)}`);
-            return;
-        }
-
-        const {
-            token,
-            newUser,
-            redirectUrl,
-        } = data;
-
-        const isAuthenticated = await this.isAuthenticated();
-        if (isAuthenticated) {
-            await tabs.redirectCurrentTab(redirectUrl);
-            return;
-        }
-
-        const credentials: AuthAccessToken = {
-            accessToken: token,
-            expiresIn: 60 * 60 * 24 * 30, //  30 days in seconds
-            tokenType: 'Bearer',
-        };
-
-        await this.setAccessToken(credentials);
-
-        if (newUser) {
-            await flagsStorage.onRegister();
-        } else {
-            await flagsStorage.onAuthenticate();
-        }
-
-        await notifications.create({ message: translator.getMessage('authentication_successful_notification') });
-        await tabs.redirectCurrentTab(redirectUrl);
     }
 
     async deauthenticate(): Promise<void> {

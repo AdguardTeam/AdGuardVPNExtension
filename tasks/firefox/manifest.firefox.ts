@@ -41,14 +41,6 @@ export const firefoxManifestDiff = {
     host_permissions: [
         '<all_urls>',
     ],
-    // FIXME: Auth protocol handler is not needed anymore?
-    protocol_handlers: [
-        {
-            protocol: 'ext+adguardvpn',
-            name: 'AdGuard VPN Extension',
-            uriTemplate: '/custom-protocol-handler.html#matched=%s',
-        },
-    ],
 };
 
 export const firefoxManifestStandaloneDiff = {

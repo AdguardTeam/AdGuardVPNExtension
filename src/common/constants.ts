@@ -41,8 +41,6 @@ export enum MessageType {
     REMOVE_EVENT_LISTENER = 'remove.event.listener',
 
     ADD_LONG_LIVED_CONNECTION = 'add.long.lived.connection',
-    AUTHENTICATE_SOCIAL = 'authenticate.social',
-    AUTHENTICATE_THANKYOU_PAGE = 'authenticate.thankyou.page',
     GET_POPUP_DATA = 'get.popup.data',
     GET_LIMITED_OFFER_DATA = 'get.limited.offer.data',
     FORCE_UPDATE_LOCATIONS = 'force.update.locations',

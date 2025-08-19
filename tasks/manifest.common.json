@@ -11,11 +11,6 @@
     },
     "content_scripts": [
         {
-            "matches":["https://*/oauth.html?adguard-vpn=1*"],
-            "js":["auth.js"],
-            "run_at":"document_start"
-        },
-        {
             "matches": ["<all_urls>"],
             "js": ["custom-dns-links.js"],
             "run_at": "document_start"

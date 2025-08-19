@@ -200,10 +200,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             delete eventListeners[listenerId];
             break;
         }
-        case MessageType.AUTHENTICATE_THANKYOU_PAGE: {
-            const { token, redirectUrl, newUser } = message.data;
-            return auth.authenticateThankYouPage({ token, redirectUrl, newUser });
-        }
         case MessageType.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
             return popupData.getPopupDataRetry(url, numberOfTries);

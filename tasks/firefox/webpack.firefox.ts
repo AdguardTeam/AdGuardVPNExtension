@@ -26,12 +26,6 @@ let zipFilename = 'firefox.zip';
 
 const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
-// FIXME: Auth protocol handler is not needed anymore?
-
-const CUSTOM_PROTOCOL_HANDLER_PATH = path.resolve(__dirname, '..', SRC_PATH, 'custom-protocol-handler');
-
-const AUTH_FIREFOX_SCRIPT = path.resolve(CUSTOM_PROTOCOL_HANDLER_PATH, 'authFirefox.ts');
-
 /**
  * Firefox Extensions Store has a limit of 4 MB for .js files.
  */
@@ -75,12 +69,6 @@ const plugins: webpack.WebpackPluginInstance[] = [
         chunks: ['background'],
         cache: false,
     }),
-    new HtmlWebpackPlugin({
-        template: path.join(CUSTOM_PROTOCOL_HANDLER_PATH, 'index.html'),
-        filename: 'custom-protocol-handler.html',
-        chunks: ['custom-protocol-handler'],
-        cache: false,
-    }),
     new ZipWebpackPlugin({
         path: '../',
         filename: zipFilename,
@@ -97,9 +85,6 @@ if (!outputPath) {
 }
 
 const firefoxDiffConfig = {
-    entry: {
-        authFirefox: AUTH_FIREFOX_SCRIPT,
-    },
     output: {
         path: path.join(outputPath, FIREFOX_PATH),
     },
