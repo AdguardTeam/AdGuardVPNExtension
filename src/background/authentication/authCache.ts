@@ -1,3 +1,5 @@
+import { notifier } from '../../common/notifier';
+
 import { AuthCacheKey, type AuthCacheValue, type AuthCacheData } from './authCacheTypes';
 
 interface AuthCacheInterface {
@@ -29,6 +31,7 @@ const AuthCache = (): AuthCacheInterface => {
      */
     const updateCache = (field: AuthCacheKey, value: AuthCacheValue): void => {
         authCache[field] = value;
+        notifier.notifyListeners(notifier.types.AUTH_CACHE_UPDATED, field, value);
     };
 
     /**

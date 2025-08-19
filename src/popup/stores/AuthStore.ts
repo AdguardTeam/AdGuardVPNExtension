@@ -8,7 +8,7 @@ import isNil from 'lodash/isNil';
 
 import { messenger } from '../../common/messenger';
 import { FLAGS_FIELDS } from '../../common/constants';
-import { AuthCacheKey } from '../../background/authentication/authCacheTypes';
+import { AuthCacheKey, type AuthCacheValue } from '../../background/authentication/authCacheTypes';
 
 import { RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
@@ -175,6 +175,28 @@ export class AuthStore {
         runInAction(() => {
             this.marketingConsent = value;
         });
+    };
+
+    /**
+     * Handles updates to the authentication cache.
+     *
+     * @param field The field to update.
+     * @param value The new value for the field.
+     */
+    @action handleAuthCacheUpdate = (field: AuthCacheKey, value: AuthCacheValue) => {
+        switch (field) {
+            case AuthCacheKey.PolicyAgreement:
+                this.policyAgreement = !!value as boolean;
+                break;
+            case AuthCacheKey.HelpUsImprove:
+                this.helpUsImprove = !!value as boolean;
+                break;
+            case AuthCacheKey.MarketingConsent:
+                this.marketingConsent = !!value as boolean;
+                break;
+            default:
+                break;
+        }
     };
 
     @action setRating = (value: number) => {

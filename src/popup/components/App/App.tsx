@@ -150,6 +150,10 @@ export const App = observer(() => {
                     await statsStore.updateStatistics();
                     break;
                 }
+                case notifier.types.AUTH_CACHE_UPDATED: {
+                    authStore.handleAuthCacheUpdate(data, value);
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -170,6 +174,7 @@ export const App = observer(() => {
             notifier.types.SETTING_UPDATED,
             notifier.types.SHOW_RATE_MODAL,
             notifier.types.STATS_UPDATED,
+            notifier.types.AUTH_CACHE_UPDATED,
         ];
 
         const { onUnload, portId } = messenger.createLongLivedConnection(events, messageHandler);

@@ -14,6 +14,7 @@ export enum NotifierType {
     DNS_SERVER_SET = 'event.dns.server.set',
     UPDATE_BROWSER_ACTION_ICON = 'event.update.browser.action.icon',
     SHOW_RATE_MODAL = 'event.show.rate.modal',
+    AUTH_CACHE_UPDATED = 'event.auth.cache.updated',
 
     VPN_INFO_UPDATED = 'event.vpn.info.updated',
     LOCATIONS_UPDATED = 'event.locations.updated',

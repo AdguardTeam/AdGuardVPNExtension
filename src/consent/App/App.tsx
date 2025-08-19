@@ -2,11 +2,14 @@
 import React, { useEffect, useState } from 'react';
 
 import { AuthCacheKey } from '../../background/authentication/authCacheTypes';
-import { messenger } from '../../common/messenger';
+import { type NotifierMessage, messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
 import { reactTranslator } from '../../common/reactTranslator';
 import { getPrivacyAndEulaUrls } from '../../common/forwarderHelpers';
 import { Icons } from '../../common/components/Icons';
+import { notifier } from '../../common/notifier';
+import { SETTINGS_IDS } from '../../common/constants';
+import { useSubscribeNotifier } from '../../common/hooks/useSubscribeNotifier';
 import { Checkbox } from '../../options/components/ui/Checkbox';
 import { Button } from '../../options/components/ui/Button';
 import vpnBlockedErrorNinjaImageUrl from '../../assets/images/vpn-blocked-error-ninja.svg';
@@ -16,6 +19,11 @@ import { FailedToLoginModal } from './FailedToLoginModal';
 
 import '../../options/styles/main.pcss';
 import './app.pcss';
+
+const NOTIFIER_EVENTS = [
+    notifier.types.AUTH_CACHE_UPDATED,
+    notifier.types.SETTING_UPDATED,
+];
 
 export function App() {
     // Retrieved from background
@@ -47,6 +55,38 @@ export function App() {
 
         getData();
     }, []);
+
+    const messageHandler = (message: NotifierMessage) => {
+        const { type, data, value } = message;
+
+        switch (type) {
+            case notifier.types.AUTH_CACHE_UPDATED:
+                switch (data) {
+                    case AuthCacheKey.PolicyAgreement:
+                        setCachedPolicyAgreement(value);
+                        break;
+                    case AuthCacheKey.HelpUsImprove:
+                        setCachedHelpUsImprove(value);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case notifier.types.SETTING_UPDATED:
+                switch (data) {
+                    case SETTINGS_IDS.POLICY_AGREEMENT:
+                        setPolicyAgreement(value);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    };
+
+    useSubscribeNotifier(NOTIFIER_EVENTS, messageHandler);
 
     // FIXME: Should we show loader in case if data is not loaded yet?
     if (!isDataLoaded || !forwarderDomain) {
@@ -155,7 +195,7 @@ export function App() {
                             ),
                         })}
                         // cast value to boolean, because it might be `null` from background
-                        value={!!cachedPolicyAgreement}
+                        value={cachedPolicyAgreement}
                         onToggle={handlePolicyToggle}
                     />
                     <Checkbox
@@ -173,7 +213,7 @@ export function App() {
                             ),
                         })}
                         // cast value to boolean, because it might be `null` from background
-                        value={!!cachedHelpUsImprove}
+                        value={cachedHelpUsImprove}
                         onToggle={handleHelpUsImproveToggle}
                     />
                 </div>
