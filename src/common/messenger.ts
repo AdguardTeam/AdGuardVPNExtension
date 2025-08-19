@@ -12,7 +12,7 @@ import type {
 import { ForwarderUrlQueryKey } from '../background/config';
 import { type LocationsTab } from '../background/endpoints/locationsEnums';
 import { type StatisticsByRange, type StatisticsRange } from '../background/statistics/statisticsTypes';
-import { type AuthCacheKey } from '../background/authentication/authCacheTypes';
+import { type AuthCacheValue, type AuthCacheKey } from '../background/authentication/authCacheTypes';
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
@@ -341,7 +341,7 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async updateAuthCache(field: AuthCacheKey, value: boolean | string | null) {
+    async updateAuthCache(field: AuthCacheKey, value: AuthCacheValue) {
         const type = MessageType.UPDATE_AUTH_CACHE;
         return this.sendMessage(type, { field, value });
     }
