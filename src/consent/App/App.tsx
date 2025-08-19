@@ -18,20 +18,28 @@ import './app.pcss';
 
 export function App() {
     // Retrieved from background
+    const [cachedPolicyAgreement, setCachedPolicyAgreement] = useState(false);
     const [policyAgreement, setPolicyAgreement] = useState(false);
-    const [helpUsImprove, setHelpUsImprove] = useState(false);
+    const [cachedHelpUsImprove, setCachedHelpUsImprove] = useState(false);
     const [forwarderDomain, setForwarderDomain] = useState<string | null>(null);
 
     // Local state
     const [isDataLoaded, setIsDataLoaded] = useState(false);
     const [isUsageDataModalOpen, setIsUsageDataModalOpen] = useState(false);
-    const [isFailedToLoginModalOpen, setIsFailedToLoginModalOpen] = useState(true);
+    const [isFailedToLoginModalOpen, setIsFailedToLoginModalOpen] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
-            const { policyAgreement, helpUsImprove, forwarderDomain } = await messenger.getConsentData();
+            const {
+                cachedPolicyAgreement,
+                policyAgreement,
+                cachedHelpUsImprove,
+                forwarderDomain,
+            } = await messenger.getConsentData();
+
+            setCachedPolicyAgreement(cachedPolicyAgreement);
             setPolicyAgreement(policyAgreement);
-            setHelpUsImprove(helpUsImprove);
+            setCachedHelpUsImprove(cachedHelpUsImprove);
             setForwarderDomain(forwarderDomain);
             setIsDataLoaded(true);
         };
@@ -39,7 +47,13 @@ export function App() {
         getData();
     }, []);
 
+    // FIXME: Should we show loader in case if data is not loaded yet?
     if (!isDataLoaded || !forwarderDomain) {
+        return null;
+    }
+
+    // FIXME: Maybe we should show something if user already accepted consent?
+    if (policyAgreement) {
         return null;
     }
 
@@ -57,12 +71,16 @@ export function App() {
         await messenger.openTab(eulaUrl);
     };
 
-    const handlePolicyToggle = (): void => {
-        setPolicyAgreement((old) => !old);
+    const handlePolicyToggle = async (): Promise<void> => {
+        const newValue = !cachedPolicyAgreement;
+        await messenger.updateAuthCache('policyAgreement', newValue);
+        setCachedPolicyAgreement(newValue);
     };
 
-    const handleHelpUsImproveToggle = (): void => {
-        setHelpUsImprove((old) => !old);
+    const handleHelpUsImproveToggle = async (): Promise<void> => {
+        const newValue = !cachedHelpUsImprove;
+        await messenger.updateAuthCache('helpUsImprove', newValue);
+        setCachedHelpUsImprove(newValue);
     };
 
     const openUsageDataModal = (e: React.MouseEvent<HTMLAnchorElement>): void => {
@@ -80,7 +98,10 @@ export function App() {
 
     const handleContinueClick = async (): Promise<void> => {
         // save the consent data
-        await messenger.setConsentData(policyAgreement, helpUsImprove);
+        await messenger.setConsentData(cachedPolicyAgreement, cachedHelpUsImprove);
+        setPolicyAgreement(cachedPolicyAgreement);
+
+        // FIXME: Initiate WebAuth
     };
 
     return (
@@ -132,7 +153,8 @@ export function App() {
                                 </a>
                             ),
                         })}
-                        value={policyAgreement}
+                        // cast value to boolean, because it might be `null` from background
+                        value={!!cachedPolicyAgreement}
                         onToggle={handlePolicyToggle}
                     />
                     <Checkbox
@@ -149,11 +171,12 @@ export function App() {
                                 </a>
                             ),
                         })}
-                        value={helpUsImprove}
+                        // cast value to boolean, because it might be `null` from background
+                        value={!!cachedHelpUsImprove}
                         onToggle={handleHelpUsImproveToggle}
                     />
                 </div>
-                <Button onClick={handleContinueClick} disabled={!policyAgreement}>
+                <Button onClick={handleContinueClick} disabled={!cachedPolicyAgreement}>
                     {translator.getMessage('popup_auth_policy_agreement_continue_button')}
                 </Button>
             </div>
