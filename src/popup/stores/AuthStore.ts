@@ -8,31 +8,20 @@ import isNil from 'lodash/isNil';
 
 import { messenger } from '../../common/messenger';
 import { FLAGS_FIELDS } from '../../common/constants';
+import { AuthCacheKey } from '../../background/authentication/authCacheTypes';
 
 import { RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
 
-export enum CredentialsKey {
-    MarketingConsent = 'marketingConsent',
-}
-
-interface CredentialsInterface {
-    [CredentialsKey.MarketingConsent]: boolean | string;
-}
-
 const DEFAULTS = {
-    credentials: {
-        [CredentialsKey.MarketingConsent]: '',
-    },
     authenticated: false,
     authenticatedStatusRetrieved: false,
     policyAgreement: false,
     helpUsImprove: false,
+    marketingConsent: false,
 };
 
 export class AuthStore {
-    @observable credentials: CredentialsInterface = DEFAULTS.credentials;
-
     @observable authenticated = DEFAULTS.authenticated;
 
     @observable authenticatedStatusRetrieved = DEFAULTS.authenticatedStatusRetrieved;
@@ -40,6 +29,8 @@ export class AuthStore {
     @observable policyAgreement = DEFAULTS.policyAgreement;
 
     @observable helpUsImprove = DEFAULTS.helpUsImprove;
+
+    @observable marketingConsent = DEFAULTS.marketingConsent;
 
     @observable requestProcessState = RequestStatus.Done;
 
@@ -69,11 +60,6 @@ export class AuthStore {
         this.rootStore = rootStore;
     }
 
-    @action setDefaults = () => {
-        this.credentials = DEFAULTS.credentials;
-        this.authenticated = DEFAULTS.authenticated;
-    };
-
     @action getAuthCacheFromBackground = async () => {
         const {
             policyAgreement,
@@ -81,15 +67,14 @@ export class AuthStore {
             marketingConsent,
         } = await messenger.getAuthCache();
         runInAction(() => {
-            this.credentials = {
-                ...this.credentials,
-                marketingConsent,
-            };
             if (!isNil(policyAgreement)) {
                 this.policyAgreement = policyAgreement;
             }
             if (!isNil(helpUsImprove)) {
                 this.helpUsImprove = helpUsImprove;
+            }
+            if (!isNil(marketingConsent)) {
+                this.marketingConsent = marketingConsent;
             }
         });
     };
@@ -168,14 +153,14 @@ export class AuthStore {
     };
 
     @action setPolicyAgreement = async (value: boolean) => {
-        await messenger.updateAuthCache('policyAgreement', value);
+        await messenger.updateAuthCache(AuthCacheKey.PolicyAgreement, value);
         runInAction(() => {
             this.policyAgreement = value;
         });
     };
 
     @action setHelpUsImprove = async (value: boolean) => {
-        await messenger.updateAuthCache('helpUsImprove', value);
+        await messenger.updateAuthCache(AuthCacheKey.HelpUsImprove, value);
         runInAction(() => {
             this.helpUsImprove = value;
         });
@@ -186,16 +171,11 @@ export class AuthStore {
     };
 
     @action setMarketingConsent = async (value: boolean) => {
-        await messenger.updateAuthCache('marketingConsent', value);
+        await messenger.updateAuthCache(AuthCacheKey.MarketingConsent, value);
         runInAction(() => {
-            this.credentials.marketingConsent = value;
+            this.marketingConsent = value;
         });
     };
-
-    @computed
-    get marketingConsent() {
-        return this.credentials.marketingConsent;
-    }
 
     @action setRating = (value: number) => {
         this.rating = value;

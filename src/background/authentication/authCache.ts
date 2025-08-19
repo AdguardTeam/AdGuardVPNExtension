@@ -1,20 +1,16 @@
-type CacheValue = boolean | null | string;
-
-interface AuthCacheData {
-    [key: string]: CacheValue;
-}
+import { AuthCacheKey, type AuthCacheValue, type AuthCacheData } from './authCacheTypes';
 
 interface AuthCacheInterface {
-    updateCache(field: string, value: CacheValue): void;
+    updateCache(field: AuthCacheKey, value: AuthCacheValue): void;
     getCache(): AuthCacheData;
     clearCache(): void;
 }
 
 const AuthCache = (): AuthCacheInterface => {
     const DEFAULTS: AuthCacheData = {
-        policyAgreement: null,
-        helpUsImprove: null,
-        marketingConsent: null,
+        [AuthCacheKey.PolicyAgreement]: null,
+        [AuthCacheKey.HelpUsImprove]: null,
+        [AuthCacheKey.MarketingConsent]: null,
     };
 
     let authCache = { ...DEFAULTS };
@@ -31,7 +27,7 @@ const AuthCache = (): AuthCacheInterface => {
      * @param field
      * @param value
      */
-    const updateCache = (field: string, value: CacheValue): void => {
+    const updateCache = (field: AuthCacheKey, value: AuthCacheValue): void => {
         authCache[field] = value;
     };
 

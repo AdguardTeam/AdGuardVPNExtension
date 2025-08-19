@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, { useEffect, useState } from 'react';
 
+import { AuthCacheKey } from '../../background/authentication/authCacheTypes';
 import { messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
 import { reactTranslator } from '../../common/reactTranslator';
@@ -73,13 +74,13 @@ export function App() {
 
     const handlePolicyToggle = async (): Promise<void> => {
         const newValue = !cachedPolicyAgreement;
-        await messenger.updateAuthCache('policyAgreement', newValue);
+        await messenger.updateAuthCache(AuthCacheKey.PolicyAgreement, newValue);
         setCachedPolicyAgreement(newValue);
     };
 
     const handleHelpUsImproveToggle = async (): Promise<void> => {
         const newValue = !cachedHelpUsImprove;
-        await messenger.updateAuthCache('helpUsImprove', newValue);
+        await messenger.updateAuthCache(AuthCacheKey.HelpUsImprove, newValue);
         setCachedHelpUsImprove(newValue);
     };
 
