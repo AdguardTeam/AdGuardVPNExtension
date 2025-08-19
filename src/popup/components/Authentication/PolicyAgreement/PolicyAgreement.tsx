@@ -112,7 +112,7 @@ export const PolicyAgreement = observer(() => {
                 <button
                     type="button"
                     onClick={handleContinueClick}
-                    className="button button--medium button--green form__btn policy-agreement__button"
+                    className="button button--medium button--green policy-agreement__button"
                     disabled={!authStore.policyAgreement}
                 >
                     {translator.getMessage('popup_auth_policy_agreement_continue_button')}

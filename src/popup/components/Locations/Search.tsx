@@ -34,16 +34,15 @@ export const Search = ({
     onChange,
     onClear,
 }: SearchProps) => {
-    const crossClassNames = classnames(
-        'form__input-btn',
-        { 'form__input-btn--active': value.length > 0 },
-    );
+    const crossClassNames = classnames('endpoints-search__clear', {
+        'endpoints-search__clear--active': value.length > 0,
+    });
 
     return (
-        <div className="endpoints__search form__input-wrapper">
+        <div className="endpoints-search">
             <input
                 autoFocus
-                className="form__input form__input--with-button"
+                className="endpoints-search__input"
                 type="text"
                 placeholder={translator.getMessage('endpoints_search')}
                 value={value}

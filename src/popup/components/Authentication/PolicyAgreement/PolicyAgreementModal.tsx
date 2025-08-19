@@ -54,7 +54,7 @@ export const PolicyAgreementModal = observer(() => {
                 <button
                     type="button"
                     onClick={closeAgreementModal}
-                    className="button button--medium button--green form__btn policy-agreement__modal-button"
+                    className="button button--medium button--green policy-agreement__modal-button"
                 >
                     {translator.getMessage('settings_help_us_improve_modal_button')}
                 </button>

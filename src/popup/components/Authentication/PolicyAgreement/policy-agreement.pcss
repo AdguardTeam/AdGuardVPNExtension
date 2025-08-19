@@ -48,6 +48,17 @@
     }
 
     /* To increase selector specificity we add .button */
+    &__button.button,
+    &__modal-button.button {
+        margin-top: auto;
+        display: block;
+        width: 100%;
+        line-height: 22px;
+        font-size: 1.6rem;
+        user-select: none;
+    }
+
+    /* To increase selector specificity we add .button */
     &__button.button {
         margin-top: 24px;
 
