@@ -56,7 +56,6 @@ export enum MessageType {
     OPEN_OPTIONS_PAGE = 'open.options.page',
     SET_SELECTED_LOCATION = 'set.selected.location',
     DEAUTHENTICATE_USER = 'deauthenticate.user',
-    AUTHENTICATE_USER = 'authenticate.user',
     UPDATE_AUTH_CACHE = 'update.auth.cache',
     GET_AUTH_CACHE = 'get.auth.cache',
     CLEAR_AUTH_CACHE = 'clear.auth.cache',
@@ -141,38 +140,6 @@ export const FLAGS_FIELDS = {
 };
 
 /**
- * Authentication flow steps.
- */
-export const AUTH_STEPS = {
-    /**
-     * Policy agreement or also called consent step.
-     * This step is shown only for new users in the extension popup.
-     * For Firefox, this step is also shown as separate consent page.
-     *
-     * In this step, user needs to agree with the policy and EULA.
-     */
-    POLICY_AGREEMENT: 'policyAgreement',
-
-    /**
-     * Authorization step.
-     * In this step, user can type email or sign in with social account.
-     */
-    AUTHORIZATION: 'authorization',
-
-    /**
-     * Email confirmation step.
-     * In this step, user needs to confirm their email address.
-     */
-    CHECK_EMAIL: 'checkEmail',
-
-    /**
-     * Sign in step.
-     * In this step, user needs to type password to sign in with existing account.
-     */
-    SIGN_IN: 'signIn',
-};
-
-/**
  * Absolute URL for the consent page.
  */
 export const CONSENT_PAGE_URL = '/consent.html';
@@ -188,8 +155,6 @@ export enum SubscriptionType {
 }
 
 export const CUSTOM_DNS_ANCHOR_NAME = 'custom-dns';
-
-export const BAD_CREDENTIALS_CODE = 'bad_credentials';
 
 export const ONE_SECOND_MS = 1000;
 export const ONE_MINUTE_MS = ONE_SECOND_MS * 60;

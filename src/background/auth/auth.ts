@@ -15,7 +15,6 @@ import { fallbackApi } from '../api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
 import { flagsStorage } from '../flagsStorage';
-import type { AuthCredentials } from '../api/apiTypes';
 import { StorageKey, type AuthAccessToken, type AuthState } from '../schema';
 import { authService } from '../authentication/authService';
 import { stateStorage } from '../stateStorage';
@@ -24,7 +23,6 @@ import { type SocialAuthData } from './socialAuthSchema';
 import { type ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema';
 
 export interface AuthInterface {
-    authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
     isAuthenticated(turnOffProxy?: boolean): Promise<boolean>;
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
     getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string>;
@@ -70,26 +68,6 @@ class Auth implements AuthInterface {
     private set accessTokenData(accessTokenData: AuthAccessToken | null) {
         this.state.accessTokenData = accessTokenData;
         this.saveAuthState();
-    }
-
-    async authenticate(credentials: AuthCredentials): Promise<{ status: string }> {
-        // turn off proxy to be sure it is not enabled before authentication
-        try {
-            await proxy.turnOff();
-        } catch (e) {
-            log.error(e.message);
-        }
-
-        let accessToken;
-        try {
-            accessToken = await authProvider.getAccessToken(credentials);
-        } catch (e) {
-            return JSON.parse(e.message);
-        }
-
-        await this.setAccessToken(accessToken);
-        await flagsStorage.onAuthenticate();
-        return { status: 'ok' };
     }
 
     /**

@@ -1,28 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 
 import classNames from 'classnames';
 
-import { rootStore } from '../../stores';
-
-import { SignInForm } from './SignInForm';
 import { Authorization } from './Authorization';
 import { PolicyAgreement } from './PolicyAgreement';
 
 import './auth.pcss';
 
 export const Authentication = observer(() => {
-    const { authStore } = useContext(rootStore);
-
     const getForm = (step: string) => {
         switch (step) {
-            case authStore.STEPS.AUTHORIZATION: {
-                return <Authorization />;
-            }
-            case authStore.STEPS.SIGN_IN: {
-                return <SignInForm />;
-            }
-            case authStore.STEPS.POLICY_AGREEMENT: {
+            case 'policyAgreement': {
                 return <PolicyAgreement />;
             }
             default: {
@@ -31,16 +20,14 @@ export const Authentication = observer(() => {
         }
     };
 
-    const { step } = authStore;
-
     const containerClassNames = classNames('auth__container', {
-        'auth__container--agreement': step === authStore.STEPS.POLICY_AGREEMENT,
+        'auth__container--agreement': true,
     });
 
     return (
         <div className="auth">
             <div className={containerClassNames}>
-                {getForm(step)}
+                {getForm('policyAgreement')}
             </div>
         </div>
     );

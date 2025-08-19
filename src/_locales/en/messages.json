@@ -9,21 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "authentication_error_account_disabled": {
-        "message": "Account is disabled"
-    },
-    "authentication_error_account_locked": {
-        "message": "Account is locked for 15 minutes"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Wrong password"
-    },
-    "authentication_too_many_requests": {
-        "message": "We received too many requests from your IP address. Please try again later."
-    },
-    "authentication_error_default": {
-        "message": "An error occurred, try again later"
-    },
     "global_error_message": {
         "message": "An error occurred, please contact us via <a>%support_email%</a>"
     },
@@ -150,21 +135,6 @@
     "auth_email": {
         "message": "Email Address"
     },
-    "auth_password": {
-        "message": "Password"
-    },
-    "auth_your_password": {
-        "message": "Your password"
-    },
-    "auth_recover": {
-        "message": "Forgot password?"
-    },
-    "auth_sign_in": {
-        "message": "Enter your password"
-    },
-    "auth_sign_in_button": {
-        "message": "Log in"
-    },
     "auth_title": {
         "message": "Log in or create an account"
     },
@@ -182,9 +152,6 @@
     },
     "auth_sign_in_provider_facebook": {
         "message": "Continue with Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Logging in as <span>%username%</span>"
     },
     "official_website": {
         "message": "Official website"
@@ -1110,9 +1077,6 @@
     },
     "confirm_email_done_info": {
         "message": "Thanks for verifying it!"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Please check the code — it looks incorrect"
     },
     "resend_confirm_registration_link_notification": {
         "message": "Confirmation link resent"

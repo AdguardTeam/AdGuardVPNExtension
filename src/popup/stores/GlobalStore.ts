@@ -90,7 +90,6 @@ export class GlobalStore {
             vpnStore.setSavedLocationIds(savedLocationIds);
 
             if (!isAuthenticated) {
-                await authStore.handleInitPolicyAgreement(policyAgreement);
                 await authStore.getAuthCacheFromBackground();
                 this.setInitStatus(RequestStatus.Done);
                 return;

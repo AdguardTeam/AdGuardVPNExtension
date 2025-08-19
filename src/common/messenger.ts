@@ -336,16 +336,6 @@ class Messenger {
         return this.sendMessage(type, { location, isSelectedByUser });
     }
 
-    async authenticateUser(
-        credentials: {
-            username: string;
-            password: string;
-        },
-    ) {
-        const type = MessageType.AUTHENTICATE_USER;
-        return this.sendMessage(type, { credentials });
-    }
-
     async deauthenticateUser() {
         const type = MessageType.DEAUTHENTICATE_USER;
         return this.sendMessage(type);

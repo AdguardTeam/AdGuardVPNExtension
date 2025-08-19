@@ -1,60 +1,11 @@
-import { AUTH_CLIENT_ID } from '../config';
-import { appStatus } from '../appStatus';
-
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
-import { type AuthCredentials, type RequestProps } from './apiTypes';
+import { type RequestProps } from './apiTypes';
 
 // Documentation
 // projects/ADGUARD/repos/adguard-auth-service/browse/oauth.md
 class AuthApi extends Api {
     // API ENDPOINTS
-    GET_TOKEN: RequestProps = { path: 'oauth/token', method: 'POST' };
-
-    getAccessToken(credentials: AuthCredentials) {
-        const {
-            username,
-            password,
-            twoFactor,
-            code,
-        } = credentials;
-        const { path, method } = this.GET_TOKEN;
-
-        type Data = {
-            username: string;
-            password: string;
-            scope: string;
-            grant_type: string;
-            client_id: string;
-            app_version: string;
-            '2fa_token'?: string;
-            code?: string;
-        };
-
-        const params: Data = {
-            username,
-            password,
-            scope: 'trust',
-            grant_type: 'password_2fa',
-            client_id: AUTH_CLIENT_ID,
-            app_version: appStatus.version,
-        };
-
-        if (twoFactor) {
-            params['2fa_token'] = twoFactor;
-        }
-
-        if (code) {
-            params.code = code;
-        }
-
-        const body = new URLSearchParams(params).toString();
-
-        const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
-
-        return this.makeRequest(path, { body, headers }, method);
-    }
-
     USER_LOOKUP: RequestProps = { path: 'api/1.0/user_lookup', method: 'POST' };
 
     userLookup(email: string, appId: string) {

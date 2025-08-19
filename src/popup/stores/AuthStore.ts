@@ -3,43 +3,33 @@ import {
     action,
     runInAction,
     computed,
-    toJS,
 } from 'mobx';
 import isNil from 'lodash/isNil';
 
 import { messenger } from '../../common/messenger';
-import {
-    BAD_CREDENTIALS_CODE,
-    FLAGS_FIELDS,
-    type SocialAuthProvider,
-    AUTH_STEPS,
-} from '../../common/constants';
+import { FLAGS_FIELDS, type SocialAuthProvider } from '../../common/constants';
 
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
+import { RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
 
 export enum CredentialsKey {
     Username = 'username',
-    Password = 'password',
     MarketingConsent = 'marketingConsent',
 }
 
 interface CredentialsInterface {
     [CredentialsKey.Username]: string;
-    [CredentialsKey.Password]: string;
     [CredentialsKey.MarketingConsent]: boolean | string;
 }
 
 const DEFAULTS = {
     credentials: {
         [CredentialsKey.Username]: '',
-        [CredentialsKey.Password]: '',
         [CredentialsKey.MarketingConsent]: '',
     },
     authenticated: false,
     authenticatedStatusRetrieved: false,
     error: null,
-    step: AUTH_STEPS.AUTHORIZATION,
     prevSteps: [],
     agreement: true,
     policyAgreement: false,
@@ -57,13 +47,6 @@ export class AuthStore {
     @observable authenticatedStatusRetrieved = DEFAULTS.authenticatedStatusRetrieved;
 
     @observable error: string | null = DEFAULTS.error;
-
-    @observable step = DEFAULTS.step;
-
-    /**
-     * Needed for BackButton to navigate properly.
-     */
-    @observable prevSteps: string[] = DEFAULTS.prevSteps;
 
     @observable policyAgreement = DEFAULTS.policyAgreement;
 
@@ -95,8 +78,6 @@ export class AuthStore {
 
     @observable showHintPopup = false;
 
-    STEPS = AUTH_STEPS;
-
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -107,7 +88,6 @@ export class AuthStore {
         this.credentials = DEFAULTS.credentials;
         this.authenticated = DEFAULTS.authenticated;
         this.error = DEFAULTS.error;
-        this.step = DEFAULTS.step;
         this.signInCheck = DEFAULTS.signInCheck;
     };
 
@@ -127,8 +107,6 @@ export class AuthStore {
     @action getAuthCacheFromBackground = async () => {
         const {
             username,
-            password,
-            step,
             signInCheck,
             policyAgreement,
             helpUsImprove,
@@ -139,12 +117,8 @@ export class AuthStore {
             this.credentials = {
                 ...this.credentials,
                 username,
-                password,
                 marketingConsent,
             };
-            if (step) {
-                this.step = step;
-            }
             if (signInCheck) {
                 this.signInCheck = signInCheck;
             }
@@ -193,15 +167,6 @@ export class AuthStore {
         this.isFirstRun = value;
     };
 
-    @computed
-    get disableLogin() {
-        const { username, password } = this.credentials;
-        if (!username || !password) {
-            return true;
-        }
-        return false;
-    }
-
     // AG-10009 Newsletter subscription screen
     @computed
     get renderNewsletter() {
@@ -227,39 +192,6 @@ export class AuthStore {
         return this.forceShowUpgradeScreen || (this.showUpgradeScreen && this.shouldRenderPromo);
     }
 
-    @action authenticate = async () => {
-        this.requestProcessState = RequestStatus.Pending;
-        const response = await messenger.authenticateUser(toJS(this.credentials));
-
-        if (response.error) {
-            // user may enter a wrong password but during email confirmation
-            // the password is to be checked after the valid code is entered.
-            // so 'bad_credentials' may appear on email confirmation step
-            // and it should be handled properly
-            if (response.status === BAD_CREDENTIALS_CODE) {
-                // redirect user to password step
-                this.switchStep(this.STEPS.SIGN_IN, false);
-            }
-
-            runInAction(() => {
-                this.requestProcessState = RequestStatus.Error;
-            });
-            await this.setError(response.error);
-            return;
-        }
-
-        if (response.status === 'ok') {
-            await messenger.clearAuthCache();
-            await messenger.checkPermissions();
-            await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
-            runInAction(() => {
-                this.requestProcessState = RequestStatus.Done;
-                this.authenticated = true;
-                this.credentials = DEFAULTS.credentials;
-            });
-        }
-    };
-
     @action checkEmail = async () => {
         this.requestProcessState = RequestStatus.Pending;
 
@@ -273,26 +205,6 @@ export class AuthStore {
             return;
         }
 
-        // before switching step save the current one to be able to return to it back
-        this.prevSteps.push(this.step);
-
-        if (!response.canRegister) {
-            await this.switchStep(this.STEPS.SIGN_IN);
-        }
-
-        runInAction(() => {
-            this.requestProcessState = RequestStatus.Done;
-        });
-    };
-
-    @action isAuthenticated = async () => {
-        this.requestProcessState = RequestStatus.Pending;
-        const result = await messenger.isAuthenticated();
-        if (result) {
-            runInAction(() => {
-                this.authenticated = true;
-            });
-        }
         runInAction(() => {
             this.requestProcessState = RequestStatus.Done;
         });
@@ -320,23 +232,6 @@ export class AuthStore {
         window.close();
     };
 
-    @action switchStep = async (step: string, shouldResetErrors: boolean = true) => {
-        this.step = step;
-        if (shouldResetErrors) {
-            await this.resetError();
-        }
-        await messenger.updateAuthCache('step', step);
-    };
-
-    @action showAuthorizationScreen = async () => {
-        await this.switchStep(this.STEPS.AUTHORIZATION);
-        this.requestProcessState = RequestStatus.Done;
-    };
-
-    @action resetRequestProcessionState = () => {
-        this.requestProcessState = RequestStatus.Done;
-    };
-
     @action openSignInCheck = async () => {
         await messenger.updateAuthCache('signInCheck', true);
 
@@ -358,12 +253,6 @@ export class AuthStore {
         runInAction(() => {
             this.policyAgreement = value;
         });
-    };
-
-    @action handleInitPolicyAgreement = async (policyAgreement: boolean) => {
-        if (!policyAgreement) {
-            await this.switchStep(AUTH_STEPS.POLICY_AGREEMENT);
-        }
     };
 
     @action setHelpUsImprove = async (value: boolean) => {

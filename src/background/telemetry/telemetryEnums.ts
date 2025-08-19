@@ -12,7 +12,6 @@ export enum TelemetryScreenName {
     // Popup screens
     AuthScreen = 'auth_screen',
     AuthLoginScreen1 = 'auth_login_screen1',
-    AuthLoginScreen2 = 'auth_login_screen2',
     NewsletterScreen = 'newsletter_screen',
     OnboardingScreen = 'onboarding_screen',
     PurchaseScreen = 'purchase_screen',

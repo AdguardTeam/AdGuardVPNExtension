@@ -13,8 +13,6 @@ interface AuthCacheInterface {
 const AuthCache = (): AuthCacheInterface => {
     const DEFAULTS: AuthCacheData = {
         username: '',
-        password: '',
-        step: '',
         signInCheck: false,
         policyAgreement: null,
         helpUsImprove: null,
