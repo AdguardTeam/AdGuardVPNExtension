@@ -1,12 +1,7 @@
-import { SETTINGS_IDS, CONSENT_PAGE_URL } from '../common/constants';
-import { getForwarderUrl } from '../common/helpers';
-import { Prefs } from '../common/prefs';
+import { SETTINGS_IDS } from '../common/constants';
 
-import { getUrl } from './browserApi/runtime';
-import { FORWARDER_URL_QUERIES } from './config';
 import { forwarder } from './forwarder';
 import { settings } from './settings';
-import { tabs } from './tabs';
 
 /**
  * Retrieves data needed for the consent page.
@@ -35,27 +30,4 @@ export const setConsentData = async (policyAgreement: boolean, helpUsImprove: bo
     // update settings with the provided values
     await settings.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, policyAgreement);
     await settings.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, helpUsImprove);
-
-    // FIXME: Correct this
-
-    /**
-     * If Firefox, we should show thank you page after consent.
-     * - If consent page is closed, we should open the thank you page in a new tab.
-     * - If consent page is open, we should update the URL of the tab to the thank you page.
-     */
-    if (Prefs.isFirefox()) {
-        const forwarderDomain = await forwarder.updateAndGetDomain();
-        const firefoxThankYouPageUrl = getForwarderUrl(
-            forwarderDomain,
-            FORWARDER_URL_QUERIES.FIREFOX_THANK_YOU_PAGE,
-        );
-
-        const consentTab = await tabs.getTabByUrl(getUrl(CONSENT_PAGE_URL));
-
-        if (consentTab && typeof consentTab.id === 'number') {
-            await tabs.update(consentTab.id, firefoxThankYouPageUrl);
-        } else {
-            await tabs.openTab(firefoxThankYouPageUrl);
-        }
-    }
 };
