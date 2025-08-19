@@ -66,7 +66,6 @@ export enum MessageType {
     REMOVE_EXCLUSION = 'remove.exclusion',
     DISABLE_VPN_BY_URL = 'disable.vpn.by.url',
     ENABLE_VPN_BY_URL = 'enable.vpn.by.url',
-    CHECK_EMAIL = 'check.email',
     DISABLE_OTHER_EXTENSIONS = 'disable.other.extensions',
     IS_AUTHENTICATED = 'is.authenticated',
     START_SOCIAL_AUTH = 'start.social.auth',

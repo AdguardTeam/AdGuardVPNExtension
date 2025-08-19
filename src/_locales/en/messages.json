@@ -9,9 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "global_error_message": {
-        "message": "An error occurred, please contact us via <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "About"
     },
@@ -132,17 +129,8 @@
     "rate_hide": {
         "message": "Hide"
     },
-    "auth_email": {
-        "message": "Email Address"
-    },
     "auth_title": {
         "message": "Log in or create an account"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Email"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Continue with email"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continue with Apple"

@@ -13,30 +13,21 @@ import { RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
 
 export enum CredentialsKey {
-    Username = 'username',
     MarketingConsent = 'marketingConsent',
 }
 
 interface CredentialsInterface {
-    [CredentialsKey.Username]: string;
     [CredentialsKey.MarketingConsent]: boolean | string;
 }
 
 const DEFAULTS = {
     credentials: {
-        [CredentialsKey.Username]: '',
         [CredentialsKey.MarketingConsent]: '',
     },
     authenticated: false,
     authenticatedStatusRetrieved: false,
-    error: null,
-    prevSteps: [],
-    agreement: true,
     policyAgreement: false,
     helpUsImprove: false,
-    signInCheck: false,
-    showOnboarding: true,
-    showUpgradeScreen: true,
 };
 
 export class AuthStore {
@@ -46,15 +37,11 @@ export class AuthStore {
 
     @observable authenticatedStatusRetrieved = DEFAULTS.authenticatedStatusRetrieved;
 
-    @observable error: string | null = DEFAULTS.error;
-
     @observable policyAgreement = DEFAULTS.policyAgreement;
 
     @observable helpUsImprove = DEFAULTS.helpUsImprove;
 
     @observable requestProcessState = RequestStatus.Done;
-
-    @observable signInCheck = DEFAULTS.signInCheck;
 
     @observable isNewUser: boolean;
 
@@ -74,8 +61,6 @@ export class AuthStore {
 
     @observable rating = 0;
 
-    @observable userEmail = '';
-
     @observable showHintPopup = false;
 
     rootStore: RootStore;
@@ -87,48 +72,25 @@ export class AuthStore {
     @action setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
         this.authenticated = DEFAULTS.authenticated;
-        this.error = DEFAULTS.error;
-        this.signInCheck = DEFAULTS.signInCheck;
-    };
-
-    @action resetError = async () => {
-        await this.setError(DEFAULTS.error);
-    };
-
-    @action onCredentialsChange = async (field: CredentialsKey, value: string) => {
-        await this.resetError();
-
-        runInAction(() => {
-            this.credentials[field] = value;
-        });
-        await messenger.updateAuthCache(field, value);
     };
 
     @action getAuthCacheFromBackground = async () => {
         const {
-            username,
-            signInCheck,
             policyAgreement,
             helpUsImprove,
             marketingConsent,
-            authError,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
                 ...this.credentials,
-                username,
                 marketingConsent,
             };
-            if (signInCheck) {
-                this.signInCheck = signInCheck;
-            }
             if (!isNil(policyAgreement)) {
                 this.policyAgreement = policyAgreement;
             }
             if (!isNil(helpUsImprove)) {
                 this.helpUsImprove = helpUsImprove;
             }
-            this.error = authError;
         });
     };
 
@@ -192,24 +154,6 @@ export class AuthStore {
         return this.forceShowUpgradeScreen || (this.showUpgradeScreen && this.shouldRenderPromo);
     }
 
-    @action checkEmail = async () => {
-        this.requestProcessState = RequestStatus.Pending;
-
-        const response = await messenger.checkEmail(this.credentials.username);
-
-        if (response.error) {
-            runInAction(() => {
-                this.requestProcessState = RequestStatus.Error;
-            });
-            await this.setError(response.error);
-            return;
-        }
-
-        runInAction(() => {
-            this.requestProcessState = RequestStatus.Done;
-        });
-    };
-
     @action setIsAuthenticated = (value: boolean) => {
         this.authenticated = value;
     };
@@ -219,7 +163,7 @@ export class AuthStore {
     };
 
     @action deauthenticate = async () => {
-        this.setDefaults();
+        this.authenticated = false;
         await messenger.deauthenticateUser();
     };
 
@@ -230,22 +174,6 @@ export class AuthStore {
     @action openSocialAuth = async (provider: SocialAuthProvider) => {
         await messenger.startSocialAuth(provider, !!this.marketingConsent);
         window.close();
-    };
-
-    @action openSignInCheck = async () => {
-        await messenger.updateAuthCache('signInCheck', true);
-
-        runInAction(() => {
-            this.signInCheck = true;
-        });
-    };
-
-    @action openSignUpCheck = async () => {
-        await messenger.updateAuthCache('signInCheck', false);
-
-        runInAction(() => {
-            this.signInCheck = false;
-        });
     };
 
     @action setPolicyAgreement = async (value: boolean) => {
@@ -273,21 +201,9 @@ export class AuthStore {
         });
     };
 
-    @action setError = async (value: string | null) => {
-        await messenger.updateAuthCache('authError', value);
-        runInAction(() => {
-            this.error = value;
-        });
-    };
-
     @computed
     get marketingConsent() {
         return this.credentials.marketingConsent;
-    }
-
-    @computed
-    get username() {
-        return this.credentials.username;
     }
 
     @action setRating = (value: number) => {

@@ -6,7 +6,6 @@ import { SocialAuthProvider } from '../../../../common/constants';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { Icon } from '../../../../common/components/Icons';
 import { TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
-import { EmailAuth } from '../EmailAuth';
 
 import './authorization.pcss';
 
@@ -38,7 +37,6 @@ export const Authorization = () => {
                 {reactTranslator.getMessage('auth_title')}
             </div>
             <div className="authorization__container">
-                <EmailAuth />
                 <div className="authorization__bottom-row" />
                 {Object.values(SocialAuthProvider).map((provider) => (
                     <button

@@ -329,11 +329,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
         case MessageType.CLEAR_EXCLUSIONS_LIST: {
             return exclusions.clearExclusionsData();
         }
-        case MessageType.CHECK_EMAIL: {
-            const { email } = data;
-            const appId = await credentials.getAppId();
-            return auth.userLookup(email, appId);
-        }
         case MessageType.DISABLE_OTHER_EXTENSIONS: {
             await management.turnOffProxyExtensions();
             break;

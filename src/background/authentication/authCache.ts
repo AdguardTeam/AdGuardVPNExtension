@@ -12,12 +12,9 @@ interface AuthCacheInterface {
 
 const AuthCache = (): AuthCacheInterface => {
     const DEFAULTS: AuthCacheData = {
-        username: '',
-        signInCheck: false,
         policyAgreement: null,
         helpUsImprove: null,
         marketingConsent: null,
-        authError: null,
     };
 
     let authCache = { ...DEFAULTS };

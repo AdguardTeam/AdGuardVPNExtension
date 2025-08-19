@@ -5,12 +5,10 @@ import { SocialAuthProvider } from '../../common/constants';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
 import { translator } from '../../common/translator';
-import { authProvider } from '../providers/authProvider';
 import { tabs } from '../tabs';
 import { proxy } from '../proxy';
 import { notifications } from '../notifications';
 import { AUTH_CLIENT_ID } from '../config';
-import { SUPPORT_EMAIL } from '../constants';
 import { fallbackApi } from '../api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
@@ -29,10 +27,6 @@ export interface AuthInterface {
     authenticateSocial(authData: SocialAuthData, tabId: number): Promise<void>;
     authenticateThankYouPage(rawData: unknown): Promise<void>;
     deauthenticate(): Promise<void>;
-    userLookup(
-        email: string,
-        appId: string,
-    ): Promise<{ canRegister: string } | { error: string }>;
     getAccessToken(turnOffProxy?: boolean): Promise<string>;
     init(): Promise<void>;
 }
@@ -247,30 +241,6 @@ class Auth implements AuthInterface {
         await proxy.resetSettings();
         await flagsStorage.onDeauthenticate();
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
-    }
-
-    /**
-     * Checks if user had such email registered
-     * @param email
-     * @param appId
-     */
-    async userLookup(
-        email: string,
-        appId: string,
-    ): Promise<{ canRegister: string } | { error: string }> {
-        let response;
-        try {
-            response = await authProvider.userLookup(email, appId);
-        } catch (e) {
-            log.error(e.message);
-            return {
-                error: translator.getMessage('global_error_message', {
-                    support_email: SUPPORT_EMAIL,
-                    a: (chunks: string) => `<a href="mailto:${SUPPORT_EMAIL}" target="_blank">${chunks}</a>`,
-                }),
-            };
-        }
-        return response;
     }
 
     async setAccessToken(accessToken: AuthAccessToken): Promise<void> {

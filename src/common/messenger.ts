@@ -2,7 +2,7 @@ import browser, { type Runtime } from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
 import type { LimitedOfferData } from '../background/limitedOfferService';
-import type { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
+import type { StartSocialAuthData } from '../background/messaging/messagingTypes';
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type {
@@ -414,11 +414,6 @@ class Messenger {
     async clearExclusionsList() {
         const type = MessageType.CLEAR_EXCLUSIONS_LIST;
         return this.sendMessage(type);
-    }
-
-    async checkEmail(email: string) {
-        const type = MessageType.CHECK_EMAIL;
-        return this.sendMessage<UserLookupData>(type, { email });
     }
 
     async disableOtherExtensions() {
