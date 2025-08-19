@@ -68,7 +68,6 @@ export enum MessageType {
     ENABLE_VPN_BY_URL = 'enable.vpn.by.url',
     DISABLE_OTHER_EXTENSIONS = 'disable.other.extensions',
     IS_AUTHENTICATED = 'is.authenticated',
-    START_SOCIAL_AUTH = 'start.social.auth',
     CLEAR_PERMISSIONS_ERROR = 'clear.permissions.error',
     CHECK_PERMISSIONS = 'check.permissions',
     GET_EXCLUSIONS_INVERTED = 'get.exclusions.inverted',
@@ -121,12 +120,6 @@ export enum MessageType {
     STATISTICS_GET_BY_RANGE = 'statistics.get.by.range',
     STATISTICS_CLEAR = 'statistics.clear',
     STATISTICS_SET_IS_DISABLED = 'statistics.set.is.disabled',
-}
-
-export enum SocialAuthProvider {
-    Apple = 'apple',
-    Google = 'google',
-    Facebook = 'facebook',
 }
 
 export const FLAGS_FIELDS = {

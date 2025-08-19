@@ -200,14 +200,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             delete eventListeners[listenerId];
             break;
         }
-        case MessageType.AUTHENTICATE_SOCIAL: {
-            const id = sender?.tab?.id;
-            if (!id) {
-                return undefined;
-            }
-
-            return auth.authenticateSocial(message.data, id);
-        }
         case MessageType.AUTHENTICATE_THANKYOU_PAGE: {
             const { token, redirectUrl, newUser } = message.data;
             return auth.authenticateThankYouPage({ token, redirectUrl, newUser });
@@ -335,10 +327,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
         }
         case MessageType.IS_AUTHENTICATED: {
             return auth.isAuthenticated();
-        }
-        case MessageType.START_SOCIAL_AUTH: {
-            const { provider, marketingConsent } = data;
-            return auth.startSocialAuth(provider, marketingConsent);
         }
         case MessageType.CLEAR_PERMISSIONS_ERROR: {
             permissionsError.clearError();

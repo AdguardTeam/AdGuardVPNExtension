@@ -163,16 +163,6 @@ export class FallbackApi {
         return fallbackInfo.authApiUrl;
     };
 
-    public getAuthBaseUrl = async (): Promise<string> => {
-        const authApiUrl = await this.getAuthApiUrl();
-        return `${authApiUrl}/oauth/authorize`;
-    };
-
-    public getAuthRedirectUri = async (): Promise<string> => {
-        const authApiUrl = await this.getAuthApiUrl();
-        return `${authApiUrl}/oauth.html?adguard-vpn=1`;
-    };
-
     public getAccountApiUrl = async (): Promise<string> => {
         const vpnApiUrl = await this.getVpnApiUrl();
         return `${vpnApiUrl}/account`;

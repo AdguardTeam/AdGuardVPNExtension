@@ -129,18 +129,6 @@
     "rate_hide": {
         "message": "Hide"
     },
-    "auth_title": {
-        "message": "Log in or create an account"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Continue with Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Continue with Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Continue with Facebook"
-    },
     "official_website": {
         "message": "Official website"
     },

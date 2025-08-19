@@ -16,7 +16,6 @@ interface TabsInterface {
     getActive(): Promise<PreparedTab[]>;
     openTab(url: string): Promise<browser.Tabs.Tab>;
     closeTab(tabsIds: number[] | number): Promise<void>;
-    openSocialAuthTab(authUrl: string): Promise<void>;
     reload(tabId: number): Promise<void>;
     getTabByUrl(url: string): Promise<browser.Tabs.Tab | undefined>;
     update(tabId: number, url: string): Promise<void>;
@@ -94,10 +93,6 @@ class Tabs implements TabsInterface {
      */
     async closeTab(tabsIds: number[] | number): Promise<void> {
         await browser.tabs.remove(tabsIds);
-    }
-
-    async openSocialAuthTab(authUrl: string): Promise<void> {
-        await this.openTab(authUrl);
     }
 
     async reload(tabId: number): Promise<void> {

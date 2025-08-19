@@ -2,7 +2,6 @@ import browser, { type Runtime } from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
 import type { LimitedOfferData } from '../background/limitedOfferService';
-import type { StartSocialAuthData } from '../background/messaging/messagingTypes';
 import type { DnsServerData } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import type {
@@ -16,7 +15,7 @@ import { type StatisticsByRange, type StatisticsRange } from '../background/stat
 
 import { type ExclusionsData, type ExclusionsMode, type ServiceDto } from './exclusionsConstants';
 import { log } from './logger';
-import { MessageType, type SocialAuthProvider, type ExclusionsContentMap } from './constants';
+import { MessageType, type ExclusionsContentMap } from './constants';
 import { type NotifierType } from './notifier';
 
 /**
@@ -424,11 +423,6 @@ class Messenger {
     async isAuthenticated() {
         const type = MessageType.IS_AUTHENTICATED;
         return this.sendMessage(type);
-    }
-
-    async startSocialAuth(provider: SocialAuthProvider, marketingConsent: boolean) {
-        const type = MessageType.START_SOCIAL_AUTH;
-        return this.sendMessage<StartSocialAuthData>(type, { provider, marketingConsent });
     }
 
     async clearPermissionsError() {

@@ -7,7 +7,7 @@ import {
 import isNil from 'lodash/isNil';
 
 import { messenger } from '../../common/messenger';
-import { FLAGS_FIELDS, type SocialAuthProvider } from '../../common/constants';
+import { FLAGS_FIELDS } from '../../common/constants';
 
 import { RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
@@ -165,15 +165,6 @@ export class AuthStore {
     @action deauthenticate = async () => {
         this.authenticated = false;
         await messenger.deauthenticateUser();
-    };
-
-    @action proceedAuthorization = async (provider: SocialAuthProvider) => {
-        await this.openSocialAuth(provider);
-    };
-
-    @action openSocialAuth = async (provider: SocialAuthProvider) => {
-        await messenger.startSocialAuth(provider, !!this.marketingConsent);
-        window.close();
     };
 
     @action setPolicyAgreement = async (value: boolean) => {

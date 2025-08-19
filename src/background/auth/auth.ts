@@ -1,15 +1,9 @@
-import qs from 'qs';
-import { nanoid } from 'nanoid';
-
-import { SocialAuthProvider } from '../../common/constants';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
 import { translator } from '../../common/translator';
 import { tabs } from '../tabs';
 import { proxy } from '../proxy';
 import { notifications } from '../notifications';
-import { AUTH_CLIENT_ID } from '../config';
-import { fallbackApi } from '../api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
 import { flagsStorage } from '../flagsStorage';
@@ -17,14 +11,10 @@ import { StorageKey, type AuthAccessToken, type AuthState } from '../schema';
 import { authService } from '../authentication/authService';
 import { stateStorage } from '../stateStorage';
 
-import { type SocialAuthData } from './socialAuthSchema';
 import { type ThankYouPageData, thankYouPageSchema } from './thankYouPageSchema';
 
 export interface AuthInterface {
     isAuthenticated(turnOffProxy?: boolean): Promise<boolean>;
-    startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
-    getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string>;
-    authenticateSocial(authData: SocialAuthData, tabId: number): Promise<void>;
     authenticateThankYouPage(rawData: unknown): Promise<void>;
     deauthenticate(): Promise<void>;
     getAccessToken(turnOffProxy?: boolean): Promise<string>;
@@ -45,15 +35,6 @@ class Auth implements AuthInterface {
     private saveAuthState = () => {
         stateStorage.setItem(StorageKey.AuthState, this.state);
     };
-
-    private get socialAuthState(): string | null {
-        return this.state.socialAuthState;
-    }
-
-    private set socialAuthState(socialAuthState: string | null) {
-        this.state.socialAuthState = socialAuthState;
-        this.saveAuthState();
-    }
 
     private get accessTokenData(): AuthAccessToken | null {
         return this.state.accessTokenData;
@@ -88,99 +69,6 @@ class Auth implements AuthInterface {
         }
 
         return !!accessToken;
-    }
-
-    async startSocialAuth(
-        socialProvider: SocialAuthProvider,
-        marketingConsent: boolean,
-    ): Promise<void> {
-        // turn off proxy to be sure it is not enabled before authentication
-        try {
-            await proxy.turnOff();
-        } catch (e) {
-            log.error(e.message);
-        }
-
-        // Generates uniq state id, which will be checked on the auth end
-        this.socialAuthState = nanoid();
-        const authUrl = await this.getImplicitAuthUrl(socialProvider, marketingConsent);
-        await tabs.openSocialAuthTab(authUrl);
-    }
-
-    async getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string> {
-        const params = {
-            response_type: 'token',
-            client_id: AUTH_CLIENT_ID,
-            redirect_uri: `https://${await fallbackApi.getAuthRedirectUri()}`,
-            scope: 'trust',
-            state: this.socialAuthState,
-            social_provider: '',
-            marketing_consent: false,
-        };
-
-        switch (socialProvider) {
-            case SocialAuthProvider.Google: {
-                params.social_provider = SocialAuthProvider.Google;
-                break;
-            }
-            case SocialAuthProvider.Facebook: {
-                params.social_provider = SocialAuthProvider.Facebook;
-                break;
-            }
-            case SocialAuthProvider.Apple: {
-                params.social_provider = SocialAuthProvider.Apple;
-                break;
-            }
-            default:
-                throw new Error(`There is no such provider: "${socialProvider}"`);
-        }
-
-        if (marketingConsent) {
-            params.marketing_consent = marketingConsent;
-        }
-
-        return `https://${await fallbackApi.getAuthBaseUrl()}?${qs.stringify(params)}`;
-    }
-
-    /**
-     * Authenticates a user using social auth data.
-     *
-     * @async
-     * @param authData - Object containing the social authentication data.
-     * @param tabId - The ID of the browser tab to close after successful authentication.
-     */
-    async authenticateSocial(authData: SocialAuthData, tabId: number): Promise<void> {
-        const isAuthenticated = await this.isAuthenticated();
-        if (isAuthenticated) {
-            return;
-        }
-
-        const {
-            state,
-            accessToken,
-            tokenType,
-            expiresIn,
-        } = authData;
-
-        const isStateMatching = state && state === this.socialAuthState;
-        if (!isStateMatching) {
-            log.error('Social auth state is not equal to the state received from the server');
-            return;
-        }
-
-        await this.setAccessToken({
-            accessToken,
-            expiresIn,
-            tokenType,
-        });
-        await tabs.closeTab(tabId);
-        this.socialAuthState = null;
-
-        // Notify options page, in order to update view
-        notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
-
-        await flagsStorage.onAuthenticateSocial();
-        await notifications.create({ message: translator.getMessage('authentication_successful_notification') });
     }
 
     /**

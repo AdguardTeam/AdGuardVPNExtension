@@ -9,7 +9,6 @@ import { log } from '../../common/logger';
 import { rootStore } from '../stores';
 
 const NOTIFIER_EVENTS = [
-    notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
     notifier.types.EXCLUSIONS_DATA_UPDATED,
     notifier.types.USER_AUTHENTICATED,
     notifier.types.USER_DEAUTHENTICATED,
@@ -32,10 +31,6 @@ export const useMessageHandler = () => {
         const { type, data, value } = message;
 
         switch (type) {
-            case notifier.types.AUTHENTICATE_SOCIAL_SUCCESS: {
-                authStore.setIsAuthenticated(true);
-                break;
-            }
             case notifier.types.EXCLUSIONS_DATA_UPDATED: {
                 await exclusionsStore.updateExclusionsData();
                 break;

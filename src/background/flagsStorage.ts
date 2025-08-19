@@ -74,14 +74,6 @@ class FlagsStorage implements FlagsStorageInterface {
     };
 
     /**
-     * Sets flags when new user authenticated using social net provider
-     */
-    onAuthenticateSocial = async (): Promise<void> => {
-        await this.set(FLAGS_FIELDS.IS_NEW_USER, false);
-        await this.set(FLAGS_FIELDS.IS_SOCIAL_AUTH, true);
-    };
-
-    /**
      * Sets flags when new user deauthenticated
      */
     onDeauthenticate = async (): Promise<void> => {
