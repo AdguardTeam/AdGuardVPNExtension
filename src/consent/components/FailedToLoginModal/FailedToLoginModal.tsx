@@ -22,6 +22,9 @@ export interface FailedToLoginModalProps {
     onClose: () => void;
 }
 
+/**
+ * Failed to login modal component. Shown when the user fails to log in.
+ */
 export function FailedToLoginModal({ isOpen, onClose }: FailedToLoginModalProps) {
     return (
         <Modal
