@@ -10,6 +10,7 @@ import { rootStore } from '../../stores';
 
 import { Checkbox } from './Checkbox';
 import { UsageDataModal } from './UsageDataModal';
+import { FailedToLoginModal } from './FailedToLoginModal';
 
 import './auth.pcss';
 
@@ -122,6 +123,7 @@ export const Authentication = observer(() => {
                 </button>
             </div>
             <UsageDataModal />
+            <FailedToLoginModal />
         </div>
     );
 });

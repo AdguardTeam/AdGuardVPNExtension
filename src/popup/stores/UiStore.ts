@@ -9,6 +9,8 @@ export class UiStore {
 
     @observable isUsageDataModalOpen: boolean = false;
 
+    @observable isFailedToLoginModalOpen: boolean = false;
+
     @observable isOpenRecovery: boolean = false;
 
     @observable isConnecting: boolean = false;
@@ -84,6 +86,14 @@ export class UiStore {
 
     @action closeUsageDataModal = (): void => {
         this.isUsageDataModalOpen = false;
+    };
+
+    @action openFailedToLoginModal = (): void => {
+        this.isFailedToLoginModalOpen = true;
+    };
+
+    @action closeFailedToLoginModal = (): void => {
+        this.isFailedToLoginModalOpen = false;
     };
 
     @action openVpnBlockedErrorNotice = (): void => {
