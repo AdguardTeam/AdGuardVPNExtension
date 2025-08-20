@@ -7,6 +7,7 @@ import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
 import vpnBlockedErrorNinjaImageUrl from '../../../assets/images/vpn-blocked-error-ninja.svg';
 import { rootStore } from '../../stores';
+import { Icon } from '../../../common/components/Icons';
 
 import { Checkbox } from './Checkbox';
 import { UsageDataModal } from './UsageDataModal';
@@ -25,6 +26,18 @@ export const Authentication = observer(() => {
 
     const { forwarderDomain } = settingsStore;
     const { openUsageDataModal } = uiStore;
+    const {
+        policyAgreement,
+        helpUsImprove,
+        isWebAuthFlowStarted,
+        isWebAuthFlowLoading,
+        setPolicyAgreement,
+        setHelpUsImprove,
+        onPolicyAgreementReceived,
+        startWebAuthFlow,
+        reopenWebAuthFlow,
+        cancelWebAuthFlow,
+    } = authStore;
 
     const { eulaUrl, privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
 
@@ -39,16 +52,57 @@ export const Authentication = observer(() => {
     };
 
     const onPolicyAgreementChange = async (value: boolean): Promise<void> => {
-        await authStore.setPolicyAgreement(value);
+        await setPolicyAgreement(value);
     };
 
     const onHelpUsImproveChanged = async (value: boolean): Promise<void> => {
-        await authStore.setHelpUsImprove(value);
+        await setHelpUsImprove(value);
     };
 
     const handleContinueClick = async (): Promise<void> => {
-        await authStore.onPolicyAgreementReceived();
+        await onPolicyAgreementReceived();
+        await startWebAuthFlow();
     };
+
+    if (isWebAuthFlowStarted) {
+        return (
+            <div className="auth-loading">
+                <div className="auth-loading__content">
+                    {isWebAuthFlowLoading && (
+                        <Icon
+                            name="spinner"
+                            color="product"
+                            size="48"
+                            className="auth-loading__spinner"
+                        />
+                    )}
+                    <h2 className="auth-loading__title">
+                        {translator.getMessage('auth_loading_title')}
+                    </h2>
+                    <p className="auth-loading__description">
+                        {translator.getMessage('auth_loading_description')}
+                    </p>
+                </div>
+                <div className="auth-loading__actions">
+                    <button
+                        type="button"
+                        className="button button--medium button--green auth-loading__button"
+                        onClick={reopenWebAuthFlow}
+                    >
+                        {translator.getMessage('auth_loading_button_reopen')}
+                    </button>
+                    <button
+                        type="button"
+                        className="button button--medium button--transparent auth-loading__button"
+                        onClick={cancelWebAuthFlow}
+                    >
+                        {translator.getMessage('auth_loading_button_cancel')}
+                    </button>
+                </div>
+                <FailedToLoginModal />
+            </div>
+        );
+    }
 
     return (
         <div className="auth">
@@ -66,7 +120,7 @@ export const Authentication = observer(() => {
                 <div className="auth__checkbox">
                     <Checkbox
                         id={POLICY_AGREEMENT_ID}
-                        checked={authStore.policyAgreement}
+                        checked={policyAgreement}
                         onChange={onPolicyAgreementChange}
                         label={reactTranslator.getMessage('popup_auth_policy_agreement', {
                             eula: (chunks: string) => (
@@ -97,7 +151,7 @@ export const Authentication = observer(() => {
                 <div className="auth__checkbox">
                     <Checkbox
                         id={HELP_US_IMPROVE_ID}
-                        checked={authStore.helpUsImprove}
+                        checked={helpUsImprove}
                         onChange={onHelpUsImproveChanged}
                         label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
                             link: (chunks: string) => (
@@ -117,7 +171,7 @@ export const Authentication = observer(() => {
                     type="button"
                     onClick={handleContinueClick}
                     className="button button--medium button--green auth__button"
-                    disabled={!authStore.policyAgreement}
+                    disabled={!policyAgreement}
                 >
                     {translator.getMessage('popup_auth_policy_agreement_continue_button')}
                 </button>

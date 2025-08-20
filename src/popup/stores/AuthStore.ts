@@ -54,6 +54,24 @@ export class AuthStore {
 
     @observable showHintPopup = false;
 
+    /**
+     * Is WebAuth flow started.
+     * Used to show auth loading screen.
+     */
+    @observable isWebAuthFlowStarted = false;
+
+    /**
+     * Is WebAuth flow loading.
+     * Used to show auth loading spinner.
+     */
+    @observable isWebAuthFlowLoading = false;
+
+    /**
+     * Is WebAuth flow has error.
+     * Used to show "Failed to Login" modal.
+     */
+    @observable isWebAuthFlowHasError = false;
+
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -197,6 +215,57 @@ export class AuthStore {
             default:
                 break;
         }
+    };
+
+    /**
+     * Starts the web authentication flow.
+     */
+    @action startWebAuthFlow = async () => {
+        this.isWebAuthFlowStarted = true;
+        this.isWebAuthFlowLoading = true;
+
+        const succeed = await messenger.startWebAuthFlow();
+
+        runInAction(() => {
+            this.isWebAuthFlowLoading = false;
+
+            if (succeed) {
+                // FIXME: End web auth flow
+            } else {
+                this.isWebAuthFlowHasError = true;
+            }
+        });
+    };
+
+    /**
+     * Reopens the web authentication flow.
+     */
+    @action reopenWebAuthFlow = async () => {
+        // If web auth flow is not loading, we should start again
+        if (!this.isWebAuthFlowLoading) {
+            await this.startWebAuthFlow();
+            return;
+        }
+
+        // Otherwise, just re-open it
+        await messenger.reopenWebAuthFlow();
+    };
+
+    /**
+     * Cancels the web authentication flow.
+     */
+    @action cancelWebAuthFlow = async () => {
+        await messenger.cancelWebAuthFlow();
+        runInAction(() => {
+            this.isWebAuthFlowStarted = false;
+        });
+    };
+
+    /**
+     * Closes "Failed to login" modal in auth screen.
+     */
+    @action closeFailedToLoginModal = (): void => {
+        this.isWebAuthFlowHasError = false;
     };
 
     @action setRating = (value: number) => {

@@ -1062,5 +1062,17 @@
     },
     "auth_failed_to_login_button": {
         "message": "Close"
+    },
+    "auth_loading_title": {
+        "message": "Log in or sign up through your browser"
+    },
+    "auth_loading_description": {
+        "message": "If you have an AdGuard VPN license, it’ll apply automatically"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Reopen login page"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Cancel"
     }
 }

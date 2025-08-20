@@ -693,6 +693,40 @@ class Messenger {
         const type = MessageType.STATISTICS_SET_IS_DISABLED;
         return this.sendMessage(type, { isDisabled });
     }
+
+    /**
+     * Starts the web authentication flow.
+     *
+     * @returns Whether the user successfully logged in or not.
+     */
+    async startWebAuthFlow(): Promise<boolean> {
+        // FIXME:
+        // const type = MessageType.WEB_AUTH_FLOW_START;
+        // return this.sendMessage(type);
+        return new Promise<boolean>((resolve) => {
+            setTimeout(() => {
+                resolve(true);
+            }, 2000);
+        });
+    }
+
+    /**
+     * Reopens the web authentication flow.
+     */
+    async reopenWebAuthFlow(): Promise<void> {
+        // FIXME:
+        // const type = MessageType.WEB_AUTH_FLOW_REOPEN;
+        // return this.sendMessage(type);
+    }
+
+    /**
+     * Cancels the web authentication flow.
+     */
+    async cancelWebAuthFlow(): Promise<void> {
+        // FIXME:
+        // const type = MessageType.WEB_AUTH_FLOW_CANCEL;
+        // return this.sendMessage(type);
+    }
 }
 
 export const messenger = new Messenger();

@@ -12,13 +12,13 @@ import { SUPPORT_EMAIL } from '../../../background/constants';
  * Failed to login modal component. Shown when the user fails to log in.
  */
 export const FailedToLoginModal = observer(() => {
-    const { uiStore } = useContext(rootStore);
+    const { authStore } = useContext(rootStore);
 
-    const { isFailedToLoginModalOpen, closeFailedToLoginModal } = uiStore;
+    const { isWebAuthFlowHasError, closeFailedToLoginModal } = authStore;
 
     return (
         <Modal
-            isOpen={isFailedToLoginModalOpen}
+            isOpen={isWebAuthFlowHasError}
             shouldCloseOnOverlayClick
             onRequestClose={closeFailedToLoginModal}
             overlayClassName="modal__overlay"
