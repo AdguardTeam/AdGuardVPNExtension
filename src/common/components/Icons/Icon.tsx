@@ -12,7 +12,7 @@ export type IconColor = 'current' | 'gray' | 'product' | 'error' | 'text-main';
 /**
  * Icon size in pixels.
  */
-export type IconSize = '16' | '20' | '24' | '30';
+export type IconSize = '16' | '20' | '24' | '30' | '48';
 
 /**
  * Icon rotation types.
