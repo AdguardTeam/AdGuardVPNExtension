@@ -10,7 +10,7 @@ import { messenger } from '../../common/messenger';
 import { FLAGS_FIELDS } from '../../common/constants';
 import { AuthCacheKey, type AuthCacheValue } from '../../background/authentication/authCacheTypes';
 
-import { RequestStatus } from './constants';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
 
 const DEFAULTS = {
@@ -221,6 +221,7 @@ export class AuthStore {
      * Starts the web authentication flow.
      */
     @action startWebAuthFlow = async () => {
+        this.requestProcessState = RequestStatus.Pending;
         this.isWebAuthFlowStarted = true;
         this.isWebAuthFlowLoading = true;
 
@@ -228,13 +229,23 @@ export class AuthStore {
 
         runInAction(() => {
             this.isWebAuthFlowLoading = false;
-
-            if (succeed) {
-                // FIXME: End web auth flow
-            } else {
-                this.isWebAuthFlowHasError = true;
-            }
         });
+
+        if (succeed) {
+            await messenger.clearAuthCache();
+            await messenger.checkPermissions();
+            await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
+            runInAction(() => {
+                this.requestProcessState = RequestStatus.Done;
+                this.isWebAuthFlowStarted = false;
+                this.authenticated = true;
+            });
+        } else {
+            runInAction(() => {
+                this.requestProcessState = RequestStatus.Error;
+                this.isWebAuthFlowHasError = true;
+            });
+        }
     };
 
     /**
@@ -257,6 +268,7 @@ export class AuthStore {
     @action cancelWebAuthFlow = async () => {
         await messenger.cancelWebAuthFlow();
         runInAction(() => {
+            this.requestProcessState = RequestStatus.Done;
             this.isWebAuthFlowStarted = false;
         });
     };
