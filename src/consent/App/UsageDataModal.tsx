@@ -16,7 +16,7 @@ export interface UsageDataModalProps {
     /**
      * The URL for the privacy policy.
      */
-    privacyUrl: string;
+    privacyUrl: string | undefined;
 
     /**
      * Callback function to close the modal.

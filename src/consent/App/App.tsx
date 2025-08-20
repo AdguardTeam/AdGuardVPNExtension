@@ -30,10 +30,10 @@ export function App() {
     const [cachedPolicyAgreement, setCachedPolicyAgreement] = useState(false);
     const [policyAgreement, setPolicyAgreement] = useState(false);
     const [cachedHelpUsImprove, setCachedHelpUsImprove] = useState(false);
-    const [forwarderDomain, setForwarderDomain] = useState<string | null>(null);
+    const [eulaUrl, setEulaUrl] = useState<string | undefined>(undefined);
+    const [privacyUrl, setPrivacyUrl] = useState<string | undefined>(undefined);
 
     // Local state
-    const [isDataLoaded, setIsDataLoaded] = useState(false);
     const [isUsageDataModalOpen, setIsUsageDataModalOpen] = useState(false);
     const [isFailedToLoginModalOpen, setIsFailedToLoginModalOpen] = useState(false);
 
@@ -46,11 +46,16 @@ export function App() {
                 forwarderDomain,
             } = await messenger.getConsentData();
 
+            const {
+                eulaUrl,
+                privacyUrl,
+            } = getPrivacyAndEulaUrls(forwarderDomain);
+
             setCachedPolicyAgreement(cachedPolicyAgreement);
             setPolicyAgreement(policyAgreement);
             setCachedHelpUsImprove(cachedHelpUsImprove);
-            setForwarderDomain(forwarderDomain);
-            setIsDataLoaded(true);
+            setEulaUrl(eulaUrl);
+            setPrivacyUrl(privacyUrl);
         };
 
         getData();
@@ -88,28 +93,13 @@ export function App() {
 
     useSubscribeNotifier(NOTIFIER_EVENTS, messageHandler);
 
-    // FIXME: Should we show loader in case if data is not loaded yet?
-    if (!isDataLoaded || !forwarderDomain) {
-        return null;
-    }
-
     // FIXME: Maybe we should show something if user already accepted consent?
     if (policyAgreement) {
         return null;
     }
 
-    const { eulaUrl, privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
-
-    const handlePrivacyClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
-        e.preventDefault();
+    const stopPropagation = async (e: React.MouseEvent): Promise<void> => {
         e.stopPropagation();
-        await messenger.openTab(privacyUrl);
-    };
-
-    const handleEulaClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
-        e.preventDefault();
-        e.stopPropagation();
-        await messenger.openTab(eulaUrl);
     };
 
     const handlePolicyToggle = async (): Promise<void> => {
@@ -126,6 +116,7 @@ export function App() {
 
     const openUsageDataModal = (e: React.MouseEvent<HTMLAnchorElement>): void => {
         e.preventDefault();
+        e.stopPropagation();
         setIsUsageDataModalOpen(true);
     };
 
@@ -169,11 +160,11 @@ export function App() {
                                     className="link"
                                     target="_blank"
                                     rel="noreferrer"
-                                    // handler used to prevent default action,
+                                    // handler used to stop propagation,
                                     // because it's contained in a checkbox label
                                     // in order to avoid checking the checkbox
                                     // when clicking on the link
-                                    onClick={handleEulaClick}
+                                    onClick={stopPropagation}
                                 >
                                     {chunks}
                                 </a>
@@ -184,11 +175,11 @@ export function App() {
                                     className="link"
                                     target="_blank"
                                     rel="noreferrer"
-                                    // handler used to prevent default action,
+                                    // handler used to stop propagation,
                                     // because it's contained in a checkbox label
                                     // in order to avoid checking the checkbox
                                     // when clicking on the link
-                                    onClick={handlePrivacyClick}
+                                    onClick={stopPropagation}
                                 >
                                     {chunks}
                                 </a>
