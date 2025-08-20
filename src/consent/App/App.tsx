@@ -195,7 +195,7 @@ export function App() {
                             ),
                         })}
                         // cast value to boolean, because it might be `null` from background
-                        value={cachedPolicyAgreement}
+                        value={!!cachedPolicyAgreement}
                         onToggle={handlePolicyToggle}
                     />
                     <Checkbox
@@ -213,7 +213,7 @@ export function App() {
                             ),
                         })}
                         // cast value to boolean, because it might be `null` from background
-                        value={cachedHelpUsImprove}
+                        value={!!cachedHelpUsImprove}
                         onToggle={handleHelpUsImproveToggle}
                     />
                 </div>
