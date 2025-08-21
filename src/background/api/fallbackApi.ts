@@ -163,6 +163,11 @@ export class FallbackApi {
         return fallbackInfo.authApiUrl;
     };
 
+    public getAuthBaseUrl = async (): Promise<string> => {
+        const authApiUrl = await this.getAuthApiUrl();
+        return `${authApiUrl}/oauth/authorize`;
+    };
+
     public getAccountApiUrl = async (): Promise<string> => {
         const vpnApiUrl = await this.getVpnApiUrl();
         return `${vpnApiUrl}/account`;
@@ -320,7 +325,6 @@ export class FallbackApi {
             ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
         } catch (e) {
-            log.error(e);
             bkpUrl = null;
         }
 
