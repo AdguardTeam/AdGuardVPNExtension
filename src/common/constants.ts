@@ -56,7 +56,6 @@ export enum MessageType {
     DEAUTHENTICATE_USER = 'deauthenticate.user',
     UPDATE_AUTH_CACHE = 'update.auth.cache',
     GET_AUTH_CACHE = 'get.auth.cache',
-    CLEAR_AUTH_CACHE = 'clear.auth.cache',
     GET_CAN_CONTROL_PROXY = 'get.can.control.proxy',
     ENABLE_PROXY = 'enable.proxy',
     DISABLE_PROXY = 'disable.proxy',

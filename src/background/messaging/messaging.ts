@@ -268,9 +268,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
         case MessageType.GET_AUTH_CACHE: {
             return authCache.getCache();
         }
-        case MessageType.CLEAR_AUTH_CACHE: {
-            return authCache.clearCache();
-        }
         case MessageType.GET_CAN_CONTROL_PROXY: {
             return appStatus.canControlProxy();
         }

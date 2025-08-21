@@ -351,11 +351,6 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async clearAuthCache() {
-        const type = MessageType.CLEAR_AUTH_CACHE;
-        return this.sendMessage(type);
-    }
-
     async getCanControlProxy() {
         const type = MessageType.GET_CAN_CONTROL_PROXY;
         return this.sendMessage(type);
