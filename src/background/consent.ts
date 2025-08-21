@@ -20,6 +20,7 @@ export const getConsentData = async () => {
     const {
         policyAgreement: cachedPolicyAgreement,
         helpUsImprove: cachedHelpUsImprove,
+        isWebAuthFlowHasError,
     } = authCache.getCache();
 
     const forwarderDomain = await forwarder.updateAndGetDomain();
@@ -28,6 +29,7 @@ export const getConsentData = async () => {
         policyAgreement,
         cachedPolicyAgreement,
         cachedHelpUsImprove,
+        isWebAuthFlowHasError,
         forwarderDomain,
     };
 };

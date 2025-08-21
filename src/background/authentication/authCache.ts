@@ -2,7 +2,7 @@ import { notifier } from '../../common/notifier';
 
 import { AuthCacheKey, type AuthCacheValue, type AuthCacheData } from './authCacheTypes';
 
-interface AuthCacheInterface {
+export interface AuthCacheInterface {
     updateCache(field: AuthCacheKey, value: AuthCacheValue): void;
     getCache(): AuthCacheData;
     clearCache(): void;
@@ -13,6 +13,9 @@ const AuthCache = (): AuthCacheInterface => {
         [AuthCacheKey.PolicyAgreement]: null,
         [AuthCacheKey.HelpUsImprove]: null,
         [AuthCacheKey.MarketingConsent]: null,
+        [AuthCacheKey.IsWebAuthFlowStarted]: false,
+        [AuthCacheKey.IsWebAuthFlowLoading]: false,
+        [AuthCacheKey.IsWebAuthFlowHasError]: false,
     };
 
     let authCache = { ...DEFAULTS };

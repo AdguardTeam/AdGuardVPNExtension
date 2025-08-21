@@ -83,6 +83,9 @@ export class AuthStore {
             policyAgreement,
             helpUsImprove,
             marketingConsent,
+            isWebAuthFlowStarted,
+            isWebAuthFlowLoading,
+            isWebAuthFlowHasError,
         } = await messenger.getAuthCache();
         runInAction(() => {
             if (!isNil(policyAgreement)) {
@@ -93,6 +96,15 @@ export class AuthStore {
             }
             if (!isNil(marketingConsent)) {
                 this.marketingConsent = marketingConsent;
+            }
+            if (!isNil(isWebAuthFlowStarted)) {
+                this.isWebAuthFlowStarted = isWebAuthFlowStarted;
+            }
+            if (!isNil(isWebAuthFlowLoading)) {
+                this.isWebAuthFlowLoading = isWebAuthFlowLoading;
+            }
+            if (!isNil(isWebAuthFlowHasError)) {
+                this.isWebAuthFlowHasError = isWebAuthFlowHasError;
             }
         });
     };
@@ -212,6 +224,15 @@ export class AuthStore {
             case AuthCacheKey.MarketingConsent:
                 this.marketingConsent = !!value as boolean;
                 break;
+            case AuthCacheKey.IsWebAuthFlowStarted:
+                this.isWebAuthFlowStarted = !!value as boolean;
+                break;
+            case AuthCacheKey.IsWebAuthFlowLoading:
+                this.isWebAuthFlowLoading = !!value as boolean;
+                break;
+            case AuthCacheKey.IsWebAuthFlowHasError:
+                this.isWebAuthFlowHasError = !!value as boolean;
+                break;
             default:
                 break;
         }
@@ -222,14 +243,8 @@ export class AuthStore {
      */
     @action startWebAuthFlow = async () => {
         this.requestProcessState = RequestStatus.Pending;
-        this.isWebAuthFlowStarted = true;
-        this.isWebAuthFlowLoading = true;
 
         const succeed = await messenger.startWebAuthFlow();
-
-        runInAction(() => {
-            this.isWebAuthFlowLoading = false;
-        });
 
         if (succeed) {
             await messenger.clearAuthCache();
@@ -237,13 +252,11 @@ export class AuthStore {
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = RequestStatus.Done;
-                this.isWebAuthFlowStarted = false;
                 this.authenticated = true;
             });
         } else {
             runInAction(() => {
                 this.requestProcessState = RequestStatus.Error;
-                this.isWebAuthFlowHasError = true;
             });
         }
     };
@@ -269,15 +282,14 @@ export class AuthStore {
         await messenger.cancelWebAuthFlow();
         runInAction(() => {
             this.requestProcessState = RequestStatus.Done;
-            this.isWebAuthFlowStarted = false;
         });
     };
 
     /**
      * Closes "Failed to login" modal in auth screen.
      */
-    @action closeFailedToLoginModal = (): void => {
-        this.isWebAuthFlowHasError = false;
+    @action closeFailedToLoginModal = async (): Promise<void> => {
+        await messenger.updateAuthCache(AuthCacheKey.IsWebAuthFlowHasError, false);
     };
 
     @action setRating = (value: number) => {

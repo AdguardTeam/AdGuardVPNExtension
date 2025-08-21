@@ -44,6 +44,7 @@ export function App() {
                 policyAgreement,
                 cachedHelpUsImprove,
                 forwarderDomain,
+                isWebAuthFlowHasError,
             } = await messenger.getConsentData();
 
             const {
@@ -56,6 +57,7 @@ export function App() {
             setCachedHelpUsImprove(cachedHelpUsImprove);
             setEulaUrl(eulaUrl);
             setPrivacyUrl(privacyUrl);
+            setIsFailedToLoginModalOpen(isWebAuthFlowHasError);
         };
 
         getData();
@@ -72,6 +74,9 @@ export function App() {
                         break;
                     case AuthCacheKey.HelpUsImprove:
                         setCachedHelpUsImprove(value);
+                        break;
+                    case AuthCacheKey.IsWebAuthFlowHasError:
+                        setIsFailedToLoginModalOpen(value);
                         break;
                     default:
                         break;
@@ -124,8 +129,8 @@ export function App() {
         setIsUsageDataModalOpen(false);
     };
 
-    const closeFailedToLoginModal = (): void => {
-        setIsFailedToLoginModalOpen(false);
+    const closeFailedToLoginModal = async (): Promise<void> => {
+        await messenger.updateAuthCache(AuthCacheKey.IsWebAuthFlowHasError, false);
     };
 
     const handleContinueClick = async (): Promise<void> => {
