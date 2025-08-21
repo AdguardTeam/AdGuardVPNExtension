@@ -9,7 +9,7 @@ import { StorageKey } from './schema';
 
 const FLAGS_STORAGE_KEY = 'flags.storage';
 
-interface FlagsStorageInterface {
+export interface FlagsStorageInterface {
     set(key: string, value: string | boolean): Promise<void>;
     setDefaults(): Promise<void>;
     getFlagsStorageData(): Promise<FlagsStorageData>;
