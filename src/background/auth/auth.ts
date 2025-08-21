@@ -9,9 +9,49 @@ import { authService } from '../authentication/authService';
 import { stateStorage } from '../stateStorage';
 
 export interface AuthInterface {
+    /**
+     * Checks if user is authenticated.
+     *
+     * @param turnOffProxy If true, turns off the proxy if no access token is found.
+     *
+     * @returns True if user is authenticated, false otherwise.
+     */
     isAuthenticated(turnOffProxy?: boolean): Promise<boolean>;
+
+    /**
+     * Deauthenticates the user.
+     */
     deauthenticate(): Promise<void>;
+
+    /**
+     * Sets the access token.
+     *
+     * @param accessToken The access token to set.
+     */
+    setAccessToken(accessToken: AuthAccessToken): Promise<void>;
+
+    /**
+     * Returns access token
+     * If no token is available turns off, except of when turnOffProxy flag is false
+     *
+     * @param [turnOffProxy=true] - if false do not turn off proxy
+     */
     getAccessToken(turnOffProxy?: boolean): Promise<string>;
+
+    /**
+     * Initializes the state of the authentication module.
+     *
+     * Note: You can call this method to wait for the auth to be initialized,
+     * because it was implemented as it can be called multiple times but
+     * initialization will happen only once.
+     *
+     * @returns Promise that resolves when the auth is initialized.
+     */
+    initState(): Promise<void>;
+
+    /**
+     * Initializes authentication module.
+     */
     init(): Promise<void>;
 }
 
@@ -39,14 +79,8 @@ class Auth implements AuthInterface {
         this.saveAuthState();
     }
 
-    /**
-     * Checks if user is authenticated.
-     *
-     * @param turnOffProxy If true, turns off the proxy if no access token is found.
-     *
-     * @returns True if user is authenticated, false otherwise.
-     */
-    async isAuthenticated(turnOffProxy?: boolean): Promise<boolean> {
+    /** @inheritdoc */
+    public async isAuthenticated(turnOffProxy?: boolean): Promise<boolean> {
         /**
          * Wait for session storage after service worker awoken.
          * This is needed because this method might be called before
@@ -65,7 +99,8 @@ class Auth implements AuthInterface {
         return !!accessToken;
     }
 
-    async deauthenticate(): Promise<void> {
+    /** @inheritdoc */
+    public async deauthenticate(): Promise<void> {
         try {
             await this.removeAccessToken();
         } catch (e) {
@@ -80,13 +115,17 @@ class Auth implements AuthInterface {
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
     }
 
-    async setAccessToken(accessToken: AuthAccessToken): Promise<void> {
+    /** @inheritdoc */
+    public async setAccessToken(accessToken: AuthAccessToken): Promise<void> {
         this.accessTokenData = accessToken;
         await authService.saveAccessTokenData(accessToken);
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
     }
 
-    async removeAccessToken(): Promise<void> {
+    /**
+     * Removes access token.
+     */
+    private async removeAccessToken(): Promise<void> {
         this.accessTokenData = null;
         await authService.removeAccessTokenData();
     }
@@ -94,9 +133,10 @@ class Auth implements AuthInterface {
     /**
      * Returns access token
      * If no token is available turns off, except of when turnOffProxy flag is false
+     *
      * @param [turnOffProxy=true] - if false do not turn off proxy
      */
-    async getAccessToken(turnOffProxy = true): Promise<string> {
+    public async getAccessToken(turnOffProxy = true): Promise<string> {
         if (this.accessTokenData && this.accessTokenData.accessToken) {
             return this.accessTokenData.accessToken;
         }
@@ -132,15 +172,7 @@ class Auth implements AuthInterface {
         this.state = stateStorage.getItem(StorageKey.AuthState);
     }
 
-    /**
-     * Initializes the state of the authentication module.
-     *
-     * Note: You can call this method to wait for the auth to be initialized,
-     * because it was implemented as it can be called multiple times but
-     * initialization will happen only once.
-     *
-     * @returns Promise that resolves when the auth is initialized.
-     */
+    /** @inheritdoc */
     public async initState(): Promise<void> {
         if (!this.initStatePromise) {
             this.initStatePromise = this.innerInitState();
@@ -149,6 +181,7 @@ class Auth implements AuthInterface {
         return this.initStatePromise;
     }
 
+    /** @inheritdoc */
     public async init(): Promise<void> {
         const accessTokenData = await authService.getAccessTokenData();
         if (!accessTokenData?.accessToken) {
