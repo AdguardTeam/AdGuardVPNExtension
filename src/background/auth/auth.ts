@@ -66,14 +66,23 @@ class Auth implements AuthInterface {
      */
     private state: AuthState;
 
+    /**
+     * Saves the current authentication state to state storage.
+     */
     private saveAuthState = () => {
         stateStorage.setItem(StorageKey.AuthState, this.state);
     };
 
+    /**
+     * Access token data getter.
+     */
     private get accessTokenData(): AuthAccessToken | null {
         return this.state.accessTokenData;
     }
 
+    /**
+     * Access token data setter.
+     */
     private set accessTokenData(accessTokenData: AuthAccessToken | null) {
         this.state.accessTokenData = accessTokenData;
         this.saveAuthState();
@@ -130,12 +139,7 @@ class Auth implements AuthInterface {
         await authService.removeAccessTokenData();
     }
 
-    /**
-     * Returns access token
-     * If no token is available turns off, except of when turnOffProxy flag is false
-     *
-     * @param [turnOffProxy=true] - if false do not turn off proxy
-     */
+    /** @inheritdoc */
     public async getAccessToken(turnOffProxy = true): Promise<string> {
         if (this.accessTokenData && this.accessTokenData.accessToken) {
             return this.accessTokenData.accessToken;
