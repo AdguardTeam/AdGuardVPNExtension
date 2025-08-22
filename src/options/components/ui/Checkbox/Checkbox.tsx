@@ -22,11 +22,17 @@ export interface CheckboxProps {
 
     /**
      * Current value.
+     *
+     * Note: If {@link onToggle} not provided, state will be controlled locally,
+     * and this value will be considered only as initial value.
      */
     value: boolean;
 
     /**
      * On toggle handler.
+     *
+     * Note: If not provided, state will be controlled locally,
+     * and {@link value} will be considered only as initial value.
      */
     onToggle?: () => void;
 }
