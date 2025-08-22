@@ -41,7 +41,8 @@ export const DOHPUB_DOH_URL = `${DOHPUB_DOH_HOSTNAME}/dns-query`;
 const QUAD9_DOH_HOSTNAME = 'dns11.quad9.net';
 export const QUAD9_DOH_URL = `${QUAD9_DOH_HOSTNAME}/dns-query`;
 
-const stageSuffix = STAGE_ENV === 'test' ? '-dev' : '';
+const isTestStage = STAGE_ENV === 'test';
+const stageSuffix = isTestStage ? '-dev' : '';
 const BKP_API_HOSTNAME_PART = `bkp-api${stageSuffix}.adguard-vpn.online`;
 const BKP_AUTH_HOSTNAME_PART = `bkp-auth${stageSuffix}.adguard-vpn.online`;
 
@@ -372,6 +373,11 @@ export class FallbackApi {
      * OR null if fetching failed.
      */
     getBkpVpnApiUrl = async (): Promise<string | null> => {
+        // FIXME: Revert if needed
+        if (isTestStage) {
+            return this.defaultFallbackInfo.vpnApiUrl;
+        }
+
         const prefix = await this.getApiHostnamePrefix();
         // we use prefix for api hostname to recognize free, premium and not authenticated users
         const hostname = `${prefix}.${BKP_API_HOSTNAME_PART}`;
@@ -383,6 +389,11 @@ export class FallbackApi {
     };
 
     getBkpAuthApiUrl = async () => {
+        // FIXME: Revert if needed
+        if (isTestStage) {
+            return this.defaultFallbackInfo.authApiUrl;
+        }
+
         const prefix = await this.getApiHostnamePrefix();
         // we use prefix for auth api hostname to recognize free, premium and not authenticated users
         const hostname = `${prefix}.${BKP_AUTH_HOSTNAME_PART}`;
