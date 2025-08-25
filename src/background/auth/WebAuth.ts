@@ -302,8 +302,7 @@ export class WebAuth implements WebAuthInterface {
      * @returns True if the error is a user denial error, false otherwise.
      */
     private static isUserDenialError(error: unknown): boolean {
-        const message = getErrorMessage(error);
-        return message === WebAuth.USER_DENIAL_ERROR_MESSAGE;
+        return getErrorMessage(error) === WebAuth.USER_DENIAL_ERROR_MESSAGE;
     }
 
     /**
