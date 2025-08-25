@@ -121,6 +121,7 @@ export enum MessageType {
     WEB_AUTH_FLOW_START = 'web.auth.flow.start',
     WEB_AUTH_FLOW_REOPEN = 'web.auth.flow.reopen',
     WEB_AUTH_FLOW_CANCEL = 'web.auth.flow.cancel',
+    WEB_AUTH_FLOW_CALLBACK = 'web.auth.flow.callback',
 }
 
 export const FLAGS_FIELDS = {

@@ -33,6 +33,7 @@ const CUSTOM_DNS_LINKS_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scrip
 const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'common/preloadTheme.ts');
 const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
 const CONSENT_PATH = path.resolve(__dirname, SRC_PATH, 'consent');
+const CALLBACK_PATH = path.resolve(__dirname, SRC_PATH, 'callback');
 
 const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
 
@@ -62,6 +63,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             preloadTheme: PRELOAD_THEME_SCRIPT,
             export: EXPORT_PATH,
             consent: CONSENT_PATH,
+            callback: CALLBACK_PATH,
         },
         output: {
             path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),
@@ -270,6 +272,12 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 template: path.join(CONSENT_PATH, 'index.html'),
                 filename: 'consent.html',
                 chunks: ['consent'],
+                cache: false,
+            }),
+            new HtmlWebpackPlugin({
+                template: path.join(CALLBACK_PATH, 'index.html'),
+                filename: 'callback.html',
+                chunks: ['callback'],
                 cache: false,
             }),
             new CreateFileWebpack({

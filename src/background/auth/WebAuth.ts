@@ -184,6 +184,11 @@ export class WebAuth implements WebAuthInterface {
             return;
         }
 
+        // If tab info already exists - no need to check it further
+        if (this.webAuthTabInfo) {
+            return;
+        }
+
         // Check if the tab URL is a web authentication URL
         const authApiUrl = await this.fallbackApi.getAuthApiUrl();
         if (!tab.url || !tab.url.startsWith(`https://${authApiUrl}`)) {
@@ -195,30 +200,6 @@ export class WebAuth implements WebAuthInterface {
             id: tab.id,
             windowId: tab.windowId,
         };
-    }
-
-    /**
-     * Constructs the web authentication URL with given parameters and current authentication state.
-     *
-     * @param appId Application ID.
-     * @param marketingConsent Whether the user accepted marketing consent.
-     */
-    private async getWebAuthUrl(appId: string, marketingConsent: boolean): Promise<string> {
-        // Get authentication base URL
-        const authBaseUrl = await this.fallbackApi.getAuthBaseUrl();
-
-        // Build params
-        const params = qs.stringify({
-            client_id: AUTH_CLIENT_ID,
-            response_type: WebAuth.AUTH_RESPONSE_TYPE,
-            scope: WebAuth.AUTH_SCOPE,
-            redirect_uri: browser.identity.getRedirectURL('callback'), // FIXME: Depends on strategy
-            state: this.authState,
-            marketing_consent: marketingConsent,
-            app_id: appId,
-        });
-
-        return `https://${authBaseUrl}?${params}`;
     }
 
     /**
@@ -305,6 +286,96 @@ export class WebAuth implements WebAuthInterface {
         }
     }
 
+    /**
+     * Checks if the error is a user denial error.
+     *
+     * @param error The error to check.
+     *
+     * @returns True if the error is a user denial error, false otherwise.
+     */
+    private static isUserDenialError(error: unknown): boolean {
+        const message = getErrorMessage(error);
+        return message === WebAuth.USER_DENIAL_ERROR_MESSAGE;
+    }
+
+    /**
+     * Opens the web authentication flow with following logic:
+     * 1. Generate a web authentication URL for Identity API usage.
+     * 2. Try to open the web authentication flow with Identity API.
+     * 3. If Identity API supported and successful, return the response URL.
+     * 4. If Identity API not supported or failed, generate a web authentication URL for the fallback flow.
+     * 5. Open the fallback web authentication flow.
+     *
+     * @param appId Application ID.
+     * @param marketingConsent Whether the user accepted marketing consent.
+     *
+     * @returns Response URL after success authentication if Identity API was supported and used, null otherwise.
+     */
+    private async openWebAuthFlow(appId: string, marketingConsent: boolean): Promise<string | null> {
+        // Get authentication base URL
+        const authBaseUrl = `https://${await this.fallbackApi.getAuthBaseUrl()}`;
+        const commonParams = {
+            client_id: AUTH_CLIENT_ID,
+            response_type: WebAuth.AUTH_RESPONSE_TYPE,
+            scope: WebAuth.AUTH_SCOPE,
+            state: this.authState,
+            marketing_consent: marketingConsent,
+            app_id: appId,
+        };
+
+        try {
+            // Build params
+            const params = qs.stringify({
+                ...commonParams,
+                redirect_uri: browser.identity.getRedirectURL('callback'),
+            });
+
+            // Build URL
+            const webAuthUrl = `${authBaseUrl}?${params}`;
+            log.debug(`Opening web authentication flow at "${webAuthUrl}" with Identity API`);
+
+            // FIXME: Remove after implementation
+            throw new Error('f --- IGNORE ---');
+
+            // Open web authentication flow
+            const responseUrl = await browser.identity.launchWebAuthFlow({
+                url: webAuthUrl,
+                interactive: true,
+            });
+
+            return responseUrl;
+        } catch (e) {
+            // Re-throw error if it's a user denial
+            if (WebAuth.isUserDenialError(e)) {
+                throw e;
+            }
+
+            // Otherwise open fallback web authentication flow
+            log.debug('Identity API failed with error, using fallback flow:', e);
+
+            // Build params
+            const params = qs.stringify({
+                ...commonParams,
+                redirect_uri: browser.runtime.getURL('callback.html'),
+            });
+
+            // Build URL
+            const webAuthUrl = `${authBaseUrl}?${params}`;
+            log.debug(`Opening web authentication flow at "${webAuthUrl}" with callback page`);
+
+            // Open web authentication flow
+            const tab = await browser.tabs.create({ url: webAuthUrl, active: true });
+
+            // Save info about tab
+            this.webAuthTabInfo = {
+                id: tab.id,
+                windowId: tab.windowId,
+            };
+
+            return null;
+        }
+    }
+
     /** @inheritdoc */
     public async startWebAuthFlow(appId: string, marketingConsent: boolean): Promise<void> {
         try {
@@ -329,26 +400,17 @@ export class WebAuth implements WebAuthInterface {
             // Generate a new state for the authentication flow
             this.authState = nanoid();
 
-            // Get URL to open
-            const webAuthUrl = await this.getWebAuthUrl(appId, marketingConsent);
-            log.debug(`Opening web authentication flow at "${webAuthUrl}"`);
-
             // Open web authentication flow
-            const responseUrl = await browser.identity.launchWebAuthFlow({
-                url: webAuthUrl,
-                interactive: true,
-            });
-
-            if (!responseUrl) {
-                throw new Error('No response URL received from web authentication flow.');
-            }
+            const responseUrl = await this.openWebAuthFlow(appId, marketingConsent);
 
             // Authenticate user and reset auth caches
-            await this.authenticate(responseUrl);
+            // only if authentication was successful via identity
+            if (responseUrl) {
+                await this.authenticate(responseUrl);
+            }
         } catch (error) {
             // Log error message only if it's not a user denial
-            const message = getErrorMessage(error);
-            if (message !== WebAuth.USER_DENIAL_ERROR_MESSAGE) {
+            if (!WebAuth.isUserDenialError(error)) {
                 log.error('Error occurred during web authentication flow:', error);
             }
 

@@ -26,5 +26,11 @@
         "unlimitedStorage",
         "webRequest",
         "identity"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": ["callback.html"],
+            "matches": ["<all_urls>"]
+        }
     ]
 }
