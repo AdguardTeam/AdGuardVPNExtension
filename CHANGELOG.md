@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 'Rate us' dialog doesn't close after you rate the extension [#223].
 - Unable to login from "Thank You" page in Firefox.
 
-[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...HEAD
+[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.11...HEAD
 [#162]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/162
 [#223]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/223
 
@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Opera Add-Ons store publishing issue [#225].
+- Usage time statistics is not properly saved when extension forcibly re-launched while connected.
 
 [2.6.11]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...v2.6.11
 [#225]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/225

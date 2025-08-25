@@ -88,9 +88,9 @@ export class StatisticsProvider implements StatisticsProviderInterface {
     private static readonly DEFAULT_IS_DISABLED = false;
 
     /**
-     * Update duration interval in milliseconds (5 minutes).
+     * Update duration interval in milliseconds (1 minute).
      */
-    private static readonly TIMER_UPDATE_INTERVAL_MS = 5 * 60 * 1000;
+    private static readonly TIMER_UPDATE_INTERVAL_MS = 60 * 1000;
 
     /**
      * List of events that are used to update the statistics storage.

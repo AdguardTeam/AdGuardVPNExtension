@@ -253,7 +253,7 @@ const backToSchool25Notification = {
     // will be selected for locale, see usage of getNotificationText
     text: null,
     urlQuery,
-    from: '26 August 2025 12:00:00',
+    from: '25 August 2025 12:00:00',
     to: '1 September 2025 23:59:00',
     type: 'animated',
     bgImage: promoBannerImageUrl,
