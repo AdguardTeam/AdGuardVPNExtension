@@ -269,11 +269,15 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      *
      * @param timestamp Timestamp for which calculations should be made,
      * if not provided Date.now() will be used.
+     * @param shouldMoveLastSession Should method move the last session to sessions array.
      */
-    private updateStaleStatistics(timestamp = Date.now()): void {
+    private updateStaleStatistics(
+        timestamp = Date.now(),
+        shouldMoveLastSession = true,
+    ): void {
         this.statisticsUpdatedTimestamp = timestamp;
         Object.values(this.statistics.locations).forEach((locationData) => {
-            this.moveDuration(locationData, timestamp);
+            this.moveDuration(locationData, timestamp, shouldMoveLastSession);
             this.moveStatistics(locationData, timestamp);
         });
     }
@@ -284,10 +288,23 @@ export class StatisticsStorage implements StatisticsStorageInterface {
      *
      * @param locationData Location data to move duration for.
      * @param timestamp Timestamp to compare with.
+     * @param shouldMoveLastSession Should method move the last session to sessions array.
      */
-    private moveDuration(locationData: StatisticsLocationData, timestamp: number): void {
-        const { sessions, total } = locationData;
+    private moveDuration(
+        locationData: StatisticsLocationData,
+        timestamp: number,
+        shouldMoveLastSession: boolean,
+    ): void {
+        const { sessions, total, lastSession } = locationData;
         const threshold = timestamp - StatisticsStorage.MOVE_AFTER_MS;
+
+        // Move last session to sessions array if it exists, it might exist
+        // in cases if last session was terminated without disconnection,
+        // only if `shouldMoveLastSession` is true.
+        if (shouldMoveLastSession && lastSession) {
+            sessions.push(lastSession);
+            delete locationData.lastSession;
+        }
 
         const indicesToDelete = new Set<number>();
         for (let i = 0; i < sessions.length; i += 1) {
@@ -440,9 +457,17 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         const locationData = this.getLocationData(locationId);
         const hourlyData = this.getHourlyData(locationData);
 
+        // Update traffic data
         const { downloadedBytes, uploadedBytes } = data;
         hourlyData[StatisticsStorage.DOWNLOADED_INDEX] += downloadedBytes;
         hourlyData[StatisticsStorage.UPLOADED_INDEX] += uploadedBytes;
+
+        // Update session timestamp if exists, it might not exist if user
+        // already disconnected but websocket sent traffic stats update later
+        if (locationData.lastSession) {
+            locationData.lastSession[StatisticsStorage.ENDED_TIMESTAMP_INDEX] = Date.now();
+        }
+
         await this.saveStatistics();
     };
 
@@ -452,13 +477,14 @@ export class StatisticsStorage implements StatisticsStorageInterface {
 
         const locationData = this.getLocationData(locationId);
 
-        const now = Date.now();
-        if (!locationData.lastSession) {
-            locationData.lastSession = [now, now];
-        } else {
-            locationData.lastSession[StatisticsStorage.STARTED_TIMESTAMP_INDEX] = now;
-            locationData.lastSession[StatisticsStorage.ENDED_TIMESTAMP_INDEX] = now;
+        // Move last session to sessions array if it exists, it might exist
+        // in cases if last session was terminated without disconnection
+        if (locationData.lastSession) {
+            locationData.sessions.push(locationData.lastSession);
         }
+
+        const now = Date.now();
+        locationData.lastSession = [now, now];
 
         await this.saveStatistics();
     };
@@ -524,7 +550,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         // we need to update statistics first and only after that return the data
         // this is needed in case if extension is running longer than 1 hour
         if (!isSameHour(this.statisticsUpdatedTimestamp, now, { in: utc })) {
-            this.updateStaleStatistics(now);
+            // update stale statistics, but do not move last session to sessions array
+            // because there are still might be active proxy connection
+            this.updateStaleStatistics(now, false);
 
             // we do not trigger update, because we already sending it
             await this.saveStatistics(false);

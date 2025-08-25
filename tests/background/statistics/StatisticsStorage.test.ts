@@ -120,6 +120,34 @@ describe('StatisticsStorage', () => {
             // @ts-expect-error - accessing private property
             expect(statisticsStorage.statistics).toEqual(statistics);
         });
+
+        it('should move last session after termination without disconnection', async () => {
+            const locationId = 'locationId1';
+            const statistics = getStatistics({
+                [locationId]: {
+                    hourly: [],
+                    sessions: [],
+                    total: getTotalData(0),
+                    lastSession: [systemDate.getTime() - 1000, systemDate.getTime()],
+                },
+            });
+
+            storageMock.get.mockResolvedValueOnce(statistics);
+
+            await statisticsStorage.init();
+
+            expect(storageMock.get).toHaveBeenCalledTimes(1);
+            expect(storageMock.get).toHaveBeenCalledWith(expect.any(String));
+
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics({
+                [locationId]: {
+                    hourly: [],
+                    sessions: [[systemDate.getTime() - 1000, systemDate.getTime()]],
+                    total: getTotalData(0),
+                },
+            }));
+        });
     });
 
     describe('Storage optimization', () => {
@@ -514,6 +542,44 @@ describe('StatisticsStorage', () => {
             }));
         });
 
+        it('should update last session time when adding traffic', async () => {
+            const locationId = 'locationId10';
+            const downloadedBytes = 1111;
+            const uploadedBytes = 2222;
+
+            storageMock.get.mockResolvedValueOnce(getStatistics());
+
+            await statisticsStorage.init();
+
+            // for init
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+
+            await statisticsStorage.startDuration(locationId);
+
+            // for startDuration
+            expect(storageMock.set).toHaveBeenCalledTimes(2);
+
+            jest.advanceTimersByTime(1000);
+
+            await statisticsStorage.addTraffic(locationId, {
+                downloadedBytes,
+                uploadedBytes,
+            });
+
+            // for addTraffic
+            expect(storageMock.set).toHaveBeenCalledTimes(3);
+            expect(storageMock.set).toHaveBeenCalledWith(expect.any(String), getStatistics({
+                [locationId]: {
+                    hourly: [
+                        ['2025-10-01-10', getData(downloadedBytes, uploadedBytes)],
+                    ],
+                    sessions: [],
+                    total: getTotalData(0),
+                    lastSession: [systemDate.getTime(), systemDate.getTime() + 1000],
+                },
+            }));
+        });
+
         it('should add last session properly', async () => {
             const locationId = 'locationId11';
 
@@ -563,6 +629,44 @@ describe('StatisticsStorage', () => {
                         [systemDate.getTime(), systemDate.getTime() + 2000],
                     ],
                     total: getTotalData(0),
+                },
+            }));
+        });
+
+        it('should move last session if it was already defined', async () => {
+            const locationId = 'locationId11';
+
+            storageMock.get.mockResolvedValueOnce(getStatistics());
+
+            await statisticsStorage.init();
+
+            // for init
+            expect(storageMock.set).toHaveBeenCalledTimes(1);
+
+            await statisticsStorage.startDuration(locationId);
+
+            // for startDuration (1)
+            expect(storageMock.set).toHaveBeenCalledTimes(2);
+            expect(storageMock.set).toHaveBeenNthCalledWith(2, expect.any(String), getStatistics({
+                [locationId]: {
+                    hourly: [],
+                    sessions: [],
+                    total: getTotalData(0),
+                    lastSession: [systemDate.getTime(), systemDate.getTime()],
+                },
+            }));
+
+            jest.advanceTimersByTime(1000);
+            await statisticsStorage.startDuration(locationId);
+
+            // for startDuration (2)
+            expect(storageMock.set).toHaveBeenCalledTimes(3);
+            expect(storageMock.set).toHaveBeenNthCalledWith(3, expect.any(String), getStatistics({
+                [locationId]: {
+                    hourly: [],
+                    sessions: [[systemDate.getTime(), systemDate.getTime()]],
+                    total: getTotalData(0),
+                    lastSession: [systemDate.getTime() + 1000, systemDate.getTime() + 1000],
                 },
             }));
         });
