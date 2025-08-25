@@ -523,6 +523,10 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
         case MessageType.WEB_AUTH_FLOW_CANCEL: {
             return webAuth.cancelWebAuthFlow();
         }
+        case MessageType.WEB_AUTH_FLOW_CALLBACK: {
+            const { responseUrl } = data;
+            return webAuth.callbackWebAuthFlow(responseUrl);
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

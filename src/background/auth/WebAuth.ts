@@ -39,6 +39,13 @@ export interface WebAuthInterface {
      * Cancels the web authentication flow.
      */
     cancelWebAuthFlow(): Promise<void>;
+
+    /**
+     * Callback for the web authentication flow.
+     *
+     * @param responseUrl The response URL from the authentication flow.
+     */
+    callbackWebAuthFlow(responseUrl: string): Promise<void>
 }
 
 /**
@@ -184,7 +191,8 @@ export class WebAuth implements WebAuthInterface {
             return;
         }
 
-        // If tab info already exists - no need to check it further
+        // If tab info already exists - no need to check it further,
+        // it can be defined when fallback strategy of web authentication is used
         if (this.webAuthTabInfo) {
             return;
         }
@@ -458,6 +466,24 @@ export class WebAuth implements WebAuthInterface {
         if (this.webAuthTabInfo && typeof this.webAuthTabInfo.id === 'number') {
             await browser.tabs.remove(this.webAuthTabInfo.id);
             this.webAuthTabInfo = null;
+        }
+    }
+
+    /** @inheritdoc */
+    public async callbackWebAuthFlow(responseUrl: string): Promise<void> {
+        try {
+            // Authenticate user and reset auth caches
+            await this.authenticate(responseUrl);
+        } catch (error) {
+            // Reset authentication state
+            this.authState = null;
+
+            // Mark error as true and finish loading
+            const { isWebAuthFlowStarted } = this.authCache.getCache();
+            if (isWebAuthFlowStarted) {
+                this.authCache.updateCache(AuthCacheKey.IsWebAuthFlowHasError, true);
+                this.authCache.updateCache(AuthCacheKey.IsWebAuthFlowLoading, false);
+            }
         }
     }
 }
