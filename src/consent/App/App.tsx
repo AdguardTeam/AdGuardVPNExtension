@@ -8,7 +8,6 @@ import { reactTranslator } from '../../common/reactTranslator';
 import { getPrivacyAndEulaUrls } from '../../common/forwarderHelpers';
 import { Icons } from '../../common/components/Icons';
 import { notifier } from '../../common/notifier';
-import { SETTINGS_IDS } from '../../common/constants';
 import { useSubscribeNotifier } from '../../common/hooks/useSubscribeNotifier';
 import { Checkbox } from '../../options/components/ui/Checkbox';
 import { Button } from '../../options/components/ui/Button';
@@ -20,16 +19,22 @@ import { FailedToLoginModal } from './FailedToLoginModal';
 import '../../options/styles/main.pcss';
 import './app.pcss';
 
+/**
+ * List of notifier events to subscribe for.
+ */
 const NOTIFIER_EVENTS = [
     notifier.types.AUTH_CACHE_UPDATED,
-    notifier.types.SETTING_UPDATED,
+    notifier.types.USER_AUTHENTICATED,
 ];
 
+/**
+ * Consent page main component.
+ */
 export function App() {
     // Retrieved from background
-    const [cachedPolicyAgreement, setCachedPolicyAgreement] = useState(false);
     const [policyAgreement, setPolicyAgreement] = useState(false);
-    const [cachedHelpUsImprove, setCachedHelpUsImprove] = useState(false);
+    const [helpUsImprove, setHelpUsImprove] = useState(false);
+    const [marketingConsent, setMarketingConsent] = useState(false);
     const [eulaUrl, setEulaUrl] = useState<string | undefined>(undefined);
     const [privacyUrl, setPrivacyUrl] = useState<string | undefined>(undefined);
 
@@ -40,24 +45,25 @@ export function App() {
     useEffect(() => {
         const getData = async () => {
             const {
-                cachedPolicyAgreement,
                 policyAgreement,
-                cachedHelpUsImprove,
-                forwarderDomain,
+                helpUsImprove,
+                marketingConsent,
                 isWebAuthFlowHasError,
+                forwarderDomain,
             } = await messenger.getConsentData();
+
+            setPolicyAgreement(policyAgreement);
+            setHelpUsImprove(helpUsImprove);
+            setMarketingConsent(marketingConsent);
+            setIsFailedToLoginModalOpen(isWebAuthFlowHasError);
 
             const {
                 eulaUrl,
                 privacyUrl,
             } = getPrivacyAndEulaUrls(forwarderDomain);
 
-            setCachedPolicyAgreement(cachedPolicyAgreement);
-            setPolicyAgreement(policyAgreement);
-            setCachedHelpUsImprove(cachedHelpUsImprove);
             setEulaUrl(eulaUrl);
             setPrivacyUrl(privacyUrl);
-            setIsFailedToLoginModalOpen(isWebAuthFlowHasError);
         };
 
         getData();
@@ -70,10 +76,13 @@ export function App() {
             case notifier.types.AUTH_CACHE_UPDATED:
                 switch (data) {
                     case AuthCacheKey.PolicyAgreement:
-                        setCachedPolicyAgreement(value);
+                        setPolicyAgreement(value);
                         break;
                     case AuthCacheKey.HelpUsImprove:
-                        setCachedHelpUsImprove(value);
+                        setHelpUsImprove(value);
+                        break;
+                    case AuthCacheKey.MarketingConsent:
+                        setMarketingConsent(value);
                         break;
                     case AuthCacheKey.IsWebAuthFlowHasError:
                         setIsFailedToLoginModalOpen(value);
@@ -82,14 +91,9 @@ export function App() {
                         break;
                 }
                 break;
-            case notifier.types.SETTING_UPDATED:
-                switch (data) {
-                    case SETTINGS_IDS.POLICY_AGREEMENT:
-                        setPolicyAgreement(value);
-                        break;
-                    default:
-                        break;
-                }
+            // Close consent page when user authenticates
+            case notifier.types.USER_AUTHENTICATED:
+                window.close();
                 break;
             default:
                 break;
@@ -98,25 +102,20 @@ export function App() {
 
     useSubscribeNotifier(NOTIFIER_EVENTS, messageHandler);
 
-    // FIXME: Maybe we should show something if user already accepted consent?
-    if (policyAgreement) {
-        return null;
-    }
-
     const stopPropagation = async (e: React.MouseEvent): Promise<void> => {
         e.stopPropagation();
     };
 
     const handlePolicyToggle = async (): Promise<void> => {
-        const newValue = !cachedPolicyAgreement;
+        const newValue = !policyAgreement;
         await messenger.updateAuthCache(AuthCacheKey.PolicyAgreement, newValue);
-        setCachedPolicyAgreement(newValue);
+        setPolicyAgreement(newValue);
     };
 
     const handleHelpUsImproveToggle = async (): Promise<void> => {
-        const newValue = !cachedHelpUsImprove;
+        const newValue = !helpUsImprove;
         await messenger.updateAuthCache(AuthCacheKey.HelpUsImprove, newValue);
-        setCachedHelpUsImprove(newValue);
+        setHelpUsImprove(newValue);
     };
 
     const openUsageDataModal = (e: React.MouseEvent<HTMLAnchorElement>): void => {
@@ -135,10 +134,10 @@ export function App() {
 
     const handleContinueClick = async (): Promise<void> => {
         // save the consent data
-        await messenger.setConsentData(cachedPolicyAgreement, cachedHelpUsImprove);
-        setPolicyAgreement(cachedPolicyAgreement);
+        await messenger.setConsentData(policyAgreement, helpUsImprove);
 
-        // FIXME: Initiate WebAuth
+        // start the web authentication flow
+        await messenger.startWebAuthFlow(marketingConsent);
     };
 
     return (
@@ -191,7 +190,7 @@ export function App() {
                             ),
                         })}
                         // cast value to boolean, because it might be `null` from background
-                        value={!!cachedPolicyAgreement}
+                        value={policyAgreement}
                         onToggle={handlePolicyToggle}
                     />
                     <Checkbox
@@ -209,11 +208,11 @@ export function App() {
                             ),
                         })}
                         // cast value to boolean, because it might be `null` from background
-                        value={!!cachedHelpUsImprove}
+                        value={helpUsImprove}
                         onToggle={handleHelpUsImproveToggle}
                     />
                 </div>
-                <Button onClick={handleContinueClick} disabled={!cachedPolicyAgreement}>
+                <Button onClick={handleContinueClick} disabled={!policyAgreement}>
                     {translator.getMessage('popup_auth_policy_agreement_continue_button')}
                 </Button>
             </div>

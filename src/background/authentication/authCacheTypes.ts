@@ -13,7 +13,7 @@ export enum AuthCacheKey {
 /**
  * Type for Auth cache values.
  */
-export type AuthCacheValue = boolean | null | string;
+export type AuthCacheValue = boolean;
 
 /**
  * Interface for Auth cache data.

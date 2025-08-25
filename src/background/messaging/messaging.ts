@@ -6,7 +6,7 @@ import { type ExclusionsData } from '../../common/exclusionsConstants';
 import { logStorage } from '../../common/log-storage';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
-import { auth } from '../auth';
+import { auth, webAuth } from '../auth';
 import { popupData } from '../popupData';
 import { endpoints } from '../endpoints';
 import { actions } from '../actions';
@@ -511,6 +511,17 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
         case MessageType.STATISTICS_SET_IS_DISABLED: {
             const { isDisabled } = data;
             return statisticsService.setIsDisabled(isDisabled);
+        }
+        case MessageType.WEB_AUTH_FLOW_START: {
+            const { marketingConsent } = data;
+            const appId = await credentials.getAppId();
+            return webAuth.startWebAuthFlow(appId, marketingConsent);
+        }
+        case MessageType.WEB_AUTH_FLOW_REOPEN: {
+            return webAuth.reopenWebAuthFlow();
+        }
+        case MessageType.WEB_AUTH_FLOW_CANCEL: {
+            return webAuth.cancelWebAuthFlow();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

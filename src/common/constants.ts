@@ -117,6 +117,10 @@ export enum MessageType {
     STATISTICS_GET_BY_RANGE = 'statistics.get.by.range',
     STATISTICS_CLEAR = 'statistics.clear',
     STATISTICS_SET_IS_DISABLED = 'statistics.set.is.disabled',
+
+    WEB_AUTH_FLOW_START = 'web.auth.flow.start',
+    WEB_AUTH_FLOW_REOPEN = 'web.auth.flow.reopen',
+    WEB_AUTH_FLOW_CANCEL = 'web.auth.flow.cancel',
 }
 
 export const FLAGS_FIELDS = {

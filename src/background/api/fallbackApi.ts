@@ -407,4 +407,6 @@ export class FallbackApi {
     };
 }
 
+export type FallbackApiInterface = InstanceType<typeof FallbackApi>;
+
 export const fallbackApi = new FallbackApi(VPN_API_URL, AUTH_API_URL, FORWARDER_DOMAIN);

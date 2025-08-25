@@ -4,13 +4,12 @@ import {
     runInAction,
     computed,
 } from 'mobx';
-import isNil from 'lodash/isNil';
 
 import { messenger } from '../../common/messenger';
 import { FLAGS_FIELDS } from '../../common/constants';
 import { AuthCacheKey, type AuthCacheValue } from '../../background/authentication/authCacheTypes';
 
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
+import { RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
 
 const DEFAULTS = {
@@ -88,24 +87,12 @@ export class AuthStore {
             isWebAuthFlowHasError,
         } = await messenger.getAuthCache();
         runInAction(() => {
-            if (!isNil(policyAgreement)) {
-                this.policyAgreement = policyAgreement;
-            }
-            if (!isNil(helpUsImprove)) {
-                this.helpUsImprove = helpUsImprove;
-            }
-            if (!isNil(marketingConsent)) {
-                this.marketingConsent = marketingConsent;
-            }
-            if (!isNil(isWebAuthFlowStarted)) {
-                this.isWebAuthFlowStarted = isWebAuthFlowStarted;
-            }
-            if (!isNil(isWebAuthFlowLoading)) {
-                this.isWebAuthFlowLoading = isWebAuthFlowLoading;
-            }
-            if (!isNil(isWebAuthFlowHasError)) {
-                this.isWebAuthFlowHasError = isWebAuthFlowHasError;
-            }
+            this.policyAgreement = policyAgreement;
+            this.helpUsImprove = helpUsImprove;
+            this.marketingConsent = marketingConsent;
+            this.isWebAuthFlowStarted = isWebAuthFlowStarted;
+            this.isWebAuthFlowLoading = isWebAuthFlowLoading;
+            this.isWebAuthFlowHasError = isWebAuthFlowHasError;
         });
     };
 
@@ -216,22 +203,22 @@ export class AuthStore {
     @action handleAuthCacheUpdate = (field: AuthCacheKey, value: AuthCacheValue) => {
         switch (field) {
             case AuthCacheKey.PolicyAgreement:
-                this.policyAgreement = !!value as boolean;
+                this.policyAgreement = value;
                 break;
             case AuthCacheKey.HelpUsImprove:
-                this.helpUsImprove = !!value as boolean;
+                this.helpUsImprove = value;
                 break;
             case AuthCacheKey.MarketingConsent:
-                this.marketingConsent = !!value as boolean;
+                this.marketingConsent = value;
                 break;
             case AuthCacheKey.IsWebAuthFlowStarted:
-                this.isWebAuthFlowStarted = !!value as boolean;
+                this.isWebAuthFlowStarted = value;
                 break;
             case AuthCacheKey.IsWebAuthFlowLoading:
-                this.isWebAuthFlowLoading = !!value as boolean;
+                this.isWebAuthFlowLoading = value;
                 break;
             case AuthCacheKey.IsWebAuthFlowHasError:
-                this.isWebAuthFlowHasError = !!value as boolean;
+                this.isWebAuthFlowHasError = value;
                 break;
             default:
                 break;
@@ -243,22 +230,7 @@ export class AuthStore {
      */
     @action startWebAuthFlow = async () => {
         this.requestProcessState = RequestStatus.Pending;
-
-        const succeed = await messenger.startWebAuthFlow();
-
-        if (succeed) {
-            await messenger.clearAuthCache();
-            await messenger.checkPermissions();
-            await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
-            runInAction(() => {
-                this.requestProcessState = RequestStatus.Done;
-                this.authenticated = true;
-            });
-        } else {
-            runInAction(() => {
-                this.requestProcessState = RequestStatus.Error;
-            });
-        }
+        await messenger.startWebAuthFlow(this.marketingConsent);
     };
 
     /**

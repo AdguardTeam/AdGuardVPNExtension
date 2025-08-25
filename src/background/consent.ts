@@ -9,17 +9,17 @@ import { settings } from './settings';
  *
  * @returns Object that contains data needed for consent page,
  * it returns following fields:
- * - `policyAgreement` - Whether user has accepted the policy (After clicking "Continue" button).
- * - `cachedPolicyAgreement` - Whether user has accepted the policy (Before clicking "Continue" button).
- * - `cachedHelpUsImprove` - Whether user has agreed to help improve the service (Before clicking "Continue" button).
+ * - `policyAgreement` - Whether user has accepted the policy.
+ * - `helpUsImprove` - Whether user has accepted the help us improve.
+ * - `marketingConsent` - Whether user has accepted marketing consent.
+ * - `isWebAuthFlowHasError` - Whether there was an error in the web authentication flow.
  * - `forwarderDomain` - The domain of the forwarder.
  */
 export const getConsentData = async () => {
-    const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
-
     const {
-        policyAgreement: cachedPolicyAgreement,
-        helpUsImprove: cachedHelpUsImprove,
+        policyAgreement,
+        helpUsImprove,
+        marketingConsent,
         isWebAuthFlowHasError,
     } = authCache.getCache();
 
@@ -27,8 +27,8 @@ export const getConsentData = async () => {
 
     return {
         policyAgreement,
-        cachedPolicyAgreement,
-        cachedHelpUsImprove,
+        helpUsImprove,
+        marketingConsent,
         isWebAuthFlowHasError,
         forwarderDomain,
     };

@@ -4,12 +4,19 @@ import { StorageKey, type UpdateServiceState } from './schema';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
-interface UpdateServiceInterface {
+export interface UpdateServiceInterface {
     init(): Promise<void>;
     getAppVersionFromStorage(): Promise<string | undefined>;
     getAppVersionFromManifest(): Promise<string>;
     setAppVersionInStorage(appVersion: string): Promise<void>;
     setIsFirstRunFalse(): void;
+
+    /**
+     * Returns whether this is the first run of the application.
+     *
+     * @returns True if this is the first run, false otherwise.
+     */
+    getIsFirstRun(): boolean;
 }
 
 class UpdateService implements UpdateServiceInterface {
@@ -69,6 +76,11 @@ class UpdateService implements UpdateServiceInterface {
 
     setIsFirstRunFalse = (): void => {
         this.isFirstRun = false;
+    };
+
+    /** @inheritdoc */
+    getIsFirstRun = (): boolean => {
+        return this.isFirstRun;
     };
 }
 
