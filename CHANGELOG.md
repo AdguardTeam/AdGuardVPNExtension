@@ -22,8 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#162]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/162
 [#223]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/223
 
-<!-- FIXME: Specify date (v2.6 patch 1) -->
-## [2.6.9]
+## [2.6.11] - 2025-08-15
 
 ### Changed
 
@@ -33,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Opera Add-Ons store publishing issue [#225].
 
-[2.6.9]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...v2.6.9
+[2.6.11]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...v2.6.11
 [#225]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/225
 
 ## [2.6.3] - 2025-07-21
