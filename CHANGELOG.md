@@ -12,14 +12,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Log out confirmation popup.
 
+### Changed
+
+- Authentication flow improvements.
+
 ### Fixed
 
 - Overflow in disabled vpn url [#162].
 - 'Rate us' dialog doesn't close after you rate the extension [#223].
 - Unable to login from "Thank You" page in Firefox.
+- 2FA One-Time Code Not Received via Email [#222].
 
 [Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.3...HEAD
 [#162]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/162
+[#222]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/222
 [#223]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/223
 
 ## [2.6.11] - 2025-08-15
