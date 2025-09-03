@@ -22,6 +22,7 @@ export const Settings = observer(() => {
         vpnStore,
         uiStore,
         telemetryStore,
+        authStore,
     } = useContext(rootStore);
 
     const { isConnected, showServerErrorPopup } = settingsStore;
@@ -39,13 +40,17 @@ export const Settings = observer(() => {
         maxDevicesAllowed,
     } = vpnStore;
 
+    const { showRateModal, showConfirmRateModal } = authStore;
+
     const isDeviceLimitScreenRendered = tooManyDevicesConnected && !isNil(maxDevicesAllowed);
 
     const canSendTelemetry = !isOpenOptionsModal // `MenuScreen` is rendered on top of this screen
         && !shouldShowLimitedOfferDetails // `PromoOfferScreen` is rendered on top of this screen
         && !isDeviceLimitScreenRendered // `DeviceLimitScreen` is rendered on top of this screen
         && !isShownVpnBlockedErrorDetails // `DialogDesktopVersionPromo` is rendered on top of this screen
-        && !showServerErrorPopup; // `DialogCantConnect` is rendered on top of this screen
+        && !showServerErrorPopup // `DialogCantConnect` is rendered on top of this screen
+        && !showRateModal // `DialogRateUs` is rendered on top of this screen
+        && !showConfirmRateModal; // `DialogRateInStore` / `DialogHelpUsImprove` is rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,

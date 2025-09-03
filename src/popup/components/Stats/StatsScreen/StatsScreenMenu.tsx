@@ -64,7 +64,7 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
 
     useTelemetryPageViewEvent(
         telemetryStore,
-        TelemetryScreenName.WhySafeScreen,
+        TelemetryScreenName.InfoScreen,
         isWhySafeModalOpen,
     );
 
@@ -171,7 +171,7 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
     const handlePrivacyPolicyClick = () => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.StatsPrivacyClick,
-            TelemetryScreenName.WhySafeScreen,
+            TelemetryScreenName.InfoScreen,
         );
     };
 

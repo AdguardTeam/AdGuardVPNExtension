@@ -18,10 +18,10 @@ import './general.pcss';
 
 export const General = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
-    const { showDnsSettings } = settingsStore;
+    const { showDnsSettings, isHelpUsImproveModalOpen } = settingsStore;
 
-    // `SettingsDnsServersScreen` is rendered on top of this screen
-    const canSendTelemetry = !showDnsSettings;
+    const canSendTelemetry = !showDnsSettings // `SettingsDnsServersScreen` is rendered on top of this screen
+        && !isHelpUsImproveModalOpen; // `UsageDataDialog` is rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,

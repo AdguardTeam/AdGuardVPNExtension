@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { translator } from '../../../../common/translator';
 import { Modal } from '../../ui/Modal';
 import { Button } from '../../ui/Button';
@@ -14,15 +16,29 @@ import './sign-out-modal.pcss';
  * Accidentally clicking logout would be pretty annoying so we added confirmation popup
  */
 export const SignOutModal = observer(() => {
-    const { settingsStore, authStore } = useContext(rootStore);
+    const { settingsStore, authStore, telemetryStore } = useContext(rootStore);
 
     const isOpen = settingsStore.isSignOutModalOpen;
 
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogLogOut,
+        isOpen,
+    );
+
     const closeModal = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.CancelLogOutClick,
+            TelemetryScreenName.DialogLogOut,
+        );
         settingsStore.closeSignOutModal();
     };
 
     const signOut = async () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.LogOutClick,
+            TelemetryScreenName.DialogLogOut,
+        );
         await authStore.deauthenticate();
     };
 

@@ -66,6 +66,10 @@ export const Locations = observer(() => {
     };
 
     const handleLocationSave = async (id: string) => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SaveLocationClick,
+            TelemetryScreenName.ContextBasedScreen,
+        );
         const isAdded = await vpnStore.toggleSavedLocation(id);
 
         if (!isAdded) {

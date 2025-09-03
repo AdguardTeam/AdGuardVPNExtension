@@ -55,11 +55,6 @@ interface FormError extends FormErrorType {
 export const BugReporter = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
 
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.SupportReportBugScreen,
-    );
-
     const MIN_DURATION_MS = 500;
     const reportWithMinDuration = addMinDurationTime(
         messenger.reportBug.bind(messenger),
@@ -81,6 +76,20 @@ export const BugReporter = observer(() => {
             },
         },
     });
+
+    const isSuccess = requestState.matches(RequestState.Success);
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.SupportReportBugScreen,
+        !isSuccess, // `SupportReportSendScreen` is rendered after success
+    );
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.SupportReportSendScreen,
+        isSuccess, // `SupportReportBugScreen` is rendered before success
+    );
 
     const DEFAULT_FORM_STATE: FormState = {
         [FormField.Email]: settingsStore.currentUsername,
@@ -105,6 +114,10 @@ export const BugReporter = observer(() => {
     };
 
     const handleNewReport = () => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.NewReportClick,
+            TelemetryScreenName.SupportReportSendScreen,
+        );
         sendToRequestMachine(RequestEvent.StartAgain);
         setFormState(DEFAULT_FORM_STATE);
         setFormErrors(DEFAULT_ERROR_STATE);
@@ -202,7 +215,7 @@ export const BugReporter = observer(() => {
         settingsStore.setShowBugReporter(false);
     };
 
-    if (requestState.matches(RequestState.Success)) {
+    if (isSuccess) {
         return (
             <div className="bug-report__success">
                 <img

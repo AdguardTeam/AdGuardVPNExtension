@@ -7,6 +7,8 @@ import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { getForwarderUrl } from '../../../common/helpers';
 import { IconButton } from '../../../common/components/Icons';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import { RATING_IMAGES_MAP } from './constants';
 
@@ -27,11 +29,24 @@ const storeRatingContent = {
 };
 
 export const ConfirmRateModal = observer(() => {
-    const { authStore, settingsStore } = useContext(rootStore);
+    const { authStore, settingsStore, telemetryStore } = useContext(rootStore);
     const { rating, showConfirmRateModal } = authStore;
     const { forwarderDomain } = settingsStore;
 
-    const content = rating > BAD_RATING_LIMIT ? storeRatingContent : feedbackContent;
+    const isStoreRating = rating > BAD_RATING_LIMIT;
+    const content = isStoreRating ? storeRatingContent : feedbackContent;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogRateInStore,
+        isStoreRating && showConfirmRateModal,
+    );
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogHelpUsImprove,
+        !isStoreRating && showConfirmRateModal,
+    );
 
     const closeModal = async () => {
         await authStore.closeConfirmRateModalAfterCancel();
@@ -42,14 +57,34 @@ export const ConfirmRateModal = observer(() => {
         await settingsStore.hideRate();
     };
 
+    const handleClose = async () => {
+        telemetryStore.sendCustomEvent(
+            isStoreRating
+                ? TelemetryActionName.CancelRateStoreClick
+                : TelemetryActionName.CancelHelpImproveClick,
+            isStoreRating
+                ? TelemetryScreenName.DialogRateInStore
+                : TelemetryScreenName.DialogHelpUsImprove,
+        );
+        await closeModal();
+    };
+
     const handleConfirm = async () => {
-        if (rating > BAD_RATING_LIMIT) {
+        if (isStoreRating) {
+            telemetryStore.sendCustomEvent(
+                TelemetryActionName.RateInStoreClick,
+                TelemetryScreenName.DialogRateInStore,
+            );
             // Same issue as in RatePopup.tsx
             // This issue reproduces only on macOS, possibly any unix based OS
             // https://github.com/AdguardTeam/AdGuardVPNExtension/issues/150
             await closeModalWithRating();
             window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_STORE), '_blank');
         } else {
+            telemetryStore.sendCustomEvent(
+                TelemetryActionName.FeedbackHelpImproveClick,
+                TelemetryScreenName.DialogHelpUsImprove,
+            );
             await closeModal();
             window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
         }
@@ -61,12 +96,12 @@ export const ConfirmRateModal = observer(() => {
             className="modal rate-modal rate-modal--confirm"
             shouldCloseOnOverlayClick
             overlayClassName="modal__overlay"
-            onRequestClose={closeModal}
+            onRequestClose={handleClose}
         >
             <IconButton
                 name="cross"
                 className="close-icon-btn"
-                onClick={closeModal}
+                onClick={handleClose}
             />
             <img
                 src={RATING_IMAGES_MAP[rating]}
@@ -85,7 +120,7 @@ export const ConfirmRateModal = observer(() => {
             <button
                 type="button"
                 className="button button--medium button--medium--wide button--outline-secondary rate-modal__button"
-                onClick={closeModal}
+                onClick={handleClose}
             >
                 {reactTranslator.getMessage('popup_rate_modal_cancel_button')}
             </button>
