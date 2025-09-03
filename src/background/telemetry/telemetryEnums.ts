@@ -94,12 +94,6 @@ export enum TelemetryActionName {
     GotItAndroidPromoClick = 'got_it_android_promo_click',
     DontShowAndroidPromoClick = 'dont_show_android_promo_click',
     MenuGetAndroidClick = 'menu_get_android_click',
-    // FIXME START: Waits for clarification
-    MenuSettingsAndroidClick = 'menu_settings_android_click',
-    MenuAndroidProductsAndroidClick = 'menu_android_products_android_click',
-    MenuWhyDesktopAndroidClick = 'menu_why_desktop_android_click',
-    MenuRateUsAndroidClick = 'menu_rate_us_android_click',
-    // FIXME END: Waits for clarification
     ClosePromoOfferClick = 'close_promo_offer_click',
     DisableAnotherExtensionClick = 'disable_another_extension_click',
     MenuClick = 'menu_click',
@@ -136,6 +130,12 @@ export enum TelemetryActionName {
     WeekStatsClick = 'week_stats_click',
     MonthStatsClick = 'month_stats_click',
     AllTimeStatsClick = 'all_time_stats_click',
+    // FIXME START: Waits for clarification
+    MenuSettingsAndroidClick = 'menu_settings_android_click',
+    MenuAndroidProductsAndroidClick = 'menu_android_products_android_click',
+    MenuWhyDesktopAndroidClick = 'menu_why_desktop_android_click',
+    MenuRateUsAndroidClick = 'menu_rate_us_android_click',
+    // FIXME END: Waits for clarification
     SaveLocationClick = 'save_location_click',
     CancelRateUsClick = 'cancel_rate_us_click',
     SendRateUsClick = 'send_rate_us_click',
@@ -312,6 +312,10 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.WeekStatsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.MonthStatsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.AllTimeStatsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.MenuSettingsAndroidClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.MenuAndroidProductsAndroidClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.MenuWhyDesktopAndroidClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.MenuRateUsAndroidClick]: TelemetryScreenName.MenuScreen;
     [TelemetryActionName.SaveLocationClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.CancelRateUsClick]: TelemetryScreenName.DialogRateUs;
     [TelemetryActionName.SendRateUsClick]: TelemetryScreenName.DialogRateUs;
