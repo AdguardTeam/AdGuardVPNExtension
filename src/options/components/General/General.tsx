@@ -25,7 +25,7 @@ export const General = observer(() => {
 
     useTelemetryPageViewEvent(
         telemetryStore,
-        TelemetryScreenName.SettingsScreen,
+        TelemetryScreenName.GeneralSettingsScreen,
         canSendTelemetry,
     );
 

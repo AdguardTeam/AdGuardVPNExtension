@@ -121,7 +121,7 @@ export interface TelemetryBaseData {
  */
 export interface TelemetryPageViewEventData {
     /**
-     * Name of shown page, e.g. 'settings_screen'.
+     * Name of shown page, e.g. 'general_settings_screen'.
      */
     name: TelemetryScreenName;
 

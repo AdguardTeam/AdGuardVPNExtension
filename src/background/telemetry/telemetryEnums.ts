@@ -42,7 +42,7 @@ export enum TelemetryScreenName {
     DialogRateInStore = 'dialog_rate_in_store',
 
     // Options screens
-    SettingsScreen = 'settings_screen',
+    GeneralSettingsScreen = 'general_settings_screen',
     SettingsDnsServersScreen = 'settings_dns_servers_screen',
     DialogAddCustomDns = 'dialog_add_custom_dns',
     DialogEditCustomDns = 'dialog_edit_custom_dns',
@@ -367,7 +367,7 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.AddWebsiteManually]: TelemetryScreenName.DialogAddWebsiteExclusion;
     [TelemetryActionName.ExitInvalidDomainClick]: TelemetryScreenName.DialogExclusionsAddNotValidDomain;
     [TelemetryActionName.AddInvalidDomainClick]: TelemetryScreenName.DialogExclusionsAddNotValidDomain;
-    [TelemetryActionName.ExtensionDataClick]: TelemetryScreenName.SettingsScreen;
+    [TelemetryActionName.ExtensionDataClick]: TelemetryScreenName.GeneralSettingsScreen;
     [TelemetryActionName.UsageDataPolicyClick]: TelemetryScreenName.UsageDataDialog;
     [TelemetryActionName.HideAdvantagesClick]: TelemetryScreenName.AccountScreen;
     [TelemetryActionName.CancelLogOutClick]: TelemetryScreenName.DialogLogOut;

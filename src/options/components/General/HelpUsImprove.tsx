@@ -39,7 +39,7 @@ export const HelpUsImprove = observer(() => {
         e.stopPropagation();
         telemetryStore.sendCustomEvent(
             TelemetryActionName.ExtensionDataClick,
-            TelemetryScreenName.SettingsScreen,
+            TelemetryScreenName.GeneralSettingsScreen,
         );
         openHelpUsImproveModal();
     };
