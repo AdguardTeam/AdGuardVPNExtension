@@ -39,7 +39,8 @@ export const Account = observer(() => {
 
     const showGetSubscriptionButton = !isPremiumToken && !premiumFeatures;
 
-    const canSendTelemetry = !isSignOutModalOpen; // `DialogLogOut` is rendered on top of this screen
+    // `DialogLogOut` is rendered on top of this screen
+    const canSendTelemetry = !isSignOutModalOpen;
 
     useTelemetryPageViewEvent(
         telemetryStore,
