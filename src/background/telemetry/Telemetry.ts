@@ -483,7 +483,7 @@ export class Telemetry implements TelemetryInterface {
      *
      * @param portName Name of the port popup connected to.
      */
-    private handlePopupConnect(portName: string) {
+    private handlePopupConnect(portName: string): void {
         this.openedPages.add(portName);
     }
 
@@ -493,7 +493,7 @@ export class Telemetry implements TelemetryInterface {
      *
      * @param portName Name of the port popup connected to.
      */
-    private handlePopupDisconnect(portName: string) {
+    private handlePopupDisconnect(portName: string): void {
         this.removeOpenedPage(portName);
     }
 
@@ -607,7 +607,7 @@ export class Telemetry implements TelemetryInterface {
 
         let subscriptionDuration: TelemetrySubscriptionDuration | undefined;
         if (licenseStatus === TelemetryLicenseStatus.Premium) {
-            const subscriptionType = this.credentials.getSubscriptionType();
+            const subscriptionType = await this.credentials.getSubscriptionType();
 
             // If subscription type is not sent from backend - it's a lifetime subscription.
             subscriptionDuration = subscriptionType

@@ -28,7 +28,7 @@ export const About = observer(() => {
     const websiteUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.WEBSITE);
     const { eulaUrl, privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
 
-    const handleWebsiteClick = () => {
+    const handleWebsiteClick = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.OfficialWebClick,
             TelemetryScreenName.AboutScreen,

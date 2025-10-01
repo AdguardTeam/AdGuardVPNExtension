@@ -113,9 +113,9 @@ export class StatsStore {
     @observable isMenuOpen = false;
 
     /**
-     * Is why safe modal open.
+     * Is stats info modal open.
      */
-    @observable isWhySafeModalOpen = false;
+    @observable isStatsInfoModalOpen = false;
 
     /**
      * Is disable modal open.
@@ -148,7 +148,7 @@ export class StatsStore {
     /**
      * Is stats screen open or not.
      */
-    @computed get isOpenStatsScreen() {
+    @computed get isOpenStatsScreen(): boolean {
         // Do not render the stats screen if user is not a premium user
         if (!this.rootStore.vpnStore.isPremiumToken) {
             return false;
@@ -178,7 +178,7 @@ export class StatsStore {
      *
      * @param statisticsByRange Statistics data for the selected range.
      */
-    @action setStatisticsByRange = (statisticsByRange: StatisticsByRange) => {
+    @action setStatisticsByRange = (statisticsByRange: StatisticsByRange): void => {
         const {
             isDisabled,
             startedTimestamp,
@@ -237,7 +237,7 @@ export class StatsStore {
     /**
      * Open the stats screen.
      */
-    @action openStatsScreen = () => {
+    @action openStatsScreen = (): void => {
         // Do nothing if user is not a premium user
         if (!this.rootStore.vpnStore.isPremiumToken) {
             return;
@@ -249,7 +249,7 @@ export class StatsStore {
     /**
      * Close the stats screen.
      */
-    @action closeStatsScreen = () => {
+    @action closeStatsScreen = (): void => {
         // Do nothing if user is not a premium user
         if (!this.rootStore.vpnStore.isPremiumToken) {
             return;
@@ -261,7 +261,7 @@ export class StatsStore {
     /**
      * Open the all locations screen.
      */
-    @action openAllLocationsScreen = () => {
+    @action openAllLocationsScreen = (): void => {
         // Do nothing if the stats screen is not open
         if (!this.isStatsScreenOpen) {
             return;
@@ -273,7 +273,7 @@ export class StatsStore {
     /**
      * Close the all locations screen.
      */
-    @action closeAllLocationsScreen = () => {
+    @action closeAllLocationsScreen = (): void => {
         // Do nothing if the stats screen is not open
         if (!this.isStatsScreenOpen) {
             return;
@@ -287,7 +287,7 @@ export class StatsStore {
      *
      * @param locationId ID of the location to show stats for.
      */
-    @action openLocationScreen = (locationId: string) => {
+    @action openLocationScreen = (locationId: string): void => {
         // Do nothing if the stats screen is not open
         if (!this.isStatsScreenOpen) {
             return;
@@ -299,7 +299,7 @@ export class StatsStore {
     /**
      * Close the location screen.
      */
-    @action closeLocationScreen = () => {
+    @action closeLocationScreen = (): void => {
         // Do nothing if the stats screen is not open
         if (!this.isStatsScreenOpen) {
             return;
@@ -313,7 +313,7 @@ export class StatsStore {
      *
      * @param isRequestedFromUiRender True if update is requested from UI render, false otherwise.
      */
-    @action updateStatistics = async (isRequestedFromUiRender = false) => {
+    @action updateStatistics = async (isRequestedFromUiRender = false): Promise<void> => {
         /**
          * Negative XOR check to ensure following:
          * - If first stats retrieved before and it's called from UI render,
@@ -345,7 +345,7 @@ export class StatsStore {
      *
      * @param range New range value.
      */
-    @action updateRange = async (range: StatisticsRange) => {
+    @action updateRange = async (range: StatisticsRange): Promise<void> => {
         this.range = range;
         await this.saveRangeToStorage(range);
         await this.updateStatistics();
@@ -356,7 +356,7 @@ export class StatsStore {
      *
      * @param isDisabled True if stats collection should be disabled, false otherwise.
      */
-    @action updateIsStatsDisabled = async (isDisabled: boolean) => {
+    @action updateIsStatsDisabled = async (isDisabled: boolean): Promise<void> => {
         this.isStatsDisabled = isDisabled;
         await messenger.setStatisticsIsDisabled(isDisabled);
     };
@@ -364,7 +364,7 @@ export class StatsStore {
     /**
      * Clear all stats.
      */
-    @action clearAllStats = async () => {
+    @action clearAllStats = async (): Promise<void> => {
         await messenger.clearStatistics();
 
         runInAction(() => {
@@ -380,17 +380,17 @@ export class StatsStore {
      *
      * @param isMenuOpen True if the menu is open, false otherwise.
      */
-    @action setIsMenuOpen = (isMenuOpen: boolean) => {
+    @action setIsMenuOpen = (isMenuOpen: boolean): void => {
         this.isMenuOpen = isMenuOpen;
     };
 
     /**
-     * Set the why safe modal open state.
+     * Set the stats info modal open state.
      *
-     * @param isWhySafeModalOpen True if the modal is open, false otherwise.
+     * @param isStatsInfoModalOpen True if the modal is open, false otherwise.
      */
-    @action setIsWhySafeModalOpen = (isWhySafeModalOpen: boolean) => {
-        this.isWhySafeModalOpen = isWhySafeModalOpen;
+    @action setIsStatsInfoModalOpen = (isStatsInfoModalOpen: boolean): void => {
+        this.isStatsInfoModalOpen = isStatsInfoModalOpen;
     };
 
     /**
@@ -398,7 +398,7 @@ export class StatsStore {
      *
      * @param isDisableModalOpen True if the modal is open, false otherwise.
      */
-    @action setIsDisableModalOpen = (isDisableModalOpen: boolean) => {
+    @action setIsDisableModalOpen = (isDisableModalOpen: boolean): void => {
         this.isDisableModalOpen = isDisableModalOpen;
     };
 
@@ -407,7 +407,7 @@ export class StatsStore {
      *
      * @param isClearModalOpen True if the modal is open, false otherwise.
      */
-    @action setIsClearModalOpen = (isClearModalOpen: boolean) => {
+    @action setIsClearModalOpen = (isClearModalOpen: boolean): void => {
         this.isClearModalOpen = isClearModalOpen;
     };
 
@@ -416,7 +416,7 @@ export class StatsStore {
      *
      * @param isFirstStatisticsRetrieved True if the first statistics retrieval has occurred, false otherwise.
      */
-    @action setIsFirstStatisticsRetrieved = (isFirstStatisticsRetrieved: boolean) => {
+    @action setIsFirstStatisticsRetrieved = (isFirstStatisticsRetrieved: boolean): void => {
         this.isFirstStatisticsRetrieved = isFirstStatisticsRetrieved;
     };
 
@@ -425,14 +425,15 @@ export class StatsStore {
      *
      * @param isStatisticsLoading True if statistics are currently loading, false otherwise.
      */
-    @action setIsStatisticsLoading = (isStatisticsLoading: boolean) => {
+    @action setIsStatisticsLoading = (isStatisticsLoading: boolean): void => {
         this.isStatisticsLoading = isStatisticsLoading;
     };
 
     /**
      * Retrieves the statistics range from session storage.
      *
-     * @returns The statistics range from storage, or the default range if not set or invalid.
+     * @returns Promise with statistics range from storage,
+     * or the default range if not set or invalid.
      */
     private async getRangeFromStorage(): Promise<StatisticsRange> {
         try {

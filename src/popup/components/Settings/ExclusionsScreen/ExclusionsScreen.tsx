@@ -16,11 +16,11 @@ export const ExclusionsScreen = observer(() => {
         animationService.send(AnimationEvent.ExclusionScreenDisplayed);
     });
 
-    const removeFromExclusions = async () => {
+    const removeFromExclusions = async (): Promise<void> => {
         await settingsStore.enableVpnOnCurrentTab();
     };
 
-    const addToExclusions = async () => {
+    const addToExclusions = async (): Promise<void> => {
         await settingsStore.disableVpnOnCurrentTab();
     };
 

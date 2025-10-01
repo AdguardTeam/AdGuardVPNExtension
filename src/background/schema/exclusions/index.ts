@@ -1,11 +1,6 @@
 export {
     exclusionScheme,
     type ExclusionInterface,
-    persistedExclusionsScheme,
-    type PersistedExclusions,
-    exclusionsManagerStateScheme,
-    type ExclusionsManagerState,
-    EXCLUSIONS_MANAGER_STATE_DEFAULTS,
     type IndexedExclusionsInterface,
     exclusionsHandlerStateScheme,
     type ExclusionsHandlerState,
@@ -26,4 +21,6 @@ export {
     exclusionsStateScheme,
     type ExclusionsState,
     EXCLUSIONS_STATE_DEFAULTS,
+    persistedExclusionsScheme,
+    type PersistedExclusions,
 } from './exclusionsState';

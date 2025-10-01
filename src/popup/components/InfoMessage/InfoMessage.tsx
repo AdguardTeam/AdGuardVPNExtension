@@ -19,7 +19,7 @@ const TRAFFIC_PERCENT = {
 export const InfoMessage = observer(() => {
     const { vpnStore, settingsStore, telemetryStore } = useContext(rootStore);
 
-    const upgradeClickHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const upgradeClickHandler = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         telemetryStore.sendCustomEvent(
             TelemetryActionName.PurchaseClick,
@@ -41,7 +41,7 @@ export const InfoMessage = observer(() => {
         return null;
     }
 
-    const getInfoColor = () => {
+    const getInfoColor = (): 'red' | 'yellow' | 'green' => {
         if (trafficUsingProgress < TRAFFIC_PERCENT.DANGER) {
             return 'red';
         }

@@ -1,85 +1,94 @@
 import { notifier } from '../../common/notifier';
 import { settings } from '../settings';
-import { StorageKey, type DnsServerData, type DnsState } from '../schema';
-import { stateStorage } from '../stateStorage';
+import { StorageKey, type DnsServerData } from '../schema';
+import { StateData } from '../stateStorage';
 import { log } from '../../common/logger';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../common/dnsConstants';
 
 interface DnsInterface {
-    init(): void;
-    getCurrentDnsServerAddress(): string;
-    setDnsServer(dnsServerId: string): void;
-    addCustomDnsServer(dnsServerData: DnsServerData): void;
-    editCustomDnsServer(dnsServerData: DnsServerData): void;
-    removeCustomDnsServer(dnsServerId: string): void;
-    restoreCustomDnsServersData(): DnsServerData[];
+    /**
+     * Initializes the DNS service by loading settings.
+     */
+    init(): Promise<void>;
+
+    /**
+     * Retrieves the address of the currently selected DNS server.
+     *
+     * @returns DNS server address or empty string if not selected any.
+     */
+    getCurrentDnsServerAddress(): Promise<string>;
+
+    /**
+     * Selects a DNS server by its ID.
+     *
+     * @param dnsServerId The ID of the DNS server to select.
+     */
+    setDnsServer(dnsServerId: string): Promise<void>;
+
+    /**
+     * Adds a custom DNS server.
+     *
+     * @param dnsServerData The data of the custom DNS server to add.
+     */
+    addCustomDnsServer(dnsServerData: DnsServerData): Promise<void>;
+
+    /**
+     * Edits an existing custom DNS server.
+     *
+     * @param dnsServerData The data of the custom DNS server to edit.
+     */
+    editCustomDnsServer(dnsServerData: DnsServerData): Promise<void>;
+
+    /**
+     * Removes a custom DNS server by its ID.
+     *
+     * @param dnsServerId The ID of the DNS server to remove.
+     */
+    removeCustomDnsServer(dnsServerId: string): Promise<void>;
+
+    /**
+     * Restores previously removed custom DNS servers from backup.
+     *
+     * @returns The restored custom DNS servers list data.
+     */
+    restoreCustomDnsServersData(): Promise<DnsServerData[]>;
 }
 
 export class Dns implements DnsInterface {
-    state: DnsState;
-
-    private saveDnsState = () => {
-        stateStorage.setItem(StorageKey.DnsState, this.state);
-    };
-
-    private get selectedDnsServer(): string | null {
-        return this.state.selectedDnsServer;
-    }
-
-    private set selectedDnsServer(selectedDnsServer: string | null) {
-        this.state.selectedDnsServer = selectedDnsServer;
-        this.saveDnsState();
-    }
-
-    private get customDnsServers(): DnsServerData[] {
-        return this.state.customDnsServers;
-    }
-
-    private set customDnsServers(customDnsServers: DnsServerData[]) {
-        this.state.customDnsServers = customDnsServers;
-        this.saveDnsState();
-    }
-
-    // backup data for customDnsServers
-    // if user deleted custom dns server and canceled the operation, it will be used to restore data
-    private get backupDnsServersData(): DnsServerData[] {
-        return this.state.backupDnsServersData;
-    }
-
-    private set backupDnsServersData(backupDnsServersData: DnsServerData[]) {
-        this.state.backupDnsServersData = backupDnsServersData;
-        this.saveDnsState();
-    }
-
-    init = (): void => {
-        this.state = stateStorage.getItem(StorageKey.DnsState);
-
-        if (this.customDnsServers.length === 0) {
-            this.customDnsServers = settings.getCustomDnsServers();
-        }
-
-        if (!this.selectedDnsServer) {
-            this.selectedDnsServer = settings.getSelectedDnsServer();
-            if (!this.selectedDnsServer) {
-                this.setDnsServer(DEFAULT_DNS_SERVER.id);
-                return;
-            }
-        }
-
-        this.setDnsServer(this.selectedDnsServer);
-    };
-
     /**
-     * Returns address of current dns server
+     * Dns service state data.
+     * Used to save and retrieve dns state from session storage,
+     * in order to persist it across service worker restarts.
      */
-    getCurrentDnsServerAddress = (): string => {
-        log.info(`Getting selected dns server address for id: "${this.selectedDnsServer}"`);
+    private dnsState = new StateData(StorageKey.DnsState);
+
+    /** @inheritdoc */
+    init = async (): Promise<void> => {
+        let { customDnsServers, selectedDnsServer } = await this.dnsState.get();
+
+        if (customDnsServers.length === 0) {
+            customDnsServers = settings.getCustomDnsServers();
+            await this.dnsState.update({ customDnsServers });
+        }
+
+        if (!selectedDnsServer) {
+            selectedDnsServer = settings.getSelectedDnsServer() || DEFAULT_DNS_SERVER.id;
+        }
+
+        await this.setDnsServer(selectedDnsServer);
+    };
+
+    /** @inheritdoc */
+    getCurrentDnsServerAddress = async (): Promise<string> => {
+        const { selectedDnsServer, customDnsServers } = await this.dnsState.get();
+
+        log.info(`Getting selected dns server address for id: "${selectedDnsServer}"`);
 
         const currentDnsServerData = [
             DEFAULT_DNS_SERVER,
             ...POPULAR_DNS_SERVERS,
-            ...this.customDnsServers,
-        ].find((server) => server.id === this.selectedDnsServer);
+            ...customDnsServers,
+        ].find((server) => server.id === selectedDnsServer);
 
         if (currentDnsServerData?.address) {
             log.info(`Found address: "${currentDnsServerData.address}"`);
@@ -90,33 +99,32 @@ export class Dns implements DnsInterface {
         return DEFAULT_DNS_SERVER.address;
     };
 
-    /**
-     * Sets selected dns server
-     * @param dnsServerId
-     */
-    setDnsServer = (dnsServerId: string): void => {
-        if (this.selectedDnsServer === dnsServerId) {
+    /** @inheritdoc */
+    setDnsServer = async (dnsServerId: string): Promise<void> => {
+        const { selectedDnsServer } = await this.dnsState.get();
+        if (selectedDnsServer === dnsServerId) {
             return;
         }
-        this.selectedDnsServer = dnsServerId;
-        notifier.notifyListeners(notifier.types.DNS_SERVER_SET, this.getCurrentDnsServerAddress());
+
+        await this.dnsState.update({ selectedDnsServer: dnsServerId });
+        notifier.notifyListeners(notifier.types.DNS_SERVER_SET, await this.getCurrentDnsServerAddress());
     };
 
-    /**
-     * Adds custom dns server
-     * @param dnsServerData
-     */
-    addCustomDnsServer = (dnsServerData: DnsServerData): void => {
-        this.customDnsServers.push(dnsServerData);
-        settings.setCustomDnsServers(this.customDnsServers);
+    /** @inheritdoc */
+    addCustomDnsServer = async (dnsServerData: DnsServerData): Promise<void> => {
+        const { customDnsServers } = await this.dnsState.get();
+
+        customDnsServers.push(dnsServerData);
+
+        await this.dnsState.update({ customDnsServers });
+        settings.setCustomDnsServers(customDnsServers);
     };
 
-    /**
-     * Edit custom dns server
-     * @param dnsServerData
-     */
-    editCustomDnsServer = (dnsServerData: DnsServerData): void => {
-        this.customDnsServers = this.customDnsServers.map((server) => {
+    /** @inheritdoc */
+    editCustomDnsServer = async (dnsServerData: DnsServerData): Promise<void> => {
+        let { customDnsServers } = await this.dnsState.get();
+
+        customDnsServers = customDnsServers.map((server) => {
             if (server.id === dnsServerData.id) {
                 return {
                     id: server.id,
@@ -126,22 +134,33 @@ export class Dns implements DnsInterface {
             }
             return server;
         });
-        settings.setCustomDnsServers(this.customDnsServers);
+
+        await this.dnsState.update({ customDnsServers });
+        settings.setCustomDnsServers(customDnsServers);
     };
 
-    /**
-     * Removes custom dns server
-     * @param dnsServerId
-     */
-    removeCustomDnsServer = (dnsServerId: string): void => {
-        this.backupDnsServersData = this.customDnsServers;
-        this.customDnsServers = this.customDnsServers.filter((server) => server.id !== dnsServerId);
-        settings.setCustomDnsServers(this.customDnsServers);
+    /** @inheritdoc */
+    removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {
+        const { customDnsServers } = await this.dnsState.get();
+
+        const newBackupServersData = customDnsServers;
+        const newCustomDnsServers = customDnsServers.filter((server) => server.id !== dnsServerId);
+
+        await this.dnsState.update({
+            customDnsServers: newCustomDnsServers,
+            backupDnsServersData: newBackupServersData,
+        });
+
+        settings.setCustomDnsServers(newCustomDnsServers);
     };
 
-    restoreCustomDnsServersData = (): DnsServerData[] => {
-        this.customDnsServers = this.backupDnsServersData;
-        settings.setCustomDnsServers(this.customDnsServers);
-        return this.customDnsServers;
+    /** @inheritdoc */
+    restoreCustomDnsServersData = async (): Promise<DnsServerData[]> => {
+        const { backupDnsServersData } = await this.dnsState.get();
+
+        await this.dnsState.update({ customDnsServers: backupDnsServersData });
+        settings.setCustomDnsServers(backupDnsServersData);
+
+        return backupDnsServersData;
     };
 }

@@ -72,7 +72,7 @@ const onLinkClicked = async (event: MouseEvent): Promise<void> => {
     });
 };
 
-const main = () => {
+const main = (): void => {
     document.addEventListener('click', onLinkClicked);
 };
 

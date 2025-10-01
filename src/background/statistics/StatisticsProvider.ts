@@ -269,7 +269,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * - User is a premium user
      * - Location is selected
      *
-     * @returns True if statistics can be collected, false otherwise.
+     * @returns Promise with true if statistics can be collected, false otherwise.
      */
     private async canCollectStatistics(): Promise<boolean> {
         // Retrieve the premium token state if it is not set yet
@@ -310,7 +310,9 @@ export class StatisticsProvider implements StatisticsProviderInterface {
      * Handles event from the notifier.
      *
      * @param event Event type.
-     * @param args Event arguments.
+     * @param arg Event arguments.
+     *
+     * @returns Promise of handled event.
      */
     // eslint-disable-next-line consistent-return
     private handleNotifierEvent(event: string, arg: NotifierArg): void | Promise<void> {

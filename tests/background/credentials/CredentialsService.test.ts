@@ -1,3 +1,10 @@
+import {
+    vi,
+    describe,
+    it,
+    expect,
+} from 'vitest';
+
 import { CredentialsService } from '../../../src/background/credentials/credentialsService';
 import type { VpnTokenData } from '../../../src/background/schema';
 import { SubscriptionType } from '../../../src/common/constants';
@@ -42,8 +49,8 @@ const freeVpnTokenData: VpnTokenData = {
 // @ts-ignore - partly implementation
 const credentialsService = new CredentialsService(browserApiImplementation);
 
-jest.spyOn(credentialsService.browserApi.storage, 'set');
-jest.spyOn(credentialsService.browserApi.storage, 'get');
+vi.spyOn(credentialsService.browserApi.storage, 'set');
+vi.spyOn(credentialsService.browserApi.storage, 'get');
 
 describe('Credentials Service', () => {
     it('Test vpnTokenData caching', async () => {

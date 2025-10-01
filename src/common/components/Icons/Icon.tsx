@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import classNames from 'classnames';
 
@@ -12,7 +12,7 @@ export type IconColor = 'current' | 'gray' | 'product' | 'error' | 'text-main';
 /**
  * Icon size in pixels.
  */
-export type IconSize = '16' | '20' | '24' | '30';
+export type IconSize = '16' | '20' | '24' | '30' | '48';
 
 /**
  * Icon rotation types.
@@ -64,7 +64,7 @@ export function Icon({
     size = '24',
     rotation = 'none',
     className,
-}: IconProps) {
+}: IconProps): ReactElement {
     const classes = classNames(
         'icon',
         `icon--color-${color}`,

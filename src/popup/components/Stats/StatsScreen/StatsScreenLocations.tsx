@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
@@ -24,7 +24,7 @@ interface StatsScreenLocationProps extends Pick<StatsScreenWithLocationsProps, '
 /**
  * Component for rendering a single location in the stats screen.
  */
-function StatsScreenLocation(props: StatsScreenLocationProps) {
+function StatsScreenLocation(props: StatsScreenLocationProps): ReactElement {
     const { locationUsage, onLocationClick } = props;
     const { location, usage } = locationUsage;
     const { downloadedBytes, uploadedBytes } = usage;
@@ -33,7 +33,7 @@ function StatsScreenLocation(props: StatsScreenLocationProps) {
     const downloadText = formatTraffic(downloadedBytes, true, true);
     const uploadText = formatTraffic(uploadedBytes, true, false);
 
-    const handleClick = () => {
+    const handleClick = (): void => {
         onLocationClick(location.id);
     };
 
@@ -97,7 +97,7 @@ export const StatsScreenLocations = observer((props: StatsScreenLocationsProps) 
     } = props;
     const { telemetryStore } = useContext(rootStore);
 
-    const handleAllLocationsClick = () => {
+    const handleAllLocationsClick = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.StatsAllLocationsClick,
             TelemetryScreenName.ContextBasedScreen,

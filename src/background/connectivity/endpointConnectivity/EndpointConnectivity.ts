@@ -150,7 +150,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
             return;
         }
 
-        this.sendDnsServerIp(dns.getCurrentDnsServerAddress());
+        this.sendDnsServerIp(await dns.getCurrentDnsServerAddress());
         this.startSendingPingMessages();
 
         try {
@@ -234,7 +234,15 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         webrtc.unblockWebRTC();
     };
 
-    decodeMessage = (arrBufMessage: ArrayBuffer) => {
+    /**
+     * Handles incoming WebSocket messages.
+     * Decodes the message and processes connectivity information or error messages.
+     *
+     * @param arrBufMessage The WebSocket message event containing the data.
+     *
+     * @returns Decoded message object.
+     */
+    decodeMessage = (arrBufMessage: ArrayBuffer): Record<string, any> => {
         const message = WsConnectivityMsg.decode(new Uint8Array(arrBufMessage));
         return WsConnectivityMsg.toObject(message);
     };
@@ -242,6 +250,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
     /**
      * Ping messages are used in backend in order to determine sessions start,
      * getting stats and keeping ws alive
+     * @returns Promise with latency in ms or null if it's not available.
      */
     sendPingMessage = async (): Promise<number | null> => {
         const appId = await credentials.getAppId();
@@ -267,7 +276,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         }, this.PING_SEND_INTERVAL_MS);
     };
 
-    prepareDnsSettingsMessage = (dnsIp: string): ArrayBuffer => {
+    prepareDnsSettingsMessage = (dnsIp: string): Uint8Array => {
         const settingsMsg = WsSettingsMsg.create({ dnsServer: dnsIp });
         const protocolMsg = WsConnectivityMsg.create({ settingsMsg });
         return WsConnectivityMsg.encode(protocolMsg).finish();
@@ -322,7 +331,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
     };
 
     startGettingConnectivityInfo = (): void => {
-        const messageHandler = async (event: WebSocketEventMap['message']) => {
+        const messageHandler = async (event: WebSocketEventMap['message']): Promise<void> => {
             const { connectivityInfoMsg, connectivityErrorMsg } = this.decodeMessage(event.data);
 
             if (connectivityInfoMsg) {

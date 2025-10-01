@@ -80,6 +80,8 @@ export class GlobalStore {
                 isHostPermissionsGranted,
                 locationsTab,
                 savedLocationIds,
+                username,
+                marketingConsent,
             } = popupData;
 
             settingsStore.setForwarderDomain(forwarderDomain);
@@ -90,7 +92,6 @@ export class GlobalStore {
             vpnStore.setSavedLocationIds(savedLocationIds);
 
             if (!isAuthenticated) {
-                await authStore.handleInitPolicyAgreement(policyAgreement);
                 await authStore.getAuthCacheFromBackground();
                 this.setInitStatus(RequestStatus.Done);
                 return;
@@ -118,10 +119,12 @@ export class GlobalStore {
                 limitedOfferData = await messenger.getLimitedOfferData();
             }
 
+            authStore.setUsername(username);
             authStore.setFlagsStorageData(flagsStorageData);
             authStore.setIsFirstRun(isFirstRun);
             authStore.setShouldShowRateModal(shouldShowRateModal);
             authStore.setShowHintPopup(shouldShowHintPopup);
+            authStore.setMarketingConsent(marketingConsent);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);
@@ -182,7 +185,6 @@ export class GlobalStore {
 
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         await this.getDesktopAppData();
-        await this.rootStore.authStore.getResendCodeCountdownAndStart();
     }
 
     @action
@@ -191,7 +193,7 @@ export class GlobalStore {
     }
 
     @computed
-    get status() {
+    get status(): RequestStatus {
         return this.initStatus;
     }
 }

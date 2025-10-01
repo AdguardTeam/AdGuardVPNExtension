@@ -1,40 +1,42 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { ConnectivityStateType } from '../../../src/background/schema';
 import { StatisticsProvider } from '../../../src/background/statistics/StatisticsProvider';
 import { notifier } from '../../../src/common/notifier';
 
-jest.mock('../../../src/common/notifier', () => ({
-    ...jest.requireActual('../../../src/common/notifier'),
-    addSpecifiedListener: jest.fn(),
-}));
-
-jest.mock('../../../src/common/logger');
-
 const storageMock = {
-    get: jest.fn(),
-    set: jest.fn(),
-    remove: jest.fn(),
+    get: vi.fn(),
+    set: vi.fn(),
+    remove: vi.fn(),
 };
 
 const statisticsStorageMock = {
-    init: jest.fn(),
-    addTraffic: jest.fn(),
-    startDuration: jest.fn(),
-    updateDuration: jest.fn(),
-    endDuration: jest.fn(),
-    getStatistics: jest.fn(),
-    clearStatistics: jest.fn(),
+    init: vi.fn(),
+    addTraffic: vi.fn(),
+    startDuration: vi.fn(),
+    updateDuration: vi.fn(),
+    endDuration: vi.fn(),
+    getStatistics: vi.fn(),
+    clearStatistics: vi.fn(),
 };
 
 const timersMock = {
-    setInterval: jest.fn(),
-    clearInterval: jest.fn(),
+    setInterval: vi.fn(),
+    clearInterval: vi.fn(),
 };
 
 const credentialsMock = {
-    isPremiumToken: jest.fn().mockResolvedValue(false),
+    isPremiumToken: vi.fn().mockResolvedValue(false),
 };
 
-const addSpecifiedListenerSpy = jest.spyOn(notifier, 'addSpecifiedListener');
+const addSpecifiedListenerSpy = vi.spyOn(notifier, 'addSpecifiedListener');
 
 const DEFAULT_EMITTER = {
     trafficStatsUpdated: async (data: any): Promise<void> => {
@@ -59,25 +61,25 @@ describe('StatisticsProvider', () => {
         ...DEFAULT_EMITTER,
     };
 
-    addSpecifiedListenerSpy.mockImplementation((events, callback) => {
-        emitter.trafficStatsUpdated = async (data: any) => {
+    addSpecifiedListenerSpy.mockImplementation((events, callback): string => {
+        emitter.trafficStatsUpdated = async (data: any): Promise<void> => {
             await callback(notifier.types.TRAFFIC_STATS_UPDATED, data);
         };
-        emitter.currentLocationUpdated = async (data: any) => {
+        emitter.currentLocationUpdated = async (data: any): Promise<void> => {
             await callback(notifier.types.CURRENT_LOCATION_UPDATED, data);
         };
-        emitter.tokenPremiumStateUpdated = async (data: any) => {
+        emitter.tokenPremiumStateUpdated = async (data: any): Promise<void> => {
             await callback(notifier.types.TOKEN_PREMIUM_STATE_UPDATED, data);
         };
-        emitter.connectivityStateChanged = async (data: any) => {
+        emitter.connectivityStateChanged = async (data: any): Promise<void> => {
             await callback(notifier.types.CONNECTIVITY_STATE_CHANGED, data);
         };
 
         return 'listenerId';
     });
 
-    timersMock.setInterval.mockImplementation((callback) => {
-        emitter.tickTimer = async () => {
+    timersMock.setInterval.mockImplementation((callback): number => {
+        emitter.tickTimer = async (): Promise<void> => {
             await callback();
         };
 
@@ -99,7 +101,7 @@ describe('StatisticsProvider', () => {
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
         emitter = {
             ...DEFAULT_EMITTER,
         };
@@ -110,7 +112,7 @@ describe('StatisticsProvider', () => {
      *
      * @param isPremiumToken Whether the user has a premium token.
      */
-    const simulateUser = async (isPremiumToken: boolean) => {
+    const simulateUser = async (isPremiumToken: boolean): Promise<void> => {
         await emitter.tokenPremiumStateUpdated(isPremiumToken);
     };
 
@@ -119,7 +121,7 @@ describe('StatisticsProvider', () => {
      *
      * @param locationId The ID of the location.
      */
-    const simulateLocationSelection = async (locationId: string) => {
+    const simulateLocationSelection = async (locationId: string): Promise<void> => {
         await emitter.currentLocationUpdated({ id: locationId });
     };
 
@@ -129,7 +131,7 @@ describe('StatisticsProvider', () => {
      * @param bytesDownloaded Bytes downloaded.
      * @param bytesUploaded Bytes uploaded.
      */
-    const simulateTrafficUpdate = async (bytesDownloaded: number, bytesUploaded: number) => {
+    const simulateTrafficUpdate = async (bytesDownloaded: number, bytesUploaded: number): Promise<void> => {
         await emitter.trafficStatsUpdated({
             bytesDownloaded,
             bytesUploaded,
@@ -139,21 +141,21 @@ describe('StatisticsProvider', () => {
     /**
      * Simulates a connection to a location.
      */
-    const simulateConnect = async () => {
+    const simulateConnect = async (): Promise<void> => {
         await emitter.connectivityStateChanged({ value: ConnectivityStateType.Connected });
     };
 
     /**
      * Simulates a disconnection from a location.
      */
-    const simulateDisconnect = async () => {
+    const simulateDisconnect = async (): Promise<void> => {
         await emitter.connectivityStateChanged({ value: ConnectivityStateType.Idle });
     };
 
     /**
      * Advances the timer to trigger the event callback.
      */
-    const advanceTimer = async () => {
+    const advanceTimer = async (): Promise<void> => {
         await emitter.tickTimer();
     };
 

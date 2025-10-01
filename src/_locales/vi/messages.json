@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Không được để trống"
-    },
-    "registration_error_not_valid": {
-        "message": "Giá trị này không hợp lệ"
-    },
-    "registration_error_min_length": {
-        "message": "Giá trị này quá ngắn. Nó phải có 8 ký tự trở lên."
-    },
-    "registration_error_confirm_password": {
-        "message": "Mật khẩu không khớp"
-    },
-    "registration_error_compromised_password": {
-        "message": "Mật khẩu bạn đã nhập được tìm thấy trong <a>cơ sở dữ liệu công khai</a> gồm các mật khẩu bị xâm phạm. Vui lòng thử cái khác."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Giá trị này đã được sử dụng"
-    },
-    "registration_error_default": {
-        "message": "Đã xảy ra lỗi, hãy thử lại sau"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA là bắt buộc"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Mã không hợp lệ"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Tài khoản bị vô hiệu hóa"
-    },
-    "authentication_error_account_locked": {
-        "message": "Tài khoản bị khóa trong 15 phút"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Sai mật khẩu"
-    },
-    "authentication_too_many_requests": {
-        "message": "Chúng tôi đã nhận quá nhiều yêu cầu thừ địa chỉ IP của bạn. Vui lòng thử lại sau."
-    },
-    "authentication_error_default": {
-        "message": "Đã xảy ra lỗi, hãy thử lại sau"
-    },
-    "global_error_message": {
-        "message": "Đã xảy ra lỗi, vui lòng liên hệ với chúng tôi qua <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Thông tin"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Đăng xuất"
     },
+    "account_sign_out_question": {
+        "message": "Đăng xuất?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Huỷ"
+    },
+    "account_sign_out_description": {
+        "message": "Bạn sẽ bị đăng xuất khỏi tài khoản của mình. Bảo vệ VPN sẽ bị dừng"
+    },
     "account_unlimited_title": {
         "message": "Tải ngay phiên bản Không giới hạn!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Ẩn"
-    },
-    "auth_confirm": {
-        "message": "Xác nhận"
-    },
-    "auth_email": {
-        "message": "Địa chỉ email"
-    },
-    "auth_password": {
-        "message": "Mật khẩu"
-    },
-    "auth_your_password": {
-        "message": "Nhập mật khẩu"
-    },
-    "auth_password_confirm": {
-        "message": "Xác nhận mật khẩu"
-    },
-    "auth_recover": {
-        "message": "Quên mật khẩu?"
-    },
-    "auth_sign_up": {
-        "message": "Đăng ký"
-    },
-    "auth_sign_up_info": {
-        "message": "Tạo tài khoản AdGuard của bạn"
-    },
-    "auth_sign_up_button": {
-        "message": "Đăng ký"
-    },
-    "auth_sign_in": {
-        "message": "Đăng nhập"
-    },
-    "auth_sign_in_button": {
-        "message": "Đăng nhập"
-    },
-    "auth_title": {
-        "message": "Đăng nhập hoặc tạo một tài khoản"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Email"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Tiếp tục với AdGuard của bạn"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Đăng nhập bằng Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Đăng nhập bằng Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Đăng nhập bằng Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Bạn đã có tài khoản <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Xác minh 2 bước"
-    },
-    "auth_header_2fa": {
-        "message": "Nhập mã xác thực của bạn"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Mã xác thực"
     },
     "official_website": {
         "message": "Trang chủ chính thức"
@@ -755,7 +656,7 @@
         "message": "Hãy đánh giá chúng tôi"
     },
     "popup_rate_modal_send_button": {
-        "message": "Gửi"
+        "message": "Báo cáo"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Huỷ"
@@ -835,9 +736,6 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Đăng nhập hoặc tạo một tài khoản"
-    },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Tiếp tục"
     },
     "popup_newsletter_title": {
         "message": "Bản tin AdGuard"
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Không hiện nữa"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Thống kê cho trình duyệt này"
+    "popup_stats": {
+        "message": "Thống kê"
     },
     "popup_stats_disabled_notice": {
         "message": "Thống kê đã bị vô hiệu hóa"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Thời gian"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Tại sao nó an toàn"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Tại sao nó an toàn"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "Kết nối VPN được mã hóa và bảo mật, vì vậy không ai có thể xem dữ liệu hoạt động của bạn — chúng tôi chỉ tính toán mức sử dụng lưu lượng của bạn"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Tất cả số liệu thống kê được thu thập và lưu trữ cục bộ trên thiết bị của bạn. Chúng tôi không có quyền truy cập vào chúng"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Đã hiểu"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "Tốc độ kết nối VPN sẽ sớm bị giảm."
     },
-    "confirm_email_title": {
-        "message": "Xác nhận email của bạn"
-    },
-    "confirm_email_info": {
-        "message": "Chúng tôi đã gửi mã xác nhận tới <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Địa chỉ email đã được xác nhận"
     },
     "confirm_email_done_info": {
         "message": "Cảm ơn bạn đã xác minh nó!"
     },
-    "confirm_email_code_label": {
-        "message": "Mã xác nhận"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Chứa số và chữ cái"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Vui lòng kiểm tra mã: có vẻ không chính xác"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Gửi mã khác (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Gửi mã khác"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Không thể đăng nhập cho bạn. Vui lòng thử lại hoặc liên hệ với chúng tôi qua <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Không thể đăng ký cho bạn. Vui lòng thử lại hoặc liên hệ với chúng tôi qua <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Liên kết xác nhận được gửi lại"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Không thể đăng nhập bạn"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Vui lòng thử lại hoặc <a>liên hệ với bộ phận hỗ trợ</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Vui lòng thử lại"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Đóng"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Mở lại trang đăng nhập"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Huỷ"
     }
 }

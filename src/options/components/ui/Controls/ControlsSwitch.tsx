@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import { Switch, type SwitchProps } from '../Switch';
 
@@ -34,7 +34,7 @@ export function ControlsSwitch({
     description,
     isActive,
     onToggle,
-}: ControlsSwitchProps) {
+}: ControlsSwitchProps): ReactElement {
     return (
         <Controls
             title={title}

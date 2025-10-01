@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "비워 둘 수 없습니다"
-    },
-    "registration_error_not_valid": {
-        "message": "유효하지 않은 값"
-    },
-    "registration_error_min_length": {
-        "message": "비밀번호는 8자 이상이어야 합니다"
-    },
-    "registration_error_confirm_password": {
-        "message": "비밀번호가 일치하지 않습니다"
-    },
-    "registration_error_compromised_password": {
-        "message": "입력한 비밀번호가 노출된 비밀번호 <a>공개 데이터베이스</a>에서 발견되었습니다. 다른 비밀번호를 시도해보세요."
-    },
-    "registration_error_unique_constraint": {
-        "message": "이미 사용 중인 값입니다"
-    },
-    "registration_error_default": {
-        "message": "오류가 발생했습니다, 다시 시도해주세요"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA 필수"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "유효하지 않은 토큰"
-    },
-    "authentication_error_account_disabled": {
-        "message": "계정이 비활성화되었습니다"
-    },
-    "authentication_error_account_locked": {
-        "message": "계정이 15분동안 잠겼습니다"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "잘못된 비밀번호입니다"
-    },
-    "authentication_too_many_requests": {
-        "message": "이 IP 주소에서 너무 많은 요청을 받았습니다. 나중에 다시 요청하십시오."
-    },
-    "authentication_error_default": {
-        "message": "오류가 발생했습니다, 다시 시도해주세요"
-    },
-    "global_error_message": {
-        "message": "오류가 발생했습니다. <a>%support_email%</a> 주소로 문의하세요."
-    },
     "about_title": {
         "message": "정보"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "로그아웃"
     },
+    "account_sign_out_question": {
+        "message": "로그아웃하시겠습니까?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "취소"
+    },
+    "account_sign_out_description": {
+        "message": "계정에서 로그아웃됩니다. VPN 보호가 중지됩니다."
+    },
     "account_unlimited_title": {
         "message": "무제한 버전 이용하기!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "숨기기"
-    },
-    "auth_confirm": {
-        "message": "확인"
-    },
-    "auth_email": {
-        "message": "이메일 주소"
-    },
-    "auth_password": {
-        "message": "비밀번호"
-    },
-    "auth_your_password": {
-        "message": "비밀번호 입력"
-    },
-    "auth_password_confirm": {
-        "message": "비밀번호 확인"
-    },
-    "auth_recover": {
-        "message": "비밀번호를 잊어버리셨나요?"
-    },
-    "auth_sign_up": {
-        "message": "가입"
-    },
-    "auth_sign_up_info": {
-        "message": "AdGuard 계정 생성"
-    },
-    "auth_sign_up_button": {
-        "message": "가입"
-    },
-    "auth_sign_in": {
-        "message": "비밀번호 입력"
-    },
-    "auth_sign_in_button": {
-        "message": "로그인"
-    },
-    "auth_title": {
-        "message": "로그인 또는 계정 생성"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "이메일"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "이메일로 진행"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Apple 계정으로 진행"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Google 계정으로 진행"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Facebook 계정으로 진행"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "<span>%username%</span>으로 로그인"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "이중 인증"
-    },
-    "auth_header_2fa": {
-        "message": "인증 코드를 입력해주세요"
-    },
-    "auth_placeholder_2fa": {
-        "message": "인증 코드"
     },
     "official_website": {
         "message": "공식 웹사이트"
@@ -755,7 +656,7 @@
         "message": "평가해주세요!"
     },
     "popup_rate_modal_send_button": {
-        "message": "전송"
+        "message": "보내기"
     },
     "popup_rate_modal_cancel_button": {
         "message": "취소"
@@ -835,9 +736,6 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "로그인 또는 계정 생성"
-    },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "계속하기"
     },
     "popup_newsletter_title": {
         "message": "AdGuard 소식지"
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "다시 표시 안 함"
     },
-    "popup_stats_for_browser_title": {
-        "message": "이 브라우저에 대한 통계"
+    "popup_stats": {
+        "message": "통계"
     },
     "popup_stats_disabled_notice": {
         "message": "통계 비활성화됨"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "시간"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "안전한 이유"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "안전한 이유"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN 연결은 암호화되어 안전하므로, 누구도 귀하의 활동 데이터를 확인할 수 없습니다. 저희는 사용자의 트래픽 사용량만 계산합니다."
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "모든 통계는 기기에 로컬로 수집 및 저장됩니다. 당사는 해당 통계에 액세스할 수 없습니다."
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "확인"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "곧 VPN 연결 속도가 느려집니다."
     },
-    "confirm_email_title": {
-        "message": "이메일 인증"
-    },
-    "confirm_email_info": {
-        "message": "확인 코드를 <span>%email%</span> 주소로 보냈습니다."
-    },
     "confirm_email_done_title": {
         "message": "이메일 주소가 확인됨"
     },
     "confirm_email_done_info": {
         "message": "검증해 주셔서 감사합니다!!"
     },
-    "confirm_email_code_label": {
-        "message": "인증 코드"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "라이선스 번호는 숫자와 문자를 포함합니다"
-    },
-    "confirm_email_code_invalid": {
-        "message": "코드가 맞는지 확인해 주세요."
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "다른 코드 전송 (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "다른 코드 전송"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "로그인에 실패했습니다. 다시 시도하거나 <a>%support_email%</a> 주소로 문의하세요."
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "회원가입에 실패했습니다. 다시 시도하거나 <a>%support_email%</a> 주소로 문의하세요."
-    },
     "resend_confirm_registration_link_notification": {
         "message": "확인 링크가 전송되었습니다"
+    },
+    "auth_failed_to_login_title": {
+        "message": "로그인에 실패했습니다."
+    },
+    "auth_failed_to_login_description": {
+        "message": "다시 시도하거나 <a>고객 지원</a>에 문의하세요."
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "다시 시도해 주세요"
+    },
+    "auth_failed_to_login_button": {
+        "message": "닫기"
+    },
+    "auth_loading_button_reopen": {
+        "message": "로그인 페이지 다시 열기"
+    },
+    "auth_loading_button_cancel": {
+        "message": "취소"
     }
 }

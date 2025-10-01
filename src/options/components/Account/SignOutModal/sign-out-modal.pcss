@@ -1,0 +1,81 @@
+.sign-out-modal {
+
+    color: var(--text-main-text-main-default);
+
+    .modal__header {
+        display: none;
+    }
+
+    .modal__wrapper {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+
+    &__sign-out-logo {
+        /* Specified by figma */
+        padding: 11px 5px 11px 6px;
+    }
+
+    &__sign-out-info-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__sign__out__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        flex: 1 0 0;
+    }
+
+    &__sign-out-title {
+        margin: 0;
+    }
+
+    &__sign-out-text {
+        display: flex;
+        padding-top: 12px;
+    }
+
+    &__button-container {
+        display: flex;
+        gap: 16px;
+        align-self: stretch;
+        flex-wrap: nowrap;
+
+        button {
+            display: flex;
+            min-width: 200px;
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 760px) {
+
+        .modal__content {
+            width: unset;
+        }
+
+        .modal__wrapper {
+            flex-direction: column;
+        }
+
+        &__sign-out-info {
+            flex-direction: column;
+        }
+
+        &__sign-out-info-container {
+            width: 256px;
+        }
+
+        &__sign-out-title {
+            font-size: 24px;
+        }
+
+        &__button-container {
+            flex-direction: column;
+        }
+    }
+}

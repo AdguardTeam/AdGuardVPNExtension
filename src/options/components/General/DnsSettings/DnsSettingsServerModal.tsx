@@ -74,7 +74,7 @@ export const DnsSettingsServerModal = observer(({
     const [dnsServerNameError, setDnsServerNameError] = useState<string | null>(null);
     const [dnsServerAddressError, setDnsServerAddressError] = useState<string | null>(null);
 
-    const handleCloseModal = () => {
+    const handleCloseModal = (): void => {
         settingsStore.closeCustomDnsModal();
         settingsStore.setDnsServerName('');
         settingsStore.setDnsServerAddress('');
@@ -83,21 +83,21 @@ export const DnsSettingsServerModal = observer(({
         setDnsServerAddressError(null);
     };
 
-    const handleDnsServerNameChange = (value: string) => {
+    const handleDnsServerNameChange = (value: string): void => {
         settingsStore.setDnsServerName(value);
         if (dnsServerNameError) {
             setDnsServerNameError(null);
         }
     };
 
-    const handleDnsServerAddressChange = (value: string) => {
+    const handleDnsServerAddressChange = (value: string): void => {
         settingsStore.setDnsServerAddress(value);
         if (dnsServerAddressError) {
             setDnsServerAddressError(null);
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
         const errors = await onSubmit(dnsServerName, dnsServerAddress);
@@ -114,7 +114,7 @@ export const DnsSettingsServerModal = observer(({
         handleCloseModal();
     };
 
-    const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleReset = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         handleCloseModal();
     };

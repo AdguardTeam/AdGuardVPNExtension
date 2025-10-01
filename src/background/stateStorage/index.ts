@@ -1,3 +1,2 @@
-import { StateStorage } from './stateStorage';
-
-export const stateStorage = new StateStorage();
+export { StateData } from './StateData';
+export { stateStorage } from './stateStorage';

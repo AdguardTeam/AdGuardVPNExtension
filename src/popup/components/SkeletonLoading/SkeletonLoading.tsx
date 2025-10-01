@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 
 import { reactTranslator } from '../../../common/reactTranslator';
 import { rootStore } from '../../stores';
@@ -10,7 +10,7 @@ import { SkeletonEndpoint } from '../ui/SkeletonEndpoint';
 import '../Settings/GlobalControl/ExcludeSite/exclude-site.pcss';
 import '../Settings/settings.pcss';
 
-export const SkeletonLoading = () => {
+export const SkeletonLoading = (): ReactElement => {
     const { settingsStore } = useContext(rootStore);
 
     return (

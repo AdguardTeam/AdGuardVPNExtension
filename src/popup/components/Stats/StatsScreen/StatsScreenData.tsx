@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import { translator } from '../../../../common/translator';
-import { MEGABYTE_BYTES, formatTraffic } from '../utils';
+import { formatTraffic, MEGABYTE_BYTES } from '../utils';
 
 import { type StatsScreenWithUsageProps } from './StatsScreen';
 
@@ -13,7 +13,7 @@ export type StatsScreenDataProps = Pick<StatsScreenWithUsageProps, 'usage'>;
 /**
  * Component that renders the data usage block (chart) in the stats screen.
  */
-export function StatsScreenData(props: StatsScreenDataProps) {
+export function StatsScreenData(props: StatsScreenDataProps): ReactElement {
     const { usage } = props;
     const { downloadedBytes, uploadedBytes } = usage;
 
@@ -25,7 +25,7 @@ export function StatsScreenData(props: StatsScreenDataProps) {
 
     const totalBytes = downloadedBytes + uploadedBytes;
 
-    const getLineWidth = (bytes: number) => {
+    const getLineWidth = (bytes: number): string => {
         const percent = Math.round((bytes / totalBytes) * 100);
 
         // 4px is to create 8px total gap between lines

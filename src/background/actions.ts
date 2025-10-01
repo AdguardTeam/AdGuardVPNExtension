@@ -26,7 +26,7 @@ const FREE_GBS_ANCHOR = 'free-gbs';
  * similar to https://bugs.chromium.org/p/chromium/issues/detail?id=1369940,
  * so we use a temporary solution to open а single options page in Firefox.
  */
-const openOptionsPageFirefox = async (queryString: string = '') => {
+const openOptionsPageFirefox = async (queryString: string = ''): Promise<void> => {
     const manifest = browser.runtime.getManifest();
     // options page url set in options_ui.page in manifest.firefox.ts
     let optionsUrl = manifest.options_ui!.page;
@@ -56,8 +56,11 @@ interface OpenOptionsPageParams {
 }
 
 /**
- * Builds query string from params object
+ * Builds query string from params object.
+ *
  * @param params
+ *
+ * @returns Query string.
  */
 export const buildQueryString = (params: OpenOptionsPageParams): string => {
     const {
@@ -185,7 +188,7 @@ const setIconTrafficOff = async (tabId: number): Promise<void> => {
     }
 };
 
-const setBadgeText = async (text: string, tabId?: number) => {
+const setBadgeText = async (text: string, tabId?: number): Promise<void> => {
     const details: SetBadgeDetailsType = { text };
 
     await setBadge(details);
@@ -195,7 +198,7 @@ const setBadgeText = async (text: string, tabId?: number) => {
     }
 };
 
-const clearBadgeText = async (tabId: number) => {
+const clearBadgeText = async (tabId: number): Promise<void> => {
     const details: SetBadgeDetailsType = { text: '' };
 
     await setBadge(details);
@@ -223,7 +226,7 @@ const getForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryK
  *
  * @param forwarderUrlQueryKey Forwarder query key.
  */
-const openForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey) => {
+const openForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey): Promise<void> => {
     const url = await getForwarderUrlWithEmail(forwarderUrlQueryKey);
     await tabs.openTab(url);
 };
@@ -231,11 +234,11 @@ const openForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQuery
 /**
  * Opens Options page on Referral Program section
  */
-const openFreeGbsPage = async () => {
+const openFreeGbsPage = async (): Promise<void> => {
     await openOptionsPage({ anchorName: FREE_GBS_ANCHOR });
 };
 
-const openExportLogsPage = async () => {
+const openExportLogsPage = async (): Promise<void> => {
     const url = browser.runtime.getURL('export.html');
     const currentTab = await tabs.getCurrent();
     const exportTab = await tabs.openTab(url);

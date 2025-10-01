@@ -104,7 +104,9 @@ export class NonRoutableService implements NonRoutableServiceInterface {
     nonRoutableHostnames: HostnameMap = new Map();
 
     /**
-     * Looks up for hostname in the storage, if found removes it from storage
+     * Looks up for hostname in the storage, if found removes it from storage.
+     *
+     * @returns Value from storage or null if not found.
      */
     getByHostname = (
         hostname: string,

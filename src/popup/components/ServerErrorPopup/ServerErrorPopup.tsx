@@ -46,7 +46,7 @@ export const ServerErrorPopup = observer(() => {
         isOpen,
     );
 
-    const closeModal = () => {
+    const closeModal = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.CloseCantConnectClick,
             TelemetryScreenName.DialogCantConnect,

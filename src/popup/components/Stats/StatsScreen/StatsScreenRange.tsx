@@ -35,14 +35,14 @@ export const StatsScreenRange = observer((props: StatsScreenRangeProps) => {
     const { range, onRangeChange } = props;
     const { telemetryStore } = useContext(rootStore);
 
-    const handleClick = () => {
+    const handleClick = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.PeriodStatsClick,
             TelemetryScreenName.ContextBasedScreen,
         );
     };
 
-    const handleRangeChange = (value: StatisticsRange) => {
+    const handleRangeChange = (value: StatisticsRange): void => {
         onRangeChange(value);
         telemetryStore.sendCustomEvent(
             RANGE_TO_ACTION_MAP[value],

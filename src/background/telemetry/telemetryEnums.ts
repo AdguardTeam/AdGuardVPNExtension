@@ -11,9 +11,6 @@
 export enum TelemetryScreenName {
     // Popup screens
     AuthScreen = 'auth_screen',
-    AuthLoginScreen1 = 'auth_login_screen1',
-    AuthLoginScreen2 = 'auth_login_screen2',
-    AuthSignupScreen = 'auth_signup_screen',
     NewsletterScreen = 'newsletter_screen',
     OnboardingScreen = 'onboarding_screen',
     PurchaseScreen = 'purchase_screen',
@@ -34,12 +31,15 @@ export enum TelemetryScreenName {
     AllLocationsStatsScreen = 'all_locations_stats_screen',
     DisabledAllLocationsStatsScreen = 'disabled_all_locations_stats_screen',
     SettingsStatsScreen = 'settings_stats_screen',
-    WhySafeScreen = 'why_safe_screen',
+    InfoScreen = 'info_screen',
     DisableStatsScreen = 'disable_stats_screen',
     ClearStatsScreen = 'clear_stats_screen',
+    DialogRateUs = 'dialog_rate_us',
+    DialogHelpUsImprove = 'dialog_help_us_improve',
+    DialogRateInStore = 'dialog_rate_in_store',
 
     // Options screens
-    SettingsScreen = 'settings_screen',
+    GeneralSettingsScreen = 'general_settings_screen',
     SettingsDnsServersScreen = 'settings_dns_servers_screen',
     DialogAddCustomDns = 'dialog_add_custom_dns',
     DialogEditCustomDns = 'dialog_edit_custom_dns',
@@ -59,6 +59,10 @@ export enum TelemetryScreenName {
     DialogExclusionsAddSubdomain = 'dialog_exclusions_add_subdomain',
     DialogExclusionsAddNotValidDomain = 'dialog_exclusions_add_not_valid_domain',
     DialogExclusionsRemoveAll = 'dialog_exclusions_remove_all',
+    UsageDataDialog = 'usage_data_dialog',
+    DialogLogOut = 'dialog_log_out',
+    SupportReportSendScreen = 'support_report_send_screen',
+    DialogImportedExclusions = 'dialog_imported_exclusions',
 
     /**
      * This is special screen name. Used as flag to send telemetry
@@ -90,6 +94,7 @@ export enum TelemetryActionName {
     ClosePromoOfferClick = 'close_promo_offer_click',
     DisableAnotherExtensionClick = 'disable_another_extension_click',
     MenuClick = 'menu_click',
+    VpnDisableWebsite = 'vpn_disable_website',
     CloseSpeedReducesClick = 'close_speed_reduces_click',
     SettingsClick = 'settings_click',
     OtherProductsClick = 'other_products_click',
@@ -110,7 +115,7 @@ export enum TelemetryActionName {
     FreeMenuStatsClick = 'free_menu_stats_click',
     MenuStatsClick = 'menu_stats_click',
     PeriodStatsClick = 'period_stats_click',
-    WhySafeClick = 'why_safe_click',
+    InfoClick = 'info_click',
     OpenDisableStatsClick = 'open_disable_stats_click',
     MenuEnableStatsClick = 'menu_enable_stats_click',
     OpenClearStatsClick = 'open_clear_stats_click',
@@ -123,6 +128,13 @@ export enum TelemetryActionName {
     WeekStatsClick = 'week_stats_click',
     MonthStatsClick = 'month_stats_click',
     AllTimeStatsClick = 'all_time_stats_click',
+    SaveLocationClick = 'save_location_click',
+    CancelRateUsClick = 'cancel_rate_us_click',
+    SendRateUsClick = 'send_rate_us_click',
+    CancelHelpImproveClick = 'cancel_help_improve_click',
+    FeedbackHelpImproveClick = 'feedback_help_improve_click',
+    CancelRateStoreClick = 'cancel_rate_store_click',
+    RateInStoreClick = 'rate_in_store_click',
 
     // Options actions
     GeneralSettingsClick = 'general_settings_click',
@@ -146,7 +158,6 @@ export enum TelemetryActionName {
     ConfirmEmailClick = 'confirm_email_click',
     AddGbDeviceClick = 'add_gb_device_click',
     CopyLinkClick = 'copy_link_click',
-    ResendEmailClick = 'resend_email_click',
     GoToProductsClick = 'go_to_products_click',
     GetSubscriptionClick = 'get_subscription_click',
     OpenAccountSettingsClick = 'open_account_settings_click',
@@ -167,6 +178,19 @@ export enum TelemetryActionName {
     AddWebsiteManually = 'add_website_manually',
     ExitInvalidDomainClick = 'exit_invalid_domain_click',
     AddInvalidDomainClick = 'add_invalid_domain_click',
+    ExtensionDataClick = 'extension_data_click',
+    UsageDataPolicyClick = 'usage_data_policy_click',
+    HideAdvantagesClick = 'hide_advantages_click',
+    CancelLogOutClick = 'cancel_log_out_click',
+    LogOutClick = 'log_out_click',
+    NewReportClick = 'new_report_click',
+    ExportExclusionsClick = 'export_exclusions_click',
+    OpenImportExclusionsClick = 'open_import_exclusions_click',
+    OpenRemoveExclusionsClick = 'open_remove_exclusions_click',
+    CancelExclusionsRemovalClick = 'cancel_exclusions_removal_click',
+    RemoveExclusionsClick = 'remove_exclusions_click',
+    ImportGeneralExclusionsClick = 'import_general_exclusions_click',
+    ImportSelectiveExclusionsClick = 'import_selective_exclusions_click',
 }
 
 /**
@@ -246,6 +270,7 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.ClosePromoOfferClick]: TelemetryScreenName.PromoOfferScreen;
     [TelemetryActionName.DisableAnotherExtensionClick]: TelemetryScreenName.DisableAnotherVpnExtensionScreen;
     [TelemetryActionName.MenuClick]: HeaderScreenNames;
+    [TelemetryActionName.VpnDisableWebsite]: TelemetryScreenName.HomeScreen | TelemetryScreenName.MenuScreen;
     [TelemetryActionName.CloseSpeedReducesClick]: TelemetryScreenName.SpeedReducedScreen;
     [TelemetryActionName.SettingsClick]: TelemetryScreenName.MenuScreen;
     [TelemetryActionName.OtherProductsClick]: TelemetryScreenName.MenuScreen;
@@ -266,11 +291,11 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.FreeMenuStatsClick]: TelemetryScreenName.MenuScreen;
     [TelemetryActionName.MenuStatsClick]: TelemetryScreenName.MenuScreen;
     [TelemetryActionName.PeriodStatsClick]: TelemetryScreenName.ContextBasedScreen;
-    [TelemetryActionName.WhySafeClick]: TelemetryScreenName.SettingsStatsScreen;
+    [TelemetryActionName.InfoClick]: TelemetryScreenName.SettingsStatsScreen;
     [TelemetryActionName.OpenDisableStatsClick]: TelemetryScreenName.SettingsStatsScreen;
     [TelemetryActionName.MenuEnableStatsClick]: TelemetryScreenName.SettingsStatsScreen;
     [TelemetryActionName.OpenClearStatsClick]: TelemetryScreenName.SettingsStatsScreen;
-    [TelemetryActionName.StatsPrivacyClick]: TelemetryScreenName.WhySafeScreen;
+    [TelemetryActionName.StatsPrivacyClick]: TelemetryScreenName.InfoScreen;
     [TelemetryActionName.StatsAllLocationsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.DisableStatsClick]: TelemetryScreenName.DisableStatsScreen;
     [TelemetryActionName.EnableStatsClick]: TelemetryScreenName.ContextBasedScreen;
@@ -279,6 +304,13 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.WeekStatsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.MonthStatsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.AllTimeStatsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.SaveLocationClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.CancelRateUsClick]: TelemetryScreenName.DialogRateUs;
+    [TelemetryActionName.SendRateUsClick]: TelemetryScreenName.DialogRateUs;
+    [TelemetryActionName.CancelHelpImproveClick]: TelemetryScreenName.DialogHelpUsImprove;
+    [TelemetryActionName.FeedbackHelpImproveClick]: TelemetryScreenName.DialogHelpUsImprove;
+    [TelemetryActionName.CancelRateStoreClick]: TelemetryScreenName.DialogRateInStore;
+    [TelemetryActionName.RateInStoreClick]: TelemetryScreenName.DialogRateInStore;
 
     // Options actions
     [TelemetryActionName.GeneralSettingsClick]: TelemetryScreenName.ContextBasedScreen;
@@ -302,7 +334,6 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.ConfirmEmailClick]: TelemetryScreenName.FreeGbScreen;
     [TelemetryActionName.AddGbDeviceClick]: TelemetryScreenName.FreeGbScreen;
     [TelemetryActionName.CopyLinkClick]: TelemetryScreenName.FreeGbInviteFriendScreen;
-    [TelemetryActionName.ResendEmailClick]: TelemetryScreenName.FreeGbConfirmEmailScreen;
     [TelemetryActionName.GoToProductsClick]: TelemetryScreenName.FreeGbAddAnotherPlatformScreen;
     [TelemetryActionName.GetSubscriptionClick]: TelemetryScreenName.AccountScreen;
     [TelemetryActionName.OpenAccountSettingsClick]: TelemetryScreenName.AccountScreen;
@@ -323,6 +354,19 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.AddWebsiteManually]: TelemetryScreenName.DialogAddWebsiteExclusion;
     [TelemetryActionName.ExitInvalidDomainClick]: TelemetryScreenName.DialogExclusionsAddNotValidDomain;
     [TelemetryActionName.AddInvalidDomainClick]: TelemetryScreenName.DialogExclusionsAddNotValidDomain;
+    [TelemetryActionName.ExtensionDataClick]: TelemetryScreenName.GeneralSettingsScreen;
+    [TelemetryActionName.UsageDataPolicyClick]: TelemetryScreenName.UsageDataDialog;
+    [TelemetryActionName.HideAdvantagesClick]: TelemetryScreenName.AccountScreen;
+    [TelemetryActionName.CancelLogOutClick]: TelemetryScreenName.DialogLogOut;
+    [TelemetryActionName.LogOutClick]: TelemetryScreenName.DialogLogOut;
+    [TelemetryActionName.NewReportClick]: TelemetryScreenName.SupportReportSendScreen;
+    [TelemetryActionName.ExportExclusionsClick]: TelemetryScreenName.ExclusionsScreen;
+    [TelemetryActionName.OpenImportExclusionsClick]: TelemetryScreenName.ExclusionsScreen;
+    [TelemetryActionName.OpenRemoveExclusionsClick]: TelemetryScreenName.ExclusionsScreen;
+    [TelemetryActionName.CancelExclusionsRemovalClick]: TelemetryScreenName.DialogExclusionsRemoveAll;
+    [TelemetryActionName.RemoveExclusionsClick]: TelemetryScreenName.DialogExclusionsRemoveAll;
+    [TelemetryActionName.ImportGeneralExclusionsClick]: TelemetryScreenName.DialogImportedExclusions;
+    [TelemetryActionName.ImportSelectiveExclusionsClick]: TelemetryScreenName.DialogImportedExclusions;
 }
 
 /**

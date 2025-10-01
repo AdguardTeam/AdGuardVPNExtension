@@ -1,85 +1,55 @@
 .upgrade-screen {
     flex: 1 1 auto;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 56px 0 30px;
-    height: 100%;
-    background: var(--blue-gradient);
+    justify-content: flex-start;
+    text-align: center;
+    padding: 40px 0 16px 0;
+
+    &__content {
+        flex-shrink: 0;
+    }
 
     &__title {
-        font-size: 32px;
-        line-height: 36px;
-        font-weight: bold;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    &__slider {
-        flex: 1 1 auto;
-        width: 100%;
-        max-width: 320px;
-        padding: 0 16px 16px;
-        /* Adjust padding-top proportionally if actual height of popup (--popup-height) */
-        /* becomes smaller that default height of popup in desktops (--popup-default-height). */
-        /* Design specified padding with value 77px will be base with 16px min padding. */
-        /* This is needed for extension running on mobile browsers where popup height is dynamic. */
-        padding-top: max(
-            16px,
-            calc(77px - var(--popup-default-height) + var(--popup-height))
-        );
-    }
-
-    &__desc {
-        font-size: 16px;
-        text-align: center;
-        line-height: 22px;
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin: 14px 0 12px;
     }
 
     &__info {
-        display: flex;
-        flex-direction: column;
-        margin: 0 0 30px 20px;
+        margin-bottom: 40px;
+        line-height: 130%;
+        padding: 0 24px;
+        color: var(--text-main-text-main-default);
     }
 
-    &__benefit {
-        display: block;
-        position: relative;
-        align-items: center;
-        margin-bottom: 5px;
+    &__image {
+        height: 100%;
+        object-fit: contain;
 
-        &:before {
-            content: "";
-            display: inline-block;
-            height: 8px;
-            width: 12px;
-            position: absolute;
-            left: -20px;
-            top: 6px;
-            border: solid var(--green700);
-            border-width: 0 0 2px 2px;
-            transform: rotate(-45deg);
+        &-wrapper {
+            flex: 1 1 auto;
+            /* Cap height at design defined height so image will not grow */
+            max-height: 212px;
+            min-height: 0;
+            /* padding from design */
+            padding: 14px 7px 14px 7px;
         }
     }
 
-    &__continue-button {
-        font-size: 1.35rem;
-        text-align: center;
-        text-transform: none;
-        color: var(--gray88);
-        cursor: pointer;
-        background: none;
-        border: none;
-        margin-top: 19px;
-    }
-
     &__actions {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
+        margin-top: auto;
     }
 
-    & .slider__indicator {
-        bottom: 0;
+    &__upgrade_button {
+        font-weight: 500;
+    }
+
+    &__continue-button {
+        color: var(--text-links-link-default);
+        font-weight: 500;
+        text-transform: none;
+        margin-top: 16px;
     }
 }

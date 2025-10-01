@@ -29,7 +29,7 @@ export const VpnBlockedDetails = observer(() => {
 
     const { forwarderDomain } = settingsStore;
 
-    const openDownloadPage = () => {
+    const openDownloadPage = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.GetDesktopClick,
             TelemetryScreenName.DialogDesktopVersionPromo,
@@ -40,7 +40,7 @@ export const VpnBlockedDetails = observer(() => {
     /**
      * Closes the error notice by changing the flag in the **settingsStore**.
      */
-    const closeErrorDetails = () => {
+    const closeErrorDetails = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.DeclineDesktopClick,
             TelemetryScreenName.DialogDesktopVersionPromo,

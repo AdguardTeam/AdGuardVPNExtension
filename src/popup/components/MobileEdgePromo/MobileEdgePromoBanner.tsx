@@ -25,7 +25,7 @@ export const MobileEdgePromoBanner = observer(() => {
 
         document.documentElement.style.setProperty(`--${MOBILE_EDGE_PROMO_HEIGHT_VAR}`, `${height}px`);
 
-        return () => {
+        return (): void => {
             document.documentElement.style.removeProperty(`--${MOBILE_EDGE_PROMO_HEIGHT_VAR}`);
         };
     }, []);
@@ -33,7 +33,7 @@ export const MobileEdgePromoBanner = observer(() => {
     /**
      * Opens the mobile Edge promo modal.
      */
-    const openModal = () => {
+    const openModal = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.OpenAndroidPromoClick,
             TelemetryScreenName.HomeScreen,
@@ -44,7 +44,7 @@ export const MobileEdgePromoBanner = observer(() => {
     /**
      * Closes the mobile Edge promo banner.
      */
-    const closeBanner = async () => {
+    const closeBanner = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.CloseAndroidPromoClick,
             TelemetryScreenName.HomeScreen,

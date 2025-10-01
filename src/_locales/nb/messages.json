@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Kan ikke være tom"
-    },
-    "registration_error_not_valid": {
-        "message": "Denne verdien er ugyldig"
-    },
-    "registration_error_min_length": {
-        "message": "Passordet må inneholde minst 8 tegn"
-    },
-    "registration_error_confirm_password": {
-        "message": "Passordene samsvarer ikke"
-    },
-    "registration_error_compromised_password": {
-        "message": "Passordet du skrev inn, ble funnet <a>i en offentlig database</a> over kompromitterte passord. Vennligst prøv med et annet et."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Denne verdien er allerede brukt"
-    },
-    "registration_error_default": {
-        "message": "En feil oppstod, prøv igjen senere"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2-trinnspålogging er påkrevd"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Ugyldig sjetong"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Kontoen er deaktivert"
-    },
-    "authentication_error_account_locked": {
-        "message": "Kontoen er låst i 15 minutter"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Feil passord"
-    },
-    "authentication_too_many_requests": {
-        "message": "Vi mottok for mange forespørsler fra IP-adressen din. Prøv igjen senere."
-    },
-    "authentication_error_default": {
-        "message": "En feil oppstod, prøv igjen senere"
-    },
-    "global_error_message": {
-        "message": "Det oppstod en feil, vennligst kontakt oss via <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Om"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Logg av"
     },
+    "account_sign_out_question": {
+        "message": "Vil du logge av?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Avbryt"
+    },
+    "account_sign_out_description": {
+        "message": "Du blir logget ut av kontoen din. VPN-beskyttelse vil bli stoppet"
+    },
     "account_unlimited_title": {
         "message": "Få den ubegrensede versjonen!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Skjul"
-    },
-    "auth_confirm": {
-        "message": "Bekreft"
-    },
-    "auth_email": {
-        "message": "E-postadresse"
-    },
-    "auth_password": {
-        "message": "Passord"
-    },
-    "auth_your_password": {
-        "message": "Ditt passord"
-    },
-    "auth_password_confirm": {
-        "message": "Bekreft passord"
-    },
-    "auth_recover": {
-        "message": "Glemt passordet?"
-    },
-    "auth_sign_up": {
-        "message": "Bli med"
-    },
-    "auth_sign_up_info": {
-        "message": "Opprett din AdGuard-konto"
-    },
-    "auth_sign_up_button": {
-        "message": "Bli med"
-    },
-    "auth_sign_in": {
-        "message": "Logg på"
-    },
-    "auth_sign_in_button": {
-        "message": "Logg på"
-    },
-    "auth_title": {
-        "message": "Logg inn eller opprett en konto"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-post"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Fortsett med E-post"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Fortsett med Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Fortsett med Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Fortsett med Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Logger på som <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "2-trinnspålogging"
-    },
-    "auth_header_2fa": {
-        "message": "Skriv inn autentiseringskoden"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Autentiseringskode"
     },
     "official_website": {
         "message": "Offisielt nettsted"
@@ -704,7 +605,7 @@
         "message": "Lagret"
     },
     "endpoints_saved_location_deleted": {
-        "message": "Lokasjon slettet fra Lagret"
+        "message": "Sted slettet fra «Lagret»"
     },
     "popup_traffic_limit_reached": {
         "message": "Den månedlige datagrensen har blitt nådd. Behøver du mer?"
@@ -835,9 +736,6 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Logg inn eller opprett en konto"
-    },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Fortsett"
     },
     "popup_newsletter_title": {
         "message": "AdGuards nyhetsbrev"
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Ikke vis dette igjen"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Statistikk for denne nettleseren"
+    "popup_stats": {
+        "message": "Statistikk"
     },
     "popup_stats_disabled_notice": {
         "message": "Statistikk er deaktivert"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Tidspunkt"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Hvorfor det er trygt"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Hvorfor det er trygt"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN-tilkoblingen er kryptert og sikker, slik at ingen kan se aktivitetsdataene dine – vi beregner bare trafikkbruken din"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "All statistikk samles inn og lagres lokalt på enheten din. Vi har ikke tilgang til den"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Skjønner"
@@ -1150,40 +1036,25 @@
     "notification_data_left_description": {
         "message": "Tilkoblingshastigheten for VPN vil snart bli redusert."
     },
-    "confirm_email_title": {
-        "message": "Bekreft E-postadressen din"
-    },
-    "confirm_email_info": {
-        "message": "Vi har sendt en bekreftelseskode til <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "E-postadressen er bekreftet"
     },
     "confirm_email_done_info": {
         "message": "Takk for verifiseringen!"
     },
-    "confirm_email_code_label": {
-        "message": "Bekreftelseskode"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Vanligvis 10 tegn"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Vennligst sjekk koden — den ser feil ut"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Send en annen kode (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Send en annen kode"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Kunne ikke logge deg på. Prøv igjen eller kontakt oss via <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Kunne ikke registrere deg. Vennligst prøv igjen eller kontakt oss via <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Bekreftelseslenken sendt på nytt"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Vennligst prøv igjen"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Lukk"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Åpne innloggingssiden på nytt"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Avbryt"
     }
 }

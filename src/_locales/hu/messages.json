@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Nem lehet üres"
-    },
-    "registration_error_not_valid": {
-        "message": "Érvénytelen érték"
-    },
-    "registration_error_min_length": {
-        "message": "A jelszónak legalább 8 karakterből kell állnia"
-    },
-    "registration_error_confirm_password": {
-        "message": "A jelszavak nem egyeznek"
-    },
-    "registration_error_compromised_password": {
-        "message": "A megadott jelszó szerepel a nem biztonságos jelszavak <a>nyilvános adatbázisában</a>. Kérjük, válasszon másik jelszót."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Ez az érték már használatban van"
-    },
-    "registration_error_default": {
-        "message": "Valamilyen hiba történt, próbálja újból később"
-    },
-    "authentication_error_2fa_required": {
-        "message": "Kétfaktoros hitelesítés szükséges"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Érvénytelen kulcs"
-    },
-    "authentication_error_account_disabled": {
-        "message": "A fiók deaktiválva van"
-    },
-    "authentication_error_account_locked": {
-        "message": "A fiók zárolva van 15 percre"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Hibás jelszó"
-    },
-    "authentication_too_many_requests": {
-        "message": "Túl sok kérést kaptunk az Ön IP címéről. Kérjük, próbálja újra később."
-    },
-    "authentication_error_default": {
-        "message": "Valamilyen hiba történt, próbálja újból később"
-    },
-    "global_error_message": {
-        "message": "Hiba történt, kérjük lépjen kapcsolatba velünk a <a>%support_email%</a>címen"
-    },
     "about_title": {
         "message": "Névjegy"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Kijelentkezés"
     },
+    "account_sign_out_question": {
+        "message": "Kijelentkezés?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Mégsem"
+    },
+    "account_sign_out_description": {
+        "message": "Ki fogsz jelentkezni a fiókodból. A VPN-védelem leál"
+    },
     "account_unlimited_title": {
         "message": "Szerezze meg a korlátlan verziót!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Elrejtés"
-    },
-    "auth_confirm": {
-        "message": "Megerősítés"
-    },
-    "auth_email": {
-        "message": "Email cím"
-    },
-    "auth_password": {
-        "message": "Jelszó"
-    },
-    "auth_your_password": {
-        "message": "Az Ön jelszava"
-    },
-    "auth_password_confirm": {
-        "message": "Jelszó megerősítése"
-    },
-    "auth_recover": {
-        "message": "Elfelejtett jelszó?"
-    },
-    "auth_sign_up": {
-        "message": "Regisztráció"
-    },
-    "auth_sign_up_info": {
-        "message": "Hozza létre AdGuard-fiókját"
-    },
-    "auth_sign_up_button": {
-        "message": "Regisztráció"
-    },
-    "auth_sign_in": {
-        "message": "Adja meg a jelszavát"
-    },
-    "auth_sign_in_button": {
-        "message": "Bejelentkezés"
-    },
-    "auth_title": {
-        "message": "Bejelentkezés vagy fiók létrehozása"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Email"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Folytatás e-mail címmel"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Folytatás Apple fiókkal"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Folytatás Google fiókkal"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Folytatás Facebook fiókkal"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Bejelentkezés, mint <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Kétfaktoros hitelesítés"
-    },
-    "auth_header_2fa": {
-        "message": "Írja be a megerősítő kódot"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Megerősítő kód"
     },
     "official_website": {
         "message": "Hivatalos webhely"
@@ -238,7 +139,7 @@
         "message": "Adatvédelmi irányelvek"
     },
     "settings_general_title": {
-        "message": "Általános"
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "Szerezz ingyenes GB-okat!"
@@ -755,7 +656,7 @@
         "message": "Kérjük, értékeljen minket"
     },
     "popup_rate_modal_send_button": {
-        "message": "Elküldeni"
+        "message": "Elküld"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Mégsem"
@@ -835,9 +736,6 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Bejelentkezés vagy fiók létrehozása"
-    },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Folytatás"
     },
     "popup_newsletter_title": {
         "message": "AdGuard hírlevél"
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Ne jelenjen meg többé"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Statisztikák ehhez a böngészőhöz"
+    "popup_stats": {
+        "message": "Statisztika"
     },
     "popup_stats_disabled_notice": {
         "message": "Statisztikák le vannak tiltva"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Idő"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Miért biztonságos"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Miért biztonságos"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "A VPN-kapcsolat titkosított és biztonságos, így senki sem láthatja a tevékenységi adataidat — csak a forgalom kihasználtságát számoljuk ki"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Minden statisztikát helyileg gyűjtünk és tárolunk az eszközödön. Nincs hozzáférésünk hozzájuk"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rendben"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "A VPN-kapcsolat sebessége hamarosan korlátozva lesz."
     },
-    "confirm_email_title": {
-        "message": "Erősítse meg e-mail címét"
-    },
-    "confirm_email_info": {
-        "message": "Küldtünk egy megerősítő kódot a <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "E-mail cím megerősítve"
     },
     "confirm_email_done_info": {
         "message": "Köszönjük a regisztrációt!"
     },
-    "confirm_email_code_label": {
-        "message": "Megerősítő kód"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Számokat és betűket tartalmaz"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Kérjük, ellenőrizze a kódot: hibásnak tűnik"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Küldj másik kódot (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Küldj másik kódot"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Nem sikerült bejelentkeznie. Kérjük, próbálja újra, vagy vegye fel velünk a kapcsolatot <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Nem sikerült regisztrálni. Kérjük, próbálja újra, vagy vegye fel velünk a kapcsolatot <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Megerősítő link újra elküldve"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Nem sikerült bejelentkezni"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Kérjük, próbálja újra, vagy <a>forduljon az ügyfélszolgálathoz</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Kérjük, próbálja újra"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Bezárás"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Bejelentkezési oldal újranyitása"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Mégsem"
     }
 }

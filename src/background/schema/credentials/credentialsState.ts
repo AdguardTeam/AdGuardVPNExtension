@@ -16,8 +16,9 @@ export type CredentialsDataInterface = zod.infer<typeof vpnCredentialsScheme>;
 export const credentialsStateScheme = zod.object({
     vpnToken: vpnTokenDataScheme.or(zod.null()),
     vpnCredentials: vpnCredentialsScheme.or(zod.null()),
-    currentUsername: zod.string().or(zod.null()),
-    currentUserRegistrationTime: zod.string().or(zod.null()),
+    username: zod.string().or(zod.null()),
+    registrationTime: zod.string().or(zod.null()),
+    marketingConsent: zod.boolean().or(zod.null()),
     appId: zod.string().or(zod.null()),
 }).strict();
 
@@ -26,7 +27,8 @@ export type CredentialsState = zod.infer<typeof credentialsStateScheme>;
 export const CREDENTIALS_STATE_DEFAULTS = {
     vpnToken: null,
     vpnCredentials: null,
-    currentUsername: null,
-    currentUserRegistrationTime: null,
+    username: null,
+    registrationTime: null,
+    marketingConsent: null,
     appId: null,
 };

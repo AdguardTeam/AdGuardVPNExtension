@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 import Modal from 'react-modal';
+
+import classNames from 'classnames';
 
 import { IconButton } from '../../../../common/components/Icons';
 
@@ -15,7 +17,7 @@ export interface StatsScreenModalProps {
     /**
      * Title of the modal.
      */
-    title: string
+    title: string;
 
     /**
      * Description of the modal.
@@ -31,19 +33,27 @@ export interface StatsScreenModalProps {
      * Callback function to close the modal.
      */
     onClose: () => void;
+
+    /**
+     * Classname to apply.
+     */
+    className?: string;
 }
 
 /**
  * Component that renders a modal inside of the stats screen.
  */
-export function StatsScreenModal(props: StatsScreenModalProps) {
+export function StatsScreenModal(props: StatsScreenModalProps): ReactElement {
     const {
         isOpen,
         title,
         description,
         actions,
         onClose,
+        className,
     } = props;
+
+    const classes = classNames('stats-screen-modal', className);
 
     return (
         <Modal
@@ -51,7 +61,7 @@ export function StatsScreenModal(props: StatsScreenModalProps) {
             shouldCloseOnOverlayClick
             onRequestClose={onClose}
             overlayClassName="modal__overlay stats-screen-modal__overlay"
-            className="stats-screen-modal"
+            className={classes}
         >
             <div className="stats-screen-modal__content">
                 <IconButton

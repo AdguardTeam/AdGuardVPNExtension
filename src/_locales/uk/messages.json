@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Не повинно бути порожнім"
-    },
-    "registration_error_not_valid": {
-        "message": "Це значення недійсне"
-    },
-    "registration_error_min_length": {
-        "message": "Пароль мусить мати щонайменше 8 символів"
-    },
-    "registration_error_confirm_password": {
-        "message": "Паролі не збігаються"
-    },
-    "registration_error_compromised_password": {
-        "message": "Введений пароль знайдено у <a>відкритій базі даних</a> викритих паролів. Будь ласка, спробуйте інший пароль."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Це значення вже використовується"
-    },
-    "registration_error_default": {
-        "message": "Сталася помилка, спробуйте пізніше"
-    },
-    "authentication_error_2fa_required": {
-        "message": "Потрібен 2FA-код"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Недійсний код"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Обліковий запис деактивовано"
-    },
-    "authentication_error_account_locked": {
-        "message": "Обліковий запис заблоковано на 15 хвилин"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Неправильний пароль"
-    },
-    "authentication_too_many_requests": {
-        "message": "Ми отримали забагато запитів з вашої IP-адреси. Спробуйте пізніше, будь ласка."
-    },
-    "authentication_error_default": {
-        "message": "Сталася помилка, спробуйте пізніше"
-    },
-    "global_error_message": {
-        "message": "Сталася помилка, будь ласка, напишіть про це нам <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Про розширення"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Вийти"
     },
+    "account_sign_out_question": {
+        "message": "Вийти?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Скасувати"
+    },
+    "account_sign_out_description": {
+        "message": "Ви вийдете зі свого облікового запису. Захист VPN буде зупинено"
+    },
     "account_unlimited_title": {
         "message": "Отримайте безлімітну версію!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Приховати"
-    },
-    "auth_confirm": {
-        "message": "Підтвердити"
-    },
-    "auth_email": {
-        "message": "Адреса електронної пошти"
-    },
-    "auth_password": {
-        "message": "Пароль"
-    },
-    "auth_your_password": {
-        "message": "Ваш пароль"
-    },
-    "auth_password_confirm": {
-        "message": "Повторіть новий пароль"
-    },
-    "auth_recover": {
-        "message": "Забули пароль?"
-    },
-    "auth_sign_up": {
-        "message": "Зареєструватися"
-    },
-    "auth_sign_up_info": {
-        "message": "Створити обліковий запис AdGuard"
-    },
-    "auth_sign_up_button": {
-        "message": "Зареєструватися"
-    },
-    "auth_sign_in": {
-        "message": "Введіть свій пароль"
-    },
-    "auth_sign_in_button": {
-        "message": "Увійти"
-    },
-    "auth_title": {
-        "message": "Увійти або створити обліковий запис"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Електронна адреса"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Увійти з електронною адресою"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Увійти через Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Увійти через Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Увійти через Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Ви входите як <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Двоетапна перевірка"
-    },
-    "auth_header_2fa": {
-        "message": "Введіть код перевірки"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Код підтвердження"
     },
     "official_website": {
         "message": "Офіційний сайт"
@@ -755,7 +656,7 @@
         "message": "Будь ласка, оцініть нас"
     },
     "popup_rate_modal_send_button": {
-        "message": "Надіслати"
+        "message": "Відправити"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Скасувати"
@@ -835,9 +736,6 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Увійти або створити обліковий запис"
-    },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Продовжити"
     },
     "popup_newsletter_title": {
         "message": "Листи AdGuard"
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Не показувати знову"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Статистика для цього браузера"
+    "popup_stats": {
+        "message": "Статистика"
     },
     "popup_stats_disabled_notice": {
         "message": "Збір статистики вимкнено"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Час"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Чому це безпечно"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Чому це безпечно"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN-з'єднання зашифроване та безпечне, тому ніхто не може бачити дані про вашу активність — ми лише підраховуємо використання трафіку"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Вся статистика збирається і зберігається локально на вашому пристрої. Ми не маємо до неї доступу"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Зрозуміло"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "Швидкість VPN-з'єднання буде зменшено невдовзі."
     },
-    "confirm_email_title": {
-        "message": "Підтвердьте свою електронну адресу"
-    },
-    "confirm_email_info": {
-        "message": "Ми надіслали код підтвердження на <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Електронну адресу підтверджено"
     },
     "confirm_email_done_info": {
         "message": "Дякуємо за підтвердження реєстрації!"
     },
-    "confirm_email_code_label": {
-        "message": "Код підтвердження"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Зазвичай 10 символів"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Будь ласка, перевірте код: він виглядає неправильним"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Надіслати інший код (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Надіслати інший код"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Не вдалося увійти. Спробуйте ще раз або напишіть нам <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Не вдалося зареєструвати вас. Спробуйте ще раз або напишіть нам <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Посилання для підтвердження надіслано повторно"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Не вдалося увійти"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Спробуйте ще раз або напишіть <a>у службу підтримки</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Спробуйте знову, будь ласка"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Закрити"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Знову відкрити сторінку входу"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Скасувати"
     }
 }

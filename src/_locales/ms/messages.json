@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Tidak boleh kosong"
-    },
-    "registration_error_not_valid": {
-        "message": "Nilai ini tidak sah"
-    },
-    "registration_error_min_length": {
-        "message": "Kata laluan mesti mempunyai sekurang-kurangnya 8 aksara"
-    },
-    "registration_error_confirm_password": {
-        "message": "Kata laluan tidak sama"
-    },
-    "registration_error_compromised_password": {
-        "message": "Kata laluan yang digunakan telah dijumpai dalam <a>pangkalan data awam</a> kata laluan yang telah terjejas. Sila cuba kata laluan yang lain."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Nilai ini telah digunakan"
-    },
-    "registration_error_default": {
-        "message": "Ralat berlaku, sila cuba lagi kemudian"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA diperlukan"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Kod tidak sah"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Akaun dinyahaktif"
-    },
-    "authentication_error_account_locked": {
-        "message": "Akaun dikunci untuk 15 minit"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Kata laluan tidak tepat"
-    },
-    "authentication_too_many_requests": {
-        "message": "Kami telah menerima terlalu banyak permintaan dari alamat IP anda. Sila cuba lagi kemudian."
-    },
-    "authentication_error_default": {
-        "message": "Ralat berlaku, sila cuba sebentar lagi"
-    },
-    "global_error_message": {
-        "message": "Ralat berlaku, sila hubungi kami di <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Tentang"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Daftar keluar"
     },
+    "account_sign_out_question": {
+        "message": "Log keluar?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Batal"
+    },
+    "account_sign_out_description": {
+        "message": "Anda akan dilog keluar dari akaun anda. Perlindungan VPN akan dihentikan"
+    },
     "account_unlimited_title": {
         "message": "Dapatkan versi Tanpa Had!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Sembunyi"
-    },
-    "auth_confirm": {
-        "message": "Sah"
-    },
-    "auth_email": {
-        "message": "Alamat e-mel"
-    },
-    "auth_password": {
-        "message": "Kata laluan"
-    },
-    "auth_your_password": {
-        "message": "Kata laluan anda"
-    },
-    "auth_password_confirm": {
-        "message": "Sahkan kata laluan"
-    },
-    "auth_recover": {
-        "message": "Lupa kata laluan?"
-    },
-    "auth_sign_up": {
-        "message": "Daftar"
-    },
-    "auth_sign_up_info": {
-        "message": "Cipta akaun AdGuard anda"
-    },
-    "auth_sign_up_button": {
-        "message": "Daftar"
-    },
-    "auth_sign_in": {
-        "message": "Masukkan kata laluan"
-    },
-    "auth_sign_in_button": {
-        "message": "Daftar masuk"
-    },
-    "auth_title": {
-        "message": "Daftar masuk atau cipta akaun baharu"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-mel"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Terukan dengan Emel"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Teruskan dengan Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Teruskan dengan Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Teruskan dengan Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Log masuk sebagai <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Pengesahan Dwi-Faktor"
-    },
-    "auth_header_2fa": {
-        "message": "Masukkan kod pengesahan"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Kod Pengesahan"
     },
     "official_website": {
         "message": "Laman web rasmi"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Daftar masuk atau cipta akaun"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Teruskan"
-    },
     "popup_newsletter_title": {
         "message": "Surat Berita \"Adguard\""
     },
@@ -1021,9 +919,6 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Jangan tunjuk ini lagi"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Statistik untuk penyemak imbas ini"
-    },
     "popup_stats_disabled_notice": {
         "message": "Statistik dilumpuhkan"
     },
@@ -1038,18 +933,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Masa"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Mengapa ia selamat"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Mengapa ia selamat"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "Sambungan VPN disulitkan dan selamat, jadi tiada siapa yang boleh melihat data aktiviti anda — kami hanya mengira penggunaan trafik anda"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Semua statistik dikumpulkan dan disimpan secara tempatan di peranti anda. Kami tidak mempunyai akses kepada mereka"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Faham"
@@ -1150,40 +1033,16 @@
     "notification_data_left_description": {
         "message": "Kelajuan sambungan VPN akan dikurangkan tidak lama lagi."
     },
-    "confirm_email_title": {
-        "message": "Sahkan emel anda"
-    },
-    "confirm_email_info": {
-        "message": "Kami telah menghantar kod pengesahan ke <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Alamat e-mel telah disahkan"
     },
     "confirm_email_done_info": {
         "message": "Terima kasih kerana mengesahkan!"
     },
-    "confirm_email_code_label": {
-        "message": "Kod pengesahan"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Mengandungi nombor dan huruf"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Sila semak kod — ia nampak tidak betul"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Hantar kod lain (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Hantar kod lain"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Log masuk gagal. Sila cuba lagi atau hubungi kami melalui <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Pendaftaran gagal. Sila cuba lagi atau hubungi kami melalui <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Pautan pengesahan dihantar semula"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Tutup"
     }
 }

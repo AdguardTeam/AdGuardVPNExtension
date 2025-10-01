@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { type DnsServerData } from '../../../../background/schema';
@@ -58,11 +58,11 @@ export const DnsSettings = observer(() => {
         canSendTelemetry,
     );
 
-    const handleGoBack = () => {
+    const handleGoBack = (): void => {
         settingsStore.setShowDnsSettings(false);
     };
 
-    const handleSelect = (dnsServerId: string) => {
+    const handleSelect = (dnsServerId: string): void => {
         const telemetryActionName = POPULAR_DNS_SERVER_ID_ACTION_MAP[dnsServerId];
         if (telemetryActionName) {
             telemetryStore.sendCustomEvent(
@@ -74,7 +74,7 @@ export const DnsSettings = observer(() => {
         settingsStore.setDnsServer(dnsServerId);
     };
 
-    const handleAddClick = () => {
+    const handleAddClick = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.AddCustomDnsClick,
             TelemetryScreenName.SettingsDnsServersScreen,
@@ -82,12 +82,12 @@ export const DnsSettings = observer(() => {
         settingsStore.openCustomDnsModal();
     };
 
-    const handleEditClick = (dnsServer: DnsServerData) => {
+    const handleEditClick = (dnsServer: DnsServerData): void => {
         settingsStore.setDnsServerToEdit(dnsServer);
         settingsStore.openCustomDnsModal();
     };
 
-    const handleDeleteClick = (dnsServerId: string) => {
+    const handleDeleteClick = (dnsServerId: string): void => {
         settingsStore.removeCustomDnsServer(dnsServerId);
         notificationsStore.notifySuccess(
             translator.getMessage('settings_dns_delete_custom_server_notification'),
@@ -98,7 +98,7 @@ export const DnsSettings = observer(() => {
         );
     };
 
-    const renderDnsServer = (dnsServer: DnsServerData) => (
+    const renderDnsServer = (dnsServer: DnsServerData): ReactElement => (
         <DnsSettingsServer
             key={dnsServer.id}
             name="dns-server"
@@ -108,7 +108,7 @@ export const DnsSettings = observer(() => {
         />
     );
 
-    const renderCustomDnsServer = (dnsServer: DnsServerData) => (
+    const renderCustomDnsServer = (dnsServer: DnsServerData): ReactElement => (
         <DnsSettingsServer
             key={dnsServer.id}
             name="dns-server"

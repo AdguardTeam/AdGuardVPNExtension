@@ -1,16 +1,19 @@
+import {
+    vi,
+    describe,
+    it,
+    expect,
+    type MockedFunction,
+} from 'vitest';
 import { nanoid } from 'nanoid';
 
 import { servicesManager } from '../../../../src/background/exclusions/services/ServicesManager';
 import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
-import { stateStorage } from '../../../../src/background/stateStorage';
 
-jest.mock('../../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
+vi.mock('../../../../src/background/providers/vpnProvider');
+vi.mock('nanoid');
 
-jest.mock('../../../../src/background/providers/vpnProvider');
-jest.mock('../../../../src/common/logger');
-jest.mock('nanoid');
-
-const nanoidMock = nanoid as jest.MockedFunction<() => string>;
+const nanoidMock = nanoid as MockedFunction<() => string>;
 nanoidMock.mockImplementation(() => 'random_id');
 
 const SERVICES_DATA = {
@@ -49,30 +52,25 @@ const SERVICES_DATA = {
 };
 
 const getExclusionsServicesMock = vpnProvider
-    .getExclusionsServices as jest.MockedFunction<() => any>;
-getExclusionsServicesMock.mockImplementation(() => SERVICES_DATA);
+    .getExclusionsServices as MockedFunction<() => any>;
+getExclusionsServicesMock.mockResolvedValue(SERVICES_DATA);
 
-const getServicesFromStorageMock = jest.fn();
+const getServicesFromStorageMock = vi.fn();
 servicesManager.getServicesFromStorage = getServicesFromStorageMock;
-getServicesFromStorageMock.mockReturnValue({});
+getServicesFromStorageMock.mockResolvedValue({});
 
-const saveServicesInStorageMock = jest.fn();
+const saveServicesInStorageMock = vi.fn();
 servicesManager.saveServicesInStorage = saveServicesInStorageMock;
-saveServicesInStorageMock.mockReturnValue({});
+saveServicesInStorageMock.mockResolvedValue({});
 
 describe('ServicesManager tests', () => {
-    beforeEach(async () => {
-        await stateStorage.init();
-    });
-
     it('test initialization', async () => {
         await servicesManager.init();
-        servicesManager.setServices(SERVICES_DATA);
+        await servicesManager.setServices(SERVICES_DATA);
         const servicesData = await servicesManager.getServices();
 
         expect(Object.values(servicesData)).toHaveLength(4);
-        expect(JSON.stringify(servicesData.aliexpress))
-            .toStrictEqual(JSON.stringify(SERVICES_DATA.aliexpress));
+        expect(servicesData.aliexpress).toEqual(SERVICES_DATA.aliexpress);
         expect(servicesData.amazon.serviceId).toEqual('amazon');
         expect(servicesData.amazon.categories[0].id).toEqual('SHOP');
         expect(servicesData.amazon.categories[0].name).toEqual('Shopping');
@@ -87,13 +85,12 @@ describe('ServicesManager tests', () => {
     it('test setServices and getService', async () => {
         await servicesManager.init();
         const servicesData = await servicesManager.getServicesFromServer();
-        servicesManager.setServices(servicesData);
+        await servicesManager.setServices(servicesData);
 
-        const aliexpressServiceData = servicesManager.getService('aliexpress');
-        expect(JSON.stringify(aliexpressServiceData))
-            .toStrictEqual(JSON.stringify(SERVICES_DATA.aliexpress));
+        const aliexpressServiceData = await servicesManager.getService('aliexpress');
+        expect(aliexpressServiceData).toEqual(SERVICES_DATA.aliexpress);
 
-        const wrongService = servicesManager.getService('wrongServiceId');
+        const wrongService = await servicesManager.getService('wrongServiceId');
         expect(wrongService).toBeNull();
     });
 });

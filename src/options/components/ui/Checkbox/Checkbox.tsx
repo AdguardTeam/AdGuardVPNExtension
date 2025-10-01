@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { type ReactElement, useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -22,11 +22,17 @@ export interface CheckboxProps {
 
     /**
      * Current value.
+     *
+     * Note: If {@link onToggle} not provided, state will be controlled locally,
+     * and this value will be considered only as initial value.
      */
     value: boolean;
 
     /**
      * On toggle handler.
+     *
+     * Note: If not provided, state will be controlled locally,
+     * and {@link value} will be considered only as initial value.
      */
     onToggle?: () => void;
 }
@@ -39,15 +45,16 @@ export function Checkbox({
     label,
     value,
     onToggle,
-}: CheckboxProps) {
+}: CheckboxProps): ReactElement {
     const [checkedValue, setCheckedValue] = useState(value);
+    const computedValue = onToggle ? value : checkedValue;
     const classes = classNames(
         'checkbox has-tab-focus',
-        checkedValue && 'checkbox--active',
+        computedValue && 'checkbox--active',
     );
-    const iconName = `checkbox-${checkedValue ? 'enabled' : 'disabled'}`;
+    const iconName = `checkbox-${computedValue ? 'enabled' : 'disabled'}`;
 
-    const handleChange = () => {
+    const handleChange = (): void => {
         setCheckedValue((prevValue) => !prevValue);
         if (onToggle) {
             onToggle();
@@ -61,7 +68,7 @@ export function Checkbox({
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
         >
-            <Icon name={iconName} color={checkedValue ? 'product' : 'gray'} />
+            <Icon name={iconName} color={computedValue ? 'product' : 'gray'} />
             <input
                 id={id}
                 type="checkbox"

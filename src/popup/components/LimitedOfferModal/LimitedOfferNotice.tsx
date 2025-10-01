@@ -26,7 +26,7 @@ export const LimitedOfferNotice = observer(() => {
     /**
      * Opens limited offer details by changing the flag in the uiStore.
      */
-    const openDetails = () => {
+    const openDetails = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.PromoOfferClick,
             TelemetryScreenName.HomeScreen,

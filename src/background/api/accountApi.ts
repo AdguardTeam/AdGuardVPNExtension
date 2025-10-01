@@ -93,6 +93,49 @@ interface AccountInfo {
     time_added_iso: string;
 }
 
+/**
+ * Account settings data received from backend.
+ *
+ * Note: We only use `marketing_consent` field, rest of the fields are unused,
+ * but to match with backend API response structure, we keep them here.
+ */
+interface AccountSettings {
+    /**
+     * Is email notifications enabled for user.
+     *
+     * Note: This field is optional because it's optional in the backend API.
+     */
+    is_email_notifications_enabled?: boolean;
+
+    /**
+     * User decision about the marketing consent.
+     *
+     * Note: This field is optional because it's optional in the backend API.
+     */
+    marketing_consent?: boolean;
+
+    /**
+     * User language.
+     *
+     * Note: This field is optional because it's optional in the backend API.
+     */
+    language?: string;
+
+    /**
+     * Is 2FA verification enabled for user.
+     *
+     * Note: This field is optional because it's optional in the backend API.
+     */
+    is_2fa_enabled?: boolean;
+
+    /**
+     * User decision about the email tracking consent.
+     *
+     * Note: This field is optional because it's optional in the backend API.
+     */
+    disable_tracking?: boolean;
+}
+
 interface BonusesData {
     confirm_bonus: {
         available: boolean,
@@ -123,11 +166,22 @@ interface AccountApiInterface {
     getAccountInfo(accessToken: string): Promise<AccountInfo>;
 
     /**
-     * Sends request to resend confirm registration link via `account/resend_confirm_registration_email`.
+     * Fetches account settings by access token via request to `account/settings`.
      *
      * @param accessToken Access token.
+     *
+     * @returns Account settings: Is email notification enabled, marketing consent,
+     * language, is 2FA enabled, is "disable tracking" enabled.
      */
-    resendConfirmRegistrationLink(accessToken: string): Promise<void>;
+    getAccountSettings(accessToken: string): Promise<AccountSettings>;
+
+    /**
+     * Updates marketing consent for user.
+     *
+     * @param accessToken Access token.
+     * @param marketingConsent User decision about the marketing consent.
+     */
+    updateMarketingConsent(accessToken: string, marketingConsent: boolean): Promise<void>;
 }
 
 class AccountApi extends Api implements AccountApiInterface {
@@ -138,7 +192,7 @@ class AccountApi extends Api implements AccountApiInterface {
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };
-        return this.makeRequest(path, config, method);
+        return this.makeRequest<VpnTokenData>(path, config, method);
     }
 
     GET_ACCOUNT_INFO: RequestProps = { path: 'account/info', method: 'GET' };
@@ -148,15 +202,29 @@ class AccountApi extends Api implements AccountApiInterface {
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };
-        return this.makeRequest(path, config, method);
+        return this.makeRequest<AccountInfo>(path, config, method);
     }
 
-    RESEND_CONFIRM_REGISTRATION_LINK: RequestProps = { path: 'account/resend_confirm_registration_email', method: 'POST' };
+    GET_ACCOUNT_SETTINGS: RequestProps = { path: 'account/settings', method: 'GET' };
 
-    resendConfirmRegistrationLink = async (accessToken: string): Promise<void> => {
-        const { path, method } = this.RESEND_CONFIRM_REGISTRATION_LINK;
+    getAccountSettings = async (accessToken: string): Promise<AccountSettings> => {
+        const { path, method } = this.GET_ACCOUNT_SETTINGS;
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
+        };
+        return this.makeRequest<AccountSettings>(path, config, method);
+    };
+
+    UPDATE_MARKETING_CONSENT: RequestProps = { path: 'account/update_marketing_consent', method: 'POST' };
+
+    updateMarketingConsent = async (accessToken: string, marketingConsent: boolean): Promise<void> => {
+        const { path, method } = this.UPDATE_MARKETING_CONSENT;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ marketing_consent: marketingConsent }),
         };
         return this.makeRequest(path, config, method);
     };
@@ -168,7 +236,7 @@ class AccountApi extends Api implements AccountApiInterface {
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };
-        return this.makeRequest(path, config, method);
+        return this.makeRequest<BonusesData>(path, config, method);
     };
 }
 

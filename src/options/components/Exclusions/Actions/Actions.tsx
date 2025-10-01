@@ -7,6 +7,7 @@ import { format } from 'date-fns/format';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
+import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../common/utils/string';
@@ -15,6 +16,7 @@ import { log } from '../../../../common/logger';
 import { messenger } from '../../../../common/messenger';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { Select } from '../../../../common/components/Select';
+import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 
 import { SelectListModal } from './SelectListModal';
 import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
@@ -29,7 +31,7 @@ enum Action {
     Remove = 'remove',
 }
 
-const prepareExclusionsAfterImport = (exclusionsString: string) => {
+const prepareExclusionsAfterImport = (exclusionsString: string): string[] => {
     return exclusionsString
         .split('\n')
         .map((str) => str.trim())
@@ -54,7 +56,7 @@ const handleSelectiveExclusionsString = async (exclusionsString: string): Promis
     return messenger.addSelectiveExclusions(selectiveExclusions);
 };
 
-const exportExclusions = async () => {
+const exportExclusions = async (): Promise<void> => {
     const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
     const ZIP_FILENAME = `exclusions-${nowFormatted}.zip`;
 
@@ -76,23 +78,33 @@ const exportExclusions = async () => {
 };
 
 export const Actions = observer(() => {
-    const { exclusionsStore, notificationsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
     const { selectListModalOpen } = exclusionsStore;
 
     const importEl = useRef<HTMLInputElement>(null);
 
     const [fileContent, setFileContent] = useState('');
 
-    const closeSelectListModal = () => {
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.DialogImportedExclusions,
+        selectListModalOpen,
+    );
+
+    const closeSelectListModal = (): void => {
         exclusionsStore.closeSelectListModal();
         setFileContent('');
     };
 
-    const openSelectListModal = () => {
+    const openSelectListModal = (): void => {
         exclusionsStore.openSelectListModal();
     };
 
-    const handleRegularClick = async () => {
+    const handleRegularClick = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.ImportGeneralExclusionsClick,
+            TelemetryScreenName.DialogImportedExclusions,
+        );
         const exclusionsAddedCount = await handleGeneralExclusionsString(fileContent);
         notificationsStore.notifySuccess(
             translator.getMessage(
@@ -108,7 +120,11 @@ export const Actions = observer(() => {
         closeSelectListModal();
     };
 
-    const handleSelectiveClick = async () => {
+    const handleSelectiveClick = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.ImportSelectiveExclusionsClick,
+            TelemetryScreenName.DialogImportedExclusions,
+        );
         const exclusionsAddedCount = await handleSelectiveExclusionsString(fileContent);
         notificationsStore.notifySuccess(
             translator.getMessage(
@@ -124,25 +140,37 @@ export const Actions = observer(() => {
         closeSelectListModal();
     };
 
-    const handleTxtExclusionsData = (content: string) => {
+    const handleTxtExclusionsData = (content: string): null => {
         setFileContent(content);
         openSelectListModal();
         return null;
     };
 
-    const handleAction = async (action: Action) => {
+    const handleAction = async (action: Action): Promise<void> => {
         switch (action) {
             case Action.Export: {
+                telemetryStore.sendCustomEvent(
+                    TelemetryActionName.ExportExclusionsClick,
+                    TelemetryScreenName.ExclusionsScreen,
+                );
                 await exportExclusions();
                 break;
             }
             case Action.Import: {
+                telemetryStore.sendCustomEvent(
+                    TelemetryActionName.OpenImportExclusionsClick,
+                    TelemetryScreenName.ExclusionsScreen,
+                );
                 if (importEl.current) {
                     importEl.current.click();
                 }
                 break;
             }
             case Action.Remove: {
+                telemetryStore.sendCustomEvent(
+                    TelemetryActionName.OpenRemoveExclusionsClick,
+                    TelemetryScreenName.ExclusionsScreen,
+                );
                 await exclusionsStore.openRemoveAllModal();
                 break;
             }
@@ -150,7 +178,7 @@ export const Actions = observer(() => {
         }
     };
 
-    const handleExclusionsData = async (exclusionsData: ExclusionsImportData[]) => {
+    const handleExclusionsData = async (exclusionsData: ExclusionsImportData[]): Promise<any> => {
         const txtExclusionsData = exclusionsData.find((d) => d.type === ExclusionDataType.Txt);
 
         if (txtExclusionsData) {
@@ -177,7 +205,7 @@ export const Actions = observer(() => {
         return addedExclusions;
     };
 
-    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
         if (!e.target.files) {
             return;
         }

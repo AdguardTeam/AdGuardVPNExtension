@@ -13,8 +13,8 @@ export enum NotifierType {
     SHOULD_REFRESH_TOKENS = 'event.should.refresh.tokens',
     DNS_SERVER_SET = 'event.dns.server.set',
     UPDATE_BROWSER_ACTION_ICON = 'event.update.browser.action.icon',
-    AUTHENTICATE_SOCIAL_SUCCESS = 'event.authenticate.social.success',
     SHOW_RATE_MODAL = 'event.show.rate.modal',
+    AUTH_CACHE_UPDATED = 'event.auth.cache.updated',
 
     VPN_INFO_UPDATED = 'event.vpn.info.updated',
     LOCATIONS_UPDATED = 'event.locations.updated',
@@ -33,6 +33,8 @@ export enum NotifierType {
     // Background page connection events
     PORT_CONNECTED = 'event.port.connected',
     PORT_DISCONNECTED = 'event.port.disconnected',
+
+    WEB_AUTH_FLOW_AUTHENTICATED = 'event.web.auth.flow.authenticated',
 }
 
 export type NotifierTypeMap = {
@@ -84,6 +86,8 @@ export class Notifier {
      *
      * @param events - List of event types listener will be notified of
      * @param listener - Listener object
+     *
+     * @returns Listener id.
      */
     addSpecifiedListener(events: string | string[], listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
@@ -101,7 +105,10 @@ export class Notifier {
 
     /**
      * Subscribes specified listener to all events and returns index of the listener
+     *
      * @param listener Listener
+     *
+     * @returns Listener id.
      */
     addListener(listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
@@ -116,7 +123,7 @@ export class Notifier {
      * Unsubscribe listener
      * @param listenerId Index of listener to unsubscribe
      */
-    removeListener(listenerId: string) {
+    removeListener(listenerId: string): void {
         delete this.listeners[listenerId];
         delete this.listenersEvents[listenerId];
     }
@@ -124,7 +131,7 @@ export class Notifier {
     /**
      * Notifies listeners about the events passed as arguments of this function.
      */
-    notifyListeners(event: NotifierType, ...args: unknown[]) {
+    notifyListeners(event: NotifierType, ...args: unknown[]): void {
         if (!event || !(event in this.events)) {
             throw new Error(`Illegal event: ${event}`);
         }
@@ -150,5 +157,7 @@ export class Notifier {
         }
     }
 }
+
+export type NotifierInterface = InstanceType<typeof Notifier>;
 
 export const notifier = new Notifier(NotifierType);

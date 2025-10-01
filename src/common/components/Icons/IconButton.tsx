@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import classNames from 'classnames';
 
@@ -48,7 +48,7 @@ export function IconButton({
     hoverColor = 'text-main',
     iconClassName,
     onClick,
-}: IconButtonProps) {
+}: IconButtonProps): ReactElement {
     const classes = classNames(
         'icon-button has-tab-focus',
         `icon-button--hover-color-${hoverColor}`,

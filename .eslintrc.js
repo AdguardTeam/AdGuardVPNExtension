@@ -15,11 +15,11 @@ module.exports = {
         'react',
         'import',
         'import-newlines',
+        'jsdoc',
     ],
     env: {
         browser: true,
         node: true,
-        jest: true,
     },
     globals: {
         adguard: 'readonly',
@@ -85,6 +85,7 @@ module.exports = {
         }],
         'no-shadow': 0,
         '@typescript-eslint/no-shadow': 0,
+        '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/consistent-type-imports': [
             'error',
             {
@@ -95,7 +96,7 @@ module.exports = {
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
         'import/no-extraneous-dependencies': 0,
         'import/no-unassigned-import': ['error', {
-            allow: ['**/*.pcss', '@testing-library/jest-dom'],
+            allow: ['**/*.pcss'],
         }],
         // TODO: remove rule
         'import/no-cycle': 0,

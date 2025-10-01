@@ -14,11 +14,11 @@ export const ResetServiceModal = observer(() => {
         return null;
     }
 
-    const closeModal = () => {
+    const closeModal = (): void => {
         exclusionsStore.setResetServiceModalOpen(false);
     };
 
-    const resetServiceData = async () => {
+    const resetServiceData = async (): Promise<void> => {
         await exclusionsStore.resetServiceData(selectedExclusion.id);
         closeModal();
     };

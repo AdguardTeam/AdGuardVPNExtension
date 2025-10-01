@@ -52,7 +52,7 @@ export const Sidebar = observer(() => {
     useLayoutEffect(() => {
         const matchMedia = window.matchMedia(smallTabletQuery);
 
-        const handleScreenChange = (e: MediaQueryListEvent) => {
+        const handleScreenChange = (e: MediaQueryListEvent): void => {
             setIsSmallTabletScreen(e.matches);
         };
 
@@ -61,7 +61,7 @@ export const Sidebar = observer(() => {
 
         matchMedia.addEventListener('change', handleScreenChange);
 
-        return () => {
+        return (): void => {
             matchMedia.removeEventListener('change', handleScreenChange);
         };
     }, []);
@@ -73,19 +73,19 @@ export const Sidebar = observer(() => {
      */
     const isSidebarLocked = isAnyModalOpen || (!isSidebarOpen && isSmallTabletScreen);
 
-    useEffect(() => {
-        (async () => {
+    useEffect((): void => {
+        (async (): Promise<void> => {
             // request bonuses data on opening this screen to display actual information to user
             await settingsStore.updateBonusesData();
         })();
     }, []);
 
-    const handleCloseAll = () => {
+    const handleCloseAll = (): void => {
         closeSubComponents();
         closeSidebar();
     };
 
-    const handleLinkClick = (telemetryActionName: SidebarLinkItemClickActionNames) => {
+    const handleLinkClick = (telemetryActionName: SidebarLinkItemClickActionNames): void => {
         telemetryStore.sendCustomEvent(
             telemetryActionName,
             TelemetryScreenName.ContextBasedScreen,

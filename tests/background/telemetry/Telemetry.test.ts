@@ -1,3 +1,11 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
@@ -15,21 +23,15 @@ import { AppearanceTheme, SubscriptionType } from '../../../src/common/constants
 import { Prefs, SystemName } from '../../../src/common/prefs';
 import { log } from '../../../src/common/logger';
 
-jest.mock('../../../src/background/browserApi', () => {
-    return jest.requireActual('../../__mocks__/browserApiMock');
-});
-
-jest.mock('../../../src/common/logger');
-
 const mockStorage = {
-    get: jest.fn(),
-    set: jest.fn(),
-    remove: jest.fn(),
+    get: vi.fn(),
+    set: vi.fn(),
+    remove: vi.fn(),
 };
 
 const mockTelemetryProvider = {
-    sendCustomEvent: jest.fn(),
-    sendPageViewEvent: jest.fn(),
+    sendCustomEvent: vi.fn(),
+    sendPageViewEvent: vi.fn(),
 };
 
 const mockAppStatus = {
@@ -37,20 +39,20 @@ const mockAppStatus = {
 };
 
 const mockSettings = {
-    isHelpUsImproveEnabled: jest.fn().mockReturnValue(true),
-    getAppearanceTheme: jest.fn().mockReturnValue(AppearanceTheme.System),
+    isHelpUsImproveEnabled: vi.fn().mockReturnValue(true),
+    getAppearanceTheme: vi.fn().mockReturnValue(AppearanceTheme.System),
 };
 
 const mockAuth = {
-    isAuthenticated: jest.fn().mockResolvedValue(true),
+    isAuthenticated: vi.fn().mockResolvedValue(true),
 };
 
 const mockCredentials = {
-    isPremiumToken: jest.fn().mockResolvedValue(true),
-    getSubscriptionType: jest.fn().mockReturnValue(SubscriptionType.Monthly),
+    isPremiumToken: vi.fn().mockResolvedValue(true),
+    getSubscriptionType: vi.fn().mockReturnValue(SubscriptionType.Monthly),
 };
 
-jest.spyOn(Prefs, 'getPlatformInfo').mockResolvedValue({ os: SystemName.MacOS, arch: 'arm' });
+vi.spyOn(Prefs, 'getPlatformInfo').mockResolvedValue({ os: SystemName.MacOS, arch: 'arm' });
 
 describe('Telemetry', () => {
     let telemetry: Telemetry;
@@ -77,14 +79,14 @@ describe('Telemetry', () => {
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
-    const getUILanguageMock = jest.spyOn(browser.i18n, 'getUILanguage')
+    const getUILanguageMock = vi.spyOn(browser.i18n, 'getUILanguage')
         .mockReturnValue('en-US');
-    const getPlatformVersionMock = jest.spyOn(Prefs, 'getPlatformVersion')
+    const getPlatformVersionMock = vi.spyOn(Prefs, 'getPlatformVersion')
         .mockResolvedValue('15.1.1');
-    const deviceMock = jest.spyOn(Prefs, 'device', 'get')
+    const deviceMock = vi.spyOn(Prefs, 'device', 'get')
         .mockReturnValue({ model: 'MacBook', vendor: 'Apple', type: 'arm' });
 
     const syntheticIdRegex = /^[a-f1-9]{8}$/;
@@ -112,7 +114,7 @@ describe('Telemetry', () => {
     const sendPageViewEventNotDebounced = async (
         screenName: TelemetryScreenName,
         pageId = nanoid(),
-    ) => {
+    ): Promise<void> => {
         // @ts-expect-error - private method
         await telemetry.sendPageViewEvent(screenName, pageId);
     };
@@ -126,7 +128,7 @@ describe('Telemetry', () => {
     const sendCustomEventNotDebounced = async (
         actionName: TelemetryActionName,
         screenName: TelemetryScreenName,
-    ) => {
+    ): Promise<void> => {
         // @ts-expect-error - private method
         await telemetry.sendCustomEvent(actionName, screenName);
     };
@@ -138,7 +140,7 @@ describe('Telemetry', () => {
      *
      * @param data Partial base data to check.
      */
-    const expectBaseDataPartially = async (data: Partial<TelemetryBaseData>) => {
+    const expectBaseDataPartially = async (data: Partial<TelemetryBaseData>): Promise<void> => {
         await sendPageViewEventNotDebounced(prevUsedScreenName);
         expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledWith(
             expect.any(Object), // Event data
@@ -490,17 +492,19 @@ describe('Telemetry', () => {
             expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(2);
         });
 
-        it('should debounce if events are sent too fast', async (done) => {
+        it('should debounce if events are sent too fast', async () => {
             await telemetry.initState();
 
             telemetry.addOpenedPage();
             await telemetry.sendPageViewEventDebounced(TelemetryScreenName.AuthScreen, 'pageId1');
             await telemetry.sendPageViewEventDebounced(TelemetryScreenName.PurchaseScreen, 'pageId1');
 
-            setTimeout(() => {
-                expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);
-                done();
-            }, Telemetry.SEND_EVENT_TIMEOUT + 1);
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);
+                    resolve(true);
+                }, Telemetry.SEND_EVENT_TIMEOUT + 1);
+            });
         });
     });
 
@@ -523,7 +527,7 @@ describe('Telemetry', () => {
             );
         });
 
-        it('should debounce if events are sent too fast', async (done) => {
+        it('should debounce if events are sent too fast', async () => {
             await telemetry.initState();
 
             await telemetry.sendCustomEventDebounced(
@@ -535,10 +539,12 @@ describe('Telemetry', () => {
                 TelemetryScreenName.PurchaseScreen,
             );
 
-            setTimeout(() => {
-                expect(mockTelemetryProvider.sendCustomEvent).toHaveBeenCalledTimes(1);
-                done();
-            }, Telemetry.SEND_EVENT_TIMEOUT + 1);
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    expect(mockTelemetryProvider.sendCustomEvent).toHaveBeenCalledTimes(1);
+                    resolve(true);
+                }, Telemetry.SEND_EVENT_TIMEOUT + 1);
+            });
         });
     });
 });

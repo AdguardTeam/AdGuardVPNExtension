@@ -1,10 +1,12 @@
+import {
+    describe,
+    beforeEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { LogStorage, type LogStorageInterface } from '../../src/common/log-storage/log-storage';
 import { logStorageManager } from '../../src/common/log-storage/LogStorageManager';
-
-jest.mock('../../src/background/browserApi', () => {
-    // eslint-disable-next-line global-require
-    return require('../__mocks__/browserApiMock');
-});
 
 describe('LogStorage', () => {
     let logStorage: LogStorageInterface;
@@ -40,7 +42,7 @@ describe('LogStorage', () => {
         expect(await logStorage.getLogsString()).toBe(`"${str1}" "${str2}"`);
     });
 
-    it('Does not get over max size limit', (done) => {
+    it('Does not get over max size limit', async () => {
         const str = 'testtest';
 
         const logStorageMaxElements = 10;
@@ -51,10 +53,12 @@ describe('LogStorage', () => {
             logStorage.addLog(str);
         }
 
-        setTimeout(async () => {
-            const savedValue = await logStorageManager.getStorage().get();
-            expect(savedValue.length).toEqual(10);
-            done();
-        }, 100);
+        await new Promise((resolve) => {
+            setTimeout(async () => {
+                const savedValue = await logStorageManager.getStorage().get();
+                expect(savedValue.length).toEqual(10);
+                resolve(true);
+            }, 100);
+        });
     });
 });

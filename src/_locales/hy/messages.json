@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Չի կարող լինել դատարկ"
-    },
-    "registration_error_not_valid": {
-        "message": "Այս արժեքը ոչ անհարգելի է"
-    },
-    "registration_error_min_length": {
-        "message": "Գաղտնաբառը պետք է պարունակի առնվազն 8 նիշ"
-    },
-    "registration_error_confirm_password": {
-        "message": "Գաղտնաբառերը չեն համընկնում"
-    },
-    "registration_error_compromised_password": {
-        "message": "Մուտքագրած գաղտնաբառը հայտնաբերվել է <a>հանրային տվյալների բազայում</a> խախտված գաղտնաբառերի: Խնդրում ենք փորձել մեկ այլ։"
-    },
-    "registration_error_unique_constraint": {
-        "message": "Այս արժեքը արդեն օգտագործվում է"
-    },
-    "registration_error_default": {
-        "message": "Սխալ տեղի ունեցավ, փորձեք հետագայում"
-    },
-    "authentication_error_2fa_required": {
-        "message": "Պահանջվում է 2FA"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Սխալ կոդ"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Հաշիվը դադարեցվել է"
-    },
-    "authentication_error_account_locked": {
-        "message": "Հաշիվը փակ է 15 րոպեով"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Սխալ գաղտնաբառ"
-    },
-    "authentication_too_many_requests": {
-        "message": "We received too many requests from your IP address. Please try again later."
-    },
-    "authentication_error_default": {
-        "message": "Սխալ՝ փորձեք մի քիչ հետ"
-    },
-    "global_error_message": {
-        "message": "Սխալ է տեղի ունեցել, խնդրում ենք կապնվել մեզ <a>%support_email%</a>-ի միջոցով"
-    },
     "about_title": {
         "message": "Ծրագրի մասին"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Դուրս թողնել"
     },
+    "account_sign_out_question": {
+        "message": "Դուրս գալ?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Չեղարկել"
+    },
+    "account_sign_out_description": {
+        "message": "Դուք դուրս կգաք ձեր հաշիվից։ VPN պաշտպանությունը կդադարեցվի"
+    },
     "account_unlimited_title": {
         "message": "Ստացեք անսահմանափակ տարբերակը"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Թաքցնել"
-    },
-    "auth_confirm": {
-        "message": "Հաստատել"
-    },
-    "auth_email": {
-        "message": "Էլ. փոստի հասցե"
-    },
-    "auth_password": {
-        "message": "Գաղտնաբառ"
-    },
-    "auth_your_password": {
-        "message": "Քո գաղտնաբառը"
-    },
-    "auth_password_confirm": {
-        "message": "Հաստատել գաղտնաբառը"
-    },
-    "auth_recover": {
-        "message": "Մոռացե՞լ է գաղտնաբառը"
-    },
-    "auth_sign_up": {
-        "message": "Գրանցվել"
-    },
-    "auth_sign_up_info": {
-        "message": "Ստեղծեք ձեր AdGuard հաշիվը"
-    },
-    "auth_sign_up_button": {
-        "message": "Գրանցվել"
-    },
-    "auth_sign_in": {
-        "message": "Մուտքագրեք ձեր գաղտնաբառը"
-    },
-    "auth_sign_in_button": {
-        "message": "Մուտք գործել"
-    },
-    "auth_title": {
-        "message": "Մուտք գործել կամ նոր հաշիվ ստեղծել"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Էլ. փոստ"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Շարունակել փոստով"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Շարունակել Apple-ով"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Շարունակել Google-ով"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Շարունակել Facebook-ով"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Քայլում եք որպես <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Երկու գործոնով հաստատում"
-    },
-    "auth_header_2fa": {
-        "message": "Մուտքագրեք վավերացման կոդը"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Վավերացման կոդ"
     },
     "official_website": {
         "message": "Պաշտոնական կայք"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Մուտք գործել կամ ստեղծել հաշիվ"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Շարունակել"
-    },
     "popup_newsletter_title": {
         "message": "AdGuard տեղեկագիր"
     },
@@ -1021,9 +919,6 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Սա այլևս մի ցուցադրեք"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Այս դիտարկչի վիճակագրություն"
-    },
     "popup_stats_disabled_notice": {
         "message": "Վիճակագրությունը անջատված է"
     },
@@ -1038,18 +933,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Ժամանակ"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Ինչու դա անվտանգ է"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Ինչու դա անվտանգ է"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN կապը գաղտնագրված է եւ անվտանգ, այնպես որ ոչ ոք չի կարող տեսնել ձեր գործունեության տվյալները. մենք միայն հաշվարկում ենք ձեր երթեւեկության օգտագործումը"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Բոլոր վիճակագրությունները հավաքվում և պահվում են ձեր սարքում։ Մենք դրանց հասանելիություն չունենք"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Հասկացա"
@@ -1147,40 +1030,19 @@
     "notification_data_left_description": {
         "message": "VPN կապի արագությունը շուտով կրճատվի։"
     },
-    "confirm_email_title": {
-        "message": "Հաստատեք ձեր էլ. փոստը"
-    },
-    "confirm_email_info": {
-        "message": "Մենք ուղարկել ենք հաստատման կոդ <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Էլփոստի հասցեն հաստատված է"
     },
     "confirm_email_done_info": {
         "message": "Շնորհակալություն, որ ստուգեցիք դա։"
     },
-    "confirm_email_code_label": {
-        "message": "Պատճառի կոդ"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Օգտվողներ և նամակներ պարունակում են"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Խնդրում ենք ստուգել կոդը՝ այն թվում է սխալ"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Ուղարկել մեկ այլ կոդ (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Ուղարկել մեկ այլ կոդ"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Մուտք գործելը ձախողվեց։ Խնդրում ենք կրկին փորձել կամ կապնվել մեզ հետ <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Գրանցումն անհաջող է։ Խնդրում ենք կրկնակի փորձել կամ կապնվել մեզ հետ <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Հաստատման հղումը կրկին ուղարկված է"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Փակել"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Չեղարկել"
     }
 }

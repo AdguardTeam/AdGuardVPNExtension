@@ -278,6 +278,8 @@ const notifications: { [key: string]: PromoNotificationData } = {
 /**
  * Gets the last time a notification was shown.
  * If it was not shown yet, initialized with the current time.
+ *
+ * @returns Last notification time.
  */
 const getLastNotificationTime = async (): Promise<number> => {
     let lastTime = await browserApi.storage.get<number>(LAST_NOTIFICATION_TIME) || 0;
@@ -335,9 +337,11 @@ const handleSerbianLocale = (normalizedLocale: string): string => {
 };
 
 /**
- * Scans notification locales and returns the one matching navigator.language
- * @param notification notification object
- * returns matching text or null
+ * Scans notification locales and returns the one matching navigator language.
+ *
+ * @param notification Notification object.
+ *
+ * @returns Matching text or null if no language defined.
  */
 const getNotificationText = (notification: PromoNotificationData): NotificationTextRecord | null => {
     let language = normalizeLanguage(browser.i18n.getUILanguage());
@@ -413,8 +417,9 @@ const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
 };
 
 /**
- * Finds out notification for current time and checks if notification wasn't shown yet
- * returns notification
+ * Finds out notification for current time and checks if notification wasn't shown yet.
+ *
+ * @returns Notification if it has to be shown.
  */
 const getCurrentNotification = async (): Promise<PromoNotificationData | null> => {
     // Do not display notification on Firefox

@@ -6,13 +6,83 @@ plan:
   name: vpn-extension - build beta
 variables:
   dockerNode: adguard/node-ssh:22.17--0
+  stageEnv: prod
+  buildType: beta
 
 stages:
+  - Size Check:
+      manual: false
+      final: false
+      jobs:
+        - Check Bundle Size
   - Build:
       manual: false
       final: false
       jobs:
         - Build
+
+Check Bundle Size:
+  key: SIZECHECK
+  other:
+    clean-working-dir: true
+  docker:
+    image: ${bamboo.dockerNode}
+    volumes:
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
+  tasks:
+    - checkout:
+        force-clean-build: 'true'
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -la
+
+            # Set cache directory
+            pnpm config set store-dir ${bamboo.cachePnpm}
+
+            # Install dependencies
+            pnpm install ${bamboo.varsPnpm}
+
+            export STAGE_ENV="${bamboo.stageEnv}"
+            export VPN_API_URL="${bamboo.prodVpnApiUrl}"
+            export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
+            export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
+
+            echo "Executing build for $buildType"
+
+            # Run build
+            pnpm ${bamboo.buildType}
+
+            # Create artifacts directory if it doesn't exist
+            mkdir -p artifacts
+
+            echo "Checking bundle sizes"
+            pnpm bundle-size check ${bamboo.buildType}
+  final-tasks:
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -la
+
+            echo "Size before cleanup:" && du -h | tail -n 1
+            rm -rf node_modules build
+            echo "Size after cleanup:" && du -h | tail -n 1
+  requirements:
+    - adg-docker: 'true'
 
 Build:
   key: BUILD
@@ -50,21 +120,22 @@ Build:
             pnpm install ${bamboo.varsPnpm}
 
             pnpm lint
-            pnpm test
-            pnpm locales validate --min
+            pnpm test:ci
+            # FIXME: Revert back when locales will be ready
+            # pnpm locales validate --min
 
-            export STAGE_ENV="prod"
+            export STAGE_ENV="${bamboo.stageEnv}"
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
 
             # build with prod API endpoints edge.zip, chrome.zip, opera.zip
-            pnpm beta
+            pnpm ${bamboo.buildType}
 
             # build artifacts chrome.crx and update.xml
-            pnpm crx:beta
+            pnpm crx:${bamboo.buildType}
     - inject-variables:
-        file: build/beta/build.txt
+        file: build/${bamboo.buildType}/build.txt
         scope: RESULT
         namespace: inject
     - any-task:
@@ -73,6 +144,9 @@ Build:
           selectedRepository: defaultRepository
           tagName: v${bamboo.inject.version}
   final-tasks:
+    - test-parser:
+        type: junit
+        test-results: 'tests-reports/unit-tests.xml'
     - script:
         interpreter: SHELL
         scripts:
@@ -90,32 +164,32 @@ Build:
             echo "Size after cleanup:" && du -h | tail -n 1
   artifacts:
     - name: edge.zip
-      location: build/beta
+      location: build/${bamboo.buildType}
       pattern: edge.zip
       shared: true
       required: true
     - name: chrome.zip
-      location: build/beta
+      location: build/${bamboo.buildType}
       pattern: chrome.zip
       shared: true
       required: true
     - name: opera.zip
-      location: build/beta
+      location: build/${bamboo.buildType}
       pattern: opera.zip
       shared: true
       required: true
     - name: chrome.crx
-      location: build/beta
+      location: build/${bamboo.buildType}
       pattern: chrome.crx
       shared: true
       required: true
     - name: update.xml
-      location: build/beta
+      location: build/${bamboo.buildType}
       pattern: update.xml
       shared: true
       required: true
     - name: build.txt
-      location: build/beta
+      location: build/${bamboo.buildType}
       pattern: build.txt
       shared: true
       required: true

@@ -24,7 +24,7 @@ export function useTelemetryPageViewEvent(
     telemetryStore: TelemetryStore,
     screenName: TelemetryScreenName,
     condition = true,
-) {
+): void {
     useEffect(() => {
         if (!condition) {
             return;

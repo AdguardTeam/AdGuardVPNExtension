@@ -43,7 +43,9 @@ export class AuthService implements AuthServiceInterface {
 
     /**
      * User is considered authenticated
-     * if an accessToken is present in the access token data
+     * if an accessToken is present in the access token data.
+     *
+     * @returns Promise with true if user is authenticated, false otherwise.
      */
     isAuthenticated = async (): Promise<boolean> => {
         const accessTokenData = await this.getAccessTokenData();

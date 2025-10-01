@@ -18,11 +18,11 @@ export const SERVICE_FORM_ID = 'add-exclusion-form-service';
 export const ServiceMode = observer(() => {
     const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
-    const closeModal = () => {
+    const closeModal = (): void => {
         exclusionsStore.closeAddExclusionModal();
     };
 
-    const handleSaveServices = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSaveServices = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
         telemetryStore.sendCustomEvent(

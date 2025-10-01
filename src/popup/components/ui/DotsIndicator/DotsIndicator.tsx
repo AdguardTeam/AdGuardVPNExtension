@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import classnames from 'classnames';
 
@@ -10,7 +10,7 @@ type DotsIndicatorProps = {
     navigationHandler: (dotId: number) => void,
 };
 
-export const DotsIndicator = (props: DotsIndicatorProps) => {
+export const DotsIndicator = (props: DotsIndicatorProps): ReactElement => {
     const {
         dotsAmount,
         activeDot,
@@ -19,7 +19,7 @@ export const DotsIndicator = (props: DotsIndicatorProps) => {
 
     const dots = [...Array(dotsAmount).keys()];
 
-    const clickHandler = (dotId: number) => () => {
+    const clickHandler = (dotId: number) => (): void => {
         navigationHandler(dotId);
     };
 

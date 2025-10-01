@@ -7,7 +7,7 @@
         ".eslintrc.js",
         ".lintstagedrc.mjs",
         "babel.config.js",
-        "jest.config.ts",
+        "vitest.config.ts",
         "postcss.config.js",
     ],
 }

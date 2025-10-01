@@ -2,9 +2,9 @@ import zod from 'zod';
 
 export const authAccessTokenScheme = zod.object({
     accessToken: zod.string(),
-    expiresIn: zod.number(),
-    tokenType: zod.string(),
-    scope: zod.string().optional(),
+    expiresIn: zod.number().gte(0).finite(),
+    tokenType: zod.literal('bearer'),
+    scope: zod.literal('trust').optional(),
 });
 
 /**

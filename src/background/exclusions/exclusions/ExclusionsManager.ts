@@ -3,95 +3,127 @@ import { notifier } from '../../../common/notifier';
 import { log } from '../../../common/logger';
 import { settings } from '../../settings';
 import { proxy } from '../../proxy';
-import {
-    StorageKey,
-    type PersistedExclusions,
-    type ExclusionInterface,
-    type IndexedExclusionsInterface,
-    type ExclusionsManagerState,
-} from '../../schema';
-import { stateStorage } from '../../stateStorage';
+import { type PersistedExclusions, type ExclusionInterface, type IndexedExclusionsInterface } from '../../schema';
 
 import { ExclusionsHandler } from './ExclusionsHandler';
 
 export type AllExclusions = Omit<PersistedExclusions, 'inverted'>;
 
-export class ExclusionsManager {
-    state: ExclusionsManagerState;
-
-    selectiveModeHandler: ExclusionsHandler;
-
+/**
+ * Interface representing handlers for different exclusion modes.
+ */
+export interface ExclusionsHandlers {
+    /**
+     * Regular mode exclusions handler.
+     */
     regularModeHandler: ExclusionsHandler;
 
-    saveExclusionsManagerState = () => {
-        stateStorage.setItem(StorageKey.ExclusionsManagerState, this.state);
-    };
+    /**
+     * Selective mode exclusions handler.
+     */
+    selectiveModeHandler: ExclusionsHandler;
 
-    private get exclusions(): PersistedExclusions {
-        return this.state.exclusions;
-    }
+    /**
+     * Current mode exclusions handler.
+     */
+    currentModeHandler: ExclusionsHandler;
+}
 
-    private set exclusions(exclusions: PersistedExclusions) {
-        this.state.exclusions = exclusions;
-        this.saveExclusionsManagerState();
-    }
+export class ExclusionsManager {
+    /**
+     * Promise that resolves when the exclusions service is initialized.
+     */
+    private initPromise: Promise<void> | null = null;
 
-    get inverted(): boolean {
-        return this.state.inverted;
-    }
+    /**
+     * All exclusions data.
+     *
+     * IMPORTANT: Before accessing it make sure that the service is initialized by calling {@link init} method.
+     */
+    private inverted: boolean;
 
-    set inverted(inverted: boolean) {
-        this.state.inverted = inverted;
-        this.saveExclusionsManagerState();
-    }
+    /**
+     * Current mode exclusions handler.
+     *
+     * IMPORTANT: Before accessing it make sure that the service is initialized by calling {@link init} method.
+     */
+    private currentModeHandler: ExclusionsHandler;
 
-    get currentHandler(): ExclusionsHandler {
-        return this.state.currentHandler;
-    }
+    /**
+     * Selective mode exclusions handler.
+     *
+     * IMPORTANT: Before accessing it make sure that the service is initialized by calling {@link init} method.
+     */
+    private selectiveModeHandler: ExclusionsHandler;
 
-    set currentHandler(currentHandler: ExclusionsHandler) {
-        this.state.currentHandler = currentHandler;
-        this.saveExclusionsManagerState();
-    }
+    /**
+     * Regular mode exclusions handler.
+     *
+     * IMPORTANT: Before accessing it make sure that the service is initialized by calling {@link init} method.
+     */
+    private regularModeHandler: ExclusionsHandler;
 
-    init = async () => {
-        this.state = stateStorage.getItem(StorageKey.ExclusionsManagerState);
+    /**
+     * Initializes the exclusions manager service by creating exclusions handlers.
+     */
+    private async innerInit(): Promise<void> {
+        const exclusions = settings.getExclusions();
+        this.inverted = exclusions.inverted ?? false;
 
-        this.exclusions = settings.getExclusions();
-
-        const regular = this.exclusions[ExclusionsMode.Regular] ?? [];
-
-        const selective = this.exclusions[ExclusionsMode.Selective] ?? [];
-
-        this.inverted = this.exclusions.inverted ?? false;
-
+        const selective = exclusions[ExclusionsMode.Selective] ?? [];
         this.selectiveModeHandler = new ExclusionsHandler(
-            this.handleExclusionsUpdate,
+            this.handleHandlerUpdate.bind(this),
             selective,
             ExclusionsMode.Selective,
         );
 
+        const regular = exclusions[ExclusionsMode.Regular] ?? [];
         this.regularModeHandler = new ExclusionsHandler(
-            this.handleExclusionsUpdate,
+            this.handleHandlerUpdate.bind(this),
             regular,
             ExclusionsMode.Regular,
         );
 
-        this.currentHandler = this.inverted ? this.selectiveModeHandler : this.regularModeHandler;
+        this.currentModeHandler = this.inverted
+            ? this.selectiveModeHandler
+            : this.regularModeHandler;
 
-        // update bypass list in proxy on init
+        /**
+         * Update the bypass list in the proxy with the current exclusions.
+         *
+         * Note: We do not await {@link init} here, because we are inside of it.
+         */
         await this.handleExclusionsUpdate();
 
         log.info('ExclusionsManager is ready');
-    };
+    }
 
     /**
-     * Applies enabled exclusions to proxy config and save them to local storage
+     * Initializes the exclusions manager service.
+     *
+     * Note: You can call this method to wait for the exclusions manager service to be initialized,
+     * because it was implemented as it can be called multiple times but
+     * initialization will happen only once.
+     *
+     * @returns Promise that resolves when the exclusions manager service is initialized.
      */
-    handleExclusionsUpdate = async () => {
+    public async init(): Promise<void> {
+        if (!this.initPromise) {
+            this.initPromise = this.innerInit();
+        }
+
+        return this.initPromise;
+    }
+
+    /**
+     * Applies enabled exclusions to proxy config and save them to local storage.
+     *
+     * IMPORTANT: Before calling this method make sure that the service is initialized by calling {@link init} method.
+     */
+    private async handleExclusionsUpdate(): Promise<void> {
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
-        const enabledExclusionsList = this.currentHandler.exclusions
+        const enabledExclusionsList = this.currentModeHandler.exclusions
             .filter(({ state }) => state === ExclusionState.Enabled)
             .map(({ hostname }) => hostname);
 
@@ -99,87 +131,129 @@ export class ExclusionsManager {
 
         const exclusionsRepository = {
             inverted: this.inverted,
-            [ExclusionsMode.Selective]: this.selective.exclusions,
-            [ExclusionsMode.Regular]: this.regular.exclusions,
+            [ExclusionsMode.Selective]: this.selectiveModeHandler.exclusions,
+            [ExclusionsMode.Regular]: this.regularModeHandler.exclusions,
         };
 
         settings.setExclusions(exclusionsRepository);
-    };
-
-    get regular() {
-        return this.regularModeHandler;
-    }
-
-    get selective() {
-        return this.selectiveModeHandler;
-    }
-
-    get current() {
-        return this.currentHandler;
     }
 
     /**
-     * Sets current exclusion mode
-     * @param mode
+     * Handles updates from exclusions handlers.
      */
-    async setCurrentMode(mode: ExclusionsMode) {
+    private async handleHandlerUpdate(): Promise<void> {
+        // Await initialization if not yet initialized
+        await this.init();
+
+        await this.handleExclusionsUpdate();
+    }
+
+    /**
+     * Retrieves all mode handlers after ensuring the service is initialized.
+     *
+     * @returns Object containing instances of {@link ExclusionsHandler} for regular, selective, and current modes.
+     */
+    public async getModeHandlers(): Promise<ExclusionsHandlers> {
+        // Await initialization if not yet initialized
+        await this.init();
+
+        return {
+            regularModeHandler: this.regularModeHandler,
+            selectiveModeHandler: this.selectiveModeHandler,
+            currentModeHandler: this.currentModeHandler,
+        };
+    }
+
+    /**
+     * Checks if the current exclusion mode is inverted (selective).
+     *
+     * @returns True if the current mode is inverted (selective), false otherwise (regular).
+     */
+    public async isInverted(): Promise<boolean> {
+        // Await initialization if not yet initialized
+        await this.init();
+
+        return this.inverted;
+    }
+
+    /**
+     * Sets current exclusion mode.
+     *
+     * @param mode New mode to set.
+     */
+    public async setCurrentMode(mode: ExclusionsMode): Promise<void> {
+        // Await initialization if not yet initialized
+        await this.init();
+
         switch (mode) {
             case ExclusionsMode.Selective: {
-                this.currentHandler = this.selectiveModeHandler;
+                this.currentModeHandler = this.selectiveModeHandler;
                 this.inverted = true;
                 break;
             }
             case ExclusionsMode.Regular: {
-                this.currentHandler = this.regularModeHandler;
+                this.currentModeHandler = this.regularModeHandler;
                 this.inverted = false;
                 break;
             }
             default:
                 throw Error(`Wrong type received ${mode}`);
         }
+
         await this.handleExclusionsUpdate();
     }
 
     /**
-     * Returns exclusions for current mode
+     * Retrieves exclusions for current mode.
+     *
+     * @returns Array of exclusions for current mode.
      */
-    getExclusions(): ExclusionInterface[] {
-        return this.currentHandler.exclusions;
+    public async getExclusions(): Promise<ExclusionInterface[]> {
+        // Await initialization if not yet initialized
+        await this.init();
+
+        return this.currentModeHandler.exclusions;
     }
 
     /**
-     * Returns exclusions for both modes
+     * Gets exclusions for both modes.
+     *
+     * @returns exclusions for both modes
      */
-    getAllExclusions(): AllExclusions {
+    public async getAllExclusions(): Promise<AllExclusions> {
+        // Await initialization if not yet initialized
+        await this.init();
+
         return {
-            regular: [...this.regular.exclusions],
-            selective: [...this.selective.exclusions],
+            regular: [...this.regularModeHandler.exclusions],
+            selective: [...this.selectiveModeHandler.exclusions],
         };
     }
 
     /**
-     * Sets exclusions to both mode handlers
-     * @param allExclusions
+     * Sets exclusions to both mode handlers.
+     *
+     * @param allExclusions Exclusions for both modes to set.
      */
-    async setAllExclusions(allExclusions: AllExclusions) {
+    public async setAllExclusions(allExclusions: AllExclusions): Promise<void> {
+        // Await initialization if not yet initialized
+        await this.init();
+
         const { regular, selective } = allExclusions;
-
-        await this.regular.setExclusions(regular);
-        await this.selective.setExclusions(selective);
+        await this.regularModeHandler.setExclusions(regular);
+        await this.selectiveModeHandler.setExclusions(selective);
     }
 
     /**
-     * Sets exclusions to current mode handler
+     * Retrieves indexed exclusions for current mode.
+     *
+     * @returns Indexed exclusions for current mode.
      */
-    setExclusions(exclusions: ExclusionInterface[]): Promise<void> {
-        return this.currentHandler.setExclusions(exclusions);
-    }
+    public async getIndexedExclusions(): Promise<IndexedExclusionsInterface> {
+        // Await initialization if not yet initialized
+        await this.init();
 
-    /**
-     * Returns indexed exclusions for current mode
-     */
-    getIndexedExclusions(): IndexedExclusionsInterface {
-        return this.currentHandler.getIndexedExclusions();
+        return this.currentModeHandler.getIndexedExclusions();
     }
 }
 

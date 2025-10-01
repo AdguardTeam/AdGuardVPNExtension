@@ -10,11 +10,10 @@ import { settings } from '../settings';
 import {
     type LocationInterface,
     type EndpointInterface,
-    type LocationsServiceState,
     type PingsCacheInterface,
     StorageKey,
 } from '../schema';
-import { stateStorage } from '../stateStorage';
+import { StateData } from '../stateStorage';
 import { type StorageInterface } from '../browserApi/storage';
 import { browserApi } from '../browserApi';
 
@@ -41,16 +40,16 @@ interface IncomingPingData {
 interface LocationsServiceInterface {
     getIsLocationSelectedByUser(): Promise<boolean>;
     getLocationsFromServer(appId: string, vpnToken: string): Promise<Location[]>;
-    updateSelectedLocation(): LocationInterface | null;
+    updateSelectedLocation(): Promise<LocationInterface | null>;
     getEndpointByLocation(
         location: LocationInterface,
         forcePrevEndpoint?: boolean,
     ): Promise<EndpointInterface | null>;
-    getLocationByEndpoint(endpointId: string): LocationInterface | null;
-    getLocationsWithPing(): LocationWithPing[];
+    getLocationByEndpoint(endpointId: string): Promise<LocationInterface | null>;
+    getLocationsWithPing(): Promise<LocationWithPing[]>;
     setSelectedLocation(id: string, isLocationSelectedByUser?: boolean): Promise<void>;
     getSelectedLocation(): Promise<LocationInterface | null>;
-    getLocations(): LocationInterface[];
+    getLocations(): Promise<LocationInterface[]>;
     getEndpoint(
         location: LocationInterface,
         forcePrevEndpoint: boolean,
@@ -105,7 +104,12 @@ export class LocationsService implements LocationsServiceInterface {
      */
     private locationsTab: LocationsTab | null = null;
 
-    state: LocationsServiceState;
+    /**
+     * Locations service state data.
+     * Used to save and retrieve locations state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private locationsState = new StateData(StorageKey.LocationsService);
 
     PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
@@ -118,47 +122,21 @@ export class LocationsService implements LocationsServiceInterface {
         this.storage = storage;
     }
 
-    public init() {
-        this.state = stateStorage.getItem(StorageKey.LocationsService);
-    }
-
-    private saveLocationsServiceState = () => {
-        stateStorage.setItem(StorageKey.LocationsService, this.state);
-    };
-
-    private get pingsCache(): PingsCacheInterface {
-        return this.state.pingsCache;
-    }
-
-    private get locations(): LocationInterface[] {
-        return this.state.locations;
-    }
-
-    private set locations(locations: LocationInterface[]) {
-        this.state.locations = locations;
-        this.saveLocationsServiceState();
-    }
-
-    private get selectedLocation(): LocationInterface | null {
-        return this.state.selectedLocation;
-    }
-
-    private set selectedLocation(selectedLocation: LocationInterface | null) {
-        this.state.selectedLocation = selectedLocation;
-        this.saveLocationsServiceState();
-    }
-
     /**
-     * Returns locations instances
+     * Gets all available VPN location instances.
+     *
+     * @returns Locations instances.
      */
-    getLocations = (): LocationInterface[] => {
-        return this.locations;
+    getLocations = async (): Promise<LocationInterface[]> => {
+        const { locations } = await this.locationsState.get();
+        return locations;
     };
 
-    getPingFromCache = (id: string) => {
+    getPingFromCache = async (id: string): Promise<{ locationId: string } & PingsCacheInterface[string]> => {
+        const { pingsCache } = await this.locationsState.get();
         return {
             locationId: id,
-            ...this.pingsCache[id],
+            ...pingsCache[id],
         };
     };
 
@@ -199,26 +177,32 @@ export class LocationsService implements LocationsServiceInterface {
     };
 
     /**
-     * Returns locations with pings, used for UI
+     * Gets locations enriched with ping for UI.
+     *
+     * @returns Locations with pings, used for UI.
      */
-    getLocationsWithPing = (): LocationWithPing[] => {
-        return this.locations.map((location: LocationInterface) => {
-            const cachedPingData = this.getPingFromCache(location.id);
+    getLocationsWithPing = async (): Promise<LocationWithPing[]> => {
+        const { locations } = await this.locationsState.get();
+
+        return Promise.all(locations.map(async (location: LocationInterface) => {
+            const cachedPingData = await this.getPingFromCache(location.id);
             if (cachedPingData) {
                 this.setLocationPing(location, cachedPingData.ping);
                 this.setLocationAvailableState(location, cachedPingData.available);
             }
             // after setting ping to location, it's type turns from LocationInterface to LocationWithPing
             return new LocationWithPing(location);
-        });
+        }));
     };
 
-    updatePingsCache = (id: string, newData: IncomingPingData): void => {
-        const oldData = this.pingsCache[id];
+    updatePingsCache = async (id: string, newData: IncomingPingData): Promise<void> => {
+        const { pingsCache } = await this.locationsState.get();
+
+        const oldData = pingsCache[id];
         if (oldData) {
-            this.pingsCache[id] = { ...oldData, ...newData };
+            pingsCache[id] = { ...oldData, ...newData };
         } else {
-            this.pingsCache[id] = {
+            pingsCache[id] = {
                 ping: null,
                 available: true,
                 lastMeasurementTime: 0,
@@ -228,14 +212,15 @@ export class LocationsService implements LocationsServiceInterface {
             };
         }
 
-        this.state.pingsCache = this.pingsCache;
-        this.saveLocationsServiceState();
+        await this.locationsState.update({ pingsCache });
     };
 
     /**
-     * Moves endpoint to the start of endpoints if found, or returns the save endpoints list
+     * Moves endpoint to the start of endpoints if found.
      * @param endpoints
      * @param endpoint
+     *
+     * @returns Endpoints array with the given endpoint moved to the first position, or the original order if not found.
      */
     moveToTheStart = (
         endpoints: EndpointInterface[],
@@ -252,10 +237,13 @@ export class LocationsService implements LocationsServiceInterface {
 
     /**
      * Measures pings to endpoints one by one, and returns first one available
-     * If was unable to measure ping to all endpoints, returns first endpoint from the list
+     * If was unable to measure ping to all endpoints, returns first endpoint from the list.
+     *
      * @param location
      * @param forcePrevEndpoint - boolean flag to measure ping of previously
      *  selected endpoint only
+     *
+     *  @returns Promise with ping and endpoint.
      */
     getEndpointAndPing = async (
         location: LocationInterface,
@@ -310,24 +298,25 @@ export class LocationsService implements LocationsServiceInterface {
      */
     measurePing = async (location: LocationInterface, force: boolean): Promise<void> => {
         const { id } = location;
+        const { pingsCache } = await this.locationsState.get();
 
         // Do not begin pings measurement while it is measuring yet
-        if (this.pingsCache[id]?.isMeasuring) {
+        if (pingsCache[id]?.isMeasuring) {
             return;
         }
 
-        const lastMeasurementTime = this.pingsCache[id]?.lastMeasurementTime;
+        const lastMeasurementTime = pingsCache[id]?.lastMeasurementTime;
         const isFresh = lastMeasurementTime
             ? !(Date.now() - lastMeasurementTime >= this.PING_TTL_MS)
             : false;
 
-        const hasPing = !!this.pingsCache[id]?.ping;
+        const hasPing = !!pingsCache[id]?.ping;
 
         if (isFresh && hasPing && !force) {
             return;
         }
 
-        this.updatePingsCache(location.id, { isMeasuring: true });
+        await this.updatePingsCache(location.id, { isMeasuring: true });
 
         const { ping, endpoint } = await this.getEndpointAndPing(location);
 
@@ -335,7 +324,7 @@ export class LocationsService implements LocationsServiceInterface {
         const available = !!ping;
         this.setLocationAvailableState(location, available);
 
-        this.updatePingsCache(
+        await this.updatePingsCache(
             location.id,
             {
                 available,
@@ -348,7 +337,7 @@ export class LocationsService implements LocationsServiceInterface {
 
         notifier.notifyListeners(
             notifier.types.LOCATION_STATE_UPDATED,
-            this.getPingFromCache(location.id),
+            await this.getPingFromCache(location.id),
         );
     };
 
@@ -357,16 +346,18 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * Needed for "Refresh pings" button in the "Locations" screen in popup.
      */
-    prunePings = (): void => {
-        this.locations.forEach((location) => {
-            this.updatePingsCache(location.id, { ping: null });
+    prunePings = async (): Promise<void> => {
+        const { locations } = await this.locationsState.get();
+        await Promise.all(locations.map(async (location) => {
+            await this.updatePingsCache(location.id, { ping: null });
             // eslint-disable-next-line no-param-reassign
             location.ping = null;
-        });
-        const locations = this.getLocationsWithPing();
+        }));
+
+        const locationsWithPings = await this.getLocationsWithPing();
         notifier.notifyListeners(
             notifier.types.LOCATIONS_UPDATED,
-            locations,
+            locationsWithPings,
         );
     };
 
@@ -380,7 +371,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @param force Flag indicating that pings should be measured without checking ttl
      */
-    measurePings = (force = false): void => {
+    measurePings = async (force = false): Promise<void> => {
         if (this.isMeasuring) {
             return;
         }
@@ -388,19 +379,21 @@ export class LocationsService implements LocationsServiceInterface {
         this.isMeasuring = true;
 
         if (force) {
-            this.prunePings();
+            await this.prunePings();
         }
 
-        (async () => {
-            await Promise.all(this.locations.map((location) => {
-                return this.measurePing(location, force);
-            }));
-            this.isMeasuring = false;
-        })();
+        const { locations } = await this.locationsState.get();
+        await Promise.all(locations.map((location) => {
+            return this.measurePing(location, force);
+        }));
+
+        this.isMeasuring = false;
     };
 
     /**
-     * Returns last measuring start time
+     * Checks if ping measurement is currently in progress.
+     *
+     * @returns True if ping measurement is in progress.
      */
     isMeasuringPingInProgress = (): boolean => {
         return this.isMeasuring;
@@ -408,29 +401,37 @@ export class LocationsService implements LocationsServiceInterface {
 
     /**
      * Actualizes selected location data.
-     * Returns selected location if it's endpoint was updated.
+     *
+     * @returns selected location if it's endpoint was updated.
      */
-    updateSelectedLocation = (): LocationInterface | null => {
-        const oldSelectedLocation = this.selectedLocation;
-        if (this.selectedLocation) {
-            const actualLocation = this.locations.find((location) => {
-                return location.id === this.selectedLocation?.id;
-            });
-
-            this.selectedLocation = actualLocation || this.selectedLocation;
-
-            if (oldSelectedLocation?.endpoint?.id && this.selectedLocation?.endpoint?.id
-                && oldSelectedLocation.endpoint.id !== this.selectedLocation.endpoint.id) {
-                return this.selectedLocation;
-            }
+    updateSelectedLocation = async (): Promise<LocationInterface | null> => {
+        const { selectedLocation, locations } = await this.locationsState.get();
+        if (!selectedLocation) {
+            return null;
         }
+
+        const oldSelectedLocation = selectedLocation;
+        const actualSelectedLocation = locations.find((location) => {
+            return location.id === selectedLocation?.id;
+        });
+
+        const updatedSelectedLocation = actualSelectedLocation || oldSelectedLocation;
+        await this.locationsState.update({ selectedLocation: updatedSelectedLocation });
+
+        if (oldSelectedLocation?.endpoint?.id && updatedSelectedLocation?.endpoint?.id
+            && oldSelectedLocation.endpoint.id !== updatedSelectedLocation.endpoint.id) {
+            return updatedSelectedLocation;
+        }
+
         return null;
     };
 
-    setLocations = (newLocations: LocationInterface[]) => {
+    setLocations = async (newLocations: LocationInterface[]): Promise<void> => {
+        const { pingsCache } = await this.locationsState.get();
+
         // copy previous pings data
-        this.locations = newLocations.map((location: LocationInterface) => {
-            const pingCache = this.pingsCache[location.id];
+        const updatedNewLocations = newLocations.map((location: LocationInterface) => {
+            const pingCache = pingsCache[location.id];
             if (pingCache) {
                 this.setLocationPing(location, pingCache.ping);
                 this.setLocationAvailableState(location, pingCache.available);
@@ -439,19 +440,24 @@ export class LocationsService implements LocationsServiceInterface {
             return location;
         });
 
+        await this.locationsState.update({ locations: updatedNewLocations });
+
         // launch pings measurement
-        this.measurePings();
+        await this.measurePings();
 
         notifier.notifyListeners(
             notifier.types.LOCATIONS_UPDATED,
-            this.getLocationsWithPing(),
+            await this.getLocationsWithPing(),
         );
     };
 
     /**
-     * Retrieves locations from server
+     * Retrieves locations from server.
+     *
      * @param appId
      * @param vpnToken
+     *
+     * @returns Locations from server.
      */
     getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => {
         const locationsData = await vpnProvider.getLocationsData(appId, vpnToken);
@@ -463,7 +469,7 @@ export class LocationsService implements LocationsServiceInterface {
         // During endpoint deployments, api can return empty list of locations
         // thus we continue to use locations from memory
         if (!isEmpty(locations)) {
-            this.setLocations(locations);
+            await this.setLocations(locations);
         } else {
             log.debug('Api returned empty list of locations', locations);
         }
@@ -472,9 +478,12 @@ export class LocationsService implements LocationsServiceInterface {
     };
 
     /**
-     * Returns available endpoint if found, or the first one
-     * @param location
-     * @param forcePrevEndpoint
+     * Gets the best available endpoint for a location by measuring ping.
+     *
+     * @param location Location to get endpoint for.
+     * @param forcePrevEndpoint Force using previously selected endpoint.
+     *
+     * @returns Promise with available endpoint if found, or the first one.
      */
     getEndpoint = async (
         location: LocationInterface,
@@ -491,7 +500,7 @@ export class LocationsService implements LocationsServiceInterface {
         const available = !!ping;
         this.setLocationAvailableState(location, available);
 
-        this.updatePingsCache(
+        await this.updatePingsCache(
             location.id,
             {
                 available,
@@ -503,7 +512,7 @@ export class LocationsService implements LocationsServiceInterface {
 
         notifier.notifyListeners(
             notifier.types.LOCATION_STATE_UPDATED,
-            this.getPingFromCache(location.id),
+            await this.getPingFromCache(location.id),
         );
 
         if (!available) {
@@ -514,19 +523,23 @@ export class LocationsService implements LocationsServiceInterface {
     };
 
     /**
-     * Returns endpoint by location id
-     * @param location
-     * @param forcePrevEndpoint
+     * Gets endpoint for a specific location by its ID.
+     *
+     * @param location Location to get endpoint for.
+     * @param forcePrevEndpoint Force using previously selected endpoint.
+     *
+     * @returns Promise with endpoint by location id.
      */
     getEndpointByLocation = async (
         location: LocationInterface,
         forcePrevEndpoint: boolean = false,
     ): Promise<EndpointInterface | null> => {
+        const { locations } = await this.locationsState.get();
         let targetLocation: LocationInterface | undefined = location;
 
         // This could be empty on extension restart, but after we try to use the most fresh data
-        if (this.locations && this.locations.length > 0) {
-            targetLocation = this.locations.find((l) => {
+        if (locations && locations.length > 0) {
+            targetLocation = locations.find((l) => {
                 return l.id === location.id;
             });
         }
@@ -539,15 +552,19 @@ export class LocationsService implements LocationsServiceInterface {
     };
 
     /**
-     * Returns location by endpoint id
-     * @param endpointId
+     * Finds a location that contains the specified endpoint.
+     *
+     * @param endpointId Endpoint id.
+     *
+     * @returns Location by endpoint id.
      */
-    getLocationByEndpoint = (endpointId: string): LocationInterface | null => {
+    getLocationByEndpoint = async (endpointId: string): Promise<LocationInterface | null> => {
         if (!endpointId) {
             return null;
         }
 
-        const location = this.locations.find((location) => {
+        const { locations } = await this.locationsState.get();
+        const location = locations.find((location) => {
             return location.endpoints.some((endpoint) => endpoint.id === endpointId);
         });
 
@@ -560,8 +577,13 @@ export class LocationsService implements LocationsServiceInterface {
      * @param isLocationSelectedByUser - Flag indicating that location was selected by user
      */
     setSelectedLocation = async (id: string, isLocationSelectedByUser = false): Promise<void> => {
-        this.selectedLocation = this.locations.find((location) => location.id === id) || null;
-        await settings.setSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY, this.selectedLocation);
+        const { locations } = await this.locationsState.get();
+
+        const newSelectedLocation = locations.find((location) => location.id === id) || null;
+
+        await this.locationsState.update({ selectedLocation: newSelectedLocation });
+        await settings.setSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY, newSelectedLocation);
+
         if (isLocationSelectedByUser) {
             await settings.setSetting(
                 SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY,
@@ -578,12 +600,14 @@ export class LocationsService implements LocationsServiceInterface {
     };
 
     /**
-     * Returns selected location
-     * when we connect to the location there is no time to find better location
-     * returns null or selected location
+     * When we connect to the location there is no time to find better location.
+     *
+     * @returns Promise with null or selected location.
      */
     getSelectedLocation = async (): Promise<LocationInterface | null> => {
-        if (!this.selectedLocation) {
+        let { selectedLocation } = await this.locationsState.get();
+
+        if (!selectedLocation) {
             // eslint-disable-next-line max-len
             const storedSelectedLocation = await settings.getSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY);
 
@@ -591,17 +615,18 @@ export class LocationsService implements LocationsServiceInterface {
                 return null;
             }
 
-            this.selectedLocation = new Location(storedSelectedLocation);
+            selectedLocation = new Location(storedSelectedLocation);
+            await this.locationsState.update({ selectedLocation });
         }
 
-        return this.selectedLocation;
+        return selectedLocation;
     };
 
     /**
      * Retrieves locations tab from local storage.
      * If it doesn't exist or corrupted - sets default value.
      *
-     * @returns Locations tab.
+     * @returns Promise with locations tab.
      */
     public getLocationsTab = async (): Promise<LocationsTab> => {
         // If already in memory - return it

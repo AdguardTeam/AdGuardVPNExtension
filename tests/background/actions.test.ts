@@ -1,33 +1,37 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    it,
+    expect,
+    type MockedFunction,
+} from 'vitest';
+
 import { actions, buildQueryString } from '../../src/background/actions';
 import { credentials } from '../../src/background/credentials';
-import { stateStorage } from '../../src/background/stateStorage';
 import { forwarder } from '../../src/background/forwarder';
 import { ForwarderUrlQueryKey } from '../../src/background/config';
 
-jest.mock('../../src/background/browserApi');
-jest.mock('../../src/background/credentials');
-jest.mock('../../src/background/config', () => {
-    return {
-        // url example for test
-        FORWARDER_URL_QUERIES: {
-            UPGRADE_LICENSE: 'action=upgrade_license',
-        },
-        ForwarderUrlQueryKey: {
-            UpgradeLicense: 'UPGRADE_LICENSE',
-        },
-    };
-});
-jest.mock('../../src/background/settings');
+vi.mock('../../src/background/credentials');
+vi.mock('../../src/background/config', async () => ({
+    ...(await vi.importActual('../../src/background/config')),
+    // url example for test
+    FORWARDER_URL_QUERIES: {
+        UPGRADE_LICENSE: 'action=upgrade_license',
+    },
+    ForwarderUrlQueryKey: {
+        UpgradeLicense: 'UPGRADE_LICENSE',
+    },
+}));
 
 describe('Actions tests', () => {
     beforeEach(async () => {
-        await stateStorage.init();
-        jest.spyOn(forwarder, 'updateAndGetDomain')
+        vi.spyOn(forwarder, 'updateAndGetDomain')
             .mockResolvedValue('adguard-vpn.com');
     });
 
     it('Get forwarder url with username', async () => {
-        const getUsernameMock = credentials.getUsername as jest.MockedFunction<() => any>;
+        const getUsernameMock = credentials.getUsername as MockedFunction<() => any>;
         getUsernameMock.mockImplementation(() => 'test@mail.com');
 
         const expectedUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=test%40mail.com';
@@ -37,7 +41,7 @@ describe('Actions tests', () => {
     });
 
     it('Test email with special symbols', async () => {
-        const getUsernameMock = credentials.getUsername as jest.MockedFunction<() => any>;
+        const getUsernameMock = credentials.getUsername as MockedFunction<() => any>;
         getUsernameMock.mockImplementation(() => 'tester+000@test.com');
 
         const expectedUrl = 'https://adguard-vpn.com/forward.html?action=upgrade_license&email=tester%2B000%40test.com';

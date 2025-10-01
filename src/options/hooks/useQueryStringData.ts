@@ -21,9 +21,9 @@ export interface CustomDnsData {
  * @returns The parsed name and address values from the query string, and a function to clear
  * these specific parameters from the URL.
  */
-export const useCustomDnsFromQuery = (dnsDataHandler: (data: CustomDnsData) => void) => {
+export const useCustomDnsFromQuery = (dnsDataHandler: (data: CustomDnsData) => void): void => {
     // Clear specific query string parameters ('name' and 'address') from the URL
-    const clearQueryString = () => {
+    const clearQueryString = (): void => {
         const searchParams = new URLSearchParams(window.location.search);
 
         searchParams.delete('name');

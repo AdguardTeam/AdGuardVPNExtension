@@ -1,19 +1,26 @@
+import {
+    vi,
+    describe,
+    it,
+    expect,
+    type Mock,
+} from 'vitest';
 import browser from 'webextension-polyfill';
 
 import { notifications } from '../../src/background/notifications';
 
-jest.mock('webextension-polyfill', () => {
-    return {
+vi.mock('webextension-polyfill', () => ({
+    default: {
         notifications: {
-            create: jest.fn(async () => {}),
+            create: vi.fn(async () => {}),
         },
         runtime: {
-            getURL: jest.fn(() => ''),
+            getURL: vi.fn(() => ''),
         },
-    };
-});
+    },
+}));
 
-jest.mock('../../src/common/translator', () => {
+vi.mock('../../src/common/translator', () => {
     return {
         translator: {
             getMessage: () => 'AdGuard VPN',
@@ -21,15 +28,12 @@ jest.mock('../../src/common/translator', () => {
     };
 });
 
-jest.mock('../../src/background/browserApi/storage');
-jest.mock('../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
-
 describe('notification', () => {
     it('creates notification', async () => {
         const expectedMsg = 'test message';
         await notifications.create({ message: expectedMsg });
         expect(browser.notifications.create).toHaveBeenCalledTimes(1);
-        expect((browser.notifications.create as jest.Mock)
+        expect((browser.notifications.create as Mock)
             .mock.calls[0][1].message).toEqual(expectedMsg);
     });
 });

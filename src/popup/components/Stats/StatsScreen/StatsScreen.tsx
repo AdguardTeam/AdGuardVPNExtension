@@ -1,7 +1,12 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, {
+    type ReactNode,
+    useContext,
+    useEffect,
+    useRef,
+} from 'react';
 import { observer } from 'mobx-react';
 
-import { StatisticsRange, type StatisticsData } from '../../../../background/statistics/statisticsTypes';
+import { type StatisticsData, StatisticsRange } from '../../../../background/statistics/statisticsTypes';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { IconButton } from '../../../../common/components/Icons';
 import { DotsLoader } from '../../../../common/components/DotsLoader';
@@ -9,10 +14,11 @@ import { translator } from '../../../../common/translator';
 import { rootStore } from '../../../stores';
 import { type LocationUsage } from '../../../stores/StatsStore';
 import { getFlagIconStyle } from '../../Locations';
-import { formatRange } from '../utils';
+import { formatRange, formatSinceDate } from '../utils';
 
 import { StatsScreenMenu } from './StatsScreenMenu';
 import { StatsScreenRange } from './StatsScreenRange';
+import { StatsInfoScreen } from './StatsInfoScreen';
 import { StatsScreenData } from './StatsScreenData';
 import { StatsScreenLocations } from './StatsScreenLocations';
 import { StatsScreenTime } from './StatsScreenTime';
@@ -165,12 +171,11 @@ export const StatsScreen = observer((props: StatsScreenProps) => {
     } = props;
 
     const { telemetryStore } = useContext(rootStore);
-
     const headerRef = useRef<HTMLDivElement>(null);
     const contentWrapperRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
 
-    const applyFadeIfScrollable = () => {
+    const applyFadeIfScrollable = (): void => {
         const contentWrapper = contentWrapperRef.current;
         const content = contentRef.current;
         if (!contentWrapper || !content) {
@@ -191,7 +196,7 @@ export const StatsScreen = observer((props: StatsScreenProps) => {
         }
     };
 
-    const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    const handleScroll = (event: React.UIEvent<HTMLDivElement>): void => {
         const header = headerRef.current;
         if (!header) {
             return;
@@ -210,7 +215,7 @@ export const StatsScreen = observer((props: StatsScreenProps) => {
         applyFadeIfScrollable();
     };
 
-    const handleEnableClick = () => {
+    const handleEnableClick = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.EnableStatsClick,
             TelemetryScreenName.ContextBasedScreen,
@@ -218,20 +223,12 @@ export const StatsScreen = observer((props: StatsScreenProps) => {
         onDisableChange(false);
     };
 
-    const renderRange = () => {
-        const { start, end } = formatRange(range, firstStatsDate);
-
-        // for 24 hours we should render in two lines, because it includes time
-        if (range === StatisticsRange.Hours24) {
-            return (
-                <>
-                    {`${start} –`}
-                    <br />
-                    {end}
-                </>
-            );
+    const renderRange = (): ReactNode => {
+        if (range === StatisticsRange.AllTime) {
+            const start = formatSinceDate(firstStatsDate);
+            return translator.getMessage('popup_stats_data_since', { startDate: start });
         }
-
+        const { start, end } = formatRange(range);
         return `${start} – ${end}`;
     };
 
@@ -287,11 +284,14 @@ export const StatsScreen = observer((props: StatsScreenProps) => {
                         onClick={onBackClick}
                     />
                     {isMainScreen && (
-                        <StatsScreenMenu
-                            isDisabled={isDisabled}
-                            onDisableChange={onDisableChange}
-                            onClear={onClear}
-                        />
+                        <>
+                            <StatsInfoScreen />
+                            <StatsScreenMenu
+                                isDisabled={isDisabled}
+                                onDisableChange={onDisableChange}
+                                onClear={onClear}
+                            />
+                        </>
                     )}
                 </div>
                 <div className="stats-screen__header-content">

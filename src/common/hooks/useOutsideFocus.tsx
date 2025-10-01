@@ -13,8 +13,8 @@ import { useEffect } from 'react';
 export const useOutsideFocus = (
     ref: React.RefObject<HTMLDivElement>,
     handler: (event: Event) => void,
-) => {
-    const listener = (event: Event) => {
+): void => {
+    const listener = (event: Event): void => {
         if (ref.current && !ref.current.contains(event.target as Node)) {
             handler(event);
         }
@@ -23,7 +23,7 @@ export const useOutsideFocus = (
     useEffect(
         () => {
             document.addEventListener('focusin', listener);
-            return () => {
+            return (): void => {
                 document.removeEventListener('focusin', listener);
             };
         },

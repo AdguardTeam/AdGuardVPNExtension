@@ -1,0 +1,329 @@
+{
+  "dev": {
+    "chrome": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-22T14:10:06.779Z",
+      "stats": {
+        "zip": 11009504,
+        "files": {
+          "background.js": 9853740,
+          "consent.html": 660,
+          "consent.js": 5447582,
+          "custom-dns-links.js": 800507,
+          "export.html": 376,
+          "export.js": 1314991,
+          "manifest.json": 1427,
+          "offscreen.html": 378,
+          "offscreen.js": 2324,
+          "options.html": 660,
+          "options.js": 9474996,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 404,
+          "popup.js": 9554577,
+          "preloadTheme.js": 30840,
+          "success-auth.html": 665,
+          "success-auth.js": 4005368,
+          "worker.js": 2458
+        }
+      }
+    },
+    "firefox": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-22T14:10:06.791Z",
+      "stats": {
+        "zip": 10999189,
+        "files": {
+          "background.html": 376,
+          "background.js": 9819067,
+          "consent.html": 660,
+          "consent.js": 5447592,
+          "custom-dns-links.js": 800512,
+          "export.html": 376,
+          "export.js": 1315001,
+          "manifest.json": 1548,
+          "options.html": 660,
+          "options.js": 9475006,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 404,
+          "popup.js": 9554587,
+          "preloadTheme.js": 30840,
+          "success-auth.html": 665,
+          "success-auth.js": 4005368
+        },
+        "raw": 45374864
+      }
+    },
+    "edge": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-22T14:10:06.792Z",
+      "stats": {
+        "zip": 11009483,
+        "files": {
+          "background.js": 9853720,
+          "consent.html": 660,
+          "consent.js": 5447562,
+          "custom-dns-links.js": 800497,
+          "export.html": 376,
+          "export.js": 1314971,
+          "manifest.json": 1427,
+          "offscreen.html": 378,
+          "offscreen.js": 2324,
+          "options.html": 660,
+          "options.js": 9474976,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 404,
+          "popup.js": 9554557,
+          "preloadTheme.js": 30840,
+          "success-auth.html": 665,
+          "success-auth.js": 4005368,
+          "worker.js": 2458
+        }
+      }
+    },
+    "opera": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-22T14:10:06.793Z",
+      "stats": {
+        "zip": 11009729,
+        "files": {
+          "background.js": 9853730,
+          "consent.html": 660,
+          "consent.js": 5447572,
+          "custom-dns-links.js": 800502,
+          "export.html": 376,
+          "export.js": 1314981,
+          "manifest.json": 1454,
+          "offscreen.html": 378,
+          "offscreen.js": 2324,
+          "options.html": 660,
+          "options.js": 9474986,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 404,
+          "popup.js": 9554567,
+          "preloadTheme.js": 30840,
+          "success-auth.html": 665,
+          "success-auth.js": 4005368,
+          "worker.js": 2458
+        }
+      }
+    }
+  },
+  "beta": {
+    "chrome": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-23T06:54:39.980Z",
+      "stats": {
+        "zip": 4515559,
+        "files": {
+          "background.js": 3180997,
+          "consent.html": 591,
+          "consent.js": 1004963,
+          "custom-dns-links.js": 279669,
+          "export.html": 336,
+          "export.js": 452357,
+          "manifest.json": 1427,
+          "offscreen.html": 338,
+          "offscreen.js": 622,
+          "options.html": 591,
+          "options.js": 2141599,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 363,
+          "popup.js": 2071500,
+          "preloadTheme.js": 8356,
+          "success-auth.html": 596,
+          "success-auth.js": 533020,
+          "worker.js": 626
+        }
+      }
+    },
+    "firefox": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-23T06:54:39.991Z",
+      "stats": {
+        "zip": 4512436,
+        "files": {
+          "background.html": 336,
+          "background.js": 3168785,
+          "consent.html": 591,
+          "consent.js": 1004953,
+          "custom-dns-links.js": 279664,
+          "export.html": 336,
+          "export.js": 452347,
+          "manifest.json": 1643,
+          "options.html": 591,
+          "options.js": 2141589,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 363,
+          "popup.js": 2071490,
+          "preloadTheme.js": 8356,
+          "success-auth.html": 596,
+          "success-auth.js": 533020
+        },
+        "raw": 14586460
+      }
+    },
+    "edge": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-23T06:54:39.992Z",
+      "stats": {
+        "zip": 4515494,
+        "files": {
+          "background.js": 3180957,
+          "consent.html": 591,
+          "consent.js": 1004923,
+          "custom-dns-links.js": 279649,
+          "export.html": 336,
+          "export.js": 452317,
+          "manifest.json": 1427,
+          "offscreen.html": 338,
+          "offscreen.js": 622,
+          "options.html": 591,
+          "options.js": 2141559,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 363,
+          "popup.js": 2071460,
+          "preloadTheme.js": 8356,
+          "success-auth.html": 596,
+          "success-auth.js": 533020,
+          "worker.js": 626
+        }
+      }
+    },
+    "opera": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-23T06:54:39.993Z",
+      "stats": {
+        "zip": 4515725,
+        "files": {
+          "background.js": 3180967,
+          "consent.html": 591,
+          "consent.js": 1004933,
+          "custom-dns-links.js": 279654,
+          "export.html": 336,
+          "export.js": 452327,
+          "manifest.json": 1454,
+          "offscreen.html": 338,
+          "offscreen.js": 622,
+          "options.html": 591,
+          "options.js": 2141569,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 363,
+          "popup.js": 2071470,
+          "preloadTheme.js": 8356,
+          "success-auth.html": 596,
+          "success-auth.js": 533020,
+          "worker.js": 626
+        }
+      }
+    }
+  },
+  "release": {
+    "chrome": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-23T10:19:00.317Z",
+      "stats": {
+        "zip": 4515876,
+        "files": {
+          "background.js": 3180983,
+          "consent.html": 591,
+          "consent.js": 1004949,
+          "custom-dns-links.js": 279662,
+          "export.html": 336,
+          "export.js": 452343,
+          "manifest.json": 1427,
+          "offscreen.html": 338,
+          "offscreen.js": 622,
+          "options.html": 591,
+          "options.js": 2141585,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 363,
+          "popup.js": 2071486,
+          "preloadTheme.js": 8356,
+          "success-auth.html": 596,
+          "success-auth.js": 533020,
+          "worker.js": 626
+        }
+      }
+    },
+    "firefox": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-23T10:19:00.331Z",
+      "stats": {
+        "zip": 4512765,
+        "files": {
+          "background.html": 336,
+          "background.js": 3168791,
+          "consent.html": 591,
+          "consent.js": 1004959,
+          "custom-dns-links.js": 279667,
+          "export.html": 336,
+          "export.js": 452353,
+          "manifest.json": 1544,
+          "options.html": 591,
+          "options.js": 2141595,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 363,
+          "popup.js": 2071496,
+          "preloadTheme.js": 8356,
+          "success-auth.html": 596,
+          "success-auth.js": 533020
+        },
+        "raw": 14587678
+      }
+    },
+    "edge": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-23T10:19:00.332Z",
+      "stats": {
+        "zip": 4515852,
+        "files": {
+          "background.js": 3180963,
+          "consent.html": 591,
+          "consent.js": 1004929,
+          "custom-dns-links.js": 279652,
+          "export.html": 336,
+          "export.js": 452323,
+          "manifest.json": 1427,
+          "offscreen.html": 338,
+          "offscreen.js": 622,
+          "options.html": 591,
+          "options.js": 2141565,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 363,
+          "popup.js": 2071466,
+          "preloadTheme.js": 8356,
+          "success-auth.html": 596,
+          "success-auth.js": 533020,
+          "worker.js": 626
+        }
+      }
+    },
+    "opera": {
+      "version": "2.7.0",
+      "updatedAt": "2025-09-23T10:19:00.333Z",
+      "stats": {
+        "zip": 4516125,
+        "files": {
+          "background.js": 3180973,
+          "consent.html": 591,
+          "consent.js": 1004939,
+          "custom-dns-links.js": 279657,
+          "export.html": 336,
+          "export.js": 452333,
+          "manifest.json": 1454,
+          "offscreen.html": 338,
+          "offscreen.js": 622,
+          "options.html": 591,
+          "options.js": 2141575,
+          "PERMISSIONS.md": 1411,
+          "popup.html": 363,
+          "popup.js": 2071476,
+          "preloadTheme.js": 8356,
+          "success-auth.html": 596,
+          "success-auth.js": 533020,
+          "worker.js": 626
+        }
+      }
+    }
+  }
+}

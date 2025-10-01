@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Δεν πρέπει να είναι κενό"
-    },
-    "registration_error_not_valid": {
-        "message": "Αυτή η τιμή δεν είναι έγκυρη"
-    },
-    "registration_error_min_length": {
-        "message": "Ο κωδικός πρόσβασης είναι πολύ μικρός. Πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες"
-    },
-    "registration_error_confirm_password": {
-        "message": "Οι κωδικοί πρόσβασης δεν ταιριάζουν"
-    },
-    "registration_error_compromised_password": {
-        "message": "Ο κωδικός πρόσβασης που εισαγάγατε βρέθηκε σε μια <a>δημόσια βάση δεδομένων</a> με παραβιασμένους κωδικούς πρόσβασης. Παρακαλώ, δοκιμάστε έναν άλλο."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Αυτή η τιμή χρησιμοποιείται ήδη"
-    },
-    "registration_error_default": {
-        "message": "Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά αργότερα"
-    },
-    "authentication_error_2fa_required": {
-        "message": "Απαιτείται 2FA"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Μη έγκυρο διακριτικό"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Ο λογαριασμός είναι απενεργοποιημένος"
-    },
-    "authentication_error_account_locked": {
-        "message": "Ο λογαριασμός είναι κλειδωμένος για 15 λεπτά"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Λάθος κωδικός"
-    },
-    "authentication_too_many_requests": {
-        "message": "Λάβαμε πάρα πολλά αιτήματα από τη διεύθυνση IP σας. Παρακαλώ δοκιμάστε ξανά αργότερα."
-    },
-    "authentication_error_default": {
-        "message": "Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά αργότερα"
-    },
-    "global_error_message": {
-        "message": "Παρουσιάστηκε σφάλμα, επικοινωνήστε μαζί μας μέσω <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Σχετικά με"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Αποσύνδεση"
     },
+    "account_sign_out_question": {
+        "message": "Αποσύνδεση;"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Άκυρο"
+    },
+    "account_sign_out_description": {
+        "message": "Θα αποσυνδεθείτε από το λογαριασμό σας. Η προστασία VPN θα διακοπεί"
+    },
     "account_unlimited_title": {
         "message": "Αποκτήστε την απεριόριστη έκδοση!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Απόκρυψη"
-    },
-    "auth_confirm": {
-        "message": "Επιβεβαίωση"
-    },
-    "auth_email": {
-        "message": "Διεύθυνση Email"
-    },
-    "auth_password": {
-        "message": "Κωδικός πρόσβασης"
-    },
-    "auth_your_password": {
-        "message": "Ο κωδικός πρόσβασής σας"
-    },
-    "auth_password_confirm": {
-        "message": "Επιβεβαίωση κωδικού"
-    },
-    "auth_recover": {
-        "message": "Ξεχάσατε τον κωδικό σας;"
-    },
-    "auth_sign_up": {
-        "message": "Εγγραφή"
-    },
-    "auth_sign_up_info": {
-        "message": "Δημιουργήστε τον λογαριασμό σας AdGuard"
-    },
-    "auth_sign_up_button": {
-        "message": "Εγγραφή"
-    },
-    "auth_sign_in": {
-        "message": "Σύνδεση"
-    },
-    "auth_sign_in_button": {
-        "message": "Σύνδεση"
-    },
-    "auth_title": {
-        "message": "Συνδεθείτε ή δημιουργήστε έναν λογαριασμό"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Email"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Συνέχεια με email"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Συνεχίστε με την Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Συνεχίστε με το Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Συνεχίστε με το Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Σύνδεση ως <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Έλεγχος ταυτότητας δύο παραγόντων"
-    },
-    "auth_header_2fa": {
-        "message": "Εισάγετε τον κωδικό ελέγχου ταυτότητας"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Κωδικός ελέγχου ταυτότητας"
     },
     "official_website": {
         "message": "Επίσημη ιστοσελίδα"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Συνδεθείτε ή δημιουργήστε έναν λογαριασμό"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Συνέχεια"
-    },
     "popup_newsletter_title": {
         "message": "Ενημερωτικό δελτίο AdGuard"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Να μην εμφανιστεί ξανά"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Στατιστικά για αυτό το πρόγραμμα περιήγησης"
+    "popup_stats": {
+        "message": "Στατιστικά"
     },
     "popup_stats_disabled_notice": {
         "message": "Τα στατιστικά είναι απενεργοποιημένα"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Ώρα"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Γιατί είναι ασφαλές"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Γιατί είναι ασφαλές"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "Δεδομένου ότι η σύνδεση VPN είναι κρυπτογραφημένη και ασφαλής, κανείς δεν μπορεί να δει τα δεδομένα δραστηριότητάς σας — υπολογίζουμε μόνο τη χρήση της κίνησής σας"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Όλες οι στατιστικές συλλέγονται και αποθηκεύονται τοπικά στη συσκευή σας. Δεν έχουμε πρόσβαση σε αυτές"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Το κατάλαβα"
@@ -1150,40 +1036,19 @@
     "notification_data_left_description": {
         "message": "Η ταχύτητα σύνδεσης του VPN θα μειωθεί σύντομα."
     },
-    "confirm_email_title": {
-        "message": "Επιβεβαιώστε το email σας"
-    },
-    "confirm_email_info": {
-        "message": "Έχουμε στείλει έναν κωδικό επιβεβαίωσης στο <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Η διεύθυνση email επιβεβαιώθηκε"
     },
     "confirm_email_done_info": {
         "message": "Ευχαριστούμε για την επαλήθευση!"
     },
-    "confirm_email_code_label": {
-        "message": "Κωδικός επιβεβαίωσης"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Περιέχει αριθμούς και γράμματα"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Ελέγξτε τον κωδικό — φαίνεται λανθασμένος"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Αποστολή άλλου κωδικού (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Αποστολή άλλου κωδικού"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Αποτυχία σύνδεσης. Παρακαλώ προσπαθήστε ξανά ή επικοινωνήστε μαζί μας μέσω <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Αποτυχία εγγραφής. Παρακαλώ προσπαθήστε ξανά ή επικοινωνήστε μαζί μας μέσω <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Ο σύνδεσμος επιβεβαίωσης ξαναστάλθηκε"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Κλείσιμο"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Άκυρο"
     }
 }

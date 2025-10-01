@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Must not be empty"
-    },
-    "registration_error_not_valid": {
-        "message": "This value is not valid"
-    },
-    "registration_error_min_length": {
-        "message": "Password must contain at least 8 characters"
-    },
-    "registration_error_confirm_password": {
-        "message": "Passwords don’t match"
-    },
-    "registration_error_compromised_password": {
-        "message": "The password you entered was found in a <a>public database</a> of compromised passwords. Please try another."
-    },
-    "registration_error_unique_constraint": {
-        "message": "This value is already used"
-    },
-    "registration_error_default": {
-        "message": "An error happened, try again later"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA is required"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Invalid token"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Account is disabled"
-    },
-    "authentication_error_account_locked": {
-        "message": "Account is locked for 15 minutes"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Wrong password"
-    },
-    "authentication_too_many_requests": {
-        "message": "We received too many requests from your IP address. Please try again later."
-    },
-    "authentication_error_default": {
-        "message": "An error occurred, try again later"
-    },
-    "global_error_message": {
-        "message": "An error occurred, please contact us via <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "About"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Log out"
     },
+    "account_sign_out_question": {
+        "message": "Log out?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Cancel"
+    },
+    "account_sign_out_description": {
+        "message": "You’ll be logged out of your account. VPN protection will be stopped"
+    },
     "account_unlimited_title": {
         "message": "Get the Unlimited version!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Hide"
-    },
-    "auth_confirm": {
-        "message": "Confirm"
-    },
-    "auth_email": {
-        "message": "Email Address"
-    },
-    "auth_password": {
-        "message": "Password"
-    },
-    "auth_your_password": {
-        "message": "Your password"
-    },
-    "auth_password_confirm": {
-        "message": "Confirm password"
-    },
-    "auth_recover": {
-        "message": "Forgot password?"
-    },
-    "auth_sign_up": {
-        "message": "Sign up"
-    },
-    "auth_sign_up_info": {
-        "message": "Create your AdGuard account"
-    },
-    "auth_sign_up_button": {
-        "message": "Sign up"
-    },
-    "auth_sign_in": {
-        "message": "Enter your password"
-    },
-    "auth_sign_in_button": {
-        "message": "Log in"
-    },
-    "auth_title": {
-        "message": "Log in or create an account"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Email"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Continue with email"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Continue with Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Continue with Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Continue with Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Logging in as <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Two-factor authentication"
-    },
-    "auth_header_2fa": {
-        "message": "Enter the authentication code"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Authentication code"
     },
     "official_website": {
         "message": "Official website"
@@ -244,7 +145,7 @@
         "message": "Get free GBs!"
     },
     "settings_referral_info": {
-        "message": "Get %your_gb% GB of free VPN traffic for a month for each friend who signs up through your invite, up to %total_gb% GB in total. Your friend also gets an extra %friend_gb% GB for free."
+        "message": "Send an invite link to your friend. When they sign up to AdGuard VPN via your link, you both get %your_gb% GB of fast VPN. The unused amount doesn’t expire — you can use it over the months. Invite up to %max_friends% friends and get up to %total_gb% GB in total"
     },
     "settings_referral_invited_friends": {
         "message": "Invited friends %count%/%limit%"
@@ -262,10 +163,10 @@
         "message": "Free GBs"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Complete the tasks to get free VPN traffic!"
+        "message": "Here’s how you can get extra VPN traffic"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Confirm your email"
+    "settings_free_gbs_join_adguard": {
+        "message": "Join AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Get %num% GB"
@@ -273,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "You got %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Click the email confirmation link that we sent you at sign up and get %your_gb% GB of free VPN traffic. If you can’t find our email, click the button below."
+    "settings_free_gbs_add_device": {
+        "message": "Add a new device"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Resend link"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Add a new device and get %your_gb% GB for free"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Add another platform"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Log in to AdGuard VPN on another device with %email% to get a one-time %your_gb% GB bonus"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Install AdGuard VPN for iOS, Mac, Windows, or Android, log in to your AdGuard account there, and get %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Your monthly limit may take time to update — give it a couple of minutes or restart the app"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Another platform added"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "You got %your_gb% GB for adding a new device"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Congrats with installing AdGuard VPN on multiple platforms. Stay safe!"
+        "message": "Unused traffic carries over to next months. And with AdGuard VPN Unlimited, you can enjoy fast browsing without limits"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Go to Products"
+        "message": "Choose product"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Invite a friend"
+    "settings_free_gbs_invite_friend_count": {
+     "message": "Invite a friend (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Invite a friend and get %your_gb% GB of fast VPN"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "You’ve invited %total_invites% friends and got %total_gbs% GB in total"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Get up to %num% GB"
@@ -304,10 +211,10 @@
         "message": "You got %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Thanks for using all your invites!"
+        "message": "Thank you for helping us grow! Learn how to get more bonuses in the Free GBs section. Or get AdGuard VPN Unlimited to enjoy fast browsing without limits"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Go back"
+    "settings_free_gbs_upgrade": {
+        "message": "Upgrade to Unlimited"
     },
     "settings_rate_us": {
         "message": "Rate us"
@@ -836,9 +743,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Log in or create an account"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Continue"
-    },
     "popup_newsletter_title": {
         "message": "AdGuard newsletter"
     },
@@ -873,7 +777,10 @@
         "message": "Next"
     },
     "popup_upgrade_screen_title": {
-        "message": "Unlimited VPN"
+        "message": "Upgrade to Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Access all locations, browse without speed limits, and connect up to %maxDevicesAllowed% devices at once"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Unlimited data"
@@ -1021,8 +928,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Don’t show this again"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Stats for this browser"
+    "popup_stats": {
+        "message": "Stats"
     },
     "popup_stats_disabled_notice": {
         "message": "Stats are disabled"
@@ -1039,17 +946,21 @@
     "popup_stats_usage_time": {
         "message": "Time"
     },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Why it’s safe"
-    },
     "popup_stats_menu_why_safe_title": {
-        "message": "Why it’s safe"
+        "message": "About your stats"
+    },
+    "popup_stats_data_since": {
+        "message": "Since %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
     },
     "popup_stats_menu_why_safe_description_1": {
-        "message": "The VPN connection is encrypted and secure, so nobody can see your activity data — we only calculate your traffic usage"
+        "message": "Stats show how much VPN data you’ve used and rank your top locations"
     },
     "popup_stats_menu_why_safe_description_2": {
-        "message": "All stats are collected and stored locally on your device. We don’t have access to them"
+        "message": "Stats never include your browsing history. It’s encrypted, so no one can track you"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "If you use AdGuard VPN in several browsers, your stats will be different for each one. They’re saved on the device, and only you can access them"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Got it"
@@ -1150,40 +1061,40 @@
     "notification_data_left_description": {
         "message": "VPN connection speed will be reduced soon."
     },
-    "confirm_email_title": {
-        "message": "Confirm your email"
-    },
-    "confirm_email_info": {
-        "message": "We’ve sent a confirmation code to <span>%email%</span>"
-    },
-    "confirm_email_done_title": {
-        "message": "Email address confirmed"
+    "confirm_email_done_title_gb": {
+        "message": "You got %your_gb% GB as a one-time welcome bonus"
     },
     "confirm_email_done_info": {
-        "message": "Thanks for verifying it!"
+        "message": "Unused traffic carries over to next months. And with AdGuard VPN Unlimited, you can enjoy fast browsing without limits"
     },
-    "confirm_email_code_label": {
-        "message": "Confirmation code"
+    "auth_failed_to_login_title": {
+        "message": "Failed to log you in"
     },
-    "confirm_email_code_placeholder": {
-        "message": "Contains numbers and letters"
+    "auth_failed_to_login_description": {
+        "message": "Please try again or <a>contact support</a>"
     },
-    "confirm_email_code_invalid": {
-        "message": "Please check the code — it looks incorrect"
+    "auth_failed_to_login_description_without_support": {
+        "message": "Please try again"
     },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Send another code (%count%)"
+    "auth_failed_to_login_button": {
+        "message": "Close"
     },
-    "confirm_email_resend_code_button": {
-        "message": "Send another code"
+    "auth_loading_title": {
+        "message": "Log in or sign up through your browser"
     },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Failed to log you in. Please try again or contact us via <a>%support_email%</a>"
+    "auth_loading_description": {
+        "message": "If you have an AdGuard VPN license, it’ll apply automatically"
     },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Failed to sign you up. Please try again or contact us via <a>%support_email%</a>"
+    "auth_loading_button_reopen": {
+        "message": "Reopen login page"
     },
-    "resend_confirm_registration_link_notification": {
-        "message": "Confirmation link resent"
+    "auth_loading_button_cancel": {
+        "message": "Cancel"
+    },
+    "auth_success_title": {
+        "message": "You’re logged in"
+    },
+    "auth_success_description": {
+        "message": "Go back to the AdGuard VPN extension — it’s all set up"
     }
 }

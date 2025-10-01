@@ -77,7 +77,7 @@ export class VpnStore {
      */
     @observable savedLocationIds: Set<string> = new Set();
 
-    @action setSearchValue = (value: string) => {
+    @action setSearchValue = (value: string): void => {
         // do not trim, or change logic see issue AG-2233
         this.searchValue = value;
     };
@@ -159,8 +159,10 @@ export class VpnStore {
     }
 
     /**
-     * Adds ping data to locations list
-     * @param location
+     * Enriches location with ping data and saved status
+     * @param location Base location data
+     *
+     * @returns Location with ping, availability, and saved status.
      */
     enrichWithStateData = (location: LocationData): LocationData => {
         const pingData = this.pings[location.id];
@@ -233,8 +235,6 @@ export class VpnStore {
      *
      * If pings are recalculating, returns the list of cached fastest locations if they were calculated before.
      * Otherwise, calculates the fastest locations based on {@link locations} list.
-     *
-     * @returns List of fastest locations to display.
      */
     @computed
     get fastestLocationsToDisplay(): LocationData[] {
@@ -413,10 +413,10 @@ export class VpnStore {
      * Forces update of locations list from server
      * and updates locations list in store.
      *
-     * @returns Forcibly updated locations list.
+     * @returns Promise of Forcibly updated locations list.
      */
-    forceUpdateLocations = async (): Promise<any> => {
-        const locations = await messenger.forceUpdateLocations();
+    forceUpdateLocations = async (): Promise<LocationData[]> => {
+        const locations = await messenger.forceUpdateLocations() as LocationData[];
         return locations;
     };
 
@@ -491,7 +491,7 @@ export class VpnStore {
      * Toggles saved location by its ID.
      *
      * @param locationId Location ID to toggle.
-     * @returns True if location was added, false if location was removed.
+     * @returns Promise with true if location was added, false if location was removed.
      */
     @action toggleSavedLocation = async (locationId: string): Promise<boolean> => {
         if (this.savedLocationIds.has(locationId)) {

@@ -37,7 +37,7 @@ class ABTestManager {
      * Get a comma-separated string of experiments.
      * @returns A string of experiments.
      */
-    getExperiments() {
+    getExperiments(): string {
         return this.experiments.join(',');
     }
 
@@ -45,7 +45,7 @@ class ABTestManager {
      * Set versions response.
      * @param experiments - An object representing the experiments response.
      */
-    async setVersions(experiments: ExperimentsResponse) {
+    async setVersions(experiments: ExperimentsResponse): Promise<void> {
         this.versions = experiments?.versions ?? [];
         await this.setVersionsToStorage(this.versions);
     }
@@ -54,7 +54,7 @@ class ABTestManager {
      * Store versions response in browser storage.
      * @param versions - An object representing the versions response.
      */
-    async setVersionsToStorage(versions: VersionsResponse) {
+    async setVersionsToStorage(versions: VersionsResponse): Promise<void> {
         await browserApi.storage.set(ABTestManager.VERSIONS_STORAGE_KEY, versions);
     }
 
@@ -62,7 +62,7 @@ class ABTestManager {
      * Retrieve versions response from browser storage.
      * @returns An object representing the versions response.
      */
-    async getVersionsFromStorage() {
+    async getVersionsFromStorage(): Promise<VersionsResponse> {
         const rawVersions = await browserApi.storage.get(ABTestManager.VERSIONS_STORAGE_KEY);
         let versions: VersionsResponse = [];
         try {
@@ -77,7 +77,7 @@ class ABTestManager {
      * Retrieve or initialize the versions response.
      * @returns An object representing the versions response.
      */
-    async getVersions() {
+    async getVersions(): Promise<VersionsResponse> {
         if (!this.versions) {
             this.versions = await this.getVersionsFromStorage();
         }

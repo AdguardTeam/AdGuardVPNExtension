@@ -17,13 +17,13 @@ export class WindowsApi {
      * do not support `browser.windows.onFocusChanged`.
      */
     public static readonly onFocusChanged = browser.windows?.onFocusChanged || {
-        addListener() {
+        addListener(): void {
             log.debug('browser.windows.onFocusChanged is not supported');
         },
-        removeListener() {
+        removeListener(): void {
             log.debug('browser.windows.onFocusChanged is not supported');
         },
-        hasListener() {
+        hasListener(): false {
             log.debug('browser.windows.onFocusChanged is not supported');
             return false;
         },
@@ -37,7 +37,7 @@ export class WindowsApi {
      *
      * @returns True if browser.windows API is supported, false otherwise.
      */
-    private static isSupported() {
+    private static isSupported(): boolean {
         return !!browser.windows
             && typeof browser.windows.update === 'function'
             && typeof browser.windows.create === 'function'
@@ -121,3 +121,5 @@ export class WindowsApi {
         return browser.windows.getCurrent();
     }
 }
+
+export type WindowsApiInterface = typeof WindowsApi;

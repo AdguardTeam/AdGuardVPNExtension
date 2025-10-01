@@ -13,7 +13,7 @@ export enum ConnectivityDelayType {
  * @param context FSM context.
  * @returns Property used to keep growing delay between re-connections.
  */
-function retryDelay(context: ConnectivityContext) {
+function retryDelay(context: ConnectivityContext): number {
     return context.currentReconnectionDelayMs;
 }
 

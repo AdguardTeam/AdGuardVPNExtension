@@ -1,17 +1,18 @@
+import {
+    vi,
+    describe,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { ABTestManager } from '../../../src/background/abTestManager/ABTestManager';
 import { browserApi } from '../../../src/background/browserApi';
 import { log } from '../../../src/common/logger';
 
-jest.mock('../../../src/background/browserApi', () => {
-    // eslint-disable-next-line global-require
-    return require('../../__mocks__/browserApiMock');
-});
-
-jest.mock('../../../src/common/logger');
-
 describe('ABTestManager', () => {
     afterEach(() => {
-        jest.resetAllMocks(); // Reset all mocks after each test
+        vi.resetAllMocks(); // Reset all mocks after each test
     });
 
     describe('getExperiments', () => {

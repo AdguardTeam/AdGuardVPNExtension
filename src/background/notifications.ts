@@ -9,7 +9,7 @@ import { log } from '../common/logger';
 const DEFAULT_IMAGE_PATH = Prefs.ICONS.ENABLED['128'];
 const DEFAULT_TITLE = translator.getMessage('short_name');
 
-interface NotificationsInterface {
+export interface NotificationsInterface {
     create(options: { message: string }): Promise<void>;
 }
 

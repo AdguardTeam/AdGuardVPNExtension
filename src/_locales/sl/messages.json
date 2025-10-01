@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Ne sme biti prazno"
-    },
-    "registration_error_not_valid": {
-        "message": "Ta vrednost ni veljavna"
-    },
-    "registration_error_min_length": {
-        "message": "Geslo je prekratko. Vsebovati mora vsaj 8 znakov."
-    },
-    "registration_error_confirm_password": {
-        "message": "Gesli se ne ujemata"
-    },
-    "registration_error_compromised_password": {
-        "message": "Geslo, ki ste ga vnesli, je bilo najdeno v <a>javni zbirki podatkov</a> ogroženih gesel. Pposkusite z drugim."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Ta vrednost je že uporabljena"
-    },
-    "registration_error_default": {
-        "message": "Prišlo je do napake, poskusite pozneje znova"
-    },
-    "authentication_error_2fa_required": {
-        "message": "Potreben je 2FA"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Neveljaven žeton"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Račun je onemogočen"
-    },
-    "authentication_error_account_locked": {
-        "message": "Račun je zaklenjen za 15 minut"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Žal, napačno geslo"
-    },
-    "authentication_too_many_requests": {
-        "message": "Preveč zahtev je bilo prejetih z vašega naslova IP. Poskusite znova pozneje."
-    },
-    "authentication_error_default": {
-        "message": "Prišlo je do napake, poskusite pozneje znova"
-    },
-    "global_error_message": {
-        "message": "Prišlo je do napake. Obrnite se na nas preko <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Vizitka"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Odjava"
     },
+    "account_sign_out_question": {
+        "message": "Želite se odjaviti?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Prekliči"
+    },
+    "account_sign_out_description": {
+        "message": "Odjavili se boste iz računa. Zaščita VPN bo ustavljena"
+    },
     "account_unlimited_title": {
         "message": "Pridobite neomejeno različico!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Skrij"
-    },
-    "auth_confirm": {
-        "message": "Potrdi"
-    },
-    "auth_email": {
-        "message": "E-poštni naslov"
-    },
-    "auth_password": {
-        "message": "Geslo"
-    },
-    "auth_your_password": {
-        "message": "Vnesite geslo"
-    },
-    "auth_password_confirm": {
-        "message": "Potrdi geslo"
-    },
-    "auth_recover": {
-        "message": "Pozabljeno geslo?"
-    },
-    "auth_sign_up": {
-        "message": "Prijava"
-    },
-    "auth_sign_up_info": {
-        "message": "Ustvarite svoj račun AdGuard"
-    },
-    "auth_sign_up_button": {
-        "message": "Prijava"
-    },
-    "auth_sign_in": {
-        "message": "Vnesite svoje geslo"
-    },
-    "auth_sign_in_button": {
-        "message": "Prijava"
-    },
-    "auth_title": {
-        "message": "Prijavite se ali ustvarite račun"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-pošta"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Nadaljuj z elektronsko pošto"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Nadaljuj z Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Nadaljuj z Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Nadaljuj s Facebookom"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Prijava kot <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Dvofaktorsko preverjanje pristnosti"
-    },
-    "auth_header_2fa": {
-        "message": "Vnesite kodo za preverjanje pristnosti"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Koda za preverjanje pristnosti"
     },
     "official_website": {
         "message": "Uradna spletna stran"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Prijavite se ali ustvarite račun"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Nadaljuj"
-    },
     "popup_newsletter_title": {
         "message": "Glasilo AdGuarda"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Ne prikaži več tega"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Statistika za ta brskalnik"
+    "popup_stats": {
+        "message": "Statistika"
     },
     "popup_stats_disabled_notice": {
         "message": "Statistika je onemogočena"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Čas"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Zakaj je varno"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Zakaj je varno"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN povezava je šifrirana in varna, zato nihče ne more videti vaših podatkov o dejavnosti — izračunamo le vašo uporabo prometa"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Vsa statistika se zbira in shranjuje lokalno v vaši napravi. Nimamo dostopa do nje"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Razumem"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "Hitrost povezave VPN se bo kmalu zmanjšala."
     },
-    "confirm_email_title": {
-        "message": "Potrdite svoj e-poštni naslov"
-    },
-    "confirm_email_info": {
-        "message": "Poslali smo potrditveno kodo na <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "E-poštni naslov je potrjen"
     },
     "confirm_email_done_info": {
         "message": "Hvala za potrditev!"
     },
-    "confirm_email_code_label": {
-        "message": "Potrditvena koda"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Običajno 10 znakov"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Preverite kodo — videti je napačna"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Pošlji drugo kodo (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Pošlji drugo kodo"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Vaša prijava ni uspela. Poskusite znova ali se obrnite na nas preko <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Vaša prijava ni uspela. Poskusite znova ali se obrnite na nas preko <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Znova poslana potrditvena povezava"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Prijave ni bilo mogoče opraviti"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Poskusite znova ali se <a>obrnite na podporo</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Prosimo, poskusite znova"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Zapri"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Ponovno odpri stran za prijavo"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Prekliči"
     }
 }

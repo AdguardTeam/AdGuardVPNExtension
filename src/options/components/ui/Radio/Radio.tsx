@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import classNames from 'classnames';
 
@@ -70,14 +70,14 @@ export function Radio<T extends string>({
     action,
     className,
     onSelect,
-}: RadioProps<T>) {
+}: RadioProps<T>): ReactElement {
     const classes = classNames(
         'radio has-tab-focus',
         isActive && 'radio--active',
         className,
     );
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         if (e.target.checked) {
             onSelect(value);
         }

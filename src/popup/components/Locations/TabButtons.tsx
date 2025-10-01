@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import classNames from 'classnames';
@@ -58,12 +58,12 @@ const TabButton = ({
     title,
     telemetryActionName,
     onClick,
-}: TabButtonProps) => {
+}: TabButtonProps): ReactElement => {
     const classes = classNames('endpoints__tab-btn', {
         'endpoints__tab-btn--active': active,
     });
 
-    const handleClick = () => {
+    const handleClick = (): void => {
         onClick(tab, telemetryActionName);
     };
 
@@ -98,7 +98,10 @@ export const TabButtons = observer(() => {
         },
     ];
 
-    const tabClickHandler = async (tab: LocationsTab, telemetryActionName: LocationsTabClickActionNames) => {
+    const tabClickHandler = async (
+        tab: LocationsTab,
+        telemetryActionName: LocationsTabClickActionNames,
+    ): Promise<void> => {
         telemetryStore.sendCustomEvent(
             telemetryActionName,
             TelemetryScreenName.LocationsScreen,

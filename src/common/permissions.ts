@@ -21,8 +21,8 @@ export class Permissions {
      *
      * @param origins Host permission origins.
      *
-     * @returns True if browser.permissions contain the `origins`,
-     * false otherwise or if failed to check (error is logged)
+     * @returns Promise with true if browser.permissions contain the `origins`,
+     * false otherwise or if failed to check (error is logged).
      */
     private static async hasHostPermissions(origins: browser.Manifest.MatchPattern[]): Promise<boolean> {
         const permissionsRequest = {
@@ -62,7 +62,7 @@ export class Permissions {
     /**
      * Checks if needed host permissions are granted.
      *
-     * @returns True if host permissions are granted for **all** {@link NEEDED_HOST_ORIGINS}.
+     * @returns Promise with true if host permissions are granted for **all** {@link NEEDED_HOST_ORIGINS}.
      */
     static async hasNeededHostPermissions(): Promise<boolean> {
         const areAllHostPermissionsGranted = await Permissions.hasHostPermissions(Permissions.NEEDED_HOST_ORIGINS);

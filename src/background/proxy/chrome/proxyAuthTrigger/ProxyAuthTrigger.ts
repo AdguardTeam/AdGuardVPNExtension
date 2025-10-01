@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { PAC_SCRIPT_CHECK_URL } from '../../proxyConsts';
 import { log } from '../../../../common/logger';
 
-const createOffScreenDocument = (() => {
+const createOffScreenDocument = ((): () => Promise<void> => {
     let creating: Promise<void> | null; // A global promise to avoid concurrency issues
 
     return async () => {
@@ -39,7 +39,7 @@ class ProxyAuthTrigger {
      * when onAuthRequired is not triggered when request is sent from service worker.
      * When this bug is fixed, this method can be removed.
      */
-    async run() {
+    async run(): Promise<void> {
         try {
             await createOffScreenDocument();
         } catch (e) {

@@ -16,14 +16,14 @@ export const VpnBlockedNotice = observer(() => {
     /**
      * Closes the error notice by changing the flag in the **settingsStore**.
      */
-    const closeNotice = () => {
+    const closeNotice = (): void => {
         uiStore.closeVpnBlockedErrorNotice();
     };
 
     /**
      * Opens connection error details by changing the flag in the uiStore.
      */
-    const openDetails = () => {
+    const openDetails = (): void => {
         uiStore.openVpnBlockedErrorDetails();
     };
 

@@ -17,7 +17,7 @@ export const Stats = observer(() => {
         isStatisticsLoading,
         isStatsDisabled,
         isMenuOpen,
-        isWhySafeModalOpen,
+        isStatsInfoModalOpen,
         isDisableModalOpen,
         isClearModalOpen,
         totalUsage,
@@ -38,7 +38,7 @@ export const Stats = observer(() => {
     // These screens are rendered on top of `StatsScreen`, `LocationScreen`,
     // `AllLocationsScreen` screens and their disabled versions.
     const isOverlappedWithScreen = isMenuOpen // `SettingsStatsScreen`
-        || isWhySafeModalOpen // `WhySafeScreen`
+        || isStatsInfoModalOpen // `StatsInfoScreen`
         || isDisableModalOpen // `DisableStatsScreen`
         || isClearModalOpen; // `ClearStatsScreen`
 
@@ -134,7 +134,7 @@ export const Stats = observer(() => {
     return (
         <StatsScreen
             type="main"
-            title={translator.getMessage('popup_stats_for_browser_title')}
+            title={translator.getMessage('popup_stats')}
             range={range}
             firstStatsDate={firstStatsDate}
             isLoading={isStatisticsLoading}

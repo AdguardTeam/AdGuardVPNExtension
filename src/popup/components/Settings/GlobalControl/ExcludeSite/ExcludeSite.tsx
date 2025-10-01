@@ -7,11 +7,12 @@ import { rootStore } from '../../../../stores';
 import { useOutsideClick } from '../../../../../common/hooks/useOutsideClick';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { HintPopup } from '../HintPopup/HintPopup';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../../background/telemetry/telemetryEnums';
 
 import './exclude-site.pcss';
 
 export const ExcludeSite = observer(() => {
-    const { authStore, settingsStore } = useContext(rootStore);
+    const { authStore, settingsStore, telemetryStore } = useContext(rootStore);
 
     const { shouldShowHintPopup, showHintPopup } = authStore;
 
@@ -26,6 +27,10 @@ export const ExcludeSite = observer(() => {
     });
 
     const disableVpnForCurrentSite = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.VpnDisableWebsite,
+            TelemetryScreenName.HomeScreen,
+        );
         await settingsStore.disableVpnOnCurrentTab();
         // If a user has excluded a site once - we don't need to show
         // the hint, and we mark the hint as viewed.

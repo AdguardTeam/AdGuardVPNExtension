@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import classNames from 'classnames';
 
@@ -51,7 +51,7 @@ export function Title({
     size = 'large',
     className,
     onClick,
-}: TitleProps) {
+}: TitleProps): ReactElement {
     const isBackTitle = !!onClick;
 
     const classes = classNames(

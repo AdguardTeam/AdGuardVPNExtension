@@ -7,16 +7,7 @@ import { AnimationState, animationSourcesMap } from '../../../constants';
 
 import { animationService } from './animationStateMachine';
 
-export interface BackgroundAnimationProps {
-    /**
-     * Animation state to override store provided state.
-     */
-    overrideAnimationState?: AnimationState;
-}
-
-export const BackgroundAnimation = observer(({
-    overrideAnimationState,
-}: BackgroundAnimationProps) => {
+export const BackgroundAnimation = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
@@ -25,7 +16,7 @@ export const BackgroundAnimation = observer(({
         animationState,
     } = settingsStore;
 
-    const animationStateToUse = overrideAnimationState || animationState;
+    const animationStateToUse = animationState;
 
     useEffect(() => {
         animationService.onTransition((state) => {
@@ -49,7 +40,7 @@ export const BackgroundAnimation = observer(({
     const loop = animationStateToUse === AnimationState.VpnEnabled
         || animationStateToUse === AnimationState.VpnDisabled;
 
-    const handleAnimationEnd = () => {
+    const handleAnimationEnd = (): void => {
         settingsStore.handleAnimationEnd();
     };
 
@@ -60,7 +51,7 @@ export const BackgroundAnimation = observer(({
             return undefined;
         }
 
-        const updateCanvas = (video: HTMLVideoElement) => {
+        const updateCanvas = (video: HTMLVideoElement): void => {
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -73,13 +64,13 @@ export const BackgroundAnimation = observer(({
         video.autoplay = true;
         video.addEventListener('ended', handleAnimationEnd);
 
-        const loadedDataHandler = async () => {
+        const loadedDataHandler = async (): Promise<void> => {
             await video.play();
             updateCanvas(video);
         };
         video.addEventListener('loadeddata', loadedDataHandler);
 
-        return () => {
+        return (): void => {
             video.removeEventListener('loadeddata', loadedDataHandler);
             video.removeEventListener('ended', handleAnimationEnd);
         };

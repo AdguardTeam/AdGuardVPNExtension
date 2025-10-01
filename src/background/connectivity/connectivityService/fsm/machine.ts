@@ -1,4 +1,4 @@
-import { createMachine, interpret } from 'xstate';
+import { createMachine, interpret, type StateMachine } from 'xstate';
 
 import { type ConnectivityContext, ConnectivityStateType } from '../../../schema/connectivity';
 
@@ -19,7 +19,8 @@ const FSM_ID = 'connectivity';
  * @param context - FSM context
  * @returns FSM used to manage connectivity states
  */
-export function createConnectivityMachine(context: ConnectivityContext) {
+export function createConnectivityMachine(context: ConnectivityContext)
+    : StateMachine<ConnectivityContext, any, ConnectivityEvent, ConnectivityState> {
     return createMachine<ConnectivityContext, ConnectivityEvent, ConnectivityState>({
         id: FSM_ID,
         predictableActionArguments: true,
@@ -108,6 +109,7 @@ export function createConnectivityMachine(context: ConnectivityContext) {
  * @param machine Connectivity FSM
  * @returns New interpreter for passed connectivity FSM
  */
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function createConnectivityInterpreter(machine: ReturnType<typeof createConnectivityMachine>) {
     return interpret(machine);
 }

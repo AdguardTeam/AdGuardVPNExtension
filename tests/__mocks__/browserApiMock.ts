@@ -1,18 +1,20 @@
+import { vi, type Mock } from 'vitest';
+
 interface StorageInterface {
     [key: string]: any;
-    set: jest.Mock<Promise<void>, [key: string, data: any]>;
-    get: jest.Mock<Promise<string>, [key: string]>;
-    remove: jest.Mock<Promise<boolean>, [key: string]>;
+    set: Mock<(key: string, data: any) => Promise<void>>;
+    get: Mock<(key: string) => Promise<string>>;
+    remove: Mock<(key: string) => Promise<boolean>>;
 }
 
 const storage: StorageInterface = {
-    set: jest.fn(async (key: string, data: any): Promise<void> => {
+    set: vi.fn(async (key: string, data: any): Promise<void> => {
         storage[key] = data;
     }),
-    get: jest.fn(async (key: string): Promise<string> => {
+    get: vi.fn(async (key: string): Promise<string> => {
         return storage[key];
     }),
-    remove: jest.fn(async (key: string): Promise<boolean> => {
+    remove: vi.fn(async (key: string): Promise<boolean> => {
         return delete storage[key];
     }),
 };

@@ -10,11 +10,14 @@ import { SearchHighlighter } from '../../../../../../common/components/SearchHig
 import { translator } from '../../../../../../common/translator';
 
 /**
- * Returns true if service can be added, and returns false if service can be removed
+ * Checks if service can be added or removed.
+ *
  * @param service
  * @param servicesToToggle
+ *
+ * @returns True if service can be added, and returns false if service can be removed.
  */
-export const canAddService = (service: ServiceDto, servicesToToggle: string[]) => {
+export const canAddService = (service: ServiceDto, servicesToToggle: string[]): boolean => {
     const isInToggle = servicesToToggle.some((serviceId) => serviceId === service.serviceId);
 
     if (isInToggle) {
@@ -31,7 +34,7 @@ interface ServiceRowProps {
 export const ServiceRow = observer(({ service }: ServiceRowProps) => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
 
-    const addService = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const addService = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         telemetryStore.sendCustomEvent(
             TelemetryActionName.AddWebsiteFromList,
@@ -40,7 +43,7 @@ export const ServiceRow = observer(({ service }: ServiceRowProps) => {
         exclusionsStore.addToServicesToToggle(service.serviceId);
     };
 
-    const removeService = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const removeService = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         exclusionsStore.addToServicesToToggle(service.serviceId);
     };

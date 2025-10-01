@@ -10,17 +10,23 @@ export type PreparedTab = {
     url?: string,
 };
 
-interface TabsInterface {
+export interface TabsInterface {
     init(): void;
     getCurrent(): Promise<browser.Tabs.Tab>;
     getActive(): Promise<PreparedTab[]>;
     openTab(url: string): Promise<browser.Tabs.Tab>;
     closeTab(tabsIds: number[] | number): Promise<void>;
-    openSocialAuthTab(authUrl: string): Promise<void>;
     reload(tabId: number): Promise<void>;
     getTabByUrl(url: string): Promise<browser.Tabs.Tab | undefined>;
     update(tabId: number, url: string): Promise<void>;
     redirectCurrentTab(url: string): Promise<void>;
+
+    /**
+     * Focuses on a tab.
+     *
+     * @param tabId Tab ID to focus.
+     */
+    focusTab(tabId: number): Promise<void>;
 }
 
 class Tabs implements TabsInterface {
@@ -58,8 +64,11 @@ class Tabs implements TabsInterface {
     }
 
     /**
-     * Converts browser tab info into simplified presentation of tab
+     * Converts browser tab info into simplified presentation of tab.
+     *
      * @param tab
+     *
+     * @returns Prepared tab with id and url.
      */
     prepareTab = (tab: browser.Tabs.Tab): PreparedTab => {
         const { id, url } = tab;
@@ -96,10 +105,6 @@ class Tabs implements TabsInterface {
         await browser.tabs.remove(tabsIds);
     }
 
-    async openSocialAuthTab(authUrl: string): Promise<void> {
-        await this.openTab(authUrl);
-    }
-
     async reload(tabId: number): Promise<void> {
         try {
             await browser.tabs.reload(tabId);
@@ -128,6 +133,11 @@ class Tabs implements TabsInterface {
     async redirectCurrentTab(url: string): Promise<void> {
         const tab = await this.getCurrent();
         await this.update(tab.id!, url);
+    }
+
+    /** @inheritdoc */
+    async focusTab(tabId: number): Promise<void> {
+        await browser.tabs.update(tabId, { active: true });
     }
 }
 

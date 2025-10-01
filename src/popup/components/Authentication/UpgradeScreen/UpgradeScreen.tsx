@@ -1,16 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
-import { Slider } from '../../ui/Slider';
-import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
+import { POTENTIAL_DEVICE_NUM } from '../../../../common/components/constants';
+import upgradeImgUrl from '../../../../assets/images/upgrade-subscription.svg';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
-import { IconButton } from '../../../../common/components/Icons';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 
 import './upgrade-screen.pcss';
 
-export const UpgradeScreen = () => {
+export const UpgradeScreen = (): ReactElement => {
     const { authStore, vpnStore, telemetryStore } = useContext(rootStore);
 
     useTelemetryPageViewEvent(
@@ -36,51 +35,26 @@ export const UpgradeScreen = () => {
         await authStore.setShowUpgradeScreen(false);
     };
 
-    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
-    const nextSlideHandler = async (): Promise<void> => {
-        if (currentSlideIndex !== UNLIMITED_FEATURES.length - 1) {
-            return setCurrentSlideIndex(currentSlideIndex + 1);
-        }
-
-        return setCurrentSlideIndex(0);
-    };
-
-    const prevSlideHandler = async (): Promise<void> => {
-        if (currentSlideIndex !== 0) {
-            return setCurrentSlideIndex(currentSlideIndex - 1);
-        }
-
-        return setCurrentSlideIndex(UNLIMITED_FEATURES.length - 1);
-    };
-
-    const setCurrentSlide = (index: number): void => {
-        setCurrentSlideIndex(index);
-    };
-
     return (
         <div className="upgrade-screen">
-            <IconButton
-                name="cross"
-                className="close-icon-btn"
-                onClick={handleSkipClick}
-            />
-            <div className="upgrade-screen__head">
+            <div className="upgrade-screen__image-wrapper">
+                <img
+                    src={upgradeImgUrl}
+                    className="upgrade-screen__image"
+                    alt="upgrade-screen"
+                />
+            </div>
+            <div className="upgrade-screen__content">
                 <div className="upgrade-screen__title">
                     {translator.getMessage('popup_upgrade_screen_title')}
                 </div>
-            </div>
-            <div className="upgrade-screen__slider">
-                <Slider
-                    arrows
-                    sliderMod="medium"
-                    slideIndex={currentSlideIndex}
-                    slideData={UNLIMITED_FEATURES[currentSlideIndex]}
-                    nextSlideHandler={nextSlideHandler}
-                    prevSlideHandler={prevSlideHandler}
-                    navigationHandler={setCurrentSlide}
-                    slidesAmount={UNLIMITED_FEATURES.length}
-                />
+                <div className="upgrade-screen__info">
+                    {translator.getMessage('popup_upgrade_screen_info_with_devices', {
+                        // POTENTIAL_DEVICE_NUM is used because vpnStore.maxDevicesAllowed
+                        // is available only in case of ConnectionLimitError
+                        maxDevicesAllowed: POTENTIAL_DEVICE_NUM,
+                    })}
+                </div>
             </div>
             <div className="upgrade-screen__actions">
                 <button

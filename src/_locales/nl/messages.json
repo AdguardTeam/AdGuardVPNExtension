@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Mag niet leeg zijn"
-    },
-    "registration_error_not_valid": {
-        "message": "De waarde is niet geldig"
-    },
-    "registration_error_min_length": {
-        "message": "Wachtwoord moet minimaal 8 karakters bevatten"
-    },
-    "registration_error_confirm_password": {
-        "message": "Wachtwoorden komen niet overeen"
-    },
-    "registration_error_compromised_password": {
-        "message": "Het wachtwoord dat je hebt ingevoerd is gevonden in een <a>openbare database</a> met gehackte wachtwoorden. Kies alsjeblieft een ander wachtwoord."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Deze waarde is al in gebruik"
-    },
-    "registration_error_default": {
-        "message": "Er is een fout opgetreden, probeer het later opnieuw"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA is vereist"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Ongeldig token"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Account is uitgeschakeld"
-    },
-    "authentication_error_account_locked": {
-        "message": "Account is vergrendeld gedurende 15 minuten"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Verkeerd wachtwoord"
-    },
-    "authentication_too_many_requests": {
-        "message": "We hebben te veel verzoeken ontvangen van jouw IP-adres. Probeer het later nog eens."
-    },
-    "authentication_error_default": {
-        "message": "Er is een fout opgetreden. Probeer later opnieuw"
-    },
-    "global_error_message": {
-        "message": "Er is een fout opgetreden, neem contact met ons op via <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Over"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Afmelden"
     },
+    "account_sign_out_question": {
+        "message": "Afmelden?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Annuleren"
+    },
+    "account_sign_out_description": {
+        "message": "Je wordt afgemeld bij je account. VPN-bescherming wordt gestopt"
+    },
     "account_unlimited_title": {
         "message": "De Unlimited-versie verkrijgen!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Verbergen"
-    },
-    "auth_confirm": {
-        "message": "Bevestigen"
-    },
-    "auth_email": {
-        "message": "E-mailadres"
-    },
-    "auth_password": {
-        "message": "Wachtwoord"
-    },
-    "auth_your_password": {
-        "message": "Je wachtwoord"
-    },
-    "auth_password_confirm": {
-        "message": "Bevestig wachtwoord"
-    },
-    "auth_recover": {
-        "message": "Wachtwoord vergeten?"
-    },
-    "auth_sign_up": {
-        "message": "Registreren"
-    },
-    "auth_sign_up_info": {
-        "message": "Je AdGuard-account aanmaken"
-    },
-    "auth_sign_up_button": {
-        "message": "Registreren"
-    },
-    "auth_sign_in": {
-        "message": "Voer je wachtwoord in"
-    },
-    "auth_sign_in_button": {
-        "message": "Aanmelden"
-    },
-    "auth_title": {
-        "message": "Aanmelden bij of registreren van een account"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-mail"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Doorgaan met e-mail"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Doorgaan met Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Doorgaan met Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Doorgaan met Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Aanmelden als <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Two-factor authenticatie"
-    },
-    "auth_header_2fa": {
-        "message": "Je authenticatiecode invoeren"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Authenticatiecode"
     },
     "official_website": {
         "message": "Officiële website"
@@ -713,7 +614,7 @@
         "message": "Beperkte snelheid"
     },
     "premium_upgrade": {
-        "message": "Upgraden"
+        "message": "Opwaarderen"
     },
     "settings_disconnect": {
         "message": "Verbinding verbreken"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Aanmelden bij of registreren van een account"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Doorgaan"
-    },
     "popup_newsletter_title": {
         "message": "AdGuard-nieuwsbrief"
     },
@@ -900,7 +798,7 @@
         "message": "Verbind al jouw gadgets tegelijkertijd met AdGuard VPN - of bescherm het hele gezin!"
     },
     "popup_upgrade_screen_upgrade_button": {
-        "message": "Upgraden"
+        "message": "Opwaarderen"
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Doorgaan zonder kosten"
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Dit niet opnieuw weergeven"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Statistieken voor deze browser"
+    "popup_stats": {
+        "message": "Statistieken"
     },
     "popup_stats_disabled_notice": {
         "message": "Statistieken zijn uitgeschakeld"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Tijd"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Waarom het veilig is"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Waarom het veilig is"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "De VPN-verbinding is versleuteld en veilig, zodat niemand jouw activiteitsgegevens kan zien - we berekenen alleen je gegevensverkeers gebruik"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Alle statistieken worden lokaal op jouw apparaat verzameld en opgeslagen. We hebben er geen toegang toe"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Begrepen"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "De snelheid van de VPN-verbinding wordt binnenkort verlaagd."
     },
-    "confirm_email_title": {
-        "message": "Je e-mailadres bevestigen"
-    },
-    "confirm_email_info": {
-        "message": "We hebben een bevestigingscode gestuurd naar <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "E-mailadres bevestigd"
     },
     "confirm_email_done_info": {
         "message": "Bedankt voor het verifiëren!"
     },
-    "confirm_email_code_label": {
-        "message": "Bevestigingscode"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Bevat cijfers en letters"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Controleer de code. Deze lijkt onjuist"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Stuur nog een code (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Stuur nog een code"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Aanmelden is mislukt. Probeer het opnieuw of neem contact met ons op via <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Registreren is mislukt. Probeer het opnieuw of neem contact met ons op via <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Bevestigingslink opnieuw verzonden"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Aanmelden mislukt"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Probeer het opnieuw of <a>neem contact op met ondersteuning</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Probeer het opnieuw"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Sluiten"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Aanmeldpagina opnieuw openen"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Annuleren"
     }
 }

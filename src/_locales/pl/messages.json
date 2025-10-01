@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Nie może być puste"
-    },
-    "registration_error_not_valid": {
-        "message": "Ta wartość jest nieprawidłowa"
-    },
-    "registration_error_min_length": {
-        "message": "Hasło musi zawierać co najmniej 8 znaków"
-    },
-    "registration_error_confirm_password": {
-        "message": "Hasła się nie zgadzają"
-    },
-    "registration_error_compromised_password": {
-        "message": "Wprowadzone hasło zostało znalezione w <a>publicznej bazie danych</a> haseł, które zostały naruszone. Spróbuj innego."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Ta wartość jest już użyta"
-    },
-    "registration_error_default": {
-        "message": "Wystąpił błąd, spróbuj ponownie później"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA jest wymagane"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Nieprawidłowy token"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Konto jest wyłączone"
-    },
-    "authentication_error_account_locked": {
-        "message": "Konto jest zablokowane na 15 minut"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Błędne hasło"
-    },
-    "authentication_too_many_requests": {
-        "message": "Otrzymaliśmy zbyt wiele żądań z Twojego adresu IP. Spróbuj ponownie później."
-    },
-    "authentication_error_default": {
-        "message": "Wystąpił błąd, spróbuj ponownie później"
-    },
-    "global_error_message": {
-        "message": "Wystąpił błąd, prosimy o kontakt poprzez <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "O programie"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Wyloguj się"
     },
+    "account_sign_out_question": {
+        "message": "Wyloguj się?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Anuluj"
+    },
+    "account_sign_out_description": {
+        "message": "Zostaniesz wylogowany ze swojego konta. Ochrona VPN zostanie wyłączona"
+    },
     "account_unlimited_title": {
         "message": "Zdobądź wersję Unlimited!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Ukryj"
-    },
-    "auth_confirm": {
-        "message": "Potwierdź"
-    },
-    "auth_email": {
-        "message": "Adres e-mail"
-    },
-    "auth_password": {
-        "message": "Hasło"
-    },
-    "auth_your_password": {
-        "message": "Wpisz hasło"
-    },
-    "auth_password_confirm": {
-        "message": "Potwierdź hasło"
-    },
-    "auth_recover": {
-        "message": "Zapomniano hasła?"
-    },
-    "auth_sign_up": {
-        "message": "Zapisz się"
-    },
-    "auth_sign_up_info": {
-        "message": "Utwórz swoje konto AdGuard"
-    },
-    "auth_sign_up_button": {
-        "message": "Zapisz się"
-    },
-    "auth_sign_in": {
-        "message": "Wpisz swoje hasło"
-    },
-    "auth_sign_in_button": {
-        "message": "Zaloguj się"
-    },
-    "auth_title": {
-        "message": "Zaloguj się lub utwórz konto"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-mail"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Kontynuuj przez e-mail"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Kontynuuj z Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Kontynuuj z Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Kontynuuj z Facebookiem"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Masz już konto <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Uwierzytelnianie dwuskładnikowe"
-    },
-    "auth_header_2fa": {
-        "message": "Wpisz kod uwierzytelniający"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Kod uwierzytelnienia"
     },
     "official_website": {
         "message": "Oficjalna strona"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Zaloguj się lub utwórz konto"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Dalej"
-    },
     "popup_newsletter_title": {
         "message": "Newsletter AdGuard"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Nie pokazuj ponownie"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Statystyki dla tej przeglądarki"
+    "popup_stats": {
+        "message": "Statystyki"
     },
     "popup_stats_disabled_notice": {
         "message": "Statystyki są wyłączone"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Czas"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Dlaczego to jest bezpieczne"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Dlaczego to jest bezpieczne"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "Połączenie VPN jest szyfrowane i bezpieczne, więc nikt nie może zobaczyć Twoich danych o aktywności — obliczamy jedynie Twoje wykorzystanie ruchu"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Wszystkie statystyki są gromadzone i przechowywane lokalnie na Twoim urządzeniu. Nie mamy do nich dostępu"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rozumiem"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "Prędkość połączenia VPN zostanie wkrótce zmniejszona."
     },
-    "confirm_email_title": {
-        "message": "Potwierdź swój adres e-mail"
-    },
-    "confirm_email_info": {
-        "message": "Wysłaliśmy kod potwierdzający na <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Adres e-mail potwierdzony"
     },
     "confirm_email_done_info": {
         "message": "Dziękujemy za weryfikację!"
     },
-    "confirm_email_code_label": {
-        "message": "Kod potwierdzający"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Zwykle 10 znaków"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Sprawdź kod: wygląda na nieprawidłowy"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Wyślij inny kod (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Wyślij inny kod"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Nie udało się zalogować. Spróbuj ponownie lub skontaktuj się z nami przez <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Nie udało się Cię zarejestrować. Spróbuj ponownie lub skontaktuj się z nami przez <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Link potwierdzający został wysłany na Twój e-mail"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Nie udało się zalogować"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Spróbuj ponownie lub <a>skontaktuj się z pomocą techniczną</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Proszę spróbuj ponownie"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Zamknij"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Otwórz ponownie stronę logowania"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Anuluj"
     }
 }

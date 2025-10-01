@@ -86,7 +86,7 @@ export class SettingsStore {
         this.rootStore = rootStore;
     }
 
-    @action prohibitExclusion = () => {
+    @action prohibitExclusion = (): void => {
         this.canBeExcluded = false;
     };
 
@@ -187,7 +187,7 @@ export class SettingsStore {
         this.isRoutable = value;
     };
 
-    @action setGlobalError(data: Error | null) {
+    @action setGlobalError(data: Error | null): void {
         this.globalError = data;
     }
 
@@ -255,7 +255,7 @@ export class SettingsStore {
         this.hasLimitExceededDisplayed = true;
     }
 
-    @action setConnectivityState(state: StateType) {
+    @action setConnectivityState(state: StateType): void {
         this.connectivityState = state;
         this.updateAnimationState(state);
     }
@@ -332,7 +332,7 @@ export class SettingsStore {
         });
     };
 
-    @action setAppearanceTheme = (value: AppearanceTheme) => {
+    @action setAppearanceTheme = (value: AppearanceTheme): void => {
         this.appearanceTheme = value;
     };
 
@@ -350,7 +350,7 @@ export class SettingsStore {
             : AppearanceTheme.Light;
     };
 
-    getSystemTheme() {
+    getSystemTheme(): AppearanceTheme.Dark | AppearanceTheme.Light {
         return window.matchMedia('(prefers-color-scheme: dark)').matches
             ? AppearanceTheme.Dark
             : AppearanceTheme.Light;
@@ -402,7 +402,7 @@ export class SettingsStore {
     };
 
     @computed
-    get showNotificationModal() {
+    get showNotificationModal(): boolean {
         if (!this.promoNotification) {
             return false;
         }
@@ -449,7 +449,7 @@ export class SettingsStore {
     /**
      * Starts countdown timer based on store's value {@link limitedOfferData.timeLeftMs}.
      */
-    @action startCountdown = () => {
+    @action startCountdown = (): void => {
         this.limitedOfferTimer = setInterval(() => {
             runInAction(() => {
                 if (this.limitedOfferData?.timeLeftMs === 0) {

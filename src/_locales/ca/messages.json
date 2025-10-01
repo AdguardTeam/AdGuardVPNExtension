@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "No pot estar buit"
-    },
-    "registration_error_not_valid": {
-        "message": "Aquesta valor no és vàlid"
-    },
-    "registration_error_min_length": {
-        "message": "La contrasenya ha de contenir almenys 8 caràcters"
-    },
-    "registration_error_confirm_password": {
-        "message": "Les contrasenyes no coincideixen"
-    },
-    "registration_error_compromised_password": {
-        "message": "La contrasenya que heu introduït es va trobar en una <a>base de dades pública</a> de contrasenyes compromeses. Si us plau, proveu-ne una altra."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Aquesta valor ja s'està utilitzant"
-    },
-    "registration_error_default": {
-        "message": "S'ha produït un error, torneu a provar més tard"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA és requerit"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Token invàlid"
-    },
-    "authentication_error_account_disabled": {
-        "message": "El compte està desactivat"
-    },
-    "authentication_error_account_locked": {
-        "message": "El compte està bloquejat durant 15 minuts"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Has introduït una contrasenya incorrecta"
-    },
-    "authentication_too_many_requests": {
-        "message": "Hem rebut massa sol·licituds des de la vostra adreça IP. Si us plau, torneu-ho a intentar més tard."
-    },
-    "authentication_error_default": {
-        "message": "S'ha produït un error, torneu a provar més tard"
-    },
-    "global_error_message": {
-        "message": "Ha ocorregut un error, si us plau contacteu amb nosaltres a través de <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Quant a"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Desconnectar"
     },
+    "account_sign_out_question": {
+        "message": "Tancar sessió?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Cancel·lar"
+    },
+    "account_sign_out_description": {
+        "message": "Se tancarà la sessió del compte. La protecció VPN s'aturarà"
+    },
     "account_unlimited_title": {
         "message": "Obtingueu la versió il·limitada!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Amagar"
-    },
-    "auth_confirm": {
-        "message": "Confirmar"
-    },
-    "auth_email": {
-        "message": "Adreça de correu electrònic"
-    },
-    "auth_password": {
-        "message": "Contrasenya"
-    },
-    "auth_your_password": {
-        "message": "La teva contrasenya"
-    },
-    "auth_password_confirm": {
-        "message": "Confirmar contrasenya"
-    },
-    "auth_recover": {
-        "message": "Has oblidat la contrasenya?"
-    },
-    "auth_sign_up": {
-        "message": "Registrar-se"
-    },
-    "auth_sign_up_info": {
-        "message": "Crea el teu compte d'AdGuard"
-    },
-    "auth_sign_up_button": {
-        "message": "Registrar-se"
-    },
-    "auth_sign_in": {
-        "message": "Introduïu la vostra contrasenya"
-    },
-    "auth_sign_in_button": {
-        "message": "Iniciar Sessió"
-    },
-    "auth_title": {
-        "message": "Iniciar sessió o crear un compte"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Correu electrònic"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Continua amb el correu electrònic"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Continua amb Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Continua amb Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Continua amb Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Iniciant sessió com <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Autenticació a dos factors"
-    },
-    "auth_header_2fa": {
-        "message": "Introduïu el codi d'autenticació"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Codi d'autenticació"
     },
     "official_website": {
         "message": "Pàgina web oficial"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Inicieu sessió o creeu un compte"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Continua"
-    },
     "popup_newsletter_title": {
         "message": "Butlletí d'AdGuard"
     },
@@ -1021,9 +919,6 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "No tornis a mostrar això"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Estadístiques per a aquest navegador"
-    },
     "popup_stats_disabled_notice": {
         "message": "Les estadístiques estan desactivades"
     },
@@ -1038,18 +933,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Hora"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Per què és segur"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Per què és segur"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "Com que la connexió VPN està xifrada i és segura, ningú pot veure les teves dades d'activitat — només calculem l'ús del teu trànsit"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Totes les estadístiques es recullen i s'emmagatzemen localment al seu dispositiu. No tenim accés a elles"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Entesos"
@@ -1150,40 +1033,16 @@
     "notification_data_left_description": {
         "message": "La velocitat de connexió VPN es reduirà aviat."
     },
-    "confirm_email_title": {
-        "message": "Confirma el teu correu electrònic (preferred)"
-    },
-    "confirm_email_info": {
-        "message": "Hem enviat un codi de confirmació a <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Adreça de correu electrònic confirmada"
     },
     "confirm_email_done_info": {
         "message": "Gràcies per verificar-ho!"
     },
-    "confirm_email_code_label": {
-        "message": "Codi de confirmació"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Conté números i lletres"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Si us plau, comproveu el codi — sembla incorrecte"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Envia un altre codi (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Envia un altre codi"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "No s'ha pogut iniciar sessió. Si us plau, torneu a provar-ho o contacteu-nos a través de <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "No s'ha pogut registrar. Si us plau, torneu a provar-ho o contacteu-nos a través de <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Enllaç de confirmació reenviat"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Tancar"
     }
 }

@@ -9,16 +9,15 @@ import { notifier } from '../../common/notifier';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import {
+    type AccessCredentials,
+    type CanControlProxy,
     type EndpointInterface,
     type LocationInterface,
-    type ProxyConfigInterface,
-    type CanControlProxy,
-    type AccessCredentials,
-    type ProxyState,
-    StorageKey,
     PROXY_DEFAULTS,
+    type ProxyConfigInterface,
+    StorageKey,
 } from '../schema';
-import { stateStorage } from '../stateStorage';
+import { StateData } from '../stateStorage';
 
 import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { proxyApi } from './abstractProxyApi';
@@ -50,90 +49,16 @@ export interface ExtensionProxyInterface {
 }
 
 class ExtensionProxy implements ExtensionProxyInterface {
-    state: ProxyState;
+    /**
+     * Extension proxy service state data.
+     */
+    private proxyState = new StateData(StorageKey.ProxyState);
 
     async init(): Promise<void> {
-        this.state = stateStorage.getItem(StorageKey.ProxyState);
-
-        if (!this.currentConfig) {
+        const { currentConfig } = await this.proxyState.get();
+        if (!currentConfig) {
             await this.updateConfig();
         }
-    }
-
-    private saveProxyState = () => {
-        stateStorage.setItem(StorageKey.ProxyState, this.state);
-    };
-
-    public get isActive() {
-        return this.state.isActive;
-    }
-
-    public set isActive(isActive: boolean) {
-        this.state.isActive = isActive;
-        this.saveProxyState();
-    }
-
-    private get currentConfig() {
-        return this.state.currentConfig;
-    }
-
-    private set currentConfig(currentConfig: ProxyConfigInterface | undefined) {
-        this.state.currentConfig = currentConfig;
-        this.saveProxyState();
-    }
-
-    private get bypassList() {
-        return this.state.bypassList;
-    }
-
-    private set bypassList(bypassList: string[]) {
-        this.state.bypassList = bypassList;
-        this.saveProxyState();
-    }
-
-    private get inverted() {
-        return this.state.inverted;
-    }
-
-    private set inverted(inverted: boolean) {
-        this.state.inverted = inverted;
-        this.saveProxyState();
-    }
-
-    private get endpointsTldExclusions() {
-        return this.state.endpointsTldExclusions;
-    }
-
-    private set endpointsTldExclusions(endpointsTldExclusions: string[]) {
-        this.state.endpointsTldExclusions = endpointsTldExclusions;
-        this.saveProxyState();
-    }
-
-    private get currentEndpoint() {
-        return this.state.currentEndpoint;
-    }
-
-    private set currentEndpoint(currentEndpoint: EndpointInterface | null) {
-        this.state.currentEndpoint = currentEndpoint;
-        this.saveProxyState();
-    }
-
-    private get currentHost() {
-        return this.state.currentHost;
-    }
-
-    private set currentHost(currentHost: string) {
-        this.state.currentHost = currentHost;
-        this.saveProxyState();
-    }
-
-    private get credentials() {
-        return this.state.credentials;
-    }
-
-    private set credentials(credentials: AccessCredentials) {
-        this.state.credentials = credentials;
-        this.saveProxyState();
     }
 
     async turnOn(): Promise<void> {
@@ -143,11 +68,13 @@ class ExtensionProxy implements ExtensionProxyInterface {
             throw new Error(`Can't set proxy due to: ${cause}`);
         }
 
+        const { currentConfig } = await this.proxyState.get();
+
         try {
-            await proxyApi.proxySet(this.currentConfig);
-            this.isActive = true;
+            await proxyApi.proxySet(currentConfig);
+            await this.proxyState.update({ isActive: true });
         } catch (e) {
-            throw new Error(`Failed to turn on proxy with config: ${JSON.stringify(this.currentConfig)} because of error, ${e.message}`);
+            throw new Error(`Failed to turn on proxy with config: ${JSON.stringify(currentConfig)} because of error, ${e.message}`);
         }
 
         log.info('Proxy turned on');
@@ -159,7 +86,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
         if (!canControlProxy) {
             // set state to turned off
-            this.isActive = false;
+            await this.proxyState.update({ isActive: false });
             proxyApi.onProxyError.removeListener(ExtensionProxy.errorHandler);
             log.info(`Proxy cant be controlled due to: ${cause}`);
             log.info('Set state to turned off');
@@ -167,7 +94,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
         try {
             await proxyApi.proxyClear();
-            this.isActive = false;
+            await this.proxyState.update({ isActive: false });
         } catch (e) {
             log.error(`Failed to turn off proxy due to error: ${e.message}`);
         }
@@ -193,41 +120,51 @@ class ExtensionProxy implements ExtensionProxyInterface {
     }
 
     async getConfig(): Promise<ProxyConfigInterface> {
+        const {
+            bypassList,
+            endpointsTldExclusions,
+            currentHost,
+            inverted,
+            credentials,
+        } = await this.proxyState.get();
+
         return {
-            bypassList: this.bypassList || [],
+            bypassList: bypassList || [],
             defaultExclusions: [
                 ...DEFAULT_EXCLUSIONS,
-                ...this.endpointsTldExclusions || PROXY_DEFAULTS.endpointsTldExclusions,
+                ...endpointsTldExclusions || PROXY_DEFAULTS.endpointsTldExclusions,
                 ...await fallbackApi.getApiUrlsExclusions(),
             ],
             nonRoutableCidrNets: NON_ROUTABLE_CIDR_NETS,
-            host: this.currentHost || PROXY_DEFAULTS.currentHost,
+            host: currentHost || PROXY_DEFAULTS.currentHost,
             port: PROXY_CONFIG_PORT,
             scheme: PROXY_CONFIG_SCHEME,
-            inverted: this.inverted || false,
-            credentials: this.credentials,
+            inverted: inverted || false,
+            credentials,
         };
     }
 
     async updateConfig(): Promise<void> {
-        this.currentConfig = await this.getConfig();
+        const newConfig = await this.getConfig();
+        await this.proxyState.update({ currentConfig: newConfig });
     }
 
     async applyConfig(): Promise<void> {
         await this.updateConfig();
-        if (this.isActive) {
-            await proxyApi.proxySet(this.currentConfig);
+
+        const { isActive, currentConfig } = await this.proxyState.get();
+        if (isActive) {
+            await proxyApi.proxySet(currentConfig);
         }
     }
 
     setEndpointsTldExclusions = async (endpointsTldExclusions: string[] = []): Promise<void> => {
-        this.endpointsTldExclusions = endpointsTldExclusions;
+        await this.proxyState.update({ endpointsTldExclusions });
         await this.applyConfig();
     };
 
     setBypassList = async (exclusions: string[] = [], inverted = false): Promise<void> => {
-        this.bypassList = exclusions;
-        this.inverted = inverted;
+        await this.proxyState.update({ bypassList: exclusions, inverted });
         await this.applyConfig();
     };
 
@@ -235,7 +172,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         if (!domainName) {
             return;
         }
-        this.currentHost = domainName;
+        await this.proxyState.update({ currentHost: domainName });
         await this.applyConfig();
     };
 
@@ -247,7 +184,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
             throw new Error('current endpoint is empty');
         }
         const { domainName } = endpoint;
-        this.credentials = credentials;
+        await this.proxyState.update({ credentials });
         await this.setHost(domainName);
         return { domainName };
     };
@@ -264,7 +201,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         endpoint: EndpointInterface,
         location: LocationInterface,
     ): Promise<{ domainName: string }> => {
-        this.currentEndpoint = endpoint;
+        await this.proxyState.update({ currentEndpoint: endpoint });
         const { domainName } = endpoint;
         await this.setHost(domainName);
         await browserApi.storage.set(CURRENT_ENDPOINT_KEY, endpoint);
@@ -274,17 +211,21 @@ class ExtensionProxy implements ExtensionProxyInterface {
     };
 
     getCurrentEndpoint = async (): Promise<EndpointInterface | null> => {
-        if (!this.currentEndpoint) {
-            this.currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY) || null;
+        let { currentEndpoint } = await this.proxyState.get();
+        if (!currentEndpoint) {
+            currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY) || null;
+            await this.proxyState.update({ currentEndpoint });
         }
-        return this.currentEndpoint;
+        return currentEndpoint;
     };
 
     resetSettings = async (): Promise<void> => {
         await this.turnOff();
         await browserApi.storage.remove(CURRENT_ENDPOINT_KEY);
-        this.currentHost = PROXY_DEFAULTS.currentHost;
-        this.currentEndpoint = PROXY_DEFAULTS.currentEndpoint;
+        await this.proxyState.update({
+            currentHost: PROXY_DEFAULTS.currentHost,
+            currentEndpoint: PROXY_DEFAULTS.currentEndpoint,
+        });
     };
 }
 

@@ -10,6 +10,7 @@ import { type LocationInterface } from '../background/schema';
  * @param obj Object to store the property.
  * @param prop Property name.
  * @param getter Callback to get the value.
+ *
  * @returns Property value.
  */
 export const lazyGet = <T>(obj: Record<string, any>, prop: string, func: () => T): T => {
@@ -34,8 +35,10 @@ export const lazyGet = <T>(obj: Record<string, any>, prop: string, func: () => T
  * save hostnames as ASCII because 'pacScript.url' supports only ASCII URLs
  * https://chromium.googlesource.com/chromium/src/+/3a46e0bf9308a42642689c4b73b6b8622aeecbe5/chrome/browser/extensions/api/proxy/proxy_api_helpers.cc#115
  * @param rawUrl
+ *
+ * @returns Prepared URL.
  */
-export const prepareUrl = (rawUrl: string) => {
+export const prepareUrl = (rawUrl: string): string => {
     const url = rawUrl
         ?.trim()
         ?.toLowerCase()
@@ -45,9 +48,11 @@ export const prepareUrl = (rawUrl: string) => {
 };
 
 /**
- * Selects location with lowest ping taking in consideration pingBonus
+ * Selects location with the lowest ping taking in consideration pingBonus
  * pingBonus is an number which comes from backend and it is used to
- * adjust default location selection
+ * adjust default location selection.
+ *
+ * @returns Location with the lowest ping.
  */
 export const getLocationWithLowestPing = (locations: LocationInterface[]): LocationInterface => {
     // filter locations by ping,
@@ -64,9 +69,12 @@ export const getLocationWithLowestPing = (locations: LocationInterface[]): Locat
 };
 
 /**
- * Formats bytes into units
+ * Formats bytes into units.
+ *
  * @param bytes
  * @param decimals - number of digits after decimal point
+ *
+ * @returns Object with unit and value.
  */
 export const formatBytes = (bytes: number, decimals: number = 1): { unit: string, value: string } => {
     if (!bytes || bytes <= 0) {
@@ -89,8 +97,11 @@ export const formatBytes = (bytes: number, decimals: number = 1): { unit: string
 };
 
 /**
- * Sleeps given period of time
+ * Sleeps given period of time.
+ *
  * @param wait
+ *
+ * @returns Promise that resolves after given period of time.
  */
 export const sleep = (wait: number): Promise<unknown> => {
     return new Promise((resolve) => {
@@ -103,19 +114,22 @@ export const sleep = (wait: number): Promise<unknown> => {
  * @param entryTimeMs
  * @param minDurationMs
  */
-export const sleepIfNecessary = async (entryTimeMs: number, minDurationMs: number) => {
+export const sleepIfNecessary = async (entryTimeMs: number, minDurationMs: number): Promise<void> => {
     if (Date.now() - entryTimeMs < minDurationMs) {
         await sleep(minDurationMs - (Date.now() - entryTimeMs));
     }
 };
 
 /**
- * Executes async function with at least required time
+ * Executes async function with at least required time.
+ *
  * @param fn
  * @param minDurationMs
+ *
+ * @returns Async function that executes with at least required time.
  */
 export const addMinDurationTime = (fn: (...args: any) => any, minDurationMs: number) => {
-    return async (...args: string[]) => {
+    return async (...args: string[]): Promise<any> => {
         const start = Date.now();
 
         try {
@@ -131,8 +145,11 @@ export const addMinDurationTime = (fn: (...args: any) => any, minDurationMs: num
 
 /**
  * Runs generator with possibility to cancel
+ *
  * @param fn - generator to run
  * @param args - args
+ *
+ * @returns Object with cancel function and promise.
  */
 export const runWithCancel = (fn: (...args: any) => any, ...args: any):
 { cancel?: Function, promise: Promise<unknown> } => {
@@ -141,13 +158,13 @@ export const runWithCancel = (fn: (...args: any) => any, ...args: any):
     let cancel;
     const promise = new Promise((resolve, reject) => {
         // define cancel function to return it from our fn
-        cancel = (reason: string) => {
+        cancel = (reason: string): void => {
             cancelled = true;
             reject(new Error(reason));
         };
 
         // eslint-disable-next-line consistent-return
-        function onFulfilled(res?: string) {
+        function onFulfilled(res?: string): void {
             if (!cancelled) {
                 let result;
                 try {
@@ -161,7 +178,7 @@ export const runWithCancel = (fn: (...args: any) => any, ...args: any):
         }
 
         // eslint-disable-next-line consistent-return
-        function onRejected(err: Error) {
+        function onRejected(err: Error): void {
             let result;
             try {
                 result = gen.throw(err);
@@ -172,7 +189,7 @@ export const runWithCancel = (fn: (...args: any) => any, ...args: any):
             next(result);
         }
 
-        function next({ done, value }: { done: boolean, value: Promise<any> }) {
+        function next({ done, value }: { done: boolean, value: Promise<any> }): Promise<void> | void {
             if (done) {
                 return resolve(value);
             }

@@ -10,7 +10,7 @@ export const ServicesSearch = observer(() => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
     const isTelemetrySent = useRef(false);
 
-    const changeHandler = (value: string) => {
+    const changeHandler = (value: string): void => {
         // Telemetry event should be sent only once
         // when user starts typing in the search field.
         // NOTE: State will be reset when this component is unmounted.

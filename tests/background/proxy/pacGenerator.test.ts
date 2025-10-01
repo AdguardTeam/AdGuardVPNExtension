@@ -1,14 +1,22 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    it,
+    expect,
+    type Mock,
+} from 'vitest';
 import pac from 'pac-resolver';
 
 import { isInNet } from '../../../src/background/routability/utils';
 import pacGenerator from '../../../src/background/proxy/chrome/pacGenerator';
 
 describe('Pac generator', () => {
-    let isInNetMock: jest.Mock;
-    let options: { sandbox: { isInNet: jest.Mock } };
+    let isInNetMock: Mock;
+    let options: { sandbox: { isInNet: Mock } };
 
     beforeEach(() => {
-        isInNetMock = jest.fn(isInNet);
+        isInNetMock = vi.fn(isInNet);
         options = { sandbox: { isInNet: isInNetMock } };
     });
 

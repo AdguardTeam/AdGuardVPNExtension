@@ -4,7 +4,7 @@ import { setExtensionUninstallUrl } from './helpers';
 /**
  * Sets uninstall url for the extension.
  */
-export const setUninstallUrl = async () => {
+export const setUninstallUrl = async (): Promise<void> => {
     const forwarderDomain = await forwarder.updateAndGetDomain();
     await setExtensionUninstallUrl(forwarderDomain);
 };

@@ -6,13 +6,83 @@ plan:
   name: vpn-extension - build firefox beta
 variables:
   dockerNode: adguard/extension-builder:22.17--0.2--0
+  stageEnv: prod
+  buildType: beta
 
 stages:
+  - Size Check:
+      manual: false
+      final: false
+      jobs:
+        - Check Bundle Size
   - Build:
       manual: false
       final: false
       jobs:
         - Build
+
+Check Bundle Size:
+  key: SIZECHECK
+  other:
+    clean-working-dir: true
+  docker:
+    image: ${bamboo.dockerNode}
+    volumes:
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
+  tasks:
+    - checkout:
+        force-clean-build: 'true'
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -la
+
+            # Set cache directory
+            pnpm config set store-dir ${bamboo.cachePnpm}
+
+            # Install dependencies
+            pnpm install ${bamboo.varsPnpm}
+            
+            export STAGE_ENV="${bamboo.stageEnv}"
+            export VPN_API_URL="${bamboo.prodVpnApiUrl}"
+            export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
+            export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
+
+            echo "Executing build for $buildType"
+
+            # Run build
+            pnpm ${bamboo.buildType} firefox
+
+            # Create artifacts directory if it doesn't exist
+            mkdir -p artifacts
+
+            echo "Checking bundle sizes"
+            pnpm bundle-size check ${bamboo.buildType} firefox
+  final-tasks:
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -la
+
+            echo "Size before cleanup:" && du -h | tail -n 1
+            rm -rf node_modules build
+            echo "Size after cleanup:" && du -h | tail -n 1
+  requirements:
+    - adg-docker: 'true'
 
 Build:
   key: BUILD
@@ -50,22 +120,22 @@ Build:
             pnpm install ${bamboo.varsPnpm}
 
             pnpm lint
-            pnpm test
+            pnpm test:ci
             pnpm locales validate --min
 
-            export STAGE_ENV="prod"
+            export STAGE_ENV="${bamboo.stageEnv}"
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
 
             # build with prod API endpoints firefox.zip and update.json
-            pnpm beta firefox
+            pnpm ${bamboo.buildType} firefox
 
             # archive source for Firefox review
-            ./bamboo-specs/scripts/archive-source.sh beta
+            ./bamboo-specs/scripts/archive-source.sh ${bamboo.buildType}
 
             # Move to the build/beta directory and sign the Firefox extension
-            cd ./build/beta
+            cd ./build/${bamboo.buildType}
 
             # Set environment variables and run go-webext to sign the Firefox extension
             FIREFOX_CLIENT_ID="${bamboo_firefoxAmoClientId}" \
@@ -75,10 +145,13 @@ Build:
             # Exit from build/beta directory
             cd ../..
     - inject-variables:
-        file: build/beta/build.txt
+        file: build/${bamboo.buildType}/build.txt
         scope: RESULT
         namespace: inject
   final-tasks:
+    - test-parser:
+        type: junit
+        test-results: 'tests-reports/unit-tests.xml'
     - script:
         interpreter: SHELL
         scripts:
@@ -96,22 +169,22 @@ Build:
             echo "Size after cleanup:" && du -h | tail -n 1
   artifacts:
     - name: firefox.zip
-      location: build/beta
+      location: build/${bamboo.buildType}
       pattern: firefox.zip
       shared: true
       required: true
     - name: firefox.xpi
-      location: build/beta
+      location: build/${bamboo.buildType}
       pattern: firefox.xpi
       shared: true
       required: true
     - name: update.json
-      location: build/beta
+      location: build/${bamboo.buildType}
       pattern: update.json
       shared: true
       required: true
     - name: build.txt
-      location: build/beta
+      location: build/${bamboo.buildType}
       pattern: build.txt
       shared: true
       required: true

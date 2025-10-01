@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import { renderTemplate, isHttp, isValidExclusion } from '../../../src/common/utils/string';
 
 describe('index.proxy.setBypassList', () => {

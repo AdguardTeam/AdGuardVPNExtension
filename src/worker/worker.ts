@@ -4,7 +4,7 @@
  * For more details on this worker read ProxyAuthTrigger.
  * @param e Message event
  */
-onmessage = (e) => {
+onmessage = (e): void => {
     // cant use logger since local storage is not available here
     console.log(`worker created by offscreen document received: ${e.data}`);
     fetch(e.data)

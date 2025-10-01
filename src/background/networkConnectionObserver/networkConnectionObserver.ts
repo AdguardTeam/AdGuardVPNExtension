@@ -21,14 +21,14 @@ export class NetworkConnectionObserver {
     /**
      * Initializes the network connection observer.
      */
-    public init() {
+    public init(): void {
         this.startCheckIsOnline();
     }
 
     /**
      * Starts checking if the network connection is online at a specified time interval.
      */
-    private startCheckIsOnline() {
+    private startCheckIsOnline(): void {
         setInterval(() => {
             this.setIsOnline(navigator.onLine);
         }, this.CHECK_ONLINE_INTERVAL_MS);
@@ -37,7 +37,7 @@ export class NetworkConnectionObserver {
     /**
      * Calls handler if network connection becomes online and sets isOnline value.
      */
-    private setIsOnline(isOnline: boolean) {
+    private setIsOnline(isOnline: boolean): void {
         if (isOnline && !this.isOnline) {
             this.onlineHandler();
         }

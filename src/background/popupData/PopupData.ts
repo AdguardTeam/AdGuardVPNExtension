@@ -84,6 +84,11 @@ interface PopupDataInterface {
      * Saved location IDs.
      */
     savedLocationIds: string[];
+
+    /**
+     * User decision on marketing consent or `null` if not available.
+     */
+    marketingConsent?: boolean | null;
 }
 
 interface PopupDataRetry extends PopupDataInterface {
@@ -144,7 +149,7 @@ export class PopupData {
         const error = this.permissionsError.getError();
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = await this.endpoints.getVpnInfo();
-        const locations = this.endpoints.getLocations();
+        const locations = await this.endpoints.getLocations();
         const selectedLocation = await this.endpoints.getSelectedLocation();
         const canControlProxy = await appStatus.canControlProxy();
         const isProxyEnabled = settings.isProxyEnabled();
@@ -158,6 +163,7 @@ export class PopupData {
         const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
         const shouldShowMobileEdgePromoBanner = await mobileEdgePromoService.shouldShowBanner();
+        const marketingConsent = await this.credentials.getMarketingConsent();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -199,6 +205,7 @@ export class PopupData {
             isHostPermissionsGranted,
             locationsTab,
             savedLocationIds,
+            marketingConsent,
         };
     };
 
@@ -250,7 +257,7 @@ export class PopupData {
         }
 
         this.retryCounter = 0;
-        popupOpenedCounter.increment();
+        await popupOpenedCounter.increment();
         return { ...data, hasRequiredData };
     }
 }

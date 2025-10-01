@@ -128,54 +128,36 @@ export interface FormattedRangeDates {
 }
 
 /**
- * Formats a date range string based on the given {@link StatisticsRange}.
- *
- * - If the range is {@link StatisticsRange.Hours24},
- *   returns exactly 24 hours ago to now (with time).
- * - If the range is {@link StatisticsRange.Days7} or {@link StatisticsRange.Days30},
- *   returns a formatted string representing the range from N days ago (inclusive) to today.
- * - If the range is {@link StatisticsRange.AllTime},
- *   returns the range from the first stats collection date to todays date.
- *
+ * Two-way date ranges that show start and end dates.
+ */
+type TwoWayRanges = StatisticsRange.Hours24 | StatisticsRange.Days7 | StatisticsRange.Days30;
+
+/**
+ * Formats a two-way date range (start – end) for the given range and first stats date.
+ * When both dates are in the same month, the month name is not duplicated.
  * Dates are formatted using the current browser UI language.
  *
  * @example
  * ```ts
  * // Locale is set to 'en-US'
- * formatRange(StatisticsRange.Hours24, firstStatsDate); // 'May 11, 2025 10:25 PM - May 12, 2025 10:25 PM'
- * formatRange(StatisticsRange.Days7, firstStatsDate); // 'May 6, 2025 - May 12, 2025'
- * formatRange(StatisticsRange.Days30, firstStatsDate); // 'Apr 13, 2025 - May 12, 2025'
- * formatRange(StatisticsRange.AllTime, firstStatsDate); // 'Sep 19, 2024 - May 12, 2025'
+ * formatRange(StatisticsRange.Days7, firstStatsDate); // '06 – 12 May'
+ * formatRange(StatisticsRange.Days30, firstStatsDate); // 'Apr 13 – May 12'
  * ```
  *
- * @param range The time range to format.
- * @param firstStatsDate The date when the stats collection started.
+ * @param range Range to use for formatting.
  *
- * @returns Object with `start` and `end` properties, each containing a formatted date string,
- * where `start` is formatted start date string and `end` is formatted end date string.
+ * @returns Object with formatted start and end date strings.
  */
-export function formatRange(range: StatisticsRange, firstStatsDate: Date): FormattedRangeDates {
+export function formatRange(range: TwoWayRanges): FormattedRangeDates {
     const locale = browser.i18n.getUILanguage();
 
-    let formatter: Intl.DateTimeFormat;
-    if (range === StatisticsRange.Hours24) {
-        formatter = new Intl.DateTimeFormat(locale, {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-        });
-    } else {
-        formatter = new Intl.DateTimeFormat(locale, {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-        });
-    }
+    const formatter = new Intl.DateTimeFormat(locale, {
+        day: '2-digit',
+        month: 'short',
+    });
 
     const now = new Date();
-    const format = (date: Date) => formatter.format(date);
+    const format = (date: Date): string => formatter.format(date);
 
     let pastDate: Date;
     switch (range) {
@@ -189,15 +171,44 @@ export function formatRange(range: StatisticsRange, firstStatsDate: Date): Forma
             // +1 because the range is inclusive
             pastDate.setDate(now.getDate() - (range === StatisticsRange.Days7 ? 7 : 30) + 1);
             break;
-        case StatisticsRange.AllTime:
-            pastDate = firstStatsDate;
-            break;
         default:
             throw new Error('Invalid range');
+    }
+
+    const isSameMonth = pastDate.getMonth() === now.getMonth() && pastDate.getFullYear() === now.getFullYear();
+
+    // We should show the month only once if it's same month.
+    if (isSameMonth) {
+        const dayFormatter = new Intl.DateTimeFormat(locale, { day: '2-digit' });
+        const endDayFormatter = new Intl.DateTimeFormat(locale, { day: '2-digit', month: 'short' });
+        return {
+            start: dayFormatter.format(pastDate),
+            end: endDayFormatter.format(now),
+        };
     }
 
     return {
         start: format(pastDate),
         end: format(now),
     };
+}
+
+/**
+ * Formats a "since" date for AllTime statistics range.
+ *
+ * @example
+ * ```ts
+ * // Locale is set to 'en-US'
+ * formatSinceDate(firstStatsDate); // '19 Sep 2024'
+ * ```
+ *
+ * @param startDate Date to format.
+ *
+ * @returns the formatted start date using the current browser UI language.
+ */
+export function formatSinceDate(startDate: Date): string {
+    const locale = browser.i18n.getUILanguage();
+    const formatter = new Intl.DateTimeFormat(locale, { day: '2-digit', month: 'short', year: 'numeric' });
+
+    return formatter.format(startDate);
 }

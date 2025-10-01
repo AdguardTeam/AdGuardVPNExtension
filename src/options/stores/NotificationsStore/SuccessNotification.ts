@@ -1,11 +1,11 @@
 import { Notification } from './Notification';
 
 export class SuccessNotification extends Notification {
-    isError() {
+    isError(): boolean {
         return false;
     }
 
-    isSuccess() {
+    isSuccess(): boolean {
         return true;
     }
 }

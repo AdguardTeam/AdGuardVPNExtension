@@ -16,7 +16,7 @@ interface ServicesDomains {
     domains: string[];
 }
 
-interface ExclusionServicesDomains {
+export interface ExclusionServicesDomains {
     [key: string]: ServicesDomains;
 }
 
@@ -69,8 +69,11 @@ export interface ExclusionServices {
 }
 
 /**
- * Transforms raw exclusion service domains to the map
+ * Transforms raw exclusion service domains to the map.
+ *
  * @param exclusionServiceDomains
+ *
+ * @returns Transformed exclusion service domains.
  */
 export const processExclusionServicesDomains = (
     exclusionServiceDomains: RawExclusionServicesDomains,
@@ -94,14 +97,17 @@ export const processExclusionServicesDomains = (
 };
 
 /**
- * Transforms services to the map adding categories and domains
+ * Transforms services to the map adding categories and domains.
+ *
  * @param exclusionServices
  * @param servicesDomains
+ *
+ * @returns Transformed services.
  */
 export const processExclusionServices = (
     exclusionServices: RawExclusionServicesData,
     servicesDomains: ExclusionServicesDomains,
-) => {
+): ExclusionServices => {
     const { categories = [], services = [] } = exclusionServices;
 
     const processedCategories = categories.reduce((acc: ExclusionCategories, category) => {

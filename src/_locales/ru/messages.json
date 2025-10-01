@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Поле не должно быть пустым"
-    },
-    "registration_error_not_valid": {
-        "message": "Это значение недействительно"
-    },
-    "registration_error_min_length": {
-        "message": "Пароль должен быть не короче 8 символов"
-    },
-    "registration_error_confirm_password": {
-        "message": "Пароли не совпадают"
-    },
-    "registration_error_compromised_password": {
-        "message": "Этот пароль есть в <a>базе</a> скомпрометированных паролей. Попробуйте ввести другой."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Это значение уже используется"
-    },
-    "registration_error_default": {
-        "message": "Произошла ошибка. Попробуйте позже"
-    },
-    "authentication_error_2fa_required": {
-        "message": "Требуется 2FA-код"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Некорректный код"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Аккаунт отключен"
-    },
-    "authentication_error_account_locked": {
-        "message": "Аккаунт заблокирован на 15 минут"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Неверный пароль"
-    },
-    "authentication_too_many_requests": {
-        "message": "Мы получили слишком много запросов с вашего IP-адреса. Пожалуйста, попробуйте позже."
-    },
-    "authentication_error_default": {
-        "message": "Произошла ошибка. Попробуйте позже"
-    },
-    "global_error_message": {
-        "message": "Произошла ошибка. Пожалуйста, напишите нам на <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "О программе"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Выйти"
     },
+    "account_sign_out_question": {
+        "message": "Выйти?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Отмена"
+    },
+    "account_sign_out_description": {
+        "message": "Вы выйдете из аккаунта. Защита VPN будет остановлена"
+    },
     "account_unlimited_title": {
         "message": "Получите безлимитную версию!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Скрыть"
-    },
-    "auth_confirm": {
-        "message": "Подтвердить"
-    },
-    "auth_email": {
-        "message": "Email-адрес"
-    },
-    "auth_password": {
-        "message": "Пароль"
-    },
-    "auth_your_password": {
-        "message": "Пароль"
-    },
-    "auth_password_confirm": {
-        "message": "Подтвердить пароль"
-    },
-    "auth_recover": {
-        "message": "Забыли пароль?"
-    },
-    "auth_sign_up": {
-        "message": "Регистрация"
-    },
-    "auth_sign_up_info": {
-        "message": "Создайте личный кабинет AdGuard"
-    },
-    "auth_sign_up_button": {
-        "message": "Зарегистрироваться"
-    },
-    "auth_sign_in": {
-        "message": "Введите пароль"
-    },
-    "auth_sign_in_button": {
-        "message": "Войти"
-    },
-    "auth_title": {
-        "message": "Войдите или создайте аккаунт"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Email"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Продолжить"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Войти через Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Войти через Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Войти через Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Вход в аккаунт <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Двухфакторная аутентификация"
-    },
-    "auth_header_2fa": {
-        "message": "Введите код аутентификации"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Код аутентификации"
     },
     "official_website": {
         "message": "Официальный сайт"
@@ -316,7 +217,7 @@
         "message": "Блокировать WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Block WebRTC — уязвимость, которая может привести к утечке вашего IP-адреса, даже если вы используете прокси или VPN"
+        "message": "Блокирует WebRTC — уязвимость, которая может привести к утечке вашего IP-адреса, даже если вы используете proxy или VPN"
     },
     "settings_context_menus_title": {
         "message": "Отображать AdGuard VPN в контекстном меню браузера"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Войдите или создайте аккаунт"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Продолжить"
-    },
     "popup_newsletter_title": {
         "message": "Рассылка AdGuard"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Не показывать снова"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Статистика для этого браузера"
+    "popup_stats": {
+        "message": "Статистика"
     },
     "popup_stats_disabled_notice": {
         "message": "Статистика отключена"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Время"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Почему это безопасно"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Почему это безопасно"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "Соединение зашифровано — никто не увидит данные о вашей активности. Мы рассчитываем только использование трафика"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Вся статистика собирается и хранится локально на вашем устройстве. У нас нет к ней доступа"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Хорошо"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "Скоро VPN будет работать медленнее."
     },
-    "confirm_email_title": {
-        "message": "Подтвердите почту"
-    },
-    "confirm_email_info": {
-        "message": "Отправили код подтверждения на <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Вы подтвердили почту"
     },
     "confirm_email_done_info": {
         "message": "Спасибо!"
     },
-    "confirm_email_code_label": {
-        "message": "Код подтверждения"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Буквы и цифры"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Проверьте ещё раз: код выглядит неправильным"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Отправить другой код (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Отправить другой код"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Не удалось войти. Попробуйте ещё раз или напишите в поддержку на <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Не удалось вас зарегистрировать. Попробуйте ещё раз или напишите в поддержку на <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Отправили ссылку повторно"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Не удалось войти в систему"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Попробуйте снова или <a>напишите в поддержку</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Попробуйте еще раз"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Закрыть"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Повторно открыть страницу входа"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Отмена"
     }
 }

@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Nesmie byť prázdne"
-    },
-    "registration_error_not_valid": {
-        "message": "Táto hodnota nie je platná"
-    },
-    "registration_error_min_length": {
-        "message": "Táto hodnota je príliš krátka. Musí mať aspoň 8 znakov."
-    },
-    "registration_error_confirm_password": {
-        "message": "Heslá sa nezhodujú"
-    },
-    "registration_error_compromised_password": {
-        "message": "Zadané heslo bolo nájdené v databáze kompromitovaných hesiel <a>public database</a>. Vyskúšajte iné heslo."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Táto hodnota sa už používa"
-    },
-    "registration_error_default": {
-        "message": "Vyskytla sa chyba, skúste zopakovať neskôr"
-    },
-    "authentication_error_2fa_required": {
-        "message": "Vyžaduje sa 2FA"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Neplatný token"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Účet je zablokovaný"
-    },
-    "authentication_error_account_locked": {
-        "message": "Účet je zamknutý na 15 minút"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Nesprávne heslo"
-    },
-    "authentication_too_many_requests": {
-        "message": "Dostali sme príliš veľa dopytov z Vašej IP adresy. Skúste sa znova prihlásiť neskôr."
-    },
-    "authentication_error_default": {
-        "message": "Vyskytla sa chyba, skúste zopakovať neskôr"
-    },
-    "global_error_message": {
-        "message": "Vyskytla sa chyba, kontaktujte nás na <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "O aplikácii"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Odhlásenie"
     },
+    "account_sign_out_question": {
+        "message": "Odhlásiť sa?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Zrušiť"
+    },
+    "account_sign_out_description": {
+        "message": "Budete odhlásený zo svojho účtu. Ochrana VPN bude zastavená"
+    },
     "account_unlimited_title": {
         "message": "Získať Neobmedzenú verziu!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Skryť"
-    },
-    "auth_confirm": {
-        "message": "Potvrdiť"
-    },
-    "auth_email": {
-        "message": "E-mail adresa"
-    },
-    "auth_password": {
-        "message": "Heslo"
-    },
-    "auth_your_password": {
-        "message": "Vaše heslo"
-    },
-    "auth_password_confirm": {
-        "message": "Potvrdiť heslo"
-    },
-    "auth_recover": {
-        "message": "Zabudnuté heslo?"
-    },
-    "auth_sign_up": {
-        "message": "Zaregistrovať sa"
-    },
-    "auth_sign_up_info": {
-        "message": "Vytvorte si svoj AdGuard účet"
-    },
-    "auth_sign_up_button": {
-        "message": "Zapísať sa"
-    },
-    "auth_sign_in": {
-        "message": "Zadajte svoje heslo"
-    },
-    "auth_sign_in_button": {
-        "message": "Prihlásenie"
-    },
-    "auth_title": {
-        "message": "Prihláste sa alebo si vytvorte účet"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-mail"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Prihlásiť sa pomocou e-mail adresy"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Prihlásiť sa pomocou Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Prihlásiť sa pomocou Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Prihlásiť sa pomocou Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Prihlásenie ako <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Dvojfaktorová autentifikácia"
-    },
-    "auth_header_2fa": {
-        "message": "Zadajte Váš autentifikačný kód"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Autorizačný kód"
     },
     "official_website": {
         "message": "Oficiálna stránka"
@@ -754,9 +655,6 @@
     "popup_rate_modal_subtitle": {
         "message": "Ohodnoťte nás, prosím"
     },
-    "popup_rate_modal_send_button": {
-        "message": "Poslať"
-    },
     "popup_rate_modal_cancel_button": {
         "message": "Zrušiť"
     },
@@ -835,9 +733,6 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Prihláste sa alebo si vytvorte účet"
-    },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Pokračovať"
     },
     "popup_newsletter_title": {
         "message": "Novinky Adguard"
@@ -1021,8 +916,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Už viac nezobrazovať"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Štatistiky pre tento prehliadač"
+    "popup_stats": {
+        "message": "Štatistiky"
     },
     "popup_stats_disabled_notice": {
         "message": "Štatistiky sú vypnuté"
@@ -1038,18 +933,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Čas"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Prečo je to bezpečné"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Prečo je to bezpečné"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN pripojenie je šifrované a zabezpečené, takže nikto nevidí údaje o Vašej aktivite – vypočítavame iba Vašu spotrebu dát"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Všetky štatistiky sa zhromažďujú a ukladajú lokálne vo Vašom zariadení. Nemáme k nim prístup"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rozumiem"
@@ -1150,40 +1033,31 @@
     "notification_data_left_description": {
         "message": "Rýchlosť pripojenia VPN sa čoskoro zníži."
     },
-    "confirm_email_title": {
-        "message": "Potvrďte svoju e-mail adresu"
-    },
-    "confirm_email_info": {
-        "message": "Potvrdzujúci kód sme odoslali na <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "E-mail adresa bola potvrdená"
     },
     "confirm_email_done_info": {
         "message": "Ďakujeme za overenie!"
     },
-    "confirm_email_code_label": {
-        "message": "Potvrdzovací kód"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Obsahuje čísla a písmená"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Skontrolujte kód — zdá sa, že nie je správny"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Odoslať ďalší kód (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Odoslať ďalší kód"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Prihlásenie zlyhalo. Skúste to znova alebo nás kontaktujte pomocou e-mail správy na adresu <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Registrácia zlyhala. Skúste to znova alebo nás kontaktujte pomocou e-mail správy na adresu <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Opätovné odoslanie potvrdzujúceho odkazu"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Nepodarilo sa Vás prihlásiť"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Skúste to znova alebo <a>kontaktujte podporu</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Skúste znova zopakovať"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Zavrieť"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Znovu otvorte prihlasovaciu stránku"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Zrušiť"
     }
 }

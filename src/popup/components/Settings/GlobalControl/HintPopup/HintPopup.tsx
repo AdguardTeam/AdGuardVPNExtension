@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../stores';
@@ -6,10 +6,10 @@ import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './hint-popup.pcss';
 
-export const HintPopup = observer(() => {
+export const HintPopup = observer((): ReactElement => {
     const { authStore } = useContext(rootStore);
 
-    const closeHint = async () => {
+    const closeHint = async (): Promise<void> => {
         await authStore.closeHintPopup();
     };
 

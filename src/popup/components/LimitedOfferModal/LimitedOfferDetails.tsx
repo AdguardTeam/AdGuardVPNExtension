@@ -48,7 +48,7 @@ export const LimitedOfferDetails = observer(() => {
         forwarderUrlQueryKey,
     } = limitedOfferData;
 
-    const openLimitedOfferLink = () => {
+    const openLimitedOfferLink = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.PromoOfferPurchaseClick,
             TelemetryScreenName.PromoOfferScreen,
@@ -60,7 +60,7 @@ export const LimitedOfferDetails = observer(() => {
      * Closes the limited offer details and shows the notice again
      * by changing the flags in the **uiStore**.
      */
-    const closeDetails = () => {
+    const closeDetails = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.ClosePromoOfferClick,
             TelemetryScreenName.PromoOfferScreen,

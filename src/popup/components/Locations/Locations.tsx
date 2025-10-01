@@ -1,4 +1,9 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, {
+    type ReactElement,
+    useContext,
+    useRef,
+    useState,
+} from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
@@ -48,7 +53,7 @@ export const Locations = observer(() => {
         notSearchingAndSavedTab,
     } = vpnStore;
 
-    const handleLocationSelect = async (id: string) => {
+    const handleLocationSelect = async (id: string): Promise<void> => {
         const prevId = vpnStore.selectedLocation?.id;
         await vpnStore.selectLocation(id);
         uiStore.closeLocationsScreen();
@@ -65,7 +70,11 @@ export const Locations = observer(() => {
         }
     };
 
-    const handleLocationSave = async (id: string) => {
+    const handleLocationSave = async (id: string): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.SaveLocationClick,
+            TelemetryScreenName.ContextBasedScreen,
+        );
         const isAdded = await vpnStore.toggleSavedLocation(id);
 
         if (!isAdded) {
@@ -78,24 +87,24 @@ export const Locations = observer(() => {
         }
     };
 
-    const handleNotificationUndo = () => {
+    const handleNotificationUndo = (): void => {
         if (lastUnsavedLocation) {
             vpnStore.addSavedLocation(lastUnsavedLocation);
             setLastUnsavedLocation(null);
         }
     };
 
-    const handleNotificationClose = () => {
+    const handleNotificationClose = (): void => {
         setLastUnsavedLocation(null);
         clearTimeout(deletedNotificationTimeout.current);
     };
 
-    const handleLocationsClose = () => {
+    const handleLocationsClose = (): void => {
         uiStore.closeLocationsScreen();
         vpnStore.setSearchValue('');
     };
 
-    const renderLocations = (locations: LocationData[]) => locations.map((location) => {
+    const renderLocations = (locations: LocationData[]): ReactElement[] => locations.map((location) => {
         return (
             <Location
                 key={location.id}
@@ -107,7 +116,7 @@ export const Locations = observer(() => {
         );
     });
 
-    const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { value } = e.target;
 
         // Telemetry event should be sent only once
@@ -124,11 +133,11 @@ export const Locations = observer(() => {
         vpnStore.setSearchValue(value);
     };
 
-    const handleSearchClear = () => {
+    const handleSearchClear = (): void => {
         vpnStore.setSearchValue('');
     };
 
-    const renderFilteredEndpoint = () => {
+    const renderFilteredEndpoint = (): ReactElement => {
         const emptySearchResults = showSearchResults && filteredLocations.length === 0;
         if (emptySearchResults) {
             return (

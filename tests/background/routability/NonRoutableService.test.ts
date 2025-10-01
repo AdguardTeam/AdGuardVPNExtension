@@ -1,3 +1,11 @@
+import {
+    vi,
+    describe,
+    beforeAll,
+    it,
+    expect,
+} from 'vitest';
+
 import { NonRoutableService } from '../../../src/background/routability/NonRoutableService';
 import type { Storage } from '../../../src/background/browserApi/storage';
 
@@ -9,13 +17,13 @@ type TestStorage = {
 const storage: Storage = (() => {
     const storage: TestStorage = {};
     return {
-        set: jest.fn((key, data) => {
+        set: vi.fn((key, data) => {
             storage[key] = data;
         }),
-        get: jest.fn((key) => {
+        get: vi.fn((key) => {
             return storage[key];
         }),
-        remove: jest.fn((key) => {
+        remove: vi.fn((key) => {
             return storage[key];
         }),
     };

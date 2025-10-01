@@ -1,6 +1,16 @@
-import { MockServer } from 'jest-mock-server';
+import {
+    vi,
+    describe,
+    beforeAll,
+    afterAll,
+    it,
+    expect,
+} from 'vitest';
+import createFetchMock from 'vitest-fetch-mock';
 
 import { Api } from '../../../src/background/api/Api';
+
+const fetchMocker = createFetchMock(vi);
 
 const REQUEST_PATH = '/test-request';
 const ERROR_REQUEST_PATH = '/error-request';
@@ -11,41 +21,38 @@ const testData = {
 };
 
 const api = new Api('');
-const getRequestUrlMock = jest.spyOn(api, 'getRequestUrl');
+const getRequestUrlMock = vi.spyOn(api, 'getRequestUrl');
+const serverOrigin = 'http://localhost:3000';
 
 describe('makeRequest tests', () => {
-    const server = new MockServer();
+    beforeAll(() => {
+        fetchMocker.enableMocks();
+    });
 
-    beforeAll(() => server.start());
-    afterEach(() => server.reset());
-    afterAll(() => server.stop());
+    afterAll(() => {
+        fetchMocker.disableMocks();
+    });
 
     it('Successful request', async () => {
-        server
-            .get(REQUEST_PATH)
-            .mockImplementation((ctx) => {
-                ctx.status = 200;
-                ctx.body = testData;
-            });
+        fetchMocker.mockResponseOnce({
+            body: JSON.stringify(testData),
+            status: 200,
+        });
 
-        const serverOrigin = server.getURL().origin;
         getRequestUrlMock.mockResolvedValue(serverOrigin);
         expect(await api.getRequestUrl('')).toBe(serverOrigin);
 
         getRequestUrlMock.mockResolvedValue(new URL(REQUEST_PATH, serverOrigin).href);
-        const data = await api.makeRequest(REQUEST_PATH, {}, 'GET');
+        const data = await api.makeRequest(REQUEST_PATH, {}, 'GET') as any;
         expect(data.testValue1).toBe(testData.testValue1);
         expect(data.testValue2).toBe(testData.testValue2);
     });
 
     it('Successful request with empty body', async () => {
-        server
-            .get(REQUEST_PATH)
-            .mockImplementation((ctx) => {
-                ctx.status = 200;
-            });
+        fetchMocker.mockResponseOnce({
+            status: 200,
+        });
 
-        const serverOrigin = server.getURL().origin;
         getRequestUrlMock.mockResolvedValue(serverOrigin);
         expect(await api.getRequestUrl('')).toBe(serverOrigin);
 
@@ -55,14 +62,11 @@ describe('makeRequest tests', () => {
     });
 
     it('Error request', async () => {
-        server
-            .get(ERROR_REQUEST_PATH)
-            .mockImplementation((ctx) => {
-                ctx.status = 400;
-                ctx.body = JSON.stringify(testData);
-            });
+        fetchMocker.mockResponseOnce({
+            body: JSON.stringify(testData),
+            status: 400,
+        });
 
-        const serverOrigin = server.getURL().origin;
         getRequestUrlMock.mockResolvedValue(new URL(ERROR_REQUEST_PATH, serverOrigin).href);
 
         try {
@@ -78,13 +82,10 @@ describe('makeRequest tests', () => {
     });
 
     it('Error request with empty body', async () => {
-        server
-            .get(ERROR_REQUEST_PATH)
-            .mockImplementation((ctx) => {
-                ctx.status = 401;
-            });
+        fetchMocker.mockResponseOnce({
+            status: 401,
+        });
 
-        const serverOrigin = server.getURL().origin;
         getRequestUrlMock.mockResolvedValue(new URL(ERROR_REQUEST_PATH, serverOrigin).href);
 
         try {

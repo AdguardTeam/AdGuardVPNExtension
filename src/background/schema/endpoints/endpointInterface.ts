@@ -4,7 +4,7 @@ import zod from 'zod';
 export const endpointInterfaceScheme = zod.object({
     id: zod.string(),
     ipv4Address: zod.string(),
-    ipv6Address: zod.string(),
+    ipv6Address: zod.string().nullable(),
     domainName: zod.string(),
     publicKey: zod.string(),
 }).strict();

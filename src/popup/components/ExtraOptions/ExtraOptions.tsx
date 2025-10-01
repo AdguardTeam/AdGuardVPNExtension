@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
@@ -82,11 +82,15 @@ export const ExtraOptions = observer(() => {
     };
 
     const addToExclusions = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.VpnDisableWebsite,
+            TelemetryScreenName.MenuScreen,
+        );
         await settingsStore.disableVpnOnCurrentTab();
         uiStore.closeOptionsModal();
     };
 
-    const openComparePage = () => {
+    const openComparePage = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.WhyDesktopClick,
             TelemetryScreenName.MenuScreen,
@@ -94,7 +98,7 @@ export const ExtraOptions = observer(() => {
         popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.COMPARE_PAGE));
     };
 
-    const renderOption = (key: string, handler: () => void, className: string | null = null) => {
+    const renderOption = (key: string, handler: () => void, className: string | null = null): ReactElement => {
         return (
             <Option
                 text={reactTranslator.getMessage(key)}

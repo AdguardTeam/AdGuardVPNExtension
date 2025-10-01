@@ -56,13 +56,13 @@ const CONTEXT_MENU_ITEMS: ContextMenuItems = {
         id: 'selective_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_selective_mode'),
-        action: () => exclusions.setMode(ExclusionsMode.Selective, true),
+        action: async () => exclusions.setMode(ExclusionsMode.Selective, true),
     },
     regular_mode: {
         id: 'regular_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_general_mode'),
-        action: () => exclusions.setMode(ExclusionsMode.Regular, true),
+        action: async () => exclusions.setMode(ExclusionsMode.Regular, true),
     },
     separator: {
         id: 'separator',
@@ -113,7 +113,7 @@ const contextMenuClickHandler = (
     contextMenuItem.action(tab);
 };
 
-const removeContextMenuItem = async (id?: string) => {
+const removeContextMenuItem = async (id?: string): Promise<void> => {
     try {
         if (id) {
             await browser.contextMenus.remove(id);

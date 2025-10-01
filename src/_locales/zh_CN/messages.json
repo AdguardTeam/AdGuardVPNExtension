@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "不能为空"
-    },
-    "registration_error_not_valid": {
-        "message": "此值无效"
-    },
-    "registration_error_min_length": {
-        "message": "此密码太短。必须为 8 个或更多字符。"
-    },
-    "registration_error_confirm_password": {
-        "message": "密码不匹配"
-    },
-    "registration_error_compromised_password": {
-        "message": "你输入的密码在密码泄露的<a>公共数据库</a>中被找到，请尝试其它密码"
-    },
-    "registration_error_unique_constraint": {
-        "message": "此值已在使用中"
-    },
-    "registration_error_default": {
-        "message": "发生错误，请稍后再试"
-    },
-    "authentication_error_2fa_required": {
-        "message": "需要双步因素验证"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "令牌无效"
-    },
-    "authentication_error_account_disabled": {
-        "message": "账号已禁用"
-    },
-    "authentication_error_account_locked": {
-        "message": "账号被锁定 15 分钟"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "密码错误"
-    },
-    "authentication_too_many_requests": {
-        "message": "我们从您的 IP 地址接收到了太多请求，请稍后再试。"
-    },
-    "authentication_error_default": {
-        "message": "发生错误，请稍后再试"
-    },
-    "global_error_message": {
-        "message": "发生错误，请您通过 <a>%support_email%</a> 与我们联系"
-    },
     "about_title": {
         "message": "关于"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "退出"
     },
+    "account_sign_out_question": {
+        "message": "退出？"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "取消"
+    },
+    "account_sign_out_description": {
+        "message": "您的账号即将退出登录，VPN 保护将随之停止。"
+    },
     "account_unlimited_title": {
         "message": "获取无限版！"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "隐藏"
-    },
-    "auth_confirm": {
-        "message": "确认"
-    },
-    "auth_email": {
-        "message": "电子邮件地址"
-    },
-    "auth_password": {
-        "message": "密码"
-    },
-    "auth_your_password": {
-        "message": "您的密码"
-    },
-    "auth_password_confirm": {
-        "message": "确认密码"
-    },
-    "auth_recover": {
-        "message": "忘记密码？"
-    },
-    "auth_sign_up": {
-        "message": "注册"
-    },
-    "auth_sign_up_info": {
-        "message": "创建您的 AdGuard 账号"
-    },
-    "auth_sign_up_button": {
-        "message": "注册"
-    },
-    "auth_sign_in": {
-        "message": "输入您的密码"
-    },
-    "auth_sign_in_button": {
-        "message": "登录"
-    },
-    "auth_title": {
-        "message": "登录或创建账号"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "电子邮件"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "用电子邮件继续"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "使用 Apple 继续"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "使用 Google 继续"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "使用 Facebook 继续"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "使用 <span>%username%</span> 登录"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "双因素身份认证"
-    },
-    "auth_header_2fa": {
-        "message": "输入验证码"
-    },
-    "auth_placeholder_2fa": {
-        "message": "验证码"
     },
     "official_website": {
         "message": "官方网站"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "登录或创建账号"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "继续"
-    },
     "popup_newsletter_title": {
         "message": "AdGuard 资讯"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "不再显示"
     },
-    "popup_stats_for_browser_title": {
-        "message": "该浏览器的统计信息"
+    "popup_stats": {
+        "message": "统计数据"
     },
     "popup_stats_disabled_notice": {
         "message": "统计信息已停用"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "时间"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "为什么是安全的"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "为什么是安全的"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "由于 VPN 连接是加密且安全的，因此没有人可以看到用户的活动数据，我们只计算用户的流量使用情况"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "所有统计数据都会收集并存储在用户设备的本地上。我们无法访问"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "知道了"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "VPN 连接速度即将要下降。"
     },
-    "confirm_email_title": {
-        "message": "确认您的电子邮件"
-    },
-    "confirm_email_info": {
-        "message": "我们已将验证码发送至 <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "电子邮件地址已确认"
     },
     "confirm_email_done_info": {
         "message": "感谢您的验证！"
     },
-    "confirm_email_code_label": {
-        "message": "验证码"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "包含数字和字母"
-    },
-    "confirm_email_code_invalid": {
-        "message": "验证码输入不正确，请重新查看"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "发送另一个验证码（%count%）"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "发送另一个验证码"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "登录失败。请重试或通过 <a>%support_email%</a> 联系我们"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "注册失败。请重试或通过 <a>%support_email%</a> 联系我们"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "确认链接重新发送成功"
+    },
+    "auth_failed_to_login_title": {
+        "message": "登录失败"
+    },
+    "auth_failed_to_login_description": {
+        "message": "请重试或<a>联系支持人员</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "请重试"
+    },
+    "auth_failed_to_login_button": {
+        "message": "关闭"
+    },
+    "auth_loading_button_reopen": {
+        "message": "重新打开登录页面"
+    },
+    "auth_loading_button_cancel": {
+        "message": "取消"
     }
 }

@@ -1,35 +1,42 @@
-import { stateStorage } from '../stateStorage';
-import { type PopupOpenedCounterState, StorageKey } from '../schema';
+import { StateData } from '../stateStorage';
+import { StorageKey } from '../schema';
 
 interface PopupOpenedCounterInterface {
-    init(): void;
-    increment(): void;
+    /**
+     * Increases the count of popup openings
+     */
+    increment(): Promise<void>;
+
+    /**
+     * Retrieves the count of popup openings.
+     *
+     * @returns The number of times the popup has been opened.
+     */
+    getCount(): Promise<number>;
 }
 
 /**
  * Class to store the count how many times a browser extension's popup has been opened.
  */
 class PopupOpenedCounter implements PopupOpenedCounterInterface {
-    state: PopupOpenedCounterState;
-
-    public get count(): number {
-        return this.state.count;
-    }
-
-    private set count(value: number) {
-        this.state.count = value;
-        stateStorage.setItem(StorageKey.PopupOpenedCounter, this.state);
-    }
-
     /**
-     * Increases the count of popup openings
+     * Popup opened counter service state data.
+     * Used to save and retrieve popup opened counter state from session storage,
+     * in order to persist it across service worker restarts.
      */
-    public increment(): void {
-        this.count += 1;
+    private popupOpenedCounterState = new StateData(StorageKey.PopupOpenedCounter);
+
+    /** @inheritdoc */
+    public async increment(): Promise<void> {
+        let { count } = await this.popupOpenedCounterState.get();
+        count += 1;
+        await this.popupOpenedCounterState.update({ count });
     }
 
-    public init(): void {
-        this.state = stateStorage.getItem(StorageKey.PopupOpenedCounter);
+    /** @inheritdoc */
+    public async getCount(): Promise<number> {
+        const { count } = await this.popupOpenedCounterState.get();
+        return count;
     }
 }
 

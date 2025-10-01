@@ -35,15 +35,15 @@ export const ChildrenList = observer(() => {
         ? translator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
         : translator.getMessage('settings_exclusion_group_settings_subtitle_selective_mode');
 
-    const goBackHandler = () => {
+    const goBackHandler = (): void => {
         exclusionsStore.goBackHandler();
     };
 
-    const openResetServiceModal = () => {
+    const openResetServiceModal = (): void => {
         exclusionsStore.setResetServiceModalOpen(true);
     };
 
-    const onAddSubdomainClick = () => {
+    const onAddSubdomainClick = (): void => {
         exclusionsStore.openAddSubdomainModal();
     };
 

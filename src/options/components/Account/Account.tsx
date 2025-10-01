@@ -12,6 +12,7 @@ import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
 
+import { SignOutModal } from './SignOutModal';
 import { Features } from './Features';
 
 import './account.pcss';
@@ -22,11 +23,6 @@ import './account.pcss';
 export const Account = observer(() => {
     const { authStore, settingsStore, telemetryStore } = useContext(rootStore);
 
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.AccountScreen,
-    );
-
     const {
         currentUsername,
         isPremiumToken,
@@ -34,6 +30,7 @@ export const Account = observer(() => {
         subscriptionType,
         subscriptionTimeExpiresIso,
         forwarderDomain,
+        isSignOutModalOpen,
     } = settingsStore;
 
     const { maxDevicesCount } = authStore;
@@ -42,11 +39,24 @@ export const Account = observer(() => {
 
     const showGetSubscriptionButton = !isPremiumToken && !premiumFeatures;
 
+    // `DialogLogOut` is rendered on top of this screen
+    const canSendTelemetry = !isSignOutModalOpen;
+
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.AccountScreen,
+        canSendTelemetry,
+    );
+
     const handleSignOut = async (): Promise<void> => {
-        await authStore.deauthenticate();
+        settingsStore.openSignOutModal();
     };
 
     const handleHideFeatures = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.HideAdvantagesClick,
+            TelemetryScreenName.AccountScreen,
+        );
         await settingsStore.hidePremiumFeatures();
     };
 
@@ -176,6 +186,7 @@ export const Account = observer(() => {
                     </div>
                 </div>
             )}
+            <SignOutModal />
         </>
     );
 });

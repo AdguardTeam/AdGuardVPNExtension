@@ -1,11 +1,14 @@
 import { log } from '../../../common/logger';
 
-export const websocketFactory = (() => {
+export const websocketFactory = ((): {
+    createWebsocket: (url: string) => WebSocket;
+} => {
     let ws: WebSocket;
 
     /**
-     * Creates new websocket and closes the old one if found
+     * Creates new websocket and closes the old one if found.
      * @param url
+     * @returns New websocket.
      */
     const createWebsocket = (url: string): WebSocket => {
         if (!url) {

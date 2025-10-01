@@ -14,7 +14,7 @@ import { webrtc } from '../browserApi/webrtc';
 import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
 import type { DnsServerData, PersistedExclusions } from '../schema';
 
-import { SettingsService } from './SettingsService';
+import { type Settings, SettingsService } from './SettingsService';
 
 export interface SettingsInterface {
     init(): Promise<void>;
@@ -24,7 +24,7 @@ export interface SettingsInterface {
     enableProxy(force?: boolean): Promise<void>;
     isProxyEnabled(): boolean;
     SETTINGS_IDS: { [key: string]: boolean | string };
-    applySettings(): void;
+    applySettings(): Promise<void>;
     getExclusions (): PersistedExclusions;
     setExclusions(exclusions: PersistedExclusions): void;
     isContextMenuEnabled(): boolean;
@@ -56,7 +56,9 @@ const DEFAULT_SETTINGS = {
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
 
 /**
- * Returns proxy settings enabled status
+ * Returns proxy settings enabled status.
+ *
+ * @returns True if proxy is enabled, false otherwise.
  */
 const isProxyEnabled = (): boolean => {
     const setting = settingsService.getSetting(SETTINGS_IDS.PROXY_ENABLED);
@@ -80,7 +82,7 @@ const setSetting = async (id: string, value: boolean | string, force?: boolean):
         }
         case SETTINGS_IDS.SELECTED_DNS_SERVER: {
             if (typeof value === 'string') {
-                dns.setDnsServer(value);
+                await dns.setDnsServer(value);
             }
             break;
         }
@@ -117,7 +119,10 @@ const enableProxy = async (force?: boolean): Promise<void> => {
 
 /**
  * Checks if setting is enabled
+ *
  * @param settingId
+ *
+ * @returns True if setting is enabled, false otherwise.
  */
 const isSettingEnabled = (settingId: string): boolean => {
     const enabledSettingValue = true;
@@ -125,7 +130,7 @@ const isSettingEnabled = (settingId: string): boolean => {
     return settingValue === enabledSettingValue;
 };
 
-const applySettings = (): void => {
+const applySettings = async (): Promise<void> => {
     const proxyEnabled = isProxyEnabled();
 
     // Set WebRTC
@@ -135,7 +140,7 @@ const applySettings = (): void => {
     );
 
     // Set DNS server
-    dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
+    await dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
 
     // Connect proxy
     if (proxyEnabled) {
@@ -145,7 +150,7 @@ const applySettings = (): void => {
     log.info('Settings were applied');
 };
 
-const getSetting = (id: string) => {
+const getSetting = (id: string): Settings => {
     return settingsService.getSetting(id);
 };
 
@@ -191,7 +196,7 @@ const isHelpUsImproveEnabled = (): boolean => {
 
 const init = async (): Promise<void> => {
     await settingsService.init();
-    dns.init();
+    await dns.init();
     log.info('Settings module is ready');
 };
 

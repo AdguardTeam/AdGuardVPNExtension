@@ -23,7 +23,7 @@ export const ConfirmAddModal = observer(() => {
         isOpen,
     );
 
-    const closeModal = (shouldSendTelemetryEvent: boolean) => {
+    const closeModal = (shouldSendTelemetryEvent: boolean): void => {
         if (shouldSendTelemetryEvent) {
             telemetryStore.sendCustomEvent(
                 TelemetryActionName.ExitInvalidDomainClick,
@@ -34,7 +34,7 @@ export const ConfirmAddModal = observer(() => {
         exclusionsStore.setConfirmAddModalOpen(false);
     };
 
-    const confirmAddUrl = async () => {
+    const confirmAddUrl = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.AddInvalidDomainClick,
             TelemetryScreenName.DialogExclusionsAddNotValidDomain,
@@ -56,7 +56,7 @@ export const ConfirmAddModal = observer(() => {
         closeModal(false);
     };
 
-    const handleClose = () => {
+    const handleClose = (): void => {
         closeModal(true);
     };
 

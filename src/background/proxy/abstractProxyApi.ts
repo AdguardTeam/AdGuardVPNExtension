@@ -4,7 +4,7 @@ import { type Proxy } from 'webextension-polyfill';
 import { type ProxyConfigInterface } from '../schema';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const errorFunction = (arg?: unknown) => {
+const errorFunction = (arg?: unknown): any => {
     throw new Error('Seems like webpack didn\'t inject proper proxy api');
 };
 

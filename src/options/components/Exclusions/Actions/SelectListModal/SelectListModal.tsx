@@ -1,4 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, {
+    useState,
+    useContext,
+    useEffect,
+    type ReactElement,
+} from 'react';
 
 import { translator } from '../../../../../common/translator';
 import { ExclusionsMode } from '../../../../../common/exclusionsConstants';
@@ -19,7 +24,7 @@ export const SelectListModal = ({
     closeModal,
     handleRegularClick,
     handleSelectiveClick,
-}: SelectListModalProps) => {
+}: SelectListModalProps): ReactElement => {
     const { exclusionsStore } = useContext(rootStore);
     const { currentMode } = exclusionsStore;
 
@@ -34,7 +39,7 @@ export const SelectListModal = ({
         [ExclusionsMode.Selective]: translator.getMessage('options_exclusions_import_select_selective'),
     };
 
-    const handleImportClick = async () => {
+    const handleImportClick = async (): Promise<void> => {
         if (selectedList === ExclusionsMode.Regular) {
             await handleRegularClick();
         } else {
@@ -42,7 +47,7 @@ export const SelectListModal = ({
         }
     };
 
-    const renderRadioButton = (exclusionsType: ExclusionsMode) => (
+    const renderRadioButton = (exclusionsType: ExclusionsMode): ReactElement => (
         <Radio
             name="exclusion-type"
             value={exclusionsType}

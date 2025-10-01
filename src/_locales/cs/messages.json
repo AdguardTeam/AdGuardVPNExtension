@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Nesmí být prázdná"
-    },
-    "registration_error_not_valid": {
-        "message": "Tato hodnota je neplatná"
-    },
-    "registration_error_min_length": {
-        "message": "Heslo musí obsahovat alespoň 8 znaků"
-    },
-    "registration_error_confirm_password": {
-        "message": "Hesla se neshodují"
-    },
-    "registration_error_compromised_password": {
-        "message": "Zadané heslo bylo nalezeno ve <a>veřejné databázi</a> ohrožených hesel. Prosím, zkuste jiné heslo."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Tato hodnota je již použita"
-    },
-    "registration_error_default": {
-        "message": "Došlo k chybě, zkuste to znovu později"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA je povinný"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Neplatný token"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Účet je deaktivován"
-    },
-    "authentication_error_account_locked": {
-        "message": "Účet je uzamčen na dobu 15 minut"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Nesprávné heslo"
-    },
-    "authentication_too_many_requests": {
-        "message": "Obdrželi jsme příliš mnoho požadavků z vaší IP adresy. Zkuste to prosím znovu později."
-    },
-    "authentication_error_default": {
-        "message": "Došlo k chybě, zkuste to znovu později"
-    },
-    "global_error_message": {
-        "message": "Došlo k chybě, prosím kontaktujte nás přes <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "O aplikaci"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Odhlásit se"
     },
+    "account_sign_out_question": {
+        "message": "Odhlásit se?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Zrušit"
+    },
+    "account_sign_out_description": {
+        "message": "Budete odhlášeni ze svého účtu. Ochrana VPN bude ukončena"
+    },
     "account_unlimited_title": {
         "message": "Získat neomezenou verzi!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Skrýt"
-    },
-    "auth_confirm": {
-        "message": "Potvrdit"
-    },
-    "auth_email": {
-        "message": "E-mailová adresa"
-    },
-    "auth_password": {
-        "message": "Heslo"
-    },
-    "auth_your_password": {
-        "message": "Vaše heslo"
-    },
-    "auth_password_confirm": {
-        "message": "Potvrdit heslo"
-    },
-    "auth_recover": {
-        "message": "Zapomněli jste heslo?"
-    },
-    "auth_sign_up": {
-        "message": "Zaregistrovat se"
-    },
-    "auth_sign_up_info": {
-        "message": "Vytvořte si AdGuard účet"
-    },
-    "auth_sign_up_button": {
-        "message": "Zaregistrovat se"
-    },
-    "auth_sign_in": {
-        "message": "Zadejte své heslo"
-    },
-    "auth_sign_in_button": {
-        "message": "Přihlásit se"
-    },
-    "auth_title": {
-        "message": "Přihlaste se nebo si vytvořte účet"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-mail"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Pokračovat pomocí e-mailu"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Pokračovat s Apple účtem"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Pokračovat s Google účtem"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Pokračovat s Facebook účtem"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Přihlašujete se jako <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Dvou-faktorové ověření"
-    },
-    "auth_header_2fa": {
-        "message": "Zadejte ověřovací kód"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Ověřovací kód"
     },
     "official_website": {
         "message": "Oficiální stránka"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Přihlaste se nebo si vytvořte účet"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Pokračovat"
-    },
     "popup_newsletter_title": {
         "message": "Novinky AdGuardu"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Znovu nezobrazovat"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Statistiky pro tento prohlížeč"
+    "popup_stats": {
+        "message": "Statistiky"
     },
     "popup_stats_disabled_notice": {
         "message": "Statistiky jsou vypnuty"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Čas"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Proč je to bezpečné"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Proč je to bezpečné"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN připojení je šifrované a zabezpečené, takže nikdo nemůže vidět vaše data o aktivitě — počítáme pouze vaše využití provozu"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Všechny statistiky jsou shromažďovány a ukládány lokálně v zařízení. Nemáme k nim přístup"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rozumím"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "Rychlost připojení VPN bude brzy snížena."
     },
-    "confirm_email_title": {
-        "message": "Potvrďte svůj e-mail"
-    },
-    "confirm_email_info": {
-        "message": "Na adresu <span>%email%</span> jsme odeslali potvrzovací kód"
-    },
     "confirm_email_done_title": {
         "message": "Potvrzená e-mailová adresa"
     },
     "confirm_email_done_info": {
         "message": "Děkujeme za ověření!"
     },
-    "confirm_email_code_label": {
-        "message": "Potvrzovací kód"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Obsahuje číslice a písmena"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Zkontrolujte prosím kód — vypadá nesprávně"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Odeslat další kód (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Odeslat další kód"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Nepodařilo se vás přihlásit. Zkuste to znovu nebo nás kontaktujte přes <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Nepodařilo se vás zaregistrovat. Zkuste to znovu nebo nás kontaktujte přes <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Potvrzovací odkaz byl znovu odeslán"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Přihlášení se nezdařilo"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Zkuste to znovu nebo <a>kontaktujte podporu</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Zkuste to znovu"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Zavřít"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Znovu otevřete stránku pro přihlášení"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Zrušit"
     }
 }

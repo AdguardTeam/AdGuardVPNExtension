@@ -37,7 +37,7 @@ class MobileEdgePromoService {
      * + if it was not hidden by user directly in popup via "x" button
      *   or by pressing "Don't show this again" button.
      *
-     * @returns True if the mobile Edge promo banner should be shown, false otherwise.
+     * @returns Promise with true if the mobile Edge promo banner should be shown, false otherwise.
      */
     public async shouldShowBanner(): Promise<boolean> {
         const isMobile = await Prefs.isAndroid();

@@ -25,17 +25,17 @@ export const SubdomainModal = observer(() => {
 
     const formId = 'add-subdomain-form';
 
-    const closeModal = () => {
+    const closeModal = (): void => {
         exclusionsStore.closeAddSubdomainModal();
         setInputValue('');
     };
 
-    const handleInputChange = (value: string) => {
+    const handleInputChange = (value: string): void => {
         setInputValue(value);
         setInputError(null);
     };
 
-    const addSubdomain = async (e: React.FormEvent<HTMLFormElement>) => {
+    const addSubdomain = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
         if (inputValue.includes(' ')) {

@@ -12,7 +12,7 @@ import { translator } from '../../../../common/translator';
 const MAX_DNS_SERVER_NAME_LENGTH = 64;
 
 const DNS_SERVER_NAME_ERRORS = {
-    TOO_LONG: (current: number, max: number) => (
+    TOO_LONG: (current: number, max: number): string => (
         translator.getMessage('settings_dns_add_custom_server_too_long_name', {
             current,
             max,
@@ -42,7 +42,7 @@ export const validateDnsServerName = (name: string): string | null => {
  * @param name Name to normalize.
  * @returns Normalized name.
  */
-export const normalizeDnsServerName = (name: string) => {
+export const normalizeDnsServerName = (name: string): string => {
     return name.trim().replace(/\s+/g, ' ');
 };
 
@@ -84,7 +84,7 @@ export const validateDnsServerAddress = (
  * @param address Address to normalize.
  * @returns Normalized address.
  */
-export const normalizeDnsServerAddress = (address: string) => {
+export const normalizeDnsServerAddress = (address: string): string => {
     if (isIP(address) || address.startsWith(DOT_PREFIX)) {
         return address;
     }

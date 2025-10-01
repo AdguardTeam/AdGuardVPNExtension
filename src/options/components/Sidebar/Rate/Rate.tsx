@@ -21,7 +21,7 @@ export const Rate = observer(() => {
         forwarderDomain,
     } = settingsStore;
 
-    const handleHideRate = async () => {
+    const handleHideRate = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.SettingsHideRateUsClick,
             TelemetryScreenName.ContextBasedScreen,
@@ -29,7 +29,7 @@ export const Rate = observer(() => {
         await settingsStore.hideRate();
     };
 
-    const handleChange = async (value: number) => {
+    const handleChange = async (value: number): Promise<void> => {
         if (value < 0 || value > 5) {
             return;
         }

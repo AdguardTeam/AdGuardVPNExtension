@@ -1,9 +1,18 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { SavedLocations } from '../../../src/background/savedLocations/SavedLocations';
 
 const mockStorage = {
-    get: jest.fn(),
-    set: jest.fn(),
-    remove: jest.fn(),
+    get: vi.fn(),
+    set: vi.fn(),
+    remove: vi.fn(),
 };
 
 describe('SavedLocations', () => {
@@ -16,7 +25,7 @@ describe('SavedLocations', () => {
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     describe('SavedLocations.savedLocationIds', () => {

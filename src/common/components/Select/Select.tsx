@@ -1,4 +1,9 @@
-import React, { useRef, useState, type SetStateAction } from 'react';
+import React, {
+    useRef,
+    useState,
+    type SetStateAction,
+    type ReactElement,
+} from 'react';
 
 import classNames from 'classnames';
 
@@ -64,14 +69,14 @@ function SelectOption<T extends string>({
     isSelectActive,
     className,
     onClick,
-}: SelectOptionProps<T>) {
+}: SelectOptionProps<T>): ReactElement | null {
     const classes = classNames(
         'select__item has-tab-focus select__btn-reset',
         isActive && 'select__item--active',
         className,
     );
 
-    const handleClick = () => {
+    const handleClick = (): void => {
         onClick(value);
     };
 
@@ -154,7 +159,7 @@ export function Select<T extends string>({
     onChange,
     onIsActiveChange,
     onClick,
-}: SelectProps<T>) {
+}: SelectProps<T>): ReactElement {
     const activeItem = options.find((option) => option.value === value);
 
     const ref = useRef<HTMLDivElement>(null);
@@ -168,7 +173,7 @@ export function Select<T extends string>({
         className,
     );
 
-    const setActive = (value: boolean | ((oldValue: boolean) => boolean)) => {
+    const setActive = (value: boolean | ((oldValue: boolean) => boolean)): void => {
         if (!onIsActiveChange) {
             setLocalActive(value);
         } else {
@@ -176,18 +181,18 @@ export function Select<T extends string>({
         }
     };
 
-    const handleClose = () => {
+    const handleClose = (): void => {
         setActive(false);
     };
 
-    const handleToggle = () => {
+    const handleToggle = (): void => {
         if (onClick) {
             onClick();
         }
         setActive((currentActive) => !currentActive);
     };
 
-    const handleChange = (value: T) => {
+    const handleChange = (value: T): void => {
         handleClose();
         onChange(value);
     };

@@ -1,3 +1,11 @@
+import {
+    vi,
+    describe,
+    afterAll,
+    it,
+    expect,
+} from 'vitest';
+
 import { telemetryProvider } from '../../../src/background/providers/telemetryProvider';
 import { telemetryApi } from '../../../src/background/api/telemetryApi';
 import {
@@ -16,14 +24,11 @@ import {
 } from '../../../src/background/telemetry/telemetryTypes';
 import { log } from '../../../src/common/logger';
 
-jest.mock('../../../src/common/logger');
-jest.mock('../../../src/background/api/telemetryApi');
-
-const sendEventSpy = jest.spyOn(telemetryApi, 'sendEvent');
+const sendEventSpy = vi.spyOn(telemetryApi, 'sendEvent');
 
 describe('telemetryProvider', () => {
     afterAll(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     const sampleBaseData: TelemetryBaseData = {

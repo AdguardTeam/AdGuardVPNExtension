@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Ei voi olla tyhjä"
-    },
-    "registration_error_not_valid": {
-        "message": "Arvo ei ole oikein"
-    },
-    "registration_error_min_length": {
-        "message": "Salasana on liian lyhyt. Sen täytyy sisältää ainakin 8 merkkiä."
-    },
-    "registration_error_confirm_password": {
-        "message": "Salasanat eivät täsmää"
-    },
-    "registration_error_compromised_password": {
-        "message": "Syöttämäsi salasana löytyi vaarantuneiden salasanojen <a>julkisesta tietokannasta</a>. Kokeile toista salasanaa."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Tämä arvo on jo käytössä"
-    },
-    "registration_error_default": {
-        "message": "Tapahtui virhe. Yritä myöhemmin uudelleen."
-    },
-    "authentication_error_2fa_required": {
-        "message": "Vaaditaan kaksivaiheinen todennus (2FA)"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Virheellinen todennuskoodi"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Tili on poistettu käytöstä"
-    },
-    "authentication_error_account_locked": {
-        "message": "Tili on lukittu 15 minuutiksi"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Väärä salasana"
-    },
-    "authentication_too_many_requests": {
-        "message": "Vastaanotimme liian monta pyyntöä IP-osoitteestasi. Yritä uudelleen myöhemmin."
-    },
-    "authentication_error_default": {
-        "message": "Tapahtui virhe. Yritä myöhemmin uudelleen."
-    },
-    "global_error_message": {
-        "message": "Tapahtui virhe. Ota meihin yhteyttä sähköpostitse osoitteella <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Tietoja"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Kirjaudu ulos"
     },
+    "account_sign_out_question": {
+        "message": "Kirjaudutaanko ulos?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Peruuta"
+    },
+    "account_sign_out_description": {
+        "message": "Sinut kirjataan ulos tililtäsi. VPN-suojaus lopetetaan"
+    },
     "account_unlimited_title": {
         "message": "Hanki Unlimited-tilaus!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Piilota"
-    },
-    "auth_confirm": {
-        "message": "Vahvista"
-    },
-    "auth_email": {
-        "message": "Sähköpostiosoite"
-    },
-    "auth_password": {
-        "message": "Salasana"
-    },
-    "auth_your_password": {
-        "message": "Salasana"
-    },
-    "auth_password_confirm": {
-        "message": "Vahvista salasana"
-    },
-    "auth_recover": {
-        "message": "Salasana unohtunut?"
-    },
-    "auth_sign_up": {
-        "message": "Luo tili"
-    },
-    "auth_sign_up_info": {
-        "message": "Luo itsellesi AdGuard-tili."
-    },
-    "auth_sign_up_button": {
-        "message": "Luo tili"
-    },
-    "auth_sign_in": {
-        "message": "Syötä salasanasi"
-    },
-    "auth_sign_in_button": {
-        "message": "Kirjaudu"
-    },
-    "auth_title": {
-        "message": "Kirjaudu tai luo tili"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Sähköposti"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Jatka sähköpostiosoitteella"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Jatka Applella"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Jatka Googlella"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Jatka Facebookilla"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Kirjaudutaan tunnuksella <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Kaksivaiheinen todennus"
-    },
-    "auth_header_2fa": {
-        "message": "Syötä todennuskoodi"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Todennuskoodi"
     },
     "official_website": {
         "message": "Virallinen sivusto"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Kirjaudu tai luo tili"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Jatka"
-    },
     "popup_newsletter_title": {
         "message": "AdGuardin uutiskirje"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Älä näytä uudelleen"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Tilastot tälle selaimelle"
+    "popup_stats": {
+        "message": "Tilastot"
     },
     "popup_stats_disabled_notice": {
         "message": "Tilastot eivät ole käytössä"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Aika"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Miksi se on turvallista"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Miksi se on turvallista"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN-yhteys on salattu ja turvallinen, joten kukaan ei voi nähdä aktiivisuustietojasi – laskemme vain liikenteesi käytön"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Kaikki tilastot kerätään ja säilytetään paikallisesti laitteellasi, eikä meillä ei ole pääsyä niihin."
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Selvä"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "VPN-yhteyden nopeus alennetaan pian."
     },
-    "confirm_email_title": {
-        "message": "Vahvista sähköpostiosoitteesi"
-    },
-    "confirm_email_info": {
-        "message": "Vahvistuskoodi lähetettiin osoitteeseen <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Sähköpostiosoitteesi on vahvistettu"
     },
     "confirm_email_done_info": {
         "message": "Kiitos vahvistuksesta!"
     },
-    "confirm_email_code_label": {
-        "message": "Vahvistuskoodisi"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Sisältää numeroita ja kirjaimia"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Tarkista koodi — se näyttää virheelliseltä"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Lähetä uusi koodi (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Lähetä uusi koodi"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Kirjautuminen epäonnistui. Yritä uudelleen tai ota meihin yhteyttä sähköpostitse osoitteella <a>%support_email%</a>."
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Rekisteröityminen epäonnistui. Yritä uudelleen tai ota meihin yhteyttä sähköpostitse osoitteella <a>%support_email%</a>."
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Vahvistuslinkki lähetettiin uudelleen"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Sisäänkirjautuminen epäonnistui"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Yritä uudelleen tai <a>ole yhteydessä asiakaspalveluun</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Yritä uudelleen"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Sulje"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Avaa kirjautumissivu uudelleen"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Peruuta"
     }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, type PropsWithChildren } from 'react';
+import React, { useEffect, type PropsWithChildren, type ReactElement } from 'react';
 
 import classNames from 'classnames';
 
@@ -59,7 +59,7 @@ export function Modal({
     className,
     children,
     onClose,
-}: ModalProps) {
+}: ModalProps): ReactElement | null {
     const classes = classNames(
         'modal',
         `modal--size-${size}`,
@@ -67,7 +67,7 @@ export function Modal({
     );
 
     useEffect(() => {
-        const listener = (event: KeyboardEvent) => {
+        const listener = (event: KeyboardEvent): void => {
             if (event.key === ESC_KEY_NAME) {
                 onClose();
             }
@@ -75,7 +75,7 @@ export function Modal({
 
         document.addEventListener('keydown', listener);
 
-        return () => {
+        return (): void => {
             document.removeEventListener('keydown', listener);
         };
     }, [onClose]);

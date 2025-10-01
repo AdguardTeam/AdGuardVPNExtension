@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import './warning.pcss';
 
@@ -7,7 +7,7 @@ type WarningProps = {
     mod: string,
 };
 
-export const Warning = ({ desc, mod }: WarningProps) => {
+export const Warning = ({ desc, mod }: WarningProps): ReactElement => {
     return (
         <div className={`warning warning--${mod}`}>
             {desc}

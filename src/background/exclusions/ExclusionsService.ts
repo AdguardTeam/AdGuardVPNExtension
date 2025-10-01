@@ -10,7 +10,7 @@ import {
     ExclusionsType,
     type ServiceDto,
 } from '../../common/exclusionsConstants';
-import { type ExclusionInterface, type ExclusionsState, StorageKey } from '../schema';
+import { type ExclusionInterface, StorageKey } from '../schema';
 import {
     getETld,
     getHostname,
@@ -18,9 +18,9 @@ import {
     isWildcard,
 } from '../../common/utils/url';
 import { notifier } from '../../common/notifier';
-import { stateStorage } from '../stateStorage';
+import { StateData } from '../stateStorage';
 
-import { type AllExclusions, exclusionsManager } from './exclusions/ExclusionsManager';
+import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { type ExclusionNode } from './ExclusionNode';
@@ -33,93 +33,65 @@ interface ToggleServicesResult {
 
 export class ExclusionsService {
     /**
-     * Promise that resolves when the exclusions service is initialized.
+     * Exclusions service state data.
+     * Used to save and retrieve exclusions state from session storage,
+     * in order to persist it across service worker restarts.
      */
-    private initPromise: Promise<void> | null = null;
+    private exclusionsState = new StateData(StorageKey.ExclusionsState);
 
     /**
-     * Current exclusions service state.
+     * {@link ExclusionsTree} instance.
      */
-    private state: ExclusionsState;
-
-    exclusionsTree = new ExclusionsTree();
-
-    /**
-     * Here we keep previous exclusions state in order to make possible undo action
-     */
-    private get previousExclusions() {
-        return this.state.previousExclusions;
-    }
-
-    private set previousExclusions(previousExclusions: AllExclusions | null) {
-        this.state.previousExclusions = previousExclusions;
-        stateStorage.setItem(StorageKey.ExclusionsState, this.state);
-    }
+    private exclusionsTree = new ExclusionsTree();
 
     /**
      * Initializes the exclusions service by waiting for dependant services to be initialized.
      */
-    private async innerInit() {
-        // Wait for state storage to be initialized
-        await stateStorage.init();
-
-        this.state = stateStorage.getItem(StorageKey.ExclusionsState);
-
+    public async init(): Promise<void> {
         await exclusionsManager.init();
         await servicesManager.init();
 
-        this.updateTree();
+        await this.updateTree();
 
         notifier.addSpecifiedListener(
             notifier.types.NON_ROUTABLE_DOMAIN_ADDED,
-            (payload: string) => {
-                if (this.getMode() === ExclusionsMode.Regular) {
-                    this.addUrlToExclusions(payload);
+            async (payload: string) => {
+                if (await this.getMode() === ExclusionsMode.Regular) {
+                    await this.addUrlToExclusions(payload);
                 }
             },
         );
     }
 
     /**
-     * Initializes the exclusions service.
+     * Retrieves exclusions from the exclusions tree.
      *
-     * Note: You can call this method to wait for the exclusions service to be initialized,
-     * because it was implemented as it can be called multiple times but
-     * initialization will happen only once.
-     *
-     * @returns Promise that resolves when the exclusions service is initialized.
+     * @returns Serializable exclusions data.
      */
-    public async init(): Promise<void> {
-        if (!this.initPromise) {
-            this.initPromise = this.innerInit();
-        }
-
-        return this.initPromise;
-    }
-
-    /**
-     * Returns exclusions
-     */
-    getExclusions(): ExclusionDtoInterface {
+    public getExclusions(): ExclusionDtoInterface {
         return this.exclusionsTree.getExclusions();
     }
 
     /**
-     * Returns current exclusions mode
+     * Retrieves current exclusions mode.
+     *
+     * @returns Current exclusions mode.
      */
-    getMode(): ExclusionsMode {
-        return exclusionsManager.current.mode;
+    public async getMode(): Promise<ExclusionsMode> {
+        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        return currentModeHandler.mode;
     }
 
     /**
-     * Sets exclusions mode
-     * @param mode
-     * @param shouldNotifyOptionsPage
+     * Sets exclusions mode.
+     *
+     * @param mode New exclusions mode to set.
+     * @param shouldNotifyOptionsPage Whether to notify the options page about the change.
      */
-    async setMode(mode: ExclusionsMode, shouldNotifyOptionsPage?: boolean) {
+    public async setMode(mode: ExclusionsMode, shouldNotifyOptionsPage?: boolean): Promise<void> {
         await exclusionsManager.setCurrentMode(mode);
 
-        this.updateTree();
+        await this.updateTree();
 
         // shouldNotifyOptionsPage flag is used to notify options page to update exclusions data,
         // if exclusion mode was changed from context menu
@@ -129,29 +101,31 @@ export class ExclusionsService {
     }
 
     /**
-     * Updates exclusions tree
+     * Updates exclusions tree.
      */
-    updateTree() {
+    private async updateTree(): Promise<void> {
         this.exclusionsTree.generateTree({
-            exclusions: exclusionsManager.getExclusions(),
-            indexedExclusions: exclusionsManager.getIndexedExclusions(),
-            services: servicesManager.getServices(),
-            indexedServices: servicesManager.getIndexedServices(),
+            exclusions: await exclusionsManager.getExclusions(),
+            indexedExclusions: await exclusionsManager.getIndexedExclusions(),
+            services: await servicesManager.getServices(),
+            indexedServices: await servicesManager.getIndexedServices(),
         });
     }
 
     /**
      * Updates services.
      */
-    async forceUpdateServices() {
+    public async forceUpdateServices(): Promise<void> {
         await servicesManager.updateServices();
     }
 
     /**
-     * Returns services with state
+     * Retrieves services with their current states.
+     *
+     * @returns List of services with their states.
      */
-    getServices(): ServiceDto[] {
-        let services = servicesManager.getServicesDto();
+    public async getServices(): Promise<ServiceDto[]> {
+        let services = await servicesManager.getServicesDto();
 
         services = services.map((service) => {
             const state = this.exclusionsTree.getExclusionState(service.serviceId);
@@ -171,10 +145,13 @@ export class ExclusionsService {
     }
 
     /**
-     * Creates data prepared for adding exclusion from provided url
-     * @param url
+     * Creates data prepared for adding exclusion from provided url.
+     *
+     * @param url URL to create exclusion data from.
+     *
+     * @return List of exclusion arguments to be added.
      */
-    supplementExclusion(url: string): AddExclusionArgs[] {
+    private async supplementExclusion(url: string): Promise<AddExclusionArgs[]> {
         const hostname = getHostname(url);
         if (!hostname) {
             return [];
@@ -186,8 +163,8 @@ export class ExclusionsService {
         }
 
         // if provided url is service, add all service's groups
-        const serviceData = servicesManager.getServicesDto()
-            .find((service) => service.domains.includes(hostname));
+        const services = await servicesManager.getServicesDto();
+        const serviceData = services.find((service) => service.domains.includes(hostname));
 
         if (serviceData) {
             const exclusionArgs: AddExclusionArgs[] = [];
@@ -231,21 +208,24 @@ export class ExclusionsService {
     }
 
     /**
-     * Creates data necessary for exclusions to add
-     * @param exclusions
+     * Creates data necessary for exclusions to add.
+     *
+     * @param exclusions List of exclusions to process.
      */
-    supplementExclusions(exclusions: string[]) {
-        return exclusions.flatMap((ex) => {
-            return this.supplementExclusion(ex);
-        });
+    private async supplementExclusions(exclusions: string[]): Promise<AddExclusionArgs[]> {
+        const supplementedExclusions = await Promise.all(exclusions.map((ex) => this.supplementExclusion(ex)));
+        return supplementedExclusions.flat();
     }
 
     /**
-     * Adds url to exclusions and returns amount of added exclusions
-     * @param url
+     * Adds url to exclusions and returns amount of added exclusions.
+     *
+     * @param url URL to add to exclusions.
+     *
+     * @return Amount of added exclusions.
      */
-    async addUrlToExclusions(url: string): Promise<number> {
-        this.savePreviousExclusions();
+    public async addUrlToExclusions(url: string): Promise<number> {
+        await this.savePreviousExclusions();
 
         const hostname = getHostname(url);
 
@@ -253,17 +233,19 @@ export class ExclusionsService {
             return 0;
         }
 
+        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+
         // if provided url is existing exclusion, enables it
-        const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
+        const existingExclusion = currentModeHandler.getExclusionByHostname(hostname);
         if (existingExclusion) {
-            await exclusionsManager.current.enableExclusion(existingExclusion.id);
-            this.updateTree();
+            await currentModeHandler.enableExclusion(existingExclusion.id);
+            await this.updateTree();
             return 0;
         }
 
         // add service manually by domain
-        const serviceData = servicesManager.getServicesDto()
-            .find((service) => service.domains.includes(hostname));
+        const services = await servicesManager.getServicesDto();
+        const serviceData = services.find((service) => service.domains.includes(hostname));
         if (serviceData) {
             // get list of existing exclusions in service to keep their state
             const existingExclusionsIds = this.exclusionsTree
@@ -281,29 +263,26 @@ export class ExclusionsService {
                 });
             }
 
-            await exclusionsManager.current
-                .setExclusionsState(exclusionsToDisable, ExclusionState.Disabled);
+            await currentModeHandler.setExclusionsState(exclusionsToDisable, ExclusionState.Disabled);
 
             // enable only added exclusion
-            const domainExclusion = exclusionsManager.current
-                .getExclusionByHostname(hostname);
-            const subdomainExclusion = exclusionsManager.current
-                .getExclusionByHostname(`*.${hostname}`);
+            const domainExclusion = currentModeHandler.getExclusionByHostname(hostname);
+            const subdomainExclusion = currentModeHandler.getExclusionByHostname(`*.${hostname}`);
             if (domainExclusion && subdomainExclusion) {
-                await exclusionsManager.current.setExclusionsState(
+                await currentModeHandler.setExclusionsState(
                     [domainExclusion.id, subdomainExclusion.id],
                     ExclusionState.Enabled,
                 );
             }
 
-            this.updateTree();
+            await this.updateTree();
             return addedExclusionsCount;
         }
 
         // if provided url is IP-address, adds ip exclusion
         if (isIP(hostname)) {
-            await exclusionsManager.current.addUrlToExclusions(hostname);
-            this.updateTree();
+            await currentModeHandler.addUrlToExclusions(hostname);
+            await this.updateTree();
             return 1;
         }
 
@@ -313,9 +292,9 @@ export class ExclusionsService {
             return 0;
         }
 
-        if (exclusionsManager.current.hasETld(eTld)) {
-            await exclusionsManager.current.addExclusions([{ value: hostname }]);
-            this.updateTree();
+        if (currentModeHandler.hasETld(eTld)) {
+            await currentModeHandler.addExclusions([{ value: hostname }]);
+            await this.updateTree();
             return 1;
         }
 
@@ -325,49 +304,52 @@ export class ExclusionsService {
         if (subdomain) {
             if (isWildcard(subdomain)) {
                 const subdomainHostname = `${subdomain}.${eTld}`;
-                await exclusionsManager.current.addExclusions([
+                await currentModeHandler.addExclusions([
                     { value: eTld, enabled: false },
                     { value: subdomainHostname, enabled: true },
                 ]);
-                this.updateTree();
+                await this.updateTree();
                 return 2;
             }
 
             const wildcardHostname = `*.${eTld}`;
             const subdomainHostname = `${subdomain}.${eTld}`;
-            await exclusionsManager.current.addExclusions([
+            await currentModeHandler.addExclusions([
                 { value: eTld, enabled: false },
                 { value: wildcardHostname, enabled: false },
                 { value: subdomainHostname, enabled: true },
             ]);
-            this.updateTree();
+            await this.updateTree();
             return 3;
         }
 
         const wildcardHostname = `*.${hostname}`;
-        await exclusionsManager.current.addExclusions([
+        await currentModeHandler.addExclusions([
             { value: hostname },
             { value: wildcardHostname },
         ]);
-        this.updateTree();
+        await this.updateTree();
         return 2;
     }
 
     /**
-     * Adds services to exclusions and returns amount of added exclusions
-     * @param serviceIds
+     * Adds services to exclusions and returns amount of added exclusions.
+     *
+     * @param serviceIds List of service IDs to add.
+     *
+     * @returns Amount of added exclusions.
      */
-    async addServices(serviceIds: string[]): Promise<number> {
-        const servicesDomainsToAdd = serviceIds.map((id) => {
-            const service = servicesManager.getService(id);
+    private async addServices(serviceIds: string[]): Promise<number> {
+        const servicesDomainsToAdd = await Promise.all(serviceIds.map(async (id) => {
+            const service = await servicesManager.getService(id);
             if (!service) {
                 return [];
             }
 
             return service.domains;
-        }).flat();
+        }));
 
-        const servicesDomainsWithWildcards = servicesDomainsToAdd.map((hostname) => {
+        const servicesDomainsWithWildcards = servicesDomainsToAdd.flat().map((hostname) => {
             const wildcardHostname = `*.${hostname}`;
             return [
                 { value: hostname },
@@ -375,47 +357,56 @@ export class ExclusionsService {
             ];
         }).flat();
 
-        await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards);
+        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        await currentModeHandler.addExclusions(servicesDomainsWithWildcards);
 
-        this.updateTree();
+        await this.updateTree();
         return servicesDomainsWithWildcards.length;
     }
 
     /**
-     * Checks provided exclusion is main domain exclusion
-     * @param exclusionNode
+     * Checks provided exclusion is main domain exclusion.
+     *
+     * @param exclusionNode Exclusion node to check.
+     *
+     * @returns True if the exclusion is a basic exclusion, false otherwise.
      */
-    isBasicExclusion(exclusionNode: ExclusionNode | null): boolean {
+    private static isBasicExclusion(exclusionNode: ExclusionNode | null): boolean {
         return !exclusionNode?.hostname.match(/.+\..+\./);
     }
 
     /**
-     * Removes exclusion by id and returns amount of removed exclusions
-     * @param id
+     * Removes exclusion by id and returns amount of removed exclusions.
+     *
+     * @param id Exclusion id to remove.
+     *
+     * @returns Amount of removed exclusions.
      */
-    async removeExclusion(id: string): Promise<number> {
-        this.savePreviousExclusions();
+    public async removeExclusion(id: string): Promise<number> {
+        await this.savePreviousExclusions();
 
         let exclusionsToRemove = this.exclusionsTree.getPathExclusions(id);
         const exclusionNode = this.exclusionsTree.getExclusionNode(id);
         const parentNode = this.exclusionsTree.getParentExclusionNode(id);
 
-        if (parentNode?.type === ExclusionsType.Group && this.isBasicExclusion(exclusionNode)) {
+        if (parentNode?.type === ExclusionsType.Group && ExclusionsService.isBasicExclusion(exclusionNode)) {
             exclusionsToRemove = this.exclusionsTree.getPathExclusions(parentNode.id);
         }
 
-        await exclusionsManager.current.removeExclusions(exclusionsToRemove);
+        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        await currentModeHandler.removeExclusions(exclusionsToRemove);
 
-        this.updateTree();
+        await this.updateTree();
 
         return exclusionsToRemove.length;
     }
 
     /**
-     * Toggles exclusion state
-     * @param id
+     * Toggles exclusion state.
+     *
+     * @param id Exclusion id to toggle.
      */
-    async toggleExclusionState(id: string) {
+    public async toggleExclusionState(id: string): Promise<void> {
         const targetExclusionState = this.exclusionsTree.getExclusionState(id);
         if (!targetExclusionState) {
             throw new Error(`There is no such id in the tree: ${id}`);
@@ -427,27 +418,31 @@ export class ExclusionsService {
             ? ExclusionState.Enabled
             : ExclusionState.Disabled;
 
-        await exclusionsManager.current.setExclusionsState(exclusionsToToggle, state);
+        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        await currentModeHandler.setExclusionsState(exclusionsToToggle, state);
 
-        this.updateTree();
+        await this.updateTree();
     }
 
     /**
-     * Removes exclusions for current mode
+     * Removes exclusions for current mode.
      */
-    async clearExclusionsData() {
-        this.savePreviousExclusions();
-        await exclusionsManager.current.clearExclusionsData();
+    public async clearExclusionsData(): Promise<void> {
+        await this.savePreviousExclusions();
+        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        await currentModeHandler.clearExclusionsData();
 
-        this.updateTree();
+        await this.updateTree();
     }
 
     /**
      * Adds/removes services by provided ids:
+     *
      * @param servicesIds
+     * @returns Added and removed exclusions count.
      */
-    async toggleServices(servicesIds: string[]): Promise<ToggleServicesResult> {
-        this.savePreviousExclusions();
+    public async toggleServices(servicesIds: string[]): Promise<ToggleServicesResult> {
+        await this.savePreviousExclusions();
 
         const servicesIdsToRemove = servicesIds.filter((id) => {
             const exclusionNode = this.exclusionsTree.getExclusionNode(id);
@@ -458,7 +453,8 @@ export class ExclusionsService {
             return this.exclusionsTree.getPathExclusions(id);
         }).flat();
 
-        await exclusionsManager.current.removeExclusions(exclusionsToRemove);
+        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        await currentModeHandler.removeExclusions(exclusionsToRemove);
 
         const servicesIdsToAdd = servicesIds.filter((id) => {
             const exclusionNode = this.exclusionsTree.getExclusionNode(id);
@@ -480,8 +476,9 @@ export class ExclusionsService {
      */
     public async disableVpnByUrl(url: string): Promise<void> {
         if (await this.isInverted()) {
-            await exclusionsManager.current.disableExclusionByUrl(url);
-            this.updateTree();
+            const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+            await currentModeHandler.disableExclusionByUrl(url);
+            await this.updateTree();
         } else {
             await this.addUrlToExclusions(url);
         }
@@ -497,8 +494,9 @@ export class ExclusionsService {
         if (await this.isInverted()) {
             await this.addUrlToExclusions(url);
         } else {
-            await exclusionsManager.current.disableExclusionByUrl(url);
-            this.updateTree();
+            const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+            await currentModeHandler.disableExclusionByUrl(url);
+            await this.updateTree();
         }
         notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
     }
@@ -512,19 +510,13 @@ export class ExclusionsService {
      * @returns Promise that resolves to true if VPN is enabled for the URL, false otherwise.
      */
     public async isVpnEnabledByUrl(url: string): Promise<boolean> {
-        /**
-         * Wait for session storage after service worker awoken.
-         * This is needed because this method might be called before
-         * the extension is fully loaded between service worker restarts.
-         */
-        await this.init();
-
-        if (!url || !exclusionsManager.currentHandler) {
+        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        if (!url || !currentModeHandler) {
             return true;
         }
 
-        const isExcluded = exclusionsManager.currentHandler.isExcluded(punycode.toASCII(url));
-        return exclusionsManager.inverted ? isExcluded : !isExcluded;
+        const isExcluded = currentModeHandler.isExcluded(punycode.toASCII(url));
+        return await this.isInverted() ? isExcluded : !isExcluded;
     }
 
     /**
@@ -533,25 +525,19 @@ export class ExclusionsService {
      * @returns True if exclusions are inverted, false otherwise.
      */
     public async isInverted(): Promise<boolean> {
-        /**
-         * Wait for session storage after service worker awoken.
-         * This is needed because this method might be called before
-         * the extension is fully loaded between service worker restarts.
-         */
-        await this.init();
-
-        return exclusionsManager.inverted;
+        return exclusionsManager.isInverted();
     }
 
     /**
      * Resets services data:
      * restores exclusions groups for service domains
      * enables main domain exclusions and all subdomains exclusions
-     * doesn't affect for manually added subdomains
-     * @param id
+     * doesn't affect for manually added subdomains.
+     *
+     * @param id Service id to reset data for.
      */
-    async resetServiceData(id: string) {
-        const defaultServiceData = servicesManager.getService(id);
+    public async resetServiceData(id: string): Promise<void> {
+        const defaultServiceData = await servicesManager.getService(id);
         if (!defaultServiceData) {
             return;
         }
@@ -571,16 +557,20 @@ export class ExclusionsService {
             ];
         });
 
-        await exclusionsManager.current.addExclusions(exclusionsToAdd);
+        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        await currentModeHandler.addExclusions(exclusionsToAdd);
 
-        this.updateTree();
+        await this.updateTree();
     }
 
     /**
-     * Returns the string with the list of exclusions hostnames
-     * @param exclusions
+     * Returns the string with the list of exclusions hostnames.
+     *
+     * @param exclusions Exclusions to prepare for export.
+     *
+     * @returns String with exclusions hostnames separated by new line.
      */
-    prepareExclusionsForExport(exclusions: ExclusionInterface[]): string {
+    private prepareExclusionsForExport(exclusions: ExclusionInterface[]): string {
         return exclusions.map((ex) => {
             if (ex.state === ExclusionState.Enabled) {
                 return punycode.toUnicode(ex.hostname);
@@ -592,95 +582,128 @@ export class ExclusionsService {
     }
 
     /**
-     * Returns regular exclusions for export
+     * Retrieves regular exclusions for export.
+     *
+     * @returns String with regular exclusions hostnames separated by new line.
      */
-    getRegularExclusions() {
-        const { exclusions } = exclusionsManager.regular;
+    public async getRegularExclusions(): Promise<string> {
+        const { regularModeHandler: { exclusions } } = await exclusionsManager.getModeHandlers();
         return this.prepareExclusionsForExport(exclusions);
     }
 
     /**
-     * Returns selective exclusions for export
+     * Retrieves selective exclusions for export.
+     *
+     * @returns String with selective exclusions hostnames separated by new line.
      */
-    getSelectiveExclusions() {
-        const { exclusions } = exclusionsManager.selective;
+    public async getSelectiveExclusions(): Promise<string> {
+        const { selectiveModeHandler: { exclusions } } = await exclusionsManager.getModeHandlers();
         return this.prepareExclusionsForExport(exclusions);
+    }
+
+    /**
+     * Checks if both exclusions lists are empty.
+     *
+     * @returns True if both regular and selective exclusions lists are empty, false otherwise.
+     */
+    public async isAllExclusionListEmpty(): Promise<boolean> {
+        const {
+            regularModeHandler: { exclusions: regularExclusions },
+            selectiveModeHandler: { exclusions: selectiveExclusions },
+        } = await exclusionsManager.getModeHandlers();
+
+        const enabledRegularExclusionsCount = regularExclusions
+            .reduce((count, { state }) => (state === ExclusionState.Enabled ? count + 1 : count), 0);
+        const enabledSelectiveExclusionsCount = selectiveExclusions
+            .reduce((count, { state }) => (state === ExclusionState.Enabled ? count + 1 : count), 0);
+
+        return !enabledRegularExclusionsCount && !enabledSelectiveExclusionsCount;
     }
 
     /**
      * Adds provided exclusions to the general list
-     * and returns amount of added exclusions
-     * @param exclusions
+     * and returns amount of added exclusions.
+     *
+     * @param exclusions List of exclusions to add.
+     *
+     * @returns Amount of added exclusions.
      */
-    async addGeneralExclusions(exclusions: string[]) {
-        this.savePreviousExclusions();
+    public async addGeneralExclusions(exclusions: string[]): Promise<number> {
+        await this.savePreviousExclusions();
 
-        const exclusionsWithState = exclusions.flatMap((ex) => {
-            return this.supplementExclusion(ex);
-        });
+        const exclusionsWithState = await this.supplementExclusions(exclusions);
+        const { regularModeHandler } = await exclusionsManager.getModeHandlers();
+        const addedCount = await regularModeHandler.addExclusions(exclusionsWithState);
 
-        const addedCount = await exclusionsManager.regular.addExclusions(exclusionsWithState);
-
-        this.updateTree();
+        await this.updateTree();
 
         return addedCount;
     }
 
     /**
      * Adds provided exclusions to the selective list
-     * and returns amount of added exclusions
-     * @param exclusions
+     * and returns amount of added exclusions.
+     *
+     * @param exclusions List of exclusions to add.
+     *
+     * @returns Amount of added exclusions.
      */
-    async addSelectiveExclusions(exclusions: string[]) {
-        this.savePreviousExclusions();
+    public async addSelectiveExclusions(exclusions: string[]): Promise<number> {
+        await this.savePreviousExclusions();
 
-        const exclusionsWithState = this.supplementExclusions(exclusions);
-        const addedCount = await exclusionsManager.selective.addExclusions(exclusionsWithState);
+        const exclusionsWithState = await this.supplementExclusions(exclusions);
+        const { selectiveModeHandler } = await exclusionsManager.getModeHandlers();
+        const addedCount = await selectiveModeHandler.addExclusions(exclusionsWithState);
 
-        this.updateTree();
+        await this.updateTree();
 
         return addedCount;
     }
 
-    async addExclusionsMap(exclusionsMap: {
+    /**
+     * Adds provided exclusions to the both lists (regular and selective).
+     *
+     * @param exclusionsMap Map of exclusions to add to both lists.
+     *
+     * @returns Total amount of added exclusions.
+     */
+    public async addExclusionsMap(exclusionsMap: {
         [ExclusionsMode.Selective]: string[],
         [ExclusionsMode.Regular]: string[],
-    }) {
-        this.savePreviousExclusions();
+    }): Promise<number> {
+        await this.savePreviousExclusions();
 
-        const regularExclusionsWithState = this.supplementExclusions(
-            exclusionsMap[ExclusionsMode.Regular],
-        );
-        const selectiveExclusionsWithState = this.supplementExclusions(
-            exclusionsMap[ExclusionsMode.Selective],
-        );
-        const addedRegularCount = await exclusionsManager.regular.addExclusions(
-            regularExclusionsWithState,
-        );
-        const addedSelectiveCount = await exclusionsManager.selective.addExclusions(
-            selectiveExclusionsWithState,
-        );
+        const { regularModeHandler, selectiveModeHandler } = await exclusionsManager.getModeHandlers();
 
-        this.updateTree();
+        const regularExclusionsWithState = await this.supplementExclusions(exclusionsMap[ExclusionsMode.Regular]);
+        const addedRegularCount = await regularModeHandler.addExclusions(regularExclusionsWithState);
+
+        const selectiveExclusionsWithState = await this.supplementExclusions(exclusionsMap[ExclusionsMode.Selective]);
+        const addedSelectiveCount = await selectiveModeHandler.addExclusions(selectiveExclusionsWithState);
+
+        await this.updateTree();
         return addedRegularCount + addedSelectiveCount;
     }
 
     /**
-     * Gets exclusions from exclusions manager and saves them to previousExclusions property
+     * Gets exclusions from exclusions manager and saves them to previousExclusions property.
      */
-    savePreviousExclusions = () => {
-        this.previousExclusions = exclusionsManager.getAllExclusions();
-    };
+    private async savePreviousExclusions(): Promise<void> {
+        const newPreviousExclusions = await exclusionsManager.getAllExclusions();
+        await this.exclusionsState.update({ previousExclusions: newPreviousExclusions });
+    }
 
     /**
-     * Restores previous exclusions
+     * Restores previous exclusions.
      */
-    async restoreExclusions() {
-        if (this.previousExclusions) {
-            await exclusionsManager.setAllExclusions(this.previousExclusions);
-            this.updateTree();
+    public async restoreExclusions(): Promise<void> {
+        let { previousExclusions } = await this.exclusionsState.get();
+        if (previousExclusions) {
+            await exclusionsManager.setAllExclusions(previousExclusions);
+            await this.updateTree();
         }
 
-        this.previousExclusions = null;
+        previousExclusions = null;
+        await this.exclusionsState.update({ previousExclusions });
     }
 }

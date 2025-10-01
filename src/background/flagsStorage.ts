@@ -3,19 +3,46 @@ import { log } from '../common/logger';
 
 import { browserApi } from './browserApi';
 import { updateService } from './updateService';
-import { stateStorage } from './stateStorage';
 import { type FlagsStorageData, FLAG_STORAGE_DEFAULTS } from './flagsStorageData';
-import { StorageKey } from './schema';
 
 const FLAGS_STORAGE_KEY = 'flags.storage';
 
-interface FlagsStorageInterface {
-    set(key: string, value: string | boolean): Promise<void>;
+export interface FlagsStorageInterface {
+    /**
+     * Sets value to flags storage for provided key
+     */
+    set(key: string, value: boolean): Promise<void>;
+
+    /**
+     * Sets default values for flags to storage
+     */
     setDefaults(): Promise<void>;
+
+    /**
+     * Returns object with all flags values { flag_key: value }
+     *
+     * @returns Flags storage data.
+     */
     getFlagsStorageData(): Promise<FlagsStorageData>;
+
+    /**
+     * Sets flags when new user registered
+     */
     onRegister(): Promise<void>;
+
+    /**
+     * Sets flags when new user authenticated
+     */
     onAuthenticate(): Promise<void>;
+
+    /**
+     * Sets flags when new user deauthenticated
+     */
     onDeauthenticate(): Promise<void>;
+
+    /**
+     * Initialize flags storage.
+     */
     init(): Promise<void>
 }
 
@@ -23,18 +50,13 @@ interface FlagsStorageInterface {
  * Manages flags data in storage
  */
 class FlagsStorage implements FlagsStorageInterface {
-    get flagsStorageData() {
-        return stateStorage.getItem(StorageKey.FlagsStorageState);
-    }
-
-    set flagsStorageData(value: FlagsStorageData) {
-        stateStorage.setItem(StorageKey.FlagsStorageState, value);
-    }
-
     /**
-     * Sets value to flags storage for provided key
+     * Flags storage data.
      */
-    set = async (key: string, value: string | boolean): Promise<void> => {
+    private flagsStorageData: FlagsStorageData | null = null;
+
+    /** @inheritdoc */
+    set = async (key: string, value: boolean): Promise<void> => {
         if (!this.flagsStorageData) {
             log.error('Unable to get flags data from storage');
             return;
@@ -43,56 +65,43 @@ class FlagsStorage implements FlagsStorageInterface {
         await browserApi.storage.set(FLAGS_STORAGE_KEY, this.flagsStorageData);
     };
 
-    /**
-     * Sets default values for flags to storage
-     */
+    /** @inheritdoc */
     setDefaults = async (): Promise<void> => {
-        await browserApi.storage.set(FLAGS_STORAGE_KEY, FLAG_STORAGE_DEFAULTS);
+        this.flagsStorageData = { ...FLAG_STORAGE_DEFAULTS };
+        await browserApi.storage.set(FLAGS_STORAGE_KEY, this.flagsStorageData);
     };
 
-    /**
-     * Returns object with all flags values { flag_key: value }
-     */
+    /** @inheritdoc */
     getFlagsStorageData = async (): Promise<FlagsStorageData> => {
-        return this.flagsStorageData || await browserApi.storage.get(FLAGS_STORAGE_KEY);
+        if (!this.flagsStorageData) {
+            await this.setDefaults();
+        }
+
+        // Note: `flagsStorageData` is guaranteed to be defined here
+        // because `setDefaults` initializes it with default values
+        return this.flagsStorageData!;
     };
 
-    /**
-     * Sets flags when new user registered
-     */
+    /** @inheritdoc */
     onRegister = async (): Promise<void> => {
         await this.set(FLAGS_FIELDS.IS_NEW_USER, true);
-        await this.set(FLAGS_FIELDS.IS_SOCIAL_AUTH, false);
     };
 
-    /**
-     * Sets flags when new user authenticated
-     */
+    /** @inheritdoc */
     onAuthenticate = async (): Promise<void> => {
         await this.set(FLAGS_FIELDS.IS_NEW_USER, false);
-        await this.set(FLAGS_FIELDS.IS_SOCIAL_AUTH, false);
     };
 
-    /**
-     * Sets flags when new user authenticated using social net provider
-     */
-    onAuthenticateSocial = async (): Promise<void> => {
-        await this.set(FLAGS_FIELDS.IS_NEW_USER, false);
-        await this.set(FLAGS_FIELDS.IS_SOCIAL_AUTH, true);
-    };
-
-    /**
-     * Sets flags when new user deauthenticated
-     */
+    /** @inheritdoc */
     onDeauthenticate = async (): Promise<void> => {
         await this.setDefaults();
         await updateService.setIsFirstRunFalse();
     };
 
+    /** @inheritdoc */
     init = async (): Promise<void> => {
         if (!this.flagsStorageData) {
             await this.setDefaults();
-            this.flagsStorageData = FLAG_STORAGE_DEFAULTS;
         }
     };
 }

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import './skeleton-endpoint.pcss';
 
-export const SkeletonEndpoint = () => {
+export const SkeletonEndpoint = (): ReactElement => {
     return (
         <div className="endpoint skeleton-endpoint endpoint__skeleton">
             <div className="skeleton-endpoint__empty skeleton-endpoint__empty-flag" />

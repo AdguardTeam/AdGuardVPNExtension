@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import classNames from 'classnames';
 
@@ -83,19 +83,19 @@ export function Input({
     error,
     postfix,
     onChange,
-}: InputProps) {
+}: InputProps): ReactElement {
     const classes = classNames(
         'input',
         !!error && 'input--error',
     );
 
-    const clearValue = () => {
+    const clearValue = (): void => {
         if (onChange) {
             onChange('');
         }
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { value } = e.target;
         if (onChange) {
             onChange(value);

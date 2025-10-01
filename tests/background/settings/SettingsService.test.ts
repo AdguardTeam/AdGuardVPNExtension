@@ -1,24 +1,33 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { SettingsService } from '../../../src/background/settings/SettingsService';
 import { sleep } from '../../../src/common/helpers';
 
 const SCHEME_VERSION = '12';
 
-jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
-
-jest.mock('../../../src/common/logger');
-
-jest.mock('../../../src/background/settings');
+vi.mock('../../../src/background/exclusions/services/ServicesManager', () => ({
+    servicesManager: {
+        getServicesForMigration: vi.fn().mockResolvedValue([]),
+    },
+}));
 
 const storage = (() => {
     const settingsStorage: { [key: string]: any } = {};
     return {
-        set: jest.fn((key, data) => {
+        set: vi.fn((key, data) => {
             settingsStorage[key] = data;
         }),
-        get: jest.fn((key) => {
+        get: vi.fn((key) => {
             return settingsStorage[key];
         }),
-        remove: jest.fn((key) => {
+        remove: vi.fn((key) => {
             return delete settingsStorage[key];
         }),
     };

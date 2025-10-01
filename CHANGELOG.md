@@ -5,8 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-<!-- FIXME: Specify date (v2.6 patch 1) -->
-## [2.6.11]
+<!-- FIXME: Specify date -->
+## [2.7.2]
+
+### Added
+
+- Log out confirmation popup.
+
+### Changed
+
+- Migrated in-extension authentication to web based authentication.
+
+### Fixed
+
+- Overflow in disabled vpn url [#162].
+- 'Rate us' dialog doesn't close after you rate the extension [#223].
+- Unable to login from "Thank You" page in Firefox.
+- 2FA one-time code not received via email [#222].
+
+[2.7.2]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.11...v2.7.2
+[#162]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/162
+[#222]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/222
+[#223]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/223
+
+## [2.6.11] - 2025-08-15
 
 ### Changed
 

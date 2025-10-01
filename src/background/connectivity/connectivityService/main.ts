@@ -2,8 +2,8 @@ import type { EventData } from 'xstate';
 
 import { notifier } from '../../../common/notifier';
 import { log } from '../../../common/logger';
-import { stateStorage } from '../../stateStorage';
-import { StorageKey, type ConnectivityData, ConnectivityStateType } from '../../schema';
+import { StateData } from '../../stateStorage';
+import { StorageKey, ConnectivityStateType } from '../../schema';
 
 import { createConnectivityMachine, ConnectivityEventType, createConnectivityInterpreter } from './fsm';
 
@@ -51,9 +51,16 @@ export class ConnectivityService {
     /**
      * Current state of FSM.
      */
-    public get state() {
+    public get state(): ConnectivityFsmState {
         return this.interpreter.getSnapshot();
     }
+
+    /**
+     * Connectivity service state data.
+     * Used to save and retrieve connectivity state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private connectivityState = new StateData(StorageKey.ConnectivityData);
 
     constructor() {
         this.handleStateChange = this.handleStateChange.bind(this);
@@ -62,8 +69,8 @@ export class ConnectivityService {
     /**
      * Creates and starts new {@link interpreter} with state and context from {@link stateStorage}.
      */
-    public start() {
-        const { context, state } = stateStorage.getItem<ConnectivityData>(StorageKey.ConnectivityData);
+    public async start(): Promise<void> {
+        const { context, state } = await this.connectivityState.get();
 
         const fsm = createConnectivityMachine(context);
 
@@ -89,7 +96,7 @@ export class ConnectivityService {
      *
      * @param state New state of connectivity FSM.
      */
-    private handleStateChange(state: ConnectivityFsmState) {
+    private async handleStateChange(state: ConnectivityFsmState): Promise<void> {
         log.debug(`Event type: ${state.event.type}`);
 
         if (state.changed) {
@@ -103,7 +110,7 @@ export class ConnectivityService {
             notifier.notifyListeners(notifier.types.CONNECTIVITY_STATE_CHANGED, event);
 
             // Update state in storage
-            stateStorage.setItem<ConnectivityData>(StorageKey.ConnectivityData, {
+            await this.connectivityState.set({
                 context: state.context,
                 state: state.value as ConnectivityStateType,
             });
@@ -116,7 +123,7 @@ export class ConnectivityService {
      * @param event Connectivity FSM event type.
      * @param data Connectivity FSM event payload.
      */
-    public send(event: ConnectivityEventType, data?: EventData) {
+    public send(event: ConnectivityEventType, data?: EventData): void {
         this.interpreter.send(event, data);
     }
 

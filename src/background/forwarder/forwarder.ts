@@ -30,4 +30,6 @@ export class Forwarder {
     }
 }
 
+export type ForwarderInterface = InstanceType<typeof Forwarder>;
+
 export const forwarder = new Forwarder();

@@ -5,9 +5,8 @@ import { log } from '../../common/logger';
 import { type BrowserApi, browserApi } from '../browserApi';
 import { credentials } from '../credentials';
 import { notifications } from '../notifications';
-import { stateStorage } from '../stateStorage';
+import { StateData } from '../stateStorage';
 import { StorageKey } from '../schema';
-import { type LimitedOfferStorageData } from '../schema/limitedOffer';
 import { ForwarderUrlQueryKey } from '../config';
 
 /**
@@ -81,16 +80,15 @@ class LimitedOfferService {
      */
     private LIMITED_OFFER_DURATION_MS = ONE_HOUR_MS * 6;
 
+    /**
+     * Limited offer service state data.
+     * Used to save and retrieve limited offer state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private limitedOfferState = new StateData(StorageKey.LimitedOfferService);
+
     constructor(providedBrowserApi: BrowserApi) {
         this.browserApi = providedBrowserApi;
-    }
-
-    get limitedOfferStorageData() {
-        return stateStorage.getItem(StorageKey.LimitedOfferService);
-    }
-
-    set limitedOfferStorageData(value: LimitedOfferStorageData) {
-        stateStorage.setItem(StorageKey.LimitedOfferService, value);
     }
 
     /**
@@ -104,16 +102,18 @@ class LimitedOfferService {
      * or `null` if countdown was not started yet.
      */
     getCountdownStart = async (username: string): Promise<number | null | undefined> => {
-        if (!this.limitedOfferStorageData) {
-            this.limitedOfferStorageData = await this.browserApi.storage.get(this.COUNTDOWN_DATA_KEY) || {};
+        let limitedOfferStorageData = await this.limitedOfferState.get();
+        if (!limitedOfferStorageData) {
+            limitedOfferStorageData = await this.browserApi.storage.get(this.COUNTDOWN_DATA_KEY) || {};
+            await this.limitedOfferState.set(limitedOfferStorageData);
         }
 
         // no user data in storage yet means that countdown was not started yet
-        if (!this.limitedOfferStorageData[username]) {
+        if (!limitedOfferStorageData[username]) {
             return null;
         }
 
-        const countdownStartMs = this.limitedOfferStorageData[username];
+        const countdownStartMs = limitedOfferStorageData[username];
 
         if (!countdownStartMs) {
             return null;
@@ -132,13 +132,15 @@ class LimitedOfferService {
         username: string,
         countdownStartMs: number | null,
     ): Promise<void> => {
-        if (!this.limitedOfferStorageData) {
+        const limitedOfferStorageData = await this.limitedOfferState.get();
+        if (!limitedOfferStorageData) {
             log.error('Unable to get limited offer data from storage');
             return;
         }
 
-        this.limitedOfferStorageData[username] = countdownStartMs;
-        await this.browserApi.storage.set(this.COUNTDOWN_DATA_KEY, this.limitedOfferStorageData);
+        limitedOfferStorageData[username] = countdownStartMs;
+        await this.limitedOfferState.set(limitedOfferStorageData);
+        await this.browserApi.storage.set(this.COUNTDOWN_DATA_KEY, limitedOfferStorageData);
     };
 
     /**
@@ -201,7 +203,7 @@ class LimitedOfferService {
      *
      * @param username Username of the user for whom notification should be shown.
      *
-     * @returns True if browser notification should be shown, false otherwise.
+     * @returns Promise with true if browser notification should be shown, false otherwise.
      */
     private async shouldShowNotification(username: string): Promise<boolean> {
         const countdownStartMs = await this.getCountdownStart(username);

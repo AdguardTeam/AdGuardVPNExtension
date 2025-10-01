@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
@@ -32,13 +32,15 @@ export const Exclusions = observer(() => {
         removeAllModalOpen,
         selectedExclusion,
         confirmAddModalOpen,
+        selectListModalOpen,
     } = exclusionsStore;
 
     const canSendTelemetry = !modeSelectorModalOpen // `DialogExclusionsModeSelection` rendered on top of this screen
         && !addExclusionModalOpen // `DialogAddWebsiteExclusion` rendered on top of this screen
         && !removeAllModalOpen // `DialogExclusionsRemoveAll` rendered on top of this screen
         && !selectedExclusion // `ExclusionsDomainDetailsScreen` rendered on top of this screen
-        && !confirmAddModalOpen; // `DialogExclusionsAddNotValidDomain` rendered on top of this screen
+        && !confirmAddModalOpen // `DialogExclusionsAddNotValidDomain` rendered on top of this screen
+        && !selectListModalOpen; // `DialogImportedExclusions` rendered on top of this screen
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -52,7 +54,7 @@ export const Exclusions = observer(() => {
         );
     }
 
-    const openModeSelectorModal = () => {
+    const openModeSelectorModal = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.ModeClick,
             TelemetryScreenName.ExclusionsScreen,
@@ -61,7 +63,7 @@ export const Exclusions = observer(() => {
     };
 
     const modeInfoParams = {
-        span: (chunks: string) => {
+        span: (chunks: string): ReactElement => {
             return (
                 <button
                     type="button"
@@ -86,7 +88,7 @@ export const Exclusions = observer(() => {
         ? generalModeInfo
         : selectiveModeInfo;
 
-    const onAddExclusionClick = () => {
+    const onAddExclusionClick = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.AddWebsiteClick,
             TelemetryScreenName.ExclusionsScreen,
@@ -94,7 +96,7 @@ export const Exclusions = observer(() => {
         exclusionsStore.openAddExclusionModal();
     };
 
-    const renderSelectiveModeWarning = () => {
+    const renderSelectiveModeWarning = (): ReactElement | null => {
         if (exclusionsStore.currentMode === ExclusionsMode.Selective
             && !exclusionsStore.exclusionsTree.children.length) {
             return (

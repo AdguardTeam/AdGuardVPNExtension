@@ -8,7 +8,7 @@ export class Endpoint implements EndpointInterface {
 
     ipv4Address: string;
 
-    ipv6Address: string;
+    ipv6Address: string | null;
 
     domainName: string;
 

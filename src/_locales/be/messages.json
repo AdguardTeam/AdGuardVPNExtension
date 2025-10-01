@@ -5,38 +5,11 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Не павінна быць пустым"
+    "about_title": {
+        "message": "Аб праграме"
     },
-    "registration_error_not_valid": {
-        "message": "Гэта значэнне несапраўднае"
-    },
-    "registration_error_min_length": {
-        "message": "Пароль павінен змяшчаць не менш за 8 сімвалаў"
-    },
-    "registration_error_confirm_password": {
-        "message": "Паролі не супадаюць"
-    },
-    "registration_error_compromised_password": {
-        "message": "Уведзены пароль знойдзены ў <a>публічнай базе</a> скампраметаваных пароляў. Калі ласка, увядзіце іншы пароль."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Гэта значэнне ўжо выкарыстоўваецца"
-    },
-    "registration_error_default": {
-        "message": "Адбылася памылка, паспрабуйце пазней"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Няправільны пароль"
-    },
-    "authentication_too_many_requests": {
-        "message": "Мы атрымалі зашмат запытаў з вашага IP-адраса. Калі ласка, паспрабуйце пазней."
-    },
-    "authentication_error_default": {
-        "message": "Адбылася памылка, паспрабуйце пазней"
-    },
-    "global_error_message": {
-        "message": "Адбылася памылка, калі ласка, звяжыцеся з намі па адрасе <a>%support_email%</a>"
+    "all_rights_reserved": {
+        "message": "Усе правы абаронены."
     },
     "options_support_title": {
         "message": "Падтрымка"
@@ -119,6 +92,15 @@
     "account_sign_out": {
         "message": "Выйсці"
     },
+    "account_sign_out_question": {
+        "message": "Выйсці?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Скасаваць"
+    },
+    "account_sign_out_description": {
+        "message": "Вы выйдзеце са свайго ўліковага запісу. Абарона VPN будзе спынена"
+    },
     "account_unlimited_title": {
         "message": "Атрымайце безлімітную версію!"
     },
@@ -128,47 +110,14 @@
     "rate_hide": {
         "message": "Схаваць"
     },
-    "auth_confirm": {
-        "message": "Пацвердзіць"
-    },
-    "auth_email": {
-        "message": "Адрас электроннай пошты"
-    },
-    "auth_password": {
-        "message": "Пароль"
-    },
-    "auth_your_password": {
-        "message": "Увядзіце пароль"
-    },
-    "auth_password_confirm": {
-        "message": "Пацвердзіць пароль"
-    },
-    "auth_recover": {
-        "message": "Забылі пароль?"
-    },
-    "auth_sign_up": {
-        "message": "Зарэгістравацца"
-    },
-    "auth_sign_up_button": {
-        "message": "Зарэгістравацца"
-    },
-    "auth_sign_in_button": {
-        "message": "Увайсці"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Электронная пошта"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Працягнуць з Facebook"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Двухфактарная аўтэнтыфікацыя"
-    },
-    "auth_header_2fa": {
-        "message": "Увядзіце код аўтэнтыфікацыі"
+    "eula": {
+        "message": "EULA"
     },
     "privacy_policy": {
         "message": "Палітыка прыватнасці"
+    },
+    "settings_general_title": {
+        "message": "General"
     },
     "settings_referral_info": {
         "message": "Атрымлівайце %your_gb% ГБ бясплатнага трафіку VPN на працягу месяца для кожнага сябра, які зарэгіструецца па вашым запрашэнні, у агульнай складанасці да %total_gb% ГБ. Ваш сябар таксама атрымлівае дадатковыя %friend_gb% ГБ бясплатна."
@@ -224,6 +173,12 @@
     "settings_free_gbs_invite_friend_completed_thank_you": {
         "message": "Дзякуй за выкарыстанне ўсіх вашых запрашэнняў!"
     },
+    "settings_free_gbs_go_back": {
+        "message": "Вярнуцца"
+    },
+    "settings_webrtc_label": {
+        "message": "Блакіраваць WebRTC"
+    },
     "settings_webrtc_desc": {
         "message": "Блакуе WebRTC, вядомую ўразлівасць, якая можа выклікаць уцечку вашага рэальнага IP-адраса, нават калі вы выкарыстоўваеце проксі або VPN"
     },
@@ -245,6 +200,9 @@
     "settings_help_us_improve_modal_desc_data_buttons": {
         "message": "Назвы кнопак, на якія вы націскаеце"
     },
+    "settings_help_us_improve_modal_desc_data_sessions": {
+        "message": "Ідэнтыфікатары сеансаў"
+    },
     "settings_help_us_improve_modal_desc_improve": {
         "message": "Нам патрэбна гэтая інфармацыя, каб аналізаваць і паляпшаць функцыянальнасць AdGuard VPN"
     },
@@ -254,11 +212,26 @@
     "settings_help_us_improve_modal_button": {
         "message": "Зразумела"
     },
+    "context_menu_export_logs": {
+        "message": "Экспартаваць журналы"
+    },
+    "context_menu_debug_level": {
+        "message": "Вядзенне журнала адладкі"
+    },
+    "settings_dns_label": {
+        "message": "Сервер DNS"
+    },
     "settings_dns_description": {
         "message": "Рашайце DNS-запыты, блакуйце рэкламу і трэкеры, і шыфруйце DNS-трафік, калі вы падлучаны да VPN"
     },
     "settings_dns_description_current": {
         "message": "Зараз абраны %dnsServerName%"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Карыстальніцкія серверы DNS"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Дадаць карыстальніцкі сервер DNS"
     },
     "settings_dns_edit_custom_server": {
         "message": "Рэдагаваць карыстальніцкі сервер DNS"
@@ -292,6 +265,9 @@
     },
     "settings_dns_delete_custom_server_notification": {
         "message": "Карыстальніцкі сервер DNS выдалены"
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Прадвызначана"
     },
     "settings_dns_selector_default_desc": {
         "message": "Аўтаматычна выкарыстоўваць прадвызначаны сервер DNS пры падлучэнні да VPN"
@@ -365,6 +341,9 @@
     "settings_exclusion_group_settings_subtitle_selective_mode": {
         "message": "AdGuard VPN падлучаны для даменаў і паддаменаў, адзначаных галачкай"
     },
+    "settings_exclusion_domain_name": {
+        "message": "Даменнае імя"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Паддамен"
     },
@@ -380,8 +359,14 @@
     "settings_exclusion_modal_save": {
         "message": "Захаваць"
     },
+    "settings_exclusion_reset_to_default": {
+        "message": "Скінуць да прадвызначаных"
+    },
     "settings_exclusion_reset_button": {
         "message": "Скінуць"
+    },
+    "settings_exclusions_undo": {
+        "message": "Адрабіць"
     },
     "settings_exclusion_placeholder_search": {
         "message": "Пошук"
@@ -419,11 +404,17 @@
     "settings_exclusion_selective_mode_warning": {
         "message": "Калі пакінуць гэты спіс пустым, VPN адключаецца для ўсіх вэб-сайтаў"
     },
+    "settings_exclusion_import_button": {
+        "message": "Імпарт"
+    },
     "global_error_title": {
         "message": "Адбылася памылка"
     },
     "global_error_description": {
         "message": "Калі ласка, звяжыцеся з намі, калі вы працягваеце бачыць гэта паведамленне"
+    },
+    "global_error_try_again": {
+        "message": "Паспрабаваць яшчэ раз"
     },
     "authentication_successful_notification": {
         "message": "Праверка сапраўднасці прайшла! Вы можаце адкрыць AdGuard VPN і пачаць выкарыстоўваць яго."
@@ -476,6 +467,9 @@
     "endpoints_empty_saved": {
         "message": "Каб убачыць лакацыі, абярыце <b>Усе</b> і націсніце на значок побач з лакацыяй",
         "description": "Respect spaces between text and tags. Use <b> tag for bold text"
+    },
+    "endpoints_tab_all": {
+        "message": "Усе"
     },
     "endpoints_tab_saved": {
         "message": "Захавана"
@@ -583,11 +577,14 @@
     "popup_auth_help_us_improve_modal_desc_info": {
         "message": "Гэтая інфармацыя дапамагае нам зразумець, якія функцыянальнасці працуюць добра, а што патрабуе паляпшэння. Яна ананімізавана і выкарыстоўваецца толькі ўнутрана. Мы ніколі не дзелімся ёй з кім-небудзь."
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Працягнуць"
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Увайсці або стварыць уліковы запіс"
     },
     "popup_newsletter_info": {
         "message": "Дасылаць мне адмысловыя прапановы і навіны AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Падпісацца"
     },
     "popup_newsletter_no_subscribe": {
         "message": "Не, дзякуй"
@@ -720,20 +717,14 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Не паказваць зноў"
     },
+    "popup_stats": {
+        "message": "Статыстыка"
+    },
     "popup_stats_enable_btn": {
         "message": "Уключыць"
     },
     "popup_stats_usage_time": {
         "message": "Час"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Чаму гэта бяспечна"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Чаму гэта бяспечна"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Уся статыстыка збіраецца і захоўваецца лакальна на вашай прыладзе. Мы не маем да яе доступу"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Зразумела"
@@ -762,8 +753,14 @@
     "popup_stats_range_days_30": {
         "message": "30 дзён"
     },
+    "popup_stats_range_all_time": {
+        "message": "За ўвесь час"
+    },
     "popup_stats_data_usage_downloaded": {
         "message": "спампавана"
+    },
+    "popup_stats_data_usage_uploaded": {
+        "message": "запампавана"
     },
     "popup_stats_empty": {
         "message": "Пакуль няма статыстыкі — працягвайце карыстацца AdGuard VPN для яе прагляду"
@@ -786,38 +783,29 @@
     "notification_data_left_description": {
         "message": "Хуткасць VPN-злучэння хутка знізіцца."
     },
-    "confirm_email_title": {
-        "message": "Пацвердзіце сваю электронную пошту"
-    },
-    "confirm_email_info": {
-        "message": "Мы адправілі код пацверджання на <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Адрас электроннай пошты пацверджаны"
     },
     "confirm_email_done_info": {
         "message": "Дзякуй за праверку!"
     },
-    "confirm_email_code_placeholder": {
-        "message": "Змяшчае лічбы і літары"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Праверце код: ён выглядае няправільным"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Адправіць іншы код (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Адправіць іншы код"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Не ўдалося ўвайсці. Паўтарыце спробу або звяжыцеся з намі праз <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Не атрымалася зарэгістраваць вас. Калі ласка, паспрабуйце яшчэ раз або звяжыцеся з намі праз <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Спасылка для пацверджання была адпраўлена на вашу электронную пошту"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Не ўдалося ўвайсці"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Паспрабуйце яшчэ раз або <a>звярніцеся ў службу падтрымкі</a>"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Закрыць"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Паўторна адкрыць старонку ўваходу"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Скасаваць"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",

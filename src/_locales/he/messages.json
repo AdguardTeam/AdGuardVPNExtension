@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "חייב לא להיות ריק"
-    },
-    "registration_error_not_valid": {
-        "message": "ערך זה אינו תקף"
-    },
-    "registration_error_min_length": {
-        "message": "סיסמה חייבת להיות להכיל לפחות 8 תווים"
-    },
-    "registration_error_confirm_password": {
-        "message": "הסיסמאות אינן תואמות"
-    },
-    "registration_error_compromised_password": {
-        "message": "הסיסמה שהכנסת נמצאה ב<a>מסד נתונים ציבורי</a> של סיסמאות פריצות. אנא נסה אחת אחרת."
-    },
-    "registration_error_unique_constraint": {
-        "message": "ערך זה נמצא כבר בשימוש"
-    },
-    "registration_error_default": {
-        "message": "שגיאה התרחשה, נסה שוב מאוחר יותר"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA דרוש"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "אסימון בלתי תקף"
-    },
-    "authentication_error_account_disabled": {
-        "message": "החשבון מושבת"
-    },
-    "authentication_error_account_locked": {
-        "message": "החשבון נעול למשך 15 דקות"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "סיסמה שגויה"
-    },
-    "authentication_too_many_requests": {
-        "message": "קיבלנו יותר מדי בקשות מכתובת ה־IP שלך. אנא נסה שוב מאוחר יותר."
-    },
-    "authentication_error_default": {
-        "message": "שגיאה התרחשה, נסה שוב מאוחר יותר"
-    },
-    "global_error_message": {
-        "message": "אירעה שגיאה, אנא צור איתנו קשר דרך <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "אודות"
     },
@@ -156,6 +111,9 @@
     "account_sign_out": {
         "message": "צא"
     },
+    "account_sign_out_popup_cancel": {
+        "message": "בטל"
+    },
     "account_unlimited_title": {
         "message": "קבל את הגרסה הבלתי מוגבלת!"
     },
@@ -164,69 +122,6 @@
     },
     "rate_hide": {
         "message": "הסתר"
-    },
-    "auth_confirm": {
-        "message": "אשר"
-    },
-    "auth_email": {
-        "message": "כתובת דוא״ל"
-    },
-    "auth_password": {
-        "message": "סיסמה"
-    },
-    "auth_your_password": {
-        "message": "הסיסמה שלך"
-    },
-    "auth_password_confirm": {
-        "message": "אשר סיסמה"
-    },
-    "auth_recover": {
-        "message": "שכחת סיסמה?"
-    },
-    "auth_sign_up": {
-        "message": "הירשם"
-    },
-    "auth_sign_up_info": {
-        "message": "צור את חשבון AdGuard שלך"
-    },
-    "auth_sign_up_button": {
-        "message": "הירשם"
-    },
-    "auth_sign_in": {
-        "message": "הכנס את הסיסמה שלך"
-    },
-    "auth_sign_in_button": {
-        "message": "היכנס"
-    },
-    "auth_title": {
-        "message": "היכנס או צור חשבון"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "דוא״ל"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "המשך עם דוא״ל"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "המשך עם Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "המשך עם Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "המשך עם Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "מתחבר בתור <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "אימות דו־שלבי"
-    },
-    "auth_header_2fa": {
-        "message": "הכנס את קוד האימות"
-    },
-    "auth_placeholder_2fa": {
-        "message": "קוד אימות"
     },
     "official_website": {
         "message": "האתר הרשמי"
@@ -755,7 +650,7 @@
         "message": "אנא דרג אותנו"
     },
     "popup_rate_modal_send_button": {
-        "message": "שלח דוח"
+        "message": "דווח"
     },
     "popup_rate_modal_cancel_button": {
         "message": "בטל"
@@ -835,9 +730,6 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "היכנס או צור חשבון"
-    },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "המשך"
     },
     "popup_newsletter_title": {
         "message": "עלון AdGuard"
@@ -1021,9 +913,6 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "אל תראה את זה שוב"
     },
-    "popup_stats_for_browser_title": {
-        "message": "סטטיסטיקה עבור דפדפן זה"
-    },
     "popup_stats_disabled_notice": {
         "message": "הסטטיסטיקות מושבתות"
     },
@@ -1038,18 +927,6 @@
     },
     "popup_stats_usage_time": {
         "message": "זמן"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "למה זה בטוח"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "למה זה בטוח"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "חיבור ה-VPN מוצפן ומאובטח, כך שאף אחד לא יכול לראות את נתוני הפעילות שלכם — אנו מחשבים רק את השימוש בתעבורה שלכם"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "כל הסטטיסטיקות נאספות ומאוחסנות מקומית על המכשיר שלך. אין לנו גישה אליהן"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "הבנת"
@@ -1150,40 +1027,22 @@
     "notification_data_left_description": {
         "message": "מהירות חיבור ה־VPN תואט בקרוב."
     },
-    "confirm_email_title": {
-        "message": "אשר את הדוא״ל שלך"
-    },
-    "confirm_email_info": {
-        "message": "שלחנו קוד אישור ל<span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "כתובת דוא׳ל מאושרת"
     },
     "confirm_email_done_info": {
         "message": "תודה על האישור!"
     },
-    "confirm_email_code_label": {
-        "message": "קוד אישור"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "מכיל מספרים ואותיות"
-    },
-    "confirm_email_code_invalid": {
-        "message": "אנא בדוק את הקוד — הוא נראה לא נכון"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "שלח קוד נוסף (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "שלח קוד נוסף"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "הכניסה נכשלה. נא נסה שוב או צור קשר עם <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "ההרשמה נכשלה. נא נסה שוב או צור קשר עם <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "קישור אישור שלח מחדש"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "אנא נסה שוב"
+    },
+    "auth_failed_to_login_button": {
+        "message": "סגור"
+    },
+    "auth_loading_button_cancel": {
+        "message": "בטל"
     }
 }

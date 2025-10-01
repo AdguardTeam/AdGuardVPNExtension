@@ -54,10 +54,18 @@ const generateExclusions = (exclusion: ExclusionInterface): ExclusionInterface[]
     ];
 };
 
+/**
+ * Complements an exclusions group with a new exclusion.
+ *
+ * @param exclusionsTargetGroup The target exclusions group to complement.
+ * @param exclusion The exclusion to add to the group.
+ *
+ * @returns The complemented exclusions group.
+ */
 const complementExclusionsGroup = (
     exclusionsTargetGroup: ExclusionGroup,
     exclusion: ExclusionInterface,
-) => {
+): ExclusionGroup => {
     const resultGroup = { ...exclusionsTargetGroup };
     const foundExclusion = exclusionsTargetGroup[exclusion.hostname];
 
@@ -78,8 +86,10 @@ const complementExclusionsGroup = (
  * if founds eTLD exclusion, adds disabled wildcard exclusion
  * if founds wildcard exclusion, adds eTLD disabled exclusion
  * if founds subdomain exclusion, adds disabled wildcard and eTLD exclusions
+ *
+ * @returns Complemented exclusions list.
  */
-export const complementExclusions = (exclusions: ExclusionInterface[]) => {
+export const complementExclusions = (exclusions: ExclusionInterface[]): ExclusionInterface[] => {
     const complementedExclusions = exclusions.reduce((acc: IndexedExclusionsMap, exclusion) => {
         const eTld = getETld(exclusion.hostname);
 
@@ -121,11 +131,20 @@ const generateExclusionsFromDomains = (domains: string[]): ExclusionInterface[] 
     });
 };
 
+/**
+ * Complements an exclusions group with generated exclusions from domains.
+ *
+ * @param exclusionGroup The exclusions group to complement.
+ * @param exclusion The exclusion to process.
+ * @param domain The domain to generate exclusions from.
+ *
+ * @returns The complemented exclusions group.
+ */
 const complementExclusionsGroupWithDomains = (
     exclusionGroup: ExclusionGroup,
     exclusion: ExclusionInterface,
     domain: string,
-) => {
+): ExclusionGroup => {
     const resultGroup = { ...exclusionGroup };
 
     const generatedExclusions = generateExclusionsFromDomains([domain]);
@@ -149,7 +168,7 @@ const complementExclusionsMapWithServiceDomains = (
     map: IndexedExclusionsMap,
     exclusion: ExclusionInterface,
     domains: string[],
-) => {
+): IndexedExclusionsMap => {
     const resultMap = { ...map };
 
     domains.forEach((domain) => {
@@ -176,7 +195,7 @@ const complementExclusionsMapWithServiceDomains = (
 export const complementedExclusionsWithServices = (
     exclusions: ExclusionInterface[],
     services: ServicesInterface,
-) => {
+): ExclusionInterface[] => {
     const servicesIndex = createServicesIndex(services);
 
     const complementedExclusions = exclusions.reduce((acc: IndexedExclusionsMap, exclusion) => {

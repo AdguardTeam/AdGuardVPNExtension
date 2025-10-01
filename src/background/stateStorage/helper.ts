@@ -5,7 +5,7 @@ import { MessageType } from '../../common/constants';
 /**
  * Sends the message to the option's page to update event listeners
  */
-export const updateOptionsPageListeners = async () => {
+export const updateOptionsPageListeners = async (): Promise<void> => {
     try {
         await browser.runtime.sendMessage({ type: MessageType.UPDATE_LISTENERS });
     } catch (e) {

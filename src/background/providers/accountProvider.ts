@@ -1,8 +1,6 @@
 import { getForwarderUrl } from '../../common/helpers';
 import { accountApi, type VpnSubscriptionData } from '../api';
 import { forwarder } from '../forwarder';
-import { notifications } from '../notifications';
-import { translator } from '../../common/translator';
 
 interface VpnTokenData {
     /**
@@ -50,10 +48,50 @@ export type AccountInfoData = {
     registrationTimeISO: string,
 };
 
+/**
+ * Account settings data.
+ *
+ * Note: We only use `marketingConsent` field, rest of the fields are unused,
+ * but to match with backend API response structure, we keep them here.
+ */
+export type AccountSettingsData = {
+    /**
+     * Is email notifications enabled for user.
+     *
+     * Note: This field is optional because it's optional in the backend API.
+     */
+    isEmailNotificationsEnabled?: boolean;
+
+    /**
+     * User decision about the marketing consent.
+     *
+     * Note: This field is optional because it's optional in the backend API.
+     */
+    marketingConsent?: boolean;
+
+    /**
+     * User language.
+     *
+     * Note: This field is optional because it's optional in the backend API.
+     */
+    language?: string;
+
+    /**
+     * Is 2FA verification enabled for user.
+     *
+     * Note: This field is optional because it's optional in the backend API.
+     */
+    is2faEnabled?: boolean;
+
+    /**
+     * User decision about the email tracking consent.
+     *
+     * Note: This field is optional because it's optional in the backend API.
+     */
+    disableTracking?: boolean;
+};
+
 interface BonusesData {
-    confirmBonus: {
-        available: boolean,
-    };
     multiplatformBonus: {
         available: boolean,
     };
@@ -120,20 +158,45 @@ const getAccountInfo = async (accessToken: string): Promise<AccountInfoData> => 
     };
 };
 
-const resendConfirmRegistrationLink = async (
-    accessToken: string,
-    displayNotification: boolean,
-): Promise<void> => {
-    await accountApi.resendConfirmRegistrationLink(accessToken);
-    if (displayNotification) {
-        await notifications.create({ message: translator.getMessage('resend_confirm_registration_link_notification') });
-    }
+/**
+ * Uses account api to fetch account settings.
+ *
+ * @param accessToken Access token.
+ *
+ * @returns Account settings: Is email notification enabled, marketing consent,
+ * language, is 2FA enabled, is "disable tracking" enabled.
+ */
+const getAccountSettings = async (accessToken: string): Promise<AccountSettingsData> => {
+    const {
+        is_email_notifications_enabled: isEmailNotificationsEnabled,
+        marketing_consent: marketingConsent,
+        language,
+        is_2fa_enabled: is2faEnabled,
+        disable_tracking: disableTracking,
+    } = await accountApi.getAccountSettings(accessToken);
+
+    return {
+        isEmailNotificationsEnabled,
+        marketingConsent,
+        language,
+        is2faEnabled,
+        disableTracking,
+    };
+};
+
+/**
+ * Updates marketing consent for user.
+ *
+ * @param accessToken Access token.
+ * @param marketingConsent User decision about the marketing consent.
+ */
+const updateMarketingConsent = async (accessToken: string, marketingConsent: boolean): Promise<void> => {
+    await accountApi.updateMarketingConsent(accessToken, marketingConsent);
 };
 
 const getAvailableBonuses = async (accessToken: string): Promise<BonusesData> => {
     const bonusesData = await accountApi.getAvailableBonuses(accessToken);
     const {
-        confirm_bonus: confirmBonus,
         multiplatform_bonus: multiplatformBonus,
     } = bonusesData;
 
@@ -146,7 +209,6 @@ const getAvailableBonuses = async (accessToken: string): Promise<BonusesData> =>
     );
 
     return {
-        confirmBonus,
         multiplatformBonus,
         invitesBonuses: {
             inviteUrl,
@@ -159,6 +221,7 @@ const getAvailableBonuses = async (accessToken: string): Promise<BonusesData> =>
 export const accountProvider = {
     getVpnToken,
     getAccountInfo,
+    getAccountSettings,
+    updateMarketingConsent,
     getAvailableBonuses,
-    resendConfirmRegistrationLink,
 };

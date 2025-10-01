@@ -28,7 +28,7 @@ const FORCE_CANCELLED = 'Connection was cancelled by user';
  * 5. Starts WS connection, when it is open it connects proxy in browser API
  * @param forcePrevEndpoint - flag used to not always determine all endpoints pings
  */
-function* turnOnProxy(forcePrevEndpoint = false) {
+function* turnOnProxy(forcePrevEndpoint = false): Generator<Promise<unknown>, void, any> {
     const entryTime = Date.now();
     try {
         yield credentials.trackInstallation();
@@ -73,7 +73,14 @@ class Switcher {
 
     private promise: Promise<unknown>;
 
-    turnOn(forcePrevEndpoint?: boolean) {
+    /**
+     * Turns on the VPN proxy connection by executing the complete connection flow.
+     *
+     * @param forcePrevEndpoint Optional flag used to skip endpoint ping determination.
+     *
+     * @returns Promise that resolves when the proxy connection is established.
+     */
+    turnOn(forcePrevEndpoint?: boolean): Promise<unknown> {
         if (this.cancel) {
             this.cancel(FORCE_CANCELLED);
         }
@@ -83,7 +90,12 @@ class Switcher {
         return promise;
     }
 
-    turnOff() {
+    /**
+     * Turns off the VPN proxy connection.
+     *
+     * @returns Promise that resolves when the proxy connection is disconnected.
+     */
+    turnOff(): Promise<unknown> {
         if (this.cancel) {
             this.cancel(FORCE_CANCELLED);
         }

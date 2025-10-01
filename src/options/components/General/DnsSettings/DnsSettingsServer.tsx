@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import { type DnsServerData } from '../../../../background/schema';
 import { Radio } from '../../ui/Radio';
@@ -27,8 +27,8 @@ interface ModifyButtonProps {
 /**
  * Modify button component (Delete / Edit).
  */
-function ModifyButton({ icon, hoverColor, onClick }: ModifyButtonProps) {
-    const handleClick = (e: React.MouseEvent) => {
+function ModifyButton({ icon, hoverColor, onClick }: ModifyButtonProps): ReactElement {
+    const handleClick = (e: React.MouseEvent): void => {
         e.stopPropagation();
         onClick();
     };
@@ -118,7 +118,7 @@ export function DnsSettingsServer({
     isActive,
     onSelect,
     ...restProps
-}: DnsSettingsServerProps) {
+}: DnsSettingsServerProps): ReactElement {
     if (restProps.custom) {
         return (
             <Radio
@@ -135,12 +135,12 @@ export function DnsSettingsServer({
                         <ModifyButton
                             icon="edit"
                             hoverColor="product"
-                            onClick={() => restProps.onEdit(value)}
+                            onClick={(): void => restProps.onEdit(value)}
                         />
                         <ModifyButton
                             icon="basket"
                             hoverColor="error"
-                            onClick={() => restProps.onDelete(value.id)}
+                            onClick={(): void => restProps.onDelete(value.id)}
                         />
                     </span>
                 )}

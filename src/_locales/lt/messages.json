@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Turi būti ne tuščias"
-    },
-    "registration_error_not_valid": {
-        "message": "Ši reikšmė neteisinga"
-    },
-    "registration_error_min_length": {
-        "message": "Slaptažodis turi sudaryti ne mažiau kaip 8 simboliai"
-    },
-    "registration_error_confirm_password": {
-        "message": "Slaptažodžiai nesutampa"
-    },
-    "registration_error_compromised_password": {
-        "message": "Slaptažodis, kurį įvedėjai, buvo rastas <a>viešoje duomenų bazėje</a> pažeistų slaptažodžių. Prašome pabandyti kitą."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Ši reikšmė jau naudojama"
-    },
-    "registration_error_default": {
-        "message": "Įvyko klaida, pabandykite dar kartą vėliau"
-    },
-    "authentication_error_2fa_required": {
-        "message": "Reikalingas 2FA"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Neteisingas prieigos raktas"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Paskyra yra išjungta"
-    },
-    "authentication_error_account_locked": {
-        "message": "Paskyra užblokuota 15 minučių"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Neteisingas slaptažodis"
-    },
-    "authentication_too_many_requests": {
-        "message": "Gavome per daug užklausų iš jūsų IP adreso. Bandykite dar kartą vėliau."
-    },
-    "authentication_error_default": {
-        "message": "Įvyko klaida. Pabandykite dar kartą vėliau"
-    },
-    "global_error_message": {
-        "message": "Įvyko klaida, prašome susisiekti su mumis per <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Apie"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Atsijungti"
     },
+    "account_sign_out_question": {
+        "message": "Atsijungti?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Atšaukti"
+    },
+    "account_sign_out_description": {
+        "message": "Būsite atjungti nuo paskyros. VPN apsauga bus sustabdyta"
+    },
     "account_unlimited_title": {
         "message": "Gaukite neribotą versiją!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Paslėpti"
-    },
-    "auth_confirm": {
-        "message": "Patvirtinti"
-    },
-    "auth_email": {
-        "message": "El. pašto adresas"
-    },
-    "auth_password": {
-        "message": "Slaptažodis"
-    },
-    "auth_your_password": {
-        "message": "Įveskite slaptažodį"
-    },
-    "auth_password_confirm": {
-        "message": "Patvirtinti slaptažodį"
-    },
-    "auth_recover": {
-        "message": "Pamiršote slaptažodį?"
-    },
-    "auth_sign_up": {
-        "message": "Užsiregistruoti"
-    },
-    "auth_sign_up_info": {
-        "message": "Sukurkite savo „AdGuard“ paskyrą"
-    },
-    "auth_sign_up_button": {
-        "message": "Užsiregistruoti"
-    },
-    "auth_sign_in": {
-        "message": "Prisijungti"
-    },
-    "auth_sign_in_button": {
-        "message": "Prisijungti"
-    },
-    "auth_title": {
-        "message": "Prisijunkite arba sukurkite paskyrą"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "El. paštas"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Tęsti su el. paštu"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Tęsti naudojant Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Tęsti su „Google“"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Tęsti su „Facebook“"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Prisijungta naudojant <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Dvigubas tapatybės patvirtinimas"
-    },
-    "auth_header_2fa": {
-        "message": "Įveskite autentifikacijos kodą"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Autorizacijos kodas"
     },
     "official_website": {
         "message": "Oficiali svetainė"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Prisijunkite arba sukurkite paskyrą"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Tęsti"
-    },
     "popup_newsletter_title": {
         "message": "AdGuard naujienlaiškis"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Nerodyti šio pranešimo"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Šios naršyklės statistika"
+    "popup_stats": {
+        "message": "Statistika"
     },
     "popup_stats_disabled_notice": {
         "message": "Statistika yra išjungta"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Laikas"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Kodėl tai saugu"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Kodėl tai saugu"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN ryšys yra užšifruotas ir saugus, todėl niekas negali matyti jūsų veiklos duomenų – mes skaičiuojame tik jūsų srauto naudojimą"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Visi statistiniai duomenys renkami ir saugomi tavo įrenginyje. Mes neturime prieigos prie jų"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Supratau"
@@ -1150,40 +1036,19 @@
     "notification_data_left_description": {
         "message": "VPN prisijungimo greitis bus sumažintas netrukus."
     },
-    "confirm_email_title": {
-        "message": "Patvirtinkite savo el. paštą"
-    },
-    "confirm_email_info": {
-        "message": "Išsiuntėme patvirtinimo kodą adresu <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "El. pašto adresas patvirtintas"
     },
     "confirm_email_done_info": {
         "message": "Ačiū, kad patvirtinote!"
     },
-    "confirm_email_code_label": {
-        "message": "Patvirtinimo kodas"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Sudėtyje yra skaičių ir raidžių"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Patikrink kodą – jis atrodo neteisingas."
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Siųsti kitą kodą (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Siųsti kitą kodą"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Nepavyko prisijungti. Bandyk dar kartą arba susisiek su mumis per <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Nepavyko užregistruoti. Bandyk dar kartą arba susisiek su mumis per <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Patvirtinimo nuoroda išsiųsta"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Uždaryti"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Atšaukti"
     }
 }

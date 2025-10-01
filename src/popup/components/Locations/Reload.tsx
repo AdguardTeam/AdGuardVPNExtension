@@ -18,7 +18,7 @@ export const Reload = observer(() => {
     /**
      * Recalculates pings for all endpoints.
      */
-    const recalculatePings = async () => {
+    const recalculatePings = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.RenewLocationsClick,
             TelemetryScreenName.LocationsScreen,

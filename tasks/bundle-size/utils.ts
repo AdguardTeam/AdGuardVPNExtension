@@ -1,0 +1,248 @@
+/**
+ * @file Bundle size utilities
+ * Common utility functions for the bundle size monitoring system.
+ *
+ * Provides:
+ * - File and directory size calculation helpers
+ * - Read/write helpers for .bundle-sizes.json
+ * - Build stats extraction for CI and local use
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+
+import { Browser, BUILD_DIR, Env } from '../consts';
+import { getBrowserConf } from '../helpers';
+
+import type { BundleSizes, SizesFile, TargetInfo } from './constants';
+import { ZIP_EXTENSION } from './constants';
+
+// Path constants
+/**
+ * Root directory of the project.
+ */
+export const ROOT_DIR = path.resolve(__dirname, '../../');
+
+/**
+ * Path to the .bundle-sizes.json file.
+ */
+export const SIZES_FILE_PATH = path.resolve(ROOT_DIR, '.bundle-sizes.json');
+
+/**
+ * Get file size in bytes.
+ *
+ * @param filePath Path to the file.
+ *
+ * @returns File size in bytes.
+ */
+export async function getFileSize(filePath: string): Promise<number> {
+    try {
+        const stats = await fs.promises.stat(filePath);
+        return stats.size;
+    } catch (error) {
+        throw new Error(`Failed to get file size: ${error}`);
+    }
+}
+
+/**
+ * Get all files in a directory and its subdirectories.
+ *
+ * @param dirPath Path to the directory.
+ *
+ * @returns List of file paths.
+ */
+export async function getAllFilesInDir(dirPath: string): Promise<string[]> {
+    try {
+        const entries = await fs.promises.readdir(dirPath, { withFileTypes: true });
+
+        return entries
+            .filter((entry) => entry.isFile())
+            .map((entry) => path.join(dirPath, entry.name));
+    } catch (error) {
+        throw new Error(`Failed to get all files in directory: ${error}`);
+    }
+}
+
+/**
+ * Read the saved sizes file (.bundle-sizes.json).
+ *
+ * @returns Parsed sizes data.
+ */
+export async function readSizesFile(): Promise<SizesFile> {
+    try {
+        if (!fs.existsSync(SIZES_FILE_PATH)) {
+            // Create empty file if it doesn't exist
+            await fs.promises.writeFile(SIZES_FILE_PATH, JSON.stringify({}, null, 2));
+        }
+
+        const sizesData = await fs.promises.readFile(SIZES_FILE_PATH, 'utf-8');
+        return JSON.parse(sizesData);
+    } catch (error) {
+        throw new Error(`Failed to read sizes file: ${error}`);
+    }
+}
+
+/**
+ * Get all files in a directory with their sizes.
+ *
+ * @param dirPath Path to the directory.
+ *
+ * @returns Object mapping file paths to sizes in bytes.
+ */
+export const getFilesWithSizes = async (dirPath: string): Promise<Record<string, number>> => {
+    if (!fs.existsSync(dirPath)) {
+        throw new Error(`Directory ${dirPath} does not exist, cannot get file sizes`);
+    }
+
+    const files = await getAllFilesInDir(dirPath);
+    const sizes: Record<string, number> = {};
+
+    await Promise.all(files.map(async (file) => {
+        const relativePath = path.relative(dirPath, file);
+        sizes[relativePath] = await getFileSize(file);
+    }));
+
+    return sizes;
+};
+
+/**
+ * Check if a file or directory exists at the given path.
+ *
+ * @param path Path to the file or directory to check.
+ *
+ * @returns Promise with true if the path exists, false otherwise.
+ */
+async function exists(path: string) {
+    try {
+        await fs.promises.access(path);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Returns the size of a directory with all files and subdirectories.
+ *
+ * Recursively traverses the directory and its subdirectories to calculate the total size.
+ *
+ * @param dirPath Path to the directory.
+ *
+ * @returns Size of the directory in bytes.
+ */
+export const getDirSize = async (dirPath: string): Promise<number> => {
+    const dirExists = await exists(dirPath);
+    if (!dirExists) {
+        throw new Error(`Directory ${dirPath} does not exist, cannot get directory size`);
+    }
+
+    let totalSize = 0;
+    const items = await fs.promises.readdir(dirPath, { withFileTypes: true });
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of items) {
+        const itemPath = path.join(dirPath, item.name);
+
+        if (item.isDirectory()) {
+            // Recursively get size of subdirectory
+            // eslint-disable-next-line no-await-in-loop
+            totalSize += await getDirSize(itemPath);
+        } else if (item.isFile()) {
+            // Add file size to total
+            // eslint-disable-next-line no-await-in-loop
+            const size = await getFileSize(itemPath);
+            totalSize += size;
+        }
+    }
+
+    return totalSize;
+};
+
+export const getZipArchiveName = (target: Browser, buildEnv: Env) => {
+    if (buildEnv === Env.Dev) {
+        return `${target}-${process.env.STAGE_ENV}${ZIP_EXTENSION}`;
+    }
+
+    return `${target}${ZIP_EXTENSION}`;
+};
+
+/**
+ * Get the size statistics for the current build.
+ *
+ * @param buildType Build environment (beta, release, etc.).
+ * @param target Browser target.
+ *
+ * @returns Bundle size stats for the current build.
+ */
+export async function getCurrentBuildStats(
+    buildType: Env,
+    target: Browser,
+): Promise<TargetInfo> {
+    const buildDir = path.resolve(ROOT_DIR, BUILD_DIR, buildType);
+    const zipArchiveName = getZipArchiveName(target, buildType);
+    const zip = await getFileSize(path.join(buildDir, zipArchiveName));
+
+    // Find unzipped directory for the specified target
+    const targetDir = path.join(buildDir, getBrowserConf(target).buildDir);
+
+    // Check if the target directory exists.
+    if (!fs.existsSync(targetDir)) {
+        throw new Error(`Target directory ${targetDir} does not exist`);
+    }
+
+    // Get files sizes
+    const files = await getFilesWithSizes(targetDir);
+
+    // Get version from package.json
+    const packageJsonPath = path.resolve(ROOT_DIR, 'package.json');
+    if (!fs.existsSync(packageJsonPath)) {
+        throw new Error('package.json does not exist');
+    }
+    const packageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf-8'));
+    const version = packageJson.version || 'unknown';
+
+    const stats: BundleSizes = {
+        zip,
+        files,
+    };
+
+    if (target === Browser.Firefox) {
+        stats.raw = await getDirSize(targetDir);
+    }
+
+    return {
+        stats,
+        version,
+        // In human-readable format, for quick debugging.
+        updatedAt: new Date().toISOString(),
+    };
+}
+
+/**
+ * Format a file size in human-readable format.
+ *
+ * @returns Formatted size string.
+ */
+export function formatSize(bytes: number): string {
+    if (bytes < 1024) {
+        return `${bytes.toFixed(2)} bytes`;
+    }
+    if (bytes < 1024 * 1024) {
+        return `${(bytes / 1024).toFixed(2)} KB`;
+    }
+    return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+}
+
+/**
+ * Format a percentage with sign (e.g., "+5.00%", "-3.20%").
+ *
+ * @param oldValue Old value.
+ * @param newValue New value.
+ *
+ * @returns Formatted percentage string.
+ */
+export function formatPercentage(oldValue: number, newValue: number): string {
+    const diff = newValue - oldValue;
+    const percentage = (diff / oldValue) * 100;
+
+    return `${percentage >= 0 ? '+' : ''}${percentage.toFixed(2)}%`;
+}

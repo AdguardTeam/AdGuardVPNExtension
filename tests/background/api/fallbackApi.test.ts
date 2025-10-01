@@ -1,3 +1,11 @@
+import {
+    vi,
+    describe,
+    afterEach,
+    it,
+    expect,
+    type MockedFunction,
+} from 'vitest';
 import axios from 'axios';
 
 import {
@@ -8,31 +16,25 @@ import {
 } from '../../../src/background/api/fallbackApi';
 import { stateStorage } from '../../../src/background/stateStorage';
 
-jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
+vi.mock('axios');
 
-jest.mock('axios');
-jest.mock('../../../src/common/logger');
+vi.mock('../../../src/background/authentication/authService', async () => ({
+    authService: {
+        isAuthenticated: vi.fn().mockResolvedValue(false),
+    },
+}));
 
-jest.mock('../../../src/background/browserApi', () => {
-    // eslint-disable-next-line global-require
-    return require('../../__mocks__/browserApiMock');
-});
-
-jest.useFakeTimers('modern');
+vi.useFakeTimers();
 
 describe('FallbackApi', () => {
-    beforeEach(async () => {
-        await stateStorage.init();
-    });
-
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
         // @ts-expect-error - reset stateStorage to default
         stateStorage.state.fallbackInfo = null;
     });
 
     it('returns default api urls if requests to google, ali, quad9 fail', async () => {
-        (axios.post as jest.MockedFunction<typeof axios.get>).mockRejectedValue({
+        (axios.post as MockedFunction<typeof axios.get>).mockRejectedValue({
             status: 400,
         });
 
@@ -68,9 +70,9 @@ describe('FallbackApi', () => {
         const fallbackApi = new FallbackApi(DEFAULT_VPN_API_URL, DEFAULT_AUTH_API_URL, DEFAULT_FORWARDER_API_URL);
 
         // mock network request functions
-        const getBkpVpnApiUrlMock = jest.spyOn(fallbackApi, 'getBkpVpnApiUrl');
+        const getBkpVpnApiUrlMock = vi.spyOn(fallbackApi, 'getBkpVpnApiUrl');
         getBkpVpnApiUrlMock.mockResolvedValue(REMOTE_VPN_API_URL);
-        const getBkpAuthApiUrlMock = jest.spyOn(fallbackApi, 'getBkpAuthApiUrl');
+        const getBkpAuthApiUrlMock = vi.spyOn(fallbackApi, 'getBkpAuthApiUrl');
         getBkpAuthApiUrlMock.mockResolvedValue(REMOTE_AUTH_API_URL);
 
         // init with network requests
@@ -86,7 +88,7 @@ describe('FallbackApi', () => {
         // vpn api url should be set as forwarder url
         expect(forwarderApiUrl).toBe(REMOTE_VPN_API_URL);
 
-        jest.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS / 2);
+        vi.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS / 2);
 
         vpnApiUrl = await fallbackApi.getVpnApiUrl();
         authApiUrl = await fallbackApi.getAuthApiUrl();
@@ -98,7 +100,7 @@ describe('FallbackApi', () => {
         expect(fallbackApi.getBkpVpnApiUrl).toBeCalledTimes(1);
         expect(fallbackApi.getBkpAuthApiUrl).toBeCalledTimes(1);
 
-        jest.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS / 2 + 100);
+        vi.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS / 2 + 100);
 
         // change remote response
         REMOTE_VPN_API_URL = 'remote_vpn_api.io';
@@ -126,7 +128,7 @@ describe('FallbackApi', () => {
 
         const fallbackApi = new FallbackApi(DEFAULT_VPN_API_URL, DEFAULT_AUTH_API_URL, DEFAULT_FORWARDER_API_URL);
 
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockResolvedValue('"none"');
+        vi.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockResolvedValue('"none"');
         await fallbackApi.init();
 
         let vpnApiUrl = await fallbackApi.getVpnApiUrl();
@@ -137,7 +139,7 @@ describe('FallbackApi', () => {
         expect(authApiUrl).toBe(DEFAULT_AUTH_API_URL);
         expect(forwarderApiUrl).toBe(DEFAULT_FORWARDER_API_URL);
 
-        jest.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS + 1);
+        vi.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS + 1);
 
         vpnApiUrl = await fallbackApi.getVpnApiUrl();
         authApiUrl = await fallbackApi.getAuthApiUrl();
@@ -148,10 +150,10 @@ describe('FallbackApi', () => {
         expect(forwarderApiUrl).toBe(DEFAULT_FORWARDER_API_URL);
 
         const NEW_RESPONSE_URL_API = 'bkp_url.example.com';
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockResolvedValue(`"${NEW_RESPONSE_URL_API}"`);
+        vi.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockResolvedValue(`"${NEW_RESPONSE_URL_API}"`);
 
         // before expiration time, previous api urls should be used
-        jest.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS / 2);
+        vi.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS / 2);
 
         vpnApiUrl = await fallbackApi.getVpnApiUrl();
         authApiUrl = await fallbackApi.getAuthApiUrl();
@@ -162,7 +164,7 @@ describe('FallbackApi', () => {
         expect(forwarderApiUrl).toBe(DEFAULT_FORWARDER_API_URL);
 
         // after expiration time, new api urls should be used
-        jest.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS / 2 + 1);
+        vi.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS / 2 + 1);
 
         vpnApiUrl = await fallbackApi.getVpnApiUrl();
         authApiUrl = await fallbackApi.getAuthApiUrl();
@@ -181,7 +183,7 @@ describe('FallbackApi', () => {
         const fallbackApi = new FallbackApi(DEFAULT_VPN_API_URL, DEFAULT_AUTH_API_URL, DEFAULT_FORWARDER_API_URL);
 
         const successUrl = 'success.com';
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockResolvedValue(successUrl);
+        vi.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockResolvedValue(successUrl);
 
         await fallbackApi.init();
 
@@ -193,10 +195,10 @@ describe('FallbackApi', () => {
         expect(authApiUrl).toBe(successUrl);
         expect(forwarderApiUrl).toBe(successUrl);
 
-        jest.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS + 1);
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockRejectedValue(new Error('any'));
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByDohPubDnsDoh').mockRejectedValue(new Error('any'));
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByQuad9Doh').mockRejectedValue(new Error('any'));
+        vi.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS + 1);
+        vi.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockRejectedValue(new Error('any'));
+        vi.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByDohPubDnsDoh').mockRejectedValue(new Error('any'));
+        vi.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByQuad9Doh').mockRejectedValue(new Error('any'));
 
         vpnApiUrl = await fallbackApi.getVpnApiUrl();
         authApiUrl = await fallbackApi.getAuthApiUrl();
@@ -207,7 +209,7 @@ describe('FallbackApi', () => {
         expect(forwarderApiUrl).toBe(successUrl);
 
         const successUrl2 = 'success2.com';
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockResolvedValue(successUrl2);
+        vi.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockResolvedValue(successUrl2);
         vpnApiUrl = await fallbackApi.getVpnApiUrl();
         authApiUrl = await fallbackApi.getAuthApiUrl();
         forwarderApiUrl = await fallbackApi.getForwarderApiUrl();
@@ -229,8 +231,8 @@ describe('FallbackApi', () => {
         const fallbackApi = new FallbackApi(DEFAULT_VPN_API_URL, DEFAULT_AUTH_API_URL, DEFAULT_FORWARDER_API_URL);
 
         // mock network request functions
-        jest.spyOn(fallbackApi, 'getBkpVpnApiUrl').mockResolvedValue(REMOTE_VPN_API_URL);
-        jest.spyOn(fallbackApi, 'getBkpAuthApiUrl').mockResolvedValue(REMOTE_AUTH_API_URL);
+        vi.spyOn(fallbackApi, 'getBkpVpnApiUrl').mockResolvedValue(REMOTE_VPN_API_URL);
+        vi.spyOn(fallbackApi, 'getBkpAuthApiUrl').mockResolvedValue(REMOTE_AUTH_API_URL);
 
         // init with network requests
         await fallbackApi.init();
@@ -244,11 +246,11 @@ describe('FallbackApi', () => {
         expect(authApiUrl).toBe(REMOTE_AUTH_API_URL);
         expect(forwarderApiUrl).toBe(REMOTE_VPN_API_URL);
 
-        jest.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS + 100);
+        vi.advanceTimersByTime(FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS + 100);
 
         // mock network requests with null (request error)
-        jest.spyOn(fallbackApi, 'getBkpVpnApiUrl').mockResolvedValue(null);
-        jest.spyOn(fallbackApi, 'getBkpAuthApiUrl').mockResolvedValue(null);
+        vi.spyOn(fallbackApi, 'getBkpVpnApiUrl').mockResolvedValue(null);
+        vi.spyOn(fallbackApi, 'getBkpAuthApiUrl').mockResolvedValue(null);
 
         vpnApiUrl = await fallbackApi.getVpnApiUrl();
         authApiUrl = await fallbackApi.getAuthApiUrl();
@@ -267,7 +269,7 @@ describe('FallbackApi', () => {
         const fallbackApi = new FallbackApi(DEFAULT_VPN_API_URL, DEFAULT_AUTH_API_URL, DEFAULT_FORWARDER_API_URL);
 
         // mock dns request fail
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockRejectedValue(new Error('any'));
+        vi.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockRejectedValue(new Error('any'));
 
         await fallbackApi.init();
 
@@ -283,7 +285,7 @@ describe('FallbackApi', () => {
         const REMOTE_URL = 'remote_url.com';
 
         // mock dns request success
-        jest.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockResolvedValue(REMOTE_URL);
+        vi.spyOn<FallbackApi, any>(fallbackApi, 'getBkpUrlByGoogleDoh').mockResolvedValue(REMOTE_URL);
 
         vpnApiUrl = await fallbackApi.getVpnApiUrl();
         authApiUrl = await fallbackApi.getAuthApiUrl();

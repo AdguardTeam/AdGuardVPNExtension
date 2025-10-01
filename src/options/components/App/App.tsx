@@ -1,4 +1,9 @@
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import React, {
+    type ReactElement,
+    useContext,
+    useEffect,
+    useLayoutEffect,
+} from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
@@ -27,7 +32,7 @@ const getContent = (
     requestProcessState: RequestStatus,
     isPremiumToken: boolean,
     isContentLocked: boolean,
-) => {
+): ReactElement => {
     if (authenticated) {
         return (
             <div className="wrapper">
@@ -81,17 +86,17 @@ export const App = observer(() => {
     const { isContentLocked } = uiStore;
 
     useEffect(() => {
-        (async () => {
+        (async (): Promise<void> => {
             await globalStore.init();
         })();
 
-        const onUnload = () => {
+        const onUnload = (): void => {
             telemetryStore.removeOpenedPage();
         };
 
         window.addEventListener('beforeunload', onUnload);
 
-        return () => {
+        return (): void => {
             onUnload();
             window.removeEventListener('beforeunload', onUnload);
         };
@@ -111,7 +116,7 @@ export const App = observer(() => {
             document.body.classList.remove(BODY_LOCK_CLASS);
         }
 
-        return () => {
+        return (): void => {
             document.body.classList.remove(BODY_LOCK_CLASS);
         };
     }, [isContentLocked]);

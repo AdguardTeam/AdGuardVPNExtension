@@ -16,7 +16,7 @@ export const Notifications = observer(() => {
 
     const ref = useRef<HTMLDivElement>(null);
 
-    const handleClose = (notificationId: string) => {
+    const handleClose = (notificationId: string): void => {
         notificationsStore.removeNotification(notificationId);
     };
 

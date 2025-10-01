@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import { SkeletonEndpoint } from '../ui/SkeletonEndpoint';
 
@@ -7,7 +7,7 @@ import { SkeletonEndpoint } from '../ui/SkeletonEndpoint';
  *
  * @returns Fastest locations skeleton component.
  */
-export const FastestSkeleton = () => {
+export const FastestSkeleton = (): ReactElement => {
     return (
         <div className="endpoints__fastest-skeleton">
             <SkeletonEndpoint />

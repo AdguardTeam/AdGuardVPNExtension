@@ -10,7 +10,7 @@ import { Prefs } from './prefs';
  *
  * @returns Privacy and EULA URLs.
  */
-export const getPrivacyAndEulaUrls = (forwarderDomain: string) => {
+export const getPrivacyAndEulaUrls = (forwarderDomain: string): { privacyUrl: any; eulaUrl: any; } => {
     if (Prefs.isFirefox()) {
         return {
             privacyUrl: AMO_PRIVACY_URL,

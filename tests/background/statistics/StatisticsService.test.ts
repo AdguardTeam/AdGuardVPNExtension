@@ -1,3 +1,12 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { StatisticsService } from '../../../src/background/statistics/StatisticsService';
 import {
     StatisticsRange,
@@ -11,15 +20,15 @@ import {
 import { ONE_DAY_MS } from '../../../src/common/constants';
 
 const providerMock = {
-    init: jest.fn(),
-    setIsDisabled: jest.fn(),
-    getIsDisabled: jest.fn().mockReturnValue(false),
+    init: vi.fn(),
+    setIsDisabled: vi.fn(),
+    getIsDisabled: vi.fn().mockReturnValue(false),
 };
 
 const statisticsStorageMock = {
-    init: jest.fn(),
-    getStatistics: jest.fn(),
-    clearStatistics: jest.fn(),
+    init: vi.fn(),
+    getStatistics: vi.fn(),
+    clearStatistics: vi.fn(),
 };
 
 describe('StatisticsService', () => {
@@ -32,12 +41,12 @@ describe('StatisticsService', () => {
             statisticsStorage: statisticsStorageMock,
             provider: providerMock,
         });
-        jest.useFakeTimers('modern').setSystemTime(systemDate);
+        vi.useFakeTimers().setSystemTime(systemDate);
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
-        jest.useRealTimers();
+        vi.clearAllMocks();
+        vi.useRealTimers();
     });
 
     /**

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import cn from 'classnames';
 
@@ -27,7 +27,7 @@ type SliderProps = {
     sliderMod?: string,
 };
 
-export const Slider = (props: SliderProps) => {
+export const Slider = (props: SliderProps): ReactElement => {
     const {
         slideIndex,
         slideData,

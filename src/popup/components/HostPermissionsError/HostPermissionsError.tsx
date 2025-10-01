@@ -33,7 +33,7 @@ export const HostPermissionsError = observer(() => {
         isOpen,
     );
 
-    const handleAllow = () => {
+    const handleAllow = (): void => {
         // the method is async but we don't need to wait for it
         // to avoid the permission request popup shown over the VPN popup
         Permissions.addNeededHostPermissions();

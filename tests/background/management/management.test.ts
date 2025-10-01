@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import type browser from 'webextension-polyfill';
 
 import Management from '../../../src/background/management/Management';

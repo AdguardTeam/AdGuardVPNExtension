@@ -1,27 +1,34 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    afterEach,
+    it,
+    expect,
+    type MockedFunction,
+} from 'vitest';
+
 import { connectivityService } from '../../../src/background/connectivity/connectivityService';
 import { Location } from '../../../src/background/endpoints/Location';
 import * as pingHelpers from '../../../src/background/connectivity/pingHelpers';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
-import type { VpnTokenData, EndpointInterface, LocationData } from '../../../src/background/schema';
+import type {
+    VpnTokenData,
+    EndpointInterface,
+    LocationData,
+    LocationInterface,
+} from '../../../src/background/schema';
 import { locationsService, LocationsService } from '../../../src/background/endpoints/locationsService';
 import { LocationsTab } from '../../../src/background/endpoints/locationsEnums';
-import { stateStorage } from '../../../src/background/stateStorage';
 
-jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
-
-jest.mock('../../../src/background/connectivity/pingHelpers');
-jest.mock('../../../src/common/logger'); // hides redundant log messages during test run
-jest.mock('../../../src/background/settings');
-jest.mock('../../../src/background/browserApi');
-jest.mock('../../../src/background/providers/vpnProvider');
+vi.mock('../../../src/background/settings');
+vi.mock('../../../src/background/providers/vpnProvider');
 
 describe('location service', () => {
     beforeEach(async () => {
-        await stateStorage.init();
-        connectivityService.start();
-        locationsService.init();
+        await connectivityService.start();
     });
 
     it('by default it tries to connect to previously selected endpoint', async () => {
@@ -67,7 +74,7 @@ describe('location service', () => {
             disabledDomains = disabledDomains.filter((d) => d !== endpoint.domainName);
         };
 
-        const measurePingMock = jest.spyOn(pingHelpers, 'measurePingWithinLimits')
+        const measurePingMock = vi.spyOn(pingHelpers, 'measurePingWithinLimits')
             .mockImplementation(async (domainName) => {
                 if (disabledDomains.includes(domainName)) {
                     return null;
@@ -106,7 +113,7 @@ describe('location service', () => {
     });
 
     it('Update selected location after got locations from server', async () => {
-        const testLocationData1 = [{
+        const testLocationData1: LocationInterface[] = [{
             id: 'test-location',
             cityName: 'Bangkok',
             countryName: 'Thailand',
@@ -121,9 +128,10 @@ describe('location service', () => {
                 ipv6Address: '2001:ac8:97:1:0:0:0:2',
                 publicKey: 'DZeUHP1y3+fxU6kyyqmd0DB92KVSA7asv4SQZJS562E=',
             }],
+            virtual: false,
         }];
 
-        const testLocationData2 = [{
+        const testLocationData2: LocationInterface[] = [{
             id: 'test-location',
             cityName: 'Bangkok',
             countryName: 'Thailand',
@@ -138,11 +146,12 @@ describe('location service', () => {
                 ipv6Address: '2001:ac8:97:1:0:0:0:2',
                 publicKey: 'DZeUHP1y3+fxU6kyyqmd0DB92KVSA7asv4SQZJS562E=',
             }],
+            virtual: false,
         }];
 
         await credentials.init();
-        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
-        const getLocationsDataMock = vpnProvider.getLocationsData as jest.MockedFunction<() => any>;
+        vi.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
+        const getLocationsDataMock = vpnProvider.getLocationsData as MockedFunction<() => any>;
         getLocationsDataMock.mockImplementation(() => testLocationData1);
 
         let locations = await endpoints.getLocationsFromServer();
@@ -165,9 +174,9 @@ describe('location service', () => {
 
     describe('SavedLocations.locationsTab', () => {
         const mockStorage = {
-            get: jest.fn(),
-            set: jest.fn(),
-            remove: jest.fn(),
+            get: vi.fn(),
+            set: vi.fn(),
+            remove: vi.fn(),
         };
 
         let freshLocationsService: LocationsService;
@@ -179,7 +188,7 @@ describe('location service', () => {
         });
 
         afterEach(() => {
-            jest.clearAllMocks();
+            vi.clearAllMocks();
         });
 
         it('should read from storage and save when not exists', async () => {

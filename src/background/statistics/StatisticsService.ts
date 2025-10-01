@@ -188,7 +188,7 @@ export class StatisticsService implements StatisticsServiceInterface {
             uploadedBytes: 0,
         };
 
-        const addStatisticsData = ([downloadedBytes, uploadedBytes]: StatisticsDataTuple | StatisticsTuple) => {
+        const addStatisticsData = ([downloadedBytes, uploadedBytes]: StatisticsDataTuple | StatisticsTuple): void => {
             result.downloadedBytes += downloadedBytes;
             result.uploadedBytes += uploadedBytes;
         };

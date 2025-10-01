@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { type ReactElement, useContext, useState } from 'react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../../../../stores';
@@ -9,16 +9,16 @@ import './manual-mode.pcss';
 
 export const MANUAL_FORM_ID = 'add-exclusion-form-manual';
 
-export const ManualMode = () => {
+export const ManualMode = (): ReactElement => {
     const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');
 
-    const closeExclusionModal = () => {
+    const closeExclusionModal = (): void => {
         exclusionsStore.closeAddExclusionModal();
     };
 
-    const addUrl = async (e: React.FormEvent<HTMLFormElement>) => {
+    const addUrl = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
         telemetryStore.sendCustomEvent(

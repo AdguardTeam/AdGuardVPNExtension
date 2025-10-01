@@ -82,13 +82,13 @@ export const Controls = forwardRef<HTMLDivElement, ControlsProps>(
             className,
         );
 
-        const handleOutsideClick = () => {
+        const handleOutsideClick = (): void => {
             if (onOutsideClick) {
                 onOutsideClick();
             }
         };
 
-        const handleOutsideFocus = () => {
+        const handleOutsideFocus = (): void => {
             if (onOutsideFocus) {
                 onOutsideFocus();
             }

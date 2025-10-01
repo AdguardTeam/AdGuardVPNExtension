@@ -4,19 +4,25 @@ import { isIP } from 'is-ip';
 const HTTPS_PROTOCOL = 'https://';
 
 /**
- * Removes wildcard mark from the beginning of hostname
+ * Removes wildcard mark from the beginning of hostname.
+ *
  * @param hostname
+ *
+ * @returns Hostname without wildcard mark.
  */
-const cleanHostname = (hostname: string) => {
+const cleanHostname = (hostname: string): string => {
     const hostnameWithoutWildcard = hostname.replace(/^\*./, '');
     return hostnameWithoutWildcard;
 };
 
 /**
- * Checks if provided hostname is top level domain
+ * Checks if provided hostname is top level domain.
+ *
  * @param hostname
+ *
+ * @returns True if hostname is top level domain, false otherwise.
  */
-export const isTopLevel = (hostname: string) => {
+export const isTopLevel = (hostname: string): boolean => {
     const hostnameWithoutWildcard = cleanHostname(hostname);
     const parsed = parse(hostnameWithoutWildcard, { allowPrivateDomains: true });
 
@@ -28,8 +34,10 @@ export const isTopLevel = (hostname: string) => {
  * - for regular hostnames returns eTLD + 1
  * - for hostnames presented by ip address returns as is
  * - for hostnames presented by TLD returns TLD
+ *
+ * @returns TLD or null if it can't be determined.
  */
-export const getETld = (hostname: string) => {
+export const getETld = (hostname: string): string | null => {
     const SEPARATOR = '.';
 
     // if hostname is ip address we return it unchanged
@@ -66,7 +74,7 @@ export const getETld = (hostname: string) => {
     return null;
 };
 
-export const getSubdomain = (hostname: string, eTld: string) => {
+export const getSubdomain = (hostname: string, eTld: string): string => {
     return hostname
         .replace(eTld, '')
         .replace('www.', '')
@@ -75,7 +83,10 @@ export const getSubdomain = (hostname: string, eTld: string) => {
 
 /**
  * Returns hostname of url if it was correct, otherwise return input url
+ *
  * @param url
+ *
+ * @returns Hostname or input url if it was incorrect.
  */
 const getUrlProperties = (url: string): string | URL => {
     let urlObj;
@@ -90,8 +101,11 @@ const getUrlProperties = (url: string): string | URL => {
 };
 
 /**
- * Returns protocol of url if it was correct, otherwise return null
+ * Returns protocol of url if it was correct, otherwise return null.
+ *
  * @param url
+ *
+ * @returns Protocol or null if url was incorrect.
  */
 export const getProtocol = (url?: string): string | null => {
     if (!url) {
@@ -108,10 +122,13 @@ export const getProtocol = (url?: string): string | null => {
 };
 
 /**
- * Returns hostname of url if it was correct, otherwise return input url
+ * Returns hostname of url if it was correct, otherwise return input url.
+ *
  * @param url
+ *
+ * @returns Hostname or input url if it was incorrect.
  */
-export const getHostname = (url: string | undefined | null) => {
+export const getHostname = (url: string | undefined | null): string | null => {
     if (!url) {
         return null;
     }
@@ -142,9 +159,12 @@ export const getHostname = (url: string | undefined | null) => {
 };
 
 /**
- * Checks if string is wildcard
+ * Checks if string is wildcard.
+ *
  * @param targetString
+ *
+ * @returns True if string is wildcard, false otherwise.
  */
-export const isWildcard = (targetString: string) => {
+export const isWildcard = (targetString: string): boolean => {
     return targetString === '*';
 };

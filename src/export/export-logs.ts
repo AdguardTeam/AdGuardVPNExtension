@@ -11,7 +11,7 @@ enum FileExtension {
 /**
  * Helper for creating a downloadable file
  */
-export const exportData = async (content: string, fileExtension: FileExtension, appVersion: string) => {
+export const exportData = async (content: string, fileExtension: FileExtension, appVersion: string): Promise<void> => {
     const currentTimeString = format(Date.now(), 'yyyyMMdd_HHmmss');
     const filename = `${currentTimeString}_adg_vpn_v${appVersion}.${fileExtension}`;
     const blob = new Blob([content]);
@@ -26,15 +26,15 @@ export const exportData = async (content: string, fileExtension: FileExtension, 
     URL.revokeObjectURL(url);
 };
 
-const getLogs = async () => {
+const getLogs = async (): Promise<any> => {
     return messenger.sendMessage(MessageType.GET_LOGS);
 };
 
-const getAppVersion = async () => {
+const getAppVersion = async (): Promise<any> => {
     return messenger.sendMessage(MessageType.GET_APP_VERSION);
 };
 
-export const exportLogs = async () => {
+export const exportLogs = async (): Promise<void> => {
     try {
         const logs = await getLogs();
         const appVersion = await getAppVersion();

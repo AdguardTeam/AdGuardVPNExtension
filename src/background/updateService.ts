@@ -1,10 +1,15 @@
 import { browserApi } from './browserApi';
-import { stateStorage } from './stateStorage';
+import { StateData } from './stateStorage';
 import { StorageKey, type UpdateServiceState } from './schema';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
-interface UpdateServiceInterface {
+export interface UpdateServiceInterface {
+    /**
+     * Whether this is the first run of the application.
+     */
+    isFirstRun: boolean;
+
     init(): Promise<void>;
     getAppVersionFromStorage(): Promise<string | undefined>;
     getAppVersionFromManifest(): Promise<string>;
@@ -13,45 +18,41 @@ interface UpdateServiceInterface {
 }
 
 class UpdateService implements UpdateServiceInterface {
-    state: UpdateServiceState;
+    /**
+     * Update service state data.
+     * Used to save and retrieve update service state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private state = new StateData(StorageKey.UpdateServiceState);
 
+    /** @inheritdoc */
     isFirstRun: boolean;
 
     isUpdate: boolean;
 
-    private get prevVersion() {
-        return this.state.prevVersion;
-    }
-
-    private set prevVersion(prevVersion: string | undefined) {
-        this.state.prevVersion = prevVersion;
-        stateStorage.setItem(StorageKey.UpdateServiceState, this.state);
-    }
-
-    private get currentVersion() {
-        return this.state.currentVersion;
-    }
-
-    private set currentVersion(currentVersion: string | undefined) {
-        this.state.currentVersion = currentVersion;
-        stateStorage.setItem(StorageKey.UpdateServiceState, this.state);
-    }
-
     init = async (): Promise<void> => {
-        this.state = stateStorage.getItem(StorageKey.UpdateServiceState);
+        let { prevVersion, currentVersion } = await this.state.get();
 
-        if (!this.prevVersion) {
-            this.prevVersion = await this.getAppVersionFromStorage();
+        const partialStateToSave: Partial<UpdateServiceState> = {};
+
+        if (!prevVersion) {
+            prevVersion = await this.getAppVersionFromStorage();
+            partialStateToSave.prevVersion = prevVersion;
         }
 
-        if (!this.currentVersion) {
-            this.currentVersion = await this.getAppVersionFromManifest();
+        if (!currentVersion) {
+            currentVersion = await this.getAppVersionFromManifest();
+            partialStateToSave.currentVersion = currentVersion;
         }
 
-        this.isFirstRun = (this.currentVersion !== this.prevVersion && !this.prevVersion);
-        this.isUpdate = !!(this.currentVersion !== this.prevVersion && this.prevVersion);
+        if (Object.keys(partialStateToSave).length) {
+            await this.state.set(partialStateToSave);
+        }
 
-        await this.setAppVersionInStorage(this.currentVersion);
+        this.isFirstRun = (currentVersion !== prevVersion && !prevVersion);
+        this.isUpdate = !!(currentVersion !== prevVersion && prevVersion);
+
+        await this.setAppVersionInStorage(currentVersion);
     };
 
     getAppVersionFromStorage = async (): Promise<string | undefined> => {
@@ -63,7 +64,7 @@ class UpdateService implements UpdateServiceInterface {
     };
 
     setAppVersionInStorage = async (appVersion: string): Promise<void> => {
-        this.prevVersion = appVersion;
+        await this.state.set({ prevVersion: appVersion });
         return browserApi.storage.set(APP_VERSION_KEY, appVersion);
     };
 

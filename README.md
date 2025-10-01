@@ -54,6 +54,7 @@ visit our website [https://adguard-vpn.com/](https://adguard-vpn.com/).
     - [Tests](#tests)
     - [Build](#build)
         - [Special building instructions for Firefox reviewers](#build-firefox-review)
+    - [Bundle Size Monitoring](#dev-bundle-size-monitoring)
     - [Localization](#localization)
     - [Proto scheme update](#proto)
 - [Acknowledgments](#acknowledgments)
@@ -149,6 +150,82 @@ You can specify browser in arguments. See examples below:
 pnpm dev chrome
 pnpm release opera
 ```
+
+### <a name="dev-bundle-size-monitoring"></a> Bundle Size Monitoring
+
+The browser extension project includes a comprehensive bundle size monitoring system, located in `tools/bundle-size`. This system helps ensure that our extension bundles remain within defined size limits, and that any significant increases are reviewed and justified.
+
+#### Key Features
+
+- Tracks and compares bundle sizes across different build types (`beta`, `release`, etc.) and browser targets (`chrome`, `chrome-mv3`, `edge`, etc.)
+- Detects significant size increases using configurable thresholds (default: 10%)
+- Checks for duplicate package versions using `pnpm`
+- Stores historical size data in `.bundle-sizes.json`
+- Designed for CI/CD integration (Bamboo)
+- **For Firefox target only**, every individual `.js` file is checked to ensure it does not exceed the 4MB limit imposed by the Firefox Add-ons Store. If any `.js` file is larger than 4MB, the check fails and the offending files are reported. Also checks total size for Firefox is less than 200MB.**
+
+#### How it works
+
+- On each beta or release build, the system compares the current bundle sizes to the reference values in `.bundle-sizes.json`.
+- If any size exceeds the configured threshold, or additionally check 4MB limit for Firefox targets - the check fails.
+- Duplicate package versions are detected and reported.
+
+#### To update the bundle sizes manually
+
+We have defined size limits in the project.
+
+1. When we build the `beta` or `release` version, the build process checks if we’re exceeding those limits.
+2. If we exceed the limits, the developer should investigate the cause and decide whether the size increase is acceptable.
+3. If the new sizes are justified, the developer updates the size values in the package and creates a commit.
+4. We then review and approve any changes to the sizes as part of the PR process.
+
+##### Steps:
+
+1. Run the build for the desired environment (e.g., `pnpm beta` or `pnpm release`). Make sure to build firefox because it's built separately (e.g., `pnpm beta firefox`).
+2. If the build fails due to bundle size limits, investigate the cause (e.g., new dependencies, large assets).
+3. If the increase is justified, update the reference sizes by running:
+
+    ```shell
+    pnpm bundle-size update <buildEnv> [targetBrowser]
+    # Example:  pnpm bundle-size update beta firefox
+    # Or: pnpm bundle-size update beta chrome
+    ```
+4. Commit the updated `.bundle-sizes.json` file and include justification in your PR.
+5. The changes will be reviewed and approved as part of the PR process.
+
+#### Checking bundle size locally
+
+To check bundle sizes locally, use:
+
+```shell
+pnpm bundle-size check <buildEnv> [targetBrowser]
+# Example: pnpm bundle-size check release chrome
+# Or: pnpm bundle-size check beta firefox
+```
+
+Note: When you run `pnpm bundle-size check beta`, firefox is not checked.
+
+For CLI help on parameters, use:
+
+```shell
+pnpm bundle-size --help
+```
+
+#### Usage: Custom Threshold
+
+You can override the default threshold for significant bundle size increases using the `--threshold` option:
+
+```sh
+pnpm bundle-size check <buildEnv> [targetBrowser] --threshold 5
+# or
+pnpm bundle-size check release chrome --threshold=20
+# or
+pnpm bundle-size check beta
+```
+
+- `--threshold <number>`: Sets the allowed percentage increase in bundle size before the check fails. Default: 10%.
+
+This is useful for temporarily relaxing or tightening the allowed size delta for a specific check/build.
 
 ### Update resources
 
@@ -260,7 +337,7 @@ This software wouldn't have been possible without:
 - [React](https://github.com/facebook/react)
 - [MobX](https://github.com/mobxjs/mobx)
 - [Babel](https://github.com/babel/babel)
-- [Jest](https://github.com/facebook/jest)
+- [Vitest](https://github.com/vitest-dev/vitest)
 - and many more npm packages.
 
 For a full list of all `npm` packages in use, please take a look at [package.json](package.json) file.

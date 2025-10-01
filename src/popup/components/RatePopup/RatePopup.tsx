@@ -19,11 +19,11 @@ export const RatePopup = observer(() => {
         forwarderDomain,
     } = settingsStore;
 
-    const handleHideRate = async () => {
+    const handleHideRate = async (): Promise<void> => {
         await hideRate();
     };
 
-    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
         const { value } = e.target;
 
         telemetryStore.sendCustomEvent(

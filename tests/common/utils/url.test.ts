@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import { getETld, getHostname, getProtocol } from '../../../src/common/utils/url';
 
 describe('getETld', () => {

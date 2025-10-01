@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import { getSubscriptionParams } from '../../src/content-scripts/custom-dns-links';
 
 describe('getSubscriptionParams', () => {

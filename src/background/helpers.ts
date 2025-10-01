@@ -6,9 +6,12 @@ import { log } from '../common/logger';
 import { FORWARDER_URL_QUERIES } from './config';
 
 /**
- * Runs generator with possibility to cancel
+ * Runs generator with possibility to cancel.
+ *
  * @param fn - generator to run
  * @param args - args
+ *
+ * @returns Object with cancel function and promise.
  */
 export const runWithCancel = (fn: (...args: any) => any, ...args: any):
 { cancel?: Function, promise: Promise<unknown> } => {
@@ -17,13 +20,13 @@ export const runWithCancel = (fn: (...args: any) => any, ...args: any):
     let cancel;
     const promise = new Promise((resolve, reject) => {
         // define cancel function to return it from our fn
-        cancel = (reason: string) => {
+        cancel = (reason: string): void => {
             cancelled = true;
             reject(new Error(reason));
         };
 
         // eslint-disable-next-line consistent-return
-        function onFulfilled(res?: string) {
+        function onFulfilled(res?: string): void {
             if (!cancelled) {
                 let result;
                 try {
@@ -37,7 +40,7 @@ export const runWithCancel = (fn: (...args: any) => any, ...args: any):
         }
 
         // eslint-disable-next-line consistent-return
-        function onRejected(err: Error) {
+        function onRejected(err: Error): void {
             let result;
             try {
                 result = gen.throw(err);
@@ -48,7 +51,7 @@ export const runWithCancel = (fn: (...args: any) => any, ...args: any):
             next(result);
         }
 
-        function next({ done, value }: { done: boolean, value: Promise<any> }) {
+        function next({ done, value }: { done: boolean, value: Promise<any> }): Promise<void> | void {
             if (done) {
                 return resolve(value);
             }
@@ -67,7 +70,7 @@ export const runWithCancel = (fn: (...args: any) => any, ...args: any):
  *
  * @param forwarderDomain Forwarder domain.
  */
-export const setExtensionUninstallUrl = async (forwarderDomain: string) => {
+export const setExtensionUninstallUrl = async (forwarderDomain: string): Promise<void> => {
     try {
         const uninstallUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.UNINSTALL_PAGE);
 

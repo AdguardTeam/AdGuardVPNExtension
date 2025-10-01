@@ -81,14 +81,14 @@ export const App = observer(() => {
     } = vpnStore;
 
     useEffect(() => {
-        (async () => {
+        (async (): Promise<void> => {
             await settingsStore.getAppearanceTheme();
             await globalStore.init();
         })();
 
         settingsStore.trackSystemTheme();
 
-        const messageHandler = async (message: NotifierMessage) => {
+        const messageHandler = async (message: NotifierMessage): Promise<void> => {
             const { type, data, value } = message;
 
             switch (type) {
@@ -150,6 +150,10 @@ export const App = observer(() => {
                     await statsStore.updateStatistics();
                     break;
                 }
+                case notifier.types.AUTH_CACHE_UPDATED: {
+                    authStore.handleAuthCacheUpdate(data, value);
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -170,13 +174,14 @@ export const App = observer(() => {
             notifier.types.SETTING_UPDATED,
             notifier.types.SHOW_RATE_MODAL,
             notifier.types.STATS_UPDATED,
+            notifier.types.AUTH_CACHE_UPDATED,
         ];
 
         const { onUnload, portId } = messenger.createLongLivedConnection(events, messageHandler);
 
         telemetryStore.setPageId(portId);
 
-        return () => {
+        return (): void => {
             telemetryStore.setPageId(null);
             onUnload();
             settingsStore.stopTrackSystemTheme();
@@ -197,7 +202,7 @@ export const App = observer(() => {
             html.classList.remove(ANDROID_CLASS);
         }
 
-        return () => {
+        return (): void => {
             html.classList.remove(ANDROID_CLASS);
         };
     }, [isAndroidBrowser]);
@@ -220,7 +225,7 @@ export const App = observer(() => {
         const POPUP_HEIGHT_PROP = '--popup-height';
         const html = document.documentElement;
 
-        const removeHeightProperty = () => {
+        const removeHeightProperty = (): void => {
             html.style.removeProperty(POPUP_HEIGHT_PROP);
         };
 
@@ -232,7 +237,7 @@ export const App = observer(() => {
             return removeHeightProperty;
         }
 
-        const resizePopupHeight = () => {
+        const resizePopupHeight = (): void => {
             /**
              * From observation on Android browsers, popup's `windows.innerHeight` is properly set only on third time:
              * 1. Initially equal to 0
@@ -263,7 +268,7 @@ export const App = observer(() => {
         window.addEventListener('resize', resizePopupHeight);
 
         // Cleanup: Remove the height property and event listener after unmount
-        return () => {
+        return (): void => {
             removeHeightProperty();
             window.removeEventListener('resize', resizePopupHeight);
         };

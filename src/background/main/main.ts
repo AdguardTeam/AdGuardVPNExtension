@@ -10,7 +10,7 @@ import { LogLevel } from '@adguard/logger';
 import { stateStorage } from '../stateStorage';
 import { actions } from '../actions';
 import { appStatus } from '../appStatus';
-import { auth } from '../auth';
+import { auth, authSideEffects } from '../auth';
 import { authCache } from '../authentication';
 import { connectivity } from '../connectivity';
 import { contextMenu } from '../contextMenu';
@@ -36,8 +36,6 @@ import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 import { logStorage } from '../../common/log-storage';
 import { fallbackApi } from '../api/fallbackApi';
 import { flagsStorage } from '../flagsStorage';
-import { popupOpenedCounter } from '../popupData/popupOpenedCounter';
-import { locationsService } from '../endpoints/locationsService';
 import { connectivityService } from '../connectivity/connectivityService';
 import { proxyApi } from '../proxy/abstractProxyApi';
 import { updateOptionsPageListeners } from '../stateStorage/helper';
@@ -110,7 +108,7 @@ const asyncInitModules = async (): Promise<void> => {
          * in order to hop into first load event emission.
          */
         await statisticsService.init();
-        connectivityService.start();
+        await connectivityService.start();
         await proxy.init();
         await fallbackApi.init();
         await updateService.init();
@@ -118,12 +116,11 @@ const asyncInitModules = async (): Promise<void> => {
         // the consent page uses settings, so it should be initiated after settings.init()
         await openPostInstallPage();
         await flagsStorage.init();
-        await auth.initState(); // auth state should be initiated before credentials init
         await credentials.init();
         permissionsChecker.init(); // should be initiated before auth module
         networkConnectionObserver.init(); // uses permissionsChecker and connectivityService
         await auth.init();
-        await locationsService.init();
+        authSideEffects.init();
         await telemetry.initState();
         // the updateBrowserActionItems method is called after settings.init() because it uses settings
         await contextMenu.updateBrowserActionItems();
@@ -132,11 +129,10 @@ const asyncInitModules = async (): Promise<void> => {
         await exclusions.init();
         await endpointsTldExclusions.init();
         await rateModal.initState();
-        settings.applySettings(); // we have to apply settings when credentials are ready
-        endpoints.init(); // update endpoints list on extension or browser restart
+        await settings.applySettings(); // we have to apply settings when credentials are ready
+        await endpoints.init(); // update endpoints list on extension or browser restart
         await nonRoutable.init();
         browserActionIcon.init();
-        popupOpenedCounter.init();
         await updateOptionsPageListeners();
         // set uninstall url for the extension at the end
         await setUninstallUrl();
@@ -150,7 +146,7 @@ const asyncInitModules = async (): Promise<void> => {
 /**
  * Main function to be called on service worker start.
  */
-export const main = async () => {
+export const main = (): void => {
     if (log.currentLevel === LogLevel.Debug) {
         runtime.getPlatformOs().then((res) => {
             log.debug(`Current os: '${res}'`);
@@ -162,5 +158,5 @@ export const main = async () => {
     }
 
     syncInitModules();
-    await asyncInitModules();
+    asyncInitModules();
 };

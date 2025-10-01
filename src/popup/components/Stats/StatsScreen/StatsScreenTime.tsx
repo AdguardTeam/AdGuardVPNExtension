@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { type ReactElement, useEffect, useState } from 'react';
 
 import { translator } from '../../../../common/translator';
 import { formatDuration } from '../utils';
@@ -15,7 +15,7 @@ export type StatsScreenTimeProps = Pick<StatsScreenWithUsageProps, 'usage'>;
  * Component that renders the time usage for the stats screen.
  * Example: 'Connection to VPN - 1d 1h 1m'
  */
-export function StatsScreenTime(props: StatsScreenTimeProps) {
+export function StatsScreenTime(props: StatsScreenTimeProps): ReactElement {
     const { usage } = props;
     const { durationMs, connectionStartedTimestamp } = usage;
 
@@ -30,7 +30,7 @@ export function StatsScreenTime(props: StatsScreenTimeProps) {
             };
         }
 
-        const calculateLiveDuration = () => {
+        const calculateLiveDuration = (): void => {
             setLiveDuration(Date.now() - connectionStartedTimestamp);
         };
 
@@ -40,7 +40,7 @@ export function StatsScreenTime(props: StatsScreenTimeProps) {
         // update live duration every minute
         const intervalId = setInterval(calculateLiveDuration, ONE_MINUTE_MS);
 
-        return () => {
+        return (): void => {
             clearInterval(intervalId);
             setLiveDuration(0);
         };

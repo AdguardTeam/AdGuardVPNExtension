@@ -11,10 +11,10 @@ export const ESC_KEY_NAME = 'Escape';
 export const useOutsideClick = (
     ref: RefObject<HTMLDivElement>,
     handler: (event: MouseEvent | KeyboardEvent) => void,
-) => {
+): void => {
     useEffect(
         () => {
-            const listener = (event: MouseEvent | KeyboardEvent) => {
+            const listener = (event: MouseEvent | KeyboardEvent): void => {
                 if ((event instanceof KeyboardEvent && event.key === ESC_KEY_NAME)
                     || (ref.current && !ref.current.contains(event.target as Node))) {
                     handler(event);
@@ -22,7 +22,7 @@ export const useOutsideClick = (
             };
             document.addEventListener('click', listener);
             document.addEventListener('keydown', listener);
-            return () => {
+            return (): void => {
                 document.removeEventListener('click', listener);
                 document.removeEventListener('keydown', listener);
             };

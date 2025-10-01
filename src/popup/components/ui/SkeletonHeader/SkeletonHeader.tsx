@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import { IconButton } from '../../../../common/components/Icons';
 
 import '../../Header/header.pcss';
 
-export const SkeletonHeader = () => {
+export const SkeletonHeader = (): ReactElement => {
     return (
         <div className="header header--main">
             <div className="header__logo">

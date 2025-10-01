@@ -126,7 +126,7 @@ class VpnApi extends Api implements VpnApiInterface {
             language,
         };
 
-        return this.makeRequest(path, { params }, method);
+        return this.makeRequest<LocationsData>(path, { params }, method);
     };
 
     GET_VPN_CREDENTIALS: RequestProps = { path: 'v1/proxy_credentials', method: 'POST' };
@@ -144,14 +144,14 @@ class VpnApi extends Api implements VpnApiInterface {
             system_language: language,
         };
 
-        return this.makeRequest(path, { params }, method);
+        return this.makeRequest<VpnCredentials>(path, { params }, method);
     };
 
     GET_CURRENT_LOCATION: RequestProps = { path: 'v1/geo_location', method: 'GET' };
 
     getCurrentLocation = (): Promise<CurrentLocationData> => {
         const { path, method } = this.GET_CURRENT_LOCATION;
-        return this.makeRequest(path, {}, method);
+        return this.makeRequest<CurrentLocationData>(path, {}, method);
     };
 
     VPN_EXTENSION_INFO: RequestProps = { path: 'v1/info/extension', method: 'GET' };
@@ -166,7 +166,7 @@ class VpnApi extends Api implements VpnApiInterface {
             app_id: appId,
             token: vpnToken,
         };
-        return this.makeRequest(path, { params }, method);
+        return this.makeRequest<VpnExtensionInfo>(path, { params }, method);
     };
 
     TRACK_EXTENSION_INSTALL: RequestProps = { path: 'v1/init/extension', method: 'POST' };
@@ -209,7 +209,7 @@ class VpnApi extends Api implements VpnApiInterface {
             locale: language,
         };
 
-        return this.makeRequest(path, { params }, method);
+        return this.makeRequest<ExclusionsServicesData>(path, { params }, method);
     };
 
     EXCLUSION_SERVICE_DOMAINS: RequestProps = { path: 'v1/exclusion_services/domains', method: 'GET' };
@@ -223,7 +223,7 @@ class VpnApi extends Api implements VpnApiInterface {
             service_id: servicesIdsParam,
         };
 
-        return this.makeRequest(path, { params }, method);
+        return this.makeRequest<ExclusionServiceDomainsData>(path, { params }, method);
     };
 }
 

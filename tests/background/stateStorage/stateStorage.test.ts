@@ -1,23 +1,24 @@
+import {
+    vi,
+    describe,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
 import browser from 'webextension-polyfill';
 
 import { DEFAULT_STORAGE_DATA, StorageKey } from '../../../src/background/schema';
 import { StateStorage } from '../../../src/background/stateStorage/stateStorage';
-import { Prefs } from '../../../src/common/prefs';
 import { log } from '../../../src/common/logger';
 
-jest.mock('../../../src/common/logger');
-
-const isFirefoxSpy = jest.spyOn(Prefs, 'isFirefox');
-isFirefoxSpy.mockReturnValue(false);
-
-const sessionStorageGetSpy = jest.spyOn(browser.storage.session, 'get');
+const sessionStorageGetSpy = vi.spyOn(browser.storage.session, 'get');
 sessionStorageGetSpy.mockResolvedValue(DEFAULT_STORAGE_DATA);
 
-const sessionStorageSetMock = jest.spyOn(browser.storage.session, 'set');
+const sessionStorageSetMock = vi.spyOn(browser.storage.session, 'set');
 
 describe('StateStorage', () => {
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it('should get default item from session storage if not existed before', async () => {
@@ -26,7 +27,8 @@ describe('StateStorage', () => {
         sessionStorageGetSpy.mockResolvedValueOnce({});
 
         const stateStorage = new StateStorage();
-        await stateStorage.init();
+
+        const testData = await stateStorage.getItem(testKey);
 
         // should read from session storage first
         expect(sessionStorageGetSpy).toHaveBeenCalled();
@@ -35,7 +37,7 @@ describe('StateStorage', () => {
         expect(sessionStorageSetMock).toHaveBeenCalled();
 
         // should be default value
-        expect(stateStorage.getItem(testKey)).toEqual(DEFAULT_STORAGE_DATA[testKey]);
+        expect(testData).toEqual(DEFAULT_STORAGE_DATA[testKey]);
     });
 
     it('should get item from session storage if it existed before', async () => {
@@ -51,7 +53,8 @@ describe('StateStorage', () => {
         sessionStorageGetSpy.mockResolvedValueOnce(testStorage);
 
         const stateStorage = new StateStorage();
-        await stateStorage.init();
+
+        const testData = await stateStorage.getItem(testKey);
 
         // should read from session storage first
         expect(sessionStorageGetSpy).toHaveBeenCalled();
@@ -60,46 +63,63 @@ describe('StateStorage', () => {
         expect(sessionStorageSetMock).not.toHaveBeenCalled();
 
         // should be existing value
-        expect(stateStorage.getItem(testKey)).toEqual(testStorage[testKey]);
+        expect(testData).toEqual(testStorage[testKey]);
     });
 
     it('should set item to session storage properly', async () => {
         const testKey = StorageKey.AuthState;
-        const testValue = 'testValue';
-
-        const stateStorage = new StateStorage();
-        await stateStorage.init();
-
-        stateStorage.setItem(testKey, testValue);
-
-        // should be saved to session storage
-        expect(sessionStorageSetMock).toHaveBeenCalledWith({ [testKey]: testValue });
-    });
-
-    it('should set item to session storage if part of object is not serializable in Firefox', async () => {
-        const testKey = StorageKey.AuthState;
-        const testValue: any = {
-            test: 'testValue',
-            nonSerializable: () => {
-                throw new Error('non-serializable');
+        const testValue = {
+            accessTokenData: {
+                accessToken: 'test access token',
+                expiresIn: 123456,
+                tokenType: 'bearer' as const,
+                scope: 'trust' as const,
             },
         };
-        const serializedTestValue: any = {
-            test: 'testValue',
-        };
-
-        isFirefoxSpy.mockReturnValueOnce(true);
 
         const stateStorage = new StateStorage();
-        await stateStorage.init();
 
-        stateStorage.setItem(testKey, testValue);
+        // `any` just to suppress TS error for non-matching type
+        await stateStorage.setItem(testKey, testValue);
 
         // should be saved to session storage
-        expect(sessionStorageSetMock).toHaveBeenCalledWith({ [testKey]: serializedTestValue });
+        expect(sessionStorageSetMock).toHaveBeenCalledWith({
+            ...DEFAULT_STORAGE_DATA,
+            [testKey]: testValue,
+        });
     });
 
-    it('should not set item to session storage if circular referenced object passed in Firefox', async () => {
+    it('should set item to session storage if part of object is not serializable', async () => {
+        const testKey = StorageKey.AuthState;
+        const serializedTestValue = {
+            accessTokenData: {
+                accessToken: 'test access token',
+                expiresIn: 123456,
+                tokenType: 'bearer' as const,
+                scope: 'trust' as const,
+            },
+        };
+        const testValue: any = {
+            ...serializedTestValue,
+            nonSerializableFn: () => {
+                throw new Error('non-serializable');
+            },
+            nonSerializableSymbol: Symbol('non-serializable'),
+            nonSerializableUndefined: undefined,
+        };
+
+        const stateStorage = new StateStorage();
+
+        await stateStorage.setItem(testKey, testValue);
+
+        // should be saved to session storage
+        expect(sessionStorageSetMock).toHaveBeenCalledWith({
+            ...DEFAULT_STORAGE_DATA,
+            [testKey]: serializedTestValue,
+        });
+    });
+
+    it('should not set item to session storage if circular referenced object passed', async () => {
         const testKey = StorageKey.AuthState;
         const testValue: any = {
             test: 'testValue',
@@ -107,12 +127,9 @@ describe('StateStorage', () => {
         };
         testValue.circularReference = testValue;
 
-        isFirefoxSpy.mockReturnValueOnce(true);
-
         const stateStorage = new StateStorage();
-        await stateStorage.init();
 
-        stateStorage.setItem(testKey, testValue);
+        await stateStorage.setItem(testKey, testValue);
 
         // should log an error
         expect(log.error).toHaveBeenCalled();
@@ -121,12 +138,47 @@ describe('StateStorage', () => {
         expect(sessionStorageSetMock).not.toHaveBeenCalled();
     });
 
-    it('should throw an error if not initialized', () => {
-        const testKey = StorageKey.AuthState;
-        const errorMessage = 'StateStorage is not initialized. Call init() method first.';
+    it('should properly set item partially', async () => {
+        const testKey = StorageKey.FallbackInfo;
+
+        sessionStorageGetSpy.mockResolvedValueOnce({
+            ...DEFAULT_STORAGE_DATA,
+            [testKey]: {
+                vpnApiUrl: '',
+                authApiUrl: '',
+                forwarderApiUrl: '',
+                expiresInMs: 60000,
+            },
+        });
 
         const stateStorage = new StateStorage();
-        expect(() => stateStorage.setItem(testKey, 'testValue')).toThrowError(errorMessage);
-        expect(() => stateStorage.getItem(testKey)).toThrowError(errorMessage);
+
+        await stateStorage.updateItem(testKey, {
+            authApiUrl: 'test value',
+        });
+
+        // should read from session storage first
+        expect(sessionStorageGetSpy).toHaveBeenCalled();
+
+        // should be saved to session storage
+        expect(sessionStorageSetMock).toHaveBeenCalledWith({
+            ...DEFAULT_STORAGE_DATA,
+            [testKey]: {
+                vpnApiUrl: '',
+                authApiUrl: 'test value',
+                forwarderApiUrl: '',
+                expiresInMs: 60000,
+            },
+        });
+
+        const testData = await stateStorage.getItem(testKey);
+
+        // should be updated value
+        expect(testData).toEqual({
+            vpnApiUrl: '',
+            authApiUrl: 'test value',
+            forwarderApiUrl: '',
+            expiresInMs: 60000,
+        });
     });
 });

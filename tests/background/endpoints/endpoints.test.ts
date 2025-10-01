@@ -1,3 +1,11 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { endpoints } from '../../../src/background/endpoints';
 import { settings } from '../../../src/background/settings';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
@@ -16,23 +24,11 @@ import type {
     LocationData,
 } from '../../../src/background/schema';
 import type { VpnExtensionInfoInterface } from '../../../src/common/schema/endpoints/vpnInfo';
-import { stateStorage } from '../../../src/background/stateStorage';
 
-jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
+vi.mock('../../../src/background/settings');
+vi.mock('../../../src/background/connectivity/connectivityService');
 
-jest.mock('../../../src/background/settings');
-jest.mock('../../../src/background/connectivity/connectivityService');
-jest.mock('../../../src/common/notifier');
-jest.mock('../../../src/background/notifications');
-jest.mock('../../../src/background/providers/vpnProvider');
-jest.mock('../../../src/common/logger');
-jest.mock('../../../src/background/api/fallbackApi');
-
-jest.mock('../../../src/background/endpoints/locationsService', () => ({
-    ...jest.requireActual('../../../src/background/endpoints/locationsService'),
-}));
-
-jest.mock('../../../src/background/api/fallbackApi', () => {
+vi.mock('../../../src/background/api/fallbackApi', () => {
     return {
         __esModule: true,
         fallbackApi: {
@@ -43,21 +39,14 @@ jest.mock('../../../src/background/api/fallbackApi', () => {
     };
 });
 
-jest.mock('../../../src/background/browserApi', () => {
-    // eslint-disable-next-line global-require
-    return require('../../__mocks__/browserApiMock');
-});
-
 describe('Endpoints', () => {
     beforeEach(async () => {
-        await stateStorage.init();
         await endpointsTldExclusions.init();
-        jest.clearAllMocks();
-        locationsService.init();
+        vi.clearAllMocks();
     });
 
     it('getEndpoints returns empty list on init', async () => {
-        const endpointsList = endpoints.getLocations();
+        const endpointsList = await endpoints.getLocations();
         expect(endpointsList.length).toBe(0);
     });
 
@@ -90,7 +79,9 @@ describe('Endpoints', () => {
                         publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
                     },
                 ],
-            } as LocationInterface,
+                pingBonus: 0,
+                virtual: false,
+            },
             {
                 id: 'SlBfVG9reW8=',
                 cityName: 'Tokyo',
@@ -118,14 +109,16 @@ describe('Endpoints', () => {
                         publicKey: 'Km7jSE/TBdD81IEXc+FrNAUjgz24BNQ8t1bQiz5w7GU=',
                     },
                 ],
-            } as LocationInterface,
+                pingBonus: 0,
+                virtual: false,
+            },
         ];
 
-        jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
-        jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue(locations);
-        jest.spyOn(credentials, 'getAppId').mockResolvedValue('test_app_id');
-        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'token' } as VpnTokenData);
-        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
+        vi.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
+        vi.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue(locations);
+        vi.spyOn(credentials, 'getAppId').mockResolvedValue('test_app_id');
+        vi.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'token' } as VpnTokenData);
+        vi.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
 
         await proxy.init();
         await endpoints.init();
@@ -133,7 +126,7 @@ describe('Endpoints', () => {
 
         expect(vpnInfo).toEqual(expectedVpnInfo);
 
-        const endpointsList = endpoints.getLocations();
+        const endpointsList = await endpoints.getLocations();
         expect(endpointsList)
             .toEqual(locations.map((location) => {
                 return new LocationWithPing(new Location(location));
@@ -141,7 +134,7 @@ describe('Endpoints', () => {
     });
 
     it('get vpn info remotely stops execution if unable to get valid token', async () => {
-        jest.spyOn(credentials, 'gainValidVpnToken').mockRejectedValue(new Error('invalid token'));
+        vi.spyOn(credentials, 'gainValidVpnToken').mockRejectedValue(new Error('invalid token'));
         await endpoints.getVpnInfoRemotely();
         expect(credentials.gainValidVpnToken).toBeCalledTimes(1);
         expect(vpnProvider.getVpnExtensionInfo).toBeCalledTimes(0);
@@ -152,10 +145,10 @@ describe('Endpoints', () => {
             refreshTokens: true,
         } as VpnExtensionInfoInterface;
 
-        jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue([]);
-        jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
-        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'vpn_token' } as VpnTokenData);
-        jest.spyOn(credentials, 'gainValidVpnCredentials')
+        vi.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue([]);
+        vi.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
+        vi.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'vpn_token' } as VpnTokenData);
+        vi.spyOn(credentials, 'gainValidVpnCredentials')
             .mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
 
         await endpoints.getVpnInfoRemotely();
@@ -345,9 +338,9 @@ describe('Endpoints', () => {
     });
 
     describe('handles refresh token event', () => {
-        jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue([]);
-        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'vpn_token' } as VpnTokenData);
-        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
+        vi.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue([]);
+        vi.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'vpn_token' } as VpnTokenData);
+        vi.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
 
         it('refreshes tokens and doesnt disable proxy', async () => {
             await credentials.init();
@@ -360,7 +353,7 @@ describe('Endpoints', () => {
     });
 
     describe('update locations', () => {
-        const locations = [{
+        const locations: LocationInterface[] = [{
             id: 'dHJfaXN0YW5idWw=',
             countryName: 'Turkey',
             cityName: 'Istanbul',
@@ -383,6 +376,8 @@ describe('Endpoints', () => {
             available: true,
             ping: null,
             endpoint: null,
+            pingBonus: 0,
+            virtual: false,
         }, {
             id: 'dXNfZGFsbGFz',
             countryName: 'United States',
@@ -400,11 +395,13 @@ describe('Endpoints', () => {
             available: true,
             ping: null,
             endpoint: null,
+            pingBonus: 0,
+            virtual: false,
         }];
 
         it('updates locations from server', async () => {
-            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
-            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue([]);
+            vi.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
+            vi.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue([]);
 
             await endpoints.updateLocations();
             expect(credentials.gainValidVpnToken).toBeCalledTimes(1);
@@ -412,10 +409,10 @@ describe('Endpoints', () => {
         });
 
         it('does not reconnect if selected location matches token premium value', async () => {
-            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
-            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: false } as LocationInterface);
-            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
-            jest.spyOn(endpoints, 'reconnectEndpoint');
+            vi.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
+            vi.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: false } as LocationInterface);
+            vi.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
+            vi.spyOn(endpoints, 'reconnectEndpoint');
 
             await proxy.init();
             await endpoints.updateLocations();
@@ -423,22 +420,22 @@ describe('Endpoints', () => {
         });
 
         it('reconnects if selected location is premiumOnly and token is not premium', async () => {
-            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
-            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: true } as LocationInterface);
-            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
-            jest.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({} as EndpointInterface);
-            jest.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue();
+            vi.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
+            vi.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: true } as LocationInterface);
+            vi.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
+            vi.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({} as EndpointInterface);
+            vi.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue();
 
             await endpoints.updateLocations();
             expect(endpoints.reconnectEndpoint).toBeCalledTimes(1);
         });
 
         it('does not reconnect if selected location and token are not premium', async () => {
-            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
-            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: false } as LocationInterface);
-            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
-            jest.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({} as EndpointInterface);
-            jest.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue();
+            vi.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
+            vi.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: false } as LocationInterface);
+            vi.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
+            vi.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({} as EndpointInterface);
+            vi.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue();
 
             await endpoints.updateLocations();
             expect(endpoints.reconnectEndpoint).toBeCalledTimes(0);
@@ -460,8 +457,8 @@ describe('Endpoints', () => {
                     }],
                 }];
 
-            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
-            jest.spyOn(proxy, 'applyConfig');
+            vi.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
+            vi.spyOn(proxy, 'applyConfig');
 
             await endpoints.init();
             await endpoints.updateLocations();

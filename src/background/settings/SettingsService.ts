@@ -10,6 +10,8 @@ import { type StorageInterface } from '../browserApi/storage';
 import { type ExclusionInterface } from '../schema';
 import { THEME_STORAGE_KEY } from '../../common/useAppearanceTheme';
 
+type VersionType = { [x: string]: any; VERSION: string; };
+
 const SCHEME_VERSION = '12';
 const THROTTLE_TIMEOUT = 100;
 
@@ -63,7 +65,7 @@ export class SettingsService {
         this.settings = await this.checkSchemeMatch(settings);
     }
 
-    migrateFrom1to2 = (oldSettings: Settings) => {
+    migrateFrom1to2 = (oldSettings: Settings): VersionType => {
         const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
 
         const newExclusions = {
@@ -79,7 +81,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom2to3 = (oldSettings: Settings) => {
+    migrateFrom2to3 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '3',
@@ -87,7 +89,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom3to4 = (oldSettings: Settings) => {
+    migrateFrom3to4 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '4',
@@ -96,7 +98,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom4to5 = (oldSettings: Settings) => {
+    migrateFrom4to5 = (oldSettings: Settings): VersionType => {
         const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
 
         const newExclusions = {
@@ -112,7 +114,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom5to6 = async (oldSettings: Settings) => {
+    migrateFrom5to6 = async (oldSettings: Settings): Promise<VersionType> => {
         let isSelectedByUser = false;
         // check if no location was saved earlier
         // this is necessary in order to skip already working extensions
@@ -131,7 +133,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom6to7 = (oldSettings: Settings) => {
+    migrateFrom6to7 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '7',
@@ -146,8 +148,10 @@ export class SettingsService {
      * { 5idvOJ7fv23sY8aHbe: { enabled: true, hostname: 'example.org', id: '5idvOJ7fv23sY8aHbe' } }
      * to array of objects:
      * [{ enabled: true, hostname: 'example.org' id: '5idvOJ7fv23sY8aHbe' }]
+     *
+     * @returns New settings.
      */
-    migrateFrom7to8 = (oldSettings: Settings) => {
+    migrateFrom7to8 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '8',
@@ -161,11 +165,18 @@ export class SettingsService {
     };
 
     /**
-     * Migration to new settings considering services
+     * Migration to new settings considering services.
+     *
      * @param oldSettings
+     *
+     * @returns New settings.
      */
-    migrateFrom8to9 = async (oldSettings: Settings) => {
-        const updateExclusionsState = (oldExclusions: OldExclusion[]) => {
+    migrateFrom8to9 = async (oldSettings: Settings): Promise<VersionType> => {
+        const updateExclusionsState = (oldExclusions: OldExclusion[]): {
+            id: string;
+            hostname: string;
+            state: ExclusionState
+        }[] => {
             return oldExclusions.map((exclusion) => {
                 return {
                     id: exclusion.id,
@@ -177,7 +188,7 @@ export class SettingsService {
 
         const services = await servicesManager.getServicesForMigration();
 
-        const migrateExclusions = (exclusions: OldExclusion[]) => {
+        const migrateExclusions = (exclusions: OldExclusion[]): ExclusionInterface[] => {
             const exclusionsWithUpdatedState = updateExclusionsState(exclusions);
             const complementedExclusions = complementExclusions(<ExclusionInterface[]>exclusionsWithUpdatedState);
             const exclusionsComplementedWithServices = complementedExclusionsWithServices(
@@ -204,7 +215,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom9to10 = async (oldSettings: Settings) => {
+    migrateFrom9to10 = async (oldSettings: Settings): Promise<VersionType> => {
         return {
             ...oldSettings,
             VERSION: '10',
@@ -212,7 +223,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom10to11 = (oldSettings: Settings) => {
+    migrateFrom10to11 = (oldSettings: Settings): Settings => {
         if (browserApi.runtime.getManifest().manifest_version === 2) {
             const appearanceTheme = localStorage.getItem(THEME_STORAGE_KEY);
             if (appearanceTheme) {
@@ -231,7 +242,7 @@ export class SettingsService {
      *
      * @returns Updated settings.
      */
-    migrateFrom11to12 = async (oldSettings: Settings) => {
+    migrateFrom11to12 = async (oldSettings: Settings): Promise<VersionType> => {
         // update SETTINGS_IDS.APPEARANCE_THEME setting value
         // after converting APPEARANCE_THEMES object to enum
         let currentTheme = oldSettings[SETTINGS_IDS.APPEARANCE_THEME];
@@ -288,8 +299,11 @@ export class SettingsService {
 
     /**
      * Currently this method doesn't contain logic of migration,
-     * because we never have changed the scheme yet
+     * because we never have changed the scheme yet.
+     *
      * @param oldSettings
+     *
+     * @returns New settings.
      */
     async migrateSettings(oldSettings: Settings): Promise<Settings> {
         log.info(`Settings were converted from ${oldSettings.VERSION} to ${SCHEME_VERSION}`);

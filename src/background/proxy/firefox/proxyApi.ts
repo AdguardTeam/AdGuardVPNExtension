@@ -34,6 +34,8 @@ interface FirefoxProxyConfig {
     nonRoutableNets?: [string, string][],
 }
 
+type ProxyHandlerConfig = { type: ConnectionType } | FirefoxProxyConfig['proxyConfig'];
+
 /**
  * ProxyApi class handles all proxy related functionalities.
  * It has the ability to set, get, and clear proxy configurations.
@@ -45,8 +47,11 @@ class ProxyApi implements ProxyApiInterface {
     globalFirefoxConfig: FirefoxProxyConfig;
 
     /**
-     * Converts proxyConfig to firefoxConfig
+     * Converts proxyConfig to firefoxConfig.
+     *
      * @param proxyConfig
+     *
+     * @returns FirefoxConfig version of proxyConfig.
      */
     private static convertToFirefoxConfig = (proxyConfig: ProxyConfigInterface): FirefoxProxyConfig => {
         const {
@@ -80,11 +85,14 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
-     * Determines if url should be bypassed
+     * Determines if url should be bypassed.
+     *
      * @param url
      * @param exclusionsPatterns
+     *
+     * @returns True if url should be bypassed, false otherwise.
      */
-    private static isBypassed = (url: string, exclusionsPatterns: string[] | undefined) => {
+    private static isBypassed = (url: string, exclusionsPatterns: string[] | undefined): boolean => {
         if (!exclusionsPatterns) {
             return true;
         }
@@ -109,7 +117,7 @@ class ProxyApi implements ProxyApiInterface {
      * @param nonRoutableNets The list of non-routable network patterns to check against.
      * @returns A boolean indicating whether the URL is non-routable.
      */
-    private static isNonRoutable = (url: string, nonRoutableNets: [string, string][] | undefined) => {
+    private static isNonRoutable = (url: string, nonRoutableNets: [string, string][] | undefined): boolean => {
         if (!nonRoutableNets || nonRoutableNets.length <= 0) {
             return false;
         }
@@ -131,9 +139,14 @@ class ProxyApi implements ProxyApiInterface {
      * based on the globalFirefoxConfig and returns the appropriate configuration to use.
      * If the URL should be bypassed, the directConfig will be used,
      * otherwise the globalFirefoxConfig will be used.
+     *
      * @param details The details of the proxy request.
+     *
+     * @returns Proxy configuration to use.
      */
-    private proxyHandler = (details: browser.Proxy.OnRequestDetailsType) => {
+    private proxyHandler = (
+        details: browser.Proxy.OnRequestDetailsType,
+    ): ProxyHandlerConfig => {
         if (ProxyApi.isNonRoutable(details.url, this.globalFirefoxConfig.nonRoutableNets)) {
             return this.directConfig;
         }
@@ -176,7 +189,7 @@ class ProxyApi implements ProxyApiInterface {
         return browser.proxy.settings.get(config);
     };
 
-    proxyClear = () => {
+    proxyClear = (): void => {
         this.globalFirefoxConfig = {
             proxyConfig: this.directConfig,
         };
@@ -188,7 +201,7 @@ class ProxyApi implements ProxyApiInterface {
          * Adds a listener function to be called whenever a proxy error occurs.
          * @param cb The callback function to add as a listener.
          */
-        addListener: (cb: ProxyErrorCallback) => {
+        addListener: (cb: ProxyErrorCallback): void => {
             browser.proxy.onError.addListener(cb);
         },
 
@@ -196,7 +209,7 @@ class ProxyApi implements ProxyApiInterface {
          * Removes a listener function so that it is no longer called when a proxy error occurs.
          * @param cb The callback function to remove as a listener.
          */
-        removeListener: (cb: ProxyErrorCallback) => {
+        removeListener: (cb: ProxyErrorCallback): void => {
             browser.proxy.onError.removeListener(cb);
         },
     };

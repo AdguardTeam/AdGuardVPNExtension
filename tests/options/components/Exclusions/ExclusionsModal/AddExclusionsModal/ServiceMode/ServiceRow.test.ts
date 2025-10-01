@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import {
     canAddService,
 } from '../../../../../../../src/options/components/Exclusions/ExclusionsModal/AddExclusionsModal/ServiceMode/ServiceRow';

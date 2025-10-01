@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
@@ -28,15 +28,15 @@ export const AddExclusionModal = observer(() => {
         isOpen,
     );
 
-    const onClose = () => {
+    const onClose = (): void => {
         exclusionsStore.closeAddExclusionModal();
     };
 
-    const onServiceModeClick = () => {
+    const onServiceModeClick = (): void => {
         exclusionsStore.setAddExclusionMode(AddExclusionMode.Service);
     };
 
-    const onManualModeClick = () => {
+    const onManualModeClick = (): void => {
         exclusionsStore.setAddExclusionMode(AddExclusionMode.Manual);
     };
 
@@ -60,13 +60,13 @@ export const AddExclusionModal = observer(() => {
             formId: SERVICE_FORM_ID,
             btnText: translator.getMessage('settings_exclusion_modal_save'),
             btnDisabled: !exclusionsStore.servicesToToggle.length,
-            content: () => <ServiceMode />,
+            content: (): ReactElement => <ServiceMode />,
         },
         [AddExclusionMode.Manual]: {
             formId: MANUAL_FORM_ID,
             btnText: translator.getMessage('settings_exclusion_add_manually_add'),
             btnDisabled: false,
-            content: () => <ManualMode />,
+            content: (): ReactElement => <ManualMode />,
         },
     };
 

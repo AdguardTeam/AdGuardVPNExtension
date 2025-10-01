@@ -8,6 +8,8 @@
  *
  * @param template
  * @param tags
+ *
+ * @returns Rendered template.
  */
 export const renderTemplate = (template: string, tags: { [key: string]: string }): string => {
     return Object.entries(tags).reduce((acc, [key, value]) => {
@@ -17,8 +19,11 @@ export const renderTemplate = (template: string, tags: { [key: string]: string }
 };
 
 /**
- * Converts string into Uint8Array
+ * Converts string into Uint8Array.
+ *
  * @param str
+ *
+ * @returns Uint8Array of string.
  */
 export const stringToUint8Array = (str: string): Uint8Array => {
     return new TextEncoder().encode(str);
@@ -26,8 +31,11 @@ export const stringToUint8Array = (str: string): Uint8Array => {
 
 /**
  * Compares if two hostnames w/ or w/o www are equal
+ *
  * @param hostnameA
  * @param hostnameB
+ *
+ * @returns true if hostnames are equal, false otherwise.
  */
 export const areHostnamesEqual = (hostnameA: string, hostnameB: string): boolean => {
     const wwwRegex = /^www\./;
@@ -41,6 +49,8 @@ export const areHostnamesEqual = (hostnameA: string, hostnameB: string): boolean
  * IMPORTANT - note that regexp asserts position at the end of the string
  * @param url - hostname or url
  * @param pattern
+ *
+ * @returns True if pattern matches with url, false otherwise.
  */
 export const shExpMatch = (url: string, pattern: string): boolean => {
     let regexpStr = pattern.replace(/\./g, '\\.');
@@ -51,7 +61,10 @@ export const shExpMatch = (url: string, pattern: string): boolean => {
 
 /**
  * Checks if string is valid url with http: or https: protocol
+ *
  * @param str
+ *
+ * @returns True if string is valid url with http: or https: protocol, false otherwise.
  */
 export const isHttp = (str: string): boolean => {
     let url;
@@ -65,6 +78,7 @@ export const isHttp = (str: string): boolean => {
 
 /**
  * Checks if provided string is valid exclusion
+ * @returns True if string is valid exclusion, false otherwise.
  */
 export const isValidExclusion = (exclusion: string): boolean => {
     // Regexp validates simple domains and exclusions with wildcard
@@ -74,8 +88,11 @@ export const isValidExclusion = (exclusion: string): boolean => {
 };
 
 /**
- * Clears string from wrapping quotes
+ * Clears string from wrapping quotes.
+ *
  * @param str
+ *
+ * @returns String without wrapping quotes.
  */
 export const clearFromWrappingQuotes = (str: string): string => {
     return str.replace(/^"|"$/g, '');

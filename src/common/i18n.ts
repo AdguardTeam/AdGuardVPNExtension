@@ -18,7 +18,7 @@ const uiLanguage = browser.i18n.getUILanguage();
  * translation)
  * @throws {Error} If there is no such key in the messages
  */
-const getMessage = (key: string) => {
+const getMessage = (key: string): string => {
     const receivedMessage = browser.i18n.getMessage(key);
     if (uiLanguage !== BASE_LOCALE) {
         const baseMessage = baseMessages[key]?.message;
@@ -43,15 +43,15 @@ export const i18n = {
      * This is because react translator supports only 2-letter codes.
      * @returns The 2-letter UI language code
      */
-    getUILanguage: () => {
+    getUILanguage: (): string => {
         return uiLanguage.substring(0, 2);
     },
-    getBaseMessage: (key: string) => {
+    getBaseMessage: (key: string): string => {
         // thus we can test the base messages with keys without translations
         if (process.env.NODE_ENV === 'test') {
             return key;
         }
         return browser.i18n.getMessage(key);
     },
-    getBaseUILanguage: () => BASE_LOCALE,
+    getBaseUILanguage: (): string => BASE_LOCALE,
 };

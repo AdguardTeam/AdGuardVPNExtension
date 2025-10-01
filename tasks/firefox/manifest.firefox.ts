@@ -41,13 +41,6 @@ export const firefoxManifestDiff = {
     host_permissions: [
         '<all_urls>',
     ],
-    protocol_handlers: [
-        {
-            protocol: 'ext+adguardvpn',
-            name: 'AdGuard VPN Extension',
-            uriTemplate: '/custom-protocol-handler.html#matched=%s',
-        },
-    ],
 };
 
 export const firefoxManifestStandaloneDiff = {

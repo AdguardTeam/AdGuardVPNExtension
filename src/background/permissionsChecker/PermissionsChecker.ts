@@ -6,8 +6,8 @@ import { ERROR_STATUSES } from '../constants';
 import { type CredentialsInterface } from '../credentials/Credentials';
 import { vpnProvider } from '../providers/vpnProvider';
 import { timers } from '../timers';
-import { stateStorage } from '../stateStorage';
-import { type PermissionsCheckerState, StorageKey } from '../schema';
+import { StateData } from '../stateStorage';
+import { StorageKey } from '../schema';
 import { auth } from '../auth';
 
 import { type PermissionsErrorInterface, type ErrorData } from './permissionsError';
@@ -24,10 +24,15 @@ export interface PermissionsCheckerInterface {
 
 export const UPDATE_CREDENTIALS_INTERVAL_MS = 1000 * 60 * 60 * 12; // 12 hours
 export const UPDATE_VPN_INFO_INTERVAL_MS = 1000 * 60 * 60; // 1 hour
-const EXPIRE_CHECK_TIME_SEC = 60 * 30; // 30 min
+export const EXPIRE_CHECK_TIME_SEC = 60 * 30; // 30 min
 
 export class PermissionsChecker implements PermissionsCheckerInterface {
-    state: PermissionsCheckerState;
+    /**
+     * Permissions checker service state data.
+     * Used to save and retrieve permissions checker state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private permissionsCheckerState = new StateData(StorageKey.PermissionsChecker);
 
     permissionsError: PermissionsErrorInterface;
 
@@ -36,37 +41,6 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     constructor({ credentials, permissionsError }: PermissionsCheckerParameters) {
         this.credentials = credentials;
         this.permissionsError = permissionsError;
-    }
-
-    private savePermissionsCheckerState = () => {
-        stateStorage.setItem(StorageKey.ProxyState, this.state);
-    };
-
-    private get credentialsCheckTimerId(): number | null {
-        return this.state.credentialsCheckTimerId;
-    }
-
-    private set credentialsCheckTimerId(credentialsCheckTimerId: number | null) {
-        this.state.credentialsCheckTimerId = credentialsCheckTimerId;
-        this.savePermissionsCheckerState();
-    }
-
-    private get vpnInfoCheckTimerId(): number | null {
-        return this.state.vpnInfoCheckTimerId;
-    }
-
-    private set vpnInfoCheckTimerId(vpnInfoCheckTimerId: number | null) {
-        this.state.vpnInfoCheckTimerId = vpnInfoCheckTimerId;
-        this.savePermissionsCheckerState();
-    }
-
-    private get expiredCredentialsCheckTimeoutId(): number | null {
-        return this.state.expiredCredentialsCheckTimeoutId;
-    }
-
-    private set expiredCredentialsCheckTimeoutId(expiredCredentialsCheckTimeoutId: number | null) {
-        this.state.expiredCredentialsCheckTimeoutId = expiredCredentialsCheckTimeoutId;
-        this.savePermissionsCheckerState();
     }
 
     updatePermissionsErrorHandler = async (error: ErrorData): Promise<void> => {
@@ -91,19 +65,22 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     /**
      * Request credentials in half an hour before expired
      */
-    planCredentialsCheckBeforeExpired = (): void => {
-        if (!this.credentials.vpnCredentials) {
+    planCredentialsCheckBeforeExpired = async (): Promise<void> => {
+        const vpnCredentialsState = await this.credentials.getVpnCredentialsState();
+        if (!vpnCredentialsState) {
             return;
         }
-        if (this.credentials.vpnCredentials?.result?.expiresInSec
-            && this.credentials.vpnCredentials.result.expiresInSec > EXPIRE_CHECK_TIME_SEC) {
-            if (this.expiredCredentialsCheckTimeoutId) {
-                timers.clearTimeout(this.expiredCredentialsCheckTimeoutId);
+        if (vpnCredentialsState?.result?.expiresInSec
+            && vpnCredentialsState.result.expiresInSec > EXPIRE_CHECK_TIME_SEC) {
+            let { expiredCredentialsCheckTimeoutId } = await this.permissionsCheckerState.get();
+            if (expiredCredentialsCheckTimeoutId) {
+                timers.clearTimeout(expiredCredentialsCheckTimeoutId);
             }
-            const nextTimeoutMs = (this.credentials.vpnCredentials.result.expiresInSec - EXPIRE_CHECK_TIME_SEC) * 1000;
-            this.expiredCredentialsCheckTimeoutId = timers.setTimeout(async () => {
+            const nextTimeoutMs = (vpnCredentialsState.result.expiresInSec - EXPIRE_CHECK_TIME_SEC) * 1000;
+            expiredCredentialsCheckTimeoutId = timers.setTimeout(async () => {
                 await this.checkPermissions();
             }, nextTimeoutMs);
+            await this.permissionsCheckerState.update({ expiredCredentialsCheckTimeoutId });
         }
     };
 
@@ -119,9 +96,10 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
             // See issue AG-2056
             await this.credentials.gainValidVpnToken(true, true);
             const vpnCredentials = await this.credentials.gainValidVpnCredentials(true, true);
+            const vpnCredentialsState = await this.credentials.getVpnCredentialsState();
             if (vpnCredentials && !this.credentials.areCredentialsEqual(
                 vpnCredentials,
-                this.credentials.vpnCredentials,
+                vpnCredentialsState,
             )) {
                 await this.planCredentialsCheckBeforeExpired();
             }
@@ -132,8 +110,9 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
         } catch (e) {
             // if got an error on token or credentials check,
             // stop credentials check before expired
-            if (this.expiredCredentialsCheckTimeoutId) {
-                timers.clearTimeout(this.expiredCredentialsCheckTimeoutId);
+            const { expiredCredentialsCheckTimeoutId } = await this.permissionsCheckerState.get();
+            if (expiredCredentialsCheckTimeoutId) {
+                timers.clearTimeout(expiredCredentialsCheckTimeoutId);
             }
             await this.updatePermissionsErrorHandler(e);
         }
@@ -161,56 +140,72 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     startChecker = async (): Promise<void> => {
         log.info('Credentials and VPN info checker started');
 
-        if (this.credentialsCheckTimerId) {
-            timers.clearInterval(this.credentialsCheckTimerId);
-        }
+        let { credentialsCheckTimerId, vpnInfoCheckTimerId } = await this.permissionsCheckerState.get();
 
-        this.credentialsCheckTimerId = timers.setInterval(async () => {
+        if (credentialsCheckTimerId) {
+            timers.clearInterval(credentialsCheckTimerId);
+        }
+        credentialsCheckTimerId = timers.setInterval(async () => {
             await this.checkPermissions();
         }, UPDATE_CREDENTIALS_INTERVAL_MS);
 
-        if (this.vpnInfoCheckTimerId) {
-            timers.clearInterval(this.vpnInfoCheckTimerId);
+        if (vpnInfoCheckTimerId) {
+            timers.clearInterval(vpnInfoCheckTimerId);
         }
-        this.vpnInfoCheckTimerId = timers.setInterval(async () => {
+        vpnInfoCheckTimerId = timers.setInterval(async () => {
             await this.getVpnInfo();
         }, UPDATE_VPN_INFO_INTERVAL_MS);
+
+        await this.permissionsCheckerState.update({
+            credentialsCheckTimerId,
+            vpnInfoCheckTimerId,
+        });
     };
 
     stopChecker = async (): Promise<void> => {
-        if (this.credentialsCheckTimerId) {
+        let {
+            credentialsCheckTimerId,
+            vpnInfoCheckTimerId,
+            expiredCredentialsCheckTimeoutId,
+        } = await this.permissionsCheckerState.get();
+
+        if (credentialsCheckTimerId) {
             log.info('Credentials checker stopped');
-            timers.clearInterval(this.credentialsCheckTimerId);
-            this.credentialsCheckTimerId = null;
+            timers.clearInterval(credentialsCheckTimerId);
+            credentialsCheckTimerId = null;
         }
 
-        if (this.vpnInfoCheckTimerId) {
+        if (vpnInfoCheckTimerId) {
             log.info('VPN info checker stopped');
-            timers.clearInterval(this.vpnInfoCheckTimerId);
-            this.vpnInfoCheckTimerId = null;
+            timers.clearInterval(vpnInfoCheckTimerId);
+            vpnInfoCheckTimerId = null;
         }
 
-        if (this.expiredCredentialsCheckTimeoutId) {
+        if (expiredCredentialsCheckTimeoutId) {
             log.info('Checker before credentials expired stopped');
-            timers.clearTimeout(this.expiredCredentialsCheckTimeoutId);
-            this.expiredCredentialsCheckTimeoutId = null;
+            timers.clearTimeout(expiredCredentialsCheckTimeoutId);
+            expiredCredentialsCheckTimeoutId = null;
         }
+
+        await this.permissionsCheckerState.update({
+            credentialsCheckTimerId,
+            vpnInfoCheckTimerId,
+            expiredCredentialsCheckTimeoutId,
+        });
     };
 
     handleUserAuthentication = async (): Promise<void> => {
         this.permissionsError.clearError();
-        this.startChecker();
+        await this.startChecker();
         await this.planCredentialsCheckBeforeExpired();
     };
 
-    handleUserDeauthentication = (): void => {
+    handleUserDeauthentication = async (): Promise<void> => {
         this.permissionsError.clearError();
-        this.stopChecker();
+        await this.stopChecker();
     };
 
     init = (): void => {
-        this.state = stateStorage.getItem(StorageKey.PermissionsChecker);
-
         notifier.addSpecifiedListener(
             notifier.types.USER_AUTHENTICATED,
             this.handleUserAuthentication,

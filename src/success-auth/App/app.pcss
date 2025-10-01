@@ -1,0 +1,69 @@
+.success-auth {
+    display: flex;
+    min-height: 100vh;
+    /* Dynamic viewport height, if not supported fallbacks to vh */
+    min-height: 100dvh;
+    flex-direction: column;
+    align-items: center;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 24px 32px;
+    }
+
+    &__logo {
+        width: 125px;
+        height: 24px;
+        background-image: url("../../assets/images/logo-vpn.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+
+        .dark-mode & {
+            background-image: url("../../assets/images/logo-vpn-dark.svg");
+        }
+
+        @media (prefers-color-scheme: dark) {
+            background-image: url("../../assets/images/logo-vpn-dark.svg");
+        }
+    }
+
+    &__content {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 500px;
+        padding: 32px 0 60px;
+        text-align: center;
+    }
+
+    &__image {
+        width: 328px;
+        height: 328px;
+        /* Flip the image horizontally */
+        transform: scale(-1, 1);
+    }
+
+    &__text {
+        padding: 16px;
+    }
+
+    &__title {
+        color: var(--text-main-text-main-default);
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    &__description {
+        margin-top: 12px;
+        color: var(--text-description-description-default);
+        font-size: 16px;
+        line-height: 1.3;
+    }
+}

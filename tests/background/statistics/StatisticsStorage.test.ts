@@ -1,3 +1,12 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { StatisticsStorage } from '../../../src/background/statistics/StatisticsStorage';
 import {
     type Statistics,
@@ -8,14 +17,14 @@ import {
 } from '../../../src/background/statistics/statisticsTypes';
 import { ONE_DAY_MS, ONE_HOUR_MS } from '../../../src/common/constants';
 
-jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
-
-jest.mock('../../../src/common/logger');
+vi.mock('lodash/throttle', () => ({
+    default: vi.fn((fn) => fn),
+}));
 
 const storageMock = {
-    get: jest.fn(),
-    set: jest.fn(),
-    remove: jest.fn(),
+    get: vi.fn(),
+    set: vi.fn(),
+    remove: vi.fn(),
 };
 
 describe('StatisticsStorage', () => {
@@ -26,12 +35,12 @@ describe('StatisticsStorage', () => {
         statisticsStorage = new StatisticsStorage({
             storage: storageMock,
         });
-        jest.useFakeTimers('modern').setSystemTime(systemDate);
+        vi.useFakeTimers().setSystemTime(systemDate);
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
-        jest.useRealTimers();
+        vi.clearAllMocks();
+        vi.useRealTimers();
     });
 
     /**
@@ -559,7 +568,7 @@ describe('StatisticsStorage', () => {
             // for startDuration
             expect(storageMock.set).toHaveBeenCalledTimes(2);
 
-            jest.advanceTimersByTime(1000);
+            vi.advanceTimersByTime(1000);
 
             await statisticsStorage.addTraffic(locationId, {
                 downloadedBytes,
@@ -603,7 +612,7 @@ describe('StatisticsStorage', () => {
                 },
             }));
 
-            jest.advanceTimersByTime(1000);
+            vi.advanceTimersByTime(1000);
             await statisticsStorage.updateDuration(locationId);
 
             // for updateDuration
@@ -617,7 +626,7 @@ describe('StatisticsStorage', () => {
                 },
             }));
 
-            jest.advanceTimersByTime(1000);
+            vi.advanceTimersByTime(1000);
             await statisticsStorage.endDuration(locationId);
 
             // for endDuration
@@ -656,7 +665,7 @@ describe('StatisticsStorage', () => {
                 },
             }));
 
-            jest.advanceTimersByTime(1000);
+            vi.advanceTimersByTime(1000);
             await statisticsStorage.startDuration(locationId);
 
             // for startDuration (2)
@@ -712,7 +721,7 @@ describe('StatisticsStorage', () => {
             await statisticsStorage.init();
 
             // advance by 1 hour
-            jest.advanceTimersByTime(ONE_HOUR_MS);
+            vi.advanceTimersByTime(ONE_HOUR_MS);
 
             const result1 = await statisticsStorage.getStatistics();
 
@@ -731,7 +740,7 @@ describe('StatisticsStorage', () => {
             }));
 
             // advance by 1 day
-            jest.advanceTimersByTime(ONE_DAY_MS);
+            vi.advanceTimersByTime(ONE_DAY_MS);
 
             const result2 = await statisticsStorage.getStatistics();
 
@@ -749,7 +758,7 @@ describe('StatisticsStorage', () => {
             }));
 
             // advance by 30 days
-            jest.advanceTimersByTime(30 * ONE_DAY_MS);
+            vi.advanceTimersByTime(30 * ONE_DAY_MS);
 
             const result3 = await statisticsStorage.getStatistics();
 

@@ -42,7 +42,7 @@ Test:
             pnpm install ${bamboo.varsPnpm}
 
             pnpm lint
-            pnpm test
+            pnpm test:ci
 
             # build with test API endpoints:
             # chrome.zip, edge.zip, opera.zip, firefox.zip
@@ -68,6 +68,9 @@ Test:
             STAGE_ENV=prod \
             pnpm crx:dev
   final-tasks:
+    - test-parser:
+        type: junit
+        test-results: 'tests-reports/unit-tests.xml'
     - script:
         interpreter: SHELL
         scripts:

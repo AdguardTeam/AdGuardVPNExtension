@@ -1,3 +1,13 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    afterEach,
+    afterAll,
+    it,
+    expect,
+    type MockInstance,
+} from 'vitest';
 import { type IBrowser, type IDevice, type IOS } from 'ua-parser-js';
 
 import {
@@ -9,35 +19,37 @@ import {
 import { runtime } from '../../src/background/browserApi/runtime';
 
 // Partially mock browserApi.runtime
-const getPlatformInfoSpy = jest.spyOn(runtime, 'getPlatformInfo');
-jest.mock('../../src/background/browserApi/runtime', () => ({
+const getPlatformInfoSpy = vi.spyOn(runtime, 'getPlatformInfo');
+vi.mock('../../src/background/browserApi/runtime', () => ({
     getUrl: (path: string) => `test/${path}`,
     runtime: {
-        getPlatformInfo: jest.fn(),
+        getPlatformInfo: vi.fn(),
     },
 }));
 
 // Partially mock ua-parser-js
-const uaGetOS = jest.fn();
-const uaGetDevice = jest.fn();
-const uaGetBrowser = jest.fn();
-jest.mock('ua-parser-js', () => jest.fn().mockImplementation(() => ({
-    getOS: uaGetOS,
-    getDevice: uaGetDevice,
-    getBrowser: uaGetBrowser,
-})));
+const uaGetOS = vi.fn();
+const uaGetDevice = vi.fn();
+const uaGetBrowser = vi.fn();
+vi.mock('ua-parser-js', () => ({
+    default: vi.fn().mockImplementation(() => ({
+        getOS: uaGetOS,
+        getDevice: uaGetDevice,
+        getBrowser: uaGetBrowser,
+    })),
+}));
 
 // Mock navigator.userAgentData
 (global.window.navigator as any).userAgentData = {
-    getHighEntropyValues: jest.fn(),
+    getHighEntropyValues: vi.fn(),
 };
 
 describe('prefs', () => {
-    let userAgentGetter: jest.SpyInstance<string, []>;
-    let getHighEntropyValuesSpy: jest.SpyInstance<Promise<{ platformVersion: string }>>;
+    let userAgentGetter: MockInstance<() => string>;
+    let getHighEntropyValuesSpy: MockInstance<() => Promise<{ platformVersion: string }>>;
     beforeEach(() => {
-        userAgentGetter = jest.spyOn(window.navigator, 'userAgent', 'get');
-        getHighEntropyValuesSpy = jest.spyOn((window.navigator as any).userAgentData, 'getHighEntropyValues');
+        userAgentGetter = vi.spyOn(window.navigator, 'userAgent', 'get');
+        getHighEntropyValuesSpy = vi.spyOn((window.navigator as any).userAgentData, 'getHighEntropyValues');
     });
 
     afterEach(() => {
@@ -45,7 +57,7 @@ describe('prefs', () => {
     });
 
     afterAll(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it('can get ICONS properly and lazily', () => {

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { TelemetryScreenName } from '../../../../../background/telemetry/telemetryEnums';
+import { TelemetryActionName, TelemetryScreenName } from '../../../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../../../stores';
 import { translator } from '../../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../../common/telemetry/useTelemetryPageViewEvent';
@@ -19,11 +19,19 @@ export const RemoveAllModal = observer(() => {
         isOpen,
     );
 
-    const closeModal = () => {
+    const closeModal = (): void => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.CancelExclusionsRemovalClick,
+            TelemetryScreenName.DialogExclusionsRemoveAll,
+        );
         exclusionsStore.closeRemoveAllModal();
     };
 
-    const removeAllExclusions = async () => {
+    const removeAllExclusions = async (): Promise<void> => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.RemoveExclusionsClick,
+            TelemetryScreenName.DialogExclusionsRemoveAll,
+        );
         await exclusionsStore.clearExclusionsList();
         closeModal();
         notificationsStore.notifySuccess(

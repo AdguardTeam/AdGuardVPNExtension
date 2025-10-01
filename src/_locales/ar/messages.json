@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "لا يمكن أن تكون فارغة"
-    },
-    "registration_error_not_valid": {
-        "message": "هذه القيمة غير صالحة"
-    },
-    "registration_error_min_length": {
-        "message": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"
-    },
-    "registration_error_confirm_password": {
-        "message": "كلمات المرور غير متطابقة"
-    },
-    "registration_error_compromised_password": {
-        "message": "تم العثور على كلمة المرور التي أدخلتها في <a>قاعدة البيانات العامة</a> لكلمات المرور المخترقة. يحب اختيار واحدة اخرى."
-    },
-    "registration_error_unique_constraint": {
-        "message": "هذه القيمة مستخدمة بالفعل"
-    },
-    "registration_error_default": {
-        "message": "حدث خطأ، حاول مرة أخرى لاحقاً"
-    },
-    "authentication_error_2fa_required": {
-        "message": "مطلوب التحقق بخطوتين (2FA)"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "رمز غير صالح"
-    },
-    "authentication_error_account_disabled": {
-        "message": "تم تعطيل الحساب"
-    },
-    "authentication_error_account_locked": {
-        "message": "الحساب مغلق لمدة 15 دقيقة"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "كلمة مرور خاطئة"
-    },
-    "authentication_too_many_requests": {
-        "message": "تلقينا الكثير من الطلبات من عنوان IP الخاص بك. يرجى المحاولة مرة أخرى لاحقاً."
-    },
-    "authentication_error_default": {
-        "message": "حدث خطأ، حاول مرة أخرى لاحقاً"
-    },
-    "global_error_message": {
-        "message": "حدث خطأ، رجاءً اتصل بنا من خلال <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "حول"
     },
@@ -153,6 +108,9 @@
     "account_logged_in_as": {
         "message": "تم تسجيل الدخول باسم <b>%username%</b>"
     },
+    "account_sign_out_popup_cancel": {
+        "message": "إلغاء"
+    },
     "account_unlimited_title": {
         "message": "احصل على إصدار غير محدود!"
     },
@@ -161,63 +119,6 @@
     },
     "rate_hide": {
         "message": "إخفاء"
-    },
-    "auth_confirm": {
-        "message": "تأكيد"
-    },
-    "auth_email": {
-        "message": "عنوان البريد الإلكتروني"
-    },
-    "auth_password": {
-        "message": "كلمة المرور"
-    },
-    "auth_your_password": {
-        "message": "كلمة مرورك"
-    },
-    "auth_password_confirm": {
-        "message": "تأكيد كلمة المرور"
-    },
-    "auth_recover": {
-        "message": "هل نسيت كلمة المرور؟"
-    },
-    "auth_sign_up_info": {
-        "message": "أنشأ حسابك في AdGuard"
-    },
-    "auth_sign_up_button": {
-        "message": "إنشاء حساب"
-    },
-    "auth_sign_in_button": {
-        "message": "تسجيل الدخول"
-    },
-    "auth_title": {
-        "message": "تسجيل الدخول أو إنشاء حساب"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "البريد الإلكتروني"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "تسجيل الدخول بواسطة البريد الإلكتروني"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "تسجيل الدخول بواسطة ابل"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "تسجيل الدخول بواسطة جوجل"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "تسجيل الدخول بواسطة الفيسبوك"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "تسجيل الدخول باسم <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "التحقيق بخطوتين"
-    },
-    "auth_header_2fa": {
-        "message": "أدخل رمز التحقق"
-    },
-    "auth_placeholder_2fa": {
-        "message": "رمز التحقق"
     },
     "official_website": {
         "message": "الموقع الرسمي"
@@ -821,9 +722,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "تسجيل الدخول أو إنشاء حساب"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "استمرار"
-    },
     "popup_newsletter_title": {
         "message": "النشرة الإخبارية لـ AdGuard"
     },
@@ -933,6 +831,10 @@
     "popup_limited_offer_details_time_left": {
         "message": "الوقت المتبقي: %time_left%"
     },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN غير محدود <span> لمدة</span>%count% <span> عام بسعر%discount%% خصم % خصم</span> | AdGuard VPN غير محدود لمدة%count% عام بسعر <span>%discount%% خصم</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
+    },
     "popup_limited_offer_details_btn": {
         "message": "احصل على الصفقة"
     },
@@ -1002,6 +904,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "عدم إظهار هذه مرة أخرى"
     },
+    "popup_stats": {
+        "message": "إحصائيات"
+    },
     "popup_stats_enable_btn": {
         "message": "تمكين"
     },
@@ -1010,15 +915,6 @@
     },
     "popup_stats_usage_time": {
         "message": "الوقت"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "لماذا هو آمن"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "لماذا هو آمن"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "يتم جمع جميع الإحصائيات وتخزينها محليًا على جهازك. ليس لدينا وصول إليها"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "فهمت ذلك"
@@ -1092,40 +988,25 @@
     "notification_data_left_description": {
         "message": "سيتم تقليل سرعة اتصال VPN قريباً."
     },
-    "confirm_email_title": {
-        "message": "تأكيد بريدك الإلكتروني"
-    },
-    "confirm_email_info": {
-        "message": "لقد أرسلنا رمز تأكيد إلى <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "تم تأكيد عنوان البريد الإلكتروني"
     },
     "confirm_email_done_info": {
         "message": "شكرا للتحقق من ذلك!"
     },
-    "confirm_email_code_label": {
-        "message": "رمز التأكيد"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "يحتوي على أرقام وحروف"
-    },
-    "confirm_email_code_invalid": {
-        "message": "يرجى التحقق من الرمز — يبدو غير صحيح"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "إرسال رمزا أخر (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "إرسال رمز آخر"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى أو الاتصال بنا عبر <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "فشل تسجيل اشتراكك. يرجى المحاولة مرة أخرى أو الاتصال بنا عبر <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "تم إعادة إرسال رابط التأكيد"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "الرجاء المحاولة مره أخرى"
+    },
+    "auth_failed_to_login_button": {
+        "message": "إغلاق"
+    },
+    "auth_loading_button_reopen": {
+        "message": "إعادة فتح صفحة تسجيل الدخول"
+    },
+    "auth_loading_button_cancel": {
+        "message": "إلغاء"
     }
 }

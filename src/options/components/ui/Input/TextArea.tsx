@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import classNames from 'classnames';
 
@@ -13,14 +13,14 @@ export function TextArea({
     required,
     onChange,
     error,
-}: InputBaseProps) {
+}: InputBaseProps): ReactElement {
     const classes = classNames(
         'input',
         'textarea',
         !!error && 'input--error',
     );
 
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
         const { value } = e.target;
         if (onChange) {
             onChange(value);

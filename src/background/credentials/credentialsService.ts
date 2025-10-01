@@ -37,7 +37,9 @@ export class CredentialsService implements CredentialsServiceInterface {
 
     /**
      * User is considered premium
-     * if an licenseKey is present in the vpn token data
+     * if an licenseKey is present in the vpn token data.
+     *
+     * @returns Promise with true if user is premium.
      */
     isPremiumUser = async (): Promise<boolean> => {
         const vpnToken = await this.getVpnTokenFromStorage();

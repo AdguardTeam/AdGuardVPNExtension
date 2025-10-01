@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Не смее да биде празно"
-    },
-    "registration_error_not_valid": {
-        "message": "Оваа вредност не е валидна"
-    },
-    "registration_error_min_length": {
-        "message": "Лозинката мора да содржи најмалку 8 знаци"
-    },
-    "registration_error_confirm_password": {
-        "message": "Лозинките не се совпаѓаат"
-    },
-    "registration_error_compromised_password": {
-        "message": "Лозинката што ја внесовте е пронајдена во <a>јавна база на податоци</a> со компромитирани лозинки. Ве молиме обидете се со друг."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Оваа вредност веќе се користи"
-    },
-    "registration_error_default": {
-        "message": "Настана грешка, обидете се повторно подоцна"
-    },
-    "authentication_error_2fa_required": {
-        "message": "Потребен е 2FA"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Невалиден код"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Сметката е оневозможена"
-    },
-    "authentication_error_account_locked": {
-        "message": "Сметката е заклучена 15 минути"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Погрешна лозинка"
-    },
-    "authentication_too_many_requests": {
-        "message": "Добивме премногу барања од вашата IP адреса. Обидете се повторно подоцна."
-    },
-    "authentication_error_default": {
-        "message": "Настана грешка, обидете се повторно подоцна"
-    },
-    "global_error_message": {
-        "message": "Настана грешка, ве молиме контактирајте со нас преку <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "За програмата"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Одјави се"
     },
+    "account_sign_out_question": {
+        "message": "Одјави се?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Откажи"
+    },
+    "account_sign_out_description": {
+        "message": "Ќе бидете одјавени од вашата сметка. VPN заштита ќе биде запрена"
+    },
     "account_unlimited_title": {
         "message": "Добијте ја неограничената верзија!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Сокриј"
-    },
-    "auth_confirm": {
-        "message": "Потврди"
-    },
-    "auth_email": {
-        "message": "Адреса на е-пошта"
-    },
-    "auth_password": {
-        "message": "Лозинка"
-    },
-    "auth_your_password": {
-        "message": "Вашата лозинка"
-    },
-    "auth_password_confirm": {
-        "message": "Потврдете ја лозинката"
-    },
-    "auth_recover": {
-        "message": "Ја заборави лозинката?"
-    },
-    "auth_sign_up": {
-        "message": "Пријавете се"
-    },
-    "auth_sign_up_info": {
-        "message": "Направете сметка на AdGuard"
-    },
-    "auth_sign_up_button": {
-        "message": "Пријавете се"
-    },
-    "auth_sign_in": {
-        "message": "Внесете ја лозинката"
-    },
-    "auth_sign_in_button": {
-        "message": "Најави се"
-    },
-    "auth_title": {
-        "message": "Најавете се или креирајте сметка"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "Е-пошта"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Продолжете со е-пошта"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Продолжете со Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Продолжете со Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Продолжете со Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Се најавувате како <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Потврда во два чекори"
-    },
-    "auth_header_2fa": {
-        "message": "Внесете го кодот за потврда"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Код за потврда"
     },
     "official_website": {
         "message": "Официјална веб страна"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Најавете се или креирајте сметка"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Продолжи"
-    },
     "popup_newsletter_title": {
         "message": "Билтен на AdGuard"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Не го покажувај ова повторно"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Статистика за овој прелистувач"
+    "popup_stats": {
+        "message": "Статистика"
     },
     "popup_stats_disabled_notice": {
         "message": "Статистиките се оневозможени"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Време"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Зошто е безбедно"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Зошто е безбедно"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN конекцијата е криптирана и сигурна, така што никој не може да ги види вашите податоци за активност — ние само го пресметуваме користењето на сообраќајот"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Сите статистики се собираат и се складираат локално на вашиот уред. Немаме пристап до нив"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Добро"
@@ -1150,40 +1036,28 @@
     "notification_data_left_description": {
         "message": "Брзината на VPN поврзувањето наскоро ќе се намали."
     },
-    "confirm_email_title": {
-        "message": "Потврдете ја вашата е-пошта"
-    },
-    "confirm_email_info": {
-        "message": "Испративме код за потврда на <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Адресата на е-пошта е потврдена"
     },
     "confirm_email_done_info": {
         "message": "Ви благодариме што потврдивте!"
     },
-    "confirm_email_code_label": {
-        "message": "Код за потврда"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Содржи бројки и букви"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Ве молиме проверете го кодот - изгледа неточен"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Испрати друг код (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Испратете друг код"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Не успеавме да ве најавиме. Обидете се повторно или контактирајте со нас преку <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Неуспешна регистрација. Обидете се повторно или контактирајте со нас преку <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Линкот за потврда е повторно испратен"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Не успеа да ве најави"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Обидете се повторно или <a>контактирајте со поддршката</a>"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Затвори"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Повторно отворете ја страницата за најавување"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Откажи"
     }
 }

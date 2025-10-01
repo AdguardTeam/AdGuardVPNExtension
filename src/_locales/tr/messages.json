@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Boş olmamalı"
-    },
-    "registration_error_not_valid": {
-        "message": "Bu değer geçerli değil"
-    },
-    "registration_error_min_length": {
-        "message": "Parola en az 8 karakter içermelidir"
-    },
-    "registration_error_confirm_password": {
-        "message": "Parolalar uyuşmuyor"
-    },
-    "registration_error_compromised_password": {
-        "message": "Girdiğiniz parola, güvenliği ihlal edilmiş parolalardan oluşan <a>herkese açık bir veri tabanında</a> bulundu. Lütfen başka bir tane deneyin."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Bu değer zaten kullanılıyor"
-    },
-    "registration_error_default": {
-        "message": "Hata oluştu, daha sonra tekrar deneyiniz"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA gerekli"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Geçersiz kod"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Hesap devre dışıdır"
-    },
-    "authentication_error_account_locked": {
-        "message": "Hesap 15 dakikalığına kilitlendi"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Yanlış parola"
-    },
-    "authentication_too_many_requests": {
-        "message": "IP adresinizden çok fazla istek aldık. Lütfen daha sonra tekrar deneyin."
-    },
-    "authentication_error_default": {
-        "message": "Hata oluştu, daha sonra tekrar deneyiniz"
-    },
-    "global_error_message": {
-        "message": "Bir hata oluştu, lütfen <a>%support_email%</a> adresinden bizimle iletişime geçin"
-    },
     "about_title": {
         "message": "Hakkında"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Çıkış yap"
     },
+    "account_sign_out_question": {
+        "message": "Çıkış yapılsın mı?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "İptal"
+    },
+    "account_sign_out_description": {
+        "message": "Hesabınızdan çıkış yapacaksınız. VPN koruması durdurulacaktır"
+    },
     "account_unlimited_title": {
         "message": "Sınırsız sürümü edinin!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Gizle"
-    },
-    "auth_confirm": {
-        "message": "Doğrula"
-    },
-    "auth_email": {
-        "message": "E-posta Adresi"
-    },
-    "auth_password": {
-        "message": "Parola"
-    },
-    "auth_your_password": {
-        "message": "Parolanız"
-    },
-    "auth_password_confirm": {
-        "message": "Parolayı onayla"
-    },
-    "auth_recover": {
-        "message": "Parolanızı mı unuttunuz?"
-    },
-    "auth_sign_up": {
-        "message": "Kaydol"
-    },
-    "auth_sign_up_info": {
-        "message": "AdGuard hesabınızı oluşturun"
-    },
-    "auth_sign_up_button": {
-        "message": "Kaydol"
-    },
-    "auth_sign_in": {
-        "message": "Parolanı gir"
-    },
-    "auth_sign_in_button": {
-        "message": "Giriş yap"
-    },
-    "auth_title": {
-        "message": "Giriş yap ya da bir hesap oluştur"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-posta"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "E-posta ile devam et"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Apple ile devam et"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Google ile devam et"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Facebook ile devam et"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "<span>%username%</span> olarak giriş yapılıyor"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "İki faktörlü kimlik doğrulama"
-    },
-    "auth_header_2fa": {
-        "message": "Kimlik doğrulama kodunuzu girin"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Kimlik doğrulama kodu"
     },
     "official_website": {
         "message": "Resmi site"
@@ -238,7 +139,7 @@
         "message": "Gizlilik Politikası"
     },
     "settings_general_title": {
-        "message": "Genel"
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "Ücretsiz GB'lar edinin!"
@@ -685,7 +586,7 @@
         "message": "Tüm konumlar"
     },
     "endpoints_saved": {
-        "message": "Kaydedildi"
+        "message": "Kaydedilenler"
     },
     "endpoints_search": {
         "message": "Konum ara"
@@ -701,7 +602,7 @@
         "message": "Tümü"
     },
     "endpoints_tab_saved": {
-        "message": "Kaydedildi"
+        "message": "Kaydedilenler"
     },
     "endpoints_saved_location_deleted": {
         "message": "Konum Kaydedilenlerden silindi"
@@ -835,9 +736,6 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Giriş yap ya da bir hesap oluştur"
-    },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Devam et"
     },
     "popup_newsletter_title": {
         "message": "AdGuard bülteni"
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Bunu tekrar gösterme"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Bu tarayıcı için istatistikler"
+    "popup_stats": {
+        "message": "İstatistikler"
     },
     "popup_stats_disabled_notice": {
         "message": "İstatistikler devre dışı"
@@ -1037,19 +935,7 @@
         "message": "En çok kullanılan konumlar"
     },
     "popup_stats_usage_time": {
-        "message": "Saat"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Neden güvenli"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Neden güvenli"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN bağlantısı şifrelenmiş ve güvenlidir, bu nedenle hiç kimse etkinlik verilerinizi göremez — yalnızca veri kullanımınızı hesaplarız"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Tüm istatistikler cihazınızda yerel olarak toplanır ve saklanır. Onlara erişimimiz yoktur"
+        "message": "Süre"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Anladım"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "VPN bağlantı hızı yakında azaltılacaktır."
     },
-    "confirm_email_title": {
-        "message": "E-postanı doğrula"
-    },
-    "confirm_email_info": {
-        "message": "<span>%email%</span> adresine bir doğrulama kodu gönderdik"
-    },
     "confirm_email_done_title": {
         "message": "E-posta adresi doğrulandı"
     },
     "confirm_email_done_info": {
         "message": "Doğruladığınız için teşekkürler!"
     },
-    "confirm_email_code_label": {
-        "message": "Doğrulama kodu"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Sayılar ve harfler içerir"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Lütfen kodu kontrol edin — hatalı görünüyor"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Başka bir kod gönder (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Başka bir kod gönder"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Girişiniz yapılamadı. Lütfen tekrar deneyin veya <a>%support_email%</a> adresinden bizimle iletişime geçin"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Kayıt olmanız yapılamadı. Lütfen tekrar deneyin veya <a>%support_email%</a> adresinden bizimle iletişime geçin"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Doğrulama bağlantısı yeniden gönderildi"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Girişin başarısız oldu"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Lütfen tekrar deneyin veya <a>destek ile iletişime geçin</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Lütfen tekrar deneyin"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Kapat"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Giriş sayfasını yeniden aç"
+    },
+    "auth_loading_button_cancel": {
+        "message": "İptal"
     }
 }

@@ -18,7 +18,7 @@ export interface ExclusionProps {
 
 const ICONS_ORIGIN = 'https://icons.adguardvpn.com';
 
-function getIconUrl(exclusion: ExclusionDtoInterface) {
+function getIconUrl(exclusion: ExclusionDtoInterface): string | null {
     if (exclusion.type === ExclusionsType.Service && exclusion.iconUrl) {
         return exclusion.iconUrl;
     }
@@ -30,7 +30,7 @@ function getIconUrl(exclusion: ExclusionDtoInterface) {
     return null;
 }
 
-function getExclusionDescription(hostname: string, exclusion?: ExclusionDtoInterface | null) {
+function getExclusionDescription(hostname: string, exclusion?: ExclusionDtoInterface | null): string {
     if (hostname === exclusion?.hostname) {
         return translator.getMessage('settings_exclusion_status_domain');
     }
@@ -40,13 +40,13 @@ function getExclusionDescription(hostname: string, exclusion?: ExclusionDtoInter
     return translator.getMessage('settings_exclusion_status_subdomain');
 }
 
-function isUselessExclusion(hostname: string, exclusion?: ExclusionDtoInterface | null) {
+function isUselessExclusion(hostname: string, exclusion?: ExclusionDtoInterface | null): boolean {
     const wildcardExclusion = `*.${exclusion?.hostname}`;
 
     return (
         hostname !== exclusion?.hostname
             && !hostname.startsWith(wildcardExclusion)
-            && exclusion?.children.some((exclusion) => {
+            && !!exclusion?.children.some((exclusion) => {
                 return exclusion.hostname.startsWith(wildcardExclusion)
                     && exclusion.state === ExclusionState.Enabled;
             })
@@ -95,15 +95,15 @@ export const Exclusion = observer(({
     const checkIconName = stateMap[exclusion.state].icon;
     const iconUrl = getIconUrl(exclusion);
 
-    const handleIconLoaded = () => {
+    const handleIconLoaded = (): void => {
         setIconLoaded(true);
     };
 
-    const toggleExclusionState = () => {
+    const toggleExclusionState = (): void => {
         exclusionsStore.toggleExclusionState(exclusion.id);
     };
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
         /**
          * The detail property of the event is used to determine how the event was triggered.
          * A value of 0 indicates that the event was triggered by a keyboard action (e.g., pressing Enter or Space).
@@ -123,7 +123,7 @@ export const Exclusion = observer(({
         toggleExclusionState();
     };
 
-    const handleForwardClick = () => {
+    const handleForwardClick = (): void => {
         if (!hasChildren) {
             toggleExclusionState();
             return;
@@ -132,7 +132,7 @@ export const Exclusion = observer(({
         exclusionsStore.setSelectedExclusionId(exclusion.id);
     };
 
-    const handleDeleteClick = async () => {
+    const handleDeleteClick = async (): Promise<void> => {
         const deletedExclusionsCount = await exclusionsStore.removeExclusion(exclusion);
         const message = translator.getMessage(
             'options_exclusions_deleted_exclusions',

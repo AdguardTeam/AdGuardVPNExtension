@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Må ikke være tom"
-    },
-    "registration_error_not_valid": {
-        "message": "Denne værdi er ugyldig"
-    },
-    "registration_error_min_length": {
-        "message": "Adgangskoden skal udgøre mindst 8 tegn"
-    },
-    "registration_error_confirm_password": {
-        "message": "Adgangskoder matcher ikke"
-    },
-    "registration_error_compromised_password": {
-        "message": "Den angivne adgangskode blev fundet i en <a>offentlig database</a> over kompromitterede adgangskoder. Prøv med en anden."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Denne værdi benyttes allerede"
-    },
-    "registration_error_default": {
-        "message": "Der opstod en fejl, prøv igen senere"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA kræves"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Ugyldigt token"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Kontoen er deaktiveret"
-    },
-    "authentication_error_account_locked": {
-        "message": "Kontoen er låst i 15 minutter"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Forkert adgangskode"
-    },
-    "authentication_too_many_requests": {
-        "message": "For mange forespørgsler modtaget fra din IP-adresse. Forsøg igen senere."
-    },
-    "authentication_error_default": {
-        "message": "En fejl opstod, forsøg igen senere"
-    },
-    "global_error_message": {
-        "message": "En fejl opstod. Kontakt os via <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Om"
     },
@@ -156,77 +111,23 @@
     "account_sign_out": {
         "message": "Log ud"
     },
+    "account_sign_out_question": {
+        "message": "Log ud?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Afbryd"
+    },
+    "account_sign_out_description": {
+        "message": "Der logges ud af kontoen, og VPN-beskyttelse stoppes"
+    },
     "account_unlimited_title": {
         "message": "Køb den ubegrænsede version!"
     },
     "rate_description": {
-        "message": "Har gavn af AdGuard VPN?"
+        "message": "Nyd brugen af AdGuard VPN?"
     },
     "rate_hide": {
         "message": "Skjul"
-    },
-    "auth_confirm": {
-        "message": "Bekræft"
-    },
-    "auth_email": {
-        "message": "E-mailadresse"
-    },
-    "auth_password": {
-        "message": "Adgangskode"
-    },
-    "auth_your_password": {
-        "message": "Angiv adgangskoden"
-    },
-    "auth_password_confirm": {
-        "message": "Bekræft adgangskode"
-    },
-    "auth_recover": {
-        "message": "Glemt adgangskode?"
-    },
-    "auth_sign_up": {
-        "message": "Tilmeld"
-    },
-    "auth_sign_up_info": {
-        "message": "Opret din AdGuard-konto"
-    },
-    "auth_sign_up_button": {
-        "message": "Tilmeld"
-    },
-    "auth_sign_in": {
-        "message": "Angiv adgangskoden"
-    },
-    "auth_sign_in_button": {
-        "message": "Log ind"
-    },
-    "auth_title": {
-        "message": "Log ind eller opret en konto"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-mail"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Fortsæt med e-mail"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Fortsæt med Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Fortsæt med Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Fortsæt med Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Logger ind som <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Tofaktorgodkendelse"
-    },
-    "auth_header_2fa": {
-        "message": "Angiv godkendelseskoden"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Godkendelseskode"
     },
     "official_website": {
         "message": "Officiel webside"
@@ -238,7 +139,7 @@
         "message": "Fortrolighedspolitik"
     },
     "settings_general_title": {
-        "message": "Generalt"
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "Få gratis GB!"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Log ind eller opret en konto"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Fortsæt"
-    },
     "popup_newsletter_title": {
         "message": "AdGuard-nyhedsbrev"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Vis ikke dette igen"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Statistik for denne webbrowser"
+    "popup_stats": {
+        "message": "Statistik"
     },
     "popup_stats_disabled_notice": {
         "message": "Statistik er slået fra"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Tid"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Derfor er det sikkert"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Derfor er det sikkert"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN-forbindelsen er krypteret og sikker, så ingen kan se aktivitetsdataene — vi beregner alene trafikbruget"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Al statistik indsamles og gemmes lokalt på enheden. Vi har ikke adgang til den"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Forstået"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "VPN-forbindelseshastigheden reduceres snart."
     },
-    "confirm_email_title": {
-        "message": "Bekræft din e-mail"
-    },
-    "confirm_email_info": {
-        "message": "En bekræftelseskode er e-mailet til <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "E-mailadresse bekræftet"
     },
     "confirm_email_done_info": {
         "message": "Tak for bekræftelsen!"
     },
-    "confirm_email_code_label": {
-        "message": "Bekræftelseskode"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Indeholder cifre og tegn"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Tjek koden — den lader til at være ugyldig"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Send en ny kode (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Send en ny kode"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Indlogning mislykkedes. Forsøg igen, eller kontakt os via <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Tilmelding mislykkedes. Forsøg igen, eller kontakt os via <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Link sendt igen-bekræftelse"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Indlogning mislykkedes"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Forsøg igen, eller <a>kontakt supporten</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Forsøg igen"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Luk"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Åbn login-siden igen"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Afbryd"
     }
 }

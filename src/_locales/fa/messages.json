@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "نباید خالی باشد"
-    },
-    "registration_error_not_valid": {
-        "message": "این مقدار نامعتبر است"
-    },
-    "registration_error_min_length": {
-        "message": "این مقدار خیلی کوتاه است. آن باید 8 نویسه یا بیشتر داشته باشد."
-    },
-    "registration_error_confirm_password": {
-        "message": "گذرواژه ها مطابقت ندارند"
-    },
-    "registration_error_compromised_password": {
-        "message": "رمز عبوری که وارد کرده‌اید، در <a>پایگاه داده عمومی</a> از رمزهای عبور نقض شده یافته شد. لطفا رمز دیگری امتحان کنید."
-    },
-    "registration_error_unique_constraint": {
-        "message": "این مقدار قبلاٌ استفاده شده است"
-    },
-    "registration_error_default": {
-        "message": "خطا ای رخ داد،بعدا دوباره امتحان کنید"
-    },
-    "authentication_error_2fa_required": {
-        "message": "تایید دو مرحله ای ضروری است"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "کد نامعتبر است"
-    },
-    "authentication_error_account_disabled": {
-        "message": "حساب غیرفعال شده است"
-    },
-    "authentication_error_account_locked": {
-        "message": "حساب برای 15 دقیقه قفل شده است"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "رمز عبور اشتباه"
-    },
-    "authentication_too_many_requests": {
-        "message": "ما از آدرس آی پی شما درخواست های بسیار زیادی دریافت کردیم. لطفا مجددا بعدا امتحان کنید."
-    },
-    "authentication_error_default": {
-        "message": "خطا ای رخ داد،بعدا دوباره امتحان کنید"
-    },
-    "global_error_message": {
-        "message": "خطایی روی داد، لطفاً از طریق <a>%support_email%</a>با ما تماس بگیرید"
-    },
     "about_title": {
         "message": "درباره"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "خروج"
     },
+    "account_sign_out_question": {
+        "message": "خارج می‌شوید؟"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "لغو"
+    },
+    "account_sign_out_description": {
+        "message": "از حساب خود خارج خواهید شد. حفاظت VPN متوقف خواهد شد"
+    },
     "account_unlimited_title": {
         "message": "نسخه نامحدود را بگیرید!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "پنهان کن"
-    },
-    "auth_confirm": {
-        "message": "تایید"
-    },
-    "auth_email": {
-        "message": "آدرس ایمیل"
-    },
-    "auth_password": {
-        "message": "رمزعبور"
-    },
-    "auth_your_password": {
-        "message": "یک رمز عبور وارد کنید"
-    },
-    "auth_password_confirm": {
-        "message": "تأیید رمزعبور"
-    },
-    "auth_recover": {
-        "message": "رمزعبور را فراموش کرده اید؟"
-    },
-    "auth_sign_up": {
-        "message": "ثبت‌نام"
-    },
-    "auth_sign_up_info": {
-        "message": "حساب AdGuard خود را ایجاد کنید"
-    },
-    "auth_sign_up_button": {
-        "message": "ثبت‌نام"
-    },
-    "auth_sign_in": {
-        "message": "گذرواژه خود را وارد کنید"
-    },
-    "auth_sign_in_button": {
-        "message": "ورود"
-    },
-    "auth_title": {
-        "message": "احراز هویت"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "ایمیل"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "با حساب AdGuard خود پیش روید"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "با حساب اپل پیش روید"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "با حساب گوگل پیش روید"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "با حساب فیسبوک پیش روید"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "ورود به عنوان <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "احراز هویت دو مرحله ای"
-    },
-    "auth_header_2fa": {
-        "message": "کد احراز هویت را وارد کنید"
-    },
-    "auth_placeholder_2fa": {
-        "message": "رمز احراز هویت"
     },
     "official_website": {
         "message": "وبسایت رسمی"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "احراز هویت"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "ادامه"
-    },
     "popup_newsletter_title": {
         "message": "خبرنامه AdGuard"
     },
@@ -1021,9 +919,6 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "اینو دیگه نشون نده"
     },
-    "popup_stats_for_browser_title": {
-        "message": "آمار این مرورگر"
-    },
     "popup_stats_disabled_notice": {
         "message": "آمار غیرفعال است"
     },
@@ -1038,18 +933,6 @@
     },
     "popup_stats_usage_time": {
         "message": "زمان"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "چرا ایمن است"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "چرا ایمن است"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "چون اتصال VPN رمزگذاری شده و امن است، هیچ‌کس نمی‌تواند داده‌های فعالیت شما را ببیند — ما فقط میزان انتقال داده اینترنتی شما را محاسبه می‌کنیم"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "تمام آمارها جمع‌آوری و به‌طور محلی بر روی دستگاه شما ذخیره می‌شوند. ما به آنها دسترسی نداریم"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "متوجه شدم"
@@ -1150,40 +1033,19 @@
     "notification_data_left_description": {
         "message": "سرعت اتصال VPN به زودی کاهش خواهد یافت."
     },
-    "confirm_email_title": {
-        "message": "ایمیل خود را تایید کنید"
-    },
-    "confirm_email_info": {
-        "message": "ما یک رایانامه تایید به <span>%email%</span> ارسال کردیم"
-    },
     "confirm_email_done_title": {
         "message": "آدرس ایمیل تایید شد"
     },
     "confirm_email_done_info": {
         "message": "برای تأیید آن متشکریم!"
     },
-    "confirm_email_code_label": {
-        "message": "کد تایید"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "شامل اعداد و حروف است"
-    },
-    "confirm_email_code_invalid": {
-        "message": "لطفا رمز را بررسی کنید: به‌نظر نادرست است"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "کد دیگر را ارسال کنید (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "پاسخ دیگری بفرستید"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "ورود شما ناموفق بود. لطفا دوباره امتحان کنید یا با ما تماس بگیرید از طریق <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "ثبت‌نام شما ناموفق بود. لطفا دوباره امتحان کنید یا با ما تماس بگیرید از طریق <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "پیوند تایید دوباره ارسال شد"
+    },
+    "auth_failed_to_login_button": {
+        "message": "بستن"
+    },
+    "auth_loading_button_cancel": {
+        "message": "لغو"
     }
 }

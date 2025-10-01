@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Nu trebuie lăsat gol"
-    },
-    "registration_error_not_valid": {
-        "message": "Valoarea este invalidă"
-    },
-    "registration_error_min_length": {
-        "message": "Parola trebuie să conțină cel puțin 8 caractere"
-    },
-    "registration_error_confirm_password": {
-        "message": "Parolele nu se potrivesc"
-    },
-    "registration_error_compromised_password": {
-        "message": "Parola introdusă a fost găsită într-o <a>bază de date publică</a> cu parole compromise. Vă rugăm, încercați alta."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Valoarea este deja folosită"
-    },
-    "registration_error_default": {
-        "message": "A apărut o eroare, reîncercați mai târziu"
-    },
-    "authentication_error_2fa_required": {
-        "message": "Este necesară 2FA"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Jeton invalid"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Contul este dezactivat"
-    },
-    "authentication_error_account_locked": {
-        "message": "Contul este blocat pentru 15 minute"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Parolă greșită"
-    },
-    "authentication_too_many_requests": {
-        "message": "Am primit prea multe solicitări de la adresa dvs. IP. Vă rugăm să încercați din nou mai târziu."
-    },
-    "authentication_error_default": {
-        "message": "A apărut o eroare, reîncercați mai târziu"
-    },
-    "global_error_message": {
-        "message": "A survenit o eroare, vă rugăm să ne contactați la <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Despre"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Deconectați-vă"
     },
+    "account_sign_out_question": {
+        "message": "Deconectați-vă?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Anulare"
+    },
+    "account_sign_out_description": {
+        "message": "Vei fi deconectat(ă) din contul tău. Protecția VPN va fi oprită"
+    },
     "account_unlimited_title": {
         "message": "Obțineți versiunea nelimitată!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Ascunde"
-    },
-    "auth_confirm": {
-        "message": "Confirmați"
-    },
-    "auth_email": {
-        "message": "Adresă e-mail"
-    },
-    "auth_password": {
-        "message": "Parola"
-    },
-    "auth_your_password": {
-        "message": "Parola dumneavoastră"
-    },
-    "auth_password_confirm": {
-        "message": "Confirmați parola"
-    },
-    "auth_recover": {
-        "message": "Ați uitat parola?"
-    },
-    "auth_sign_up": {
-        "message": "Înscriere"
-    },
-    "auth_sign_up_info": {
-        "message": "Creați-vă contul AdGuard"
-    },
-    "auth_sign_up_button": {
-        "message": "Înscrieți-vă"
-    },
-    "auth_sign_in": {
-        "message": "Introduceți parola d-voastră"
-    },
-    "auth_sign_in_button": {
-        "message": "Conectați-vă"
-    },
-    "auth_title": {
-        "message": "Conectați-vă sau creați un cont"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-mail"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Continuați cu e-mailul"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Continuați cu Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Continuați cu Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Continuați cu Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Conectarea ca <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Autentificare cu doi factori"
-    },
-    "auth_header_2fa": {
-        "message": "Introduceți codul de autentificare"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Cod de autentificare"
     },
     "official_website": {
         "message": "Pagină oficială"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Conectați-vă sau creați un cont"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Continuați"
-    },
     "popup_newsletter_title": {
         "message": "Buletin informativ AdGuard"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Nu mai arăta asta"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Statistici pentru acest browser"
+    "popup_stats": {
+        "message": "Statistici"
     },
     "popup_stats_disabled_notice": {
         "message": "Statistici sunt dezactivate"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Ora"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "De ce este sigur"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "De ce este sigur"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "Conexiunea VPN este criptată și securizată, astfel încât nimeni nu vă poate vedea datele de activitate — noi doar calculăm utilizarea traficului dvs."
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "Toate statisticile sunt colectate și stocate local pe dispozitiv. Nu avem acces la ele"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Am înțeles."
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "Viteza conexiunii VPN va fi redusă în curând."
     },
-    "confirm_email_title": {
-        "message": "Confirmați-vă e-mailul"
-    },
-    "confirm_email_info": {
-        "message": "V-am trimis un cod de confirmare la <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "Adresa de e-mail confirmată"
     },
     "confirm_email_done_info": {
         "message": "Mulțumim pentru verificare!"
     },
-    "confirm_email_code_label": {
-        "message": "Cod de confirmare"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Conține cifre și litere"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Vă rugăm să verificați codul: pare incorect"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Trimiteți un alt cod (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Trimiteți un alt cod"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Nu v-am putut conecta. Vă rugăm să încercați din nou sau contactați-ne prin <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Nu v-am înscris. Vă rugăm să încercați din nou sau contactați-ne prin <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Link de confirmare trimis din nou"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Nu am reușit să vă conectez"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Vă rugăm să încercați din nou sau <a>contactați asistența</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Vă rugăm să încercați din nou"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Închideți"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Redeschideți pagina de autentificare"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Anulare"
     }
 }

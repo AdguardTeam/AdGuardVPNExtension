@@ -1,3 +1,11 @@
+import {
+    vi,
+    describe,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { AuthService } from '../../../src/background/authentication/authService';
 import type { AuthAccessToken } from '../../../src/background/schema';
 
@@ -32,8 +40,8 @@ const notAuthenticatedUserData: AuthAccessToken = {
 // @ts-ignore - partly implementation
 const authService = new AuthService(browserApiImplementation);
 
-jest.spyOn(authService.browserApi.storage, 'set');
-jest.spyOn(authService.browserApi.storage, 'get');
+vi.spyOn(authService.browserApi.storage, 'set');
+vi.spyOn(authService.browserApi.storage, 'get');
 
 describe('Auth Service', () => {
     afterEach(async () => {

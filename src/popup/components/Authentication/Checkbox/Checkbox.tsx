@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import cn from 'classnames';
 
@@ -20,12 +20,12 @@ export const Checkbox = ({
     onChange,
     label,
     labelSize,
-}: CheckboxProps) => {
-    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+}: CheckboxProps): ReactElement => {
+    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
         onChange(e.currentTarget.checked);
     };
 
-    const onButtonPressed = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    const onButtonPressed = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
         if (e.key === 'Enter') {
             onChange(!checked);
         }

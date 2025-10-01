@@ -7,7 +7,7 @@ import connectDevicesImageUrl from '../../assets/images/connect-devices.svg';
 /**
  * Number of devices available in the unlimited plan.
  */
-const POTENTIAL_DEVICE_NUM = 10;
+export const POTENTIAL_DEVICE_NUM = 10;
 
 export const UNLIMITED_FEATURES = [
     {

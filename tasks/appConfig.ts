@@ -109,8 +109,6 @@ const COMMON_URL_QUERIES = {
     SUGGEST_FEATURE: 'action=suggest_feature&from=options_screen&app=vpn_extension',
     THANK_YOU_PAGE: 'action=thank_you_v2&from=background_page&app=vpn_extension',
     FIREFOX_THANK_YOU_PAGE: 'action=thank_you_v2_firefox&from=background_page&app=vpn_extension',
-    PASSWORD_RECOVERY: 'action=recovery_password&from=popup&app=vpn_extension',
-    PASSWORD_COMPROMISED: 'action=haveibeenpwned&from=popup&app=vpn_extension',
     EDIT_ACCOUNT: 'action=account_settings&from=options_screen&app=vpn_extension',
     // Uninstall page
     UNINSTALL_PAGE: 'action=adguard_uninstal_ext&from=background_page&app=vpn_extension',

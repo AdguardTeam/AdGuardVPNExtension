@@ -6,111 +6,149 @@ import { browserApi } from '../../browserApi';
 import { log } from '../../../common/logger';
 import { type ServiceDto } from '../../../common/exclusionsConstants';
 import { fetchConfig } from '../../../common/fetch-config';
-import { stateStorage } from '../../stateStorage';
-import {
-    StorageKey,
-    type ServicesInterface,
-    type ServicesIndexType,
-    type ServicesManagerState,
-} from '../../schema';
+import { StateData } from '../../stateStorage';
+import { StorageKey, type ServicesInterface, type ServicesIndexType } from '../../schema';
 
 import { type Service } from './Service';
 
 interface ServiceManagerInterface {
-    init: () => Promise<void>;
-    getServices: () => ServicesInterface;
+    /**
+     * Initializes service manager.
+     */
+    init(): Promise<void>;
+
+    /**
+     * Retrieves services.
+     *
+     * @returns Services data.
+     */
+    getServices(): Promise<ServicesInterface>;
+
+    /**
+     * Retrieves service by id.
+     *
+     * @param id Service id.
+     *
+     * @returns Service data or null if service with provided id does not exist.
+     */
+    getService(id: string): Promise<Service | null>;
+
+    /**
+     * Retrieves indexed services.
+     *
+     * @return Indexed services.
+     */
+    getIndexedServices(): Promise<ServicesIndexType>;
+
+    /**
+     * Retrieves services data as list.
+     *
+     * @return List of services.
+     */
+    getServicesDto(): Promise<ServiceDto[]>;
+
+    /**
+     * Sets services data.
+     *
+     * @param services Services data.
+     */
+    setServices(services: ServicesInterface): Promise<void>;
+
+    /**
+     * Updates services data from server if needed.
+     */
+    updateServices(): Promise<void>;
+
+    /**
+     * Gets exclusions services from server.
+     *
+     * @returns Services data from server.
+     */
+    getServicesFromServer(): Promise<ServicesInterface>;
+
+    /**
+     * Retrieves services data from server or from assets.
+     *
+     * @returns Services data from server or assets.
+     */
+    getServicesForMigration(): Promise<ServicesInterface>;
+
+    /**
+     * Saves provided services in storage.
+     *
+     * @param services Services data.
+     */
+    saveServicesInStorage(services: ServicesInterface): Promise<void>;
+
+    /**
+     * Retrieves services data from storage.
+     *
+     * @returns Services data from storage or null if not found.
+     */
+    getServicesFromStorage(): Promise<ServicesInterface | null>
 }
 
 export class ServicesManager implements ServiceManagerInterface {
-    // Update once in 24 hours
+    /**
+     * Update once in 24 hours.
+     */
     private UPDATE_TIMEOUT_MS = 1000 * 60 * 60 * 24;
 
-    // Key constant for storage
+    /**
+     * Key constant for storage.
+     */
     private EXCLUSION_SERVICES_STORAGE_KEY = 'exclusions_services';
 
-    state: ServicesManagerState;
+    /**
+     * Services manager service state data.
+     * Used to save and retrieve services manager state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private servicesManagerState = new StateData(StorageKey.ExclusionsServicesManagerState);
 
-    public init = async () => {
-        this.state = stateStorage.getItem(StorageKey.ExclusionsServicesManagerState);
-
-        const services = await this.getServicesFromStorage();
-        if (services) {
-            this.setServices(services);
+    /** @inheritdoc */
+    public async init(): Promise<void> {
+        const persistentServices = await this.getServicesFromStorage();
+        if (persistentServices) {
+            await this.setServices(persistentServices);
             return;
         }
 
         await this.updateServices();
-        if (this.services) {
-            this.setServices(this.services);
+        const { services } = await this.servicesManagerState.get();
+        if (services) {
+            await this.setServices(services);
         }
-    };
-
-    private saveServicesManagerState = () => {
-        stateStorage.setItem(StorageKey.ExclusionsServicesManagerState, this.state);
-    };
-
-    get services() {
-        return this.state.services;
     }
 
-    set services(services: ServicesInterface | null) {
-        this.state.services = services;
-        this.saveServicesManagerState();
+    /** @inheritdoc */
+    public async getServices(): Promise<ServicesInterface> {
+        await this.updateServices();
+
+        const { services } = await this.servicesManagerState.get();
+
+        return services ?? {};
     }
 
-    private get servicesIndex(): ServicesIndexType {
-        return this.state.servicesIndex;
-    }
-
-    private set servicesIndex(servicesIndex: ServicesIndexType) {
-        this.state.servicesIndex = servicesIndex;
-        this.saveServicesManagerState();
-    }
-
-    private get lastUpdateTimeMs(): number | null {
-        return this.state.lastUpdateTimeMs;
-    }
-
-    private set lastUpdateTimeMs(lastUpdateTimeMs: number | null) {
-        this.state.lastUpdateTimeMs = lastUpdateTimeMs;
-        this.saveServicesManagerState();
-    }
-
-    /**
-     * Returns services data
-     */
-    getServices() {
-        this.updateServices();
-        return this.services ?? {};
-    }
-
-    /**
-     * Returns service by provided id
-     */
-    getService(id: string): Service | null {
-        if (!this.services) {
-            return null;
-        }
-
-        const service = this.services[id];
-
-        if (!service) {
-            return null;
-        }
-
+    /** @inheritdoc */
+    public async getService(id: string): Promise<Service | null> {
+        const { services } = await this.servicesManagerState.get();
+        const service = services?.[id] ?? null;
         return service;
     }
 
-    /**
-     * Returns services index
-     */
-    getIndexedServices(): ServicesIndexType {
-        return this.servicesIndex;
+    /** @inheritdoc */
+    public async getIndexedServices(): Promise<ServicesIndexType> {
+        const { servicesIndex } = await this.servicesManagerState.get();
+        return servicesIndex;
     }
 
     /**
-     * Returns map with services index by domain
-     * @param services
+     * Returns map with services index by domain.
+     *
+     * @param services Services data.
+     *
+     * @return Services index by domain.
      */
     public static getServicesIndex(services: ServicesInterface): ServicesIndexType {
         return Object.values(services).reduce((acc: ServicesIndexType, service) => {
@@ -122,17 +160,16 @@ export class ServicesManager implements ServiceManagerInterface {
         }, {});
     }
 
-    /**
-     * Returns services data for list
-     */
-    getServicesDto(): ServiceDto[] {
-        this.updateServices();
+    /** @inheritdoc */
+    public async getServicesDto(): Promise<ServiceDto[]> {
+        await this.updateServices();
 
-        if (!this.services) {
+        const { services } = await this.servicesManagerState.get();
+        if (!services) {
             return [];
         }
 
-        return Object.values(this.services).map((service) => {
+        return Object.values(services).map((service) => {
             return {
                 serviceId: service.serviceId,
                 serviceName: service.serviceName,
@@ -143,20 +180,20 @@ export class ServicesManager implements ServiceManagerInterface {
         });
     }
 
-    /**
-     * Sets service and services index
-     */
-    setServices(services: ServicesInterface) {
-        this.services = services;
-        this.servicesIndex = ServicesManager.getServicesIndex(services);
+    /** @inheritdoc */
+    public async setServices(services: ServicesInterface): Promise<void> {
+        await this.servicesManagerState.update({
+            services,
+            servicesIndex: ServicesManager.getServicesIndex(services),
+        });
     }
 
-    /**
-     * Updates services
-     */
-    async updateServices() {
-        const shouldUpdate = this.lastUpdateTimeMs === null
-            || (Date.now() - this.lastUpdateTimeMs) > this.UPDATE_TIMEOUT_MS;
+    /** @inheritdoc */
+    public async updateServices(): Promise<void> {
+        const { lastUpdateTimeMs } = await this.servicesManagerState.get();
+
+        const shouldUpdate = lastUpdateTimeMs === null
+            || (Date.now() - lastUpdateTimeMs) > this.UPDATE_TIMEOUT_MS;
 
         if (!shouldUpdate) {
             return;
@@ -165,40 +202,37 @@ export class ServicesManager implements ServiceManagerInterface {
         try {
             const services = await this.getServicesFromServer();
             await this.saveServicesInStorage(services);
-            this.setServices(services);
-            this.lastUpdateTimeMs = Date.now();
+            await this.setServices(services);
+            await this.servicesManagerState.update({ lastUpdateTimeMs: Date.now() });
             log.info('Services data updated successfully');
         } catch (e) {
             log.error(new Error(`Was unable to get services due to: ${e.message}`));
         }
     }
 
-    /**
-     * Gets exclusions services from server
-     */
-    async getServicesFromServer(): Promise<ServicesInterface> {
+    /** @inheritdoc */
+    public async getServicesFromServer(): Promise<ServicesInterface> {
         const services = await vpnProvider.getExclusionsServices();
-
         return services;
     }
 
     /**
      * Gets exclusion services from assets,
-     * used in migration in the cases when services server is not working
+     * used in migration in the cases when services server is not working.
+     *
+     * @returns Services data from assets.
      */
-    async getServicesFromAssets(): Promise<ServicesInterface> {
+    private async getServicesFromAssets(): Promise<ServicesInterface> {
         const path = browser.runtime.getURL('assets/prebuild-data/exclusion-services.json');
         const response = await axios.get(path, { ...fetchConfig });
         return response.data;
     }
 
-    /**
-     * Returns services data from server or from assets
-     */
-    async getServicesForMigration() {
+    /** @inheritdoc */
+    public async getServicesForMigration(): Promise<ServicesInterface> {
         const SERVICES_RESPONSE_TIMEOUT_MS = 1000;
         let timeout: NodeJS.Timeout;
-        const getFromAssetsWithTimeout = () => new Promise<ServicesInterface>((resolve) => {
+        const getFromAssetsWithTimeout = (): Promise<ServicesInterface> => new Promise<ServicesInterface>((resolve) => {
             timeout = setTimeout(async () => {
                 const services = await this.getServicesFromAssets();
                 log.debug(`Did not get services from server in ${SERVICES_RESPONSE_TIMEOUT_MS}`);
@@ -207,7 +241,7 @@ export class ServicesManager implements ServiceManagerInterface {
             }, SERVICES_RESPONSE_TIMEOUT_MS);
         });
 
-        const getServicesFromServer = async () => {
+        const getServicesFromServer = async (): Promise<ServicesInterface> => {
             const services = await this.getServicesFromServer();
             clearTimeout(timeout);
             return services;
@@ -221,18 +255,13 @@ export class ServicesManager implements ServiceManagerInterface {
         return services;
     }
 
-    /**
-     * Saves provided services in storage
-     * @param services
-     */
-    async saveServicesInStorage(services: ServicesInterface): Promise<void> {
+    /** @inheritdoc */
+    public async saveServicesInStorage(services: ServicesInterface): Promise<void> {
         await browserApi.storage.set(this.EXCLUSION_SERVICES_STORAGE_KEY, services);
     }
 
-    /**
-     * Returns services data from storage
-     */
-    async getServicesFromStorage(): Promise<ServicesInterface | null> {
+    /** @inheritdoc */
+    public async getServicesFromStorage(): Promise<ServicesInterface | null> {
         const services = await browserApi.storage.get<ServicesInterface>(
             this.EXCLUSION_SERVICES_STORAGE_KEY,
         );

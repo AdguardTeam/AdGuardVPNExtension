@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { type ReactElement, useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -33,7 +33,7 @@ export interface NotificationItemProps {
 /**
  * NotificationItem component.
  */
-export function NotificationItem({ value, onClose }: NotificationItemProps) {
+export function NotificationItem({ value, onClose }: NotificationItemProps): ReactElement {
     const [notificationIsClosed, setNotificationIsClosed] = useState(false);
     const [shouldCloseOnTimeout, setShouldCloseOnTimeout] = useState(true);
 
@@ -45,19 +45,19 @@ export function NotificationItem({ value, onClose }: NotificationItemProps) {
         notificationIsClosed && 'notifications__item--closed',
     );
 
-    const handleMouseOver = () => {
+    const handleMouseOver = (): void => {
         setShouldCloseOnTimeout(false);
     };
 
-    const handleMouseOut = () => {
+    const handleMouseOut = (): void => {
         setShouldCloseOnTimeout(true);
     };
 
-    const handleRemove = () => {
+    const handleRemove = (): void => {
         onClose(value.id);
     };
 
-    const handleClose = () => {
+    const handleClose = (): void => {
         setNotificationIsClosed(true);
         const removeTimeoutId = setTimeout(() => {
             handleRemove();
@@ -65,7 +65,7 @@ export function NotificationItem({ value, onClose }: NotificationItemProps) {
         }, NOTIFICATION_CLOSE_ANIMATION_MS);
     };
 
-    const handleAction = () => {
+    const handleAction = (): void => {
         if (value.action) {
             value.action.handler();
         }
@@ -74,19 +74,19 @@ export function NotificationItem({ value, onClose }: NotificationItemProps) {
     };
 
     useEffect(() => {
-        const closeTimeoutId = setTimeout(() => {
+        const closeTimeoutId = setTimeout((): void => {
             if (shouldCloseOnTimeout) {
                 setNotificationIsClosed(true);
             }
         }, NOTIFICATION_TTL_MS);
 
-        const removeTimeoutId = setTimeout(() => {
+        const removeTimeoutId = setTimeout((): void => {
             if (shouldCloseOnTimeout) {
                 handleRemove();
             }
         }, NOTIFICATION_TTL_MS + NOTIFICATION_CLOSE_ANIMATION_MS);
 
-        return () => {
+        return (): void => {
             clearTimeout(closeTimeoutId);
             clearTimeout(removeTimeoutId);
         };

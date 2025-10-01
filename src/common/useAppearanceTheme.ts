@@ -6,17 +6,17 @@ import { AppearanceTheme } from './constants';
 
 export const THEME_STORAGE_KEY = 'appearance_theme';
 
-export const getThemeFromLocalStorage = () => {
+export const getThemeFromLocalStorage = (): string | null => {
     return localStorage.getItem(THEME_STORAGE_KEY);
 };
 
-export const useAppearanceTheme = (appearanceTheme: string | null) => {
+export const useAppearanceTheme = (appearanceTheme: string | null): void => {
     useLayoutEffect(() => {
         const DARK_THEME_CLASS = 'dark-mode';
         const LIGHT_THEME_CLASS = 'light-mode';
         const SET_TO_STORAGE_TIMEOUT = 500;
 
-        const throttledSetToStorage = throttle((mode: string) => {
+        const throttledSetToStorage = throttle((mode: string): void => {
             localStorage.setItem(THEME_STORAGE_KEY, mode);
         }, SET_TO_STORAGE_TIMEOUT);
 

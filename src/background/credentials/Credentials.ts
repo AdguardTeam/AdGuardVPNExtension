@@ -16,7 +16,7 @@ import {
     type CredentialsDataInterface,
     StorageKey,
 } from '../schema';
-import { stateStorage } from '../stateStorage';
+import { StateData } from '../stateStorage';
 import { auth, type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
 import { abTestManager } from '../abTestManager';
@@ -42,7 +42,12 @@ export interface CredentialsParameters {
 }
 
 export interface CredentialsInterface {
-    vpnCredentials: CredentialsDataInterface | null;
+    /**
+     * Returns vpn credentials state.
+     *
+     * @returns Vpn credentials state or `null` if not available.
+     */
+    getVpnCredentialsState(): Promise<CredentialsDataInterface | null>;
 
     persistVpnToken(token: VpnTokenData | null): Promise<void>;
     gainVpnToken(
@@ -63,17 +68,37 @@ export interface CredentialsInterface {
     ): boolean;
     getAppId(): Promise<string>;
     isPremiumToken(): Promise<boolean>;
-    getSubscriptionType(): SubscriptionType | undefined;
+    getSubscriptionType(): Promise<SubscriptionType | null>;
     getTimeExpiresIso(): Promise<string | null>;
     getUsername(): Promise<string | null>;
     getUserRegistrationTimeISO(): Promise<string | null>;
     getUsernameAndRegistrationTimeISO(): Promise<AccountInfoData>;
+
+    /**
+     * Returns user decision on marketing consent.
+     *
+     * @returns Returns marketing consent status or null if it's not available.
+     */
+    getMarketingConsent(): Promise<boolean | null>;
+
+    /**
+     * Updates user decision on marketing consent both locally and on backend.
+     *
+     * @param newMarketingConsent New marketing consent value.
+     */
+    updateUserMarketingConsent(newMarketingConsent: boolean): Promise<void>;
+
     trackInstallation(): Promise<void>;
     init(): Promise<void>;
 }
 
 export class Credentials implements CredentialsInterface {
-    state: CredentialsState;
+    /**
+     * Credentials service state data.
+     * Used to save and retrieve credentials state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private credentialsState = new StateData(StorageKey.CredentialsState);
 
     APP_ID_KEY = 'credentials.app.id';
 
@@ -103,76 +128,31 @@ export class Credentials implements CredentialsInterface {
         this.auth = auth;
     }
 
-    saveCredentialsState = () => {
-        stateStorage.setItem(StorageKey.CredentialsState, this.state);
-    };
-
-    get vpnToken() {
-        return this.state.vpnToken;
-    }
-
-    set vpnToken(vpnToken: VpnTokenData | null) {
-        this.state.vpnToken = vpnToken;
-        this.saveCredentialsState();
-    }
-
-    get vpnCredentials() {
-        return this.state.vpnCredentials;
-    }
-
-    set vpnCredentials(vpnCredentials: CredentialsDataInterface | null) {
-        this.state.vpnCredentials = vpnCredentials;
-        this.saveCredentialsState();
+    /** @inheritdoc */
+    public async getVpnCredentialsState(): Promise<CredentialsDataInterface | null> {
+        const { vpnCredentials } = await this.credentialsState.get();
+        return vpnCredentials;
     }
 
     /**
-     * Returns current username.
-     */
-    get currentUsername() {
-        return this.state.currentUsername;
-    }
-
-    /**
-     * Sets current username.
-     */
-    set currentUsername(currentUsername: string | null) {
-        this.state.currentUsername = currentUsername;
-        this.saveCredentialsState();
-    }
-
-    /**
-     * Returns current user registration time in ISO format
-     */
-    get currentUserRegistrationTime() {
-        return this.state.currentUserRegistrationTime;
-    }
-
-    /**
-     * Sets current user registration time in ISO format
-     */
-    set currentUserRegistrationTime(registrationTime: string | null) {
-        this.state.currentUserRegistrationTime = registrationTime;
-        this.saveCredentialsState();
-    }
-
-    get appId() {
-        return this.state.appId;
-    }
-
-    set appId(appId: string | null) {
-        this.state.appId = appId;
-        this.saveCredentialsState();
-    }
-
-    /**
-     * Returns token from memory or retrieves it from storage
+     * Gets the VPN token from memory cache or storage.
+     *
+     * @returns Promise with token from memory or retrieves it from storage.
      */
     async getVpnTokenLocal(): Promise<VpnTokenData | null> {
-        if (this.vpnToken) {
-            return this.vpnToken;
+        // Try to get from state storage first
+        const { vpnToken: currentVpnToken } = await this.credentialsState.get();
+        if (currentVpnToken) {
+            return currentVpnToken;
         }
-        this.vpnToken = await credentialsService.getVpnTokenFromStorage();
-        return this.vpnToken || null;
+
+        // If not in state storage, get from persistent storage
+        const storageVpnToken = await credentialsService.getVpnTokenFromStorage();
+
+        // Update state storage with the retrieved token
+        await this.credentialsState.update({ vpnToken: storageVpnToken });
+
+        return storageVpnToken;
     }
 
     /**
@@ -180,7 +160,7 @@ export class Credentials implements CredentialsInterface {
      * @param token
      */
     async persistVpnToken(token: VpnTokenData | null): Promise<void> {
-        this.vpnToken = token;
+        await this.credentialsState.update({ vpnToken: token });
         await credentialsService.setVpnTokenToStorage(token);
 
         // notify popup that premium token state could have been changed
@@ -247,8 +227,11 @@ export class Credentials implements CredentialsInterface {
     }
 
     /**
-     * Checks if vpn token is valid or not
+     * Checks if vpn token is valid or not.
+     *
      * @param vpnToken
+     *
+     * @returns True if vpn token is valid or false otherwise.
      */
     isTokenValid(vpnToken: VpnTokenData | null): boolean {
         const VALID_VPN_TOKEN_STATUS = 'VALID';
@@ -278,14 +261,19 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
-        this.vpnToken = vpnToken;
+        await this.credentialsState.update({ vpnToken });
         return vpnToken;
     }
 
     /**
-     * Returns valid vpn credentials or throws an error and sets permissionsError
-     * @param forceRemote
-     * @param useLocalFallback
+     * Retrieves and validates VPN credentials, ensuring they are valid before returning.
+     *
+     * @param forceRemote Force fetching credentials from remote server.
+     * @param useLocalFallback Use local fallback if remote fetch fails.
+     *
+     * @returns Valid VPN credentials.
+     *
+     * @throws An error and sets permissionsError.
      */
     async gainValidVpnCredentials(
         forceRemote = false,
@@ -305,12 +293,15 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
-        this.vpnCredentials = vpnCredentials;
+        await this.credentialsState.update({ vpnCredentials });
         return vpnCredentials;
     }
 
     /**
-     * Returns valid vpn credentials or null
+     * Fetches VPN credentials from remote server using current VPN token.
+     * Updates local storage and proxy credentials if new credentials are received.
+     *
+     * @returns Promise with valid VPN credentials or null.
      */
     async getVpnCredentialsRemote(): Promise<CredentialsDataInterface | null> {
         const appId = await this.getAppId();
@@ -328,8 +319,9 @@ export class Credentials implements CredentialsInterface {
             return null;
         }
 
-        if (!this.areCredentialsEqual(vpnCredentials, this.vpnCredentials)) {
-            this.vpnCredentials = vpnCredentials;
+        const { vpnCredentials: currentVpnCredentials } = await this.credentialsState.get();
+        if (!this.areCredentialsEqual(vpnCredentials, currentVpnCredentials)) {
+            await this.credentialsState.update({ vpnCredentials });
             await this.storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
             await this.updateProxyCredentials();
             notifier.notifyListeners(notifier.types.CREDENTIALS_UPDATED);
@@ -340,8 +332,11 @@ export class Credentials implements CredentialsInterface {
     }
 
     /**
-     * Checks if credentials are valid or not
+     * Checks if credentials are valid or not.
+     *
      * @param vpnCredentials
+     *
+     * @returns True if credentials are valid.
      */
     areCredentialsValid(vpnCredentials: CredentialsDataInterface | null): boolean {
         const VALID_CREDENTIALS_STATUS = 'VALID';
@@ -374,8 +369,11 @@ export class Credentials implements CredentialsInterface {
      *       },
      *       timeExpiresSec: 4728282135
      *   }
+     *
      * @param newCred
      * @param oldCred
+     *
+     * @returns True if credentials are equal, false otherwise.
      */
     areCredentialsEqual = (
         newCred: CredentialsDataInterface,
@@ -386,12 +384,20 @@ export class Credentials implements CredentialsInterface {
     };
 
     getVpnCredentialsLocal = async (): Promise<CredentialsDataInterface | null> => {
-        if (this.vpnCredentials) {
-            return this.vpnCredentials;
+        // Try to get from state storage first
+        const { vpnCredentials: currentVpnCredentials } = await this.credentialsState.get();
+        if (currentVpnCredentials) {
+            return currentVpnCredentials;
         }
 
-        this.vpnCredentials = await this.storage.get<CredentialsDataInterface>(this.VPN_CREDENTIALS_KEY) || null;
-        return this.vpnCredentials;
+        // If not in state storage, get from persistent storage
+        const storageVpnCredentials = await this.storage.get<CredentialsDataInterface>(this.VPN_CREDENTIALS_KEY)
+            ?? null;
+
+        // Update state storage with the vpn credentials
+        await this.credentialsState.update({ vpnCredentials: storageVpnCredentials });
+
+        return storageVpnCredentials;
     };
 
     async gainVpnCredentials(
@@ -432,7 +438,9 @@ export class Credentials implements CredentialsInterface {
     };
 
     /**
-     * Returns credentialsHash, vpn token and credentials
+     * Retrieves access credentials containing hash, VPN token and credentials for authentication.
+     *
+     * @returns Object with credentialsHash, vpn token and credentials.
      */
     async getAccessCredentials(): Promise<AccessCredentialsData> {
         const vpnToken = await this.gainValidVpnToken();
@@ -448,7 +456,8 @@ export class Credentials implements CredentialsInterface {
 
     /**
      * Retrieves app id from storage or generates the new one and saves it in the storage
-     * @return {Promise<*>}
+     *
+     * @returns App id.
      */
     gainAppId = async (): Promise<string> => {
         let appId = await this.storage.get<string>(this.APP_ID_KEY);
@@ -463,29 +472,40 @@ export class Credentials implements CredentialsInterface {
     };
 
     /**
-     * Returns app id from memory or generates the new one
-     * @return {Promise<*>}
+     * Gets application ID from memory cache or generates a new one if not cached.
+     *
+     * @returns App id from memory or generates the new one.
      */
     getAppId = async (): Promise<string> => {
-        if (!this.appId) {
-            this.appId = await this.gainAppId();
+        // Try to get from state storage first
+        const { appId: currentAppId } = await this.credentialsState.get();
+        if (currentAppId) {
+            return currentAppId;
         }
 
-        return this.appId;
+        // If not in state storage, gain it
+        const gainedAppId = await this.gainAppId();
+
+        // Update state storage with the gained app id
+        await this.credentialsState.update({ appId: gainedAppId });
+
+        return gainedAppId;
     };
 
     /**
      * Fetches current user info.
      *
-     * @return Account info: username and registration time in ISO format.
+     * @returns Account info: username and registration time in ISO format.
      */
     async fetchUserInfo(): Promise<AccountInfoData> {
         try {
             const accessToken = await this.auth.getAccessToken();
             const accountInfo = await accountProvider.getAccountInfo(accessToken);
 
-            this.currentUsername = accountInfo.username;
-            this.currentUserRegistrationTime = accountInfo.registrationTimeISO;
+            await this.credentialsState.update({
+                username: accountInfo.username,
+                registrationTime: accountInfo.registrationTimeISO,
+            });
 
             return accountInfo;
         } catch (e) {
@@ -521,14 +541,17 @@ export class Credentials implements CredentialsInterface {
     };
 
     /**
-     * Returns subscription type
+     * Retrieves the current VPN subscription type from the stored VPN token.
+     *
+     * @returns Subscription type.
      */
-    getSubscriptionType = () => {
-        return this.vpnToken?.vpnSubscription?.duration_v2;
+    getSubscriptionType = async (): Promise<SubscriptionType | null> => {
+        const { vpnToken } = await this.credentialsState.get();
+        return vpnToken?.vpnSubscription?.duration_v2 || null;
     };
 
     /**
-     * Returns subscription expiration time in ISO format.
+     * Retrieves the subscription expiration time from the VPN token.
      *
      * @returns Subscription expiration time in ISO format or null if it is not available.
      */
@@ -554,18 +577,24 @@ export class Credentials implements CredentialsInterface {
     };
 
     async getUsername(): Promise<string | null> {
-        if (this.currentUsername) {
-            return this.currentUsername;
-        }
-
         try {
-            const { username } = await this.fetchUserInfo();
-            this.currentUsername = username;
-        } catch (e) {
-            log.debug(e);
-        }
+            // Try to get from state storage first
+            const { username: currentUsername } = await this.credentialsState.get();
+            if (currentUsername) {
+                return currentUsername;
+            }
 
-        return this.currentUsername;
+            // If not in state storage, fetch it
+            const { username: fetchedUsername } = await this.fetchUserInfo();
+
+            // Update state storage with the fetched username
+            await this.credentialsState.update({ username: fetchedUsername });
+
+            return fetchedUsername;
+        } catch (e) {
+            log.debug('Error occurred while retrieving username:', e);
+            return null;
+        }
     }
 
     /**
@@ -574,18 +603,24 @@ export class Credentials implements CredentialsInterface {
      * @returns Returns registration time **in ISO format** or null if it's not available.
      */
     async getUserRegistrationTimeISO(): Promise<string | null> {
-        if (this.currentUserRegistrationTime) {
-            return this.currentUserRegistrationTime;
-        }
-
         try {
-            const { registrationTimeISO: registrationTime } = await this.fetchUserInfo();
-            this.currentUserRegistrationTime = registrationTime;
-        } catch (e) {
-            log.debug(e);
-        }
+            // Try to get from state storage first
+            const { registrationTime: currentRegistrationTime } = await this.credentialsState.get();
+            if (currentRegistrationTime) {
+                return currentRegistrationTime;
+            }
 
-        return this.currentUserRegistrationTime;
+            // If not in state storage, fetch it
+            const { registrationTimeISO: fetchedRegistrationTime } = await this.fetchUserInfo();
+
+            // Update state storage with the fetched registration time
+            await this.credentialsState.update({ registrationTime: fetchedRegistrationTime });
+
+            return fetchedRegistrationTime;
+        } catch (e) {
+            log.debug('Error occurred while retrieving registration time:', e);
+            return null;
+        }
     }
 
     /**
@@ -595,29 +630,83 @@ export class Credentials implements CredentialsInterface {
      * @throws Throws error if it's not possible to get username and registration time.
      */
     async getUsernameAndRegistrationTimeISO(): Promise<AccountInfoData> {
-        if (this.currentUsername && this.currentUserRegistrationTime) {
-            return {
-                username: this.currentUsername,
-                registrationTimeISO: this.currentUserRegistrationTime,
-            };
-        }
-
         try {
-            const { username, registrationTimeISO: registrationTime } = await this.fetchUserInfo();
-            this.currentUsername = username;
-            this.currentUserRegistrationTime = registrationTime;
-        } catch (e) {
-            log.debug(e);
-        }
+            // Try to get from state storage first
+            const {
+                username: currentUsername,
+                registrationTime: currentRegistrationTime,
+            } = await this.credentialsState.get();
+            if (currentUsername && currentRegistrationTime) {
+                return {
+                    username: currentUsername,
+                    registrationTimeISO: currentRegistrationTime,
+                };
+            }
 
-        if (!this.currentUsername || !this.currentUserRegistrationTime) {
+            // If not in state storage, fetch it
+            const {
+                username: fetchedUsername,
+                registrationTimeISO: fetchedRegistrationTime,
+            } = await this.fetchUserInfo();
+
+            // Update state storage with the fetched data
+            await this.credentialsState.update({
+                username: fetchedUsername,
+                registrationTime: fetchedRegistrationTime,
+            });
+
+            return {
+                username: fetchedUsername,
+                registrationTimeISO: fetchedRegistrationTime,
+            };
+        } catch (e) {
+            log.debug('Error occurred while retrieving username and registration time:', e);
             throw new Error('Unable to get username and registration time');
         }
+    }
 
-        return {
-            username: this.currentUsername,
-            registrationTimeISO: this.currentUserRegistrationTime,
-        };
+    /** @inheritdoc */
+    public async getMarketingConsent(): Promise<boolean | null> {
+        try {
+            // Try to get from state storage first
+            const { marketingConsent: currentMarketingConsent } = await this.credentialsState.get();
+            if (currentMarketingConsent !== null) {
+                return currentMarketingConsent;
+            }
+
+            // If not in state storage, fetch it
+            const accessToken = await this.auth.getAccessToken();
+            const { marketingConsent: fetchedMarketingConsent } = await accountProvider.getAccountSettings(accessToken);
+
+            // Cast to `boolean | null`
+            const castedMarketingConsent = fetchedMarketingConsent ?? null;
+
+            // Update state storage with the fetched marketing consent
+            await this.credentialsState.update({ marketingConsent: castedMarketingConsent });
+
+            return castedMarketingConsent;
+        } catch (e) {
+            log.debug('Error occurred while retrieving marketing consent:', e);
+            return null;
+        }
+    }
+
+    /** @inheritdoc */
+    public async updateUserMarketingConsent(newMarketingConsent: boolean): Promise<void> {
+        try {
+            const accessToken = await this.auth.getAccessToken();
+            await accountProvider.updateMarketingConsent(accessToken, newMarketingConsent);
+            await this.credentialsState.update({ marketingConsent: newMarketingConsent });
+        } catch (e) {
+            if (e?.status === ERROR_STATUSES.UNAUTHORIZED) {
+                log.debug('Auth denied, token is not valid');
+                // deauthenticate user
+                await this.auth.deauthenticate();
+                // clear vpnToken
+                this.persistVpnToken(null);
+            }
+            throw e;
+        }
     }
 
     /**
@@ -648,16 +737,17 @@ export class Credentials implements CredentialsInterface {
 
     async handleUserDeauthentication(): Promise<void> {
         await this.persistVpnToken(null);
-        this.vpnCredentials = null;
         await this.storage.set(this.VPN_CREDENTIALS_KEY, null);
-        this.currentUsername = null;
-        this.currentUserRegistrationTime = null;
+        await this.credentialsState.update({
+            vpnCredentials: null,
+            username: null,
+            registrationTime: null,
+            marketingConsent: null,
+        });
     }
 
     async init(): Promise<void> {
         try {
-            this.state = stateStorage.getItem(StorageKey.CredentialsState);
-
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
                 this.handleUserDeauthentication.bind(this),
@@ -672,13 +762,40 @@ export class Credentials implements CredentialsInterface {
             if (isUserAuthenticated) {
                 // Use persisted state on extension initialization.
                 // If it's not available, get data remotely
-                this.vpnToken = this.vpnToken || await this.gainValidVpnToken(forceRemote);
-                this.vpnCredentials = this.vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
 
-                this.currentUsername = this.currentUsername || await this.getUsername();
+                const {
+                    vpnToken,
+                    vpnCredentials,
+                    username,
+                    registrationTime,
+                    marketingConsent,
+                } = await this.credentialsState.get();
 
-                this.currentUserRegistrationTime = this.currentUserRegistrationTime
-                    || await this.getUserRegistrationTimeISO();
+                const partialStateToSave: Partial<CredentialsState> = {};
+
+                if (!vpnToken) {
+                    partialStateToSave.vpnToken = await this.gainValidVpnToken(forceRemote);
+                }
+
+                if (!vpnCredentials) {
+                    partialStateToSave.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
+                }
+
+                if (!username) {
+                    partialStateToSave.username = await this.getUsername();
+                }
+
+                if (!registrationTime) {
+                    partialStateToSave.registrationTime = await this.getUserRegistrationTimeISO();
+                }
+
+                if (marketingConsent === null) {
+                    partialStateToSave.marketingConsent = await this.getMarketingConsent();
+                }
+
+                if (Object.keys(partialStateToSave).length) {
+                    await this.credentialsState.update(partialStateToSave);
+                }
             }
         } catch (e) {
             log.debug('Unable to init credentials module, due to error:', e.message);

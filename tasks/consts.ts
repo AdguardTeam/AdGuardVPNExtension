@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 import dotenv from 'dotenv';
 
@@ -7,6 +7,9 @@ dotenv.config();
 
 export const SRC_PATH = '../src';
 
+/**
+ * Environment types for build target.
+ */
 export enum Env {
     Dev = 'dev',
     Beta = 'beta',
@@ -19,6 +22,19 @@ export enum Browser {
     Edge = 'edge',
     Opera = 'opera',
 }
+
+export const isValidBrowserTarget = (target: any): target is Browser => {
+    return Object.values(Browser).includes(target as Browser);
+};
+
+export const isValidBuildEnv = (buildEnv: any): buildEnv is Env => {
+    return Object.values(Env).includes(buildEnv as Env);
+};
+
+export type EnvConfig = {
+    outputPath: string;
+    mode: 'development' | 'production';
+};
 
 // Used only to change output filenames
 export enum StageEnv {
@@ -72,8 +88,12 @@ export const IS_DEV = BUILD_ENV ? BUILD_ENV === Env.Dev : true;
 
 export const IS_BETA = BUILD_ENV ? BUILD_ENV === Env.Beta : false;
 
+// IMPORTANT! If you add new directory that has to be checked during bundle-size-check,
+// please configure check in bundle-size/check.ts.
+// function in tools/bundle-size/check.ts for new directory.
 // Build output path
-export const BUILD_PATH = '../build';
+export const BUILD_DIR = 'build';
+export const BUILD_PATH = `../${BUILD_DIR}`;
 export const CRX_NAME = 'chrome.crx';
 export const CRX_PROD_NAME = 'chrome-prod.crx';
 export const XPI_NAME = 'firefox.xpi';

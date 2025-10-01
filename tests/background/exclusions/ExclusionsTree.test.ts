@@ -1,17 +1,20 @@
+import {
+    vi,
+    describe,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { ExclusionsHandler } from '../../../src/background/exclusions/exclusions/ExclusionsHandler';
 import { ServicesManager } from '../../../src/background/exclusions/services/ServicesManager';
 import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTree';
 import { ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import type { ExclusionInterface, ServicesInterface } from '../../../src/background/schema';
 
-jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
-
-jest.mock('../../../src/common/logger.ts');
-jest.mock('../../../src/background/providers/vpnProvider.ts');
-
 describe('ExclusionsTree', () => {
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it('generates exclusions which are not in the service', () => {

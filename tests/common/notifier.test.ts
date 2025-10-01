@@ -1,3 +1,10 @@
+import {
+    describe,
+    beforeAll,
+    it,
+    expect,
+} from 'vitest';
+
 import { Notifier, NotifierType, type NotifierTypeMap } from '../../src/common/notifier';
 
 type ChangingType = {
@@ -16,7 +23,7 @@ describe('notifier', () => {
         second: '',
     };
 
-    const firstListener = (setting: string, value: boolean) => {
+    const firstListener = (setting: string, value: boolean): void => {
         changing.first = {
             id: 'first',
             setting,
@@ -24,7 +31,7 @@ describe('notifier', () => {
         };
     };
 
-    const secondListener = (setting: string, value: boolean) => {
+    const secondListener = (setting: string, value: boolean): void => {
         changing.second = {
             id: 'second',
             setting,
@@ -80,7 +87,7 @@ describe('notifies specified listeners', () => {
     };
 
     let firstCounter = 0;
-    const firstListener = (setting: string, value: boolean) => {
+    const firstListener = (setting: string, value: boolean): void => {
         firstCounter += 1;
         changing.first = {
             id: 'first',
@@ -91,7 +98,7 @@ describe('notifies specified listeners', () => {
     };
 
     let secondCounter = 0;
-    const secondListener = (proxyStatus: boolean) => {
+    const secondListener = (proxyStatus: boolean): void => {
         secondCounter += 1;
         changing.second = {
             id: 'second',

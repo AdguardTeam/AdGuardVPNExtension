@@ -1,16 +1,18 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { getPrivacyAndEulaUrls } from '../../../common/forwarderHelpers';
+import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { rootStore } from '../../stores';
 import { ControlsSwitch } from '../ui/Controls';
 import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
 
 export const HelpUsImprove = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore } = useContext(rootStore);
     const {
         helpUsImprove,
         setHelpUsImproveValue,
@@ -22,6 +24,12 @@ export const HelpUsImprove = observer(() => {
 
     const { privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
 
+    useTelemetryPageViewEvent(
+        telemetryStore,
+        TelemetryScreenName.UsageDataDialog,
+        isHelpUsImproveModalOpen,
+    );
+
     const handleToggle = async (): Promise<void> => {
         await setHelpUsImproveValue(!helpUsImprove);
     };
@@ -29,7 +37,18 @@ export const HelpUsImprove = observer(() => {
     const onUsageDataClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
         // Prevent the parent element from toggling the switch
         e.stopPropagation();
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.ExtensionDataClick,
+            TelemetryScreenName.GeneralSettingsScreen,
+        );
         openHelpUsImproveModal();
+    };
+
+    const handlePrivacyPolicyClick = (): void => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.UsageDataPolicyClick,
+            TelemetryScreenName.UsageDataDialog,
+        );
     };
 
     return (
@@ -80,6 +99,7 @@ export const HelpUsImprove = observer(() => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="link help-us-modal__link"
+                            onClick={handlePrivacyPolicyClick}
                         >
                             {translator.getMessage('privacy_policy')}
                         </a>

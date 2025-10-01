@@ -1,42 +1,26 @@
+import {
+    vi,
+    describe,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { Credentials } from '../../../src/background/credentials/Credentials';
 import { SubscriptionType } from '../../../src/common/constants';
 import { credentialsService } from '../../../src/background/credentials/credentialsService';
 import { browserApi } from '../../../src/background/browserApi';
 import type { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
-import { stateStorage } from '../../../src/background/stateStorage';
 
-jest.mock('../../../src/background/config', () => ({ FORWARDER_URL_QUERIES: {} }));
-
-jest.mock('../../../src/background/auth', () => {
-    return {
+vi.mock('../../../src/background/auth', async () => ({
+    auth: {
         isAuthenticated: () => true,
-    };
-});
+    },
+}));
 
-jest.mock('../../../src/background/appStatus', () => {
+vi.mock('../../../src/background/appStatus', () => {
     return {
         version: () => '2.0.16',
-    };
-});
-
-jest.mock('../../../src/common/logger');
-
-const storageImplementation: { [key: string]: any } = {};
-jest.mock('../../../src/background/browserApi', () => {
-    return {
-        browserApi: {
-            storage: {
-                set: jest.fn((key, data) => {
-                    storageImplementation[key] = data;
-                }),
-                get: jest.fn((key) => {
-                    return storageImplementation[key];
-                }),
-                remove: jest.fn((key) => {
-                    return delete storageImplementation[key];
-                }),
-            },
-        },
     };
 });
 
@@ -45,12 +29,8 @@ const msToSec = (ms: number) => {
 };
 
 describe('Credentials', () => {
-    beforeEach(async () => {
-        await stateStorage.init();
-    });
-
     afterEach(async () => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     describe('validates credentials', () => {
@@ -161,7 +141,7 @@ describe('Credentials', () => {
 
     describe('get vpn local', () => {
         afterEach(() => {
-            jest.clearAllMocks();
+            vi.clearAllMocks();
         });
 
         it('returns nothing if there is no token in the storage', async () => {
@@ -207,7 +187,7 @@ describe('Credentials', () => {
                 },
             };
 
-            const getVpnTokenFromStorageMock = jest.fn();
+            const getVpnTokenFromStorageMock = vi.fn();
             credentialsService.getVpnTokenFromStorage = getVpnTokenFromStorageMock;
             getVpnTokenFromStorageMock.mockReturnValue(expectedVpnToken);
 

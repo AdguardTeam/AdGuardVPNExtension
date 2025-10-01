@@ -22,7 +22,7 @@ export class NotificationsStore {
 
     @observable notifications: Notification[] = [];
 
-    @action addNotification = (notification: Notification) => {
+    @action addNotification = (notification: Notification): void => {
         // Remove the oldest notification if there are already 1 notification.
         if (this.notifications.length === MAX_NOTIFICATIONS_COUNT) {
             this.notifications.shift();
@@ -30,16 +30,16 @@ export class NotificationsStore {
         this.notifications.push(notification);
     };
 
-    @action removeNotification = (notificationId: string) => {
+    @action removeNotification = (notificationId: string): void => {
         this.notifications = this.notifications
             .filter((notification) => notification.id !== notificationId);
     };
 
-    @action notifySuccess = (message: ReactNode, action?: Action) => {
+    @action notifySuccess = (message: ReactNode, action?: Action): void => {
         this.addNotification(new SuccessNotification(message, action));
     };
 
-    @action notifyError = (message: ReactNode, action?: Action) => {
+    @action notifyError = (message: ReactNode, action?: Action): void => {
         this.addNotification(new ErrorNotification(message, action));
     };
 }

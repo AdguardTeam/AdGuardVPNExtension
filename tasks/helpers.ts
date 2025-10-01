@@ -2,7 +2,16 @@
 import _ from 'lodash';
 import { merge } from 'webpack-merge';
 
-import { Env, BUILD_ENV_MAP, Browser } from './consts';
+import { Browser, BUILD_ENV_MAP, Env } from './consts';
+import { type BrowserConfig, BROWSERS_CONF } from './common-constants';
+
+export const getBrowserConf = (browser: Browser): BrowserConfig => {
+    const browserConf = BROWSERS_CONF[browser];
+    if (!browserConf) {
+        throw new Error(`No browser config for: "${browser}"`);
+    }
+    return browserConf;
+};
 
 const pJson = require('../package.json');
 

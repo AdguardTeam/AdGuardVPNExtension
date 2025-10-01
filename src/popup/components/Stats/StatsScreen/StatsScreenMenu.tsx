@@ -4,7 +4,6 @@ import { observer } from 'mobx-react';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { Select, type SelectOptionItem } from '../../../../common/components/Select';
 import { translator } from '../../../../common/translator';
-import { getPrivacyAndEulaUrls } from '../../../../common/forwarderHelpers';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { Icon } from '../../../../common/components/Icons';
 import { rootStore } from '../../../stores';
@@ -17,7 +16,6 @@ import { StatsScreenModal } from './StatsScreenModal';
  */
 enum MenuActions {
     None = 'none',
-    WhySafe = 'why-safe',
     Enable = 'enable',
     Disable = 'disable',
     Clear = 'clear',
@@ -30,29 +28,22 @@ export type StatsScreenMenuProps = Pick<StatsScreenBaseProps, 'isDisabled' | 'on
 
 /**
  * Component that renders the menu for the stats screen.
- * It contains 'Why it's safe' button and 'Clear stats' button with their modals.
+ * It contains 'Toggle stats' and 'Clear stats' button with their modals.
  */
 export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
     const { isDisabled, onDisableChange, onClear } = props;
-    const { statsStore, telemetryStore, settingsStore } = useContext(rootStore);
-
-    const { forwarderDomain } = settingsStore;
+    const { statsStore, telemetryStore } = useContext(rootStore);
 
     const {
         isMenuOpen,
-        isWhySafeModalOpen,
         isDisableModalOpen,
         isClearModalOpen,
         setIsMenuOpen,
-        setIsWhySafeModalOpen,
         setIsDisableModalOpen,
         setIsClearModalOpen,
     } = statsStore;
 
-    const { privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
-
     const canSendSettingsTelemetry = isMenuOpen
-        && !isWhySafeModalOpen // `WhySafeScreen` is rendered on top of this screen
         && !isClearModalOpen // `ClearStatsScreen` is rendered on top of this screen
         && !isDisableModalOpen; // `DisableStatsScreen` is rendered on top of this screen
 
@@ -60,12 +51,6 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         telemetryStore,
         TelemetryScreenName.SettingsStatsScreen,
         canSendSettingsTelemetry,
-    );
-
-    useTelemetryPageViewEvent(
-        telemetryStore,
-        TelemetryScreenName.WhySafeScreen,
-        isWhySafeModalOpen,
     );
 
     useTelemetryPageViewEvent(
@@ -80,7 +65,7 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         isClearModalOpen,
     );
 
-    const handleOnMenuActiveChange = (isActive: SetStateAction<boolean>) => {
+    const handleOnMenuActiveChange = (isActive: SetStateAction<boolean>): void => {
         if (typeof isActive === 'function') {
             setIsMenuOpen(isActive(isMenuOpen));
         } else {
@@ -89,10 +74,6 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
     };
 
     const menuOptions: SelectOptionItem<MenuActions>[] = [
-        {
-            value: MenuActions.WhySafe,
-            title: translator.getMessage('popup_stats_menu_why_safe_btn'),
-        },
         {
             value: isDisabled ? MenuActions.Enable : MenuActions.Disable,
             title: isDisabled
@@ -106,19 +87,7 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         },
     ];
 
-    const openWhySafeModal = () => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.WhySafeClick,
-            TelemetryScreenName.SettingsStatsScreen,
-        );
-        setIsWhySafeModalOpen(true);
-    };
-
-    const closeWhySafeModal = () => {
-        setIsWhySafeModalOpen(false);
-    };
-
-    const enableStats = () => {
+    const enableStats = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.MenuEnableStatsClick,
             TelemetryScreenName.SettingsStatsScreen,
@@ -126,7 +95,7 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         onDisableChange(false);
     };
 
-    const openDisableModal = () => {
+    const openDisableModal = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.OpenDisableStatsClick,
             TelemetryScreenName.SettingsStatsScreen,
@@ -134,11 +103,11 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         setIsDisableModalOpen(true);
     };
 
-    const closeDisableModal = () => {
+    const closeDisableModal = (): void => {
         setIsDisableModalOpen(false);
     };
 
-    const handleDisableClick = () => {
+    const handleDisableClick = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.DisableStatsClick,
             TelemetryScreenName.DisableStatsScreen,
@@ -147,7 +116,7 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         onDisableChange(true);
     };
 
-    const openClearModal = () => {
+    const openClearModal = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.OpenClearStatsClick,
             TelemetryScreenName.SettingsStatsScreen,
@@ -155,11 +124,11 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         setIsClearModalOpen(true);
     };
 
-    const closeClearModal = () => {
+    const closeClearModal = (): void => {
         setIsClearModalOpen(false);
     };
 
-    const handleClearClick = () => {
+    const handleClearClick = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.ClearStatsClick,
             TelemetryScreenName.ClearStatsScreen,
@@ -168,18 +137,8 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
         onClear();
     };
 
-    const handlePrivacyPolicyClick = () => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.StatsPrivacyClick,
-            TelemetryScreenName.WhySafeScreen,
-        );
-    };
-
-    const handleMenuAction = (value: MenuActions) => {
+    const handleMenuAction = (value: MenuActions): void => {
         switch (value) {
-            case MenuActions.WhySafe:
-                openWhySafeModal();
-                break;
             case MenuActions.Enable:
                 enableStats();
                 break;
@@ -204,34 +163,6 @@ export const StatsScreenMenu = observer((props: StatsScreenMenuProps) => {
                 isActive={isMenuOpen}
                 onChange={handleMenuAction}
                 onIsActiveChange={handleOnMenuActiveChange}
-            />
-            <StatsScreenModal
-                isOpen={isWhySafeModalOpen}
-                title={translator.getMessage('popup_stats_menu_why_safe_title')}
-                description={(
-                    <>
-                        <p>{translator.getMessage('popup_stats_menu_why_safe_description_1')}</p>
-                        <p>{translator.getMessage('popup_stats_menu_why_safe_description_2')}</p>
-                        <a
-                            href={privacyUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={handlePrivacyPolicyClick}
-                        >
-                            {translator.getMessage('privacy_policy')}
-                        </a>
-                    </>
-                )}
-                actions={(
-                    <button
-                        type="button"
-                        onClick={closeWhySafeModal}
-                        className="stats-screen-btn stats-screen-btn--primary"
-                    >
-                        {translator.getMessage('popup_stats_menu_why_safe_got_it')}
-                    </button>
-                )}
-                onClose={closeWhySafeModal}
             />
             {!isDisabled && (
                 <StatsScreenModal

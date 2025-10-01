@@ -10,7 +10,7 @@ export const DnsSettingsButton = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const { currentDnsServerName } = settingsStore;
 
-    const handleClick = () => {
+    const handleClick = (): void => {
         settingsStore.setShowDnsSettings(true);
     };
 

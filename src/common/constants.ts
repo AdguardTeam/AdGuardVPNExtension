@@ -41,8 +41,6 @@ export enum MessageType {
     REMOVE_EVENT_LISTENER = 'remove.event.listener',
 
     ADD_LONG_LIVED_CONNECTION = 'add.long.lived.connection',
-    AUTHENTICATE_SOCIAL = 'authenticate.social',
-    AUTHENTICATE_THANKYOU_PAGE = 'authenticate.thankyou.page',
     GET_POPUP_DATA = 'get.popup.data',
     GET_LIMITED_OFFER_DATA = 'get.limited.offer.data',
     FORCE_UPDATE_LOCATIONS = 'force.update.locations',
@@ -56,10 +54,7 @@ export enum MessageType {
     OPEN_OPTIONS_PAGE = 'open.options.page',
     SET_SELECTED_LOCATION = 'set.selected.location',
     DEAUTHENTICATE_USER = 'deauthenticate.user',
-    AUTHENTICATE_USER = 'authenticate.user',
     UPDATE_AUTH_CACHE = 'update.auth.cache',
-    GET_AUTH_CACHE = 'get.auth.cache',
-    CLEAR_AUTH_CACHE = 'clear.auth.cache',
     GET_CAN_CONTROL_PROXY = 'get.can.control.proxy',
     ENABLE_PROXY = 'enable.proxy',
     DISABLE_PROXY = 'disable.proxy',
@@ -67,11 +62,8 @@ export enum MessageType {
     REMOVE_EXCLUSION = 'remove.exclusion',
     DISABLE_VPN_BY_URL = 'disable.vpn.by.url',
     ENABLE_VPN_BY_URL = 'enable.vpn.by.url',
-    CHECK_EMAIL = 'check.email',
     DISABLE_OTHER_EXTENSIONS = 'disable.other.extensions',
-    REGISTER_USER = 'register.user',
     IS_AUTHENTICATED = 'is.authenticated',
-    START_SOCIAL_AUTH = 'start.social.auth',
     CLEAR_PERMISSIONS_ERROR = 'clear.permissions.error',
     CHECK_PERMISSIONS = 'check.permissions',
     GET_EXCLUSIONS_INVERTED = 'get.exclusions.inverted',
@@ -84,6 +76,7 @@ export enum MessageType {
     GET_SETTING_VALUE = 'get.setting.value',
     SET_SETTING_VALUE = 'set.setting.value',
     GET_USERNAME = 'get.username',
+    UPDATE_MARKETING_CONSENT = 'update.marketing.consent',
     GET_SELECTED_LOCATION = 'get.selected.location',
     CHECK_IS_PREMIUM_TOKEN = 'check.is.premium.token',
     SET_NOTIFICATION_VIEWED = 'set.notification.viewed',
@@ -106,10 +99,6 @@ export enum MessageType {
     ADD_CUSTOM_DNS_SERVER = 'add.custom.dns.server',
     EDIT_CUSTOM_DNS_SERVER = 'edit.custom.dns.server',
     REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
-    RESEND_CONFIRM_REGISTRATION_LINK = 'resend.confirm.registration.link',
-    SET_EMAIL_CONFIRMATION_AUTH_ID = 'set.email.confirmation.auth.id',
-    RESEND_EMAIL_CONFIRMATION_CODE = 'resend.email.confirmation.code',
-    GET_RESEND_CODE_COUNTDOWN = 'get.resend.code.countdown',
     RESTORE_CUSTOM_DNS_SERVERS_DATA = 'restore.custom.dns.servers.data',
     SET_HINT_POPUP_VIEWED = 'set.hint.popup.viewed',
 
@@ -127,78 +116,17 @@ export enum MessageType {
     STATISTICS_GET_BY_RANGE = 'statistics.get.by.range',
     STATISTICS_CLEAR = 'statistics.clear',
     STATISTICS_SET_IS_DISABLED = 'statistics.set.is.disabled',
-}
 
-export enum SocialAuthProvider {
-    Apple = 'apple',
-    Google = 'google',
-    Facebook = 'facebook',
+    SEND_WEB_AUTH_ACTION = 'send.web.auth.action',
 }
 
 export const FLAGS_FIELDS = {
     IS_NEW_USER: 'isNewUser',
-    IS_SOCIAL_AUTH: 'isSocialAuth',
+    SHOW_NEWSLETTER: 'showNewsletter',
     SHOW_ONBOARDING: 'showOnboarding',
     SHOW_UPGRADE_SCREEN: 'showUpgradeScreen',
     SALE_SHOW: 'saleShow',
     SHOULD_SHOW_RATE_MODAL: 'shouldShowRateModal',
-};
-
-/**
- * Authentication flow steps.
- */
-export const AUTH_STEPS = {
-    /**
-     * Policy agreement or also called consent step.
-     * This step is shown only for new users in the extension popup.
-     * For Firefox, this step is also shown as separate consent page.
-     *
-     * In this step, user needs to agree with the policy and EULA.
-     */
-    POLICY_AGREEMENT: 'policyAgreement',
-
-    /**
-     * Screenshot step.
-     * This step is shown only for new users in the extension popup.
-     * In this step, main screen is rendered as a screenshot.
-     */
-    SCREENSHOT: 'screenshot',
-
-    /**
-     * Authorization step.
-     * In this step, user can type email or sign in with social account.
-     */
-    AUTHORIZATION: 'authorization',
-
-    /**
-     * Email confirmation step.
-     * In this step, user needs to confirm their email address.
-     */
-    CHECK_EMAIL: 'checkEmail',
-
-    /**
-     * Sign in step.
-     * In this step, user needs to type password to sign in with existing account.
-     */
-    SIGN_IN: 'signIn',
-
-    /**
-     * Registration step.
-     * In this step, user needs to type email and password to create a new account.
-     */
-    REGISTRATION: 'registration',
-
-    /**
-     * Two-factor authentication step.
-     * In this step, user needs to type 2FA code to complete the authentication.
-     */
-    TWO_FACTOR: 'twoFactor',
-
-    /**
-     * Confirmation email step.
-     * In this step, user needs to confirm their sign in by writing the code.
-     */
-    CONFIRM_EMAIL: 'confirmEmail',
 };
 
 /**
@@ -217,15 +145,6 @@ export enum SubscriptionType {
 }
 
 export const CUSTOM_DNS_ANCHOR_NAME = 'custom-dns';
-
-export const REQUIRED_2FA_CODE = '2fa_required';
-export const REQUIRED_EMAIL_CONFIRMATION_CODE = 'confirmation_code_required';
-export const BAD_CREDENTIALS_CODE = 'bad_credentials';
-
-/**
- * Delay in seconds before user can resend email confirmation code.
- */
-export const RESEND_EMAIL_CONFIRMATION_CODE_DELAY_SEC = 60;
 
 export const ONE_SECOND_MS = 1000;
 export const ONE_MINUTE_MS = ONE_SECOND_MS * 60;

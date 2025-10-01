@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { type ReactElement, useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
@@ -23,12 +23,12 @@ export const ModeSelectorModal = observer(() => {
 
     const [mode, setMode] = useState(exclusionsStore.currentMode);
 
-    const closeModal = () => {
+    const closeModal = (): void => {
         exclusionsStore.setModeSelectorModalOpen(false);
         setMode(exclusionsStore.currentMode);
     };
 
-    const handleSaveMode = async () => {
+    const handleSaveMode = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
             mode === ExclusionsMode.Regular
                 ? TelemetryActionName.GeneralModeClick
@@ -45,7 +45,7 @@ export const ModeSelectorModal = observer(() => {
         [ExclusionsMode.Selective]: translator.getMessage('settings_exclusion_selective_title'),
     };
 
-    const renderRadioButton = (exclusionsType: ExclusionsMode) => (
+    const renderRadioButton = (exclusionsType: ExclusionsMode): ReactElement => (
         <Radio
             name="exclusion-mode"
             value={exclusionsType}

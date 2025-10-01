@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "必須不為空"
-    },
-    "registration_error_not_valid": {
-        "message": "此數值為無效的"
-    },
-    "registration_error_min_length": {
-        "message": "密碼太短。它必須包含至少 8 個字元。"
-    },
-    "registration_error_confirm_password": {
-        "message": "密碼不相符"
-    },
-    "registration_error_compromised_password": {
-        "message": "您輸入的密碼在洩漏的密碼之<a>公開的資料庫</a>中被找到。請嘗試另一組密碼。"
-    },
-    "registration_error_unique_constraint": {
-        "message": "此數值已被使用"
-    },
-    "registration_error_default": {
-        "message": "錯誤已發生，稍後再試"
-    },
-    "authentication_error_2fa_required": {
-        "message": "雙因素驗證（2FA）是必須的"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "無效的權杖"
-    },
-    "authentication_error_account_disabled": {
-        "message": "帳戶被禁用"
-    },
-    "authentication_error_account_locked": {
-        "message": "計 15 分鐘，帳戶被鎖定"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "錯誤的密碼"
-    },
-    "authentication_too_many_requests": {
-        "message": "我們收到了太多來自您的 IP 位址之請求。請稍後再試。"
-    },
-    "authentication_error_default": {
-        "message": "錯誤已發生，稍後再試"
-    },
-    "global_error_message": {
-        "message": "發生錯誤，請經由 <a>%support_email%</a> 與我們聯繫"
-    },
     "about_title": {
         "message": "關於"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "登出"
     },
+    "account_sign_out_question": {
+        "message": "登出？"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "取消"
+    },
+    "account_sign_out_description": {
+        "message": "您的帳戶即將退出登入，VPN 保護將隨之停止。"
+    },
     "account_unlimited_title": {
         "message": "獲取無限版！"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "隱藏"
-    },
-    "auth_confirm": {
-        "message": "確認"
-    },
-    "auth_email": {
-        "message": "電子郵件地址"
-    },
-    "auth_password": {
-        "message": "密碼"
-    },
-    "auth_your_password": {
-        "message": "您的密碼"
-    },
-    "auth_password_confirm": {
-        "message": "確認密碼"
-    },
-    "auth_recover": {
-        "message": "忘了密碼嗎？"
-    },
-    "auth_sign_up": {
-        "message": "註冊"
-    },
-    "auth_sign_up_info": {
-        "message": "創建您的 AdGuard 帳戶"
-    },
-    "auth_sign_up_button": {
-        "message": "註冊"
-    },
-    "auth_sign_in": {
-        "message": "請輸入密碼"
-    },
-    "auth_sign_in_button": {
-        "message": "登入"
-    },
-    "auth_title": {
-        "message": "登入或創建帳戶"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "電子郵件位址"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "用電子郵件繼續"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "用 Apple 繼續"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "用 Google 繼續"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "用 Facebook 繼續"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "以 <span>%username%</span> 登入"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "雙因素驗證"
-    },
-    "auth_header_2fa": {
-        "message": "輸入該驗證代碼"
-    },
-    "auth_placeholder_2fa": {
-        "message": "驗證代碼"
     },
     "official_website": {
         "message": "官方的網站"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "登入或創建帳戶"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "繼續"
-    },
     "popup_newsletter_title": {
         "message": "AdGuard 簡報"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "不再顯示"
     },
-    "popup_stats_for_browser_title": {
-        "message": "此瀏覽器的統計資料"
+    "popup_stats": {
+        "message": "統計資訊"
     },
     "popup_stats_disabled_notice": {
         "message": "統計資料已停用"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "時間"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "為什麼是安全的"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "為什麼是安全的"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "由於 VPN 連線已經加密和安全，所以網路活動是不會被其他人看到的。我們只會統計使用的網路流量"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "所有使用統計都是儲存在您自己的裝置中，我們沒有任何方式可以存取這些數據"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "知道了"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "VPN 即將降速。"
     },
-    "confirm_email_title": {
-        "message": "確認您的電子郵件"
-    },
-    "confirm_email_info": {
-        "message": "我們已將確認碼發送至 <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "電子郵件地址已確認"
     },
     "confirm_email_done_info": {
         "message": "感謝您的驗證！"
     },
-    "confirm_email_code_label": {
-        "message": "確認碼"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "包含數字和字母"
-    },
-    "confirm_email_code_invalid": {
-        "message": "確認碼輸入不正確，請重試"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "傳送另一個確認碼（%count%）"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "傳送另一個確認碼"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "登入失敗。請再試一次，或通過 <a>%support_email%</a> 聯絡支援部門"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "註冊失敗。請再試一次，或通過 <a>%support_email%</a> 聯絡支援部門"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "確認連結重新傳送成功"
+    },
+    "auth_failed_to_login_title": {
+        "message": "登入失敗"
+    },
+    "auth_failed_to_login_description": {
+        "message": "請重試或<a>聯繫支援人員</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "請再次嘗試"
+    },
+    "auth_failed_to_login_button": {
+        "message": "關閉"
+    },
+    "auth_loading_button_reopen": {
+        "message": "重新開啟登入頁面"
+    },
+    "auth_loading_button_cancel": {
+        "message": "取消"
     }
 }

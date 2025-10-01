@@ -1,5 +1,5 @@
 import { exportLogs } from './export-logs';
 
-(async () => {
+(async (): Promise<void> => {
     await exportLogs();
 })();

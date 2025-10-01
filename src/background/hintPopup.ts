@@ -33,9 +33,11 @@ class HintPopup implements HintPopupInterface {
     }
 
     /**
-     * Gets login time from browser storage
+     * Gets login time from browser storage.
+     *
+     * @returns Login time or undefined if it was not set.
      */
-    private getLoginTime = async (): Promise<number | null | undefined> => {
+    private getLoginTime = async (): Promise<number | undefined> => {
         return browserApi.storage.get(HINT_POPUP_COUNTDOWN_KEY);
     };
 
@@ -78,10 +80,12 @@ class HintPopup implements HintPopupInterface {
      * To do so, open devtools in the extension popup and execute in console:
      * `await chrome.storage.local.set({'hint.popup.countdown': new Date(Date.now() - 1000 * 60 * 60 * 1).getTime()})`,
      * after that close and open the popup again.
+     *
+     * @returns Promise with true if hint popup should be shown, false otherwise.
      */
     public shouldShowHintPopup = async (): Promise<boolean> => {
         // do not show the hint popup for the selective mode. AG-24991
-        if (exclusions.getMode() === ExclusionsMode.Selective) {
+        if (await exclusions.getMode() === ExclusionsMode.Selective) {
             return false;
         }
 
@@ -96,7 +100,8 @@ class HintPopup implements HintPopupInterface {
         const isDelayPassedSinceLogin = loginTime + hintPopupDelay <= Date.now();
 
         // Add 1 to popupOpenedNum because shouldShowHintPopup called for next popup opening
-        const isPopupOpenedEnough = popupOpenedCounter.count + 1 >= POPUP_OPENED_COUNT_TO_SHOW_HINT;
+        const popupOpenedCount = await popupOpenedCounter.getCount();
+        const isPopupOpenedEnough = popupOpenedCount + 1 >= POPUP_OPENED_COUNT_TO_SHOW_HINT;
 
         return isDelayPassedSinceLogin && isPopupOpenedEnough;
     };

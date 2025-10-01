@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import browser from 'webextension-polyfill';
@@ -13,13 +13,23 @@ import { Ping } from '../Ping';
 import { PingDotsLoader } from '../PingDotsLoader';
 
 /**
+ * Style object for flag icon background image.
+ */
+interface FlagIconStyle {
+    /**
+     * Background image URL.
+     */
+    backgroundImage?: string;
+}
+
+/**
  * Get flag icon style object by country code.
  *
  * @param countryCode Country code.
  * @returns Flag icon style object with background image,
  * empty object if country code is not provided.
  */
-export const getFlagIconStyle = (countryCode: string) => {
+export const getFlagIconStyle = (countryCode: string): FlagIconStyle => {
     if (!countryCode) {
         return {};
     }
@@ -93,7 +103,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
 
     const title = `${countryName} - ${computedCityName}: ${pingText}`;
 
-    const handleLocationClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleLocationClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         if (locationFitsPremiumToken) {
             onClick(id);
@@ -102,7 +112,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         }
     };
 
-    const handleSaveClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleSaveClick = (e: React.MouseEvent<HTMLDivElement>): void => {
         e.preventDefault();
         e.stopPropagation();
         onSaveClick(id);
@@ -128,7 +138,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         { 'endpoint__title--selected': selected },
     );
 
-    const renderLocationIcon = (countryCode: string) => {
+    const renderLocationIcon = (countryCode: string): ReactElement => {
         if (!locationFitsPremiumToken) {
             return (
                 <div className="endpoints__lock-icon" />
@@ -140,7 +150,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         );
     };
 
-    const renderPingDotsLoader = () => {
+    const renderPingDotsLoader = (): ReactElement => {
         return (
             <div className="ping ping--loader">
                 <span className="endpoints__ping-dots-loader">
@@ -150,7 +160,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         );
     };
 
-    const renderLocationPing = () => {
+    const renderLocationPing = (): ReactElement => {
         if (settingsStore.arePingsRecalculating) {
             return renderPingDotsLoader();
         }
@@ -170,7 +180,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         return renderPingDotsLoader();
     };
 
-    const renderSaveButton = () => {
+    const renderSaveButton = (): ReactElement => {
         // Do not render as button, because it descends from
         // button element, which may throw error in console from React.
         // TODO: Consider refactoring top level button

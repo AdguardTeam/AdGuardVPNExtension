@@ -1,9 +1,16 @@
+import {
+    vi,
+    describe,
+    it,
+    expect,
+} from 'vitest';
+
 import { lazyGet, formatBytes, getLocationWithLowestPing } from '../../src/common/helpers';
 import { type LocationInterface } from '../../src/background/schema';
 
 describe('lazyGet callback', () => {
     const expectedColor = 'blue';
-    const cb = jest.fn(() => expectedColor);
+    const cb = vi.fn(() => expectedColor);
     const obj: { color: string } = {
         get color() {
             return lazyGet(obj, 'color', cb);
@@ -31,7 +38,7 @@ describe('lazyGet callback', () => {
     });
 });
 
-describe('formatBytes', () => {
+it('formatBytes', () => {
     expect(formatBytes(0)).toEqual({ value: '0.0', unit: 'KB' });
     expect(formatBytes(10)).toEqual({ value: '0.0', unit: 'KB' });
     expect(formatBytes(-10)).toEqual({ value: '0.0', unit: 'KB' });
@@ -44,7 +51,7 @@ describe('formatBytes', () => {
     expect(formatBytes(1099511627776)).toEqual({ value: '1.0', unit: 'TB' });
 });
 
-describe('getLocationWithLowestPing', () => {
+it('getLocationWithLowestPing', () => {
     const locations = [{
         ping: 50,
         pingBonus: 0,

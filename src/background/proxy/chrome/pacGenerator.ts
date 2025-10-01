@@ -3,12 +3,15 @@ import { IPV4_REGEX } from '../../routability/constants';
 import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 
 /**
- * Generates PAC script for proxy considering exclusions list
+ * Generates PAC script for proxy considering exclusions list.
+ *
  * @param proxy
  * @param exclusionsList
  * @param inverted
  * @param defaultExclusions
  * @param nonRoutableNets
+ *
+ * @returns PAC script.
  */
 function proxyPacScript(
     proxy: string,
@@ -66,19 +69,22 @@ function proxyPacScript(
             }`;
 }
 
-function directPacScript() {
+function directPacScript(): string {
     return `function FindProxyForURL() {
         return 'DIRECT';
     }`;
 }
 
 /**
+ * Generates PAC script for proxy considering exclusions list.
  *
  * @param proxy
  * @param exclusionsList
  * @param inverted
  * @param defaultExclusions
  * @param nonRoutableCidrNets
+ *
+ * @returns PAC script.
  */
 const generate = (
     proxy: string,
@@ -86,7 +92,7 @@ const generate = (
     inverted = false,
     defaultExclusions: string[] = [],
     nonRoutableCidrNets: string[] = [],
-) => {
+): string => {
     if (!proxy) {
         return directPacScript();
     }

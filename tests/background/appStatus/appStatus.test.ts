@@ -1,3 +1,10 @@
+import {
+    vi,
+    describe,
+    it,
+    expect,
+} from 'vitest';
+
 import { AppStatus } from '../../../src/background/appStatus/AppStatus';
 import { LEVELS_OF_CONTROL } from '../../../src/background/proxy/proxyConsts';
 import type { ExtensionProxyInterface } from '../../../src/background/proxy/proxy';
@@ -17,9 +24,8 @@ const buildSettings = (proxyEnabled: boolean): SettingsInterface => {
         isProxyEnabled: () => {
             return proxyEnabled;
         },
-        // @ts-ignore - mock async method with jest.fn
-        disableProxy: jest.fn(() => {
-        }),
+        // @ts-ignore - mock async method with vi.fn
+        disableProxy: vi.fn(() => {}),
     };
 };
 

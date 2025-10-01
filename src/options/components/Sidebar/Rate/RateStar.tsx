@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import { Icon } from '../../../../common/components/Icons';
 
@@ -7,8 +7,8 @@ export interface RateStarProps {
     onChange: (value: number) => void;
 }
 
-export function RateStar({ value, onChange }: RateStarProps) {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+export function RateStar({ value, onChange }: RateStarProps): ReactElement {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { value } = e.target;
         const numberValue = parseInt(value, 10);
         if (!Number.isNaN(numberValue) && Number.isFinite(numberValue)) {

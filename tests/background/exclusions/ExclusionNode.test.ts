@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import { coveredBy, ExclusionNode, selectEffective } from '../../../src/background/exclusions/ExclusionNode';
 import { ExclusionState } from '../../../src/common/exclusionsConstants';
 
@@ -12,7 +14,7 @@ describe('ExclusionNode', () => {
         expect(exclusion!.state).toBe(ExclusionState.Enabled);
     });
 
-    describe('coveredBy', () => {
+    it('coveredBy', () => {
         expect(coveredBy('example.org', '*.org')).toBeTruthy();
         expect(coveredBy('test.example.org', '*.org')).toBeTruthy();
         expect(coveredBy('test.example.org', '*.example.org')).toBeTruthy();
@@ -21,7 +23,7 @@ describe('ExclusionNode', () => {
         expect(coveredBy('example.org', '*.example.org')).toBeFalsy();
     });
 
-    describe('selectEffective', () => {
+    it('selectEffective', () => {
         const nodes = [
             { hostname: 'example.org' },
             { hostname: '*.example.org' },

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { type ReactElement, useRef, useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -42,7 +42,7 @@ export function ControlsSelect<T extends string>({
     value,
     options,
     onChange,
-}: ControlsSelectProps<T>) {
+}: ControlsSelectProps<T>): ReactElement {
     const ref = useRef<HTMLDivElement>(null);
     const classes = classNames(
         'controls--select',
@@ -52,11 +52,11 @@ export function ControlsSelect<T extends string>({
 
     const [isActive, setIsActive] = useState(false);
 
-    const handleClick = () => {
+    const handleClick = (): void => {
         setIsActive((currentActive) => !currentActive);
     };
 
-    const handleOutsideClickOrFocus = () => {
+    const handleOutsideClickOrFocus = (): void => {
         setIsActive(false);
     };
 

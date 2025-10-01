@@ -1,23 +1,43 @@
 .free-gbs-task {
+    display: flex;
+    flex-direction: column;
+
+    &__back {
+        align-self: flex-start;
+    }
+
     &__image {
         width: 250px;
         height: 250px;
     }
 
     &__title {
-        @media (--mobile) {
+        .title__subtitle {
+            .add-device-description {
+                margin-bottom: 1.2em;
+            }
+        }
+
+        @media (--tablet) {
+            text-align: center;
+
             .title__text-start {
                 justify-content: center;
             }
 
             .title__subtitle {
                 text-align: center;
+                padding-right: 0;
             }
         }
     }
 
     &__content {
         padding: 0 16px;
+
+        @media (--mobile) {
+            width: 100%;
+        }
 
         .button {
             flex-shrink: 0;
@@ -29,8 +49,12 @@
         }
     }
 
-    &__go-back-btn {
+    &__upgrade-btn {
         margin-top: 16px;
+    }
+
+    @media (--tablet) {
+        align-items: center;
     }
 }
 

@@ -35,12 +35,12 @@ export class ExclusionsHandler {
         this.mode = mode;
     }
 
-    async onUpdate() {
+    async onUpdate(): Promise<void> {
         this.exclusionsIndex = ExclusionsHandler.buildExclusionsIndex(this.exclusions);
         await this.updateHandler();
     }
 
-    async setExclusions(exclusions: ExclusionInterface[]) {
+    async setExclusions(exclusions: ExclusionInterface[]): Promise<void> {
         this.exclusions = exclusions;
         await this.onUpdate();
     }
@@ -50,8 +50,11 @@ export class ExclusionsHandler {
     }
 
     /**
-     * Creates exclusions index for provided exclusions
+     * Creates exclusions index for provided exclusions.
+     *
      * @param exclusions
+     *
+     * @returns Exclusions index.
      */
     public static buildExclusionsIndex(exclusions: ExclusionInterface[])
         : IndexedExclusionsInterface {
@@ -77,8 +80,11 @@ export class ExclusionsHandler {
     }
 
     /**
-     * Adds prepared exclusions and returns amount of added
+     * Adds prepared exclusions and returns amount of added.
+     *
      * @param exclusionsToAdd
+     *
+     * @returns Promise with amount of added exclusions.
      */
     async addExclusions(exclusionsToAdd: AddExclusionArgs[]): Promise<number> {
         let addedCount = 0;
@@ -99,7 +105,7 @@ export class ExclusionsHandler {
         return addedCount;
     }
 
-    hasETld = (eTld: string) => {
+    hasETld = (eTld: string): boolean => {
         return !!this.exclusionsIndex[eTld];
     };
 
@@ -107,7 +113,7 @@ export class ExclusionsHandler {
      * Adds exclusion by provided url
      * @param url
      */
-    async addUrlToExclusions(url: string) {
+    async addUrlToExclusions(url: string): Promise<void> {
         const hostname = getHostname(url);
 
         if (!hostname) {
@@ -120,8 +126,11 @@ export class ExclusionsHandler {
     }
 
     /**
-     * Returns exclusions by provided hostname
+     * Gets exclusions by provided hostname.
+     *
      * @param hostname
+     *
+     * @returns Exclusion or undefined if not found.
      */
     getExclusionByHostname(hostname: string): ExclusionInterface | undefined {
         return this.exclusions
@@ -132,7 +141,7 @@ export class ExclusionsHandler {
      * Enables exclusion by provided id
      * @param id
      */
-    async enableExclusion(id: string) {
+    async enableExclusion(id: string): Promise<void> {
         this.exclusions = this.exclusions.map((ex) => {
             if (ex.id === id) {
                 return {
@@ -150,7 +159,7 @@ export class ExclusionsHandler {
      * Removes exclusions by provided ids
      * @param ids
      */
-    async removeExclusions(ids: string[]) {
+    async removeExclusions(ids: string[]): Promise<void> {
         this.exclusions = this.exclusions.filter((exclusion) => {
             return !ids.includes(exclusion.id);
         });
@@ -231,18 +240,21 @@ export class ExclusionsHandler {
     /**
      * Removes exclusions data
      */
-    async clearExclusionsData() {
+    async clearExclusionsData(): Promise<void> {
         this.exclusions = [];
 
         await this.onUpdate();
     }
 
     /**
-     * Returns exclusion by url
+     * Gets exclusion by url.
+     *
      * @param url
      * @param includeWildcards
+     *
+     * @returns Exclusions or undefined if not found.
      */
-    getExclusionsByUrl = (url: string, includeWildcards = true) => {
+    getExclusionsByUrl = (url: string, includeWildcards = true): ExclusionInterface[] | undefined => {
         const hostname = getHostname(url);
         if (!hostname) {
             return undefined;
@@ -253,8 +265,11 @@ export class ExclusionsHandler {
     };
 
     /**
-     * Checks provided url is excluded
+     * Checks provided url is excluded.
+     *
      * @param url
+     *
+     * @returns True if url is excluded, false otherwise.
      */
     isExcluded = (url: string): boolean => {
         if (!url) {

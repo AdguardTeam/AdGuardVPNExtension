@@ -31,7 +31,7 @@ export const ServiceCategory = observer(({
         return containsIgnoreCase(service.serviceName, exclusionsStore.servicesSearchValue);
     });
 
-    const handleClickOnCategory = () => {
+    const handleClickOnCategory = (): void => {
         exclusionsStore.toggleCategoryVisibility(category.id);
     };
 

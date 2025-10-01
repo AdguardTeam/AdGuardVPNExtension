@@ -20,7 +20,7 @@ interface ExclusionNodeProps {
     }
 }
 
-export const coveredBy = (current: string, target: string) => {
+export const coveredBy = (current: string, target: string): boolean => {
     if (!target.includes('*')) {
         return false;
     }
@@ -44,6 +44,8 @@ export const coveredBy = (current: string, target: string) => {
  * e.g. for the list [*.example.org, test.example.org] will be returned only [*.example.org],
  * as test.example.org is covered by *.example.org
  * @param nodes
+ *
+ * @returns Nodes which effect on the state of the parent.
  */
 export const selectEffective = <T extends { hostname: string }>(nodes: T[]): T[] => {
     let result = [...nodes];
@@ -96,7 +98,7 @@ export class ExclusionNode {
      * Adds child to exclusion node
      * @param child
      */
-    addChild(child: ExclusionNode) {
+    addChild(child: ExclusionNode): void {
         // eslint-disable-next-line no-param-reassign
         child.parentId = this.id;
         this.children.set(child.id, child);
@@ -105,7 +107,9 @@ export class ExclusionNode {
     }
 
     /**
-     * Calculates state of exclusion node according to children
+     * Calculates state of exclusion node according to children.
+     *
+     * @returns State of exclusion node.
      */
     calculateState(): ExclusionState {
         const children = [...this.children.values()];
@@ -152,7 +156,9 @@ export class ExclusionNode {
     }
 
     /**
-     * Returns leafs of current node, or node itself if it doesn't have children
+     * Gets all leaf nodes from the current node's subtree.
+     *
+     * @returns Leafs of current node, or node itself if it doesn't have children.
      */
     getLeafs(): ExclusionNode[] {
         const children = [...this.children.values()];
@@ -163,15 +169,20 @@ export class ExclusionNode {
     }
 
     /**
-     * Returns leafs ids of current node
+     * Gets IDs of all leaf nodes from the current node's subtree.
+     *
+     * @returns Leafs ids of current node.
      */
     getLeafsIds(): string[] {
         return this.getLeafs().map((exclusionNode) => exclusionNode.id);
     }
 
     /**
-     * Returns the list of exclusion's children ids
-     * @param id
+     * Gets leaf node IDs for a specific exclusion by its ID.
+     *
+     * @param id Exclusion ID to get path exclusions for.
+     *
+     * @returns The list of exclusion's children ids.
      */
     getPathExclusions(id: string): string[] {
         if (this.id === id) {
@@ -189,8 +200,11 @@ export class ExclusionNode {
     }
 
     /**
-     * Returns exclusion node by provided id
-     * @param id
+     * Finds and returns an exclusion node by its ID recursively.
+     *
+     * @param id Exclusion ID to search for.
+     *
+     * @returns Exclusion node by provided id.
      */
     getExclusionNode(id: string): ExclusionNode | null {
         if (this.id === id) {
@@ -214,8 +228,11 @@ export class ExclusionNode {
     }
 
     /**
-     * Returns parent exclusion node by provided id
-     * @param id
+     * Finds parent exclusion node by provided id.
+     *
+     * @param id Exclusion id.
+     *
+     * @returns Parent exclusion node by provided id.
      */
     getParentExclusionNode(id: string): ExclusionNode | null {
         const node = this.getExclusionNode(id);
@@ -226,8 +243,11 @@ export class ExclusionNode {
     }
 
     /**
-     * Returns state of exclusion node
+     * The state of an exclusion node by its id.
+     *
      * @param id
+     *
+     * @returns State of exclusion node or null if not found.
      */
     getExclusionNodeState(id: string): ExclusionState | null {
         const foundNode = this.getExclusionNode(id);

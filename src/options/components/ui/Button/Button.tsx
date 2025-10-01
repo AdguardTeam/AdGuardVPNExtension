@@ -1,4 +1,4 @@
-import React, { type PropsWithChildren } from 'react';
+import React, { type PropsWithChildren, type ReactElement } from 'react';
 
 import classNames from 'classnames';
 
@@ -71,7 +71,7 @@ export function Button({
     beforeIconName,
     children,
     onClick,
-}: ButtonProps) {
+}: ButtonProps): ReactElement {
     const classes = classNames(
         'button has-tab-focus',
         `button--${variant}`,

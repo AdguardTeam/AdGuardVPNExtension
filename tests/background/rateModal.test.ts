@@ -1,23 +1,32 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { ConnectivityEventType } from '../../src/background/connectivity/connectivityService';
 import { RateModal, RateModalStatus } from '../../src/background/rateModal/RateModal';
 import { ConnectivityStateType } from '../../src/background/schema';
 
 const mockStorage = {
-    get: jest.fn().mockResolvedValue({
+    get: vi.fn().mockResolvedValue({
         connections: 0,
         status: RateModalStatus.Initial,
     }),
-    set: jest.fn(),
+    set: vi.fn(),
 };
 
 const mockSettings = {
-    getSetting: jest.fn().mockReturnValue(true),
+    getSetting: vi.fn().mockReturnValue(true),
 };
 
 const mockNotifier = {
-    addSpecifiedListener: jest.fn().mockReturnValue('some-random-id'),
-    removeListener: jest.fn(),
-    notifyListeners: jest.fn(),
+    addSpecifiedListener: vi.fn().mockReturnValue('some-random-id'),
+    removeListener: vi.fn(),
+    notifyListeners: vi.fn(),
     types: {
         SETTING_UPDATED: 'event.setting.updated',
         SHOW_RATE_MODAL: 'event.rateModal.show',
@@ -39,7 +48,7 @@ describe('RateModal', () => {
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     describe('RateModal.initState', () => {

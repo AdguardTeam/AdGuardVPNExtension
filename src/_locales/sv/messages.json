@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "Får inte vara tom"
-    },
-    "registration_error_not_valid": {
-        "message": "Detta värde är ogiltigt"
-    },
-    "registration_error_min_length": {
-        "message": "Lösenordet är för kort. Den måste innehålla minst 8 tecken."
-    },
-    "registration_error_confirm_password": {
-        "message": "Lösenorden matchar inte"
-    },
-    "registration_error_compromised_password": {
-        "message": "Lösenordet som du skrev in finns i en <a>offentliga databas</a> för avslöjade lösenord. Var snäll och välj ett annat lösenord."
-    },
-    "registration_error_unique_constraint": {
-        "message": "Användarnamnet är redan taget"
-    },
-    "registration_error_default": {
-        "message": "Ett fel inträffade, försök igen senare"
-    },
-    "authentication_error_2fa_required": {
-        "message": "2FA krävs"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "Ogiltig kod"
-    },
-    "authentication_error_account_disabled": {
-        "message": "Kontot är inaktivt"
-    },
-    "authentication_error_account_locked": {
-        "message": "Kontot är låst i 15 minuter"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "Fel lösenord"
-    },
-    "authentication_too_many_requests": {
-        "message": "För många förfrågningar erhölls från din IP-adress. Vänligen försök igen senare."
-    },
-    "authentication_error_default": {
-        "message": "Ett fel uppstod, försök igen senare"
-    },
-    "global_error_message": {
-        "message": "Ett fel uppstod, kontakta oss via <a>%support_email%</a>"
-    },
     "about_title": {
         "message": "Om"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "Logga ut"
     },
+    "account_sign_out_question": {
+        "message": "Logga ut?"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "Avbryt"
+    },
+    "account_sign_out_description": {
+        "message": "Du kommer att loggas ut från ditt konto. VPN-skyddet kommer att stoppas"
+    },
     "account_unlimited_title": {
         "message": "Skaffa Unlimited-versionen!"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "Dölj"
-    },
-    "auth_confirm": {
-        "message": "Bekräfta"
-    },
-    "auth_email": {
-        "message": "E-postadress"
-    },
-    "auth_password": {
-        "message": "Lösenord"
-    },
-    "auth_your_password": {
-        "message": "Ditt lösenord"
-    },
-    "auth_password_confirm": {
-        "message": "Bekräfta lösenord"
-    },
-    "auth_recover": {
-        "message": "Glömt lösenord?"
-    },
-    "auth_sign_up": {
-        "message": "Registrera dig"
-    },
-    "auth_sign_up_info": {
-        "message": "Skapa ditt AdGuard-konto"
-    },
-    "auth_sign_up_button": {
-        "message": "Registrera dig"
-    },
-    "auth_sign_in": {
-        "message": "Ange ditt lösenord"
-    },
-    "auth_sign_in_button": {
-        "message": "Logga in"
-    },
-    "auth_title": {
-        "message": "Logga in eller skapa ett konto"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "E-postadress"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Fortsätt med e-postadress"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Fortsätt med Apple"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Fortsätt med Google"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Fortsätt med Facebook"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Loggar in som <span>%username%</span>"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "Tvåfaktorsautentisering"
-    },
-    "auth_header_2fa": {
-        "message": "Ange autentiseringskod"
-    },
-    "auth_placeholder_2fa": {
-        "message": "Autentiseringskod"
     },
     "official_website": {
         "message": "Officiell webbplats"
@@ -238,7 +139,7 @@
         "message": "Integritetspolicy"
     },
     "settings_general_title": {
-        "message": "Allmänt"
+        "message": "General"
     },
     "referral_get_free_traffic": {
         "message": "Få gratis GBs!"
@@ -836,9 +737,6 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Logga in eller skapa ett konto"
     },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "Fortsätt"
-    },
     "popup_newsletter_title": {
         "message": "AdGuard Nyhetsbrev"
     },
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Visa inte igen"
     },
-    "popup_stats_for_browser_title": {
-        "message": "Statistik för denna webbläsare"
+    "popup_stats": {
+        "message": "Statistik"
     },
     "popup_stats_disabled_notice": {
         "message": "Statistik är inaktiverade"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "Tid"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "Varför det är säkert"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "Varför det är säkert"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "Eftersom VPN-anslutningen är krypterad och säker kan ingen se din aktivitetsdata — vi beräknar bara din trafikanvändning"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "All statistik samlas in och lagras lokalt på din enhet. Vi har inte tillgång till dem"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Uppfattat"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "VPN anslutningshastigheten kommer snart att minskas."
     },
-    "confirm_email_title": {
-        "message": "Bekräfta din e-postadress"
-    },
-    "confirm_email_info": {
-        "message": "Vi har skickat en bekräftelsekod till <span>%email%</span>"
-    },
     "confirm_email_done_title": {
         "message": "E-postadress bekräftad"
     },
     "confirm_email_done_info": {
         "message": "Tack för att du bekräftade det!"
     },
-    "confirm_email_code_label": {
-        "message": "Bekräftelsekod"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "Innehåller siffror och bokstäver"
-    },
-    "confirm_email_code_invalid": {
-        "message": "Vänligen kontrollera koden — den ser felaktig ut"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "Skicka en annan kod (%count%)"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "Skicka ny kod"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "Det gick inte att logga in dig. Försök igen eller kontakta oss via <a>%support_email%</a>"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "Det gick inte att registrera dig. Försök igen eller kontakta oss via <a>%support_email%</a>"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "Bekräftelselänk skickad igen"
+    },
+    "auth_failed_to_login_title": {
+        "message": "Misslyckades med att logga in dig"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Försök igen eller <a>kontakta support</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Vänligen försök igen"
+    },
+    "auth_failed_to_login_button": {
+        "message": "Stäng"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Öppna inloggningssidan igen"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Avbryt"
     }
 }

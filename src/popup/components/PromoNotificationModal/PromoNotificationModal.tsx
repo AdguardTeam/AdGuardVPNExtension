@@ -10,7 +10,7 @@ import { rootStore } from '../../stores';
 import './promo-notification-modal.pcss';
 
 const PromoNotificationModal = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, authStore } = useContext(rootStore);
 
     const [showModal, setShowModal] = useState(true);
 
@@ -38,7 +38,13 @@ const PromoNotificationModal = observer(() => {
 
     const btnClickHandler = async (): Promise<void> => {
         await messenger.setNotificationViewed(false);
-        await popupActions.openTab(url);
+        const resUrl = new URL(url);
+        // Email is added here because notification's url is constructed during service worker startup
+        // and if user will sign in to another account then notification's url will not be updated. AG-45535
+        if (authStore.username) {
+            resUrl.searchParams.set('email', authStore.username);
+        }
+        await popupActions.openTab(resUrl.toString());
     };
 
     const onCloseHandler = async (): Promise<void> => {

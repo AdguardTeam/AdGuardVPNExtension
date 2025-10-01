@@ -6,13 +6,23 @@ import { sleep } from '../../common/helpers';
 
 import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 
+type PingMsgType = {
+    requestTime: number | null;
+    token: Uint8Array | null;
+    applicationId: Uint8Array | null;
+    ignoredHandshake: boolean | null;
+};
+
 /**
- * Prepares ping message before sending to the endpoint via websocket
+ * Prepares ping message before sending to the endpoint via websocket.
+ *
  * @param currentTime
  * @param vpnToken
  * @param appId
+ *
+ * @returns Ping message.
  */
-const preparePingMessage = (currentTime: number, vpnToken: string, appId: string) => {
+const preparePingMessage = (currentTime: number, vpnToken: string, appId: string): Uint8Array => {
     const pingMsg = WsPingMsg.create({
         requestTime: currentTime,
         token: stringToUint8Array(vpnToken),
@@ -23,16 +33,19 @@ const preparePingMessage = (currentTime: number, vpnToken: string, appId: string
     return WsConnectivityMsg.encode(protocolMsg).finish();
 };
 
-const decodeMessage = (arrBufMessage: ArrayBuffer) => {
+const decodeMessage = (arrBufMessage: ArrayBuffer): Record<string, unknown> => {
     const message = WsConnectivityMsg.decode(new Uint8Array(arrBufMessage));
     return WsConnectivityMsg.toObject(message);
 };
 
 /**
  * Sends ping message and returns latency
+ *
  * @param websocket
  * @param vpnToken
  * @param appId
+ *
+ * @returns Promise with latency in ms.
  */
 export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: string): Promise<number> => {
     const PING_TIMEOUT_MS = 3000;
@@ -50,10 +63,10 @@ export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: s
             reject(new Error('Ping poll timeout'));
         }, PING_TIMEOUT_MS);
 
-        const messageHandler = (event: MessageEvent) => {
+        const messageHandler = (event: MessageEvent): void => {
             const receivedTime = Date.now();
-            const { pingMsg } = decodeMessage(event.data);
-            if (pingMsg) {
+            const { pingMsg } = decodeMessage(event.data) as { pingMsg: PingMsgType };
+            if (pingMsg && pingMsg.requestTime) {
                 const { requestTime } = pingMsg;
                 const ping = receivedTime - requestTime;
                 if (ping > PING_TIMEOUT_MS) {
@@ -72,11 +85,14 @@ export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: s
 };
 
 /**
- * Makes fetch request with timeout and aborts it in the case of timeout
+ * Makes fetch request with timeout and aborts it in the case of timeout.
+ *
  * @param requestUrl
  * @param fetchTimeout
+ *
+ * @returns Promise with fetch response.
  */
-const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
+const fetchWithTimeout = (requestUrl: string, fetchTimeout: number): Promise<unknown> => {
     const RANDOM_PARAM_LENGTH = 6;
     // we add random search param to avoid caching
     const requestUrlWithRandomParams = `${requestUrl}?r=${nanoid(RANDOM_PARAM_LENGTH)}`;
@@ -87,7 +103,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     // used in order to clear timeout
     let timeoutId: ReturnType<typeof setTimeout>;
 
-    const fetchHandler = async () => {
+    const fetchHandler = async (): Promise<Response> => {
         try {
             const headers = new Headers();
             headers.append('Cache-Control', 'no-cache');
@@ -133,8 +149,11 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
 };
 
 /**
- * Determines ping to the endpoint
+ * Determines ping to the endpoint.
+ *
  * @param domainName
+ *
+ * @returns Promise with ping in ms or null if it's not available.
  */
 export const measurePingToEndpointViaFetch = async (domainName: string): Promise<number | null> => {
     const FETCH_TIMEOUT_MS = 3000;
@@ -174,7 +193,9 @@ const connectionsPool: string[] = [];
 
 /**
  * Determines ping to the endpoint using maximum of simultaneous connections
- * It checks if there is space in the pool and if there is, it creates new connection
+ * It checks if there is space in the pool and if there is, it creates new connection.
+ *
+ * @returns Promise with ping in ms or null if it's not available.
  */
 export const measurePingWithinLimits = async (
     domainName: string,

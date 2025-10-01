@@ -1,4 +1,4 @@
-import React, { type PropsWithChildren } from 'react';
+import React, { type PropsWithChildren, type ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { type SidebarLinkItemClickActionNames } from '../../../background/telemetry/telemetryEnums';
@@ -45,8 +45,8 @@ export function SidebarLink({
     children,
     telemetryActionName,
     onClick,
-}: SidebarLinkProps) {
-    const handleClick = () => {
+}: SidebarLinkProps): ReactElement {
+    const handleClick = (): void => {
         onClick(telemetryActionName);
     };
 

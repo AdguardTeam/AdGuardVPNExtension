@@ -1,17 +1,19 @@
+import {
+    vi,
+    describe,
+    beforeEach,
+    afterEach,
+    it,
+    expect,
+} from 'vitest';
+
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
 import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
+import { exclusionsManager } from '../../../src/background/exclusions/exclusions/ExclusionsManager';
 import { proxy } from '../../../src/background/proxy';
-import { stateStorage } from '../../../src/background/stateStorage';
 
-jest.mock('../../../src/background/browserApi', () => {
-    // eslint-disable-next-line global-require
-    return require('../../__mocks__/browserApiMock');
-});
-
-jest.mock('../../../src/common/logger.ts');
-
-jest.mock('../../../src/background/settings', () => {
+vi.mock('../../../src/background/settings', () => {
     return {
         __esModule: true,
         settings: {
@@ -23,7 +25,7 @@ jest.mock('../../../src/background/settings', () => {
     };
 });
 
-jest.mock('../../../src/background/api/fallbackApi', () => {
+vi.mock('../../../src/background/api/fallbackApi', () => {
     return {
         __esModule: true,
         fallbackApi: {
@@ -34,14 +36,11 @@ jest.mock('../../../src/background/api/fallbackApi', () => {
     };
 });
 
-jest.mock('../../../src/background/providers/vpnProvider', () => {
+vi.mock('../../../src/background/providers/vpnProvider', () => {
     return {
         __esModule: true,
         vpnProvider: {
-            getExclusionsServices: async () => Promise.resolve({
-                services: {},
-                categories: {},
-            }),
+            getExclusionsServices: async () => Promise.resolve({}),
             getExclusionsServicesDomains: async () => Promise.resolve({}),
         },
     };
@@ -62,33 +61,35 @@ const SERVICE_DATA = {
     ],
 };
 
-const getServicesDtoMock = jest.fn();
+const getServicesDtoMock = vi.fn();
 servicesManager.getServicesDto = getServicesDtoMock;
-getServicesDtoMock.mockReturnValue([SERVICE_DATA]);
+getServicesDtoMock.mockResolvedValue([SERVICE_DATA]);
 
-const getServiceMock = jest.fn();
+const getServiceMock = vi.fn();
 servicesManager.getService = getServiceMock;
-getServiceMock.mockReturnValue(SERVICE_DATA);
+getServiceMock.mockResolvedValue(SERVICE_DATA);
 
-const getServicesMock = jest.fn();
+const getServicesMock = vi.fn();
 servicesManager.getServices = getServicesMock;
-getServicesMock.mockReturnValue({ aliexpress: SERVICE_DATA });
+getServicesMock.mockResolvedValue({ aliexpress: SERVICE_DATA });
 
-const getIndexedServicesMock = jest.fn();
+const getIndexedServicesMock = vi.fn();
 servicesManager.getIndexedServices = getIndexedServicesMock;
-getIndexedServicesMock.mockReturnValue({
+getIndexedServicesMock.mockResolvedValue({
     'aliexpress.com': 'aliexpress',
     'aliexpress.ru': 'aliexpress',
 });
 
 describe('ExclusionsService', () => {
     beforeEach(async () => {
-        await stateStorage.init();
         await proxy.init();
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
+
+        // @ts-expect-error - accessing private property for test purposes
+        exclusionsManager.initPromise = null;
     });
 
     it('empty after init', async () => {
@@ -97,7 +98,7 @@ describe('ExclusionsService', () => {
 
         const exclusionsData = exclusionsService.getExclusions();
         expect(exclusionsData.children).toHaveLength(0);
-        expect(exclusionsService.getMode()).toBeTruthy();
+        expect(await exclusionsService.getMode()).toBeTruthy();
     });
 
     it('returns true if domains are not excluded ', async () => {
@@ -209,7 +210,7 @@ describe('ExclusionsService', () => {
         const exclusionsService = new ExclusionsService();
         await exclusionsService.init();
         await exclusionsService.setMode(ExclusionsMode.Regular);
-        expect(exclusionsService.getMode()).toBeTruthy();
+        expect(await exclusionsService.getMode()).toBeTruthy();
 
         await exclusionsService.addUrlToExclusions('https://сайт.рф/');
         await expect(exclusionsService.isVpnEnabledByUrl('https://xn--80aswg.xn--p1ai/')).resolves.toBeFalsy();

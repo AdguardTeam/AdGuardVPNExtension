@@ -1,4 +1,4 @@
-import React, { type ReactNode } from 'react';
+import React, { type ReactElement, type ReactNode } from 'react';
 
 import classnames from 'classnames';
 
@@ -8,7 +8,7 @@ type OptionProps = {
     addClassName: string | null,
 };
 
-export const Option = ({ handler, text, addClassName }: OptionProps) => {
+export const Option = ({ handler, text, addClassName }: OptionProps): ReactElement => {
     const optionClasses = classnames(
         'button button--inline extra-options__item',
         { [`${addClassName}`]: !!addClassName },

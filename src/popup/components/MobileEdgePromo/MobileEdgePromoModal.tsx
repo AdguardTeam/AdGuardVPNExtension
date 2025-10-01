@@ -20,7 +20,7 @@ export const MobileEdgePromoModal = observer(() => {
     /**
      * Closes the mobile Edge promo modal.
      */
-    const handleCloseModal = () => {
+    const handleCloseModal = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.DeclineAndroidPromoClick,
             TelemetryScreenName.HomeScreen,
@@ -31,7 +31,7 @@ export const MobileEdgePromoModal = observer(() => {
     /**
      * Handles the click on the "Got it" button — just closes the modal.
      */
-    const handleGotItClick = () => {
+    const handleGotItClick = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.GotItAndroidPromoClick,
             TelemetryScreenName.HomeScreen,
@@ -43,7 +43,7 @@ export const MobileEdgePromoModal = observer(() => {
      * Handles the click on the "Do not show again" button —
      * closes the modal and hides the mobile Edge promo banner.
      */
-    const handleDoNotShowAgainClick = async () => {
+    const handleDoNotShowAgainClick = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.DontShowAndroidPromoClick,
             TelemetryScreenName.HomeScreen,

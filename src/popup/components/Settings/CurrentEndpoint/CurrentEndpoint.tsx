@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import classnames from 'classnames';
@@ -27,7 +27,7 @@ export const CurrentEndpoint = observer(() => {
 
     const { isConnected } = settingsStore;
 
-    const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const clickHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         uiStore.openLocationsScreen();
     };
@@ -36,7 +36,7 @@ export const CurrentEndpoint = observer(() => {
 
     const flagClass = classnames('endpoint__flag', { 'endpoint__flag--active': isConnected });
 
-    const renderPing = () => {
+    const renderPing = (): ReactElement => {
         if (selectedLocationPing) {
             return (
                 <Ping
@@ -87,61 +87,3 @@ export const CurrentEndpoint = observer(() => {
         </div>
     );
 });
-
-export interface CurrentEndpointScreenShotProps {
-    /**
-     * Two letter country code, case insensitive, example: "DE".
-     * Used to display flag image.
-     * To see available list of countries, check `src/assets/images/flags` directory.
-     */
-    countryCode: string;
-
-    /**
-     * Country name, example: "Germany".
-     */
-    countryName: string;
-
-    /**
-     * City name, example: "Berlin".
-     */
-    cityName: string;
-}
-
-/**
- * Component is used as part of the ScreenShot component
- * to render the CurrentEndpoint as static non-interactive element.
- *
- * See `ScreenShot.tsx` for more details.
- */
-export const CurrentEndpointScreenShot = ({
-    countryCode,
-    countryName,
-    cityName,
-}: CurrentEndpointScreenShotProps) => (
-    <div className="endpoint__current">
-        <button type="button" className="endpoint">
-            <div className="endpoint__info">
-                <div className="endpoint__flag" style={getFlagIconStyle(countryCode)} />
-                <div className="endpoint__location-container">
-                    <div className="endpoint__location-name endpoint__title">
-                        {countryName}
-                    </div>
-                    <div className="endpoint__location-name endpoint__desc">
-                        {cityName}
-                    </div>
-                </div>
-            </div>
-            <div className="endpoint__ping-container">
-                <div>
-                    <div className="ping">—</div>
-                </div>
-                <Icon
-                    name="arrow-down"
-                    color="gray"
-                    rotation="clockwise"
-                    className="arrow-icon"
-                />
-            </div>
-        </button>
-    </div>
-);

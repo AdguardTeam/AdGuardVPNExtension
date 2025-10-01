@@ -19,13 +19,14 @@ import { messenger } from '../../common/messenger';
 import { log } from '../../common/logger';
 import type { DnsServerData } from '../../background/schema';
 import { type CustomDnsData } from '../hooks/useQueryStringData';
+import type { ExclusionsData, ServiceDto } from '../../common/exclusionsConstants';
 
 import type { RootStore } from './RootStore';
 import { RequestStatus } from './consts';
 
-interface OptionsData {
+export interface OptionsData {
     appVersion: string;
-    username: string;
+    username: string | null;
     forwarderDomain: string;
     isRateVisible: boolean;
     isPremiumFeaturesShow: boolean;
@@ -35,7 +36,13 @@ interface OptionsData {
     dnsServer: string;
     appearanceTheme: AppearanceTheme;
     isPremiumToken: boolean;
-    subscriptionType: SubscriptionType;
+    exclusionsData: ExclusionsData;
+    servicesData: ServiceDto[];
+    isAuthenticated: boolean;
+    isAllExclusionsListsEmpty: boolean;
+    maxDevicesCount?: number;
+    pageId: string | null;
+    subscriptionType: SubscriptionType | null;
     subscriptionTimeExpiresIso: string | null;
     customDnsServers: DnsServerData[];
     quickConnectSetting: QuickConnectSetting;
@@ -50,7 +57,7 @@ export class SettingsStore {
 
     @observable appVersion: string;
 
-    @observable currentUsername: string;
+    @observable currentUsername: string | null;
 
     @observable forwarderDomain: string;
 
@@ -70,16 +77,14 @@ export class SettingsStore {
 
     @observable isHelpUsImproveModalOpen = false;
 
+    @observable isSignOutModalOpen = false;
+
     @observable customDnsServers: DnsServerData[] = [];
 
     @observable invitesBonuses = {
         inviteUrl: '',
         invitesCount: 0,
         maxInvitesCount: 0,
-    };
-
-    @observable confirmBonus = {
-        available: false,
     };
 
     @observable multiplatformBonus = {
@@ -209,7 +214,7 @@ export class SettingsStore {
             return;
         }
 
-        const { invitesBonuses, confirmBonus, multiplatformBonus } = bonusesData;
+        const { invitesBonuses, multiplatformBonus } = bonusesData;
 
         runInAction(() => {
             this.invitesBonuses = {
@@ -217,7 +222,6 @@ export class SettingsStore {
                 invitesCount: invitesBonuses.invitesCount,
                 maxInvitesCount: invitesBonuses.maxInvitesCount,
             };
-            this.confirmBonus.available = confirmBonus.available;
             this.multiplatformBonus.available = multiplatformBonus.available;
             this.bonusesDataRequestStatus = RequestStatus.Done;
         });
@@ -269,7 +273,7 @@ export class SettingsStore {
         }
     };
 
-    @action restoreCustomDnsServersData = async () => {
+    @action restoreCustomDnsServersData = async (): Promise<void> => {
         const customDnsServersData = await messenger.restoreCustomDnsServersData();
         runInAction(() => {
             this.customDnsServers = customDnsServersData;
@@ -301,6 +305,14 @@ export class SettingsStore {
         this.isHelpUsImproveModalOpen = false;
     };
 
+    @action openSignOutModal = (): void => {
+        this.isSignOutModalOpen = true;
+    };
+
+    @action closeSignOutModal = (): void => {
+        this.isSignOutModalOpen = false;
+    };
+
     /**
      * Handles custom dns data send after user clicked to the custom url
      */
@@ -323,15 +335,11 @@ export class SettingsStore {
         return null;
     }
 
-    @action resendConfirmationLink = async (): Promise<void> => {
-        await messenger.resendConfirmRegistrationLink(false);
-    };
-
-    @action setShowBugReporter = (value: boolean) => {
+    @action setShowBugReporter = (value: boolean): void => {
         this.showBugReporter = value;
     };
 
-    @action setShowDnsSettings = (value: boolean) => {
+    @action setShowDnsSettings = (value: boolean): void => {
         this.showDnsSettings = value;
     };
 
@@ -339,7 +347,7 @@ export class SettingsStore {
      * Hides components rendered on separate screens without routing:
      * DNS settings and Bug Reporter
      */
-    @action closeSubComponents = () => {
+    @action closeSubComponents = (): void => {
         this.setShowBugReporter(false);
         this.setShowDnsSettings(false);
     };
@@ -351,27 +359,23 @@ export class SettingsStore {
         });
     };
 
-    @computed get invitesQuestCompleted() {
+    @computed get invitesQuestCompleted(): boolean {
         return this.invitesBonuses.invitesCount >= this.invitesBonuses.maxInvitesCount;
     }
 
-    @computed get confirmEmailQuestCompleted() {
-        return !this.confirmBonus.available;
-    }
-
-    @computed get addDeviceQuestCompleted() {
+    @computed get addDeviceQuestCompleted(): boolean {
         return !this.multiplatformBonus.available;
     }
 
-    @computed get allQuestsCompleted() {
-        return this.invitesQuestCompleted && this.confirmEmailQuestCompleted && this.addDeviceQuestCompleted;
+    @computed get allQuestsCompleted(): boolean {
+        return this.invitesQuestCompleted && this.addDeviceQuestCompleted;
     }
 
-    @action setDnsServerName = (name: string) => {
+    @action setDnsServerName = (name: string): void => {
         this.dnsServerName = name;
     };
 
-    @action setDnsServerAddress = (address: string) => {
+    @action setDnsServerAddress = (address: string): void => {
         this.dnsServerAddress = address;
     };
 }

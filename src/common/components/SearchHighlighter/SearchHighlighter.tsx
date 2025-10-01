@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import cn from 'classnames';
 import { nanoid } from 'nanoid';
@@ -12,8 +12,8 @@ interface SearchHighlighterProps {
     search: string,
 }
 
-export const SearchHighlighter = ({ value, search }: SearchHighlighterProps) => {
-    const renderStr = () => {
+export const SearchHighlighter = ({ value, search }: SearchHighlighterProps): ReactElement => {
+    const renderStr = (): ReactElement[] => {
         const chunks = findChunks(value, search);
 
         return chunks.map((chunk) => {

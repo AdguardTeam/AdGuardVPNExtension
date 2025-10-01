@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
@@ -8,7 +8,7 @@ import newsletterImageUrl from '../../../../assets/images/newsletter.svg';
 
 import './newsletter.pcss';
 
-export const Newsletter = () => {
+export const Newsletter = (): ReactElement => {
     const { authStore, telemetryStore } = useContext(rootStore);
 
     useTelemetryPageViewEvent(
@@ -26,7 +26,7 @@ export const Newsletter = () => {
             TelemetryScreenName.NewsletterScreen,
         );
 
-        await authStore.setMarketingConsent(value);
+        await authStore.updateMarketingConsent(value);
     };
 
     return (

@@ -15,7 +15,7 @@ import { clearFromWrappingQuotes } from '../../common/utils/string';
 import { log } from '../../common/logger';
 import { fetchConfig } from '../../common/fetch-config';
 import { getErrorMessage } from '../../common/utils/error';
-import { stateStorage } from '../stateStorage';
+import { StateData } from '../stateStorage';
 import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
 import { type FallbackInfo, StorageKey } from '../schema';
@@ -41,7 +41,8 @@ export const DOHPUB_DOH_URL = `${DOHPUB_DOH_HOSTNAME}/dns-query`;
 const QUAD9_DOH_HOSTNAME = 'dns11.quad9.net';
 export const QUAD9_DOH_URL = `${QUAD9_DOH_HOSTNAME}/dns-query`;
 
-const stageSuffix = STAGE_ENV === 'test' ? '-dev' : '';
+const isTestStage = STAGE_ENV === 'test';
+const stageSuffix = isTestStage ? '-dev' : '';
 const BKP_API_HOSTNAME_PART = `bkp-api${stageSuffix}.adguard-vpn.online`;
 const BKP_AUTH_HOSTNAME_PART = `bkp-auth${stageSuffix}.adguard-vpn.online`;
 
@@ -73,6 +74,13 @@ export class FallbackApi {
     static DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
     /**
+     * Fallback API state data.
+     * Used to save and retrieve fallback info state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private fallbackInfoState = new StateData(StorageKey.FallbackInfo);
+
+    /**
      * Default urls we set already expired,
      * so we need to check bkp url immediately when bkp url is required
      */
@@ -85,16 +93,9 @@ export class FallbackApi {
         };
     }
 
-    private get fallbackInfo(): FallbackInfo {
-        return stateStorage.getItem(StorageKey.FallbackInfo);
-    }
-
-    private set fallbackInfo(value: FallbackInfo) {
-        stateStorage.setItem(StorageKey.FallbackInfo, value);
-    }
-
     public async init(): Promise<void> {
-        if (!this.fallbackInfo) {
+        const fallbackInfo = await this.fallbackInfoState.get();
+        if (!fallbackInfo) {
             await this.updateFallbackInfo();
         }
     }
@@ -106,36 +107,48 @@ export class FallbackApi {
     /**
      * Updates the fallback info.
      * If backup urls are not received, the default fallback info is set.
+     *
+     * @returns Updated fallback info or `null` if no update was made.
      */
-    private async updateFallbackInfo(): Promise<void> {
+    private async updateFallbackInfo(): Promise<FallbackInfo | null> {
+        const currentFallbackInfo = await this.fallbackInfoState.get();
         const [bkpVpnApiUrl, bkpAuthApiUrl] = await Promise.all([
             this.getBkpVpnApiUrl(),
             this.getBkpAuthApiUrl(),
         ]);
 
+        let updatedFallbackInfo: FallbackInfo | null = null;
         if (bkpVpnApiUrl && bkpAuthApiUrl) {
-            this.fallbackInfo = {
+            updatedFallbackInfo = {
                 vpnApiUrl: bkpVpnApiUrl,
                 authApiUrl: bkpAuthApiUrl,
                 // use received vpn api url as forwarder api url
                 forwarderApiUrl: bkpVpnApiUrl,
                 expiresInMs: Date.now() + FallbackApi.DEFAULT_CACHE_EXPIRE_TIME_MS,
             };
-        } else if (!this.fallbackInfo) {
+        } else if (!currentFallbackInfo) {
             // set default fallback info if bkp urls are not received and fallback info is not set
-            this.fallbackInfo = this.defaultFallbackInfo;
+            updatedFallbackInfo = this.defaultFallbackInfo;
         }
+
+        if (updatedFallbackInfo) {
+            await this.fallbackInfoState.set(updatedFallbackInfo);
+        }
+
+        return updatedFallbackInfo;
     }
 
     private async getFallbackInfo(): Promise<FallbackInfo> {
-        if (this.fallbackInfo && FallbackApi.needsUpdate(this.fallbackInfo)) {
-            await this.updateFallbackInfo();
-            if (this.fallbackInfo) {
-                return this.fallbackInfo;
+        const currentFallbackInfo = await this.fallbackInfoState.get();
+
+        if (currentFallbackInfo && FallbackApi.needsUpdate(currentFallbackInfo)) {
+            const updateFallbackInfo = await this.updateFallbackInfo();
+            if (updateFallbackInfo) {
+                return updateFallbackInfo;
             }
         }
 
-        return this.fallbackInfo || this.defaultFallbackInfo;
+        return currentFallbackInfo || this.defaultFallbackInfo;
     }
 
     public getVpnApiUrl = async (): Promise<string> => {
@@ -161,16 +174,6 @@ export class FallbackApi {
     public getAuthApiUrl = async (): Promise<string> => {
         const fallbackInfo = await this.getFallbackInfo();
         return fallbackInfo.authApiUrl;
-    };
-
-    public getAuthBaseUrl = async (): Promise<string> => {
-        const authApiUrl = await this.getAuthApiUrl();
-        return `${authApiUrl}/oauth/authorize`;
-    };
-
-    public getAuthRedirectUri = async (): Promise<string> => {
-        const authApiUrl = await this.getAuthApiUrl();
-        return `${authApiUrl}/oauth.html?adguard-vpn=1`;
     };
 
     public getAccountApiUrl = async (): Promise<string> => {
@@ -293,6 +296,8 @@ export class FallbackApi {
      *
      * @param fn Function to call.
      *
+     * @returns Promise that resolves with the string result from the executed function.
+     *
      * @throws Re-throws the error caught in the function.
      */
     private async debugErrors(fn: () => Promise<string>): Promise<string> {
@@ -330,7 +335,6 @@ export class FallbackApi {
             ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
         } catch (e) {
-            log.error(e);
             bkpUrl = null;
         }
 
@@ -354,7 +358,12 @@ export class FallbackApi {
         return `${WHOAMI_VERSION}.${APPLICATION_TYPE}.${applicationVersion}`;
     };
 
-    getApiHostnamePrefix = async () => {
+    /**
+     * Gets prefix for api hostname in format: `<base_prefix>.<user_type>`
+     *
+     * @returns prefix for api hostname in format: `<base_prefix>.<user_type>`
+     */
+    getApiHostnamePrefix = async (): Promise<string> => {
         const basePrefix = this.getBasePrefix();
 
         const isAuthenticated = await authService.isAuthenticated();
@@ -378,6 +387,10 @@ export class FallbackApi {
      * OR null if fetching failed.
      */
     getBkpVpnApiUrl = async (): Promise<string | null> => {
+        if (isTestStage) {
+            return this.defaultFallbackInfo.vpnApiUrl;
+        }
+
         const prefix = await this.getApiHostnamePrefix();
         // we use prefix for api hostname to recognize free, premium and not authenticated users
         const hostname = `${prefix}.${BKP_API_HOSTNAME_PART}`;
@@ -388,7 +401,11 @@ export class FallbackApi {
         return bkpApiUrl;
     };
 
-    getBkpAuthApiUrl = async () => {
+    getBkpAuthApiUrl = async (): Promise<string | null> => {
+        if (isTestStage) {
+            return this.defaultFallbackInfo.authApiUrl;
+        }
+
         const prefix = await this.getApiHostnamePrefix();
         // we use prefix for auth api hostname to recognize free, premium and not authenticated users
         const hostname = `${prefix}.${BKP_AUTH_HOSTNAME_PART}`;
@@ -401,5 +418,7 @@ export class FallbackApi {
         return bkpAuthUrl;
     };
 }
+
+export type FallbackApiInterface = InstanceType<typeof FallbackApi>;
 
 export const fallbackApi = new FallbackApi(VPN_API_URL, AUTH_API_URL, FORWARDER_DOMAIN);

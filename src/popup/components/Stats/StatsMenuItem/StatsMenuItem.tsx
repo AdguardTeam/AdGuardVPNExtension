@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { type ReactElement, useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
@@ -40,7 +40,7 @@ export const StatsMenuItem = observer(() => {
         updateStatistics(true);
     }, []);
 
-    const handleClick = () => {
+    const handleClick = (): void => {
         closeOptionsModal();
 
         if (!isPremiumToken) {
@@ -58,7 +58,7 @@ export const StatsMenuItem = observer(() => {
         }
     };
 
-    const renderSecondaryBlock = () => {
+    const renderSecondaryBlock = (): ReactElement => {
         if (isStatisticsLoading) {
             return (
                 <div className="stats-menu-item__loader">

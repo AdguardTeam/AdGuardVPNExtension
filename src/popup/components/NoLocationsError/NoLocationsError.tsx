@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 
 import { reactTranslator } from '../../../common/reactTranslator';
 import { isLocationsNumberAcceptable } from '../../../common/is-locations-number-acceptable';
@@ -9,7 +9,7 @@ import { SkeletonEndpoint } from '../ui/SkeletonEndpoint';
 
 import './no-locations-error.pcss';
 
-export const NoLocationsError = () => {
+export const NoLocationsError = (): ReactElement => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
     const handleSearchAgain = async (): Promise<void> => {

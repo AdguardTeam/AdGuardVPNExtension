@@ -12,7 +12,7 @@ const UNAVAILABLE_LOCATIONS_THRESHOLD_PERCENTAGE = 30;
  *
  * @returns Percentage of unavailable locations.
  */
-const getUnavailableLocationsPercentage = (locations: LocationWithPing[]) => {
+const getUnavailableLocationsPercentage = (locations: LocationWithPing[]): number => {
     const unavailableLocations = locations.filter((location) => !location.available);
     return (unavailableLocations.length / locations.length) * 100;
 };
@@ -25,7 +25,7 @@ const getUnavailableLocationsPercentage = (locations: LocationWithPing[]) => {
  *
  * @returns True if number of locations is acceptable, otherwise false.
  */
-export const isLocationsNumberAcceptable = (locations: LocationWithPing[]) => {
+export const isLocationsNumberAcceptable = (locations: LocationWithPing[]): boolean => {
     return typeof locations === 'undefined'
         || locations.length === 0
         || getUnavailableLocationsPercentage(locations) >= UNAVAILABLE_LOCATIONS_THRESHOLD_PERCENTAGE;

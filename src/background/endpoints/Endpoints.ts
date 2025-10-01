@@ -18,7 +18,6 @@ import {
     type EndpointInterface,
     type VpnTokenData,
     type CredentialsDataInterface,
-    type EndpointsState,
     type LocationInterface,
     StorageKey,
 } from '../schema';
@@ -27,7 +26,7 @@ import { settings } from '../settings';
 import { QuickConnectSetting } from '../../common/constants';
 import { forwarder } from '../forwarder';
 import { FORWARDER_URL_QUERIES } from '../config';
-import { stateStorage } from '../stateStorage';
+import { StateData } from '../stateStorage';
 
 import { locationsService } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
@@ -59,41 +58,21 @@ export interface EndpointsInterface {
     refreshData(): Promise<void>;
     getVpnInfo(): Promise<VpnExtensionInfoInterface | null>;
     getSelectedLocation(): Promise<LocationWithPing | null>;
-    getLocations(): LocationWithPing[];
+    getLocations(): Promise<LocationWithPing[]>;
     getVpnFailurePage(): Promise<string>;
-    init(): void;
+    init(): Promise<void>;
 }
 
 /**
  * Endpoints manages endpoints, vpn, current location information.
  */
 class Endpoints implements EndpointsInterface {
-    #state: EndpointsState | undefined;
-
-    private get isInit(): boolean {
-        return typeof this.#state !== 'undefined';
-    }
-
-    private get vpnInfo(): VpnExtensionInfoInterface | null {
-        return this.state.vpnInfo;
-    }
-
-    private set vpnInfo(vpnInfo: VpnExtensionInfoInterface | null) {
-        this.state.vpnInfo = vpnInfo;
-        stateStorage.setItem(StorageKey.Endpoints, this.state);
-    }
-
-    public get state(): EndpointsState {
-        if (!this.#state) {
-            throw new Error('Endpoints API is not initialized');
-        }
-
-        return this.#state;
-    }
-
-    public set state(value: EndpointsState) {
-        this.#state = value;
-    }
+    /**
+     * Endpoints service state data.
+     * Used to save and retrieve endpoints state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private endpointsState = new StateData(StorageKey.Endpoints);
 
     constructor() {
         this.refreshData = this.refreshData.bind(this);
@@ -117,10 +96,11 @@ class Endpoints implements EndpointsInterface {
     };
 
     /**
-     * Returns closest endpoint, firstly checking if locations object includes
-     * endpoint with same city name
+     * Endpoint with same city name.
      * @param locations - locations list
      * @param targetLocation
+     *
+     * @returns Closest endpoint, firstly checking if locations object includes endpoint with same city name.
      */
     getClosestLocation = (
         locations: LocationInterface[],
@@ -141,7 +121,7 @@ class Endpoints implements EndpointsInterface {
      * Updates selected location and reconnect to endpoint if it was updated as well
      */
     async updateSelectedLocation(): Promise<void> {
-        const updatedLocation = locationsService.updateSelectedLocation();
+        const updatedLocation = await locationsService.updateSelectedLocation();
         // reconnect to endpoint if selected location was updated
         if (connectivityService.isVPNConnected() && updatedLocation?.endpoint) {
             await this.reconnectEndpoint(updatedLocation.endpoint, updatedLocation);
@@ -150,6 +130,8 @@ class Endpoints implements EndpointsInterface {
 
     /**
      * Gets endpoints remotely and updates them if there were no errors
+     *
+     * @returns Promise with locations list or null if there were errors.
      */
     getLocationsFromServer = async (): Promise<Location[] | null> => {
         let vpnToken;
@@ -176,6 +158,8 @@ class Endpoints implements EndpointsInterface {
 
     /**
      * Updates vpn tokens and credentials
+     *
+     * @returns Promise with vpn token and credentials.
      */
     refreshTokens = async (): Promise<{
         vpnToken: VpnTokenData,
@@ -201,16 +185,19 @@ class Endpoints implements EndpointsInterface {
             const { vpnToken } = await this.refreshTokens();
             const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken.token);
             await this.updateLocations(true);
-            this.vpnInfo = vpnInfo;
+            await this.endpointsState.update({ vpnInfo });
         } catch (e) {
             log.debug(e.message);
         }
     };
 
     /**
-     * Returns list of locations which fit to token
+     * Filters locations based on token type (premium or free).
+     *
      * @param locations
      * @param isPremiumToken
+     *
+     * @returns List of locations which fit to token.
      */
     filterLocationsMatchingToken = (
         locations: LocationInterface[],
@@ -253,7 +240,7 @@ class Endpoints implements EndpointsInterface {
         }
 
         // check endpoints top level domains and add them to the exclusions if necessary
-        this.updateEndpointsExclusions(locations);
+        await this.updateEndpointsExclusions(locations);
 
         const currentLocation = await locationsService.getSelectedLocation();
         const isPremiumToken = await credentials.isPremiumToken();
@@ -340,12 +327,12 @@ class Endpoints implements EndpointsInterface {
         await this.updateLocations(shouldReconnect);
 
         // Save vpn info in the memory
-        this.vpnInfo = vpnInfo;
+        await this.endpointsState.update({ vpnInfo });
 
         // update vpn info on popup
-        notifier.notifyListeners(notifier.types.VPN_INFO_UPDATED, this.vpnInfo);
+        notifier.notifyListeners(notifier.types.VPN_INFO_UPDATED, vpnInfo);
 
-        return this.vpnInfo;
+        return vpnInfo;
     };
 
     /**
@@ -357,36 +344,38 @@ class Endpoints implements EndpointsInterface {
      * @returns Cached vpn info or `null` if there was an error.
      */
     getVpnInfo = async (): Promise<VpnExtensionInfoInterface | null> => {
+        const { vpnInfo } = await this.endpointsState.get();
+
         // We check isInit first, because the vpnInfo getter
         // will throw an error if the service is not initialized.
-        if (this.isInit && this.vpnInfo) {
+        if (vpnInfo) {
             // no await here in order to return cached vpnInfo
             // and launch function with promise execution
             this.getVpnInfoRemotely().catch((e) => {
                 log.debug(e);
             });
-            return this.vpnInfo;
+            return vpnInfo;
         }
 
-        let vpnInfo: VpnExtensionInfoInterface | null | undefined;
+        let remoteVpnInfo: VpnExtensionInfoInterface | null | undefined;
 
         try {
-            vpnInfo = await this.getVpnInfoRemotely();
+            remoteVpnInfo = await this.getVpnInfoRemotely();
         } catch (e) {
             log.error(e);
         }
 
-        if (!vpnInfo) {
+        if (!remoteVpnInfo) {
             return null;
         }
 
-        this.vpnInfo = vpnInfo;
+        await this.endpointsState.update({ vpnInfo: remoteVpnInfo });
 
-        return this.vpnInfo;
+        return remoteVpnInfo;
     };
 
-    getLocations = (): LocationWithPing[] => {
-        const locations = locationsService.getLocationsWithPing();
+    getLocations = async (): Promise<LocationWithPing[]> => {
+        const locations = await locationsService.getLocationsWithPing();
         return locations;
     };
 
@@ -404,7 +393,7 @@ class Endpoints implements EndpointsInterface {
             return new LocationWithPing(selectedLocation);
         }
 
-        const locations = locationsService.getLocations();
+        const locations = await locationsService.getLocations();
 
         if (isEmpty(locations)) {
             return null;
@@ -458,14 +447,16 @@ class Endpoints implements EndpointsInterface {
 
         // if no endpoints info, then get endpoints failure url with empty token
         let appendToQueryString = false;
-        if (!this.vpnInfo) {
+
+        let { vpnInfo } = await this.endpointsState.get();
+        if (!vpnInfo) {
             try {
                 if (!token) {
                     throw new Error('No token provided');
                 }
-                this.vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, token);
+                vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, token);
             } catch (e) {
-                this.vpnInfo = {
+                vpnInfo = {
                     vpnFailurePage: getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_DEFAULT_SUPPORT),
                     bandwidthFreeMbits: 0,
                     premiumPromoPage: '',
@@ -481,9 +472,11 @@ class Endpoints implements EndpointsInterface {
                 };
                 appendToQueryString = true;
             }
+
+            await this.endpointsState.update({ vpnInfo });
         }
 
-        const vpnFailurePage = this.vpnInfo && this.vpnInfo.vpnFailurePage;
+        const vpnFailurePage = vpnInfo && vpnInfo.vpnFailurePage;
 
         const queryString = qs.stringify({ token, app_id: appId });
 
@@ -492,13 +485,11 @@ class Endpoints implements EndpointsInterface {
         return `${vpnFailurePage}${separator}${queryString}`;
     };
 
-    clearVpnInfo(): void {
-        this.vpnInfo = null;
+    async clearVpnInfo(): Promise<void> {
+        await this.endpointsState.update({ vpnInfo: null });
     }
 
-    init(): void {
-        this.state = stateStorage.getItem(StorageKey.Endpoints);
-
+    async init(): Promise<void> {
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
             this.refreshData,
@@ -510,7 +501,8 @@ class Endpoints implements EndpointsInterface {
             this.clearVpnInfo,
         );
 
-        if (!this.vpnInfo) {
+        const { vpnInfo } = await this.endpointsState.get();
+        if (!vpnInfo) {
             // start getting vpn info and endpoints
             this.getVpnInfo();
         }

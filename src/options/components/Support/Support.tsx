@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { type ReactElement, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import {
@@ -108,7 +108,7 @@ export const Support = observer(() => {
         description,
         icon,
         clickHandler,
-    }: SupportItems) => {
+    }: SupportItems): ReactElement => {
         return (
             <Controls
                 key={title}

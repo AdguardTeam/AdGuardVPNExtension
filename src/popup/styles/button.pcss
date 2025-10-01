@@ -23,14 +23,6 @@ button,
         opacity: 0.6;
     }
 
-    &--back {
-        position: absolute;
-        z-index: 1;
-        left: 16px;
-        top: 16px;
-        padding: 0;
-    }
-
     &--gray {
         color: var(--gray-base);
     }
@@ -77,7 +69,8 @@ button,
         background-color: var(--fills-buttons-main-button-default);
         transition: var(--t3) background-color;
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
             background-color: var(--fills-buttons-main-button-hovered);
         }
 
@@ -92,6 +85,21 @@ button,
             &:hover {
                 background-color: var(--green-inactive);
             }
+        }
+    }
+
+    &--transparent {
+        color: var(--text-links-link-default);
+        background-color: transparent;
+        transition: var(--t3) background-color;
+
+        &:hover,
+        &:focus-visible {
+            background-color: var(--fills-backgrounds-page-background-hovered);
+        }
+
+        &:active {
+            background-color: var(--fills-backgrounds-page-background-pressed);
         }
     }
 

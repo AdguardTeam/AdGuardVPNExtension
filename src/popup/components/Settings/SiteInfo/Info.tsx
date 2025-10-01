@@ -1,4 +1,4 @@
-import React, { type ReactNode } from 'react';
+import React, { type ReactElement, type ReactNode } from 'react';
 
 type InfoProps = {
     title: string,
@@ -6,7 +6,7 @@ type InfoProps = {
     children?: ReactNode,
 };
 
-export const Info = ({ title, status, children }: InfoProps) => (
+export const Info = ({ title, status, children }: InfoProps): ReactElement => (
     <div className="site-info">
         <div className="site-info__title">
             {title}

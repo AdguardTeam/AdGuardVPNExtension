@@ -1,3 +1,5 @@
+import { type Method } from 'axios';
+
 import { notifier } from '../../common/notifier';
 import { ERROR_STATUSES } from '../constants';
 
@@ -38,7 +40,7 @@ export interface ConfigInterface {
 }
 
 interface ApiInterface {
-    makeRequest(path: string, config: ConfigInterface, method: string): Promise<unknown>;
+    makeRequest<T>(path: string, config: ConfigInterface, method: Method): Promise<T>;
 }
 
 export class Api implements ApiInterface {
@@ -70,10 +72,10 @@ export class Api implements ApiInterface {
      * @param {string} path - The path to which the request will be made.
      * @param {ConfigInterface} config - The configuration object for the request.
      * @param {Method} [method='POST'] - The HTTP method for the request. Default is 'POST'.
-     * @returns {Promise<any>} A Promise that resolves to the response data from the server.
+     * @returns {Promise<T>} A Promise that resolves to the response data from the server.
      * @throws {CustomError} A custom error object with the status code and error message if the request fails.
      */
-    async makeRequest(path: string, config: ConfigInterface, method = 'POST') {
+    async makeRequest <T>(path: string, config: ConfigInterface, method: Method = 'POST'): Promise<T> {
         let requestUrl = await this.getRequestUrl(path);
 
         if (config.params) {
@@ -120,7 +122,7 @@ export class Api implements ApiInterface {
             }
 
             if (config.body instanceof FormData) {
-                return response;
+                return response as T;
             }
 
             let responseData;

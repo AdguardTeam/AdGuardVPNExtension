@@ -19,3 +19,9 @@ export {
     proxyConfigInterfaceScheme,
     type ProxyConfigInterface,
 } from './proxyConfigInterface';
+
+export {
+    hostCredentialsRepositoryScheme,
+    type HostCredentialsRepository,
+    DEFAULT_HOST_CREDENTIALS_REPOSITORY,
+} from './hostCredentialsRepository';

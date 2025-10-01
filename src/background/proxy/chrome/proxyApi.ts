@@ -1,5 +1,5 @@
-import { type ProxyConfigInterface, StorageKey } from '../../schema';
-import { stateStorage } from '../../stateStorage';
+import { type ProxyConfigInterface, StorageKey, type AccessCredentials } from '../../schema';
+import { StateData } from '../../stateStorage';
 import { log } from '../../../common/logger';
 import { type ProxyApiInterface } from '../abstractProxyApi';
 import { browserApi } from '../../browserApi';
@@ -24,20 +24,75 @@ class ProxyApi implements ProxyApiInterface {
      */
     PROXY_CONFIG_STORAGE_KEY = 'proxy_config';
 
-    get globalProxyConfig(): ProxyConfigInterface | null {
-        return stateStorage.getItem(StorageKey.GlobalProxyConfig) || null;
-    }
+    /**
+     * Global proxy config state data.
+     * Used to save and retrieve global proxy config state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private globalProxyConfigState = new StateData(StorageKey.GlobalProxyConfig);
 
-    set globalProxyConfig(globalProxyConfigValue) {
-        stateStorage.setItem(StorageKey.GlobalProxyConfig, globalProxyConfigValue);
-        // Store the proxy config in the local storage. This allows the config to be restored after a browser restart,
-        // specifically during the 'onAuthRequired' event, even before the extension is fully loaded.
-        browserApi.storage.set(this.PROXY_CONFIG_STORAGE_KEY, globalProxyConfigValue);
+    /**
+     * Host credentials repository state data.
+     * Used to save and retrieve host credentials repository state from session storage,
+     * in order to persist it across service worker restarts.
+     *
+     * This repository is used to track which credentials have been used for which hosts,
+     * because Chrome hard-caches credentials per host, and there is no way to identify
+     * which credentials have been used for which host, except by tracking it ourselves.
+     *
+     * NOTE: We use session storage here because host credentials are cached only during the session,
+     * so, if the browser is restarted, this repository will be cleared as well.
+     */
+    private hostCredentialsRepositoryState = new StateData(StorageKey.HostCredentialsRepository);
+
+    /**
+     * Saves global proxy config to both session and local storage.
+     *
+     * @param globalProxyConfig Config to be saved.
+     */
+    private async saveGlobalProxyConfig(globalProxyConfig: ProxyConfigInterface | null): Promise<void> {
+        await this.globalProxyConfigState.set(globalProxyConfig);
+        await browserApi.storage.set(this.PROXY_CONFIG_STORAGE_KEY, globalProxyConfig);
     }
 
     /**
-     * Converts proxyConfig to chromeConfig
+     * Updates credentials for the given host in the repository.
+     *
+     * @param host Host for which credentials should be updated.
+     * @param credentials New credentials to be set for the host.
+     */
+    private async updateHostCredentials(host: string, credentials: AccessCredentials): Promise<void> {
+        const repository = await this.hostCredentialsRepositoryState.get();
+        repository[host] = credentials;
+        await this.hostCredentialsRepositoryState.set(repository);
+    }
+
+    /**
+     * Checks if host credentials are changed.
+     *
+     * @param host Host to check.
+     * @param credentials New credentials to compare with existing ones.
+     *
+     * @returns True if credentials are changed, false otherwise or if there are no existing credentials for the host.
+     */
+    private async areHostCredentialsChanged(host: string, credentials: AccessCredentials): Promise<boolean> {
+        const repository = await this.hostCredentialsRepositoryState.get();
+        const currentlyUsedCredentials = repository[host];
+
+        if (!currentlyUsedCredentials) {
+            return false;
+        }
+
+        return currentlyUsedCredentials.username !== credentials.username
+            || currentlyUsedCredentials.password !== credentials.password;
+    }
+
+    /**
+     * Converts proxyConfig to chromeConfig.
+     *
      * @param proxyConfig
+     *
+     * @returns ChromeConfig version of proxyConfig.
      */
     private static convertToChromeConfig = (
         proxyConfig: ProxyConfigInterface,
@@ -72,7 +127,8 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
-     * Clears proxy credentials cache for the given host.
+     * Clears proxy credentials cache for the given host,
+     * and if successful, clears host credentials repository as well.
      *
      * NOTE: This method uses a hack by clearing cookies for the top-level
      * domain of the host, so, reliability of this method is not guaranteed.
@@ -82,7 +138,7 @@ class ProxyApi implements ProxyApiInterface {
      *
      * @param host Host for which proxy credentials cache should be cleared.
      */
-    private static async clearProxyHostCredentialsCache(host: string): Promise<void> {
+    private async clearProxyHostCredentialsCache(host: string): Promise<void> {
         try {
             const topLevelDomain = getETld(host);
             if (!topLevelDomain) {
@@ -114,21 +170,35 @@ class ProxyApi implements ProxyApiInterface {
             };
 
             await promisifiedRemoveBrowsingData(options, dataToRemove);
+
+            /**
+             * Because clearing cookies is available only for the top-level domain,
+             * it will clear cookies for all subdomains, which means that credentials
+             * for all subdomains (locations hosts) are cleared, thus, we should clear
+             * our repository as well.
+             *
+             * Note: We do it only after the clearing operation is done, because we need
+             * to ensure that all cookies are cleared before clearing repository.
+             */
+            await this.hostCredentialsRepositoryState.set({});
         } catch (error) {
             log.error('Error clearing proxy credentials cache:', error);
         }
     }
 
     /**
-     * Handles onAuthRequired events
-     * @param details - webrequest details
-     * @param callback - callback to be called with authCredentials
+     * Handles onAuthRequired events by providing credentials from the global proxy config
+     * if the challenger host matches the proxy host and credentials are set.
+     * Also updates host credentials repository after providing credentials.
+     *
+     * @param details Request details
+     * @param callback Callback to be called with credentials or empty object.
      */
     private onAuthRequiredHandler = async (
         details: chrome.webRequest.WebAuthenticationChallengeDetails,
         // callback is optional in chrome.webRequest.onAuthRequired event
         callback?: (response: chrome.webRequest.BlockingResponse) => void,
-    ) => {
+    ): Promise<void> => {
         log.info('[onAuthRequiredHandler] fired with details:', details);
         if (!callback) {
             log.error('[onAuthRequiredHandler] callback is not defined');
@@ -137,17 +207,10 @@ class ProxyApi implements ProxyApiInterface {
 
         const { challenger } = details;
 
-        // Wait for session storage after service worker awoken.
-        // This is needed because onAuthRequiredHandler is called before
-        // the extension is fully loaded between service worker restarts
-        try {
-            await stateStorage.init();
-        } catch (e) {
-            log.error('Error on waiting for state storage to init', e);
-        }
+        let globalProxyConfig = await this.globalProxyConfigState.get();
 
         // This may happen after browser restart, when the extension is not fully loaded yet
-        if (!this.globalProxyConfig) {
+        if (!globalProxyConfig) {
             log.info('[onAuthRequiredHandler] globalProxyConfig is not set, wait for the last saved config from storage');
             let lastSavedConfig: ProxyConfigInterface | null = null;
             try {
@@ -159,20 +222,31 @@ class ProxyApi implements ProxyApiInterface {
             }
 
             log.info('[onAuthRequiredHandler] last saved config from storage:', lastSavedConfig);
-            this.globalProxyConfig = lastSavedConfig;
+            globalProxyConfig = lastSavedConfig;
+            await this.saveGlobalProxyConfig(globalProxyConfig);
         }
 
-        if (challenger && challenger.host !== this.globalProxyConfig?.host) {
+        if (challenger && challenger.host !== globalProxyConfig?.host) {
             log.info(
-                `[onAuthRequiredHandler] challenger host: ${challenger.host} is not equal to proxy host: ${this.globalProxyConfig?.host}`,
+                `[onAuthRequiredHandler] challenger host: ${challenger.host} is not equal to proxy host: ${globalProxyConfig?.host}`,
             );
             callback({});
             return;
         }
 
-        if (this.globalProxyConfig?.credentials) {
-            log.info('[onAuthRequiredHandler] credentials are set', this.globalProxyConfig.credentials);
-            callback({ authCredentials: this.globalProxyConfig.credentials });
+        /**
+         * If credentials are set in the global proxy config, use them to authenticate.
+         * After providing credentials, update host credentials repository to match
+         * the current state of credentials cache in Chrome.
+         *
+         * Note: We update host credentials repository only after calling the callback,
+         * because we need to ensure that credentials are accepted by the proxy server,
+         * otherwise, we might end up with miss-match credentials in our repository.
+         */
+        if (globalProxyConfig?.credentials) {
+            log.info('[onAuthRequiredHandler] credentials are set', globalProxyConfig.credentials);
+            callback({ authCredentials: globalProxyConfig.credentials });
+            await this.updateHostCredentials(globalProxyConfig.host, globalProxyConfig.credentials);
             return;
         }
 
@@ -183,7 +257,7 @@ class ProxyApi implements ProxyApiInterface {
     /**
      * Adds listener for the onAuthRequired event
      */
-    private addOnAuthRequiredListener = () => {
+    private addOnAuthRequiredListener = (): void => {
         chrome.webRequest.onAuthRequired.addListener(
             this.onAuthRequiredHandler,
             { urls: ['<all_urls>'] },
@@ -221,22 +295,57 @@ class ProxyApi implements ProxyApiInterface {
     };
 
     /**
-     * proxySet makes proxy settings compatible with Chrome proxy api and sets them via chrome.proxy.settings
+     * Converts provided proxy settings to Chrome ProxyAPI compatible and sets them via chrome.proxy.settings.
      * It is important to note that we set proxy via PAC-script because our exclusions need more complex logic
      * than we can achieve with a fixed_servers option.
-     * @param config - proxy config
+     * Also if it's needed, it clears proxy credentials cache for the host if the host or credentials changed.
+     *
+     * @param newConfig New proxy config to set.
      */
-    public proxySet = async (config: ProxyConfigInterface): Promise<void> => {
-        const chromeConfig = ProxyApi.convertToChromeConfig(config);
+    public proxySet = async (newConfig: ProxyConfigInterface): Promise<void> => {
+        // Convert to Chrome config and set it
+        const chromeConfig = ProxyApi.convertToChromeConfig(newConfig);
         await promisifiedSetProxy(chromeConfig);
-        if (this.shouldApplyProxyAuthTrigger(this.globalProxyConfig, config)) {
-            // If the host or credentials changed, we need to clear the proxy credentials cache first
-            await ProxyApi.clearProxyHostCredentialsCache(config.host);
 
-            // we do not wait for the promise to resolve because we don't want to block the main thread
+        /**
+         * We clear proxy credentials cache only if it was changed,
+         * because Chrome caches credentials per host, so, if new credentials
+         * differs from the last used one for given host, we need to clear the cache.
+         *
+         * Note: We need to await here before running the trigger,
+         * because we need to ensure that cache is cleared before
+         * we try to use new credentials.
+         */
+        const { host, credentials } = newConfig;
+        const areHostCredentialsChanged = await this.areHostCredentialsChanged(host, credentials);
+        if (areHostCredentialsChanged) {
+            await this.clearProxyHostCredentialsCache(host);
+        }
+
+        /**
+         * We should trigger `onAuthRequired` event if either
+         * host or credentials changed or if we previously
+         * cleared the caches, because Chrome might
+         * not trigger it automatically in following scenarios:
+         * - In chromium browsers prior to version 122
+         *   `onAuthRequired` is not triggered for service worker requests
+         * - In Opera it is not triggered at all
+         * - In Edge it's not triggered for home page requests
+         *
+         * Note: We do not await for the promise to resolve
+         * because we don't want to block the main thread.
+         *
+         * @see {@link https://issues.chromium.org/issues/40870289}
+         */
+        const globalProxyConfig = await this.globalProxyConfigState.get();
+        if (
+            areHostCredentialsChanged
+            || this.shouldApplyProxyAuthTrigger(globalProxyConfig, newConfig)
+        ) {
             proxyAuthTrigger.run();
         }
-        this.globalProxyConfig = config;
+
+        await this.saveGlobalProxyConfig(newConfig);
     };
 
     /**
@@ -250,7 +359,7 @@ class ProxyApi implements ProxyApiInterface {
      */
     public proxyClear = async (): Promise<void> => {
         await promisifiedClearProxy();
-        this.globalProxyConfig = null;
+        await this.saveGlobalProxyConfig(null);
     };
 
     /**
@@ -259,10 +368,10 @@ class ProxyApi implements ProxyApiInterface {
      * @param callback
      */
     public onProxyError = {
-        addListener: (cb: ProxyErrorCallback) => {
+        addListener: (cb: ProxyErrorCallback): void => {
             chrome.proxy.onProxyError.addListener(cb);
         },
-        removeListener: (cb: ProxyErrorCallback) => {
+        removeListener: (cb: ProxyErrorCallback): void => {
             chrome.proxy.onProxyError.removeListener(cb);
         },
     };

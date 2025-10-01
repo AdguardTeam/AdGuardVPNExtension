@@ -9,51 +9,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "registration_error_not_empty": {
-        "message": "入力する必要があります"
-    },
-    "registration_error_not_valid": {
-        "message": "この値は無効です"
-    },
-    "registration_error_min_length": {
-        "message": "パスワードは8文字以上でなければなりません"
-    },
-    "registration_error_confirm_password": {
-        "message": "パスワードが一致しません"
-    },
-    "registration_error_compromised_password": {
-        "message": "ご入力のパスワードは、<a>流出パスワードの公開データベース</a>で見つかりました。別のパスワードをお試しください。"
-    },
-    "registration_error_unique_constraint": {
-        "message": "このメールアドレスは既に使用されています。"
-    },
-    "registration_error_default": {
-        "message": "エラーが発生してしまいました。後ほどもう一度お試しください。"
-    },
-    "authentication_error_2fa_required": {
-        "message": "２要素認証が必要です"
-    },
-    "authentication_error_2fa_invalid": {
-        "message": "コードが無効です"
-    },
-    "authentication_error_account_disabled": {
-        "message": "このアカウントは無効になっています"
-    },
-    "authentication_error_account_locked": {
-        "message": "アカウントは15分間ロックされています"
-    },
-    "authentication_error_wrong_credentials": {
-        "message": "パスワードが違います"
-    },
-    "authentication_too_many_requests": {
-        "message": "お使いのIPアドレスからのリクエストが多すぎます。しばらく経ってからもう一度お試しください。"
-    },
-    "authentication_error_default": {
-        "message": "エラーが発生してしまいました。後ほどもう一度お試しください。"
-    },
-    "global_error_message": {
-        "message": "エラーが発生しました。お手数ですが、<a>%support_email%</a>（日本語対応）へお問い合わせください。"
-    },
     "about_title": {
         "message": "AdGuard VPNについて"
     },
@@ -156,6 +111,15 @@
     "account_sign_out": {
         "message": "ログアウト"
     },
+    "account_sign_out_question": {
+        "message": "ログアウトしますか？"
+    },
+    "account_sign_out_popup_cancel": {
+        "message": "キャンセル "
+    },
+    "account_sign_out_description": {
+        "message": "アカウントからログアウトされます。VPN保護機能は停止します。"
+    },
     "account_unlimited_title": {
         "message": "無制限版を入手しよう！"
     },
@@ -164,69 +128,6 @@
     },
     "rate_hide": {
         "message": "非表示"
-    },
-    "auth_confirm": {
-        "message": "確認"
-    },
-    "auth_email": {
-        "message": "メールアドレス"
-    },
-    "auth_password": {
-        "message": "パスワード"
-    },
-    "auth_your_password": {
-        "message": "パスワードを入力してください"
-    },
-    "auth_password_confirm": {
-        "message": "パスワードの確認"
-    },
-    "auth_recover": {
-        "message": "パスワードをお忘れですか？"
-    },
-    "auth_sign_up": {
-        "message": "新規ご登録"
-    },
-    "auth_sign_up_info": {
-        "message": "AdGuardアカウントを作成いただけます"
-    },
-    "auth_sign_up_button": {
-        "message": "登録する"
-    },
-    "auth_sign_in": {
-        "message": "パスワード入力"
-    },
-    "auth_sign_in_button": {
-        "message": "ログイン"
-    },
-    "auth_title": {
-        "message": "ログインまたはアカウントご登録"
-    },
-    "auth_sign_in_provider_adguard_label": {
-        "message": "メールアドレス"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "メールアドレスで続ける"
-    },
-    "auth_sign_in_provider_apple": {
-        "message": "Appleで続ける"
-    },
-    "auth_sign_in_provider_google": {
-        "message": "Googleで続ける"
-    },
-    "auth_sign_in_provider_facebook": {
-        "message": "Facebookで続ける"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "<span>%username%</span> としてログインします。"
-    },
-    "auth_header_2fa_subtitle": {
-        "message": "２要素認証"
-    },
-    "auth_header_2fa": {
-        "message": "認証コードを入力してください"
-    },
-    "auth_placeholder_2fa": {
-        "message": "認証コード"
     },
     "official_website": {
         "message": "公式ホームページ"
@@ -755,7 +656,7 @@
         "message": "ご評価いただければ幸いです"
     },
     "popup_rate_modal_send_button": {
-        "message": "送信する"
+        "message": "送信"
     },
     "popup_rate_modal_cancel_button": {
         "message": "キャンセル "
@@ -835,9 +736,6 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "ログインまたはアカウントご登録"
-    },
-    "popup_auth_policy_agreement_page_continue_button": {
-        "message": "続行"
     },
     "popup_newsletter_title": {
         "message": "AdGuardニュースレター"
@@ -1021,8 +919,8 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "今後、この通知を表示しない"
     },
-    "popup_stats_for_browser_title": {
-        "message": "このブラウザに関する統計"
+    "popup_stats": {
+        "message": "統計"
     },
     "popup_stats_disabled_notice": {
         "message": "統計は無効になっています"
@@ -1038,18 +936,6 @@
     },
     "popup_stats_usage_time": {
         "message": "時刻"
-    },
-    "popup_stats_menu_why_safe_btn": {
-        "message": "これが安全な理由"
-    },
-    "popup_stats_menu_why_safe_title": {
-        "message": "これが安全な理由"
-    },
-    "popup_stats_menu_why_safe_description_1": {
-        "message": "VPN接続は暗号化されていてセキュアであるため、誰もあなたのアクティビティデータを見ることはできません。AdGuard DNS はあなたのトラフィック使用量の計算を行うだけです。"
-    },
-    "popup_stats_menu_why_safe_description_2": {
-        "message": "統計情報はすべて、あなたのデバイスでローカルに収集・保存されますので、私たちはその情報にアクセスすることはできません。"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "OK"
@@ -1150,40 +1036,31 @@
     "notification_data_left_description": {
         "message": "VPN接続速度はまもなく低速化します。"
     },
-    "confirm_email_title": {
-        "message": "メールアドレスを認証する"
-    },
-    "confirm_email_info": {
-        "message": "<span>%email%</span> に認証コードを送信しました。"
-    },
     "confirm_email_done_title": {
         "message": "メールアドレス確認完了"
     },
     "confirm_email_done_info": {
         "message": "認証いただきありがとうございます。"
     },
-    "confirm_email_code_label": {
-        "message": "認証コード"
-    },
-    "confirm_email_code_placeholder": {
-        "message": "数字と英文字を含むもの"
-    },
-    "confirm_email_code_invalid": {
-        "message": "コードが間違っているようです"
-    },
-    "confirm_email_resend_code_button_disabled": {
-        "message": "別のコードを送信する（%count%）"
-    },
-    "confirm_email_resend_code_button": {
-        "message": "別のコードを送信する"
-    },
-    "confirm_email_no_auth_id_error_on_auth": {
-        "message": "ログインできませんでした。再度お試しいただくか、サポートの <a>%support_email%</a> （日本語対応）までご連絡ください。"
-    },
-    "confirm_email_no_auth_id_error_on_register": {
-        "message": "登録できませんでした。再度お試しいただくか、サポートの <a>%support_email%</a> （日本語対応）までご連絡ください。"
-    },
     "resend_confirm_registration_link_notification": {
         "message": "確認用リンクが再送信されました。"
+    },
+    "auth_failed_to_login_title": {
+        "message": "ログインできませんでした"
+    },
+    "auth_failed_to_login_description": {
+        "message": "もう一度試すか、<a>サポートにご連絡</a>ください。"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "もう一度お試しください"
+    },
+    "auth_failed_to_login_button": {
+        "message": "閉じる"
+    },
+    "auth_loading_button_reopen": {
+        "message": "ログインページを再度開く"
+    },
+    "auth_loading_button_cancel": {
+        "message": "キャンセル "
     }
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { type ReactElement, useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -84,7 +84,7 @@ export const FreeGbs = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
 
     useEffect(() => {
-        (async () => {
+        (async (): Promise<void> => {
             await settingsStore.updateBonusesData();
         })();
     }, []);
@@ -93,7 +93,6 @@ export const FreeGbs = observer(() => {
         invitesBonuses,
         bonusesDataRequestStatus,
         invitesQuestCompleted,
-        confirmEmailQuestCompleted,
         addDeviceQuestCompleted,
     } = settingsStore;
 
@@ -118,15 +117,18 @@ export const FreeGbs = observer(() => {
         canSendTelemetry,
     );
 
-    const goBackHandler = () => {
+    const goBackHandler = (): void => {
         history.push(`/${FREE_GBS}`);
     };
 
-    const clickItemHandler = (query: string) => {
+    const clickItemHandler = (query: string): void => {
         history.push(`/${FREE_GBS}?${query}`);
     };
 
-    const inviteFriendTitle = `${translator.getMessage('settings_free_gbs_invite_friend')} (${invitesCount}/${maxInvitesCount})`;
+    const inviteFriendTitle = translator.getMessage('settings_free_gbs_invite_friend_count', {
+        invited_count: invitesCount,
+        max_invites: maxInvitesCount,
+    });
 
     const itemsData: RenderItemProps[] = [
         {
@@ -138,15 +140,15 @@ export const FreeGbs = observer(() => {
             telemetryActionName: TelemetryActionName.InviteFriendClick,
         },
         {
-            title: translator.getMessage('settings_free_gbs_confirm_email_title'),
+            title: translator.getMessage('settings_free_gbs_join_adguard'),
             status: translator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
             statusDone: translator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: CONFIRM_EMAIL,
-            completed: confirmEmailQuestCompleted,
+            completed: true, // This task is always completed because email confirmation is required now.
             telemetryActionName: TelemetryActionName.ConfirmEmailClick,
         },
         {
-            title: translator.getMessage('settings_free_gbs_add_device_title'),
+            title: translator.getMessage('settings_free_gbs_add_device'),
             status: translator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
             statusDone: translator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: ADD_DEVICE,
@@ -162,8 +164,8 @@ export const FreeGbs = observer(() => {
         statusDone,
         completed,
         telemetryActionName,
-    }: RenderItemProps) => {
-        const handleClick = () => {
+    }: RenderItemProps): ReactElement => {
+        const handleClick = (): void => {
             telemetryStore.sendCustomEvent(
                 telemetryActionName,
                 TelemetryScreenName.FreeGbScreen,

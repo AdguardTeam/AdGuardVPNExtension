@@ -28,23 +28,28 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
 
     const isCompleted = invitesCount >= maxInvitesCount;
 
-    const title = translator.getMessage('settings_free_gbs_invite_friend');
+    const title = isCompleted
+        ? translator.getMessage('settings_free_gbs_invite_friend_title_success', {
+            total_invites: invitesCount,
+            total_gbs: maxInvitesCount * COMPLETE_TASK_BONUS_GB,
+        })
+        : translator.getMessage('settings_free_gbs_invite_friend_title', { your_gb: COMPLETE_TASK_BONUS_GB });
 
     const description = isCompleted
         ? translator.getMessage('settings_free_gbs_invite_friend_completed_thank_you')
         : translator.getMessage('settings_referral_info', {
             your_gb: COMPLETE_TASK_BONUS_GB,
-            total_gb: maxInvitesCount,
-            friend_gb: COMPLETE_TASK_BONUS_GB,
+            max_friends: maxInvitesCount,
+            total_gb: maxInvitesCount * COMPLETE_TASK_BONUS_GB,
         });
 
     useEffect(() => {
-        (async () => {
+        (async (): Promise<void> => {
             await settingsStore.updateBonusesData();
         })();
     }, []);
 
-    const handleCopyLink = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleCopyLink = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         telemetryStore.sendCustomEvent(
             TelemetryActionName.CopyLinkClick,
@@ -58,9 +63,17 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
         return <DotsLoader />;
     }
 
+    const handleUpgrade = async (): Promise<void> => {
+        await settingsStore.openPremiumPromoPage();
+    };
+
     return (
         <div className="free-gbs-task">
-            <Title title="" onClick={goBackHandler} />
+            <Title
+                className="free-gbs-task__back"
+                title=""
+                onClick={goBackHandler}
+            />
             <img
                 src={referralImageUrl}
                 alt={title}
@@ -92,12 +105,12 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
                     </form>
                 ) : (
                     <Button
-                        variant="outlined"
+                        variant="filled"
                         size="medium"
-                        onClick={goBackHandler}
-                        className="free-gbs-task__go-back-btn"
+                        onClick={handleUpgrade}
+                        className="free-gbs-task__upgrade-btn"
                     >
-                        {translator.getMessage('settings_free_gbs_go_back')}
+                        {translator.getMessage('settings_free_gbs_upgrade')}
                     </Button>
                 )}
                 <div className="invite-friend__counter">

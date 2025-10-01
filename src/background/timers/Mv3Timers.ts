@@ -13,7 +13,9 @@ const MINIMAL_INTERVAL_MIN = 1;
  */
 class Mv3Timers implements TimersInterface {
     /**
-     * Generates ID
+     * Generates ID.
+     *
+     * @returns Generated ID.
      */
     generateId(): number {
         const nanoid = customAlphabet('1234567890', 10);
@@ -22,8 +24,11 @@ class Mv3Timers implements TimersInterface {
     }
 
     /**
-     * Converts milliseconds to minutes
+     * Converts milliseconds to minutes.
+     *
      * @param timeMs
+     *
+     * @returns Converted time in minutes.
      */
     convertMsToMin = (timeMs: number): number => {
         let timeMin = timeMs / (1000 * 60);
@@ -40,9 +45,12 @@ class Mv3Timers implements TimersInterface {
     };
 
     /**
-     * setTimeout implementation
+     * SetTimeout implementation.
+     *
      * @param callback
      * @param timeout in ms
+     *
+     * @returns Timeout ID.
      */
     setTimeout = (callback: () => void, timeout: number): number => {
         const timerId = this.generateId();
@@ -60,9 +68,12 @@ class Mv3Timers implements TimersInterface {
     };
 
     /**
-     * setInterval implementation
+     * SetInterval implementation.
+     *
      * @param callback
      * @param interval in ms
+     *
+     * @returns Interval ID.
      */
     setInterval = (callback: () => void, interval: number): number => {
         const timerId = this.generateId();

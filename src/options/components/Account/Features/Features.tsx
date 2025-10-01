@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
 import { translator } from '../../../../common/translator';
@@ -6,7 +6,7 @@ import { Title } from '../../ui/Title';
 
 import './features.pcss';
 
-export const Features = () => {
+export const Features = (): ReactElement => {
     return (
         <div className="features">
             <Title

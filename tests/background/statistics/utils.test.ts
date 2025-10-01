@@ -1,16 +1,25 @@
+import {
+    vi,
+    describe,
+    beforeAll,
+    afterAll,
+    it,
+    expect,
+} from 'vitest';
+
 import { dateToKey, keyToDate } from '../../../src/background/statistics/utils';
 
 beforeAll(() => {
-    jest.useFakeTimers('modern').setSystemTime(new Date('2025-10-01T10:25:10Z'));
+    vi.useFakeTimers().setSystemTime(new Date('2025-10-01T10:25:10Z'));
 });
 
 afterAll(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
 });
 
 describe('Statistics utils', () => {
     describe('dateToKey', () => {
-        jest.useFakeTimers('modern').setSystemTime(new Date('2025-10-01T10:25:10Z'));
+        vi.useFakeTimers().setSystemTime(new Date('2025-10-01T10:25:10Z'));
 
         it('should convert date to key', () => {
             expect(dateToKey()).toBe('2025-10-01-10');

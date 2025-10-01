@@ -3,7 +3,11 @@ import JSZip from 'jszip';
 
 import { vpnApi } from '../api';
 import { log } from '../../common/logger';
-import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
+import {
+    type ExclusionServicesDomains,
+    processExclusionServices,
+    processExclusionServicesDomains,
+} from '../../common/data-processors';
 import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
 import type { ServicesInterface, CredentialsDataInterface, LocationInterface } from '../schema';
 import { type VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
@@ -69,9 +73,11 @@ export interface VpnProviderInterface {
 }
 
 /**
- * Prepares locations data
+ * Prepares locations data.
  * @param appId
  * @param vpnToken
+ *
+ * @returns Promise with locations data.
  */
 const getLocationsData = async (
     appId: string,
@@ -274,10 +280,13 @@ const getVpnCredentials = async (
 };
 
 /**
- * Tracks vpn extensions install
+ * Tracks vpn extensions install.
+ *
  * @param appId
  * @param version
  * @param experiments
+ *
+ * @returns Promise with track install response.
  */
 const trackExtensionInstallation = async (
     appId: string,
@@ -347,13 +356,15 @@ const requestSupport = async ({
     }
 };
 
-const getExclusionsServicesDomains = async (serviceIds: string[]) => {
+const getExclusionsServicesDomains = async (serviceIds: string[]): Promise<ExclusionServicesDomains> => {
     const exclusionServiceDomains = await vpnApi.getExclusionServiceDomains(serviceIds);
     return processExclusionServicesDomains(exclusionServiceDomains);
 };
 
 /**
- * Moved to separate module in order to not mangle with webextension-polyfill
+ * Moved to separate module in order to not mangle with webextension-polyfill.
+ *
+ * @returns Promise with exclusions services.
  */
 export const getExclusionsServices = async (): Promise<ServicesInterface> => {
     const [exclusionsServices, servicesDomains] = await Promise.all([

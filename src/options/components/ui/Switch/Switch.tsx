@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 import classNames from 'classnames';
 
@@ -19,13 +19,13 @@ export interface SwitchProps {
     onToggle: () => void;
 }
 
-export function Switch({ isActive, onToggle }: SwitchProps) {
+export function Switch({ isActive, onToggle }: SwitchProps): ReactElement {
     const classes = classNames(
         'switch has-tab-focus',
         isActive && 'switch--active',
     );
 
-    const handleClick = (e: React.MouseEvent) => {
+    const handleClick = (e: React.MouseEvent): void => {
         e.preventDefault();
         onToggle();
     };

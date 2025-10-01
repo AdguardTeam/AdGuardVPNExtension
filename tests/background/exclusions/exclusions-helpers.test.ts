@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import _ from 'lodash';
 
 import { ExclusionState } from '../../../src/common/exclusionsConstants';
@@ -6,8 +7,6 @@ import {
     complementExclusions,
 } from '../../../src/background/exclusions/exclusions-helpers';
 import type { ExclusionInterface, ServicesInterface } from '../../../src/background/schema';
-
-jest.mock('../../../src/common/logger.ts');
 
 const ignoreId = (exclusions: ExclusionInterface[]) => {
     return exclusions.map((ex) => ({ hostname: ex.hostname, state: ex.state }));

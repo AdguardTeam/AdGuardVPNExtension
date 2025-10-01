@@ -1,6 +1,9 @@
 import type browser from 'webextension-polyfill';
+import { Management as MN } from 'webextension-polyfill';
 
 import { log } from '../../common/logger';
+
+import ExtensionInfo = MN.ExtensionInfo;
 
 class Management {
     PROXY_PERMISSION = 'proxy';
@@ -29,9 +32,11 @@ class Management {
     };
 
     /**
-     * Returns list of enabled extensions with proxy permission, except extension itself
+     * Returns list of enabled extensions with proxy permission, except extension itself.
+     *
+     * @returns List of enabled proxy extensions.
      */
-    getEnabledProxyExtensions = async () => {
+    getEnabledProxyExtensions = async (): Promise<ExtensionInfo[]> => {
         const extensions = await this.browser.management.getAll();
         return extensions.filter((extension) => {
             const { permissions, enabled, id } = extension;

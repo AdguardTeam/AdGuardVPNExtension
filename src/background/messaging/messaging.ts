@@ -1,12 +1,11 @@
 import browser, { type Runtime } from 'webextension-polyfill';
 
-import { mainInitializationPromise } from '../index';
 import { MessageType, SETTINGS_IDS, CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
 import { type ExclusionsData } from '../../common/exclusionsConstants';
 import { logStorage } from '../../common/log-storage';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
-import { auth } from '../auth';
+import { auth, webAuth } from '../auth';
 import { popupData } from '../popupData';
 import { endpoints } from '../endpoints';
 import { actions } from '../actions';
@@ -28,7 +27,6 @@ import { flagsStorage } from '../flagsStorage';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
-import { emailConfirmationService } from '../emailConfirmationService';
 import { limitedOfferService } from '../limitedOfferService';
 import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
@@ -36,38 +34,7 @@ import { savedLocations } from '../savedLocations';
 import { getConsentData, setConsentData } from '../consent';
 import { isMessage } from '../../common/messenger';
 import { statisticsService } from '../statistics';
-
-/**
- * List of message types that are allowed to be processed before the main initialization is done.
- */
-const EARLY_ALLOWED_MESSAGE_TYPES = new Set([
-    /**
-     * This message type is used to check if the user is authenticated or not,
-     * which needs to be processed immediately in order to avoid flashing
-     * different type of loaders in popup page. Under the hood,
-     * `auth.isAuthenticated()` will wait for the dependant modules
-     * to be initialized, so it can be safely processed immediately.
-     */
-    MessageType.IS_AUTHENTICATED,
-
-    /**
-     * This message type is used to add event listeners to `notifier`,
-     * which needs to be processed immediately in order to avoid throttling
-     * the render of options / popup pages. Under the hood,
-     * `notifier` is not dependent on any other modules,
-     * so it can be safely processed immediately.
-     */
-    MessageType.ADD_EVENT_LISTENER,
-
-    /**
-     * This message type is used to remove event listeners from `notifier`,
-     * which needs to be processed immediately in order to avoid throttling
-     * the render of options / popup pages. Under the hood,
-     * `notifier` is not dependent on any other modules,
-     * so it can be safely processed immediately.
-     */
-    MessageType.REMOVE_EVENT_LISTENER,
-]);
+import { type OptionsData } from '../../options/stores/SettingsStore';
 
 interface EventListeners {
     [index: string]: Runtime.MessageSender;
@@ -84,7 +51,7 @@ const eventListeners: EventListeners = {};
  *
  * @returns Options data.
  */
-const getOptionsData = async (isDataRefresh: boolean) => {
+const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
     const appVersion = appStatus.version;
     const username = await credentials.getUsername();
     const isRateVisible = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
@@ -106,24 +73,23 @@ const getOptionsData = async (isDataRefresh: boolean) => {
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
-        currentMode: exclusions.getMode(),
+        currentMode: await exclusions.getMode(),
     };
 
-    const isAllExclusionsListsEmpty = !(exclusions.getRegularExclusions().length
-        || exclusions.getSelectiveExclusions().length);
+    const isAllExclusionsListsEmpty = await exclusions.isAllExclusionListEmpty();
 
-    let servicesData = exclusions.getServices();
+    let servicesData = await exclusions.getServices();
     if (servicesData.length === 0) {
         // services may not be up-to-date on very first option page opening in firefox
         // if their loading was blocked before due to default absence of host permissions (<all_urls>).
         // so if it happens, they should be updated forcedly
         await exclusions.forceUpdateServices();
-        servicesData = exclusions.getServices();
+        servicesData = await exclusions.getServices();
     }
 
     const isAuthenticated = await auth.isAuthenticated();
     const isPremiumToken = await credentials.isPremiumToken();
-    const subscriptionType = credentials.getSubscriptionType();
+    const subscriptionType = await credentials.getSubscriptionType();
     const subscriptionTimeExpiresIso = await credentials.getTimeExpiresIso();
 
     // AG-644 set current endpoint in order to avoid bug in permissions checker
@@ -156,23 +122,13 @@ const getOptionsData = async (isDataRefresh: boolean) => {
     };
 };
 
-const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) => {
+const messagesHandler = async (message: unknown, sender: Runtime.MessageSender): Promise<any> => {
     if (!isMessage(message)) {
         log.error('Invalid message received:', message);
         return null;
     }
 
     const { type, data } = message;
-
-    /**
-     * Before processing any message, we need to ensure that
-     * all necessary modules are initialized and ready to use.
-     * Except for the messages from `EARLY_ALLOWED_MESSAGE_TYPES`,
-     * which can be processed immediately.
-     */
-    if (!EARLY_ALLOWED_MESSAGE_TYPES.has(type)) {
-        await mainInitializationPromise;
-    }
 
     // Here we keep track of event listeners added through notifier
 
@@ -200,18 +156,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             notifier.removeListener(listenerId);
             delete eventListeners[listenerId];
             break;
-        }
-        case MessageType.AUTHENTICATE_SOCIAL: {
-            const id = sender?.tab?.id;
-            if (!id) {
-                return undefined;
-            }
-
-            return auth.authenticateSocial(message.data, id);
-        }
-        case MessageType.AUTHENTICATE_THANKYOU_PAGE: {
-            const { token, redirectUrl, newUser } = message.data;
-            return auth.authenticateThankYouPage({ token, redirectUrl, newUser });
         }
         case MessageType.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
@@ -273,21 +217,10 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             await credentials.persistVpnToken(null);
             break;
         }
-        case MessageType.AUTHENTICATE_USER: {
-            const { credentials } = data;
-            emailConfirmationService.restartCountdown(credentials.username);
-            return auth.authenticate(credentials);
-        }
         case MessageType.UPDATE_AUTH_CACHE: {
             const { field, value } = data;
             authCache.updateCache(field, value);
             break;
-        }
-        case MessageType.GET_AUTH_CACHE: {
-            return authCache.getCache();
-        }
-        case MessageType.CLEAR_AUTH_CACHE: {
-            return authCache.clearCache();
         }
         case MessageType.GET_CAN_CONTROL_PROXY: {
             return appStatus.canControlProxy();
@@ -335,26 +268,12 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
         case MessageType.CLEAR_EXCLUSIONS_LIST: {
             return exclusions.clearExclusionsData();
         }
-        case MessageType.CHECK_EMAIL: {
-            const { email } = data;
-            const appId = await credentials.getAppId();
-            return auth.userLookup(email, appId);
-        }
         case MessageType.DISABLE_OTHER_EXTENSIONS: {
             await management.turnOffProxyExtensions();
             break;
         }
-        case MessageType.REGISTER_USER: {
-            const appId = await credentials.getAppId();
-            emailConfirmationService.restartCountdown(data.credentials.username);
-            return auth.register({ ...data.credentials, appId });
-        }
         case MessageType.IS_AUTHENTICATED: {
             return auth.isAuthenticated();
-        }
-        case MessageType.START_SOCIAL_AUTH: {
-            const { provider, marketingConsent } = data;
-            return auth.startSocialAuth(provider, marketingConsent);
         }
         case MessageType.CLEAR_PERMISSIONS_ERROR: {
             permissionsError.clearError();
@@ -368,11 +287,10 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             return {
                 exclusionsData: {
                     exclusions: exclusions.getExclusions(),
-                    currentMode: exclusions.getMode(),
+                    currentMode: await exclusions.getMode(),
                 },
-                services: exclusions.getServices(),
-                isAllExclusionsListsEmpty: !(exclusions.getRegularExclusions().length
-                    || exclusions.getSelectiveExclusions().length),
+                services: await exclusions.getServices(),
+                isAllExclusionsListsEmpty: await exclusions.isAllExclusionListEmpty(),
             };
         }
         case MessageType.SET_EXCLUSIONS_MODE: {
@@ -405,6 +323,10 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
         }
         case MessageType.GET_USERNAME: {
             return credentials.getUsername();
+        }
+        case MessageType.UPDATE_MARKETING_CONSENT: {
+            const { newMarketingConsent } = data;
+            return credentials.updateUserMarketingConsent(newMarketingConsent);
         }
         case MessageType.CHECK_IS_PREMIUM_TOKEN: {
             return credentials.isPremiumToken();
@@ -493,37 +415,11 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             return null;
         }
         case MessageType.EDIT_CUSTOM_DNS_SERVER: {
-            dns.editCustomDnsServer(data.dnsServerData);
+            await dns.editCustomDnsServer(data.dnsServerData);
             return settings.getCustomDnsServers();
         }
         case MessageType.REMOVE_CUSTOM_DNS_SERVER: {
             return dns.removeCustomDnsServer(data.dnsServerId);
-        }
-        case MessageType.RESEND_CONFIRM_REGISTRATION_LINK: {
-            const { displayNotification } = data;
-            const accessToken = await auth.getAccessToken();
-            return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
-        }
-        case MessageType.SET_EMAIL_CONFIRMATION_AUTH_ID: {
-            const { authId } = data;
-            emailConfirmationService.setAuthId(authId);
-            break;
-        }
-        case MessageType.RESEND_EMAIL_CONFIRMATION_CODE: {
-            emailConfirmationService.restartCountdown();
-
-            const { authId } = emailConfirmationService;
-            if (!authId) {
-                log.error('Value authId was not set in the emailConfirmationService');
-                break;
-            }
-
-            await auth.resendEmailConfirmationCode(authId);
-            break;
-        }
-        case MessageType.GET_RESEND_CODE_COUNTDOWN: {
-            const countdown = await emailConfirmationService.getCodeCountdown();
-            return countdown;
         }
         case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
             return dns.restoreCustomDnsServersData();
@@ -539,7 +435,7 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             break;
         }
         case MessageType.RECALCULATE_PINGS: {
-            locationsService.measurePings(true);
+            await locationsService.measurePings(true);
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW: {
@@ -568,6 +464,11 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
             const { isDisabled } = data;
             return statisticsService.setIsDisabled(isDisabled);
         }
+        case MessageType.SEND_WEB_AUTH_ACTION: {
+            const { action } = data;
+            const appId = await credentials.getAppId();
+            return webAuth.handleAction(appId, action);
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }
@@ -580,7 +481,7 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender) 
  * We can't use simple one-time connections, because they can intercept each other
  * Causing issues like AG-2074
  */
-const longLivedMessageHandler = (port: Runtime.Port) => {
+const longLivedMessageHandler = (port: Runtime.Port): void => {
     let listenerId: string;
 
     log.debug(`Connecting to the port "${port.name}"`);
@@ -613,7 +514,7 @@ const longLivedMessageHandler = (port: Runtime.Port) => {
     });
 };
 
-const init = () => {
+const init = (): void => {
     browser.runtime.onMessage.addListener(messagesHandler);
     browser.runtime.onConnect.addListener(longLivedMessageHandler);
 };

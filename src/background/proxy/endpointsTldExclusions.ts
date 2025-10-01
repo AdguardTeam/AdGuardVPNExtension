@@ -5,8 +5,7 @@ import sortBy from 'lodash/sortBy';
 import { log } from '../../common/logger';
 import { browserApi } from '../browserApi';
 import { StorageKey } from '../schema';
-import { stateStorage } from '../stateStorage';
-import { type EndpointsTldExclusionsState } from '../schema/proxy/endpointsTldExclusions';
+import { StateData } from '../stateStorage';
 
 import { proxy } from './index';
 
@@ -18,7 +17,12 @@ import { proxy } from './index';
  * In this module tld means tld + 1 (e.g. for "endpoint.adguard.io" tld would be "adguard.io" )
  */
 class EndpointsTldExclusions {
-    state: EndpointsTldExclusionsState;
+    /**
+     * Endpoints TLD Exclusions service state data.
+     * Used to save and retrieve endpoints TLD exclusions state from session storage,
+     * in order to persist it across service worker restarts.
+     */
+    private endpointsTldExclusionsState = new StateData(StorageKey.EndpointsTldExclusions);
 
     /**
      * !!!IMPORTANT!!! do not change this key without migration
@@ -34,23 +38,12 @@ class EndpointsTldExclusions {
     THROTTLE_TIMEOUT_MS = 1000;
 
     /**
-     * Endpoints top level domain exclusions list
-     */
-    private get endpointsTldExclusionsList(): string[] {
-        return this.state.endpointsTldExclusionsList;
-    }
-
-    private set endpointsTldExclusionsList(endpointsTldExclusionsList: string[]) {
-        this.state.endpointsTldExclusionsList = endpointsTldExclusionsList;
-        stateStorage.setItem(StorageKey.EndpointsTldExclusions, this.state);
-    }
-
-    /**
      * Updates storage in a throttled way
      */
     updateStorage = throttle(async () => {
         try {
-            await browserApi.storage.set(this.STORAGE_KEY, this.endpointsTldExclusionsList);
+            const { endpointsTldExclusionsList } = await this.endpointsTldExclusionsState.get();
+            await browserApi.storage.set(this.STORAGE_KEY, endpointsTldExclusionsList);
             log.debug('Endpoints tld exclusions saved in the storage');
         } catch (e) {
             log.error(e);
@@ -61,7 +54,7 @@ class EndpointsTldExclusions {
      * Adds endpoints tld exclusions
      * @param endpointsTlds - list of second level domains parsed from the endpoints
      */
-    addEndpointsTldExclusions = async (endpointsTlds: string[]) => {
+    addEndpointsTldExclusions = async (endpointsTlds: string[]): Promise<void> => {
         const endpointsTldExclusions = this.convertEndpointTldToExclusion(endpointsTlds);
 
         await this.handleEndpointsTldExclusionsListUpdate(endpointsTldExclusions);
@@ -69,9 +62,12 @@ class EndpointsTldExclusions {
 
     /**
      * Converts endpoints tld to exclusion
+     *
      * @param endpointsTlds - endpoints top level domains
+     *
+     * @returns List of exclusions.
      */
-    convertEndpointTldToExclusion = (endpointsTlds: string[]) => {
+    convertEndpointTldToExclusion = (endpointsTlds: string[]): string[] => {
         const endpointsTldExclusions = endpointsTlds.map((endpointTld) => {
             const endpointTldExclusion = `*.${endpointTld}`;
             return endpointTldExclusion;
@@ -80,31 +76,34 @@ class EndpointsTldExclusions {
     };
 
     /**
-     * Updates endpoints top level domains if necessary and notifies proxy to generate new pac file
+     * Updates endpoints top level domains if necessary and notifies proxy to generate new pac file.
+     *
      * @param endpointsTldExclusions
      */
-    handleEndpointsTldExclusionsListUpdate = async (endpointsTldExclusions: string[]) => {
+    handleEndpointsTldExclusionsListUpdate = async (endpointsTldExclusions: string[]): Promise<void> => {
+        let { endpointsTldExclusionsList } = await this.endpointsTldExclusionsState.get();
+
         // if lists have same values, do nothing
         if (isEqual(
-            sortBy(this.endpointsTldExclusionsList),
+            sortBy(endpointsTldExclusionsList),
             sortBy(endpointsTldExclusions),
         )) {
             return;
         }
 
-        this.endpointsTldExclusionsList = endpointsTldExclusions;
+        endpointsTldExclusionsList = endpointsTldExclusions;
+        await this.endpointsTldExclusionsState.update({ endpointsTldExclusionsList });
 
         this.updateStorage();
-        await proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);
+        await proxy.setEndpointsTldExclusions(endpointsTldExclusionsList);
     };
 
-    init = async () => {
+    init = async (): Promise<void> => {
         try {
-            this.state = stateStorage.getItem(StorageKey.EndpointsTldExclusions);
             const storedList = await browserApi.storage.get<string[]>(this.STORAGE_KEY);
             if (storedList) {
-                this.endpointsTldExclusionsList = storedList;
-                await proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);
+                await this.endpointsTldExclusionsState.update({ endpointsTldExclusionsList: storedList });
+                await proxy.setEndpointsTldExclusions(storedList);
             }
         } catch (e) {
             log.error(e);
