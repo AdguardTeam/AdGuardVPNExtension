@@ -139,7 +139,7 @@
         "message": "Politique de confidentialité"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Général"
     },
     "referral_get_free_traffic": {
         "message": "Obtenez des Go gratuits !"
@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Temps"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "À propos de vos statistiques"
+    },
+    "popup_stats_data_since": {
+        "message": "Depuis %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Les statistiques montrent la quantité de données VPN que vous avez utilisées et classent vos meilleurs emplacements"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Les statistiques n'incluent jamais votre historique de navigation. Il est chiffré, donc personne ne peut vous suivre"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Si vous utilisez AdGuard VPN dans plusieurs navigateurs, vos statistiques seront différentes pour chacun d'eux. Elles sont enregistrées sur l'appareil et vous seul pouvez y accéder"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "OK"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "Fermer"
     },
+    "auth_loading_title": {
+        "message": "Connectez-vous ou inscrivez-vous via votre navigateur"
+    },
+    "auth_loading_description": {
+        "message": "Si vous possédez une licence AdGuard VPN, elle s'appliquera automatiquement"
+    },
     "auth_loading_button_reopen": {
         "message": "Rouvrir la page de connexion"
     },
     "auth_loading_button_cancel": {
         "message": "Annuler"
+    },
+    "auth_success_title": {
+        "message": "Vous êtes connecté"
+    },
+    "auth_success_description": {
+        "message": "Revenez à l'extension AdGuard VPN : tout est configuré"
     }
 }

@@ -139,7 +139,7 @@
         "message": "Pravidlá ochrany súkromia"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Všeobecné"
     },
     "referral_get_free_traffic": {
         "message": "Získajte bezplatné GB!"
@@ -934,6 +934,22 @@
     "popup_stats_usage_time": {
         "message": "Čas"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "O Vašich štatistikách"
+    },
+    "popup_stats_data_since": {
+        "message": "Od %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Štatistiky ukazujú, koľko VPN dát ste použili a hodnotia Vaše najlepšie lokality"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Štatistiky nikdy nezahŕňajú Vašu históriu prehliadania. Sú šifrované, takže Vás nikto nemôže sledovať"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Ak používate AdGuard VPN vo viacerých prehliadačoch, Vaše štatistiky sa budú v každom z nich líšiť. Sú uložené v zariadení a prístup k nim máte iba Vy"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rozumiem"
     },
@@ -1054,10 +1070,22 @@
     "auth_failed_to_login_button": {
         "message": "Zavrieť"
     },
+    "auth_loading_title": {
+        "message": "Prihláste sa alebo sa zaregistrujte prostredníctvom prehliadača"
+    },
+    "auth_loading_description": {
+        "message": "Ak máte licenciu AdGuard VPN, použije sa automaticky"
+    },
     "auth_loading_button_reopen": {
         "message": "Znovu otvorte prihlasovaciu stránku"
     },
     "auth_loading_button_cancel": {
         "message": "Zrušiť"
+    },
+    "auth_success_title": {
+        "message": "Ste prihlásený/á"
+    },
+    "auth_success_description": {
+        "message": "Vráťte sa k rozšíreniu AdGuard VPN - všetko je nastavené"
     }
 }

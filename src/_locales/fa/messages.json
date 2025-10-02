@@ -139,7 +139,7 @@
         "message": "سیاست حریم خصوصی"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "عمومی"
     },
     "referral_get_free_traffic": {
         "message": "حجم داده‌های رایگان دریافت کنید!"
@@ -919,6 +919,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "اینو دیگه نشون نده"
     },
+    "popup_stats": {
+        "message": "آمار"
+    },
     "popup_stats_disabled_notice": {
         "message": "آمار غیرفعال است"
     },
@@ -933,6 +936,22 @@
     },
     "popup_stats_usage_time": {
         "message": "زمان"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "درباره آمار شما"
+    },
+    "popup_stats_data_since": {
+        "message": "از %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "آمار نشان می دهد که چه مقدار داده VPN استفاده کرده اید و مکان های برتر خود را رتبه بندی کنید"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "آمار هرگز شامل سابقه مرور شما نمی شود. رمزگذاری شده است، بنابراین هیچ نمی تواند شما را ردیابی کند"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "اگر از AdGuard VPN در چندین مرورگر استفاده می کنید، آمار شما برای هر یک متفاوت خواهد بود. آنها در دستگاه ذخیره می شوند و فقط شما می توانید به آنها دسترسی داشته باشید"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "متوجه شدم"
@@ -1042,10 +1061,34 @@
     "resend_confirm_registration_link_notification": {
         "message": "پیوند تایید دوباره ارسال شد"
     },
+    "auth_failed_to_login_title": {
+        "message": "ورود شما به سیستم انجام نشد"
+    },
+    "auth_failed_to_login_description": {
+        "message": "لطفاً دوباره تلاش کنید یا <a>با پشتیبانی تماس بگیرید</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "لطفا دوباره امتحان کنید"
+    },
     "auth_failed_to_login_button": {
         "message": "بستن"
     },
+    "auth_loading_title": {
+        "message": "از طریق مرورگر خود وارد شوید یا ثبت نام کنید"
+    },
+    "auth_loading_description": {
+        "message": "اگر مجوز AdGuard VPN دارید، به طور خودکار اعمال می شود"
+    },
+    "auth_loading_button_reopen": {
+        "message": "بازگشایی صفحه ورود"
+    },
     "auth_loading_button_cancel": {
         "message": "لغو"
+    },
+    "auth_success_title": {
+        "message": "به سیستم وارد شده اید"
+    },
+    "auth_success_description": {
+        "message": "به افزونه AdGuard VPN برگردید - همه چیز تنظیم شده است"
     }
 }

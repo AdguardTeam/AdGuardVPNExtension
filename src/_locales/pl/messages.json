@@ -139,7 +139,7 @@
         "message": "Polityka prywatności"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Ogólne"
     },
     "referral_get_free_traffic": {
         "message": "Zdobądź darmowe GB!"
@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Czas"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Informacje o statystykach"
+    },
+    "popup_stats_data_since": {
+        "message": "Od %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statystyki pokazują, ile danych VPN wykorzystałeś i klasyfikują Twoje najlepsze lokalizacje"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statystyki nigdy nie obejmują historii przeglądania. Są szyfrowane, więc nikt nie może cię śledzić"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Jeśli korzystasz z AdGuard VPN w kilku przeglądarkach, Twoje statystyki będą różne dla każdej z nich. Są one zapisywane na urządzeniu i tylko Ty masz do nich dostęp"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rozumiem"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "Zamknij"
     },
+    "auth_loading_title": {
+        "message": "Zaloguj się lub zarejestruj przez przeglądarkę"
+    },
+    "auth_loading_description": {
+        "message": "Jeśli masz licencję AdGuard VPN, zostanie ona zastosowana automatycznie"
+    },
     "auth_loading_button_reopen": {
         "message": "Otwórz ponownie stronę logowania"
     },
     "auth_loading_button_cancel": {
         "message": "Anuluj"
+    },
+    "auth_success_title": {
+        "message": "Jesteś zalogowany"
+    },
+    "auth_success_description": {
+        "message": "Wróć do rozszerzenia AdGuard VPN — wszystko jest skonfigurowane"
     }
 }

@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Время"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "О статистике"
+    },
+    "popup_stats_data_since": {
+        "message": "С %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Статистика показывает, сколько VPN-трафика вы использовали и к каким локациям подключались чаще всего"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "В статистике нет вашей истории поиска. Трафик зашифрован — никто не может отслеживать вас"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Если вы используете AdGuard VPN в нескольких браузерах, статистика будет отличаться для каждого из них. Она хранится на устройстве, и только вы можете получить к ней доступ"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Хорошо"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "Закрыть"
     },
+    "auth_loading_title": {
+        "message": "Войдите или создайте аккаунт через браузер"
+    },
+    "auth_loading_description": {
+        "message": "Если у вас есть лицензия AdGuard VPN, она применится автоматически"
+    },
     "auth_loading_button_reopen": {
         "message": "Повторно открыть страницу входа"
     },
     "auth_loading_button_cancel": {
         "message": "Отмена"
+    },
+    "auth_success_title": {
+        "message": "Вы вошли в аккаунт"
+    },
+    "auth_success_description": {
+        "message": "Всё готово, можете возвращаться в расширение"
     }
 }

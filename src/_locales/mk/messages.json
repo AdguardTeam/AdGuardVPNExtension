@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Време"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "За вашите статистики"
+    },
+    "popup_stats_data_since": {
+        "message": "Од %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Статистиката покажува колку VPN податоци сте користеле и ги рангира вашите најдобри локации"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Статистиките никогаш не ја вклучуваат вашата историја на прелистување. Криптирано е, така што никој не може да ве следи"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Ако користите AdGuard VPN во неколку прелистувачи, вашите статистики ќе бидат различни за секој од нив. Тие се зачувани на уредот и само вие можете да пристапите до нив"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Добро"
     },
@@ -1051,13 +1067,28 @@
     "auth_failed_to_login_description": {
         "message": "Обидете се повторно или <a>контактирајте со поддршката</a>"
     },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Ве молам пробајте повторно"
+    },
     "auth_failed_to_login_button": {
         "message": "Затвори"
+    },
+    "auth_loading_title": {
+        "message": "Најавете се или регистрирајте се преку вашиот прелистувач"
+    },
+    "auth_loading_description": {
+        "message": "Ако имате AdGuard VPN лиценца, таа ќе се примени автоматски"
     },
     "auth_loading_button_reopen": {
         "message": "Повторно отворете ја страницата за најавување"
     },
     "auth_loading_button_cancel": {
         "message": "Откажи"
+    },
+    "auth_success_title": {
+        "message": "Најавени сте"
+    },
+    "auth_success_description": {
+        "message": "Вратете се на екстензијата AdGuard VPN — сѐ е подготвено"
     }
 }

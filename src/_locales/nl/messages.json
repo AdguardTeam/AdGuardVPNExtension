@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Tijd"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Over je statistieken"
+    },
+    "popup_stats_data_since": {
+        "message": "Sinds %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistieken laten zien hoeveel VPN-gegevens je hebt gebruikt en rangschikken je toplocaties"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "De statistieken bevatten nooit je browsegeschiedenis. Deze is versleuteld, dus niemand kan je volgen"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Als je AdGuard VPN in verschillende browsers gebruikt, zullen je statistieken voor elke browser anders zijn. Ze worden opgeslagen op het apparaat en alleen jij hebt er toegang toe"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Begrepen"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "Sluiten"
     },
+    "auth_loading_title": {
+        "message": "Aanmelden of registreren via je browser"
+    },
+    "auth_loading_description": {
+        "message": "Als je een AdGuard VPN-licentie hebt, wordt deze automatisch toegepast"
+    },
     "auth_loading_button_reopen": {
         "message": "Aanmeldpagina opnieuw openen"
     },
     "auth_loading_button_cancel": {
         "message": "Annuleren"
+    },
+    "auth_success_title": {
+        "message": "Je bent aangemeld"
+    },
+    "auth_success_description": {
+        "message": "Ga terug naar de AdGuard VPN-uitbreiding — deze is volledig ingesteld"
     }
 }

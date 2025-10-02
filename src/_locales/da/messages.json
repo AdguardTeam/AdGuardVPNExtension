@@ -139,7 +139,7 @@
         "message": "Fortrolighedspolitik"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Generalt"
     },
     "referral_get_free_traffic": {
         "message": "Få gratis GB!"
@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Tid"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Om statistikker"
+    },
+    "popup_stats_data_since": {
+        "message": "Siden %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistikker viser, hvor meget VPN-data, der er forbrugt, og rangerer topplaceringerne"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistikker inkluderer aldrig webbrowserhistorikken. Den er krypteret, så ingen kan spore brugeren"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Bruger man AdGuard VPN i flere webbrowsere, vil statistikkerne være forskellige for hver enkelt. De gemmes på enheden, og kun brugeren kan tilgå dem"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Forstået"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "Luk"
     },
+    "auth_loading_title": {
+        "message": "Log ind eller tilmeld gennem webbrowseren"
+    },
+    "auth_loading_description": {
+        "message": "Har man en AdGuard VPN-licens, anvendes den automatisk"
+    },
     "auth_loading_button_reopen": {
         "message": "Åbn login-siden igen"
     },
     "auth_loading_button_cancel": {
         "message": "Afbryd"
+    },
+    "auth_success_title": {
+        "message": "Logget ind"
+    },
+    "auth_success_description": {
+        "message": "Returnér til AdGuard VPN-udvidelsen — opsætningen er færdig"
     }
 }

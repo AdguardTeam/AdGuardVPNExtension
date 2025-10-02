@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Ώρα"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Σχετικά με τα στατιστικά σας"
+    },
+    "popup_stats_data_since": {
+        "message": "Από %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Τα στατιστικά στοιχεία δείχνουν πόσα δεδομένα VPN έχετε χρησιμοποιήσει και κατατάσσουν τις κορυφαίες τοποθεσίες σας"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Τα στατιστικά δεν περιλαμβάνουν ποτέ το ιστορικό περιήγησής σας. Είναι κρυπτογραφημένο, ώστε κανείς να μην μπορεί να σας παρακολουθήσει"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Εάν χρησιμοποιείτε το AdGuard VPN σε πολλά προγράμματα περιήγησης, τα στατιστικά σας θα είναι διαφορετικά για το καθένα. Αποθηκεύονται στη συσκευή και μόνο εσείς μπορείτε να έχετε πρόσβαση σε αυτά"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Το κατάλαβα"
     },
@@ -1045,10 +1061,34 @@
     "resend_confirm_registration_link_notification": {
         "message": "Ο σύνδεσμος επιβεβαίωσης ξαναστάλθηκε"
     },
+    "auth_failed_to_login_title": {
+        "message": "Αποτυχία σύνδεσης"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Προσπαθήστε ξανά ή <a>επικοινωνήστε με την υποστήριξη</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Δοκιμάστε ξανά"
+    },
     "auth_failed_to_login_button": {
         "message": "Κλείσιμο"
     },
+    "auth_loading_title": {
+        "message": "Συνδεθείτε ή εγγραφείτε μέσω του προγράμματος περιήγησής σας"
+    },
+    "auth_loading_description": {
+        "message": "Εάν διαθέτετε άδεια AdGuard VPN, θα εφαρμοστεί αυτόματα"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Επανάνοιγμα σελίδας σύνδεσης"
+    },
     "auth_loading_button_cancel": {
         "message": "Άκυρο"
+    },
+    "auth_success_title": {
+        "message": "Έχετε συνδεθεί"
+    },
+    "auth_success_description": {
+        "message": "Επιστρέψτε στην επέκταση VPN AdGuard — όλα έχουν ρυθμιστεί"
     }
 }

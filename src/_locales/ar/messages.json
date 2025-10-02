@@ -108,8 +108,17 @@
     "account_logged_in_as": {
         "message": "تم تسجيل الدخول باسم <b>%username%</b>"
     },
+    "account_sign_out": {
+        "message": "تسجيل خروج"
+    },
+    "account_sign_out_question": {
+        "message": "تسجيل الخروج؟"
+    },
     "account_sign_out_popup_cancel": {
         "message": "إلغاء"
+    },
+    "account_sign_out_description": {
+        "message": "سيتم تسجيل خروجك من حسابك. سيتم إيقاف حماية VPN"
     },
     "account_unlimited_title": {
         "message": "احصل على إصدار غير محدود!"
@@ -128,6 +137,9 @@
     },
     "privacy_policy": {
         "message": "سياسة الخصوصية"
+    },
+    "settings_general_title": {
+        "message": "عام"
     },
     "referral_get_free_traffic": {
         "message": "احصل على جيجا مجانية!"
@@ -552,6 +564,9 @@
     "popup_settings_stats": {
         "message": "إحصائيات"
     },
+    "popup_settings_free_description": {
+        "message": "متوفر في AdGuard VPN Unlimited"
+    },
     "context_menu_enable_vpn": {
         "message": "تشغيل VPN على هذا الموقع الإلكتروني"
     },
@@ -831,10 +846,6 @@
     "popup_limited_offer_details_time_left": {
         "message": "الوقت المتبقي: %time_left%"
     },
-    "popup_limited_offer_details_title": {
-        "message": "| AdGuard VPN غير محدود <span> لمدة</span>%count% <span> عام بسعر%discount%% خصم % خصم</span> | AdGuard VPN غير محدود لمدة%count% عام بسعر <span>%discount%% خصم</span>",
-        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
-    },
     "popup_limited_offer_details_btn": {
         "message": "احصل على الصفقة"
     },
@@ -907,8 +918,14 @@
     "popup_stats": {
         "message": "إحصائيات"
     },
+    "popup_stats_disabled_notice": {
+        "message": "تم تعطيل الإحصائيات"
+    },
     "popup_stats_enable_btn": {
         "message": "تمكين"
+    },
+    "popup_stats_data_usage": {
+        "message": "البيانات"
     },
     "popup_stats_most_used_locations": {
         "message": "المواقع الأكثر استخداماً"
@@ -916,8 +933,36 @@
     "popup_stats_usage_time": {
         "message": "الوقت"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "حول إحصائياتك"
+    },
+    "popup_stats_data_since": {
+        "message": "منذ %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "تُظهر الإحصائيات مقدار بيانات VPN التي استخدمتها وتصنف أفضل المواقع لديك"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "لا تتضمن الإحصائيات سجل التصفح الخاص بك أبدا. إنه مشفر ، لذلك لا يمكن لأحد تتبعك"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "إذا كنت تستخدم AdGuard VPN في العديد من المتصفحات ، فستكون إحصائياتك مختلفة لكل متصفح. يتم حفظها على الجهاز، ولا يمكن الوصول إليها إلا أنت"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "فهمت ذلك"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "تمكين الإحصائيات"
+    },
+    "popup_stats_menu_disable_stats_btn": {
+        "message": "تعطيل الإحصائيات"
+    },
+    "popup_stats_menu_disable_stats_title": {
+        "message": "تعطيل الإحصائيات؟"
+    },
+    "popup_stats_menu_disable_stats_description": {
+        "message": "لن يتم جمع إحصائيات جديدة. لا يزال بإمكانك الوصول إلى إحصائياتك الحالية"
     },
     "popup_stats_menu_disable_stats_disable_btn": {
         "message": "تعطيل"
@@ -964,6 +1009,21 @@
     "popup_stats_view_all_locations": {
         "message": "عرض كافة المواقع"
     },
+    "popup_stats_connection_to_vpn": {
+        "message": "متصل بشبكة VPN"
+    },
+    "popup_stats_connection_to_vpn_days": {
+        "message": "%days% يوم",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_hours": {
+        "message": "%hours% ساعة",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
+    "popup_stats_connection_to_vpn_minutes": {
+        "message": "%minutes% دقيقة",
+        "description": "IMPORTANT: Be careful with percent sign before unit, also respect space between placeholder and unit!"
+    },
     "popup_stats_locations": {
         "message": "المواقع"
     },
@@ -997,16 +1057,34 @@
     "resend_confirm_registration_link_notification": {
         "message": "تم إعادة إرسال رابط التأكيد"
     },
+    "auth_failed_to_login_title": {
+        "message": "فشل تسجيل الدخول"
+    },
+    "auth_failed_to_login_description": {
+        "message": "من فضلك حاول مرة أخرى أو <a>اتصل بالدعم</a>"
+    },
     "auth_failed_to_login_description_without_support": {
         "message": "الرجاء المحاولة مره أخرى"
     },
     "auth_failed_to_login_button": {
         "message": "إغلاق"
     },
+    "auth_loading_title": {
+        "message": "تسجيل الدخول أو التسجيل من خلال متصفحك"
+    },
+    "auth_loading_description": {
+        "message": "إذا كان لديك ترخيص AdGuard VPN ، تطبيقه تلقائيا"
+    },
     "auth_loading_button_reopen": {
         "message": "إعادة فتح صفحة تسجيل الدخول"
     },
     "auth_loading_button_cancel": {
         "message": "إلغاء"
+    },
+    "auth_success_title": {
+        "message": "لقد قمت بتسجيل الدخول"
+    },
+    "auth_success_description": {
+        "message": "ارجع إلى امتداد AdGuard VPN – تم إعداد كل شيء"
     }
 }

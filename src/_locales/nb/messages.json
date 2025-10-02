@@ -139,7 +139,7 @@
         "message": "Personvern"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Generelt"
     },
     "referral_get_free_traffic": {
         "message": "Få gratis GB!"
@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Tidspunkt"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Om statistikken din"
+    },
+    "popup_stats_data_since": {
+        "message": "Siden %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistikk viser hvor mye VPN-data du har brukt og rangerer dine beste steder"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistikk inkluderer aldri nettleserloggen din. Den er kryptert, slik at ingen kan spore deg"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Hvis du bruker AdGuard VPN i flere nettlesere, vil statistikken din være forskjellig for hver enkelt. De lagres på enheten, og det er bare du som har tilgang til dem"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Skjønner"
     },
@@ -1045,16 +1061,34 @@
     "resend_confirm_registration_link_notification": {
         "message": "Bekreftelseslenken sendt på nytt"
     },
+    "auth_failed_to_login_title": {
+        "message": "Klarte ikke å logge deg inn"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Vennligst prøv igjen eller <a>kontakt support</a>"
+    },
     "auth_failed_to_login_description_without_support": {
         "message": "Vennligst prøv igjen"
     },
     "auth_failed_to_login_button": {
         "message": "Lukk"
     },
+    "auth_loading_title": {
+        "message": "Logg inn eller registrer deg via nettleseren din"
+    },
+    "auth_loading_description": {
+        "message": "Hvis du har en AdGuard VPN-lisens, vil den gjelde automatisk"
+    },
     "auth_loading_button_reopen": {
         "message": "Åpne innloggingssiden på nytt"
     },
     "auth_loading_button_cancel": {
         "message": "Avbryt"
+    },
+    "auth_success_title": {
+        "message": "Du er logget inn"
+    },
+    "auth_success_description": {
+        "message": "Gå tilbake til AdGuard VPN-utvidelsen — alt er satt opp"
     }
 }

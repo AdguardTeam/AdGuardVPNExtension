@@ -139,7 +139,7 @@
         "message": "隐私策略"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "通用"
     },
     "referral_get_free_traffic": {
         "message": "获取免费流量！"
@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "时间"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "关于您的统计数据"
+    },
+    "popup_stats_data_since": {
+        "message": "自 %startDate% 起",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "统计信息显示您已使用的 VPN 数据量，并对常用地点进行排名。"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "统计数据绝不会包含您的浏览历史。这些数据已加密，因此无人能够追踪您。"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "如果您在多个浏览器中使用 AdGuard VPN，每个浏览器的统计数据将是独立的。这些数据存储于设备本地，且仅您本人可以访问。"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "知道了"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "关闭"
     },
+    "auth_loading_title": {
+        "message": "请通过浏览器登录或注册"
+    },
+    "auth_loading_description": {
+        "message": "如果您有 AdGuard VPN 许可证，它将自动应用。"
+    },
     "auth_loading_button_reopen": {
         "message": "重新打开登录页面"
     },
     "auth_loading_button_cancel": {
         "message": "取消"
+    },
+    "auth_success_title": {
+        "message": "登录成功"
+    },
+    "auth_success_description": {
+        "message": "返回 AdGuard VPN 扩展，全部设置已完成"
     }
 }

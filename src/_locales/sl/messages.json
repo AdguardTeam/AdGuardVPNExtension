@@ -139,7 +139,7 @@
         "message": "Politika zasebnosti"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Splošni"
     },
     "referral_get_free_traffic": {
         "message": "Pridobite brezplačne GB!"
@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Čas"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "O vaši statistiki"
+    },
+    "popup_stats_data_since": {
+        "message": "Od %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistika prikazuje, koliko podatkov VPN ste uporabili, in razvršča vaše najboljše lokacije"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistike nikoli ne vključujejo zgodovine brskanja. Je šifrirana, zato vam nihče ne more slediti"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Če uporabljate AdGuard VPN v več brskalnikih, bo vaša statistika za vsakega drugačna. Shranjeni so v napravi in do njih lahko dostopate samo vi"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Razumem"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "Zapri"
     },
+    "auth_loading_title": {
+        "message": "Prijavite se ali registrirajte prek brskalnika"
+    },
+    "auth_loading_description": {
+        "message": "Če imate licenco AdGuard VPN, se bo samodejno uporabila"
+    },
     "auth_loading_button_reopen": {
         "message": "Ponovno odpri stran za prijavo"
     },
     "auth_loading_button_cancel": {
         "message": "Prekliči"
+    },
+    "auth_success_title": {
+        "message": "Prijavljeni ste"
+    },
+    "auth_success_description": {
+        "message": "Vrnite se k razširitvi AdGuard VPN – vse je nastavljeno"
     }
 }

@@ -139,7 +139,7 @@
         "message": "Politika privatnosti"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Opšta"
     },
     "referral_get_free_traffic": {
         "message": "Nabavite besplatan VPn saobraćaj!"
@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Vreme"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "O vašoj statistici"
+    },
+    "popup_stats_data_since": {
+        "message": "Od %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistika pokazuje koliko ste VPN podataka koristili i rangirali svoje najbolje lokacije"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistika nikada ne uključuje vašu istoriju pretraživanja. Šifrovano je, tako da niko ne može da vas prati"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Ako koristite AdGuard VPN u nekoliko pretraživača, vaša statistika će biti različita za svaki od njih. Oni su sačuvani na uređaju, i samo vi možete da im pristupite"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Shvatam"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "Zatvori"
     },
+    "auth_loading_title": {
+        "message": "Prijavite se ili se prijavite preko pretraživača"
+    },
+    "auth_loading_description": {
+        "message": "Ako imate AdGuard VPN licencu, to će se automatski primeniti"
+    },
     "auth_loading_button_reopen": {
         "message": "Ponovno otvorite stranicu za prijavu"
     },
     "auth_loading_button_cancel": {
         "message": "Otkaži"
+    },
+    "auth_success_title": {
+        "message": "Prijavljen si"
+    },
+    "auth_success_description": {
+        "message": "Vratite se na AdGuard VPN ekstenziju — sve je postavljeno"
     }
 }

@@ -139,7 +139,7 @@
         "message": "Правила за поверителност"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Общи"
     },
     "referral_get_free_traffic": {
         "message": "Получете безплатни GB!"
@@ -919,6 +919,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Не го показвай отново"
     },
+    "popup_stats": {
+        "message": "Статистики"
+    },
     "popup_stats_disabled_notice": {
         "message": "Статистиките са деактивирани"
     },
@@ -933,6 +936,22 @@
     },
     "popup_stats_usage_time": {
         "message": "Време"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Относно вашата статистика"
+    },
+    "popup_stats_data_since": {
+        "message": "От %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Статистиката показва колко VPN данни сте използвали и класира вашите топ локации"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Статистиките никога не включват твоята история на сърфиране. Тя е криптирана, така че никой не може да те проследи"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Ако използвате AdGuard VPN в няколко браузъра, статистиката ви ще бъде различна за всеки от тях. Те се записват на устройството и само вие имате достъп до тях"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Стана"
@@ -1042,10 +1061,34 @@
     "resend_confirm_registration_link_notification": {
         "message": "Връзката за потвърждение е изпратена повторно"
     },
+    "auth_failed_to_login_title": {
+        "message": "Не успях да влезете в профила си"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Моля, опитайте отново или <a>се свържете с поддръжката</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Моля, опитайте отново"
+    },
     "auth_failed_to_login_button": {
         "message": "Затвори"
     },
+    "auth_loading_title": {
+        "message": "Влезте или се регистрирайте през браузъра си"
+    },
+    "auth_loading_description": {
+        "message": "Ако имате лиценз за AdGuard VPN, той ще се приложи автоматично"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Отворете отново страницата за вход"
+    },
     "auth_loading_button_cancel": {
         "message": "Отказ"
+    },
+    "auth_success_title": {
+        "message": "Влезли сте в профила си"
+    },
+    "auth_success_description": {
+        "message": "Върнете се към разширението AdGuard VPN — всичко е настроено"
     }
 }

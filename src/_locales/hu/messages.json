@@ -139,7 +139,7 @@
         "message": "Adatvédelmi irányelvek"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Általános"
     },
     "referral_get_free_traffic": {
         "message": "Szerezz ingyenes GB-okat!"
@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Idő"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "A statisztikáidról"
+    },
+    "popup_stats_data_since": {
+        "message": "%startDate% óta",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": ""
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "A statisztikák soha nem tartalmazzák a böngészési előzményeket. Titkosítva van, így senki sem tudja nyomon követni"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Ha több böngészőben használja az AdGuard VPN-t, a statisztikák mindegyiknél eltérőek lesznek. A készülék menti őket, és csak Ön férhet hozzá"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rendben"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "Bezárás"
     },
+    "auth_loading_title": {
+        "message": "Jelentkezzen be vagy regisztráljon a böngészőjén keresztül"
+    },
+    "auth_loading_description": {
+        "message": "Ha AdGuard VPN-licenccel rendelkezik, az automatikusan érvényesül"
+    },
     "auth_loading_button_reopen": {
         "message": "Bejelentkezési oldal újranyitása"
     },
     "auth_loading_button_cancel": {
         "message": "Mégsem"
+    },
+    "auth_success_title": {
+        "message": "Bejelentkezett"
+    },
+    "auth_success_description": {
+        "message": "Térj vissza az AdGuard VPN bővítményhez — minden készen áll"
     }
 }

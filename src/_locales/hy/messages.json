@@ -139,7 +139,7 @@
         "message": "Գաղտնիության քաղաքականություն"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Ընդհանուր"
     },
     "referral_get_free_traffic": {
         "message": "Ստացեք անվճար GB-ներ։"
@@ -919,6 +919,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Սա այլևս մի ցուցադրեք"
     },
+    "popup_stats": {
+        "message": "Վիճակագրություն"
+    },
     "popup_stats_disabled_notice": {
         "message": "Վիճակագրությունը անջատված է"
     },
@@ -934,8 +937,27 @@
     "popup_stats_usage_time": {
         "message": "Ժամանակ"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Ձեր վիճակագրության մասին"
+    },
+    "popup_stats_data_since": {
+        "message": "Սկսած %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Վիճակագրությունը ցույց է տալիս, թե որքան VPN տվյալներ եք օգտագործել եւ դասավորել ձեր լավագույն վայրերը"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Վիճակագրությունը երբեք չի ներառում ձեր զննարկման պատմությունը: Այն գաղտնագրված է, այնպես որ ոչ ոք չի կարող հետեւել ձեզ"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Եթե դուք օգտագործում եք AdGuard VPN մի քանի բրաուզերներում, ձեր վիճակագրությունը տարբեր կլինի յուրաքանչյուրի համար: Դրանք պահվում են սարքում, եւ միայն դուք կարող եք մուտք գործել դրանք"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Հասկացա"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Միացնել վիճակագրությունը"
     },
     "popup_stats_menu_disable_stats_btn": {
         "message": "Անջատել վիճակագրությունը"
@@ -1039,10 +1061,34 @@
     "resend_confirm_registration_link_notification": {
         "message": "Հաստատման հղումը կրկին ուղարկված է"
     },
+    "auth_failed_to_login_title": {
+        "message": "Մուտք գործելը ձախողվեց"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Խնդրում ենք կրկին փորձել կամ <a>կապվել աջակցությանը</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Խնդրում եմ կրկին փորձել"
+    },
     "auth_failed_to_login_button": {
         "message": "Փակել"
     },
+    "auth_loading_title": {
+        "message": "Մուտք գործեք կամ գրանցվեք ձեր դիտարկչի միջոցով"
+    },
+    "auth_loading_description": {
+        "message": "Եթե դուք ունեք AdGuard VPN լիցենզիա, այն կկիրառվի ավտոմատ կերպով"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Վերաբացել մուտքի էջը"
+    },
     "auth_loading_button_cancel": {
         "message": "Չեղարկել"
+    },
+    "auth_success_title": {
+        "message": "Դուք մուտք եք գործել"
+    },
+    "auth_success_description": {
+        "message": "Վերադարձեք AdGuard VPN ընդլայնմանը՝ այն արդեն կարգավորված է։"
     }
 }

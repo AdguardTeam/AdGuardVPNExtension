@@ -139,7 +139,7 @@
         "message": "Política de privacidade"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Geral"
     },
     "referral_get_free_traffic": {
         "message": "Obtenha GBs grátis!"
@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Data"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Sobre suas estatísticas"
+    },
+    "popup_stats_data_since": {
+        "message": "Desde %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "As estatísticas mostram a quantidade de dados usados pela VPN e classificam suas principais localidades"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Estatísticas nunca incluem seu histórico de navegação. Ele é criptografado, então ninguém pode rastrear você"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Se você usar o AdGuard VPN em vários navegadores, suas estatísticas serão diferentes para cada um. Elas são salvas no dispositivo, e somente você pode acessá-las"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Entendi"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "Fechar"
     },
+    "auth_loading_title": {
+        "message": "Entre ou cadastre-se pelo seu navegador"
+    },
+    "auth_loading_description": {
+        "message": "Se você tiver uma licença do AdGuard VPN, ela será aplicada automaticamente"
+    },
     "auth_loading_button_reopen": {
         "message": "Abrir novamente a página de login"
     },
     "auth_loading_button_cancel": {
         "message": "Cancelar"
+    },
+    "auth_success_title": {
+        "message": "Você está logado"
+    },
+    "auth_success_description": {
+        "message": "Volte para a extensão AdGuard VPN — está tudo pronto"
     }
 }

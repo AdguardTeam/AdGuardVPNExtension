@@ -919,6 +919,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Jangan tunjuk ini lagi"
     },
+    "popup_stats": {
+        "message": "Statistik"
+    },
     "popup_stats_disabled_notice": {
         "message": "Statistik dilumpuhkan"
     },
@@ -933,6 +936,22 @@
     },
     "popup_stats_usage_time": {
         "message": "Masa"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Perihal statistik anda"
+    },
+    "popup_stats_data_since": {
+        "message": "Sejak %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistik menunjukkan jumlah data VPN yang telah anda gunakan dan kedudukan lokasi teratas anda"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistik tidak pernah menyertakan sejarah penyemakan imbas anda. Ia disulitkan, jadi tiada siapa yang boleh menjejaki anda"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Jika anda menggunakan VPN AdGuard dalam beberapa penyemak imbas, statistik anda akan berbeza untuk setiap satu. Ia disimpan pada peranti dan hanya anda boleh mengaksesnya"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Faham"
@@ -1042,7 +1061,34 @@
     "resend_confirm_registration_link_notification": {
         "message": "Pautan pengesahan dihantar semula"
     },
+    "auth_failed_to_login_title": {
+        "message": "Gagal log masuk anda"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Sila cuba lagi atau <a>hubungi sokongan</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Sila cuba lagi"
+    },
     "auth_failed_to_login_button": {
         "message": "Tutup"
+    },
+    "auth_loading_title": {
+        "message": "Log masuk atau daftar melalui penyemak imbas anda"
+    },
+    "auth_loading_description": {
+        "message": "Jika anda mempunyai lesen VPN AdGuard, ia akan digunakan secara automatik"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Buka semula halaman log masuk"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Batal"
+    },
+    "auth_success_title": {
+        "message": "Anda telah log masuk"
+    },
+    "auth_success_description": {
+        "message": "Kembali ke penyambung AdGuard VPN — semuanya telah disediakan"
     }
 }

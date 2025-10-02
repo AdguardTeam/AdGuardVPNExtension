@@ -937,6 +937,22 @@
     "popup_stats_usage_time": {
         "message": "Aika"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Tietoja tilastoistasi"
+    },
+    "popup_stats_data_since": {
+        "message": "Alkaen %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Tilastot näyttävät, kuinka paljon VPN-dataa olet käyttänyt, ja sijoittavat suosituimmat sijaintisi paremmuusjärjestykseen"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Tilastot eivät koskaan sisällä selaushistoriaasi. Se on salattu, joten kukaan ei voi jäljittää sinua"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Jos käytät AdGuard VPN: ää useissa selaimissa, tilastosi ovat erilaiset jokaisessa selaimessa. Ne tallennetaan laitteeseen, ja vain sinä voit käyttää niitä"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Selvä"
     },
@@ -1057,10 +1073,22 @@
     "auth_failed_to_login_button": {
         "message": "Sulje"
     },
+    "auth_loading_title": {
+        "message": "Kirjaudu sisään tai rekisteröidy selaimesi kautta"
+    },
+    "auth_loading_description": {
+        "message": "Jos sinulla on AdGuard VPN -lisenssi, se otetaan käyttöön automaattisesti"
+    },
     "auth_loading_button_reopen": {
         "message": "Avaa kirjautumissivu uudelleen"
     },
     "auth_loading_button_cancel": {
         "message": "Peruuta"
+    },
+    "auth_success_title": {
+        "message": "Olet kirjautunut sisään"
+    },
+    "auth_success_description": {
+        "message": "Palaa AdGuard VPN -laajennukseen – kaikki on valmiina"
     }
 }

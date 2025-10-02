@@ -919,6 +919,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "No tornis a mostrar això"
     },
+    "popup_stats": {
+        "message": "Estadístiques"
+    },
     "popup_stats_disabled_notice": {
         "message": "Les estadístiques estan desactivades"
     },
@@ -933,6 +936,22 @@
     },
     "popup_stats_usage_time": {
         "message": "Hora"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Sobre les teves estadístiques"
+    },
+    "popup_stats_data_since": {
+        "message": "Des de %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Les estadístiques mostren quantes dades VPN heu utilitzat i classifiquen les vostres ubicacions principals"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Les estadístiques no inclouen mai el vostre historial de navegació. Està xifrat, de manera que ningú no us pot rastrejar"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Si utilitzeu AdGuard VPN en diversos navegadors, les vostres estadístiques seran diferents per a cadascun. Es desen al dispositiu i només tu hi pots accedir"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Entesos"
@@ -1042,7 +1061,34 @@
     "resend_confirm_registration_link_notification": {
         "message": "Enllaç de confirmació reenviat"
     },
+    "auth_failed_to_login_title": {
+        "message": "No s'ha pogut iniciar la sessió"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Si us plau, torneu-ho a provar o <a>poseu-vos en contacte amb el suport</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Si us plau, torna-ho a intentar"
+    },
     "auth_failed_to_login_button": {
         "message": "Tancar"
+    },
+    "auth_loading_title": {
+        "message": "Inicia la sessió o registra't a través del navegador"
+    },
+    "auth_loading_description": {
+        "message": "Si teniu una llicència VPN d'AdGuard, s'aplicarà automàticament"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Torna a obrir la pàgina d'inici de sessió"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Cancel·lar"
+    },
+    "auth_success_title": {
+        "message": "Has iniciat sessió"
+    },
+    "auth_success_description": {
+        "message": "Torneu a l'extensió VPN d'AdGuard: tot està configurat"
     }
 }
