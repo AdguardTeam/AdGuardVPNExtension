@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Obteniu GB gratuïts!"
     },
-    "settings_referral_info": {
-        "message": "Obteniu %your_gb% GB de trànsit VPN gratuït durant un mes per cada amic que es registri a través de la vostra invitació, fins a un total de %total_gb% GB. El vostre amic també rep %friend_gb% GB addicionals de franc."
-    },
     "settings_referral_invited_friends": {
         "message": "Amics convidats %count%/%limit%"
     },
@@ -162,53 +159,17 @@
     "settings_free_gbs": {
         "message": "GB gratuïts"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Completa les tasques per obtenir trànsit VPN gratuït!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Confirma el teu correu electrònic (preferred)"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Obtenir %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Has obtingut %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Feu clic a l'enllaç de confirmació del correu electrònic que us vam enviar en registrar-vos i obteniu %your_gb% GB de trànsit VPN gratuït. Si no podeu trobar el nostre correu electrònic, feu clic al botó a continuació."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Reenviar enllaç"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Afegeix una altra plataforma"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Instal·la AdGuard VPN per a iOS, Mac, Windows o Android, inicia sessió al teu compte AdGuard allí, i obtén %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Una altra plataforma afegida"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Felicitats per instal·lar AdGuard VPN en múltiples plataformes. Mantingueu-vos a salvo!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Vés als productes"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Convida un amic"
-    },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Obteniu fins a %num% GB"
     },
     "settings_free_gbs_invite_friend_complete": {
         "message": "Has obtingut %num% GB"
-    },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Gràcies per utilitzar totes les teves invitacions!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Torna"
     },
     "settings_rate_us": {
         "message": "Valoreu-nos"
@@ -770,9 +731,6 @@
     "popup_onboarding_next": {
         "message": "Pròxim"
     },
-    "popup_upgrade_screen_title": {
-        "message": "VPN il·limitat"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Dades il·limitades"
     },
@@ -1051,15 +1009,6 @@
     },
     "notification_data_left_description": {
         "message": "La velocitat de connexió VPN es reduirà aviat."
-    },
-    "confirm_email_done_title": {
-        "message": "Adreça de correu electrònic confirmada"
-    },
-    "confirm_email_done_info": {
-        "message": "Gràcies per verificar-ho!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Enllaç de confirmació reenviat"
     },
     "auth_failed_to_login_title": {
         "message": "No s'ha pogut iniciar la sessió"

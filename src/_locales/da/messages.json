@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Få gratis GB!"
     },
-    "settings_referral_info": {
-        "message": "Få %your_gb% GB gratis VPN-trafik i én måned for hver ven, der tilmelder sig via din invitation (op til %total_gb% GB i alt). Din ven får også én ekstra %friend_gb% GB gratis."
-    },
     "settings_referral_invited_friends": {
         "message": "Inviterede venner %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Gratis GB"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Fuldfør opgaverne for at få gratis VPN-trafik!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Bekræft din e-mail"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Få %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Du har fået %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Klik på bekræftelseslinket i e-mailen, som blev tilsendt ved tilmeldingen, og få %your_gb% GB gratis VPN-trafik. Er e-mailen utilgængelig, så klik på knappen nedenfor."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Gensend link"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Tilføj endnu en platform"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Installér AdGuard VPN til Windows, Android, iOS eller Mac, log dernæst ind på AdGuard-kontoen og få %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Endnu en platform tilføjet"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Tillykke med installationen af AdGuard VPN på flere platforme. Forbliv sikret!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Gå til Produkter"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Invitér en ven"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Få op til %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Du har fået %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Tak fordi du brugte alle dine invitationer!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Gå tilbage"
+    "settings_free_gbs_upgrade": {
+        "message": "Opgradér til Unlimited"
     },
     "settings_rate_us": {
         "message": "Bedøm os"
@@ -771,7 +735,7 @@
         "message": "Næste"
     },
     "popup_upgrade_screen_title": {
-        "message": "Ubegrænset VPN"
+        "message": "Opgradér til Unlimited"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Ubegrænset data"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "VPN-forbindelseshastigheden reduceres snart."
-    },
-    "confirm_email_done_title": {
-        "message": "E-mailadresse bekræftet"
-    },
-    "confirm_email_done_info": {
-        "message": "Tak for bekræftelsen!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Link sendt igen-bekræftelse"
     },
     "auth_failed_to_login_title": {
         "message": "Indlogning mislykkedes"

@@ -2,6 +2,10 @@
     "name": {
         "message": "AdGuard VPN — бясплатны і бяспечны проксі"
     },
+    "description": {
+        "description": "TEXT MAX LENGTH: 132",
+        "message": "Выкарыстоўвайце AdGuard VPN для хуткага і бяспечнага сёрфінга ў інтэрнэце. Абараняйце сваю прыватнасць і заставайцеся ананімнымі з дапамогай нашага прыватнага проксі VPN."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -140,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Атрымаць бясплатныя гігабайты!"
     },
-    "settings_referral_info": {
-        "message": "Атрымлівайце %your_gb% ГБ бясплатнага трафіку VPN на працягу месяца для кожнага сябра, які зарэгіструецца па вашым запрашэнні, у агульнай складанасці да %total_gb% ГБ. Ваш сябар таксама атрымлівае дадатковыя %friend_gb% ГБ бясплатна."
-    },
     "settings_referral_invited_friends": {
         "message": "Запрошаныя сябры %count%/%limit%"
     },
@@ -158,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Бясплатныя ГБ"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Выканайце заданні, каб атрымаць бясплатны трафік VPN!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Пацвердзіце сваю электронную пошту"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Атрымаць %num% ГБ"
     },
     "settings_free_gbs_task_complete": {
         "message": "У вас %num% ГБ"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Пстрыкніце спасылку з пацверджаннем па электроннай пошце, якую мы адправілі вам пры рэгістрацыі, і атрымайце %your_gb% ГБ бясплатнага трафіку VPN. Калі вы не можаце знайсці нашу электронную пошту, націсніце кнопку ніжэй."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Паўторна адправіць спасылку"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Дадайце іншую платформу"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Усталюйце AdGuard VPN для iOS, Mac, Windows або Android, увайдзіце на ёй у свой уліковы запіс AdGuard і атрымайце %your_gb% ГБ."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Дададзена яшчэ адна платформа"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Віншуем з усталяваннем AdGuard VPN на некалькіх платформах. Заставайцеся ў бяспецы!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Перайсці ў \"Прадукты\""
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Запрасіць сябра"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Атрымайце да %num% ГБ"
@@ -200,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "У вас %num% ГБ"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Дзякуй за выкарыстанне ўсіх вашых запрашэнняў!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Вярнуцца"
+    "settings_free_gbs_upgrade": {
+        "message": "Палепшыць да Unlimited"
     },
     "settings_rate_us": {
         "message": "Ацаніце нас"
@@ -767,7 +735,7 @@
         "message": "Далей"
     },
     "popup_upgrade_screen_title": {
-        "message": "Безлімітны VPN"
+        "message": "Палепшыць да Unlimited"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Неабмежаваная колькасць даных"
@@ -1047,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "Хуткасць VPN-злучэння хутка знізіцца."
-    },
-    "confirm_email_done_title": {
-        "message": "Адрас электроннай пошты пацверджаны"
-    },
-    "confirm_email_done_info": {
-        "message": "Дзякуй за праверку!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Спасылка для пацверджання была адпраўлена на вашу электронную пошту"
     },
     "auth_failed_to_login_title": {
         "message": "Не ўдалося ўвайсці"

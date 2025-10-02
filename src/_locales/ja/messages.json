@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "無料GBをGET！"
     },
-    "settings_referral_info": {
-        "message": "お友だちをAdGuard VPN部に招待して、無料月間通信量を増やしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされます（最大%total_gb%まで）。さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。"
-    },
     "settings_referral_invited_friends": {
         "message": "招待済みお友だち数: %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "無料GB"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "簡単なタスクを完了して、無料のVPNトラフィックを手に入れよう！"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "メールアドレスを認証する"
-    },
     "settings_free_gbs_get_GB": {
         "message": "%num%GBをGET"
     },
     "settings_free_gbs_task_complete": {
         "message": "%num%GBを取得しました。"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "登録時に送信された確認用メール内のリンクをクリックし、 %your_gb%GBの無料VPNトラフィックを取得できます。確認用メールを受信箱にて見つけることができない場合は、下のボタンをクリックしてください。"
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "リンクを再送信する"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "別のプラットフォームを追加する"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "AdGuard VPN for iOS/Android/Mac/Windows アプリをインストールし、そちらで AdGuard アカウントにログインすると、無料で%your_gb%GBを取得できます。"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "もう一つのプラットフォームが追加されました。"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "複数のプラットフォームに AdGuard VPN をインストールしていただきありがとうございます。安全なインターネットライフをお過ごしください。"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "製品一覧へ移動する"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "友達を招待する"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "最大%num%GBをGET"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "%num%GBを取得しました。"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "すべての招待券を使用していただき、ありがとうございます！"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "戻る"
+    "settings_free_gbs_upgrade": {
+        "message": "無制限版にアップグレード"
     },
     "settings_rate_us": {
         "message": "ご評価いただければ幸いです。"
@@ -771,7 +735,7 @@
         "message": "次へ"
     },
     "popup_upgrade_screen_title": {
-        "message": "無制限版VPN"
+        "message": "無制限版にアップグレード"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "データ量無制限"
@@ -1035,15 +999,6 @@
     },
     "notification_data_left_description": {
         "message": "VPN接続速度はまもなく低速化します。"
-    },
-    "confirm_email_done_title": {
-        "message": "メールアドレス確認完了"
-    },
-    "confirm_email_done_info": {
-        "message": "認証いただきありがとうございます。"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "確認用リンクが再送信されました。"
     },
     "auth_failed_to_login_title": {
         "message": "ログインできませんでした"

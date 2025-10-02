@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Gratis GB's verkrijgen!"
     },
-    "settings_referral_info": {
-        "message": "Ontvang een maand lang %your_gb% GB gratis VPN-gegevensverkeer voor elke vriend die zich via jouw uitnodiging aanmeldt, tot in totaal %total_gb% GB. Je vriend krijgt ook gratis %friend_gb% GB extra."
-    },
     "settings_referral_invited_friends": {
         "message": "Uitgenodigde vrienden %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Gratis GB's"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Voltooi de taken om gratis VPN-verkeer te krijgen!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Je e-mailadres bevestigen"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Krijg %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Je hebt %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Klik op de e-mailbevestigingslink die we je hebben gestuurd bij het aanmelden en ontvang %your_gb% GB gratis VPN-verkeer. Als je ons e-mailbericht niet kunt vinden, klik dan op de onderstaande knop."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Link opnieuw verzenden"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Nog een platform toevoegen"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Installeer AdGuard VPN voor iOS, Windows, of Android, meld je aan bij je AdGuard-account daar, en ontvang %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Nog een platform toegevoegd"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Gefeliciteerd met het installeren van AdGuard VPN op meerdere platforms. Blijf veilig!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Ga naar producten"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Een vriend uitnodigen"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Krijg tot %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Je hebt %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Bedankt voor het gebruiken van al je uitnodigingen!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Ga terug"
+    "settings_free_gbs_upgrade": {
+        "message": "Opwaarderen naar Onbeperkt"
     },
     "settings_rate_us": {
         "message": "Waardeer ons"
@@ -771,7 +735,7 @@
         "message": "Volgende"
     },
     "popup_upgrade_screen_title": {
-        "message": "Onbeperkt VPN"
+        "message": "Opwaarderen naar Onbeperkt"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Onbeperkte data"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "De snelheid van de VPN-verbinding wordt binnenkort verlaagd."
-    },
-    "confirm_email_done_title": {
-        "message": "E-mailadres bevestigd"
-    },
-    "confirm_email_done_info": {
-        "message": "Bedankt voor het verifiëren!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Bevestigingslink opnieuw verzonden"
     },
     "auth_failed_to_login_title": {
         "message": "Aanmelden mislukt"

@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Получите бесплатные ГБ!"
     },
-    "settings_referral_info": {
-        "message": "Приглашайте друзей попробовать AdGuard VPN и получайте %your_gb% ГБ на месяц бесплатно за каждого друга, всего до %total_gb% ГБ. Ваш друг также получит %friend_gb% ГБ бесплатно."
-    },
     "settings_referral_invited_friends": {
         "message": "Вы пригласили %count% из %limit% друзей"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Бесплатные ГБ"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Получайте бесплатный трафик за задания"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Подтвердите почту"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Получите %num% ГБ"
     },
     "settings_free_gbs_task_complete": {
         "message": "Вы получили %num% ГБ"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "При регистрации вам пришло письмо со ссылкой для подтверждения — нажмите на неё и получите %your_gb% ГБ бесплатно. Если вы не можете найти письмо, нажмите на кнопку ниже."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Отправить ссылку ещё раз"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Добавьте ещё платформу"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Установите AdGuard VPN для iOS, Mac, Windows или Android, войдите в свой аккаунт AdGuard и получите %your_gb% ГБ."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Добавлена ещё одна платформа"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Спасибо, что установили AdGuard VPN на нескольких устройствах. Оставайтесь в безопасности!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Перейти в «Продукты»"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Пригласите друга"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Получите до %num% ГБ"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Вы получили %num% ГБ"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Спасибо, что пригласили так много друзей!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Назад"
+    "settings_free_gbs_upgrade": {
+        "message": "Получите безлимитный трафик"
     },
     "settings_rate_us": {
         "message": "Как вам AdGuard VPN?"
@@ -771,7 +735,7 @@
         "message": "Далее"
     },
     "popup_upgrade_screen_title": {
-        "message": "Безлимитный VPN"
+        "message": "Получите безлимитный трафик"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Безлимитный трафик"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "Скоро VPN будет работать медленнее."
-    },
-    "confirm_email_done_title": {
-        "message": "Вы подтвердили почту"
-    },
-    "confirm_email_done_info": {
-        "message": "Спасибо!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Отправили ссылку повторно"
     },
     "auth_failed_to_login_title": {
         "message": "Не удалось войти в систему"

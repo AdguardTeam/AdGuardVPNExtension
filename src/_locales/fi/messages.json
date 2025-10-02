@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Ansaitse ilmaisia gigatavuja!"
     },
-    "settings_referral_info": {
-        "message": "Ansaitse jokaisesta kutsusi välityksellä rekisteröityvästä kaverista %your_gb% Gt kuukaudeksi. Voit ansaita kaikkiaan %total_gb% Gt. Myös kaverisi saa %friend_gb% Gt enemmän ilmaiseksi."
-    },
     "settings_referral_invited_friends": {
         "message": "Kavereita on kutsuttu %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Ilmaisia gigatavuja"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Suorita tehtäviä ansaitaksesi ilmaista VPN-tiedonsiirtoa!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Vahvista sähköpostiosoitteesi"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Hanki %num% Gt"
     },
     "settings_free_gbs_task_complete": {
         "message": "Ansaitsit %num% Gt"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Paina rekisteröitymisen yhteydessä vastaanottamasi sähköpostiviestin vahvistuslinkkiä, saadaksesi %your_gb% Gt ilmaista VPN-tiedonsiirtoa. Jos et löydä viestiä, paina alla olevaa painiketta."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Lähetä linkki uudelleen"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Lisää toinen alusta"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Asenna AdGuard VPN iOS:lle, Macille, Windowsille tai Androidille, kirjaudu AdGuard-tilillesi siellä ja hanki %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Toinen alusta lisätty"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Onnittelut AdGuard VPN:n asennuksesta useille alustoille. Pysy turvassa!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Tutustu tuotteisiimme"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Kutsu kavereita"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Ansaitse jopa %num% Gt"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Ansaitsit %num% Gt"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Kiitos kaikkien kutsujesi käytöstä!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Palaa takaisin"
+    "settings_free_gbs_upgrade": {
+        "message": "Päivitä Unlimitediin"
     },
     "settings_rate_us": {
         "message": "Arvostele meidät"
@@ -771,7 +735,7 @@
         "message": "Seuraava"
     },
     "popup_upgrade_screen_title": {
-        "message": "Rajaton VPN"
+        "message": "Päivitä Unlimitediin"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Rajattomasti tiedonsiirtoa"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "VPN-yhteyden nopeus alennetaan pian."
-    },
-    "confirm_email_done_title": {
-        "message": "Sähköpostiosoitteesi on vahvistettu"
-    },
-    "confirm_email_done_info": {
-        "message": "Kiitos vahvistuksesta!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Vahvistuslinkki lähetettiin uudelleen"
     },
     "auth_failed_to_login_title": {
         "message": "Sisäänkirjautuminen epäonnistui"

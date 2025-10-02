@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Отримайте безплатний VPN-трафік!"
     },
-    "settings_referral_info": {
-        "message": "Отримайте %your_gb% ГБ безкоштовного трафіку VPN на місяць для кожного друга, який зареєструється за вашим запрошенням, загалом до %total_gb% ГБ. Ваш друг також отримує додаткові %friend_gb% ГБ безкоштовно."
-    },
     "settings_referral_invited_friends": {
         "message": "Запрошені друзі %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Безплатні гігабайти"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Виконайте завдання — отримайте безплатний трафік!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Підтвердьте свою електронну адресу"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Отримайте %num% ГБ"
     },
     "settings_free_gbs_task_complete": {
         "message": "Ви отримали %num% ГБ"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Ми надіслали вам листа з посиланням для підтвердження. Перейдіть за тим посиланням, щоб отримати %your_gb% ГБ безплатного трафіку. Якщо не можете знайти лист, натисніть на кнопку нижче."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Надіслати повторно"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Додати іншу платформу"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Встановіть AdGuard VPN для iOS, Mac, Windows або Android, увійдіть до свого облікового запису AdGuard там і отримайте %your_gb% ГБ."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Іншу платформу додано"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Вітаємо з встановленням AdGuard VPN на декількох платформах. Залишайтеся в безпеці!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Перейти до продуктів"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Запросіть друга"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Отримайте до %num% ГБ"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Ви отримали %num% ГБ"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Дякуємо, що запросили стількох друзів!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Назад"
+    "settings_free_gbs_upgrade": {
+        "message": "Оновіть до Unlimited"
     },
     "settings_rate_us": {
         "message": "Оцініть нас"
@@ -771,7 +735,7 @@
         "message": "Далі"
     },
     "popup_upgrade_screen_title": {
-        "message": "Необмежений VPN"
+        "message": "Оновіть до Unlimited"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Необмежений трафік"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "Швидкість VPN-з'єднання буде зменшено невдовзі."
-    },
-    "confirm_email_done_title": {
-        "message": "Електронну адресу підтверджено"
-    },
-    "confirm_email_done_info": {
-        "message": "Дякуємо за підтвердження реєстрації!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Посилання для підтвердження надіслано повторно"
     },
     "auth_failed_to_login_title": {
         "message": "Не вдалося увійти"

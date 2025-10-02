@@ -196,7 +196,7 @@
         "message": "Choose product"
     },
     "settings_free_gbs_invite_friend_count": {
-     "message": "Invite a friend (%invited_count%/%max_invites%)"
+        "message": "Invite a friend (%invited_count%/%max_invites%)"
     },
     "settings_free_gbs_invite_friend_title": {
         "message": "Invite a friend and get %your_gb% GB of fast VPN"

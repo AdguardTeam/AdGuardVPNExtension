@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Добијте бесплатни ГБ!"
     },
-    "settings_referral_info": {
-        "message": "Добијте %your_gb% ГБ бесплатен VPN сообраќај за еден месец за секој пријател што ќе се пријави преку вашата покана, вкупно до %total_gb% ГБ. Вашиот пријател, исто така, добива дополнителни %friend_gb% ГБ бесплатно."
-    },
     "settings_referral_invited_friends": {
         "message": "Поканети пријатели %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Бесплатни ГБ"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Завршете ги задачите за да добиете бесплатен VPN сообраќај!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Потврдете ја вашата е-пошта"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Добијте %num% ГБ"
     },
     "settings_free_gbs_task_complete": {
         "message": "Добивте %num% ГБ"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Кликнете на линкот за потврда на е-пошта што ви ја испративме при регистрирањето и добијте %your_gb% ГБ бесплатен VPN сообраќај. Ако не можете да ја најдете нашата е-пошта, кликнете на копчето подолу."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Повторно испратете линк"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Додадете друга платформа"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Инсталирајте AdGuard VPN за iOS, Windows или Android, најавете се на вашата сметка на AdGuard таму и добијте %your_gb% ГБ."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Додадена е уште една платформа"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Честитки за инсталирањето на AdGuard VPN на повеќе платформи. Останете безбедни!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Проверете ги производите"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Поканете пријател"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Добијте до %num% ГБ"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Добивте %num% ГБ"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Ви благодариме што ги искористивте сите ваши покани!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Врати се назад"
+    "settings_free_gbs_upgrade": {
+        "message": "Надградба на Unlimited"
     },
     "settings_rate_us": {
         "message": "Оценете не"
@@ -771,7 +735,7 @@
         "message": "Следно"
     },
     "popup_upgrade_screen_title": {
-        "message": "Неограничен VPN"
+        "message": "Надградба на Unlimited"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Неограничени податоци"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "Брзината на VPN поврзувањето наскоро ќе се намали."
-    },
-    "confirm_email_done_title": {
-        "message": "Адресата на е-пошта е потврдена"
-    },
-    "confirm_email_done_info": {
-        "message": "Ви благодариме што потврдивте!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Линкот за потврда е повторно испратен"
     },
     "auth_failed_to_login_title": {
         "message": "Не успеа да ве најави"

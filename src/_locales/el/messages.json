@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Λάβετε δωρεάν GB!"
     },
-    "settings_referral_info": {
-        "message": "Πάρτε %your_gb% GB δωρεάν VPN κίνησης για ένα μήνα για κάθε φίλο που εγγράφεται μέσω της πρόσκλησής σας, έως %total_gb% GB συνολικά. Ο φίλος σας παίρνει επίσης ένα επιπλέον %friend_gb% GB δωρεάν."
-    },
     "settings_referral_invited_friends": {
         "message": "Προσκαλεσμένοι φίλοι %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Δωρεάν GB"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Ολοκληρώστε τις εργασίες για να αποκτήσετε δωρεάν κίνηση VPN!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Επιβεβαιώστε το email σας"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Λάβετε %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Λάβατε %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Κάντε κλικ στον σύνδεσμο επιβεβαίωσης email που σας στείλαμε κατά την εγγραφή και αποκτήστε %your_gb% GB δωρεάν κίνησης VPN. Εάν δεν μπορείτε να βρείτε το email μας, κάντε κλικ στο κουμπί παρακάτω."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Επαναποστολή συνδέσμου"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Προσθέστε άλλη μια πλατφόρμα"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Εγκαταστήστε το AdGuard VPN για iOS, Windows ή Android, συνδεθείτε στον λογαριασμό AdGuard σας εκεί και αποκτήστε %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Προστέθηκε άλλη μια πλατφόρμα"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Συγχαρητήρια για την εγκατάσταση του AdGuard VPN σε πολλές πλατφόρμες. Μείνετε ασφαλείς!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Μεταβείτε στα Προϊόντα"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Προσκαλέστε έναν φίλο"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Αποκτήστε έως και %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Λάβατε %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Σας ευχαριστούμε που χρησιμοποιήσατε όλες τις προσκλήσεις σας!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Πηγαίνετε πίσω"
+    "settings_free_gbs_upgrade": {
+        "message": "Αναβάθμιση στο Unlimited"
     },
     "settings_rate_us": {
         "message": "Βαθμολογήστε μας"
@@ -771,7 +735,7 @@
         "message": "Επόμενο"
     },
     "popup_upgrade_screen_title": {
-        "message": "Απεριόριστο VPN"
+        "message": "Αναβάθμιση στο Unlimited"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Απεριόριστα δεδομένα"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "Η ταχύτητα σύνδεσης του VPN θα μειωθεί σύντομα."
-    },
-    "confirm_email_done_title": {
-        "message": "Η διεύθυνση email επιβεβαιώθηκε"
-    },
-    "confirm_email_done_info": {
-        "message": "Ευχαριστούμε για την επαλήθευση!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Ο σύνδεσμος επιβεβαίωσης ξαναστάλθηκε"
     },
     "auth_failed_to_login_title": {
         "message": "Αποτυχία σύνδεσης"

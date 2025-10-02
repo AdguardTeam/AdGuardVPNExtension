@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Získejte GB zdarma!"
     },
-    "settings_referral_info": {
-        "message": "Získejte zdarma %your_gb% GB datového provozu VPN na měsíc za každého přítele, který se zaregistruje na základě vaší pozvánky, celkem až %total_gb% GB. Váš přítel navíc získá %friend_gb% GB zdarma."
-    },
     "settings_referral_invited_friends": {
         "message": "Pozvaní přátelé %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "GB zdarma"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Dokončete úkoly a získejte zdarma datový provoz VPN!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Potvrďte svůj e-mail"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Získat %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Máte %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Klikněte na odkaz v e-mailu, který jsme vám zaslali při registraci, a získejte %your_gb% GB datového provozu VPN zdarma. Pokud nemůžete najít náš e-mail, klikněte na tlačítko níže."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Znovu odeslat odkaz"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Přidat další platformu"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Nainstalujte si AdGuard VPN pro iOS, Windows nebo Android, přihlaste se ke svému účtu AdGuard a získejte %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Další platforma přidána"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Gratulujeme k instalaci AdGuard VPN na více platformách. Zůstaňte v bezpečí!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Přejít na produkty"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Pozvat přítele"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Získejte až %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Máte %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Děkujeme za využití všech vašich pozvánek!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Zpět"
+    "settings_free_gbs_upgrade": {
+        "message": "Upgradujte na Unlimited"
     },
     "settings_rate_us": {
         "message": "Ohodnoťte nás"
@@ -771,7 +735,7 @@
         "message": "Další"
     },
     "popup_upgrade_screen_title": {
-        "message": "Neomezená VPN"
+        "message": "Upgradujte na Unlimited"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neomezená data"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "Rychlost připojení VPN bude brzy snížena."
-    },
-    "confirm_email_done_title": {
-        "message": "Potvrzená e-mailová adresa"
-    },
-    "confirm_email_done_info": {
-        "message": "Děkujeme za ověření!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Potvrzovací odkaz byl znovu odeslán"
     },
     "auth_failed_to_login_title": {
         "message": "Přihlášení se nezdařilo"

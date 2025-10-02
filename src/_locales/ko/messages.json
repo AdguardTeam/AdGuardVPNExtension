@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "무료 GB를 받으세요!"
     },
-    "settings_referral_info": {
-        "message": "친구를 VPN 서비스에 초대해 매월 사용량을 늘려 보십시오. 친구가 가입하는 경우, %your_gb%GB를 늘릴 수 있습니다 (사용량은 무료로 최대 %total_gb%GB까지 늘릴 수 있습니다). 친구도 %friend_gb%GB를 무료로 받을 수 있습니다."
-    },
     "settings_referral_invited_friends": {
         "message": "초대한 친구 %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "무료 GB"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "무료 VPN 트래픽을 얻으시라면 작업을 완료하세요!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "이메일 인증"
-    },
     "settings_free_gbs_get_GB": {
         "message": "%num%GB 가져오기"
     },
     "settings_free_gbs_task_complete": {
         "message": "%num%GB를 얻었습니다"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "가입 시 저희가 보내드린 이메일 확인 링크를 클릭하고 %your_gb%GB의 무료 VPN 트래픽을 얻으세요. 만약 저희의 이메일을 찾으실 수 없으시면, 아래 버튼을 클릭하세요."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "링크 재전송"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "다른 플랫폼 추가"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "IOS, Mac, Windows 또는 Android에 AdGuard VPN을 설치하고 해당 기기에서 AdGuard 계정에 로그인하면 %your_gb%GB를 얻을 수 있습니다."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "다른 플랫폼이 추가됨"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "여러 플랫폼에 AdGuard VPN을 설치한 것을 축하합니다. 안전하게 사용하세요."
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "제품들로"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "친구 초대하기"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "최대 %num%GB 가지기"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "%num%GB를 얻었습니다"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "모든 초대를 사용해 주셔서 감사합니다!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "뒤로가기"
+    "settings_free_gbs_upgrade": {
+        "message": "무제한 버전으로 업그레이드"
     },
     "settings_rate_us": {
         "message": "평가"
@@ -771,7 +735,7 @@
         "message": "다음"
     },
     "popup_upgrade_screen_title": {
-        "message": "무제한 VPN"
+        "message": "무제한 버전으로 업그레이드"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "무제한 데이터"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "곧 VPN 연결 속도가 느려집니다."
-    },
-    "confirm_email_done_title": {
-        "message": "이메일 주소가 확인됨"
-    },
-    "confirm_email_done_info": {
-        "message": "검증해 주셔서 감사합니다!!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "확인 링크가 전송되었습니다"
     },
     "auth_failed_to_login_title": {
         "message": "로그인에 실패했습니다."

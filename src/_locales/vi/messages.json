@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Nhận GB miễn phí!"
     },
-    "settings_referral_info": {
-        "message": "Nhận %your_gb% GB lưu lượng truy cập VPN miễn phí trong một tháng cho mỗi người bạn đăng ký thông qua lời mời của bạn, tổng cộng lên đến %total_gb% GB. Bạn của bạn cũng nhận được thêm %friend_gb% GB miễn phí."
-    },
     "settings_referral_invited_friends": {
         "message": "Bạn đã mời %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "GB miễn phí"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Hoàn thành các nhiệm vụ để nhận được lưu lượng VPN miễn phí!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Xác nhận email của bạn"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Nhận %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Bạn có %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Nhấp vào liên kết xác nhận email mà chúng tôi đã gửi cho bạn khi đăng ký và nhận %your_gb% GB lưu lượng truy cập VPN miễn phí. Nếu bạn không thể tìm thấy email của chúng tôi, hãy nhấp vào nút bên dưới."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Gửi lại liên kết"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Thêm nền tảng khác"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Cài đặt AdGuard VPN cho iOS, Windows hoặc Android, đăng nhập vào tài khoản AdGuard của bạn tại đó và nhận %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Một nền tảng khác được thêm vào"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Chúc mừng bạn đã cài đặt AdGuard VPN trên nhiều nền tảng. Giữ an toàn!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Đi đến Sản phẩm"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Mời một người bạn"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Nhận lên đến %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Bạn có %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Cảm ơn vì đã sử dụng tất cả lời mời của bạn!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Quay lại"
+    "settings_free_gbs_upgrade": {
+        "message": "Nâng cấp lên Không giới hạn"
     },
     "settings_rate_us": {
         "message": "Đánh giá chúng tôi"
@@ -771,7 +735,7 @@
         "message": "Tiếp theo"
     },
     "popup_upgrade_screen_title": {
-        "message": "VPN không giới hạn"
+        "message": "Nâng cấp lên Không giới hạn"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Dữ liệu không giới hạn"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "Tốc độ kết nối VPN sẽ sớm bị giảm."
-    },
-    "confirm_email_done_title": {
-        "message": "Địa chỉ email đã được xác nhận"
-    },
-    "confirm_email_done_info": {
-        "message": "Cảm ơn bạn đã xác minh nó!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Liên kết xác nhận được gửi lại"
     },
     "auth_failed_to_login_title": {
         "message": "Không thể đăng nhập bạn"

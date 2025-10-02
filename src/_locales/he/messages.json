@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "קבל תעבורת VPN חינמית!"
     },
-    "settings_referral_info": {
-        "message": "הזמן את החברים שלך להצטרף אלינו וקבל עוד תעבורת VPN חינמית למשך חודש. קבל %your_gb% ג״ב עבור כל חבר שנרשם: הם גם יקבלו %friend_gb% ג״ב אקסטרה! אתה (חבר מזמין) יכול לקבל מירב של %total_gb% ג״ב אקסטרה בחינם."
-    },
     "settings_referral_invited_friends": {
         "message": "חברים מוזמנים %count%/%limit%"
     },
@@ -162,53 +159,17 @@
     "settings_free_gbs": {
         "message": "ג׳יגות חינם"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "שלם את המשימות כדי לקבל תעבורת VPN חינם!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "אשר את הדוא״ל שלך"
-    },
     "settings_free_gbs_get_GB": {
         "message": "קבלו %num% ג׳יגה"
     },
     "settings_free_gbs_task_complete": {
         "message": "קיבלתם %num% ג׳יגה"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "לחצו על קישור האישור בדוא׳ל ששלחנו לכם כשנרשמתם וקבלו %your_gb% ג׳יגה של תעבורת VPN בחינם. אם אינכם מצליחים למצוא את ההודעה שלנו, לחצו על הכפתור למטה."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "שלח מחדש את הקישור"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "הוסף פלטפורמה נוספת"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "התקן AdGuard VPN עבור iOS, Windows, או Android, התחבר לחשבון AdGuard שלך שם, וקבל %your_gb% ג״ב."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "פלטפורמה נוספת נוספה"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "מזל טוב על התקנת AdGuard VPN על מספר פלטפורמות. הישאר בטוח!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "לך אל מוצרים"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "הזמן חבר"
-    },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "קבלו עד %num% ג׳יגה"
     },
     "settings_free_gbs_invite_friend_complete": {
         "message": "קיבלתם %num% ג׳יגה"
-    },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "תודה ששימוש בכל ההזמנות שלך!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "חזור"
     },
     "settings_rate_us": {
         "message": "דרג אותנו"
@@ -770,9 +731,6 @@
     "popup_onboarding_next": {
         "message": "הבא"
     },
-    "popup_upgrade_screen_title": {
-        "message": "VPN בלתי מוגבל"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "נתונים בלתי מוגבלים"
     },
@@ -1051,15 +1009,6 @@
     },
     "notification_data_left_description": {
         "message": "מהירות חיבור ה־VPN תואט בקרוב."
-    },
-    "confirm_email_done_title": {
-        "message": "כתובת דוא׳ל מאושרת"
-    },
-    "confirm_email_done_info": {
-        "message": "תודה על האישור!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "קישור אישור שלח מחדש"
     },
     "auth_failed_to_login_title": {
         "message": "הכניסה שלך נכשלה"

@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Erhalten Sie kostenlosen VPN-Traffic!"
     },
-    "settings_referral_info": {
-        "message": "Erhalten Sie für jeden Freund, der sich über Ihre Einladung anmeldet, %your_gb% GB kostenlosen VPN-Datenverkehr pro Monat, insgesamt bis zu %total_gb% GB. Ihr Freund erhält zusätzlich %friend_gb% GB kostenlos."
-    },
     "settings_referral_invited_friends": {
         "message": "Eingeladene Freunde %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Kostenlose GB"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Erledigen Sie die Aufgaben, um kostenlosen VPN-Traffic zu erhalten!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "E-Mail-Adresse bestätigen"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Erhalten Sie %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Sie haben %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Klicken Sie auf den E-Mail-Bestätigungslink, den wir Ihnen bei der Anmeldung gesendet haben, und Sie erhalten %your_gb% GB kostenlosen VPN-Traffic. Wenn Sie unsere E-Mail nicht finden können, klicken Sie auf die nachfolgende Schaltfläche."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Link erneut senden"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Eine weitere Plattform hinzufügen"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Installieren Sie AdGuard VPN für iOS, Mac, Windows oder Android, melden Sie sich dort bei Ihrem AdGuard-Konto an und Sie erhalten %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Weitere Plattform hinzugefügt"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Toll, dass Sie AdGuard VPN auf mehreren Plattformen installiert haben. Bleiben Sie sicher!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Zu den Produkten"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Einen Freund einladen"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Erhalten Sie bis zu %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Sie haben %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Vielen Dank, dass Sie so viele Einladungen genutzt haben!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Zurück"
+    "settings_free_gbs_upgrade": {
+        "message": "Auf Unlimited umsteigen"
     },
     "settings_rate_us": {
         "message": "Wie finden Sie AdGuard VPN?"
@@ -771,7 +735,7 @@
         "message": "Weiter"
     },
     "popup_upgrade_screen_title": {
-        "message": "Unbegrenztes VPN"
+        "message": "Auf Unlimited umsteigen"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Unbegrenzter Traffic"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "Die Geschwindigkeit der VPN-Verbindung wird in Kürze herabgesetzt."
-    },
-    "confirm_email_done_title": {
-        "message": "E-Mail-Adresse bestätigt"
-    },
-    "confirm_email_done_info": {
-        "message": "Danke für die Bestätigung!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Link erneut gesendet"
     },
     "auth_failed_to_login_title": {
         "message": "Anmelden fehlgeschlagen"

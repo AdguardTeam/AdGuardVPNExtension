@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Получете безплатни GB!"
     },
-    "settings_referral_info": {
-        "message": "Получете %your_gb% GB безплатен VPN трафик за един месец за всеки приятел, който се регистрира чрез вашата покана, до %total_gb% GB общо. Вашият приятел също така получава допълнителни %friend_gb% GB безплатно."
-    },
     "settings_referral_invited_friends": {
         "message": "Поканени приятели %count%/%limit%"
     },
@@ -162,53 +159,17 @@
     "settings_free_gbs": {
         "message": "Безплатни GB"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Завършете задачите, за да получите безплатен трафик на VPN!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Потвърдете имейла си"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Get %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "You got %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Click the email confirmation link that we sent you at sign up and get %your_gb% GB of free VPN traffic. If you can’t find our email, click the button below."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Повторно изпращане на връзката"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Добавяне на друга платформа"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Инсталирайте AdGuard VPN за iOS, Windows или Android, впишете се в своя акаунт на AdGuard там и получете %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Добавена е друга платформа"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Поздравления за инсталирането на AdGuard VPN на множество платформи. Пазете се!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Към продуктите"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Насърчете приятел"
-    },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Get up to %num% GB"
     },
     "settings_free_gbs_invite_friend_complete": {
         "message": "You got %num% GB"
-    },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Thanks for using all your invites!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Назад"
     },
     "settings_rate_us": {
         "message": "Оценете ни"
@@ -770,9 +731,6 @@
     "popup_onboarding_next": {
         "message": "Следващ"
     },
-    "popup_upgrade_screen_title": {
-        "message": "Неограничен VPN"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Неограничени данни"
     },
@@ -1051,15 +1009,6 @@
     },
     "notification_data_left_description": {
         "message": "Скоростта на VPN връзката скоро ще бъде намалена."
-    },
-    "confirm_email_done_title": {
-        "message": "Email address confirmed"
-    },
-    "confirm_email_done_info": {
-        "message": "Thanks for verifying it!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Връзката за потвърждение е изпратена повторно"
     },
     "auth_failed_to_login_title": {
         "message": "Не успях да влезете в профила си"

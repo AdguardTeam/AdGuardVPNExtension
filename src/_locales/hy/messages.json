@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Ստացեք անվճար GB-ներ։"
     },
-    "settings_referral_info": {
-        "message": "Ստացեք %your_gb% ԳԲ անվճար VPN տրաֆիկ մեկ ամսով յուրաքանչյուր ընկերոջ համար, ով գրանցվում է ձեր հրավերի միջոցով, ընդհանուր առմամբ մինչև %total_gb% ԳԲ: Ձեր ընկերը նաև ստանում է լրացուցիչ %friend_gb% ԳԲ անվճար:"
-    },
     "settings_referral_invited_friends": {
         "message": "Հրավիրված ընկերներ %count%/%limit%"
     },
@@ -162,53 +159,17 @@
     "settings_free_gbs": {
         "message": "Անվճար ԳԲ"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Կատարեք առաջադրանքները՝ անվճար VPN տրաֆիկ ստանալու համար"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Հաստատեք ձեր էլ. փոստը"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Ստացեք %num% ԳԲ"
     },
     "settings_free_gbs_task_complete": {
         "message": "Դուք ստացել եք %num% ԳԲ"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Click the email confirmation link that we sent you at sign up and get %your_gb% GB of free VPN traffic. If you can’t find our email, click the button below."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Resend link"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Ավելացնել մեկ այլ պլատֆորմ"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Տեղադրեք AdGuard VPN iOS-ի, Windows-ի կամ Android-ի համար, մուտք գործեք ձեր AdGuard հաշվող այնտեղ, և ստացեք %your_gb% GB։"
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Ավելացվել է մեկ այլ պլատֆորմ"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Շնորհավորում ենք AdGuard VPN-ի տեղադրումը մի քանի պլատֆորմներում։ Պահպանեք անվտանգ։"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Մուտքագրեք արտադրանքի էջը"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Invite a friend"
-    },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Ստացեք մինչև %num% ԳԲ"
     },
     "settings_free_gbs_invite_friend_complete": {
         "message": "Դուք ստացել եք %num% ԳԲ"
-    },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Շնորհակալություն ձեր բոլոր հրավերները օգտագործելու համար։"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Վերադառնալ"
     },
     "settings_rate_us": {
         "message": "Գնահատեք մեզ"
@@ -770,9 +731,6 @@
     "popup_onboarding_next": {
         "message": "Հաջորդը"
     },
-    "popup_upgrade_screen_title": {
-        "message": "Անսահմանափակ VPN"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Անսահմանափակ տվյալներ"
     },
@@ -1051,15 +1009,6 @@
     },
     "notification_data_left_description": {
         "message": "VPN կապի արագությունը շուտով կրճատվի։"
-    },
-    "confirm_email_done_title": {
-        "message": "Էլփոստի հասցեն հաստատված է"
-    },
-    "confirm_email_done_info": {
-        "message": "Շնորհակալություն, որ ստուգեցիք դա։"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Հաստատման հղումը կրկին ուղարկված է"
     },
     "auth_failed_to_login_title": {
         "message": "Մուտք գործելը ձախողվեց"

@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Dobijte besplatne GB!"
     },
-    "settings_referral_info": {
-        "message": "Dobijte %your_gb% gigabajta besplatnog VPN prometa mjesec dana za svakog prijatelja koji se prijavi putem Vaše pozivnice, ukupno do %total_gb% gigabajta. Vaš prijatelj također dobiva dodatnih %friend_gb% gigabajta besplatno."
-    },
     "settings_referral_invited_friends": {
         "message": "Pozvani prijatelji %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Besplatni gigabajti"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Izvršite zadatke kako bi dobili besplatan promet na VPN-u!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Potvrdi svoj email"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Dobijte %num% gigabajta"
     },
     "settings_free_gbs_task_complete": {
         "message": "Imate %num% gigabajta"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Kliknite na link za potvrdu koji smo Vam poslali prilikom prijave i ostvarite %your_gb% gigabajta besplatnog VPN prometa. Ako ne možete pronaći naš email, kliknite na gumb ispod."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Ponovno pošalji vezu"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Dodajte drugu platformu"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Instalirajte AdGuard VPN za iOS, Windows ili Android, prijavite se na svoj AdGuard račun tamo i dobijte %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Dodana je još jedna platforma"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Čestitamo na instaliranju AdGuard VPN-a na više platformi. Ostanite sigurni!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Idi na Proizvode"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Pozovi prijatelja"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Dobijte do %num% gigabajta"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Imate %num% gigabajta"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Hvala što ste iskoristili sve pozivnice!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Natrag"
+    "settings_free_gbs_upgrade": {
+        "message": "Nadogradite na Neograničeno"
     },
     "settings_rate_us": {
         "message": "Ocijenite nas"
@@ -771,7 +735,7 @@
         "message": "Sljedeće"
     },
     "popup_upgrade_screen_title": {
-        "message": "Neograničen VPN"
+        "message": "Nadogradite na Neograničeno"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neograničeni podaci"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "Brzina VPN veze će se uskoro smanjiti."
-    },
-    "confirm_email_done_title": {
-        "message": "Email adresa potvrđena"
-    },
-    "confirm_email_done_info": {
-        "message": "Hvala Vam na verifikaciji!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Poveznica za potvrdu je ponovno poslana"
     },
     "auth_failed_to_login_title": {
         "message": "Prijava nije uspjela"

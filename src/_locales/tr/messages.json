@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Ücretsiz GB'lar edinin!"
     },
-    "settings_referral_info": {
-        "message": "Davetiniz aracılığıyla kaydolan her arkadaşınız için toplamda %total_gb% GB'a kadar ayda %your_gb% GB ücretsiz VPN verisi edinin. Arkadaşınız ayrıca ücretsiz olarak fazladan %friend_gb% GB edinir."
-    },
     "settings_referral_invited_friends": {
         "message": "Davet edilen arkadaşlar %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Ücretsiz GB'lar"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Ücretsiz VPN verisi edinmek için görevleri tamamlayın!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "E-postanı doğrula"
-    },
     "settings_free_gbs_get_GB": {
         "message": "%num% GB edinin"
     },
     "settings_free_gbs_task_complete": {
         "message": "%num% GB'ınız var"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Kaydolurken size gönderdiğimiz e-posta doğrulama bağlantısına tıklayın ve %your_gb% GB ücretsiz VPN verisi edinin. E-postamızı bulamıyorsanız, aşağıdaki düğmeye tıklayın."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Bağlantıyı yeniden gönder"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Başka bir platform ekle"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "iOS, Mac, Windows veya Android için AdGuard VPN'i yükleyin, orada AdGuard hesabınıza giriş yapın ve %your_gb% GB edinin."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Başka bir platform eklendi"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "AdGuard VPN'i birden çok platforma yüklediğiniz için tebrikler. Güvende kalın!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Ürünlere git"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Arkadaşını davet et"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "%num% GB'a kadar edinin"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "%num% GB'ınız var"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Tüm davetlerinizi kullandığınız için teşekkür ederiz!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Geri dön"
+    "settings_free_gbs_upgrade": {
+        "message": "Unlimited'a yükseltin"
     },
     "settings_rate_us": {
         "message": "Bizi derecelendirin"
@@ -771,7 +735,7 @@
         "message": "Sonraki"
     },
     "popup_upgrade_screen_title": {
-        "message": "Sınırsız VPN"
+        "message": "Unlimited'a yükseltin"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Sınırsız veri"
@@ -1042,15 +1006,6 @@
     },
     "notification_data_left_description": {
         "message": "VPN bağlantı hızı yakında azaltılacaktır."
-    },
-    "confirm_email_done_title": {
-        "message": "E-posta adresi doğrulandı"
-    },
-    "confirm_email_done_info": {
-        "message": "Doğruladığınız için teşekkürler!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Doğrulama bağlantısı yeniden gönderildi"
     },
     "auth_failed_to_login_title": {
         "message": "Girişin başarısız oldu"

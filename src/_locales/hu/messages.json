@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Szerezz ingyenes GB-okat!"
     },
-    "settings_referral_info": {
-        "message": "Hívja meg barátait, hogy csatlakozzanak az AdGuard VPN-hez, és ezzel további ingyenes VPN adatforgalmat kap egy hónapig. Minden egyes regisztráló barátja után %your_gb% GB-ot kap: és ők is kapnak %friend_gb% GB extra adatforgalmat ingyen! Ön (a meghívó felhasználó) maximum %total_gb% extra GB-ot kaphat ingyen."
-    },
     "settings_referral_invited_friends": {
         "message": "Meghívott ismerősök %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Ingyenes GB-ok"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Végezze el a feladatokat, hogy ingyenes VPN-forgalmat kapjon!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Erősítse meg e-mail címét"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Szerezd meg a %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Megkaptad %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Kattintson az e-mail megerősítő linkre, amelyet a regisztrációkor küldtünk Önnek, és kapja meg a %your_gb% GB ingyenes VPN-forgalmat. Ha nem találja az e-mailünket, kattintson az alábbi gombra."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Link újraküldése"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Adjon hozzá egy másik platformot"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Telepítse az AdGuard VPN-t iOS-ra, Windows-ra vagy Android-ra, jelentkezzen be rajta az AdGuard-fiókjába, és kapja meg a %your_gb% GB-ot."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Másik platform hozzáadva"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Gratulálunk az AdGuard VPN több platformra történő telepítéséhez. Maradj biztonságban!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Ugrás a termékekhez"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Ismerős meghívása"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Akár %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Megkaptad %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Köszönöm, hogy felhasználtad az összes meghívót!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Visszalépés"
+    "settings_free_gbs_upgrade": {
+        "message": "Frissítsen Unlimitedre"
     },
     "settings_rate_us": {
         "message": "Értékeljen minket"
@@ -771,7 +735,7 @@
         "message": "Következő"
     },
     "popup_upgrade_screen_title": {
-        "message": "Korlátlan VPN"
+        "message": "Frissítsen Unlimitedre"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Korlátlan adatkeret"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "A VPN-kapcsolat sebessége hamarosan korlátozva lesz."
-    },
-    "confirm_email_done_title": {
-        "message": "E-mail cím megerősítve"
-    },
-    "confirm_email_done_info": {
-        "message": "Köszönjük a regisztrációt!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Megerősítő link újra elküldve"
     },
     "auth_failed_to_login_title": {
         "message": "Nem sikerült bejelentkezni"

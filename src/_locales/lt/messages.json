@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Gauti nemokamą GB!"
     },
-    "settings_referral_info": {
-        "message": "Gaukite %your_gb% GB nemokamos VPN srauto mėnesiui už kiekvieną draugą, kuris registruojasi per jūsų kvietimą, iki %total_gb% GB bendrai. Jūsų draugas taip pat gauna papildomus %friend_gb% GB nemokamai."
-    },
     "settings_referral_invited_friends": {
         "message": "Kviesti draugai %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Nemokami GB"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Užbaikite užduotis, kad gautumėte nemokamo VPN srauto!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Patvirtinkite savo el. paštą"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Gaukite %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Gavote %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Spustelėkite el. pašto patvirtinimo nuorodą, kurią mes jums išsiuntėme registracijos metu, ir gaukite %your_gb% GB nemokamo VPN srauto. Jei negalite rasti mūsų el. laiško, spustelėkite toliau pateiktą mygtuką."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Persiųsti nuorodą"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Pridėti kitą platformą"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Įdiekite AdGuard VPN į iOS, Mac, Windows arba Android, ten prisijunkite prie savo AdGuard paskyros ir gauti %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Dar viena platforma pridėta"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Sveikinu, kad įdiegėte AdGuard VPN keliose platformose. Būkite saugūs!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Eiti į svetainę"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Pakvieskite draugą"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Gaukite iki %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Gavote %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Dėkojame, kad panaudojote visus savo kvietimus!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Grįžti"
+    "settings_free_gbs_upgrade": {
+        "message": "Pereiti į neribotą"
     },
     "settings_rate_us": {
         "message": "Įvertinkite mus"
@@ -771,7 +735,7 @@
         "message": "Toliau"
     },
     "popup_upgrade_screen_title": {
-        "message": "Neribotas VPN"
+        "message": "Pereiti į neribotą"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neribotas duomenų kiekis"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "VPN prisijungimo greitis bus sumažintas netrukus."
-    },
-    "confirm_email_done_title": {
-        "message": "El. pašto adresas patvirtintas"
-    },
-    "confirm_email_done_info": {
-        "message": "Ačiū, kad patvirtinote!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Patvirtinimo nuoroda išsiųsta"
     },
     "auth_failed_to_login_title": {
         "message": "Nepavyko prisijungti"

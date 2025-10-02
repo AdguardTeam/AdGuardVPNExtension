@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "Pridobite brezplačne GB!"
     },
-    "settings_referral_info": {
-        "message": "Za vsakega prijatelja, ki se registrira prek vašega povabila, dobite %your_gb% GB brezplačnega prometa VPN za en mesec, skupaj do %total_gb% GB. Vaš prijatelj dobi tudi dodatnih %friend_gb% GB brezplačno."
-    },
     "settings_referral_invited_friends": {
         "message": "Povabljenih prijateljev %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Brezplačni GB-ji"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Dokončajte opravila in pridobite brezplačen promet VPN!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Potrdite svojo e-pošto"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Pridobite %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Dobili ste %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Kliknite potrditveno povezavo po e-pošti, ki smo vam jo poslali ob prijavi, in pridobite %your_gb% GB brezplačnega prometa VPN. Če ne najdete naše e-pošte, kliknite spodnji gumb."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Znova pošlji povezavo"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Dodaj drugo platformo"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Namestite AdGuard VPN za iOS, Windows ali Android, se prijavite v svoj račun AdGuard in pridobite %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Dodana je še ena platforma"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Čestitke za namestitev AdGuard VPN na več platform. Ostante varni!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Pojdi na izdelke"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Povabite prijatelja"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Pridobite do %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Dobili ste %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Hvala, ker ste uporabili vsa vaša povabila!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Pojdi nazaj"
+    "settings_free_gbs_upgrade": {
+        "message": "Nadgradnja na Unlimited"
     },
     "settings_rate_us": {
         "message": "Ocenite nas"
@@ -771,7 +735,7 @@
         "message": "Naprej"
     },
     "popup_upgrade_screen_title": {
-        "message": "Neomejen VPN"
+        "message": "Nadgradnja na Unlimited"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neomejene podatke"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "Hitrost povezave VPN se bo kmalu zmanjšala."
-    },
-    "confirm_email_done_title": {
-        "message": "E-poštni naslov je potrjen"
-    },
-    "confirm_email_done_info": {
-        "message": "Hvala za potrditev!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Znova poslana potrditvena povezava"
     },
     "auth_failed_to_login_title": {
         "message": "Prijave ni bilo mogoče opraviti"

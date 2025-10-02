@@ -144,9 +144,6 @@
     "referral_get_free_traffic": {
         "message": "¡Obtén GBs gratis!"
     },
-    "settings_referral_info": {
-        "message": "Obtén %your_gb% GB de tráfico VPN gratis durante un mes por cada amigo que se registre a través de tu invitación, hasta %total_gb% GB en total. Tu amigo también obtendrá %friend_gb% GB adicionales gratis."
-    },
     "settings_referral_invited_friends": {
         "message": "Amigos invitados %count%/%limit%"
     },
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "GBs gratis"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "¡Completa las tareas para obtener tráfico VPN gratis!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Confirma tu correo electrónico"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Obtén %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Tienes %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Haz clic en el enlace de confirmación por correo electrónico que te enviamos al registrarte y obtén %your_gb% GB de tráfico VPN gratis. Si no encuentras nuestro correo electrónico, haz clic en el botón de abajo."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Reenviar enlace"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Añadir otra plataforma"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Instala AdGuard VPN en iOS, Mac, Windows, o Android, inicia sesión allí con tu cuenta AdGuard y obtén %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Otra plataforma añadida"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Enhorabuena por instalar AdGuard VPN en múltiples plataformas. ¡Mantente seguro!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Ir a los productos"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Invitar a un amigo"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Obtén hasta %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Tienes %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "¡Gracias por usar todas tus invitaciones!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Regresar"
+    "settings_free_gbs_upgrade": {
+        "message": "Actualizar a Unlimited"
     },
     "settings_rate_us": {
         "message": "Califícanos"
@@ -771,7 +735,7 @@
         "message": "Siguiente"
     },
     "popup_upgrade_screen_title": {
-        "message": "VPN ilimitada"
+        "message": "Actualizar a Unlimited"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Datos ilimitados"
@@ -1051,15 +1015,6 @@
     },
     "notification_data_left_description": {
         "message": "La velocidad de la conexión VPN se reducirá pronto."
-    },
-    "confirm_email_done_title": {
-        "message": "Dirección de correo electrónico confirmada"
-    },
-    "confirm_email_done_info": {
-        "message": "¡Gracias por verificarlo!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Enlace de confirmación reenviado"
     },
     "auth_failed_to_login_title": {
         "message": "No se pudo iniciar sesión"
