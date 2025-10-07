@@ -299,7 +299,7 @@ export class WebAuth implements WebAuthInterface {
      *
      * @throws Error if {@link webAuthTabInfo} is not defined.
      */
-    private addWebRequestEventListeners(): void {
+    private async addWebRequestEventListeners(): Promise<void> {
         if (!this.webAuthTabInfo) {
             throw new Error('Cannot attach listeners, because web authentication tab info is not available.');
         }
@@ -309,13 +309,16 @@ export class WebAuth implements WebAuthInterface {
             tabId: this.webAuthTabInfo.id,
             windowId: this.webAuthTabInfo.windowId,
         };
+
         browser.webRequest.onBeforeRequest.addListener(this.handleOnBeforeRequest, {
             ...webRequestOptions,
             urls: [`${WebAuth.OAUTH_REDIRECT_URL}*`],
         });
+
+        const authApiUrl = `https://${await this.fallbackApi.getAuthApiUrl()}/*`;
         browser.webRequest.onErrorOccurred.addListener(this.handleOnErrorOccurred, {
             ...webRequestOptions,
-            urls: ['<all_urls>'],
+            urls: [authApiUrl],
         });
     }
 
@@ -324,11 +327,11 @@ export class WebAuth implements WebAuthInterface {
      *
      * @throws Error if {@link webAuthTabInfo} is not defined.
      */
-    private addEventListeners(): void {
+    private async addEventListeners(): Promise<void> {
         // Remove old listeners first if some of them already applied
         this.removeEventListeners();
 
-        this.addWebRequestEventListeners();
+        await this.addWebRequestEventListeners();
         browser.tabs.onRemoved.addListener(this.handleTabRemoved);
         browser.tabs.onReplaced.addListener(this.handleTabReplaced);
         browser.tabs.onAttached.addListener(this.handleTabAttached);
@@ -423,7 +426,7 @@ export class WebAuth implements WebAuthInterface {
      * @param tabId The ID of the attached tab.
      * @param attachInfo The attachment information for the attached tab.
      */
-    private handleTabAttached(tabId: number, attachInfo: browser.Tabs.OnAttachedAttachInfoType): void {
+    private async handleTabAttached(tabId: number, attachInfo: browser.Tabs.OnAttachedAttachInfoType): Promise<void> {
         // Do nothing if attached tab is not web auth tab
         if (this.webAuthTabInfo?.id !== tabId) {
             return;
@@ -436,7 +439,7 @@ export class WebAuth implements WebAuthInterface {
 
         // We should update web request listeners to listen to new window ID
         this.removeWebRequestEventListeners();
-        this.addWebRequestEventListeners();
+        await this.addWebRequestEventListeners();
     }
 
     /**
@@ -522,7 +525,7 @@ export class WebAuth implements WebAuthInterface {
             };
 
             // Attach event listeners
-            this.addEventListeners();
+            await this.addEventListeners();
         } catch (error) {
             await this.showErrorState({
                 shouldCloseWebAuthTab: true,
