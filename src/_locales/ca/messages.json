@@ -144,8 +144,8 @@
     "referral_get_free_traffic": {
         "message": "Obteniu GB gratuïts!"
     },
-    "settings_referral_info": {
-        "message": "Obteniu %your_gb% GB de trànsit VPN gratuït durant un mes per cada amic que es registri a través de la vostra invitació, fins a un total de %total_gb% GB. El vostre amic també rep %friend_gb% GB addicionals de franc."
+    "settings_referral_info_friends": {
+        "message": "Envia un enllaç d'invitació al teu amic. Quan es registri a AdGuard VPN mitjançant el teu enllaç, tots dos rebreu %your_gb% GB de VPN ràpida. La quantitat no utilitzada no caduca — pots fer-la servir durant mesos. Convida fins a %max_friends% amics i aconsegueix fins a %total_gb% GB en total."
     },
     "settings_referral_invited_friends": {
         "message": "Amics convidats %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "GB gratuïts"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Completa les tasques per obtenir trànsit VPN gratuït!"
+        "message": "Aquí tens com pots obtenir trànsit VPN addicional"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Confirma el teu correu electrònic (preferred)"
+    "settings_free_gbs_join_adguard": {
+        "message": "Uneix-te a AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Obtenir %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Has obtingut %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Feu clic a l'enllaç de confirmació del correu electrònic que us vam enviar en registrar-vos i obteniu %your_gb% GB de trànsit VPN gratuït. Si no podeu trobar el nostre correu electrònic, feu clic al botó a continuació."
+    "settings_free_gbs_add_device": {
+        "message": "Afegeix un nou dispositiu"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Reenviar enllaç"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Afegeix un nou dispositiu i aconsegueix %your_gb% GB de manera gratuïta"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Afegeix una altra plataforma"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Inicia sessió a AdGuard VPN en un altre dispositiu amb %email% per obtenir un bonus únic de %your_gb% GB"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Instal·la AdGuard VPN per a iOS, Mac, Windows o Android, inicia sessió al teu compte AdGuard allí, i obtén %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "El teu límit mensual pot trigar a actualitzar-se — dona-li un parell de minuts o reinicia l'app"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Una altra plataforma afegida"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Has aconseguit %your_gb% GB per afegir un nou dispositiu"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Felicitats per instal·lar AdGuard VPN en múltiples plataformes. Mantingueu-vos a salvo!"
+        "message": "El trànsit no utilitzat es conserva per als propers mesos. I amb AdGuard VPN Unlimited, pots gaudir d'una cerca ràpida sense límits"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Vés als productes"
+        "message": "Tria producte"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Convida un amic"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Convida un amic (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Convida un amic i aconsegueix %your_gb% GB de VPN ràpida"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Has convidat %total_invites% amics i has aconseguit %total_gbs% GB en total"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Obteniu fins a %num% GB"
@@ -205,10 +211,10 @@
         "message": "Has obtingut %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Gràcies per utilitzar totes les teves invitacions!"
+        "message": "Gràcies per ajudar-nos a créixer! Descobreix com obtenir més bonificacions a la secció de GB gratuïts. O aconsegueix AdGuard VPN Unlimited per gaudir d'una cerca ràpida sense límits"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Torna"
+    "settings_free_gbs_upgrade": {
+        "message": "Actualitza a Unlimited"
     },
     "settings_rate_us": {
         "message": "Valoreu-nos"
@@ -771,7 +777,10 @@
         "message": "Pròxim"
     },
     "popup_upgrade_screen_title": {
-        "message": "VPN il·limitat"
+        "message": "Actualitza a Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Accedeix a totes les ubicacions, cerca sense límit de velocitat i connecta fins a %maxDevicesAllowed% dispositius alhora"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Dades il·limitades"
@@ -919,6 +928,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "No tornis a mostrar això"
     },
+    "popup_stats": {
+        "message": "Estadístiques"
+    },
     "popup_stats_disabled_notice": {
         "message": "Les estadístiques estan desactivades"
     },
@@ -933,6 +945,22 @@
     },
     "popup_stats_usage_time": {
         "message": "Hora"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Sobre les teves estadístiques"
+    },
+    "popup_stats_data_since": {
+        "message": "Des de %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Les estadístiques mostren quantes dades VPN heu utilitzat i classifiquen les vostres ubicacions principals"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Les estadístiques no inclouen mai el vostre historial de navegació. Està xifrat, de manera que ningú no us pot rastrejar"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Si utilitzeu AdGuard VPN en diversos navegadors, les vostres estadístiques seran diferents per a cadascun. Es desen al dispositiu i només tu hi pots accedir"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Entesos"
@@ -1033,16 +1061,40 @@
     "notification_data_left_description": {
         "message": "La velocitat de connexió VPN es reduirà aviat."
     },
-    "confirm_email_done_title": {
-        "message": "Adreça de correu electrònic confirmada"
+    "confirm_email_done_title_gb": {
+        "message": "Has aconseguit %your_gb% GB com a bonus de benvinguda únic"
     },
     "confirm_email_done_info": {
-        "message": "Gràcies per verificar-ho!"
+        "message": "El trànsit no utilitzat es conserva per als propers mesos. I amb AdGuard VPN Unlimited, pots gaudir d'una cerca ràpida sense límits"
     },
-    "resend_confirm_registration_link_notification": {
-        "message": "Enllaç de confirmació reenviat"
+    "auth_failed_to_login_title": {
+        "message": "No s'ha pogut iniciar la sessió"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Si us plau, torneu-ho a provar o <a>poseu-vos en contacte amb el suport</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Si us plau, torna-ho a intentar"
     },
     "auth_failed_to_login_button": {
         "message": "Tancar"
+    },
+    "auth_loading_title": {
+        "message": "Inicia la sessió o registra't a través del navegador"
+    },
+    "auth_loading_description": {
+        "message": "Si teniu una llicència VPN d'AdGuard, s'aplicarà automàticament"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Torna a obrir la pàgina d'inici de sessió"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Cancel·lar"
+    },
+    "auth_success_title": {
+        "message": "Has iniciat sessió"
+    },
+    "auth_success_description": {
+        "message": "Torneu a l'extensió VPN d'AdGuard: tot està configurat"
     }
 }

@@ -111,8 +111,14 @@
     "account_sign_out": {
         "message": "צא"
     },
+    "account_sign_out_question": {
+        "message": "התנתק?"
+    },
     "account_sign_out_popup_cancel": {
         "message": "בטל"
+    },
+    "account_sign_out_description": {
+        "message": "תתנתק מהחשבון שלך. הגנת ה-VPN תופסק"
     },
     "account_unlimited_title": {
         "message": "קבל את הגרסה הבלתי מוגבלת!"
@@ -133,13 +139,13 @@
         "message": "מדיניות פרטיות"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "מצב כללי"
     },
     "referral_get_free_traffic": {
         "message": "קבל תעבורת VPN חינמית!"
     },
-    "settings_referral_info": {
-        "message": "הזמן את החברים שלך להצטרף אלינו וקבל עוד תעבורת VPN חינמית למשך חודש. קבל %your_gb% ג״ב עבור כל חבר שנרשם: הם גם יקבלו %friend_gb% ג״ב אקסטרה! אתה (חבר מזמין) יכול לקבל מירב של %total_gb% ג״ב אקסטרה בחינם."
+    "settings_referral_info_friends": {
+        "message": "שלח קישור להזמנה לחבר שלך. כאשר הוא ירשם ל-AdGuard VPN דרך הקישור שלך, שניכם תקבלו ‎%your_gb%‏ GB של VPN מהיר. הכמות שלא נוצלה אינה פגה — תוכל להשתמש בה במשך חודשים. הזמן עד ‎%max_friends%‏ חברים וקבל עד ‎%total_gb%‏ GB בסך הכל."
     },
     "settings_referral_invited_friends": {
         "message": "חברים מוזמנים %count%/%limit%"
@@ -157,10 +163,10 @@
         "message": "ג׳יגות חינם"
     },
     "settings_free_gbs_subtitle": {
-        "message": "שלם את המשימות כדי לקבל תעבורת VPN חינם!"
+        "message": "כך תוכל לקבל תעבורה נוספת ב-VPN"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "אשר את הדוא״ל שלך"
+    "settings_free_gbs_join_adguard": {
+        "message": "הצטרף ל-AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "קבלו %num% ג׳יגה"
@@ -168,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "קיבלתם %num% ג׳יגה"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "לחצו על קישור האישור בדוא׳ל ששלחנו לכם כשנרשמתם וקבלו %your_gb% ג׳יגה של תעבורת VPN בחינם. אם אינכם מצליחים למצוא את ההודעה שלנו, לחצו על הכפתור למטה."
+    "settings_free_gbs_add_device": {
+        "message": "הוסף מכשיר חדש"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "שלח מחדש את הקישור"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "הוסף מכשיר חדש וקבל ‎%your_gb%‏ GB בחינם"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "הוסף פלטפורמה נוספת"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "התחבר ל-AdGuard VPN במכשיר נוסף עם ‎%email%‏ וקבל בונוס חד-פעמי של ‎%your_gb%‏ GB"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "התקן AdGuard VPN עבור iOS, Windows, או Android, התחבר לחשבון AdGuard שלך שם, וקבל %your_gb% ג״ב."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "עשוי לקחת זמן לעדכן את המכסה החודשית שלך — תן לזה כמה דקות או הפעל מחדש את האפליקציה"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "פלטפורמה נוספת נוספה"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "קיבלת ‎%your_gb%‏ GB על הוספת מכשיר חדש"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "מזל טוב על התקנת AdGuard VPN על מספר פלטפורמות. הישאר בטוח!"
+        "message": "תעבורה שלא נוצלה נשמרת לחודשים הבאים. עם AdGuard VPN Unlimited, תוכל ליהנות מגלישה מהירה ללא הגבלות."
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "לך אל מוצרים"
+        "message": "בחר מוצר"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "הזמן חבר"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "הזמן חבר (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "הזמן חבר וקבל ‎%your_gb%‏ GB של VPN מהיר"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "הזמנת ‎%total_invites%‏ חברים וקיבלת ‎%total_gbs%‏ GB בסך הכל"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "קבלו עד %num% ג׳יגה"
@@ -199,10 +211,10 @@
         "message": "קיבלתם %num% ג׳יגה"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "תודה ששימוש בכל ההזמנות שלך!"
+        "message": "תודה שעזרת לנו לגדול! למד כיצד לקבל עוד בונוסים בסעיף GBs חינם. או קבל את AdGuard VPN Unlimited ותהנה מגלישה מהירה ללא הגבלות."
     },
-    "settings_free_gbs_go_back": {
-        "message": "חזור"
+    "settings_free_gbs_upgrade": {
+        "message": "שדרג ל-AdGuard VPN Unlimited‏"
     },
     "settings_rate_us": {
         "message": "דרג אותנו"
@@ -765,7 +777,10 @@
         "message": "הבא"
     },
     "popup_upgrade_screen_title": {
-        "message": "VPN בלתי מוגבל"
+        "message": "שדרג ל-AdGuard VPN Unlimited‏"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "גש לכל המיקומים, גלוש ללא הגבלת מהירות וחבר עד ‎%maxDevicesAllowed%‏ מכשירים בו זמנית"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "נתונים בלתי מוגבלים"
@@ -913,6 +928,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "אל תראה את זה שוב"
     },
+    "popup_stats": {
+        "message": "סטטיסטיקות"
+    },
     "popup_stats_disabled_notice": {
         "message": "הסטטיסטיקות מושבתות"
     },
@@ -927,6 +945,22 @@
     },
     "popup_stats_usage_time": {
         "message": "זמן"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "לגבי הסטטיסטיקות שלך"
+    },
+    "popup_stats_data_since": {
+        "message": "מאז %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "הסטטיסטיקה מראה כמה נתוני VPN השתמשת ומדרגת את המיקומים המובילים שלך"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "הסטטיסטיקות לעולם אינן כוללות את היסטוריית הגלישה שלך. היא מוצפנת, כך שאיש אינו יכול לעקוב אחריך."
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "אם אתה משתמש ב-AdGuard VPN במספר דפדפנים, הנתונים הסטטיסטיים שלך יהיו שונים עבור כל אחד מהם. הם נשמרים במכשיר, ורק אתם יכולים לגשת אליהם"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "הבנת"
@@ -1027,14 +1061,17 @@
     "notification_data_left_description": {
         "message": "מהירות חיבור ה־VPN תואט בקרוב."
     },
-    "confirm_email_done_title": {
-        "message": "כתובת דוא׳ל מאושרת"
+    "confirm_email_done_title_gb": {
+        "message": "קיבלת ‎%your_gb%‏ GB כבונוס חד-פעמי של ברוך הבא"
     },
     "confirm_email_done_info": {
-        "message": "תודה על האישור!"
+        "message": "תעבורה שלא נוצלה נשמרת לחודשים הבאים. עם AdGuard VPN Unlimited, תוכל ליהנות מגלישה מהירה ללא הגבלות."
     },
-    "resend_confirm_registration_link_notification": {
-        "message": "קישור אישור שלח מחדש"
+    "auth_failed_to_login_title": {
+        "message": "הכניסה שלך נכשלה"
+    },
+    "auth_failed_to_login_description": {
+        "message": "נסה שוב או <a>פנה לתמיכה</a>"
     },
     "auth_failed_to_login_description_without_support": {
         "message": "אנא נסה שוב"
@@ -1042,7 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "סגור"
     },
+    "auth_loading_title": {
+        "message": "התחבר או הירשם דרך הדפדפן שלך"
+    },
+    "auth_loading_description": {
+        "message": "אם יש לך רישיון AdGuard VPN, הוא יחול אוטומטית"
+    },
+    "auth_loading_button_reopen": {
+        "message": "פתח מחדש את דף הכניסה"
+    },
     "auth_loading_button_cancel": {
         "message": "בטל"
+    },
+    "auth_success_title": {
+        "message": "אתה מחובר"
+    },
+    "auth_success_description": {
+        "message": "חזור לתוסף AdGuard VPN — הכל מוכן"
     }
 }

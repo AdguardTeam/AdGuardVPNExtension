@@ -144,8 +144,8 @@
     "referral_get_free_traffic": {
         "message": "Obțineți GB gratuit!"
     },
-    "settings_referral_info": {
-        "message": "Obțineți %your_gb% GB de trafic VPN gratuit pentru o lună pentru fiecare prieten care se înregistrează prin invitația dvs., până la %total_gb% GB în total. Prietenul primește, de asemenea, %friend_gb% GB suplimentar gratuit."
+    "settings_referral_info_friends": {
+        "message": "Trimiteți un link de invitație prietenului dvs. Când acesta se înscrie la AdGuard VPN prin linkul dvs., amândoi primiți %your_gb% GB de VPN rapid. Cantitatea neutilizată nu expiră — o puteți folosi în lunile următoare. Invitați până la %max_friends% prieteni și obțineți până la %total_gb% GB în total."
     },
     "settings_referral_invited_friends": {
         "message": "Prieteni invitați %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "GB gratuiți"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Finalizați sarcinile pentru a obține trafic VPN gratuit!"
+        "message": "Iată cum puteți obține trafic VPN suplimentar"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Confirmați-vă e-mailul"
+    "settings_free_gbs_join_adguard": {
+        "message": "Alăturați-vă la AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Obțineți %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Ați obținut %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Faceți clic pe linkul de confirmare prin e-mail pe care vi l-am trimis la înregistrare și primiți %your_gb% GB de trafic VPN gratuit. Dacă nu găsiți e-mailul nostru, faceți clic pe butonul de mai jos."
+    "settings_free_gbs_add_device": {
+        "message": "Adăugați un dispozitiv nou"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Trimiteți din nou linkul"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Adăugați un dispozitiv nou și obțineți %your_gb% GB gratuit"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Adăugați o altă platformă"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Autentificați-vă în AdGuard VPN pe un alt dispozitiv cu %email% pentru a primi un bonus unic de %your_gb% GB"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Instalați AdGuard VPN pentru iOS, Windows sau Android, conectați-vă la contul AdGuard de pe acesta și primiți %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Limita dvs. lunară poate necesita ceva timp pentru actualizare — acordați-i câteva minute sau reporniți aplicația"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "O altă platformă adăugată"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Ați primit %your_gb% GB pentru adăugarea unui dispozitiv nou"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Felicitări pentru instalarea AdGuard VPN pe mai multe platforme. Rămâneți în siguranță!"
+        "message": "Traficul neutilizat se reportează în lunile următoare. Iar cu AdGuard VPN nelimitat, vă puteți bucura de navigare rapidă fără limite"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Mergi la Produse"
+        "message": "Alegeți produsul"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Invitați un prieten"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Invitați un prieten (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Invitați un prieten și obțineți %your_gb% GB de VPN rapid"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Ați invitat %total_invites% prieteni și ați obținut %total_gbs% GB în total"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Obțineți până la %num% GB"
@@ -205,10 +211,10 @@
         "message": "Ați obținut %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Mulțumim pentru utilizarea tuturor invitațiilor!"
+        "message": "Vă mulțumim că ne ajutați să creștem! Aflați cum puteți obține mai multe bonusuri în secțiunea GB-uri gratuite. Sau obțineți AdGuard VPN nelimitat pentru a vă bucura de navigare rapidă fără limite"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Înapoi"
+    "settings_free_gbs_upgrade": {
+        "message": "Actualizați la Unlimited"
     },
     "settings_rate_us": {
         "message": "Cotați-ne"
@@ -771,7 +777,10 @@
         "message": "Următor"
     },
     "popup_upgrade_screen_title": {
-        "message": "VPN nelimitat"
+        "message": "Actualizați la Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Accesați toate locațiile, navigați fără limite de viteză și conectați până la %maxDevicesAllowed% dispozitive simultan"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Date nelimitate"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Ora"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Despre statisticile dvs."
+    },
+    "popup_stats_data_since": {
+        "message": "Din %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statisticile arată câte date VPN ai utilizat și clasifică locațiile tale de top"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statisticile nu includ niciodată istoricul tău de navigare. Este criptat, astfel încât nimeni nu vă poate urmări"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Dacă utilizați AdGuard VPN în mai multe browsere, statisticile dumneavoastră vor fi diferite pentru fiecare. Acestea sunt salvate pe dispozitiv și numai tu le poți accesa"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Am înțeles."
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "Viteza conexiunii VPN va fi redusă în curând."
     },
-    "confirm_email_done_title": {
-        "message": "Adresa de e-mail confirmată"
+    "confirm_email_done_title_gb": {
+        "message": "Ați primit %your_gb% GB drept bonus unic de bun venit"
     },
     "confirm_email_done_info": {
-        "message": "Mulțumim pentru verificare!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Link de confirmare trimis din nou"
+        "message": "Traficul neutilizat se reportează în lunile următoare. Iar cu AdGuard VPN nelimitat, vă puteți bucura de navigare rapidă fără limite"
     },
     "auth_failed_to_login_title": {
         "message": "Nu am reușit să vă conectez"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "Închideți"
     },
+    "auth_loading_title": {
+        "message": "Conectați-vă sau înregistrați-vă prin browser"
+    },
+    "auth_loading_description": {
+        "message": "Dacă aveți o licență AdGuard VPN, aceasta se va aplica automat"
+    },
     "auth_loading_button_reopen": {
         "message": "Redeschideți pagina de autentificare"
     },
     "auth_loading_button_cancel": {
         "message": "Anulare"
+    },
+    "auth_success_title": {
+        "message": "Ești autentificat"
+    },
+    "auth_success_description": {
+        "message": "Reveniți la extensia VPN AdGuard — totul este configurat"
     }
 }

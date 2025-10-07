@@ -139,13 +139,13 @@
         "message": "隐私策略"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "通用"
     },
     "referral_get_free_traffic": {
         "message": "获取免费流量！"
     },
-    "settings_referral_info": {
-        "message": "邀请您的朋友并获得一个月内可用的 %your_gb%GB 的免费流量。您至多可以收到 %total_gb%GB 的免费流量。同时也会给您的朋友赠送 %friend_gb%GB 的免费流量。"
+    "settings_referral_info_friends": {
+        "message": "向好友发送邀请链接。当对方通过您的链接注册 AdGuard VPN 后，双方均可获得 %your_gb%GB 的高速 VPN 流量。未使用流量永不过期，可长期累积使用。最多邀请 %max_friends% 位好友，累计可获得 %total_gb%GB 流量上限。"
     },
     "settings_referral_invited_friends": {
         "message": "已邀请的朋友 %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "免费流量"
     },
     "settings_free_gbs_subtitle": {
-        "message": "完成任务以获得免费的 VPN 流量！"
+        "message": "您可以通过以下方式轻松获取额外 VPN 流量："
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "确认您的电子邮件"
+    "settings_free_gbs_join_adguard": {
+        "message": "加入 AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "获取 %num%GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "您已获得 %num%GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "单击我们在注册时发送给您的电子邮件确认链接，即可获得 %your_gb%GB的免费 VPN 流量。如果您找不到我们的电子邮件，请单击下面的按钮。"
+    "settings_free_gbs_add_device": {
+        "message": "添加新设备"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "重新发送链接"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "添加新设备，免费获取 %your_gb%GB"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "添加另一个平台"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "使用 %email% 在其他设备上登录 AdGuard VPN，即可领取一次性 %your_gb%GB 流量奖励。"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "安装 AdGuard VPN，在 iOS、Mac、Windows 或 Android 上登录您的 AdGuard 账号，获得 %your_gb%GB。"
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "流量限额更新可能存在延迟，请稍候几分钟或重启应用即可生效。"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "另一个平台添加成功"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "因成功添加新设备，您已获得 %your_gb%GB 流量奖励。"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "恭喜您在多个系统上安装 AdGuard VPN。安全上网！"
+        "message": "未使用的流量将自动累积至后续月份。升级至 AdGuard VPN 无限版，即可畅享无限极速浏览，尽享无阻。"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "转到产品"
+        "message": "选择产品"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "邀请朋友"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "邀请朋友（%invited_count%/%max_invites%）"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "邀请好友并获得 %your_gb%GB 的高速 VPN 服务。"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "您已邀请 %total_invites% 位好友，共获得 %total_gbs%GB。"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "获取高达 %num%GB"
@@ -205,10 +211,10 @@
         "message": "您已获得 %num%GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "感谢您使用您的所有邀请函！"
+        "message": "感谢您助力我们持续成长！请前往「免费流量」专区了解获取更多奖励的方式。或直接升级至 AdGuard VPN 无限版，畅享无限极速浏览体验。"
     },
-    "settings_free_gbs_go_back": {
-        "message": "返回上一页"
+    "settings_free_gbs_upgrade": {
+        "message": "升级到无限版"
     },
     "settings_rate_us": {
         "message": "请给我们评分"
@@ -771,7 +777,10 @@
         "message": "下一步"
     },
     "popup_upgrade_screen_title": {
-        "message": "无限制 VPN"
+        "message": "升级到无限版"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "尽享所有地区节点、无限制极速浏览，并支持最多 %maxDevicesAllowed% 台设备同时连接。"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "无限数据"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "时间"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "关于您的统计数据"
+    },
+    "popup_stats_data_since": {
+        "message": "自 %startDate% 起",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "统计信息显示您已使用的 VPN 数据量，并对常用地点进行排名。"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "统计数据绝不会包含您的浏览历史。这些数据已加密，因此无人能够追踪您。"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "如果您在多个浏览器中使用 AdGuard VPN，每个浏览器的统计数据将是独立的。这些数据存储于设备本地，且仅您本人可以访问。"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "知道了"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "VPN 连接速度即将要下降。"
     },
-    "confirm_email_done_title": {
-        "message": "电子邮件地址已确认"
+    "confirm_email_done_title_gb": {
+        "message": "您已获得 %your_gb%GB 的一次性欢迎奖励。"
     },
     "confirm_email_done_info": {
-        "message": "感谢您的验证！"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "确认链接重新发送成功"
+        "message": "未使用的流量将自动累积至后续月份。升级至 AdGuard VPN 无限版，即可畅享无限极速浏览，尽享无阻。"
     },
     "auth_failed_to_login_title": {
         "message": "登录失败"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "关闭"
     },
+    "auth_loading_title": {
+        "message": "请通过浏览器登录或注册"
+    },
+    "auth_loading_description": {
+        "message": "如果您有 AdGuard VPN 许可证，它将自动应用。"
+    },
     "auth_loading_button_reopen": {
         "message": "重新打开登录页面"
     },
     "auth_loading_button_cancel": {
         "message": "取消"
+    },
+    "auth_success_title": {
+        "message": "登录成功"
+    },
+    "auth_success_description": {
+        "message": "返回 AdGuard VPN 扩展，全部设置已完成"
     }
 }

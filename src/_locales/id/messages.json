@@ -139,13 +139,13 @@
         "message": "Kebijakan Privasi"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Umum"
     },
     "referral_get_free_traffic": {
         "message": "Dapatkan lalu lintas VPN gratis!"
     },
-    "settings_referral_info": {
-        "message": "Undang teman Anda untuk bergabung dengan klan ninja kami dan dapatkan lebih banyak lalu lintas VPN gratis selama sebulan. Dapatkan %your_gb% GB untuk setiap teman yang mendaftar: mereka juga mendapatkan ekstra %friend_gb% GB gratis! Anda dapat menerima total %total_gb% GB secara cuma-cuma."
+    "settings_referral_info_friends": {
+        "message": "Kirim tautan undangan ke teman Anda. Ketika mereka mendaftar ke AdGuard VPN melalui tautan Anda, Anda berdua mendapatkan %your_gb% GB VPN cepat. Jumlah yang tidak terpakai tidak kedaluwarsa — Anda bisa menggunakannya selama beberapa bulan. Undang hingga %max_friends% teman dan dapatkan hingga %total_gb% GB secara total."
     },
     "settings_referral_invited_friends": {
         "message": "Teman yang diundang %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "GB gratis"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Selesaikan tugas untuk mendapatkan lalu lintas VPN gratis!"
+        "message": "Berikut cara mendapatkan lalu lintas VPN ekstra"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Konfirmasi email Anda"
+    "settings_free_gbs_join_adguard": {
+        "message": "Bergabung dengan AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Dapatkan %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Anda mendapatkan %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Klik tautan konfirmasi e-mail yang kami kirimkan kepada Anda saat mendaftar dan dapatkan VPN gratis sebesar %your_gb% GB. Jika Anda tidak dapat menemukan e-mail kami, klik tombol di bawah ini."
+    "settings_free_gbs_add_device": {
+        "message": "Tambahkan perangkat baru"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Kirim ulang tautan"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Tambahkan perangkat baru dan dapatkan %your_gb% GB secara gratis"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Tambah platform lain"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Masuk ke AdGuard VPN di perangkat lain dengan %email% untuk mendapatkan bonus satu kali sebesar %your_gb% GB"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Pasang AdGuard VPN untuk iOS, Mac, Windows, atau Android, masuk ke akun AdGuard Anda di sana, dan dapatkan %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Batas bulanan Anda mungkin membutuhkan waktu untuk diperbarui — beri beberapa menit atau mulai ulang aplikasi"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Platform lain ditambahkan"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Anda mendapatkan %your_gb% GB karena menambahkan perangkat baru"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Selamat telah menginstal AdGuard VPN di berbagai platform. Tetap aman!"
+        "message": "Lalu lintas yang tidak terpakai akan dibawa ke bulan berikutnya. Dan dengan AdGuard VPN Tidak terbatas, Anda bisa menikmati browsing cepat tanpa batasan"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Buka Produk"
+        "message": "Pilih produk"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Undang teman"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Undang teman (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Undang teman dan dapatkan %your_gb% GB VPN cepat"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Anda telah mengundang %total_invites% teman dan mendapatkan total %total_gbs% GB"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Dapatkan hingga %num% GB"
@@ -205,10 +211,10 @@
         "message": "Anda mendapatkan %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Terima kasih telah menggunakan semua undangan Anda!"
+        "message": "Terima kasih telah membantu kami tumbuh! Pelajari cara mendapatkan lebih banyak bonus di bagian GB Gratis. Atau dapatkan AdGuard VPN Tidak terbatas untuk menikmati browsing cepat tanpa batasan"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Kembali"
+    "settings_free_gbs_upgrade": {
+        "message": "Tingkatkan ke Unlimited"
     },
     "settings_rate_us": {
         "message": "Nilai kami"
@@ -771,7 +777,10 @@
         "message": "Selanjutnya"
     },
     "popup_upgrade_screen_title": {
-        "message": "VPN tanpa batas"
+        "message": "Tingkatkan ke Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Akses semua lokasi, browsing tanpa batas kecepatan, dan hubungkan hingga %maxDevicesAllowed% perangkat sekaligus"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Data tidak terbatas"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Waktu"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Tentang statistik Anda"
+    },
+    "popup_stats_data_since": {
+        "message": "Sejak %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistik menunjukkan berapa banyak data VPN yang telah Anda gunakan dan memberi peringkat lokasi teratas Anda"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistik tidak pernah menyertakan riwayat penjelajahan Anda. Terenkripsi, jadi tidak ada yang bisa melacak Anda"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Jika Anda menggunakan AdGuard VPN di beberapa browser, statistik Anda akan berbeda untuk masing-masing browser. Iklan tersebut disimpan di perangkat, dan hanya Anda yang dapat mengaksesnya"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Mengerti"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "Kecepatan koneksi VPN akan segera berkurang."
     },
-    "confirm_email_done_title": {
-        "message": "Alamat e-mail dikonfirmasi"
+    "confirm_email_done_title_gb": {
+        "message": "Anda mendapatkan %your_gb% GB sebagai bonus sambutan satu kali"
     },
     "confirm_email_done_info": {
-        "message": "Terima kasih telah memverifikasinya!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Tautan konfirmasi telah dikirim ke alamat e-mail Anda"
+        "message": "Lalu lintas yang tidak terpakai akan dibawa ke bulan berikutnya. Dan dengan AdGuard VPN Tidak terbatas, Anda bisa menikmati browsing cepat tanpa batasan"
     },
     "auth_failed_to_login_title": {
         "message": "Gagal membuat Anda masuk"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "Tutup"
     },
+    "auth_loading_title": {
+        "message": "Masuk atau daftar melalui browser Anda"
+    },
+    "auth_loading_description": {
+        "message": "Jika Anda memiliki lisensi AdGuard VPN, lisensi ini akan berlaku secara otomatis"
+    },
     "auth_loading_button_reopen": {
         "message": "Buka kembali halaman masuk"
     },
     "auth_loading_button_cancel": {
         "message": "Batal"
+    },
+    "auth_success_title": {
+        "message": "Anda sudah masuk"
+    },
+    "auth_success_description": {
+        "message": "Kembali ke ekstensi VPN AdGuard — semuanya sudah diatur"
     }
 }

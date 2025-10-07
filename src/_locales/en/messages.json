@@ -144,7 +144,7 @@
     "referral_get_free_traffic": {
         "message": "Get free GBs!"
     },
-    "settings_referral_info": {
+    "settings_referral_info_friends": {
         "message": "Send an invite link to your friend. When they sign up to AdGuard VPN via your link, you both get %your_gb% GB of fast VPN. The unused amount doesn’t expire — you can use it over the months. Invite up to %max_friends% friends and get up to %total_gb% GB in total"
     },
     "settings_referral_invited_friends": {
@@ -196,7 +196,7 @@
         "message": "Choose product"
     },
     "settings_free_gbs_invite_friend_count": {
-     "message": "Invite a friend (%invited_count%/%max_invites%)"
+        "message": "Invite a friend (%invited_count%/%max_invites%)"
     },
     "settings_free_gbs_invite_friend_title": {
         "message": "Invite a friend and get %your_gb% GB of fast VPN"

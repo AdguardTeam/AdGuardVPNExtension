@@ -139,13 +139,10 @@
         "message": "Pravidlá ochrany súkromia"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Všeobecné"
     },
     "referral_get_free_traffic": {
         "message": "Získajte bezplatné GB!"
-    },
-    "settings_referral_info": {
-        "message": "Pozvite svojich priateľov, aby sa pripojili k nášmu klanu ninja a získajte bezplatnú VPN komunikáciu na mesiac. Získajte %your_gb% GB za každého priateľa, ktorý sa zaregistruje: získa tiež %friend_gb% GB navyše zadarmo! Celkovo môžete získať %total_gb% GB zadarmo."
     },
     "settings_referral_invited_friends": {
         "message": "Pozvaní priatelia %count%/%limit%"
@@ -162,41 +159,11 @@
     "settings_free_gbs": {
         "message": "Voľné GB"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Dokončite úlohy a získajte bezplatnú VPN komunikáciu!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Potvrďte svoju e-mail adresu"
-    },
     "settings_free_gbs_get_GB": {
         "message": "Získajte %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Dostali ste %num% GB"
-    },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Kliknite na odkaz na potvrdenie e-mail adresy, ktorý sme Vám poslali pri registrácii, a získajte %your_gb% GB bezplatnej VPN komunikácie. Ak nemôžete nájsť našu e-mail správu, kliknite na tlačidlo nižšie."
-    },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Znovu poslať odkaz"
-    },
-    "settings_free_gbs_add_device_title": {
-        "message": "Pridajte ďalšiu platformu"
-    },
-    "settings_free_gbs_add_device_info": {
-        "message": "Nainštalujte si AdGuard VPN pre iOS, Mac, Windows alebo Android, prihláste sa do svojho účtu AdGuard a získajte %your_gb% GB."
-    },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Ďalšia platforma bola pridaná"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "Gratulujeme k inštalácii AdGuard VPN na viacerých platformách. Zostaňte v bezpečí!"
-    },
-    "settings_free_gbs_add_device_products_button": {
-        "message": "Ísť na Produkty"
-    },
-    "settings_free_gbs_invite_friend": {
-        "message": "Pozvať priateľa"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Získajte až %num% GB"
@@ -204,11 +171,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Dostali ste %num% GB"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Ďakujeme, že ste použili všetky Vaše pozvánky!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Naspäť"
+    "settings_free_gbs_upgrade": {
+        "message": "Upgradovať na Unlimited"
     },
     "settings_rate_us": {
         "message": "Ohodnoťte nás"
@@ -768,7 +732,7 @@
         "message": "Ďalej"
     },
     "popup_upgrade_screen_title": {
-        "message": "Neobmedzená VPN"
+        "message": "Upgradovať na Unlimited"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neobmedzené dáta"
@@ -934,6 +898,22 @@
     "popup_stats_usage_time": {
         "message": "Čas"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "O Vašich štatistikách"
+    },
+    "popup_stats_data_since": {
+        "message": "Od %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Štatistiky ukazujú, koľko VPN dát ste použili a hodnotia Vaše najlepšie lokality"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Štatistiky nikdy nezahŕňajú Vašu históriu prehliadania. Sú šifrované, takže Vás nikto nemôže sledovať"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Ak používate AdGuard VPN vo viacerých prehliadačoch, Vaše štatistiky sa budú v každom z nich líšiť. Sú uložené v zariadení a prístup k nim máte iba Vy"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rozumiem"
     },
@@ -1033,15 +1013,6 @@
     "notification_data_left_description": {
         "message": "Rýchlosť pripojenia VPN sa čoskoro zníži."
     },
-    "confirm_email_done_title": {
-        "message": "E-mail adresa bola potvrdená"
-    },
-    "confirm_email_done_info": {
-        "message": "Ďakujeme za overenie!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Opätovné odoslanie potvrdzujúceho odkazu"
-    },
     "auth_failed_to_login_title": {
         "message": "Nepodarilo sa Vás prihlásiť"
     },
@@ -1054,10 +1025,22 @@
     "auth_failed_to_login_button": {
         "message": "Zavrieť"
     },
+    "auth_loading_title": {
+        "message": "Prihláste sa alebo sa zaregistrujte prostredníctvom prehliadača"
+    },
+    "auth_loading_description": {
+        "message": "Ak máte licenciu AdGuard VPN, použije sa automaticky"
+    },
     "auth_loading_button_reopen": {
         "message": "Znovu otvorte prihlasovaciu stránku"
     },
     "auth_loading_button_cancel": {
         "message": "Zrušiť"
+    },
+    "auth_success_title": {
+        "message": "Ste prihlásený/á"
+    },
+    "auth_success_description": {
+        "message": "Vráťte sa k rozšíreniu AdGuard VPN - všetko je nastavené"
     }
 }

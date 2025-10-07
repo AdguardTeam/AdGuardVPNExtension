@@ -144,8 +144,8 @@
     "referral_get_free_traffic": {
         "message": "Gauti nemokamą GB!"
     },
-    "settings_referral_info": {
-        "message": "Gaukite %your_gb% GB nemokamos VPN srauto mėnesiui už kiekvieną draugą, kuris registruojasi per jūsų kvietimą, iki %total_gb% GB bendrai. Jūsų draugas taip pat gauna papildomus %friend_gb% GB nemokamai."
+    "settings_referral_info_friends": {
+        "message": "Nusiųskite kvietimo nuorodą savo draugui. Kai jis prisiregistruos prie AdGuard VPN per jūsų nuorodą, abu gausite po %your_gb% GB greito VPN. Nepanaudotas kiekis nenustoja galioti — jį galite naudoti ir kitais mėnesiais. Pakvieskite iki %max_friends% draugų ir gaukite iki %total_gb% GB iš viso."
     },
     "settings_referral_invited_friends": {
         "message": "Kviesti draugai %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "Nemokami GB"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Užbaikite užduotis, kad gautumėte nemokamo VPN srauto!"
+        "message": "Štai kaip galite gauti papildomą VPN srautą"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Patvirtinkite savo el. paštą"
+    "settings_free_gbs_join_adguard": {
+        "message": "Prisijunkite prie AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Gaukite %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Gavote %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Spustelėkite el. pašto patvirtinimo nuorodą, kurią mes jums išsiuntėme registracijos metu, ir gaukite %your_gb% GB nemokamo VPN srauto. Jei negalite rasti mūsų el. laiško, spustelėkite toliau pateiktą mygtuką."
+    "settings_free_gbs_add_device": {
+        "message": "Pridėti naują įrenginį"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Persiųsti nuorodą"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Pridėkite naują įrenginį ir gaukite %your_gb% GB nemokamai"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Pridėti kitą platformą"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Prisijunkite prie AdGuard VPN kitame įrenginyje naudojant %email%, kad gautumėte vienkartinį %your_gb% GB bonusą"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Įdiekite AdGuard VPN į iOS, Mac, Windows arba Android, ten prisijunkite prie savo AdGuard paskyros ir gauti %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Jūsų mėnesio limitui atnaujinti gali prireikti laiko — palaukite kelias minutes arba paleiskite programėlę iš naujo"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Dar viena platforma pridėta"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Jūs gavote %your_gb% GB už naujo įrenginio pridėjimą"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Sveikinu, kad įdiegėte AdGuard VPN keliose platformose. Būkite saugūs!"
+        "message": "Nepanaudotas srautas perkeliama į kitus mėnesius. O su AdGuard VPN Unlimited galite mėgautis greitu naršymu be apribojimų"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Eiti į svetainę"
+        "message": "Pasirinkti produktą"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Pakvieskite draugą"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Pakvieskite draugą (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Pakvieskite draugą ir gaukite %your_gb% GB greito VPN"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Jūs pakvietėte %total_invites% draugų ir gavote iš viso %total_gbs% GB"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Gaukite iki %num% GB"
@@ -205,10 +211,10 @@
         "message": "Gavote %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Dėkojame, kad panaudojote visus savo kvietimus!"
+        "message": "Ačiū, kad padedate mums augti! Sužinokite, kaip gauti daugiau premijų skyriuje Nemokami GB. Arba įsigykite AdGuard VPN Unlimited ir naršykite greitai be apribojimų"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Grįžti"
+    "settings_free_gbs_upgrade": {
+        "message": "Pereiti į neribotą"
     },
     "settings_rate_us": {
         "message": "Įvertinkite mus"
@@ -771,7 +777,10 @@
         "message": "Toliau"
     },
     "popup_upgrade_screen_title": {
-        "message": "Neribotas VPN"
+        "message": "Pereiti į neribotą"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Pasiekite visas vietas, naršykite be greičio apribojimų ir prijunkite iki %maxDevicesAllowed% įrenginių vienu metu"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neribotas duomenų kiekis"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Laikas"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Apie jūsų statistiką"
+    },
+    "popup_stats_data_since": {
+        "message": "Nuo %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistika rodo, kiek VPN duomenų sunaudojote, ir pateikia populiariausias vietas"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistika niekada neapima jūsų naršymo istorijos. Jis užšifruotas, todėl niekas negali jūsų sekti"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Jei naudojate \"AdGuard VPN\" keliose naršyklėse, kiekvienos iš jų statistika bus skirtinga. Jie išsaugomi įrenginyje ir tik jūs galite juos pasiekti"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Supratau"
     },
@@ -1036,19 +1061,40 @@
     "notification_data_left_description": {
         "message": "VPN prisijungimo greitis bus sumažintas netrukus."
     },
-    "confirm_email_done_title": {
-        "message": "El. pašto adresas patvirtintas"
+    "confirm_email_done_title_gb": {
+        "message": "Gavote %your_gb% GB kaip vienkartinę pasveikinimo premiją"
     },
     "confirm_email_done_info": {
-        "message": "Ačiū, kad patvirtinote!"
+        "message": "Nepanaudotas srautas perkeliama į kitus mėnesius. O su AdGuard VPN Unlimited galite mėgautis greitu naršymu be apribojimų"
     },
-    "resend_confirm_registration_link_notification": {
-        "message": "Patvirtinimo nuoroda išsiųsta"
+    "auth_failed_to_login_title": {
+        "message": "Nepavyko prisijungti"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Bandykite dar kartą arba <a>susisiekite su palaikymo tarnyba</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Bandykite dar kartą"
     },
     "auth_failed_to_login_button": {
         "message": "Uždaryti"
     },
+    "auth_loading_title": {
+        "message": "Prisijunkite arba užsiregistruokite per naršyklę"
+    },
+    "auth_loading_description": {
+        "message": "Jei turite „AdGuard“ VPN licenciją, ji bus pritaikyta automatiškai"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Iš naujo atidaryti prisijungimo puslapį"
+    },
     "auth_loading_button_cancel": {
         "message": "Atšaukti"
+    },
+    "auth_success_title": {
+        "message": "Esate prisijungęs"
+    },
+    "auth_success_description": {
+        "message": "Grįžkite į „AdGuard“ VPN plėtinį – viskas nustatyta"
     }
 }

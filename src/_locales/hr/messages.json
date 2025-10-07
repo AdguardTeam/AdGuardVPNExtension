@@ -139,13 +139,13 @@
         "message": "Politika privatnosti"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Općenito"
     },
     "referral_get_free_traffic": {
         "message": "Dobijte besplatne GB!"
     },
-    "settings_referral_info": {
-        "message": "Dobijte %your_gb% gigabajta besplatnog VPN prometa mjesec dana za svakog prijatelja koji se prijavi putem Vaše pozivnice, ukupno do %total_gb% gigabajta. Vaš prijatelj također dobiva dodatnih %friend_gb% gigabajta besplatno."
+    "settings_referral_info_friends": {
+        "message": "Pošaljite poveznicu za poziv svom prijatelju. Kada se prijave na AdGuard VPN putem vaše poveznice, oboje ćete dobiti %your_gb% GB brzog VPN-a. Neiskorišteni iznos ne ističe — možete ga koristiti i tijekom sljedećih mjeseci. Pozovite do %max_friends% prijatelja i ukupno osvojite do %total_gb% GB."
     },
     "settings_referral_invited_friends": {
         "message": "Pozvani prijatelji %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "Besplatni gigabajti"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Izvršite zadatke kako bi dobili besplatan promet na VPN-u!"
+        "message": "Evo kako možete dobiti dodatni VPN promet"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Potvrdi svoj email"
+    "settings_free_gbs_join_adguard": {
+        "message": "Pridružite se AdGuard VPN-u"
     },
     "settings_free_gbs_get_GB": {
         "message": "Dobijte %num% gigabajta"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Imate %num% gigabajta"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Kliknite na link za potvrdu koji smo Vam poslali prilikom prijave i ostvarite %your_gb% gigabajta besplatnog VPN prometa. Ako ne možete pronaći naš email, kliknite na gumb ispod."
+    "settings_free_gbs_add_device": {
+        "message": "Dodavanje novog uređaja"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Ponovno pošalji vezu"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Dodajte novi uređaj i ostvarite %your_gb% GB besplatno"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Dodajte drugu platformu"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Prijavite se u AdGuard VPN na drugom uređaju s %email% kako biste dobili jednokratni bonus od %your_gb% GB"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Instalirajte AdGuard VPN za iOS, Windows ili Android, prijavite se na svoj AdGuard račun tamo i dobijte %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Vaša mjesečna granica može trebati vremena za ažuriraj — pričekajte nekoliko minuta ili ponovno pokrenite aplikaciju"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Dodana je još jedna platforma"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Dobili ste %your_gb% GB za dodavanje novog uređaja"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Čestitamo na instaliranju AdGuard VPN-a na više platformi. Ostanite sigurni!"
+        "message": "Neiskorišteni promet prenosi se u sljedeće mjesece. A s AdGuard VPN Unlimitedom možete uživati u brzom pregledavanju bez ograničenja"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Idi na Proizvode"
+        "message": "Odaberite proizvod"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Pozovi prijatelja"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Pozovite prijatelja (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Pozovite prijatelja i ostvarite %your_gb% GB brzog VPN-a"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Pozvali ste %total_invites% prijatelja i ukupno ostvarili %total_gbs% GB"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Dobijte do %num% gigabajta"
@@ -205,10 +211,10 @@
         "message": "Imate %num% gigabajta"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Hvala što ste iskoristili sve pozivnice!"
+        "message": "Hvala vam što nam pomažete rasti! Saznajte kako dobiti više bonusa u odjeljku Besplatni GB-ovi. Ili nabavite AdGuard VPN Unlimited i uživajte u brzom pregledavanju bez ograničenja"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Natrag"
+    "settings_free_gbs_upgrade": {
+        "message": "Nadogradite na Neograničeno"
     },
     "settings_rate_us": {
         "message": "Ocijenite nas"
@@ -771,7 +777,10 @@
         "message": "Sljedeće"
     },
     "popup_upgrade_screen_title": {
-        "message": "Neograničen VPN"
+        "message": "Nadogradite na Neograničeno"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Pristupite svim lokacijama, pregledavajte bez ograničenja brzine te spojite do %maxDevicesAllowed% uređaja odjednom"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neograničeni podaci"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Vrijeme"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "O vašoj statistici"
+    },
+    "popup_stats_data_since": {
+        "message": "Od %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistike pokazuju koliko ste VPN podataka koristili i rangiraju vaše najčešće lokacije"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistike nikada ne uključuju vašu povijest pregledavanja. Šifrirane su, tako da vas nitko ne može pratiti"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Ako koristite AdGuard VPN u nekoliko preglednika, vaša će se statistika razlikovati za svaki od njih. Sprema se na uređaju i samo joj vi možete pristupiti"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "U redu"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "Brzina VPN veze će se uskoro smanjiti."
     },
-    "confirm_email_done_title": {
-        "message": "Email adresa potvrđena"
+    "confirm_email_done_title_gb": {
+        "message": "Dobili ste %your_gb% GB kao jednokratni bonus dobrodošlice"
     },
     "confirm_email_done_info": {
-        "message": "Hvala Vam na verifikaciji!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Poveznica za potvrdu je ponovno poslana"
+        "message": "Neiskorišteni promet prenosi se u sljedeće mjesece. A s AdGuard VPN Unlimitedom možete uživati u brzom pregledavanju bez ograničenja"
     },
     "auth_failed_to_login_title": {
         "message": "Prijava nije uspjela"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "Zatvori"
     },
+    "auth_loading_title": {
+        "message": "Prijavite se ili registrirajte putem preglednika"
+    },
+    "auth_loading_description": {
+        "message": "Ako imate AdGuard VPN licencu, ona će se automatski primijeniti"
+    },
     "auth_loading_button_reopen": {
         "message": "Ponovno otvori stranicu za prijavu"
     },
     "auth_loading_button_cancel": {
         "message": "Poništi"
+    },
+    "auth_success_title": {
+        "message": "Vi ste ovlašteni"
+    },
+    "auth_success_description": {
+        "message": "Vratite se na AdGuard VPN proširenje — sve je postavljeno"
     }
 }

@@ -139,13 +139,13 @@
         "message": "隱私政策"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "一般"
     },
     "referral_get_free_traffic": {
         "message": "取得免費的流量！"
     },
-    "settings_referral_info": {
-        "message": "邀請您的朋友並取得一個月內可用的 %your_gb%GB 的免費流量。您至多可以收到 %total_gb%GB 的免費流量。同時也會給您的朋友贈送 %friend_gb%GB 的免費流量。"
+    "settings_referral_info_friends": {
+        "message": "向好友傳送邀請連結。當對方透過您的連結註冊 AdGuard VPN 後，雙方均可取得 %your_gb%GB 的高速 VPN 流量。未使用流量永不過期，可長期累積使用。最多邀請 %max_friends% 位好友，累計可取得 %total_gb%GB 流量上限。"
     },
     "settings_referral_invited_friends": {
         "message": "邀請了朋友 %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "免費流量"
     },
     "settings_free_gbs_subtitle": {
-        "message": "完成任務以取得免費的 VPN 流量！"
+        "message": "您可以透過以下方式輕鬆獲取額外 VPN 流量："
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "確認您的電子郵件"
+    "settings_free_gbs_join_adguard": {
+        "message": "加入 AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "取得 %num%GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "您已取得 %num%GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "單擊我們在註冊時傳送給您的確認連結，即可取得 %your_gb%GB 的免費 VPN 流量。如果您找不到我們的電子郵件，請單擊下面的按鈕。"
+    "settings_free_gbs_add_device": {
+        "message": "新增新裝置"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "重新傳送連結"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "新增新裝置，免費獲取 %your_gb%GB"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "新增另一個平台"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "使用 %email% 在其他裝置上登入 AdGuard VPN，即可領取一次性 %your_gb%GB 流量獎勵。"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "安裝用於 iOS、Mac、Windows 或 Android 的 AdGuard VPN，登入您的 AdGuard 帳戶，並取得 %your_gb%GB。"
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "流量限額更新可能存在延遲，請稍候幾分鐘或重啟應用即可生效。"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "另一個平台新增成功"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "因成功新增新裝置，您已獲得 %your_gb%GB 流量獎勵。"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "恭喜您在多個系統上安裝 AdGuard VPN。安全上網！"
+        "message": "未使用的流量將自動累積至後續月份。升級至 AdGuard VPN 無限版，即可暢享無限極速瀏覽，盡享無阻。"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "至產品"
+        "message": "選擇產品"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "邀請朋友"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "邀請朋友（%invited_count%/%max_invites%）"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "邀請好友並獲得 %your_gb%GB 的高速 VPN 服務。"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "您已邀請 %total_invites% 位好友，共獲得 %total_gbs%GB。"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "取得高達 %num%GB"
@@ -205,10 +211,10 @@
         "message": "您已取得 %num%GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "感謝您使用您的所有邀請函！"
+        "message": "感謝您助力我們持續成長！請前往「免費流量」專區瞭解獲取更多獎勵的方式。或直接升級至 AdGuard VPN 無限版，暢享無限極速瀏覽體驗。"
     },
-    "settings_free_gbs_go_back": {
-        "message": "返回"
+    "settings_free_gbs_upgrade": {
+        "message": "升級為無限版"
     },
     "settings_rate_us": {
         "message": "對我們評分"
@@ -771,7 +777,10 @@
         "message": "下一步"
     },
     "popup_upgrade_screen_title": {
-        "message": "無限制的 VPN"
+        "message": "升級為無限版"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "盡享所有地區節點、無限制極速瀏覽，並支援最多 %maxDevicesAllowed% 台裝置同時連線。"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "無限的流量"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "時間"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "關於您的統計資料"
+    },
+    "popup_stats_data_since": {
+        "message": "自從 %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "統計資訊顯示您已使用的 VPN 資料量，並對常用位置進行排名。"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "統計數據永遠不會包含瀏覽歷史。它已被加密，沒有人能追蹤您。"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "如果您在多個瀏覽器中使用 AdGuard VPN，每個瀏覽器的統計資料將是獨立的。這些資料儲存於裝置本機，且僅您本人可以存取。"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "知道了"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "VPN 即將降速。"
     },
-    "confirm_email_done_title": {
-        "message": "電子郵件地址已確認"
+    "confirm_email_done_title_gb": {
+        "message": "您已獲得 %your_gb%GB 的一次性歡迎獎勵。"
     },
     "confirm_email_done_info": {
-        "message": "感謝您的驗證！"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "確認連結重新傳送成功"
+        "message": "未使用的流量將自動累積至後續月份。升級至 AdGuard VPN 無限版，即可暢享無限極速瀏覽，盡享無阻。"
     },
     "auth_failed_to_login_title": {
         "message": "登入失敗"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "關閉"
     },
+    "auth_loading_title": {
+        "message": "請透過瀏覽器登入或註冊"
+    },
+    "auth_loading_description": {
+        "message": "如果您有 AdGuard VPN 授權，它將自動套用。"
+    },
     "auth_loading_button_reopen": {
         "message": "重新開啟登入頁面"
     },
     "auth_loading_button_cancel": {
         "message": "取消"
+    },
+    "auth_success_title": {
+        "message": "登入成功"
+    },
+    "auth_success_description": {
+        "message": "請返回 AdGuard VPN 擴充套件程式，一切已就緒"
     }
 }

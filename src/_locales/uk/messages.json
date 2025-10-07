@@ -139,13 +139,13 @@
         "message": "Політика конфіденційності"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Загальні"
     },
     "referral_get_free_traffic": {
         "message": "Отримайте безплатний VPN-трафік!"
     },
-    "settings_referral_info": {
-        "message": "Отримайте %your_gb% ГБ безкоштовного трафіку VPN на місяць для кожного друга, який зареєструється за вашим запрошенням, загалом до %total_gb% ГБ. Ваш друг також отримує додаткові %friend_gb% ГБ безкоштовно."
+    "settings_referral_info_friends": {
+        "message": "Надішліть запрошувальне посилання своєму другу. Коли він зареєструється в AdGuard VPN через ваше посилання, ви обидва отримаєте %your_gb% GB швидкого VPN. Невикористаний обсяг не має терміну дії — ви можете використовувати його протягом місяців. Запросіть до %max_friends% друзів і отримаєте до %total_gb% GB загалом"
     },
     "settings_referral_invited_friends": {
         "message": "Запрошені друзі %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "Безплатні гігабайти"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Виконайте завдання — отримайте безплатний трафік!"
+        "message": "Ось як отримати додатковий VPN-трафік"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Підтвердьте свою електронну адресу"
+    "settings_free_gbs_join_adguard": {
+        "message": "Приєднайтеся до AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Отримайте %num% ГБ"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Ви отримали %num% ГБ"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Ми надіслали вам листа з посиланням для підтвердження. Перейдіть за тим посиланням, щоб отримати %your_gb% ГБ безплатного трафіку. Якщо не можете знайти лист, натисніть на кнопку нижче."
+    "settings_free_gbs_add_device": {
+        "message": "Додати новий пристрій"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Надіслати повторно"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Додайте новий пристрій і отримайте %your_gb% GB безплатно"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Додати іншу платформу"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Увійдіть до AdGuard VPN на іншому пристрої з %email%, щоб отримати одноразовий бонус %your_gb% GB"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Встановіть AdGuard VPN для iOS, Mac, Windows або Android, увійдіть до свого облікового запису AdGuard там і отримайте %your_gb% ГБ."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Оновлення вашого місячного ліміту може зайняти деякий час — зачекайте кілька хвилин або перезапустіть застосунок"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Іншу платформу додано"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Ви отримали %your_gb% GB за додавання нового пристрою"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Вітаємо з встановленням AdGuard VPN на декількох платформах. Залишайтеся в безпеці!"
+        "message": "Невикористаний трафік переноситься на наступні місяці. А з AdGuard VPN Unlimited ви можете насолоджуватися швидким переглядом без обмежень"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Перейти до продуктів"
+        "message": "Оберіть продукт"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Запросіть друга"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Запросити друга (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Запросіть друга і отримайте %your_gb% GB швидкого VPN"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Ви запросили %total_invites% друзів і отримали загалом %total_gbs% GB"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Отримайте до %num% ГБ"
@@ -205,10 +211,10 @@
         "message": "Ви отримали %num% ГБ"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Дякуємо, що запросили стількох друзів!"
+        "message": "Дякуємо, що допомагаєте нам зростати! Дізнайтеся, як отримати більше бонусів, у розділі \"Безплатні GB\". Або придбайте AdGuard VPN Unlimited, щоб насолоджуватися швидким переглядом без обмежень"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Назад"
+    "settings_free_gbs_upgrade": {
+        "message": "Оновіть до Unlimited"
     },
     "settings_rate_us": {
         "message": "Оцініть нас"
@@ -771,7 +777,10 @@
         "message": "Далі"
     },
     "popup_upgrade_screen_title": {
-        "message": "Необмежений VPN"
+        "message": "Оновіть до Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Отримайте доступ до всіх локацій, переглядайте без обмежень швидкості та під'єднуйте до %maxDevicesAllowed% пристроїв одночасно"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Необмежений трафік"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Час"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Про вашу статистику"
+    },
+    "popup_stats_data_since": {
+        "message": "З %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Статистика показує, скільки VPN-трафіку ви використали, і ранжує ваші найпопулярніші місцезнаходження"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Статистика ніколи не включає вашу історію переглядів. Вона зашифрована, тому ніхто не може вас відстежити"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Якщо ви використовуєте AdGuard VPN у кількох браузерах, ваша статистика буде різною для кожного з них. Вона зберігається на пристрої, і доступ до неї маєте лише ви"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Зрозуміло"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "Швидкість VPN-з'єднання буде зменшено невдовзі."
     },
-    "confirm_email_done_title": {
-        "message": "Електронну адресу підтверджено"
+    "confirm_email_done_title_gb": {
+        "message": "Ви отримали %your_gb% GB як одноразовий вітальний бонус"
     },
     "confirm_email_done_info": {
-        "message": "Дякуємо за підтвердження реєстрації!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Посилання для підтвердження надіслано повторно"
+        "message": "Невикористаний трафік переноситься на наступні місяці. А з AdGuard VPN Unlimited ви можете насолоджуватися швидким переглядом без обмежень"
     },
     "auth_failed_to_login_title": {
         "message": "Не вдалося увійти"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "Закрити"
     },
+    "auth_loading_title": {
+        "message": "Увійдіть або зареєструйтесь через браузер"
+    },
+    "auth_loading_description": {
+        "message": "Якщо у вас є ліцензія AdGuard VPN, вона буде застосована автоматично"
+    },
     "auth_loading_button_reopen": {
         "message": "Знову відкрити сторінку входу"
     },
     "auth_loading_button_cancel": {
         "message": "Скасувати"
+    },
+    "auth_success_title": {
+        "message": "Ви увійшли в систему"
+    },
+    "auth_success_description": {
+        "message": "Поверніться до розширення AdGuard VPN — все налаштовано"
     }
 }

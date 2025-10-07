@@ -144,8 +144,8 @@
     "referral_get_free_traffic": {
         "message": "Λάβετε δωρεάν GB!"
     },
-    "settings_referral_info": {
-        "message": "Πάρτε %your_gb% GB δωρεάν VPN κίνησης για ένα μήνα για κάθε φίλο που εγγράφεται μέσω της πρόσκλησής σας, έως %total_gb% GB συνολικά. Ο φίλος σας παίρνει επίσης ένα επιπλέον %friend_gb% GB δωρεάν."
+    "settings_referral_info_friends": {
+        "message": "Στείλτε έναν σύνδεσμο πρόσκλησης στον φίλο σας. Όταν εγγραφεί στο AdGuard VPN μέσω του συνδέσμου σας, και οι δύο θα λάβετε %your_gb% GB γρήγορης VPN. Η αχρησιμοποίητη ποσότητα δεν λήγει — μπορείτε να τη χρησιμοποιήσετε μέσα στους μήνες. Προσκαλέστε έως %max_friends% φίλους και κερδίστε έως %total_gb% GB συνολικά."
     },
     "settings_referral_invited_friends": {
         "message": "Προσκαλεσμένοι φίλοι %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "Δωρεάν GB"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Ολοκληρώστε τις εργασίες για να αποκτήσετε δωρεάν κίνηση VPN!"
+        "message": "Δείτε πώς μπορείτε να αποκτήσετε επιπλέον κίνηση VPN"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Επιβεβαιώστε το email σας"
+    "settings_free_gbs_join_adguard": {
+        "message": "Γίνετε μέλος του AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Λάβετε %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Λάβατε %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Κάντε κλικ στον σύνδεσμο επιβεβαίωσης email που σας στείλαμε κατά την εγγραφή και αποκτήστε %your_gb% GB δωρεάν κίνησης VPN. Εάν δεν μπορείτε να βρείτε το email μας, κάντε κλικ στο κουμπί παρακάτω."
+    "settings_free_gbs_add_device": {
+        "message": "Προσθέστε μια νέα συσκευή"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Επαναποστολή συνδέσμου"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Προσθέστε μια νέα συσκευή και λάβετε %your_gb% GB δωρεάν"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Προσθέστε άλλη μια πλατφόρμα"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Συνδεθείτε στο AdGuard VPN σε άλλη συσκευή με το %email% για να λάβετε ένα εφάπαξ μπόνους %your_gb% GB"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Εγκαταστήστε το AdGuard VPN για iOS, Windows ή Android, συνδεθείτε στον λογαριασμό AdGuard σας εκεί και αποκτήστε %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Ο μηνιαίος σας περιορισμός ενδέχεται να χρειαστεί χρόνο για ενημέρωση — δώστε του μερικά λεπτά ή επανεκκινήστε την εφαρμογή"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Προστέθηκε άλλη μια πλατφόρμα"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Λάβατε %your_gb% GB για την προσθήκη νέας συσκευής"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Συγχαρητήρια για την εγκατάσταση του AdGuard VPN σε πολλές πλατφόρμες. Μείνετε ασφαλείς!"
+        "message": "Η αχρησιμοποίητη κίνηση μεταφέρεται στους επόμενους μήνες. Και με το AdGuard VPN Unlimited, μπορείτε να απολαμβάνετε γρήγορη περιήγηση χωρίς περιορισμούς"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Μεταβείτε στα Προϊόντα"
+        "message": "Επιλέξτε προϊόν"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Προσκαλέστε έναν φίλο"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Προσκαλέστε έναν φίλο (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Προσκαλέστε έναν φίλο και κερδίστε %your_gb% GB γρήγορης VPN"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Έχετε προσκαλέσει %total_invites% φίλους και έχετε λάβει συνολικά %total_gbs% GB"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Αποκτήστε έως και %num% GB"
@@ -205,10 +211,10 @@
         "message": "Λάβατε %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Σας ευχαριστούμε που χρησιμοποιήσατε όλες τις προσκλήσεις σας!"
+        "message": "Σας ευχαριστούμε που βοηθάτε να αναπτυχθούμε! Μάθετε πώς να αποκτήσετε περισσότερα μπόνους στην ενότητα Δωρεάν GBs. Ή αποκτήστε το AdGuard VPN Unlimited για να απολαμβάνετε γρήγορη περιήγηση χωρίς όρια"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Πηγαίνετε πίσω"
+    "settings_free_gbs_upgrade": {
+        "message": "Αναβάθμιση στο Unlimited"
     },
     "settings_rate_us": {
         "message": "Βαθμολογήστε μας"
@@ -771,7 +777,10 @@
         "message": "Επόμενο"
     },
     "popup_upgrade_screen_title": {
-        "message": "Απεριόριστο VPN"
+        "message": "Αναβάθμιση στο Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Αποκτήστε πρόσβαση σε όλες τις τοποθεσίες, περιηγηθείτε χωρίς όρια ταχύτητας και συνδέστε έως %maxDevicesAllowed% συσκευές ταυτόχρονα"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Απεριόριστα δεδομένα"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Ώρα"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Σχετικά με τα στατιστικά σας"
+    },
+    "popup_stats_data_since": {
+        "message": "Από %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Τα στατιστικά στοιχεία δείχνουν πόσα δεδομένα VPN έχετε χρησιμοποιήσει και κατατάσσουν τις κορυφαίες τοποθεσίες σας"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Τα στατιστικά δεν περιλαμβάνουν ποτέ το ιστορικό περιήγησής σας. Είναι κρυπτογραφημένο, ώστε κανείς να μην μπορεί να σας παρακολουθήσει"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Εάν χρησιμοποιείτε το AdGuard VPN σε πολλά προγράμματα περιήγησης, τα στατιστικά σας θα είναι διαφορετικά για το καθένα. Αποθηκεύονται στη συσκευή και μόνο εσείς μπορείτε να έχετε πρόσβαση σε αυτά"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Το κατάλαβα"
     },
@@ -1036,19 +1061,40 @@
     "notification_data_left_description": {
         "message": "Η ταχύτητα σύνδεσης του VPN θα μειωθεί σύντομα."
     },
-    "confirm_email_done_title": {
-        "message": "Η διεύθυνση email επιβεβαιώθηκε"
+    "confirm_email_done_title_gb": {
+        "message": "Λάβατε %your_gb% GB ως εφάπαξ μπόνους καλωσορίσματος"
     },
     "confirm_email_done_info": {
-        "message": "Ευχαριστούμε για την επαλήθευση!"
+        "message": "Η αχρησιμοποίητη κίνηση μεταφέρεται στους επόμενους μήνες. Και με το AdGuard VPN Unlimited, μπορείτε να απολαμβάνετε γρήγορη περιήγηση χωρίς περιορισμούς"
     },
-    "resend_confirm_registration_link_notification": {
-        "message": "Ο σύνδεσμος επιβεβαίωσης ξαναστάλθηκε"
+    "auth_failed_to_login_title": {
+        "message": "Αποτυχία σύνδεσης"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Προσπαθήστε ξανά ή <a>επικοινωνήστε με την υποστήριξη</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Δοκιμάστε ξανά"
     },
     "auth_failed_to_login_button": {
         "message": "Κλείσιμο"
     },
+    "auth_loading_title": {
+        "message": "Συνδεθείτε ή εγγραφείτε μέσω του προγράμματος περιήγησής σας"
+    },
+    "auth_loading_description": {
+        "message": "Εάν διαθέτετε άδεια AdGuard VPN, θα εφαρμοστεί αυτόματα"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Επανάνοιγμα σελίδας σύνδεσης"
+    },
     "auth_loading_button_cancel": {
         "message": "Άκυρο"
+    },
+    "auth_success_title": {
+        "message": "Έχετε συνδεθεί"
+    },
+    "auth_success_description": {
+        "message": "Επιστρέψτε στην επέκταση VPN AdGuard — όλα έχουν ρυθμιστεί"
     }
 }

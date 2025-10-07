@@ -139,13 +139,13 @@
         "message": "Integritetspolicy"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Allmänt"
     },
     "referral_get_free_traffic": {
         "message": "Få gratis GBs!"
     },
-    "settings_referral_info": {
-        "message": "Få %your_gb% GB VPN-trafik gratis i en månad för varje vän som registrerar sig via din inbjudan, upp till %total_gb% GB totalt. Din vän får också %friend_gb% GB extra gratis."
+    "settings_referral_info_friends": {
+        "message": "Skicka en inbjudningslänk till din vän. När de registrerar sig på AdGuard VPN via din länk får ni båda %your_gb% GB snabb VPN. Den oanvända mängden förfaller inte — du kan använda den under flera månader. Bjud in upp till %max_friends% vänner och få upp till %total_gb% GB totalt."
     },
     "settings_referral_invited_friends": {
         "message": "Inbjudna vänner %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "Gratis GB"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Slutför uppgifterna för att få gratis VPN-trafik!"
+        "message": "Så här kan du få extra VPN-trafik"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Bekräfta din e-postadress"
+    "settings_free_gbs_join_adguard": {
+        "message": "Gå med i AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Få %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Du har %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Klicka på e-postbekräftelselänken som vi skickade till dig vid registreringen och få %your_gb% GB gratis VPN-trafik. Om du inte hittar vår e-post, klicka på knappen nedan."
+    "settings_free_gbs_add_device": {
+        "message": "Lägg till en ny enhet"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Skicka länk igen"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Lägg till en ny enhet och få %your_gb% GB gratis"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Lägg till ytterligare en plattform"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Logga in på AdGuard VPN på en annan enhet med %email% för att få en engångsbonus på %your_gb% GB"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Installera AdGuard VPN för iOS, Mac, Windows eller Android, logga in på ditt AdGuard-konto där och få %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Din månatliga gräns kan ta tid att uppdatera — ge det några minuter eller starta om appen"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Ytterligare en plattform tillagd"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Du fick %your_gb% GB för att du lade till en ny enhet"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Grattis till att du installerat AdGuard VPN på flera plattformar. Var säker!"
+        "message": "Oanvänd trafik förs över till kommande månader. Och med AdGuard VPN Unlimited kan du njuta av snabb surfning utan begränsningar"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Gå till Produkter"
+        "message": "Välj produkt"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Bjud in en vän"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Bjud in en vän (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Bjud in en vän och få %your_gb% GB snabb VPN"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Du har bjudit in %total_invites% vänner och fått %total_gbs% GB totalt"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Få upp till %num% GB"
@@ -205,10 +211,10 @@
         "message": "Du har %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Tack för att du använde alla dina inbjudningar!"
+        "message": "Tack för att du hjälper oss att växa! Läs hur du får fler bonusar i avsnittet för Gratis GB. Eller skaffa AdGuard VPN Unlimited för att njuta av snabb surfning utan begränsningar"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Återgå"
+    "settings_free_gbs_upgrade": {
+        "message": "Uppgradera till Unlimited"
     },
     "settings_rate_us": {
         "message": "Betygsätt oss"
@@ -771,7 +777,10 @@
         "message": "Nästa"
     },
     "popup_upgrade_screen_title": {
-        "message": "Obegränsad VPN"
+        "message": "Uppgradera till Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Få tillgång till alla platser, surfa utan hastighetsbegränsningar och anslut upp till %maxDevicesAllowed% enheter samtidigt"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Obegränsad data"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Tid"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Om din statistik"
+    },
+    "popup_stats_data_since": {
+        "message": "Sedan %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistik visar hur mycket VPN-data du har använt och rankar dina bästa platser"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistiken inkluderar aldrig din webbhistorik. Den är krypterad, så ingen kan spåra dig"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Om du använder AdGuard VPN i flera webbläsare kommer din statistik att vara olika för varje webbläsare. De sparas på enheten och endast du kan komma åt dem"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Uppfattat"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "VPN anslutningshastigheten kommer snart att minskas."
     },
-    "confirm_email_done_title": {
-        "message": "E-postadress bekräftad"
+    "confirm_email_done_title_gb": {
+        "message": "Du fick %your_gb% GB som en engångs välkomstbonus"
     },
     "confirm_email_done_info": {
-        "message": "Tack för att du bekräftade det!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Bekräftelselänk skickad igen"
+        "message": "Oanvänd trafik förs över till kommande månader. Och med AdGuard VPN Unlimited kan du njuta av snabb surfning utan begränsningar"
     },
     "auth_failed_to_login_title": {
         "message": "Misslyckades med att logga in dig"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "Stäng"
     },
+    "auth_loading_title": {
+        "message": "Logga in eller registrera dig via din webbläsare"
+    },
+    "auth_loading_description": {
+        "message": "Om du har en AdGuard VPN-licens kommer den att gälla automatiskt"
+    },
     "auth_loading_button_reopen": {
         "message": "Öppna inloggningssidan igen"
     },
     "auth_loading_button_cancel": {
         "message": "Avbryt"
+    },
+    "auth_success_title": {
+        "message": "Du är inloggad"
+    },
+    "auth_success_description": {
+        "message": "Gå tillbaka till AdGuard VPN-tillägget – allt är konfigurerat"
     }
 }
