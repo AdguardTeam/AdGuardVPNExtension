@@ -103,7 +103,12 @@ interface ExclusionServiceDomainsData extends AxiosResponse {
 
 interface VpnApiInterface {
     getLocations(appId: string, vpnToken: string): Promise<LocationsData>;
-    getVpnCredentials(appId: string, vpnToken: string, version: string): Promise<VpnCredentials>;
+    getVpnCredentials(
+        appId: string,
+        vpnToken: string,
+        version: string,
+        helpUsImprove: boolean
+    ): Promise<VpnCredentials>;
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>;
     trackExtensionInstallation(appId: string, version: string, experiments: string): Promise<unknown>;
@@ -131,7 +136,12 @@ class VpnApi extends Api implements VpnApiInterface {
 
     GET_VPN_CREDENTIALS: RequestProps = { path: 'v1/proxy_credentials', method: 'POST' };
 
-    getVpnCredentials = (appId: string, vpnToken: string, version: string): Promise<VpnCredentials> => {
+    getVpnCredentials = (
+        appId: string,
+        vpnToken: string,
+        version: string,
+        helpUsImprove: boolean,
+    ): Promise<VpnCredentials> => {
         const { path, method } = this.GET_VPN_CREDENTIALS;
 
         const language = browser.i18n.getUILanguage();
@@ -139,6 +149,8 @@ class VpnApi extends Api implements VpnApiInterface {
         const params = {
             app_id: appId,
             token: vpnToken,
+            send_technical_interaction_data: String(helpUsImprove),
+            send_crash_reports: String(helpUsImprove),
             version,
             language,
             system_language: language,

@@ -55,6 +55,7 @@ export interface VpnProviderInterface {
         appId: string,
         vpnToken: string,
         version: string,
+        helpUsImprove: boolean,
     ): Promise<CredentialsDataInterface>;
     trackExtensionInstallation(appId: string, version: string, experiments: string): Promise<TrackInstallResponse>;
     getVpnExtensionInfo(
@@ -237,10 +238,11 @@ const getVpnCredentials = async (
     appId: string,
     vpnToken: string,
     version: string,
+    helpUsImprove: boolean,
 ): Promise<CredentialsDataInterface> => {
     let responseData;
     try {
-        responseData = await vpnApi.getVpnCredentials(appId, vpnToken, version);
+        responseData = await vpnApi.getVpnCredentials(appId, vpnToken, version, helpUsImprove);
     } catch (e) {
         if (e.status === 400) {
             let errorMessageData;

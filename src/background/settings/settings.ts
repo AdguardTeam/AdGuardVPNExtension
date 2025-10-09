@@ -15,6 +15,7 @@ import { connectivityService, ConnectivityEventType } from '../connectivity/conn
 import type { DnsServerData, PersistedExclusions } from '../schema';
 
 import { type Settings, SettingsService } from './SettingsService';
+import { credentials } from '../credentials';
 
 export interface SettingsInterface {
     init(): Promise<void>;
@@ -94,6 +95,13 @@ const setSetting = async (id: string, value: boolean | string, force?: boolean):
     settingsService.setSetting(id, value);
     log.debug(`Setting with id: "${id}" was set to:`, value);
     notifier.notifyListeners(notifier.types.SETTING_UPDATED, id, value);
+
+    // Send updated helpUsImprove value to backend
+    if (id === SETTINGS_IDS.HELP_US_IMPROVE) {
+        // This is done here in order to send `send_technical_interaction_data` and `send_crash_reports` to backend.
+        credentials.getVpnCredentialsRemote();
+    }
+
     return true;
 };
 
