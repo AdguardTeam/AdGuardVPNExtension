@@ -128,13 +128,12 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         return null;
     }
 
-    const { type, data } = message;
+    const { type } = message;
 
     // Here we keep track of event listeners added through notifier
-
     switch (type) {
         case MessageType.ADD_EVENT_LISTENER: {
-            const { events } = data;
+            const { events } = message.data;
             const listenerId = notifier.addSpecifiedListener(events, async (...data) => {
                 const sender = eventListeners[listenerId];
                 if (sender) {
@@ -152,13 +151,13 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return Promise.resolve(listenerId);
         }
         case MessageType.REMOVE_EVENT_LISTENER: {
-            const { listenerId } = data;
+            const { listenerId } = message.data;
             notifier.removeListener(listenerId);
             delete eventListeners[listenerId];
             break;
         }
         case MessageType.GET_POPUP_DATA: {
-            const { url, numberOfTries } = data;
+            const { url, numberOfTries } = message.data;
             return popupData.getPopupDataRetry(url, numberOfTries);
         }
         case MessageType.GET_LIMITED_OFFER_DATA: {
@@ -171,26 +170,26 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return locations;
         }
         case MessageType.SAVED_LOCATIONS_SAVE_TAB: {
-            const { locationsTab } = data;
+            const { locationsTab } = message.data;
             return locationsService.saveLocationsTab(locationsTab);
         }
         case MessageType.SAVED_LOCATIONS_ADD: {
-            const { locationId } = data;
+            const { locationId } = message.data;
             return savedLocations.addSavedLocation(locationId);
         }
         case MessageType.SAVED_LOCATIONS_REMOVE: {
-            const { locationId } = data;
+            const { locationId } = message.data;
             return savedLocations.removeSavedLocation(locationId);
         }
         case MessageType.GET_OPTIONS_DATA: {
-            const { isRefresh } = data;
+            const { isRefresh } = message.data;
             return getOptionsData(isRefresh);
         }
         case MessageType.GET_CONSENT_DATA: {
             return getConsentData();
         }
         case MessageType.SET_CONSENT_DATA: {
-            const { policyAgreement, helpUsImprove } = data;
+            const { policyAgreement, helpUsImprove } = message.data;
             return setConsentData(policyAgreement, helpUsImprove);
         }
         case MessageType.GET_VPN_FAILURE_PAGE: {
@@ -208,7 +207,7 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return accountProvider.getAvailableBonuses(accessToken);
         }
         case MessageType.SET_SELECTED_LOCATION: {
-            const { location, isSelectedByUser } = data;
+            const { location, isSelectedByUser } = message.data;
             await locationsService.setSelectedLocation(location.id, isSelectedByUser);
             break;
         }
@@ -218,7 +217,7 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             break;
         }
         case MessageType.UPDATE_AUTH_CACHE: {
-            const { field, value } = data;
+            const { field, value } = message.data;
             authCache.updateCache(field, value);
             break;
         }
@@ -226,15 +225,15 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return appStatus.canControlProxy();
         }
         case MessageType.ENABLE_PROXY: {
-            const { force } = data;
+            const { force } = message.data;
             return settings.enableProxy(force);
         }
         case MessageType.DISABLE_PROXY: {
-            const { force } = data;
+            const { force } = message.data;
             return settings.disableProxy(force);
         }
         case MessageType.ADD_URL_TO_EXCLUSIONS: {
-            const { url } = data;
+            const { url } = message.data;
             try {
                 return await exclusions.addUrlToExclusions(url);
             } catch (e) {
@@ -242,27 +241,27 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             }
         }
         case MessageType.DISABLE_VPN_BY_URL: {
-            const { url } = data;
+            const { url } = message.data;
             return exclusions.disableVpnByUrl(url);
         }
         case MessageType.ENABLE_VPN_BY_URL: {
-            const { url } = data;
+            const { url } = message.data;
             return exclusions.enableVpnByUrl(url);
         }
         case MessageType.REMOVE_EXCLUSION: {
-            const { id } = data;
+            const { id } = message.data;
             return exclusions.removeExclusion(id);
         }
         case MessageType.TOGGLE_EXCLUSION_STATE: {
-            const { id } = data;
+            const { id } = message.data;
             return exclusions.toggleExclusionState(id);
         }
         case MessageType.TOGGLE_SERVICES: {
-            const { ids } = data;
+            const { ids } = message.data;
             return exclusions.toggleServices(ids);
         }
         case MessageType.RESET_SERVICE_DATA: {
-            const { serviceId } = data;
+            const { serviceId } = message.data;
             return exclusions.resetServiceData(serviceId);
         }
         case MessageType.CLEAR_EXCLUSIONS_LIST: {
@@ -294,18 +293,21 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             };
         }
         case MessageType.SET_EXCLUSIONS_MODE: {
-            const { mode } = data;
+            const { mode } = message.data;
             await exclusions.setMode(mode);
             break;
         }
         case MessageType.ADD_REGULAR_EXCLUSIONS: {
-            return exclusions.addGeneralExclusions(data.exclusions);
+            const { exclusions: exclusionsList } = message.data;
+            return exclusions.addGeneralExclusions(exclusionsList);
         }
         case MessageType.ADD_SELECTIVE_EXCLUSIONS: {
-            return exclusions.addSelectiveExclusions(data.exclusions);
+            const { exclusions: exclusionsList } = message.data;
+            return exclusions.addSelectiveExclusions(exclusionsList);
         }
         case MessageType.ADD_EXCLUSIONS_MAP: {
-            return exclusions.addExclusionsMap(data.exclusionsMap);
+            const { exclusionsMap } = message.data;
+            return exclusions.addExclusionsMap(exclusionsMap);
         }
         case MessageType.GET_SELECTED_LOCATION: {
             return endpoints.getSelectedLocation();
@@ -314,33 +316,33 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return exclusions.isInverted();
         }
         case MessageType.GET_SETTING_VALUE: {
-            const { settingId } = data;
+            const { settingId } = message.data;
             return settings.getSetting(settingId);
         }
         case MessageType.SET_SETTING_VALUE: {
-            const { settingId, value } = data;
+            const { settingId, value } = message.data;
             return settings.setSetting(settingId, value);
         }
         case MessageType.GET_USERNAME: {
             return credentials.getUsername();
         }
         case MessageType.UPDATE_MARKETING_CONSENT: {
-            const { newMarketingConsent } = data;
+            const { newMarketingConsent } = message.data;
             return credentials.updateUserMarketingConsent(newMarketingConsent);
         }
         case MessageType.CHECK_IS_PREMIUM_TOKEN: {
             return credentials.isPremiumToken();
         }
         case MessageType.SET_NOTIFICATION_VIEWED: {
-            const { withDelay } = data;
+            const { withDelay } = message.data;
             return promoNotifications.setNotificationViewed(withDelay);
         }
         case MessageType.OPEN_TAB: {
-            const { url } = data;
+            const { url } = message.data;
             return tabs.openTab(url);
         }
         case MessageType.REPORT_BUG: {
-            const { email, message, includeLog } = data;
+            const { email, message: bugMessage, includeLog } = message.data;
             const appId = await credentials.getAppId();
             let token;
             try {
@@ -360,7 +362,7 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
                 appId,
                 token,
                 email,
-                message,
+                message: bugMessage,
                 version,
             };
 
@@ -371,11 +373,11 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return vpnProvider.requestSupport(reportData);
         }
         case MessageType.OPEN_FORWARDER_URL_WITH_EMAIL: {
-            const { forwarderUrlQueryKey } = data;
+            const { forwarderUrlQueryKey } = message.data;
             return actions.openForwarderUrlWithEmail(forwarderUrlQueryKey);
         }
         case MessageType.SET_FLAG: {
-            const { key, value } = data;
+            const { key, value } = message.data;
             return flagsStorage.set(key, value);
         }
         case MessageType.HIDE_RATE_MODAL_AFTER_CANCEL: {
@@ -400,26 +402,31 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return exclusions.restoreExclusions();
         }
         case MessageType.ADD_CUSTOM_DNS_SERVER: {
-            return dns.addCustomDnsServer(data.dnsServerData);
+            return dns.addCustomDnsServer(message.data.dnsServerData);
         }
         case MessageType.HANDLE_CUSTOM_DNS_LINK: {
+            const { name, address } = message.data;
+            if (!name || !address) {
+                log.error('Invalid custom DNS link', { name, address });
+                return null;
+            }
             await actions.openOptionsPage(
                 {
                     anchorName: CUSTOM_DNS_ANCHOR_NAME,
                     queryParams: {
-                        name: data.name,
-                        address: data.address,
+                        name,
+                        address,
                     },
                 },
             );
             return null;
         }
         case MessageType.EDIT_CUSTOM_DNS_SERVER: {
-            await dns.editCustomDnsServer(data.dnsServerData);
+            await dns.editCustomDnsServer(message.data.dnsServerData);
             return settings.getCustomDnsServers();
         }
         case MessageType.REMOVE_CUSTOM_DNS_SERVER: {
-            return dns.removeCustomDnsServer(data.dnsServerId);
+            return dns.removeCustomDnsServer(message.data.dnsServerId);
         }
         case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
             return dns.restoreCustomDnsServersData();
@@ -439,33 +446,33 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW: {
-            const { screenName, pageId } = data;
+            const { screenName, pageId } = message.data;
             await telemetry.sendPageViewEventDebounced(screenName, pageId);
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_CUSTOM: {
-            const { actionName, screenName } = data;
+            const { actionName, screenName } = message.data;
             await telemetry.sendCustomEventDebounced(actionName, screenName);
             break;
         }
         case MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE: {
-            const { pageId } = data;
+            const { pageId } = message.data;
             telemetry.removeOpenedPage(pageId);
             break;
         }
         case MessageType.STATISTICS_GET_BY_RANGE: {
-            const { range } = data;
+            const { range } = message.data;
             return statisticsService.getStatsByRange(range);
         }
         case MessageType.STATISTICS_CLEAR: {
             return statisticsService.clearStatistics();
         }
         case MessageType.STATISTICS_SET_IS_DISABLED: {
-            const { isDisabled } = data;
+            const { isDisabled } = message.data;
             return statisticsService.setIsDisabled(isDisabled);
         }
         case MessageType.SEND_WEB_AUTH_ACTION: {
-            const { action } = data;
+            const { action } = message.data;
             const appId = await credentials.getAppId();
             return webAuth.handleAction(appId, action);
         }
@@ -493,9 +500,9 @@ const longLivedMessageHandler = (port: Runtime.Port): void => {
             return;
         }
 
-        const { type, data } = message;
+        const { type } = message;
         if (type === MessageType.ADD_LONG_LIVED_CONNECTION) {
-            const { events } = data;
+            const { events } = message.data;
             listenerId = notifier.addSpecifiedListener(events, async (...data) => {
                 const type = MessageType.NOTIFY_LISTENERS;
                 try {

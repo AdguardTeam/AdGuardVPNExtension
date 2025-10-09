@@ -48,6 +48,17 @@ export interface RequestSupportParameters {
     appLogs?: string;
 }
 
+/**
+ * Response from support request submission.
+ *
+ * @property status Status of the support request.
+ * @property error Error message if request failed, null otherwise.
+ */
+export interface RequestSupportResponse {
+    status: string,
+    error: string | null
+}
+
 export interface VpnProviderInterface {
     getLocationsData(appId: string, vpnToken: string): Promise<LocationInterface[]>;
     getCurrentLocation(): Promise<CurrentLocationData>;
@@ -68,7 +79,7 @@ export interface VpnProviderInterface {
         message,
         version,
         appLogs,
-    }: RequestSupportParameters): Promise<{ status: string, error: string | null }>;
+    }: RequestSupportParameters): Promise<RequestSupportResponse>;
     getExclusionsServices(): Promise<ServicesInterface>;
 }
 

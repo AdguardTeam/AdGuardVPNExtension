@@ -91,7 +91,7 @@ export type AccountSettingsData = {
     disableTracking?: boolean;
 };
 
-interface BonusesData {
+export interface BonusesData {
     multiplatformBonus: {
         available: boolean,
     };

@@ -91,7 +91,7 @@ interface PopupDataInterface {
     marketingConsent?: boolean | null;
 }
 
-interface PopupDataRetry extends PopupDataInterface {
+export interface PopupDataRetry extends PopupDataInterface {
     hasRequiredData: boolean;
 }
 
@@ -120,7 +120,7 @@ export class PopupData {
         this.credentials = credentials;
     }
 
-    getPopupData = async (url: string): Promise<PopupDataInterface> => {
+    getPopupData = async (url: string | null): Promise<PopupDataInterface> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
         const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
@@ -213,7 +213,11 @@ export class PopupData {
 
     DEFAULT_RETRY_DELAY = 400;
 
-    async getPopupDataRetry(url: string, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY): Promise<PopupDataRetry> {
+    async getPopupDataRetry(
+        url: string | null,
+        retryNum = 1,
+        retryDelay = this.DEFAULT_RETRY_DELAY,
+    ): Promise<PopupDataRetry> {
         const backoffIndex = 1.5;
         let data: PopupDataInterface;
 

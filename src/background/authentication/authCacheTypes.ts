@@ -24,3 +24,8 @@ export interface AuthCacheData {
     [AuthCacheKey.HelpUsImprove]: boolean;
     [AuthCacheKey.WebAuthFlowState]: WebAuthState;
 }
+
+/**
+ * Interface for Auth cache values.
+ */
+export type AuthCacheValue = AuthCacheData[keyof AuthCacheData];

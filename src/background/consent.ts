@@ -6,6 +6,11 @@ import { settings } from './settings';
 import { type AuthCacheData } from './authentication/authCacheTypes';
 
 /**
+ * Response data for consent page.
+ */
+export type ConsentDataResponse = AuthCacheData & { forwarderDomain: string };
+
+/**
  * Retrieves data needed for the consent page.
  *
  * @returns Object that contains data needed for consent page,
@@ -15,7 +20,7 @@ import { type AuthCacheData } from './authentication/authCacheTypes';
  * - `webAuthFlowState` - Current state of the web authentication flow.
  * - `forwarderDomain` - The domain of the forwarder.
  */
-export const getConsentData = async (): Promise<AuthCacheData & { forwarderDomain: string }> => {
+export const getConsentData = async (): Promise<ConsentDataResponse> => {
     const {
         policyAgreement,
         helpUsImprove,

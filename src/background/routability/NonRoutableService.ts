@@ -14,7 +14,7 @@ import { NON_ROUTABLE_CIDR_NETS } from './constants';
 
 export interface NonRoutableServiceInterface {
     init(): Promise<void>;
-    isUrlRoutable(url: string): boolean;
+    isUrlRoutable(url: string | null): boolean;
     getNonRoutableList(): string[];
 }
 
@@ -232,7 +232,7 @@ export class NonRoutableService implements NonRoutableServiceInterface {
         this.updateStorage();
     }
 
-    isUrlRoutable(url: string): boolean {
+    isUrlRoutable(url: string | null): boolean {
         const hostname = getHostname(url);
         if (!hostname) {
             return true;

@@ -26,9 +26,44 @@ import { ExclusionsTree } from './ExclusionsTree';
 import { type ExclusionNode } from './ExclusionNode';
 import { type AddExclusionArgs } from './exclusions/ExclusionsHandler';
 
-interface ToggleServicesResult {
-    added: number,
-    deleted: number,
+/**
+ * Result of toggling services operation.
+ */
+export interface ToggleServicesResult {
+    added: number;
+    deleted: number;
+}
+
+/**
+ * Response data for getting exclusions information.
+ */
+export interface GetExclusionsDataResponse {
+    /**
+     * Contains exclusions list and current mode.
+     */
+    exclusionsData: {
+        exclusions: ExclusionDtoInterface;
+        currentMode: ExclusionsMode;
+    };
+    /**
+     * List of available services with exclusions.
+     */
+    services: ServiceDto[];
+    /**
+     * Whether all exclusion lists are empty.
+     */
+    isAllExclusionsListsEmpty: boolean;
+}
+
+/**
+ * Map of exclusions organized by mode.
+ *
+ * @property Selective Array of URLs for selective mode exclusions.
+ * @property Regular Array of URLs for regular mode exclusions.
+ */
+export interface ExclusionsMap {
+    [ExclusionsMode.Selective]: string[],
+    [ExclusionsMode.Regular]: string[],
 }
 
 export class ExclusionsService {
@@ -509,7 +544,7 @@ export class ExclusionsService {
      *
      * @returns Promise that resolves to true if VPN is enabled for the URL, false otherwise.
      */
-    public async isVpnEnabledByUrl(url: string): Promise<boolean> {
+    public async isVpnEnabledByUrl(url: string | null): Promise<boolean> {
         const { currentModeHandler } = await exclusionsManager.getModeHandlers();
         if (!url || !currentModeHandler) {
             return true;
@@ -667,10 +702,7 @@ export class ExclusionsService {
      *
      * @returns Total amount of added exclusions.
      */
-    public async addExclusionsMap(exclusionsMap: {
-        [ExclusionsMode.Selective]: string[],
-        [ExclusionsMode.Regular]: string[],
-    }): Promise<number> {
+    public async addExclusionsMap(exclusionsMap: ExclusionsMap): Promise<number> {
         await this.savePreviousExclusions();
 
         const { regularModeHandler, selectiveModeHandler } = await exclusionsManager.getModeHandlers();

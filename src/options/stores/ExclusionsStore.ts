@@ -298,7 +298,14 @@ export class ExclusionsStore {
         }
     }
 
-    @action addUrlToExclusions = async (url: string): Promise<void> => {
+    /**
+     * Adds URL to exclusions and updates exclusions if needed.
+     *
+     * @param url Url to add.
+     *
+     * @returns Count of added exclusions.
+     */
+    @action addUrlToExclusions = async (url: string): Promise<number> => {
         const addedExclusionsCount = await messenger.addUrlToExclusions(url);
         if (addedExclusionsCount) {
             await this.updateExclusionsData();

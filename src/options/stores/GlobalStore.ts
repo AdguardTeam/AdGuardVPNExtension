@@ -41,7 +41,9 @@ export class GlobalStore {
             settingsStore.setOptionsData(optionsData);
             await settingsStore.requestIsPremiumToken();
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
-            authStore.setMaxDevicesCount(optionsData.maxDevicesCount);
+            if (optionsData.maxDevicesCount !== undefined) {
+                authStore.setMaxDevicesCount(optionsData.maxDevicesCount);
+            }
             exclusionsStore.setServicesData(optionsData.servicesData);
             exclusionsStore.setExclusionsData(optionsData.exclusionsData);
             exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
