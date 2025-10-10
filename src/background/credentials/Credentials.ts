@@ -91,6 +91,12 @@ export interface CredentialsInterface {
 
     trackInstallation(): Promise<void>;
     init(): Promise<void>;
+
+    /**
+     * Calls getVpnCredentialsRemote to update HelpUsImprove on backend.
+     * Checks if user is authenticated, does nothing otherwise.
+     */
+    reportHelpUsImprove(): Promise<void>;
 }
 
 export class Credentials implements CredentialsInterface {
@@ -302,10 +308,12 @@ export class Credentials implements CredentialsInterface {
      * Fetches VPN credentials from remote server using current VPN token.
      * Updates local storage and proxy credentials if new credentials are received.
      *
+     * @param shouldUpdateProxy If true, updates proxy credentials. Default is true.
+     *
      * @returns Promise with valid VPN credentials or null.
      */
-    async getVpnCredentialsRemote(): Promise<CredentialsDataInterface | null> {
-        console.log('getVPN CREDSS');
+    async getVpnCredentialsRemote(shouldUpdateProxy = true): Promise<CredentialsDataInterface | null> {
+        log.info('@@getVPN CREDSS', settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE));
         const appId = await this.getAppId();
 
         const vpnToken = await this.gainValidVpnToken();
@@ -318,7 +326,7 @@ export class Credentials implements CredentialsInterface {
         const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
 
         const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token, version, helpUsImprove);
-        console.log('sent - ', helpUsImprove);
+        log.info('sent - ', helpUsImprove);
 
         if (!this.areCredentialsValid(vpnCredentials)) {
             return null;
@@ -328,12 +336,24 @@ export class Credentials implements CredentialsInterface {
         if (!this.areCredentialsEqual(vpnCredentials, currentVpnCredentials)) {
             await this.credentialsState.update({ vpnCredentials });
             await this.storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
-            await this.updateProxyCredentials();
+            if (shouldUpdateProxy) {
+                await this.updateProxyCredentials();
+            }
             notifier.notifyListeners(notifier.types.CREDENTIALS_UPDATED);
             log.info('Got new credentials');
         }
 
         return vpnCredentials;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    async reportHelpUsImprove(): Promise<void> {
+        const isAuthenticated = await auth.isAuthenticated();
+        if (isAuthenticated) {
+            await this.getVpnCredentialsRemote(false);
+        }
     }
 
     /**

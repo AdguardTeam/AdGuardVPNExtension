@@ -13,9 +13,9 @@ import { DEFAULT_DNS_SERVER } from '../../common/dnsConstants';
 import { webrtc } from '../browserApi/webrtc';
 import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
 import type { DnsServerData, PersistedExclusions } from '../schema';
+import { credentials } from '../credentials';
 
 import { type Settings, SettingsService } from './SettingsService';
-import { credentials } from '../credentials';
 
 export interface SettingsInterface {
     init(): Promise<void>;
@@ -99,7 +99,7 @@ const setSetting = async (id: string, value: boolean | string, force?: boolean):
     // Send updated helpUsImprove value to backend
     if (id === SETTINGS_IDS.HELP_US_IMPROVE) {
         // This is done here in order to send `send_technical_interaction_data` and `send_crash_reports` to backend.
-        credentials.getVpnCredentialsRemote();
+        credentials.reportHelpUsImprove();
     }
 
     return true;
