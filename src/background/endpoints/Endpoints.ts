@@ -59,6 +59,7 @@ export interface EndpointsInterface {
     getVpnInfo(): Promise<VpnExtensionInfoInterface | null>;
     getSelectedLocation(): Promise<LocationWithPing | null>;
     getLocations(): Promise<LocationWithPing[]>;
+    getLocationsFromServer(): Promise<Location[] | null>
     getVpnFailurePage(): Promise<string>;
     init(): Promise<void>;
 }

@@ -35,6 +35,7 @@ import { getConsentData, setConsentData } from '../consent';
 import { isMessage } from '../../common/messenger';
 import { statisticsService } from '../statistics';
 import { type OptionsData } from '../../options/stores/SettingsStore';
+import { updateService } from '../updateService';
 
 interface EventListeners {
     [index: string]: Runtime.MessageSender;
@@ -160,6 +161,14 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         case MessageType.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
             return popupData.getPopupDataRetry(url, numberOfTries);
+        }
+        case MessageType.GET_STARTUP_DATA: {
+            return {
+                isFirstRun: updateService.isFirstRun,
+                flagsStorageData: await flagsStorage.getFlagsStorageData(),
+                marketingConsent: await credentials.getMarketingConsent(),
+                isPremiumToken: await credentials.isPremiumToken(),
+            };
         }
         case MessageType.GET_LIMITED_OFFER_DATA: {
             return limitedOfferService.getLimitedOfferData();

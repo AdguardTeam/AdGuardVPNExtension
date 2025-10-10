@@ -118,6 +118,7 @@ export enum MessageType {
     STATISTICS_SET_IS_DISABLED = 'statistics.set.is.disabled',
 
     SEND_WEB_AUTH_ACTION = 'send.web.auth.action',
+    GET_STARTUP_DATA = 'get.startup.data',
 }
 
 export const FLAGS_FIELDS = {

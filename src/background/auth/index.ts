@@ -7,6 +7,7 @@ import { updateService } from '../updateService';
 import { forwarder } from '../forwarder';
 import { tabs } from '../tabs';
 import { WindowsApi } from '../windowsApi';
+import { endpoints } from '../endpoints';
 
 import { auth as authService } from './auth';
 import { WebAuth } from './WebAuth';
@@ -32,4 +33,5 @@ export const authSideEffects = new AuthSideEffects({
     updateService,
     forwarder,
     tabs,
+    endpoints,
 });
