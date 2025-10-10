@@ -12,7 +12,12 @@ import { credentialsService } from '../../../src/background/credentials/credenti
 import { browserApi } from '../../../src/background/browserApi';
 import type { VpnTokenData, CredentialsDataInterface } from '../../../src/background/schema';
 
-vi.mock('../../../src/background/auth', async () => ({
+// Mock the credentials singleton to prevent it from being instantiated with unmocked dependencies
+vi.mock('../../../src/background/credentials/index.ts', () => ({
+    credentials: {},
+}));
+
+vi.mock('../../../src/background/auth', () => ({
     auth: {
         isAuthenticated: () => true,
     },

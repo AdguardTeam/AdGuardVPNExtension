@@ -313,7 +313,6 @@ export class Credentials implements CredentialsInterface {
      * @returns Promise with valid VPN credentials or null.
      */
     async getVpnCredentialsRemote(shouldUpdateProxy = true): Promise<CredentialsDataInterface | null> {
-        log.info('@@getVPN CREDSS', settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE));
         const appId = await this.getAppId();
 
         const vpnToken = await this.gainValidVpnToken();
@@ -326,7 +325,6 @@ export class Credentials implements CredentialsInterface {
         const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
 
         const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token, version, helpUsImprove);
-        log.info('sent - ', helpUsImprove);
 
         if (!this.areCredentialsValid(vpnCredentials)) {
             return null;

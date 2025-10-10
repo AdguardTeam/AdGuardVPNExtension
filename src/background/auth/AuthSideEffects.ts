@@ -7,6 +7,7 @@ import { type NotificationsInterface } from '../notifications';
 import { type TabsInterface } from '../tabs';
 import { type UpdateServiceInterface } from '../updateService';
 import { getUrl } from '../browserApi/runtime';
+import { type CredentialsInterface } from '../credentials/Credentials';
 
 /**
  * {@link AuthSideEffects}} interface.
@@ -46,6 +47,11 @@ export interface AuthSideEffectsParameters {
      * Tabs service.
      */
     tabs: TabsInterface;
+
+    /**
+     * Credentials service.
+     */
+    credentials: CredentialsInterface;
 }
 
 /**
@@ -85,6 +91,11 @@ export class AuthSideEffects implements AuthSideEffectsInterface {
     private tabs: TabsInterface;
 
     /**
+     * Credentials service.
+     */
+    private credentials: CredentialsInterface;
+
+    /**
      * Constructor.
      */
     constructor({
@@ -93,12 +104,14 @@ export class AuthSideEffects implements AuthSideEffectsInterface {
         updateService,
         forwarder,
         tabs,
+        credentials,
     }: AuthSideEffectsParameters) {
         this.notifier = notifier;
         this.notifications = notifications;
         this.updateService = updateService;
         this.forwarder = forwarder;
         this.tabs = tabs;
+        this.credentials = credentials;
     }
 
     /** @inheritdoc */
@@ -115,6 +128,13 @@ export class AuthSideEffects implements AuthSideEffectsInterface {
      * - If it's not first run opens success auth page.
      */
     private async handleWebAuthFlowAuthenticated(): Promise<void> {
+        /**
+         * Reports helpUsImprove received from web auth flow to backend.
+         * Also updates vpn credentials after auth so the user can connect to proxy right away.
+         * We don't await it intentionally.
+         */
+        this.credentials.reportHelpUsImprove();
+
         if (this.updateService.isFirstRun) {
             // Notify user
             await this.notifications.create({
