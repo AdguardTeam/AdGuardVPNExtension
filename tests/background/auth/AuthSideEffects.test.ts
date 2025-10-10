@@ -7,7 +7,7 @@ import {
     afterEach,
 } from 'vitest';
 
-import { AuthSideEffects } from '../../../src/background/auth/AuthSideEffects';
+import { AuthSideEffects } from '../../../src/background/authSideEffects/AuthSideEffects';
 import { translator } from '../../../src/common/translator';
 
 vi.mock('../../../src/common/translator', () => ({

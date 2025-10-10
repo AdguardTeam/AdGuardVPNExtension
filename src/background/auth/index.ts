@@ -9,7 +9,7 @@ import { auth as authService } from './auth';
 import { WebAuth } from './WebAuth';
 
 export { type AuthInterface } from './auth';
-export { type AuthSideEffectsInterface } from './AuthSideEffects';
+export { type AuthSideEffectsInterface } from '../authSideEffects/AuthSideEffects';
 
 export const auth = authService;
 
