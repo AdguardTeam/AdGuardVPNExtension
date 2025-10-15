@@ -795,6 +795,16 @@ class Messenger {
         const type = MessageType.SEND_WEB_AUTH_ACTION;
         return this.sendMessage(type, { action });
     }
+
+    /**
+     * Gets startup data from the background page.
+     *
+     * @returns Promise with all required data for onboarding and upgrade screen.
+     */
+    async getStartupData(): Promise<any> {
+        const type = MessageType.GET_STARTUP_DATA;
+        return this.sendMessage(type);
+    }
 }
 
 export const messenger = new Messenger();

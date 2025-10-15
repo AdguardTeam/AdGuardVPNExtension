@@ -121,8 +121,7 @@ Build:
 
             pnpm lint
             pnpm test:ci
-            # FIXME: Revert back when locales will be ready
-            # pnpm locales validate --min
+            pnpm locales validate --min
 
             export STAGE_ENV="${bamboo.stageEnv}"
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"

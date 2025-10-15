@@ -10,6 +10,8 @@ import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
 export class GlobalStore {
     @observable initStatus = RequestStatus.Pending;
 
+    @observable startupDataRetrieved = false;
+
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -178,6 +180,11 @@ export class GlobalStore {
         await this.initAuthenticatedStatus();
 
         /**
+         * Initializes the data required for displaying onboarding.
+         */
+        await this.initStartupData();
+
+        /**
          * Statistics store should be initialized before popup data is retrieved
          * because statistics range is used in the popup data request.
          */
@@ -195,5 +202,38 @@ export class GlobalStore {
     @computed
     get status(): RequestStatus {
         return this.initStatus;
+    }
+
+    @action
+    setStartupDataRetrieved(isRetrieved: boolean): void {
+        this.startupDataRetrieved = isRetrieved;
+    }
+
+    @computed
+    get isStartupDataRetrieved(): boolean {
+        return this.startupDataRetrieved;
+    }
+
+    /**
+     * Gets all required data for onboarding and showing upgrade screen and sets it to stores.
+     */
+    private async initStartupData(): Promise<void> {
+        const { rootStore } = this;
+        const {
+            authStore,
+            vpnStore,
+        } = rootStore;
+        const {
+            isFirstRun,
+            flagsStorageData,
+            marketingConsent,
+            isPremiumToken,
+        } = await messenger.getStartupData();
+
+        authStore.setIsFirstRun(isFirstRun);
+        authStore.setFlagsStorageData(flagsStorageData);
+        await authStore.setMarketingConsent(marketingConsent);
+        vpnStore.setIsPremiumToken(isPremiumToken);
+        this.setStartupDataRetrieved(true);
     }
 }

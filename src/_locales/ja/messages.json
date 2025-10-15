@@ -139,13 +139,13 @@
         "message": "プライバシーポリシー"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "一般"
     },
     "referral_get_free_traffic": {
         "message": "無料GBをGET！"
     },
-    "settings_referral_info": {
-        "message": "お友だちをAdGuard VPN部に招待して、無料月間通信量を増やしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされます（最大%total_gb%まで）。さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。"
+    "settings_referral_info_friends": {
+        "message": "お友達に招待リンクを送信して、招待リンク経由でお友達がAdGuard VPNに登録すると、あなたとお友達の両方に%your_gb%GBずつの高速VPNデータが付与されます。未使用の付与データは有効期限なしで利用できます。最大%max_friends%人の友達を招待して、合計で最大%total_gb%GBを獲得しましょう。"
     },
     "settings_referral_invited_friends": {
         "message": "招待済みお友だち数: %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "無料GB"
     },
     "settings_free_gbs_subtitle": {
-        "message": "簡単なタスクを完了して、無料のVPNトラフィックを手に入れよう！"
+        "message": "追加のVPN通信データを無償で取得する方法"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "メールアドレスを認証する"
+    "settings_free_gbs_join_adguard": {
+        "message": "AdGuard VPN に登録する"
     },
     "settings_free_gbs_get_GB": {
         "message": "%num%GBをGET"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "%num%GBを取得しました。"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "登録時に送信された確認用メール内のリンクをクリックし、 %your_gb%GBの無料VPNトラフィックを取得できます。確認用メールを受信箱にて見つけることができない場合は、下のボタンをクリックしてください。"
+    "settings_free_gbs_add_device": {
+        "message": "もう一つのデバイスを追加する"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "リンクを再送信する"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "新しいデバイスを追加して、%your_gb%GBを無償で取得"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "別のプラットフォームを追加する"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "別のデバイスで %email% を使用してAdGuard VPNにログインすると、1回限りのボーナスとして%your_gb% GBがもらえます。"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "AdGuard VPN for iOS/Android/Mac/Windows アプリをインストールし、そちらで AdGuard アカウントにログインすると、無料で%your_gb%GBを取得できます。"
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "ご利用の月間制限の更新には時間がかかる場合があります。数分お待ちいただくか、アプリを再起動してください。"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "もう一つのプラットフォームが追加されました。"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "新しいデバイスの追加で、%your_gb% GBを付与いたしました。"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "複数のプラットフォームに AdGuard VPN をインストールしていただきありがとうございます。安全なインターネットライフをお過ごしください。"
+        "message": "未使用のデータは翌月に繰り越されます。また、AdGuard VPN 無制限版を利用すれば、制限なく高速なネット閲覧をお楽しみいただけます。"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "製品一覧へ移動する"
+        "message": "製品ラインアップを見る"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "友達を招待する"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "お友達を招待する (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "招待したお友達ごとに、%your_gb% GBの高速VPNデータを獲得"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "%total_invites%人のお友達を招待し、合計で%total_gbs% GBを獲得しました。"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "最大%num%GBをGET"
@@ -205,10 +211,10 @@
         "message": "%num%GBを取得しました。"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "すべての招待券を使用していただき、ありがとうございます！"
+        "message": "AdGuard VPNの成長にご協力いただきありがとうございます！「無料GB」画面で、さらに多くのGB獲得方法をご確認ください。または、制限なし高速ネット閲覧を提供する AdGuard VPN 無制限版へのご加入をご検討ください。"
     },
-    "settings_free_gbs_go_back": {
-        "message": "戻る"
+    "settings_free_gbs_upgrade": {
+        "message": "無制限版にアップグレード"
     },
     "settings_rate_us": {
         "message": "ご評価いただければ幸いです。"
@@ -771,7 +777,10 @@
         "message": "次へ"
     },
     "popup_upgrade_screen_title": {
-        "message": "無制限版VPN"
+        "message": "無制限版にアップグレード"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "全ロケーションへのアクセス、無制限の通信速度、同時接続できるデバイス: %maxDevicesAllowed%台"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "データ量無制限"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "時刻"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "統計情報について"
+    },
+    "popup_stats_data_since": {
+        "message": "%startDate% 以降の統計データ",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "統計情報は、使用したVPNデータの量と、通信量が一番多いロケーションを表示します。"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "統計情報にはあなたの閲覧履歴は一切含まれません。閲覧履歴は暗号化されているため、誰もそれを追跡することはできません。"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "複数のブラウザでAdGuard VPNを使用している場合、統計情報はそれぞれのブラウザごとに異なってきます。統計情報はあなたのデバイス上のみに保存され、他所（サーバーなど）へ送信されることは一切なく、統計情報にアクセスできるのはあなただけです。"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "OK"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "VPN接続速度はまもなく低速化します。"
     },
-    "confirm_email_done_title": {
-        "message": "メールアドレス確認完了"
+    "confirm_email_done_title_gb": {
+        "message": "一度限りのようこそボーナスとしてで %your_gb% GB を付与いたしました。"
     },
     "confirm_email_done_info": {
-        "message": "認証いただきありがとうございます。"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "確認用リンクが再送信されました。"
+        "message": "未使用のデータは翌月に繰り越されます。また、AdGuard VPN 無制限版を利用すれば、制限なく高速なネット閲覧をお楽しみいただけます。"
     },
     "auth_failed_to_login_title": {
         "message": "ログインできませんでした"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "閉じる"
     },
+    "auth_loading_title": {
+        "message": "ブラウザ経由でログインまたは登録してください"
+    },
+    "auth_loading_description": {
+        "message": "AdGuard VPN のライセンスをお持ちの場合は、自動的に適用されます。"
+    },
     "auth_loading_button_reopen": {
         "message": "ログインページを再度開く"
     },
     "auth_loading_button_cancel": {
         "message": "キャンセル "
+    },
+    "auth_success_title": {
+        "message": "ログイン完了です"
+    },
+    "auth_success_description": {
+        "message": "AdGuard VPN ブラウザ拡張機能に戻って、ご利用を開始できます。"
     }
 }

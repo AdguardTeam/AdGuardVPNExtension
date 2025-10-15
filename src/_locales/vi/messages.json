@@ -139,13 +139,13 @@
         "message": "Chính sách quyền riêng tư"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Tổng quan"
     },
     "referral_get_free_traffic": {
         "message": "Nhận GB miễn phí!"
     },
-    "settings_referral_info": {
-        "message": "Nhận %your_gb% GB lưu lượng truy cập VPN miễn phí trong một tháng cho mỗi người bạn đăng ký thông qua lời mời của bạn, tổng cộng lên đến %total_gb% GB. Bạn của bạn cũng nhận được thêm %friend_gb% GB miễn phí."
+    "settings_referral_info_friends": {
+        "message": "Gửi liên kết mời cho bạn của bạn. Khi họ đăng ký AdGuard VPN qua liên kết của bạn, cả hai bạn sẽ nhận được %your_gb% GB VPN tốc độ cao. Số lượng chưa sử dụng sẽ không hết hạn — bạn có thể dùng trong các tháng tiếp theo. Mời tối đa %max_friends% bạn bè và nhận tối đa %total_gb% GB tổng cộng."
     },
     "settings_referral_invited_friends": {
         "message": "Bạn đã mời %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "GB miễn phí"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Hoàn thành các nhiệm vụ để nhận được lưu lượng VPN miễn phí!"
+        "message": "Đây là cách bạn có thể nhận thêm lưu lượng VPN"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Xác nhận email của bạn"
+    "settings_free_gbs_join_adguard": {
+        "message": "Tham gia AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Nhận %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Bạn có %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Nhấp vào liên kết xác nhận email mà chúng tôi đã gửi cho bạn khi đăng ký và nhận %your_gb% GB lưu lượng truy cập VPN miễn phí. Nếu bạn không thể tìm thấy email của chúng tôi, hãy nhấp vào nút bên dưới."
+    "settings_free_gbs_add_device": {
+        "message": "Thêm một thiết bị mới"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Gửi lại liên kết"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Thêm một thiết bị mới và nhận %your_gb% GB miễn phí"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Thêm nền tảng khác"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Đăng nhập vào AdGuard VPN trên thiết bị khác bằng %email% để nhận thêm thưởng %your_gb% GB một lần"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Cài đặt AdGuard VPN cho iOS, Windows hoặc Android, đăng nhập vào tài khoản AdGuard của bạn tại đó và nhận %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Giới hạn hàng tháng của bạn có thể mất vài phút để cập nhật — hãy chờ vài phút hoặc khởi động lại ứng dụng"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Một nền tảng khác được thêm vào"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Bạn đã nhận được %your_gb% GB khi thêm một thiết bị mới"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Chúc mừng bạn đã cài đặt AdGuard VPN trên nhiều nền tảng. Giữ an toàn!"
+        "message": "Lưu lượng chưa sử dụng sẽ được chuyển sang các tháng tiếp theo. Và với AdGuard VPN Không giới hạn, bạn có thể trình duyệt nhanh mà không bị giới hạn"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Đi đến Sản phẩm"
+        "message": "Chọn sản phẩm"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Mời một người bạn"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Mời bạn bè (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Mời một người bạn và nhận %your_gb% GB VPN tốc độ cao"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Bạn đã mời %total_invites% bạn và nhận tổng cộng %total_gbs% GB"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Nhận lên đến %num% GB"
@@ -205,10 +211,10 @@
         "message": "Bạn có %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Cảm ơn vì đã sử dụng tất cả lời mời của bạn!"
+        "message": "Cảm ơn bạn đã giúp chúng tôi phát triển! Tìm hiểu cách nhận thêm thưởng trong phần GB miễn phí. Hoặc nhận AdGuard VPN Không giới hạn để tận hưởng trình duyệt nhanh không giới hạn"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Quay lại"
+    "settings_free_gbs_upgrade": {
+        "message": "Nâng cấp lên Không giới hạn"
     },
     "settings_rate_us": {
         "message": "Đánh giá chúng tôi"
@@ -771,7 +777,10 @@
         "message": "Tiếp theo"
     },
     "popup_upgrade_screen_title": {
-        "message": "VPN không giới hạn"
+        "message": "Nâng cấp lên Không giới hạn"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Truy cập tất cả vị trí, trình duyệt không giới hạn tốc độ, và kết nối tối đa %maxDevicesAllowed% thiết bị cùng lúc"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Dữ liệu không giới hạn"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Thời gian"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Về số liệu thống kê của bạn"
+    },
+    "popup_stats_data_since": {
+        "message": "Kể từ %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Thống kê cho thấy lượng dữ liệu VPN bạn đã sử dụng và xếp hạng các vị trí hàng đầu của bạn"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Số liệu thống kê không bao giờ bao gồm lịch sử duyệt web của bạn. Nó được mã hóa, vì vậy không ai có thể theo dõi bạn"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Nếu bạn sử dụng AdGuard VPN trong một số trình duyệt, số liệu thống kê của bạn sẽ khác nhau cho mỗi trình duyệt. Chúng được lưu trên thiết bị và chỉ bạn mới có thể truy cập chúng"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Đã hiểu"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "Tốc độ kết nối VPN sẽ sớm bị giảm."
     },
-    "confirm_email_done_title": {
-        "message": "Địa chỉ email đã được xác nhận"
+    "confirm_email_done_title_gb": {
+        "message": "Bạn đã nhận được %your_gb% GB như một phần thưởng chào mừng một lần"
     },
     "confirm_email_done_info": {
-        "message": "Cảm ơn bạn đã xác minh nó!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Liên kết xác nhận được gửi lại"
+        "message": "Lưu lượng chưa sử dụng sẽ được chuyển sang các tháng tiếp theo. Và với AdGuard VPN Không giới hạn, bạn có thể trình duyệt nhanh mà không bị giới hạn"
     },
     "auth_failed_to_login_title": {
         "message": "Không thể đăng nhập bạn"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "Đóng"
     },
+    "auth_loading_title": {
+        "message": "Đăng nhập hoặc đăng ký thông qua trình duyệt của bạn"
+    },
+    "auth_loading_description": {
+        "message": "Nếu bạn có giấy phép AdGuard VPN, nó sẽ tự động áp dụng"
+    },
     "auth_loading_button_reopen": {
         "message": "Mở lại trang đăng nhập"
     },
     "auth_loading_button_cancel": {
         "message": "Huỷ"
+    },
+    "auth_success_title": {
+        "message": "Bạn đã đăng nhập"
+    },
+    "auth_success_description": {
+        "message": "Quay lại tiện ích mở rộng AdGuard VPN — tất cả đã được thiết lập"
     }
 }

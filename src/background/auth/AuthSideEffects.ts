@@ -7,6 +7,7 @@ import { type NotificationsInterface } from '../notifications';
 import { type TabsInterface } from '../tabs';
 import { type UpdateServiceInterface } from '../updateService';
 import { getUrl } from '../browserApi/runtime';
+import { type EndpointsInterface } from '../endpoints/Endpoints';
 
 /**
  * {@link AuthSideEffects}} interface.
@@ -46,6 +47,11 @@ export interface AuthSideEffectsParameters {
      * Tabs service.
      */
     tabs: TabsInterface;
+
+    /**
+     * Endpoints service.
+     */
+    endpoints: EndpointsInterface
 }
 
 /**
@@ -85,6 +91,11 @@ export class AuthSideEffects implements AuthSideEffectsInterface {
     private tabs: TabsInterface;
 
     /**
+     * Endpoints service.
+     */
+    private endpoints: EndpointsInterface;
+
+    /**
      * Constructor.
      */
     constructor({
@@ -93,12 +104,14 @@ export class AuthSideEffects implements AuthSideEffectsInterface {
         updateService,
         forwarder,
         tabs,
+        endpoints,
     }: AuthSideEffectsParameters) {
         this.notifier = notifier;
         this.notifications = notifications;
         this.updateService = updateService;
         this.forwarder = forwarder;
         this.tabs = tabs;
+        this.endpoints = endpoints;
     }
 
     /** @inheritdoc */
@@ -116,6 +129,9 @@ export class AuthSideEffects implements AuthSideEffectsInterface {
      */
     private async handleWebAuthFlowAuthenticated(): Promise<void> {
         if (this.updateService.isFirstRun) {
+            // Start finding locations so when user opens popup they are ready.
+            // We don't await it intentionally as it's here just to start the process of location finding.
+            this.endpoints.getLocationsFromServer();
             // Notify user
             await this.notifications.create({
                 message: translator.getMessage('authentication_successful_notification'),

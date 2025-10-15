@@ -37,7 +37,7 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
 
     const description = isCompleted
         ? translator.getMessage('settings_free_gbs_invite_friend_completed_thank_you')
-        : translator.getMessage('settings_referral_info', {
+        : translator.getMessage('settings_referral_info_friends', {
             your_gb: COMPLETE_TASK_BONUS_GB,
             max_friends: maxInvitesCount,
             total_gb: maxInvitesCount * COMPLETE_TASK_BONUS_GB,

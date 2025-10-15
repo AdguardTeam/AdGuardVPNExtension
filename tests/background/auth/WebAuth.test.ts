@@ -168,8 +168,9 @@ describe('WebAuth', () => {
             // Auth cache flags should be updated
             expect(authCacheMock.updateCache).toHaveBeenCalledWith(AuthCacheKey.WebAuthFlowState, WebAuthState.Loading);
 
-            // Should retrieve fallback auth API url first
-            expect(fallbackApiMock.getAuthApiUrl).toHaveBeenCalledTimes(1);
+            // Should retrieve fallback auth API url first`
+            // 2 times - once in `startWebAuthFlow` and once in `addEventListeners`
+            expect(fallbackApiMock.getAuthApiUrl).toHaveBeenCalledTimes(2);
 
             // Should open a new tab with correct URL
             expect(tabsMock.openTab).toHaveBeenCalledTimes(1);
@@ -185,7 +186,7 @@ describe('WebAuth', () => {
             });
             expect(browserSpy.webRequest.onErrorOccurred.addListener).toHaveBeenCalledTimes(1);
             expect(browserSpy.webRequest.onErrorOccurred.addListener).toHaveBeenCalledWith(expect.any(Function), {
-                urls: ['<all_urls>'],
+                urls: [`https://${MOCK_AUTH_API_URL}/*`],
                 types: ['main_frame'],
                 tabId: MOCK_TAB_INFO.id,
                 windowId: MOCK_TAB_INFO.windowId,
@@ -506,7 +507,7 @@ describe('WebAuth', () => {
         it('should properly update window if tab is moved between windows', async () => {
             await webAuth.handleAction(MOCK_APP_ID, WebAuthAction.Start);
 
-            browserSpy.tabs.onAttached.emitEvent(MOCK_TAB_INFO.id, { newWindowId: 2 });
+            await browserSpy.tabs.onAttached.emitEvent(MOCK_TAB_INFO.id, { newWindowId: 2 });
 
             // Should update web request listeners
 
@@ -526,7 +527,7 @@ describe('WebAuth', () => {
             });
             expect(browserSpy.webRequest.onErrorOccurred.addListener).toHaveBeenCalledTimes(2);
             expect(browserSpy.webRequest.onErrorOccurred.addListener).toHaveBeenCalledWith(expect.any(Function), {
-                urls: ['<all_urls>'],
+                urls: [`https://${MOCK_AUTH_API_URL}/*`],
                 types: ['main_frame'],
                 tabId: MOCK_TAB_INFO.id,
                 windowId: 2,

@@ -144,8 +144,8 @@
     "referral_get_free_traffic": {
         "message": "Ansaitse ilmaisia gigatavuja!"
     },
-    "settings_referral_info": {
-        "message": "Ansaitse jokaisesta kutsusi välityksellä rekisteröityvästä kaverista %your_gb% Gt kuukaudeksi. Voit ansaita kaikkiaan %total_gb% Gt. Myös kaverisi saa %friend_gb% Gt enemmän ilmaiseksi."
+    "settings_referral_info_friends": {
+        "message": "Lähetä kutsulinkki ystävällesi. Kun hän rekisteröityy AdGuard VPN: ään linkkisi kautta, saatte molemmat %your_gb%GB nopean VPN:n. Käyttämätön määrä ei vanhene - voit käyttää sitä kuukausien aikana. Kutsu enintään%max_friends%ystäviä ja saat yhteensä jopa%total_gb%GB"
     },
     "settings_referral_invited_friends": {
         "message": "Kavereita on kutsuttu %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "Ilmaisia gigatavuja"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Suorita tehtäviä ansaitaksesi ilmaista VPN-tiedonsiirtoa!"
+        "message": "Näin saat lisää VPN-liikennettä"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Vahvista sähköpostiosoitteesi"
+    "settings_free_gbs_join_adguard": {
+        "message": "Liity AdGuard VPN: ään"
     },
     "settings_free_gbs_get_GB": {
         "message": "Hanki %num% Gt"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Ansaitsit %num% Gt"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Paina rekisteröitymisen yhteydessä vastaanottamasi sähköpostiviestin vahvistuslinkkiä, saadaksesi %your_gb% Gt ilmaista VPN-tiedonsiirtoa. Jos et löydä viestiä, paina alla olevaa painiketta."
+    "settings_free_gbs_add_device": {
+        "message": "Lisää uusi laite"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Lähetä linkki uudelleen"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Lisää uusi laite ja hanki %your_gb%GB ilmaiseksi"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Lisää toinen alusta"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Kirjaudu AdGuard VPN:ään toisella laitteella osoitteessa%email% saadaksesi kertaluonteisen %your_gb%GB bonuksen"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Asenna AdGuard VPN iOS:lle, Macille, Windowsille tai Androidille, kirjaudu AdGuard-tilillesi siellä ja hanki %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Kuukausirajan päivittäminen voi kestää jonkin aikaa - anna sille pari minuuttia aikaa tai käynnistä sovellus uudelleen"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Toinen alusta lisätty"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Saat %your_gb%GB uuden laitteen lisäämisestä"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Onnittelut AdGuard VPN:n asennuksesta useille alustoille. Pysy turvassa!"
+        "message": "Käyttämätön liikenne siirtyy seuraaville kuukausille. AdGuard VPN Unlimitedin avulla voit nauttia nopeasta selaamisesta ilman rajoituksia"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Tutustu tuotteisiimme"
+        "message": "Valitse tuote"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Kutsu kavereita"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Kutsu ystävä (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Kutsu ystävä ja hanki %your_gb%Gt nopeaa VPN:ää"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Olet kutsunut %total_invites%ystäviä ja saivat %total_gbs%Gt yhteensä"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Ansaitse jopa %num% Gt"
@@ -205,10 +211,10 @@
         "message": "Ansaitsit %num% Gt"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Kiitos kaikkien kutsujesi käytöstä!"
+        "message": "Kiitos, että autat meitä kasvamaan! Opi hankkimaan lisää bonuksia Ilmaiset GB:t -osiosta. Tai hanki AdGuard VPN Unlimited nauttiaksesi nopeasta selaamisesta ilman rajoituksia"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Palaa takaisin"
+    "settings_free_gbs_upgrade": {
+        "message": "Päivitä Unlimitediin"
     },
     "settings_rate_us": {
         "message": "Arvostele meidät"
@@ -771,7 +777,10 @@
         "message": "Seuraava"
     },
     "popup_upgrade_screen_title": {
-        "message": "Rajaton VPN"
+        "message": "Päivitä Unlimitediin"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Käytä kaikkia sijainteja, selaa ilman nopeusrajoituksia ja muodosta yhteys %maxDevicesAllowed%laitteita kerralla"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Rajattomasti tiedonsiirtoa"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Aika"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Tietoja tilastoistasi"
+    },
+    "popup_stats_data_since": {
+        "message": "Alkaen %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Tilastot näyttävät, kuinka paljon VPN-dataa olet käyttänyt, ja sijoittavat suosituimmat sijaintisi paremmuusjärjestykseen"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Tilastot eivät koskaan sisällä selaushistoriaasi. Se on salattu, joten kukaan ei voi jäljittää sinua"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Jos käytät AdGuard VPN: ää useissa selaimissa, tilastosi ovat erilaiset jokaisessa selaimessa. Ne tallennetaan laitteeseen, ja vain sinä voit käyttää niitä"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Selvä"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "VPN-yhteyden nopeus alennetaan pian."
     },
-    "confirm_email_done_title": {
-        "message": "Sähköpostiosoitteesi on vahvistettu"
+    "confirm_email_done_title_gb": {
+        "message": "Sinulla on %your_gb% GB kertaluonteisena tervetuliaisbonuksena"
     },
     "confirm_email_done_info": {
-        "message": "Kiitos vahvistuksesta!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Vahvistuslinkki lähetettiin uudelleen"
+        "message": "Käyttämätön liikenne siirtyy seuraaville kuukausille. AdGuard VPN Unlimitedin avulla voit nauttia nopeasta selaamisesta ilman rajoituksia"
     },
     "auth_failed_to_login_title": {
         "message": "Sisäänkirjautuminen epäonnistui"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "Sulje"
     },
+    "auth_loading_title": {
+        "message": "Kirjaudu sisään tai rekisteröidy selaimesi kautta"
+    },
+    "auth_loading_description": {
+        "message": "Jos sinulla on AdGuard VPN -lisenssi, se otetaan käyttöön automaattisesti"
+    },
     "auth_loading_button_reopen": {
         "message": "Avaa kirjautumissivu uudelleen"
     },
     "auth_loading_button_cancel": {
         "message": "Peruuta"
+    },
+    "auth_success_title": {
+        "message": "Olet kirjautunut sisään"
+    },
+    "auth_success_description": {
+        "message": "Palaa AdGuard VPN -laajennukseen – kaikki on valmiina"
     }
 }

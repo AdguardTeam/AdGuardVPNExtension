@@ -139,13 +139,13 @@
         "message": "Zásady ochrany osobních údajů"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Obecné"
     },
     "referral_get_free_traffic": {
         "message": "Získejte GB zdarma!"
     },
-    "settings_referral_info": {
-        "message": "Získejte zdarma %your_gb% GB datového provozu VPN na měsíc za každého přítele, který se zaregistruje na základě vaší pozvánky, celkem až %total_gb% GB. Váš přítel navíc získá %friend_gb% GB zdarma."
+    "settings_referral_info_friends": {
+        "message": "Odešlete odkaz s pozvánkou svému příteli. Když se zaregistruje do AdGuard VPN pomocí vašeho odkazu, oba získáte %your_gb% GB rychlé VPN. Nevyužité množství nepropadá — můžete ho využívat i v dalších měsících. Pozvěte až %max_friends% přátel a získejte celkem až %total_gb% GB"
     },
     "settings_referral_invited_friends": {
         "message": "Pozvaní přátelé %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "GB zdarma"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Dokončete úkoly a získejte zdarma datový provoz VPN!"
+        "message": "Zde je návod, jak získat další VPN provoz"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Potvrďte svůj e-mail"
+    "settings_free_gbs_join_adguard": {
+        "message": "Připojit se k AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Získat %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Máte %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Klikněte na odkaz v e-mailu, který jsme vám zaslali při registraci, a získejte %your_gb% GB datového provozu VPN zdarma. Pokud nemůžete najít náš e-mail, klikněte na tlačítko níže."
+    "settings_free_gbs_add_device": {
+        "message": "Přidat nové zařízení"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Znovu odeslat odkaz"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Přidejte nové zařízení a získejte %your_gb% GB zdarma"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Přidat další platformu"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Přihlaste se do AdGuard VPN na jiném zařízení pomocí %email% a získejte jednorázový bonus %your_gb% GB"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Nainstalujte si AdGuard VPN pro iOS, Windows nebo Android, přihlaste se ke svému účtu AdGuard a získejte %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Aktualizace vašeho měsíčního limitu může chvíli trvat — dejte tomu pár minut nebo restartujte aplikaci"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Další platforma přidána"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Získali jste %your_gb% GB za přidání nového zařízení"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Gratulujeme k instalaci AdGuard VPN na více platformách. Zůstaňte v bezpečí!"
+        "message": "Nevyužitý provoz se převádí do dalších měsíců. A s AdGuard VPN Unlimited si můžete užívat rychlé procházení bez omezení"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Přejít na produkty"
+        "message": "Vyberte produkt"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Pozvat přítele"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Pozvaní přátelé (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Pozvěte přítele a získejte %your_gb% GB rychlé VPN"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Pozvali jste %total_invites% přátel a získali jste celkem %total_gbs% GB"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Získejte až %num% GB"
@@ -205,10 +211,10 @@
         "message": "Máte %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Děkujeme za využití všech vašich pozvánek!"
+        "message": "Děkujeme, že nám pomáháte růst! Zjistěte, jak  ískat více bonusů v sekci Bezplatné GB. Nebo si pořiďte AdGuard VPN Unlimited a užívejte si rychlé prohlížení bez omezení"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Zpět"
+    "settings_free_gbs_upgrade": {
+        "message": "Upgradujte na Unlimited"
     },
     "settings_rate_us": {
         "message": "Ohodnoťte nás"
@@ -771,7 +777,10 @@
         "message": "Další"
     },
     "popup_upgrade_screen_title": {
-        "message": "Neomezená VPN"
+        "message": "Upgradujte na Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Přístup ke všem umístěním, procházejte bez omezení rychlosti a připojte až %maxDevicesAllowed% zařízení najednou"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neomezená data"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Čas"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "O vašich statistikách"
+    },
+    "popup_stats_data_since": {
+        "message": "Od %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistiky ukazují, kolik dat VPN jste použili, a řadí vaše nejoblíbenější umístění"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistiky nikdy nezahrnují vaši historii prohlížení. Jsou šifrované, takže vás nikdo nemůže sledovat"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Pokud používáte AdGuard VPN v několika prohlížečích, vaše statistiky se budou u každého z nich lišit. Jsou uloženy v zařízení a přístup k nim máte pouze vy"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rozumím"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "Rychlost připojení VPN bude brzy snížena."
     },
-    "confirm_email_done_title": {
-        "message": "Potvrzená e-mailová adresa"
+    "confirm_email_done_title_gb": {
+        "message": "Získali jste %your_gb% GB  ako jednorázový uvítací bonus"
     },
     "confirm_email_done_info": {
-        "message": "Děkujeme za ověření!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Potvrzovací odkaz byl znovu odeslán"
+        "message": "Nevyužitý provoz se převádí do dalších měsíců. A s AdGuard VPN Unlimited si můžete užívat rychlé procházení bez omezení"
     },
     "auth_failed_to_login_title": {
         "message": "Přihlášení se nezdařilo"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "Zavřít"
     },
+    "auth_loading_title": {
+        "message": "Přihlaste se nebo se zaregistrujte prostřednictvím svého prohlížeče"
+    },
+    "auth_loading_description": {
+        "message": "Pokud máte licenci AdGuard VPN, bude automaticky použita"
+    },
     "auth_loading_button_reopen": {
         "message": "Znovu otevřete stránku pro přihlášení"
     },
     "auth_loading_button_cancel": {
         "message": "Zrušit"
+    },
+    "auth_success_title": {
+        "message": "Jste přihlášeni"
+    },
+    "auth_success_description": {
+        "message": "Vraťte se do rozšíření AdGuard VPN — vše je nastaveno"
     }
 }

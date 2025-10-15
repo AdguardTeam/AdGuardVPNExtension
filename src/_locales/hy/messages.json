@@ -139,13 +139,13 @@
         "message": "Գաղտնիության քաղաքականություն"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Ընդհանուր"
     },
     "referral_get_free_traffic": {
         "message": "Ստացեք անվճար GB-ներ։"
     },
-    "settings_referral_info": {
-        "message": "Ստացեք %your_gb% ԳԲ անվճար VPN տրաֆիկ մեկ ամսով յուրաքանչյուր ընկերոջ համար, ով գրանցվում է ձեր հրավերի միջոցով, ընդհանուր առմամբ մինչև %total_gb% ԳԲ: Ձեր ընկերը նաև ստանում է լրացուցիչ %friend_gb% ԳԲ անվճար:"
+    "settings_referral_info_friends": {
+        "message": "Ուղարկեք հրավերի հղում ձեր ընկերոջը։ Երբ նրանք գրանցվեն AdGuard VPN-ում ձեր հղումով, դուք երկուսդ էլ կստանաք %your_gb% GB արագ VPN։ Չօգտագործված քանակը ժամկետ չի ունենում՝ կարող եք օգտագործել ամիսների ընթացքում։Հրավիրեք մինչև %max_friends% ընկերների և ընդհանուր ստացեք մինչև %total_gb% GB։ "
     },
     "settings_referral_invited_friends": {
         "message": "Հրավիրված ընկերներ %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "Անվճար ԳԲ"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Կատարեք առաջադրանքները՝ անվճար VPN տրաֆիկ ստանալու համար"
+        "message": "Ահա, թե ինչպես կարող եք ստանալ հավելյալ VPN երթևեկություն"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Հաստատեք ձեր էլ. փոստը"
+    "settings_free_gbs_join_adguard": {
+        "message": "Միանալ AdGuard VPN-ին"
     },
     "settings_free_gbs_get_GB": {
         "message": "Ստացեք %num% ԳԲ"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Դուք ստացել եք %num% ԳԲ"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Click the email confirmation link that we sent you at sign up and get %your_gb% GB of free VPN traffic. If you can’t find our email, click the button below."
+    "settings_free_gbs_add_device": {
+        "message": "Ավելացնել նոր սարք"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Resend link"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Ավելացրեք նոր սարք և ստացեք %your_gb% GB անվճար"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Ավելացնել մեկ այլ պլատֆորմ"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Մուտք գործեք AdGuard VPN մեկ այլ սարքում %email%-ով՝ մեկանգամյա %your_gb% GB բոնուս ստանալու համար"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Տեղադրեք AdGuard VPN iOS-ի, Windows-ի կամ Android-ի համար, մուտք գործեք ձեր AdGuard հաշվող այնտեղ, և ստացեք %your_gb% GB։"
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Ձեր ամսական սահմանաչափի թարմացումը կարող է ժամանակ պահանջել՝ սպասեք մի քանի րոպե կամ վերամեկնարկեք հավելվածը"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Ավելացվել է մեկ այլ պլատֆորմ"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Դուք ստացել եք %your_gb% GB նոր սարք ավելացնելու համար"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Շնորհավորում ենք AdGuard VPN-ի տեղադրումը մի քանի պլատֆորմներում։ Պահպանեք անվտանգ։"
+        "message": "Չօգտագործված երթևեկությունը փոխանցվում է հաջորդ ամիսներին: Իսկ AdGuard VPN Unlimited-ի միջոցով դուք կարող եք վայելել արագ զննարկում առանց սահմանափակումների:"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Մուտքագրեք արտադրանքի էջը"
+        "message": "Ընտրել ապրանքը"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Invite a friend"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Հրավիրել ընկերոջը (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Հրավիրեք մի ընկերոջ և ստացեք %your_gb% GB արագ VPN"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Դուք հրավիրել եք %total_invites% ընկերների և ստացել %total_gbs% GB ընդհանուր"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Ստացեք մինչև %num% ԳԲ"
@@ -205,10 +211,10 @@
         "message": "Դուք ստացել եք %num% ԳԲ"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Շնորհակալություն ձեր բոլոր հրավերները օգտագործելու համար։"
+        "message": "Շնորհակալություն մեզ աճին նպաստելու համար: Իմացեք, թե ինչպես ստանալ ավելի շատ բոնուսներ՝ այցելելով անվճար ԳԲ բաժին: Կամ ձեռք բերեք AdGuard VPN Unlimited՝ արագ դիտում առանց սահմանափակումների վայելելու համար:"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Վերադառնալ"
+    "settings_free_gbs_upgrade": {
+        "message": "Թարմացնել դեպի Unlimited "
     },
     "settings_rate_us": {
         "message": "Գնահատեք մեզ"
@@ -771,7 +777,10 @@
         "message": "Հաջորդը"
     },
     "popup_upgrade_screen_title": {
-        "message": "Անսահմանափակ VPN"
+        "message": "Թարմացնել դեպի Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Մուտք գործեք բոլոր տեղանքներ, թերթեք առանց արագության սահմանափակումների և միացրեք մինչև %maxDevicesAllowed% սարք միաժամանակ"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Անսահմանափակ տվյալներ"
@@ -919,6 +928,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Սա այլևս մի ցուցադրեք"
     },
+    "popup_stats": {
+        "message": "Վիճակագրություն"
+    },
     "popup_stats_disabled_notice": {
         "message": "Վիճակագրությունը անջատված է"
     },
@@ -934,8 +946,27 @@
     "popup_stats_usage_time": {
         "message": "Ժամանակ"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Ձեր վիճակագրության մասին"
+    },
+    "popup_stats_data_since": {
+        "message": "Սկսած %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Վիճակագրությունը ցույց է տալիս, թե որքան VPN տվյալներ եք օգտագործել եւ դասավորել ձեր լավագույն վայրերը"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Վիճակագրությունը երբեք չի ներառում ձեր զննարկման պատմությունը: Այն գաղտնագրված է, այնպես որ ոչ ոք չի կարող հետեւել ձեզ"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Եթե դուք օգտագործում եք AdGuard VPN մի քանի բրաուզերներում, ձեր վիճակագրությունը տարբեր կլինի յուրաքանչյուրի համար: Դրանք պահվում են սարքում, եւ միայն դուք կարող եք մուտք գործել դրանք"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Հասկացա"
+    },
+    "popup_stats_menu_enable_stats_btn": {
+        "message": "Միացնել վիճակագրությունը"
     },
     "popup_stats_menu_disable_stats_btn": {
         "message": "Անջատել վիճակագրությունը"
@@ -1030,19 +1061,40 @@
     "notification_data_left_description": {
         "message": "VPN կապի արագությունը շուտով կրճատվի։"
     },
-    "confirm_email_done_title": {
-        "message": "Էլփոստի հասցեն հաստատված է"
+    "confirm_email_done_title_gb": {
+        "message": "Դուք ստացել եք %your_gb% GB՝ որպես մեկանգամյա ողջույնի բոնուս"
     },
     "confirm_email_done_info": {
-        "message": "Շնորհակալություն, որ ստուգեցիք դա։"
+        "message": "Չօգտագործված երթևեկությունը փոխանցվում է հաջորդ ամիսներին: Իսկ AdGuard VPN Unlimited-ի միջոցով դուք կարող եք վայելել արագ զննարկում առանց սահմանափակումների:"
     },
-    "resend_confirm_registration_link_notification": {
-        "message": "Հաստատման հղումը կրկին ուղարկված է"
+    "auth_failed_to_login_title": {
+        "message": "Մուտք գործելը ձախողվեց"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Խնդրում ենք կրկին փորձել կամ <a>կապվել աջակցությանը</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Խնդրում եմ կրկին փորձել"
     },
     "auth_failed_to_login_button": {
         "message": "Փակել"
     },
+    "auth_loading_title": {
+        "message": "Մուտք գործեք կամ գրանցվեք ձեր դիտարկչի միջոցով"
+    },
+    "auth_loading_description": {
+        "message": "Եթե դուք ունեք AdGuard VPN լիցենզիա, այն կկիրառվի ավտոմատ կերպով"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Վերաբացել մուտքի էջը"
+    },
     "auth_loading_button_cancel": {
         "message": "Չեղարկել"
+    },
+    "auth_success_title": {
+        "message": "Դուք մուտք եք գործել"
+    },
+    "auth_success_description": {
+        "message": "Վերադարձեք AdGuard VPN ընդլայնմանը՝ այն արդեն կարգավորված է։"
     }
 }

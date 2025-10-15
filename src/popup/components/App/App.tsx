@@ -34,6 +34,7 @@ import { SETTINGS_IDS } from '../../../common/constants';
 import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { MobileEdgePromo } from '../MobileEdgePromo';
 import { Stats } from '../Stats';
+import { DotsLoader } from '../../../common/components/DotsLoader';
 
 import { AppLoaders } from './AppLoaders';
 
@@ -79,6 +80,8 @@ export const App = observer(() => {
         filteredLocations,
         notSearchingAndSavedTab,
     } = vpnStore;
+
+    const renderAuth = !authenticated && !hasGlobalError;
 
     useEffect(() => {
         (async (): Promise<void> => {
@@ -276,6 +279,39 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
+    /**
+     * TODO(AG-47110) It's probably worth implementing a state machine here,
+     * because managing loading statuses for popupData,
+     * authState and data for onboarding is pretty complicated with current approach.
+     * Current render order for onboarding is:
+     * - Newsletter
+     * - Onboarding
+     * - UpgradeScreen
+     * - AppLoaders (popupData)
+     * - Popup
+    */
+    if (authStore.renderNewsletter && !renderAuth) {
+        return <Newsletter />;
+    }
+
+    if (authStore.renderOnboarding && !renderAuth) {
+        return (
+            <>
+                <Onboarding />
+                <Icons />
+            </>
+        );
+    }
+
+    if (!isPremiumToken && authStore.renderUpgradeScreen && !renderAuth) {
+        return (
+            <>
+                <UpgradeScreen />
+                <Icons />
+            </>
+        );
+    }
+
     // show one type of loader while popup data is loading.
     if (initStatus === RequestStatus.Pending) {
         return (
@@ -286,7 +322,11 @@ export const App = observer(() => {
     if (authStore.requestProcessState !== RequestStatus.Pending
         && settingsStore.checkPermissionsState !== RequestStatus.Pending
         && globalStore.status === RequestStatus.Pending) {
-        return null;
+        return (
+            <div className="data-loader">
+                <DotsLoader />
+            </div>
+        );
     }
 
     // show browser permission error after user is authenticated
@@ -306,7 +346,7 @@ export const App = observer(() => {
         );
     }
 
-    if (!authenticated && !hasGlobalError) {
+    if (renderAuth) {
         return (
             <>
                 <Authentication />
@@ -336,28 +376,6 @@ export const App = observer(() => {
                 <Icons />
                 <GlobalError />
                 <ServerErrorPopup />
-            </>
-        );
-    }
-
-    if (authStore.renderNewsletter) {
-        return <Newsletter />;
-    }
-
-    if (authStore.renderOnboarding) {
-        return (
-            <>
-                <Onboarding />
-                <Icons />
-            </>
-        );
-    }
-
-    if (!isPremiumToken && authStore.renderUpgradeScreen) {
-        return (
-            <>
-                <UpgradeScreen />
-                <Icons />
             </>
         );
     }

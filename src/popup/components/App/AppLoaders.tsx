@@ -15,13 +15,14 @@ import { SkeletonLoading } from '../SkeletonLoading';
  * they do not require any data fetching.
  */
 export const AppLoaders = observer(() => {
-    const { authStore } = useContext(rootStore);
+    const { authStore, globalStore } = useContext(rootStore);
 
     const {
         authenticatedStatusRetrieved,
         authenticated,
-        renderOnboarding,
     } = authStore;
+
+    const { isStartupDataRetrieved } = globalStore;
 
     // Do not show loaders until authenticated status is retrieved
     if (!authenticatedStatusRetrieved) {
@@ -31,9 +32,9 @@ export const AppLoaders = observer(() => {
     /**
      * Dots loader should be shown:
      * - if user is not authenticated
-     * - if user is authenticated and onboarding should be rendered
+     * - if startup data is not yet retrieved
      */
-    if (!authenticated || renderOnboarding) {
+    if (!authenticated || !isStartupDataRetrieved) {
         return (
             <div className="data-loader">
                 <DotsLoader />

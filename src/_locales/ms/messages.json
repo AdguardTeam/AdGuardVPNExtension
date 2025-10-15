@@ -144,8 +144,8 @@
     "referral_get_free_traffic": {
         "message": "Dapatkan GB percuma!"
     },
-    "settings_referral_info": {
-        "message": "Dapatkan %your_gb% GB trafik VPN percuma selama sebulan untuk setiap rakan yang mendaftar melalui jemputan anda, sehingga %total_gb% GB secara total. Rakan anda juga mendapat %friend_gb% GB tambahan secara percuma."
+    "settings_referral_info_friends": {
+        "message": "Hantar pautan jemputan kepada rakan anda. Apabila mereka mendaftar ke AdGuard VPN melalui pautan anda, anda berdua akan mendapat %your_gb% GB VPN pantas. Jumlah yang tidak digunakan tidak akan tamat tempoh — anda boleh menggunakannya sepanjang bulan-bulan. Jemput sehingga %max_friends% rakan dan dapatkan sehingga %total_gb% GB secara keseluruhan."
     },
     "settings_referral_invited_friends": {
         "message": "Rakan yang dijemput %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "GB percuma"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Lengkapkan tugas untuk mendapatkan trafik VPN percuma!"
+        "message": "Berikut ialah cara anda boleh mendapatkan trafik VPN tambahan"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Sahkan emel anda"
+    "settings_free_gbs_join_adguard": {
+        "message": "Sertai AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Dapatkan %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Anda telah mendapat %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Klik pautan pengesahan emel yang kami hantar semasa pendaftaran dan dapatkan %your_gb% GB trafik VPN percuma. Jika anda tidak dapat mencari emel kami, klik butang di bawah."
+    "settings_free_gbs_add_device": {
+        "message": "Tambah peranti baru"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Hantar semula pautan"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Tambah peranti baru dan dapatkan %your_gb% GB secara percuma"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Tambah platform lain"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Log masuk ke AdGuard VPN pada peranti lain dengan %email% untuk mendapatkan bonus %your_gb% GB sekali sahaja"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Pasang AdGuard VPN untuk iOS, Mac, Windows, atau Android, log masuk ke akaun AdGuard anda di sana, dan dapatkan %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Had bulanan anda mungkin mengambil masa untuk dikemas kini — beri ia beberapa minit atau mulakan semula app"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Platform lain ditambah"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Anda telah mendapat %your_gb% GB kerana menambah peranti baru"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Tahniah atas pemasangan AdGuard VPN di pelbagai platform. Kekal selamat!"
+        "message": "Trafik yang tidak digunakan akan dibawa ke bulan-bulan berikutnya. Dan dengan AdGuard VPN Unlimited, anda boleh menikmati pelayaran pantas tanpa had"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Pergi ke Produk"
+        "message": "Pilih produk"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Jemput seorang rakan"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Jemput rakan (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Jemput rakan dan dapatkan %your_gb% GB VPN pantas"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Anda telah menjemput %total_invites% rakan dan telah mendapat %total_gbs% GB secara keseluruhan"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Dapatkan hingga %num% GB"
@@ -205,10 +211,10 @@
         "message": "Anda telah mendapat %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Terima kasih kerana menggunakan semua jemputan anda!"
+        "message": "Terima kasih kerana membantu kami berkembang! Ketahui cara untuk mendapatkan lebih banyak bonus di bahagian GB Percuma. Atau dapatkan AdGuard VPN Unlimited untuk nikmati pelayaran pantas tanpa had"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Pulang"
+    "settings_free_gbs_upgrade": {
+        "message": "Tingkatkan ke Unlimited"
     },
     "settings_rate_us": {
         "message": "Nilaikan kami"
@@ -771,7 +777,10 @@
         "message": "Seterusnya"
     },
     "popup_upgrade_screen_title": {
-        "message": "Tanpa had VPN"
+        "message": "Tingkatkan ke Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Akses semua lokasi, layari tanpa had laju, dan sambungkan sehingga %maxDevicesAllowed% peranti serentak"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Data tanpa had"
@@ -919,6 +928,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Jangan tunjuk ini lagi"
     },
+    "popup_stats": {
+        "message": "Statistik"
+    },
     "popup_stats_disabled_notice": {
         "message": "Statistik dilumpuhkan"
     },
@@ -933,6 +945,22 @@
     },
     "popup_stats_usage_time": {
         "message": "Masa"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Perihal statistik anda"
+    },
+    "popup_stats_data_since": {
+        "message": "Sejak %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistik menunjukkan jumlah data VPN yang telah anda gunakan dan kedudukan lokasi teratas anda"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Statistik tidak pernah menyertakan sejarah penyemakan imbas anda. Ia disulitkan, jadi tiada siapa yang boleh menjejaki anda"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Jika anda menggunakan VPN AdGuard dalam beberapa penyemak imbas, statistik anda akan berbeza untuk setiap satu. Ia disimpan pada peranti dan hanya anda boleh mengaksesnya"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Faham"
@@ -1033,16 +1061,40 @@
     "notification_data_left_description": {
         "message": "Kelajuan sambungan VPN akan dikurangkan tidak lama lagi."
     },
-    "confirm_email_done_title": {
-        "message": "Alamat e-mel telah disahkan"
+    "confirm_email_done_title_gb": {
+        "message": "Anda telah mendapat %your_gb% GB sebagai bonus alu-aluan sekali sahaja"
     },
     "confirm_email_done_info": {
-        "message": "Terima kasih kerana mengesahkan!"
+        "message": "Trafik yang tidak digunakan akan dibawa ke bulan-bulan berikutnya. Dan dengan AdGuard VPN Unlimited, anda boleh menikmati pelayaran pantas tanpa had"
     },
-    "resend_confirm_registration_link_notification": {
-        "message": "Pautan pengesahan dihantar semula"
+    "auth_failed_to_login_title": {
+        "message": "Gagal log masuk anda"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Sila cuba lagi atau <a>hubungi sokongan</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Sila cuba lagi"
     },
     "auth_failed_to_login_button": {
         "message": "Tutup"
+    },
+    "auth_loading_title": {
+        "message": "Log masuk atau daftar melalui penyemak imbas anda"
+    },
+    "auth_loading_description": {
+        "message": "Jika anda mempunyai lesen VPN AdGuard, ia akan digunakan secara automatik"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Buka semula halaman log masuk"
+    },
+    "auth_loading_button_cancel": {
+        "message": "Batal"
+    },
+    "auth_success_title": {
+        "message": "Anda telah log masuk"
+    },
+    "auth_success_description": {
+        "message": "Kembali ke penyambung AdGuard VPN — semuanya telah disediakan"
     }
 }

@@ -139,13 +139,13 @@
         "message": "개인정보처리방침"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "일반"
     },
     "referral_get_free_traffic": {
         "message": "무료 GB를 받으세요!"
     },
-    "settings_referral_info": {
-        "message": "친구를 VPN 서비스에 초대해 매월 사용량을 늘려 보십시오. 친구가 가입하는 경우, %your_gb%GB를 늘릴 수 있습니다 (사용량은 무료로 최대 %total_gb%GB까지 늘릴 수 있습니다). 친구도 %friend_gb%GB를 무료로 받을 수 있습니다."
+    "settings_referral_info_friends": {
+        "message": "친구에게 초대 링크를 보내세요. 친구가 귀하의 링크를 통해 AdGuard VPN에 가입하면, 두 분 모두 %your_gb%GB의 고속 VPN을 받으실 수 있습니다. 사용하지 않은 양은 만료되지 않으며, 나중에 사용하실 수 있습니다. 최대 %max_friends%명의 친구를 초대하면 총 %total_gb%GB까지 받으실 수 있습니다."
     },
     "settings_referral_invited_friends": {
         "message": "초대한 친구 %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "무료 GB"
     },
     "settings_free_gbs_subtitle": {
-        "message": "무료 VPN 트래픽을 얻으시라면 작업을 완료하세요!"
+        "message": "추가 VPN 트래픽을 얻는 방법은 다음과 같습니다."
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "이메일 인증"
+    "settings_free_gbs_join_adguard": {
+        "message": "AdGuard VPN 가입하기"
     },
     "settings_free_gbs_get_GB": {
         "message": "%num%GB 가져오기"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "%num%GB를 얻었습니다"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "가입 시 저희가 보내드린 이메일 확인 링크를 클릭하고 %your_gb%GB의 무료 VPN 트래픽을 얻으세요. 만약 저희의 이메일을 찾으실 수 없으시면, 아래 버튼을 클릭하세요."
+    "settings_free_gbs_add_device": {
+        "message": "새로운 기기 추가하기"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "링크 재전송"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "새로운 기기를 추가하면 %your_gb%GB를 무료로 받을 수 있습니다."
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "다른 플랫폼 추가"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "다른 기기에서 %email%으로 AdGuard VPN에 로그인하면 일회성 %your_gb%GB 보너스를 받을 수 있습니다."
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "IOS, Mac, Windows 또는 Android에 AdGuard VPN을 설치하고 해당 기기에서 AdGuard 계정에 로그인하면 %your_gb%GB를 얻을 수 있습니다."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "월별 한도를 업데이트하는 데 시간이 걸릴 수 있습니다. 몇 분 정도 기다리거나 앱을 다시 시작하세요."
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "다른 플랫폼이 추가됨"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "새로운 기기를 추가하여 %your_gb%GB를 받으셨습니다."
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "여러 플랫폼에 AdGuard VPN을 설치한 것을 축하합니다. 안전하게 사용하세요."
+        "message": "사용하지 않은 트래픽은 다음 달로 이월됩니다. 그리고 AdGuard VPN Unlimited를 사용하면 제한 없이 빠른 브라우징을 즐길 수 있습니다."
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "제품들로"
+        "message": "제품 선택하기"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "친구 초대하기"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "친구 초대하기 (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "친구를 초대하고 %your_gb%GB의 빠른 VPN을 받으세요."
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "%total_invites%명의 친구를 초대했고 총 %total_gbs%GB를 받았습니다."
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "최대 %num%GB 가지기"
@@ -205,10 +211,10 @@
         "message": "%num%GB를 얻었습니다"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "모든 초대를 사용해 주셔서 감사합니다!"
+        "message": "저희의 성장을 도와주셔서 감사합니다! 무료 GB 섹션에서 더 많은 보너스를 받는 방법을 알아보세요. 또는 제한 없이 빠른 브라우징을 즐기려면 AdGuard VPN Unlimited에 가입하세요."
     },
-    "settings_free_gbs_go_back": {
-        "message": "뒤로가기"
+    "settings_free_gbs_upgrade": {
+        "message": "무제한 버전으로 업그레이드"
     },
     "settings_rate_us": {
         "message": "평가"
@@ -771,7 +777,10 @@
         "message": "다음"
     },
     "popup_upgrade_screen_title": {
-        "message": "무제한 VPN"
+        "message": "무제한 버전으로 업그레이드"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "모든 위치에 접속하고, 속도 제한 없이 탐색하며, 최대 %maxDevicesAllowed%대의 기기를 동시에 연결하세요."
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "무제한 데이터"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "시간"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "통계 정보"
+    },
+    "popup_stats_data_since": {
+        "message": "%startDate%부터",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "통계는 사용하신 VPN 데이터의 양과 인기 위치 순위를 보여줍니다."
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "통계에는 사용자의 검색 기록이 포함되지 않습니다. 암호화되어 있어 아무도 사용자를 추적할 수 없습니다."
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "여러 브라우저에서 AdGuard VPN을 사용하는 경우, 통계는 각 브라우저마다 다르게 표시됩니다. 통계는 기기에 저장되며 본인만 액세스할 수 있습니다."
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "확인"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "곧 VPN 연결 속도가 느려집니다."
     },
-    "confirm_email_done_title": {
-        "message": "이메일 주소가 확인됨"
+    "confirm_email_done_title_gb": {
+        "message": "일회성 환영 보너스로 %your_gb%GB를 받았습니다."
     },
     "confirm_email_done_info": {
-        "message": "검증해 주셔서 감사합니다!!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "확인 링크가 전송되었습니다"
+        "message": "사용하지 않은 트래픽은 다음 달로 이월됩니다. 그리고 AdGuard VPN Unlimited를 사용하면 제한 없이 빠른 브라우징을 즐길 수 있습니다."
     },
     "auth_failed_to_login_title": {
         "message": "로그인에 실패했습니다."
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "닫기"
     },
+    "auth_loading_title": {
+        "message": "브라우저를 통해 로그인 또는 가입"
+    },
+    "auth_loading_description": {
+        "message": "AdGuard VPN 라이선스가 있는 경우, 자동으로 적용됩니다."
+    },
     "auth_loading_button_reopen": {
         "message": "로그인 페이지 다시 열기"
     },
     "auth_loading_button_cancel": {
         "message": "취소"
+    },
+    "auth_success_title": {
+        "message": "로그인 완료"
+    },
+    "auth_success_description": {
+        "message": "AdGuard VPN 확장 프로그램으로 돌아가세요. 설정이 끝났습니다."
     }
 }

@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 <!-- FIXME: Specify date -->
-## [2.7.2]
+## [2.7.3]
 
 ### Added
 
@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Unable to login from "Thank You" page in Firefox.
 - 2FA one-time code not received via email [#222].
 
-[2.7.2]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.11...v2.7.2
+[2.7.3]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.6.11...v2.7.3
 [#162]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/162
 [#222]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/222
 [#223]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/223

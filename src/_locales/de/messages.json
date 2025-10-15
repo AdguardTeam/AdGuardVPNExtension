@@ -139,13 +139,13 @@
         "message": "Datenschutzerklärung"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Allgemein"
     },
     "referral_get_free_traffic": {
         "message": "Erhalten Sie kostenlosen VPN-Traffic!"
     },
-    "settings_referral_info": {
-        "message": "Erhalten Sie für jeden Freund, der sich über Ihre Einladung anmeldet, %your_gb% GB kostenlosen VPN-Datenverkehr pro Monat, insgesamt bis zu %total_gb% GB. Ihr Freund erhält zusätzlich %friend_gb% GB kostenlos."
+    "settings_referral_info_friends": {
+        "message": "Senden Sie einen Einladungslink an jemanden. Wenn diese Person sich über den Link bei AdGuard VPN anmeldet, erhalten Sie beide %your_gb% GB schnelles VPN. Nicht genutztes Guthaben verfällt nicht — Sie können es über mehrere Monate hinweg nutzen. Laden Sie bis zu %max_friends% Personen ein und erhalten Sie insgesamt bis zu %total_gb% GB"
     },
     "settings_referral_invited_friends": {
         "message": "Eingeladene Freunde %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "Kostenlose GB"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Erledigen Sie die Aufgaben, um kostenlosen VPN-Traffic zu erhalten!"
+        "message": "So erhalten Sie zusätzlichen VPN-Datenverkehr"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "E-Mail-Adresse bestätigen"
+    "settings_free_gbs_join_adguard": {
+        "message": "AdGuard VPN beitreten"
     },
     "settings_free_gbs_get_GB": {
         "message": "Erhalten Sie %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Sie haben %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Klicken Sie auf den E-Mail-Bestätigungslink, den wir Ihnen bei der Anmeldung gesendet haben, und Sie erhalten %your_gb% GB kostenlosen VPN-Traffic. Wenn Sie unsere E-Mail nicht finden können, klicken Sie auf die nachfolgende Schaltfläche."
+    "settings_free_gbs_add_device": {
+        "message": "Neues Gerät hinzufügen"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Link erneut senden"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Neues Gerät hinzufügen und %your_gb% GB gratis erhalten"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Eine weitere Plattform hinzufügen"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Melden Sie sich mit %email% auf einem anderen Gerät bei AdGuard VPN an, um einen einmaligen Bonus von %your_gb% GB zu erhalten"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Installieren Sie AdGuard VPN für iOS, Mac, Windows oder Android, melden Sie sich dort bei Ihrem AdGuard-Konto an und Sie erhalten %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Ihr Monatslimit wird eventuell erst nach ein paar Minuten aktualisiert — warten Sie kurz oder starten Sie die App neu"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Weitere Plattform hinzugefügt"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Sie erhalten %your_gb% GB für das Hinzufügen eines neuen Geräts"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Toll, dass Sie AdGuard VPN auf mehreren Plattformen installiert haben. Bleiben Sie sicher!"
+        "message": "Unverbrauchtes Datenvolumen wird in den nächsten Monat übertragen. Mit AdGuard VPN Unlimited surfen Sie schnell und ohne Einschränkungen"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Zu den Produkten"
+        "message": "Produkt wählen"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Einen Freund einladen"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Einen Freund einladen (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Laden Sie einen Freund ein und Sie erhalten %your_gb% GB schnelles VPN"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Sie haben %total_invites% Freunde eingeladen und insgesamt %total_gbs% GB erhalten"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Erhalten Sie bis zu %num% GB"
@@ -205,10 +211,10 @@
         "message": "Sie haben %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Vielen Dank, dass Sie so viele Einladungen genutzt haben!"
+        "message": "Danke für Ihre Unterstützung! Im Abschnitt „Kostenlose GBs“ erfahren Sie, wie Sie weitere Prämien erhalten. Oder sichern Sie sich AdGuard VPN Unlimited für schnelles Surfen ohne Limits"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Zurück"
+    "settings_free_gbs_upgrade": {
+        "message": "Auf Unlimited umsteigen"
     },
     "settings_rate_us": {
         "message": "Wie finden Sie AdGuard VPN?"
@@ -771,7 +777,10 @@
         "message": "Weiter"
     },
     "popup_upgrade_screen_title": {
-        "message": "Unbegrenztes VPN"
+        "message": "Auf Unlimited umsteigen"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Zugriff auf alle Standorte, surfen ohne Limits und Verbindung mit bis zu %maxDevicesAllowed% Geräten gleichzeitig"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Unbegrenzter Traffic"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Zeit"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Über Ihre Statistiken"
+    },
+    "popup_stats_data_since": {
+        "message": "Seit %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Statistiken zeigen, wie viel VPN-Datenvolumen Sie genutzt haben, und ordnen Ihre Top-Standorte ein"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Die Statistiken enthalten niemals Ihren Browserverlauf. Dieser ist verschlüsselt, sodass niemand Sie nachverfolgen kann"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Wenn Sie AdGuard VPN in mehreren Browsern verwenden, unterscheiden sich Ihre Statistiken für jeden einzelnen Browser. Sie werden lokal auf Ihrem Gerät gespeichert und nur Sie haben Zugriff darauf"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Verstanden"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "Die Geschwindigkeit der VPN-Verbindung wird in Kürze herabgesetzt."
     },
-    "confirm_email_done_title": {
-        "message": "E-Mail-Adresse bestätigt"
+    "confirm_email_done_title_gb": {
+        "message": "Sie erhalten %your_gb% GB als einmaligen Willkommensbonus"
     },
     "confirm_email_done_info": {
-        "message": "Danke für die Bestätigung!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Link erneut gesendet"
+        "message": "Unverbrauchtes Datenvolumen wird in den nächsten Monat übertragen. Mit AdGuard VPN Unlimited surfen Sie schnell und ohne Einschränkungen"
     },
     "auth_failed_to_login_title": {
         "message": "Anmelden fehlgeschlagen"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "Schließen"
     },
+    "auth_loading_title": {
+        "message": "Melden Sie sich über Ihren Browser an oder registrieren Sie sich"
+    },
+    "auth_loading_description": {
+        "message": "Wenn Sie über eine AdGuard VPN-Lizenz verfügen, wird diese automatisch übernommen"
+    },
     "auth_loading_button_reopen": {
         "message": "Anmeldeseite erneut öffnen"
     },
     "auth_loading_button_cancel": {
         "message": "Abbrechen"
+    },
+    "auth_success_title": {
+        "message": "Sie sind angemeldet"
+    },
+    "auth_success_description": {
+        "message": "Zurück zur AdGuard VPN-Erweiterung — alles ist eingerichtet"
     }
 }

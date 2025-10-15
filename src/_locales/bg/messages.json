@@ -139,13 +139,13 @@
         "message": "Правила за поверителност"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Общи"
     },
     "referral_get_free_traffic": {
         "message": "Получете безплатни GB!"
     },
-    "settings_referral_info": {
-        "message": "Получете %your_gb% GB безплатен VPN трафик за един месец за всеки приятел, който се регистрира чрез вашата покана, до %total_gb% GB общо. Вашият приятел също така получава допълнителни %friend_gb% GB безплатно."
+    "settings_referral_info_friends": {
+        "message": "Изпратете покана с линк на ваш приятел. Когато той се регистрира в AdGuard VPN чрез вашия линк, и двамата получавате %your_gb% GB бърз VPN. Неизползваното количество не изтича — можете да го използвате през месеците. Поканете до %max_friends% приятели и получете общо до %total_gb% GB."
     },
     "settings_referral_invited_friends": {
         "message": "Поканени приятели %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "Безплатни GB"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Завършете задачите, за да получите безплатен трафик на VPN!"
+        "message": "Ето как можете да получите допълнителен VPN трафик"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Потвърдете имейла си"
+    "settings_free_gbs_join_adguard": {
+        "message": "Присъединете се към AdGuard VPN"
     },
     "settings_free_gbs_get_GB": {
         "message": "Get %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "You got %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Click the email confirmation link that we sent you at sign up and get %your_gb% GB of free VPN traffic. If you can’t find our email, click the button below."
+    "settings_free_gbs_add_device": {
+        "message": "Добавяне на ново устройство"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Повторно изпращане на връзката"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Добавете ново устройство и вземете %your_gb% GB безплатно"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Добавяне на друга платформа"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Влезте в AdGuard VPN на друго устройство с %email%, за да получите еднократен бонус от %your_gb% GB"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Инсталирайте AdGuard VPN за iOS, Windows или Android, впишете се в своя акаунт на AdGuard там и получете %your_gb% GB."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Актуализирането на месечния ви лимит може да отнеме време — изчакайте няколко минути или рестартирайте приложението"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Добавена е друга платформа"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Получихте %your_gb% GB за добавяне на ново устройство"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Поздравления за инсталирането на AdGuard VPN на множество платформи. Пазете се!"
+        "message": "Неизползваният трафик се прехвърля за следващите месеци. А с AdGuard VPN Unlimited можете да се наслаждавате на бързо сърфиране без ограничения"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Към продуктите"
+        "message": "Изберете продукт"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Насърчете приятел"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Покани приятел (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Покани приятел и получи %your_gb% GB бърз VPN"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Поканили сте %total_invites% приятели и сте получили общо %total_gbs% GB"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Get up to %num% GB"
@@ -205,10 +211,10 @@
         "message": "You got %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Thanks for using all your invites!"
+        "message": "Благодарим ви, че ни помагате да растем! Научете как да получите още бонуси в секцията Безплатни GB. Или вземете AdGuard VPN Unlimited, за да се насладите на бързо сърфиране без ограничения"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Назад"
+    "settings_free_gbs_upgrade": {
+        "message": "Надстройте до Unlimited."
     },
     "settings_rate_us": {
         "message": "Оценете ни"
@@ -771,7 +777,10 @@
         "message": "Следващ"
     },
     "popup_upgrade_screen_title": {
-        "message": "Неограничен VPN"
+        "message": "Надграждане до Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Достъп до всички локации, сърфиране без ограничение на скоростта и свързване до %maxDevicesAllowed% устройства едновременно"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Неограничени данни"
@@ -919,6 +928,9 @@
     "popup_mobile_edge_promo_modal_do_not_show_btn": {
         "message": "Не го показвай отново"
     },
+    "popup_stats": {
+        "message": "Статистики"
+    },
     "popup_stats_disabled_notice": {
         "message": "Статистиките са деактивирани"
     },
@@ -933,6 +945,22 @@
     },
     "popup_stats_usage_time": {
         "message": "Време"
+    },
+    "popup_stats_menu_why_safe_title": {
+        "message": "Относно вашата статистика"
+    },
+    "popup_stats_data_since": {
+        "message": "От %startDate%",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "Статистиката показва колко VPN данни сте използвали и класира вашите топ локации"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "Статистиките никога не включват твоята история на сърфиране. Тя е криптирана, така че никой не може да те проследи"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Ако използвате AdGuard VPN в няколко браузъра, статистиката ви ще бъде различна за всеки от тях. Те се записват на устройството и само вие имате достъп до тях"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Стана"
@@ -1033,19 +1061,40 @@
     "notification_data_left_description": {
         "message": "Скоростта на VPN връзката скоро ще бъде намалена."
     },
-    "confirm_email_done_title": {
-        "message": "Email address confirmed"
+    "confirm_email_done_title_gb": {
+        "message": "Получихте %your_gb% GB като еднократен бонус за добре дошли"
     },
     "confirm_email_done_info": {
-        "message": "Thanks for verifying it!"
+        "message": "Неизползваният трафик се прехвърля за следващите месеци. А с AdGuard VPN Unlimited можете да се наслаждавате на бързо сърфиране без ограничения"
     },
-    "resend_confirm_registration_link_notification": {
-        "message": "Връзката за потвърждение е изпратена повторно"
+    "auth_failed_to_login_title": {
+        "message": "Не успях да влезете в профила си"
+    },
+    "auth_failed_to_login_description": {
+        "message": "Моля, опитайте отново или <a>се свържете с поддръжката</a>"
+    },
+    "auth_failed_to_login_description_without_support": {
+        "message": "Моля, опитайте отново"
     },
     "auth_failed_to_login_button": {
         "message": "Затвори"
     },
+    "auth_loading_title": {
+        "message": "Влезте или се регистрирайте през браузъра си"
+    },
+    "auth_loading_description": {
+        "message": "Ако имате лиценз за AdGuard VPN, той ще се приложи автоматично"
+    },
+    "auth_loading_button_reopen": {
+        "message": "Отворете отново страницата за вход"
+    },
     "auth_loading_button_cancel": {
         "message": "Отказ"
+    },
+    "auth_success_title": {
+        "message": "Влезли сте в профила си"
+    },
+    "auth_success_description": {
+        "message": "Върнете се към разширението AdGuard VPN — всичко е настроено"
     }
 }

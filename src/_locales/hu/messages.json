@@ -139,13 +139,13 @@
         "message": "Adatvédelmi irányelvek"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Általános"
     },
     "referral_get_free_traffic": {
         "message": "Szerezz ingyenes GB-okat!"
     },
-    "settings_referral_info": {
-        "message": "Hívja meg barátait, hogy csatlakozzanak az AdGuard VPN-hez, és ezzel további ingyenes VPN adatforgalmat kap egy hónapig. Minden egyes regisztráló barátja után %your_gb% GB-ot kap: és ők is kapnak %friend_gb% GB extra adatforgalmat ingyen! Ön (a meghívó felhasználó) maximum %total_gb% extra GB-ot kaphat ingyen."
+    "settings_referral_info_friends": {
+        "message": "Küldj meghívó linket a barátodnak. Ha ő a te linked segítségével regisztrál az AdGuard VPN-re, mindketten kaptok %your_gb% GB gyors VPN-t. A fel nem használt mennyiség nem jár le — hónapokon át felhasználhatod. Hívj meg akár %max_friends% barátot, és szerezhetsz akár %total_gb% GB-t összesen."
     },
     "settings_referral_invited_friends": {
         "message": "Meghívott ismerősök %count%/%limit%"
@@ -163,10 +163,10 @@
         "message": "Ingyenes GB-ok"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Végezze el a feladatokat, hogy ingyenes VPN-forgalmat kapjon!"
+        "message": "Így szerezhetsz extra VPN adatforgalmat"
     },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "Erősítse meg e-mail címét"
+    "settings_free_gbs_join_adguard": {
+        "message": "Csatlakozz az AdGuard VPN-hez"
     },
     "settings_free_gbs_get_GB": {
         "message": "Szerezd meg a %num% GB"
@@ -174,29 +174,35 @@
     "settings_free_gbs_task_complete": {
         "message": "Megkaptad %num% GB"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Kattintson az e-mail megerősítő linkre, amelyet a regisztrációkor küldtünk Önnek, és kapja meg a %your_gb% GB ingyenes VPN-forgalmat. Ha nem találja az e-mailünket, kattintson az alábbi gombra."
+    "settings_free_gbs_add_device": {
+        "message": "Új eszköz hozzáadása"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Link újraküldése"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Adj hozzá egy új eszközt, és kapj %your_gb% GB-t ingyen"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Adjon hozzá egy másik platformot"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Jelentkezz be az AdGuard VPN-be egy másik eszközön a(z) %email% címmel, és kapj egyszeri %your_gb% GB bónuszt"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "Telepítse az AdGuard VPN-t iOS-ra, Windows-ra vagy Android-ra, jelentkezzen be rajta az AdGuard-fiókjába, és kapja meg a %your_gb% GB-ot."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "A havi limit frissítése eltarthat egy kis ideig — adj neki pár percet, vagy indítsd újra az appot"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Másik platform hozzáadva"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "%your_gb% GB-t kaptál egy új eszköz hozzáadásáért"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Gratulálunk az AdGuard VPN több platformra történő telepítéséhez. Maradj biztonságban!"
+        "message": "A fel nem használt adatforgalom átvihető a következő hónapokra. Az AdGuard VPN Unlimited segítségével pedig élvezheted a gyors böngészést korlátok nélkül"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Ugrás a termékekhez"
+        "message": "Válassz terméket"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Ismerős meghívása"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Barát meghívása (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Hívj meg egy barátot, és kapj %your_gb% GB gyors VPN-t"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "%total_invites% barátot hívtál meg, és így összesen %total_gbs% GB-ot szereztél"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Akár %num% GB"
@@ -205,10 +211,10 @@
         "message": "Megkaptad %num% GB"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Köszönöm, hogy felhasználtad az összes meghívót!"
+        "message": "Köszönjük, hogy segítesz nekünk fejlődni! Tudj meg többet arról, hogyan szerezhetsz további bónuszokat az Ingyenes GB-k részben. Vagy szerezd meg az AdGuard VPN Unlimitedet, hogy korlátozás nélkül élvezhesd a gyors böngészést"
     },
-    "settings_free_gbs_go_back": {
-        "message": "Visszalépés"
+    "settings_free_gbs_upgrade": {
+        "message": "Frissítsen Unlimitedre"
     },
     "settings_rate_us": {
         "message": "Értékeljen minket"
@@ -771,7 +777,10 @@
         "message": "Következő"
     },
     "popup_upgrade_screen_title": {
-        "message": "Korlátlan VPN"
+        "message": "Frissítsen Unlimitedre"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Férj hozzá minden helyszínhez, böngéssz sebességkorlátozás nélkül, és csatlakoztass egyszerre akár %maxDevicesAllowed% eszközt"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Korlátlan adatkeret"
@@ -937,6 +946,22 @@
     "popup_stats_usage_time": {
         "message": "Idő"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "A statisztikáidról"
+    },
+    "popup_stats_data_since": {
+        "message": "%startDate% óta",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": ""
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "A statisztikák soha nem tartalmazzák a böngészési előzményeket. Titkosítva van, így senki sem tudja nyomon követni"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "Ha több böngészőben használja az AdGuard VPN-t, a statisztikák mindegyiknél eltérőek lesznek. A készülék menti őket, és csak Ön férhet hozzá"
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Rendben"
     },
@@ -1036,14 +1061,11 @@
     "notification_data_left_description": {
         "message": "A VPN-kapcsolat sebessége hamarosan korlátozva lesz."
     },
-    "confirm_email_done_title": {
-        "message": "E-mail cím megerősítve"
+    "confirm_email_done_title_gb": {
+        "message": "Egyszeri üdvözlő bónuszként %your_gb% GB-ot kaptál"
     },
     "confirm_email_done_info": {
-        "message": "Köszönjük a regisztrációt!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Megerősítő link újra elküldve"
+        "message": "A fel nem használt adatforgalom átvihető a következő hónapokra. Az AdGuard VPN Unlimited segítségével pedig élvezheted a gyors böngészést korlátok nélkül"
     },
     "auth_failed_to_login_title": {
         "message": "Nem sikerült bejelentkezni"
@@ -1057,10 +1079,22 @@
     "auth_failed_to_login_button": {
         "message": "Bezárás"
     },
+    "auth_loading_title": {
+        "message": "Jelentkezzen be vagy regisztráljon a böngészőjén keresztül"
+    },
+    "auth_loading_description": {
+        "message": "Ha AdGuard VPN-licenccel rendelkezik, az automatikusan érvényesül"
+    },
     "auth_loading_button_reopen": {
         "message": "Bejelentkezési oldal újranyitása"
     },
     "auth_loading_button_cancel": {
         "message": "Mégsem"
+    },
+    "auth_success_title": {
+        "message": "Bejelentkezett"
+    },
+    "auth_success_description": {
+        "message": "Térj vissza az AdGuard VPN bővítményhez — minden készen áll"
     }
 }

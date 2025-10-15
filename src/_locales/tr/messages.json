@@ -139,13 +139,13 @@
         "message": "Gizlilik Politikası"
     },
     "settings_general_title": {
-        "message": "General"
+        "message": "Genel"
     },
     "referral_get_free_traffic": {
         "message": "Ücretsiz GB'lar edinin!"
     },
-    "settings_referral_info": {
-        "message": "Davetiniz aracılığıyla kaydolan her arkadaşınız için toplamda %total_gb% GB'a kadar ayda %your_gb% GB ücretsiz VPN verisi edinin. Arkadaşınız ayrıca ücretsiz olarak fazladan %friend_gb% GB edinir."
+    "settings_referral_info_friends": {
+        "message": "Arkadaşınıza bir davet bağlantısı gönderin. Bağlantınız aracılığıyla AdGuard VPN'e kaydolduklarında, ikiniz de %your_gb% GB hızlı VPN edinirsiniz. Kullanılmayan miktar sona ermez — aylar boyunca kullanabilirsiniz. %max_friends% arkadaşınıza kadar davet edin ve toplamda %total_gb% GB'a kadar edinin"
     },
     "settings_referral_invited_friends": {
         "message": "Davet edilen arkadaşlar %count%/%limit%"
@@ -162,11 +162,8 @@
     "settings_free_gbs": {
         "message": "Ücretsiz GB'lar"
     },
-    "settings_free_gbs_subtitle": {
-        "message": "Ücretsiz VPN verisi edinmek için görevleri tamamlayın!"
-    },
-    "settings_free_gbs_confirm_email_title": {
-        "message": "E-postanı doğrula"
+    "settings_free_gbs_join_adguard": {
+        "message": "AdGuard VPN'e katıl"
     },
     "settings_free_gbs_get_GB": {
         "message": "%num% GB edinin"
@@ -174,29 +171,32 @@
     "settings_free_gbs_task_complete": {
         "message": "%num% GB'ınız var"
     },
-    "settings_free_gbs_confirm_email_info": {
-        "message": "Kaydolurken size gönderdiğimiz e-posta doğrulama bağlantısına tıklayın ve %your_gb% GB ücretsiz VPN verisi edinin. E-postamızı bulamıyorsanız, aşağıdaki düğmeye tıklayın."
+    "settings_free_gbs_add_device": {
+        "message": "Yeni bir cihaz ekle"
     },
-    "settings_free_gbs_confirm_email_resend_link_button": {
-        "message": "Bağlantıyı yeniden gönder"
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Yeni bir cihaz ekleyin ve %your_gb% GB'ı ücretsiz edin"
     },
-    "settings_free_gbs_add_device_title": {
-        "message": "Başka bir platform ekle"
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Tek seferlik %your_gb% GB bonus edinmek için %email% ile başka bir cihazda AdGuard VPN'e giriş yapın"
     },
-    "settings_free_gbs_add_device_info": {
-        "message": "iOS, Mac, Windows veya Android için AdGuard VPN'i yükleyin, orada AdGuard hesabınıza giriş yapın ve %your_gb% GB edinin."
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Aylık limitinizin güncellenmesi zaman alabilir — birkaç dakika bekleyin veya uygulamayı yeniden başlatın"
     },
-    "settings_free_gbs_devices_added_title": {
-        "message": "Başka bir platform eklendi"
-    },
-    "settings_free_gbs_devices_added_info": {
-        "message": "AdGuard VPN'i birden çok platforma yüklediğiniz için tebrikler. Güvende kalın!"
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Yeni bir cihaz eklediğin için %your_gb% GB edindin"
     },
     "settings_free_gbs_add_device_products_button": {
-        "message": "Ürünlere git"
+        "message": "Ürün seç"
     },
-    "settings_free_gbs_invite_friend": {
-        "message": "Arkadaşını davet et"
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Arkadaşını davet et (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Arkadaşını davet et ve %your_gb% GB hızlı VPN edin"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "%total_invites% arkadaşını davet ettin ve toplamda %total_gbs% GB edindin"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "%num% GB'a kadar edinin"
@@ -204,11 +204,8 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "%num% GB'ınız var"
     },
-    "settings_free_gbs_invite_friend_completed_thank_you": {
-        "message": "Tüm davetlerinizi kullandığınız için teşekkür ederiz!"
-    },
-    "settings_free_gbs_go_back": {
-        "message": "Geri dön"
+    "settings_free_gbs_upgrade": {
+        "message": "Unlimited'a yükseltin"
     },
     "settings_rate_us": {
         "message": "Bizi derecelendirin"
@@ -771,7 +768,7 @@
         "message": "Sonraki"
     },
     "popup_upgrade_screen_title": {
-        "message": "Sınırsız VPN"
+        "message": "Unlimited'a yükseltin"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Sınırsız veri"
@@ -937,6 +934,13 @@
     "popup_stats_usage_time": {
         "message": "Süre"
     },
+    "popup_stats_menu_why_safe_title": {
+        "message": "İstatistikleriniz hakkında"
+    },
+    "popup_stats_data_since": {
+        "message": "%startDate% tarihinden itibaren",
+        "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Anladım"
     },
@@ -1036,14 +1040,8 @@
     "notification_data_left_description": {
         "message": "VPN bağlantı hızı yakında azaltılacaktır."
     },
-    "confirm_email_done_title": {
-        "message": "E-posta adresi doğrulandı"
-    },
-    "confirm_email_done_info": {
-        "message": "Doğruladığınız için teşekkürler!"
-    },
-    "resend_confirm_registration_link_notification": {
-        "message": "Doğrulama bağlantısı yeniden gönderildi"
+    "confirm_email_done_title_gb": {
+        "message": "Tek seferlik hoş geldin bonusu olarak %your_gb% GB edindin"
     },
     "auth_failed_to_login_title": {
         "message": "Girişin başarısız oldu"
@@ -1057,10 +1055,19 @@
     "auth_failed_to_login_button": {
         "message": "Kapat"
     },
+    "auth_loading_description": {
+        "message": "AdGuard VPN lisansınız varsa, otomatik olarak uygulanır"
+    },
     "auth_loading_button_reopen": {
         "message": "Giriş sayfasını yeniden aç"
     },
     "auth_loading_button_cancel": {
         "message": "İptal"
+    },
+    "auth_success_title": {
+        "message": "Giriş yaptınız"
+    },
+    "auth_success_description": {
+        "message": "AdGuard VPN uzantısına geri dönün — her şey hazır"
     }
 }

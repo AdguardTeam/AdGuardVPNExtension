@@ -46,6 +46,10 @@ const tabsMock = {
     openTab: vi.fn(),
 };
 
+const endpointsServiceMock = {
+    getLocationsFromServer: vi.fn(),
+};
+
 const translatorGetMessageSpy = vi.spyOn(translator, 'getMessage').mockReturnValue(MOCK_TRANSLATION_STRING);
 
 describe('AuthSideEffects', () => {
@@ -62,6 +66,8 @@ describe('AuthSideEffects', () => {
             forwarder: forwarderMock,
             // @ts-expect-error - partially implemented
             tabs: tabsMock,
+            // @ts-expect-error - partially implemented
+            endpoints: endpointsServiceMock,
         });
     });
 
