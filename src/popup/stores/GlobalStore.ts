@@ -232,7 +232,7 @@ export class GlobalStore {
 
         authStore.setIsFirstRun(isFirstRun);
         authStore.setFlagsStorageData(flagsStorageData);
-        await authStore.setMarketingConsent(marketingConsent);
+        await authStore.setMarketingConsent(marketingConsent || false);
         vpnStore.setIsPremiumToken(isPremiumToken);
         this.setStartupDataRetrieved(true);
     }

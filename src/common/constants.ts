@@ -23,6 +23,7 @@ import {
 } from '../background/telemetry/telemetryEnums';
 import { type StatisticsByRange, type StatisticsRange } from '../background/statistics/statisticsTypes';
 import type { WebAuthAction } from '../background/auth/webAuthEnums';
+import { type FlagsStorageData } from '../background/flagsStorageData';
 
 import { type ExclusionsMode } from './exclusionsConstants';
 import type { NotifierType } from './notifier';
@@ -180,6 +181,13 @@ export const ONE_SECOND_MS = 1000;
 export const ONE_MINUTE_MS = ONE_SECOND_MS * 60;
 export const ONE_HOUR_MS = ONE_MINUTE_MS * 60;
 export const ONE_DAY_MS = ONE_HOUR_MS * 24;
+
+export interface GetStartupDataResponse {
+    isFirstRun: boolean;
+    flagsStorageData: FlagsStorageData;
+    marketingConsent: boolean | null;
+    isPremiumToken: boolean;
+}
 
 type DefaultMessage <T> = {
     type: T;
@@ -800,6 +808,10 @@ export interface MessageMap {
     [MessageType.UPDATE_LISTENERS]: {
         message: DefaultMessage<MessageType.UPDATE_LISTENERS>;
         response: void;
+    }
+    [MessageType.GET_STARTUP_DATA]: {
+        message: DefaultMessage<MessageType.GET_STARTUP_DATA>;
+        response: GetStartupDataResponse;
     }
 }
 

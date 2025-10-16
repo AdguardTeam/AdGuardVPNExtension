@@ -801,7 +801,7 @@ class Messenger {
      *
      * @returns Promise with all required data for onboarding and upgrade screen.
      */
-    async getStartupData(): Promise<any> {
+    async getStartupData(): Promise<ExtractMessageResponse<MessageType.GET_STARTUP_DATA>> {
         const type = MessageType.GET_STARTUP_DATA;
         return this.sendMessage(type);
     }

@@ -11,17 +11,18 @@ import type { StorageInterface } from '../browserApi/storage';
 import type { ExtensionProxyInterface } from '../proxy/proxy';
 import {
     type AccessCredentials,
-    type VpnTokenData,
-    type CredentialsState,
     type CredentialsDataInterface,
+    type CredentialsState,
     StorageKey,
+    type VpnTokenData,
 } from '../schema';
 import { StateData } from '../stateStorage';
 import { auth, type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
 import { abTestManager } from '../abTestManager';
 import { ERROR_STATUSES } from '../constants';
-import { type SubscriptionType } from '../../common/constants';
+import { SETTINGS_IDS, type SubscriptionType } from '../../common/constants';
+import { settings } from '../settings';
 
 import { credentialsService } from './credentialsService';
 
@@ -313,7 +314,9 @@ export class Credentials implements CredentialsInterface {
 
         const { version } = appStatus;
 
-        const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token, version);
+        const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
+
+        const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token, version, helpUsImprove);
 
         if (!this.areCredentialsValid(vpnCredentials)) {
             return null;
