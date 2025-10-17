@@ -243,18 +243,6 @@ const Halloween25Notification = {
             title: 'Купи со попуст и освои златен билет',
             btn: 'Обиди ја среќата',
         },
-        hi: {
-            title: 'छूट पर खरीदें और गोल्डन टिकट जीतें',
-            btn: 'किस्मत आज़माना',
-        },
-        et: {
-            title: 'Osta soodustusega ja võida kuldne pilet',
-            btn: 'Proovida õnne',
-        },
-        th: {
-            title: 'ซื้อพร้อมส่วนลดและลุ้นรับตั๋วทอง',
-            btn: 'ลองเสี่ยงโชค',
-        },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
