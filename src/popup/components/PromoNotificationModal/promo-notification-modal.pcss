@@ -55,8 +55,8 @@
         position: absolute;
         top: 50%;
         transform: translateY(-55%);
-        width: 100%;
-        max-width: 220px;
+        width: fit-content;
+        max-width: 210px;
         padding: 0 0 16px 0;
         margin-top: 15px;
         right: 20px;
@@ -70,25 +70,34 @@
         font-weight: 700;
         line-height: 120%;
         font-size: 20px;
-        color: #3D3D3D;
+        color: var(--gray-0);
         letter-spacing: 0px;
         word-break: keep-all;
+        width: 200px;
     }
 
     &__btn {
-        display: inline-block;
+        color: var(--gray-0);
         cursor: pointer;
-        color: #3D3D3D;
         font-weight: 400;
-        font-size: 16px;
-        line-height: 150%;
-        background-color: #FFFFFF;
-        padding: 12px 24px;
-        min-width: 168px;
-        border: 1px solid #3D3D3D;
+        font-size: 18px;
+        line-height: 130%;
+        background-color: #407f3c;
+        padding: 16px 24px;
+        min-width: 200px;
         border-radius: 8px;
         margin-top: 24px;
-        letter-spacing: 0px;
-        text-align: center;
+        white-space: nowrap;
+        transition: var(--t3);
+    }
+
+    @media (hover: hover) {
+        &__btn:hover {
+            background-color: #599a69;
+        }
+    }
+
+    &__btn:active {
+        background-color: #467c55;
     }
 }

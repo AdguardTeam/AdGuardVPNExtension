@@ -5,9 +5,9 @@ import browser from 'webextension-polyfill';
 
 import { getForwarderUrl } from '../common/helpers';
 import { type IconVariants, Prefs } from '../common/prefs';
-import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
+import { normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
-import promoBannerImageUrl from '../assets/images/bts25.svg';
+import promoBannerImageUrl from '../assets/images/halloween25.svg';
 
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
@@ -70,209 +70,203 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'back_to_school_25_vpn';
-const TDS_PROMO_ACTION_RU = 'back_to_school_25_vpn_ru';
+const TDS_PROMO_ACTION = 'halloween_25_vpn';
 
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
-const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
-const urlQuery = isRuLocale
-    ? RU_PROMO_URL_QUERY
-    : COMMON_PROMO_URL_QUERY;
+const HALLOWEEN_25_ID = 'halloween25';
 
-const BACK_TO_SCHOOL_25_ID = 'backToSchool25';
-
-const backToSchool25Notification = {
-    id: BACK_TO_SCHOOL_25_ID,
+const Halloween25Notification = {
+    id: HALLOWEEN_25_ID,
     locales: {
         en: {
-            title: 'Back to School promo',
-            btn: 'Get 80% off',
+            title: 'Buy with discount, win Golden Ticket',
+            btn: 'Grab the deal',
         },
         fr: {
-            title: 'La Rentrée avec AdGuard',
-            btn: 'Obtenez –80%',
+            title: 'Achetez avec une remise, gagnez un billet doré',
+            btn: 'Profitez de l\'offre',
         },
         it: {
-            title: 'A Scuola con AdGuard',
-            btn: 'Ottieni –80%',
+            title: 'Acquista con lo sconto, ricevi il biglietto d\'oro',
+            btn: 'Tenta la fortuna',
         },
         de: {
-            title: 'Back to School Promo',
-            btn: '80% Rabatt',
+            title: 'Mit Rabatt kaufen — Goldticket gewinnen',
+            btn: 'Angebot holen',
         },
-        ru: {
-            title: 'Снова в школу',
-            btn: 'Скидка 75%',
-        },
+        // ru: {
+        //     title: 'Купите со скидкой — выиграйте золотой билет',
+        //     btn: 'Испытать удачу',
+        // },
         es: {
-            title: 'Promo de vuelta al cole',
-            btn: 'Obtén 80% OFF',
+            title: 'Compra con descuento, gana un boleto dorado',
+            btn: 'Aprovechar la oferta',
         },
         es_419: {
-            title: 'Vuelta al cole',
-            btn: 'Obtén 80% OFF',
+            title: 'Compra con descuento, gana un boleto dorado',
+            btn: 'Aprovechar la oferta',
         },
         pt_pt: {
-            title: 'Promo de volta às aulas',
-            btn: 'Obtenha 80% OFF',
+            title: 'Compre com desconto, ganhe um bilhete dourado',
+            btn: 'Aproveitar a oferta',
         },
         pt_br: {
-            title: 'Promo de volta às aulas',
-            btn: 'Obtenha 80% OFF',
+            title: 'Compre com desconto, ganhe um bilhete dourado',
+            btn: 'Aproveitar a oferta',
         },
         zh_cn: {
-            title: '返校 SALE',
-            btn: '低至2折',
+            title: '限时特价期间购买 即有机会抽中金奖券',
+            btn: '试试手气',
         },
         zh_tw: {
-            title: '返校 SALE',
-            btn: '低至2折',
+            title: '限時特價期間購買 即有機會抽中金獎券喔',
+            btn: '試試手氣',
         },
-        // ja: {
-        //     title: 'AdGuard 16周年セール',
-        //     btn: 'セール内容はこちら',
-        // },
+        ja: {
+            title: '特価で購入すれば、抽選でゴールデン チケットが当たる',
+            btn: '運を試す',
+        },
         ko: {
-            title: '백투스쿨 세일',
-            btn: '80% 할인',
+            title: '할인받고 골든 티켓을 잡으세요!',
+            btn: '할인 받기',
         },
         uk: {
-            title: 'Знову до школи',
-            btn: 'Знижка 80%',
+            title: 'Купуй зі знижкою — вигравай золотий квиток',
+            btn: 'Спробуй удачу',
         },
         ar: {
-            title: 'عرض العودة إلى المدرسة',
-            btn: '٪خصم 80',
+            title: 'اشترِ بخصم واربح تذكرة ذهبية',
+            btn: 'اغتنم العرض',
         },
         be: {
-            title: 'Зноў у школу',
-            btn: 'Зніжка 80%',
+            title: 'Купляй са зніжкай і выйграй залаты білет',
+            btn: 'Паспрабаваць удачу',
         },
         bg: {
-            title: 'Обратно на училище: промоция',
-            btn: 'Отстъпка 80%',
+            title: 'Купи с отстъпка и спечели златен билет',
+            btn: 'Опита късмета',
         },
         ca: {
-            title: "Tornada a l'escola",
-            btn: 'Descompte del 80%',
+            title: 'Compra amb descompte i prova sort',
+            btn: 'Aprofita l\'oferta',
         },
         cs: {
-            title: 'Zpátky do školy: Akce',
-            btn: 'Sleva 80%',
+            title: 'Kup se slevou a vyhraj zlatou vstupenku',
+            btn: 'Zkusit štěstí',
         },
         da: {
-            title: 'Tilbage til skole promo',
-            btn: '80% rabat',
+            title: 'Køb med rabat og vind en gylden billet',
+            btn: 'Prøve lykken',
         },
         el: {
-            title: 'Επιστροφή στα σχολεία',
-            btn: 'Έκπτωση 80%',
+            title: 'Κερδίστε Χρυσό Εισιτήριο με έκπτωση',
+            btn: 'Αποκτήστε έκπτωση',
         },
         fa: {
-            title: 'تبلیغات بازگشت به مدرسه',
-            btn: '٪تخفیف 80',
+            title: 'با تخفیف بخر و بلیط طلایی برنده شو',
+            btn: 'امتحان کردن شانس',
         },
         fi: {
-            title: 'Takaisin kouluun -kampanja',
-            btn: '80% alennus',
+            title: 'Osta alennuksella ja voita kultainen lippu',
+            btn: 'Kokeilla onnea',
         },
         he: {
-            title: 'מבצע חזרה לבית הספר',
-            btn: 'הנחה של 80%',
+            title: 'קנו בהנחה וזכו בכרטיס זהב',
+            btn: 'לנסות מזל',
         },
         hr: {
-            title: 'Povratak u školu: Promo',
-            btn: '80% kedvezmény',
+            title: 'Kupi s popustom i osvoji zlatnu kartu',
+            btn: 'Okušati sreću',
         },
         hu: {
-            title: 'Vissza az iskolába promóció',
-            btn: '80% kedvezmény',
+            title: 'Vásárolj kedvezménnyel és nyerj aranyjegyet',
+            btn: 'Kipróbálni szerencsét',
         },
         hy: {
-            title: 'Վերադառնալ դպրոց',
-            btn: '80% զեղչ',
+            title: 'Գնիր զեղչով և շահիր ոսկե տոմս',
+            btn: 'Փորձել բախտը',
         },
         id: {
-            title: 'Promo Kembali ke Sekolah',
-            btn: 'Diskon 80%',
+            title: 'Beli dengan diskon dan menangkan tiket emas',
+            btn: 'Coba keberuntungan',
         },
         lt: {
-            title: 'Atgal į mokyklą: akcija',
-            btn: '80% nuolaida',
+            title: 'Pirk su nuolaida ir laimėk auksinį bilietą',
+            btn: 'Išbandyti sėkmę',
         },
         ms: {
-            title: 'Promosi Kembali ke Sekolah',
-            btn: 'Diskaun 80%',
+            title: 'Beli dengan diskaun dan menangi tiket emas',
+            btn: 'Cuba nasib',
         },
         nb: {
-            title: 'Tilbake til skolen',
-            btn: '80% rabatt',
+            title: 'Kjøp med rabatt og vinn en gullbillett',
+            btn: 'Prøve lykken',
         },
         nl: {
-            title: 'Terug naar school promotie',
-            btn: '80% korting',
+            title: 'Koop met korting en win een gouden ticket',
+            btn: 'Proberen geluk',
         },
         pl: {
-            title: 'Powrót do szkoły: Promocja',
-            btn: 'Zniżka 80%',
+            title: 'Kup ze zniżką i wygraj złoty bilet',
+            btn: 'Spróbować szczęścia',
         },
         ro: {
-            title: 'Înapoi la școală: Promoția',
-            btn: 'Reducere de 80%',
+            title: 'Cumpără cu reducere și câștigă',
+            btn: 'Încerca norocul',
         },
         sk: {
-            title: 'Späť do školy: Promo akcia',
-            btn: 'Zľava 80%',
+            title: 'Kúp so zľavou a vyhraj zlatý lístok',
+            btn: 'Skúsiť šťastie',
         },
         sl: {
-            title: 'Nazaj v šolo: Promocija',
-            btn: '80% popust',
+            title: 'Kupite s popustom in osvojite zlato vstopnico',
+            btn: 'Preizkusiti srečo',
         },
         sr_latn: {
-            title: 'Povratak u školu: Promocija',
-            btn: '80% popust',
+            title: 'Kupi sa popustom i osvoji zlatnu kartu',
+            btn: 'Oprobati sreću',
         },
         sv: {
-            title: 'Tillbaka till skolan',
-            btn: '80% rabatt',
+            title: 'Köp med rabatt och vinn en gyllene biljett',
+            btn: 'Prova lyckan',
         },
         tr: {
-            title: 'Okula Dönüş kampanyası',
-            btn: '%80 indirim',
+            title: 'İndirimle satın al ve altın bilet kazan',
+            btn: 'Şansı denemek',
         },
         vi: {
-            title: 'Back to School: Khuyến mãi',
-            btn: 'Giảm giá 80%',
+            title: 'Mua với giá giảm và trúng vé vàng',
+            btn: 'Thử vận may',
         },
         mk: {
-            title: 'Назад на училиште: Промоција',
-            btn: 'Попуст од 80%',
+            title: 'Купи со попуст и освои златен билет',
+            btn: 'Обиди ја среќата',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    urlQuery,
-    from: '25 August 2025 12:00:00',
-    to: '1 September 2025 23:59:00',
+    urlQuery: COMMON_PROMO_URL_QUERY,
+    from: '25 October 2025 12:00:00',
+    to: '31 October 2025 23:59:00',
     type: 'animated',
     bgImage: promoBannerImageUrl,
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/bts25-on-19.png'),
-            38: getUrl('assets/images/icons/bts25-on-38.png'),
+            19: getUrl('assets/images/icons/halloween25-on-19.png'),
+            38: getUrl('assets/images/icons/halloween25-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/bts25-off-19.png'),
-            38: getUrl('assets/images/icons/bts25-off-38.png'),
+            19: getUrl('assets/images/icons/halloween25-off-19.png'),
+            38: getUrl('assets/images/icons/halloween25-off-38.png'),
         },
     },
 };
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [BACK_TO_SCHOOL_25_ID]: backToSchool25Notification,
+    [HALLOWEEN_25_ID]: Halloween25Notification,
 };
 
 /**
