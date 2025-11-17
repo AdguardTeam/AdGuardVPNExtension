@@ -1,0 +1,65 @@
+.streaming-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 288px;
+    background-color: var(--fills-backgrounds-page-background-default);
+    border-radius: 8px;
+
+    &__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &__content {
+        position: relative;
+        display: flex;
+        gap: 12px;
+        flex-direction: column;
+        padding: 24px 16px 16px 16px;
+    }
+
+    &__close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+    }
+
+    &__image-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 24px;
+    }
+
+    &__title {
+        color: var(--text-main-text-main-default);
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+        text-align: center;
+    }
+
+    &__platforms {
+        padding: 0 0 8px 8px;
+        border-radius: 8px;
+    }
+
+    &__platform-item {
+        color: var(--text-main-text-main-default);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: center;
+    }
+}

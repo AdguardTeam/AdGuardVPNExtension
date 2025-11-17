@@ -12,6 +12,8 @@ import { type LocationData } from '../../stores/VpnStore';
 import { Ping } from '../Ping';
 import { PingDotsLoader } from '../PingDotsLoader';
 
+import { hasStreamingSupport, getStreamingPlatforms } from './streamingConfig';
+
 /**
  * Style object for flag icon background image.
  */
@@ -69,7 +71,7 @@ interface LocationProps {
  * Location component.
  */
 export const Location = observer(({ location, onClick, onSaveClick }: LocationProps) => {
-    const { vpnStore, settingsStore } = useContext(rootStore);
+    const { vpnStore, settingsStore, uiStore } = useContext(rootStore);
 
     const {
         id,
@@ -117,6 +119,15 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         e.stopPropagation();
         onSaveClick(id);
     };
+
+    const handleStreamingClick = (e: React.MouseEvent<HTMLDivElement>): void => {
+        e.preventDefault();
+        e.stopPropagation();
+        const platforms = getStreamingPlatforms(id);
+        uiStore.openStreamingModal(platforms);
+    };
+
+    const showStreamingIcon = hasStreamingSupport(id);
 
     const endpointItemClass = classnames(
         'endpoint',
@@ -195,6 +206,24 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
         );
     };
 
+    const renderStreamingIndicator = (): ReactElement | null => {
+        if (!showStreamingIcon) {
+            return null;
+        }
+
+        return (
+            <div
+                className="endpoint__streaming-indicator"
+                onClick={handleStreamingClick}
+            >
+                <Icon name="play" color="product" size="16" />
+                <span className="endpoint__streaming-text">
+                    {translator.getMessage('popup_streaming_icon_title')}
+                </span>
+            </div>
+        );
+    };
+
     return (
         <button
             type="button"
@@ -217,11 +246,12 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
                             search={vpnStore.searchValue}
                         />
                     </div>
+                    {renderStreamingIndicator()}
+                    {renderSaveButton()}
                 </div>
             </div>
 
             <div className="endpoint__ping-container">
-                {renderSaveButton()}
                 {renderLocationPing()}
             </div>
         </button>

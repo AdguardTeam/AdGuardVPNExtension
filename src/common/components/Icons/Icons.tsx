@@ -162,6 +162,11 @@ export const Icons = (): ReactElement => (
             <path d="M7 6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v12.59a1 1 0 0 1-1.7.7l-2.6-2.58a1 1 0 0 0-1.4 0l-2.6 2.58a1 1 0 0 1-1.7-.7V6Z" />
         </symbol>
 
+        <symbol id="play" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="2" y="2" width="12" height="12" rx="4" stroke="#74A352" strokeWidth="1.5" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M10.6665 7.99992L6.6665 10.6666L6.6665 5.33325L10.6665 7.99992Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </symbol>
+
         {/* TODO: there is star icon in popup, maybe worth refactoring */}
         <symbol
             id="star-rounded"

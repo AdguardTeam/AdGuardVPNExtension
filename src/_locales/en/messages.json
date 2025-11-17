@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Location deleted from Saved"
     },
+    "popup_streaming_icon_title": {
+        "message": "Good for streaming services"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Available streamings at this location"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Got it"
+    },
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached"
     },

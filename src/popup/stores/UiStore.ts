@@ -48,6 +48,18 @@ export class UiStore {
      */
     @observable shouldShowMobileEdgePromoModal: boolean = false;
 
+    /**
+     * Flag for the streaming modal display.
+     *
+     * Init value is `false`.
+     */
+    @observable isStreamingModalOpen: boolean = false;
+
+    /**
+     * Streaming platforms to display in the modal.
+     */
+    @observable streamingPlatforms: string[] = [];
+
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -148,5 +160,23 @@ export class UiStore {
      */
     @action closeMobileEdgePromoModal = (): void => {
         this.shouldShowMobileEdgePromoModal = false;
+    };
+
+    /**
+     * Opens the streaming modal with the given platforms.
+     *
+     * @param platforms Array of streaming platform names.
+     */
+    @action openStreamingModal = (platforms: string[]): void => {
+        this.streamingPlatforms = platforms;
+        this.isStreamingModalOpen = true;
+    };
+
+    /**
+     * Closes the streaming modal.
+     */
+    @action closeStreamingModal = (): void => {
+        this.isStreamingModalOpen = false;
+        this.streamingPlatforms = [];
     };
 }
