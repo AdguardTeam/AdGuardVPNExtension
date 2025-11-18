@@ -7,7 +7,7 @@ import { getForwarderUrl } from '../common/helpers';
 import { type IconVariants, Prefs } from '../common/prefs';
 import { normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
-import promoBannerImageUrl from '../assets/images/halloween25.svg';
+import promoBannerImageUrl from '../assets/images/blackfriday25.svg';
 
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
@@ -70,203 +70,202 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'halloween_25_vpn';
-
+const TDS_PROMO_ACTION = 'blackfriday_25_vpn';
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
 
-const HALLOWEEN_25_ID = 'halloween25';
+const BLACK_FRIDAY_25_ID = 'blackFriday25';
 
-const Halloween25Notification = {
-    id: HALLOWEEN_25_ID,
+const blackFriday25Notification = {
+    id: BLACK_FRIDAY_25_ID,
     locales: {
         en: {
-            title: 'Buy with discount, win Golden Ticket',
-            btn: 'Grab the deal',
+            title: 'Greatest sale of the year',
+            btn: 'Get 85% off',
         },
         fr: {
-            title: 'Achetez avec une remise, gagnez un billet doré',
-            btn: 'Profitez de l\'offre',
+            title: "La grande promo de l'année",
+            btn: 'Obtenez -85%',
         },
         it: {
-            title: 'Acquista con lo sconto, ricevi il biglietto d\'oro',
-            btn: 'Tenta la fortuna',
+            title: "La vendita maggiore dell'anno",
+            btn: 'Ottieni -85%',
         },
         de: {
-            title: 'Mit Rabatt kaufen — Goldticket gewinnen',
-            btn: 'Angebot holen',
+            title: 'Die besten Deals des Jahres',
+            btn: '85% Rabatt',
         },
         // ru: {
-        //     title: 'Купите со скидкой — выиграйте золотой билет',
-        //     btn: 'Испытать удачу',
+        //     title: '',
+        //     btn: '',
         // },
         es: {
-            title: 'Compra con descuento, gana un boleto dorado',
-            btn: 'Aprovechar la oferta',
+            title: 'La mejor oferta del año',
+            btn: 'Obtener 85% off',
         },
         es_419: {
-            title: 'Compra con descuento, gana un boleto dorado',
-            btn: 'Aprovechar la oferta',
+            title: 'La mayor venta del año',
+            btn: '85% de descuento',
         },
         pt_pt: {
-            title: 'Compre com desconto, ganhe um bilhete dourado',
-            btn: 'Aproveitar a oferta',
+            title: 'A melhor oferta do ano',
+            btn: 'Obter 85% off',
         },
         pt_br: {
-            title: 'Compre com desconto, ganhe um bilhete dourado',
-            btn: 'Aproveitar a oferta',
+            title: 'A melhor oferta do ano',
+            btn: 'Obter 85% off',
         },
         zh_cn: {
-            title: '限时特价期间购买 即有机会抽中金奖券',
-            btn: '试试手气',
+            title: '年度最大SALE',
+            btn: '了解更多',
         },
         zh_tw: {
-            title: '限時特價期間購買 即有機會抽中金獎券喔',
-            btn: '試試手氣',
+            title: '年末最大折扣',
+            btn: '了解更多',
         },
         ja: {
-            title: '特価で購入すれば、抽選でゴールデン チケットが当たる',
-            btn: '運を試す',
+            title: 'BLACK FRIDAY: 今年最安セール',
+            btn: '85%OFF割引をGET',
         },
         ko: {
-            title: '할인받고 골든 티켓을 잡으세요!',
-            btn: '할인 받기',
+            title: '올해의 가장 큰 세일',
+            btn: '85% 할인',
         },
         uk: {
-            title: 'Купуй зі знижкою — вигравай золотий квиток',
-            btn: 'Спробуй удачу',
+            title: 'Найбільший розпродаж року',
+            btn: 'Знижка 85%',
         },
         ar: {
-            title: 'اشترِ بخصم واربح تذكرة ذهبية',
-            btn: 'اغتنم العرض',
+            title: 'أعظم بيع لهذا العام',
+            btn: '٪85 احصل على خصم',
         },
         be: {
-            title: 'Купляй са зніжкай і выйграй залаты білет',
-            btn: 'Паспрабаваць удачу',
+            title: 'Самы вялікі распродаж года',
+            btn: 'Зніжка 85%',
         },
         bg: {
-            title: 'Купи с отстъпка и спечели златен билет',
-            btn: 'Опита късмета',
+            title: 'Най-голямата разпродажба на годината',
+            btn: '85% отстъпка',
         },
         ca: {
-            title: 'Compra amb descompte i prova sort',
-            btn: 'Aprofita l\'oferta',
+            title: "La venda més gran de l'any",
+            btn: '85% de descompte',
         },
         cs: {
-            title: 'Kup se slevou a vyhraj zlatou vstupenku',
-            btn: 'Zkusit štěstí',
+            title: 'Největší výprodej roku',
+            btn: '85% sleva',
         },
         da: {
-            title: 'Køb med rabat og vind en gylden billet',
-            btn: 'Prøve lykken',
+            title: 'Årets største salg',
+            btn: '85% rabat',
         },
         el: {
-            title: 'Κερδίστε Χρυσό Εισιτήριο με έκπτωση',
-            btn: 'Αποκτήστε έκπτωση',
+            title: 'Η μεγαλύτερη πώληση της χρονιάς',
+            btn: '85% έκπτωση',
         },
         fa: {
-            title: 'با تخفیف بخر و بلیط طلایی برنده شو',
-            btn: 'امتحان کردن شانس',
+            title: 'بزرگترین فروش سال',
+            btn: '٪85 تخفیف',
         },
         fi: {
-            title: 'Osta alennuksella ja voita kultainen lippu',
-            btn: 'Kokeilla onnea',
+            title: 'Vuoden suurin myynti',
+            btn: '85% alennus',
         },
         he: {
-            title: 'קנו בהנחה וזכו בכרטיס זהב',
-            btn: 'לנסות מזל',
+            title: 'המכירה הגדולה של השנה',
+            btn: '85% הנחה',
         },
         hr: {
-            title: 'Kupi s popustom i osvoji zlatnu kartu',
-            btn: 'Okušati sreću',
+            title: 'Najveća rasprodaja godine',
+            btn: '85% popusta',
         },
         hu: {
-            title: 'Vásárolj kedvezménnyel és nyerj aranyjegyet',
-            btn: 'Kipróbálni szerencsét',
+            title: 'Az év legnagyobb leárazása',
+            btn: '85% kedvezmény',
         },
         hy: {
-            title: 'Գնիր զեղչով և շահիր ոսկե տոմս',
-            btn: 'Փորձել բախտը',
+            title: 'Տարվա ամենամեծ վաճառքը',
+            btn: '85% զեղչ',
         },
         id: {
-            title: 'Beli dengan diskon dan menangkan tiket emas',
-            btn: 'Coba keberuntungan',
+            title: 'Penjualan terbesar tahun ini',
+            btn: 'Diskon 85%',
         },
         lt: {
-            title: 'Pirk su nuolaida ir laimėk auksinį bilietą',
-            btn: 'Išbandyti sėkmę',
+            title: 'Didžiausias metų išpardavimas',
+            btn: '85% nuolaida',
         },
         ms: {
-            title: 'Beli dengan diskaun dan menangi tiket emas',
-            btn: 'Cuba nasib',
+            title: 'Jualan terhebat pada tahun ini',
+            btn: 'Diskaun 85%',
         },
         nb: {
-            title: 'Kjøp med rabatt og vinn en gullbillett',
-            btn: 'Prøve lykken',
+            title: 'Årets største salg',
+            btn: '85% rabatt',
         },
         nl: {
-            title: 'Koop met korting en win een gouden ticket',
-            btn: 'Proberen geluk',
+            title: 'Grootste uitverkoop van het jaar',
+            btn: '85% korting',
         },
         pl: {
-            title: 'Kup ze zniżką i wygraj złoty bilet',
-            btn: 'Spróbować szczęścia',
+            title: 'Największa wyprzedaż roku',
+            btn: '85% zniżki',
         },
         ro: {
-            title: 'Cumpără cu reducere și câștigă',
-            btn: 'Încerca norocul',
+            title: 'Cea mai mare vânzare a anului',
+            btn: '85% reducere',
         },
         sk: {
-            title: 'Kúp so zľavou a vyhraj zlatý lístok',
-            btn: 'Skúsiť šťastie',
+            title: 'Najväčší predaj roka',
+            btn: '85% zľava',
         },
         sl: {
-            title: 'Kupite s popustom in osvojite zlato vstopnico',
-            btn: 'Preizkusiti srečo',
+            title: 'Največja prodaja leta',
+            btn: '85% popust',
         },
         sr_latn: {
-            title: 'Kupi sa popustom i osvoji zlatnu kartu',
-            btn: 'Oprobati sreću',
+            title: 'Najveća prodaja godine',
+            btn: '85% popusta',
         },
         sv: {
-            title: 'Köp med rabatt och vinn en gyllene biljett',
-            btn: 'Prova lyckan',
+            title: 'Årets bästa rea',
+            btn: '85% rabatt',
         },
         tr: {
-            title: 'İndirimle satın al ve altın bilet kazan',
-            btn: 'Şansı denemek',
+            title: 'Yılın en büyük satışı',
+            btn: '%85 indirim',
         },
         vi: {
-            title: 'Mua với giá giảm và trúng vé vàng',
-            btn: 'Thử vận may',
+            title: 'Khuyến mại lớn nhất trong năm',
+            btn: 'Giảm giá 85%',
         },
         mk: {
-            title: 'Купи со попуст и освои златен билет',
-            btn: 'Обиди ја среќата',
+            title: 'Најголемиот попуст на годината',
+            btn: '−85% на AdGuard VPN',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
     urlQuery: COMMON_PROMO_URL_QUERY,
-    from: '25 October 2025 12:00:00',
-    to: '31 October 2025 23:59:00',
+    from: '24 November 2025 12:00:00',
+    to: '5 December 2025 23:59:00',
     type: 'animated',
     bgImage: promoBannerImageUrl,
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/halloween25-on-19.png'),
-            38: getUrl('assets/images/icons/halloween25-on-38.png'),
+            19: getUrl('assets/images/icons/blackfriday25-on-19.png'),
+            38: getUrl('assets/images/icons/blackfriday25-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/halloween25-off-19.png'),
-            38: getUrl('assets/images/icons/halloween25-off-38.png'),
+            19: getUrl('assets/images/icons/blackfriday25-off-19.png'),
+            38: getUrl('assets/images/icons/blackfriday25-off-38.png'),
         },
     },
 };
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [HALLOWEEN_25_ID]: Halloween25Notification,
+    [BLACK_FRIDAY_25_ID]: blackFriday25Notification,
 };
 
 /**
