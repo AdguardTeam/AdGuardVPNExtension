@@ -11,6 +11,7 @@ import { rootStore } from '../../stores';
 import { type LocationData } from '../../stores/VpnStore';
 import { Ping } from '../Ping';
 import { PingDotsLoader } from '../PingDotsLoader';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import { hasStreamingSupport, getStreamingPlatforms } from './streamingConfig';
 
@@ -71,7 +72,12 @@ interface LocationProps {
  * Location component.
  */
 export const Location = observer(({ location, onClick, onSaveClick }: LocationProps) => {
-    const { vpnStore, settingsStore, uiStore } = useContext(rootStore);
+    const {
+        vpnStore,
+        settingsStore,
+        uiStore,
+        telemetryStore,
+    } = useContext(rootStore);
 
     const {
         id,
@@ -123,6 +129,13 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
     const handleStreamingClick = (e: React.MouseEvent<HTMLDivElement>): void => {
         e.preventDefault();
         e.stopPropagation();
+
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.StreamingTagClick,
+            TelemetryScreenName.LocationsScreen,
+            `${location.countryName} ${location.cityName}`,
+        );
+
         const platforms = getStreamingPlatforms(id);
         uiStore.openStreamingModal(platforms);
     };

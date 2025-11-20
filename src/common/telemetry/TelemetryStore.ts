@@ -105,18 +105,21 @@ export class TelemetryStore {
      *
      * NOTE: Do not await this function, as it is not necessary to wait for the response.
      *
-     * @param event Custom telemetry event data.
+     * @param actionName Name of the action.
+     * @param screenName Name of the screen.
+     * @param label Optional label for the event.
      */
     sendCustomEvent = async <T extends TelemetryActionName>(
         actionName: T,
         screenName: TelemetryActionToScreenMap[T],
+        label?: string,
     ): Promise<void> => {
         try {
             if (!this.isHelpUsImproveEnabled) {
                 return;
             }
 
-            await messenger.sendCustomTelemetryEvent(actionName, screenName);
+            await messenger.sendCustomTelemetryEvent(actionName, screenName, label);
         } catch (e) {
             log.debug('Failed to send custom telemetry event', e);
         }

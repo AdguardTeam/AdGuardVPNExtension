@@ -129,6 +129,7 @@ export enum TelemetryActionName {
     MonthStatsClick = 'month_stats_click',
     AllTimeStatsClick = 'all_time_stats_click',
     SaveLocationClick = 'save_location_click',
+    StreamingTagClick = 'streaming_tag_click',
     CancelRateUsClick = 'cancel_rate_us_click',
     SendRateUsClick = 'send_rate_us_click',
     CancelHelpImproveClick = 'cancel_help_improve_click',
@@ -305,6 +306,7 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.MonthStatsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.AllTimeStatsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.SaveLocationClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.StreamingTagClick]: TelemetryScreenName.LocationsScreen;
     [TelemetryActionName.CancelRateUsClick]: TelemetryScreenName.DialogRateUs;
     [TelemetryActionName.SendRateUsClick]: TelemetryScreenName.DialogRateUs;
     [TelemetryActionName.CancelHelpImproveClick]: TelemetryScreenName.DialogHelpUsImprove;

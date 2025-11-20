@@ -55,10 +55,12 @@ export interface TelemetryInterface {
      *
      * @param actionName Name of the action.
      * @param screenName Name of the screen.
+     * @param label Optional label for the event.
      */
     sendCustomEventDebounced<T extends TelemetryActionName>(
         actionName: T,
         screenName: TelemetryActionToScreenMap[T],
+        label?: string,
     ): Promise<void> | void;
 
     /**
@@ -406,10 +408,12 @@ export class Telemetry implements TelemetryInterface {
      *
      * @param actionName Name of the action.
      * @param screenName Name of the screen.
+     * @param label Optional label for the event.
      */
     private async sendCustomEvent<T extends TelemetryActionName>(
         actionName: T,
         screenName: TelemetryActionToScreenMap[T],
+        label?: string,
     ): Promise<void> {
         if (!this.canSendEvents()) {
             return;
@@ -435,6 +439,7 @@ export class Telemetry implements TelemetryInterface {
         const event: TelemetryCustomEventData = {
             name: actionName,
             refName: actualScreenName,
+            label,
         };
 
         await this.telemetryProvider.sendCustomEvent(event, baseData);

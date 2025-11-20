@@ -461,6 +461,7 @@ export type SendCustomTelemetryEventMessage = {
     data: {
         actionName: TelemetryActionName;
         screenName: TelemetryActionToScreenMap[TelemetryActionName];
+        label?: string;
     };
 };
 

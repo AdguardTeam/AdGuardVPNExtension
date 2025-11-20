@@ -723,13 +723,15 @@ class Messenger {
      * @returns Promise that resolves when custom telemetry event is sent.
      * @param actionName Name of the action.
      * @param screenName Screen that action is related to.
+     * @param label Optional label for the event.
      */
     async sendCustomTelemetryEvent<T extends TelemetryActionName>(
         actionName: T,
         screenName: TelemetryActionToScreenMap[T],
+        label?: string,
     ): Promise<ExtractMessageResponse<MessageType.TELEMETRY_EVENT_SEND_CUSTOM>> {
         const type = MessageType.TELEMETRY_EVENT_SEND_CUSTOM;
-        return this.sendMessage(type, { actionName, screenName });
+        return this.sendMessage(type, { actionName, screenName, label });
     }
 
     /**

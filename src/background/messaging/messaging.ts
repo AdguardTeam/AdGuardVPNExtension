@@ -460,8 +460,8 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_CUSTOM: {
-            const { actionName, screenName } = message.data;
-            await telemetry.sendCustomEventDebounced(actionName, screenName);
+            const { actionName, screenName, label } = message.data;
+            await telemetry.sendCustomEventDebounced(actionName, screenName, label);
             break;
         }
         case MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE: {
