@@ -48,10 +48,11 @@
         padding: 12px;
         border-radius: 4px;
         background-color: var(--fills-snacks-mobile-snacks-default);
-        animation: notify-show 0.3s ease-in-out;
+        animation: notify-show 0.3s ease-in-out both;
+        will-change: opacity, transform;
 
         &--closed {
-            animation: notify-hide 0.3s ease-in-out;
+            animation: notify-hide 0.3s ease-in-out both;
         }
 
         &--success {
