@@ -28,8 +28,6 @@ export const ExtraOptions = observer(() => {
 
     const {
         isRateVisible,
-        isCurrentTabExcluded,
-        canBeExcluded,
         hasDesktopAppForOs,
         forwarderDomain,
         isAndroidBrowser,
@@ -76,20 +74,6 @@ export const ExtraOptions = observer(() => {
         await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS));
     };
 
-    const removeFromExclusions = async (): Promise<void> => {
-        await settingsStore.enableVpnOnCurrentTab();
-        uiStore.closeOptionsModal();
-    };
-
-    const addToExclusions = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.VpnDisableWebsite,
-            TelemetryScreenName.MenuScreen,
-        );
-        await settingsStore.disableVpnOnCurrentTab();
-        uiStore.closeOptionsModal();
-    };
-
     const openComparePage = (): void => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.WhyDesktopClick,
@@ -116,12 +100,6 @@ export const ExtraOptions = observer(() => {
             className="extra-options"
             overlayClassName="modal__overlay extra-options__overlay"
         >
-            {canBeExcluded && !isCurrentTabExcluded
-                && renderOption('popup_settings_disable_vpn', addToExclusions)}
-
-            {canBeExcluded && isCurrentTabExcluded
-                && renderOption('popup_settings_enable_vpn', removeFromExclusions)}
-
             {shouldShouldMobileEdgePromoMenuItem
                 && renderOption('popup_mobile_edge_promo_text', handleMobileEdgePromoClick)}
 
