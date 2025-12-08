@@ -5,7 +5,7 @@ import {
     runInAction,
 } from 'mobx';
 
-import { tabs } from '../../background/tabs';
+import { tabs } from '../../common/tabs';
 import { log } from '../../common/logger';
 import { SETTINGS_IDS, AppearanceTheme } from '../../common/constants';
 import { messenger } from '../../common/messenger';
@@ -75,6 +75,8 @@ export class SettingsStore {
     @observable hasDesktopAppForOs: boolean = false;
 
     @observable isAndroidBrowser: boolean = false;
+
+    @observable isFirefoxAndroid: boolean | null = null;
 
     @observable arePingsRecalculating: boolean = false;
 
@@ -483,6 +485,17 @@ export class SettingsStore {
         const isAndroid = await Prefs.isAndroid();
         runInAction(() => {
             this.isAndroidBrowser = isAndroid;
+        });
+    }
+
+    /**
+     * Checks whether the extension is running on Firefox Android.
+     * Sets the result to {@link isFirefoxAndroid}
+     */
+    @action async setIsFirefoxAndroid(): Promise<void> {
+        const isFirefoxAndroid = await Prefs.isFirefoxAndroid();
+        runInAction(() => {
+            this.isFirefoxAndroid = isFirefoxAndroid;
         });
     }
 

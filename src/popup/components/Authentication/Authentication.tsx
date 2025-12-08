@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { popupActions } from '../../actions/popupActions';
+import { navActions } from '../../../common/actions/navActions';
 import { getPrivacyAndEulaUrls } from '../../../common/forwarderHelpers';
 import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
@@ -46,12 +46,12 @@ export const Authentication = observer(() => {
 
     const handlePrivacyClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
-        await popupActions.openTab(privacyUrl);
+        await navActions.openTab(privacyUrl);
     };
 
     const handleEulaClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
-        await popupActions.openTab(eulaUrl);
+        await navActions.openTab(eulaUrl);
     };
 
     const onPolicyAgreementChange = async (value: boolean): Promise<void> => {

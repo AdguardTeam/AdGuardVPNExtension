@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { rootStore } from '../../stores';
-import { popupActions } from '../../actions/popupActions';
+import { navActions } from '../../../common/actions/navActions';
 import { translator } from '../../../common/translator';
 import {
     TelemetryActionName,
@@ -68,7 +68,7 @@ export const Header = observer(({
             );
         }
 
-        await popupActions.openFreeGbsPage();
+        await navActions.openFreeGbsPage();
     };
 
     const headerClass = classnames({

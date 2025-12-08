@@ -9,6 +9,7 @@ import { getForwarderUrl } from '../../../common/helpers';
 import { IconButton } from '../../../common/components/Icons';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
+import { navActions } from '../../../common/actions/navActions';
 
 import { RATING_IMAGES_MAP } from './constants';
 
@@ -79,14 +80,14 @@ export const ConfirmRateModal = observer(() => {
             // This issue reproduces only on macOS, possibly any unix based OS
             // https://github.com/AdguardTeam/AdGuardVPNExtension/issues/150
             await closeModalWithRating();
-            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_STORE), '_blank');
+            await navActions.openWindow(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_STORE));
         } else {
             telemetryStore.sendCustomEvent(
                 TelemetryActionName.FeedbackHelpImproveClick,
                 TelemetryScreenName.DialogHelpUsImprove,
             );
             await closeModal();
-            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
+            await navActions.openWindow(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK));
         }
     };
 

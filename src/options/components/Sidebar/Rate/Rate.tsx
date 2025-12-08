@@ -6,6 +6,7 @@ import { TelemetryActionName, TelemetryScreenName } from '../../../../background
 import { getForwarderUrl } from '../../../../common/helpers';
 import { translator } from '../../../../common/translator';
 import { rootStore } from '../../../stores';
+import { navActions } from '../../../../common/actions/navActions';
 
 import { RateStar } from './RateStar';
 
@@ -42,9 +43,9 @@ export const Rate = observer(() => {
         await handleHideRate();
 
         if (value >= 4) {
-            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OPTIONS_STORE), '_blank');
+            await navActions.openWindow(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OPTIONS_STORE));
         } else {
-            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
+            await navActions.openWindow(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK));
         }
     };
 

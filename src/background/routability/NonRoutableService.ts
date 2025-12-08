@@ -6,7 +6,7 @@ import { isIP } from 'is-ip';
 
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
-import { tabs } from '../tabs';
+import { tabs } from '../../common/tabs';
 import { getHostname } from '../../common/utils/url';
 import type { Storage } from '../browserApi/storage';
 

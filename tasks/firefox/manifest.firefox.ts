@@ -26,6 +26,9 @@ export const firefoxManifestDiff = {
             id: appId,
             strict_min_version: `${MIN_SUPPORTED_VERSION.FIREFOX}.0`,
         },
+        gecko_android: {
+            strict_min_version: `${MIN_SUPPORTED_VERSION.FIREFOX_MOBILE}.0`,
+        },
     },
     background: {
         page: 'background.html',

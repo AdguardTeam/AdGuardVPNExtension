@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
 
 import { log } from '../../common/logger';
-import { tabs } from '../../background/tabs';
+import { tabs } from '../../common/tabs';
 import { messenger } from '../../common/messenger';
 
 import type { RootStore } from './RootStore';
@@ -36,6 +36,7 @@ export class GlobalStore {
     async getAndroidData(): Promise<void> {
         const { rootStore: { settingsStore } } = this;
         await settingsStore.setIsAndroidBrowser();
+        await settingsStore.setIsFirefoxAndroid();
     }
 
     @action

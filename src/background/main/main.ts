@@ -28,7 +28,7 @@ import { permissionsError } from '../permissionsChecker/permissionsError';
 import { popupData } from '../popupData';
 import { proxy } from '../proxy';
 import { settings } from '../settings';
-import { tabs } from '../tabs';
+import { tabs } from '../../common/tabs';
 import { updateService } from '../updateService';
 import { vpnApi } from '../api';
 import { browserActionIcon } from '../browserActionIcon';
@@ -92,6 +92,8 @@ const syncInitModules = (): void => {
     // messaging, context menu and tabs inits are on the top-level
     // because popup should be able to wake up the service worker
     messaging.init();
+    // context menu listener must be registered synchronously
+    // to catch clicks that wake up the service worker
     contextMenu.init();
     tabs.init();
 };
@@ -123,7 +125,7 @@ const asyncInitModules = async (): Promise<void> => {
         await auth.init();
         authSideEffects.init();
         await telemetry.initState();
-        // the updateBrowserActionItems method is called after settings.init() because it uses settings
+        // update browser action items after settings.init() because it uses settings
         await contextMenu.updateBrowserActionItems();
         // the checkAndSwitchStorage is called after settings.init() because it uses settings
         await logStorageManager.checkAndSwitchStorage(settings.isDebugModeEnabled());

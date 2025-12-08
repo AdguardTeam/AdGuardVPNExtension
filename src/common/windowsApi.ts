@@ -1,6 +1,6 @@
 import browser, { type Windows, type Tabs } from 'webextension-polyfill';
 
-import { log } from '../common/logger';
+import { log } from './logger';
 
 /**
  * Helper class for browser.windows API.

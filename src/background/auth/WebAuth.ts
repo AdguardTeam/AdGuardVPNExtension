@@ -11,8 +11,8 @@ import { type FallbackApiInterface } from '../api/fallbackApi';
 import { type FlagsStorageInterface } from '../flagsStorage';
 import { type AuthCacheInterface } from '../authentication/authCache';
 import { type NotifierInterface } from '../../common/notifier';
-import { type TabsInterface } from '../tabs';
-import { type WindowsApiInterface } from '../windowsApi';
+import { type TabsInterface } from '../../common/tabs';
+import { type WindowsApiInterface } from '../../common/windowsApi';
 
 import { type AuthInterface } from './auth';
 import { webAuthMachine } from './webAuthMachine';

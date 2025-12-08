@@ -1,8 +1,7 @@
 import browser from 'webextension-polyfill';
 
-import { notifier } from '../common/notifier';
-import { log } from '../common/logger';
-
+import { notifier } from './notifier';
+import { log } from './logger';
 import { WindowsApi } from './windowsApi';
 
 export type PreparedTab = {

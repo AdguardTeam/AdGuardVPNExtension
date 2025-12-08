@@ -20,7 +20,7 @@ import { permissionsError } from '../permissionsChecker/permissionsError';
 import { permissionsChecker } from '../permissionsChecker';
 import { locationsService } from '../endpoints/locationsService';
 import { promoNotifications } from '../promoNotifications';
-import { tabs } from '../tabs';
+import { tabs } from '../../common/tabs';
 import { type RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
 import { accountProvider } from '../providers/accountProvider';
 import { flagsStorage } from '../flagsStorage';

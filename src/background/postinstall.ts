@@ -1,6 +1,6 @@
 import { CONSENT_PAGE_URL } from '../common/constants';
+import { tabs } from '../common/tabs';
 
-import { tabs } from './tabs';
 import { updateService } from './updateService';
 import { getUrl } from './browserApi/runtime';
 

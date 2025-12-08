@@ -2,7 +2,7 @@ import { notifier } from '../../common/notifier';
 import { notifications } from '../notifications';
 import { updateService } from '../updateService';
 import { forwarder } from '../forwarder';
-import { tabs } from '../tabs';
+import { tabs } from '../../common/tabs';
 import { endpoints } from '../endpoints';
 
 import { AuthSideEffects } from './AuthSideEffects';

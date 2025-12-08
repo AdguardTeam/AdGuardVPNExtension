@@ -6,6 +6,7 @@ import { convertCidrToNet, isInNet } from '../../routability/utils';
 import { getHostname } from '../../../common/utils/url';
 import type { AccessCredentials, ProxyConfigInterface } from '../../schema';
 import type { ProxyApiInterface, ProxyErrorCallback } from '../abstractProxyApi';
+import { Prefs } from '../../../common/prefs';
 
 /**
  * Defines the ConnectionType enum.
@@ -182,10 +183,23 @@ class ProxyApi implements ProxyApiInterface {
 
     /**
      * The proxyGet function returns the current proxy settings.
+     * Note: browser.proxy.settings is not supported on Firefox Android.
+     * For Android, we return a mock response indicating we can control the proxy
+     * since we're using proxy.onRequest API which is supported.
      * @param config The configuration for getting the proxy settings.
      * @returns A Promise that resolves to the current proxy settings.
      */
-    proxyGet = (config = {}): Promise<browser.Types.SettingGetCallbackDetailsType> => {
+    proxyGet = async (config = {}): Promise<browser.Types.SettingGetCallbackDetailsType> => {
+        /**
+         * proxy.settings is not supported in Firefox Android yet.
+         * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1725981
+         */
+        if (await Prefs.isFirefoxAndroid()) {
+            return {
+                levelOfControl: 'controlled_by_this_extension',
+                value: {},
+            } as browser.Types.SettingGetCallbackDetailsType;
+        }
         return browser.proxy.settings.get(config);
     };
 

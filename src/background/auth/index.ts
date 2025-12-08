@@ -1,8 +1,8 @@
 import { authCache } from '../authentication';
 import { flagsStorage } from '../flagsStorage';
 import { notifier } from '../../common/notifier';
-import { tabs } from '../tabs';
-import { WindowsApi } from '../windowsApi';
+import { tabs } from '../../common/tabs';
+import { WindowsApi } from '../../common/windowsApi';
 import { fallbackApi } from '../api/fallbackApi';
 
 import { auth as authService } from './auth';

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { popupActions } from '../../actions/popupActions';
+import { navActions } from '../../../common/actions/navActions';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { getForwarderUrl } from '../../../common/helpers';
@@ -15,7 +15,7 @@ export const FeedbackMessage = observer(() => {
     const { forwarderDomain } = settingsStore;
 
     const handleClick = (): void => {
-        popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_FEEDBACK));
+        navActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_FEEDBACK));
     };
 
     return (

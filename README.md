@@ -346,8 +346,9 @@ For a full list of all `npm` packages in use, please take a look at [package.jso
 
 <!-- NOTE: see MIN_SUPPORTED_VERSION in ./tasks/consts.ts -->
 
-| Browser                     | Version |
-|-----------------------------|---------|
-| Chromium Based Browsers     | 109     |
-| Firefox                     | 115     |
-| Opera                       | 95      |
+| Browser                 | Version |
+|-------------------------|---------|
+| Chromium Based Browsers | 109     |
+| Firefox                 | 115     |
+| Firefox Android         | 132     |
+| Opera                   | 95      |

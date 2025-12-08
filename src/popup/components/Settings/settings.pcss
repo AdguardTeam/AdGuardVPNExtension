@@ -40,16 +40,21 @@
 
     &__animation {
         width: 100%;
+        height: var(--popup-height);
         position: absolute;
-        z-index: -1;
+        z-index: -2;
         top: calc(var(--header-height) * -1);
+        left: 0;
+        object-fit: cover;
+        display: block;
     }
 
     &__animation-overlay {
         width: 100%;
-        height: 100%;
+        height: var(--popup-height);
         position: absolute;
         z-index: -1;
+        top: calc(var(--header-height) * -1);
         background: linear-gradient(0deg, var(--video-overlay), transparent);
     }
 
@@ -102,6 +107,15 @@
     &__skeleton {
         /* 76px is a sum of enpoint height (75px) + border (1px) */
         height: calc(var(--popup-height) - var(--header-height) - 76px);
+    }
+
+    .background-animation-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
 }

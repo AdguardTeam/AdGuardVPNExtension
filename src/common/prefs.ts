@@ -302,6 +302,27 @@ export class Preferences {
     }
 
     /**
+     * Cached promise for Firefox Android check.
+     */
+    private get isFirefoxAndroidPromise(): Promise<boolean> {
+        return lazyGet(Preferences.cache, 'isFirefoxAndroidPromise', async (): Promise<boolean> => {
+            const isFirefox = this.isFirefox();
+            const isAndroid = await this.isAndroid();
+            return isFirefox && isAndroid;
+        });
+    }
+
+    /**
+     * Checks whether the extension is running on Firefox Android.
+     * This check is cached for performance.
+     *
+     * @returns Promise that will be fulfilled with `true` if running on Firefox Android, `false` otherwise.
+     */
+    public async isFirefoxAndroid(): Promise<boolean> {
+        return this.isFirefoxAndroidPromise;
+    }
+
+    /**
      * Platform version query to `navigator.userAgentData.getHighEntropyValues()`.
      */
     private static readonly PLATFORM_VERSION_ENTROPY = 'platformVersion';

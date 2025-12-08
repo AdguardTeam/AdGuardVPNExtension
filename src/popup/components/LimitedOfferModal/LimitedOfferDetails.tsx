@@ -48,12 +48,13 @@ export const LimitedOfferDetails = observer(() => {
         forwarderUrlQueryKey,
     } = limitedOfferData;
 
-    const openLimitedOfferLink = (): void => {
-        telemetryStore.sendCustomEvent(
+    const openLimitedOfferLink = async (): Promise<void> => {
+        await telemetryStore.sendCustomEvent(
             TelemetryActionName.PromoOfferPurchaseClick,
             TelemetryScreenName.PromoOfferScreen,
         );
-        openForwarderUrlWithEmail(forwarderUrlQueryKey);
+        await openForwarderUrlWithEmail(forwarderUrlQueryKey);
+        window.close();
     };
 
     /**

@@ -1,84 +1,25 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, type ReactElement } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import { AppearanceTheme } from '../../../../common/constants';
-import { AnimationState, animationSourcesMap } from '../../../constants';
 
-import { animationService } from './animationStateMachine';
+import { BackgroundAnimationFF } from './BackgroundAnimationFF';
+import { BackgroundAnimationCommon } from './BackgroundAnimationCommon';
 
-export const BackgroundAnimation = observer(() => {
+export const BackgroundAnimation = observer((): ReactElement | null => {
     const { settingsStore } = useContext(rootStore);
 
-    const {
-        appearanceTheme,
-        systemTheme,
-        animationState,
-    } = settingsStore;
-
-    const animationStateToUse = animationState;
-
-    useEffect(() => {
-        animationService.onTransition((state) => {
-            // new state value on transition is string, but it's actually AnimationState
-            settingsStore.setAnimationState(state.value as AnimationState);
-        });
-    });
-
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-
-    let animationSources = animationSourcesMap[systemTheme];
-
-    if (appearanceTheme
-        && (appearanceTheme === AppearanceTheme.Light
-            || appearanceTheme === AppearanceTheme.Dark)) {
-        animationSources = animationSourcesMap[appearanceTheme];
+    if (settingsStore.isFirefoxAndroid === null) {
+        return null;
     }
 
-    const sourceUrl = animationSources[animationStateToUse];
+    /**
+     * Use Firefox Android specific implementation to work around drawImage bug
+     * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1526207
+     */
+    if (settingsStore.isFirefoxAndroid) {
+        return <BackgroundAnimationFF />;
+    }
 
-    const loop = animationStateToUse === AnimationState.VpnEnabled
-        || animationStateToUse === AnimationState.VpnDisabled;
-
-    const handleAnimationEnd = (): void => {
-        settingsStore.handleAnimationEnd();
-    };
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        const context = canvas?.getContext('2d');
-        if (!context || !canvas) {
-            return undefined;
-        }
-
-        const updateCanvas = (video: HTMLVideoElement): void => {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            requestAnimationFrame(() => updateCanvas(video));
-        };
-
-        const video = document.createElement('video');
-        video.src = sourceUrl;
-        video.loop = loop;
-        video.autoplay = true;
-        video.addEventListener('ended', handleAnimationEnd);
-
-        const loadedDataHandler = async (): Promise<void> => {
-            await video.play();
-            updateCanvas(video);
-        };
-        video.addEventListener('loadeddata', loadedDataHandler);
-
-        return (): void => {
-            video.removeEventListener('loadeddata', loadedDataHandler);
-            video.removeEventListener('ended', handleAnimationEnd);
-        };
-    }, [sourceUrl, loop]);
-
-    return (
-        <canvas ref={canvasRef} className="settings__animation">
-            Background animation
-        </canvas>
-    );
+    return <BackgroundAnimationCommon />;
 });

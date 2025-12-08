@@ -8,9 +8,9 @@ import { isHttp } from '../common/utils/string';
 import { log } from '../common/logger';
 import { ExclusionsMode } from '../common/exclusionsConstants';
 import { SETTINGS_IDS } from '../common/constants';
+import { tabs } from '../common/tabs';
 
 import { exclusions } from './exclusions';
-import { tabs } from './tabs';
 import { settings } from './settings';
 import { actions } from './actions';
 
@@ -264,9 +264,17 @@ const getBrowserActionItems = (): ContextMenuItem[] => {
 };
 
 /**
- * Updates browser action items
+ * Updates browser action items.
+ *
+ * Context menus are not supported on Firefox Android.
+ * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1595822
  */
 const updateBrowserActionItems = async (): Promise<void> => {
+    if (!browser.contextMenus) {
+        log.debug('Context menus are not supported');
+        return;
+    }
+
     try {
         await Promise.all(Object.values(BROWSER_ACTION_ITEMS).map((item) => {
             return removeContextMenuItem(item.id);
@@ -281,7 +289,18 @@ const updateBrowserActionItems = async (): Promise<void> => {
     }
 };
 
+/**
+ * Synchronous initialization - registers event listener and notifiers at top level.
+ * Must be called synchronously to catch context menu clicks that wake up the service worker.
+ *
+ * Context menus are not supported on Firefox Android.
+ * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1595822
+ */
 const init = (): void => {
+    if (!browser.contextMenus) {
+        log.debug('Context menus are not supported');
+        return;
+    }
     const throttleTimeoutMs = 100;
     const throttledUpdater = throttle(updateContextMenu, throttleTimeoutMs);
 

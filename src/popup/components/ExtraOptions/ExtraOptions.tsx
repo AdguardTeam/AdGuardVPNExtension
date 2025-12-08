@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { popupActions } from '../../actions/popupActions';
+import { navActions } from '../../../common/actions/navActions';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { messenger } from '../../../common/messenger';
 import { getForwarderUrl } from '../../../common/helpers';
@@ -49,7 +49,7 @@ export const ExtraOptions = observer(() => {
     };
 
     const handleFeedback = async (): Promise<void> => {
-        await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_FEEDBACK));
+        await navActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.POPUP_FEEDBACK));
     };
 
     /**
@@ -71,7 +71,7 @@ export const ExtraOptions = observer(() => {
             TelemetryActionName.OtherProductsClick,
             TelemetryScreenName.MenuScreen,
         );
-        await popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS));
+        await navActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OTHER_PRODUCTS));
     };
 
     const openComparePage = (): void => {
@@ -79,7 +79,7 @@ export const ExtraOptions = observer(() => {
             TelemetryActionName.WhyDesktopClick,
             TelemetryScreenName.MenuScreen,
         );
-        popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.COMPARE_PAGE));
+        navActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.COMPARE_PAGE));
     };
 
     const renderOption = (key: string, handler: () => void, className: string | null = null): ReactElement => {

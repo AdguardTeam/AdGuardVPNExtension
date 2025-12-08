@@ -5,6 +5,7 @@ import { rootStore } from '../../stores';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { navActions } from '../../../common/actions/navActions';
 import { getForwarderUrl } from '../../../common/helpers';
 
 import './rate.pcss';
@@ -37,9 +38,9 @@ export const RatePopup = observer(() => {
         await handleHideRate();
 
         if (value && parseInt(value, 10) >= 4) {
-            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OPTIONS_STORE), '_blank');
+            await navActions.openWindow(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.OPTIONS_STORE));
         } else {
-            window.open(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK), '_blank');
+            await navActions.openWindow(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.FEEDBACK));
         }
 
         // close popup after click on rate star
