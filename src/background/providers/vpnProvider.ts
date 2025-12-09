@@ -311,7 +311,7 @@ const trackExtensionInstallation = async (
     try {
         response = trackInstallResponseSchema.parse(rawResponse);
     } catch (e) {
-        log.error('Error while parsing track install response', e);
+        log.error('[vpn.vpnProvider]: Error while parsing track install response', e);
         response = {};
     }
     return response;
@@ -361,7 +361,7 @@ const requestSupport = async ({
         await vpnApi.requestSupport(formData);
         return { status: 'ok', error: null };
     } catch (e) {
-        log.error(e);
+        log.error('[vpn.vpnProvider]: ', e);
         return {
             status: e.status,
             error: 'error',

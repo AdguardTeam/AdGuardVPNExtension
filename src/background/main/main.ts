@@ -102,7 +102,7 @@ const syncInitModules = (): void => {
  * Initializes asynchronous and dependant synchronous modules.
  */
 const asyncInitModules = async (): Promise<void> => {
-    log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
+    log.info(`[vpn.main]: Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
         const initStartDate = Date.now();
         await stateStorage.init();
@@ -140,9 +140,9 @@ const asyncInitModules = async (): Promise<void> => {
         // set uninstall url for the extension at the end
         await setUninstallUrl();
         const initDoneDate = Date.now();
-        log.info(`Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
+        log.info(`[vpn.main]: Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
     } catch (e) {
-        log.error('Unable to start extension because of error:', e && e.message);
+        log.error('[vpn.main]: Unable to start extension because of error:', e && e.message);
     }
 };
 
@@ -152,12 +152,12 @@ const asyncInitModules = async (): Promise<void> => {
 export const main = (): void => {
     if (log.currentLevel === LogLevel.Debug) {
         runtime.getPlatformOs().then((res) => {
-            log.debug(`Current os: '${res}'`);
+            log.debug(`[vpn.main]: Current os: '${res}'`);
         });
 
-        log.debug(`Current browser: "${BROWSER}"`);
-        log.debug(`Current build env: "${BUILD_ENV}"`);
-        log.debug(`Current stage env: "${STAGE_ENV}"`);
+        log.debug(`[vpn.main]: Current browser: "${BROWSER}"`);
+        log.debug(`[vpn.main]: Current build env: "${BUILD_ENV}"`);
+        log.debug(`[vpn.main]: Current stage env: "${STAGE_ENV}"`);
     }
 
     syncInitModules();

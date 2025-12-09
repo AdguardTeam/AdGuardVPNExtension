@@ -54,7 +54,7 @@ export class GlobalStore {
 
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
-            log.error(e.message);
+            log.error('[vpn.GlobalStore.getOptionsData]: ', e.message);
             this.setInitStatus(RequestStatus.Error);
         }
     }

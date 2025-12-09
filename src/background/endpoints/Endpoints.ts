@@ -93,7 +93,7 @@ class Endpoints implements EndpointsInterface {
         const { credentialsHash, token } = await credentials.getAccessCredentials();
         await connectivity.endpointConnectivity.setCredentials(domainName, token, credentialsHash);
         await locationsService.setSelectedLocation(location.id);
-        log.debug(`Reconnecting endpoint to ${endpoint.id}`);
+        log.debug(`[vpn.Endpoints]: Reconnecting endpoint to ${endpoint.id}`);
     };
 
     /**
@@ -140,7 +140,7 @@ class Endpoints implements EndpointsInterface {
         try {
             vpnToken = await credentials.gainValidVpnToken();
         } catch (e) {
-            log.debug('Unable to get endpoints token because: ', e.message);
+            log.debug('[vpn.Endpoints]: Unable to get endpoints token because: ', e.message);
             return null;
         }
 
@@ -166,10 +166,10 @@ class Endpoints implements EndpointsInterface {
         vpnToken: VpnTokenData,
         vpnCredentials: CredentialsDataInterface,
     }> => {
-        log.info('Refreshing tokens');
+        log.info('[vpn.Endpoints]: Refreshing tokens');
         const vpnToken = await credentials.gainValidVpnToken(true, false);
         const vpnCredentials = await credentials.gainValidVpnCredentials(true, false);
-        log.info('Tokens and credentials refreshed successfully');
+        log.info('[vpn.Endpoints]: Tokens and credentials refreshed successfully');
         return { vpnToken, vpnCredentials };
     };
 
@@ -188,7 +188,7 @@ class Endpoints implements EndpointsInterface {
             await this.updateLocations(true);
             await this.endpointsState.update({ vpnInfo });
         } catch (e) {
-            log.debug(e.message);
+            log.debug('[vpn.Endpoints]: ', e.message);
         }
     };
 
@@ -259,7 +259,7 @@ class Endpoints implements EndpointsInterface {
                 }
                 await this.reconnectEndpoint(closestEndpoint, closestLocation);
             } catch (e) {
-                log.debug(e);
+                log.debug('[vpn.Endpoints]: ', e);
             }
             return;
         }
@@ -291,7 +291,7 @@ class Endpoints implements EndpointsInterface {
                 await this.reconnectEndpoint(closestEndpoint, closestLocation);
             }
         } else {
-            log.debug('Was unable to find current location');
+            log.debug('[vpn.Endpoints]: Was unable to find current location');
         }
     };
 
@@ -301,7 +301,7 @@ class Endpoints implements EndpointsInterface {
         try {
             vpnToken = await credentials.gainValidVpnToken();
         } catch (e) {
-            log.debug('Unable to get endpoints info because: ', e.message);
+            log.debug('[vpn.Endpoints]: Unable to get endpoints info because: ', e.message);
             return null;
         }
         const appId = await credentials.getAppId();
@@ -314,7 +314,7 @@ class Endpoints implements EndpointsInterface {
             try {
                 ({ vpnToken: updatedVpnToken } = await this.refreshTokens());
             } catch (e) {
-                log.debug('Unable to refresh tokens');
+                log.debug('[vpn.Endpoints]: Unable to refresh tokens');
                 return null;
             }
 
@@ -353,7 +353,7 @@ class Endpoints implements EndpointsInterface {
             // no await here in order to return cached vpnInfo
             // and launch function with promise execution
             this.getVpnInfoRemotely().catch((e) => {
-                log.debug(e);
+                log.debug('[vpn.Endpoints]: ', e);
             });
             return vpnInfo;
         }
@@ -363,7 +363,7 @@ class Endpoints implements EndpointsInterface {
         try {
             remoteVpnInfo = await this.getVpnInfoRemotely();
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.Endpoints]: ', e);
         }
 
         if (!remoteVpnInfo) {
@@ -436,7 +436,7 @@ class Endpoints implements EndpointsInterface {
         try {
             vpnToken = await credentials.gainValidVpnToken();
         } catch (e) {
-            log.error('Unable to get valid endpoints token. Error: ', e.message);
+            log.error('[vpn.Endpoints]: Unable to get valid endpoints token. Error: ', e.message);
         }
 
         // undefined values will be omitted in the querystring

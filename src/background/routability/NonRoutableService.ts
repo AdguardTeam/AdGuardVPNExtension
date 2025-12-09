@@ -90,7 +90,7 @@ export class NonRoutableService implements NonRoutableServiceInterface {
             { urls: ['<all_urls>'] },
         );
 
-        log.info('NonRoutable module was initiated successfully');
+        log.info('[vpn.NonRoutableService.init]: NonRoutable module was initiated successfully');
     }
 
     /**

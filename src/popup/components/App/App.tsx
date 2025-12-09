@@ -158,7 +158,7 @@ export const App = observer(() => {
                     break;
                 }
                 default: {
-                    log.debug('there is no such message type: ', type);
+                    log.debug('[vpn.App]: there is no such message type: ', type);
                     break;
                 }
             }

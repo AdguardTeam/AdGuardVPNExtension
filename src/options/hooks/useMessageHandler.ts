@@ -53,7 +53,7 @@ export const useMessageHandler = (): void => {
                 break;
             }
             default: {
-                log.debug('Undefined message type:', type);
+                log.debug('[vpn.useMessageHandler]: Undefined message type:', type);
                 break;
             }
         }

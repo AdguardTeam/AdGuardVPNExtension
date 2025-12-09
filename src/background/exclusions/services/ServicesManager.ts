@@ -204,9 +204,9 @@ export class ServicesManager implements ServiceManagerInterface {
             await this.saveServicesInStorage(services);
             await this.setServices(services);
             await this.servicesManagerState.update({ lastUpdateTimeMs: Date.now() });
-            log.info('Services data updated successfully');
+            log.info('[vpn.ServicesManager.updateServices]: Services data updated successfully');
         } catch (e) {
-            log.error(new Error(`Was unable to get services due to: ${e.message}`));
+            log.error('[vpn.ServicesManager.updateServices]: ', new Error(`Was unable to get services due to: ${e.message}`));
         }
     }
 
@@ -235,8 +235,8 @@ export class ServicesManager implements ServiceManagerInterface {
         const getFromAssetsWithTimeout = (): Promise<ServicesInterface> => new Promise<ServicesInterface>((resolve) => {
             timeout = setTimeout(async () => {
                 const services = await this.getServicesFromAssets();
-                log.debug(`Did not get services from server in ${SERVICES_RESPONSE_TIMEOUT_MS}`);
-                log.debug('Return services from assets');
+                log.debug(`[vpn.ServicesManager.getServicesForMigration]: Did not get services from server in ${SERVICES_RESPONSE_TIMEOUT_MS}`);
+                log.debug('[vpn.ServicesManager.getServicesForMigration]: Return services from assets');
                 resolve(services);
             }, SERVICES_RESPONSE_TIMEOUT_MS);
         });

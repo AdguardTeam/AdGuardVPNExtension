@@ -68,7 +68,7 @@ class ABTestManager {
         try {
             versions = versionsSchema.parse(rawVersions);
         } catch (e) {
-            log.error('Failed to parse versions from storage', e, 'using default versions');
+            log.error('[vpn.ABTestManager.getVersionsFromStorage]: Failed to parse versions from storage', e, 'using default versions');
         }
         return versions;
     }

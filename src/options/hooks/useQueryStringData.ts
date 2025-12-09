@@ -46,7 +46,7 @@ export const useCustomDnsFromQuery = (dnsDataHandler: (data: CustomDnsData) => v
                 dnsDataHandler({ name, address });
                 clearQueryString();
             } else {
-                log.error(`Failed to parse custom DNS link parameters from URL: ${window.location.href}`);
+                log.error(`[vpn.useQueryStringData]: Failed to parse custom DNS link parameters from URL: ${window.location.href}`);
             }
         }
     }, []);

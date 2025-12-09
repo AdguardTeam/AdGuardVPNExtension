@@ -182,7 +182,7 @@ export class Credentials implements CredentialsInterface {
             vpnToken = await accountProvider.getVpnToken(accessToken);
         } catch (e) {
             if (e.status === ERROR_STATUSES.UNAUTHORIZED) {
-                log.debug('Access token expired');
+                log.debug('[vpn.Credentials.getVpnTokenRemote]: Access token expired');
                 // deauthenticate user
                 await this.auth.deauthenticate();
                 // clear vpnToken
@@ -328,7 +328,7 @@ export class Credentials implements CredentialsInterface {
             await this.storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
             await this.updateProxyCredentials();
             notifier.notifyListeners(notifier.types.CREDENTIALS_UPDATED);
-            log.info('Got new credentials');
+            log.info('[vpn.Credentials.getVpnCredentialsRemote]: Got new credentials');
         }
 
         return vpnCredentials;
@@ -466,7 +466,7 @@ export class Credentials implements CredentialsInterface {
         let appId = await this.storage.get<string>(this.APP_ID_KEY);
 
         if (!appId) {
-            log.debug('Generating new app id');
+            log.debug('[vpn.Credentials]: Generating new app id');
             appId = nanoid();
             await this.storage.set(this.APP_ID_KEY, appId);
         }
@@ -513,7 +513,7 @@ export class Credentials implements CredentialsInterface {
             return accountInfo;
         } catch (e) {
             if (e?.status === ERROR_STATUSES.UNAUTHORIZED) {
-                log.debug('Auth denied, token is not valid');
+                log.debug('[vpn.Credentials.fetchUserInfo]: Auth denied, token is not valid');
                 // deauthenticate user
                 await this.auth.deauthenticate();
                 // clear vpnToken
@@ -595,7 +595,7 @@ export class Credentials implements CredentialsInterface {
 
             return fetchedUsername;
         } catch (e) {
-            log.debug('Error occurred while retrieving username:', e);
+            log.debug('[vpn.Credentials.getUsername]: Error occurred while retrieving username:', e);
             return null;
         }
     }
@@ -621,7 +621,7 @@ export class Credentials implements CredentialsInterface {
 
             return fetchedRegistrationTime;
         } catch (e) {
-            log.debug('Error occurred while retrieving registration time:', e);
+            log.debug('[vpn.Credentials.getUserRegistrationTimeISO]: Error occurred while retrieving registration time:', e);
             return null;
         }
     }
@@ -663,7 +663,7 @@ export class Credentials implements CredentialsInterface {
                 registrationTimeISO: fetchedRegistrationTime,
             };
         } catch (e) {
-            log.debug('Error occurred while retrieving username and registration time:', e);
+            log.debug('[vpn.Credentials.getUsernameAndRegistrationTimeISO]: Error occurred while retrieving username and registration time:', e);
             throw new Error('Unable to get username and registration time');
         }
     }
@@ -689,7 +689,7 @@ export class Credentials implements CredentialsInterface {
 
             return castedMarketingConsent;
         } catch (e) {
-            log.debug('Error occurred while retrieving marketing consent:', e);
+            log.debug('[vpn.Credentials.getMarketingConsent]: Error occurred while retrieving marketing consent:', e);
             return null;
         }
     }
@@ -702,7 +702,7 @@ export class Credentials implements CredentialsInterface {
             await this.credentialsState.update({ marketingConsent: newMarketingConsent });
         } catch (e) {
             if (e?.status === ERROR_STATUSES.UNAUTHORIZED) {
-                log.debug('Auth denied, token is not valid');
+                log.debug('[vpn.Credentials.updateUserMarketingConsent]: Auth denied, token is not valid');
                 // deauthenticate user
                 await this.auth.deauthenticate();
                 // clear vpnToken
@@ -732,9 +732,9 @@ export class Credentials implements CredentialsInterface {
             await abTestManager.setVersions(response.experiments);
 
             await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
-            log.info('Installation successfully tracked');
+            log.info('[vpn.Credentials.trackInstallation]: Installation successfully tracked');
         } catch (e) {
-            log.error('Error occurred during track request', e.message);
+            log.error('[vpn.Credentials.trackInstallation]: Error occurred during track request', e.message);
         }
     }
 
@@ -801,8 +801,8 @@ export class Credentials implements CredentialsInterface {
                 }
             }
         } catch (e) {
-            log.debug('Unable to init credentials module, due to error:', e.message);
+            log.debug('[vpn.Credentials.init]: Unable to init credentials module, due to error:', e.message);
         }
-        log.info('Credentials module is ready');
+        log.info('[vpn.Credentials.init]: Credentials module is ready');
     }
 }

@@ -16,6 +16,7 @@ module.exports = {
         'import',
         'import-newlines',
         'jsdoc',
+        '@adguard/logger-context',
     ],
     env: {
         browser: true,
@@ -148,5 +149,10 @@ module.exports = {
             },
         ],
         'no-console': 'error',
+        // Check that every logger call has a context tag.
+        '@adguard/logger-context/require-logger-context': ['error', {
+            contextModuleName: 'vpn',
+            loggerVariableName: 'log',
+        }],
     },
 };

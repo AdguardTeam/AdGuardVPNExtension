@@ -30,7 +30,7 @@ async function turnOnProxy(): Promise<void> {
     try {
         await switcher.turnOn();
     } catch (e) {
-        log.debug(e);
+        log.debug('[vpn.actions]: ', e);
     }
 }
 
@@ -41,7 +41,7 @@ async function turnOffProxy(): Promise<void> {
     try {
         await switcher.turnOff();
     } catch (e) {
-        log.debug(e);
+        log.debug('[vpn.actions]: ', e);
     }
 }
 

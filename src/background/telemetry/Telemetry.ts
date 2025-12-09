@@ -341,7 +341,7 @@ export class Telemetry implements TelemetryInterface {
 
         // Generate new synthetic ID if it doesn't exist or corrupted in local storage
         if (!syntheticId || !Telemetry.isValidSyntheticId(syntheticId)) {
-            log.debug('Generating new synthetic id');
+            log.debug('[vpn.Telemetry.gainSyntheticId]: Generating new synthetic id');
             syntheticId = Telemetry.generateSyntheticId();
             await this.storage.set(Telemetry.SYNTHETIC_ID_KEY, syntheticId);
         }
@@ -373,7 +373,7 @@ export class Telemetry implements TelemetryInterface {
             screenName === this.currentScreenName
             && pageId === this.currentScreenPageId
         ) {
-            log.debug(`Screen name '${screenName}' in page '${pageId}' is already sent as page view event`);
+            log.debug(`[vpn.Telemetry.sendPageViewEvent]: Screen name '${screenName}' in page '${pageId}' is already sent as page view event`);
             return;
         }
 
@@ -466,7 +466,7 @@ export class Telemetry implements TelemetryInterface {
         // At this point we previously checked if settings enabled or not,
         // but in case if event is reached this point it means that bug appeared.
         if (!this.settings.isHelpUsImproveEnabled()) {
-            log.debug('Telemetry is disabled by user but event is trying to be sent');
+            log.debug('[vpn.Telemetry.canSendEvents]: Telemetry is disabled by user but event is trying to be sent');
             return false;
         }
 
@@ -475,7 +475,7 @@ export class Telemetry implements TelemetryInterface {
         // NOTE: We are not throwing an error here because telemetry
         // should neither block the application nor notify the user
         if (!this.isInitialized) {
-            log.debug('Telemetry module is not initialized');
+            log.debug('[vpn.Telemetry.canSendEvents]: Telemetry module is not initialized');
             return false;
         }
 
@@ -521,7 +521,7 @@ export class Telemetry implements TelemetryInterface {
      */
     public removeOpenedPage = (pageId: string): void => {
         if (!this.openedPages.has(pageId)) {
-            log.debug(`Page with ID ${pageId} not found in opened pages list`);
+            log.debug(`[vpn.Telemetry]: Page with ID ${pageId} not found in opened pages list`);
             return;
         }
 

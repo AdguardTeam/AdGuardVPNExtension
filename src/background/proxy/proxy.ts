@@ -77,7 +77,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
             throw new Error(`Failed to turn on proxy with config: ${JSON.stringify(currentConfig)} because of error, ${e.message}`);
         }
 
-        log.info('Proxy turned on');
+        log.info('[vpn.ExtensionProxy.turnOn]: Proxy turned on');
         proxyApi.onProxyError.addListener(ExtensionProxy.errorHandler);
     }
 
@@ -88,19 +88,19 @@ class ExtensionProxy implements ExtensionProxyInterface {
             // set state to turned off
             await this.proxyState.update({ isActive: false });
             proxyApi.onProxyError.removeListener(ExtensionProxy.errorHandler);
-            log.info(`Proxy cant be controlled due to: ${cause}`);
-            log.info('Set state to turned off');
+            log.info(`[vpn.ExtensionProxy.turnOff]: Proxy cant be controlled due to: ${cause}`);
+            log.info('[vpn.ExtensionProxy.turnOff]: Set state to turned off');
         }
 
         try {
             await proxyApi.proxyClear();
             await this.proxyState.update({ isActive: false });
         } catch (e) {
-            log.error(`Failed to turn off proxy due to error: ${e.message}`);
+            log.error(`[vpn.ExtensionProxy.turnOff]: Failed to turn off proxy due to error: ${e.message}`);
         }
 
         proxyApi.onProxyError.removeListener(ExtensionProxy.errorHandler);
-        log.info('Proxy turned off');
+        log.info('[vpn.ExtensionProxy.turnOff]: Proxy turned off');
     }
 
     async canControlProxy(): Promise<CanControlProxy> {
@@ -116,7 +116,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
     }
 
     static errorHandler(details: any): void {
-        log.debug(JSON.stringify(details));
+        log.debug('[vpn.ExtensionProxy.errorHandler]: ', JSON.stringify(details));
     }
 
     async getConfig(): Promise<ProxyConfigInterface> {

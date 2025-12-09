@@ -19,7 +19,7 @@ export const getSubscriptionParams = (url: string): { name: string | null, addre
     try {
         urlObject = new URL(url);
     } catch (e) {
-        log.error(`Failed to parse URL: ${url}, due to error: ${e}`);
+        log.error(`[vpn.custom-dns-links]: Failed to parse URL: ${url}, due to error: ${e}`);
         return { name: null, address: null };
     }
     const params = new URLSearchParams(urlObject.search);

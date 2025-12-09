@@ -82,7 +82,7 @@ export class Dns implements DnsInterface {
     getCurrentDnsServerAddress = async (): Promise<string> => {
         const { selectedDnsServer, customDnsServers } = await this.dnsState.get();
 
-        log.info(`Getting selected dns server address for id: "${selectedDnsServer}"`);
+        log.info(`[vpn.Dns]: Getting selected dns server address for id: "${selectedDnsServer}"`);
 
         const currentDnsServerData = [
             DEFAULT_DNS_SERVER,
@@ -91,11 +91,11 @@ export class Dns implements DnsInterface {
         ].find((server) => server.id === selectedDnsServer);
 
         if (currentDnsServerData?.address) {
-            log.info(`Found address: "${currentDnsServerData.address}"`);
+            log.info(`[vpn.Dns]: Found address: "${currentDnsServerData.address}"`);
             return currentDnsServerData.address;
         }
 
-        log.info('Address not found, using empty string for default dns server');
+        log.info('[vpn.Dns]: Address not found, using empty string for default dns server');
         return DEFAULT_DNS_SERVER.address;
     };
 

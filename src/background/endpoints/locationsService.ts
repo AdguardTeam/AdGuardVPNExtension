@@ -471,7 +471,7 @@ export class LocationsService implements LocationsServiceInterface {
         if (!isEmpty(locations)) {
             await this.setLocations(locations);
         } else {
-            log.debug('Api returned empty list of locations', locations);
+            log.debug('[vpn.LocationsService]: Api returned empty list of locations', locations);
         }
 
         return locations;

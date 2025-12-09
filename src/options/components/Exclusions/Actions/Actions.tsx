@@ -40,7 +40,7 @@ const prepareExclusionsAfterImport = (exclusionsString: string): string[] => {
             if (isValidExclusion(exclusionStr)) {
                 return true;
             }
-            log.debug(`Invalid exclusion: ${exclusionStr}`);
+            log.debug(`[vpn.Actions]: Invalid exclusion: ${exclusionStr}`);
             return false;
         })
         .reverse();

@@ -57,7 +57,7 @@ export class TelemetryStore {
             this.pageId = null;
             await messenger.removeTelemetryOpenedPage(pageId);
         } catch (e) {
-            log.debug('Failed to remove opened page from telemetry service', e);
+            log.debug('[vpn.TelemetryStore]: Failed to remove opened page from telemetry service', e);
         }
     };
 
@@ -69,7 +69,7 @@ export class TelemetryStore {
     @action setPageId = (pageId: string | null): void => {
         // Guard against multiple calls, allow to set page ID only once or to `null`
         if (this.pageId && pageId) {
-            log.error(`Cannot set page ID: already set to '${this.pageId}'`);
+            log.error(`[vpn.TelemetryStore]: Cannot set page ID: already set to '${this.pageId}'`);
             return;
         }
 
@@ -90,13 +90,13 @@ export class TelemetryStore {
             }
 
             if (!this.pageId) {
-                log.error(`Cannot send page view telemetry event: missing page ID for screen '${screenName}'`);
+                log.error(`[vpn.TelemetryStore]: Cannot send page view telemetry event: missing page ID for screen '${screenName}'`);
                 return;
             }
 
             await messenger.sendPageViewTelemetryEvent(screenName, this.pageId);
         } catch (e) {
-            log.debug('Failed to send page view telemetry event', e);
+            log.debug('[vpn.TelemetryStore]: Failed to send page view telemetry event', e);
         }
     };
 
@@ -121,7 +121,7 @@ export class TelemetryStore {
 
             await messenger.sendCustomTelemetryEvent(actionName, screenName, label);
         } catch (e) {
-            log.debug('Failed to send custom telemetry event', e);
+            log.debug('[vpn.TelemetryStore]: Failed to send custom telemetry event', e);
         }
     };
 }

@@ -143,7 +143,7 @@ export class StateStorage implements StateStorageInterface {
         } catch (e) {
             // Do not log the error if data not exists in the session storage
             if (e?.message !== StateStorage.EMPTY_STORAGE_ERROR) {
-                log.debug('Failed to initialize state storage, falling back to default.', e);
+                log.debug('[vpn.StateStorage.innerInit]: Failed to initialize state storage, falling back to default.', e);
             }
 
             // Fallback to default data if parsing/validation fails or no data exists
@@ -152,7 +152,7 @@ export class StateStorage implements StateStorageInterface {
             try {
                 await this.saveState();
             } catch (e) {
-                log.error('Failed to save default state in state storage:', e);
+                log.error('[vpn.StateStorage.innerInit]: Failed to save default state in state storage:', e);
             }
         }
     }
@@ -188,7 +188,7 @@ export class StateStorage implements StateStorageInterface {
                 storageValue = JSON.parse(JSON.stringify(value));
             } catch (e) {
                 // only circular reference can cause this error
-                log.error('Failed to serialize data for state storage:', e);
+                log.error('[vpn.StateStorage.setItem]: Failed to serialize data for state storage:', e);
                 return;
             }
         }
@@ -196,7 +196,7 @@ export class StateStorage implements StateStorageInterface {
         // Validate state data before saving it to the session storage
         const validation = storageDataScheme.shape[key].safeParse(storageValue);
         if (!validation.success) {
-            log.error('Failed to validate data for state storage:', validation.error);
+            log.error('[vpn.StateStorage.setItem]: Failed to validate data for state storage:', validation.error);
             return;
         }
 
@@ -214,7 +214,7 @@ export class StateStorage implements StateStorageInterface {
             await this.saveStateThrottled();
         } catch (e) {
             // Revert the in-memory state back to the previous value if saving fails
-            log.error('Failed to save item in state storage, reverting state back:', e);
+            log.error('[vpn.StateStorage.setItem]: Failed to save item in state storage, reverting state back:', e);
             this.state[key] = prevValue;
         }
     }

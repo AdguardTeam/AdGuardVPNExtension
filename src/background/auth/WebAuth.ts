@@ -266,7 +266,7 @@ export class WebAuth implements WebAuthInterface {
         this.handleTabAttached = this.handleTabAttached.bind(this);
 
         this.interpreter.onTransition((state) => {
-            log.debug(`WebAuth state transitioned to "${state.value}"`);
+            log.debug(`[vpn.WebAuth.constructor]: WebAuth state transitioned to "${state.value}"`);
             this.authCache.updateCache(AuthCacheKey.WebAuthFlowState, state.value as WebAuthState);
         });
         this.interpreter.start();
@@ -288,7 +288,7 @@ export class WebAuth implements WebAuthInterface {
         // Close tab
         try {
             await this.tabs.closeTab(tabId);
-            log.debug(`Web authentication tab with tabId#${tabId} closed.`);
+            log.debug(`[vpn.WebAuth.closeWebAuthTab]: Web authentication tab with tabId#${tabId} closed.`);
         } catch {
             // It might throw an error if the tab is already closed
         }
@@ -369,7 +369,7 @@ export class WebAuth implements WebAuthInterface {
         error,
     }: ShowErrorStateOptions): Promise<void> {
         if (error) {
-            log.error('Error occurred while ongoing web authentication flow: ', error);
+            log.error('[vpn.WebAuth.showErrorState]: Error occurred while ongoing web authentication flow: ', error);
         }
 
         // Reset authentication state
@@ -401,7 +401,7 @@ export class WebAuth implements WebAuthInterface {
             return;
         }
 
-        log.debug(`User closed web authentication tab with tabId#${tabId}`);
+        log.debug(`[vpn.WebAuth.handleTabRemoved]: User closed web authentication tab with tabId#${tabId}`);
 
         // Show error state
         await this.showErrorState({
@@ -432,7 +432,7 @@ export class WebAuth implements WebAuthInterface {
             return;
         }
 
-        log.debug(`Web authentication tab with tabId#${tabId} was attached to windowId#${attachInfo.newWindowId}.`);
+        log.debug(`[vpn.WebAuth.handleTabAttached]: Web authentication tab with tabId#${tabId} was attached to windowId#${attachInfo.newWindowId}.`);
 
         // Update window ID
         this.webAuthTabInfo.windowId = attachInfo.newWindowId;
@@ -481,17 +481,17 @@ export class WebAuth implements WebAuthInterface {
      */
     private async startWebAuthFlow(appId: string): Promise<void> {
         try {
-            log.debug('Starting web authentication flow.');
+            log.debug('[vpn.WebAuth.startWebAuthFlow]: Starting web authentication flow.');
 
             // If authentication state is defined - there is an ongoing flow
             if (this.authState) {
-                log.debug('Web authentication flow is already in progress, skipping new request.');
+                log.debug('[vpn.WebAuth.startWebAuthFlow]: Web authentication flow is already in progress, skipping new request.');
                 return;
             }
 
             // Do nothing if already authenticated - user must logout first
             if (await this.auth.isAuthenticated(false)) {
-                log.debug('User is already authenticated, skipping web authentication request.');
+                log.debug('[vpn.WebAuth.startWebAuthFlow]: User is already authenticated, skipping web authentication request.');
                 return;
             }
 
@@ -514,9 +514,9 @@ export class WebAuth implements WebAuthInterface {
             const webAuthUrl = `${authApiUrl}${WebAuth.OAUTH_PATH}?${params}`;
 
             // Open web authentication URL in new tab
-            log.debug(`Opening web authentication with "${webAuthUrl}" URL in new tab.`);
+            log.debug(`[vpn.WebAuth.startWebAuthFlow]: Opening web authentication with "${webAuthUrl}" URL in new tab.`);
             const tab = await this.tabs.openTab(webAuthUrl);
-            log.debug(`Web authentication tab with tabId#${tab.id} and windowId#${tab.windowId} opened.`);
+            log.debug(`[vpn.WebAuth.startWebAuthFlow]: Web authentication tab with tabId#${tab.id} and windowId#${tab.windowId} opened.`);
 
             // Save tab ID and window ID to be able to manage it later
             this.webAuthTabInfo = {
@@ -540,27 +540,27 @@ export class WebAuth implements WebAuthInterface {
      */
     private async reopenWebAuthFlow(): Promise<void> {
         try {
-            log.debug('Reopening web authentication tab');
+            log.debug('[vpn.WebAuth.reopenWebAuthFlow]: Reopening web authentication tab');
 
             // If tab info is unavailable - nothing to reopen
             if (!this.webAuthTabInfo) {
-                log.debug('Web authentication tab is not available for reopening.');
+                log.debug('[vpn.WebAuth.reopenWebAuthFlow]: Web authentication tab is not available for reopening.');
                 return;
             }
 
             // Focus on window
             if (typeof this.webAuthTabInfo.windowId === 'number') {
-                log.debug(`Focusing on web authentication window with windowId#${this.webAuthTabInfo.windowId}.`);
+                log.debug(`[vpn.WebAuth.reopenWebAuthFlow]: Focusing on web authentication window with windowId#${this.webAuthTabInfo.windowId}.`);
                 await this.windowsApi.update(this.webAuthTabInfo.windowId, { focused: true });
             }
 
             // Focus on tab
             if (typeof this.webAuthTabInfo.id === 'number') {
-                log.debug(`Focusing on web authentication tab with tabId#${this.webAuthTabInfo.id}.`);
+                log.debug(`[vpn.WebAuth.reopenWebAuthFlow]: Focusing on web authentication tab with tabId#${this.webAuthTabInfo.id}.`);
                 await this.tabs.focusTab(this.webAuthTabInfo.id);
             }
         } catch (error) {
-            log.error('Error occurred while reopening web authentication flow: ', error);
+            log.error('[vpn.WebAuth.reopenWebAuthFlow]: Error occurred while reopening web authentication flow: ', error);
         }
     }
 
@@ -569,7 +569,7 @@ export class WebAuth implements WebAuthInterface {
      */
     private async cancelWebAuthFlow(): Promise<void> {
         try {
-            log.debug('Cancelling web authentication flow.');
+            log.debug('[vpn.WebAuth.cancelWebAuthFlow]: Cancelling web authentication flow.');
 
             // Reset authentication state
             this.authState = null;
@@ -580,7 +580,7 @@ export class WebAuth implements WebAuthInterface {
             // Remove listeners if it was attached
             this.removeEventListeners();
         } catch (error) {
-            log.error('Error occurred while cancelling web authentication flow: ', error);
+            log.error('[vpn.WebAuth.cancelWebAuthFlow]: Error occurred while cancelling web authentication flow: ', error);
         }
     }
 
@@ -605,7 +605,7 @@ export class WebAuth implements WebAuthInterface {
     private async finishWebAuthFlow(responseUrl: string): Promise<void> {
         try {
             // Note: do not log `responseUrl`, because it contains sensitive information (token)
-            log.debug('Response URL received for web authentication flow, authenticating user.');
+            log.debug('[vpn.WebAuth.finishWebAuthFlow]: Response URL received for web authentication flow, authenticating user.');
 
             // Close tab
             await this.closeWebAuthTab();
@@ -620,7 +620,7 @@ export class WebAuth implements WebAuthInterface {
 
             // Do nothing if already authenticated - user must logout first
             if (await this.auth.isAuthenticated(false)) {
-                log.debug('User is already authenticated, skipping web authentication request.');
+                log.debug('[vpn.WebAuth.finishWebAuthFlow]: User is already authenticated, skipping web authentication request.');
                 return;
             }
 

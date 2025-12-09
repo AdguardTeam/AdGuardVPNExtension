@@ -205,9 +205,9 @@ export class StatisticsStorage implements StatisticsStorageInterface {
         try {
             await this.gainStatistics();
             this.isInitialized = true;
-            log.info('Statistics storage ready');
+            log.info('[vpn.StatisticsStorage]: Statistics storage ready');
         } catch (e) {
-            log.error('Unable to initialize statistics storage, due to error:', e);
+            log.error('[vpn.StatisticsStorage]: Unable to initialize statistics storage, due to error:', e);
         }
     };
 
@@ -231,7 +231,7 @@ export class StatisticsStorage implements StatisticsStorageInterface {
                 notifier.notifyListeners(notifier.types.STATS_UPDATED);
             }
         } catch (e) {
-            log.error('Unable to save statistics storage, due to error:', e);
+            log.error('[vpn.StatisticsStorage.saveStatistics]: Unable to save statistics storage, due to error:', e);
         }
     }
 

@@ -110,9 +110,9 @@ export class StatisticsService implements StatisticsServiceInterface {
         try {
             await this.provider.init();
             await this.statisticsStorage.init();
-            log.info('Statistics service ready');
+            log.info('[vpn.StatisticsService]: Statistics service ready');
         } catch (e) {
-            log.error('Unable to initialize statistics service, due to error:', e);
+            log.error('[vpn.StatisticsService]: Unable to initialize statistics service, due to error:', e);
         }
     };
 

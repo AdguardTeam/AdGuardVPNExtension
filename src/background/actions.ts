@@ -115,7 +115,7 @@ const setIcon = async (details: SetIconDetailsType): Promise<void> => {
     try {
         await browser.action.setIcon(details);
     } catch (e) {
-        log.debug(e.message);
+        log.debug('[vpn.actions]: ', e.message);
     }
 };
 
@@ -128,7 +128,7 @@ const setBadge = async (details: SetBadgeDetailsType): Promise<void> => {
 
         await browser.action.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
     } catch (e) {
-        log.debug(e.message);
+        log.debug('[vpn.actions]: ', e.message);
     }
 };
 

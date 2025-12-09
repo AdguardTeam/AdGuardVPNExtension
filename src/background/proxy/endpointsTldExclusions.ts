@@ -44,9 +44,9 @@ class EndpointsTldExclusions {
         try {
             const { endpointsTldExclusionsList } = await this.endpointsTldExclusionsState.get();
             await browserApi.storage.set(this.STORAGE_KEY, endpointsTldExclusionsList);
-            log.debug('Endpoints tld exclusions saved in the storage');
+            log.debug('[vpn.EndpointsTldExclusions]: Endpoints tld exclusions saved in the storage');
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.EndpointsTldExclusions]: ', e);
         }
     }, this.THROTTLE_TIMEOUT_MS);
 
@@ -106,9 +106,9 @@ class EndpointsTldExclusions {
                 await proxy.setEndpointsTldExclusions(storedList);
             }
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.EndpointsTldExclusions]: ', e);
         }
-        log.debug('Endpoints tld exclusions module initiated');
+        log.debug('[vpn.EndpointsTldExclusions]: Endpoints tld exclusions module initiated');
     };
 }
 

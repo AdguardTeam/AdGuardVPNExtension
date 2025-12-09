@@ -224,10 +224,10 @@ export class PopupData {
         try {
             data = await this.getPopupData(url);
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.PopupData.getPopupDataRetry]: ', e);
             await sleep(retryDelay);
             this.retryCounter += 1;
-            log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
+            log.debug(`[vpn.PopupData.getPopupDataRetry]: Retry get popup data again retry: ${this.retryCounter}`);
             return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
 
@@ -256,7 +256,7 @@ export class PopupData {
                 return { ...data, hasRequiredData };
             }
             await sleep(retryDelay);
-            log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
+            log.debug(`[vpn.PopupData.getPopupDataRetry]: Retry get popup data again retry: ${this.retryCounter}`);
             return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
 

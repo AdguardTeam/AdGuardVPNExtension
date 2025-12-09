@@ -92,7 +92,7 @@ const setSetting = async (id: string, value: boolean | string, force?: boolean):
     }
 
     settingsService.setSetting(id, value);
-    log.debug(`Setting with id: "${id}" was set to:`, value);
+    log.debug(`[vpn.settings]: Setting with id: "${id}" was set to:`, value);
     notifier.notifyListeners(notifier.types.SETTING_UPDATED, id, value);
     return true;
 };
@@ -147,7 +147,7 @@ const applySettings = async (): Promise<void> => {
         connectivityService.send(ConnectivityEventType.ExtensionLaunched);
     }
 
-    log.info('Settings were applied');
+    log.info('[vpn.settings]: Settings were applied');
 };
 
 const getSetting = (id: string): Settings => {
@@ -197,7 +197,7 @@ const isHelpUsImproveEnabled = (): boolean => {
 const init = async (): Promise<void> => {
     await settingsService.init();
     await dns.init();
-    log.info('Settings module is ready');
+    log.info('[vpn.settings]: Settings module is ready');
 };
 
 export const settings: SettingsInterface = {

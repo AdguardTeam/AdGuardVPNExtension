@@ -81,7 +81,7 @@ const BROWSER_ACTION_ITEMS: ContextMenuItems = {
             try {
                 await actions.openExportLogsPage();
             } catch (e) {
-                log.debug(e.message);
+                log.debug('[vpn.contextMenu]: ', e.message);
             }
         },
     },
@@ -152,11 +152,11 @@ const renewContextMenuItems = async (menuItems: CreateCreatePropertiesType[]): P
             }, { contexts });
             await browser.contextMenus.create(createProperties, () => {
                 if (browser.runtime.lastError) {
-                    log.debug(browser.runtime.lastError.message);
+                    log.debug('[vpn.contextMenu]: ', browser.runtime.lastError.message);
                 }
             });
         } catch (e) {
-            log.debug(e);
+            log.debug('[vpn.contextMenu]: ', e);
         }
     }));
 };
@@ -237,11 +237,11 @@ const addBrowserActionItem = async (item: ContextMenuItem): Promise<void> => {
     try {
         await browser.contextMenus.create(props, () => {
             if (browser.runtime.lastError) {
-                log.debug(browser.runtime.lastError.message);
+                log.debug('[vpn.contextMenu]: ', browser.runtime.lastError.message);
             }
         });
     } catch (e) {
-        log.debug(`Error while adding browser action item with id: ${item.id} to context menu, ${e}`);
+        log.debug(`[vpn.contextMenu]: Error while adding browser action item with id: ${item.id} to context menu, ${e}`);
     }
 };
 
@@ -271,7 +271,7 @@ const getBrowserActionItems = (): ContextMenuItem[] => {
  */
 const updateBrowserActionItems = async (): Promise<void> => {
     if (!browser.contextMenus) {
-        log.debug('Context menus are not supported');
+        log.debug('[vpn.contextMenu]: Context menus are not supported');
         return;
     }
 
@@ -285,7 +285,7 @@ const updateBrowserActionItems = async (): Promise<void> => {
             return addBrowserActionItem(item);
         }));
     } catch (e) {
-        log.debug(e);
+        log.debug('[vpn.contextMenu]: ', e);
     }
 };
 
@@ -298,7 +298,7 @@ const updateBrowserActionItems = async (): Promise<void> => {
  */
 const init = (): void => {
     if (!browser.contextMenus) {
-        log.debug('Context menus are not supported');
+        log.debug('[vpn.contextMenu]: Context menus are not supported');
         return;
     }
     const throttleTimeoutMs = 100;

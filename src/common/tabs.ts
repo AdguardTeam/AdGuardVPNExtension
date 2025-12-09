@@ -108,7 +108,7 @@ class Tabs implements TabsInterface {
         try {
             await browser.tabs.reload(tabId);
         } catch (e) {
-            log.error(e.message);
+            log.error('[vpn.Tabs.reload]: ', e.message);
         }
     }
 
@@ -121,7 +121,7 @@ class Tabs implements TabsInterface {
         try {
             await browser.tabs.update(tabId, { url, active: true });
         } catch (e) {
-            log.error(e.message);
+            log.error('[vpn.Tabs.update]: ', e.message);
         }
     }
 

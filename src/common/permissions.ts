@@ -32,7 +32,7 @@ export class Permissions {
         try {
             return await browser.permissions.contains(permissionsRequest);
         } catch (e: unknown) {
-            log.error(`Was not able to check if browser contains permission: "${origins}", error: "${getErrorMessage(e)}"`);
+            log.error(`[vpn.Permissions.hasHostPermissions]: Was not able to check if browser contains permission: "${origins}", error: "${getErrorMessage(e)}"`);
             return false;
         }
     }
@@ -69,7 +69,7 @@ export class Permissions {
         const logMessage = areAllHostPermissionsGranted
             ? 'Host permissions for <all_urls> are OK'
             : 'Host permissions for <all_urls> are not granted';
-        log.info(logMessage);
+        log.info('[vpn.Permissions.hasNeededHostPermissions]: ', logMessage);
         return areAllHostPermissionsGranted;
     }
 

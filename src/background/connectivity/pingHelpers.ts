@@ -174,7 +174,7 @@ export const measurePingToEndpointViaFetch = async (domainName: string): Promise
                 ping = fetchPing;
             }
         } catch (e) {
-            log.error(`Was unable to get ping to ${requestUrl} due to ${e.message}`);
+            log.error(`[vpn.pingHelpers]: Was unable to get ping to ${requestUrl} due to ${e.message}`);
         }
     }
 

@@ -125,7 +125,7 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
 
 const messagesHandler = async (message: unknown, sender: Runtime.MessageSender): Promise<any> => {
     if (!isMessage(message)) {
-        log.error('Invalid message received:', message);
+        log.error('[vpn.messaging]: Invalid message received:', message);
         return null;
     }
 
@@ -144,7 +144,7 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
                             await browser.tabs.sendMessage(sender.tab.id, { type, data });
                         }
                     } catch (e) {
-                        log.error(e.message);
+                        log.error('[vpn.messaging]: ', e.message);
                     }
                 }
             });
@@ -358,12 +358,12 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
                 const vpnToken = await credentials.gainVpnToken();
                 token = vpnToken?.token;
             } catch (e) {
-                log.error('Was unable to get token');
+                log.error('[vpn.messaging]: Was unable to get token');
             }
             const { version } = appStatus;
 
             if (!token) {
-                log.error('Was unable to get token');
+                log.error('[vpn.messaging]: Was unable to get token');
                 break;
             }
 
@@ -416,7 +416,7 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         case MessageType.HANDLE_CUSTOM_DNS_LINK: {
             const { name, address } = message.data;
             if (!name || !address) {
-                log.error('Invalid custom DNS link', { name, address });
+                log.error('[vpn.messaging]: Invalid custom DNS link', { name, address });
                 return null;
             }
             await actions.openOptionsPage(
@@ -500,12 +500,12 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
 const longLivedMessageHandler = (port: Runtime.Port): void => {
     let listenerId: string;
 
-    log.debug(`Connecting to the port "${port.name}"`);
+    log.debug(`[vpn.messaging]: Connecting to the port "${port.name}"`);
     notifier.notifyListeners(notifier.types.PORT_CONNECTED, port.name);
 
     port.onMessage.addListener((message) => {
         if (!isMessage(message)) {
-            log.error('Invalid message received:', message);
+            log.error('[vpn.messaging]: Invalid message received:', message);
             return;
         }
 
@@ -517,14 +517,14 @@ const longLivedMessageHandler = (port: Runtime.Port): void => {
                 try {
                     port.postMessage({ type, data });
                 } catch (e) {
-                    log.error(e.message);
+                    log.error('[vpn.messaging]: ', e.message);
                 }
             });
         }
     });
 
     port.onDisconnect.addListener(() => {
-        log.debug(`Removing listener: ${listenerId} for port ${port.name}`);
+        log.debug(`[vpn.messaging]: Removing listener: ${listenerId} for port ${port.name}`);
         notifier.removeListener(listenerId);
         notifier.notifyListeners(notifier.types.PORT_DISCONNECTED, port.name);
     });

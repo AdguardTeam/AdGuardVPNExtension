@@ -85,16 +85,16 @@ class Messenger {
         type: K,
         data?: ExtractMessageData<K>,
     ): Promise<ExtractMessageResponse<K>> {
-        log.debug(`Request type: "${type}"`);
+        log.debug(`[vpn.Messenger.sendMessage]: Request type: "${type}"`);
         if (data) {
-            log.debug('Request data:', data);
+            log.debug('[vpn.Messenger.sendMessage]: Request data:', data);
         }
 
         const response = await browser.runtime.sendMessage({ type, data });
 
         if (response) {
-            log.debug(`Response type: "${type}"`);
-            log.debug('Response data:', response);
+            log.debug(`[vpn.Messenger.sendMessage]: Response type: "${type}"`);
+            log.debug('[vpn.Messenger.sendMessage]: Response data:', response);
         }
 
         // TODO: This is temporary fix of message type,
@@ -127,7 +127,7 @@ class Messenger {
 
         const messageHandler = (message: unknown): void => {
             if (!isMessage(message)) {
-                log.error('Invalid message received:', message);
+                log.error('[vpn.Messenger]: Invalid message received:', message);
                 return;
             }
 
@@ -184,7 +184,7 @@ class Messenger {
 
             port.onMessage.addListener((message) => {
                 if (!isMessage(message)) {
-                    log.error('Invalid message received:', message);
+                    log.error('[vpn.Messenger]: Invalid message received:', message);
                     return;
                 }
 
@@ -196,7 +196,7 @@ class Messenger {
 
             port.onDisconnect.addListener(() => {
                 if (browser.runtime.lastError) {
-                    log.debug(browser.runtime.lastError.message);
+                    log.debug('[vpn.Messenger]: ', browser.runtime.lastError.message);
                 }
                 // we try to connect again if the background page was terminated
                 if (!forceDisconnected) {

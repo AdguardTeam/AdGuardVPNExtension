@@ -148,7 +148,7 @@ export class GlobalStore {
 
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
-            log.error(e.message);
+            log.error('[vpn.GlobalStore.getPopupData]: ', e.message);
             this.setInitStatus(RequestStatus.Error);
         }
     }

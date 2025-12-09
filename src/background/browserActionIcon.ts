@@ -43,7 +43,7 @@ class BrowserActionIcon {
         const { id, url } = tab;
 
         if (!id) {
-            log.error('Unable to get tab id to update icon');
+            log.error('[vpn.BrowserActionIcon.updateIcon]: Unable to get tab id to update icon');
             return;
         }
 

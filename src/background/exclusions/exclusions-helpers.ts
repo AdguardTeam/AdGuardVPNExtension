@@ -24,7 +24,7 @@ const generateExclusions = (exclusion: ExclusionInterface): ExclusionInterface[]
     const eTld = getETld(hostname);
 
     if (!eTld) {
-        log.error(`All hostnames should have eTld ${hostname}`);
+        log.error(`[vpn.exclusions-helpers]: All hostnames should have eTld ${hostname}`);
         return [exclusion];
     }
 
@@ -94,7 +94,7 @@ export const complementExclusions = (exclusions: ExclusionInterface[]): Exclusio
         const eTld = getETld(exclusion.hostname);
 
         if (!eTld) {
-            log.debug(`Exclusion hostname ${exclusion} doesn't have eTld`);
+            log.debug(`[vpn.exclusions-helpers]: Exclusion hostname ${exclusion} doesn't have eTld`);
             return acc;
         }
 
@@ -202,7 +202,7 @@ export const complementedExclusionsWithServices = (
         const eTld = getETld(exclusion.hostname);
 
         if (!eTld) {
-            log.debug(`Exclusion hostname ${exclusion} doesn't have eTld`);
+            log.debug(`[vpn.exclusions-helpers]: Exclusion hostname ${exclusion} doesn't have eTld`);
             return acc;
         }
 

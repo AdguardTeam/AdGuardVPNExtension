@@ -135,7 +135,7 @@ export class SettingsStore {
                 animationService.send(AnimationEvent.VpnDisconnected);
             }
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.SettingsStore]: ', e);
         }
     };
 
@@ -149,7 +149,7 @@ export class SettingsStore {
                 animationService.send(AnimationEvent.VpnConnected);
             }
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.SettingsStore]: ', e);
         }
     };
 
@@ -181,7 +181,7 @@ export class SettingsStore {
                 }
             });
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.SettingsStore]: ', e);
         }
     };
 
@@ -199,7 +199,7 @@ export class SettingsStore {
             await messenger.checkPermissions();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         } catch (e) {
-            log.info(e.message);
+            log.info('[vpn.SettingsStore.checkPermissions]: ', e.message);
         }
         runInAction(() => {
             this.checkPermissionsState = RequestStatus.Done;

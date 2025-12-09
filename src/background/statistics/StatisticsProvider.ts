@@ -188,9 +188,9 @@ export class StatisticsProvider implements StatisticsProviderInterface {
                 this.handleNotifierEvent.bind(this),
             );
             this.isInitialized = true;
-            log.info('Statistics provider ready');
+            log.info('[vpn.StatisticsProvider]: Statistics provider ready');
         } catch (e) {
-            log.error('Unable to initialize statistics provider, due to error:', e);
+            log.error('[vpn.StatisticsProvider]: Unable to initialize statistics provider, due to error:', e);
         }
     };
 
@@ -240,7 +240,7 @@ export class StatisticsProvider implements StatisticsProviderInterface {
             // At this point, locationId should already exist, if not - we consider it as an error
             if (!this.locationId) {
                 log.error(
-                    `Cannot ${isDisabled ? 'end' : 'restart'} duration after ${isDisabled ? 'disabling' : 'enabling'} statistics, "locationId" is not set.`,
+                    `[vpn.StatisticsProvider]: Cannot ${isDisabled ? 'end' : 'restart'} duration after ${isDisabled ? 'disabling' : 'enabling'} statistics, "locationId" is not set.`,
                 );
                 return;
             }

@@ -37,7 +37,7 @@ class Mv3Timers implements TimersInterface {
         // https://developer.chrome.com/docs/extensions/reference/alarms/#method-create
         // So if converted time is less than 1 minute, we round it to the 1
         if (timeMin < MINIMAL_INTERVAL_MIN) {
-            log.warn('Alarm API interval can\'t be less than 1 minute, so it was rounded to 1');
+            log.warn("[vpn.Mv3Timers]: Alarm API interval can't be less than 1 minute, so it was rounded to 1");
             timeMin = MINIMAL_INTERVAL_MIN;
         }
 
