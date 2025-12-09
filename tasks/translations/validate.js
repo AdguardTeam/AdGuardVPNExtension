@@ -111,6 +111,91 @@ const validateTranslatedLength = (baseDescriptionValue, localeMessageValue) => {
 };
 
 /**
+ * Validates that all percent placeholders in a message are properly closed.
+ * Each opening % must have a corresponding closing %.
+ *
+ * @param {string} messageValue The message value to validate.
+ *
+ * @returns {string | null} Error message if unbalanced % found, otherwise null.
+ */
+const validatePlaceholderBalance = (messageValue) => {
+    if (!messageValue) {
+        return null;
+    }
+
+    // Count % symbols - they should come in pairs for placeholders like %your_gb%
+    // Escaped %% also counts as 2, so it doesn't affect the balance
+    const percentCount = (messageValue.match(/%/g) || []).length;
+
+    if (percentCount % 2 !== 0) {
+        return `Unbalanced placeholder: odd number of % symbols (${percentCount}) in "${messageValue}"`;
+    }
+
+    return null;
+};
+
+/**
+ * Extracts all placeholders from a message (e.g., %your_gb%, %count%).
+ * Excludes escaped %% sequences.
+ *
+ * @param {string} messageValue The message value to extract placeholders from.
+ *
+ * @returns {string[]} Array of placeholder names (without % symbols).
+ */
+const extractPlaceholders = (messageValue) => {
+    if (!messageValue) {
+        return [];
+    }
+
+    const placeholders = [];
+    let i = 0;
+
+    while (i < messageValue.length) {
+        if (messageValue[i] === '%') {
+            // Try to match a valid identifier starting after this %
+            const rest = messageValue.slice(i + 1);
+            const match = rest.match(/^([a-zA-Z_][a-zA-Z0-9_]*)%/);
+
+            if (match) {
+                placeholders.push(match[1]);
+                // Skip past the entire placeholder including closing %
+                i += match[0].length + 1;
+            } else {
+                i += 1;
+            }
+        } else {
+            i += 1;
+        }
+    }
+
+    return placeholders;
+};
+
+/**
+ * Validates that all placeholders from the base message exist in the translated message
+ * with the exact same case.
+ *
+ * @param {string} baseMessageValue The base locale message value.
+ * @param {string} localeMessageValue The translated message value.
+ *
+ * @returns {string | null} Error message if placeholders don't match, otherwise null.
+ */
+const validatePlaceholdersMatch = (baseMessageValue, localeMessageValue) => {
+    const basePlaceholders = extractPlaceholders(baseMessageValue);
+    const localePlaceholders = extractPlaceholders(localeMessageValue);
+
+    const missingPlaceholders = basePlaceholders.filter(
+        (placeholder) => !localePlaceholders.includes(placeholder),
+    );
+
+    if (missingPlaceholders.length > 0) {
+        return `Missing placeholders: ${missingPlaceholders.map((p) => `%${p}%`).join(', ')}`;
+    }
+
+    return null;
+};
+
+/**
  * Validates that localized string correspond by structure to base locale string.
  *
  * @param {string} baseKey Key of the base locale string.
@@ -130,6 +215,22 @@ const validateMessage = (baseKey, baseLocaleTranslations, locale, localeTranslat
         return {
             key: baseKey,
             error: lengthValidationError,
+        };
+    }
+
+    const placeholderBalanceError = validatePlaceholderBalance(localeMessageValue);
+    if (placeholderBalanceError) {
+        return {
+            key: baseKey,
+            error: placeholderBalanceError,
+        };
+    }
+
+    const placeholdersMatchError = validatePlaceholdersMatch(baseMessageValue, localeMessageValue);
+    if (placeholdersMatchError) {
+        return {
+            key: baseKey,
+            error: placeholdersMatchError,
         };
     }
 
