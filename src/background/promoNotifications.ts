@@ -5,9 +5,9 @@ import browser from 'webextension-polyfill';
 
 import { getForwarderUrl } from '../common/helpers';
 import { type IconVariants, Prefs } from '../common/prefs';
-import { normalizeLanguage } from '../common/utils/promo';
+import { isRuLocale, normalizeLanguage } from '../common/utils/promo';
 import { notifier } from '../common/notifier';
-import promoBannerImageUrl from '../assets/images/blackfriday25.svg';
+import promoBannerImageUrl from '../assets/images/newyear25.svg';
 
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
@@ -70,202 +70,213 @@ const NOTIFICATION_DELAY_MS = 30 * 1000; // clear notification in 30 seconds
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const TDS_PROMO_ACTION = 'blackfriday_25_vpn';
+const TDS_PROMO_ACTION = 'new_year_25_vpn';
+const TDS_PROMO_ACTION_RU = 'new_year_25_vpn_ru';
+
 const COMMON_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION}&from=popup&app=vpn_extension`;
+const RU_PROMO_URL_QUERY = `action=${TDS_PROMO_ACTION_RU}&from=popup&app=vpn_extension`;
 
-const BLACK_FRIDAY_25_ID = 'blackFriday25';
+const urlQuery = isRuLocale
+    ? RU_PROMO_URL_QUERY
+    : COMMON_PROMO_URL_QUERY;
 
-const blackFriday25Notification = {
-    id: BLACK_FRIDAY_25_ID,
+const dateTo = isRuLocale
+    ? '3 January 2026 23:59:00'
+    : '1 January 2026 23:59:00';
+
+const NEW_YEAR_25_ID = 'newYear25';
+
+const newYear25Notification = {
+    id: NEW_YEAR_25_ID,
     locales: {
         en: {
-            title: 'Greatest sale of the year',
-            btn: 'Get 85% off',
+            title: 'Glam up your protection',
+            btn: 'Get 80% off',
         },
         fr: {
-            title: "La grande promo de l'année",
-            btn: 'Obtenez -85%',
+            title: 'Sublimez votre protection',
+            btn: '80% de remise',
         },
         it: {
-            title: "La vendita maggiore dell'anno",
-            btn: 'Ottieni -85%',
+            title: 'Un tocco di glamour per la protezione',
+            btn: '80% di sconto',
         },
         de: {
-            title: 'Die besten Deals des Jahres',
-            btn: '85% Rabatt',
+            title: 'Strahlende \nVPN-Power',
+            btn: '80% Rabatt',
         },
-        // ru: {
-        //     title: '',
-        //     btn: '',
-        // },
+        ru: {
+            title: 'Не светитесь в интернете',
+            btn: '–75% на VPN',
+        },
         es: {
-            title: 'La mejor oferta del año',
-            btn: 'Obtener 85% off',
+            title: 'Enciende tu protección',
+            btn: 'Obtener 80% off',
         },
         es_419: {
-            title: 'La mayor venta del año',
-            btn: '85% de descuento',
+            title: 'Enciende tu protección',
+            btn: 'Obtener 80% off',
         },
         pt_pt: {
-            title: 'A melhor oferta do ano',
-            btn: 'Obter 85% off',
+            title: 'Brilhe protegido',
+            btn: 'Obter 80% off',
         },
         pt_br: {
-            title: 'A melhor oferta do ano',
-            btn: 'Obter 85% off',
+            title: 'Brilhe protegido',
+            btn: 'Obter 80% off',
         },
         zh_cn: {
-            title: '年度最大SALE',
-            btn: '了解更多',
+            title: '升级防护，畅享清爽浏览',
+            btn: '抢先锁定 80%OFF',
         },
         zh_tw: {
-            title: '年末最大折扣',
-            btn: '了解更多',
+            title: '升級防護，暢享清爽瀏覽',
+            btn: '搶先鎖定 80%OFF',
         },
         ja: {
-            title: 'BLACK FRIDAY: 今年最安セール',
-            btn: '85%OFF割引をGET',
+            title: 'クリスマスセール',
+            btn: '80%OFF割引をGET',
         },
         ko: {
-            title: '올해의 가장 큰 세일',
-            btn: '85% 할인',
+            title: '크리스마스  프로모션',
+            btn: '80% 할인',
         },
         uk: {
-            title: 'Найбільший розпродаж року',
-            btn: 'Знижка 85%',
+            title: 'Прокачайте свій захист',
+            btn: 'Отримайте –80%',
         },
         ar: {
-            title: 'أعظم بيع لهذا العام',
-            btn: '٪85 احصل على خصم',
+            title: 'زوّد حمايتك',
+            btn: '٪80 احصل على خصم',
         },
         be: {
-            title: 'Самы вялікі распродаж года',
-            btn: 'Зніжка 85%',
+            title: 'Узмацніце сваю абарону',
+            btn: '80% зніжка',
         },
         bg: {
-            title: 'Най-голямата разпродажба на годината',
-            btn: '85% отстъпка',
+            title: 'Укрепете \nи озарете защитата си',
+            btn: '80% отстъпка',
         },
         ca: {
-            title: "La venda més gran de l'any",
-            btn: '85% de descompte',
+            title: 'Millora la protecció',
+            btn: '80% de descompte',
         },
         cs: {
-            title: 'Největší výprodej roku',
-            btn: '85% sleva',
+            title: 'Dodejte ochraně lesk',
+            btn: '80% sleva',
         },
         da: {
-            title: 'Årets største salg',
-            btn: '85% rabat',
+            title: 'Pift din beskyttelse op',
+            btn: 'Få 80% rabat',
         },
         el: {
-            title: 'Η μεγαλύτερη πώληση της χρονιάς',
-            btn: '85% έκπτωση',
+            title: 'Εκπτώσεις Πρωτοχρονιάς',
+            btn: '80% έκπτωση',
         },
         fa: {
-            title: 'بزرگترین فروش سال',
-            btn: '٪85 تخفیف',
+            title: 'محافظتت را زیبا کن',
+            btn: '٪80 دریافت تخفیف',
         },
         fi: {
-            title: 'Vuoden suurin myynti',
-            btn: '85% alennus',
+            title: 'Korosta suojauksesi tyyliä',
+            btn: 'Saat 80% alennusta',
         },
         he: {
-            title: 'המכירה הגדולה של השנה',
-            btn: '85% הנחה',
+            title: 'תן סטייל להגנה שלך',
+            btn: 'קבל 80% הנחה',
         },
         hr: {
-            title: 'Najveća rasprodaja godine',
-            btn: '85% popusta',
+            title: 'Pojačajte zaštitu',
+            btn: '80% popusta',
         },
         hu: {
-            title: 'Az év legnagyobb leárazása',
-            btn: '85% kedvezmény',
+            title: 'Karácsonyi akció',
+            btn: '80% kedvezmény',
         },
         hy: {
-            title: 'Տարվա ամենամեծ վաճառքը',
-            btn: '85% զեղչ',
+            title: 'Ամանորյա զեղչեր',
+            btn: '80% զեղչ',
         },
         id: {
-            title: 'Penjualan terbesar tahun ini',
-            btn: 'Diskon 85%',
+            title: 'Perindah proteksimu',
+            btn: 'Dapatkan 80% diskon',
         },
         lt: {
-            title: 'Didžiausias metų išpardavimas',
-            btn: '85% nuolaida',
+            title: 'Pagerink savo apsaugą',
+            btn: 'Gauk 80% nuolaidą',
         },
         ms: {
-            title: 'Jualan terhebat pada tahun ini',
-            btn: 'Diskaun 85%',
+            title: 'Jualan Tahun Baru',
+            btn: 'Diskaun 80%',
         },
         nb: {
-            title: 'Årets største salg',
-            btn: '85% rabatt',
+            title: 'Gi beskyttelsen din glans',
+            btn: 'Få 80% rabatt',
         },
         nl: {
-            title: 'Grootste uitverkoop van het jaar',
-            btn: '85% korting',
+            title: 'Boost je bescherming',
+            btn: 'Krijg 80% korting',
         },
         pl: {
-            title: 'Największa wyprzedaż roku',
-            btn: '85% zniżki',
+            title: 'Dodajcie blask ochronie',
+            btn: 'Zgarnij 80% zniżki',
         },
         ro: {
-            title: 'Cea mai mare vânzare a anului',
-            btn: '85% reducere',
+            title: 'Fă-ți protecția stilată',
+            btn: 'Ia 80% reducere',
         },
         sk: {
-            title: 'Najväčší predaj roka',
-            btn: '85% zľava',
+            title: 'Dodajte lesk ochrane',
+            btn: '80% zľava',
         },
         sl: {
-            title: 'Največja prodaja leta',
-            btn: '85% popust',
+            title: 'Dodajte sij zaščiti',
+            btn: '80% popust',
         },
         sr_latn: {
-            title: 'Najveća prodaja godine',
-            btn: '85% popusta',
+            title: 'Dajte zaštiti sjaj',
+            btn: '80% popusta',
         },
         sv: {
-            title: 'Årets bästa rea',
-            btn: '85% rabatt',
+            title: 'Boost din skydd',
+            btn: 'Få 80% rabatt',
         },
         tr: {
-            title: 'Yılın en büyük satışı',
-            btn: '%85 indirim',
+            title: 'Korumanı \nstilize et',
+            btn: '%80 indirim al',
         },
         vi: {
-            title: 'Khuyến mại lớn nhất trong năm',
-            btn: 'Giảm giá 85%',
+            title: 'Trang bị bảo vệ của bạn',
+            btn: 'Nhận 80% giảm giá',
         },
         mk: {
-            title: 'Најголемиот попуст на годината',
-            btn: '−85% на AdGuard VPN',
+            title: 'Дајте сјај на заштитата',
+            btn: 'Попуст од 80%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: null,
-    urlQuery: COMMON_PROMO_URL_QUERY,
-    from: '24 November 2025 12:00:00',
-    to: '5 December 2025 23:59:00',
+    urlQuery,
+    from: '22 December 2025 12:00:00',
+    to: dateTo,
     type: 'animated',
     bgImage: promoBannerImageUrl,
     // TODO: use lazyGet() if promo should not be different for different locales,
     // otherwise it will not work on variable re-assignment
     icons: {
         ENABLED: {
-            19: getUrl('assets/images/icons/blackfriday25-on-19.png'),
-            38: getUrl('assets/images/icons/blackfriday25-on-38.png'),
+            19: getUrl('assets/images/icons/newyear25-on-19.png'),
+            38: getUrl('assets/images/icons/newyear25-on-38.png'),
         },
         DISABLED: {
-            19: getUrl('assets/images/icons/blackfriday25-off-19.png'),
-            38: getUrl('assets/images/icons/blackfriday25-off-38.png'),
+            19: getUrl('assets/images/icons/newyear25-off-19.png'),
+            38: getUrl('assets/images/icons/newyear25-off-38.png'),
         },
     },
 };
 
 const notifications: { [key: string]: PromoNotificationData } = {
-    [BLACK_FRIDAY_25_ID]: blackFriday25Notification,
+    [NEW_YEAR_25_ID]: newYear25Notification,
 };
 
 /**
