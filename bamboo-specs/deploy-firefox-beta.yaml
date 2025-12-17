@@ -38,6 +38,7 @@ static.adtidy.net:
   variables: {}
   requirements:
     - adg-docker: 'true'
+    - extension: 'true'
   notifications:
     - events:
         - deployment-started-and-finished
@@ -78,6 +79,7 @@ GitHub:
   variables: {}
   requirements:
     - adg-docker: 'true'
+    - extension: 'true'
   notifications:
     - events:
         - deployment-started-and-finished

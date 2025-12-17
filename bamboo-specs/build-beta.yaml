@@ -83,6 +83,7 @@ Check Bundle Size:
             echo "Size after cleanup:" && du -h | tail -n 1
   requirements:
     - adg-docker: 'true'
+    - extension: 'true'
 
 Build:
   key: BUILD
@@ -194,6 +195,7 @@ Build:
       required: true
   requirements:
     - adg-docker: 'true'
+    - extension: 'true'
 
 triggers: []
 
