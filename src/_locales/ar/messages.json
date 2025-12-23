@@ -865,7 +865,7 @@
         "message": "الوقت المتبقي: %time_left%"
     },
     "popup_limited_offer_details_title": {
-        "message": "| AdGuard VPN غير محدود <span> لمدة</span>%count% <span> عام بسعر%discount%% خصم % خصم</span> | AdGuard VPN غير محدود لمدة%count% عام بسعر <span>%discount%% خصم</span>",
+        "message": "| AdGuard VPN Unlimited لمدة %count% سنة بخصم <span>%discount%%% </span> | AdGuard VPN Unlimited لمدة %count% سنة واحدة بخصم <span>%discount%%% </span> | AdGuard VPN Unlimited لمدة %count% سنتين بخصم <span>%discount%%% </span> | AdGuard VPN Unlimited لمدة %count% سنوات بخصم <span>%discount%%% </span> | AdGuard VPN Unlimited لمدة %count% سنة بخصم <span>%discount%%% </span>",
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "popup_limited_offer_details_btn": {
