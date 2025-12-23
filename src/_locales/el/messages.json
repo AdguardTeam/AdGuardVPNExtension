@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — δωρεάν & ασφαλής διακοσμητής"
+        "message": "AdGuard VPN: δωρεάν & ασφαλής proxy"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Η τοποθεσία διαγράφηκε από τα Αποθηκεμένα"
     },
+    "popup_streaming_icon_title": {
+        "message": "Καλό για υπηρεσίες streaming"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Διαθέσιμες ροές σε αυτήν την τοποθεσία"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Το κατάλαβα"
+    },
     "popup_traffic_limit_reached": {
         "message": "Συμπληρώθηκε το μηνιαίο όριο δεδομένων. Χρειάζεστε περισσότερο;"
     },
@@ -893,7 +902,12 @@
         "message": "Το αρχείο εξαιρέσεων πρέπει να έχει μία από τις ακόλουθες επεκτάσεις: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Αρχείο zip: \"%filename%\" δεν περιέχει αρχεία με επεκτάσεις: %extensions%"
+        "message": "Αρχείο zip: «%filename%» δεν περιέχει αρχεία με επεκτάσεις: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Το αρχείο «%filename%» δεν είναι έγκυρο αρχείο zip",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Μπορείτε να συνδέσετε έως και %maxDevicesAllowed% συσκευές ταυτόχρονα."

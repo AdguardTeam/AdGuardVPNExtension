@@ -165,6 +165,11 @@ export interface TelemetryCustomEventData {
      * Label name.
      */
     label?: string;
+
+    /**
+     * Experiment name.
+     */
+    experiment?: string;
 }
 
 /**
@@ -211,5 +216,6 @@ export interface TelemetryApiEventData {
         license_status?: TelemetryProps['licenseStatus'];
         subscription_duration?: TelemetryProps['subscriptionDuration'];
         theme?: TelemetryProps['theme'];
+        experiment?: TelemetryCustomEventData['experiment']
     };
 }

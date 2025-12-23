@@ -70,7 +70,7 @@ class Auth implements AuthInterface {
         try {
             await this.removeAccessToken();
         } catch (e) {
-            log.error('Unable to remove access token. Error: ', e.message);
+            log.error('[vpn.Auth.deauthenticate]: Unable to remove access token. Error: ', e.message);
         }
 
         // turn off connection
@@ -117,7 +117,7 @@ class Auth implements AuthInterface {
             try {
                 await proxy.turnOff();
             } catch (e) {
-                log.error(e.message);
+                log.error('[vpn.Auth.getAccessToken]: ', e.message);
             }
         }
 
@@ -134,7 +134,7 @@ class Auth implements AuthInterface {
 
         await this.authState.update({ accessTokenData });
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
-        log.info('Authentication module is ready');
+        log.info('[vpn.Auth.init]: Authentication module is ready');
     }
 }
 

@@ -10,7 +10,7 @@ import { NetworkConnectionObserver } from './networkConnectionObserver';
  * 2. Sends event to connectivity service FSM, to try to reconnect
  */
 const onlineHandler = async (): Promise<void> => {
-    log.debug('Browser switched to online mode');
+    log.debug('[vpn.index]: Browser switched to online mode');
 
     // always when connection is online we should check permissions
     await permissionsChecker.checkPermissions();

@@ -52,7 +52,7 @@ export class SettingsService {
         try {
             settings = await this.storage.get<Settings>(this.SETTINGS_KEY);
         } catch (e) {
-            log.error(`Was unable to get ${this.SETTINGS_KEY} from storage, due to: `, e.message);
+            log.error(`[vpn.SettingsService.init]: Was unable to get ${this.SETTINGS_KEY} from storage, due to: `, e.message);
         }
         if (!settings) {
             this.settings = {
@@ -306,7 +306,7 @@ export class SettingsService {
      * @returns New settings.
      */
     async migrateSettings(oldSettings: Settings): Promise<Settings> {
-        log.info(`Settings were converted from ${oldSettings.VERSION} to ${SCHEME_VERSION}`);
+        log.info(`[vpn.SettingsService.migrateSettings]: Settings were converted from ${oldSettings.VERSION} to ${SCHEME_VERSION}`);
         let newSettings;
 
         const newVersionInt = Number.parseInt(SCHEME_VERSION, 10);
@@ -329,7 +329,7 @@ export class SettingsService {
         if (version === SCHEME_VERSION) {
             return settings;
         }
-        log.debug(`Expected scheme version ${SCHEME_VERSION} and got ${version}`);
+        log.debug(`[vpn.SettingsService.checkSchemeMatch]: Expected scheme version ${SCHEME_VERSION} and got ${version}`);
         return this.migrateSettings(settings);
     }
 

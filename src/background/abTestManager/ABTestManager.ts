@@ -6,6 +6,8 @@ import {
 import { browserApi } from '../browserApi';
 import { log } from '../../common/logger';
 
+import { AG47804_STREAMING_B_FLOW_VERSION_ID, AG47804_STREAMING_DEFAULT_FLOW_VERSION_ID } from './constants';
+
 /**
  * Class representing a manager for handling AB tests.
  */
@@ -46,7 +48,7 @@ class ABTestManager {
      * @param experiments - An object representing the experiments response.
      */
     async setVersions(experiments: ExperimentsResponse): Promise<void> {
-        this.versions = experiments?.versions ?? [];
+        this.versions = experiments?.selected_versions ?? [];
         await this.setVersionsToStorage(this.versions);
     }
 
@@ -68,7 +70,7 @@ class ABTestManager {
         try {
             versions = versionsSchema.parse(rawVersions);
         } catch (e) {
-            log.error('Failed to parse versions from storage', e, 'using default versions');
+            log.error('[vpn.ABTestManager.getVersionsFromStorage]: Failed to parse versions from storage', e, 'using default versions');
         }
         return versions;
     }
@@ -83,6 +85,27 @@ class ABTestManager {
         }
 
         return this.versions;
+    }
+
+    /**
+     * Determine whether streaming label text should be shown.
+     * @returns True if streaming label text should be shown, false otherwise.
+     */
+    async isShowStreamingLabelText(): Promise<boolean> {
+        const versions = await this.getVersions();
+        return !!versions?.find(({ version }) => version === AG47804_STREAMING_DEFAULT_FLOW_VERSION_ID);
+    }
+
+    /**
+     * Returns the streaming text experiment version.
+     * @returns The experiment version ID, or null if no experiment found.
+     */
+    async getStreamingTextExperiment(): Promise<string | null> {
+        const versions = await this.getVersions();
+        return (
+            versions?.find(({ version }) => version === AG47804_STREAMING_DEFAULT_FLOW_VERSION_ID)
+            || versions?.find(({ version }) => version === AG47804_STREAMING_B_FLOW_VERSION_ID)
+        )?.version || null;
     }
 }
 

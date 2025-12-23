@@ -41,7 +41,9 @@ export class GlobalStore {
             settingsStore.setOptionsData(optionsData);
             await settingsStore.requestIsPremiumToken();
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
-            authStore.setMaxDevicesCount(optionsData.maxDevicesCount);
+            if (optionsData.maxDevicesCount !== undefined) {
+                authStore.setMaxDevicesCount(optionsData.maxDevicesCount);
+            }
             exclusionsStore.setServicesData(optionsData.servicesData);
             exclusionsStore.setExclusionsData(optionsData.exclusionsData);
             exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
@@ -52,7 +54,7 @@ export class GlobalStore {
 
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
-            log.error(e.message);
+            log.error('[vpn.GlobalStore.getOptionsData]: ', e.message);
             this.setInitStatus(RequestStatus.Error);
         }
     }

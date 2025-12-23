@@ -308,7 +308,7 @@ export class FallbackApi {
             // Usually it's either a network error or response is empty.
             // We don't want to spam logs with such errors,
             // that's why we only print them for debugging.
-            log.debug(`Error in function ${fn.name}:`, getErrorMessage(error));
+            log.debug(`[vpn.FallbackApi.debugErrors]: Error in function ${fn.name}:`, getErrorMessage(error));
 
             // Re-throwing the error to ensure that Promise.any receives it
             throw error;

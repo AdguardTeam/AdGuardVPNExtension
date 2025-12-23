@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — proksi percuma & selamat"
+        "message": "AdGuard VPN: proksi percuma & selamat"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Lokasi telah dipadam dari Simpanan"
     },
+    "popup_streaming_icon_title": {
+        "message": "Baik untuk perkhidmatan penstriman"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Penstriman tersedia di lokasi ini"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Baiklah"
+    },
     "popup_traffic_limit_reached": {
         "message": "Had data bulanan telah dicapai"
     },
@@ -893,7 +902,12 @@
         "message": "Fail pengecualian harus mempunyai salah satu daripada sambungan berikut: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Arkhif zip: \"%filename%\" tidak mengandungi fail dengan sambungan:%extensions%"
+        "message": "Arkib zip: “%filename%” tidak mengandungi fail dengan sambungan: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Fail “%filename%” bukan arkib zip yang sah",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Anda boleh menyambung sehingga %maxDevicesAllowed% peranti pada satu masa."

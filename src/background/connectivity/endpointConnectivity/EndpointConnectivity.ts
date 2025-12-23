@@ -119,7 +119,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
      * @param closeEvent
      */
     handleWebsocketClose = async (closeEvent: WebSocketEventMap['close']): Promise<void> => {
-        log.debug('WS closed:', closeEvent);
+        log.debug('[vpn.EndpointConnectivity]: WS closed:', closeEvent);
 
         if (this.connectionTimeoutId) {
             clearTimeout(this.connectionTimeoutId);
@@ -138,13 +138,13 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
             clearTimeout(this.connectionTimeoutId);
         }
 
-        log.debug('WS connected to:', this.ws.url);
+        log.debug('[vpn.EndpointConnectivity]: WS connected to:', this.ws.url);
         this.startGettingConnectivityInfo();
 
         // when first ping received we can connect to proxy
         const averagePing = await this.sendPingMessage();
         if (!averagePing) {
-            log.error('Was unable to send ping message');
+            log.error('[vpn.EndpointConnectivity]: Was unable to send ping message');
             await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
             connectivityService.send(ConnectivityEventType.ConnectionFail);
             return;
@@ -159,7 +159,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
             // we can't connect to the proxy because other extensions are controlling it
             // stop trying to connect
             connectivityService.send(ConnectivityEventType.ProxyConnectionError);
-            log.error('Error occurred on proxy turn on:', e.message);
+            log.error('[vpn.EndpointConnectivity]: Error occurred on proxy turn on:', e.message);
             return;
         }
         webrtc.blockWebRTC();
@@ -175,7 +175,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
             clearTimeout(this.connectionTimeoutId);
         }
 
-        log.debug('WS threw an error: ', errorEvent);
+        log.debug('[vpn.EndpointConnectivity]: WS threw an error: ', errorEvent);
 
         // disconnect proxy and turn off webrtc
         await proxy.turnOff();
@@ -212,7 +212,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         this.ws.addEventListener('open', this.handleWebsocketOpen);
 
         this.connectionTimeoutId = setTimeout(() => {
-            log.debug(`WS did not connected in ${this.CONNECTION_TIMEOUT_MS}, closing it`);
+            log.debug(`[vpn.EndpointConnectivity]: WS did not connected in ${this.CONNECTION_TIMEOUT_MS}, closing it`);
             this.ws.close();
         }, this.CONNECTION_TIMEOUT_MS);
     };
@@ -258,7 +258,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
             const ping = await sendPingMessage(this.ws, this.vpnToken, appId);
             return ping;
         } catch (e) {
-            log.debug(e);
+            log.debug('[vpn.EndpointConnectivity]: ', e);
             return null;
         }
     };
@@ -271,7 +271,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
             try {
                 await this.sendPingMessage();
             } catch (e) {
-                log.debug(e.message);
+                log.debug('[vpn.EndpointConnectivity]: ', e.message);
             }
         }, this.PING_SEND_INTERVAL_MS);
     };
@@ -288,7 +288,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         }
         const arrBufMessage = this.prepareDnsSettingsMessage(dnsIp);
         this.ws.send(arrBufMessage);
-        log.debug(`DNS settings sent. DNS IP: ${dnsIp}`);
+        log.debug(`[vpn.EndpointConnectivity]: DNS settings sent. DNS IP: ${dnsIp}`);
     };
 
     /**

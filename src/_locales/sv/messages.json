@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN - gratis och säker proxy"
+        "message": "AdGuard VPN: gratis och säker proxy"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Plats borttagen från Sparade"
     },
+    "popup_streaming_icon_title": {
+        "message": "Bra för streamingtjänster"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Tillgängliga streamingar på denna plats"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Uppfattat"
+    },
     "popup_traffic_limit_reached": {
         "message": "Månadens datagräns nådd"
     },
@@ -893,7 +902,12 @@
         "message": "Exklusionsfilen bör ha en av följande tillägg: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip-arkiv: Arkiv: \"%filename%\" innehåller inga filer med tillägg: %extensions%"
+        "message": "Zip-arkiv: “%filename%” innehåller inte filer med tillägg: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Filen “%filename%” är inte ett giltigt zip-arkiv",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Du kan ansluta upp till %maxDevicesAllowed% enheter samtidigt."

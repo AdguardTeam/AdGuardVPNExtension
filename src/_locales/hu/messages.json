@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — ingyenes és biztonságos proxy"
+        "message": "AdGuard VPN: ingyenes és biztonságos proxy"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Helyszín törölve a Mentettből"
     },
+    "popup_streaming_icon_title": {
+        "message": "Jó streaming szolgáltatásokhoz"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Elérhető streamek ezen a helyen"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Rendben"
+    },
     "popup_traffic_limit_reached": {
         "message": "Elérte a havi adatkorlátot"
     },
@@ -893,7 +902,12 @@
         "message": "A kizárásokat tartalmazó fájlnak a következő kiterjesztések egyikével kell rendelkeznie: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip archívum: a(z) \"%filename%\" nem tartalmaz fájlokat ezekkel a kiterjesztésekkel: %extensions%"
+        "message": "Zip-archívum: „%filename%” nem tartalmaz kiterjesztésű fájlokat: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "A(z) „%filename%” fájl nem érvényes zip archívum",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Egyidejűleg legfeljebb %maxDevicesAllowed% eszközt csatlakoztathat."

@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN - privatumas ir saugumas"
+        "message": "AdGuard VPN: nemokamas ir saugus tarpinis serveris"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Vieta pašalinta iš Išsaugota"
     },
+    "popup_streaming_icon_title": {
+        "message": "Tinka srautinio perdavimo paslaugoms"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Galimi srautai šioje vietoje"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Supratau"
+    },
     "popup_traffic_limit_reached": {
         "message": "Pasiektas mėnesinis duomenų limitas"
     },
@@ -893,7 +902,12 @@
         "message": "Išimčių failas turi turėti vieną iš šių plėtinių: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip archyvas: \"%filename%\" neturi failų su plėtiniais: %extensions%"
+        "message": "ZIP archyvas: „%filename%“ nėra failų su plėtiniais: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Failas „%filename%“ nėra galiojantis ZIP archyvas",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Galite prijungti iki %maxDevicesAllowed% įrenginių vienu metu."

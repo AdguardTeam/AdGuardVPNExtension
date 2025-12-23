@@ -4,14 +4,14 @@ import { Prefs } from '../common/prefs';
 import { log } from '../common/logger';
 import { SETTINGS_IDS, THEME_URL_PARAMETER } from '../common/constants';
 import { getForwarderUrl } from '../common/helpers';
+import { tabs } from '../common/tabs';
+import { WindowsApi } from '../common/windowsApi';
 
-import { tabs } from './tabs';
 import { credentials } from './credentials';
 import { forwarder } from './forwarder';
 import { settings } from './settings';
 import { FORWARDER_URL_QUERIES, type ForwarderUrlQueryKey } from './config';
 import { promoNotifications } from './promoNotifications';
-import { WindowsApi } from './windowsApi';
 
 type SetIconDetailsType = browser.Action.SetIconDetailsType;
 type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
@@ -115,7 +115,7 @@ const setIcon = async (details: SetIconDetailsType): Promise<void> => {
     try {
         await browser.action.setIcon(details);
     } catch (e) {
-        log.debug(e.message);
+        log.debug('[vpn.actions]: ', e.message);
     }
 };
 
@@ -128,7 +128,7 @@ const setBadge = async (details: SetBadgeDetailsType): Promise<void> => {
 
         await browser.action.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
     } catch (e) {
-        log.debug(e.message);
+        log.debug('[vpn.actions]: ', e.message);
     }
 };
 

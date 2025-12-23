@@ -11,12 +11,12 @@ import { TelemetryActionName, TelemetryScreenName } from '../../../../background
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../common/utils/string';
-import { type ExclusionsContentMap } from '../../../../common/constants';
 import { log } from '../../../../common/logger';
 import { messenger } from '../../../../common/messenger';
 import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { Select } from '../../../../common/components/Select';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
+import { type ExclusionsMap } from '../../../../background/exclusions/ExclusionsService';
 
 import { SelectListModal } from './SelectListModal';
 import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
@@ -40,7 +40,7 @@ const prepareExclusionsAfterImport = (exclusionsString: string): string[] => {
             if (isValidExclusion(exclusionStr)) {
                 return true;
             }
-            log.debug(`Invalid exclusion: ${exclusionStr}`);
+            log.debug(`[vpn.Actions]: Invalid exclusion: ${exclusionStr}`);
             return false;
         })
         .reverse();
@@ -185,7 +185,7 @@ export const Actions = observer(() => {
             return handleTxtExclusionsData(txtExclusionsData.content);
         }
 
-        const exclusionsContentMap: ExclusionsContentMap = {
+        const exclusionsContentMap: ExclusionsMap = {
             [ExclusionsMode.Regular]: [],
             [ExclusionsMode.Selective]: [],
         };

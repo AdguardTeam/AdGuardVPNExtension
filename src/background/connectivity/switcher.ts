@@ -55,7 +55,7 @@ function* turnOnProxy(forcePrevEndpoint = false): Generator<Promise<unknown>, vo
 
         connectivity.endpointConnectivity.start(entryTime);
     } catch (e) {
-        log.debug(e.message);
+        log.error('[vpn.switcher]: Failed during turn on proxy', e);
         yield sleepIfNecessary(entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(ConnectivityEventType.ConnectionFail);
     }
@@ -118,7 +118,7 @@ class Switcher {
             }
             await this.turnOn(true);
         } catch (e) {
-            log.debug(e);
+            log.debug('[vpn.Switcher.retryTurnOn]: ', e);
         }
     }
 }

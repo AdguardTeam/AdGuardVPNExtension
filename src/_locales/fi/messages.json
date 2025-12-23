@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — ilmainen ja turvallinen välityspalvelin"
+        "message": "AdGuard VPN: ilmainen & turvallinen välityspalvelin"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Sijainti poistettu Tallennettuista"
     },
+    "popup_streaming_icon_title": {
+        "message": "Hyvä suoratoistopalveluihin"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Saatavilla olevat suoratoistot tässä sijainnissa"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Selvä"
+    },
     "popup_traffic_limit_reached": {
         "message": "Kuukautinen tiedonsiirtorajoitus on saavutettu"
     },
@@ -893,7 +902,12 @@
         "message": "Poikkeustiedostolla tulee olla joku seuraavista tiedostopäätteistä: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip-tiedosto: \"%filename%\" ei sisällä tiedostoja poikkeuksilla: %extensions%"
+        "message": "Zip-arkisto: “%filename%” ei sisällä tiedostoja, joiden tiedostopääte on: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Tiedosto “%filename%” ei ole kelvollinen zip-arkisto",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Voit yhdistää enintään %maxDevicesAllowed% laitetta samanaikaisesti."

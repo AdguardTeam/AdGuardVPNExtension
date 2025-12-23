@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — free & secure proxy"
+        "message": "AdGuard VPN: free & secure proxy"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Location deleted from Saved"
     },
+    "popup_streaming_icon_title": {
+        "message": "Good for streaming services"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Available streamings at this location"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Got it"
+    },
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached"
     },
@@ -893,7 +902,12 @@
         "message": "Exclusions file should have one of the following extensions: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip archive: \"%filename%\" doesn't contain files with extensions: %extensions%"
+        "message": "Zip archive: “%filename%” doesn't contain files with extensions: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "File “%filename%” is not a valid zip archive",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "You can connect up to %maxDevicesAllowed% devices at the same time."

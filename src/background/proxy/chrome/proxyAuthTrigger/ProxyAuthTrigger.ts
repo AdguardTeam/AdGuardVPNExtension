@@ -44,7 +44,7 @@ class ProxyAuthTrigger {
             await createOffScreenDocument();
         } catch (e) {
             // if the offscreen document is already created, we just print error in the console
-            log.info(e);
+            log.info('[vpn.ProxyAuthTrigger.run]: ', e);
         }
 
         // eslint-disable-next-line no-restricted-globals

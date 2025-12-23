@@ -78,7 +78,7 @@ export class ConnectivityService {
 
         this.interpreter.start(state);
 
-        log.debug(`Current state: ${this.state.value}`);
+        log.debug(`[vpn.ConnectivityService.start]: Current state: ${this.state.value}`);
 
         this.interpreter.subscribe(this.handleStateChange);
 
@@ -97,10 +97,10 @@ export class ConnectivityService {
      * @param state New state of connectivity FSM.
      */
     private async handleStateChange(state: ConnectivityFsmState): Promise<void> {
-        log.debug(`Event type: ${state.event.type}`);
+        log.debug(`[vpn.ConnectivityService.handleStateChange]: Event type: ${state.event.type}`);
 
         if (state.changed) {
-            log.debug(`Current state: ${state.value}`);
+            log.debug(`[vpn.ConnectivityService.handleStateChange]: Current state: ${state.value}`);
 
             // Emit event to listeners
             const event: ConnectivityStateChangeEvent = {

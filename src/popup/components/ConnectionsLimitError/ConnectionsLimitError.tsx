@@ -43,7 +43,7 @@ export const ConnectionsLimitError = observer(() => {
     }
 
     if (!isMaxDevicesAllowedCorrect) {
-        log.error('Property maxDevicesAllowed is required');
+        log.error('[vpn.ConnectionsLimitError]: Property maxDevicesAllowed is required');
         return null;
     }
 

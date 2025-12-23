@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — proxy gratis dan aman"
+        "message": "AdGuard VPN: proxy gratis & aman"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Lokasi dihapus dari Tersimpan"
     },
+    "popup_streaming_icon_title": {
+        "message": "Bagus untuk layanan streaming"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Streaming tersedia di lokasi ini"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Mengerti"
+    },
     "popup_traffic_limit_reached": {
         "message": "Batas data bulanan tercapai. Butuh lebih?"
     },
@@ -893,7 +902,12 @@
         "message": "Berkas pengecualian harus memiliki salah satu ekstensi: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Arsip zip: \"%filename%\" tidak berisi berkas dengan ekstensi: %extensions%"
+        "message": "Arsip Zip: “%filename%” tidak berisi file dengan ekstensi: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "File “%filename%” bukan arsip zip yang valid",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Anda dapat menghubungkan hingga %maxDevicesAllowed% perangkat sekaligus."

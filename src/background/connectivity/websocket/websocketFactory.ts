@@ -20,7 +20,7 @@ export const websocketFactory = ((): {
             try {
                 ws.close();
             } catch (e) {
-                log.debug(e);
+                log.debug('[vpn.websocketFactory]: ', e);
             }
         }
 

@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN - бесплатен и безбеден прокси"
+        "message": "AdGuard VPN: бесплатен и безбеден прокси"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Локацијата е избришана од Зачувани"
     },
+    "popup_streaming_icon_title": {
+        "message": "Добро за стриминг сервиси"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Достапни стримови на оваа локација"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Добро"
+    },
     "popup_traffic_limit_reached": {
         "message": "Достигнат е месечниот лимит за податоци"
     },
@@ -893,7 +902,12 @@
         "message": "Датотеката со исклучоци треба да има една од следниве наставки: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip архива: „%filename%“ не содржи датотеки со екстензии: %extensions%"
+        "message": "Zip архива: „%filename%“ не содржи датотеки со екстензии: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Датотеката „%filename%“ не е валидна zip архива",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Можете да се поврзете до %maxDevicesAllowed% уреди во исто време."

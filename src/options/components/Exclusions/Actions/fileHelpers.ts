@@ -46,7 +46,17 @@ const readZipFile = async (
     file: File,
 ): Promise<ExclusionsImportData[]> => {
     const zip = new JSZip();
-    const zipContent = await zip.loadAsync(file);
+    let zipContent;
+    try {
+        zipContent = await zip.loadAsync(file);
+    } catch (e) {
+        // Replace error message to prevent showing links with documentation in snackbar
+        const errorMessage = translator.getMessage(
+            'options_exclusions_import_error_invalid_zip',
+            { filename: file.name },
+        );
+        throw new Error(errorMessage);
+    }
 
     // MACOS adds hidden files with same filename, but starting with ".", filter them
     const PATH_SEPARATOR = '/';

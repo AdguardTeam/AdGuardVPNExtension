@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — 快速 & 安全的代理"
+        "message": "AdGuard VPN：快速與安全的代理"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "已從「已儲存」中刪除位置"
     },
+    "popup_streaming_icon_title": {
+        "message": "專為串流最佳化"
+    },
+    "popup_streaming_modal_title": {
+        "message": "支援當地串流服務"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "知道了"
+    },
     "popup_traffic_limit_reached": {
         "message": "已達到每月的流量限制"
     },
@@ -893,7 +902,12 @@
         "message": "例外檔案應有以下副檔名之一：%extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip 檔案：\"%filename%\" 不包含有副檔名：%extensions% 的檔案"
+        "message": "Zip 檔案：“%filename%” 不包含有副檔名 %extensions% 的檔案",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "檔案 “%filename%” 不是有效的 Zip 壓縮檔案",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "您可以同時連線最多 %maxDevicesAllowed% 台裝置。"

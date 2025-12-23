@@ -209,7 +209,7 @@ export class SettingsStore {
         const bonusesData = await messenger.getBonusesData();
 
         if (!bonusesData) {
-            log.warn('Available bonuses data request failed');
+            log.warn('[vpn.SettingsStore]: Available bonuses data request failed');
             this.bonusesDataRequestStatus = RequestStatus.Error;
             return;
         }
@@ -239,7 +239,7 @@ export class SettingsStore {
         dnsServerName: string,
         dnsServerAddress: string,
     ): Promise<void> => {
-        log.info(`Adding DNS server: ${dnsServerName} with address: ${dnsServerAddress}`);
+        log.info(`[vpn.SettingsStore]: Adding DNS server: ${dnsServerName} with address: ${dnsServerAddress}`);
         const dnsServer = {
             id: nanoid(),
             title: dnsServerName,

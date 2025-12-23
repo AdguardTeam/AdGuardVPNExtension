@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN – brezplačen in varen namestniški strežnik"
+        "message": "AdGuard VPN: brezplačen in varen proxy"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Lokacija je odstranjena iz Shranjenih"
     },
+    "popup_streaming_icon_title": {
+        "message": "Dobro za pretočne storitve"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Razpoložljivi pretoki na tej lokaciji"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Razumem"
+    },
     "popup_traffic_limit_reached": {
         "message": "Mesečna omejitev podatkov je dosežena"
     },
@@ -893,7 +902,12 @@
         "message": "Izjeme morajo imeti eno izmed naslednjih končnic: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Arhiv Zip: \"%filename%\" ne vsebuje datotek s končnicami: %extensions%"
+        "message": "Zip arhiv: »%filename%« ne vsebuje datotek s končnicami: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Datoteka »%filename%« ni veljavna zip arhiva",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Lahko se povežete do %maxDevicesAllowed% naprav hkrati."

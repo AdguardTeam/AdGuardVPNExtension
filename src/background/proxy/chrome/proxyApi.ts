@@ -142,7 +142,7 @@ class ProxyApi implements ProxyApiInterface {
         try {
             const topLevelDomain = getETld(host);
             if (!topLevelDomain) {
-                log.warn(`Could not determine top-level domain for host '${host}' while clearing proxy credentials cache`);
+                log.warn(`[vpn.ProxyApi.clearProxyHostCredentialsCache]: Could not determine top-level domain for host '${host}' while clearing proxy credentials cache`);
                 return;
             }
 
@@ -182,7 +182,7 @@ class ProxyApi implements ProxyApiInterface {
              */
             await this.hostCredentialsRepositoryState.set({});
         } catch (error) {
-            log.error('Error clearing proxy credentials cache:', error);
+            log.error('[vpn.ProxyApi.clearProxyHostCredentialsCache]: Error clearing proxy credentials cache:', error);
         }
     }
 
@@ -199,9 +199,9 @@ class ProxyApi implements ProxyApiInterface {
         // callback is optional in chrome.webRequest.onAuthRequired event
         callback?: (response: chrome.webRequest.BlockingResponse) => void,
     ): Promise<void> => {
-        log.info('[onAuthRequiredHandler] fired with details:', details);
+        log.info('[vpn.ProxyApi]: fired with details:', details);
         if (!callback) {
-            log.error('[onAuthRequiredHandler] callback is not defined');
+            log.error('[vpn.ProxyApi]: callback is not defined');
             return;
         }
 
@@ -211,24 +211,24 @@ class ProxyApi implements ProxyApiInterface {
 
         // This may happen after browser restart, when the extension is not fully loaded yet
         if (!globalProxyConfig) {
-            log.info('[onAuthRequiredHandler] globalProxyConfig is not set, wait for the last saved config from storage');
+            log.info('[vpn.ProxyApi]: globalProxyConfig is not set, wait for the last saved config from storage');
             let lastSavedConfig: ProxyConfigInterface | null = null;
             try {
                 lastSavedConfig = await browserApi.storage.get(
                     this.PROXY_CONFIG_STORAGE_KEY,
                 ) || null;
             } catch (e) {
-                log.error('Error on getting last saved config from storage', e);
+                log.error('[vpn.ProxyApi]: Error on getting last saved config from storage', e);
             }
 
-            log.info('[onAuthRequiredHandler] last saved config from storage:', lastSavedConfig);
+            log.info('[vpn.ProxyApi]: last saved config from storage:', lastSavedConfig);
             globalProxyConfig = lastSavedConfig;
             await this.saveGlobalProxyConfig(globalProxyConfig);
         }
 
         if (challenger && challenger.host !== globalProxyConfig?.host) {
             log.info(
-                `[onAuthRequiredHandler] challenger host: ${challenger.host} is not equal to proxy host: ${globalProxyConfig?.host}`,
+                `[vpn.ProxyApi]: challenger host: ${challenger.host} is not equal to proxy host: ${globalProxyConfig?.host}`,
             );
             callback({});
             return;
@@ -244,13 +244,13 @@ class ProxyApi implements ProxyApiInterface {
          * otherwise, we might end up with miss-match credentials in our repository.
          */
         if (globalProxyConfig?.credentials) {
-            log.info('[onAuthRequiredHandler] credentials are set', globalProxyConfig.credentials);
+            log.info('[vpn.ProxyApi]: credentials are set', globalProxyConfig.credentials);
             callback({ authCredentials: globalProxyConfig.credentials });
             await this.updateHostCredentials(globalProxyConfig.host, globalProxyConfig.credentials);
             return;
         }
 
-        log.info('[onAuthRequiredHandler] credentials were not set');
+        log.info('[vpn.ProxyApi]: credentials were not set');
         callback({});
     };
 

@@ -6,7 +6,7 @@ import { isIP } from 'is-ip';
 
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
-import { tabs } from '../tabs';
+import { tabs } from '../../common/tabs';
 import { getHostname } from '../../common/utils/url';
 import type { Storage } from '../browserApi/storage';
 
@@ -14,7 +14,7 @@ import { NON_ROUTABLE_CIDR_NETS } from './constants';
 
 export interface NonRoutableServiceInterface {
     init(): Promise<void>;
-    isUrlRoutable(url: string): boolean;
+    isUrlRoutable(url: string | null): boolean;
     getNonRoutableList(): string[];
 }
 
@@ -90,7 +90,7 @@ export class NonRoutableService implements NonRoutableServiceInterface {
             { urls: ['<all_urls>'] },
         );
 
-        log.info('NonRoutable module was initiated successfully');
+        log.info('[vpn.NonRoutableService.init]: NonRoutable module was initiated successfully');
     }
 
     /**
@@ -232,7 +232,7 @@ export class NonRoutableService implements NonRoutableServiceInterface {
         this.updateStorage();
     }
 
-    isUrlRoutable(url: string): boolean {
+    isUrlRoutable(url: string | null): boolean {
         const hostname = getHostname(url);
         if (!hostname) {
             return true;

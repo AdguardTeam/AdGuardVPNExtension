@@ -289,6 +289,8 @@ export class AuthStore {
 
     /**
      * Sets new value for {@link showRateModal}.
+     *
+     * @param value Value to set.
      */
     @action setShouldShowRateModal = (value: boolean): void => {
         this.showRateModal = value;

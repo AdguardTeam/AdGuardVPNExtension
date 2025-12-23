@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN - بروكسي مجاني وآمن"
+        "message": "AdGuard VPN: بروكسي مجاني وآمن"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "تم حذف الموقع من المحفوظات"
     },
+    "popup_streaming_icon_title": {
+        "message": "جيد لخدمات البث"
+    },
+    "popup_streaming_modal_title": {
+        "message": "البث المتاح في هذا الموقع"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "فهمت ذلك"
+    },
     "popup_traffic_limit_reached": {
         "message": "تم الوصول إلى الحد الأقصى للبيانات الشهرية"
     },
@@ -855,6 +864,10 @@
     "popup_limited_offer_details_time_left": {
         "message": "الوقت المتبقي: %time_left%"
     },
+    "popup_limited_offer_details_title": {
+        "message": "| AdGuard VPN غير محدود <span> لمدة</span>%count% <span> عام بسعر%discount%% خصم % خصم</span> | AdGuard VPN غير محدود لمدة%count% عام بسعر <span>%discount%% خصم</span>",
+        "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
+    },
     "popup_limited_offer_details_btn": {
         "message": "احصل على الصفقة"
     },
@@ -889,7 +902,12 @@
         "message": "يجب أن يحتوي ملف الاستثناءات على أحد الامتدادات التالية: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "أرشيف مضغوط: \"%filename%\" لا يحتوي على ملفات ذات امتدادات:%extensions%"
+        "message": "أرشيف الملف المضغوط: \"%filename%\" لا تحتوي على ملفات ذات امتدادات: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "الملف \"%filename%\" ليس ملفًا مضغوطًا صالحًا.",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "يمكنك الاتصال حتى %maxDevicesAllowed% جهاز في نفس الوقت."

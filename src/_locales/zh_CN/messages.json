@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — 极速且安全的代理"
+        "message": "AdGuard VPN：极速且安全的代理"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "已从「已保存」中删除位置"
     },
+    "popup_streaming_icon_title": {
+        "message": "专为流媒体优化"
+    },
+    "popup_streaming_modal_title": {
+        "message": "支持当地流媒体服务"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "知道了"
+    },
     "popup_traffic_limit_reached": {
         "message": "已达到每月流量限制"
     },
@@ -893,7 +902,12 @@
         "message": "排除项文件要包含以下扩展名之一：%extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip文件：\"%filename%\" 不包含有 %extensions% 扩展名的文件"
+        "message": "Zip文件：“%filename%” 不包含有 %extensions% 扩展名的文件",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "文件 “%filename%” 不是有效的 zip 压缩包",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "您可以同时连接最多 %maxDevicesAllowed% 台设备。"

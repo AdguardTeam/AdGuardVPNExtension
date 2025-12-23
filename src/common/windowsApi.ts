@@ -1,6 +1,6 @@
 import browser, { type Windows, type Tabs } from 'webextension-polyfill';
 
-import { log } from '../common/logger';
+import { log } from './logger';
 
 /**
  * Helper class for browser.windows API.
@@ -18,13 +18,13 @@ export class WindowsApi {
      */
     public static readonly onFocusChanged = browser.windows?.onFocusChanged || {
         addListener(): void {
-            log.debug('browser.windows.onFocusChanged is not supported');
+            log.debug('[vpn.WindowsApi]: browser.windows.onFocusChanged is not supported');
         },
         removeListener(): void {
-            log.debug('browser.windows.onFocusChanged is not supported');
+            log.debug('[vpn.WindowsApi]: browser.windows.onFocusChanged is not supported');
         },
         hasListener(): false {
-            log.debug('browser.windows.onFocusChanged is not supported');
+            log.debug('[vpn.WindowsApi]: browser.windows.onFocusChanged is not supported');
             return false;
         },
     };
@@ -95,12 +95,12 @@ export class WindowsApi {
         updateInfo: Windows.UpdateUpdateInfoType,
     ): Promise<void> {
         if (!windowId) {
-            log.debug('windowId is not specified');
+            log.debug('[vpn.WindowsApi.update]: windowId is not specified');
             return;
         }
 
         if (!WindowsApi.isSupported()) {
-            log.debug('browser.windows API is not supported');
+            log.debug('[vpn.WindowsApi.update]: browser.windows API is not supported');
             return;
         }
 
@@ -114,7 +114,7 @@ export class WindowsApi {
      */
     public static async getCurrent(): Promise<Windows.Window | null> {
         if (!WindowsApi.isSupported()) {
-            log.debug('browser.windows API is not supported');
+            log.debug('[vpn.WindowsApi.getCurrent]: browser.windows API is not supported');
             return null;
         }
 

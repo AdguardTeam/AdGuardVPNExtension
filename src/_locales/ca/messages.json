@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — gratuït i segur proxy"
+        "message": "VPN AdGuard: proxy gratuït i segur"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Ubicació eliminada de Guardat"
     },
+    "popup_streaming_icon_title": {
+        "message": "Bo per a serveis de streaming"
+    },
+    "popup_streaming_modal_title": {
+        "message": " Streaming disponibles en aquesta ubicació"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Ho tinc"
+    },
     "popup_traffic_limit_reached": {
         "message": "S'ha assolit el límit de dades mensuals"
     },
@@ -893,7 +902,12 @@
         "message": "El fitxer d'exclusions ha de tenir una de les següents extensions: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "L'arxiu Zip: \"%filename%\" no conté fitxers amb extensions: %extensions%"
+        "message": "L'arxiu zip: “%filename%” no conté fitxers amb les extensions: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "El fitxer “%filename%” no és un arxiu zip vàlid",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Pots connectar fins a %maxDevicesAllowed% dispositius al mateix temps."

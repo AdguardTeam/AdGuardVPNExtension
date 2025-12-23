@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { FORWARDER_URL_QUERIES } from '../../../background/config';
 import { getForwarderUrl } from '../../../common/helpers';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { popupActions } from '../../actions/popupActions';
+import { navActions } from '../../../common/actions/navActions';
 import { rootStore } from '../../stores';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { IconButton } from '../../../common/components/Icons';
@@ -34,7 +34,7 @@ export const VpnBlockedDetails = observer(() => {
             TelemetryActionName.GetDesktopClick,
             TelemetryScreenName.DialogDesktopVersionPromo,
         );
-        popupActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.VPN_BLOCKED_GET_APP));
+        navActions.openTab(getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.VPN_BLOCKED_GET_APP));
     };
 
     /**

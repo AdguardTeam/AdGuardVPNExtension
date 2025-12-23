@@ -48,6 +48,17 @@ export interface RequestSupportParameters {
     appLogs?: string;
 }
 
+/**
+ * Response from support request submission.
+ *
+ * @property status Status of the support request.
+ * @property error Error message if request failed, null otherwise.
+ */
+export interface RequestSupportResponse {
+    status: string,
+    error: string | null
+}
+
 export interface VpnProviderInterface {
     getLocationsData(appId: string, vpnToken: string): Promise<LocationInterface[]>;
     getCurrentLocation(): Promise<CurrentLocationData>;
@@ -55,6 +66,7 @@ export interface VpnProviderInterface {
         appId: string,
         vpnToken: string,
         version: string,
+        helpUsImprove: boolean,
     ): Promise<CredentialsDataInterface>;
     trackExtensionInstallation(appId: string, version: string, experiments: string): Promise<TrackInstallResponse>;
     getVpnExtensionInfo(
@@ -68,7 +80,7 @@ export interface VpnProviderInterface {
         message,
         version,
         appLogs,
-    }: RequestSupportParameters): Promise<{ status: string, error: string | null }>;
+    }: RequestSupportParameters): Promise<RequestSupportResponse>;
     getExclusionsServices(): Promise<ServicesInterface>;
 }
 
@@ -237,10 +249,11 @@ const getVpnCredentials = async (
     appId: string,
     vpnToken: string,
     version: string,
+    helpUsImprove: boolean,
 ): Promise<CredentialsDataInterface> => {
     let responseData;
     try {
-        responseData = await vpnApi.getVpnCredentials(appId, vpnToken, version);
+        responseData = await vpnApi.getVpnCredentials(appId, vpnToken, version, helpUsImprove);
     } catch (e) {
         if (e.status === 400) {
             let errorMessageData;
@@ -298,7 +311,7 @@ const trackExtensionInstallation = async (
     try {
         response = trackInstallResponseSchema.parse(rawResponse);
     } catch (e) {
-        log.error('Error while parsing track install response', e);
+        log.error('[vpn.vpnProvider]: Error while parsing track install response', e);
         response = {};
     }
     return response;
@@ -348,7 +361,7 @@ const requestSupport = async ({
         await vpnApi.requestSupport(formData);
         return { status: 'ok', error: null };
     } catch (e) {
-        log.error(e);
+        log.error('[vpn.vpnProvider]: ', e);
         return {
             status: e.status,
             error: 'error',

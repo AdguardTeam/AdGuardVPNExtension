@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN - 무료 VPN & 보안 프록시"
+        "message": "AdGuard VPN: 무료 보안 프록시"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "저장됨에서 위치가 삭제되었습니다."
     },
+    "popup_streaming_icon_title": {
+        "message": "스트리밍 서비스에 적합"
+    },
+    "popup_streaming_modal_title": {
+        "message": "이 위치에서 사용 가능한 스트리밍 서비스"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "확인"
+    },
     "popup_traffic_limit_reached": {
         "message": "월간 데이터 제한에 도달했습니다"
     },
@@ -893,7 +902,12 @@
         "message": "예외 파일에는 다음 확장자 중 하나가 있어야 합니다: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip 아카이브: %filename%에는 다음 확장자를 가진 파일이 포함되지 않습니다:%extensions%"
+        "message": "Zip 아카이브 %filename%에는 다음 확장 프로그램을 가진 파일이 포함되어 있지 않습니다: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "%filename% 파일은 유효한 ZIP 아카이브가 아닙니다.",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "최대 %maxDevicesAllowed%개의 기기를 동시에 연결할 수 있습니다."

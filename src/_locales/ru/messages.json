@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — быстрый и безопасный proxy"
+        "message": "AdGuard VPN: бесплатный и безопасный прокси"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Локация удалена из Сохранённых"
     },
+    "popup_streaming_icon_title": {
+        "message": "Для просмотра фильмов и сериалов"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Доступны с этой локацией"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Хорошо"
+    },
     "popup_traffic_limit_reached": {
         "message": "Лимит трафика в этом месяце исчерпан"
     },
@@ -893,7 +902,12 @@
         "message": "У файла с исключениями должно быть одно из расширений: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip-архив: «%filename%» не содержит файлов с расширениями: %extensions%"
+        "message": "Zip-архив: «%filename%» не содержит файлов с расширениями: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Файл «%filename%» — это недействительный zip-архив",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Вы можете подключить до %maxDevicesAllowed% устройств одновременно."

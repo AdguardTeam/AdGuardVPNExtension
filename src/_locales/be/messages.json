@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — бясплатны і бяспечны проксі"
+        "message": "AdGuard VPN: бясплатны і бяспечны проксі-сервер"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Месцазнаходжанне выдалена з Захаваных"
     },
+    "popup_streaming_icon_title": {
+        "message": "Падыходзіць для стрымiнгавых сэрвісаў"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Даступныя стрымiнгавыя сэрвiсы ў гэтай лакацыі"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Зразумела"
+    },
     "popup_traffic_limit_reached": {
         "message": "Дасягнуты месячны ліміт дадзеных"
     },
@@ -893,7 +902,12 @@
         "message": "У файла з выняткамі павінна быць адно з пашырэнняў: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip-архіў: \"%filename%\" не ўтрымвае файлаў з пашырэннямі: %extensions%"
+        "message": "Zip-архіў: “%filename%” не ўтрымлівае файлаў з пашырэннямі: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Файл «%filename%» не з'яўляецца сапраўдным zip-архівам",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Вы можаце падключыць да %maxDevicesAllowed% прылад адначасова."

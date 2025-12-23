@@ -4,7 +4,7 @@ import { FORWARDER_URL_QUERIES } from '../config';
 import { type NotifierInterface } from '../../common/notifier';
 import { type ForwarderInterface } from '../forwarder/forwarder';
 import { type NotificationsInterface } from '../notifications';
-import { type TabsInterface } from '../tabs';
+import { type TabsInterface } from '../../common/tabs';
 import { type UpdateServiceInterface } from '../updateService';
 import { getUrl } from '../browserApi/runtime';
 import { type EndpointsInterface } from '../endpoints/Endpoints';

@@ -28,6 +28,7 @@ import { hintPopup } from '../hintPopup';
 import { savedLocations } from '../savedLocations';
 import { locationsService } from '../endpoints/locationsService';
 import { type LocationsTab } from '../endpoints/locationsEnums';
+import { abTestManager } from '../abTestManager';
 
 import { popupOpenedCounter } from './popupOpenedCounter';
 
@@ -89,9 +90,21 @@ interface PopupDataInterface {
      * User decision on marketing consent or `null` if not available.
      */
     marketingConsent?: boolean | null;
+
+    /**
+     * Whether we should show streaming label text.
+     * Present only if user is authenticated.
+     * Part of AG-47804 AB test task.
+     */
+    shouldShowStreamingLabelText?: boolean;
+
+    /**
+     * Streaming text experiment value to send with telemetry event for AG-47804 task.
+     */
+    streamingTextExperimentValue?: string | null;
 }
 
-interface PopupDataRetry extends PopupDataInterface {
+export interface PopupDataRetry extends PopupDataInterface {
     hasRequiredData: boolean;
 }
 
@@ -120,7 +133,7 @@ export class PopupData {
         this.credentials = credentials;
     }
 
-    getPopupData = async (url: string): Promise<PopupDataInterface> => {
+    getPopupData = async (url: string | null): Promise<PopupDataInterface> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
         const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
@@ -164,6 +177,8 @@ export class PopupData {
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
         const shouldShowMobileEdgePromoBanner = await mobileEdgePromoService.shouldShowBanner();
         const marketingConsent = await this.credentials.getMarketingConsent();
+        const shouldShowStreamingLabelText = await abTestManager.isShowStreamingLabelText();
+        const streamingTextExperimentValue = await abTestManager.getStreamingTextExperiment();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -206,6 +221,8 @@ export class PopupData {
             locationsTab,
             savedLocationIds,
             marketingConsent,
+            shouldShowStreamingLabelText,
+            streamingTextExperimentValue,
         };
     };
 
@@ -213,17 +230,21 @@ export class PopupData {
 
     DEFAULT_RETRY_DELAY = 400;
 
-    async getPopupDataRetry(url: string, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY): Promise<PopupDataRetry> {
+    async getPopupDataRetry(
+        url: string | null,
+        retryNum = 1,
+        retryDelay = this.DEFAULT_RETRY_DELAY,
+    ): Promise<PopupDataRetry> {
         const backoffIndex = 1.5;
         let data: PopupDataInterface;
 
         try {
             data = await this.getPopupData(url);
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.PopupData.getPopupDataRetry]: ', e);
             await sleep(retryDelay);
             this.retryCounter += 1;
-            log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
+            log.debug(`[vpn.PopupData.getPopupDataRetry]: Retry get popup data again retry: ${this.retryCounter}`);
             return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
 
@@ -252,7 +273,7 @@ export class PopupData {
                 return { ...data, hasRequiredData };
             }
             await sleep(retryDelay);
-            log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
+            log.debug(`[vpn.PopupData.getPopupDataRetry]: Retry get popup data again retry: ${this.retryCounter}`);
             return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
 

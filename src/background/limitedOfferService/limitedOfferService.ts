@@ -134,7 +134,7 @@ class LimitedOfferService {
     ): Promise<void> => {
         const limitedOfferStorageData = await this.limitedOfferState.get();
         if (!limitedOfferStorageData) {
-            log.error('Unable to get limited offer data from storage');
+            log.error('[vpn.LimitedOfferService]: Unable to get limited offer data from storage');
             return;
         }
 

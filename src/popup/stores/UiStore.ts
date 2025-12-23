@@ -48,6 +48,30 @@ export class UiStore {
      */
     @observable shouldShowMobileEdgePromoModal: boolean = false;
 
+    /**
+     * Flag for the streaming modal display.
+     *
+     * Init value is `false`.
+     */
+    @observable isStreamingModalOpen: boolean = false;
+
+    /**
+     * Whether we should show streaming label text.
+     * Present only if user is authenticated.
+     * Part of AG-47804 AB test task.
+     */
+    @observable shouldShowStreamingLabelText: boolean = false;
+
+    /**
+     * Streaming text experiment value to send with telemetry event for AG-47804 task.
+     */
+    @observable streamingLabelTextExperiment?: string;
+
+    /**
+     * Streaming platforms to display in the modal.
+     */
+    @observable streamingPlatforms: string[] = [];
+
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -149,4 +173,42 @@ export class UiStore {
     @action closeMobileEdgePromoModal = (): void => {
         this.shouldShowMobileEdgePromoModal = false;
     };
+
+    /**
+     * Opens the streaming modal with the given platforms.
+     *
+     * @param platforms Array of streaming platform names.
+     */
+    @action openStreamingModal = (platforms: string[]): void => {
+        this.streamingPlatforms = platforms;
+        this.isStreamingModalOpen = true;
+    };
+
+    /**
+     * Closes the streaming modal.
+     */
+    @action closeStreamingModal = (): void => {
+        this.isStreamingModalOpen = false;
+        this.streamingPlatforms = [];
+    };
+
+    /**
+     * Sets whether to show streaming label text.
+     *
+     * @param shouldShow whether we should show streaming text.
+     */
+    @action
+    setShouldShowStreamingLabelText(shouldShow: boolean): void {
+        this.shouldShowStreamingLabelText = shouldShow;
+    }
+
+    /**
+     * Sets streamingLabelText experiment.
+     *
+     * @param experiment Experiment to set.
+     */
+    @action
+    setStreamingLabelTextExperiment(experiment: string): void {
+        this.streamingLabelTextExperiment = experiment;
+    }
 }

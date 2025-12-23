@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — անվճար և անվտանգ պրոքսի"
+        "message": "AdGuard VPN՝ անվճար և անվտանգ պրոքսի"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Տեղադրումը ջնջվել է Պահվածից"
     },
+    "popup_streaming_icon_title": {
+        "message": "Լավ է հոսքային ծառայությունների համար"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Հասանելի հոսքեր այս վայրում"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Հասկացա"
+    },
     "popup_traffic_limit_reached": {
         "message": "Ամսական տվյալների սահմանաչափը հասել է"
     },
@@ -893,7 +902,12 @@
         "message": "Բացառությունների ֆայլը պետք է ունենա հետևյալ ընդլայնումները՝ %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip արխիվը: \"%filename%\" չի պարունակում հետևյալ ընդլայնումներով ֆայլեր՝ %extensions%"
+        "message": "Zip արխիվ. «%filename%»-ը չի պարունակում հետևյալ ընդլայնումներով ֆայլեր՝ %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "«%filename%» ֆայլը վավեր zip արխիվ չէ",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Դուք կարող եք միացնել մինչև %maxDevicesAllowed% սարքավորում մեկաժամանակ։"

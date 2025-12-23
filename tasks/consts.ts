@@ -69,6 +69,7 @@ export const GECKO_ID_ENV_MAP = {
 export const MIN_SUPPORTED_VERSION = {
     CHROMIUM: 109,
     FIREFOX: 115,
+    FIREFOX_MOBILE: 132,
 
     /**
      * Keep it in sync with the Chromium version.

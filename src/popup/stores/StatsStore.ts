@@ -448,7 +448,7 @@ export class StatsStore {
             return StatsStore.DEFAULT_RANGE;
         } catch (e) {
             // If there is an error retrieving the range, return the default range
-            log.error('Failed to retrieve statistics range from storage:', e);
+            log.error('[vpn.StatsStore.getRangeFromStorage]: Failed to retrieve statistics range from storage:', e);
             return StatsStore.DEFAULT_RANGE;
         }
     }

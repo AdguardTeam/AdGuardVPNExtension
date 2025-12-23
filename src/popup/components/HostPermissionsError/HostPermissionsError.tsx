@@ -6,7 +6,7 @@ import { Permissions } from '../../../common/permissions';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { getPrivacyAndEulaUrls } from '../../../common/forwarderHelpers';
 import { rootStore } from '../../stores';
-import { popupActions } from '../../actions/popupActions';
+import { navActions } from '../../../common/actions/navActions';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
 import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
@@ -42,7 +42,7 @@ export const HostPermissionsError = observer(() => {
 
     const handlePrivacyClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
-        await popupActions.openTab(privacyUrl);
+        await navActions.openTab(privacyUrl);
     };
 
     const hostPermissionsInfo = reactTranslator.getMessage(

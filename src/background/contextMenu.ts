@@ -8,9 +8,9 @@ import { isHttp } from '../common/utils/string';
 import { log } from '../common/logger';
 import { ExclusionsMode } from '../common/exclusionsConstants';
 import { SETTINGS_IDS } from '../common/constants';
+import { tabs } from '../common/tabs';
 
 import { exclusions } from './exclusions';
-import { tabs } from './tabs';
 import { settings } from './settings';
 import { actions } from './actions';
 
@@ -81,7 +81,7 @@ const BROWSER_ACTION_ITEMS: ContextMenuItems = {
             try {
                 await actions.openExportLogsPage();
             } catch (e) {
-                log.debug(e.message);
+                log.debug('[vpn.contextMenu]: ', e.message);
             }
         },
     },
@@ -152,11 +152,11 @@ const renewContextMenuItems = async (menuItems: CreateCreatePropertiesType[]): P
             }, { contexts });
             await browser.contextMenus.create(createProperties, () => {
                 if (browser.runtime.lastError) {
-                    log.debug(browser.runtime.lastError.message);
+                    log.debug('[vpn.contextMenu]: ', browser.runtime.lastError.message);
                 }
             });
         } catch (e) {
-            log.debug(e);
+            log.debug('[vpn.contextMenu]: ', e);
         }
     }));
 };
@@ -237,11 +237,11 @@ const addBrowserActionItem = async (item: ContextMenuItem): Promise<void> => {
     try {
         await browser.contextMenus.create(props, () => {
             if (browser.runtime.lastError) {
-                log.debug(browser.runtime.lastError.message);
+                log.debug('[vpn.contextMenu]: ', browser.runtime.lastError.message);
             }
         });
     } catch (e) {
-        log.debug(`Error while adding browser action item with id: ${item.id} to context menu, ${e}`);
+        log.debug(`[vpn.contextMenu]: Error while adding browser action item with id: ${item.id} to context menu, ${e}`);
     }
 };
 
@@ -264,9 +264,17 @@ const getBrowserActionItems = (): ContextMenuItem[] => {
 };
 
 /**
- * Updates browser action items
+ * Updates browser action items.
+ *
+ * Context menus are not supported on Firefox Android.
+ * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1595822
  */
 const updateBrowserActionItems = async (): Promise<void> => {
+    if (!browser.contextMenus) {
+        log.debug('[vpn.contextMenu]: Context menus are not supported');
+        return;
+    }
+
     try {
         await Promise.all(Object.values(BROWSER_ACTION_ITEMS).map((item) => {
             return removeContextMenuItem(item.id);
@@ -277,11 +285,22 @@ const updateBrowserActionItems = async (): Promise<void> => {
             return addBrowserActionItem(item);
         }));
     } catch (e) {
-        log.debug(e);
+        log.debug('[vpn.contextMenu]: ', e);
     }
 };
 
+/**
+ * Synchronous initialization - registers event listener and notifiers at top level.
+ * Must be called synchronously to catch context menu clicks that wake up the service worker.
+ *
+ * Context menus are not supported on Firefox Android.
+ * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1595822
+ */
 const init = (): void => {
+    if (!browser.contextMenus) {
+        log.debug('[vpn.contextMenu]: Context menus are not supported');
+        return;
+    }
     const throttleTimeoutMs = 100;
     const throttledUpdater = throttle(updateContextMenu, throttleTimeoutMs);
 

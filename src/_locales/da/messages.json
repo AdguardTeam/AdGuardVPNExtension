@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — gratis og sikker proxy"
+        "message": "AdGuard VPN: Gratis og sikker proxy"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Lokation slettet fra Gemt"
     },
+    "popup_streaming_icon_title": {
+        "message": "God til streamingtjenester"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Tilgængelige streamingmuligheder via denne lokation"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Forstået"
+    },
     "popup_traffic_limit_reached": {
         "message": "Månedlig datakvote opbrugt"
     },
@@ -893,7 +902,12 @@
         "message": "Filtypen for Undtagelser skal være én af flg.:%extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip-arkivet: \"%filename%\" indeholder ikke filer med udvidelserne: %extensions%"
+        "message": "Zip-arkivet: \"%filename%\" indeholder ikke filer med udvidelserne: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Filen “%filename%” er ikke et gyldigt zip-arkiv",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Man kan tilslutte op til %maxDevicesAllowed% enheder samtidigt."

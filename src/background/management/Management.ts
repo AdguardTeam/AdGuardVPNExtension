@@ -24,7 +24,7 @@ class Management {
             try {
                 await this.browser.management.setEnabled(extension.id, false);
             } catch (e) {
-                log.error(e);
+                log.error('[vpn.Management]: failed during turn off other proxy', e);
             }
         });
 

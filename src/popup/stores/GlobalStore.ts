@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
 
 import { log } from '../../common/logger';
-import { tabs } from '../../background/tabs';
+import { tabs } from '../../common/tabs';
 import { messenger } from '../../common/messenger';
 
 import type { RootStore } from './RootStore';
@@ -36,6 +36,7 @@ export class GlobalStore {
     async getAndroidData(): Promise<void> {
         const { rootStore: { settingsStore } } = this;
         await settingsStore.setIsAndroidBrowser();
+        await settingsStore.setIsFirefoxAndroid();
     }
 
     @action
@@ -46,6 +47,7 @@ export class GlobalStore {
             settingsStore,
             authStore,
             telemetryStore,
+            uiStore,
         } = rootStore;
 
         this.setInitStatus(RequestStatus.Pending);
@@ -84,6 +86,8 @@ export class GlobalStore {
                 savedLocationIds,
                 username,
                 marketingConsent,
+                shouldShowStreamingLabelText,
+                streamingTextExperimentValue,
             } = popupData;
 
             settingsStore.setForwarderDomain(forwarderDomain);
@@ -144,10 +148,12 @@ export class GlobalStore {
             await settingsStore.getExclusionsInverted();
             await settingsStore.getCurrentTabHostname();
             settingsStore.setIsExcluded(!isVpnEnabledByUrl);
+            uiStore.setShouldShowStreamingLabelText(shouldShowStreamingLabelText);
+            uiStore.setStreamingLabelTextExperiment(streamingTextExperimentValue);
 
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
-            log.error(e.message);
+            log.error('[vpn.GlobalStore.getPopupData]: ', e.message);
             this.setInitStatus(RequestStatus.Error);
         }
     }
@@ -232,7 +238,7 @@ export class GlobalStore {
 
         authStore.setIsFirstRun(isFirstRun);
         authStore.setFlagsStorageData(flagsStorageData);
-        await authStore.setMarketingConsent(marketingConsent);
+        await authStore.setMarketingConsent(marketingConsent || false);
         vpnStore.setIsPremiumToken(isPremiumToken);
         this.setStartupDataRetrieved(true);
     }

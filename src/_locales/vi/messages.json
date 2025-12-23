@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — Quyền riêng tư & Bảo mật"
+        "message": "AdGuard VPN: proxy miễn phí và bảo mật"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Đã xóa vị trí khỏi Đã lưu"
     },
+    "popup_streaming_icon_title": {
+        "message": "Tốt cho các dịch vụ phát trực tuyến"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Các buổi phát trực tuyến có sẵn tại vị trí này"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Đã nhận được"
+    },
     "popup_traffic_limit_reached": {
         "message": "Đã đạt đến giới hạn dữ liệu hàng tháng. Cần thêm?"
     },
@@ -893,7 +902,12 @@
         "message": "Tệp loại trừ phải có một trong các phần mở rộng sau: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Lưu trữ zip: \"%filename%\" không chứa các tệp có phần mở rộng: %extensions%"
+        "message": "Tệp nén ZIP: “%filename%” không chứa các tệp có phần mở rộng: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Tệp “%filename%” không phải là tệp nén ZIP hợp lệ.",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Bạn có thể kết nối tối đa %maxDevicesAllowed% thiết bị cùng một lúc."

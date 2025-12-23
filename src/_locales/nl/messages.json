@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — snelle & veilige proxy"
+        "message": "AdGuard VPN: gratis & veilige proxy"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Locatie verwijderd uit Opgeslagen"
     },
+    "popup_streaming_icon_title": {
+        "message": "Goed voor streamingdiensten"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Beschikbare streamings op deze locatie"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Begrepen"
+    },
     "popup_traffic_limit_reached": {
         "message": "Maandelijkse datalimiet bereikt"
     },
@@ -893,7 +902,12 @@
         "message": "Bestand met uitzonderingen dient een van deze uitbreidingen te bevatten: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip-archief: %filename% bevat geen bestanden met uitbreidingen: %extensions%"
+        "message": "Zip-archief: \"%filename%\" bevat geen bestanden met uitbreidingen: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Bestand \"%filename%\" is geen geldig zip-archief",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Je kunt tot %maxDevicesAllowed% apparaten tegelijkertijd verbinden."

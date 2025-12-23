@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { popupActions } from '../../actions/popupActions';
+import { navActions } from '../../../common/actions/navActions';
 import { translator } from '../../../common/translator';
 import { isLocationsNumberAcceptable } from '../../../common/is-locations-number-acceptable';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
@@ -36,7 +36,7 @@ export const GlobalError = observer(() => {
     };
 
     const handleLearnMore = async (): Promise<void> => {
-        await popupActions.openVpnFailurePage();
+        await navActions.openVpnFailurePage();
     };
 
     const handleDisableExtensions = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {

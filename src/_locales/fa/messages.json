@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — پروکسی رایگان و امن"
+        "message": "AdGuard VPN: پراکسی رایگان و امن"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "مکان از لیست ذخیره‌شده حذف شد"
     },
+    "popup_streaming_icon_title": {
+        "message": "برای سرویس های استریم خوب است"
+    },
+    "popup_streaming_modal_title": {
+        "message": "پخش های زنده موجود در این مکان"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "متوجه شدم"
+    },
     "popup_traffic_limit_reached": {
         "message": "حد داده ماهانه سر رسید"
     },
@@ -893,7 +902,12 @@
         "message": "فایل استثنائات باید یکی از پسوندهای زیر را داشته باشد: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "فایل ZIP: \"%filename%\" شامل فایل با پسوندهای: %extensions% نیست"
+        "message": "بایگانی زیپ: «%filename%» حاوی فایل‌هایی با پسوند %extensions%نیست",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "فایل «%filename%» یک آرشیو زیپ معتبر نیست",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "شما می‌توانید تا %maxDevicesAllowed% دستگاه را به طور همزمان متصل کنید."

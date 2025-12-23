@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — proxy privato gratuito e sicuro"
+        "message": "AdGuard VPN: proxy gratuito e sicuro"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -76,7 +76,7 @@
         "message": "Profilo"
     },
     "account_edit": {
-        "message": "Apri impostazioni account"
+        "message": "Apri impostazioni del profilo"
     },
     "account_version": {
         "message": "Versione"
@@ -568,7 +568,7 @@
         "message": "Impostazioni"
     },
     "popup_settings_stats": {
-        "message": "Statist."
+        "message": "Statistiche"
     },
     "popup_settings_free_description": {
         "message": "Disponibile in AdGuard VPN Unlimited"
@@ -612,6 +612,15 @@
     },
     "endpoints_saved_location_deleted": {
         "message": "Luogo eliminato da Salvati"
+    },
+    "popup_streaming_icon_title": {
+        "message": "Ottimo per i servizi di streaming"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Streaming disponibili in questa posizione"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Capito"
     },
     "popup_traffic_limit_reached": {
         "message": "Limite dati mensile raggiunto"
@@ -893,7 +902,12 @@
         "message": "Il file delle esclusioni dovrebbe avere una delle seguenti estensioni: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "L'archivio Zip \"%filename%\" non contiene file con estensioni: %extensions%"
+        "message": "L'archivio \"%filename%\" non contiene file con le estensioni %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Il file \"%filename%\" non è un archivio zip valido",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Puoi connettere fino a %maxDevicesAllowed% dispositivi allo stesso tempo."
@@ -929,7 +943,7 @@
         "message": "Non mostrarlo più"
     },
     "popup_stats": {
-        "message": "Statist."
+        "message": "Statistiche"
     },
     "popup_stats_disabled_notice": {
         "message": "Statistiche disabilitate"
@@ -990,7 +1004,7 @@
         "message": "Cancellare statistiche?"
     },
     "popup_stats_menu_clear_stats_description": {
-        "message": "Tutte le statistiche verranno eliminate definitivamente"
+        "message": "Le statistiche saranno eliminate definitivamente"
     },
     "popup_stats_menu_clear_stats_clear_btn": {
         "message": "Cancella"

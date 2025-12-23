@@ -19,6 +19,7 @@ import { Location } from './Location';
 import { Search } from './Search';
 import { Reload } from './Reload';
 import { TabButtons } from './TabButtons';
+import { StreamingModal } from './StreamingModal';
 
 import './endpoints.pcss';
 
@@ -236,6 +237,7 @@ export const Locations = observer(() => {
                     </div>
                 </div>
             )}
+            <StreamingModal />
         </div>
     );
 });

@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — ücretsiz ve güvenli proxy"
+        "message": "AdGuard VPN: ücretsiz ve güvenli proxy"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -162,6 +162,9 @@
     "settings_free_gbs": {
         "message": "Ücretsiz GB'lar"
     },
+    "settings_free_gbs_subtitle": {
+        "message": "İşte nasıl fazladan VPN verisi elde edebileceğiniz"
+    },
     "settings_free_gbs_join_adguard": {
         "message": "AdGuard VPN'e katıl"
     },
@@ -186,6 +189,9 @@
     "settings_free_gbs_devices_added_title_gb": {
         "message": "Yeni bir cihaz eklediğin için %your_gb% GB edindin"
     },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Kullanılmayan veri sonraki aylara devredilir. Üstelik AdGuard VPN Unlimited ile hızlı gezinmenin keyfini sınırsızca çıkarabilirsiniz"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Ürün seç"
     },
@@ -203,6 +209,9 @@
     },
     "settings_free_gbs_invite_friend_complete": {
         "message": "%num% GB'ınız var"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Büyümemize yardımcı olduğunuz için teşekkür ederiz! Ücretsiz GB'lar bölümünde nasıl daha fazla hediye alacağınızı öğrenin. Veya sınırsız hızlı gezinmenin keyfini çıkarmak için AdGuard VPN Unlimited edinin"
     },
     "settings_free_gbs_upgrade": {
         "message": "Unlimited'a yükseltin"
@@ -244,7 +253,7 @@
         "message": "AdGuard VPN'in işlevselliğini analiz etmek ve geliştirmek için bu bilgilere ihtiyacımız var"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Bu veriler anonimdir ve yalnızca kendimiz kullanırız. Üçüncü taraflarla asla paylaşmayız"
+        "message": "Bu veriler anonimdir ve yalnızca şirket içinde kullanılır. Üçüncü taraflarla asla paylaşmayız"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Anladım"
@@ -604,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Konum Kaydedilenlerden silindi"
     },
+    "popup_streaming_icon_title": {
+        "message": "Canlı yayın akışı hizmetleri için iyi"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Bu konumdaki mevcut canlı yayın akışları"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Anladım"
+    },
     "popup_traffic_limit_reached": {
         "message": "Aylık veri sınırına ulaşıldı"
     },
@@ -729,7 +747,7 @@
         "message": "Kabul ederseniz, AdGuard VPN etkileşimde bulunduğunuz ekranlar ve düğmeler hakkında veri toplar. Veri paylaşımını her zaman <b>Ayarlar</b> öğesinden devre dışı bırakabilirsiniz"
     },
     "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Bu bilgiler hangi özelliklerin iyi çalıştığını ve hangilerinin iyileştirilmesi gerektiğini anlamamıza yardımcı olur. Anonimdir ve yalnızca kendimiz kullanırız. Bunu asla kimseyle paylaşmayız"
+        "message": "Bu bilgiler hangi özelliklerin iyi çalıştığını ve hangilerinin geliştirilmesi gerektiğini anlamamıza yardımcı olur. Anonimdir ve yalnızca şirket içinde kullanılır. Bunu kimseyle asla paylaşmayız"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Giriş yap ya da bir hesap oluştur"
@@ -769,6 +787,9 @@
     },
     "popup_upgrade_screen_title": {
         "message": "Unlimited'a yükseltin"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Tüm konumlara erişin, hız kısıtlaması olmadan gezinin ve aynı anda %maxDevicesAllowed% cihaza kadar bağlanın"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Sınırsız veri"
@@ -881,7 +902,12 @@
         "message": "İstisnalar dosyası bu uzantılardan birine sahip olmalıdır: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip arşivi: \"%filename%\" bu uzantılara sahip dosyalar içermiyor: %extensions%"
+        "message": "Zip arşivi: “%filename%”, şu uzantılara sahip dosyaları içermiyor: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "“%filename%” dosyası geçerli bir zip arşivi değil",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Aynı anda %maxDevicesAllowed% cihaza kadar bağlanabilirsiniz."
@@ -940,6 +966,15 @@
     "popup_stats_data_since": {
         "message": "%startDate% tarihinden itibaren",
         "description": "IMPORTANT: Be careful with percent sign around startDate. StartDate will be replaced with the date when stats collection started. For example on - 17 Sept 2025, date format respects locale."
+    },
+    "popup_stats_menu_why_safe_description_1": {
+        "message": "İstatistikler, ne kadar VPN verisi kullandığınızı gösterir ve en çok kullandığınız konumları sıralar"
+    },
+    "popup_stats_menu_why_safe_description_2": {
+        "message": "İstatistikler asla tarama geçmişinizi içermez. Şifrelidir, böylece kimse sizi izleyemez"
+    },
+    "popup_stats_menu_why_safe_description_3": {
+        "message": "AdGuard VPN'i birden fazla tarayıcıda kullanıyorsanız, istatistikleriniz her bir tarayıcı için farklı olacaktır. Bunlar cihaza kaydedilir ve yalnızca siz bunlara erişebilirsiniz"
     },
     "popup_stats_menu_why_safe_got_it": {
         "message": "Anladım"
@@ -1043,8 +1078,11 @@
     "confirm_email_done_title_gb": {
         "message": "Tek seferlik hoş geldin bonusu olarak %your_gb% GB edindin"
     },
+    "confirm_email_done_info": {
+        "message": "Kullanılmayan veri sonraki aylara devredilir. Üstelik AdGuard VPN Unlimited ile hızlı gezinmenin keyfini sınırsızca çıkarabilirsiniz"
+    },
     "auth_failed_to_login_title": {
-        "message": "Girişin başarısız oldu"
+        "message": "Girişin yapılamadı"
     },
     "auth_failed_to_login_description": {
         "message": "Lütfen tekrar deneyin veya <a>destek ile iletişime geçin</a>"
@@ -1054,6 +1092,9 @@
     },
     "auth_failed_to_login_button": {
         "message": "Kapat"
+    },
+    "auth_loading_title": {
+        "message": "Tarayıcınız üzerinden giriş yap veya kayıt ol"
     },
     "auth_loading_description": {
         "message": "AdGuard VPN lisansınız varsa, otomatik olarak uygulanır"

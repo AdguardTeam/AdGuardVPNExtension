@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — Schneller VPN und anonymer Proxy"
+        "message": "AdGuard VPN: kostenloser und sicherer Proxy"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -238,7 +238,7 @@
         "message": "Nutzungsdaten der Erweiterung"
     },
     "settings_help_us_improve_modal_desc_data": {
-        "message": "Diese Daten umfassen:"
+        "message": "Diese Daten enthalten:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
         "message": "Namen der Bildschirme, mit denen Sie interagieren"
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Standort aus „Gespeicherte“ entfernt"
     },
+    "popup_streaming_icon_title": {
+        "message": "Geeignet für Streaming-Dienste"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Verfügbare Streaming-Dienste an diesem Standort"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Verstanden"
+    },
     "popup_traffic_limit_reached": {
         "message": "Monatliches Traffic-Limit erreicht"
     },
@@ -893,7 +902,12 @@
         "message": "Die Ausschlussliste muss eine der folgenden Dateiendungen erhalten: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip-Archiv: „%filename%“ enthält keine Dateien mit den Erweiterungen: %extensions%"
+        "message": "ZIP-Archiv: „%filename%” enthält keine Dateien mit den Erweiterungen: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Datei „%filename%\" ist kein gültiges ZIP-Archiv",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Sie können bis zu %maxDevicesAllowed% Geräte gleichzeitig verbinden."

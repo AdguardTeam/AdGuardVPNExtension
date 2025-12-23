@@ -57,7 +57,7 @@ export class TelemetryStore {
             this.pageId = null;
             await messenger.removeTelemetryOpenedPage(pageId);
         } catch (e) {
-            log.debug('Failed to remove opened page from telemetry service', e);
+            log.debug('[vpn.TelemetryStore]: Failed to remove opened page from telemetry service', e);
         }
     };
 
@@ -69,7 +69,7 @@ export class TelemetryStore {
     @action setPageId = (pageId: string | null): void => {
         // Guard against multiple calls, allow to set page ID only once or to `null`
         if (this.pageId && pageId) {
-            log.error(`Cannot set page ID: already set to '${this.pageId}'`);
+            log.error(`[vpn.TelemetryStore]: Cannot set page ID: already set to '${this.pageId}'`);
             return;
         }
 
@@ -90,13 +90,13 @@ export class TelemetryStore {
             }
 
             if (!this.pageId) {
-                log.error(`Cannot send page view telemetry event: missing page ID for screen '${screenName}'`);
+                log.error(`[vpn.TelemetryStore]: Cannot send page view telemetry event: missing page ID for screen '${screenName}'`);
                 return;
             }
 
             await messenger.sendPageViewTelemetryEvent(screenName, this.pageId);
         } catch (e) {
-            log.debug('Failed to send page view telemetry event', e);
+            log.debug('[vpn.TelemetryStore]: Failed to send page view telemetry event', e);
         }
     };
 
@@ -105,20 +105,25 @@ export class TelemetryStore {
      *
      * NOTE: Do not await this function, as it is not necessary to wait for the response.
      *
-     * @param event Custom telemetry event data.
+     * @param actionName Name of the action.
+     * @param screenName Name of the screen.
+     * @param label Optional label for the event.
+     * @param experiment Experiment value for event if A/B test is in progress.
      */
     sendCustomEvent = async <T extends TelemetryActionName>(
         actionName: T,
         screenName: TelemetryActionToScreenMap[T],
+        label?: string,
+        experiment?: string,
     ): Promise<void> => {
         try {
             if (!this.isHelpUsImproveEnabled) {
                 return;
             }
 
-            await messenger.sendCustomTelemetryEvent(actionName, screenName);
+            await messenger.sendCustomTelemetryEvent(actionName, screenName, label, experiment);
         } catch (e) {
-            log.debug('Failed to send custom telemetry event', e);
+            log.debug('[vpn.TelemetryStore]: Failed to send custom telemetry event', e);
         }
     };
 }

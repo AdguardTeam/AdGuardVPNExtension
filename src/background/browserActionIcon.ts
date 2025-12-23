@@ -4,10 +4,10 @@ import throttle from 'lodash/throttle';
 import { notifier } from '../common/notifier';
 import { isHttp } from '../common/utils/string';
 import { log } from '../common/logger';
+import { type PreparedTab, tabs } from '../common/tabs';
 
 import { actions } from './actions';
 import { exclusions } from './exclusions';
-import { type PreparedTab, tabs } from './tabs';
 import { auth } from './auth/auth';
 import { locationsService } from './endpoints/locationsService';
 import { connectivityService } from './connectivity/connectivityService';
@@ -43,7 +43,7 @@ class BrowserActionIcon {
         const { id, url } = tab;
 
         if (!id) {
-            log.error('Unable to get tab id to update icon');
+            log.error('[vpn.BrowserActionIcon.updateIcon]: Unable to get tab id to update icon');
             return;
         }
 

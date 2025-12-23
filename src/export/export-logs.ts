@@ -40,6 +40,6 @@ export const exportLogs = async (): Promise<void> => {
         const appVersion = await getAppVersion();
         await exportData(logs, FileExtension.Txt, appVersion);
     } catch (e) {
-        log.error(e.message);
+        log.error('[vpn.export-logs]: ', e.message);
     }
 };

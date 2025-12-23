@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — vpn rapid și proxy privat sigur"
+        "message": "AdGuard VPN: proxy gratuit și sigur"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Locație eliminată din Salvat"
     },
+    "popup_streaming_icon_title": {
+        "message": "Bun pentru serviciile de streaming"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Streaming disponibil la această locație"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Am înțeles."
+    },
     "popup_traffic_limit_reached": {
         "message": "Limita lunară de date a fost atinsă"
     },
@@ -893,7 +902,12 @@
         "message": "Fișierul de excluderi trebuie să aibă una dintre următoarele extensii: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Arhiva zip: \"%filename%\" nu conține fișiere cu extensii: %extensions%"
+        "message": "Arhiva zip: „%filename%” nu conține fișiere cu extensiile: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Fișierul „%filename%” nu este o arhivă zip validă",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Puteți conecta până la %maxDevicesAllowed% dispozitive în același timp."

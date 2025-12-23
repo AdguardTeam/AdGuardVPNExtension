@@ -44,7 +44,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     }
 
     updatePermissionsErrorHandler = async (error: ErrorData): Promise<void> => {
-        log.error('Permissions were not updated due to:', error.message);
+        log.error('[vpn.PermissionsChecker]: Permissions were not updated due to:', error.message);
         // do not consider network error as a reason to set permission error
         // or if websocket connection still is open
         if (error.status === ERROR_STATUSES.NETWORK_ERROR
@@ -58,7 +58,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
         try {
             await settings.disableProxy(true);
         } catch (e) {
-            log.error(e.message);
+            log.error('[vpn.PermissionsChecker]: ', e.message);
         }
     };
 
@@ -106,7 +106,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
             // if no error, clear permissionError
             this.permissionsError.clearError();
             notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
-            log.info('Permissions were checked successfully');
+            log.info('[vpn.PermissionsChecker]: Permissions were checked successfully');
         } catch (e) {
             // if got an error on token or credentials check,
             // stop credentials check before expired
@@ -131,14 +131,14 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
             }
             // if no error, clear vpnInfoError
             this.permissionsError.clearError();
-            log.info('VPN info was checked successfully');
+            log.info('[vpn.PermissionsChecker]: VPN info was checked successfully');
         } catch (e) {
             await this.updatePermissionsErrorHandler(e);
         }
     };
 
     startChecker = async (): Promise<void> => {
-        log.info('Credentials and VPN info checker started');
+        log.info('[vpn.PermissionsChecker]: Credentials and VPN info checker started');
 
         let { credentialsCheckTimerId, vpnInfoCheckTimerId } = await this.permissionsCheckerState.get();
 
@@ -170,19 +170,19 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
         } = await this.permissionsCheckerState.get();
 
         if (credentialsCheckTimerId) {
-            log.info('Credentials checker stopped');
+            log.info('[vpn.PermissionsChecker]: Credentials checker stopped');
             timers.clearInterval(credentialsCheckTimerId);
             credentialsCheckTimerId = null;
         }
 
         if (vpnInfoCheckTimerId) {
-            log.info('VPN info checker stopped');
+            log.info('[vpn.PermissionsChecker]: VPN info checker stopped');
             timers.clearInterval(vpnInfoCheckTimerId);
             vpnInfoCheckTimerId = null;
         }
 
         if (expiredCredentialsCheckTimeoutId) {
-            log.info('Checker before credentials expired stopped');
+            log.info('[vpn.PermissionsChecker]: Checker before credentials expired stopped');
             timers.clearTimeout(expiredCredentialsCheckTimeoutId);
             expiredCredentialsCheckTimeoutId = null;
         }
@@ -214,6 +214,6 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
             notifier.types.USER_DEAUTHENTICATED,
             this.handleUserDeauthentication,
         );
-        log.info('Permissions checker module initiated');
+        log.info('[vpn.PermissionsChecker]: Permissions checker module initiated');
     };
 }

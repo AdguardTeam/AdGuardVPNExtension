@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — швидкий та безпечний proxy"
+        "message": "AdGuard VPN: безплатний та безпечний проксі"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Місцезнаходження видалено зі Збережених"
     },
+    "popup_streaming_icon_title": {
+        "message": "Добре для стрімінгових сервісів"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Доступні стримінгові сервіси в цій локації"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Зрозуміло"
+    },
     "popup_traffic_limit_reached": {
         "message": "Вичерпано місячний ліміт трафіку"
     },
@@ -893,7 +902,12 @@
         "message": "Файл винятків мусить мати одне з розширень: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip-архів «%filename%» не містить файлів з прийнятними розширеннями: %extensions%"
+        "message": "Zip-архів «%filename%» не містить файлів з розширеннями: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Файл «%filename%» не є дійсним zip-архівом",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Ви можете підʼєднати до %maxDevicesAllowed% пристроїв одночасно."

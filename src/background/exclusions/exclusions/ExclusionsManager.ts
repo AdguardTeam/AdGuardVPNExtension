@@ -95,7 +95,7 @@ export class ExclusionsManager {
          */
         await this.handleExclusionsUpdate();
 
-        log.info('ExclusionsManager is ready');
+        log.info('[vpn.ExclusionsManager.innerInit]: ExclusionsManager is ready');
     }
 
     /**

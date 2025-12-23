@@ -28,19 +28,30 @@ describe('ABTestManager', () => {
 
     describe('setVersions', () => {
         it('should set versions and save them to storage', async () => {
-            const experiments = { versions: ['v1', 'v2'] };
+            const experiments = {
+                selected_versions: [
+                    { version: 'v1', completed: false },
+                    { version: 'v2', completed: true },
+                ],
+            };
             const manager = new ABTestManager([]);
 
             await manager.setVersions(experiments);
 
-            expect(manager.versions).toEqual(['v1', 'v2']);
-            expect(browserApi.storage.set).toHaveBeenCalledWith(ABTestManager.VERSIONS_STORAGE_KEY, ['v1', 'v2']);
+            expect(manager.versions).toEqual(experiments.selected_versions);
+            expect(browserApi.storage.set).toHaveBeenCalledWith(
+                ABTestManager.VERSIONS_STORAGE_KEY,
+                experiments.selected_versions,
+            );
         });
     });
 
     describe('getVersionsFromStorage', () => {
         it('should parse versions from storage', async () => {
-            const storedVersions = ['v1', 'v2'];
+            const storedVersions = [
+                { version: 'v1', completed: false },
+                { version: 'v2', completed: true },
+            ];
             // @ts-ignore
             browserApi.storage.get.mockResolvedValue(storedVersions);
 

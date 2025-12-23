@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import { popupActions } from '../../actions/popupActions';
+import { navActions } from '../../../common/actions/navActions';
 import { messenger } from '../../../common/messenger';
 import { Icon } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
@@ -44,7 +44,7 @@ const PromoNotificationModal = observer(() => {
         if (authStore.username) {
             resUrl.searchParams.set('email', authStore.username);
         }
-        await popupActions.openTab(resUrl.toString());
+        await navActions.openTab(resUrl.toString());
     };
 
     const onCloseHandler = async (): Promise<void> => {

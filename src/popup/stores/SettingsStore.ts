@@ -5,7 +5,7 @@ import {
     runInAction,
 } from 'mobx';
 
-import { tabs } from '../../background/tabs';
+import { tabs } from '../../common/tabs';
 import { log } from '../../common/logger';
 import { SETTINGS_IDS, AppearanceTheme } from '../../common/constants';
 import { messenger } from '../../common/messenger';
@@ -76,6 +76,8 @@ export class SettingsStore {
 
     @observable isAndroidBrowser: boolean = false;
 
+    @observable isFirefoxAndroid: boolean | null = null;
+
     @observable arePingsRecalculating: boolean = false;
 
     @observable forwarderDomain: string;
@@ -133,7 +135,7 @@ export class SettingsStore {
                 animationService.send(AnimationEvent.VpnDisconnected);
             }
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.SettingsStore]: ', e);
         }
     };
 
@@ -147,7 +149,7 @@ export class SettingsStore {
                 animationService.send(AnimationEvent.VpnConnected);
             }
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.SettingsStore]: ', e);
         }
     };
 
@@ -179,7 +181,7 @@ export class SettingsStore {
                 }
             });
         } catch (e) {
-            log.error(e);
+            log.error('[vpn.SettingsStore]: ', e);
         }
     };
 
@@ -197,7 +199,7 @@ export class SettingsStore {
             await messenger.checkPermissions();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         } catch (e) {
-            log.info(e.message);
+            log.info('[vpn.SettingsStore.checkPermissions]: ', e.message);
         }
         runInAction(() => {
             this.checkPermissionsState = RequestStatus.Done;
@@ -483,6 +485,17 @@ export class SettingsStore {
         const isAndroid = await Prefs.isAndroid();
         runInAction(() => {
             this.isAndroidBrowser = isAndroid;
+        });
+    }
+
+    /**
+     * Checks whether the extension is running on Firefox Android.
+     * Sets the result to {@link isFirefoxAndroid}
+     */
+    @action async setIsFirefoxAndroid(): Promise<void> {
+        const isFirefoxAndroid = await Prefs.isFirefoxAndroid();
+        runInAction(() => {
+            this.isFirefoxAndroid = isFirefoxAndroid;
         });
     }
 

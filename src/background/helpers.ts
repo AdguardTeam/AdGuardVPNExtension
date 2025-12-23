@@ -76,8 +76,8 @@ export const setExtensionUninstallUrl = async (forwarderDomain: string): Promise
 
         await browser.runtime.setUninstallURL(uninstallUrl);
 
-        log.info(`Uninstall url was set to: ${uninstallUrl}`);
+        log.info(`[vpn.helpers]: Uninstall url was set to: ${uninstallUrl}`);
     } catch (e) {
-        log.error(e.message);
+        log.error('[vpn.helpers]: ', e.message);
     }
 };

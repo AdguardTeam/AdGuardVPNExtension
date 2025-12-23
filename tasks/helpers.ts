@@ -48,6 +48,18 @@ export const getOutputPathByEnv = (env = Env.Dev): string => {
     return envData.outputPath;
 };
 
+/**
+ * Formats extension name for manifest.
+ *
+ * @param name Extension name to use.
+ * @param env Build environment.
+ *
+ * @returns Formatted extension name.
+ */
+const formatMsgName = (name: string, env: string): string => {
+    return `${name} ${env}`;
+};
+
 export const updateLocalesMSGName = (content: Buffer, env: string): string => {
     // Chrome Web Store allows only 45 symbol long names
     const NAME_MAX_LENGTH = 45;
@@ -57,26 +69,22 @@ export const updateLocalesMSGName = (content: Buffer, env: string): string => {
         throw new Error(`Wrong environment: ${env}`);
     }
 
-    const { name } = envData;
-    const envName = ` ${name}`;
+    const { name: envName } = envData;
 
     const messages = JSON.parse(content.toString());
 
-    // for dev and beta builds use short name + environment
+    // for dev and beta builds use "short_name environment"
     if (env !== Env.Release) {
-        messages.name.message = messages.short_name.message + envName;
+        messages.name.message = formatMsgName(messages.short_name.message, envName);
         return JSON.stringify(messages, null, 4);
     }
 
-    if (messages.name && name.length > 0) {
-        messages.name.message += envName;
-        // if name with suffix is too long, use short name + plus suffix
-        if (messages.name.message.length > NAME_MAX_LENGTH) {
-            messages.name.message = messages.short_name.message + envName;
-        }
+    // if name with suffix is too long, use short_name
+    if (messages.name && messages.name.message.length > NAME_MAX_LENGTH) {
+        messages.name.message = messages.short_name.message;
 
         if (messages.name.message.length > NAME_MAX_LENGTH) {
-            throw new Error('Chrome Web Store allows only 45 symbol long names');
+            throw new Error(`Chrome Web Store allows only ${NAME_MAX_LENGTH} symbol long names`);
         }
     }
 

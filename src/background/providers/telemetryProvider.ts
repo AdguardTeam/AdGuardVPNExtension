@@ -82,12 +82,13 @@ const sendEvent = async (event: TelemetryEvent): Promise<void> => {
                 license_status: props.licenseStatus,
                 subscription_duration: props.subscriptionDuration,
                 theme: props.theme,
+                experiment: 'event' in event ? event.event.experiment : undefined,
             },
         };
 
         await telemetryApi.sendEvent(data);
     } catch (e) {
-        log.debug('Failed to send telemetry event', e);
+        log.debug('[vpn.telemetryProvider]: Failed to send telemetry event', e);
     }
 };
 

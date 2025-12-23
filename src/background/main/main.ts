@@ -10,7 +10,8 @@ import { LogLevel } from '@adguard/logger';
 import { stateStorage } from '../stateStorage';
 import { actions } from '../actions';
 import { appStatus } from '../appStatus';
-import { auth, authSideEffects } from '../auth';
+import { auth } from '../auth';
+import { authSideEffects } from '../authSideEffects';
 import { authCache } from '../authentication';
 import { connectivity } from '../connectivity';
 import { contextMenu } from '../contextMenu';
@@ -27,7 +28,7 @@ import { permissionsError } from '../permissionsChecker/permissionsError';
 import { popupData } from '../popupData';
 import { proxy } from '../proxy';
 import { settings } from '../settings';
-import { tabs } from '../tabs';
+import { tabs } from '../../common/tabs';
 import { updateService } from '../updateService';
 import { vpnApi } from '../api';
 import { browserActionIcon } from '../browserActionIcon';
@@ -91,6 +92,8 @@ const syncInitModules = (): void => {
     // messaging, context menu and tabs inits are on the top-level
     // because popup should be able to wake up the service worker
     messaging.init();
+    // context menu listener must be registered synchronously
+    // to catch clicks that wake up the service worker
     contextMenu.init();
     tabs.init();
 };
@@ -99,7 +102,7 @@ const syncInitModules = (): void => {
  * Initializes asynchronous and dependant synchronous modules.
  */
 const asyncInitModules = async (): Promise<void> => {
-    log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
+    log.info(`[vpn.main]: Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
         const initStartDate = Date.now();
         await stateStorage.init();
@@ -122,7 +125,7 @@ const asyncInitModules = async (): Promise<void> => {
         await auth.init();
         authSideEffects.init();
         await telemetry.initState();
-        // the updateBrowserActionItems method is called after settings.init() because it uses settings
+        // update browser action items after settings.init() because it uses settings
         await contextMenu.updateBrowserActionItems();
         // the checkAndSwitchStorage is called after settings.init() because it uses settings
         await logStorageManager.checkAndSwitchStorage(settings.isDebugModeEnabled());
@@ -137,9 +140,9 @@ const asyncInitModules = async (): Promise<void> => {
         // set uninstall url for the extension at the end
         await setUninstallUrl();
         const initDoneDate = Date.now();
-        log.info(`Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
+        log.info(`[vpn.main]: Extension loaded all necessary modules in ${initDoneDate - initStartDate} ms`);
     } catch (e) {
-        log.error('Unable to start extension because of error:', e && e.message);
+        log.error('[vpn.main]: Unable to start extension because of error:', e && e.message);
     }
 };
 
@@ -149,12 +152,12 @@ const asyncInitModules = async (): Promise<void> => {
 export const main = (): void => {
     if (log.currentLevel === LogLevel.Debug) {
         runtime.getPlatformOs().then((res) => {
-            log.debug(`Current os: '${res}'`);
+            log.debug(`[vpn.main]: Current os: '${res}'`);
         });
 
-        log.debug(`Current browser: "${BROWSER}"`);
-        log.debug(`Current build env: "${BUILD_ENV}"`);
-        log.debug(`Current stage env: "${STAGE_ENV}"`);
+        log.debug(`[vpn.main]: Current browser: "${BROWSER}"`);
+        log.debug(`[vpn.main]: Current build env: "${BUILD_ENV}"`);
+        log.debug(`[vpn.main]: Current stage env: "${STAGE_ENV}"`);
     }
 
     syncInitModules();

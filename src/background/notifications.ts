@@ -29,7 +29,7 @@ class Notifications implements NotificationsInterface {
         try {
             await browser.notifications.create(nanoid(), notificationOptions);
         } catch (error) {
-            log.error(getErrorMessage(error));
+            log.error('[vpn.Notifications]: ', getErrorMessage(error));
         }
     };
 }

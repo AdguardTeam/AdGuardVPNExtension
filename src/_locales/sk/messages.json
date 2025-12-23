@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — bezplatný a bezpečný proxy server"
+        "message": "AdGuard VPN: bezplatný a bezpečný proxy"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -571,6 +571,15 @@
     "endpoints_saved_location_deleted": {
         "message": "Lokalita bola odstránená zo zoznamu Uložené"
     },
+    "popup_streaming_icon_title": {
+        "message": "Vhodné pre streamovacie služby"
+    },
+    "popup_streaming_modal_title": {
+        "message": "Dostupné streamovanie v tejto lokalite"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "Rozumiem"
+    },
     "popup_traffic_limit_reached": {
         "message": "Dosiahnutý mesačný dátový limit"
     },
@@ -618,6 +627,9 @@
     },
     "popup_rate_modal_subtitle": {
         "message": "Ohodnoťte nás, prosím"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Poslať"
     },
     "popup_rate_modal_cancel_button": {
         "message": "Zrušiť"
@@ -845,7 +857,12 @@
         "message": "Súbor so zoznamom výnimiek by mal mať jednu z prípon: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Archív ZIP: \"%filename%\" neobsahuje súbory s príponami: %extensions%"
+        "message": "Zip archív: „%filename%“ neobsahuje súbory s príponami: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "Súbor „%filename%“ nie je platný zip archív",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "Súčasne môžete pripojiť až %maxDevicesAllowed% zariadení."

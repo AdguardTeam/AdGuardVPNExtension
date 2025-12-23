@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — ייפוי כוח חינמי ומאובטח"
+        "message": "AdGuard VPN: פרוקסי חינמי ובטוח"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "המיקום נמחק מהשמור"
     },
+    "popup_streaming_icon_title": {
+        "message": "טוב לשירותי סטרימינג"
+    },
+    "popup_streaming_modal_title": {
+        "message": "סטרימינג זמין במיקום זה"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "הבנתי"
+    },
     "popup_traffic_limit_reached": {
         "message": "מגבלת נתונים חודשית הושגה"
     },
@@ -893,7 +902,12 @@
         "message": "לקובץ החרגות צריך להיות את אחת מהסיומות הבאות: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "ארכיון Zip: הקובץ \"%filename%\" אינו מכיל קבצים עם סיומות: %extensions%"
+        "message": "ארכיון זיפ: \"%filename%\" אינו מכיל קבצים עם סיומים: %extensions%",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "קובץ \"%filename%\" אינו ארכיון zip תקף",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "אתה יכול להתחבר עד %maxDevicesAllowed% מכשירים באותו זמן."

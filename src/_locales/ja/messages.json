@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — 公共Wi-Fiでもネットが安全になるVPN"
+        "message": "AdGuard VPN: 公共Wi-Fiでもネットが安全になるVPN"
     },
     "description": {
         "description": "TEXT MAX LENGTH: 132",
@@ -613,6 +613,15 @@
     "endpoints_saved_location_deleted": {
         "message": "「お気に入り」からロケーションを削除しました。"
     },
+    "popup_streaming_icon_title": {
+        "message": "動画配信サービスに最適"
+    },
+    "popup_streaming_modal_title": {
+        "message": "このロケーションで利用可能なサービス:"
+    },
+    "popup_streaming_modal_button_ok": {
+        "message": "OK"
+    },
     "popup_traffic_limit_reached": {
         "message": "月間無料通信量の上限に達しました。"
     },
@@ -842,7 +851,7 @@
         "message": "後で"
     },
     "limited_offer_notification_title": {
-        "message": "AdGuard VPN %discount%%OFF",
+        "message": "AdGuard VPN %discount%%%OFF",
         "description": "IMPORTANT: Be careful with percent sign after discount placeholder, it should be escaped with another percent sign"
     },
     "limited_offer_notification_desc": {
@@ -893,7 +902,12 @@
         "message": "除外項目を含むファイルは次の拡張子のいずれでないとインポートできません: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "【zipアーカイブ】「%filename%」には %extensions% という拡張子のファイルがないためインポートできません"
+        "message": "【zipアーカイブ】「%filename%」には %extensions% 拡張子のファイルがありません",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
+    },
+    "options_exclusions_import_error_invalid_zip": {
+        "message": "ファイル「%filename%」は有効なzipアーカイブではありません",
+        "description": "IMPORTANT: Be careful with “%filename%” it must remain the same in translations"
     },
     "popup_connections_limit_description_start": {
         "message": "同時に最大 %maxDevicesAllowed% 台のデバイスを接続できます。"
