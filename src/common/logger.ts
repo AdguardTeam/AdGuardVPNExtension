@@ -11,6 +11,12 @@ type Writer = ConstructorParameters<typeof Logger>[0];
 // @ts-ignore - Importing from 'background/config' throws error
 const IS_DEV = __APP_CONFIG__.BUILD_ENV === 'dev';
 
+// @ts-ignore - Importing from 'background/config' throws error
+const IS_RELEASE = __APP_CONFIG__.BUILD_ENV === 'release';
+
+// @ts-ignore - Importing from 'background/config' throws error
+const IS_BETA = __APP_CONFIG__.BUILD_ENV === 'beta';
+
 const writer: Writer = {
     error: (...args: any) => {
         logStorage.addLog(...args);
@@ -54,8 +60,8 @@ class ExtendedLogger extends Logger {
     /**
      * Default log level based on the build configuration.
      */
-    private static readonly DEFAULT_LOG_LEVEL = IS_DEV
-        ? LogLevel.Verbose
+    private static readonly DEFAULT_LOG_LEVEL = IS_RELEASE || IS_BETA
+        ? LogLevel.Info
         : LogLevel.Debug;
 
     /**

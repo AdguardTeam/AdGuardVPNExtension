@@ -105,6 +105,8 @@ const asyncInitModules = async (): Promise<void> => {
     log.info(`[vpn.main]: Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
         const initStartDate = Date.now();
+        // Set the current log level from session storage.
+        await log.init();
         await stateStorage.init();
         /**
          * Statistics service should be initiated before any other module,
