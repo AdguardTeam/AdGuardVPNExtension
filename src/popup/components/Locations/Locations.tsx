@@ -194,7 +194,12 @@ export const Locations = observer(() => {
                 />
                 <Reload />
             </div>
+            {/*
+             Do not autofocus on android devices because it opens
+             virtual keyboard on half of the screen which is annoying.
+             */}
             <Search
+                autoFocus={!settingsStore.isAndroidBrowser}
                 value={vpnStore.searchValue}
                 onChange={handleSearchInput}
                 onClear={handleSearchClear}

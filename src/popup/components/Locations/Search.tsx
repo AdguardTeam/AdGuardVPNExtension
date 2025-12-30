@@ -24,6 +24,11 @@ export interface SearchProps {
      * On clear event handler.
      */
     onClear: React.MouseEventHandler<HTMLButtonElement>;
+
+    /**
+     * Whether to enable autofocus on the input.
+     */
+    autoFocus?: boolean;
 }
 
 /**
@@ -33,6 +38,7 @@ export const Search = ({
     value,
     onChange,
     onClear,
+    autoFocus = true,
 }: SearchProps): ReactElement => {
     const crossClassNames = classnames('endpoints-search__clear', {
         'endpoints-search__clear--active': value.length > 0,
@@ -41,7 +47,7 @@ export const Search = ({
     return (
         <div className="endpoints-search">
             <input
-                autoFocus
+                autoFocus={autoFocus}
                 className="endpoints-search__input"
                 type="text"
                 placeholder={translator.getMessage('endpoints_search')}
