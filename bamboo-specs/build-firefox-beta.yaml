@@ -82,7 +82,6 @@ Check Bundle Size:
             rm -rf node_modules build
             echo "Size after cleanup:" && du -h | tail -n 1
   requirements:
-    - adg-docker: 'true'
     - extension: 'true'
 
 Build:
@@ -190,7 +189,6 @@ Build:
       shared: true
       required: true
   requirements:
-    - adg-docker: 'true'
     - extension: 'true'
 
 triggers: []

@@ -41,7 +41,6 @@ Addons Mozilla:
   final-tasks: []
   variables: {}
   requirements:
-    - adg-docker: 'true'
     - extension: 'true'
   notifications:
     - events:
@@ -79,7 +78,6 @@ Chrome WebStore:
   final-tasks: []
   variables: {}
   requirements:
-    - adg-docker: 'true'
     - extension: 'true'
   notifications:
     - events:
@@ -117,7 +115,6 @@ Edge Addons:
   final-tasks: []
   variables: {}
   requirements:
-    - adg-docker: 'true'
     - extension: 'true'
   notifications:
     - events:
@@ -161,7 +158,6 @@ GitHub:
   final-tasks: []
   variables: {}
   requirements:
-    - adg-docker: 'true'
     - extension: 'true'
   notifications:
     - events:
@@ -200,7 +196,6 @@ static.adtidy.net:
   final-tasks: []
   variables: {}
   requirements:
-    - adg-docker: 'true'
     - extension: 'true'
   notifications:
     - events:
