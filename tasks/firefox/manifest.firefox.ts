@@ -18,6 +18,15 @@ export const firefoxManifestDiff = {
         default_title: '__MSG_name__',
         default_popup: 'popup.html',
     },
+    icons: {
+        /*
+         * Only Firefox supports svg icons.
+         * Don't use it in other manifests.
+         *
+         * 64px icon is used for mobile firefox.
+         */
+        64: 'assets/images/icons/favicon.svg',
+    },
     content_security_policy: {
         extension_pages: "script-src 'self'; object-src 'self'",
     },
