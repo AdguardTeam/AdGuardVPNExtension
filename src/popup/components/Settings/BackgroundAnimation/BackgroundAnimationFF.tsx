@@ -1,4 +1,9 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, {
+    useContext,
+    useRef,
+    useEffect,
+    useMemo,
+} from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
@@ -20,7 +25,7 @@ type VideoRefs = {
  * Default canvas implementation not used in firefox because of the issue
  * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1526207
  */
-export const BackgroundAnimationFF = observer(() => {
+export const BackgroundAnimationFF = React.memo(observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
@@ -31,15 +36,17 @@ export const BackgroundAnimationFF = observer(() => {
 
     const videoRefs = useRef<VideoRefs>({});
 
-    let themeToUse = systemTheme;
-    if (
-        appearanceTheme === AppearanceTheme.Light
-        || appearanceTheme === AppearanceTheme.Dark
-    ) {
-        themeToUse = appearanceTheme;
-    }
+    const themeToUse = useMemo(() => {
+        if (
+            appearanceTheme === AppearanceTheme.Light
+            || appearanceTheme === AppearanceTheme.Dark
+        ) {
+            return appearanceTheme;
+        }
+        return systemTheme;
+    }, [appearanceTheme, systemTheme]);
 
-    const animationSources = animationSourcesMap[themeToUse];
+    const animationSources = useMemo(() => animationSourcesMap[themeToUse], [themeToUse]);
 
     const handleAnimationEnd = (): void => {
         settingsStore.handleAnimationEnd();
@@ -49,20 +56,18 @@ export const BackgroundAnimationFF = observer(() => {
         animationService.onTransition((state) => {
             settingsStore.setAnimationState(state.value as AnimationState);
         });
-    });
+    }, [settingsStore]);
 
     // Play/pause videos when animation state changes
     useEffect(() => {
-        Object.entries(videoRefs.current).forEach(([state, video]) => {
-            if (!video) {
-                return;
-            }
+        const currentVideo = videoRefs.current[animationState];
+        if (currentVideo) {
+            currentVideo.currentTime = 0;
+            currentVideo.play();
+        }
 
-            if (state === animationState) {
-                // eslint-disable-next-line no-param-reassign
-                video.currentTime = 0;
-                video.play();
-            } else {
+        Object.entries(videoRefs.current).forEach(([state, video]) => {
+            if (video && state !== animationState) {
                 video.pause();
             }
         });
@@ -94,4 +99,4 @@ export const BackgroundAnimationFF = observer(() => {
             })}
         </div>
     );
-});
+}));
