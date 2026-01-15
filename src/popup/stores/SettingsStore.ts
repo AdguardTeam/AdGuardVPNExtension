@@ -78,6 +78,8 @@ export class SettingsStore {
 
     @observable isFirefoxAndroid: boolean | null = null;
 
+    @observable isFirefox: boolean | null = null;
+
     @observable arePingsRecalculating: boolean = false;
 
     @observable forwarderDomain: string;
@@ -497,6 +499,14 @@ export class SettingsStore {
         runInAction(() => {
             this.isFirefoxAndroid = isFirefoxAndroid;
         });
+    }
+
+    /**
+     * Checks whether the extension is running on Firefox (any platform).
+     * Sets the result to {@link isFirefox}
+     */
+    @action setIsFirefox(): void {
+        this.isFirefox = Prefs.isFirefox();
     }
 
     /**

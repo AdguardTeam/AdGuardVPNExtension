@@ -37,6 +37,7 @@ export class GlobalStore {
         const { rootStore: { settingsStore } } = this;
         await settingsStore.setIsAndroidBrowser();
         await settingsStore.setIsFirefoxAndroid();
+        settingsStore.setIsFirefox();
     }
 
     @action
