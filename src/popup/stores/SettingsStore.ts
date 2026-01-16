@@ -76,7 +76,7 @@ export class SettingsStore {
 
     @observable isAndroidBrowser: boolean = false;
 
-    @observable isFirefoxAndroid: boolean | null = null;
+    @observable isFirefox: boolean | null = null;
 
     @observable arePingsRecalculating: boolean = false;
 
@@ -489,14 +489,11 @@ export class SettingsStore {
     }
 
     /**
-     * Checks whether the extension is running on Firefox Android.
-     * Sets the result to {@link isFirefoxAndroid}
+     * Checks whether the extension is running on Firefox (any platform).
+     * Sets the result to {@link isFirefox}
      */
-    @action async setIsFirefoxAndroid(): Promise<void> {
-        const isFirefoxAndroid = await Prefs.isFirefoxAndroid();
-        runInAction(() => {
-            this.isFirefoxAndroid = isFirefoxAndroid;
-        });
+    @action setIsFirefox(): void {
+        this.isFirefox = Prefs.isFirefox();
     }
 
     /**

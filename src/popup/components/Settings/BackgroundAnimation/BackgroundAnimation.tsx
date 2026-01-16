@@ -9,15 +9,15 @@ import { BackgroundAnimationCommon } from './BackgroundAnimationCommon';
 export const BackgroundAnimation = observer((): ReactElement | null => {
     const { settingsStore } = useContext(rootStore);
 
-    if (settingsStore.isFirefoxAndroid === null) {
+    if (settingsStore.isFirefox === null) {
         return null;
     }
 
     /**
-     * Use Firefox Android specific implementation to work around drawImage bug
+     * Use Firefox specific implementation to work around drawImage bug
      * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1526207
      */
-    if (settingsStore.isFirefoxAndroid) {
+    if (settingsStore.isFirefox) {
         return <BackgroundAnimationFF />;
     }
 

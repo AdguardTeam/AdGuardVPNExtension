@@ -36,7 +36,6 @@ export class GlobalStore {
     async getAndroidData(): Promise<void> {
         const { rootStore: { settingsStore } } = this;
         await settingsStore.setIsAndroidBrowser();
-        await settingsStore.setIsFirefoxAndroid();
     }
 
     @action
@@ -228,6 +227,7 @@ export class GlobalStore {
         const {
             authStore,
             vpnStore,
+            settingsStore,
         } = rootStore;
         const {
             isFirstRun,
@@ -236,6 +236,7 @@ export class GlobalStore {
             isPremiumToken,
         } = await messenger.getStartupData();
 
+        settingsStore.setIsFirefox();
         authStore.setIsFirstRun(isFirstRun);
         authStore.setFlagsStorageData(flagsStorageData);
         await authStore.setMarketingConsent(marketingConsent || false);
