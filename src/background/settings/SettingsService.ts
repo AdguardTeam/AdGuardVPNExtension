@@ -12,7 +12,7 @@ import { THEME_STORAGE_KEY } from '../../common/useAppearanceTheme';
 
 type VersionType = { [x: string]: any; VERSION: string; };
 
-const SCHEME_VERSION = '12';
+const SCHEME_VERSION = '13';
 const THROTTLE_TIMEOUT = 100;
 
 const OLD_DARK_THEME_NAME = 'DARK';
@@ -264,6 +264,41 @@ export class SettingsService {
     };
 
     /**
+     * Runs settings migration from schema v12 to v13.
+     *
+     * Migrates AB test storage from old schema to new schema.
+     * Old schema: versions were stored as array of strings.
+     * New schema: versions are stored as array of objects with version and completed fields.
+     * Since old AB tests are completed, we clear the old storage.
+     *
+     * @param oldSettings Old settings.
+     *
+     * @returns Updated settings.
+     */
+    migrateFrom12to13 = async (oldSettings: Settings): Promise<VersionType> => {
+        const AB_TEST_STORAGE_KEY = 'ab_test_manager.versions';
+
+        try {
+            const rawVersions = await browserApi.storage.get(AB_TEST_STORAGE_KEY);
+
+            if (rawVersions && Array.isArray(rawVersions)) {
+                const isOldFormat = rawVersions.some((item) => typeof item === 'string');
+
+                if (isOldFormat) {
+                    await browserApi.storage.remove(AB_TEST_STORAGE_KEY);
+                }
+            }
+        } catch (e) {
+            log.error('[vpn.SettingsService]: Failed to migrate AB test storage', e);
+        }
+
+        return {
+            ...oldSettings,
+            VERSION: '13',
+        };
+    };
+
+    /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
      * For example if your migration function migrates your settings from scheme 4 to 5, then add
@@ -281,6 +316,7 @@ export class SettingsService {
         9: this.migrateFrom9to10,
         10: this.migrateFrom10to11,
         11: this.migrateFrom11to12,
+        12: this.migrateFrom12to13,
     };
 
     async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {

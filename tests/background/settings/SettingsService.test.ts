@@ -10,11 +10,27 @@ import {
 import { SettingsService } from '../../../src/background/settings/SettingsService';
 import { sleep } from '../../../src/common/helpers';
 
-const SCHEME_VERSION = '12';
+const SCHEME_VERSION = '13';
 
 vi.mock('../../../src/background/exclusions/services/ServicesManager', () => ({
     servicesManager: {
         getServicesForMigration: vi.fn().mockResolvedValue([]),
+    },
+}));
+
+const abTestStorage: { [key: string]: any } = {};
+
+vi.mock('../../../src/background/browserApi', () => ({
+    browserApi: {
+        storage: {
+            get: vi.fn((key: string) => abTestStorage[key]),
+            set: vi.fn((key: string, value: any) => {
+                abTestStorage[key] = value;
+            }),
+            remove: vi.fn((key: string) => {
+                delete abTestStorage[key];
+            }),
+        },
     },
 }));
 
@@ -133,6 +149,54 @@ describe('SettingsService', () => {
                 .toBe(true);
             expect(storageValue[showPromoKey])
                 .toBe(true);
+        });
+    });
+
+    describe('migrateFrom12to13', () => {
+        const AB_TEST_STORAGE_KEY = 'ab_test_manager.versions';
+
+        beforeEach(() => {
+            // @ts-ignore - partly implementation
+            settingsService = new SettingsService(storage, defaults);
+            delete abTestStorage[AB_TEST_STORAGE_KEY];
+        });
+
+        afterEach(async () => {
+            await settingsService.clearSettings();
+            delete abTestStorage[AB_TEST_STORAGE_KEY];
+        });
+
+        it('clears old AB test storage format (array of strings)', async () => {
+            const oldSettings = {
+                VERSION: '12',
+                enabled: true,
+            };
+
+            const oldAbTestData = ['reg_AG21492_def', 'v1', 'v2'];
+            abTestStorage[AB_TEST_STORAGE_KEY] = oldAbTestData;
+
+            const newSettings = await settingsService.migrateFrom12to13(oldSettings);
+
+            expect(newSettings.VERSION).toBe('13');
+            expect(abTestStorage[AB_TEST_STORAGE_KEY]).toBeUndefined();
+        });
+
+        it('does not clear new AB test storage format (array of objects)', async () => {
+            const oldSettings = {
+                VERSION: '12',
+                enabled: true,
+            };
+
+            const newAbTestData = [
+                { version: 'AG-47804-streaming-test-a_def', completed: false },
+                { version: 'AG-47804-streaming-test-b', completed: true },
+            ];
+            abTestStorage[AB_TEST_STORAGE_KEY] = newAbTestData;
+
+            const newSettings = await settingsService.migrateFrom12to13(oldSettings);
+
+            expect(newSettings.VERSION).toBe('13');
+            expect(abTestStorage[AB_TEST_STORAGE_KEY]).toEqual(newAbTestData);
         });
     });
 });
