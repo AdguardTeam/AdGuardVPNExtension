@@ -31,7 +31,7 @@ const FORCE_CANCELLED = 'Connection was cancelled by user';
 function* turnOnProxy(forcePrevEndpoint = false): Generator<Promise<unknown>, void, any> {
     const entryTime = Date.now();
     try {
-        yield credentials.trackInstallation();
+        yield credentials.updateExperiments();
         const selectedLocation: LocationInterface | null = yield locationsService.getSelectedLocation();
         if (selectedLocation) {
             const selectedEndpoint: EndpointInterface | null = yield locationsService.getEndpointByLocation(

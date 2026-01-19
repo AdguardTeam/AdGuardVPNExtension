@@ -89,7 +89,7 @@ export interface CredentialsInterface {
      */
     updateUserMarketingConsent(newMarketingConsent: boolean): Promise<void>;
 
-    trackInstallation(): Promise<void>;
+    updateExperiments(): Promise<void>;
     init(): Promise<void>;
 }
 
@@ -716,14 +716,8 @@ export class Credentials implements CredentialsInterface {
      * Method used to track installations
      * It will be called on every extension launch or attempt to connect to proxy
      */
-    async trackInstallation(): Promise<void> {
-        const TRACKED_INSTALLATIONS_KEY = 'credentials.tracked.installations';
+    async updateExperiments(): Promise<void> {
         try {
-            const tracked = await this.storage.get(TRACKED_INSTALLATIONS_KEY);
-            if (tracked) {
-                return;
-            }
-
             const appId = await this.getAppId();
             const { version } = appStatus;
 
@@ -731,10 +725,9 @@ export class Credentials implements CredentialsInterface {
             const response = await this.vpnProvider.trackExtensionInstallation(appId, version, experiments);
             await abTestManager.setVersions(response.experiments);
 
-            await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
-            log.info('[vpn.Credentials.trackInstallation]: Installation successfully tracked');
+            log.info('[vpn.Credentials.updateExperiments]: Installation successfully tracked');
         } catch (e) {
-            log.error('[vpn.Credentials.trackInstallation]: Error occurred during track request', e.message);
+            log.error('[vpn.Credentials.updateExperiments]: Error occurred during track request', e.message);
         }
     }
 
@@ -756,7 +749,7 @@ export class Credentials implements CredentialsInterface {
                 this.handleUserDeauthentication.bind(this),
             );
 
-            await this.trackInstallation();
+            await this.updateExperiments();
 
             const forceRemote = true;
 
