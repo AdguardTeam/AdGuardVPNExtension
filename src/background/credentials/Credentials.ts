@@ -713,7 +713,7 @@ export class Credentials implements CredentialsInterface {
     }
 
     /**
-     * Method used to track installations
+     * Method used to update A/B experiments from backend.
      * It will be called on every extension launch or attempt to connect to proxy
      */
     async updateExperiments(): Promise<void> {
