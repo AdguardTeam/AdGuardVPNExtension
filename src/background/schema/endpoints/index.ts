@@ -22,9 +22,3 @@ export {
     type EndpointsState,
     ENDPOINTS_STATE_DEFAULTS,
 } from './endpointsState';
-
-export {
-    pingDataScheme,
-    pingsCacheScheme,
-    type PingsCacheInterface,
-} from './pingsCache';

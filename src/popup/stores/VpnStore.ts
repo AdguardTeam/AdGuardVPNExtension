@@ -9,7 +9,6 @@ import {
 import { messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
 import type { LocationWithPing } from '../../background/endpoints/LocationWithPing';
-import type { PingData } from '../../background/endpoints/locationsService';
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { daysToRenewal } from '../../common/utils/date';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
@@ -19,14 +18,6 @@ import { LocationsTab } from '../../background/endpoints/locationsEnums';
 import { containsIgnoreCase } from '../../common/components/SearchHighlighter/helpers';
 
 import type { RootStore } from './RootStore';
-
-interface Pings {
-    [key: string]: PingData,
-}
-
-interface LocationState extends PingData {
-    locationId: string;
-}
 
 export interface LocationData extends LocationWithPing {
     selected: boolean;
@@ -52,8 +43,6 @@ export class VpnStore {
      * Needed to avoid skeleton displaying instead of the fastest locations list.
      */
     @observable cachedFastestLocations: LocationData[] = [];
-
-    @observable pings: Pings = {};
 
     @observable selectedLocation: LocationData;
 
@@ -88,12 +77,6 @@ export class VpnStore {
         }
 
         this.locations = locations;
-        this.pings = {};
-    };
-
-    @action updateLocationState = (state: LocationState): void => {
-        const id = state.locationId;
-        this.pings[id] = state;
     };
 
     @action selectLocation = async (id: string): Promise<void> => {
@@ -159,27 +142,16 @@ export class VpnStore {
     }
 
     /**
-     * Enriches location with ping data and saved status
-     * @param location Base location data
+     * Enriches location with saved status.
+     * Ping and availability values come directly from the backend via location object.
      *
-     * @returns Location with ping, availability, and saved status.
+     * @param location Base location data.
+     *
+     * @returns Location with saved status.
      */
     enrichWithStateData = (location: LocationData): LocationData => {
-        const pingData = this.pings[location.id];
         const saved = this.savedLocationIds.has(location.id);
-
-        if (!pingData) {
-            return { ...location, saved };
-        }
-
-        const { ping, available } = pingData;
-
-        return <LocationData>{
-            ...location,
-            ping,
-            available,
-            saved,
-        };
+        return { ...location, saved };
     };
 
     /**
@@ -364,18 +336,12 @@ export class VpnStore {
             return location.id === selectedLocationId;
         });
 
-        // return selected location ping if it's missing from locations list (AG-3184)
+        // Return selected location ping if it's missing from locations list (AG-3184)
         if (!currentLocation) {
             return this.selectedLocation?.ping || null;
         }
 
-        let ping: number | null = currentLocation?.ping || null;
-        // update with fresh values from pings storage
-        if (this.pings[selectedLocationId]) {
-            ping = this.pings[selectedLocationId].ping;
-        }
-
-        return ping;
+        return currentLocation?.ping || null;
     }
 
     /**

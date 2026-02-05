@@ -103,10 +103,6 @@ export const App = observer(() => {
                     vpnStore.setLocations(data);
                     break;
                 }
-                case notifier.types.LOCATION_STATE_UPDATED: {
-                    vpnStore.updateLocationState(data);
-                    break;
-                }
                 case notifier.types.CURRENT_LOCATION_UPDATED: {
                     vpnStore.setSelectedLocation(data);
                     break;
@@ -167,7 +163,6 @@ export const App = observer(() => {
         const events = [
             notifier.types.VPN_INFO_UPDATED,
             notifier.types.LOCATIONS_UPDATED,
-            notifier.types.LOCATION_STATE_UPDATED,
             notifier.types.CURRENT_LOCATION_UPDATED,
             notifier.types.PERMISSIONS_ERROR_UPDATE,
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,

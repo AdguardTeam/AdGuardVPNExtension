@@ -18,7 +18,6 @@ export enum NotifierType {
 
     VPN_INFO_UPDATED = 'event.vpn.info.updated',
     LOCATIONS_UPDATED = 'event.locations.updated',
-    LOCATION_STATE_UPDATED = 'event.location.state.updated',
     CURRENT_LOCATION_UPDATED = 'event.current.location.updated',
     PERMISSIONS_ERROR_UPDATE = 'event.permission.error.update',
     TOKEN_PREMIUM_STATE_UPDATED = 'event.token.premium.state.updated',

@@ -12,13 +12,16 @@ export const locationDataScheme = zod.object({
     premiumOnly: zod.boolean(),
     pingBonus: zod.number(),
     virtual: zod.boolean(),
+    // AG-49612: Backend now provides ping and availability data
+    ping: zod.number().or(zod.null()),
+    available: zod.boolean(),
 });
 
 export type LocationData = zod.infer<typeof locationDataScheme>;
 
+// AG-49612: Removed ping and available from locationInterfaceScheme
+// as they now come from the API via locationDataScheme
 export const locationInterfaceScheme = zod.object({
-    available: zod.boolean().optional(),
-    ping: zod.number().or(zod.null()).optional(),
     endpoint: endpointInterfaceScheme.or(zod.null()).optional(),
 });
 

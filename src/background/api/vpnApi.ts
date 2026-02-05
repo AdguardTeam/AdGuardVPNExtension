@@ -42,17 +42,71 @@ export interface EndpointApiData {
     public_key: string;
 }
 
+/**
+ * Represents a VPN server location as returned by the backend API.
+ *
+ * @remarks
+ * This interface maps directly to the JSON structure returned by the locations endpoint.
+ * As of AG-49612, the backend now provides `ping` and `available` fields,
+ * eliminating the need for client-side ping measurements.
+ */
 export interface LocationApiData {
+    /**
+     * Unique identifier for the location.
+     */
     id: string;
+    /**
+     * Human-readable country name (e.g., "United States").
+     */
     country_name: string;
+    /**
+     * ISO 3166-1 alpha-2 country code (e.g., "US").
+     */
     country_code: string;
+    /**
+     * Human-readable city name (e.g., "New York").
+     */
     city_name: string;
+    /**
+     * Whether this location is restricted to premium users.
+     */
     premium_only: boolean;
+    /**
+     * Geographic latitude coordinate.
+     */
     latitude: number;
+    /**
+     * Geographic longitude coordinate.
+     */
     longitude: number;
+    /**
+     * Client must subtract ping_bonus from the real ping value and use this
+     * calculated value to choose the best location. May have a negative value,
+     * in which case the 'effective' ping value becomes greater than real,
+     * allowing pessimization of a particular location.
+     * Note: user sees the real ping value, not the calculated.
+     */
     ping_bonus: number;
+    /**
+     * List of VPN endpoints available at this location.
+     */
     endpoints: EndpointApiData[];
+    /**
+     * Indicates that the endpoint server location does not match
+     * the claimed IP geo location.
+     */
     virtual: boolean;
+    /**
+     * Approximate ping value in milliseconds between the client
+     * and the endpoint location. `null` means ping is not set.
+     * @since AG-49612
+     */
+    ping: number | null;
+    /**
+     * Whether this location is currently available for connections.
+     * @since AG-49612
+     */
+    available: boolean;
 }
 
 interface LocationsData extends AxiosResponse {

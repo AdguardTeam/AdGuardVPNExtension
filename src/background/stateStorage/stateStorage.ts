@@ -235,6 +235,16 @@ export class StateStorage implements StateStorageInterface {
         // Set the updated value in the storage
         await this.setItem(key, { ...currentValue, ...partialValue });
     }
+
+    /**
+     * Resets the state storage internal state.
+     * This is intended for testing purposes only.
+     */
+    public resetForTesting(): void {
+        this.initPromise = null;
+        // @ts-ignore - accessing private property for testing
+        this.state = undefined;
+    }
 }
 
 export const stateStorage = new StateStorage();

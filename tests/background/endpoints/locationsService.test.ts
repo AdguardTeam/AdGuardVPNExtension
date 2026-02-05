@@ -10,16 +10,10 @@ import {
 
 import { connectivityService } from '../../../src/background/connectivity/connectivityService';
 import { Location } from '../../../src/background/endpoints/Location';
-import * as pingHelpers from '../../../src/background/connectivity/pingHelpers';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
-import type {
-    VpnTokenData,
-    EndpointInterface,
-    LocationData,
-    LocationInterface,
-} from '../../../src/background/schema';
+import type { VpnTokenData, LocationData, LocationInterface } from '../../../src/background/schema';
 import { locationsService, LocationsService } from '../../../src/background/endpoints/locationsService';
 import { LocationsTab } from '../../../src/background/endpoints/locationsEnums';
 
@@ -31,7 +25,9 @@ describe('location service', () => {
         await connectivityService.start();
     });
 
-    it('by default it tries to connect to previously selected endpoint', async () => {
+    // AG-49612: getEndpointByLocation now returns the first endpoint without measuring ping.
+    // Ping and availability values come from the backend.
+    it('returns the first endpoint from location without ping measurement', async () => {
         const firstEndpoint = {
             id: 'gc-gb-lhr-01-1r06zxq6.adguard.io',
             ipv4Address: '5.188.5.159',
@@ -58,58 +54,63 @@ describe('location service', () => {
             endpoints: [firstEndpoint, secondEndpoint],
             pingBonus: 100,
             virtual: false,
+            ping: 42, // Backend-provided ping value
+            available: true, // Backend-provided availability
         };
-
-        let disabledDomains: string[] = [];
-
-        /**
-         * Makes pingHelpers.measurePingToEndpointViaFetch for endpoint to return null
-         * @param endpoint
-         */
-        const disableEndpoint = (endpoint: EndpointInterface) => {
-            disabledDomains.push(endpoint.domainName);
-        };
-
-        const enableEndpoint = (endpoint: EndpointInterface) => {
-            disabledDomains = disabledDomains.filter((d) => d !== endpoint.domainName);
-        };
-
-        const measurePingMock = vi.spyOn(pingHelpers, 'measurePingWithinLimits')
-            .mockImplementation(async (domainName) => {
-                if (disabledDomains.includes(domainName)) {
-                    return null;
-                }
-                return 50;
-            });
 
         const location = new Location(locationData);
-        const firstSearchResult = await locationsService.getEndpointByLocation(location);
-        expect(firstSearchResult).toEqual(firstEndpoint);
-        expect(location.available).toBeTruthy();
-        expect(location.ping).toBe(50);
-        expect(measurePingMock).toBeCalledTimes(1);
-        expect(measurePingMock).toBeCalledWith(firstEndpoint.domainName);
 
-        // Second call with disabled first endpoint
-        disableEndpoint(firstEndpoint);
-        measurePingMock.mockClear();
+        // getEndpointByLocation should return the first endpoint
+        const result = await locationsService.getEndpointByLocation(location);
+        expect(result).toEqual(firstEndpoint);
 
-        const secondSearchResult = await locationsService.getEndpointByLocation(location);
-        expect(secondSearchResult).toEqual(secondEndpoint);
-        expect(measurePingMock).toBeCalledTimes(2);
-        expect(measurePingMock).toHaveBeenNthCalledWith(1, firstEndpoint.domainName);
-        expect(measurePingMock).toHaveBeenNthCalledWith(2, secondEndpoint.domainName);
+        // Location should have the endpoint set
+        expect(location.endpoint).toEqual(firstEndpoint);
 
-        // Third call with disabled second endpoint
-        enableEndpoint(firstEndpoint);
-        disableEndpoint(secondEndpoint);
-        measurePingMock.mockClear();
+        // Ping and available should remain as provided by backend
+        expect(location.ping).toBe(42);
+        expect(location.available).toBe(true);
+    });
 
-        const thirdSearchResult = await locationsService.getEndpointByLocation(location);
-        expect(thirdSearchResult).toEqual(firstEndpoint);
-        expect(measurePingMock).toBeCalledTimes(2);
-        expect(measurePingMock).toHaveBeenNthCalledWith(1, secondEndpoint.domainName);
-        expect(measurePingMock).toHaveBeenNthCalledWith(2, firstEndpoint.domainName);
+    it('returns previously selected endpoint when forcePrevEndpoint is true', async () => {
+        const firstEndpoint = {
+            id: 'gc-gb-lhr-01-1r06zxq6.adguard.io',
+            ipv4Address: '5.188.5.159',
+            ipv6Address: '2a03:90c0:144:0:0:0:0:1ac',
+            domainName: 'gc-gb-lhr-01-1r06zxq6.adguard.io',
+            publicKey: 'ZoYeWoAAE1bQcttHSs+eiRStKgaL8x0e+yNNeItDf14=',
+        };
+
+        const secondEndpoint = {
+            id: 'gc-gb-lhr-02-02lxzgeu.adguard.io',
+            ipv4Address: '92.223.59.29',
+            ipv6Address: '2a03:90c0:144:0:0:0:0:10',
+            domainName: 'gc-gb-lhr-02-02lxzgeu.adguard.io',
+            publicKey: 'F20OfogJ+ThcHqBXiFPBvPtFlTiPW9kkW+86WF+CtlI=',
+        };
+
+        const locationData: LocationData = {
+            id: 'Z2JfbG9uZG9u',
+            cityName: 'London',
+            countryCode: 'GB',
+            countryName: 'United Kingdom',
+            premiumOnly: false,
+            coordinates: [-0.11, 51.5],
+            endpoints: [firstEndpoint, secondEndpoint],
+            pingBonus: 100,
+            virtual: false,
+            ping: 35,
+            available: true,
+        };
+
+        const location = new Location(locationData);
+
+        // Simulate that secondEndpoint was previously selected
+        location.endpoint = secondEndpoint;
+
+        // With forcePrevEndpoint=true, should return the previously selected endpoint
+        const result = await locationsService.getEndpointByLocation(location, true);
+        expect(result).toEqual(secondEndpoint);
     });
 
     it('Update selected location after got locations from server', async () => {
@@ -129,6 +130,8 @@ describe('location service', () => {
                 publicKey: 'DZeUHP1y3+fxU6kyyqmd0DB92KVSA7asv4SQZJS562E=',
             }],
             virtual: false,
+            ping: null,
+            available: true,
         }];
 
         const testLocationData2: LocationInterface[] = [{
@@ -147,6 +150,8 @@ describe('location service', () => {
                 publicKey: 'DZeUHP1y3+fxU6kyyqmd0DB92KVSA7asv4SQZJS562E=',
             }],
             virtual: false,
+            ping: null,
+            available: true,
         }];
 
         await credentials.init();
@@ -170,6 +175,90 @@ describe('location service', () => {
         expect(selectedLocation?.id).toBe('test-location');
         // endpoints of selected location should be updated
         expect(selectedLocation?.endpoints[0].domainName).toBe('123.new-domain.org');
+    });
+
+    // AG-49612: Tests for backend ping/available values
+    describe('backend ping values', () => {
+        it('Location constructor should use backend ping and available values', () => {
+            const locationDataWithBackendPings: LocationData = {
+                id: 'test-location-with-pings',
+                cityName: 'Paris',
+                countryCode: 'FR',
+                countryName: 'France',
+                premiumOnly: false,
+                coordinates: [2.35, 48.85],
+                endpoints: [{
+                    id: 'test-endpoint',
+                    domainName: 'test.adguard.io',
+                    ipv4Address: '1.2.3.4',
+                    ipv6Address: '::1',
+                    publicKey: 'testkey=',
+                }],
+                pingBonus: 0,
+                virtual: false,
+                ping: 45,
+                available: true,
+            };
+
+            const location = new Location(locationDataWithBackendPings);
+
+            expect(location.ping).toBe(45);
+            expect(location.available).toBe(true);
+        });
+
+        it('Location constructor should handle null ping from backend', () => {
+            const locationDataWithNullPing: LocationData = {
+                id: 'test-location-null-ping',
+                cityName: 'Moscow',
+                countryCode: 'RU',
+                countryName: 'Russia',
+                premiumOnly: false,
+                coordinates: [37.62, 55.75],
+                endpoints: [{
+                    id: 'test-endpoint',
+                    domainName: 'test.adguard.io',
+                    ipv4Address: '1.2.3.4',
+                    ipv6Address: '::1',
+                    publicKey: 'testkey=',
+                }],
+                pingBonus: 0,
+                virtual: false,
+                ping: null,
+                available: false,
+            };
+
+            const location = new Location(locationDataWithNullPing);
+
+            expect(location.ping).toBeNull();
+            expect(location.available).toBe(false);
+        });
+
+        it('Location constructor should handle null ping and false available from backend', () => {
+            const locationDataUnavailable: LocationData = {
+                id: 'test-location-unavailable',
+                cityName: 'Berlin',
+                countryCode: 'DE',
+                countryName: 'Germany',
+                premiumOnly: false,
+                coordinates: [13.4, 52.52],
+                endpoints: [{
+                    id: 'test-endpoint',
+                    domainName: 'test.adguard.io',
+                    ipv4Address: '1.2.3.4',
+                    ipv6Address: '::1',
+                    publicKey: 'testkey=',
+                }],
+                pingBonus: 0,
+                virtual: false,
+                ping: null,
+                available: false,
+            };
+
+            const location = new Location(locationDataUnavailable);
+
+            expect(location.ping).toBeNull();
+            expect(location.available).toBe(false);
+        });
     });
 
     describe('SavedLocations.locationsTab', () => {

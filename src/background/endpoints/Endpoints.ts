@@ -5,7 +5,7 @@ import qs from 'qs';
 import { getDomain } from 'tldts';
 
 import { log } from '../../common/logger';
-import { getForwarderUrl, getLocationWithLowestPing, sleep } from '../../common/helpers';
+import { getForwarderUrl, getLocationWithLowestPing } from '../../common/helpers';
 import { notifier } from '../../common/notifier';
 import { proxy } from '../proxy';
 import { vpnProvider } from '../providers/vpnProvider';
@@ -409,18 +409,7 @@ class Endpoints implements EndpointsInterface {
             });
         }
 
-        const pingsCalculated = filteredLocations.every((location) => {
-            return (location.available
-                && location.ping && location.ping > 0) || !location.available;
-        });
-
-        const PINGS_WAIT_TIMEOUT_MS = 1000;
-
-        // not ready yet to determine default location
-        if (!pingsCalculated && locationsService.isMeasuringPingInProgress()) {
-            await sleep(PINGS_WAIT_TIMEOUT_MS);
-        }
-
+        // AG-49612: Backend provides pings pre-calculated, no need to wait for local measurement
         const fastestLocation = getLocationWithLowestPing(filteredLocations);
 
         if (!fastestLocation) {

@@ -50,9 +50,6 @@ export {
     endpointsStateScheme,
     type EndpointsState,
     ENDPOINTS_STATE_DEFAULTS,
-    pingDataScheme,
-    pingsCacheScheme,
-    type PingsCacheInterface,
 } from './endpoints';
 
 export {

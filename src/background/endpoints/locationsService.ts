@@ -1,18 +1,12 @@
 import isEmpty from 'lodash/isEmpty';
 
 import { log } from '../../common/logger';
-import { measurePingWithinLimits } from '../connectivity/pingHelpers';
 import { notifier } from '../../common/notifier';
 import { vpnProvider } from '../providers/vpnProvider';
 import { SETTINGS_IDS } from '../../common/constants';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
-import {
-    type LocationInterface,
-    type EndpointInterface,
-    type PingsCacheInterface,
-    StorageKey,
-} from '../schema';
+import { type LocationInterface, type EndpointInterface, StorageKey } from '../schema';
 import { StateData } from '../stateStorage';
 import { type StorageInterface } from '../browserApi/storage';
 import { browserApi } from '../browserApi';
@@ -20,22 +14,6 @@ import { browserApi } from '../browserApi';
 import { Location } from './Location';
 import { LocationWithPing } from './LocationWithPing';
 import { LocationsTab } from './locationsEnums';
-
-export interface PingData {
-    ping: number | null;
-    available: boolean;
-    lastMeasurementTime: number;
-    endpoint: EndpointInterface | null;
-    isMeasuring: boolean;
-}
-
-interface IncomingPingData {
-    ping?: number | null;
-    available?: boolean;
-    lastMeasurementTime?: number;
-    endpoint?: EndpointInterface | null;
-    isMeasuring?: boolean;
-}
 
 interface LocationsServiceInterface {
     getIsLocationSelectedByUser(): Promise<boolean>;
@@ -111,8 +89,6 @@ export class LocationsService implements LocationsServiceInterface {
      */
     private locationsState = new StateData(StorageKey.LocationsService);
 
-    PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
-
     /**
      * Constructor.
      */
@@ -130,14 +106,6 @@ export class LocationsService implements LocationsServiceInterface {
     getLocations = async (): Promise<LocationInterface[]> => {
         const { locations } = await this.locationsState.get();
         return locations;
-    };
-
-    getPingFromCache = async (id: string): Promise<{ locationId: string } & PingsCacheInterface[string]> => {
-        const { pingsCache } = await this.locationsState.get();
-        return {
-            locationId: id,
-            ...pingsCache[id],
-        };
     };
 
     /**
@@ -177,226 +145,14 @@ export class LocationsService implements LocationsServiceInterface {
     };
 
     /**
-     * Gets locations enriched with ping for UI.
+     * Gets locations wrapped for UI display.
+     * Extracts only the fields needed for the UI from full Location objects.
      *
-     * @returns Locations with pings, used for UI.
+     * @returns Locations wrapped as LocationWithPing for UI consumption.
      */
     getLocationsWithPing = async (): Promise<LocationWithPing[]> => {
         const { locations } = await this.locationsState.get();
-
-        return Promise.all(locations.map(async (location: LocationInterface) => {
-            const cachedPingData = await this.getPingFromCache(location.id);
-            if (cachedPingData) {
-                this.setLocationPing(location, cachedPingData.ping);
-                this.setLocationAvailableState(location, cachedPingData.available);
-            }
-            // after setting ping to location, it's type turns from LocationInterface to LocationWithPing
-            return new LocationWithPing(location);
-        }));
-    };
-
-    updatePingsCache = async (id: string, newData: IncomingPingData): Promise<void> => {
-        const { pingsCache } = await this.locationsState.get();
-
-        const oldData = pingsCache[id];
-        if (oldData) {
-            pingsCache[id] = { ...oldData, ...newData };
-        } else {
-            pingsCache[id] = {
-                ping: null,
-                available: true,
-                lastMeasurementTime: 0,
-                endpoint: null,
-                isMeasuring: true,
-                ...newData,
-            };
-        }
-
-        await this.locationsState.update({ pingsCache });
-    };
-
-    /**
-     * Moves endpoint to the start of endpoints if found.
-     * @param endpoints
-     * @param endpoint
-     *
-     * @returns Endpoints array with the given endpoint moved to the first position, or the original order if not found.
-     */
-    moveToTheStart = (
-        endpoints: EndpointInterface[],
-        endpoint: EndpointInterface,
-    ): EndpointInterface[] => {
-        const foundEndpoint = endpoints.find((e) => e.id === endpoint.id);
-        let result = endpoints;
-        if (foundEndpoint) {
-            result = endpoints.filter((e) => e.id !== foundEndpoint.id);
-            result.unshift(foundEndpoint);
-        }
-        return result;
-    };
-
-    /**
-     * Measures pings to endpoints one by one, and returns first one available
-     * If was unable to measure ping to all endpoints, returns first endpoint from the list.
-     *
-     * @param location
-     * @param forcePrevEndpoint - boolean flag to measure ping of previously
-     *  selected endpoint only
-     *
-     *  @returns Promise with ping and endpoint.
-     */
-    getEndpointAndPing = async (
-        location: LocationInterface,
-        forcePrevEndpoint = false,
-    ): Promise<{ ping: number | null, endpoint: EndpointInterface | null }> => {
-        let endpoint = null;
-        let ping = null;
-        let i = 0;
-
-        if (forcePrevEndpoint && location.endpoint) {
-            const { endpoint } = location;
-            ping = await measurePingWithinLimits(endpoint.domainName);
-            return {
-                ping,
-                endpoint,
-            };
-        }
-
-        let endpoints = [...location.endpoints];
-
-        /**
-         * If previous endpoint was determined, we start calculating ping from it
-         */
-        if (location.endpoint) {
-            endpoints = this.moveToTheStart(endpoints, location.endpoint);
-        }
-
-        while (!ping && endpoints[i]) {
-            endpoint = endpoints[i];
-            // eslint-disable-next-line no-await-in-loop
-            ping = await measurePingWithinLimits(endpoint.domainName);
-            i += 1;
-        }
-
-        /**
-         * If no ping determined, return first value
-         */
-        if (!ping) {
-            [endpoint] = endpoints;
-        }
-
-        return {
-            ping,
-            endpoint,
-        };
-    };
-
-    /**
-     * Determines ping for location and saves it in the pings cache
-     * @param location location to measure ping for
-     * @param force boolean flag to measure ping without checking pings ttl
-     */
-    measurePing = async (location: LocationInterface, force: boolean): Promise<void> => {
-        const { id } = location;
-        const { pingsCache } = await this.locationsState.get();
-
-        // Do not begin pings measurement while it is measuring yet
-        if (pingsCache[id]?.isMeasuring) {
-            return;
-        }
-
-        const lastMeasurementTime = pingsCache[id]?.lastMeasurementTime;
-        const isFresh = lastMeasurementTime
-            ? !(Date.now() - lastMeasurementTime >= this.PING_TTL_MS)
-            : false;
-
-        const hasPing = !!pingsCache[id]?.ping;
-
-        if (isFresh && hasPing && !force) {
-            return;
-        }
-
-        await this.updatePingsCache(location.id, { isMeasuring: true });
-
-        const { ping, endpoint } = await this.getEndpointAndPing(location);
-
-        this.setLocationPing(location, ping);
-        const available = !!ping;
-        this.setLocationAvailableState(location, available);
-
-        await this.updatePingsCache(
-            location.id,
-            {
-                available,
-                ping,
-                endpoint,
-                isMeasuring: false,
-                lastMeasurementTime: Date.now(),
-            },
-        );
-
-        notifier.notifyListeners(
-            notifier.types.LOCATION_STATE_UPDATED,
-            await this.getPingFromCache(location.id),
-        );
-    };
-
-    /**
-     * Removes pings from the cache and locations.
-     *
-     * Needed for "Refresh pings" button in the "Locations" screen in popup.
-     */
-    prunePings = async (): Promise<void> => {
-        const { locations } = await this.locationsState.get();
-        await Promise.all(locations.map(async (location) => {
-            await this.updatePingsCache(location.id, { ping: null });
-            // eslint-disable-next-line no-param-reassign
-            location.ping = null;
-        }));
-
-        const locationsWithPings = await this.getLocationsWithPing();
-        notifier.notifyListeners(
-            notifier.types.LOCATIONS_UPDATED,
-            locationsWithPings,
-        );
-    };
-
-    /**
-     * Flag used to control when it is possible to start pings measurement again
-     */
-    isMeasuring = false;
-
-    /**
-     * Measures pings for all locations.
-     *
-     * @param force Flag indicating that pings should be measured without checking ttl
-     */
-    measurePings = async (force = false): Promise<void> => {
-        if (this.isMeasuring) {
-            return;
-        }
-
-        this.isMeasuring = true;
-
-        if (force) {
-            await this.prunePings();
-        }
-
-        const { locations } = await this.locationsState.get();
-        await Promise.all(locations.map((location) => {
-            return this.measurePing(location, force);
-        }));
-
-        this.isMeasuring = false;
-    };
-
-    /**
-     * Checks if ping measurement is currently in progress.
-     *
-     * @returns True if ping measurement is in progress.
-     */
-    isMeasuringPingInProgress = (): boolean => {
-        return this.isMeasuring;
+        return locations.map((location: LocationInterface) => new LocationWithPing(location));
     };
 
     /**
@@ -427,23 +183,7 @@ export class LocationsService implements LocationsServiceInterface {
     };
 
     setLocations = async (newLocations: LocationInterface[]): Promise<void> => {
-        const { pingsCache } = await this.locationsState.get();
-
-        // copy previous pings data
-        const updatedNewLocations = newLocations.map((location: LocationInterface) => {
-            const pingCache = pingsCache[location.id];
-            if (pingCache) {
-                this.setLocationPing(location, pingCache.ping);
-                this.setLocationAvailableState(location, pingCache.available);
-                this.setLocationEndpoint(location, pingCache.endpoint);
-            }
-            return location;
-        });
-
-        await this.locationsState.update({ locations: updatedNewLocations });
-
-        // launch pings measurement
-        await this.measurePings();
+        await this.locationsState.update({ locations: newLocations });
 
         notifier.notifyListeners(
             notifier.types.LOCATIONS_UPDATED,
@@ -478,12 +218,14 @@ export class LocationsService implements LocationsServiceInterface {
     };
 
     /**
-     * Gets the best available endpoint for a location by measuring ping.
+     * Gets an endpoint for a location.
+     * Returns the previously selected endpoint if forcePrevEndpoint is true and one exists,
+     * otherwise returns the first available endpoint.
      *
      * @param location Location to get endpoint for.
      * @param forcePrevEndpoint Force using previously selected endpoint.
      *
-     * @returns Promise with available endpoint if found, or the first one.
+     * @returns Promise with endpoint, or null if location has no endpoints.
      */
     getEndpoint = async (
         location: LocationInterface,
@@ -493,31 +235,14 @@ export class LocationsService implements LocationsServiceInterface {
             return null;
         }
 
-        const { ping, endpoint } = await this.getEndpointAndPing(location, forcePrevEndpoint);
-
-        this.setLocationPing(location, ping);
-        this.setLocationEndpoint(location, endpoint);
-        const available = !!ping;
-        this.setLocationAvailableState(location, available);
-
-        await this.updatePingsCache(
-            location.id,
-            {
-                available,
-                ping,
-                endpoint,
-                lastMeasurementTime: Date.now(),
-            },
-        );
-
-        notifier.notifyListeners(
-            notifier.types.LOCATION_STATE_UPDATED,
-            await this.getPingFromCache(location.id),
-        );
-
-        if (!available) {
-            throw new Error('Was unable to determine ping for endpoint');
+        // Use previously selected endpoint if requested and available
+        if (forcePrevEndpoint && location.endpoint) {
+            return location.endpoint;
         }
+
+        // Return first endpoint from the list
+        const endpoint = location.endpoints[0] || null;
+        this.setLocationEndpoint(location, endpoint);
 
         return endpoint;
     };
