@@ -85,7 +85,7 @@
         "swc-loader": "^0.2.3",
         "tmp-promise": "^3.0.2",
         "ts-node": "^10.9.2",
-        "typescript": "~5.0.4",
+        "typescript": "~5.9.3",
         "util": "^0.12.5",
         "vitest": "^3.2.4",
         "vitest-fetch-mock": "^0.4.5",
