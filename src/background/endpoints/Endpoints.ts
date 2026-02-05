@@ -32,32 +32,11 @@ import { locationsService } from './locationsService';
 import { LocationDto } from './LocationDto';
 import { type Location } from './Location';
 
-// FIXME do we still need this? since we are using typescript
-/**
- * Endpoint properties
- * @typedef {Object} Endpoint
- * @property {string} id
- * @property {string} domainName
- * @property {string} ipv4Address
- * @property {string} ipv6Address
- * @property {string} publicKey
- */
-
-/**
- * Locations properties
- * @typedef {Object} Location
- * @property {string} id
- * @property {string} cityName
- * @property {string} countryCode
- * @property {string} countryName
- * @property {[number, number]} coordinates [longitude, latitude]
- * @property {Endpoint[]} endpoints
- * @property {boolean} premiumOnly
- */
-
 export interface EndpointsInterface {
     refreshData(): Promise<void>;
     getVpnInfo(): Promise<VpnExtensionInfoInterface | null>;
+
+    // FIXME jsodoc
     getSelectedLocation(): Promise<LocationDto | null>;
     getLocations(): Promise<LocationDto[]>;
     getLocationsFromServer(): Promise<Location[] | null>

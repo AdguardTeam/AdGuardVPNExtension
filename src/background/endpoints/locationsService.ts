@@ -183,6 +183,7 @@ export class LocationsService implements LocationsServiceInterface {
         return null;
     };
 
+    // FIXME jsdoc
     setLocations = async (newLocations: LocationInterface[]): Promise<void> => {
         await this.locationsState.update({ locations: newLocations });
 

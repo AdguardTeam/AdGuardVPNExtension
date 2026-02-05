@@ -116,6 +116,7 @@ const getLocationsData = async (
         };
     };
 
+    // FIXME jsdoc
     const prepareLocationData = (location: LocationApiData): LocationInterface => {
         const {
             city_name: cityName,

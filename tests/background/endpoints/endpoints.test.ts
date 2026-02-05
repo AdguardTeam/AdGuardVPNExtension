@@ -26,6 +26,7 @@ import type {
 import { locationScheme, locationsServiceStateScheme } from '../../../src/background/schema';
 import { stateStorage } from '../../../src/background/stateStorage/stateStorage';
 import type { VpnExtensionInfoInterface } from '../../../src/common/schema/endpoints/vpnInfo';
+import { sessionStorageMock } from '../../__mocks__/sessionStorageMock';
 
 vi.mock('../../../src/background/settings');
 vi.mock('../../../src/background/connectivity/connectivityService');
@@ -47,7 +48,6 @@ describe('Endpoints', () => {
         stateStorage.resetForTesting();
 
         // Clear session storage mock to avoid state leakage between tests
-        const { sessionStorageMock } = await import('../../__mocks__/sessionStorageMock');
         await sessionStorageMock.clear();
         await endpointsTldExclusions.init();
         vi.clearAllMocks();
@@ -80,6 +80,7 @@ describe('Endpoints', () => {
         }
     });
 
+    // FIXME consider removing, not need to test safeparse
     // AG-49612: Verify locationsServiceStateScheme preserves ping and available
     it('locationsServiceStateScheme should preserve ping and available in locations array', () => {
         const testState = {

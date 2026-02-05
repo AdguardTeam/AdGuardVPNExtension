@@ -236,6 +236,7 @@ export class StateStorage implements StateStorageInterface {
         await this.setItem(key, { ...currentValue, ...partialValue });
     }
 
+    // FIXME make sure this is needed
     /**
      * Resets the state storage internal state.
      * This is intended for testing purposes only.

@@ -46,6 +46,7 @@ interface PopupDataInterface {
         status?: string,
     } | null;
     vpnInfo?: VpnExtensionInfoInterface | null;
+    // FIXME jsdoc
     locations?: LocationDto[];
     selectedLocation?: LocationDto | null;
     forwarderDomain: string;
