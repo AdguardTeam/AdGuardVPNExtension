@@ -76,6 +76,13 @@ click the _New issue_ button and choose between creating a bug report or feature
 - [pnpm][pnpm]: v10
 - [Git][git]
 
+> [!WARNING]
+> **Node.js 24 is not supported.** Node 24 introduced breaking changes that affect test dependencies:
+> - Removed `util.isRegExp`, `util.isDate`, `util.isError` functions (breaks `degenerator`/`pac-resolver`)
+> - Changed `AbortSignal` handling (breaks `vitest-fetch-mock`)
+>
+> Use Node 22.x until these upstream dependencies are updated.
+
 > [!NOTE]
 > For development, our team uses macOS and Linux. It may be possible that some commands not work on Windows,
 > so if you are using Windows, we recommend using WSL or a virtual machine.

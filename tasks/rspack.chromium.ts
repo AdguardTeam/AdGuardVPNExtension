@@ -1,12 +1,10 @@
 import path from 'path';
 
-import type webpack from 'webpack';
+import { rspack, type Configuration, type RspackPluginInstance } from '@rspack/core';
 import { merge } from 'webpack-merge';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-import { getCommonConfig } from './webpack.common';
+import { getCommonConfig } from './rspack.common';
 import { updateManifest } from './helpers';
 import {
     STAGE_ENV,
@@ -26,17 +24,17 @@ const CHROMIUM_BROWSERS = [
 ];
 
 /**
- * Get the webpack config for the Chromium browser.
+ * Get the rspack config for the Chromium browser.
  *
  * @param browser Browser name.
  * @param manifestDiff Manifest diff object.
  *
- * @returns Webpack configuration object.
+ * @returns Rspack configuration object.
  */
-export const getChromiumWebpackConfig = (
+export const getChromiumRspackConfig = (
     browser: Browser,
     manifestDiff: Record<string, unknown>,
-) => {
+): Configuration => {
     if (!CHROMIUM_BROWSERS.includes(browser)) {
         throw new Error(`${browser} is not a valid Chromium browser`);
     }
@@ -50,14 +48,14 @@ export const getChromiumWebpackConfig = (
 
     const commonConfig = getCommonConfig(browser);
 
-    const plugins: webpack.WebpackPluginInstance[] = [
-        new HtmlWebpackPlugin({
+    const plugins = [
+        new rspack.HtmlRspackPlugin({
             template: path.join(OFFSCREEN_PATH, 'index.html'),
             filename: 'offscreen.html',
             chunks: ['offscreen'],
             cache: false,
         }),
-        new CopyWebpackPlugin({
+        new rspack.CopyRspackPlugin({
             patterns: [
                 {
                     from: path.resolve(__dirname, 'manifest.common.json'),
@@ -69,7 +67,7 @@ export const getChromiumWebpackConfig = (
         new ZipWebpackPlugin({
             path: '../',
             filename: zipFilename,
-        }) as unknown as webpack.WebpackPluginInstance,
+        }) as unknown as RspackPluginInstance,
     ];
 
     const outputPath = commonConfig.output?.path;
@@ -77,7 +75,7 @@ export const getChromiumWebpackConfig = (
         throw new Error('Cannot get output path');
     }
 
-    const diffConfig = {
+    const diffConfig: Configuration = {
         entry: {
             offscreen: OFFSCREEN_PATH,
             worker: WORKER_SCRIPT,

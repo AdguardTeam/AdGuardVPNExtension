@@ -1,12 +1,10 @@
 import path from 'path';
 
-import type webpack from 'webpack';
+import { rspack, type Configuration, type RspackPluginInstance } from '@rspack/core';
 import { merge } from 'webpack-merge';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-import { getCommonConfig } from '../webpack.common';
+import { getCommonConfig } from '../rspack.common';
 import { updateManifest } from '../helpers';
 import {
     STAGE_ENV,
@@ -31,8 +29,8 @@ if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
 
 const commonConfig = getCommonConfig(Browser.Firefox);
 
-const plugins: webpack.WebpackPluginInstance[] = [
-    new CopyWebpackPlugin({
+const plugins = [
+    new rspack.CopyRspackPlugin({
         patterns: [
             {
                 from: path.resolve(__dirname, '../manifest.common.json'),
@@ -50,7 +48,7 @@ const plugins: webpack.WebpackPluginInstance[] = [
             },
         ],
     }),
-    new HtmlWebpackPlugin({
+    new rspack.HtmlRspackPlugin({
         template: path.join(BACKGROUND_PATH, 'index.html'),
         filename: 'background.html',
         chunks: ['background'],
@@ -59,7 +57,7 @@ const plugins: webpack.WebpackPluginInstance[] = [
     new ZipWebpackPlugin({
         path: '../',
         filename: zipFilename,
-    }) as unknown as webpack.WebpackPluginInstance,
+    }) as unknown as RspackPluginInstance,
 ];
 
 const outputPath = commonConfig.output?.path;
@@ -68,7 +66,7 @@ if (!outputPath) {
     throw new Error('Cannot get output path');
 }
 
-const firefoxDiffConfig = {
+const firefoxDiffConfig: Configuration = {
     output: {
         path: path.join(outputPath, FIREFOX_PATH),
     },
