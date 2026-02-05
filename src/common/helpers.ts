@@ -1,6 +1,5 @@
 import punycode from 'punycode';
 
-import { type LocationWithPingInterface } from '../background/endpoints/Location';
 import { type LocationInterface } from '../background/schema';
 
 /**
@@ -55,14 +54,11 @@ export const prepareUrl = (rawUrl: string): string => {
  * @returns Location with the lowest ping.
  */
 export const getLocationWithLowestPing = (locations: LocationInterface[]): LocationInterface => {
-    // filter locations by ping,
-    // so array of filtered locations will be LocationInterfaceWithPing[] instead of LocationInterface[]
-    // @ts-ignore
-    const locationsWithPings: LocationWithPingInterface[] = locations
+    const locationsWithPings = locations
         .filter((location) => location.ping && location.ping > 0);
     const sortedByPing = locationsWithPings.sort((locationA, locationB) => {
-        const adjustedPingA = locationA.ping - locationA.pingBonus;
-        const adjustedPingB = locationB.ping - locationB.pingBonus;
+        const adjustedPingA = locationA.ping! - locationA.pingBonus;
+        const adjustedPingB = locationB.ping! - locationB.pingBonus;
         return adjustedPingA - adjustedPingB;
     });
     return sortedByPing[0];

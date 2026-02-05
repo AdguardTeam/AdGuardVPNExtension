@@ -1,26 +1,12 @@
 import { type LocationInterface } from '../schema';
 
 /**
- * Interface for location data used by the UI.
- * Contains only the fields needed for display, excluding internal fields
+ * DTO class that extracts only UI-relevant fields from a full Location object.
+ * Used to pass minimal location data to the popup UI, excluding internal fields
  * like endpoints, coordinates, pingBonus, etc.
  */
-export interface LocationWithPingInterface {
-    id: string;
-    cityName: string;
-    countryName: string;
-    countryCode: string;
-    ping: number | null;
-    available: boolean;
-    premiumOnly: boolean;
-    virtual: boolean;
-}
-
-/**
- * DTO class that extracts only UI-relevant fields from a full Location object.
- * Used to pass minimal location data to the popup UI.
- */
-export class LocationWithPing implements LocationWithPingInterface {
+export class LocationDto {
+    // FIXME jsdoc to properties
     id: string;
 
     cityName: string;

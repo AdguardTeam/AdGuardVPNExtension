@@ -8,7 +8,7 @@ import {
 
 import { messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
-import type { LocationWithPing } from '../../background/endpoints/LocationWithPing';
+import type { LocationDto } from '../../background/endpoints/LocationDto';
 import type { VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { daysToRenewal } from '../../common/utils/date';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
@@ -19,7 +19,7 @@ import { containsIgnoreCase } from '../../common/components/SearchHighlighter/he
 
 import type { RootStore } from './RootStore';
 
-export interface LocationData extends LocationWithPing {
+export interface LocationData extends LocationDto {
     selected: boolean;
     saved?: boolean;
 }

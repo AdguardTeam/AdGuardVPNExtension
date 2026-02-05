@@ -12,7 +12,7 @@ import { type StorageInterface } from '../browserApi/storage';
 import { browserApi } from '../browserApi';
 
 import { Location } from './Location';
-import { LocationWithPing } from './LocationWithPing';
+import { LocationDto } from './LocationDto';
 import { LocationsTab } from './locationsEnums';
 
 interface LocationsServiceInterface {
@@ -24,7 +24,8 @@ interface LocationsServiceInterface {
         forcePrevEndpoint?: boolean,
     ): Promise<EndpointInterface | null>;
     getLocationByEndpoint(endpointId: string): Promise<LocationInterface | null>;
-    getLocationsWithPing(): Promise<LocationWithPing[]>;
+    // FIXME jsdoc
+    getLocationDtos(): Promise<LocationDto[]>;
     setSelectedLocation(id: string, isLocationSelectedByUser?: boolean): Promise<void>;
     getSelectedLocation(): Promise<LocationInterface | null>;
     getLocations(): Promise<LocationInterface[]>;
@@ -148,11 +149,11 @@ export class LocationsService implements LocationsServiceInterface {
      * Gets locations wrapped for UI display.
      * Extracts only the fields needed for the UI from full Location objects.
      *
-     * @returns Locations wrapped as LocationWithPing for UI consumption.
+     * @returns Locations wrapped as LocationDto for UI consumption.
      */
-    getLocationsWithPing = async (): Promise<LocationWithPing[]> => {
+    getLocationDtos = async (): Promise<LocationDto[]> => {
         const { locations } = await this.locationsState.get();
-        return locations.map((location: LocationInterface) => new LocationWithPing(location));
+        return locations.map((location: LocationInterface) => new LocationDto(location));
     };
 
     /**
@@ -187,7 +188,7 @@ export class LocationsService implements LocationsServiceInterface {
 
         notifier.notifyListeners(
             notifier.types.LOCATIONS_UPDATED,
-            await this.getLocationsWithPing(),
+            await this.getLocationDtos(),
         );
     };
 

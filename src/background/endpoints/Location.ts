@@ -3,18 +3,6 @@ import type { EndpointInterface, LocationData, LocationInterface } from '../sche
 import { Endpoint } from './Endpoint';
 
 /**
- * Type guard interface that extends LocationData with a guaranteed non-null ping value.
- * Used for type narrowing after filtering locations that have valid ping values,
- * e.g., in `getLocationWithLowestPing()` in helpers.ts.
- */
-export interface LocationWithPingInterface extends LocationData {
-    /**
-     * Ping value in milliseconds (guaranteed to be present and non-null).
-     */
-    ping: number;
-}
-
-/**
  * Represents a VPN server location with its endpoints and metadata.
  *
  * @remarks

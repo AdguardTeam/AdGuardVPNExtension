@@ -29,9 +29,10 @@ import { FORWARDER_URL_QUERIES } from '../config';
 import { StateData } from '../stateStorage';
 
 import { locationsService } from './locationsService';
-import { LocationWithPing } from './LocationWithPing';
+import { LocationDto } from './LocationDto';
 import { type Location } from './Location';
 
+// FIXME do we still need this? since we are using typescript
 /**
  * Endpoint properties
  * @typedef {Object} Endpoint
@@ -57,8 +58,8 @@ import { type Location } from './Location';
 export interface EndpointsInterface {
     refreshData(): Promise<void>;
     getVpnInfo(): Promise<VpnExtensionInfoInterface | null>;
-    getSelectedLocation(): Promise<LocationWithPing | null>;
-    getLocations(): Promise<LocationWithPing[]>;
+    getSelectedLocation(): Promise<LocationDto | null>;
+    getLocations(): Promise<LocationDto[]>;
     getLocationsFromServer(): Promise<Location[] | null>
     getVpnFailurePage(): Promise<string>;
     init(): Promise<void>;
@@ -375,12 +376,14 @@ class Endpoints implements EndpointsInterface {
         return remoteVpnInfo;
     };
 
-    getLocations = async (): Promise<LocationWithPing[]> => {
-        const locations = await locationsService.getLocationsWithPing();
+    // FIXME jsdoc
+    getLocations = async (): Promise<LocationDto[]> => {
+        const locations = await locationsService.getLocationDtos();
         return locations;
     };
 
-    getSelectedLocation = async (): Promise<LocationWithPing | null> => {
+    // FIXME jsdoc
+    getSelectedLocation = async (): Promise<LocationDto | null> => {
         const selectedLocation = await locationsService.getSelectedLocation();
         const isVPNDisabled = connectivityService.isVPNDisconnectedIdle() || connectivityService.isVPNIdle();
         const doesUserPreferFastestLocation = settings.getQuickConnectSetting() === QuickConnectSetting.FastestLocation;
@@ -391,7 +394,7 @@ class Endpoints implements EndpointsInterface {
             || (doesUserPreferFastestLocation && isVPNDisabled);
 
         if (!shouldSelectFasterLocation) {
-            return new LocationWithPing(selectedLocation);
+            return new LocationDto(selectedLocation);
         }
 
         const locations = await locationsService.getLocations();
@@ -417,7 +420,7 @@ class Endpoints implements EndpointsInterface {
         }
 
         await locationsService.setSelectedLocation(fastestLocation.id);
-        return new LocationWithPing(fastestLocation);
+        return new LocationDto(fastestLocation);
     };
 
     getVpnFailurePage = async (): Promise<string> => {

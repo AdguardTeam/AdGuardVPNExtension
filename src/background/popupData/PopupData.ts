@@ -23,7 +23,7 @@ import type { ConnectivityStateType, CanControlProxy } from '../schema';
 import { type VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { isLocationsNumberAcceptable } from '../../common/is-locations-number-acceptable';
 import { appStatus } from '../appStatus';
-import { type LocationWithPing } from '../endpoints/LocationWithPing';
+import { type LocationDto } from '../endpoints/LocationDto';
 import { hintPopup } from '../hintPopup';
 import { savedLocations } from '../savedLocations';
 import { locationsService } from '../endpoints/locationsService';
@@ -46,8 +46,8 @@ interface PopupDataInterface {
         status?: string,
     } | null;
     vpnInfo?: VpnExtensionInfoInterface | null;
-    locations?: LocationWithPing[];
-    selectedLocation?: LocationWithPing | null;
+    locations?: LocationDto[];
+    selectedLocation?: LocationDto | null;
     forwarderDomain: string;
     isAuthenticated: string | boolean;
     policyAgreement: boolean;

@@ -11,7 +11,7 @@ import { settings } from '../../../src/background/settings';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { credentials } from '../../../src/background/credentials';
 import { Location } from '../../../src/background/endpoints/Location';
-import { LocationWithPing } from '../../../src/background/endpoints/LocationWithPing';
+import { LocationDto } from '../../../src/background/endpoints/LocationDto';
 import { connectivityService } from '../../../src/background/connectivity/connectivityService';
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import { proxy } from '../../../src/background/proxy';
@@ -53,6 +53,7 @@ describe('Endpoints', () => {
         vi.clearAllMocks();
     });
 
+    // FIXME consider removing, since there is no value in this test
     // AG-49612: Verify the schema includes ping and available fields
     it('locationScheme should preserve ping and available', () => {
         const testLocation = {
@@ -130,8 +131,8 @@ describe('Endpoints', () => {
         expect(location.available).toBe(true);
     });
 
-    // AG-49612: Verify setLocations -> getLocationsWithPing preserves ping and available
-    it('setLocations followed by getLocationsWithPing should preserve backend ping and available', async () => {
+    // AG-49612: Verify setLocations -> getLocationDtos preserves ping and available
+    it('setLocations followed by getLocationDtos should preserve backend ping and available', async () => {
         const testLocations: LocationInterface[] = [{
             id: 'test-storage-loc',
             cityName: 'Storage Test City',
@@ -163,7 +164,7 @@ describe('Endpoints', () => {
         await locationsService.setLocations(locations);
 
         // Retrieve and verify
-        const retrievedLocations = await locationsService.getLocationsWithPing();
+        const retrievedLocations = await locationsService.getLocationDtos();
 
         expect(retrievedLocations.length).toBe(1);
         expect(retrievedLocations[0].id).toBe('test-storage-loc');
@@ -418,8 +419,8 @@ describe('Endpoints', () => {
 
             const closestLocation = endpoints.getClosestLocation(locations, targetLocation);
 
-            expect(new LocationWithPing(closestLocation))
-                .toEqual(new LocationWithPing(targetLocation));
+            expect(new LocationDto(closestLocation))
+                .toEqual(new LocationDto(targetLocation));
         });
 
         it('returns closest endpoint when endpoints do not have same location', () => {
@@ -490,8 +491,8 @@ describe('Endpoints', () => {
 
             expectedLocation.ping = 50;
 
-            expect(new LocationWithPing(closestLocation))
-                .toEqual(new LocationWithPing(expectedLocation));
+            expect(new LocationDto(closestLocation))
+                .toEqual(new LocationDto(expectedLocation));
         });
     });
 

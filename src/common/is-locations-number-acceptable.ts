@@ -1,4 +1,4 @@
-import { type LocationWithPing } from 'background/endpoints/LocationWithPing';
+import { type LocationDto } from 'background/endpoints/LocationDto';
 
 /**
  * Show a warning if there are more than 30% of unavailable locations.
@@ -12,7 +12,7 @@ const UNAVAILABLE_LOCATIONS_THRESHOLD_PERCENTAGE = 30;
  *
  * @returns Percentage of unavailable locations.
  */
-const getUnavailableLocationsPercentage = (locations: LocationWithPing[]): number => {
+const getUnavailableLocationsPercentage = (locations: LocationDto[]): number => {
     const unavailableLocations = locations.filter((location) => !location.available);
     return (unavailableLocations.length / locations.length) * 100;
 };
@@ -25,7 +25,7 @@ const getUnavailableLocationsPercentage = (locations: LocationWithPing[]): numbe
  *
  * @returns True if number of locations is acceptable, otherwise false.
  */
-export const isLocationsNumberAcceptable = (locations: LocationWithPing[]): boolean => {
+export const isLocationsNumberAcceptable = (locations: LocationDto[]): boolean => {
     return typeof locations === 'undefined'
         || locations.length === 0
         || getUnavailableLocationsPercentage(locations) >= UNAVAILABLE_LOCATIONS_THRESHOLD_PERCENTAGE;

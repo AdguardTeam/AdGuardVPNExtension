@@ -13,7 +13,7 @@ import {
     type GetExclusionsDataResponse,
     type ToggleServicesResult,
 } from '../background/exclusions/ExclusionsService';
-import { type LocationWithPing } from '../background/endpoints/LocationWithPing';
+import { type LocationDto } from '../background/endpoints/LocationDto';
 import { type RequestSupportResponse } from '../background/providers/vpnProvider';
 import { type ForwarderUrlQueryKey } from '../background/config';
 import {
@@ -528,7 +528,7 @@ export interface MessageMap {
     };
     [MessageType.FORCE_UPDATE_LOCATIONS]: {
         message: DefaultMessage<MessageType.FORCE_UPDATE_LOCATIONS>;
-        response: LocationWithPing[] | null;
+        response: LocationDto[] | null;
     };
     [MessageType.SAVED_LOCATIONS_SAVE_TAB]: {
         message: SavedLocationsSaveTabMessage;
@@ -664,7 +664,7 @@ export interface MessageMap {
     };
     [MessageType.GET_SELECTED_LOCATION]: {
         message: DefaultMessage<MessageType.GET_SELECTED_LOCATION>;
-        response: LocationWithPing | null;
+        response: LocationDto | null;
     };
     [MessageType.GET_EXCLUSIONS_INVERTED]: {
         message: DefaultMessage<MessageType.GET_EXCLUSIONS_INVERTED>;
