@@ -24,7 +24,9 @@ interface LocationsServiceInterface {
         forcePrevEndpoint?: boolean,
     ): Promise<EndpointInterface | null>;
     getLocationByEndpoint(endpointId: string): Promise<LocationInterface | null>;
-    // FIXME jsdoc
+    /**
+     * Returns all locations as lightweight DTOs containing only UI-relevant fields.
+     */
     getLocationDtos(): Promise<LocationDto[]>;
     setSelectedLocation(id: string, isLocationSelectedByUser?: boolean): Promise<void>;
     getSelectedLocation(): Promise<LocationInterface | null>;
@@ -183,7 +185,11 @@ export class LocationsService implements LocationsServiceInterface {
         return null;
     };
 
-    // FIXME jsdoc
+    /**
+     * Replaces the current locations with the given list and notifies listeners.
+     *
+     * @param newLocations New locations to store.
+     */
     setLocations = async (newLocations: LocationInterface[]): Promise<void> => {
         await this.locationsState.update({ locations: newLocations });
 

@@ -117,7 +117,14 @@ const getLocationsData = async (
         };
     };
 
-    // FIXME jsdoc
+    /**
+     * Transforms a single API location response (snake_case) into an internal
+     * {@link LocationInterface} (camelCase), including backend-provided
+     * `ping` and `available` fields.
+     *
+     * @param location Raw location data from the API.
+     * @returns Normalized location object.
+     */
     const prepareLocationData = (location: LocationApiData): LocationInterface => {
         const {
             city_name: cityName,

@@ -450,9 +450,8 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             await hintPopup.setViewed();
             break;
         }
-        // FIXME rename message types, since it is not about pings
         // AG-49612: Fetches fresh locations with backend-provided pings
-        case MessageType.RECALCULATE_PINGS: {
+        case MessageType.REFRESH_LOCATIONS: {
             await endpoints.getLocationsFromServer();
             break;
         }

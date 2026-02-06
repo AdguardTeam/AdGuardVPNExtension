@@ -6,21 +6,44 @@ import { type LocationInterface } from '../schema';
  * like endpoints, coordinates, pingBonus, etc.
  */
 export class LocationDto {
-    // FIXME jsdoc to properties
+    /**
+     * Unique location identifier.
+     */
     id: string;
 
+    /**
+     * City name of the VPN server location.
+     */
     cityName: string;
 
+    /**
+     * Country name of the VPN server location.
+     */
     countryName: string;
 
+    /**
+     * ISO 3166-1 alpha-2 country code.
+     */
     countryCode: string;
 
+    /**
+     * Ping latency in milliseconds provided by the backend, or `null` if unavailable.
+     */
     ping: number | null;
 
+    /**
+     * Whether this location is currently available for connections.
+     */
     available: boolean;
 
+    /**
+     * Whether this location is restricted to premium users.
+     */
     premiumOnly: boolean;
 
+    /**
+     * Whether the endpoint server location does not match the claimed IP geolocation.
+     */
     virtual: boolean;
 
     constructor(location: LocationInterface) {

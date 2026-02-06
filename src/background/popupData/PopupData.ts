@@ -46,8 +46,14 @@ interface PopupDataInterface {
         status?: string,
     } | null;
     vpnInfo?: VpnExtensionInfoInterface | null;
-    // FIXME jsdoc
+    /**
+     * Available VPN locations as lightweight DTOs for UI display.
+     */
     locations?: LocationDto[];
+
+    /**
+     * Currently selected VPN location DTO, or `null` if none is selected.
+     */
     selectedLocation?: LocationDto | null;
     forwarderDomain: string;
     isAuthenticated: string | boolean;

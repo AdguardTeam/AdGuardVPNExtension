@@ -137,7 +137,7 @@ export enum MessageType {
 
     UPDATE_LISTENERS = 'update.listeners',
 
-    RECALCULATE_PINGS = 'recalculate.pings',
+    REFRESH_LOCATIONS = 'refresh.locations',
 
     TELEMETRY_EVENT_SEND_PAGE_VIEW = 'telemetry.event.send.page.view',
     TELEMETRY_EVENT_SEND_CUSTOM = 'telemetry.event.send.custom',
@@ -767,8 +767,8 @@ export interface MessageMap {
         message: DefaultMessage<MessageType.SET_HINT_POPUP_VIEWED>;
         response: void;
     };
-    [MessageType.RECALCULATE_PINGS]: {
-        message: DefaultMessage<MessageType.RECALCULATE_PINGS>;
+    [MessageType.REFRESH_LOCATIONS]: {
+        message: DefaultMessage<MessageType.REFRESH_LOCATIONS>;
         response: void;
     };
     [MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW]: {

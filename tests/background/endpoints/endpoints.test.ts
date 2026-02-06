@@ -23,7 +23,6 @@ import type {
     LocationInterface,
     LocationData,
 } from '../../../src/background/schema';
-import { locationScheme, locationsServiceStateScheme } from '../../../src/background/schema';
 import { stateStorage } from '../../../src/background/stateStorage/stateStorage';
 import type { VpnExtensionInfoInterface } from '../../../src/common/schema/endpoints/vpnInfo';
 import { sessionStorageMock } from '../../__mocks__/sessionStorageMock';
@@ -51,63 +50,6 @@ describe('Endpoints', () => {
         await sessionStorageMock.clear();
         await endpointsTldExclusions.init();
         vi.clearAllMocks();
-    });
-
-    // FIXME consider removing, since there is no value in this test
-    // AG-49612: Verify the schema includes ping and available fields
-    it('locationScheme should preserve ping and available', () => {
-        const testLocation = {
-            id: 'test123',
-            countryName: 'United States',
-            cityName: 'New York',
-            countryCode: 'US',
-            endpoints: [],
-            coordinates: [1.0, 2.0] as [number, number],
-            premiumOnly: false,
-            pingBonus: 0,
-            virtual: false,
-            ping: 999,
-            available: true,
-            endpoint: null,
-        };
-
-        const result = locationScheme.safeParse(testLocation);
-
-        expect(result.success).toBe(true);
-        if (result.success) {
-            expect(result.data.ping).toBe(999);
-            expect(result.data.available).toBe(true);
-        }
-    });
-
-    // FIXME consider removing, not need to test safeparse
-    // AG-49612: Verify locationsServiceStateScheme preserves ping and available
-    it('locationsServiceStateScheme should preserve ping and available in locations array', () => {
-        const testState = {
-            locations: [{
-                id: 'test123',
-                countryName: 'United States',
-                cityName: 'New York',
-                countryCode: 'US',
-                endpoints: [],
-                coordinates: [1.0, 2.0] as [number, number],
-                premiumOnly: false,
-                pingBonus: 0,
-                virtual: false,
-                ping: 888,
-                available: true,
-                endpoint: null,
-            }],
-            selectedLocation: null,
-        };
-
-        const result = locationsServiceStateScheme.safeParse(testState);
-
-        expect(result.success).toBe(true);
-        if (result.success) {
-            expect(result.data.locations[0].ping).toBe(888);
-            expect(result.data.locations[0].available).toBe(true);
-        }
     });
 
     // AG-49612: Verify Location constructor preserves ping and available

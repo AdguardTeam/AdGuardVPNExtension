@@ -36,8 +36,15 @@ export interface EndpointsInterface {
     refreshData(): Promise<void>;
     getVpnInfo(): Promise<VpnExtensionInfoInterface | null>;
 
-    // FIXME jsodoc
+    /**
+     * Returns the currently selected location as a DTO, or auto-selects
+     * the fastest available location based on user settings and premium status.
+     */
     getSelectedLocation(): Promise<LocationDto | null>;
+
+    /**
+     * Returns all available VPN locations as lightweight DTOs for UI consumption.
+     */
     getLocations(): Promise<LocationDto[]>;
     getLocationsFromServer(): Promise<Location[] | null>
     getVpnFailurePage(): Promise<string>;
@@ -355,13 +362,24 @@ class Endpoints implements EndpointsInterface {
         return remoteVpnInfo;
     };
 
-    // FIXME jsdoc
+    /**
+     * Returns all available VPN locations as lightweight DTOs for UI consumption.
+     *
+     * @returns All locations as {@link LocationDto} array.
+     */
     getLocations = async (): Promise<LocationDto[]> => {
         const locations = await locationsService.getLocationDtos();
         return locations;
     };
 
-    // FIXME jsdoc
+    /**
+     * Returns the currently selected location as a DTO.
+     * If no location is selected, or the user prefers the fastest location
+     * and VPN is disconnected, auto-selects the fastest available location
+     * (filtered by premium status).
+     *
+     * @returns Selected location DTO, or `null` if no locations are available.
+     */
     getSelectedLocation = async (): Promise<LocationDto | null> => {
         const selectedLocation = await locationsService.getSelectedLocation();
         const isVPNDisabled = connectivityService.isVPNDisconnectedIdle() || connectivityService.isVPNIdle();

@@ -8,7 +8,7 @@ import { TelemetryActionName, TelemetryScreenName } from '../../../background/te
 import { Icon } from '../../../common/components/Icons';
 
 /**
- * Button component for pings recalculation.
+ * Button component for refreshing locations from the server.
  */
 export const Reload = observer(() => {
     const { settingsStore, telemetryStore } = useContext(rootStore);
@@ -16,14 +16,14 @@ export const Reload = observer(() => {
     const { arePingsRecalculating } = settingsStore;
 
     /**
-     * Recalculates pings for all endpoints.
+     * Fetches fresh locations from the server.
      */
-    const recalculatePings = async (): Promise<void> => {
+    const refreshLocations = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
             TelemetryActionName.RenewLocationsClick,
             TelemetryScreenName.LocationsScreen,
         );
-        await settingsStore.recalculatePings();
+        await settingsStore.refreshLocations();
     };
 
     const btnClass = cn(
@@ -40,7 +40,7 @@ export const Reload = observer(() => {
         <button
             type="button"
             className={btnClass}
-            onClick={recalculatePings}
+            onClick={refreshLocations}
         >
             <Icon
                 name="reload"

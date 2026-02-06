@@ -19,7 +19,7 @@ import { getThemeFromLocalStorage } from '../../common/useAppearanceTheme';
 import { AnimationEvent, type AnimationState } from '../constants';
 
 import type { RootStore } from './RootStore';
-import { MAX_GET_POPUP_DATA_ATTEMPTS, RECALCULATE_PINGS_BTN_INACTIVITY_DELAY_MS, RequestStatus } from './constants';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, REFRESH_LOCATIONS_BTN_INACTIVITY_DELAY_MS, RequestStatus } from './constants';
 
 type StateType = {
     value: string,
@@ -506,23 +506,23 @@ export class SettingsStore {
     }
 
     /**
-     * Sets the {@link arePingsRecalculating} to true,
-     * and re-calculates the pings for all locations.
+     * Fetches fresh locations from the server.
      *
-     * After the pings are re-calculated, sets the {@link arePingsRecalculating} to false.
+     * Sets {@link arePingsRecalculating} to true while refreshing,
+     * then resets it after a short delay.
      */
-    @action async recalculatePings(): Promise<void> {
+    @action async refreshLocations(): Promise<void> {
         this.setArePingsRecalculating(true);
         // set the fastest locations to the cached value to avoid showing the skeleton
         this.rootStore.vpnStore.setCachedFastestLocations();
 
-        await messenger.recalculatePings();
+        await messenger.refreshLocations();
 
         setTimeout(() => {
             this.setArePingsRecalculating(false);
             // reset the fastest locations to display the actual locations
             this.rootStore.vpnStore.resetCachedFastestLocations();
-        }, RECALCULATE_PINGS_BTN_INACTIVITY_DELAY_MS);
+        }, REFRESH_LOCATIONS_BTN_INACTIVITY_DELAY_MS);
     }
 
     /**
