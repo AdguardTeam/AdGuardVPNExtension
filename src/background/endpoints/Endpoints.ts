@@ -409,7 +409,6 @@ class Endpoints implements EndpointsInterface {
             });
         }
 
-        // AG-49612: Backend provides pings pre-calculated, no need to wait for local measurement
         const fastestLocation = getLocationWithLowestPing(filteredLocations);
 
         if (!fastestLocation) {

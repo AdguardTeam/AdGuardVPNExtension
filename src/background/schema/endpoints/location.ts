@@ -12,15 +12,13 @@ export const locationDataScheme = v.object({
     premiumOnly: v.boolean(),
     pingBonus: v.number(),
     virtual: v.boolean(),
-    // AG-49612: Backend now provides ping and availability data
     ping: v.nullable(v.number()),
     available: v.boolean(),
 });
 
 export type LocationData = v.InferOutput<typeof locationDataScheme>;
 
-// AG-49612: Removed ping and available from locationInterfaceScheme
-// as they now come from the API via locationDataScheme
+// ping and available are API-provided fields, defined in locationDataScheme
 export const locationInterfaceScheme = v.object({
     endpoint: v.optional(v.nullable(endpointInterfaceScheme)),
 });

@@ -137,7 +137,6 @@ const getLocationsData = async (
             endpoints,
             ping_bonus: pingBonus,
             virtual,
-            // AG-49612: Backend now provides ping and availability data
             ping,
             available,
         } = location;
@@ -152,7 +151,6 @@ const getLocationsData = async (
             pingBonus,
             endpoints: endpoints.map(prepareEndpointData),
             virtual,
-            // AG-49612: Pass through backend ping and availability
             ping,
             available,
         };

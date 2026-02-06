@@ -7,8 +7,8 @@ import { Endpoint } from './Endpoint';
  *
  * @remarks
  * This class wraps the raw location data from the backend API and provides
- * a domain model for use throughout the application. As of AG-49612,
- * ping and availability values are provided by the backend.
+ * a domain model for use throughout the application.
+ * Ping and availability values are provided by the backend.
  */
 export class Location implements LocationInterface {
     /**
@@ -67,14 +67,14 @@ export class Location implements LocationInterface {
     /**
      * Whether this location is currently available for connections.
      * Defaults to `true` for backwards compatibility if not provided by backend.
-     * @since AG-49612
+     * @since v2.9
      */
     available: boolean;
 
     /**
      * Approximate ping value in milliseconds between the client
      * and the endpoint location. `null` means ping is not set.
-     * @since AG-49612
+     * @since v2.9
      */
     ping: number | null;
 
@@ -99,8 +99,6 @@ export class Location implements LocationInterface {
         this.premiumOnly = locationData.premiumOnly;
         this.pingBonus = locationData.pingBonus;
         this.virtual = locationData.virtual;
-        // AG-49612: Use backend-provided ping and availability values
-        // Fallback to defaults for backwards compatibility
         this.available = locationData.available ?? true;
         this.ping = locationData.ping ?? null;
         this.endpoint = null;

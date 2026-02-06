@@ -25,8 +25,6 @@ describe('location service', () => {
         await connectivityService.start();
     });
 
-    // AG-49612: getEndpointByLocation now returns the first endpoint without measuring ping.
-    // Ping and availability values come from the backend.
     it('returns the first endpoint from location without ping measurement', async () => {
         const firstEndpoint = {
             id: 'gc-gb-lhr-01-1r06zxq6.adguard.io',
@@ -177,7 +175,6 @@ describe('location service', () => {
         expect(selectedLocation?.endpoints[0].domainName).toBe('123.new-domain.org');
     });
 
-    // AG-49612: Tests for backend ping/available values
     describe('backend ping values', () => {
         it('Location constructor should use backend ping and available values', () => {
             const locationDataWithBackendPings: LocationData = {

@@ -52,7 +52,6 @@ describe('Endpoints', () => {
         vi.clearAllMocks();
     });
 
-    // AG-49612: Verify Location constructor preserves ping and available
     it('Location constructor should preserve backend ping and available', () => {
         const locationData = {
             id: 'test-loc',
@@ -74,7 +73,6 @@ describe('Endpoints', () => {
         expect(location.available).toBe(true);
     });
 
-    // AG-49612: Verify setLocations -> getLocationDtos preserves ping and available
     it('setLocations followed by getLocationDtos should preserve backend ping and available', async () => {
         const testLocations: LocationInterface[] = [{
             id: 'test-storage-loc',
@@ -214,9 +212,6 @@ describe('Endpoints', () => {
         expect(endpointsList[1].countryCode).toBe(locations[1].countryCode);
         expect(endpointsList[1].premiumOnly).toBe(locations[1].premiumOnly);
 
-        // AG-49612: Verify backend ping and available values are preserved
-        // Note: ping/available may be undefined if not yet measured or if schema strips them
-        // The key behavior is that we use backend values rather than local measurement
         expect(endpointsList[0].ping).toBe(locations[0].ping);
         expect(endpointsList[0].available).toBe(locations[0].available);
         expect(endpointsList[1].ping).toBe(locations[1].ping);

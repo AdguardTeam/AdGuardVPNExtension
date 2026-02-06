@@ -450,7 +450,6 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             await hintPopup.setViewed();
             break;
         }
-        // AG-49612: Fetches fresh locations with backend-provided pings
         case MessageType.REFRESH_LOCATIONS: {
             await endpoints.getLocationsFromServer();
             break;
