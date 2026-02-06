@@ -8,7 +8,7 @@ coverage/
 private/
 .env
 .eslintcache
-tsconfig.eslint.tsbuildinfo
+*.tsbuildinfo
 
 # Contains unit tests reports for better bamboo view
 tests-reports/

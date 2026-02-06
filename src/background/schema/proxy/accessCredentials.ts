@@ -1,11 +1,11 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const accessCredentialsScheme = zod.object({
-    username: zod.string(),
-    password: zod.string(),
-}).strict();
+export const accessCredentialsScheme = v.strictObject({
+    username: v.string(),
+    password: v.string(),
+});
 
-export type AccessCredentials = zod.infer<typeof accessCredentialsScheme>;
+export type AccessCredentials = v.InferOutput<typeof accessCredentialsScheme>;
 
 export const ACCESS_CREDENTIALS_DEFAULTS: AccessCredentials = {
     username: '',

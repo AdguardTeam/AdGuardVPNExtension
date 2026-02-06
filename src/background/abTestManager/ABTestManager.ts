@@ -1,3 +1,5 @@
+import * as v from 'valibot';
+
 import {
     type ExperimentsResponse,
     type VersionsResponse,
@@ -68,7 +70,7 @@ class ABTestManager {
         const rawVersions = await browserApi.storage.get(ABTestManager.VERSIONS_STORAGE_KEY);
         let versions: VersionsResponse = [];
         try {
-            versions = versionsSchema.parse(rawVersions);
+            versions = v.parse(versionsSchema, rawVersions);
         } catch (e) {
             log.error('[vpn.ABTestManager.getVersionsFromStorage]: Failed to parse versions from storage', e, 'using default versions');
         }

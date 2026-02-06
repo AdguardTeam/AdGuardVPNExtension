@@ -1,16 +1,16 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { accessCredentialsScheme } from './accessCredentials';
 
-export const proxyConfigInterfaceScheme = zod.object({
-    bypassList: zod.string().array(),
-    defaultExclusions: zod.string().array(),
-    nonRoutableCidrNets: zod.string().array(),
-    host: zod.string(),
-    port: zod.number(),
-    scheme: zod.string(),
-    inverted: zod.boolean(),
+export const proxyConfigInterfaceScheme = v.strictObject({
+    bypassList: v.array(v.string()),
+    defaultExclusions: v.array(v.string()),
+    nonRoutableCidrNets: v.array(v.string()),
+    host: v.string(),
+    port: v.number(),
+    scheme: v.string(),
+    inverted: v.boolean(),
     credentials: accessCredentialsScheme,
-}).strict();
+});
 
-export type ProxyConfigInterface = zod.infer<typeof proxyConfigInterfaceScheme>;
+export type ProxyConfigInterface = v.InferOutput<typeof proxyConfigInterfaceScheme>;

@@ -1,5 +1,5 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const limitedOfferStorageDataScheme = zod.record(zod.number().or(zod.null())).or(zod.null());
+export const limitedOfferStorageDataScheme = v.nullable(v.record(v.string(), v.nullable(v.number())));
 
-export type LimitedOfferStorageData = zod.infer<typeof limitedOfferStorageDataScheme>;
+export type LimitedOfferStorageData = v.InferOutput<typeof limitedOfferStorageDataScheme>;

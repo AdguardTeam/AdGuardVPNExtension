@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
+import * as v from 'valibot';
 
 import { log } from '../../common/logger';
 import {
@@ -136,7 +137,7 @@ export class StateStorage implements StateStorageInterface {
             }
 
             // Parse and validate the loaded data
-            const parsedStateStorage = storageDataScheme.parse(rawStateStorage);
+            const parsedStateStorage = v.parse(storageDataScheme, rawStateStorage);
 
             // If the data is valid, save it to the in-memory state object
             this.state = parsedStateStorage;
@@ -194,14 +195,14 @@ export class StateStorage implements StateStorageInterface {
         }
 
         // Validate state data before saving it to the session storage
-        const validation = storageDataScheme.shape[key].safeParse(storageValue);
+        const validation = v.safeParse(storageDataScheme.entries[key], storageValue);
         if (!validation.success) {
-            log.error('[vpn.StateStorage.setItem]: Failed to validate data for state storage:', validation.error);
+            log.error('[vpn.StateStorage.setItem]: Failed to validate data for state storage:', validation.issues);
             return;
         }
 
         // Save the validated value
-        storageValue = validation.data as StorageData[K];
+        storageValue = validation.output as StorageData[K];
 
         // Keep the previous value in case saving to session storage fails
         const prevValue = this.state[key];

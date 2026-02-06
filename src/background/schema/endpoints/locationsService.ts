@@ -1,15 +1,15 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { locationScheme } from './location';
 import { pingsCacheScheme } from './pingsCache';
 
-export const locationsServiceStateScheme = zod.object({
+export const locationsServiceStateScheme = v.object({
     pingsCache: pingsCacheScheme,
-    locations: locationScheme.array(),
-    selectedLocation: locationScheme.or(zod.null()),
+    locations: v.array(locationScheme),
+    selectedLocation: v.nullable(locationScheme),
 });
 
-export type LocationsServiceState = zod.infer<typeof locationsServiceStateScheme>;
+export type LocationsServiceState = v.InferOutput<typeof locationsServiceStateScheme>;
 
 export const LOCATIONS_SERVICE_STATE_DEFAULTS = {
     pingsCache: {},

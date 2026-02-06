@@ -1,27 +1,30 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { endpointInterfaceScheme } from './endpointInterface';
 
-export const locationDataScheme = zod.object({
-    id: zod.string(),
-    countryName: zod.string(),
-    cityName: zod.string(),
-    countryCode: zod.string(),
-    endpoints: endpointInterfaceScheme.array(),
-    coordinates: zod.tuple([zod.number(), zod.number()]),
-    premiumOnly: zod.boolean(),
-    pingBonus: zod.number(),
-    virtual: zod.boolean(),
+export const locationDataScheme = v.object({
+    id: v.string(),
+    countryName: v.string(),
+    cityName: v.string(),
+    countryCode: v.string(),
+    endpoints: v.array(endpointInterfaceScheme),
+    coordinates: v.tuple([v.number(), v.number()]),
+    premiumOnly: v.boolean(),
+    pingBonus: v.number(),
+    virtual: v.boolean(),
 });
 
-export type LocationData = zod.infer<typeof locationDataScheme>;
+export type LocationData = v.InferOutput<typeof locationDataScheme>;
 
-export const locationInterfaceScheme = zod.object({
-    available: zod.boolean().optional(),
-    ping: zod.number().or(zod.null()).optional(),
-    endpoint: endpointInterfaceScheme.or(zod.null()).optional(),
+export const locationInterfaceScheme = v.object({
+    available: v.optional(v.boolean()),
+    ping: v.optional(v.nullable(v.number())),
+    endpoint: v.optional(v.nullable(endpointInterfaceScheme)),
 });
 
-export const locationScheme = locationDataScheme.merge(locationInterfaceScheme);
+export const locationScheme = v.object({
+    ...locationDataScheme.entries,
+    ...locationInterfaceScheme.entries,
+});
 
-export type LocationInterface = zod.infer<typeof locationScheme>;
+export type LocationInterface = v.InferOutput<typeof locationScheme>;

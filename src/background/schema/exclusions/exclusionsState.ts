@@ -1,22 +1,22 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { ExclusionsMode } from '../../../common/exclusionsConstants';
 
 import { exclusionScheme } from './exclusions/exclusion';
 
-export const persistedExclusionsScheme = zod.object({
-    [ExclusionsMode.Regular]: exclusionScheme.array(),
-    [ExclusionsMode.Selective]: exclusionScheme.array(),
-    inverted: zod.boolean(),
-}).strict();
+export const persistedExclusionsScheme = v.strictObject({
+    [ExclusionsMode.Regular]: v.array(exclusionScheme),
+    [ExclusionsMode.Selective]: v.array(exclusionScheme),
+    inverted: v.boolean(),
+});
 
-export type PersistedExclusions = zod.infer<typeof persistedExclusionsScheme>;
+export type PersistedExclusions = v.InferOutput<typeof persistedExclusionsScheme>;
 
-export const exclusionsStateScheme = zod.object({
-    previousExclusions: persistedExclusionsScheme.omit({ inverted: true }).or(zod.null()),
-}).strict();
+export const exclusionsStateScheme = v.strictObject({
+    previousExclusions: v.nullable(v.omit(persistedExclusionsScheme, ['inverted'])),
+});
 
-export type ExclusionsState = zod.infer<typeof exclusionsStateScheme>;
+export type ExclusionsState = v.InferOutput<typeof exclusionsStateScheme>;
 
 export const EXCLUSIONS_STATE_DEFAULTS: ExclusionsState = {
     previousExclusions: null,

@@ -1,13 +1,13 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { ExclusionState } from '../../../../common/exclusionsConstants';
 
-const exclusionState = zod.enum([ExclusionState.Enabled, ExclusionState.Disabled]);
+const exclusionState = v.picklist([ExclusionState.Enabled, ExclusionState.Disabled]);
 
-export const exclusionScheme = zod.object({
-    id: zod.string(),
-    hostname: zod.string(),
+export const exclusionScheme = v.object({
+    id: v.string(),
+    hostname: v.string(),
     state: exclusionState,
 });
 
-export type ExclusionInterface = zod.infer<typeof exclusionScheme>;
+export type ExclusionInterface = v.InferOutput<typeof exclusionScheme>;

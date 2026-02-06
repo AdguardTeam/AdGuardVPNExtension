@@ -1,10 +1,10 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const authAccessTokenScheme = zod.object({
-    accessToken: zod.string(),
-    expiresIn: zod.number().gte(0).finite(),
-    tokenType: zod.literal('bearer'),
-    scope: zod.literal('trust').optional(),
+export const authAccessTokenScheme = v.object({
+    accessToken: v.string(),
+    expiresIn: v.pipe(v.number(), v.minValue(0), v.finite()),
+    tokenType: v.literal('bearer'),
+    scope: v.optional(v.literal('trust')),
 });
 
 /**
@@ -16,4 +16,4 @@ export const authAccessTokenScheme = zod.object({
  *  "scope":"trust"
  * }
  */
-export type AuthAccessToken = zod.infer<typeof authAccessTokenScheme>;
+export type AuthAccessToken = v.InferOutput<typeof authAccessTokenScheme>;

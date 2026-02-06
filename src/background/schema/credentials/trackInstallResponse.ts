@@ -1,4 +1,4 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 /**
  * Response schema for installation tracking.
@@ -6,35 +6,35 @@ import zod from 'zod';
  * @property version Experiment variant/version identifier returned by backend.
  * @property completed Whether the backend marks the experiment variant as completed.
  */
-export const versionSchema = zod.object({
-    version: zod.string().nullish(),
-    completed: zod.boolean().nullish(),
+export const versionSchema = v.object({
+    version: v.nullish(v.string()),
+    completed: v.nullish(v.boolean()),
 });
 
 /**
  * List of experiment versions.
  */
-export const versionsSchema = zod.array(versionSchema).nullish();
+export const versionsSchema = v.nullish(v.array(versionSchema));
 
 /**
  * Experiments payload returned by backend.
  *
  * @property selected_versions Selected versions for the current installation (can be missing).
  */
-export const experimentsSchema = zod.object({
+export const experimentsSchema = v.nullish(v.object({
     selected_versions: versionsSchema,
-}).nullish();
+}));
 
 /**
  * Response from installation tracking request.
  *
  * @property experiments Experiments payload returned by backend.
  */
-export const trackInstallResponseSchema = zod.object({
+export const trackInstallResponseSchema = v.object({
     experiments: experimentsSchema,
 });
 
-export type VersionResponse = zod.infer<typeof versionSchema>;
-export type VersionsResponse = zod.infer<typeof versionsSchema>;
-export type ExperimentsResponse = zod.infer<typeof experimentsSchema>;
-export type TrackInstallResponse = zod.infer<typeof trackInstallResponseSchema>;
+export type VersionResponse = v.InferOutput<typeof versionSchema>;
+export type VersionsResponse = v.InferOutput<typeof versionsSchema>;
+export type ExperimentsResponse = v.InferOutput<typeof experimentsSchema>;
+export type TrackInstallResponse = v.InferOutput<typeof trackInstallResponseSchema>;

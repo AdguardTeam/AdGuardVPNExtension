@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import JSZip from 'jszip';
+import * as v from 'valibot';
 
 import { vpnApi } from '../api';
 import { log } from '../../common/logger';
@@ -309,7 +310,7 @@ const trackExtensionInstallation = async (
     const rawResponse = await vpnApi.trackExtensionInstallation(appId, version, experiments);
     let response;
     try {
-        response = trackInstallResponseSchema.parse(rawResponse);
+        response = v.parse(trackInstallResponseSchema, rawResponse);
     } catch (e) {
         log.error('[vpn.vpnProvider]: Error while parsing track install response', e);
         response = {};

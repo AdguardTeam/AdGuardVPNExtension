@@ -1,10 +1,10 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const popupOpenedCounterStateScheme = zod.object({
-    count: zod.number(),
-}).strict();
+export const popupOpenedCounterStateScheme = v.strictObject({
+    count: v.number(),
+});
 
-export type PopupOpenedCounterState = zod.infer<typeof popupOpenedCounterStateScheme>;
+export type PopupOpenedCounterState = v.InferOutput<typeof popupOpenedCounterStateScheme>;
 
 export const POPUP_OPENED_COUNTER_DEFAULTS: PopupOpenedCounterState = {
     count: 0,

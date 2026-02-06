@@ -1,10 +1,10 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const dnsServerDataScheme = zod.object({
-    id: zod.string(),
-    title: zod.string(),
-    address: zod.string(),
-    desc: zod.string().optional(),
+export const dnsServerDataScheme = v.object({
+    id: v.string(),
+    title: v.string(),
+    address: v.string(),
+    desc: v.optional(v.string()),
 });
 
-export type DnsServerData = zod.infer<typeof dnsServerDataScheme>;
+export type DnsServerData = v.InferOutput<typeof dnsServerDataScheme>;

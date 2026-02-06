@@ -1,4 +1,4 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 /**
  * States of connectivity finite state machine.
@@ -48,7 +48,7 @@ export enum ConnectivityStateType {
 /**
  * Connectivity FSM state schema.
  */
-export const connectivityStateScheme = zod.nativeEnum(ConnectivityStateType);
+export const connectivityStateScheme = v.enum(ConnectivityStateType);
 
 /**
  * Default connectivity FSM state.
