@@ -1,10 +1,10 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const fallbackInfoScheme = zod.object({
-    vpnApiUrl: zod.string(),
-    authApiUrl: zod.string(),
-    forwarderApiUrl: zod.string(),
-    expiresInMs: zod.number(),
-}).strict();
+export const fallbackInfoScheme = v.strictObject({
+    vpnApiUrl: v.string(),
+    authApiUrl: v.string(),
+    forwarderApiUrl: v.string(),
+    expiresInMs: v.number(),
+});
 
-export type FallbackInfo = zod.infer<typeof fallbackInfoScheme>;
+export type FallbackInfo = v.InferOutput<typeof fallbackInfoScheme>;

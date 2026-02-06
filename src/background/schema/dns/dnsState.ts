@@ -1,14 +1,14 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { dnsServerDataScheme } from './dnsServerData';
 
-export const dnsStateScheme = zod.object({
-    selectedDnsServer: zod.string().or(zod.null()),
-    customDnsServers: dnsServerDataScheme.array(),
-    backupDnsServersData: dnsServerDataScheme.array(),
+export const dnsStateScheme = v.object({
+    selectedDnsServer: v.nullable(v.string()),
+    customDnsServers: v.array(dnsServerDataScheme),
+    backupDnsServersData: v.array(dnsServerDataScheme),
 });
 
-export type DnsState = zod.infer<typeof dnsStateScheme>;
+export type DnsState = v.InferOutput<typeof dnsStateScheme>;
 
 export const DNS_STATE_DEFAULTS: DnsState = {
     customDnsServers: [],

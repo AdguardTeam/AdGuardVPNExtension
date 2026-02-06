@@ -1,8 +1,8 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const updateServiceStateScheme = zod.object({
-    prevVersion: zod.string().optional(),
-    currentVersion: zod.string().optional(),
-}).strict();
+export const updateServiceStateScheme = v.strictObject({
+    prevVersion: v.optional(v.string()),
+    currentVersion: v.optional(v.string()),
+});
 
-export type UpdateServiceState = zod.infer<typeof updateServiceStateScheme>;
+export type UpdateServiceState = v.InferOutput<typeof updateServiceStateScheme>;

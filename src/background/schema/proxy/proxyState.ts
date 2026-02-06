@@ -1,22 +1,22 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { endpointInterfaceScheme } from '../endpoints';
 
 import { ACCESS_CREDENTIALS_DEFAULTS, accessCredentialsScheme } from './accessCredentials';
 import { proxyConfigInterfaceScheme } from './proxyConfigInterface';
 
-export const proxyStateScheme = zod.object({
-    isActive: zod.boolean(),
-    bypassList: zod.string().array(),
-    endpointsTldExclusions: zod.string().array(),
-    currentEndpoint: endpointInterfaceScheme.or(zod.null()),
-    currentHost: zod.string(),
-    currentConfig: proxyConfigInterfaceScheme.optional(),
-    inverted: zod.boolean(),
+export const proxyStateScheme = v.object({
+    isActive: v.boolean(),
+    bypassList: v.array(v.string()),
+    endpointsTldExclusions: v.array(v.string()),
+    currentEndpoint: v.nullable(endpointInterfaceScheme),
+    currentHost: v.string(),
+    currentConfig: v.optional(proxyConfigInterfaceScheme),
+    inverted: v.boolean(),
     credentials: accessCredentialsScheme,
 });
 
-export type ProxyState = zod.infer<typeof proxyStateScheme>;
+export type ProxyState = v.InferOutput<typeof proxyStateScheme>;
 
 export const PROXY_DEFAULTS: ProxyState = {
     isActive: false,

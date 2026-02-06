@@ -1,12 +1,12 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const permissionsCheckerStateScheme = zod.object({
-    credentialsCheckTimerId: zod.number().or(zod.null()),
-    vpnInfoCheckTimerId: zod.number().or(zod.null()),
-    expiredCredentialsCheckTimeoutId: zod.number().or(zod.null()),
-}).strict();
+export const permissionsCheckerStateScheme = v.strictObject({
+    credentialsCheckTimerId: v.nullable(v.number()),
+    vpnInfoCheckTimerId: v.nullable(v.number()),
+    expiredCredentialsCheckTimeoutId: v.nullable(v.number()),
+});
 
-export type PermissionsCheckerState = zod.infer<typeof permissionsCheckerStateScheme>;
+export type PermissionsCheckerState = v.InferOutput<typeof permissionsCheckerStateScheme>;
 
 export const PERMISSIONS_CHECKER_DEFAULTS: PermissionsCheckerState = {
     credentialsCheckTimerId: null,
