@@ -241,22 +241,30 @@
         "message": "This data includes:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Names of screens you interact with"
+        "message": "Names of\u00a0screens you\u00a0interact\u00a0with",
+        "description": "Contains non-breaking spaces (\u00a0) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Names of buttons you click"
+        "message": "Names of\u00a0buttons you click",
+        "description": "Contains non-breaking spaces (\u00a0) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Session identifiers"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "We need this information to analyze and improve the functionality of AdGuard VPN"
+        "message": "We need this information to\u00a0analyze and\u00a0improve the\u00a0functionality of\u00a0AdGuard\u00a0VPN",
+        "description": "Contains non-breaking spaces (\u00a0) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "This data is anonymous and only used internally. We never share it with third parties"
+        "message": "This data is\u00a0anonymous and only used internally. We never share it with\u00a0third\u00a0parties",
+        "description": "Contains non-breaking spaces (\u00a0) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Got it"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Privacy\u00a0policy",
+        "description": "Contains non-breaking space (\u00a0) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Selective mode"
@@ -744,10 +752,12 @@
         "message": "Send anonymized <link>extension usage data</link>"
     },
     "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "If you agree, AdGuard VPN will collect data about the screens and buttons you interact with. You can always disable data sharing in <b>Settings</b>"
+        "message": "If you agree, AdGuard VPN will collect data about the screens and buttons you interact with. You can always disable data sharing in <b>Settings</b>",
+        "description": "DEPRECATED since v2.9. Use settings_help_us_improve_modal_desc_* keys instead"
     },
     "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "This information helps us understand what features work well and what needs improvement. It is anonymized and only used internally. We never share it with anyone"
+        "message": "This information helps us understand what features work well and what needs improvement. It is anonymized and only used internally. We never share it with anyone",
+        "description": "DEPRECATED since v2.9. Use settings_help_us_improve_modal_desc_* keys instead"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Log in or create an account"

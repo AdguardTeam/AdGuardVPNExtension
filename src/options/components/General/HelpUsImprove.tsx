@@ -101,7 +101,7 @@ export const HelpUsImprove = observer(() => {
                             className="link help-us-modal__link"
                             onClick={handlePrivacyPolicyClick}
                         >
-                            {translator.getMessage('privacy_policy')}
+                            {translator.getMessage('settings_help_us_improve_modal_privacy_policy')}
                         </a>
                     </>
                 )}

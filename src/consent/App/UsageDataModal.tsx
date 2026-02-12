@@ -59,7 +59,7 @@ export function UsageDataModal({ isOpen, privacyUrl, onClose }: UsageDataModalPr
                         rel="noopener noreferrer"
                         className="link consent__modal-link"
                     >
-                        {translator.getMessage('privacy_policy')}
+                        {translator.getMessage('settings_help_us_improve_modal_privacy_policy')}
                     </a>
                 </>
             )}
