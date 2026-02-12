@@ -10,6 +10,7 @@ import {
     processExclusionServicesDomains,
 } from '../../common/data-processors';
 import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
+import { parseBackendPing } from '../endpoints/locationHelpers';
 import type { ServicesInterface, CredentialsDataInterface, LocationInterface } from '../schema';
 import { type VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { type TrackInstallResponse, trackInstallResponseSchema } from '../schema/credentials/trackInstallResponse';
@@ -129,9 +130,10 @@ const getLocationsData = async (
             endpoints,
             ping_bonus: pingBonus,
             virtual,
+            ping,
         } = location;
 
-        return {
+        const locationData: LocationInterface = {
             id,
             cityName,
             countryCode,
@@ -141,7 +143,10 @@ const getLocationsData = async (
             pingBonus,
             endpoints: endpoints.map(prepareEndpointData),
             virtual,
+            ping: parseBackendPing(ping),
         };
+
+        return locationData;
     };
 
     const preparedLocations = locations.map(prepareLocationData);

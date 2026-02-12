@@ -42,17 +42,71 @@ export interface EndpointApiData {
     public_key: string;
 }
 
+/**
+ * Raw location data returned by the backend API
+ *
+ * Each object represents a single VPN server location (city) with its
+ * geographic metadata, access restrictions, and connectivity endpoints.
+ */
 export interface LocationApiData {
+    /**
+     * Unique location identifier (Base64-encoded).
+     */
     id: string;
+
+    /**
+     * Localized country name.
+     */
     country_name: string;
+
+    /**
+     * ISO 3166-1 alpha-2 country code (e.g. `"US"`, `"DE"`).
+     */
     country_code: string;
+
+    /**
+     * Localized city name.
+     */
     city_name: string;
+
+    /**
+     * Whether this location is restricted to premium subscribers.
+     */
     premium_only: boolean;
+
+    /**
+     * Geographic latitude of the location.
+     */
     latitude: number;
+
+    /**
+     * Geographic longitude of the location.
+     */
     longitude: number;
+
+    /**
+     * Bonus subtracted from ping when ranking fastest locations (ms).
+     */
     ping_bonus: number;
+
+    /**
+     * Available VPN endpoints (servers) within this location.
+     */
     endpoints: EndpointApiData[];
+
+    /**
+     * Whether this is a virtual (non-physical) location.
+     */
     virtual: boolean;
+
+    /**
+     * Backend-provided approximate ping in milliseconds.
+     *
+     * When present and non-negative the extension uses this value directly
+     * instead of performing local ping measurement.  `null` or absent means
+     * the ping is not set and the extension falls back to local measurement.
+     */
+    ping?: number | null;
 }
 
 interface LocationsData extends AxiosResponse {

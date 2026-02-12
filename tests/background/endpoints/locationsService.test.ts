@@ -248,4 +248,152 @@ describe('location service', () => {
             expect(mockStorage.set).toHaveBeenCalledWith(expect.any(String), LocationsTab.Saved);
         });
     });
+
+    describe('backend-provided pings', () => {
+        const makeEndpoint = (domain: string): EndpointInterface => ({
+            id: domain,
+            domainName: domain,
+            ipv4Address: '1.2.3.4',
+            ipv6Address: '::1',
+            publicKey: 'testkey=',
+        });
+
+        const makeLocationData = (
+            id: string,
+            ping?: number | null,
+        ): LocationData => ({
+            id,
+            cityName: `City-${id}`,
+            countryName: `Country-${id}`,
+            countryCode: 'XX',
+            coordinates: [0, 0],
+            premiumOnly: false,
+            pingBonus: 0,
+            endpoints: [makeEndpoint(`${id}.endpoint.test`)],
+            virtual: false,
+            ping,
+        });
+
+        let measurePingMock: MockedFunction<typeof pingHelpers.measurePingWithinLimits>;
+
+        beforeEach(() => {
+            measurePingMock = vi.fn().mockResolvedValue(42);
+            vi.spyOn(pingHelpers, 'measurePingWithinLimits').mockImplementation(measurePingMock);
+        });
+
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it('location with backend ping is displayed with that value and available: true, no local measurement', async () => {
+            const location = new Location(makeLocationData('backend-loc', 150));
+
+            expect(location.ping).toBe(150);
+            expect(location.available).toBe(true);
+
+            await locationsService.setLocations([location]);
+
+            const locationsWithPing = await locationsService.getLocationsWithPing();
+            const loc = locationsWithPing.find((l) => l.id === 'backend-loc');
+            expect(loc?.ping).toBe(150);
+            expect(loc?.available).toBe(true);
+            expect(measurePingMock).not.toHaveBeenCalled();
+        });
+
+        it('location with ping: null falls back to local measurement', async () => {
+            const location = new Location(makeLocationData('local-loc', null));
+
+            expect(location.ping).toBeNull();
+
+            await locationsService.setLocations([location]);
+
+            expect(measurePingMock).toHaveBeenCalledWith('local-loc.endpoint.test');
+        });
+
+        it('mixed response: backend-pinged locations skip measurement, null-pinged are measured', async () => {
+            const backendLoc = new Location(makeLocationData('be-loc', 200));
+            const localLoc = new Location(makeLocationData('lo-loc', null));
+
+            await locationsService.setLocations([backendLoc, localLoc]);
+
+            expect(measurePingMock).toHaveBeenCalledTimes(1);
+            expect(measurePingMock).toHaveBeenCalledWith('lo-loc.endpoint.test');
+
+            const locationsWithPing = await locationsService.getLocationsWithPing();
+            const be = locationsWithPing.find((l) => l.id === 'be-loc');
+            const lo = locationsWithPing.find((l) => l.id === 'lo-loc');
+            expect(be?.ping).toBe(200);
+            expect(be?.available).toBe(true);
+            expect(lo?.ping).toBe(42);
+            expect(lo?.available).toBe(true);
+        });
+
+        it('ping: 0 is treated as valid', async () => {
+            const location = new Location(makeLocationData('zero-loc', 0));
+
+            expect(location.ping).toBe(0);
+
+            await locationsService.setLocations([location]);
+
+            const locationsWithPing = await locationsService.getLocationsWithPing();
+            const loc = locationsWithPing.find((l) => l.id === 'zero-loc');
+            expect(loc?.ping).toBe(0);
+            expect(loc?.available).toBe(true);
+            expect(measurePingMock).not.toHaveBeenCalled();
+        });
+
+        it('negative ping is treated as invalid and falls back to local measurement', async () => {
+            const location = new Location(makeLocationData('neg-loc', -5));
+
+            expect(location.ping).toBeNull();
+
+            await locationsService.setLocations([location]);
+
+            expect(measurePingMock).toHaveBeenCalledWith('neg-loc.endpoint.test');
+        });
+
+        it('fresh backend ping is not overwritten by stale cache on refresh', async () => {
+            // First load: location has no backend ping, local measurement fails
+            const loc1 = new Location(makeLocationData('stale-loc', null));
+            measurePingMock.mockResolvedValueOnce(null);
+            await locationsService.setLocations([loc1]);
+
+            // Cache now has { ping: null, available: false } for 'stale-loc'
+            const cacheAfterFirst = await locationsService.getPingFromCache('stale-loc');
+            expect(cacheAfterFirst.ping).toBeNull();
+
+            measurePingMock.mockClear();
+
+            // Refresh: backend now provides ping 200 for this location
+            const loc2 = new Location(makeLocationData('stale-loc', 200));
+            await locationsService.setLocations([loc2]);
+
+            // Backend ping must take precedence over stale null cache
+            const locationsWithPing = await locationsService.getLocationsWithPing();
+            const loc = locationsWithPing.find((l) => l.id === 'stale-loc');
+            expect(loc?.ping).toBe(200);
+            expect(loc?.available).toBe(true);
+            expect(measurePingMock).not.toHaveBeenCalled();
+        });
+
+        it('refresh (re-fetch) delivers fresh backend pings without local measurement', async () => {
+            await credentials.init();
+            vi.spyOn(credentials, 'gainValidVpnToken')
+                .mockResolvedValue({ licenseKey: '' } as VpnTokenData);
+
+            const getLocationsDataMock = vpnProvider.getLocationsData as MockedFunction<() => any>;
+
+            getLocationsDataMock.mockImplementation(() => [
+                makeLocationData('refresh-loc', 300),
+            ]);
+
+            await endpoints.getLocationsFromServer();
+
+            const locationsWithPing = await locationsService.getLocationsWithPing();
+            const loc = locationsWithPing.find((l) => l.id === 'refresh-loc');
+            expect(loc?.ping).toBe(300);
+            expect(loc?.available).toBe(true);
+            expect(measurePingMock).not.toHaveBeenCalled();
+        });
+    });
 });

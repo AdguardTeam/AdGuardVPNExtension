@@ -450,8 +450,8 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             await hintPopup.setViewed();
             break;
         }
-        case MessageType.RECALCULATE_PINGS: {
-            await locationsService.measurePings(true);
+        case MessageType.REFRESH_LOCATIONS: {
+            await endpoints.getLocationsFromServer();
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW: {

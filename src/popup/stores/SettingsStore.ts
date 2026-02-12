@@ -507,16 +507,16 @@ export class SettingsStore {
 
     /**
      * Sets the {@link arePingsRecalculating} to true,
-     * and re-calculates the pings for all locations.
+     * and refreshes locations from the server.
      *
-     * After the pings are re-calculated, sets the {@link arePingsRecalculating} to false.
+     * After the locations are refreshed, sets the {@link arePingsRecalculating} to false.
      */
-    @action async recalculatePings(): Promise<void> {
+    @action async refreshLocations(): Promise<void> {
         this.setArePingsRecalculating(true);
         // set the fastest locations to the cached value to avoid showing the skeleton
         this.rootStore.vpnStore.setCachedFastestLocations();
 
-        await messenger.recalculatePings();
+        await messenger.refreshLocations();
 
         setTimeout(() => {
             this.setArePingsRecalculating(false);

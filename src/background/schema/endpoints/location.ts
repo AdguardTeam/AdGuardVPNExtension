@@ -12,13 +12,14 @@ export const locationDataScheme = v.object({
     premiumOnly: v.boolean(),
     pingBonus: v.number(),
     virtual: v.boolean(),
+    ping: v.nullish(v.number()),
 });
 
 export type LocationData = v.InferOutput<typeof locationDataScheme>;
 
 export const locationInterfaceScheme = v.object({
     available: v.optional(v.boolean()),
-    ping: v.optional(v.nullable(v.number())),
+    ping: v.nullish(v.number()),
     endpoint: v.optional(v.nullable(endpointInterfaceScheme)),
 });
 

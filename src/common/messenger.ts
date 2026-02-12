@@ -692,8 +692,13 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    recalculatePings(): Promise<ExtractMessageResponse<MessageType.RECALCULATE_PINGS>> {
-        const type = MessageType.RECALCULATE_PINGS;
+    /**
+     * Re-fetches locations from the server, refreshing backend-provided pings.
+     *
+     * @returns Promise that resolves when locations are refreshed.
+     */
+    refreshLocations(): Promise<ExtractMessageResponse<MessageType.REFRESH_LOCATIONS>> {
+        const type = MessageType.REFRESH_LOCATIONS;
         return this.sendMessage(type);
     }
 

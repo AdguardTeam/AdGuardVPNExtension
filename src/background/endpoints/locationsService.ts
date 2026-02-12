@@ -310,7 +310,7 @@ export class LocationsService implements LocationsServiceInterface {
             ? !(Date.now() - lastMeasurementTime >= this.PING_TTL_MS)
             : false;
 
-        const hasPing = !!pingsCache[id]?.ping;
+        const hasPing = (pingsCache[id]?.ping ?? null) !== null;
 
         if (isFresh && hasPing && !force) {
             return;
@@ -429,10 +429,11 @@ export class LocationsService implements LocationsServiceInterface {
     setLocations = async (newLocations: LocationInterface[]): Promise<void> => {
         const { pingsCache } = await this.locationsState.get();
 
-        // copy previous pings data
+        // copy previous pings data for locations without a backend-provided ping
         const updatedNewLocations = newLocations.map((location: LocationInterface) => {
             const pingCache = pingsCache[location.id];
-            if (pingCache) {
+            // Backend may omit ping (undefined) or explicitly send null.
+            if (pingCache && (location.ping === null || location.ping === undefined)) {
                 this.setLocationPing(location, pingCache.ping);
                 this.setLocationAvailableState(location, pingCache.available);
                 this.setLocationEndpoint(location, pingCache.endpoint);
@@ -441,6 +442,20 @@ export class LocationsService implements LocationsServiceInterface {
         });
 
         await this.locationsState.update({ locations: updatedNewLocations });
+
+        // populate pings cache with backend-provided pings before measuring
+        const lastMeasurementTime = Date.now();
+        await Promise.all(updatedNewLocations.map(async (location: LocationInterface) => {
+            if (location.ping !== null && location.ping !== undefined) {
+                await this.updatePingsCache(location.id, {
+                    ping: location.ping,
+                    available: true,
+                    lastMeasurementTime,
+                    endpoint: null,
+                    isMeasuring: false,
+                });
+            }
+        }));
 
         // launch pings measurement
         await this.measurePings();
