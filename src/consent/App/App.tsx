@@ -5,6 +5,7 @@ import { AuthCacheKey } from '../../background/authentication/authCacheTypes';
 import { WebAuthAction, WebAuthState } from '../../background/auth/webAuthEnums';
 import { FORWARDER_URL_QUERIES } from '../../background/config';
 import { type NotifierMessage, messenger } from '../../common/messenger';
+import { i18n } from '../../common/i18n';
 import { translator } from '../../common/translator';
 import { reactTranslator } from '../../common/reactTranslator';
 import { getPrivacyAndEulaUrls } from '../../common/forwarderHelpers';
@@ -57,7 +58,10 @@ export function App(): ReactElement {
                 helpUsImprove,
                 webAuthFlowState,
                 forwarderDomain,
+                selectedLanguage,
             } = await messenger.getConsentData();
+
+            await i18n.init(selectedLanguage);
 
             setPolicyAgreement(policyAgreement);
             setHelpUsImprove(helpUsImprove);

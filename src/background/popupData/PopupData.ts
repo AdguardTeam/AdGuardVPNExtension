@@ -7,6 +7,7 @@ import { type PromoNotificationData, promoNotifications } from '../promoNotifica
 import { auth } from '../auth';
 import { settings } from '../settings';
 import { SETTINGS_IDS } from '../../common/constants';
+import { type LocalePreference } from '../../common/locale';
 import { sleep } from '../../common/helpers';
 import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
@@ -102,6 +103,11 @@ interface PopupDataInterface {
      * Streaming text experiment value to send with telemetry event for AG-47804 task.
      */
     streamingTextExperimentValue?: string | null;
+
+    /**
+     * User's selected language preference.
+     */
+    selectedLanguage: LocalePreference;
 }
 
 export interface PopupDataRetry extends PopupDataInterface {
@@ -142,6 +148,8 @@ export class PopupData {
         const locationsTab = await locationsService.getLocationsTab();
         const savedLocationIds = await savedLocations.getSavedLocationIds();
 
+        const selectedLanguage = settings.getSelectedLanguage();
+
         if (!isAuthenticated) {
             return {
                 forwarderDomain,
@@ -151,6 +159,7 @@ export class PopupData {
                 isHostPermissionsGranted,
                 locationsTab,
                 savedLocationIds,
+                selectedLanguage,
             };
         }
 
@@ -223,6 +232,7 @@ export class PopupData {
             marketingConsent,
             shouldShowStreamingLabelText,
             streamingTextExperimentValue,
+            selectedLanguage,
         };
     };
 

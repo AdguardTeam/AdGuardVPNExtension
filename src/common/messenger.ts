@@ -819,6 +819,28 @@ class Messenger {
         const type = MessageType.GET_STARTUP_DATA;
         return this.sendMessage(type);
     }
+
+    /**
+     * Sets the interface language preference.
+     *
+     * @param language Locale code (e.g. 'de') or 'auto' for browser default.
+     */
+    async setInterfaceLanguage(
+        language: ExtractMessageData<MessageType.SET_INTERFACE_LANGUAGE>['language'],
+    ): Promise<ExtractMessageResponse<MessageType.SET_INTERFACE_LANGUAGE>> {
+        const type = MessageType.SET_INTERFACE_LANGUAGE;
+        return this.sendMessage(type, { language });
+    }
+
+    /**
+     * Retrieves the current interface language preference.
+     *
+     * @returns The current locale code or 'auto'.
+     */
+    async getInterfaceLanguage(): Promise<ExtractMessageResponse<MessageType.GET_INTERFACE_LANGUAGE>> {
+        const type = MessageType.GET_INTERFACE_LANGUAGE;
+        return this.sendMessage(type);
+    }
 }
 
 export const messenger = new Messenger();

@@ -40,6 +40,7 @@ import { flagsStorage } from '../flagsStorage';
 import { connectivityService } from '../connectivity/connectivityService';
 import { proxyApi } from '../proxy/abstractProxyApi';
 import { updateOptionsPageListeners } from '../stateStorage/helper';
+import { i18n } from '../../common/i18n';
 import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
 import { telemetry } from '../telemetry';
@@ -118,6 +119,8 @@ const asyncInitModules = async (): Promise<void> => {
         await fallbackApi.init();
         await updateService.init();
         await settings.init();
+        // should be initiated after settings.init() to get the selected language
+        await i18n.init(settings.getSelectedLanguage());
         // the consent page uses settings, so it should be initiated after settings.init()
         await openPostInstallPage();
         await flagsStorage.init();

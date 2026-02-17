@@ -50,6 +50,7 @@ export const App = observer(() => {
         globalStore,
         telemetryStore,
         statsStore,
+        translationStore,
     } = useContext(rootStore);
 
     const {
@@ -157,6 +158,10 @@ export const App = observer(() => {
                     authStore.handleAuthCacheUpdate(data, value);
                     break;
                 }
+                case notifier.types.LANGUAGE_CHANGED: {
+                    await translationStore.setLocalePreference(data);
+                    break;
+                }
                 default: {
                     log.debug('[vpn.App]: there is no such message type: ', type);
                     break;
@@ -178,6 +183,7 @@ export const App = observer(() => {
             notifier.types.SHOW_RATE_MODAL,
             notifier.types.STATS_UPDATED,
             notifier.types.AUTH_CACHE_UPDATED,
+            notifier.types.LANGUAGE_CHANGED,
         ];
 
         const { onUnload, portId } = messenger.createLongLivedConnection(events, messageHandler);

@@ -89,6 +89,14 @@ export class VpnStore {
 
         this.locations = locations;
         this.pings = {};
+
+        // Update selected location data (e.g. translated names after locale change).
+        if (this.selectedLocation) {
+            const updated = locations.find((l) => l.id === this.selectedLocation.id);
+            if (updated) {
+                this.selectedLocation = { ...updated };
+            }
+        }
     };
 
     @action updateLocationState = (state: LocationState): void => {

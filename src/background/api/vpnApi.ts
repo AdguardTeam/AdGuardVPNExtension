@@ -1,6 +1,8 @@
 import browser from 'webextension-polyfill';
 import { type AxiosResponse } from 'axios';
 
+import { i18n } from '../../common/i18n';
+
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
 import { type RequestProps } from './apiTypes';
@@ -188,7 +190,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     getLocations = (appId: string, vpnToken: string): Promise<LocationsData> => {
         const { path, method } = this.GET_LOCATIONS;
-        const language = browser.i18n.getUILanguage();
+        const language = i18n.getUILanguage();
 
         const params = {
             app_id: appId,

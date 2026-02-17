@@ -2,6 +2,7 @@ import { action, computed, observable } from 'mobx';
 
 import { log } from '../../common/logger';
 import { messenger } from '../../common/messenger';
+import { i18n } from '../../common/i18n';
 
 import { RequestStatus } from './consts';
 import type { RootStore } from './RootStore';
@@ -38,6 +39,7 @@ export class GlobalStore {
 
         try {
             const optionsData = await messenger.getOptionsData(isDataRefresh);
+            await i18n.init(optionsData.selectedLanguage);
             settingsStore.setOptionsData(optionsData);
             await settingsStore.requestIsPremiumToken();
             authStore.setIsAuthenticated(optionsData.isAuthenticated);

@@ -417,6 +417,9 @@ export class LocationsService implements LocationsServiceInterface {
 
         const updatedSelectedLocation = actualSelectedLocation || oldSelectedLocation;
         await this.locationsState.update({ selectedLocation: updatedSelectedLocation });
+        // Keep local storage in sync so the fallback in getSelectedLocation()
+        // returns correct localized names after browser restart.
+        await settings.setSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY, updatedSelectedLocation);
 
         if (oldSelectedLocation?.endpoint?.id && updatedSelectedLocation?.endpoint?.id
             && oldSelectedLocation.endpoint.id !== updatedSelectedLocation.endpoint.id) {

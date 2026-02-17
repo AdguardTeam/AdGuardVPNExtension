@@ -15,6 +15,7 @@ import {
     QUICK_CONNECT_SETTING_DEFAULT,
 } from '../../common/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../common/dnsConstants';
+import { type LocalePreference, LANGUAGE_AUTO } from '../../common/locale';
 import { messenger } from '../../common/messenger';
 import { log } from '../../common/logger';
 import type { DnsServerData } from '../../background/schema';
@@ -46,6 +47,7 @@ export interface OptionsData {
     subscriptionTimeExpiresIso: string | null;
     customDnsServers: DnsServerData[];
     quickConnectSetting: QuickConnectSetting;
+    selectedLanguage: LocalePreference;
 }
 
 export class SettingsStore {
@@ -103,6 +105,8 @@ export class SettingsStore {
 
     @observable quickConnect = QUICK_CONNECT_SETTING_DEFAULT;
 
+    @observable selectedLanguage: LocalePreference = LANGUAGE_AUTO;
+
     @observable dnsServerName = '';
 
     @observable dnsServerAddress = '';
@@ -111,6 +115,35 @@ export class SettingsStore {
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
+    }
+
+    /**
+     * Updates the selected language preference observable.
+     *
+     * Called by {@link changeLanguage} and by the notifier handler when
+     * another options tab changes the language.
+     *
+     * @param language Locale code (e.g. 'de') or 'auto'.
+     */
+    @action
+    setSelectedLanguage(language: LocalePreference): void {
+        this.selectedLanguage = language;
+    }
+
+    /**
+     * Full language-change flow initiated by the user.
+     *
+     * Persists the preference via the background script (which also
+     * broadcasts {@link LANGUAGE_CHANGED} to other contexts), updates the
+     * dropdown observable, and loads the new locale into the shared
+     * {@link TranslationStore}.
+     *
+     * @param language Locale code (e.g. 'de') or 'auto'.
+     */
+    async changeLanguage(language: LocalePreference): Promise<void> {
+        await messenger.setInterfaceLanguage(language);
+        this.setSelectedLanguage(language);
+        await this.rootStore.translationStore.setLocalePreference(language);
     }
 
     @action
@@ -195,6 +228,7 @@ export class SettingsStore {
         this.subscriptionTimeExpiresIso = data.subscriptionTimeExpiresIso;
         this.customDnsServers = data.customDnsServers;
         this.quickConnect = data.quickConnectSetting;
+        this.selectedLanguage = data.selectedLanguage;
     };
 
     @action updateCurrentUsername = async (): Promise<void> => {

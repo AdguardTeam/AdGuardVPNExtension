@@ -1,4 +1,6 @@
 import { TelemetryStore } from '../../common/telemetry/TelemetryStore';
+import { TranslationStore } from '../../common/locale';
+import { i18n } from '../../common/i18n';
 
 /* eslint-disable import/no-cycle */
 import { SettingsStore } from './SettingsStore';
@@ -23,6 +25,11 @@ export class RootStore {
 
     statsStore: StatsStore;
 
+    /**
+     * MobX-observable locale state shared with the {@link i18n} facade.
+     */
+    translationStore: TranslationStore;
+
     constructor() {
         this.globalStore = new GlobalStore(this);
         this.settingsStore = new SettingsStore(this);
@@ -31,5 +38,6 @@ export class RootStore {
         this.vpnStore = new VpnStore(this);
         this.statsStore = new StatsStore(this);
         this.telemetryStore = new TelemetryStore();
+        this.translationStore = i18n.connectStore(TranslationStore);
     }
 }

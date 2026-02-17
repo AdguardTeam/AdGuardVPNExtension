@@ -41,6 +41,8 @@
         box-shadow: var(--big-light-shadow-br);
         background-color: var(--fills-menus-dropdown-menu-background-default);
         overflow: hidden;
+        overflow-y: auto;
+        max-height: min(400px, calc(100vh - 100px));
         transition: var(--t3) transform, var(--t3) opacity, var(--t3) background-color;
         transform: translateY(-20px);
         opacity: 0;

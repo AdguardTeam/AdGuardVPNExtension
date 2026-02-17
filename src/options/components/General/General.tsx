@@ -9,6 +9,7 @@ import { Title } from '../ui/Title';
 
 import { QuickConnect } from './QuickConnect';
 import { Theme } from './Theme';
+import { Language } from './Language';
 import { ContextMenus } from './ContextMenus';
 import { HelpUsImprove } from './HelpUsImprove';
 import { WebRTC } from './WebRTC';
@@ -38,6 +39,7 @@ export const General = observer(() => {
             <Title title={translator.getMessage('settings_general_title')} />
             <QuickConnect />
             <Theme />
+            <Language />
             <ContextMenus />
             <HelpUsImprove />
             <WebRTC />

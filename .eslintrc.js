@@ -101,10 +101,22 @@ module.exports = {
         }],
         // TODO: remove rule
         'import/no-cycle': 0,
-        indent: ['error', 4, { SwitchCase: 1 }],
+        indent: ['error', 4, {
+            SwitchCase: 1,
+            ignoredNodes: [
+                'PropertyDefinition[decorators]',
+                'PropertyDefinition[decorators] > .value',
+            ],
+        }],
         'react/jsx-indent': 'off',
         'react/jsx-indent-props': 'off',
-        '@typescript-eslint/indent': ['error', 4],
+        '@typescript-eslint/indent': ['error', 4, {
+            SwitchCase: 1,
+            ignoredNodes: [
+                'PropertyDefinition[decorators]',
+                'PropertyDefinition[decorators] > .value',
+            ],
+        }],
         'no-underscore-dangle': 'off',
         'react/destructuring-assignment': [
             'error',

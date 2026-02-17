@@ -1,4 +1,6 @@
 import { TelemetryStore } from '../../common/telemetry/TelemetryStore';
+import { TranslationStore } from '../../common/locale';
+import { i18n } from '../../common/i18n';
 
 import { GlobalStore } from './GlobalStore';
 import { AuthStore } from './AuthStore';
@@ -22,6 +24,11 @@ export class RootStore {
 
     telemetryStore: TelemetryStore;
 
+    /**
+     * MobX-observable locale state shared with the {@link i18n} facade.
+     */
+    translationStore: TranslationStore;
+
     constructor() {
         this.globalStore = new GlobalStore(this);
         this.authStore = new AuthStore(this);
@@ -30,5 +37,6 @@ export class RootStore {
         this.notificationsStore = new NotificationsStore(this);
         this.uiStore = new UiStore(this);
         this.telemetryStore = new TelemetryStore();
+        this.translationStore = i18n.connectStore(TranslationStore);
     }
 }

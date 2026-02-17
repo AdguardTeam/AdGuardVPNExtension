@@ -392,6 +392,12 @@
     "settings_theme_light": {
         "message": "Light"
     },
+    "settings_language_label": {
+        "message": "Language"
+    },
+    "settings_language_browser_default": {
+        "message": "Browser default"
+    },
     "settings_quick_connect_title": {
         "message": "Quick connect"
     },
