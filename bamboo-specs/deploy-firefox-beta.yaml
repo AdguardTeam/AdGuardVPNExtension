@@ -38,13 +38,6 @@ static.adtidy.net:
   variables: {}
   requirements:
     - extension: 'true'
-  notifications:
-    - events:
-        - deployment-started-and-finished
-      recipients:
-        - webhook:
-            name: Deploy webhook
-            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds
 
 GitHub:
   triggers: []
@@ -78,10 +71,3 @@ GitHub:
   variables: {}
   requirements:
     - extension: 'true'
-  notifications:
-    - events:
-        - deployment-started-and-finished
-      recipients:
-        - webhook:
-            name: Deploy webhook
-            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds
