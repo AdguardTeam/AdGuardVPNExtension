@@ -23,7 +23,12 @@ export const BackgroundAnimationCommon = observer(() => {
             // new state value on transition is string, but it's actually AnimationState
             settingsStore.setAnimationState(state.value as AnimationState);
         });
-    });
+
+        return (): void => {
+            // Finish in-progress transition to prevent animation restart
+            settingsStore.handleAnimationEnd();
+        };
+    }, [settingsStore]);
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
