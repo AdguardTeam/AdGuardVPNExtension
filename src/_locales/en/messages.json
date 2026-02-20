@@ -223,13 +223,16 @@
         "message": "Block WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Block WebRTC, a known vulnerability that can leak your real IP address even if you use a proxy or VPN"
+        "message": "Blocks WebRTC that can leak your real IP address even if you use a proxy or VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Some messengers, streaming platforms, or games may stop working properly"
     },
     "settings_context_menus_title": {
         "message": "Display AdGuard VPN in the browser context menu"
     },
     "settings_context_menus_description": {
-        "message": "Manage VPN exclusions for a specific website"
+        "message": "Allows you to manage VPN exclusions for a specific website"
     },
     "settings_help_us_improve_title": {
         "message": "Help improve AdGuard VPN"
@@ -282,7 +285,7 @@
         "message": "DNS server"
     },
     "settings_dns_description": {
-        "message": "Resolve DNS requests, block ads and trackers, and encrypt DNS traffic when you're connected to VPN"
+        "message": "Allows to select a DNS server to resolve DNS requests, block ads and trackers, and encrypt DNS traffic when you’re connected to VPN"
     },
     "settings_dns_description_current": {
         "message": "Current: %dnsServerName%"
@@ -755,7 +758,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Send anonymized <link>extension usage data</link>"
+        "message": "Sends anonymized <link>extension usage data</link>"
     },
     "popup_auth_help_us_improve_modal_desc_data": {
         "message": "If you agree, AdGuard VPN will collect data about the screens and buttons you interact with. You can always disable data sharing in <b>Settings</b>",
