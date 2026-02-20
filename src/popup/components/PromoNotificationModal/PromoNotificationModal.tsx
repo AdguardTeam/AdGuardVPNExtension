@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
@@ -12,13 +12,17 @@ import './promo-notification-modal.pcss';
 const PromoNotificationModal = observer(() => {
     const { settingsStore, authStore } = useContext(rootStore);
 
-    const [showModal, setShowModal] = useState(true);
+    const {
+        promoNotification,
+        showNotificationModal,
+        onClosePromoNotification,
+    } = settingsStore;
 
     useEffect(() => {
-        messenger.setNotificationViewed(true);
-    }, []);
-
-    const { promoNotification, showNotificationModal } = settingsStore;
+        if (showNotificationModal) {
+            messenger.setNotificationViewed(true);
+        }
+    }, [showNotificationModal]);
 
     if (!showNotificationModal || !promoNotification) {
         return null;
@@ -47,16 +51,11 @@ const PromoNotificationModal = observer(() => {
         await navActions.openTab(resUrl.toString());
     };
 
-    const onCloseHandler = async (): Promise<void> => {
-        setShowModal(false);
-        await messenger.setNotificationViewed(false);
-    };
-
     return (
         <Modal
-            isOpen={showModal}
+            isOpen={showNotificationModal}
             shouldCloseOnOverlayClick={false}
-            onRequestClose={onCloseHandler}
+            onRequestClose={onClosePromoNotification}
             className="notify__wrap"
             overlayClassName="notify"
         >
@@ -66,7 +65,7 @@ const PromoNotificationModal = observer(() => {
             >
                 <div
                     className="notify__close"
-                    onClick={onCloseHandler}
+                    onClick={onClosePromoNotification}
                 >
                     <Icon name="cross" />
                 </div>

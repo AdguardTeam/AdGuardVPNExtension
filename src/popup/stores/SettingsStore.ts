@@ -321,6 +321,14 @@ export class SettingsStore {
         this.promoNotification = promoNotification;
     };
 
+    /**
+     * Close the promo notification modal
+     */
+    @action onClosePromoNotification = async (): Promise<void> => {
+        this.promoNotification = null;
+        await messenger.setNotificationViewed(false);
+    };
+
     @action getAppearanceTheme = async (): Promise<void> => {
         let appearanceTheme = <AppearanceTheme>getThemeFromLocalStorage();
         if (appearanceTheme) {
