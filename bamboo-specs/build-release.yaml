@@ -189,6 +189,7 @@ Build:
       pattern: build.txt
       shared: true
       required: true
+    # !NOTE: never upload it to public servers, it contains .env file
     - name: source.zip
       location: build/${bamboo.buildType}
       pattern: source.zip

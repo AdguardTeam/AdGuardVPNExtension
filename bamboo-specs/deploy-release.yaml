@@ -23,6 +23,7 @@ Addons Mozilla:
     - artifact-download:
         artifacts:
           - name: firefox.zip
+          # !NOTE: never upload it to public servers, it contains .env file
           - name: source.zip
     - script:
         interpreter: SHELL

@@ -32,7 +32,17 @@ echo "FORWARDER_DOMAIN=${FORWARDER_DOMAIN}" >> .env
 # build source code for uploading to AMO / Standalone
 (git -c safe.directory=$PWD ls-files; echo ".env") | zip -@ "$OUTPUT_ZIP"
 
+# Replace README.md in source.zip with Firefox-specific README for AMO reviewers
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+zip -d "$OUTPUT_ZIP" README.md
+zip -d "$OUTPUT_ZIP" "bamboo-specs/scripts/README_FIREFOX.md" 2>/dev/null || true
+TMPDIR_FF=$(mktemp -d)
+cp "$SCRIPT_DIR/README_FIREFOX.md" "$TMPDIR_FF/README.md"
+(cd "$TMPDIR_FF" && zip "$OLDPWD/$OUTPUT_ZIP" README.md)
+rm -rf "$TMPDIR_FF"
+
 echo "source.zip created at $OUTPUT_ZIP"
+echo "NOTE: never upload source.zip to public servers, it contains .env file"
 
 # delete .env file after archiving source.zip
 rm -f .env

@@ -53,7 +53,6 @@ visit our website [https://adguard-vpn.com/](https://adguard-vpn.com/).
     - [Linting](#linting)
     - [Tests](#tests)
     - [Build](#build)
-        - [Special building instructions for Firefox reviewers](#build-firefox-review)
     - [Bundle Size Monitoring](#dev-bundle-size-monitoring)
     - [Localization](#localization)
     - [Proto scheme update](#proto)
@@ -276,44 +275,6 @@ to generate credentials for `crx` builds, see the example below:
 # Command will generate `key.pem` credential in the `./private/AdguardVPN` directory
 pnpm crx keygen ./private/AdguardVPN
 ```
-
-#### <a name="build-firefox-review"></a> Special building instructions for Firefox reviewers
-
-If you need to build the **BETA** version:
-
-1. To ensure that the extension is built in the same way, use the docker image:
-
-    ```shell
-    docker run --rm -it \
-        -v $(pwd):/workspace \
-        -w /workspace \
-        --env-file .env \
-        adguard/node-ssh:22.17--0 \
-        /bin/sh -c "
-            pnpm install && \
-            STAGE_ENV=prod \
-            pnpm beta firefox"
-    ```
-
-1. Compare the generated `build/beta/firefox.zip` file with the uploaded one.
-
-If you need to build the **RELEASE** version:
-
-1. To ensure that the extension is built in the same way, use the docker image:
-
-    ```shell
-    docker run --rm -it \
-        -v $(pwd):/workspace \
-        -w /workspace \
-        --env-file .env \
-        adguard/node-ssh:22.17--0 \
-        /bin/sh -c "
-            pnpm install && \
-            STAGE_ENV=prod \
-            pnpm release firefox"
-    ```
-
-1. Compare the generated `build/release/firefox.zip` file with the uploaded one.
 
 ### <a name="localization"></a> Localization
 
