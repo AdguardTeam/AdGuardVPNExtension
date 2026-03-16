@@ -58,6 +58,8 @@ visit our website [https://adguard-vpn.com/](https://adguard-vpn.com/).
     - [Proto scheme update](#proto)
 - [Acknowledgments](#acknowledgments)
 - [Minimum supported browser versions](#minimum-supported-browser-versions)
+- [Documentation](#documentation)
+<!-- TOC:AMO_REVIEW -->
 
 ## <a name="feedback"></a> Feedback options
 

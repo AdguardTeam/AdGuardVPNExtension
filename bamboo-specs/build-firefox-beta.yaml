@@ -5,7 +5,7 @@ plan:
   key: AVFIREFOXBSPECS
   name: vpn-extension - build firefox beta
 variables:
-  dockerNode: adguard/extension-builder:22.17--0.2--0
+  dockerNode: adguard/extension-builder:22.17--0.4.1--0
   stageEnv: prod
   buildType: beta
 
@@ -49,7 +49,7 @@ Check Bundle Size:
 
             # Install dependencies
             pnpm install ${bamboo.varsPnpm}
-            
+
             export STAGE_ENV="${bamboo.stageEnv}"
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
@@ -140,7 +140,7 @@ Build:
             # Set environment variables and run go-webext to sign the Firefox extension
             FIREFOX_CLIENT_ID="${bamboo_firefoxAmoClientId}" \
             FIREFOX_CLIENT_SECRET="${bamboo_firefoxAmoClientSecret}" \
-            go-webext -v sign firefox -f 'firefox.zip' -s 'source.zip' -o 'firefox.xpi'
+            go-webext -v sign firefox -f 'firefox.zip' -s 'source.zip' -o 'firefox.xpi' -n "$(cat approval-notes.txt)"
 
             # Exit from build/beta directory
             cd ../..

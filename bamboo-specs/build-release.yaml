@@ -195,6 +195,11 @@ Build:
       pattern: source.zip
       shared: true
       required: true
+    - name: approval-notes.txt
+      location: build/${bamboo.buildType}
+      pattern: approval-notes.txt
+      shared: true
+      required: true
   requirements:
     - extension: 'true'
 

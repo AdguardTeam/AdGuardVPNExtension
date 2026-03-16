@@ -1,0 +1,5 @@
+Build instructions are included in the attached source code archive.
+
+1. Unzip source.zip
+2. Open README.md
+3. Follow the "Building Instructions for Firefox Add-ons Review Team" section
