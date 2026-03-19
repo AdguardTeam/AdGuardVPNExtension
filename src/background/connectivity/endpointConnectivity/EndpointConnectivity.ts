@@ -12,7 +12,7 @@ import { sleepIfNecessary } from '../../../common/helpers';
 import { connectivityService, ConnectivityEventType, MIN_CONNECTION_DURATION_MS } from '../connectivityService';
 // eslint-disable-next-line import/no-cycle
 import { credentials } from '../../credentials';
-import { notifications } from '../../notifications';
+import { notifications, NotificationType } from '../../notifications';
 import { translator } from '../../../common/translator';
 
 import { type WsConnectivityInfoMsg } from './wsConnectivityInfoMsg';
@@ -320,12 +320,14 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
             await notifications.create({
                 title: translator.getMessage('notification_data_limit_reached_title'),
                 message: translator.getMessage('notification_data_limit_reached_description'),
+                notificationType: NotificationType.SpeedReduced,
             });
         }
         if (code === ErrorCode.FreeTrafficLeftMegabytes) {
             await notifications.create({
                 title: translator.getMessage('notification_data_left_mb', { num: payload }),
                 message: translator.getMessage('notification_data_left_description'),
+                notificationType: NotificationType.FreeTrafficLeft,
             });
         }
     };

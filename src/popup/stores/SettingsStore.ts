@@ -76,6 +76,8 @@ export class SettingsStore {
 
     @observable isAndroidBrowser: boolean = false;
 
+    @observable isLinux: boolean = false;
+
     @observable isFirefox: boolean | null = null;
 
     @observable arePingsRecalculating: boolean = false;
@@ -321,6 +323,14 @@ export class SettingsStore {
         this.promoNotification = promoNotification;
     };
 
+    /**
+     * Close the promo notification modal
+     */
+    @action onClosePromoNotification = async (): Promise<void> => {
+        this.promoNotification = null;
+        await messenger.setNotificationViewed(false);
+    };
+
     @action getAppearanceTheme = async (): Promise<void> => {
         let appearanceTheme = <AppearanceTheme>getThemeFromLocalStorage();
         if (appearanceTheme) {
@@ -478,6 +488,17 @@ export class SettingsStore {
     }
 
     /**
+     * Checks whether the extension is running on Linux.
+     * Sets the result to {@link isLinux}.
+     */
+    @action async setIsLinux(): Promise<void> {
+        const isLinux = await Prefs.isLinux();
+        runInAction(() => {
+            this.isLinux = isLinux;
+        });
+    }
+
+    /**
      * Checks whether the extension is running on a android browser.
      * Sets the result to {@link isAndroidBrowser}
      */
@@ -507,16 +528,16 @@ export class SettingsStore {
 
     /**
      * Sets the {@link arePingsRecalculating} to true,
-     * and re-calculates the pings for all locations.
+     * and refreshes locations from the server.
      *
-     * After the pings are re-calculated, sets the {@link arePingsRecalculating} to false.
+     * After the locations are refreshed, sets the {@link arePingsRecalculating} to false.
      */
-    @action async recalculatePings(): Promise<void> {
+    @action async refreshLocations(): Promise<void> {
         this.setArePingsRecalculating(true);
         // set the fastest locations to the cached value to avoid showing the skeleton
         this.rootStore.vpnStore.setCachedFastestLocations();
 
-        await messenger.recalculatePings();
+        await messenger.refreshLocations();
 
         setTimeout(() => {
             this.setArePingsRecalculating(false);

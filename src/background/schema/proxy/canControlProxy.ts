@@ -1,8 +1,8 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const canControlProxyScheme = zod.object({
-    canControlProxy: zod.boolean(),
-    cause: zod.string().optional(),
-}).strict();
+export const canControlProxyScheme = v.strictObject({
+    canControlProxy: v.boolean(),
+    cause: v.optional(v.string()),
+});
 
-export type CanControlProxy = zod.infer<typeof canControlProxyScheme>;
+export type CanControlProxy = v.InferOutput<typeof canControlProxyScheme>;

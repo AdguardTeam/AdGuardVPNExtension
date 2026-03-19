@@ -1,8 +1,8 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const logsValidator = zod.array(zod.string()).default([]);
+export const logsValidator = v.optional(v.array(v.string()), () => []);
 
 /**
  * Describes logs format
  */
-export type Logs = zod.infer<typeof logsValidator>;
+export type Logs = v.InferOutput<typeof logsValidator>;

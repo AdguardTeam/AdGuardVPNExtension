@@ -3,6 +3,8 @@
  * Provides an implementation of the LogStorageProvider interface for storing logs in the browser's storage.
  */
 
+import * as v from 'valibot';
+
 import { browserApi } from '../../../../background/browserApi';
 import type { LogStorageProvider } from '../LogStorageProvider';
 
@@ -41,7 +43,7 @@ export class BrowserLogStorageProvider implements LogStorageProvider {
         const logsFromStorage = await browserApi.storage.get(LOGS_STORAGE_KEY);
         let logs: Logs;
         try {
-            logs = logsValidator.parse(logsFromStorage);
+            logs = v.parse(logsValidator, logsFromStorage);
         } catch (e) {
             // we use here simple console, because this module is used in the logger.
             // eslint-disable-next-line no-console

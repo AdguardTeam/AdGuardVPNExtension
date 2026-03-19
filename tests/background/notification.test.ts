@@ -13,6 +13,9 @@ vi.mock('webextension-polyfill', () => ({
     default: {
         notifications: {
             create: vi.fn(async () => {}),
+            onClicked: {
+                addListener: vi.fn(),
+            },
         },
         runtime: {
             getURL: vi.fn(() => ''),

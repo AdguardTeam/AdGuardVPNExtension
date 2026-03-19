@@ -19,9 +19,11 @@ import {
     TelemetryTheme,
 } from '../../../src/background/telemetry/telemetryEnums';
 import { type TelemetryBaseData } from '../../../src/background/telemetry/telemetryTypes';
-import { AppearanceTheme, SubscriptionType } from '../../../src/common/constants';
+import { AppearanceTheme, SETTINGS_IDS, SubscriptionType } from '../../../src/common/constants';
 import { Prefs, SystemName } from '../../../src/common/prefs';
 import { log } from '../../../src/common/logger';
+import { notifier } from '../../../src/common/notifier';
+import { telemetryApi } from '../../../src/background/api/telemetryApi';
 
 const mockStorage = {
     get: vi.fn(),
@@ -52,24 +54,48 @@ const mockCredentials = {
     getSubscriptionType: vi.fn().mockReturnValue(SubscriptionType.Monthly),
 };
 
+const mockAbTestManager = {
+    init: vi.fn().mockResolvedValue(undefined),
+    getTestsPayload: vi.fn().mockReturnValue({}),
+    processResponse: vi.fn().mockResolvedValue(undefined),
+    getVariantsForProps: vi.fn().mockReturnValue({}),
+};
+
+const sendSessionStartSpy = vi.spyOn(telemetryApi, 'sendSessionStart')
+    .mockResolvedValue({ versions: {} });
+
 vi.spyOn(Prefs, 'getPlatformInfo').mockResolvedValue({ os: SystemName.MacOS, arch: 'arm' });
+
+const getUILanguageMock = vi.spyOn(browser.i18n, 'getUILanguage')
+    .mockReturnValue('en-US');
+const getPlatformVersionMock = vi.spyOn(Prefs, 'getPlatformVersion')
+    .mockResolvedValue('15.1.1');
+const deviceMock = vi.spyOn(Prefs, 'device', 'get')
+    .mockReturnValue({ model: 'MacBook', vendor: 'Apple', type: 'arm' });
 
 describe('Telemetry', () => {
     let telemetry: Telemetry;
     let prevUsedScreenName = TelemetryScreenName.AuthScreen;
 
     beforeEach(() => {
+        mockCredentials.getSubscriptionType.mockReturnValue(SubscriptionType.Monthly);
+        mockCredentials.isPremiumToken.mockResolvedValue(true);
+        mockAuth.isAuthenticated.mockResolvedValue(true);
+        mockSettings.getAppearanceTheme.mockReturnValue(AppearanceTheme.System);
+        getUILanguageMock.mockReturnValue('en-US');
         telemetry = new Telemetry({
             storage: mockStorage,
             telemetryProvider: mockTelemetryProvider,
-            // @ts-ignore - partially mocked app status
+            // @ts-expect-error - partially mocked app status
             appStatus: mockAppStatus,
-            // @ts-ignore - partially mocked settings
+            // @ts-expect-error - partially mocked settings
             settings: mockSettings,
-            // @ts-ignore - partially mocked auth
+            // @ts-expect-error - partially mocked auth
             auth: mockAuth,
-            // @ts-ignore - partially mocked credentials
+            // @ts-expect-error - partially mocked credentials
             credentials: mockCredentials,
+            // @ts-expect-error - partially mocked abTestManager
+            abTestManager: mockAbTestManager,
         });
         if (prevUsedScreenName === TelemetryScreenName.AuthScreen) {
             prevUsedScreenName = TelemetryScreenName.PurchaseScreen;
@@ -80,14 +106,9 @@ describe('Telemetry', () => {
 
     afterEach(() => {
         vi.clearAllMocks();
+        notifier.listeners = {};
+        notifier.listenersEvents = {};
     });
-
-    const getUILanguageMock = vi.spyOn(browser.i18n, 'getUILanguage')
-        .mockReturnValue('en-US');
-    const getPlatformVersionMock = vi.spyOn(Prefs, 'getPlatformVersion')
-        .mockResolvedValue('15.1.1');
-    const deviceMock = vi.spyOn(Prefs, 'device', 'get')
-        .mockReturnValue({ model: 'MacBook', vendor: 'Apple', type: 'arm' });
 
     const syntheticIdRegex = /^[a-f1-9]{8}$/;
     const sampleEventBaseData = {
@@ -110,6 +131,7 @@ describe('Telemetry', () => {
      * Function that sends a page view event without debouncing.
      *
      * @param screenName Name of screen.
+     * @param pageId Id of the page.
      */
     const sendPageViewEventNotDebounced = async (
         screenName: TelemetryScreenName,
@@ -211,6 +233,10 @@ describe('Telemetry', () => {
             // Check if user agent is set in memory
             await expectBaseDataPartially({
                 userAgent: {
+                    browser: {
+                        name: expect.any(String),
+                        version: expect.any(String),
+                    },
                     device: {
                         brand: 'Apple',
                         model: 'MacBook',
@@ -232,6 +258,10 @@ describe('Telemetry', () => {
             // Check if user agent is set in memory
             await expectBaseDataPartially({
                 userAgent: {
+                    browser: {
+                        name: expect.any(String),
+                        version: expect.any(String),
+                    },
                     device: {
                         brand: 'Apple',
                         model: 'MacBook',
@@ -253,6 +283,11 @@ describe('Telemetry', () => {
             // Check if user agent is set in memory
             await expectBaseDataPartially({
                 userAgent: {
+                    browser: {
+                        name: expect.any(String),
+                        version: expect.any(String),
+                    },
+                    device: undefined,
                     os: {
                         name: TelemetryOs.MacOS,
                         platform: 'arm',
@@ -274,8 +309,8 @@ describe('Telemetry', () => {
         });
 
         it('should return correct props if language and theme is changed', async () => {
-            getUILanguageMock.mockReturnValueOnce('ru-RU');
-            mockSettings.getAppearanceTheme.mockReturnValueOnce(AppearanceTheme.Dark);
+            getUILanguageMock.mockReturnValue('ru-RU');
+            mockSettings.getAppearanceTheme.mockReturnValue(AppearanceTheme.Dark);
 
             await telemetry.initState();
 
@@ -289,7 +324,7 @@ describe('Telemetry', () => {
         });
 
         it('should not include data about subscription if user is not authenticated', async () => {
-            mockAuth.isAuthenticated.mockResolvedValueOnce(false);
+            mockAuth.isAuthenticated.mockResolvedValue(false);
 
             await telemetry.initState();
 
@@ -303,7 +338,7 @@ describe('Telemetry', () => {
         });
 
         it('should not include data about subscription duration if user is not premium', async () => {
-            mockCredentials.isPremiumToken.mockResolvedValueOnce(false);
+            mockCredentials.isPremiumToken.mockResolvedValue(false);
 
             await telemetry.initState();
 
@@ -316,7 +351,7 @@ describe('Telemetry', () => {
         });
 
         it('should correctly map subscription duration if user is premium - yearly', async () => {
-            mockCredentials.getSubscriptionType.mockReturnValueOnce(SubscriptionType.Yearly);
+            mockCredentials.getSubscriptionType.mockReturnValue(SubscriptionType.Yearly);
             await telemetry.initState();
 
             await expectBaseDataPartially({
@@ -327,7 +362,7 @@ describe('Telemetry', () => {
         });
 
         it('should correctly map subscription duration if user is premium - two yearly', async () => {
-            mockCredentials.getSubscriptionType.mockReturnValueOnce(SubscriptionType.TwoYears);
+            mockCredentials.getSubscriptionType.mockReturnValue(SubscriptionType.TwoYears);
             await telemetry.initState();
 
             await expectBaseDataPartially({
@@ -338,7 +373,7 @@ describe('Telemetry', () => {
         });
 
         it('should correctly map subscription duration if user is premium - lifetime', async () => {
-            mockCredentials.getSubscriptionType.mockReturnValueOnce(undefined);
+            mockCredentials.getSubscriptionType.mockReturnValue(undefined);
             await telemetry.initState();
 
             await expectBaseDataPartially({
@@ -358,7 +393,7 @@ describe('Telemetry', () => {
         });
 
         it('should return false if user opted out', async () => {
-            mockSettings.isHelpUsImproveEnabled.mockReturnValueOnce(false);
+            mockSettings.isHelpUsImproveEnabled.mockReturnValueOnce(false).mockReturnValueOnce(false);
             await telemetry.initState();
 
             await sendPageViewEventNotDebounced(TelemetryScreenName.AuthScreen);
@@ -545,6 +580,223 @@ describe('Telemetry', () => {
                     resolve(true);
                 }, Telemetry.SEND_EVENT_TIMEOUT + 1);
             });
+        });
+    });
+
+    describe('Telemetry.runSessionStart', () => {
+        it('should call session_start during initState when telemetry is enabled', async () => {
+            await telemetry.initState();
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(sendSessionStartSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('should NOT call session_start during initState when telemetry is disabled', async () => {
+            mockSettings.isHelpUsImproveEnabled.mockReturnValueOnce(false);
+
+            await telemetry.initState();
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(sendSessionStartSpy).not.toHaveBeenCalled();
+        });
+
+        it('should call processResponse with the session_start response', async () => {
+            const mockResponse = {
+                versions: {
+                    experiment_1: {
+                        experiment_name: 'AG-001-feature-a',
+                        version_name: 'AG-001-feature-a-variant_def',
+                    },
+                },
+            };
+            sendSessionStartSpy.mockResolvedValueOnce(mockResponse);
+
+            await telemetry.initState();
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(mockAbTestManager.processResponse).toHaveBeenCalledWith(mockResponse);
+        });
+
+        it('should complete initState normally even if session_start throws', async () => {
+            sendSessionStartSpy.mockRejectedValueOnce(new Error('Network error'));
+
+            await expect(telemetry.initState()).resolves.toBeUndefined();
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(log.debug).toHaveBeenCalled();
+        });
+
+        it('should send session_start with correct base data', async () => {
+            mockStorage.get.mockResolvedValueOnce('abcd1234');
+            mockAbTestManager.getTestsPayload.mockReturnValueOnce({
+                experiment_1: 'AG-001-feature-a',
+            });
+
+            await telemetry.initState();
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(sendSessionStartSpy).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    syntheticId: 'abcd1234',
+                    appType: 'VPN_EXTENSION',
+                    version: '2.3.13',
+                    props: expect.objectContaining({
+                        appLocale: 'en-US',
+                        systemLocale: 'en-US',
+                        loggedIn: true,
+                        licenseStatus: 'PREMIUM',
+                        subscriptionDuration: 'MONTHLY',
+                    }),
+                }),
+                { experiment_1: 'AG-001-feature-a' },
+            );
+        });
+
+        it('should trigger session_start when user enables marketing consent', async () => {
+            await telemetry.initState();
+
+            sendSessionStartSpy.mockClear();
+
+            notifier.notifyListeners(
+                notifier.types.SETTING_UPDATED,
+                SETTINGS_IDS.HELP_US_IMPROVE,
+                true,
+            );
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(sendSessionStartSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('should NOT trigger session_start when user disables marketing consent', async () => {
+            await telemetry.initState();
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            sendSessionStartSpy.mockClear();
+
+            notifier.notifyListeners(
+                notifier.types.SETTING_UPDATED,
+                SETTINGS_IDS.HELP_US_IMPROVE,
+                false,
+            );
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(sendSessionStartSpy).not.toHaveBeenCalled();
+        });
+
+        it('should NOT trigger session_start when other settings are updated', async () => {
+            await telemetry.initState();
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            sendSessionStartSpy.mockClear();
+
+            notifier.notifyListeners(
+                notifier.types.SETTING_UPDATED,
+                SETTINGS_IDS.PROXY_ENABLED,
+                true,
+            );
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(sendSessionStartSpy).not.toHaveBeenCalled();
+        });
+
+        it('should NOT trigger session_start when marketing consent is enabled before initialization', async () => {
+            sendSessionStartSpy.mockClear();
+
+            notifier.notifyListeners(
+                notifier.types.SETTING_UPDATED,
+                SETTINGS_IDS.HELP_US_IMPROVE,
+                true,
+            );
+
+            await new Promise((resolve) => {
+                setTimeout(resolve, 0);
+            });
+
+            expect(sendSessionStartSpy).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    describe('Telemetry.getProps (experiment variants)', () => {
+        it('should include experiment variants in props when variants are cached', async () => {
+            mockAbTestManager.getVariantsForProps.mockReturnValue({
+                experiment_1: 'AG-001-feature-a-variant_def',
+                experiment_2: 'AG-002-feature-b-variant_b',
+            });
+
+            await telemetry.initState();
+
+            await expectBaseDataPartially({
+                props: expect.objectContaining({
+                    experiment_1: 'AG-001-feature-a-variant_def',
+                    experiment_2: 'AG-002-feature-b-variant_b',
+                }),
+            });
+        });
+
+        it('should not include experiment props when no variants are cached', async () => {
+            mockAbTestManager.getVariantsForProps.mockReturnValue({});
+
+            await telemetry.initState();
+
+            await expectBaseDataPartially({
+                props: expect.not.objectContaining({
+                    experiment_1: expect.anything(),
+                    experiment_2: expect.anything(),
+                    experiment_3: expect.anything(),
+                }),
+            });
+        });
+
+        it('should include experiment variants in custom event props', async () => {
+            mockAbTestManager.getVariantsForProps.mockReturnValue({
+                experiment_1: 'AG-001-feature-a-variant_def',
+            });
+
+            await telemetry.initState();
+
+            await sendCustomEventNotDebounced(
+                TelemetryActionName.OnboardingPurchaseClick,
+                TelemetryScreenName.PurchaseScreen,
+            );
+
+            expect(mockTelemetryProvider.sendCustomEvent).toHaveBeenCalledWith(
+                expect.any(Object),
+                expect.objectContaining({
+                    props: expect.objectContaining({
+                        experiment_1: 'AG-001-feature-a-variant_def',
+                    }),
+                }),
+            );
         });
     });
 });

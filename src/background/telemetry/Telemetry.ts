@@ -9,9 +9,11 @@ import { type SettingsInterface } from '../settings/settings';
 import { type AuthInterface } from '../auth';
 import { type CredentialsInterface } from '../credentials/Credentials';
 import { Prefs, SystemName } from '../../common/prefs';
-import { AppearanceTheme, SubscriptionType } from '../../common/constants';
+import { AppearanceTheme, SETTINGS_IDS, SubscriptionType } from '../../common/constants';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
+import { type ABTestManager } from '../abTestManager/ABTestManager';
+import { telemetryApi } from '../api/telemetryApi';
 
 import {
     type TelemetryActionName,
@@ -111,6 +113,11 @@ export interface TelemetryParameters {
      * Credentials service.
      */
     credentials: CredentialsInterface;
+
+    /**
+     * A/B test manager (slot-based).
+     */
+    abTestManager: ABTestManager;
 }
 
 /**
@@ -239,9 +246,20 @@ export class Telemetry implements TelemetryInterface {
     private credentials: CredentialsInterface;
 
     /**
+     * A/B test manager (slot-based).
+     */
+    private abTestManager: ABTestManager;
+
+    /**
      * Flag indicating whether telemetry module is initialized or not.
      */
     private isInitialized = false;
+
+    /**
+     * Flag indicating whether a session_start request is currently in progress.
+     * Prevents concurrent session_start calls.
+     */
+    private sessionStartInProgress = false;
 
     /**
      * Synthetic ID.
@@ -305,6 +323,7 @@ export class Telemetry implements TelemetryInterface {
         settings,
         auth,
         credentials,
+        abTestManager,
     }: TelemetryParameters) {
         this.storage = storage;
         this.telemetryProvider = telemetryProvider;
@@ -312,6 +331,7 @@ export class Telemetry implements TelemetryInterface {
         this.settings = settings;
         this.auth = auth;
         this.credentials = credentials;
+        this.abTestManager = abTestManager;
         notifier.addSpecifiedListener(
             notifier.types.PORT_CONNECTED,
             this.handlePopupConnect.bind(this),
@@ -319,6 +339,10 @@ export class Telemetry implements TelemetryInterface {
         notifier.addSpecifiedListener(
             notifier.types.PORT_DISCONNECTED,
             this.handlePopupDisconnect.bind(this),
+        );
+        notifier.addSpecifiedListener(
+            notifier.types.SETTING_UPDATED,
+            this.handleSettingUpdated.bind(this),
         );
     }
 
@@ -329,6 +353,37 @@ export class Telemetry implements TelemetryInterface {
         this.syntheticId = await this.gainSyntheticId();
         this.userAgent = await Telemetry.getUserAgent();
         this.isInitialized = true;
+
+        await this.runSessionStart();
+    };
+
+    /**
+     * Sends a session_start request to request A/B experiment variant assignments.
+     * Fire-and-forget: errors are caught and logged; the extension continues normally.
+     * Prevents concurrent calls using sessionStartInProgress flag.
+     */
+    private runSessionStart = async (): Promise<void> => {
+        if (!this.settings.isHelpUsImproveEnabled()) {
+            return;
+        }
+
+        if (this.sessionStartInProgress) {
+            return;
+        }
+
+        this.sessionStartInProgress = true;
+
+        try {
+            const tests = await this.abTestManager.getTestsPayload();
+            const baseData = await this.getBaseData();
+
+            const response = await telemetryApi.sendSessionStart(baseData, tests);
+            await this.abTestManager.processResponse(response);
+        } catch (e) {
+            log.debug('[vpn.Telemetry]: session_start failed', e);
+        } finally {
+            this.sessionStartInProgress = false;
+        }
     };
 
     /**
@@ -409,13 +464,11 @@ export class Telemetry implements TelemetryInterface {
      * @param actionName Name of the action.
      * @param screenName Name of the screen.
      * @param label Optional label for the event.
-     * @param experiment Optional experiment tag for event.
      */
     private async sendCustomEvent<T extends TelemetryActionName>(
         actionName: T,
         screenName: TelemetryActionToScreenMap[T],
         label?: string,
-        experiment?: string,
     ): Promise<void> {
         if (!this.canSendEvents()) {
             return;
@@ -442,7 +495,6 @@ export class Telemetry implements TelemetryInterface {
             name: actionName,
             refName: actualScreenName,
             label,
-            experiment,
         };
 
         await this.telemetryProvider.sendCustomEvent(event, baseData);
@@ -503,6 +555,21 @@ export class Telemetry implements TelemetryInterface {
      */
     private handlePopupDisconnect(portName: string): void {
         this.removeOpenedPage(portName);
+    }
+
+    /**
+     * Handles setting updated event.
+     * Triggers session_start when user enables marketing consent.
+     *
+     * @param settingId ID of the updated setting.
+     * @param value New value of the setting.
+     */
+    private handleSettingUpdated(settingId: string, value: unknown): void {
+        if (settingId === SETTINGS_IDS.HELP_US_IMPROVE && value === true) {
+            if (this.isInitialized) {
+                this.runSessionStart();
+            }
+        }
     }
 
     /**
@@ -584,8 +651,16 @@ export class Telemetry implements TelemetryInterface {
             };
         }
 
+        // get browser info
+        const browserName = Prefs.browser;
+        const browserVersion = Prefs.getBrowserVersion();
+
         return {
             device,
+            browser: {
+                name: browserName,
+                version: browserVersion,
+            },
             os: {
                 name: Telemetry.OS_MAPPER[os],
                 platform: arch,
@@ -623,6 +698,8 @@ export class Telemetry implements TelemetryInterface {
                 : Telemetry.DURATION_MAPPER.Unlimited;
         }
 
+        const experimentVariants = await this.abTestManager.getVariantsForProps();
+
         return {
             appLocale: locale,
             systemLocale: locale,
@@ -630,6 +707,7 @@ export class Telemetry implements TelemetryInterface {
             licenseStatus,
             subscriptionDuration,
             theme: Telemetry.THEME_MAPPER[appearanceTheme],
+            ...experimentVariants,
         };
     }
 

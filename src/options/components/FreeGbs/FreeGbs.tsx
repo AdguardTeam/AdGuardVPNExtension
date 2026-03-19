@@ -19,6 +19,7 @@ import { Controls } from '../ui/Controls';
 import { InviteFriend } from './InviteFriend';
 import { ConfirmEmail } from './ConfirmEmail';
 import { AddDevice } from './AddDevice';
+import { PromoteSocials } from './PromoteSocials';
 
 import './free-gbs.pcss';
 
@@ -78,6 +79,11 @@ const CONFIRM_EMAIL = 'confirm-email';
 const ADD_DEVICE = 'add-device';
 
 /**
+ * Free GBs promote socials page query.
+ */
+const PROMOTE_SOCIALS = 'promote-socials';
+
+/**
  * Free GBs page component.
  */
 export const FreeGbs = observer(() => {
@@ -105,11 +111,14 @@ export const FreeGbs = observer(() => {
     const isInviteFriendPage = query.has(INVITE_FRIEND);
     const isConfirmEmailPage = query.has(CONFIRM_EMAIL);
     const isAddDevicePage = query.has(ADD_DEVICE);
+    const isPromoteSocialsPage = query.has(PROMOTE_SOCIALS);
     const isLoading = bonusesDataRequestStatus !== RequestStatus.Done;
 
-    const canSendTelemetry = !isInviteFriendPage // `FreeGbInviteFriendScreen` is rendered on top of this screen
-        && !isConfirmEmailPage // `FreeGbConfirmEmailScreen` is rendered on top of this screen
-        && !isAddDevicePage; // `FreeGbAddAnotherPlatformScreen` is rendered on top of this screen
+    // Don't send telemetry for FreeGbScreen when a nested screen is rendered on top of it
+    const canSendTelemetry = !isInviteFriendPage
+        && !isConfirmEmailPage
+        && !isAddDevicePage
+        && !isPromoteSocialsPage;
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -155,6 +164,14 @@ export const FreeGbs = observer(() => {
             completed: addDeviceQuestCompleted,
             telemetryActionName: TelemetryActionName.AddGbDeviceClick,
         },
+        {
+            title: translator.getMessage('settings_free_gbs_promote_socials'),
+            status: translator.getMessage('settings_free_gbs_promote_socials_get_gb', { num: COMPLETE_TASK_BONUS_GB }),
+            statusDone: '', // This section has no completion criteria.
+            query: PROMOTE_SOCIALS,
+            completed: false,
+            telemetryActionName: TelemetryActionName.PromoteSocialsClick,
+        },
     ];
 
     const renderItem = ({
@@ -196,6 +213,10 @@ export const FreeGbs = observer(() => {
 
     if (isAddDevicePage) {
         return <AddDevice goBackHandler={goBackHandler} />;
+    }
+
+    if (isPromoteSocialsPage) {
+        return <PromoteSocials goBackHandler={goBackHandler} />;
     }
 
     if (isLoading) {

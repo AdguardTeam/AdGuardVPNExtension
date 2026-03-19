@@ -3,6 +3,7 @@ import React, { type ReactElement } from 'react';
 import classNames from 'classnames';
 
 import { IconButton } from '../../../../common/components/Icons';
+import { translator } from '../../../../common/translator';
 
 import './title.pcss';
 
@@ -62,7 +63,11 @@ export function Title({
     );
 
     return (
-        <div className={classes} onClick={onClick}>
+        <div
+            className={classes}
+            onClick={onClick}
+            aria-label={isBackTitle ? translator.getMessage('a11y_go_back') : undefined}
+        >
             <div className="title__text">
                 <div className="title__text-start">
                     {isBackTitle && <IconButton name="arrow-down" rotation="counter-clockwise" />}

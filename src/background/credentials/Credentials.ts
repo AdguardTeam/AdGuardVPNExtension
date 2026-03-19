@@ -19,7 +19,6 @@ import {
 import { StateData } from '../stateStorage';
 import { auth, type AuthInterface } from '../auth';
 import { appStatus } from '../appStatus';
-import { abTestManager } from '../abTestManager';
 import { ERROR_STATUSES } from '../constants';
 import { SETTINGS_IDS, type SubscriptionType } from '../../common/constants';
 import { settings } from '../settings';
@@ -727,9 +726,7 @@ export class Credentials implements CredentialsInterface {
             const appId = await this.getAppId();
             const { version } = appStatus;
 
-            const experiments = abTestManager.getExperiments();
-            const response = await this.vpnProvider.trackExtensionInstallation(appId, version, experiments);
-            await abTestManager.setVersions(response.experiments);
+            await this.vpnProvider.trackExtensionInstallation(appId, version);
 
             await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
             log.info('[vpn.Credentials.trackInstallation]: Installation successfully tracked');

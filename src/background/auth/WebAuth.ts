@@ -2,6 +2,7 @@ import browser, { type WebRequest } from 'webextension-polyfill';
 import qs from 'qs';
 import { nanoid } from 'nanoid';
 import { interpret } from 'xstate';
+import * as v from 'valibot';
 
 import { AUTH_CLIENT_ID } from '../config';
 import { log } from '../../common/logger';
@@ -637,14 +638,14 @@ export class WebAuth implements WebAuthInterface {
             } = qs.parse(hash.slice(1));
 
             // Validate query params
-            const validatedParams = authAccessTokenScheme.safeParse({
+            const validatedParams = v.safeParse(authAccessTokenScheme, {
                 accessToken,
                 expiresIn: Number(expiresIn),
                 tokenType,
                 scope: WebAuth.AUTH_SCOPE,
             });
             if (!validatedParams.success) {
-                throw new Error(`Invalid query params received from web authentication flow: ${validatedParams.error.message}.`);
+                throw new Error(`Invalid query params received from web authentication flow: ${JSON.stringify(v.flatten(validatedParams.issues))}.`);
             }
 
             // Match state
@@ -657,10 +658,10 @@ export class WebAuth implements WebAuthInterface {
 
             // Authenticate user
             await this.auth.setAccessToken({
-                accessToken: validatedParams.data.accessToken,
-                expiresIn: validatedParams.data.expiresIn,
-                tokenType: validatedParams.data.tokenType,
-                scope: validatedParams.data.scope,
+                accessToken: validatedParams.output.accessToken,
+                expiresIn: validatedParams.output.expiresIn,
+                tokenType: validatedParams.output.tokenType,
+                scope: validatedParams.output.scope,
             });
 
             // Notify flags storage

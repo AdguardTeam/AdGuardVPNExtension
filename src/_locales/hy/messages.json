@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Վերադառնալ"
+    },
     "about_title": {
         "message": "Ծրագրի մասին"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Թարմացնել դեպի Unlimited "
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Գովազդել AdGuard VPN-ը սոցիալական ցանցերում"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Գովազդեք AdGuard VPN-ը սոցցանցերում և ստացեք %your_gb%GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Գրեք գրառում X-ում կամ Facebook-ում և հղումը կիսվեք մեզ հետ։ Մենք այն կվերանայենք և ձեր հաշիվին կավելացնենք %your_gb% GB։ Ընդհանուր առմամբ կարող եք վաստակել մինչև %total_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Ստանալ բոնուս"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Ստացեք %num% ԳԲ"
+    },
     "settings_rate_us": {
         "message": "Գնահատեք մեզ"
     },
@@ -223,13 +241,16 @@
         "message": "Արգելափակել WebRTC-ին"
     },
     "settings_webrtc_desc": {
-        "message": "Խոչընդոտում WebRTC, հայտնի խոցելիություն, որը կարող է արտահոսել ձեր իրական IP հասցեն նույնիսկ եթե դուք օգտագործում եք proxy կամ VPN"
+        "message": "Արգելափակում է WebRTC, որը կարող է արտահանել ձեր իրական IP հասցեն, նույնիսկ եթե դուք օգտագործում եք պրոքսի կամ VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Որոշ մեսենջերներ, հոսքային հարթակներ կամ խաղեր կարող են դադարեցնել ճիշտ աշխատելը"
     },
     "settings_context_menus_title": {
         "message": "Ցուցաբերել AdGuard VPN-ը դիտարկիչի համատեքստային ցանկում"
     },
     "settings_context_menus_description": {
-        "message": "Գործարկել VPN բացառությունները որոշակի կայքի համար"
+        "message": "Թույլ է տալիս կառավարել VPN բացառությունները որոշակի կայքի համար"
     },
     "settings_help_us_improve_title": {
         "message": "Օգնեք բարելավել AdGuard VPN-ն"
@@ -241,22 +262,30 @@
         "message": "Այս տվյալները ներառում են՝"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Ապրանքներ, որոնք դուք օգտագործում եք"
+        "message": "Էջերի անվանումներ, որոնց հետ Դուք շփվում եք",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Նաև այն կոճակները, որոնց վրա դուք սեղմում եք"
+        "message": "Սեղմված կոճակների անուններ",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Բաժինների նույնականացուցիչները"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Մենք այս տեղեկությունները պետք է վերլուծենք և բարելավենք AdGuard VPN-ի գործառույթները"
+        "message": "Մենք այս տեղեկությունները պետք է վերլուծենք և բարելավենք AdGuard VPN-ի գործառույթները",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Այս տվյալները անանուն են և օգտագործվում են միայն ներքին"
+        "message": "Այս տվյալները անանուն են և օգտագործվում են միայն ներքին",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Հասկացա"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Գաղտնիության քաղաքականություն",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Ընտրովի ռեժիմ"
@@ -274,7 +303,7 @@
         "message": "DNS սերվեր"
     },
     "settings_dns_description": {
-        "message": "Ջատակի DNS պահանջները, արգելակել գովազդներն ու հետևողներին, և Encrypt DNS տրաֆիկը, երբ դուք միացված եք VPN-ին"
+        "message": "Թույլ է տալիս ընտրել DNS սերվեր DNS հարցումները լուծելու, գովազդներն ու տրեքերները արգելափակելու և VPN-ին միացված ժամանակ DNS երթևեկությունը գաղտնագրելու համար"
     },
     "settings_dns_description_current": {
         "message": "Ընթացիկ. %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Բաց"
+    },
+    "settings_language_label": {
+        "message": "Լեզուն՝"
+    },
+    "settings_language_browser_default": {
+        "message": "Բռաուզերի լռելյայն"
     },
     "settings_quick_connect_title": {
         "message": "Ապահով կապ"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Անջատել VPN-ը այս կայքում"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Ապահով VPN այս կայքի համար"
-    },
     "popup_settings_other_products": {
         "message": "Այլ արտադրանքներ"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Արդիացնել"
     },
+    "popup_paywall_b_title": {
+        "message": "Տվյալների սահմանաչափը հասել է — բովանդակությունը ավելի երկար է բեռնվում"
+    },
+    "popup_paywall_b_description": {
+        "message": "Փորձեք AdGuard VPN Unlimited-ը։ Տարեկան պլանով դուք խնայում եք 67%%։"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Անվճար",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Unlimited",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "VPN տվյալներ",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% ԳԲ<span>/ամս</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Արագութ.",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Նվազեցված",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Սերվերի տեղանքներ",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Սարքեր",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Արդիացնել"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Միգուցե հետո"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "անվճար փորձել"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Այն առաջարկում է բարձր արագությամբ կապեր, հասանելիություն բոլոր տեղանքներին և ավելին"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Հոսք բարձր արագությամբ՝ առանց սահմանափակումների"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Դիտեք բովանդակությունը%count%-ից և սերվերի տեղանքներից"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Օգտագործեք AdGuard VPN-ը միաժամանակ %count% սարքերում"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Թաքցրեք ձեր ցանց ակտիվությունը՝ որպես բոնուս AdGuard DNS-ով"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Ստանալ Unlimited"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Միգուցե հետո"
+    },
     "popup_feedback_title": {
         "message": "Մենք ուզում ենք լսել ձեր կարծիքը"
     },
@@ -741,13 +850,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Ուղարկել անանուն <link>լայնացման օգտագործման</link> տվյալներ"
-    },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Եթե Դուք համաձայնեք, AdGuard VPN-ը կգտնի տվյալներ այն էկրանների և կոճակների մասին, որոնց հետ Դուք համագործակցում եք: Դուք միշտ կարող եք անջատել տվյալների կիսումը <b>Настройки</b>։"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Այս տեղեկությունը մեզ օգնում է հասկանալ, թե որ ֆունկցիաները լավ են աշխատում և ինչ պետք է բարելավվի։ Այն անոնիմացված է և օգտագործվում է միայն ներքին։ Մենք երբեք չենք կիսվում դրանով որևէ մեկի հետ։"
+        "message": "Ուղարկում է անանունացված <link>ընդլայնման օգտագործման տվյալներ</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Մուտք գործել կամ ստեղծել հաշիվ"
@@ -768,7 +871,7 @@
         "message": "Հատուկ VPN պրոտոկոլ"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "AdGuard VPN-ի պրոտոկոլը արագ աշխատում է և դարձնում է ձեր VPN տրաֆիկը աննկատ"
+        "message": "TrustTunnel պրոտոկոլը արագ է աշխատում և ձեր VPN երթևեկությունը աննկատ է դարձնում"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Կայքերի և կիրառումների բացառություններ"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Չեք կարող միանալ:"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Ավելի կայուն կապի համար անցեք դեսքթոփ տարբերակին"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Ավելի կայուն միացման համար անցեք բջջային տարբերակի"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Ավելի կայուն կապի համար անցեք AdGuard VPN-ին Linux-ի համար"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Սեղանային տարբերակը ավելի կայուն է"
+        "message": "Ավելի կայուն կապի համար անցեք դեսքթոփ տարբերակին"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Ավելի կայուն միացման համար անցեք բջջային տարբերակի"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Ավելի կայուն կապի համար անցեք AdGuard VPN-ին Linux-ի համար"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "Եթե դուք ունեք միացման խնդիրներ, խորհուրդ ենք տալիս փոխել սեղանային տարբերակին `այն ավելի փարթամ աշխատում է"
+        "message": "Եթե նկատում եք կապի խնդիրներ, խորհուրդ ենք տալիս անցնել դեսքթոփ տարբերակին։ Այն աշխատում է ավելի հարթ"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Եթե նկատում եք կապի խնդիրներ, խորհուրդ ենք տալիս անցնել բջջային տարբերակին։ Այն աշխատում է ավելի հարթ"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Եթե նկատում եք կապի խնդիրներ, խորհուրդ ենք տալիս մեր Linux VPN հաճախորդը։ Այն աշխատում է ավելի հարթ"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Սեղանային տարբերակը ստանալ"
+        "message": "Ներբեռնել"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Ինչպես տեղադրել"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Ավելի ուշ"

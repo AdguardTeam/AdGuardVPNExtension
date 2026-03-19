@@ -1,19 +1,19 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { SubscriptionType } from '../../../common/constants';
 
-const vpnSubscriptionScheme = zod.object({
-    next_bill_date_iso: zod.string(),
-    duration_v2: zod.nativeEnum(SubscriptionType),
+const vpnSubscriptionScheme = v.object({
+    next_bill_date_iso: v.string(),
+    duration_v2: v.enum(SubscriptionType),
 });
 
-export const vpnTokenDataScheme = zod.object({
-    token: zod.string(),
-    licenseStatus: zod.string(),
-    timeExpiresSec: zod.number(),
-    timeExpiresIso: zod.string(),
-    licenseKey: zod.string().nullable(),
-    vpnSubscription: vpnSubscriptionScheme.or(zod.null()),
+export const vpnTokenDataScheme = v.object({
+    token: v.string(),
+    licenseStatus: v.string(),
+    timeExpiresSec: v.number(),
+    timeExpiresIso: v.string(),
+    licenseKey: v.nullable(v.string()),
+    vpnSubscription: v.nullable(vpnSubscriptionScheme),
 });
 
-export type VpnTokenData = zod.infer<typeof vpnTokenDataScheme>;
+export type VpnTokenData = v.InferOutput<typeof vpnTokenDataScheme>;

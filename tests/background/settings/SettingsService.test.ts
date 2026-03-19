@@ -10,7 +10,7 @@ import {
 import { SettingsService } from '../../../src/background/settings/SettingsService';
 import { sleep } from '../../../src/common/helpers';
 
-const SCHEME_VERSION = '13';
+const SCHEME_VERSION = '14';
 
 vi.mock('../../../src/background/exclusions/services/ServicesManager', () => ({
     servicesManager: {
@@ -197,6 +197,51 @@ describe('SettingsService', () => {
 
             expect(newSettings.VERSION).toBe('13');
             expect(abTestStorage[AB_TEST_STORAGE_KEY]).toEqual(newAbTestData);
+        });
+    });
+
+    describe('migrateFrom13to14', () => {
+        const AB_TEST_STORAGE_KEY = 'ab_test_manager.versions';
+
+        beforeEach(() => {
+            // @ts-ignore - partly implementation
+            settingsService = new SettingsService(storage, defaults);
+            delete abTestStorage[AB_TEST_STORAGE_KEY];
+        });
+
+        afterEach(async () => {
+            await settingsService.clearSettings();
+            delete abTestStorage[AB_TEST_STORAGE_KEY];
+        });
+
+        it('removes the old AB test storage key completely', async () => {
+            const oldSettings = {
+                VERSION: '13',
+                enabled: true,
+            };
+
+            const abTestData = [
+                { version: 'AG-47804-streaming-test-a_def', completed: false },
+                { version: 'AG-47804-streaming-test-b', completed: true },
+            ];
+            abTestStorage[AB_TEST_STORAGE_KEY] = abTestData;
+
+            const newSettings = await settingsService.migrateFrom13to14(oldSettings);
+
+            expect(newSettings.VERSION).toBe('14');
+            expect(abTestStorage[AB_TEST_STORAGE_KEY]).toBeUndefined();
+        });
+
+        it('handles migration when AB test storage key does not exist', async () => {
+            const oldSettings = {
+                VERSION: '13',
+                enabled: true,
+            };
+
+            const newSettings = await settingsService.migrateFrom13to14(oldSettings);
+
+            expect(newSettings.VERSION).toBe('14');
+            expect(abTestStorage[AB_TEST_STORAGE_KEY]).toBeUndefined();
         });
     });
 });

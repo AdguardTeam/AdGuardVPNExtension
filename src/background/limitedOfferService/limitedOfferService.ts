@@ -4,7 +4,7 @@ import { ONE_DAY_MS, ONE_HOUR_MS } from '../../common/constants';
 import { log } from '../../common/logger';
 import { type BrowserApi, browserApi } from '../browserApi';
 import { credentials } from '../credentials';
-import { notifications } from '../notifications';
+import { notifications, NotificationType } from '../notifications';
 import { StateData } from '../stateStorage';
 import { StorageKey } from '../schema';
 import { ForwarderUrlQueryKey } from '../config';
@@ -195,6 +195,7 @@ class LimitedOfferService {
         await notifications.create({
             title: translator.getMessage('limited_offer_notification_title', { discount }),
             message: translator.getMessage('limited_offer_notification_desc'),
+            notificationType: NotificationType.PromoOffer,
         });
     }
 

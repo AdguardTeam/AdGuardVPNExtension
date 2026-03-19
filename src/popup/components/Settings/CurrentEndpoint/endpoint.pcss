@@ -3,7 +3,7 @@
     flex-direction: row;
     /* Figma gap is 16, but it has 2 digit ping and we have 3 digit ping min width */
     /* so this difference makes our gap 11px less which is 5px */
-    gap: 5px;
+    column-gap: 5px;
     font-size: 14px;
     line-height: 18px;
     font-weight: 400;
@@ -24,6 +24,7 @@
     /* so we need to override existing styles for new design. */
     &--re-designed {
         align-items: flex-start;
+        flex-wrap: wrap;
     }
 
     &:last-child {
@@ -41,14 +42,14 @@
 
     &__location-container {
         margin: 0 12px;
-        max-width: 108px;
         text-align: left;
 
         .endpoint--re-designed & {
-            flex: 1 1 auto;
+            flex: 1 1 0;
+            min-width: 0;
             margin-right: 0;
-            max-width: none;
             overflow: hidden;
+            padding-right: 24px;
         }
     }
 
@@ -138,7 +139,8 @@
         position: relative;
 
         .endpoint--re-designed & {
-            flex: 1 1 auto;
+            flex: 1 1 0;
+            min-width: 0;
             overflow: hidden;
         }
     }
@@ -187,10 +189,20 @@
         align-items: center;
         gap: 4px;
         margin-top: 8px;
+        margin-left: 36px;
         padding: 0;
+        width: 100%;
+        text-align: left;
     }
 
     &__streaming-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow-wrap: anywhere;
+
         font-size: 12px;
         line-height: 1.3;
         color: var(--text-description-description-default, #7F7F7F);

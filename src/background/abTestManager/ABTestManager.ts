@@ -1,111 +1,189 @@
-import {
-    type ExperimentsResponse,
-    type VersionsResponse,
-    versionsSchema,
-} from '../schema/credentials/trackInstallResponse';
+import * as v from 'valibot';
+
+import { type ExperimentSlot, type SessionStartResponse } from '../telemetry/telemetryTypes';
 import { browserApi } from '../browserApi';
 import { log } from '../../common/logger';
 
-import { AG47804_STREAMING_B_FLOW_VERSION_ID, AG47804_STREAMING_DEFAULT_FLOW_VERSION_ID } from './constants';
+import { type ExperimentRegistry } from './constants';
 
 /**
- * Class representing a manager for handling AB tests.
+ * Schema for the variant cache stored in browser.storage.local.
+ * Maps ExperimentSlot keys to version_name strings.
+ */
+const variantCacheSchema = v.record(
+    v.union([
+        v.literal('experiment_1'),
+        v.literal('experiment_2'),
+        v.literal('experiment_3'),
+    ]),
+    v.string(),
+);
+
+/**
+ * In-memory variant cache type.
+ */
+export type VariantCache = Partial<Record<ExperimentSlot, string>>;
+
+/**
+ * Slot-based A/B test manager for the new split-testing platform.
+ *
+ * Manages experiment variant assignments via the /api/v1/session_start endpoint.
+ * Caches server-assigned variants in local storage and exposes them
+ * for injection into all telemetry event props.
  */
 class ABTestManager {
     /**
-     * A list of experiment names.
+     * Storage key for the variant cache.
      */
-    experiments: string[] = [];
+    public static readonly VARIANTS_STORAGE_KEY = 'ab_test_manager.variants';
 
     /**
-     * An object representing the versions response
+     * Experiment registry defining active experiments.
      */
-    versions: VersionsResponse;
+    private readonly registry: ExperimentRegistry;
 
     /**
-     * Key for storing versions in browser storage.
+     * In-memory variant cache. Populated by init() and processResponse().
      */
-    static VERSIONS_STORAGE_KEY = 'ab_test_manager.versions';
+    private variantCache: VariantCache | null = null;
 
     /**
-     * Create a new ABTestManager.
-     * @param experiments - An array of experiment names.
+     * Promise that resolves when variantCache is loaded from storage.
+     * Used for lazy initialization.
      */
-    constructor(experiments: string[]) {
-        this.experiments = experiments;
+    private variantCachePromise: Promise<VariantCache> | null = null;
+
+    /**
+     * @param registry Experiment registry entries (slot → experimentId mappings).
+     */
+    constructor(registry: ExperimentRegistry) {
+        this.registry = registry;
     }
 
     /**
-     * Get a comma-separated string of experiments.
-     * @returns A string of experiments.
+     * Ensures variantCache is loaded from storage.
+     * Uses lazy loading, subsequent calls reuse the same promise.
+     *
+     * @returns Promise that resolves to the variant cache.
      */
-    getExperiments(): string {
-        return this.experiments.join(',');
+    private async getVariantsCache(): Promise<VariantCache> {
+        if (this.variantCache !== null) {
+            return this.variantCache;
+        }
+
+        if (this.variantCachePromise === null) {
+            this.variantCachePromise = this.loadFromStorage()
+                .then((cache) => {
+                    this.variantCache = cache;
+                    return cache;
+                })
+                .finally(() => {
+                    this.variantCachePromise = null;
+                });
+        }
+
+        return this.variantCachePromise;
     }
 
     /**
-     * Set versions response.
-     * @param experiments - An object representing the experiments response.
+     * Builds the `tests` payload for the session_start request.
+     * Only includes slots from the registry that have no cached variant.
+     *
+     * @returns Partial record of slot → experimentId for unassigned slots.
      */
-    async setVersions(experiments: ExperimentsResponse): Promise<void> {
-        this.versions = experiments?.selected_versions ?? [];
-        await this.setVersionsToStorage(this.versions);
+    async getTestsPayload(): Promise<VariantCache> {
+        const cache = await this.getVariantsCache();
+        const tests: VariantCache = {};
+
+        const entries = Object.entries(this.registry) as [ExperimentSlot, string][];
+        entries.forEach(([slot, experimentId]) => {
+            if (!cache[slot]) {
+                tests[slot] = experimentId;
+            }
+        });
+
+        return tests;
     }
 
     /**
-     * Store versions response in browser storage.
-     * @param versions - An object representing the versions response.
+     * Processes the session_start response, caching returned version_name values.
+     * Only slots present in the registry are accepted; unknown slots are ignored.
+     *
+     * @param response Parsed response from the session_start endpoint.
      */
-    async setVersionsToStorage(versions: VersionsResponse): Promise<void> {
-        await browserApi.storage.set(ABTestManager.VERSIONS_STORAGE_KEY, versions);
+    async processResponse(response: SessionStartResponse): Promise<void> {
+        const cache = await this.getVariantsCache();
+        let hasChanges = false;
+
+        const entries = Object.entries(response.versions) as [
+            ExperimentSlot,
+            SessionStartResponse['versions'][ExperimentSlot],
+        ][];
+
+        entries.forEach(([slot, assignment]) => {
+            if (!(slot in this.registry)) {
+                return;
+            }
+
+            if (assignment?.version_name) {
+                cache[slot] = assignment.version_name;
+                hasChanges = true;
+            }
+        });
+
+        if (hasChanges) {
+            await this.saveToStorage(cache);
+        }
     }
 
     /**
-     * Retrieve versions response from browser storage.
-     * @returns An object representing the versions response.
+     * Returns the current variant cache for injection into telemetry event props.
+     * Only slots with a cached variant are included.
+     *
+     * @returns Partial record of slot → version_name for assigned slots only.
      */
-    async getVersionsFromStorage(): Promise<VersionsResponse> {
-        const rawVersions = await browserApi.storage.get(ABTestManager.VERSIONS_STORAGE_KEY);
-        let versions: VersionsResponse = [];
+    async getVariantsForProps(): Promise<VariantCache> {
+        const cache = await this.getVariantsCache();
+        const result: VariantCache = {};
+
+        const entries = Object.entries(cache) as [ExperimentSlot, string | undefined][];
+        entries.forEach(([slot, versionName]) => {
+            if (versionName) {
+                result[slot] = versionName;
+            }
+        });
+
+        return result;
+    }
+
+    /**
+     * Loads the variant cache from browser.storage.local.
+     * Returns an empty cache if storage is empty or the value fails validation.
+     *
+     * @returns Validated variant cache.
+     */
+    private async loadFromStorage(): Promise<VariantCache> {
+        const raw = await browserApi.storage.get(ABTestManager.VARIANTS_STORAGE_KEY);
+
+        if (!raw) {
+            return {};
+        }
+
         try {
-            versions = versionsSchema.parse(rawVersions);
+            return v.parse(variantCacheSchema, raw);
         } catch (e) {
-            log.error('[vpn.ABTestManager.getVersionsFromStorage]: Failed to parse versions from storage', e, 'using default versions');
+            log.error('[vpn.ABTestManager.loadFromStorage]: Failed to parse variant cache from storage', e, 'using empty cache');
+            return {};
         }
-        return versions;
     }
 
     /**
-     * Retrieve or initialize the versions response.
-     * @returns An object representing the versions response.
+     * Persists the variant cache to browser.storage.local.
+     *
+     * @param cache Variant cache to persist.
      */
-    async getVersions(): Promise<VersionsResponse> {
-        if (!this.versions) {
-            this.versions = await this.getVersionsFromStorage();
-        }
-
-        return this.versions;
-    }
-
-    /**
-     * Determine whether streaming label text should be shown.
-     * @returns True if streaming label text should be shown, false otherwise.
-     */
-    async isShowStreamingLabelText(): Promise<boolean> {
-        const versions = await this.getVersions();
-        return !!versions?.find(({ version }) => version === AG47804_STREAMING_DEFAULT_FLOW_VERSION_ID);
-    }
-
-    /**
-     * Returns the streaming text experiment version.
-     * @returns The experiment version ID, or null if no experiment found.
-     */
-    async getStreamingTextExperiment(): Promise<string | null> {
-        const versions = await this.getVersions();
-        return (
-            versions?.find(({ version }) => version === AG47804_STREAMING_DEFAULT_FLOW_VERSION_ID)
-            || versions?.find(({ version }) => version === AG47804_STREAMING_B_FLOW_VERSION_ID)
-        )?.version || null;
+    private async saveToStorage(cache: VariantCache): Promise<void> {
+        await browserApi.storage.set(ABTestManager.VARIANTS_STORAGE_KEY, cache);
     }
 }
 

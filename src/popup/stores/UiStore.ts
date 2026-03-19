@@ -1,4 +1,8 @@
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
+
+import { type VariantCache } from '../../background/abTestManager/ABTestManager';
+import { AG49792_PAYWALL_SLOT, AG49792_PAYWALL_B_VERSION_NAME } from '../../background/abTestManager/constants';
+import { messenger } from '../../common/messenger';
 
 import type { RootStore } from './RootStore';
 
@@ -12,6 +16,12 @@ export class UiStore {
     @observable isOpenRecovery: boolean = false;
 
     @observable isConnecting: boolean = false;
+
+    /**
+     * Flag indicating if region notice should be shown.
+     * Retrieved from backend.
+     */
+    @observable shouldShowRegionNotice: boolean = false;
 
     /**
      * Flag for the notice if some locations are not available.
@@ -56,16 +66,9 @@ export class UiStore {
     @observable isStreamingModalOpen: boolean = false;
 
     /**
-     * Whether we should show streaming label text.
-     * Present only if user is authenticated.
-     * Part of AG-47804 AB test task.
+     * Cached A/B experiment variant assignments.
      */
-    @observable shouldShowStreamingLabelText: boolean = false;
-
-    /**
-     * Streaming text experiment value to send with telemetry event for AG-47804 task.
-     */
-    @observable streamingLabelTextExperiment?: string;
+    @observable experimentVariants: VariantCache = {};
 
     /**
      * Streaming platforms to display in the modal.
@@ -110,12 +113,18 @@ export class UiStore {
         this.isUsageDataModalOpen = false;
     };
 
+    @action setShouldShowRegionNotice = (value: boolean): void => {
+        this.shouldShowRegionNotice = value;
+    };
+
     @action openVpnBlockedErrorNotice = (): void => {
         this.isShownVpnBlockedErrorNotice = true;
     };
 
-    @action closeVpnBlockedErrorNotice = (): void => {
+    @action closeVpnBlockedErrorNotice = async (): Promise<void> => {
         this.isShownVpnBlockedErrorNotice = false;
+        this.shouldShowRegionNotice = false;
+        await messenger.markRegionNoticeAsShown();
     };
 
     @action openVpnBlockedErrorDetails = (): void => {
@@ -125,8 +134,11 @@ export class UiStore {
         this.isShownVpnBlockedErrorDetails = true;
     };
 
-    @action closeVpnBlockedErrorDetails = (): void => {
+    @action closeVpnBlockedErrorDetails = async (): Promise<void> => {
         this.isShownVpnBlockedErrorDetails = false;
+
+        this.shouldShowRegionNotice = false;
+        await messenger.markRegionNoticeAsShown();
     };
 
     /**
@@ -193,22 +205,19 @@ export class UiStore {
     };
 
     /**
-     * Sets whether to show streaming label text.
+     * Sets experiment variant assignments.
      *
-     * @param shouldShow whether we should show streaming text.
+     * @param variants Variant cache from the background.
      */
-    @action
-    setShouldShowStreamingLabelText(shouldShow: boolean): void {
-        this.shouldShowStreamingLabelText = shouldShow;
+    @action setExperimentVariants(variants: VariantCache): void {
+        this.experimentVariants = variants;
     }
 
     /**
-     * Sets streamingLabelText experiment.
-     *
-     * @param experiment Experiment to set.
+     * Whether paywall B variant should be shown.
+     * Part of AG-49792 AB test task.
      */
-    @action
-    setStreamingLabelTextExperiment(experiment: string): void {
-        this.streamingLabelTextExperiment = experiment;
+    @computed get isPaywallBVariant(): boolean {
+        return this.experimentVariants[AG49792_PAYWALL_SLOT] === AG49792_PAYWALL_B_VERSION_NAME;
     }
 }

@@ -14,3 +14,13 @@ declare module '*.webm' {
     const content: string;
     export default content;
 }
+
+declare module '*.module.pcss' {
+    const classes: Record<string, string>;
+    export default classes;
+}
+
+declare module '*.module.css' {
+    const classes: Record<string, string>;
+    export default classes;
+}

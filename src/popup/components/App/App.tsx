@@ -19,11 +19,11 @@ import { log } from '../../../common/logger';
 import { type NotifierMessage, messenger } from '../../../common/messenger';
 import { notifier } from '../../../common/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
-import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
+import { TrafficLimitExceeded, TrafficLimitExceededB } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
-import { UpgradeScreen } from '../Authentication/UpgradeScreen';
+import { UpgradeScreen, UpgradeScreenB } from '../Authentication/UpgradeScreen';
 import { ReviewPopup } from '../ReviewPopup';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
@@ -50,6 +50,7 @@ export const App = observer(() => {
         globalStore,
         telemetryStore,
         statsStore,
+        translationStore,
     } = useContext(rootStore);
 
     const {
@@ -61,7 +62,6 @@ export const App = observer(() => {
         showLimitExceededScreen,
         isVpnBlocked,
         isHostPermissionsGranted,
-        hasDesktopAppForOs,
         isLimitedOfferActive,
         isAndroidBrowser,
     } = settingsStore;
@@ -70,7 +70,12 @@ export const App = observer(() => {
 
     const { initStatus } = globalStore;
 
-    const { isOpenOptionsModal, isOpenLocationsScreen } = uiStore;
+    const {
+        isOpenOptionsModal,
+        isOpenLocationsScreen,
+        shouldShowRegionNotice,
+        isPaywallBVariant,
+    } = uiStore;
 
     const { isOpenStatsScreen } = statsStore;
 
@@ -157,6 +162,10 @@ export const App = observer(() => {
                     authStore.handleAuthCacheUpdate(data, value);
                     break;
                 }
+                case notifier.types.LANGUAGE_CHANGED: {
+                    await translationStore.setLocalePreference(data);
+                    break;
+                }
                 default: {
                     log.debug('[vpn.App]: there is no such message type: ', type);
                     break;
@@ -178,6 +187,7 @@ export const App = observer(() => {
             notifier.types.SHOW_RATE_MODAL,
             notifier.types.STATS_UPDATED,
             notifier.types.AUTH_CACHE_UPDATED,
+            notifier.types.LANGUAGE_CHANGED,
         ];
 
         const { onUnload, portId } = messenger.createLongLivedConnection(events, messageHandler);
@@ -304,9 +314,11 @@ export const App = observer(() => {
     }
 
     if (!isPremiumToken && authStore.renderUpgradeScreen && !renderAuth) {
+        const UpgradeComponent = isPaywallBVariant ? UpgradeScreenB : UpgradeScreen;
+
         return (
             <>
-                <UpgradeScreen />
+                <UpgradeComponent />
                 <Icons />
             </>
         );
@@ -367,11 +379,8 @@ export const App = observer(() => {
                 {isOpenOptionsModal && <ExtraOptions />}
                 <Header showMenuButton={showMenuButton} screenName={screenName} />
                 {
-                    // do not show the warning for users on linux AG-27487
-                    hasDesktopAppForOs
                     // do not show the warning if there is a limited offer active
-                    && !isLimitedOfferActive
-                    && <VpnBlockedError />
+                    !isLimitedOfferActive && <VpnBlockedError />
                 }
                 <Icons />
                 <GlobalError />
@@ -381,9 +390,13 @@ export const App = observer(() => {
     }
 
     if (showLimitExceededScreen || !canControlProxy) {
+        const LimitExceededComponent = isPaywallBVariant
+            ? TrafficLimitExceededB
+            : TrafficLimitExceeded;
+
         return (
             <>
-                <TrafficLimitExceeded />
+                <LimitExceededComponent />
                 <Icons />
             </>
         );
@@ -415,9 +428,7 @@ export const App = observer(() => {
             <MobileEdgePromo />
             <Header showMenuButton={authenticated} />
             {
-                isVpnBlocked
-                // do not show the warning for users on linux AG-27487
-                && hasDesktopAppForOs
+                (shouldShowRegionNotice || isVpnBlocked)
                 // do not show the warning if there is a limited offer active
                 && !isLimitedOfferActive
                 && <VpnBlockedError />

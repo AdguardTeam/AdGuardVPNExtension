@@ -1,4 +1,4 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { fallbackInfoScheme } from '../fallbackApi';
 import {
@@ -46,8 +46,8 @@ export const enum StorageKey {
     LimitedOfferService = 'limitedOfferService',
 }
 
-export const storageDataScheme = zod.object({
-    [StorageKey.FallbackInfo]: fallbackInfoScheme.or(zod.null()),
+export const storageDataScheme = v.object({
+    [StorageKey.FallbackInfo]: v.nullable(fallbackInfoScheme),
     [StorageKey.ProxyState]: proxyStateScheme,
     [StorageKey.ExclusionsState]: exclusionsStateScheme,
     [StorageKey.ExclusionsServicesManagerState]: exclusionsServicesManagerScheme,
@@ -61,12 +61,12 @@ export const storageDataScheme = zod.object({
     [StorageKey.LocationsService]: locationsServiceStateScheme,
     [StorageKey.PopupOpenedCounter]: popupOpenedCounterStateScheme,
     [StorageKey.ConnectivityData]: connectivityDataScheme,
-    [StorageKey.GlobalProxyConfig]: proxyConfigInterfaceScheme.or(zod.null()),
+    [StorageKey.GlobalProxyConfig]: v.nullable(proxyConfigInterfaceScheme),
     [StorageKey.HostCredentialsRepository]: hostCredentialsRepositoryScheme,
     [StorageKey.LimitedOfferService]: limitedOfferStorageDataScheme,
 });
 
-export type StorageData = zod.infer<typeof storageDataScheme>;
+export type StorageData = v.InferOutput<typeof storageDataScheme>;
 
 export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.ProxyState]: PROXY_DEFAULTS,

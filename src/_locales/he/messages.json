@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "חזור"
+    },
     "about_title": {
         "message": "אודות"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "שדרג ל-AdGuard VPN Unlimited‏"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "קדם את AdGuard VPN ברשתות החברתיות"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "קדם את AdGuard VPN ברשתות החברתיות וקבל %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "כתוב פוסט ב-X או ב-Facebook ושתף את הקישור איתנו. אנחנו נבדוק אותו ונוסיף %your_gb% GB לחשבון שלך. אפשר להרוויח עד %total_gb% GB בסך הכול"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "קבל בונוס"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "קבלו %num% ג׳יגה"
+    },
     "settings_rate_us": {
         "message": "דרג אותנו"
     },
@@ -223,7 +241,10 @@
         "message": "חסום WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "חסום את WebRTC, נקודת תורפה ידועה שיכולה להדליף את כתובת ה-IP האמיתית שלכם גם אם אתם משתמשים בפרוקסי או VPN"
+        "message": "חוסם את WebRTC שעלול להדליף את כתובת ה-IP האמיתית שלך גם אם אתה משתמש בייפוי כוח או ב‑VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "חלק מיישומי המסרים, פלטפורמות הזרמה או משחקים עשויים להפסיק לפעול כראוי"
     },
     "settings_context_menus_title": {
         "message": "הצג את AdGuard VPN בתפריט ההקשר של הדפדפן"
@@ -241,22 +262,30 @@
         "message": "נתונים אלה כוללים:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "שמות המסכים שאתה/את מתמודד איתם"
+        "message": "שמות המסכים שאתה/את מתמודד איתם",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "שמות הכפתורים שאת/ה לוחץ/ת עליהן"
+        "message": "שמות הכפתורים שאת/ה לוחץ/ת עליהן",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "מזהי ישיבות"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "אנחנו זקוקים למידע הזה כדי לנתח ולשפר את תפקוד AdGuard VPN"
+        "message": "אנחנו זקוקים למידע הזה כדי לנתח ולשפר את תפקוד AdGuard VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "נתונים אלה אלמוניים ונעשה בהם שימוש פנימי בלבד. אנחנו אף פעם לא חולקים את זה עם צדדים שלישיים"
+        "message": "נתונים אלה אלמוניים ונעשה בהם שימוש פנימי בלבד. אנחנו אף פעם לא חולקים את זה עם צדדים שלישיים",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "הבנת"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "מדיניות פרטיות",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "מצב בררני"
@@ -274,7 +303,7 @@
         "message": "שרת DNS"
     },
     "settings_dns_description": {
-        "message": "פתור בקשות DNS, חסום פרסומות ועוקבים, והצפן תעבורת DNS כאשר אתה מחובר ל-VPN"
+        "message": "מאפשר לבחור שרת DNS כדי לפתור בקשות DNS, לחסום מודעות ומעקבים, ולהצפין תעבורת DNS כאשר אתה מחובר ל-VPN"
     },
     "settings_dns_description_current": {
         "message": "נוכחי: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "בהירה"
+    },
+    "settings_language_label": {
+        "message": "שפה"
+    },
+    "settings_language_browser_default": {
+        "message": "ברירת מחדל של דפדפן"
     },
     "settings_quick_connect_title": {
         "message": "חיבור מהיר"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "השבת VPN באתר זה"
     },
-    "popup_settings_enable_vpn": {
-        "message": "אפשר VPN באתר זה"
-    },
     "popup_settings_other_products": {
         "message": "מוצרים אחרים"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "שדרג"
     },
+    "popup_paywall_b_title": {
+        "message": "הגעת למגבלת הנתונים — התוכן נטען לאט יותר"
+    },
+    "popup_paywall_b_description": {
+        "message": "בדוק את AdGuard VPN Unlimited. עם התוכנית השנתית, אתה חוסך 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "חינמי",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "בלתי מוגבל",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "נתוני VPN",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/חודש</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "מהירות",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "מופחתת",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "מיקומי השרת",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "מכשירים",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "שדרג"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "אולי מאוחר יותר"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "נסה בחינם"
+    },
+    "popup_upgrade_b_description": {
+        "message": "הוא מציע חיבורים במהירות גבוהה, גישה לכל המיקומים, ועוד"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "הזרם במהירויות גבוהות ללא הגבלה"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "צפה בתוכן מ-%count%+ מיקומי שרת"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "השתמש ב-AdGuard VPN ב-%count% מכשירים בו-זמנית"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "הסתר את פעילות הרשת שלך עם AdGuard DNS כבונוס"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "קבל AdGuard VPN Unlimited"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "אולי מאוחר יותר"
+    },
     "popup_feedback_title": {
         "message": "נשמח לקרוא את המשוב שלך"
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "שלח נתוני שימוש בהרחבה <link>אנונימיים</link>"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "אם תסכימו, AdGuard VPN יאסוף נתונים על המסכים והכפתורים איתם אתם מתקשרים. תמיד אפשר להשבית את שיתוף הנתונים ב- <b>הגדרות</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "מידע זה עוזר לנו להבין אילו תכונות פועלות היטב ואילו דורשות שיפור. הוא אנונימי ומשמש רק פנימית. אנו לעולם לא משתפים אותו עם אף אחד"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "היכנס או צור חשבון"
     },
@@ -768,7 +871,7 @@
         "message": "פרוטוקול VPN ייחודי"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "פרוטוקול ה-VPN של AdGuard פועל במהירות ומבצע את התעבורה שלך בצורה לא בולטת"
+        "message": "פרוטוקול TrustTunnel פועל במהירות ומבצע את התעבורה שלך ב-VPN בצורה לא בולטת."
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "החרגות של אתרים ואפליקציות"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "לא מצליח להתחבר?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "עבור לגרסת שולחן עבודה לחיבור יציב יותר"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "עבור לגרסה לנייד לחיבור יציב יותר"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "עבור ל-AdGuard VPN עבור Linux לחיבור יציב יותר"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "גרסת שולחן עבודה היא יותר יציבה"
+        "message": "עבור לגרסת שולחן עבודה לחיבור יציב יותר"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "עבור לגרסה לנייד לחיבור יציב יותר"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "עבור ל-AdGuard VPN עבור Linux לחיבור יציב יותר"
     },
     "popup_vpn_blocked_error_details_description": {
         "message": "אם יש לך בעיות חיבור, אנו ממליצים לעבור לגרסה של שולחן העבודה — היא פועלת בצורה חלקה יותר"
     },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "אם יש לך בעיות חיבור, אנו ממליצים לעבור לגרסה לנייד — היא פועלת בצורה חלקה יותר"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "אם יש לך בעיות חיבור, אנו ממליצים על לקוח ה-VPN שלנו עבור Linux. הוא פועל בצורה חלקה יותר"
+    },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "קבל גרסת שולחן עבודה"
+        "message": "הורד"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "למד כיצד להתקין"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "מאוחר יותר"

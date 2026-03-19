@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "برگرد"
+    },
     "about_title": {
         "message": "درباره"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "ارتقا به نامحدود"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "AdGuard VPN را در شبکه‌های اجتماعی ترویج کنید"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "AdGuard VPN را در شبکه‌های اجتماعی ترویج کنید و %your_gb% GB دریافت کنید"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "در X یا Facebook یک پست بنویسید و پیوند را با ما هم‌رسانی کنید. آن را بررسی می‌کنیم و %your_gb% GB به حساب شما اضافه می‌کنیم. در مجموع می‌توانید تا %total_gb% GB دریافت کنید"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "دریافت پاداش"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "دریافت %num% گیگابایت"
+    },
     "settings_rate_us": {
         "message": "لطفا به ما امتیاز دهید"
     },
@@ -223,13 +241,16 @@
         "message": "مسدودسازی وب آر تی سی"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC را مسدود می کند، یک آسیب پذیری شناخته شده که می تواند آدرس IP واقعی شما را حتی در صورت استفاده از پراکسی یا VPN افشا کند"
+        "message": "WebRTC را مسدود می‌کند که می‌تواند نشانی IP واقعی شما را حتی در صورت استفاده از پراکسی یا VPN افشا کند."
+    },
+    "settings_webrtc_warning": {
+        "message": "برخی پیام‌رسان‌ها، پلتفرم‌های پخش برخط یا بازی‌ها ممکن است به درستی کار نکنند"
     },
     "settings_context_menus_title": {
         "message": "نمایش AdGuard VPN در منوی زمینه مرورگر"
     },
     "settings_context_menus_description": {
-        "message": "مدیریت استثنائات VPN برای یک وب‌سایت خاص"
+        "message": "مدیریت استثنائات VPN برای یک تارنما خاص را امکان‌پذیر می‌کند"
     },
     "settings_help_us_improve_title": {
         "message": "به بهبود پالایش‌های AdGuard کمک کنید"
@@ -241,22 +262,30 @@
         "message": "این داده ها شامل:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "نام‌های صفحه‌هایی که با آن‌ها تعامل دارید"
+        "message": "نام‌های صفحه‌هایی که با آن‌ها تعامل دارید",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "نام‌های دکمه‌هایی که کلیک می‌کنید"
+        "message": "نامهای دکمه‌هایی که روی آنها کلیک می‌کنید",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "شناسه‌های جلسه"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "ما به این اطلاعات نیاز داریم تا عملکرد AdGuard VPN را تجزیه و تحلیل و بهبود بخشیم"
+        "message": "ما به این اطلاعات نیاز داریم تا عملکرد AdGuard VPN را تجزیه و تحلیل و بهبود بخشیم",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "این داده ها ناشناس هستند و فقط به صورت داخلی استفاده می شوند. ما هرگز آن را با طرف‌های ثالث به اشتراک نمی‌گذاریم"
+        "message": "این داده‌ها ناشناس هستند و فقط به صورت داخلی استفاده می‌شوند. ما هرگز آن را با اشخاص ثالث به اشتراک نمی‌گذاریم",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "فهمیدم"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "خط مشی حریم خصوصی",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "حالت گزینشی"
@@ -274,7 +303,7 @@
         "message": "سرور DNS"
     },
     "settings_dns_description": {
-        "message": "به انتخاب یک سرور DNS برای حل درخواست‌های DNS، مسدود کردن تبلیغات و ردیاب‌ها و رمزگذاری ترافیک DNS هنگام اتصال به VPN اجازه می‌دهد"
+        "message": "به انتخاب یک سرور DNS برای resolve درخواست‌های DNS، block کردن تبلیغات و رَدیاب‌ها، و encrypt کردن انتقال داده اینترنتی DNS هنگام اتصال به VPN اجازه می‌دهد"
     },
     "settings_dns_description_current": {
         "message": "فعلی: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "روشن"
+    },
+    "settings_language_label": {
+        "message": "زبان"
+    },
+    "settings_language_browser_default": {
+        "message": "پیش‌فرض مرورگر"
     },
     "settings_quick_connect_title": {
         "message": "اتصال سریع"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "VPN را در این وب سایت غیرفعال کنید"
     },
-    "popup_settings_enable_vpn": {
-        "message": "VPN را برای این وب‌سایت فعال کنید"
-    },
     "popup_settings_other_products": {
         "message": "محصولات دیگر"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "ارتقاء"
     },
+    "popup_paywall_b_title": {
+        "message": "به سقف داده رسیدید — بارگذاری محتوا بیشتر طول می\fکشد"
+    },
+    "popup_paywall_b_description": {
+        "message": "AdGuard VPN Unlimited را بررسی کنید. با طرح سالانه، 67%% ذخیره می‌کنید"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "رایگان",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "نامحدود",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "داده VPN",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/ماه</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "سرعت",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "کاهش‌یافته",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "مکان‌های سرور",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "دستگاه‌ها",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "ارتقاء"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "شاید بعداً"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "ارزیابی رایگان"
+    },
+    "popup_upgrade_b_description": {
+        "message": "اتصال\fهای پرسرعت، دسترسی به\u00160همه\u00160موقعیت\fها و موارد بیشتر را ارائه می\fدهد"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "با سرعت‌های بالا و بدون محدودیت پخش برخط کنید"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "محتوا را از %count%+ مکانِ سرور تماشا کنید"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "AdGuard VPN را هم‌زمان روی %count% دستگاه استفاده کنید"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "فعالیت وب خود را با\u00160AdGuard\u00160DNS به\u00160عنوان\u00160یک امتیاز نهان\fسازی کنید"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "نامحدود را دریافت کنید"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "شاید بعداً"
+    },
     "popup_feedback_title": {
         "message": "ما مشتاقانه منتظر بازخورد شما هستیم"
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "ارسال داده‌های استفاده از افزونه <link>به‌صورت ناشناس</link>"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "اگر موافقید، AdGuard VPN داده‌هایی در مورد صفحات و دکمه‌هایی که با آن‌ها تعامل دارید جمع‌آوری خواهد کرد. شما همیشه می‌توانید به‌اشتراک‌گذاری داده‌ها را در <b>تنظیمات</b> غیرفعال کنید"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "این اطلاعات به ما کمک می‌کند تا درک کنیم چه ویژگی‌هایی خوب کار می‌کنند و چه چیزی نیاز به بهبود دارد. این اطلاعات ناشناس است و فقط به‌صورت داخلی استفاده می‌شود. ما هرگز آن را با کسی به اشتراک نمی‌گذاریم"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "احراز هویت"
     },
@@ -768,7 +871,7 @@
         "message": "VPN مطمئن"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "پروتکل AdGuard VPN سریع کار می کند و ترافیک VPN شما را نامحسوس می کند"
+        "message": "دستورالعمل TrustTunnel سریع کار می‌کند و انتقال داده اینترنتی VPN شما را نامحسوس می‌کند"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "استثناهای وب‌سایت و برنامه"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "ارتباط با جریان ارسالی DNS ندارد?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "برای اتصال پایدارتر به نسخه رومیزی تغییر دهید"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "برای اتصال پایدارتر به نسخه تلفن همراه تغییر دهید"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "برای اتصال پایدارتر به AdGuard VPN برای Linux تغییر دهید"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "نسخه دسکتاپ پایدارتر است"
+        "message": "برای اتصال پایدارتر به نسخه رومیزی تغییر دهید"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "برای اتصال پایدارتر به نسخه تلفن همراه تغییر دهید"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "برای اتصال پایدارتر به AdGuard VPN برای Linux تغییر دهید"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "اگر مشکل اتصال دارید، توصیه می‌کنیم به نسخه دسکتاپ تغییر دهید — نرم‌تر عمل می‌کند"
+        "message": "اگر متوجه مشکلات اتصال شدید، توصیه می‌کنیم به نسخه رومیزی تغییر دهید — نرم‌تر عمل می‌کند"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "اگر متوجه مشکلات اتصال شدید، توصیه می‌کنیم به نسخه تلفن همراه تغییر دهید. نرم‌تر عمل می‌کند"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "اگر متوجه مشکلات اتصال شدید، کلاینت VPN Linux ما را توصیه می‌کنیم. نرم‌تر عمل می‌کند"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "نسخه دسکتاپ را دریافت کنید"
+        "message": "دانلود"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "نحوه نصب"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "بعد"

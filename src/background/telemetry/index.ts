@@ -4,6 +4,7 @@ import { browserApi } from '../browserApi';
 import { credentials } from '../credentials';
 import { telemetryProvider } from '../providers/telemetryProvider';
 import { settings } from '../settings';
+import { abTestManager } from '../abTestManager';
 
 import { Telemetry } from './Telemetry';
 
@@ -14,4 +15,5 @@ export const telemetry = new Telemetry({
     settings,
     auth,
     credentials,
+    abTestManager,
 });

@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Visszalépés"
+    },
     "about_title": {
         "message": "Névjegy"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Frissítsen Unlimitedre"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Az AdGuard VPN népszerűsítése a közösségi médiában"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Népszerűsítse az AdGuard VPN-t a közösségi médiában, és szerezzen %your_gb% GB-ot"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Írjon egy bejegyzést az X-en vagy a Facebookon, és ossza meg velünk a linket. Ellenőrizni fogjuk, és hozzáadunk %your_gb% GB-ot a fiókjához. Összesen legfeljebb %total_gb% GB-ot kereshet"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Bónusz megszerzése"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Szerezd meg a %num% GB"
+    },
     "settings_rate_us": {
         "message": "Értékeljen minket"
     },
@@ -224,6 +242,9 @@
     },
     "settings_webrtc_desc": {
         "message": "Blokkolja a WebRTC-t, egy ismert biztonsági rést, amely kiszivárogtathatja valós IP-címét még akkor is, ha proxyt vagy VPN-t használ"
+    },
+    "settings_webrtc_warning": {
+        "message": "Előfordulhat, hogy néhány üzenetküldő, streaming platform vagy játék nem fog megfelelően működni"
     },
     "settings_context_menus_title": {
         "message": "AdGuard VPN megjelenítése a böngésző helyi menüjében"
@@ -241,22 +262,30 @@
         "message": "Ezek az adatok a következőket tartalmazzák:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Azon képernyők nevei, amelyekkel kapcsolatba lép"
+        "message": "Azon képernyők nevei, amelyekkel kapcsolatba lép",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Azon gombok neve, amelyekre rákattint"
+        "message": "Azon gombok neve, amelyekre rákattint",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Munkamenet azonosítók"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Ezekre az információkra az AdGuard VPN működésének elemzése és javítása érdekében van szükségünk"
+        "message": "Ezekre az információkra az AdGuard VPN működésének elemzése és javítása érdekében van szükségünk",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Ezek az adatok névtelenek, és csak belsőleg használhatók fel. Soha nem osztjuk meg harmadik felekkel"
+        "message": "Ezek az adatok névtelenek, és csak belsőleg használhatók fel. Soha nem osztjuk meg harmadik felekkel",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Rendben"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Adatvédelmi irányelvek",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Szelektív mód"
@@ -274,7 +303,7 @@
         "message": "DNS szerver"
     },
     "settings_dns_description": {
-        "message": "DNS-kérések megoldása, hirdetések és nyomkövetők blokkolása, valamint DNS-forgalom titkosítása, amikor VPN-hez csatlakozik"
+        "message": "Lehetővé teszi egy DNS-kiszolgáló kiválasztását a DNS-kérelmek megoldásához, a hirdetések és a nyomkövetők blokkolásához, valamint a DNS-forgalom titkosításához, amikor VPN-hez csatlakozik"
     },
     "settings_dns_description_current": {
         "message": "Jelenlegi: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Világos"
+    },
+    "settings_language_label": {
+        "message": "Nyelv"
+    },
+    "settings_language_browser_default": {
+        "message": "Böngésző alapértelmezett"
     },
     "settings_quick_connect_title": {
         "message": "Gyors csatlakozás"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "VPN letiltása ezen a webhelyen"
     },
-    "popup_settings_enable_vpn": {
-        "message": "VPN engedélyezése ehhez a webhelyhez"
-    },
     "popup_settings_other_products": {
         "message": "További termékek"
     },
@@ -592,7 +624,7 @@
         "message": "Minden végpont"
     },
     "endpoints_saved": {
-        "message": "Elmentve"
+        "message": "Mentve"
     },
     "endpoints_search": {
         "message": "Helyszín keresése"
@@ -608,7 +640,7 @@
         "message": "Mind"
     },
     "endpoints_tab_saved": {
-        "message": "Elmentve"
+        "message": "Mentve"
     },
     "endpoints_saved_location_deleted": {
         "message": "Helyszín törölve a Mentettből"
@@ -654,6 +686,83 @@
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Frissítés"
+    },
+    "popup_paywall_b_title": {
+        "message": "Elérte az adatkorlátot — a tartalom betöltése hosszabb ideig tart"
+    },
+    "popup_paywall_b_description": {
+        "message": "Próbálja ki az AdGuard VPN Unlimitedet. Az éves tervvel 67%%-ot takarít meg"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Ingyenes",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Korlátlan",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "VPN-adatok",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/hó</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Sebesség",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Csökkentett",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Szerver helyszínek",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Eszközök",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Frissítés"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Talán később"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "ingyenes próba"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Nagy sebességű kapcsolatokat, az összes hely elérését és még sok mást kínál"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Streamelj nagy sebességgel korlátozások nélkül"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Nézzen tartalmat %count%+ szerverhelyről"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Használja az AdGuard VPN-t %count% eszközön egyszerre"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Rejtse el webes tevékenységét AdGuard\u0000a0DNS segítségével bónuszként"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Korlátlan beszerzése"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Talán később"
     },
     "popup_feedback_title": {
         "message": "Örülnénk az Ön visszajelzésének"
@@ -741,13 +850,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Küldje el az anonimizált <link>kiegészítő használati adatokat</link>"
-    },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Ha egyetértesz, az AdGuard VPN adatokat gyűjt a képernyőkről és gombokról, amelyekkel interakcióba lépsz. Az adatok megosztását mindig kikapcsolhatod a <b>Beállítások</b> menüben"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Ez az információ segít megérteni, hogy mely funkciók működnek jól és mi igényel fejlesztést. Anonimizált és csak belső használatra kerül. Soha nem osztjuk meg senkivel"
+        "message": "Küldi el az anonimizált <link>kiegészítő használati adatokat</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Bejelentkezés vagy fiók létrehozása"
@@ -768,7 +871,7 @@
         "message": "Egyedülálló VPN protokoll"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "Az AdGuard VPN protokollja gyorsan működik és észrevétlenné teszi a VPN forgalmat"
+        "message": "A TrustTunnel protokoll gyorsan működik, és feltűnésmentessé teszi a VPN adatforgalmát"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Oldalak és alkalmazások kizárása"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Nincs kapcsolat?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Váltson asztali verzióra a stabilabb kapcsolódásért"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Váltson mobil verzióra a stabilabb kapcsolódásért"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Váltson az AdGuard VPN for Linux-ra a stabilabb kapcsolódásért"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Az asztali verzió stabilabb"
+        "message": "Váltson asztali verzióra a stabilabb kapcsolódásért"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Váltson mobil verzióra a stabilabb kapcsolódásért"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Váltson az AdGuard VPN for Linux-ra a stabilabb kapcsolódásért"
     },
     "popup_vpn_blocked_error_details_description": {
         "message": "Ha csatlakozási problémái vannak, javasoljuk, hogy váltson az asztali verzióra – az zökkenőmentesebben működik"
     },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Ha csatlakozási problémái vannak, javasoljuk, hogy váltson a mobil verzióra. Az zökkenőmentesebben működik"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Ha csatlakozási problémái vannak, javasoljuk a Linux VPN kliensünket. Az zökkenőmentesebben működik"
+    },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Szerezd meg az asztali verziót"
+        "message": "Letöltés"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Hogyan kell telepíteni"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Később"

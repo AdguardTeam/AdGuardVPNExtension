@@ -47,6 +47,7 @@ export enum TelemetryScreenName {
     FreeGbInviteFriendScreen = 'free_gb_invite_friend_screen',
     FreeGbConfirmEmailScreen = 'free_gb_confirm_email_screen',
     FreeGbAddAnotherPlatformScreen = 'free_gb_add_another_platform_screen',
+    FreeGbPromoteSocialsScreen = 'twitter_about_us_screen',
     AccountScreen = 'account_screen',
     LoggedOutScreen = 'logged_out_screen',
     SupportScreen = 'support_screen',
@@ -69,6 +70,9 @@ export enum TelemetryScreenName {
      * action events based on what screen is currently active.
      */
     ContextBasedScreen = 'context_based_screen',
+
+    // Background
+    Background = 'background',
 }
 
 /**
@@ -158,6 +162,8 @@ export enum TelemetryActionName {
     InviteFriendClick = 'invite_friend_click',
     ConfirmEmailClick = 'confirm_email_click',
     AddGbDeviceClick = 'add_gb_device_click',
+    PromoteSocialsClick = 'mention_onsocial_click',
+    GetSocialsBonusClick = 'get_bonus_click',
     CopyLinkClick = 'copy_link_click',
     GoToProductsClick = 'go_to_products_click',
     GetSubscriptionClick = 'get_subscription_click',
@@ -192,6 +198,16 @@ export enum TelemetryActionName {
     RemoveExclusionsClick = 'remove_exclusions_click',
     ImportGeneralExclusionsClick = 'import_general_exclusions_click',
     ImportSelectiveExclusionsClick = 'import_selective_exclusions_click',
+
+    // Background notification actions
+    NotificationFirstAuth = 'notification_first_auth',
+    FirstAuthNotifyClick = 'first_auth_notify_click',
+    NotificationPromoOffer = 'notification_promo_offer',
+    PromoOfferNotifyClick = 'promo_offer_notify_click',
+    Notification500MbLeft = 'notification_500_mb_left',
+    FiveHundredMbLeftNotifyClick = '500_mb_left_notify_click',
+    NotificationSpeedReduced = 'notification_speed_reduced',
+    SpeedReducedNotifyClick = 'speed_reduced_notify_click',
 }
 
 /**
@@ -225,7 +241,8 @@ export type DnsServerClickActionNames = TelemetryActionName.AdguardDnsClick
  */
 export type FreeGbItemClickActionNames = TelemetryActionName.InviteFriendClick
 | TelemetryActionName.ConfirmEmailClick
-| TelemetryActionName.AddGbDeviceClick;
+| TelemetryActionName.AddGbDeviceClick
+| TelemetryActionName.PromoteSocialsClick;
 
 /**
  * Support item click actions.
@@ -335,6 +352,8 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.InviteFriendClick]: TelemetryScreenName.FreeGbScreen;
     [TelemetryActionName.ConfirmEmailClick]: TelemetryScreenName.FreeGbScreen;
     [TelemetryActionName.AddGbDeviceClick]: TelemetryScreenName.FreeGbScreen;
+    [TelemetryActionName.PromoteSocialsClick]: TelemetryScreenName.FreeGbScreen;
+    [TelemetryActionName.GetSocialsBonusClick]: TelemetryScreenName.FreeGbPromoteSocialsScreen;
     [TelemetryActionName.CopyLinkClick]: TelemetryScreenName.FreeGbInviteFriendScreen;
     [TelemetryActionName.GoToProductsClick]: TelemetryScreenName.FreeGbAddAnotherPlatformScreen;
     [TelemetryActionName.GetSubscriptionClick]: TelemetryScreenName.AccountScreen;
@@ -369,6 +388,16 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.RemoveExclusionsClick]: TelemetryScreenName.DialogExclusionsRemoveAll;
     [TelemetryActionName.ImportGeneralExclusionsClick]: TelemetryScreenName.DialogImportedExclusions;
     [TelemetryActionName.ImportSelectiveExclusionsClick]: TelemetryScreenName.DialogImportedExclusions;
+
+    // Background notification actions
+    [TelemetryActionName.NotificationFirstAuth]: TelemetryScreenName.Background;
+    [TelemetryActionName.FirstAuthNotifyClick]: TelemetryScreenName.Background;
+    [TelemetryActionName.NotificationPromoOffer]: TelemetryScreenName.Background;
+    [TelemetryActionName.PromoOfferNotifyClick]: TelemetryScreenName.Background;
+    [TelemetryActionName.Notification500MbLeft]: TelemetryScreenName.Background;
+    [TelemetryActionName.FiveHundredMbLeftNotifyClick]: TelemetryScreenName.Background;
+    [TelemetryActionName.NotificationSpeedReduced]: TelemetryScreenName.Background;
+    [TelemetryActionName.SpeedReducedNotifyClick]: TelemetryScreenName.Background;
 }
 
 /**

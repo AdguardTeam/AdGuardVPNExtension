@@ -1,4 +1,5 @@
 import { SETTINGS_IDS } from '../common/constants';
+import { type LocalePreference } from '../common/locale';
 
 import { authCache } from './authentication';
 import { forwarder } from './forwarder';
@@ -8,7 +9,10 @@ import { type AuthCacheData } from './authentication/authCacheTypes';
 /**
  * Response data for consent page.
  */
-export type ConsentDataResponse = AuthCacheData & { forwarderDomain: string };
+export type ConsentDataResponse = AuthCacheData & {
+    forwarderDomain: string;
+    selectedLanguage: LocalePreference;
+};
 
 /**
  * Retrieves data needed for the consent page.
@@ -28,11 +32,14 @@ export const getConsentData = async (): Promise<ConsentDataResponse> => {
     } = authCache.getCache();
     const forwarderDomain = await forwarder.updateAndGetDomain();
 
+    const selectedLanguage = settings.getSelectedLanguage();
+
     return {
         policyAgreement,
         helpUsImprove,
         webAuthFlowState,
         forwarderDomain,
+        selectedLanguage,
     };
 };
 

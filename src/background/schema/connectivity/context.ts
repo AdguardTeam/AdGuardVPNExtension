@@ -1,31 +1,31 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 /**
  * Context of connectivity finite state machine
  */
-export const connectivityContextScheme = zod.object({
+export const connectivityContextScheme = v.strictObject({
     /**
      * Count of connections retries
      */
-    retryCount: zod.number(),
+    retryCount: v.number(),
     /**
      * Time in ms passed since last retry with tokens and locations list refresh
      */
-    timeSinceLastRetryWithRefreshMs: zod.number(),
+    timeSinceLastRetryWithRefreshMs: v.number(),
     /**
      * Property used to keep growing delay between reconnections
      */
-    currentReconnectionDelayMs: zod.number(),
+    currentReconnectionDelayMs: v.number(),
     /**
      * Flag used to reconnect to another endpoint of current location
      */
-    retriedConnectToOtherEndpoint: zod.boolean(),
-}).strict();
+    retriedConnectToOtherEndpoint: v.boolean(),
+});
 
 /**
  * {@link connectivityContextScheme} type.
  */
-export type ConnectivityContext = zod.infer<typeof connectivityContextScheme>;
+export type ConnectivityContext = v.InferOutput<typeof connectivityContextScheme>;
 
 /**
  * Default values for {@link ConnectivityContext}.

@@ -16,7 +16,17 @@ export const WebRTC = observer(() => {
     return (
         <ControlsSwitch
             title={translator.getMessage('settings_webrtc_label')}
-            description={translator.getMessage('settings_webrtc_desc')}
+            description={(
+                <>
+                    <span>
+                        {translator.getMessage('settings_webrtc_desc')}
+                    </span>
+                    <br />
+                    <span className="webrtc-warning">
+                        {translator.getMessage('settings_webrtc_warning')}
+                    </span>
+                </>
+            )}
             isActive={webRTCEnabled}
             onToggle={handleToggle}
         />

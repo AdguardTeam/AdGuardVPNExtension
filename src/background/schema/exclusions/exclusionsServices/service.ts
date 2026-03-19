@@ -1,19 +1,19 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-const serviceCategoryScheme = zod.object({
-    id: zod.string(),
-    name: zod.string(),
-}).strict();
+const serviceCategoryScheme = v.strictObject({
+    id: v.string(),
+    name: v.string(),
+});
 
-export type ServiceCategory = zod.infer<typeof serviceCategoryScheme>;
+export type ServiceCategory = v.InferOutput<typeof serviceCategoryScheme>;
 
-export const serviceScheme = zod.object({
-    serviceId: zod.string(),
-    serviceName: zod.string(),
-    iconUrl: zod.string(),
-    modifiedTime: zod.string(),
-    categories: serviceCategoryScheme.array(),
-    domains: zod.string().array(),
-}).strict();
+export const serviceScheme = v.strictObject({
+    serviceId: v.string(),
+    serviceName: v.string(),
+    iconUrl: v.string(),
+    modifiedTime: v.string(),
+    categories: v.array(serviceCategoryScheme),
+    domains: v.array(v.string()),
+});
 
-export type ServiceInterface = zod.infer<typeof serviceScheme>;
+export type ServiceInterface = v.InferOutput<typeof serviceScheme>;

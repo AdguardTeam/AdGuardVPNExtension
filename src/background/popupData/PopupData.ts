@@ -7,6 +7,7 @@ import { type PromoNotificationData, promoNotifications } from '../promoNotifica
 import { auth } from '../auth';
 import { settings } from '../settings';
 import { SETTINGS_IDS } from '../../common/constants';
+import { type LocalePreference } from '../../common/locale';
 import { sleep } from '../../common/helpers';
 import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
@@ -28,7 +29,9 @@ import { hintPopup } from '../hintPopup';
 import { savedLocations } from '../savedLocations';
 import { locationsService } from '../endpoints/locationsService';
 import { type LocationsTab } from '../endpoints/locationsEnums';
+import { vpnBlockedNotice } from '../vpnBlockedNotice';
 import { abTestManager } from '../abTestManager';
+import { type VariantCache } from '../abTestManager/ABTestManager';
 
 import { popupOpenedCounter } from './popupOpenedCounter';
 
@@ -77,6 +80,11 @@ interface PopupDataInterface {
     isVpnBlocked?: boolean;
 
     /**
+     * Flag indicating if region-specific notice should be shown.
+     */
+    shouldShowRegionNotice?: boolean;
+
+    /**
      * Locations tab.
      */
     locationsTab: LocationsTab;
@@ -92,16 +100,14 @@ interface PopupDataInterface {
     marketingConsent?: boolean | null;
 
     /**
-     * Whether we should show streaming label text.
-     * Present only if user is authenticated.
-     * Part of AG-47804 AB test task.
+     * User's selected language preference.
      */
-    shouldShowStreamingLabelText?: boolean;
+    selectedLanguage: LocalePreference;
 
     /**
-     * Streaming text experiment value to send with telemetry event for AG-47804 task.
+     * Cached A/B experiment variant assignments.
      */
-    streamingTextExperimentValue?: string | null;
+    experimentVariants?: VariantCache;
 }
 
 export interface PopupDataRetry extends PopupDataInterface {
@@ -142,6 +148,8 @@ export class PopupData {
         const locationsTab = await locationsService.getLocationsTab();
         const savedLocationIds = await savedLocations.getSavedLocationIds();
 
+        const selectedLanguage = settings.getSelectedLanguage();
+
         if (!isAuthenticated) {
             return {
                 forwarderDomain,
@@ -151,6 +159,7 @@ export class PopupData {
                 isHostPermissionsGranted,
                 locationsTab,
                 savedLocationIds,
+                selectedLanguage,
             };
         }
 
@@ -176,9 +185,9 @@ export class PopupData {
         const username = await this.credentials.getUsername();
         const shouldShowHintPopup = await hintPopup.shouldShowHintPopup();
         const shouldShowMobileEdgePromoBanner = await mobileEdgePromoService.shouldShowBanner();
+        const shouldShowRegionNotice = await vpnBlockedNotice.shouldShowRegionNotice();
         const marketingConsent = await this.credentials.getMarketingConsent();
-        const shouldShowStreamingLabelText = await abTestManager.isShowStreamingLabelText();
-        const streamingTextExperimentValue = await abTestManager.getStreamingTextExperiment();
+        const experimentVariants = await abTestManager.getVariantsForProps();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -214,6 +223,7 @@ export class PopupData {
             isVpnEnabledByUrl,
             shouldShowRateModal,
             shouldShowMobileEdgePromoBanner,
+            shouldShowRegionNotice,
             username,
             shouldShowHintPopup,
             isVpnBlocked,
@@ -221,8 +231,8 @@ export class PopupData {
             locationsTab,
             savedLocationIds,
             marketingConsent,
-            shouldShowStreamingLabelText,
-            streamingTextExperimentValue,
+            selectedLanguage,
+            experimentVariants,
         };
     };
 

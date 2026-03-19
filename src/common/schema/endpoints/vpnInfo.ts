@@ -1,18 +1,18 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
-export const VpnInfoScheme = zod.object({
-    bandwidthFreeMbits: zod.number().optional(),
-    premiumPromoPage: zod.string().optional(),
-    premiumPromoEnabled: zod.boolean().optional(),
-    refreshTokens: zod.boolean().optional(),
-    vpnFailurePage: zod.string().optional(),
-    usedDownloadedBytes: zod.number().optional(),
-    usedUploadedBytes: zod.number().optional(),
-    maxDownloadedBytes: zod.number().optional(),
-    maxUploadedBytes: zod.number().optional(),
-    renewalTrafficDate: zod.string().optional(),
-    maxDevicesCount: zod.number().optional(),
-    emailConfirmationRequired: zod.boolean().optional(),
-}).strict();
+export const VpnInfoScheme = v.strictObject({
+    bandwidthFreeMbits: v.optional(v.number()),
+    premiumPromoPage: v.optional(v.string()),
+    premiumPromoEnabled: v.optional(v.boolean()),
+    refreshTokens: v.optional(v.boolean()),
+    vpnFailurePage: v.optional(v.string()),
+    usedDownloadedBytes: v.optional(v.number()),
+    usedUploadedBytes: v.optional(v.number()),
+    maxDownloadedBytes: v.optional(v.number()),
+    maxUploadedBytes: v.optional(v.number()),
+    renewalTrafficDate: v.optional(v.string()),
+    maxDevicesCount: v.optional(v.number()),
+    emailConfirmationRequired: v.optional(v.boolean()),
+});
 
-export type VpnExtensionInfoInterface = zod.infer<typeof VpnInfoScheme>;
+export type VpnExtensionInfoInterface = v.InferOutput<typeof VpnInfoScheme>;

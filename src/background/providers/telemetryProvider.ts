@@ -59,6 +59,10 @@ const sendEvent = async (event: TelemetryEvent): Promise<void> => {
                     brand: userAgent.device.brand,
                     model: userAgent.device.model,
                 },
+                browser: {
+                    name: userAgent.browser.name,
+                    version: userAgent.browser.version,
+                },
                 os: {
                     name: userAgent.os.name,
                     platform: userAgent.os.platform,
@@ -82,7 +86,9 @@ const sendEvent = async (event: TelemetryEvent): Promise<void> => {
                 license_status: props.licenseStatus,
                 subscription_duration: props.subscriptionDuration,
                 theme: props.theme,
-                experiment: 'event' in event ? event.event.experiment : undefined,
+                ...(props.experiment_1 && { experiment_1: props.experiment_1 }),
+                ...(props.experiment_2 && { experiment_2: props.experiment_2 }),
+                ...(props.experiment_3 && { experiment_3: props.experiment_3 }),
             },
         };
 

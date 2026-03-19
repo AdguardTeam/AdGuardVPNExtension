@@ -3,8 +3,7 @@
     top: 56px;
     left: 50%;
     transform: translateX(-50%);
-    height: 40px;
-    width: 280px;
+    width: calc(100% - 16px);
     background-color: var(--dark13);
     color: var(--white);
     font-size: 14px;
@@ -14,6 +13,7 @@
     border: none;
     border-radius: 4px;
     z-index: var(--header-z-index);
+    padding: 8px 38px 8px 8px;
 
     button {
         background: none;
@@ -24,7 +24,7 @@
     &__warning-icon {
         width: 24px;
         height: 24px;
-        margin: 8px;
+        margin-right: 8px;
     }
 
     &__details-link {
@@ -33,6 +33,11 @@
         line-height: 18px;
         text-decoration: underline;
         cursor: pointer;
+
+        &--no-underline {
+            text-decoration: none;
+            text-align: left;
+        }
     }
 
     &__close-btn {

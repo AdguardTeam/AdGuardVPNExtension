@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "뒤로가기"
+    },
     "about_title": {
         "message": "정보"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "무제한 버전으로 업그레이드"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "SNS에 AdGuard VPN 공유"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "SNS에 AdGuard VPN 공유하고 %your_gb%GB 받기"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "X 또는 Facebook에 게시물을 올리고 링크를 공유해 보세요. 검토 후 계정에 %your_gb%GB를 추가해 드립니다. 최대 %total_gb%GB까지 받을 수 있습니다."
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "보너스 받기"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "%num%GB 가져오기"
+    },
     "settings_rate_us": {
         "message": "평가"
     },
@@ -223,13 +241,16 @@
         "message": "WebRTC 차단"
     },
     "settings_webrtc_desc": {
-        "message": "프록시 또는 VPN을 사용하더라도 실제 IP 주소가 유출될 수 있는 알려진 취약점인 WebRTC를 차단합니다."
+        "message": "프록시 또는 VPN을 사용하더라도 실제 IP 주소가 유출될 수 있는 WebRTC를 차단합니다."
+    },
+    "settings_webrtc_warning": {
+        "message": "일부 메신저, 스트리밍 플랫폼 또는 게임이 제대로 작동하지 않을 수 있습니다."
     },
     "settings_context_menus_title": {
         "message": "브라우저 컨텍스트 메뉴에 AdGuard VPN 표시"
     },
     "settings_context_menus_description": {
-        "message": "특정 웹사이트에 대한 VPN 예외 관리"
+        "message": "특정 웹사이트에 대한 VPN 제외 항목을 관리할 수 있습니다."
     },
     "settings_help_us_improve_title": {
         "message": "AdGuard VPN 개선에 참여하기"
@@ -241,22 +262,30 @@
         "message": "이 데이터에는 다음이 포함됩니다."
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "상호작용하는 화면의 이름"
+        "message": "상호작용하는 화면의 이름",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "클릭하는 버튼의 이름"
+        "message": "클릭하는 버튼의 이름",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "세션 식별자"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "AdGuard VPN의 기능을 분석하고 개선하기 위해 이 정보가 필요합니다."
+        "message": "AdGuard VPN의 기능을 분석하고 개선하기 위해 이 정보가 필요합니다.",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "이 데이터는 익명으로 처리되며 내부적으로만 사용됩니다. 제3자와 절대 공유하지 않습니다."
+        "message": "이 데이터는 익명으로 처리되며 내부적으로만 사용됩니다. 제3자와 절대 공유하지 않습니다.",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "확인"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "개인정보취급방침",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "선별 모드"
@@ -274,7 +303,7 @@
         "message": "DNS 서버"
     },
     "settings_dns_description": {
-        "message": "VPN에 연결하면 DNS 요청을 해결하고, 광고와 추적기를 차단하고, DNS 트래픽을 암호화합니다."
+        "message": "VPN에 연결되어 있을 때 DNS 요청을 처리할 DNS 서버를 선택하고, 광고와 추적기를 차단하며, DNS 트래픽을 암호화할 수 있습니다."
     },
     "settings_dns_description_current": {
         "message": "현재: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "라이트 테마"
+    },
+    "settings_language_label": {
+        "message": "언어"
+    },
+    "settings_language_browser_default": {
+        "message": "브라우저 기본 설정"
     },
     "settings_quick_connect_title": {
         "message": "빠른 연결"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "이 웹 사이트에서 VPN 비활성화"
     },
-    "popup_settings_enable_vpn": {
-        "message": "이 웹사이트에서 VPN 활성화"
-    },
     "popup_settings_other_products": {
         "message": "기타 제품"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "업그레이드"
     },
+    "popup_paywall_b_title": {
+        "message": "데이터 제한으로 로딩 느려짐"
+    },
+    "popup_paywall_b_description": {
+        "message": "AdGuard VPN 무제한 버전을 확인해 보세요. 연간 요금제를 선택하면 67%% 할인 혜택을 받을 수 있습니다."
+    },
+    "popup_paywall_b_column_free": {
+        "message": "무료 버전",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "무제한 버전",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "VPN 데이터",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb%GB<span>/월</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "속도",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "제한",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "서버 위치",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%개 이상"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "기기",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "업그레이드"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "나중에"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN 무제한 버전:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "무료 체험"
+    },
+    "popup_upgrade_b_description": {
+        "message": "고속 연결, 모든 위치 접속 등의 기능을 제공합니다"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "제한 없이 고속으로 스트리밍"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "%count%곳 이상의 서버 위치에서 콘텐츠 시청"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "동시에 %count%개 기기에서 AdGuard VPN 사용"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "추가로 AdGuard DNS로 웹 활동 숨기기"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "무제한 이용하기"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "나중에"
+    },
     "popup_feedback_title": {
         "message": "여러분의 피드백을 기다리고 있습니다"
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "익명의 <link>확장 프로그램 사용 데이터</link> 전송"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "동의하시면, AdGuard VPN에서 귀하가 상호작용하는 화면과 버튼에 대한 데이터를 수집합니다. <b>설정</b>에서 언제든 데이터 공유를 끌 수 있습니다."
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "이 정보는 잘 작동하는 기능과, 개선이 필요한 부분을 파악하는 데 도움을 줍니다. 정보는 익명 처리되어 내부적으로만 사용됩니다. 다른 누구와도 이 정보를 공유하지 않습니다."
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "로그인 또는 계정 생성"
     },
@@ -768,7 +871,7 @@
         "message": "특별한 VPN 프로토콜"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "AdGuard VPN의 프로트콜은 빠르게 작동하고 당신의 VPN 트래픽을 눈에 잘 띄지 않게 해줍니다."
+        "message": "TrustTunnel 프로토콜은 빠르게 작동하며 VPN 트래픽을 눈에 띄지 않게 합니다."
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "사이트 및 앱 예외 목록"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "연결할 수 없나요?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "더 안정적인 연결을 위해 데스크톱 버전으로 전환하세요."
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "더 안정적인 연결을 위해 모바일 버전으로 전환하세요."
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "더 안정적인 연결을 위해 Linux용 AdGuard VPN으로 전환하세요."
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "데스크톱 버전이 더 안정적입니다"
+        "message": "더 안정적인 연결을 위해 데스크톱 버전으로 전환하세요."
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "더 안정적인 연결을 위해 모바일 버전으로 전환하세요."
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "더 안정적인 연결을 위해 Linux용 AdGuard VPN으로 전환하세요."
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "연결에 문제가 있다면 데스크톱 버전으로 전환하는 것을 권장합니다. 데스크톱 버전이 더 잘 작동합니다."
+        "message": "연결 문제가 발생하면 데스크톱 버전으로 전환하는 것을 권장합니다. 데스크톱 버전이 더 원활하게 작동합니다."
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "연결 문제가 발생하면 모바일 버전으로 전환하는 것을 권장합니다. 모바일 버전이 더 원활하게 작동합니다."
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "연결 문제가 발생하면 Linux VPN 클라이언트를 사용하는 것을 권장합니다. 더 원활하게 작동합니다."
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "데스크톱 버전 받기"
+        "message": "다운로드"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "설치 방법"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "나중에"

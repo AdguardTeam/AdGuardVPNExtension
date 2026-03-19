@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Grįžti"
+    },
     "about_title": {
         "message": "Apie"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Pereiti į neribotą"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Reklamuokite AdGuard\u0000 VPN socialiniuose tinkluose"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Reklamuokite AdGuard VPN socialiniuose tinkluose ir gaukite %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Parašykite įrašą X arba Facebook ir pasidalykite nuoroda su mumis. Mes jį peržiūrėsime ir pridėsime %your_gb% GB prie jūsų paskyros. Iš viso galite uždirbti iki %total_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Gauti premiją"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Gaukite %num% GB"
+    },
     "settings_rate_us": {
         "message": "Įvertinkite mus"
     },
@@ -223,13 +241,16 @@
         "message": "Blokuoti WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Blokuokite WebRTC, žinomą pažeidžiamumą, kuris gali atskleisti jūsų tikrą IP adresą, net jei naudojate tarpinį serverį ar VPN"
+        "message": "Blokuoja WebRTC, kuris gali atskleisti jūsų tikrąjį IP adresą, net jei naudojate tarpinį serverį arba VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Kai kurios susirašinėjimo programėlės, transliacijos platformos ar žaidimai gali nustoti tinkamai veikti"
     },
     "settings_context_menus_title": {
         "message": "Rodyti AdGuard VPN naršyklės kontekstini meniu"
     },
     "settings_context_menus_description": {
-        "message": "išimtis"
+        "message": "Leidžia valdyti VPN išimtis konkrečiai svetainei"
     },
     "settings_help_us_improve_title": {
         "message": "Padėk patobulinti AdGuard VPN"
@@ -241,22 +262,30 @@
         "message": "Šie duomenys apima:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Ekranų, su kuriais bendraujate, pavadinimai"
+        "message": "Ekranų, su kuriais bendraujate, pavadinimai",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Paspaustų mygtukų pavadinimai"
+        "message": "Paspaustų mygtukų pavadinimai",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Sesijų identifikatoriai"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Mes reikia šios informacijos, kad galėtume analizuoti ir tobulinti AdGuard VPN funkcionalumą"
+        "message": "Mes reikia šios informacijos, kad galėtume analizuoti ir tobulinti AdGuard VPN funkcionalumą",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Šie duomenys yra anoniminiai ir naudojami tik įmonės viduje. Niekada nesidalijame jais su trečiosiomis šalimis"
+        "message": "Šie duomenys yra anoniminiai ir naudojami tik įmonės viduje. Niekada nesidalijame jais su trečiosiomis šalimis",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Supratau"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Privatumo politika",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Pasirinktinis režimas"
@@ -274,7 +303,7 @@
         "message": "DNS serveris"
     },
     "settings_dns_description": {
-        "message": "Išspręsti DNS užklausas, blokuoti reklamas ir seklius, ir užšifruoti DNS srautą, kai esate prisijungę prie VPN"
+        "message": "Leidžia pasirinkti DNS serverį, kad išspręstų DNS užklausas, blokuotų reklamas ir seklius, ir užšifruotų DNS srautą, kai esate prisijungę prie VPN"
     },
     "settings_dns_description_current": {
         "message": "Dabartinis: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Šviesi"
+    },
+    "settings_language_label": {
+        "message": "Kalba"
+    },
+    "settings_language_browser_default": {
+        "message": "Naršyklės numatytasis"
     },
     "settings_quick_connect_title": {
         "message": "Greitas prisijungimas"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Išjungti VPN šioje svetainėje"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Įjungti VPN šioje svetainėje"
-    },
     "popup_settings_other_products": {
         "message": "Kiti produktai"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Pagerinkite"
     },
+    "popup_paywall_b_title": {
+        "message": "Pasiektas duomenų limitas — turinys įkeliamas ilgiau"
+    },
+    "popup_paywall_b_description": {
+        "message": "Išbandykite AdGuard VPN Unlimited. Su metiniu planu sutaupote 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Nemokama paskyra",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Neribotas",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "VPN duomenys",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/mėn.</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Greitis",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Sumažintas",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Serverių vietos",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Įrenginiai",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Atnaujinti"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Galbūt vėliau"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN neribotai:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "išbandyti nemokamai"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Siūlo didelės spartos ryšį, prieigą prie visų vietovių ir dar daugiau"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Transliuokite dideliu greičiu be apribojimų"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Žiūrėkite turinį iš %count%+ serverių vietų"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Naudokite AdGuard VPN %count% įrenginiuose vienu metu"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Slėpkite savo žiniatinklio veiklą su AdGuard DNS kaip premija"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Gauti Neribotas"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Galbūt vėliau"
+    },
     "popup_feedback_title": {
         "message": "Norėtume išgirsti jūsų atsiliepimą"
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "Siųsti anonimizuotus <link>plėtinių naudojimo duomenis</link>"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Jei sutinkate, AdGuard VPN rinks duomenis apie ekranus ir mygtukus, su kuriais bendraujate. Visada galite išjungti duomenų dalijimąsi <b>Nustatymuose</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Ši informacija padeda mums suprasti, kurios funkcijos veikia gerai ir kas reikia tobulinti. Ji yra anonimizuota ir naudojama tik viduje. Mes niekada jos nesidalijame su niekuo"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Prisijunkite arba sukurkite paskyrą"
     },
@@ -768,7 +871,7 @@
         "message": "Unikalus VPN protokolas"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "AdGuard VPN protokolas veikia greitai ir daro jūsų VPN srautą nepastebimą"
+        "message": "TrustTunnel protokolas veikia greitai ir daro jūsų VPN srautą nepastebimą"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Svetainių ir programų išimtys"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Negalima prisijungti?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Norėdami stabilesnio ryšio, pereikite prie stalinės versijos"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Norėdami stabilesnio ryšio, pereikite prie mobilios versijos"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Norėdami stabilesnio ryšio, pereikite prie AdGuard VPN, skirto Linux"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Stalinė versija yra stabiliausia"
+        "message": "Norėdami stabilesnio ryšio, pereikite prie stalinės versijos"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Norėdami stabilesnio ryšio, pereikite prie mobilios versijos"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Norėdami stabilesnio ryšio, pereikite prie AdGuard VPN, skirto Linux"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "Jei turite prisijungimo problemų, rekomenduojame pereiti prie stalinės versijos — ji veikia sklandžiau"
+        "message": "Jei pastebite ryšio problemų, rekomenduojame pereiti prie stalinės versijos — ji veikia sklandžiau"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Jei pastebite ryšio problemų, rekomenduojame pereiti prie mobilios versijos. Ji veikia sklandžiau"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Jei pastebite ryšio problemų, rekomenduojame mūsų Linux VPN klientą. Jis veikia sklandžiau"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Gauti stalinę versiją"
+        "message": "Atsiunčiama"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Kaip įdiegti"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Vėliau"

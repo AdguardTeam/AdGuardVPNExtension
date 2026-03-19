@@ -163,6 +163,7 @@ export function Select<T extends string>({
     const activeItem = options.find((option) => option.value === value);
 
     const ref = useRef<HTMLDivElement>(null);
+    const listRef = useRef<HTMLDivElement>(null);
 
     const [localActive, setLocalActive] = useState(false);
     const isActive = outsideActive !== undefined ? outsideActive : localActive;
@@ -182,6 +183,10 @@ export function Select<T extends string>({
     };
 
     const handleClose = (): void => {
+        // Reset scroll so the list always starts from the top when reopened.
+        if (listRef.current) {
+            listRef.current.scrollTop = 0;
+        }
         setActive(false);
     };
 
@@ -217,7 +222,7 @@ export function Select<T extends string>({
                     />
                 )}
             </button>
-            <div className="select__list">
+            <div ref={listRef} className="select__list">
                 {options.map((option) => (
                     <SelectOption
                         key={option.value}

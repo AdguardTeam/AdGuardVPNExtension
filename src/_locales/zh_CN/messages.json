@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "返回"
+    },
     "about_title": {
         "message": "关于"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "升级到无限版"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "在社交平台推广 AdGuard VPN"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "在社交平台推广 AdGuard VPN，赢取 %your_gb%GB 流量"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "在 X 或 Facebook 上发布帖子，并将链接分享给我们。审核通过后，我们将向您的账号赠送 %your_gb%GB 流量。您最多可累计获得 %total_gb%GB。"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "获取奖励"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "获取 %num%GB"
+    },
     "settings_rate_us": {
         "message": "请给我们评分"
     },
@@ -223,13 +241,16 @@
         "message": "拦截 WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "拦截 WebRTC，这是一个已知的漏洞，即使用户使用代理或 VPN，也会泄露真实 IP 地址。"
+        "message": "拦截可能泄露真实 IP 地址的 WebRTC，即使您正在使用代理或 VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "部分即时通讯软件、流媒体平台或游戏可能无法正常运行。"
     },
     "settings_context_menus_title": {
         "message": "在浏览器上下文菜单中显示 AdGuard VPN"
     },
     "settings_context_menus_description": {
-        "message": "管理特定网站的 VPN 排除项"
+        "message": "允许您管理特定网站的 VPN 排除项"
     },
     "settings_help_us_improve_title": {
         "message": "帮助 AdGuard VPN 变得更好"
@@ -241,22 +262,30 @@
         "message": "数据包括："
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "用户所交互的屏幕名称"
+        "message": "所访问的界面名称",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "用户点击的按钮名称"
+        "message": "所点击的按钮名称",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "会话标识符"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "我们需要这些信息来分析和改善 AdGuard VPN 的功能。"
+        "message": "我们需要此信息来分析和改进 AdGuard VPN 的功能",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "数据是匿名发送的，仅在公司内部使用。我们从不与第三方分享数据。"
+        "message": "数据是匿名发送的，仅在公司内部使用。我们从不与第三方分享数据。",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "知道了"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "隐私政策",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "选择模式"
@@ -274,7 +303,7 @@
         "message": "DNS 服务器"
     },
     "settings_dns_description": {
-        "message": "在连接到 VPN 时解析 DNS 请求、拦截广告和跟踪器，以及加密 DNS 流量。"
+        "message": "选择 DNS 服务器，在连接 VPN 时解析 DNS 请求、拦截广告和跟踪器以及加密 DNS 流量"
     },
     "settings_dns_description_current": {
         "message": "当前：%dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "亮色主题"
+    },
+    "settings_language_label": {
+        "message": "语言"
+    },
+    "settings_language_browser_default": {
+        "message": "浏览器默认"
     },
     "settings_quick_connect_title": {
         "message": "快速连接"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "为此网站禁用 VPN"
     },
-    "popup_settings_enable_vpn": {
-        "message": "为此网站开启 VPN"
-    },
     "popup_settings_other_products": {
         "message": "其它产品"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "升级"
     },
+    "popup_paywall_b_title": {
+        "message": "已达流量上限，内容加载变慢"
+    },
+    "popup_paywall_b_description": {
+        "message": "了解 AdGuard VPN 无限版。订阅年付可省 67%% 的费用。"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "免费",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "无限制",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "VPN 流量",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb%GB<span>/月</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "速度",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "降低",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "服务器位置",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "设备",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "升级"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "稍后再说"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN 无限版："
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "免费试用"
+    },
+    "popup_upgrade_b_description": {
+        "message": "畅享高速连接，解锁所有服务器位置及更多功能。"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "畅享高速流媒体，无限制"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "观看来自 %count%+ 服务器节点的内容"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "可同时在 %count% 台设备上使用 AdGuard VPN"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "使用 AdGuard DNS 隐藏网络活动"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "获取无限版"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "稍后再说"
+    },
     "popup_feedback_title": {
         "message": "我们很高兴收到您的反馈"
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "匿名发送<link>扩展使用数据</link>"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "如果同意，AdGuard VPN 将收集您与之交互的屏幕和按钮的数据。您可以随时在「<b>设置</b>」中禁用数据共享。"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "这些信息有助于我们了解哪些功能运行良好，哪些功能需要改进。这些信息是匿名的，仅在内部使用。我们绝不会与任何人共享。"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "登录或创建账号"
     },
@@ -768,7 +871,7 @@
         "message": "特有的 VPN 协议"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "AdGuard VPN 的协议运行速度很快，让您的 VPN 流量不显眼"
+        "message": "TrustTunnel 协议运行快速，让您的 VPN 流量难以辨认"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "网站和应用排除项"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "无法连接？"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "切换至桌面版，连接更稳定"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "切换至移动版，连接更稳定"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "切换至 AdGuard VPN Linux 版，连接更稳定"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "桌面版更稳定"
+        "message": "切换至桌面版，连接更稳定"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "切换至移动版，连接更稳定"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "切换至 AdGuard VPN Linux 版，连接更稳定"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "如果有用户遇到连接问题，我们建议切换到桌面版本，它运行更流畅"
+        "message": "如遇连接问题，建议您切换至桌面版，运行更流畅。"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "如遇连接问题，建议您切换至移动版，运行更流畅。"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "如遇连接问题，建议您使用 Linux 版 VPN 客户端，运行更流畅。"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "获取桌面版"
+        "message": "下载"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "安装方式"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "下次"

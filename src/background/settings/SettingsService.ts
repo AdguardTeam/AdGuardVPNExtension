@@ -12,7 +12,7 @@ import { THEME_STORAGE_KEY } from '../../common/useAppearanceTheme';
 
 type VersionType = { [x: string]: any; VERSION: string; };
 
-const SCHEME_VERSION = '13';
+const SCHEME_VERSION = '14';
 const THROTTLE_TIMEOUT = 100;
 
 const OLD_DARK_THEME_NAME = 'DARK';
@@ -299,6 +299,31 @@ export class SettingsService {
     };
 
     /**
+     * Runs settings migration from schema v13 to v14.
+     *
+     * Removes the old AB test storage key completely as the extension now uses
+     * a new slot-based A/B testing system with a different storage key.
+     *
+     * @param oldSettings Old settings.
+     *
+     * @returns Updated settings.
+     */
+    migrateFrom13to14 = async (oldSettings: Settings): Promise<VersionType> => {
+        const AB_TEST_STORAGE_KEY = 'ab_test_manager.versions';
+
+        try {
+            await browserApi.storage.remove(AB_TEST_STORAGE_KEY);
+        } catch (e) {
+            log.error('[vpn.SettingsService]: Failed to remove AB test storage key', e);
+        }
+
+        return {
+            ...oldSettings,
+            VERSION: '14',
+        };
+    };
+
+    /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
      * For example if your migration function migrates your settings from scheme 4 to 5, then add
@@ -317,6 +342,7 @@ export class SettingsService {
         10: this.migrateFrom10to11,
         11: this.migrateFrom11to12,
         12: this.migrateFrom12to13,
+        13: this.migrateFrom13to14,
     };
 
     async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {

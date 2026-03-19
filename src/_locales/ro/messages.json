@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Înapoi"
+    },
     "about_title": {
         "message": "Despre"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Actualizați la Unlimited"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Promovează AdGuard VPN pe rețelele sociale"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Promovează AdGuard VPN pe rețelele sociale și primești %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Scrie un post pe X sau Facebook și partajează linkul cu noi. Îl vom verifica și vom adăuga %your_gb% GB la contul tău. Poți câștiga până la %total_gb% GB în total"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Obține bonus"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Obțineți %num% GB"
+    },
     "settings_rate_us": {
         "message": "Cotați-ne"
     },
@@ -223,7 +241,10 @@
         "message": "Blocați WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Blochează WebRTC, o vulnerabilitate cunoscută care vă poate scurge adresa IP reală chiar dacă utilizați un proxy sau VPN"
+        "message": "Blochează WebRTC, o vulnerabilitate cunoscută care vă poate scurge Adresa IP reală chiar dacă utilizați un proxy sau VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Unele aplicații de mesagerie, platforme de streaming sau jocuri pot înceta să funcționeze corect"
     },
     "settings_context_menus_title": {
         "message": "Afisați AdGuard VPN în meniul contextual al browserului"
@@ -241,22 +262,30 @@
         "message": "Aceste date includ:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Numele ecranelor cu care interacționezi"
+        "message": "Numele ecranelor cu care interacționezi",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Numele butoanelor pe care faceți clic"
+        "message": "Numele butoanelor pe care faceți clic",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Identificatori de sesiune"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Avem nevoie de aceste informații pentru a analiza și îmbunătăți funcționalitatea AdGuard VPN"
+        "message": "Avem nevoie de aceste informații pentru a analiza și îmbunătăți funcționalitatea AdGuard VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Aceste date sunt anonime și sunt folosite doar intern. Nu îl împărtășim niciodată cu alte site-uri"
+        "message": "Aceste date sunt anonime și sunt folosite doar intern. Nu le împărtășim niciodată cu părți terțe",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Am înțeles."
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Politica confidențialității",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Modul selectiv"
@@ -274,7 +303,7 @@
         "message": "Server DNS"
     },
     "settings_dns_description": {
-        "message": "Permite selectarea unui server DNS pentru a rezolva cererile DNS, pentru a bloca reclamele și trackerele, și pentru a cripta traficul DNS atunci când sunteți conectat la VPN"
+        "message": "Permite selectarea unui server DNS pentru a rezolva cererile DNS, pentru a bloca reclamele și trackerele și pentru a cripta traficul DNS atunci când sunteți conectat la VPN"
     },
     "settings_dns_description_current": {
         "message": "Actual: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Luminoasă"
+    },
+    "settings_language_label": {
+        "message": "Limbă"
+    },
+    "settings_language_browser_default": {
+        "message": "Implicit browser"
     },
     "settings_quick_connect_title": {
         "message": "Conectare rapidă"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Dezactivați VPN pe acest site"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Activați VPN pentru acest site"
-    },
     "popup_settings_other_products": {
         "message": "Alte produse"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Actualizați"
     },
+    "popup_paywall_b_title": {
+        "message": "Limita de date a fost atinsă — conținutul se încarcă mai lent"
+    },
+    "popup_paywall_b_description": {
+        "message": "Descoperă AdGuard VPN nelimitat. Cu planul anual, economisești 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Gratuit",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Nelimitat",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "Date VPN",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/lună</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Viteză",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Redusă",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Locațiile serverului",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Dispozitive",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Actualizați"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Poate mai târziu"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN nelimitat:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "încercați gratuit"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Oferă conexiuni de mare viteză, acces la toate locațiile și multe altele"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Streaming la viteze mari, fără limite"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Urmărește conținut din %count%+ locații ale serverului"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Folosește AdGuard VPN pe %count% dispozitive în același timp"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Ascunde-ți activitatea web cu AdGuard DNS ca bonus"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Obține Nelimitat"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Poate mai târziu"
+    },
     "popup_feedback_title": {
         "message": "Ne-ar plăcea să auzim feedback-ul dvs."
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "Trimite datele de utilizare a <link>extensiei</link> anonimizate"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Dacă ești de acord, AdGuard VPN va colecta date despre ecranele și butoanele cu care interacționezi. Poți dezactiva întotdeauna partajarea datelor în <b>Setări</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Aceste informații ne ajută să înțelegem ce funcții funcționează bine și ce necesită îmbunătățiri. Este anonimizat și folosit doar intern. Nu o împărtășim niciodată cu nimeni"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Conectați-vă sau creați un cont"
     },
@@ -768,7 +871,7 @@
         "message": "Protocol VPN unic"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "Protocolul AdGuard VPN funcționează rapid și vă face traficul VPN discret"
+        "message": "Protocolul TrustTunnel funcționează rapid și vă face traficul VPN discret"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Excluderi de site-uri și app-uri"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Nu vă puteți conecta?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Treci la versiunea desktop pentru o conexiune mai stabilă"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Treci la versiunea mobilă pentru o conexiune mai stabilă"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Treci la AdGuard VPN pentru Linux pentru o conexiune mai stabilă"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Versiunea desktop este mai stabilă"
+        "message": "Treci la versiunea desktop pentru o conexiune mai stabilă"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Treci la versiunea mobilă pentru o conexiune mai stabilă"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Treci la AdGuard VPN pentru Linux pentru o conexiune mai stabilă"
     },
     "popup_vpn_blocked_error_details_description": {
         "message": "Dacă întâmpinați probleme de conexiune, vă recomandăm să treceți la versiunea desktop — funcționează mai bine"
     },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Dacă observi probleme de conexiune, îți recomandăm să treci la versiunea mobilă. Funcționează mai bine"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Dacă observi probleme de conexiune, îți recomandăm clientul nostru VPN pentru Linux. Funcționează mai bine"
+    },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Descărcați aplicația"
+        "message": "Descarcă"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Cum se instalează"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Mai târziu"

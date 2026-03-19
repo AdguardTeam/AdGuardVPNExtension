@@ -6,8 +6,7 @@ import {
     ONE_HOUR_MS,
     ONE_DAY_MS,
 } from '../constants';
-
-const RU_LOCALE = 'ru';
+import { RU_LOCALE } from '../locale/localeConstants';
 
 /**
  * Normalizes browser locale by converting it to lower case and replacing dash with underscore.

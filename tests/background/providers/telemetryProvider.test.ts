@@ -40,6 +40,10 @@ describe('telemetryProvider', () => {
                 brand: 'brand',
                 model: 'model',
             },
+            browser: {
+                name: 'Chrome',
+                version: '98',
+            },
             os: {
                 name: TelemetryOs.MacOS,
                 version: 'version',
@@ -103,6 +107,64 @@ describe('telemetryProvider', () => {
             },
             pageview: undefined,
         });
+    });
+
+    it('does not include experiment keys when no experiments are present', async () => {
+        await telemetryProvider.sendPageViewEvent(samplePageViewEventData, sampleBaseData);
+
+        const callArgs = sendEventSpy.mock.calls[sendEventSpy.mock.calls.length - 1][0];
+        expect(callArgs.props).not.toHaveProperty('experiment_1');
+        expect(callArgs.props).not.toHaveProperty('experiment_2');
+        expect(callArgs.props).not.toHaveProperty('experiment_3');
+    });
+
+    it('forwards experiment props to the API for pageview events', async () => {
+        const baseDataWithExperiments: TelemetryBaseData = {
+            ...sampleBaseData,
+            props: {
+                ...sampleBaseData.props!,
+                experiment_1: 'AG-001-feature-a-variant_def',
+                experiment_2: 'AG-002-feature-b-variant_b',
+            },
+        };
+
+        await telemetryProvider.sendPageViewEvent(samplePageViewEventData, baseDataWithExperiments);
+
+        expect(sendEventSpy).toBeCalledWith(
+            expect.objectContaining({
+                props: expect.objectContaining({
+                    experiment_1: 'AG-001-feature-a-variant_def',
+                    experiment_2: 'AG-002-feature-b-variant_b',
+                }),
+            }),
+        );
+
+        const callArgs = sendEventSpy.mock.calls[sendEventSpy.mock.calls.length - 1][0];
+        expect(callArgs.props).not.toHaveProperty('experiment_3');
+    });
+
+    it('forwards experiment props to the API for custom events', async () => {
+        const baseDataWithExperiments: TelemetryBaseData = {
+            ...sampleBaseData,
+            props: {
+                ...sampleBaseData.props!,
+                experiment_1: 'AG-001-feature-a-variant_def',
+            },
+        };
+
+        await telemetryProvider.sendCustomEvent(sampleCustomEventData, baseDataWithExperiments);
+
+        expect(sendEventSpy).toBeCalledWith(
+            expect.objectContaining({
+                props: expect.objectContaining({
+                    experiment_1: 'AG-001-feature-a-variant_def',
+                }),
+            }),
+        );
+
+        const callArgs = sendEventSpy.mock.calls[sendEventSpy.mock.calls.length - 1][0];
+        expect(callArgs.props).not.toHaveProperty('experiment_2');
+        expect(callArgs.props).not.toHaveProperty('experiment_3');
     });
 
     it('handles network errors', async () => {

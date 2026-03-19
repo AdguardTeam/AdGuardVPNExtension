@@ -8,6 +8,7 @@ import {
 } from 'vitest';
 
 import { AuthSideEffects } from '../../../src/background/authSideEffects/AuthSideEffects';
+import { NotificationType } from '../../../src/background/notifications';
 import { translator } from '../../../src/common/translator';
 
 vi.mock('../../../src/common/translator', () => ({
@@ -111,7 +112,10 @@ describe('AuthSideEffects', () => {
 
             // Should notify user
             expect(notificationsMock.create).toHaveBeenCalledTimes(1);
-            expect(notificationsMock.create).toHaveBeenCalledWith({ message: MOCK_TRANSLATION_STRING });
+            expect(notificationsMock.create).toHaveBeenCalledWith({
+                message: MOCK_TRANSLATION_STRING,
+                notificationType: NotificationType.FirstAuth,
+            });
 
             // Should update and get forwarder domain
             expect(forwarderMock.updateAndGetDomain).toHaveBeenCalledTimes(1);

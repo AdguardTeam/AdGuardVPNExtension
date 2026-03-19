@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Vráťte sa späť"
+    },
     "about_title": {
         "message": "O aplikácii"
     },
@@ -144,6 +147,9 @@
     "referral_get_free_traffic": {
         "message": "Získajte bezplatné GB!"
     },
+    "settings_referral_info_friends": {
+        "message": "Pošlite svojmu priateľovi pozývací odkaz. Keď sa zaregistruje do AdGuard VPN cez váš odkaz, obaja získate %your_gb% GB rýchlej VPN. Nepoužitá prevádzka neprepadne — môžete ju využívať aj v nasledujúcich mesiacoch. Pozvite až %max_friends% priateľov a získajte celkovo až %total_gb% GB"
+    },
     "settings_referral_invited_friends": {
         "message": "Pozvaní priatelia %count%/%limit%"
     },
@@ -159,11 +165,47 @@
     "settings_free_gbs": {
         "message": "Voľné GB"
     },
+    "settings_free_gbs_subtitle": {
+        "message": "Tu je postup, ako môžete získať extra VPN komunikáciu"
+    },
+    "settings_free_gbs_join_adguard": {
+        "message": "Pripojte sa k AdGuard VPN"
+    },
     "settings_free_gbs_get_GB": {
         "message": "Získajte %num% GB"
     },
     "settings_free_gbs_task_complete": {
         "message": "Dostali ste %num% GB"
+    },
+    "settings_free_gbs_add_device": {
+        "message": "Pridajte nové zariadenie"
+    },
+    "settings_free_gbs_add_device_title_gb": {
+        "message": "Pridajte nové zariadenie a získajte %your_gb% GB zadarmo"
+    },
+    "settings_free_gbs_add_device_info_gb": {
+        "message": "Prihláste sa do AdGuard VPN na inom zariadení pomocou %email% a získajte jednorazový bonus %your_gb% GB"
+    },
+    "settings_free_gbs_add_device_wait_to_update": {
+        "message": "Aktualizácia vášho mesačného limitu môže chvíľu trvať — počkajte pár minút alebo reštartujte aplikáciu"
+    },
+    "settings_free_gbs_devices_added_title_gb": {
+        "message": "Získali ste %your_gb% GB za pridanie nového zariadenia"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Nevyužitá komunikácia sa prenáša do ďalších mesiacov. A s AdGuard VPN Unlimited si môžete vychutnať rýchle prehliadanie bez obmedzení"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Vyberte produkt"
+    },
+    "settings_free_gbs_invite_friend_count": {
+        "message": "Pozvite priateľa (%invited_count%/%max_invites%)"
+    },
+    "settings_free_gbs_invite_friend_title": {
+        "message": "Pozvite priateľa a získajte %your_gb% GB rýchlej VPN"
+    },
+    "settings_free_gbs_invite_friend_title_success": {
+        "message": "Pozvali ste %total_invites% priateľov a získali ste celkovo %total_gbs% GB"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Získajte až %num% GB"
@@ -171,8 +213,26 @@
     "settings_free_gbs_invite_friend_complete": {
         "message": "Dostali ste %num% GB"
     },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Ďakujeme, že nám pomáhate rásť! Zistite, ako získať viac bonusov v sekcii Bezplatné GB. Alebo si zaobstarajte AdGuard VPN Unlimited a užívajte si rýchle prehliadanie bez obmedzení"
+    },
     "settings_free_gbs_upgrade": {
         "message": "Upgradovať na Unlimited"
+    },
+    "settings_free_gbs_promote_socials": {
+        "message": "Propagácia AdGuard VPN na sociálnych sieťach"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Propagujte AdGuard VPN na sociálnych sieťach a získajte %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Napíšte príspevok na X alebo Facebook a zdieľajte s nami odkaz. Skontrolujeme ho a pridáme na Váš účet %your_gb% GB. Celkovo môžete získať až %total_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Získajte bonus"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Získajte %num% GB"
     },
     "settings_rate_us": {
         "message": "Ohodnoťte nás"
@@ -181,13 +241,16 @@
         "message": "Blokovať WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Blokovanie WebRTC, známej zraniteľnosti, ktorá môže prezradiť Vašu skutočnú IP adresu, aj keď používate proxy server alebo VPN"
+        "message": "Blokuje WebRTC, ktoré môže prepustiť Vašu skutočnú IP adresu, aj keď používate proxy alebo VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Niektoré messengery, streamovacie platformy alebo hry môžu prestať správne fungovať"
     },
     "settings_context_menus_title": {
         "message": "Zobrazenie AdGuard VPN v kontextovej ponuke prehliadača"
     },
     "settings_context_menus_description": {
-        "message": "Správa výnimiek VPN pre konkrétnu webovú lokalitu"
+        "message": "Umožňuje Vám spravovať výnimky VPN pre konkrétnu webovú stránku"
     },
     "settings_help_us_improve_title": {
         "message": "Pomôžte zlepšiť AdGuard VPN"
@@ -199,22 +262,30 @@
         "message": "Tieto údaje zahŕňajú:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Názvy obrazoviek, s ktorými interagujete"
+        "message": "Názvy obrazoviek, s ktorými interagujete",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Názvy tlačidiel, na ktoré kliknete"
+        "message": "Názvy tlačidiel, na ktoré kliknete",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Identifikátory relácie"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Tieto informácie potrebujeme na analýzu a zlepšenie funkčnosti AdGuard VPN"
+        "message": "Tieto informácie potrebujeme na analýzu a zlepšenie funkčnosti AdGuard VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Tieto údaje sú anonymné a používajú sa iba interne. Nikdy ich nezdieľame s tretími stranami"
+        "message": "Tieto údaje sú anonymné a používajú sa iba interne. Nikdy ich nezdieľame s tretími stranami",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Chápem"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Zásady ochrany osobných údajov",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Výberový režim"
@@ -232,7 +303,7 @@
         "message": "DNS server"
     },
     "settings_dns_description": {
-        "message": "Riešenie DNS dopytov, blokovanie reklám a sledovacích zariadení a šifrovanie prevádzky DNS, keď ste pripojený k VPN sieti"
+        "message": "Umožňuje vybrať DNS server na riešenie DNS dopytov, blokovanie reklám a sledovacích nástrojov a šifrovanie DNS komunikácie, keď ste pripojený k VPN"
     },
     "settings_dns_description_current": {
         "message": "Aktuálne: %dnsServerName%"
@@ -341,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Svetlá"
+    },
+    "settings_language_label": {
+        "message": "Jazyk"
+    },
+    "settings_language_browser_default": {
+        "message": "Predvolený prehliadač"
     },
     "settings_quick_connect_title": {
         "message": "Rýchle pripojenie"
@@ -513,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Vypnúť VPN na tejto stránke"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Zapnúť VPN pre tento web"
-    },
     "popup_settings_other_products": {
         "message": "Iné produkty"
     },
@@ -613,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Upgrade"
     },
+    "popup_paywall_b_title": {
+        "message": "Bol dosiahnutý dátový limit - obsah sa načítava dlhšie"
+    },
+    "popup_paywall_b_description": {
+        "message": "Vyskúšajte AdGuard VPN Unlimited. S ročným plánom ušetríte až 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Bezplatný",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Prémiový",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "VPN dáta",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/mesiac</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Rýchlosť",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Znížená",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Lokality serverov",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Zariadenia",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Aktualizácia"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Možno neskôr"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "vyskúšajte zadarmo"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Ponúka vysokorýchlostné pripojenie, prístup ku všetkým lokalitám a viac"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Streamujte vysokou rýchlosťou bez obmedzení"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Sledujte obsah z %count%+ lokalít serverov"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Používajte AdGuard VPN na %count% zariadeniach súčasne"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Skryte svoju webovú aktivitu pomocou AdGuard DNS ako bonusu"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Získajte neobmedzené"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Možno neskôr"
+    },
     "popup_feedback_title": {
         "message": "Radi by sme počuli Vašu spätnú väzbu"
     },
@@ -699,13 +850,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Odoslať anonymizované <link>údaje o používaní rozšírenia</link>"
-    },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Ak súhlasíte, AdGuard VPN bude zhromažďovať údaje o obrazovkách a tlačidlách, s ktorými interagujete. Zdieľanie údajov môžete kedykoľvek zakázať v <b>Nastavenia</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Tieto informácie nám pomáhajú pochopiť, ktoré funkcie fungujú dobre a čo je potrebné zlepšiť. Je anonymizovaný a používa sa iba interne. Nikdy to s nikým nezdieľame"
+        "message": "Odosiela anonymizované údaje o používaní rozšírenia <link></link>"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Prihláste sa alebo si vytvorte účet"
@@ -726,7 +871,7 @@
         "message": "Unikátny protokol VPN"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "Protokol AdGuard VPN pracuje rýchlo a robí Vašu sieť VPN nenápadnou"
+        "message": "Protokol TrustTunnel funguje rýchlo a robí Vašu VPN komunikáciu nenápadnou"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Vylúčenia webových stránok a aplikácií"
@@ -745,6 +890,9 @@
     },
     "popup_upgrade_screen_title": {
         "message": "Upgradovať na Unlimited"
+    },
+    "popup_upgrade_screen_info_with_devices": {
+        "message": "Získajte prístup ku všetkým lokalitám, prehliadajte bez rýchlostných obmedzení a pripojte naraz až %maxDevicesAllowed% zariadení"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neobmedzené dáta"
@@ -793,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Nemôžete sa pripojiť?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Pre stabilnejšie pripojenie prepnite na desktopovú verziu"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Pre stabilnejšie pripojenie prepnite na mobilnú verziu"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Pre stabilnejšie pripojenie prepnite na AdGuard VPN pre Linux"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Aplikácia funguje stabilnejšie"
+        "message": "Pre stabilnejšie pripojenie prepnite na desktopovú verziu"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Pre stabilnejšie pripojenie prepnite na mobilnú verziu"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Pre stabilnejšie pripojenie prepnite na AdGuard VPN pre Linux"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "Ak máte problémy s pripojením, odporúčame vám prejsť na verziu pre stolné počítače – funguje plynulejšie"
+        "message": "Ak spozorujete problémy s pripojením, odporúčame Vám prejsť na desktopovú verziu. Funguje plynulejšie"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Ak spozorujete problémy s pripojením, odporúčame Vám prejsť na mobilnú verziu. Funguje plynulejšie"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Ak spozorujete problémy s pripojením, odporúčame nášho VPN klienta pre Linux. Funguje plynulejšie"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Stiahnite si aplikáciu"
+        "message": "Sťahovanie"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Ako nainštalovať"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Neskôr"
@@ -1029,6 +1201,12 @@
     },
     "notification_data_left_description": {
         "message": "Rýchlosť pripojenia VPN sa čoskoro zníži."
+    },
+    "confirm_email_done_title_gb": {
+        "message": "Získali ste %your_gb% GB ako jednorazový uvítací bonus"
+    },
+    "confirm_email_done_info": {
+        "message": "Nevyužitá komunikácia sa prenáša do ďalších mesiacov. A s AdGuard VPN Unlimited si môžete vychutnať rýchle prehliadanie bez obmedzení"
     },
     "auth_failed_to_login_title": {
         "message": "Nepodarilo sa Vás prihlásiť"

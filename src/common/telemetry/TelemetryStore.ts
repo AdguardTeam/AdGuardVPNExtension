@@ -108,20 +108,18 @@ export class TelemetryStore {
      * @param actionName Name of the action.
      * @param screenName Name of the screen.
      * @param label Optional label for the event.
-     * @param experiment Experiment value for event if A/B test is in progress.
      */
     sendCustomEvent = async <T extends TelemetryActionName>(
         actionName: T,
         screenName: TelemetryActionToScreenMap[T],
         label?: string,
-        experiment?: string,
     ): Promise<void> => {
         try {
             if (!this.isHelpUsImproveEnabled) {
                 return;
             }
 
-            await messenger.sendCustomTelemetryEvent(actionName, screenName, label, experiment);
+            await messenger.sendCustomTelemetryEvent(actionName, screenName, label);
         } catch (e) {
             log.debug('[vpn.TelemetryStore]: Failed to send custom telemetry event', e);
         }

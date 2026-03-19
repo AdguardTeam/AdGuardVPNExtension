@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "戻る"
+    },
     "about_title": {
         "message": "AdGuard VPNについて"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "無制限版にアップグレード"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "SNSでAdGuard VPNを宣伝しよう"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "SNSでAdGuard VPNを宣伝して、%your_gb%GBを獲得"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "X または Facebook に投稿して、投稿のリンクをお送りください。確認して、あなたのアカウントに%your_gb%GBを追加します。合計で最大%total_gb%GBを獲得できます。"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "ボーナスGBを獲得"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "%num%GBをGET"
+    },
     "settings_rate_us": {
         "message": "ご評価いただければ幸いです。"
     },
@@ -223,13 +241,16 @@
         "message": "WebRTCをブロックする"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTCをブロックします。（WebRTCは、プロキシやVPNを使用しても実際のIPアドレスを漏らす可能性のある脆弱性です。）"
+        "message": "WebRTCをブロックします。（WebRTCは、プロキシやVPNを使用している場合でも実際のIPアドレスを漏らす可能性があります。）"
+    },
+    "settings_webrtc_warning": {
+        "message": "一部のメッセンジャー、ストリーミングサービス、またはゲームが正常に動作しなくなる場合があります"
     },
     "settings_context_menus_title": {
         "message": "ブラウザの右クリックメニューに AdGuard VPN を表示させる"
     },
     "settings_context_menus_description": {
-        "message": "特定のウェブサイトに対するVPN除外設定を管理する"
+        "message": "特定のウェブサイトに対するVPN除外設定を管理できる"
     },
     "settings_help_us_improve_title": {
         "message": "AdGuard VPN の改善に協力する"
@@ -241,22 +262,30 @@
         "message": "このデータには以下のものが含まれます:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "あなたが操作する画面の名前"
+        "message": "あなたが操作する画面の名前",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "クリックしたボタンの名前"
+        "message": "クリックしたボタンの名前",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "セッション識別子"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "これらの情報は、AdGuard VPN の分析および機能向上のために必要です。"
+        "message": "これらの情報は、AdGuard VPN 機能の分析および改善のために必要です。",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "※このデータは匿名であり、社内でのみ使用されます。第三者と共有することは一切ありません。"
+        "message": "※このデータは匿名であり、社内でのみ使用されます。第三者と共有することは一切ありません。",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "OK"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "プライバシーポリシー",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "指定モード"
@@ -274,7 +303,7 @@
         "message": "DNSサーバー"
     },
     "settings_dns_description": {
-        "message": "DNSサーバーは、DNSリクエストを解決し、広告や追跡者をブロックし、VPNに接続しているときにDNSトラフィックを暗号化してくれます。"
+        "message": "DNSサーバーを選択することで、DNSリクエストを解決し、広告やトラッカーをDNSレベルでブロックし、DNSトラフィックを暗号化できます。"
     },
     "settings_dns_description_current": {
         "message": "現在のDNSサーバー: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "ライト"
+    },
+    "settings_language_label": {
+        "message": "言語"
+    },
+    "settings_language_browser_default": {
+        "message": "ブラウザのデフォルト"
     },
     "settings_quick_connect_title": {
         "message": "クイック接続"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "このサイトに対してVPNを無効にする"
     },
-    "popup_settings_enable_vpn": {
-        "message": "このサイトに対してVPNを有効にする"
-    },
     "popup_settings_other_products": {
         "message": "他のAdGuard製品"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "アップグレード"
     },
+    "popup_paywall_b_title": {
+        "message": "データの上限に達しました。コンテンツの読み込み速度が遅くなっています。"
+    },
+    "popup_paywall_b_description": {
+        "message": "AdGuard VPN 無制限版をチェックしてください。1年プランなら67%%お得です。"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "無料アカウント",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "無制限版",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "VPNデータ",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb%GB<span>/月</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "通信速度",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "制限あり",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "サーバーロケーション",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%以上"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "デバイス",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "アップグレード"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "後で"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN 無制限版:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "無料で試してみる"
+    },
+    "popup_upgrade_b_description": {
+        "message": "最高の通信速度、全ロケーションへのアクセスなどをご利用いただけます。"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "動画配信サービスを制限なく高速で視聴"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "%count%か所以上のサーバーロケーションからコンテンツを視聴"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "同時に%count%台のデバイスで AdGuard VPN を使える"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "特典として AdGuard DNS を無償で使える"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "無制限版をGET"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "後で"
+    },
     "popup_feedback_title": {
         "message": "ユーザ様の声をお聞かせください。"
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "匿名化された<link>拡張機能の使用状況データ</link>を送信する"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "同意すると、AdGuard VPN は、お客様がAdGuard VPNアプリ内で操作した画面やボタンに関するデータを収集します。<b>設定</b>でいつでもこのデータ共有をオフにすることができます。"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "この情報は、どのような機能がうまく機能し、どのような改善が必要かを理解するのに役立ち、開発に活用させていただきます。この情報は匿名化され、社内でのみ使用されます。AdGuard社がこの情報を第三者と共有することは一切ありません。"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "ログインまたはアカウントご登録"
     },
@@ -768,7 +871,7 @@
         "message": "独自開発のVPNプロトコル"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "AdGuard VPNプロトコルは高速に動作し、VPNトラフィックを目立たなくさせます。"
+        "message": "TrustTunnelプロトコルは高速に動作し、VPNトラフィックを検知されにくくしてくれます。"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "サイトとアプリの除外（VPN対象外リスト）"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "接続できないですか？"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "より安定した通信には、デスクトップ版に切り替えてください"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "より安定した通信には、モバイル版に切り替えてください"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "より安定した通信には、AdGuard VPN for Linux に切り替えてください"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "デスクトップ版ならより安定しています"
+        "message": "より安定した通信には、デスクトップ版に切り替えてください"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "より安定した通信には、モバイル版に切り替えてください"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "より安定した通信には、AdGuard VPN for Linux に切り替えてください"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "接続によく問題がある場合は、デスクトップ版のご使用をお勧めします。"
+        "message": "接続や通信によく問題がある場合は、動作がより安定しているデスクトップ版のご使用をお勧めします。"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "接続や通信によく問題がある場合は、動作がより安定しているモバイル版のご使用をお勧めします。"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "接続や通信によく問題がある場合は、動作がより安定しているLinux用VPNクライアント版のご使用をお勧めします。"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "デスクトップ版を入手"
+        "message": "ダウンロード"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "インストール方法"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "後で"

@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Pojdi nazaj"
+    },
     "about_title": {
         "message": "Vizitka"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Nadgradnja na Unlimited"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Promoviraj AdGuard VPN na družbenih omrežjih"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Promoviraj AdGuard VPN na družbenih omrežjih in prejmi %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Napiši objavo na X ali Facebooku in z nami deli povezavo. Pregledali jo bomo in dodali %your_gb% GB v tvoj account. Skupaj lahko zaslužiš do %total_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Pridobi bonus"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Pridobite %num% GB"
+    },
     "settings_rate_us": {
         "message": "Ocenite nas"
     },
@@ -223,7 +241,10 @@
         "message": "Onemogoči WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Onemogoča WebRTC, znano ranljivost, ki lahko razkrije vaš pravi naslov IP, tudi če uporabljate namestniški strežnik ali VPN"
+        "message": "Blokira WebRTC, ki lahko razkrije vaš pravi Naslov IP, tudi če uporabljate namestniški trežnik ali VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Nekateri sporočilniki, platforme za pretakanje ali igre morda ne bodo več delovale pravilno"
     },
     "settings_context_menus_title": {
         "message": "Prikaži AdGuard VPN v priročnem meniju brskalnika"
@@ -241,22 +262,30 @@
         "message": "Ti podatki vključujejo:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Imena zaslonov, s katerimi komunicirate"
+        "message": "Imena zaslonov, s katerimi komunicirate",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Imena gumbov, ki jih kliknete"
+        "message": "Imena gumbov, ki jih kliknete",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Identifikatorji seje"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Te informacije potrebujemo, da analiziramo in izboljšamo funkcionalnost AdGuard VPN"
+        "message": "Te informacije potrebujemo, da analiziramo in izboljšamo funkcionalnost AdGuard VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Ti podatki so anonimni in se uporabljajo samo interno. Nikoli jih ne delimo s tretjimi osebami"
+        "message": "Ti podatki so anonimni in se uporabljajo samo interno. Nikoli jih ne delimo s tretjimi osebami",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Razumem"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Politika zasebnosti",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Izbirni način"
@@ -274,7 +303,7 @@
         "message": "Strežnik DNS"
     },
     "settings_dns_description": {
-        "message": "Reši zahteve DNS, blokiraj oglase in sledilce ter šifrira promet DNS, ko si povezan v VPN"
+        "message": "Omogoča izbiro strežnika DNS za reševanje zahtev DNS, blokiranje oglasov in sledilnikov ter šifriranje prometa DNS, ko ste povezani v VPN"
     },
     "settings_dns_description_current": {
         "message": "Trenutna: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Svetla"
+    },
+    "settings_language_label": {
+        "message": "Jezik"
+    },
+    "settings_language_browser_default": {
+        "message": "Privzeto brskalnika"
     },
     "settings_quick_connect_title": {
         "message": "Hitro poveži"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Onemogoči VPN za to spletno stran"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Omogoči VPN za to spletno stran"
-    },
     "popup_settings_other_products": {
         "message": "Drugi izdelki"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Nadgradi"
     },
+    "popup_paywall_b_title": {
+        "message": "Dosežena omejitev podatkov — vsebina se nalaga dlje"
+    },
+    "popup_paywall_b_description": {
+        "message": "Oglejte si AdGuard VPN Neomejen. Z letnim načrtom prihranite 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Brezplačen račun",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Neomejen račun",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "Podatki VPN",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/mes</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Hitrost",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Zmanjšana",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Lokacije strežnikov",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Naprave",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Nadgradi"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Morda pozneje"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "poskusite brezplačno"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Ponuja hitre povezave, dostop do vseh lokacij in več"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Pretakajte z visokimi hitrostmi brez omejitev"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Oglejte si vsebino iz %count%+ lokacij strežnikov"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Uporaba AdGuard VPN v %count% napravah hkrati"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Skrijte svoje spletne dejavnosti z AdGuard DNS kot bonus"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Pridobi Neomejen"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Morda pozneje"
+    },
     "popup_feedback_title": {
         "message": "Zelo radi bi slišali vaše povratne informacije"
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "Pošlji anonimizirane <link>podatke o uporabi razširitev</link>"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Če se strinjate, bo AdGuard VPN zbiral podatke o zaslonih in gumbih, s katerimi komunicirate. Vedno lahko onemogočite deljenje podatkov v <b>Nastavitve</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Te informacije nam pomagajo razumeti, katere funkcionalnosti dobro delujejo in kaj je potrebno izboljšati. So anonimne in se uporabljajo samo interno. Nikoli jih ne delimo z nikomer"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Prijavite se ali ustvarite račun"
     },
@@ -768,7 +871,7 @@
         "message": "Edinstven VPN protokol"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "Protokol AdGuard VPN deluje hitro in naredi vaš promet VPN neopazen"
+        "message": "Protokol TrustTunnel deluje hitro in naredi vaš promet VPN neopazen"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Izključitve spletnih strani in aplikacij"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Ne morete vzpostaviti povezave?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Preklopi na namizno različico za stabilnejšo povezavo"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Preklopi na mobilno različico za stabilnejšo povezavo"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Preklopi na AdGuard VPN za Linux za stabilnejšo povezavo"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Aplikacija deluje bolj stabilno"
+        "message": "Preklopi na namizno različico za stabilnejšo povezavo"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Preklopi na mobilno različico za stabilnejšo povezavo"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Preklopi na AdGuard VPN za Linux za stabilnejšo povezavo"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "Če imate težave s povezavo, priporočamo, da preklopite na namizno različico — deluje bolj gladko"
+        "message": "Če opazite težave s povezavo, priporočamo, da preklopite na namizno različico — deluje bolj gladko"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Če opazite težave s povezavo, priporočamo, da preklopite na mobilno različico. Deluje bolj gladko"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Če opazite težave s povezavo, priporočamo naš VPN client za Linux. Deluje bolj gladko"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Pridobite namizno različico"
+        "message": "Prenos"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Kako namestiti"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Kasneje"

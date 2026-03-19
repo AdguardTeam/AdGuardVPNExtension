@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Πηγαίνετε πίσω"
+    },
     "about_title": {
         "message": "Σχετικά με"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Αναβάθμιση στο Unlimited"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Προωθήστε το AdGuard VPN στα κοινωνικά δίκτυα"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Προωθήστε το AdGuard VPN στα κοινωνικά δίκτυα και λάβετε %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Αναρτήστε μια δημοσίευση στο X ή στο Facebook και κοινοποιήστε τον σύνδεσμο μαζί μας. Θα την ελέγξουμε και θα προσθέσουμε %your_gb% GB στον λογαριασμό σας. Μπορείτε να κερδίσετε έως και %total_gb% GB συνολικά"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Λήψη μπόνους"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Λάβετε %num% GB"
+    },
     "settings_rate_us": {
         "message": "Βαθμολογήστε μας"
     },
@@ -223,7 +241,10 @@
         "message": "Αποκλεισμός WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Αποκλεισμός του WebRTC, μιας γνωστής ευπάθειας που μπορεί να διαρρεύσει τη πραγματική σας διεύθυνση IP ακόμη κι αν χρησιμοποιείτε έναν διακομιστή μεσολάβησης ή VPN"
+        "message": "Αποκλεισμός του WebRTC, μιας γνωστής ευπάθειας που μπορεί να διαρρεύσει την πραγματική σας Διεύθυνση IP ακόμη κι αν χρησιμοποιείτε διακομιστή μεσολάβησης ή VPN."
+    },
+    "settings_webrtc_warning": {
+        "message": "Ορισμένες εφαρμογές ανταλλαγής μηνυμάτων, πλατφόρμες ροής ή παιχνίδια ενδέχεται να σταματήσουν να λειτουργούν σωστά."
     },
     "settings_context_menus_title": {
         "message": "Εμφάνιση του AdGuard VPN στο μενού περιβάλλοντος του προγράμματος περιήγησης"
@@ -241,22 +262,30 @@
         "message": "Αυτά τα δεδομένα περιλαμβάνουν:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Ονόματα οθονών με τις οποίες αλληλεπιδράτε"
+        "message": "Ονόματα οθονών με τις οποίες αλληλεπιδράτε",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Ονόματα κουμπιών που κάνετε κλικ"
+        "message": "Ονόματα κουμπιών που κάνετε κλικ",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Αναγνωριστικά συνεδρίας"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Χρειαζόμαστε αυτές τις πληροφορίες για να αναλύσουμε και να βελτιώσουμε τη λειτουργικότητα του AdGuard VPN"
+        "message": "Χρειαζόμαστε αυτές τις πληροφορίες για να αναλύσουμε και να βελτιώσουμε τη λειτουργία του AdGuard VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Αυτά τα δεδομένα είναι ανώνυμα και χρησιμοποιούνται μόνο εσωτερικά. Ποτέ δεν τα μοιραζόμαστε με τρίτα μέρη"
+        "message": "Αυτά τα δεδομένα είναι ανώνυμα και χρησιμοποιούνται μόνο εσωτερικά. Ποτέ δεν τα μοιραζόμαστε με τρίτα μέρη",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Το κατάλαβα"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Πολιτική απορρήτου",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Επιλεκτική λειτουργία"
@@ -274,7 +303,7 @@
         "message": "Διακομιστής DNS"
     },
     "settings_dns_description": {
-        "message": "Αναλύστε τα αιτήματα DNS, αποκλείστε τις διαφημίσεις και τους ιχνηλάτες και κρυπτογραφήστε την κίνηση DNS όταν είστε συνδεδεμένοι στο VPN"
+        "message": "Επιτρέπει την επιλογή ενός διακομιστή DNS για την επίλυσή των αιτημάτων DNS, μπλοκάρισμα διαφημίσεων και ιχνηλατών και κρυπτογράφηση της κίνησης DNS όταν είστε συνδεδεμένοι στο VPN"
     },
     "settings_dns_description_current": {
         "message": "Τρέχων: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Φωτεινό"
+    },
+    "settings_language_label": {
+        "message": "Γλώσσα"
+    },
+    "settings_language_browser_default": {
+        "message": "Προεπιλογή προγράμματος περιήγησης"
     },
     "settings_quick_connect_title": {
         "message": "Γρήγορη σύνδεση"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Απενεργοποίηση VPN σε αυτόν τον ιστότοπο"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Ενεργοποίηση VPN για αυτόν τον ιστότοπο"
-    },
     "popup_settings_other_products": {
         "message": "Άλλα προϊόντα"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Αναβάθμιση"
     },
+    "popup_paywall_b_title": {
+        "message": "Επιτεύχθηκε το όριο δεδομένων — η φόρτωση του περιεχομένου διαρκεί περισσότερο"
+    },
+    "popup_paywall_b_description": {
+        "message": "Δείτε το AdGuard VPN Unlimited. Με το ετήσιο σχέδιο, εξοικονομείτε 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Δωρεάν",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Απεριόριστο",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "Δεδομένα VPN",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/μήνα</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Ταχύτητα",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Μειωμένη",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Τοποθεσίες διακομιστών",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Συσκευές",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Αναβάθμιση"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Ίσως αργότερα"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "δωρεάν δοκιμή"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Προσφέρει συνδέσεις υψηλής ταχύτητας, πρόσβαση σε όλες τις τοποθεσίες και άλλα"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Ροή σε υψηλές ταχύτητες χωρίς όρια"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Παρακολουθήστε περιεχόμενο από %count%+ τοποθεσίες διακομιστών"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Χρησιμοποιήστε το AdGuard VPN σε %count% συσκευές ταυτόχρονα"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Απόκρυψη της δραστηριότητάς σας στο διαδίκτυο με το AdGuard DNS ως μπόνους"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Λήψη AdGuard VPN Unlimited"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Ίσως αργότερα"
+    },
     "popup_feedback_title": {
         "message": "Θα θέλαμε πολύ να ακούσουμε τα σχόλιά σας"
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "Αποστολή ανώνυμων <link>δεδομένων χρήσης επέκτασης</link>"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Αν συμφωνείτε, η AdGuard VPN θα συλλέξει δεδομένα για τις οθόνες και τα κουμπιά με τα οποία αλληλεπιδράτε. Μπορείτε πάντα να απενεργοποιήσετε την κοινοποίηση δεδομένων στις <b>Ρυθμίσεις</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Αυτές οι πληροφορίες μας βοηθούν να κατανοήσουμε ποιες λειτουργίες λειτουργούν καλά και τι χρειάζεται βελτίωση. Είναι ανώνυμες και χρησιμοποιούνται μόνο εσωτερικά. Ποτέ δεν τις κοινοποιούμε σε κανέναν"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Συνδεθείτε ή δημιουργήστε έναν λογαριασμό"
     },
@@ -768,7 +871,7 @@
         "message": "Μοναδικό πρωτόκολλο VPN"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "Ο πρωτόκολλο του AdGuard VPN λειτουργεί γρήγορα και καθιστά την κίνηση VPN σας αόρατη"
+        "message": "Το πρωτόκολλο TrustTunnel λειτουργεί γρήγορα και καθιστά την κίνηση VPN σας αφανή"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Εξαιρέσεις ιστοτόπων και εφαρμογών"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Δεν μπορείτε να συνδεθείτε;"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Μεταβείτε στην έκδοση υπολογιστή για πιο σταθερή σύνδεση"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Μεταβείτε στη φορητή έκδοση για πιο σταθερή σύνδεση"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Μεταβείτε στο AdGuard VPN για Linux για πιο σταθερή σύνδεση"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Η έκδοση υπολογιστή είναι πιο σταθερή "
+        "message": "Μεταβείτε στην έκδοση υπολογιστή για πιο σταθερή σύνδεση"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Μεταβείτε στη φορητή έκδοση για πιο σταθερή σύνδεση"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Μεταβείτε στο AdGuard VPN για Linux για πιο σταθερή σύνδεση"
     },
     "popup_vpn_blocked_error_details_description": {
         "message": "Αν αντιμετωπίζετε προβλήματα σύνδεσης, σας προτείνουμε να μεταβείτε στην έκδοση υπολογιστή — λειτουργεί πιο ομαλά"
     },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Αν παρατηρήσετε προβλήματα σύνδεσης, σας προτείνουμε να μεταβείτε στη φορητή έκδοση. Λειτουργεί πιο ομαλά"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Αν παρατηρήσετε προβλήματα σύνδεσης, σας προτείνουμε τον πελάτη VPN για Linux. Λειτουργεί πιο ομαλά"
+    },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Λάβετε την έκδοση υπολογιστή"
+        "message": "Λήψη"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Πώς να εγκαταστήσετε"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Αργότερα"

@@ -119,6 +119,9 @@ const COMMON_URL_QUERIES = {
     COMPARE_PAGE: 'action=compare&from=popup&app=vpn_extension',
     // AG-25941
     VPN_BLOCKED_GET_APP: 'action=vpn_blocked_get_app&from=popup&app=vpn_extension',
+    VPN_BLOCKED_GET_APP_LINUX: 'action=vpn_blocked_get_app_linux&from=popup&app=vpn_extension',
+    // Promote on socials
+    PROMOTE_SOCIALS: 'action=vpn_mentions_for_gbs&from=options_screen&app=vpn_extension',
 };
 
 /**

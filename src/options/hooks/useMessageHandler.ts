@@ -12,6 +12,7 @@ const NOTIFIER_EVENTS = [
     notifier.types.USER_AUTHENTICATED,
     notifier.types.USER_DEAUTHENTICATED,
     notifier.types.SETTING_UPDATED,
+    notifier.types.LANGUAGE_CHANGED,
 ];
 
 export const useMessageHandler = (): void => {
@@ -21,6 +22,7 @@ export const useMessageHandler = (): void => {
         globalStore,
         exclusionsStore,
         telemetryStore,
+        translationStore,
     } = useContext(rootStore);
 
     const reloadingRef = useRef<boolean>(false);
@@ -50,6 +52,11 @@ export const useMessageHandler = (): void => {
                 ) {
                     telemetryStore.setIsHelpUsImproveEnabled(value);
                 }
+                break;
+            }
+            case notifier.types.LANGUAGE_CHANGED: {
+                settingsStore.setSelectedLanguage(data);
+                await translationStore.setLocalePreference(data);
                 break;
             }
             default: {

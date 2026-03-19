@@ -1,5 +1,7 @@
 import { type Runtime } from 'webextension-polyfill';
 
+import { type VariantCache } from '../abTestManager/ABTestManager';
+
 import {
     type TelemetryScreenName,
     type TelemetryActionName,
@@ -8,6 +10,11 @@ import {
     type TelemetrySubscriptionDuration,
     type TelemetryTheme,
 } from './telemetryEnums';
+
+/**
+ * Fixed Plausible Analytics custom property slot identifier for A/B experiments.
+ */
+export type ExperimentSlot = 'experiment_1' | 'experiment_2' | 'experiment_3';
 
 /**
  * User agent info.
@@ -47,6 +54,21 @@ export interface TelemetryUserAgent {
          */
         version: string;
     };
+
+    /**
+     * Browser info.
+     */
+    browser: {
+        /**
+         * Browser name, e.g. 'Chrome', 'Firefox'.
+         */
+        name: string;
+
+        /**
+         * Browser version, e.g. '145.0.0.0'.
+         */
+        version: string;
+    };
 }
 
 /**
@@ -82,6 +104,21 @@ export interface TelemetryProps {
      * UI theme.
      */
     theme?: TelemetryTheme;
+
+    /**
+     * Assigned variant for A/B experiment slot 1.
+     */
+    experiment_1?: string;
+
+    /**
+     * Assigned variant for A/B experiment slot 2.
+     */
+    experiment_2?: string;
+
+    /**
+     * Assigned variant for A/B experiment slot 3.
+     */
+    experiment_3?: string;
 }
 
 /**
@@ -165,11 +202,6 @@ export interface TelemetryCustomEventData {
      * Label name.
      */
     label?: string;
-
-    /**
-     * Experiment name.
-     */
-    experiment?: string;
 }
 
 /**
@@ -216,6 +248,77 @@ export interface TelemetryApiEventData {
         license_status?: TelemetryProps['licenseStatus'];
         subscription_duration?: TelemetryProps['subscriptionDuration'];
         theme?: TelemetryProps['theme'];
-        experiment?: TelemetryCustomEventData['experiment']
+        experiment_1?: TelemetryProps['experiment_1'];
+        experiment_2?: TelemetryProps['experiment_2'];
+        experiment_3?: TelemetryProps['experiment_3'];
     };
+}
+
+/**
+ * Request payload for the /api/v1/session_start endpoint.
+ */
+export interface SessionStartRequest {
+    /**
+     * Synthetic telemetry identifier.
+     */
+    synthetic_id: string;
+
+    /**
+     * Application type.
+     */
+    app_type: 'VPN_EXTENSION';
+
+    /**
+     * Extension version string.
+     */
+    version: string;
+
+    /**
+     * User agent info.
+     */
+    user_agent: TelemetryUserAgent;
+
+    /**
+     * Common telemetry props (locale, theme, etc.).
+     */
+    props?: {
+        app_locale: string;
+        system_locale: string;
+        theme?: string;
+        logged_in?: boolean;
+        license_status?: string;
+        subscription_duration?: string;
+    };
+
+    /**
+     * Map of experiment slots to experiment IDs for which no variant is currently cached.
+     * Only unassigned slots are included.
+     */
+    tests: VariantCache;
+}
+
+/**
+ * Variant assignment returned by the /api/v1/session_start endpoint.
+ */
+export interface SessionStartVariantAssignment {
+    /**
+     * The experiment identifier (matches what was sent in tests).
+     */
+    experiment_name: string;
+
+    /**
+     * The assigned variant identifier, stored in client cache and sent in event props.
+     */
+    version_name: string;
+}
+
+/**
+ * Response from the /api/v1/session_start endpoint.
+ */
+export interface SessionStartResponse {
+    /**
+     * Map of experiment slots to assigned variant info.
+     * Empty object when no experiments are active or the service is unavailable.
+     */
+    versions: Partial<Record<ExperimentSlot, SessionStartVariantAssignment>>;
 }

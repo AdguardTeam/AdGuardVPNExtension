@@ -28,6 +28,9 @@ export enum NotifierType {
     // Connectivity state
     CONNECTIVITY_STATE_CHANGED = 'event.connectivity.state.changed',
 
+    // Language
+    LANGUAGE_CHANGED = 'event.language.changed',
+
     SERVER_ERROR = 'server.error',
 
     // Background page connection events
@@ -84,8 +87,8 @@ export class Notifier {
     /**
      * Subscribes listener to the specified events and returns index of the listener
      *
-     * @param events - List of event types listener will be notified of
-     * @param listener - Listener object
+     * @param events List of event types listener will be notified of
+     * @param listener Listener object
      *
      * @returns Listener id.
      */

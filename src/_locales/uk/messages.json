@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Назад"
+    },
     "about_title": {
         "message": "Про розширення"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Оновіть до Unlimited"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Просувайте AdGuard VPN у соцмережах"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Просувайте AdGuard VPN у соцмережах і отримайте %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Напишіть пост у X або Facebook і обміняйтеся посиланням з нами. Ми переглянемо його та додамо %your_gb% GB до вашого облікового запису. Загалом ви можете заробити до %total_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Отримати бонус"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Отримайте %num% ГБ"
+    },
     "settings_rate_us": {
         "message": "Оцініть нас"
     },
@@ -223,7 +241,10 @@
         "message": "Блокувати WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Блокує WebRTC — відому вразливість, яка може призвести до витоку вашої реальної IP-адреси, навіть якщо ви використовуєте проксі або VPN"
+        "message": "Блокує WebRTC, який може призвести до витоку вашої реальної IP-адреси, навіть якщо ви використовуєте проксі або VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Деякі месенджери, стрімінгові платформи або ігри можуть перестати працювати належним чином"
     },
     "settings_context_menus_title": {
         "message": "Показувати AdGuard VPN у контекстному меню браузера"
@@ -241,22 +262,30 @@
         "message": "Що входить у ці дані:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Назви екранів, з якими ви взаємодієте"
+        "message": "Назви екранів, з якими ви взаємодієте",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Назви кнопок, які ви натискаєте"
+        "message": "Назви кнопок, які ви натискаєте",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Ідентифікатори сеансів"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Ми потребуємо цієї інформації для аналізу та покращення можливостей AdGuard VPN"
+        "message": "Ми потребуємо цієї інформації для аналізу та покращення можливостей AdGuard VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Ці дані є анонімними й використовуються лише в середині нашої компанії. Ми ніколи не передаємо їх третім особам"
+        "message": "Ці дані є анонімними й використовуються лише в середині нашої компанії. Ми ніколи не передаємо їх третім особам",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Зрозуміло"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Політика конфіденційності",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Вибірковий режим"
@@ -274,7 +303,7 @@
         "message": "DNS-сервер"
     },
     "settings_dns_description": {
-        "message": "Вирішуйте DNS-запити, блокуйте рекламу та трекери, шифруйте DNS-трафік, коли ви підʼєднані до VPN"
+        "message": "Дозволяє вибрати DNS-сервер для обробки DNS-запитів, блокувати рекламу та трекери й шифрувати DNS-трафік, коли ви підʼєднані до VPN"
     },
     "settings_dns_description_current": {
         "message": "Зараз обрано: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Світла"
+    },
+    "settings_language_label": {
+        "message": "Мова"
+    },
+    "settings_language_browser_default": {
+        "message": "Усталена в браузері"
     },
     "settings_quick_connect_title": {
         "message": "Швидке підʼєднання"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Вимкнути VPN для цього сайту"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Увімкнути VPN для цього сайту"
-    },
     "popup_settings_other_products": {
         "message": "Інші продукти"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Покращити"
     },
+    "popup_paywall_b_title": {
+        "message": "Досягнуто ліміту даних — вміст завантажується довше"
+    },
+    "popup_paywall_b_description": {
+        "message": "Спробуйте AdGuard VPN Unlimited. З річною Підпискою ви заощадите 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Безплатний",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Необмежений",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "Дані VPN",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/міс</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Швидкість",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Знижена",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Розташування серверів",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Пристрої",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Покращити"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Можливо, пізніше"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "спробувати безплатно"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Вона пропонує високошвидкісні підʼєднання, доступ до всіх місцезнаходжень та інше"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Транслюйте на високих швидкостях без обмежень"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Дивіться вміст з %count%+ місцезнаходжень серверів"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Використовуйте AdGuard VPN на пристроях %count% одночасно"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Приховайте вашу активність в інтернеті з AdGuard DNS як бонус"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Отримати Unlimited"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Можливо, пізніше"
+    },
     "popup_feedback_title": {
         "message": "Будемо раді вашій думці"
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "Надсилати анонімізовані <link>дані про використання розширення</link>"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Якщо ви погоджуєтеся, AdGuard VPN збиратиме дані про екрани та кнопки, з якими ви взаємодієте. Ви завжди можете вимкнути обмін даними у <b>налаштуваннях</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Ця інформація допомагає нам зрозуміти, що працює добре, а що потребує покращення. Вона анонімізована і використовується лише всередині нашої компанії. Ми ніколи не обмінюємося нею з ким-небудь"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Увійти або створити обліковий запис"
     },
@@ -768,7 +871,7 @@
         "message": "Унікальний VPN-протокол"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "Протокол AdGuard VPN працює швидко та робить ваш VPN-трафік непомітним"
+        "message": "Протокол TrustTunnel працює швидко та робить ваш VPN-трафік непомітним"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Винятки для сайтів та програм"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Немає з'єднання?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Перейдіть на десктопну версію для стабільнішого з'єднання"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Перейдіть на мобільну версію для стабільнішого з\u0019єднання"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Перейдіть на AdGuard VPN для Linux для стабільнішого з'єднання"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Програма працює стабільніше"
+        "message": "Перейдіть на десктопну версію для стабільнішого з'єднання"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Перейдіть на мобільну версію для стабільнішого з\u0019єднання"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Перейдіть на AdGuard VPN для Linux для стабільнішого з'єднання"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "Якщо у вас виникають проблеми з підʼєднанням, рекомендуємо перейти на десктопну версію — вона працює стабільніше"
+        "message": "Якщо ви помітили проблеми з підʼєднанням, рекомендуємо перейти на десктопну версію. Вона працює стабільніше"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Якщо ви помітили проблеми з підʼєднанням, рекомендуємо перейти на мобільну версію. Вона працює стабільніше"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Якщо ви помітили проблеми з підʼєднанням, рекомендуємо наш VPN клієнт для Linux. Він працює стабільніше"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Отримати десктопну версію"
+        "message": "Завантажити"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Як встановити"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Пізніше"

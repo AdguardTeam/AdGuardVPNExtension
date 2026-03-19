@@ -56,6 +56,11 @@ export const BackgroundAnimationFF = React.memo(observer(() => {
         animationService.onTransition((state) => {
             settingsStore.setAnimationState(state.value as AnimationState);
         });
+
+        return (): void => {
+            // Finish in-progress transition to prevent animation restart
+            settingsStore.handleAnimationEnd();
+        };
     }, [settingsStore]);
 
     // Play/pause videos when animation state changes

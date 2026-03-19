@@ -553,6 +553,12 @@ class Messenger {
         return this.sendMessage(type);
     }
 
+    async markRegionNoticeAsShown():
+    Promise<ExtractMessageResponse<MessageType.MARK_REGION_NOTICE_AS_SHOWN>> {
+        const type = MessageType.MARK_REGION_NOTICE_AS_SHOWN;
+        return this.sendMessage(type);
+    }
+
     async openTab(url: string): Promise<ExtractMessageResponse<MessageType.OPEN_TAB>> {
         const type = MessageType.OPEN_TAB;
         return this.sendMessage(type, { url });
@@ -583,6 +589,15 @@ class Messenger {
     async openSubscribePromoPage():
     Promise<ExtractMessageResponse<MessageType.OPEN_FORWARDER_URL_WITH_EMAIL>> {
         return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.Subscribe);
+    }
+
+    /**
+     * Opens Promote Socials Page in new tab.
+     * @returns Promise that resolves when Promote Socials Page is opened.
+     */
+    async openPromoteSocialsPage():
+    Promise<ExtractMessageResponse<MessageType.OPEN_FORWARDER_URL_WITH_EMAIL>> {
+        return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.PromoteSocials);
     }
 
     /**
@@ -692,8 +707,13 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    recalculatePings(): Promise<ExtractMessageResponse<MessageType.RECALCULATE_PINGS>> {
-        const type = MessageType.RECALCULATE_PINGS;
+    /**
+     * Re-fetches locations from the server, refreshing backend-provided pings.
+     *
+     * @returns Promise that resolves when locations are refreshed.
+     */
+    refreshLocations(): Promise<ExtractMessageResponse<MessageType.REFRESH_LOCATIONS>> {
+        const type = MessageType.REFRESH_LOCATIONS;
         return this.sendMessage(type);
     }
 
@@ -724,20 +744,17 @@ class Messenger {
      * @param actionName Name of the action.
      * @param screenName Screen that action is related to.
      * @param label Optional label for the event.
-     * @param experiment Optional A/B test experiment value for event.
      */
     async sendCustomTelemetryEvent<T extends TelemetryActionName>(
         actionName: T,
         screenName: TelemetryActionToScreenMap[T],
         label?: string,
-        experiment?: string,
     ): Promise<ExtractMessageResponse<MessageType.TELEMETRY_EVENT_SEND_CUSTOM>> {
         const type = MessageType.TELEMETRY_EVENT_SEND_CUSTOM;
         return this.sendMessage(type, {
             actionName,
             screenName,
             label,
-            experiment,
         });
     }
 
@@ -812,6 +829,28 @@ class Messenger {
      */
     async getStartupData(): Promise<ExtractMessageResponse<MessageType.GET_STARTUP_DATA>> {
         const type = MessageType.GET_STARTUP_DATA;
+        return this.sendMessage(type);
+    }
+
+    /**
+     * Sets the interface language preference.
+     *
+     * @param language Locale code (e.g. 'de') or 'auto' for browser default.
+     */
+    async setInterfaceLanguage(
+        language: ExtractMessageData<MessageType.SET_INTERFACE_LANGUAGE>['language'],
+    ): Promise<ExtractMessageResponse<MessageType.SET_INTERFACE_LANGUAGE>> {
+        const type = MessageType.SET_INTERFACE_LANGUAGE;
+        return this.sendMessage(type, { language });
+    }
+
+    /**
+     * Retrieves the current interface language preference.
+     *
+     * @returns The current locale code or 'auto'.
+     */
+    async getInterfaceLanguage(): Promise<ExtractMessageResponse<MessageType.GET_INTERFACE_LANGUAGE>> {
+        const type = MessageType.GET_INTERFACE_LANGUAGE;
         return this.sendMessage(type);
     }
 }

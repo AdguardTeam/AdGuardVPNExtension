@@ -10,6 +10,7 @@ import {
 } from '../../common/constants';
 import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../../common/dnsConstants';
+import { type LocalePreference, LANGUAGE_AUTO, toLocalePreference } from '../../common/locale';
 import { webrtc } from '../browserApi/webrtc';
 import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
 import type { DnsServerData, PersistedExclusions } from '../schema';
@@ -35,6 +36,7 @@ export interface SettingsInterface {
     getQuickConnectSetting(): QuickConnectSetting;
     getAppearanceTheme(): AppearanceTheme;
     isHelpUsImproveEnabled(): boolean;
+    getSelectedLanguage(): LocalePreference;
 }
 
 const DEFAULT_SETTINGS = {
@@ -51,6 +53,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [],
     [SETTINGS_IDS.QUICK_CONNECT]: QUICK_CONNECT_SETTING_DEFAULT,
     [SETTINGS_IDS.DEBUG_MODE_ENABLED]: false,
+    [SETTINGS_IDS.SELECTED_LANGUAGE]: LANGUAGE_AUTO,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -194,6 +197,22 @@ const isHelpUsImproveEnabled = (): boolean => {
     return settingsService.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
 };
 
+/**
+ * Returns the user's selected language preference.
+ * Validates the stored value and self-heals corrupted entries
+ * by resetting them to {@link LANGUAGE_AUTO}.
+ *
+ * @returns The selected locale code, or 'auto' for browser default.
+ */
+const getSelectedLanguage = (): LocalePreference => {
+    const raw = settingsService.getSetting(SETTINGS_IDS.SELECTED_LANGUAGE) || LANGUAGE_AUTO;
+    const validated = toLocalePreference(raw);
+    if (validated !== raw) {
+        settingsService.setSetting(SETTINGS_IDS.SELECTED_LANGUAGE, validated);
+    }
+    return validated;
+};
+
 const init = async (): Promise<void> => {
     await settingsService.init();
     await dns.init();
@@ -219,4 +238,5 @@ export const settings: SettingsInterface = {
     isDebugModeEnabled,
     getAppearanceTheme,
     isHelpUsImproveEnabled,
+    getSelectedLanguage,
 };

@@ -3,6 +3,7 @@ import { action, computed, observable } from 'mobx';
 import { log } from '../../common/logger';
 import { tabs } from '../../common/tabs';
 import { messenger } from '../../common/messenger';
+import { i18n } from '../../common/i18n';
 
 import type { RootStore } from './RootStore';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
@@ -26,6 +27,7 @@ export class GlobalStore {
     async getDesktopAppData(): Promise<void> {
         const { rootStore: { settingsStore } } = this;
         await settingsStore.setHasDesktopAppForOs();
+        await settingsStore.setIsLinux();
     }
 
     /**
@@ -85,8 +87,8 @@ export class GlobalStore {
                 savedLocationIds,
                 username,
                 marketingConsent,
-                shouldShowStreamingLabelText,
-                streamingTextExperimentValue,
+                shouldShowRegionNotice,
+                experimentVariants,
             } = popupData;
 
             settingsStore.setForwarderDomain(forwarderDomain);
@@ -135,6 +137,7 @@ export class GlobalStore {
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setIsVpnBlocked(isVpnBlocked);
             settingsStore.setShowMobileEdgePromoBanner(shouldShowMobileEdgePromoBanner);
+            uiStore.setShouldShowRegionNotice(shouldShowRegionNotice);
             settingsStore.setLimitedOfferData(limitedOfferData);
             settingsStore.setPromoNotification(promoNotification);
             vpnStore.setVpnInfo(vpnInfo);
@@ -147,8 +150,7 @@ export class GlobalStore {
             await settingsStore.getExclusionsInverted();
             await settingsStore.getCurrentTabHostname();
             settingsStore.setIsExcluded(!isVpnEnabledByUrl);
-            uiStore.setShouldShowStreamingLabelText(shouldShowStreamingLabelText);
-            uiStore.setStreamingLabelTextExperiment(streamingTextExperimentValue);
+            uiStore.setExperimentVariants(experimentVariants);
 
             this.setInitStatus(RequestStatus.Done);
         } catch (e) {
@@ -234,8 +236,10 @@ export class GlobalStore {
             flagsStorageData,
             marketingConsent,
             isPremiumToken,
+            selectedLanguage,
         } = await messenger.getStartupData();
 
+        await i18n.init(selectedLanguage);
         settingsStore.setIsFirefox();
         authStore.setIsFirstRun(isFirstRun);
         authStore.setFlagsStorageData(flagsStorageData);

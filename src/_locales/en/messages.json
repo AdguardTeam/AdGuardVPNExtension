@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Go back"
+    },
     "about_title": {
         "message": "About"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Upgrade to Unlimited"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Promote AdGuard VPN on socials"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Promote AdGuard VPN on socials and get %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Write a post on X or Facebook and share the link with us. We’ll review it and add %your_gb% GB to your account. You can earn up to %total_gb% GB in total"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Get bonus"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Get %num% GB"
+    },
     "settings_rate_us": {
         "message": "Rate us"
     },
@@ -223,13 +241,16 @@
         "message": "Block WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Block WebRTC, a known vulnerability that can leak your real IP address even if you use a proxy or VPN"
+        "message": "Blocks WebRTC that can leak your real IP address even if you use a proxy or VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Some messengers, streaming platforms, or games may stop working properly"
     },
     "settings_context_menus_title": {
         "message": "Display AdGuard VPN in the browser context menu"
     },
     "settings_context_menus_description": {
-        "message": "Manage VPN exclusions for a specific website"
+        "message": "Allows you to manage VPN exclusions for a specific website"
     },
     "settings_help_us_improve_title": {
         "message": "Help improve AdGuard VPN"
@@ -241,22 +262,30 @@
         "message": "This data includes:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Names of screens you interact with"
+        "message": "Names of screens you interact with",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Names of buttons you click"
+        "message": "Names of buttons you click",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Session identifiers"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "We need this information to analyze and improve the functionality of AdGuard VPN"
+        "message": "We need this information to analyze and improve the functionality of AdGuard VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "This data is anonymous and only used internally. We never share it with third parties"
+        "message": "This data is anonymous and only used internally. We never share it with third parties",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Got it"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Privacy policy",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Selective mode"
@@ -274,7 +303,7 @@
         "message": "DNS server"
     },
     "settings_dns_description": {
-        "message": "Resolve DNS requests, block ads and trackers, and encrypt DNS traffic when you're connected to VPN"
+        "message": "Allows to select a DNS server to resolve DNS requests, block ads and trackers, and encrypt DNS traffic when you’re connected to VPN"
     },
     "settings_dns_description_current": {
         "message": "Current: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Light"
+    },
+    "settings_language_label": {
+        "message": "Language"
+    },
+    "settings_language_browser_default": {
+        "message": "Browser default"
     },
     "settings_quick_connect_title": {
         "message": "Quick connect"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Disable VPN for this website"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Enable VPN for this website"
-    },
     "popup_settings_other_products": {
         "message": "Other products"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Upgrade"
     },
+    "popup_paywall_b_title": {
+        "message": "Data limit reached — content loads longer"
+    },
+    "popup_paywall_b_description": {
+        "message": "Check out AdGuard VPN Unlimited. With the yearly plan, you save 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Free",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Unlimited",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "VPN data",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/mo</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Speed",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Reduced",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Server locations",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Devices",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Upgrade"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Maybe later"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "try for free"
+    },
+    "popup_upgrade_b_description": {
+        "message": "It offers high-speed connections, access to all locations, and more"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Stream at high speeds without limits"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Watch content from %count%+ server locations"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Use AdGuard VPN on %count% devices at the same time"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Hide your web activity with AdGuard DNS as a bonus"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Get Unlimited"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Maybe later"
+    },
     "popup_feedback_title": {
         "message": "We'd love to hear your feedback"
     },
@@ -741,13 +850,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Send anonymized <link>extension usage data</link>"
-    },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "If you agree, AdGuard VPN will collect data about the screens and buttons you interact with. You can always disable data sharing in <b>Settings</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "This information helps us understand what features work well and what needs improvement. It is anonymized and only used internally. We never share it with anyone"
+        "message": "Sends anonymized <link>extension usage data</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Log in or create an account"
@@ -768,7 +871,7 @@
         "message": "Unique VPN protocol"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "AdGuard VPN’s protocol works fast and makes your VPN traffic inconspicuous"
+        "message": "The TrustTunnel protocol works fast and makes your VPN traffic inconspicuous"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Sites and apps exclusions"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Can't connect?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Switch to desktop version for more stable connection"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Switch to mobile version for more stable connection"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Switch to AdGuard VPN for Linux for more stable connection"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "The desktop version is more stable"
+        "message": "Switch to desktop version for more stable connection"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Switch to mobile version for more stable connection"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Switch to AdGuard VPN for Linux for more stable connection"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "If you're having connection problems, we recommend switching to the desktop version — it operates more smoothly"
+        "message": "If you notice connection issues, we recommend switching to the desktop version. It operates more smoothly"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "If you notice connection issues, we recommend switching to the mobile version. It operates more smoothly"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "If you notice connection issues, we recommend our Linux VPN client. It operates more smoothly"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Get desktop version"
+        "message": "Download"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "How to install"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Later"

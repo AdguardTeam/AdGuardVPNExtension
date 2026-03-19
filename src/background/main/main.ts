@@ -40,13 +40,16 @@ import { flagsStorage } from '../flagsStorage';
 import { connectivityService } from '../connectivity/connectivityService';
 import { proxyApi } from '../proxy/abstractProxyApi';
 import { updateOptionsPageListeners } from '../stateStorage/helper';
+import { i18n } from '../../common/i18n';
 import { logStorageManager } from '../../common/log-storage/LogStorageManager';
 import { setUninstallUrl } from '../uninstall';
 import { telemetry } from '../telemetry';
+import { notifications } from '../notifications';
 import { rateModal } from '../rateModal';
 import { runtime } from '../browserApi/runtime';
 import { BROWSER, BUILD_ENV, STAGE_ENV } from '../config';
 import { statisticsService } from '../statistics';
+import { userLocationService } from '../userLocationService';
 
 declare global {
     module globalThis {
@@ -118,6 +121,9 @@ const asyncInitModules = async (): Promise<void> => {
         await fallbackApi.init();
         await updateService.init();
         await settings.init();
+        // should be initiated after settings.init() to get the selected language
+        await i18n.init(settings.getSelectedLanguage());
+        await userLocationService.init();
         // the consent page uses settings, so it should be initiated after settings.init()
         await openPostInstallPage();
         await flagsStorage.init();
@@ -127,6 +133,7 @@ const asyncInitModules = async (): Promise<void> => {
         await auth.init();
         authSideEffects.init();
         await telemetry.initState();
+        notifications.init(telemetry);
         // update browser action items after settings.init() because it uses settings
         await contextMenu.updateBrowserActionItems();
         // the checkAndSwitchStorage is called after settings.init() because it uses settings

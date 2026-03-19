@@ -25,6 +25,7 @@ import { type StatisticsByRange, type StatisticsRange } from '../background/stat
 import type { WebAuthAction } from '../background/auth/webAuthEnums';
 import { type FlagsStorageData } from '../background/flagsStorageData';
 
+import { type AvailableLocale, type LocalePreference } from './locale';
 import { type ExclusionsMode } from './exclusionsConstants';
 import type { NotifierType } from './notifier';
 
@@ -46,6 +47,7 @@ export const SETTINGS_IDS = {
     CUSTOM_DNS_SERVERS: 'custom.dns.servers',
     QUICK_CONNECT: 'quick.connect',
     DEBUG_MODE_ENABLED: 'debug.mode.enabled',
+    SELECTED_LANGUAGE: 'language.selected',
 };
 
 export const enum AppearanceTheme {
@@ -131,13 +133,18 @@ export enum MessageType {
     REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
     RESTORE_CUSTOM_DNS_SERVERS_DATA = 'restore.custom.dns.servers.data',
     SET_HINT_POPUP_VIEWED = 'set.hint.popup.viewed',
+    MARK_REGION_NOTICE_AS_SHOWN = 'mark.region.notice.as.shown',
 
     GET_LOGS = 'get.logs',
     GET_APP_VERSION = 'get.app.version',
 
     UPDATE_LISTENERS = 'update.listeners',
 
-    RECALCULATE_PINGS = 'recalculate.pings',
+    /**
+     * Re-fetches locations from the server, populating backend-provided pings.
+     * Only locations without a backend ping are measured locally.
+     */
+    REFRESH_LOCATIONS = 'refresh.locations',
 
     TELEMETRY_EVENT_SEND_PAGE_VIEW = 'telemetry.event.send.page.view',
     TELEMETRY_EVENT_SEND_CUSTOM = 'telemetry.event.send.custom',
@@ -149,6 +156,9 @@ export enum MessageType {
 
     SEND_WEB_AUTH_ACTION = 'send.web.auth.action',
     GET_STARTUP_DATA = 'get.startup.data',
+
+    SET_INTERFACE_LANGUAGE = 'set.interface.language',
+    GET_INTERFACE_LANGUAGE = 'get.interface.language',
 }
 
 export const FLAGS_FIELDS = {
@@ -182,11 +192,27 @@ export const ONE_MINUTE_MS = ONE_SECOND_MS * 60;
 export const ONE_HOUR_MS = ONE_MINUTE_MS * 60;
 export const ONE_DAY_MS = ONE_HOUR_MS * 24;
 
+/**
+ * Represents a single language option for the language selector.
+ */
+export type LanguageOption = {
+    /**
+     * Locale code (e.g. `'de'`, `'zh_CN'`).
+     */
+    locale: AvailableLocale;
+
+    /**
+     * Native language name (e.g. `'Deutsch'`, `'简体中文'`).
+     */
+    title: string;
+};
+
 export interface GetStartupDataResponse {
     isFirstRun: boolean;
     flagsStorageData: FlagsStorageData;
     marketingConsent: boolean | null;
     isPremiumToken: boolean;
+    selectedLanguage: LocalePreference;
 }
 
 type DefaultMessage <T> = {
@@ -507,6 +533,19 @@ export type NotifyListenersMessage = {
     data: any;
 };
 
+/**
+ * Message payload for changing the interface language.
+ */
+export type SetInterfaceLanguageMessage = {
+    type: MessageType.SET_INTERFACE_LANGUAGE;
+    data: {
+        /**
+         * Locale code (e.g. `'de'`) or `'auto'` for browser default.
+         */
+        language: LocalePreference;
+    };
+};
+
 // Unified message map that includes both message structure and response types
 export interface MessageMap {
     [MessageType.ADD_EVENT_LISTENER]: {
@@ -767,8 +806,12 @@ export interface MessageMap {
         message: DefaultMessage<MessageType.SET_HINT_POPUP_VIEWED>;
         response: void;
     };
-    [MessageType.RECALCULATE_PINGS]: {
-        message: DefaultMessage<MessageType.RECALCULATE_PINGS>;
+    [MessageType.MARK_REGION_NOTICE_AS_SHOWN]: {
+        message: DefaultMessage<MessageType.MARK_REGION_NOTICE_AS_SHOWN>;
+        response: void;
+    };
+    [MessageType.REFRESH_LOCATIONS]: {
+        message: DefaultMessage<MessageType.REFRESH_LOCATIONS>;
         response: void;
     };
     [MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW]: {
@@ -815,6 +858,14 @@ export interface MessageMap {
         message: DefaultMessage<MessageType.GET_STARTUP_DATA>;
         response: GetStartupDataResponse;
     }
+    [MessageType.SET_INTERFACE_LANGUAGE]: {
+        message: SetInterfaceLanguageMessage;
+        response: void;
+    };
+    [MessageType.GET_INTERFACE_LANGUAGE]: {
+        message: DefaultMessage<MessageType.GET_INTERFACE_LANGUAGE>;
+        response: LocalePreference;
+    };
 }
 
 /**

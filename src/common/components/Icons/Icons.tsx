@@ -285,5 +285,50 @@ export const Icons = (): ReactElement => (
             <path d="M4 7H20" />
             <path d="M4 17H20" />
         </symbol>
+
+        {/* AG-49792 A/B test icons - start */}
+        <symbol id="cross-circle" viewBox="0 0 24 24" fill="none">
+            <path fill="currentColor" fillRule="evenodd" d="M23.925 12c0 6.627-5.356 12-11.962 12C5.356 24 0 18.627 0 12S5.356 0 11.963 0s11.962 5.373 11.962 12M11.963 22.286c5.663 0 10.253-4.605 10.253-10.286S17.626 1.714 11.963 1.714 1.709 6.32 1.709 12s4.59 10.286 10.254 10.286" clipRule="evenodd" />
+            <path stroke="currentColor" strokeLinecap="round" strokeWidth="3" d="m7.89 7.843 8.518 8.544m0-8.544-8.517 8.544" />
+        </symbol>
+
+        <symbol id="check-circle" viewBox="0 0 24 24" fill="none">
+            <path fill="#fff" d="M22.216 12c0 5.68-4.59 10.286-10.253 10.286S1.709 17.68 1.709 12 6.299 1.714 11.963 1.714 22.216 6.32 22.216 12" />
+            <path fill="#74a352" fillRule="evenodd" d="M23.925 12c0 6.627-5.356 12-11.962 12C5.356 24 0 18.627 0 12S5.356 0 11.963 0s11.962 5.373 11.962 12M11.963 22.286c5.663 0 10.253-4.605 10.253-10.286S17.626 1.714 11.963 1.714 1.709 6.32 1.709 12s4.59 10.286 10.254 10.286" clipRule="evenodd" />
+            <path fill="#5c8141" fillRule="evenodd" d="M15.635 7.438a1.692 1.692 0 1 1 2.551 2.225l-6.21 7.13a1.693 1.693 0 0 1-2.501.054l-3.313-3.489a1.693 1.693 0 0 1 2.452-2.332l2.032 2.14z" clipRule="evenodd" />
+        </symbol>
+
+        <symbol id="infinity-circle" viewBox="0 0 24 24" fill="none">
+            <path fill="#fff" d="M22.216 12c0 5.68-4.59 10.286-10.253 10.286S1.709 17.68 1.709 12 6.299 1.714 11.963 1.714 22.216 6.32 22.216 12" />
+            <path fill="#74a352" fillRule="evenodd" d="M23.925 12c0 6.627-5.356 12-11.962 12C5.356 24 0 18.627 0 12S5.356 0 11.963 0s11.962 5.373 11.962 12M11.963 22.286c5.663 0 10.253-4.605 10.253-10.286S17.626 1.714 11.963 1.714 1.709 6.32 1.709 12s4.59 10.286 10.254 10.286" clipRule="evenodd" />
+            <path fill="#5c8141" fillRule="evenodd" d="M16.36 16c-1.887 0-3.236-1.222-4.398-2.522C10.792 14.785 9.447 16 7.565 16c-2.248 0-4.076-1.795-4.076-4s1.828-4 4.076-4c1.884 0 3.266 1.239 4.398 2.496C13.093 9.24 14.477 8 16.36 8c2.249 0 4.076 1.795 4.076 4s-1.828 4-4.076 4m0-6.06c1.163 0 2.109.926 2.109 2.06 0 1.136-.946 2.06-2.11 2.06-.576 0-1.112-.234-1.653-.644-.488-.37-.962-.869-1.453-1.43.482-.55.95-1.041 1.438-1.407.54-.404 1.08-.639 1.669-.638M5.456 12c0-1.135.946-2.06 2.11-2.06.587 0 1.128.235 1.668.64.487.365.955.855 1.438 1.406-.487.557-.958 1.055-1.447 1.426-.541.41-1.08.648-1.66.648-1.163 0-2.109-.925-2.109-2.06" clipRule="evenodd" />
+        </symbol>
+
+        <symbol id="fire-outline" viewBox="0 0 24 24" fill="none">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.032 4.603 14.628 3l-1.146 1.167c-1.3 1.323-2.1 2.604-2.535 4.008l-.017.056c-.332 1.095-.438 2.156-.444 3.813v.08l-.036-.014c-.792-.338-1.535-1.221-1.937-2.286l-.52-1.375-1.006 1.053c-1.806 1.887-2.423 4.241-1.677 6.564C6.233 18.937 9.032 21 12 21c3.86 0 7-3.209 7-7.157 0-1.057-.148-1.892-.462-2.647l-.023-.055c-.25-.584-.513-.993-1.114-1.797l-.23-.307a15 15 0 0 1-.664-.942c-.64-.993-1.115-2.066-1.475-3.492" clipRule="evenodd" />
+        </symbol>
+
+        <symbol id="rocket" viewBox="0 0 24 24" fill="none">
+            <path stroke="currentColor" strokeLinejoin="round" strokeWidth="1.5" d="M15.162 7.75a1.413 1.413 0 1 1 0 2.826 1.413 1.413 0 0 1 0-2.826Z" />
+            <path stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" d="M14.75 15.75v5.5M4.5 17v3h3M9.25 9.75h-5.5" />
+            <path stroke="currentColor" strokeLinejoin="round" strokeWidth="1.5" d="m13.485 3.828 6.364.708.707 6.364-9.9 7.07-4.242-4.242z" />
+        </symbol>
+
+        <symbol id="globe" viewBox="0 0 24 24" fill="none">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18" clipRule="evenodd" />
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M14.5 3.5q.413 1.75.654 3.5M19 7a26 26 0 0 1-3.746.784 36.4 36.4 0 0 1 0 8.434q1.872.246 3.746.782M15.154 17a38 38 0 0 1-.654 3.5M9.5 20.5a38 38 0 0 1-.654-3.5M5 17a26 26 0 0 1 3.747-.784 36.2 36.2 0 0 1 0-8.433A26 26 0 0 1 5 7v0M8.846 7q.242-1.75.654-3.5v0M9.5 16.128a24.6 24.6 0 0 1 5 0M14.5 7.873a24.6 24.6 0 0 1-5 0M3 12h18" />
+        </symbol>
+
+        <symbol id="device" viewBox="0 0 24 24" fill="none">
+            <rect width="12" height="19" x="6" y="2" stroke="currentColor" strokeWidth="1.5" rx="3" />
+            <path stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" d="M10.5 4.5h3" />
+        </symbol>
+
+        <symbol id="web-activity" viewBox="0 0 24 24" fill="none">
+            <rect width="16" height="6" x="4" y="13" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" rx="1" />
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 16h-1M14 16h-1" />
+            <rect width="16" height="6" x="4" y="5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" rx="1" />
+        </symbol>
+        {/* AG-49792 A/B test icons - end */}
     </svg>
 );

@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
 import { translator } from '../../../common/translator';
-import { reactTranslator } from '../../../common/reactTranslator';
 import { getPrivacyAndEulaUrls } from '../../../common/forwarderHelpers';
 import { IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
@@ -37,12 +36,24 @@ export const UsageDataModal = observer(() => {
                     {translator.getMessage('settings_help_us_improve_modal_title')}
                 </h2>
                 <p className="auth__modal-text">
-                    {reactTranslator.getMessage('popup_auth_help_us_improve_modal_desc_data', {
-                        b: (chunks: any) => <b>{chunks}</b>,
-                    })}
+                    {translator.getMessage('settings_help_us_improve_modal_desc_data')}
+                </p>
+                <ul className="auth__modal-list">
+                    <li className="auth__modal-list-item">
+                        {translator.getMessage('settings_help_us_improve_modal_desc_data_screens')}
+                    </li>
+                    <li className="auth__modal-list-item">
+                        {translator.getMessage('settings_help_us_improve_modal_desc_data_buttons')}
+                    </li>
+                    <li className="auth__modal-list-item">
+                        {translator.getMessage('settings_help_us_improve_modal_desc_data_sessions')}
+                    </li>
+                </ul>
+                <p className="auth__modal-text">
+                    {translator.getMessage('settings_help_us_improve_modal_desc_improve')}
                 </p>
                 <p className="auth__modal-text">
-                    {translator.getMessage('popup_auth_help_us_improve_modal_desc_info')}
+                    {translator.getMessage('settings_help_us_improve_modal_desc_internally')}
                 </p>
                 <a
                     href={privacyUrl}
@@ -50,7 +61,7 @@ export const UsageDataModal = observer(() => {
                     rel="noopener noreferrer"
                     className="auth__modal-link"
                 >
-                    {translator.getMessage('privacy_policy')}
+                    {translator.getMessage('settings_help_us_improve_modal_privacy_policy')}
                 </a>
             </div>
             <div className="auth__modal-actions">

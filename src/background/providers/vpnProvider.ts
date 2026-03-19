@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import JSZip from 'jszip';
+import * as v from 'valibot';
 
 import { vpnApi } from '../api';
 import { log } from '../../common/logger';
@@ -9,6 +10,7 @@ import {
     processExclusionServicesDomains,
 } from '../../common/data-processors';
 import type { LocationApiData, EndpointApiData } from '../api/vpnApi';
+import { parseBackendPing } from '../endpoints/locationHelpers';
 import type { ServicesInterface, CredentialsDataInterface, LocationInterface } from '../schema';
 import { type VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
 import { type TrackInstallResponse, trackInstallResponseSchema } from '../schema/credentials/trackInstallResponse';
@@ -20,7 +22,7 @@ interface NameInterface {
     name: string;
 }
 
-interface CurrentLocationData {
+export interface CurrentLocationData {
     ip: string;
     cityName: string | null;
     countryName: string | null;
@@ -68,7 +70,7 @@ export interface VpnProviderInterface {
         version: string,
         helpUsImprove: boolean,
     ): Promise<CredentialsDataInterface>;
-    trackExtensionInstallation(appId: string, version: string, experiments: string): Promise<TrackInstallResponse>;
+    trackExtensionInstallation(appId: string, version: string): Promise<TrackInstallResponse>;
     getVpnExtensionInfo(
         appId: string,
         vpnToken: string,
@@ -128,9 +130,10 @@ const getLocationsData = async (
             endpoints,
             ping_bonus: pingBonus,
             virtual,
+            ping,
         } = location;
 
-        return {
+        const locationData: LocationInterface = {
             id,
             cityName,
             countryCode,
@@ -140,7 +143,10 @@ const getLocationsData = async (
             pingBonus,
             endpoints: endpoints.map(prepareEndpointData),
             virtual,
+            ping: parseBackendPing(ping),
         };
+
+        return locationData;
     };
 
     const preparedLocations = locations.map(prepareLocationData);
@@ -297,19 +303,17 @@ const getVpnCredentials = async (
  *
  * @param appId
  * @param version
- * @param experiments
  *
  * @returns Promise with track install response.
  */
 const trackExtensionInstallation = async (
     appId: string,
     version: string,
-    experiments: string,
 ): Promise<TrackInstallResponse> => {
-    const rawResponse = await vpnApi.trackExtensionInstallation(appId, version, experiments);
+    const rawResponse = await vpnApi.trackExtensionInstallation(appId, version);
     let response;
     try {
-        response = trackInstallResponseSchema.parse(rawResponse);
+        response = v.parse(trackInstallResponseSchema, rawResponse);
     } catch (e) {
         log.error('[vpn.vpnProvider]: Error while parsing track install response', e);
         response = {};

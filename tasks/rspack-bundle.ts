@@ -1,18 +1,18 @@
 /* eslint-disable no-console,no-restricted-syntax,no-await-in-loop */
 import { program } from 'commander';
-import type webpack from 'webpack';
+import type { Configuration } from '@rspack/core';
 
 import { version } from '../package.json';
 
-import { bundleRunner } from './bundle-runner';
-import { chromeConfig } from './chrome/webpack.chrome';
-import { firefoxConfig } from './firefox/webpack.firefox';
-import { operaConfig } from './opera/webpack.opera';
-import { edgeConfig } from './edge/webpack.edge';
+import { bundleRunner } from './rspack-bundle-runner';
+import { chromeConfig } from './chrome/rspack.chrome';
+import { firefoxConfig } from './firefox/rspack.firefox';
+import { operaConfig } from './opera/rspack.opera';
+import { edgeConfig } from './edge/rspack.edge';
 import { Browser, IS_BETA } from './consts';
 import { buildUpdateJson } from './firefox/update-json';
 
-const createBundle = async (config: webpack.Configuration, watch: boolean): Promise<void> => {
+const createBundle = async (config: Configuration, watch: boolean): Promise<void> => {
     try {
         await bundleRunner(config, watch);
     } catch (e) {

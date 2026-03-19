@@ -1,9 +1,9 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { accessCredentialsScheme } from './accessCredentials';
 
-export const hostCredentialsRepositoryScheme = zod.record(zod.string(), accessCredentialsScheme.or(zod.undefined()));
+export const hostCredentialsRepositoryScheme = v.record(v.string(), v.optional(accessCredentialsScheme));
 
-export type HostCredentialsRepository = zod.infer<typeof hostCredentialsRepositoryScheme>;
+export type HostCredentialsRepository = v.InferOutput<typeof hostCredentialsRepositoryScheme>;
 
 export const DEFAULT_HOST_CREDENTIALS_REPOSITORY: HostCredentialsRepository = {};

@@ -27,6 +27,7 @@ import { flagsStorage } from '../flagsStorage';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
+import { vpnBlockedNotice } from '../vpnBlockedNotice';
 import { limitedOfferService } from '../limitedOfferService';
 import { telemetry } from '../telemetry';
 import { mobileEdgePromoService } from '../mobileEdgePromoService';
@@ -36,6 +37,7 @@ import { isMessage } from '../../common/messenger';
 import { statisticsService } from '../statistics';
 import { type OptionsData } from '../../options/stores/SettingsStore';
 import { updateService } from '../updateService';
+import { i18n } from '../../common/i18n';
 
 interface EventListeners {
     [index: string]: Runtime.MessageSender;
@@ -66,6 +68,7 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
     const maxDevicesCount = vpnInfo?.maxDevicesCount;
     const customDnsServers = settings.getCustomDnsServers();
     const quickConnectSetting = settings.getQuickConnectSetting();
+    const selectedLanguage = settings.getSelectedLanguage();
 
     let pageId = null;
     if (!isDataRefresh) {
@@ -119,6 +122,7 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
         subscriptionTimeExpiresIso,
         customDnsServers,
         quickConnectSetting,
+        selectedLanguage,
         pageId,
     };
 };
@@ -167,6 +171,8 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
                 flagsStorageData: await flagsStorage.getFlagsStorageData(),
                 marketingConsent: await credentials.getMarketingConsent(),
                 isPremiumToken: await credentials.isPremiumToken(),
+                // Fetched early to translate the popup skeleton screen
+                selectedLanguage: settings.getSelectedLanguage(),
             };
         }
         case MessageType.GET_LIMITED_OFFER_DATA: {
@@ -450,8 +456,12 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             await hintPopup.setViewed();
             break;
         }
-        case MessageType.RECALCULATE_PINGS: {
-            await locationsService.measurePings(true);
+        case MessageType.MARK_REGION_NOTICE_AS_SHOWN: {
+            await vpnBlockedNotice.markAsShown();
+            break;
+        }
+        case MessageType.REFRESH_LOCATIONS: {
+            await endpoints.getLocationsFromServer();
             break;
         }
         case MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW: {
@@ -464,9 +474,8 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
                 actionName,
                 screenName,
                 label,
-                experiment,
             } = message.data;
-            await telemetry.sendCustomEventDebounced(actionName, screenName, label, experiment);
+            await telemetry.sendCustomEventDebounced(actionName, screenName, label);
             break;
         }
         case MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE: {
@@ -489,6 +498,20 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             const { action } = message.data;
             const appId = await credentials.getAppId();
             return webAuth.handleAction(appId, action);
+        }
+        case MessageType.SET_INTERFACE_LANGUAGE: {
+            const { language } = message.data;
+            await settings.setSetting(SETTINGS_IDS.SELECTED_LANGUAGE, language);
+            await i18n.setLocalePreference(language);
+            notifier.notifyListeners(notifier.types.LANGUAGE_CHANGED, language);
+            // Refetch locations with the new language (fire-and-forget).
+            endpoints.getLocationsFromServer().catch((e) => {
+                log.error('[vpn.messaging]: Failed to refetch locations after language change:', e);
+            });
+            break;
+        }
+        case MessageType.GET_INTERFACE_LANGUAGE: {
+            return settings.getSelectedLanguage();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

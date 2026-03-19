@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Quay lại"
+    },
     "about_title": {
         "message": "Thông tin"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Nâng cấp lên Không giới hạn"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Quảng bá AdGuard VPN trênmạng xã hội"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Quảng bá AdGuard VPN trên mạng xã hội và nhận %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Hãy đăng một bài viết trên X hoặc Facebook và chia sẻ liên kết với chúng tôi. Chúng tôi sẽ xem xét bài viết và cộng thêm %your_gb% GB vào tài khoản của bạn. Bạn có thể kiếm được tổng cộng tối đa%total_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Nhận thưởng"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Nhận %num% GB"
+    },
     "settings_rate_us": {
         "message": "Đánh giá chúng tôi"
     },
@@ -223,13 +241,16 @@
         "message": "Chặn WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Chặn WebRTC, một lỗ hổng đã biết có thể làm rò rỉ địa chỉ IP thực của bạn ngay cả khi bạn sử dụng proxy hoặc VPN"
+        "message": "Chặn WebRTC có thể làm rò rỉ Địa chỉ IP thực của bạn ngay cả khi bạn sử dụng proxy hoặc VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Một số ứng dụng nhắn tin, nền tảng phát trực tuyến hoặc trò chơi có thể ngừng hoạt động đúng cách"
     },
     "settings_context_menus_title": {
         "message": "Hiển thị AdGuard VPN trong danh mục ngữ cảnh của trình duyệt"
     },
     "settings_context_menus_description": {
-        "message": "Chỉnh sửa loại trừ VPN cho một trang cụ thể"
+        "message": "Cho phép bạn quản lý các loại trừ VPN cho một trang web cụ thể"
     },
     "settings_help_us_improve_title": {
         "message": "Giúp cải thiện AdGuard VPN"
@@ -241,22 +262,30 @@
         "message": "Dữ liệu này bao gồm:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Tên của các màn hình bạn tương tác"
+        "message": "Tên của các màn hình bạn tương tác",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Tên các nút bạn nhấp"
+        "message": "Tên các nút bạn nhấp",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Định danh phiên bản"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Chúng tôi cần thông tin này để phân tích và cải thiện chức năng của AdGuard VPN"
+        "message": "Chúng tôi cần thông tin này để phân tích và cải thiện chức năng của AdGuard VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Dữ liệu này là ẩn danh và chỉ được sử dụng nội bộ. Chúng tôi không bao giờ chia sẻ nó với bên thứ ba"
+        "message": "Dữ liệu này là ẩn danh và chỉ được sử dụng nội bộ. Chúng tôi không bao giờ chia sẻ nó với bên thứ ba",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Đã nhận được"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Chính sách bảo mật",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Chế độ chọn lọc"
@@ -274,7 +303,7 @@
         "message": "Máy chủ DNS"
     },
     "settings_dns_description": {
-        "message": "Giải quyết các yêu cầu DNS, chặn quảng cáo và trình theo dõi, cũng như mã hóa lưu lượng DNS khi bạn kết nối với VPN"
+        "message": "Cho phép chọn máy chủ DNS để giải quyết các yêu cầu DNS, chặn quảng cáo và trình theo dõi cũng như mã hóa lưu lượng DNS khi bạn kết nối với VPN"
     },
     "settings_dns_description_current": {
         "message": "Hiện tại: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Chế độ Sáng"
+    },
+    "settings_language_label": {
+        "message": "Ngôn ngữ"
+    },
+    "settings_language_browser_default": {
+        "message": "Trình duyệt mặc định"
     },
     "settings_quick_connect_title": {
         "message": "Kết nối nhanh"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Vô hiệu hoá VPN trên trang này"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Kích hoạt VPN trên trang này"
-    },
     "popup_settings_other_products": {
         "message": "Các sản phẩm khác"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Cập nhật"
     },
+    "popup_paywall_b_title": {
+        "message": "Đã đạt giới hạn dữ liệu — nội dung tải lâu hơn"
+    },
+    "popup_paywall_b_description": {
+        "message": "Xem AdGuard VPN Không giới hạn. Với kế hoạch theo năm, bạn cứu 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Miễn phí",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Không giới hạn",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "Dữ liệu VPN",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/tháng</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Tốc độ",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Giảm",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Vị trí máy chủ",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Thiết bị",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Cập nhật"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Có lẽ để sau"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "dùng thử miễn phí"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Gói này cung cấp kết nối tốc độ cao, quyền truy cập vào tất cả địa điểm và nhiều hơn nữa"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Phát trực tuyến với tốc độ cao không giới hạn"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Xem nội dung từ %count%+ vị trí máy chủ"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Dùng AdGuard VPN trên %count% thiết bị cùng một lúc"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Ẩn hoạt động trang web của bạn với AdGuard\u0000DNS như một phần thưởng"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Nhận Không giới hạn"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Có lẽ để sau"
+    },
     "popup_feedback_title": {
         "message": "Chúng tôi rất muốn nghe phản hồi của bạn"
     },
@@ -741,13 +850,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Gửi <link>dữ liệu sử dụng phần mở rộng</link> đã được ẩn danh"
-    },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Nếu bạn đồng ý, AdGuard VPN sẽ thu thập dữ liệu về các màn hình và nút mà bạn tương tác. Bạn có thể luôn luôn vô hiệu hóa việc chia sẻ dữ liệu trong <b>Cài đặt</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Thông tin này giúp chúng tôi hiểu chức năng nào hoạt động tốt và chức năng nào cần cải thiện. Nó được ẩn danh và chỉ được sử dụng nội bộ. Chúng tôi không bao giờ chia sẻ với ai"
+        "message": "Gửi dữ liệu sử dụng tiện ích mở rộng <link>đã được ẩn danh</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Đăng nhập hoặc tạo một tài khoản"
@@ -768,7 +871,7 @@
         "message": "Giao thức VPN duy nhất"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "Giao thức của AdGuard VPN hoạt động nhanh và giúp lưu lượng truy cập VPN của bạn không dễ thấy"
+        "message": "Giao thức TrustTunnel hoạt động nhanh và giúp lưu lượng VPN của bạn không rõ ràng"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Loại trừ các trang web và ứng dụng"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Không thể kết nối?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Chuyển sang phiên bản máy tính để bàn để kết nối ổn định hơn"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Chuyển sang phiên bản di động để kết nối ổn định hơn"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Chuyển sang AdGuard VPN cho Linux để có kết nối ổn định hơn"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Phiên bản máy tính để bàn ổn định hơn"
+        "message": "Chuyển sang phiên bản máy tính để bàn để kết nối ổn định hơn"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Chuyển sang phiên bản di động để kết nối ổn định hơn"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Chuyển sang AdGuard VPN cho Linux để có kết nối ổn định hơn"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "Nếu bạn gặp sự cố kết nối, chúng tôi khuyên bạn nên chuyển sang phiên bản dành cho máy tính để bàn — phiên bản này hoạt động trơn tru hơn"
+        "message": "Nếu bạn nhận thấy sự cố kết nối, chúng tôi khuyên bạn nên chuyển sang phiên bản dành cho máy tính để bàn. Nó hoạt động trơn tru hơn"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Nếu bạn gặp sự cố kết nối, chúng tôi khuyên bạn nên chuyển sang phiên bản di động. Phiên bản này hoạt động mượt mà hơn"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Nếu bạn nhận thấy sự cố kết nối, chúng tôi khuyên bạn nên sử dụng ứng dụng VPN Linux của chúng tôi. Nó hoạt động trơn tru hơn"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Nhận phiên bản máy tính để bàn"
+        "message": "Tải xuống"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Cách cài đặt"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Sau đó"

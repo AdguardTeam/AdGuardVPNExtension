@@ -1,6 +1,8 @@
 import browser from 'webextension-polyfill';
 import { type AxiosResponse } from 'axios';
 
+import { i18n } from '../../common/i18n';
+
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
 import { type RequestProps } from './apiTypes';
@@ -42,17 +44,71 @@ export interface EndpointApiData {
     public_key: string;
 }
 
+/**
+ * Raw location data returned by the backend API
+ *
+ * Each object represents a single VPN server location (city) with its
+ * geographic metadata, access restrictions, and connectivity endpoints.
+ */
 export interface LocationApiData {
+    /**
+     * Unique location identifier (Base64-encoded).
+     */
     id: string;
+
+    /**
+     * Localized country name.
+     */
     country_name: string;
+
+    /**
+     * ISO 3166-1 alpha-2 country code (e.g. `"US"`, `"DE"`).
+     */
     country_code: string;
+
+    /**
+     * Localized city name.
+     */
     city_name: string;
+
+    /**
+     * Whether this location is restricted to premium subscribers.
+     */
     premium_only: boolean;
+
+    /**
+     * Geographic latitude of the location.
+     */
     latitude: number;
+
+    /**
+     * Geographic longitude of the location.
+     */
     longitude: number;
+
+    /**
+     * Bonus subtracted from ping when ranking fastest locations (ms).
+     */
     ping_bonus: number;
+
+    /**
+     * Available VPN endpoints (servers) within this location.
+     */
     endpoints: EndpointApiData[];
+
+    /**
+     * Whether this is a virtual (non-physical) location.
+     */
     virtual: boolean;
+
+    /**
+     * Backend-provided approximate ping in milliseconds.
+     *
+     * When present and non-negative the extension uses this value directly
+     * instead of performing local ping measurement.  `null` or absent means
+     * the ping is not set and the extension falls back to local measurement.
+     */
+    ping?: number | null;
 }
 
 interface LocationsData extends AxiosResponse {
@@ -134,7 +190,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     getLocations = (appId: string, vpnToken: string): Promise<LocationsData> => {
         const { path, method } = this.GET_LOCATIONS;
-        const language = browser.i18n.getUILanguage();
+        const language = i18n.getUILanguage();
 
         const params = {
             app_id: appId,
@@ -197,7 +253,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     TRACK_EXTENSION_INSTALL: RequestProps = { path: 'v1/init/extension', method: 'POST' };
 
-    trackExtensionInstallation = (appId: string, version: string, experiments: string): Promise<unknown> => {
+    trackExtensionInstallation = (appId: string, version: string): Promise<unknown> => {
         const { path, method } = this.TRACK_EXTENSION_INSTALL;
 
         const language = browser.i18n.getUILanguage();
@@ -207,7 +263,6 @@ class VpnApi extends Api implements VpnApiInterface {
             version,
             language,
             system_language: language,
-            experiments,
         };
 
         return this.makeRequest(path, { params }, method);

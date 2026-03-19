@@ -1,4 +1,4 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { connectivityStateScheme, CONNECTIVITY_STATE_DEFAULT } from './state';
 import { connectivityContextScheme, CONNECTIVITY_CONTEXT_DEFAULTS } from './context';
@@ -6,15 +6,15 @@ import { connectivityContextScheme, CONNECTIVITY_CONTEXT_DEFAULTS } from './cont
 /**
  * Connectivity FSM persisted data schema.
  */
-export const connectivityDataScheme = zod.object({
+export const connectivityDataScheme = v.strictObject({
     state: connectivityStateScheme,
     context: connectivityContextScheme,
-}).strict();
+});
 
 /**
  * {@link connectivityDataScheme} type.
  */
-export type ConnectivityData = zod.infer<typeof connectivityDataScheme>;
+export type ConnectivityData = v.InferOutput<typeof connectivityDataScheme>;
 
 /**
  * Default values for {@link ConnectivityData}.

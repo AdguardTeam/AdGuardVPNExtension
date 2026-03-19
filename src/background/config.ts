@@ -25,7 +25,9 @@ export const enum ForwarderUrlQueryKey {
     UninstallPage = 'UNINSTALL_PAGE',
     UpgradeLicense = 'UPGRADE_LICENSE',
     VpnBlockedGetApp = 'VPN_BLOCKED_GET_APP',
+    VpnBlockedGetAppLinux = 'VPN_BLOCKED_GET_APP_LINUX',
     Website = 'WEBSITE',
+    PromoteSocials = 'PROMOTE_SOCIALS',
 }
 
 /**
@@ -68,12 +70,14 @@ const {
     POPUP_FEEDBACK,
     POPUP_STORE,
     PRIVACY,
+    PROMOTE_SOCIALS,
     SUBSCRIBE,
     SUGGEST_FEATURE,
     THANK_YOU_PAGE,
     UNINSTALL_PAGE,
     UPGRADE_LICENSE,
     VPN_BLOCKED_GET_APP,
+    VPN_BLOCKED_GET_APP_LINUX,
     WEBSITE,
 } = CONFIG;
 
@@ -106,12 +110,14 @@ const FORWARDER_URL_QUERIES: ForwarderUrlQueries = {
     POPUP_FEEDBACK,
     POPUP_STORE,
     PRIVACY,
+    PROMOTE_SOCIALS,
     SUBSCRIBE,
     SUGGEST_FEATURE,
     THANK_YOU_PAGE,
     UNINSTALL_PAGE,
     UPGRADE_LICENSE,
     VPN_BLOCKED_GET_APP,
+    VPN_BLOCKED_GET_APP_LINUX,
     WEBSITE,
 };
 

@@ -1,4 +1,4 @@
 import { ABTestManager } from './ABTestManager';
-import { AG47804_STREAMING_TEST_EXPERIMENT_ID } from './constants';
+import { EXPERIMENT_REGISTRY } from './constants';
 
-export const abTestManager = new ABTestManager([AG47804_STREAMING_TEST_EXPERIMENT_ID]);
+export const abTestManager = new ABTestManager(EXPERIMENT_REGISTRY);

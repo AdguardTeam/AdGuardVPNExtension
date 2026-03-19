@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "الرجوع للخلف"
+    },
     "about_title": {
         "message": "حول"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "قم بالترقية إلى الغير محدود"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "روّج لـ AdGuard\n0VPN على وسائل التواصل الاجتماعي"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "روّج لـ AdGuard VPN على وسائل التواصل الاجتماعي واحصل على %your_gb%\n0GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "اكتب منشورًا على\n0X أو\n0Facebook وشارك الرابط معنا. سنراجعه ونضيف %your_gb%\n0GB إلى حسابك. يمكنك كسب ما يصل إلى %total_gb%\n0GB إجمالًا"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "احصل على مكافأة"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "احصل على %num% جيجا"
+    },
     "settings_rate_us": {
         "message": "قيمنا"
     },
@@ -224,6 +242,9 @@
     },
     "settings_webrtc_desc": {
         "message": "يقوم بحظر WebRTC، وهي ثغرة معروفة يمكن أن تسرب عنوان IP الحقيقي الخاص بك حتى إذا كنت تستخدم بروكسي أو VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "قد تتوقف بعض تطبيقات المراسلة أو منصات البث أو الألعاب عن العمل بشكل صحيح"
     },
     "settings_context_menus_title": {
         "message": "عرض AdGuard VPN في قائمة سياق المتصفح"
@@ -235,28 +256,36 @@
         "message": "ساعد في تحسين AdGuard VPN"
     },
     "settings_help_us_improve_modal_title": {
-        "message": "بيانات استخدام الإضافة"
+        "message": "بيانات استخدام الملحق"
     },
     "settings_help_us_improve_modal_desc_data": {
         "message": "تغطي هذه البيانات:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "أسماء الشاشات التي تتفاعل معها"
+        "message": "أسماء\n0الشاشات التي تتفاعل معها",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "أسماء الأزرار التي تضغط عليها"
+        "message": "أسماء\n0الأزرار التي تضغط عليها",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "معرفات الجلسة"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "نحتاج هذه المعلومات لتحليل وتحسين آلية AdGuard VPN"
+        "message": "نحن بحاجة إلى هذه المعلومات لتحليل وتحسين آلية AdGuard\n0VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "هذه البيانات مجهولة المصدر وتُستخدم داخلياً فقط. لا نشاركها أبداً مع أطراف ثالثة"
+        "message": "هذه البيانات مجهولة المصدر وتُستخدم داخلياً فقط. لا نشاركها أبداً مع أطراف خارجية",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "فهمت ذلك"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "سياسة الخصوصية",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "الوضع الانتقائي"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "فاتح"
+    },
+    "settings_language_label": {
+        "message": "اللغة"
+    },
+    "settings_language_browser_default": {
+        "message": "الإعداد الافتراضي للمتصفح"
     },
     "settings_quick_connect_title": {
         "message": "اتصال سريع"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "تعطيل VPN على هذا الموقع"
     },
-    "popup_settings_enable_vpn": {
-        "message": "تشغيل VPN على هذا الموقع"
-    },
     "popup_settings_other_products": {
         "message": "منتجات اخرى"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "ترقية"
     },
+    "popup_paywall_b_title": {
+        "message": "تم بلوغ حدّ البيانات — يستغرق تحميل المحتوى وقتًا أطول"
+    },
+    "popup_paywall_b_description": {
+        "message": "اطّلع على AdGuard VPN غير محدود. مع الخطة السنوية، يمكنك توفير 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "مجاني",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "غير محدود",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "بيانات VPN",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/شهر</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "السرعة",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "مخفضة",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "مواقع الخوادم",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "الأجهزة",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "ترقية"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "ربما لاحقًا"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN غير محدود:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "جرب مجاناً"
+    },
+    "popup_upgrade_b_description": {
+        "message": "يوفر اتصالات عالية السرعة وإمكانية الوصول إلى جميع المواقع والمزيد"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "قم بالبث بسرعات عالية دون حدود"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "شاهد المحتوى من\n0%count%+\n0موقع خادم"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "استخدم AdGuard\n0VPN على\n0%count%\n0أجهزة في الوقت نفسه"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "إخفاء نشاط الويب لديك باستخدام AdGuard DNS كميزة إضافية"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "احصل على AdGuard VPN غير محدود"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "ربما لاحقًا"
+    },
     "popup_feedback_title": {
         "message": "يسعدنا سماع ملاحظاتك"
     },
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "إرسال بيانات استخدام الإضافة <link>المجهولة</link>"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "إذا كنت توافق، فإن AdGuard VPN سيجمع بيانات حول الشاشات والأزرار التي تتفاعل معها. يمكنك دائمًا تعطيل مشاركة البيانات في <b>الإعدادات</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "تساعدنا هذه المعلومات على فهم الآلية التي تعمل بشكل جيد وما يحتاج إلى تحسين. يتم إخفاء الهوية وتستخدم داخليًا فقط. نحن لا نشاركها مع أي شخص"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "تسجيل الدخول أو إنشاء حساب"
     },
@@ -768,7 +871,7 @@
         "message": "بروتوكول VPN فريد"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "يعمل بروتوكول AdGuard VPN بسرعة ويجعل حركة مرور VPN الخاصة بك غير ملحوظة"
+        "message": "يعمل بروتوكول TrustTunnel بسرعة ويجعل حركة مرور VPN الخاصة بك غير واضح"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "استثناءات المواقع والتطبيقات"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "لا يمكن الاتصال؟"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "انتقل إلى إصدار سطح المكتب لاتصال أكثر استقرارًا"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "انتقل إلى الإصدار المحمول لاتصال أكثر استقرارًا"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "انتقل إلى AdGuard VPN لنظام Linux لاتصال أكثر استقرارًا"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "إصدار سطح المكتب أكثر استقراراً"
+        "message": "انتقل إلى إصدار سطح المكتب لاتصال أكثر استقرارًا"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "انتقل إلى الإصدار المحمول لاتصال أكثر استقرارًا"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "انتقل إلى AdGuard\n0VPN لنظام\n0Linux لاتصال أكثر استقرارًا"
     },
     "popup_vpn_blocked_error_details_description": {
         "message": "إذا كنت تواجه مشكلات في الاتصال، نوصي بالتبديل إلى إصدار سطح المكتب - فهو يعمل بسلاسة أكبر"
     },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "إذا لاحظت مشكلات في الاتصال، نوصي بالتبديل إلى الإصدار المحمول. فهو يعمل بسلاسة أكبر"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "إذا لاحظت مشكلات في الاتصال، نوصي بعميل VPN لنظام Linux الخاص بنا. فهو يعمل بسلاسة أكبر"
+    },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "احصل على إصدار سطح المكتب"
+        "message": "تنزيل"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "كيفية التثبيت"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "لاحقاً"
@@ -1019,7 +1146,7 @@
         "message": "7 أيام"
     },
     "popup_stats_range_days_30": {
-        "message": "30 يوماً"
+        "message": "30 يوم"
     },
     "popup_stats_range_all_time": {
         "message": "كل الأوقات"

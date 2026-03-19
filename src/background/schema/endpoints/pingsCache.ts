@@ -1,15 +1,15 @@
-import zod from 'zod';
+import * as v from 'valibot';
 
 import { endpointInterfaceScheme } from './endpointInterface';
 
-export const pingDataScheme = zod.object({
-    ping: zod.number().or(zod.null()),
-    available: zod.boolean(),
-    lastMeasurementTime: zod.number(),
-    endpoint: endpointInterfaceScheme.or(zod.null()),
-    isMeasuring: zod.boolean(),
+export const pingDataScheme = v.object({
+    ping: v.nullable(v.number()),
+    available: v.boolean(),
+    lastMeasurementTime: v.number(),
+    endpoint: v.nullable(endpointInterfaceScheme),
+    isMeasuring: v.boolean(),
 });
 
-export const pingsCacheScheme = zod.record(zod.string(), pingDataScheme);
+export const pingsCacheScheme = v.record(v.string(), pingDataScheme);
 
-export type PingsCacheInterface = zod.infer<typeof pingsCacheScheme>;
+export type PingsCacheInterface = v.InferOutput<typeof pingsCacheScheme>;

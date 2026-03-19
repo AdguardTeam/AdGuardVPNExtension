@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Назад"
+    },
     "about_title": {
         "message": "Относно"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Надстройте до Unlimited."
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Популяризирайте AdGuard VPN в социалните мрежи"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Популяризирайте AdGuard VPN в социалните мрежи и получете %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Напишете публикация в X или Facebook и споделете връзката с нас. Ще я прегледаме и ще добавим %your_gb% GB към акаунта ви. Можете да спечелите общо до %total_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Вземете бонус"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Get %num% GB"
+    },
     "settings_rate_us": {
         "message": "Оценете ни"
     },
@@ -223,7 +241,10 @@
         "message": "Блокирай WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Блокирайте WebRTC, известна уязвимост, която може да изтече вашия истински IP адрес дори ако използвате прокси или VPN"
+        "message": "Блокира WebRTC, който може да издаде вашия Потребителски IP адрес, дори ако използвате прокси или VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Някои приложения за съобщения, платформи за стрийминг или игри може да спрат да работят правилно"
     },
     "settings_context_menus_title": {
         "message": "Показване на AdGuard VPN в контекстното меню на браузъра"
@@ -241,22 +262,30 @@
         "message": "Тези данни включват:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Имена на екрани, с които взаимодействате"
+        "message": "Имена на екрани, с които взаимодействате",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Имена на бутоните, върху които кликвате"
+        "message": "Имена на бутоните, върху които кликвате",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Идентификатори на сесии"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Нуждаем се от тази информация, за да анализираме и подобрим функционалността на AdGuard VPN"
+        "message": "Нуждаем се от тази информация, за да анализираме и подобрим функционалността на AdGuard VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Тези данни са анонимни и се използват само вътрешно. Никога не ги споделяме с трети страни"
+        "message": "Тези данни са анонимни и се използват само вътрешно. Никога не ги споделяме с трети страни",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Схванах"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Политика за поверителност",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Селективен режим"
@@ -274,7 +303,7 @@
         "message": "DNS сървър"
     },
     "settings_dns_description": {
-        "message": "Решаване на DNS заявки, блокиране на реклами и проследяващи, и криптиране на DNS трафик, когато сте свързани с VPN"
+        "message": "Позволява избора на DNS сървър за решаване на DNS заявки, блокиране на реклами и проследяващи и криптиране на DNS трафика, когато си свързани към VPN"
     },
     "settings_dns_description_current": {
         "message": "Настоящ: %dnsServerName%"
@@ -316,7 +345,7 @@
         "message": "Името на сървъра надвишава лимита от %max% символа (в момента %current%)"
     },
     "settings_dns_add_custom_server_save_and_select": {
-        "message": "Запазете и изберете"
+        "message": "Запазете и избери"
     },
     "settings_dns_add_custom_server_save": {
         "message": "Запази"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Светла тема"
+    },
+    "settings_language_label": {
+        "message": "Език"
+    },
+    "settings_language_browser_default": {
+        "message": "Стандартно за браузера"
     },
     "settings_quick_connect_title": {
         "message": "Бързо свързване"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Деактивиране на VPN за този уеб сайт"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Активиране на VPN за този уебсайт"
-    },
     "popup_settings_other_products": {
         "message": "Други продукти"
     },
@@ -605,7 +637,7 @@
         "description": "Respect spaces between text and tags. Use <b> tag for bold text"
     },
     "endpoints_tab_all": {
-        "message": "All"
+        "message": "Всички"
     },
     "endpoints_tab_saved": {
         "message": "Запазено"
@@ -654,6 +686,83 @@
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Надграждане"
+    },
+    "popup_paywall_b_title": {
+        "message": "Достигнат е лимитът за данни — съдържанието се зарежда по-дълго"
+    },
+    "popup_paywall_b_description": {
+        "message": "Разгледайте AdGuard VPN Unlimited. С годишния план спестявате 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Безплатно",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Unlimited",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "VPN данни",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/мес</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Скорост",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Намалена",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Местоположения на сървъри",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Устройства",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Надграждане"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Може би по-късно"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "пробвайте"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Предлага високоскоростни връзки, достъп до всички местоположения и още"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Стриймвайте с висока скорост без ограничения"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Гледайте съдържание от %count%+ местоположения на сървъри"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Използвайте AdGuard VPN на %count% устройства едновременно"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Скрийте вашата уеб активност с AdGuard DNS като бонус"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Вземете Unlimited"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Може би по-късно"
     },
     "popup_feedback_title": {
         "message": "Бихме искали да чуем вашето мнение"
@@ -743,12 +852,6 @@
     "popup_auth_help_us_improve_agreement": {
         "message": "Изпратете анонимизирани <link>данни за употреба на разширението</link>"
     },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Ако се съгласите, AdGuard VPN ще събира данни за екраните и бутоните, с които взаимодействате. Вие винаги можете да деактивирате споделянето на данни в <b>Настройки</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Тази информация ни помага да разберем какви функции работят добре и какво трябва да бъде подобрено. Тя е анонимизирана и се използва само вътрешно. Никога не я споделяме с никого"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Влезте или създайте акаунт"
     },
@@ -768,7 +871,7 @@
         "message": "Уникален протокол за VPN"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "Протоколът на AdGuard VPN работи бързо и прави вашия VPN трафик незабележим"
+        "message": "Протоколът TrustTunnel работи бързо и прави твоя VPN трафик незабележим"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Исключения на сайтове и приложения"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Не може да се свържете?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Преминете към версията за настолни компютри за по-стабилна връзка"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Преминете към мобилната версия за по-стабилна връзка"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Преминете към AdGuard VPN за Linux за по-стабилна връзка"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Версията на настолния компютър е по-стабилна"
+        "message": "Преминете към версията за настолни компютри за по-стабилна връзка"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Преминете към мобилната версия за по-стабилна връзка"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Преминете към AdGuard VPN за Linux за по-стабилна връзка"
     },
     "popup_vpn_blocked_error_details_description": {
         "message": "Ако имате проблеми с връзката, препоръчваме да преминете на версията за настолни компютри — тя работи по-гладко"
     },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Ако имате проблеми с връзката, препоръчваме да преминете към мобилната версия. Тя работи по-гладко"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Ако имате проблеми с връзката, препоръчваме нашия VPN клиент за Linux. Той работи по-гладко"
+    },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Вземете версията за настолни компютри"
+        "message": "Изтегляне"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Научете се как да инсталирате"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "По-късно"
@@ -1079,7 +1206,7 @@
         "message": "Получихте %your_gb% GB като еднократен бонус за добре дошли"
     },
     "confirm_email_done_info": {
-        "message": "Неизползваният трафик се прехвърля за следващите месеци. А с AdGuard VPN Unlimited можете да се наслаждавате на бързо сърфиране без ограничения"
+        "message": "Неизползваният трафик се прехвърля за следващите месеци. А с AdGuard VPN Unlimited можеш да се наслаждавате на бързо сърфиране без ограничения"
     },
     "auth_failed_to_login_title": {
         "message": "Не успях да влезете в профила си"

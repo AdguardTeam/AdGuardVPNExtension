@@ -9,6 +9,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "a11y_go_back": {
+        "message": "Återgå"
+    },
     "about_title": {
         "message": "Om"
     },
@@ -216,6 +219,21 @@
     "settings_free_gbs_upgrade": {
         "message": "Uppgradera till Unlimited"
     },
+    "settings_free_gbs_promote_socials": {
+        "message": "Marknadsför AdGuard VPN på sociala medier"
+    },
+    "settings_free_gbs_promote_socials_title": {
+        "message": "Marknadsför AdGuard VPN på sociala medier och få %your_gb% GB"
+    },
+    "settings_free_gbs_promote_socials_info": {
+        "message": "Skriv ett inlägg på X eller Facebook och dela länken med oss. Vi granskar det och lägger till %your_gb% GB på ditt konto. Du kan tjäna upp till %total_gb% GB totalt"
+    },
+    "settings_free_gbs_promote_socials_button": {
+        "message": "Få bonus"
+    },
+    "settings_free_gbs_promote_socials_get_gb": {
+        "message": "Få %num% GB"
+    },
     "settings_rate_us": {
         "message": "Betygsätt oss"
     },
@@ -223,13 +241,16 @@
         "message": "Blockera WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Blockera WebRTC, en känd sårbarhet som kan läcka din riktiga IP-adress även om du använder en proxy eller VPN"
+        "message": "Blockerar WebRTC som kan läcka din riktiga IP-adress även om du använder en proxy eller VPN"
+    },
+    "settings_webrtc_warning": {
+        "message": "Vissa meddelandeappar, streamingplattformar eller spel kan sluta fungera korrekt"
     },
     "settings_context_menus_title": {
         "message": "Visa AdGuard VPN i webbläsarens meny"
     },
     "settings_context_menus_description": {
-        "message": "Hantera VPN-exkluderingar för en specifik webbplats"
+        "message": "Låter dig hantera VPN-undantag för en specifik webbplats"
     },
     "settings_help_us_improve_title": {
         "message": "Hjälp till att förbättra AdGuard VPN"
@@ -241,22 +262,30 @@
         "message": "Dessa data omfattar:"
     },
     "settings_help_us_improve_modal_desc_data_screens": {
-        "message": "Skärmmän namn du interagerar med"
+        "message": "Skärmmän namn du interagerar med",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_buttons": {
-        "message": "Namnen på knapparna du klickar på"
+        "message": "Namn på knappar du klickar på",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_data_sessions": {
         "message": "Sessionsidentifierare"
     },
     "settings_help_us_improve_modal_desc_improve": {
-        "message": "Vi behöver denna information för att analysera och förbättra funktionaliteten hos AdGuard VPN"
+        "message": "Vi behöver denna information för att analysera och förbättra funktionaliteten hos AdGuard VPN",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_desc_internally": {
-        "message": "Dessa uppgifter är anonyma och används endast internt. Vi delar det aldrig med tredje part"
+        "message": "Dessa uppgifter är anonyma och används endast internt. Vi delar det aldrig med tredjeparter",
+        "description": "Contains non-breaking spaces ( ) to prevent unwanted line breaks"
     },
     "settings_help_us_improve_modal_button": {
         "message": "Uppfattat"
+    },
+    "settings_help_us_improve_modal_privacy_policy": {
+        "message": "Integritetspolicy",
+        "description": "Contains non-breaking space ( ) to prevent unwanted line breaks"
     },
     "context_menu_selective_mode": {
         "message": "Selektivt läge"
@@ -274,7 +303,7 @@
         "message": "DNS-server"
     },
     "settings_dns_description": {
-        "message": "Lösa DNS-förfrågningar, blockera annonser och spårare, och kryptera DNS-trafik när du är ansluten till VPN"
+        "message": "Tillåter att välja en DNS-server för att lösa DNS-förfrågningar, blockera annonser och spårare och kryptera DNS-trafik när du är ansluten till VPN"
     },
     "settings_dns_description_current": {
         "message": "Nuvarande: %dnsServerName%"
@@ -383,6 +412,12 @@
     },
     "settings_theme_light": {
         "message": "Ljust"
+    },
+    "settings_language_label": {
+        "message": "Språk"
+    },
+    "settings_language_browser_default": {
+        "message": "Webbläsarens standard"
     },
     "settings_quick_connect_title": {
         "message": "Snabbanslutning"
@@ -555,9 +590,6 @@
     "popup_settings_disable_vpn": {
         "message": "Inaktivera VPN på denna webbplats"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Aktivera VPN för denna webbplats"
-    },
     "popup_settings_other_products": {
         "message": "Andra produkter"
     },
@@ -655,6 +687,83 @@
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Uppgradera"
     },
+    "popup_paywall_b_title": {
+        "message": "Datagräns nådd – innehåll laddas långsammare"
+    },
+    "popup_paywall_b_description": {
+        "message": "Kolla in AdGuard VPN Unlimited. Med årsplanen sparar du 67%%"
+    },
+    "popup_paywall_b_column_free": {
+        "message": "Gratis",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_column_unlimited": {
+        "message": "Obegränsad",
+        "description": "Table header. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data": {
+        "message": "VPN-data",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_vpn_data_free": {
+        "message": "%gb% GB<span>/mån</span>"
+    },
+    "popup_paywall_b_row_speed": {
+        "message": "Hastig.",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_speed_free": {
+        "message": "Reduc.",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations": {
+        "message": "Serverplatser",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_locations_unlimited": {
+        "message": "%count%+"
+    },
+    "popup_paywall_b_row_devices": {
+        "message": "Enheter",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_row_dns": {
+        "message": "AdGuard DNS",
+        "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
+    },
+    "popup_paywall_b_btn_upgrade": {
+        "message": "Uppgradera"
+    },
+    "popup_paywall_b_btn_maybe_later": {
+        "message": "Kanske senare"
+    },
+    "popup_upgrade_b_title_line1": {
+        "message": "AdGuard VPN Unlimited:"
+    },
+    "popup_upgrade_b_title_line2": {
+        "message": "testa gratis"
+    },
+    "popup_upgrade_b_description": {
+        "message": "Det erbjuder höghastighetsanslutningar, åtkomst till alla platser och mer"
+    },
+    "popup_upgrade_b_feature_speed": {
+        "message": "Streama med höga hastigheter utan begränsningar"
+    },
+    "popup_upgrade_b_feature_locations": {
+        "message": "Titta på innehåll från %count%+ serverplatser"
+    },
+    "popup_upgrade_b_feature_devices": {
+        "message": "Använd AdGuard VPN på %count% enheter samtidigt"
+    },
+    "popup_upgrade_b_feature_dns": {
+        "message": "Dölj din webbaktivitet med AdGuard DNS som bonus"
+    },
+    "popup_upgrade_b_btn_get_unlimited": {
+        "message": "Skaffa Unlimited"
+    },
+    "popup_upgrade_b_btn_maybe_later": {
+        "message": "Kanske senare"
+    },
     "popup_feedback_title": {
         "message": "Vi vill gärna höra din feedback"
     },
@@ -741,13 +850,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Skicka anonymiserad <link>data för användning av tillägg</link>"
-    },
-    "popup_auth_help_us_improve_modal_desc_data": {
-        "message": "Om du godkänna, kommer AdGuard VPN att samla in data om de skärmar och knappar du interagerar med. Du kan alltid inaktivera datadelning i <b>Inställningar</b>"
-    },
-    "popup_auth_help_us_improve_modal_desc_info": {
-        "message": "Denna information hjälper oss att förstå vilken funktionalitet som fungerar bra och vad som behöver förbättras. Den är anonymiserad och används endast internt. Vi delar aldrig denna information med någon"
+        "message": "Skickar anonymiserad <link>data för användning av tillägg</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Logga in eller skapa ett konto"
@@ -768,7 +871,7 @@
         "message": "Unikt VPN-protokoll"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "AdGuard VPNs protokoll fungerar snabbt och gör din VPN-trafik obemärkt"
+        "message": "TrustTunnel-protokollet fungerar snabbt och gör din VPN-trafik diskret"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Webbplatsers och appars undantag"
@@ -838,14 +941,38 @@
     "popup_vpn_blocked_error_notice": {
         "message": "Kan du inte ansluta?"
     },
+    "popup_vpn_blocked_error_notice_alt": {
+        "message": "Byt till desktop-versionen för stabilare anslutning"
+    },
+    "popup_vpn_blocked_error_notice_alt_mobile": {
+        "message": "Byt till mobil version för stabilare anslutning"
+    },
+    "popup_vpn_blocked_error_notice_alt_linux": {
+        "message": "Byt till AdGuard VPN för Linux för en stabilare anslutning"
+    },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Desktopversionen är mer stabil"
+        "message": "Byt till desktop-versionen för stabilare anslutning"
+    },
+    "popup_vpn_blocked_error_details_title_mobile": {
+        "message": "Byt till mobil version för stabilare anslutning"
+    },
+    "popup_vpn_blocked_error_details_title_linux": {
+        "message": "Byt till AdGuard VPN för Linux för en stabilare anslutning"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "Om du har anslutningsproblem rekommenderar vi att du byter till skrivbordsversionen – den fungerar smidigare"
+        "message": "Om du märker anslutningsproblem rekommenderar vi att du byter till skrivbordsversionen. Den fungerar smidigare"
+    },
+    "popup_vpn_blocked_error_details_description_mobile": {
+        "message": "Om du märker anslutningsproblem rekommenderar vi att du byter till mobilversionen. Den fungerar smidigare"
+    },
+    "popup_vpn_blocked_error_details_description_linux": {
+        "message": "Om du märker anslutningsproblem rekommenderar vi vår Linux VPN-klient. Den fungerar smidigare"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
-        "message": "Hämta desktopversionen"
+        "message": "Ladda ner"
+    },
+    "popup_vpn_blocked_error_details_get_app_button_linux": {
+        "message": "Hur man installerar"
     },
     "popup_vpn_blocked_error_details_later_button": {
         "message": "Senare"

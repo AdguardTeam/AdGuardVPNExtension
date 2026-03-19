@@ -200,6 +200,15 @@ export class Preferences {
     }
 
     /**
+     * Browser version getter.
+     *
+     * @returns Browser version string.
+     */
+    public getBrowserVersion(): string {
+        return Preferences.uaParser.getBrowser().version || 'unknown';
+    }
+
+    /**
      * Checks whether the current browser is Firefox.
      *
      * @returns True if the current browser is Firefox, false otherwise.
@@ -299,6 +308,16 @@ export class Preferences {
     public async isAndroid(): Promise<boolean> {
         const os = await this.getOS();
         return os === SystemName.Android;
+    }
+
+    /**
+     * Checks whether the current OS is Linux.
+     *
+     * @returns Promise that will be fulfilled with `true` if the current OS is Linux, `false` otherwise.
+     */
+    public async isLinux(): Promise<boolean> {
+        const os = await this.getOS();
+        return os === SystemName.Linux;
     }
 
     /**

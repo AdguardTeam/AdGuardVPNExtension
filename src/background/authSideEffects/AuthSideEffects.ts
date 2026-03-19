@@ -3,7 +3,7 @@ import { translator } from '../../common/translator';
 import { FORWARDER_URL_QUERIES } from '../config';
 import { type NotifierInterface } from '../../common/notifier';
 import { type ForwarderInterface } from '../forwarder/forwarder';
-import { type NotificationsInterface } from '../notifications';
+import { type NotificationsInterface, NotificationType } from '../notifications';
 import { type TabsInterface } from '../../common/tabs';
 import { type UpdateServiceInterface } from '../updateService';
 import { getUrl } from '../browserApi/runtime';
@@ -135,6 +135,7 @@ export class AuthSideEffects implements AuthSideEffectsInterface {
             // Notify user
             await this.notifications.create({
                 message: translator.getMessage('authentication_successful_notification'),
+                notificationType: NotificationType.FirstAuth,
             });
 
             const forwarderDomain = await this.forwarder.updateAndGetDomain();

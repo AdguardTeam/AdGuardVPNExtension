@@ -1,18 +1,18 @@
 /* eslint-disable no-console */
-import webpack from 'webpack';
+import { rspack, type Configuration, type Stats } from '@rspack/core';
 
 export const bundleRunner = (
-    webpackConfig: webpack.Configuration,
+    rspackConfig: Configuration,
     watch = false,
 ): Promise<void> => {
-    const compiler = webpack(webpackConfig);
+    const compiler = rspack(rspackConfig);
 
     const run = watch
         ? (cb: (err: any, stats: any) => void) => compiler.watch({}, cb)
         : (cb: (err: any, stats: any) => void) => compiler.run(cb);
 
     return new Promise((resolve, reject) => {
-        run((err: any, stats: webpack.Stats) => {
+        run((err: any, stats: Stats) => {
             if (err) {
                 console.error(err.stack || err);
                 if (err.details) {

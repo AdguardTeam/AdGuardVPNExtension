@@ -134,7 +134,6 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
             TelemetryActionName.StreamingTagClick,
             TelemetryScreenName.LocationsScreen,
             `${location.countryName} ${location.cityName}`,
-            uiStore.streamingLabelTextExperiment,
         );
 
         const platforms = getStreamingPlatforms(id);
@@ -231,12 +230,9 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
                 onClick={handleStreamingClick}
             >
                 <Icon name="play" color="product" size="16" />
-                {uiStore.shouldShowStreamingLabelText
-                    && (
-                        <span className="endpoint__streaming-text">
-                            {translator.getMessage('popup_streaming_icon_title')}
-                        </span>
-                    )}
+                <span className="endpoint__streaming-text">
+                    {translator.getMessage('popup_streaming_icon_title')}
+                </span>
             </div>
         );
     };
@@ -263,7 +259,6 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
                             search={vpnStore.searchValue}
                         />
                     </div>
-                    {renderStreamingIndicator()}
                     {renderSaveButton()}
                 </div>
             </div>
@@ -271,6 +266,7 @@ export const Location = observer(({ location, onClick, onSaveClick }: LocationPr
             <div className="endpoint__ping-container">
                 {renderLocationPing()}
             </div>
+            {renderStreamingIndicator()}
         </button>
     );
 });
