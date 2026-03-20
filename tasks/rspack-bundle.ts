@@ -49,6 +49,8 @@ program
         if (IS_BETA) {
             await buildUpdateJson();
         }
+
+        await buildInfo();
     });
 
 // Opera command
