@@ -11,6 +11,7 @@ import { operaConfig } from './opera/rspack.opera';
 import { edgeConfig } from './edge/rspack.edge';
 import { Browser, IS_BETA } from './consts';
 import { buildUpdateJson } from './firefox/update-json';
+import { buildInfo } from './build-info';
 
 const createBundle = async (config: Configuration, watch: boolean): Promise<void> => {
     try {
@@ -80,6 +81,8 @@ program
         if (!IS_BETA) {
             await createBundle(firefoxConfig, options.watch);
         }
+
+        await buildInfo();
     });
 
 program.parse(process.argv);

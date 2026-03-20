@@ -6,13 +6,10 @@ import { genAppConfig } from './appConfig';
 import {
     SRC_PATH,
     IS_DEV,
-    IS_BETA,
     BUILD_ENV,
     BUILD_PATH,
     Browser,
 } from './consts';
-
-const packageJson = require('../package.json');
 
 const {
     getOutputPathByEnv,
@@ -30,12 +27,6 @@ const CONSENT_PATH = path.resolve(__dirname, SRC_PATH, 'consent');
 const SUCCESS_AUTH_PATH = path.resolve(__dirname, SRC_PATH, 'success-auth');
 
 const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
-
-const BUILD_TXT_FILENAME = 'build.txt';
-const BUILD_TXT_CONTENT = IS_BETA
-    // required for proper github tag preparing. AG-27644
-    ? `version=${packageJson.version}-beta`
-    : `version=${packageJson.version}`;
 
 export const getCommonConfig = (browser: string): Configuration => {
     return {
@@ -265,12 +256,6 @@ export const getCommonConfig = (browser: string): Configuration => {
 
                             return updateLocales;
                         },
-                    },
-                    // Generate build.txt file
-                    {
-                        from: path.resolve(__dirname, 'manifest.common.json'),
-                        to: BUILD_TXT_FILENAME,
-                        transform: () => BUILD_TXT_CONTENT,
                     },
                 ],
             }),
