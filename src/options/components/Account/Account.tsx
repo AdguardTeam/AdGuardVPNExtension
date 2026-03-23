@@ -136,14 +136,16 @@ export const Account = observer(() => {
                                 })}
                             </div>
                         )}
-                        <div className="account__info">
-                            {reactTranslator.getMessage('account_logged_in_as', {
-                                username: currentUsername,
-                                b: (chunks: any) => (
-                                    <b>{chunks}</b>
-                                ),
-                            })}
-                        </div>
+                        {currentUsername && (
+                            <div className="account__info">
+                                {reactTranslator.getMessage('account_logged_in_as', {
+                                    username: currentUsername,
+                                    b: (chunks: any) => (
+                                        <b>{chunks}</b>
+                                    ),
+                                })}
+                            </div>
+                        )}
                     </div>
                 )}
             />

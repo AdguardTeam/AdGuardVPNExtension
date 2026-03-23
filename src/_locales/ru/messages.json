@@ -405,7 +405,7 @@
         "message": "Тема"
     },
     "settings_theme_system": {
-        "message": "Тема браузера"
+        "message": "Как в браузере"
     },
     "settings_theme_dark": {
         "message": "Тёмная"
@@ -417,7 +417,7 @@
         "message": "Язык"
     },
     "settings_language_browser_default": {
-        "message": "Тема браузера"
+        "message": "Как в браузере"
     },
     "settings_quick_connect_title": {
         "message": "Локация по кнопке «Подключить»"

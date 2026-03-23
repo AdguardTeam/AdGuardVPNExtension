@@ -9,7 +9,19 @@ import connectDevicesImageUrl from '../../assets/images/connect-devices.svg';
  */
 export const POTENTIAL_DEVICE_NUM = 10;
 
-export const UNLIMITED_FEATURES = [
+type UnlimitedFeature = {
+    imageUrl: string;
+    title: string;
+    info: string;
+};
+
+/**
+ * Returns the list of unlimited features with current translations.
+ * Must be a function (not a constant) so translations update when the language changes.
+ *
+ * @returns Array of unlimited features with translated titles and descriptions.
+ */
+export const getUnlimitedFeatures = (): UnlimitedFeature[] => [
     {
         imageUrl: unlimitedImageUrl,
         title: translator.getMessage('popup_upgrade_screen_unlimited_speed'),

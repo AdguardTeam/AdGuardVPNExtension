@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import { UNLIMITED_FEATURES } from '../../../common/components/constants';
+import { getUnlimitedFeatures } from '../../../common/components/constants';
 import { timestampMsToTimeString } from '../../../common/utils/promo';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { useTelemetryPageViewEvent } from '../../../common/telemetry/useTelemetryPageViewEvent';
@@ -108,7 +108,7 @@ export const LimitedOfferDetails = observer(() => {
                 </div>
 
                 <div>
-                    {UNLIMITED_FEATURES.map((feature) => {
+                    {getUnlimitedFeatures().map((feature) => {
                         const { imageUrl, title, info } = feature;
 
                         return (

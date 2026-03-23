@@ -1,6 +1,6 @@
 import React, { type ReactElement } from 'react';
 
-import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
+import { getUnlimitedFeatures } from '../../../../common/components/constants';
 import { translator } from '../../../../common/translator';
 import { Title } from '../../ui/Title';
 
@@ -15,7 +15,7 @@ export const Features = (): ReactElement => {
                 className="features__title"
             />
             <div className="features__list">
-                {UNLIMITED_FEATURES.map((feature) => {
+                {getUnlimitedFeatures().map((feature) => {
                     const { imageUrl, title, info } = feature;
 
                     return (

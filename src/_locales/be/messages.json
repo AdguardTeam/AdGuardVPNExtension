@@ -717,7 +717,7 @@
         "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_row_locations": {
-        "message": "Месцазнаходжанні",
+        "message": "Месцазнаходжанні сервераў",
         "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_row_locations_unlimited": {
@@ -732,7 +732,7 @@
         "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_btn_upgrade": {
-        "message": "Перайсці"
+        "message": "Палепшыць"
     },
     "popup_paywall_b_btn_maybe_later": {
         "message": "Магчыма, пазней"
