@@ -942,31 +942,31 @@
         "message": "Не получается подключиться?"
     },
     "popup_vpn_blocked_error_notice_alt": {
-        "message": "Переходите на десктопную версию для более стабильного соединения"
+        "message": "Рекомендуем перейти на десктопную версию"
     },
     "popup_vpn_blocked_error_notice_alt_mobile": {
-        "message": "Переходите на мобильную версию для более стабильного соединения"
+        "message": "Рекомендуем перейти на мобильную версию"
     },
     "popup_vpn_blocked_error_notice_alt_linux": {
-        "message": "Переходите на AdGuard VPN для Linux для более стабильного соединения"
+        "message": "Рекомендуем перейти на AdGuard VPN для Linux"
     },
     "popup_vpn_blocked_error_details_title": {
-        "message": "Переходите на десктопную версию для более стабильного соединения"
+        "message": "Рекомендуем перейти на десктопную версию"
     },
     "popup_vpn_blocked_error_details_title_mobile": {
-        "message": "Переходите на мобильную версию для более стабильного соединения"
+        "message": "Рекомендуем перейти на мобильную версию"
     },
     "popup_vpn_blocked_error_details_title_linux": {
-        "message": "Переходите на AdGuard VPN для Linux для более стабильного соединения"
+        "message": "Рекомендуем перейти на AdGuard VPN для Linux"
     },
     "popup_vpn_blocked_error_details_description": {
-        "message": "Если у вас проблемы с подключением, советуем перейти на десктопную версию: она стабильнее"
+        "message": "Если VPN работает с перебоями, попробуйте десктопную версию: она стабильнее"
     },
     "popup_vpn_blocked_error_details_description_mobile": {
-        "message": "Если у вас проблемы с подключением, советуем перейти на мобильную версию: она стабильнее"
+        "message": "Если VPN работает с перебоями, попробуйте мобильную версию: она стабильнее"
     },
     "popup_vpn_blocked_error_details_description_linux": {
-        "message": "Если вы заметили проблемы с подключением, рекомендуем наш VPN-клиент для Linux: он работает стабильнее"
+        "message": "Если VPN работает с перебоями, попробуйте наш VPN-клиент для Linux: он стабильнее"
     },
     "popup_vpn_blocked_error_details_get_app_button": {
         "message": "Скачать"
