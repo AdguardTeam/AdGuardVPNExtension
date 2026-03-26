@@ -738,10 +738,7 @@
         "message": "Potser més tard"
     },
     "popup_upgrade_b_title_line1": {
-        "message": "AdGuard VPN Unlimited:"
-    },
-    "popup_upgrade_b_title_line2": {
-        "message": "prova gratis"
+        "message": "AdGuard VPN Unlimited"
     },
     "popup_upgrade_b_description": {
         "message": "Ofereix connexions d'alta velocitat, accés a totes les ubicacions i més"

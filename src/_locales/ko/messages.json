@@ -738,10 +738,7 @@
         "message": "나중에"
     },
     "popup_upgrade_b_title_line1": {
-        "message": "AdGuard VPN 무제한 버전:"
-    },
-    "popup_upgrade_b_title_line2": {
-        "message": "무료 체험"
+        "message": "AdGuard VPN 무제한 버전"
     },
     "popup_upgrade_b_description": {
         "message": "고속 연결, 모든 위치 접속 등의 기능을 제공합니다"

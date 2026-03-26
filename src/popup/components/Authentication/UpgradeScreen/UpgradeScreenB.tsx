@@ -86,8 +86,6 @@ export const UpgradeScreenB = observer((): ReactElement | null => {
             <div className={styles.card}>
                 <h2 className={styles.title}>
                     {translator.getMessage('popup_upgrade_b_title_line1')}
-                    <br />
-                    {translator.getMessage('popup_upgrade_b_title_line2')}
                 </h2>
 
                 <p className={styles.description}>

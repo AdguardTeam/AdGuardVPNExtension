@@ -738,10 +738,7 @@
         "message": "Možda kasnije"
     },
     "popup_upgrade_b_title_line1": {
-        "message": "AdGuard neograničeni VPN:"
-    },
-    "popup_upgrade_b_title_line2": {
-        "message": "isprobajte besplatno"
+        "message": "AdGuard neograničeni VPN"
     },
     "popup_upgrade_b_description": {
         "message": "Nudi brze veze, pristup svim lokacijama i više"

@@ -738,10 +738,7 @@
         "message": "稍后再说"
     },
     "popup_upgrade_b_title_line1": {
-        "message": "AdGuard VPN 无限版："
-    },
-    "popup_upgrade_b_title_line2": {
-        "message": "免费试用"
+        "message": "AdGuard VPN 无限版"
     },
     "popup_upgrade_b_description": {
         "message": "畅享高速连接，解锁所有服务器位置及更多功能。"

@@ -738,10 +738,7 @@
         "message": "後で"
     },
     "popup_upgrade_b_title_line1": {
-        "message": "AdGuard VPN 無制限版:"
-    },
-    "popup_upgrade_b_title_line2": {
-        "message": "無料で試してみる"
+        "message": "無制限版 AdGuard VPN を入手"
     },
     "popup_upgrade_b_description": {
         "message": "最高の通信速度、全ロケーションへのアクセスなどをご利用いただけます。"

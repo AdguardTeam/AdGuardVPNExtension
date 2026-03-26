@@ -738,10 +738,7 @@
         "message": "Talán később"
     },
     "popup_upgrade_b_title_line1": {
-        "message": "AdGuard VPN Unlimited:"
-    },
-    "popup_upgrade_b_title_line2": {
-        "message": "ingyenes próba"
+        "message": "AdGuard VPN Korlátlan"
     },
     "popup_upgrade_b_description": {
         "message": "Nagy sebességű kapcsolatokat, az összes hely elérését és még sok mást kínál"
