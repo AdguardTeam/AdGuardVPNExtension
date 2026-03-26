@@ -48,14 +48,14 @@ export const TrafficLimitExceededB = observer(() => {
 
     useTelemetryPageViewEvent(
         telemetryStore,
-        TelemetryScreenName.SpeedReducedScreen,
+        TelemetryScreenName.VarBSpeedReducedScreen,
     );
 
     const onUpgradeClick = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         telemetryStore.sendCustomEvent(
-            TelemetryActionName.SpeedReducedPurchaseClick,
-            TelemetryScreenName.SpeedReducedScreen,
+            TelemetryActionName.VarBSpeedReducedPurchaseClick,
+            TelemetryScreenName.VarBSpeedReducedScreen,
         );
         await vpnStore.openPremiumPromoPage();
         window.close();
@@ -64,8 +64,8 @@ export const TrafficLimitExceededB = observer(() => {
     const onClose = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         telemetryStore.sendCustomEvent(
-            TelemetryActionName.CloseSpeedReducesClick,
-            TelemetryScreenName.SpeedReducedScreen,
+            TelemetryActionName.VarBCloseSpeedReducesClick,
+            TelemetryScreenName.VarBSpeedReducedScreen,
         );
         settingsStore.setHasLimitExceededDisplayed();
     };

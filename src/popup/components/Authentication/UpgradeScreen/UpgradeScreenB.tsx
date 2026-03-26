@@ -60,13 +60,13 @@ export const UpgradeScreenB = observer((): ReactElement | null => {
 
     useTelemetryPageViewEvent(
         telemetryStore,
-        TelemetryScreenName.PurchaseScreen,
+        TelemetryScreenName.VarBPurchaseScreen,
     );
 
     const onUpgradeClick = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
-            TelemetryActionName.OnboardingPurchaseClick,
-            TelemetryScreenName.PurchaseScreen,
+            TelemetryActionName.GetUnlimitedClick,
+            TelemetryScreenName.VarBPurchaseScreen,
         );
         await authStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
@@ -75,8 +75,8 @@ export const UpgradeScreenB = observer((): ReactElement | null => {
 
     const onSkipClick = async (): Promise<void> => {
         telemetryStore.sendCustomEvent(
-            TelemetryActionName.OnboardingStayFreeClick,
-            TelemetryScreenName.PurchaseScreen,
+            TelemetryActionName.MaybeLaterClick,
+            TelemetryScreenName.VarBPurchaseScreen,
         );
         await authStore.setShowUpgradeScreen(false);
     };

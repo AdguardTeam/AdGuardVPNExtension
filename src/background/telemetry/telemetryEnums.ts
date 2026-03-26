@@ -14,10 +14,12 @@ export enum TelemetryScreenName {
     NewsletterScreen = 'newsletter_screen',
     OnboardingScreen = 'onboarding_screen',
     PurchaseScreen = 'purchase_screen',
+    VarBPurchaseScreen = 'var_b_purchase_screen',
     PromoOfferScreen = 'promo_offer_screen',
     HomeScreen = 'home_screen',
     DisableAnotherVpnExtensionScreen = 'disable_another_vpn_extension_screen',
     SpeedReducedScreen = 'speed_reduced_screen',
+    VarBSpeedReducedScreen = 'var_b_speed_reduced_screen',
     MenuScreen = 'menu_screen',
     LocationsScreen = 'locations_screen',
     DeviceLimitScreen = 'device_limit_screen',
@@ -100,6 +102,10 @@ export enum TelemetryActionName {
     MenuClick = 'menu_click',
     VpnDisableWebsite = 'vpn_disable_website',
     CloseSpeedReducesClick = 'close_speed_reduces_click',
+    GetUnlimitedClick = 'get_unlimited_click',
+    MaybeLaterClick = 'maybe_later_click',
+    VarBSpeedReducedPurchaseClick = 'var_b_speed_reduced_purchase_click',
+    VarBCloseSpeedReducesClick = 'var_b_close_speed_reduces_click',
     SettingsClick = 'settings_click',
     OtherProductsClick = 'other_products_click',
     WhyDesktopClick = 'why_desktop_click',
@@ -290,6 +296,10 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.MenuClick]: HeaderScreenNames;
     [TelemetryActionName.VpnDisableWebsite]: TelemetryScreenName.HomeScreen | TelemetryScreenName.MenuScreen;
     [TelemetryActionName.CloseSpeedReducesClick]: TelemetryScreenName.SpeedReducedScreen;
+    [TelemetryActionName.GetUnlimitedClick]: TelemetryScreenName.VarBPurchaseScreen;
+    [TelemetryActionName.MaybeLaterClick]: TelemetryScreenName.VarBPurchaseScreen;
+    [TelemetryActionName.VarBSpeedReducedPurchaseClick]: TelemetryScreenName.VarBSpeedReducedScreen;
+    [TelemetryActionName.VarBCloseSpeedReducesClick]: TelemetryScreenName.VarBSpeedReducedScreen;
     [TelemetryActionName.SettingsClick]: TelemetryScreenName.MenuScreen;
     [TelemetryActionName.OtherProductsClick]: TelemetryScreenName.MenuScreen;
     [TelemetryActionName.WhyDesktopClick]: TelemetryScreenName.MenuScreen;
