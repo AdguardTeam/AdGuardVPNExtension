@@ -7,12 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+<!-- FIXME when version will be clear -->
+[2.10.x]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.9.8...v2.10.x
+
+## [2.9.8] - 2026-04-01
+
 ### Added
 
 - Language selector in extension settings [#237].
 
-<!-- FIXME when version will be clear -->
-[2.9.x]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.8.9...v2.9.x
+[2.9.8]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.8.9...v2.9.8
 [#237]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/237
 
 ## [2.8.9] - 2026-02-03
