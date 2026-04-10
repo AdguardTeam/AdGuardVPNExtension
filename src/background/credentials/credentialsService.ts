@@ -12,9 +12,9 @@ interface CredentialsServiceInterface {
  * and verifies whether a user has premium status
  */
 export class CredentialsService implements CredentialsServiceInterface {
-    browserApi: BrowserApi;
+    private browserApi: BrowserApi;
 
-    vpnTokenData: VpnTokenData | null;
+    private vpnTokenData: VpnTokenData | null;
 
     private VPN_TOKEN_KEY = 'credentials.token';
 
@@ -22,7 +22,7 @@ export class CredentialsService implements CredentialsServiceInterface {
         this.browserApi = providedBrowserApi || browserApi;
     }
 
-    getVpnTokenFromStorage = async (): Promise<VpnTokenData | null> => {
+    public getVpnTokenFromStorage = async (): Promise<VpnTokenData | null> => {
         if (this.vpnTokenData) {
             return this.vpnTokenData;
         }
@@ -30,7 +30,7 @@ export class CredentialsService implements CredentialsServiceInterface {
         return this.vpnTokenData;
     };
 
-    setVpnTokenToStorage = async (tokenData: VpnTokenData | null): Promise<void> => {
+    public setVpnTokenToStorage = async (tokenData: VpnTokenData | null): Promise<void> => {
         this.vpnTokenData = tokenData;
         await this.browserApi.storage.set(this.VPN_TOKEN_KEY, tokenData);
     };
@@ -41,7 +41,7 @@ export class CredentialsService implements CredentialsServiceInterface {
      *
      * @returns Promise with true if user is premium.
      */
-    isPremiumUser = async (): Promise<boolean> => {
+    public isPremiumUser = async (): Promise<boolean> => {
         const vpnToken = await this.getVpnTokenFromStorage();
         return !!vpnToken?.licenseKey;
     };

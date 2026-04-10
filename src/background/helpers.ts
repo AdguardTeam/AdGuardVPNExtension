@@ -8,8 +8,8 @@ import { FORWARDER_URL_QUERIES } from './config';
 /**
  * Runs generator with possibility to cancel.
  *
- * @param fn - generator to run
- * @param args - args
+ * @param fn generator to run
+ * @param args args
  *
  * @returns Object with cancel function and promise.
  */

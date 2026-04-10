@@ -22,7 +22,7 @@ class ProxyApi implements ProxyApiInterface {
     /**
      * Storage by which proxy config is persisted in the local storage
      */
-    PROXY_CONFIG_STORAGE_KEY = 'proxy_config';
+    private PROXY_CONFIG_STORAGE_KEY = 'proxy_config';
 
     /**
      * Global proxy config state data.
@@ -274,7 +274,7 @@ class ProxyApi implements ProxyApiInterface {
      *
      * @returns True if we need to trigger onAuthRequired event, false otherwise.
      */
-    shouldApplyProxyAuthTrigger = (
+    private shouldApplyProxyAuthTrigger = (
         oldConfig: ProxyConfigInterface | null,
         newConfig: ProxyConfigInterface | null,
     ): boolean => {

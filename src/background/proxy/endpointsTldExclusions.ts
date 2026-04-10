@@ -29,18 +29,18 @@ class EndpointsTldExclusions {
      * Storage key used to keep exclusions in the storage
      * @type {string}
      */
-    STORAGE_KEY = 'endpoints.tld.exclusions';
+    private STORAGE_KEY = 'endpoints.tld.exclusions';
 
     /**
      * Throttle timeout used to reduce writes to the storage
      * @type {number}
      */
-    THROTTLE_TIMEOUT_MS = 1000;
+    private THROTTLE_TIMEOUT_MS = 1000;
 
     /**
      * Updates storage in a throttled way
      */
-    updateStorage = throttle(async () => {
+    public updateStorage = throttle(async () => {
         try {
             const { endpointsTldExclusionsList } = await this.endpointsTldExclusionsState.get();
             await browserApi.storage.set(this.STORAGE_KEY, endpointsTldExclusionsList);
@@ -52,9 +52,9 @@ class EndpointsTldExclusions {
 
     /**
      * Adds endpoints tld exclusions
-     * @param endpointsTlds - list of second level domains parsed from the endpoints
+     * @param endpointsTlds list of second level domains parsed from the endpoints
      */
-    addEndpointsTldExclusions = async (endpointsTlds: string[]): Promise<void> => {
+    public addEndpointsTldExclusions = async (endpointsTlds: string[]): Promise<void> => {
         const endpointsTldExclusions = this.convertEndpointTldToExclusion(endpointsTlds);
 
         await this.handleEndpointsTldExclusionsListUpdate(endpointsTldExclusions);
@@ -63,11 +63,11 @@ class EndpointsTldExclusions {
     /**
      * Converts endpoints tld to exclusion
      *
-     * @param endpointsTlds - endpoints top level domains
+     * @param endpointsTlds endpoints top level domains
      *
      * @returns List of exclusions.
      */
-    convertEndpointTldToExclusion = (endpointsTlds: string[]): string[] => {
+    private convertEndpointTldToExclusion = (endpointsTlds: string[]): string[] => {
         const endpointsTldExclusions = endpointsTlds.map((endpointTld) => {
             const endpointTldExclusion = `*.${endpointTld}`;
             return endpointTldExclusion;
@@ -80,7 +80,7 @@ class EndpointsTldExclusions {
      *
      * @param endpointsTldExclusions
      */
-    handleEndpointsTldExclusionsListUpdate = async (endpointsTldExclusions: string[]): Promise<void> => {
+    private handleEndpointsTldExclusionsListUpdate = async (endpointsTldExclusions: string[]): Promise<void> => {
         let { endpointsTldExclusionsList } = await this.endpointsTldExclusionsState.get();
 
         // if lists have same values, do nothing
@@ -98,7 +98,7 @@ class EndpointsTldExclusions {
         await proxy.setEndpointsTldExclusions(endpointsTldExclusionsList);
     };
 
-    init = async (): Promise<void> => {
+    public init = async (): Promise<void> => {
         try {
             const storedList = await browserApi.storage.get<string[]>(this.STORAGE_KEY);
             if (storedList) {

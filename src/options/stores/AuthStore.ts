@@ -6,11 +6,11 @@ import type { RootStore } from './RootStore';
 import { RequestStatus } from './consts';
 
 export class AuthStore {
-    @observable authenticated = false;
+    @observable public authenticated = false;
 
-    @observable requestProcessState = RequestStatus.Done;
+    @observable public requestProcessState = RequestStatus.Done;
 
-    @observable maxDevicesCount = 0;
+    @observable public maxDevicesCount = 0;
 
     private rootStore: RootStore;
 
@@ -18,11 +18,11 @@ export class AuthStore {
         this.rootStore = rootStore;
     }
 
-    @action setIsAuthenticated = (value: boolean): void => {
+    @action public setIsAuthenticated = (value: boolean): void => {
         this.authenticated = value;
     };
 
-    @action deauthenticate = async (): Promise<void> => {
+    @action public deauthenticate = async (): Promise<void> => {
         await messenger.deauthenticateUser();
         await this.rootStore.settingsStore.disableProxy();
         runInAction(() => {
@@ -30,7 +30,7 @@ export class AuthStore {
         });
     };
 
-    @action setMaxDevicesCount = (value: number): void => {
+    @action public setMaxDevicesCount = (value: number): void => {
         this.maxDevicesCount = value;
     };
 }

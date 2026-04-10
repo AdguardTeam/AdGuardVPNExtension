@@ -186,9 +186,9 @@ interface VpnApiInterface {
 
 // projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 class VpnApi extends Api implements VpnApiInterface {
-    GET_LOCATIONS: RequestProps = { path: 'v2/locations/extension', method: 'GET' };
+    private GET_LOCATIONS: RequestProps = { path: 'v2/locations/extension', method: 'GET' };
 
-    getLocations = (appId: string, vpnToken: string): Promise<LocationsData> => {
+    public getLocations = (appId: string, vpnToken: string): Promise<LocationsData> => {
         const { path, method } = this.GET_LOCATIONS;
         const language = i18n.getUILanguage();
 
@@ -201,12 +201,12 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest<LocationsData>(path, { params }, method);
     };
 
-    GET_VPN_CREDENTIALS: RequestProps = { path: 'v1/proxy_credentials', method: 'POST' };
+    private GET_VPN_CREDENTIALS: RequestProps = { path: 'v1/proxy_credentials', method: 'POST' };
 
     /**
      * @inheritDoc
      */
-    getVpnCredentials = (
+    public getVpnCredentials = (
         appId: string,
         vpnToken: string,
         version: string,
@@ -229,16 +229,16 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest<VpnCredentials>(path, { params }, method);
     };
 
-    GET_CURRENT_LOCATION: RequestProps = { path: 'v1/geo_location', method: 'GET' };
+    private GET_CURRENT_LOCATION: RequestProps = { path: 'v1/geo_location', method: 'GET' };
 
-    getCurrentLocation = (): Promise<CurrentLocationData> => {
+    public getCurrentLocation = (): Promise<CurrentLocationData> => {
         const { path, method } = this.GET_CURRENT_LOCATION;
         return this.makeRequest<CurrentLocationData>(path, {}, method);
     };
 
-    VPN_EXTENSION_INFO: RequestProps = { path: 'v1/info/extension', method: 'GET' };
+    private VPN_EXTENSION_INFO: RequestProps = { path: 'v1/info/extension', method: 'GET' };
 
-    getVpnExtensionInfo = (
+    public getVpnExtensionInfo = (
         appId: string,
         vpnToken: string,
     ): Promise<VpnExtensionInfo> => {
@@ -251,9 +251,9 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest<VpnExtensionInfo>(path, { params }, method);
     };
 
-    TRACK_EXTENSION_INSTALL: RequestProps = { path: 'v1/init/extension', method: 'POST' };
+    private TRACK_EXTENSION_INSTALL: RequestProps = { path: 'v1/init/extension', method: 'POST' };
 
-    trackExtensionInstallation = (appId: string, version: string): Promise<unknown> => {
+    public trackExtensionInstallation = (appId: string, version: string): Promise<unknown> => {
         const { path, method } = this.TRACK_EXTENSION_INSTALL;
 
         const language = browser.i18n.getUILanguage();
@@ -268,9 +268,9 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest(path, { params }, method);
     };
 
-    SUPPORT_REQUEST: RequestProps = { path: 'v1/support', method: 'POST' };
+    private SUPPORT_REQUEST: RequestProps = { path: 'v1/support', method: 'POST' };
 
-    requestSupport = (data: FormData): Promise<Response> => {
+    public requestSupport = (data: FormData): Promise<Response> => {
         const { path, method } = this.SUPPORT_REQUEST;
 
         const config = {
@@ -280,9 +280,9 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest(path, config, method);
     };
 
-    EXCLUSION_SERVICES: RequestProps = { path: 'v2/exclusion_services', method: 'GET' };
+    private EXCLUSION_SERVICES: RequestProps = { path: 'v2/exclusion_services', method: 'GET' };
 
-    getExclusionsServices = (): Promise<ExclusionsServicesData> => {
+    public getExclusionsServices = (): Promise<ExclusionsServicesData> => {
         const { path, method } = this.EXCLUSION_SERVICES;
         const language = browser.i18n.getUILanguage();
 
@@ -293,9 +293,9 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest<ExclusionsServicesData>(path, { params }, method);
     };
 
-    EXCLUSION_SERVICE_DOMAINS: RequestProps = { path: 'v1/exclusion_services/domains', method: 'GET' };
+    private EXCLUSION_SERVICE_DOMAINS: RequestProps = { path: 'v1/exclusion_services/domains', method: 'GET' };
 
-    getExclusionServiceDomains = (servicesIds: string[]): Promise<ExclusionServiceDomainsData> => {
+    public getExclusionServiceDomains = (servicesIds: string[]): Promise<ExclusionServiceDomainsData> => {
         const { path, method } = this.EXCLUSION_SERVICE_DOMAINS;
 
         const servicesIdsParam = servicesIds.length > 0 ? servicesIds.join(',') : '';

@@ -20,12 +20,12 @@ export class TelemetryStore {
      *
      * NOTE: This flag only mirrors "helpUsImprove" setting value, you should never change it directly.
      */
-    @observable isHelpUsImproveEnabled = false;
+    @observable private isHelpUsImproveEnabled = false;
 
     /**
      * ID of the current page.
      */
-    @observable pageId: string | null = null;
+    @observable private pageId: string | null = null;
 
     /**
      * Sets the "help us improve" setting.
@@ -35,7 +35,7 @@ export class TelemetryStore {
      *
      * @param isEnabled Is help us improve setting enabled.
      */
-    @action setIsHelpUsImproveEnabled = (isEnabled: boolean): void => {
+    @action public setIsHelpUsImproveEnabled = (isEnabled: boolean): void => {
         this.isHelpUsImproveEnabled = isEnabled;
     };
 
@@ -46,7 +46,7 @@ export class TelemetryStore {
      * for popup page we have separate handling based on background connection,
      * since popup page does not fires unload event.
      */
-    @action removeOpenedPage = async (): Promise<void> => {
+    @action public removeOpenedPage = async (): Promise<void> => {
         try {
             if (!this.pageId) {
                 return;
@@ -66,7 +66,7 @@ export class TelemetryStore {
      *
      * @param pageId Page ID.
      */
-    @action setPageId = (pageId: string | null): void => {
+    @action public setPageId = (pageId: string | null): void => {
         // Guard against multiple calls, allow to set page ID only once or to `null`
         if (this.pageId && pageId) {
             log.error(`[vpn.TelemetryStore]: Cannot set page ID: already set to '${this.pageId}'`);
@@ -83,7 +83,7 @@ export class TelemetryStore {
      *
      * @param screenName Name of the screen.
      */
-    sendPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
+    public sendPageViewEvent = async (screenName: TelemetryScreenName): Promise<void> => {
         try {
             if (!this.isHelpUsImproveEnabled) {
                 return;
@@ -109,7 +109,7 @@ export class TelemetryStore {
      * @param screenName Name of the screen.
      * @param label Optional label for the event.
      */
-    sendCustomEvent = async <T extends TelemetryActionName>(
+    public sendCustomEvent = async <T extends TelemetryActionName>(
         actionName: T,
         screenName: TelemetryActionToScreenMap[T],
         label?: string,

@@ -47,7 +47,7 @@ export const areHostnamesEqual = (hostnameA: string, hostnameB: string): boolean
 /**
  * Checks is wildcard pattern matches with url
  * IMPORTANT - note that regexp asserts position at the end of the string
- * @param url - hostname or url
+ * @param url hostname or url
  * @param pattern
  *
  * @returns True if pattern matches with url, false otherwise.

@@ -29,18 +29,18 @@ export class TranslationStore {
     /**
      * User's preference: 'auto' (browser language) or an explicit locale code like 'de'.
      */
-    @observable userLocalePreference: LocalePreference = LANGUAGE_AUTO;
+    @observable public userLocalePreference: LocalePreference = LANGUAGE_AUTO;
 
     /**
      * The actual resolved locale code currently in use (e.g. 'de').
      * Never equals 'auto'.
      */
-    @observable currentLocale: AvailableLocale = BASE_LOCALE;
+    @observable public currentLocale: AvailableLocale = BASE_LOCALE;
 
     /**
      * True while a locale file fetch is in progress.
      */
-    @observable isLoading: boolean = false;
+    @observable public isLoading: boolean = false;
 
     constructor(service?: TranslationService) {
         this.service = service || new TranslationService();
@@ -54,7 +54,7 @@ export class TranslationStore {
      * Defaults to 'auto' if not provided.
      */
     @action
-    init = async (savedPreference?: LocalePreference): Promise<void> => {
+    public init = async (savedPreference?: LocalePreference): Promise<void> => {
         this.isLoading = true;
         this.userLocalePreference = savedPreference || LANGUAGE_AUTO;
 
@@ -81,7 +81,7 @@ export class TranslationStore {
      * @param preference 'auto' or a specific locale code (e.g. 'de').
      */
     @action
-    setLocalePreference = async (preference: LocalePreference): Promise<void> => {
+    public setLocalePreference = async (preference: LocalePreference): Promise<void> => {
         this.isLoading = true;
         this.userLocalePreference = preference;
 
@@ -110,7 +110,7 @@ export class TranslationStore {
      *
      * @throws If the key does not exist in the English base messages.
      */
-    getMessage = (key: string): string => {
+    public getMessage = (key: string): string => {
         return this.service.getMessage(this.currentLocale, key);
     };
 
@@ -120,7 +120,7 @@ export class TranslationStore {
      * @returns Lowercase locale code matching the `AvailableLocales` enum
      *          in `@adguard/translate` (e.g. 'de', 'pt_br', 'zh_cn').
      */
-    getUILanguage = (): string => {
+    public getUILanguage = (): string => {
         return this.service.getUILanguage(this.currentLocale);
     };
 
@@ -132,7 +132,7 @@ export class TranslationStore {
      *
      * @returns English base message, or empty string if not found.
      */
-    getBaseMessage = (key: string): string => {
+    public getBaseMessage = (key: string): string => {
         return this.service.getBaseMessage(key);
     };
 
@@ -141,7 +141,7 @@ export class TranslationStore {
      *
      * @returns The base locale code ('en').
      */
-    getBaseUILanguage = (): string => {
+    public getBaseUILanguage = (): string => {
         return this.service.getBaseUILanguage();
     };
 }

@@ -61,17 +61,17 @@ type ListenersEventsMap = {
 };
 
 export class Notifier {
-    types: NotifierTypeMap;
+    public types: NotifierTypeMap;
 
-    events: EventMap = {};
+    private events: EventMap = {};
 
-    listeners: ListenersMap = {};
+    private listeners: ListenersMap = {};
 
-    listenersEvents: ListenersEventsMap = {};
+    private listenersEvents: ListenersEventsMap = {};
 
-    listenerId = 0;
+    private listenerId = 0;
 
-    getListenerId(): string {
+    private getListenerId(): string {
         const id = this.listenerId;
         this.listenerId += 1;
         return id.toString();
@@ -92,7 +92,7 @@ export class Notifier {
      *
      * @returns Listener id.
      */
-    addSpecifiedListener(events: string | string[], listener: ListenerHandler): string {
+    public addSpecifiedListener(events: string | string[], listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
             throw new Error('Illegal listener');
         }
@@ -113,7 +113,7 @@ export class Notifier {
      *
      * @returns Listener id.
      */
-    addListener(listener: ListenerHandler): string {
+    public addListener(listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
             throw new Error('Illegal listener');
         }
@@ -126,7 +126,7 @@ export class Notifier {
      * Unsubscribe listener
      * @param listenerId Index of listener to unsubscribe
      */
-    removeListener(listenerId: string): void {
+    public removeListener(listenerId: string): void {
         delete this.listeners[listenerId];
         delete this.listenersEvents[listenerId];
     }
@@ -134,7 +134,7 @@ export class Notifier {
     /**
      * Notifies listeners about the events passed as arguments of this function.
      */
-    notifyListeners(event: NotifierType, ...args: unknown[]): void {
+    public notifyListeners(event: NotifierType, ...args: unknown[]): void {
         if (!event || !(event in this.events)) {
             throw new Error(`Illegal event: ${event}`);
         }

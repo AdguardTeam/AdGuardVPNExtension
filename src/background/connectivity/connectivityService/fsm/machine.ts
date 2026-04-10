@@ -16,7 +16,7 @@ const FSM_ID = 'connectivity';
 /**
  * Creates new connectivity FSM with passed {@link context}
  *
- * @param context - FSM context
+ * @param context FSM context
  * @returns FSM used to manage connectivity states
  */
 export function createConnectivityMachine(context: ConnectivityContext)

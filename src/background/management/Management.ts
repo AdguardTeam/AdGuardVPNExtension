@@ -6,7 +6,7 @@ import { log } from '../../common/logger';
 import ExtensionInfo = MN.ExtensionInfo;
 
 class Management {
-    PROXY_PERMISSION = 'proxy';
+    private PROXY_PERMISSION = 'proxy';
 
     private browser: browser.Browser;
 
@@ -17,7 +17,7 @@ class Management {
     /**
      * Gets list of proxy extension and turns them off
      */
-    turnOffProxyExtensions = async (): Promise<void> => {
+    public turnOffProxyExtensions = async (): Promise<void> => {
         const enabledProxyExtensions = await this.getEnabledProxyExtensions();
 
         const promises = enabledProxyExtensions.map(async (extension) => {
@@ -36,7 +36,7 @@ class Management {
      *
      * @returns List of enabled proxy extensions.
      */
-    getEnabledProxyExtensions = async (): Promise<ExtensionInfo[]> => {
+    public getEnabledProxyExtensions = async (): Promise<ExtensionInfo[]> => {
         const extensions = await this.browser.management.getAll();
         return extensions.filter((extension) => {
             const { permissions, enabled, id } = extension;

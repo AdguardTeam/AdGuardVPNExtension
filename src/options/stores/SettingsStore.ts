@@ -51,67 +51,67 @@ export interface OptionsData {
 }
 
 export class SettingsStore {
-    @observable isRateVisible = true;
+    @observable public isRateVisible = true;
 
-    @observable isPremiumToken: boolean;
+    @observable public isPremiumToken: boolean;
 
-    @observable premiumFeatures = true;
+    @observable public premiumFeatures = true;
 
-    @observable appVersion: string;
+    @observable public appVersion: string;
 
-    @observable currentUsername: string | null;
+    @observable public currentUsername: string | null;
 
-    @observable forwarderDomain: string;
+    @observable public forwarderDomain: string;
 
-    @observable webRTCEnabled = false;
+    @observable public webRTCEnabled = false;
 
-    @observable appearanceTheme: AppearanceTheme = APPEARANCE_THEME_DEFAULT;
+    @observable public appearanceTheme: AppearanceTheme = APPEARANCE_THEME_DEFAULT;
 
-    @observable contextMenusEnabled = false;
+    @observable public contextMenusEnabled = false;
 
-    @observable helpUsImprove = false;
+    @observable public helpUsImprove = false;
 
-    @observable dnsServer = DEFAULT_DNS_SERVER.id;
+    @observable public dnsServer = DEFAULT_DNS_SERVER.id;
 
-    @observable dnsServerToEdit: DnsServerData | null = null;
+    @observable public dnsServerToEdit: DnsServerData | null = null;
 
-    @observable isCustomDnsModalOpen = false;
+    @observable public isCustomDnsModalOpen = false;
 
-    @observable isHelpUsImproveModalOpen = false;
+    @observable public isHelpUsImproveModalOpen = false;
 
-    @observable isSignOutModalOpen = false;
+    @observable public isSignOutModalOpen = false;
 
-    @observable customDnsServers: DnsServerData[] = [];
+    @observable public customDnsServers: DnsServerData[] = [];
 
-    @observable invitesBonuses = {
+    @observable public invitesBonuses = {
         inviteUrl: '',
         invitesCount: 0,
         maxInvitesCount: 0,
     };
 
-    @observable multiplatformBonus = {
+    @observable public multiplatformBonus = {
         available: false,
     };
 
-    @observable bonusesDataRequestStatus: string;
+    @observable public bonusesDataRequestStatus: string;
 
-    @observable subscriptionType: SubscriptionType | null = null;
+    @observable public subscriptionType: SubscriptionType | null = null;
 
-    @observable subscriptionTimeExpiresIso: string | null = null;
+    @observable public subscriptionTimeExpiresIso: string | null = null;
 
-    @observable showBugReporter = false;
+    @observable public showBugReporter = false;
 
-    @observable showDnsSettings = false;
+    @observable public showDnsSettings = false;
 
-    @observable quickConnect = QUICK_CONNECT_SETTING_DEFAULT;
+    @observable public quickConnect = QUICK_CONNECT_SETTING_DEFAULT;
 
-    @observable selectedLanguage: LocalePreference = LANGUAGE_AUTO;
+    @observable public selectedLanguage: LocalePreference = LANGUAGE_AUTO;
 
-    @observable dnsServerName = '';
+    @observable public dnsServerName = '';
 
-    @observable dnsServerAddress = '';
+    @observable public dnsServerAddress = '';
 
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -126,7 +126,7 @@ export class SettingsStore {
      * @param language Locale code (e.g. 'de') or 'auto'.
      */
     @action
-    setSelectedLanguage(language: LocalePreference): void {
+    public setSelectedLanguage(language: LocalePreference): void {
         this.selectedLanguage = language;
     }
 
@@ -140,67 +140,67 @@ export class SettingsStore {
      *
      * @param language Locale code (e.g. 'de') or 'auto'.
      */
-    async changeLanguage(language: LocalePreference): Promise<void> {
+    public async changeLanguage(language: LocalePreference): Promise<void> {
         await messenger.setInterfaceLanguage(language);
         this.setSelectedLanguage(language);
         await this.rootStore.translationStore.setLocalePreference(language);
     }
 
     @action
-    async requestIsPremiumToken(): Promise<void> {
+    public async requestIsPremiumToken(): Promise<void> {
         const isPremiumToken = await messenger.checkIsPremiumToken();
         runInAction(() => {
             this.isPremiumToken = isPremiumToken;
         });
     }
 
-    @action hideRate = async (): Promise<void> => {
+    @action public hideRate = async (): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
         });
     };
 
-    @action hidePremiumFeatures = async (): Promise<void> => {
+    @action public hidePremiumFeatures = async (): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.PREMIUM_FEATURES_SHOW, false);
         runInAction(() => {
             this.premiumFeatures = false;
         });
     };
 
-    @action disableProxy = async (): Promise<void> => {
+    @action public disableProxy = async (): Promise<void> => {
         await messenger.disableProxy(true);
     };
 
-    @action setWebRTCValue = async (value: boolean): Promise<void> => {
+    @action public setWebRTCValue = async (value: boolean): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
         runInAction(() => {
             this.webRTCEnabled = value;
         });
     };
 
-    @action setAppearanceTheme = async (value: AppearanceTheme): Promise<void> => {
+    @action public setAppearanceTheme = async (value: AppearanceTheme): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
         runInAction(() => {
             this.appearanceTheme = value;
         });
     };
 
-    @action setContextMenusValue = async (value: boolean): Promise<void> => {
+    @action public setContextMenusValue = async (value: boolean): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
         runInAction(() => {
             this.contextMenusEnabled = value;
         });
     };
 
-    @action setHelpUsImproveValue = async (value: boolean): Promise<void> => {
+    @action public setHelpUsImproveValue = async (value: boolean): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, value);
         runInAction(() => {
             this.helpUsImprove = value;
         });
     };
 
-    @action setDnsServer = async (value: string): Promise<void> => {
+    @action public setDnsServer = async (value: string): Promise<void> => {
         if (!value) {
             runInAction(() => {
                 this.dnsServer = DEFAULT_DNS_SERVER.id;
@@ -213,7 +213,7 @@ export class SettingsStore {
         });
     };
 
-    @action setOptionsData = (data: OptionsData): void => {
+    @action public setOptionsData = (data: OptionsData): void => {
         this.appVersion = data.appVersion;
         this.currentUsername = data.username;
         this.forwarderDomain = data.forwarderDomain;
@@ -231,14 +231,14 @@ export class SettingsStore {
         this.selectedLanguage = data.selectedLanguage;
     };
 
-    @action updateCurrentUsername = async (): Promise<void> => {
+    @action public updateCurrentUsername = async (): Promise<void> => {
         const currentUsername = await messenger.getUsername();
         runInAction(() => {
             this.currentUsername = currentUsername;
         });
     };
 
-    @action updateBonusesData = async (): Promise<void> => {
+    @action public updateBonusesData = async (): Promise<void> => {
         this.bonusesDataRequestStatus = RequestStatus.Pending;
         const bonusesData = await messenger.getBonusesData();
 
@@ -261,19 +261,19 @@ export class SettingsStore {
         });
     };
 
-    @action openPremiumPromoPage = async (): Promise<void> => {
+    @action public openPremiumPromoPage = async (): Promise<void> => {
         await messenger.openPremiumPromoPage();
     };
 
-    @action openPromoteSocialsPage = async (): Promise<void> => {
+    @action public openPromoteSocialsPage = async (): Promise<void> => {
         await messenger.openPromoteSocialsPage();
     };
 
-    @action setCustomDnsServers = (dnsServersData: DnsServerData[]): void => {
+    @action private setCustomDnsServers = (dnsServersData: DnsServerData[]): void => {
         this.customDnsServers = dnsServersData;
     };
 
-    @action addCustomDnsServer = async (
+    @action public addCustomDnsServer = async (
         dnsServerName: string,
         dnsServerAddress: string,
     ): Promise<void> => {
@@ -288,7 +288,7 @@ export class SettingsStore {
         await this.setDnsServer(dnsServer.id);
     };
 
-    @action editCustomDnsServer = async (
+    @action public editCustomDnsServer = async (
         dnsServerId: string,
         dnsServerName: string,
         dnsServerAddress: string,
@@ -303,7 +303,7 @@ export class SettingsStore {
         this.setDnsServerToEdit(null);
     };
 
-    @action removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {
+    @action public removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {
         this.customDnsServers = this.customDnsServers.filter((server) => server.id !== dnsServerId);
         await messenger.removeCustomDnsServer(dnsServerId);
         if (this.dnsServer === dnsServerId) {
@@ -311,14 +311,14 @@ export class SettingsStore {
         }
     };
 
-    @action restoreCustomDnsServersData = async (): Promise<void> => {
+    @action public restoreCustomDnsServersData = async (): Promise<void> => {
         const customDnsServersData = await messenger.restoreCustomDnsServersData();
         runInAction(() => {
             this.customDnsServers = customDnsServersData;
         });
     };
 
-    @action setDnsServerToEdit = (value: DnsServerData | null): void => {
+    @action public setDnsServerToEdit = (value: DnsServerData | null): void => {
         if (value) {
             this.dnsServerName = value.title;
             this.dnsServerAddress = value.address;
@@ -327,41 +327,41 @@ export class SettingsStore {
         this.dnsServerToEdit = value;
     };
 
-    @action openCustomDnsModal = (): void => {
+    @action public openCustomDnsModal = (): void => {
         this.isCustomDnsModalOpen = true;
     };
 
-    @action closeCustomDnsModal = (): void => {
+    @action public closeCustomDnsModal = (): void => {
         this.isCustomDnsModalOpen = false;
     };
 
-    @action openHelpUsImproveModal = (): void => {
+    @action public openHelpUsImproveModal = (): void => {
         this.isHelpUsImproveModalOpen = true;
     };
 
-    @action closeHelpUsImproveModal = (): void => {
+    @action public closeHelpUsImproveModal = (): void => {
         this.isHelpUsImproveModalOpen = false;
     };
 
-    @action openSignOutModal = (): void => {
+    @action public openSignOutModal = (): void => {
         this.isSignOutModalOpen = true;
     };
 
-    @action closeSignOutModal = (): void => {
+    @action public closeSignOutModal = (): void => {
         this.isSignOutModalOpen = false;
     };
 
     /**
      * Handles custom dns data send after user clicked to the custom url
      */
-    @action handleCustomDnsData = ({ name, address }: CustomDnsData): void => {
+    @action public handleCustomDnsData = ({ name, address }: CustomDnsData): void => {
         this.setShowDnsSettings(true);
         this.openCustomDnsModal();
         this.setDnsServerName(name);
         this.setDnsServerAddress(address);
     };
 
-    @computed get currentDnsServerName(): string | null {
+    @computed public get currentDnsServerName(): string | null {
         const currentDnsServer = [
             DEFAULT_DNS_SERVER,
             ...POPULAR_DNS_SERVERS,
@@ -373,11 +373,11 @@ export class SettingsStore {
         return null;
     }
 
-    @action setShowBugReporter = (value: boolean): void => {
+    @action public setShowBugReporter = (value: boolean): void => {
         this.showBugReporter = value;
     };
 
-    @action setShowDnsSettings = (value: boolean): void => {
+    @action public setShowDnsSettings = (value: boolean): void => {
         this.showDnsSettings = value;
     };
 
@@ -385,35 +385,35 @@ export class SettingsStore {
      * Hides components rendered on separate screens without routing:
      * DNS settings and Bug Reporter
      */
-    @action closeSubComponents = (): void => {
+    @action public closeSubComponents = (): void => {
         this.setShowBugReporter(false);
         this.setShowDnsSettings(false);
     };
 
-    @action setQuickConnectSetting = async (value: QuickConnectSetting): Promise<void> => {
+    @action public setQuickConnectSetting = async (value: QuickConnectSetting): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.QUICK_CONNECT, value);
         runInAction(() => {
             this.quickConnect = value;
         });
     };
 
-    @computed get invitesQuestCompleted(): boolean {
+    @computed public get invitesQuestCompleted(): boolean {
         return this.invitesBonuses.invitesCount >= this.invitesBonuses.maxInvitesCount;
     }
 
-    @computed get addDeviceQuestCompleted(): boolean {
+    @computed public get addDeviceQuestCompleted(): boolean {
         return !this.multiplatformBonus.available;
     }
 
-    @computed get allQuestsCompleted(): boolean {
+    @computed public get allQuestsCompleted(): boolean {
         return this.invitesQuestCompleted && this.addDeviceQuestCompleted;
     }
 
-    @action setDnsServerName = (name: string): void => {
+    @action public setDnsServerName = (name: string): void => {
         this.dnsServerName = name;
     };
 
-    @action setDnsServerAddress = (address: string): void => {
+    @action public setDnsServerAddress = (address: string): void => {
         this.dnsServerAddress = address;
     };
 }

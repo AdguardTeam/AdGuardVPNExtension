@@ -44,9 +44,9 @@ interface ApiInterface {
 }
 
 export class Api implements ApiInterface {
-    baseUrlFn: () => Promise<string>;
+    private baseUrlFn: () => Promise<string>;
 
-    baseUrlStr: string;
+    private baseUrlStr: string;
 
     constructor(baseUrl: string | (() => Promise<string>)) {
         if (typeof baseUrl === 'function') {
@@ -56,7 +56,7 @@ export class Api implements ApiInterface {
         }
     }
 
-    async getBaseUrl(): Promise<string> {
+    private async getBaseUrl(): Promise<string> {
         if (this.baseUrlFn) {
             const baseUrlStr = await this.baseUrlFn();
             return baseUrlStr;
@@ -69,13 +69,13 @@ export class Api implements ApiInterface {
     /**
      * A method that makes an asynchronous Fetch request to the specified path with the given configuration.
      *
-     * @param {string} path - The path to which the request will be made.
-     * @param {ConfigInterface} config - The configuration object for the request.
-     * @param {Method} [method='POST'] - The HTTP method for the request. Default is 'POST'.
-     * @returns {Promise<T>} A Promise that resolves to the response data from the server.
-     * @throws {CustomError} A custom error object with the status code and error message if the request fails.
+     * @param path The path to which the request will be made.
+     * @param config The configuration object for the request.
+     * @param method The HTTP method for the request. Default is 'POST'.
+     * @returns A Promise that resolves to the response data from the server.
+     * @throws A custom error object with the status code and error message if the request fails.
      */
-    async makeRequest <T>(path: string, config: ConfigInterface, method: Method = 'POST'): Promise<T> {
+    public async makeRequest <T>(path: string, config: ConfigInterface, method: Method = 'POST'): Promise<T> {
         let requestUrl = await this.getRequestUrl(path);
 
         if (config.params) {

@@ -18,32 +18,32 @@ export class Location implements LocationInterface {
     /**
      * Unique location identifier (Base64-encoded).
      */
-    id: string;
+    public id: string;
 
     /**
      * Localized country name.
      */
-    countryName: string;
+    public countryName: string;
 
     /**
      * Localized city name.
      */
-    cityName: string;
+    public cityName: string;
 
     /**
      * ISO 3166-1 alpha-2 country code.
      */
-    countryCode: string;
+    public countryCode: string;
 
     /**
      * Available VPN endpoints (servers) within this location.
      */
-    endpoints: EndpointInterface[];
+    public endpoints: EndpointInterface[];
 
     /**
      * Geographic coordinates as `[longitude, latitude]`.
      */
-    coordinates: [
+    public coordinates: [
         longitude: number,
         latitude: number,
     ];
@@ -51,34 +51,34 @@ export class Location implements LocationInterface {
     /**
      * Whether this location is restricted to premium subscribers.
      */
-    premiumOnly: boolean;
+    public premiumOnly: boolean;
 
     /**
      * Bonus subtracted from ping when ranking fastest locations (ms).
      */
-    pingBonus: number;
+    public pingBonus: number;
 
     /**
      * Whether this is a virtual (non-physical) location.
      */
-    virtual: boolean;
+    public virtual: boolean;
 
     /**
      * Whether this location is currently reachable.
      */
-    available: boolean;
+    public available: boolean;
 
     /**
      * Ping latency in milliseconds, or `null` if not yet determined.
      *
      * May originate from the backend API or from local measurement.
      */
-    ping: number | null;
+    public ping: number | null;
 
     /**
      * The endpoint last used or selected for this location.
      */
-    endpoint: EndpointInterface | null;
+    public endpoint: EndpointInterface | null;
 
     constructor(locationData: LocationData) {
         this.id = locationData.id;

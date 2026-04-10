@@ -39,7 +39,7 @@ class ProxyAuthTrigger {
      * when onAuthRequired is not triggered when request is sent from service worker.
      * When this bug is fixed, this method can be removed.
      */
-    async run(): Promise<void> {
+    public async run(): Promise<void> {
         try {
             await createOffScreenDocument();
         } catch (e) {

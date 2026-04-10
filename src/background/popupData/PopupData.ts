@@ -139,7 +139,7 @@ export class PopupData {
         this.credentials = credentials;
     }
 
-    getPopupData = async (url: string | null): Promise<PopupDataInterface> => {
+    public getPopupData = async (url: string | null): Promise<PopupDataInterface> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
         const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
@@ -236,11 +236,11 @@ export class PopupData {
         };
     };
 
-    retryCounter = 0;
+    private retryCounter = 0;
 
-    DEFAULT_RETRY_DELAY = 400;
+    private DEFAULT_RETRY_DELAY = 400;
 
-    async getPopupDataRetry(
+    public async getPopupDataRetry(
         url: string | null,
         retryNum = 1,
         retryDelay = this.DEFAULT_RETRY_DELAY,

@@ -101,7 +101,7 @@ class LimitedOfferService {
      * @returns Timestamp in milliseconds on which limited offer countdown was started
      * or `null` if countdown was not started yet.
      */
-    getCountdownStart = async (username: string): Promise<number | null | undefined> => {
+    private getCountdownStart = async (username: string): Promise<number | null | undefined> => {
         let limitedOfferStorageData = await this.limitedOfferState.get();
         if (!limitedOfferStorageData) {
             limitedOfferStorageData = await this.browserApi.storage.get(this.COUNTDOWN_DATA_KEY) || {};
@@ -128,7 +128,7 @@ class LimitedOfferService {
      * @param username Username of the user for whom countdown start timestamp should be set.
      * @param countdownStartMs Timestamp in milliseconds on which countdown was started.
      */
-    setCountdownStart = async (
+    private setCountdownStart = async (
         username: string,
         countdownStartMs: number | null,
     ): Promise<void> => {

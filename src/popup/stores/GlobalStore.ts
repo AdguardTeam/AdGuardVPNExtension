@@ -9,11 +9,11 @@ import type { RootStore } from './RootStore';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
 
 export class GlobalStore {
-    @observable initStatus = RequestStatus.Pending;
+    @observable public initStatus = RequestStatus.Pending;
 
-    @observable startupDataRetrieved = false;
+    @observable private startupDataRetrieved = false;
 
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -24,7 +24,7 @@ export class GlobalStore {
      * Sets the result to the settings store.
      */
     @action
-    async getDesktopAppData(): Promise<void> {
+    private async getDesktopAppData(): Promise<void> {
         const { rootStore: { settingsStore } } = this;
         await settingsStore.setHasDesktopAppForOs();
         await settingsStore.setIsLinux();
@@ -35,13 +35,13 @@ export class GlobalStore {
      * Sets the result to the settings store.
      */
     @action
-    async getAndroidData(): Promise<void> {
+    private async getAndroidData(): Promise<void> {
         const { rootStore: { settingsStore } } = this;
         await settingsStore.setIsAndroidBrowser();
     }
 
     @action
-    async getPopupData(numberOfTries = 1): Promise<void> {
+    public async getPopupData(numberOfTries = 1): Promise<void> {
         const { rootStore } = this;
         const {
             vpnStore,
@@ -164,7 +164,7 @@ export class GlobalStore {
      * background and marks the status as retrieved.
      */
     @action
-    async initAuthenticatedStatus(): Promise<void> {
+    private async initAuthenticatedStatus(): Promise<void> {
         const { authStore } = this.rootStore;
 
         const isAuthenticated = await messenger.isAuthenticated();
@@ -173,7 +173,7 @@ export class GlobalStore {
     }
 
     @action
-    async init(): Promise<void> {
+    public async init(): Promise<void> {
         /**
          * Get android data first because our styles depends on it,
          * and UI might shift because it was loaded too late.
@@ -202,22 +202,22 @@ export class GlobalStore {
     }
 
     @action
-    setInitStatus(status: RequestStatus): void {
+    private setInitStatus(status: RequestStatus): void {
         this.initStatus = status;
     }
 
     @computed
-    get status(): RequestStatus {
+    public get status(): RequestStatus {
         return this.initStatus;
     }
 
     @action
-    setStartupDataRetrieved(isRetrieved: boolean): void {
+    private setStartupDataRetrieved(isRetrieved: boolean): void {
         this.startupDataRetrieved = isRetrieved;
     }
 
     @computed
-    get isStartupDataRetrieved(): boolean {
+    public get isStartupDataRetrieved(): boolean {
         return this.startupDataRetrieved;
     }
 

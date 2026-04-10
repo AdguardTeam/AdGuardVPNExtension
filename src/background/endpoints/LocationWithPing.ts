@@ -15,21 +15,21 @@ export interface LocationWithPingInterface {
  * Helper class used to extract minimal set of information for UI
  */
 export class LocationWithPing implements LocationWithPingInterface {
-    id: string;
+    public id: string;
 
-    cityName: string;
+    public cityName: string;
 
-    countryName: string;
+    public countryName: string;
 
-    countryCode: string;
+    public countryCode: string;
 
-    ping?: number | null;
+    public ping?: number | null;
 
-    available?: boolean;
+    public available?: boolean;
 
-    premiumOnly: boolean;
+    public premiumOnly: boolean;
 
-    virtual: boolean;
+    public virtual: boolean;
 
     constructor(location: LocationInterface) {
         this.id = location.id;

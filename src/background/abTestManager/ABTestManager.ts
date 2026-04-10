@@ -91,7 +91,7 @@ class ABTestManager {
      *
      * @returns Partial record of slot → experimentId for unassigned slots.
      */
-    async getTestsPayload(): Promise<VariantCache> {
+    public async getTestsPayload(): Promise<VariantCache> {
         const cache = await this.getVariantsCache();
         const tests: VariantCache = {};
 
@@ -111,7 +111,7 @@ class ABTestManager {
      *
      * @param response Parsed response from the session_start endpoint.
      */
-    async processResponse(response: SessionStartResponse): Promise<void> {
+    public async processResponse(response: SessionStartResponse): Promise<void> {
         const cache = await this.getVariantsCache();
         let hasChanges = false;
 
@@ -142,7 +142,7 @@ class ABTestManager {
      *
      * @returns Partial record of slot → version_name for assigned slots only.
      */
-    async getVariantsForProps(): Promise<VariantCache> {
+    public async getVariantsForProps(): Promise<VariantCache> {
         const cache = await this.getVariantsCache();
         const result: VariantCache = {};
 

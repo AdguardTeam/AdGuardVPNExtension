@@ -63,7 +63,7 @@ export class Dns implements DnsInterface {
     private dnsState = new StateData(StorageKey.DnsState);
 
     /** @inheritdoc */
-    init = async (): Promise<void> => {
+    public init = async (): Promise<void> => {
         let { customDnsServers, selectedDnsServer } = await this.dnsState.get();
 
         if (customDnsServers.length === 0) {
@@ -79,7 +79,7 @@ export class Dns implements DnsInterface {
     };
 
     /** @inheritdoc */
-    getCurrentDnsServerAddress = async (): Promise<string> => {
+    public getCurrentDnsServerAddress = async (): Promise<string> => {
         const { selectedDnsServer, customDnsServers } = await this.dnsState.get();
 
         log.info(`[vpn.Dns]: Getting selected dns server address for id: "${selectedDnsServer}"`);
@@ -100,7 +100,7 @@ export class Dns implements DnsInterface {
     };
 
     /** @inheritdoc */
-    setDnsServer = async (dnsServerId: string): Promise<void> => {
+    public setDnsServer = async (dnsServerId: string): Promise<void> => {
         const { selectedDnsServer } = await this.dnsState.get();
         if (selectedDnsServer === dnsServerId) {
             return;
@@ -111,7 +111,7 @@ export class Dns implements DnsInterface {
     };
 
     /** @inheritdoc */
-    addCustomDnsServer = async (dnsServerData: DnsServerData): Promise<void> => {
+    public addCustomDnsServer = async (dnsServerData: DnsServerData): Promise<void> => {
         const { customDnsServers } = await this.dnsState.get();
 
         customDnsServers.push(dnsServerData);
@@ -121,7 +121,7 @@ export class Dns implements DnsInterface {
     };
 
     /** @inheritdoc */
-    editCustomDnsServer = async (dnsServerData: DnsServerData): Promise<void> => {
+    public editCustomDnsServer = async (dnsServerData: DnsServerData): Promise<void> => {
         let { customDnsServers } = await this.dnsState.get();
 
         customDnsServers = customDnsServers.map((server) => {
@@ -140,7 +140,7 @@ export class Dns implements DnsInterface {
     };
 
     /** @inheritdoc */
-    removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {
+    public removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {
         const { customDnsServers } = await this.dnsState.get();
 
         const newBackupServersData = customDnsServers;
@@ -155,7 +155,7 @@ export class Dns implements DnsInterface {
     };
 
     /** @inheritdoc */
-    restoreCustomDnsServersData = async (): Promise<DnsServerData[]> => {
+    public restoreCustomDnsServersData = async (): Promise<DnsServerData[]> => {
         const { backupDnsServersData } = await this.dnsState.get();
 
         await this.dnsState.update({ customDnsServers: backupDnsServersData });

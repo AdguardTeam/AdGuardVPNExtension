@@ -49,27 +49,33 @@ const freeVpnTokenData: VpnTokenData = {
 // @ts-ignore - partly implementation
 const credentialsService = new CredentialsService(browserApiImplementation);
 
+// @ts-expect-error - accessing private property in test
 vi.spyOn(credentialsService.browserApi.storage, 'set');
+// @ts-expect-error - accessing private property in test
 vi.spyOn(credentialsService.browserApi.storage, 'get');
 
 describe('Credentials Service', () => {
     it('Test vpnTokenData caching', async () => {
         let vpnTokenData = await credentialsService.getVpnTokenFromStorage();
         expect(vpnTokenData).toBeNull();
+        // @ts-expect-error - accessing private property in test
         expect(credentialsService.browserApi.storage.get).toBeCalledTimes(1);
 
         vpnTokenData = await credentialsService.getVpnTokenFromStorage();
         expect(vpnTokenData).toBeNull();
         // storage.get was called one more time because there was no cached value
+        // @ts-expect-error - accessing private property in test
         expect(credentialsService.browserApi.storage.get).toBeCalledTimes(2);
 
         await credentialsService.setVpnTokenToStorage(premiumVpnTokenData);
+        // @ts-expect-error - accessing private property in test
         expect(credentialsService.browserApi.storage.set).toBeCalledTimes(1);
 
         vpnTokenData = await credentialsService.getVpnTokenFromStorage();
         expect(vpnTokenData).toBeDefined();
         expect(vpnTokenData).toBe(premiumVpnTokenData);
         // storage.get wasn't called one more time because the cached value was returned
+        // @ts-expect-error - accessing private property in test
         expect(credentialsService.browserApi.storage.get).toBeCalledTimes(2);
     });
 

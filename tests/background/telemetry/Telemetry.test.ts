@@ -106,7 +106,9 @@ describe('Telemetry', () => {
 
     afterEach(() => {
         vi.clearAllMocks();
+        // @ts-expect-error - accessing private properties for test cleanup
         notifier.listeners = {};
+        // @ts-expect-error - accessing private properties for test cleanup
         notifier.listenersEvents = {};
     });
 

@@ -44,6 +44,15 @@ Test:
             pnpm lint
             pnpm test:ci
 
+            # Block FIXME comments from reaching the master branch.
+            if [ "${bamboo.repository.pr.targetBranch}" = "master" ] \
+              || [ "${bamboo.planRepository.branchName}" = "master" ]; then
+              if grep -rn 'FIXME' --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' src/ tasks/; then
+                echo "ERROR: FIXME comments found. Remove them before merging to master."
+                exit 1
+              fi
+            fi
+
             # build with test API endpoints:
             # chrome.zip, edge.zip, opera.zip, firefox.zip
             STAGE_ENV=test \

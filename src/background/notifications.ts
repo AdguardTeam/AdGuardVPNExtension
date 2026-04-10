@@ -77,7 +77,7 @@ class Notifications implements NotificationsInterface {
      *
      * @param telemetry Telemetry service instance.
      */
-    init(telemetry: TelemetryInterface): void {
+    public init(telemetry: TelemetryInterface): void {
         this.telemetry = telemetry;
     }
 
@@ -111,7 +111,7 @@ class Notifications implements NotificationsInterface {
      * @param options.notificationType Optional notification type for telemetry tracking.
      * @returns Promise that resolves when notification is created.
      */
-    create = async (options: {
+    public create = async (options: {
         title?: string,
         message: string,
         notificationType?: NotificationType,

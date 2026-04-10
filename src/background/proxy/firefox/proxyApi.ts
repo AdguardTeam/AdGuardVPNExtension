@@ -43,9 +43,9 @@ type ProxyHandlerConfig = { type: ConnectionType } | FirefoxProxyConfig['proxyCo
  * It also provides error handling for proxy related issues.
  */
 class ProxyApi implements ProxyApiInterface {
-    directConfig = { type: ConnectionType.Direct };
+    private directConfig = { type: ConnectionType.Direct };
 
-    globalFirefoxConfig: FirefoxProxyConfig;
+    private globalFirefoxConfig: FirefoxProxyConfig;
 
     /**
      * Converts proxyConfig to firefoxConfig.
@@ -171,7 +171,7 @@ class ProxyApi implements ProxyApiInterface {
      * Updates proxy config
      * @param proxyConfig
      */
-    proxySet = async (proxyConfig: ProxyConfigInterface): Promise<void> => {
+    public proxySet = async (proxyConfig: ProxyConfigInterface): Promise<void> => {
         this.globalFirefoxConfig = ProxyApi.convertToFirefoxConfig(proxyConfig);
 
         if (browser.proxy.onRequest.hasListener(this.proxyHandler)) {
@@ -189,7 +189,7 @@ class ProxyApi implements ProxyApiInterface {
      * @param config The configuration for getting the proxy settings.
      * @returns A Promise that resolves to the current proxy settings.
      */
-    proxyGet = async (config = {}): Promise<browser.Types.SettingGetCallbackDetailsType> => {
+    public proxyGet = async (config = {}): Promise<browser.Types.SettingGetCallbackDetailsType> => {
         /**
          * proxy.settings is not supported in Firefox Android yet.
          * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1725981
@@ -203,14 +203,14 @@ class ProxyApi implements ProxyApiInterface {
         return browser.proxy.settings.get(config);
     };
 
-    proxyClear = (): void => {
+    public proxyClear = (): void => {
         this.globalFirefoxConfig = {
             proxyConfig: this.directConfig,
         };
         browser.proxy.onRequest.removeListener(this.proxyHandler);
     };
 
-    onProxyError = {
+    public onProxyError = {
         /**
          * Adds a listener function to be called whenever a proxy error occurs.
          * @param cb The callback function to add as a listener.
@@ -231,7 +231,7 @@ class ProxyApi implements ProxyApiInterface {
     /**
      * For Firefox browser, initialization is not needed as the proxy settings are set directly.
      */
-    init = (): void => {};
+    public init = (): void => {};
 }
 
 const proxyApi = new ProxyApi();

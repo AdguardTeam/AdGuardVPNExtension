@@ -11,24 +11,24 @@ import { GlobalStore } from './GlobalStore';
 import { StatsStore } from './StatsStore';
 
 export class RootStore {
-    globalStore: GlobalStore;
+    public globalStore: GlobalStore;
 
-    settingsStore: SettingsStore;
+    public settingsStore: SettingsStore;
 
-    uiStore: UiStore;
+    public uiStore: UiStore;
 
-    authStore: AuthStore;
+    public authStore: AuthStore;
 
-    vpnStore: VpnStore;
+    public vpnStore: VpnStore;
 
-    telemetryStore: TelemetryStore;
+    public telemetryStore: TelemetryStore;
 
-    statsStore: StatsStore;
+    public statsStore: StatsStore;
 
     /**
      * MobX-observable locale state shared with the {@link i18n} facade.
      */
-    translationStore: TranslationStore;
+    public translationStore: TranslationStore;
 
     constructor() {
         this.globalStore = new GlobalStore(this);

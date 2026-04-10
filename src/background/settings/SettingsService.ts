@@ -34,20 +34,20 @@ type OldExclusion = {
 };
 
 export class SettingsService {
-    storage: StorageInterface;
+    public storage: StorageInterface;
 
-    defaults: Settings;
+    public defaults: Settings;
 
-    settings: Settings;
+    public settings: Settings;
 
     constructor(storage: StorageInterface, defaults: Settings) {
         this.storage = storage;
         this.defaults = defaults;
     }
 
-    SETTINGS_KEY = 'settings.service.key';
+    public SETTINGS_KEY = 'settings.service.key';
 
-    async init(): Promise<void> {
+    public async init(): Promise<void> {
         let settings;
         try {
             settings = await this.storage.get<Settings>(this.SETTINGS_KEY);
@@ -65,7 +65,7 @@ export class SettingsService {
         this.settings = await this.checkSchemeMatch(settings);
     }
 
-    migrateFrom1to2 = (oldSettings: Settings): VersionType => {
+    private migrateFrom1to2 = (oldSettings: Settings): VersionType => {
         const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
 
         const newExclusions = {
@@ -81,7 +81,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom2to3 = (oldSettings: Settings): VersionType => {
+    private migrateFrom2to3 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '3',
@@ -89,7 +89,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom3to4 = (oldSettings: Settings): VersionType => {
+    private migrateFrom3to4 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '4',
@@ -98,7 +98,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom4to5 = (oldSettings: Settings): VersionType => {
+    private migrateFrom4to5 = (oldSettings: Settings): VersionType => {
         const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
 
         const newExclusions = {
@@ -114,7 +114,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom5to6 = async (oldSettings: Settings): Promise<VersionType> => {
+    private migrateFrom5to6 = async (oldSettings: Settings): Promise<VersionType> => {
         let isSelectedByUser = false;
         // check if no location was saved earlier
         // this is necessary in order to skip already working extensions
@@ -133,7 +133,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom6to7 = (oldSettings: Settings): VersionType => {
+    private migrateFrom6to7 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '7',
@@ -151,7 +151,7 @@ export class SettingsService {
      *
      * @returns New settings.
      */
-    migrateFrom7to8 = (oldSettings: Settings): VersionType => {
+    private migrateFrom7to8 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '8',
@@ -171,7 +171,7 @@ export class SettingsService {
      *
      * @returns New settings.
      */
-    migrateFrom8to9 = async (oldSettings: Settings): Promise<VersionType> => {
+    private migrateFrom8to9 = async (oldSettings: Settings): Promise<VersionType> => {
         const updateExclusionsState = (oldExclusions: OldExclusion[]): {
             id: string;
             hostname: string;
@@ -215,7 +215,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom9to10 = async (oldSettings: Settings): Promise<VersionType> => {
+    private migrateFrom9to10 = async (oldSettings: Settings): Promise<VersionType> => {
         return {
             ...oldSettings,
             VERSION: '10',
@@ -223,7 +223,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom10to11 = (oldSettings: Settings): Settings => {
+    private migrateFrom10to11 = (oldSettings: Settings): Settings => {
         if (browserApi.runtime.getManifest().manifest_version === 2) {
             const appearanceTheme = localStorage.getItem(THEME_STORAGE_KEY);
             if (appearanceTheme) {
@@ -242,7 +242,7 @@ export class SettingsService {
      *
      * @returns Updated settings.
      */
-    migrateFrom11to12 = async (oldSettings: Settings): Promise<VersionType> => {
+    private migrateFrom11to12 = async (oldSettings: Settings): Promise<VersionType> => {
         // update SETTINGS_IDS.APPEARANCE_THEME setting value
         // after converting APPEARANCE_THEMES object to enum
         let currentTheme = oldSettings[SETTINGS_IDS.APPEARANCE_THEME];
@@ -275,7 +275,7 @@ export class SettingsService {
      *
      * @returns Updated settings.
      */
-    migrateFrom12to13 = async (oldSettings: Settings): Promise<VersionType> => {
+    public migrateFrom12to13 = async (oldSettings: Settings): Promise<VersionType> => {
         const AB_TEST_STORAGE_KEY = 'ab_test_manager.versions';
 
         try {
@@ -308,7 +308,7 @@ export class SettingsService {
      *
      * @returns Updated settings.
      */
-    migrateFrom13to14 = async (oldSettings: Settings): Promise<VersionType> => {
+    public migrateFrom13to14 = async (oldSettings: Settings): Promise<VersionType> => {
         const AB_TEST_STORAGE_KEY = 'ab_test_manager.versions';
 
         try {
@@ -329,7 +329,7 @@ export class SettingsService {
      * For example if your migration function migrates your settings from scheme 4 to 5, then add
      * it under number 4
      */
-    migrationFunctions: MigrationFunctions = {
+    private migrationFunctions: MigrationFunctions = {
         1: this.migrateFrom1to2,
         2: this.migrateFrom2to3,
         3: this.migrateFrom3to4,
@@ -345,7 +345,7 @@ export class SettingsService {
         13: this.migrateFrom13to14,
     };
 
-    async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {
+    private async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {
         let newSettings = { ...oldSettings };
         for (let i = oldVersion; i < newVersion; i += 1) {
             const migrationFunction = this.migrationFunctions[i];
@@ -367,7 +367,7 @@ export class SettingsService {
      *
      * @returns New settings.
      */
-    async migrateSettings(oldSettings: Settings): Promise<Settings> {
+    private async migrateSettings(oldSettings: Settings): Promise<Settings> {
         log.info(`[vpn.SettingsService.migrateSettings]: Settings were converted from ${oldSettings.VERSION} to ${SCHEME_VERSION}`);
         let newSettings;
 
@@ -386,7 +386,7 @@ export class SettingsService {
         return newSettings;
     }
 
-    checkSchemeMatch(settings: Settings): Settings | Promise<Settings> {
+    private checkSchemeMatch(settings: Settings): Settings | Promise<Settings> {
         const version = settings.VERSION;
         if (version === SCHEME_VERSION) {
             return settings;
@@ -395,24 +395,24 @@ export class SettingsService {
         return this.migrateSettings(settings);
     }
 
-    persist = throttle(async (settings = this.settings) => {
+    public persist = throttle(async (settings = this.settings) => {
         await this.storage.set(this.SETTINGS_KEY, settings);
     }, THROTTLE_TIMEOUT, { leading: false });
 
-    setSetting(key: string, value: any): void {
+    public setSetting(key: string, value: any): void {
         this.settings[key] = value;
         this.persist();
     }
 
-    getSetting(key: string): any {
+    public getSetting(key: string): any {
         return this.settings && this.settings[key];
     }
 
-    getSettings(): Settings {
+    public getSettings(): Settings {
         return this.settings;
     }
 
-    async clearSettings(): Promise<void> {
+    public async clearSettings(): Promise<void> {
         this.settings = {};
         await this.storage.remove(this.SETTINGS_KEY);
     }

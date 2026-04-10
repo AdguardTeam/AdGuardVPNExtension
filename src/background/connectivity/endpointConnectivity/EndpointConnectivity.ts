@@ -39,18 +39,18 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
      * We send pings once every 25 seconds to increase the lifetime of the service worker.
      * https://developer.chrome.com/docs/extensions/mv3/tut_websockets/
      */
-    PING_SEND_INTERVAL_MS = 1000 * 25;
+    private PING_SEND_INTERVAL_MS = 1000 * 25;
 
     /**
      * If WS didn't connect in this time, stop connection
      */
-    CONNECTION_TIMEOUT_MS = 4000;
+    private CONNECTION_TIMEOUT_MS = 4000;
 
     /**
      * Used to clear timeout function if WS connection succeeded
      * or failed faster than connection timeout fired
      */
-    connectionTimeoutId: ReturnType<typeof setInterval> | null = null;
+    private connectionTimeoutId: ReturnType<typeof setInterval> | null = null;
 
     private credentialsHash: string;
 
@@ -69,7 +69,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         notifier.addSpecifiedListener(notifier.types.DNS_SERVER_SET, this.sendDnsServerIp);
     }
 
-    updateCredentials = async (): Promise<void> => {
+    private updateCredentials = async (): Promise<void> => {
         let vpnToken;
         let credentialsHash;
         try {
@@ -96,7 +96,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         await this.setCredentials(domainName, vpnToken, credentialsHash);
     };
 
-    setCredentials(domainName: string, vpnToken: string, credentialsHash: string): void {
+    public setCredentials(domainName: string, vpnToken: string, credentialsHash: string): void {
         this.vpnToken = vpnToken;
         this.domainName = domainName;
         this.credentialsHash = credentialsHash;
@@ -118,7 +118,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
      * Handles WebSocket close events
      * @param closeEvent
      */
-    handleWebsocketClose = async (closeEvent: WebSocketEventMap['close']): Promise<void> => {
+    private handleWebsocketClose = async (closeEvent: WebSocketEventMap['close']): Promise<void> => {
         log.debug('[vpn.EndpointConnectivity]: WS closed:', closeEvent);
 
         if (this.connectionTimeoutId) {
@@ -133,7 +133,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         connectivityService.send(ConnectivityEventType.WsClose);
     };
 
-    handleWebsocketOpen = async (): Promise<void> => {
+    private handleWebsocketOpen = async (): Promise<void> => {
         if (this.connectionTimeoutId) {
             clearTimeout(this.connectionTimeoutId);
         }
@@ -170,7 +170,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
     /**
      * Handles WS errors
      */
-    handleWebsocketError = async (errorEvent: WebSocketEventMap['error']): Promise<void> => {
+    private handleWebsocketError = async (errorEvent: WebSocketEventMap['error']): Promise<void> => {
         if (this.connectionTimeoutId) {
             clearTimeout(this.connectionTimeoutId);
         }
@@ -184,14 +184,14 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         connectivityService.send(ConnectivityEventType.WsError);
     };
 
-    isWebsocketConnectionOpen = (): boolean => {
+    public isWebsocketConnectionOpen = (): boolean => {
         if (this.ws) {
             return this.ws.readyState === this.ws.OPEN;
         }
         return false;
     };
 
-    start = (entryTime?: number): void => {
+    public start = (entryTime?: number): void => {
         if (entryTime) {
             this.entryTime = entryTime;
         }
@@ -217,7 +217,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         }, this.CONNECTION_TIMEOUT_MS);
     };
 
-    stop = async (): Promise<void> => {
+    public stop = async (): Promise<void> => {
         if (this.pingSendIntervalId) {
             clearInterval(this.pingSendIntervalId);
         }
@@ -242,7 +242,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
      *
      * @returns Decoded message object.
      */
-    decodeMessage = (arrBufMessage: ArrayBuffer): Record<string, any> => {
+    public decodeMessage = (arrBufMessage: ArrayBuffer): Record<string, any> => {
         const message = WsConnectivityMsg.decode(new Uint8Array(arrBufMessage));
         return WsConnectivityMsg.toObject(message);
     };
@@ -252,7 +252,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
      * getting stats and keeping ws alive
      * @returns Promise with latency in ms or null if it's not available.
      */
-    sendPingMessage = async (): Promise<number | null> => {
+    public sendPingMessage = async (): Promise<number | null> => {
         const appId = await credentials.getAppId();
         try {
             const ping = await sendPingMessage(this.ws, this.vpnToken, appId);
@@ -263,7 +263,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         }
     };
 
-    startSendingPingMessages = (): void => {
+    private startSendingPingMessages = (): void => {
         if (this.pingSendIntervalId) {
             clearInterval(this.pingSendIntervalId);
         }
@@ -276,13 +276,13 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         }, this.PING_SEND_INTERVAL_MS);
     };
 
-    prepareDnsSettingsMessage = (dnsIp: string): Uint8Array => {
+    private prepareDnsSettingsMessage = (dnsIp: string): Uint8Array => {
         const settingsMsg = WsSettingsMsg.create({ dnsServer: dnsIp });
         const protocolMsg = WsConnectivityMsg.create({ settingsMsg });
         return WsConnectivityMsg.encode(protocolMsg).finish();
     };
 
-    sendDnsServerIp = (dnsIp: string): void => {
+    private sendDnsServerIp = (dnsIp: string): void => {
         if (!this.ws) {
             return;
         }
@@ -296,7 +296,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
      *
      * @param infoMsg Info message event sent from the server.
      */
-    handleInfoMsg = async (infoMsg: WsConnectivityInfoMsg): Promise<void> => {
+    private handleInfoMsg = async (infoMsg: WsConnectivityInfoMsg): Promise<void> => {
         if ('refreshTokens' in infoMsg && infoMsg.refreshTokens) {
             notifier.notifyListeners(notifier.types.SHOULD_REFRESH_TOKENS);
         }
@@ -306,7 +306,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         }
     };
 
-    handleErrorMsg = async (connectivityErrorMsg: { code: string, payload: number }): Promise<void> => {
+    private handleErrorMsg = async (connectivityErrorMsg: { code: string, payload: number }): Promise<void> => {
         const { code, payload } = connectivityErrorMsg;
 
         if (code === ErrorCode.NonRoutableCode) {
@@ -332,7 +332,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         }
     };
 
-    startGettingConnectivityInfo = (): void => {
+    private startGettingConnectivityInfo = (): void => {
         const messageHandler = async (event: WebSocketEventMap['message']): Promise<void> => {
             const { connectivityInfoMsg, connectivityErrorMsg } = this.decodeMessage(event.data);
 

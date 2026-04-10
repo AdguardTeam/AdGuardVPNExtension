@@ -72,7 +72,7 @@ export const getLocationWithLowestPing = (locations: LocationInterface[]): Locat
  * Formats bytes into units.
  *
  * @param bytes
- * @param decimals - number of digits after decimal point
+ * @param decimals number of digits after decimal point
  *
  * @returns Object with unit and value.
  */
@@ -146,8 +146,8 @@ export const addMinDurationTime = (fn: (...args: any) => any, minDurationMs: num
 /**
  * Runs generator with possibility to cancel
  *
- * @param fn - generator to run
- * @param args - args
+ * @param fn generator to run
+ * @param args args
  *
  * @returns Object with cancel function and promise.
  */

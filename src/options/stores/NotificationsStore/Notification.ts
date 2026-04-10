@@ -8,11 +8,11 @@ export interface Action {
 }
 
 export class Notification {
-    id: string;
+    public id: string;
 
-    message: ReactNode | string;
+    public message: ReactNode | string;
 
-    action?: Action;
+    public action?: Action;
 
     constructor(message: ReactNode | string, action?: Action) {
         this.id = nanoid();
@@ -20,11 +20,11 @@ export class Notification {
         this.action = action;
     }
 
-    isError(): boolean {
+    public isError(): boolean {
         throw new Error('Not defined yet');
     }
 
-    isSuccess(): boolean {
+    public isSuccess(): boolean {
         throw new Error('Not defined yet');
     }
 }

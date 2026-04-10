@@ -78,7 +78,7 @@ class BrowserActionIcon {
         }
     }
 
-    init = (): void => {
+    public init = (): void => {
         const throttleTimeoutMs = 100;
         const throttledUpdateIcon = throttle(async (tab?: browser.Tabs.Tab) => {
             if (tab) {

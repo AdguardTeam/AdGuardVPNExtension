@@ -111,7 +111,7 @@ export class LocationsService implements LocationsServiceInterface {
      */
     private locationsState = new StateData(StorageKey.LocationsService);
 
-    PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
+    private PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
     /**
      * Constructor.
@@ -127,12 +127,12 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Locations instances.
      */
-    getLocations = async (): Promise<LocationInterface[]> => {
+    public getLocations = async (): Promise<LocationInterface[]> => {
         const { locations } = await this.locationsState.get();
         return locations;
     };
 
-    getPingFromCache = async (id: string): Promise<{ locationId: string } & PingsCacheInterface[string]> => {
+    public getPingFromCache = async (id: string): Promise<{ locationId: string } & PingsCacheInterface[string]> => {
         const { pingsCache } = await this.locationsState.get();
         return {
             locationId: id,
@@ -145,7 +145,7 @@ export class LocationsService implements LocationsServiceInterface {
      * @param location
      * @param state
      */
-    setLocationAvailableState = (location: LocationInterface, state: boolean): void => {
+    private setLocationAvailableState = (location: LocationInterface, state: boolean): void => {
         // eslint-disable-next-line no-param-reassign
         location.available = state;
     };
@@ -155,7 +155,7 @@ export class LocationsService implements LocationsServiceInterface {
      * @param location
      * @param ping
      */
-    setLocationPing = (location: LocationInterface, ping: number | null): void => {
+    private setLocationPing = (location: LocationInterface, ping: number | null): void => {
         // eslint-disable-next-line no-param-reassign
         location.ping = ping;
     };
@@ -165,7 +165,7 @@ export class LocationsService implements LocationsServiceInterface {
      * @param location
      * @param endpoint
      */
-    setLocationEndpoint = (
+    private setLocationEndpoint = (
         location: LocationInterface,
         endpoint: EndpointInterface | null,
     ): void => {
@@ -181,7 +181,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Locations with pings, used for UI.
      */
-    getLocationsWithPing = async (): Promise<LocationWithPing[]> => {
+    public getLocationsWithPing = async (): Promise<LocationWithPing[]> => {
         const { locations } = await this.locationsState.get();
 
         return Promise.all(locations.map(async (location: LocationInterface) => {
@@ -195,7 +195,7 @@ export class LocationsService implements LocationsServiceInterface {
         }));
     };
 
-    updatePingsCache = async (id: string, newData: IncomingPingData): Promise<void> => {
+    private updatePingsCache = async (id: string, newData: IncomingPingData): Promise<void> => {
         const { pingsCache } = await this.locationsState.get();
 
         const oldData = pingsCache[id];
@@ -222,7 +222,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Endpoints array with the given endpoint moved to the first position, or the original order if not found.
      */
-    moveToTheStart = (
+    private moveToTheStart = (
         endpoints: EndpointInterface[],
         endpoint: EndpointInterface,
     ): EndpointInterface[] => {
@@ -240,12 +240,12 @@ export class LocationsService implements LocationsServiceInterface {
      * If was unable to measure ping to all endpoints, returns first endpoint from the list.
      *
      * @param location
-     * @param forcePrevEndpoint - boolean flag to measure ping of previously
+     * @param forcePrevEndpoint boolean flag to measure ping of previously
      *  selected endpoint only
      *
      *  @returns Promise with ping and endpoint.
      */
-    getEndpointAndPing = async (
+    private getEndpointAndPing = async (
         location: LocationInterface,
         forcePrevEndpoint = false,
     ): Promise<{ ping: number | null, endpoint: EndpointInterface | null }> => {
@@ -296,7 +296,7 @@ export class LocationsService implements LocationsServiceInterface {
      * @param location location to measure ping for
      * @param force boolean flag to measure ping without checking pings ttl
      */
-    measurePing = async (location: LocationInterface, force: boolean): Promise<void> => {
+    private measurePing = async (location: LocationInterface, force: boolean): Promise<void> => {
         const { id } = location;
         const { pingsCache } = await this.locationsState.get();
 
@@ -346,7 +346,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * Needed for "Refresh pings" button in the "Locations" screen in popup.
      */
-    prunePings = async (): Promise<void> => {
+    private prunePings = async (): Promise<void> => {
         const { locations } = await this.locationsState.get();
         await Promise.all(locations.map(async (location) => {
             await this.updatePingsCache(location.id, { ping: null });
@@ -364,14 +364,14 @@ export class LocationsService implements LocationsServiceInterface {
     /**
      * Flag used to control when it is possible to start pings measurement again
      */
-    isMeasuring = false;
+    public isMeasuring = false;
 
     /**
      * Measures pings for all locations.
      *
      * @param force Flag indicating that pings should be measured without checking ttl
      */
-    measurePings = async (force = false): Promise<void> => {
+    private measurePings = async (force = false): Promise<void> => {
         if (this.isMeasuring) {
             return;
         }
@@ -395,7 +395,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns True if ping measurement is in progress.
      */
-    isMeasuringPingInProgress = (): boolean => {
+    public isMeasuringPingInProgress = (): boolean => {
         return this.isMeasuring;
     };
 
@@ -404,7 +404,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns selected location if it's endpoint was updated.
      */
-    updateSelectedLocation = async (): Promise<LocationInterface | null> => {
+    public updateSelectedLocation = async (): Promise<LocationInterface | null> => {
         const { selectedLocation, locations } = await this.locationsState.get();
         if (!selectedLocation) {
             return null;
@@ -429,7 +429,7 @@ export class LocationsService implements LocationsServiceInterface {
         return null;
     };
 
-    setLocations = async (newLocations: LocationInterface[]): Promise<void> => {
+    public setLocations = async (newLocations: LocationInterface[]): Promise<void> => {
         const { pingsCache } = await this.locationsState.get();
 
         // copy previous pings data for locations without a backend-provided ping
@@ -477,7 +477,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Locations from server.
      */
-    getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => {
+    public getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => {
         const locationsData = await vpnProvider.getLocationsData(appId, vpnToken);
 
         const locations = locationsData.map((locationData: LocationInterface) => {
@@ -503,7 +503,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Promise with available endpoint if found, or the first one.
      */
-    getEndpoint = async (
+    public getEndpoint = async (
         location: LocationInterface,
         forcePrevEndpoint: boolean,
     ): Promise<EndpointInterface | null> => {
@@ -548,7 +548,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Promise with endpoint by location id.
      */
-    getEndpointByLocation = async (
+    public getEndpointByLocation = async (
         location: LocationInterface,
         forcePrevEndpoint: boolean = false,
     ): Promise<EndpointInterface | null> => {
@@ -576,7 +576,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Location by endpoint id.
      */
-    getLocationByEndpoint = async (endpointId: string): Promise<LocationInterface | null> => {
+    public getLocationByEndpoint = async (endpointId: string): Promise<LocationInterface | null> => {
         if (!endpointId) {
             return null;
         }
@@ -591,10 +591,10 @@ export class LocationsService implements LocationsServiceInterface {
 
     /**
      * Persists selected location in the memory and storage
-     * @param id - Location id
-     * @param isLocationSelectedByUser - Flag indicating that location was selected by user
+     * @param id Location id
+     * @param isLocationSelectedByUser Flag indicating that location was selected by user
      */
-    setSelectedLocation = async (id: string, isLocationSelectedByUser = false): Promise<void> => {
+    public setSelectedLocation = async (id: string, isLocationSelectedByUser = false): Promise<void> => {
         const { locations } = await this.locationsState.get();
 
         const newSelectedLocation = locations.find((location) => location.id === id) || null;
@@ -610,7 +610,7 @@ export class LocationsService implements LocationsServiceInterface {
         }
     };
 
-    getIsLocationSelectedByUser = async (): Promise<boolean> => {
+    public getIsLocationSelectedByUser = async (): Promise<boolean> => {
         const isLocationSelectedByUser = await settings.getSetting(
             SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY,
         );
@@ -622,7 +622,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Promise with null or selected location.
      */
-    getSelectedLocation = async (): Promise<LocationInterface | null> => {
+    public getSelectedLocation = async (): Promise<LocationInterface | null> => {
         let { selectedLocation } = await this.locationsState.get();
 
         if (!selectedLocation) {

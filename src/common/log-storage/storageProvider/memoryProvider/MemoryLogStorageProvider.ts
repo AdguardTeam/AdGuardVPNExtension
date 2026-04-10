@@ -16,12 +16,12 @@ export class MemoryLogStorageProvider implements LogStorageProvider {
     /**
      * Holds the logs in memory.
      */
-    logs: string[] = [];
+    private logs: string[] = [];
 
     /**
      * Stores the provided logs in memory.
      *
-     * @param logs - The logs to store.
+     * @param logs The logs to store.
      * @returns A promise that resolves once the logs have been stored.
      */
     public set(logs: string[]): Promise<void> {

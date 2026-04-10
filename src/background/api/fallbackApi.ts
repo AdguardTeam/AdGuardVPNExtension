@@ -66,12 +66,12 @@ export class FallbackApi {
      * We keep all fallback info in one object, because it's easier to work with
      * Also, vpnApiUrl and authApiUrl always are updated in pairs
      */
-    defaultFallbackInfo: FallbackInfo;
+    private defaultFallbackInfo: FallbackInfo;
 
     /**
      * Fallback info cache expiration time in milliseconds.
      */
-    static DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
+    public static DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
     /**
      * Fallback API state data.
@@ -363,7 +363,7 @@ export class FallbackApi {
      *
      * @returns prefix for api hostname in format: `<base_prefix>.<user_type>`
      */
-    getApiHostnamePrefix = async (): Promise<string> => {
+    private getApiHostnamePrefix = async (): Promise<string> => {
         const basePrefix = this.getBasePrefix();
 
         const isAuthenticated = await authService.isAuthenticated();
@@ -386,7 +386,7 @@ export class FallbackApi {
      * if fetched url is an empty string, returns default fallback VPN API URL;
      * OR null if fetching failed.
      */
-    getBkpVpnApiUrl = async (): Promise<string | null> => {
+    public getBkpVpnApiUrl = async (): Promise<string | null> => {
         if (isTestStage) {
             return this.defaultFallbackInfo.vpnApiUrl;
         }
@@ -401,7 +401,7 @@ export class FallbackApi {
         return bkpApiUrl;
     };
 
-    getBkpAuthApiUrl = async (): Promise<string | null> => {
+    public getBkpAuthApiUrl = async (): Promise<string | null> => {
         if (isTestStage) {
             return this.defaultFallbackInfo.authApiUrl;
         }

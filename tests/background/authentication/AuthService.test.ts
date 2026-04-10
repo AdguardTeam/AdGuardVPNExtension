@@ -40,7 +40,9 @@ const notAuthenticatedUserData: AuthAccessToken = {
 // @ts-ignore - partly implementation
 const authService = new AuthService(browserApiImplementation);
 
+// @ts-expect-error - accessing private property in test
 vi.spyOn(authService.browserApi.storage, 'set');
+// @ts-expect-error - accessing private property in test
 vi.spyOn(authService.browserApi.storage, 'get');
 
 describe('Auth Service', () => {
@@ -51,20 +53,24 @@ describe('Auth Service', () => {
     it('Test accessTokenData caching', async () => {
         let accessTokenData = await authService.getAccessTokenData();
         expect(accessTokenData).toBeNull();
+        // @ts-expect-error - accessing private property in test
         expect(authService.browserApi.storage.get).toBeCalledTimes(1);
 
         accessTokenData = await authService.getAccessTokenData();
         expect(accessTokenData).toBeNull();
         // storage.get was called one more time because there was no cached value
+        // @ts-expect-error - accessing private property in test
         expect(authService.browserApi.storage.get).toBeCalledTimes(2);
 
         await authService.saveAccessTokenData(authenticatedUserData);
+        // @ts-expect-error - accessing private property in test
         expect(authService.browserApi.storage.set).toBeCalledTimes(1);
 
         accessTokenData = await authService.getAccessTokenData();
         expect(accessTokenData).toBeDefined();
         expect(accessTokenData).toBe(authenticatedUserData);
         // storage.get wasn't called one more time because the cached value was returned
+        // @ts-expect-error - accessing private property in test
         expect(authService.browserApi.storage.get).toBeCalledTimes(2);
     });
 

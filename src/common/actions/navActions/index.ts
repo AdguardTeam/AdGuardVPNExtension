@@ -9,7 +9,7 @@ class NavActions {
      *
      * @param url Url of opened window/tab.
      */
-    openWindow = async (url: string): Promise<void> => {
+    public openWindow = async (url: string): Promise<void> => {
         if (await Prefs.isFirefoxAndroid()) {
             await this.openTab(url, false);
             return;
@@ -24,7 +24,7 @@ class NavActions {
      * @param url Url of opened tab.
      * @param closeCurrent Whether to close the current tab.
      */
-    openTab = async (url: string, closeCurrent = true): Promise<void> => {
+    public openTab = async (url: string, closeCurrent = true): Promise<void> => {
         await tabs.openTab(url);
         if (closeCurrent) {
             window.close();
@@ -34,7 +34,7 @@ class NavActions {
     /**
      * Opens the VPN failure page.
      */
-    openVpnFailurePage = async (): Promise<void> => {
+    public openVpnFailurePage = async (): Promise<void> => {
         const vpnFailurePage = await messenger.getVpnFailurePage();
         await this.openTab(vpnFailurePage);
     };
@@ -42,7 +42,7 @@ class NavActions {
     /**
      * Opens the free GBS page.
      */
-    openFreeGbsPage = async (): Promise<void> => {
+    public openFreeGbsPage = async (): Promise<void> => {
         await messenger.openFreeGbsPage();
         window.close();
     };

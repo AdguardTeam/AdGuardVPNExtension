@@ -10,24 +10,24 @@ import { NotificationsStore } from './NotificationsStore';
 import { UiStore } from './UiStore';
 
 export class RootStore {
-    globalStore: GlobalStore;
+    public globalStore: GlobalStore;
 
-    authStore: AuthStore;
+    public authStore: AuthStore;
 
-    settingsStore: SettingsStore;
+    public settingsStore: SettingsStore;
 
-    exclusionsStore: ExclusionsStore;
+    public exclusionsStore: ExclusionsStore;
 
-    notificationsStore: NotificationsStore;
+    public notificationsStore: NotificationsStore;
 
-    uiStore: UiStore;
+    public uiStore: UiStore;
 
-    telemetryStore: TelemetryStore;
+    public telemetryStore: TelemetryStore;
 
     /**
      * MobX-observable locale state shared with the {@link i18n} facade.
      */
-    translationStore: TranslationStore;
+    public translationStore: TranslationStore;
 
     constructor() {
         this.globalStore = new GlobalStore(this);

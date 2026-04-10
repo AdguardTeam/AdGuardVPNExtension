@@ -34,7 +34,7 @@ export interface LocationData extends LocationWithPing {
 }
 
 export class VpnStore {
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -43,7 +43,7 @@ export class VpnStore {
     /**
      * List of all locations.
      */
-    @observable locations: LocationData[] = [];
+    @observable public locations: LocationData[] = [];
 
     /**
      * List of so-called cached fastest locations — actually the list of previously calculated fastest locations.
@@ -51,38 +51,38 @@ export class VpnStore {
      *
      * Needed to avoid skeleton displaying instead of the fastest locations list.
      */
-    @observable cachedFastestLocations: LocationData[] = [];
+    @observable private cachedFastestLocations: LocationData[] = [];
 
-    @observable pings: Pings = {};
+    @observable private pings: Pings = {};
 
-    @observable selectedLocation: LocationData;
+    @observable public selectedLocation: LocationData;
 
-    @observable searchValue = '';
+    @observable public searchValue = '';
 
-    @observable vpnInfo: VpnExtensionInfoInterface | null = null;
+    @observable public vpnInfo: VpnExtensionInfoInterface | null = null;
 
-    @observable tooManyDevicesConnected = false;
+    @observable public tooManyDevicesConnected = false;
 
-    @observable maxDevicesAllowed: number | null = null;
+    @observable public maxDevicesAllowed: number | null = null;
 
-    @observable isPremiumToken: boolean;
+    @observable public isPremiumToken: boolean;
 
     /**
      * Locations tab.
      */
-    @observable locationsTab: LocationsTab;
+    @observable public locationsTab: LocationsTab;
 
     /**
      * Set of saved location IDs.
      */
-    @observable savedLocationIds: Set<string> = new Set();
+    @observable private savedLocationIds: Set<string> = new Set();
 
-    @action setSearchValue = (value: string): void => {
+    @action public setSearchValue = (value: string): void => {
         // do not trim, or change logic see issue AG-2233
         this.searchValue = value;
     };
 
-    @action setLocations = (locations: LocationData[]): void => {
+    @action public setLocations = (locations: LocationData[]): void => {
         if (!locations) {
             return;
         }
@@ -99,12 +99,12 @@ export class VpnStore {
         }
     };
 
-    @action updateLocationState = (state: LocationState): void => {
+    @action public updateLocationState = (state: LocationState): void => {
         const id = state.locationId;
         this.pings[id] = state;
     };
 
-    @action selectLocation = async (id: string): Promise<void> => {
+    @action public selectLocation = async (id: string): Promise<void> => {
         animationService.send(AnimationEvent.LocationSelected);
 
         const selectedLocation = this.locations.find((location) => {
@@ -121,7 +121,7 @@ export class VpnStore {
         });
     };
 
-    @action setSelectedLocation = (location: LocationData): void => {
+    @action public setSelectedLocation = (location: LocationData): void => {
         if (!location) {
             return;
         }
@@ -132,7 +132,7 @@ export class VpnStore {
     };
 
     @computed
-    get filteredLocations(): LocationData[] {
+    public get filteredLocations(): LocationData[] {
         const locations = this.locations || [];
 
         return locations
@@ -172,7 +172,7 @@ export class VpnStore {
      *
      * @returns Location with ping, availability, and saved status.
      */
-    enrichWithStateData = (location: LocationData): LocationData => {
+    private enrichWithStateData = (location: LocationData): LocationData => {
         const pingData = this.pings[location.id];
         const saved = this.savedLocationIds.has(location.id);
 
@@ -194,7 +194,7 @@ export class VpnStore {
      * Calculated the fastest of all locations, prunes their pings,
      * and sets a new list to {@link cachedFastestLocations}.
      */
-    @action setCachedFastestLocations = (): void => {
+    @action public setCachedFastestLocations = (): void => {
         this.cachedFastestLocations = this.calculateFastestLocations(this.locations).map((location) => {
             return { ...location, ping: null };
         });
@@ -203,7 +203,7 @@ export class VpnStore {
     /**
      * Sets the value of {@link cachedFastestLocations} to empty array.
      */
-    @action resetCachedFastestLocations = (): void => {
+    @action public resetCachedFastestLocations = (): void => {
         this.cachedFastestLocations = [];
     };
 
@@ -214,7 +214,7 @@ export class VpnStore {
      *
      * @returns List of 3 fastest locations.
      */
-    calculateFastestLocations = (locations: LocationData[]): LocationData[] => {
+    private calculateFastestLocations = (locations: LocationData[]): LocationData[] => {
         const FASTEST_LOCATIONS_COUNT = 3;
         const sortedLocations = locations
             .map(this.enrichWithStateData)
@@ -245,7 +245,7 @@ export class VpnStore {
      * Otherwise, calculates the fastest locations based on {@link locations} list.
      */
     @computed
-    get fastestLocationsToDisplay(): LocationData[] {
+    public get fastestLocationsToDisplay(): LocationData[] {
         const locations = this.locations || [];
 
         if (this.rootStore.settingsStore.arePingsRecalculating
@@ -257,24 +257,24 @@ export class VpnStore {
     }
 
     @computed
-    get countryNameToDisplay(): string {
+    public get countryNameToDisplay(): string {
         return this.selectedLocation?.countryName;
     }
 
     @computed
-    get countryCodeToDisplay(): string {
+    public get countryCodeToDisplay(): string {
         return this.selectedLocation?.countryCode;
     }
 
     @computed
-    get cityNameToDisplay(): string {
+    public get cityNameToDisplay(): string {
         if (this.selectedLocation?.virtual) {
             return `${this.selectedLocation?.cityName} (${translator.getMessage('endpoints_location_virtual')})`;
         }
         return this.selectedLocation?.cityName;
     }
 
-    @action setVpnInfo = (vpnInfo: VpnExtensionInfoInterface): void => {
+    @action public setVpnInfo = (vpnInfo: VpnExtensionInfoInterface): void => {
         if (!vpnInfo) {
             return;
         }
@@ -282,7 +282,7 @@ export class VpnStore {
     };
 
     @computed
-    get bandwidthFreeMbits(): number | null {
+    private get bandwidthFreeMbits(): number | null {
         if (!this.vpnInfo || !this.vpnInfo.bandwidthFreeMbits) {
             return null;
         }
@@ -290,7 +290,7 @@ export class VpnStore {
     }
 
     @computed
-    get premiumPromoEnabled(): boolean | null {
+    public get premiumPromoEnabled(): boolean | null {
         if (!this.vpnInfo?.premiumPromoEnabled) {
             return null;
         }
@@ -298,7 +298,7 @@ export class VpnStore {
     }
 
     @computed
-    get premiumPromoPage(): string | null {
+    private get premiumPromoPage(): string | null {
         if (!this.vpnInfo?.premiumPromoPage) {
             return null;
         }
@@ -306,7 +306,7 @@ export class VpnStore {
     }
 
     @computed
-    get remainingTraffic(): number {
+    public get remainingTraffic(): number {
         if (this.vpnInfo?.maxDownloadedBytes === undefined || this.vpnInfo?.usedDownloadedBytes === undefined) {
             return 0;
         }
@@ -315,7 +315,7 @@ export class VpnStore {
     }
 
     @computed
-    get daysToTrafficRenewal(): number {
+    public get daysToTrafficRenewal(): number {
         if (!this.vpnInfo?.renewalTrafficDate) {
             return 0;
         }
@@ -323,7 +323,7 @@ export class VpnStore {
     }
 
     @computed
-    get trafficUsingProgress(): number {
+    public get trafficUsingProgress(): number {
         const HUNDRED_PERCENT = 100;
 
         if (!this.vpnInfo?.maxDownloadedBytes) {
@@ -334,27 +334,27 @@ export class VpnStore {
     }
 
     @computed
-    get showSearchResults(): boolean {
+    public get showSearchResults(): boolean {
         return this.searchValue.length > 0;
     }
 
     @computed
-    get isSavedLocationsTab(): boolean {
+    public get isSavedLocationsTab(): boolean {
         return this.locationsTab === LocationsTab.Saved;
     }
 
     @computed
-    get notSearchingAndSavedTab(): boolean {
+    public get notSearchingAndSavedTab(): boolean {
         return !this.showSearchResults && !this.isSavedLocationsTab;
     }
 
     @action
-    setIsPremiumToken(isPremiumToken: boolean): void {
+    public setIsPremiumToken(isPremiumToken: boolean): void {
         this.isPremiumToken = isPremiumToken;
     }
 
     @action
-    async requestIsPremiumToken(): Promise<void> {
+    public async requestIsPremiumToken(): Promise<void> {
         const isPremiumToken = await messenger.checkIsPremiumToken();
         runInAction(() => {
             this.isPremiumToken = isPremiumToken;
@@ -362,7 +362,7 @@ export class VpnStore {
     }
 
     @computed
-    get selectedLocationPing(): number | null {
+    public get selectedLocationPing(): number | null {
         if (!this.locations) {
             return null;
         }
@@ -389,14 +389,14 @@ export class VpnStore {
     /**
      * Opens Premium Promo Page in new tab.
      */
-    openPremiumPromoPage = async (): Promise<void> => {
+    public openPremiumPromoPage = async (): Promise<void> => {
         await messenger.openPremiumPromoPage();
     };
 
     /**
      * Opens Subscribe Promo Page in new tab.
      */
-    openSubscribePromoPage = async (): Promise<void> => {
+    public openSubscribePromoPage = async (): Promise<void> => {
         await messenger.openSubscribePromoPage();
     };
 
@@ -405,15 +405,15 @@ export class VpnStore {
      *
      * @param forwarderUrlQueryKey Forwarder query key.
      */
-    openForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey): Promise<void> => {
+    public openForwarderUrlWithEmail = async (forwarderUrlQueryKey: ForwarderUrlQueryKey): Promise<void> => {
         await messenger.openForwarderUrlWithEmail(forwarderUrlQueryKey);
     };
 
-    @action setTooManyDevicesConnected = (state: boolean): void => {
+    @action public setTooManyDevicesConnected = (state: boolean): void => {
         this.tooManyDevicesConnected = state;
     };
 
-    @action setMaxDevicesAllowed = (maxDevicesAllowed: number): void => {
+    @action public setMaxDevicesAllowed = (maxDevicesAllowed: number): void => {
         this.maxDevicesAllowed = maxDevicesAllowed;
     };
 
@@ -423,7 +423,7 @@ export class VpnStore {
      *
      * @returns Promise of Forcibly updated locations list.
      */
-    forceUpdateLocations = async (): Promise<LocationData[]> => {
+    public forceUpdateLocations = async (): Promise<LocationData[]> => {
         const locations = await messenger.forceUpdateLocations() as LocationData[];
         return locations;
     };
@@ -433,7 +433,7 @@ export class VpnStore {
      *
      * @param locationsTab New locations tab.
      */
-    @action setLocationsTab = (locationsTab: LocationsTab): void => {
+    @action public setLocationsTab = (locationsTab: LocationsTab): void => {
         this.locationsTab = locationsTab;
     };
 
@@ -442,7 +442,7 @@ export class VpnStore {
      *
      * @param locationsTab New locations tab.
      */
-    @action saveLocationsTab = async (locationsTab: LocationsTab): Promise<void> => {
+    @action public saveLocationsTab = async (locationsTab: LocationsTab): Promise<void> => {
         // Do nothing if the tab is the same
         if (this.locationsTab === locationsTab) {
             return;
@@ -459,7 +459,7 @@ export class VpnStore {
      *
      * @param savedLocationIds Saved location IDs.
      */
-    @action setSavedLocationIds = (savedLocationIds: string[]): void => {
+    @action public setSavedLocationIds = (savedLocationIds: string[]): void => {
         this.savedLocationIds = new Set(savedLocationIds);
     };
 
@@ -468,7 +468,7 @@ export class VpnStore {
      *
      * @param locationId Location ID to add.
      */
-    @action addSavedLocation = async (locationId: string): Promise<void> => {
+    @action public addSavedLocation = async (locationId: string): Promise<void> => {
         if (this.savedLocationIds.has(locationId)) {
             return;
         }
@@ -484,7 +484,7 @@ export class VpnStore {
      *
      * @param locationId Location ID to remove.
      */
-    @action removeSavedLocation = async (locationId: string): Promise<void> => {
+    @action private removeSavedLocation = async (locationId: string): Promise<void> => {
         if (!this.savedLocationIds.has(locationId)) {
             return;
         }
@@ -501,7 +501,7 @@ export class VpnStore {
      * @param locationId Location ID to toggle.
      * @returns Promise with true if location was added, false if location was removed.
      */
-    @action toggleSavedLocation = async (locationId: string): Promise<boolean> => {
+    @action public toggleSavedLocation = async (locationId: string): Promise<boolean> => {
         if (this.savedLocationIds.has(locationId)) {
             this.removeSavedLocation(locationId);
             return false;

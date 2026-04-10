@@ -85,47 +85,47 @@ const convertExclusionsValuesToUnicode = (exclusionsTree: ExclusionDtoInterface)
 };
 
 export class ExclusionsStore {
-    @observable exclusionsTree: ExclusionDtoInterface;
+    @observable public exclusionsTree: ExclusionDtoInterface;
 
-    @observable currentMode = ExclusionsMode.Regular;
+    @observable public currentMode = ExclusionsMode.Regular;
 
-    @observable servicesData: ServiceDto[] = [];
+    @observable private servicesData: ServiceDto[] = [];
 
-    @observable modeSelectorModalOpen = false;
+    @observable public modeSelectorModalOpen = false;
 
-    @observable addExclusionModalOpen = false;
+    @observable public addExclusionModalOpen = false;
 
-    @observable addSubdomainModalOpen = false;
+    @observable public addSubdomainModalOpen = false;
 
-    @observable resetServiceModalOpen = false;
+    @observable public resetServiceModalOpen = false;
 
-    @observable removeAllModalOpen = false;
+    @observable public removeAllModalOpen = false;
 
-    @observable selectListModalOpen = false;
+    @observable public selectListModalOpen = false;
 
-    @observable confirmAddModalOpen = false;
+    @observable public confirmAddModalOpen = false;
 
-    @observable urlToConfirm: string | undefined;
+    @observable public urlToConfirm: string | undefined;
 
-    @observable addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
+    @observable public addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
 
-    @observable unfoldedServiceCategories: string[] = [];
+    @observable public unfoldedServiceCategories: string[] = [];
 
-    @observable unfoldAllServiceCategories: boolean = false;
+    @observable public unfoldAllServiceCategories: boolean = false;
 
-    @observable selectedExclusionId: string | null = null;
+    @observable private selectedExclusionId: string | null = null;
 
-    @observable exclusionsSearchValue: string = '';
+    @observable public exclusionsSearchValue: string = '';
 
-    @observable servicesSearchValue: string = '';
+    @observable public servicesSearchValue: string = '';
 
-    @observable servicesSearchResults: boolean[] = [];
+    @observable private servicesSearchResults: boolean[] = [];
 
-    @observable importingExclusions: boolean = false;
+    @observable public importingExclusions: boolean = false;
 
-    @observable isAllExclusionsListsEmpty: boolean;
+    @observable public isAllExclusionsListsEmpty: boolean;
 
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -134,13 +134,13 @@ export class ExclusionsStore {
     /**
      * Temp list used to keep state of services to be enabled or disabled
      */
-    @observable servicesToToggle: string[] = [];
+    @observable public servicesToToggle: string[] = [];
 
-    @action setServicesData = (servicesData: ServiceDto[]): void => {
+    @action public setServicesData = (servicesData: ServiceDto[]): void => {
         this.servicesData = servicesData;
     };
 
-    updateSelectedExclusionOnTreeUpdate(): void {
+    private updateSelectedExclusionOnTreeUpdate(): void {
         if (!this.selectedExclusionId) {
             return;
         }
@@ -157,14 +157,14 @@ export class ExclusionsStore {
         }
     }
 
-    @action setExclusionsData = (exclusionsData: ExclusionsData): void => {
+    @action public setExclusionsData = (exclusionsData: ExclusionsData): void => {
         this.exclusionsTree = convertExclusionsValuesToUnicode(exclusionsData.exclusions);
         this.currentMode = exclusionsData.currentMode;
 
         this.updateSelectedExclusionOnTreeUpdate();
     };
 
-    @action updateExclusionsData = async (): Promise<void> => {
+    @action public updateExclusionsData = async (): Promise<void> => {
         const {
             exclusionsData,
             services,
@@ -175,11 +175,11 @@ export class ExclusionsStore {
         this.setIsAllExclusionsListsEmpty(isAllExclusionsListsEmpty);
     };
 
-    @action setIsAllExclusionsListsEmpty = (value: boolean): void => {
+    @action public setIsAllExclusionsListsEmpty = (value: boolean): void => {
         this.isAllExclusionsListsEmpty = value;
     };
 
-    get preparedExclusions(): ExclusionDtoInterface[] {
+    public get preparedExclusions(): ExclusionDtoInterface[] {
         return this.exclusionsTree.children.filter((exclusion: ExclusionDtoInterface): boolean => {
             if (this.exclusionsSearchValue.length === 0) {
                 return true;
@@ -188,24 +188,24 @@ export class ExclusionsStore {
         }).sort((a, b) => a.hostname.localeCompare(b.hostname)) ?? [];
     }
 
-    @action setModeSelectorModalOpen = (value: boolean): void => {
+    @action public setModeSelectorModalOpen = (value: boolean): void => {
         this.modeSelectorModalOpen = value;
     };
 
-    @action setResetServiceModalOpen = (value: boolean): void => {
+    @action public setResetServiceModalOpen = (value: boolean): void => {
         this.resetServiceModalOpen = value;
     };
 
-    @action setConfirmAddModalOpen = (value: boolean): void => {
+    @action public setConfirmAddModalOpen = (value: boolean): void => {
         this.confirmAddModalOpen = value;
     };
 
-    @action confirmUrlToAdd = (value: string): void => {
+    @action public confirmUrlToAdd = (value: string): void => {
         this.urlToConfirm = value;
         this.setConfirmAddModalOpen(true);
     };
 
-    @action setCurrentMode = async (mode: ExclusionsMode): Promise<void> => {
+    @action public setCurrentMode = async (mode: ExclusionsMode): Promise<void> => {
         await messenger.setExclusionsMode(mode);
         await this.updateExclusionsData();
         runInAction(() => {
@@ -213,11 +213,11 @@ export class ExclusionsStore {
         });
     };
 
-    @action openAddExclusionModal = (): void => {
+    @action public openAddExclusionModal = (): void => {
         this.addExclusionModalOpen = true;
     };
 
-    @action closeAddExclusionModal = (): void => {
+    @action public closeAddExclusionModal = (): void => {
         this.addExclusionModalOpen = false;
         this.setServicesSearchValue('');
         this.servicesToToggle = [];
@@ -225,36 +225,36 @@ export class ExclusionsStore {
         this.setAddExclusionMode(DEFAULT_ADD_EXCLUSION_MODE);
     };
 
-    @action setAddExclusionMode = (mode: AddExclusionMode): void => {
+    @action public setAddExclusionMode = (mode: AddExclusionMode): void => {
         this.addExclusionMode = mode;
     };
 
-    @action openAddSubdomainModal = (): void => {
+    @action public openAddSubdomainModal = (): void => {
         this.addSubdomainModalOpen = true;
     };
 
-    @action closeAddSubdomainModal = (): void => {
+    @action public closeAddSubdomainModal = (): void => {
         this.addSubdomainModalOpen = false;
     };
 
-    @action openRemoveAllModal = (): void => {
+    @action public openRemoveAllModal = (): void => {
         this.removeAllModalOpen = true;
     };
 
-    @action closeRemoveAllModal = (): void => {
+    @action public closeRemoveAllModal = (): void => {
         this.removeAllModalOpen = false;
     };
 
-    @action openSelectListModal = (): void => {
+    @action public openSelectListModal = (): void => {
         this.selectListModalOpen = true;
     };
 
-    @action closeSelectListModal = (): void => {
+    @action public closeSelectListModal = (): void => {
         this.selectListModalOpen = false;
     };
 
     @computed
-    get preparedServicesData(): PreparedServicesData {
+    public get preparedServicesData(): PreparedServicesData {
         const categories = this.servicesData.reduce((acc: PreparedServiceCategories, serviceData) => {
             const { categories, serviceId } = serviceData;
 
@@ -286,7 +286,7 @@ export class ExclusionsStore {
     }
 
     @action
-    toggleCategoryVisibility(id: string): void {
+    public toggleCategoryVisibility(id: string): void {
         const isUnfolded = this.unfoldedServiceCategories
             .some((categoryId) => categoryId === id);
 
@@ -305,7 +305,7 @@ export class ExclusionsStore {
      *
      * @returns Count of added exclusions.
      */
-    @action addUrlToExclusions = async (url: string): Promise<number> => {
+    @action public addUrlToExclusions = async (url: string): Promise<number> => {
         const addedExclusionsCount = await messenger.addUrlToExclusions(url);
         if (addedExclusionsCount) {
             await this.updateExclusionsData();
@@ -313,7 +313,7 @@ export class ExclusionsStore {
         return addedExclusionsCount;
     };
 
-    @action addSubdomainToExclusions = async (subdomain: string): Promise<number> => {
+    @action public addSubdomainToExclusions = async (subdomain: string): Promise<number> => {
         if (!this.selectedExclusionId) {
             return 0;
         }
@@ -345,7 +345,7 @@ export class ExclusionsStore {
      * or if it was exclusion with base domain
      * @param exclusion
      */
-    updateSelectedExclusionOnRemove(exclusion: ExclusionDtoInterface): void {
+    private updateSelectedExclusionOnRemove(exclusion: ExclusionDtoInterface): void {
         if (!exclusion.parentId) {
             return;
         }
@@ -365,7 +365,7 @@ export class ExclusionsStore {
         }
     }
 
-    @action removeExclusion = async (exclusion: ExclusionDtoInterface): Promise<number> => {
+    @action public removeExclusion = async (exclusion: ExclusionDtoInterface): Promise<number> => {
         this.updateSelectedExclusionOnRemove(exclusion);
 
         const deletedExclusionsCount = await messenger.removeExclusion(exclusion.id);
@@ -375,7 +375,7 @@ export class ExclusionsStore {
         return deletedExclusionsCount;
     };
 
-    @action toggleExclusionState = async (id: string): Promise<void> => {
+    @action public toggleExclusionState = async (id: string): Promise<void> => {
         await messenger.toggleExclusionState(id);
         await this.updateExclusionsData();
     };
@@ -383,12 +383,12 @@ export class ExclusionsStore {
     /**
      * Cancel exclusions remove
      */
-    restoreExclusions = async (): Promise<void> => {
+    public restoreExclusions = async (): Promise<void> => {
         await messenger.restoreExclusions();
         await this.updateExclusionsData();
     };
 
-    @action addToServicesToToggle = (id: string): void => {
+    @action public addToServicesToToggle = (id: string): void => {
         if (this.servicesToToggle.includes(id)) {
             this.servicesToToggle = this.servicesToToggle
                 .filter((serviceId) => serviceId !== id);
@@ -402,7 +402,7 @@ export class ExclusionsStore {
      *
      * @returns Counts of added and deleted services.
      */
-    @action toggleServices = async (): Promise<any> => {
+    @action public toggleServices = async (): Promise<any> => {
         const toggleServicesResult = await messenger.toggleServices(toJS(this.servicesToToggle));
         runInAction(() => {
             this.servicesToToggle = [];
@@ -413,11 +413,11 @@ export class ExclusionsStore {
         return toggleServicesResult;
     };
 
-    @action setSelectedExclusionId = (id: string | null): void => {
+    @action public setSelectedExclusionId = (id: string | null): void => {
         this.selectedExclusionId = id;
     };
 
-    getParentExclusion(exclusion: ExclusionDtoInterface): ExclusionDtoInterface | undefined {
+    private getParentExclusion(exclusion: ExclusionDtoInterface): ExclusionDtoInterface | undefined {
         if (exclusion.type === ExclusionsType.Service) {
             return undefined;
         }
@@ -427,7 +427,7 @@ export class ExclusionsStore {
         });
     }
 
-    @action goBackHandler = (): void => {
+    @action public goBackHandler = (): void => {
         if (this.selectedExclusion) {
             const parentExclusion = this.getParentExclusion(this.selectedExclusion);
             this.selectedExclusionId = parentExclusion?.id || null;
@@ -435,7 +435,7 @@ export class ExclusionsStore {
     };
 
     @computed
-    get selectedExclusion(): ExclusionDtoInterface | null {
+    public get selectedExclusion(): ExclusionDtoInterface | null {
         if (!this.selectedExclusionId || this.selectedExclusionId === 'root') {
             return null;
         }
@@ -443,31 +443,31 @@ export class ExclusionsStore {
         return findExclusionById(this.exclusionsTree, this.selectedExclusionId);
     }
 
-    @action setExclusionsSearchValue = (value: string): void => {
+    @action public setExclusionsSearchValue = (value: string): void => {
         this.exclusionsSearchValue = value;
     };
 
-    @action setUnfoldAllServiceCategories = (unfold: boolean): void => {
+    @action private setUnfoldAllServiceCategories = (unfold: boolean): void => {
         this.unfoldAllServiceCategories = unfold;
     };
 
-    @action setServicesSearchValue = (value: string): void => {
+    @action public setServicesSearchValue = (value: string): void => {
         this.servicesSearchValue = value;
 
         this.setUnfoldAllServiceCategories(this.servicesSearchValue.length > 0);
     };
 
-    @action resetServiceData = async (serviceId: string): Promise<void> => {
+    @action public resetServiceData = async (serviceId: string): Promise<void> => {
         await messenger.resetServiceData(serviceId);
         await this.updateExclusionsData();
     };
 
-    @action clearExclusionsList = async (): Promise<void> => {
+    @action public clearExclusionsList = async (): Promise<void> => {
         await messenger.clearExclusionsList();
         await this.updateExclusionsData();
     };
 
-    get sortedExclusions(): ExclusionDtoInterface[] | null {
+    public get sortedExclusions(): ExclusionDtoInterface[] | null {
         const { selectedExclusion } = this;
 
         if (!selectedExclusion) {
@@ -499,7 +499,7 @@ export class ExclusionsStore {
      *
      * @returns True if service is in default state, false otherwise.
      */
-    isServiceDefaultState = (id: string): boolean => {
+    public isServiceDefaultState = (id: string): boolean => {
         const defaultServiceData = this.preparedServicesData.services[id];
 
         const isFullChildrenList = (
@@ -528,24 +528,24 @@ export class ExclusionsStore {
      *
      * @returns True if domain is valid, false otherwise.
      */
-    validateUrl = (url: string): boolean => {
+    public validateUrl = (url: string): boolean => {
         const isValidDomain = !!getDomain(url);
         const isValidIp = isIP(url);
 
         return isValidDomain || isValidIp;
     };
 
-    @action setImportingExclusions = (value: boolean): void => {
+    @action public setImportingExclusions = (value: boolean): void => {
         this.importingExclusions = value;
     };
 
     @computed
-    get isCurrentModeExclusionsListEmpty(): boolean {
+    public get isCurrentModeExclusionsListEmpty(): boolean {
         return !this.exclusionsTree.children.length;
     }
 
     @computed
-    get isServicesSearchEmpty(): boolean {
+    public get isServicesSearchEmpty(): boolean {
         if (this.servicesSearchValue) {
             return !this.servicesData.some((service) => {
                 return containsIgnoreCase(service.serviceName, this.servicesSearchValue);

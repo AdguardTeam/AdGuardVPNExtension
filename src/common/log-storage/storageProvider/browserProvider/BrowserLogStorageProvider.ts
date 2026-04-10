@@ -27,7 +27,7 @@ export class BrowserLogStorageProvider implements LogStorageProvider {
     /**
      * Stores the provided logs in the browser's storage.
      *
-     * @param logs - The logs to store.
+     * @param logs The logs to store.
      * @returns Resolves once the logs have been stored.
      */
     public set(logs: string[]): Promise<void> {

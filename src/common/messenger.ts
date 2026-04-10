@@ -81,7 +81,7 @@ export interface LongLivedConnectionResult {
 }
 
 class Messenger {
-    async sendMessage<K extends ValidMessageTypes>(
+    public async sendMessage<K extends ValidMessageTypes>(
         type: K,
         data?: ExtractMessageData<K>,
     ): Promise<ExtractMessageResponse<K>> {
@@ -110,7 +110,7 @@ class Messenger {
      *
      * @returns function to remove event listener.
      */
-    createEventListener = async (
+    public createEventListener = async (
         events: NotifierType[],
         callback: (...args: NotifierMessage[]) => void,
     ): Promise<() => Promise<void>> => {
@@ -166,7 +166,7 @@ class Messenger {
      *
      * @returns Function to disconnect long lived connection.
      */
-    createLongLivedConnection = (
+    public createLongLivedConnection = (
         events: NotifierType[],
         callback: (...args: NotifierMessage[]) => void,
     ): LongLivedConnectionResult => {
@@ -223,7 +223,7 @@ class Messenger {
         };
     };
 
-    async getPopupData(
+    public async getPopupData(
         url: string | null,
         numberOfTries: number,
     ): Promise<ExtractMessageResponse<MessageType.GET_POPUP_DATA>> {
@@ -236,7 +236,7 @@ class Messenger {
      *
      * @returns Returns a promise that resolves to an object with the limited offer data or null.
      */
-    async getLimitedOfferData(): Promise<ExtractMessageResponse<MessageType.GET_LIMITED_OFFER_DATA>> {
+    public async getLimitedOfferData(): Promise<ExtractMessageResponse<MessageType.GET_LIMITED_OFFER_DATA>> {
         const type = MessageType.GET_LIMITED_OFFER_DATA;
         return this.sendMessage(type);
     }
@@ -247,7 +247,7 @@ class Messenger {
      * @returns Returns a promise that resolves to an array of locations
      * or null if locations update failed.
      */
-    async forceUpdateLocations(): Promise<ExtractMessageResponse<MessageType.FORCE_UPDATE_LOCATIONS>> {
+    public async forceUpdateLocations(): Promise<ExtractMessageResponse<MessageType.FORCE_UPDATE_LOCATIONS>> {
         const type = MessageType.FORCE_UPDATE_LOCATIONS;
         return this.sendMessage(type);
     }
@@ -259,7 +259,7 @@ class Messenger {
      *
      * @returns Promise that resolves when locations tab is saved.
      */
-    async saveLocationsTab(
+    public async saveLocationsTab(
         locationsTab: LocationsTab,
     ): Promise<ExtractMessageResponse<MessageType.SAVED_LOCATIONS_SAVE_TAB>> {
         const type = MessageType.SAVED_LOCATIONS_SAVE_TAB;
@@ -273,7 +273,9 @@ class Messenger {
      *
      * @returns Promise that resolves when location is added.
      */
-    async addSavedLocation(locationId: string): Promise<ExtractMessageResponse<MessageType.SAVED_LOCATIONS_ADD>> {
+    public async addSavedLocation(
+        locationId: string,
+    ): Promise<ExtractMessageResponse<MessageType.SAVED_LOCATIONS_ADD>> {
         const type = MessageType.SAVED_LOCATIONS_ADD;
         return this.sendMessage(type, { locationId });
     }
@@ -285,7 +287,9 @@ class Messenger {
      *
      * @returns Promise that resolves when location is removed.
      */
-    async removeSavedLocation(locationId: string): Promise<ExtractMessageResponse<MessageType.SAVED_LOCATIONS_REMOVE>> {
+    public async removeSavedLocation(
+        locationId: string,
+    ): Promise<ExtractMessageResponse<MessageType.SAVED_LOCATIONS_REMOVE>> {
         const type = MessageType.SAVED_LOCATIONS_REMOVE;
         return this.sendMessage(type, { locationId });
     }
@@ -299,7 +303,7 @@ class Messenger {
      *
      * @returns Returns a promise that resolves to the options data.
      */
-    async getOptionsData(isRefresh: boolean): Promise<ExtractMessageResponse<MessageType.GET_OPTIONS_DATA>> {
+    public async getOptionsData(isRefresh: boolean): Promise<ExtractMessageResponse<MessageType.GET_OPTIONS_DATA>> {
         const type = MessageType.GET_OPTIONS_DATA;
         return this.sendMessage(type, { isRefresh });
     }
@@ -309,7 +313,7 @@ class Messenger {
      *
      * @returns Data needed for the consent page.
      */
-    async getConsentData(): Promise<ExtractMessageResponse<MessageType.GET_CONSENT_DATA>> {
+    public async getConsentData(): Promise<ExtractMessageResponse<MessageType.GET_CONSENT_DATA>> {
         const type = MessageType.GET_CONSENT_DATA;
         return this.sendMessage(type);
     }
@@ -323,7 +327,7 @@ class Messenger {
      *
      * @returns Promise that resolves when consent data is set.
      */
-    async setConsentData(
+    public async setConsentData(
         policyAgreement: boolean,
         helpUsImprove: boolean,
     ): Promise<ExtractMessageResponse<MessageType.SET_CONSENT_DATA>> {
@@ -331,27 +335,27 @@ class Messenger {
         return this.sendMessage(type, { policyAgreement, helpUsImprove });
     }
 
-    async getVpnFailurePage(): Promise<ExtractMessageResponse<MessageType.GET_VPN_FAILURE_PAGE>> {
+    public async getVpnFailurePage(): Promise<ExtractMessageResponse<MessageType.GET_VPN_FAILURE_PAGE>> {
         const type = MessageType.GET_VPN_FAILURE_PAGE;
         return this.sendMessage(type);
     }
 
-    async openOptionsPage(): Promise<ExtractMessageResponse<MessageType.OPEN_OPTIONS_PAGE>> {
+    public async openOptionsPage(): Promise<ExtractMessageResponse<MessageType.OPEN_OPTIONS_PAGE>> {
         const type = MessageType.OPEN_OPTIONS_PAGE;
         return this.sendMessage(type);
     }
 
-    async openFreeGbsPage(): Promise<ExtractMessageResponse<MessageType.OPEN_FREE_GBS_PAGE>> {
+    public async openFreeGbsPage(): Promise<ExtractMessageResponse<MessageType.OPEN_FREE_GBS_PAGE>> {
         const type = MessageType.OPEN_FREE_GBS_PAGE;
         return this.sendMessage(type);
     }
 
-    async getBonusesData(): Promise<ExtractMessageResponse<MessageType.GET_BONUSES_DATA>> {
+    public async getBonusesData(): Promise<ExtractMessageResponse<MessageType.GET_BONUSES_DATA>> {
         const type = MessageType.GET_BONUSES_DATA;
         return this.sendMessage(type);
     }
 
-    async setCurrentLocation(
+    public async setCurrentLocation(
         location: LocationData,
         isSelectedByUser: boolean,
     ): Promise<ExtractMessageResponse<MessageType.SET_SELECTED_LOCATION>> {
@@ -359,12 +363,12 @@ class Messenger {
         return this.sendMessage(type, { location, isSelectedByUser });
     }
 
-    async deauthenticateUser(): Promise<ExtractMessageResponse<MessageType.DEAUTHENTICATE_USER>> {
+    public async deauthenticateUser(): Promise<ExtractMessageResponse<MessageType.DEAUTHENTICATE_USER>> {
         const type = MessageType.DEAUTHENTICATE_USER;
         return this.sendMessage(type);
     }
 
-    async updateAuthCache(
+    public async updateAuthCache(
         field: AuthCacheKey,
         value: AuthCacheValue,
     ): Promise<ExtractMessageResponse<MessageType.UPDATE_AUTH_CACHE>> {
@@ -372,110 +376,110 @@ class Messenger {
         return this.sendMessage(type, { field, value });
     }
 
-    async getCanControlProxy(): Promise<ExtractMessageResponse<MessageType.GET_CAN_CONTROL_PROXY>> {
+    public async getCanControlProxy(): Promise<ExtractMessageResponse<MessageType.GET_CAN_CONTROL_PROXY>> {
         const type = MessageType.GET_CAN_CONTROL_PROXY;
         return this.sendMessage(type);
     }
 
-    async enableProxy(force: boolean): Promise<ExtractMessageResponse<MessageType.ENABLE_PROXY>> {
+    public async enableProxy(force: boolean): Promise<ExtractMessageResponse<MessageType.ENABLE_PROXY>> {
         const type = MessageType.ENABLE_PROXY;
         return this.sendMessage(type, { force });
     }
 
-    async disableProxy(force: boolean): Promise<ExtractMessageResponse<MessageType.DISABLE_PROXY>> {
+    public async disableProxy(force: boolean): Promise<ExtractMessageResponse<MessageType.DISABLE_PROXY>> {
         const type = MessageType.DISABLE_PROXY;
         return this.sendMessage(type, { force });
     }
 
-    async addUrlToExclusions(
+    public async addUrlToExclusions(
         url: string,
     ): Promise<ExtractMessageResponse<MessageType.ADD_URL_TO_EXCLUSIONS>> {
         const type = MessageType.ADD_URL_TO_EXCLUSIONS;
         return this.sendMessage(type, { url });
     }
 
-    async removeExclusion(id: string): Promise<ExtractMessageResponse<MessageType.REMOVE_EXCLUSION>> {
+    public async removeExclusion(id: string): Promise<ExtractMessageResponse<MessageType.REMOVE_EXCLUSION>> {
         const type = MessageType.REMOVE_EXCLUSION;
         return this.sendMessage(type, { id });
     }
 
-    async disableVpnByUrl(
+    public async disableVpnByUrl(
         url: string,
     ): Promise<ExtractMessageResponse<MessageType.DISABLE_VPN_BY_URL>> {
         const type = MessageType.DISABLE_VPN_BY_URL;
         return this.sendMessage(type, { url });
     }
 
-    async enableVpnByUrl(
+    public async enableVpnByUrl(
         url: string,
     ): Promise<ExtractMessageResponse<MessageType.ENABLE_VPN_BY_URL>> {
         const type = MessageType.ENABLE_VPN_BY_URL;
         return this.sendMessage(type, { url });
     }
 
-    async toggleExclusionState(
+    public async toggleExclusionState(
         id: string,
     ): Promise<ExtractMessageResponse<MessageType.TOGGLE_EXCLUSION_STATE>> {
         const type = MessageType.TOGGLE_EXCLUSION_STATE;
         return this.sendMessage(type, { id });
     }
 
-    async restoreExclusions(): Promise<ExtractMessageResponse<MessageType.RESTORE_EXCLUSIONS>> {
+    public async restoreExclusions(): Promise<ExtractMessageResponse<MessageType.RESTORE_EXCLUSIONS>> {
         const type = MessageType.RESTORE_EXCLUSIONS;
         return this.sendMessage(type);
     }
 
-    async toggleServices(ids: string[]): Promise<ExtractMessageResponse<MessageType.TOGGLE_SERVICES>> {
+    public async toggleServices(ids: string[]): Promise<ExtractMessageResponse<MessageType.TOGGLE_SERVICES>> {
         const type = MessageType.TOGGLE_SERVICES;
         return this.sendMessage(type, { ids });
     }
 
-    async resetServiceData(
+    public async resetServiceData(
         serviceId: string,
     ): Promise<ExtractMessageResponse<MessageType.RESET_SERVICE_DATA>> {
         const type = MessageType.RESET_SERVICE_DATA;
         return this.sendMessage(type, { serviceId });
     }
 
-    async clearExclusionsList():
+    public async clearExclusionsList():
     Promise<ExtractMessageResponse<MessageType.CLEAR_EXCLUSIONS_LIST>> {
         const type = MessageType.CLEAR_EXCLUSIONS_LIST;
         return this.sendMessage(type);
     }
 
-    async disableOtherExtensions():
+    public async disableOtherExtensions():
     Promise<ExtractMessageResponse<MessageType.DISABLE_OTHER_EXTENSIONS>> {
         const type = MessageType.DISABLE_OTHER_EXTENSIONS;
         return this.sendMessage(type);
     }
 
-    async isAuthenticated(): Promise<ExtractMessageResponse<MessageType.IS_AUTHENTICATED>> {
+    public async isAuthenticated(): Promise<ExtractMessageResponse<MessageType.IS_AUTHENTICATED>> {
         const type = MessageType.IS_AUTHENTICATED;
         return this.sendMessage(type);
     }
 
-    async clearPermissionsError(): Promise<ExtractMessageResponse<MessageType.CLEAR_PERMISSIONS_ERROR>> {
+    public async clearPermissionsError(): Promise<ExtractMessageResponse<MessageType.CLEAR_PERMISSIONS_ERROR>> {
         const type = MessageType.CLEAR_PERMISSIONS_ERROR;
         return this.sendMessage(type);
     }
 
-    async checkPermissions(): Promise<ExtractMessageResponse<MessageType.CHECK_PERMISSIONS>> {
+    public async checkPermissions(): Promise<ExtractMessageResponse<MessageType.CHECK_PERMISSIONS>> {
         const type = MessageType.CHECK_PERMISSIONS;
         return this.sendMessage(type);
     }
 
-    async getExclusionsInverted():
+    public async getExclusionsInverted():
     Promise<ExtractMessageResponse<MessageType.GET_EXCLUSIONS_INVERTED>> {
         const type = MessageType.GET_EXCLUSIONS_INVERTED;
         return this.sendMessage(type);
     }
 
-    async getSetting(settingId: string): Promise<ExtractMessageResponse<MessageType.GET_SETTING_VALUE>> {
+    public async getSetting(settingId: string): Promise<ExtractMessageResponse<MessageType.GET_SETTING_VALUE>> {
         const type = MessageType.GET_SETTING_VALUE;
         return this.sendMessage(type, { settingId });
     }
 
-    async setSetting(
+    public async setSetting(
         settingId: string,
         value: boolean | string,
     ): Promise<ExtractMessageResponse<MessageType.SET_SETTING_VALUE>> {
@@ -483,7 +487,7 @@ class Messenger {
         return this.sendMessage(type, { settingId, value });
     }
 
-    async getUsername(): Promise<ExtractMessageResponse<MessageType.GET_USERNAME>> {
+    public async getUsername(): Promise<ExtractMessageResponse<MessageType.GET_USERNAME>> {
         const type = MessageType.GET_USERNAME;
         return this.sendMessage(type);
     }
@@ -493,78 +497,78 @@ class Messenger {
      *
      * @param newMarketingConsent New marketing consent value.
      */
-    async updateMarketingConsent(
+    public async updateMarketingConsent(
         newMarketingConsent: boolean,
     ): Promise<ExtractMessageResponse<MessageType.UPDATE_MARKETING_CONSENT>> {
         const type = MessageType.UPDATE_MARKETING_CONSENT;
         return this.sendMessage(type, { newMarketingConsent });
     }
 
-    async getExclusionsData(): Promise<ExtractMessageResponse<MessageType.GET_EXCLUSIONS_DATA>> {
+    public async getExclusionsData(): Promise<ExtractMessageResponse<MessageType.GET_EXCLUSIONS_DATA>> {
         const type = MessageType.GET_EXCLUSIONS_DATA;
         return this.sendMessage(type);
     }
 
-    async setExclusionsMode(
+    public async setExclusionsMode(
         mode: ExclusionsMode,
     ): Promise<ExtractMessageResponse<MessageType.SET_EXCLUSIONS_MODE>> {
         const type = MessageType.SET_EXCLUSIONS_MODE;
         return this.sendMessage(type, { mode });
     }
 
-    async getSelectedLocation(): Promise<ExtractMessageResponse<MessageType.GET_SELECTED_LOCATION>> {
+    public async getSelectedLocation(): Promise<ExtractMessageResponse<MessageType.GET_SELECTED_LOCATION>> {
         const type = MessageType.GET_SELECTED_LOCATION;
         return this.sendMessage(type);
     }
 
-    async checkIsPremiumToken():
+    public async checkIsPremiumToken():
     Promise<ExtractMessageResponse<MessageType.CHECK_IS_PREMIUM_TOKEN>> {
         const type = MessageType.CHECK_IS_PREMIUM_TOKEN;
         return this.sendMessage(type);
     }
 
-    async hideRateModalAfterCancel():
+    public async hideRateModalAfterCancel():
     Promise<ExtractMessageResponse<MessageType.HIDE_RATE_MODAL_AFTER_CANCEL>> {
         const type = MessageType.HIDE_RATE_MODAL_AFTER_CANCEL;
         return this.sendMessage(type);
     }
 
-    async hideRateModalAfterRate():
+    public async hideRateModalAfterRate():
     Promise<ExtractMessageResponse<MessageType.HIDE_RATE_MODAL_AFTER_RATE>> {
         const type = MessageType.HIDE_RATE_MODAL_AFTER_RATE;
         return this.sendMessage(type);
     }
 
-    async hideMobileEdgePromoBanner():
+    public async hideMobileEdgePromoBanner():
     Promise<ExtractMessageResponse<MessageType.HIDE_MOBILE_EDGE_PROMO_BANNER>> {
         const type = MessageType.HIDE_MOBILE_EDGE_PROMO_BANNER;
         return this.sendMessage(type);
     }
 
-    async setNotificationViewed(
+    public async setNotificationViewed(
         withDelay: boolean,
     ): Promise<ExtractMessageResponse<MessageType.SET_NOTIFICATION_VIEWED>> {
         const type = MessageType.SET_NOTIFICATION_VIEWED;
         return this.sendMessage(type, { withDelay });
     }
 
-    async setHintPopupViewed(): Promise<ExtractMessageResponse<MessageType.SET_HINT_POPUP_VIEWED>> {
+    public async setHintPopupViewed(): Promise<ExtractMessageResponse<MessageType.SET_HINT_POPUP_VIEWED>> {
         const type = MessageType.SET_HINT_POPUP_VIEWED;
         return this.sendMessage(type);
     }
 
-    async markRegionNoticeAsShown():
+    public async markRegionNoticeAsShown():
     Promise<ExtractMessageResponse<MessageType.MARK_REGION_NOTICE_AS_SHOWN>> {
         const type = MessageType.MARK_REGION_NOTICE_AS_SHOWN;
         return this.sendMessage(type);
     }
 
-    async openTab(url: string): Promise<ExtractMessageResponse<MessageType.OPEN_TAB>> {
+    public async openTab(url: string): Promise<ExtractMessageResponse<MessageType.OPEN_TAB>> {
         const type = MessageType.OPEN_TAB;
         return this.sendMessage(type, { url });
     }
 
-    async reportBug(
+    public async reportBug(
         email: string,
         message: string,
         includeLog: boolean,
@@ -577,7 +581,7 @@ class Messenger {
      * Opens Premium Promo Page in new tab.
      * @returns Promise that resolves when Premium Promo Page is opened.
      */
-    async openPremiumPromoPage():
+    public async openPremiumPromoPage():
     Promise<ExtractMessageResponse<MessageType.OPEN_FORWARDER_URL_WITH_EMAIL>> {
         return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.UpgradeLicense);
     }
@@ -586,7 +590,7 @@ class Messenger {
      * Opens Subscribe Promo Page in new tab.
      * @returns Promise that resolves when Subscribe Promo Page is opened.
      */
-    async openSubscribePromoPage():
+    public async openSubscribePromoPage():
     Promise<ExtractMessageResponse<MessageType.OPEN_FORWARDER_URL_WITH_EMAIL>> {
         return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.Subscribe);
     }
@@ -595,7 +599,7 @@ class Messenger {
      * Opens Promote Socials Page in new tab.
      * @returns Promise that resolves when Promote Socials Page is opened.
      */
-    async openPromoteSocialsPage():
+    public async openPromoteSocialsPage():
     Promise<ExtractMessageResponse<MessageType.OPEN_FORWARDER_URL_WITH_EMAIL>> {
         return this.openForwarderUrlWithEmail(ForwarderUrlQueryKey.PromoteSocials);
     }
@@ -607,7 +611,7 @@ class Messenger {
      *
      * @returns Promise that resolves when forwarder URL is opened.
      */
-    async openForwarderUrlWithEmail(
+    public async openForwarderUrlWithEmail(
         forwarderUrlQueryKey: ForwarderUrlQueryKey,
     ): Promise<ExtractMessageResponse<MessageType.OPEN_FORWARDER_URL_WITH_EMAIL>> {
         const type = MessageType.OPEN_FORWARDER_URL_WITH_EMAIL;
@@ -622,66 +626,66 @@ class Messenger {
      *
      * @returns Promise that resolves when flag is set.
      */
-    async setFlag(key: string, value: boolean): Promise<ExtractMessageResponse<MessageType.SET_FLAG>> {
+    public async setFlag(key: string, value: boolean): Promise<ExtractMessageResponse<MessageType.SET_FLAG>> {
         const type = MessageType.SET_FLAG;
         return this.sendMessage(type, { key, value });
     }
 
-    getGeneralExclusions():
+    public getGeneralExclusions():
     Promise<ExtractMessageResponse<MessageType.GET_GENERAL_EXCLUSIONS>> {
         const type = MessageType.GET_GENERAL_EXCLUSIONS;
         return this.sendMessage(type);
     }
 
-    getSelectiveExclusions():
+    public getSelectiveExclusions():
     Promise<ExtractMessageResponse<MessageType.GET_SELECTIVE_EXCLUSIONS>> {
         const type = MessageType.GET_SELECTIVE_EXCLUSIONS;
         return this.sendMessage(type);
     }
 
-    addRegularExclusions(
+    public addRegularExclusions(
         exclusions: string[],
     ): Promise<ExtractMessageResponse<MessageType.ADD_REGULAR_EXCLUSIONS>> {
         const type = MessageType.ADD_REGULAR_EXCLUSIONS;
         return this.sendMessage(type, { exclusions });
     }
 
-    addSelectiveExclusions(
+    public addSelectiveExclusions(
         exclusions: string[],
     ): Promise<ExtractMessageResponse<MessageType.ADD_SELECTIVE_EXCLUSIONS>> {
         const type = MessageType.ADD_SELECTIVE_EXCLUSIONS;
         return this.sendMessage(type, { exclusions });
     }
 
-    addExclusionsMap(
+    public addExclusionsMap(
         exclusionsMap: ExclusionsMap,
     ): Promise<ExtractMessageResponse<MessageType.ADD_EXCLUSIONS_MAP>> {
         const type = MessageType.ADD_EXCLUSIONS_MAP;
         return this.sendMessage(type, { exclusionsMap });
     }
 
-    addCustomDnsServer(
+    public addCustomDnsServer(
         dnsServerData: DnsServerData,
     ): Promise<ExtractMessageResponse<MessageType.ADD_CUSTOM_DNS_SERVER>> {
         const type = MessageType.ADD_CUSTOM_DNS_SERVER;
         return this.sendMessage(type, { dnsServerData });
     }
 
-    editCustomDnsServer(
+    public editCustomDnsServer(
         dnsServerData: DnsServerData,
     ): Promise<ExtractMessageResponse<MessageType.EDIT_CUSTOM_DNS_SERVER>> {
         const type = MessageType.EDIT_CUSTOM_DNS_SERVER;
         return this.sendMessage(type, { dnsServerData });
     }
 
-    removeCustomDnsServer(
+    public removeCustomDnsServer(
         dnsServerId: string,
     ): Promise<ExtractMessageResponse<MessageType.REMOVE_CUSTOM_DNS_SERVER>> {
         const type = MessageType.REMOVE_CUSTOM_DNS_SERVER;
         return this.sendMessage(type, { dnsServerId });
     }
 
-    restoreCustomDnsServersData():
+    public restoreCustomDnsServersData():
     Promise<ExtractMessageResponse<MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA>> {
         const type = MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA;
         return this.sendMessage(type);
@@ -692,7 +696,7 @@ class Messenger {
      *
      * @returns Logs from the background page.
      */
-    getLogs(): Promise<ExtractMessageResponse<MessageType.GET_LOGS>> {
+    public getLogs(): Promise<ExtractMessageResponse<MessageType.GET_LOGS>> {
         const type = MessageType.GET_LOGS;
         return this.sendMessage(type);
     }
@@ -702,7 +706,7 @@ class Messenger {
      *
      * @returns App version from background page.
      */
-    getAppVersion(): Promise<ExtractMessageResponse<MessageType.GET_APP_VERSION>> {
+    public getAppVersion(): Promise<ExtractMessageResponse<MessageType.GET_APP_VERSION>> {
         const type = MessageType.GET_APP_VERSION;
         return this.sendMessage(type);
     }
@@ -712,7 +716,7 @@ class Messenger {
      *
      * @returns Promise that resolves when locations are refreshed.
      */
-    refreshLocations(): Promise<ExtractMessageResponse<MessageType.REFRESH_LOCATIONS>> {
+    public refreshLocations(): Promise<ExtractMessageResponse<MessageType.REFRESH_LOCATIONS>> {
         const type = MessageType.REFRESH_LOCATIONS;
         return this.sendMessage(type);
     }
@@ -727,7 +731,7 @@ class Messenger {
      *
      * @returns Promise that resolves when page view telemetry event is sent.
      */
-    async sendPageViewTelemetryEvent(
+    public async sendPageViewTelemetryEvent(
         screenName: TelemetryScreenName,
         pageId: string,
     ): Promise<ExtractMessageResponse<MessageType.TELEMETRY_EVENT_SEND_PAGE_VIEW>> {
@@ -745,7 +749,7 @@ class Messenger {
      * @param screenName Screen that action is related to.
      * @param label Optional label for the event.
      */
-    async sendCustomTelemetryEvent<T extends TelemetryActionName>(
+    public async sendCustomTelemetryEvent<T extends TelemetryActionName>(
         actionName: T,
         screenName: TelemetryActionToScreenMap[T],
         label?: string,
@@ -765,7 +769,7 @@ class Messenger {
      *
      * @returns Promise that resolves when opened page is removed.
      */
-    async removeTelemetryOpenedPage(
+    public async removeTelemetryOpenedPage(
         pageId: string,
     ): Promise<ExtractMessageResponse<MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE>> {
         const type = MessageType.TELEMETRY_EVENT_REMOVE_OPENED_PAGE;
@@ -779,7 +783,7 @@ class Messenger {
      *
      * @returns Stats data for the given range.
      */
-    async getStatsByRange(
+    public async getStatsByRange(
         range: StatisticsRange,
     ): Promise<ExtractMessageResponse<MessageType.STATISTICS_GET_BY_RANGE>> {
         const type = MessageType.STATISTICS_GET_BY_RANGE;
@@ -794,7 +798,7 @@ class Messenger {
      *
      * @returns Promise that resolves when statistics are cleared.
      */
-    async clearStatistics(): Promise<ExtractMessageResponse<MessageType.STATISTICS_CLEAR>> {
+    public async clearStatistics(): Promise<ExtractMessageResponse<MessageType.STATISTICS_CLEAR>> {
         const type = MessageType.STATISTICS_CLEAR;
         return this.sendMessage(type);
     }
@@ -805,7 +809,7 @@ class Messenger {
      * @param isDisabled If `true`, statistics will be disabled and no data will be collected.
      * @returns Promise that resolves when statistics disabled state is set.
      */
-    async setStatisticsIsDisabled(
+    public async setStatisticsIsDisabled(
         isDisabled: boolean,
     ): Promise<ExtractMessageResponse<MessageType.STATISTICS_SET_IS_DISABLED>> {
         const type = MessageType.STATISTICS_SET_IS_DISABLED;
@@ -817,7 +821,9 @@ class Messenger {
      *
      * @param action Action to send.
      */
-    async sendWebAuthAction(action: WebAuthAction): Promise<ExtractMessageResponse<MessageType.SEND_WEB_AUTH_ACTION>> {
+    public async sendWebAuthAction(
+        action: WebAuthAction,
+    ): Promise<ExtractMessageResponse<MessageType.SEND_WEB_AUTH_ACTION>> {
         const type = MessageType.SEND_WEB_AUTH_ACTION;
         return this.sendMessage(type, { action });
     }
@@ -827,7 +833,7 @@ class Messenger {
      *
      * @returns Promise with all required data for onboarding and upgrade screen.
      */
-    async getStartupData(): Promise<ExtractMessageResponse<MessageType.GET_STARTUP_DATA>> {
+    public async getStartupData(): Promise<ExtractMessageResponse<MessageType.GET_STARTUP_DATA>> {
         const type = MessageType.GET_STARTUP_DATA;
         return this.sendMessage(type);
     }
@@ -837,7 +843,7 @@ class Messenger {
      *
      * @param language Locale code (e.g. 'de') or 'auto' for browser default.
      */
-    async setInterfaceLanguage(
+    public async setInterfaceLanguage(
         language: ExtractMessageData<MessageType.SET_INTERFACE_LANGUAGE>['language'],
     ): Promise<ExtractMessageResponse<MessageType.SET_INTERFACE_LANGUAGE>> {
         const type = MessageType.SET_INTERFACE_LANGUAGE;
@@ -849,7 +855,7 @@ class Messenger {
      *
      * @returns The current locale code or 'auto'.
      */
-    async getInterfaceLanguage(): Promise<ExtractMessageResponse<MessageType.GET_INTERFACE_LANGUAGE>> {
+    private async getInterfaceLanguage(): Promise<ExtractMessageResponse<MessageType.GET_INTERFACE_LANGUAGE>> {
         const type = MessageType.GET_INTERFACE_LANGUAGE;
         return this.sendMessage(type);
     }

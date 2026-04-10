@@ -3,11 +3,11 @@ import { type CanControlProxy } from '../schema';
 import { type SettingsInterface } from '../settings/settings';
 
 export class AppStatus {
-    appVersion: string;
+    public appVersion: string;
 
-    proxy: ExtensionProxyInterface;
+    public proxy: ExtensionProxyInterface;
 
-    settings: SettingsInterface;
+    public settings: SettingsInterface;
 
     constructor(proxy: ExtensionProxyInterface, settings: SettingsInterface, version: string) {
         this.appVersion = version;
@@ -15,7 +15,7 @@ export class AppStatus {
         this.settings = settings;
     }
 
-    async canControlProxy(): Promise<CanControlProxy> {
+    public async canControlProxy(): Promise<CanControlProxy> {
         const controlStatus = await this.proxy.canControlProxy();
         if (controlStatus.canControlProxy) {
             return controlStatus;
@@ -30,7 +30,7 @@ export class AppStatus {
         return controlStatus;
     }
 
-    get version(): string {
+    public get version(): string {
         return this.appVersion;
     }
 }

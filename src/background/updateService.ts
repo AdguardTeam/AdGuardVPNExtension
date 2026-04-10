@@ -26,11 +26,11 @@ class UpdateService implements UpdateServiceInterface {
     private state = new StateData(StorageKey.UpdateServiceState);
 
     /** @inheritdoc */
-    isFirstRun: boolean;
+    public isFirstRun: boolean;
 
-    isUpdate: boolean;
+    private isUpdate: boolean;
 
-    init = async (): Promise<void> => {
+    public init = async (): Promise<void> => {
         let { prevVersion, currentVersion } = await this.state.get();
 
         const partialStateToSave: Partial<UpdateServiceState> = {};
@@ -55,20 +55,20 @@ class UpdateService implements UpdateServiceInterface {
         await this.setAppVersionInStorage(currentVersion);
     };
 
-    getAppVersionFromStorage = async (): Promise<string | undefined> => {
+    public getAppVersionFromStorage = async (): Promise<string | undefined> => {
         return browserApi.storage.get(APP_VERSION_KEY);
     };
 
-    getAppVersionFromManifest = async (): Promise<string> => {
+    public getAppVersionFromManifest = async (): Promise<string> => {
         return browserApi.runtime.getManifest().version;
     };
 
-    setAppVersionInStorage = async (appVersion: string): Promise<void> => {
+    public setAppVersionInStorage = async (appVersion: string): Promise<void> => {
         await this.state.set({ prevVersion: appVersion });
         return browserApi.storage.set(APP_VERSION_KEY, appVersion);
     };
 
-    setIsFirstRunFalse = (): void => {
+    public setIsFirstRunFalse = (): void => {
         this.isFirstRun = false;
     };
 }

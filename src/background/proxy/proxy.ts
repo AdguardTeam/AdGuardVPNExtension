@@ -54,14 +54,14 @@ class ExtensionProxy implements ExtensionProxyInterface {
      */
     private proxyState = new StateData(StorageKey.ProxyState);
 
-    async init(): Promise<void> {
+    public async init(): Promise<void> {
         const { currentConfig } = await this.proxyState.get();
         if (!currentConfig) {
             await this.updateConfig();
         }
     }
 
-    async turnOn(): Promise<void> {
+    public async turnOn(): Promise<void> {
         const { canControlProxy, cause } = await this.canControlProxy();
 
         if (!canControlProxy) {
@@ -81,7 +81,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         proxyApi.onProxyError.addListener(ExtensionProxy.errorHandler);
     }
 
-    async turnOff(): Promise<void> {
+    public async turnOff(): Promise<void> {
         const { canControlProxy, cause } = await this.canControlProxy();
 
         if (!canControlProxy) {
@@ -103,7 +103,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         log.info('[vpn.ExtensionProxy.turnOff]: Proxy turned off');
     }
 
-    async canControlProxy(): Promise<CanControlProxy> {
+    public async canControlProxy(): Promise<CanControlProxy> {
         const { levelOfControl } = await proxyApi.proxyGet();
         switch (levelOfControl) {
             case LEVELS_OF_CONTROL.NOT_CONTROLLABLE:
@@ -115,11 +115,11 @@ class ExtensionProxy implements ExtensionProxyInterface {
         }
     }
 
-    static errorHandler(details: any): void {
+    private static errorHandler(details: any): void {
         log.debug('[vpn.ExtensionProxy.errorHandler]: ', JSON.stringify(details));
     }
 
-    async getConfig(): Promise<ProxyConfigInterface> {
+    public async getConfig(): Promise<ProxyConfigInterface> {
         const {
             bypassList,
             endpointsTldExclusions,
@@ -144,12 +144,12 @@ class ExtensionProxy implements ExtensionProxyInterface {
         };
     }
 
-    async updateConfig(): Promise<void> {
+    private async updateConfig(): Promise<void> {
         const newConfig = await this.getConfig();
         await this.proxyState.update({ currentConfig: newConfig });
     }
 
-    async applyConfig(): Promise<void> {
+    public async applyConfig(): Promise<void> {
         await this.updateConfig();
 
         const { isActive, currentConfig } = await this.proxyState.get();
@@ -158,17 +158,17 @@ class ExtensionProxy implements ExtensionProxyInterface {
         }
     }
 
-    setEndpointsTldExclusions = async (endpointsTldExclusions: string[] = []): Promise<void> => {
+    public setEndpointsTldExclusions = async (endpointsTldExclusions: string[] = []): Promise<void> => {
         await this.proxyState.update({ endpointsTldExclusions });
         await this.applyConfig();
     };
 
-    setBypassList = async (exclusions: string[] = [], inverted = false): Promise<void> => {
+    public setBypassList = async (exclusions: string[] = [], inverted = false): Promise<void> => {
         await this.proxyState.update({ bypassList: exclusions, inverted });
         await this.applyConfig();
     };
 
-    setHost = async (domainName: string): Promise<void> => {
+    private setHost = async (domainName: string): Promise<void> => {
         if (!domainName) {
             return;
         }
@@ -176,7 +176,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         await this.applyConfig();
     };
 
-    setAccessCredentials = async (
+    public setAccessCredentials = async (
         credentials: AccessCredentials,
     ): Promise<{ domainName: string }> => {
         const endpoint = await this.getCurrentEndpoint();
@@ -189,7 +189,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         return { domainName };
     };
 
-    getDomainName = async (): Promise<string | null> => {
+    public getDomainName = async (): Promise<string | null> => {
         const endpoint = await this.getCurrentEndpoint();
         if (!endpoint) {
             return null;
@@ -197,7 +197,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         return endpoint.domainName;
     };
 
-    setCurrentEndpoint = async (
+    public setCurrentEndpoint = async (
         endpoint: EndpointInterface,
         location: LocationInterface,
     ): Promise<{ domainName: string }> => {
@@ -210,7 +210,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         return { domainName };
     };
 
-    getCurrentEndpoint = async (): Promise<EndpointInterface | null> => {
+    private getCurrentEndpoint = async (): Promise<EndpointInterface | null> => {
         let { currentEndpoint } = await this.proxyState.get();
         if (!currentEndpoint) {
             currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY) || null;
@@ -219,7 +219,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         return currentEndpoint;
     };
 
-    resetSettings = async (): Promise<void> => {
+    public resetSettings = async (): Promise<void> => {
         await this.turnOff();
         await browserApi.storage.remove(CURRENT_ENDPOINT_KEY);
         await this.proxyState.update({

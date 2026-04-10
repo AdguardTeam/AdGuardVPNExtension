@@ -59,7 +59,7 @@ class I18n {
      *
      * @returns The created store instance.
      */
-    connectStore<T extends LocaleStore>(
+    public connectStore<T extends LocaleStore>(
         StoreClass: new (service: TranslationService) => T,
     ): T {
         const store = new StoreClass(this.translationService);
@@ -77,7 +77,7 @@ class I18n {
      *
      * @param savedPreference Persisted preference ('auto' or a locale code). Defaults to 'auto'.
      */
-    async init(savedPreference?: LocalePreference): Promise<void> {
+    public async init(savedPreference?: LocalePreference): Promise<void> {
         if (this.store) {
             await this.store.init(savedPreference);
         } else {
@@ -100,7 +100,7 @@ class I18n {
      *
      * @param preference 'auto' or a specific locale code (e.g. 'de').
      */
-    async setLocalePreference(preference: LocalePreference): Promise<void> {
+    public async setLocalePreference(preference: LocalePreference): Promise<void> {
         if (this.store) {
             await this.store.setLocalePreference(preference);
         } else {
@@ -128,7 +128,7 @@ class I18n {
      *
      * @throws If the key does not exist in the English base messages (after init).
      */
-    getMessage(key: string): string {
+    public getMessage(key: string): string {
         // Read locale first - when a store is connected this creates a MobX
         // dependency so the calling observer re-renders on locale change.
         const locale = this.store
@@ -151,7 +151,7 @@ class I18n {
      * @returns Lowercase locale code matching the `AvailableLocales` enum
      *          in `@adguard/translate` (e.g. 'de', 'pt_br', 'zh_cn').
      */
-    getUILanguage(): string {
+    public getUILanguage(): string {
         const locale = this.store
             ? this.store.currentLocale
             : this.currentLocale;
@@ -173,7 +173,7 @@ class I18n {
      *
      * @returns The English base message, or empty string if not found.
      */
-    getBaseMessage(key: string): string {
+    public getBaseMessage(key: string): string {
         if (!this.initialized) {
             // In tests, browser.i18n is mocked and returns empty strings.
             // Return the raw key so @adguard/translate has a fallback message
@@ -192,7 +192,7 @@ class I18n {
      *
      * @returns The base UI language code ('en').
      */
-    getBaseUILanguage(): string {
+    public getBaseUILanguage(): string {
         return BASE_LOCALE;
     }
 
@@ -203,7 +203,7 @@ class I18n {
      *
      * @returns The per-context TranslationService instance.
      */
-    getTranslationService(): TranslationService {
+    private getTranslationService(): TranslationService {
         return this.translationService;
     }
 }

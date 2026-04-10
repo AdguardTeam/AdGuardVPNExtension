@@ -185,9 +185,9 @@ interface AccountApiInterface {
 }
 
 class AccountApi extends Api implements AccountApiInterface {
-    GET_VPN_TOKEN: RequestProps = { path: 'products/licenses/vpn.json', method: 'GET' };
+    private GET_VPN_TOKEN: RequestProps = { path: 'products/licenses/vpn.json', method: 'GET' };
 
-    getVpnToken(accessToken: string): Promise<VpnTokenData> {
+    public getVpnToken(accessToken: string): Promise<VpnTokenData> {
         const { path, method } = this.GET_VPN_TOKEN;
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
@@ -195,9 +195,9 @@ class AccountApi extends Api implements AccountApiInterface {
         return this.makeRequest<VpnTokenData>(path, config, method);
     }
 
-    GET_ACCOUNT_INFO: RequestProps = { path: 'account/info', method: 'GET' };
+    private GET_ACCOUNT_INFO: RequestProps = { path: 'account/info', method: 'GET' };
 
-    getAccountInfo(accessToken: string): Promise<AccountInfo> {
+    public getAccountInfo(accessToken: string): Promise<AccountInfo> {
         const { path, method } = this.GET_ACCOUNT_INFO;
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
@@ -205,9 +205,9 @@ class AccountApi extends Api implements AccountApiInterface {
         return this.makeRequest<AccountInfo>(path, config, method);
     }
 
-    GET_ACCOUNT_SETTINGS: RequestProps = { path: 'account/settings', method: 'GET' };
+    private GET_ACCOUNT_SETTINGS: RequestProps = { path: 'account/settings', method: 'GET' };
 
-    getAccountSettings = async (accessToken: string): Promise<AccountSettings> => {
+    public getAccountSettings = async (accessToken: string): Promise<AccountSettings> => {
         const { path, method } = this.GET_ACCOUNT_SETTINGS;
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
@@ -215,9 +215,9 @@ class AccountApi extends Api implements AccountApiInterface {
         return this.makeRequest<AccountSettings>(path, config, method);
     };
 
-    UPDATE_MARKETING_CONSENT: RequestProps = { path: 'account/update_marketing_consent', method: 'POST' };
+    private UPDATE_MARKETING_CONSENT: RequestProps = { path: 'account/update_marketing_consent', method: 'POST' };
 
-    updateMarketingConsent = async (accessToken: string, marketingConsent: boolean): Promise<void> => {
+    public updateMarketingConsent = async (accessToken: string, marketingConsent: boolean): Promise<void> => {
         const { path, method } = this.UPDATE_MARKETING_CONSENT;
         const config = {
             headers: {
@@ -229,9 +229,9 @@ class AccountApi extends Api implements AccountApiInterface {
         return this.makeRequest(path, config, method);
     };
 
-    GET_AVAILABLE_BONUSES: RequestProps = { path: 'vpn/bonuses', method: 'GET' };
+    private GET_AVAILABLE_BONUSES: RequestProps = { path: 'vpn/bonuses', method: 'GET' };
 
-    getAvailableBonuses = async (accessToken: string): Promise<BonusesData> => {
+    public getAvailableBonuses = async (accessToken: string): Promise<BonusesData> => {
         const { path, method } = this.GET_AVAILABLE_BONUSES;
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },

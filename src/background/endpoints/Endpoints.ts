@@ -85,7 +85,7 @@ class Endpoints implements EndpointsInterface {
      * @param endpoint
      * @param location
      */
-    reconnectEndpoint = async (
+    public reconnectEndpoint = async (
         endpoint: EndpointInterface,
         location: LocationInterface,
     ): Promise<void> => {
@@ -98,12 +98,12 @@ class Endpoints implements EndpointsInterface {
 
     /**
      * Endpoint with same city name.
-     * @param locations - locations list
+     * @param locations locations list
      * @param targetLocation
      *
      * @returns Closest endpoint, firstly checking if locations object includes endpoint with same city name.
      */
-    getClosestLocation = (
+    public getClosestLocation = (
         locations: LocationInterface[],
         targetLocation: LocationInterface,
     ): LocationInterface => {
@@ -121,7 +121,7 @@ class Endpoints implements EndpointsInterface {
     /**
      * Updates selected location and reconnect to endpoint if it was updated as well
      */
-    async updateSelectedLocation(): Promise<void> {
+    public async updateSelectedLocation(): Promise<void> {
         const updatedLocation = await locationsService.updateSelectedLocation();
         // reconnect to endpoint if selected location was updated
         if (connectivityService.isVPNConnected() && updatedLocation?.endpoint) {
@@ -134,7 +134,7 @@ class Endpoints implements EndpointsInterface {
      *
      * @returns Promise with locations list or null if there were errors.
      */
-    getLocationsFromServer = async (): Promise<Location[] | null> => {
+    public getLocationsFromServer = async (): Promise<Location[] | null> => {
         let vpnToken;
 
         try {
@@ -150,7 +150,7 @@ class Endpoints implements EndpointsInterface {
         return locations;
     };
 
-    vpnTokenChanged = (oldVpnToken: VpnTokenData, newVpnToken: VpnTokenData): boolean => {
+    private vpnTokenChanged = (oldVpnToken: VpnTokenData, newVpnToken: VpnTokenData): boolean => {
         if (!oldVpnToken || !newVpnToken) {
             return false;
         }
@@ -162,7 +162,7 @@ class Endpoints implements EndpointsInterface {
      *
      * @returns Promise with vpn token and credentials.
      */
-    refreshTokens = async (): Promise<{
+    public refreshTokens = async (): Promise<{
         vpnToken: VpnTokenData,
         vpnCredentials: CredentialsDataInterface,
     }> => {
@@ -180,7 +180,7 @@ class Endpoints implements EndpointsInterface {
      * 3. Update vpnInfo
      * 4. Check if user didn't get over traffic limits
      */
-    refreshData = async (): Promise<void> => {
+    public refreshData = async (): Promise<void> => {
         try {
             const appId = await credentials.getAppId();
             const { vpnToken } = await this.refreshTokens();
@@ -200,7 +200,7 @@ class Endpoints implements EndpointsInterface {
      *
      * @returns List of locations which fit to token.
      */
-    filterLocationsMatchingToken = (
+    private filterLocationsMatchingToken = (
         locations: LocationInterface[],
         isPremiumToken: boolean,
     ): LocationInterface[] => {
@@ -214,7 +214,7 @@ class Endpoints implements EndpointsInterface {
         return filteredLocations;
     };
 
-    updateEndpointsExclusions = async (locations: LocationInterface[]): Promise<void> => {
+    private updateEndpointsExclusions = async (locations: LocationInterface[]): Promise<void> => {
         const endpoints = flattenDeep(locations.map((location) => {
             return location.endpoints;
         }));
@@ -233,7 +233,7 @@ class Endpoints implements EndpointsInterface {
      * Updates locations list
      * @param shouldReconnect
      */
-    updateLocations = async (shouldReconnect = false): Promise<void> => {
+    public updateLocations = async (shouldReconnect = false): Promise<void> => {
         const locations = await this.getLocationsFromServer();
 
         if (!locations || isEmpty(locations)) {
@@ -295,7 +295,7 @@ class Endpoints implements EndpointsInterface {
         }
     };
 
-    getVpnInfoRemotely = async (): Promise<VpnExtensionInfoInterface | null> => {
+    public getVpnInfoRemotely = async (): Promise<VpnExtensionInfoInterface | null> => {
         let vpnToken;
 
         try {
@@ -344,7 +344,7 @@ class Endpoints implements EndpointsInterface {
      *
      * @returns Cached vpn info or `null` if there was an error.
      */
-    getVpnInfo = async (): Promise<VpnExtensionInfoInterface | null> => {
+    public getVpnInfo = async (): Promise<VpnExtensionInfoInterface | null> => {
         const { vpnInfo } = await this.endpointsState.get();
 
         // We check isInit first, because the vpnInfo getter
@@ -375,12 +375,12 @@ class Endpoints implements EndpointsInterface {
         return remoteVpnInfo;
     };
 
-    getLocations = async (): Promise<LocationWithPing[]> => {
+    public getLocations = async (): Promise<LocationWithPing[]> => {
         const locations = await locationsService.getLocationsWithPing();
         return locations;
     };
 
-    getSelectedLocation = async (): Promise<LocationWithPing | null> => {
+    public getSelectedLocation = async (): Promise<LocationWithPing | null> => {
         const selectedLocation = await locationsService.getSelectedLocation();
         const isVPNDisabled = connectivityService.isVPNDisconnectedIdle() || connectivityService.isVPNIdle();
         const doesUserPreferFastestLocation = settings.getQuickConnectSetting() === QuickConnectSetting.FastestLocation;
@@ -431,7 +431,7 @@ class Endpoints implements EndpointsInterface {
         return new LocationWithPing(fastestLocation);
     };
 
-    getVpnFailurePage = async (): Promise<string> => {
+    public getVpnFailurePage = async (): Promise<string> => {
         let vpnToken;
         try {
             vpnToken = await credentials.gainValidVpnToken();
@@ -486,11 +486,11 @@ class Endpoints implements EndpointsInterface {
         return `${vpnFailurePage}${separator}${queryString}`;
     };
 
-    async clearVpnInfo(): Promise<void> {
+    private async clearVpnInfo(): Promise<void> {
         await this.endpointsState.update({ vpnInfo: null });
     }
 
-    async init(): Promise<void> {
+    public async init(): Promise<void> {
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
             this.refreshData,

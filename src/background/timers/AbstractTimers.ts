@@ -14,25 +14,25 @@ export interface TimersInterface {
  * from './Mv2Timers' or './Mv3Timers'
  */
 class AbstractTimers implements TimersInterface {
-    throwError(): void {
+    private throwError(): void {
         throw new Error('Seems like webpack didn\'t inject proper timers');
     }
 
-    setTimeout = (callback: () => void, timeout: number): number => {
+    public setTimeout = (callback: () => void, timeout: number): number => {
         this.throwError();
         // redundant return used for proper implementation of TimersInterface
         return 0;
     };
 
-    clearTimeout = (timerId: number): void => this.throwError();
+    public clearTimeout = (timerId: number): void => this.throwError();
 
-    setInterval = (callback: () => void, interval: number): number => {
+    public setInterval = (callback: () => void, interval: number): number => {
         this.throwError();
         // redundant return used for proper implementation of TimersInterface
         return 0;
     };
 
-    clearInterval = (intervalId: number): void => this.throwError();
+    public clearInterval = (intervalId: number): void => this.throwError();
 }
 
 export const timers = new AbstractTimers();
