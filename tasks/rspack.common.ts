@@ -81,6 +81,11 @@ export const getCommonConfig = (browser: string): Configuration => {
             ],
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
             symlinks: true,
+            alias: {
+                // Axios v1.x uses `import 'process/browser'` (no extension) in ESM mode,
+                // which fails under rspack's strict fullySpecified resolution.
+                'process/browser': require.resolve('process/browser'),
+            },
             fallback: {
                 buffer: require.resolve('buffer'),
                 util: require.resolve('util/'),
