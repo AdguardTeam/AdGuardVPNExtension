@@ -198,6 +198,18 @@ describe('ProfilesService', () => {
             expect(profiles).toHaveLength(2);
         });
 
+        it('should not share nested settings objects between profiles', async () => {
+            const profileA = await service.createProfile('A');
+            const profileB = await service.createProfile('B');
+
+            const { profiles } = await service.getState();
+            const settingsA = profiles.find((p) => p.id === profileA.id)!.settings;
+            const settingsB = profiles.find((p) => p.id === profileB.id)!.settings;
+
+            expect(settingsA.exclusions).not.toBe(settingsB.exclusions);
+            expect(settingsA.customDnsServers).not.toBe(settingsB.customDnsServers);
+        });
+
         it('should allow duplicate names', async () => {
             await service.createProfile('Work');
             const second = await service.createProfile('Work');
@@ -299,7 +311,9 @@ describe('ProfilesService', () => {
         });
 
         it('should be a no-op when switching to the already-active profile', async () => {
-            // Set active to default, then check storage wasn't called again
+            // Trigger initial loadState so its storage.set call is excluded
+            await service.getState();
+
             const callsBefore = (browserApi.storage.set as ReturnType<typeof vi.fn>).mock.calls.length;
 
             await service.setActiveProfile(DEFAULT_PROFILE_ID);
@@ -336,6 +350,19 @@ describe('ProfilesService', () => {
             await expect(service.updateProfileSettings('non-existent', DEFAULT_PROFILE_SETTINGS))
                 .rejects
                 .toThrow('Profile not found');
+        });
+
+        it('should throw when settings are invalid', async () => {
+            const profile = await service.createProfile('Work');
+            const invalidSettings = {
+                selectedLocationId: null,
+                handleWebRtcEnabled: 'not-a-boolean',
+                selectedDnsServer: 123,
+            };
+
+            await expect(
+                service.updateProfileSettings(profile.id, invalidSettings as any),
+            ).rejects.toThrow();
         });
     });
 });

@@ -47,10 +47,10 @@ export class ProfilesService {
                 this.cachedState = v.parse(profilesStateScheme, stored);
             } catch (e) {
                 log.error('[vpn.ProfilesService.loadState]: Stored profiles data is invalid, resetting to defaults', e);
-                this.cachedState = { ...PROFILES_STATE_DEFAULTS };
+                this.cachedState = structuredClone(PROFILES_STATE_DEFAULTS);
             }
         } else {
-            this.cachedState = { ...PROFILES_STATE_DEFAULTS };
+            this.cachedState = structuredClone(PROFILES_STATE_DEFAULTS);
         }
 
         const repaired = ProfilesService.repairState(this.cachedState);
@@ -84,7 +84,7 @@ export class ProfilesService {
                     id: DEFAULT_PROFILE_ID,
                     kind: ProfileKind.Default,
                     name: '',
-                    settings: { ...DEFAULT_PROFILE_SETTINGS },
+                    settings: structuredClone(DEFAULT_PROFILE_SETTINGS),
                 },
                 ...profiles,
             ];
@@ -152,7 +152,7 @@ export class ProfilesService {
             id: nanoid(),
             kind: ProfileKind.Custom,
             name,
-            settings: { ...DEFAULT_PROFILE_SETTINGS },
+            settings: structuredClone(DEFAULT_PROFILE_SETTINGS),
         };
 
         await this.saveState({
