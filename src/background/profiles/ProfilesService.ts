@@ -14,6 +14,7 @@ import {
     MAX_PROFILES_COUNT,
     PROFILES_STATE_DEFAULTS,
     profilesStateScheme,
+    profileSettingsScheme,
 } from '../schema';
 import { browserApi } from '../browserApi';
 
@@ -245,12 +246,15 @@ export class ProfilesService {
 
     /**
      * Updates the settings snapshot of a profile.
+     * Validates the settings against the schema before persisting.
      *
      * @param id Profile ID.
      * @param settings New settings snapshot.
-     * @throws If the profile is not found.
+     * @throws If the profile is not found or settings are invalid.
      */
     public async updateProfileSettings(id: string, settings: ProfileSettings): Promise<void> {
+        v.parse(profileSettingsScheme, settings);
+
         const state = await this.loadState();
         const profile = state.profiles.find((p) => p.id === id);
 
