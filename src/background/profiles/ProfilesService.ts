@@ -47,16 +47,14 @@ export class ProfilesService {
             } catch (e) {
                 log.error('[vpn.ProfilesService.loadState]: Stored profiles data is invalid, resetting to defaults', e);
                 this.cachedState = { ...PROFILES_STATE_DEFAULTS };
-                await this.saveState(this.cachedState);
-                return this.cachedState;
             }
         } else {
             this.cachedState = { ...PROFILES_STATE_DEFAULTS };
-            return this.cachedState;
         }
 
         const repaired = ProfilesService.repairState(this.cachedState);
         this.cachedState = repaired;
+
         await this.saveState(this.cachedState);
 
         return this.cachedState;
