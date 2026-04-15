@@ -94,6 +94,20 @@ export {
 } from './popupData';
 
 export {
+    profileSettingsScheme,
+    type ProfileSettings,
+    profileScheme,
+    type Profile,
+    ProfileKind,
+    profilesStateScheme,
+    type ProfilesState,
+    PROFILES_STATE_DEFAULTS,
+    DEFAULT_PROFILE_SETTINGS,
+    DEFAULT_PROFILE_ID,
+    MAX_PROFILES_COUNT,
+} from './profiles';
+
+export {
     proxyStateScheme,
     type ProxyState,
     PROXY_DEFAULTS,

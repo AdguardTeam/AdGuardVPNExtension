@@ -25,6 +25,7 @@ import { LOCATIONS_SERVICE_STATE_DEFAULTS, locationsServiceStateScheme } from '.
 import { POPUP_OPENED_COUNTER_DEFAULTS, popupOpenedCounterStateScheme } from '../popupData';
 import { CONNECTIVITY_DATA_DEFAULTS, connectivityDataScheme } from '../connectivity/data';
 import { limitedOfferStorageDataScheme } from '../limitedOffer';
+import { PROFILES_STATE_DEFAULTS, profilesStateScheme } from '../profiles';
 
 export const enum StorageKey {
     FallbackInfo = 'fallbackInfo',
@@ -44,6 +45,7 @@ export const enum StorageKey {
     GlobalProxyConfig = 'globalProxyConfig',
     HostCredentialsRepository = 'hostCredentialsRepository',
     LimitedOfferService = 'limitedOfferService',
+    ProfilesState = 'profilesState',
 }
 
 export const storageDataScheme = v.object({
@@ -64,6 +66,7 @@ export const storageDataScheme = v.object({
     [StorageKey.GlobalProxyConfig]: v.nullable(proxyConfigInterfaceScheme),
     [StorageKey.HostCredentialsRepository]: hostCredentialsRepositoryScheme,
     [StorageKey.LimitedOfferService]: limitedOfferStorageDataScheme,
+    [StorageKey.ProfilesState]: profilesStateScheme,
 });
 
 export type StorageData = v.InferOutput<typeof storageDataScheme>;
@@ -86,4 +89,5 @@ export const DEFAULT_STORAGE_DATA: StorageData = {
     [StorageKey.GlobalProxyConfig]: null,
     [StorageKey.HostCredentialsRepository]: DEFAULT_HOST_CREDENTIALS_REPOSITORY,
     [StorageKey.LimitedOfferService]: null,
+    [StorageKey.ProfilesState]: PROFILES_STATE_DEFAULTS,
 };
