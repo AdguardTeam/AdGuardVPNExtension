@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import * as v from 'valibot';
 
 import { log } from '../../common/logger';
 import {
@@ -10,6 +11,7 @@ import {
     DEFAULT_PROFILE_ID,
     MAX_PROFILES_COUNT,
     PROFILES_STATE_DEFAULTS,
+    profilesStateScheme,
 } from '../schema';
 import { browserApi } from '../browserApi';
 
@@ -30,17 +32,28 @@ export class ProfilesService {
 
     /**
      * Loads profiles state from persistent storage.
-     * Falls back to defaults if no data is found.
+     * Validates the stored data against the schema; falls back to defaults
+     * if no data is found or the data is corrupted.
      */
     private async loadState(): Promise<ProfilesState> {
         if (this.cachedState) {
             return this.cachedState;
         }
 
-        const stored = await browserApi.storage.get<ProfilesState>(PROFILES_STORAGE_KEY);
-        this.cachedState = stored ?? {
-            ...PROFILES_STATE_DEFAULTS,
-        };
+        const stored = await browserApi.storage.get<unknown>(PROFILES_STORAGE_KEY);
+
+        if (stored) {
+            try {
+                this.cachedState = v.parse(profilesStateScheme, stored);
+            } catch (e) {
+                log.error('[vpn.ProfilesService.loadState]: Stored profiles data is invalid, resetting to defaults', e);
+                this.cachedState = { ...PROFILES_STATE_DEFAULTS };
+                await this.saveState(this.cachedState);
+            }
+        } else {
+            this.cachedState = { ...PROFILES_STATE_DEFAULTS };
+        }
+
         return this.cachedState;
     }
 
