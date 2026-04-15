@@ -8,6 +8,7 @@ import {
 
 import {
     ProfileKind,
+    StorageKey,
     DEFAULT_PROFILE_ID,
     DEFAULT_PROFILE_SETTINGS,
     MAX_PROFILES_COUNT,
@@ -45,7 +46,7 @@ describe('ProfilesService', () => {
         vi.clearAllMocks();
 
         // Clear any stored profile data so each test starts fresh
-        await browserApi.storage.remove('profilesState');
+        await browserApi.storage.remove(StorageKey.ProfilesState);
 
         service = new ProfilesService();
     });
@@ -62,7 +63,7 @@ describe('ProfilesService', () => {
         });
 
         it('should reset to defaults when stored data is corrupted', async () => {
-            await browserApi.storage.set('profilesState', {
+            await browserApi.storage.set(StorageKey.ProfilesState, {
                 activeProfileId: 123,
                 profiles: 'not-an-array',
             });
@@ -75,7 +76,7 @@ describe('ProfilesService', () => {
         });
 
         it('should reset to defaults when stored data has missing fields', async () => {
-            await browserApi.storage.set('profilesState', {
+            await browserApi.storage.set(StorageKey.ProfilesState, {
                 activeProfileId: 'some-id',
             });
 
@@ -98,7 +99,7 @@ describe('ProfilesService', () => {
                     },
                 ],
             };
-            await browserApi.storage.set('profilesState', stateWithoutDefault);
+            await browserApi.storage.set(StorageKey.ProfilesState, stateWithoutDefault);
 
             const { profiles } = await service.getState();
 
@@ -119,7 +120,7 @@ describe('ProfilesService', () => {
                     },
                 ],
             };
-            await browserApi.storage.set('profilesState', stateWithBadActive);
+            await browserApi.storage.set(StorageKey.ProfilesState, stateWithBadActive);
 
             const { activeProfileId } = await service.getState();
 
@@ -143,7 +144,7 @@ describe('ProfilesService', () => {
                     settings: { ...DEFAULT_PROFILE_SETTINGS },
                 });
             }
-            await browserApi.storage.set('profilesState', {
+            await browserApi.storage.set(StorageKey.ProfilesState, {
                 activeProfileId: DEFAULT_PROFILE_ID,
                 profiles,
             });
@@ -173,7 +174,7 @@ describe('ProfilesService', () => {
             }
             // Set active to a profile that will be trimmed (last custom profile)
             const lastId = `custom-${MAX_PROFILES_COUNT + 4}`;
-            await browserApi.storage.set('profilesState', {
+            await browserApi.storage.set(StorageKey.ProfilesState, {
                 activeProfileId: lastId,
                 profiles,
             });
