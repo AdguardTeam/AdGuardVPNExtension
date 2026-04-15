@@ -1234,5 +1234,8 @@
     },
     "auth_success_description": {
         "message": "Go back to the AdGuard VPN extension — it’s all set up"
+    },
+    "profiles_default_name": {
+        "message": "Default"
     }
 }

@@ -26,7 +26,8 @@ export const profileScheme = v.strictObject({
 
     /**
      * Display name chosen by the user.
-     * For the system profile this is resolved via localization on the UI side.
+     * For the system profile this is an empty string;
+     * the visible name is resolved via localization on the UI side.
      */
     name: v.string(),
 

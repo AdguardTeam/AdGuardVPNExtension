@@ -54,6 +54,8 @@ export type ProfilesState = v.InferOutput<typeof profilesStateScheme>;
 
 /**
  * Default profiles state used on fresh install.
+ * The system profile name is empty because the display name
+ * is resolved via localization on the UI side.
  */
 export const PROFILES_STATE_DEFAULTS: ProfilesState = {
     activeProfileId: DEFAULT_PROFILE_ID,
@@ -61,7 +63,7 @@ export const PROFILES_STATE_DEFAULTS: ProfilesState = {
         {
             id: DEFAULT_PROFILE_ID,
             kind: ProfileKind.Default,
-            name: 'Default',
+            name: '',
             settings: DEFAULT_PROFILE_SETTINGS,
         },
     ],

@@ -2,11 +2,13 @@ import { nanoid } from 'nanoid';
 import * as v from 'valibot';
 
 import { log } from '../../common/logger';
+import { translator } from '../../common/translator';
 import {
     type Profile,
     type ProfileSettings,
     type ProfilesState,
     ProfileKind,
+    StorageKey,
     DEFAULT_PROFILE_SETTINGS,
     DEFAULT_PROFILE_ID,
     MAX_PROFILES_COUNT,
@@ -14,11 +16,6 @@ import {
     profilesStateScheme,
 } from '../schema';
 import { browserApi } from '../browserApi';
-
-/**
- * Storage key for profiles data in browser.storage.local.
- */
-const PROFILES_STORAGE_KEY = 'profilesState';
 
 /**
  * Manages VPN profiles: CRUD operations, active profile tracking,
@@ -34,13 +31,15 @@ export class ProfilesService {
      * Loads profiles state from persistent storage.
      * Validates the stored data against the schema; falls back to defaults
      * if no data is found or the data is corrupted.
+     * Repairs invariants: ensures the default profile exists and
+     * activeProfileId points to a valid profile.
      */
     private async loadState(): Promise<ProfilesState> {
         if (this.cachedState) {
             return this.cachedState;
         }
 
-        const stored = await browserApi.storage.get<unknown>(PROFILES_STORAGE_KEY);
+        const stored = await browserApi.storage.get<unknown>(StorageKey.ProfilesState);
 
         if (stored) {
             try {
@@ -49,12 +48,67 @@ export class ProfilesService {
                 log.error('[vpn.ProfilesService.loadState]: Stored profiles data is invalid, resetting to defaults', e);
                 this.cachedState = { ...PROFILES_STATE_DEFAULTS };
                 await this.saveState(this.cachedState);
+                return this.cachedState;
             }
         } else {
             this.cachedState = { ...PROFILES_STATE_DEFAULTS };
+            return this.cachedState;
         }
 
+        const repaired = ProfilesService.repairState(this.cachedState);
+        this.cachedState = repaired;
+        await this.saveState(this.cachedState);
+
         return this.cachedState;
+    }
+
+    /**
+     * Checks invariants and returns a repaired copy if any were violated:
+     * - system default profile must exist;
+     * - activeProfileId must reference an existing profile;
+     * - profile count must not exceed MAX_PROFILES_COUNT.
+     *
+     * @param state Profiles state to check.
+     * @returns Repaired state copy.
+     */
+    private static repairState(state: ProfilesState): ProfilesState {
+        let { profiles, activeProfileId } = state;
+
+        const hasDefault = profiles.some(
+            (p) => p.id === DEFAULT_PROFILE_ID && p.kind === ProfileKind.Default,
+        );
+
+        if (!hasDefault) {
+            log.warn('[vpn.ProfilesService.repairState]: Default profile missing, restoring');
+            profiles = [
+                {
+                    id: DEFAULT_PROFILE_ID,
+                    kind: ProfileKind.Default,
+                    name: '',
+                    settings: { ...DEFAULT_PROFILE_SETTINGS },
+                },
+                ...profiles,
+            ];
+        }
+
+        const activeExists = profiles.some((p) => p.id === activeProfileId);
+        if (!activeExists) {
+            log.warn('[vpn.ProfilesService.repairState]: activeProfileId references missing profile, resetting to default');
+            activeProfileId = DEFAULT_PROFILE_ID;
+        }
+
+        if (profiles.length > MAX_PROFILES_COUNT) {
+            log.warn('[vpn.ProfilesService.repairState]: Profile count exceeds limit, trimming');
+            const defaultProfile = profiles.find((p) => p.kind === ProfileKind.Default)!;
+            const customProfiles = profiles.filter((p) => p.kind !== ProfileKind.Default);
+            profiles = [defaultProfile, ...customProfiles.slice(0, MAX_PROFILES_COUNT - 1)];
+
+            if (!profiles.some((p) => p.id === activeProfileId)) {
+                activeProfileId = DEFAULT_PROFILE_ID;
+            }
+        }
+
+        return { activeProfileId, profiles };
     }
 
     /**
@@ -62,14 +116,23 @@ export class ProfilesService {
      */
     private async saveState(state: ProfilesState): Promise<void> {
         this.cachedState = state;
-        await browserApi.storage.set(PROFILES_STORAGE_KEY, state);
+        await browserApi.storage.set(StorageKey.ProfilesState, state);
     }
 
     /**
-     * Returns the full profiles state.
+     * Returns the full profiles state with localized system profile name.
      */
     public async getState(): Promise<ProfilesState> {
-        return this.loadState();
+        const state = await this.loadState();
+
+        return {
+            ...state,
+            profiles: state.profiles.map((p) => (
+                p.kind === ProfileKind.Default
+                    ? { ...p, name: translator.getMessage('profiles_default_name') }
+                    : p
+            )),
+        };
     }
 
     /**

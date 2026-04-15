@@ -11,6 +11,8 @@ import {
     DEFAULT_PROFILE_ID,
     DEFAULT_PROFILE_SETTINGS,
     MAX_PROFILES_COUNT,
+    type ProfilesState,
+    type Profile,
 } from '../../../src/background/schema';
 import { ProfilesService } from '../../../src/background/profiles/ProfilesService';
 import { browserApi } from '../../../src/background/browserApi';
@@ -27,6 +29,14 @@ vi.mock('../../../src/background/browserApi', () => {
         },
     };
 });
+
+const DEFAULT_PROFILE_NAME = 'Default';
+
+vi.mock('../../../src/common/translator', () => ({
+    translator: {
+        getMessage: vi.fn(() => DEFAULT_PROFILE_NAME),
+    },
+}));
 
 describe('ProfilesService', () => {
     let service: ProfilesService;
@@ -47,6 +57,129 @@ describe('ProfilesService', () => {
             expect(profiles).toHaveLength(1);
             expect(profiles[0].id).toBe(DEFAULT_PROFILE_ID);
             expect(profiles[0].kind).toBe(ProfileKind.Default);
+            expect(profiles[0].name).toBe(DEFAULT_PROFILE_NAME);
+            expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
+        });
+
+        it('should reset to defaults when stored data is corrupted', async () => {
+            await browserApi.storage.set('profilesState', {
+                activeProfileId: 123,
+                profiles: 'not-an-array',
+            });
+
+            const { profiles, activeProfileId } = await service.getState();
+
+            expect(profiles).toHaveLength(1);
+            expect(profiles[0].id).toBe(DEFAULT_PROFILE_ID);
+            expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
+        });
+
+        it('should reset to defaults when stored data has missing fields', async () => {
+            await browserApi.storage.set('profilesState', {
+                activeProfileId: 'some-id',
+            });
+
+            const { profiles, activeProfileId } = await service.getState();
+
+            expect(profiles).toHaveLength(1);
+            expect(profiles[0].id).toBe(DEFAULT_PROFILE_ID);
+            expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
+        });
+
+        it('should restore the default profile when it is missing from storage', async () => {
+            const stateWithoutDefault: ProfilesState = {
+                activeProfileId: 'custom-1',
+                profiles: [
+                    {
+                        id: 'custom-1',
+                        kind: ProfileKind.Custom,
+                        name: 'Work',
+                        settings: { ...DEFAULT_PROFILE_SETTINGS },
+                    },
+                ],
+            };
+            await browserApi.storage.set('profilesState', stateWithoutDefault);
+
+            const { profiles } = await service.getState();
+
+            const defaultProfile = profiles.find((p) => p.id === DEFAULT_PROFILE_ID);
+            expect(defaultProfile).toBeDefined();
+            expect(defaultProfile?.kind).toBe(ProfileKind.Default);
+        });
+
+        it('should fix activeProfileId when it references a missing profile', async () => {
+            const stateWithBadActive: ProfilesState = {
+                activeProfileId: 'non-existent-id',
+                profiles: [
+                    {
+                        id: DEFAULT_PROFILE_ID,
+                        kind: ProfileKind.Default,
+                        name: '',
+                        settings: { ...DEFAULT_PROFILE_SETTINGS },
+                    },
+                ],
+            };
+            await browserApi.storage.set('profilesState', stateWithBadActive);
+
+            const { activeProfileId } = await service.getState();
+
+            expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
+        });
+
+        it('should trim profiles when count exceeds the limit', async () => {
+            const profiles: Profile[] = [
+                {
+                    id: DEFAULT_PROFILE_ID,
+                    kind: ProfileKind.Default as const,
+                    name: '',
+                    settings: { ...DEFAULT_PROFILE_SETTINGS },
+                },
+            ];
+            for (let i = 0; i < MAX_PROFILES_COUNT + 5; i += 1) {
+                profiles.push({
+                    id: `custom-${i}`,
+                    kind: ProfileKind.Custom as const,
+                    name: `Profile ${i}`,
+                    settings: { ...DEFAULT_PROFILE_SETTINGS },
+                });
+            }
+            await browserApi.storage.set('profilesState', {
+                activeProfileId: DEFAULT_PROFILE_ID,
+                profiles,
+            });
+
+            const state = await service.getState();
+
+            expect(state.profiles).toHaveLength(MAX_PROFILES_COUNT);
+            expect(state.profiles[0].kind).toBe(ProfileKind.Default);
+        });
+
+        it('should reset activeProfileId to default when trimming removes the active profile', async () => {
+            const profiles: Profile[] = [
+                {
+                    id: DEFAULT_PROFILE_ID,
+                    kind: ProfileKind.Default as const,
+                    name: '',
+                    settings: { ...DEFAULT_PROFILE_SETTINGS },
+                },
+            ];
+            for (let i = 0; i < MAX_PROFILES_COUNT + 5; i += 1) {
+                profiles.push({
+                    id: `custom-${i}`,
+                    kind: ProfileKind.Custom as const,
+                    name: `Profile ${i}`,
+                    settings: { ...DEFAULT_PROFILE_SETTINGS },
+                });
+            }
+            // Set active to a profile that will be trimmed (last custom profile)
+            const lastId = `custom-${MAX_PROFILES_COUNT + 4}`;
+            await browserApi.storage.set('profilesState', {
+                activeProfileId: lastId,
+                profiles,
+            });
+
+            const { activeProfileId } = await service.getState();
+
             expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
         });
     });
