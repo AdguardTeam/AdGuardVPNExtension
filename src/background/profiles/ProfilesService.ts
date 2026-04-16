@@ -61,15 +61,23 @@ export class ProfilesService {
 
         const stored = await browserApi.storage.get<unknown>(StorageKey.ProfilesState);
 
+        let needsPersist = false;
+
         if (stored) {
             try {
                 this.cachedState = v.parse(profilesStateScheme, stored);
             } catch (e) {
                 log.error('[vpn.ProfilesService.loadState]: Stored profiles data is invalid, resetting to defaults', e);
                 this.cachedState = structuredClone(PROFILES_STATE_DEFAULTS);
+                needsPersist = true;
             }
         } else {
             this.cachedState = structuredClone(PROFILES_STATE_DEFAULTS);
+            needsPersist = true;
+        }
+
+        if (needsPersist) {
+            await this.saveState(this.cachedState);
         }
 
         return this.cachedState;
@@ -100,10 +108,12 @@ export class ProfilesService {
     }
 
     /**
-     * Returns the full profiles state.
+     * Returns a deep copy of the full profiles state.
+     * The clone prevents external code from mutating the in-memory cache.
      */
     public async getState(): Promise<ProfilesState> {
-        return this.loadState();
+        const state = await this.loadState();
+        return structuredClone(state);
     }
 
     /**
@@ -115,7 +125,8 @@ export class ProfilesService {
      */
     public createProfile(name: string): Promise<Profile> {
         return this.enqueue(async () => {
-            const nameValidation = validateProfileName(name);
+            const trimmedName = name.trim();
+            const nameValidation = validateProfileName(trimmedName);
             if (nameValidation !== ProfileNameError.Ok) {
                 throw new Error(nameValidation);
             }
@@ -129,7 +140,7 @@ export class ProfilesService {
             const profile: Profile = {
                 id: nanoid(),
                 kind: ProfileKind.Custom,
-                name,
+                name: trimmedName,
                 settings: structuredClone(DEFAULT_PROFILE_SETTINGS),
             };
 
@@ -152,7 +163,8 @@ export class ProfilesService {
      */
     public renameProfile(id: string, newName: string): Promise<void> {
         return this.enqueue(async () => {
-            const nameValidation = validateProfileName(newName);
+            const trimmedName = newName.trim();
+            const nameValidation = validateProfileName(trimmedName);
             if (nameValidation !== ProfileNameError.Ok) {
                 throw new Error(nameValidation);
             }
@@ -165,7 +177,7 @@ export class ProfilesService {
             }
 
             const updatedProfiles = state.profiles.map((p) => (
-                p.id === id ? { ...p, name: newName } : p
+                p.id === id ? { ...p, name: trimmedName } : p
             ));
 
             await this.saveState({ ...state, profiles: updatedProfiles });

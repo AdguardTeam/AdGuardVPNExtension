@@ -4,7 +4,7 @@ import {
     validateProfileName,
     MAX_PROFILE_NAME_LENGTH,
     ProfileNameError,
-} from '../../src/background/schema/profiles/profileHelper';
+} from '../../../src/background/schema/profiles/profileHelper';
 
 describe('validateProfileName', () => {
     it('should accept a valid name', () => {
