@@ -262,7 +262,7 @@ export class ProfilesService {
             throw new Error(`Profile not found: ${id}`);
         }
 
-        profile.settings = settings;
+        profile.settings = structuredClone(settings);
 
         await this.saveState(state);
         log.debug(`[vpn.ProfilesService.updateProfileSettings]: Updated settings for profile ${id}`);
