@@ -7,12 +7,12 @@ import {
 } from 'vitest';
 
 import {
-    ProfileKind,
     StorageKey,
     DEFAULT_PROFILE_ID,
     DEFAULT_PROFILE_SETTINGS,
     MAX_PROFILES_COUNT,
     type ProfilesState,
+    isDefaultProfile,
 } from '../../../src/background/schema';
 import { MAX_PROFILE_NAME_LENGTH, ProfileNameError } from '../../../src/background/schema/profiles/profileHelper';
 import { ProfilesService } from '../../../src/background/profiles/ProfilesService';
@@ -49,7 +49,7 @@ describe('ProfilesService', () => {
 
             expect(profiles).toHaveLength(1);
             expect(profiles[0].id).toBe(DEFAULT_PROFILE_ID);
-            expect(profiles[0].kind).toBe(ProfileKind.Default);
+            expect(isDefaultProfile(profiles[0])).toBe(true);
             expect(profiles[0].name).toBe('');
             expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
         });
@@ -85,7 +85,6 @@ describe('ProfilesService', () => {
                 profiles: [
                     {
                         id: DEFAULT_PROFILE_ID,
-                        kind: ProfileKind.Default,
                         name: '',
                         settings: { ...DEFAULT_PROFILE_SETTINGS },
                     },
@@ -105,7 +104,7 @@ describe('ProfilesService', () => {
             const profile = await service.createProfile('Work');
 
             expect(profile.name).toBe('Work');
-            expect(profile.kind).toBe(ProfileKind.Custom);
+            expect(isDefaultProfile(profile)).toBe(false);
             expect(profile.settings).toEqual(DEFAULT_PROFILE_SETTINGS);
             expect(profile.id).toBeTruthy();
 

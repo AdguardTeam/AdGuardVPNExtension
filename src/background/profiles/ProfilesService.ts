@@ -50,27 +50,9 @@ export class ProfilesService {
     }
 
     /**
-     * Checks whether the parsed state satisfies business invariants:
-     * exactly one profile with the default ID, active profile exists in the list.
-     */
-    private static isStateSemanticValid(state: ProfilesState): boolean {
-        const defaultCount = state.profiles.filter((p) => p.id === DEFAULT_PROFILE_ID).length;
-        if (defaultCount !== 1) {
-            return false;
-        }
-
-        const activeExists = state.profiles.some((p) => p.id === state.activeProfileId);
-        if (!activeExists) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Loads profiles state from persistent storage.
-     * Validates the stored data against the schema and business invariants;
-     * falls back to defaults if no data is found or the data is corrupted.
+     * Validates the stored data against the schema; falls back to defaults
+     * if no data is found or the data is corrupted.
      */
     private async loadState(): Promise<ProfilesState> {
         if (this.cachedState) {
@@ -83,14 +65,7 @@ export class ProfilesService {
 
         if (stored) {
             try {
-                const parsed = v.parse(profilesStateScheme, stored);
-                if (ProfilesService.isStateSemanticValid(parsed)) {
-                    this.cachedState = parsed;
-                } else {
-                    log.error('[vpn.ProfilesService.loadState]: Stored profiles state violates business invariants, resetting to defaults');
-                    this.cachedState = structuredClone(PROFILES_STATE_DEFAULTS);
-                    needsPersist = true;
-                }
+                this.cachedState = v.parse(profilesStateScheme, stored);
             } catch (e) {
                 log.error('[vpn.ProfilesService.loadState]: Stored profiles data is invalid, resetting to defaults', e);
                 this.cachedState = structuredClone(PROFILES_STATE_DEFAULTS);
@@ -172,7 +147,7 @@ export class ProfilesService {
                 ...state,
                 profiles: [...state.profiles, profile],
             });
-            log.info(`[vpn.ProfilesService.createProfile]: Created profile "${name}" (${profile.id})`);
+            log.info(`[vpn.ProfilesService.createProfile]: Created profile "${trimmedName}" (${profile.id})`);
 
             return profile;
         });
@@ -205,7 +180,7 @@ export class ProfilesService {
             ));
 
             await this.saveState({ ...state, profiles: updatedProfiles });
-            log.info(`[vpn.ProfilesService.renameProfile]: Renamed profile ${id} to "${newName}"`);
+            log.info(`[vpn.ProfilesService.renameProfile]: Renamed profile ${id} to "${trimmedName}"`);
         });
     }
 
