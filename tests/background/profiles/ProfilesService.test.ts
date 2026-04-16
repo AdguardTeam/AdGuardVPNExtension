@@ -361,7 +361,8 @@ describe('ProfilesService', () => {
             };
 
             await expect(
-                service.updateProfileSettings(profile.id, invalidSettings as any),
+                // @ts-expect-error testing with intentionally invalid settings
+                service.updateProfileSettings(profile.id, invalidSettings),
             ).rejects.toThrow();
         });
     });
