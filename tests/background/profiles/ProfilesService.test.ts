@@ -13,8 +13,8 @@ import {
     DEFAULT_PROFILE_SETTINGS,
     MAX_PROFILES_COUNT,
     type ProfilesState,
-    type Profile,
 } from '../../../src/background/schema';
+import { MAX_PROFILE_NAME_LENGTH, ProfileNameError } from '../../../src/background/schema/profiles/profileHelper';
 import { ProfilesService } from '../../../src/background/profiles/ProfilesService';
 import { browserApi } from '../../../src/background/browserApi';
 
@@ -30,14 +30,6 @@ vi.mock('../../../src/background/browserApi', () => {
         },
     };
 });
-
-const DEFAULT_PROFILE_NAME = 'Default';
-
-vi.mock('../../../src/common/translator', () => ({
-    translator: {
-        getMessage: vi.fn(() => DEFAULT_PROFILE_NAME),
-    },
-}));
 
 describe('ProfilesService', () => {
     let service: ProfilesService;
@@ -58,7 +50,7 @@ describe('ProfilesService', () => {
             expect(profiles).toHaveLength(1);
             expect(profiles[0].id).toBe(DEFAULT_PROFILE_ID);
             expect(profiles[0].kind).toBe(ProfileKind.Default);
-            expect(profiles[0].name).toBe(DEFAULT_PROFILE_NAME);
+            expect(profiles[0].name).toBe('');
             expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
         });
 
@@ -87,30 +79,9 @@ describe('ProfilesService', () => {
             expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
         });
 
-        it('should restore the default profile when it is missing from storage', async () => {
-            const stateWithoutDefault: ProfilesState = {
-                activeProfileId: 'custom-1',
-                profiles: [
-                    {
-                        id: 'custom-1',
-                        kind: ProfileKind.Custom,
-                        name: 'Work',
-                        settings: { ...DEFAULT_PROFILE_SETTINGS },
-                    },
-                ],
-            };
-            await browserApi.storage.set(StorageKey.ProfilesState, stateWithoutDefault);
-
-            const { profiles } = await service.getState();
-
-            const defaultProfile = profiles.find((p) => p.id === DEFAULT_PROFILE_ID);
-            expect(defaultProfile).toBeDefined();
-            expect(defaultProfile?.kind).toBe(ProfileKind.Default);
-        });
-
-        it('should fix activeProfileId when it references a missing profile', async () => {
-            const stateWithBadActive: ProfilesState = {
-                activeProfileId: 'non-existent-id',
+        it('should not write to storage on read', async () => {
+            const validState: ProfilesState = {
+                activeProfileId: DEFAULT_PROFILE_ID,
                 profiles: [
                     {
                         id: DEFAULT_PROFILE_ID,
@@ -120,68 +91,12 @@ describe('ProfilesService', () => {
                     },
                 ],
             };
-            await browserApi.storage.set(StorageKey.ProfilesState, stateWithBadActive);
+            await browserApi.storage.set(StorageKey.ProfilesState, validState);
+            (browserApi.storage.set as ReturnType<typeof vi.fn>).mockClear();
 
-            const { activeProfileId } = await service.getState();
+            await service.getState();
 
-            expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
-        });
-
-        it('should trim profiles when count exceeds the limit', async () => {
-            const profiles: Profile[] = [
-                {
-                    id: DEFAULT_PROFILE_ID,
-                    kind: ProfileKind.Default as const,
-                    name: '',
-                    settings: { ...DEFAULT_PROFILE_SETTINGS },
-                },
-            ];
-            for (let i = 0; i < MAX_PROFILES_COUNT + 5; i += 1) {
-                profiles.push({
-                    id: `custom-${i}`,
-                    kind: ProfileKind.Custom as const,
-                    name: `Profile ${i}`,
-                    settings: { ...DEFAULT_PROFILE_SETTINGS },
-                });
-            }
-            await browserApi.storage.set(StorageKey.ProfilesState, {
-                activeProfileId: DEFAULT_PROFILE_ID,
-                profiles,
-            });
-
-            const state = await service.getState();
-
-            expect(state.profiles).toHaveLength(MAX_PROFILES_COUNT);
-            expect(state.profiles[0].kind).toBe(ProfileKind.Default);
-        });
-
-        it('should reset activeProfileId to default when trimming removes the active profile', async () => {
-            const profiles: Profile[] = [
-                {
-                    id: DEFAULT_PROFILE_ID,
-                    kind: ProfileKind.Default as const,
-                    name: '',
-                    settings: { ...DEFAULT_PROFILE_SETTINGS },
-                },
-            ];
-            for (let i = 0; i < MAX_PROFILES_COUNT + 5; i += 1) {
-                profiles.push({
-                    id: `custom-${i}`,
-                    kind: ProfileKind.Custom as const,
-                    name: `Profile ${i}`,
-                    settings: { ...DEFAULT_PROFILE_SETTINGS },
-                });
-            }
-            // Set active to a profile that will be trimmed (last custom profile)
-            const lastId = `custom-${MAX_PROFILES_COUNT + 4}`;
-            await browserApi.storage.set(StorageKey.ProfilesState, {
-                activeProfileId: lastId,
-                profiles,
-            });
-
-            const { activeProfileId } = await service.getState();
-
-            expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
+            expect(browserApi.storage.set).not.toHaveBeenCalled();
         });
     });
 
@@ -196,6 +111,19 @@ describe('ProfilesService', () => {
 
             const { profiles } = await service.getState();
             expect(profiles).toHaveLength(2);
+        });
+
+        it('should not lose profiles when createProfile is called concurrently', async () => {
+            const [profileA, profileB] = await Promise.all([
+                service.createProfile('A'),
+                service.createProfile('B'),
+            ]);
+
+            const { profiles } = await service.getState();
+
+            expect(profiles).toHaveLength(3);
+            expect(profiles.find((p) => p.id === profileA.id)).toBeDefined();
+            expect(profiles.find((p) => p.id === profileB.id)).toBeDefined();
         });
 
         it('should not share nested settings objects between profiles', async () => {
@@ -234,6 +162,25 @@ describe('ProfilesService', () => {
                 .rejects
                 .toThrow(`limit of ${MAX_PROFILES_COUNT}`);
         });
+
+        it('should throw when name is empty', async () => {
+            await expect(service.createProfile(''))
+                .rejects
+                .toThrow(ProfileNameError.Empty);
+        });
+
+        it('should throw when name is whitespace-only', async () => {
+            await expect(service.createProfile('   '))
+                .rejects
+                .toThrow(ProfileNameError.Empty);
+        });
+
+        it('should throw when name exceeds max length', async () => {
+            const longName = 'a'.repeat(MAX_PROFILE_NAME_LENGTH + 1);
+            await expect(service.createProfile(longName))
+                .rejects
+                .toThrow(ProfileNameError.TooLong);
+        });
     });
 
     describe('renameProfile', () => {
@@ -257,6 +204,21 @@ describe('ProfilesService', () => {
             await expect(service.renameProfile('non-existent', 'Name'))
                 .rejects
                 .toThrow('Profile not found');
+        });
+
+        it('should throw when new name is empty', async () => {
+            const profile = await service.createProfile('Original');
+            await expect(service.renameProfile(profile.id, ''))
+                .rejects
+                .toThrow(ProfileNameError.Empty);
+        });
+
+        it('should throw when new name exceeds max length', async () => {
+            const profile = await service.createProfile('Original');
+            const longName = 'a'.repeat(MAX_PROFILE_NAME_LENGTH + 1);
+            await expect(service.renameProfile(profile.id, longName))
+                .rejects
+                .toThrow(ProfileNameError.TooLong);
         });
     });
 
@@ -350,6 +312,12 @@ describe('ProfilesService', () => {
             await expect(service.updateProfileSettings('non-existent', DEFAULT_PROFILE_SETTINGS))
                 .rejects
                 .toThrow('Profile not found');
+        });
+
+        it('should throw when updating the default profile', async () => {
+            await expect(service.updateProfileSettings(DEFAULT_PROFILE_ID, DEFAULT_PROFILE_SETTINGS))
+                .rejects
+                .toThrow('Cannot update settings of the system default profile');
         });
 
         it('should throw when settings are invalid', async () => {

@@ -2,7 +2,6 @@ import { nanoid } from 'nanoid';
 import * as v from 'valibot';
 
 import { log } from '../../common/logger';
-import { translator } from '../../common/translator';
 import {
     type Profile,
     type ProfileSettings,
@@ -16,6 +15,7 @@ import {
     profilesStateScheme,
     profileSettingsScheme,
 } from '../schema';
+import { validateProfileName, ProfileNameError } from '../schema/profiles/profileHelper';
 import { browserApi } from '../browserApi';
 
 /**
@@ -29,11 +29,30 @@ export class ProfilesService {
     private cachedState: ProfilesState | null = null;
 
     /**
+     * Promise chain that serializes write operations
+     * to prevent concurrent read-modify-write races.
+     */
+    private writeQueue: Promise<void> = Promise.resolve();
+
+    /**
+     * Enqueues an async callback so that mutations execute one at a time.
+     *
+     * @param fn Async function that performs a mutation.
+     * @returns The value returned by fn.
+     */
+    private enqueue<T>(fn: () => Promise<T>): Promise<T> {
+        const result = this.writeQueue.then(fn);
+        this.writeQueue = result.then(
+            () => {},
+            () => {},
+        );
+        return result;
+    }
+
+    /**
      * Loads profiles state from persistent storage.
      * Validates the stored data against the schema; falls back to defaults
      * if no data is found or the data is corrupted.
-     * Repairs invariants: ensures the default profile exists and
-     * activeProfileId points to a valid profile.
      */
     private async loadState(): Promise<ProfilesState> {
         if (this.cachedState) {
@@ -53,85 +72,38 @@ export class ProfilesService {
             this.cachedState = structuredClone(PROFILES_STATE_DEFAULTS);
         }
 
-        const repaired = ProfilesService.repairState(this.cachedState);
-        this.cachedState = repaired;
-
-        await this.saveState(this.cachedState);
-
         return this.cachedState;
     }
 
     /**
-     * Checks invariants and returns a repaired copy if any were violated:
-     * - system default profile must exist;
-     * - activeProfileId must reference an existing profile;
-     * - profile count must not exceed MAX_PROFILES_COUNT.
+     * Finds a profile by ID or throws if not found.
      *
-     * @param state Profiles state to check.
-     * @returns Repaired state copy.
+     * @param state Current profiles state.
+     * @param id Profile ID to look up.
+     * @returns The matching profile.
+     * @throws If no profile with the given ID exists.
      */
-    private static repairState(state: ProfilesState): ProfilesState {
-        let { profiles, activeProfileId } = state;
-
-        const hasDefault = profiles.some(
-            (p) => p.id === DEFAULT_PROFILE_ID && p.kind === ProfileKind.Default,
-        );
-
-        if (!hasDefault) {
-            log.warn('[vpn.ProfilesService.repairState]: Default profile missing, restoring');
-            profiles = [
-                {
-                    id: DEFAULT_PROFILE_ID,
-                    kind: ProfileKind.Default,
-                    name: '',
-                    settings: structuredClone(DEFAULT_PROFILE_SETTINGS),
-                },
-                ...profiles,
-            ];
+    private static getProfileById(state: ProfilesState, id: string): Profile {
+        const profile = state.profiles.find((p) => p.id === id);
+        if (!profile) {
+            throw new Error(`Profile not found: ${id}`);
         }
-
-        const activeExists = profiles.some((p) => p.id === activeProfileId);
-        if (!activeExists) {
-            log.warn('[vpn.ProfilesService.repairState]: activeProfileId references missing profile, resetting to default');
-            activeProfileId = DEFAULT_PROFILE_ID;
-        }
-
-        if (profiles.length > MAX_PROFILES_COUNT) {
-            log.warn('[vpn.ProfilesService.repairState]: Profile count exceeds limit, trimming');
-            const defaultProfile = profiles.find((p) => p.kind === ProfileKind.Default)!;
-            const customProfiles = profiles.filter((p) => p.kind !== ProfileKind.Default);
-            profiles = [defaultProfile, ...customProfiles.slice(0, MAX_PROFILES_COUNT - 1)];
-
-            if (!profiles.some((p) => p.id === activeProfileId)) {
-                activeProfileId = DEFAULT_PROFILE_ID;
-            }
-        }
-
-        return { activeProfileId, profiles };
+        return profile;
     }
 
     /**
      * Persists profiles state to browser.storage.local and updates the cache.
      */
     private async saveState(state: ProfilesState): Promise<void> {
-        this.cachedState = state;
         await browserApi.storage.set(StorageKey.ProfilesState, state);
+        this.cachedState = state;
     }
 
     /**
-     * Returns the full profiles state with localized system profile name.
+     * Returns the full profiles state.
      */
     public async getState(): Promise<ProfilesState> {
-        const state = await this.loadState();
-
-        return {
-            ...state,
-            profiles: state.profiles.map((p) => (
-                p.kind === ProfileKind.Default
-                    ? { ...p, name: translator.getMessage('profiles_default_name') }
-                    : p
-            )),
-        };
+        return this.loadState();
     }
 
     /**
@@ -139,29 +111,36 @@ export class ProfilesService {
      *
      * @param name Display name for the profile.
      * @returns The newly created profile.
-     * @throws If the maximum number of profiles has been reached.
+     * @throws If the name is invalid or the maximum number of profiles has been reached.
      */
-    public async createProfile(name: string): Promise<Profile> {
-        const state = await this.loadState();
+    public createProfile(name: string): Promise<Profile> {
+        return this.enqueue(async () => {
+            const nameValidation = validateProfileName(name);
+            if (nameValidation !== ProfileNameError.Ok) {
+                throw new Error(nameValidation);
+            }
 
-        if (state.profiles.length >= MAX_PROFILES_COUNT) {
-            throw new Error(`Cannot create profile: limit of ${MAX_PROFILES_COUNT} reached`);
-        }
+            const state = await this.loadState();
 
-        const profile: Profile = {
-            id: nanoid(),
-            kind: ProfileKind.Custom,
-            name,
-            settings: structuredClone(DEFAULT_PROFILE_SETTINGS),
-        };
+            if (state.profiles.length >= MAX_PROFILES_COUNT) {
+                throw new Error(`Cannot create profile: limit of ${MAX_PROFILES_COUNT} reached`);
+            }
 
-        await this.saveState({
-            ...state,
-            profiles: [...state.profiles, profile],
+            const profile: Profile = {
+                id: nanoid(),
+                kind: ProfileKind.Custom,
+                name,
+                settings: structuredClone(DEFAULT_PROFILE_SETTINGS),
+            };
+
+            await this.saveState({
+                ...state,
+                profiles: [...state.profiles, profile],
+            });
+            log.info(`[vpn.ProfilesService.createProfile]: Created profile "${name}" (${profile.id})`);
+
+            return profile;
         });
-        log.info(`[vpn.ProfilesService.createProfile]: Created profile "${name}" (${profile.id})`);
-
-        return profile;
     }
 
     /**
@@ -169,24 +148,29 @@ export class ProfilesService {
      *
      * @param id Profile ID.
      * @param newName New display name.
-     * @throws If the profile is not found or is the system default.
+     * @throws If the profile is not found, is the system default, or the name is invalid.
      */
-    public async renameProfile(id: string, newName: string): Promise<void> {
-        const state = await this.loadState();
-        const profile = state.profiles.find((p) => p.id === id);
+    public renameProfile(id: string, newName: string): Promise<void> {
+        return this.enqueue(async () => {
+            const nameValidation = validateProfileName(newName);
+            if (nameValidation !== ProfileNameError.Ok) {
+                throw new Error(nameValidation);
+            }
 
-        if (!profile) {
-            throw new Error(`Profile not found: ${id}`);
-        }
+            const state = await this.loadState();
+            const profile = ProfilesService.getProfileById(state, id);
 
-        if (profile.kind === ProfileKind.Default) {
-            throw new Error('Cannot rename the system default profile');
-        }
+            if (profile.kind === ProfileKind.Default) {
+                throw new Error('Cannot rename the system default profile');
+            }
 
-        profile.name = newName;
+            const updatedProfiles = state.profiles.map((p) => (
+                p.id === id ? { ...p, name: newName } : p
+            ));
 
-        await this.saveState(state);
-        log.info(`[vpn.ProfilesService.renameProfile]: Renamed profile ${id} to "${newName}"`);
+            await this.saveState({ ...state, profiles: updatedProfiles });
+            log.info(`[vpn.ProfilesService.renameProfile]: Renamed profile ${id} to "${newName}"`);
+        });
     }
 
     /**
@@ -196,30 +180,28 @@ export class ProfilesService {
      * @param id Profile ID.
      * @throws If the profile is not found or is the system default.
      */
-    public async deleteProfile(id: string): Promise<void> {
-        const state = await this.loadState();
-        const profile = state.profiles.find((p) => p.id === id);
+    public deleteProfile(id: string): Promise<void> {
+        return this.enqueue(async () => {
+            const state = await this.loadState();
+            const profile = ProfilesService.getProfileById(state, id);
 
-        if (!profile) {
-            throw new Error(`Profile not found: ${id}`);
-        }
+            if (profile.kind === ProfileKind.Default) {
+                throw new Error('Cannot delete the system default profile');
+            }
 
-        if (profile.kind === ProfileKind.Default) {
-            throw new Error('Cannot delete the system default profile');
-        }
+            const newProfiles = state.profiles.filter((p) => p.id !== id);
 
-        const newProfiles = state.profiles.filter((p) => p.id !== id);
+            const newActiveId = state.activeProfileId === id
+                ? DEFAULT_PROFILE_ID
+                : state.activeProfileId;
 
-        const newActiveId = state.activeProfileId === id
-            ? DEFAULT_PROFILE_ID
-            : state.activeProfileId;
+            await this.saveState({
+                activeProfileId: newActiveId,
+                profiles: newProfiles,
+            });
 
-        await this.saveState({
-            activeProfileId: newActiveId,
-            profiles: newProfiles,
+            log.info(`[vpn.ProfilesService.deleteProfile]: Deleted profile ${id}`);
         });
-
-        log.info(`[vpn.ProfilesService.deleteProfile]: Deleted profile ${id}`);
     }
 
     /**
@@ -228,20 +210,19 @@ export class ProfilesService {
      * @param id Profile ID to activate.
      * @throws If the profile is not found.
      */
-    public async setActiveProfile(id: string): Promise<void> {
-        const state = await this.loadState();
+    public setActiveProfile(id: string): Promise<void> {
+        return this.enqueue(async () => {
+            const state = await this.loadState();
 
-        if (state.activeProfileId === id) {
-            return;
-        }
+            if (state.activeProfileId === id) {
+                return;
+            }
 
-        const profile = state.profiles.find((p) => p.id === id);
-        if (!profile) {
-            throw new Error(`Profile not found: ${id}`);
-        }
+            ProfilesService.getProfileById(state, id);
 
-        await this.saveState({ ...state, activeProfileId: id });
-        log.info(`[vpn.ProfilesService.setActiveProfile]: Switched active profile to "${profile.name}" (${id})`);
+            await this.saveState({ ...state, activeProfileId: id });
+            log.info(`[vpn.ProfilesService.setActiveProfile]: Switched active profile to ${id}`);
+        });
     }
 
     /**
@@ -253,23 +234,23 @@ export class ProfilesService {
      * @param settings New settings snapshot.
      * @throws If the profile is not found, is the system default, or settings are invalid.
      */
-    public async updateProfileSettings(id: string, settings: ProfileSettings): Promise<void> {
-        v.parse(profileSettingsScheme, settings);
+    public updateProfileSettings(id: string, settings: ProfileSettings): Promise<void> {
+        return this.enqueue(async () => {
+            v.parse(profileSettingsScheme, settings);
 
-        const state = await this.loadState();
-        const profile = state.profiles.find((p) => p.id === id);
+            const state = await this.loadState();
+            const profile = ProfilesService.getProfileById(state, id);
 
-        if (!profile) {
-            throw new Error(`Profile not found: ${id}`);
-        }
+            if (profile.kind === ProfileKind.Default) {
+                throw new Error('Cannot update settings of the system default profile');
+            }
 
-        if (profile.kind === ProfileKind.Default) {
-            throw new Error('Cannot update settings of the system default profile');
-        }
+            const updatedProfiles = state.profiles.map((p) => (
+                p.id === id ? { ...p, settings: structuredClone(settings) } : p
+            ));
 
-        profile.settings = structuredClone(settings);
-
-        await this.saveState(state);
-        log.debug(`[vpn.ProfilesService.updateProfileSettings]: Updated settings for profile ${id}`);
+            await this.saveState({ ...state, profiles: updatedProfiles });
+            log.debug(`[vpn.ProfilesService.updateProfileSettings]: Updated settings for profile ${id}`);
+        });
     }
 }
