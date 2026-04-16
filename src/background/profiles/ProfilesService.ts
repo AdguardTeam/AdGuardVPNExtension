@@ -6,7 +6,6 @@ import {
     type Profile,
     type ProfileSettings,
     type ProfilesState,
-    ProfileKind,
     StorageKey,
     DEFAULT_PROFILE_SETTINGS,
     DEFAULT_PROFILE_ID,
@@ -14,6 +13,7 @@ import {
     PROFILES_STATE_DEFAULTS,
     profilesStateScheme,
     profileSettingsScheme,
+    isDefaultProfile,
 } from '../schema';
 import { validateProfileName, ProfileNameError } from '../schema/profiles/profileHelper';
 import { browserApi } from '../browserApi';
@@ -50,9 +50,27 @@ export class ProfilesService {
     }
 
     /**
+     * Checks whether the parsed state satisfies business invariants:
+     * exactly one profile with the default ID, active profile exists in the list.
+     */
+    private static isStateSemanticValid(state: ProfilesState): boolean {
+        const defaultCount = state.profiles.filter((p) => p.id === DEFAULT_PROFILE_ID).length;
+        if (defaultCount !== 1) {
+            return false;
+        }
+
+        const activeExists = state.profiles.some((p) => p.id === state.activeProfileId);
+        if (!activeExists) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Loads profiles state from persistent storage.
-     * Validates the stored data against the schema; falls back to defaults
-     * if no data is found or the data is corrupted.
+     * Validates the stored data against the schema and business invariants;
+     * falls back to defaults if no data is found or the data is corrupted.
      */
     private async loadState(): Promise<ProfilesState> {
         if (this.cachedState) {
@@ -65,7 +83,14 @@ export class ProfilesService {
 
         if (stored) {
             try {
-                this.cachedState = v.parse(profilesStateScheme, stored);
+                const parsed = v.parse(profilesStateScheme, stored);
+                if (ProfilesService.isStateSemanticValid(parsed)) {
+                    this.cachedState = parsed;
+                } else {
+                    log.error('[vpn.ProfilesService.loadState]: Stored profiles state violates business invariants, resetting to defaults');
+                    this.cachedState = structuredClone(PROFILES_STATE_DEFAULTS);
+                    needsPersist = true;
+                }
             } catch (e) {
                 log.error('[vpn.ProfilesService.loadState]: Stored profiles data is invalid, resetting to defaults', e);
                 this.cachedState = structuredClone(PROFILES_STATE_DEFAULTS);
@@ -139,7 +164,6 @@ export class ProfilesService {
 
             const profile: Profile = {
                 id: nanoid(),
-                kind: ProfileKind.Custom,
                 name: trimmedName,
                 settings: structuredClone(DEFAULT_PROFILE_SETTINGS),
             };
@@ -172,7 +196,7 @@ export class ProfilesService {
             const state = await this.loadState();
             const profile = ProfilesService.getProfileById(state, id);
 
-            if (profile.kind === ProfileKind.Default) {
+            if (isDefaultProfile(profile)) {
                 throw new Error('Cannot rename the system default profile');
             }
 
@@ -197,7 +221,7 @@ export class ProfilesService {
             const state = await this.loadState();
             const profile = ProfilesService.getProfileById(state, id);
 
-            if (profile.kind === ProfileKind.Default) {
+            if (isDefaultProfile(profile)) {
                 throw new Error('Cannot delete the system default profile');
             }
 
@@ -253,7 +277,7 @@ export class ProfilesService {
             const state = await this.loadState();
             const profile = ProfilesService.getProfileById(state, id);
 
-            if (profile.kind === ProfileKind.Default) {
+            if (isDefaultProfile(profile)) {
                 throw new Error('Cannot update settings of the system default profile');
             }
 

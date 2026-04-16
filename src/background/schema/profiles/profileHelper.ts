@@ -1,3 +1,16 @@
+import { DEFAULT_PROFILE_ID } from './profilesState';
+import { type Profile } from './profile';
+
+/**
+ * Returns true if the profile is the system default.
+ *
+ * @param profile Profile to check.
+ * @returns Whether the profile is the system default.
+ */
+export function isDefaultProfile(profile: Profile): boolean {
+    return profile.id === DEFAULT_PROFILE_ID;
+}
+
 /**
  * Result codes for profile name validation.
  */

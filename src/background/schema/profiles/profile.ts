@@ -3,26 +3,13 @@ import * as v from 'valibot';
 import { profileSettingsScheme } from './profileSettings';
 
 /**
- * Discriminator for system vs user-created profiles.
- */
-export enum ProfileKind {
-    Default = 'default',
-    Custom = 'custom',
-}
-
-/**
  * Valibot schema for a single profile.
  */
 export const profileScheme = v.strictObject({
     /**
-     * Unique identifier (nanoid).
+     * Unique identifier (nanoid for custom profiles, DEFAULT_PROFILE_ID for the system profile).
      */
     id: v.string(),
-
-    /**
-     * Whether this is the system default profile or a user-created one.
-     */
-    kind: v.enum_(ProfileKind),
 
     /**
      * Display name chosen by the user.

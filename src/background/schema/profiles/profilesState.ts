@@ -3,8 +3,14 @@ import * as v from 'valibot';
 import { ExclusionsMode } from '../../../common/exclusionsConstants';
 import { DEFAULT_DNS_SERVER } from '../../../common/dnsConstants';
 
-import { profileScheme, ProfileKind } from './profile';
 import { type ProfileSettings } from './profileSettings';
+import { profileScheme } from './profile';
+
+/**
+ * ID of the system default profile.
+ * Uses a fixed value so it survives across sessions.
+ */
+export const DEFAULT_PROFILE_ID = 'default';
 
 /**
  * Maximum number of profiles (including the system Default profile).
@@ -25,12 +31,6 @@ export const DEFAULT_PROFILE_SETTINGS: ProfileSettings = {
         inverted: false,
     },
 };
-
-/**
- * ID of the system default profile.
- * Uses a fixed value so it survives across sessions.
- */
-export const DEFAULT_PROFILE_ID = 'default';
 
 /**
  * Valibot schema for the profiles persistent state.
@@ -62,7 +62,6 @@ export const PROFILES_STATE_DEFAULTS: ProfilesState = {
     profiles: [
         {
             id: DEFAULT_PROFILE_ID,
-            kind: ProfileKind.Default,
             name: '',
             settings: DEFAULT_PROFILE_SETTINGS,
         },

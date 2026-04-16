@@ -6,7 +6,6 @@ export {
 export {
     profileScheme,
     type Profile,
-    ProfileKind,
 } from './profile';
 
 export {
@@ -22,4 +21,5 @@ export {
     validateProfileName,
     ProfileNameError,
     MAX_PROFILE_NAME_LENGTH,
+    isDefaultProfile,
 } from './profileHelper';
