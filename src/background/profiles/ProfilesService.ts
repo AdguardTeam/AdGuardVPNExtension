@@ -246,11 +246,12 @@ export class ProfilesService {
 
     /**
      * Updates the settings snapshot of a profile.
+     * The system Default profile cannot be modified.
      * Validates the settings against the schema before persisting.
      *
      * @param id Profile ID.
      * @param settings New settings snapshot.
-     * @throws If the profile is not found or settings are invalid.
+     * @throws If the profile is not found, is the system default, or settings are invalid.
      */
     public async updateProfileSettings(id: string, settings: ProfileSettings): Promise<void> {
         v.parse(profileSettingsScheme, settings);
@@ -260,6 +261,10 @@ export class ProfilesService {
 
         if (!profile) {
             throw new Error(`Profile not found: ${id}`);
+        }
+
+        if (profile.kind === ProfileKind.Default) {
+            throw new Error('Cannot update settings of the system default profile');
         }
 
         profile.settings = structuredClone(settings);
