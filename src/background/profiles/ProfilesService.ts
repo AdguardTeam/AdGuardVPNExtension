@@ -3,19 +3,22 @@ import * as v from 'valibot';
 
 import { log } from '../../common/logger';
 import {
+    DEFAULT_PROFILE_ID,
+    MAX_PROFILES_COUNT,
+    isDefaultProfile,
+    validateProfileName,
+    ProfileNameError,
+} from '../../common/profilesConstants';
+import {
     type Profile,
     type ProfileSettings,
     type ProfilesState,
     StorageKey,
     DEFAULT_PROFILE_SETTINGS,
-    DEFAULT_PROFILE_ID,
-    MAX_PROFILES_COUNT,
     PROFILES_STATE_DEFAULTS,
     profilesStateScheme,
     profileSettingsScheme,
-    isDefaultProfile,
 } from '../schema';
-import { validateProfileName, ProfileNameError } from '../schema/profiles/profileHelper';
 import { browserApi } from '../browserApi';
 
 /**

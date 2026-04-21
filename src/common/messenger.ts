@@ -859,6 +859,16 @@ class Messenger {
         const type = MessageType.GET_INTERFACE_LANGUAGE;
         return this.sendMessage(type);
     }
+
+    /**
+     * Fetches profiles data from the background script.
+     *
+     * @returns Profiles state including all profiles and active profile ID.
+     */
+    public async getProfilesData(): Promise<ExtractMessageResponse<MessageType.GET_PROFILES_DATA>> {
+        const type = MessageType.GET_PROFILES_DATA;
+        return this.sendMessage(type);
+    }
 }
 
 export const messenger = new Messenger();

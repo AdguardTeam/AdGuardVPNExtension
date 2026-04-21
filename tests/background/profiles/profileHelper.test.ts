@@ -1,10 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import {
-    validateProfileName,
-    MAX_PROFILE_NAME_LENGTH,
-    ProfileNameError,
-} from '../../../src/background/schema/profiles/profileHelper';
+import { validateProfileName, MAX_PROFILE_NAME_LENGTH, ProfileNameError } from '../../../src/common/profilesConstants';
 
 describe('validateProfileName', () => {
     it('should accept a valid name', () => {

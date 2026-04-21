@@ -149,6 +149,7 @@ export enum TelemetryActionName {
 
     // Options actions
     GeneralSettingsClick = 'general_settings_click',
+    ProfilesSettingsClick = 'profiles_settings_click',
     ExclusionsSettingsClick = 'exclusions_settings_click',
     AccountSettingsClick = 'account_settings_click',
     SupportSettingsClick = 'support_settings_click',
@@ -225,6 +226,7 @@ export type HeaderScreenNames = TelemetryScreenName.HomeScreen | TelemetryScreen
  * Sidebar link item click actions.
  */
 export type SidebarLinkItemClickActionNames = TelemetryActionName.GeneralSettingsClick
+| TelemetryActionName.ProfilesSettingsClick
 | TelemetryActionName.ExclusionsSettingsClick
 | TelemetryActionName.AccountSettingsClick
 | TelemetryActionName.SupportSettingsClick
@@ -343,6 +345,7 @@ export interface TelemetryActionToScreenMap {
 
     // Options actions
     [TelemetryActionName.GeneralSettingsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.ProfilesSettingsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.ExclusionsSettingsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.AccountSettingsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.SupportSettingsClick]: TelemetryScreenName.ContextBasedScreen;

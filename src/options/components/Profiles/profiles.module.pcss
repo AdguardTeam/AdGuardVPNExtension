@@ -1,0 +1,48 @@
+.root {
+    display: flex;
+    flex-direction: column;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    display: flex;
+}
+
+.itemRadio {
+    overflow-wrap: anywhere;
+}
+
+.itemChevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 57px;
+    height: 56px;
+    border-radius: 8px;
+    transition: var(--t3);
+
+    &:hover {
+        background-color: var(--fills-backgrounds-page-background-hovered);
+    }
+
+    &:active {
+        background-color: var(--fills-backgrounds-page-background-pressed);
+    }
+}
+
+.createBtn {
+    margin-top: 4px;
+}
+
+.actionsButton {
+    color: var(--text-placeholder-placeholder-default);
+}
+
+.actionDanger {
+    color: var(--text-links-error-link-default);
+}

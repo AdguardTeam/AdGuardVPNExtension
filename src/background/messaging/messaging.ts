@@ -35,6 +35,7 @@ import { savedLocations } from '../savedLocations';
 import { getConsentData, setConsentData } from '../consent';
 import { isMessage } from '../../common/messenger';
 import { statisticsService } from '../statistics';
+import { profilesService } from '../profiles';
 import { type OptionsData } from '../../options/stores/SettingsStore';
 import { updateService } from '../updateService';
 import { i18n } from '../../common/i18n';
@@ -512,6 +513,9 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         }
         case MessageType.GET_INTERFACE_LANGUAGE: {
             return settings.getSelectedLanguage();
+        }
+        case MessageType.GET_PROFILES_DATA: {
+            return profilesService.getState();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

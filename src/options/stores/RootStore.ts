@@ -6,6 +6,7 @@ import { GlobalStore } from './GlobalStore';
 import { AuthStore } from './AuthStore';
 import { SettingsStore } from './SettingsStore';
 import { ExclusionsStore } from './ExclusionsStore';
+import { ProfilesStore } from './ProfilesStore';
 import { NotificationsStore } from './NotificationsStore';
 import { UiStore } from './UiStore';
 
@@ -17,6 +18,8 @@ export class RootStore {
     public settingsStore: SettingsStore;
 
     public exclusionsStore: ExclusionsStore;
+
+    public profilesStore: ProfilesStore;
 
     public notificationsStore: NotificationsStore;
 
@@ -34,6 +37,7 @@ export class RootStore {
         this.authStore = new AuthStore(this);
         this.settingsStore = new SettingsStore(this);
         this.exclusionsStore = new ExclusionsStore(this);
+        this.profilesStore = new ProfilesStore();
         this.notificationsStore = new NotificationsStore(this);
         this.uiStore = new UiStore(this);
         this.telemetryStore = new TelemetryStore();

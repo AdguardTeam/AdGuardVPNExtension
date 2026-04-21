@@ -6,15 +6,14 @@ import {
     expect,
 } from 'vitest';
 
+import { StorageKey, DEFAULT_PROFILE_SETTINGS, type ProfilesState } from '../../../src/background/schema';
 import {
-    StorageKey,
     DEFAULT_PROFILE_ID,
-    DEFAULT_PROFILE_SETTINGS,
     MAX_PROFILES_COUNT,
-    type ProfilesState,
+    MAX_PROFILE_NAME_LENGTH,
+    ProfileNameError,
     isDefaultProfile,
-} from '../../../src/background/schema';
-import { MAX_PROFILE_NAME_LENGTH, ProfileNameError } from '../../../src/background/schema/profiles/profileHelper';
+} from '../../../src/common/profilesConstants';
 import { ProfilesService } from '../../../src/background/profiles/ProfilesService';
 import { browserApi } from '../../../src/background/browserApi';
 

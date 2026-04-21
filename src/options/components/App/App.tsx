@@ -19,6 +19,8 @@ import { SignedOut } from '../SignedOut';
 import { Sidebar } from '../Sidebar';
 import { General } from '../General';
 import { Exclusions } from '../Exclusions';
+import { Profiles } from '../Profiles';
+import { ProfileDetail } from '../Profiles/ProfileDetail';
 import { Account } from '../Account';
 import { Support } from '../Support';
 import { About } from '../About';
@@ -41,6 +43,8 @@ const getContent = (
                     <div className="content__wrapper">
                         <Switch>
                             <Route path="/" exact component={General} />
+                            <Route path="/profiles/:id" component={ProfileDetail} />
+                            <Route path="/profiles" exact component={Profiles} />
                             <Route path="/exclusions" exact component={Exclusions} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />

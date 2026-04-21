@@ -13,6 +13,11 @@ export interface SidebarLinkProps extends PropsWithChildren {
     to: string;
 
     /**
+     * Optional subtitle shown below the main label.
+     */
+    subtitle?: string;
+
+    /**
      * Flag indicating whether the link has a bullet.
      */
     hasBullet?: boolean;
@@ -40,6 +45,7 @@ export interface SidebarLinkProps extends PropsWithChildren {
  */
 export function SidebarLink({
     to,
+    subtitle,
     hasBullet,
     tabIndex,
     children,
@@ -60,7 +66,10 @@ export function SidebarLink({
             replace
             onClick={handleClick}
         >
-            {children}
+            <span className="sidebar__link-content">
+                <span className="sidebar__link-label">{children}</span>
+                {subtitle && <span className="sidebar__link-subtitle">{subtitle}</span>}
+            </span>
             {hasBullet && <span className="sidebar__link-bullet" />}
         </NavLink>
     );

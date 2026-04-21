@@ -530,6 +530,33 @@
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
+    "settings_profiles_title": {
+        "message": "Profiles"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profile"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Allows you to set DNS servers and locations and keep separate exclusions lists for different use cases, such as work, home, or other"
+    },
+    "settings_profiles_default_name": {
+        "message": "Default"
+    },
+    "settings_profiles_actions": {
+        "message": "Actions"
+    },
+    "settings_profiles_action_use": {
+        "message": "Use profile"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Rename"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Delete"
+    },
+    "settings_profiles_create": {
+        "message": "Create"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Where VPN is on"
     },

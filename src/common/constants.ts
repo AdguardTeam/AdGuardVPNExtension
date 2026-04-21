@@ -8,6 +8,7 @@ import { type BonusesData } from '../background/providers/accountProvider';
 import type { LocationData } from '../popup/stores/VpnStore';
 import { type AuthCacheKey, type AuthCacheValue } from '../background/authentication/authCacheTypes';
 import { type CanControlProxy, type DnsServerData } from '../background/schema';
+import { type ProfilesState } from '../background/schema/profiles';
 import {
     type ExclusionsMap,
     type GetExclusionsDataResponse,
@@ -159,6 +160,8 @@ export enum MessageType {
 
     SET_INTERFACE_LANGUAGE = 'set.interface.language',
     GET_INTERFACE_LANGUAGE = 'get.interface.language',
+
+    GET_PROFILES_DATA = 'get.profiles.data',
 }
 
 export const FLAGS_FIELDS = {
@@ -865,6 +868,10 @@ export interface MessageMap {
     [MessageType.GET_INTERFACE_LANGUAGE]: {
         message: DefaultMessage<MessageType.GET_INTERFACE_LANGUAGE>;
         response: LocalePreference;
+    };
+    [MessageType.GET_PROFILES_DATA]: {
+        message: DefaultMessage<MessageType.GET_PROFILES_DATA>;
+        response: ProfilesState;
     };
 }
 

@@ -13,13 +13,4 @@ export {
     type ProfilesState,
     PROFILES_STATE_DEFAULTS,
     DEFAULT_PROFILE_SETTINGS,
-    DEFAULT_PROFILE_ID,
-    MAX_PROFILES_COUNT,
 } from './profilesState';
-
-export {
-    validateProfileName,
-    ProfileNameError,
-    MAX_PROFILE_NAME_LENGTH,
-    isDefaultProfile,
-} from './profileHelper';

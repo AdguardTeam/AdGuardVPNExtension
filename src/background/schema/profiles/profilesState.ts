@@ -2,20 +2,10 @@ import * as v from 'valibot';
 
 import { ExclusionsMode } from '../../../common/exclusionsConstants';
 import { DEFAULT_DNS_SERVER } from '../../../common/dnsConstants';
+import { DEFAULT_PROFILE_ID } from '../../../common/profilesConstants';
 
 import { type ProfileSettings } from './profileSettings';
 import { profileScheme } from './profile';
-
-/**
- * ID of the system default profile.
- * Uses a fixed value so it survives across sessions.
- */
-export const DEFAULT_PROFILE_ID = 'default';
-
-/**
- * Maximum number of profiles (including the system Default profile).
- */
-export const MAX_PROFILES_COUNT = 10;
 
 /**
  * Default settings snapshot used when creating new profiles.
