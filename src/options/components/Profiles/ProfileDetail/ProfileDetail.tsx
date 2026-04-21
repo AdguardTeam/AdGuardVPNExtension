@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 
-import { translator } from 'common/translator';
-
 import { isDefaultProfileId } from '../../../../common/profilesConstants';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
@@ -35,24 +33,11 @@ export const ProfileDetail = observer(() => {
     const isDefault = isDefaultProfileId(profile.id);
     const isActive = profilesStore.isActive(profile.id);
 
-    const handleStopPropagation = (e: React.SyntheticEvent): void => {
-        e.stopPropagation();
-    };
-
     return (
         <div className={styles.root}>
             <Title
                 title={displayName}
-                action={(
-                    <div
-                        role="toolbar"
-                        aria-label={translator.getMessage('settings_profiles_actions')}
-                        onClick={handleStopPropagation}
-                        onKeyDown={handleStopPropagation}
-                    >
-                        <ProfileActions isDefault={isDefault} isActive={isActive} />
-                    </div>
-                )}
+                action={<ProfileActions isDefault={isDefault} isActive={isActive} />}
                 onClick={handleBack}
             />
             <div className={styles.placeholder}>

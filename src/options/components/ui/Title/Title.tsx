@@ -74,7 +74,10 @@ export function Title({
                     {title}
                 </div>
                 {action && (
-                    <div className="title__action">
+                    <div
+                        className="title__action"
+                        onClick={onClick && ((e): void => e.stopPropagation())}
+                    >
                         {action}
                     </div>
                 )}
