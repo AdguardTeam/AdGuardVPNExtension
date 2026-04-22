@@ -250,11 +250,7 @@ export class ProfilesService {
             v.parse(profileSettingsScheme, settings);
 
             const state = await this.loadState();
-            const profile = ProfilesService.getProfileById(state, id);
-
-            if (isDefaultProfile(profile)) {
-                throw new Error('Cannot update settings of the system default profile');
-            }
+            ProfilesService.getProfileById(state, id);
 
             const updatedProfiles = state.profiles.map((p) => (
                 p.id === id ? { ...p, settings: structuredClone(settings) } : p
