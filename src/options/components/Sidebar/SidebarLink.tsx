@@ -33,6 +33,12 @@ export interface SidebarLinkProps extends PropsWithChildren {
     telemetryActionName: SidebarLinkItemClickActionNames;
 
     /**
+     * Whether the link should match the path exactly.
+     * Defaults to true.
+     */
+    exact?: boolean;
+
+    /**
      * Click event handler.
      *
      * @param telemetryActionName Telemetry action name.
@@ -49,6 +55,7 @@ export function SidebarLink({
     hasBullet,
     tabIndex,
     children,
+    exact = true,
     telemetryActionName,
     onClick,
 }: SidebarLinkProps): ReactElement {
@@ -62,7 +69,7 @@ export function SidebarLink({
             activeClassName="sidebar__link--active"
             tabIndex={tabIndex}
             to={to}
-            exact
+            exact={exact}
             replace
             onClick={handleClick}
         >

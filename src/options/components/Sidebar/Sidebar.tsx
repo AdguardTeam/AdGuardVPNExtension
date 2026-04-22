@@ -120,6 +120,7 @@ export const Sidebar = observer(() => {
                     </SidebarLink>
                     <SidebarLink
                         to="/profiles"
+                        exact={false}
                         subtitle={activeProfileDisplayName}
                         telemetryActionName={TelemetryActionName.ProfilesSettingsClick}
                         onClick={handleLinkClick}
