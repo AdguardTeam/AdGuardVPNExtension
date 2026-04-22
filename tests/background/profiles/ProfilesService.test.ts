@@ -312,10 +312,17 @@ describe('ProfilesService', () => {
                 .toThrow('Profile not found');
         });
 
-        it('should throw when updating the default profile', async () => {
-            await expect(service.updateProfileSettings(DEFAULT_PROFILE_ID, DEFAULT_PROFILE_SETTINGS))
-                .rejects
-                .toThrow('Cannot update settings of the system default profile');
+        it('should allow updating the default profile settings', async () => {
+            const newSettings = {
+                ...DEFAULT_PROFILE_SETTINGS,
+                handleWebRtcEnabled: true,
+            };
+
+            await service.updateProfileSettings(DEFAULT_PROFILE_ID, newSettings);
+
+            const { profiles } = await service.getState();
+            const defaultProfile = profiles.find((p) => p.id === DEFAULT_PROFILE_ID);
+            expect(defaultProfile?.settings.handleWebRtcEnabled).toBe(true);
         });
 
         it('should throw when settings are invalid', async () => {
