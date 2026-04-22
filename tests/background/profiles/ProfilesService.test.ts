@@ -12,7 +12,7 @@ import {
     MAX_PROFILES_COUNT,
     MAX_PROFILE_NAME_LENGTH,
     ProfileNameError,
-    isDefaultProfile,
+    isDefaultProfileId,
 } from '../../../src/common/profilesConstants';
 import { ProfilesService } from '../../../src/background/profiles/ProfilesService';
 import { browserApi } from '../../../src/background/browserApi';
@@ -48,7 +48,7 @@ describe('ProfilesService', () => {
 
             expect(profiles).toHaveLength(1);
             expect(profiles[0].id).toBe(DEFAULT_PROFILE_ID);
-            expect(isDefaultProfile(profiles[0])).toBe(true);
+            expect(isDefaultProfileId(profiles[0].id)).toBe(true);
             expect(profiles[0].name).toBe('');
             expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
         });
@@ -103,7 +103,7 @@ describe('ProfilesService', () => {
             const profile = await service.createProfile('Work');
 
             expect(profile.name).toBe('Work');
-            expect(isDefaultProfile(profile)).toBe(false);
+            expect(isDefaultProfileId(profile.id)).toBe(false);
             expect(profile.settings).toEqual(DEFAULT_PROFILE_SETTINGS);
             expect(profile.id).toBeTruthy();
 

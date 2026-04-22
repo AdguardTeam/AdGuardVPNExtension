@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
 
 import { type Profile } from '../../background/schema/profiles/profile';
-import { DEFAULT_PROFILE_ID, isDefaultProfile } from '../../common/profilesConstants';
+import { DEFAULT_PROFILE_ID, isDefaultProfileId } from '../../common/profilesConstants';
 import { messenger } from '../../common/messenger';
 import { translator } from '../../common/translator';
 import { log } from '../../common/logger';
@@ -49,7 +49,7 @@ export class ProfilesStore {
      * @param profile Profile to get the display name for.
      */
     public getDisplayName(profile: Profile): string {
-        if (isDefaultProfile(profile)) {
+        if (isDefaultProfileId(profile.id)) {
             return translator.getMessage('settings_profiles_default_name');
         }
         return profile.name;

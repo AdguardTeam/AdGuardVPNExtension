@@ -5,7 +5,7 @@ import { log } from '../../common/logger';
 import {
     DEFAULT_PROFILE_ID,
     MAX_PROFILES_COUNT,
-    isDefaultProfile,
+    isDefaultProfileId,
     validateProfileName,
     ProfileNameError,
 } from '../../common/profilesConstants';
@@ -174,7 +174,7 @@ export class ProfilesService {
             const state = await this.loadState();
             const profile = ProfilesService.getProfileById(state, id);
 
-            if (isDefaultProfile(profile)) {
+            if (isDefaultProfileId(profile.id)) {
                 throw new Error('Cannot rename the system default profile');
             }
 
@@ -199,7 +199,7 @@ export class ProfilesService {
             const state = await this.loadState();
             const profile = ProfilesService.getProfileById(state, id);
 
-            if (isDefaultProfile(profile)) {
+            if (isDefaultProfileId(profile.id)) {
                 throw new Error('Cannot delete the system default profile');
             }
 
@@ -255,7 +255,7 @@ export class ProfilesService {
             const state = await this.loadState();
             const profile = ProfilesService.getProfileById(state, id);
 
-            if (isDefaultProfile(profile)) {
+            if (isDefaultProfileId(profile.id)) {
                 throw new Error('Cannot update settings of the system default profile');
             }
 

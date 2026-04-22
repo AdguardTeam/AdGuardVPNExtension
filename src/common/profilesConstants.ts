@@ -31,18 +31,8 @@ export enum ProfileNameError {
  * @param profileId Profile ID to check.
  * @returns Whether the profile ID is the default one.
  */
-export function isDefaultProfileId(profileId: string): boolean {
+export function isDefaultProfileId(profileId: Profile['id']): boolean {
     return profileId === DEFAULT_PROFILE_ID;
-}
-
-/**
- * Returns true if the profile is the system default.
- *
- * @param profile Profile to check.
- * @returns Whether the profile is the system default.
- */
-export function isDefaultProfile(profile: Profile): boolean {
-    return isDefaultProfileId(profile.id);
 }
 
 /**
