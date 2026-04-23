@@ -4,24 +4,20 @@ plan:
   project-key: ADGEXT
   key: VPNBETASPECS
   name: vpn-extension - test
-variables:
-  dockerNode: adguard/node-ssh:22.17--0
 
 stages:
   - Test:
       manual: false
       final: false
       jobs:
-        - Test
+        - Lint
+        - Unit tests
+        - Test dev build
 
-Test:
-  key: TEST
+Lint:
+  key: LINT
   other:
     clean-working-dir: true
-  docker:
-    image: ${bamboo.dockerNode}
-    volumes:
-      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   tasks:
     - checkout:
         force-clean-build: true
@@ -29,116 +25,155 @@ Test:
         interpreter: SHELL
         scripts:
           - |-
-            set -e
-            set -x
-
-            # Fix mixed logs
+            set -ex
             exec 2>&1
+            export DOCKER_BUILDKIT=1
 
-            # Set cache directory
-            pnpm config set store-dir ${bamboo.cachePnpm}
-
-            # Install dependencies
-            pnpm install ${bamboo.varsPnpm}
-
-            pnpm lint
-            pnpm test:ci
-
-            # build with test API endpoints:
-            # chrome.zip, edge.zip, opera.zip, firefox.zip
-            STAGE_ENV=test \
-            VPN_API_URL="${bamboo.devVpnApiUrl}" \
-            AUTH_API_URL="${bamboo.devAuthApiUrl}" \
-            FORWARDER_DOMAIN="${bamboo.devVpnForwarderDomain}" \
-            pnpm dev
-
-            # build artifacts chrome.crx
-            STAGE_ENV=test \
-            pnpm crx:dev
-
-            # build with prod API endpoints
-            # chrome-prod.zip, edge-prod.zip, opera-prod.zip, firefox-prod.zip
-            STAGE_ENV=prod \
-            VPN_API_URL="${bamboo.prodVpnApiUrl}" \
-            AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
-            FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
-            pnpm dev
-
-            # build artifacts chrome-prod.crx
-            STAGE_ENV=prod \
-            pnpm crx:dev
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --target lint-output \
+              --output type=local,dest=output \
+              .
   final-tasks:
-    - test-parser:
-        type: junit
-        test-results: 'tests-reports/unit-tests.xml'
+    - script: &cleanup-script
+        interpreter: SHELL
+        scripts:
+          - "./bamboo-specs/scripts/cleanup.sh"
+  requirements: &requirements
+    - extension: 'true'
+
+Unit tests:
+  key: UNITTESTS
+  other:
+    clean-working-dir: true
+  tasks:
+    - checkout:
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
           - |-
-            set -x
-            set -e
-
-            # Fix mixed logs
+            set -ex
             exec 2>&1
+            export DOCKER_BUILDKIT=1
 
-            ls -la
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --target unit-tests-output \
+              --output type=local,dest=output \
+              .
 
-            echo "Size before cleanup:" && du -h | tail -n 1
-            rm -rf node_modules
-            echo "Size after cleanup:" && du -h | tail -n 1
+            # Touch XML test reports to reset mtime to now.
+            # --output type=local preserves container mtimes, so extracted XML files
+            # retain the timestamp from when they were written inside the container.
+            # This can happen on cache hits (reruns) and causes the Bamboo JUnit parser
+            # to reject them with "file was modified before task started".
+            find output/tests-reports -name '*.xml' -exec touch {} + 2>/dev/null || true
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            if [ -f output/exit-code.txt ]; then
+              exit $(cat output/exit-code.txt)
+            fi
+            echo "output/exit-code.txt not found"
+            exit 1
+  final-tasks:
+    - test-parser:
+        type: junit
+        test-results: 'output/tests-reports/unit-tests.xml'
+    - script: *cleanup-script
+  requirements: *requirements
+
+Test dev build:
+  key: TESTDEVBUILD
+  other:
+    clean-working-dir: true
+  tasks:
+    - checkout:
+        force-clean-build: true
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -ex
+            exec 2>&1
+            export DOCKER_BUILDKIT=1
+
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --build-arg VPN_API_URL_TEST="${bamboo.devVpnApiUrl}" \
+              --build-arg ACCOUNTS_API_URL_TEST="${bamboo.devAuthApiUrl}" \
+              --build-arg FORWARDER_DOMAIN_TEST="${bamboo.devVpnForwarderDomain}" \
+              --build-arg VPN_API_URL_PROD="${bamboo.prodVpnApiUrl}" \
+              --build-arg ACCOUNTS_API_URL_PROD="${bamboo.prodAuthApiUrl}" \
+              --build-arg FORWARDER_DOMAIN_PROD="${bamboo.prodVpnForwarderDomain}" \
+              --target dev-build-output \
+              --output type=local,dest=output \
+              .
+  final-tasks:
+    - script:
+        interpreter: SHELL
+        scripts:
+          - "./bamboo-specs/scripts/cleanup.sh output/artifacts/chrome.zip,output/artifacts/edge.zip,output/artifacts/opera.zip,output/artifacts/firefox.zip,output/artifacts/chrome.crx,output/artifacts/chrome-prod.zip,output/artifacts/edge-prod.zip,output/artifacts/opera-prod.zip,output/artifacts/firefox-prod.zip,output/artifacts/chrome-prod.crx"
   artifacts:
     - name: edge.zip
-      location: build/dev
+      location: output/artifacts
       pattern: edge.zip
       shared: true
       required: true
     - name: chrome.zip
-      location: build/dev
+      location: output/artifacts
       pattern: chrome.zip
       shared: true
       required: true
     - name: opera.zip
-      location: build/dev
+      location: output/artifacts
       pattern: opera.zip
       shared: true
       required: true
     - name: firefox.zip
-      location: build/dev
+      location: output/artifacts
       pattern: firefox.zip
       shared: true
       required: true
     - name: chrome.crx
-      location: build/dev
+      location: output/artifacts
       pattern: chrome.crx
       shared: true
       required: true
     - name: edge-prod.zip
-      location: build/dev
+      location: output/artifacts
       pattern: edge-prod.zip
       shared: true
       required: true
     - name: chrome-prod.zip
-      location: build/dev
+      location: output/artifacts
       pattern: chrome-prod.zip
       shared: true
       required: true
     - name: opera-prod.zip
-      location: build/dev
+      location: output/artifacts
       pattern: opera-prod.zip
       shared: true
       required: true
     - name: firefox-prod.zip
-      location: build/dev
+      location: output/artifacts
       pattern: firefox-prod.zip
       shared: true
       required: true
     - name: chrome-prod.crx
-      location: build/dev
+      location: output/artifacts
       pattern: chrome-prod.crx
       shared: true
       required: true
-  requirements:
-    - extension: 'true'
+  requirements: *requirements
 
 branches:
   create: for-pull-request

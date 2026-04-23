@@ -75,6 +75,8 @@ AdGuard's VPN infrastructure.
 
 Build outputs go to `build/<env>/<browser>/`.
 
+CI artifact outputs (produced inside Docker by Bamboo) go to `output/artifacts/`.
+
 ## Contribution Instructions
 
 ### Package Manager

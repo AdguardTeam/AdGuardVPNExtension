@@ -5,16 +5,18 @@ plan:
   key: AVRELEASESPECS
   name: vpn-extension - build release
 variables:
-  dockerNode: adguard/node-ssh:22.17--0
   stageEnv: prod
   buildType: release
 
 stages:
-  - Size Check:
+  - Checks:
       manual: false
       final: false
       jobs:
         - Check Bundle Size
+        - Check translations
+        - Lint
+        - Unit tests
   - Build:
       manual: false
       final: false
@@ -25,71 +27,122 @@ Check Bundle Size:
   key: SIZECHECK
   other:
     clean-working-dir: true
-  docker:
-    image: ${bamboo.dockerNode}
-    volumes:
-      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   tasks:
     - checkout:
-        force-clean-build: 'true'
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
           - |-
-            set -x
-            set -e
-
-            # Fix mixed logs
+            set -ex
             exec 2>&1
+            export DOCKER_BUILDKIT=1
 
-            ls -la
-
-            # Set cache directory
-            pnpm config set store-dir ${bamboo.cachePnpm}
-
-            # Install dependencies
-            pnpm install ${bamboo.varsPnpm}
-
-            export STAGE_ENV="${bamboo.stageEnv}"
-            export VPN_API_URL="${bamboo.prodVpnApiUrl}"
-            export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
-            export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-
-            echo "Executing build for ${bamboo.buildType}"
-
-            # Run build
-            pnpm ${bamboo.buildType}
-
-            # Create artifacts directory if it doesn't exist
-            mkdir -p artifacts
-
-            echo "Checking bundle sizes"
-            pnpm bundle-size check ${bamboo.buildType}
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --build-arg BUILD_TYPE=${bamboo.buildType} \
+              --build-arg STAGE_ENV="${bamboo.stageEnv}" \
+              --build-arg VPN_API_URL="${bamboo.prodVpnApiUrl}" \
+              --build-arg ACCOUNTS_API_URL="${bamboo.prodAuthApiUrl}" \
+              --build-arg FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
+              --target bundle-size-check-output \
+              --output type=local,dest=output \
+              .
   final-tasks:
+    - script: &cleanup-script
+        interpreter: SHELL
+        scripts:
+          - "./bamboo-specs/scripts/cleanup.sh"
+  requirements: &requirements
+    - extension: 'true'
+
+Check translations:
+  key: LOCALESCHECK
+  other:
+    clean-working-dir: true
+  tasks:
+    - checkout:
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
           - |-
-            set -x
-            set -e
-
-            # Fix mixed logs
+            set -ex
             exec 2>&1
+            export DOCKER_BUILDKIT=1
 
-            ls -la
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --target locales-check-output \
+              --output type=local,dest=output \
+              .
+  final-tasks:
+    - script: *cleanup-script
+  requirements: *requirements
 
-            echo "Size before cleanup:" && du -h | tail -n 1
-            rm -rf node_modules build
-            echo "Size after cleanup:" && du -h | tail -n 1
-  requirements:
-    - extension: 'true'
+Lint:
+  key: LINT
+  other:
+    clean-working-dir: true
+  tasks:
+    - checkout:
+        force-clean-build: true
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -ex
+            exec 2>&1
+            export DOCKER_BUILDKIT=1
+
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --target lint-output \
+              --output type=local,dest=output \
+              .
+  final-tasks:
+    - script: *cleanup-script
+  requirements: *requirements
+
+Unit tests:
+  key: UNITTESTS
+  other:
+    clean-working-dir: true
+  tasks:
+    - checkout:
+        force-clean-build: true
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -ex
+            exec 2>&1
+            export DOCKER_BUILDKIT=1
+
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --target unit-tests-output \
+              --output type=local,dest=output \
+              .
+
+            EXIT_CODE=$(cat output/exit-code.txt 2>/dev/null || echo 1)
+            exit ${EXIT_CODE}
+  final-tasks:
+    - script: *cleanup-script
+  requirements: *requirements
 
 Build:
   key: BUILD
-  docker:
-    image: ${bamboo.dockerNode}
-    volumes:
-      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
+  other:
+    clean-working-dir: true
   tasks:
     - checkout:
         force-clean-build: true
@@ -101,37 +154,28 @@ Build:
         interpreter: SHELL
         scripts:
           - |-
-            set -x
-            set -e
-
-            # Fix mixed logs
+            set -ex
             exec 2>&1
+            export DOCKER_BUILDKIT=1
 
-            ls -alt
+            # Generate find-compatible .gitignore exclusions on the host
+            # (where .git is available) for archive-source.sh inside Docker.
+            ./bamboo-specs/scripts/generate-find-excludes.sh gitignore-excludes.txt
 
-            # Set cache directory
-            pnpm config set store-dir ${bamboo.cachePnpm}
-
-            # Install dependencies
-            pnpm install ${bamboo.varsPnpm}
-
-            pnpm lint
-            pnpm test:ci
-            pnpm locales validate --min
-
-            export STAGE_ENV="${bamboo.stageEnv}"
-            export VPN_API_URL="${bamboo.prodVpnApiUrl}"
-            export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
-            export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-            pnpm ${bamboo.buildType}
-
-            # build artifacts chrome.crx
-            pnpm crx:${bamboo.buildType}
-
-            # archive source for Firefox review
-            ./bamboo-specs/scripts/archive-source.sh ${bamboo.buildType}
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --build-arg STAGE_ENV="${bamboo.stageEnv}" \
+              --build-arg VPN_API_URL="${bamboo.prodVpnApiUrl}" \
+              --build-arg ACCOUNTS_API_URL="${bamboo.prodAuthApiUrl}" \
+              --build-arg FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
+              --build-context private=private \
+              --target release-build-output \
+              --output type=local,dest=output \
+              .
     - inject-variables:
-        file: build/${bamboo.buildType}/build.txt
+        file: output/artifacts/build.txt
         scope: RESULT
         namespace: inject
     - any-task:
@@ -140,68 +184,55 @@ Build:
           selectedRepository: defaultRepository
           tagName: v${bamboo.inject.version}
   final-tasks:
-    - test-parser:
-        type: junit
-        test-results: 'tests-reports/unit-tests.xml'
     - script:
         interpreter: SHELL
         scripts:
-          - |-
-            set -x
-            set -e
-
-            # Fix mixed logs
-            exec 2>&1
-
-            ls -la
-
-            echo "Size before cleanup:" && du -h | tail -n 1
-            rm -rf node_modules
-            echo "Size after cleanup:" && du -h | tail -n 1
+          - "./bamboo-specs/scripts/cleanup.sh output/artifacts/build.txt,output/artifacts/chrome.zip,output/artifacts/edge.zip,output/artifacts/opera.zip,output/artifacts/firefox.zip,output/artifacts/chrome.crx,output/artifacts/source.zip,output/artifacts/approval-notes.txt"
   artifacts:
     - name: edge.zip
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: edge.zip
       shared: true
       required: true
     - name: chrome.zip
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: chrome.zip
       shared: true
       required: true
     - name: opera.zip
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: opera.zip
       shared: true
       required: true
     - name: firefox.zip
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: firefox.zip
       shared: true
       required: true
     - name: chrome.crx
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: chrome.crx
       shared: true
       required: true
     - name: build.txt
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: build.txt
       shared: true
       required: true
-    # !NOTE: never upload it to public servers, it contains .env file
+    # WARNING: source.zip contains the .env file with API keys and secrets.
+    # Do NOT upload it to public servers (e.g., S3, CDN, or any public storage).
+    # It is intended only for AMO source submission to Mozilla.
     - name: source.zip
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: source.zip
       shared: true
       required: true
     - name: approval-notes.txt
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: approval-notes.txt
       shared: true
       required: true
-  requirements:
-    - extension: 'true'
+  requirements: *requirements
 
 triggers: []
 

@@ -5,16 +5,18 @@ plan:
   key: AVFIREFOXBSPECS
   name: vpn-extension - build firefox beta
 variables:
-  dockerNode: adguard/extension-builder:22.17--0.4.1--0
   stageEnv: prod
   buildType: beta
 
 stages:
-  - Size Check:
+  - Checks:
       manual: false
       final: false
       jobs:
         - Check Bundle Size
+        - Check translations
+        - Lint
+        - Unit tests
   - Build:
       manual: false
       final: false
@@ -25,171 +27,194 @@ Check Bundle Size:
   key: SIZECHECK
   other:
     clean-working-dir: true
-  docker:
-    image: ${bamboo.dockerNode}
-    volumes:
-      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   tasks:
     - checkout:
-        force-clean-build: 'true'
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
           - |-
-            set -x
-            set -e
-
-            # Fix mixed logs
+            set -ex
             exec 2>&1
+            export DOCKER_BUILDKIT=1
 
-            ls -la
-
-            # Set cache directory
-            pnpm config set store-dir ${bamboo.cachePnpm}
-
-            # Install dependencies
-            pnpm install ${bamboo.varsPnpm}
-
-            export STAGE_ENV="${bamboo.stageEnv}"
-            export VPN_API_URL="${bamboo.prodVpnApiUrl}"
-            export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
-            export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-
-            echo "Executing build for $buildType"
-
-            # Run build
-            pnpm ${bamboo.buildType} firefox
-
-            # Create artifacts directory if it doesn't exist
-            mkdir -p artifacts
-
-            echo "Checking bundle sizes"
-            pnpm bundle-size check ${bamboo.buildType} firefox
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --build-arg BUILD_TYPE=${bamboo.buildType} \
+              --build-arg BROWSER=firefox \
+              --build-arg STAGE_ENV="${bamboo.stageEnv}" \
+              --build-arg VPN_API_URL="${bamboo.prodVpnApiUrl}" \
+              --build-arg ACCOUNTS_API_URL="${bamboo.prodAuthApiUrl}" \
+              --build-arg FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
+              --target bundle-size-check-output \
+              --output type=local,dest=output \
+              .
   final-tasks:
+    - script: &cleanup-script
+        interpreter: SHELL
+        scripts:
+          - "./bamboo-specs/scripts/cleanup.sh"
+  requirements: &requirements
+    - extension: 'true'
+
+Check translations:
+  key: LOCALESCHECK
+  other:
+    clean-working-dir: true
+  tasks:
+    - checkout:
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
           - |-
-            set -x
-            set -e
-
-            # Fix mixed logs
+            set -ex
             exec 2>&1
+            export DOCKER_BUILDKIT=1
 
-            ls -la
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --target locales-check-output \
+              --output type=local,dest=output \
+              .
+  final-tasks:
+    - script: *cleanup-script
+  requirements: *requirements
 
-            echo "Size before cleanup:" && du -h | tail -n 1
-            rm -rf node_modules build
-            echo "Size after cleanup:" && du -h | tail -n 1
-  requirements:
-    - extension: 'true'
+Lint:
+  key: LINT
+  other:
+    clean-working-dir: true
+  tasks:
+    - checkout:
+        force-clean-build: true
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -ex
+            exec 2>&1
+            export DOCKER_BUILDKIT=1
+
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --target lint-output \
+              --output type=local,dest=output \
+              .
+  final-tasks:
+    - script: *cleanup-script
+  requirements: *requirements
+
+Unit tests:
+  key: UNITTESTS
+  other:
+    clean-working-dir: true
+  tasks:
+    - checkout:
+        force-clean-build: true
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -ex
+            exec 2>&1
+            export DOCKER_BUILDKIT=1
+
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --target unit-tests-output \
+              --output type=local,dest=output \
+              .
+
+            EXIT_CODE=$(cat output/exit-code.txt 2>/dev/null || echo 1)
+            exit ${EXIT_CODE}
+  final-tasks:
+    - script: *cleanup-script
+  requirements: *requirements
 
 Build:
   key: BUILD
   other:
     clean-working-dir: true
-  docker:
-    image: ${bamboo.dockerNode}
-    volumes:
-      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
-    # we use dns to avoid etimedout error when AMO is validating extension
-    docker-run-arguments: [ '--dns', '8.8.8.8' ]
   tasks:
     - checkout:
         force-clean-build: true
-    - checkout:
-        repository: extensions-private
-        path: private
-        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
           - |-
-            set -x
-            set -e
-
-            # Fix mixed logs
+            set -ex
             exec 2>&1
+            export DOCKER_BUILDKIT=1
 
-            ls -alt
+            # Generate find-compatible .gitignore exclusions on the host
+            # (where .git is available) for archive-source.sh inside Docker.
+            ./bamboo-specs/scripts/generate-find-excludes.sh gitignore-excludes.txt
 
-            # Set cache directory
-            pnpm config set store-dir ${bamboo.cachePnpm}
+            # Build Firefox beta artifacts (firefox.zip, source.zip, build.txt)
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --build-arg STAGE_ENV="${bamboo.stageEnv}" \
+              --build-arg VPN_API_URL="${bamboo.prodVpnApiUrl}" \
+              --build-arg ACCOUNTS_API_URL="${bamboo.prodAuthApiUrl}" \
+              --build-arg FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
+              --target firefox-beta-build-output \
+              --output type=local,dest=output \
+              .
 
-            # Install dependencies
-            pnpm install ${bamboo.varsPnpm}
-
-            pnpm lint
-            pnpm test:ci
-            pnpm locales validate --min
-
-            export STAGE_ENV="${bamboo.stageEnv}"
-            export VPN_API_URL="${bamboo.prodVpnApiUrl}"
-            export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
-            export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
-
-            # build with prod API endpoints firefox.zip and update.json
-            pnpm ${bamboo.buildType} firefox
-
-            # archive source for Firefox review
-            ./bamboo-specs/scripts/archive-source.sh ${bamboo.buildType}
-
-            # Move to the build/beta directory and sign the Firefox extension
-            cd ./build/${bamboo.buildType}
-
-            # Set environment variables and run go-webext to sign the Firefox extension
-            FIREFOX_CLIENT_ID="${bamboo_firefoxAmoClientId}" \
-            FIREFOX_CLIENT_SECRET="${bamboo_firefoxAmoClientSecret}" \
-            go-webext -v sign firefox -f 'firefox.zip' -s 'source.zip' -o 'firefox.xpi' -n "$(cat approval-notes.txt)"
-
-            # Exit from build/beta directory
-            cd ../..
+            # Sign Firefox extension with go-webext
+            # Uses artifacts from previous build step via named build context.
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --build-arg FIREFOX_CLIENT_ID=${bamboo_firefoxAmoClientId} \
+              --secret id=FIREFOX_CLIENT_SECRET,env=bamboo_firefoxAmoClientSecret \
+              --build-context firefox-artifacts=output/artifacts \
+              --target firefox-beta-sign-output \
+              --output type=local,dest=output \
+              .
     - inject-variables:
-        file: build/${bamboo.buildType}/build.txt
+        file: output/artifacts/build.txt
         scope: RESULT
         namespace: inject
   final-tasks:
-    - test-parser:
-        type: junit
-        test-results: 'tests-reports/unit-tests.xml'
     - script:
         interpreter: SHELL
         scripts:
-          - |-
-            set -x
-            set -e
-
-            # Fix mixed logs
-            exec 2>&1
-
-            ls -la
-
-            echo "Size before cleanup:" && du -h | tail -n 1
-            rm -rf node_modules
-            echo "Size after cleanup:" && du -h | tail -n 1
+          - "./bamboo-specs/scripts/cleanup.sh output/artifacts/build.txt,output/artifacts/firefox.zip,output/artifacts/firefox.xpi,output/artifacts/update.json"
   artifacts:
     - name: firefox.zip
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: firefox.zip
       shared: true
       required: true
     - name: firefox.xpi
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: firefox.xpi
       shared: true
       required: true
     - name: update.json
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: update.json
       shared: true
       required: true
     - name: build.txt
-      location: build/${bamboo.buildType}
+      location: output/artifacts
       pattern: build.txt
       shared: true
       required: true
-  requirements:
-    - extension: 'true'
+  requirements: *requirements
 
 triggers: []
 

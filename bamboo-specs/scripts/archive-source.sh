@@ -29,8 +29,19 @@ echo "VPN_API_URL=${VPN_API_URL}" >> .env
 echo "AUTH_API_URL=${AUTH_API_URL}" >> .env
 echo "FORWARDER_DOMAIN=${FORWARDER_DOMAIN}" >> .env
 
-# build source code for uploading to AMO / Standalone
-(git -c safe.directory=$PWD ls-files; echo ".env") | zip -@ "$OUTPUT_ZIP"
+# Build exclusion patterns via shared script.
+# Prefers gitignore-excludes.txt (generated on host by generate-find-excludes.sh),
+# falls back to .gitignore parsing if gitignore-excludes.txt is not available.
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+. "$SCRIPT_DIR/parse-gitignore.sh" gitignore-excludes.txt
+
+# Find all files and add to zip using a null-delimited pipeline (safe for any filename),
+# excluding .git, .env (added explicitly below), and .gitignore patterns.
+find . -type f ! -path './.git/*' ! -name '.env' "${GITIGNORE_EXCLUDE_ARGS[@]}" \
+  -print0 | xargs -0 zip "$OUTPUT_ZIP"
+
+# Add .env explicitly.
+zip "$OUTPUT_ZIP" .env
 
 # Remove README_FIREFOX.md from source.zip (build instructions are appended below)
 zip -d "$OUTPUT_ZIP" "bamboo-specs/scripts/README_FIREFOX.md" 2>/dev/null || true
