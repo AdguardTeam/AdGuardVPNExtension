@@ -98,6 +98,7 @@ export {
     type ProfileSettings,
     profileScheme,
     type Profile,
+    type ProfileInfo,
     profilesStateScheme,
     type ProfilesState,
     PROFILES_STATE_DEFAULTS,

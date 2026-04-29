@@ -31,7 +31,6 @@ export interface OptionsData {
     forwarderDomain: string;
     isRateVisible: boolean;
     isPremiumFeaturesShow: boolean;
-    webRTCEnabled: boolean;
     contextMenusEnabled: boolean;
     helpUsImprove: boolean;
     dnsServer: string;
@@ -62,8 +61,6 @@ export class SettingsStore {
     @observable public currentUsername: string | null;
 
     @observable public forwarderDomain: string;
-
-    @observable public webRTCEnabled = false;
 
     @observable public appearanceTheme: AppearanceTheme = APPEARANCE_THEME_DEFAULT;
 
@@ -172,13 +169,6 @@ export class SettingsStore {
         await messenger.disableProxy(true);
     };
 
-    @action public setWebRTCValue = async (value: boolean): Promise<void> => {
-        await messenger.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
-        runInAction(() => {
-            this.webRTCEnabled = value;
-        });
-    };
-
     @action public setAppearanceTheme = async (value: AppearanceTheme): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
         runInAction(() => {
@@ -219,7 +209,6 @@ export class SettingsStore {
         this.forwarderDomain = data.forwarderDomain;
         this.isRateVisible = data.isRateVisible;
         this.premiumFeatures = data.isPremiumFeaturesShow;
-        this.webRTCEnabled = data.webRTCEnabled;
         this.contextMenusEnabled = data.contextMenusEnabled;
         this.helpUsImprove = data.helpUsImprove;
         this.dnsServer = data.dnsServer;

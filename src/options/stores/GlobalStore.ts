@@ -50,7 +50,7 @@ export class GlobalStore {
             exclusionsStore.setExclusionsData(optionsData.exclusionsData);
             exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
             telemetryStore.setIsHelpUsImproveEnabled(optionsData.helpUsImprove);
-            await rootStore.profilesStore.loadProfiles();
+            await rootStore.profilesStore.loadProfilesData();
             if (!isDataRefresh) {
                 telemetryStore.setPageId(optionsData.pageId);
             }

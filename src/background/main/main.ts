@@ -50,6 +50,7 @@ import { runtime } from '../browserApi/runtime';
 import { BROWSER, BUILD_ENV, STAGE_ENV } from '../config';
 import { statisticsService } from '../statistics';
 import { userLocationService } from '../userLocationService';
+import { webrtc } from '../browserApi/webrtc';
 
 declare global {
     module globalThis {
@@ -141,6 +142,7 @@ const asyncInitModules = async (): Promise<void> => {
         await exclusions.init();
         await endpointsTldExclusions.init();
         await rateModal.initState();
+        await webrtc.init();
         await settings.applySettings(); // we have to apply settings when credentials are ready
         await endpoints.init(); // update endpoints list on extension or browser restart
         await nonRoutable.init();

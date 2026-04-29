@@ -28,3 +28,8 @@ export const profileScheme = v.strictObject({
  * A single VPN profile.
  */
 export type Profile = v.InferOutput<typeof profileScheme>;
+
+/**
+ * Lightweight profile descriptor without settings.
+ */
+export type ProfileInfo = Pick<Profile, 'id' | 'name'>;

@@ -18,7 +18,7 @@ import { DnsSettings, DnsSettingsButton } from './DnsSettings';
 import './general.pcss';
 
 export const General = observer(() => {
-    const { settingsStore, telemetryStore } = useContext(rootStore);
+    const { settingsStore, telemetryStore, profilesStore } = useContext(rootStore);
     const { showDnsSettings, isHelpUsImproveModalOpen } = settingsStore;
 
     const canSendTelemetry = !showDnsSettings // `SettingsDnsServersScreen` is rendered on top of this screen
@@ -42,7 +42,7 @@ export const General = observer(() => {
             <Language />
             <ContextMenus />
             <HelpUsImprove />
-            <WebRTC />
+            <WebRTC profileId={profilesStore.activeProfileId} />
             <DnsSettingsButton />
         </>
     );

@@ -9,6 +9,7 @@ import type { LocationData } from '../popup/stores/VpnStore';
 import { type AuthCacheKey, type AuthCacheValue } from '../background/authentication/authCacheTypes';
 import { type CanControlProxy, type DnsServerData } from '../background/schema';
 import { type ProfilesState } from '../background/schema/profiles';
+import { type ProfilesOptionsData } from '../options/stores/ProfilesStore';
 import {
     type ExclusionsMap,
     type GetExclusionsDataResponse,
@@ -162,6 +163,8 @@ export enum MessageType {
     GET_INTERFACE_LANGUAGE = 'get.interface.language',
 
     GET_PROFILES_DATA = 'get.profiles.data',
+    GET_PROFILES_OPTIONS_DATA = 'get.profiles.options.data',
+    SET_PROFILE_WEBRTC = 'set.profile.webrtc',
 }
 
 export const FLAGS_FIELDS = {
@@ -400,6 +403,14 @@ export type SetSettingValueMessage = {
     data: {
         settingId: string;
         value: boolean | string;
+    };
+};
+
+export type SetProfileWebRtcMessage = {
+    type: MessageType.SET_PROFILE_WEBRTC;
+    data: {
+        profileId: string;
+        enabled: boolean;
     };
 };
 
@@ -872,6 +883,14 @@ export interface MessageMap {
     [MessageType.GET_PROFILES_DATA]: {
         message: DefaultMessage<MessageType.GET_PROFILES_DATA>;
         response: ProfilesState;
+    };
+    [MessageType.GET_PROFILES_OPTIONS_DATA]: {
+        message: DefaultMessage<MessageType.GET_PROFILES_OPTIONS_DATA>;
+        response: ProfilesOptionsData;
+    };
+    [MessageType.SET_PROFILE_WEBRTC]: {
+        message: SetProfileWebRtcMessage;
+        response: void;
     };
 }
 

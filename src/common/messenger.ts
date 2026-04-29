@@ -869,6 +869,30 @@ class Messenger {
         const type = MessageType.GET_PROFILES_DATA;
         return this.sendMessage(type);
     }
+
+    /**
+     * Fetches profiles options data including per-profile settings maps.
+     *
+     * @returns Profiles options data with WebRTC cache and other per-profile settings.
+     */
+    public async getProfilesOptionsData(): Promise<ExtractMessageResponse<MessageType.GET_PROFILES_OPTIONS_DATA>> {
+        const type = MessageType.GET_PROFILES_OPTIONS_DATA;
+        return this.sendMessage(type);
+    }
+
+    /**
+     * Sets the WebRTC protection setting for a profile.
+     *
+     * @param profileId Profile ID.
+     * @param enabled Whether WebRTC protection should be enabled.
+     */
+    public async setProfileWebRtc(
+        profileId: string,
+        enabled: boolean,
+    ): Promise<void> {
+        const type = MessageType.SET_PROFILE_WEBRTC;
+        return this.sendMessage(type, { profileId, enabled });
+    }
 }
 
 export const messenger = new Messenger();

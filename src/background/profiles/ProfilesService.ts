@@ -11,6 +11,7 @@ import {
 } from '../../common/profilesConstants';
 import {
     type Profile,
+    type ProfileInfo,
     type ProfileSettings,
     type ProfilesState,
     StorageKey,
@@ -117,6 +118,20 @@ export class ProfilesService {
     public async getState(): Promise<ProfilesState> {
         const state = await this.loadState();
         return structuredClone(state);
+    }
+
+    /**
+     * Returns lightweight profile descriptors (id + name only)
+     * and the active profile ID.
+     */
+    public async getProfileInfoList(): Promise<{ profiles: ProfileInfo[]; activeProfileId: string }> {
+        const state = await this.loadState();
+        const profiles = state.profiles.map(({ id, name }) => ({ id, name }));
+
+        return {
+            profiles,
+            activeProfileId: state.activeProfileId,
+        };
     }
 
     /**
@@ -240,27 +255,57 @@ export class ProfilesService {
     }
 
     /**
-     * Updates the settings snapshot of a profile.
-     * The system Default profile cannot be modified.
-     * Validates the settings against the schema before persisting.
+     * Returns the settings snapshot for the currently active profile.
+     *
+     * @returns A deep copy of the active profile settings.
+     * @throws If the active profile is not found.
+     */
+    public async getActiveProfileSettings(): Promise<ProfileSettings> {
+        const state = await this.loadState();
+        const profile = ProfilesService.getProfileById(state, state.activeProfileId);
+
+        return structuredClone(profile.settings);
+    }
+
+    /**
+     * Partially updates the settings of a profile by merging only the
+     * provided fields into the existing settings snapshot.
+     *
+     * If the updated profile is the currently active one and an `onApply`
+     * callback is provided, it is invoked after persisting so that the
+     * caller can apply the side-effect (e.g. toggling browser APIs).
      *
      * @param id Profile ID.
-     * @param settings New settings snapshot.
-     * @throws If the profile is not found, is the system default, or settings are invalid.
+     * @param patch Partial settings to merge.
+     * @param onApply Optional callback invoked only when the profile is active.
+     * @throws If the profile is not found or the merged settings are invalid.
      */
-    public updateProfileSettings(id: string, settings: ProfileSettings): Promise<void> {
+    public updateProfileSettings(
+        id: string,
+        patch: Partial<ProfileSettings>,
+        onApply?: () => Promise<void>,
+    ): Promise<void> {
         return this.enqueue(async () => {
-            v.parse(profileSettingsScheme, settings);
-
             const state = await this.loadState();
-            ProfilesService.getProfileById(state, id);
+            const profile = ProfilesService.getProfileById(state, id);
+
+            const merged: ProfileSettings = {
+                ...profile.settings,
+                ...patch,
+            };
+
+            v.parse(profileSettingsScheme, merged);
 
             const updatedProfiles = state.profiles.map((p) => (
-                p.id === id ? { ...p, settings: structuredClone(settings) } : p
+                p.id === id ? { ...p, settings: structuredClone(merged) } : p
             ));
 
             await this.saveState({ ...state, profiles: updatedProfiles });
             log.debug(`[vpn.ProfilesService.updateProfileSettings]: Updated settings for profile ${id}`);
+
+            if (onApply && id === state.activeProfileId) {
+                await onApply();
+            }
         });
     }
 }

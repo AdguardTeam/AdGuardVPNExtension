@@ -11,7 +11,6 @@ import {
 import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../../common/dnsConstants';
 import { type LocalePreference, LANGUAGE_AUTO, toLocalePreference } from '../../common/locale';
-import { webrtc } from '../browserApi/webrtc';
 import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
 import type { DnsServerData, PersistedExclusions } from '../schema';
 
@@ -77,12 +76,6 @@ const setSetting = async (id: string, value: boolean | string, force?: boolean):
     }
 
     switch (id) {
-        case SETTINGS_IDS.HANDLE_WEBRTC_ENABLED: {
-            if (typeof value === 'boolean') {
-                webrtc.setWebRTCHandlingAllowed(value, isProxyEnabled());
-            }
-            break;
-        }
         case SETTINGS_IDS.SELECTED_DNS_SERVER: {
             if (typeof value === 'string') {
                 await dns.setDnsServer(value);
@@ -120,27 +113,8 @@ const enableProxy = async (force?: boolean): Promise<void> => {
     connectivityService.send(ConnectivityEventType.ConnectBtnPressed);
 };
 
-/**
- * Checks if setting is enabled
- *
- * @param settingId
- *
- * @returns True if setting is enabled, false otherwise.
- */
-const isSettingEnabled = (settingId: string): boolean => {
-    const enabledSettingValue = true;
-    const settingValue = settingsService.getSetting(settingId);
-    return settingValue === enabledSettingValue;
-};
-
 const applySettings = async (): Promise<void> => {
     const proxyEnabled = isProxyEnabled();
-
-    // Set WebRTC
-    webrtc.setWebRTCHandlingAllowed(
-        isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
-        proxyEnabled,
-    );
 
     // Set DNS server
     await dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));

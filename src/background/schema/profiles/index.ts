@@ -6,6 +6,7 @@ export {
 export {
     profileScheme,
     type Profile,
+    type ProfileInfo,
 } from './profile';
 
 export {

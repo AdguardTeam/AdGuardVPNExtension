@@ -290,53 +290,128 @@ describe('ProfilesService', () => {
     });
 
     describe('updateProfileSettings', () => {
-        it('should update the settings of a profile', async () => {
+        it('should merge a partial patch into existing settings', async () => {
             const profile = await service.createProfile('Work');
-            const newSettings = {
-                ...DEFAULT_PROFILE_SETTINGS,
+
+            await service.updateProfileSettings(profile.id, {
                 handleWebRtcEnabled: true,
                 selectedDnsServer: 'adguard-dns',
-            };
-
-            await service.updateProfileSettings(profile.id, newSettings);
+            });
 
             const { profiles } = await service.getState();
             const updated = profiles.find((p) => p.id === profile.id);
             expect(updated?.settings.handleWebRtcEnabled).toBe(true);
             expect(updated?.settings.selectedDnsServer).toBe('adguard-dns');
+            // Untouched fields should keep their defaults
+            expect(updated?.settings.selectedLocationId).toBe(DEFAULT_PROFILE_SETTINGS.selectedLocationId);
         });
 
         it('should throw when profile is not found', async () => {
-            await expect(service.updateProfileSettings('non-existent', DEFAULT_PROFILE_SETTINGS))
+            await expect(service.updateProfileSettings('non-existent', { handleWebRtcEnabled: true }))
                 .rejects
                 .toThrow('Profile not found');
         });
 
         it('should allow updating the default profile settings', async () => {
-            const newSettings = {
-                ...DEFAULT_PROFILE_SETTINGS,
-                handleWebRtcEnabled: true,
-            };
-
-            await service.updateProfileSettings(DEFAULT_PROFILE_ID, newSettings);
+            await service.updateProfileSettings(DEFAULT_PROFILE_ID, { handleWebRtcEnabled: true });
 
             const { profiles } = await service.getState();
             const defaultProfile = profiles.find((p) => p.id === DEFAULT_PROFILE_ID);
             expect(defaultProfile?.settings.handleWebRtcEnabled).toBe(true);
         });
 
-        it('should throw when settings are invalid', async () => {
+        it('should throw when patch produces invalid settings', async () => {
             const profile = await service.createProfile('Work');
-            const invalidSettings = {
-                selectedLocationId: null,
-                handleWebRtcEnabled: 'not-a-boolean',
-                selectedDnsServer: 123,
-            };
 
             await expect(
-                // @ts-expect-error testing with intentionally invalid settings
-                service.updateProfileSettings(profile.id, invalidSettings),
+                service.updateProfileSettings(profile.id, {
+                    // @ts-expect-error testing with intentionally invalid value
+                    handleWebRtcEnabled: 'not-a-boolean',
+                }),
             ).rejects.toThrow();
+        });
+
+        it('should call onApply when updating the active profile', async () => {
+            const onApply = vi.fn();
+
+            await service.updateProfileSettings(
+                DEFAULT_PROFILE_ID,
+                { handleWebRtcEnabled: true },
+                onApply,
+            );
+
+            expect(onApply).toHaveBeenCalledOnce();
+        });
+
+        it('should NOT call onApply when updating a non-active profile', async () => {
+            const profile = await service.createProfile('Work');
+            const onApply = vi.fn();
+
+            await service.updateProfileSettings(
+                profile.id,
+                { handleWebRtcEnabled: true },
+                onApply,
+            );
+
+            expect(onApply).not.toHaveBeenCalled();
+        });
+
+        it('should persist settings even when onApply is not provided', async () => {
+            await service.updateProfileSettings(DEFAULT_PROFILE_ID, { handleWebRtcEnabled: true });
+
+            const settings = await service.getActiveProfileSettings();
+            expect(settings.handleWebRtcEnabled).toBe(true);
+        });
+    });
+
+    describe('getProfileInfoList', () => {
+        it('should return lightweight descriptors with id and name only', async () => {
+            await service.createProfile('Work');
+            await service.createProfile('Gaming');
+
+            const { profiles, activeProfileId } = await service.getProfileInfoList();
+
+            expect(profiles).toHaveLength(3);
+            expect(activeProfileId).toBe(DEFAULT_PROFILE_ID);
+            profiles.forEach((p) => {
+                expect(Object.keys(p).sort()).toEqual(['id', 'name']);
+            });
+        });
+
+        it('should not include settings in the result', async () => {
+            await service.createProfile('Work');
+
+            const { profiles } = await service.getProfileInfoList();
+
+            profiles.forEach((p) => {
+                expect(p).not.toHaveProperty('settings');
+            });
+        });
+    });
+
+    describe('getActiveProfileSettings', () => {
+        it('should return the default profile settings on fresh state', async () => {
+            const settings = await service.getActiveProfileSettings();
+
+            expect(settings).toEqual(DEFAULT_PROFILE_SETTINGS);
+        });
+
+        it('should return the settings of the currently active profile', async () => {
+            const profile = await service.createProfile('Work');
+            await service.updateProfileSettings(profile.id, { handleWebRtcEnabled: true });
+            await service.setActiveProfile(profile.id);
+
+            const settings = await service.getActiveProfileSettings();
+
+            expect(settings.handleWebRtcEnabled).toBe(true);
+        });
+
+        it('should return a deep copy that cannot mutate the internal state', async () => {
+            const settingsA = await service.getActiveProfileSettings();
+            settingsA.handleWebRtcEnabled = true;
+
+            const settingsB = await service.getActiveProfileSettings();
+            expect(settingsB.handleWebRtcEnabled).toBe(DEFAULT_PROFILE_SETTINGS.handleWebRtcEnabled);
         });
     });
 });

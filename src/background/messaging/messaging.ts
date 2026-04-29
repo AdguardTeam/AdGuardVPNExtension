@@ -26,6 +26,7 @@ import { accountProvider } from '../providers/accountProvider';
 import { flagsStorage } from '../flagsStorage';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
+import { webrtc } from '../browserApi/webrtc';
 import { hintPopup } from '../hintPopup';
 import { vpnBlockedNotice } from '../vpnBlockedNotice';
 import { limitedOfferService } from '../limitedOfferService';
@@ -37,6 +38,7 @@ import { isMessage } from '../../common/messenger';
 import { statisticsService } from '../statistics';
 import { profilesService } from '../profiles';
 import { type OptionsData } from '../../options/stores/SettingsStore';
+import { type ProfilesOptionsData } from '../../options/stores/ProfilesStore';
 import { updateService } from '../updateService';
 import { i18n } from '../../common/i18n';
 
@@ -60,7 +62,6 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
     const username = await credentials.getUsername();
     const isRateVisible = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
     const isPremiumFeaturesShow = settings.getSetting(SETTINGS_IDS.PREMIUM_FEATURES_SHOW);
-    const webRTCEnabled = settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
     const contextMenusEnabled = settings.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
     const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
     const dnsServer = settings.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
@@ -108,7 +109,6 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
         forwarderDomain,
         isRateVisible,
         isPremiumFeaturesShow,
-        webRTCEnabled,
         contextMenusEnabled,
         helpUsImprove,
         dnsServer,
@@ -125,6 +125,22 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
         quickConnectSetting,
         selectedLanguage,
         pageId,
+    };
+};
+
+/**
+ * Builds profiles options data including per-profile settings maps.
+ *
+ * @returns Profiles options data.
+ */
+const getProfilesOptionsData = async (): Promise<ProfilesOptionsData> => {
+    const { profiles, activeProfileId } = await profilesService.getProfileInfoList();
+    const profileWebRtcData = await webrtc.getProfileWebRtcDataMap();
+
+    return {
+        profiles,
+        activeProfileId,
+        profileWebRtcData,
     };
 };
 
@@ -516,6 +532,14 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         }
         case MessageType.GET_PROFILES_DATA: {
             return profilesService.getState();
+        }
+        case MessageType.GET_PROFILES_OPTIONS_DATA: {
+            return getProfilesOptionsData();
+        }
+        case MessageType.SET_PROFILE_WEBRTC: {
+            const { profileId, enabled } = message.data;
+            await webrtc.setProfileWebRtc(profileId, enabled);
+            break;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
