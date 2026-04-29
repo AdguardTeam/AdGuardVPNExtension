@@ -43,20 +43,6 @@ export class ProfilesStore {
     @observable public webRtcCache = observable.map<string, boolean>();
 
     /**
-     * Fetches profiles data from the background script and updates the store.
-     */
-    @action
-    public async loadProfiles(): Promise<void> {
-        try {
-            const data = await messenger.getProfilesData();
-            this.profiles = data.profiles;
-            this.activeProfileId = data.activeProfileId;
-        } catch (e) {
-            log.error('[vpn.ProfilesStore.loadProfiles]: ', e.message);
-        }
-    }
-
-    /**
      * Fetches and applies profiles options data including per-profile settings.
      */
     @action

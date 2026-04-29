@@ -11,8 +11,7 @@ import { ProfileActions } from '../ProfileActions';
 import styles from './profile-detail.module.pcss';
 
 /**
- * Profile detail page showing settings for a single profile.
- * Currently a placeholder — real settings will be added later.
+ * Profile detail page showing per-profile settings (WebRTC, etc.).
  */
 export const ProfileDetail = observer(() => {
     const { profilesStore } = useContext(rootStore);

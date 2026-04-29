@@ -20,8 +20,8 @@ export const WebRTC = observer(({ profileId }: WebRTCProps) => {
 
     const handleToggle = async (): Promise<void> => {
         const newValue = !isActive;
-        profilesStore.updateWebRtcCache(profileId, newValue);
         await messenger.setProfileWebRtc(profileId, newValue);
+        profilesStore.updateWebRtcCache(profileId, newValue);
     };
 
     return (
