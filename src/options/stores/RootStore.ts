@@ -5,6 +5,7 @@ import { i18n } from '../../common/i18n';
 import { GlobalStore } from './GlobalStore';
 import { AuthStore } from './AuthStore';
 import { SettingsStore } from './SettingsStore';
+import { DnsStore } from './DnsStore';
 import { ExclusionsStore } from './ExclusionsStore';
 import { ProfilesStore } from './ProfilesStore';
 import { NotificationsStore } from './NotificationsStore';
@@ -16,6 +17,8 @@ export class RootStore {
     public authStore: AuthStore;
 
     public settingsStore: SettingsStore;
+
+    public dnsStore: DnsStore;
 
     public exclusionsStore: ExclusionsStore;
 
@@ -33,11 +36,12 @@ export class RootStore {
     public translationStore: TranslationStore;
 
     constructor() {
+        this.profilesStore = new ProfilesStore();
         this.globalStore = new GlobalStore(this);
         this.authStore = new AuthStore(this);
         this.settingsStore = new SettingsStore(this);
-        this.exclusionsStore = new ExclusionsStore(this);
-        this.profilesStore = new ProfilesStore();
+        this.dnsStore = new DnsStore(this.profilesStore);
+        this.exclusionsStore = new ExclusionsStore(this.profilesStore);
         this.notificationsStore = new NotificationsStore(this);
         this.uiStore = new UiStore(this);
         this.telemetryStore = new TelemetryStore();

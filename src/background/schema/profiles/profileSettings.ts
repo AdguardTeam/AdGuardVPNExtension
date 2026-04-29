@@ -1,6 +1,6 @@
 import * as v from 'valibot';
 
-import { persistedExclusionsScheme } from '../exclusions';
+import { type PersistedExclusions, persistedExclusionsScheme } from '../exclusions';
 import { dnsServerDataScheme } from '../dns';
 
 /**
@@ -18,14 +18,19 @@ export const profileSettingsScheme = v.strictObject({
     handleWebRtcEnabled: v.boolean(),
 
     /**
-     * ID of the selected DNS server (e.g. `'default'`, `'adguard-dns'`).
+     * ID of the selected DNS server, or `null` for the default.
      */
-    selectedDnsServer: v.string(),
+    selectedDnsServer: v.nullable(v.string()),
 
     /**
      * User-defined custom DNS servers.
      */
     customDnsServers: v.array(dnsServerDataScheme),
+
+    /**
+     * Backup of custom DNS servers for undo after removal.
+     */
+    backupDnsServersData: v.array(dnsServerDataScheme),
 
     /**
      * Exclusion lists for Regular and Selective modes, including the active mode flag.
@@ -37,3 +42,12 @@ export const profileSettingsScheme = v.strictObject({
  * Settings snapshot stored in each profile.
  */
 export type ProfileSettings = v.InferOutput<typeof profileSettingsScheme>;
+
+/**
+ * Partial patch for profile settings.
+ * Nested object (exclusions) accepts partial values
+ * that are deep-merged by {@link ProfilesService.updateProfileSettings}.
+ */
+export type ProfileSettingsPatch = Omit<Partial<ProfileSettings>, 'exclusions'> & {
+    exclusions?: Partial<PersistedExclusions>;
+};

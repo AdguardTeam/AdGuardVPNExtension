@@ -1,6 +1,7 @@
 export {
     profileSettingsScheme,
     type ProfileSettings,
+    type ProfileSettingsPatch,
 } from './profileSettings';
 
 export {

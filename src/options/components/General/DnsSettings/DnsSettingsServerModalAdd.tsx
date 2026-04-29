@@ -20,14 +20,17 @@ import {
  * Add custom DNS server modal component.
  */
 export const DnsSettingsServerModalAdd = observer(() => {
-    const { settingsStore, telemetryStore } = useContext(rootStore);
+    const { dnsStore, settingsStore, telemetryStore } = useContext(rootStore);
 
     const {
         forwarderDomain,
+    } = settingsStore;
+
+    const {
         isCustomDnsModalOpen,
         customDnsServers,
         dnsServerToEdit,
-    } = settingsStore;
+    } = dnsStore;
 
     const isOpen = isCustomDnsModalOpen && !dnsServerToEdit;
 
@@ -68,7 +71,7 @@ export const DnsSettingsServerModalAdd = observer(() => {
             TelemetryScreenName.DialogAddCustomDns,
         );
 
-        await settingsStore.addCustomDnsServer(
+        await dnsStore.addCustomDnsServer(
             normalizedDnsServerName,
             normalizedDnsServerAddress,
         );

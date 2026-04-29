@@ -292,13 +292,11 @@ describe('ProfilesService', () => {
     describe('updateProfileSettings', () => {
         it('should update the settings of a profile', async () => {
             const profile = await service.createProfile('Work');
-            const newSettings = {
-                ...DEFAULT_PROFILE_SETTINGS,
+
+            await service.updateProfileSettings(profile.id, {
                 handleWebRtcEnabled: true,
                 selectedDnsServer: 'adguard-dns',
-            };
-
-            await service.updateProfileSettings(profile.id, newSettings);
+            });
 
             const { profiles } = await service.getState();
             const updated = profiles.find((p) => p.id === profile.id);
@@ -307,36 +305,40 @@ describe('ProfilesService', () => {
         });
 
         it('should throw when profile is not found', async () => {
-            await expect(service.updateProfileSettings('non-existent', DEFAULT_PROFILE_SETTINGS))
+            await expect(service.updateProfileSettings('non-existent', {}))
                 .rejects
                 .toThrow('Profile not found');
         });
 
         it('should allow updating the default profile settings', async () => {
-            const newSettings = {
-                ...DEFAULT_PROFILE_SETTINGS,
+            await service.updateProfileSettings(DEFAULT_PROFILE_ID, {
                 handleWebRtcEnabled: true,
-            };
-
-            await service.updateProfileSettings(DEFAULT_PROFILE_ID, newSettings);
+            });
 
             const { profiles } = await service.getState();
             const defaultProfile = profiles.find((p) => p.id === DEFAULT_PROFILE_ID);
             expect(defaultProfile?.settings.handleWebRtcEnabled).toBe(true);
         });
 
-        it('should throw when settings are invalid', async () => {
-            const profile = await service.createProfile('Work');
-            const invalidSettings = {
-                selectedLocationId: null,
-                handleWebRtcEnabled: 'not-a-boolean',
-                selectedDnsServer: 123,
-            };
+        it('should call onApply when profile is active', async () => {
+            const onApply = vi.fn();
 
-            await expect(
-                // @ts-expect-error testing with intentionally invalid settings
-                service.updateProfileSettings(profile.id, invalidSettings),
-            ).rejects.toThrow();
+            await service.updateProfileSettings(DEFAULT_PROFILE_ID, {
+                handleWebRtcEnabled: true,
+            }, onApply);
+
+            expect(onApply).toHaveBeenCalledOnce();
+        });
+
+        it('should not call onApply when profile is inactive', async () => {
+            const profile = await service.createProfile('Work');
+            const onApply = vi.fn();
+
+            await service.updateProfileSettings(profile.id, {
+                handleWebRtcEnabled: true,
+            }, onApply);
+
+            expect(onApply).not.toHaveBeenCalled();
         });
     });
 });

@@ -308,6 +308,24 @@
     "settings_dns_description_current": {
         "message": "Current: %dnsServerName%"
     },
+    "settings_location_label": {
+        "message": "Location"
+    },
+    "settings_location_description_current": {
+        "message": "Current: %locationName%"
+    },
+    "settings_location_not_selected": {
+        "message": "Not selected"
+    },
+    "settings_location_applies_to_profile": {
+        "message": "Applies to your <b>%profileName%</b> profile"
+    },
+    "settings_location_search": {
+        "message": "Search"
+    },
+    "settings_location_not_found": {
+        "message": "Locations not found"
+    },
     "settings_dns_popular_servers": {
         "message": "Popular DNS servers"
     },
@@ -556,6 +574,9 @@
     },
     "settings_profiles_create": {
         "message": "Create"
+    },
+    "settings_exclusion_description_current": {
+        "message": "Current: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Where VPN is on"

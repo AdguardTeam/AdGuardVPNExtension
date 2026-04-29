@@ -1,4 +1,4 @@
-import React, { type ReactElement, useContext } from 'react';
+import React, { type ReactElement, useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
@@ -21,10 +21,27 @@ import { ExclusionsSearch } from './Search';
 import './exclusions.pcss';
 
 /**
+ * Exclusions component props.
+ */
+type ExclusionsProps = {
+    /**
+     * Back button handler. When provided, Title shows a back arrow.
+     */
+    onBack?: () => void;
+};
+
+/**
  * Exclusions page component.
  */
-export const Exclusions = observer(() => {
+export const Exclusions = observer(({ onBack }: ExclusionsProps) => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
+
+    useEffect(() => {
+        exclusionsStore.resetUiState();
+        return (): void => {
+            exclusionsStore.resetUiState();
+        };
+    }, [exclusionsStore]);
 
     const {
         modeSelectorModalOpen,
@@ -120,6 +137,7 @@ export const Exclusions = observer(() => {
                     </>
                 )}
                 action={<Actions />}
+                onClick={onBack}
             />
             <List />
             {!exclusionsStore.exclusionsSearchValue && (

@@ -4,7 +4,6 @@ import {
     runInAction,
     computed,
 } from 'mobx';
-import { nanoid } from 'nanoid';
 
 import {
     SETTINGS_IDS,
@@ -14,13 +13,11 @@ import {
     type QuickConnectSetting,
     QUICK_CONNECT_SETTING_DEFAULT,
 } from '../../common/constants';
-import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../common/dnsConstants';
 import { type LocalePreference, LANGUAGE_AUTO } from '../../common/locale';
 import { messenger } from '../../common/messenger';
 import { log } from '../../common/logger';
 import type { DnsServerData } from '../../background/schema';
-import { type CustomDnsData } from '../hooks/useQueryStringData';
-import type { ExclusionsData, ServiceDto } from '../../common/exclusionsConstants';
+import { type LocationWithPingInterface } from '../../background/endpoints/LocationWithPing';
 
 import type { RootStore } from './RootStore';
 import { RequestStatus } from './consts';
@@ -31,16 +28,12 @@ export interface OptionsData {
     forwarderDomain: string;
     isRateVisible: boolean;
     isPremiumFeaturesShow: boolean;
-    webRTCEnabled: boolean;
     contextMenusEnabled: boolean;
     helpUsImprove: boolean;
     dnsServer: string;
     appearanceTheme: AppearanceTheme;
     isPremiumToken: boolean;
-    exclusionsData: ExclusionsData;
-    servicesData: ServiceDto[];
     isAuthenticated: boolean;
-    isAllExclusionsListsEmpty: boolean;
     maxDevicesCount?: number;
     pageId: string | null;
     subscriptionType: SubscriptionType | null;
@@ -48,6 +41,7 @@ export interface OptionsData {
     customDnsServers: DnsServerData[];
     quickConnectSetting: QuickConnectSetting;
     selectedLanguage: LocalePreference;
+    locations: LocationWithPingInterface[];
 }
 
 export class SettingsStore {
@@ -63,25 +57,15 @@ export class SettingsStore {
 
     @observable public forwarderDomain: string;
 
-    @observable public webRTCEnabled = false;
-
     @observable public appearanceTheme: AppearanceTheme = APPEARANCE_THEME_DEFAULT;
 
     @observable public contextMenusEnabled = false;
 
     @observable public helpUsImprove = false;
 
-    @observable public dnsServer = DEFAULT_DNS_SERVER.id;
-
-    @observable public dnsServerToEdit: DnsServerData | null = null;
-
-    @observable public isCustomDnsModalOpen = false;
-
     @observable public isHelpUsImproveModalOpen = false;
 
     @observable public isSignOutModalOpen = false;
-
-    @observable public customDnsServers: DnsServerData[] = [];
 
     @observable public invitesBonuses = {
         inviteUrl: '',
@@ -101,15 +85,11 @@ export class SettingsStore {
 
     @observable public showBugReporter = false;
 
-    @observable public showDnsSettings = false;
-
     @observable public quickConnect = QUICK_CONNECT_SETTING_DEFAULT;
 
     @observable public selectedLanguage: LocalePreference = LANGUAGE_AUTO;
 
-    @observable public dnsServerName = '';
-
-    @observable public dnsServerAddress = '';
+    @observable public locations: LocationWithPingInterface[] = [];
 
     private rootStore: RootStore;
 
@@ -172,13 +152,6 @@ export class SettingsStore {
         await messenger.disableProxy(true);
     };
 
-    @action public setWebRTCValue = async (value: boolean): Promise<void> => {
-        await messenger.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
-        runInAction(() => {
-            this.webRTCEnabled = value;
-        });
-    };
-
     @action public setAppearanceTheme = async (value: AppearanceTheme): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
         runInAction(() => {
@@ -200,35 +173,20 @@ export class SettingsStore {
         });
     };
 
-    @action public setDnsServer = async (value: string): Promise<void> => {
-        if (!value) {
-            runInAction(() => {
-                this.dnsServer = DEFAULT_DNS_SERVER.id;
-            });
-            return;
-        }
-        await messenger.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
-        runInAction(() => {
-            this.dnsServer = value;
-        });
-    };
-
     @action public setOptionsData = (data: OptionsData): void => {
         this.appVersion = data.appVersion;
         this.currentUsername = data.username;
         this.forwarderDomain = data.forwarderDomain;
         this.isRateVisible = data.isRateVisible;
         this.premiumFeatures = data.isPremiumFeaturesShow;
-        this.webRTCEnabled = data.webRTCEnabled;
         this.contextMenusEnabled = data.contextMenusEnabled;
         this.helpUsImprove = data.helpUsImprove;
-        this.dnsServer = data.dnsServer;
         this.appearanceTheme = data.appearanceTheme;
         this.subscriptionType = data.subscriptionType;
         this.subscriptionTimeExpiresIso = data.subscriptionTimeExpiresIso;
-        this.customDnsServers = data.customDnsServers;
         this.quickConnect = data.quickConnectSetting;
         this.selectedLanguage = data.selectedLanguage;
+        this.locations = data.locations;
     };
 
     @action public updateCurrentUsername = async (): Promise<void> => {
@@ -269,72 +227,6 @@ export class SettingsStore {
         await messenger.openPromoteSocialsPage();
     };
 
-    @action private setCustomDnsServers = (dnsServersData: DnsServerData[]): void => {
-        this.customDnsServers = dnsServersData;
-    };
-
-    @action public addCustomDnsServer = async (
-        dnsServerName: string,
-        dnsServerAddress: string,
-    ): Promise<void> => {
-        log.info(`[vpn.SettingsStore]: Adding DNS server: ${dnsServerName} with address: ${dnsServerAddress}`);
-        const dnsServer = {
-            id: nanoid(),
-            title: dnsServerName,
-            address: dnsServerAddress,
-        };
-        this.customDnsServers.push(dnsServer);
-        await messenger.addCustomDnsServer(dnsServer);
-        await this.setDnsServer(dnsServer.id);
-    };
-
-    @action public editCustomDnsServer = async (
-        dnsServerId: string,
-        dnsServerName: string,
-        dnsServerAddress: string,
-    ): Promise<void> => {
-        const editedDnsServers = await messenger.editCustomDnsServer({
-            id: dnsServerId,
-            title: dnsServerName,
-            address: dnsServerAddress,
-        });
-
-        this.setCustomDnsServers(editedDnsServers);
-        this.setDnsServerToEdit(null);
-    };
-
-    @action public removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {
-        this.customDnsServers = this.customDnsServers.filter((server) => server.id !== dnsServerId);
-        await messenger.removeCustomDnsServer(dnsServerId);
-        if (this.dnsServer === dnsServerId) {
-            await this.setDnsServer(DEFAULT_DNS_SERVER.id);
-        }
-    };
-
-    @action public restoreCustomDnsServersData = async (): Promise<void> => {
-        const customDnsServersData = await messenger.restoreCustomDnsServersData();
-        runInAction(() => {
-            this.customDnsServers = customDnsServersData;
-        });
-    };
-
-    @action public setDnsServerToEdit = (value: DnsServerData | null): void => {
-        if (value) {
-            this.dnsServerName = value.title;
-            this.dnsServerAddress = value.address;
-        }
-
-        this.dnsServerToEdit = value;
-    };
-
-    @action public openCustomDnsModal = (): void => {
-        this.isCustomDnsModalOpen = true;
-    };
-
-    @action public closeCustomDnsModal = (): void => {
-        this.isCustomDnsModalOpen = false;
-    };
-
     @action public openHelpUsImproveModal = (): void => {
         this.isHelpUsImproveModalOpen = true;
     };
@@ -351,43 +243,8 @@ export class SettingsStore {
         this.isSignOutModalOpen = false;
     };
 
-    /**
-     * Handles custom dns data send after user clicked to the custom url
-     */
-    @action public handleCustomDnsData = ({ name, address }: CustomDnsData): void => {
-        this.setShowDnsSettings(true);
-        this.openCustomDnsModal();
-        this.setDnsServerName(name);
-        this.setDnsServerAddress(address);
-    };
-
-    @computed public get currentDnsServerName(): string | null {
-        const currentDnsServer = [
-            DEFAULT_DNS_SERVER,
-            ...POPULAR_DNS_SERVERS,
-            ...this.customDnsServers,
-        ].find((server) => server.id === this.dnsServer);
-        if (currentDnsServer) {
-            return currentDnsServer.title;
-        }
-        return null;
-    }
-
     @action public setShowBugReporter = (value: boolean): void => {
         this.showBugReporter = value;
-    };
-
-    @action public setShowDnsSettings = (value: boolean): void => {
-        this.showDnsSettings = value;
-    };
-
-    /**
-     * Hides components rendered on separate screens without routing:
-     * DNS settings and Bug Reporter
-     */
-    @action public closeSubComponents = (): void => {
-        this.setShowBugReporter(false);
-        this.setShowDnsSettings(false);
     };
 
     @action public setQuickConnectSetting = async (value: QuickConnectSetting): Promise<void> => {
@@ -408,12 +265,4 @@ export class SettingsStore {
     @computed public get allQuestsCompleted(): boolean {
         return this.invitesQuestCompleted && this.addDeviceQuestCompleted;
     }
-
-    @action public setDnsServerName = (name: string): void => {
-        this.dnsServerName = name;
-    };
-
-    @action public setDnsServerAddress = (address: string): void => {
-        this.dnsServerAddress = address;
-    };
 }

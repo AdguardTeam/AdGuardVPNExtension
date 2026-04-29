@@ -29,7 +29,7 @@ export class GlobalStore {
         const {
             settingsStore,
             authStore,
-            exclusionsStore,
+            profilesStore,
             telemetryStore,
         } = rootStore;
 
@@ -46,11 +46,8 @@ export class GlobalStore {
             if (optionsData.maxDevicesCount !== undefined) {
                 authStore.setMaxDevicesCount(optionsData.maxDevicesCount);
             }
-            exclusionsStore.setServicesData(optionsData.servicesData);
-            exclusionsStore.setExclusionsData(optionsData.exclusionsData);
-            exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
             telemetryStore.setIsHelpUsImproveEnabled(optionsData.helpUsImprove);
-            await rootStore.profilesStore.loadProfiles();
+            await profilesStore.loadProfilesData();
             if (!isDataRefresh) {
                 telemetryStore.setPageId(optionsData.pageId);
             }

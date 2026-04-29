@@ -1,6 +1,5 @@
 import punycode from 'punycode';
 
-import identity from 'lodash/identity';
 import { isIP } from 'is-ip';
 
 import {
@@ -10,7 +9,7 @@ import {
     ExclusionsType,
     type ServiceDto,
 } from '../../common/exclusionsConstants';
-import { type ExclusionInterface, StorageKey } from '../schema';
+import { type PersistedExclusions } from '../schema';
 import {
     getETld,
     getHostname,
@@ -18,13 +17,15 @@ import {
     isWildcard,
 } from '../../common/utils/url';
 import { notifier } from '../../common/notifier';
-import { StateData } from '../stateStorage';
+import { profilesService } from '../profiles';
+import { proxy } from '../proxy';
 
-import { exclusionsManager } from './exclusions/ExclusionsManager';
+import { ExclusionsHandler } from './exclusions/ExclusionsHandler';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { type ExclusionNode } from './ExclusionNode';
-import { type AddExclusionArgs } from './exclusions/ExclusionsHandler';
+import { ExclusionsImportExport } from './ExclusionsImportExport';
+import { ExclusionsUndoManager } from './ExclusionsUndoManager';
 
 /**
  * Result of toggling services operation.
@@ -66,27 +67,75 @@ export interface ExclusionsMap {
     [ExclusionsMode.Regular]: string[],
 }
 
+/**
+ * Handlers for different exclusion modes of a profile.
+ */
+export interface ExclusionsHandlers {
+    /**
+     * Regular mode exclusions handler.
+     */
+    regularModeHandler: ExclusionsHandler;
+
+    /**
+     * Selective mode exclusions handler.
+     */
+    selectiveModeHandler: ExclusionsHandler;
+
+    /**
+     * Current mode exclusions handler.
+     */
+    currentModeHandler: ExclusionsHandler;
+}
+
+/**
+ * Combined per-profile exclusions data: handlers, inverted flag, and tree.
+ */
+interface ProfileExclusionsEntry {
+    handlers: ExclusionsHandlers;
+    inverted: boolean;
+    tree: ExclusionsTree;
+}
+
+/**
+ * Context for performing exclusion operations on a specific profile.
+ */
+export interface ProfileExclusionsContext {
+    profileId: string;
+    handlers: ExclusionsHandlers;
+    tree: ExclusionsTree;
+    updateTree: () => Promise<void>;
+}
+
 export class ExclusionsService {
     /**
-     * Exclusions service state data.
-     * Used to save and retrieve exclusions state from session storage,
-     * in order to persist it across service worker restarts.
+     * Manages undo snapshots for exclusion mutations.
      */
-    private exclusionsState = new StateData(StorageKey.ExclusionsState);
+    private undoManager = new ExclusionsUndoManager();
 
     /**
-     * {@link ExclusionsTree} instance.
+     * Handles importing and exporting exclusions.
      */
-    private exclusionsTree = new ExclusionsTree();
+    public importExport = new ExclusionsImportExport(
+        this.getProfileContext.bind(this),
+        this.savePreviousExclusions.bind(this),
+    );
 
     /**
-     * Initializes the exclusions service by waiting for dependant services to be initialized.
+     * Per-profile exclusions data (handlers, inverted flag, tree).
+     */
+    private profileDataMap = new Map<string, ProfileExclusionsEntry>();
+
+    /**
+     * Initializes the exclusions service by loading handlers for the active profile.
      */
     public async init(): Promise<void> {
-        await exclusionsManager.init();
         await servicesManager.init();
 
-        await this.updateTree();
+        const activeProfileId = await profilesService.getActiveProfileId();
+        await this.ensureProfileData(activeProfileId);
+
+        // Initial proxy update
+        await this.updateProxyForActiveProfile();
 
         notifier.addSpecifiedListener(
             notifier.types.NON_ROUTABLE_DOMAIN_ADDED,
@@ -99,12 +148,170 @@ export class ExclusionsService {
     }
 
     /**
-     * Retrieves exclusions from the exclusions tree.
+     * Retrieves exclusions from the active profile's exclusions tree.
      *
      * @returns Serializable exclusions data.
      */
-    public getExclusions(): ExclusionDtoInterface {
-        return this.exclusionsTree.getExclusions();
+    public async getExclusions(): Promise<ExclusionDtoInterface> {
+        const ctx = await this.getProfileContext();
+        return ctx.tree.getExclusions();
+    }
+
+    /**
+     * Retrieves full exclusions data for a profile.
+     * If no profileId is provided, uses the active profile.
+     *
+     * @param profileId Profile ID to get exclusions data for.
+     */
+    public async getExclusionsDataForProfile(profileId?: string): Promise<GetExclusionsDataResponse> {
+        const ctx = await this.getProfileContext(profileId);
+        const { currentModeHandler, regularModeHandler, selectiveModeHandler } = ctx.handlers;
+
+        let services = await servicesManager.getServicesDto();
+        services = services.map((service) => {
+            const serviceState = ctx.tree.getExclusionState(service.serviceId);
+            return {
+                ...service,
+                state: serviceState ?? ExclusionState.Disabled,
+            };
+        });
+
+        const enabledRegular = regularModeHandler.exclusions
+            .filter(({ state }) => state === ExclusionState.Enabled).length;
+        const enabledSelective = selectiveModeHandler.exclusions
+            .filter(({ state }) => state === ExclusionState.Enabled).length;
+
+        return {
+            exclusionsData: {
+                exclusions: ctx.tree.getExclusions(),
+                currentMode: currentModeHandler.mode,
+            },
+            services,
+            isAllExclusionsListsEmpty: !enabledRegular && !enabledSelective,
+        };
+    }
+
+    /**
+     * Creates or retrieves the exclusions entry for a profile.
+     * Entries are cached in profileDataMap and reused across calls.
+     *
+     * @param profileId Profile ID to ensure entry for.
+     */
+    private async ensureProfileData(profileId: string): Promise<ProfileExclusionsEntry> {
+        const existing = this.profileDataMap.get(profileId);
+        if (existing) {
+            return existing;
+        }
+
+        const settings = await profilesService.getProfileSettings(profileId);
+        const { exclusions } = settings;
+        const inverted = exclusions.inverted ?? false;
+
+        const regularModeHandler = new ExclusionsHandler(
+            this.saveProfileExclusions.bind(this, profileId),
+            exclusions[ExclusionsMode.Regular] ?? [],
+            ExclusionsMode.Regular,
+        );
+        const selectiveModeHandler = new ExclusionsHandler(
+            this.saveProfileExclusions.bind(this, profileId),
+            exclusions[ExclusionsMode.Selective] ?? [],
+            ExclusionsMode.Selective,
+        );
+
+        const currentModeHandler = inverted ? selectiveModeHandler : regularModeHandler;
+
+        const entry: ProfileExclusionsEntry = {
+            handlers: {
+                regularModeHandler,
+                selectiveModeHandler,
+                currentModeHandler,
+            },
+            inverted,
+            tree: new ExclusionsTree(),
+        };
+
+        this.profileDataMap.set(profileId, entry);
+
+        await this.updateTreeForProfile(entry);
+
+        return entry;
+    }
+
+    /**
+     * Persists the current exclusions state for a profile.
+     *
+     * @param profileId Profile ID to save exclusions for.
+     */
+    private async saveProfileExclusions(profileId: string): Promise<void> {
+        const profileEntry = this.profileDataMap.get(profileId);
+        if (!profileEntry) {
+            return;
+        }
+
+        const exclusionsData: PersistedExclusions = {
+            inverted: profileEntry.inverted,
+            [ExclusionsMode.Selective]: profileEntry.handlers.selectiveModeHandler.exclusions,
+            [ExclusionsMode.Regular]: profileEntry.handlers.regularModeHandler.exclusions,
+        };
+
+        await profilesService.updateProfileSettings(
+            profileId,
+            { exclusions: exclusionsData },
+            async () => {
+                await this.updateProxyForActiveProfile();
+            },
+        );
+    }
+
+    /**
+     * Updates the proxy bypass list based on the active profile's exclusions.
+     */
+    private async updateProxyForActiveProfile(): Promise<void> {
+        const activeProfileId = await profilesService.getActiveProfileId();
+        const entry = this.profileDataMap.get(activeProfileId);
+        if (!entry) {
+            return;
+        }
+
+        const enabledExclusions = entry.handlers.currentModeHandler.exclusions
+            .filter(({ state }) => state === ExclusionState.Enabled)
+            .map(({ hostname }) => hostname);
+
+        notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
+        await proxy.setBypassList(enabledExclusions, entry.inverted);
+    }
+
+    /**
+     * Returns a context for performing exclusion operations on a specific profile.
+     *
+     * @param profileId Profile ID. If undefined, uses the active profile.
+     */
+    private async getProfileContext(profileId?: string): Promise<ProfileExclusionsContext> {
+        const resolvedId = await profilesService.resolveProfileId(profileId);
+        const entry = await this.ensureProfileData(resolvedId);
+
+        return {
+            profileId: resolvedId,
+            handlers: entry.handlers,
+            tree: entry.tree,
+            updateTree: () => this.updateTreeForProfile(entry),
+        };
+    }
+
+    /**
+     * Builds or refreshes the tree for a given profile.
+     *
+     * @param entry Profile exclusions entry containing handlers and tree.
+     */
+    private async updateTreeForProfile(
+        entry: ProfileExclusionsEntry,
+    ): Promise<void> {
+        entry.tree.generateTree({
+            exclusions: entry.handlers.currentModeHandler.exclusions,
+            indexedExclusions: entry.handlers.currentModeHandler.getIndexedExclusions(),
+            services: await servicesManager.getServices(),
+            indexedServices: await servicesManager.getIndexedServices(),
+        });
     }
 
     /**
@@ -113,8 +320,9 @@ export class ExclusionsService {
      * @returns Current exclusions mode.
      */
     public async getMode(): Promise<ExclusionsMode> {
-        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
-        return currentModeHandler.mode;
+        const resolvedId = await profilesService.resolveProfileId();
+        const { handlers } = await this.ensureProfileData(resolvedId);
+        return handlers.currentModeHandler.mode;
     }
 
     /**
@@ -122,29 +330,52 @@ export class ExclusionsService {
      *
      * @param mode New exclusions mode to set.
      * @param shouldNotifyOptionsPage Whether to notify the options page about the change.
+     * @param profileId Profile ID. If undefined, uses the active profile.
      */
-    public async setMode(mode: ExclusionsMode, shouldNotifyOptionsPage?: boolean): Promise<void> {
-        await exclusionsManager.setCurrentMode(mode);
+    public async setMode(
+        mode: ExclusionsMode,
+        shouldNotifyOptionsPage?: boolean,
+        profileId?: string,
+    ): Promise<void> {
+        const resolvedId = await profilesService.resolveProfileId(profileId);
+        const entry = await this.ensureProfileData(resolvedId);
 
-        await this.updateTree();
+        const inverted = mode === ExclusionsMode.Selective;
+        entry.inverted = inverted;
 
-        // shouldNotifyOptionsPage flag is used to notify options page to update exclusions data,
-        // if exclusion mode was changed from context menu
+        entry.handlers.currentModeHandler = inverted
+            ? entry.handlers.selectiveModeHandler
+            : entry.handlers.regularModeHandler;
+
+        // Persist the inverted flag
+        const exclusionsData: PersistedExclusions = {
+            inverted,
+            [ExclusionsMode.Selective]: entry.handlers.selectiveModeHandler.exclusions,
+            [ExclusionsMode.Regular]: entry.handlers.regularModeHandler.exclusions,
+        };
+
+        await profilesService.updateProfileSettings(
+            resolvedId,
+            { exclusions: exclusionsData },
+            async () => {
+                await this.updateProxyForActiveProfile();
+            },
+        );
+
+        await this.updateTreeForProfile(entry);
+
         if (shouldNotifyOptionsPage) {
             notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
         }
     }
 
     /**
-     * Updates exclusions tree.
+     * Updates the exclusions tree for the active profile.
      */
     private async updateTree(): Promise<void> {
-        this.exclusionsTree.generateTree({
-            exclusions: await exclusionsManager.getExclusions(),
-            indexedExclusions: await exclusionsManager.getIndexedExclusions(),
-            services: await servicesManager.getServices(),
-            indexedServices: await servicesManager.getIndexedServices(),
-        });
+        const resolvedId = await profilesService.resolveProfileId();
+        const entry = await this.ensureProfileData(resolvedId);
+        await this.updateTreeForProfile(entry);
     }
 
     /**
@@ -160,19 +391,14 @@ export class ExclusionsService {
      * @returns List of services with their states.
      */
     public async getServices(): Promise<ServiceDto[]> {
+        const ctx = await this.getProfileContext();
         let services = await servicesManager.getServicesDto();
 
         services = services.map((service) => {
-            const state = this.exclusionsTree.getExclusionState(service.serviceId);
-            if (!state) {
-                return {
-                    ...service,
-                    state: ExclusionState.Disabled,
-                };
-            }
+            const state = ctx.tree.getExclusionState(service.serviceId);
             return {
                 ...service,
-                state,
+                state: state ?? ExclusionState.Disabled,
             };
         });
 
@@ -180,87 +406,16 @@ export class ExclusionsService {
     }
 
     /**
-     * Creates data prepared for adding exclusion from provided url.
-     *
-     * @param url URL to create exclusion data from.
-     *
-     * @return List of exclusion arguments to be added.
-     */
-    private async supplementExclusion(url: string): Promise<AddExclusionArgs[]> {
-        const hostname = getHostname(url);
-        if (!hostname) {
-            return [];
-        }
-
-        const eTld = getETld(hostname);
-        if (!eTld) {
-            return [];
-        }
-
-        // if provided url is service, add all service's groups
-        const services = await servicesManager.getServicesDto();
-        const serviceData = services.find((service) => service.domains.includes(hostname));
-
-        if (serviceData) {
-            const exclusionArgs: AddExclusionArgs[] = [];
-            serviceData.domains.forEach((domain) => {
-                const forceEnable = domain === hostname;
-                exclusionArgs.push(
-                    { value: domain, enabled: forceEnable, overwriteState: forceEnable },
-                    { value: `*.${domain}`, enabled: false, overwriteState: false },
-                );
-            });
-
-            return exclusionArgs;
-        }
-
-        const subdomain = getSubdomain(hostname, eTld);
-
-        if (subdomain) {
-            if (isWildcard(subdomain)) {
-                const subdomainHostname = `${subdomain}.${eTld}`;
-                return [
-                    { value: eTld, enabled: false },
-                    { value: subdomainHostname, enabled: true, overwriteState: true },
-                ];
-            }
-
-            const wildcardHostname = `*.${eTld}`;
-            const subdomainHostname = `${subdomain}.${eTld}`;
-            return [
-                { value: eTld, enabled: false },
-                { value: wildcardHostname, enabled: false },
-                { value: subdomainHostname, enabled: true, overwriteState: true },
-            ];
-        }
-
-        const wildcardHostname = `*.${hostname}`;
-
-        return [
-            { value: hostname, enabled: true, overwriteState: true },
-            { value: wildcardHostname, enabled: false },
-        ];
-    }
-
-    /**
-     * Creates data necessary for exclusions to add.
-     *
-     * @param exclusions List of exclusions to process.
-     */
-    private async supplementExclusions(exclusions: string[]): Promise<AddExclusionArgs[]> {
-        const supplementedExclusions = await Promise.all(exclusions.map((ex) => this.supplementExclusion(ex)));
-        return supplementedExclusions.flat();
-    }
-
-    /**
      * Adds url to exclusions and returns amount of added exclusions.
      *
      * @param url URL to add to exclusions.
+     * @param profileId Profile ID. If undefined, uses the active profile.
      *
      * @return Amount of added exclusions.
      */
-    public async addUrlToExclusions(url: string): Promise<number> {
-        await this.savePreviousExclusions();
+    public async addUrlToExclusions(url: string, profileId?: string): Promise<number> {
+        const ctx = await this.getProfileContext(profileId);
+        await this.savePreviousExclusions(ctx);
 
         const hostname = getHostname(url);
 
@@ -268,13 +423,13 @@ export class ExclusionsService {
             return 0;
         }
 
-        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        const { currentModeHandler } = ctx.handlers;
 
         // if provided url is existing exclusion, enables it
         const existingExclusion = currentModeHandler.getExclusionByHostname(hostname);
         if (existingExclusion) {
             await currentModeHandler.enableExclusion(existingExclusion.id);
-            await this.updateTree();
+            await ctx.updateTree();
             return 0;
         }
 
@@ -283,13 +438,16 @@ export class ExclusionsService {
         const serviceData = services.find((service) => service.domains.includes(hostname));
         if (serviceData) {
             // get list of existing exclusions in service to keep their state
-            const existingExclusionsIds = this.exclusionsTree
+            const existingExclusionsIds = ctx.tree
                 .getPathExclusions(serviceData.serviceId);
 
-            const addedExclusionsCount = await this.addServices([serviceData.serviceId]);
+            const addedExclusionsCount = await this.addServicesWithContext(
+                [serviceData.serviceId],
+                ctx,
+            );
 
             // disable all exclusions in service except existing
-            let exclusionsToDisable = this.exclusionsTree
+            let exclusionsToDisable = ctx.tree
                 .getPathExclusions(serviceData.serviceId);
 
             if (existingExclusionsIds.length) {
@@ -310,14 +468,14 @@ export class ExclusionsService {
                 );
             }
 
-            await this.updateTree();
+            await ctx.updateTree();
             return addedExclusionsCount;
         }
 
         // if provided url is IP-address, adds ip exclusion
         if (isIP(hostname)) {
             await currentModeHandler.addUrlToExclusions(hostname);
-            await this.updateTree();
+            await ctx.updateTree();
             return 1;
         }
 
@@ -329,7 +487,7 @@ export class ExclusionsService {
 
         if (currentModeHandler.hasETld(eTld)) {
             await currentModeHandler.addExclusions([{ value: hostname }]);
-            await this.updateTree();
+            await ctx.updateTree();
             return 1;
         }
 
@@ -343,7 +501,7 @@ export class ExclusionsService {
                     { value: eTld, enabled: false },
                     { value: subdomainHostname, enabled: true },
                 ]);
-                await this.updateTree();
+                await ctx.updateTree();
                 return 2;
             }
 
@@ -354,7 +512,7 @@ export class ExclusionsService {
                 { value: wildcardHostname, enabled: false },
                 { value: subdomainHostname, enabled: true },
             ]);
-            await this.updateTree();
+            await ctx.updateTree();
             return 3;
         }
 
@@ -363,7 +521,7 @@ export class ExclusionsService {
             { value: hostname },
             { value: wildcardHostname },
         ]);
-        await this.updateTree();
+        await ctx.updateTree();
         return 2;
     }
 
@@ -374,7 +532,18 @@ export class ExclusionsService {
      *
      * @returns Amount of added exclusions.
      */
-    private async addServices(serviceIds: string[]): Promise<number> {
+    /**
+     * Adds services to exclusions and returns amount of added exclusions.
+     *
+     * @param serviceIds List of service IDs to add.
+     * @param ctx Profile context to operate on.
+     *
+     * @returns Amount of added exclusions.
+     */
+    private async addServicesWithContext(
+        serviceIds: string[],
+        ctx: ProfileExclusionsContext,
+    ): Promise<number> {
         const servicesDomainsToAdd = await Promise.all(serviceIds.map(async (id) => {
             const service = await servicesManager.getService(id);
             if (!service) {
@@ -392,10 +561,10 @@ export class ExclusionsService {
             ];
         }).flat();
 
-        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        const { currentModeHandler } = ctx.handlers;
         await currentModeHandler.addExclusions(servicesDomainsWithWildcards);
 
-        await this.updateTree();
+        await ctx.updateTree();
         return servicesDomainsWithWildcards.length;
     }
 
@@ -414,24 +583,26 @@ export class ExclusionsService {
      * Removes exclusion by id and returns amount of removed exclusions.
      *
      * @param id Exclusion id to remove.
+     * @param profileId Profile ID. If undefined, uses the active profile.
      *
      * @returns Amount of removed exclusions.
      */
-    public async removeExclusion(id: string): Promise<number> {
-        await this.savePreviousExclusions();
+    public async removeExclusion(id: string, profileId?: string): Promise<number> {
+        const ctx = await this.getProfileContext(profileId);
+        await this.savePreviousExclusions(ctx);
 
-        let exclusionsToRemove = this.exclusionsTree.getPathExclusions(id);
-        const exclusionNode = this.exclusionsTree.getExclusionNode(id);
-        const parentNode = this.exclusionsTree.getParentExclusionNode(id);
+        let exclusionsToRemove = ctx.tree.getPathExclusions(id);
+        const exclusionNode = ctx.tree.getExclusionNode(id);
+        const parentNode = ctx.tree.getParentExclusionNode(id);
 
         if (parentNode?.type === ExclusionsType.Group && ExclusionsService.isBasicExclusion(exclusionNode)) {
-            exclusionsToRemove = this.exclusionsTree.getPathExclusions(parentNode.id);
+            exclusionsToRemove = ctx.tree.getPathExclusions(parentNode.id);
         }
 
-        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        const { currentModeHandler } = ctx.handlers;
         await currentModeHandler.removeExclusions(exclusionsToRemove);
 
-        await this.updateTree();
+        await ctx.updateTree();
 
         return exclusionsToRemove.length;
     }
@@ -440,63 +611,75 @@ export class ExclusionsService {
      * Toggles exclusion state.
      *
      * @param id Exclusion id to toggle.
+     * @param profileId Profile ID. If undefined, uses the active profile.
      */
-    public async toggleExclusionState(id: string): Promise<void> {
-        const targetExclusionState = this.exclusionsTree.getExclusionState(id);
+    public async toggleExclusionState(id: string, profileId?: string): Promise<void> {
+        const ctx = await this.getProfileContext(profileId);
+
+        const targetExclusionState = ctx.tree.getExclusionState(id);
         if (!targetExclusionState) {
             throw new Error(`There is no such id in the tree: ${id}`);
         }
 
-        const exclusionsToToggle = this.exclusionsTree.getPathExclusions(id);
+        const exclusionsToToggle = ctx.tree.getPathExclusions(id);
 
         const state = targetExclusionState === ExclusionState.Disabled
             ? ExclusionState.Enabled
             : ExclusionState.Disabled;
 
-        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        const { currentModeHandler } = ctx.handlers;
         await currentModeHandler.setExclusionsState(exclusionsToToggle, state);
 
-        await this.updateTree();
+        await ctx.updateTree();
     }
 
     /**
      * Removes exclusions for current mode.
+     *
+     * @param profileId Profile ID. If undefined, uses the active profile.
      */
-    public async clearExclusionsData(): Promise<void> {
-        await this.savePreviousExclusions();
-        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+    public async clearExclusionsData(profileId?: string): Promise<void> {
+        const ctx = await this.getProfileContext(profileId);
+        await this.savePreviousExclusions(ctx);
+        const { currentModeHandler } = ctx.handlers;
         await currentModeHandler.clearExclusionsData();
 
-        await this.updateTree();
+        await ctx.updateTree();
     }
 
     /**
-     * Adds/removes services by provided ids:
+     * Adds/removes services by provided ids.
      *
-     * @param servicesIds
+     * @param servicesIds Service IDs to toggle.
+     * @param profileId Profile ID. If undefined, uses the active profile.
+     *
      * @returns Added and removed exclusions count.
      */
-    public async toggleServices(servicesIds: string[]): Promise<ToggleServicesResult> {
-        await this.savePreviousExclusions();
+    public async toggleServices(
+        servicesIds: string[],
+        profileId?: string,
+    ): Promise<ToggleServicesResult> {
+        const ctx = await this.getProfileContext(profileId);
+        await this.savePreviousExclusions(ctx);
 
         const servicesIdsToRemove = servicesIds.filter((id) => {
-            const exclusionNode = this.exclusionsTree.getExclusionNode(id);
+            const exclusionNode = ctx.tree.getExclusionNode(id);
             return !!exclusionNode;
         });
 
         const exclusionsToRemove = servicesIdsToRemove.map((id) => {
-            return this.exclusionsTree.getPathExclusions(id);
+            return ctx.tree.getPathExclusions(id);
         }).flat();
 
-        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        const { currentModeHandler } = ctx.handlers;
         await currentModeHandler.removeExclusions(exclusionsToRemove);
 
         const servicesIdsToAdd = servicesIds.filter((id) => {
-            const exclusionNode = this.exclusionsTree.getExclusionNode(id);
+            const exclusionNode = ctx.tree.getExclusionNode(id);
             return !exclusionNode;
         });
 
-        const addedExclusionsCount = await this.addServices(servicesIdsToAdd);
+        const addedExclusionsCount = await this.addServicesWithContext(servicesIdsToAdd, ctx);
 
         return {
             added: addedExclusionsCount,
@@ -511,7 +694,8 @@ export class ExclusionsService {
      */
     public async disableVpnByUrl(url: string): Promise<void> {
         if (await this.isInverted()) {
-            const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+            const resolvedId = await profilesService.resolveProfileId();
+            const { handlers: { currentModeHandler } } = await this.ensureProfileData(resolvedId);
             await currentModeHandler.disableExclusionByUrl(url);
             await this.updateTree();
         } else {
@@ -529,7 +713,8 @@ export class ExclusionsService {
         if (await this.isInverted()) {
             await this.addUrlToExclusions(url);
         } else {
-            const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+            const resolvedId = await profilesService.resolveProfileId();
+            const { handlers: { currentModeHandler } } = await this.ensureProfileData(resolvedId);
             await currentModeHandler.disableExclusionByUrl(url);
             await this.updateTree();
         }
@@ -545,11 +730,13 @@ export class ExclusionsService {
      * @returns Promise that resolves to true if VPN is enabled for the URL, false otherwise.
      */
     public async isVpnEnabledByUrl(url: string | null): Promise<boolean> {
-        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
-        if (!url || !currentModeHandler) {
+        const resolvedId = await profilesService.resolveProfileId();
+        const entry = this.profileDataMap.get(resolvedId);
+        if (!url || !entry) {
             return true;
         }
 
+        const { currentModeHandler } = entry.handlers;
         const isExcluded = currentModeHandler.isExcluded(punycode.toASCII(url));
         return await this.isInverted() ? isExcluded : !isExcluded;
     }
@@ -557,10 +744,21 @@ export class ExclusionsService {
     /**
      * Checks if exclusions are inverted or not.
      *
+     * @param profileId Profile ID. If undefined, uses the active profile.
+     *
      * @returns True if exclusions are inverted, false otherwise.
      */
-    public async isInverted(): Promise<boolean> {
-        return exclusionsManager.isInverted();
+    public async isInverted(profileId?: string): Promise<boolean> {
+        const resolvedId = await profilesService.resolveProfileId(profileId);
+
+        const entry = this.profileDataMap.get(resolvedId);
+        if (entry) {
+            return entry.inverted;
+        }
+
+        // Not loaded yet — load from storage
+        const loaded = await this.ensureProfileData(resolvedId);
+        return loaded.inverted;
     }
 
     /**
@@ -570,8 +768,9 @@ export class ExclusionsService {
      * doesn't affect for manually added subdomains.
      *
      * @param id Service id to reset data for.
+     * @param profileId Profile ID. If undefined, uses the active profile.
      */
-    public async resetServiceData(id: string): Promise<void> {
+    public async resetServiceData(id: string, profileId?: string): Promise<void> {
         const defaultServiceData = await servicesManager.getService(id);
         if (!defaultServiceData) {
             return;
@@ -592,48 +791,11 @@ export class ExclusionsService {
             ];
         });
 
-        const { currentModeHandler } = await exclusionsManager.getModeHandlers();
+        const ctx = await this.getProfileContext(profileId);
+        const { currentModeHandler } = ctx.handlers;
         await currentModeHandler.addExclusions(exclusionsToAdd);
 
-        await this.updateTree();
-    }
-
-    /**
-     * Returns the string with the list of exclusions hostnames.
-     *
-     * @param exclusions Exclusions to prepare for export.
-     *
-     * @returns String with exclusions hostnames separated by new line.
-     */
-    private prepareExclusionsForExport(exclusions: ExclusionInterface[]): string {
-        return exclusions.map((ex) => {
-            if (ex.state === ExclusionState.Enabled) {
-                return punycode.toUnicode(ex.hostname);
-            }
-            return null;
-        })
-            .filter(identity)
-            .join('\n');
-    }
-
-    /**
-     * Retrieves regular exclusions for export.
-     *
-     * @returns String with regular exclusions hostnames separated by new line.
-     */
-    public async getRegularExclusions(): Promise<string> {
-        const { regularModeHandler: { exclusions } } = await exclusionsManager.getModeHandlers();
-        return this.prepareExclusionsForExport(exclusions);
-    }
-
-    /**
-     * Retrieves selective exclusions for export.
-     *
-     * @returns String with selective exclusions hostnames separated by new line.
-     */
-    public async getSelectiveExclusions(): Promise<string> {
-        const { selectiveModeHandler: { exclusions } } = await exclusionsManager.getModeHandlers();
-        return this.prepareExclusionsForExport(exclusions);
+        await ctx.updateTree();
     }
 
     /**
@@ -642,10 +804,13 @@ export class ExclusionsService {
      * @returns True if both regular and selective exclusions lists are empty, false otherwise.
      */
     public async isAllExclusionListEmpty(): Promise<boolean> {
+        const resolvedId = await profilesService.resolveProfileId();
         const {
-            regularModeHandler: { exclusions: regularExclusions },
-            selectiveModeHandler: { exclusions: selectiveExclusions },
-        } = await exclusionsManager.getModeHandlers();
+            handlers: {
+                regularModeHandler: { exclusions: regularExclusions },
+                selectiveModeHandler: { exclusions: selectiveExclusions },
+            },
+        } = await this.ensureProfileData(resolvedId);
 
         const enabledRegularExclusionsCount = regularExclusions
             .reduce((count, { state }) => (state === ExclusionState.Enabled ? count + 1 : count), 0);
@@ -656,86 +821,34 @@ export class ExclusionsService {
     }
 
     /**
-     * Adds provided exclusions to the general list
-     * and returns amount of added exclusions.
+     * Saves the current exclusions snapshot for a profile before a mutation,
+     * so it can be restored later via {@link restoreExclusions}.
      *
-     * @param exclusions List of exclusions to add.
-     *
-     * @returns Amount of added exclusions.
+     * @param ctx Profile context whose handlers provide the current exclusions.
      */
-    public async addGeneralExclusions(exclusions: string[]): Promise<number> {
-        await this.savePreviousExclusions();
-
-        const exclusionsWithState = await this.supplementExclusions(exclusions);
-        const { regularModeHandler } = await exclusionsManager.getModeHandlers();
-        const addedCount = await regularModeHandler.addExclusions(exclusionsWithState);
-
-        await this.updateTree();
-
-        return addedCount;
+    private async savePreviousExclusions(ctx: ProfileExclusionsContext): Promise<void> {
+        const { regularModeHandler, selectiveModeHandler } = ctx.handlers;
+        await this.undoManager.saveSnapshot(
+            ctx.profileId,
+            regularModeHandler.exclusions,
+            selectiveModeHandler.exclusions,
+        );
     }
 
     /**
-     * Adds provided exclusions to the selective list
-     * and returns amount of added exclusions.
+     * Restores previous exclusions for a profile.
      *
-     * @param exclusions List of exclusions to add.
-     *
-     * @returns Amount of added exclusions.
+     * @param profileId Profile ID. If undefined, uses the active profile.
      */
-    public async addSelectiveExclusions(exclusions: string[]): Promise<number> {
-        await this.savePreviousExclusions();
+    public async restoreExclusions(profileId?: string): Promise<void> {
+        const ctx = await this.getProfileContext(profileId);
+        const snapshot = await this.undoManager.popSnapshot(ctx.profileId);
 
-        const exclusionsWithState = await this.supplementExclusions(exclusions);
-        const { selectiveModeHandler } = await exclusionsManager.getModeHandlers();
-        const addedCount = await selectiveModeHandler.addExclusions(exclusionsWithState);
-
-        await this.updateTree();
-
-        return addedCount;
-    }
-
-    /**
-     * Adds provided exclusions to the both lists (regular and selective).
-     *
-     * @param exclusionsMap Map of exclusions to add to both lists.
-     *
-     * @returns Total amount of added exclusions.
-     */
-    public async addExclusionsMap(exclusionsMap: ExclusionsMap): Promise<number> {
-        await this.savePreviousExclusions();
-
-        const { regularModeHandler, selectiveModeHandler } = await exclusionsManager.getModeHandlers();
-
-        const regularExclusionsWithState = await this.supplementExclusions(exclusionsMap[ExclusionsMode.Regular]);
-        const addedRegularCount = await regularModeHandler.addExclusions(regularExclusionsWithState);
-
-        const selectiveExclusionsWithState = await this.supplementExclusions(exclusionsMap[ExclusionsMode.Selective]);
-        const addedSelectiveCount = await selectiveModeHandler.addExclusions(selectiveExclusionsWithState);
-
-        await this.updateTree();
-        return addedRegularCount + addedSelectiveCount;
-    }
-
-    /**
-     * Gets exclusions from exclusions manager and saves them to previousExclusions property.
-     */
-    private async savePreviousExclusions(): Promise<void> {
-        const newPreviousExclusions = await exclusionsManager.getAllExclusions();
-        await this.exclusionsState.update({ previousExclusions: newPreviousExclusions });
-    }
-
-    /**
-     * Restores previous exclusions.
-     */
-    public async restoreExclusions(): Promise<void> {
-        let { previousExclusions } = await this.exclusionsState.get();
-        if (previousExclusions) {
-            await exclusionsManager.setAllExclusions(previousExclusions);
-            await this.updateTree();
+        if (snapshot) {
+            const { regularModeHandler, selectiveModeHandler } = ctx.handlers;
+            await regularModeHandler.setExclusions(snapshot.regular);
+            await selectiveModeHandler.setExclusions(snapshot.selective);
+            await ctx.updateTree();
         }
-
-        previousExclusions = null;
-        await this.exclusionsState.update({ previousExclusions });
     }
 }

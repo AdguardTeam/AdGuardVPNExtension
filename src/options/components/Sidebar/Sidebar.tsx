@@ -27,13 +27,12 @@ import './sidebar.pcss';
  */
 export const Sidebar = observer(() => {
     const {
-        settingsStore, uiStore, telemetryStore, profilesStore,
+        settingsStore, uiStore, telemetryStore, profilesStore, dnsStore,
     } = useContext(rootStore);
 
     const {
         isPremiumToken,
         allQuestsCompleted,
-        closeSubComponents,
     } = settingsStore;
 
     const { activeProfileDisplayName } = profilesStore;
@@ -85,7 +84,8 @@ export const Sidebar = observer(() => {
     }, []);
 
     const handleCloseAll = (): void => {
-        closeSubComponents();
+        settingsStore.setShowBugReporter(false);
+        dnsStore.setShowDnsSettings(false);
         closeSidebar();
     };
 

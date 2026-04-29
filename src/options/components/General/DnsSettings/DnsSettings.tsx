@@ -43,14 +43,21 @@ const POPULAR_DNS_SERVER_ID_ACTION_MAP: Record<string, DnsServerClickActionNames
     [QUAD9_DNS_ID]: TelemetryActionName.QuadDnsClick,
 };
 
+interface DnsSettingsProps {
+    /**
+     * Custom back handler. If not provided, toggles showDnsSettings off.
+     */
+    onBack?: () => void;
+}
+
 /**
  * DNS settings page component.
  */
-export const DnsSettings = observer(() => {
-    const { settingsStore, notificationsStore, telemetryStore } = useContext(rootStore);
+export const DnsSettings = observer(({ onBack }: DnsSettingsProps) => {
+    const { dnsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     // `DialogAddCustomDns` and `DialogEditCustomDns` rendered on top of this screen
-    const canSendTelemetry = !settingsStore.isCustomDnsModalOpen;
+    const canSendTelemetry = !dnsStore.isCustomDnsModalOpen;
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -59,7 +66,11 @@ export const DnsSettings = observer(() => {
     );
 
     const handleGoBack = (): void => {
-        settingsStore.setShowDnsSettings(false);
+        if (onBack) {
+            onBack();
+        } else {
+            dnsStore.setShowDnsSettings(false);
+        }
     };
 
     const handleSelect = (dnsServerId: string): void => {
@@ -71,7 +82,7 @@ export const DnsSettings = observer(() => {
             );
         }
 
-        settingsStore.setDnsServer(dnsServerId);
+        dnsStore.setDnsServer(dnsServerId);
     };
 
     const handleAddClick = (): void => {
@@ -79,21 +90,21 @@ export const DnsSettings = observer(() => {
             TelemetryActionName.AddCustomDnsClick,
             TelemetryScreenName.SettingsDnsServersScreen,
         );
-        settingsStore.openCustomDnsModal();
+        dnsStore.openCustomDnsModal();
     };
 
     const handleEditClick = (dnsServer: DnsServerData): void => {
-        settingsStore.setDnsServerToEdit(dnsServer);
-        settingsStore.openCustomDnsModal();
+        dnsStore.setDnsServerToEdit(dnsServer);
+        dnsStore.openCustomDnsModal();
     };
 
     const handleDeleteClick = (dnsServerId: string): void => {
-        settingsStore.removeCustomDnsServer(dnsServerId);
+        dnsStore.removeCustomDnsServer(dnsServerId);
         notificationsStore.notifySuccess(
             translator.getMessage('settings_dns_delete_custom_server_notification'),
             {
                 action: translator.getMessage('settings_exclusions_undo'),
-                handler: () => settingsStore.restoreCustomDnsServersData(),
+                handler: () => dnsStore.restoreCustomDnsServersData(),
             },
         );
     };
@@ -103,7 +114,7 @@ export const DnsSettings = observer(() => {
             key={dnsServer.id}
             name="dns-server"
             value={dnsServer}
-            isActive={dnsServer.id === settingsStore.dnsServer}
+            isActive={dnsServer.id === dnsStore.dnsServer}
             onSelect={handleSelect}
         />
     );
@@ -113,7 +124,7 @@ export const DnsSettings = observer(() => {
             key={dnsServer.id}
             name="dns-server"
             value={dnsServer}
-            isActive={dnsServer.id === settingsStore.dnsServer}
+            isActive={dnsServer.id === dnsStore.dnsServer}
             onSelect={handleSelect}
             onEdit={handleEditClick}
             onDelete={handleDeleteClick}
@@ -146,7 +157,7 @@ export const DnsSettings = observer(() => {
                 size="medium"
                 className="dns-settings__custom-servers"
             />
-            {settingsStore.customDnsServers.map(renderCustomDnsServer)}
+            {dnsStore.customDnsServers.map(renderCustomDnsServer)}
             <Button variant="transparent" beforeIconName="plus" onClick={handleAddClick}>
                 {translator.getMessage('settings_dns_add_custom_server')}
             </Button>

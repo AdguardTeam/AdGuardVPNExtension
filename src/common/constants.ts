@@ -7,8 +7,8 @@ import { type ConsentDataResponse } from '../background/consent';
 import { type BonusesData } from '../background/providers/accountProvider';
 import type { LocationData } from '../popup/stores/VpnStore';
 import { type AuthCacheKey, type AuthCacheValue } from '../background/authentication/authCacheTypes';
-import { type CanControlProxy, type DnsServerData } from '../background/schema';
-import { type ProfilesState } from '../background/schema/profiles';
+import { type CanControlProxy, type DnsServerData, type ProfileSettingsPatch } from '../background/schema';
+import { type ProfilesOptionsData } from '../options/stores/ProfilesStore';
 import {
     type ExclusionsMap,
     type GetExclusionsDataResponse,
@@ -162,6 +162,7 @@ export enum MessageType {
     GET_INTERFACE_LANGUAGE = 'get.interface.language',
 
     GET_PROFILES_DATA = 'get.profiles.data',
+    SET_PROFILE_SETTING = 'set.profile.setting',
 }
 
 export const FLAGS_FIELDS = {
@@ -315,6 +316,7 @@ export type AddUrlToExclusionsMessage = {
     type: MessageType.ADD_URL_TO_EXCLUSIONS;
     data: {
         url: string;
+        profileId?: string;
     };
 };
 
@@ -322,6 +324,7 @@ export type DisableVpnByUrlMessage = {
     type: MessageType.DISABLE_VPN_BY_URL;
     data: {
         url: string;
+        profileId?: string;
     };
 };
 
@@ -329,6 +332,7 @@ export type EnableVpnByUrlMessage = {
     type: MessageType.ENABLE_VPN_BY_URL;
     data: {
         url: string;
+        profileId?: string;
     };
 };
 
@@ -336,6 +340,7 @@ export type RemoveExclusionMessage = {
     type: MessageType.REMOVE_EXCLUSION;
     data: {
         id: string;
+        profileId?: string;
     };
 };
 
@@ -343,6 +348,7 @@ export type ToggleExclusionStateMessage = {
     type: MessageType.TOGGLE_EXCLUSION_STATE;
     data: {
         id: string;
+        profileId?: string;
     };
 };
 
@@ -350,6 +356,7 @@ export type ToggleServicesMessage = {
     type: MessageType.TOGGLE_SERVICES;
     data: {
         ids: string[];
+        profileId?: string;
     };
 };
 
@@ -357,13 +364,15 @@ export type ResetServiceDataMessage = {
     type: MessageType.RESET_SERVICE_DATA;
     data: {
         serviceId: string;
+        profileId?: string;
     };
 };
 
 export type SetExclusionsModeMessage = {
     type: MessageType.SET_EXCLUSIONS_MODE;
     data: {
-        mode: ExclusionsMode
+        mode: ExclusionsMode;
+        profileId?: string;
     };
 };
 
@@ -371,6 +380,7 @@ export type AddRegularExclusionsMessage = {
     type: MessageType.ADD_REGULAR_EXCLUSIONS;
     data: {
         exclusions: string[];
+        profileId?: string;
     };
 };
 
@@ -378,6 +388,7 @@ export type AddSelectiveExclusionsMessage = {
     type: MessageType.ADD_SELECTIVE_EXCLUSIONS;
     data: {
         exclusions: string[];
+        profileId?: string;
     };
 };
 
@@ -385,6 +396,49 @@ export type AddExclusionsMapMessage = {
     type: MessageType.ADD_EXCLUSIONS_MAP;
     data: {
         exclusionsMap: ExclusionsMap;
+        profileId?: string;
+    };
+};
+
+export type ClearExclusionsListMessage = {
+    type: MessageType.CLEAR_EXCLUSIONS_LIST;
+    data: {
+        profileId?: string;
+    };
+};
+
+export type GetExclusionsDataMessage = {
+    type: MessageType.GET_EXCLUSIONS_DATA;
+    data: {
+        profileId?: string;
+    };
+};
+
+export type GetExclusionsInvertedMessage = {
+    type: MessageType.GET_EXCLUSIONS_INVERTED;
+    data: {
+        profileId?: string;
+    };
+};
+
+export type GetGeneralExclusionsMessage = {
+    type: MessageType.GET_GENERAL_EXCLUSIONS;
+    data: {
+        profileId?: string;
+    };
+};
+
+export type GetSelectiveExclusionsMessage = {
+    type: MessageType.GET_SELECTIVE_EXCLUSIONS;
+    data: {
+        profileId?: string;
+    };
+};
+
+export type RestoreExclusionsMessage = {
+    type: MessageType.RESTORE_EXCLUSIONS;
+    data: {
+        profileId?: string;
     };
 };
 
@@ -400,6 +454,14 @@ export type SetSettingValueMessage = {
     data: {
         settingId: string;
         value: boolean | string;
+    };
+};
+
+export type SetProfileSettingMessage = {
+    type: MessageType.SET_PROFILE_SETTING;
+    data: {
+        profileId: string;
+        patch: ProfileSettingsPatch;
     };
 };
 
@@ -452,6 +514,7 @@ export type AddCustomDnsServerMessage = {
     type: MessageType.ADD_CUSTOM_DNS_SERVER;
     data: {
         dnsServerData: DnsServerData;
+        profileId?: string;
     };
 };
 
@@ -467,6 +530,7 @@ export type EditCustomDnsServerMessage = {
     type: MessageType.EDIT_CUSTOM_DNS_SERVER;
     data: {
         dnsServerData: DnsServerData;
+        profileId?: string;
     };
 };
 
@@ -474,6 +538,14 @@ export type RemoveCustomDnsServerMessage = {
     type: MessageType.REMOVE_CUSTOM_DNS_SERVER;
     data: {
         dnsServerId: string;
+        profileId?: string;
+    };
+};
+
+export type RestoreCustomDnsServersDataMessage = {
+    type: MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA;
+    data?: {
+        profileId?: string;
     };
 };
 
@@ -665,7 +737,7 @@ export interface MessageMap {
         response: void;
     };
     [MessageType.CLEAR_EXCLUSIONS_LIST]: {
-        message: DefaultMessage<MessageType.CLEAR_EXCLUSIONS_LIST>;
+        message: ClearExclusionsListMessage;
         response: void;
     };
     [MessageType.DISABLE_OTHER_EXTENSIONS]: {
@@ -685,7 +757,7 @@ export interface MessageMap {
         response: void;
     };
     [MessageType.GET_EXCLUSIONS_DATA]: {
-        message: DefaultMessage<MessageType.GET_EXCLUSIONS_DATA>;
+        message: GetExclusionsDataMessage;
         response: GetExclusionsDataResponse;
     };
     [MessageType.SET_EXCLUSIONS_MODE]: {
@@ -709,7 +781,7 @@ export interface MessageMap {
         response: LocationWithPing | null;
     };
     [MessageType.GET_EXCLUSIONS_INVERTED]: {
-        message: DefaultMessage<MessageType.GET_EXCLUSIONS_INVERTED>;
+        message: GetExclusionsInvertedMessage;
         response: boolean;
     };
     [MessageType.GET_SETTING_VALUE]: {
@@ -766,15 +838,15 @@ export interface MessageMap {
         response: void;
     };
     [MessageType.GET_GENERAL_EXCLUSIONS]: {
-        message: DefaultMessage<MessageType.GET_GENERAL_EXCLUSIONS>;
+        message: GetGeneralExclusionsMessage;
         response: string;
     };
     [MessageType.GET_SELECTIVE_EXCLUSIONS]: {
-        message: DefaultMessage<MessageType.GET_SELECTIVE_EXCLUSIONS>;
+        message: GetSelectiveExclusionsMessage;
         response: string;
     };
     [MessageType.RESTORE_EXCLUSIONS]: {
-        message: DefaultMessage<MessageType.RESTORE_EXCLUSIONS>;
+        message: RestoreExclusionsMessage;
         response: void;
     };
     [MessageType.ADD_CUSTOM_DNS_SERVER]: {
@@ -794,7 +866,7 @@ export interface MessageMap {
         response: void;
     };
     [MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA]: {
-        message: DefaultMessage<MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA>;
+        message: RestoreCustomDnsServersDataMessage;
         response: DnsServerData[];
     };
     [MessageType.GET_LOGS]: {
@@ -871,7 +943,11 @@ export interface MessageMap {
     };
     [MessageType.GET_PROFILES_DATA]: {
         message: DefaultMessage<MessageType.GET_PROFILES_DATA>;
-        response: ProfilesState;
+        response: ProfilesOptionsData;
+    };
+    [MessageType.SET_PROFILE_SETTING]: {
+        message: SetProfileSettingMessage;
+        response: void;
     };
 }
 

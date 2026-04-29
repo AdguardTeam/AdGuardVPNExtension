@@ -38,6 +38,8 @@ export enum NotifierType {
     PORT_DISCONNECTED = 'event.port.disconnected',
 
     WEB_AUTH_FLOW_AUTHENTICATED = 'event.web.auth.flow.authenticated',
+
+    PROFILES_UPDATED = 'event.profiles.updated',
 }
 
 export type NotifierTypeMap = {

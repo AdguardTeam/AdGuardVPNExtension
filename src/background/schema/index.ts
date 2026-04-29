@@ -96,6 +96,7 @@ export {
 export {
     profileSettingsScheme,
     type ProfileSettings,
+    type ProfileSettingsPatch,
     profileScheme,
     type Profile,
     profilesStateScheme,

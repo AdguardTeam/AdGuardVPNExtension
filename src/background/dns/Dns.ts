@@ -4,6 +4,7 @@ import { StorageKey, type DnsServerData } from '../schema';
 import { StateData } from '../stateStorage';
 import { log } from '../../common/logger';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../common/dnsConstants';
+import { profilesService } from '../profiles';
 
 interface DnsInterface {
     /**
@@ -26,32 +27,45 @@ interface DnsInterface {
     setDnsServer(dnsServerId: string): Promise<void>;
 
     /**
+     * Selects a DNS server for a specific profile.
+     *
+     * @param profileId Profile ID.
+     * @param dnsServerId The ID of the DNS server to select.
+     */
+    setProfileDnsServer(profileId: string, dnsServerId: string): Promise<void>;
+
+    /**
      * Adds a custom DNS server.
      *
      * @param dnsServerData The data of the custom DNS server to add.
+     * @param profileId Optional profile ID for per-profile DNS.
      */
-    addCustomDnsServer(dnsServerData: DnsServerData): Promise<void>;
+    addCustomDnsServer(dnsServerData: DnsServerData, profileId?: string): Promise<void>;
 
     /**
      * Edits an existing custom DNS server.
      *
      * @param dnsServerData The data of the custom DNS server to edit.
+     * @param profileId Optional profile ID for per-profile DNS.
+     * @returns Updated list of custom DNS servers.
      */
-    editCustomDnsServer(dnsServerData: DnsServerData): Promise<void>;
+    editCustomDnsServer(dnsServerData: DnsServerData, profileId?: string): Promise<DnsServerData[]>;
 
     /**
      * Removes a custom DNS server by its ID.
      *
      * @param dnsServerId The ID of the DNS server to remove.
+     * @param profileId Optional profile ID for per-profile DNS.
      */
-    removeCustomDnsServer(dnsServerId: string): Promise<void>;
+    removeCustomDnsServer(dnsServerId: string, profileId?: string): Promise<void>;
 
     /**
      * Restores previously removed custom DNS servers from backup.
      *
+     * @param profileId Optional profile ID for per-profile DNS.
      * @returns The restored custom DNS servers list data.
      */
-    restoreCustomDnsServersData(): Promise<DnsServerData[]>;
+    restoreCustomDnsServersData(profileId?: string): Promise<DnsServerData[]>;
 }
 
 export class Dns implements DnsInterface {
@@ -111,7 +125,27 @@ export class Dns implements DnsInterface {
     };
 
     /** @inheritdoc */
-    public addCustomDnsServer = async (dnsServerData: DnsServerData): Promise<void> => {
+    public setProfileDnsServer = async (profileId: string, dnsServerId: string): Promise<void> => {
+        await profilesService.updateProfileSettings(profileId, {
+            selectedDnsServer: dnsServerId,
+        });
+    };
+
+    /** @inheritdoc */
+    public addCustomDnsServer = async (
+        dnsServerData: DnsServerData,
+        profileId?: string,
+    ): Promise<void> => {
+        if (profileId) {
+            const profileSettings = await profilesService.getProfileSettings(profileId);
+            const updatedServers = [...profileSettings.customDnsServers, dnsServerData];
+            await profilesService.updateProfileSettings(profileId, {
+                customDnsServers: updatedServers,
+                selectedDnsServer: dnsServerData.id,
+            });
+            return;
+        }
+
         const { customDnsServers } = await this.dnsState.get();
 
         customDnsServers.push(dnsServerData);
@@ -121,7 +155,21 @@ export class Dns implements DnsInterface {
     };
 
     /** @inheritdoc */
-    public editCustomDnsServer = async (dnsServerData: DnsServerData): Promise<void> => {
+    public editCustomDnsServer = async (
+        dnsServerData: DnsServerData,
+        profileId?: string,
+    ): Promise<DnsServerData[]> => {
+        if (profileId) {
+            const profileSettings = await profilesService.getProfileSettings(profileId);
+            const updatedServers = profileSettings.customDnsServers.map((s) => {
+                return s.id === dnsServerData.id ? dnsServerData : s;
+            });
+            await profilesService.updateProfileSettings(profileId, {
+                customDnsServers: updatedServers,
+            });
+            return updatedServers;
+        }
+
         let { customDnsServers } = await this.dnsState.get();
 
         customDnsServers = customDnsServers.map((server) => {
@@ -137,10 +185,29 @@ export class Dns implements DnsInterface {
 
         await this.dnsState.update({ customDnsServers });
         settings.setCustomDnsServers(customDnsServers);
+        return customDnsServers;
     };
 
     /** @inheritdoc */
-    public removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {
+    public removeCustomDnsServer = async (
+        dnsServerId: string,
+        profileId?: string,
+    ): Promise<void> => {
+        if (profileId) {
+            const profileSettings = await profilesService.getProfileSettings(profileId);
+            const updatedServers = profileSettings.customDnsServers
+                .filter((s) => s.id !== dnsServerId);
+            const selectedDnsServer = profileSettings.selectedDnsServer === dnsServerId
+                ? DEFAULT_DNS_SERVER.id
+                : profileSettings.selectedDnsServer;
+            await profilesService.updateProfileSettings(profileId, {
+                customDnsServers: updatedServers,
+                backupDnsServersData: profileSettings.customDnsServers,
+                selectedDnsServer,
+            });
+            return;
+        }
+
         const { customDnsServers } = await this.dnsState.get();
 
         const newBackupServersData = customDnsServers;
@@ -155,7 +222,16 @@ export class Dns implements DnsInterface {
     };
 
     /** @inheritdoc */
-    public restoreCustomDnsServersData = async (): Promise<DnsServerData[]> => {
+    public restoreCustomDnsServersData = async (profileId?: string): Promise<DnsServerData[]> => {
+        if (profileId) {
+            const profileSettings = await profilesService.getProfileSettings(profileId);
+            const { backupDnsServersData } = profileSettings;
+            await profilesService.updateProfileSettings(profileId, {
+                customDnsServers: backupDnsServersData,
+            });
+            return backupDnsServersData;
+        }
+
         const { backupDnsServersData } = await this.dnsState.get();
 
         await this.dnsState.update({ customDnsServers: backupDnsServersData });

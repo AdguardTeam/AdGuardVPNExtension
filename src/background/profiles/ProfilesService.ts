@@ -12,14 +12,33 @@ import {
 import {
     type Profile,
     type ProfileSettings,
+    type ProfileSettingsPatch,
     type ProfilesState,
+    type DnsServerData,
     StorageKey,
     DEFAULT_PROFILE_SETTINGS,
     PROFILES_STATE_DEFAULTS,
     profilesStateScheme,
-    profileSettingsScheme,
 } from '../schema';
 import { browserApi } from '../browserApi';
+
+/**
+ * Per-profile DNS settings for the UI layer.
+ */
+export interface ProfileDnsEntry {
+    selectedDnsServer: string;
+    customDnsServers: DnsServerData[];
+}
+
+/**
+ * Aggregated per-profile settings data returned by
+ * {@link ProfilesService.getProfileSettingsMaps}.
+ */
+export interface ProfileSettingsMaps {
+    profileDnsData: Record<string, ProfileDnsEntry>;
+    profileLocationData: Record<string, string | null>;
+    profileWebRtcData: Record<string, boolean>;
+}
 
 /**
  * Manages VPN profiles: CRUD operations, active profile tracking,
@@ -117,6 +136,15 @@ export class ProfilesService {
     public async getState(): Promise<ProfilesState> {
         const state = await this.loadState();
         return structuredClone(state);
+    }
+
+    /**
+     * Returns profiles list and active profile ID.
+     */
+    public async getProfilesData(): Promise<{ profiles: Pick<Profile, 'id' | 'name'>[]; activeProfileId: string }> {
+        const state = await this.loadState();
+        const profiles = state.profiles.map(({ id, name }) => ({ id, name }));
+        return { profiles, activeProfileId: state.activeProfileId };
     }
 
     /**
@@ -240,27 +268,113 @@ export class ProfilesService {
     }
 
     /**
-     * Updates the settings snapshot of a profile.
-     * The system Default profile cannot be modified.
-     * Validates the settings against the schema before persisting.
+     * Updates settings of a profile by merging a partial patch.
+     * Always persists the merged settings. If the profile is active
+     * and an {@link onApply} callback is provided, it is called after saving
+     * so the caller can apply the settings at runtime (e.g. update proxy).
      *
      * @param id Profile ID.
-     * @param settings New settings snapshot.
-     * @throws If the profile is not found, is the system default, or settings are invalid.
+     * @param patch Partial settings to merge.
+     * @param onApply Optional callback invoked only when the profile is active.
+     * @throws If the profile is not found.
      */
-    public updateProfileSettings(id: string, settings: ProfileSettings): Promise<void> {
+    public updateProfileSettings(
+        id: string,
+        patch: ProfileSettingsPatch,
+        onApply?: (settings: ProfileSettings) => Promise<void>,
+    ): Promise<void> {
         return this.enqueue(async () => {
-            v.parse(profileSettingsScheme, settings);
-
             const state = await this.loadState();
-            ProfilesService.getProfileById(state, id);
+            const profile = ProfilesService.getProfileById(state, id);
+
+            const clonedPatch = structuredClone(patch);
+
+            // Deep-merge: spread existing settings, override with patch,
+            // then restore nested exclusions via one-level deep merge.
+            const mergedSettings: ProfileSettings = {
+                ...profile.settings,
+                ...clonedPatch,
+                exclusions: clonedPatch.exclusions
+                    ? { ...profile.settings.exclusions, ...clonedPatch.exclusions }
+                    : profile.settings.exclusions,
+            };
 
             const updatedProfiles = state.profiles.map((p) => (
-                p.id === id ? { ...p, settings: structuredClone(settings) } : p
+                p.id === id ? { ...p, settings: mergedSettings } : p
             ));
 
             await this.saveState({ ...state, profiles: updatedProfiles });
             log.debug(`[vpn.ProfilesService.updateProfileSettings]: Updated settings for profile ${id}`);
+
+            const isActive = state.activeProfileId === id;
+            if (isActive && onApply) {
+                await onApply(mergedSettings);
+            }
         });
+    }
+
+    /**
+     * Returns a deep copy of the active profile's settings.
+     */
+    public async getActiveProfileSettings(): Promise<ProfileSettings> {
+        const state = await this.loadState();
+        const profile = ProfilesService.getProfileById(state, state.activeProfileId);
+        return structuredClone(profile.settings);
+    }
+
+    /**
+     * Returns a deep copy of a specific profile's settings.
+     *
+     * @param id Profile ID.
+     * @throws If the profile is not found.
+     */
+    public async getProfileSettings(id: string): Promise<ProfileSettings> {
+        const state = await this.loadState();
+        const profile = ProfilesService.getProfileById(state, id);
+        return structuredClone(profile.settings);
+    }
+
+    /**
+     * Builds aggregated per-profile settings maps (DNS, location, WebRTC)
+     * for all profiles in a single pass.
+     */
+    public async getProfileSettingsMaps(): Promise<ProfileSettingsMaps> {
+        const state = await this.loadState();
+
+        const profileDnsData: Record<string, ProfileDnsEntry> = {};
+        const profileLocationData: Record<string, string | null> = {};
+        const profileWebRtcData: Record<string, boolean> = {};
+
+        state.profiles.forEach(({ id, settings }) => {
+            profileDnsData[id] = {
+                selectedDnsServer: settings.selectedDnsServer ?? '',
+                customDnsServers: structuredClone(settings.customDnsServers),
+            };
+            profileLocationData[id] = settings.selectedLocationId;
+            profileWebRtcData[id] = settings.handleWebRtcEnabled;
+        });
+
+        return { profileDnsData, profileLocationData, profileWebRtcData };
+    }
+
+    /**
+     * Returns the active profile ID.
+     */
+    public async getActiveProfileId(): Promise<string> {
+        const state = await this.loadState();
+        return state.activeProfileId;
+    }
+
+    /**
+     * Resolves a profile ID: returns the given ID if provided,
+     * otherwise returns the active profile ID.
+     *
+     * @param profileId Profile ID to resolve. If undefined, uses the active profile.
+     */
+    public async resolveProfileId(profileId?: string): Promise<string> {
+        if (profileId) {
+            return profileId;
+        }
+        return this.getActiveProfileId();
     }
 }

@@ -323,6 +323,12 @@ export class SettingsService {
         };
     };
 
+    // FIXME: implement migration v14→v15 for exclusions
+    // 1. Read SETTINGS_IDS.EXCLUSIONS from oldSettings
+    // 2. Write exclusions data to the default profile in StorageKey.ProfilesState
+    // 3. Remove SETTINGS_IDS.EXCLUSIONS from settings
+    // 4. Bump VERSION to '15'
+
     /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version

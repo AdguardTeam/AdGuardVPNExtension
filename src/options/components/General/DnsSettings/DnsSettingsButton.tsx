@@ -7,11 +7,11 @@ import { rootStore } from '../../../stores';
 import { Controls } from '../../ui/Controls';
 
 export const DnsSettingsButton = observer(() => {
-    const { settingsStore } = useContext(rootStore);
-    const { currentDnsServerName } = settingsStore;
+    const { dnsStore } = useContext(rootStore);
+    const { currentDnsServerName } = dnsStore;
 
     const handleClick = (): void => {
-        settingsStore.setShowDnsSettings(true);
+        dnsStore.setShowDnsSettings(true);
     };
 
     return (

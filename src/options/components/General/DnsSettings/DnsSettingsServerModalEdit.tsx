@@ -15,13 +15,13 @@ import {
 } from './validate';
 
 export const DnsSettingsServerModalEdit = observer(() => {
-    const { settingsStore, telemetryStore } = useContext(rootStore);
+    const { dnsStore, telemetryStore } = useContext(rootStore);
 
     const {
         isCustomDnsModalOpen,
         customDnsServers,
         dnsServerToEdit,
-    } = settingsStore;
+    } = dnsStore;
 
     const isOpen = isCustomDnsModalOpen && !!dnsServerToEdit;
 
@@ -77,7 +77,7 @@ export const DnsSettingsServerModalEdit = observer(() => {
             };
         }
 
-        await settingsStore.editCustomDnsServer(
+        await dnsStore.editCustomDnsServer(
             id,
             normalizedDnsServerName,
             normalizedDnsServerAddress,

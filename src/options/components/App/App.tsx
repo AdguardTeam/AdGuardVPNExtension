@@ -21,6 +21,9 @@ import { General } from '../General';
 import { Exclusions } from '../Exclusions';
 import { Profiles } from '../Profiles';
 import { ProfileDetail } from '../Profiles/ProfileDetail';
+import { ProfileExclusions } from '../Profiles/ProfileExclusions';
+import { ProfileDns } from '../Profiles/ProfileDns';
+import { ProfileLocation } from '../Profiles/ProfileLocation';
 import { Account } from '../Account';
 import { Support } from '../Support';
 import { About } from '../About';
@@ -43,7 +46,10 @@ const getContent = (
                     <div className="content__wrapper">
                         <Switch>
                             <Route path="/" exact component={General} />
-                            <Route path="/profiles/:id" component={ProfileDetail} />
+                            <Route path="/profiles/:id/exclusions" component={ProfileExclusions} />
+                            <Route path="/profiles/:id/dns" component={ProfileDns} />
+                            <Route path="/profiles/:id/location" component={ProfileLocation} />
+                            <Route path="/profiles/:id" exact component={ProfileDetail} />
                             <Route path="/profiles" exact component={Profiles} />
                             <Route path="/exclusions" exact component={Exclusions} />
                             <Route path="/account" component={Account} />
@@ -72,6 +78,7 @@ export const App = observer(() => {
     const {
         authStore,
         settingsStore,
+        dnsStore,
         globalStore,
         uiStore,
         telemetryStore,
@@ -81,7 +88,7 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
-    useCustomDnsFromQuery(settingsStore.handleCustomDnsData);
+    useCustomDnsFromQuery(dnsStore.handleCustomDnsData);
 
     const { status } = globalStore;
 

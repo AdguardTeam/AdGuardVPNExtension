@@ -62,12 +62,12 @@ export const DnsSettingsServerModal = observer(({
     isOpen,
     onSubmit,
 }: DnsSettingsServerModalProps) => {
-    const { settingsStore } = useContext(rootStore);
+    const { dnsStore } = useContext(rootStore);
 
     const {
         dnsServerName,
         dnsServerAddress,
-    } = settingsStore;
+    } = dnsStore;
 
     const formId = useId();
 
@@ -75,23 +75,23 @@ export const DnsSettingsServerModal = observer(({
     const [dnsServerAddressError, setDnsServerAddressError] = useState<string | null>(null);
 
     const handleCloseModal = (): void => {
-        settingsStore.closeCustomDnsModal();
-        settingsStore.setDnsServerName('');
-        settingsStore.setDnsServerAddress('');
-        settingsStore.setDnsServerToEdit(null);
+        dnsStore.closeCustomDnsModal();
+        dnsStore.setDnsServerName('');
+        dnsStore.setDnsServerAddress('');
+        dnsStore.setDnsServerToEdit(null);
         setDnsServerNameError(null);
         setDnsServerAddressError(null);
     };
 
     const handleDnsServerNameChange = (value: string): void => {
-        settingsStore.setDnsServerName(value);
+        dnsStore.setDnsServerName(value);
         if (dnsServerNameError) {
             setDnsServerNameError(null);
         }
     };
 
     const handleDnsServerAddressChange = (value: string): void => {
-        settingsStore.setDnsServerAddress(value);
+        dnsStore.setDnsServerAddress(value);
         if (dnsServerAddressError) {
             setDnsServerAddressError(null);
         }

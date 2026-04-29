@@ -1,7 +1,6 @@
 import * as v from 'valibot';
 
 import { ExclusionsMode } from '../../../common/exclusionsConstants';
-import { DEFAULT_DNS_SERVER } from '../../../common/dnsConstants';
 import { DEFAULT_PROFILE_ID } from '../../../common/profilesConstants';
 
 import { type ProfileSettings } from './profileSettings';
@@ -13,8 +12,9 @@ import { profileScheme } from './profile';
 export const DEFAULT_PROFILE_SETTINGS: ProfileSettings = {
     selectedLocationId: null,
     handleWebRtcEnabled: false,
-    selectedDnsServer: DEFAULT_DNS_SERVER.id,
+    selectedDnsServer: null,
     customDnsServers: [],
+    backupDnsServersData: [],
     exclusions: {
         [ExclusionsMode.Regular]: [],
         [ExclusionsMode.Selective]: [],

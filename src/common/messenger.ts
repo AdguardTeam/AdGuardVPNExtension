@@ -1,7 +1,7 @@
 import browser, { type Runtime } from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
-import type { DnsServerData } from '../background/schema';
+import type { DnsServerData, ProfileSettingsPatch } from '../background/schema';
 import type { LocationData } from '../popup/stores/VpnStore';
 import {
     type TelemetryActionName,
@@ -393,14 +393,18 @@ class Messenger {
 
     public async addUrlToExclusions(
         url: string,
+        profileId?: string,
     ): Promise<ExtractMessageResponse<MessageType.ADD_URL_TO_EXCLUSIONS>> {
         const type = MessageType.ADD_URL_TO_EXCLUSIONS;
-        return this.sendMessage(type, { url });
+        return this.sendMessage(type, { url, profileId });
     }
 
-    public async removeExclusion(id: string): Promise<ExtractMessageResponse<MessageType.REMOVE_EXCLUSION>> {
+    public async removeExclusion(
+        id: string,
+        profileId?: string,
+    ): Promise<ExtractMessageResponse<MessageType.REMOVE_EXCLUSION>> {
         const type = MessageType.REMOVE_EXCLUSION;
-        return this.sendMessage(type, { id });
+        return this.sendMessage(type, { id, profileId });
     }
 
     public async disableVpnByUrl(
@@ -419,32 +423,39 @@ class Messenger {
 
     public async toggleExclusionState(
         id: string,
+        profileId?: string,
     ): Promise<ExtractMessageResponse<MessageType.TOGGLE_EXCLUSION_STATE>> {
         const type = MessageType.TOGGLE_EXCLUSION_STATE;
-        return this.sendMessage(type, { id });
+        return this.sendMessage(type, { id, profileId });
     }
 
-    public async restoreExclusions(): Promise<ExtractMessageResponse<MessageType.RESTORE_EXCLUSIONS>> {
+    public async restoreExclusions(
+        profileId?: string,
+    ): Promise<ExtractMessageResponse<MessageType.RESTORE_EXCLUSIONS>> {
         const type = MessageType.RESTORE_EXCLUSIONS;
-        return this.sendMessage(type);
+        return this.sendMessage(type, profileId ? { profileId } : undefined);
     }
 
-    public async toggleServices(ids: string[]): Promise<ExtractMessageResponse<MessageType.TOGGLE_SERVICES>> {
+    public async toggleServices(
+        ids: string[],
+        profileId?: string,
+    ): Promise<ExtractMessageResponse<MessageType.TOGGLE_SERVICES>> {
         const type = MessageType.TOGGLE_SERVICES;
-        return this.sendMessage(type, { ids });
+        return this.sendMessage(type, { ids, profileId });
     }
 
     public async resetServiceData(
         serviceId: string,
+        profileId?: string,
     ): Promise<ExtractMessageResponse<MessageType.RESET_SERVICE_DATA>> {
         const type = MessageType.RESET_SERVICE_DATA;
-        return this.sendMessage(type, { serviceId });
+        return this.sendMessage(type, { serviceId, profileId });
     }
 
-    public async clearExclusionsList():
+    public async clearExclusionsList(profileId?: string):
     Promise<ExtractMessageResponse<MessageType.CLEAR_EXCLUSIONS_LIST>> {
         const type = MessageType.CLEAR_EXCLUSIONS_LIST;
-        return this.sendMessage(type);
+        return this.sendMessage(type, profileId ? { profileId } : undefined);
     }
 
     public async disableOtherExtensions():
@@ -468,10 +479,10 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    public async getExclusionsInverted():
+    public async getExclusionsInverted(profileId?: string):
     Promise<ExtractMessageResponse<MessageType.GET_EXCLUSIONS_INVERTED>> {
         const type = MessageType.GET_EXCLUSIONS_INVERTED;
-        return this.sendMessage(type);
+        return this.sendMessage(type, profileId ? { profileId } : undefined);
     }
 
     public async getSetting(settingId: string): Promise<ExtractMessageResponse<MessageType.GET_SETTING_VALUE>> {
@@ -485,6 +496,21 @@ class Messenger {
     ): Promise<ExtractMessageResponse<MessageType.SET_SETTING_VALUE>> {
         const type = MessageType.SET_SETTING_VALUE;
         return this.sendMessage(type, { settingId, value });
+    }
+
+    /**
+     * Sets a setting value for a specific profile.
+     *
+     * @param profileId Profile ID.
+     * @param profileId Profile ID.
+     * @param patch Partial settings to merge.
+     */
+    public async setProfileSetting(
+        profileId: string,
+        patch: ProfileSettingsPatch,
+    ): Promise<ExtractMessageResponse<MessageType.SET_PROFILE_SETTING>> {
+        const type = MessageType.SET_PROFILE_SETTING;
+        return this.sendMessage(type, { profileId, patch });
     }
 
     public async getUsername(): Promise<ExtractMessageResponse<MessageType.GET_USERNAME>> {
@@ -504,16 +530,19 @@ class Messenger {
         return this.sendMessage(type, { newMarketingConsent });
     }
 
-    public async getExclusionsData(): Promise<ExtractMessageResponse<MessageType.GET_EXCLUSIONS_DATA>> {
+    public async getExclusionsData(
+        profileId?: string,
+    ): Promise<ExtractMessageResponse<MessageType.GET_EXCLUSIONS_DATA>> {
         const type = MessageType.GET_EXCLUSIONS_DATA;
-        return this.sendMessage(type);
+        return this.sendMessage(type, profileId ? { profileId } : undefined);
     }
 
     public async setExclusionsMode(
         mode: ExclusionsMode,
+        profileId?: string,
     ): Promise<ExtractMessageResponse<MessageType.SET_EXCLUSIONS_MODE>> {
         const type = MessageType.SET_EXCLUSIONS_MODE;
-        return this.sendMessage(type, { mode });
+        return this.sendMessage(type, { mode, profileId });
     }
 
     public async getSelectedLocation(): Promise<ExtractMessageResponse<MessageType.GET_SELECTED_LOCATION>> {
@@ -631,64 +660,71 @@ class Messenger {
         return this.sendMessage(type, { key, value });
     }
 
-    public getGeneralExclusions():
+    public getGeneralExclusions(profileId?: string):
     Promise<ExtractMessageResponse<MessageType.GET_GENERAL_EXCLUSIONS>> {
         const type = MessageType.GET_GENERAL_EXCLUSIONS;
-        return this.sendMessage(type);
+        return this.sendMessage(type, profileId ? { profileId } : undefined);
     }
 
-    public getSelectiveExclusions():
+    public getSelectiveExclusions(profileId?: string):
     Promise<ExtractMessageResponse<MessageType.GET_SELECTIVE_EXCLUSIONS>> {
         const type = MessageType.GET_SELECTIVE_EXCLUSIONS;
-        return this.sendMessage(type);
+        return this.sendMessage(type, profileId ? { profileId } : undefined);
     }
 
     public addRegularExclusions(
         exclusions: string[],
+        profileId?: string,
     ): Promise<ExtractMessageResponse<MessageType.ADD_REGULAR_EXCLUSIONS>> {
         const type = MessageType.ADD_REGULAR_EXCLUSIONS;
-        return this.sendMessage(type, { exclusions });
+        return this.sendMessage(type, { exclusions, profileId });
     }
 
     public addSelectiveExclusions(
         exclusions: string[],
+        profileId?: string,
     ): Promise<ExtractMessageResponse<MessageType.ADD_SELECTIVE_EXCLUSIONS>> {
         const type = MessageType.ADD_SELECTIVE_EXCLUSIONS;
-        return this.sendMessage(type, { exclusions });
+        return this.sendMessage(type, { exclusions, profileId });
     }
 
     public addExclusionsMap(
         exclusionsMap: ExclusionsMap,
+        profileId?: string,
     ): Promise<ExtractMessageResponse<MessageType.ADD_EXCLUSIONS_MAP>> {
         const type = MessageType.ADD_EXCLUSIONS_MAP;
-        return this.sendMessage(type, { exclusionsMap });
+        return this.sendMessage(type, { exclusionsMap, profileId });
     }
 
     public addCustomDnsServer(
         dnsServerData: DnsServerData,
+        profileId?: string,
     ): Promise<ExtractMessageResponse<MessageType.ADD_CUSTOM_DNS_SERVER>> {
         const type = MessageType.ADD_CUSTOM_DNS_SERVER;
-        return this.sendMessage(type, { dnsServerData });
+        return this.sendMessage(type, { dnsServerData, profileId });
     }
 
     public editCustomDnsServer(
         dnsServerData: DnsServerData,
+        profileId?: string,
     ): Promise<ExtractMessageResponse<MessageType.EDIT_CUSTOM_DNS_SERVER>> {
         const type = MessageType.EDIT_CUSTOM_DNS_SERVER;
-        return this.sendMessage(type, { dnsServerData });
+        return this.sendMessage(type, { dnsServerData, profileId });
     }
 
     public removeCustomDnsServer(
         dnsServerId: string,
+        profileId?: string,
     ): Promise<ExtractMessageResponse<MessageType.REMOVE_CUSTOM_DNS_SERVER>> {
         const type = MessageType.REMOVE_CUSTOM_DNS_SERVER;
-        return this.sendMessage(type, { dnsServerId });
+        return this.sendMessage(type, { dnsServerId, profileId });
     }
 
-    public restoreCustomDnsServersData():
-    Promise<ExtractMessageResponse<MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA>> {
+    public restoreCustomDnsServersData(
+        profileId?: string,
+    ): Promise<ExtractMessageResponse<MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA>> {
         const type = MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA;
-        return this.sendMessage(type);
+        return this.sendMessage(type, profileId ? { profileId } : undefined);
     }
 
     /**

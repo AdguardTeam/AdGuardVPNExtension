@@ -1,16 +1,24 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { rootStore } from '../../stores';
 import { translator } from '../../../common/translator';
+import { rootStore } from '../../stores';
 import { ControlsSwitch } from '../ui/Controls';
 
-export const WebRTC = observer(() => {
-    const { settingsStore } = useContext(rootStore);
-    const { webRTCEnabled } = settingsStore;
+interface WebRTCProps {
+    /**
+     * Profile ID to read/write WebRTC setting for.
+     */
+    profileId: string;
+}
+
+export const WebRTC = observer(({ profileId }: WebRTCProps) => {
+    const { profilesStore } = useContext(rootStore);
+
+    const isActive = profilesStore.webRtcCache.get(profileId) ?? false;
 
     const handleToggle = async (): Promise<void> => {
-        await settingsStore.setWebRTCValue(!webRTCEnabled);
+        profilesStore.toggleWebRtc(profileId);
     };
 
     return (
@@ -27,7 +35,7 @@ export const WebRTC = observer(() => {
                     </span>
                 </>
             )}
-            isActive={webRTCEnabled}
+            isActive={isActive}
             onToggle={handleToggle}
         />
     );
