@@ -23,6 +23,21 @@ import {
 import { browserApi } from '../browserApi';
 
 /**
+ * Lightweight list of profiles with the active profile ID.
+ */
+export interface ProfileInfoListData {
+    /**
+     * All profiles (id + name only).
+     */
+    profiles: ProfileInfo[];
+
+    /**
+     * Currently active profile ID.
+     */
+    activeProfileId: string;
+}
+
+/**
  * Manages VPN profiles: CRUD operations, active profile tracking,
  * and business rule enforcement (max count, system profile protection).
  */
@@ -123,8 +138,10 @@ export class ProfilesService {
     /**
      * Returns lightweight profile descriptors (id + name only)
      * and the active profile ID.
+     *
+     * @returns Profiles list with active profile ID.
      */
-    public async getProfileInfoList(): Promise<{ profiles: ProfileInfo[]; activeProfileId: string }> {
+    public async getProfileInfoList(): Promise<ProfileInfoListData> {
         const state = await this.loadState();
         const profiles = state.profiles.map(({ id, name }) => ({ id, name }));
 
