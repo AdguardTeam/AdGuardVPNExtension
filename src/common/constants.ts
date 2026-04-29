@@ -37,6 +37,12 @@ export const SETTINGS_IDS = {
     PREMIUM_FEATURES_SHOW: 'premium.features.show',
     USER_SET_PROMO_SHOW: 'user.set.promo.show',
     EXCLUSIONS: 'exclusions.list',
+    /**
+     * @deprecated Moved to per-profile settings ({@link ProfileSettings.handleWebRtcEnabled}).
+     * Kept only for {@link SettingsService.migrateFrom2to3}.
+     *
+     * FIXME: Add a new migration to remove this key from storage, then delete this constant.
+     */
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
     SELECTED_DNS_SERVER: 'dns.handle.server',
     SELECTED_CUSTOM_DNS_SERVER: 'custom.dns.handle.server',

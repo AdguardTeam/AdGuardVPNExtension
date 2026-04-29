@@ -81,6 +81,8 @@ export class SettingsService {
         };
     };
 
+    // FIXME: Add a new migration to remove HANDLE_WEBRTC_ENABLED from storage
+    // (setting moved to per-profile ProfileSettings.handleWebRtcEnabled).
     private migrateFrom2to3 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
