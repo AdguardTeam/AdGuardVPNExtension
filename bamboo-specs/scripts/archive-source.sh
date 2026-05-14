@@ -73,7 +73,7 @@ docker run --rm -it \
     -v $(pwd):/workspace \
     -w /workspace \
     --env-file .env \
-    adguard/node-ssh:22.17--0 \
+    adguard/node-ssh:22.22--0 \
     /bin/sh -c "pnpm install && STAGE_ENV=prod pnpm release firefox"
 ```
 
@@ -86,7 +86,7 @@ docker run --rm -it \
     -v $(pwd):/workspace \
     -w /workspace \
     --env-file .env \
-    adguard/node-ssh:22.17--0 \
+    adguard/node-ssh:22.22--0 \
     /bin/sh -c "pnpm install && STAGE_ENV=prod pnpm beta firefox"
 ```
 

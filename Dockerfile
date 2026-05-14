@@ -1,7 +1,7 @@
 # ============================================================================
 # Base image with system dependencies
 # ============================================================================
-FROM adguard/node-ssh:22.17--0 AS base
+FROM adguard/node-ssh:22.22--0 AS base
 SHELL ["/bin/bash", "-lc"]
 
 RUN apt-get update \
@@ -243,7 +243,7 @@ COPY --from=firefox-beta-build /out/ /
 # Expects artifacts via named build context: --build-context firefox-artifacts=...
 # Uses adguard/extension-builder image which has go-webext pre-installed
 # ============================================================================
-FROM adguard/extension-builder:22.17--0.4.1--0 AS firefox-beta-sign
+FROM adguard/extension-builder:22.22--0.4.1--0 AS firefox-beta-sign
 
 WORKDIR /sign
 
