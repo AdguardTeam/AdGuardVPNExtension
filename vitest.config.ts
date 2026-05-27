@@ -20,6 +20,14 @@ export default defineConfig({
             './tests/__setups__/chrome.ts',
         ],
     },
+    esbuild: {
+        tsconfigRaw: {
+            compilerOptions: {
+                experimentalDecorators: true,
+                useDefineForClassFields: false,
+            },
+        },
+    },
     plugins: [{
         name: 'mock-assets-imports',
         enforce: 'pre',

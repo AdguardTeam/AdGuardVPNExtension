@@ -7,7 +7,6 @@ export {
 
 // Connectivity FSM state schema
 export {
-    ConnectivityStateType,
     connectivityStateScheme,
     CONNECTIVITY_STATE_DEFAULT,
 } from './state';

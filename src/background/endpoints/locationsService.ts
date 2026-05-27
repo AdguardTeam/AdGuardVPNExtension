@@ -4,9 +4,6 @@ import { log } from '../../common/logger';
 import { measurePingWithinLimits } from '../connectivity/pingHelpers';
 import { notifier } from '../../common/notifier';
 import { vpnProvider } from '../providers/vpnProvider';
-import { SETTINGS_IDS } from '../../common/constants';
-// eslint-disable-next-line import/no-cycle
-import { settings } from '../settings';
 import {
     type LocationInterface,
     type EndpointInterface,
@@ -16,6 +13,9 @@ import {
 import { StateData } from '../stateStorage';
 import { type StorageInterface } from '../browserApi/storage';
 import { browserApi } from '../browserApi';
+import { profilesService } from '../profiles';
+import { connectivityService } from '../connectivity/connectivityService';
+import { settings } from '../settings';
 
 import { Location } from './Location';
 import { LocationWithPing } from './LocationWithPing';
@@ -38,7 +38,6 @@ interface IncomingPingData {
 }
 
 interface LocationsServiceInterface {
-    getIsLocationSelectedByUser(): Promise<boolean>;
     getLocationsFromServer(appId: string, vpnToken: string): Promise<Location[]>;
     updateSelectedLocation(): Promise<LocationInterface | null>;
     getEndpointByLocation(
@@ -47,7 +46,11 @@ interface LocationsServiceInterface {
     ): Promise<EndpointInterface | null>;
     getLocationByEndpoint(endpointId: string): Promise<LocationInterface | null>;
     getLocationsWithPing(): Promise<LocationWithPing[]>;
-    setSelectedLocation(id: string, isLocationSelectedByUser?: boolean): Promise<void>;
+    setSelectedLocation(
+        profileId: string,
+        id: string,
+        options?: { reconnect?: boolean; persistToProfile?: boolean },
+    ): Promise<void>;
     getSelectedLocation(): Promise<LocationInterface | null>;
     getLocations(): Promise<LocationInterface[]>;
     getEndpoint(
@@ -111,7 +114,19 @@ export class LocationsService implements LocationsServiceInterface {
      */
     private locationsState = new StateData(StorageKey.LocationsService);
 
-    PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
+    private readonly PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
+
+    /**
+     * Reconnects the VPN tunnel if it is currently active
+     * (not idle and not disconnected-idle).
+     */
+    private reconnectIfVpnActive = async (): Promise<void> => {
+        if (!connectivityService.isVPNDisconnectedIdle()
+            && !connectivityService.isVPNIdle()) {
+            await settings.disableProxy(true);
+            await settings.enableProxy(true);
+        }
+    };
 
     /**
      * Constructor.
@@ -127,12 +142,12 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Locations instances.
      */
-    getLocations = async (): Promise<LocationInterface[]> => {
+    public getLocations = async (): Promise<LocationInterface[]> => {
         const { locations } = await this.locationsState.get();
         return locations;
     };
 
-    getPingFromCache = async (id: string): Promise<{ locationId: string } & PingsCacheInterface[string]> => {
+    public getPingFromCache = async (id: string): Promise<{ locationId: string } & PingsCacheInterface[string]> => {
         const { pingsCache } = await this.locationsState.get();
         return {
             locationId: id,
@@ -145,7 +160,7 @@ export class LocationsService implements LocationsServiceInterface {
      * @param location
      * @param state
      */
-    setLocationAvailableState = (location: LocationInterface, state: boolean): void => {
+    private setLocationAvailableState = (location: LocationInterface, state: boolean): void => {
         // eslint-disable-next-line no-param-reassign
         location.available = state;
     };
@@ -155,7 +170,7 @@ export class LocationsService implements LocationsServiceInterface {
      * @param location
      * @param ping
      */
-    setLocationPing = (location: LocationInterface, ping: number | null): void => {
+    private setLocationPing = (location: LocationInterface, ping: number | null): void => {
         // eslint-disable-next-line no-param-reassign
         location.ping = ping;
     };
@@ -165,7 +180,7 @@ export class LocationsService implements LocationsServiceInterface {
      * @param location
      * @param endpoint
      */
-    setLocationEndpoint = (
+    private setLocationEndpoint = (
         location: LocationInterface,
         endpoint: EndpointInterface | null,
     ): void => {
@@ -181,7 +196,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Locations with pings, used for UI.
      */
-    getLocationsWithPing = async (): Promise<LocationWithPing[]> => {
+    public getLocationsWithPing = async (): Promise<LocationWithPing[]> => {
         const { locations } = await this.locationsState.get();
 
         return Promise.all(locations.map(async (location: LocationInterface) => {
@@ -195,7 +210,7 @@ export class LocationsService implements LocationsServiceInterface {
         }));
     };
 
-    updatePingsCache = async (id: string, newData: IncomingPingData): Promise<void> => {
+    private updatePingsCache = async (id: string, newData: IncomingPingData): Promise<void> => {
         const { pingsCache } = await this.locationsState.get();
 
         const oldData = pingsCache[id];
@@ -222,7 +237,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Endpoints array with the given endpoint moved to the first position, or the original order if not found.
      */
-    moveToTheStart = (
+    private moveToTheStart = (
         endpoints: EndpointInterface[],
         endpoint: EndpointInterface,
     ): EndpointInterface[] => {
@@ -240,12 +255,12 @@ export class LocationsService implements LocationsServiceInterface {
      * If was unable to measure ping to all endpoints, returns first endpoint from the list.
      *
      * @param location
-     * @param forcePrevEndpoint - boolean flag to measure ping of previously
+     * @param forcePrevEndpoint boolean flag to measure ping of previously
      *  selected endpoint only
      *
      *  @returns Promise with ping and endpoint.
      */
-    getEndpointAndPing = async (
+    private getEndpointAndPing = async (
         location: LocationInterface,
         forcePrevEndpoint = false,
     ): Promise<{ ping: number | null, endpoint: EndpointInterface | null }> => {
@@ -296,7 +311,7 @@ export class LocationsService implements LocationsServiceInterface {
      * @param location location to measure ping for
      * @param force boolean flag to measure ping without checking pings ttl
      */
-    measurePing = async (location: LocationInterface, force: boolean): Promise<void> => {
+    private measurePing = async (location: LocationInterface, force: boolean): Promise<void> => {
         const { id } = location;
         const { pingsCache } = await this.locationsState.get();
 
@@ -346,7 +361,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * Needed for "Refresh pings" button in the "Locations" screen in popup.
      */
-    prunePings = async (): Promise<void> => {
+    private prunePings = async (): Promise<void> => {
         const { locations } = await this.locationsState.get();
         await Promise.all(locations.map(async (location) => {
             await this.updatePingsCache(location.id, { ping: null });
@@ -364,14 +379,14 @@ export class LocationsService implements LocationsServiceInterface {
     /**
      * Flag used to control when it is possible to start pings measurement again
      */
-    isMeasuring = false;
+    public isMeasuring = false;
 
     /**
      * Measures pings for all locations.
      *
      * @param force Flag indicating that pings should be measured without checking ttl
      */
-    measurePings = async (force = false): Promise<void> => {
+    private measurePings = async (force = false): Promise<void> => {
         if (this.isMeasuring) {
             return;
         }
@@ -395,7 +410,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns True if ping measurement is in progress.
      */
-    isMeasuringPingInProgress = (): boolean => {
+    public isMeasuringPingInProgress = (): boolean => {
         return this.isMeasuring;
     };
 
@@ -404,7 +419,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns selected location if it's endpoint was updated.
      */
-    updateSelectedLocation = async (): Promise<LocationInterface | null> => {
+    public updateSelectedLocation = async (): Promise<LocationInterface | null> => {
         const { selectedLocation, locations } = await this.locationsState.get();
         if (!selectedLocation) {
             return null;
@@ -417,9 +432,27 @@ export class LocationsService implements LocationsServiceInterface {
 
         const updatedSelectedLocation = actualSelectedLocation || oldSelectedLocation;
         await this.locationsState.update({ selectedLocation: updatedSelectedLocation });
-        // Keep local storage in sync so the fallback in getSelectedLocation()
-        // returns correct localized names after browser restart.
-        await settings.setSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY, updatedSelectedLocation);
+
+        // Persist the session location to the active profile so that it stays
+        // up-to-date with server-side changes (e.g. endpoint rotation) and is
+        // available immediately after a browser restart.
+        // Skip persistence when the profile stores a different location that
+        // still exists — this means the popup changed the session location
+        // without persisting, and we must not overwrite the profile choice.
+        const activeProfileId = profilesService.getActiveProfileId();
+        const activeSettings = profilesService.getActiveProfileSettings();
+        const profileLocation = activeSettings.selectedLocation;
+
+        const profileLocationMatchesSession = profileLocation?.id === updatedSelectedLocation?.id;
+        const profileLocationExists = profileLocation
+            && locations.some((location) => location.id === profileLocation.id);
+
+        if (profileLocationMatchesSession || !profileLocationExists) {
+            await profilesService.updateProfileSettings(
+                activeProfileId,
+                { selectedLocation: updatedSelectedLocation },
+            );
+        }
 
         if (oldSelectedLocation?.endpoint?.id && updatedSelectedLocation?.endpoint?.id
             && oldSelectedLocation.endpoint.id !== updatedSelectedLocation.endpoint.id) {
@@ -429,7 +462,7 @@ export class LocationsService implements LocationsServiceInterface {
         return null;
     };
 
-    setLocations = async (newLocations: LocationInterface[]): Promise<void> => {
+    public setLocations = async (newLocations: LocationInterface[]): Promise<void> => {
         const { pingsCache } = await this.locationsState.get();
 
         // copy previous pings data for locations without a backend-provided ping
@@ -477,7 +510,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Locations from server.
      */
-    getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => {
+    public getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => {
         const locationsData = await vpnProvider.getLocationsData(appId, vpnToken);
 
         const locations = locationsData.map((locationData: LocationInterface) => {
@@ -503,7 +536,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Promise with available endpoint if found, or the first one.
      */
-    getEndpoint = async (
+    public getEndpoint = async (
         location: LocationInterface,
         forcePrevEndpoint: boolean,
     ): Promise<EndpointInterface | null> => {
@@ -548,7 +581,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Promise with endpoint by location id.
      */
-    getEndpointByLocation = async (
+    public getEndpointByLocation = async (
         location: LocationInterface,
         forcePrevEndpoint: boolean = false,
     ): Promise<EndpointInterface | null> => {
@@ -576,7 +609,7 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Location by endpoint id.
      */
-    getLocationByEndpoint = async (endpointId: string): Promise<LocationInterface | null> => {
+    public getLocationByEndpoint = async (endpointId: string): Promise<LocationInterface | null> => {
         if (!endpointId) {
             return null;
         }
@@ -590,31 +623,59 @@ export class LocationsService implements LocationsServiceInterface {
     };
 
     /**
-     * Persists selected location in the memory and storage
-     * @param id - Location id
-     * @param isLocationSelectedByUser - Flag indicating that location was selected by user
+     * Updates the selected location in the session cache and optionally
+     * persists it to the profile.
+     * If the profile is currently active and VPN is connected or connecting,
+     * triggers a reconnect to apply the new location.
+     *
+     * @param profileId Profile ID.
+     * @param id Location id.
+     * @param options Options for the location change.
+     * @param options.reconnect Whether to reconnect VPN if the profile is active.
+     * @param options.persistToProfile Whether to save the location to the profile settings.
      */
-    setSelectedLocation = async (id: string, isLocationSelectedByUser = false): Promise<void> => {
+    public setSelectedLocation = async (
+        profileId: string,
+        id: string,
+        { reconnect = false, persistToProfile = true }: { reconnect?: boolean; persistToProfile?: boolean } = {},
+    ): Promise<void> => {
         const { locations } = await this.locationsState.get();
-
         const newSelectedLocation = locations.find((location) => location.id === id) || null;
 
-        await this.locationsState.update({ selectedLocation: newSelectedLocation });
-        await settings.setSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY, newSelectedLocation);
-
-        if (isLocationSelectedByUser) {
-            await settings.setSetting(
-                SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY,
-                isLocationSelectedByUser,
+        if (persistToProfile) {
+            await profilesService.updateProfileSettings(
+                profileId,
+                { selectedLocation: newSelectedLocation },
+                () => this.applySelectedLocation(newSelectedLocation, reconnect),
             );
+
+            notifier.notifyListeners(
+                notifier.types.PROFILE_LOCATION_UPDATED,
+                profileId,
+                newSelectedLocation,
+            );
+        } else {
+            await this.applySelectedLocation(newSelectedLocation, reconnect);
         }
+
+        notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
     };
 
-    getIsLocationSelectedByUser = async (): Promise<boolean> => {
-        const isLocationSelectedByUser = await settings.getSetting(
-            SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY,
-        );
-        return isLocationSelectedByUser;
+    /**
+     * Updates the session-cached selected location and optionally
+     * reconnects the VPN tunnel.
+     *
+     * @param selectedLocation New selected location.
+     * @param reconnect Whether to reconnect VPN.
+     */
+    private applySelectedLocation = async (
+        selectedLocation: LocationInterface | null,
+        reconnect: boolean,
+    ): Promise<void> => {
+        await this.locationsState.update({ selectedLocation });
+        if (reconnect) {
+            await this.reconnectIfVpnActive();
+        }
     };
 
     /**
@@ -622,22 +683,50 @@ export class LocationsService implements LocationsServiceInterface {
      *
      * @returns Promise with null or selected location.
      */
-    getSelectedLocation = async (): Promise<LocationInterface | null> => {
+    public getSelectedLocation = async (): Promise<LocationInterface | null> => {
         let { selectedLocation } = await this.locationsState.get();
 
         if (!selectedLocation) {
-            // eslint-disable-next-line max-len
-            const storedSelectedLocation = await settings.getSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY);
+            const activeSettings = profilesService.getActiveProfileSettings();
+            const { selectedLocation: storedLocation } = activeSettings;
 
-            if (!storedSelectedLocation) {
+            if (!storedLocation) {
                 return null;
             }
 
-            selectedLocation = new Location(storedSelectedLocation);
+            selectedLocation = new Location(storedLocation);
             await this.locationsState.update({ selectedLocation });
         }
 
         return selectedLocation;
+    };
+
+    /**
+     * Updates the session-cached selected location from the given
+     * profile and reconnects the VPN if it is currently connected and
+     * the location has changed.
+     *
+     * @param profileId Profile to apply.
+     */
+    public applyActiveProfile = async (profileId: string): Promise<void> => {
+        const activeSettings = profilesService.getProfileSettings(profileId);
+        const { selectedLocation: storedLocation } = activeSettings;
+
+        const newSelectedLocation = storedLocation
+            ? new Location(storedLocation)
+            : null;
+
+        const { selectedLocation: previousLocation } = await this.locationsState.get();
+        await this.locationsState.update({ selectedLocation: newSelectedLocation });
+
+        const locationChanged = previousLocation?.id !== newSelectedLocation?.id;
+
+        if (locationChanged) {
+            await this.reconnectIfVpnActive();
+            notifier.notifyListeners(notifier.types.CURRENT_LOCATION_UPDATED, newSelectedLocation);
+        }
+
+        notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
     };
 
     /**

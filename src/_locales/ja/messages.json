@@ -135,6 +135,12 @@
     "official_website": {
         "message": "公式ホームページ"
     },
+    "version_history": {
+        "message": "バージョン履歴"
+    },
+    "github": {
+        "message": "GitHubリポジトリ"
+    },
     "eula": {
         "message": "利用許諾契約(EULA)"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "VPN対象からの除外"
     },
+    "settings_location_label": {
+        "message": "ロケーション"
+    },
+    "settings_location_fastest_title": {
+        "message": "一番速いロケーション"
+    },
+    "settings_location_fastest_description": {
+        "message": "通信速度が一番速いロケーションに自動接続します。"
+    },
+    "settings_profiles_title": {
+        "message": "プロファイル一覧"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "プロファイル"
+    },
+    "settings_profiles_subtitle": {
+        "message": "用途ごと（仕事用、自宅用など）にロケーション、VPN対象外リスト、DNSサーバーを個別に設定できます。"
+    },
+    "settings_profiles_default_name": {
+        "message": "デフォルト"
+    },
+    "settings_profiles_actions": {
+        "message": "操作"
+    },
+    "settings_profiles_action_use": {
+        "message": "このプロファイルを使用する"
+    },
+    "settings_profiles_action_rename": {
+        "message": "名称を変更する"
+    },
+    "settings_profiles_action_delete": {
+        "message": "削除する"
+    },
+    "settings_profiles_create": {
+        "message": "作成する"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "新規プロファイルを作成"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "フィルタ名"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "作成する"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "キャンセル "
+    },
+    "settings_profiles_error_too_long": {
+        "message": "最大長は %count% 文字です | 最大長は %count% 文字です"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "この名称は既に使用されています"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "プロファイル名称を変更"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "新しい名称"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "保存"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "プロファイル「%profile_name% 」を削除しますか？"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "このプロファイルの設定（ロケーション、WebRTC、DNSサーバー、ウェブサイト除外リスト）は削除されます。"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN は「デフォルト」プロファイルに切り替わります。"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "「%profile_name%」プロファイルの設定（ロケーション、WebRTC、DNSサーバー、ウェブサイト除外リスト）は削除されます。"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "削除する"
+    },
+    "settings_description_current": {
+        "message": "現在: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPNがオンになっている場所"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "このリストを空にすると、すべてのWebサイトに対してVPNが無効になります。"
+    },
+    "settings_applies_to_profile": {
+        "message": "「<b>%profile_name%</b>」プロファイルに適用されます。"
     },
     "settings_exclusion_import_button": {
         "message": "インポート"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "統計"
+    },
+    "popup_profiles_title": {
+        "message": "プロファイル一覧"
+    },
+    "popup_profiles_settings": {
+        "message": "設定"
+    },
+    "profile_apply_error": {
+        "message": "プロファイルの切り替えに失敗しました。もう一度お試しいただくか、サポートにお問い合わせください。"
     },
     "popup_settings_free_description": {
         "message": "AdGuard VPN の無制限版で利用可能"

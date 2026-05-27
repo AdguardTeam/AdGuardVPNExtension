@@ -159,7 +159,7 @@ const validateMessage = (baseKey, baseLocaleTranslations, locale, localeTranslat
 
 /**
  * Checks locales translations readiness
- * @param {string[]} locales - list of locales
+ * @param {string[]} locales list of locales
  * @param {ValidationFlags} flags
  * @returns {Result[]} array of object with such properties:
  * locale, level of translation readiness,

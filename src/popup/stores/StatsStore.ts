@@ -56,7 +56,7 @@ export class StatsStore {
     /**
      * Root store instance.
      */
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     /**
      * Constructor.
@@ -68,87 +68,87 @@ export class StatsStore {
     /**
      * Initializes the stats store by retrieving the range from session storage.
      */
-    @action init = async (): Promise<void> => {
+    @action public init = async (): Promise<void> => {
         this.range = await this.getRangeFromStorage();
     };
 
     /**
      * Flag indicating whether the stats screen is open.
      */
-    @observable isStatsScreenOpen = false;
+    @observable private isStatsScreenOpen = false;
 
     /**
      * Flag indicating whether the all locations screen is open.
      */
-    @observable isAllLocationsScreenOpen = false;
+    @observable public isAllLocationsScreenOpen = false;
 
     /**
      * ID of the selected location. Used to show stats for a specific location.
      */
-    @observable selectedLocationId: string | null = null;
+    @observable private selectedLocationId: string | null = null;
 
     /**
      * Stats range to show data for.
      */
-    @observable range: StatisticsRange = StatsStore.DEFAULT_RANGE;
+    @observable public range: StatisticsRange = StatsStore.DEFAULT_RANGE;
 
     /**
      * Date when the stats collection started.
      */
-    @observable firstStatsDate = new Date();
+    @observable public firstStatsDate = new Date();
 
     /**
      * Total statistics data for all locations and the selected range.
      */
-    @observable totalUsage: StatisticsData = StatsStore.DEFAULT_TOTAL;
+    @observable public totalUsage: StatisticsData = StatsStore.DEFAULT_TOTAL;
 
     /**
      * Statistics data for all locations.
      */
-    @observable locations: LocationUsage[] = [];
+    @observable public locations: LocationUsage[] = [];
 
     /**
      * Is stats menu open.
      */
-    @observable isMenuOpen = false;
+    @observable public isMenuOpen = false;
 
     /**
      * Is stats info modal open.
      */
-    @observable isStatsInfoModalOpen = false;
+    @observable public isStatsInfoModalOpen = false;
 
     /**
      * Is disable modal open.
      */
-    @observable isDisableModalOpen = false;
+    @observable public isDisableModalOpen = false;
 
     /**
      * Is clear modal open.
      */
-    @observable isClearModalOpen = false;
+    @observable public isClearModalOpen = false;
 
     /**
      * Flag indicating whether the first statistics retrieval has occurred.
      * This is needed to retrieve only once when stats screen is opened,
      * because after it will be update via notifier events.
      */
-    @observable isFirstStatisticsRetrieved = false;
+    @observable private isFirstStatisticsRetrieved = false;
 
     /**
      * Flag indicating whether statistics data is currently being loaded.
      */
-    @observable isStatisticsLoading = false;
+    @observable public isStatisticsLoading = false;
 
     /**
      * Flag indicating whether stats screen is disabled.
      * True if stats are not collected currently, false otherwise.
      */
-    @observable isStatsDisabled = false;
+    @observable public isStatsDisabled = false;
 
     /**
      * Is stats screen open or not.
      */
-    @computed get isOpenStatsScreen(): boolean {
+    @computed public get isOpenStatsScreen(): boolean {
         // Do not render the stats screen if user is not a premium user
         if (!this.rootStore.vpnStore.isPremiumToken) {
             return false;
@@ -161,7 +161,7 @@ export class StatsStore {
     /**
      * Data usage for the selected location.
      */
-    @computed get selectedLocation(): LocationUsage | null {
+    @computed public get selectedLocation(): LocationUsage | null {
         if (!this.selectedLocationId) {
             return null;
         }
@@ -178,7 +178,7 @@ export class StatsStore {
      *
      * @param statisticsByRange Statistics data for the selected range.
      */
-    @action setStatisticsByRange = (statisticsByRange: StatisticsByRange): void => {
+    @action private setStatisticsByRange = (statisticsByRange: StatisticsByRange): void => {
         const {
             isDisabled,
             startedTimestamp,
@@ -237,7 +237,7 @@ export class StatsStore {
     /**
      * Open the stats screen.
      */
-    @action openStatsScreen = (): void => {
+    @action public openStatsScreen = (): void => {
         // Do nothing if user is not a premium user
         if (!this.rootStore.vpnStore.isPremiumToken) {
             return;
@@ -249,7 +249,7 @@ export class StatsStore {
     /**
      * Close the stats screen.
      */
-    @action closeStatsScreen = (): void => {
+    @action public closeStatsScreen = (): void => {
         // Do nothing if user is not a premium user
         if (!this.rootStore.vpnStore.isPremiumToken) {
             return;
@@ -261,7 +261,7 @@ export class StatsStore {
     /**
      * Open the all locations screen.
      */
-    @action openAllLocationsScreen = (): void => {
+    @action public openAllLocationsScreen = (): void => {
         // Do nothing if the stats screen is not open
         if (!this.isStatsScreenOpen) {
             return;
@@ -273,7 +273,7 @@ export class StatsStore {
     /**
      * Close the all locations screen.
      */
-    @action closeAllLocationsScreen = (): void => {
+    @action public closeAllLocationsScreen = (): void => {
         // Do nothing if the stats screen is not open
         if (!this.isStatsScreenOpen) {
             return;
@@ -287,7 +287,7 @@ export class StatsStore {
      *
      * @param locationId ID of the location to show stats for.
      */
-    @action openLocationScreen = (locationId: string): void => {
+    @action public openLocationScreen = (locationId: string): void => {
         // Do nothing if the stats screen is not open
         if (!this.isStatsScreenOpen) {
             return;
@@ -299,7 +299,7 @@ export class StatsStore {
     /**
      * Close the location screen.
      */
-    @action closeLocationScreen = (): void => {
+    @action public closeLocationScreen = (): void => {
         // Do nothing if the stats screen is not open
         if (!this.isStatsScreenOpen) {
             return;
@@ -313,7 +313,7 @@ export class StatsStore {
      *
      * @param isRequestedFromUiRender True if update is requested from UI render, false otherwise.
      */
-    @action updateStatistics = async (isRequestedFromUiRender = false): Promise<void> => {
+    @action public updateStatistics = async (isRequestedFromUiRender = false): Promise<void> => {
         /**
          * Negative XOR check to ensure following:
          * - If first stats retrieved before and it's called from UI render,
@@ -345,7 +345,7 @@ export class StatsStore {
      *
      * @param range New range value.
      */
-    @action updateRange = async (range: StatisticsRange): Promise<void> => {
+    @action public updateRange = async (range: StatisticsRange): Promise<void> => {
         this.range = range;
         await this.saveRangeToStorage(range);
         await this.updateStatistics();
@@ -356,7 +356,7 @@ export class StatsStore {
      *
      * @param isDisabled True if stats collection should be disabled, false otherwise.
      */
-    @action updateIsStatsDisabled = async (isDisabled: boolean): Promise<void> => {
+    @action public updateIsStatsDisabled = async (isDisabled: boolean): Promise<void> => {
         this.isStatsDisabled = isDisabled;
         await messenger.setStatisticsIsDisabled(isDisabled);
     };
@@ -364,7 +364,7 @@ export class StatsStore {
     /**
      * Clear all stats.
      */
-    @action clearAllStats = async (): Promise<void> => {
+    @action public clearAllStats = async (): Promise<void> => {
         await messenger.clearStatistics();
 
         runInAction(() => {
@@ -380,7 +380,7 @@ export class StatsStore {
      *
      * @param isMenuOpen True if the menu is open, false otherwise.
      */
-    @action setIsMenuOpen = (isMenuOpen: boolean): void => {
+    @action public setIsMenuOpen = (isMenuOpen: boolean): void => {
         this.isMenuOpen = isMenuOpen;
     };
 
@@ -389,7 +389,7 @@ export class StatsStore {
      *
      * @param isStatsInfoModalOpen True if the modal is open, false otherwise.
      */
-    @action setIsStatsInfoModalOpen = (isStatsInfoModalOpen: boolean): void => {
+    @action public setIsStatsInfoModalOpen = (isStatsInfoModalOpen: boolean): void => {
         this.isStatsInfoModalOpen = isStatsInfoModalOpen;
     };
 
@@ -398,7 +398,7 @@ export class StatsStore {
      *
      * @param isDisableModalOpen True if the modal is open, false otherwise.
      */
-    @action setIsDisableModalOpen = (isDisableModalOpen: boolean): void => {
+    @action public setIsDisableModalOpen = (isDisableModalOpen: boolean): void => {
         this.isDisableModalOpen = isDisableModalOpen;
     };
 
@@ -407,7 +407,7 @@ export class StatsStore {
      *
      * @param isClearModalOpen True if the modal is open, false otherwise.
      */
-    @action setIsClearModalOpen = (isClearModalOpen: boolean): void => {
+    @action public setIsClearModalOpen = (isClearModalOpen: boolean): void => {
         this.isClearModalOpen = isClearModalOpen;
     };
 
@@ -416,7 +416,7 @@ export class StatsStore {
      *
      * @param isFirstStatisticsRetrieved True if the first statistics retrieval has occurred, false otherwise.
      */
-    @action setIsFirstStatisticsRetrieved = (isFirstStatisticsRetrieved: boolean): void => {
+    @action private setIsFirstStatisticsRetrieved = (isFirstStatisticsRetrieved: boolean): void => {
         this.isFirstStatisticsRetrieved = isFirstStatisticsRetrieved;
     };
 
@@ -425,7 +425,7 @@ export class StatsStore {
      *
      * @param isStatisticsLoading True if statistics are currently loading, false otherwise.
      */
-    @action setIsStatisticsLoading = (isStatisticsLoading: boolean): void => {
+    @action private setIsStatisticsLoading = (isStatisticsLoading: boolean): void => {
         this.isStatisticsLoading = isStatisticsLoading;
     };
 

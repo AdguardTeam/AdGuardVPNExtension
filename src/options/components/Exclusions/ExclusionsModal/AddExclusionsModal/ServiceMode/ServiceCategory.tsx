@@ -11,11 +11,20 @@ import { Icon } from '../../../../../../common/components/Icons';
 import { ServiceRow } from './ServiceRow';
 
 export interface ServiceCategoryProps {
+    /**
+     * Service category data to display.
+     */
     category: PreparedServiceCategory;
+
+    /**
+     * Whether the component is rendered inside a profile context.
+     */
+    isProfileContext: boolean;
 }
 
 export const ServiceCategory = observer(({
     category,
+    isProfileContext,
 }: ServiceCategoryProps) => {
     const { exclusionsStore } = useContext(rootStore);
     const { services } = exclusionsStore.preparedServicesData;
@@ -65,7 +74,13 @@ export const ServiceCategory = observer(({
             </button>
             <div className="service-mode-category__services">
                 {filteredServices.map((service) => {
-                    return (<ServiceRow key={service.serviceId} service={service} />);
+                    return (
+                        <ServiceRow
+                            key={service.serviceId}
+                            service={service}
+                            isProfileContext={isProfileContext}
+                        />
+                    );
                 })}
             </div>
         </div>

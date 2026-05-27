@@ -26,6 +26,8 @@ export const About = observer(() => {
     const { forwarderDomain } = settingsStore;
 
     const websiteUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.WEBSITE);
+    const changelogUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.CHANGELOG);
+    const githubUrl = getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.GITHUB);
     const { eulaUrl, privacyUrl } = getPrivacyAndEulaUrls(forwarderDomain);
 
     const handleWebsiteClick = (): void => {
@@ -61,6 +63,26 @@ export const About = observer(() => {
                     </div>
                 </div>
                 <nav className="about__nav">
+                    <a
+                        href={changelogUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="button has-tab-focus button--transparent about__link"
+                    >
+                        <span className="button__text">
+                            {translator.getMessage('version_history')}
+                        </span>
+                    </a>
+                    <a
+                        href={githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="button has-tab-focus button--transparent about__link"
+                    >
+                        <span className="button__text">
+                            {translator.getMessage('github')}
+                        </span>
+                    </a>
                     <a
                         href={websiteUrl}
                         target="_blank"

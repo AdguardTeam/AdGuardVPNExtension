@@ -1,6 +1,6 @@
 import { type Notifier } from '../../common/notifier';
 import { SETTINGS_IDS } from '../../common/constants';
-import { ConnectivityStateType } from '../schema';
+import { ConnectivityStateType } from '../../common/connectivityState';
 import { type SettingsInterface } from '../settings/settings';
 import { type StorageInterface } from '../browserApi/storage';
 import { ConnectivityEventType } from '../connectivity/connectivityService';

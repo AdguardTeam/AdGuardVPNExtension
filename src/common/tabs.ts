@@ -29,7 +29,7 @@ export interface TabsInterface {
 }
 
 class Tabs implements TabsInterface {
-    init(): void {
+    public init(): void {
         browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
             if (changeInfo.status === 'complete' || changeInfo.status === 'loading') {
                 if (tab && tab.active) {
@@ -69,12 +69,12 @@ class Tabs implements TabsInterface {
      *
      * @returns Prepared tab with id and url.
      */
-    prepareTab = (tab: browser.Tabs.Tab): PreparedTab => {
+    private prepareTab = (tab: browser.Tabs.Tab): PreparedTab => {
         const { id, url } = tab;
         return { id, url };
     };
 
-    async getCurrent(): Promise<browser.Tabs.Tab> {
+    public async getCurrent(): Promise<browser.Tabs.Tab> {
         const window = await WindowsApi.getCurrent();
 
         // if the Windows API is not supported, we rely on current active tab
@@ -87,12 +87,12 @@ class Tabs implements TabsInterface {
         return tabs[0];
     }
 
-    async getActive(): Promise<PreparedTab[]> {
+    public async getActive(): Promise<PreparedTab[]> {
         const tabs = await browser.tabs.query({ active: true });
         return tabs.map(this.prepareTab);
     }
 
-    async openTab(url: string): Promise<browser.Tabs.Tab> {
+    public async openTab(url: string): Promise<browser.Tabs.Tab> {
         return browser.tabs.create({ url, active: true });
     }
 
@@ -100,11 +100,11 @@ class Tabs implements TabsInterface {
      * Closes one or more tabs.
      * @param tabsIds
      */
-    async closeTab(tabsIds: number[] | number): Promise<void> {
+    public async closeTab(tabsIds: number[] | number): Promise<void> {
         await browser.tabs.remove(tabsIds);
     }
 
-    async reload(tabId: number): Promise<void> {
+    public async reload(tabId: number): Promise<void> {
         try {
             await browser.tabs.reload(tabId);
         } catch (e) {
@@ -112,12 +112,12 @@ class Tabs implements TabsInterface {
         }
     }
 
-    async getTabByUrl(url: string): Promise<browser.Tabs.Tab | undefined> {
+    public async getTabByUrl(url: string): Promise<browser.Tabs.Tab | undefined> {
         const tabs = await browser.tabs.query({});
         return tabs.find((tab) => tab.url?.includes(url));
     }
 
-    async update(tabId: number, url: string): Promise<void> {
+    public async update(tabId: number, url: string): Promise<void> {
         try {
             await browser.tabs.update(tabId, { url, active: true });
         } catch (e) {
@@ -129,13 +129,13 @@ class Tabs implements TabsInterface {
      * Redirects current tab to the given url.
      * @param url
      */
-    async redirectCurrentTab(url: string): Promise<void> {
+    public async redirectCurrentTab(url: string): Promise<void> {
         const tab = await this.getCurrent();
         await this.update(tab.id!, url);
     }
 
     /** @inheritdoc */
-    async focusTab(tabId: number): Promise<void> {
+    public async focusTab(tabId: number): Promise<void> {
         await browser.tabs.update(tabId, { active: true });
     }
 }

@@ -9,7 +9,17 @@ import './manual-mode.pcss';
 
 export const MANUAL_FORM_ID = 'add-exclusion-form-manual';
 
-export const ManualMode = (): ReactElement => {
+/**
+ * ManualMode component props.
+ */
+interface ManualModeProps {
+    /**
+     * Whether the component is rendered inside a profile context.
+     */
+    isProfileContext: boolean;
+}
+
+export const ManualMode = ({ isProfileContext }: ManualModeProps): ReactElement => {
     const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');
@@ -22,8 +32,12 @@ export const ManualMode = (): ReactElement => {
         e.preventDefault();
 
         telemetryStore.sendCustomEvent(
-            TelemetryActionName.AddWebsiteManually,
-            TelemetryScreenName.DialogAddWebsiteExclusion,
+            isProfileContext
+                ? TelemetryActionName.ProfileAddWebsiteManually
+                : TelemetryActionName.AddWebsiteManually,
+            isProfileContext
+                ? TelemetryScreenName.ProfileDialogAddWebsiteExclusion
+                : TelemetryScreenName.DialogAddWebsiteExclusion,
         );
 
         if (exclusionsStore.validateUrl(inputValue)) {

@@ -34,16 +34,16 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
      */
     private permissionsCheckerState = new StateData(StorageKey.PermissionsChecker);
 
-    permissionsError: PermissionsErrorInterface;
+    private permissionsError: PermissionsErrorInterface;
 
-    credentials: CredentialsInterface;
+    private credentials: CredentialsInterface;
 
     constructor({ credentials, permissionsError }: PermissionsCheckerParameters) {
         this.credentials = credentials;
         this.permissionsError = permissionsError;
     }
 
-    updatePermissionsErrorHandler = async (error: ErrorData): Promise<void> => {
+    private updatePermissionsErrorHandler = async (error: ErrorData): Promise<void> => {
         log.error('[vpn.PermissionsChecker]: Permissions were not updated due to:', error.message);
         // do not consider network error as a reason to set permission error
         // or if websocket connection still is open
@@ -65,7 +65,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
     /**
      * Request credentials in half an hour before expired
      */
-    planCredentialsCheckBeforeExpired = async (): Promise<void> => {
+    private planCredentialsCheckBeforeExpired = async (): Promise<void> => {
         const vpnCredentialsState = await this.credentials.getVpnCredentialsState();
         if (!vpnCredentialsState) {
             return;
@@ -84,7 +84,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
         }
     };
 
-    checkPermissions = async (): Promise<void> => {
+    public checkPermissions = async (): Promise<void> => {
         const isUserAuthenticated = await auth.isAuthenticated(false);
         // don't check permissions for not authenticated users
         if (!isUserAuthenticated) {
@@ -118,7 +118,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
         }
     };
 
-    getVpnInfo = async (): Promise<void> => {
+    public getVpnInfo = async (): Promise<void> => {
         try {
             const appId = await this.credentials.getAppId();
             const vpnToken = await this.credentials.gainValidVpnToken(true, true);
@@ -137,7 +137,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
         }
     };
 
-    startChecker = async (): Promise<void> => {
+    public startChecker = async (): Promise<void> => {
         log.info('[vpn.PermissionsChecker]: Credentials and VPN info checker started');
 
         let { credentialsCheckTimerId, vpnInfoCheckTimerId } = await this.permissionsCheckerState.get();
@@ -162,7 +162,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
         });
     };
 
-    stopChecker = async (): Promise<void> => {
+    private stopChecker = async (): Promise<void> => {
         let {
             credentialsCheckTimerId,
             vpnInfoCheckTimerId,
@@ -194,18 +194,18 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
         });
     };
 
-    handleUserAuthentication = async (): Promise<void> => {
+    private handleUserAuthentication = async (): Promise<void> => {
         this.permissionsError.clearError();
         await this.startChecker();
         await this.planCredentialsCheckBeforeExpired();
     };
 
-    handleUserDeauthentication = async (): Promise<void> => {
+    public handleUserDeauthentication = async (): Promise<void> => {
         this.permissionsError.clearError();
         await this.stopChecker();
     };
 
-    init = (): void => {
+    public init = (): void => {
         notifier.addSpecifiedListener(
             notifier.types.USER_AUTHENTICATED,
             this.handleUserAuthentication,

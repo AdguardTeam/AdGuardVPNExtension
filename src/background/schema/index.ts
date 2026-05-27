@@ -10,7 +10,6 @@ export {
     connectivityContextScheme,
     type ConnectivityContext,
     CONNECTIVITY_CONTEXT_DEFAULTS,
-    ConnectivityStateType,
     connectivityStateScheme,
     CONNECTIVITY_STATE_DEFAULT,
     connectivityDataScheme,
@@ -92,6 +91,18 @@ export {
     type PopupOpenedCounterState,
     POPUP_OPENED_COUNTER_DEFAULTS,
 } from './popupData';
+
+export {
+    profileSettingsScheme,
+    type ProfileSettings,
+    profileScheme,
+    type Profile,
+    type ProfileInfo,
+    profilesStateScheme,
+    type ProfilesState,
+    PROFILES_STATE_DEFAULTS,
+    DEFAULT_PROFILE_SETTINGS,
+} from './profiles';
 
 export {
     proxyStateScheme,

@@ -49,9 +49,19 @@ export interface RadioProps<T extends string> {
     action?: React.ReactNode;
 
     /**
+     * Whether the radio is in a loading state.
+     */
+    isLoading?: boolean;
+
+    /**
      * Additional class name.
      */
     className?: string;
+
+    /**
+     * Additional class name for the title.
+     */
+    titleClassName?: string;
 
     /**
      * Select radio handler.
@@ -64,21 +74,30 @@ export function Radio<T extends string>({
     name,
     value,
     isActive,
+    isLoading,
     title,
     labelTitle,
     description,
     action,
     className,
+    titleClassName,
     onSelect,
 }: RadioProps<T>): ReactElement {
     const classes = classNames(
         'radio has-tab-focus',
         isActive && 'radio--active',
+        isLoading && 'radio--loading',
         className,
     );
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         if (e.target.checked) {
+            onSelect(value);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLLabelElement>): void => {
+        if (e.key === 'Enter') {
             onSelect(value);
         }
     };
@@ -90,6 +109,7 @@ export function Radio<T extends string>({
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
             title={labelTitle}
+            onKeyDown={handleKeyDown}
         >
             <input
                 id={id}
@@ -105,7 +125,7 @@ export function Radio<T extends string>({
                 <span className="radio__circle-inner" />
             </span>
             <span className="radio__content">
-                <span className="radio__title">
+                <span className={classNames('radio__title', titleClassName)}>
                     {title}
                 </span>
                 {description && (

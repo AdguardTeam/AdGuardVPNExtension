@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Official website"
     },
+    "version_history": {
+        "message": "Version history"
+    },
+    "github": {
+        "message": "GitHub repository"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
+    "settings_location_label": {
+        "message": "Location"
+    },
+    "settings_location_fastest_title": {
+        "message": "Fastest location"
+    },
+    "settings_location_fastest_description": {
+        "message": "Automatically connect to the fastest location"
+    },
+    "settings_profiles_title": {
+        "message": "Profiles"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profile"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Allows you to set DNS servers and locations and keep separate exclusions lists for different use cases, such as work, home, or other"
+    },
+    "settings_profiles_default_name": {
+        "message": "Default"
+    },
+    "settings_profiles_actions": {
+        "message": "Actions"
+    },
+    "settings_profiles_action_use": {
+        "message": "Use profile"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Rename"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Delete"
+    },
+    "settings_profiles_create": {
+        "message": "Create"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Create profile"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Name"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Create"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Cancel"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maximum length is %count% characters | Maximum length is %count% character | Maximum length is %count% characters"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "This name is already used"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Rename profile"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "New name"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Save"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Delete %profile_name% profile?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "The profile settings for location, WebRTC, DNS server, and website exclusions will be deleted"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN will switch to the Default profile"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "The %profile_name% profile settings for location, WebRTC, DNS server, and website exclusions will be deleted"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Delete"
+    },
+    "settings_description_current": {
+        "message": "Current: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Where VPN is on"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Leaving this list empty disables VPN for all websites"
+    },
+    "settings_applies_to_profile": {
+        "message": "Applies to your <b>%profile_name%</b> profile"
     },
     "settings_exclusion_import_button": {
         "message": "Import"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Stats"
+    },
+    "popup_profiles_title": {
+        "message": "Profiles"
+    },
+    "popup_profiles_settings": {
+        "message": "Settings"
+    },
+    "profile_apply_error": {
+        "message": "Failed to switch profiles. Try again or contact support"
     },
     "popup_settings_free_description": {
         "message": "Available in AdGuard VPN Unlimited"

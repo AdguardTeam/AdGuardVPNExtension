@@ -1,6 +1,7 @@
 import { createMachine, interpret, type StateMachine } from 'xstate';
 
-import { type ConnectivityContext, ConnectivityStateType } from '../../../schema/connectivity';
+import { type ConnectivityContext } from '../../../schema/connectivity';
+import { ConnectivityStateType } from '../../../../common/connectivityState';
 
 import { type ConnectivityEvent, ConnectivityEventType } from './events';
 import { connectivityDelays, ConnectivityDelayType } from './delays';
@@ -16,7 +17,7 @@ const FSM_ID = 'connectivity';
 /**
  * Creates new connectivity FSM with passed {@link context}
  *
- * @param context - FSM context
+ * @param context FSM context
  * @returns FSM used to manage connectivity states
  */
 export function createConnectivityMachine(context: ConnectivityContext)

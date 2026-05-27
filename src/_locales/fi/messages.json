@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Virallinen sivusto"
     },
+    "version_history": {
+        "message": "Versiohistoria"
+    },
+    "github": {
+        "message": "GitHub-arkisto"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Poikkeukset"
     },
+    "settings_location_label": {
+        "message": "Sijainti"
+    },
+    "settings_location_fastest_title": {
+        "message": "Nopein sijainti"
+    },
+    "settings_location_fastest_description": {
+        "message": "Yhdistä automaattisesti nopeimpaan sijaintiin"
+    },
+    "settings_profiles_title": {
+        "message": "Profiilit"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profiilit"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Voit asettaa DNS-palvelimia ja sijainteja ja pitää erillisiä poissulkemisluetteloita eri käyttötilanteita varten, kuten työ-, koti- tai muita käyttötilanteita varten"
+    },
+    "settings_profiles_default_name": {
+        "message": "Oletus"
+    },
+    "settings_profiles_actions": {
+        "message": "Toiminnot"
+    },
+    "settings_profiles_action_use": {
+        "message": "Käytä profiilia"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Nimeä uudelleen"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Poista"
+    },
+    "settings_profiles_create": {
+        "message": "Luo"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Luo profiili"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Nimi"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Luo"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Peruuta"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Enimmäispituus on %count% merkkiä | Enimmäispituus on %count% merkkiä | Enimmäispituus on %count% merkkiä"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Tämä nimi on jo käytössä"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Nimeä profiili uudelleen"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Uusi nimi"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Tallenna"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Poista %profile_name% profiili?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Profiiliasetukset sijainnille, WebRTC:lle, DNS-palvelimelle ja verkkosivustojen poissulkemisille poistetaan"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN vaihtaa oletusprofiiliin"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Profiiliasetukset %profile_name% sijainnille, WebRTC:lle, DNS-palvelimelle ja verkkosivustojen poissulkemisille poistetaan"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Poista"
+    },
+    "settings_description_current": {
+        "message": "Nykyinen: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Missä VPN toimii"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Jos tämä lista on tyhjä, ei VPN-yhteyttä käytetä millään verkkosivustoilla."
+    },
+    "settings_applies_to_profile": {
+        "message": "Koskee profiiliasi <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Tuo"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Tilastot"
+    },
+    "popup_profiles_title": {
+        "message": "Profiilit"
+    },
+    "popup_profiles_settings": {
+        "message": "Asetukset"
+    },
+    "profile_apply_error": {
+        "message": "Profiilin vaihtaminen epäonnistui. Yritä uudelleen tai ota yhteyttä tukeen"
     },
     "popup_settings_free_description": {
         "message": "Saatavilla AdGuard VPN Unlimitedissa"

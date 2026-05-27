@@ -106,7 +106,9 @@ describe('Telemetry', () => {
 
     afterEach(() => {
         vi.clearAllMocks();
+        // @ts-expect-error - accessing private properties for test cleanup
         notifier.listeners = {};
+        // @ts-expect-error - accessing private properties for test cleanup
         notifier.listenersEvents = {};
     });
 
@@ -528,18 +530,17 @@ describe('Telemetry', () => {
         });
 
         it('should debounce if events are sent too fast', async () => {
+            vi.useFakeTimers();
             await telemetry.initState();
 
             telemetry.addOpenedPage();
             await telemetry.sendPageViewEventDebounced(TelemetryScreenName.AuthScreen, 'pageId1');
             await telemetry.sendPageViewEventDebounced(TelemetryScreenName.PurchaseScreen, 'pageId1');
 
-            await new Promise((resolve) => {
-                setTimeout(() => {
-                    expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);
-                    resolve(true);
-                }, Telemetry.SEND_EVENT_TIMEOUT + 1);
-            });
+            await vi.advanceTimersByTimeAsync(Telemetry.SEND_EVENT_TIMEOUT + 1);
+
+            expect(mockTelemetryProvider.sendPageViewEvent).toHaveBeenCalledTimes(1);
+            vi.useRealTimers();
         });
     });
 
@@ -563,6 +564,7 @@ describe('Telemetry', () => {
         });
 
         it('should debounce if events are sent too fast', async () => {
+            vi.useFakeTimers();
             await telemetry.initState();
 
             await telemetry.sendCustomEventDebounced(
@@ -574,12 +576,10 @@ describe('Telemetry', () => {
                 TelemetryScreenName.PurchaseScreen,
             );
 
-            await new Promise((resolve) => {
-                setTimeout(() => {
-                    expect(mockTelemetryProvider.sendCustomEvent).toHaveBeenCalledTimes(1);
-                    resolve(true);
-                }, Telemetry.SEND_EVENT_TIMEOUT + 1);
-            });
+            await vi.advanceTimersByTimeAsync(Telemetry.SEND_EVENT_TIMEOUT + 1);
+
+            expect(mockTelemetryProvider.sendCustomEvent).toHaveBeenCalledTimes(1);
+            vi.useRealTimers();
         });
     });
 

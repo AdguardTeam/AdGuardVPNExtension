@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Trang chủ chính thức"
     },
+    "version_history": {
+        "message": "Lược sử phiên bản"
+    },
+    "github": {
+        "message": "Kho lưu trữ GitHub"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Loại trừ"
     },
+    "settings_location_label": {
+        "message": "Vị trí"
+    },
+    "settings_location_fastest_title": {
+        "message": "Địa điểm nhanh nhất"
+    },
+    "settings_location_fastest_description": {
+        "message": "Tự động kết nối đến vị trí nhanh nhất"
+    },
+    "settings_profiles_title": {
+        "message": "Các hồ sơ"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Hồ sơ"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Cho phép bạn thiết lập máy chủ DNS và vị trí, đồng thời duy trì các danh sách loại trừ riêng cho các mục đích sử dụng khác nhau, như công việc, gia đình hoặc khác"
+    },
+    "settings_profiles_default_name": {
+        "message": "Mặc định"
+    },
+    "settings_profiles_actions": {
+        "message": "Thao tác"
+    },
+    "settings_profiles_action_use": {
+        "message": "Sử dụng hồ sơ"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Đổi tên"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Xoá"
+    },
+    "settings_profiles_create": {
+        "message": "Tạo nên"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Tạo hồ sơ"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Tên"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Tạo nên"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Huỷ"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Độ dài tối đa là %count% ký tự | Độ dài tối đa là %count% ký tự"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Tên này đã được sử dụng"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Đổi tên hồ sơ"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Tên mới"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Lưu"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Xóa hồ sơ %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Các cài đặt hồ sơ cho vị trí, WebRTC, máy chủ DNS và loại trừ trang web sẽ bị xóa"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN sẽ chuyển sang hồ sơ mặc định"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Các cài đặt hồ sơ %profile_name% về vị trí, WebRTC, máy chủ DNS và loại trừ trang web sẽ bị xóa"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Xoá"
+    },
+    "settings_description_current": {
+        "message": "Hiện tại: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPN được bật ở đâu"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Để trống danh sách này sẽ tắt VPN cho tất cả các trang web"
+    },
+    "settings_applies_to_profile": {
+        "message": "Áp dụng cho hồ sơ <b>%profile_name%</b> của bạn"
     },
     "settings_exclusion_import_button": {
         "message": "Nhập"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Thống kê"
+    },
+    "popup_profiles_title": {
+        "message": "Các hồ sơ"
+    },
+    "popup_profiles_settings": {
+        "message": "Cài đặt"
+    },
+    "profile_apply_error": {
+        "message": "Không thể chuyển hồ sơ. Hãy thử lại hoặc liên hệ hỗ trợ"
     },
     "popup_settings_free_description": {
         "message": "Có sẵn trong AdGuard VPN Unlimited"

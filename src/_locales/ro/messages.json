@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Pagină oficială"
     },
+    "version_history": {
+        "message": "Istoric Versiuni"
+    },
+    "github": {
+        "message": "Repozitoriu GitHub"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Excluderi"
     },
+    "settings_location_label": {
+        "message": "Locația"
+    },
+    "settings_location_fastest_title": {
+        "message": "Cea mai rapidă locație"
+    },
+    "settings_location_fastest_description": {
+        "message": "Conectează-te automat la cea mai rapidă locație"
+    },
+    "settings_profiles_title": {
+        "message": "Profiluri"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Vă permite să setați servere DNS și locații și să mențineți liste de excluderi separate pentru diferite cazuri de utilizare, cum ar fi serviciu, acasă sau altele"
+    },
+    "settings_profiles_default_name": {
+        "message": "Implicit"
+    },
+    "settings_profiles_actions": {
+        "message": "Acțiuni"
+    },
+    "settings_profiles_action_use": {
+        "message": "Utilizați profilul"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Redenumiți"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Ștergere"
+    },
+    "settings_profiles_create": {
+        "message": "Creați"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Creați profil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Nume"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Creați"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Anulare"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Lungimea maximă este de %count% caractere | Lungimea maximă este de %count% caracter | Lungimea maximă este de %count% caractere | Lungimea maximă este de %count% caractere"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Acest nume este deja utilizat"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Redenumiți profilul"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nume nou"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Salvați"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Ștergeți profilul %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Setările profilului pentru locație, WebRTC, DNS server și excluderile site-urilor web vor fi șterse"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN va comuta la profilul Implicit"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Setările profilului %profile_name% pentru locație, WebRTC, DNS server și excluderile site-urilor web vor fi șterse"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Ștergere"
+    },
+    "settings_description_current": {
+        "message": "Curent: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Unde este activat VPN-ul"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Lăsarea acestei liste goale dezactivează VPN-ul pe toate website-urile"
+    },
+    "settings_applies_to_profile": {
+        "message": "Se aplică profilului dvs. <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Import"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistici"
+    },
+    "popup_profiles_title": {
+        "message": "Profiluri"
+    },
+    "popup_profiles_settings": {
+        "message": "Setări"
+    },
+    "profile_apply_error": {
+        "message": "Nu s-a reușit comutarea profilurilor. Încercați din nou sau contactați suportul"
     },
     "popup_settings_free_description": {
         "message": "Disponibil în AdGuard VPN Unlimited"

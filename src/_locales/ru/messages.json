@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Официальный сайт"
     },
+    "version_history": {
+        "message": "История версий"
+    },
+    "github": {
+        "message": "Наш репозиторий на GitHub"
+    },
     "eula": {
         "message": "Лицензионное соглашение"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Исключения"
     },
+    "settings_location_label": {
+        "message": "Местоположение"
+    },
+    "settings_location_fastest_title": {
+        "message": "Самая быстрая"
+    },
+    "settings_location_fastest_description": {
+        "message": "Автоматически подключаться к самой быстрой локации"
+    },
+    "settings_profiles_title": {
+        "message": "Профили"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Профиль"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Позволяет задавать DNS-серверы и локации, а также вести отдельные списки исключений для различных сценариев использования, например, для работы, дома или других целей."
+    },
+    "settings_profiles_default_name": {
+        "message": "Стандартный"
+    },
+    "settings_profiles_actions": {
+        "message": "Действия"
+    },
+    "settings_profiles_action_use": {
+        "message": "Использовать профиль"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Переименовать"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Удалить"
+    },
+    "settings_profiles_create": {
+        "message": "Создать"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Создать профиль"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Название"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Создать"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Отмена"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Максимальная длина — %count% символов | Максимальная длина — %count% символ | Максимальная длина — %count% символа | Максимальная длина — %count% символов"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Это название уже используется"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Переименовать профиль"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Новое название"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Сохранить"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Удалить профиль %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Настройки профиля, касающиеся локации, WebRTC, DNS-сервера и исключений сайтов, будут удалены"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN переключится на профиль по умолчанию"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Настройки профиля %profile_name%, касающиеся локации, WebRTC, DNS-сервера и исключений сайтов, будут удалены"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Удалить"
+    },
+    "settings_description_current": {
+        "message": "Текущий: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Где включён VPN"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Если оставить этот список пустым, VPN нигде не будет работать"
+    },
+    "settings_applies_to_profile": {
+        "message": "Применяется к профилю <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Импорт"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Статистика"
+    },
+    "popup_profiles_title": {
+        "message": "Профили"
+    },
+    "popup_profiles_settings": {
+        "message": "Настройки"
+    },
+    "profile_apply_error": {
+        "message": "Не удалось переключить профили. Попробуйте снова или обратитесь в поддержку"
     },
     "popup_settings_free_description": {
         "message": "Доступна в AdGuard VPN Unlimited"
@@ -691,7 +790,7 @@
         "message": "Скорость снижена"
     },
     "popup_paywall_b_description": {
-        "message": "3 ГБ закончились. Попробуйте безлимит — сэкономьте 67%% с годовой подпиской"
+        "message": "3 ГБ закончились. Попробуйте безлимит — сэкономьте 67%% с годовой подпиской"
     },
     "popup_paywall_b_column_free": {
         "message": "Бесплатная",

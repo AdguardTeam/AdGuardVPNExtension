@@ -6,7 +6,17 @@ import { rootStore } from '../../../../stores';
 import { translator } from '../../../../../common/translator';
 import { Input } from '../../../ui/Input';
 
-export const ExclusionsSearch = observer(() => {
+/**
+ * ExclusionsSearch component props.
+ */
+interface ExclusionsSearchProps {
+    /**
+     * Whether the component is rendered inside a profile context.
+     */
+    isProfileContext: boolean;
+}
+
+export const ExclusionsSearch = observer(({ isProfileContext }: ExclusionsSearchProps) => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
     const isTelemetrySent = useRef(false);
 
@@ -17,8 +27,8 @@ export const ExclusionsSearch = observer(() => {
         if (!isTelemetrySent.current) {
             isTelemetrySent.current = true;
             telemetryStore.sendCustomEvent(
-                TelemetryActionName.SearchWebsite,
-                TelemetryScreenName.ExclusionsScreen,
+                isProfileContext ? TelemetryActionName.ProfileSearchWebsite : TelemetryActionName.SearchWebsite,
+                isProfileContext ? TelemetryScreenName.ProfileExclusionScreen : TelemetryScreenName.ExclusionsScreen,
             );
         }
 

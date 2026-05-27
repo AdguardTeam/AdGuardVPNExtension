@@ -1,2 +1,2 @@
 export { Locations } from './Locations';
-export { getFlagIconStyle } from './Location';
+export { getFlagIconStyle } from '../../../common/utils/flagIcon';

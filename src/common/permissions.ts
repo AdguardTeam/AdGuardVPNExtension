@@ -64,7 +64,7 @@ export class Permissions {
      *
      * @returns Promise with true if host permissions are granted for **all** {@link NEEDED_HOST_ORIGINS}.
      */
-    static async hasNeededHostPermissions(): Promise<boolean> {
+    public static async hasNeededHostPermissions(): Promise<boolean> {
         const areAllHostPermissionsGranted = await Permissions.hasHostPermissions(Permissions.NEEDED_HOST_ORIGINS);
         const logMessage = areAllHostPermissionsGranted
             ? 'Host permissions for <all_urls> are OK'
@@ -76,7 +76,7 @@ export class Permissions {
     /**
      * Requests host permission for {@link NEEDED_HOST_ORIGINS}.
      */
-    static async addNeededHostPermissions(): Promise<void> {
+    public static async addNeededHostPermissions(): Promise<void> {
         await Permissions.addHostPermissions(Permissions.NEEDED_HOST_ORIGINS);
     }
 }

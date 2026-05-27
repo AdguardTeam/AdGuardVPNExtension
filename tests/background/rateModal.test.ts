@@ -9,7 +9,7 @@ import {
 
 import { ConnectivityEventType } from '../../src/background/connectivity/connectivityService';
 import { RateModal, RateModalStatus } from '../../src/background/rateModal/RateModal';
-import { ConnectivityStateType } from '../../src/background/schema';
+import { ConnectivityStateType } from '../../src/common/connectivityState';
 
 const mockStorage = {
     get: vi.fn().mockResolvedValue({

@@ -1,12 +1,12 @@
 import React, { type ReactElement, useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import browser from 'webextension-polyfill';
 import classnames from 'classnames';
 
 import { translator } from '../../../common/translator';
 import { SearchHighlighter } from '../../../common/components/SearchHighlighter';
 import { Icon } from '../../../common/components/Icons';
+import { getFlagIconStyle } from '../../../common/utils/flagIcon';
 import { rootStore } from '../../stores';
 import { type LocationData } from '../../stores/VpnStore';
 import { Ping } from '../Ping';
@@ -14,34 +14,6 @@ import { PingDotsLoader } from '../PingDotsLoader';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 
 import { getStreamingPlatforms, hasStreamingSupport } from './streamingConfig';
-
-/**
- * Style object for flag icon background image.
- */
-interface FlagIconStyle {
-    /**
-     * Background image URL.
-     */
-    backgroundImage?: string;
-}
-
-/**
- * Get flag icon style object by country code.
- *
- * @param countryCode Country code.
- * @returns Flag icon style object with background image,
- * empty object if country code is not provided.
- */
-export const getFlagIconStyle = (countryCode: string): FlagIconStyle => {
-    if (!countryCode) {
-        return {};
-    }
-
-    const iconName = countryCode.toLowerCase();
-    const fullUrl = browser.runtime.getURL(`assets/images/flags/${iconName}.svg`);
-
-    return { backgroundImage: `url("${fullUrl}")` };
-};
 
 /**
  * Location component props.

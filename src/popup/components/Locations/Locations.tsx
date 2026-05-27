@@ -55,18 +55,12 @@ export const Locations = observer(() => {
     } = vpnStore;
 
     const handleLocationSelect = async (id: string): Promise<void> => {
-        const prevId = vpnStore.selectedLocation?.id;
         await vpnStore.selectLocation(id);
         uiStore.closeLocationsScreen();
 
-        if ((settingsStore.isConnected
-            || settingsStore.isConnectingRetrying
-            || settingsStore.isConnectingIdle) && prevId !== vpnStore.selectedLocation?.id) {
-            await settingsStore.reconnectProxy();
-            return;
-        }
-
-        if (!settingsStore.isConnected) {
+        if (!settingsStore.isConnected
+            && !settingsStore.isConnectingRetrying
+            && !settingsStore.isConnectingIdle) {
             await settingsStore.setProxyState(true);
         }
     };

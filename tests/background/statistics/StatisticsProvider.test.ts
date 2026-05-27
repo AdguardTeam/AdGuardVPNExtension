@@ -7,7 +7,7 @@ import {
     expect,
 } from 'vitest';
 
-import { ConnectivityStateType } from '../../../src/background/schema';
+import { ConnectivityStateType } from '../../../src/common/connectivityState';
 import { StatisticsProvider } from '../../../src/background/statistics/StatisticsProvider';
 import { notifier } from '../../../src/common/notifier';
 

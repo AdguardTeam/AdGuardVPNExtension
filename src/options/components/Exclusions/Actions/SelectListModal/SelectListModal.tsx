@@ -8,7 +8,7 @@ import React, {
 import { translator } from '../../../../../common/translator';
 import { ExclusionsMode } from '../../../../../common/exclusionsConstants';
 import { rootStore } from '../../../../stores';
-import { Radio } from '../../../ui/Radio';
+import { Radio } from '../../../../../common/components/Radio';
 import { Modal } from '../../../ui/Modal';
 import { Button } from '../../../ui/Button';
 

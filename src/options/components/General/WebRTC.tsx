@@ -1,16 +1,54 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { observer } from 'mobx-react';
 
-import { rootStore } from '../../stores';
+import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { translator } from '../../../common/translator';
+import { messenger } from '../../../common/messenger';
+import { log } from '../../../common/logger';
+import { rootStore } from '../../stores';
 import { ControlsSwitch } from '../ui/Controls';
 
-export const WebRTC = observer(() => {
-    const { settingsStore } = useContext(rootStore);
-    const { webRTCEnabled } = settingsStore;
+interface WebRTCProps {
+    /**
+     * Profile ID to read/write WebRTC setting for.
+     */
+    profileId: string;
+
+    /**
+     * Whether the component is rendered inside a profile context.
+     */
+    isProfileContext: boolean;
+}
+
+/**
+ * Toggle for per-profile WebRTC leak prevention.
+ */
+export const WebRTC = observer(({ profileId, isProfileContext }: WebRTCProps) => {
+    const { profilesStore, telemetryStore } = useContext(rootStore);
+    const pendingRef = useRef(false);
+
+    const isActive = profilesStore.webRtcCache[profileId] ?? false;
 
     const handleToggle = async (): Promise<void> => {
-        await settingsStore.setWebRTCValue(!webRTCEnabled);
+        if (pendingRef.current) {
+            return;
+        }
+        pendingRef.current = true;
+        try {
+            const newValue = !isActive;
+            if (isProfileContext && !newValue) {
+                telemetryStore.sendCustomEvent(
+                    TelemetryActionName.TurnOffWebRTC,
+                    TelemetryScreenName.NewProfilesSettingsScreen,
+                );
+            }
+            await messenger.setProfileWebRtc(profileId, newValue);
+            profilesStore.updateWebRtcCache(profileId, newValue);
+        } catch (e) {
+            log.error('[vpn.WebRTC]: Failed to toggle WebRTC handling', e);
+        } finally {
+            pendingRef.current = false;
+        }
     };
 
     return (
@@ -27,7 +65,7 @@ export const WebRTC = observer(() => {
                     </span>
                 </>
             )}
-            isActive={webRTCEnabled}
+            isActive={isActive}
             onToggle={handleToggle}
         />
     );

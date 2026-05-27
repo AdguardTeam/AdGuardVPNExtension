@@ -2,7 +2,7 @@ import React, { type ReactElement } from 'react';
 
 import classNames from 'classnames';
 
-import { IconButton } from '../../../../common/components/Icons';
+import { Icon } from '../../../../common/components/Icons';
 import { translator } from '../../../../common/translator';
 
 import './title.pcss';
@@ -43,6 +43,12 @@ export interface TitleProps {
      * If provided, title will be hoverable.
      */
     onClick?: () => void;
+
+    /**
+     * Whether subtitle should be indented to align with the back arrow.
+     * Only applies when `onClick` is provided. Default is `true`.
+     */
+    subtitleIndent?: boolean;
 }
 
 export function Title({
@@ -52,6 +58,7 @@ export function Title({
     size = 'large',
     className,
     onClick,
+    subtitleIndent = true,
 }: TitleProps): ReactElement {
     const isBackTitle = !!onClick;
 
@@ -59,20 +66,28 @@ export function Title({
         'title',
         `title--${size}`,
         isBackTitle && 'title--hoverable',
+        isBackTitle && subtitleIndent && 'title--subtitle-indent',
         className,
     );
 
     return (
-        <div
-            className={classes}
-            onClick={onClick}
-            aria-label={isBackTitle ? translator.getMessage('a11y_go_back') : undefined}
-        >
+        <div className={classes}>
             <div className="title__text">
-                <div className="title__text-start">
-                    {isBackTitle && <IconButton name="arrow-down" rotation="counter-clockwise" />}
-                    {title}
-                </div>
+                {isBackTitle ? (
+                    <button
+                        type="button"
+                        className="title__back-btn"
+                        onClick={onClick}
+                        aria-label={translator.getMessage('a11y_go_back')}
+                    >
+                        <Icon name="arrow-down" rotation="counter-clockwise" className="title__back-icon" />
+                        {title}
+                    </button>
+                ) : (
+                    <div className="title__text-start">
+                        {title}
+                    </div>
+                )}
                 {action && (
                     <div className="title__action">
                         {action}
@@ -80,7 +95,9 @@ export function Title({
                 )}
             </div>
             {subtitle && (
-                <div className="title__subtitle">
+                <div
+                    className="title__subtitle"
+                >
                     {subtitle}
                 </div>
             )}

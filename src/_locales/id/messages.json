@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Situs resmi"
     },
+    "version_history": {
+        "message": "Riwayat versi"
+    },
+    "github": {
+        "message": "Repositori GitHub"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Pengecualian"
     },
+    "settings_location_label": {
+        "message": "Lokasi"
+    },
+    "settings_location_fastest_title": {
+        "message": "Lokasi tercepat"
+    },
+    "settings_location_fastest_description": {
+        "message": "Otomatis connect ke lokasi tercepat"
+    },
+    "settings_profiles_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Memungkinkan Anda mengatur server dan lokasi DNS dan menyimpan daftar pengecualian terpisah untuk kasus penggunaan yang berbeda, seperti kantor, rumah, atau lainnya"
+    },
+    "settings_profiles_default_name": {
+        "message": "Standar"
+    },
+    "settings_profiles_actions": {
+        "message": "Aksi"
+    },
+    "settings_profiles_action_use": {
+        "message": "Gunakan profil"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Ganti nama"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Hapus"
+    },
+    "settings_profiles_create": {
+        "message": "Buat"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Buat profil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Nama"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Buat"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Batal"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Panjang maksimum adalah %count% karakter | Panjang maksimum adalah %count% karakter"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Nama ini sudah digunakan"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Ganti nama profil"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nama baru"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Simpan"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Hapus profil %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Pengaturan profil untuk lokasi, WebRTC, server DNS, dan pengecualian situs web akan dihapus"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN akan beralih ke profil Default"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Pengaturan profil %profile_name% untuk lokasi, WebRTC, server DNS, dan pengecualian situs web akan dihapus"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Hapus"
+    },
+    "settings_description_current": {
+        "message": "Saat ini: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Dimana VPN aktif"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Mengosongkan daftar ini akan menonaktifkan VPN untuk semua situs web"
+    },
+    "settings_applies_to_profile": {
+        "message": "Diterapkan pada profil <b>%profile_name%</b> Anda"
     },
     "settings_exclusion_import_button": {
         "message": "Impor"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistik"
+    },
+    "popup_profiles_title": {
+        "message": "Profil"
+    },
+    "popup_profiles_settings": {
+        "message": "Pengaturan"
+    },
+    "profile_apply_error": {
+        "message": "Gagal beralih profil. Coba lagi atau hubungi dukungan"
     },
     "popup_settings_free_description": {
         "message": "Tersedia di AdGuard VPN Unlimited"

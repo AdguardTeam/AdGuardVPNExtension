@@ -1,5 +1,3 @@
-import punycode from 'punycode';
-
 import {
     action,
     computed,
@@ -12,17 +10,17 @@ import { getDomain } from 'tldts';
 
 import {
     type ExclusionDtoInterface,
-    type ExclusionsData,
     ExclusionsMode,
     ExclusionState,
     ExclusionsType,
     type ServiceDto,
+    type ToggleServicesResult,
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../common/messenger';
 import { containsIgnoreCase } from '../../common/components/SearchHighlighter/helpers';
 import type { ServiceCategory } from '../../background/schema';
 
-import type { RootStore } from './RootStore';
+import type { ProfilesStore } from './ProfilesStore';
 
 export interface PreparedServiceCategory extends ServiceCategory {
     services: string[]
@@ -75,72 +73,151 @@ const findExclusionById = (
     return null;
 };
 
-const convertExclusionsValuesToUnicode = (exclusionsTree: ExclusionDtoInterface): ExclusionDtoInterface => {
-    const unicodeTree = { ...exclusionsTree };
-    unicodeTree.hostname = punycode.toUnicode(unicodeTree.hostname);
-    unicodeTree.children = unicodeTree.children.map((child) => {
-        return convertExclusionsValuesToUnicode(child);
-    });
-    return unicodeTree;
+/**
+ * Shared fallback returned by the exclusionsTree computed getter when the
+ * profile cache is empty. Frozen to prevent accidental mutation that would
+ * silently corrupt the singleton for every other consumer.
+ */
+const EMPTY_EXCLUSIONS_TREE: ExclusionDtoInterface = {
+    id: 'root',
+    parentId: null,
+    hostname: '',
+    state: ExclusionState.Disabled,
+    type: ExclusionsType.Group,
+    children: [],
 };
+Object.freeze(EMPTY_EXCLUSIONS_TREE.children);
+Object.freeze(EMPTY_EXCLUSIONS_TREE);
 
 export class ExclusionsStore {
-    @observable exclusionsTree: ExclusionDtoInterface;
+    private profilesStore: ProfilesStore;
 
-    @observable currentMode = ExclusionsMode.Regular;
+    /**
+     * Profile ID to scope exclusions to a specific profile.
+     * When undefined, operates on the active profile.
+     */
+    @observable public profileId: string | undefined;
 
-    @observable servicesData: ServiceDto[] = [];
-
-    @observable modeSelectorModalOpen = false;
-
-    @observable addExclusionModalOpen = false;
-
-    @observable addSubdomainModalOpen = false;
-
-    @observable resetServiceModalOpen = false;
-
-    @observable removeAllModalOpen = false;
-
-    @observable selectListModalOpen = false;
-
-    @observable confirmAddModalOpen = false;
-
-    @observable urlToConfirm: string | undefined;
-
-    @observable addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
-
-    @observable unfoldedServiceCategories: string[] = [];
-
-    @observable unfoldAllServiceCategories: boolean = false;
-
-    @observable selectedExclusionId: string | null = null;
-
-    @observable exclusionsSearchValue: string = '';
-
-    @observable servicesSearchValue: string = '';
-
-    @observable servicesSearchResults: boolean[] = [];
-
-    @observable importingExclusions: boolean = false;
-
-    @observable isAllExclusionsListsEmpty: boolean;
-
-    rootStore: RootStore;
-
-    constructor(rootStore: RootStore) {
-        this.rootStore = rootStore;
+    constructor(profilesStore: ProfilesStore) {
+        this.profilesStore = profilesStore;
     }
 
     /**
-     * Temp list used to keep state of services to be enabled or disabled
+     * Resets all UI state fields to their defaults.
      */
-    @observable servicesToToggle: string[] = [];
-
-    @action setServicesData = (servicesData: ServiceDto[]): void => {
-        this.servicesData = servicesData;
+    @action
+    public resetUiState = (): void => {
+        this.modeSelectorModalOpen = false;
+        this.addExclusionModalOpen = false;
+        this.addSubdomainModalOpen = false;
+        this.resetServiceModalOpen = false;
+        this.removeAllModalOpen = false;
+        this.selectListModalOpen = false;
+        this.confirmAddModalOpen = false;
+        this.urlToConfirm = undefined;
+        this.addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
+        this.unfoldedServiceCategories = [];
+        this.unfoldAllServiceCategories = false;
+        this.selectedExclusionId = null;
+        this.exclusionsSearchValue = '';
+        this.servicesSearchValue = '';
+        this.servicesSearchResults = [];
+        this.importingExclusions = false;
+        this.servicesToToggle = [];
     };
 
-    updateSelectedExclusionOnTreeUpdate(): void {
+    /**
+     * Sets the profile ID and resets UI state for the new profile.
+     */
+    @action
+    public setProfileId = (profileId: string | undefined): void => {
+        this.profileId = profileId;
+        this.resetUiState();
+    };
+
+    /**
+     * Returns the effective profile ID — explicit profileId or the active profile.
+     */
+    @computed
+    public get effectiveProfileId(): string {
+        return this.profileId ?? this.profilesStore.activeProfileId;
+    }
+
+    /**
+     * Exclusions tree for the current profile, read from ProfilesStore cache.
+     */
+    @computed
+    public get exclusionsTree(): ExclusionDtoInterface {
+        const cache = this.profilesStore.exclusionsCache[this.effectiveProfileId];
+        return cache?.exclusionsTree ?? EMPTY_EXCLUSIONS_TREE;
+    }
+
+    /**
+     * Current exclusions mode for the current profile.
+     */
+    @computed
+    public get currentMode(): ExclusionsMode {
+        const cache = this.profilesStore.exclusionsCache[this.effectiveProfileId];
+        return cache?.currentMode ?? ExclusionsMode.Regular;
+    }
+
+    /**
+     * Services data for the current profile.
+     */
+    @computed
+    private get servicesData(): ServiceDto[] {
+        const cache = this.profilesStore.exclusionsCache[this.effectiveProfileId];
+        return cache?.services ?? [];
+    }
+
+    /**
+     * Whether all exclusion lists are empty for the current profile.
+     */
+    @computed
+    public get isAllExclusionsListsEmpty(): boolean {
+        const cache = this.profilesStore.exclusionsCache[this.effectiveProfileId];
+        return cache?.isAllExclusionsListsEmpty ?? true;
+    }
+
+    @observable public modeSelectorModalOpen = false;
+
+    @observable public addExclusionModalOpen = false;
+
+    @observable public addSubdomainModalOpen = false;
+
+    @observable public resetServiceModalOpen = false;
+
+    @observable public removeAllModalOpen = false;
+
+    @observable public selectListModalOpen = false;
+
+    @observable public confirmAddModalOpen = false;
+
+    @observable public urlToConfirm: string | undefined;
+
+    @observable public addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
+
+    @observable public unfoldedServiceCategories: string[] = [];
+
+    @observable public unfoldAllServiceCategories: boolean = false;
+
+    @observable private selectedExclusionId: string | null = null;
+
+    @observable public exclusionsSearchValue: string = '';
+
+    @observable public servicesSearchValue: string = '';
+
+    @observable private servicesSearchResults: boolean[] = [];
+
+    @observable public importingExclusions: boolean = false;
+
+    /**
+     * Temp list used to keep state of services to be enabled or disabled.
+     */
+    @observable public servicesToToggle: string[] = [];
+
+    @action
+    private updateSelectedExclusionOnTreeUpdate(): void {
         if (!this.selectedExclusionId) {
             return;
         }
@@ -157,29 +234,24 @@ export class ExclusionsStore {
         }
     }
 
-    @action setExclusionsData = (exclusionsData: ExclusionsData): void => {
-        this.exclusionsTree = convertExclusionsValuesToUnicode(exclusionsData.exclusions);
-        this.currentMode = exclusionsData.currentMode;
+    /**
+     * Fetches exclusions data from the backend and updates the ProfilesStore cache.
+     */
+    public updateExclusionsData = async (
+        profileId: string = this.effectiveProfileId,
+    ): Promise<void> => {
+        const result = await messenger.getExclusionsData(profileId);
 
+        this.profilesStore.updateExclusionsCache(
+            profileId,
+            result.exclusionsData,
+            result.services,
+            result.isAllExclusionsListsEmpty,
+        );
         this.updateSelectedExclusionOnTreeUpdate();
     };
 
-    @action updateExclusionsData = async (): Promise<void> => {
-        const {
-            exclusionsData,
-            services,
-            isAllExclusionsListsEmpty,
-        } = await messenger.getExclusionsData();
-        this.setExclusionsData(exclusionsData);
-        this.setServicesData(services);
-        this.setIsAllExclusionsListsEmpty(isAllExclusionsListsEmpty);
-    };
-
-    @action setIsAllExclusionsListsEmpty = (value: boolean): void => {
-        this.isAllExclusionsListsEmpty = value;
-    };
-
-    get preparedExclusions(): ExclusionDtoInterface[] {
+    public get preparedExclusions(): ExclusionDtoInterface[] {
         return this.exclusionsTree.children.filter((exclusion: ExclusionDtoInterface): boolean => {
             if (this.exclusionsSearchValue.length === 0) {
                 return true;
@@ -188,36 +260,40 @@ export class ExclusionsStore {
         }).sort((a, b) => a.hostname.localeCompare(b.hostname)) ?? [];
     }
 
-    @action setModeSelectorModalOpen = (value: boolean): void => {
+    @action
+    public setModeSelectorModalOpen = (value: boolean): void => {
         this.modeSelectorModalOpen = value;
     };
 
-    @action setResetServiceModalOpen = (value: boolean): void => {
+    @action
+    public setResetServiceModalOpen = (value: boolean): void => {
         this.resetServiceModalOpen = value;
     };
 
-    @action setConfirmAddModalOpen = (value: boolean): void => {
+    @action
+    public setConfirmAddModalOpen = (value: boolean): void => {
         this.confirmAddModalOpen = value;
     };
 
-    @action confirmUrlToAdd = (value: string): void => {
+    @action
+    public confirmUrlToAdd = (value: string): void => {
         this.urlToConfirm = value;
         this.setConfirmAddModalOpen(true);
     };
 
-    @action setCurrentMode = async (mode: ExclusionsMode): Promise<void> => {
-        await messenger.setExclusionsMode(mode);
-        await this.updateExclusionsData();
-        runInAction(() => {
-            this.currentMode = mode;
-        });
+    public setCurrentMode = async (mode: ExclusionsMode): Promise<void> => {
+        const profileId = this.effectiveProfileId;
+        await messenger.setExclusionsMode(profileId, mode);
+        await this.updateExclusionsData(profileId);
     };
 
-    @action openAddExclusionModal = (): void => {
+    @action
+    public openAddExclusionModal = (): void => {
         this.addExclusionModalOpen = true;
     };
 
-    @action closeAddExclusionModal = (): void => {
+    @action
+    public closeAddExclusionModal = (): void => {
         this.addExclusionModalOpen = false;
         this.setServicesSearchValue('');
         this.servicesToToggle = [];
@@ -225,36 +301,43 @@ export class ExclusionsStore {
         this.setAddExclusionMode(DEFAULT_ADD_EXCLUSION_MODE);
     };
 
-    @action setAddExclusionMode = (mode: AddExclusionMode): void => {
+    @action
+    public setAddExclusionMode = (mode: AddExclusionMode): void => {
         this.addExclusionMode = mode;
     };
 
-    @action openAddSubdomainModal = (): void => {
+    @action
+    public openAddSubdomainModal = (): void => {
         this.addSubdomainModalOpen = true;
     };
 
-    @action closeAddSubdomainModal = (): void => {
+    @action
+    public closeAddSubdomainModal = (): void => {
         this.addSubdomainModalOpen = false;
     };
 
-    @action openRemoveAllModal = (): void => {
+    @action
+    public openRemoveAllModal = (): void => {
         this.removeAllModalOpen = true;
     };
 
-    @action closeRemoveAllModal = (): void => {
+    @action
+    public closeRemoveAllModal = (): void => {
         this.removeAllModalOpen = false;
     };
 
-    @action openSelectListModal = (): void => {
+    @action
+    public openSelectListModal = (): void => {
         this.selectListModalOpen = true;
     };
 
-    @action closeSelectListModal = (): void => {
+    @action
+    public closeSelectListModal = (): void => {
         this.selectListModalOpen = false;
     };
 
     @computed
-    get preparedServicesData(): PreparedServicesData {
+    public get preparedServicesData(): PreparedServicesData {
         const categories = this.servicesData.reduce((acc: PreparedServiceCategories, serviceData) => {
             const { categories, serviceId } = serviceData;
 
@@ -286,7 +369,7 @@ export class ExclusionsStore {
     }
 
     @action
-    toggleCategoryVisibility(id: string): void {
+    public toggleCategoryVisibility(id: string): void {
         const isUnfolded = this.unfoldedServiceCategories
             .some((categoryId) => categoryId === id);
 
@@ -305,15 +388,20 @@ export class ExclusionsStore {
      *
      * @returns Count of added exclusions.
      */
-    @action addUrlToExclusions = async (url: string): Promise<number> => {
-        const addedExclusionsCount = await messenger.addUrlToExclusions(url);
+    @action
+    public addUrlToExclusions = async (url: string): Promise<number> => {
+        const profileId = this.effectiveProfileId;
+        const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, url);
         if (addedExclusionsCount) {
-            await this.updateExclusionsData();
+            await this.updateExclusionsData(profileId);
         }
         return addedExclusionsCount;
     };
 
-    @action addSubdomainToExclusions = async (subdomain: string): Promise<number> => {
+    @action
+    public addSubdomainToExclusions = async (subdomain: string): Promise<number> => {
+        const profileId = this.effectiveProfileId;
+
         if (!this.selectedExclusionId) {
             return 0;
         }
@@ -327,15 +415,15 @@ export class ExclusionsStore {
         const domain = foundExclusion.hostname;
 
         if (subdomain.includes(domain)) {
-            const addedExclusionsCount = await messenger.addUrlToExclusions(subdomain);
+            const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, subdomain);
             return addedExclusionsCount;
         }
 
         const domainToAdd = `${subdomain}.${domain}`;
 
-        const addedExclusionsCount = await messenger.addUrlToExclusions(domainToAdd);
+        const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, domainToAdd);
         if (addedExclusionsCount) {
-            await this.updateExclusionsData();
+            await this.updateExclusionsData(profileId);
         }
         return addedExclusionsCount;
     };
@@ -345,7 +433,7 @@ export class ExclusionsStore {
      * or if it was exclusion with base domain
      * @param exclusion
      */
-    updateSelectedExclusionOnRemove(exclusion: ExclusionDtoInterface): void {
+    private updateSelectedExclusionOnRemove(exclusion: ExclusionDtoInterface): void {
         if (!exclusion.parentId) {
             return;
         }
@@ -365,30 +453,36 @@ export class ExclusionsStore {
         }
     }
 
-    @action removeExclusion = async (exclusion: ExclusionDtoInterface): Promise<number> => {
+    @action
+    public removeExclusion = async (exclusion: ExclusionDtoInterface): Promise<number> => {
+        const profileId = this.effectiveProfileId;
         this.updateSelectedExclusionOnRemove(exclusion);
 
-        const deletedExclusionsCount = await messenger.removeExclusion(exclusion.id);
+        const deletedExclusionsCount = await messenger.removeExclusion(profileId, exclusion.id);
         if (deletedExclusionsCount) {
-            await this.updateExclusionsData();
+            await this.updateExclusionsData(profileId);
         }
         return deletedExclusionsCount;
     };
 
-    @action toggleExclusionState = async (id: string): Promise<void> => {
-        await messenger.toggleExclusionState(id);
-        await this.updateExclusionsData();
+    @action
+    public toggleExclusionState = async (id: string): Promise<void> => {
+        const profileId = this.effectiveProfileId;
+        await messenger.toggleExclusionState(profileId, id);
+        await this.updateExclusionsData(profileId);
     };
 
     /**
      * Cancel exclusions remove
      */
-    restoreExclusions = async (): Promise<void> => {
-        await messenger.restoreExclusions();
-        await this.updateExclusionsData();
+    public restoreExclusions = async (): Promise<void> => {
+        const profileId = this.effectiveProfileId;
+        await messenger.restoreExclusions(profileId);
+        await this.updateExclusionsData(profileId);
     };
 
-    @action addToServicesToToggle = (id: string): void => {
+    @action
+    public addToServicesToToggle = (id: string): void => {
         if (this.servicesToToggle.includes(id)) {
             this.servicesToToggle = this.servicesToToggle
                 .filter((serviceId) => serviceId !== id);
@@ -402,22 +496,25 @@ export class ExclusionsStore {
      *
      * @returns Counts of added and deleted services.
      */
-    @action toggleServices = async (): Promise<any> => {
-        const toggleServicesResult = await messenger.toggleServices(toJS(this.servicesToToggle));
+    @action
+    public toggleServices = async (): Promise<ToggleServicesResult> => {
+        const profileId = this.effectiveProfileId;
+        const toggleServicesResult = await messenger.toggleServices(profileId, toJS(this.servicesToToggle));
         runInAction(() => {
             this.servicesToToggle = [];
         });
         if (toggleServicesResult) {
-            await this.updateExclusionsData();
+            await this.updateExclusionsData(profileId);
         }
         return toggleServicesResult;
     };
 
-    @action setSelectedExclusionId = (id: string | null): void => {
+    @action
+    public setSelectedExclusionId = (id: string | null): void => {
         this.selectedExclusionId = id;
     };
 
-    getParentExclusion(exclusion: ExclusionDtoInterface): ExclusionDtoInterface | undefined {
+    private getParentExclusion(exclusion: ExclusionDtoInterface): ExclusionDtoInterface | undefined {
         if (exclusion.type === ExclusionsType.Service) {
             return undefined;
         }
@@ -427,7 +524,8 @@ export class ExclusionsStore {
         });
     }
 
-    @action goBackHandler = (): void => {
+    @action
+    public goBackHandler = (): void => {
         if (this.selectedExclusion) {
             const parentExclusion = this.getParentExclusion(this.selectedExclusion);
             this.selectedExclusionId = parentExclusion?.id || null;
@@ -435,7 +533,7 @@ export class ExclusionsStore {
     };
 
     @computed
-    get selectedExclusion(): ExclusionDtoInterface | null {
+    public get selectedExclusion(): ExclusionDtoInterface | null {
         if (!this.selectedExclusionId || this.selectedExclusionId === 'root') {
             return null;
         }
@@ -443,31 +541,38 @@ export class ExclusionsStore {
         return findExclusionById(this.exclusionsTree, this.selectedExclusionId);
     }
 
-    @action setExclusionsSearchValue = (value: string): void => {
+    @action
+    public setExclusionsSearchValue = (value: string): void => {
         this.exclusionsSearchValue = value;
     };
 
-    @action setUnfoldAllServiceCategories = (unfold: boolean): void => {
+    @action
+    private setUnfoldAllServiceCategories = (unfold: boolean): void => {
         this.unfoldAllServiceCategories = unfold;
     };
 
-    @action setServicesSearchValue = (value: string): void => {
+    @action
+    public setServicesSearchValue = (value: string): void => {
         this.servicesSearchValue = value;
 
         this.setUnfoldAllServiceCategories(this.servicesSearchValue.length > 0);
     };
 
-    @action resetServiceData = async (serviceId: string): Promise<void> => {
-        await messenger.resetServiceData(serviceId);
-        await this.updateExclusionsData();
+    @action
+    public resetServiceData = async (serviceId: string): Promise<void> => {
+        const profileId = this.effectiveProfileId;
+        await messenger.resetServiceData(profileId, serviceId);
+        await this.updateExclusionsData(profileId);
     };
 
-    @action clearExclusionsList = async (): Promise<void> => {
-        await messenger.clearExclusionsList();
-        await this.updateExclusionsData();
+    @action
+    public clearExclusionsList = async (): Promise<void> => {
+        const profileId = this.effectiveProfileId;
+        await messenger.clearExclusionsList(profileId);
+        await this.updateExclusionsData(profileId);
     };
 
-    get sortedExclusions(): ExclusionDtoInterface[] | null {
+    public get sortedExclusions(): ExclusionDtoInterface[] | null {
         const { selectedExclusion } = this;
 
         if (!selectedExclusion) {
@@ -499,7 +604,7 @@ export class ExclusionsStore {
      *
      * @returns True if service is in default state, false otherwise.
      */
-    isServiceDefaultState = (id: string): boolean => {
+    public isServiceDefaultState = (id: string): boolean => {
         const defaultServiceData = this.preparedServicesData.services[id];
 
         const isFullChildrenList = (
@@ -528,24 +633,25 @@ export class ExclusionsStore {
      *
      * @returns True if domain is valid, false otherwise.
      */
-    validateUrl = (url: string): boolean => {
+    public validateUrl = (url: string): boolean => {
         const isValidDomain = !!getDomain(url);
         const isValidIp = isIP(url);
 
         return isValidDomain || isValidIp;
     };
 
-    @action setImportingExclusions = (value: boolean): void => {
+    @action
+    public setImportingExclusions = (value: boolean): void => {
         this.importingExclusions = value;
     };
 
     @computed
-    get isCurrentModeExclusionsListEmpty(): boolean {
+    public get isCurrentModeExclusionsListEmpty(): boolean {
         return !this.exclusionsTree.children.length;
     }
 
     @computed
-    get isServicesSearchEmpty(): boolean {
+    public get isServicesSearchEmpty(): boolean {
         if (this.servicesSearchValue) {
             return !this.servicesData.some((service) => {
                 return containsIgnoreCase(service.serviceName, this.servicesSearchValue);

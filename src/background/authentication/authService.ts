@@ -13,9 +13,9 @@ interface AuthServiceInterface {
  * and verifies whether a user is authenticated
  */
 export class AuthService implements AuthServiceInterface {
-    browserApi: BrowserApi;
+    private browserApi: BrowserApi;
 
-    accessTokenData: AuthAccessToken | null;
+    private accessTokenData: AuthAccessToken | null;
 
     private AUTH_ACCESS_TOKEN_KEY = 'auth.access.token';
 
@@ -23,7 +23,7 @@ export class AuthService implements AuthServiceInterface {
         this.browserApi = providedBrowserApi || browserApi;
     }
 
-    getAccessTokenData = async (): Promise<AuthAccessToken | null> => {
+    public getAccessTokenData = async (): Promise<AuthAccessToken | null> => {
         if (this.accessTokenData) {
             return this.accessTokenData;
         }
@@ -31,12 +31,12 @@ export class AuthService implements AuthServiceInterface {
         return this.accessTokenData;
     };
 
-    saveAccessTokenData = async (accessToken: AuthAccessToken): Promise <void> => {
+    public saveAccessTokenData = async (accessToken: AuthAccessToken): Promise <void> => {
         this.accessTokenData = accessToken;
         await this.browserApi.storage.set(this.AUTH_ACCESS_TOKEN_KEY, accessToken);
     };
 
-    removeAccessTokenData = async (): Promise <void> => {
+    public removeAccessTokenData = async (): Promise <void> => {
         this.accessTokenData = null;
         await this.browserApi.storage.remove(this.AUTH_ACCESS_TOKEN_KEY);
     };
@@ -47,7 +47,7 @@ export class AuthService implements AuthServiceInterface {
      *
      * @returns Promise with true if user is authenticated, false otherwise.
      */
-    isAuthenticated = async (): Promise<boolean> => {
+    public isAuthenticated = async (): Promise<boolean> => {
         const accessTokenData = await this.getAccessTokenData();
         return !!accessTokenData?.accessToken;
     };

@@ -7,7 +7,7 @@ import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { translator } from '../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { Modal } from '../../ui/Modal';
-import { Radio } from '../../ui/Radio';
+import { Radio } from '../../../../common/components/Radio';
 import { Button } from '../../ui/Button';
 
 export const ModeSelectorModal = observer(() => {

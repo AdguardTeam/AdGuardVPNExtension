@@ -135,6 +135,9 @@
     "official_website": {
         "message": "Oficiální stránka"
     },
+    "version_history": {
+        "message": "Historie verzí"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +533,39 @@
     "settings_exclusion_title": {
         "message": "Výjimky"
     },
+    "settings_location_label": {
+        "message": "Umístění"
+    },
+    "settings_location_fastest_title": {
+        "message": "Nejrychlejší umístění"
+    },
+    "settings_profiles_default_name": {
+        "message": "Výchozí"
+    },
+    "settings_profiles_actions": {
+        "message": "Akce"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Vymazat"
+    },
+    "settings_profiles_create": {
+        "message": "Vytvořit"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Název"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Vytvořit"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Zrušit"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Uložit"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Vymazat"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Kde je VPN zapnutá"
     },
@@ -601,6 +637,9 @@
     },
     "popup_settings_stats": {
         "message": "Statistiky"
+    },
+    "popup_profiles_settings": {
+        "message": "Nastavení"
     },
     "popup_settings_free_description": {
         "message": "K dispozici v AdGuard VPN Unlimited"

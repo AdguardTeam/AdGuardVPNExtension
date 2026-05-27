@@ -14,6 +14,7 @@
         "resolveJsonModule": true,
         "moduleResolution": "node",
         "experimentalDecorators": true,
+        "useDefineForClassFields": false,
         "allowJs": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,

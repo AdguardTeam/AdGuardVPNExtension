@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Officiell webbplats"
     },
+    "version_history": {
+        "message": "Versionshistorik"
+    },
+    "github": {
+        "message": "GitHub förvar"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Exkluderingar"
     },
+    "settings_location_label": {
+        "message": "Plats"
+    },
+    "settings_location_fastest_title": {
+        "message": "Snabbaste platsen"
+    },
+    "settings_location_fastest_description": {
+        "message": "Anslut automatiskt till den snabbaste platsen"
+    },
+    "settings_profiles_title": {
+        "message": "Profiler"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Tillåter dig att ställa in DNS-servrar och platser och behålla separata undantagslistor för olika användningsfall, såsom arbete, hem eller andra"
+    },
+    "settings_profiles_default_name": {
+        "message": "Standard"
+    },
+    "settings_profiles_actions": {
+        "message": "Åtgärder"
+    },
+    "settings_profiles_action_use": {
+        "message": "Använd profil"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Byt namn"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Radera"
+    },
+    "settings_profiles_create": {
+        "message": "Skapa"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Skapa profil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Namn"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Skapa"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Avbryt"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maximal längd är %count% tecken | Maximal längd är %count% tecken | Maximal längd är %count% tecken"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Detta namn används redan"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Byt namn på profil"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nytt namn"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Spara"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Ta bort %profile_name% profil?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Profilinställningarna för plats, WebRTC, DNS server och undantag för webbplatser kommer att tas bort"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN kommer att växla till Standard profil"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Profilinställningarna för %profile_name% profil för plats, WebRTC, DNS server och undantag för webbplatser kommer att tas bort"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Radera"
+    },
+    "settings_description_current": {
+        "message": "Nuvarande: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Var VPN är på"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Om listan lämnas tom inaktiveras VPN för alla webbplatser"
+    },
+    "settings_applies_to_profile": {
+        "message": "Tillämpas på din <b>%profile_name%</b> profil"
     },
     "settings_exclusion_import_button": {
         "message": "Importera"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistik"
+    },
+    "popup_profiles_title": {
+        "message": "Profiler"
+    },
+    "popup_profiles_settings": {
+        "message": "Inställningar"
+    },
+    "profile_apply_error": {
+        "message": "Det gick inte att växla profiler. Försök igen eller kontakta support"
     },
     "popup_settings_free_description": {
         "message": "Tillgänglig i AdGuard VPN Unlimited"

@@ -117,6 +117,10 @@ const COMMON_URL_QUERIES = {
     // AdGuard DNS Providers Knowledge Base
     ADGUARD_DNS_PROVIDERS_KB: 'action=adguard_dns_providers_kb&from=options_screen&app=vpn_extension',
     COMPARE_PAGE: 'action=compare&from=popup&app=vpn_extension',
+    // GitHub
+    GITHUB: 'action=github_options&from=options_screen&app=vpn_extension',
+    // Changelog
+    CHANGELOG: 'action=version_history&from=options_screen&app=vpn_extension',
     // AG-25941
     VPN_BLOCKED_GET_APP: 'action=vpn_blocked_get_app&from=popup&app=vpn_extension',
     VPN_BLOCKED_GET_APP_LINUX: 'action=vpn_blocked_get_app_linux&from=popup&app=vpn_extension',

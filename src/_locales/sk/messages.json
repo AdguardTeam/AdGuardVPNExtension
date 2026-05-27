@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Oficiálna stránka"
     },
+    "version_history": {
+        "message": "História verzií"
+    },
+    "github": {
+        "message": "Úložisko GitHub"
+    },
     "eula": {
         "message": "Zmluva EULA"
     },
@@ -148,7 +154,7 @@
         "message": "Získajte bezplatné GB!"
     },
     "settings_referral_info_friends": {
-        "message": "Pošlite svojmu priateľovi pozývací odkaz. Keď sa zaregistruje do AdGuard VPN cez váš odkaz, obaja získate %your_gb% GB rýchlej VPN. Nepoužitá prevádzka neprepadne — môžete ju využívať aj v nasledujúcich mesiacoch. Pozvite až %max_friends% priateľov a získajte celkovo až %total_gb% GB"
+        "message": "Pošlite svojmu priateľovi pozývací odkaz. Keď sa zaregistruje do AdGuard VPN cez Váš odkaz, obaja získate %your_gb% GB rýchlej VPN. Nepoužitá komunikácia neprepadne — môžete ju využívať aj v nasledujúcich mesiacoch. Pozvite až %max_friends% priateľov a získajte celkovo až %total_gb% GB"
     },
     "settings_referral_invited_friends": {
         "message": "Pozvaní priatelia %count%/%limit%"
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Výnimky"
     },
+    "settings_location_label": {
+        "message": "Poloha"
+    },
+    "settings_location_fastest_title": {
+        "message": "Najrýchlejšia lokalita"
+    },
+    "settings_location_fastest_description": {
+        "message": "Automatické pripojenie k najrýchlejšej lokalite"
+    },
+    "settings_profiles_title": {
+        "message": "Profily"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Umožňuje nastaviť DNS servery a lokality a uchovávať samostatné zoznamy výnimiek pre rôzne prípady použitia, ako napríklad práca, domov alebo iné"
+    },
+    "settings_profiles_default_name": {
+        "message": "Predvolené"
+    },
+    "settings_profiles_actions": {
+        "message": "Akcie"
+    },
+    "settings_profiles_action_use": {
+        "message": "Použiť profil"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Premenovať"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Vymazať"
+    },
+    "settings_profiles_create": {
+        "message": "Vytvoriť"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Vytvoriť profil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Meno"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Vytvoriť"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Zrušiť"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maximálna dĺžka je %count% znak | Maximálna dĺžka je %count% znaky | Maximálna dĺžka je %count% znakov | Maximálna dĺžka je %count% znakov"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Tento názov sa už používa"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Premenovať profil"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nový názov"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Uložiť"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Odstrániť profil %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Nastavenia profilu pre lokalitu, WebRTC, DNS server a výnimky webových stránok budú odstránené"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN sa prepne na predvolený profil"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Nastavenia profilu %profile_name% pre lokalitu, WebRTC, DNS server a výnimky webových stránok budú odstránené."
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Vymazať"
+    },
+    "settings_description_current": {
+        "message": "Aktuálne: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Kde je zapnutá sieť VPN"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Ak ponecháte tento zoznam prázdny, vypnete VPN pre všetky webové stránky"
+    },
+    "settings_applies_to_profile": {
+        "message": "Vzťahuje sa na Váš profil <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Import"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Štatistiky"
+    },
+    "popup_profiles_title": {
+        "message": "Profily"
+    },
+    "popup_profiles_settings": {
+        "message": "Nastavenia"
+    },
+    "profile_apply_error": {
+        "message": "Prepnutie profilu zlyhalo. Skúste to znova alebo kontaktujte podporu."
     },
     "popup_settings_free_description": {
         "message": "Dostupné v AdGuard VPN Unlimited"

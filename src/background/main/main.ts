@@ -28,6 +28,7 @@ import { permissionsError } from '../permissionsChecker/permissionsError';
 import { popupData } from '../popupData';
 import { proxy } from '../proxy';
 import { settings } from '../settings';
+import { dns } from '../dns';
 import { tabs } from '../../common/tabs';
 import { updateService } from '../updateService';
 import { vpnApi } from '../api';
@@ -50,6 +51,8 @@ import { runtime } from '../browserApi/runtime';
 import { BROWSER, BUILD_ENV, STAGE_ENV } from '../config';
 import { statisticsService } from '../statistics';
 import { userLocationService } from '../userLocationService';
+import { profileWebRtcService } from '../WebRtcService';
+import { profilesService } from '../profiles';
 
 declare global {
     module globalThis {
@@ -111,6 +114,7 @@ const asyncInitModules = async (): Promise<void> => {
         // Set the current log level from session storage.
         await log.init();
         await stateStorage.init();
+
         /**
          * Statistics service should be initiated before any other module,
          * in order to hop into first load event emission.
@@ -121,6 +125,9 @@ const asyncInitModules = async (): Promise<void> => {
         await fallbackApi.init();
         await updateService.init();
         await settings.init();
+        // Must run after settings.init() because active profile DNS settings
+        // are read from profiles state initialized by settings.
+        await dns.init();
         // should be initiated after settings.init() to get the selected language
         await i18n.init(settings.getSelectedLanguage());
         await userLocationService.init();
@@ -141,6 +148,7 @@ const asyncInitModules = async (): Promise<void> => {
         await exclusions.init();
         await endpointsTldExclusions.init();
         await rateModal.initState();
+        await profileWebRtcService.init(profilesService.getActiveProfileId());
         await settings.applySettings(); // we have to apply settings when credentials are ready
         await endpoints.init(); // update endpoints list on extension or browser restart
         await nonRoutable.init();

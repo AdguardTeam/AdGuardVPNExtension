@@ -9,7 +9,8 @@ import { tabs } from '../../common/tabs';
 import { log } from '../../common/logger';
 import { SETTINGS_IDS, AppearanceTheme } from '../../common/constants';
 import { messenger } from '../../common/messenger';
-import { ConnectivityStateType } from '../../background/schema';
+import { type PermissionsErrorData } from '../../common/notifierEvents';
+import { ConnectivityStateType } from '../../common/connectivityState';
 import { getHostname, getProtocol } from '../../common/utils/url';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { type LimitedOfferData } from '../../background/limitedOfferService';
@@ -21,105 +22,110 @@ import { AnimationEvent, type AnimationState } from '../constants';
 import type { RootStore } from './RootStore';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RECALCULATE_PINGS_BTN_INACTIVITY_DELAY_MS, RequestStatus } from './constants';
 
-type StateType = {
-    value: string,
-};
+/**
+ * Minimal connectivity state shape used by the popup.
+ */
+interface ConnectivityState {
+    value: ConnectivityStateType;
+}
 
 export class SettingsStore {
-    @observable canControlProxy: boolean = true;
+    @observable public canControlProxy: boolean = true;
 
-    @observable isCurrentTabExcluded: boolean;
+    @observable public isCurrentTabExcluded: boolean;
 
-    @observable currentTabHostname: string;
+    @observable public currentTabHostname: string;
 
-    @observable isRoutable: boolean = true;
+    @observable private isRoutable: boolean = true;
 
-    @observable globalError: Error | null;
+    @observable private globalError: PermissionsErrorData | null;
 
-    @observable canBeExcluded: boolean = true;
+    @observable public canBeExcluded: boolean = true;
 
-    @observable exclusionsInverted: boolean;
+    @observable private exclusionsInverted: boolean;
 
-    @observable checkPermissionsState = RequestStatus.Done;
+    @observable public checkPermissionsState = RequestStatus.Done;
 
-    @observable connectivityState: StateType = { value: ConnectivityStateType.Idle };
+    @observable private connectivityState: ConnectivityState = {
+        value: ConnectivityStateType.Idle,
+    };
 
-    @observable isRateVisible: boolean;
+    @observable public isRateVisible: boolean;
 
-    @observable isMobileEdgePromoBannerVisible: boolean;
+    @observable public isMobileEdgePromoBannerVisible: boolean;
 
-    @observable freeUserClickedPremiumLocation: boolean = false;
+    @observable private freeUserClickedPremiumLocation: boolean = false;
 
-    @observable hasLimitExceededDisplayed: boolean = false;
+    @observable private hasLimitExceededDisplayed: boolean = false;
 
-    @observable promoNotification: PromoNotificationData | null = null;
+    @observable public promoNotification: PromoNotificationData | null = null;
 
-    @observable appearanceTheme: AppearanceTheme;
+    @observable public appearanceTheme: AppearanceTheme;
 
-    @observable darkThemeMediaQuery: MediaQueryList;
+    @observable private darkThemeMediaQuery: MediaQueryList;
 
-    @observable systemTheme: AppearanceTheme = this.getSystemTheme();
+    @observable public systemTheme: AppearanceTheme = this.getSystemTheme();
 
-    @observable animationState: AnimationState = <AnimationState>animationService.initialState.value;
+    @observable public animationState: AnimationState = <AnimationState>animationService.initialState.value;
 
-    @observable showServerErrorPopup: boolean = false;
+    @observable public showServerErrorPopup: boolean = false;
 
-    @observable isVpnBlocked: boolean = false;
+    @observable public isVpnBlocked: boolean = false;
 
-    @observable isHostPermissionsGranted: boolean = false;
+    @observable public isHostPermissionsGranted: boolean = false;
 
-    @observable limitedOfferData: LimitedOfferData | null = null;
+    @observable public limitedOfferData: LimitedOfferData | null = null;
 
-    @observable limitedOfferTimer?: ReturnType<typeof setInterval>;
+    @observable private limitedOfferTimer?: ReturnType<typeof setInterval>;
 
-    @observable hasDesktopAppForOs: boolean = false;
+    @observable public hasDesktopAppForOs: boolean = false;
 
-    @observable isAndroidBrowser: boolean = false;
+    @observable public isAndroidBrowser: boolean = false;
 
-    @observable isLinux: boolean = false;
+    @observable public isLinux: boolean = false;
 
-    @observable isFirefox: boolean | null = null;
+    @observable public isFirefox: boolean | null = null;
 
-    @observable arePingsRecalculating: boolean = false;
+    @observable public arePingsRecalculating: boolean = false;
 
-    @observable forwarderDomain: string;
+    @observable public forwarderDomain: string;
 
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 
-    @action prohibitExclusion = (): void => {
+    @action private prohibitExclusion = (): void => {
         this.canBeExcluded = false;
     };
 
     @action
-    async checkProxyControl(): Promise<void> {
+    private async checkProxyControl(): Promise<void> {
         const { canControlProxy } = await messenger.getCanControlProxy();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
         });
     }
 
-    @action setCanControlProxy = ({ canControlProxy }: { canControlProxy: boolean }): void => {
+    @action public setCanControlProxy = ({ canControlProxy }: { canControlProxy: boolean }): void => {
         this.canControlProxy = canControlProxy;
     };
 
-    @action enableProxy = async (force = false): Promise<void> => {
+    @action private enableProxy = async (force = false): Promise<void> => {
         await messenger.enableProxy(force);
     };
 
-    @action disableProxy = async (force = false): Promise<void> => {
+    @action public disableProxy = async (force = false): Promise<void> => {
         await messenger.disableProxy(force);
     };
 
-    @action reconnectProxy = async (): Promise<void> => {
+    @action public reconnectProxy = async (): Promise<void> => {
         await this.disableProxy(true);
         await this.enableProxy(true);
     };
 
-    @action setProxyState = async (value: boolean): Promise<void> => {
+    @action public setProxyState = async (value: boolean): Promise<void> => {
         if (value) {
             await this.enableProxy(true);
         } else {
@@ -127,7 +133,7 @@ export class SettingsStore {
         }
     };
 
-    @action disableVpnOnCurrentTab = async (): Promise<void> => {
+    @action public disableVpnOnCurrentTab = async (): Promise<void> => {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(true);
@@ -141,7 +147,7 @@ export class SettingsStore {
         }
     };
 
-    @action enableVpnOnCurrentTab = async (): Promise<void> => {
+    @action public enableVpnOnCurrentTab = async (): Promise<void> => {
         try {
             await messenger.enableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(false);
@@ -155,14 +161,14 @@ export class SettingsStore {
         }
     };
 
-    @action getExclusionsInverted = async (): Promise<void> => {
-        const exclusionsInverted = await messenger.getExclusionsInverted();
+    @action public getExclusionsInverted = async (profileId: string): Promise<void> => {
+        const exclusionsInverted = await messenger.getExclusionsInverted(profileId);
         runInAction(() => {
             this.exclusionsInverted = exclusionsInverted;
         });
     };
 
-    @action getCurrentTabHostname = async (): Promise<void> => {
+    @action public getCurrentTabHostname = async (): Promise<void> => {
         try {
             const result = await tabs.getCurrent();
             const { url } = result;
@@ -187,15 +193,15 @@ export class SettingsStore {
         }
     };
 
-    @action setIsRoutable = (value: boolean): void => {
+    @action public setIsRoutable = (value: boolean): void => {
         this.isRoutable = value;
     };
 
-    @action setGlobalError(data: Error | null): void {
+    @action public setGlobalError(data: PermissionsErrorData | null): void {
         this.globalError = data;
     }
 
-    @action async checkPermissions(): Promise<void> {
+    @action public async checkPermissions(): Promise<void> {
         this.checkPermissionsState = RequestStatus.Pending;
         try {
             await messenger.checkPermissions();
@@ -208,31 +214,31 @@ export class SettingsStore {
         });
     }
 
-    @action async clearPermissionError(): Promise<void> {
+    @action private async clearPermissionError(): Promise<void> {
         this.globalError = null;
         await messenger.clearPermissionsError();
     }
 
     @computed
-    get displayNonRoutable(): boolean {
+    public get displayNonRoutable(): boolean {
         if (this.exclusionsInverted) {
             return !this.isRoutable && this.isCurrentTabExcluded;
         }
         return !(this.isRoutable || this.isCurrentTabExcluded);
     }
 
-    @action async disableOtherProxyExtensions(): Promise<void> {
+    @action public async disableOtherProxyExtensions(): Promise<void> {
         await messenger.disableOtherExtensions();
         await this.checkProxyControl();
     }
 
     @computed
-    get hasGlobalError(): boolean {
+    public get hasGlobalError(): boolean {
         return !!this.globalError;
     }
 
     @computed
-    get hasLimitExceededError(): boolean {
+    public get hasLimitExceededError(): boolean {
         const { vpnStore } = this.rootStore;
 
         let maxDownloadedBytes = 0;
@@ -251,87 +257,87 @@ export class SettingsStore {
     }
 
     @computed
-    get showLimitExceededScreen(): boolean {
+    public get showLimitExceededScreen(): boolean {
         return this.hasLimitExceededError && !this.hasLimitExceededDisplayed;
     }
 
-    @action setHasLimitExceededDisplayed(): void {
+    @action public setHasLimitExceededDisplayed(): void {
         this.hasLimitExceededDisplayed = true;
     }
 
-    @action setConnectivityState(state: StateType): void {
+    @action public setConnectivityState(state: ConnectivityState): void {
         this.connectivityState = state;
         this.updateAnimationState(state);
     }
 
     @computed
-    get isIdle(): boolean {
+    public get isIdle(): boolean {
         return this.connectivityState.value === ConnectivityStateType.Idle;
     }
 
     @computed
-    get isConnected(): boolean {
+    public get isConnected(): boolean {
         return this.connectivityState.value === ConnectivityStateType.Connected;
     }
 
     @computed
-    get isDisconnectedIdle(): boolean {
+    public get isDisconnectedIdle(): boolean {
         return this.connectivityState.value === ConnectivityStateType.DisconnectedIdle;
     }
 
     @computed
-    get isConnectingIdle(): boolean {
+    public get isConnectingIdle(): boolean {
         return this.connectivityState.value === ConnectivityStateType.ConnectingIdle;
     }
 
     @computed
-    get isDisconnectedRetrying(): boolean {
+    public get isDisconnectedRetrying(): boolean {
         return this.connectivityState.value === ConnectivityStateType.DisconnectedRetrying;
     }
 
     @computed
-    get isConnectingRetrying(): boolean {
+    public get isConnectingRetrying(): boolean {
         return this.connectivityState.value === ConnectivityStateType.ConnectingRetrying;
     }
 
-    @action checkRateStatus = async (): Promise<void> => {
+    @action public checkRateStatus = async (): Promise<void> => {
         const value = await messenger.getSetting(SETTINGS_IDS.RATE_SHOW);
         runInAction(() => {
             this.isRateVisible = value;
         });
     };
 
-    @action hideRate = async (): Promise<void> => {
+    @action public hideRate = async (): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
         });
     };
 
-    @action hideMobileEdgePromoBanner = async (): Promise<void> => {
+    @action public hideMobileEdgePromoBanner = async (): Promise<void> => {
         await messenger.hideMobileEdgePromoBanner();
         runInAction(() => {
             this.isMobileEdgePromoBannerVisible = false;
         });
     };
 
-    @action setPremiumLocationClickedByFreeUser = (state: boolean): void => {
+    @action public setPremiumLocationClickedByFreeUser = (state: boolean): void => {
         this.freeUserClickedPremiumLocation = state;
     };
 
-    @action setPromoNotification = (promoNotification: PromoNotificationData): void => {
+    @action public setPromoNotification = (promoNotification: PromoNotificationData): void => {
         this.promoNotification = promoNotification;
     };
 
     /**
      * Close the promo notification modal
      */
-    @action onClosePromoNotification = async (): Promise<void> => {
+    @action public onClosePromoNotification = async (): Promise<void> => {
         this.promoNotification = null;
         await messenger.setNotificationViewed(false);
     };
 
-    @action getAppearanceTheme = async (): Promise<void> => {
+    @action public getAppearanceTheme = async (): Promise<void> => {
         let appearanceTheme = <AppearanceTheme>getThemeFromLocalStorage();
         if (appearanceTheme) {
             this.setAppearanceTheme(appearanceTheme);
@@ -344,45 +350,45 @@ export class SettingsStore {
         });
     };
 
-    @action setAppearanceTheme = (value: AppearanceTheme): void => {
+    @action public setAppearanceTheme = (value: AppearanceTheme): void => {
         this.appearanceTheme = value;
     };
 
-    @action setIsExcluded = (value: boolean): void => {
+    @action public setIsExcluded = (value: boolean): void => {
         this.isCurrentTabExcluded = value;
     };
 
-    @action updateDarkThemeMediaQuery = (): void => {
+    @action private updateDarkThemeMediaQuery = (): void => {
         this.darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     };
 
-    @action updateSystemTheme = (): void => {
+    @action private updateSystemTheme = (): void => {
         this.systemTheme = this.darkThemeMediaQuery.matches
             ? AppearanceTheme.Dark
             : AppearanceTheme.Light;
     };
 
-    getSystemTheme(): AppearanceTheme.Dark | AppearanceTheme.Light {
+    private getSystemTheme(): AppearanceTheme.Dark | AppearanceTheme.Light {
         return window.matchMedia('(prefers-color-scheme: dark)').matches
             ? AppearanceTheme.Dark
             : AppearanceTheme.Light;
     }
 
-    @action trackSystemTheme = (): void => {
+    @action public trackSystemTheme = (): void => {
         this.updateDarkThemeMediaQuery();
         this.updateSystemTheme();
         this.darkThemeMediaQuery.addEventListener('change', this.updateSystemTheme);
     };
 
-    @action stopTrackSystemTheme = (): void => {
+    @action public stopTrackSystemTheme = (): void => {
         this.darkThemeMediaQuery.removeEventListener('change', this.updateSystemTheme);
     };
 
-    @action setAnimationState = (value: AnimationState): void => {
+    @action public setAnimationState = (value: AnimationState): void => {
         this.animationState = value;
     };
 
-    @action updateAnimationState = (state: StateType): void => {
+    @action private updateAnimationState = (state: ConnectivityState): void => {
         switch (state.value) {
             case ConnectivityStateType.Connected: {
                 animationService.send(AnimationEvent.VpnConnected);
@@ -401,20 +407,20 @@ export class SettingsStore {
         }
     };
 
-    handleAnimationEnd = (): void => {
+    public handleAnimationEnd = (): void => {
         animationService.send(AnimationEvent.AnimationEnded);
     };
 
-    @action openServerErrorPopup = (): void => {
+    @action public openServerErrorPopup = (): void => {
         this.showServerErrorPopup = true;
     };
 
-    @action closeServerErrorPopup = (): void => {
+    @action public closeServerErrorPopup = (): void => {
         this.showServerErrorPopup = false;
     };
 
     @computed
-    get showNotificationModal(): boolean {
+    public get showNotificationModal(): boolean {
         if (!this.promoNotification) {
             return false;
         }
@@ -428,22 +434,22 @@ export class SettingsStore {
         return true;
     }
 
-    @action setIsVpnBlocked = (value: boolean): void => {
+    @action public setIsVpnBlocked = (value: boolean): void => {
         this.isVpnBlocked = value;
     };
 
-    @action setShowMobileEdgePromoBanner(value: boolean): void {
+    @action public setShowMobileEdgePromoBanner(value: boolean): void {
         this.isMobileEdgePromoBannerVisible = value;
     }
 
-    @action setHostPermissionsError = (value: boolean): void => {
+    @action public setHostPermissionsError = (value: boolean): void => {
         this.isHostPermissionsGranted = value;
     };
 
     /**
      * Sets value to {@link limitedOfferData} and starts countdown timer if value is not null.
      */
-    @action setLimitedOfferData = (value: LimitedOfferData | null): void => {
+    @action public setLimitedOfferData = (value: LimitedOfferData | null): void => {
         this.limitedOfferData = value;
         if (value) {
             this.startCountdown();
@@ -454,14 +460,14 @@ export class SettingsStore {
      * Checks whether the limited offer should be displayed.
      */
     @computed
-    get isLimitedOfferActive(): boolean {
+    public get isLimitedOfferActive(): boolean {
         return !!this.limitedOfferData;
     }
 
     /**
      * Starts countdown timer based on store's value {@link limitedOfferData.timeLeftMs}.
      */
-    @action startCountdown = (): void => {
+    @action private startCountdown = (): void => {
         this.limitedOfferTimer = setInterval(() => {
             runInAction(() => {
                 if (this.limitedOfferData?.timeLeftMs === 0) {
@@ -479,7 +485,7 @@ export class SettingsStore {
      * Checks whether the desktop AdGuard VPN apps are supported for the current OS.
      * Sets the result to {@link hasDesktopAppForOs}.
      */
-    @action async setHasDesktopAppForOs(): Promise<void> {
+    @action public async setHasDesktopAppForOs(): Promise<void> {
         const isWindows = await Prefs.isWindows();
         const isMacOS = await Prefs.isMacOS();
         runInAction(() => {
@@ -491,7 +497,7 @@ export class SettingsStore {
      * Checks whether the extension is running on Linux.
      * Sets the result to {@link isLinux}.
      */
-    @action async setIsLinux(): Promise<void> {
+    @action public async setIsLinux(): Promise<void> {
         const isLinux = await Prefs.isLinux();
         runInAction(() => {
             this.isLinux = isLinux;
@@ -502,7 +508,7 @@ export class SettingsStore {
      * Checks whether the extension is running on a android browser.
      * Sets the result to {@link isAndroidBrowser}
      */
-    @action async setIsAndroidBrowser(): Promise<void> {
+    @action public async setIsAndroidBrowser(): Promise<void> {
         const isAndroid = await Prefs.isAndroid();
         runInAction(() => {
             this.isAndroidBrowser = isAndroid;
@@ -513,7 +519,7 @@ export class SettingsStore {
      * Checks whether the extension is running on Firefox (any platform).
      * Sets the result to {@link isFirefox}
      */
-    @action setIsFirefox(): void {
+    @action public setIsFirefox(): void {
         this.isFirefox = Prefs.isFirefox();
     }
 
@@ -522,7 +528,7 @@ export class SettingsStore {
      *
      * @param value Value to set.
      */
-    @action setArePingsRecalculating(value: boolean): void {
+    @action private setArePingsRecalculating(value: boolean): void {
         this.arePingsRecalculating = value;
     }
 
@@ -532,7 +538,7 @@ export class SettingsStore {
      *
      * After the locations are refreshed, sets the {@link arePingsRecalculating} to false.
      */
-    @action async refreshLocations(): Promise<void> {
+    @action public async refreshLocations(): Promise<void> {
         this.setArePingsRecalculating(true);
         // set the fastest locations to the cached value to avoid showing the skeleton
         this.rootStore.vpnStore.setCachedFastestLocations();
@@ -551,7 +557,7 @@ export class SettingsStore {
      *
      * @param value Value to set.
      */
-    @action setForwarderDomain(value: string): void {
+    @action public setForwarderDomain(value: string): void {
         this.forwarderDomain = value;
     }
 }

@@ -135,6 +135,12 @@
     "official_website": {
         "message": "官方的網站"
     },
+    "version_history": {
+        "message": "版本歷史"
+    },
+    "github": {
+        "message": "GitHub 儲存庫"
+    },
     "eula": {
         "message": "終端用戶授權協定"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "例外"
     },
+    "settings_location_label": {
+        "message": "位置"
+    },
+    "settings_location_fastest_title": {
+        "message": "最快的位置"
+    },
+    "settings_location_fastest_description": {
+        "message": "自動連線到最快位置"
+    },
+    "settings_profiles_title": {
+        "message": "個人檔案"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "個人檔案"
+    },
+    "settings_profiles_subtitle": {
+        "message": "為不同使用場景（如工作、居家或其他）設定 DNS 伺服器和地點，並保留獨立的例外清單。"
+    },
+    "settings_profiles_default_name": {
+        "message": "預設"
+    },
+    "settings_profiles_actions": {
+        "message": "動作"
+    },
+    "settings_profiles_action_use": {
+        "message": "使用此個人檔案"
+    },
+    "settings_profiles_action_rename": {
+        "message": "重新命名"
+    },
+    "settings_profiles_action_delete": {
+        "message": "刪除"
+    },
+    "settings_profiles_create": {
+        "message": "建立"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "建立個人檔案"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "名稱"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "建立"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "取消"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "最大長度為 %count% 個字元 | 最大長度為 %count% 個字元"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "此名稱已被使用"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "重新命名個人檔案"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "新名稱"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "儲存"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "刪除個人檔案「%profile_name%」？"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "該個人檔案中的位置、WebRTC、DNS 伺服器和網站排除設定將被刪除。"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN 將切換到預設個人檔案"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "個人檔案「%profile_name%」中的位置、WebRTC、DNS 伺服器和網站例外設定將被刪除。"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "刪除"
+    },
+    "settings_description_current": {
+        "message": "目前：%mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPN 在哪些網站上處於啟用狀態"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "將此清單留空將禁用 VPN 在所有網站上運作"
+    },
+    "settings_applies_to_profile": {
+        "message": "套用至您的 <b>%profile_name%</b> 個人檔案。"
     },
     "settings_exclusion_import_button": {
         "message": "匯入"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "統計資訊"
+    },
+    "popup_profiles_title": {
+        "message": "個人檔案"
+    },
+    "popup_profiles_settings": {
+        "message": "設定"
+    },
+    "profile_apply_error": {
+        "message": "切換個人檔案失敗。請重試或聯絡技術支援。"
     },
     "popup_settings_free_description": {
         "message": "在 AdGuard VPN 無限版中可用"

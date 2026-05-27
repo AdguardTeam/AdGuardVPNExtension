@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Офіційний сайт"
     },
+    "version_history": {
+        "message": "Історія версій"
+    },
+    "github": {
+        "message": "GitHub репозиторій"
+    },
     "eula": {
         "message": "Ліцензійна угода"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Винятки"
     },
+    "settings_location_label": {
+        "message": "Місцезнаходження"
+    },
+    "settings_location_fastest_title": {
+        "message": "Найшвидше"
+    },
+    "settings_location_fastest_description": {
+        "message": "Автоматичне підключення до найшвидшої локації"
+    },
+    "settings_profiles_title": {
+        "message": "Профілі"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Профіль"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Дозволяє налаштовувати DNS-сервери та розташування, а також зберігати окремі списки виключень для різних сценаріїв використання, таких як робота, дім або інші"
+    },
+    "settings_profiles_default_name": {
+        "message": "Усталений"
+    },
+    "settings_profiles_actions": {
+        "message": "Дії"
+    },
+    "settings_profiles_action_use": {
+        "message": "Використати профіль"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Перейменувати"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Видалити"
+    },
+    "settings_profiles_create": {
+        "message": "Творити"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Створити профіль"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Назва"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Творити"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Скасувати"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Максимальна довжина — %count% символ | Максимальна довжина — %count% символи | Максимальна довжина — %count% символів | Максимальна довжина — %count% символа"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Ця назва вже використовується"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Перейменувати профіль"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Нова назва"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Зберегти"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Видалити профіль %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Налаштування профілю для локації, WebRTC, DNS-сервера та виключень вебсайтів буде видалено"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN перейде на профіль за замовчуванням"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Налаштування профілю %profile_name% для місцезнаходження, WebRTC, DNS-сервера та винятків вебсайтів буде видалено"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Видалити"
+    },
+    "settings_description_current": {
+        "message": "Поточний: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Де увімкнено VPN"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Якщо залишити цей список пустим, VPN буде вимкнено для всіх вебсайтів"
+    },
+    "settings_applies_to_profile": {
+        "message": "Застосовується до вашого <b>%profile_name%</b> профілю"
     },
     "settings_exclusion_import_button": {
         "message": "Імпорт"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Статистика"
+    },
+    "popup_profiles_title": {
+        "message": "Профілі"
+    },
+    "popup_profiles_settings": {
+        "message": "Налаштування"
+    },
+    "profile_apply_error": {
+        "message": "Не вдалося переключити профілі. Спробуйте ще раз або зверніться до підтримки"
     },
     "popup_settings_free_description": {
         "message": "Доступно в AdGuard VPN Unlimited"

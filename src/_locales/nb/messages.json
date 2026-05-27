@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Offisielt nettsted"
     },
+    "version_history": {
+        "message": "Versjonshistorikk"
+    },
+    "github": {
+        "message": "GitHub-repositorium"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Unntak"
     },
+    "settings_location_label": {
+        "message": "Posisjon"
+    },
+    "settings_location_fastest_title": {
+        "message": "Raskeste lokasjon"
+    },
+    "settings_location_fastest_description": {
+        "message": "Koble automatisk til den raskeste lokasjonen"
+    },
+    "settings_profiles_title": {
+        "message": "Profiler"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Lar deg sette DNS-servere og lokasjoner og beholde separate ekskluderingslister for ulike brukstilfeller, som arbeid, hjem eller andre"
+    },
+    "settings_profiles_default_name": {
+        "message": "Standard"
+    },
+    "settings_profiles_actions": {
+        "message": "Handlinger"
+    },
+    "settings_profiles_action_use": {
+        "message": "Bruk profil"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Gi nytt navn"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Slett"
+    },
+    "settings_profiles_create": {
+        "message": "Lag"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Opprett profil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Navn"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Lag"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Avbryt"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maksimal lengde er %count% tegn | Maksimal lengde er %count% tegn | Maksimal lengde er %count% tegn"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Dette navnet er allerede i bruk"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Gi nytt navn til profil"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nytt navn"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Lagre"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Slette %profile_name%-profilen?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Profilinnstillingene for lokasjon, WebRTC, DNS server og ekskluderinger for nettsteder vil bli slettet"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN vil bytte til Default profilen"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "%profile_name%-profilinnstillingene for lokasjon, WebRTC, DNS server og ekskluderinger for nettsteder vil bli slettet"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Slett"
+    },
+    "settings_description_current": {
+        "message": "Gjeldende: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Hvor VPN er aktivert"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Å la denne listen være tom vil deaktivere VPN for alle nettsteder"
+    },
+    "settings_applies_to_profile": {
+        "message": "Gjelder for profilen din <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Importer"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistikk"
+    },
+    "popup_profiles_title": {
+        "message": "Profiler"
+    },
+    "popup_profiles_settings": {
+        "message": "Innstillinger"
+    },
+    "profile_apply_error": {
+        "message": "Kunne ikke bytte profiler. Prøv igjen eller kontakt brukerstøtte"
     },
     "popup_settings_free_description": {
         "message": "Tilgjengelig i AdGuard VPN Unlimited"

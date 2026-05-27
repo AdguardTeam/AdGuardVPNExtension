@@ -132,6 +132,11 @@ export interface SelectProps<T> {
     className?: string;
 
     /**
+     * Additional class name for the trigger button.
+     */
+    buttonClassName?: string;
+
+    /**
      * Change event handler.
      */
     onChange: (value: T) => void;
@@ -156,6 +161,7 @@ export function Select<T extends string>({
     options,
     isActive: outsideActive,
     className,
+    buttonClassName,
     onChange,
     onIsActiveChange,
     onClick,
@@ -208,7 +214,7 @@ export function Select<T extends string>({
     return (
         <div ref={ref} className={classes}>
             <button
-                className="select__btn has-tab-focus select__btn-reset"
+                className={classNames('select__btn has-tab-focus select__btn-reset', buttonClassName)}
                 type="button"
                 onClick={handleToggle}
             >

@@ -13,6 +13,9 @@ const NOTIFIER_EVENTS = [
     notifier.types.USER_DEAUTHENTICATED,
     notifier.types.SETTING_UPDATED,
     notifier.types.LANGUAGE_CHANGED,
+    notifier.types.PROFILE_LOCATION_UPDATED,
+    notifier.types.ACTIVE_PROFILE_CHANGED,
+    notifier.types.PROFILE_SWITCH_IN_PROGRESS,
 ];
 
 export const useMessageHandler = (): void => {
@@ -23,14 +26,13 @@ export const useMessageHandler = (): void => {
         exclusionsStore,
         telemetryStore,
         translationStore,
+        profilesStore,
     } = useContext(rootStore);
 
     const reloadingRef = useRef<boolean>(false);
 
     const messageHandler = async (message: NotifierMessage): Promise<void> => {
-        const { type, data, value } = message;
-
-        switch (type) {
+        switch (message.type) {
             case notifier.types.EXCLUSIONS_DATA_UPDATED: {
                 await exclusionsStore.updateExclusionsData();
                 break;
@@ -47,20 +49,32 @@ export const useMessageHandler = (): void => {
             }
             case notifier.types.SETTING_UPDATED: {
                 if (
-                    data === SETTINGS_IDS.HELP_US_IMPROVE
-                    && typeof value === 'boolean'
+                    message.data === SETTINGS_IDS.HELP_US_IMPROVE
+                    && typeof message.value === 'boolean'
                 ) {
-                    telemetryStore.setIsHelpUsImproveEnabled(value);
+                    telemetryStore.setIsHelpUsImproveEnabled(message.value);
                 }
                 break;
             }
             case notifier.types.LANGUAGE_CHANGED: {
-                settingsStore.setSelectedLanguage(data);
-                await translationStore.setLocalePreference(data);
+                settingsStore.setSelectedLanguage(message.data);
+                await translationStore.setLocalePreference(message.data);
+                break;
+            }
+            case notifier.types.PROFILE_LOCATION_UPDATED: {
+                profilesStore.updateLocationCache(message.data, message.value);
+                break;
+            }
+            case notifier.types.ACTIVE_PROFILE_CHANGED: {
+                profilesStore.handleProfileChanged(message.data);
+                break;
+            }
+            case notifier.types.PROFILE_SWITCH_IN_PROGRESS: {
+                profilesStore.startSwitchingProfile(message.data);
                 break;
             }
             default: {
-                log.debug('[vpn.useMessageHandler]: Undefined message type:', type);
+                log.debug('[vpn.useMessageHandler]: Undefined message type:', message.type);
                 break;
             }
         }

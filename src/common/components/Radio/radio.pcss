@@ -38,6 +38,12 @@
             .radio--active & {
                 border-color: var(--stroke-icons-product-icon-default);
             }
+
+            .radio--loading & {
+                border-color: var(--stroke-icons-product-icon-default);
+                border-right-color: transparent;
+                animation: radio-spin 1s linear infinite;
+            }
         }
 
         &-inner {
@@ -52,6 +58,10 @@
             .radio--active & {
                 transform: scale(1);
                 background-color: var(--stroke-icons-product-icon-default);
+            }
+
+            .radio--loading & {
+                transform: scale(0);
             }
         }
     }
@@ -88,5 +98,15 @@
     &__action {
         flex-shrink: 0;
         margin-left: 16px;
+    }
+}
+
+@keyframes radio-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }

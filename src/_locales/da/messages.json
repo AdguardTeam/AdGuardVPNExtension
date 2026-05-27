@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Officiel webside"
     },
+    "version_history": {
+        "message": "Versionshistorik"
+    },
+    "github": {
+        "message": "GitHub-repo"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Undtagelser"
     },
+    "settings_location_label": {
+        "message": "Placering"
+    },
+    "settings_location_fastest_title": {
+        "message": "Hurtigste placeringer"
+    },
+    "settings_location_fastest_description": {
+        "message": "Forbind automatisk til den hurtigste lokation"
+    },
+    "settings_profiles_title": {
+        "message": "Profiler"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Muliggør at indstille DNS-servere og lokation samt have separate undtagelseslister til forskellige brugsscenarier, såsom arbejde, hjem eller andre"
+    },
+    "settings_profiles_default_name": {
+        "message": "Standard"
+    },
+    "settings_profiles_actions": {
+        "message": "Handlinger"
+    },
+    "settings_profiles_action_use": {
+        "message": "Brug profil"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Omdøb"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Slet"
+    },
+    "settings_profiles_create": {
+        "message": "Opret"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Opret profil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Navn"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Opret"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Afbryd"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maks. længde udgør %count% tegn | Maks. længde udgør %count% tegn | Maks. længde udgør %count% tegn"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Dette navn er allerede i brug"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Omdøb profil"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nyt navn"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Gem"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Slet %profile_name%-profilen?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Profilindstillingerne for lokation, WebRTC, DNS-server og webstedsundtagelser slettes"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN skifter til Standardprofil"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "%profile_name%-profilens indstillinger for lokation, WebRTC, DNS-server og webstedsundtagelser slettes"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Slet"
+    },
+    "settings_description_current": {
+        "message": "Aktuel: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Hvor VPN er aktivt"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Er denne liste tom, deaktiveres VPN for alle websteder"
+    },
+    "settings_applies_to_profile": {
+        "message": "Gælder for <b>%profile_name%</b>-profilen"
     },
     "settings_exclusion_import_button": {
         "message": "Importér"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistik"
+    },
+    "popup_profiles_title": {
+        "message": "Profiler"
+    },
+    "popup_profiles_settings": {
+        "message": "Indstillinger"
+    },
+    "profile_apply_error": {
+        "message": "Mislykkedes at skifte profiler. Forsøg igen eller kontakt supporten"
     },
     "popup_settings_free_description": {
         "message": "Tilgængelig i AdGuard VPN Unlimited"

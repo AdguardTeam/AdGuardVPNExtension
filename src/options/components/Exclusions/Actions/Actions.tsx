@@ -13,10 +13,9 @@ import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../common/utils/string';
 import { log } from '../../../../common/logger';
 import { messenger } from '../../../../common/messenger';
-import { ExclusionsMode } from '../../../../common/exclusionsConstants';
+import { ExclusionsMode, type ExclusionsMap } from '../../../../common/exclusionsConstants';
 import { Select } from '../../../../common/components/Select';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
-import { type ExclusionsMap } from '../../../../background/exclusions/ExclusionsService';
 
 import { SelectListModal } from './SelectListModal';
 import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
@@ -31,6 +30,12 @@ enum Action {
     Remove = 'remove',
 }
 
+/**
+ * Splits, trims, validates and reverses exclusion lines from imported text.
+ *
+ * @param exclusionsString Raw text content from an imported file.
+ * @returns Valid exclusions in reverse order.
+ */
 const prepareExclusionsAfterImport = (exclusionsString: string): string[] => {
     return exclusionsString
         .split('\n')
@@ -46,38 +51,73 @@ const prepareExclusionsAfterImport = (exclusionsString: string): string[] => {
         .reverse();
 };
 
-const handleGeneralExclusionsString = async (exclusionsString: string): Promise<number> => {
+/**
+ * Imports exclusions into the regular (general) list.
+ *
+ * @param exclusionsString Raw text content from an imported file.
+ * @param profileId Profile to import into. Uses active profile if omitted.
+ * @returns Number of exclusions added.
+ */
+const handleGeneralExclusionsString = async (
+    exclusionsString: string,
+    profileId: string,
+): Promise<number> => {
     const generalExclusions = prepareExclusionsAfterImport(exclusionsString);
-    return messenger.addRegularExclusions(generalExclusions);
+    return messenger.addRegularExclusions(profileId, generalExclusions);
 };
 
-const handleSelectiveExclusionsString = async (exclusionsString: string): Promise<number> => {
+/**
+ * Imports exclusions into the selective list.
+ *
+ * @param exclusionsString Raw text content from an imported file.
+ * @param profileId Profile to import into. Uses active profile if omitted.
+ * @returns Number of exclusions added.
+ */
+const handleSelectiveExclusionsString = async (
+    exclusionsString: string,
+    profileId: string,
+): Promise<number> => {
     const selectiveExclusions = prepareExclusionsAfterImport(exclusionsString);
-    return messenger.addSelectiveExclusions(selectiveExclusions);
+    return messenger.addSelectiveExclusions(profileId, selectiveExclusions);
 };
 
-const exportExclusions = async (): Promise<void> => {
-    const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
-    const ZIP_FILENAME = `exclusions-${nowFormatted}.zip`;
+const EXCLUSION_FILES_EXTENSIONS = {
+    GENERAL: '.general.txt',
+    SELECTIVE: '.selective.txt',
+};
 
-    const EXCLUSION_FILES_EXTENSIONS = {
-        GENERAL: '.general.txt',
-        SELECTIVE: '.selective.txt',
-    };
+/**
+ * Exports regular and selective exclusions as a timestamped ZIP file.
+ *
+ * @param profileId Profile to export from. Uses active profile if omitted.
+ */
+const exportExclusions = async (profileId: string): Promise<void> => {
+    const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
+    const zipFilename = `exclusions-${nowFormatted}.zip`;
 
     const zip = new JSZip();
 
-    const generalExclusions = await messenger.getGeneralExclusions();
-    const selectiveExclusions = await messenger.getSelectiveExclusions();
+    const generalExclusions = await messenger.getGeneralExclusions(profileId);
+    const selectiveExclusions = await messenger.getSelectiveExclusions(profileId);
 
     zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.GENERAL}`, generalExclusions);
     zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, selectiveExclusions);
 
     const zipContent = await zip.generateAsync({ type: 'blob' });
-    FileSaver.saveAs(zipContent, ZIP_FILENAME);
+    FileSaver.saveAs(zipContent, zipFilename);
 };
 
-export const Actions = observer(() => {
+/**
+ * Actions component props.
+ */
+interface ActionsProps {
+    /**
+     * Whether the component is rendered inside a profile context.
+     */
+    isProfileContext: boolean;
+}
+
+export const Actions = observer(({ isProfileContext }: ActionsProps) => {
     const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
     const { selectListModalOpen } = exclusionsStore;
 
@@ -105,7 +145,10 @@ export const Actions = observer(() => {
             TelemetryActionName.ImportGeneralExclusionsClick,
             TelemetryScreenName.DialogImportedExclusions,
         );
-        const exclusionsAddedCount = await handleGeneralExclusionsString(fileContent);
+        const exclusionsAddedCount = await handleGeneralExclusionsString(
+            fileContent,
+            exclusionsStore.effectiveProfileId,
+        );
         notificationsStore.notifySuccess(
             translator.getMessage(
                 'options_exclusions_import_successful',
@@ -125,7 +168,10 @@ export const Actions = observer(() => {
             TelemetryActionName.ImportSelectiveExclusionsClick,
             TelemetryScreenName.DialogImportedExclusions,
         );
-        const exclusionsAddedCount = await handleSelectiveExclusionsString(fileContent);
+        const exclusionsAddedCount = await handleSelectiveExclusionsString(
+            fileContent,
+            exclusionsStore.effectiveProfileId,
+        );
         notificationsStore.notifySuccess(
             translator.getMessage(
                 'options_exclusions_import_successful',
@@ -147,19 +193,27 @@ export const Actions = observer(() => {
     };
 
     const handleAction = async (action: Action): Promise<void> => {
+        const screenName = isProfileContext
+            ? TelemetryScreenName.ProfileExclusionScreen
+            : TelemetryScreenName.ExclusionsScreen;
+
         switch (action) {
             case Action.Export: {
                 telemetryStore.sendCustomEvent(
-                    TelemetryActionName.ExportExclusionsClick,
-                    TelemetryScreenName.ExclusionsScreen,
+                    isProfileContext
+                        ? TelemetryActionName.ProfileExportExclusionsClick
+                        : TelemetryActionName.ExportExclusionsClick,
+                    screenName,
                 );
-                await exportExclusions();
+                await exportExclusions(exclusionsStore.effectiveProfileId);
                 break;
             }
             case Action.Import: {
                 telemetryStore.sendCustomEvent(
-                    TelemetryActionName.OpenImportExclusionsClick,
-                    TelemetryScreenName.ExclusionsScreen,
+                    isProfileContext
+                        ? TelemetryActionName.ProfileOpenImportExclusionsClick
+                        : TelemetryActionName.OpenImportExclusionsClick,
+                    screenName,
                 );
                 if (importEl.current) {
                     importEl.current.click();
@@ -168,8 +222,10 @@ export const Actions = observer(() => {
             }
             case Action.Remove: {
                 telemetryStore.sendCustomEvent(
-                    TelemetryActionName.OpenRemoveExclusionsClick,
-                    TelemetryScreenName.ExclusionsScreen,
+                    isProfileContext
+                        ? TelemetryActionName.ProfileOpenRemoveExclusionsClick
+                        : TelemetryActionName.OpenRemoveExclusionsClick,
+                    screenName,
                 );
                 await exclusionsStore.openRemoveAllModal();
                 break;
@@ -201,7 +257,7 @@ export const Actions = observer(() => {
             }
         }
 
-        const addedExclusions = messenger.addExclusionsMap(exclusionsContentMap);
+        const addedExclusions = messenger.addExclusionsMap(exclusionsStore.effectiveProfileId, exclusionsContentMap);
         return addedExclusions;
     };
 

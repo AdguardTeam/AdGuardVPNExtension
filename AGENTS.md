@@ -237,6 +237,18 @@ All class methods and properties must have explicit access modifiers:
 - No line separator character (U+2028) in translations — use `<br/>` tag or separate translation keys
 - Non-breaking space (U+00A0) can be used where semantically needed
 
+### External Links
+
+All external URLs opened from the extension must be **TDS-wrapped**.
+Never hardcode raw URLs directly in components.
+
+- Add the query string to `COMMON_URL_QUERIES` in `tasks/appConfig.ts`
+- Add the key to the `ForwarderUrlQueryKey` enum in `src/background/config.ts`
+- Add the key to the destructured `CONFIG` and the `FORWARDER_URL_QUERIES` object
+  in `src/background/config.ts`
+- Build the URL at runtime with `getForwarderUrl(forwarderDomain, FORWARDER_URL_QUERIES.KEY)`
+- Prompt developer at the end of message to confirm the URL is added to the TDS.
+
 ### CSS/PCSS Guidelines
 
 - Use CSS variables for colors (no hardcoded `#fff`, `rgb()`, `rgba()`)

@@ -135,6 +135,12 @@
     "official_website": {
         "message": "وبسایت رسمی"
     },
+    "version_history": {
+        "message": "تاریخچه نسخه ها"
+    },
+    "github": {
+        "message": "مخزن GitHub"
+    },
     "eula": {
         "message": "توافقنامه نهایی با کاربر"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "مدیریت استثنائات..."
     },
+    "settings_location_label": {
+        "message": "مکان"
+    },
+    "settings_location_fastest_title": {
+        "message": "سریع ترین مکان"
+    },
+    "settings_location_fastest_description": {
+        "message": "به‌طور خودکار به سریع‌ترین مکان اتصال برقرار می‌کند"
+    },
+    "settings_profiles_title": {
+        "message": "نمایه‌ها"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "نمایه"
+    },
+    "settings_profiles_subtitle": {
+        "message": "به شما اجازه می دهد سرورهای DNS و مکان ها را تنظیم کنید و فهرست های استثناهای جداگانه برای موارد استفاده مختلف مانند کار، خانه یا موارد دیگر نگه دارید"
+    },
+    "settings_profiles_default_name": {
+        "message": "پيش فرض"
+    },
+    "settings_profiles_actions": {
+        "message": "اقدامات"
+    },
+    "settings_profiles_action_use": {
+        "message": "استفاده از نمایه"
+    },
+    "settings_profiles_action_rename": {
+        "message": "تغییر نام"
+    },
+    "settings_profiles_action_delete": {
+        "message": "حذف"
+    },
+    "settings_profiles_create": {
+        "message": "ایجاد"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "ایجاد نمایه"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "نام"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "ایجاد"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "لغو"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "حداکثر طول %count% کاراکتر | حداکثر طول %count% کاراکتر | حداکثر طول %count% کاراکتر"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "این نام قبلاً استفاده شده است"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "تغییر نام نمایه"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "نام جدید"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "ذخیره"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "حذف نمایه %profile_name%؟"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "تنظیمات پروفایل برای موقعیت مکانی، WebRTC، سرور DNS و استثناهای وب سایت حذف خواهد شد"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN به نمایه پیش‌فرض تغییر خواهد کرد"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "این %profile_name% تنظیمات پروفایل برای موقعیت مکانی، WebRTC، سرور DNS و استثناهای وب سایت حذف خواهد شد"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "حذف"
+    },
+    "settings_description_current": {
+        "message": "فعلی: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "کجا VPN روشن است"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "خالی گذاشتن این لیست موجب غیرفعال شدن VPN برای تمام وب‌سایت‌ها می‌شود"
+    },
+    "settings_applies_to_profile": {
+        "message": "برای نمایه <b>%profile_name%</b> شما اعمال می‌شود"
     },
     "settings_exclusion_import_button": {
         "message": "وارد کردن"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "آمار"
+    },
+    "popup_profiles_title": {
+        "message": "نمایه‌ها"
+    },
+    "popup_profiles_settings": {
+        "message": "تنظیمات"
+    },
+    "profile_apply_error": {
+        "message": "تغییر نمایه‌ها ناموفق بود. دوباره تلاش کنید یا با پشتیبانی تماس بگیرید"
     },
     "popup_settings_free_description": {
         "message": "در AdGuard VPN Unlimited در دسترس است"

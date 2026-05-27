@@ -67,6 +67,15 @@ export enum TelemetryScreenName {
     SupportReportSendScreen = 'support_report_send_screen',
     DialogImportedExclusions = 'dialog_imported_exclusions',
 
+    // Profile screens
+    ProfilesScreen = 'profiles_screen',
+    NewProfilesSettingsScreen = 'new_profiles_settings_screen',
+    EditNameProfilesScreen = 'edit_name_profiles_screen',
+    DeleteProfilesScreen = 'delete_profiles_screen',
+    DialogCreateProfile = 'dialog_create_profile',
+    ProfileExclusionScreen = 'profile_exclusion_screen',
+    ProfileDialogAddWebsiteExclusion = 'profile_dialog_add_website_exclusion',
+
     /**
      * This is special screen name. Used as flag to send telemetry
      * action events based on what screen is currently active.
@@ -146,9 +155,11 @@ export enum TelemetryActionName {
     FeedbackHelpImproveClick = 'feedback_help_improve_click',
     CancelRateStoreClick = 'cancel_rate_store_click',
     RateInStoreClick = 'rate_in_store_click',
+    QuickConnectClick = 'quick_connect_click',
 
     // Options actions
     GeneralSettingsClick = 'general_settings_click',
+    ProfilesSettingsClick = 'profiles_settings_click',
     ExclusionsSettingsClick = 'exclusions_settings_click',
     AccountSettingsClick = 'account_settings_click',
     SupportSettingsClick = 'support_settings_click',
@@ -204,6 +215,28 @@ export enum TelemetryActionName {
     RemoveExclusionsClick = 'remove_exclusions_click',
     ImportGeneralExclusionsClick = 'import_general_exclusions_click',
     ImportSelectiveExclusionsClick = 'import_selective_exclusions_click',
+    FastestQuickConnectClick = 'fastest_quick_connect_click',
+    LastQuickConnectClick = 'last_quick_connect_click',
+
+    // Profile actions
+    ProfilesMainClick = 'profiles_main_click',
+    CreateProfilesClick = 'create_profiles_click',
+    AddNameProfilesClick = 'add_name_profiles_click',
+    TurnOffWebRTC = 'turn_off_WebRTC',
+    ChooseDnsProfilesClick = 'choose_DNS_profiles_click',
+    ProfilesExclusionClick = 'profiles_exclusion_click',
+    SaveNewNameProfilesClick = 'save_new_name_profiles_click',
+    ChooseProfilesClick = 'choose_profiles_click',
+    DeleteProfileClick = 'delete_profile_click',
+    ProfileAddWebsiteClick = 'profile_add_website_click',
+    ProfileAddWebsiteFromList = 'profile_add_website_from_list',
+    ProfileAddWebsiteManually = 'profile_add_website_manually',
+    ProfileModeClick = 'profile_mode_click',
+    ProfileSearchWebsite = 'profile_search_website',
+    ProfileSearchFromList = 'profile_search_from_list',
+    ProfileOpenRemoveExclusionsClick = 'profile_open_remove_exclusions_click',
+    ProfileOpenImportExclusionsClick = 'profile_open_import_exclusions_click',
+    ProfileExportExclusionsClick = 'profile_export_exclusions_click',
 
     // Background notification actions
     NotificationFirstAuth = 'notification_first_auth',
@@ -225,6 +258,7 @@ export type HeaderScreenNames = TelemetryScreenName.HomeScreen | TelemetryScreen
  * Sidebar link item click actions.
  */
 export type SidebarLinkItemClickActionNames = TelemetryActionName.GeneralSettingsClick
+| TelemetryActionName.ProfilesSettingsClick
 | TelemetryActionName.ExclusionsSettingsClick
 | TelemetryActionName.AccountSettingsClick
 | TelemetryActionName.SupportSettingsClick
@@ -343,6 +377,7 @@ export interface TelemetryActionToScreenMap {
 
     // Options actions
     [TelemetryActionName.GeneralSettingsClick]: TelemetryScreenName.ContextBasedScreen;
+    [TelemetryActionName.ProfilesSettingsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.ExclusionsSettingsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.AccountSettingsClick]: TelemetryScreenName.ContextBasedScreen;
     [TelemetryActionName.SupportSettingsClick]: TelemetryScreenName.ContextBasedScreen;
@@ -398,6 +433,29 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.RemoveExclusionsClick]: TelemetryScreenName.DialogExclusionsRemoveAll;
     [TelemetryActionName.ImportGeneralExclusionsClick]: TelemetryScreenName.DialogImportedExclusions;
     [TelemetryActionName.ImportSelectiveExclusionsClick]: TelemetryScreenName.DialogImportedExclusions;
+    [TelemetryActionName.QuickConnectClick]: TelemetryScreenName.GeneralSettingsScreen;
+    [TelemetryActionName.LastQuickConnectClick]: TelemetryScreenName.GeneralSettingsScreen;
+    [TelemetryActionName.FastestQuickConnectClick]: TelemetryScreenName.GeneralSettingsScreen;
+
+    // Profile actions
+    [TelemetryActionName.ProfilesMainClick]: TelemetryScreenName.MenuScreen;
+    [TelemetryActionName.CreateProfilesClick]: TelemetryScreenName.ProfilesScreen;
+    [TelemetryActionName.AddNameProfilesClick]: TelemetryScreenName.DialogCreateProfile;
+    [TelemetryActionName.TurnOffWebRTC]: TelemetryScreenName.NewProfilesSettingsScreen;
+    [TelemetryActionName.ChooseDnsProfilesClick]: TelemetryScreenName.NewProfilesSettingsScreen;
+    [TelemetryActionName.ProfilesExclusionClick]: TelemetryScreenName.NewProfilesSettingsScreen;
+    [TelemetryActionName.SaveNewNameProfilesClick]: TelemetryScreenName.EditNameProfilesScreen;
+    [TelemetryActionName.ChooseProfilesClick]: TelemetryScreenName.ProfilesScreen;
+    [TelemetryActionName.DeleteProfileClick]: TelemetryScreenName.DeleteProfilesScreen;
+    [TelemetryActionName.ProfileAddWebsiteClick]: TelemetryScreenName.ProfileExclusionScreen;
+    [TelemetryActionName.ProfileAddWebsiteFromList]: TelemetryScreenName.ProfileDialogAddWebsiteExclusion;
+    [TelemetryActionName.ProfileAddWebsiteManually]: TelemetryScreenName.ProfileDialogAddWebsiteExclusion;
+    [TelemetryActionName.ProfileModeClick]: TelemetryScreenName.ProfileExclusionScreen;
+    [TelemetryActionName.ProfileSearchWebsite]: TelemetryScreenName.ProfileExclusionScreen;
+    [TelemetryActionName.ProfileSearchFromList]: TelemetryScreenName.ProfileDialogAddWebsiteExclusion;
+    [TelemetryActionName.ProfileOpenRemoveExclusionsClick]: TelemetryScreenName.ProfileExclusionScreen;
+    [TelemetryActionName.ProfileOpenImportExclusionsClick]: TelemetryScreenName.ProfileExclusionScreen;
+    [TelemetryActionName.ProfileExportExclusionsClick]: TelemetryScreenName.ProfileExclusionScreen;
 
     // Background notification actions
     [TelemetryActionName.NotificationFirstAuth]: TelemetryScreenName.Background;

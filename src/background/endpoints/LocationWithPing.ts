@@ -1,35 +1,25 @@
 import { type LocationInterface } from '../schema';
-
-export interface LocationWithPingInterface {
-    id: string;
-    cityName: string;
-    countryName: string;
-    countryCode: string;
-    ping?: number | null;
-    available?: boolean;
-    premiumOnly: boolean;
-    virtual: boolean;
-}
+import { type LocationWithPingInterface } from '../../common/schema/endpoints/locationWithPing';
 
 /**
  * Helper class used to extract minimal set of information for UI
  */
 export class LocationWithPing implements LocationWithPingInterface {
-    id: string;
+    public id: string;
 
-    cityName: string;
+    public cityName: string;
 
-    countryName: string;
+    public countryName: string;
 
-    countryCode: string;
+    public countryCode: string;
 
-    ping?: number | null;
+    public ping?: number | null;
 
-    available?: boolean;
+    public available?: boolean;
 
-    premiumOnly: boolean;
+    public premiumOnly: boolean;
 
-    virtual: boolean;
+    public virtual: boolean;
 
     constructor(location: LocationInterface) {
         this.id = location.id;

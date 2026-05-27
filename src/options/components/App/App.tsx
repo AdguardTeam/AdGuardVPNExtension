@@ -19,6 +19,12 @@ import { SignedOut } from '../SignedOut';
 import { Sidebar } from '../Sidebar';
 import { General } from '../General';
 import { Exclusions } from '../Exclusions';
+import { Profiles } from '../Profiles';
+import { ProfileDetail } from '../Profiles/ProfileDetail';
+import { ProfileExclusions } from '../Profiles/ProfileExclusions';
+import { ProfileDnsSettings } from '../Profiles/ProfileDnsSettings';
+import { ProfileLocationSettings } from '../Profiles/ProfileLocationSettings';
+import { PROFILES_PATH } from '../Profiles/profileRoutes';
 import { Account } from '../Account';
 import { Support } from '../Support';
 import { About } from '../About';
@@ -41,6 +47,11 @@ const getContent = (
                     <div className="content__wrapper">
                         <Switch>
                             <Route path="/" exact component={General} />
+                            <Route path={`${PROFILES_PATH}/:id/exclusions`} component={ProfileExclusions} />
+                            <Route path={`${PROFILES_PATH}/:id/dns`} component={ProfileDnsSettings} />
+                            <Route path={`${PROFILES_PATH}/:id/location`} component={ProfileLocationSettings} />
+                            <Route path={`${PROFILES_PATH}/:id`} exact component={ProfileDetail} />
+                            <Route path={PROFILES_PATH} exact component={Profiles} />
                             <Route path="/exclusions" exact component={Exclusions} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
@@ -71,13 +82,19 @@ export const App = observer(() => {
         globalStore,
         uiStore,
         telemetryStore,
+        dnsStore,
     } = useContext(rootStore);
 
     useMessageHandler();
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
-    useCustomDnsFromQuery(settingsStore.handleCustomDnsData);
+    useCustomDnsFromQuery((data) => {
+        settingsStore.setShowDnsSettings(true);
+        dnsStore.openCustomDnsModal();
+        dnsStore.setDnsServerName(data.name);
+        dnsStore.setDnsServerAddress(data.address);
+    });
 
     const { status } = globalStore;
 

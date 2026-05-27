@@ -8,9 +8,9 @@ import { RequestStatus } from './consts';
 import type { RootStore } from './RootStore';
 
 export class GlobalStore {
-    @observable initStatus = RequestStatus.Pending;
+    @observable public initStatus = RequestStatus.Pending;
 
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -24,12 +24,12 @@ export class GlobalStore {
      * like `initStatus`, `pageId`.
      */
     @action
-    async getOptionsData(isDataRefresh = false): Promise<void> {
+    public async getOptionsData(isDataRefresh = false): Promise<void> {
         const { rootStore } = this;
         const {
             settingsStore,
             authStore,
-            exclusionsStore,
+            profilesStore,
             telemetryStore,
         } = rootStore;
 
@@ -46,10 +46,8 @@ export class GlobalStore {
             if (optionsData.maxDevicesCount !== undefined) {
                 authStore.setMaxDevicesCount(optionsData.maxDevicesCount);
             }
-            exclusionsStore.setServicesData(optionsData.servicesData);
-            exclusionsStore.setExclusionsData(optionsData.exclusionsData);
-            exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
             telemetryStore.setIsHelpUsImproveEnabled(optionsData.helpUsImprove);
+            profilesStore.setProfilesData(optionsData.profilesData);
             if (!isDataRefresh) {
                 telemetryStore.setPageId(optionsData.pageId);
             }
@@ -62,17 +60,17 @@ export class GlobalStore {
     }
 
     @action
-    async init(): Promise<void> {
+    public async init(): Promise<void> {
         await this.getOptionsData();
     }
 
     @action
-    setInitStatus(status: RequestStatus): void {
+    private setInitStatus(status: RequestStatus): void {
         this.initStatus = status;
     }
 
     @computed
-    get status(): RequestStatus {
+    public get status(): RequestStatus {
         return this.initStatus;
     }
 }

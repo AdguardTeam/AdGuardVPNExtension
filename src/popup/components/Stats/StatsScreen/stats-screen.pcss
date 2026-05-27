@@ -6,8 +6,7 @@
     background-color: var(--fills-backgrounds-page-background-default);
 
     &__header {
-        /* Specify z-index to render on top of content */
-        z-index: 1;
+        z-index: var(--above-sibling-z-index);
         position: relative;
         flex-shrink: 0;
 
@@ -60,8 +59,7 @@
     }
 
     &__navbar {
-        /* Specify z-index to render on top of header */
-        z-index: 1;
+        z-index: var(--above-sibling-z-index);
         position: relative;
         display: flex;
         align-items: center;

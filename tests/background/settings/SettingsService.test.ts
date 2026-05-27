@@ -8,9 +8,11 @@ import {
 } from 'vitest';
 
 import { SettingsService } from '../../../src/background/settings/SettingsService';
+import { type StorageInterface } from '../../../src/background/browserApi/storage';
+import { SETTINGS_IDS } from '../../../src/common/constants';
 import { sleep } from '../../../src/common/helpers';
 
-const SCHEME_VERSION = '14';
+const SCHEME_VERSION = '15';
 
 vi.mock('../../../src/background/exclusions/services/ServicesManager', () => ({
     servicesManager: {
@@ -34,17 +36,17 @@ vi.mock('../../../src/background/browserApi', () => ({
     },
 }));
 
-const storage = (() => {
+const storage: StorageInterface = (() => {
     const settingsStorage: { [key: string]: any } = {};
     return {
-        set: vi.fn((key, data) => {
+        set: vi.fn(async (key: string, data: unknown) => {
             settingsStorage[key] = data;
         }),
-        get: vi.fn((key) => {
+        get: vi.fn(async (key: string) => {
             return settingsStorage[key];
         }),
-        remove: vi.fn((key) => {
-            return delete settingsStorage[key];
+        remove: vi.fn(async (key: string) => {
+            delete settingsStorage[key];
         }),
     };
 })();
@@ -65,7 +67,6 @@ describe('SettingsService', () => {
         };
 
         beforeEach(() => {
-            // @ts-ignore - partly implementation
             settingsService = new SettingsService(storage, defaults);
         });
 
@@ -111,7 +112,6 @@ describe('SettingsService', () => {
 
     describe('updates values', () => {
         beforeEach(() => {
-            // @ts-ignore - partly implementation
             settingsService = new SettingsService(storage, defaults);
             settingsService.init();
         });
@@ -137,17 +137,17 @@ describe('SettingsService', () => {
             expect(settings[showPromoKey])
                 .toBeTruthy();
 
-            let storageValue = storage.get(settingsService.SETTINGS_KEY);
+            let storageValue = await storage.get<Record<string, boolean>>(settingsService.SETTINGS_KEY);
             expect(storageValue)
                 .toBe(undefined);
 
             const throttleSaveTimeoutOfSettingsService = 100;
             await sleep(throttleSaveTimeoutOfSettingsService + 10);
-            storageValue = storage.get(settingsService.SETTINGS_KEY);
+            storageValue = await storage.get<Record<string, boolean>>(settingsService.SETTINGS_KEY);
 
-            expect(storageValue[enabledKey])
+            expect(storageValue![enabledKey])
                 .toBe(true);
-            expect(storageValue[showPromoKey])
+            expect(storageValue![showPromoKey])
                 .toBe(true);
         });
     });
@@ -156,7 +156,6 @@ describe('SettingsService', () => {
         const AB_TEST_STORAGE_KEY = 'ab_test_manager.versions';
 
         beforeEach(() => {
-            // @ts-ignore - partly implementation
             settingsService = new SettingsService(storage, defaults);
             delete abTestStorage[AB_TEST_STORAGE_KEY];
         });
@@ -204,7 +203,6 @@ describe('SettingsService', () => {
         const AB_TEST_STORAGE_KEY = 'ab_test_manager.versions';
 
         beforeEach(() => {
-            // @ts-ignore - partly implementation
             settingsService = new SettingsService(storage, defaults);
             delete abTestStorage[AB_TEST_STORAGE_KEY];
         });
@@ -242,6 +240,314 @@ describe('SettingsService', () => {
 
             expect(newSettings.VERSION).toBe('14');
             expect(abTestStorage[AB_TEST_STORAGE_KEY]).toBeUndefined();
+        });
+    });
+
+    describe('migrateFrom14to15', () => {
+        beforeEach(() => {
+            settingsService = new SettingsService(storage, defaults);
+        });
+
+        afterEach(async () => {
+            await settingsService.clearSettings();
+        });
+
+        it('migrates legacy settings into Default profile', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.PROXY_ENABLED]: true,
+                [SETTINGS_IDS.EXCLUSIONS]: {
+                    regular: [{
+                        id: '1', hostname: 'example.com', state: 'Enabled', children: [],
+                    }],
+                    selective: [],
+                    inverted: false,
+                },
+                [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
+                [SETTINGS_IDS.SELECTED_DNS_SERVER]: 'adguard-dns',
+                [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [{ id: 'c1', title: 'My DNS', address: '1.1.1.1' }],
+                [SETTINGS_IDS.QUICK_CONNECT]: 'fastestLocation',
+                [SETTINGS_IDS.SELECTED_LOCATION_KEY]: { id: 'us-east', city: 'New York' },
+                [SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY]: true,
+                [SETTINGS_IDS.SELECTED_CUSTOM_DNS_SERVER]: 'old-custom',
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            expect(newSettings.VERSION).toBe('15');
+            // Legacy keys removed
+            expect(newSettings[SETTINGS_IDS.EXCLUSIONS]).toBeUndefined();
+            expect(newSettings[SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]).toBeUndefined();
+            expect(newSettings[SETTINGS_IDS.SELECTED_DNS_SERVER]).toBeUndefined();
+            expect(newSettings[SETTINGS_IDS.CUSTOM_DNS_SERVERS]).toBeUndefined();
+            expect(newSettings[SETTINGS_IDS.QUICK_CONNECT]).toBeUndefined();
+            expect(newSettings[SETTINGS_IDS.SELECTED_LOCATION_KEY]).toBeUndefined();
+            expect(newSettings[SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY]).toBeUndefined();
+            expect(newSettings[SETTINGS_IDS.SELECTED_CUSTOM_DNS_SERVER]).toBeUndefined();
+            // Non-profile settings preserved
+            expect(newSettings[SETTINGS_IDS.PROXY_ENABLED]).toBe(true);
+            // Profile created with migrated values
+            const profilesState = newSettings[SETTINGS_IDS.PROFILES_STATE];
+            expect(profilesState.activeProfileId).toBe('default');
+            expect(profilesState.profiles).toHaveLength(1);
+            const profile = profilesState.profiles[0];
+            expect(profile.id).toBe('default');
+            expect(profile.settings.handleWebRtcEnabled).toBe(true);
+            expect(profile.settings.selectedDnsServer).toBe('adguard-dns');
+            expect(profile.settings.customDnsServers).toEqual([{ id: 'c1', title: 'My DNS', address: '1.1.1.1' }]);
+            expect(profile.settings.quickConnect).toBe('fastestLocation');
+            expect(profile.settings.selectedLocation).toEqual({ id: 'us-east', city: 'New York' });
+            expect(profile.settings.exclusions.regular).toEqual([{
+                id: '1', hostname: 'example.com', state: 'Enabled', children: [],
+            }]);
+            expect(profile.settings.exclusions.selective).toEqual([]);
+            expect(profile.settings.exclusions.inverted).toBe(false);
+        });
+
+        it('uses defaults when legacy keys are missing', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.PROXY_ENABLED]: false,
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            expect(newSettings.VERSION).toBe('15');
+            const profilesState = newSettings[SETTINGS_IDS.PROFILES_STATE];
+            const profile = profilesState.profiles[0];
+            expect(profile.settings.handleWebRtcEnabled).toBe(false);
+            expect(profile.settings.selectedDnsServer).toBe('default');
+            expect(profile.settings.customDnsServers).toEqual([]);
+            expect(profile.settings.quickConnect).toBe('lastUsedLocation');
+            expect(profile.settings.selectedLocation).toBeNull();
+            expect(profile.settings.exclusions.regular).toEqual([]);
+            expect(profile.settings.exclusions.selective).toEqual([]);
+            expect(profile.settings.exclusions.inverted).toBe(false);
+        });
+
+        it('handles corrupted exclusions (non-array regular/selective)', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.EXCLUSIONS]: {
+                    regular: 'corrupted-string',
+                    selective: 12345,
+                    inverted: 'not-a-boolean',
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const { exclusions } = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0].settings;
+            expect(exclusions.regular).toEqual([]);
+            expect(exclusions.selective).toEqual([]);
+            expect(exclusions.inverted).toBe(false);
+        });
+
+        it('preserves exclusions.inverted when true', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.EXCLUSIONS]: {
+                    regular: [],
+                    selective: [{
+                        id: '1', hostname: 'example.com', state: 'Enabled',
+                    }],
+                    inverted: true,
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const { exclusions } = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0].settings;
+            expect(exclusions.inverted).toBe(true);
+            expect(exclusions.selective).toEqual([{
+                id: '1', hostname: 'example.com', state: 'Enabled',
+            }]);
+        });
+
+        it('handles corrupted exclusions (primitive value)', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.EXCLUSIONS]: 'totally-broken',
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const { exclusions } = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0].settings;
+            expect(exclusions.regular).toEqual([]);
+            expect(exclusions.selective).toEqual([]);
+            expect(exclusions.inverted).toBe(false);
+        });
+
+        it('handles corrupted custom DNS servers (non-array)', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: 'not-an-array',
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const profile = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+            expect(profile.settings.customDnsServers).toEqual([]);
+        });
+
+        it('handles invalid quick connect value', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.QUICK_CONNECT]: 'invalidValue',
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const profile = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+            expect(profile.settings.quickConnect).toBe('lastUsedLocation');
+        });
+
+        it('handles corrupted DNS server (non-string)', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.SELECTED_DNS_SERVER]: 42,
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const profile = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+            expect(profile.settings.selectedDnsServer).toBe('default');
+        });
+
+        it('handles corrupted WebRTC (non-boolean truthy value)', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: 'yes',
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const profile = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+            expect(profile.settings.handleWebRtcEnabled).toBe(false);
+        });
+
+        it('overwrites anomalous profiles.state from v14 storage', () => {
+            // profiles.state should not exist in v14 schema — if it does,
+            // the migration must rebuild it from legacy keys.
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.PROFILES_STATE]: {
+                    activeProfileId: 'stale',
+                    profiles: [{ id: 'stale', name: 'Old', settings: {} }],
+                },
+                [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const profilesState = newSettings[SETTINGS_IDS.PROFILES_STATE];
+            expect(profilesState.activeProfileId).toBe('default');
+            expect(profilesState.profiles).toHaveLength(1);
+            expect(profilesState.profiles[0].id).toBe('default');
+            expect(profilesState.profiles[0].settings.handleWebRtcEnabled).toBe(true);
+        });
+
+        it('falls back to null for corrupted selectedLocation', () => {
+            const brokenLocation = { broken: true };
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.SELECTED_LOCATION_KEY]: brokenLocation,
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const profile = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+            expect(profile.settings.selectedLocation).toBeNull();
+        });
+
+        it('falls back to null for non-object selectedLocation', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.SELECTED_LOCATION_KEY]: 'just-a-string',
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const profile = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+            expect(profile.settings.selectedLocation).toBeNull();
+        });
+
+        it('preserves valid selectedLocation', () => {
+            const validLocation = { id: 'us-east', cityName: 'New York', countryCode: 'US' };
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.SELECTED_LOCATION_KEY]: validLocation,
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const profile = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+            expect(profile.settings.selectedLocation).toEqual(validLocation);
+        });
+
+        it('filters out corrupted entries in customDnsServers', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [
+                    { id: 'valid', title: 'My DNS', address: '1.1.1.1' },
+                    { id: 'no-address', title: 'Broken' },
+                    'just-a-string',
+                    null,
+                    { id: 'also-valid', title: 'Other', address: '8.8.8.8' },
+                ],
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const profile = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+            expect(profile.settings.customDnsServers).toEqual([
+                { id: 'valid', title: 'My DNS', address: '1.1.1.1' },
+                { id: 'also-valid', title: 'Other', address: '8.8.8.8' },
+            ]);
+        });
+
+        it('filters out DNS entries with empty id or address', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [
+                    { id: '', title: 'Empty ID', address: '1.1.1.1' },
+                    { id: 'valid', title: 'Good', address: '8.8.8.8' },
+                    { id: 'empty-addr', title: 'Empty Addr', address: '' },
+                ],
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const profile = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0];
+            expect(profile.settings.customDnsServers).toEqual([
+                { id: 'valid', title: 'Good', address: '8.8.8.8' },
+            ]);
+        });
+
+        it('filters out invalid exclusion entries', () => {
+            const oldSettings = {
+                VERSION: '14',
+                [SETTINGS_IDS.EXCLUSIONS]: {
+                    regular: [
+                        { id: '1', hostname: 'example.com', state: 'Enabled' },
+                        { id: '2', hostname: '', state: 'Enabled' },
+                        { id: '3', hostname: 'test.com', state: 'Unknown' },
+                        { id: '4', hostname: 'missing-state.com' },
+                        null,
+                        'string-entry',
+                        { id: '5', hostname: 'good.com', state: 'Disabled' },
+                    ],
+                    selective: [],
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom14to15(oldSettings);
+
+            const { exclusions } = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0].settings;
+            expect(exclusions.regular).toEqual([
+                { id: '1', hostname: 'example.com', state: 'Enabled' },
+                { id: '5', hostname: 'good.com', state: 'Disabled' },
+            ]);
         });
     });
 });

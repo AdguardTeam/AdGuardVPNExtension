@@ -135,6 +135,12 @@
     "official_website": {
         "message": "공식 웹사이트"
     },
+    "version_history": {
+        "message": "버전 역사"
+    },
+    "github": {
+        "message": "GitHub 리포지토리"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "예외 목록"
     },
+    "settings_location_label": {
+        "message": "위치"
+    },
+    "settings_location_fastest_title": {
+        "message": "가장 빠른 위치"
+    },
+    "settings_location_fastest_description": {
+        "message": "가장 빠른 위치에 자동으로 연결합니다."
+    },
+    "settings_profiles_title": {
+        "message": "프로필"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "프로필"
+    },
+    "settings_profiles_subtitle": {
+        "message": "DNS 서버와 위치를 설정할 수 있으며, 업무용, 가정용 등 용도별로 예외 목록을 관리할 수 있습니다."
+    },
+    "settings_profiles_default_name": {
+        "message": "기본"
+    },
+    "settings_profiles_actions": {
+        "message": "가능한 동작"
+    },
+    "settings_profiles_action_use": {
+        "message": "프로필 사용"
+    },
+    "settings_profiles_action_rename": {
+        "message": "이름 변경"
+    },
+    "settings_profiles_action_delete": {
+        "message": "삭제"
+    },
+    "settings_profiles_create": {
+        "message": "생성"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "프로필 생성"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "이름"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "생성"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "취소"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "최대 글자 수는 %count%자입니다. | 최대 글자 수는 %count%자입니다."
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "이 이름은 이미 사용 중입니다."
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "프로필 이름 변경"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "새로운 이름"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "저장"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "%profile_name% 프로필을 삭제하시겠습니까?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "위치, WebRTC, DNS 서버 및 웹사이트 예외 목록에 대한 프로필 설정이 삭제됩니다."
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN이 기본 프로필로 전환됩니다."
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "위치, WebRTC, DNS 서버 및 웹사이트 예외 목록에 대한 %profile_name% 프로필 설정이 삭제됩니다."
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "삭제"
+    },
+    "settings_description_current": {
+        "message": "현재: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPN이 켜져있는 곳"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "이 리스트를 비워두면 VPN이 모든 웹 사이트에 대해 비활성화됩니다."
+    },
+    "settings_applies_to_profile": {
+        "message": "<b>%profile_name%</b> 프로필에 적용됩니다."
     },
     "settings_exclusion_import_button": {
         "message": "가져오기"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "통계"
+    },
+    "popup_profiles_title": {
+        "message": "프로필"
+    },
+    "popup_profiles_settings": {
+        "message": "설정"
+    },
+    "profile_apply_error": {
+        "message": "프로필 전환에 실패했습니다. 다시 시도하거나 지원팀에 문의하세요"
     },
     "popup_settings_free_description": {
         "message": "AdGuard VPN 무제한 버전에서 사용 가능"

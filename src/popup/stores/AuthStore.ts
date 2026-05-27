@@ -14,52 +14,52 @@ import { RequestStatus } from './constants';
 import type { RootStore } from './RootStore';
 
 export class AuthStore {
-    @observable authenticated = false;
+    @observable public authenticated = false;
 
-    @observable authenticatedStatusRetrieved = false;
+    @observable public authenticatedStatusRetrieved = false;
 
-    @observable policyAgreement = false;
+    @observable public policyAgreement = false;
 
-    @observable helpUsImprove = false;
+    @observable public helpUsImprove = false;
 
-    @observable marketingConsent = false;
+    @observable private marketingConsent = false;
 
-    @observable requestProcessState = RequestStatus.Done;
+    @observable public requestProcessState = RequestStatus.Done;
 
-    @observable isNewUser: boolean;
+    @observable private isNewUser: boolean;
 
-    @observable isFirstRun: boolean;
+    @observable private isFirstRun: boolean;
 
-    @observable showNewsletter: boolean;
+    @observable private showNewsletter: boolean;
 
-    @observable showOnboarding: boolean;
+    @observable private showOnboarding: boolean;
 
-    @observable showUpgradeScreen: boolean;
+    @observable private showUpgradeScreen: boolean;
 
-    @observable forceShowUpgradeScreen: boolean = false;
+    @observable private forceShowUpgradeScreen: boolean = false;
 
-    @observable showRateModal = false;
+    @observable public showRateModal = false;
 
-    @observable showConfirmRateModal = false;
+    @observable public showConfirmRateModal = false;
 
-    @observable rating = 0;
+    @observable public rating = 0;
 
-    @observable showHintPopup = false;
+    @observable public showHintPopup = false;
 
-    @observable username: string | null = null;
+    @observable public username: string | null = null;
 
     /**
      * Current state of web authentication flow.
      */
-    @observable webAuthFlowState = WebAuthState.Idle;
+    @observable public webAuthFlowState = WebAuthState.Idle;
 
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 
-    @action getAuthCacheFromBackground = async (): Promise<void> => {
+    @action public getAuthCacheFromBackground = async (): Promise<void> => {
         const {
             policyAgreement,
             helpUsImprove,
@@ -72,7 +72,7 @@ export class AuthStore {
         });
     };
 
-    @action setFlagsStorageData = (flagsStorageData: { [key: string]: boolean }): void => {
+    @action public setFlagsStorageData = (flagsStorageData: { [key: string]: boolean }): void => {
         this.isNewUser = flagsStorageData[FLAGS_FIELDS.IS_NEW_USER];
         this.showNewsletter = flagsStorageData[FLAGS_FIELDS.SHOW_NEWSLETTER];
         this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
@@ -85,7 +85,7 @@ export class AuthStore {
      *
      * @param value Value indicating whether the user consents to marketing.
      */
-    @action setMarketingConsent = async (value: boolean): Promise<void> => {
+    @action public setMarketingConsent = async (value: boolean): Promise<void> => {
         this.marketingConsent = value;
     };
 
@@ -94,7 +94,7 @@ export class AuthStore {
      *
      * @param value Value indicating whether the user consents to marketing.
      */
-    @action updateMarketingConsent = async (value: boolean): Promise<void> => {
+    @action public updateMarketingConsent = async (value: boolean): Promise<void> => {
         // Note: no matter what decision choose user, we should close newsletter
         await Promise.all([
             messenger.updateMarketingConsent(value),
@@ -106,14 +106,14 @@ export class AuthStore {
         });
     };
 
-    @action setShowOnboarding = async (value: boolean): Promise<void> => {
+    @action public setShowOnboarding = async (value: boolean): Promise<void> => {
         await messenger.setFlag(FLAGS_FIELDS.SHOW_ONBOARDING, value);
         runInAction(() => {
             this.showOnboarding = value;
         });
     };
 
-    @action setShowUpgradeScreen = async (value: boolean): Promise<void> => {
+    @action public setShowUpgradeScreen = async (value: boolean): Promise<void> => {
         await messenger.setFlag(FLAGS_FIELDS.SHOW_UPGRADE_SCREEN, value);
         runInAction(() => {
             this.showUpgradeScreen = value;
@@ -125,11 +125,11 @@ export class AuthStore {
         });
     };
 
-    @action setForceShowUpgradeScreen = (value: boolean): void => {
+    @action public setForceShowUpgradeScreen = (value: boolean): void => {
         this.forceShowUpgradeScreen = value;
     };
 
-    @action setIsFirstRun = (value: boolean): void => {
+    @action public setIsFirstRun = (value: boolean): void => {
         this.isFirstRun = value;
     };
 
@@ -141,53 +141,53 @@ export class AuthStore {
      * - Upgrade Screen
      */
     @computed
-    get shouldRenderPromo(): boolean {
+    private get shouldRenderPromo(): boolean {
         return this.isFirstRun || this.isNewUser;
     }
 
     @computed
-    get renderNewsletter(): boolean {
+    public get renderNewsletter(): boolean {
         return this.shouldRenderPromo && this.showNewsletter && !this.marketingConsent;
     }
 
     @computed
-    get renderOnboarding(): boolean {
+    public get renderOnboarding(): boolean {
         return this.showOnboarding && this.shouldRenderPromo;
     }
 
     @computed
-    get renderUpgradeScreen(): boolean {
+    public get renderUpgradeScreen(): boolean {
         return this.forceShowUpgradeScreen || (this.showUpgradeScreen && this.shouldRenderPromo);
     }
 
-    @action setIsAuthenticated = (value: boolean): void => {
+    @action public setIsAuthenticated = (value: boolean): void => {
         this.authenticated = value;
     };
 
-    @action setAuthenticatedStatusRetrieved = (value: boolean): void => {
+    @action public setAuthenticatedStatusRetrieved = (value: boolean): void => {
         this.authenticatedStatusRetrieved = value;
     };
 
-    @action deauthenticate = async (): Promise<void> => {
+    @action public deauthenticate = async (): Promise<void> => {
         this.authenticated = false;
         await messenger.deauthenticateUser();
     };
 
-    @action setPolicyAgreement = async (value: boolean): Promise<void> => {
+    @action public setPolicyAgreement = async (value: boolean): Promise<void> => {
         await messenger.updateAuthCache(AuthCacheKey.PolicyAgreement, value);
         runInAction(() => {
             this.policyAgreement = value;
         });
     };
 
-    @action setHelpUsImprove = async (value: boolean): Promise<void> => {
+    @action public setHelpUsImprove = async (value: boolean): Promise<void> => {
         await messenger.updateAuthCache(AuthCacheKey.HelpUsImprove, value);
         runInAction(() => {
             this.helpUsImprove = value;
         });
     };
 
-    @action onPolicyAgreementReceived = async (): Promise<void> => {
+    @action public onPolicyAgreementReceived = async (): Promise<void> => {
         await messenger.setConsentData(this.policyAgreement, this.helpUsImprove);
     };
 
@@ -197,7 +197,7 @@ export class AuthStore {
      * @param field The field to update.
      * @param value The new value for the field.
      */
-    @action handleAuthCacheUpdate = <T extends AuthCacheKey>(field: T, value: AuthCacheData[T]): void => {
+    @action public handleAuthCacheUpdate = <T extends AuthCacheKey>(field: T, value: AuthCacheData[T]): void => {
         switch (field) {
             case AuthCacheKey.PolicyAgreement:
                 this.policyAgreement = value as boolean;
@@ -216,7 +216,7 @@ export class AuthStore {
     /**
      * Starts the web authentication flow.
      */
-    @action startWebAuthFlow = async (): Promise<void> => {
+    @action public startWebAuthFlow = async (): Promise<void> => {
         this.requestProcessState = RequestStatus.Pending;
         await messenger.sendWebAuthAction(WebAuthAction.Start);
     };
@@ -224,14 +224,14 @@ export class AuthStore {
     /**
      * Reopens the web authentication flow.
      */
-    @action reopenWebAuthFlow = async (): Promise<void> => {
+    @action public reopenWebAuthFlow = async (): Promise<void> => {
         await messenger.sendWebAuthAction(WebAuthAction.Reopen);
     };
 
     /**
      * Cancels the web authentication flow.
      */
-    @action cancelWebAuthFlow = async (): Promise<void> => {
+    @action public cancelWebAuthFlow = async (): Promise<void> => {
         await messenger.sendWebAuthAction(WebAuthAction.Cancel);
         runInAction(() => {
             this.requestProcessState = RequestStatus.Done;
@@ -241,18 +241,18 @@ export class AuthStore {
     /**
      * Closes "Failed to login" modal in auth screen.
      */
-    @action closeFailedToLoginModal = async (): Promise<void> => {
+    @action public closeFailedToLoginModal = async (): Promise<void> => {
         await messenger.sendWebAuthAction(WebAuthAction.DismissFailure);
     };
 
-    @action setRating = (value: number): void => {
+    @action public setRating = (value: number): void => {
         this.rating = value;
     };
 
     /**
      * Closes rate modal without rating.
      */
-    @action closeRateModal = async (): Promise<void> => {
+    @action public closeRateModal = async (): Promise<void> => {
         await messenger.hideRateModalAfterCancel();
         runInAction(() => {
             this.showRateModal = false;
@@ -262,7 +262,7 @@ export class AuthStore {
     /**
      * Closes rate modal and opens confirm rate modal.
      */
-    @action openConfirmRateModal = (): void => {
+    @action public openConfirmRateModal = (): void => {
         this.showRateModal = false;
         this.showConfirmRateModal = true;
     };
@@ -270,7 +270,7 @@ export class AuthStore {
     /**
      * Closes confirm rate modal after rating.
      */
-    @action closeConfirmRateModalAfterRate = async (): Promise<void> => {
+    @action public closeConfirmRateModalAfterRate = async (): Promise<void> => {
         await messenger.hideRateModalAfterRate();
         runInAction(() => {
             this.showConfirmRateModal = false;
@@ -280,7 +280,7 @@ export class AuthStore {
     /**
      * Closes confirm rate modal without rating.
      */
-    @action closeConfirmRateModalAfterCancel = async (): Promise<void> => {
+    @action public closeConfirmRateModalAfterCancel = async (): Promise<void> => {
         await messenger.hideRateModalAfterCancel();
         runInAction(() => {
             this.showConfirmRateModal = false;
@@ -292,12 +292,12 @@ export class AuthStore {
      *
      * @param value Value to set.
      */
-    @action setShouldShowRateModal = (value: boolean): void => {
+    @action public setShouldShowRateModal = (value: boolean): void => {
         this.showRateModal = value;
     };
 
     @computed
-    get shouldShowHintPopup(): boolean {
+    public get shouldShowHintPopup(): boolean {
         // Here we exclude the possibility of a modal window overlapping the hint.
         // TODO: It should be done with correct z-index (AG-24339)
         return this.showHintPopup
@@ -313,18 +313,18 @@ export class AuthStore {
             && !this.rootStore.vpnStore.tooManyDevicesConnected;
     }
 
-    @action setShowHintPopup = (value: boolean): void => {
+    @action public setShowHintPopup = (value: boolean): void => {
         this.showHintPopup = value;
     };
 
-    @action closeHintPopup = async (): Promise<void> => {
+    @action public closeHintPopup = async (): Promise<void> => {
         await messenger.setHintPopupViewed();
         runInAction(() => {
             this.showHintPopup = false;
         });
     };
 
-    @action setUsername = (username: string): void => {
+    @action public setUsername = (username: string | null): void => {
         this.username = username;
     };
 }

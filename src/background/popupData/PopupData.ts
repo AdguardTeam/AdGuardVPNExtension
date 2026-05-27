@@ -3,11 +3,10 @@ import throttle from 'lodash/throttle';
 import { Permissions } from '../../common/permissions';
 import { log } from '../../common/logger';
 import { connectivityService } from '../connectivity/connectivityService';
-import { type PromoNotificationData, promoNotifications } from '../promoNotifications';
+import { promoNotifications } from '../promoNotifications';
 import { auth } from '../auth';
 import { settings } from '../settings';
 import { SETTINGS_IDS } from '../../common/constants';
-import { type LocalePreference } from '../../common/locale';
 import { sleep } from '../../common/helpers';
 import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
@@ -20,19 +19,18 @@ import { type PermissionsCheckerInterface } from '../permissionsChecker/Permissi
 import { type PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { type CredentialsInterface } from '../credentials/Credentials';
 import { type NonRoutableServiceInterface } from '../routability/NonRoutableService';
-import type { ConnectivityStateType, CanControlProxy } from '../schema';
-import { type VpnExtensionInfoInterface } from '../../common/schema/endpoints/vpnInfo';
+import type { ConnectivityStateType } from '../../common/connectivityState';
 import { isLocationsNumberAcceptable } from '../../common/is-locations-number-acceptable';
 import { appStatus } from '../appStatus';
-import { type LocationWithPing } from '../endpoints/LocationWithPing';
 import { hintPopup } from '../hintPopup';
 import { savedLocations } from '../savedLocations';
 import { locationsService } from '../endpoints/locationsService';
-import { type LocationsTab } from '../endpoints/locationsEnums';
 import { vpnBlockedNotice } from '../vpnBlockedNotice';
 import { abTestManager } from '../abTestManager';
-import { type VariantCache } from '../abTestManager/ABTestManager';
+import { profilesService } from '../profiles';
+import { ProfileManager } from '../profiles/profileManager';
 
+import { type PopupDataInterface, type PopupDataRetry } from './popupDataTypes';
 import { popupOpenedCounter } from './popupOpenedCounter';
 
 interface PopupDataProps {
@@ -43,76 +41,7 @@ interface PopupDataProps {
     credentials: CredentialsInterface;
 }
 
-interface PopupDataInterface {
-    permissionsError?: {
-        message: string,
-        status?: string,
-    } | null;
-    vpnInfo?: VpnExtensionInfoInterface | null;
-    locations?: LocationWithPing[];
-    selectedLocation?: LocationWithPing | null;
-    forwarderDomain: string;
-    isAuthenticated: string | boolean;
-    policyAgreement: boolean;
-    helpUsImprove: boolean;
-    canControlProxy?: CanControlProxy;
-    isProxyEnabled?: boolean;
-    isRoutable?: boolean;
-    isPremiumToken?: boolean;
-    connectivityState?: {
-        value: ConnectivityStateType,
-    };
-    promoNotification?: PromoNotificationData | null;
-    isFirstRun?: boolean;
-    flagsStorageData?: {
-        [key: string]: string | boolean;
-    }
-    isVpnEnabledByUrl?: boolean;
-    shouldShowRateModal?: boolean;
-    shouldShowMobileEdgePromoBanner?: boolean;
-    username?: string | null;
-    shouldShowHintPopup?: boolean;
-    isHostPermissionsGranted: boolean;
-
-    /**
-     * Flag that shows that all locations are not available. AG-25941.
-     */
-    isVpnBlocked?: boolean;
-
-    /**
-     * Flag indicating if region-specific notice should be shown.
-     */
-    shouldShowRegionNotice?: boolean;
-
-    /**
-     * Locations tab.
-     */
-    locationsTab: LocationsTab;
-
-    /**
-     * Saved location IDs.
-     */
-    savedLocationIds: string[];
-
-    /**
-     * User decision on marketing consent or `null` if not available.
-     */
-    marketingConsent?: boolean | null;
-
-    /**
-     * User's selected language preference.
-     */
-    selectedLanguage: LocalePreference;
-
-    /**
-     * Cached A/B experiment variant assignments.
-     */
-    experimentVariants?: VariantCache;
-}
-
-export interface PopupDataRetry extends PopupDataInterface {
-    hasRequiredData: boolean;
-}
+export { type PopupDataRetry } from './popupDataTypes';
 
 export class PopupData {
     private permissionsChecker: PermissionsCheckerInterface;
@@ -139,7 +68,7 @@ export class PopupData {
         this.credentials = credentials;
     }
 
-    getPopupData = async (url: string | null): Promise<PopupDataInterface> => {
+    public getPopupData = async (url: string | null): Promise<PopupDataInterface> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
         const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
@@ -147,6 +76,9 @@ export class PopupData {
         const forwarderDomain = await forwarder.updateAndGetDomain();
         const locationsTab = await locationsService.getLocationsTab();
         const savedLocationIds = await savedLocations.getSavedLocationIds();
+        const activeProfileId = profilesService.getActiveProfileId();
+        const { profiles } = await profilesService.getProfileInfoList();
+        const switchingProfileId = ProfileManager.getApplyingProfileId();
 
         const selectedLanguage = settings.getSelectedLanguage();
 
@@ -160,6 +92,9 @@ export class PopupData {
                 locationsTab,
                 savedLocationIds,
                 selectedLanguage,
+                activeProfileId,
+                profiles,
+                switchingProfileId,
             };
         }
 
@@ -233,14 +168,17 @@ export class PopupData {
             marketingConsent,
             selectedLanguage,
             experimentVariants,
+            activeProfileId,
+            profiles,
+            switchingProfileId,
         };
     };
 
-    retryCounter = 0;
+    private retryCounter = 0;
 
-    DEFAULT_RETRY_DELAY = 400;
+    private DEFAULT_RETRY_DELAY = 400;
 
-    async getPopupDataRetry(
+    public async getPopupDataRetry(
         url: string | null,
         retryNum = 1,
         retryDelay = this.DEFAULT_RETRY_DELAY,

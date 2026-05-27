@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Афіцыйны вэб-сайт"
     },
+    "version_history": {
+        "message": "Гісторыя версій"
+    },
+    "github": {
+        "message": "GitHub рэпазіторый"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -151,7 +157,7 @@
         "message": "Дашліце сябру спасылку з запрашэннем. Калі ён падпішыцца ў AdGuard VPN па вашай спасылцы, вы абодва атрымаеце %your_gb% ГБ хуткага VPN. Невыкарыстаная колькасць не мае тэрміну дзеяння — вы можаце выкарыстоўваць яе на працягу некалькіх месяцаў. Запрасіце да %max_friends% сяброў і атрымайце да %total_gb% ГБ у агульнай колькасці"
     },
     "settings_referral_invited_friends": {
-        "message": "Запрошаныя сябры %count%/%limit%"
+        "message": "Вы запрасілі сяброў: %count%/%limit%"
     },
     "settings_referral_invite_link": {
         "message": "Спасылка з запрашэннем"
@@ -160,7 +166,7 @@
         "message": "Скапіяваць запрашальную спасылку"
     },
     "settings_referral_link_copied": {
-        "message": "Спасылка скапіявана"
+        "message": "Спасылка скапіявана ў буфер абмену"
     },
     "settings_free_gbs": {
         "message": "Бясплатныя ГБ"
@@ -241,7 +247,7 @@
         "message": "Блакіраваць WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "Блакуе WebRTC, якое можа раскрыць ваш рэальны IP-адрас, нават калі вы выкарыстоўваеце проксі-сервер або VPN"
+        "message": "Блакіруе WebRTC, які можа раскрыць ваш рэальны IP-адрас. Гэта можа здарыцца нават пры выкарыстанні проксі або VPN"
     },
     "settings_webrtc_warning": {
         "message": "Некаторыя мэсанджары, платформы для трансляцый або гульні могуць перастаць працаваць належным чынам"
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Выключэнні"
     },
+    "settings_location_label": {
+        "message": "Месцазнаходжанне"
+    },
+    "settings_location_fastest_title": {
+        "message": "Найхутчэйшае месцазнаходжанне"
+    },
+    "settings_location_fastest_description": {
+        "message": "Аўтаматычна падключацца да самага хуткага месцазнаходжання"
+    },
+    "settings_profiles_title": {
+        "message": "Профілі"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Профіль"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Дазваляе вам усталяваць DNS-серверы і месцазнаходжанні і захоўваць асобныя спісы выключэнняў для розных выпадкаў выкарыстання, такіх як праца, дом або іншае"
+    },
+    "settings_profiles_default_name": {
+        "message": "Прадвызначана"
+    },
+    "settings_profiles_actions": {
+        "message": "Дзеянні"
+    },
+    "settings_profiles_action_use": {
+        "message": "Выкарыстаць профіль"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Перайменаваць"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Выдаліць"
+    },
+    "settings_profiles_create": {
+        "message": "Стварыць"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Стварыць профіль"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Назва"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Стварыць"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Скасаваць"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Максімальная даўжыня — %count% сімвал | Максімальная даўжыня — %count% сімвалы | Максімальная даўжыня — %count% сімвалаў | Максімальная даўжыня — %count% сімвалаў"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Гэта імя ўжо выкарыстоўваецца"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Перайменаваць профіль"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Новае імя"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Захаваць"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Выдаліць профіль %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Налады профілю для месцазнаходжання, WebRTC, DNS-сервера і выключэнняў вэб-сайтаў будуць выдалены"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN пераключыцца на профіль Прадвызначана"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Налады профілю %profile_name% для месцазнаходжання, WebRTC, DNS-сервера і выключэнняў вэб-сайтаў будуць выдалены"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Выдаліць"
+    },
+    "settings_description_current": {
+        "message": "Бягучы: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Дзе ўключаны VPN"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Калі пакінуць гэты спіс пустым, VPN адключаецца для ўсіх вэб-сайтаў"
+    },
+    "settings_applies_to_profile": {
+        "message": "Прымяняецца да вашага профілю <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Імпартаваць"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Статыстыка"
+    },
+    "popup_profiles_title": {
+        "message": "Профілі"
+    },
+    "popup_profiles_settings": {
+        "message": "Налады"
+    },
+    "profile_apply_error": {
+        "message": "Не ўдалося пераключыць профілі. Паспрабуйце яшчэ раз або звярніцеся ў падтрымку"
     },
     "popup_settings_free_description": {
         "message": "Даступна ў AdGuard VPN Unlimited"
@@ -670,7 +769,7 @@
         "message": "Падключэнне..."
     },
     "settings_connect": {
-        "message": "Падключыцца"
+        "message": "Падключыць"
     },
     "settings_vpn_enabled": {
         "message": "Падключана"
@@ -713,7 +812,7 @@
         "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_row_speed_free": {
-        "message": "Зніжаная",
+        "message": "Зніжана",
         "description": "Table row. Keep the text short or it won't fit the container. Wrapping is fine."
     },
     "popup_paywall_b_row_locations": {
@@ -762,7 +861,7 @@
         "message": "Магчыма, пазней"
     },
     "popup_feedback_title": {
-        "message": "Мы будзем рады ўбачыць ваш водгук"
+        "message": "Ваш водгук будзе вельмі дарэчы"
     },
     "popup_feedback_button": {
         "message": "Пакінуць водгук"
@@ -837,7 +936,7 @@
         "message": "знаходзіцца ў вашай лакальным сецiве і недаступны праз VPN"
     },
     "popup_site_status_vpn_disabled": {
-        "message": "VPN адключаны на гэтым сайце"
+        "message": "VPN адключаны на гэтым вэб-сайце"
     },
     "popup_auth_policy_agreement_title": {
         "message": "Сардэчна запрашаем"
@@ -1182,7 +1281,7 @@
         "message": "Вы выйшлі з AdGuard VPN"
     },
     "options_signedout_page_description_not_secure": {
-        "message": "Злучэнне не абаронена!"
+        "message": "Ваша падключэнне не абаронена!"
     },
     "options_signedout_page_description": {
         "message": "Націсніце на значок AdGuard VPN і зноў увайдзіце ў праграму, каб працягваць карыстацца інтэрнэтам бяспечна."

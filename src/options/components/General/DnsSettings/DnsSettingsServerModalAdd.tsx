@@ -20,16 +20,15 @@ import {
  * Add custom DNS server modal component.
  */
 export const DnsSettingsServerModalAdd = observer(() => {
-    const { settingsStore, telemetryStore } = useContext(rootStore);
+    const { settingsStore, dnsStore, telemetryStore } = useContext(rootStore);
 
     const {
         forwarderDomain,
-        isCustomDnsModalOpen,
-        customDnsServers,
-        dnsServerToEdit,
     } = settingsStore;
 
-    const isOpen = isCustomDnsModalOpen && !dnsServerToEdit;
+    const { dnsServerToEdit, customDnsServers } = dnsStore;
+
+    const isOpen = dnsStore.isCustomDnsModalOpen && !dnsServerToEdit;
 
     useTelemetryPageViewEvent(
         telemetryStore,
@@ -68,7 +67,7 @@ export const DnsSettingsServerModalAdd = observer(() => {
             TelemetryScreenName.DialogAddCustomDns,
         );
 
-        await settingsStore.addCustomDnsServer(
+        await dnsStore.addCustomDnsServer(
             normalizedDnsServerName,
             normalizedDnsServerAddress,
         );

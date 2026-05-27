@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Официален уебсайт"
     },
+    "version_history": {
+        "message": "История на версиите"
+    },
+    "github": {
+        "message": "GitHub хранилище"
+    },
     "eula": {
         "message": "Лицензионно споразумение с краен потребител"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Изключения"
     },
+    "settings_location_label": {
+        "message": "Местоположение"
+    },
+    "settings_location_fastest_title": {
+        "message": "Най-бърза локация"
+    },
+    "settings_location_fastest_description": {
+        "message": "Автоматично се свързва към най-бързата локация"
+    },
+    "settings_profiles_title": {
+        "message": "Профили"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Профил"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Позволява ви да задавате DNS сървъри и локации и да поддържате отделни списъци с изключения за различни случаи на употреба, като работа, дом или други"
+    },
+    "settings_profiles_default_name": {
+        "message": "По подразбиране"
+    },
+    "settings_profiles_actions": {
+        "message": "Действия"
+    },
+    "settings_profiles_action_use": {
+        "message": "Използвай профил"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Преименувай"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Изтрий"
+    },
+    "settings_profiles_create": {
+        "message": "Създайте"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Създай профил"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Име"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Създайте"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Отказ"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Максималната дължина е %count% символа | Максималната дължина е %count% символа | Максималната дължина е %count% символа"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Това име вече се използва"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Преименувай профил"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Ново име"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Запази"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Да се изтрие ли профилът %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Настройките на профила за локация, WebRTC, DNS сървър и изключения за уебсайтове ще бъдат изтрити"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN ще превключи към профила Default"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Настройките на профила %profile_name% за локация, WebRTC, DNS сървър и изключения за уебсайтове ще бъдат изтрити"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Изтрий"
+    },
+    "settings_description_current": {
+        "message": "Текущо: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Къде е включен VPN"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Оставянето на този списък празен деактивира VPN за всички сайтове"
+    },
+    "settings_applies_to_profile": {
+        "message": "Прилага се към вашия профил <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Импортирай"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Статистики"
+    },
+    "popup_profiles_title": {
+        "message": "Профили"
+    },
+    "popup_profiles_settings": {
+        "message": "Настройки"
+    },
+    "profile_apply_error": {
+        "message": "Неуспешно превключване на профили. Опитайте отново или се свържете с поддръжката"
     },
     "popup_settings_free_description": {
         "message": "Налично в AdGuard VPN Unlimited"

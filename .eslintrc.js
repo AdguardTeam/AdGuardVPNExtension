@@ -161,6 +161,39 @@ module.exports = {
             },
         ],
         'no-console': 'error',
+        '@typescript-eslint/explicit-member-accessibility': [
+            'error',
+            {
+                accessibility: 'explicit',
+                overrides: {
+                    accessors: 'explicit',
+                    constructors: 'no-public',
+                    methods: 'explicit',
+                    properties: 'explicit',
+                    parameterProperties: 'explicit',
+                },
+            },
+        ],
+        'jsdoc/require-hyphen-before-param-description': ['error', 'never', {
+            tags: {
+                param: 'never',
+                returns: 'never',
+                throws: 'never',
+                property: 'never',
+            },
+        }],
+        '@typescript-eslint/lines-around-comment': ['error', {
+            beforeBlockComment: true,
+            allowArrayStart: true,
+            allowBlockStart: true,
+            allowClassStart: true,
+            allowEnumStart: true,
+            allowInterfaceStart: true,
+            allowModuleStart: true,
+            allowObjectStart: true,
+            allowTypeStart: true,
+            ignorePattern: '^(?!\\*)',
+        }],
         // Check that every logger call has a context tag.
         '@adguard/logger-context/require-logger-context': ['error', {
             contextModuleName: 'vpn',

@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Pàgina web oficial"
     },
+    "version_history": {
+        "message": "Historial de versions"
+    },
+    "github": {
+        "message": "Repositori GitHub"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
+    "settings_location_label": {
+        "message": "Ubicació"
+    },
+    "settings_location_fastest_title": {
+        "message": "Ubicació més ràpida"
+    },
+    "settings_location_fastest_description": {
+        "message": "Connectar automàticament a la ubicació més ràpida"
+    },
+    "settings_profiles_title": {
+        "message": "Perfils"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Perfil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Et permet configurar servidors DNS i ubicacions i mantenir llistes d'exclusions separades per a diferents casos d'ús, com ara feina, casa o altres"
+    },
+    "settings_profiles_default_name": {
+        "message": "Per defecte"
+    },
+    "settings_profiles_actions": {
+        "message": "Accions"
+    },
+    "settings_profiles_action_use": {
+        "message": "Utilitzar perfil"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Canviar el nom"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Esborra"
+    },
+    "settings_profiles_create": {
+        "message": "Crear"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Crear perfil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Nom"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Crear"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Cancel·la"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "La longitud màxima és de %count% caràcters | La longitud màxima és de %count% caràcters | La longitud màxima és de %count% caràcters"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Aquest nom ja està en ús"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Canviar el nom del perfil"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nom nou"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Desar"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Eliminar el perfil %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "La configuració del perfil per a la ubicació, WebRTC, el servidor DNS i les exclusions de llocs web s'eliminarà"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN canviarà al perfil per defecte"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "La configuració del perfil %profile_name% per a la ubicació, WebRTC, el servidor DNS i les exclusions de llocs web s'eliminarà"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Esborra"
+    },
+    "settings_description_current": {
+        "message": "Actual: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "On és VPN activat"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Deixar aquesta llista buida desactiva el VPN per a tots els llocs web"
+    },
+    "settings_applies_to_profile": {
+        "message": "S'aplica al vostre perfil <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Importeu"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Estadístiques"
+    },
+    "popup_profiles_title": {
+        "message": "Perfils"
+    },
+    "popup_profiles_settings": {
+        "message": "Configuració"
+    },
+    "profile_apply_error": {
+        "message": "No s'han pogut canviar els perfils. Torneu-ho a provar o contacteu amb el suport"
     },
     "popup_settings_free_description": {
         "message": "Disponible a AdGuard VPN Unlimited"

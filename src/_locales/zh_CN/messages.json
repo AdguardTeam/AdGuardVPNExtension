@@ -135,6 +135,12 @@
     "official_website": {
         "message": "官方网站"
     },
+    "version_history": {
+        "message": "版本历史"
+    },
+    "github": {
+        "message": "GitHub 仓库"
+    },
     "eula": {
         "message": "最终用户许可协议"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "排除项"
     },
+    "settings_location_label": {
+        "message": "地址"
+    },
+    "settings_location_fastest_title": {
+        "message": "最快的位置"
+    },
+    "settings_location_fastest_description": {
+        "message": "自动连接到最快地点"
+    },
+    "settings_profiles_title": {
+        "message": "个人档案"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "个人档案"
+    },
+    "settings_profiles_subtitle": {
+        "message": "为不同使用场景（如工作、居家或其他）设置 DNS 服务器和地点，并保留独立的排除列表。"
+    },
+    "settings_profiles_default_name": {
+        "message": "默认"
+    },
+    "settings_profiles_actions": {
+        "message": "操作"
+    },
+    "settings_profiles_action_use": {
+        "message": "使用此个人档案"
+    },
+    "settings_profiles_action_rename": {
+        "message": "重命名"
+    },
+    "settings_profiles_action_delete": {
+        "message": "删除"
+    },
+    "settings_profiles_create": {
+        "message": "创建"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "创建个人档案"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "名称"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "创建"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "取消"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "最大长度为 %count% 个字符 | 最大长度为 %count% 个字符"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "此名称已被使用"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "重命名个人档案"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "新名称"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "保存"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "删除个人档案「%profile_name%」？"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "该个人档案中的地点、WebRTC、DNS 服务器和网站排除设置将被删除。"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN 将切换到默认个人档案"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "个人档案「%profile_name%」中的地点、WebRTC、DNS 服务器和网站排除设置将被删除。"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "删除"
+    },
+    "settings_description_current": {
+        "message": "当前：%mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPN 在什么网站上处于开启状态"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "将此列表留空将禁用 VPN 在所有网站运行"
+    },
+    "settings_applies_to_profile": {
+        "message": "应用于您的 <b>%profile_name%</b> 个人档案。"
     },
     "settings_exclusion_import_button": {
         "message": "导入"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "统计数据"
+    },
+    "popup_profiles_title": {
+        "message": "个人档案"
+    },
+    "popup_profiles_settings": {
+        "message": "设置"
+    },
+    "profile_apply_error": {
+        "message": "切换个人档案失败。请重试或联系技术支持。"
     },
     "popup_settings_free_description": {
         "message": "在 AdGuard VPN 无限版中可用"

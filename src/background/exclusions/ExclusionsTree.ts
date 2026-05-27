@@ -15,14 +15,14 @@ import { ExclusionNode } from './ExclusionNode';
 type ExclusionsNodesIndex = Map<string, ExclusionNode>;
 
 export class ExclusionsTree {
-    exclusionsTree = new ExclusionNode({ id: 'root', hostname: 'root' });
+    public exclusionsTree = new ExclusionNode({ id: 'root', hostname: 'root' });
 
     /**
      * Map used to keep links to the nodes for faster search of existing nodes
      */
-    exclusionsNodesIndex: ExclusionsNodesIndex = new Map();
+    private exclusionsNodesIndex: ExclusionsNodesIndex = new Map();
 
-    generateTree({
+    public generateTree({
         exclusions,
         indexedExclusions,
         services,
@@ -104,7 +104,7 @@ export class ExclusionsTree {
      * @param targetNode
      * @param childNode
      */
-    addChild(targetNode: ExclusionNode, childNode: ExclusionNode): void {
+    public addChild(targetNode: ExclusionNode, childNode: ExclusionNode): void {
         this.exclusionsNodesIndex.set(childNode.id, childNode);
         targetNode.addChild(childNode);
     }
@@ -114,7 +114,7 @@ export class ExclusionsTree {
      *
      * @returns Exclusions data.
      */
-    getExclusions(): ExclusionDtoInterface {
+    public getExclusions(): ExclusionDtoInterface {
         const exclusionsRoot = this.exclusionsTree.serialize();
         return exclusionsRoot;
     }
@@ -124,7 +124,7 @@ export class ExclusionsTree {
      *
      * @returns Exclusion node ID or all its children.
      */
-    getPathExclusions(id: string): string[] {
+    public getPathExclusions(id: string): string[] {
         return this.exclusionsTree.getPathExclusions(id);
     }
 
@@ -134,7 +134,7 @@ export class ExclusionsTree {
      * @param id
      * @returns State of exclusion node by id.
      */
-    getExclusionState(id: string): ExclusionState | null {
+    public getExclusionState(id: string): ExclusionState | null {
         return this.exclusionsTree.getExclusionNodeState(id);
     }
 
@@ -144,7 +144,7 @@ export class ExclusionsTree {
      *
      * @returns Exclusion node.
      */
-    getExclusionNode(id: string): ExclusionNode | null {
+    public getExclusionNode(id: string): ExclusionNode | null {
         if (this.exclusionsNodesIndex.has(id)) {
             return this.exclusionsNodesIndex.get(id) ?? null;
         }
@@ -158,7 +158,7 @@ export class ExclusionsTree {
      * @param id
      * @returns Parent exclusion node.
      */
-    getParentExclusionNode(id: string): ExclusionNode | null {
+    public getParentExclusionNode(id: string): ExclusionNode | null {
         return this.exclusionsTree.getParentExclusionNode(id);
     }
 }

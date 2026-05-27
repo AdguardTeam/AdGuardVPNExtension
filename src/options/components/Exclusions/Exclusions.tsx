@@ -1,9 +1,10 @@
-import React, { type ReactElement, useContext } from 'react';
+import React, { type ReactElement, useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
+import { ProfileHint } from '../ui/ProfileHint';
 import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { ExclusionsMode } from '../../../common/exclusionsConstants';
@@ -21,10 +22,33 @@ import { ExclusionsSearch } from './Search';
 import './exclusions.pcss';
 
 /**
+ * Exclusions component props.
+ */
+type ExclusionsProps = {
+    /**
+     * Back button handler. When provided, Title shows a back arrow.
+     */
+    onBack?: () => void;
+
+    /**
+     * Whether the component is rendered inside a profile context.
+     * Defaults to false.
+     */
+    isProfileContext?: boolean;
+};
+
+/**
  * Exclusions page component.
  */
-export const Exclusions = observer(() => {
+export const Exclusions = observer(({ onBack, isProfileContext = false }: ExclusionsProps) => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
+
+    useEffect(() => {
+        exclusionsStore.resetUiState();
+        return (): void => {
+            exclusionsStore.resetUiState();
+        };
+    }, [exclusionsStore]);
 
     const {
         modeSelectorModalOpen,
@@ -42,9 +66,13 @@ export const Exclusions = observer(() => {
         && !confirmAddModalOpen // `DialogExclusionsAddNotValidDomain` rendered on top of this screen
         && !selectListModalOpen; // `DialogImportedExclusions` rendered on top of this screen
 
+    const exclusionsScreenName = isProfileContext
+        ? TelemetryScreenName.ProfileExclusionScreen
+        : TelemetryScreenName.ExclusionsScreen;
+
     useTelemetryPageViewEvent(
         telemetryStore,
-        TelemetryScreenName.ExclusionsScreen,
+        exclusionsScreenName,
         canSendTelemetry,
     );
 
@@ -56,21 +84,21 @@ export const Exclusions = observer(() => {
 
     const openModeSelectorModal = (): void => {
         telemetryStore.sendCustomEvent(
-            TelemetryActionName.ModeClick,
-            TelemetryScreenName.ExclusionsScreen,
+            isProfileContext ? TelemetryActionName.ProfileModeClick : TelemetryActionName.ModeClick,
+            exclusionsScreenName,
         );
         exclusionsStore.setModeSelectorModalOpen(true);
     };
 
     const modeInfoParams = {
-        span: (chunks: string): ReactElement => {
+        span: (content: string): ReactElement => {
             return (
                 <button
                     type="button"
                     className="exclusions__mode-btn has-tab-focus"
                     onClick={openModeSelectorModal}
                 >
-                    {chunks}
+                    {content}
                     <Icon
                         name="pencil"
                         size="16"
@@ -90,8 +118,8 @@ export const Exclusions = observer(() => {
 
     const onAddExclusionClick = (): void => {
         telemetryStore.sendCustomEvent(
-            TelemetryActionName.AddWebsiteClick,
-            TelemetryScreenName.ExclusionsScreen,
+            isProfileContext ? TelemetryActionName.ProfileAddWebsiteClick : TelemetryActionName.AddWebsiteClick,
+            exclusionsScreenName,
         );
         exclusionsStore.openAddExclusionModal();
     };
@@ -112,14 +140,17 @@ export const Exclusions = observer(() => {
         <div className="exclusions">
             <Title
                 title={translator.getMessage('settings_exclusion_title')}
+                onClick={onBack}
+                subtitleIndent={false}
                 subtitle={(
                     <>
                         {modeInfo}
+                        <ProfileHint profileId={exclusionsStore.profileId} />
                         {renderSelectiveModeWarning()}
-                        <ExclusionsSearch />
+                        <ExclusionsSearch isProfileContext={isProfileContext} />
                     </>
                 )}
-                action={<Actions />}
+                action={<Actions isProfileContext={isProfileContext} />}
             />
             <List />
             {!exclusionsStore.exclusionsSearchValue && (
@@ -131,7 +162,7 @@ export const Exclusions = observer(() => {
                     {translator.getMessage('settings_exclusion_add_website')}
                 </Button>
             )}
-            <AddExclusionModal />
+            <AddExclusionModal isProfileContext={isProfileContext} />
             <ConfirmAddModal />
             <ModeSelectorModal />
         </div>

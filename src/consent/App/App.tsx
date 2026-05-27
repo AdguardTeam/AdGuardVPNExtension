@@ -83,19 +83,17 @@ export function App(): ReactElement {
     }, []);
 
     const messageHandler = (message: NotifierMessage): void => {
-        const { type, data, value } = message;
-
-        switch (type) {
+        switch (message.type) {
             case notifier.types.AUTH_CACHE_UPDATED:
-                switch (data) {
+                switch (message.data) {
                     case AuthCacheKey.PolicyAgreement:
-                        setPolicyAgreement(value);
+                        setPolicyAgreement(message.value);
                         break;
                     case AuthCacheKey.HelpUsImprove:
-                        setHelpUsImprove(value);
+                        setHelpUsImprove(message.value);
                         break;
                     case AuthCacheKey.WebAuthFlowState:
-                        setWebAuthFlowState(value);
+                        setWebAuthFlowState(message.value);
                         break;
                     default:
                         break;

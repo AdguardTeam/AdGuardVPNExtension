@@ -7,134 +7,134 @@ import { messenger } from '../../common/messenger';
 import type { RootStore } from './RootStore';
 
 export class UiStore {
-    @observable isOpenLocationsScreen: boolean = false;
+    @observable public isOpenLocationsScreen: boolean = false;
 
-    @observable isOpenOptionsModal: boolean = false;
+    @observable public isOpenOptionsModal: boolean = false;
 
-    @observable isUsageDataModalOpen: boolean = false;
+    @observable public isUsageDataModalOpen: boolean = false;
 
-    @observable isOpenRecovery: boolean = false;
+    @observable private isOpenRecovery: boolean = false;
 
-    @observable isConnecting: boolean = false;
+    @observable private isConnecting: boolean = false;
 
     /**
      * Flag indicating if region notice should be shown.
      * Retrieved from backend.
      */
-    @observable shouldShowRegionNotice: boolean = false;
+    @observable public shouldShowRegionNotice: boolean = false;
 
     /**
      * Flag for the notice if some locations are not available.
      *
      * Init value is `true`.
      */
-    @observable isShownVpnBlockedErrorNotice: boolean = true;
+    @observable public isShownVpnBlockedErrorNotice: boolean = true;
 
     /**
      * Flag for the details modal if some locations are not available.
      *
      * Init value is `false`.
      */
-    @observable isShownVpnBlockedErrorDetails: boolean = false;
+    @observable public isShownVpnBlockedErrorDetails: boolean = false;
 
     /**
      * Flag for the notice with timer for the limited offer for free accounts.
      *
      * Init value is `true`.
      */
-    @observable shouldShowLimitedOfferNotice: boolean = true;
+    @observable public shouldShowLimitedOfferNotice: boolean = true;
 
     /**
      * Flag for the details modal for the limited offer.
      *
      * Init value is `false`.
      */
-    @observable shouldShowLimitedOfferDetails: boolean = false;
+    @observable public shouldShowLimitedOfferDetails: boolean = false;
 
     /**
      * Flag for the mobile Edge promo modal display.
      *
      * Init value is `false`.
      */
-    @observable shouldShowMobileEdgePromoModal: boolean = false;
+    @observable public shouldShowMobileEdgePromoModal: boolean = false;
 
     /**
      * Flag for the streaming modal display.
      *
      * Init value is `false`.
      */
-    @observable isStreamingModalOpen: boolean = false;
+    @observable public isStreamingModalOpen: boolean = false;
 
     /**
      * Cached A/B experiment variant assignments.
      */
-    @observable experimentVariants: VariantCache = {};
+    @observable private experimentVariants: VariantCache = {};
 
     /**
      * Streaming platforms to display in the modal.
      */
-    @observable streamingPlatforms: string[] = [];
+    @observable public streamingPlatforms: string[] = [];
 
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 
-    @action enableConnecting = (): void => {
+    @action private enableConnecting = (): void => {
         this.isConnecting = true;
     };
 
-    @action disableConnecting = (): void => {
+    @action private disableConnecting = (): void => {
         this.isConnecting = false;
     };
 
-    @action openLocationsScreen = (): void => {
+    @action public openLocationsScreen = (): void => {
         this.isOpenLocationsScreen = true;
     };
 
-    @action closeLocationsScreen = (): void => {
+    @action public closeLocationsScreen = (): void => {
         this.isOpenLocationsScreen = false;
     };
 
-    @action openOptionsModal = (): void => {
+    @action public openOptionsModal = (): void => {
         this.isOpenOptionsModal = true;
     };
 
-    @action closeOptionsModal = (): void => {
+    @action public closeOptionsModal = (): void => {
         this.isOpenOptionsModal = false;
     };
 
-    @action openUsageDataModal = (): void => {
+    @action public openUsageDataModal = (): void => {
         this.isUsageDataModalOpen = true;
     };
 
-    @action closeUsageDataModal = (): void => {
+    @action public closeUsageDataModal = (): void => {
         this.isUsageDataModalOpen = false;
     };
 
-    @action setShouldShowRegionNotice = (value: boolean): void => {
+    @action public setShouldShowRegionNotice = (value: boolean): void => {
         this.shouldShowRegionNotice = value;
     };
 
-    @action openVpnBlockedErrorNotice = (): void => {
+    @action public openVpnBlockedErrorNotice = (): void => {
         this.isShownVpnBlockedErrorNotice = true;
     };
 
-    @action closeVpnBlockedErrorNotice = async (): Promise<void> => {
+    @action public closeVpnBlockedErrorNotice = async (): Promise<void> => {
         this.isShownVpnBlockedErrorNotice = false;
         this.shouldShowRegionNotice = false;
         await messenger.markRegionNoticeAsShown();
     };
 
-    @action openVpnBlockedErrorDetails = (): void => {
+    @action public openVpnBlockedErrorDetails = (): void => {
         // hide the notice
         this.isShownVpnBlockedErrorNotice = false;
         // show the details
         this.isShownVpnBlockedErrorDetails = true;
     };
 
-    @action closeVpnBlockedErrorDetails = async (): Promise<void> => {
+    @action public closeVpnBlockedErrorDetails = async (): Promise<void> => {
         this.isShownVpnBlockedErrorDetails = false;
 
         this.shouldShowRegionNotice = false;
@@ -144,21 +144,21 @@ export class UiStore {
     /**
      * Opens the notice with timer for the limited offer.
      */
-    @action openLimitedOfferNotice = (): void => {
+    @action public openLimitedOfferNotice = (): void => {
         this.shouldShowLimitedOfferNotice = true;
     };
 
     /**
      * Closes the notice with timer for the limited offer.
      */
-    @action closeLimitedOfferNotice = (): void => {
+    @action private closeLimitedOfferNotice = (): void => {
         this.shouldShowLimitedOfferNotice = false;
     };
 
     /**
      * Opens the details modal for the limited offer.
      */
-    @action openLimitedOfferDetails = (): void => {
+    @action public openLimitedOfferDetails = (): void => {
         // hide the notice
         this.shouldShowLimitedOfferNotice = false;
         // show the details
@@ -168,21 +168,21 @@ export class UiStore {
     /**
      * Closes the details modal for the limited offer.
      */
-    @action closeLimitedOfferDetails = (): void => {
+    @action public closeLimitedOfferDetails = (): void => {
         this.shouldShowLimitedOfferDetails = false;
     };
 
     /**
      * Opens the modal for the mobile edge extension promo.
      */
-    @action openMobileEdgePromoModal = (): void => {
+    @action public openMobileEdgePromoModal = (): void => {
         this.shouldShowMobileEdgePromoModal = true;
     };
 
     /**
      * Closes the modal for the mobile edge extension promo.
      */
-    @action closeMobileEdgePromoModal = (): void => {
+    @action public closeMobileEdgePromoModal = (): void => {
         this.shouldShowMobileEdgePromoModal = false;
     };
 
@@ -191,7 +191,7 @@ export class UiStore {
      *
      * @param platforms Array of streaming platform names.
      */
-    @action openStreamingModal = (platforms: string[]): void => {
+    @action public openStreamingModal = (platforms: string[]): void => {
         this.streamingPlatforms = platforms;
         this.isStreamingModalOpen = true;
     };
@@ -199,7 +199,7 @@ export class UiStore {
     /**
      * Closes the streaming modal.
      */
-    @action closeStreamingModal = (): void => {
+    @action public closeStreamingModal = (): void => {
         this.isStreamingModalOpen = false;
         this.streamingPlatforms = [];
     };
@@ -209,7 +209,7 @@ export class UiStore {
      *
      * @param variants Variant cache from the background.
      */
-    @action setExperimentVariants(variants: VariantCache): void {
+    @action public setExperimentVariants(variants: VariantCache): void {
         this.experimentVariants = variants;
     }
 
@@ -217,7 +217,7 @@ export class UiStore {
      * Whether paywall B variant should be shown.
      * Part of AG-49792 AB test task.
      */
-    @computed get isPaywallBVariant(): boolean {
+    @computed public get isPaywallBVariant(): boolean {
         return this.experimentVariants[AG49792_PAYWALL_SLOT] === AG49792_PAYWALL_B_VERSION_NAME;
     }
 }

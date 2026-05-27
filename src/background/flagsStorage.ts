@@ -56,7 +56,7 @@ class FlagsStorage implements FlagsStorageInterface {
     private flagsStorageData: FlagsStorageData | null = null;
 
     /** @inheritdoc */
-    set = async (key: string, value: boolean): Promise<void> => {
+    public set = async (key: string, value: boolean): Promise<void> => {
         if (!this.flagsStorageData) {
             log.error('[vpn.FlagsStorage]: Unable to get flags data from storage');
             return;
@@ -66,13 +66,13 @@ class FlagsStorage implements FlagsStorageInterface {
     };
 
     /** @inheritdoc */
-    setDefaults = async (): Promise<void> => {
+    public setDefaults = async (): Promise<void> => {
         this.flagsStorageData = { ...FLAG_STORAGE_DEFAULTS };
         await browserApi.storage.set(FLAGS_STORAGE_KEY, this.flagsStorageData);
     };
 
     /** @inheritdoc */
-    getFlagsStorageData = async (): Promise<FlagsStorageData> => {
+    public getFlagsStorageData = async (): Promise<FlagsStorageData> => {
         if (!this.flagsStorageData) {
             await this.setDefaults();
         }
@@ -83,23 +83,23 @@ class FlagsStorage implements FlagsStorageInterface {
     };
 
     /** @inheritdoc */
-    onRegister = async (): Promise<void> => {
+    public onRegister = async (): Promise<void> => {
         await this.set(FLAGS_FIELDS.IS_NEW_USER, true);
     };
 
     /** @inheritdoc */
-    onAuthenticate = async (): Promise<void> => {
+    public onAuthenticate = async (): Promise<void> => {
         await this.set(FLAGS_FIELDS.IS_NEW_USER, false);
     };
 
     /** @inheritdoc */
-    onDeauthenticate = async (): Promise<void> => {
+    public onDeauthenticate = async (): Promise<void> => {
         await this.setDefaults();
         await updateService.setIsFirstRunFalse();
     };
 
     /** @inheritdoc */
-    init = async (): Promise<void> => {
+    public init = async (): Promise<void> => {
         if (!this.flagsStorageData) {
             await this.setDefaults();
         }

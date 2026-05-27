@@ -135,6 +135,12 @@
     "official_website": {
         "message": "האתר הרשמי"
     },
+    "version_history": {
+        "message": "היסטורית גרסאות"
+    },
+    "github": {
+        "message": "מאגר GitHub"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "החרגות"
     },
+    "settings_location_label": {
+        "message": "מיקום"
+    },
+    "settings_location_fastest_title": {
+        "message": "המיקום המהיר ביותר"
+    },
+    "settings_location_fastest_description": {
+        "message": "התחבר אוטומטית למיקום המהיר ביותר"
+    },
+    "settings_profiles_title": {
+        "message": "פרופילים"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "פרופיל"
+    },
+    "settings_profiles_subtitle": {
+        "message": "מאפשר להגדיר שרתים ומיקומים של DNS ולנהל רשימות החרגה נפרדות עבור מצבים שונים, כגון עבודה, בית או אחרים"
+    },
+    "settings_profiles_default_name": {
+        "message": "ברירת מחדל"
+    },
+    "settings_profiles_actions": {
+        "message": "פעולות"
+    },
+    "settings_profiles_action_use": {
+        "message": "השתמש בפרופיל"
+    },
+    "settings_profiles_action_rename": {
+        "message": "שנה שם"
+    },
+    "settings_profiles_action_delete": {
+        "message": "מחק"
+    },
+    "settings_profiles_create": {
+        "message": "לִיצוֹר"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "צור פרופיל"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "שם"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "לִיצוֹר"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "בטל"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "אורך מקסימלי הוא %count% תווים | אורך מקסימלי הוא %count% תווים | אורך מקסימלי הוא %count% תווים"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "שם זה כבר בשימוש"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "שנה שם פרופיל"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "שם חדש"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "שמור"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "למחוק את הפרופיל %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "הגדרות הפרופיל של מיקום, WebRTC, שרת DNS ואתרי אינטרנט יימחקו"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "ה-AdGuard VPN יעבור לפרופיל ברירת המחדל"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "הגדרות הפרופיל של %profile_name% הנוגעות למיקום, WebRTC, שרת DNS והחרגות אתרים יימחקו"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "מחק"
+    },
+    "settings_description_current": {
+        "message": "נוכחי: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "איפה ה-VPN פועל"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "השארת רשימה זו ריקה מבטלת את ה-VPN עבור כל האתרים"
+    },
+    "settings_applies_to_profile": {
+        "message": "חל על פרופיל <b>%profile_name%</b> שלך"
     },
     "settings_exclusion_import_button": {
         "message": "ייבא"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "סטטיסטיקות"
+    },
+    "popup_profiles_title": {
+        "message": "פרופילים"
+    },
+    "popup_profiles_settings": {
+        "message": "הגדרות"
+    },
+    "profile_apply_error": {
+        "message": "המעבר בין פרופילים נכשל. נסה שוב או פנה לתמיכה"
     },
     "popup_settings_free_description": {
         "message": "זמין ב-AdGuard VPN Unlimited"

@@ -13,6 +13,7 @@ import { Prefs } from '../../../common/prefs';
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { RatePopup } from '../RatePopup';
 import { StatsMenuItem } from '../Stats';
+import { ProfilesMenuItem } from '../Profiles/ProfilesMenuItem';
 
 import { Option } from './Option';
 
@@ -104,6 +105,8 @@ export const ExtraOptions = observer(() => {
                 && renderOption('popup_mobile_edge_promo_text', handleMobileEdgePromoClick)}
 
             {renderOption('popup_settings_other_products', handleOtherProductsClick)}
+
+            <ProfilesMenuItem />
 
             {renderOption('popup_settings_open_settings', openSettings)}
 

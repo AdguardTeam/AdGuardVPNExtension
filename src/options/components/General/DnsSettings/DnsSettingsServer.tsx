@@ -1,7 +1,7 @@
 import React, { type ReactElement } from 'react';
 
 import { type DnsServerData } from '../../../../background/schema';
-import { Radio } from '../../ui/Radio';
+import { Radio } from '../../../../common/components/Radio';
 import { IconButton, type IconButtonProps } from '../../../../common/components/Icons';
 
 /**

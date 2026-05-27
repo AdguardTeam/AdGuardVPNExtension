@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 
+import { useMachine } from '@xstate/react';
+
 import { Header } from '../Header';
 import { InfoMessage, FeedbackMessage } from '../InfoMessage';
 import { Locations } from '../Locations';
@@ -14,7 +16,6 @@ import { Icons } from '../../../common/components/Icons';
 import { CurrentEndpoint } from '../Settings/CurrentEndpoint';
 import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 import { rootStore } from '../../stores';
-import { RequestStatus } from '../../stores/constants';
 import { log } from '../../../common/logger';
 import { type NotifierMessage, messenger } from '../../../common/messenger';
 import { notifier } from '../../../common/notifier';
@@ -34,9 +35,13 @@ import { SETTINGS_IDS } from '../../../common/constants';
 import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { MobileEdgePromo } from '../MobileEdgePromo';
 import { Stats } from '../Stats';
-import { DotsLoader } from '../../../common/components/DotsLoader';
+import { ProfilesScreen } from '../Profiles/ProfilesScreen';
+import { ProfileToast } from '../Profiles/ProfileToast/ProfileToast';
+import { SkeletonLoading } from '../SkeletonLoading';
 
-import { AppLoaders } from './AppLoaders';
+import { FullScreenLoader } from './FullScreenLoader';
+import { popupAppMachine } from './popupAppMachine';
+import { PopupEvent, PopupState } from './popupAppMachineEnums';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -68,8 +73,6 @@ export const App = observer(() => {
 
     const { authenticated } = authStore;
 
-    const { initStatus } = globalStore;
-
     const {
         isOpenOptionsModal,
         isOpenLocationsScreen,
@@ -84,57 +87,120 @@ export const App = observer(() => {
         isPremiumToken,
         filteredLocations,
         notSearchingAndSavedTab,
+        isProfilesScreenOpen,
     } = vpnStore;
 
-    const renderAuth = !authenticated && !hasGlobalError;
+    const [state, send] = useMachine(popupAppMachine, {
+        services: {
+            /**
+             * Loads platform-specific data: Android detection and appearance theme.
+             */
+            loadPlatformData: async () => {
+                await globalStore.getAndroidData();
+                await settingsStore.getAppearanceTheme();
+            },
+
+            /**
+             * Checks whether the user is authenticated.
+             *
+             * @returns The result so the guard can read it from event.data.
+             */
+            loadAuthStatus: async () => {
+                const isAuthenticated = await globalStore.initAuthenticatedStatus();
+                return { isAuthenticated };
+            },
+
+            /**
+             * Loads startup data required for onboarding decisions.
+             * If onboarding will be shown, starts preloading popup data
+             * in the background so it's ready when onboarding finishes.
+             *
+             * @returns Whether onboarding should be shown.
+             */
+            loadStartupData: async () => {
+                const shouldShowOnboarding = await globalStore.initStartupData();
+                if (shouldShowOnboarding) {
+                    // Start loading popup data in the background while user
+                    // goes through onboarding screens — mirrors the old init() behavior
+                    globalStore.startPopupDataPreload();
+                }
+                return { shouldShowOnboarding };
+            },
+
+            /**
+             * Loads full popup data: stats, popup data, desktop app data.
+             * If a preload was started during onboarding, awaits the existing
+             * promise instead of starting a fresh load.
+             */
+            loadPopupData: async () => {
+                await globalStore.awaitPopupData();
+            },
+        },
+        guards: {
+            /**
+             * Checks if the user is authenticated from the service result.
+             *
+             * @returns Whether the user is authenticated.
+             */
+            isAuthenticated: (_context, event) => {
+                return event.data?.isAuthenticated === true;
+            },
+
+            /**
+             * Checks if onboarding should be shown from the service result.
+             *
+             * @returns Whether onboarding should be shown.
+             */
+            shouldShowOnboarding: (_context, event) => {
+                return event.data?.shouldShowOnboarding === true;
+            },
+        },
+    });
 
     useEffect(() => {
-        (async (): Promise<void> => {
-            await settingsStore.getAppearanceTheme();
-            await globalStore.init();
-        })();
+        send(PopupEvent.Init);
+    }, [send]);
 
+    useEffect(() => {
         settingsStore.trackSystemTheme();
 
         const messageHandler = async (message: NotifierMessage): Promise<void> => {
-            const { type, data, value } = message;
-
-            switch (type) {
+            switch (message.type) {
                 case notifier.types.VPN_INFO_UPDATED: {
-                    vpnStore.setVpnInfo(data);
+                    vpnStore.setVpnInfo(message.data);
                     break;
                 }
                 case notifier.types.LOCATIONS_UPDATED: {
-                    vpnStore.setLocations(data);
+                    vpnStore.setLocations(message.data);
                     break;
                 }
                 case notifier.types.LOCATION_STATE_UPDATED: {
-                    vpnStore.updateLocationState(data);
+                    vpnStore.updateLocationState(message.data);
                     break;
                 }
                 case notifier.types.CURRENT_LOCATION_UPDATED: {
-                    vpnStore.setSelectedLocation(data);
+                    vpnStore.setSelectedLocation(message.data);
                     break;
                 }
                 case notifier.types.PERMISSIONS_ERROR_UPDATE: {
-                    settingsStore.setGlobalError(data);
+                    settingsStore.setGlobalError(message.data);
                     // If there is no error, it is time to check if token is premium
-                    if (!data) {
+                    if (!message.data) {
                         await vpnStore.requestIsPremiumToken();
                     }
                     break;
                 }
                 case notifier.types.TOKEN_PREMIUM_STATE_UPDATED: {
-                    vpnStore.setIsPremiumToken(data);
+                    vpnStore.setIsPremiumToken(message.data);
                     break;
                 }
                 case notifier.types.CONNECTIVITY_STATE_CHANGED: {
-                    settingsStore.setConnectivityState(data);
+                    settingsStore.setConnectivityState(message.data);
                     break;
                 }
                 case notifier.types.TOO_MANY_DEVICES_CONNECTED: {
                     vpnStore.setTooManyDevicesConnected(true);
-                    vpnStore.setMaxDevicesAllowed(data);
+                    vpnStore.setMaxDevicesAllowed(message.data);
                     break;
                 }
                 case notifier.types.SERVER_ERROR: {
@@ -143,10 +209,10 @@ export const App = observer(() => {
                 }
                 case notifier.types.SETTING_UPDATED: {
                     if (
-                        data === SETTINGS_IDS.HELP_US_IMPROVE
-                        && typeof value === 'boolean'
+                        message.data === SETTINGS_IDS.HELP_US_IMPROVE
+                        && typeof message.value === 'boolean'
                     ) {
-                        telemetryStore.setIsHelpUsImproveEnabled(value);
+                        telemetryStore.setIsHelpUsImproveEnabled(message.value);
                     }
                     break;
                 }
@@ -159,15 +225,33 @@ export const App = observer(() => {
                     break;
                 }
                 case notifier.types.AUTH_CACHE_UPDATED: {
-                    authStore.handleAuthCacheUpdate(data, value);
+                    authStore.handleAuthCacheUpdate(message.data, message.value);
                     break;
                 }
                 case notifier.types.LANGUAGE_CHANGED: {
-                    await translationStore.setLocalePreference(data);
+                    await translationStore.setLocalePreference(message.data);
+                    break;
+                }
+                case notifier.types.USER_AUTHENTICATED: {
+                    authStore.setIsAuthenticated(true);
+                    send(PopupEvent.UserAuthenticated);
+                    break;
+                }
+                case notifier.types.USER_DEAUTHENTICATED: {
+                    authStore.setIsAuthenticated(false);
+                    send(PopupEvent.UserDeauthenticated);
+                    break;
+                }
+                case notifier.types.PROFILE_SWITCH_IN_PROGRESS: {
+                    vpnStore.startSwitchingProfile(message.data);
+                    break;
+                }
+                case notifier.types.ACTIVE_PROFILE_CHANGED: {
+                    vpnStore.handleProfileChanged(message.data);
                     break;
                 }
                 default: {
-                    log.debug('[vpn.App]: there is no such message type: ', type);
+                    log.debug('[vpn.App]: there is no such message type: ', message.type);
                     break;
                 }
             }
@@ -188,6 +272,10 @@ export const App = observer(() => {
             notifier.types.STATS_UPDATED,
             notifier.types.AUTH_CACHE_UPDATED,
             notifier.types.LANGUAGE_CHANGED,
+            notifier.types.USER_AUTHENTICATED,
+            notifier.types.USER_DEAUTHENTICATED,
+            notifier.types.PROFILE_SWITCH_IN_PROGRESS,
+            notifier.types.ACTIVE_PROFILE_CHANGED,
         ];
 
         const { onUnload, portId } = messenger.createLongLivedConnection(events, messageHandler);
@@ -199,7 +287,7 @@ export const App = observer(() => {
             onUnload();
             settingsStore.stopTrackSystemTheme();
         };
-    }, []);
+    }, [send]);
 
     /**
      * We are adding "android" class to html element
@@ -289,55 +377,102 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
+    const { renderNewsletter, renderOnboarding, renderUpgradeScreen } = authStore;
+
     /**
-     * TODO(AG-47110) It's probably worth implementing a state machine here,
-     * because managing loading statuses for popupData,
-     * authState and data for onboarding is pretty complicated with current approach.
-     * Current render order for onboarding is:
-     * - Newsletter
-     * - Onboarding
-     * - UpgradeScreen
-     * - AppLoaders (popupData)
-     * - Popup
-    */
-    if (authStore.renderNewsletter && !renderAuth) {
-        return <Newsletter />;
+     * Whether onboarding is complete:
+     * true when the machine is in ShowingOnboarding state
+     * but none of the onboarding screens need to be rendered anymore.
+     */
+    const isOnboardingComplete = state.matches(PopupState.ShowingOnboarding)
+        && !renderNewsletter
+        && !renderOnboarding
+        && !(renderUpgradeScreen && !isPremiumToken);
+
+    /**
+     * Transition out of ShowingOnboarding when all onboarding screens are dismissed.
+     * This runs as an effect (not during render) to avoid side effects in the render phase.
+     */
+    useEffect(() => {
+        if (isOnboardingComplete) {
+            send(PopupEvent.OnboardingComplete);
+        }
+    }, [isOnboardingComplete, send]);
+
+    if (state.matches(PopupState.Idle)
+        || state.matches(PopupState.LoadingPlatformData)
+        || state.matches(PopupState.LoadingAuthStatus)) {
+        return null;
     }
 
-    if (authStore.renderOnboarding && !renderAuth) {
+    // Show authentication screen
+    if (state.matches(PopupState.ShowingAuthScreen)) {
         return (
             <>
-                <Onboarding />
+                <Authentication />
                 <Icons />
+                <ServerErrorPopup />
             </>
         );
     }
 
-    if (!isPremiumToken && authStore.renderUpgradeScreen && !renderAuth) {
-        const UpgradeComponent = isPaywallBVariant ? UpgradeScreenB : UpgradeScreen;
+    // Loading startup data
+    if (state.matches(PopupState.LoadingStartupData)) {
+        return <FullScreenLoader />;
+    }
+
+    // Show onboarding screens
+    if (state.matches(PopupState.ShowingOnboarding)) {
+        if (renderNewsletter) {
+            return <Newsletter />;
+        }
+
+        if (renderOnboarding) {
+            return (
+                <>
+                    <Onboarding />
+                    <Icons />
+                </>
+            );
+        }
+
+        if (!isPremiumToken && renderUpgradeScreen) {
+            const UpgradeComponent = isPaywallBVariant ? UpgradeScreenB : UpgradeScreen;
+
+            return (
+                <>
+                    <UpgradeComponent />
+                    <Icons />
+                </>
+            );
+        }
+
+        // All onboarding screens dismissed — useEffect above will fire OnboardingComplete
+        return <FullScreenLoader />;
+    }
+
+    // Loading popup data — show skeleton for authenticated users, dots for others
+    if (state.matches(PopupState.LoadingPopupData)) {
+        if (authenticated) {
+            return <SkeletonLoading />;
+        }
+
+        return <FullScreenLoader />;
+    }
+
+    // Error state
+    if (state.matches(PopupState.Error)) {
+        const handleRetry = (): void => {
+            send(PopupEvent.Retry);
+        };
 
         return (
             <>
-                <UpgradeComponent />
+                <Header showMenuButton={false} />
+                <GlobalError onRetry={handleRetry} />
                 <Icons />
+                <ServerErrorPopup />
             </>
-        );
-    }
-
-    // show one type of loader while popup data is loading.
-    if (initStatus === RequestStatus.Pending) {
-        return (
-            <AppLoaders />
-        );
-    }
-
-    if (authStore.requestProcessState !== RequestStatus.Pending
-        && settingsStore.checkPermissionsState !== RequestStatus.Pending
-        && globalStore.status === RequestStatus.Pending) {
-        return (
-            <div className="data-loader">
-                <DotsLoader />
-            </div>
         );
     }
 
@@ -348,7 +483,7 @@ export const App = observer(() => {
         );
     }
 
-    // warn authenticated users if no locations were fetch. AG-28164
+    // warn authenticated users if no locations were fetched. AG-28164
     if (authenticated
         && !hasGlobalError
         && notSearchingAndSavedTab
@@ -358,7 +493,8 @@ export const App = observer(() => {
         );
     }
 
-    if (renderAuth) {
+    // Unauthenticated user reaching showingPopup (edge case: logout during loading)
+    if (!authenticated && !hasGlobalError) {
         return (
             <>
                 <Authentication />
@@ -415,6 +551,16 @@ export const App = observer(() => {
         return (
             <>
                 <Stats />
+                <Icons />
+            </>
+        );
+    }
+
+    if (isProfilesScreenOpen) {
+        return (
+            <>
+                <ProfilesScreen />
+                <ProfileToast />
                 <Icons />
             </>
         );

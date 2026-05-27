@@ -7,13 +7,13 @@ interface WebRTCInterface {
 }
 
 class WebRTC implements WebRTCInterface {
-    WEB_RTC_HANDLING_ALLOWED: boolean;
+    private WEB_RTC_HANDLING_ALLOWED: boolean;
 
     constructor() {
         this.WEB_RTC_HANDLING_ALLOWED = false;
     }
 
-    handleBlockWebRTC = (webRTCDisabled: boolean): void => {
+    private handleBlockWebRTC = (webRTCDisabled: boolean): void => {
         // Edge doesn't support privacy api
         // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/privacy
         if (!browser.privacy) {
@@ -48,21 +48,21 @@ class WebRTC implements WebRTCInterface {
         }
     };
 
-    blockWebRTC = (): void => {
+    public blockWebRTC = (): void => {
         if (!this.WEB_RTC_HANDLING_ALLOWED) {
             return;
         }
         this.handleBlockWebRTC(true);
     };
 
-    unblockWebRTC = (force = false): void => {
+    public unblockWebRTC = (force = false): void => {
         if (!this.WEB_RTC_HANDLING_ALLOWED && !force) {
             return;
         }
         this.handleBlockWebRTC(false);
     };
 
-    setWebRTCHandlingAllowed = (webRTCHandlingAllowed: boolean, proxyEnabled: boolean): void => {
+    public setWebRTCHandlingAllowed = (webRTCHandlingAllowed: boolean, proxyEnabled: boolean): void => {
         this.WEB_RTC_HANDLING_ALLOWED = webRTCHandlingAllowed;
         if (!webRTCHandlingAllowed || !proxyEnabled) {
             this.unblockWebRTC(true);

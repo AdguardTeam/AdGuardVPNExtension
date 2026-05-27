@@ -13,6 +13,7 @@ import { tabs } from '../common/tabs';
 import { exclusions } from './exclusions';
 import { settings } from './settings';
 import { actions } from './actions';
+import { profilesService } from './profiles';
 
 type ContextType = browser.Menus.ContextType;
 type CreateCreatePropertiesType = browser.Menus.CreateCreatePropertiesType;
@@ -56,13 +57,19 @@ const CONTEXT_MENU_ITEMS: ContextMenuItems = {
         id: 'selective_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_selective_mode'),
-        action: async () => exclusions.setMode(ExclusionsMode.Selective, true),
+        action: async () => {
+            const profileId = profilesService.getActiveProfileId();
+            await exclusions.setMode(profileId, ExclusionsMode.Selective, true);
+        },
     },
     regular_mode: {
         id: 'regular_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_general_mode'),
-        action: async () => exclusions.setMode(ExclusionsMode.Regular, true),
+        action: async () => {
+            const profileId = profilesService.getActiveProfileId();
+            await exclusions.setMode(profileId, ExclusionsMode.Regular, true);
+        },
     },
     separator: {
         id: 'separator',
@@ -195,7 +202,7 @@ const getContextMenuItems = async (tabUrl: string | undefined): Promise<CreateCr
         ...CONTEXT_MENU_ITEMS.selective_mode,
     };
 
-    if (await exclusions.isInverted()) {
+    if (await exclusions.isInverted(profilesService.getActiveProfileId())) {
         selectiveModeItem.checked = true;
     } else {
         regularModeItem.checked = true;

@@ -27,6 +27,13 @@ import type { VpnExtensionInfoInterface } from '../../../src/common/schema/endpo
 
 vi.mock('../../../src/background/settings');
 vi.mock('../../../src/background/connectivity/connectivityService');
+vi.mock('../../../src/background/profiles', () => ({
+    profilesService: {
+        getActiveProfileId: vi.fn().mockReturnValue('default'),
+        getActiveProfileSettings: vi.fn().mockReturnValue({ selectedLocation: null }),
+        updateProfileSettings: vi.fn().mockResolvedValue(undefined),
+    },
+}));
 
 vi.mock('../../../src/background/api/fallbackApi', () => {
     return {

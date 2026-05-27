@@ -40,6 +40,11 @@ export interface ModalProps extends PropsWithChildren {
     size?: 'large' | 'medium';
 
     /**
+     * Whether action buttons should stretch to full width.
+     */
+    fullWidthActions?: boolean;
+
+    /**
      * Additional class name.
      */
     className?: string;
@@ -57,12 +62,14 @@ export function Modal({
     isOpen,
     size = 'large',
     className,
+    fullWidthActions,
     children,
     onClose,
 }: ModalProps): ReactElement | null {
     const classes = classNames(
         'modal',
         `modal--size-${size}`,
+        fullWidthActions && 'modal--full-width-actions',
         className,
     );
 

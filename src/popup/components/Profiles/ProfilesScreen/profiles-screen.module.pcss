@@ -1,0 +1,71 @@
+.root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--fills-backgrounds-page-background-default);
+}
+
+.header {
+    height: 48px;
+    padding: 12px;
+    text-align: start;
+    border-radius: 8px;
+    transition: var(--t3);
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: var(--fills-backgrounds-page-background-hovered);
+        }
+    }
+
+    &:active {
+        background-color: var(--fills-backgrounds-page-background-pressed);
+    }
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text-main-text-main-default);
+    padding: 24px 16px 16px;
+}
+
+.list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+
+.profileItemTitle {
+    font-weight: 400;
+    word-break: break-word;
+}
+
+.settingsLink {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 8px;
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: var(--fills-backgrounds-page-background-hovered);
+        }
+    }
+
+    &:active {
+        background-color: var(--fills-backgrounds-page-background-pressed);
+    }
+}
+
+.settingsText {
+    font-size: 16px;
+    line-height: 1.3;
+    color: var(--text-main-text-main-default);
+}

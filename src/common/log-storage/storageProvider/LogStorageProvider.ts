@@ -7,7 +7,7 @@ export interface LogStorageProvider {
     /**
      * Stores the provided logs.
      *
-     * @param logs - The logs to store.
+     * @param logs The logs to store.
      * @returns A promise that resolves once the logs have been stored.
      */
     set(logs: string[]): Promise<void>;

@@ -4,16 +4,37 @@ import { log } from '../../common/logger';
 import { tabs } from '../../common/tabs';
 import { messenger } from '../../common/messenger';
 import { i18n } from '../../common/i18n';
+import { type PopupDataRetry, type AuthenticatedPopupDataRetry } from '../../background/popupData/popupDataTypes';
 
 import type { RootStore } from './RootStore';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './constants';
 
+/**
+ * Narrows popup data to the authenticated variant where all
+ * authenticated-only fields are guaranteed to be present.
+ *
+ * @param data Popup data to check.
+ * @returns Whether the data contains authenticated user data.
+ */
+function isAuthenticatedPopupData(
+    data: PopupDataRetry,
+): data is AuthenticatedPopupDataRetry {
+    return !!data.isAuthenticated;
+}
+
 export class GlobalStore {
-    @observable initStatus = RequestStatus.Pending;
+    @observable public initStatus = RequestStatus.Pending;
 
-    @observable startupDataRetrieved = false;
+    @observable private startupDataRetrieved = false;
 
-    rootStore: RootStore;
+    private rootStore: RootStore;
+
+    /**
+     * Cached promise for popup data loading.
+     * Used to start loading popup data in the background during onboarding
+     * and await the same promise later when the machine reaches loadingPopupData.
+     */
+    private popupDataPromise: Promise<void> | null = null;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -24,207 +45,46 @@ export class GlobalStore {
      * Sets the result to the settings store.
      */
     @action
-    async getDesktopAppData(): Promise<void> {
+    public async getDesktopAppData(): Promise<void> {
         const { rootStore: { settingsStore } } = this;
         await settingsStore.setHasDesktopAppForOs();
         await settingsStore.setIsLinux();
     }
 
     /**
-     * Checks whether the extension is running on a android browser.
+     * Checks whether the extension is running on an Android browser.
      * Sets the result to the settings store.
      */
     @action
-    async getAndroidData(): Promise<void> {
+    public async getAndroidData(): Promise<void> {
         const { rootStore: { settingsStore } } = this;
         await settingsStore.setIsAndroidBrowser();
-    }
-
-    @action
-    async getPopupData(numberOfTries = 1): Promise<void> {
-        const { rootStore } = this;
-        const {
-            vpnStore,
-            settingsStore,
-            authStore,
-            telemetryStore,
-            uiStore,
-        } = rootStore;
-
-        this.setInitStatus(RequestStatus.Pending);
-
-        // Used tab api because calling tab api from background returns wrong result
-        const tab = await tabs.getCurrent();
-        const url = tab.url || null;
-
-        try {
-            const popupData = await messenger.getPopupData(url, numberOfTries);
-
-            const {
-                vpnInfo,
-                locations,
-                selectedLocation,
-                permissionsError,
-                forwarderDomain,
-                isAuthenticated,
-                canControlProxy,
-                isRoutable,
-                hasRequiredData,
-                isPremiumToken,
-                connectivityState,
-                promoNotification,
-                policyAgreement,
-                helpUsImprove,
-                isFirstRun,
-                flagsStorageData,
-                isVpnEnabledByUrl,
-                shouldShowRateModal,
-                shouldShowHintPopup,
-                shouldShowMobileEdgePromoBanner,
-                isVpnBlocked,
-                isHostPermissionsGranted,
-                locationsTab,
-                savedLocationIds,
-                username,
-                marketingConsent,
-                shouldShowRegionNotice,
-                experimentVariants,
-            } = popupData;
-
-            settingsStore.setForwarderDomain(forwarderDomain);
-
-            telemetryStore.setIsHelpUsImproveEnabled(helpUsImprove);
-
-            vpnStore.setLocationsTab(locationsTab);
-            vpnStore.setSavedLocationIds(savedLocationIds);
-
-            if (!isAuthenticated) {
-                await authStore.getAuthCacheFromBackground();
-                this.setInitStatus(RequestStatus.Done);
-                return;
-            }
-
-            // set host permissions flag as soon as possible just after the authentication
-            // because it is critical for the VPN to work
-            settingsStore.setHostPermissionsError(isHostPermissionsGranted);
-
-            if (permissionsError) {
-                settingsStore.setGlobalError(permissionsError);
-            } else if (!hasRequiredData) {
-                settingsStore.setCanControlProxy(canControlProxy);
-                settingsStore.setGlobalError(new Error('No required data'));
-                this.setInitStatus(RequestStatus.Error);
-                return;
-            } else {
-                settingsStore.setGlobalError(null);
-            }
-
-            // retrieve limited offer data after user is authenticated
-            // and there is not other errors
-            let limitedOfferData = null;
-            if (!isPremiumToken) {
-                limitedOfferData = await messenger.getLimitedOfferData();
-            }
-
-            authStore.setUsername(username);
-            authStore.setFlagsStorageData(flagsStorageData);
-            authStore.setIsFirstRun(isFirstRun);
-            authStore.setShouldShowRateModal(shouldShowRateModal);
-            authStore.setShowHintPopup(shouldShowHintPopup);
-            authStore.setMarketingConsent(marketingConsent);
-            settingsStore.setCanControlProxy(canControlProxy);
-            settingsStore.setConnectivityState(connectivityState);
-            settingsStore.setIsRoutable(isRoutable);
-            settingsStore.setIsVpnBlocked(isVpnBlocked);
-            settingsStore.setShowMobileEdgePromoBanner(shouldShowMobileEdgePromoBanner);
-            uiStore.setShouldShowRegionNotice(shouldShowRegionNotice);
-            settingsStore.setLimitedOfferData(limitedOfferData);
-            settingsStore.setPromoNotification(promoNotification);
-            vpnStore.setVpnInfo(vpnInfo);
-            vpnStore.setLocations(locations);
-            vpnStore.setSelectedLocation(selectedLocation);
-            vpnStore.setIsPremiumToken(isPremiumToken);
-            await authStore.getAuthCacheFromBackground();
-            await authStore.setPolicyAgreement(policyAgreement);
-            await settingsStore.checkRateStatus();
-            await settingsStore.getExclusionsInverted();
-            await settingsStore.getCurrentTabHostname();
-            settingsStore.setIsExcluded(!isVpnEnabledByUrl);
-            uiStore.setExperimentVariants(experimentVariants);
-
-            this.setInitStatus(RequestStatus.Done);
-        } catch (e) {
-            log.error('[vpn.GlobalStore.getPopupData]: ', e.message);
-            this.setInitStatus(RequestStatus.Error);
-        }
     }
 
     /**
      * Retrieves the authentication status from the
      * background and marks the status as retrieved.
+     *
+     * @returns Whether the user is authenticated.
      */
     @action
-    async initAuthenticatedStatus(): Promise<void> {
+    public async initAuthenticatedStatus(): Promise<boolean> {
         const { authStore } = this.rootStore;
 
         const isAuthenticated = await messenger.isAuthenticated();
         authStore.setIsAuthenticated(isAuthenticated);
         authStore.setAuthenticatedStatusRetrieved(true);
-    }
 
-    @action
-    async init(): Promise<void> {
-        /**
-         * Get android data first because our styles depends on it,
-         * and UI might shift because it was loaded too late.
-         */
-        await this.getAndroidData();
-
-        /**
-         * Authentication status should be retrieved from background before
-         * popup data is retrieved to prevent flickering of the loaders.
-         */
-        await this.initAuthenticatedStatus();
-
-        /**
-         * Initializes the data required for displaying onboarding.
-         */
-        await this.initStartupData();
-
-        /**
-         * Statistics store should be initialized before popup data is retrieved
-         * because statistics range is used in the popup data request.
-         */
-        await this.rootStore.statsStore.init();
-
-        await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
-        await this.getDesktopAppData();
-    }
-
-    @action
-    setInitStatus(status: RequestStatus): void {
-        this.initStatus = status;
-    }
-
-    @computed
-    get status(): RequestStatus {
-        return this.initStatus;
-    }
-
-    @action
-    setStartupDataRetrieved(isRetrieved: boolean): void {
-        this.startupDataRetrieved = isRetrieved;
-    }
-
-    @computed
-    get isStartupDataRetrieved(): boolean {
-        return this.startupDataRetrieved;
+        return isAuthenticated;
     }
 
     /**
      * Gets all required data for onboarding and showing upgrade screen and sets it to stores.
+     *
+     * @returns Whether onboarding should be shown.
      */
-    private async initStartupData(): Promise<void> {
+    @action
+    public async initStartupData(): Promise<boolean> {
         const { rootStore } = this;
         const {
             authStore,
@@ -246,5 +106,204 @@ export class GlobalStore {
         await authStore.setMarketingConsent(marketingConsent || false);
         vpnStore.setIsPremiumToken(isPremiumToken);
         this.setStartupDataRetrieved(true);
+
+        // Return whether any onboarding screen needs to be shown
+        return authStore.renderNewsletter
+            || authStore.renderOnboarding
+            || (!isPremiumToken && authStore.renderUpgradeScreen);
+    }
+
+    /**
+     * Initializes statistics store.
+     * Should be called before getPopupData because statistics range
+     * is used in the popup data request.
+     */
+    @action
+    public async initStats(): Promise<void> {
+        await this.rootStore.statsStore.init();
+    }
+
+    /**
+     * Starts loading popup data in the background without awaiting the result.
+     * Called when entering onboarding so that data loads while the user
+     * goes through onboarding screens.
+     */
+    public startPopupDataPreload(): void {
+        if (!this.popupDataPromise) {
+            this.popupDataPromise = this.loadAllPopupData();
+        }
+    }
+
+    /**
+     * Awaits popup data, reusing any in-progress preload if one exists.
+     * If no preload was started, kicks off a fresh load.
+     */
+    public async awaitPopupData(): Promise<void> {
+        if (!this.popupDataPromise) {
+            this.popupDataPromise = this.loadAllPopupData();
+        }
+        await this.popupDataPromise;
+    }
+
+    /**
+     * Loads all popup data: stats, popup data, desktop app data.
+     * Used internally by preload and await methods.
+     * Clears the cached promise on failure so subsequent retries start a fresh load.
+     *
+     * @returns Promise that resolves when all popup data is loaded.
+     */
+    private async loadAllPopupData(): Promise<void> {
+        try {
+            await this.initStats();
+            await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
+            await this.getDesktopAppData();
+        } catch (e) {
+            this.popupDataPromise = null;
+            throw e;
+        }
+    }
+
+    @action
+    public async getPopupData(numberOfTries = 1): Promise<void> {
+        const { rootStore } = this;
+        const {
+            vpnStore,
+            settingsStore,
+            authStore,
+            telemetryStore,
+            uiStore,
+        } = rootStore;
+
+        this.setInitStatus(RequestStatus.Pending);
+
+        // Used tab api because calling tab api from background returns wrong result
+        const tab = await tabs.getCurrent();
+        const url = tab.url || null;
+
+        try {
+            const popupData = await messenger.getPopupData(url, numberOfTries);
+
+            settingsStore.setForwarderDomain(popupData.forwarderDomain);
+            telemetryStore.setIsHelpUsImproveEnabled(popupData.helpUsImprove);
+            vpnStore.setLocationsTab(popupData.locationsTab);
+            vpnStore.setSavedLocationIds(popupData.savedLocationIds);
+
+            if (!isAuthenticatedPopupData(popupData)) {
+                await authStore.getAuthCacheFromBackground();
+                this.setInitStatus(RequestStatus.Done);
+                return;
+            }
+
+            const {
+                vpnInfo,
+                locations,
+                selectedLocation,
+                permissionsError,
+                canControlProxy,
+                isRoutable,
+                hasRequiredData,
+                isPremiumToken,
+                connectivityState,
+                promoNotification,
+                policyAgreement,
+                isFirstRun,
+                flagsStorageData,
+                isVpnEnabledByUrl,
+                shouldShowRateModal,
+                shouldShowHintPopup,
+                shouldShowMobileEdgePromoBanner,
+                isVpnBlocked,
+                isHostPermissionsGranted,
+                username,
+                marketingConsent,
+                shouldShowRegionNotice,
+                experimentVariants,
+                activeProfileId,
+                profiles,
+            } = popupData;
+
+            // set host permissions flag as soon as possible just after the authentication
+            // because it is critical for the VPN to work
+            settingsStore.setHostPermissionsError(isHostPermissionsGranted);
+
+            if (permissionsError) {
+                settingsStore.setGlobalError(new Error(permissionsError.message));
+            } else if (!hasRequiredData) {
+                settingsStore.setCanControlProxy(canControlProxy);
+                const noDataError = new Error('No required data');
+                settingsStore.setGlobalError(noDataError);
+                this.setInitStatus(RequestStatus.Error);
+                throw noDataError;
+            } else {
+                settingsStore.setGlobalError(null);
+            }
+
+            // retrieve limited offer data after user is authenticated
+            // and there is not other errors
+            let limitedOfferData = null;
+            if (!isPremiumToken) {
+                limitedOfferData = await messenger.getLimitedOfferData();
+            }
+
+            authStore.setUsername(username);
+            authStore.setFlagsStorageData(flagsStorageData);
+            authStore.setIsFirstRun(isFirstRun);
+            authStore.setShouldShowRateModal(shouldShowRateModal);
+            authStore.setShowHintPopup(shouldShowHintPopup);
+            authStore.setMarketingConsent(marketingConsent ?? false);
+            settingsStore.setCanControlProxy(canControlProxy);
+            settingsStore.setConnectivityState(connectivityState);
+            settingsStore.setIsRoutable(isRoutable);
+            settingsStore.setIsVpnBlocked(isVpnBlocked);
+            settingsStore.setShowMobileEdgePromoBanner(shouldShowMobileEdgePromoBanner);
+            uiStore.setShouldShowRegionNotice(shouldShowRegionNotice);
+            settingsStore.setLimitedOfferData(limitedOfferData);
+            if (promoNotification) {
+                settingsStore.setPromoNotification(promoNotification);
+            }
+            if (vpnInfo) {
+                vpnStore.setVpnInfo(vpnInfo);
+            }
+            vpnStore.setLocations(locations.map((loc) => ({ ...loc, selected: false })));
+            if (selectedLocation) {
+                vpnStore.setSelectedLocation({ ...selectedLocation, selected: true });
+            }
+            vpnStore.setIsPremiumToken(isPremiumToken);
+            vpnStore.setProfiles(profiles);
+            vpnStore.setInitialSwitchingProfile(activeProfileId, popupData.switchingProfileId);
+            await authStore.getAuthCacheFromBackground();
+            await authStore.setPolicyAgreement(policyAgreement);
+            await settingsStore.checkRateStatus();
+            await settingsStore.getExclusionsInverted(activeProfileId);
+            await settingsStore.getCurrentTabHostname();
+            settingsStore.setIsExcluded(!isVpnEnabledByUrl);
+            uiStore.setExperimentVariants(experimentVariants);
+
+            this.setInitStatus(RequestStatus.Done);
+        } catch (e) {
+            log.error('[vpn.GlobalStore.getPopupData]: ', e.message);
+            this.setInitStatus(RequestStatus.Error);
+            throw e;
+        }
+    }
+
+    @action
+    private setInitStatus(status: RequestStatus): void {
+        this.initStatus = status;
+    }
+
+    @computed
+    public get status(): RequestStatus {
+        return this.initStatus;
+    }
+
+    @action
+    private setStartupDataRetrieved(isRetrieved: boolean): void {
+        this.startupDataRetrieved = isRetrieved;
+    }
+
+    @computed
+    public get isStartupDataRetrieved(): boolean {
+        return this.startupDataRetrieved;
     }
 }

@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Պաշտոնական կայք"
     },
+    "version_history": {
+        "message": "Տարբերակների պատմություն"
+    },
+    "github": {
+        "message": "GitHub պահոց"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Կառավարելբացառությունները"
     },
+    "settings_location_label": {
+        "message": "Տեղանք"
+    },
+    "settings_location_fastest_title": {
+        "message": "Արթնացնող վայրը"
+    },
+    "settings_location_fastest_description": {
+        "message": "Ավտոմատ կերպով միանալ ամենաարագ տեղանքին"
+    },
+    "settings_profiles_title": {
+        "message": "Պրոֆիլներ"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Պրոֆիլ"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Թույլ է տալիս սահմանել DNS սերվերներ և տեղանքներ և պահել առանձին բացառությունների ցանկեր տարբեր օգտագործման դեպքերի համար, ինչպես աշխատանք, տուն կամ այլ"
+    },
+    "settings_profiles_default_name": {
+        "message": "Հիմնական"
+    },
+    "settings_profiles_actions": {
+        "message": "Գործողություններ"
+    },
+    "settings_profiles_action_use": {
+        "message": "Օգտագործել պրոֆիլ"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Վերանվանել"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Ջնջել"
+    },
+    "settings_profiles_create": {
+        "message": "Ստեղծել"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Ստեղծել պրոֆիլ"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Անուն"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Ստեղծել"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Չեղարկել"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Առավելագույն երկարությունը %count% նիշ է | Առավելագույն երկարությունը %count% նիշ է"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Այս անունը արդեն օգտագործվում է"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Վերանվանել պրոֆիլ"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Նոր անուն"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Պահպանել"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Ջնջե՞լ %profile_name% պրոֆիլը:"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Պրոֆիլի տեղադրվածները տեղանքի, WebRTC, DNS սերվերի և կայքերի բացառումների համար կջնջվեն"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN-ը կանցնի Լռելյայն պրոֆիլին"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "%profile_name% պրոֆիլի տեղադրվածները տեղանքի, WebRTC, DNS սերվերի և կայքերի բացառումների համար կջնջվեն"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Ջնջել"
+    },
+    "settings_description_current": {
+        "message": "Ընթացիկ՝ %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Որտեղ VPN-ն է ակտիվ"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Այս ցուցակը դատարկ թողնելը դադարեցնում է VPN-ը բոլոր կայքերից"
+    },
+    "settings_applies_to_profile": {
+        "message": "Կիրառվում է ձեր <b>%profile_name%</b> պրոֆիլին"
     },
     "settings_exclusion_import_button": {
         "message": "Ներմուծել"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Վիճակագրություն"
+    },
+    "popup_profiles_title": {
+        "message": "Պրոֆիլներ"
+    },
+    "popup_profiles_settings": {
+        "message": "Կարգավորումներ"
+    },
+    "profile_apply_error": {
+        "message": "Չհաջողվեց փոխել պրոֆիլները։ Փորձեք կրկին կամ կապվեք աջակցության հետ"
     },
     "popup_settings_free_description": {
         "message": "Հասանելի է AdGuard VPN Unlimited-ում"

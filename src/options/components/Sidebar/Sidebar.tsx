@@ -16,6 +16,7 @@ import {
 import { translator } from '../../../common/translator';
 import { IconButton } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
+import { PROFILES_PATH } from '../Profiles/profileRoutes';
 
 import { SidebarLink } from './SidebarLink';
 import { Rate } from './Rate';
@@ -26,13 +27,17 @@ import './sidebar.pcss';
  * Sidebar component.
  */
 export const Sidebar = observer(() => {
-    const { settingsStore, uiStore, telemetryStore } = useContext(rootStore);
+    const {
+        settingsStore, uiStore, telemetryStore, profilesStore,
+    } = useContext(rootStore);
 
     const {
         isPremiumToken,
         allQuestsCompleted,
         closeSubComponents,
     } = settingsStore;
+
+    const { activeProfileDisplayName } = profilesStore;
 
     const {
         isSidebarOpen,
@@ -113,6 +118,15 @@ export const Sidebar = observer(() => {
                         onClick={handleLinkClick}
                     >
                         {translator.getMessage('settings_general_title')}
+                    </SidebarLink>
+                    <SidebarLink
+                        to={PROFILES_PATH}
+                        exact={false}
+                        subtitle={activeProfileDisplayName}
+                        telemetryActionName={TelemetryActionName.ProfilesSettingsClick}
+                        onClick={handleLinkClick}
+                    >
+                        {translator.getMessage('settings_profiles_sidebar_title')}
                     </SidebarLink>
                     <SidebarLink
                         to="/exclusions"

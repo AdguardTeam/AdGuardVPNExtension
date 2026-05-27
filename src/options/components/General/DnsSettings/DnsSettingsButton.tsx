@@ -6,12 +6,34 @@ import { IconButton } from '../../../../common/components/Icons';
 import { rootStore } from '../../../stores';
 import { Controls } from '../../ui/Controls';
 
-export const DnsSettingsButton = observer(() => {
-    const { settingsStore } = useContext(rootStore);
-    const { currentDnsServerName } = settingsStore;
+interface DnsSettingsButtonProps {
+    /**
+     * Profile ID to read DNS data from.
+     * When set, reads from profilesStore.dnsCache directly.
+     * When omitted, uses dnsStore.currentDnsServerName (active profile).
+     */
+    profileId?: string;
+
+    /**
+     * Custom click handler.
+     * Falls back to settingsStore.setShowDnsSettings(true).
+     */
+    onClick?: () => void;
+}
+
+export const DnsSettingsButton = observer(({ profileId, onClick }: DnsSettingsButtonProps) => {
+    const { settingsStore, dnsStore } = useContext(rootStore);
+
+    const dnsServerName = profileId
+        ? dnsStore.getProfileDnsServerName(profileId)
+        : dnsStore.currentDnsServerName;
 
     const handleClick = (): void => {
-        settingsStore.setShowDnsSettings(true);
+        if (onClick) {
+            onClick();
+        } else {
+            settingsStore.setShowDnsSettings(true);
+        }
     };
 
     return (
@@ -22,8 +44,8 @@ export const DnsSettingsButton = observer(() => {
                     {translator.getMessage('settings_dns_description')}
                     <br />
                     <br />
-                    {translator.getMessage('settings_dns_description_current', {
-                        dnsServerName: currentDnsServerName,
+                    {translator.getMessage('settings_description_current', {
+                        mode: dnsServerName,
                     })}
                 </>
             )}

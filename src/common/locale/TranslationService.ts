@@ -57,7 +57,7 @@ export class TranslationService {
      *
      * @returns Resolved locale code from AVAILABLE_LOCALES, or BASE_LOCALE.
      */
-    resolveLocale(localePreference: LocalePreference): AvailableLocale {
+    public resolveLocale(localePreference: LocalePreference): AvailableLocale {
         const code = localePreference === LANGUAGE_AUTO
             ? browser.i18n.getUILanguage()
             : localePreference;
@@ -75,7 +75,7 @@ export class TranslationService {
      *
      * @throws On fetch or parse failure — callers handle fallback.
      */
-    async loadLocale(locale: AvailableLocale): Promise<void> {
+    public async loadLocale(locale: AvailableLocale): Promise<void> {
         if (this.localeCache.has(locale)) {
             return;
         }
@@ -100,7 +100,7 @@ export class TranslationService {
      *
      * @returns The resolved {@link AvailableLocale} that was loaded.
      */
-    async loadLocaleData(preference?: LocalePreference): Promise<AvailableLocale> {
+    public async loadLocaleData(preference?: LocalePreference): Promise<AvailableLocale> {
         const pref = preference || LANGUAGE_AUTO;
 
         await this.loadLocale(BASE_LOCALE);
@@ -129,7 +129,7 @@ export class TranslationService {
      *
      * @throws If the key does not exist in the English base messages.
      */
-    getMessage(locale: AvailableLocale, key: string): string {
+    public getMessage(locale: AvailableLocale, key: string): string {
         const baseMessages = this.localeCache.get(BASE_LOCALE);
         const baseMessage = baseMessages?.[key];
 
@@ -162,7 +162,7 @@ export class TranslationService {
      * @returns Lowercase locale code matching the `AvailableLocales` enum
      *          in `@adguard/translate` (e.g. 'de', 'pt_br', 'zh_cn').
      */
-    getUILanguage(locale: AvailableLocale): string {
+    public getUILanguage(locale: AvailableLocale): string {
         return locale.toLowerCase();
     }
 
@@ -176,7 +176,7 @@ export class TranslationService {
      *
      * @returns English base message, or empty string if not found.
      */
-    getBaseMessage(key: string): string {
+    public getBaseMessage(key: string): string {
         const baseMessages = this.localeCache.get(BASE_LOCALE);
         return baseMessages?.[key] || '';
     }
@@ -186,7 +186,7 @@ export class TranslationService {
      *
      * @returns The base locale code ('en').
      */
-    getBaseUILanguage(): string {
+    public getBaseUILanguage(): string {
         return BASE_LOCALE;
     }
 }

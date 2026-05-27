@@ -1,11 +1,22 @@
 .title {
     padding: 16px;
 
-    &--hoverable {
-        cursor: pointer;
-        background-color: transparent;
-        transition: var(--t3) background-color;
+    &__back-icon {
+        margin-top: 2px;
+    }
+
+    &__back-btn {
+        display: flex;
+        column-gap: 16px;
+        flex: 1 1 auto;
         border-radius: 8px;
+        padding: 8px;
+        margin: -8px;
+        color: inherit;
+        font: inherit;
+        word-break: break-word;
+        text-align: start;
+        transition: var(--t3) background-color;
 
         &:hover,
         &:focus-visible {
@@ -54,7 +65,7 @@
             font-weight: 600;
         }
 
-        .title--hoverable & {
+        .title--subtitle-indent & {
             padding-left: 28px;
         }
     }

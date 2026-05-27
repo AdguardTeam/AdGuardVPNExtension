@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Hivatalos webhely"
     },
+    "version_history": {
+        "message": "Verziótörténet"
+    },
+    "github": {
+        "message": "GitHub repository"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Kivételek"
     },
+    "settings_location_label": {
+        "message": "Helyzet"
+    },
+    "settings_location_fastest_title": {
+        "message": "Leggyorsabb hely"
+    },
+    "settings_location_fastest_description": {
+        "message": "Automatikus csatlakozás a leggyorsabb helyhez"
+    },
+    "settings_profiles_title": {
+        "message": "Profilok"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Lehetővé teszi a DNS szerverek és helyek beállítását és külön kizárási listák fenntartását különböző felhasználási esetekhez, mint például munka, otthon vagy egyéb"
+    },
+    "settings_profiles_default_name": {
+        "message": "Alapértelmezett"
+    },
+    "settings_profiles_actions": {
+        "message": "Műveletek"
+    },
+    "settings_profiles_action_use": {
+        "message": "Profil használata"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Átnevezés"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Törlés"
+    },
+    "settings_profiles_create": {
+        "message": "Teremt"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Profil létrehozása"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Név"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Teremt"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Mégsem"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maximális hossz %count% karakter | Maximális hossz %count% karakter | Maximális hossz %count% karakter"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Ez a név már használatban van"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Profil átnevezése"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Új név"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Mentés"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "%profile_name% profil törlése?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "A profil beállításai a helyhez, WebRTC, DNS szerverhez és weboldal kizárásokhoz törlésre kerülnek"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "Az AdGuard VPN a Alapértelmezett profilra vált"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "A(z) %profile_name% profil beállításai a helyhez, WebRTC, DNS szerverhez és weboldal kizárásokhoz törlésre kerülnek"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Törlés"
+    },
+    "settings_description_current": {
+        "message": "Jelenlegi: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Ahol a VPN be van kapcsolva"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "A lista üresen hagyása letiltja a VPN-t az összes weboldal számára"
+    },
+    "settings_applies_to_profile": {
+        "message": "A <b>%profile_name%</b> profilodra vonatkozik"
     },
     "settings_exclusion_import_button": {
         "message": "Importálás"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statisztika"
+    },
+    "popup_profiles_title": {
+        "message": "Profilok"
+    },
+    "popup_profiles_settings": {
+        "message": "Beállítások"
+    },
+    "profile_apply_error": {
+        "message": "Nem sikerült a profilok közötti váltás. Próbálja újra, vagy lépjen kapcsolatba az ügyfélszolgálattal"
     },
     "popup_settings_free_description": {
         "message": "Elérhető az AdGuard VPN Unlimitedben"

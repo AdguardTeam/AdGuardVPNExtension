@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Resmi site"
     },
+    "version_history": {
+        "message": "Sürüm geçmişi"
+    },
+    "github": {
+        "message": "GitHub deposu"
+    },
     "eula": {
         "message": "SKLS"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "İstisnalar"
     },
+    "settings_location_label": {
+        "message": "Konum"
+    },
+    "settings_location_fastest_title": {
+        "message": "En hızlı konum"
+    },
+    "settings_location_fastest_description": {
+        "message": "En hızlı konuma otomatik olarak bağlanır"
+    },
+    "settings_profiles_title": {
+        "message": "Profiller"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "DNS sunucularını ve konumlarını ayarlamanıza ve iş, ev veya diğer gibi farklı kullanım durumları için ayrı istisna listeleri belirlemenizi sağlar"
+    },
+    "settings_profiles_default_name": {
+        "message": "Varsayılan"
+    },
+    "settings_profiles_actions": {
+        "message": "Eylemler"
+    },
+    "settings_profiles_action_use": {
+        "message": "Profili kullan"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Yeniden adlandır"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Sil"
+    },
+    "settings_profiles_create": {
+        "message": "Oluştur"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Profil oluştur"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Adı"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Oluştur"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "İptal"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maksimum uzunluk %count% karakterdir | Maksimum uzunluk %count% karakterdir"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Bu ad zaten kullanılıyor"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Profili yeniden adlandır"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Yeni ad"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Kaydet"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "%profile_name% profil silinsin mi?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Konum, WebRTC, DNS sunucusu ve site istisnaları için profil ayarları silinecektir"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN, Varsayılan profile geçecektir"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "%profile_name% profiline ait konum, WebRTC, DNS sunucusu ve site istisna ayarları silinecektir"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Sil"
+    },
+    "settings_description_current": {
+        "message": "Şu anki: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "VPN'nin açık olduğu yer"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Bu listeyi boş bırakmak tüm siteler için VPN'i devre dışı bırakır"
+    },
+    "settings_applies_to_profile": {
+        "message": "<b>%profile_name%</b> profilinize uygulanır"
     },
     "settings_exclusion_import_button": {
         "message": "İçe aktar"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "İstatistikler"
+    },
+    "popup_profiles_title": {
+        "message": "Profiller"
+    },
+    "popup_profiles_settings": {
+        "message": "Ayarlar"
+    },
+    "profile_apply_error": {
+        "message": "Profil değiştirilemedi. Tekrar deneyin veya destek ile iletişime geçin"
     },
     "popup_settings_free_description": {
         "message": "AdGuard VPN Unlimited'da mevcuttur"
@@ -1149,10 +1248,10 @@
         "message": "Her zaman"
     },
     "popup_stats_data_usage_downloaded": {
-        "message": "indirilen"
+        "message": "alınan"
     },
     "popup_stats_data_usage_uploaded": {
-        "message": "gönderilen"
+        "message": "i̇letilen"
     },
     "popup_stats_empty": {
         "message": "Henüz istatistik yok — görüntülemek için AdGuard VPN'i kullanmaya devam edin"

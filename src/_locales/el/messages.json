@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Επίσημη ιστοσελίδα"
     },
+    "version_history": {
+        "message": "Ιστορικό έκδοσης"
+    },
+    "github": {
+        "message": "GitHub αποθετήριο"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Εξαιρέσεις"
     },
+    "settings_location_label": {
+        "message": "Τοποθεσία"
+    },
+    "settings_location_fastest_title": {
+        "message": "Ταχύτερη τοποθεσία"
+    },
+    "settings_location_fastest_description": {
+        "message": "Αυτόματη Σύνδεση στην ταχύτερη τοποθεσία"
+    },
+    "settings_profiles_title": {
+        "message": "Προφίλ"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Προφίλ"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Σας επιτρέπει να ορίσετε διακομιστές DNS και τοποθεσίες και να διατηρείτε ξεχωριστές λίστες εξαιρέσεων για διαφορετικές περιπτώσεις χρήσης, όπως εργασία, σπίτι ή άλλα"
+    },
+    "settings_profiles_default_name": {
+        "message": "Προεπιλεγμένη"
+    },
+    "settings_profiles_actions": {
+        "message": "Ενέργειες"
+    },
+    "settings_profiles_action_use": {
+        "message": "Χρήση προφίλ"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Μετονομασία"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Διαγραφή"
+    },
+    "settings_profiles_create": {
+        "message": "Δημιουργία"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Δημιουργία προφίλ"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Όνομα"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Δημιουργία"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Άκυρο"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Το μέγιστο μήκος είναι %count% χαρακτήρες | Το μέγιστο μήκος είναι %count% χαρακτήρας | Το μέγιστο μήκος είναι %count% χαρακτήρες"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Αυτό το όνομα χρησιμοποιείται ήδη"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Μετονομασία προφίλ"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Νέο όνομα"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Αποθήκευση"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Διαγραφή προφίλ %profile_name%;"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Οι ρυθμίσεις προφίλ για τοποθεσία, WebRTC, διακομιστή DNS και εξαιρέσεις ιστοσελίδων θα διαγραφούν"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "Το AdGuard VPN θα αλλάξει στο προφίλ Προεπιλογή"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Οι ρυθμίσεις προφίλ %profile_name% για τοποθεσία, WebRTC, διακομιστή DNS και εξαιρέσεις ιστοσελίδων θα διαγραφούν"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Διαγραφή"
+    },
+    "settings_description_current": {
+        "message": "Τρέχον: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Όπου είναι ενεργό το VPN"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Αφήνοντας αυτή τη λίστα κενή απενεργοποιεί το VPN για όλες τις ιστοσελίδες"
+    },
+    "settings_applies_to_profile": {
+        "message": "Εφαρμόζεται στο προφίλ σας <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Εισαγωγή"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Στατιστικά"
+    },
+    "popup_profiles_title": {
+        "message": "Προφίλ"
+    },
+    "popup_profiles_settings": {
+        "message": "Ρυθμίσεις"
+    },
+    "profile_apply_error": {
+        "message": "Αποτυχία στην εναλλαγή προφίλ. Προσπαθήστε ξανά ή επικοινωνήστε με υποστήριξη"
     },
     "popup_settings_free_description": {
         "message": "Διαθέσιμο στο AdGuard VPN Unlimited"

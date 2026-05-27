@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Oficiali svetainė"
     },
+    "version_history": {
+        "message": "Versijų istorija"
+    },
+    "github": {
+        "message": "GitHub saugykla"
+    },
     "eula": {
         "message": "Licencijos sutartis"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Išimtys"
     },
+    "settings_location_label": {
+        "message": "Lokacija"
+    },
+    "settings_location_fastest_title": {
+        "message": "Greitausia vieta"
+    },
+    "settings_location_fastest_description": {
+        "message": "Automatiškai prisijungti prie greičiausios vietos"
+    },
+    "settings_profiles_title": {
+        "message": "Profiliai"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profilis"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Leidžia jums nustatyti DNS serverius ir vietas bei turėti atskirus išimčių sąrašus skirtingiems naudojimo atvejams, pavyzdžiui, darbui, namams ar kitiems"
+    },
+    "settings_profiles_default_name": {
+        "message": "Pagal nutylėjimą"
+    },
+    "settings_profiles_actions": {
+        "message": "Veiksmai"
+    },
+    "settings_profiles_action_use": {
+        "message": "Naudoti profilį"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Pervadinti"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Ištrinti"
+    },
+    "settings_profiles_create": {
+        "message": "Sukurkite"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Sukurti profilį"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Pavadinimas"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Sukurkite"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Atšaukti"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maksimalus ilgis yra %count% simbolis | Maksimalus ilgis yra %count% simboliai | Maksimalus ilgis yra %count% simbolių | Maksimalus ilgis yra %count% simbolių"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Šis pavadinimas jau naudojamas"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Pervadinti profilį"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Naujas pavadinimas"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Išsaugoti"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Ištrinti profilį %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Profilio nustatymai, skirti vietai, WebRTC, DNS serveriui ir svetainių išimtims, bus pašalinti"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN persijungs į Numatytąjį profilį"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Profilio %profile_name% nustatymai, skirti vietai, WebRTC, DNS serveriui ir svetainių išimtims, bus pašalinti"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Ištrinti"
+    },
+    "settings_description_current": {
+        "message": "Dabartinis: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Kur yra VPN"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Palikus šį sąrašą tuščią, VPN bus išjungtas visoms svetainėms"
+    },
+    "settings_applies_to_profile": {
+        "message": "Taikoma jūsų <b>%profile_name%</b> profiliui"
     },
     "settings_exclusion_import_button": {
         "message": "Importas"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistika"
+    },
+    "popup_profiles_title": {
+        "message": "Profiliai"
+    },
+    "popup_profiles_settings": {
+        "message": "Nustatymai"
+    },
+    "profile_apply_error": {
+        "message": "Nepavyko perjungti profilių. Bandykite dar kartą arba susisiekite su palaikymu"
     },
     "popup_settings_free_description": {
         "message": "Prieinama „AdGuard VPN Unlimited“"

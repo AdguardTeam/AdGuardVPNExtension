@@ -5,17 +5,13 @@ import { type LocationsTab } from '../background/endpoints/locationsEnums';
 import { type OptionsData } from '../options/stores/SettingsStore';
 import { type ConsentDataResponse } from '../background/consent';
 import { type BonusesData } from '../background/providers/accountProvider';
-import type { LocationData } from '../popup/stores/VpnStore';
 import { type AuthCacheKey, type AuthCacheValue } from '../background/authentication/authCacheTypes';
 import { type CanControlProxy, type DnsServerData } from '../background/schema';
-import {
-    type ExclusionsMap,
-    type GetExclusionsDataResponse,
-    type ToggleServicesResult,
-} from '../background/exclusions/ExclusionsService';
+import { type ProfilesState } from '../background/schema/profiles';
 import { type LocationWithPing } from '../background/endpoints/LocationWithPing';
 import { type RequestSupportResponse } from '../background/providers/vpnProvider';
 import { type ForwarderUrlQueryKey } from '../background/config';
+import { type PopupDataRetry } from '../background/popupData/popupDataTypes';
 import {
     type TelemetryActionName,
     type TelemetryActionToScreenMap,
@@ -26,28 +22,76 @@ import type { WebAuthAction } from '../background/auth/webAuthEnums';
 import { type FlagsStorageData } from '../background/flagsStorageData';
 
 import { type AvailableLocale, type LocalePreference } from './locale';
-import { type ExclusionsMode } from './exclusionsConstants';
+import {
+    type ExclusionsMap,
+    type ExclusionsMode,
+    type GetExclusionsDataResponse,
+    type ToggleServicesResult,
+} from './exclusionsConstants';
+import { type ProfileOperationResponse } from './profiles';
 import type { NotifierType } from './notifier';
+import { type NotifyListenersData } from './notifierEvents';
 
 export const SETTINGS_IDS = {
     PROXY_ENABLED: 'proxy.enabled',
     RATE_SHOW: 'rate.show',
     PREMIUM_FEATURES_SHOW: 'premium.features.show',
     USER_SET_PROMO_SHOW: 'user.set.promo.show',
+
+    /**
+     * @deprecated Moved to per-profile settings ({@link ProfileSettings.exclusions}).
+     * Kept only for {@link SettingsService.migrateFrom14to15}.
+     */
     EXCLUSIONS: 'exclusions.list',
+
+    /**
+     * @deprecated Moved to per-profile settings ({@link ProfileSettings.handleWebRtcEnabled}).
+     * Kept only for {@link SettingsService.migrateFrom14to15}.
+     */
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
+
+    /**
+     * @deprecated Moved to per-profile settings ({@link ProfileSettings.selectedDnsServer}).
+     * Kept only for {@link SettingsService.migrateFrom14to15}.
+     */
     SELECTED_DNS_SERVER: 'dns.handle.server',
+
+    /**
+     * @deprecated No longer used.
+     * Kept only for {@link SettingsService.migrateFrom14to15}.
+     */
     SELECTED_CUSTOM_DNS_SERVER: 'custom.dns.handle.server',
     CONTEXT_MENU_ENABLED: 'context.menu.enabled',
+
+    /**
+     * @deprecated Moved to per-profile settings ({@link ProfileSettings.selectedLocation}).
+     * Kept only for {@link SettingsService.migrateFrom14to15}.
+     */
     SELECTED_LOCATION_KEY: 'endpoints.selected.location',
+
+    /**
+     * @deprecated No longer used. Was replaced by {@link ProfileSettings.selectedLocation}.
+     * Kept only for {@link SettingsService.migrateFrom14to15}.
+     */
     LOCATION_SELECTED_BY_USER_KEY: 'endpoints.location.selected.by.user',
     POLICY_AGREEMENT: 'policy.agreement',
     HELP_US_IMPROVE: 'help.us.improve',
     APPEARANCE_THEME: 'appearance.theme',
+
+    /**
+     * @deprecated Moved to per-profile settings ({@link ProfileSettings.customDnsServers}).
+     * Kept only for {@link SettingsService.migrateFrom14to15}.
+     */
     CUSTOM_DNS_SERVERS: 'custom.dns.servers',
+
+    /**
+     * @deprecated Moved to per-profile settings ({@link ProfileSettings.quickConnect}).
+     * Kept only for {@link SettingsService.migrateFrom14to15}.
+     */
     QUICK_CONNECT: 'quick.connect',
     DEBUG_MODE_ENABLED: 'debug.mode.enabled',
     SELECTED_LANGUAGE: 'language.selected',
+    PROFILES_STATE: 'profiles.state',
 };
 
 export const enum AppearanceTheme {
@@ -60,7 +104,7 @@ export const APPEARANCE_THEME_DEFAULT = AppearanceTheme.System;
 
 export const THEME_URL_PARAMETER = 'theme';
 
-export const enum QuickConnectSetting {
+export enum QuickConnectSetting {
     LastUsedLocation = 'lastUsedLocation',
     FastestLocation = 'fastestLocation',
 }
@@ -84,6 +128,7 @@ export enum MessageType {
     SET_CONSENT_DATA = 'set.consent.data',
     GET_VPN_FAILURE_PAGE = 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE = 'open.options.page',
+    OPEN_PROFILES_PAGE = 'open.profiles.page',
     SET_SELECTED_LOCATION = 'set.selected.location',
     DEAUTHENTICATE_USER = 'deauthenticate.user',
     UPDATE_AUTH_CACHE = 'update.auth.cache',
@@ -128,6 +173,7 @@ export enum MessageType {
     HIDE_RATE_MODAL_AFTER_CANCEL = 'hide.rate.modal.after.cancel',
     HIDE_MOBILE_EDGE_PROMO_BANNER = 'hide.mobile.edge.promo.banner',
     HANDLE_CUSTOM_DNS_LINK = 'handle.custom.dns.link',
+    SET_DNS_SERVER = 'set.dns.server',
     ADD_CUSTOM_DNS_SERVER = 'add.custom.dns.server',
     EDIT_CUSTOM_DNS_SERVER = 'edit.custom.dns.server',
     REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
@@ -159,6 +205,14 @@ export enum MessageType {
 
     SET_INTERFACE_LANGUAGE = 'set.interface.language',
     GET_INTERFACE_LANGUAGE = 'get.interface.language',
+
+    GET_PROFILES_DATA = 'get.profiles.data',
+    CREATE_PROFILE = 'create.profile',
+    RENAME_PROFILE = 'rename.profile',
+    DELETE_PROFILE = 'delete.profile',
+    SWITCH_PROFILE = 'switch.profile',
+    SET_PROFILE_WEBRTC = 'set.profile.webrtc',
+    SET_PROFILE_QUICK_CONNECT = 'set.profile.quick.connect',
 }
 
 export const FLAGS_FIELDS = {
@@ -281,8 +335,9 @@ export type SetConsentDataMessage = {
 export type SetSelectedLocationMessage = {
     type: MessageType.SET_SELECTED_LOCATION;
     data: {
-        location: LocationData;
-        isSelectedByUser: boolean;
+        profileId: string;
+        locationId: string;
+        persistToProfile: boolean;
     };
 };
 
@@ -312,6 +367,7 @@ export type AddUrlToExclusionsMessage = {
     type: MessageType.ADD_URL_TO_EXCLUSIONS;
     data: {
         url: string;
+        profileId: string;
     };
 };
 
@@ -333,6 +389,7 @@ export type RemoveExclusionMessage = {
     type: MessageType.REMOVE_EXCLUSION;
     data: {
         id: string;
+        profileId: string;
     };
 };
 
@@ -340,6 +397,7 @@ export type ToggleExclusionStateMessage = {
     type: MessageType.TOGGLE_EXCLUSION_STATE;
     data: {
         id: string;
+        profileId: string;
     };
 };
 
@@ -347,6 +405,7 @@ export type ToggleServicesMessage = {
     type: MessageType.TOGGLE_SERVICES;
     data: {
         ids: string[];
+        profileId: string;
     };
 };
 
@@ -354,13 +413,57 @@ export type ResetServiceDataMessage = {
     type: MessageType.RESET_SERVICE_DATA;
     data: {
         serviceId: string;
+        profileId: string;
     };
 };
 
 export type SetExclusionsModeMessage = {
     type: MessageType.SET_EXCLUSIONS_MODE;
     data: {
-        mode: ExclusionsMode
+        mode: ExclusionsMode;
+        profileId: string;
+    };
+};
+
+export type ClearExclusionsListMessage = {
+    type: MessageType.CLEAR_EXCLUSIONS_LIST;
+    data: {
+        profileId: string;
+    };
+};
+
+export type GetExclusionsDataMessage = {
+    type: MessageType.GET_EXCLUSIONS_DATA;
+    data: {
+        profileId: string;
+    };
+};
+
+export type GetExclusionsInvertedMessage = {
+    type: MessageType.GET_EXCLUSIONS_INVERTED;
+    data: {
+        profileId: string;
+    };
+};
+
+export type GetGeneralExclusionsMessage = {
+    type: MessageType.GET_GENERAL_EXCLUSIONS;
+    data: {
+        profileId: string;
+    };
+};
+
+export type GetSelectiveExclusionsMessage = {
+    type: MessageType.GET_SELECTIVE_EXCLUSIONS;
+    data: {
+        profileId: string;
+    };
+};
+
+export type RestoreExclusionsMessage = {
+    type: MessageType.RESTORE_EXCLUSIONS;
+    data: {
+        profileId: string;
     };
 };
 
@@ -368,6 +471,7 @@ export type AddRegularExclusionsMessage = {
     type: MessageType.ADD_REGULAR_EXCLUSIONS;
     data: {
         exclusions: string[];
+        profileId: string;
     };
 };
 
@@ -375,6 +479,7 @@ export type AddSelectiveExclusionsMessage = {
     type: MessageType.ADD_SELECTIVE_EXCLUSIONS;
     data: {
         exclusions: string[];
+        profileId: string;
     };
 };
 
@@ -382,6 +487,7 @@ export type AddExclusionsMapMessage = {
     type: MessageType.ADD_EXCLUSIONS_MAP;
     data: {
         exclusionsMap: ExclusionsMap;
+        profileId: string;
     };
 };
 
@@ -397,6 +503,51 @@ export type SetSettingValueMessage = {
     data: {
         settingId: string;
         value: boolean | string;
+    };
+};
+
+export type SetProfileWebRtcMessage = {
+    type: MessageType.SET_PROFILE_WEBRTC;
+    data: {
+        profileId: string;
+        enabled: boolean;
+    };
+};
+
+export type CreateProfileMessage = {
+    type: MessageType.CREATE_PROFILE;
+    data: {
+        name: string;
+    };
+};
+
+export type RenameProfileMessage = {
+    type: MessageType.RENAME_PROFILE;
+    data: {
+        profileId: string;
+        newName: string;
+    };
+};
+
+export type DeleteProfileMessage = {
+    type: MessageType.DELETE_PROFILE;
+    data: {
+        profileId: string;
+    };
+};
+
+export type SwitchProfileMessage = {
+    type: MessageType.SWITCH_PROFILE;
+    data: {
+        profileId: string;
+    };
+};
+
+export type SetProfileQuickConnectMessage = {
+    type: MessageType.SET_PROFILE_QUICK_CONNECT;
+    data: {
+        profileId: string;
+        quickConnect: QuickConnectSetting;
     };
 };
 
@@ -445,9 +596,18 @@ export type SetFlagMessage = {
     };
 };
 
+export type SetDnsServerMessage = {
+    type: MessageType.SET_DNS_SERVER;
+    data: {
+        profileId: string;
+        dnsServerId: string;
+    };
+};
+
 export type AddCustomDnsServerMessage = {
     type: MessageType.ADD_CUSTOM_DNS_SERVER;
     data: {
+        profileId: string;
         dnsServerData: DnsServerData;
     };
 };
@@ -463,6 +623,7 @@ export type HandleCustomDnsLinkMessage = {
 export type EditCustomDnsServerMessage = {
     type: MessageType.EDIT_CUSTOM_DNS_SERVER;
     data: {
+        profileId: string;
         dnsServerData: DnsServerData;
     };
 };
@@ -470,7 +631,15 @@ export type EditCustomDnsServerMessage = {
 export type RemoveCustomDnsServerMessage = {
     type: MessageType.REMOVE_CUSTOM_DNS_SERVER;
     data: {
+        profileId: string;
         dnsServerId: string;
+    };
+};
+
+export type RestoreCustomDnsServersDataMessage = {
+    type: MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA;
+    data: {
+        profileId: string;
     };
 };
 
@@ -527,10 +696,15 @@ export type AddLongLivedConnectionMessage = {
     };
 };
 
+/**
+ * Message payload for notifying event listeners about notifier events.
+ *
+ * The `data` tuple is always `[NotifierType, ...args]` where args depend
+ * on the specific event (see {@link NotifierEventArgsMap}).
+ */
 export type NotifyListenersMessage = {
     type: MessageType.NOTIFY_LISTENERS;
-    // TODO: AG-47112 fix types for NOTIFY_LISTENERS
-    data: any;
+    data: NotifyListenersData;
 };
 
 /**
@@ -554,8 +728,7 @@ export interface MessageMap {
     };
     [MessageType.GET_POPUP_DATA]: {
         message: GetPopupDataMessage;
-        // TODO: AG-47016 fix usage of PopupDataRetry
-        response: any;
+        response: PopupDataRetry;
     };
     [MessageType.REMOVE_EVENT_LISTENER]: {
         message: RemoveEventListenerMessage;
@@ -599,6 +772,10 @@ export interface MessageMap {
     };
     [MessageType.OPEN_OPTIONS_PAGE]: {
         message: DefaultMessage<MessageType.OPEN_OPTIONS_PAGE>;
+        response: void;
+    };
+    [MessageType.OPEN_PROFILES_PAGE]: {
+        message: DefaultMessage<MessageType.OPEN_PROFILES_PAGE>;
         response: void;
     };
     [MessageType.OPEN_FREE_GBS_PAGE]: {
@@ -662,7 +839,7 @@ export interface MessageMap {
         response: void;
     };
     [MessageType.CLEAR_EXCLUSIONS_LIST]: {
-        message: DefaultMessage<MessageType.CLEAR_EXCLUSIONS_LIST>;
+        message: ClearExclusionsListMessage;
         response: void;
     };
     [MessageType.DISABLE_OTHER_EXTENSIONS]: {
@@ -682,7 +859,7 @@ export interface MessageMap {
         response: void;
     };
     [MessageType.GET_EXCLUSIONS_DATA]: {
-        message: DefaultMessage<MessageType.GET_EXCLUSIONS_DATA>;
+        message: GetExclusionsDataMessage;
         response: GetExclusionsDataResponse;
     };
     [MessageType.SET_EXCLUSIONS_MODE]: {
@@ -706,7 +883,7 @@ export interface MessageMap {
         response: LocationWithPing | null;
     };
     [MessageType.GET_EXCLUSIONS_INVERTED]: {
-        message: DefaultMessage<MessageType.GET_EXCLUSIONS_INVERTED>;
+        message: GetExclusionsInvertedMessage;
         response: boolean;
     };
     [MessageType.GET_SETTING_VALUE]: {
@@ -763,15 +940,19 @@ export interface MessageMap {
         response: void;
     };
     [MessageType.GET_GENERAL_EXCLUSIONS]: {
-        message: DefaultMessage<MessageType.GET_GENERAL_EXCLUSIONS>;
+        message: GetGeneralExclusionsMessage;
         response: string;
     };
     [MessageType.GET_SELECTIVE_EXCLUSIONS]: {
-        message: DefaultMessage<MessageType.GET_SELECTIVE_EXCLUSIONS>;
+        message: GetSelectiveExclusionsMessage;
         response: string;
     };
     [MessageType.RESTORE_EXCLUSIONS]: {
-        message: DefaultMessage<MessageType.RESTORE_EXCLUSIONS>;
+        message: RestoreExclusionsMessage;
+        response: void;
+    };
+    [MessageType.SET_DNS_SERVER]: {
+        message: SetDnsServerMessage;
         response: void;
     };
     [MessageType.ADD_CUSTOM_DNS_SERVER]: {
@@ -791,7 +972,7 @@ export interface MessageMap {
         response: void;
     };
     [MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA]: {
-        message: DefaultMessage<MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA>;
+        message: RestoreCustomDnsServersDataMessage;
         response: DnsServerData[];
     };
     [MessageType.GET_LOGS]: {
@@ -865,6 +1046,34 @@ export interface MessageMap {
     [MessageType.GET_INTERFACE_LANGUAGE]: {
         message: DefaultMessage<MessageType.GET_INTERFACE_LANGUAGE>;
         response: LocalePreference;
+    };
+    [MessageType.GET_PROFILES_DATA]: {
+        message: DefaultMessage<MessageType.GET_PROFILES_DATA>;
+        response: ProfilesState;
+    };
+    [MessageType.CREATE_PROFILE]: {
+        message: CreateProfileMessage;
+        response: ProfileOperationResponse;
+    };
+    [MessageType.RENAME_PROFILE]: {
+        message: RenameProfileMessage;
+        response: ProfileOperationResponse;
+    };
+    [MessageType.DELETE_PROFILE]: {
+        message: DeleteProfileMessage;
+        response: void;
+    };
+    [MessageType.SWITCH_PROFILE]: {
+        message: SwitchProfileMessage;
+        response: void;
+    };
+    [MessageType.SET_PROFILE_WEBRTC]: {
+        message: SetProfileWebRtcMessage;
+        response: void;
+    };
+    [MessageType.SET_PROFILE_QUICK_CONNECT]: {
+        message: SetProfileQuickConnectMessage;
+        response: void;
     };
 }
 

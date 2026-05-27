@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Oficjalna strona"
     },
+    "version_history": {
+        "message": "Historia wersji"
+    },
+    "github": {
+        "message": "Repozytorium GitHub"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Wyjątki"
     },
+    "settings_location_label": {
+        "message": "Lokalizacja"
+    },
+    "settings_location_fastest_title": {
+        "message": "Najszybsza lokalizacja"
+    },
+    "settings_location_fastest_description": {
+        "message": "Automatycznie Połącz z najszybszą lokalizacją"
+    },
+    "settings_profiles_title": {
+        "message": "Profile"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Umożliwia ustawienie serwerów DNS i lokalizacji oraz utrzymywanie oddzielnych list wykluczeń dla różnych zastosowań, takich jak praca, dom lub inne"
+    },
+    "settings_profiles_default_name": {
+        "message": "Tryb domyślny"
+    },
+    "settings_profiles_actions": {
+        "message": "Akcje"
+    },
+    "settings_profiles_action_use": {
+        "message": "Użyj profilu"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Zmień nazwę"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Usuń"
+    },
+    "settings_profiles_create": {
+        "message": "Utwórz"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Utwórz profil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Nazwa"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Utwórz"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Anuluj"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maksymalna długość to %count% znak | Maksymalna długość to %count% znaki | Maksymalna długość to %count% znaków | Maksymalna długość to %count% znaków"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Ta nazwa jest już używana"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Zmień nazwę profilu"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nowa nazwa"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Zapisz"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Usuń profil %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Ustawienia profilu dotyczące lokalizacji, WebRTC, serwera DNS i wykluczeń witryn zostaną usunięte"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN przełączy się na profil domyślny"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Ustawienia profilu %profile_name% dotyczące lokalizacji, WebRTC, serwera DNS i wykluczeń witryn zostaną usunięte"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Usuń"
+    },
+    "settings_description_current": {
+        "message": "Bieżące: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Gdzie VPN jest włączony"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Pozostawienie tej listy pustej wyłącza VPN dla wszystkich stron internetowych"
+    },
+    "settings_applies_to_profile": {
+        "message": "Zastosuj do Twojego profilu <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Importuj"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statystyki"
+    },
+    "popup_profiles_title": {
+        "message": "Profile"
+    },
+    "popup_profiles_settings": {
+        "message": "Ustawienia"
+    },
+    "profile_apply_error": {
+        "message": "Nie udało się przełączyć profilów. Spróbuj ponownie lub skontaktuj się ze wsparciem"
     },
     "popup_settings_free_description": {
         "message": "Dostępne w AdGuard VPN Unlimited"

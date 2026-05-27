@@ -3,7 +3,8 @@ import { notifier } from '../../common/notifier';
 import { type StorageInterface } from '../browserApi/storage';
 import { type ConnectivityStateChangeEvent, type WsConnectivityInfoMsgTraffic } from '../connectivity';
 import { type CredentialsInterface } from '../credentials/Credentials';
-import { type LocationInterface, ConnectivityStateType } from '../schema';
+import { type LocationInterface } from '../schema';
+import { ConnectivityStateType } from '../../common/connectivityState';
 import { type TimersInterface } from '../timers/AbstractTimers';
 
 import { type StatisticsStorageInterface } from './StatisticsStorage';

@@ -11,6 +11,7 @@ import { exclusions } from './exclusions';
 import { auth } from './auth/auth';
 import { locationsService } from './endpoints/locationsService';
 import { connectivityService } from './connectivity/connectivityService';
+import { profilesService } from './profiles';
 
 class BrowserActionIcon {
     /**
@@ -27,7 +28,8 @@ class BrowserActionIcon {
         }
         if (url && !isHttp(url)) {
             // disable icon in tabs with no url only for selective mode
-            const isInverted = await exclusions.isInverted();
+            const profileId = profilesService.getActiveProfileId();
+            const isInverted = await exclusions.isInverted(profileId);
             return !isInverted;
         }
 
@@ -78,7 +80,7 @@ class BrowserActionIcon {
         }
     }
 
-    init = (): void => {
+    public init = (): void => {
         const throttleTimeoutMs = 100;
         const throttledUpdateIcon = throttle(async (tab?: browser.Tabs.Tab) => {
             if (tab) {

@@ -1,17 +1,17 @@
 import type { ServiceCategory, ServiceInterface } from '../../schema';
 
 export class Service implements ServiceInterface {
-    serviceId: string;
+    public serviceId: string;
 
-    serviceName: string;
+    public serviceName: string;
 
-    iconUrl: string;
+    public iconUrl: string;
 
-    modifiedTime: string;
+    public modifiedTime: string;
 
-    categories: ServiceCategory[];
+    public categories: ServiceCategory[];
 
-    domains: string[];
+    public domains: string[];
 
     constructor(service: ServiceInterface) {
         this.serviceId = service.serviceId;

@@ -60,19 +60,19 @@ export const selectEffective = <T extends { hostname: string }>(nodes: T[]): T[]
 };
 
 export class ExclusionNode {
-    id: string;
+    public id: string;
 
-    hostname: string;
+    public hostname: string;
 
-    state: ExclusionState;
+    public state: ExclusionState;
 
-    type: ExclusionsType;
+    public type: ExclusionsType;
 
-    children: ExclusionNodeMap = new Map<string, ExclusionNode>();
+    public children: ExclusionNodeMap = new Map<string, ExclusionNode>();
 
-    parentId: string | null;
+    public parentId: string | null;
 
-    meta?: {
+    public meta?: {
         domains: string[],
         iconUrl: string,
     };
@@ -98,7 +98,7 @@ export class ExclusionNode {
      * Adds child to exclusion node
      * @param child
      */
-    addChild(child: ExclusionNode): void {
+    public addChild(child: ExclusionNode): void {
         // eslint-disable-next-line no-param-reassign
         child.parentId = this.id;
         this.children.set(child.id, child);
@@ -111,7 +111,7 @@ export class ExclusionNode {
      *
      * @returns State of exclusion node.
      */
-    calculateState(): ExclusionState {
+    private calculateState(): ExclusionState {
         const children = [...this.children.values()];
 
         const effectiveExclusions = selectEffective(children);
@@ -141,7 +141,7 @@ export class ExclusionNode {
         return ExclusionState.PartlyEnabled;
     }
 
-    serialize(): ExclusionDto {
+    public serialize(): ExclusionDto {
         const children = [...this.children.values()].map((child) => child.serialize());
 
         return new ExclusionDto({
@@ -160,7 +160,7 @@ export class ExclusionNode {
      *
      * @returns Leafs of current node, or node itself if it doesn't have children.
      */
-    getLeafs(): ExclusionNode[] {
+    private getLeafs(): ExclusionNode[] {
         const children = [...this.children.values()];
         if (children.length > 0) {
             return children.flatMap((child) => child.getLeafs());
@@ -173,7 +173,7 @@ export class ExclusionNode {
      *
      * @returns Leafs ids of current node.
      */
-    getLeafsIds(): string[] {
+    private getLeafsIds(): string[] {
         return this.getLeafs().map((exclusionNode) => exclusionNode.id);
     }
 
@@ -184,7 +184,7 @@ export class ExclusionNode {
      *
      * @returns The list of exclusion's children ids.
      */
-    getPathExclusions(id: string): string[] {
+    public getPathExclusions(id: string): string[] {
         if (this.id === id) {
             return this.getLeafsIds();
         }
@@ -206,7 +206,7 @@ export class ExclusionNode {
      *
      * @returns Exclusion node by provided id.
      */
-    getExclusionNode(id: string): ExclusionNode | null {
+    public getExclusionNode(id: string): ExclusionNode | null {
         if (this.id === id) {
             return this;
         }
@@ -234,7 +234,7 @@ export class ExclusionNode {
      *
      * @returns Parent exclusion node by provided id.
      */
-    getParentExclusionNode(id: string): ExclusionNode | null {
+    public getParentExclusionNode(id: string): ExclusionNode | null {
         const node = this.getExclusionNode(id);
         if (node?.parentId) {
             return this.getExclusionNode(node.parentId);
@@ -249,7 +249,7 @@ export class ExclusionNode {
      *
      * @returns State of exclusion node or null if not found.
      */
-    getExclusionNodeState(id: string): ExclusionState | null {
+    public getExclusionNodeState(id: string): ExclusionState | null {
         const foundNode = this.getExclusionNode(id);
         if (foundNode) {
             return foundNode.state;

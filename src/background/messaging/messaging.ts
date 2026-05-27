@@ -1,7 +1,6 @@
 import browser, { type Runtime } from 'webextension-polyfill';
 
 import { MessageType, SETTINGS_IDS, CUSTOM_DNS_ANCHOR_NAME } from '../../common/constants';
-import { type ExclusionsData } from '../../common/exclusionsConstants';
 import { logStorage } from '../../common/log-storage';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
@@ -35,7 +34,12 @@ import { savedLocations } from '../savedLocations';
 import { getConsentData, setConsentData } from '../consent';
 import { isMessage } from '../../common/messenger';
 import { statisticsService } from '../statistics';
+import { profilesService } from '../profiles';
+import { ProfileManager } from '../profiles/profileManager';
+import { CancelledError } from '../profiles/CancelledError';
+import { profileWebRtcService } from '../WebRtcService';
 import { type OptionsData } from '../../options/stores/SettingsStore';
+import { type ProfilesOptionsData } from '../../common/profiles';
 import { updateService } from '../updateService';
 import { i18n } from '../../common/i18n';
 
@@ -59,15 +63,11 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
     const username = await credentials.getUsername();
     const isRateVisible = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
     const isPremiumFeaturesShow = settings.getSetting(SETTINGS_IDS.PREMIUM_FEATURES_SHOW);
-    const webRTCEnabled = settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
     const contextMenusEnabled = settings.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
     const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
-    const dnsServer = settings.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
     const appearanceTheme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
     const vpnInfo = await endpoints.getVpnInfo();
     const maxDevicesCount = vpnInfo?.maxDevicesCount;
-    const customDnsServers = settings.getCustomDnsServers();
-    const quickConnectSetting = settings.getQuickConnectSetting();
     const selectedLanguage = settings.getSelectedLanguage();
 
     let pageId = null;
@@ -75,20 +75,13 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
         pageId = telemetry.addOpenedPage();
     }
 
-    const exclusionsData: ExclusionsData = {
-        exclusions: exclusions.getExclusions(),
-        currentMode: await exclusions.getMode(),
-    };
-
-    const isAllExclusionsListsEmpty = await exclusions.isAllExclusionListEmpty();
-
-    let servicesData = await exclusions.getServices();
-    if (servicesData.length === 0) {
-        // services may not be up-to-date on very first option page opening in firefox
-        // if their loading was blocked before due to default absence of host permissions (<all_urls>).
-        // so if it happens, they should be updated forcedly
+    // Services may not be up-to-date on very first option page opening in firefox
+    // if their loading was blocked before due to default absence of host permissions (<all_urls>).
+    // Ensure they are loaded before building per-profile exclusions data.
+    const currentActiveProfileId = profilesService.getActiveProfileId();
+    const services = await exclusions.getServices(currentActiveProfileId);
+    if (services.length === 0) {
         await exclusions.forceUpdateServices();
-        servicesData = await exclusions.getServices();
     }
 
     const isAuthenticated = await auth.isAuthenticated();
@@ -101,29 +94,35 @@ const getOptionsData = async (isDataRefresh: boolean): Promise<OptionsData> => {
 
     const forwarderDomain = await forwarder.updateAndGetDomain();
 
+    const profileExclusionsData = await exclusions.getProfileExclusionsDataMap();
+    const profilesState = await profilesService.getProfilesDataStripped();
+    const locations = await locationsService.getLocationsWithPing();
+    const switchingProfileId = ProfileManager.getApplyingProfileId();
+
+    const profilesData: ProfilesOptionsData = {
+        profilesState,
+        profileExclusionsData,
+        switchingProfileId,
+    };
+
     return {
         appVersion,
         username,
         forwarderDomain,
         isRateVisible,
         isPremiumFeaturesShow,
-        webRTCEnabled,
         contextMenusEnabled,
         helpUsImprove,
-        dnsServer,
         appearanceTheme,
-        exclusionsData,
-        servicesData,
         isAuthenticated,
         isPremiumToken,
-        isAllExclusionsListsEmpty,
         maxDevicesCount,
         subscriptionType,
         subscriptionTimeExpiresIso,
-        customDnsServers,
-        quickConnectSetting,
         selectedLanguage,
         pageId,
+        profilesData,
+        locations,
     };
 };
 
@@ -213,6 +212,9 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         case MessageType.OPEN_OPTIONS_PAGE: {
             return actions.openOptionsPage();
         }
+        case MessageType.OPEN_PROFILES_PAGE: {
+            return actions.openOptionsPage({ anchorName: 'profiles' });
+        }
         case MessageType.OPEN_FREE_GBS_PAGE: {
             await actions.openFreeGbsPage();
             break;
@@ -222,8 +224,15 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return accountProvider.getAvailableBonuses(accessToken);
         }
         case MessageType.SET_SELECTED_LOCATION: {
-            const { location, isSelectedByUser } = message.data;
-            await locationsService.setSelectedLocation(location.id, isSelectedByUser);
+            const { profileId, locationId, persistToProfile } = message.data;
+            await locationsService.setSelectedLocation(
+                profileId,
+                locationId,
+                {
+                    reconnect: true,
+                    persistToProfile,
+                },
+            );
             break;
         }
         case MessageType.DEAUTHENTICATE_USER: {
@@ -248,9 +257,9 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return settings.disableProxy(force);
         }
         case MessageType.ADD_URL_TO_EXCLUSIONS: {
-            const { url } = message.data;
+            const { url, profileId } = message.data;
             try {
-                return await exclusions.addUrlToExclusions(url);
+                return await exclusions.addUrlToExclusions(profileId, url);
             } catch (e) {
                 throw new Error(e.message);
             }
@@ -264,23 +273,24 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return exclusions.enableVpnByUrl(url);
         }
         case MessageType.REMOVE_EXCLUSION: {
-            const { id } = message.data;
-            return exclusions.removeExclusion(id);
+            const { id, profileId } = message.data;
+            return exclusions.removeExclusion(profileId, id);
         }
         case MessageType.TOGGLE_EXCLUSION_STATE: {
-            const { id } = message.data;
-            return exclusions.toggleExclusionState(id);
+            const { id, profileId } = message.data;
+            return exclusions.toggleExclusionState(profileId, id);
         }
         case MessageType.TOGGLE_SERVICES: {
-            const { ids } = message.data;
-            return exclusions.toggleServices(ids);
+            const { ids, profileId } = message.data;
+            return exclusions.toggleServices(profileId, ids);
         }
         case MessageType.RESET_SERVICE_DATA: {
-            const { serviceId } = message.data;
-            return exclusions.resetServiceData(serviceId);
+            const { serviceId, profileId } = message.data;
+            return exclusions.resetServiceData(profileId, serviceId);
         }
         case MessageType.CLEAR_EXCLUSIONS_LIST: {
-            return exclusions.clearExclusionsData();
+            const { profileId } = message.data;
+            return exclusions.clearExclusionsData(profileId);
         }
         case MessageType.DISABLE_OTHER_EXTENSIONS: {
             await management.turnOffProxyExtensions();
@@ -298,37 +308,32 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             break;
         }
         case MessageType.GET_EXCLUSIONS_DATA: {
-            return {
-                exclusionsData: {
-                    exclusions: exclusions.getExclusions(),
-                    currentMode: await exclusions.getMode(),
-                },
-                services: await exclusions.getServices(),
-                isAllExclusionsListsEmpty: await exclusions.isAllExclusionListEmpty(),
-            };
+            const { profileId } = message.data;
+            return exclusions.getExclusionsDataForProfile(profileId);
         }
         case MessageType.SET_EXCLUSIONS_MODE: {
-            const { mode } = message.data;
-            await exclusions.setMode(mode);
+            const { mode, profileId } = message.data;
+            await exclusions.setMode(profileId, mode, false);
             break;
         }
         case MessageType.ADD_REGULAR_EXCLUSIONS: {
-            const { exclusions: exclusionsList } = message.data;
-            return exclusions.addGeneralExclusions(exclusionsList);
+            const { exclusions: exclusionsList, profileId } = message.data;
+            return exclusions.addGeneralExclusions(profileId, exclusionsList);
         }
         case MessageType.ADD_SELECTIVE_EXCLUSIONS: {
-            const { exclusions: exclusionsList } = message.data;
-            return exclusions.addSelectiveExclusions(exclusionsList);
+            const { exclusions: exclusionsList, profileId } = message.data;
+            return exclusions.addSelectiveExclusions(profileId, exclusionsList);
         }
         case MessageType.ADD_EXCLUSIONS_MAP: {
-            const { exclusionsMap } = message.data;
-            return exclusions.addExclusionsMap(exclusionsMap);
+            const { exclusionsMap, profileId } = message.data;
+            return exclusions.addExclusionsMap(profileId, exclusionsMap);
         }
         case MessageType.GET_SELECTED_LOCATION: {
             return endpoints.getSelectedLocation();
         }
         case MessageType.GET_EXCLUSIONS_INVERTED: {
-            return exclusions.isInverted();
+            const { profileId } = message.data;
+            return exclusions.isInverted(profileId);
         }
         case MessageType.GET_SETTING_VALUE: {
             const { settingId } = message.data;
@@ -408,16 +413,16 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             break;
         }
         case MessageType.GET_GENERAL_EXCLUSIONS: {
-            return exclusions.getRegularExclusions();
+            const { profileId } = message.data;
+            return exclusions.getRegularExclusions(profileId);
         }
         case MessageType.GET_SELECTIVE_EXCLUSIONS: {
-            return exclusions.getSelectiveExclusions();
+            const { profileId } = message.data;
+            return exclusions.getSelectiveExclusions(profileId);
         }
         case MessageType.RESTORE_EXCLUSIONS: {
-            return exclusions.restoreExclusions();
-        }
-        case MessageType.ADD_CUSTOM_DNS_SERVER: {
-            return dns.addCustomDnsServer(message.data.dnsServerData);
+            const { profileId } = message.data;
+            return exclusions.restoreExclusions(profileId);
         }
         case MessageType.HANDLE_CUSTOM_DNS_LINK: {
             const { name, address } = message.data;
@@ -437,14 +442,28 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return null;
         }
         case MessageType.EDIT_CUSTOM_DNS_SERVER: {
-            await dns.editCustomDnsServer(message.data.dnsServerData);
-            return settings.getCustomDnsServers();
+            const { profileId, dnsServerData } = message.data;
+            return dns.editCustomDnsServer(profileId, dnsServerData);
         }
+        case MessageType.SET_DNS_SERVER: {
+            const { profileId, dnsServerId } = message.data;
+            await dns.setDnsServer(profileId, dnsServerId);
+            break;
+        }
+        case MessageType.ADD_CUSTOM_DNS_SERVER: {
+            const { profileId, dnsServerData } = message.data;
+            await dns.addCustomDnsServer(profileId, dnsServerData);
+            break;
+        }
+
         case MessageType.REMOVE_CUSTOM_DNS_SERVER: {
-            return dns.removeCustomDnsServer(message.data.dnsServerId);
+            const { profileId, dnsServerId } = message.data;
+            await dns.removeCustomDnsServer(profileId, dnsServerId);
+            break;
         }
         case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
-            return dns.restoreCustomDnsServersData();
+            const { profileId } = message.data;
+            return dns.restoreCustomDnsServersData(profileId);
         }
         case MessageType.GET_LOGS: {
             return logStorage.getLogsString();
@@ -512,6 +531,51 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         }
         case MessageType.GET_INTERFACE_LANGUAGE: {
             return settings.getSelectedLanguage();
+        }
+        case MessageType.GET_PROFILES_DATA: {
+            return profilesService.getProfilesData();
+        }
+        case MessageType.CREATE_PROFILE: {
+            const { name } = message.data;
+            return profilesService.createProfile(name);
+        }
+        case MessageType.RENAME_PROFILE: {
+            const { profileId, newName } = message.data;
+            return profilesService.renameProfile(profileId, newName);
+        }
+        case MessageType.DELETE_PROFILE: {
+            const { profileId } = message.data;
+            try {
+                await ProfileManager.deleteProfile(profileId);
+            } catch (e) {
+                if (!(e instanceof CancelledError)) {
+                    throw e;
+                }
+                log.debug('[vpn.messaging]: Delete profile cancelled', profileId);
+            }
+            break;
+        }
+        case MessageType.SWITCH_PROFILE: {
+            const { profileId } = message.data;
+            try {
+                await ProfileManager.switchProfile(profileId);
+            } catch (e) {
+                if (!(e instanceof CancelledError)) {
+                    throw e;
+                }
+                log.debug('[vpn.messaging]: Switch profile cancelled', profileId);
+            }
+            break;
+        }
+        case MessageType.SET_PROFILE_WEBRTC: {
+            const { profileId, enabled } = message.data;
+            await profileWebRtcService.setProfileWebRtc(profileId, enabled);
+            break;
+        }
+        case MessageType.SET_PROFILE_QUICK_CONNECT: {
+            const { profileId, quickConnect } = message.data;
+            await profilesService.updateProfileSettings(profileId, { quickConnect });
+            break;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

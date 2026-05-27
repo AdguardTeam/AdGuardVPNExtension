@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Laman web rasmi"
     },
+    "version_history": {
+        "message": "Sejarah versi"
+    },
+    "github": {
+        "message": "Repositori GitHub"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Pengecualian"
     },
+    "settings_location_label": {
+        "message": "Lokasi"
+    },
+    "settings_location_fastest_title": {
+        "message": "Lokasi terpantas"
+    },
+    "settings_location_fastest_description": {
+        "message": "Sambung secara automatik ke lokasi terpantas"
+    },
+    "settings_profiles_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Membolehkan anda untuk menetapkan pelayan DNS dan lokasi serta mengekalkan senarai pengecualian berasingan untuk pelbagai kegunaan seperti kerja, rumah, atau lain-lain"
+    },
+    "settings_profiles_default_name": {
+        "message": "Lalai"
+    },
+    "settings_profiles_actions": {
+        "message": "Tindakan"
+    },
+    "settings_profiles_action_use": {
+        "message": "Gunakan profil"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Namakan semula"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Padam"
+    },
+    "settings_profiles_create": {
+        "message": "Buat"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Cipta profil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Nama"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Buat"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Batal"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Panjang maksimum ialah aksara %count% | Panjang maksimum ialah aksara %count%"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Nama ini sudah digunakan"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Namakan semula profil"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nama baharu"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Simpan"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Padam profil %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Tetapan profil untuk lokasi, WebRTC, pelayan DNS, dan pengecualian laman web akan dipadam"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN akan beralih ke profil Lalai"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Tetapan profil %profile_name% untuk lokasi, WebRTC, pelayan DNS, dan pengecualian laman web akan dipadam"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Padam"
+    },
+    "settings_description_current": {
+        "message": "Semasa: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Tempat VPN aktif"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Mengosongkan senarai ini akan menonaktifkan VPN untuk semua laman web"
+    },
+    "settings_applies_to_profile": {
+        "message": "Digunakan pada profil <b>%profile_name%</b> anda"
     },
     "settings_exclusion_import_button": {
         "message": "Import"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistik"
+    },
+    "popup_profiles_title": {
+        "message": "Profil"
+    },
+    "popup_profiles_settings": {
+        "message": "Tetapan"
+    },
+    "profile_apply_error": {
+        "message": "Gagal menukar profil. Cuba lagi atau hubungi sokongan"
     },
     "popup_settings_free_description": {
         "message": "Tersedia dalam AdGuard VPN Unlimited"

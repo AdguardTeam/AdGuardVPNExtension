@@ -4,15 +4,15 @@ import type { EndpointInterface } from '../schema';
  * Class representing endpoint structure
  */
 export class Endpoint implements EndpointInterface {
-    id: string;
+    public id: string;
 
-    ipv4Address: string;
+    public ipv4Address: string;
 
-    ipv6Address: string | null;
+    public ipv6Address: string | null;
 
-    domainName: string;
+    public domainName: string;
 
-    publicKey: string;
+    public publicKey: string;
 
     constructor({
         id,

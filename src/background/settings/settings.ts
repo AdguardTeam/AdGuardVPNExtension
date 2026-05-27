@@ -1,19 +1,11 @@
 import { browserApi } from '../browserApi';
 import { log } from '../../common/logger';
 import { notifier } from '../../common/notifier';
-import {
-    SETTINGS_IDS,
-    type QuickConnectSetting,
-    QUICK_CONNECT_SETTING_DEFAULT,
-    APPEARANCE_THEME_DEFAULT,
-    type AppearanceTheme,
-} from '../../common/constants';
-import { dns } from '../dns';
-import { DEFAULT_DNS_SERVER } from '../../common/dnsConstants';
+import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, type AppearanceTheme } from '../../common/constants';
 import { type LocalePreference, LANGUAGE_AUTO, toLocalePreference } from '../../common/locale';
-import { webrtc } from '../browserApi/webrtc';
 import { connectivityService, ConnectivityEventType } from '../connectivity/connectivityService';
-import type { DnsServerData, PersistedExclusions } from '../schema';
+import type { ProfilesState } from '../schema';
+import { PROFILES_STATE_DEFAULTS } from '../schema';
 
 import { type Settings, SettingsService } from './SettingsService';
 
@@ -26,34 +18,26 @@ export interface SettingsInterface {
     isProxyEnabled(): boolean;
     SETTINGS_IDS: { [key: string]: boolean | string };
     applySettings(): Promise<void>;
-    getExclusions (): PersistedExclusions;
-    setExclusions(exclusions: PersistedExclusions): void;
     isContextMenuEnabled(): boolean;
     isDebugModeEnabled(): boolean;
-    getCustomDnsServers(): DnsServerData[];
-    setCustomDnsServers(dnsServersData: DnsServerData[]): void;
-    getSelectedDnsServer(): string;
-    getQuickConnectSetting(): QuickConnectSetting;
     getAppearanceTheme(): AppearanceTheme;
     isHelpUsImproveEnabled(): boolean;
     getSelectedLanguage(): LocalePreference;
+    getProfilesState(): ProfilesState;
+    setProfilesState(state: ProfilesState): void;
 }
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
     [SETTINGS_IDS.RATE_SHOW]: true,
     [SETTINGS_IDS.PREMIUM_FEATURES_SHOW]: true,
-    [SETTINGS_IDS.EXCLUSIONS]: {},
-    [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: false,
-    [SETTINGS_IDS.SELECTED_DNS_SERVER]: DEFAULT_DNS_SERVER.id,
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
     [SETTINGS_IDS.POLICY_AGREEMENT]: false,
     [SETTINGS_IDS.HELP_US_IMPROVE]: false,
     [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
-    [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [],
-    [SETTINGS_IDS.QUICK_CONNECT]: QUICK_CONNECT_SETTING_DEFAULT,
     [SETTINGS_IDS.DEBUG_MODE_ENABLED]: false,
     [SETTINGS_IDS.SELECTED_LANGUAGE]: LANGUAGE_AUTO,
+    [SETTINGS_IDS.PROFILES_STATE]: PROFILES_STATE_DEFAULTS,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -74,24 +58,6 @@ const setSetting = async (id: string, value: boolean | string, force?: boolean):
     // No need to change same value unless is not force set
     if (setting === value && !force) {
         return false;
-    }
-
-    switch (id) {
-        case SETTINGS_IDS.HANDLE_WEBRTC_ENABLED: {
-            if (typeof value === 'boolean') {
-                webrtc.setWebRTCHandlingAllowed(value, isProxyEnabled());
-            }
-            break;
-        }
-        case SETTINGS_IDS.SELECTED_DNS_SERVER: {
-            if (typeof value === 'string') {
-                await dns.setDnsServer(value);
-            }
-            break;
-        }
-        default: {
-            break;
-        }
     }
 
     settingsService.setSetting(id, value);
@@ -120,30 +86,8 @@ const enableProxy = async (force?: boolean): Promise<void> => {
     connectivityService.send(ConnectivityEventType.ConnectBtnPressed);
 };
 
-/**
- * Checks if setting is enabled
- *
- * @param settingId
- *
- * @returns True if setting is enabled, false otherwise.
- */
-const isSettingEnabled = (settingId: string): boolean => {
-    const enabledSettingValue = true;
-    const settingValue = settingsService.getSetting(settingId);
-    return settingValue === enabledSettingValue;
-};
-
 const applySettings = async (): Promise<void> => {
     const proxyEnabled = isProxyEnabled();
-
-    // Set WebRTC
-    webrtc.setWebRTCHandlingAllowed(
-        isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
-        proxyEnabled,
-    );
-
-    // Set DNS server
-    await dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
 
     // Connect proxy
     if (proxyEnabled) {
@@ -157,32 +101,8 @@ const getSetting = (id: string): Settings => {
     return settingsService.getSetting(id);
 };
 
-const getExclusions = (): PersistedExclusions => {
-    return settingsService.getSetting(SETTINGS_IDS.EXCLUSIONS) || {};
-};
-
-const setExclusions = (exclusions: PersistedExclusions): void => {
-    settingsService.setSetting(SETTINGS_IDS.EXCLUSIONS, exclusions);
-};
-
 const isContextMenuEnabled = (): boolean => {
     return settingsService.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
-};
-
-const getCustomDnsServers = (): DnsServerData[] => {
-    return settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
-};
-
-const setCustomDnsServers = (dnsServersData: DnsServerData[]): void => {
-    return settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, dnsServersData);
-};
-
-const getSelectedDnsServer = (): string => {
-    return settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
-};
-
-const getQuickConnectSetting = (): QuickConnectSetting => {
-    return settingsService.getSetting(SETTINGS_IDS.QUICK_CONNECT);
 };
 
 const isDebugModeEnabled = (): boolean => {
@@ -199,8 +119,9 @@ const isHelpUsImproveEnabled = (): boolean => {
 
 /**
  * Returns the user's selected language preference.
- * Validates the stored value and self-heals corrupted entries
- * by resetting them to {@link LANGUAGE_AUTO}.
+ *
+ * If the stored value is invalid, writes {@link LANGUAGE_AUTO} back
+ * to storage as a self-healing measure.
  *
  * @returns The selected locale code, or 'auto' for browser default.
  */
@@ -213,9 +134,16 @@ const getSelectedLanguage = (): LocalePreference => {
     return validated;
 };
 
+const getProfilesState = (): ProfilesState => {
+    return settingsService.getSetting(SETTINGS_IDS.PROFILES_STATE);
+};
+
+const setProfilesState = (state: ProfilesState): void => {
+    settingsService.setSetting(SETTINGS_IDS.PROFILES_STATE, state);
+};
+
 const init = async (): Promise<void> => {
     await settingsService.init();
-    await dns.init();
     log.info('[vpn.settings]: Settings module is ready');
 };
 
@@ -228,15 +156,11 @@ export const settings: SettingsInterface = {
     isProxyEnabled,
     SETTINGS_IDS,
     applySettings,
-    getExclusions,
-    setExclusions,
     isContextMenuEnabled,
-    getCustomDnsServers,
-    setCustomDnsServers,
-    getSelectedDnsServer,
-    getQuickConnectSetting,
     isDebugModeEnabled,
     getAppearanceTheme,
     isHelpUsImproveEnabled,
     getSelectedLanguage,
+    getProfilesState,
+    setProfilesState,
 };

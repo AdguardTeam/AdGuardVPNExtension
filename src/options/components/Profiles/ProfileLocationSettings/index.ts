@@ -1,0 +1,1 @@
+export { ProfileLocationSettings } from './ProfileLocationSettings';

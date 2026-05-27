@@ -6,34 +6,42 @@ import { GlobalStore } from './GlobalStore';
 import { AuthStore } from './AuthStore';
 import { SettingsStore } from './SettingsStore';
 import { ExclusionsStore } from './ExclusionsStore';
+import { ProfilesStore } from './ProfilesStore';
+import { DnsStore } from './DnsStore';
 import { NotificationsStore } from './NotificationsStore';
 import { UiStore } from './UiStore';
 
 export class RootStore {
-    globalStore: GlobalStore;
+    public globalStore: GlobalStore;
 
-    authStore: AuthStore;
+    public authStore: AuthStore;
 
-    settingsStore: SettingsStore;
+    public settingsStore: SettingsStore;
 
-    exclusionsStore: ExclusionsStore;
+    public exclusionsStore: ExclusionsStore;
 
-    notificationsStore: NotificationsStore;
+    public dnsStore: DnsStore;
 
-    uiStore: UiStore;
+    public profilesStore: ProfilesStore;
 
-    telemetryStore: TelemetryStore;
+    public notificationsStore: NotificationsStore;
+
+    public uiStore: UiStore;
+
+    public telemetryStore: TelemetryStore;
 
     /**
      * MobX-observable locale state shared with the {@link i18n} facade.
      */
-    translationStore: TranslationStore;
+    public translationStore: TranslationStore;
 
     constructor() {
+        this.profilesStore = new ProfilesStore(this);
         this.globalStore = new GlobalStore(this);
         this.authStore = new AuthStore(this);
         this.settingsStore = new SettingsStore(this);
-        this.exclusionsStore = new ExclusionsStore(this);
+        this.exclusionsStore = new ExclusionsStore(this.profilesStore);
+        this.dnsStore = new DnsStore(this.profilesStore);
         this.notificationsStore = new NotificationsStore(this);
         this.uiStore = new UiStore(this);
         this.telemetryStore = new TelemetryStore();

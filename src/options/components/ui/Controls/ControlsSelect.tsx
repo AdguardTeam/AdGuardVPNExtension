@@ -34,6 +34,11 @@ export interface ControlsSelectProps<T> {
      * Change event handler.
      */
     onChange: SelectProps<T>['onChange'];
+
+    /**
+     * Active state change event handler.
+     */
+    onVisibilityChange?: (isActive: boolean) => void;
 }
 
 export function ControlsSelect<T extends string>({
@@ -42,6 +47,7 @@ export function ControlsSelect<T extends string>({
     value,
     options,
     onChange,
+    onVisibilityChange,
 }: ControlsSelectProps<T>): ReactElement {
     const ref = useRef<HTMLDivElement>(null);
     const classes = classNames(
@@ -53,11 +59,16 @@ export function ControlsSelect<T extends string>({
     const [isActive, setIsActive] = useState(false);
 
     const handleClick = (): void => {
-        setIsActive((currentActive) => !currentActive);
+        const newActiveState = !isActive;
+        setIsActive(newActiveState);
+        onVisibilityChange?.(newActiveState);
     };
 
     const handleOutsideClickOrFocus = (): void => {
-        setIsActive(false);
+        if (isActive) {
+            setIsActive(false);
+            onVisibilityChange?.(false);
+        }
     };
 
     return (

@@ -1,0 +1,61 @@
+import * as v from 'valibot';
+
+import { ExclusionsMode } from '../../../common/exclusionsConstants';
+import { DEFAULT_DNS_SERVER } from '../../../common/dnsConstants';
+import { DEFAULT_PROFILE_ID } from '../../../common/profiles';
+import { QuickConnectSetting } from '../../../common/constants';
+
+import { type ProfileSettings } from './profileSettings';
+import { profileScheme } from './profile';
+
+/**
+ * Default settings snapshot used when creating new profiles.
+ */
+export const DEFAULT_PROFILE_SETTINGS: ProfileSettings = {
+    selectedLocation: null,
+    quickConnect: QuickConnectSetting.FastestLocation,
+    handleWebRtcEnabled: false,
+    selectedDnsServer: DEFAULT_DNS_SERVER.id,
+    customDnsServers: [],
+    exclusions: {
+        [ExclusionsMode.Regular]: [],
+        [ExclusionsMode.Selective]: [],
+        inverted: false,
+    },
+};
+
+/**
+ * Valibot schema for the profiles persistent state.
+ */
+export const profilesStateScheme = v.strictObject({
+    /**
+     * ID of the currently active profile.
+     */
+    activeProfileId: v.string(),
+
+    /**
+     * All profiles, including the system default.
+     */
+    profiles: v.array(profileScheme),
+});
+
+/**
+ * Persistent state of the profiles subsystem.
+ */
+export type ProfilesState = v.InferOutput<typeof profilesStateScheme>;
+
+/**
+ * Default profiles state used on fresh install.
+ * The system profile name is empty because the display name
+ * is resolved via localization on the UI side.
+ */
+export const PROFILES_STATE_DEFAULTS: ProfilesState = {
+    activeProfileId: DEFAULT_PROFILE_ID,
+    profiles: [
+        {
+            id: DEFAULT_PROFILE_ID,
+            name: '',
+            settings: DEFAULT_PROFILE_SETTINGS,
+        },
+    ],
+};

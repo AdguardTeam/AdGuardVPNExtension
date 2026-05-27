@@ -16,7 +16,17 @@ import { MANUAL_FORM_ID, ManualMode } from './ManualMode';
 
 import './add-exclusion-modal.pcss';
 
-export const AddExclusionModal = observer(() => {
+/**
+ * AddExclusionModal component props.
+ */
+interface AddExclusionModalProps {
+    /**
+     * Whether the component is rendered inside a profile context.
+     */
+    isProfileContext: boolean;
+}
+
+export const AddExclusionModal = observer(({ isProfileContext }: AddExclusionModalProps) => {
     const { exclusionsStore, telemetryStore } = useContext(rootStore);
     const { addExclusionMode } = exclusionsStore;
 
@@ -24,7 +34,9 @@ export const AddExclusionModal = observer(() => {
 
     useTelemetryPageViewEvent(
         telemetryStore,
-        TelemetryScreenName.DialogAddWebsiteExclusion,
+        isProfileContext
+            ? TelemetryScreenName.ProfileDialogAddWebsiteExclusion
+            : TelemetryScreenName.DialogAddWebsiteExclusion,
         isOpen,
     );
 
@@ -60,13 +72,13 @@ export const AddExclusionModal = observer(() => {
             formId: SERVICE_FORM_ID,
             btnText: translator.getMessage('settings_exclusion_modal_save'),
             btnDisabled: !exclusionsStore.servicesToToggle.length,
-            content: (): ReactElement => <ServiceMode />,
+            content: (): ReactElement => <ServiceMode isProfileContext={isProfileContext} />,
         },
         [AddExclusionMode.Manual]: {
             formId: MANUAL_FORM_ID,
             btnText: translator.getMessage('settings_exclusion_add_manually_add'),
             btnDisabled: false,
-            content: (): ReactElement => <ManualMode />,
+            content: (): ReactElement => <ManualMode isProfileContext={isProfileContext} />,
         },
     };
 

@@ -6,25 +6,25 @@ import { type RootStore } from './RootStore';
  * This store contains state for UI only.
  */
 export class UiStore {
-    @observable isSidebarOpen = false;
+    @observable public isSidebarOpen = false;
 
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 
-    @action openSidebar = (): void => {
+    @action public openSidebar = (): void => {
         this.isSidebarOpen = true;
     };
 
-    @action closeSidebar = (): void => {
+    @action public closeSidebar = (): void => {
         this.isSidebarOpen = false;
     };
 
-    @computed get isAnyModalOpen(): boolean {
+    @computed public get isAnyModalOpen(): boolean {
         return (
-            this.rootStore.settingsStore.isCustomDnsModalOpen
+            this.rootStore.dnsStore.isCustomDnsModalOpen
             || this.rootStore.settingsStore.isHelpUsImproveModalOpen
             || this.rootStore.exclusionsStore.modeSelectorModalOpen
             || this.rootStore.exclusionsStore.removeAllModalOpen
@@ -41,7 +41,7 @@ export class UiStore {
      * It's used as scroll blocker if any modal, sidebar is open. And also in order to
      * trap focus inside of that opened element.
      */
-    @computed get isContentLocked(): boolean {
+    @computed public get isContentLocked(): boolean {
         return this.isSidebarOpen || this.isAnyModalOpen;
     }
 }

@@ -135,6 +135,12 @@
     "official_website": {
         "message": "الموقع الرسمي"
     },
+    "version_history": {
+        "message": "تاريخ الإصدار"
+    },
+    "github": {
+        "message": "مستودع GitHub"
+    },
     "eula": {
         "message": "اتفاقية ترخيص المستخدم النهائي"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "الاستثناءات"
     },
+    "settings_location_label": {
+        "message": "الموقع"
+    },
+    "settings_location_fastest_title": {
+        "message": "أسرع المواقع"
+    },
+    "settings_location_fastest_description": {
+        "message": "الاتصال تلقائيًا بأسرع موقع"
+    },
+    "settings_profiles_title": {
+        "message": "الملفات الشخصية"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "ملف شخصي"
+    },
+    "settings_profiles_subtitle": {
+        "message": "يسمح لك بتعيين خوادم DNS والمواقع والاحتفاظ بقوائم استثناءات منفصلة لحالات استخدام مختلفة، مثل العمل أو المنزل أو غيرها"
+    },
+    "settings_profiles_default_name": {
+        "message": "افتراضي"
+    },
+    "settings_profiles_actions": {
+        "message": "الإجراءات"
+    },
+    "settings_profiles_action_use": {
+        "message": "استخدام الملف الشخصي"
+    },
+    "settings_profiles_action_rename": {
+        "message": "إعادة تسمية"
+    },
+    "settings_profiles_action_delete": {
+        "message": "حذف"
+    },
+    "settings_profiles_create": {
+        "message": "إنشاء"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "إنشاء ملف شخصي"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "الاسم"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "إنشاء"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "إلغاء"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "الحد الأقصى للطول هو %count% حرف | الحد الأقصى للطول هو %count% حرف واحد | الحد الأقصى للطول هو %count% حرفان | الحد الأقصى للطول هو %count% أحرف | الحد الأقصى للطول هو %count% حرفًا | الحد الأقصى للطول هو %count% حرف"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "هذا الاسم مستخدم بالفعل"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "إعادة تسمية الملف الشخصي"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "اسم جديد"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "حفظ"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "هل تريد حذف الملف الشخصي %profile_name%؟"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "سيتم حذف إعدادات الملف الشخصي الخاصة بالموقع، وWebRTC، وخادم DNS، واستثناءات مواقع الويب"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "سيتم تحويل AdGuard VPN إلى الملف الشخصي الافتراضي"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "ال %profile_name% سيتم حذف إعدادات الملف الشخصي للموقع، WebRTC، خادم DNS، واستثناءات الموقع الإلكتروني"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "حذف"
+    },
+    "settings_description_current": {
+        "message": "الحالي: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "مكان تشغيل VPN"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "يؤدي ترك هذه القائمة فارغة إلى تعطيل VPN لجميع مواقع الويب"
+    },
+    "settings_applies_to_profile": {
+        "message": "ينطبق على الملف الشخصي <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "استيراد"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "إحصائيات"
+    },
+    "popup_profiles_title": {
+        "message": "الملفات الشخصية"
+    },
+    "popup_profiles_settings": {
+        "message": "الإعدادات"
+    },
+    "profile_apply_error": {
+        "message": "فشل تبديل الملفات الشخصية. حاول مرة أخرى أو تواصل مع الدعم"
     },
     "popup_settings_free_description": {
         "message": "متوفر في AdGuard VPN Unlimited"

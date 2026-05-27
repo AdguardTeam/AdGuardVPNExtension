@@ -20,6 +20,9 @@ export enum NotifierType {
     LOCATIONS_UPDATED = 'event.locations.updated',
     LOCATION_STATE_UPDATED = 'event.location.state.updated',
     CURRENT_LOCATION_UPDATED = 'event.current.location.updated',
+    PROFILE_LOCATION_UPDATED = 'event.profile.location.updated',
+    ACTIVE_PROFILE_CHANGED = 'event.active.profile.changed',
+    PROFILE_SWITCH_IN_PROGRESS = 'event.profile.switch.in.progress',
     PERMISSIONS_ERROR_UPDATE = 'event.permission.error.update',
     TOKEN_PREMIUM_STATE_UPDATED = 'event.token.premium.state.updated',
     TRAFFIC_STATS_UPDATED = 'event.traffic.stats.updated',
@@ -40,9 +43,11 @@ export enum NotifierType {
     WEB_AUTH_FLOW_AUTHENTICATED = 'event.web.auth.flow.authenticated',
 }
 
-export type NotifierTypeMap = {
-    [key in keyof typeof NotifierType]: NotifierType
-};
+/**
+ * Preserves literal enum types so that `notifier.types.FOO` narrows
+ * discriminated unions keyed on {@link NotifierType}.
+ */
+export type NotifierTypeMap = typeof NotifierType;
 
 type EventMap = {
     [key: string]: string
@@ -61,17 +66,17 @@ type ListenersEventsMap = {
 };
 
 export class Notifier {
-    types: NotifierTypeMap;
+    public types: NotifierTypeMap;
 
-    events: EventMap = {};
+    private events: EventMap = {};
 
-    listeners: ListenersMap = {};
+    private listeners: ListenersMap = {};
 
-    listenersEvents: ListenersEventsMap = {};
+    private listenersEvents: ListenersEventsMap = {};
 
-    listenerId = 0;
+    private listenerId = 0;
 
-    getListenerId(): string {
+    private getListenerId(): string {
         const id = this.listenerId;
         this.listenerId += 1;
         return id.toString();
@@ -92,7 +97,7 @@ export class Notifier {
      *
      * @returns Listener id.
      */
-    addSpecifiedListener(events: string | string[], listener: ListenerHandler): string {
+    public addSpecifiedListener(events: string | string[], listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
             throw new Error('Illegal listener');
         }
@@ -113,7 +118,7 @@ export class Notifier {
      *
      * @returns Listener id.
      */
-    addListener(listener: ListenerHandler): string {
+    public addListener(listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
             throw new Error('Illegal listener');
         }
@@ -126,7 +131,7 @@ export class Notifier {
      * Unsubscribe listener
      * @param listenerId Index of listener to unsubscribe
      */
-    removeListener(listenerId: string): void {
+    public removeListener(listenerId: string): void {
         delete this.listeners[listenerId];
         delete this.listenersEvents[listenerId];
     }
@@ -134,7 +139,7 @@ export class Notifier {
     /**
      * Notifies listeners about the events passed as arguments of this function.
      */
-    notifyListeners(event: NotifierType, ...args: unknown[]): void {
+    public notifyListeners(event: NotifierType, ...args: unknown[]): void {
         if (!event || !(event in this.events)) {
             throw new Error(`Illegal event: ${event}`);
         }

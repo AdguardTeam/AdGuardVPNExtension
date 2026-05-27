@@ -18,7 +18,7 @@ class LogStorageManager {
     /**
      * Creates a new instance of the LogStorageManager.
      *
-     * @param {LogStorageProvider} storage - The initial storage provider to use.
+     * @param storage The initial storage provider to use.
      */
     constructor(storage: LogStorageProvider) {
         this.currentStorage = storage;
@@ -36,7 +36,7 @@ class LogStorageManager {
      * Checks the debug mode setting and switches the storage provider if necessary.
      * If a switch occurs, logs from the old provider are transferred to the new provider.
      *
-     * @param {boolean} isDebugModeEnabled - Indicates if debug mode is enabled.
+     * @param isDebugModeEnabled Indicates if debug mode is enabled.
      */
     public async checkAndSwitchStorage(isDebugModeEnabled: boolean): Promise<void> {
         const newStorage = isDebugModeEnabled ? new BrowserLogStorageProvider() : new MemoryLogStorageProvider();
@@ -58,7 +58,7 @@ class LogStorageManager {
     /**
      * Retrieves the current storage provider.
      *
-     * @returns {LogStorageProvider} - The current storage provider.
+     * @returns The current storage provider.
      */
     public getStorage(): LogStorageProvider {
         return this.currentStorage;

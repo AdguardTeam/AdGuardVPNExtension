@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Site Web officiel"
     },
+    "version_history": {
+        "message": "Historique des versions"
+    },
+    "github": {
+        "message": "Dépôt GitHub"
+    },
     "eula": {
         "message": "CLUF"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
+    "settings_location_label": {
+        "message": "Localisation"
+    },
+    "settings_location_fastest_title": {
+        "message": "Connexion ultra-rapide"
+    },
+    "settings_location_fastest_description": {
+        "message": "Connectez-vous automatiquement à l’emplacement le plus rapide"
+    },
+    "settings_profiles_title": {
+        "message": "Profils"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Permet de configurer les serveurs DNS et les emplacements, et de conserver des listes d'exclusions séparées pour des différents cas d'utilisation, tels que le travail, le domicile ou autres"
+    },
+    "settings_profiles_default_name": {
+        "message": "Défaut"
+    },
+    "settings_profiles_actions": {
+        "message": "Actions"
+    },
+    "settings_profiles_action_use": {
+        "message": "Utiliser le profil"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Renommer"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Supprimer"
+    },
+    "settings_profiles_create": {
+        "message": "Créer"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Créer un profil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Nom"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Créer"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Annuler"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "La longueur maximale est de %count% caractères | La longueur maximale est de %count% caractère | La longueur maximale est de %count% caractères"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Ce nom est déjà utilisé"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Renommer le profil"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nouveau nom"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Sauvegarder"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Supprimer le profil %profile_name% ?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Les paramètres de profil pour l’emplacement, WebRTC, le serveur DNS et les exclusions de sites Web seront supprimés"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN passera au profil par défaut"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Les paramètres du profil %profile_name% concernant les emplacements, WebRTC, les serveurs DNS et les exclusions de sites Web seront supprimés"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Supprimer"
+    },
+    "settings_description_current": {
+        "message": "Actuellement : %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Où le VPN est activé"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Laisser cette liste vide désactive le VPN pour tous les sites web"
+    },
+    "settings_applies_to_profile": {
+        "message": "S'applique à votre profil <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Importer"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistiques"
+    },
+    "popup_profiles_title": {
+        "message": "Profils"
+    },
+    "popup_profiles_settings": {
+        "message": "Paramètres"
+    },
+    "profile_apply_error": {
+        "message": "Échec du changement de profil. Réessayez ou contactez l'assistance"
     },
     "popup_settings_free_description": {
         "message": "Disponible dans AdGuard VPN Illimité"
@@ -688,7 +787,7 @@
         "message": "Mise à niveau "
     },
     "popup_paywall_b_title": {
-        "message": "Limite de données atteinte — le contenu se charge plus longtemps"
+        "message": "Limite de données atteinte — le contenu se charge plus longtemps"
     },
     "popup_paywall_b_description": {
         "message": "Découvrez AdGuard VPN Illimité. Avec l'abonnement annuel, vous économisez 67 %%"

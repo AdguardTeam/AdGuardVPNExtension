@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Sito web ufficiale"
     },
+    "version_history": {
+        "message": "Cronologia versioni"
+    },
+    "github": {
+        "message": "Repository GitHub"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Esclusioni"
     },
+    "settings_location_label": {
+        "message": "Locazione"
+    },
+    "settings_location_fastest_title": {
+        "message": "Connessione ultraveloce"
+    },
+    "settings_location_fastest_description": {
+        "message": "Connessione automatica alla posizione più veloce"
+    },
+    "settings_profiles_title": {
+        "message": "Profili"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profilo"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Consente di impostare server DNS e posizioni e mantenere elenchi di esclusione separati per diversi casi d'uso, come lavoro, casa o altri"
+    },
+    "settings_profiles_default_name": {
+        "message": "Predefinito"
+    },
+    "settings_profiles_actions": {
+        "message": "Azioni"
+    },
+    "settings_profiles_action_use": {
+        "message": "Usa profilo"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Rinomina"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Elimina"
+    },
+    "settings_profiles_create": {
+        "message": "Crea"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Crea profilo"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Nome"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Crea"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Annulla"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "La lunghezza massima è %count% caratteri | La lunghezza massima è %count% carattere | La lunghezza massima è %count% caratteri"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Questo nome è già in uso"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Rinomina profilo"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nuovo nome"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Salva"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Eliminare il profilo %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Le impostazioni del profilo relative a posizione, WebRTC, server DNS ed esclusioni dei siti web verranno eliminate"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN passerà al profilo predefinito"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Le impostazioni del profilo %profile_name% per posizione, WebRTC, server DNS ed esclusioni dei siti web verranno eliminate"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Elimina"
+    },
+    "settings_description_current": {
+        "message": "Attuale: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Dove la VPN è attiva"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Lasciare questo elenco vuoto disabilita la VPN per tutti i siti web"
+    },
+    "settings_applies_to_profile": {
+        "message": "Si applica al tuo profilo <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Importa"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistiche"
+    },
+    "popup_profiles_title": {
+        "message": "Profili"
+    },
+    "popup_profiles_settings": {
+        "message": "Impostazioni"
+    },
+    "profile_apply_error": {
+        "message": "Impossibile cambiare profilo. Riprova o contatta l'assistenza"
     },
     "popup_settings_free_description": {
         "message": "Disponibile in AdGuard VPN Unlimited"
@@ -738,7 +837,7 @@
         "message": "Forse più tardi"
     },
     "popup_upgrade_b_title_line1": {
-        "message": "AdGuard VPN illimitato"
+        "message": "AdGuard VPN Unlimited"
     },
     "popup_upgrade_b_description": {
         "message": "Offre connessioni ad alta velocità, accesso a tutte le posizioni e altro"

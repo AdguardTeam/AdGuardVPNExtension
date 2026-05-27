@@ -63,6 +63,7 @@ const emitter = (() => {
 vi.spyOn(permissionsChecker, 'startChecker');
 vi.spyOn(permissionsChecker, 'checkPermissions');
 vi.spyOn(permissionsChecker, 'getVpnInfo');
+// @ts-expect-error - accessing private property in test
 vi.spyOn(permissionsChecker.credentials, 'gainValidVpnToken').mockResolvedValue({
     token: 'test_token',
     licenseStatus: 'VALID',
@@ -75,7 +76,9 @@ vi.spyOn(permissionsChecker.credentials, 'gainValidVpnToken').mockResolvedValue(
     },
 });
 
+// @ts-expect-error - accessing private property in test
 const getVpnCredentialsStateSpy = vi.spyOn(permissionsChecker.credentials, 'getVpnCredentialsState');
+// @ts-expect-error - accessing private property in test
 const gainValidVpnCredentialsSpy = vi.spyOn(permissionsChecker.credentials, 'gainValidVpnCredentials');
 
 vi.useFakeTimers();

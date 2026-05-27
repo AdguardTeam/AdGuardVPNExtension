@@ -16,19 +16,19 @@ interface ExclusionDtoProps {
  * Service -> Exclusions Group -> Exclusion
  */
 export class ExclusionDto implements ExclusionDtoInterface {
-    id: string;
+    public id: string;
 
-    parentId: string | null;
+    public parentId: string | null;
 
-    hostname: string;
+    public hostname: string;
 
-    state: ExclusionState;
+    public state: ExclusionState;
 
-    type: ExclusionsType;
+    public type: ExclusionsType;
 
-    iconUrl?: string;
+    public iconUrl?: string;
 
-    children: ExclusionDtoInterface[];
+    public children: ExclusionDtoInterface[];
 
     constructor({
         id,

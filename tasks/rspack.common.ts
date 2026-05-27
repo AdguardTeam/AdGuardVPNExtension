@@ -61,6 +61,7 @@ export const getCommonConfig = (browser: string): Configuration => {
         resolve: {
             modules: [
                 'node_modules',
+
                 /**
                  * By default, package managers like Yarn and NPM create a flat structure in the `node_modules` folder,
                  * placing all dependencies directly in the root `node_modules`.

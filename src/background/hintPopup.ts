@@ -4,6 +4,7 @@ import { ExclusionsMode } from '../common/exclusionsConstants';
 import { browserApi } from './browserApi';
 import { exclusions } from './exclusions';
 import { popupOpenedCounter } from './popupData/popupOpenedCounter';
+import { profilesService } from './profiles';
 
 const HINT_POPUP_COUNTDOWN_KEY = 'hint.popup.countdown';
 
@@ -85,7 +86,8 @@ class HintPopup implements HintPopupInterface {
      */
     public shouldShowHintPopup = async (): Promise<boolean> => {
         // do not show the hint popup for the selective mode. AG-24991
-        if (await exclusions.getMode() === ExclusionsMode.Selective) {
+        const profileId = profilesService.getActiveProfileId();
+        if (await exclusions.getMode(profileId) === ExclusionsMode.Selective) {
             return false;
         }
 

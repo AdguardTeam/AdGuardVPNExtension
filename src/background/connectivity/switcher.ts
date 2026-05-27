@@ -26,7 +26,7 @@ const FORCE_CANCELLED = 'Connection was cancelled by user';
  * 3. Gets credentials
  * 4. Sets credentials to proxy and WS connection
  * 5. Starts WS connection, when it is open it connects proxy in browser API
- * @param forcePrevEndpoint - flag used to not always determine all endpoints pings
+ * @param forcePrevEndpoint flag used to not always determine all endpoints pings
  */
 function* turnOnProxy(forcePrevEndpoint = false): Generator<Promise<unknown>, void, any> {
     const entryTime = Date.now();
@@ -80,7 +80,7 @@ class Switcher {
      *
      * @returns Promise that resolves when the proxy connection is established.
      */
-    turnOn(forcePrevEndpoint?: boolean): Promise<unknown> {
+    public turnOn(forcePrevEndpoint?: boolean): Promise<unknown> {
         if (this.cancel) {
             this.cancel(FORCE_CANCELLED);
         }
@@ -95,7 +95,7 @@ class Switcher {
      *
      * @returns Promise that resolves when the proxy connection is disconnected.
      */
-    turnOff(): Promise<unknown> {
+    public turnOff(): Promise<unknown> {
         if (this.cancel) {
             this.cancel(FORCE_CANCELLED);
         }
@@ -110,7 +110,7 @@ class Switcher {
      * If refresh data is true, before connecting, refreshes tokens, vpnInfo and locations
      * @param refreshData
      */
-    async retryTurnOn(refreshData?: boolean): Promise<void> {
+    public async retryTurnOn(refreshData?: boolean): Promise<void> {
         try {
             await this.turnOff();
             if (refreshData) {

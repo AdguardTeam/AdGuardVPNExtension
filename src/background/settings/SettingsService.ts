@@ -1,18 +1,27 @@
 import throttle from 'lodash/throttle';
 
 import { log } from '../../common/logger';
-import { AppearanceTheme, SETTINGS_IDS } from '../../common/constants';
+import {
+    AppearanceTheme,
+    QuickConnectSetting,
+    SETTINGS_IDS,
+    QUICK_CONNECT_SETTING_DEFAULT,
+} from '../../common/constants';
 import { browserApi } from '../browserApi';
 import { servicesManager } from '../exclusions/services/ServicesManager';
 import { complementedExclusionsWithServices, complementExclusions } from '../exclusions/exclusions-helpers';
-import { ExclusionState } from '../../common/exclusionsConstants';
+import { ExclusionState, ExclusionsMode } from '../../common/exclusionsConstants';
 import { type StorageInterface } from '../browserApi/storage';
 import { type ExclusionInterface } from '../schema';
 import { THEME_STORAGE_KEY } from '../../common/useAppearanceTheme';
+import { DEFAULT_PROFILE_ID } from '../../common/profiles';
+import { DEFAULT_DNS_SERVER } from '../../common/dnsConstants';
+import { type ProfileSettings } from '../schema/profiles/profileSettings';
+import { type ProfilesState } from '../schema/profiles/profilesState';
 
 type VersionType = { [x: string]: any; VERSION: string; };
 
-const SCHEME_VERSION = '14';
+const SCHEME_VERSION = '15';
 const THROTTLE_TIMEOUT = 100;
 
 const OLD_DARK_THEME_NAME = 'DARK';
@@ -34,20 +43,20 @@ type OldExclusion = {
 };
 
 export class SettingsService {
-    storage: StorageInterface;
+    public storage: StorageInterface;
 
-    defaults: Settings;
+    public defaults: Settings;
 
-    settings: Settings;
+    public settings: Settings;
 
     constructor(storage: StorageInterface, defaults: Settings) {
         this.storage = storage;
         this.defaults = defaults;
     }
 
-    SETTINGS_KEY = 'settings.service.key';
+    public SETTINGS_KEY = 'settings.service.key';
 
-    async init(): Promise<void> {
+    public async init(): Promise<void> {
         let settings;
         try {
             settings = await this.storage.get<Settings>(this.SETTINGS_KEY);
@@ -65,7 +74,7 @@ export class SettingsService {
         this.settings = await this.checkSchemeMatch(settings);
     }
 
-    migrateFrom1to2 = (oldSettings: Settings): VersionType => {
+    private migrateFrom1to2 = (oldSettings: Settings): VersionType => {
         const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
 
         const newExclusions = {
@@ -81,7 +90,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom2to3 = (oldSettings: Settings): VersionType => {
+    private migrateFrom2to3 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '3',
@@ -89,7 +98,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom3to4 = (oldSettings: Settings): VersionType => {
+    private migrateFrom3to4 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '4',
@@ -98,7 +107,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom4to5 = (oldSettings: Settings): VersionType => {
+    private migrateFrom4to5 = (oldSettings: Settings): VersionType => {
         const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
 
         const newExclusions = {
@@ -114,7 +123,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom5to6 = async (oldSettings: Settings): Promise<VersionType> => {
+    private migrateFrom5to6 = async (oldSettings: Settings): Promise<VersionType> => {
         let isSelectedByUser = false;
         // check if no location was saved earlier
         // this is necessary in order to skip already working extensions
@@ -133,7 +142,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom6to7 = (oldSettings: Settings): VersionType => {
+    private migrateFrom6to7 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '7',
@@ -151,7 +160,7 @@ export class SettingsService {
      *
      * @returns New settings.
      */
-    migrateFrom7to8 = (oldSettings: Settings): VersionType => {
+    private migrateFrom7to8 = (oldSettings: Settings): VersionType => {
         return {
             ...oldSettings,
             VERSION: '8',
@@ -171,7 +180,7 @@ export class SettingsService {
      *
      * @returns New settings.
      */
-    migrateFrom8to9 = async (oldSettings: Settings): Promise<VersionType> => {
+    private migrateFrom8to9 = async (oldSettings: Settings): Promise<VersionType> => {
         const updateExclusionsState = (oldExclusions: OldExclusion[]): {
             id: string;
             hostname: string;
@@ -215,7 +224,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom9to10 = async (oldSettings: Settings): Promise<VersionType> => {
+    private migrateFrom9to10 = async (oldSettings: Settings): Promise<VersionType> => {
         return {
             ...oldSettings,
             VERSION: '10',
@@ -223,7 +232,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom10to11 = (oldSettings: Settings): Settings => {
+    private migrateFrom10to11 = (oldSettings: Settings): Settings => {
         if (browserApi.runtime.getManifest().manifest_version === 2) {
             const appearanceTheme = localStorage.getItem(THEME_STORAGE_KEY);
             if (appearanceTheme) {
@@ -242,7 +251,7 @@ export class SettingsService {
      *
      * @returns Updated settings.
      */
-    migrateFrom11to12 = async (oldSettings: Settings): Promise<VersionType> => {
+    private migrateFrom11to12 = async (oldSettings: Settings): Promise<VersionType> => {
         // update SETTINGS_IDS.APPEARANCE_THEME setting value
         // after converting APPEARANCE_THEMES object to enum
         let currentTheme = oldSettings[SETTINGS_IDS.APPEARANCE_THEME];
@@ -275,7 +284,7 @@ export class SettingsService {
      *
      * @returns Updated settings.
      */
-    migrateFrom12to13 = async (oldSettings: Settings): Promise<VersionType> => {
+    public migrateFrom12to13 = async (oldSettings: Settings): Promise<VersionType> => {
         const AB_TEST_STORAGE_KEY = 'ab_test_manager.versions';
 
         try {
@@ -308,7 +317,7 @@ export class SettingsService {
      *
      * @returns Updated settings.
      */
-    migrateFrom13to14 = async (oldSettings: Settings): Promise<VersionType> => {
+    public migrateFrom13to14 = async (oldSettings: Settings): Promise<VersionType> => {
         const AB_TEST_STORAGE_KEY = 'ab_test_manager.versions';
 
         try {
@@ -324,12 +333,135 @@ export class SettingsService {
     };
 
     /**
+     * Runs settings migration from schema v14 to v15.
+     *
+     * Moves deprecated per-user settings (exclusions, WebRTC, DNS, location,
+     * quick-connect) into the Default profile and removes the old keys.
+     *
+     * @param oldSettings Old settings.
+     * @returns Updated settings.
+     */
+    public migrateFrom14to15 = (oldSettings: Settings): VersionType => {
+        const oldExclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
+        const rawRegular = oldExclusions?.[ExclusionsMode.Regular];
+        const rawSelective = oldExclusions?.[ExclusionsMode.Selective];
+        const isValidExclusion = (entry: unknown): boolean => {
+            if (typeof entry !== 'object' || entry === null) {
+                return false;
+            }
+
+            if (!('id' in entry) || !('hostname' in entry) || !('state' in entry)) {
+                return false;
+            }
+
+            return typeof entry.id === 'string'
+                && typeof entry.hostname === 'string'
+                && entry.hostname.length > 0
+                && (entry.state === ExclusionState.Enabled || entry.state === ExclusionState.Disabled);
+        };
+
+        const exclusions = {
+            [ExclusionsMode.Regular]: Array.isArray(rawRegular)
+                ? rawRegular.filter(isValidExclusion)
+                : [],
+            [ExclusionsMode.Selective]: Array.isArray(rawSelective)
+                ? rawSelective.filter(isValidExclusion)
+                : [],
+            inverted: oldExclusions?.inverted === true,
+        };
+
+        const handleWebRtcEnabled = oldSettings[SETTINGS_IDS.HANDLE_WEBRTC_ENABLED] === true;
+        const rawDnsServer = oldSettings[SETTINGS_IDS.SELECTED_DNS_SERVER];
+        if (typeof rawDnsServer !== 'string') {
+            log.warn('[vpn.SettingsService]: Invalid DNS server value, using default', rawDnsServer);
+        }
+        const selectedDnsServer = typeof rawDnsServer === 'string' ? rawDnsServer : DEFAULT_DNS_SERVER.id;
+        const rawCustomDns = oldSettings[SETTINGS_IDS.CUSTOM_DNS_SERVERS];
+
+        const isValidDnsEntry = (entry: unknown): boolean => {
+            if (typeof entry !== 'object' || entry === null) {
+                return false;
+            }
+
+            if (!('id' in entry) || !('title' in entry) || !('address' in entry)) {
+                return false;
+            }
+
+            return typeof entry.id === 'string'
+                && entry.id.length > 0
+                && typeof entry.title === 'string'
+                && typeof entry.address === 'string'
+                && entry.address.length > 0;
+        };
+
+        const customDnsServers = Array.isArray(rawCustomDns)
+            ? rawCustomDns.filter(isValidDnsEntry)
+            : [];
+        const rawQuickConnect = oldSettings[SETTINGS_IDS.QUICK_CONNECT];
+        // NOTE: QuickConnectSetting must remain a regular enum (not const) for this runtime check.
+        if (!Object.values(QuickConnectSetting).includes(rawQuickConnect)) {
+            log.warn('[vpn.SettingsService]: Invalid quick connect value, using default', rawQuickConnect);
+        }
+        const quickConnect = Object.values(QuickConnectSetting).includes(rawQuickConnect)
+            ? rawQuickConnect
+            : QUICK_CONNECT_SETTING_DEFAULT;
+        const rawLocation = oldSettings[SETTINGS_IDS.SELECTED_LOCATION_KEY];
+        const isValidLocation = typeof rawLocation === 'object'
+            && rawLocation !== null
+            && typeof rawLocation.id === 'string'
+            && rawLocation.id.length > 0;
+        if (rawLocation != null && !isValidLocation) {
+            log.warn('[vpn.SettingsService]: Invalid location value, resetting to null', rawLocation);
+        }
+        const selectedLocation = isValidLocation ? rawLocation : null;
+
+        const profileSettings: ProfileSettings = {
+            selectedLocation,
+            quickConnect,
+            handleWebRtcEnabled,
+            selectedDnsServer,
+            customDnsServers,
+            exclusions,
+        };
+
+        const profilesState: ProfilesState = {
+            activeProfileId: DEFAULT_PROFILE_ID,
+            profiles: [
+                {
+                    id: DEFAULT_PROFILE_ID,
+                    // Empty name — the UI resolves display name from the ID for the Default profile.
+                    name: '',
+                    settings: profileSettings,
+                },
+            ],
+        };
+
+        const newSettings = { ...oldSettings };
+        delete newSettings[SETTINGS_IDS.EXCLUSIONS];
+        delete newSettings[SETTINGS_IDS.HANDLE_WEBRTC_ENABLED];
+        delete newSettings[SETTINGS_IDS.SELECTED_DNS_SERVER];
+        delete newSettings[SETTINGS_IDS.CUSTOM_DNS_SERVERS];
+        delete newSettings[SETTINGS_IDS.QUICK_CONNECT];
+        delete newSettings[SETTINGS_IDS.SELECTED_LOCATION_KEY];
+        delete newSettings[SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY];
+        delete newSettings[SETTINGS_IDS.SELECTED_CUSTOM_DNS_SERVER];
+        // Drop any stale PROFILES_STATE — we rebuild it from the legacy keys above.
+        delete newSettings[SETTINGS_IDS.PROFILES_STATE];
+
+        return {
+            ...newSettings,
+            VERSION: '15',
+            [SETTINGS_IDS.PROFILES_STATE]: profilesState,
+        };
+    };
+
+    /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
      * For example if your migration function migrates your settings from scheme 4 to 5, then add
      * it under number 4
      */
-    migrationFunctions: MigrationFunctions = {
+    private migrationFunctions: MigrationFunctions = {
         1: this.migrateFrom1to2,
         2: this.migrateFrom2to3,
         3: this.migrateFrom3to4,
@@ -343,9 +475,10 @@ export class SettingsService {
         11: this.migrateFrom11to12,
         12: this.migrateFrom12to13,
         13: this.migrateFrom13to14,
+        14: this.migrateFrom14to15,
     };
 
-    async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {
+    private async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {
         let newSettings = { ...oldSettings };
         for (let i = oldVersion; i < newVersion; i += 1) {
             const migrationFunction = this.migrationFunctions[i];
@@ -367,7 +500,7 @@ export class SettingsService {
      *
      * @returns New settings.
      */
-    async migrateSettings(oldSettings: Settings): Promise<Settings> {
+    private async migrateSettings(oldSettings: Settings): Promise<Settings> {
         log.info(`[vpn.SettingsService.migrateSettings]: Settings were converted from ${oldSettings.VERSION} to ${SCHEME_VERSION}`);
         let newSettings;
 
@@ -386,7 +519,7 @@ export class SettingsService {
         return newSettings;
     }
 
-    checkSchemeMatch(settings: Settings): Settings | Promise<Settings> {
+    private checkSchemeMatch(settings: Settings): Settings | Promise<Settings> {
         const version = settings.VERSION;
         if (version === SCHEME_VERSION) {
             return settings;
@@ -395,24 +528,24 @@ export class SettingsService {
         return this.migrateSettings(settings);
     }
 
-    persist = throttle(async (settings = this.settings) => {
+    public persist = throttle(async (settings = this.settings) => {
         await this.storage.set(this.SETTINGS_KEY, settings);
     }, THROTTLE_TIMEOUT, { leading: false });
 
-    setSetting(key: string, value: any): void {
+    public setSetting(key: string, value: any): void {
         this.settings[key] = value;
         this.persist();
     }
 
-    getSetting(key: string): any {
+    public getSetting(key: string): any {
         return this.settings && this.settings[key];
     }
 
-    getSettings(): Settings {
+    public getSettings(): Settings {
         return this.settings;
     }
 
-    async clearSettings(): Promise<void> {
+    public async clearSettings(): Promise<void> {
         this.settings = {};
         await this.storage.remove(this.SETTINGS_KEY);
     }

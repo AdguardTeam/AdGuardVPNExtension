@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Официјална веб страна"
     },
+    "version_history": {
+        "message": "Историја на верзијата"
+    },
+    "github": {
+        "message": "GitHub складиште"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Исклучоци"
     },
+    "settings_location_label": {
+        "message": "Локација"
+    },
+    "settings_location_fastest_title": {
+        "message": "Најбрза локација"
+    },
+    "settings_location_fastest_description": {
+        "message": "Автоматски се поврзува со најбрзата локација"
+    },
+    "settings_profiles_title": {
+        "message": "Профили"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Профил"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Овозможува да поставите DNS сервери и локации и да водите посебни листи на исклучоци за различни случаи на употреба, како работа, дома или други"
+    },
+    "settings_profiles_default_name": {
+        "message": "Стандардно"
+    },
+    "settings_profiles_actions": {
+        "message": "Дејства"
+    },
+    "settings_profiles_action_use": {
+        "message": "Користи профил"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Преименувај"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Избриши"
+    },
+    "settings_profiles_create": {
+        "message": "Создади"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Креирај профил"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Име"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Создади"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Откажи"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Максималната должина е %count% знаци | Максималната должина е %count% знак | Максималната должина е %count% знаци"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Ова име веќе се користи"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Преименувај профил"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Ново име"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Зачувај"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Избриши профил %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Поставките на профилот за локација, WebRTC, DNS сервер и исклучоци на веб-страници ќе бидат избришани"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN ќе се префрли на стандардниот профил"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Поставките на профилот %profile_name% за исклучоците од локацијата, WebRTC, DNS серверот и веб-страницата ќе бидат избришани"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Избриши"
+    },
+    "settings_description_current": {
+        "message": "Тековно: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Каде што е вклучен VPN"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Ако ја оставите оваа листа празна, се оневозможува VPN за сите веб-локации"
+    },
+    "settings_applies_to_profile": {
+        "message": "Се применува на вашиот профил <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Увези"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Статистика"
+    },
+    "popup_profiles_title": {
+        "message": "Профили"
+    },
+    "popup_profiles_settings": {
+        "message": "Поставки"
+    },
+    "profile_apply_error": {
+        "message": "Не успеа префрлањето на профили. Обидете се повторно или контактирајте поддршка"
     },
     "popup_settings_free_description": {
         "message": "Достапно во AdGuard VPN Unlimited"

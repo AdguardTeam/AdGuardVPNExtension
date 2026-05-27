@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Zvanična stranica"
     },
+    "version_history": {
+        "message": "Istorija verzija"
+    },
+    "github": {
+        "message": "GitHub repozitorijum"
+    },
     "eula": {
         "message": "LUKK"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Izuzeci"
     },
+    "settings_location_label": {
+        "message": "Lokacija"
+    },
+    "settings_location_fastest_title": {
+        "message": "Najbrža lokacija"
+    },
+    "settings_location_fastest_description": {
+        "message": "Automatski se poveži na najbržu lokaciju"
+    },
+    "settings_profiles_title": {
+        "message": "Profili"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Omogućava vam da podesite DNS servere i lokacije i vodite odvojene liste izuzeća za različite slučajeve upotrebe, kao što su posao, kuća ili drugo"
+    },
+    "settings_profiles_default_name": {
+        "message": "Podrazumevano"
+    },
+    "settings_profiles_actions": {
+        "message": "Radnje"
+    },
+    "settings_profiles_action_use": {
+        "message": "Koristi profil"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Preimenuj"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Izbriši"
+    },
+    "settings_profiles_create": {
+        "message": "Kreirate"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Kreiraj profil"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Ime"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Kreirate"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Otkaži"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maksimalna dužina je %count% karakter | Maksimalna dužina je %count% karaktera | Maksimalna dužina je %count% karaktera | Maksimalna dužina je %count% karaktera"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Ovaj naziv je već u upotrebi"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Preimenuj profil"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Novi naziv"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Sačuvaj"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Obrisati profil %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Podešavanja profila za lokaciju, WebRTC, DNS server i izuzeća za veb-sajtove će biti obrisana"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN će se prebaciti na Default profil"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Podešavanja profila %profile_name% za lokaciju, WebRTC, DNS server i izuzeća za veb-sajtove će biti obrisana"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Izbriši"
+    },
+    "settings_description_current": {
+        "message": "Trenutno: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Gde je VPn uključen"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Ako ovu listu ostavite praznom, to će isključiti VPN na svim sajtovima"
+    },
+    "settings_applies_to_profile": {
+        "message": "Primenjuje se na vaš <b>%profile_name%</b> profil"
     },
     "settings_exclusion_import_button": {
         "message": "Uvezi"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistiku"
+    },
+    "popup_profiles_title": {
+        "message": "Profili"
+    },
+    "popup_profiles_settings": {
+        "message": "Postavke"
+    },
+    "profile_apply_error": {
+        "message": "Prebacivanje profila nije uspelo. Pokušajte ponovo ili kontaktirajte podršku"
     },
     "popup_settings_free_description": {
         "message": "Dostupno u AdGuard VPN Unlimited"

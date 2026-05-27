@@ -135,6 +135,12 @@
     "official_website": {
         "message": "Officiële website"
     },
+    "version_history": {
+        "message": "Versiegeschiedenis"
+    },
+    "github": {
+        "message": "GitHub-opslagplaats"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -530,6 +536,87 @@
     "settings_exclusion_title": {
         "message": "Uitsluitingen"
     },
+    "settings_location_label": {
+        "message": "Locatie"
+    },
+    "settings_location_fastest_title": {
+        "message": "Snelste locatie"
+    },
+    "settings_location_fastest_description": {
+        "message": "Automatisch verbinden met de snelste locatie"
+    },
+    "settings_profiles_title": {
+        "message": "Profielen"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profiel"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Hiermee kun je DNS-servers en locaties instellen en aparte uitsluitingslijsten bijhouden voor verschillende gebruikssituaties, zoals werk, thuis of andere toepassingen"
+    },
+    "settings_profiles_default_name": {
+        "message": "Standaard"
+    },
+    "settings_profiles_actions": {
+        "message": "Acties"
+    },
+    "settings_profiles_action_use": {
+        "message": "Profiel gebruiken"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Hernoemen"
+    },
+    "settings_profiles_action_delete": {
+        "message": "Verwijderen"
+    },
+    "settings_profiles_create": {
+        "message": "Aanmaken"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Profiel aanmaken"
+    },
+    "settings_profiles_create_modal_name_label": {
+        "message": "Naam"
+    },
+    "settings_profiles_create_modal_submit": {
+        "message": "Aanmaken"
+    },
+    "settings_profiles_modal_cancel": {
+        "message": "Annuleren"
+    },
+    "settings_profiles_error_too_long": {
+        "message": "Maximale lengte is %count% tekens | Maximale lengte is %count% teken | Maximale lengte is %count% tekens"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Deze naam is al in gebruik"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Profiel hernoemen"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nieuwe naam"
+    },
+    "settings_profiles_rename_modal_submit": {
+        "message": "Opslaan"
+    },
+    "settings_profiles_delete_modal_title": {
+        "message": "Profiel %profile_name% verwijderen?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "De profielinstellingen voor locatie, WebRTC, DNS-server en website-uitsluitingen worden verwijderd"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN zal overschakelen naar het Standaardprofiel"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "De instellingen van profiel %profile_name% voor locatie, WebRTC, DNS-server en website-uitsluitingen worden verwijderd"
+    },
+    "settings_profiles_delete_modal_submit": {
+        "message": "Verwijderen"
+    },
+    "settings_description_current": {
+        "message": "Huidige: %mode%"
+    },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Waar VPN is ingeschakeld"
     },
@@ -547,6 +634,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Als u deze lijst leeg laat, wordt VPN voor alle websites uitgeschakeld"
+    },
+    "settings_applies_to_profile": {
+        "message": "Van toepassing op je profiel <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Importeren"
@@ -601,6 +691,15 @@
     },
     "popup_settings_stats": {
         "message": "Statistieken"
+    },
+    "popup_profiles_title": {
+        "message": "Profielen"
+    },
+    "popup_profiles_settings": {
+        "message": "Instellingen"
+    },
+    "profile_apply_error": {
+        "message": "Wisselen profielen mislukt. Probeer het opnieuw of neem contact op met de ondersteuning"
     },
     "popup_settings_free_description": {
         "message": "Beschikbaar in AdGuard VPN Onbeperkt"
@@ -738,7 +837,7 @@
         "message": "Misschien later"
     },
     "popup_upgrade_b_title_line1": {
-        "message": "AdGuard VPN onbeperkt"
+        "message": "AdGuard VPN Onbeperkt"
     },
     "popup_upgrade_b_description": {
         "message": "Het biedt snelle verbindingen, toegang tot alle locaties en meer"

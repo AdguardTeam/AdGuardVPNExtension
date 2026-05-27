@@ -8,14 +8,17 @@ export const connectivityContextScheme = v.strictObject({
      * Count of connections retries
      */
     retryCount: v.number(),
+
     /**
      * Time in ms passed since last retry with tokens and locations list refresh
      */
     timeSinceLastRetryWithRefreshMs: v.number(),
+
     /**
      * Property used to keep growing delay between reconnections
      */
     currentReconnectionDelayMs: v.number(),
+
     /**
      * Flag used to reconnect to another endpoint of current location
      */

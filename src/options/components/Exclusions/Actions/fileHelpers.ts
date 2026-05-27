@@ -4,6 +4,7 @@ import { translator } from '../../../../common/translator';
 
 const EXCLUSIONS_FILES_MARKERS = {
     GENERAL: 'general.txt',
+
     /**
      * @deprecated in the favor of general.txt
      */

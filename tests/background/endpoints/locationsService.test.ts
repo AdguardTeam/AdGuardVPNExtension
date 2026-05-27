@@ -22,9 +22,26 @@ import type {
 } from '../../../src/background/schema';
 import { locationsService, LocationsService } from '../../../src/background/endpoints/locationsService';
 import { LocationsTab } from '../../../src/background/endpoints/locationsEnums';
+import { profilesService } from '../../../src/background/profiles';
+import { notifier } from '../../../src/common/notifier';
+import { settings } from '../../../src/background/settings';
 
 vi.mock('../../../src/background/settings');
 vi.mock('../../../src/background/providers/vpnProvider');
+vi.mock('../../../src/background/profiles', () => ({
+    profilesService: {
+        getActiveProfileId: vi.fn().mockReturnValue('default'),
+        getActiveProfileSettings: vi.fn().mockReturnValue({ selectedLocation: null }),
+        updateProfileSettings: vi.fn().mockImplementation(
+            async (_id: string, _patch: unknown, onApply?: () => Promise<void>) => {
+                if (onApply) {
+                    await onApply();
+                }
+            },
+        ),
+        getProfilesData: vi.fn().mockResolvedValue({ activeProfileId: 'default', profiles: [] }),
+    },
+}));
 
 describe('location service', () => {
     beforeEach(async () => {
@@ -156,7 +173,7 @@ describe('location service', () => {
 
         let locations = await endpoints.getLocationsFromServer();
         expect(locations).toBeDefined();
-        await locationsService.setSelectedLocation('test-location');
+        await locationsService.setSelectedLocation('default', 'test-location');
         let selectedLocation = await locationsService.getSelectedLocation();
         expect(selectedLocation).toBeDefined();
         expect(selectedLocation?.id).toBe('test-location');
@@ -381,6 +398,10 @@ describe('location service', () => {
             vi.spyOn(credentials, 'gainValidVpnToken')
                 .mockResolvedValue({ licenseKey: '' } as VpnTokenData);
 
+            type ActiveProfileSettings = ReturnType<typeof profilesService.getActiveProfileSettings>;
+            vi.mocked(profilesService.getActiveProfileSettings)
+                .mockReturnValue({ selectedLocation: null } as ActiveProfileSettings);
+
             const getLocationsDataMock = vpnProvider.getLocationsData as MockedFunction<() => any>;
 
             getLocationsDataMock.mockImplementation(() => [
@@ -394,6 +415,292 @@ describe('location service', () => {
             expect(loc?.ping).toBe(300);
             expect(loc?.available).toBe(true);
             expect(measurePingMock).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('setSelectedLocation with profileId', () => {
+        const makeEndpoint = (domain: string): EndpointInterface => ({
+            id: domain,
+            domainName: domain,
+            ipv4Address: '1.2.3.4',
+            ipv6Address: '::1',
+            publicKey: 'testkey=',
+        });
+
+        const testLocation: LocationInterface = {
+            id: 'loc-berlin',
+            cityName: 'Berlin',
+            countryName: 'Germany',
+            countryCode: 'DE',
+            coordinates: [13.4, 52.52],
+            premiumOnly: false,
+            pingBonus: 0,
+            endpoints: [makeEndpoint('de.endpoint.test')],
+            virtual: false,
+        };
+
+        beforeEach(async () => {
+            vi.spyOn(pingHelpers, 'measurePingWithinLimits').mockResolvedValue(50);
+            await locationsService.setLocations([new Location(testLocation)]);
+            vi.clearAllMocks();
+        });
+
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it('should call updateProfileSettings with the specified profileId', async () => {
+            await locationsService.setSelectedLocation('custom-profile', 'loc-berlin');
+
+            expect(profilesService.updateProfileSettings).toHaveBeenCalledWith(
+                'custom-profile',
+                expect.objectContaining({ selectedLocation: expect.objectContaining({ id: 'loc-berlin' }) }),
+                expect.any(Function),
+            );
+        });
+
+        it('should emit PROFILE_LOCATION_UPDATED notification', async () => {
+            const notifierSpy = vi.spyOn(notifier, 'notifyListeners');
+
+            await locationsService.setSelectedLocation('custom-profile', 'loc-berlin');
+
+            expect(notifierSpy).toHaveBeenCalledWith(
+                notifier.types.PROFILE_LOCATION_UPDATED,
+                'custom-profile',
+                expect.objectContaining({ id: 'loc-berlin' }),
+            );
+        });
+
+        it('should set null when location id is not found', async () => {
+            await locationsService.setSelectedLocation('default', 'nonexistent-id');
+
+            expect(profilesService.updateProfileSettings).toHaveBeenCalledWith(
+                'default',
+                expect.objectContaining({ selectedLocation: null }),
+                expect.any(Function),
+            );
+        });
+
+        it('should reconnect VPN when { reconnect: true } and VPN is connected', async () => {
+            vi.mocked(profilesService.updateProfileSettings).mockImplementation(
+                async (_id, _patch, onApply) => { if (onApply) await onApply(); },
+            );
+            vi.spyOn(connectivityService, 'isVPNDisconnectedIdle').mockReturnValue(false);
+            vi.spyOn(connectivityService, 'isVPNIdle').mockReturnValue(false);
+
+            await locationsService.setSelectedLocation('default', 'loc-berlin', { reconnect: true });
+
+            expect(settings.disableProxy).toHaveBeenCalledWith(true);
+            expect(settings.enableProxy).toHaveBeenCalledWith(true);
+        });
+
+        it('should not reconnect when { reconnect: true } but VPN is DisconnectedIdle', async () => {
+            vi.mocked(profilesService.updateProfileSettings).mockImplementation(
+                async (_id, _patch, onApply) => { if (onApply) await onApply(); },
+            );
+            vi.spyOn(connectivityService, 'isVPNDisconnectedIdle').mockReturnValue(true);
+            vi.spyOn(connectivityService, 'isVPNIdle').mockReturnValue(false);
+
+            await locationsService.setSelectedLocation('default', 'loc-berlin', { reconnect: true });
+
+            expect(settings.disableProxy).not.toHaveBeenCalled();
+            expect(settings.enableProxy).not.toHaveBeenCalled();
+        });
+
+        it('should not reconnect when { reconnect: true } but VPN is Idle', async () => {
+            vi.mocked(profilesService.updateProfileSettings).mockImplementation(
+                async (_id, _patch, onApply) => { if (onApply) await onApply(); },
+            );
+            vi.spyOn(connectivityService, 'isVPNDisconnectedIdle').mockReturnValue(false);
+            vi.spyOn(connectivityService, 'isVPNIdle').mockReturnValue(true);
+
+            await locationsService.setSelectedLocation('default', 'loc-berlin', { reconnect: true });
+
+            expect(settings.disableProxy).not.toHaveBeenCalled();
+            expect(settings.enableProxy).not.toHaveBeenCalled();
+        });
+
+        it('should not reconnect when reconnect option is not passed', async () => {
+            vi.mocked(profilesService.updateProfileSettings).mockImplementation(
+                async (_id, _patch, onApply) => { if (onApply) await onApply(); },
+            );
+            vi.spyOn(connectivityService, 'isVPNDisconnectedIdle').mockReturnValue(false);
+            vi.spyOn(connectivityService, 'isVPNIdle').mockReturnValue(false);
+
+            await locationsService.setSelectedLocation('default', 'loc-berlin');
+
+            expect(settings.disableProxy).not.toHaveBeenCalled();
+            expect(settings.enableProxy).not.toHaveBeenCalled();
+        });
+
+        it('should not persist to profile when persistToProfile is false', async () => {
+            await locationsService.setSelectedLocation(
+                'custom-profile',
+                'loc-berlin',
+                { persistToProfile: false },
+            );
+
+            expect(profilesService.updateProfileSettings).not.toHaveBeenCalled();
+        });
+
+        it('should still update locationsState when persistToProfile is false', async () => {
+            await locationsService.setSelectedLocation(
+                'custom-profile',
+                'loc-berlin',
+                { persistToProfile: false },
+            );
+
+            const selectedLocation = await locationsService.getSelectedLocation();
+            expect(selectedLocation).toEqual(expect.objectContaining({ id: 'loc-berlin' }));
+        });
+
+        it('should reconnect when persistToProfile is false and reconnect is true', async () => {
+            vi.spyOn(connectivityService, 'isVPNDisconnectedIdle').mockReturnValue(false);
+            vi.spyOn(connectivityService, 'isVPNIdle').mockReturnValue(false);
+
+            await locationsService.setSelectedLocation(
+                'default',
+                'loc-berlin',
+                { reconnect: true, persistToProfile: false },
+            );
+
+            expect(settings.disableProxy).toHaveBeenCalledWith(true);
+            expect(settings.enableProxy).toHaveBeenCalledWith(true);
+            expect(profilesService.updateProfileSettings).not.toHaveBeenCalled();
+        });
+
+        it('should not emit PROFILE_LOCATION_UPDATED when persistToProfile is false', async () => {
+            const notifierSpy = vi.spyOn(notifier, 'notifyListeners');
+
+            await locationsService.setSelectedLocation(
+                'custom-profile',
+                'loc-berlin',
+                { persistToProfile: false },
+            );
+
+            expect(notifierSpy).not.toHaveBeenCalledWith(
+                notifier.types.PROFILE_LOCATION_UPDATED,
+                expect.anything(),
+                expect.anything(),
+            );
+        });
+    });
+
+    describe('updateSelectedLocation profile guard', () => {
+        const makeEndpoint = (domain: string): EndpointInterface => ({
+            id: domain,
+            domainName: domain,
+            ipv4Address: '1.2.3.4',
+            ipv6Address: '::1',
+            publicKey: 'testkey=',
+        });
+
+        const berlinLocation: LocationInterface = {
+            id: 'loc-berlin',
+            cityName: 'Berlin',
+            countryName: 'Germany',
+            countryCode: 'DE',
+            coordinates: [13.4, 52.52],
+            premiumOnly: false,
+            pingBonus: 0,
+            endpoints: [makeEndpoint('de.endpoint.test')],
+            virtual: false,
+        };
+
+        const tokyoLocation: LocationInterface = {
+            id: 'loc-tokyo',
+            cityName: 'Tokyo',
+            countryName: 'Japan',
+            countryCode: 'JP',
+            coordinates: [139.69, 35.69],
+            premiumOnly: false,
+            pingBonus: 0,
+            endpoints: [makeEndpoint('jp.endpoint.test')],
+            virtual: false,
+        };
+
+        beforeEach(async () => {
+            vi.spyOn(pingHelpers, 'measurePingWithinLimits').mockResolvedValue(50);
+            await locationsService.setLocations([
+                new Location(berlinLocation),
+                new Location(tokyoLocation),
+            ]);
+            vi.clearAllMocks();
+        });
+
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it('should persist to profile when session location matches profile location', async () => {
+            // Profile stores Berlin, session also has Berlin selected
+            vi.mocked(profilesService.getActiveProfileSettings).mockReturnValue(
+                { selectedLocation: berlinLocation } as ReturnType<typeof profilesService.getActiveProfileSettings>,
+            );
+            vi.mocked(profilesService.getActiveProfileId).mockReturnValue('default');
+
+            // Select Berlin in session so updateSelectedLocation finds it
+            await locationsService.setSelectedLocation('default', 'loc-berlin', { persistToProfile: false });
+            vi.mocked(profilesService.updateProfileSettings).mockClear();
+
+            await locationsService.updateSelectedLocation();
+
+            expect(profilesService.updateProfileSettings).toHaveBeenCalledWith(
+                'default',
+                expect.objectContaining({
+                    selectedLocation: expect.objectContaining({ id: 'loc-berlin' }),
+                }),
+            );
+        });
+
+        it('should NOT persist to profile when session location differs and profile location exists', async () => {
+            // Profile stores Berlin, but popup changed session to Tokyo.
+            // Berlin still exists in the available locations list,
+            // so the profile should NOT be overwritten.
+            vi.mocked(profilesService.getActiveProfileSettings).mockReturnValue(
+                { selectedLocation: berlinLocation } as ReturnType<typeof profilesService.getActiveProfileSettings>,
+            );
+            vi.mocked(profilesService.getActiveProfileId).mockReturnValue('default');
+
+            // Session has Tokyo (popup override)
+            await locationsService.setSelectedLocation('default', 'loc-tokyo', { persistToProfile: false });
+            vi.mocked(profilesService.updateProfileSettings).mockClear();
+
+            await locationsService.updateSelectedLocation();
+
+            expect(profilesService.updateProfileSettings).not.toHaveBeenCalled();
+        });
+
+        it('should persist to profile when profile location no longer exists in available list', async () => {
+            // Profile stores a location that was removed from the server.
+            const removedLocation: LocationInterface = {
+                id: 'loc-removed',
+                cityName: 'Removed',
+                countryName: 'Nowhere',
+                countryCode: 'XX',
+                coordinates: [0, 0],
+                premiumOnly: false,
+                pingBonus: 0,
+                endpoints: [makeEndpoint('removed.endpoint.test')],
+                virtual: false,
+            };
+
+            vi.mocked(profilesService.getActiveProfileSettings).mockReturnValue(
+                { selectedLocation: removedLocation } as ReturnType<typeof profilesService.getActiveProfileSettings>,
+            );
+            vi.mocked(profilesService.getActiveProfileId).mockReturnValue('default');
+
+            await locationsService.setSelectedLocation('default', 'loc-tokyo', { persistToProfile: false });
+            vi.mocked(profilesService.updateProfileSettings).mockClear();
+
+            await locationsService.updateSelectedLocation();
+
+            expect(profilesService.updateProfileSettings).toHaveBeenCalledWith(
+                'default',
+                expect.objectContaining({
+                    selectedLocation: expect.objectContaining({ id: 'loc-tokyo' }),
+                }),
+            );
         });
     });
 });

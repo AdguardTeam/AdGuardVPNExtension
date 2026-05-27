@@ -73,7 +73,7 @@ class ExtendedLogger extends Logger {
      *
      * @returns True if current log level is Debug or Verbose, false otherwise.
      */
-    isVerbose(): boolean {
+    private isVerbose(): boolean {
         return this.currentLevel === LogLevel.Debug
              || this.currentLevel === LogLevel.Verbose;
     }
@@ -84,7 +84,7 @@ class ExtendedLogger extends Logger {
      *
      * @param level Log level to set.
      */
-    setLogLevel(level: LogLevel): void {
+    private setLogLevel(level: LogLevel): void {
         this.currentLevel = level;
 
         browserApi.storage.set(ExtendedLogger.LOG_LEVEL_LOCAL_STORAGE_KEY, level)

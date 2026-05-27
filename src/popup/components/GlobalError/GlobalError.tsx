@@ -11,7 +11,18 @@ import confusedImageUrl from '../../../assets/images/confused.svg';
 
 import './global-error.pcss';
 
-export const GlobalError = observer(() => {
+/**
+ * Props for {@link GlobalError}.
+ */
+interface GlobalErrorProps {
+    /**
+     * Optional retry handler provided by the parent.
+     * When set, overrides the default "Try Again" behavior.
+     */
+    onRetry?: () => void;
+}
+
+export const GlobalError = observer(({ onRetry }: GlobalErrorProps) => {
     const {
         settingsStore,
         vpnStore,
@@ -28,6 +39,10 @@ export const GlobalError = observer(() => {
     };
 
     const handleTryAgain = async (): Promise<void> => {
+        if (onRetry) {
+            onRetry();
+            return;
+        }
         await settingsStore.checkPermissions();
         // forcibly update locations on try again
         const locations = await vpnStore.forceUpdateLocations();
