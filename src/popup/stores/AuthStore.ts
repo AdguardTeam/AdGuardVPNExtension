@@ -60,16 +60,19 @@ export class AuthStore {
     }
 
     @action public getAuthCacheFromBackground = async (): Promise<void> => {
-        const {
-            policyAgreement,
-            helpUsImprove,
-            webAuthFlowState,
-        } = await messenger.getConsentData();
-        runInAction(() => {
-            this.policyAgreement = policyAgreement;
-            this.helpUsImprove = helpUsImprove;
-            this.webAuthFlowState = webAuthFlowState;
-        });
+        const consentData = await messenger.getConsentData();
+        this.applyAuthCache(consentData);
+    };
+
+    /**
+     * Applies auth cache data to the store.
+     *
+     * @param data Auth cache data to apply.
+     */
+    @action public applyAuthCache = (data: AuthCacheData): void => {
+        this.policyAgreement = data.policyAgreement;
+        this.helpUsImprove = data.helpUsImprove;
+        this.webAuthFlowState = data.webAuthFlowState;
     };
 
     @action public setFlagsStorageData = (flagsStorageData: { [key: string]: boolean }): void => {

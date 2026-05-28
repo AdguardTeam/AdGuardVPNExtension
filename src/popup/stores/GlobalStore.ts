@@ -62,16 +62,21 @@ export class GlobalStore {
     }
 
     /**
-     * Retrieves the authentication status from the
-     * background and marks the status as retrieved.
+     * Retrieves auth status and consent data from background.
      *
      * @returns Whether the user is authenticated.
      */
     @action
     public async initAuthenticatedStatus(): Promise<boolean> {
-        const { authStore } = this.rootStore;
+        const { authStore, settingsStore } = this.rootStore;
 
-        const isAuthenticated = await messenger.isAuthenticated();
+        const [isAuthenticated, consentData] = await Promise.all([
+            messenger.isAuthenticated(),
+            messenger.getConsentData(),
+        ]);
+
+        settingsStore.setForwarderDomain(consentData.forwarderDomain);
+        authStore.applyAuthCache(consentData);
         authStore.setIsAuthenticated(isAuthenticated);
         authStore.setAuthenticatedStatusRetrieved(true);
 
