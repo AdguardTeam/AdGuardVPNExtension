@@ -24,7 +24,7 @@ import { TrafficLimitExceeded, TrafficLimitExceededB } from '../Settings/Traffic
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
-import { UpgradeScreen, UpgradeScreenB } from '../Authentication/UpgradeScreen';
+import { UpgradePaywall } from '../Authentication/UpgradeScreen';
 import { ReviewPopup } from '../ReviewPopup';
 import { ServerErrorPopup } from '../ServerErrorPopup';
 import { VpnBlockedError } from '../VpnBlockedError';
@@ -437,11 +437,9 @@ export const App = observer(() => {
         }
 
         if (!isPremiumToken && renderUpgradeScreen) {
-            const UpgradeComponent = isPaywallBVariant ? UpgradeScreenB : UpgradeScreen;
-
             return (
                 <>
-                    <UpgradeComponent />
+                    <UpgradePaywall />
                     <Icons />
                 </>
             );
@@ -542,6 +540,15 @@ export const App = observer(() => {
         return (
             <>
                 <Locations />
+                <Icons />
+            </>
+        );
+    }
+
+    if (!isPremiumToken && renderUpgradeScreen) {
+        return (
+            <>
+                <UpgradePaywall />
                 <Icons />
             </>
         );
