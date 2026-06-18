@@ -54,11 +54,11 @@ export class ProfileManager {
      *
      * @param profileId Profile to apply settings for.
      */
-    public static async applyActiveProfileSettings(profileId: string): Promise<void> {
-        await dns.applyActiveProfile(profileId);
-        await exclusions.applyActiveProfile(profileId);
+    public static async applyProfileSettings(profileId: string): Promise<void> {
+        await dns.applyProfile(profileId);
+        await exclusions.applyProfile(profileId);
         await profileWebRtcService.init(profileId);
-        await locationsService.applyActiveProfile(profileId);
+        await locationsService.applyProfileLocation(profileId);
     }
 
     /**
@@ -78,7 +78,7 @@ export class ProfileManager {
         rollbackId: string,
     ): Promise<void> {
         try {
-            await ProfileManager.applyActiveProfileSettings(targetId);
+            await ProfileManager.applyProfileSettings(targetId);
         } catch (e) {
             log.error(`[vpn.ProfileManager.applySwitchWithRollback]: Failed to apply settings for profile "${targetId}", reverting`, e);
             queue.clear();
@@ -89,7 +89,7 @@ export class ProfileManager {
             };
             notifier.notifyListeners(notifier.types.ACTIVE_PROFILE_CHANGED, rollbackPayload);
             try {
-                await ProfileManager.applyActiveProfileSettings(rollbackId);
+                await ProfileManager.applyProfileSettings(rollbackId);
             } catch (rollbackError) {
                 log.error(`[vpn.ProfileManager.applySwitchWithRollback]: Rollback to profile "${rollbackId}" also failed`, rollbackError);
             }

@@ -706,9 +706,9 @@ export class LocationsService implements LocationsServiceInterface {
      * profile and reconnects the VPN if it is currently connected and
      * the location has changed.
      *
-     * @param profileId Profile to apply.
+     * @param profileId Profile to apply location for.
      */
-    public applyActiveProfile = async (profileId: string): Promise<void> => {
+    public applyProfileLocation = async (profileId: string): Promise<void> => {
         const activeSettings = profilesService.getProfileSettings(profileId);
         const { selectedLocation: storedLocation } = activeSettings;
 

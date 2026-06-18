@@ -52,7 +52,7 @@ export class Dns {
      *
      * @param profileId Profile to apply.
      */
-    public applyActiveProfile = async (profileId: string): Promise<void> => {
+    public applyProfile = async (profileId: string): Promise<void> => {
         const profileSettings = profilesService.getProfileSettings(profileId);
         const { selectedDnsServer, customDnsServers } = profileSettings;
         const effectiveDnsServerId = selectedDnsServer || DEFAULT_DNS_SERVER.id;

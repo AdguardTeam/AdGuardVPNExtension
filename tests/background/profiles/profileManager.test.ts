@@ -27,15 +27,15 @@ const {
         deleteProfile: vi.fn().mockResolvedValue(undefined),
     },
     mockDns: {
-        applyActiveProfile: vi.fn().mockResolvedValue(undefined),
+        applyProfile: vi.fn().mockResolvedValue(undefined),
         removeProfileBackup: vi.fn().mockResolvedValue(undefined),
     },
     mockExclusions: {
-        applyActiveProfile: vi.fn().mockResolvedValue(undefined),
+        applyProfile: vi.fn().mockResolvedValue(undefined),
         removeProfileData: vi.fn(),
     },
     mockLocationsService: {
-        applyActiveProfile: vi.fn().mockResolvedValue(undefined),
+        applyProfileLocation: vi.fn().mockResolvedValue(undefined),
     },
     mockProfileWebRtcService: {
         init: vi.fn().mockResolvedValue(undefined),
@@ -99,10 +99,10 @@ describe('ProfileManager.switchProfile', () => {
         await ProfileManager.switchProfile(DEFAULT_PROFILE_ID);
 
         expect(mockProfilesService.setActiveProfile).not.toHaveBeenCalled();
-        expect(mockDns.applyActiveProfile).not.toHaveBeenCalled();
-        expect(mockExclusions.applyActiveProfile).not.toHaveBeenCalled();
+        expect(mockDns.applyProfile).not.toHaveBeenCalled();
+        expect(mockExclusions.applyProfile).not.toHaveBeenCalled();
         expect(mockProfileWebRtcService.init).not.toHaveBeenCalled();
-        expect(mockLocationsService.applyActiveProfile).not.toHaveBeenCalled();
+        expect(mockLocationsService.applyProfileLocation).not.toHaveBeenCalled();
     });
 
     it('should persist the new active profile ID', async () => {
@@ -114,18 +114,18 @@ describe('ProfileManager.switchProfile', () => {
     it('should re-apply all profile-managed settings', async () => {
         await ProfileManager.switchProfile(CUSTOM_PROFILE_ID);
 
-        expect(mockDns.applyActiveProfile).toHaveBeenCalledOnce();
-        expect(mockExclusions.applyActiveProfile).toHaveBeenCalledOnce();
+        expect(mockDns.applyProfile).toHaveBeenCalledOnce();
+        expect(mockExclusions.applyProfile).toHaveBeenCalledOnce();
         expect(mockProfileWebRtcService.init).toHaveBeenCalledOnce();
-        expect(mockLocationsService.applyActiveProfile).toHaveBeenCalledOnce();
+        expect(mockLocationsService.applyProfileLocation).toHaveBeenCalledOnce();
     });
 
     it('should apply DNS and exclusions before location', async () => {
         const callOrder: string[] = [];
-        mockDns.applyActiveProfile.mockImplementation(async () => { callOrder.push('dns'); });
-        mockExclusions.applyActiveProfile.mockImplementation(async () => { callOrder.push('exclusions'); });
+        mockDns.applyProfile.mockImplementation(async () => { callOrder.push('dns'); });
+        mockExclusions.applyProfile.mockImplementation(async () => { callOrder.push('exclusions'); });
         mockProfileWebRtcService.init.mockImplementation(async () => { callOrder.push('webrtc'); });
-        mockLocationsService.applyActiveProfile.mockImplementation(async () => { callOrder.push('location'); });
+        mockLocationsService.applyProfileLocation.mockImplementation(async () => { callOrder.push('location'); });
 
         await ProfileManager.switchProfile(CUSTOM_PROFILE_ID);
 
@@ -140,7 +140,7 @@ describe('ProfileManager.switchProfile', () => {
     it('should apply settings before persisting the active profile ID', async () => {
         const callOrder: string[] = [];
 
-        mockDns.applyActiveProfile.mockImplementation(async () => { callOrder.push('apply'); });
+        mockDns.applyProfile.mockImplementation(async () => { callOrder.push('apply'); });
         mockProfilesService.setActiveProfile.mockImplementation(async () => { callOrder.push('setActive'); });
 
         await ProfileManager.switchProfile(CUSTOM_PROFILE_ID);
@@ -151,15 +151,15 @@ describe('ProfileManager.switchProfile', () => {
     it('should pass target profileId to apply methods', async () => {
         await ProfileManager.switchProfile(CUSTOM_PROFILE_ID);
 
-        expect(mockDns.applyActiveProfile).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
-        expect(mockExclusions.applyActiveProfile).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
+        expect(mockDns.applyProfile).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
+        expect(mockExclusions.applyProfile).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
         expect(mockProfileWebRtcService.init).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
-        expect(mockLocationsService.applyActiveProfile).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
+        expect(mockLocationsService.applyProfileLocation).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
     });
 
     it('should not persist active profile on apply failure', async () => {
         const applyError = new Error('DNS apply failed');
-        mockDns.applyActiveProfile.mockRejectedValueOnce(applyError);
+        mockDns.applyProfile.mockRejectedValueOnce(applyError);
 
         await expect(ProfileManager.switchProfile(CUSTOM_PROFILE_ID)).rejects.toThrow(applyError);
 
@@ -168,23 +168,23 @@ describe('ProfileManager.switchProfile', () => {
     });
 
     it('should rollback session state to current profile on apply failure', async () => {
-        mockExclusions.applyActiveProfile.mockRejectedValueOnce(new Error('exclusions failed'));
+        mockExclusions.applyProfile.mockRejectedValueOnce(new Error('exclusions failed'));
 
         await expect(ProfileManager.switchProfile(CUSTOM_PROFILE_ID)).rejects.toThrow('exclusions failed');
 
         // First apply targets new profile, rollback targets current profile
-        expect(mockDns.applyActiveProfile).toHaveBeenCalledTimes(2);
-        expect(mockDns.applyActiveProfile).toHaveBeenNthCalledWith(1, CUSTOM_PROFILE_ID);
-        expect(mockDns.applyActiveProfile).toHaveBeenNthCalledWith(2, DEFAULT_PROFILE_ID);
+        expect(mockDns.applyProfile).toHaveBeenCalledTimes(2);
+        expect(mockDns.applyProfile).toHaveBeenNthCalledWith(1, CUSTOM_PROFILE_ID);
+        expect(mockDns.applyProfile).toHaveBeenNthCalledWith(2, DEFAULT_PROFILE_ID);
     });
 
     it('should throw original error when rollback also fails', async () => {
         const originalError = new Error('location apply failed');
         const rollbackError = new Error('rollback dns failed');
 
-        mockLocationsService.applyActiveProfile.mockRejectedValueOnce(originalError);
+        mockLocationsService.applyProfileLocation.mockRejectedValueOnce(originalError);
         // During rollback, dns will fail
-        mockDns.applyActiveProfile
+        mockDns.applyProfile
             .mockResolvedValueOnce(undefined) // first apply: dns succeeds
             .mockRejectedValueOnce(rollbackError); // rollback apply: dns fails
 
@@ -210,7 +210,7 @@ describe('ProfileManager.switchProfile', () => {
             resolveFirst = resolve;
         });
 
-        mockLocationsService.applyActiveProfile
+        mockLocationsService.applyProfileLocation
             .mockImplementationOnce(async () => {
                 await firstBlocks;
             });
@@ -231,7 +231,7 @@ describe('ProfileManager.switchProfile', () => {
     });
 
     it('should allow next switch to proceed after a failed switch', async () => {
-        mockDns.applyActiveProfile.mockRejectedValueOnce(new Error('dns failed'));
+        mockDns.applyProfile.mockRejectedValueOnce(new Error('dns failed'));
 
         // First switch fails
         await expect(ProfileManager.switchProfile(CUSTOM_PROFILE_ID)).rejects.toThrow('dns failed');
@@ -243,7 +243,7 @@ describe('ProfileManager.switchProfile', () => {
         await ProfileManager.switchProfile(CUSTOM_PROFILE_ID);
 
         expect(mockProfilesService.setActiveProfile).toHaveBeenCalledWith(CUSTOM_PROFILE_ID);
-        expect(mockDns.applyActiveProfile).toHaveBeenCalledOnce();
+        expect(mockDns.applyProfile).toHaveBeenCalledOnce();
     });
 
     it('should clear pending tasks on error and emit rollback event', async () => {
@@ -252,7 +252,7 @@ describe('ProfileManager.switchProfile', () => {
             resolveFirst = resolve;
         });
 
-        mockLocationsService.applyActiveProfile
+        mockLocationsService.applyProfileLocation
             .mockImplementationOnce(async () => {
                 await firstBlocks;
                 throw new Error('location failed');
@@ -296,7 +296,7 @@ describe('ProfileManager.switchProfile', () => {
     });
 
     it('should fire ACTIVE_PROFILE_CHANGED with rollback id on error', async () => {
-        mockDns.applyActiveProfile.mockRejectedValueOnce(new Error('dns failed'));
+        mockDns.applyProfile.mockRejectedValueOnce(new Error('dns failed'));
 
         await expect(ProfileManager.switchProfile(CUSTOM_PROFILE_ID)).rejects.toThrow('dns failed');
 
@@ -339,7 +339,7 @@ describe('ProfileManager.switchProfile', () => {
                 resolveB = resolve;
             });
 
-            mockLocationsService.applyActiveProfile
+            mockLocationsService.applyProfileLocation
                 .mockImplementationOnce(() => bBlocks); // B: delayed success
             // C: default mock (resolves)
 
@@ -378,7 +378,7 @@ describe('ProfileManager.switchProfile', () => {
                 resolveB = resolve;
             });
 
-            mockLocationsService.applyActiveProfile
+            mockLocationsService.applyProfileLocation
                 .mockImplementationOnce(() => bBlocks) // B: delayed success
                 .mockRejectedValueOnce(new Error('C apply failed')); // C: failure
 
@@ -423,7 +423,7 @@ describe('ProfileManager.switchProfile', () => {
                 resolveB = resolve;
             });
 
-            mockLocationsService.applyActiveProfile
+            mockLocationsService.applyProfileLocation
                 .mockImplementationOnce(async () => {
                     await bBlocks;
                     throw new Error('B apply failed');
@@ -449,19 +449,19 @@ describe('ProfileManager.switchProfile', () => {
     });
 });
 
-describe('ProfileManager.applyActiveProfileSettings', () => {
+describe('ProfileManager.applyProfileSettings', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
 
     it('should re-apply all services without changing active profile', async () => {
-        await ProfileManager.applyActiveProfileSettings('some-profile');
+        await ProfileManager.applyProfileSettings('some-profile');
 
         expect(mockProfilesService.setActiveProfile).not.toHaveBeenCalled();
-        expect(mockDns.applyActiveProfile).toHaveBeenCalledWith('some-profile');
-        expect(mockExclusions.applyActiveProfile).toHaveBeenCalledWith('some-profile');
+        expect(mockDns.applyProfile).toHaveBeenCalledWith('some-profile');
+        expect(mockExclusions.applyProfile).toHaveBeenCalledWith('some-profile');
         expect(mockProfileWebRtcService.init).toHaveBeenCalledWith('some-profile');
-        expect(mockLocationsService.applyActiveProfile).toHaveBeenCalledWith('some-profile');
+        expect(mockLocationsService.applyProfileLocation).toHaveBeenCalledWith('some-profile');
     });
 });
 
@@ -536,7 +536,7 @@ describe('ProfileManager.deleteProfile', () => {
 
         mockProfilesService.getActiveProfileId.mockReturnValue(DEFAULT_PROFILE_ID);
 
-        mockLocationsService.applyActiveProfile
+        mockLocationsService.applyProfileLocation
             .mockImplementationOnce(async () => {
                 await switchBlocks;
             });

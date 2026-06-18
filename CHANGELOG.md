@@ -7,12 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Switching profile from selective mode failed to reconfigure proxy and did not
+  drop existing connections [#247].
+
+[#247]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/247
+
+<!-- FIXME when version will be clear -->
+[2.10.x]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.10.3...v2.10.x
+
+## [2.10.3] - 2026-05-28
+
 ### Added
 
 - Version history and GitHub repository links to the About page [#125].
 
-<!-- FIXME when version will be clear -->
-[2.10.x]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.9.8...v2.10.x
+[2.10.3]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.9.8...v2.10.3
 [#125]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/125
 
 ## [2.9.8] - 2026-04-01

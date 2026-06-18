@@ -178,7 +178,7 @@ export class ExclusionsService {
 
         const activeProfileId = profilesService.getActiveProfileId();
         await this.getOrCreateProfileData(activeProfileId);
-        await this.updateProxyForActiveProfile();
+        await this.applyProxyBypass(activeProfileId);
 
         notifier.addSpecifiedListener(
             notifier.types.NON_ROUTABLE_DOMAIN_ADDED,
@@ -197,9 +197,9 @@ export class ExclusionsService {
      *
      * @param profileId Profile to apply.
      */
-    public async applyActiveProfile(profileId: string): Promise<void> {
+    public async applyProfile(profileId: string): Promise<void> {
         await this.getOrCreateProfileData(profileId);
-        await this.updateProxyForActiveProfile();
+        await this.applyProxyBypass(profileId);
     }
 
     /**
@@ -340,17 +340,19 @@ export class ExclusionsService {
             profileId,
             { exclusions: exclusionsData },
             async () => {
-                await this.updateProxyForActiveProfile();
+                await this.applyProxyBypass(profileId);
             },
         );
     }
 
     /**
-     * Updates the proxy bypass list based on the active profile's exclusions.
+     * Updates the proxy bypass list using the cached exclusions
+     * data for the given profile.
+     *
+     * @param profileId Profile ID whose exclusions to apply.
      */
-    private async updateProxyForActiveProfile(): Promise<void> {
-        const activeProfileId = profilesService.getActiveProfileId();
-        const entry = await this.profileDataMap.get(activeProfileId);
+    private async applyProxyBypass(profileId: string): Promise<void> {
+        const entry = await this.profileDataMap.get(profileId);
         if (!entry) {
             return;
         }
