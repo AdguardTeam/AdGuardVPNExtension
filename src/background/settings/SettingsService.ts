@@ -12,16 +12,17 @@ import { servicesManager } from '../exclusions/services/ServicesManager';
 import { complementedExclusionsWithServices, complementExclusions } from '../exclusions/exclusions-helpers';
 import { ExclusionState, ExclusionsMode } from '../../common/exclusionsConstants';
 import { type StorageInterface } from '../browserApi/storage';
-import { type ExclusionInterface } from '../schema';
+import { type ExclusionInterface, type Profile } from '../schema';
 import { THEME_STORAGE_KEY } from '../../common/useAppearanceTheme';
 import { DEFAULT_PROFILE_ID } from '../../common/profiles';
 import { DEFAULT_DNS_SERVER } from '../../common/dnsConstants';
+import { normalizeExclusionHostname } from '../../common/utils/exclusionsNormalization';
 import { type ProfileSettings } from '../schema/profiles/profileSettings';
 import { type ProfilesState } from '../schema/profiles/profilesState';
 
 type VersionType = { [x: string]: any; VERSION: string; };
 
-const SCHEME_VERSION = '15';
+const SCHEME_VERSION = '16';
 const THROTTLE_TIMEOUT = 100;
 
 const OLD_DARK_THEME_NAME = 'DARK';
@@ -456,6 +457,90 @@ export class SettingsService {
     };
 
     /**
+     * Normalizes persisted exclusions and drops entries that cannot be safely normalized.
+     *
+     * When two entries normalize to the same hostname (e.g. `.com` and `com`),
+     * the first occurrence is kept and subsequent duplicates are silently
+     * dropped. This prevents duplicate entries after leading-dot stripping.
+     *
+     * @param exclusions Exclusions to normalize.
+     *
+     * @returns Normalized exclusions without duplicate hostnames.
+     */
+    private normalizePersistedExclusions = (exclusions: ExclusionInterface[]): ExclusionInterface[] => {
+        const normalizedExclusions = new Map<string, ExclusionInterface>();
+
+        exclusions.forEach((exclusion) => {
+            const hostname = normalizeExclusionHostname(exclusion.hostname);
+
+            if (!hostname || normalizedExclusions.has(hostname)) {
+                return;
+            }
+
+            normalizedExclusions.set(hostname, {
+                ...exclusion,
+                hostname,
+            });
+        });
+
+        return [...normalizedExclusions.values()];
+    };
+
+    /**
+     * Runs settings migration from schema v15 to v16.
+     *
+     * Normalizes stored profile exclusions with a single leading dot and drops
+     * hard-invalid leading-dot entries.
+     *
+     * @param oldSettings Old settings.
+     *
+     * @returns Updated settings.
+     */
+    public migrateFrom15to16 = (oldSettings: Settings): VersionType => {
+        const profilesState = oldSettings[SETTINGS_IDS.PROFILES_STATE];
+
+        if (!profilesState || !Array.isArray(profilesState.profiles)) {
+            return {
+                ...oldSettings,
+                VERSION: '16',
+            };
+        }
+
+        const nextProfilesState = {
+            ...profilesState,
+            profiles: profilesState.profiles.map((profile: Profile) => {
+                const exclusions = profile.settings?.exclusions;
+
+                if (!exclusions) {
+                    return profile;
+                }
+
+                return {
+                    ...profile,
+                    settings: {
+                        ...profile.settings,
+                        exclusions: {
+                            ...exclusions,
+                            [ExclusionsMode.Regular]: this.normalizePersistedExclusions(
+                                exclusions[ExclusionsMode.Regular] ?? [],
+                            ),
+                            [ExclusionsMode.Selective]: this.normalizePersistedExclusions(
+                                exclusions[ExclusionsMode.Selective] ?? [],
+                            ),
+                        },
+                    },
+                };
+            }),
+        };
+
+        return {
+            ...oldSettings,
+            VERSION: '16',
+            [SETTINGS_IDS.PROFILES_STATE]: nextProfilesState,
+        };
+    };
+
+    /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
      * For example if your migration function migrates your settings from scheme 4 to 5, then add
@@ -476,6 +561,7 @@ export class SettingsService {
         12: this.migrateFrom12to13,
         13: this.migrateFrom13to14,
         14: this.migrateFrom14to15,
+        15: this.migrateFrom15to16,
     };
 
     private async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {

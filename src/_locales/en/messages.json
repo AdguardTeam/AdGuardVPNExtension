@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Domain name"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Invalid domain"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Subdomain"
     },

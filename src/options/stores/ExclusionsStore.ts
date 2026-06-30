@@ -5,8 +5,6 @@ import {
     runInAction,
     toJS,
 } from 'mobx';
-import { isIP } from 'is-ip';
-import { getDomain } from 'tldts';
 
 import {
     type ExclusionDtoInterface,
@@ -624,20 +622,6 @@ export class ExclusionsStore {
         });
 
         return isFullChildrenList && !!isDefaultDomainsState;
-    };
-
-    /**
-     * Checks if provided url is valid domain.
-     *
-     * @param url
-     *
-     * @returns True if domain is valid, false otherwise.
-     */
-    public validateUrl = (url: string): boolean => {
-        const isValidDomain = !!getDomain(url);
-        const isValidIp = isIP(url);
-
-        return isValidDomain || isValidIp;
     };
 
     @action

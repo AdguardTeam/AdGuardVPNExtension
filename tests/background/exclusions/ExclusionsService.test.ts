@@ -229,6 +229,91 @@ describe('ExclusionsService', () => {
         });
     });
 
+    describe('normalizes leading-dot exclusion input', () => {
+        it('normalizes leading-dot TLD before adding exclusions', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            const addedCount = await exclusionsService.addUrlToExclusions('default', '.com');
+
+            expect(addedCount).toBe(2);
+            const exclusions = await exclusionsService.getExclusions();
+            expect(exclusions.children[0].children.map((ex) => ex.hostname)).toEqual([
+                'com',
+                '*.com',
+            ]);
+            expect(await exclusionsService.getRegularExclusions('default')).toBe('com\n*.com');
+            await expect(exclusionsService.isVpnEnabledByUrl('https://example.com')).resolves.toBe(false);
+        });
+
+        it('normalizes leading-dot domain before adding exclusions', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            const addedCount = await exclusionsService.addUrlToExclusions('default', '.example.org');
+
+            expect(addedCount).toBe(2);
+            const exclusions = await exclusionsService.getExclusions();
+            expect(exclusions.children[0].children.map((ex) => ex.hostname)).toEqual([
+                'example.org',
+                '*.example.org',
+            ]);
+        });
+
+        it('rejects wildcard-leading-dot and leading-dot IP exclusions', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            await expect(exclusionsService.addUrlToExclusions('default', '*..com')).resolves.toBe(0);
+            await expect(exclusionsService.addUrlToExclusions('default', '.127.0.0.1')).resolves.toBe(0);
+
+            const exclusions = await exclusionsService.getExclusions();
+            expect(exclusions.children).toHaveLength(0);
+        });
+    });
+
+    describe('batch add normalization and regression', () => {
+        it('normalizes batch exclusions and drops invalid leading-dot entries', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            const addedCount = await exclusionsService.addGeneralExclusions('default', [
+                '.com',
+                '.example.org',
+                '*..net',
+            ]);
+
+            expect(addedCount).toBe(4);
+            const exportedExclusions = await exclusionsService.getRegularExclusions('default');
+            expect(exportedExclusions.split('\n')).toEqual([
+                'com',
+                'example.org',
+            ]);
+            const exclusions = await exclusionsService.getExclusions();
+            expect(exclusions.children[0].children.map((child) => child.hostname)).toEqual(['com', '*.com']);
+            expect(exclusions.children[1].children.map((child) => child.hostname)).toEqual([
+                'example.org',
+                '*.example.org',
+            ]);
+        });
+
+        it('keeps already-valid TLD and wildcard behavior unchanged', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            await exclusionsService.addUrlToExclusions('default', 'com');
+            await exclusionsService.addUrlToExclusions('default', '*.example.org');
+
+            const exclusions = await exclusionsService.getExclusions();
+            expect(exclusions.children.map((child) => child.hostname)).toEqual(['com', 'example.org']);
+            expect(exclusions.children[0].children.map((child) => child.hostname)).toEqual(['com', '*.com']);
+            expect(exclusions.children[1].children.map((child) => child.hostname)).toEqual([
+                'example.org',
+                '*.example.org',
+            ]);
+        });
+    });
+
     it('punycode test', async () => {
         const exclusionsService = new ExclusionsService();
         await exclusionsService.init();

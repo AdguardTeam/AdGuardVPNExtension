@@ -3,6 +3,10 @@ import React, { type ReactElement, useContext, useState } from 'react';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../../../../stores';
 import { translator } from '../../../../../../common/translator';
+import {
+    ExclusionInputCategory,
+    getExclusionInputCategory,
+} from '../../../../../../common/utils/exclusionsNormalization';
 import { Input } from '../../../../ui/Input';
 
 import './manual-mode.pcss';
@@ -23,9 +27,15 @@ export const ManualMode = ({ isProfileContext }: ManualModeProps): ReactElement 
     const { exclusionsStore, notificationsStore, telemetryStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');
+    const [inputError, setInputError] = useState<string | null>(null);
 
     const closeExclusionModal = (): void => {
         exclusionsStore.closeAddExclusionModal();
+    };
+
+    const handleInputChange = (value: string): void => {
+        setInputValue(value);
+        setInputError(null);
     };
 
     const addUrl = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -40,8 +50,11 @@ export const ManualMode = ({ isProfileContext }: ManualModeProps): ReactElement 
                 : TelemetryScreenName.DialogAddWebsiteExclusion,
         );
 
-        if (exclusionsStore.validateUrl(inputValue)) {
-            const addedExclusionsCount = await exclusionsStore.addUrlToExclusions(inputValue.trim());
+        const urlToAdd = inputValue.trim();
+        const category = getExclusionInputCategory(urlToAdd);
+
+        if (category === ExclusionInputCategory.Valid) {
+            const addedExclusionsCount = await exclusionsStore.addUrlToExclusions(urlToAdd);
             notificationsStore.notifySuccess(
                 translator.getMessage(
                     'options_exclusions_added_exclusions',
@@ -52,10 +65,17 @@ export const ManualMode = ({ isProfileContext }: ManualModeProps): ReactElement 
                     handler: exclusionsStore.restoreExclusions,
                 },
             );
-        } else {
-            exclusionsStore.confirmUrlToAdd(inputValue);
+            closeExclusionModal();
+            return;
         }
 
+        if (category === ExclusionInputCategory.Invalid) {
+            setInputError(translator.getMessage('settings_exclusion_invalid_domain'));
+            return;
+        }
+
+        // ExclusionInputCategory.Confirmable — route to force-add confirmation.
+        exclusionsStore.confirmUrlToAdd(urlToAdd);
         closeExclusionModal();
     };
 
@@ -72,7 +92,8 @@ export const ManualMode = ({ isProfileContext }: ManualModeProps): ReactElement 
                 placeholder="example.org"
                 required
                 value={inputValue}
-                onChange={setInputValue}
+                error={inputError}
+                onChange={handleInputChange}
             />
         </form>
     );

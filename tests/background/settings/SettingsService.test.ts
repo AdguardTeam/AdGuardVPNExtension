@@ -10,9 +10,10 @@ import {
 import { SettingsService } from '../../../src/background/settings/SettingsService';
 import { type StorageInterface } from '../../../src/background/browserApi/storage';
 import { SETTINGS_IDS } from '../../../src/common/constants';
+import { ExclusionsMode, ExclusionState } from '../../../src/common/exclusionsConstants';
 import { sleep } from '../../../src/common/helpers';
 
-const SCHEME_VERSION = '15';
+const SCHEME_VERSION = '16';
 
 vi.mock('../../../src/background/exclusions/services/ServicesManager', () => ({
     servicesManager: {
@@ -548,6 +549,200 @@ describe('SettingsService', () => {
                 { id: '1', hostname: 'example.com', state: 'Enabled' },
                 { id: '5', hostname: 'good.com', state: 'Disabled' },
             ]);
+        });
+    });
+
+    describe('migrateFrom15to16', () => {
+        beforeEach(() => {
+            settingsService = new SettingsService(storage, defaults);
+        });
+
+        afterEach(async () => {
+            await settingsService.clearSettings();
+        });
+
+        it('normalizes single-leading-dot exclusions in every profile', () => {
+            const oldSettings = {
+                VERSION: '15',
+                [SETTINGS_IDS.PROFILES_STATE]: {
+                    activeProfileId: 'default',
+                    profiles: [
+                        {
+                            id: 'default',
+                            name: '',
+                            settings: {
+                                exclusions: {
+                                    [ExclusionsMode.Regular]: [
+                                        { id: '1', hostname: '.com', state: ExclusionState.Enabled },
+                                        { id: '2', hostname: '.example.com', state: ExclusionState.Disabled },
+                                    ],
+                                    [ExclusionsMode.Selective]: [
+                                        { id: '3', hostname: '.co.uk', state: ExclusionState.Enabled },
+                                    ],
+                                    inverted: false,
+                                },
+                            },
+                        },
+                    ],
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom15to16(oldSettings);
+            const { exclusions } = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0].settings;
+
+            expect(newSettings.VERSION).toBe('16');
+            expect(exclusions[ExclusionsMode.Regular]).toEqual([
+                { id: '1', hostname: 'com', state: ExclusionState.Enabled },
+                { id: '2', hostname: 'example.com', state: ExclusionState.Disabled },
+            ]);
+            expect(exclusions[ExclusionsMode.Selective]).toEqual([
+                { id: '3', hostname: 'co.uk', state: ExclusionState.Enabled },
+            ]);
+        });
+
+        it('drops hard-invalid leading-dot exclusions and preserves already-valid ones', () => {
+            const oldSettings = {
+                VERSION: '15',
+                [SETTINGS_IDS.PROFILES_STATE]: {
+                    activeProfileId: 'default',
+                    profiles: [
+                        {
+                            id: 'default',
+                            name: '',
+                            settings: {
+                                exclusions: {
+                                    [ExclusionsMode.Regular]: [
+                                        { id: '1', hostname: '..com', state: ExclusionState.Enabled },
+                                        { id: '2', hostname: '*..example.com', state: ExclusionState.Enabled },
+                                        { id: '3', hostname: '*.com', state: ExclusionState.Disabled },
+                                        { id: '4', hostname: '.127.0.0.1', state: ExclusionState.Enabled },
+                                    ],
+                                    [ExclusionsMode.Selective]: [],
+                                    inverted: true,
+                                },
+                            },
+                        },
+                    ],
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom15to16(oldSettings);
+            const { exclusions } = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0].settings;
+
+            expect(exclusions[ExclusionsMode.Regular]).toEqual([
+                { id: '3', hostname: '*.com', state: ExclusionState.Disabled },
+            ]);
+            expect(exclusions.inverted).toBe(true);
+        });
+
+        it('deduplicates entries that collide after normalization, keeping the first', () => {
+            const oldSettings = {
+                VERSION: '15',
+                [SETTINGS_IDS.PROFILES_STATE]: {
+                    activeProfileId: 'default',
+                    profiles: [
+                        {
+                            id: 'default',
+                            name: '',
+                            settings: {
+                                exclusions: {
+                                    [ExclusionsMode.Regular]: [
+                                        { id: '1', hostname: '.com', state: ExclusionState.Enabled },
+                                        { id: '2', hostname: 'com', state: ExclusionState.Disabled },
+                                    ],
+                                    [ExclusionsMode.Selective]: [],
+                                    inverted: false,
+                                },
+                            },
+                        },
+                    ],
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom15to16(oldSettings);
+            const { exclusions } = newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0].settings;
+
+            expect(exclusions[ExclusionsMode.Regular]).toEqual([
+                { id: '1', hostname: 'com', state: ExclusionState.Enabled },
+            ]);
+        });
+
+        it('normalizes exclusions across multiple profiles independently', () => {
+            const oldSettings = {
+                VERSION: '15',
+                [SETTINGS_IDS.PROFILES_STATE]: {
+                    activeProfileId: 'default',
+                    profiles: [
+                        {
+                            id: 'default',
+                            name: '',
+                            settings: {
+                                exclusions: {
+                                    [ExclusionsMode.Regular]: [
+                                        { id: '1', hostname: '.com', state: ExclusionState.Enabled },
+                                    ],
+                                    [ExclusionsMode.Selective]: [],
+                                    inverted: false,
+                                },
+                            },
+                        },
+                        {
+                            id: 'work',
+                            name: 'Work',
+                            settings: {
+                                exclusions: {
+                                    [ExclusionsMode.Regular]: [
+                                        { id: '2', hostname: '.example.org', state: ExclusionState.Disabled },
+                                    ],
+                                    [ExclusionsMode.Selective]: [],
+                                    inverted: false,
+                                },
+                            },
+                        },
+                    ],
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom15to16(oldSettings);
+            const { profiles } = newSettings[SETTINGS_IDS.PROFILES_STATE];
+
+            expect(profiles[0].settings.exclusions[ExclusionsMode.Regular]).toEqual([
+                { id: '1', hostname: 'com', state: ExclusionState.Enabled },
+            ]);
+            expect(profiles[1].settings.exclusions[ExclusionsMode.Regular]).toEqual([
+                { id: '2', hostname: 'example.org', state: ExclusionState.Disabled },
+            ]);
+        });
+
+        it('bumps VERSION to 16 when profilesState is missing', () => {
+            const oldSettings = {
+                VERSION: '15',
+            };
+
+            const newSettings = settingsService.migrateFrom15to16(oldSettings);
+
+            expect(newSettings.VERSION).toBe('16');
+        });
+
+        it('passes through profiles without exclusions untouched', () => {
+            const oldSettings = {
+                VERSION: '15',
+                [SETTINGS_IDS.PROFILES_STATE]: {
+                    activeProfileId: 'default',
+                    profiles: [
+                        {
+                            id: 'default',
+                            name: '',
+                            settings: {},
+                        },
+                    ],
+                },
+            };
+
+            const newSettings = settingsService.migrateFrom15to16(oldSettings);
+
+            expect(newSettings.VERSION).toBe('16');
+            expect(newSettings[SETTINGS_IDS.PROFILES_STATE].profiles[0].settings).toEqual({});
         });
     });
 });

@@ -14,12 +14,8 @@ import {
     type ToggleServicesResult,
 } from '../../common/exclusionsConstants';
 import { type ExclusionInterface, type PersistedExclusions, StorageKey } from '../schema';
-import {
-    getETld,
-    getHostname,
-    getSubdomain,
-    isWildcard,
-} from '../../common/utils/url';
+import { getETld, getSubdomain, isWildcard } from '../../common/utils/url';
+import { getNormalizedExclusionHostname } from '../../common/utils/exclusionsNormalization';
 import { notifier } from '../../common/notifier';
 import { profilesService } from '../profiles';
 import { proxy } from '../proxy';
@@ -484,7 +480,7 @@ export class ExclusionsService {
      * @return List of exclusion arguments to be added.
      */
     private async supplementExclusion(url: string): Promise<AddExclusionArgs[]> {
-        const hostname = getHostname(url);
+        const hostname = getNormalizedExclusionHostname(url);
         if (!hostname) {
             return [];
         }
@@ -560,7 +556,7 @@ export class ExclusionsService {
     public async addUrlToExclusions(profileId: string, url: string): Promise<number> {
         const ctx = await this.getProfileContext(profileId);
 
-        const hostname = getHostname(url);
+        const hostname = getNormalizedExclusionHostname(url);
 
         if (!hostname) {
             return 0;

@@ -2,7 +2,6 @@
 import React, { useContext, useState, useRef } from 'react';
 import { observer } from 'mobx-react';
 
-import identity from 'lodash/identity';
 import { format } from 'date-fns/format';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
@@ -10,8 +9,6 @@ import FileSaver from 'file-saver';
 import { TelemetryActionName, TelemetryScreenName } from '../../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../../stores';
 import { translator } from '../../../../common/translator';
-import { isValidExclusion } from '../../../../common/utils/string';
-import { log } from '../../../../common/logger';
 import { messenger } from '../../../../common/messenger';
 import { ExclusionsMode, type ExclusionsMap } from '../../../../common/exclusionsConstants';
 import { Select } from '../../../../common/components/Select';
@@ -20,6 +17,7 @@ import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelem
 import { SelectListModal } from './SelectListModal';
 import { ExclusionDataType, type ExclusionsImportData, readExclusionsFile } from './fileHelpers';
 import { RemoveAllModal } from './RemoveAllModal';
+import { prepareExclusionsAfterImport } from './prepareExclusionsAfterImport';
 
 import './actions.pcss';
 
@@ -29,27 +27,6 @@ enum Action {
     Import = 'import',
     Remove = 'remove',
 }
-
-/**
- * Splits, trims, validates and reverses exclusion lines from imported text.
- *
- * @param exclusionsString Raw text content from an imported file.
- * @returns Valid exclusions in reverse order.
- */
-const prepareExclusionsAfterImport = (exclusionsString: string): string[] => {
-    return exclusionsString
-        .split('\n')
-        .map((str) => str.trim())
-        .filter(identity)
-        .filter((exclusionStr) => {
-            if (isValidExclusion(exclusionStr)) {
-                return true;
-            }
-            log.debug(`[vpn.Actions]: Invalid exclusion: ${exclusionStr}`);
-            return false;
-        })
-        .reverse();
-};
 
 /**
  * Imports exclusions into the regular (general) list.

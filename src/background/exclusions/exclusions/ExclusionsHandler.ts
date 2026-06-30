@@ -1,8 +1,13 @@
 import { nanoid } from 'nanoid';
 
 import { type ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
+import { log } from '../../../common/logger';
 import { areHostnamesEqual, shExpMatch } from '../../../common/utils/string';
 import { getETld, getHostname, getSubdomain } from '../../../common/utils/url';
+import {
+    getNormalizedExclusionHostname,
+    normalizeExclusionHostname,
+} from '../../../common/utils/exclusionsNormalization';
 import type { ExclusionInterface, IndexedExclusionsInterface } from '../../schema';
 
 interface UpdateHandler {
@@ -89,14 +94,20 @@ export class ExclusionsHandler {
     public async addExclusions(exclusionsToAdd: AddExclusionArgs[]): Promise<number> {
         let addedCount = 0;
         exclusionsToAdd.forEach(({ value, enabled = true, overwriteState = false }) => {
+            const normalizedValue = normalizeExclusionHostname(value);
+            if (!normalizedValue) {
+                log.debug(`[vpn.ExclusionsHandler.addExclusions]: Invalid exclusion value dropped: ${value}`);
+                return;
+            }
+
             const state = enabled ? ExclusionState.Enabled : ExclusionState.Disabled;
-            const existingIndex = this.exclusions.findIndex((ex) => ex.hostname === value);
+            const existingIndex = this.exclusions.findIndex((ex) => ex.hostname === normalizedValue);
             if (existingIndex > -1) {
                 if (overwriteState) {
                     this.exclusions[existingIndex].state = state;
                 }
             } else {
-                this.exclusions.push({ id: nanoid(), hostname: value, state });
+                this.exclusions.push({ id: nanoid(), hostname: normalizedValue, state });
                 addedCount += 1;
             }
         });
@@ -114,7 +125,7 @@ export class ExclusionsHandler {
      * @param url
      */
     public async addUrlToExclusions(url: string): Promise<void> {
-        const hostname = getHostname(url);
+        const hostname = getNormalizedExclusionHostname(url);
 
         if (!hostname) {
             return;

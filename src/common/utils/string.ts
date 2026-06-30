@@ -77,7 +77,13 @@ export const isHttp = (str: string): boolean => {
 };
 
 /**
- * Checks if provided string is valid exclusion
+ * Checks if provided string is valid exclusion.
+ *
+ * This regex-based validator is intentionally kept alongside the eTLD-based
+ * `getExclusionInputCategory` in `exclusionsNormalization.ts`. It is used as a
+ * fallback during import to accept hostnames with private/non-public TLDs
+ * (e.g. `nas.local`, `git.corp`) that `getETld` does not recognize.
+ *
  * @returns True if string is valid exclusion, false otherwise.
  */
 export const isValidExclusion = (exclusion: string): boolean => {

@@ -30,6 +30,18 @@ export const isTopLevel = (hostname: string): boolean => {
 };
 
 /**
+ * Checks if hostname is a known ICANN or private public suffix.
+ *
+ * @param hostname Hostname to check.
+ *
+ * @returns True if hostname is a known ICANN or private suffix, false otherwise.
+ */
+export const isKnownPublicSuffix = (hostname: string): boolean => {
+    const parsed = parse(hostname, { allowPrivateDomains: true });
+    return !!parsed.isIcann || !!parsed.isPrivate;
+};
+
+/**
  * Here eTLD has many meanings:
  * - for regular hostnames returns eTLD + 1
  * - for hostnames presented by ip address returns as is
