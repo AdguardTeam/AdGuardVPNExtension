@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- "Connect" and "Disconnect" items in the browser context menu to toggle VPN
+  on any website [#37].
+
+[#37]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/37
+
 [Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.10.4...HEAD
 
 ## [2.10.4] - 2026-06-18
