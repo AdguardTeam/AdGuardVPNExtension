@@ -11,7 +11,6 @@ import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { Radio } from '../../../../common/components/Radio';
 import { Input } from '../../ui/Input';
-import { ProfileHint } from '../../ui/ProfileHint';
 import { getProfileRoute, PROFILES_PATH } from '../profileRoutes';
 
 import styles from './profile-location-settings.module.pcss';
@@ -82,9 +81,7 @@ export const ProfileLocationSettings = observer(() => {
         <div className={styles.root}>
             <Title
                 title={translator.getMessage('settings_location_label')}
-                subtitle={<ProfileHint profileId={profileId} />}
                 onClick={handleBack}
-                subtitleIndent={false}
             />
 
             <div className={styles.search}>

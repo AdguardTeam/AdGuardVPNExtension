@@ -6,7 +6,10 @@ import { translator } from '../../../common/translator';
 import { messenger } from '../../../common/messenger';
 import { log } from '../../../common/logger';
 import { rootStore } from '../../stores';
+import { useProfileRouteNavigation } from '../../hooks/useProfileRouteNavigation';
 import { ControlsSwitch } from '../ui/Controls';
+import { ProfileHint } from '../ui/ProfileHint';
+import { getProfileRoute } from '../Profiles/profileRoutes';
 
 interface WebRTCProps {
     /**
@@ -51,6 +54,8 @@ export const WebRTC = observer(({ profileId, isProfileContext }: WebRTCProps) =>
         }
     };
 
+    const handleProfileHintClick = useProfileRouteNavigation(getProfileRoute);
+
     return (
         <ControlsSwitch
             title={translator.getMessage('settings_webrtc_label')}
@@ -63,6 +68,12 @@ export const WebRTC = observer(({ profileId, isProfileContext }: WebRTCProps) =>
                     <span className="webrtc-warning">
                         {translator.getMessage('settings_webrtc_warning')}
                     </span>
+                    {!isProfileContext && (
+                        <ProfileHint
+                            profileId={profileId}
+                            onClick={handleProfileHintClick}
+                        />
+                    )}
                 </>
             )}
             isActive={isActive}
