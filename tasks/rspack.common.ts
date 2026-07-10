@@ -95,6 +95,12 @@ export const getCommonConfig = (browser: string): Configuration => {
         },
 
         module: {
+            /**
+             * @protobufjs/inquire uses a guarded dynamic require to detect optional Node.js modules.
+             * Node.js modules are unavailable in browser extensions, so parsing this expression would only create
+             * an empty Rspack context and a build warning.
+             */
+            noParse: /[\\/]@protobufjs[\\/]inquire[\\/]index\.js$/,
             rules: [
                 {
                     test: /\.(ts|js)x?$/,

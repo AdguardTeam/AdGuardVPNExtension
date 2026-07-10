@@ -7,6 +7,11 @@
     "engines": {
         "node": ">=22.0.0 <24.0.0"
     },
+    "pnpm": {
+        "overrides": {
+            "@protobufjs/inquire": "1.1.2"
+        }
+    },
     "scripts": {
         "dev": "BUILD_ENV=dev ts-node tasks/rspack-bundle.ts",
         "beta": "BUILD_ENV=beta ts-node tasks/rspack-bundle.ts",
