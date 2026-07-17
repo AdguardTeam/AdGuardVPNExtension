@@ -12,7 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - "Connect" and "Disconnect" items in the browser context menu to toggle VPN
   on any website [#37].
 
+### Fixed
+
+- Adding a domain that was previously auto-added as an inactive exclusion now
+  correctly activates it, refreshes the UI, and shows an accurate toast
+  notification instead of silently ignoring the addition [#250].
+
 [#37]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/37
+[#250]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/250
 
 [Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.10.4...HEAD
 

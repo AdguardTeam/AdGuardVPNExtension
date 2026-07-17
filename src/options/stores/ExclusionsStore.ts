@@ -380,7 +380,7 @@ export class ExclusionsStore {
     }
 
     /**
-     * Adds URL to exclusions and updates exclusions if needed.
+     * Adds URL to exclusions and refreshes the cached tree when data changes.
      *
      * @param url Url to add.
      *
@@ -390,12 +390,19 @@ export class ExclusionsStore {
     public addUrlToExclusions = async (url: string): Promise<number> => {
         const profileId = this.effectiveProfileId;
         const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, url);
-        if (addedExclusionsCount) {
+        if (addedExclusionsCount > 0) {
             await this.updateExclusionsData(profileId);
         }
         return addedExclusionsCount;
     };
 
+    /**
+     * Adds a subdomain and refreshes the cached tree when data changes.
+     *
+     * @param subdomain Subdomain to add.
+     *
+     * @returns Count of added exclusions.
+     */
     @action
     public addSubdomainToExclusions = async (subdomain: string): Promise<number> => {
         const profileId = this.effectiveProfileId;
@@ -412,15 +419,12 @@ export class ExclusionsStore {
 
         const domain = foundExclusion.hostname;
 
-        if (subdomain.includes(domain)) {
-            const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, subdomain);
-            return addedExclusionsCount;
-        }
+        const urlToAdd = subdomain.includes(domain)
+            ? subdomain
+            : `${subdomain}.${domain}`;
 
-        const domainToAdd = `${subdomain}.${domain}`;
-
-        const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, domainToAdd);
-        if (addedExclusionsCount) {
+        const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, urlToAdd);
+        if (addedExclusionsCount > 0) {
             await this.updateExclusionsData(profileId);
         }
         return addedExclusionsCount;

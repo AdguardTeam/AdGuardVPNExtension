@@ -8,6 +8,7 @@ import {
 import { observable, runInAction } from 'mobx';
 
 import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
+import { messenger } from '../../../src/common/messenger';
 import { DEFAULT_PROFILE_ID } from '../../../src/common/profiles';
 import { ExclusionsStore } from '../../../src/options/stores/ExclusionsStore';
 import { type ProfilesStore, type ProfileExclusionsCacheEntry } from '../../../src/options/stores/ProfilesStore';
@@ -61,6 +62,15 @@ const MOCK_SERVICES = [
         modifiedTime: '',
     },
 ];
+
+const MOCK_GET_EXCLUSIONS_DATA_RESULT = {
+    exclusionsData: {
+        exclusions: MOCK_EXCLUSIONS_TREE,
+        currentMode: ExclusionsMode.Regular,
+    },
+    services: MOCK_SERVICES,
+    isAllExclusionsListsEmpty: false,
+};
 
 describe('ExclusionsStore', () => {
     let profilesStore: ProfilesStore;
@@ -188,6 +198,59 @@ describe('ExclusionsStore', () => {
         it('should return true for isAllExclusionsListsEmpty when profile has no cache entry', () => {
             exclusionsStore.setProfileId('nonexistent');
             expect(exclusionsStore.isAllExclusionsListsEmpty).toBe(true);
+        });
+    });
+
+    describe('addUrlToExclusions', () => {
+        it('does not refresh exclusions data when messenger returns 0', async () => {
+            vi.mocked(messenger.addUrlToExclusions).mockResolvedValue(0);
+
+            await exclusionsStore.addUrlToExclusions('example.com');
+
+            expect(messenger.addUrlToExclusions)
+                .toHaveBeenCalledWith(DEFAULT_PROFILE_ID, 'example.com');
+            expect(messenger.getExclusionsData).not.toHaveBeenCalled();
+        });
+
+        it('refreshes exclusions data when messenger reports changes', async () => {
+            vi.mocked(messenger.addUrlToExclusions).mockResolvedValue(1);
+            vi.mocked(messenger.getExclusionsData)
+                .mockResolvedValue(MOCK_GET_EXCLUSIONS_DATA_RESULT);
+
+            await exclusionsStore.addUrlToExclusions('example.com');
+
+            expect(messenger.getExclusionsData).toHaveBeenCalledWith(DEFAULT_PROFILE_ID);
+        });
+    });
+
+    describe('addSubdomainToExclusions', () => {
+        beforeEach(() => {
+            // Select the 'example.org' group node so a domain can be resolved.
+            exclusionsStore.setSelectedExclusionId('example.org');
+        });
+
+        it('does not refresh when subdomain includes the selected domain and messenger returns 0', async () => {
+            // 'test.example.org' includes 'example.org' -> urlToAdd = 'test.example.org'
+            vi.mocked(messenger.addUrlToExclusions).mockResolvedValue(0);
+
+            await exclusionsStore.addSubdomainToExclusions('test.example.org');
+
+            expect(messenger.addUrlToExclusions)
+                .toHaveBeenCalledWith(DEFAULT_PROFILE_ID, 'test.example.org');
+            expect(messenger.getExclusionsData).not.toHaveBeenCalled();
+        });
+
+        it('refreshes when subdomain is appended and messenger reports changes', async () => {
+            // 'sub' does not include 'example.org' -> urlToAdd = 'sub.example.org'
+            vi.mocked(messenger.addUrlToExclusions).mockResolvedValue(1);
+            vi.mocked(messenger.getExclusionsData)
+                .mockResolvedValue(MOCK_GET_EXCLUSIONS_DATA_RESULT);
+
+            await exclusionsStore.addSubdomainToExclusions('sub');
+
+            expect(messenger.addUrlToExclusions)
+                .toHaveBeenCalledWith(DEFAULT_PROFILE_ID, 'sub.example.org');
+            expect(messenger.getExclusionsData).toHaveBeenCalledTimes(1);
         });
     });
 });

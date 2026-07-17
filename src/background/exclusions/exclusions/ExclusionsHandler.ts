@@ -85,11 +85,30 @@ export class ExclusionsHandler {
     }
 
     /**
-     * Adds prepared exclusions and returns amount of added.
+     * Adds prepared exclusions. For each requested hostname, either creates a
+     * new entry, reactivates an existing Disabled entry, or force-updates an
+     * existing entry's state, and returns the count of entries that changed
+     * state in a way the caller would consider an "addition".
      *
-     * @param exclusionsToAdd
+     * Counting rules:
+     * - Newly-created entries count as one.
+     * - An existing Disabled entry is activated (set to Enabled) when enabled
+     *   is true and overwriteState is unset (its default); reactivation counts
+     *   as one.
+     * - When overwriteState is true, the entry is forced to the requested
+     *   state and the change counts as one only when the state actually
+     *   differs from the current one.
+     * - When overwriteState is false (its default) and enabled is false,
+     *   existing entries are left unchanged and contribute zero — they are
+     *   never disabled by this path.
+     * - Invalid hostnames (empty after normalization) are dropped with a
+     *   debug log and contribute zero.
      *
-     * @returns Promise with amount of added exclusions.
+     * @param exclusionsToAdd Prepared exclusions to add or reactivate.
+     *
+     * @returns Count of entries that changed state (newly-added plus
+     * reactivated plus overwriteState-forced differing changes); no-ops and
+     * invalid hostnames contribute zero.
      */
     public async addExclusions(exclusionsToAdd: AddExclusionArgs[]): Promise<number> {
         let addedCount = 0;
@@ -103,8 +122,14 @@ export class ExclusionsHandler {
             const state = enabled ? ExclusionState.Enabled : ExclusionState.Disabled;
             const existingIndex = this.exclusions.findIndex((ex) => ex.hostname === normalizedValue);
             if (existingIndex > -1) {
-                if (overwriteState) {
-                    this.exclusions[existingIndex].state = state;
+                const existingEntry = this.exclusions[existingIndex];
+                const shouldChange = overwriteState
+                    ? existingEntry.state !== state
+                    : enabled && existingEntry.state === ExclusionState.Disabled;
+                if (shouldChange) {
+                    existingEntry.state = state;
+                    addedCount += 1;
+                    log.debug(`[vpn.ExclusionsHandler.addExclusions]: Updated exclusion state: ${normalizedValue} -> ${state}`);
                 }
             } else {
                 this.exclusions.push({ id: nanoid(), hostname: normalizedValue, state });
