@@ -5,6 +5,7 @@ import { popupAppMachine } from '../../src/popup/components/App/popupAppMachine'
 import {
     PopupEvent,
     PopupGuard,
+    PopupScreen,
     PopupService,
     PopupState,
 } from '../../src/popup/components/App/popupAppMachineEnums';
@@ -476,6 +477,71 @@ describe('popupAppMachine', () => {
             expect(visitedStates).toContain(PopupState.LoadingPopupData);
             expect(visitedStates).toContain(PopupState.ShowingPopup);
             expect(visitedStates).not.toContain(PopupState.Error);
+
+            service.stop();
+        });
+    });
+
+    describe('screen context (ScreenChanged)', () => {
+        it('should default to the Main screen', () => {
+            const service = createTestMachine();
+
+            expect(service.state.context.screen).toBe(PopupScreen.Main);
+
+            service.stop();
+        });
+
+        it('should keep a ScreenChanged sent before showingPopup once it is reached', async () => {
+            const service = createTestMachine({
+                services: {
+                    [PopupService.LoadAuthStatus]: () => Promise.resolve({ isAuthenticated: true }),
+                    [PopupService.LoadStartupData]: () => Promise.resolve({ shouldShowOnboarding: false }),
+                },
+            });
+
+            // Simulate a derived screen (e.g. NoLocationsError) emitted during
+            // the loading states, before the machine reaches ShowingPopup.
+            service.send({ type: PopupEvent.ScreenChanged, screen: PopupScreen.NoLocationsError });
+
+            service.send(PopupEvent.Init);
+            await waitForState(service, PopupState.ShowingPopup);
+
+            expect(service.state.matches(PopupState.ShowingPopup)).toBe(true);
+            expect(service.state.context.screen).toBe(PopupScreen.NoLocationsError);
+
+            service.stop();
+        });
+
+        it('should update context.screen when ScreenChanged is sent in showingPopup', async () => {
+            const service = createTestMachine({
+                services: {
+                    [PopupService.LoadAuthStatus]: () => Promise.resolve({ isAuthenticated: true }),
+                    [PopupService.LoadStartupData]: () => Promise.resolve({ shouldShowOnboarding: false }),
+                },
+            });
+
+            service.send(PopupEvent.Init);
+            await waitForState(service, PopupState.ShowingPopup);
+
+            service.send({ type: PopupEvent.ScreenChanged, screen: PopupScreen.Locations });
+            expect(service.state.context.screen).toBe(PopupScreen.Locations);
+
+            service.send({ type: PopupEvent.ScreenChanged, screen: PopupScreen.Stats });
+            expect(service.state.context.screen).toBe(PopupScreen.Stats);
+
+            service.stop();
+        });
+
+        it('should apply ScreenChanged outside showingPopup (handled at machine root)', () => {
+            const service = createTestMachine();
+
+            // The MobX reaction fires ScreenChanged with fireImmediately: true,
+            // i.e. during the loading states. Handling it at the machine root
+            // keeps context.screen in sync before ShowingPopup is reached.
+            service.send({ type: PopupEvent.ScreenChanged, screen: PopupScreen.Locations });
+
+            expect(service.state.matches(PopupState.Idle)).toBe(true);
+            expect(service.state.context.screen).toBe(PopupScreen.Locations);
 
             service.stop();
         });
