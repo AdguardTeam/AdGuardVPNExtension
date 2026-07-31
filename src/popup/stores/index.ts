@@ -8,3 +8,5 @@ import { RootStore } from './RootStore';
 configure({ enforceActions: 'observed' });
 
 export const rootStore = createContext(new RootStore());
+
+export type { OnboardingGoal } from './UiStore';

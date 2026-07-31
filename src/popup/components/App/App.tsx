@@ -12,6 +12,7 @@ import { Icons } from '../../../common/components/Icons';
 import { rootStore } from '../../stores';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { Onboarding } from '../Authentication/Onboarding';
+import { PersonalizedOnboarding } from '../Authentication/PersonalizedOnboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradePaywall } from '../Authentication/UpgradeScreen';
 import { ServerErrorPopup } from '../ServerErrorPopup';
@@ -51,7 +52,7 @@ export const App = observer(() => {
     const {
         isOpenOptionsModal,
         shouldShowRegionNotice,
-        isPaywallBVariant,
+        isPersonalizedOnboardingVariant,
     } = uiStore;
 
     const {
@@ -288,7 +289,9 @@ export const App = observer(() => {
         if (renderNewsletter) {
             content = <Newsletter />;
         } else if (renderOnboarding) {
-            content = <Onboarding />;
+            content = isPersonalizedOnboardingVariant
+                ? <PersonalizedOnboarding />
+                : <Onboarding />;
         } else if (!isPremiumToken && renderUpgradeScreen) {
             content = <UpgradePaywall />;
         } else {
@@ -314,7 +317,6 @@ export const App = observer(() => {
         content = renderPopupScreen(state.context.screen, {
             authenticated,
             isOpenOptionsModal,
-            isPaywallBVariant,
             shouldShowRegionNotice,
             isVpnBlocked,
             isLimitedOfferActive,

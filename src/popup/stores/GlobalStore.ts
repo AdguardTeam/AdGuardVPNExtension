@@ -68,7 +68,12 @@ export class GlobalStore {
      */
     @action
     public async initAuthenticatedStatus(): Promise<boolean> {
-        const { authStore, settingsStore } = this.rootStore;
+        const {
+            authStore,
+            settingsStore,
+            telemetryStore,
+            uiStore,
+        } = this.rootStore;
 
         const [isAuthenticated, consentData] = await Promise.all([
             messenger.isAuthenticated(),
@@ -79,6 +84,8 @@ export class GlobalStore {
         authStore.applyAuthCache(consentData);
         authStore.setIsAuthenticated(isAuthenticated);
         authStore.setAuthenticatedStatusRetrieved(true);
+        telemetryStore.setIsHelpUsImproveEnabled(consentData.helpUsImprove);
+        uiStore.setExperimentVariants(consentData.experimentVariants);
 
         return isAuthenticated;
     }
@@ -95,6 +102,7 @@ export class GlobalStore {
             authStore,
             vpnStore,
             settingsStore,
+            uiStore,
         } = rootStore;
         const {
             isFirstRun,
@@ -102,14 +110,17 @@ export class GlobalStore {
             marketingConsent,
             isPremiumToken,
             selectedLanguage,
+            experimentVariants,
         } = await messenger.getStartupData();
 
         await i18n.init(selectedLanguage);
         settingsStore.setIsFirefox();
         authStore.setIsFirstRun(isFirstRun);
         authStore.setFlagsStorageData(flagsStorageData);
+        uiStore.setOnboardingGoalFromFlags(flagsStorageData);
         await authStore.setMarketingConsent(marketingConsent || false);
         vpnStore.setIsPremiumToken(isPremiumToken);
+        uiStore.setExperimentVariants(experimentVariants);
         this.setStartupDataRetrieved(true);
 
         // Return whether any onboarding screen needs to be shown
@@ -252,6 +263,9 @@ export class GlobalStore {
 
             authStore.setUsername(username);
             authStore.setFlagsStorageData(flagsStorageData);
+            // Do not re-hydrate onboardingGoal here: initStartupData already restored
+            // it before the UI was shown. A slower popup-data response could otherwise
+            // overwrite a goal the user selected while preload was still running.
             authStore.setIsFirstRun(isFirstRun);
             authStore.setShouldShowRateModal(shouldShowRateModal);
             authStore.setShowHintPopup(shouldShowHintPopup);

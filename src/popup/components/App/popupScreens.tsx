@@ -12,7 +12,7 @@ import { Settings } from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
 import { CurrentEndpoint } from '../Settings/CurrentEndpoint';
 import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
-import { TrafficLimitExceeded, TrafficLimitExceededB } from '../Settings/TrafficLimitExceeded';
+import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { UpgradePaywall } from '../Authentication/UpgradeScreen';
 import { ReviewPopup } from '../ReviewPopup';
@@ -137,7 +137,6 @@ export const derivePopupScreen = (deps: PopupScreenDeps): PopupScreen => {
 export interface PopupScreenRenderFlags {
     authenticated: boolean;
     isOpenOptionsModal: boolean;
-    isPaywallBVariant: boolean;
     shouldShowRegionNotice: boolean;
     isVpnBlocked: boolean;
     isLimitedOfferActive: boolean;
@@ -153,13 +152,12 @@ export interface PopupScreenRenderFlags {
  * Only the top-level screen selection is machine-driven: which screen wins is
  * decided by the machine context (see {@link derivePopupScreen}). Once a screen
  * is chosen, this renderer still reads flag values to decide sub-rendering
- * details specific to that screen — e.g. the A/B paywall variant
- * (`isPaywallBVariant`), the options modal (`isOpenOptionsModal`), VPN-blocked
- * /region warnings and the limited-offer modal (`isVpnBlocked`,
- * `shouldShowRegionNotice`, `isLimitedOfferActive`), exclusions vs. settings
- * (`isCurrentTabExcluded`, `canBeExcluded`) and the footer message
- * (`premiumPromoEnabled`). Those flags do not change which screen is active,
- * only what is rendered inside it.
+ * details specific to that screen — e.g. the options modal
+ * (`isOpenOptionsModal`), VPN-blocked /region warnings and the limited-offer
+ * modal (`isVpnBlocked`, `shouldShowRegionNotice`, `isLimitedOfferActive`),
+ * exclusions vs. settings (`isCurrentTabExcluded`, `canBeExcluded`) and the
+ * footer message (`premiumPromoEnabled`). Those flags do not change which
+ * screen is active, only what is rendered inside it.
  *
  * `Icons` and `ServerErrorPopup` are intentionally not rendered here: they are
  * lifted to the single top-level return in {@link App} so they render exactly
@@ -176,7 +174,6 @@ export const renderPopupScreen = (
     const {
         authenticated,
         isOpenOptionsModal,
-        isPaywallBVariant,
         shouldShowRegionNotice,
         isVpnBlocked,
         isLimitedOfferActive,
@@ -220,11 +217,7 @@ export const renderPopupScreen = (
         }
 
         case PopupScreen.LimitExceeded: {
-            const LimitExceededComponent = isPaywallBVariant
-                ? TrafficLimitExceededB
-                : TrafficLimitExceeded;
-
-            return <LimitExceededComponent />;
+            return <TrafficLimitExceeded />;
         }
 
         case PopupScreen.Locations: {

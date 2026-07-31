@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
@@ -9,6 +9,7 @@ import uniqueProtocolImageUrl from '../../../../assets/images/onboarding-unique-
 import sitesAppExclusionsImageUrl from '../../../../assets/images/onboarding-sites-app-exclusions.svg';
 import noLoggingPolicyImageUrl from '../../../../assets/images/onboarding-no-logging-policy.svg';
 import { Slider } from '../../ui/Slider';
+import { useOnboardingSlides } from '../useOnboardingSlides';
 
 import './onboarding.pcss';
 
@@ -19,8 +20,6 @@ export const Onboarding = observer(() => {
         telemetryStore,
         TelemetryScreenName.OnboardingScreen,
     );
-
-    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
     const slides = [
         {
@@ -40,29 +39,30 @@ export const Onboarding = observer(() => {
         },
     ];
 
-    const nextSlideHandler = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.NextOnboardingClick,
-            TelemetryScreenName.OnboardingScreen,
-        );
-        if (currentSlideIndex === slides.length - 1) {
-            await authStore.setShowOnboarding(false);
-            return;
-        }
-        setCurrentSlideIndex(currentSlideIndex + 1);
-    };
-
-    const setCurrentSlide = (index: number): void => {
-        setCurrentSlideIndex(index);
-    };
-
-    const handleCloseClick = async (): Promise<void> => {
-        telemetryStore.sendCustomEvent(
-            TelemetryActionName.SkipOnboardingClick,
-            TelemetryScreenName.OnboardingScreen,
-        );
+    const completeOnboarding = async (): Promise<void> => {
         await authStore.setShowOnboarding(false);
     };
+
+    const {
+        slideIndex: currentSlideIndex,
+        setSlideIndex: setCurrentSlide,
+        nextSlideHandler,
+        handleCloseClick,
+    } = useOnboardingSlides(slides.length, {
+        onComplete: completeOnboarding,
+        onNext: () => {
+            telemetryStore.sendCustomEvent(
+                TelemetryActionName.NextOnboardingClick,
+                TelemetryScreenName.OnboardingScreen,
+            );
+        },
+        onClose: () => {
+            telemetryStore.sendCustomEvent(
+                TelemetryActionName.SkipOnboardingClick,
+                TelemetryScreenName.OnboardingScreen,
+            );
+        },
+    });
 
     return (
         <div className="onboarding">

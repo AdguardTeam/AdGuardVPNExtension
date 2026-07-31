@@ -9,6 +9,11 @@ import connectDevicesImageUrl from '../../assets/images/connect-devices.svg';
  */
 export const POTENTIAL_DEVICE_NUM = 10;
 
+/**
+ * Number of secure server locations advertised for the unlimited plan.
+ */
+export const UNLIMITED_LOCATIONS_COUNT = 80;
+
 type UnlimitedFeature = {
     imageUrl: string;
     title: string;

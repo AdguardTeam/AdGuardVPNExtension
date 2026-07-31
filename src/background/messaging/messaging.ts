@@ -23,6 +23,7 @@ import { tabs } from '../../common/tabs';
 import { type RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
 import { accountProvider } from '../providers/accountProvider';
 import { flagsStorage } from '../flagsStorage';
+import { abTestManager } from '../abTestManager';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
 import { hintPopup } from '../hintPopup';
@@ -165,6 +166,9 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
             return popupData.getPopupDataRetry(url, numberOfTries);
         }
         case MessageType.GET_STARTUP_DATA: {
+            // Wait for any in-flight/needed session_start assignment so the
+            // onboarding path receives a stable experiment snapshot.
+            await telemetry.ensureExperimentAssignment();
             return {
                 isFirstRun: updateService.isFirstRun,
                 flagsStorageData: await flagsStorage.getFlagsStorageData(),
@@ -172,6 +176,7 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
                 isPremiumToken: await credentials.isPremiumToken(),
                 // Fetched early to translate the popup skeleton screen
                 selectedLanguage: settings.getSelectedLanguage(),
+                experimentVariants: await abTestManager.getVariantsForProps(),
             };
         }
         case MessageType.GET_LIMITED_OFFER_DATA: {
@@ -399,6 +404,10 @@ const messagesHandler = async (message: unknown, sender: Runtime.MessageSender):
         case MessageType.SET_FLAG: {
             const { key, value } = message.data;
             return flagsStorage.set(key, value);
+        }
+        case MessageType.SET_ONBOARDING_GOAL: {
+            const { goal } = message.data;
+            return flagsStorage.setOnboardingGoal(goal);
         }
         case MessageType.HIDE_RATE_MODAL_AFTER_CANCEL: {
             await rateModal.hideAfterCancel();

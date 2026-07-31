@@ -163,14 +163,40 @@ class ABTestManager {
      * @returns Validated variant cache.
      */
     private async loadFromStorage(): Promise<VariantCache> {
-        const raw = await browserApi.storage.get(ABTestManager.VARIANTS_STORAGE_KEY);
+        let raw: unknown;
+
+        try {
+            raw = await browserApi.storage.get(ABTestManager.VARIANTS_STORAGE_KEY);
+        } catch (e) {
+            log.error('[vpn.ABTestManager.loadFromStorage]: Failed to read variant cache from storage', e, 'using empty cache');
+            return {};
+        }
 
         if (!raw) {
             return {};
         }
 
         try {
-            return v.parse(variantCacheSchema, raw);
+            const parsed = v.parse(variantCacheSchema, raw);
+            // Drop retired slots that are no longer in the experiment registry so
+            // stale assignments are not re-emitted in telemetry props.
+            const cleaned: VariantCache = {};
+            let hasRetiredSlots = false;
+
+            const entries = Object.entries(parsed) as [ExperimentSlot, string][];
+            entries.forEach(([slot, versionName]) => {
+                if (slot in this.registry) {
+                    cleaned[slot] = versionName;
+                } else {
+                    hasRetiredSlots = true;
+                }
+            });
+
+            if (hasRetiredSlots) {
+                await this.saveToStorage(cleaned);
+            }
+
+            return cleaned;
         } catch (e) {
             log.error('[vpn.ABTestManager.loadFromStorage]: Failed to parse variant cache from storage', e, 'using empty cache');
             return {};

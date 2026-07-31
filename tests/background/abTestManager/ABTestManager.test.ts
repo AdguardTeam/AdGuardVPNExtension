@@ -66,6 +66,16 @@ describe('ABTestManager', () => {
             expect(await manager.getVariantsForProps()).toEqual({});
             expect(log.error).toHaveBeenCalled();
         });
+
+        it('should use empty cache if storage read rejects', async () => {
+            // @ts-expect-error - partially mocked
+            browserApi.storage.get.mockRejectedValue(new Error('storage unavailable'));
+
+            const manager = new ABTestManager(REGISTRY);
+
+            expect(await manager.getVariantsForProps()).toEqual({});
+            expect(log.error).toHaveBeenCalled();
+        });
     });
 
     describe('buildTestsPayload', () => {
@@ -236,6 +246,31 @@ describe('ABTestManager', () => {
             const manager = new ABTestManager(REGISTRY);
 
             expect(await manager.getVariantsForProps()).toEqual({});
+        });
+
+        it('should drop retired slots that are no longer in the registry and persist the cleaned cache', async () => {
+            const cached = {
+                experiment_1: 'AG-001-feature-a-variant_def',
+                experiment_2: 'AG-002-feature-b-variant_b',
+                experiment_3: 'AG-retired-variant',
+            };
+            // @ts-expect-error - partially mocked
+            browserApi.storage.get.mockResolvedValue(cached);
+
+            // REGISTRY only has experiment_1 and experiment_2
+            const manager = new ABTestManager(REGISTRY);
+
+            expect(await manager.getVariantsForProps()).toEqual({
+                experiment_1: 'AG-001-feature-a-variant_def',
+                experiment_2: 'AG-002-feature-b-variant_b',
+            });
+            expect(browserApi.storage.set).toHaveBeenCalledWith(
+                ABTestManager.VARIANTS_STORAGE_KEY,
+                {
+                    experiment_1: 'AG-001-feature-a-variant_def',
+                    experiment_2: 'AG-002-feature-b-variant_b',
+                },
+            );
         });
     });
 

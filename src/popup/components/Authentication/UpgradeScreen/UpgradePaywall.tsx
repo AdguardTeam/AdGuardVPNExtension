@@ -4,16 +4,23 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 
 import { UpgradeScreen } from './UpgradeScreen';
-import { UpgradeScreenB } from './UpgradeScreenB';
+import { getGoalUpgradeVariants, getDefaultUpgradeVariant } from './upgradeScreenVariants';
 
 /**
- * Renders the appropriate upgrade paywall variant (A or B)
- * based on the current A/B test configuration.
+ * Renders the upgrade paywall for the current onboarding variant.
+ *
+ * The personalized onboarding (AG-55378) with a selected goal renders a
+ * goal-tailored variant (goal-specific title, features, button labels and
+ * PurchaseScreen telemetry); every other case renders the default upgrade
+ * screen (former B variant — winner of the concluded AG-49792 A/B test).
  */
 export const UpgradePaywall = observer((): ReactElement => {
     const { uiStore } = useContext(rootStore);
+    const { isPersonalizedOnboardingVariant, onboardingGoal } = uiStore;
 
-    const UpgradeComponent = uiStore.isPaywallBVariant ? UpgradeScreenB : UpgradeScreen;
+    const variant = isPersonalizedOnboardingVariant && onboardingGoal
+        ? getGoalUpgradeVariants()[onboardingGoal]
+        : getDefaultUpgradeVariant();
 
-    return <UpgradeComponent />;
+    return <UpgradeScreen variant={variant} />;
 });

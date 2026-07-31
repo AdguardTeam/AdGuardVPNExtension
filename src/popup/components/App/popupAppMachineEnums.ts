@@ -127,8 +127,7 @@ export enum PopupScreen {
     GlobalError = 'globalError',
 
     /**
-     * Free-tier traffic limit exceeded (shown once until dismissed). A/B variant
-     * is resolved at render time via uiStore.isPaywallBVariant.
+     * Free-tier traffic limit exceeded (shown once until dismissed).
      */
     LimitExceeded = 'limitExceeded',
 
