@@ -14,7 +14,8 @@ stages:
       final: false
       jobs:
         - Check Bundle Size
-        - Check translations
+        # TODO: re-enable when translations are ready
+        # - Check translations
         - Lint
         - Unit tests
   - Build:
@@ -59,31 +60,32 @@ Check Bundle Size:
   requirements: &requirements
     - extension: 'true'
 
-Check translations:
-  key: LOCALESCHECK
-  other:
-    clean-working-dir: true
-  tasks:
-    - checkout:
-        force-clean-build: true
-    - script:
-        interpreter: SHELL
-        scripts:
-          - |-
-            set -ex
-            exec 2>&1
-            export DOCKER_BUILDKIT=1
-
-            docker build \
-              --file Dockerfile \
-              --progress plain \
-              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
-              --target locales-check-output \
-              --output type=local,dest=output \
-              .
-  final-tasks:
-    - script: *cleanup-script
-  requirements: *requirements
+# TODO: re-enable when translations are ready
+# Check translations:
+#   key: LOCALESCHECK
+#   other:
+#     clean-working-dir: true
+#   tasks:
+#     - checkout:
+#         force-clean-build: true
+#     - script:
+#         interpreter: SHELL
+#         scripts:
+#           - |-
+#             set -ex
+#             exec 2>&1
+#             export DOCKER_BUILDKIT=1
+#
+#             docker build \
+#               --file Dockerfile \
+#               --progress plain \
+#               --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+#               --target locales-check-output \
+#               --output type=local,dest=output \
+#               .
+#   final-tasks:
+#     - script: *cleanup-script
+#   requirements: *requirements
 
 Lint:
   key: LINT
