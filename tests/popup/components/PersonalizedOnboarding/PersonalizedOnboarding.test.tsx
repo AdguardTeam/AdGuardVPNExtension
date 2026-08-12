@@ -79,6 +79,11 @@ describe('PersonalizedOnboarding', () => {
         expect(screen.getByText('popup_onboarding_choice_bypass')).toBeTruthy();
     });
 
+    it('renders the Other option', () => {
+        render(<PersonalizedOnboarding />);
+        expect(screen.getByText('popup_onboarding_choice_other')).toBeTruthy();
+    });
+
     it.each([
         {
             goal: 'privacy' as const,
@@ -137,5 +142,17 @@ describe('PersonalizedOnboarding', () => {
         fireEvent.click(closeBtn);
         expect(uiStoreRef.current?.onboardingGoal).toBeNull();
         expect(setShowOnboarding).toHaveBeenCalledWith(false);
+    });
+
+    it('selecting Other fires telemetry, sets goal null and completes onboarding', async () => {
+        render(<PersonalizedOnboarding />);
+        fireEvent.click(screen.getByText('popup_onboarding_choice_other'));
+
+        expect(sendCustomEvent).toHaveBeenCalledWith(
+            'other_click',
+            'onboarding_choice_screen',
+        );
+        expect(uiStoreRef.current?.onboardingGoal).toBeNull();
+        await waitFor(() => expect(setShowOnboarding).toHaveBeenCalledWith(false));
     });
 });

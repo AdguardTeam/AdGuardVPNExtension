@@ -82,6 +82,14 @@ export const PersonalizedOnboarding = observer(() => {
         await completeOnboarding();
     };
 
+    const handleOtherClick = (): void => {
+        telemetryStore.sendCustomEvent(
+            TelemetryActionName.OtherClick,
+            TelemetryScreenName.ChoiceOnboardingScreen,
+        );
+        handleChoiceClose();
+    };
+
     if (onboardingGoal === null) {
         return (
             <div className="choice-onboarding">
@@ -117,6 +125,19 @@ export const PersonalizedOnboarding = observer(() => {
                             />
                         </button>
                     ))}
+                    <button
+                        type="button"
+                        className="choice-onboarding__option"
+                        onClick={handleOtherClick}
+                    >
+                        <span>{translator.getMessage('popup_onboarding_choice_other')}</span>
+                        <Icon
+                            name="arrow-down"
+                            size="20"
+                            className="choice-onboarding__option-arrow"
+                            rotation="clockwise"
+                        />
+                    </button>
                 </div>
             </div>
         );

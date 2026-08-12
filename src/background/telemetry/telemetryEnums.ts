@@ -128,6 +128,7 @@ export enum TelemetryActionName {
     ProtectPrivacyClick = 'protect_privacy_click',
     StreamTvClick = 'stream_tv_click',
     BypassCensorClick = 'bypass_censor_click',
+    OtherClick = 'other_click',
     DeclineNewsletter = 'decline_newsletter',
     AcceptNewsletter = 'accept_newsletter',
     NudgeAdguardClick = 'nudge_adguard_click',
@@ -350,6 +351,7 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.ProtectPrivacyClick]: TelemetryScreenName.ChoiceOnboardingScreen;
     [TelemetryActionName.StreamTvClick]: TelemetryScreenName.ChoiceOnboardingScreen;
     [TelemetryActionName.BypassCensorClick]: TelemetryScreenName.ChoiceOnboardingScreen;
+    [TelemetryActionName.OtherClick]: TelemetryScreenName.ChoiceOnboardingScreen;
     [TelemetryActionName.DeclineNewsletter]: TelemetryScreenName.NewsletterScreen;
     [TelemetryActionName.AcceptNewsletter]: TelemetryScreenName.NewsletterScreen;
     [TelemetryActionName.NudgeAdguardClick]: TelemetryScreenName.DialogCantConnect;

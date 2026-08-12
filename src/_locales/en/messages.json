@@ -1005,6 +1005,9 @@
     "popup_onboarding_choice_bypass": {
         "message": "To bypass censorship"
     },
+    "popup_onboarding_choice_other": {
+        "message": "Other"
+    },
     "popup_onboarding_privacy_1_title": {
         "message": "AdGuard VPN encrypts your traffic"
     },
