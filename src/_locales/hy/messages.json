@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Տիրույթի անուն"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Անվավեր դոմեն"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Ենթատիրույթ"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Անջատել VPN-ը այս կայքում"
+    },
+    "context_menu_connect": {
+        "message": "Միանալ"
+    },
+    "context_menu_disconnect": {
+        "message": "Անջատել"
     },
     "endpoints_countries": {
         "message": "Հայթայթներ"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Հաջորդը"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Ո՞րն է VPN օգտագործելու ձեր հիմնական պատճառը:"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Իմ գաղտնիությունը պաշտպանելու համար"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Հեռուստաշոուներ հոսելու համար"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Ցենզուրան շրջանցելու համար"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Այլ"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN-ը գաղտնագրում է ձեր տրաֆիկը"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Անվտանգ է վեբ զննարկել սրճարանում, հյուրանոցում կամ օդանավակայանում"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN-ը չի հետևում ձեզ առցանց"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Ձեր տվյալները և զննարկչի գործունեությունը մնում են գաղտնի"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN-ը ապահովում է DNS պաշտպանություն"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Բլոկեք գովազդներն ու հետևող ծրագրերը ներկառուցված DNS-ով"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": ""
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Դիտեք ձեր սիրած հեռուստաշոուները արտասահմանում: Կամ անձամբ փորձեք այլ երկրների հոսքային հիթերը"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Ընտրելու համար շատ վայրեր"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN-ն առաջարկում է %count%+ անվտանգ վայրեր։ Պահպանեք ձեր նախընտրածները արագ մուտքի համար | AdGuard VPN-ն առաջարկում է %count%+ անվտանգ վայրեր։ Պահպանեք ձեր նախընտրածները արագ մուտքի համար",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Հոսք բարձր արագությամբ"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN-ը կոդավորում է ձեր երթևեկությունը՝ առանց դանդաղեցնելու ձեր զննարկիչը"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Հեռացնել աշխարհագրական սահմանափակումները"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "AdGuard VPN-ով զննեք տանը անհասանելի կայքերը"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Ընտրեք, թե որ կայքերն են օգտագործում VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Ավելացրեք տեղական կայքերը բացառությունների ցանկում, և AdGuard VPN-ը կանջատվի դրանց համար"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Միացնել DNS պաշտպանությունը"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Պաշտպանեք ձեր սարքը վնասակար ծրագրերից՝ ներկառուցված DNS-ով"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Բարձրացրեք ձեր պաշտպանությունը Unlimited-ով"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Գաղտնագրված երթեւեկություն առանց արագության սահմանափակումների"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ անվտանգ վայր | %count%+ անվտանգ վայրեր",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Մինչեւ %count% սարքը մեկ հաշվի վրա | Մինչեւ %count% սարքեր մեկ հաշվի վրա",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Դարձրեք ձեր հեռարձակումը հաճելի Unlimited-ի միջոցով"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Անտեսանելի է հոսքային ծառայությունների համար"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ արագ գտնվելու վայր | %count%+ արագ գտնվելու վայրեր",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Ոչ բուֆերային կամ արագության սահմանափակումներ"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Հարմարեցրեք VPN-ն ձեր կարիքներին անսահմանափակ"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Գաղտնագրված երթեւեկություն առանց արագության սահմանափակումների"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Մինչեւ %count% սարքը մեկ հաշվի վրա | Մինչեւ %count% սարքեր մեկ հաշվի վրա",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ անվտանգ վայր | %count%+ անվտանգ վայրեր",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Անսահմանափակ VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Անսահման արագություն"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "No speed restrictions. Get the most out of your service provider!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Ստանալ Unlimited"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Միգուցե հետո"
     },
     "popup_upgrade_screen_title": {
         "message": "Թարմացնել դեպի Unlimited"

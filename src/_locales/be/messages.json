@@ -139,7 +139,7 @@
         "message": "Гісторыя версій"
     },
     "github": {
-        "message": "GitHub рэпазіторый"
+        "message": "Рэпазіторый GitHub"
     },
     "eula": {
         "message": "EULA"
@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Даменнае імя"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Няправільны дамен"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Паддамен"
     },
@@ -588,13 +591,13 @@
         "message": "Максімальная даўжыня — %count% сімвал | Максімальная даўжыня — %count% сімвалы | Максімальная даўжыня — %count% сімвалаў | Максімальная даўжыня — %count% сімвалаў"
     },
     "settings_profiles_error_duplicate_name": {
-        "message": "Гэта імя ўжо выкарыстоўваецца"
+        "message": "Гэта назва ўжо выкарыстоўваецца"
     },
     "settings_profiles_rename_modal_title": {
         "message": "Перайменаваць профіль"
     },
     "settings_profiles_rename_modal_name_label": {
-        "message": "Новае імя"
+        "message": "Новая назва"
     },
     "settings_profiles_rename_modal_submit": {
         "message": "Захаваць"
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "Адключыць VPN на гэтым вэб-сайце"
     },
+    "context_menu_connect": {
+        "message": "Падключыць"
+    },
+    "context_menu_disconnect": {
+        "message": "Адключыць"
+    },
     "endpoints_countries": {
         "message": "Месцазнаходжанні"
     },
@@ -748,7 +757,7 @@
         "message": "Пасуе для сэрвісаў з трансляцыямі"
     },
     "popup_streaming_modal_title": {
-        "message": "Даступныя стрымiнгавыя сэрвiсы ў гэтай лакацыі"
+        "message": "Даступныя сэрвiсы ў гэтым месцазнаходжанні"
     },
     "popup_streaming_modal_button_ok": {
         "message": "Зразумела"
@@ -984,6 +993,132 @@
     "popup_onboarding_next": {
         "message": "Далей"
     },
+    "popup_onboarding_choice_title": {
+        "message": "Якая ваша галоўная прычына выкарыстоўваць VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Каб абараніць маю прыватнасць"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Для трансляцыі тэлеперадач"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Каб абыйсці цэнзуру"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Іншыя"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN шыфруе ваш трафік"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Бяспечна праглядаць вэб у кавярні, гатэлі ці аэрапорце"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN не адсочвае вас у інтэрнэце"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Вашы даныя і гісторыя прагляду застаюцца прыватнымі"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN забяспечвае абарону DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Блакуйце рэкламу і трэкеры з дапамогай убудаванага DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Доступ да змесціва з любой краіны ў свеце"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Глядзіце свае любімыя тэлепраграмы за мяжой. Або на ўласныя вочы ўбачце папулярныя стрымінгавыя хіты з іншых краін"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Шмат месцаў на выбар"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN прапануе %count%+ бяспечныя месцы. Захавайце любімыя для хуткага доступу | AdGuard VPN прапануе %count%+ бяспечнае месца. Захавайце любімыя для хуткага доступу | AdGuard VPN прапануе %count%+ бяспечныя месцы. Захавайце любімыя для хуткага доступу | AdGuard VPN прапануе %count%+ бяспечныя месцы. Захавайце любімыя для хуткага доступу",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Трансляцыя на высокай хуткасці"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN шыфруе ваш трафік, не запавольваючы працу ў інтэрнэце"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Зняць геаабмежаванні"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Праглядайце вэб-сайты, недаступныя дома, з дапамогай AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Выберыце, якія вэб-сайты выкарыстоўваюць VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Дадайце лакальныя вэб-сайты ў выключэнні, і AdGuard VPN для іх адключыцца"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Уключыць абарону DNS"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Абараніце сваю прыладу ад шкоднасных праграм з дапамогай убудаванага DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Палепшыце сваю абарону з Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Шыфраваны трафік без абмежаванняў хуткасці"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ бяспечныя месцы | %count%+ бяспечнае месца | %count%+ бяспечныя месцы | %count%+ бяспечныя месцы",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Да %count% прылад на адным акаўнце | Да %count% прылад на адным акаўнце | Да %count% прылад на адным акаўнце | Да %count% прылад на адным акаўнце",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Зрабіце свой стрымінг прыемным з Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Нябачны для струменевых сэрвісаў"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ хуткія месцы | %count%+ хуткае месца | %count%+ хуткія месцы | %count%+ хуткія месцы",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Без буферызацыі і абмежаванняў хуткасці"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Наладзьце VPN пад свае патрэбы з Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Шыфраваны трафік без абмежаванняў хуткасці"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Да %count% прылад на адным акаўнце | Да %count% прылад на адным акаўнце | Да %count% прылад на адным акаўнце | Да %count% прылад на адным акаўнце",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ бяспечныя месцы | %count%+ бяспечнае месца | %count%+ бяспечныя месцы | %count%+ бяспечныя месцы",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Безлімітны VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Неабмежаваная хуткасць"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Ніякіх абмежаванняў хуткасці. Атрымайце максімум магчымасцяў вашага правайдара!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Атрымаць Unlimited"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Магчыма, пазней"
+    },
     "popup_upgrade_screen_title": {
         "message": "Палепшыць да Unlimited"
     },
@@ -1104,7 +1239,7 @@
         "message": "Звычайны спіс"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Выбарковы спіс"
+        "message": "Я хачу, каб VPN быў уключаны для гэтых вэб-сайтаў"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Скасаваць"
@@ -1154,7 +1289,7 @@
         "message": "Атрымаць пашырэнне VPN для Android"
     },
     "popup_mobile_edge_promo_modal_title": {
-        "message": "AdGuard VPN для Edge — цяпер на Android"
+        "message": "AdGuard VPN для Edge — цяпер і на Android"
     },
     "popup_mobile_edge_promo_modal_description": {
         "message": "Скануйце QR-код, каб устанавіць Edge на вашым тэлефоне або планшэце. AdGuard VPN з'явіцца ў прапановах"
@@ -1227,7 +1362,7 @@
         "message": "Ачысціць статыстыку?"
     },
     "popup_stats_menu_clear_stats_description": {
-        "message": "Уся статыстыка будзе выдалена назаўсёды"
+        "message": "Уся статыстыка будзе незваротна выдалена"
     },
     "popup_stats_menu_clear_stats_clear_btn": {
         "message": "Ачысціць"
@@ -1290,7 +1425,7 @@
         "message": "Дасягнута абмежаванне па колькасці перададзеных даных за месяц"
     },
     "notification_data_limit_reached_description": {
-        "message": "Хуткасць злучэння VPN была зніжана."
+        "message": "Хуткасць падключэння па VPN была зніжана."
     },
     "notification_data_left_mb": {
         "message": "Засталося %num% МБ."

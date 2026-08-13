@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Domain név"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Érvénytelen domain"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Aldomain"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "VPN letiltása ezen a webhelyen"
     },
+    "context_menu_connect": {
+        "message": "Csatlakozás"
+    },
+    "context_menu_disconnect": {
+        "message": "Kikapcsolás"
+    },
     "endpoints_countries": {
         "message": "Helyszínek"
     },
@@ -949,7 +958,7 @@
         "message": "Küldi el az anonimizált <link>kiegészítő használati adatokat</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Bejelentkezés vagy fiók létrehozása"
+        "message": "Jelentkezzen be vagy hozzon létre egy fiókot"
     },
     "popup_newsletter_title": {
         "message": "AdGuard hírlevél"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Következő"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Mi a fő oka annak, hogy VPN-t használ?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "A magánéletem védelme érdekében"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "TV-műsorok streameléséhez"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "A cenzúra megkerülése érdekében"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Egyéb"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "Az AdGuard VPN titkosítja a forgalmat"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Biztonságos böngészni az interneten egy kávézóban, szállodában vagy repülőtéren"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "Az AdGuard VPN nem követ online"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Az adataid és a böngészési tevékenységed privát marad"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "Az AdGuard VPN DNS-védelmet biztosít"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Blokkolj hirdetéseket és követőket beépített DNS-szel"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Tartalom elérése bárhonnan"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Nézd kedvenc tévéműsoraidat külföldön. Vagy élvezd első kézből a külföldi streaming slágereket"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Sok helyszín közül lehet választani"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "Az AdGuard VPN %count%+ biztonságos helyszíneket kínál. Mentsd el kedvenceidet a gyors elérés érdekében | Az AdGuard VPN %count%+ biztonságos helyszíneket kínál. Mentsd el kedvenceidet a gyors elérés érdekében | Az AdGuard VPN %count%+ biztonságos helyszíneket kínál. Mentsd el kedvenceidet a gyors elérés érdekében",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Nagy sebességű streamelés"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "Az AdGuard VPN titkosítja a forgalmat a böngészés lassítása nélkül"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Földrajzi korlátozások eltávolítása"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Böngésszen otthon nem elérhető webhelyeken az AdGuard VPN segítségével"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Válassza ki, mely weboldalak használjanak VPN-t"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Ha helyi weboldalakat adsz ki a kizárásokhoz, az AdGuard VPN kikapcsol náluk"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "DNS védelem engedélyezése"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Védje meg eszközét a kártevőtől beépített DNS-szel"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Növelje védelmet az Unlimiteddel"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Titkosított forgalom sebességkorlátozás nélkül"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ biztonságos helyek | %count%+ biztonságos hely | %count%+ biztonságos helyek",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Akár %count% eszköz egy fiókon | Akár %count% eszköz egy fiókon | Akár %count% eszköz egy fiókon",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Tedd élvezetessé a streamelést az Unlimited segítségével"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Láthatatlan a streaming szolgáltatások számára"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ gyors helyszínek | %count%+ gyors helyszín | %count%+ gyors helyszínek",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Nincs pufferelés és sebességkorlátozás"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Igazítsa VPN-jét az igényeihez az Unlimited segítségével"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Titkosított forgalom sebességkorlátozás nélkül"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Akár %count% eszköz egy fiókon | Akár %count% eszköz egy fiókon | Akár %count% eszköz egy fiókon",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ biztonságos helyek | %count%+ biztonságos hely | %count%+ biztonságos helyek",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Korlátlan VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Korlátlan sebesség"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Nincs sebességkorlátozás. Hozza ki a legtöbbet szolgáltatójából!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Korlátlan beszerzése"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Talán később"
     },
     "popup_upgrade_screen_title": {
         "message": "Frissítsen Unlimitedre"

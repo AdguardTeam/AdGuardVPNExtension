@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "نام دامنه"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "دامنه نامعتبر"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "زیر دامنه"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "VPN را در این وب سایت غیرفعال کنید"
     },
+    "context_menu_connect": {
+        "message": "اتصال"
+    },
+    "context_menu_disconnect": {
+        "message": "قطع ارتباط"
+    },
     "endpoints_countries": {
         "message": "مکان‌ها"
     },
@@ -949,7 +958,7 @@
         "message": "ارسال داده‌های استفاده از افزونه <link>به‌صورت ناشناس</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "احراز هویت"
+        "message": "وارد شوید یا یک حساب ایجاد کنید"
     },
     "popup_newsletter_title": {
         "message": "خبرنامه AdGuard"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "بعدي"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "دلیل اصلی شما برای استفاده از VPN چیست؟"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "برای حفظ حریم خصوصی‌ام"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "برای پخش برنامه‌های تلویزیونی"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "برای دور زدن سانسور"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "ساير"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN ترافیک شما را رمزگذاری می‌کند"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "وبگردی در کافه، هتل یا فرودگاه امن است"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN شما را به صورت آنلاین ردیابی نمی‌کند"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "داده‌ها و فعالیت مرور شما خصوصی باقی می‌ماند"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN محافظت DNS ارائه می‌دهد"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "مسدود کردن تبلیغات و ردیاب‌ها با DNS داخلی"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "دسترسی به محتوا از هر کجا"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "برنامه‌های تلویزیونی مورد علاقه‌تان را در خارج از کشور تماشا کنید. یا از نزدیک شاهد پخش زنده برنامه‌های پرطرفدار از کشورهای دیگر باشید"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "مکان‌های فراوان برای انتخاب"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN مکان‌های امن + %count%را ارائه می‌دهد. مکان‌های مورد علاقه‌تان را برای دسترسی سریع ذخیره کنید | AdGuard VPN مکان‌های امن + %count%را ارائه می‌دهد. مکان‌های مورد علاقه‌تان را برای دسترسی سریع ذخیره کنید | AdGuard VPN مکان‌های امن + %count%را ارائه می‌دهد. مکان‌های مورد علاقه‌تان را برای دسترسی سریع ذخیره کنید",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "استریم با سرعت بالا"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN ترافیک شما را بدون کند کردن مرورتان رمزگذاری می‌کند."
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "محدودیت‌های جغرافیایی را حذف کنید"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "با AdGuard VPN وب‌سایت‌هایی را که در خانه در دسترس نیستند مرور کنید"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "انتخاب کنید کدام وب‌سایت‌ها از VPN استفاده می‌کنند"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "وب‌سایت‌های محلی را به موارد استثنا اضافه کنید، و AdGuard VPN برای آنها غیرفعال می‌شود"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "فعال کردن محافظت DNS"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "با DNS داخلی، از دستگاه خود در برابر بدافزار محافظت کنید"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "با نامحدود، سطح حفاظت خود را ارتقا دهید"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "ترافیک رمزگذاری شده بدون محدودیت سرعت"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ مکان‌های امن | %count%+ مکان امن | %count%+ مکان‌های امن",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "تا %count% دستگاه ها در یک حساب | تا %count% دستگاه در یک حساب | تا %count% دستگاه ها در یک حساب کاربری",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "با نامحدود، استریم خود را لذت‌بخش کنید"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "نامرئی برای سرویس‌های پخش"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ مکان های سریع | %count%+ موقعیت سریع | %count%+ مکان های سریع",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "بدون محدودیت بافر یا سرعت"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "VPN را با Unlimited مطابق نیازتان تطبیق دهید"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "ترافیک رمزگذاری شده بدون محدودیت سرعت"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "تا %count% دستگاه ها در یک حساب | تا %count% دستگاه در یک حساب | تا %count% دستگاه ها در یک حساب کاربری",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ مکان‌های امن | %count%+ مکان امن | %count%+ مکان‌های امن",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "VPN نامحدود"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "سرعت نامحدود"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "بدون محدودیت سرعت. بیشترین بهره را از ارئه دهنده سرویس تان ببرید!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "نامحدود دریافت کنید"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "شاید بعداً"
     },
     "popup_upgrade_screen_title": {
         "message": "ارتقا به نامحدود"

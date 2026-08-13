@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Nom de domini"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Domini invàlid"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Subdomini"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Desactiva el VPN en aquest lloc web"
+    },
+    "context_menu_connect": {
+        "message": "Connectar"
+    },
+    "context_menu_disconnect": {
+        "message": "Desconnectar"
     },
     "endpoints_countries": {
         "message": "Ubicacions"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Pròxim"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Quina és la teva raó principal per utilitzar una VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Per protegir la meva privacitat"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Per veure programes de televisió en streaming"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Per eludir la censura"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Altres"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN xifra el teu trànsit"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "És segur navegar per la web en un cafè, un hotel o un aeroport"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN no et fa un seguiment en línia"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Les teves dades i l'activitat de navegació es mantenen privades"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN ofereix protecció DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Bloqueja anuncis i rastrejadors amb DNS integrat"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Accedeix al contingut des de qualsevol lloc"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Mira els teus programes de televisió preferits mentre ets a l'estranger. O experimenta de primera mà els èxits de streaming d'altres països"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Molts llocs per triar"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN ofereix %count%+ ubicacions segures. Desa les teves preferides per a un accés ràpid | AdGuard VPN ofereix %count%+ ubicació segura. Desa les teves preferides per a un accés ràpid | AdGuard VPN ofereix %count%+ ubicacions segures. Desa les teves preferides per a un accés ràpid",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Reprodueix en streaming a altes velocitats"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN xifra el teu trànsit sense alentir la teva navegació"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Elimina les restriccions geogràfiques"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Navega per llocs web inaccessibles a casa amb AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Tria quins llocs web utilitzen VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Afegiu llocs web locals a les exclusions i l'AdGuard VPN s'apagarà per a ells."
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Activa la protecció DNS"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Protegiu el vostre dispositiu del programari maliciós amb DNS integrat"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Millora la teva protecció amb Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Tràfic xifrat sense límits de velocitat"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ ubicacions segures | %count%+ ubicació segura | %count%+ ubicacions segures",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Fins a %count% dispositius en un compte | Fins a %count% dispositius en un compte | Fins a %count% dispositius en un compte",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Fes que el teu streaming sigui agradable amb Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Invisible als serveis de streaming"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ ubicacions ràpides | %count%+ ubicació ràpida | %count%+ ubicacions ràpides",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Sense memòria intermèdia ni límits de velocitat"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Adapta la VPN a les teves necessitats amb Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Tràfic xifrat sense límits de velocitat"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Fins a %count% dispositius en un compte | Fins a %count% dispositius en un compte | Fins a %count% dispositius en un compte",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ ubicacions segures | %count%+ ubicació segura | %count%+ ubicacions segures",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "VPN il·limitada"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Velocitat il·limitada"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Sense restriccions de velocitat. Obtingueu el màxim del vostre proveïdor de serveis!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Obtén il·limitat"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Potser més tard"
     },
     "popup_upgrade_screen_title": {
         "message": "Actualitza a Unlimited"

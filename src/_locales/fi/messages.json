@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Verkkotunnus"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Virheellinen verkkotunnus"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Aliverkkotunnus"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "Poista VPN käytöstä tällä sivustolla"
     },
+    "context_menu_connect": {
+        "message": "Yhdistä"
+    },
+    "context_menu_disconnect": {
+        "message": "Katkaise yhteys"
+    },
     "endpoints_countries": {
         "message": "Sijainnit"
     },
@@ -949,7 +958,7 @@
         "message": "Lähettää nimettömänä <link>Laajennuksen käyttötiedot</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Kirjaudu tai luo tili"
+        "message": "Kirjaudu sisään tai luo tili"
     },
     "popup_newsletter_title": {
         "message": "AdGuardin uutiskirje"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Seuraava"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Mikä on tärkein syy, miksi käytät VPN: ää?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Yksityisyyteni suojaamiseksi"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "TV-ohjelmien suoratoistoon"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Sensuurin kiertämiseksi"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Muut"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN salaa verkkoliikenteesi"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Verkossa voi selata turvallisesti kahvilassa, hotellissa tai lentokentällä"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN ei seuraa käyttäjän toimintaa verkossa"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Tietosi ja selaustoimintasi pysyvät yksityisinä"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN tarjoaa DNS-suojauksen"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Estää mainokset ja seurantaohjelmat sisäänrakennetulla DNS: llä"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Pääset käsiksi sisältöön mistä tahansa"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Katso suosikkisarjojasi ulkomailla ollessasi. Tai tutustu muiden maiden suosituimpiin suoratoistosisältöihin"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Paljon sijainteja, joista valita"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN tarjoaa %count%+ turvalliset paikat. Tallenna suosikkisi nopeaa käyttöä varten | AdGuard VPN tarjoaa %count%+ turvallinen sijainti. Tallenna suosikkisi nopeaa käyttöä varten | AdGuard VPN tarjoaa %count%+ turvalliset paikat. Tallenna suosikkisi nopeaa käyttöä varten",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Suoratoisto suurilla nopeuksilla"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN salaa verkkoliikenteesi hidastamatta selailuasi"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Poista maantieteelliset rajoitukset"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Selaa kotona saavuttamattomia verkkosivustoja AdGuard VPN:n avulla"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Valitse, mitkä verkkosivustot käyttävät VPN: ää"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Lisää paikalliset verkkosivustot poissulkemisluetteloon, niin AdGuard VPN kytkeytyy pois päältä niiden osalta"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Ota DNS-suojaus käyttöön"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Suojaa laitteesi haittaohjelmilta sisäänrakennetun DNS:n avulla"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Paranna suojauksesi tasoa Unlimited-palvelulla"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Salattu liikenne ilman nopeusrajoituksia"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ suojatut sijainnit | %count%+ suojattu sijainti | %count%+ suojatut sijainnit",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Enintään %count% laitetta yhdellä tilillä | Enintään %count% laitetta yhdellä tilillä | Enintään %count% laitetta yhdellä tilillä",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Tee suoratoistosta nautittavaa Unlimitedin avulla"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Näkymätön suoratoistopalveluille"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ nopeat sijainnit | %count%+ nopea sijainti | %count%+ nopeat sijainnit",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Ei puskurointia eikä nopeusrajoituksia"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Mukauta VPN tarpeisiisi Unlimited-palvelun avulla"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Salattu liikenne ilman nopeusrajoituksia"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Enintään %count% laitetta yhdellä tilillä | Enintään %count% laitetta yhdellä tilillä | Enintään %count% laitetta yhdellä tilillä",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ suojatut sijainnit | %count%+ suojattu sijainti | %count%+ suojatut sijainnit",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Rajaton VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Rajattomasti nopeutta"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Ei nopeusrajoituksia. Ota palveluntarjoajastasi kaikki irti!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Hanki rajoittamaton"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Ehkä myöhemmin"
     },
     "popup_upgrade_screen_title": {
         "message": "Päivitä Unlimitediin"

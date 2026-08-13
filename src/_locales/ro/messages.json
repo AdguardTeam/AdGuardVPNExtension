@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Nume domeniu"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Domeniu nevalid"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Subdomeniu"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Dezactivați VPN pe acest site"
+    },
+    "context_menu_connect": {
+        "message": "Conectare"
+    },
+    "context_menu_disconnect": {
+        "message": "Deconectați"
     },
     "endpoints_countries": {
         "message": "Locații"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Următor"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Care este principalul motiv pentru care folosești un VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Pentru a-mi proteja intimitatea"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Pentru a viziona seriale TV în streaming"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Pentru a ocoli cenzura"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Altele"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN îți criptează traficul"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Este sigur să navighezi pe internet într-o cafenea, hotel sau aeroport"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN nu te urmărește online"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Datele și activitatea ta de navigare rămân private"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN oferă protecție DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Blochează reclamele și trackerele cu DNS integrat"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Accesați conținut de oriunde"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Urmărește-ți emisiunile TV preferate în străinătate. Sau experimentează direct hiturile de streaming din alte țări"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "O mulțime de locații din care să alegi"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN oferă %count%+ locații securizate. Salvați-vă locațiile preferate pentru acces rapid | AdGuard VPN oferă %count%+ locație securizată. Salvați-vă locațiile preferate pentru acces rapid | AdGuard VPN oferă %count%+ locații securizate. Salvați-vă locațiile preferate pentru acces rapid | AdGuard VPN oferă %count%+ locații securizate. Salvați-vă locațiile preferate pentru acces rapid",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Redare în flux la viteze mari"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN criptează traficul fără a încetini navigarea"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Eliminați restricțiile geografice"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Navigați pe site-uri web inaccesibile acasă cu AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Alegeți ce site-uri web folosesc VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Adaugă site-uri locale la excluderi și AdGuard VPN se va dezactiva pentru ele"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Activare protecție DNS"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Protejează-ți dispozitivul de malware cu DNS integrat"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Îmbunătățește-ți protecția cu Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Trafic criptat fără limite de viteză"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ locații securizate | %count%+ locație securizată | %count%+ locații securizate | %count%+ locații securizate",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Până la %count% dispozitive pe un singur cont | Până la %count% dispozitiv pe un singur cont | Până la %count% dispozitive pe un singur cont | Până la %count% dispozitive pe un singur cont",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Fă-ți streamingul plăcut cu Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Invizibil pentru serviciile de streaming"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ locații rapide | %count%+ locație rapidă | %count%+ locații rapide | %count%+ locații rapide",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Fără buffering sau limite de viteză"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Adaptează VPN-ul la nevoile tale cu Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Trafic criptat fără limite de viteză"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Până la %count% dispozitive pe un singur cont | Până la %count% dispozitiv pe un singur cont | Până la %count% dispozitive pe un singur cont | Până la %count% dispozitive pe un singur cont",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ locații securizate | %count%+ locație securizată | %count%+ locații securizate | %count%+ locații securizate",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "VPN nelimitat"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Viteză nelimitată"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Fără restricții de viteză. Profitați la maximum de furnizorul dvs. de servicii!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Obține Unlimited"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Poate mai târziu"
     },
     "popup_upgrade_screen_title": {
         "message": "Actualizați la Unlimited"

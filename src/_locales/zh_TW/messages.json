@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "域名"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "網域名稱無效"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "子網域"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "對此網站禁用 VPN"
+    },
+    "context_menu_connect": {
+        "message": "連線"
+    },
+    "context_menu_disconnect": {
+        "message": "斷線"
     },
     "endpoints_countries": {
         "message": "位置"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "下一步"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "您使用 VPN 的主要原因是什麼？"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "保護我的隱私"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "串流觀看電視節目"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "繞過審查"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "其它"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN 加密個人流量"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "在咖啡館、飯店或機場安全瀏覽網頁"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN 不會線上追蹤您"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "您的資料和瀏覽活動保持私密"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN 提供 DNS 保護"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "透過內建 DNS 封鎖廣告和追蹤器"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "隨時隨地存取內容"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "在國外觀看您喜愛的電視節目，或親身體驗其他國家的串流熱門內容。"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "眾多伺服器位置可供選擇"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN 提供 %count%+ 個安全位置。儲存您常用的地點以便快速連線。 | AdGuard VPN 提供 %count%+ 個安全位置。儲存您常用的地點以便快速連線。",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "高速串流播放"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN 在加密流量的同時不會減慢瀏覽速度"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "解除地理限制"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "使用 AdGuard VPN 存取在國內無法存取的網站"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "選擇哪些網站使用 VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "將本地網站新增到例外清單，AdGuard VPN 將對其暫停。"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "啟用 DNS 防護"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "透過內建 DNS 保護裝置免受惡意軟體侵害"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "使用無限版本提升保護等級"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "加密流量，無速度限制"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ 個安全位置 | %count%+ 個安全位置",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "一個帳戶最多支援 %count% 台裝置 | 一個帳戶最多支援 %count% 台裝置",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "使用無限版本暢享串流體驗"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "對串流服務不可見"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ 個高速伺服器位置 | %count%+ 個高速伺服器位置",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "無緩衝或速度限制"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "使用無限版本按需自訂 VPN"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "加密流量，無速度限制"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "一個帳戶最多支援 %count% 台裝置 | 一個帳戶最多支援 %count% 台裝置",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ 個安全位置 | %count%+ 個安全位置",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "無限制的 VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "無限制的速度"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "無速度限制。極其充分地利用您的服務供應商！"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "取得無限版"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "稍後再說"
     },
     "popup_upgrade_screen_title": {
         "message": "升級為無限版"

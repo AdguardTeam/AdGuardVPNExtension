@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Domain"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Ungültige Domain"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Subdomain"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "VPN auf dieser Website deaktivieren"
+    },
+    "context_menu_connect": {
+        "message": "Verbinden"
+    },
+    "context_menu_disconnect": {
+        "message": "Deaktivieren"
     },
     "endpoints_countries": {
         "message": "Standorte"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Weiter"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Was ist Ihr Hauptgrund, ein VPN zu nutzen?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Um meine Privatsphäre zu schützen"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Um TV-Sendungen zu streamen"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Um Zensur zu umgehen"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Sonstiges"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN verschlüsselt Ihren Datenverkehr"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Es ist sicher, im Café, im Hotel oder am Flughafen im Internet zu surfen"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN verfolgt Ihre Online-Aktivitäten nicht"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Ihre Daten und Ihr Surfverhalten bleiben privat"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN sorgt für DNS-Schutz"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Werbung und Tracker mit integriertem DNS blockieren"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Zugriff auf Inhalte von überall aus"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Streamen Sie Ihre Lieblingsserien überall auf der Welt und verpassen Sie keine internationalen Streaming-Hits"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Viele Standorte zur Auswahl"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN bietet %count%+ sichere Standorte. Speichern Sie Ihre Favoriten für schnellen Zugriff | AdGuard VPN bietet %count% sicheren Standort. Speichern Sie Ihre Favoriten für schnellen Zugriff | AdGuard VPN bietet %count%+ sichere Standorte. Speichern Sie Ihre Favoriten für schnellen Zugriff",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Streamen mit hoher Geschwindigkeit"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN verschlüsselt Ihren Datenverkehr, ohne das Surfen zu verlangsamen"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Keine Geobeschränkungen"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Entsperren Sie mit AdGuard VPN Websites, die zu Hause nicht verfügbar sind"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Selektive VPN-Aktivierung"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Lokale Websites zu Ausschlüssen hinzufügen, um AdGuard VPN für diese zu deaktivieren"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "DNS-Schutz aktivieren"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Schützen Sie Ihr Gerät vor Malware mit integriertem DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Maximaler Schutz mit Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Verschlüsselter Datenverkehr ohne Limits"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ sichere Standorte | %count%+ sicherer Standort | %count%+ sichere Standorte",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Bis zu %count% Geräte pro Konto | Bis zu %count% Gerät pro Konto | Bis zu %count% Geräte pro Konto",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Entspanntes Streaming mit Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Unbemerkt von Streaming-Diensten"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ schnelle Standorte | %count%+ schneller Standort | %count%+ schnelle Standorte",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Flüssiges Streaming ohne Drosselung"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "VPN nach Maß mit Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Verschlüsselter Datenverkehr ohne Limits"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Bis zu %count% Geräte pro Konto | Bis zu %count% Gerät pro Konto | Bis zu %count% Geräte pro Konto",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ sichere Standorte | %count%+ sicherer Standort | %count%+ sichere Standorte",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Unbegrenztes VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Unbegrenzte Geschwindigkeit"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Keine Einschränkungen. Holen Sie das Beste aus Ihrem Internetanschluss heraus!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Unlimited erhalten"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Später"
     },
     "popup_upgrade_screen_title": {
         "message": "Auf Unlimited umsteigen"

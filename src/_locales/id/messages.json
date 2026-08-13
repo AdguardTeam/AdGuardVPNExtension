@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Nama domain"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Domain tidak valid"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Subdomain"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Matikan VPN pada situs ini"
+    },
+    "context_menu_connect": {
+        "message": "Sambung"
+    },
+    "context_menu_disconnect": {
+        "message": "Terputus"
     },
     "endpoints_countries": {
         "message": "Lokasi"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Selanjutnya"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Apa alasan utama Anda menggunakan VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Untuk melindungi privasi saya"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Untuk menonton acara TV secara streaming"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Untuk menghindari sensor"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Lainnya"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN mengenkripsi lalu lintas Anda"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Aman untuk menjelajahi Web di kafe, hotel, atau bandara"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN tidak melacak Anda secara online"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Data dan aktivitas penjelajahan Anda tetap privat"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN menyediakan perlindungan DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Blokir iklan dan pelacak dengan DNS bawaan"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Akses konten dari mana saja"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Tonton acara TV favorit Anda saat berada di luar negeri. Atau rasakan langsung hits streaming dari negara lain"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Banyak lokasi untuk dipilih"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN menawarkan %count%+ lokasi aman. Simpan lokasi favorit Anda untuk akses cepat | AdGuard VPN menawarkan %count%+ lokasi aman. Simpan lokasi favorit Anda untuk akses cepat",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Streaming dengan kecepatan tinggi"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN mengenkripsi lalu lintas Anda tanpa memperlambat penjelajahan Anda"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Hapus pembatasan geografis"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Jelajahi situs web yang tidak tersedia di rumah dengan AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Pilih situs web mana yang menggunakan VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Tambahkan situs lokal ke pengecualian, dan AdGuard VPN akan dimatikan untuk mereka"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Aktifkan perlindungan DNS"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Lindungi perangkat Anda dari malware dengan DNS bawaan"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Tingkatkan perlindungan Anda dengan Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Lalu lintas terenkripsi tanpa batasan kecepatan"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ lokasi aman | %count%+ lokasi aman",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Hingga %count% perangkat dalam satu akun | Hingga %count% perangkat dalam satu akun",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Buat streaming Anda menyenangkan dengan Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Tidak terlihat oleh layanan streaming"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ lokasi cepat | %count%+ lokasi cepat",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Tanpa buffering atau batasan kecepatan"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Sesuaikan VPN dengan kebutuhan Anda dengan Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Lalu lintas terenkripsi tanpa batasan kecepatan"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Hingga %count% perangkat dalam satu akun | Hingga %count% perangkat dalam satu akun",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ lokasi aman | %count%+ lokasi aman",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "VPN tanpa batas"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Kecepatan tanpa batas"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Tidak ada batas kecepatan. Gunakan penyedia layanan Anda sepuasnya!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Dapatkan Tanpa batas"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Mungkin nanti"
     },
     "popup_upgrade_screen_title": {
         "message": "Tingkatkan ke Unlimited"

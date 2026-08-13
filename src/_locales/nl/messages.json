@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Domeinnaam"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Ongeldig domein"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Subdomein"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "VPN uitschakelen op deze website"
+    },
+    "context_menu_connect": {
+        "message": "Verbinden"
+    },
+    "context_menu_disconnect": {
+        "message": "Verbinding verbreken"
     },
     "endpoints_countries": {
         "message": "Locaties"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Volgende"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Wat is je belangrijkste reden om een VPN te gebruiken?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Om mijn privacy te beschermen"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Om tv-programma's te streamen"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Om censuur te omzeilen"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Overige"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN versleutelt je verkeer"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Het is veilig om op internet te surfen in een café, hotel of luchthaven"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN houdt je online activiteiten niet bij"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Je gegevens en browse-activiteiten blijven privé"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN biedt DNS-bescherming"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Advertenties en volgers blokkeren met ingebouwde DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Toegang tot content vanaf elke locatie"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Naar je favoriete tv-programma’s kijken terwijl je in het buitenland bent. Of ontdek zelf de streaminghits uit andere landen"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Veel locaties om uit te kiezen"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN biedt %count%+ beveiligde locaties. Sla je favorieten op voor snelle toegang | AdGuard VPN biedt %count%+ beveiligde locatie. Sla je favorieten op voor snelle toegang | AdGuard VPN biedt %count%+ beveiligde locaties. Sla je favorieten op voor snelle toegang",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Streamen met hoge snelheden"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN versleutelt je verkeer zonder je browsen te vertragen"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Geografische beperkingen opheffen"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Websites die thuis niet beschikbaar zijn bezoeken met AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Kiezen welke websites VPN gebruiken"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Lokale websites toevoegen aan de uitsluitingen en AdGuard VPN zal voor deze sites worden uitgeschakeld"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "DNS-bescherming inschakelen"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Je apparaat beschermen tegen malware met de ingebouwde DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Je bescherming naar een hoger niveau tillen met Onbeperkt"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Versleuteld verkeer zonder snelheidsbeperkingen"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ beveiligde locaties | %count%+ beveiligde locatie | %count%+ beveiligde locaties",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Maximaal %count% apparaten per account | Maximaal %count% apparaat per account | Maximaal %count% apparaten per account",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Je streamingervaring nog leuker maken met Onbeperkt"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Onzichtbaar voor streamingdiensten"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ snelle locaties | %count%+ snelle locatie | %count%+ snelle locaties",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Geen buffering of snelheidsbeperkingen"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "VPN aan je behoeften aanpassen met Onbeperkt"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Versleuteld verkeer zonder snelheidsbeperkingen"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Maximaal %count% apparaten per account | Maximaal %count% apparaat per account | Maximaal %count% apparaten per account",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ beveiligde locaties | %count%+ beveiligde locatie | %count%+ beveiligde locaties",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Onbeperkt VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Onbeperkte snelheid"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Geen snelheidsbeperkingen. Haal het maximale uit je dienstverlener!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Onbeperkt verkrijgen"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Misschien later"
     },
     "popup_upgrade_screen_title": {
         "message": "Opwaarderen naar Onbeperkt"

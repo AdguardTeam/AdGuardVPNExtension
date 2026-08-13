@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "ドメイン名"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "無効なドメイン"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "サブドメイン"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "このサイトでVPNを無効にする"
     },
+    "context_menu_connect": {
+        "message": "接続する"
+    },
+    "context_menu_disconnect": {
+        "message": "切断する"
+    },
     "endpoints_countries": {
         "message": "ロケーション"
     },
@@ -949,7 +958,7 @@
         "message": "匿名化された<link>拡張機能の使用状況データ</link>を送信する"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "ログインまたはアカウントご登録"
+        "message": "ログインまたはアカウント登録"
     },
     "popup_newsletter_title": {
         "message": "AdGuardニュースレター"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "次へ"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "VPNを使う主な理由は何ですか？"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "オンラインプライバシーと個人情報を守るため"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "テレビ番組やコンテンツを視聴するため"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "検閲を回避するため"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "その他"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN は通信を暗号化します"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "カフェ、ホテル、空港などのフリーWi-Fiを利用する時でも通信と個人情報が安全に保護されます。"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN はオンライン行動の追跡を行いません"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "あなたの個人情報と閲覧履歴が晒されることは一切ありません。"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN にはDNS通信保護機能もあります"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "内蔵DNSで広告とトラッカーをブロックできます。"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "どこからでもコンテンツにアクセス"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "海外旅行や出張でもお気に入りのテレビ番組やコンテンツを視聴できます。また、他の国の人気ストリーミング作品を直接体験できます。"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "たくさんのロケーションから選べる"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN は%count%以上のロケーションを提供します。よく使うロケーションはお気に入り登録もできるので便利です。 | AdGuard VPN は%count%以上のロケーションを提供します。よく使うロケーションはお気に入り登録もできるので便利です。",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "速い通信速度で動画配信サービスを視聴"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN は、インターネットの速度を低下させることなく、通信トラフィックを暗号化します。"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "地域制限を解除"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "現在の居場所ではアクセスできないウェブサイトやコンテンツを閲覧できます。"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "VPNを経由させたくないウェブサイトを設定できる"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "ウェブサイトを除外リストに追加すると、そのウェブサイトに対してAdGuard VPNは常時オフになります。"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "DNS通信を保護をオンにする"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "内蔵DNSでデバイスをマルウェアから保護"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "「無制限版」で保護機能を強化しよう"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "通信速度制限なし"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%以上の安全ロケーション | %count%以上の安全ロケーション",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "同時に%count%台のデバイスを接続可能 | 同時に%count%台のデバイスを接続可能",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "「無制限版」でストリーミングをもっと楽しもう"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "動画配信サービスからはVPNが検出されない"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%以上の高速ロケーション | %count%以上の高速ロケーション",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "バッファリングや速度制限なし"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "「無制限版」でVPNをニーズに合わせてカスタマイズ"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "通信速度制限なし"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "同時に%count%台のデバイスを接続可能 | 同時に%count%台のデバイスを接続可能",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%以上の安全ロケーション | %count%以上の安全ロケーション",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "無制限版VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "接続速度無制限"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "速度制限なし。お使いのインターネットプロバイダ提供のフルスピードでVPN接続をご利用いただけます。"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "無制限版をGET"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "後で"
     },
     "popup_upgrade_screen_title": {
         "message": "無制限版にアップグレード"

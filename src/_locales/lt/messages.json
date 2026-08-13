@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Domenas"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Neteisingas domenas"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Subdomenas"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "Išjungti VPN šioje svetainėje"
     },
+    "context_menu_connect": {
+        "message": "Jungtis"
+    },
+    "context_menu_disconnect": {
+        "message": "Išjungti"
+    },
     "endpoints_countries": {
         "message": "Lokacijos"
     },
@@ -949,7 +958,7 @@
         "message": "Siųsti anonimizuotus <link>plėtinių naudojimo duomenis</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Prisijunkite arba sukurkite paskyrą"
+        "message": "Prisijunti arba sukurti paskyrą"
     },
     "popup_newsletter_title": {
         "message": "AdGuard naujienlaiškis"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Toliau"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Kokia yra pagrindinė jūsų VPN naudojimo priežastis?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Siekiant apsaugoti mano privatumą"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Norėdami transliuoti TV laidas"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Apeiti cenzūrą"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Kita"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "„AdGuard VPN“ šifruoja jūsų srautą"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Saugu naršyti internete kavinėje, viešbutyje ar oro uoste"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "„AdGuard VPN“ jūsų nestebi internete"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Jūsų duomenys ir naršymo veikla lieka privatūs"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "„AdGuard VPN“ teikia DNS apsaugą"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Blokuokite skelbimus ir sekiklius naudodami integruotą DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Pasiekite turinį iš bet kurios vietos"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Žiūrėkite mėgstamas TV laidas būdami užsienyje. Arba iš pirmų lūpų patirti srautinius hitus iš kitų šalių"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Daug vietų, iš kurių galima rinktis"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN siūlo %count%+ saugią vietą. Įrašykite mėgstamiausias, kad galėtumėte greitai pasiekti | AdGuard VPN siūlo %count%+ saugias vietas. Įrašykite mėgstamiausias, kad galėtumėte greitai pasiekti | AdGuard VPN siūlo %count%+ saugių vietų. Įrašykite mėgstamiausias, kad galėtumėte greitai pasiekti | AdGuard VPN siūlo %count%+ saugių vietų. Įrašykite mėgstamiausias, kad galėtumėte greitai pasiekti",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Srautuokite dideliu greičiu"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "„AdGuard VPN“ šifruoja jūsų srautą nesulėtindamas naršymo"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Pašalinti geografinius apribojimus"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Naršykite svetaines, kurių negalite pasiekti namuose, naudodami „AdGuard VPN“"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Pasirinkite, kurios svetainės naudoja VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Pridėkite vietines svetaines prie išimčių, o „AdGuard VPN“ joms išsijungs"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Įjungti DNS apsaugą"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Apsaugokite savo įrenginį nuo kenkėjiškų programų naudodami integruotą DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Pakelkite savo apsaugos lygį su „Unlimited“"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Užšifruotas srautas be greičio apribojimų"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ saugios vietos | %count%+ saugi vieta | %count%+ saugios vietos | %count%+ saugios vietos",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Iki %count% įrenginių vienoje paskyroje | Iki %count% įrenginio vienoje paskyroje | Iki %count% įrenginių vienoje paskyroje | Iki %count% įrenginių vienoje paskyroje",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Padarykite savo transliacijas malonias su „Unlimited“"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Nematomas srautinio perdavimo paslaugoms"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ greitos vietos | %count%+ greita vieta | %count%+ greitos vietos | %count%+ greitos vietos",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Nėra buferizavimo ar greičio apribojimų"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Pritaikykite VPN savo poreikiams su „Unlimited“"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Užšifruotas srautas be greičio apribojimų"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Iki %count% įrenginių vienoje paskyroje | Iki %count% įrenginio vienoje paskyroje | Iki %count% įrenginių vienoje paskyroje | Iki %count% įrenginių vienoje paskyroje",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ saugios vietos | %count%+ saugi vieta | %count%+ saugios vietos | %count%+ saugios vietos",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Neribotas VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Unlimited greitis"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Jokių greičio ribojimų. Išnaudok visas savo interneto tiekėjo galimybes!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Gauti Neribotas"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Galbūt vėliau"
     },
     "popup_upgrade_screen_title": {
         "message": "Pereiti į neribotą"

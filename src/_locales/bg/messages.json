@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Име на домейн"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Невалиден домейн"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Поддомейн"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Деактивиране на VPN на този уеб сайт"
+    },
+    "context_menu_connect": {
+        "message": "Свържи"
+    },
+    "context_menu_disconnect": {
+        "message": "Прекъсване на връзката"
     },
     "endpoints_countries": {
         "message": "Локации"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Следващ"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Каква е основната причина да използвате VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "За да защитя личните си данни"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "За стрийминг на телевизионни предавания"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "За да заобиколите цензурата"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Друго"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN криптира вашия трафик"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Безопасно е да сърфирате в интернет в кафене, хотел или летище"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN не ви следи онлайн"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Вашите данни и активност в сърфирането остават поверителни"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN осигурява DNS защита"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Блокирайте реклами и тракери с вграден DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Достъп до съдържание отвсякъде"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Гледайте любимите си телевизионни предавания, докато сте в чужбина. Или да изживеете от първа ръка стрийминг хитовете от други страни"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Има много места за избор"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN предлага %count%+ сигурни местоположения. Запазете любимите си за бърз достъп | AdGuard VPN предлага %count%+ сигурни местоположения. Запазете любимите си за бърз достъп | AdGuard VPN предлага %count%+ сигурни местоположения. Запазете любимите си за бърз достъп",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Стрийминг с висока скорост"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN криптира трафика ви, без да забавя сърфирането ви"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Премахнете гео ограниченията"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Разгледайте уебсайтове, които са недостъпни у дома с AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Изберете кои уебсайтове да използват VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Добавете локални сайтове към изключенията и AdGuard VPN ще се изключи за тях"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Разреши защита"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Защитете устройството си от зловреден софтуер с вграден DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Подобрете защитата си с Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Криптиран трафик без ограничения на скоростта"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ сигурни места | %count%+ сигурни места | %count%+ сигурни места",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "До %count% устройства в един акаунт | До %count% устройство в един акаунт | До %count% устройства в един акаунт",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Направете стрийминга си приятен с Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Невидим за стрийминг услугите"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ бързи локации | %count%+ бърза локация | %count%+ бързи локации",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Без буфериране или ограничения на скоростта"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Адаптирайте VPN към вашите нужди с Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Криптиран трафик без ограничения на скоростта"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "До %count% устройства в един акаунт | До %count% устройство в един акаунт | До %count% устройства в един акаунт",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ сигурни места | %count%+ сигурни места | %count%+ сигурни места",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Неограничен VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Неограничена скорост"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Няма ограничения за скорост. Вземете максимума от вашия доставчик на услуги!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Вземете Unlimited"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Може би по-късно"
     },
     "popup_upgrade_screen_title": {
         "message": "Надграждане до Unlimited"

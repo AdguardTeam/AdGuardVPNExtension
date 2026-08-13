@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Όνομα τομέα"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Μη έγκυρος τομέας"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Υποτομέας"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "Απενεργοποίηση VPN σε αυτόν τον ιστότοπο"
     },
+    "context_menu_connect": {
+        "message": "Σύνδεση"
+    },
+    "context_menu_disconnect": {
+        "message": "Αποσύνδεση"
+    },
     "endpoints_countries": {
         "message": "Τοποθεσίες"
     },
@@ -949,7 +958,7 @@
         "message": "Αποστολή ανώνυμων <link>δεδομένων χρήσης επέκτασης</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Συνδεθείτε ή δημιουργήστε έναν λογαριασμό"
+        "message": "Συνδεθείτε ή εγγραφείτε"
     },
     "popup_newsletter_title": {
         "message": "Ενημερωτικό δελτίο AdGuard"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Επόμενο"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Ποιος είναι ο κύριος λόγος για τον οποίο χρησιμοποιείτε ένα VPN;"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Για την προστασία του απορρήτου μου"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Για να μεταδώσετε τηλεοπτικές εκπομπές μέσω ροής"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Για να παρακάμψετε τη λογοκρισία"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Άλλα"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "Το AdGuard VPN κρυπτογραφεί την κίνηση σας"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Είναι ασφαλές να περιηγηθείτε στο Web σε μια καφετέρια, ξενοδοχείο ή αεροδρόμιο"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "Το AdGuard VPN δεν σας παρακολουθεί στο διαδίκτυο"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Τα δεδομένα και η δραστηριότητα περιήγησής σας παραμένουν ιδιωτικά"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "Το AdGuard VPN παρέχει προστασία DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Αποκλεισμός διαφημίσεων και ιχνηλατών με ενσωματωμένο DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Πρόσβαση στο περιεχόμενο από οπουδήποτε"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Παρακολουθήστε τις αγαπημένες σας τηλεοπτικές εκπομπές ενώ βρίσκεστε στο εξωτερικό. Ή ζήστε από πρώτο χέρι τις επιτυχίες ροής από άλλες χώρες"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Πολλές τοποθεσίες για να διαλέξετε"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "Το AdGuard VPN προσφέρει %count%+ ασφαλείς τοποθεσίες. Αποθηκεύστε τις αγαπημένες σας για γρήγορη πρόσβαση | Το AdGuard VPN προσφέρει %count%+ ασφαλή τοποθεσία. Αποθηκεύστε τις αγαπημένες σας για γρήγορη πρόσβαση | Το AdGuard VPN προσφέρει %count%+ ασφαλείς τοποθεσίες. Αποθηκεύστε τις αγαπημένες σας για γρήγορη πρόσβαση",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Ροή σε υψηλές ταχύτητες"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "Το AdGuard VPN κρυπτογραφεί την κίνηση σας χωρίς να επιβραδύνει την περιήγησή σας"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Κατάργηση γεωγραφικών περιορισμών"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Περιηγηθείτε σε ιστότοπους που δεν είναι διαθέσιμοι στο σπίτι με το AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Επιλέξτε ποιοι ιστότοποι χρησιμοποιούν VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Προσθέστε τοπικούς ιστότοπους στις εξαιρέσεις και το AdGuard VPN θα απενεργοποιηθεί για αυτούς"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Ενεργοποίηση προστασίας DNS"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Προστατέψτε τη συσκευή σας από κακόβουλο λογισμικό με ενσωματωμένο DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Αναβαθμίστε την προστασία σας με το Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Κρυπτογραφημένη κίνηση χωρίς όρια ταχύτητας"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ ασφαλείς τοποθεσίες | %count%+ ασφαλής τοποθεσία | %count%+ ασφαλείς τοποθεσίες",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Έως %count% συσκευές σε έναν λογαριασμό | Έως %count% συσκευή σε έναν λογαριασμό | Έως %count% συσκευές σε έναν λογαριασμό",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Κάντε τη ροή σας απολαυστική με το Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Αόρατο στις υπηρεσίες ροής"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ γρήγορες τοποθεσίες | %count%+ γρήγορη τοποθεσία | %count%+ γρήγορες τοποθεσίες",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Χωρίς buffering ή όρια ταχύτητας"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Προσαρμόστε το VPN στις ανάγκες σας με το Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Κρυπτογραφημένη κίνηση χωρίς όρια ταχύτητας"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Έως %count% συσκευές σε έναν λογαριασμό | Έως %count% συσκευή σε έναν λογαριασμό | Έως %count% συσκευές σε έναν λογαριασμό",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ ασφαλείς τοποθεσίες | %count%+ ασφαλής τοποθεσία | %count%+ ασφαλείς τοποθεσίες",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Απεριόριστο VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Απεριόριστη ταχύτητα"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Χωρίς περιορισμούς ταχύτητας. Αποκτήστε το μέγιστο από τον πάροχό σας!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Αποκτήστε απεριόριστα"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Ίσως αργότερα"
     },
     "popup_upgrade_screen_title": {
         "message": "Αναβάθμιση στο Unlimited"

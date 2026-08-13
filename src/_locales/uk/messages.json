@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Назва домену"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Недійсний домен"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Піддомен"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "Вимкнути VPN на цьому сайті"
     },
+    "context_menu_connect": {
+        "message": "Підʼєднатися"
+    },
+    "context_menu_disconnect": {
+        "message": "Відʼєднатись"
+    },
     "endpoints_countries": {
         "message": "Місцезнаходження"
     },
@@ -949,7 +958,7 @@
         "message": "Надсилати анонімізовані <link>дані про використання розширення</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Увійти або створити обліковий запис"
+        "message": "Увійдіть або створіть акаунт"
     },
     "popup_newsletter_title": {
         "message": "Листи AdGuard"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Далі"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Яка ваша основна причина використовувати VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Щоб захистити свою приватність"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Для перегляду телевізійних шоу"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Щоб обійти цензуру"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Інші"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN шифрує ваш трафік"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Можна безпечно переглядати Інтернет у кафе, готелі чи аеропорту"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN не відстежує вас в Інтернеті"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Ваші дані та активність перегляду залишаються приватними"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN забезпечує захист DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Блокуйте рекламу та трекери за допомогою вбудованого DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Доступ до контенту з будь-якого місця"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Дивіться улюблені телешоу за кордоном. Або на власному досвіді стрімінгові хіти з інших країн"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Багато локацій на вибір"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN пропонує %count%+ безпечні локації. Додайте улюблені до списку для швидкого доступу | AdGuard VPN пропонує %count%+ безпечні локації. Додайте улюблені до списку для швидкого доступу | AdGuard VPN пропонує %count%+ безпечні локації. Додайте улюблені до списку для швидкого доступу | AdGuard VPN пропонує %count%+ безпечні локації. Додайте улюблені до списку для швидкого доступу",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Трансляція на високій швидкості"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN шифрує ваш трафік, не уповільнюючи перегляд"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Зняти географічні обмеження"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Переглядайте веб-сайти, недоступні вдома, за допомогою AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Виберіть, які сайти використовують VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Додайте локальні сайти до виключень, і AdGuard VPN вимкнеться для них"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Увімкнути DNS-захист"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Захистіть свій пристрій від шкідливого програмного забезпечення за допомогою DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Підвищіть рівень свого захисту з Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Зашифрований трафік без обмежень швидкості"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ безпечні місця | %count%+ безпечне місце | %count%+ безпечні місця | %count%+ безпечні місця",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "До %count% пристрої на одному акаунті | До %count% пристрій на одному акаунті | До %count% пристрої на одному акаунті | До %count% пристрої на одному акаунті",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Зробіть свою трансляцію приємною з Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Невидимий для стрімінгових сервісів"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ безпечні місця | %count%+ безпечне місце | %count%+ безпечні місця | %count%+ безпечні місця",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Без буферизації та обмежень швидкості"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Адаптуйте VPN до своїх потреб за допомогою Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Зашифрований трафік без обмежень швидкості"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "До %count% пристрої на одному акаунті | До %count% пристрій на одному акаунті | До %count% пристрої на одному акаунті | До %count% пристрої на одному акаунті",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ безпечні місця | %count%+ безпечне місце | %count%+ безпечні місця | %count%+ безпечні місця",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Необмежений VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Необмежена швидкість"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Жодних обмежень швидкості. Користуйтесь на максимум, який надає провайдер!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Отримати Unlimited"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Можливо, пізніше"
     },
     "popup_upgrade_screen_title": {
         "message": "Оновіть до Unlimited"

@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Nama domain"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Domain tidak sah"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "subdomain"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Nyahaktifkan VPN di laman web ini"
+    },
+    "context_menu_connect": {
+        "message": "Sambung"
+    },
+    "context_menu_disconnect": {
+        "message": "sambungan terputus"
     },
     "endpoints_countries": {
         "message": "Lokasi"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Seterusnya"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Apakah sebab utama anda menggunakan VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Untuk melindungi privasi saya"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Untuk menstrim rancangan TV"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Untuk memintas penapisan"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Lain-lain"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN menyulitkan trafik anda"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Selamat untuk melayari Web di kafe, hotel atau lapangan terbang"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN tidak menjejaki anda dalam talian"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Data dan aktiviti pelayaran anda kekal peribadi"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN menyediakan Perlindungan DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Sekat iklan dan pengesan dengan DNS terbina dalam"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Akses kandungan dari mana-mana sahaja"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Tonton rancangan TV kegemaran anda semasa berada di luar negara. Atau nikmati sendiri kandungan penstriman popular dari negara lain"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Banyak lokasi untuk dipilih"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN menawarkan pelayan di %count%, serta lokasi selamat. Simpan kegemaran anda untuk capaian pantas | AdGuard VPN menawarkan pelayan di %count%, serta lokasi selamat. Simpan kegemaran anda untuk capaian pantas",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Strim pada kelajuan tinggi"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN menyulitkan trafik anda tanpa memperlahankan pelayaran anda"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Alih keluar sekatan geografi"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Layari laman web yang tidak tersedia di negara asal anda dengan AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Pilih laman web yang menggunakan VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Tambahkan laman web tempatan pada pengecualian dan AdGuard VPN akan dimatikan untuk laman web tersebut"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Hidupkan perlindungan DNS"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Lindungi peranti anda daripada perisian Jahat dengan DNS terbina dalam"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Tingkatkan tahap perlindungan anda dengan Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Trafik disulitkan tanpa had kelajuan"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ lokasi selamat | %count%+ lokasi selamat",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Sehingga %count% peranti pada satu akaun | Sehingga %count% peranti pada satu akaun",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Jadikan penstriman anda lebih menyeronokkan dengan Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Tidak dapat dikesan oleh perkhidmatan penstriman"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ lokasi pantas | %count%+ lokasi pantas",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Tanpa penimbalan atau had kelajuan"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Sesuaikan VPN mengikut keperluan anda dengan Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Trafik disulitkan tanpa had kelajuan"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Sehingga %count% peranti pada satu akaun | Sehingga %count% peranti pada satu akaun",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ lokasi selamat | %count%+ lokasi selamat",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Tanpa had VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Kelajuan tanpa had"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Tiada sekatan kelajuan. Dapatkan yang terbaik daripada penyedia perkhidmatan anda!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Dapatkan Tanpa had"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Mungkin kemudian"
     },
     "popup_upgrade_screen_title": {
         "message": "Tingkatkan ke Unlimited"
