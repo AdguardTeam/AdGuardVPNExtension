@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.11.1]
+
+### Added
+
+- "Connect" and "Disconnect" items in the browser context menu to toggle VPN
+  on any website [#37].
+
+### Fixed
+
+- Adding a domain that was previously auto-added as an inactive exclusion now
+  correctly activates it, refreshes the UI, and shows an accurate toast
+  notification instead of silently ignoring the addition [#250].
+
+[#37]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/37
+[#250]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/250
+
+[2.11.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.10.4...HEAD
+
+## [2.10.4] - 2026-06-18
 
 ### Fixed
 
@@ -14,8 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [#247]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/247
 
-<!-- FIXME when version will be clear -->
-[2.10.x]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.10.3...v2.10.x
+[2.10.4]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.10.3...v2.10.4
 
 ## [2.10.3] - 2026-05-28
 

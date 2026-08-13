@@ -3,8 +3,10 @@ import { observer } from 'mobx-react';
 
 import { TelemetryActionName, TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
 import { rootStore } from '../../stores';
+import { useProfileRouteNavigation } from '../../hooks/useProfileRouteNavigation';
 import { Title } from '../ui/Title';
 import { ProfileHint } from '../ui/ProfileHint';
+import { getProfileRoute } from '../Profiles/profileRoutes';
 import { translator } from '../../../common/translator';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { ExclusionsMode } from '../../../common/exclusionsConstants';
@@ -49,6 +51,8 @@ export const Exclusions = observer(({ onBack, isProfileContext = false }: Exclus
             exclusionsStore.resetUiState();
         };
     }, [exclusionsStore]);
+
+    const handleProfileHintClick = useProfileRouteNavigation(getProfileRoute);
 
     const {
         modeSelectorModalOpen,
@@ -145,7 +149,12 @@ export const Exclusions = observer(({ onBack, isProfileContext = false }: Exclus
                 subtitle={(
                     <>
                         {modeInfo}
-                        <ProfileHint profileId={exclusionsStore.profileId} />
+                        {!isProfileContext && (
+                            <ProfileHint
+                                profileId={exclusionsStore.profileId}
+                                onClick={handleProfileHintClick}
+                            />
+                        )}
                         {renderSelectiveModeWarning()}
                         <ExclusionsSearch isProfileContext={isProfileContext} />
                     </>

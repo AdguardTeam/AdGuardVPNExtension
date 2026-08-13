@@ -138,6 +138,9 @@
     "version_history": {
         "message": "Historie verzí"
     },
+    "github": {
+        "message": "GitHub repozitář"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -467,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Název domény"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Neplatná doména"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Subdoména"
     },
@@ -539,17 +545,38 @@
     "settings_location_fastest_title": {
         "message": "Nejrychlejší umístění"
     },
+    "settings_location_fastest_description": {
+        "message": "Automaticky se připojit k nejrychlejšímu umístění"
+    },
+    "settings_profiles_title": {
+        "message": "Profily"
+    },
+    "settings_profiles_sidebar_title": {
+        "message": "Profil"
+    },
+    "settings_profiles_subtitle": {
+        "message": "Umožňuje nastavit DNS servery a umístění a vést samostatné seznamy výjimek pro různé situace, jako je práce, domov nebo jiné"
+    },
     "settings_profiles_default_name": {
         "message": "Výchozí"
     },
     "settings_profiles_actions": {
         "message": "Akce"
     },
+    "settings_profiles_action_use": {
+        "message": "Použít profil"
+    },
+    "settings_profiles_action_rename": {
+        "message": "Přejmenovat"
+    },
     "settings_profiles_action_delete": {
         "message": "Vymazat"
     },
     "settings_profiles_create": {
         "message": "Vytvořit"
+    },
+    "settings_profiles_create_modal_title": {
+        "message": "Vytvořit profil"
     },
     "settings_profiles_create_modal_name_label": {
         "message": "Název"
@@ -560,11 +587,38 @@
     "settings_profiles_modal_cancel": {
         "message": "Zrušit"
     },
+    "settings_profiles_error_too_long": {
+        "message": "Maximální délka je %count% znaky | Maximální délka je %count% znak | Maximální délka je %count% znaky | Maximální délka je %count% znaků"
+    },
+    "settings_profiles_error_duplicate_name": {
+        "message": "Tento název se již používá"
+    },
+    "settings_profiles_rename_modal_title": {
+        "message": "Přejmenovat profil"
+    },
+    "settings_profiles_rename_modal_name_label": {
+        "message": "Nový název"
+    },
     "settings_profiles_rename_modal_submit": {
         "message": "Uložit"
     },
+    "settings_profiles_delete_modal_title": {
+        "message": "Smazat profil %profile_name%?"
+    },
+    "settings_profiles_delete_modal_description": {
+        "message": "Nastavení profilu pro umístění, WebRTC, DNS server a výjimky webových stránek bude smazáno"
+    },
+    "settings_profiles_delete_modal_description_active_notice": {
+        "message": "AdGuard VPN se přepne na výchozí profil"
+    },
+    "settings_profiles_delete_modal_description_active": {
+        "message": "Nastavení profilu %profile_name% pro umístění, WebRTC, DNS server a výjimky webových stránek bude smazáno"
+    },
     "settings_profiles_delete_modal_submit": {
         "message": "Vymazat"
+    },
+    "settings_description_current": {
+        "message": "Aktuální: %mode%"
     },
     "settings_exclusion_change_mode_modal_title": {
         "message": "Kde je VPN zapnutá"
@@ -583,6 +637,9 @@
     },
     "settings_exclusion_selective_mode_warning": {
         "message": "Ponecháte-li tento seznam prázdný, vypnete VPN pro všechny weby"
+    },
+    "settings_applies_to_profile": {
+        "message": "Platí pro váš profil <b>%profile_name%</b>"
     },
     "settings_exclusion_import_button": {
         "message": "Importovat"
@@ -638,8 +695,14 @@
     "popup_settings_stats": {
         "message": "Statistiky"
     },
+    "popup_profiles_title": {
+        "message": "Profily"
+    },
     "popup_profiles_settings": {
         "message": "Nastavení"
+    },
+    "profile_apply_error": {
+        "message": "Nepodařilo se přepnout profil. Zkuste to znovu nebo kontaktujte podporu"
     },
     "popup_settings_free_description": {
         "message": "K dispozici v AdGuard VPN Unlimited"
@@ -649,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Vypnout VPN na této stránce"
+    },
+    "context_menu_connect": {
+        "message": "Připojit"
+    },
+    "context_menu_disconnect": {
+        "message": "Odpojit"
     },
     "endpoints_countries": {
         "message": "Umístění"
@@ -923,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Další"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Jaký je váš hlavní důvod k používání VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "K ochraně mého soukromí"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Ke streamování TV pořadů"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "K obejití cenzury"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Ostatní"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN šifruje váš provoz"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Procházení Webu v kavárně, hotelu nebo na letišti je bezpečné"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN vás online nesleduje"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Vaše data a aktivita při procházení zůstávají soukromé"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN poskytuje DNS ochranu"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Blokujte reklamy a slídiče pomocí vestavěného DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Přístup k obsahu odkudkoli"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Sledujte své oblíbené TV pořady v zahraničí. Nebo si na vlastní kůži vyzkoušejte streamovací hity z jiných zemí"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Spousta poloh na výběr"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN nabízí %count%+ zabezpečenou polohu. Uložte si svou oblíbenou polohu pro rychlý přístup | AdGuard VPN nabízí %count%+ zabezpečené polohy. Uložte si své oblíbené polohy pro rychlý přístup | AdGuard VPN nabízí %count%+ zabezpečené polohy. Uložte si své oblíbené polohy pro rychlý přístup | AdGuard VPN nabízí %count%+ zabezpečených poloh. Uložte si své oblíbené polohy pro rychlý přístup",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Streamujte vysokou rychlostí"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN šifruje váš provoz, aniž by zpomaloval procházení"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Odstraňte geografická omezení"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Procházejte webové stránky nedostupné doma pomocí AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Vyberte, které webové stránky používají VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Přidejte místní webové stránky do výjimek a AdGuard VPN se pro ně vypne"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Zapnout DNS ochranu"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Chraňte své zařízení před malwarem pomocí integrovaného DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Posuňte svou ochranu na vyšší úroveň s tarifem Neomezeně"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Šifrovaný provoz bez omezení rychlosti"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ poloha se zabezpečením | %count%+ polohy se zabezpečením | %count%+ polohy se zabezpečením | %count%+ poloh se zabezpečením",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Až %count% zařízení na jednom účtu | Až %count% zařízení na jednom účtu | Až %count% zařízení na jednom účtu | Až %count% zařízení na jednom účtu",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Užijte si streamování s tarifem Neomezeně"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Neviditelné pro služby streamování"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ rychlá poloha | %count%+ rychlé polohy | %count%+ rychlé polohy | %count%+ rychlých poloh",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Bez načítání do vyrovnávací paměti a omezení rychlosti"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Přizpůsobte VPN svým potřebám s tarifem Neomezeně"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Šifrovaný provoz bez omezení rychlosti"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Až %count% zařízení na jednom účtu | Až %count% zařízení na jednom účtu | Až %count% zařízení na jednom účtu | Až %count% zařízení na jednom účtu",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ poloha se zabezpečením | %count%+ polohy se zabezpečením | %count%+ polohy se zabezpečením | %count%+ poloh se zabezpečením",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Neomezená VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Neomezená rychlost"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Žádné omezení rychlosti. Využijte svého poskytovatele služeb na maximum!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Získat Unlimited"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Možná později"
     },
     "popup_upgrade_screen_title": {
         "message": "Upgradujte na Unlimited"

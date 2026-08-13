@@ -5,12 +5,17 @@ import { TelemetryActionName, TelemetryScreenName } from '../../../background/te
 import { QuickConnectSetting } from '../../../common/constants';
 import { translator } from '../../../common/translator';
 import { rootStore } from '../../stores';
+import { useProfileRouteNavigation } from '../../hooks/useProfileRouteNavigation';
 import { ControlsSelect } from '../ui/Controls';
+import { ProfileHint } from '../ui/ProfileHint';
+import { getProfileRoute } from '../Profiles/profileRoutes';
 
 export const QuickConnect = observer(() => {
     const { profilesStore, telemetryStore } = useContext(rootStore);
 
     const quickConnect = profilesStore.quickConnectCache[profilesStore.activeProfileId];
+
+    const handleProfileHintClick = useProfileRouteNavigation(getProfileRoute);
 
     const handleChange = async (value: QuickConnectSetting): Promise<void> => {
         telemetryStore.sendCustomEvent(
@@ -35,7 +40,12 @@ export const QuickConnect = observer(() => {
     return (
         <ControlsSelect
             title={translator.getMessage('settings_quick_connect_title')}
-            description={translator.getMessage('settings_quick_connect_subtitle')}
+            description={(
+                <>
+                    {translator.getMessage('settings_quick_connect_subtitle')}
+                    <ProfileHint onClick={handleProfileHintClick} />
+                </>
+            )}
             value={quickConnect}
             options={[
                 {

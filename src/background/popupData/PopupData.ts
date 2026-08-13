@@ -29,6 +29,7 @@ import { vpnBlockedNotice } from '../vpnBlockedNotice';
 import { abTestManager } from '../abTestManager';
 import { profilesService } from '../profiles';
 import { ProfileManager } from '../profiles/profileManager';
+import { telemetry } from '../telemetry';
 
 import { type PopupDataInterface, type PopupDataRetry } from './popupDataTypes';
 import { popupOpenedCounter } from './popupOpenedCounter';
@@ -122,6 +123,8 @@ export class PopupData {
         const shouldShowMobileEdgePromoBanner = await mobileEdgePromoService.shouldShowBanner();
         const shouldShowRegionNotice = await vpnBlockedNotice.shouldShowRegionNotice();
         const marketingConsent = await this.credentials.getMarketingConsent();
+        // Keep the same assignment snapshot semantics as GET_STARTUP_DATA.
+        await telemetry.ensureExperimentAssignment();
         const experimentVariants = await abTestManager.getVariantsForProps();
 
         // If error check permissions when popup is opened, ignoring multiple retries

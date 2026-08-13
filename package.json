@@ -1,11 +1,16 @@
 {
     "name": "adguard-vpn",
-    "version": "2.10.4",
+    "version": "2.11.1",
     "description": "AdGuard VPN",
     "author": "adguard@adguard.com",
     "license": "LGPL-3.0",
     "engines": {
         "node": ">=22.0.0 <24.0.0"
+    },
+    "pnpm": {
+        "overrides": {
+            "@protobufjs/inquire": "1.1.2"
+        }
     },
     "scripts": {
         "dev": "BUILD_ENV=dev ts-node tasks/rspack-bundle.ts",

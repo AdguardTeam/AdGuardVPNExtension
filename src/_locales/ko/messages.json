@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "도메인명"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "잘못된 도메인"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "서브 도메인"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "이 웹 사이트에서 VPN 비활성화"
     },
+    "context_menu_connect": {
+        "message": "연결"
+    },
+    "context_menu_disconnect": {
+        "message": "연결 해제"
+    },
     "endpoints_countries": {
         "message": "위치"
     },
@@ -949,7 +958,7 @@
         "message": "익명의 <link>확장 프로그램 사용 데이터</link> 전송"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "로그인 또는 계정 생성"
+        "message": "로그인 또는 계정 만들기"
     },
     "popup_newsletter_title": {
         "message": "AdGuard 소식지"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "다음"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "VPN을 사용하는 이유는 무엇인가요?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "개인정보 보호"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "TV 프로그램 스트리밍"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "검열 우회"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "기타"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN의 인터넷 트래픽 암호화"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "카페, 호텔, 공항에서 인터넷을 안전하게 이용할 수 있습니다."
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN의 온라인 활동 추적 방지"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "사용자의 데이터와 브라우징 활동은 비공개로 유지됩니다."
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN의 DNS 보호"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "내장 DNS 기능을 사용하여 광고 및 추적기를 차단하세요."
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "어디서나 콘텐츠 접근"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "해외에서도 좋아하는 TV 프로그램을 시청하세요. 또는 다른 나라의 인기 스트리밍 콘텐츠를 직접 경험해 보세요."
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "다양한 서버 위치"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN은 %count%개 이상의 안전한 연결 위치를 제공합니다. 자주 사용하는 위치를 저장해 두면 빠르게 접속할 수 있습니다. | AdGuard VPN은 %count%개 이상의 안전한 연결 위치를 제공합니다. 자주 사용하는 위치를 저장해 두면 빠르게 접속할 수 있습니다.",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "고속 스트리밍"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN은 브라우징 속도를 저하시키지 않으면서 트래픽을 암호화합니다."
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "지역 제한 해제"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "지역 제한으로 접속할 수 없는 웹사이트를 자유롭게 방문하세요."
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "VPN을 사용할 웹사이트 선택"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "웹사이트를 예외 목록에 추가하면 해당 웹사이트에서는 AdGuard VPN이 비활성화됩니다."
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "DNS 보호 활성화"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "내장 DNS 기능으로 기기를 악성코드로부터 보호하세요."
+    },
+    "popup_paywall_privacy_title": {
+        "message": "무제한 버전으로 더 강력한 보호를 누리세요"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "속도 제한 없는 암호화된 트래픽"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%개 이상의 안전한 위치 | %count%개 이상의 안전한 위치",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "하나의 계정으로 최대 %count%대 기기 연결 | 하나의 계정으로 최대 %count%대 기기 연결\n\n",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "무제한 버전으로 더 즐거운 스트리밍을 경험하세요"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "스트리밍 서비스에 감지되지 않음"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%개 이상의 빠른 위치 | %count%개 이상의 빠른 위치",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "버퍼링이나 속도 제한 없음"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "무제한 버전으로 필요에 맞게 VPN을 설정하세요"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "속도 제한 없는 암호화된 트래픽"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "한 계정에 최대 %count%대의 기기 연결 가능 | 한 계정에 최대 %count%대의 기기 연결 가능",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%개 이상의 안전한 위치 | %count%개 이상의 안전한 위치",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "무제한 VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "무제한 속도"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "속도 제한 없음. 인터넷 서비스를 최대한 활용해보세요!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "무제한 이용하기"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "나중에"
     },
     "popup_upgrade_screen_title": {
         "message": "무제한 버전으로 업그레이드"

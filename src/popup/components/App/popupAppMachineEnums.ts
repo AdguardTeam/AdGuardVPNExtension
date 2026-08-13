@@ -82,6 +82,75 @@ export enum PopupEvent {
      * Retry the full initialization flow from the beginning after an error.
      */
     Retry = 'RETRY',
+
+    /**
+     * The derived active screen within the ShowingPopup state changed.
+     *
+     * Sent by a MobX reaction in App.tsx that mirrors store flags into the
+     * machine context so the machine becomes the rendering authority.
+     */
+    ScreenChanged = 'SCREEN_CHANGED',
+}
+
+/**
+ * Mutually-exclusive screens shown within the ShowingPopup lifecycle state.
+ *
+ * The active value is derived by {@link derivePopupScreen} from store flags
+ * (in the documented priority order) and stored in the machine context so
+ * that App.tsx renders purely from the machine state.
+ */
+export enum PopupScreen {
+    /**
+     * Default authenticated popup: header + settings + footer.
+     */
+    Main = 'main',
+
+    /**
+     * Browser has not granted host permissions (authenticated users only).
+     */
+    HostPermissionsError = 'hostPermissionsError',
+
+    /**
+     * Authenticated user but no locations were fetched.
+     */
+    NoLocationsError = 'noLocationsError',
+
+    /**
+     * Edge case: unauthenticated user reaching ShowingPopup
+     * (e.g. logout during loading).
+     */
+    NotAuthenticated = 'notAuthenticated',
+
+    /**
+     * Global permissions error or another extension controls the proxy.
+     */
+    GlobalError = 'globalError',
+
+    /**
+     * Free-tier traffic limit exceeded (shown once until dismissed).
+     */
+    LimitExceeded = 'limitExceeded',
+
+    /**
+     * Locations selection screen.
+     */
+    Locations = 'locations',
+
+    /**
+     * Upgrade paywall shown to non-premium users
+     * (forced, e.g. via the Stats menu item).
+     */
+    UpgradeScreen = 'upgradeScreen',
+
+    /**
+     * Stats screen (premium users only).
+     */
+    Stats = 'stats',
+
+    /**
+     * Profiles selection screen.
+     */
+    Profiles = 'profiles',
 }
 
 /**
@@ -123,3 +192,36 @@ export enum PopupGuard {
      */
     ShouldShowOnboarding = 'shouldShowOnboarding',
 }
+
+/**
+ * Machine context type for the popup app state machine.
+ */
+export interface PopupAppContext {
+    /**
+     * The currently active screen within the ShowingPopup state.
+     * Updated via the ScreenChanged event by a MobX reaction in App.tsx.
+     */
+    screen: PopupScreen;
+}
+
+/**
+ * Shape of the ScreenChanged event (carries the derived screen payload).
+ */
+export interface ScreenChangedEvent {
+    type: typeof PopupEvent.ScreenChanged;
+    screen: PopupScreen;
+}
+
+/**
+ * Union of all event types the popup state machine accepts.
+ *
+ * Bare-string events (Init, UserAuthenticated, etc.) carry no payload.
+ * {@link ScreenChangedEvent} carries the derived screen payload.
+ */
+export type PopupAppEvent =
+    | typeof PopupEvent.Init
+    | typeof PopupEvent.UserAuthenticated
+    | typeof PopupEvent.UserDeauthenticated
+    | typeof PopupEvent.OnboardingComplete
+    | typeof PopupEvent.Retry
+    | ScreenChangedEvent;

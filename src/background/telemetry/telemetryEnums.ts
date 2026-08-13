@@ -13,13 +13,13 @@ export enum TelemetryScreenName {
     AuthScreen = 'auth_screen',
     NewsletterScreen = 'newsletter_screen',
     OnboardingScreen = 'onboarding_screen',
+    ChoiceOnboardingScreen = 'onboarding_choice_screen',
     PurchaseScreen = 'purchase_screen',
     VarBPurchaseScreen = 'var_b_purchase_screen',
     PromoOfferScreen = 'promo_offer_screen',
     HomeScreen = 'home_screen',
     DisableAnotherVpnExtensionScreen = 'disable_another_vpn_extension_screen',
     SpeedReducedScreen = 'speed_reduced_screen',
-    VarBSpeedReducedScreen = 'var_b_speed_reduced_screen',
     MenuScreen = 'menu_screen',
     LocationsScreen = 'locations_screen',
     DeviceLimitScreen = 'device_limit_screen',
@@ -92,7 +92,9 @@ export enum TelemetryScreenName {
 export enum TelemetryActionName {
     // Popup actions
     OnboardingPurchaseClick = 'onboarding_purchase_click',
-    OnboardingStayFreeClick = 'onboarding_stay_free_click',
+    PrivacyMaybeLaterClick = 'privacy_maybe_later_click',
+    StreamMaybeLaterClick = 'stream_maybe_later_click',
+    CensorMaybeLaterClick = 'censor_maybe_later_click',
     PromoOfferPurchaseClick = 'promo_offer_purchase_click',
     PromoOfferClick = 'promo_offer_click',
     ConnectClick = 'connect_click',
@@ -113,8 +115,6 @@ export enum TelemetryActionName {
     CloseSpeedReducesClick = 'close_speed_reduces_click',
     GetUnlimitedClick = 'get_unlimited_click',
     MaybeLaterClick = 'maybe_later_click',
-    VarBSpeedReducedPurchaseClick = 'var_b_speed_reduced_purchase_click',
-    VarBCloseSpeedReducesClick = 'var_b_close_speed_reduces_click',
     SettingsClick = 'settings_click',
     OtherProductsClick = 'other_products_click',
     WhyDesktopClick = 'why_desktop_click',
@@ -125,6 +125,10 @@ export enum TelemetryActionName {
     DeclineDesktopClick = 'decline_desktop_click',
     NextOnboardingClick = 'next_onboarding_click',
     SkipOnboardingClick = 'skip_onboarding_click',
+    ProtectPrivacyClick = 'protect_privacy_click',
+    StreamTvClick = 'stream_tv_click',
+    BypassCensorClick = 'bypass_censor_click',
+    OtherClick = 'other_click',
     DeclineNewsletter = 'decline_newsletter',
     AcceptNewsletter = 'accept_newsletter',
     NudgeAdguardClick = 'nudge_adguard_click',
@@ -311,7 +315,9 @@ export type StatsRangeClickActionNames = TelemetryActionName.DayStatsClick
 export interface TelemetryActionToScreenMap {
     // Popup actions
     [TelemetryActionName.OnboardingPurchaseClick]: TelemetryScreenName.PurchaseScreen;
-    [TelemetryActionName.OnboardingStayFreeClick]: TelemetryScreenName.PurchaseScreen;
+    [TelemetryActionName.PrivacyMaybeLaterClick]: TelemetryScreenName.PurchaseScreen;
+    [TelemetryActionName.StreamMaybeLaterClick]: TelemetryScreenName.PurchaseScreen;
+    [TelemetryActionName.CensorMaybeLaterClick]: TelemetryScreenName.PurchaseScreen;
     [TelemetryActionName.PromoOfferPurchaseClick]: TelemetryScreenName.PromoOfferScreen;
     [TelemetryActionName.PromoOfferClick]: TelemetryScreenName.HomeScreen;
     [TelemetryActionName.ConnectClick]: TelemetryScreenName.HomeScreen;
@@ -332,8 +338,6 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.CloseSpeedReducesClick]: TelemetryScreenName.SpeedReducedScreen;
     [TelemetryActionName.GetUnlimitedClick]: TelemetryScreenName.VarBPurchaseScreen;
     [TelemetryActionName.MaybeLaterClick]: TelemetryScreenName.VarBPurchaseScreen;
-    [TelemetryActionName.VarBSpeedReducedPurchaseClick]: TelemetryScreenName.VarBSpeedReducedScreen;
-    [TelemetryActionName.VarBCloseSpeedReducesClick]: TelemetryScreenName.VarBSpeedReducedScreen;
     [TelemetryActionName.SettingsClick]: TelemetryScreenName.MenuScreen;
     [TelemetryActionName.OtherProductsClick]: TelemetryScreenName.MenuScreen;
     [TelemetryActionName.WhyDesktopClick]: TelemetryScreenName.MenuScreen;
@@ -344,6 +348,10 @@ export interface TelemetryActionToScreenMap {
     [TelemetryActionName.DeclineDesktopClick]: TelemetryScreenName.DialogDesktopVersionPromo;
     [TelemetryActionName.NextOnboardingClick]: TelemetryScreenName.OnboardingScreen;
     [TelemetryActionName.SkipOnboardingClick]: TelemetryScreenName.OnboardingScreen;
+    [TelemetryActionName.ProtectPrivacyClick]: TelemetryScreenName.ChoiceOnboardingScreen;
+    [TelemetryActionName.StreamTvClick]: TelemetryScreenName.ChoiceOnboardingScreen;
+    [TelemetryActionName.BypassCensorClick]: TelemetryScreenName.ChoiceOnboardingScreen;
+    [TelemetryActionName.OtherClick]: TelemetryScreenName.ChoiceOnboardingScreen;
     [TelemetryActionName.DeclineNewsletter]: TelemetryScreenName.NewsletterScreen;
     [TelemetryActionName.AcceptNewsletter]: TelemetryScreenName.NewsletterScreen;
     [TelemetryActionName.NudgeAdguardClick]: TelemetryScreenName.DialogCantConnect;

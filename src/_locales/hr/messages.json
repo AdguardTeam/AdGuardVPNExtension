@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Naziv domene"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Nevažeća domena"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Poddomena"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "Onemogući VPN na ovoj stranici"
     },
+    "context_menu_connect": {
+        "message": "Poveži"
+    },
+    "context_menu_disconnect": {
+        "message": "Odspoji"
+    },
     "endpoints_countries": {
         "message": "Lokacije"
     },
@@ -949,7 +958,7 @@
         "message": "Šalje anonimizirane <link>podatke o korištenju proširenja</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Autorizacija"
+        "message": "Prijavite se ili izradite račun"
     },
     "popup_newsletter_title": {
         "message": "AdGuard newsletter"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Sljedeće"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Koji je tvoj glavni razlog za korištenje VPN-a?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Da zaštitim svoju privatnost"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Za streaming TV emisija"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Za zaobilaženje cenzure"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Ostalo"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN šifrira vaš promet"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Sigurno je pregledavati web u kafiću, hotelu ili zračnoj luci"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN vas ne prati na internetu"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Vaši podaci i aktivnost pregledavanja ostaju privatni"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN pruža DNS zaštitu"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Blokirajte oglase i trackere s ugrađenim DNS-om"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Pristupite sadržaju s bilo kojeg mjesta"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Gledajte svoje omiljene TV emisije dok ste u inozemstvu. Ili iz prve ruke doživite streaming hitove iz drugih zemalja"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Mnogo lokacija za odabrati"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN nudi %count%+ sigurne lokacije. Spremite svoje omiljene za brzi pristup | AdGuard VPN nudi %count%+ sigurne lokacije. Spremite svoje omiljene za brzi pristup | AdGuard VPN nudi %count%+ sigurne lokacije. Spremite svoje omiljene za brzi pristup | AdGuard VPN nudi %count%+ sigurne lokacije. Spremite svoje omiljene za brzi pristup",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Streamajte velikim brzinama"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN šifrira vaš promet bez usporavanja pregledavanja"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Uklonite geo-ograničenja"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Pregledajte web stranice koje nisu dostupne kod kuće s AdGuard VPN-om"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Odaberite koje web stranice koriste VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Dodajte lokalne web stranice u iznimke, i AdGuard VPN će se za njih isključiti"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Omogući DNS zaštitu"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Zaštitite svoj uređaj od zlonamjernog softvera ugrađenim DNS-om"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Povećajte svoju zaštitu s Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Šifrirani promet bez ograničenja brzine"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ sigurne lokacije | %count%+ sigurna lokacija | %count%+ sigurne lokacije | %count%+ sigurne lokacije",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Do %count% uređaja na jednom računu | Do %count% uređaja na jednom računu | Do %count% uređaja na jednom računu | Do %count% uređaja na jednom računu",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Učinite svoje streamanje ugodnim uz Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Nevidljivo za streaming servise"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ brze lokacije | %count%+ brza lokacija | %count%+ brze lokacije | %count%+ brze lokacije",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Bez predmemoriranja ili ograničenja brzine"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Prilagodite VPN svojim potrebama uz Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Šifrirani promet bez ograničenja brzine"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Do %count% uređaja na jednom računu | Do %count% uređaja na jednom računu | Do %count% uređaja na jednom računu | Do %count% uređaja na jednom računu",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ sigurne lokacije | %count%+ sigurna lokacija | %count%+ sigurne lokacije | %count%+ sigurne lokacije",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Neograničen VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "sve lokacije, podrška 24/7"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Nema ograničenja brzine. Izvucite više od vašeg davatelja internetskih usluga!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Nabavi Neograničeno"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Možda kasnije"
     },
     "popup_upgrade_screen_title": {
         "message": "Nadogradite na Neograničeno"

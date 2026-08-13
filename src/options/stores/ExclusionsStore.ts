@@ -5,8 +5,6 @@ import {
     runInAction,
     toJS,
 } from 'mobx';
-import { isIP } from 'is-ip';
-import { getDomain } from 'tldts';
 
 import {
     type ExclusionDtoInterface,
@@ -382,7 +380,7 @@ export class ExclusionsStore {
     }
 
     /**
-     * Adds URL to exclusions and updates exclusions if needed.
+     * Adds URL to exclusions and refreshes the cached tree when data changes.
      *
      * @param url Url to add.
      *
@@ -392,12 +390,19 @@ export class ExclusionsStore {
     public addUrlToExclusions = async (url: string): Promise<number> => {
         const profileId = this.effectiveProfileId;
         const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, url);
-        if (addedExclusionsCount) {
+        if (addedExclusionsCount > 0) {
             await this.updateExclusionsData(profileId);
         }
         return addedExclusionsCount;
     };
 
+    /**
+     * Adds a subdomain and refreshes the cached tree when data changes.
+     *
+     * @param subdomain Subdomain to add.
+     *
+     * @returns Count of added exclusions.
+     */
     @action
     public addSubdomainToExclusions = async (subdomain: string): Promise<number> => {
         const profileId = this.effectiveProfileId;
@@ -414,15 +419,12 @@ export class ExclusionsStore {
 
         const domain = foundExclusion.hostname;
 
-        if (subdomain.includes(domain)) {
-            const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, subdomain);
-            return addedExclusionsCount;
-        }
+        const urlToAdd = subdomain.includes(domain)
+            ? subdomain
+            : `${subdomain}.${domain}`;
 
-        const domainToAdd = `${subdomain}.${domain}`;
-
-        const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, domainToAdd);
-        if (addedExclusionsCount) {
+        const addedExclusionsCount = await messenger.addUrlToExclusions(profileId, urlToAdd);
+        if (addedExclusionsCount > 0) {
             await this.updateExclusionsData(profileId);
         }
         return addedExclusionsCount;
@@ -624,20 +626,6 @@ export class ExclusionsStore {
         });
 
         return isFullChildrenList && !!isDefaultDomainsState;
-    };
-
-    /**
-     * Checks if provided url is valid domain.
-     *
-     * @param url
-     *
-     * @returns True if domain is valid, false otherwise.
-     */
-    public validateUrl = (url: string): boolean => {
-        const isValidDomain = !!getDomain(url);
-        const isValidIp = isIP(url);
-
-        return isValidDomain || isValidIp;
     };
 
     @action

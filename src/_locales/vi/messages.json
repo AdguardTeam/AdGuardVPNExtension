@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Tên miền"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Tên miền không hợp lệ"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Tên miền con"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Tắt VPN trên trang web này"
+    },
+    "context_menu_connect": {
+        "message": "Kết nối"
+    },
+    "context_menu_disconnect": {
+        "message": "Ngắt kết nối"
     },
     "endpoints_countries": {
         "message": "Vị trí"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Tiếp theo"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Lý do chính bạn sử dụng VPN là gì?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Để bảo vệ quyền riêng tư của tôi"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Để phát trực tuyến các chương trình TV"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Để vượt qua kiểm duyệt"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Khác"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN mã hóa lưu lượng truy cập của bạn"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "An toàn khi duyệt web tại quán cà phê, khách sạn hoặc sân bay"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN không theo dõi hoạt động trực tuyến của bạn."
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Dữ liệu và hoạt động duyệt web của bạn luôn được giữ riêng tư"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN cung cấp bảo vệ DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Chặn quảng cáo và trình theo dõi với DNS tích hợp"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Truy cập nội dung từ mọi nơi"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Xem các chương trình TV yêu thích của bạn khi ở nước ngoài. Hoặc trải nghiệm trực tiếp những nội dung phát trực tuyến ăn khách từ các quốc gia khác"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Nhiều địa điểm để lựa chọn"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN cung cấp %count%+ địa điểm bảo mật. Lưu các địa điểm yêu thích để truy cập nhanh | AdGuard VPN cung cấp %count%+ địa điểm bảo mật. Lưu các địa điểm yêu thích để truy cập nhanh",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Phát trực tuyến ở tốc độ cao"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN mã hóa lưu lượng truy cập của bạn mà không làm chậm tốc độ duyệt web của bạn."
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Gỡ bỏ hạn chế địa lý"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Duyệt các trang web không khả dụng tại nhà với AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Chọn những trang web sử dụng VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Thêm các trang web cục bộ vào danh sách loại trừ, và AdGuard VPN sẽ tắt đối với chúng"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Kích hoạt bảo vệ DNS"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Bảo vệ thiết bị của bạn khỏi phần mềm độc hại với DNS tích hợp"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Nâng cấp bảo vệ của bạn với Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Lưu lượng được mã hóa không giới hạn tốc độ"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ địa điểm an toàn | %count%+ địa điểm an toàn",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Tối đa %count% thiết bị trên một tài khoản | Tối đa %count% thiết bị trên một tài khoản",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Tận hưởng việc phát trực tuyến của bạn với Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Không bị các dịch vụ phát trực tuyến phát hiện"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ vị trí nhanh | %count%+ vị trí nhanh",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Không gián đoạn hay giới hạn tốc độ"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Tùy chỉnh VPN theo nhu cầu của bạn với Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Lưu lượng mã hóa không giới hạn tốc độ"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Tối đa %count% thiết bị trên một tài khoản | Tối đa %count% thiết bị trên một tài khoản",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ địa điểm an toàn | %count%+ địa điểm an toàn",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "VPN không giới hạn"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "tất cả vị trí, hỗ trợ 24/7"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Không giới hạn tốc độ. Tận dụng tối đa nhà cung cấp dịch vụ của bạn!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Nhận Không giới hạn"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Có lẽ để sau"
     },
     "popup_upgrade_screen_title": {
         "message": "Nâng cấp lên Không giới hạn"

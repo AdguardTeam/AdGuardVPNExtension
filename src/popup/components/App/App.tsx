@@ -2,71 +2,47 @@ import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 
+import { reaction } from 'mobx';
 import { useMachine } from '@xstate/react';
 
 import { Header } from '../Header';
-import { InfoMessage, FeedbackMessage } from '../InfoMessage';
-import { Locations } from '../Locations';
 import { Authentication } from '../Authentication';
-import { ExtraOptions } from '../ExtraOptions';
 import { GlobalError } from '../GlobalError';
-import { Settings } from '../Settings';
-import { PromoNotificationModal } from '../PromoNotificationModal';
 import { Icons } from '../../../common/components/Icons';
-import { CurrentEndpoint } from '../Settings/CurrentEndpoint';
-import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 import { rootStore } from '../../stores';
-import { log } from '../../../common/logger';
-import { type NotifierMessage, messenger } from '../../../common/messenger';
-import { notifier } from '../../../common/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
-import { TrafficLimitExceeded, TrafficLimitExceededB } from '../Settings/TrafficLimitExceeded';
-import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
+import { PersonalizedOnboarding } from '../Authentication/PersonalizedOnboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradePaywall } from '../Authentication/UpgradeScreen';
-import { ReviewPopup } from '../ReviewPopup';
 import { ServerErrorPopup } from '../ServerErrorPopup';
-import { VpnBlockedError } from '../VpnBlockedError';
-import { HostPermissionsError } from '../HostPermissionsError';
-import { NoLocationsError } from '../NoLocationsError';
-import { LimitedOfferModal } from '../LimitedOfferModal';
-import { SETTINGS_IDS } from '../../../common/constants';
-import { TelemetryScreenName } from '../../../background/telemetry/telemetryEnums';
-import { MobileEdgePromo } from '../MobileEdgePromo';
-import { Stats } from '../Stats';
-import { ProfilesScreen } from '../Profiles/ProfilesScreen';
-import { ProfileToast } from '../Profiles/ProfileToast/ProfileToast';
 import { SkeletonLoading } from '../SkeletonLoading';
 
 import { FullScreenLoader } from './FullScreenLoader';
 import { popupAppMachine } from './popupAppMachine';
 import { PopupEvent, PopupState } from './popupAppMachineEnums';
+import { derivePopupScreen, renderPopupScreen } from './popupScreens';
+import { usePopupNotifier } from './popupNotifier';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
 
 export const App = observer(() => {
+    const rootContext = useContext(rootStore);
     const {
         settingsStore,
         authStore,
         uiStore,
         vpnStore,
         globalStore,
-        telemetryStore,
         statsStore,
-        translationStore,
-    } = useContext(rootStore);
+    } = rootContext;
 
     const {
         canControlProxy,
-        hasGlobalError,
-        hasLimitExceededError,
         isCurrentTabExcluded,
         canBeExcluded,
-        showLimitExceededScreen,
         isVpnBlocked,
-        isHostPermissionsGranted,
         isLimitedOfferActive,
         isAndroidBrowser,
     } = settingsStore;
@@ -75,19 +51,13 @@ export const App = observer(() => {
 
     const {
         isOpenOptionsModal,
-        isOpenLocationsScreen,
         shouldShowRegionNotice,
-        isPaywallBVariant,
+        isPersonalizedOnboardingVariant,
     } = uiStore;
-
-    const { isOpenStatsScreen } = statsStore;
 
     const {
         premiumPromoEnabled,
         isPremiumToken,
-        filteredLocations,
-        notSearchingAndSavedTab,
-        isProfilesScreenOpen,
     } = vpnStore;
 
     const [state, send] = useMachine(popupAppMachine, {
@@ -161,137 +131,16 @@ export const App = observer(() => {
         send(PopupEvent.Init);
     }, [send]);
 
-    useEffect(() => {
-        settingsStore.trackSystemTheme();
-
-        const messageHandler = async (message: NotifierMessage): Promise<void> => {
-            switch (message.type) {
-                case notifier.types.VPN_INFO_UPDATED: {
-                    vpnStore.setVpnInfo(message.data);
-                    break;
-                }
-                case notifier.types.LOCATIONS_UPDATED: {
-                    vpnStore.setLocations(message.data);
-                    break;
-                }
-                case notifier.types.LOCATION_STATE_UPDATED: {
-                    vpnStore.updateLocationState(message.data);
-                    break;
-                }
-                case notifier.types.CURRENT_LOCATION_UPDATED: {
-                    vpnStore.setSelectedLocation(message.data);
-                    break;
-                }
-                case notifier.types.PERMISSIONS_ERROR_UPDATE: {
-                    settingsStore.setGlobalError(message.data);
-                    // If there is no error, it is time to check if token is premium
-                    if (!message.data) {
-                        await vpnStore.requestIsPremiumToken();
-                    }
-                    break;
-                }
-                case notifier.types.TOKEN_PREMIUM_STATE_UPDATED: {
-                    vpnStore.setIsPremiumToken(message.data);
-                    break;
-                }
-                case notifier.types.CONNECTIVITY_STATE_CHANGED: {
-                    settingsStore.setConnectivityState(message.data);
-                    break;
-                }
-                case notifier.types.TOO_MANY_DEVICES_CONNECTED: {
-                    vpnStore.setTooManyDevicesConnected(true);
-                    vpnStore.setMaxDevicesAllowed(message.data);
-                    break;
-                }
-                case notifier.types.SERVER_ERROR: {
-                    settingsStore.openServerErrorPopup();
-                    break;
-                }
-                case notifier.types.SETTING_UPDATED: {
-                    if (
-                        message.data === SETTINGS_IDS.HELP_US_IMPROVE
-                        && typeof message.value === 'boolean'
-                    ) {
-                        telemetryStore.setIsHelpUsImproveEnabled(message.value);
-                    }
-                    break;
-                }
-                case notifier.types.SHOW_RATE_MODAL: {
-                    authStore.setShouldShowRateModal(true);
-                    break;
-                }
-                case notifier.types.STATS_UPDATED: {
-                    await statsStore.updateStatistics();
-                    break;
-                }
-                case notifier.types.AUTH_CACHE_UPDATED: {
-                    authStore.handleAuthCacheUpdate(message.data, message.value);
-                    break;
-                }
-                case notifier.types.LANGUAGE_CHANGED: {
-                    await translationStore.setLocalePreference(message.data);
-                    break;
-                }
-                case notifier.types.USER_AUTHENTICATED: {
-                    authStore.setIsAuthenticated(true);
-                    send(PopupEvent.UserAuthenticated);
-                    break;
-                }
-                case notifier.types.USER_DEAUTHENTICATED: {
-                    authStore.setIsAuthenticated(false);
-                    send(PopupEvent.UserDeauthenticated);
-                    break;
-                }
-                case notifier.types.PROFILE_SWITCH_IN_PROGRESS: {
-                    vpnStore.startSwitchingProfile(message.data);
-                    break;
-                }
-                case notifier.types.ACTIVE_PROFILE_CHANGED: {
-                    vpnStore.handleProfileChanged(message.data);
-                    break;
-                }
-                default: {
-                    log.debug('[vpn.App]: there is no such message type: ', message.type);
-                    break;
-                }
-            }
-        };
-
-        const events = [
-            notifier.types.VPN_INFO_UPDATED,
-            notifier.types.LOCATIONS_UPDATED,
-            notifier.types.LOCATION_STATE_UPDATED,
-            notifier.types.CURRENT_LOCATION_UPDATED,
-            notifier.types.PERMISSIONS_ERROR_UPDATE,
-            notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
-            notifier.types.CONNECTIVITY_STATE_CHANGED,
-            notifier.types.TOO_MANY_DEVICES_CONNECTED,
-            notifier.types.SERVER_ERROR,
-            notifier.types.SETTING_UPDATED,
-            notifier.types.SHOW_RATE_MODAL,
-            notifier.types.STATS_UPDATED,
-            notifier.types.AUTH_CACHE_UPDATED,
-            notifier.types.LANGUAGE_CHANGED,
-            notifier.types.USER_AUTHENTICATED,
-            notifier.types.USER_DEAUTHENTICATED,
-            notifier.types.PROFILE_SWITCH_IN_PROGRESS,
-            notifier.types.ACTIVE_PROFILE_CHANGED,
-        ];
-
-        const { onUnload, portId } = messenger.createLongLivedConnection(events, messageHandler);
-
-        telemetryStore.setPageId(portId);
-
-        return (): void => {
-            telemetryStore.setPageId(null);
-            onUnload();
-            settingsStore.stopTrackSystemTheme();
-        };
-    }, [send]);
+    usePopupNotifier(send, rootContext);
 
     /**
-     * We are adding "android" class to html element
-     * in order to apply android specific styles.
+     * Apply Android-specific styling:
+     * 1. Toggle the `android` class on the html element.
+     * 2. Sync the `--popup-height` CSS variable with the window height, because
+     *    Android browser popups do not support 100vh properly.
+     *
+     * Previously these were two separate effects; they are merged here because
+     * they share the same dependency (`isAndroidBrowser`) and the same lifecycle.
      */
     useLayoutEffect(() => {
         const ANDROID_CLASS = 'android';
@@ -303,16 +152,6 @@ export const App = observer(() => {
             html.classList.remove(ANDROID_CLASS);
         }
 
-        return (): void => {
-            html.classList.remove(ANDROID_CLASS);
-        };
-    }, [isAndroidBrowser]);
-
-    /**
-     * Update popup height on Android browsers based on window height.
-     * This is required because Android browser's popup does not support 100vh properly.
-     */
-    useLayoutEffect(() => {
         /**
          * Minimum height for the popup. Value is based on calculation:
          * Android Extension Window Height = clamp(Popup Height, 15% of viewport height, 70% of viewport height)
@@ -324,7 +163,6 @@ export const App = observer(() => {
          */
         const POPUP_MIN_HEIGHT = 550;
         const POPUP_HEIGHT_PROP = '--popup-height';
-        const html = document.documentElement;
 
         const removeHeightProperty = (): void => {
             html.style.removeProperty(POPUP_HEIGHT_PROP);
@@ -334,8 +172,11 @@ export const App = observer(() => {
             // Remove if height property previously set on html element
             removeHeightProperty();
 
-            // Cleanup: Remove the height property after unmount
-            return removeHeightProperty;
+            // Cleanup: Remove the android class and the height property after unmount
+            return (): void => {
+                html.classList.remove(ANDROID_CLASS);
+                removeHeightProperty();
+            };
         }
 
         const resizePopupHeight = (): void => {
@@ -368,8 +209,10 @@ export const App = observer(() => {
         // behavior on Android browsers when keyboard is opened.
         window.addEventListener('resize', resizePopupHeight);
 
-        // Cleanup: Remove the height property and event listener after unmount
+        // Cleanup: Remove the android class, the height property and the
+        // event listener after unmount
         return (): void => {
+            html.classList.remove(ANDROID_CLASS);
             removeHeightProperty();
             window.removeEventListener('resize', resizePopupHeight);
         };
@@ -399,214 +242,101 @@ export const App = observer(() => {
         }
     }, [isOnboardingComplete, send]);
 
+    // Extend the state machine to cover rendering logic: keep
+    // `state.context.screen` in sync with the screen derived from the store
+    // flags. A MobX reaction tracks the relevant observables; because all flag
+    // mutations happen inside MobX actions, the reaction fires synchronously at
+    // the end of the action, so the context is current before the next render.
+    // This makes the machine the single rendering authority for ShowingPopup
+    // and removes the parallel `if` blocks that used to follow the machine.
+    useEffect(() => {
+        const dispose = reaction(
+            () => derivePopupScreen({
+                settingsStore,
+                authStore,
+                uiStore,
+                vpnStore,
+                statsStore,
+            }),
+            (screen) => send({ type: PopupEvent.ScreenChanged, screen }),
+            { fireImmediately: true },
+        );
+        return dispose;
+    }, [
+        send,
+        settingsStore,
+        authStore,
+        uiStore,
+        vpnStore,
+        statsStore,
+    ]);
+
+    // Compute the state-specific content. Early init states (Idle,
+    // LoadingPlatformData, LoadingAuthStatus) produce null content and return
+    // nothing — not even Icons/ServerErrorPopup — matching the previous
+    // behavior where those states returned null immediately.
+    let content: React.ReactNode = null;
+
     if (state.matches(PopupState.Idle)
         || state.matches(PopupState.LoadingPlatformData)
         || state.matches(PopupState.LoadingAuthStatus)) {
-        return null;
-    }
-
-    // Show authentication screen
-    if (state.matches(PopupState.ShowingAuthScreen)) {
-        return (
-            <>
-                <Authentication />
-                <Icons />
-                <ServerErrorPopup />
-            </>
-        );
-    }
-
-    // Loading startup data
-    if (state.matches(PopupState.LoadingStartupData)) {
-        return <FullScreenLoader />;
-    }
-
-    // Show onboarding screens
-    if (state.matches(PopupState.ShowingOnboarding)) {
+        content = null;
+    } else if (state.matches(PopupState.ShowingAuthScreen)) {
+        content = <Authentication />;
+    } else if (state.matches(PopupState.LoadingStartupData)) {
+        content = <FullScreenLoader />;
+    } else if (state.matches(PopupState.ShowingOnboarding)) {
         if (renderNewsletter) {
-            return <Newsletter />;
+            content = <Newsletter />;
+        } else if (renderOnboarding) {
+            content = isPersonalizedOnboardingVariant
+                ? <PersonalizedOnboarding />
+                : <Onboarding />;
+        } else if (!isPremiumToken && renderUpgradeScreen) {
+            content = <UpgradePaywall />;
+        } else {
+            // All onboarding screens dismissed — isOnboardingComplete effect
+            // fires OnboardingComplete
+            content = <FullScreenLoader />;
         }
-
-        if (renderOnboarding) {
-            return (
-                <>
-                    <Onboarding />
-                    <Icons />
-                </>
-            );
-        }
-
-        if (!isPremiumToken && renderUpgradeScreen) {
-            return (
-                <>
-                    <UpgradePaywall />
-                    <Icons />
-                </>
-            );
-        }
-
-        // All onboarding screens dismissed — useEffect above will fire OnboardingComplete
-        return <FullScreenLoader />;
-    }
-
-    // Loading popup data — show skeleton for authenticated users, dots for others
-    if (state.matches(PopupState.LoadingPopupData)) {
-        if (authenticated) {
-            return <SkeletonLoading />;
-        }
-
-        return <FullScreenLoader />;
-    }
-
-    // Error state
-    if (state.matches(PopupState.Error)) {
+    } else if (state.matches(PopupState.LoadingPopupData)) {
+        content = authenticated
+            ? <SkeletonLoading />
+            : <FullScreenLoader />;
+    } else if (state.matches(PopupState.Error)) {
         const handleRetry = (): void => {
             send(PopupEvent.Retry);
         };
-
-        return (
+        content = (
             <>
                 <Header showMenuButton={false} />
                 <GlobalError onRetry={handleRetry} />
-                <Icons />
-                <ServerErrorPopup />
             </>
         );
+    } else if (state.matches(PopupState.ShowingPopup)) {
+        content = renderPopupScreen(state.context.screen, {
+            authenticated,
+            isOpenOptionsModal,
+            shouldShowRegionNotice,
+            isVpnBlocked,
+            isLimitedOfferActive,
+            isCurrentTabExcluded,
+            canBeExcluded,
+            canControlProxy,
+            premiumPromoEnabled,
+        });
     }
 
-    // show browser permission error after user is authenticated
-    if (!isHostPermissionsGranted && authenticated) {
-        return (
-            <HostPermissionsError />
-        );
-    }
-
-    // warn authenticated users if no locations were fetched. AG-28164
-    if (authenticated
-        && !hasGlobalError
-        && notSearchingAndSavedTab
-        && filteredLocations.length === 0) {
-        return (
-            <NoLocationsError />
-        );
-    }
-
-    // Unauthenticated user reaching showingPopup (edge case: logout during loading)
-    if (!authenticated && !hasGlobalError) {
-        return (
-            <>
-                <Authentication />
-                <Icons />
-                <ServerErrorPopup />
-            </>
-        );
-    }
-
-    if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy) {
-        const showMenuButton = authenticated && canControlProxy;
-
-        // Screen name can be null if the error is not related to the control of the proxy.
-        const screenName = !canControlProxy ? TelemetryScreenName.DisableAnotherVpnExtensionScreen : null;
-
-        return (
-            <>
-                {isOpenOptionsModal && <ExtraOptions />}
-                <Header showMenuButton={showMenuButton} screenName={screenName} />
-                {
-                    // do not show the warning if there is a limited offer active
-                    !isLimitedOfferActive && <VpnBlockedError />
-                }
-                <Icons />
-                <GlobalError />
-                <ServerErrorPopup />
-            </>
-        );
-    }
-
-    if (showLimitExceededScreen || !canControlProxy) {
-        const LimitExceededComponent = isPaywallBVariant
-            ? TrafficLimitExceededB
-            : TrafficLimitExceeded;
-
-        return (
-            <>
-                <LimitExceededComponent />
-                <Icons />
-            </>
-        );
-    }
-
-    if (isOpenLocationsScreen) {
-        return (
-            <>
-                <Locations />
-                <Icons />
-            </>
-        );
-    }
-
-    if (!isPremiumToken && renderUpgradeScreen) {
-        return (
-            <>
-                <UpgradePaywall />
-                <Icons />
-            </>
-        );
-    }
-
-    if (isOpenStatsScreen) {
-        return (
-            <>
-                <Stats />
-                <Icons />
-            </>
-        );
-    }
-
-    if (isProfilesScreenOpen) {
-        return (
-            <>
-                <ProfilesScreen />
-                <ProfileToast />
-                <Icons />
-            </>
-        );
+    // Early init states render nothing — no Icons, no ServerErrorPopup —
+    // matching the previous behavior where they returned null immediately.
+    if (content === null) {
+        return null;
     }
 
     return (
         <>
-            <ConnectionsLimitError />
-            <PromoNotificationModal />
-            {isOpenOptionsModal && <ExtraOptions />}
-            <MobileEdgePromo />
-            <Header showMenuButton={authenticated} />
-            {
-                (shouldShowRegionNotice || isVpnBlocked)
-                // do not show the warning if there is a limited offer active
-                && !isLimitedOfferActive
-                && <VpnBlockedError />
-            }
-            {
-                isLimitedOfferActive
-                && <LimitedOfferModal />
-            }
-            {isCurrentTabExcluded && canBeExcluded
-                ? <ExclusionsScreen />
-                : (
-                    <>
-                        <Settings />
-                        <div className="footer">
-                            {premiumPromoEnabled ? (
-                                <InfoMessage />
-                            ) : (
-                                <FeedbackMessage />
-                            )}
-                            <CurrentEndpoint />
-                        </div>
-                    </>
-                )}
+            {content}
             <Icons />
-            <ReviewPopup />
             <ServerErrorPopup />
         </>
     );

@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "שם תחום"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "דומיין לא חוקי"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "תת־תחום"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "השבת VPN באתר זה"
     },
+    "context_menu_connect": {
+        "message": "התחבר"
+    },
+    "context_menu_disconnect": {
+        "message": "התנתק"
+    },
     "endpoints_countries": {
         "message": "מיקומים"
     },
@@ -949,7 +958,7 @@
         "message": "שלח נתוני שימוש בהרחבה <link>אנונימיים</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "היכנס או צור חשבון"
+        "message": "היכנס או הירשם"
     },
     "popup_newsletter_title": {
         "message": "עלון AdGuard"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "הבא"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "מה הסיבה העיקרית שלך להשתמש ב-VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "כדי להגן על הפרטיות שלי"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "כדי להזרים תוכניות טלוויזיה"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "כדי לעקוף צנזורה"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "אחר"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN מצפין את התעבורה שלך"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "בטוח לגלוש באינטרנט בבית קפה, מלון או שדה תעופה"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "ה-VPN של AdGuard לא עוקב אחריך באינטרנט"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "הנתונים ופעילות הגלישה שלך נשארים פרטיים"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "VPN של AdGuard מספק הגנה על DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "חסום פרסומות ומעקבים באמצעות DNS מובנה"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "גישה לתוכן מכל מקום"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "צפו בתוכניות הטלוויזיה האהובות עליכם בחו\"ל. או חוו ממקור ראשון את להיטים בסטרימינג ממדינות אחרות"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "שפע של מיקומים לבחירה"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN מציע %count%+ מיקומים מאובטחים. שמור את המועדפים עליך לגישה מהירה | AdGuard VPN מציע %count%+ מיקום מאובטח. שמור את המועדפים עליך לגישה מהירה | AdGuard VPN מציע %count%+ מיקומים מאובטחים. שמור את המועדפים עליך לגישה מהירה",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "הזרמת סטרימינג במהירויות גבוהות"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "VPN של AdGuard מצפין את התעבורה שלך מבלי להאט את הגלישה שלך"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "הסר מגבלות גיאוגרפיות"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "גלישה באתרים שאינם זמינים בבית עם VPN של AdGuard"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "בחר אילו אתרים משתמשים ב-VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "הוסף אתרים מקומיים להחרגות, ו-AdGuard VPN יכבה עבורם"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "אפשר הגנת DNS"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "הגן על המכשיר שלך מפני תוכנות זדוניות בעזרת DNS מובנה"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "שדרגו את ההגנה שלכם עם Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "תעבורה מוצפנת ללא הגבלת מהירות"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ מיקומים מאובטחים | %count%+ מיקום מאובטח | %count%+ מיקומים מאובטחים",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "עד %count% מכשירים בחשבון אחד | עד %count% מכשיר בחשבון אחד | עד %count% מכשירים בחשבון אחד",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "הפכו את הסטרימינג שלכם למהנה עם Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "בלתי נראה לשירותי סטרימינג"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ מיקומים מהירים | %count%+ מיקום מהיר | %count%+ מיקומים מהירים",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "ללא טעינה מראש או הגבלות מהירות"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "התאימו את ה-VPN לצרכים שלכם עם Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "תעבורה מוצפנת ללא הגבלת מהירות"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "עד %count% מכשירים בחשבון אחד | עד %count% מכשיר בחשבון אחד | עד %count% מכשירים בחשבון אחד",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ מיקומים מאובטחים | %count%+ מיקום מאובטח | %count%+ מיקומים מאובטחים",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "VPN בלתי מוגבל"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "מהירות בלתי מוגבלת"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "ללא הגבלות מהירות. הוצא את המירב מספק השירות שלך!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "קבל AdGuard VPN Unlimited"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "אולי מאוחר יותר"
     },
     "popup_upgrade_screen_title": {
         "message": "שדרג ל-AdGuard VPN Unlimited‏"

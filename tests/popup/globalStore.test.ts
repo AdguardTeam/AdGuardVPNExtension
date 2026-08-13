@@ -14,6 +14,7 @@ vi.mock('../../src/common/messenger', () => ({
     messenger: {
         isAuthenticated: vi.fn(),
         getConsentData: vi.fn(),
+        getStartupData: vi.fn(),
     },
 }));
 
@@ -49,15 +50,19 @@ describe('GlobalStore.initAuthenticatedStatus', () => {
         rootStore = new RootStore();
     });
 
+    const mockConsentData = (overrides: Record<string, unknown> = {}) => ({
+        policyAgreement: false,
+        helpUsImprove: false,
+        webAuthFlowState: WebAuthState.Idle,
+        forwarderDomain: MOCK_FORWARDER_DOMAIN,
+        selectedLanguage: 'en' as const,
+        experimentVariants: {},
+        ...overrides,
+    });
+
     it('should set forwarderDomain from consent data', async () => {
         vi.mocked(messenger.isAuthenticated).mockResolvedValue(false);
-        vi.mocked(messenger.getConsentData).mockResolvedValue({
-            policyAgreement: false,
-            helpUsImprove: false,
-            webAuthFlowState: WebAuthState.Idle,
-            forwarderDomain: MOCK_FORWARDER_DOMAIN,
-            selectedLanguage: 'en',
-        });
+        vi.mocked(messenger.getConsentData).mockResolvedValue(mockConsentData());
 
         await rootStore.globalStore.initAuthenticatedStatus();
 
@@ -66,13 +71,11 @@ describe('GlobalStore.initAuthenticatedStatus', () => {
 
     it('should apply auth cache (policyAgreement, helpUsImprove, webAuthFlowState)', async () => {
         vi.mocked(messenger.isAuthenticated).mockResolvedValue(false);
-        vi.mocked(messenger.getConsentData).mockResolvedValue({
+        vi.mocked(messenger.getConsentData).mockResolvedValue(mockConsentData({
             policyAgreement: true,
             helpUsImprove: true,
             webAuthFlowState: WebAuthState.Loading,
-            forwarderDomain: MOCK_FORWARDER_DOMAIN,
-            selectedLanguage: 'en',
-        });
+        }));
 
         await rootStore.globalStore.initAuthenticatedStatus();
 
@@ -81,15 +84,31 @@ describe('GlobalStore.initAuthenticatedStatus', () => {
         expect(rootStore.authStore.webAuthFlowState).toBe(WebAuthState.Loading);
     });
 
+    it('should enable TelemetryStore and experiment variants from consent before onboarding', async () => {
+        const setTelemetryEnabled = vi.spyOn(rootStore.telemetryStore, 'setIsHelpUsImproveEnabled');
+        const setExperimentVariants = vi.spyOn(rootStore.uiStore, 'setExperimentVariants');
+        const experimentVariants = { experiment_2: 'AG-55378-personalized-onboarding-paywall-b' };
+
+        vi.mocked(messenger.isAuthenticated).mockResolvedValue(false);
+        vi.mocked(messenger.getConsentData).mockResolvedValue(mockConsentData({
+            policyAgreement: true,
+            helpUsImprove: true,
+            experimentVariants,
+        }));
+
+        await rootStore.globalStore.initAuthenticatedStatus();
+
+        expect(setTelemetryEnabled).toHaveBeenCalledWith(true);
+        expect(setExperimentVariants).toHaveBeenCalledWith(experimentVariants);
+        expect(rootStore.uiStore.isPersonalizedOnboardingVariant).toBe(true);
+    });
+
     it('should restore web auth flow state on popup reopen', async () => {
         vi.mocked(messenger.isAuthenticated).mockResolvedValue(false);
-        vi.mocked(messenger.getConsentData).mockResolvedValue({
+        vi.mocked(messenger.getConsentData).mockResolvedValue(mockConsentData({
             policyAgreement: true,
-            helpUsImprove: false,
             webAuthFlowState: WebAuthState.Opened,
-            forwarderDomain: MOCK_FORWARDER_DOMAIN,
-            selectedLanguage: 'en',
-        });
+        }));
 
         await rootStore.globalStore.initAuthenticatedStatus();
 
@@ -98,13 +117,9 @@ describe('GlobalStore.initAuthenticatedStatus', () => {
 
     it('should return authentication status', async () => {
         vi.mocked(messenger.isAuthenticated).mockResolvedValue(true);
-        vi.mocked(messenger.getConsentData).mockResolvedValue({
+        vi.mocked(messenger.getConsentData).mockResolvedValue(mockConsentData({
             policyAgreement: true,
-            helpUsImprove: false,
-            webAuthFlowState: WebAuthState.Idle,
-            forwarderDomain: MOCK_FORWARDER_DOMAIN,
-            selectedLanguage: 'en',
-        });
+        }));
 
         const result = await rootStore.globalStore.initAuthenticatedStatus();
 
@@ -113,13 +128,7 @@ describe('GlobalStore.initAuthenticatedStatus', () => {
 
     it('should mark authenticated status as retrieved', async () => {
         vi.mocked(messenger.isAuthenticated).mockResolvedValue(false);
-        vi.mocked(messenger.getConsentData).mockResolvedValue({
-            policyAgreement: false,
-            helpUsImprove: false,
-            webAuthFlowState: WebAuthState.Idle,
-            forwarderDomain: MOCK_FORWARDER_DOMAIN,
-            selectedLanguage: 'en',
-        });
+        vi.mocked(messenger.getConsentData).mockResolvedValue(mockConsentData());
 
         expect(rootStore.authStore.authenticatedStatusRetrieved).toBe(false);
 

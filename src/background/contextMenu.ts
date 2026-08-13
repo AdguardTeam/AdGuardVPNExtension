@@ -35,6 +35,20 @@ interface ContextMenuInterface {
 const contexts: ContextType[] = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
 
 const CONTEXT_MENU_ITEMS: ContextMenuItems = {
+    connect: {
+        id: 'connect',
+        title: translator.getMessage('context_menu_connect'),
+        action: async () => {
+            await settings.enableProxy(true);
+        },
+    },
+    disconnect: {
+        id: 'disconnect',
+        title: translator.getMessage('context_menu_disconnect'),
+        action: async () => {
+            await settings.disableProxy(true);
+        },
+    },
     enable_vpn: {
         id: 'enable_vpn',
         title: translator.getMessage('context_menu_enable_vpn'),
@@ -73,6 +87,10 @@ const CONTEXT_MENU_ITEMS: ContextMenuItems = {
     },
     separator: {
         id: 'separator',
+        type: 'separator',
+    },
+    separator_bottom: {
+        id: 'separator_bottom',
         type: 'separator',
     },
 };
@@ -210,6 +228,15 @@ const getContextMenuItems = async (tabUrl: string | undefined): Promise<CreateCr
 
     resultItems.push(regularModeItem, selectiveModeItem);
 
+    // Add global Connect/Disconnect toggle at the bottom (HTTP pages only)
+    if (isHttp(tabUrl)) {
+        const vpnToggle = settings.isProxyEnabled()
+            ? { ...CONTEXT_MENU_ITEMS.disconnect }
+            : { ...CONTEXT_MENU_ITEMS.connect };
+
+        resultItems.push({ ...CONTEXT_MENU_ITEMS.separator_bottom }, vpnToggle);
+    }
+
     return resultItems;
 };
 
@@ -319,11 +346,13 @@ const init = (): void => {
     notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdater);
     notifier.addSpecifiedListener(notifier.types.TAB_ACTIVATED, throttledUpdater);
 
-    // actualize context menu on exclusions update
-    notifier.addSpecifiedListener(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE, async () => {
+    // actualize context menu on exclusions update or VPN connection state change
+    const updateCurrentTabMenu = async (): Promise<void> => {
         const tab = await tabs.getCurrent();
         throttledUpdater(tab);
-    });
+    };
+    notifier.addSpecifiedListener(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE, updateCurrentTabMenu);
+    notifier.addSpecifiedListener(notifier.types.CONNECTIVITY_STATE_CHANGED, updateCurrentTabMenu);
 };
 
 export const contextMenu: ContextMenuInterface = {

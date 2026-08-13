@@ -14,12 +14,8 @@ import {
     type ToggleServicesResult,
 } from '../../common/exclusionsConstants';
 import { type ExclusionInterface, type PersistedExclusions, StorageKey } from '../schema';
-import {
-    getETld,
-    getHostname,
-    getSubdomain,
-    isWildcard,
-} from '../../common/utils/url';
+import { getETld, getSubdomain, isWildcard } from '../../common/utils/url';
+import { getNormalizedExclusionHostname } from '../../common/utils/exclusionsNormalization';
 import { notifier } from '../../common/notifier';
 import { profilesService } from '../profiles';
 import { proxy } from '../proxy';
@@ -436,7 +432,7 @@ export class ExclusionsService {
         // shouldNotifyOptionsPage flag is used to notify options page to update exclusions data,
         // if exclusion mode was changed from context menu
         if (shouldNotifyOptionsPage) {
-            notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
+            notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED, ctx.profileId);
         }
     }
 
@@ -484,7 +480,7 @@ export class ExclusionsService {
      * @return List of exclusion arguments to be added.
      */
     private async supplementExclusion(url: string): Promise<AddExclusionArgs[]> {
-        const hostname = getHostname(url);
+        const hostname = getNormalizedExclusionHostname(url);
         if (!hostname) {
             return [];
         }
@@ -550,17 +546,27 @@ export class ExclusionsService {
     }
 
     /**
-     * Adds url to exclusions and returns amount of added exclusions.
+     * Updates the exclusions tree and notifies listeners.
+     *
+     * @param ctx Profile exclusions context.
+     */
+    private async commitAndNotify(ctx: ProfileExclusionsContext): Promise<void> {
+        await ctx.updateTree();
+        notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED, ctx.profileId);
+    }
+
+    /**
+     * Adds or reactivates exclusions for the provided URL.
      *
      * @param profileId Profile ID.
      * @param url URL to add to exclusions.
      *
-     * @return Amount of added exclusions.
+     * @returns Count of newly added or reactivated entries.
      */
     public async addUrlToExclusions(profileId: string, url: string): Promise<number> {
         const ctx = await this.getProfileContext(profileId);
 
-        const hostname = getHostname(url);
+        const hostname = getNormalizedExclusionHostname(url);
 
         if (!hostname) {
             return 0;
@@ -573,9 +579,23 @@ export class ExclusionsService {
         // if provided url is existing exclusion, enables it
         const existingExclusion = currentModeHandler.getExclusionByHostname(hostname);
         if (existingExclusion) {
-            await currentModeHandler.enableExclusion(existingExclusion.id);
-            await ctx.updateTree();
-            return 0;
+            if (existingExclusion.state !== ExclusionState.Disabled) {
+                return 0;
+            }
+
+            // Service domains are activated together with their wildcard companion.
+            const servicesDto = await servicesManager.getServicesDto();
+            const isServiceDomain = servicesDto.some(
+                (service) => service.domains.includes(hostname),
+            );
+            const exclusionsToAdd: AddExclusionArgs[] = [{ value: hostname }];
+            if (isServiceDomain) {
+                exclusionsToAdd.push({ value: `*.${hostname}` });
+            }
+
+            const addedCount = await currentModeHandler.addExclusions(exclusionsToAdd);
+            await this.commitAndNotify(ctx);
+            return addedCount;
         }
 
         // add service manually by domain
@@ -589,6 +609,7 @@ export class ExclusionsService {
             const addedExclusionsCount = await this.addServices(
                 [serviceData.serviceId],
                 ctx,
+                ExclusionState.Disabled,
             );
 
             // disable all exclusions in service except existing
@@ -613,14 +634,14 @@ export class ExclusionsService {
                 );
             }
 
-            await ctx.updateTree();
+            await this.commitAndNotify(ctx);
             return addedExclusionsCount;
         }
 
         // if provided url is IP-address, adds ip exclusion
         if (isIP(hostname)) {
             await currentModeHandler.addUrlToExclusions(hostname);
-            await ctx.updateTree();
+            await this.commitAndNotify(ctx);
             return 1;
         }
 
@@ -632,7 +653,7 @@ export class ExclusionsService {
 
         if (currentModeHandler.hasETld(eTld)) {
             await currentModeHandler.addExclusions([{ value: hostname }]);
-            await ctx.updateTree();
+            await this.commitAndNotify(ctx);
             return 1;
         }
 
@@ -646,7 +667,7 @@ export class ExclusionsService {
                     { value: eTld, enabled: false },
                     { value: subdomainHostname, enabled: true },
                 ]);
-                await ctx.updateTree();
+                await this.commitAndNotify(ctx);
                 return 2;
             }
 
@@ -657,7 +678,7 @@ export class ExclusionsService {
                 { value: wildcardHostname, enabled: false },
                 { value: subdomainHostname, enabled: true },
             ]);
-            await ctx.updateTree();
+            await this.commitAndNotify(ctx);
             return 3;
         }
 
@@ -666,7 +687,7 @@ export class ExclusionsService {
             { value: hostname },
             { value: wildcardHostname },
         ]);
-        await ctx.updateTree();
+        await this.commitAndNotify(ctx);
         return 2;
     }
 
@@ -675,12 +696,14 @@ export class ExclusionsService {
      *
      * @param serviceIds List of service IDs to add.
      * @param ctx Profile context to operate on.
+     * @param initialState State assigned to newly created service entries.
      *
      * @returns Amount of added exclusions.
      */
     private async addServices(
         serviceIds: string[],
         ctx: ProfileExclusionsContext,
+        initialState: ExclusionState.Enabled | ExclusionState.Disabled = ExclusionState.Enabled,
     ): Promise<number> {
         const servicesDomainsToAdd = await Promise.all(serviceIds.map(async (id) => {
             const service = await servicesManager.getService(id);
@@ -694,15 +717,15 @@ export class ExclusionsService {
         const servicesDomainsWithWildcards = servicesDomainsToAdd.flat().map((hostname) => {
             const wildcardHostname = `*.${hostname}`;
             return [
-                { value: hostname },
-                { value: wildcardHostname },
+                { value: hostname, enabled: initialState === ExclusionState.Enabled },
+                { value: wildcardHostname, enabled: initialState === ExclusionState.Enabled },
             ];
         }).flat();
 
-        await ctx.currentModeHandler.addExclusions(servicesDomainsWithWildcards);
+        const addedCount = await ctx.currentModeHandler.addExclusions(servicesDomainsWithWildcards);
 
         await ctx.updateTree();
-        return servicesDomainsWithWildcards.length;
+        return addedCount;
     }
 
     /**
@@ -835,11 +858,10 @@ export class ExclusionsService {
         const ctx = await this.getProfileContext(profileId);
         if (ctx.currentModeHandler.mode === ExclusionsMode.Selective) {
             await ctx.currentModeHandler.disableExclusionByUrl(url);
-            await ctx.updateTree();
+            await this.commitAndNotify(ctx);
         } else {
             await this.addUrlToExclusions(profileId, url);
         }
-        notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
     }
 
     /**
@@ -854,9 +876,8 @@ export class ExclusionsService {
             await this.addUrlToExclusions(profileId, url);
         } else {
             await ctx.currentModeHandler.disableExclusionByUrl(url);
-            await ctx.updateTree();
+            await this.commitAndNotify(ctx);
         }
-        notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
     }
 
     /**

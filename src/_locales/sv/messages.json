@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Domännamn"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Ogiltig domän"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Underdomän"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Inaktivera VPN på denna webbplats"
+    },
+    "context_menu_connect": {
+        "message": "Anslut"
+    },
+    "context_menu_disconnect": {
+        "message": "Frånkoppling"
     },
     "endpoints_countries": {
         "message": "Platser"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Nästa"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Vad är din främsta anledning att använda ett VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "För att skydda min integritet"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "För att streama TV-program"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "För att kringgå censuren"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Övrigt"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN krypterar din trafik"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Det är säkert att surfa på webben på ett kafé, hotell eller flygplats"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN spårar dig inte online"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Din data och din surfaktivitet förblir privat"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN erbjuder DNS-skydd"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Blockera annonser och spårare med inbyggd DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Få tillgång till innehåll varifrån som helst"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Titta på dina favorit-TV-program utomlands. Eller upplev streaming-succéer från andra länder på nära håll"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Många platser att välja mellan"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN erbjuder %count%+ säkra platser. Spara dina favoriter för snabb åtkomst | AdGuard VPN erbjuder %count%+ säkra platser. Spara dina favoriter för snabb åtkomst | AdGuard VPN erbjuder %count%+ säkra platser. Spara dina favoriter för snabb åtkomst",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Strömma med hög hastighet"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN krypterar din trafik utan att sakta ner din surfning"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Ta bort geografiska begränsningar"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Surfa på webbplatser som inte är tillgängliga hemifrån med AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Välj vilka webbplatser som använder VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Lägg till lokala webbplatser till undantag, så stängs AdGuard VPN av för dem"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Aktivera DNS-skydd"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Skydda din enhet från skadlig kod med inbyggd DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Höj ditt skydd med Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Krypterad trafik utan hastighetsbegränsningar"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ säkra platser | %count%+ säker plats | %count%+ säkra platser",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Upp till %count% enheter på ett konto | Upp till %count% enhet på ett konto | Upp till %count% enheter på ett konto",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Gör din streaming njutbar med Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Osynlig för streamingtjänster"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ snabba platser | %count%+ snabb plats | %count%+ snabba platser",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Ingen buffring eller hastighetsbegränsningar"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Anpassa VPN till dina behov med Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Krypterad trafik utan hastighetsbegränsningar"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Upp till %count% enheter på ett konto | Upp till %count% enhet på ett konto | Upp till %count% enheter på ett konto",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ säkra platser | %count%+ säker plats | %count%+ säkra platser",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Obegränsad VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Obegränsad hastighet"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Inga hastighetsbegränsningar. Få ut det mesta av din internetleverantör!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Skaffa Unlimited"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Kanske senare"
     },
     "popup_upgrade_screen_title": {
         "message": "Uppgradera till Unlimited"

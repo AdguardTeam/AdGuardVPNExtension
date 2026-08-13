@@ -21,8 +21,10 @@ import {
 import { translator } from '../../../../common/translator';
 import { useTelemetryPageViewEvent } from '../../../../common/telemetry/useTelemetryPageViewEvent';
 import { rootStore } from '../../../stores';
+import { useProfileRouteNavigation } from '../../../hooks/useProfileRouteNavigation';
 import { Title } from '../../ui/Title';
 import { ProfileHint } from '../../ui/ProfileHint';
+import { getProfileRoute } from '../../Profiles/profileRoutes';
 import { Button } from '../../ui/Button';
 
 import { DnsSettingsServer } from './DnsSettingsServer';
@@ -76,6 +78,8 @@ export const DnsSettings = observer(({ profileId, onBack }: DnsSettingsProps) =>
         TelemetryScreenName.SettingsDnsServersScreen,
         canSendTelemetry,
     );
+
+    const handleProfileHintClick = useProfileRouteNavigation(getProfileRoute);
 
     const handleGoBack = (): void => {
         if (onBack) {
@@ -150,7 +154,7 @@ export const DnsSettings = observer(({ profileId, onBack }: DnsSettingsProps) =>
                 title={translator.getMessage('settings_dns_label')}
                 onClick={handleGoBack}
                 className="dns-settings__title"
-                subtitle={<ProfileHint profileId={profileId} />}
+                subtitle={!profileId && <ProfileHint onClick={handleProfileHintClick} />}
                 subtitleIndent={false}
             />
 

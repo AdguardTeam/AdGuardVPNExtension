@@ -34,7 +34,7 @@ export const useMessageHandler = (): void => {
     const messageHandler = async (message: NotifierMessage): Promise<void> => {
         switch (message.type) {
             case notifier.types.EXCLUSIONS_DATA_UPDATED: {
-                await exclusionsStore.updateExclusionsData();
+                await exclusionsStore.updateExclusionsData(message.data);
                 break;
             }
             case notifier.types.USER_AUTHENTICATED: {

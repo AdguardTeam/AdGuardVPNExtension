@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Meno domény"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Neplatná doména"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Subdoména"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Vypnúť VPN na tejto stránke"
+    },
+    "context_menu_connect": {
+        "message": "Pripojiť"
+    },
+    "context_menu_disconnect": {
+        "message": "Odpojiť"
     },
     "endpoints_countries": {
         "message": "Lokality"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Ďalej"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Aký je váš hlavný dôvod na používanie VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Na ochranu môjho súkromia"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Na streamovanie televíznych relácií"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Ako obísť cenzúru"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Iné"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN šifruje vašu prevádzku"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Prehliadanie webu v kaviarni, hoteli alebo na letisku je bezpečné"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN vás nesleduje online"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Vaše údaje a aktivita prehliadania zostávajú súkromné"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN poskytuje ochranu DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Blokujte reklamy a sledovacie nástroje pomocou integrovaného DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Prístup k obsahu odkiaľkoľvek"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Sledujte svoje obľúbené televízne relácie v zahraničí. Alebo zažiť na vlastnej koži hity zo streamovania z iných krajín"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Veľa lokalít na výber"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN ponúka %count%+ bezpečné umiestnenia. Uložte si svoje obľúbené pre rýchly prístup | AdGuard VPN ponúka %count%+ bezpečné umiestnenie. Uložte si svoje obľúbené pre rýchly prístup | AdGuard VPN ponúka %count%+ bezpečné umiestnenia. Uložte si svoje obľúbené pre rýchly prístup | AdGuard VPN ponúka %count%+ bezpečné umiestnenia. Uložte si svoje obľúbené pre rýchly prístup",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Streamujte vo vysokej rýchlosti"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN šifruje vašu prevádzku bez spomalenia prehliadania"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Odstrániť geografické obmedzenia"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Prehliadajte webové stránky, ktoré nie sú dostupné doma, pomocou AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Vyberte, ktoré webové stránky používajú VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Pridajte lokálne webové stránky do vylúčení a AdGuard VPN sa pre ne vypne"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Zapnúť DNS ochranu"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Chráňte svoje zariadenie pred škodlivým softvérom pomocou vstavaného DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Zvýšte svoju ochranu na vyššiu úroveň s Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Šifrovaná prevádzka bez obmedzení rýchlosti"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ zabezpečené lokality | %count%+ zabezpečená lokalita | %count%+ zabezpečené lokality | %count%+ zabezpečené lokality",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Až %count% zariadení na jednom účte | Až %count% zariadenie na jednom účte | Až %count% zariadení na jednom účte | Až %count% zariadení na jednom účte",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Urobte si streamovanie príjemným s Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Neviditeľný pre streamovacie služby"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ rýchle umiestnenia | %count%+ rýchle umiestnenie | %count%+ rýchle umiestnenia | %count%+ rýchle umiestnenia",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Žiadne obmedzenia na vyrovnávaciu pamäť ani rýchlosť"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Prispôsobte si VPN svojim potrebám s Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Šifrovaná prevádzka bez obmedzení rýchlosti"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Až %count% zariadení na jednom účte | Až %count% zariadenie na jednom účte | Až %count% zariadení na jednom účte | Až %count% zariadení na jednom účte",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ zabezpečené lokality | %count%+ zabezpečená lokalita | %count%+ zabezpečené lokality | %count%+ zabezpečené lokality",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Neobmedzená VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Neobmedzená rýchlosť"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Bez obmedzenia rýchlosti. Získajte maximum od svojho internetového operátora!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Získajte neobmedzené"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Možno neskôr"
     },
     "popup_upgrade_screen_title": {
         "message": "Upgradovať na Unlimited"

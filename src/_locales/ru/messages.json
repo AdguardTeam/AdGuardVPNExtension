@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Домен"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Неверный домен"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Поддомен"
     },
@@ -710,6 +713,12 @@
     "context_menu_disable_vpn": {
         "message": "Не использовать VPN на этом сайте"
     },
+    "context_menu_connect": {
+        "message": "Подключить"
+    },
+    "context_menu_disconnect": {
+        "message": "Отключить"
+    },
     "endpoints_countries": {
         "message": "Локации"
     },
@@ -949,7 +958,7 @@
         "message": "Отправляет анонимизированные <link>данные об использовании расширения</link>"
     },
     "popup_auth_policy_agreement_continue_button": {
-        "message": "Войдите или создайте аккаунт"
+        "message": "Войти или зарегистрироваться"
     },
     "popup_newsletter_title": {
         "message": "Рассылка AdGuard"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Далее"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Почему вы пользуетесь VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "Чтобы защитить данные"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "Чтобы пользоваться стриминговыми сервисами"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "Чтобы обойти цензуру"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Другое"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN шифрует ваш трафик"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Пользоваться интернетом в кафе, отеле или аэропорту безопасно"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN не отслеживает ваши действия в интернете"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Ваши данные и история поиска остаются только вашими"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "В AdGuard VPN есть DNS-защита"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Блокируйте рекламу и трекеры с помощью встроенного DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Получайте доступ к контенту откуда угодно"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Смотрите любимые сериалы, находясь за границей. Или погрузитесь в мир хитов стриминга из других стран"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Множество локаций на выбор"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "В AdGuard VPN есть %count%+ безопасных локаций. Добавьте избранные в список для быстрого доступа | В AdGuard VPN есть %count%+ безопасная локация. Добавьте избранные в список для быстрого доступа | В AdGuard VPN есть %count%+ безопасных локации. Добавьте избранные в список для быстрого доступа | В AdGuard VPN есть %count%+ безопасных локаций. Добавьте избранные в список для быстрого доступа",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Стримьте на высокой скорости"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN шифрует трафик, не замедляя работу браузера"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Снимите географические ограничения"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Открывайте сайты, недоступные дома, с помощью AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Выберите, какие сайты используют VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Добавляйте локальные сайты в исключения, и AdGuard VPN не будет работать на них"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Включить DNS-защиту"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Защитите устройство от вредоносного ПО с помощью встроенного DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Повысьте уровень защиты с подпиской"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Зашифрованный трафик без ограничений скорости"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ безопасная локация | %count%+ безопасных локации | %count%+ безопасных локаций | %count%+ безопасных локаций",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "До %count% устройств в одном аккаунте | До %count% устройства в одном аккаунте | До %count% устройств в одном аккаунте | До %count% устройств в одном аккаунте",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Пользуйтесь стриминговыми сервисами с подпиской"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Невидим для стриминговых сервисов"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ быстрых локаций | %count%+ быстрая локация | %count%+ быстрые локации | %count%+ быстрых локаций",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Без буферизации и ограничений скорости"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Настройте VPN под свои потребности с подпиской"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Зашифрованный трафик без ограничений скорости"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "До %count% устройств в одном аккаунте | До %count% устройства в одном аккаунте | До %count% устройств в одном аккаунте | До %count% устройств в одном аккаунте",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ безопасная локация | %count%+ безопасных локации | %count%+ безопасных локаций | %count%+ безопасных локаций",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Безлимитный VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Неограниченная скорость"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Никаких ограничений скорости. Получите максимум возможностей вашего провайдера!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Купить подписку"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Не сейчас"
     },
     "popup_upgrade_screen_title": {
         "message": "Получите безлимитный трафик"

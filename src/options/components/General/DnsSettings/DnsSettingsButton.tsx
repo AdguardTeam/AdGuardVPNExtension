@@ -4,7 +4,10 @@ import { observer } from 'mobx-react';
 import { translator } from '../../../../common/translator';
 import { IconButton } from '../../../../common/components/Icons';
 import { rootStore } from '../../../stores';
+import { useProfileRouteNavigation } from '../../../hooks/useProfileRouteNavigation';
 import { Controls } from '../../ui/Controls';
+import { ProfileHint } from '../../ui/ProfileHint';
+import { getProfileRoute } from '../../Profiles/profileRoutes';
 
 interface DnsSettingsButtonProps {
     /**
@@ -28,6 +31,8 @@ export const DnsSettingsButton = observer(({ profileId, onClick }: DnsSettingsBu
         ? dnsStore.getProfileDnsServerName(profileId)
         : dnsStore.currentDnsServerName;
 
+    const handleProfileHintClick = useProfileRouteNavigation(getProfileRoute);
+
     const handleClick = (): void => {
         if (onClick) {
             onClick();
@@ -47,6 +52,9 @@ export const DnsSettingsButton = observer(({ profileId, onClick }: DnsSettingsBu
                     {translator.getMessage('settings_description_current', {
                         mode: dnsServerName,
                     })}
+                    {!profileId && (
+                        <ProfileHint onClick={handleProfileHintClick} />
+                    )}
                 </>
             )}
             action={<IconButton name="arrow-down" rotation="clockwise" />}

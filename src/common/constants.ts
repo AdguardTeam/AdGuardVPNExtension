@@ -12,6 +12,7 @@ import { type LocationWithPing } from '../background/endpoints/LocationWithPing'
 import { type RequestSupportResponse } from '../background/providers/vpnProvider';
 import { type ForwarderUrlQueryKey } from '../background/config';
 import { type PopupDataRetry } from '../background/popupData/popupDataTypes';
+import { type VariantCache } from '../background/abTestManager/ABTestManager';
 import {
     type TelemetryActionName,
     type TelemetryActionToScreenMap,
@@ -163,6 +164,7 @@ export enum MessageType {
     ADD_REGULAR_EXCLUSIONS = 'add.regular.exclusions',
     ADD_SELECTIVE_EXCLUSIONS = 'add.selective.exclusions',
     SET_FLAG = 'set.flag',
+    SET_ONBOARDING_GOAL = 'set.onboarding.goal',
     GET_GENERAL_EXCLUSIONS = 'get.general.exclusions',
     GET_SELECTIVE_EXCLUSIONS = 'get.selective.exclusions',
     OPEN_FREE_GBS_PAGE = 'open.free.gbs.page',
@@ -222,6 +224,30 @@ export const FLAGS_FIELDS = {
     SHOW_UPGRADE_SCREEN: 'showUpgradeScreen',
     SALE_SHOW: 'saleShow',
     SHOULD_SHOW_RATE_MODAL: 'shouldShowRateModal',
+    // AG-55378 personalized onboarding: selected goal flags (mutually exclusive)
+    ONBOARDING_GOAL_PRIVACY: 'onboardingGoalPrivacy',
+    ONBOARDING_GOAL_STREAMING: 'onboardingGoalStreaming',
+    ONBOARDING_GOAL_BYPASS: 'onboardingGoalBypass',
+};
+
+/**
+ * Ordered list of personalized onboarding goals.
+ */
+export const ONBOARDING_GOALS = ['privacy', 'streaming', 'bypass'] as const;
+
+/**
+ * User's selected VPN usage goal in the personalized onboarding (AG-55378).
+ */
+export type OnboardingGoal = typeof ONBOARDING_GOALS[number];
+
+/**
+ * Maps each personalized onboarding goal to the boolean flag field that
+ * persists it across popup reopen/close.
+ */
+export const ONBOARDING_GOAL_FLAG: Record<OnboardingGoal, string> = {
+    privacy: FLAGS_FIELDS.ONBOARDING_GOAL_PRIVACY,
+    streaming: FLAGS_FIELDS.ONBOARDING_GOAL_STREAMING,
+    bypass: FLAGS_FIELDS.ONBOARDING_GOAL_BYPASS,
 };
 
 /**
@@ -267,6 +293,7 @@ export interface GetStartupDataResponse {
     marketingConsent: boolean | null;
     isPremiumToken: boolean;
     selectedLanguage: LocalePreference;
+    experimentVariants: VariantCache;
 }
 
 type DefaultMessage <T> = {
@@ -593,6 +620,19 @@ export type SetFlagMessage = {
     data: {
         key: string;
         value: boolean;
+    };
+};
+
+/**
+ * Message payload for atomically updating personalized onboarding goal flags.
+ */
+export type SetOnboardingGoalMessage = {
+    type: MessageType.SET_ONBOARDING_GOAL;
+    data: {
+        /**
+         * Selected onboarding goal, or `null` to clear all goal flags.
+         */
+        goal: OnboardingGoal | null;
     };
 };
 
@@ -925,6 +965,10 @@ export interface MessageMap {
     };
     [MessageType.SET_FLAG]: {
         message: SetFlagMessage;
+        response: void;
+    };
+    [MessageType.SET_ONBOARDING_GOAL]: {
+        message: SetOnboardingGoalMessage;
         response: void;
     };
     [MessageType.HIDE_RATE_MODAL_AFTER_CANCEL]: {

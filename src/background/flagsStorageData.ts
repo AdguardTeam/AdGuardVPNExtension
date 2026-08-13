@@ -9,4 +9,8 @@ export const FLAG_STORAGE_DEFAULTS: FlagsStorageData = {
     [FLAGS_FIELDS.SHOW_ONBOARDING]: true,
     // upgrade screen should be displayed for non-premium users after onboarding screen
     [FLAGS_FIELDS.SHOW_UPGRADE_SCREEN]: true,
+    // AG-55378 personalized onboarding goal selection (mutually exclusive)
+    [FLAGS_FIELDS.ONBOARDING_GOAL_PRIVACY]: false,
+    [FLAGS_FIELDS.ONBOARDING_GOAL_STREAMING]: false,
+    [FLAGS_FIELDS.ONBOARDING_GOAL_BYPASS]: false,
 };

@@ -1,10 +1,14 @@
 import { action, computed, observable } from 'mobx';
 
 import { type VariantCache } from '../../background/abTestManager/ABTestManager';
-import { AG49792_PAYWALL_SLOT, AG49792_PAYWALL_B_VERSION_NAME } from '../../background/abTestManager/constants';
 import { messenger } from '../../common/messenger';
+import { ONBOARDING_GOALS, ONBOARDING_GOAL_FLAG, type OnboardingGoal } from '../../common/constants';
+import { AG55378_ONBOARDING_B_VERSION_NAME, AG55378_ONBOARDING_SLOT } from '../../background/abTestManager/constants';
 
 import type { RootStore } from './RootStore';
+
+export type { OnboardingGoal } from '../../common/constants';
+export { ONBOARDING_GOALS } from '../../common/constants';
 
 export class UiStore {
     @observable public isOpenLocationsScreen: boolean = false;
@@ -69,6 +73,12 @@ export class UiStore {
      * Cached A/B experiment variant assignments.
      */
     @observable private experimentVariants: VariantCache = {};
+
+    /**
+     * Selected onboarding goal for the AG-55378 personalized onboarding.
+     * `null` until a goal is chosen; stays `null` if the choice screen is closed.
+     */
+    @observable public onboardingGoal: OnboardingGoal | null = null;
 
     /**
      * Streaming platforms to display in the modal.
@@ -214,10 +224,31 @@ export class UiStore {
     }
 
     /**
-     * Whether paywall B variant should be shown.
-     * Part of AG-49792 AB test task.
+     * Sets the selected onboarding goal for the personalized onboarding flow,
+     * persisting it to flags storage so it survives a popup close/reopen.
+     *
+     * @param goal Selected goal, or `null` when the choice screen is closed.
      */
-    @computed public get isPaywallBVariant(): boolean {
-        return this.experimentVariants[AG49792_PAYWALL_SLOT] === AG49792_PAYWALL_B_VERSION_NAME;
+    @action public setOnboardingGoal(goal: OnboardingGoal | null): Promise<void> {
+        this.onboardingGoal = goal;
+        return messenger.setOnboardingGoal(goal);
+    }
+
+    /**
+     * Restores the selected onboarding goal from persisted flags storage data
+     * (e.g. after the popup is reopened).
+     *
+     * @param flagsStorageData Flags storage data from the background.
+     */
+    @action public setOnboardingGoalFromFlags(flagsStorageData: { [key: string]: boolean }): void {
+        const matchedGoal = ONBOARDING_GOALS.find((goal) => flagsStorageData[ONBOARDING_GOAL_FLAG[goal]]);
+        this.onboardingGoal = matchedGoal ?? null;
+    }
+
+    /**
+     * Whether the AG-55378 personalized onboarding test variant should be shown.
+     */
+    @computed public get isPersonalizedOnboardingVariant(): boolean {
+        return this.experimentVariants[AG55378_ONBOARDING_SLOT] === AG55378_ONBOARDING_B_VERSION_NAME;
     }
 }

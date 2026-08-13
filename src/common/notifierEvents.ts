@@ -50,7 +50,7 @@ export interface NotifierEventArgsMap {
     [NotifierType.TAB_UPDATED]: [tab: PreparedTab];
     [NotifierType.TAB_ACTIVATED]: [tab: PreparedTab];
     [NotifierType.EXCLUSIONS_UPDATED_BACK_MESSAGE]: [];
-    [NotifierType.EXCLUSIONS_DATA_UPDATED]: [];
+    [NotifierType.EXCLUSIONS_DATA_UPDATED]: [profileId: string];
     [NotifierType.SHOULD_REFRESH_TOKENS]: [];
     [NotifierType.DNS_SERVER_SET]: [address: string];
     [NotifierType.UPDATE_BROWSER_ACTION_ICON]: [];
@@ -95,7 +95,7 @@ export type NotifierMessage =
     | { type: NotifierType.TAB_UPDATED; data: PreparedTab }
     | { type: NotifierType.TAB_ACTIVATED; data: PreparedTab }
     | { type: NotifierType.EXCLUSIONS_UPDATED_BACK_MESSAGE }
-    | { type: NotifierType.EXCLUSIONS_DATA_UPDATED }
+    | { type: NotifierType.EXCLUSIONS_DATA_UPDATED; data: string }
     | { type: NotifierType.SHOULD_REFRESH_TOKENS }
     | { type: NotifierType.DNS_SERVER_SET; data: string }
     | { type: NotifierType.UPDATE_BROWSER_ACTION_ICON }

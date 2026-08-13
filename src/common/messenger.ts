@@ -22,6 +22,7 @@ import {
     type ExtractMessageData,
     type Message,
     type QuickConnectSetting,
+    type OnboardingGoal,
 } from './constants';
 import { type NotifierType } from './notifier';
 import { type NotifierMessage } from './notifierEvents';
@@ -629,6 +630,20 @@ class Messenger {
     public async setFlag(key: string, value: boolean): Promise<ExtractMessageResponse<MessageType.SET_FLAG>> {
         const type = MessageType.SET_FLAG;
         return this.sendMessage(type, { key, value });
+    }
+
+    /**
+     * Atomically persists the selected personalized onboarding goal flags.
+     *
+     * @param goal Selected goal, or `null` to clear all goal flags.
+     *
+     * @returns Promise that resolves when the goal flags are set.
+     */
+    public async setOnboardingGoal(
+        goal: OnboardingGoal | null,
+    ): Promise<ExtractMessageResponse<MessageType.SET_ONBOARDING_GOAL>> {
+        const type = MessageType.SET_ONBOARDING_GOAL;
+        return this.sendMessage(type, { goal });
     }
 
     public getGeneralExclusions(profileId: string):

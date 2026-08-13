@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "Domenenavn"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "Ugyldig domene"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "Underdomene"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "Skru av VPN på dette nettstedet"
+    },
+    "context_menu_connect": {
+        "message": "Koble til"
+    },
+    "context_menu_disconnect": {
+        "message": "Koble fra"
     },
     "endpoints_countries": {
         "message": "Steder"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "Neste"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "Hva er din hovedgrunn til å bruke VPN?"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "For å beskytte mitt privatliv"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "For å strømme TV-serier"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "For å omgå sensur"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "Andre"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "AdGuard VPN krypterer trafikken din"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "Det er trygt å surfe på nettet på en kafé, et hotell eller en flyplass"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "AdGuard VPN sporer deg ikke på nettet"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "Dine data og nettleseraktivitet forblir private"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "AdGuard VPN gir DNS-beskyttelse"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "Blokker annonser og trackere med innebygd DNS"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "Få tilgang til innhold fra hvor som helst"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "Se favoritt-TV-programmene dine mens du er i utlandet. Eller opplev strømme-hits fra andre land på nært hold"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "Mange steder å velge mellom"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "AdGuard VPN tilbyr %count%+ sikre steder. Lagre favorittstedene dine for rask tilgang | AdGuard VPN tilbyr %count%+ sikker plassering. Lagre favorittstedene dine for rask tilgang | AdGuard VPN tilbyr %count%+ sikre steder. Lagre favorittstedene dine for rask tilgang",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "Strøm med høye hastigheter"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "AdGuard VPN krypterer trafikken din uten å bremse nettlesingen din"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "Fjern geografiske begrensninger"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "Surf på nettsteder som ikke er tilgjengelige hjemme med AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "Velg hvilke nettsteder som bruker VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "Legg til lokale nettsteder i unntak, så slår AdGuard VPN seg av for dem"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "Skru på DNS-beskyttelse"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "Beskytt enheten din mot skadelig programvare med innebygd DNS"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "Øk beskyttelsen din med Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "Kryptert trafikk uten fartsgrenser"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ sikre steder | %count%+ sikker plassering | %count%+ sikre steder",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "Opptil %count% enheter på én konto | Opptil %count% enhet på én konto | Opptil %count% enheter på én konto",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "Gjør strømmen din morsom med Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "Usynlig for strømmetjenester"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ raske lokasjoner | %count%+ rask plassering | %count%+ raske lokasjoner",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "Ingen bufring eller fartsgrenser"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "Tilpass VPN til dine behov med Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "Kryptert trafikk uten fartsgrenser"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "Opptil %count% enheter på én konto | Opptil %count% enhet på én konto | Opptil %count% enheter på én konto",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ sikre steder | %count%+ sikker plassering | %count%+ sikre steder",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "Ubegrenset VPN"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "Ubegrenset hastighet"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "Ingen hastighetsbegrensninger. Få mest mulig ut av tjenesteleverandøren din!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "Få Unlimited"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "Kanskje senere"
     },
     "popup_upgrade_screen_title": {
         "message": "Oppgrader til Ubegrenset"

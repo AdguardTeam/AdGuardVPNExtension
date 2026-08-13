@@ -470,6 +470,9 @@
     "settings_exclusion_domain_name": {
         "message": "اسم النطاق"
     },
+    "settings_exclusion_invalid_domain": {
+        "message": "نطاق غير صالح"
+    },
     "settings_exclusion_subdomain_name": {
         "message": "النطاق الفرعي"
     },
@@ -709,6 +712,12 @@
     },
     "context_menu_disable_vpn": {
         "message": "تعطيل VPN على هذا الموقع الإلكتروني"
+    },
+    "context_menu_connect": {
+        "message": "اتصال"
+    },
+    "context_menu_disconnect": {
+        "message": "قطع الاتصال"
     },
     "endpoints_countries": {
         "message": "المواقع"
@@ -983,6 +992,132 @@
     },
     "popup_onboarding_next": {
         "message": "التالي"
+    },
+    "popup_onboarding_choice_title": {
+        "message": "ما هو السبب الرئيسي لاستخدامك لشبكة VPN؟"
+    },
+    "popup_onboarding_choice_privacy": {
+        "message": "لحماية خصوصيتي"
+    },
+    "popup_onboarding_choice_streaming": {
+        "message": "لمشاهدة البرامج التلفزيونية"
+    },
+    "popup_onboarding_choice_bypass": {
+        "message": "للتحايل على الرقابة"
+    },
+    "popup_onboarding_choice_other": {
+        "message": "أخرى"
+    },
+    "popup_onboarding_privacy_1_title": {
+        "message": "يقوم برنامج AdGuard VPN بتشفير بياناتك"
+    },
+    "popup_onboarding_privacy_1_info": {
+        "message": "من الآمن تصفح الإنترنت في المقهى أو الفندق أو المطار"
+    },
+    "popup_onboarding_privacy_2_title": {
+        "message": "لا يقوم برنامج AdGuard VPN بتتبعك عبر الإنترنت"
+    },
+    "popup_onboarding_privacy_2_info": {
+        "message": "بياناتك ونشاط التصفح الخاص بك تبقى خاصة"
+    },
+    "popup_onboarding_privacy_3_title": {
+        "message": "يوفر AdGuard VPN حماية DNS"
+    },
+    "popup_onboarding_privacy_3_info": {
+        "message": "حظر الإعلانات والمتتبعات التي تحتوي على DNS مدمج"
+    },
+    "popup_onboarding_streaming_1_title": {
+        "message": "الوصول إلى المحتوى من أي مكان"
+    },
+    "popup_onboarding_streaming_1_info": {
+        "message": "شاهد برامجك التلفزيونية المفضلة أثناء وجودك في الخارج. أو اختبر مباشرة نتائج البث المباشر من دول أخرى"
+    },
+    "popup_onboarding_streaming_2_title": {
+        "message": "مواقع عديدة للاختيار من بينها"
+    },
+    "popup_onboarding_streaming_2_info": {
+        "message": "يوفر AdGuard VPN %count%+ موقع آمن. احفظ مواقعك المفضلة للوصول السريع إليها. | يوفر AdGuard VPN %count%+ موقع آمن. احفظ مواقعك المفضلة للوصول السريع إليها. | يوفر AdGuard VPN %count%+ موقعين آمنين. احفظ مواقعك المفضلة للوصول السريع إليها. | يوفر AdGuard VPN %count%+ مواقع آمنة. احفظ مواقعك المفضلة للوصول السريع إليها. | يوفر AdGuard VPN %count%+ موقعًا آمنًا. احفظ مواقعك المفضلة للوصول السريع إليها. | يوفر AdGuard VPN %count%+ موقع آمن. احفظ مواقعك المفضلة للوصول السريع إليها.",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_onboarding_streaming_3_title": {
+        "message": "البث بسرعات عالية"
+    },
+    "popup_onboarding_streaming_3_info": {
+        "message": "يقوم AdGuard VPN بتشفير بياناتك دون إبطاء تصفحك للإنترنت"
+    },
+    "popup_onboarding_bypass_1_title": {
+        "message": "إزالة القيود الجغرافية"
+    },
+    "popup_onboarding_bypass_1_info": {
+        "message": "تصفح المواقع الإلكترونية غير المتاحة في المنزل باستخدام AdGuard VPN"
+    },
+    "popup_onboarding_bypass_2_title": {
+        "message": "اختر مواقع الويب التي تستخدم VPN"
+    },
+    "popup_onboarding_bypass_2_info": {
+        "message": "أضف المواقع المحلية إلى قائمة الاستثناءات، وسيتم إيقاف تشغيل AdGuard VPN لها"
+    },
+    "popup_onboarding_bypass_3_title": {
+        "message": "تمكين حماية DNS"
+    },
+    "popup_onboarding_bypass_3_info": {
+        "message": "احم جهازك من البرمجيات الخبيثة باستخدام DNS مدمج"
+    },
+    "popup_paywall_privacy_title": {
+        "message": "قم بمستوى الحماية مع Unlimited"
+    },
+    "popup_paywall_privacy_feature_1": {
+        "message": "حركة مرور مشفرة بدون حدود سرعة"
+    },
+    "popup_paywall_privacy_feature_2": {
+        "message": "%count%+ موقع آمن | %count%+ موقع آمن | %count%+ موقعين آمنين | %count%+ مواقع آمنة | %count%+ موقعًا آمنًا | %count%+ موقع آمن",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_privacy_feature_3": {
+        "message": "حتى %count% جهاز في حساب واحد | حتى %count% جهاز في حساب واحد | حتى %count% جهازين في حساب واحد | حتى %count% أجهزة في حساب واحد | حتى %count% جهازًا في حساب واحد | حتى %count% جهاز في حساب واحد",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_title": {
+        "message": "اجعل بثك ممتعا مع Unlimited"
+    },
+    "popup_paywall_streaming_feature_1": {
+        "message": "غير مرئي لخدمات البث"
+    },
+    "popup_paywall_streaming_feature_2": {
+        "message": "%count%+ موقع سريع | %count%+ موقع سريع | %count%+ موقعين سريعين | %count%+ مواقع سريعة | %count%+ موقعًا سريعًا | %count%+ موقع سريع",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_streaming_feature_3": {
+        "message": "لا يوجد تخزين مؤقت أو حدود سرعة"
+    },
+    "popup_paywall_bypass_title": {
+        "message": "قم بتكييف VPN حسب احتياجاتك مع Unlimited"
+    },
+    "popup_paywall_bypass_feature_1": {
+        "message": "حركة مرور مشفرة بدون حدود سرعة"
+    },
+    "popup_paywall_bypass_feature_2": {
+        "message": "حتى %count% جهاز في حساب واحد | حتى %count% جهاز في حساب واحد | حتى %count% جهازين في حساب واحد | حتى %count% أجهزة في حساب واحد | حتى %count% جهازًا في حساب واحد | حتى %count% جهاز في حساب واحد",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_bypass_feature_3": {
+        "message": "%count%+ موقع آمن | %count%+ موقع آمن | %count%+ موقعين آمنين | %count%+ مواقع آمنة | %count%+ موقعًا آمنًا | %count%+ موقع آمن",
+        "description": "Do not remove or translate %count% — it is replaced with a number at runtime. Provide all plural forms divided by |"
+    },
+    "popup_paywall_basic_title": {
+        "message": "VPN غير محدود"
+    },
+    "popup_paywall_basic_feature_title": {
+        "message": "سرعة غير محدودة"
+    },
+    "popup_paywall_basic_feature_info": {
+        "message": "لا قيود للسرعة. احصل على أقصى استفادة من مزود الخدمة الخاص بك!"
+    },
+    "popup_paywall_get_unlimited": {
+        "message": "احصل على Unlimited"
+    },
+    "popup_paywall_maybe_later": {
+        "message": "ربما لاحقا"
     },
     "popup_upgrade_screen_title": {
         "message": "قم بالترقية إلى الغير محدود"

@@ -78,6 +78,13 @@ export interface TelemetryInterface {
      * @param pageId ID of page to remove.
      */
     removeOpenedPage(pageId: string): void;
+
+    /**
+     * Ensures experiment variant assignment has completed when telemetry is enabled
+     * and unassigned registry slots remain. Used by popup startup/data paths so
+     * onboarding receives a stable assignment snapshot.
+     */
+    ensureExperimentAssignment(): Promise<void>;
 }
 
 /**
@@ -256,10 +263,10 @@ export class Telemetry implements TelemetryInterface {
     private isInitialized = false;
 
     /**
-     * Flag indicating whether a session_start request is currently in progress.
-     * Prevents concurrent session_start calls.
+     * In-flight session_start promise. Shared so callers can await assignment
+     * and concurrent starts reuse the same request.
      */
-    private sessionStartInProgress = false;
+    private sessionStartPromise: Promise<void> | null = null;
 
     /**
      * Synthetic ID.
@@ -359,31 +366,60 @@ export class Telemetry implements TelemetryInterface {
 
     /**
      * Sends a session_start request to request A/B experiment variant assignments.
-     * Fire-and-forget: errors are caught and logged; the extension continues normally.
-     * Prevents concurrent calls using sessionStartInProgress flag.
+     * Errors are caught and logged; the extension continues normally.
+     * Concurrent callers share the same in-flight promise.
+     *
+     * @returns Promise that resolves when the request finishes (success or failure).
      */
     private runSessionStart = async (): Promise<void> => {
         if (!this.settings.isHelpUsImproveEnabled()) {
             return;
         }
 
-        if (this.sessionStartInProgress) {
+        if (this.sessionStartPromise) {
+            await this.sessionStartPromise;
             return;
         }
 
-        this.sessionStartInProgress = true;
+        const sessionStart = async (): Promise<void> => {
+            try {
+                const tests = await this.abTestManager.getTestsPayload();
+                const baseData = await this.getBaseData();
 
-        try {
-            const tests = await this.abTestManager.getTestsPayload();
-            const baseData = await this.getBaseData();
+                const response = await telemetryApi.sendSessionStart(baseData, tests);
+                await this.abTestManager.processResponse(response);
+            } catch (e) {
+                log.debug('[vpn.Telemetry]: session_start failed', e);
+            } finally {
+                this.sessionStartPromise = null;
+            }
+        };
 
-            const response = await telemetryApi.sendSessionStart(baseData, tests);
-            await this.abTestManager.processResponse(response);
-        } catch (e) {
-            log.debug('[vpn.Telemetry]: session_start failed', e);
-        } finally {
-            this.sessionStartInProgress = false;
+        this.sessionStartPromise = sessionStart();
+        await this.sessionStartPromise;
+    };
+
+    /**
+     * Waits for any in-flight session_start, or runs one when telemetry is
+     * enabled and registry slots still need assignment. No-ops when help-us-improve
+     * is disabled or every registered experiment already has a cached variant.
+     */
+    public ensureExperimentAssignment = async (): Promise<void> => {
+        if (!this.settings.isHelpUsImproveEnabled()) {
+            return;
         }
+
+        if (this.sessionStartPromise) {
+            await this.sessionStartPromise;
+            return;
+        }
+
+        const tests = await this.abTestManager.getTestsPayload();
+        if (Object.keys(tests).length === 0) {
+            return;
+        }
+
+        await this.runSessionStart();
     };
 
     /**
