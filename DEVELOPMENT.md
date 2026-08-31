@@ -113,6 +113,12 @@ Build output: `build/dev/<browser>/`
 | `pnpm compile-proto` | Compile protobuf schemas |
 | `pnpm bundle-size check <env> [browser]` | Check bundle sizes |
 
+> **Note on versioning:** `package.json` intentionally carries no `version`
+> field (same model as AGLint) — nothing on `master` maintains it. CI always
+> stamps the version before building: `ci.yml` sets a `-dev` version via
+> `ext-shared-actions/set-dev-version`, and `publish-release.yml` injects the
+> tag version. Local dev builds fall back to `0.0.0` in the manifest.
+
 Supported browsers: `chrome`, `firefox`, `edge`, `opera`
 
 ### Before Committing
@@ -168,6 +174,10 @@ pnpm crx:release
 Certificates required for beta/release:
 - `./private/AdguardVPN/certificate-beta.pem`
 - `./private/AdguardVPN/certificate-release.pem`
+
+In CI the certificates are loaded from Vault and mounted as BuildKit
+secrets (never stored in the repo); see [DEPLOYMENT.md](DEPLOYMENT.md).
+Pipelines live under `.github/workflows/` — Bamboo is no longer used.
 
 Generate your own certificate:
 

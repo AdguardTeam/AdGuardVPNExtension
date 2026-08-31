@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.11.1]
+## [Unreleased]
+
+### Added
+
+### Changed
+
+- Migrated CI/CD from Bamboo to GitHub Actions.
+
+### Deprecated
+
+### Removed
+
+- `build.txt` build artifact (was only consumed by the Bamboo pipelines).
+
+### Fixed
+
+### Security
+
+## [2.11.1] - 2026-08-13
 
 ### Added
 
@@ -21,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#37]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/37
 [#250]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/250
 
-[2.11.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.10.4...HEAD
+[2.11.1]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.10.4...v2.11.1
 
 ## [2.10.4] - 2026-06-18
 
@@ -306,3 +324,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#149]: https://github.com/AdguardTeam/AdGuardVPNExtension/issues/149
 
 [@adguard/logger]: https://github.com/AdguardTeam/tsurlfilter/blob/master/packages/logger/CHANGELOG.md
+
+[Unreleased]: https://github.com/AdguardTeam/AdGuardVPNExtension/compare/v2.11.1...HEAD

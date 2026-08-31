@@ -20,6 +20,10 @@ import { authService } from '../authentication/authService';
 import { credentialsService } from '../credentials/credentialsService';
 import { type FallbackInfo, StorageKey } from '../schema';
 
+// package.json carries no version on master (CI stamps it before building);
+// fall back for local dev builds.
+const packageVersion = (pJSON as { version?: string }).version || '0.0.0';
+
 /**
  * DNS over HTTPS (DoH) URLs.
  *
@@ -354,7 +358,7 @@ export class FallbackApi {
      * @returns Prefix for api hostname.
      */
     private getBasePrefix = (): string => {
-        const applicationVersion = `${APPLICATION_VERSION_PREFIX}${pJSON.version.replaceAll('.', '-')}`;
+        const applicationVersion = `${APPLICATION_VERSION_PREFIX}${packageVersion.replaceAll('.', '-')}`;
         return `${WHOAMI_VERSION}.${APPLICATION_TYPE}.${applicationVersion}`;
     };
 

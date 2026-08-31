@@ -29,22 +29,22 @@ echo "VPN_API_URL=${VPN_API_URL}" >> .env
 echo "AUTH_API_URL=${AUTH_API_URL}" >> .env
 echo "FORWARDER_DOMAIN=${FORWARDER_DOMAIN}" >> .env
 
-# Build exclusion patterns via shared script.
-# Prefers gitignore-excludes.txt (generated on host by generate-find-excludes.sh),
-# falls back to .gitignore parsing if gitignore-excludes.txt is not available.
+# Build exclusion patterns via shared script from gitignore-excludes.txt
+# (generated on the host by generate-find-excludes.sh, where .git is
+# available). There is no .gitignore fallback: its patterns are not fully
+# representable as find predicates, so the script fails if the file is
+# missing.
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$SCRIPT_DIR/parse-gitignore.sh" gitignore-excludes.txt
 
 # Find all files and add to zip using a null-delimited pipeline (safe for any filename),
-# excluding .git, .env (added explicitly below), and .gitignore patterns.
-find . -type f ! -path './.git/*' ! -name '.env' "${GITIGNORE_EXCLUDE_ARGS[@]}" \
+# excluding .git, .github (workflows/runner config), .env (added explicitly
+# below), and .gitignore patterns.
+find . -type f ! -path './.git/*' ! -path './.github/*' ! -name '.env' "${GITIGNORE_EXCLUDE_ARGS[@]}" \
   -print0 | xargs -0 zip "$OUTPUT_ZIP"
 
 # Add .env explicitly.
 zip "$OUTPUT_ZIP" .env
-
-# Remove README_FIREFOX.md from source.zip (build instructions are appended below)
-zip -d "$OUTPUT_ZIP" "bamboo-specs/scripts/README_FIREFOX.md" 2>/dev/null || true
 
 # Append Firefox Add-ons Review team build instructions to README.md inside source.zip.
 # The review instructions are embedded here as a heredoc so everything stays in one file.

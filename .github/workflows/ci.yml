@@ -1,0 +1,165 @@
+name: CI
+
+# Lints, tests, and builds on pull requests and pushes to master.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+# Cancel superseded runs of the same workflow/ref so the shared self-hosted
+# runner is never tied up by stale in-flight builds.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  actionlint:
+    name: Lint workflow files
+    # Self-hosted runner: the org IP allow list blocks GitHub-hosted
+    # runners from accessing this private repo.
+    runs-on: team-extensions
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      # Pin the version and verify the downloaded archive against the SHA-256
+      # published on the release before executing anything, so the shared
+      # self-hosted runner never runs an unverified binary (same approach as
+      # browser-extension).
+      - name: Run actionlint on workflows
+        run: |
+          set -euo pipefail
+          ACTIONLINT_VERSION="1.7.12"
+          case "$(uname -m)" in
+            x86_64 | amd64)  ARCH="amd64" ;;
+            arm64 | aarch64) ARCH="arm64" ;;
+            *)               echo "Unsupported arch for actionlint" >&2; exit 1 ;;
+          esac
+
+          DL="${RUNNER_TEMP:-${TMPDIR:-/tmp}}"
+          ARCHIVE="actionlint_${ACTIONLINT_VERSION}_linux_${ARCH}.tar.gz"
+          curl -sSfL -o "${DL}/${ARCHIVE}" \
+            "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/${ARCHIVE}"
+          curl -sSfL -o "${DL}/actionlint_checksums.txt" \
+            "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_checksums.txt"
+
+          EXPECTED="$(awk -v a="${ARCHIVE}" '$2 == a {print $1}' "${DL}/actionlint_checksums.txt")"
+          if [ -z "${EXPECTED}" ]; then
+            echo "No published checksum for ${ARCHIVE}" >&2
+            exit 1
+          fi
+          ACTUAL="$(sha256sum "${DL}/${ARCHIVE}" | awk '{print $1}')"
+          if [ "${ACTUAL}" != "${EXPECTED}" ]; then
+            echo "actionlint checksum mismatch (expected ${EXPECTED}, got ${ACTUAL})" >&2
+            exit 1
+          fi
+
+          tar -xzf "${DL}/${ARCHIVE}" -C "${DL}"
+          "${DL}/actionlint" -version
+          "${DL}/actionlint" -color
+
+  test:
+    name: Lint, test, build
+    runs-on: team-extensions
+    timeout-minutes: 45
+    # Least privilege — this job never writes to repo contents.
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # Stamp a -dev version (next patch after the latest CHANGELOG release)
+      # into package.json so the dev build artifacts carry it.
+      - name: Set dev version
+        uses: >-
+          AdGuardSoftwareLimited/ext-shared-actions/.github/actions/set-dev-version@master
+
+      - name: Lint via Docker
+        run: >-
+          DOCKER_BUILDKIT=1 docker build --progress plain
+          --target lint-output
+          --output ./output/lint .
+
+      # PR CI deliberately passes no TEST_RUN_ID: cached test layers are fine
+      # on pull requests (publish-release.yml busts the cache per run).
+      - name: Unit tests via Docker
+        # The stage always exits 0 and records the real code in
+        # exit-code.txt so the JUnit report is still produced on failure.
+        run: >-
+          DOCKER_BUILDKIT=1 docker build --progress plain
+          --target unit-tests-output
+          --output ./output/unit-tests .
+
+      - name: Check unit tests result
+        shell: bash
+        run: ./scripts/ci/check-exit-code.sh
+
+      - name: Upload tests-reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: tests-reports
+          path: output/unit-tests/tests-reports/
+          if-no-files-found: warn
+          retention-days: 7
+
+      # Dev build compiles both test- and prod-endpoint variants; the API
+      # endpoints live in repository variables (they are baked into the
+      # public build output, so they are not secrets). Values are passed
+      # via env, never interpolated into the shell command.
+      - name: Dev build via Docker
+        shell: bash
+        env:
+          VPN_API_URL_TEST: ${{ vars.VPN_API_URL_TEST }}
+          ACCOUNTS_API_URL_TEST: ${{ vars.ACCOUNTS_API_URL_TEST }}
+          FORWARDER_DOMAIN_TEST: ${{ vars.FORWARDER_DOMAIN_TEST }}
+          VPN_API_URL_PROD: ${{ vars.VPN_API_URL_PROD }}
+          ACCOUNTS_API_URL_PROD: ${{ vars.ACCOUNTS_API_URL_PROD }}
+          FORWARDER_DOMAIN_PROD: ${{ vars.FORWARDER_DOMAIN_PROD }}
+        run: |
+          set -euo pipefail
+          DOCKER_BUILDKIT=1 docker build --progress plain \
+            --target dev-build-output \
+            --build-arg VPN_API_URL_TEST="${VPN_API_URL_TEST}" \
+            --build-arg ACCOUNTS_API_URL_TEST="${ACCOUNTS_API_URL_TEST}" \
+            --build-arg FORWARDER_DOMAIN_TEST="${FORWARDER_DOMAIN_TEST}" \
+            --build-arg VPN_API_URL_PROD="${VPN_API_URL_PROD}" \
+            --build-arg ACCOUNTS_API_URL_PROD="${ACCOUNTS_API_URL_PROD}" \
+            --build-arg FORWARDER_DOMAIN_PROD="${FORWARDER_DOMAIN_PROD}" \
+            --output ./output/dev-build .
+
+      - name: Upload dev archives (test endpoints)
+        uses: actions/upload-artifact@v7
+        with:
+          name: dev-build-test
+          path: |
+            output/dev-build/artifacts/chrome.zip
+            output/dev-build/artifacts/edge.zip
+            output/dev-build/artifacts/opera.zip
+            output/dev-build/artifacts/firefox.zip
+            output/dev-build/artifacts/chrome.crx
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload dev archives (prod endpoints)
+        uses: actions/upload-artifact@v7
+        with:
+          name: dev-build-prod
+          path: |
+            output/dev-build/artifacts/chrome-prod.zip
+            output/dev-build/artifacts/edge-prod.zip
+            output/dev-build/artifacts/opera-prod.zip
+            output/dev-build/artifacts/firefox-prod.zip
+            output/dev-build/artifacts/chrome-prod.crx
+          if-no-files-found: error
+          retention-days: 7
+
+      # Clean the workspace on the persistent self-hosted runner.
+      - name: Clean up workspace artifacts
+        if: always()
+        run: rm -rf output artifacts

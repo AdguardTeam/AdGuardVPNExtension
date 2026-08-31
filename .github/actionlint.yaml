@@ -1,0 +1,5 @@
+# actionlint configuration: declare the self-hosted runner label so
+# `runs-on: team-extensions` is not reported as an unknown label.
+self-hosted-runner:
+  labels:
+    - team-extensions

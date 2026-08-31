@@ -6,7 +6,19 @@
 *.tsbuildinfo
 build/
 output/
+artifacts/
 node_modules/
+# Local CRX certs, endpoint env files and registry auth files must never
+# enter the build context (they would be baked into image layers,
+# recoverable via docker history).
+private/
+.env
+.env.*
+.npmrc
+.yarnrc
+# NOTE: gitignore-excludes.txt is intentionally NOT excluded — publish
+# workflows generate it on the host and parse-gitignore.sh hard-fails
+# inside the container when it is missing.
 Dockerfile*
 *.md
 # README.md is re-included because archive-source.sh appends Firefox reviewer

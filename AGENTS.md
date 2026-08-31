@@ -51,7 +51,11 @@ AdGuard's VPN infrastructure.
 │   ├── edge/                 # Edge-specific config
 │   └── rspack.common.ts      # Shared Rspack configuration
 ├── tests/                    # Test files (mirrors src/ structure)
-├── bamboo-specs/             # CI/CD pipeline definitions
+├── Dockerfile                # Multi-stage Docker build used by CI
+├── DEPLOYMENT.md             # Deployment / CI reference
+├── .github/workflows/        # GitHub Actions: ci, prepare-release,
+│                             # publish-release, mirror
+├── scripts/                  # CI helper scripts (scripts/ci/)
 ├── package.json              # Project dependencies
 ├── tsconfig.json             # TypeScript configuration
 └── vitest.config.ts          # Test configuration
@@ -75,7 +79,9 @@ AdGuard's VPN infrastructure.
 
 Build outputs go to `build/<env>/<browser>/`.
 
-CI artifact outputs (produced inside Docker by Bamboo) go to `output/artifacts/`.
+CI extracts Docker stage outputs to `output/<stage>/` in `ci.yml` (e.g.
+`output/dev-build/artifacts/`) and to `artifacts/` in
+`publish-release.yml`, then uploads them as workflow artifacts.
 
 ## Contribution Instructions
 

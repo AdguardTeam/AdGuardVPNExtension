@@ -4,4 +4,8 @@ import pJSON from '../../../package.json';
 
 import { AppStatus } from './AppStatus';
 
-export const appStatus = new AppStatus(proxy, settings, pJSON.version);
+// package.json carries no version on master (CI stamps it before building);
+// fall back for local dev builds.
+const version = (pJSON as { version?: string }).version || '0.0.0';
+
+export const appStatus = new AppStatus(proxy, settings, version);

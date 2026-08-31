@@ -11,7 +11,7 @@ import {
     FIREFOX_UPDATER_FILENAME,
     FIREFOX_UPDATE_XPI,
 } from '../consts';
-import { version } from '../../package.json';
+import { getPackageVersion, toFirefoxBetaVersion } from '../helpers';
 
 import { firefoxManifestDiff } from './manifest.firefox';
 
@@ -23,10 +23,11 @@ export const buildUpdateJson = async () => {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         const { id, strict_min_version } = firefoxManifestDiff.browser_specific_settings.gecko;
 
-        // create update.json
+        // create update.json. The version must match the signed XPI manifest
+        // (Firefox beta stamps the toolkit form `x.y.zbetaN`).
         let updateJsonTemplate = (await fs.readFile(FIREFOX_UPDATE_TEMPLATE_PATH)).toString();
         updateJsonTemplate = updateJsonTemplate
-            .replace(/%VERSION%/g, version)
+            .replace(/%VERSION%/g, toFirefoxBetaVersion(getPackageVersion()))
             .replace(/%EXTENSION_ID%/g, id)
             .replace(/%UPDATE_LINK%/g, FIREFOX_UPDATE_XPI)
             .replace(/%STRICT_MIN_VERSION%/g, strict_min_version);

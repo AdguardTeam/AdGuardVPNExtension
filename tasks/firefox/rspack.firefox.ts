@@ -36,11 +36,11 @@ const plugins = [
                 from: path.resolve(__dirname, '../manifest.common.json'),
                 to: 'manifest.json',
                 transform: (content: Buffer) => {
-                    let result = updateManifest(content, firefoxManifestDiff);
+                    let result = updateManifest(content, firefoxManifestDiff, Browser.Firefox);
 
                     // Append beta standalone update URL
                     if (IS_BETA) {
-                        result = updateManifest(result, firefoxManifestStandaloneDiff);
+                        result = updateManifest(result, firefoxManifestStandaloneDiff, Browser.Firefox);
                     }
 
                     return result;

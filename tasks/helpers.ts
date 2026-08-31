@@ -2,7 +2,12 @@
 import _ from 'lodash';
 import { merge } from 'webpack-merge';
 
-import { Browser, BUILD_ENV_MAP, Env } from './consts';
+import {
+    Browser,
+    BUILD_ENV_MAP,
+    Env,
+    IS_BETA,
+} from './consts';
 import { type BrowserConfig, BROWSERS_CONF } from './common-constants';
 
 export const getBrowserConf = (browser: Browser): BrowserConfig => {
@@ -15,7 +20,70 @@ export const getBrowserConf = (browser: Browser): BrowserConfig => {
 
 const pJson = require('../package.json');
 
-export const updateManifest = (manifestJson: Buffer, browserManifestDiff: { [key: string]: unknown }): Buffer => {
+/**
+ * Version from package.json, or the dev fallback when the field is absent.
+ * The version is intentionally not committed (like AGLint): CI stamps it
+ * before every build (set-dev-version / publish tag), so only local dev
+ * builds see the fallback.
+ *
+ * @returns Package version string.
+ */
+export const getPackageVersion = (): string => String(pJson.version || '0.0.0');
+
+/**
+ * Store-compatible version: CWS / AMO listed / Edge reject `-beta.N`.
+ * `1.2.0-beta.1` → `1.2.0`.
+ *
+ * @param version Version from package.json or CHANGELOG.
+ *
+ * @returns Numeric core without a pre-release suffix.
+ */
+export const toStoreVersion = (version: string): string => String(version).split('-')[0];
+
+/**
+ * Chrome/Edge beta version: stores reject `-beta.N`, but stripping it
+ * entirely collides successive betas (CWS duplicate version) and stops
+ * `update.xml` from offering beta.2 to beta.1. The manifest version scheme
+ * allows a fourth numeric component, so `1.2.0-beta.1` → `1.2.0.1`. Note
+ * that `1.2.0.1` compares numerically newer than the plain `1.2.0` release;
+ * superseding never matters in practice because beta and release ship as
+ * separate listings with separate update.xml files.
+ *
+ * @param version Version from package.json or CHANGELOG.
+ *
+ * @returns Store-compatible numeric beta, or the store version otherwise.
+ */
+export const toChromeBetaVersion = (version: string): string => {
+    const match = String(version).match(/^(\d+\.\d+\.\d+)-beta\.(\d+)$/);
+    if (!match) {
+        return toStoreVersion(version);
+    }
+    return `${match[1]}.${match[2]}`;
+};
+
+/**
+ * Firefox toolkit version for self-hosted beta XPIs.
+ * `1.2.0-beta.1` → `1.2.0beta1`, which sorts beta.1 < beta.2 < 1.2.0 so
+ * `update.json` can offer successive betas and the eventual release still
+ * supersedes them. Chrome/CWS cannot use this form.
+ *
+ * @param version Version from package.json or CHANGELOG.
+ *
+ * @returns Toolkit version for Firefox beta, or the store version otherwise.
+ */
+export const toFirefoxBetaVersion = (version: string): string => {
+    const match = String(version).match(/^(\d+\.\d+\.\d+)-beta\.(\d+)$/);
+    if (!match) {
+        return toStoreVersion(version);
+    }
+    return `${match[1]}beta${match[2]}`;
+};
+
+export const updateManifest = (
+    manifestJson: Buffer,
+    browserManifestDiff: { [key: string]: unknown },
+    browser: Browser = Browser.Chrome,
+): Buffer => {
     let manifest;
     try {
         manifest = JSON.parse(manifestJson.toString());
@@ -31,10 +99,18 @@ export const updateManifest = (manifestJson: Buffer, browserManifestDiff: { [key
     // Merge the parts
     const union = merge(manifest, browserManifestDiff);
 
+    const rawVersion = getPackageVersion();
+    let version = toStoreVersion(rawVersion);
+    if (IS_BETA) {
+        version = browser === Browser.Firefox
+            ? toFirefoxBetaVersion(rawVersion)
+            : toChromeBetaVersion(rawVersion);
+    }
+
     const updatedManifest = {
         ...union,
         permissions,
-        version: pJson.version,
+        version,
     };
 
     return Buffer.from(JSON.stringify(updatedManifest, null, 4));

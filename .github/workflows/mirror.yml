@@ -1,0 +1,34 @@
+name: Mirror
+
+# Mirrors code to the public repo on every push to master.
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*'
+
+# Serialize force-pushes to the public mirror so two close master/tag
+# events cannot rewind public master if an older run finishes last.
+concurrency:
+  group: mirror-${{ github.repository }}
+  cancel-in-progress: false
+
+# `contents: read` — checkout source repo
+# `actions: write` — disable workflows in the public mirror
+# `id-token: write` — Octopass token for push to public repo
+permissions:
+  contents: read
+  actions: write
+  id-token: write
+
+jobs:
+  mirror:
+    uses: AdGuardSoftwareLimited/actions/.github/workflows/mirror.yml@master
+    with:
+      team: extensions
+      target_repo: git@github.com:AdguardTeam/AdGuardVPNExtension.git
+      # The shared default mirrors ALL refs — including every private feature
+      # branch — to the public repo. Scope it to what we actually publish.
+      refspecs: "+refs/heads/master:refs/heads/master +refs/tags/v*:refs/tags/v*"

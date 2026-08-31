@@ -2,8 +2,6 @@
 import { program } from 'commander';
 import type { Configuration } from '@rspack/core';
 
-import { version } from '../package.json';
-
 import { bundleRunner } from './rspack-bundle-runner';
 import { chromeConfig } from './chrome/rspack.chrome';
 import { firefoxConfig } from './firefox/rspack.firefox';
@@ -11,7 +9,7 @@ import { operaConfig } from './opera/rspack.opera';
 import { edgeConfig } from './edge/rspack.edge';
 import { Browser, IS_BETA } from './consts';
 import { buildUpdateJson } from './firefox/update-json';
-import { buildInfo } from './build-info';
+import { getPackageVersion } from './helpers';
 
 const createBundle = async (config: Configuration, watch: boolean): Promise<void> => {
     try {
@@ -26,7 +24,7 @@ const createBundle = async (config: Configuration, watch: boolean): Promise<void
 program
     .name('bundle')
     .description('Build AdGuard VPN extension for different browsers')
-    .version(version)
+    .version(getPackageVersion())
     .option('-w, --watch', 'Builds in watch mode', false);
 
 // Chrome command
@@ -49,8 +47,6 @@ program
         if (IS_BETA) {
             await buildUpdateJson();
         }
-
-        await buildInfo();
     });
 
 // Opera command
@@ -78,13 +74,12 @@ program
         await createBundle(operaConfig, options.watch);
         await createBundle(edgeConfig, options.watch);
 
-        // Firefox is not built with `pnpm beta` command
-        // because we have separate plan for Firefox
+        // Firefox is not built with `pnpm beta` — beta Firefox is built and
+        // AMO-signed by the Dockerfile firefox-beta stages in CI, locally use
+        // `pnpm beta firefox`.
         if (!IS_BETA) {
             await createBundle(firefoxConfig, options.watch);
         }
-
-        await buildInfo();
     });
 
 program.parse(process.argv);

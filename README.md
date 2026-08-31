@@ -108,5 +108,6 @@ For a full list of all `npm` packages in use, please take a look at [package.jso
 ## Documentation
 
 - [Development Guide](DEVELOPMENT.md) — detailed setup and workflow instructions
+- [Deployment Guide](DEPLOYMENT.md) — GitHub Actions CI/CD and store publish
 - [Contributor Guidelines](AGENTS.md) — code style and contribution rules
 - [Changelog](CHANGELOG.md) — version history
