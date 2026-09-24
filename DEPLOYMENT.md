@@ -3,7 +3,7 @@
 AdGuard VPN browser extension is deployed via GitHub Actions. There is no
 server infrastructure — deployment means publishing build artifacts
 (signed CRX/XPI/ZIP files) to static file servers, submitting to browser
-stores, and creating a GitHub Release on the public
+stores, and creating a GitHub Release draft on the public
 `AdguardTeam/AdGuardVPNExtension` mirror.
 
 > **Channel model:** Tags containing `-beta.N` (e.g. `v2.11.2-beta.1`) go
@@ -40,7 +40,7 @@ stores, and creating a GitHub Release on the public
 | **Chrome Web Store** | `chrome.zip` | beta, release |
 | **Firefox AMO** (listed) | `firefox.zip` + `source.zip` | release only |
 | **Edge Add-ons** | `edge.zip` | release only |
-| **GitHub Release** (`AdguardTeam/AdGuardVPNExtension`) | Channel build assets | beta, release |
+| **GitHub Release** (`AdguardTeam/AdGuardVPNExtension`) | Channel build assets (draft) | beta, release |
 | **Opera add-ons** | Manual upload (no store API) | release |
 
 Static uploads use the internal **deployer** service. Modules:
@@ -106,13 +106,18 @@ the build mounts CRX/AMO secrets).
 7. **Release Edge** — `deploy-to-edge-addons.yml`.
 8. **Release static Firefox** — `deploy-to-static.yml` →
    `vpn-webext-firefox-release`.
-9. **GitHub Release** — `create-gh-release.yml` on
+9. **GitHub Release draft** — `create-gh-release.yml` on
    `AdguardTeam/AdGuardVPNExtension` (Octopass).
 10. **Beta Firefox (isolated)** — Docker `firefox-beta-sign-output`
     signs via `go-webext`, then static deploy
     `vpn-webext-firefox-beta`, then attaches assets to the GitHub
-    Release.
+    Release draft.
 11. **Slack** — `#adguard-extension-vcs`.
+12. **Publish the draft** — after the workflow completes, review the
+    notes and assets in the `AdguardTeam/AdGuardVPNExtension` GitHub
+    Release draft and publish it manually. Both channels stay in draft
+    until this step; attaching signed Firefox beta assets also preserves
+    the draft state.
 
 ### Failure recovery
 
@@ -143,11 +148,11 @@ On every push to `master` and on `v*` tags, mirrors to the public
 
 Note: tags pushed by the pipeline (via `GITHUB_TOKEN`) do **not** trigger
 `mirror.yml` — GitHub suppresses workflow triggers from token-pushed refs.
-The public tag materializes through the GitHub Release created by
-`create-gh-release.yml` instead. This also means a force-retag after a
-failed publish does not re-mirror; the release assets go to whichever
-commit the public tag points at, and compare links in the release notes
-can 404 until the tag is recreated.
+The public tag materializes through the GitHub Release draft created by
+`create-gh-release.yml`, and only when the draft is published (step 12).
+This also means a force-retag after a failed publish does not re-mirror;
+the release assets go to whichever commit the public tag points at, and
+compare links in the release notes can 404 until the tag is recreated.
 
 ## Pipeline Flow
 
@@ -166,7 +171,7 @@ Release PR merged to master
         ├─ static chrome (+ static firefox on release)
         ├─ Chrome Web Store
         ├─ release: AMO listed + Edge Add-ons
-        ├─ create-gh-release.yml
+        ├─ create-gh-release.yml (draft)
         └─ beta only (parallel, may be slow):
               build-firefox-beta (AMO sign) → static firefox → GH release assets
 ```

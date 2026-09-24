@@ -4,7 +4,8 @@ name: Publish release
 # CRX/ZIP + Edge/Opera zips + update.xml; release adds the Firefox zip and
 # the AMO source archive. Deploys static builds to static.adtidy.net,
 # submits store listings (Chrome Web Store on both channels; AMO + Edge
-# Add-ons on release), and creates a GitHub Release on the public mirror.
+# Add-ons on release), and creates a GitHub Release draft on the
+# public mirror.
 # Firefox beta is signed via AMO (go-webext) in a separate job that may take
 # a long time; Chrome/CWS/GitHub Release are never blocked by it.
 # Beta tags (e.g. v1.2.0-beta.1) deploy to the beta channel.
@@ -601,7 +602,8 @@ jobs:
       id-token: write
 
   create-release:
-    # GitHub Release on the public mirror (Octopass), not this private repo.
+    # GitHub Release draft on the public mirror (Octopass), not this private
+    # repo.
     needs: [tag, build]
     uses: AdGuardSoftwareLimited/actions/.github/workflows/create-gh-release.yml@master
     with:
@@ -610,20 +612,22 @@ jobs:
       tag_name: ${{ needs.tag.outputs.tag }}
       body: ${{ needs.tag.outputs.changelog }}
       artifact_name: release-assets-${{ needs.build.outputs.channel }}
+      draft: true
       prerelease: ${{ needs.build.outputs.channel == 'beta' }}
       environment: github-release
-    # `contents: write` — create GitHub Release
+    # `contents: write` — create GitHub Release draft
     permissions:
       contents: write
       id-token: write
 
   create-release-firefox:
-    # Attaches Firefox beta artifacts to the public GitHub Release after AMO
-    # signing. Depends on create-release so the two jobs never race to create
-    # the same release.
+    # Attaches Firefox beta artifacts to the existing draft (same tag) after
+    # AMO signing, without publishing it. Depends on create-release so the
+    # two jobs never race to create the same release.
     # No environment gate here: the release itself is created by the gated
     # create-release job — a second approval on the same environment would
-    # sit behind AMO signing after the main release has already shipped.
+    # sit behind AMO signing after the main release draft has already been
+    # approved.
     needs: [tag, build-firefox-beta, create-release]
     uses: AdGuardSoftwareLimited/actions/.github/workflows/create-gh-release.yml@master
     with:
@@ -632,6 +636,7 @@ jobs:
       tag_name: ${{ needs.tag.outputs.tag }}
       body: ${{ needs.tag.outputs.changelog }}
       artifact_name: release-assets-firefox-beta
+      draft: true
       prerelease: true
     permissions:
       contents: write
@@ -683,7 +688,8 @@ jobs:
           message: >-
             :white_check_mark: *vpn-extension* *${{ needs.tag.outputs.tag }}*
             published (channel: ${{ needs.build.outputs.channel }}) —
-            <${{ needs.create-release.outputs.release-url }}|release> |
+            GitHub Release draft ready for manual publication —
+            <${{ needs.create-release.outputs.release-url }}|draft> |
             <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|run>
           color: good
 
