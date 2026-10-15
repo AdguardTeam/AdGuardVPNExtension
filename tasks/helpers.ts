@@ -62,21 +62,21 @@ export const toChromeBetaVersion = (version: string): string => {
 };
 
 /**
- * Firefox toolkit version for self-hosted beta XPIs.
- * `1.2.0-beta.1` → `1.2.0beta1`, which sorts beta.1 < beta.2 < 1.2.0 so
- * `update.json` can offer successive betas and the eventual release still
- * supersedes them. Chrome/CWS cannot use this form.
+ * Firefox beta version. AMO no longer accepts letters in version strings
+ * (only 1-4 dot-separated numbers are allowed), so `1.2.0-beta.1` →
+ * `1.2.0.1` — the same numeric scheme as Chrome keeps successive betas
+ * distinct and ordered.
  *
  * @param version Version from package.json or CHANGELOG.
  *
- * @returns Toolkit version for Firefox beta, or the store version otherwise.
+ * @returns Store-compatible numeric beta, or the store version otherwise.
  */
 export const toFirefoxBetaVersion = (version: string): string => {
     const match = String(version).match(/^(\d+\.\d+\.\d+)-beta\.(\d+)$/);
     if (!match) {
         return toStoreVersion(version);
     }
-    return `${match[1]}beta${match[2]}`;
+    return `${match[1]}.${match[2]}`;
 };
 
 export const updateManifest = (

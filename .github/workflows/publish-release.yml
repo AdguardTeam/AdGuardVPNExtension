@@ -224,9 +224,9 @@ jobs:
       # Version is parsed from CHANGELOG by the tag job and injected
       # here so the compiled extension carries the release version.
       # The full version (e.g. 2.11.2-beta.1) is stamped into package.json;
-      # tasks/helpers.ts converts it per browser at build time: Chrome/Edge
-      # betas become the store-legal X.Y.Z.N, Firefox betas the toolkit
-      # X.Y.ZbetaN, and releases/dev builds the numeric core.
+      # tasks/helpers.ts converts it per browser at build time: betas become
+      # the store-legal X.Y.Z.N (AMO no longer accepts letters in version
+      # strings), and releases/dev builds the numeric core.
       # The value is passed via env (never interpolated into the shell
       # command) so a tag-derived value can never run as shell code.
       - name: Inject version into package.json
@@ -408,7 +408,7 @@ jobs:
           ref: ${{ needs.resolve.outputs.ref }}
 
       # Full version (e.g. 2.11.2-beta.1) goes into package.json;
-      # tasks/helpers.ts stamps the Firefox toolkit form (X.Y.ZbetaN) into
+      # tasks/helpers.ts stamps the numeric beta form (X.Y.Z.N) into
       # the XPI manifest and update.json at build time (see the build job).
       - name: Inject version into package.json
         run: npm pkg set version="$VERSION"

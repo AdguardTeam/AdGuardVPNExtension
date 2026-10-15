@@ -15,7 +15,12 @@ import { getPackageVersion, toFirefoxBetaVersion } from '../helpers';
 
 import { firefoxManifestDiff } from './manifest.firefox';
 
-const { outputPath } = BUILD_ENV_MAP[process.env.BUILD_ENV as string];
+const buildEnv = process.env.BUILD_ENV;
+if (!buildEnv) {
+    throw new Error('BUILD_ENV is not set');
+}
+
+const { outputPath } = BUILD_ENV_MAP[buildEnv];
 const WRITE_PATH = path.resolve(__dirname, '..', BUILD_PATH, outputPath);
 
 export const buildUpdateJson = async () => {
@@ -24,7 +29,7 @@ export const buildUpdateJson = async () => {
         const { id, strict_min_version } = firefoxManifestDiff.browser_specific_settings.gecko;
 
         // create update.json. The version must match the signed XPI manifest
-        // (Firefox beta stamps the toolkit form `x.y.zbetaN`).
+        // (Firefox beta stamps the numeric form `x.y.z.N`).
         let updateJsonTemplate = (await fs.readFile(FIREFOX_UPDATE_TEMPLATE_PATH)).toString();
         updateJsonTemplate = updateJsonTemplate
             .replace(/%VERSION%/g, toFirefoxBetaVersion(getPackageVersion()))

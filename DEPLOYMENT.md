@@ -10,9 +10,9 @@ stores, and creating a GitHub Release draft on the public
 > through the **beta** pipeline. Tags without a pre-release suffix
 > (e.g. `v2.11.2`) go through the **release** pipeline. This matches the
 > former Bamboo beta vs release plans. The build stamps the version per
-> browser (see [Version Tagging](#version-tagging)): Chrome/Edge betas use
-> the store-legal four-component `X.Y.Z.N`, Firefox betas the toolkit
-> `X.Y.ZbetaN`, releases the numeric `X.Y.Z` core.
+> browser (see [Version Tagging](#version-tagging)): betas use the
+> store-legal four-component `X.Y.Z.N`, releases the numeric `X.Y.Z`
+> core.
 
 ## Table of Contents
 
@@ -216,11 +216,10 @@ Exact file lists live in the Dockerfile `*-output` stages and
 - **Release:** `v<version>` (e.g. `v2.11.2`)
 - Version is parsed from `CHANGELOG.md`. The full version goes into
   `package.json`; the build (`tasks/helpers.ts`) converts it per browser:
-  Chrome/Edge/Opera betas become `X.Y.Z.N` (stores reject pre-release
-  suffixes, and the four-component form keeps successive betas distinct
-  for CWS and `update.xml`), Firefox betas become the toolkit form
-  `X.Y.ZbetaN` (sorts `beta.1 < beta.2 < release` for `update.json`),
-  and releases keep the numeric `X.Y.Z` core.
+  Chrome/Edge/Opera betas and Firefox betas become `X.Y.Z.N` (stores
+  reject pre-release suffixes and AMO no longer allows letters in version
+  strings; the four-component form keeps successive betas distinct for
+  CWS and `update.json`), and releases keep the numeric `X.Y.Z` core.
 - The Bamboo `build.txt`-driven tagging and the `increment` plan are
   gone — versions are managed through `prepare-release.yml` release PRs.
 
